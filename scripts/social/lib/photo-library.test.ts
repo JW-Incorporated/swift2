@@ -8,30 +8,35 @@ const library = [
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_Minnesota_-_acoustic_set_2.jpg',
+    alt: 'Taylor Swift performing the Lover set in Minneapolis, 2023.',
   },
   {
     id: 'red-inglewood',
     mediaPath: '/social/library/photos/taylor-red-eras-inglewood-2023.jpg',
     credit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_2023.jpg',
+    alt: 'Taylor Swift performing the Red set in Inglewood, 2023.',
   },
   {
     id: 'fearless-inglewood',
     mediaPath: '/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg',
     credit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg',
+    alt: 'Taylor Swift performing the Fearless set in Inglewood, 2023.',
   },
   {
     id: 'debut-acoustic',
     mediaPath: '/social/library/photos/taylor-debut-2007-acoustic.jpg',
     credit: 'Brian Cantoni (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg',
+    alt: 'Taylor Swift seated with an acoustic guitar, 2007.',
   },
   {
     id: 'lover-minneapolis-act5',
     mediaPath: '/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg',
     credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
     source: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg',
+    alt: 'Taylor Swift performing the Lover set, act 5, in Minneapolis, 2023.',
   },
 ];
 
@@ -40,6 +45,12 @@ describe('photo-library', () => {
     expect(validatePhotoEntry(library[0])).toEqual([]);
     expect(validatePhotoEntry({ ...library[0], credit: '' })).toContain('credit is required');
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
+  });
+
+  // docs/social/RULINGS-SOCIAL.md A3/B2 — alt text is written once per library entry.
+  it('requires a non-blank alt description for every inventory entry', () => {
+    expect(validatePhotoEntry({ ...library[0], alt: undefined })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
+    expect(validatePhotoEntry({ ...library[0], alt: '   ' })).toContain('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
   });
 
   // Fable ruling, kanban t_75ec7106 (PR #4062 review round 2): closes the
@@ -51,6 +62,13 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], tags: ['lover', '   '] })).toContain('tags entries must be non-blank strings');
     expect(validatePhotoEntry({ ...library[0], tags: ['lover', 'eras-tour'] })).toEqual([]);
     expect(validatePhotoEntry({ ...library[0], tags: undefined })).toEqual([]);
+  });
+
+  it('accepts optional venue/date fields and rejects malformed ones', () => {
+    expect(validatePhotoEntry({ ...library[0], venue: 'Inglewood, CA', date: '2023-08-04' })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], venue: '' })).toContain('venue, if present, must be a non-blank string');
+    expect(validatePhotoEntry({ ...library[0], date: 'not-a-date' })).toContain('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
+    expect(validatePhotoEntry({ ...library[0], venue: undefined, date: undefined })).toEqual([]);
   });
 
   it('does not deadlock after all five sources have been used: it selects the least-recently-used credited photo', () => {
@@ -93,8 +111,18 @@ describe('photo-library', () => {
       photoId: selected.id,
       mediaCredit: selected.credit,
       mediaSource: selected.source,
+      altText: [selected.alt],
       scheduledAt: '2026-09-08T23:00:00Z',
       campaign: 'launch:shop-the-look:announce',
+      lane: 'calendar',
+      critique: {
+        v: 1,
+        scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+        total: 23,
+        rationale: 'See the look ties a real Taylor photo to the shoppable feature launch, which is what earns the post its place.',
+        rulesChecked: [],
+        revision: 1,
+      },
     };
     const pair = [
       { ...common, platform: 'instagram', body: 'See the look.' },

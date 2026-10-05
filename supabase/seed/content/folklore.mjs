@@ -453,7 +453,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
         // Rumor Desk 2026-07-29: a clean, fully-resolved music-symbolism rumor
@@ -619,7 +619,7 @@ export default {
             price: '$34.58',
             isAlternative: true,
             altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1865,6 +1865,7 @@ export default {
       milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png', credit: 'Republic Records / photo by Beth Garrabrant', caption: 'The black-and-white cover of folklore, released with the surprise album on July 24, 2020.', kind: 'primary', focalPoint: '50% 42%' }],
         sources: [
           {
             outlet: 'The Recording Academy',

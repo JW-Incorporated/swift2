@@ -38,7 +38,7 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'videos.gener
 // `.limit()` + cap check so a partial page can never silently ship a
 // truncated rail.
 const VIDEO_COLS =
-  'era_slug,slug,kind,title,director,released_on,related_songs,summary,easter_eggs,symbolism,official_url,media,sources';
+  'era_slug,slug,kind,title,director,released_on,related_songs,summary,easter_eggs,symbolism,official_url,watch_url,platform,media,sources';
 const MAX_ROWS = 2000;
 
 /** Mirrors VIDEO_KINDS in packages/shared/src/vault-types.ts — works first,
@@ -134,6 +134,8 @@ export function normalizeVideo(raw) {
   const resolvedSources = sourcesFrom(raw.sources, null);
   if (resolvedSources.length === 0) return null;
   const releasedOn = trimmed(raw.releasedOn ?? raw.released_on);
+  const watchUrl = trimmed(raw.watchUrl ?? raw.watch_url);
+  const platform = trimmed(raw.platform);
   return {
     slug,
     kind: VIDEO_KIND_VALUES.has(raw.kind) ? raw.kind : null,
@@ -158,6 +160,12 @@ export function normalizeVideo(raw) {
       media: raw.media,
       officialUrl: raw.officialUrl ?? raw.official_url,
     }),
+    // A watch link is only ever meaningful for a work with no embed — a
+    // playable record already has its own in-app player, and never link-outs
+    // (see isWatchable/watchLinkFor). Both fields degrade to null together so
+    // a URL can never render with no platform label, or vice versa.
+    watchUrl: watchUrl && platform ? watchUrl : null,
+    platform: watchUrl && platform ? platform : null,
     sources: resolvedSources,
     tags: tagsFrom(raw.tags),
   };
@@ -226,6 +234,8 @@ export function renderModule(byEra) {
       lines.push(`      easterEggs: [${v.easterEggs.map(esc).join(', ')}],`);
       lines.push(`      symbolism: ${v.symbolism === null ? 'null' : esc(v.symbolism)},`);
       lines.push(`      youtubeId: ${v.youtubeId === null ? 'null' : esc(v.youtubeId)},`);
+      lines.push(`      watchUrl: ${v.watchUrl === null ? 'null' : esc(v.watchUrl)},`);
+      lines.push(`      platform: ${v.platform === null ? 'null' : esc(v.platform)},`);
       const srcs = v.sources.map(sourceLiteral).join(', ');
       lines.push(`      sources: [${srcs}],`);
       if (v.tags.length > 0) lines.push(`      tags: [${v.tags.map(esc).join(', ')}],`);

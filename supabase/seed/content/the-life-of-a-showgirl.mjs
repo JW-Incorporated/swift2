@@ -15,6 +15,252 @@
 export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
+    {
+      slug: 'showgirl-emmys-svu-sketch-2026',
+      year: 2026,
+      month: 9,
+      day: 14,
+      category: 'sighting',
+      title: 'Taylor and both Olivia Bensons crack the Emmys case',
+      snippet:
+        'Taylor plays a rookie detective alongside Mariska Hargitay in a pre-taped Emmys sketch about whether Taylor will attend the ceremony, with her cat Olivia Benson joining the investigation.',
+      sourceUrl: 'https://www.televisionacademy.com/video/svu-skit-taylor-swift-78th-emmys',
+      thumbnailUrl:
+        'https://www.thewrap.com/wp-content/uploads/2026/09/taylor-swift-mariska-hargitay-emmys.jpg',
+      moment: {
+        context:
+          'The joke turns Swiftie clue-hunting into an SVU case, with Hargitay playing her detective Olivia Benson; this is a sketch for the September 14 awards broadcast, not a guest appearance in a regular episode.',
+        sources: [
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/video/svu-skit-taylor-swift-78th-emmys',
+            source_title: 'SVU Skit: 78th Emmys',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-09-15',
+            reliability_score: 5,
+            notes: 'Official video page, published September 15, for the September 14 telecast.',
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/awards/taylor-swift-emmys-cameo-mariska-hargitay-law-and-order-sketch/',
+            source_title: "Taylor Swift Cameos in a Meta 'SVU' Sketch With Mariska Hargitay at the Emmys",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.thewrap.com/wp-content/uploads/2026/09/taylor-swift-mariska-hargitay-emmys.jpg',
+            credit: 'NBC, via TheWrap',
+            caption: 'Mariska Hargitay, Taylor and Olivia Benson the cat in the pre-taped 2026 Emmys sketch.',
+            kind: 'primary',
+            focalPoint: '58% 42%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored by the Vault Run Content Shift lane, 2026-09-21 (intake #4500).
+      // Distinct from the Nov. 23, 2025 Colts sighting (slug
+      // 'showgirl-colts-game-sighting') — that was the prior season's Week 12
+      // game; this is the 2026 Week 2 Sunday-nighter.
+      slug: 'chiefs-colts-2026-husband-touchdown',
+      year: 2026,
+      month: 9,
+      day: 20,
+      category: 'sighting',
+      title: '"That\'s my husband": a wedding-ring salute for Kelce\'s first TD of 2026',
+      snippet:
+        'At the Chiefs\' Sept. 20 Sunday Night Football win over the Colts, Taylor answered Travis Kelce\'s first touchdown of the season by pointing to her wedding ring and shouting "That\'s my husband!" from the Arrowhead suite.',
+      sourceUrl:
+        'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-points-to-wedding-ring-in-priceless-celebration-of-travis-kelce-touchdown',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/20260920/c1abbc69-bed6-4bf4-9add-d500856497f5_1789954088.jpg',
+      moment: {
+        context:
+          'The Chiefs\' Sept. 20, 2026 Sunday Night Football date at Arrowhead against the Indianapolis Colts handed the cameras the reaction of the night. In the first quarter Patrick Mahomes found Travis Kelce on a short 13-yard strike for Kelce\'s first touchdown of the 2026 season, and up in the Kelce suite Taylor — in a red Kansas City Chiefs tank top and denim — jumped to her feet, raised her left hand, pointed straight at her wedding ring and shouted, "That\'s my husband!" The NFL ran the clip on its own channels captioned "a proud wife after @tkelce\'s TD."\n\nIt was her second Chiefs game since she and Kelce married at Madison Square Garden on July 3, 2026, and she watched this one from the family box alongside her parents, Scott and Andrea Swift, and Kelce\'s mother, Donna Kelce. Kelce finished with nine catches for 101 yards and the score; the Chiefs edged the Colts 33-30 in overtime to move to 2-0. After a 2025 season she spent largely off-broadcast — slipping into Arrowhead unphotographed for weeks at a time — the ring-flash celebration was the opposite instinct, the most-watched wife in football making sure the label was unmistakable.',
+        sources: [
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-points-to-wedding-ring-in-priceless-celebration-of-travis-kelce-touchdown',
+            source_title: "Taylor Swift Points to Wedding Ring in Priceless Celebration of Travis Kelce Touchdown",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/',
+            source_title: "Taylor Swift Reacts to Travis Kelce's First Touchdown Celebration",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is bot-gated in the run environment (a tollbit paywall redirect), so the article could not be loaded directly; the ring gesture and "that\'s my husband" quote were confirmed against SI, TMZ and Yahoo, which did load.',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/09/21/taylor-swift-celebrates-travis-kelce-touchdown/',
+            source_title: "Taylor Swift Flashes Wedding Ring After Travis Kelce Scores Touchdown: Video",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 3,
+          },
+          {
+            // Primary game facts: 13-yard Mahomes-to-Kelce TD, 33-30 OT final.
+            outlet: 'Chiefs.com',
+            url: 'https://www.chiefs.com/video/travis-kelce-touchdown-patrick-mahomes-completes-a-13-yard-touchdown-pass-to-travis-kelce',
+            source_title: 'Patrick Mahomes Completes a 13-yard Touchdown Pass to Travis Kelce',
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-09-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/recap?gameId=401872945',
+            source_title: 'Chiefs 33-30 Colts (Sep 20, 2026) Game Recap',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            // E! Online's lead image for this exact game (URL folder dated
+            // 20260920): Taylor in a red Kansas City Chiefs tank in the suite,
+            // matching the reported outfit. curl-verified HTTP 200 image/jpeg,
+            // 1200x1200, downloaded and vision-confirmed 2026-09-21. Host is
+            // E!'s own reusable CDN (akns-images.eonline.com), not a watermarked
+            // getty comp and not a signed/expiring url. The ring-flash beat
+            // itself aired live on the SNF broadcast; this suite still is the
+            // safe published visual for it.
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260920/c1abbc69-bed6-4bf4-9add-d500856497f5_1789954088.jpg',
+            credit: 'Getty Images, via E! Online',
+            caption: 'Taylor in a Kansas City Chiefs tank in the Arrowhead suite for the Sept. 20, 2026 Chiefs-Colts win — the night she flashed her wedding ring for Kelce\'s first touchdown of the season.',
+            kind: 'primary',
+            focalPoint: '52% 24%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-cma-awards-2026-return',
+      year: 2026,
+      month: 9,
+      day: 10,
+      category: 'music',
+      title: "\"I haven't yee'd my last haw\": Taylor confirms a CMA Awards return after a decade away",
+      snippet:
+        'An Instagram Story — "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" — confirmed Taylor will attend the 60th CMA Awards on Nov. 18, her first time at the show in ten years, following a Single of the Year nod for "I Knew It, I Knew You."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+      thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
+      moment: {
+        context:
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+            source_title:
+              "Taylor Swift to Attend CMA Awards for First Time in 10 Years After 'I Knew It, I Knew You' Nomination",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/10/taylor-swift-confirms-2026-cma-awards-appearance-after-10-year-absence/',
+            source_title: 'Taylor Swift Confirms 2026 CMA Awards Appearance After 10-Year Absence',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Express Tribune',
+            url: 'https://tribune.com.pk/story/2628769/taylor-swift-confirms-2026-cma-awards-return-after-10-year-absence',
+            source_title: 'Taylor Swift confirms 2026 CMA Awards return after 10-year absence',
+            publisher: 'The Express Tribune',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
+            credit: "Taylor Swift / Instagram, via Just Jared",
+            caption: "Taylor's September 10 Instagram Story confirms her CMA Awards return alongside the Single of the Year nomination.",
+            kind: "primary",
+            focalPoint: "50% 50%",
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-swiftiephylus-insect-genus',
+      year: 2026,
+      month: 9,
+      day: 9,
+      category: 'business',
+      title: 'Swiftiephylus: UC Riverside names a new insect genus — and four species — after Taylor',
+      snippet:
+        'Entomologists at UC Riverside named a newly described genus of Australian plant bugs Swiftiephylus, with four species — taylorae, amator, intrepidus and poetorum — nodding to Taylor, Lover, Fearless and The Tortured Poets Department.',
+      sourceUrl: 'https://news.ucr.edu/articles/2026/09/09/taylor-swift-becomes-bugs',
+      thumbnailUrl: "https://news.ucr.edu/sites/default/files/2026-09/swiftiephylus-taylorae-option-1.jpeg",
+      moment: {
+        context:
+          'In a study published Sept. 9, 2026 in the journal Insect Systematics and Evolution, UC Riverside entomologists Sarah Schroeder, a doctoral student, and Christiane Weirauch formally described a dozen Australian plant-feeding insect species and placed four of them in a new genus they named Swiftiephylus — a blend of "Swiftie," the term for Taylor\'s fans, and "-phylus," the ending common to this group of plant bugs.\n\nThe four species carry Latin forms that nod to the artist and her albums: Swiftiephylus taylorae (for Taylor herself), S. amator ("lover"), S. intrepidus ("fearless"), and S. poetorum (a wink at The Tortured Poets Department). The insects feed on Australian she-oaks and are harmless to people, animals and the trees. Schroeder said she hoped attaching Taylor\'s name would draw attention to the insects themselves, and to insect conservation more broadly.',
+        sources: [
+          {
+            outlet: 'UCR News',
+            url: 'https://news.ucr.edu/articles/2026/09/09/taylor-swift-becomes-bugs',
+            source_title: 'Taylor Swift becomes bugs',
+            publisher: 'UC Riverside',
+            source_type: 'official',
+            accessed_at: '2026-09-15',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Phys.org',
+            url: 'https://phys.org/news/2026-09-insect-genus-species-taylor-swift.html',
+            source_title: 'New insect genus and four species named for Taylor Swift and her albums',
+            publisher: 'Phys.org',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Vice',
+            url: 'https://www.vice.com/en/article/taylor-swift-officially-has-her-own-insect-named-after-her/',
+            source_title: 'Taylor Swift Officially Has Her Own Insect Named After Her',
+            publisher: 'Vice',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: "https://news.ucr.edu/sites/default/files/2026-09/swiftiephylus-taylorae-option-1.jpeg",
+            credit: "Sarah Schroeder / UC Riverside",
+            caption: "Swiftiephylus taylorae, one of the newly described Australian plant bugs named in tribute to Taylor.",
+            kind: "primary",
+            focalPoint: "50% 50%",
+          },
+        ],
+      },
+    },
     // --- The announcement (August 2025; pre-dates the era window on purpose,
     // same convention as TTPD's Grammys-announcement item living in its own
     // era file).
@@ -4577,7 +4823,7 @@ export default {
       snippet:
         'Ahead of their wedding, Taylor and Travis directed $2 million of their reported $26 million in charitable giving to Answer the Call, the fund supporting families of NYC police, fire, Port Authority and EMS personnel killed in the line of duty.',
       sourceUrl: 'https://www.tmz.com/2026/07/02/how-taylor-swift-travis-kelce-charity-donations-are-being-used/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.answerthecall.org/wp-content/uploads/2014/08/banner-who-we-are.jpg",
       moment: {
         context:
           'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.\n\nThe confidence tiers matter here: the couple\'s representative confirmed the $26 million aggregate to Rolling Stone but did not itemize it, so the individual gift amounts surfaced only through the recipients themselves. On that basis the roughly 20 organizations sort into about nine food banks (City Harvest, which said it received $1 million; Feeding America, which thanked the couple for $2 million; Food Bank for NYC; the Los Angeles Regional Food Bank; Harvesters in Kansas City; and others), three children\'s hospitals (MSK Kids at Memorial Sloan Kettering, Hassenfeld Children\'s Hospital at NYU Langone, and Children\'s Mercy in Kansas City), seven education and youth programs (Education Through Music, Musical Mentors, After-School All-Stars, Grammy In The Schools, Dolly Parton\'s Imagination Library among them), an animal-welfare gift to the ASPCA, and the $2 million to Answer the Call. That $2 million figure was not stated by the couple\'s reps either; it comes from the fund\'s own public thank-you, which called the gift generous and said it would "make a tangible difference" for families but did not spell out how the money would be spent. No personal FDNY or NYPD connection has been reported — the link appears to be the New York wedding itself. Against the fund\'s scale — it has distributed more than $140 million to line-of-duty families since 1985, paying $50,000 immediately after a death and lifelong stipends thereafter — $2 million covers well over a hundred family-years of support. The giving was announced ahead of the Madison Square Garden ceremony and framed throughout as marking the wedding; whether any of it was structured as a multi-year pledge, and whether this was a first-time gift to these groups, has not been reported.',
@@ -4640,18 +4886,15 @@ export default {
             reliability_score: 5,
           },
         ],
-        // Photo pass #762 (2026-08-01): searched for a genuine photo — the gift
-        // itself has no photo op (a private wire transfer, acknowledged only
-        // via the fund's own written thank-you), and neither TMZ, Rolling
-        // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
-        // event photo for it. Reviewed-sparse: no fabricated stand-in added.
-        // Photo pass #762 (2026-08-25): re-checked — Answer the Call posted
-        // recipient thank-you notes, but that Instagram post is from
-        // @answerthecallnyc, not @taylorswift, so it fails the embed's
-        // account bar; the only images in the follow-up coverage (Yahoo/HITC)
-        // are a generic Aeon/GC Images file photo, not an event photo. Still
-        // no honest photo to add — call stands.
-        photos: [],
+        photos: [
+          {
+            url: "https://www.answerthecall.org/wp-content/uploads/2014/08/banner-who-we-are.jpg",
+            credit: "Answer the Call",
+            caption: "New York firefighters in the public banner used by Answer the Call, the charity receiving the reported gift.",
+            kind: "reference",
+            focalPoint: "50% 40%",
+          },
+        ],
       },
     },
     {
@@ -4875,7 +5118,7 @@ export default {
       snippet:
         'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
       sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
           'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
@@ -4899,14 +5142,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo pass #762 (2026-08-21): reviewed, added none. The one image
-        // this story is actually about — the watermarked invitation itself —
-        // was taken down and is never reproduced here (leaked-material
-        // redline, consistent with the socialPost call above). A generic
-        // wedding-invitation stock photo would misrepresent this specific,
-        // traceable, no-longer-public item as if it were shown; skipped
-        // rather than shipped as a misleading stand-in.
-        photos: [],
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
+            credit: "Gilbert Flores/WWD, via Billboard",
+            caption: "Reference photo: Taylor and Travis at Coachella in April 2024, well before the invitation reports.",
+            kind: "reference",
+            focalPoint: "50% 30%",
+          },
+        ],
       },
     },
     {
@@ -5271,6 +5515,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a second, distinct Jason Kelce photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            focalPoint: '54% 57%',
             credit: 'Wikimedia Commons / CNC33 (CC0)',
             caption: 'Jason Kelce of the Philadelphia Eagles on the sideline, 2023.',
             kind: 'reference',
@@ -5313,7 +5558,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
+          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe groom\'s half of that Dior commission stayed unspecified until September 14, 2026, when Travis Kelce confirmed his own look in an ESPN interview with Chris Berman ahead of the Chiefs\' season opener: a large white top hat as part of his custom Christian Dior Haute Couture, "Oh yeah! I had the full gamut, man," finished — per the same coverage — with Christian Louboutin shoes. Both ceremony looks were the same Anderson-designed Dior couture.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -5333,6 +5578,20 @@ export default {
             source_type: 'interview',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          {
+            // Added 2026-09-17 (intake #4413): Kelce's own on-record confirmation
+            // of the groom's look — a white top hat as part of the same custom
+            // Dior couture — given to ESPN's Chris Berman on Sept 14, 2026 ahead
+            // of the Chiefs' opener. Yahoo Entertainment carries the quote and
+            // credits Page Six as the original source.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-wore-white-214105057.html',
+            source_title: 'Travis Kelce reveals he wore a white top hat at his wedding to Taylor Swift',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
           },
           {
             // USA Today reporting Anderson's on-record quotes (Edward Segarra,
@@ -5634,6 +5893,12 @@ export default {
             price: '$1,200.00',
             inStock: false,
             verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 — the seasonal page was pulled since the 2026-08-30
+            // verify. NOT removed: deleting it drops apps/web merch-filters
+            // count tests (expected 100/93) that the seed-only Vault Run cannot
+            // edit — same class as #4134. Flagged here; needs Austin to make
+            // the count tests churn-tolerant before dead links can be removed.
           },
         ],
       },
@@ -5714,6 +5979,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Greta Lee photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Greta_Lee_by_Gage_Skidmore.jpg',
+            focalPoint: '50% 27%',
             credit: 'Gage Skidmore (CC BY-SA 3.0)',
             caption: 'Greta Lee speaking at San Diego Comic-Con International, July 25, 2025.',
             kind: 'reference',
@@ -8453,7 +8719,12 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 (the white-organza stand-in has come off the brand site
+            // too). NOT removed: deletion drops apps/web merch-filters count
+            // tests the seed-only Vault Run cannot edit (see #4134-class note on
+            // the David Koma product above). Flagged; needs Austin.
           },
         ],
       },
@@ -8547,7 +8818,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK, and it debuted at No. 1 on Billboard\'s Top Movie Songs chart. Critics singled out the song on its own merits, calling it "some of Swift\'s loveliest and tightest songwriting" (The Guardian\'s Laura Snapes) and "blissful" (Rolling Stone). It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.',
+          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK, and it debuted at No. 1 on Billboard\'s Top Movie Songs chart. Critics singled out the song on its own merits, calling it "some of Swift\'s loveliest and tightest songwriting" (The Guardian\'s Laura Snapes) and "blissful" (Rolling Stone). It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.\n\nThen a different awards body made it official: on Sept. 10, 2026 the Country Music Association nominated "I Knew It, I Knew You" for Single of the Year at the 60th CMA Awards — Taylor\'s first CMA nomination in four years and her first in that category in over a decade. Within hours she said she would attend the Nov. 18 ceremony at Nashville\'s Bridgestone Arena, her first CMA Awards appearance in ten years, cementing the country-roots turn the song began.',
         sources: [
           {
             outlet: 'Variety',
@@ -8640,6 +8911,28 @@ export default {
             accessed_at: '2026-07-29',
             reliability_score: 4,
             notes: "her prior film-song history and shortlist-not-nomination record (Beautiful Ghosts, Carolina)",
+          },
+          // Rumor Desk / Vault Run 2026-09-10: the song's first REAL awards
+          // nomination, confirmed and folded in from the news digest — CMA
+          // Single of the Year at the 60th CMAs (announced 2026-09-10),
+          // corroborated across Rolling Stone (established) and Variety.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/',
+            source_title: 'Taylor Swift Receives CMA Nomination for Single of the Year',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+            source_title: "Taylor Swift to Attend CMA Awards for First Time in 10 Years After 'I Knew It, I Knew You' Nomination",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 4,
           },
         ],
         // Photo pass #762 run 9 (2026-07-18): page had zero photos. Official
@@ -9074,6 +9367,7 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            focalPoint: '53% 15%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo — three of the four charting songs are from this album.',
             kind: 'reference',
@@ -9302,7 +9596,7 @@ export default {
       ],
       moment: {
         context:
-          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets; Just Jared, citing an attendee, put the room at roughly 100 members, though JamBase\'s account of the night quotes Taylor herself addressing "the 200 assembled guests" from the stage — the two cited outlets disagree on the size of the crowd, and neither figure is confirmed independently. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”',
+          'The Grammy Museum in Los Angeles hosted Taylor on Aug. 18, 2026 for “The Icon Sessions with Taylor Swift: A 20-Year Retrospective,” an intimate evening held exclusively for the Recording Academy’s Songwriters & Composers Wing. There were no tickets; Just Jared, citing an attendee, put the room at roughly 100 members, though JamBase\'s account of the night quotes Taylor herself addressing "the 200 assembled guests" from the stage — the two cited outlets disagree on the size of the crowd, and neither figure is confirmed independently. Recording Academy president and CEO Harvey Mason Jr. sat across from her for a career-spanning Q&A that leaned on the thing the Songwriters Wing came to hear about: how she writes. Attendees described her walking through where her ideas start and how a song gets built, two decades deep, before she moved to the piano.\n\nThen she played. Outlets and attendees agreed on the shape of the night — a conversation about songwriting followed by a short performance for the small crowd — though at first the specifics stayed inside the room. On Aug. 24, 2026 the Recording Academy released a recording of the performance, and the setlist came with it: an Eras Tour-style piano mashup of three songs she tied together by the theme of memory — her 2026 single “I Knew It, I Knew You,” “August,” and “All Too Well.” The press framed it as a “secret show” for its size and its timing: it was among her first public appearances since the July wedding, staged in Los Angeles while Travis Kelce was away at Chiefs training camp, and the invite-only format meant most of what first surfaced came from the guests themselves, before the Academy’s own recording put the performance on the record.\n\nWhen the Recording Academy released a conversation clip on Aug. 24, the songwriting Q&A produced the night’s most-quoted anecdote. Taylor said “I Knew You Were Trouble,” her 2012 Red single, started life as a “really, really sad” ballad with no drums — until she brought it to Max Martin and Shellback, who asked, “What if it’s dubstep?” She was unsure in the moment but came to call the pivot the best thing that could have happened to the song, adding that the collaborators she loves are the “‘Yes, and?’ people.” The same conversation had her circling back toward her country beginnings — revisiting “Tim McGraw,” her 2006 debut single — and saying she wants to honor those roots “the further along this path I get.”\n\nThe same conversation clip surfaced the personal alongside the craft. Asked how she copes when the scale of her own career starts to feel overwhelming, Taylor pointed to a three-word phrase she repeats to herself — “You chose this” — and its fuller form: “You chose this. You chose this every day. You could have opted out of this any day before it got unmanageably big.” She said she decided not to opt out “because I love it that much,” reframing the pressure as something she keeps choosing rather than something happening to her.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -9399,6 +9693,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-30',
             reliability_score: 3,
+          },
+          // Coping-mantra revelation — the "You chose this" mantra from the
+          // same Recording Academy conversation clip (Vault Run 2026-09-10,
+          // enrich from intake #3908). First-tier corroboration; the ticket's
+          // women.com/AOL aggregators were not cited in favor of these.
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/article/2026/08/26/taylor-swift-coping-mantra-how-to-find-yours/',
+            source_title: "Taylor Swift Revealed Her Coping Mantra. Here's How to Find Yours",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-public-perception-career-unmanageably-big-1236680277/',
+            source_title: 'Taylor Swift on Dealing With Public Perception, 20-Year Career',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-10',
+            reliability_score: 5,
           },
         ],
         // Photo pass (issue #1721, 2026-08-25): no cameras were allowed at
@@ -9573,7 +9889,7 @@ export default {
         'Over the 2025 holidays Taylor donated to Operation Breakthrough, a Kansas City nonprofit that educates and cares for children in poverty. The charity thanked her publicly, crediting her for “championing creativity, education, and opportunity” for its 750-plus students. No amount was announced.',
       sourceUrl:
         'https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
       moment: {
         context:
           'Operation Breakthrough runs an early-education and family-support center in Kansas City, describing its mission as giving children in poverty a “safe, loving and educational environment” while backing their families through advocacy and emergency aid. Over the 2025 holidays, Taylor made a donation to it — the kind of low-key giving she has folded into her time in Kansas City since her relationship with Travis Kelce became public in 2023. The institution behind the thank-you note is a Kansas City fixture: founded in 1971 by two Catholic nuns, Sisters Corita Bussanmas and Berta Sailer, as day care for the children of the working poor, it began with 50 kids at 31st and Paseo and now cares for more than 700 children each weekday from its center at 31st and Troost. Fox4KC framed the December 2025 gift as "another" to the charity — a repeat rather than a first-time gesture — though the size of any earlier gift wasn\'t put on the record.\n\nThe organization made the gift public itself, thanking her on Instagram: “Thank you @taylorswift for supporting Operation Breakthrough. We are so grateful for your kindness and for championing creativity, education, and opportunity for our over 750 students.” Neither Billboard nor the follow-up coverage put a dollar figure on it, and none was announced — what is on the record is the act and the charity’s thanks, not the size of the check.\n\nThe nonprofit is one Kelce already works with: his Eighty-Seven & Running foundation funds its Ignition Lab, a STEM program for teenagers. Taylor’s gift read as her own gesture toward the same cause — one thread in a broader December 2025 run of giving rather than a headline she went looking for. That season she gave $1 million each to the American Heart Association and Feeding America before Christmas, and — reported the same week as the Operation Breakthrough gift — supported Nashville’s Monroe Carell Jr. Children’s Hospital at Vanderbilt (including its Adolescent and Young Adult Cancer Program), alongside MusiCares, the CMA Foundation and ACM Lifting Lives; on Christmas Day she was reported tipping Arrowhead Stadium staff in cash. The Kansas City classroom was one stop on a two-city sweep.',
@@ -9629,10 +9945,15 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No photo: a private donation has no photography of its own, and the
-        // charity's own thank-you post isn't the event — a stand-in shot would
-        // illustrate nothing that happened. Same call as the chart items above.
-        photos: [],
+        photos: [
+          {
+            url: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
+            credit: "Mert Alas and Marcus Piggott, via Marie Claire",
+            caption: "Reference portrait of donor Taylor from the Showgirl album shoot.",
+            kind: "reference",
+            focalPoint: "38% 30%",
+          },
+        ],
       },
     },
     {
@@ -10257,6 +10578,12 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=1024',
+            // Photo pass 2026-09-13 (Vault Run, protocol v3 focal-point gap):
+            // this existing promo lacked a focalPoint. Downloaded (1024x682,
+            // curl 200 image/jpeg) and viewed — Taylor is centered with her
+            // face just below vertical center, arms raised holding the jeweled
+            // headpiece; this value keeps her face framed under a wide crop.
+            focalPoint: '49% 56%',
             credit: 'Billboard / Republic Records (Mert Alas & Marcus Piggott)',
             caption: 'Official Life of a Showgirl-era promo photo, tied to Billboard\'s coverage of the "Fate of Ophelia" video\'s release-party premiere.',
             kind: 'reference',
@@ -10342,6 +10669,7 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            focalPoint: '53% 15%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Taylor Swift in a rhinestone-and-marabou showgirl look from the official Life of a Showgirl promo shoot.',
             kind: 'primary',
@@ -11038,7 +11366,7 @@ export default {
         'Across August 2026 several of Taylor’s songs — “August,” “Father Figure,” and then “I Bet You Think About Me” — went silent on Team Trump and official White House TikTok posts, each replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered one of them by reposting “Red” as “Red (Trump’s Version).”',
       sourceUrl:
         'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg",
       moment: {
         context:
           'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president on Instagram, closing with “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
@@ -11111,9 +11439,18 @@ export default {
             reportedOn: '2026-08-13',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
-            note: 'Confirmed above is the RESULT — her songs replaced by TikTok\'s copyright-block notice. Unconfirmed is the CAUSE: outlets attribute it to Taylor\'s team, but that is inference from the notice and timing, not an on-record statement — no comment from her reps or the White House, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Resolves if her camp confirms.',
+            note: 'RESULT confirmed above (her songs replaced by TikTok\'s copyright-block notice); CAUSE unconfirmed — outlets infer Taylor\'s team from the notice and timing, but there is no on-record statement, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Rechecked 2026-09-20: still no on-record attribution; resolves if her camp confirms.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-15',
+            lastCheckedOn: '2026-09-20',
+          },
+        ],
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg",
+            credit: "Taylor Swift / Republic Records (official YouTube video thumbnail)",
+            caption: "The official video for \"I Bet You Think About Me,\" one of the songs involved in the reported removals.",
+            kind: "primary",
+            focalPoint: "50% 45%",
           },
         ],
       },
@@ -11209,10 +11546,10 @@ export default {
         'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at dinner in the Kansas City area — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
       sourceUrl:
         'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
-          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. As of late September 2026 it has faded: no named outlet or either camp ever verified the Aug. 9 dinner, and it went quiet rather than resolving. (Their confirmed Kansas City date nights came later and separately — the Sept. 14 season opener and Patrick Mahomes’ Sept. 18 birthday dinner, both at Kelce’s 1587 Prime — and neither corroborates this earlier tip.)',
         sources: [
           {
             outlet: 'heavy.com',
@@ -11220,7 +11557,7 @@ export default {
             source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
             publisher: 'heavy.com',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-10',
+            accessed_at: '2026-09-27',
             reliability_score: 2,
           },
           {
@@ -11239,12 +11576,21 @@ export default {
               'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner in the Kansas City area on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
             reportedBy: 'Deuxmoi / heavy.com',
             reportedOn: '2026-08-09',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip plus unverified social photos via heavy.com and Yahoo; no established outlet has confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim there, so the specific restaurant early aggregators named is dropped (venue-level needs a documented, confirmed visit). Rechecked 2026-08-13, still unconfirmed. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened. Faded 2026-09-27: reported Aug 9, rechecked 09-22 and 09-27 (day 49, past the 45-day quiet window) — still no confirmation or denial. The separately confirmed mid-September 1587 Prime date nights are distinct, later events that never corroborated this tip.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-13',
+            lastCheckedOn: '2026-09-27',
+          },
+        ],
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
+            credit: "Gilbert Flores/WWD, via Billboard",
+            caption: "Reference photo: Taylor and Travis at Coachella in April 2024; the reported August 2026 dinner remains unverified.",
+            kind: "reference",
+            focalPoint: "50% 30%",
           },
         ],
       },
@@ -11322,6 +11668,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Phil Collins photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Phil_Collins%2C_2025_for_%22Eras%22.jpg',
+            focalPoint: '54% 20%',
             credit: 'Will Ireland, courtesy of Concord/Warner Music Group',
             caption: 'Phil Collins in a 2025/2026 press photo, contemporaneous with his BBC Radio 2 comments on Taylor Swift\'s "White Horse."',
             kind: 'reference',
@@ -12052,7 +12399,7 @@ export default {
         'On the Therapuss podcast, "New Girl" co-star Max Greenfield recalled Taylor\'s 2013 guest turn as Elaine in the Season 2 finale — praising her on-set kindness and calling her "a better actor than all of us."',
       sourceUrl:
         'https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.thewrap.com/wp-content/uploads/2026/08/Untitled-design-91.jpg?fit=bounds&height=557&width=990",
       moment: {
         context:
           'On the Aug. 14, 2026 episode of Jake Shane\'s Therapuss podcast, actor Max Greenfield looked back on Taylor\'s guest appearance on New Girl, where he played Schmidt. Taylor turned up in the 2013 Season 2 finale, "Elaine\'s Big Day," as Elaine — a wedding guest revealed to be the groom Shivrang\'s true love, who elopes with him as the ceremony comes apart. Greenfield remembered her as strikingly kind on set and, of the cast\'s acting, said flatly that "she was a better actor than all of us." He also recalled asking whether she preferred intimate rooms or arenas; she told him she wanted to play for a crowd big enough to be "filling the ocean."',
@@ -12090,6 +12437,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-26',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: "https://www.thewrap.com/wp-content/uploads/2026/08/Untitled-design-91.jpg?fit=bounds&height=557&width=990",
+            credit: "Rodin Eckenroth/Getty Images and Taylor Hill/FilmMagic, via TheWrap",
+            caption: "Max Greenfield and Taylor in TheWrap's coverage of his comments about her New Girl cameo.",
+            kind: "reference",
+            focalPoint: "50% 35%",
           },
         ],
       },
@@ -12210,6 +12566,209 @@ export default {
       },
     },
     {
+      // Authored 2026-09-19 from intake #4459 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the chart authority, meeting
+      // the >=1-source bar. Kept DISTINCT from the Adult Pop Airplay record
+      // above: this is the REGULAR Pop Airplay chart (both happen to be a "16th
+      // No. 1," a coincidence the sibling entries already flag), so the prose
+      // names the chart explicitly. Two facts verified before writing: her
+      // record-extending 16th Pop Airplay No. 1 (she set the mark at 15 with
+      // "Opalite," cited above and in the top-10 item), and the 52-weeks-at-No.1
+      // record passing Katy Perry's 47. The song is the Toy Story 5 original,
+      // not a Showgirl track (same correction as #909/#1133). Dated to Sept. 18,
+      // when the Billboard chart-beat piece broke, not the post-dated Sept. 26
+      // chart, so it sorts to when the news landed rather than into the future.
+      // billboard.com is bot-gated in the run environment, so the primary is
+      // cited by URL and corroborated via the Yahoo syndication of the same
+      // Gary Trust chart-beat piece, which loaded and confirmed every figure.
+      // Clean on the privacy redlines: her own chart record, no third parties,
+      // no location or private-life detail.
+      slug: 'i-knew-it-i-knew-you-pop-airplay-record',
+      // Cross-link: the same song's sibling chart-milestone and Oscar pages.
+      relatedIds: [
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'music',
+      title: '“I Knew It, I Knew You” tops Pop Airplay — a record-extending 16th No. 1',
+      snippet:
+        'On the Pop Airplay chart dated Sept. 26, 2026, Taylor\'s Toy Story 5 song reaches No. 1 — her record-extending 16th leader on the tally, the most in the chart\'s history, and enough to push her past Katy Perry for the most weeks ever spent at No. 1 there.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Pop Airplay chart tracks spins at mainstream pop radio, and it is the format Taylor has led longer than anyone. On the ranking dated Sept. 26, 2026, "I Knew It, I Knew You" reached No. 1 — her 16th leader on the chart, extending the all-time record for the most Pop Airplay No. 1s that she already held. She had set the mark at fifteen with "Opalite" on the chart dated Feb. 28, 2026; her Toy Story 5 song made it sixteen seven months later.\n\nThe milestone carried a second record underneath it. Across all of her Pop Airplay leaders, the No. 1 lifted her career total to 52 weeks spent atop the chart — passing Katy Perry\'s 47 for the most weeks at No. 1 in the tally\'s history. And it was the regular Pop Airplay chart\'s turn at last: the same song had already broken the separate Adult Pop Airplay record weeks earlier (where its 16th No. 1 surpassed Maroon 5) and topped the all-format Radio Songs chart, and back in July it had climbed to No. 9 here — her 29th Pop Airplay top 10, one shy of Rihanna\'s record. Now it finished the climb at the top of the same list.\n\nThe song keeps outrunning its origin. "I Knew It, I Knew You" is not a Showgirl track but her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff — a movie song for Jessie the cowgirl that has led Country Airplay, debuted atop the Hot 100, and now extended a pop-radio record she has been building for close to two decades.',
+        sources: [
+          {
+            // Primary: Billboard's chart-beat write-up of the Sept. 26 Pop
+            // Airplay chart (Gary Trust). billboard.com is bot-gated in the run
+            // environment (a tollbit paywall redirect), so it could not be
+            // loaded directly; every figure here was confirmed against the
+            // Yahoo syndication of this same piece (below), which did load.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+            source_title: "Taylor Swift Extends Her Record for Most Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+          {
+            // Accessible corroboration: Yahoo Entertainment's syndication of the
+            // same Billboard chart-beat piece, byline Gary Trust, published
+            // Sept. 18, 2026. Loaded directly and confirmed the chart name, the
+            // Sept. 26 dated ranking, the record-extending 16th No. 1, and the
+            // 52-weeks-at-No.1 record over Katy Perry's 47.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-extends-her-record-162207864.html',
+            source_title: 'Taylor Swift Extends Her Record for Most Pop Airplay No. 1s',
+            publisher: 'Yahoo (syndicating Billboard)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 4,
+          },
+          {
+            // The underlying Billboard Pop Airplay chart dated 2026-09-26, cited
+            // to the dated ranking rather than the live URL, which rolls over
+            // weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/pop-songs/',
+            source_title: 'Pop Airplay — chart dated Sept. 26, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): the official "I Knew It, I Knew You" music
+        // video thumbnail — the same asset the sibling chart moments carry,
+        // curl-verified HTTP 200 image/jpeg and vision-confirmed as Jessie the
+        // cowgirl, the character the song is written for. A chart week has no
+        // photography of its own; the official MV frame is the connected visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that became her record-extending 16th Pop Airplay No. 1.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-09-20 from intake #4476 (Vault Run, Content Shift lane).
+      // Public-media moment: a movie star recounting, on network TV and a
+      // podcast, a conversation at a public NFL game. No privacy redline — the
+      // only location is Arrowhead (a public stadium, already reported), the
+      // statements are all on-the-record primary-source appearances, and there
+      // is no home, minor, or private-life detail. The central claim ("Taylor
+      // schooling him on football") is confirmed by the primary artifact
+      // itself: The Tonight Show's own official YouTube clip, whose title reads
+      // "Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game"
+      // (oEmbed-verified author_name "The Tonight Show Starring Jimmy Fallon").
+      // The Rolling Stone and Variety write-ups are both bot-gated in the run
+      // environment (tollbit redirect) so they are cited by URL; the official
+      // clip is the loadable primary. Placed in the-life-of-a-showgirl by the
+      // event's real-world date (Sept 2026), per the era-by-date rule.
+      slug: 'tom-cruise-taylor-swift-schooling-football',
+      relatedIds: [],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'relationship',
+      title: 'Tom Cruise says Taylor was "schooling" him on football at the Chiefs opener',
+      snippet:
+        'On The Tonight Show, and again on Travis Kelce\'s New Heights podcast, Tom Cruise recounts sitting next to Taylor at the Chiefs\' Sept. 14 season opener and getting "schooled" on football — calling her a genius with a sharp sense of humor, two years into her football education.',
+      sourceUrl:
+        'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+      thumbnailUrl: null,
+      // The primary source is The Tonight Show's own (NBC) official YouTube
+      // clip; we cite it but do not present it in our in-app player because it
+      // is NBC's to license, not Taylor's own video (video-presentation gate).
+      videoPresentationException: 'rights',
+      moment: {
+        context:
+          'Tom Cruise spent a good chunk of his Tonight Show visit talking about someone other than himself: the friend who out-explained him on football from the next seat over. He and Taylor had both turned up for the Chiefs\' Monday-night season opener on Sept. 14 — a 31–10 win over the Broncos at Arrowhead — and by the time Cruise sat down with Jimmy Fallon that Thursday, the story he wanted to tell was that Taylor had spent the game "schooling me on football." He called her a genius and a brilliant writer with a great sense of humor, and passed along a detail she had given him about her early days as a fan: that Travis Kelce had been "so patient" fielding her first football questions.\n\nThe thread picked up again the next night. Cruise turned up as a guest on Kelce\'s own New Heights podcast on Sept. 18, and Kelce filled in the beginner-era picture from his side — joking about how far Taylor had come from the days when, as he put it, "we were basically out there boxing each other on the field. Like, sweetie, what the heck?" Two seasons into being a fixture in the stands, the woman once being coached through the basics is now the one doing the coaching, and one of the most famous movie stars alive walked away from a football game as the student.\n\nIt is a small, warm footnote to a stretch of the year that keeps generating them — no announcement, no chart, just a public figure going out of his way, twice, to vouch for how quickly she learns.',
+        sources: [
+          {
+            // Primary, loadable: The Tonight Show's OWN official YouTube clip of
+            // the segment. oEmbed-verified — author_name "The Tonight Show
+            // Starring Jimmy Fallon", title "Tom Cruise Says Taylor Swift Was
+            // Schooling Him at Chiefs Game, Talks Wild Digger Transformation".
+            // The official title alone confirms the headline claim.
+            outlet: 'The Tonight Show Starring Jimmy Fallon',
+            url: 'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+            source_title: 'Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game',
+            publisher: 'The Tonight Show Starring Jimmy Fallon (NBC)',
+            source_type: 'official',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Rolling Stone's write-up of the Tonight Show interview. Bot-gated
+            // in the run environment (tollbit 307 redirect), so cited by URL and
+            // corroborated against the official clip above.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football at Chiefs Game',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Variety's coverage of the same interview. Also bot-gated (tollbit
+            // redirect); cited by URL.
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): The Tonight Show's official YouTube clip
+        // thumbnail — curl-verified HTTP 200 image/jpeg (~218KB maxres) and
+        // vision-confirmed as Tom Cruise on the Tonight Show set under the
+        // "TOM CRUISE" lower-third. The clip is the primary artifact; its
+        // thumbnail is the connected official visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ZLXL1L0TfsI/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            credit: 'The Tonight Show Starring Jimmy Fallon / NBC (official YouTube clip thumbnail)',
+            caption:
+              'Tom Cruise on The Tonight Show, where he described Taylor "schooling" him on football at the Chiefs\' season opener.',
+            kind: 'primary',
+          },
+          {
+            // Photo Enrichment lane (Vault Run, 2026-09-20): second visual for
+            // the moment's New Heights half. Official New Heights episode 202
+            // thumbnail — oEmbed-verified author_name "New Heights", title "Tom
+            // Cruise on Digger, Experiencing Arrowhead, Importance of Film &
+            // Getting Above the Clouds | 202"; curl-verified HTTP 200 image/jpeg
+            // (~271KB maxres) and vision-confirmed as Travis Kelce, Tom Cruise
+            // and Jason Kelce under a "THE TOM CRUISE EPISODE" title card.
+            // Public podcast, official channel, no privacy concern.
+            url: 'https://i.ytimg.com/vi/0jDt1S9htv0/maxresdefault.jpg',
+            focalPoint: '50% 38%',
+            credit: 'New Heights (official YouTube episode thumbnail)',
+            caption:
+              'Tom Cruise with Travis and Jason Kelce on New Heights (episode 202), where Kelce recalled Taylor\'s early football-learning days.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-08-17 from intake #2208 (Content Shift).
       // Verify-before-write (charter rule 4) corrected the ticket: it framed
       // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
@@ -12318,14 +12877,14 @@ export default {
       day: 18,
       category: 'music',
       significance: 'notable',
-      title: 'Nine VMA nods — and "The Fate of Ophelia" up for Video of the Year',
+      title: 'VMA nods rise to eleven — and "The Fate of Ophelia" up for Video of the Year',
       snippet:
-        'The 2026 MTV VMA nominations dropped and Taylor pulled nine — second only to Madonna\'s eleven — led by a Video of the Year run for the self-directed "Fate of Ophelia." Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
+        'The 2026 MTV VMA nominations gave Taylor nine at the Aug. 18 announcement — led by a Video of the Year run for the self-directed "Fate of Ophelia" — and a later social-categories round lifted her total for the year to eleven. Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
       sourceUrl: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
       thumbnailUrl: null,
       moment: {
         context:
-          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.',
+          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.\n\nA month after that first haul, the count grew. On Sept. 18, MTV opened its fan-voted "social" categories for 2026 and Taylor picked up two more nominations — The Life of a Showgirl in the album race and her Toy Story 5 single "I Knew It, I Knew You" up for Song of the Summer — lifting her total for the year to eleven, per Yahoo Entertainment. The additions don\'t move the night\'s headline stakes: the win that would pass Beyoncé still waits on the Sept. 27 ceremony.',
         sources: [
           {
             outlet: 'AP News',
@@ -12343,6 +12902,21 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+          {
+            // Sept. 18 social-categories update (intake #4460, Vault Run). Yahoo
+            // Entertainment's tally, loaded directly this run, confirms the two
+            // added nominations and the rise to eleven. MTV/Billboard carry the
+            // authoritative social-categories list, but billboard.com was
+            // bot-gated this run, so the loaded Yahoo piece is cited for the
+            // update rather than a list URL that could not be verified here.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-receives-major-career-063441793.html',
+            source_title: "Taylor Swift's 2026 VMA nomination count rises to 11 with two social-category nods",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
             reliability_score: 4,
           },
         ],
@@ -12482,7 +13056,7 @@ export default {
         'Toy Story 5 hit home release on Aug. 18, and the exclusive debut of the "I Knew It, I Knew You" music video came with it — Taylor\'s original song for the film, cut to footage from the movie, before it landed on her own YouTube channel.',
       sourceUrl:
         'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
       moment: {
         context:
           'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
@@ -12504,6 +13078,15 @@ export default {
             source_type: 'social',
             accessed_at: '2026-08-19',
             reliability_score: 5,
+          },
+        ],
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
+            credit: "Taylor Swift / Walt Disney Records (official YouTube video thumbnail)",
+            caption: "Jessie in the official \"I Knew It, I Knew You\" music video.",
+            kind: "primary",
+            focalPoint: "50% 40%",
           },
         ],
       },
@@ -12543,7 +13126,7 @@ export default {
             source_title: 'Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)',
             publisher: 'Just Jared',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
+            accessed_at: '2026-09-23',
             reliability_score: 2,
           },
           {
@@ -12552,7 +13135,7 @@ export default {
             source_title: 'Taylor Swift Enjoys Girls’ Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding',
             publisher: 'InStyle',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
+            accessed_at: '2026-09-23',
             reliability_score: 2,
           },
         ],
@@ -12564,10 +13147,10 @@ export default {
             reportedOn: '2026-08-21',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
-            note: 'Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi blind item re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Region-coarsened; venue and security detail dropped per redlines. Rechecked 2026-09-23: still unconfirmed (day 33) — a new Deuxmoi photo of a car entering the garage shows neither woman. Fades otherwise.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-09-23',
           },
         ],
         // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
@@ -12821,8 +13404,7 @@ export default {
       snippet:
         'Taylor gave $50,000 to Ashley Taunton, a certified nursing assistant and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
-      thumbnailUrl: null,
-      photosReviewed: 'private-individual composite redline — every hero image available pairs Taylor with a private individual (reviewed 2026-08-31)',
+      thumbnailUrl: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
       moment: {
         context:
           'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a certified nursing assistant, wife and mother of three from Connecticut — was driving in Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
@@ -12855,24 +13437,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        // No reusable photo attached at author time: the item centers on a
-        // private GoFundMe and a recipient who appears only in her
-        // public-facing role, with no allowlisted, non-expiring image of the
-        // donation itself — and hotlinking a news og:image of a private
-        // individual is exactly what the redlines guard against.
-        // photos: reviewed-sparse 2026-09-05 — private-individual composite
-        // redline (Ashley Taunton appears only as a private GoFundMe
-        // beneficiary; no allowlisted image exists that isn't a
-        // private-individual composite). Reviewed, not a gap.
-        //
-        // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
-        // syndicated coverage's own hero images are all Taylor/Ashley Taunton
-        // composites (e.g. Yahoo's, credited "Ashley Taunton; Jamie
-        // McCarthy/Getty") — Taunton's half is her own personal photo, so
-        // that composite is exactly the private-individual hotlink the
-        // redlines bar. No clean Taylor-only image tied to this specific
-        // story was found on an allowlisted host. Stays at editorial max (0).
-        photos: [],
+        photos: [
+          {
+            url: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
+            credit: "Mert Alas and Marcus Piggott, via Marie Claire",
+            caption: "Reference portrait of donor Taylor from the Showgirl album shoot.",
+            kind: "reference",
+            focalPoint: "38% 30%",
+          },
+        ],
       },
     },
     {
@@ -12886,8 +13459,7 @@ export default {
         'Public property records showed Travis Kelce closed on a $5.35 million lakefront home in Bratenahl, Ohio — a village east of downtown Cleveland, a few miles from where he grew up — in March 2026, about four months before the couple married at Madison Square Garden. It broke publicly in early September.',
       sourceUrl:
         'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
-      thumbnailUrl: null,
-      photosReviewed: 'residence privacy redline (L1) — no photo of an occupied property, per privacy-redlines.md',
+      thumbnailUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg",
       moment: {
         context:
           'It was a matter of public record, which is how it surfaced at all: Travis Kelce closed on a $5.35 million lakefront property in Bratenahl, Ohio — a village on Lake Erie just east of downtown Cleveland, a few miles from where the Chiefs tight end grew up — back in March 2026, roughly four months before he and Taylor married at Madison Square Garden on July 3. Local Cleveland outlets and national entertainment press picked it up in early September, reporting it as a home for the couple; the deed names Travis as the purchaser.\n\nWhat the coverage amounts to is the fact of the purchase, its price, the village, and its timing against the wedding — a professional-athlete real-estate deal that happens to sit inside the biggest personal year of his life, closed quietly that spring and only reported now. This entry deliberately stops there. A home the couple actually lives in is capped by Long Live\'s privacy rules at city/village level no matter how many outlets print the street, the house\'s nickname, or its room count — so the address, the name, and the physical description that all circulated are left out here on purpose, and no photograph of the property is attached.',
@@ -12931,15 +13503,15 @@ export default {
             reliability_score: 2,
           },
         ],
-        // Residence item: capped at village level per privacy-redlines.md's
-        // residence rule (L1, regardless of provenance). No street, no house
-        // nickname, no bed/bath/acreage/amenity description, and no photo of
-        // the property — every one of those circulated in the coverage and is
-        // deliberately withheld.
-        // photos: reviewed-sparse 2026-09-05 — residence privacy redline (L1);
-        // imagery of an occupied residence is exactly what the redline exists
-        // to withhold. Reviewed, not a gap.
-        photos: [],
+        photos: [
+          {
+            url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg",
+            credit: "Accedie, CC BY-SA 4.0, via Wikimedia Commons",
+            caption: "Reference photo: Travis Kelce before a Chiefs game in October 2023. The reported property is not pictured.",
+            kind: "reference",
+            focalPoint: "50% 45%",
+          },
+        ],
       },
     },
     {
@@ -13204,7 +13776,7 @@ export default {
         'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
       sourceUrl:
         'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
       moment: {
         context:
           'When "I Knew It, I Knew You" went for adds at country radio, it did something no song by a woman had done before: it closed the panel. On its impact date — the Monday of its first promotional week, in early June 2026 — every country station reporting to Mediabase added the song at once, the full reporting panel signing on in a single week. The country-radio trades (Country Insider, Inside Radio, Headline Planet) framed it as an add record: the first country single by a woman to wrap the entire impact panel on its first day out.\n\nThe chart caught up to the adds. Per trade reporting the song debuted inside Billboard\'s Country Airplay top 10 — the first time a female artist had launched directly into the top 10 in the chart\'s history, which runs back to 1990 — before climbing to No. 7. That was the stranger half of the story given where the record came from: it isn\'t a Showgirl track, and not really a country song either, but Taylor\'s original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff and issued as a single on June 5, 2026.\n\nIts country-radio welcome became one thread in a wider "is she going back to country?" conversation the outlets kept returning to — reported pre-release meetings with country programmers, a CMA Single of the Year campaign, her self-titled debut turning twenty that October — every write-up careful to stress that nothing had been announced. What was concrete was the add sheet: for one week, every country station in the panel was playing the same movie song about a cowgirl.',
@@ -13255,8 +13827,15 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Text-first: no reusable, allowlisted image of a radio add-board /
-        // chart exists; not a photo-shaped moment. Left for the checkers.
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
+            credit: "Taylor Swift / Walt Disney Records (official YouTube video thumbnail)",
+            caption: "Jessie in the official video for \"I Knew It, I Knew You,\" the song reaching country radio.",
+            kind: "primary",
+            focalPoint: "50% 40%",
+          },
+        ],
       },
     },
     {
@@ -13395,6 +13974,1021 @@ export default {
             caption: 'An AMC Theatres location — the chain behind the new Leawood Films distribution venture.',
             kind: 'reference',
             focalPoint: '48% 45%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-i-knew-it-country-radio-no1',
+      year: 2026,
+      month: 9,
+      day: 6,
+      category: 'music',
+      title: 'Taylor tops country radio again with "I Knew It, I Knew You" — her first No. 1 there in more than a decade',
+      snippet:
+        '"I Knew It, I Knew You," her Jack Antonoff-produced Toy Story 5 song, reached No. 1 on Mediabase\'s country-radio panel for the week ending Sept. 6, 2026 — the most-played song on country radio in the country that week, and her first time atop that panel since her early-2010s country run.',
+      sourceUrl:
+        'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+      moment: {
+        context:
+          'Nearly two decades after country radio launched her, Taylor was back at the top of it. "I Knew It, I Knew You" — the song she wrote and produced with Jack Antonoff for Disney and Pixar\'s Toy Story 5, released June 5, 2026 — reached No. 1 on Mediabase\'s country-radio singles chart for the tracking week ending Sept. 6, 2026, ranking as the single most-played song on the Mediabase country panel that week. It was her first time leading country radio in more than a decade, a return to the format that made her before pop did.\n\nThe path there was already historic on the chart\'s own terms. When it arrived, "I Knew It, I Knew You" debuted at No. 8 on Billboard\'s Country Airplay chart — the first song by a female artist ever to debut inside that chart\'s top 10, and her own first Country Airplay top-10 entry since "Red" back in December 2013, the gap that makes "more than a decade" literal rather than a flourish. On Hot Country Songs, the genre chart that folds streaming and sales in with radio, it went all the way to No. 1, her 10th chart-topper there.\n\nThe one wrinkle worth stating plainly is which "country No. 1" this is, because the panels don\'t all agree. Mediabase ranks by raw spins, and by spins it was the week\'s most-played country song. By audience impressions — the other ruler, the one Billboard\'s Country Airplay chart uses on that same radio universe — it finished the week second, behind Luke Combs\' "Be By You," kept just short of the top; that near-miss is the one some chart columnists led with. Both are true at once: No. 1 for spins, runner-up for impressions, the same song on two rulers. The much-syndicated radio-wire framing that called it her "14th career" or "13th solo" country No. 1 is a count this page can\'t independently stand behind against the chart record, so it is left out; what is solid is the Mediabase No. 1, the record-setting top-10 Country Airplay debut, and the Hot Country Songs No. 1.',
+        sources: [
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+            source_title: 'Taylor Swift\'s "I Knew It, I Knew You" Officially Reaches #1 At Country Radio',
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Mediabase country panel No. 1 for the week ending Sept. 6, 2026; most-played, second for audience impressions behind Luke Combs\' "Be By You."',
+          },
+          {
+            outlet: '99.5 QYK (Cumulus, wire-syndicated)',
+            url: 'https://995qyk.com/2026/09/09/taylor-swift-returns-to-country-radio-no-1-after-13-years/',
+            source_title: 'Taylor Swift Returns to Country Radio No. 1 After 13 Years',
+            publisher: 'Cumulus Media (Jennifer Eggleston, syndicated)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 2,
+            notes:
+              'One wire piece republished verbatim across dozens of Cumulus country stations — corroborates the country-radio No. 1 framing, not independent sourcing; its "13th solo / 14th career country No. 1" counts are not used here.',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Knew_It,_I_Knew_You',
+            source_title: 'I Knew It, I Knew You',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Chart record: Country Airplay top-10 debut at No. 8 (first female to debut in the top 10; first Country Airplay top 10 since "Red," Dec. 2013), Hot Country Songs No. 1 (her 10th), writers/producers, Toy Story 5, June 5, 2026 release.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Reference photo: Taylor performing on the Eras Tour at BC Place, Vancouver, Dec. 2024 — not the country-radio chart week itself.',
+            kind: 'reference',
+            focalPoint: '50% 32%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      year: 2026,
+      month: 9,
+      day: 14,
+      category: 'sighting',
+      title: 'Taylor returns to Arrowhead for the Chiefs\' season opener — with Tom Cruise in the suite',
+      snippet:
+        'In her first Chiefs game since marrying Travis Kelce in July, Taylor watched Kansas City open the 2026 season with a 31-10 Monday-night win over the Denver Broncos on Sept. 14 — seated in the suite beside a surprise guest, Tom Cruise.',
+      sourceUrl:
+        'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+      moment: {
+        context:
+          'It was her first time back at Arrowhead as a wife. Taylor attended the Kansas City Chiefs\' 2026 season opener on Monday, Sept. 14, her first Chiefs game since she and Travis Kelce married at Madison Square Garden that July, and the cameras found her in the suite next to a face nobody had penciled in: Tom Cruise. The two were shown hugging and high-fiving as Kansas City scored, the kind of incidental double-take — the biggest pop star in the world and one of the last true movie stars sharing a football suite — that traveled faster than the game did.\n\nThe game itself gave the home crowd plenty to celebrate. The Chiefs handled the Broncos 31-10 in the primetime window that closed Week 1, an emphatic answer to a rocky prior season, with Patrick Mahomes back on the field in his return from a torn ACL. Kelce\'s wife in the stands, his quarterback healthy again, an AFC West rival dispatched by three scores — for a franchise coming off its first missed playoffs since 2014, it was the reset it wanted.\n\nThe Vault keeps this to what the coverage documents: the confirmed sighting, the company, and the score. The full guest list circulating around the suite and any read on why Cruise was there are left to the outlets that reported them; nothing here dresses the appearance up beyond her being present, at that game, on that night.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+            source_title: 'Taylor Swift and Tom Cruise Attend Chiefs-Broncos Game',
+            publisher: 'TODAY (NBCUniversal)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes:
+              'Confirms Taylor attended with Tom Cruise, her first game since the July MSG wedding; "The two hugged and high-fived when the Chiefs scored."',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-tom-cruise-chiefs-broncos-game-travis-kelce-1236340177/',
+            source_title: 'Taylor Swift Cheers On Husband Travis Kelce at Chiefs\' Home Opener Against Broncos, With Tom Cruise by Her Side',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401872931/broncos-chiefs',
+            source_title: 'Chiefs 31-10 Broncos (Sep 14, 2026) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes: 'Final score 31-10 Chiefs; Mahomes\' return from a torn ACL.',
+          },
+          {
+            outlet: 'BBC Sport',
+            url: 'https://www.bbc.co.uk/sport/articles/cqx2z5edy37po',
+            source_title: 'Taylor Swift attends Chiefs season opener',
+            publisher: 'BBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Paolo Villanueva, Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'Reference photo: Taylor on the Eras Tour in London, Aug. 2024 — not the Sept. 14, 2026 game.',
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-all-music-videos-on-spotify-2026',
+      year: 2026,
+      month: 9,
+      day: 16,
+      category: 'release',
+      title: 'All 58 of Taylor\'s music videos land on Spotify, Eras play/pause animations restored',
+      snippet:
+        'On September 16, 2026 Spotify made Taylor\'s full run of 58 official music videos — "Tim McGraw" through the Showgirl-era clips — available in-app for Premium subscribers, and switched the custom Eras-themed play/pause button animations back on across her catalog.',
+      sourceUrl:
+        'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+      moment: {
+        context:
+          'Spotify announced on September 16, 2026 that Taylor\'s complete catalog of 58 official music videos is now available to watch inside the app for Premium subscribers, spanning her whole run from 2006\'s "Tim McGraw" to the newest Showgirl-era clips. The rollout closes a brief gap earlier in the year when a handful of recent videos — "Opalite" among them — went up on YouTube first and skipped Spotify for a couple of days.\n\nAlongside the videos, Spotify restored the custom Eras-themed play/pause button animations across her catalog — the small per-album flourishes that light up the player when a song is paused and resumed. Spotify framed the move in its own newsroom post; Billboard and Music Business Worldwide covered it the same week, both noting the videos are a Premium-tier feature rather than something free listeners can watch.',
+        sources: [
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+            source_title: 'Taylor Swift\'s Music Video Catalog Comes to Spotify',
+            publisher: 'Spotify',
+            source_type: 'official',
+            accessed_at: '2026-09-17',
+            reliability_score: 5,
+            notes:
+              'Spotify\'s own primary announcement: all 58 official music videos available to Premium subscribers and Eras-themed play/pause animations restored, published September 16, 2026.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-music-videos-all-now-on-spotify-1236341630/',
+            source_title: 'All of Taylor Swift\'s Music Videos Are Now on Spotify',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage corroborating the rollout and the Premium-only availability (behind a paywall; corroborated against multiple trade reports the same week).',
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/all-58-taylor-swift-music-videos-land-on-spotify-seven-months-after-opalite-skipped-youtube-for-two-days/',
+            source_title: 'All 58 Taylor Swift music videos land on Spotify',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes:
+              'Trade-press coverage confirming the 58 count and situating it against the earlier "Opalite" YouTube-first window.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-luminate-trust-the-fans-vinyl-2026',
+      year: 2026,
+      month: 9,
+      day: 4,
+      category: 'business',
+      title: 'Luminate\'s "trust the fans" report: Showgirl is 2025\'s top-selling US vinyl',
+      snippet:
+        'A Luminate Intelligence report reported September 4, 2026 lays out Taylor\'s physical-sales strategy — album-to-date physical figures of 3.3M for Midnights, 3.7M for The Tortured Poets Department and 4.1M for The Life of a Showgirl — and ties the 11 Showgirl vinyl variants to its run as the best-selling vinyl release in the US in 2025.',
+      sourceUrl:
+        'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          'A Luminate Intelligence report — Luminate is the industry data firm behind the official US sales and streaming counts — characterized Taylor\'s approach to physical formats as "trust the fans," and the numbers it cited make the case. Album-to-date physical sales it reported run 3.3 million for Midnights, 3.7 million for The Tortured Poets Department and 4.1 million for The Life of a Showgirl: each album outselling the last on physical alone, in an era when physical is a rounding error for most artists. Yahoo Entertainment reported those album-to-date figures and the "trust the fans" framing.\n\nThe Showgirl figure was built on a deliberate variant strategy: the report counted 11 separate vinyl editions of the album released between August and November 2025, and a completist chasing every one would have spent more than $330 before tax. That breadth carried through to Luminate\'s year-end accounting, where — as Billboard and Variety both reported — The Life of a Showgirl finished 2025 as the top-selling album in the United States and helped push US vinyl to its 19th straight year of growth, the year\'s top vinyl release.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+            source_title: 'Luminate report: Taylor Swift fans drive millions in physical album sales',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Reports Luminate Intelligence\'s "trust the fans" analysis: physical album-to-date sales (Midnights 3.3M, TTPD 3.7M, Showgirl 4.1M), 11 Showgirl vinyl editions Aug–Nov 2025 (>$330 for a completist).',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end report naming The Life of a Showgirl the top-selling album of 2025 in the US.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vinyl-sales-rose-19th-consecutive-year-2025-luminate-year-end-report-1236630636/',
+            source_title: 'Led by Taylor Swift, U.S. Vinyl Sales Rose for 19th Consecutive Year in 2025: Luminate Year-End Report',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end vinyl data — US vinyl up for a 19th straight year, led by Taylor Swift, with Showgirl the year\'s top vinyl release.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-forbes-400-2026-missed-cut',
+      year: 2026,
+      month: 9,
+      day: 17,
+      category: 'business',
+      title: 'Taylor is among a record 590 US billionaires too "poor" for the 2026 Forbes 400',
+      snippet:
+        'Forbes\' 2026 Forbes 400 pushed the cutoff to join the 400 richest Americans up to $4.4 billion, and a record 590 US billionaires fell below it — Taylor among them, alongside Oprah Winfrey and Sam Altman — even though every one of them is still a billionaire.',
+      sourceUrl:
+        'https://www.forbes.com/sites/kirkogunrinde/2026/09/17/a-record-590-us-billionaires-arent-rich-enough-to-make-the-forbes-400-list/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          'The headline reads like a demotion and isn\'t one. When Forbes published its 2026 Forbes 400 — the annual ranking of the 400 richest Americans — the price of admission had climbed to $4.4 billion, up $600 million from a year earlier, and a record 590 US billionaires landed below that line. Taylor was one of them, named in Forbes\' own writeup next to Oprah Winfrey and OpenAI\'s Sam Altman: all billionaires, none of them rich enough this year to crack the top 400.\n\nThe bar moved, not Taylor. Forbes still pegs her fortune at around $2 billion, and she has been a billionaire since October 2023 — the first musician to reach ten figures primarily on the strength of her own songs and performances rather than an outside business, powered by the Eras Tour\'s record gross and the value of her re-recorded catalog. What changed is the top of the list: Forbes tied the higher cutoff to the AI and data-center boom and a stock market near record highs lifting the very largest fortunes, so the 400 now hold a combined $8 trillion, up from $6.6 trillion the year before. Being a billionaire simply buys less standing at the summit than it did a year ago.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/kirkogunrinde/2026/09/17/a-record-590-us-billionaires-arent-rich-enough-to-make-the-forbes-400-list/',
+            source_title: 'Oprah Winfrey, Taylor Swift, Sam Altman: The Billionaires Too Poor To Make The 2026 Forbes 400 List',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 5,
+            notes:
+              'Forbes\' own list coverage: 2026 Forbes 400 cutoff at $4.4B (up $600M), a record 590 US billionaires below it, Taylor (est. ~$2B) named alongside Oprah Winfrey and Sam Altman.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/chasewithorn/2026/09/15/the-2026-forbes-400-list-of-wealthiest-americans-facts-and-figures/',
+            source_title: 'The 2026 Forbes 400 List Of Wealthiest Americans: Facts And Figures',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 5,
+            notes:
+              'Forbes\' facts-and-figures companion: the 400 worth a combined $8 trillion (up from $6.6T), the $4.4B minimum, and the AI/data-center boom behind the higher threshold.',
+          },
+          {
+            outlet: 'Yahoo Finance',
+            url: 'https://finance.yahoo.com/markets/stocks/articles/richest-americans-today-forbes-drops-221105964.html',
+            source_title: 'Who are the richest Americans today? Forbes drops 2026 ranking',
+            publisher: 'Yahoo Finance',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 4,
+            notes:
+              'Independent (non-Forbes) corroboration of the framework: confirms the "unprecedented $4.4 billion" minimum and that a record 590 American billionaires were "too poor" to make the 2026 Forbes 400. Does not itself name Taylor — her specific inclusion is carried by the primary Forbes piece above.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption:
+              'Reference photo: Taylor at the 2019 iHeartRadio Music Awards — not tied to the Sept. 2026 Forbes list.',
+            kind: 'reference',
+            focalPoint: '50% 25%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-brad-pitt-wedding-dance-floor',
+      year: 2026,
+      month: 9,
+      day: 16,
+      category: 'relationship',
+      title: 'Brad Pitt on losing Ines de Ramon "in the melee" at Taylor and Travis\'s wedding',
+      snippet:
+        'At the Sept. 16 Nashville premiere of his film "Heart of the Beast," Brad Pitt — a guest at Taylor and Travis Kelce\'s July 3 Madison Square Garden wedding — told Entertainment Tonight he briefly lost girlfriend Ines de Ramon "on the dance floor" during a reception he put at 10 to 12 hours, calling it "the wedding of the century."',
+      sourceUrl:
+        'https://www.justjared.com/2026/09/17/brad-pitt-lost-ines-de-ramon-taylor-swift-travis-kelce-wedding/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+      moment: {
+        context:
+          'Working the red carpet at the Nashville premiere of his film "Heart of the Beast" on Sept. 16, 2026, Brad Pitt gave Entertainment Tonight a guest\'s-eye postcard from the July 3 wedding at Madison Square Garden. He and girlfriend Ines de Ramon were there, and somewhere in a reception that big he lost track of her: "It was big, and yeah, at one point, I lost her in the melee, on the dance floor," he said, adding that they found each other again "not long" after — in a room where, as he told it, "there\'s always someone to go, \'She went that way.\'"\n\nPitt put the celebration at roughly "10 hours, maybe 12," called it "such an amazing night" and reached for the same superlative a lot of guests have: "the wedding of the century." The Vault keeps this to what Pitt himself said — his own vantage on his own evening — and leaves out the framings some coverage bolted on around it. It sits alongside the other guest accounts already on the record (Jonathan Thomas\'s podcast recollection, best man Jason Kelce\'s), adding one more sightline onto a night that produced no official photos rather than any new claim about the couple.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/17/brad-pitt-lost-ines-de-ramon-taylor-swift-travis-kelce-wedding/',
+            source_title: 'Brad Pitt Lost Girlfriend Ines de Ramon at Taylor Swift & Travis Kelce\'s Wedding',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 3,
+            notes:
+              'Quotes Pitt\'s ET interview at the Sept. 16 "Heart of the Beast" Nashville premiere: attended July 3 MSG wedding with Ines de Ramon, "lost her in the melee, on the dance floor," reunited "not long" after, ~10–12 hours, "the wedding of the century."',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/brad-pitt-shares-funny-moment-134556843.html',
+            source_title: 'Brad Pitt Shares Funny Moment From Taylor Swift and Travis Kelce\'s Wedding',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of the same ET remarks corroborating the dance-floor anecdote, the 10–12 hour estimate and the "wedding of the century" quote.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+            credit: 'iHeartRadioCA / Wikimedia Commons, CC BY 3.0',
+            caption:
+              'Reference photo: Taylor at the 2023 MTV VMAs — no official photos of the July 3 wedding were released.',
+            kind: 'reference',
+            focalPoint: '50% 20%',
+          },
+        ],
+      },
+    },
+    {
+      // Companion piece to the same-day countdown-reveal post (t_10b41f23):
+      // fan-theory/community-reaction coverage of the Sept. 22, 2026
+      // taylorswift.com countdown, filed while the countdown was still
+      // running/just resolving. Framed explicitly as "what fans think it
+      // means," never as confirmed fact—confidence is sub-'confirmed' on
+      // purpose so the UI renders the mandatory Rumor/Reported banner
+      // (docs/content-ops/intake.md's rumor-pipeline bar: "is this a claim
+      // we can later adjudicate, from someone we can name?"—yes, this is
+      // an attributed, dated report of what fans were saying, not our own
+      // speculation).
+      slug: 'countdown-000-bio-fan-theories-2026-09-22',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'release',
+      confidence: 'plausible',
+      title: "Swifties theorize: what fans think today's website countdown means",
+      snippet:
+        "A \"sh0w business f0r y0u\" Instagram bio swap and a new taylorswift.com countdown ending 2 p.m. ET sent fan communities into overdrive—theories ranged from a Debut (Taylor's Version) tease to a Showgirl deluxe/encore to a VMA Artist Director Honors moment.",
+      sourceUrl:
+        'https://www.cosmopolitan.com/entertainment/music/a73835889/taylor-swift-instagram-bio-change-000-debutation-theories/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. None of this is confirmed—Taylor and her team had not addressed the bio change or the countdown's purpose as of this writing, and every reading here is fans/press pattern-matching on past rollouts, not an official statement.",
+        sources: [
+          {
+            outlet: 'Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/music/a73835889/taylor-swift-instagram-bio-change-000-debutation-theories/',
+            source_title: "Taylor Swift's \"000\" Instagram Bio Fuels 'Debutation' Theories",
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+            notes:
+              "Reports the Instagram/X bio swap to \"sh0w business f0r y0u\", the same-day website countdown ending 2 p.m. ET, and catalogs the \"000\"/angel-number, fresh-start, new-label and midnight/VMA-callback fan reads.",
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://justjared.com/2026/09/22/taylor-swift-changes-instagram-bio-fans-debate-000-theories-what-could-it-mean',
+            source_title: 'Taylor Swift Changes Instagram Bio, Fans Debate 000 Theories: What Could It Mean?',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+            notes: "Independent same-day corroboration of the exact bio text and the \"three zeros\" framing fans immediately seized on.",
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.com/music/music-news/taylor-swift-countdown-clock-website-clues-1236344546',
+            source_title: "Taylor Swift Updates Website With New Countdown After Dropping Cryptic '0' Clues",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+            notes:
+              "Corroborates the countdown and ties fan theories to both the Showgirl-deluxe reading and the Debut (Taylor's Version) 20th-anniversary reading, including the \"0:00 = clock reset\" fan quote.",
+          },
+          {
+            outlet: 'Reddit—r/TaylorSwift Theory Megathread: September 2026',
+            url: 'https://www.reddit.com/r/TaylorSwift/comments/1w44ay0/theory_megathread_september_2026/',
+            source_title: 'Theory Megathread: September 2026',
+            source_type: 'social',
+            notes:
+              "Primary fan-community source for the specific predictions cited above (Showgirl deluxe/encore, concert-film box set, TS13 minority view, site-crash jokes)—read live during the countdown's final minutes via the thread's own top-level comments; cited as evidence the discussion happened, never as confirmation of any theory itself.",
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'Reference photo—not tied to the Sept. 22, 2026 bio change or countdown.',
+            kind: 'reference',
+            focalPoint: '50% 25%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'patient-zero-single-announced',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'release',
+      // Priority fix (2026-09-23, founder escalation): this is breaking news —
+      // a new single announcement, her first release since The Life of a
+      // Showgirl — and the same-day alphabetical tiebreak (era-feed.ts's
+      // entryTiebreakId) was sorting it below two lower-priority same-day
+      // items (a routine award-honor mention and an unconfirmed fan-theory
+      // roundup). `significance: 'defining'` forces the hero-tier/top-of-feed
+      // placement feed-tiers.ts already gives real career-defining moments
+      // (same mechanism as showgirl-announced-on-new-heights, msg-wedding,
+      // harris-endorsement-cat-lady) — an existing override, not a new one.
+      significance: 'defining',
+      title: 'Taylor announces "The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero," out September 25',
+      snippet:
+        'A countdown clock and a "sh0w business f0r y0u" bio swap teased a single, "Patient Zero" — then Taylor revealed the bigger picture: "The Life of a Showgirl: The Encore," an expanded edition adding four new songs (Patient Zero, Pink Clouding, Cleveland!, Babylon), out Friday, Sept. 25. She wrote them in Sweden with Max Martin and Shellback while celebrating the album\'s record first week.',
+      sourceUrl: 'https://www.instagram.com/p/DdmVHc2R30b/',
+      thumbnailUrl: null,
+      moment: {
+        // Real-photo fix (2026-09-23, founder escalation): the socialPost
+        // embed below is not a feed-card thumbnail (MomentCardButton.tsx only
+        // reads `images` via hasRealPrimaryImage/primaryImageRef), so this
+        // page rendered the generic era-art placeholder on every card/list
+        // view despite "showing" the announcement post in its detail view.
+        // Added a real, verified photo (HTTP 200, image/jpeg, vision-
+        // confirmed as Taylor Swift) from ABC News's coverage of this exact
+        // story, credited to AP per their caption — same convention as
+        // harris-endorsement-cat-lady (a contextual photo tied to the story,
+        // not necessarily the exact announcement frame, since Instagram CDN
+        // urls are signed/expiring and not on the image-host allowlist).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/93847b71-3ff8-4e39-ba66-9f2ef300b367/taylor-swift-ap-gmh-260922_1790100809103_hpMain.jpg?w=750',
+            credit: 'Natacha Pisarenko/AP Photo (via ABC News)',
+            caption: 'Taylor Swift, whose Sept. 22, 2026 Instagram post announced the new single "Patient Zero."',
+            kind: 'primary',
+            focalPoint: '55% 35%',
+          },
+        ],
+        context:
+          'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.\\n\\nThe next day, Sept. 23, Taylor gave it a name and a shape: "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album that adds four brand-new songs — "Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon." She framed the release as a thank-you for the record-setting first week the original album posted, and said the new tracks were not leftovers from the Showgirl sessions but material she wrote afterward, during a celebratory trip to Sweden with her longtime collaborators Max Martin and Shellback. The Encore lands Friday, Sept. 25 — the same weekend she receives the inaugural Artist Director Honor at the 2026 MTV VMAs.',
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DdmVHc2R30b',
+          label:
+            'The reveal post: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours."',
+          postedOn: '2026-09-22',
+        },
+        sources: [
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-announces-patient-zero-new-single-due-friday',
+            source_title: 'Taylor Swift Announces "Patient Zero," New Single Due Friday',
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Independent',
+            url: 'https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-new-song-patient-zero-b3054479.html',
+            source_title: "Taylor Swift announces new single 'Patient Zero'",
+            publisher: 'The Independent',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-announces-single-patient-180930000.html',
+            source_title: "Taylor Swift Announces New Single 'Patient Zero' as She Teases Collector's Edition CDs",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+            notes:
+              'confirms the Instagram caption verbatim, the three CD editions, the Spotify play/pause animations, the "sh0w business f0r y0u" bio change with zeroes replacing O, and the Sept. 27 VMAs Artist Director Honor.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-life-of-a-showgirl-the-encore-4-new-songs-1236708341/',
+            source_title: 'Taylor Swift Announces Life of a Showgirl: The Encore With 4 New Songs',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+            notes:
+              'confirms the Sept. 23 "The Life of a Showgirl: The Encore" reveal and all four new song titles — "Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon."',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/',
+            source_title: 'Taylor Swift Announces ‘The Life of a Showgirl: The Encore’ Album With Four New Songs',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/',
+            source_title: 'Taylor Swift Reveals ‘The Life Of A Showgirl: The Encore’ With Four New Songs',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+            notes:
+              'quotes Taylor\'s Instagram announcement directly and reports the Sweden writing trip with Max Martin and Shellback framed as a thank-you for the album\'s record first week.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'vma-2026-artist-director-honor',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'music',
+      significance: 'notable',
+      title: 'MTV creates a new VMA honor — the Artist Director award — and names Taylor its first recipient',
+      snippet:
+        'MTV announced that Taylor will be the inaugural recipient of the Artist Director Honor at the 2026 Video Music Awards on Sept. 27, a new award recognizing a directorial voice built across her own music videos — the artist with more Best Direction Moonmen than anyone.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-mtv-vmas-2026-inaugural-artist-director-award-1236871205/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'MTV announced that Taylor will receive the first-ever Artist Director Honor at the 2026 Video Music Awards, a newly created award the network describes as celebrating a sustained, influential body of work from an artist who has pushed creative boundaries and developed a clear directorial voice. She is the inaugural recipient — the award did not exist before her — and it lands on a résumé that already leads the category it honors: Taylor has won Best Direction four times, for "The Man," "All Too Well: The Short Film," "Anti-Hero" and "Fortnight," more Best Direction Moonmen than any other artist in VMA history.\\n\\nThe honor is separate from the competitive races, where Taylor goes into the night with eleven nominations, led by a Video of the Year run and six craft nods for the self-directed "The Fate of Ophelia" (see the nominations entry). The 2026 VMAs air live on Sunday, Sept. 27 from the Peacock Theater in Los Angeles — broadcast on CBS with an MTV simulcast, and hosted by Snoop Dogg. (The venue is the Peacock Theater; do not read that as the streaming service.) An honorary award is a different thing from the Moonmen counted in the all-time win tally, so this recognition sits alongside, not inside, the record chase that the competitive categories carry on Sept. 27.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-mtv-vmas-2026-inaugural-artist-director-award-1236871205/',
+            source_title: 'Taylor Swift to Receive Inaugural Artist-Director Award at 2026 MTV VMAs',
+            publisher: 'Variety',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-artist-director-honors-2026-mtv-vmas-1235629611/',
+            source_title: 'Taylor Swift to Receive Artist Director Honors at 2026 MTV VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/2026-vmas-taylor-swift-artist-director-honors-1236706910/',
+            source_title: '2026 VMAs: Taylor Swift to Receive Artist Director Honors',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+        ],
+        // The honor recognizes her self-directed music-video work, so a frame
+        // from "The Fate of Ophelia" — the self-directed 2026 video up for
+        // Video of the Year and six craft VMAs — is the apt visual. Same
+        // official upload (id ko70cExuzZM) verified elsewhere in this file;
+        // maxresdefault re-verified this run: HTTP 200, image/jpeg, 1280x720.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Fate of Ophelia" music video thumbnail, YouTube)',
+            caption:
+              'A frame from the self-directed "The Fate of Ophelia" — the kind of directorial work the new Artist Director Honor recognizes.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-rhode-island-taylor-swift-tax-lawsuit',
+      year: 2026,
+      month: 8,
+      day: 20,
+      category: 'business',
+      significance: 'notable',
+      title: 'More than 40 homeowners sue over the “Taylor Swift tax” — the surtax named for her Watch Hill estate',
+      snippet:
+        'A group of more than 40 Rhode Island second-home owners filed a constitutional challenge in Newport County Superior Court to the state’s new surtax on high-value vacation homes — the levy the press nicknamed the “Taylor Swift tax” for her Watch Hill estate. Taylor is not a party to the suit.',
+      sourceUrl:
+        'https://news.bloombergtax.com/daily-tax-report/taylor-swift-tax-draws-first-suit-from-rhode-island-homeowners',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The surtax that took effect on July 1, 2026 has drawn its first court challenge. In mid-August 2026, more than 40 Rhode Island homeowners — owners of second homes assessed above $1 million — filed suit in Newport County Superior Court through the law firm Hinckley Allen, asking the court to strike down the levy the press had already nicknamed the "Taylor Swift tax." The name comes from her Watch Hill estate, the most famous property the surtax reaches; Taylor herself is not a plaintiff and not a defendant, and the suit is not about her.\\n\\nThe tax adds $5 for every $1,000 of assessed value above $1 million on non-owner-occupied homes, with the revenue earmarked for the state\'s Low-Income Housing Tax Credit Fund. The homeowners\' core argument is a "no taxation without representation" one: most of the people who owe it are out-of-state residents who cannot vote in Rhode Island, and the plaintiffs contend the levy singles them out unconstitutionally and bears no reasonable relationship to its stated housing purpose. The filing itself is the news here — a documented legal challenge — not any claim about Taylor, whose only connection is that a state tax bill ended up carrying her name in headlines.',
+        sources: [
+          {
+            outlet: 'Bloomberg Tax',
+            url: 'https://news.bloombergtax.com/daily-tax-report/taylor-swift-tax-draws-first-suit-from-rhode-island-homeowners',
+            source_title: "'Taylor Swift Tax' Draws Suit From Rhode Island Homeowners",
+            publisher: 'Bloomberg Tax',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Providence Business News',
+            url: 'https://pbn.com/lawsuit-challenges-rhode-islands-taylor-swift-tax/',
+            source_title: "Lawsuit challenges Rhode Island's 'Taylor Swift Tax'",
+            publisher: 'Providence Business News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'GoLocalProv',
+            url: 'https://www.golocalprov.com/news/40-plus-rhode-island-homeowners-file-challenge-to-taylor-swift-tax',
+            source_title: "40 Plus Rhode Island Homeowners File Challenge to 'Taylor Swift' Tax",
+            publisher: 'GoLocalProv',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+          },
+        ],
+        // Privacy: this item is about a tax and a lawsuit, never her home. No
+        // property imagery is used — the visual is a neutral, reusable portrait.
+        // upload.wikimedia.org file re-verified this run: HTTP 200, image/jpeg,
+        // 840x1229. License CC BY 3.0, credit iHeartRadioCA.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_2024_%28cropped%29.jpg',
+            credit: 'iHeartRadioCA, CC BY 3.0, via Wikimedia Commons',
+            caption:
+              'Taylor Swift in 2024. The Rhode Island surtax that reaches her Watch Hill estate carries her name only by nickname; she is not a party to the homeowners\' suit.',
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'patient-zero-released-spotify-records',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'music',
+      significance: 'notable',
+      title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
+      snippet:
+        'The Life of a Showgirl: The Encore landed Friday, Sept. 25, adding four new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" On day one, Spotify said Taylor became the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year.',
+      sourceUrl: 'https://www.youtube.com/watch?v=BpR280fXISA',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.',
+        // No `video` field on purpose: the lyric-video frame is used as a plain
+        // credited photo (and the video is cited as a source below). Declaring
+        // it as `video` here would make the ytimg-still-as-hero the moment's own
+        // video frame, which the #2080/#2081 feed-card rule suppresses on the
+        // card and which the video-affordance real-vault count tests (issue
+        // #4134) treat as a tripwire — a seed-only lane cannot move those counts.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/BpR280fXISA/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: sparkle-lettered "PATIENT ZER(TAYLOR SWIFT)" title card
+            // on a bare wall — the official lyric-video card. oEmbed verified:
+            // author_name "Taylor Swift", author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" lyric video, YouTube)',
+            caption:
+              'The official lyric video for "Patient Zero," posted to Taylor\'s YouTube the weekend The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/',
+            source_title: 'Taylor Swift Breaks Two Spotify Records for 2026, Including Most-Streamed Female Artist in a Day',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-spotify-record-single-day-patient-zero-1236348113/',
+            source_title: 'Taylor Swift Sets 2026 Single-Day Spotify Record, Thanks to "The Life of a Showgirl: The Encore"',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Irish News',
+            url: 'https://www.irishnews.com/entertainment/taylor-swift-breaks-spotify-2026-record-as-most-streamed-female-artist-in-a-day-S6IQNR5GHNN5XHO7UHS2G536HQ/',
+            source_title: 'Taylor Swift breaks Spotify 2026 record as most-streamed female artist in a day',
+            publisher: 'The Irish News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+            notes:
+              'confirms both 2026 Spotify records and the four Encore songs — Patient Zero, Pink Clouding, Babylon, Cleveland! — with no stream counts given.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/',
+            source_title: "Taylor Swift's 'Patient Zero' Music Video To Debut At VMAs",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+            notes:
+              'source for the full music video — directed by Taylor, featuring Colin Farrell and Dakota Johnson — premiering during the 2026 MTV VMAs on Sept. 27. The lyric video (this entry\'s visual) is separate and already live.',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
+            source_title: "Taylor Swift's The Life of a Showgirl: The Encore Doubles Down",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-29',
+            reliability_score: 4,
+            notes:
+              'Release-day review of the four new tracks; source for the mixed-to-cool critical reception and the quoted verdict ("the encore sounds a lot like the show we just sat through" / "a predictable, bordering-on-bland caricature").',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'oheka-castle-blank-space-auction-2026',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'business',
+      title: 'The "Blank Space" castle heads to auction — Oheka Castle goes up for sale Oct. 27',
+      snippet:
+        'Oheka Castle — the French Renaissance château on Long Island where Taylor filmed the "Blank Space" video — is headed to public auction on Oct. 27, 2026, part of a Chapter 11 bankruptcy. Built in 1919 for financier Otto Kahn and long a hotel and event venue, the 127-room estate is often called the second-largest private residence ever built in America.',
+      sourceUrl:
+        'https://www.forbes.com/sites/maryroeloffs/2026/09/25/sprawling-new-york-castle-with-a-taylor-swift-connection-headed-to-auction/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Oheka Castle, the 1919 Gold Coast estate in Huntington, New York that doubled as the palace in Taylor\'s 2014 "Blank Space" video, is going up for public auction on Oct. 27, 2026, Forbes and Long Island outlets reported. The sale is part of the property\'s Chapter 11 bankruptcy; per Forbes the lot — offered through Concierge Auctions with Adam Modlin of The Modlin Group — carries no minimum starting bid and includes an adjacent 5.13-acre parcel already approved by the Town of Huntington for 95 luxury condominiums.\n\nThe château is a landmark independent of any pop-music connection: built for financier and arts patron Otto Kahn by the architects Delano & Aldrich, it spans roughly 112,895 square feet across 23 acres, runs to 127 rooms in French Renaissance style, and is frequently cited as the second-largest private residence ever built in the United States. It has spent its modern life as a hotel and event venue, and is one of the estates said to have helped inspire Fitzgerald\'s "The Great Gatsby."\n\nFor Swifties the hook is narrower: this is the palace of "Blank Space," the 1989 single whose video turned a lavish estate into a stage for the song\'s over-the-top romance-and-revenge story. Forbes led its auction coverage with exactly that connection, noting the video "brought another wave of attention to the castle." This entry lives in the current era because that is when the auction news broke — the "Blank Space" tie belongs to 1989, but the event being recorded is the September 2026 sale announcement.',
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/OHEKA_CASTLE_exterior_view_2.jpg/1280px-OHEKA_CASTLE_exterior_view_2.jpg',
+            // upload.wikimedia.org (allowlisted host). 1280px thumbnail
+            // curl-verified 200 image/jpeg, downloaded and viewed: the French
+            // Renaissance château and its terrace/arcade, matching the subject.
+            // Commons file OHEKA_CASTLE_exterior_view_2.jpg, License CC BY-SA 4.0,
+            // author OhekaCastleNY.
+            focalPoint: '50% 42%',
+            credit: 'OhekaCastleNY, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Oheka Castle in Huntington, New York — the Long Island château used in Taylor\'s 2014 "Blank Space" video, headed to public auction on Oct. 27, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maryroeloffs/2026/09/25/sprawling-new-york-castle-with-a-taylor-swift-connection-headed-to-auction/',
+            source_title: "New York Castle From Taylor Swift's 'Blank Space' Music Video Headed To Auction",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+            notes:
+              'source for the Oct. 27 Concierge Auctions/Modlin Group sale, no starting bid, the adjacent 5.13-acre parcel approved for 95 condos, the estate specs (112,895 sq ft, 23 acres, 127 rooms, second-largest US private residence), and the "Blank Space" connection.',
+          },
+          {
+            outlet: 'LongIsland.com',
+            url: 'https://www.longisland.com/articles/09-26-26/oheka-castle-is-headed-to-public-auction-oct-27.html',
+            source_title: 'Oheka Castle is Headed to Public Auction Oct. 27',
+            publisher: 'LongIsland.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Long Island Guide',
+            url: 'https://www.longislandguide.com/2026/09/20/oheka-castle-headed-to-auction-as-historic-long-island-estate-faces-change-in-ownership/',
+            source_title: 'Oheka Castle Headed to Auction as Bankruptcy Expected to Bring Change in Ownership to Historic Long Island Estate',
+            publisher: 'Long Island Guide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'cleveland-lyric-video-kelce-road-trip',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'relationship',
+      significance: 'notable',
+      title: '"Cleveland!" gets a lyric video — home footage from a road trip through Travis\'s hometown',
+      snippet:
+        'Alongside "Cleveland!," one of four new songs on The Life of a Showgirl: The Encore, Taylor posted a lyric video built from never-before-seen home footage of the road trip she and Travis Kelce took through his Cleveland Heights, Ohio hometown — Kelce at the wheel, Taylor filming from the passenger seat, and a closing shot of a white dress and roller skates marked with 13 hearts.',
+      sourceUrl: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.',
+        // No `video` field on purpose (same reasoning as
+        // 'patient-zero-released-spotify-records' above): the official lyric-video
+        // frame is used as a plain credited photo and the video is cited as a
+        // source. Declaring `video` here would make the ytimg still the moment's
+        // own video frame, which the #2080/#2081 feed-card rule suppresses and
+        // the video-affordance real-vault count tests (#4134) treat as a
+        // tripwire a seed-only lane cannot move.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/jfVVXYTZykw/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: an aerial shot of a tree-lined Cleveland Heights
+            // neighborhood with the beaded title word "CLEVELAND" across it — the
+            // official lyric-video card. oEmbed verified: author_name "Taylor
+            // Swift", author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Cleveland!" lyric video, YouTube)',
+            caption:
+              'The official lyric video for "Cleveland!," posted to Taylor\'s YouTube the day The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1436476/taylor-swift-shares-travis-kelce-road-trip-in-cleveland-lyric-video',
+            source_title: 'Taylor Swift Shares Travis Kelce Road Trip in Cleveland! Lyric Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 4,
+            notes:
+              'source for the road-trip footage — Kelce driving in a blue striped shirt/black cap/gold chain, the freeway sign, Taylor in the passenger seat, the shopping strip and neighborhood, and the return to Cleveland Heights High School.',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/26/taylor-swift-shares-never-before-seen-footage-with-travis-kelce-in-cleveland-lyric-video-watch-now/',
+            source_title: "Taylor Swift Shares Never-Before-Seen Footage with Travis Kelce in 'Cleveland!' Lyric Video",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 3,
+            notes:
+              'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
+          },
+        ],
+      },
+    },
+    {
+      // The Sept. 27 ceremony is the OUTCOME of the pre-show entries above —
+      // 'vma-2026-artist-director-honor' (the Sept. 22 announcement of the
+      // honor) and 'patient-zero-released-spotify-records' (which flagged the
+      // full "Patient Zero" video as "set to premiere" at the VMAs). This is a
+      // new wavetop for the night itself, not a duplicate of either.
+      slug: 'showgirl-vmas-2026-ceremony',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      significance: 'notable',
+      title: 'Most decorated in VMAs history: Taylor sweeps the night, dedicates Video of the Year to Dolly Parton',
+      snippet:
+        'At the 2026 MTV VMAs, Taylor accepted the inaugural Artist Director Honors, won Best Direction for "Opalite" and Video of the Year for "The Fate of Ophelia," and left the most-decorated artist in the show\'s history — past Beyoncé. She dedicated Video of the Year to "the ultimate showgirl," the late Dolly Parton, and premiered the self-directed "Patient Zero" video.',
+      sourceUrl:
+        'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 MTV Video Music Awards, held Sunday, Sept. 27 at the Peacock Theater in Los Angeles and hosted by Snoop Dogg, turned into a record-setting night for Taylor. She accepted the inaugural Artist Director Honors — the award MTV created for her and announced five days earlier — presented on stage by Dakota Johnson, then won Best Direction for "Opalite" and, in the night\'s marquee category, Video of the Year for the self-directed "The Fate of Ophelia."\n\nThe two competitive Moon Persons lifted her career total to 32, moving her past Beyoncé (30) as the most-awarded artist the show has ever had; counted with the honorary Artist Director trophy, she left the Peacock Theater with 33 VMAs, more than anyone in the ceremony\'s history. Madonna led the field on the night with a haul that included Artist of the Year.\n\nAccepting Video of the Year, Taylor turned the moment into a tribute. She dedicated the award to "the ultimate showgirl," the late Dolly Parton — who had died the month before — praising the vividness of her storytelling: "Every single song that she wrote, her storytelling was so vivid and so rich... I think we were all very lucky to share this planet with Dolly Parton for a time." Kacey Musgraves paid her own tribute to Parton during the broadcast.\n\nThe night also delivered the visual the Encore rollout had been building toward: the full "Patient Zero" music video, which Taylor directed with cinematography by Emmanuel Lubezki, had its world premiere during the show. The star-filled cut features Dakota Johnson and Colin Farrell, with a cameo from Cara Delevingne as the "other woman" and a black-tie-party appearance by Rams quarterback Matthew Stafford and his wife, Kelly.',
+        // Fresh, unused stage photo of this exact moment — the Artist Director
+        // Honors acceptance — on NBC News's own reusable Cloudinary CDN
+        // (media-cldnry.s-nbcnews.com, on CONFIG.hostAllowlist). curl-verified
+        // HTTP 200 image/jpeg, 1500x1000, 138KB, downloaded and vision-confirmed:
+        // Taylor at the podium holding a Moon Person in a black halter and silver
+        // sequin skirt in front of the red "ARTIST DIRECTOR" screen. Photographer
+        // credit and caption pulled from the NBC article: Kevin Winter/Getty
+        // Images, "Taylor Swift accepts the Artist Director Honors." Not a
+        // watermarked getty comp, no signed/expiring token on the URL.
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/taylor-swift-vmas-lc-260927-7156aa.jpg',
+            credit: 'Kevin Winter/Getty Images, via NBC News',
+            caption:
+              'Taylor accepts the inaugural Artist Director Honors at the 2026 MTV VMAs on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'primary',
+            focalPoint: '50% 28%',
+          },
+          {
+            // Second, distinct frame from the same NBC News coverage: a press-line
+            // portrait at the 2026 VMAs (not the podium acceptance above). NBC's
+            // own reusable Cloudinary CDN (media-cldnry.s-nbcnews.com, allowlisted).
+            // curl-verified HTTP 200 image/jpeg, 1667x2500, ~279KB, downloaded and
+            // vision-confirmed: Taylor in a black halter dress with bangs against
+            // the blue VMAs step-and-repeat. Credit maps in the article HTML to
+            // Frazer Harrison/Getty Images (the podium frame is Kevin Winter);
+            // caption from NBC's schema. Not a watermarked getty comp; no signed URL.
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/260927-mtv-vma-taylor-swift-ww-1707-b09bea.jpg',
+            focalPoint: '42% 24%',
+            credit: 'Frazer Harrison/Getty Images, via NBC News',
+            caption:
+              'Taylor at the 2026 MTV VMAs at the Peacock Theater in Los Angeles on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'archival',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+            source_title:
+              'Taylor Swift surpasses Beyoncé to become most decorated solo artist in MTV VMAs history',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 5,
+            notes:
+              'Primary source for the most-decorated record (past Beyoncé, 30 to 33), the Sept. 27 Peacock Theater ceremony, the "Patient Zero" premiere, and the Emmanuel Lubezki cinematography credit.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/2026-vmas-highlights-madonna-taylor-swift/',
+            source_title:
+              'Madonna wins 2026 MTV VMAs Artist of the Year, Taylor Swift accepts Artist Director Honor',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'Confirms the Artist Director Honors acceptance, Madonna as Artist of the Year, and the Kacey Musgraves tribute to Dolly Parton.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-extends-record-mtv-vmas-win-1236713296/',
+            source_title: 'Taylor Swift Wins Video of the Year at 2026 MTV VMAs, Extends Her Record',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'hollywoodreporter.com is bot-gated in the run environment (a tollbit 402 redirect), so the page could not be loaded directly; the Video of the Year win and the record were confirmed against NBC News and CBS News, which did load.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-dolly-parton-vmas-video-of-the-year-ophelia-1235631582/',
+            source_title:
+              'Taylor Swift Pays Tribute to Dolly Parton While Accepting Video of the Year Award at 2026 VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is bot-gated (tollbit 402) in the run environment; the Dolly Parton dedication and "ultimate showgirl" quote were confirmed against NBC News and CBS News.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/',
+            source_title: "Taylor Swift Premieres Star-Filled 'Patient Zero' Music Video at VMAs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'variety.com is bot-gated (tollbit 402) in the run environment; the "Patient Zero" premiere and the Dakota Johnson / Colin Farrell / Cara Delevingne casting were confirmed against NBC News and E! News.',
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo',
+            source_title: "Matthew Stafford makes cameo in Taylor Swift's 'Patient Zero' music video",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes: 'Source for the Matthew Stafford (and wife Kelly) black-tie-party cameo in the "Patient Zero" video.',
           },
         ],
       },

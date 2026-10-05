@@ -256,7 +256,7 @@ export function FeedbackButton() {
                     type="button"
                     onClick={submit}
                     disabled={!msg.trim() || status === 'sending'}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-bg transition-opacity disabled:opacity-40"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity disabled:opacity-40"
                   >
                     {status === 'sending' ? <Loader2 size={14} className="animate-spin" /> : null}
                     {status === 'sending' ? 'Sending…' : 'Send'}

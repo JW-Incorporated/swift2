@@ -9,6 +9,7 @@ import {
   repeatsRecentIgMedia,
   eraArtGuardReason,
   isStaleDue,
+  isStaleApproved,
   recentInstagramPosts,
   countPostedToday,
   bodyHash,
@@ -18,6 +19,12 @@ import {
   mediaUrlsFor,
   MAX_POSTS_PER_RUN,
   MAX_POSTS_PER_PLATFORM_PER_DAY,
+  contentHash,
+  contentHashPayload,
+  approvalSigPayload,
+  approvalStatus,
+  signApproval,
+  verifyApprovalSig,
 } from './queue.mjs';
 
 const now = new Date('2026-07-17T20:00:00Z');
@@ -280,6 +287,32 @@ describe('isStaleDue', () => {
   });
 });
 
+describe('isStaleApproved', () => {
+  const now = new Date('2026-08-11T12:00:00Z');
+
+  it('is false just under the 48h threshold, measured from approval.at', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-09T13:00:00Z' } }, now)).toBe(false);
+  });
+
+  it('is true at/over the 48h threshold, measured from approval.at', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-09T12:00:00Z' } }, now)).toBe(true);
+    expect(isStaleApproved({ approval: { at: '2026-08-01T00:00:00Z' } }, now)).toBe(true);
+  });
+
+  it('respects a custom maxAgeHours', () => {
+    expect(isStaleApproved({ approval: { at: '2026-08-11T11:00:00Z' } }, now, 2)).toBe(false);
+    expect(isStaleApproved({ approval: { at: '2026-08-11T09:00:00Z' } }, now, 2)).toBe(true);
+  });
+
+  it('ignores scheduledAt entirely — a long-overdue schedule with a recent approval is not stale', () => {
+    expect(isStaleApproved({ scheduledAt: '2020-01-01T00:00:00Z', approval: { at: '2026-08-11T11:59:00Z' } }, now)).toBe(false);
+  });
+
+  it('a due-but-recent schedule with a stale approval IS stale', () => {
+    expect(isStaleApproved({ scheduledAt: '2026-08-11T11:59:00Z', approval: { at: '2026-08-01T00:00:00Z' } }, now)).toBe(true);
+  });
+});
+
 describe('summarizeQueueStatus', () => {
   it('is all zeros for an empty queue', () => {
     expect(summarizeQueueStatus([], now)).toEqual({ total: 0, scheduled: 0, due: 0, awaitingApproval: 0 });
@@ -413,5 +446,134 @@ describe('mediaUrlsFor', () => {
 
   it('is an empty array for no media', () => {
     expect(mediaUrlsFor({}, 'https://example.com')).toEqual([]);
+  });
+});
+
+// docs/social/RULINGS-SOCIAL-2.md B1/B5 — approvalStatus v2, and the property the whole
+// mechanism rests on: a hand-written approval object is inert at the
+// verifier. These exercise approvalStatus directly (the VERIFIER); the
+// issuer (who can mint a good one) is exercised in stamp-approval.test.ts.
+describe('approvalStatus (v2, signed)', () => {
+  const key = 'test-key';
+  const approver = 'discord:100000000000000001';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+
+  function validStamp() {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('accepts a correctly signed v2 stamp from an approver, with the key', () => {
+    const stamped = { ...item, approval: validStamp() };
+    expect(approvalStatus(stamped, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+
+  it('a v1 (unsigned) stamp is malformed under v2 — nothing from before 2026-09-11 grandfathers', () => {
+    const v1 = { v: 1, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, contentHash: contentHash(item) };
+    const stamped = { ...item, approval: v1 };
+    const status = approvalStatus(stamped, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toBe('malformed approval record');
+  });
+
+  it('rejects a GitHub login as `by`, even if it is on the approvers list — discord: only', () => {
+    const unsigned = { v: 2, by: 'sffan15-sys', at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const signed = { ...unsigned, sig: signApproval(unsigned, key) };
+    const stamped = { ...item, approval: signed };
+    const status = approvalStatus(stamped, { approvers: ['sffan15-sys'], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('not a discord: identity');
+  });
+
+  it('rejects a hand-written stamp whose sig does not verify — inert at the verifier regardless of who wrote it', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const forged = { ...unsigned, sig: 'hmac-sha256:' + '1'.repeat(64) };
+    const stamped = { ...item, approval: forged };
+    const status = approvalStatus(stamped, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('signature invalid');
+  });
+
+  it('omitting `key` entirely skips signature verification — shape+id+hash only (CI callers)', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    const forged = { ...unsigned, sig: 'hmac-sha256:' + '1'.repeat(64) };
+    const stamped = { ...item, approval: forged };
+    expect(approvalStatus(stamped, { approvers: [approver] })).toEqual({ ok: true });
+  });
+
+  it('passing `key: \'\'` (env var genuinely unset) refuses everything, loud — never a silent pass', () => {
+    const stamped = { ...item, approval: validStamp() };
+    const status = approvalStatus(stamped, { approvers: [approver], key: '' });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('SOCIAL_APPROVAL_KEY is not configured');
+  });
+});
+
+describe('verifyApprovalSig', () => {
+  it('returns false, never throws, on a malformed sig field', () => {
+    expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x', sig: 'not-even-close' }, 'key')).toBe(false);
+    expect(verifyApprovalSig({ v: 2, by: 'discord:1', at: 'x', pr: 1, contentHash: 'sha256:x' }, 'key')).toBe(false);
+    expect(verifyApprovalSig(null, 'key')).toBe(false);
+  });
+});
+
+describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-09-12)', () => {
+  const key = 'test-key';
+  const approver = 'discord:100000000000000001';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+  const sha = 'a'.repeat(40);
+
+  function validV3() {
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha, message: '1', contentHash: contentHash(item) };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('R2: accepts a correctly signed v3 stamp, and rejects the same stamp once `sha` is hand-edited — the SHA is inside the signature', () => {
+    expect(approvalStatus({ ...item, approval: validV3() }, { approvers: [approver], key })).toEqual({ ok: true });
+    const status = approvalStatus({ ...item, approval: { ...validV3(), sha: 'b'.repeat(40) } }, { approvers: [approver], key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toContain('signature invalid');
+  });
+
+  it('a v3 stamp whose sha is not a 40-hex commit id is malformed, signature or not', () => {
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha: 'not-a-sha', message: '1', contentHash: contentHash(item) };
+    const status = approvalStatus({ ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } }, { approvers: [approver], key });
+    expect(status).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('a v2 stamp still verifies under the unchanged v2 payload — already-merged content keeps posting, no migration', () => {
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash(item) };
+    expect(approvalStatus({ ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } }, { approvers: [approver], key })).toEqual({ ok: true });
+    expect(approvalSigPayload(unsigned)).toBe(`2|${approver}|2026-09-20T00:00:00Z|1|${contentHash(item)}`);
+    expect(approvalSigPayload({ ...unsigned, v: 3, sha })).toBe(`3|${approver}|2026-09-20T00:00:00Z|1|${sha}|${contentHash(item)}`);
+  });
+});
+
+describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec AC#7)', () => {
+  const base = { platform: 'x', body: 'hello', media: [], altText: [], scheduledAt: '2026-09-20T00:00:00Z', campaign: 'launch:x:y' };
+  const critiqueA = { v: 1, scores: { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 5 }, total: 25, rationale: 'a', rulesChecked: [], revision: 1 };
+  const critiqueB = { v: 1, scores: { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 3, notEmbarrassed: 4 }, total: 16, rationale: 'b', rulesChecked: [], revision: 2 };
+
+  it('contentHashPayload never includes `critique`', () => {
+    expect(Object.keys(contentHashPayload({ ...base, critique: critiqueA }))).not.toContain('critique');
+  });
+
+  it('contentHash is identical whether critique is absent or which critique it carries', () => {
+    const hashNone = contentHash(base);
+    expect(contentHash({ ...base, critique: critiqueA })).toBe(hashNone);
+    expect(contentHash({ ...base, critique: critiqueB })).toBe(hashNone);
+  });
+
+  it('a stamp minted against one critique still verifies after critique changes underneath it — the regression for the not-hashed decision', () => {
+    const key = 'test-key';
+    const approver = 'discord:100000000000000001';
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash({ ...base, critique: critiqueA }) };
+    const stamp = { ...unsigned, sig: signApproval(unsigned, key) };
+    const stamped = { ...base, critique: critiqueA, approval: stamp };
+    // `critique` is written once and never touched by a real ✏️ (spec: "not
+    // by anything") — drifting it here anyway proves the stamp is
+    // indifferent to it either way, the strongest form of "not hashed."
+    const drifted = { ...stamped, critique: critiqueB };
+    expect(approvalStatus(drifted, { approvers: [approver], key })).toEqual({ ok: true });
   });
 });

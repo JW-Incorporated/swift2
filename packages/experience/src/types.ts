@@ -6,19 +6,25 @@
  * real backend can drop in later without touching UI code.
  */
 
-export type EraId =
-  | 'debut'
-  | 'fearless'
-  | 'speak-now'
-  | 'red'
-  | '1989'
-  | 'reputation'
-  | 'lover'
-  | 'folklore'
-  | 'evermore'
-  | 'midnights'
-  | 'ttpd'
-  | 'tloas';
+/**
+ * `EraId` and the other content-derived id unions below (`TrackSlugId`,
+ * `SongSlug`, `TheoryId`, `VideoId`) come from `content-ids.generated.ts` —
+ * a small, id-only generated file the sync scripts emit from the seed data
+ * (Fable 5.1 architecture review, R10). Before this, deriving these unions
+ * meant importing the full `tracks.generated.ts` / `theories.generated.ts` /
+ * `videos.generated.ts` / `song-moods.generated.ts` / `era-secrets.generated.ts`
+ * data files, making `types.ts` — imported by every consumer of this package —
+ * transitively depend on the entire ~20k-line content corpus. This is the
+ * ONLY generated file `types.ts` imports; it never imports the data files
+ * directly.
+ *
+ * `TrackSlugId` (`${EraId}:${slug}`) is distinct from `trackKey()` in
+ * `tracks.ts` (the `${eraId}::${trackNumber}::${title}` composite key used
+ * for deep-linking / the `?song=` share URL) — deliberately not reused here
+ * to avoid ambiguity between the two id shapes.
+ */
+import type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId } from './content-ids.generated';
+export type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId };
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
 
@@ -927,6 +933,15 @@ export interface VideoNote {
   /** YouTube ID of the official upload (extracted from the seed's verified
    * officialUrl/oEmbed media), or null when there is no official embed. */
   youtubeId: string | null;
+  /** Where to watch a work carrying no YouTube embed (#3476) — a canonical
+   * official watch page (Netflix, Disney+, Apple Music, an AMC/theatrical
+   * listing, a retailer's official DVD/Blu-ray page). Always set together
+   * with `platform`, or both null — see `isWatchable` in
+   * `@swift2/content-enrichment`. */
+  watchUrl?: string | null;
+  /** The service `watchUrl` points at, rendered as the "Watch on {platform}"
+   * label. Null/absent exactly when `watchUrl` is. */
+  platform?: string | null;
   /** Citations backing the record. Reuses the EggSource shape; never empty. */
   sources: EggSource[];
   /** Authored topic tags — ONLY where the record's own kind/title/

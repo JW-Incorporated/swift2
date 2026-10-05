@@ -126,6 +126,13 @@ it and leave the lane's content in place.
       error and continue to the next lane. One bad lane must never take out the
       day — that regression would be worse than the six separate runs this
       replaces.
+   f. **Push the lane's commit onto `vault/<date>` as soon as it lands.** After
+      Lane 1 (Content Shift)'s commit, `git push -u origin vault/<date>` and
+      open the PR immediately (see step 4 for required body content; title it
+      `vault: <date> — <n> lanes` with the lane count so far and update it as
+      later lanes land). Push every subsequent due lane's commit onto that same
+      branch the moment it lands. A turn-exhausted session still ships whatever
+      lanes finished before the cutoff instead of losing the whole day.
 3. **Sync and gate ONCE, after all lanes:** `npm run sync:content`, then
    `npm run validate:content`, `npm run check:generated`, `npm run typecheck`,
    `npx vitest run`, `npm run lint`. Commit the regenerated vault files as a
@@ -156,8 +163,9 @@ it and leave the lane's content in place.
      errors that would fail `build` for TypeScript reasons; it does not catch
      bundler/asset errors, so treat CI's `build` job, not this gate, as the
      authority on those.
-4. **Open ONE PR**, branch `vault/<date>`, label `content-shift`, titled
-   `vault: <date> — <n> lanes`. Body must contain:
+4. **Finalize the PR** opened in step 2.f (branch `vault/<date>`, label
+   `content-shift`). Update its title to `vault: <date> — <n> lanes` with the
+   final lane count and its body to contain:
    - a one-line TL;DR per lane that did something, and
    - an explicit list of lanes that were **not due**, **no-opped**, or
      **failed**, with the reason for each.

@@ -215,16 +215,17 @@ export function findMoment(files: BundleFiles, monthItemId: string): Moment | nu
   return null;
 }
 
-/** Every track note for one era, across a `tracks:<eraSlug>` manifest entry if present, else the single flat
- * `tracks` entry (both shapes `tracksBundleFileSchema` allows) filtered to `eraSlug`. */
+/** Every track note for one era, preferring a `tracks:<eraSlug>` manifest entry
+ * when present and otherwise reading the aggregate `tracks` catalogue. */
 export function findTrackGuide(files: BundleFiles, eraSlug: string): TrackNote[] {
   const perEraKey = `tracks:${eraSlug}`;
   const perEraFile = files[perEraKey] as { eraId: string; tracks: ContentTrackNote[] } | undefined;
   if (perEraFile) return perEraFile.tracks.map((note) => mapContentTrackNote(eraSlug, note));
 
-  const flatFile = files.tracks as { eraId: string; tracks: ContentTrackNote[] } | undefined;
-  if (flatFile && flatFile.eraId === eraSlug) {
-    return flatFile.tracks.map((note) => mapContentTrackNote(eraSlug, note));
+  const catalogue = files.tracks as { eraId: string; tracks: ContentTrackNote[] }[] | undefined;
+  const eraFile = catalogue?.find((file) => file.eraId === eraSlug);
+  if (eraFile) {
+    return eraFile.tracks.map((note) => mapContentTrackNote(eraSlug, note));
   }
   return [];
 }

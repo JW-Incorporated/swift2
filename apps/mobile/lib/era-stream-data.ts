@@ -35,7 +35,7 @@ import {
   type EraStreamViewModel,
   type TheoryNote,
 } from '@swift2/experience';
-import { eraVideoFeed, type PlayableVideoNote } from '@swift2/content-enrichment';
+import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
 
 const storage = expoFileSystemStorageAdapter();
@@ -67,7 +67,7 @@ function wireTheories(files: Record<string, unknown>): void {
 }
 
 /** One era's golden view-model, built from the published bundle via the same shared pipeline the web uses. */
-export async function loadEraStream(eraId: EraId): Promise<EraStreamViewModel<PlayableVideoNote>> {
+export async function loadEraStream(eraId: EraId): Promise<EraStreamViewModel<WatchableVideoNote>> {
   const { files } = await ensureBundle();
   if (!theoriesWired) wireTheories(files);
 

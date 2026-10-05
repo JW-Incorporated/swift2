@@ -16,6 +16,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    environment: ops
     steps:
       - uses: actions/checkout@v7
 

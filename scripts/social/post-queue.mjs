@@ -4,7 +4,7 @@
 // after sitting due >48h for any reason, or after an ambiguous transport
 // failure — see isStaleDue/failureReason notes below). Run as a scheduled
 // GitHub Action (.github/workflows/social-poster.yml) — see
-// docs/agents/growth.md for the approval flow this sits downstream of.
+// docs/social/pipeline.md for the approval flow this sits downstream of.
 //
 // Per-item processing order (Codex review round 1 on PR #1900 fixed the
 // original order, which let a stale item post once "unblocked" and let
@@ -36,7 +36,7 @@
 //
 // Crisis stop: if the repo variable SOCIAL_FREEZE is set to anything
 // truthy, this exits immediately without posting or touching the queue —
-// per the Growth desk charter's hard rail. Any founder can set it.
+// per Tree's charter hard rail. Any founder can set it.
 //
 // Failures are LOUD (2026-08-11). Any item that leaves the schedule without
 // reaching a timeline — attempts exhausted, stale >48h, invalid scheduledAt,
@@ -81,6 +81,7 @@ import {
   selectDuePosts,
   eraArtGuardReason,
   isStaleDue,
+  isStaleApproved,
   isValidScheduledAt,
   hoursOverdue,
   MAX_POSTS_PER_RUN,
@@ -90,7 +91,10 @@ import {
   missingCredsFor,
   needsMediaPreflight,
   mediaUrlsFor,
+  approvalStatus,
+  MEDIA_BASE_URL,
 } from './lib/queue.mjs';
+import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 import { mediaUrlsReachable } from './lib/preflight.mjs';
 import {
@@ -103,7 +107,6 @@ import {
 } from './lib/run-report.mjs';
 import { runMain } from '../lib/cli.mjs';
 
-const MEDIA_BASE_URL = 'https://www.longlivets.com';
 const MAX_ATTEMPTS = 3;
 
 function resolveRoot() {
@@ -297,18 +300,56 @@ export async function main() {
   // everything below (see isValidScheduledAt's docstring in lib/queue.mjs).
   const validQueued = [];
   for (const entry of queued) {
-    if (isValidScheduledAt(entry.data)) {
-      validQueued.push(entry);
+    if (!isValidScheduledAt(entry.data)) {
+      const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
+      await moveToFailed(failedDir, entry, {
+        ...entry.data,
+        failureReason,
+        lastAttemptAt: now.toISOString(),
+      });
+      console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
+      outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
       continue;
     }
-    const failureReason = `Invalid or missing "scheduledAt" (${JSON.stringify(entry.data.scheduledAt)}) — this item could never become due or stale, so it would have sat unprocessed forever.`;
-    await moveToFailed(failedDir, entry, {
-      ...entry.data,
-      failureReason,
-      lastAttemptAt: now.toISOString(),
-    });
-    console.error(`social-poster: ${entry.file} has an invalid/missing scheduledAt — moved to social/failed/.`);
-    outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
+
+    // A2 (docs/social/RULINGS-SOCIAL.md): the poster is the SOLE enforcement point for
+    // approval, reading only `approval` on the item itself — no GitHub API
+    // call, no network dependence, fail-closed regardless of how a file
+    // reached `main`. A pre-2026-09-11 draft has no `approval` key at all,
+    // so grandfathering is impossible by construction: every item that
+    // reaches this branch without a CURRENTLY-VALID stamp is unapproved,
+    // full stop, whether it never had a key or its content changed since.
+    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '' });
+    if (!approval.ok) {
+      if (isStaleDue(entry.data, now)) {
+        const failureReason = `Unapproved for >48h past scheduledAt — ${approval.reason}`;
+        await moveToFailed(failedDir, entry, {
+          ...entry.data,
+          failureReason,
+          lastAttemptAt: now.toISOString(),
+        });
+        console.error(`social-poster: ${entry.file} moved to social/failed/ — unapproved and stale: ${approval.reason}`);
+        outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: entry.data.platform ?? 'unknown', error: failureReason });
+      } else {
+        console.error(`social-poster: UNAPPROVED ${entry.file} — ${approval.reason}. Nothing posted; no attempt spent; it cannot claim a daily-budget slot.`);
+        outcomes.push({
+          kind: OUTCOME.UNAPPROVED,
+          file: entry.file,
+          platform: entry.data.platform ?? 'unknown',
+          error: approval.reason,
+          overdueHours: hoursOverdue(entry.data, now),
+        });
+      }
+      // Deliberately NOT pushed to validQueued — selectDuePosts only ever
+      // sees items this loop has already let through, so an unapproved
+      // item can never be selected, never claim a per-platform daily
+      // budget slot (MAX_POSTS_PER_PLATFORM_PER_DAY is claimed at
+      // selection time, lib/queue.mjs's selectDuePosts), and never reach
+      // postOne() — there is no path to publish from here.
+      continue;
+    }
+
+    validQueued.push(entry);
   }
 
   // `required` — fail closed. See readJsonDir's docstring and issue #2031:
@@ -417,14 +458,19 @@ export async function main() {
     // 1. Stale check FIRST — unconditional, regardless of what else is true
     // about this item. A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
-    if (isStaleDue(item, now)) {
-      const failureReason = 'Still unposted more than 48h after scheduledAt — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
+    // `due` only ever contains items that already passed the approval gate
+    // above (validQueued), so every item reaching this point has a valid
+    // stamp — staleness is measured from the founder's own approval
+    // (`approval.at`), not `scheduledAt`/queue time (lib/queue.mjs's
+    // isStaleApproved).
+    if (isStaleApproved(item, now)) {
+      const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
         failureReason,
         lastAttemptAt: now.toISOString(),
       });
-      console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past scheduledAt.`);
+      console.error(`social-poster: ${entry.file} moved to social/failed/ — stuck >48h past founder approval.`);
       outcomes.push({ kind: OUTCOME.FAILED, file: entry.file, platform: item.platform, error: failureReason });
       if (pairReady) brokenPairs.add(campaign);
       continue;
@@ -521,6 +567,14 @@ export async function main() {
     try {
       const result = await postOne(item);
       const { result: facebook, error: facebookError } = await crosspostToFacebook(item);
+      // Approval provenance is now the `approval` object already on
+      // `item` (docs/social/RULINGS-SOCIAL-2.md B1) — it rode in via the `...item`
+      // spread below, written once by social-approval-poll.yml reacting to
+      // the owner's own Discord ✅, never re-derived here. The old
+      // git-provenance.mjs lookup (dead code — queried commits/{sha}/pulls,
+      // whose response never carries merged_by) is deleted; nothing in
+      // this file talks to GitHub's API any more, so posting has no
+      // network dependency beyond the platforms themselves.
       const posted = {
         ...item,
         postedAt: now.toISOString(),

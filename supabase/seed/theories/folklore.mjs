@@ -7,7 +7,14 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-08-08',
+  // Answerer recheck 2026-09-13 (rumor-lifecycle staleness #3977): "Woodvale"
+  // remains the folklore working-codename accident Taylor debunked herself on
+  // late-night TV (the Kimmel explanation) — still a debunked strong-fan-
+  // consensus theory, nothing resolved or shifted. The two confirmed eggs on
+  // this helper (the teenage love triangle, William Bowery) are likewise
+  // unchanged on the record. Refreshes the last-accessed date, not any claim.
+  // (Prior recheck 2026-08-08.)
+  accessed_at: '2026-09-13',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,

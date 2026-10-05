@@ -58,7 +58,7 @@ never turn `main` red.
 | Parked `kevin-skip` | named human on the ticket, with a review date | daily ledger, with age |
 | `cie:safety` / `cie:escalate` | founder — never auto-fixed | `founder-decision` → Founders' Brief |
 | `needs-manual-a11y` | founder AT checklist — `docs/a11y-manual-queue.md` | per milestone + pre-launch |
-| `social/failed/` | **Growth desk** (below) | daily ledger |
+| `social/failed/` | **Tree** (below) | daily ledger |
 
 ## `social/failed/` — the triage ownership question
 
@@ -85,7 +85,7 @@ changes the reading completely:
   [#1897](https://github.com/JW-Incorporated/swift2/issues/1897) and owned by
   the agent hardening the social pipeline.
 
-**Ownership decision:** the Growth desk owns `social/failed/` triage. The daily
+**Ownership decision:** Tree owns `social/failed/` triage. The daily
 ledger surfaces the directory with counts, signatures and age, so a dead queue
 can never again be discovered by accident. The *poster code* stays with the
 pipeline agent — see the handoff below.

@@ -89,6 +89,11 @@ token is not a defect.
    or **cancel** the work. **The most recent human comment wins over the original
    body.** Never apply a body's stale suggested fix when a comment has since
    corrected or retracted it, and never re-do work a comment says is already done.
+   Stream 3 has one narrow exception: the exact M8 `marjorie-approval` three-line
+   template counts as a founder approval only when the issue-comments API reports
+   its author as a typed Bot with an allowlisted Claude or GitHub Actions login.
+   The Discord URL id and marker id must match. Similar prose does not count, and
+   any later real founder comment remains authoritative, including revocation.
 8. **Any audit summary relayed to the founders states its scope in the first
    line** (e.g. "prose + sourcing only; photos not checked") — see the
    [audit-reporting scope convention](definition-of-done.md#audit-reporting-scope-convention).
@@ -365,6 +370,15 @@ preserved.** Faster comment-awareness feeds *better, faster surfacing* to a huma
 writing code against a product/UX ticket or a PR review unattended. An
 unattended loop turned loose on a back-button bug or a page rebuild does harm;
 that boundary stays exactly as strict as it is today.
+
+## Sampling rubric
+
+Score one sampled Kevin PR or digest/triage comment 1–3, one evidence sentence.
+**3** — the ticket's comments were read and the latest human comment honored,
+`validate-content.mjs` clean, image fixes verify-first, streams kept separate,
+audit scope stated in the first line. **2** — correct fix but one slipped: a
+stale body suggestion applied, or the scope line missing. **1** — merged or
+pushed `main`, closed a ticket itself, ran Karen's engine, or wrote an unverified URL.
 
 ## Migrating Kevin to an API
 

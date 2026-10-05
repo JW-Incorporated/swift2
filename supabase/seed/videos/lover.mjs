@@ -146,12 +146,12 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a Netflix original.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://www.netflix.com/title/81028336',
+      platform: 'Netflix',
       sources: [
         wiki('Miss_Americana', 'Miss Americana'),
         press(
@@ -174,11 +174,16 @@ export default {
         'The one-night Paris concert special that became the Lover era\'s only live document after the pandemic canceled Lover Fest — aired on ABC, intimate theater instead of stadiums.',
       symbolism: null,
       easterEggs: [],
-      // No official upload of the work itself exists — it is an ABC special, then Disney+.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // No official upload of the work itself exists — it is an ABC special,
+      // then Hulu/Disney+ for a LIMITED time only (May 2020). JustWatch
+      // confirms (checked 2026-09-10, re-verified during cross-provider
+      // review after an initial pass wrongly cited a stale disneyplus.com
+      // URL still resolving from an old crawl): "Taylor Swift City of Lover
+      // Concert is not available for streaming." No other official watch
+      // destination exists today, so this record stays hidden under the
+      // widened isWatchable rule exactly as it was under the old
+      // isPlayable-only rule. Re-add a `watchUrl` + `platform` pair here the
+      // moment it returns to a real platform.
       officialUrl: null,
       media: [],
       sources: [

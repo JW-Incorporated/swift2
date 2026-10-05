@@ -2,7 +2,10 @@
 // Phase 1) — the full notification settings screen. Layout top to bottom
 // per spec §8: master switch → snooze buttons → daily limit → quiet hours +
 // digest time → category list (grouped News/Merch/Community/Fun), each row
-// name + one-line description + preview text + cadence pills.
+// name + one-line description + preview text + cadence pills. Since the
+// native home took over from the WebView (OS-039) this is also the app's
+// general "Settings" screen, reached from HomeTopBar, and ends with an About
+// section (SettingsAboutSection: Privacy Policy / Terms / Support).
 //
 // Every control writes through `prefs-client.ts` on change and applies the
 // server's round-tripped response — no save button, no local-only staged
@@ -33,7 +36,9 @@ import {
   type NotificationGroup,
 } from '@swift2/shared';
 import { fetchDevicePrefs, setCategoryCadence, setDeviceSetting } from '../lib/prefs-client';
+import type { LegalPageId } from '../lib/legal-links';
 import { CadencePills } from './CadencePills';
+import { SettingsAboutSection } from './SettingsAboutSection';
 
 const SNOOZE_24H_MS = 24 * 60 * 60 * 1000;
 const SNOOZE_1WK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -63,6 +68,7 @@ function groupedCategories(): Record<NotificationGroup, (typeof SETTINGS_CATEGOR
 export function NotificationSettingsScreen({
   onClose,
   onOpenInbox,
+  onOpenLegalPage,
 }: {
   onClose: () => void;
   /** Notifications Phase 3 (spec §8): the inbox is reachable from here too
@@ -71,6 +77,10 @@ export function NotificationSettingsScreen({
    * this component still renders standalone (e.g. future tests) without a
    * wired-up inbox route. */
   onOpenInbox?: () => void;
+  /** Settings → About rows (Privacy Policy / Terms / Support). App Store
+   * guideline 5.1.1(i): shown even while prefs are loading or failed, so
+   * the privacy policy is never unreachable. */
+  onOpenLegalPage?: (page: LegalPageId) => void;
 }) {
   const [state, setState] = useState<DevicePrefsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -111,10 +121,33 @@ export function NotificationSettingsScreen({
 
   const groups = useMemo(groupedCategories, []);
 
+  const header = (
+    <View style={styles.header}>
+      <Text style={styles.title} accessibilityRole="header">
+        Settings
+      </Text>
+      <View style={styles.headerActions}>
+        {onOpenInbox && (
+          <Pressable onPress={onOpenInbox} accessibilityLabel="Open inbox" hitSlop={12}>
+            <Text style={styles.inboxLink}>Inbox</Text>
+          </Pressable>
+        )}
+        <Pressable onPress={onClose} accessibilityLabel="Close settings" hitSlop={12}>
+          <Text style={styles.close}>Done</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+  const about = onOpenLegalPage ? <SettingsAboutSection onOpenLegalPage={onOpenLegalPage} /> : null;
+
   if (!state) {
     return (
-      <View style={[styles.fill, styles.center]}>
-        {error ? <Text style={styles.errText}>{error}</Text> : <ActivityIndicator />}
+      <View style={styles.fill}>
+        {header}
+        <View style={[styles.center, styles.loading]}>
+          {error ? <Text style={styles.errText}>{error}</Text> : <ActivityIndicator />}
+        </View>
+        {about}
       </View>
     );
   }
@@ -128,23 +161,7 @@ export function NotificationSettingsScreen({
 
   return (
     <View style={styles.fill}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Notifications</Text>
-        <View style={styles.headerActions}>
-          {onOpenInbox && (
-            <Pressable onPress={onOpenInbox} accessibilityLabel="Open inbox" hitSlop={12}>
-              <Text style={styles.inboxLink}>Inbox</Text>
-            </Pressable>
-          )}
-          <Pressable
-            onPress={onClose}
-            accessibilityLabel="Close notification settings"
-            hitSlop={12}
-          >
-            <Text style={styles.close}>Done</Text>
-          </Pressable>
-        </View>
-      </View>
+      {header}
 
       {permissionDenied && (
         <View style={styles.banner} accessibilityRole="alert">
@@ -308,6 +325,8 @@ export function NotificationSettingsScreen({
             })}
           </View>
         ))}
+
+        {about}
       </ScrollView>
     </View>
   );
@@ -374,6 +393,7 @@ function Stepper({
 const styles = StyleSheet.create({
   fill: { backgroundColor: '#0b0b0f', flex: 1 },
   center: { alignItems: 'center', justifyContent: 'center' },
+  loading: { paddingHorizontal: 16, paddingVertical: 32 },
   header: {
     alignItems: 'center',
     borderBottomColor: '#1c1c22',

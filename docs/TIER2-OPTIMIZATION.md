@@ -190,8 +190,12 @@ the end.
   misclassification here reaches authored content in one hop, as its own
   prompt warns), but Opus is over-tiered for it.
 - **Recommendation (T-3) — move News Triage to Sonnet 5.** **Status
+  2026-09-10: recall-check trial retired** (see `docs/decisions.md`) —
+  zero verified false negatives attributable to News Triage's own judgment;
+  `docs/agents/runner-prompts/news-triage-recall-check.md` and
+  `routine-news-triage-recall.yml` are deleted. **Status
   2026-08-31: prep landed (PR #3608) — the recall-check trial design
-  (`docs/agents/runner-prompts/news-triage-recall-check.md`) and the
+  (deleted, see above) and the
   deterministic digest-archive step (`news-worker.yml`) are in place.
   Applying the trigger's model field itself is pending account access — see
   `docs/agents/runners.md` § News Triage for the exact config and the
@@ -655,6 +659,25 @@ Action; agent call. **Landed 2026-08-31** — Actions half:
 + [`fleet-telemetry-snapshot.mjs`](../scripts/fleet-telemetry-snapshot.mjs),
 monthly, writing `docs/audits/fleet-telemetry/`. Auditor-arithmetic half:
 [`routine-invariants.md`](agents/routine-invariants.md#auditor-arithmetic-t-17-2026-08-31--docstier2-optimizationmd--t-17).
+
+**Landed 2026-09-10 — routine-fleet turn/duration/cost half.** The gap this
+section previously called unfixable ("cannot see Claude Code routine token
+spend — no repo-visible API") is closed for turns/duration/cost, NOT
+attribution (T-20's per-PR routine attribution is a separate concern).
+`anthropics/claude-code-action@v1`'s `execution_file` output exposes the SDK
+session log; `.github/workflows/routine-template.yml` now reads its terminal
+`result` message via `scripts/routine-usage-report.mjs` (`if: always()`,
+never fails the job) and uploads a `routine-usage` artifact per run.
+`scripts/fleet-telemetry-snapshot.mjs` aggregates those artifacts per
+routine (run count, total/median turns, total duration, summed cost) into
+the monthly snapshot's new "Routine usage telemetry" section. **Caveat that
+must not be dropped:** the reported `total_cost_usd` is a LIST-PRICE
+EQUIVALENT under the shared `CLAUDE_CODE_OAUTH_TOKEN` plan-usage model
+(`routine-template.yml`'s header) — not a real billed dollar amount, since
+this account draws from Joey's shared Claude Pro/Max plan usage, not
+metered per-token billing. The actual constraint remains Joey's plan rate
+limit, not money; this closes a VISIBILITY gap, not a dollar-cap gap (a
+dollar cap is architecturally impossible under this auth model).
 
 #### T-18 — Re-sync prompts and registry after the changes land
 

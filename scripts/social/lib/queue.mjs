@@ -8,7 +8,17 @@
 // mediaUrlsFor/countPostedToday/recentInstagramPosts), even though they read
 // like post-queue.mjs's own helpers.
 
-import { createHash } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
+
+/** The live site origin queued media paths are resolved against — the
+ * single export both post-queue.mjs (publishing) and approval-prompt.mjs
+ * (the Discord brief, RULINGS-SOCIAL A3) must use, so the two can never
+ * drift onto different hosts. Deliberately the `www.` host, not the bare
+ * apex: `longlivets.com` 308-redirects to `www.longlivets.com`, and while
+ * fetchers generally follow redirects, Discord's embed fetcher is not
+ * guaranteed to, so the brief and the poster both skip the redirect hop
+ * entirely rather than rely on it. */
+export const MEDIA_BASE_URL = 'https://www.longlivets.com';
 
 /** Hard per-run and per-platform-per-day backstops (charter rail 3: caps are
  * code, never trust-based). Overridable only by editing this file — a PR,
@@ -216,7 +226,7 @@ export function utcDateOnly(isoOrDate) {
  * distinct era-cover files in rotation and the current/recent eras getting
  * picked disproportionately, the live profile grid looked like the same 2-3
  * generic images repeating over and over, which is exactly what it was (see
- * docs/decisions.md, same date). growth-draft.md now requires sourcing a
+ * docs/decisions.md, same date). tree-daily-draft.md now requires sourcing a
  * real dedicated photo per post; this is the code-level backstop, since a
  * doc instruction alone didn't hold — a real check does.
  */
@@ -286,6 +296,24 @@ export function eraArtGuardReason(item, recentIgPosted, lookback = 10) {
 export function isStaleDue(item, now, maxAgeHours = 48) {
   const scheduled = new Date(item.scheduledAt).getTime();
   return now.getTime() - scheduled >= maxAgeHours * 60 * 60 * 1000;
+}
+
+/**
+ * The stamped-draft counterpart to isStaleDue above. A founder's own ✅
+ * (RULINGS-SOCIAL-2.md B1) is the moment a human actually acted on the
+ * item — measuring staleness from `scheduledAt`/queue time instead would
+ * retire a freshly-approved-but-not-yet-posted item on the same 48h clock
+ * as one nobody has ever looked at, which conflates "no human has acted"
+ * with "a human acted and it still didn't ship." Callers must only pass an
+ * item whose `approvalStatus(...).ok` is already true — post-queue.mjs's
+ * due-item loop guarantees this (an unapproved item never reaches
+ * selectDuePosts, so it never reaches this function either; it stays on
+ * isStaleDue/`scheduledAt` above) — `item.approval.at` is trusted as-is
+ * here, no re-verification.
+ */
+export function isStaleApproved(item, now, maxAgeHours = 48) {
+  const approvedAt = new Date(item.approval?.at).getTime();
+  return now.getTime() - approvedAt >= maxAgeHours * 60 * 60 * 1000;
 }
 
 /** Hours since `scheduledAt` passed (0 for a not-yet-due item). The number a
@@ -393,7 +421,176 @@ export function mediaUrlsFor(item, mediaBaseUrl) {
  * scheduled-vs-pending, not approved-vs-not. `awaitingApproval` is retained
  * as an always-0 alias so an un-updated brief prompt can't crash.
  */
-export function summarizeQueueStatus(items, now = new Date()) {
+export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}) {
   const scheduled = items.filter((item) => new Date(item.scheduledAt).getTime() > now.getTime()).length;
-  return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval: 0 };
+  const awaitingApproval = Array.isArray(approvers) ? items.filter((item) => !approvalStatus(item, { approvers }).ok).length : 0;
+  return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval };
+}
+
+/**
+ * The exact content-bound payload an `approval.contentHash` covers
+ * (docs/social/RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes
+ * WHEN a post ships. Deliberately excludes `why`, `attempts`, `lastError`,
+ * `lastAttemptAt`, `mediaCredit`/`mediaSource`/`photoId` (bound separately,
+ * byte-for-byte, by validatePhotoInventoryBinding) and `approval` itself —
+ * a state PR's `attempts+1` bookkeeping, or an unrelated ledger field, must
+ * never silently void a founder's stamp. Key order is fixed so the hash is
+ * stable across callers; JSON.stringify on a plain object with these exact
+ * keys, in this exact order, already preserves insertion order per the
+ * spec, so no extra sorting is needed as long as every caller builds the
+ * object the same way — which is exactly why this is one shared function
+ * and not duplicated at each call site.
+ */
+export function contentHashPayload(item) {
+  return {
+    platform: item?.platform,
+    body: item?.body,
+    media: item?.media ?? [],
+    altText: item?.altText ?? [],
+    scheduledAt: item?.scheduledAt,
+    campaign: item?.campaign ?? null,
+  };
+}
+
+/** `sha256:<hex>` of `contentHashPayload(item)` — see that function's
+ * docstring for exactly what is (and isn't) covered. */
+export function contentHash(item) {
+  const json = JSON.stringify(contentHashPayload(item));
+  return `sha256:${createHash('sha256').update(json, 'utf8').digest('hex')}`;
+}
+
+/**
+ * The exact byte string an approval's `sig` is computed over (B1). Fixed
+ * field order and `|` delimiters, VERSIONED on `v` (docs/decisions.md
+ * 2026-09-12): v2's string is unchanged so every previously-issued
+ * signature keeps verifying; v3 adds the head SHA the poll stamped on, so
+ * `git diff approval.sha head` is a question a forger cannot rephrase by
+ * editing an unsigned field. One named function, never inlined.
+ */
+export function approvalSigPayload(a) {
+  if (a.v === 3) return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.sha}|${a.contentHash}`;
+  return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
+}
+
+const HEAD_SHA_RE = /^[0-9a-f]{40}$/;
+
+/** The head SHA a v3 stamp was minted against, or null for anything else
+ * (a v2 stamp has none; a `sha` hand-added to a v2 record is ignored by
+ * construction — it was never signed). Only meaningful AFTER
+ * `approvalStatus(item, { key })` returned ok: the field sits inside v3's
+ * signed payload, so a verified signature is what makes it trustworthy. */
+export function stampedSha(item) {
+  const a = item?.approval;
+  if (a?.v !== 3 || typeof a.sha !== 'string' || !HEAD_SHA_RE.test(a.sha)) return null;
+  return a.sha;
+}
+
+/** `hmac-sha256:<hex>` of `approvalSigPayload(a)` under `key`. Only two
+ * on-`main` workflows ever hold `key` — `social-approval-poll.yml` (via
+ * `stampFiles`, which calls this) and `social-poster.yml`'s post step
+ * (which only ever verifies, never signs). */
+export function signApproval(a, key) {
+  return 'hmac-sha256:' + createHmac('sha256', key).update(approvalSigPayload(a), 'utf8').digest('hex');
+}
+
+/**
+ * Constant-time verification of `a.sig` against `key`. Returns false on any
+ * shape error (missing prefix, non-hex, wrong length) rather than throwing
+ * — a hand-written `approval` object must be inert here, never crash the
+ * poster into an unhandled exception.
+ */
+export function verifyApprovalSig(a, key) {
+  if (typeof a?.sig !== 'string' || !a.sig.startsWith('hmac-sha256:')) return false;
+  const given = a.sig.slice('hmac-sha256:'.length);
+  let givenBuf, expectedBuf;
+  try {
+    const expected = createHmac('sha256', key).update(approvalSigPayload(a), 'utf8').digest('hex');
+    givenBuf = Buffer.from(given, 'hex');
+    expectedBuf = Buffer.from(expected, 'hex');
+  } catch {
+    return false;
+  }
+  if (givenBuf.length !== expectedBuf.length) return false;
+  return timingSafeEqual(givenBuf, expectedBuf);
+}
+
+/**
+ * The B1 gate: is `item.approval` a valid, content-bound, SIGNED stamp
+ * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
+ * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1; or v3, which
+ * additionally signs the head SHA it was minted on — docs/decisions.md
+ * 2026-09-12)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
+ * this fixed order so the first true reason is always what's reported:
+ * absent → malformed → not-a-discord-identity → not-in-approvers →
+ * content-hash mismatch → bad signature.
+ *
+ * A v1 (unsigned) stamp is malformed under v2 — nothing from before
+ * 2026-09-11 grandfathers; there is no code path that inspects a draft's
+ * age or schema version to exempt it. v2 and v3 are both accepted here
+ * (already-merged v2 content keeps posting); only the poll decides whether
+ * a v2 stamp still sitting on an OPEN PR needs a fresh ✅ (it does — see
+ * `stampedSha`).
+ *
+ * `key` is read via `hasOwnProperty`, not destructuring, so "the caller
+ * didn't pass `key` at all" (CI's validate-queue, the schema validator —
+ * neither ever holds SOCIAL_APPROVAL_KEY, by design; they get shape+id+hash
+ * checking only) is distinguishable from "the caller passed `key: ''`"
+ * (post-queue.mjs when the env var is genuinely unset — that DOES trigger
+ * the signature-unverifiable refusal, loud, never a silent pass). Only
+ * post-queue.mjs's own call is the real security boundary; every other
+ * caller's `ok` only ever meant "shape/identity/hash line up," not
+ * "safe to post." Never throws; never mutates `item`.
+ */
+export function approvalStatus(item, options = {}) {
+  const { approvers } = options;
+  const hasKey = Object.prototype.hasOwnProperty.call(options, 'key');
+  const key = options.key;
+  const approval = item?.approval;
+  if (approval === undefined || approval === null) {
+    return {
+      ok: false,
+      reason:
+        'no approval on file — never reviewed by a founder (or reviewed before the 2026-09-11 approval schema; re-open a PR for it)',
+    };
+  }
+  const shapeOk =
+    typeof approval === 'object' &&
+    !Array.isArray(approval) &&
+    (approval.v === 2 || (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
+    typeof approval.by === 'string' &&
+    approval.by.trim() !== '' &&
+    typeof approval.at === 'string' &&
+    Number.isInteger(approval.pr) &&
+    typeof approval.message === 'string' &&
+    typeof approval.contentHash === 'string' &&
+    approval.contentHash.startsWith('sha256:') &&
+    typeof approval.sig === 'string' &&
+    approval.sig.startsWith('hmac-sha256:');
+  if (!shapeOk) {
+    return { ok: false, reason: 'malformed approval record' };
+  }
+  if (!/^discord:\d{17,20}$/.test(approval.by)) {
+    return {
+      ok: false,
+      reason: `approved by "${approval.by}", which is not a discord: identity — GitHub logins can never approve`,
+    };
+  }
+  if (!Array.isArray(approvers) || !approvers.includes(approval.by)) {
+    return { ok: false, reason: `approved by "${approval.by}", who is not in SOCIAL_APPROVERS` };
+  }
+  if (approval.contentHash !== contentHash(item)) {
+    return {
+      ok: false,
+      reason: 'edited after approval — body/media/altText/scheduledAt/campaign no longer match what was approved',
+    };
+  }
+  if (hasKey) {
+    if (!key) {
+      return { ok: false, reason: 'approval signature cannot be verified — SOCIAL_APPROVAL_KEY is not configured' };
+    }
+    if (!verifyApprovalSig(approval, key)) {
+      return { ok: false, reason: 'approval signature invalid — this record was not written by the approval workflow' };
+    }
+  }
+  return { ok: true };
 }

@@ -236,10 +236,13 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is an Apple Music streaming exclusive.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Apple Music REMOVED this title 2020-05-22 with no announced return
+      // and no other official release (#3476 follow-up research,
+      // 2026-09-10) — unlike most of the records this card unlocks, there is
+      // currently no live, verifiable watch destination to cite, so this
+      // record stays hidden under the widened isWatchable rule exactly as it
+      // was under the old isPlayable-only rule. Re-add a `watchUrl` +
+      // `platform` pair here the moment it returns to a real platform.
       officialUrl: null,
       media: [],
       sources: [

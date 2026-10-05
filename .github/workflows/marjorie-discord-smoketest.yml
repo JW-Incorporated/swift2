@@ -1,0 +1,86 @@
+name: marjorie-discord-smoketest
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Smoke test mode
+        type: choice
+        default: post
+        options:
+          - post
+          - upsert-alert
+          - loop
+permissions:
+  contents: read
+  issues: write
+jobs:
+  smoketest:
+    runs-on: ubuntu-latest
+    environment: ops
+    timeout-minutes: 5
+    steps:
+      # ref: main, not the triggering ref — this job holds the ops-scoped
+      # webhook secret, same defense-in-depth convention as
+      # routine-tree-weekly-plan.yml's send-brief job and tree-mail.yml: a
+      # secret-holding job must never execute code from a dispatch-
+      # controlled or agent-writable ref.
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Post a smoke-test message to #longlive-marjorie
+        if: ${{ inputs.mode == 'post' }}
+        run: |
+          echo "Marjorie Discord smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/smoketest-body.txt
+          node scripts/marjorie/post-or-mail.mjs --subject "Discord smoke test" --body-file /tmp/smoketest-body.txt --no-mail-fallback
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+      # L1 (docs/specs/marjorie-overhaul/l1-loop.md): both ask filings,
+      # twice each, on the workflow token through the shipped CLI, with
+      # synthetic `[L1 check]` asks — proves author-login trust and
+      # idempotency under the real credential (pass 2 must file nothing).
+      # Posts nothing to Discord.
+      - name: Tree/Marjorie loop — file a synthetic ask each way, twice
+        if: ${{ inputs.mode == 'loop' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          jq -n --arg s "run $RUN_ID" '{needsFromMarjorie: [{ask: "[L1 check] Marjorie: comment seen on this synthetic ask and close it (\($s))", why: "Synthetic ask from marjorie-discord-smoketest.yml mode=loop, proving the Tree to Marjorie path."}]}' > /tmp/plan.json
+          printf -- '**Tree**\n- For Tree: [L1 check] Tree: comment seen on this synthetic ask and close it (run %s)\n' "$RUN_ID" > /tmp/brief.md
+          for pass in 1 2; do
+            echo "── pass $pass"
+            # GitHub's list endpoints (search and REST) lag a new issue by
+            # seconds (#4253, #4259); production filings are serialized and
+            # seconds-to-minutes apart, so pass 2 tests that timescale — same
+            # reason the upsert-alert mode below sleeps 45s.
+            if [ "$pass" = 2 ]; then sleep 45; fi
+            node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/plan.json --pr 0 --pr-url "$RUN_URL" --out /tmp/loop.json | tee "/tmp/pass$pass.log"
+            cp /tmp/brief.md /tmp/brief-pass.md
+            node scripts/marjorie/loop-asks.mjs file-marjorie --issue 0 --issue-url "$RUN_URL" --body-file /tmp/brief-pass.md --out /tmp/brief-pass.md --no-edit | tee -a "/tmp/pass$pass.log"
+            cat /tmp/loop.json /tmp/brief-pass.md
+          done
+          ALREADY=$(grep -c '^loop-asks: already filed #' /tmp/pass2.log || true)
+          FILED=$(grep -c '^loop-asks: filed #' /tmp/pass2.log || true)
+          if [ "$ALREADY" != "2" ] || [ "$FILED" != "0" ]; then
+            echo "::error::pass 2 idempotency check failed — already filed=$ALREADY (want 2), filed=$FILED (want 0)"
+            exit 1
+          fi
+          echo "PASS: pass 2 filed nothing new (already filed=$ALREADY, filed=$FILED)"
+      - name: Synthetic watchdog-alert open+close
+        if: ${{ inputs.mode == 'upsert-alert' }}
+        run: |
+          echo "Synthetic smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/body.md
+          scripts/watchdog/upsert-alert.sh open "Watchdog: synthetic smoke test" /tmp/body.md
+          # GitHub's issue search index lags a fresh create; without this the close finds nothing (run 34724164886).
+          sleep 45
+          scripts/watchdog/upsert-alert.sh close "Watchdog: synthetic smoke test" /tmp/body.md
+          echo "SMOKE: open+close done"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}

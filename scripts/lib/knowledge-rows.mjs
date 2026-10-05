@@ -5,6 +5,7 @@
 
 import { slugify } from './longlive-sync-shared.mjs';
 import { symbolsIn } from './knowledge-symbols.mjs';
+import { RESOLVED_RUMOR_STATUSES } from './content-vocab.mjs';
 // R9 consolidation (Fable 5.1 review): SOURCE_TIER_BY_TYPE used to be
 // hand-typed here, duplicating the same tier-by-citation-type judgment that
 // lived independently in scripts/lib/reputable-sources.mjs and
@@ -30,8 +31,6 @@ export function sourceTierFrom(sources) {
   }
   return best ?? 'established';
 }
-
-const RESOLVED_RUMOR_STATUSES = new Set(['confirmed', 'debunked']);
 
 /** One `moment:*` knowledge_doc row from a normalized content-vault item (addItem()'s output). */
 export function buildMomentDoc(item, eraId, lexicon) {

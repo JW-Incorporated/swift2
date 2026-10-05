@@ -54,6 +54,20 @@ from a different era's catalog.
    content; sourcing a picture for a moment YOU are authoring (step 3b) is
    yours and does not touch Kevin's lane.
 
+### Unavailable current-tier access
+
+Check source (0) first when the run has the required authorized database access.
+If that access is unavailable, report `current-tier unavailable` with a short
+access/error category in the lane's run log, never credential values or raw
+provider responses, then continue sources 1–4 in the same lane. Do not call
+the current-tier queue empty or successfully checked. Do not search credential
+files or acquire new database access to unblock this run. Leave its
+rows unprocessed for a later authorized run: do not claim a promotion or write
+`promoted_to` for any unprocessed row. An unavailable source is not a failure of
+the independent GitHub intake queue and does not trigger the orchestrator's
+stop-lane rule. Existing research, ownership, privacy and validation rules still
+apply to every item authored from the remaining queues.
+
 ## The run
 
 1. Deterministic queue check (gh only); exit fast if empty.
@@ -80,9 +94,15 @@ from a different era's catalog.
      subject, >=400px, credited. Never a watermarked `media.gettyimages.com`
      comp; never a signed/expiring CDN url (Instagram's included — embed
      those, don't hotlink).
-   - Only if nothing verifiable exists: ship the text, note it in the ledger,
-     and let the `photo-sparsity` / `social-post-missing` checkers route it to
-     Photo Enrichment. A picture is the default, the gap the exception.
+   - Every published item must include a relevant, verifiable visual in the
+     same PR: a credited photo, an official YouTube video, or a verified
+     Instagram embed. If no safe visual exists, do not publish the item yet.
+     Privacy redlines still apply; choose a connected public visual that does
+     not expose a private home, minor, or real-time location. Era fallback art
+     and source links do not satisfy this rule. `validate:content` blocks an
+     item whose authored visual is missing or malformed. The structural gate
+     cannot judge relevance by itself, so source and visually inspect the
+     image or clip before committing it.
 4. Validate: `npm run validate:content` zero errors + `node --check` per
    edited file + full test suite.
 5. **Codex review, no self-rebuttal** (same rule as Austin) — **but
@@ -120,6 +140,8 @@ from a different era's catalog.
 item — title `intake: YouTube appearance — <channel>: "<title>"` — and enter the
 queue at priority 1 like the rest. These extra rules apply to them, and only to
 them.
+
+**A sibling fact sheet, not yours to act on (Tree Overhaul T6, 2026-09-12).** The same detection also writes a `social/inbox/*.json` intent (no caption, RSS metadata only) that carries this issue's number via `links.issue` — Tree's own daily draft reads it independently and decides whether to post a fast-lane pair from it. This intake issue stays the Content Shift's own record for triage/authoring exactly as below; the fast lane is a completely separate decision by a different desk and never changes how you verify or place this issue.
 
 **The detection is deterministic and UNVERIFIED.** Nobody watched the video. A
 keyword matched a title. The drop is never the copy (rules of the door,

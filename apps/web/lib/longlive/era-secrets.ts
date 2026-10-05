@@ -44,7 +44,15 @@ export type { EraSecretLink } from '@swift2/experience';
 import type { EraId, EraSecret } from '@swift2/experience';
 import { setEraSecretsRawProvider, setSongTargetResolver, setThreadContentProvider } from '@swift2/experience';
 import { ERA_SECRETS_RAW } from './era-secrets.generated';
-import { songTargetOf } from '@swift2/experience';
+// songTargetOf must come from the app's wired wrapper, not
+// '@swift2/experience' directly (issue #4082): this module is reachable
+// from a 'use client' component (EraSecretCard.tsx) in a separate bundle
+// from the server-only vault-wiring.ts chain, so importing straight from
+// the headless package risked resolving before that bundle's own
+// `./tracks` wiring ran. Importing through `./tracks` here guarantees this
+// module's own import triggers `setTracksRawProvider` in whichever bundle
+// it loads into.
+import { songTargetOf } from './tracks';
 import { getContentItem } from './content';
 import { CONTENT } from './content';
 

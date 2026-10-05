@@ -76,6 +76,32 @@ founder's eyes before it merges, then exit without merging that one. Fix
 what you can see is red before you exit. Scheduled runners live on Joey's
 account per the automation-account-ownership policy (D1=B, 2026-08-31).
 
+**Exception — approval is the founder's own ✅ in `#longlive-tree`, not a
+merge (docs/social/RULINGS-SOCIAL-2.md B1, superseding A2's merge-keyed stamp).** A
+Discord reaction from the owner's own Discord user id is stamped and
+signed by `social-approval-poll.yml` (schema v2, HMAC-signed with a key
+held only in the `main`-only `social` environment); the poll job merges
+after stamping. **Merging a `social-draft` PR yourself does NOT approve
+it — it kills the draft**, because the poll job only ever stamps and
+merges an OPEN PR (a PR merged unsigned lands unapproved, the poster
+reports it `unapproved` every run, red at 24h, retired at 48h, and the
+poll job posts a "merged before approval" notice to the channel — loud,
+never a post). So: never `gh pr merge` a `social-draft` PR — not because a
+guard denies it (B2 ruled against building that fence; an agent merge now
+yields a dead draft, not a post, so the fence would imply coverage it
+doesn't have), but because doing so strands the draft and wastes the
+brief. A removal-only PR (the poster's own fold-back PRs moving a posted
+item out of `social/queue/`) is NOT covered by this exception — those
+still auto-merge/land normally, per
+`scripts/automerge-social-approval-gate.mjs`. Also never write an
+`"approval"` key into a queue file yourself — that object is written only
+by `social-approval-poll.yml`, and a hand-written one is inert at the
+poster anyway (it fails signature verification), but writing one still
+wastes a CI run and a brief. Codex residual: Codex runs without hooks, so
+this exception cannot be enforced on it by a guard — social work under
+`scripts/social/**` and `social/queue/**` is never dispatched to Codex for
+exactly this reason.
+
 ## Definition of done
 
 - Acceptance criteria met · all tests pass · Codex review clean · works on

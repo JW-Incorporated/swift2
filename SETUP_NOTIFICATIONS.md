@@ -9,7 +9,8 @@ cleanly (503 from the register route, a documented failure from
 founder):** Apple Developer access already exists and app-store approval is
 already in progress for both platforms — this is expected to happen soon,
 not an open-ended maybe. When it's done, this doc is the one and only
-remaining step; no code changes are needed.
+remaining step; no code changes are needed. **Update (2026-09-12, OS-004):**
+native sends moved from FCM HTTP v1 to the Expo Push API — see items 2–6.
 
 ## What's already built, waiting on these values
 
@@ -21,11 +22,14 @@ remaining step; no code changes are needed.
 - Native app: `apps/mobile/lib/device-id.ts` (anonymous device_id via
   SecureStore), `apps/mobile/lib/notification-channels.ts` (Android channels
   1:1 with spec §4), `apps/mobile/lib/push-registration.ts` (permission
-  request + FCM/Expo push token + registration call) — all typecheck-clean
-  and ready; they just need a real Firebase project behind them.
+  request + Expo push token + registration call).
+- `packages/core/src/notification-sender.ts` — sends ios/android through the
+  **Expo Push API** (OS-004, 2026-09-12). The app registers Expo push tokens
+  (`ExponentPushToken[...]`); Expo relays them to FCM (Android) and APNs
+  (iOS) using credentials stored on EAS. The server holds no Google or Apple
+  secret.
 - `scripts/send-test-push.ts` — manual one-off send to a specific
-  `device_id`. Will run the moment items 3–4 below are set; until then it
-  fails with a clear "which env var is missing" message, on purpose.
+  `device_id`, through the same Expo wire.
 
 ## 1. Supabase service-role key — already exists, no new step
 
@@ -37,90 +41,68 @@ Copy the same values into wherever `POST /api/devices/register` runs
 pair handy: Supabase dashboard → this project → Project Settings → API →
 "service_role" secret key.
 
-## 2. Create the Firebase project
+## 2. Firebase project — done 2026-09-12
 
-1. Go to https://console.firebase.google.com → **Add project**.
-2. Name it (e.g. "LongLive" / "Longlivets"). Google Analytics for the
-   project is optional — skip it, this app doesn't need it.
-3. Once created, note the **Project ID** (not the display name) — this is
-   `FCM_PROJECT_ID` below.
-4. Add both apps to the Firebase project:
-   - **Android**: package name `ai.jwlabs.longlive` (from
-     `apps/mobile/app.json`'s `android.package`). Download
-     `google-services.json` when offered — see item 5.
-   - **iOS**: bundle id `ai.jwlabs.longlive` (from `app.json`'s
-     `ios.bundleIdentifier`). Download `GoogleService-Info.plist` — see
-     item 5.
+Android push needs a Firebase project even though Expo does the sending:
+the app gets its token from FCM.
 
-## 3. Enable FCM HTTP v1
+- Project ID `longlive-9d2a9`, Android app `ai.jwlabs.longlive` registered.
+- `apps/mobile/google-services.json` is committed and wired via
+  `app.json` → `android.googleServicesFile`. It is **not** a secret (it's an
+  app identifier compiled into every APK). Changing it changes the native
+  fingerprint, so it ships with a store build, not an OTA update.
+- No iOS app / `GoogleService-Info.plist` is needed — iOS tokens come from
+  APNs via Expo, not Firebase.
 
-1. In the Firebase console, go to **Project settings → Cloud Messaging**.
-2. FCM HTTP v1 is enabled by default on new projects — confirm the "Cloud
-   Messaging API (V1)" status shows **Enabled**. If not, enable it from the
-   linked Google Cloud console page.
-3. No key to copy here — HTTP v1 auth comes from the service account (item
-   4), not a legacy server key.
+## 3. FCM v1 service account → EAS (Android delivery)
 
-## 4. Service-account key for server-side sends
+1. Firebase console → **Project settings → Service accounts → Generate new
+   private key**. Treat the JSON like a password; **never commit it**. The
+   current one lives at `Desktop/4a-signing/longlive-9d2a9-firebase-adminsdk-*.json`
+   on Wyatt's machine.
+2. Upload it to EAS: `cd apps/mobile && eas credentials -p android` →
+   production → **Google Service Account → Manage your Google Service
+   Account Key for Push Notifications (FCM V1)** → upload the JSON. (Or
+   expo.dev → project → Credentials → Android → `ai.jwlabs.longlive` → FCM
+   V1 service account key.)
 
-This is what `scripts/send-test-push.ts` and, later, the Phase 2/3 sender
-Edge Functions use to send messages — never the mobile app itself.
+## 4. APNs key → EAS (iOS delivery)
 
-1. Firebase console → **Project settings → Service accounts**.
-2. Click **Generate new private key** → downloads a JSON file. Treat this
-   file like a password — it can send push to every registered device.
-3. **Do not commit this file anywhere in the repo.**
-4. Set it as two env vars (Supabase Edge Function env — see item 6 for
-   exactly where, NOT a Vercel/Next.js env, and NEVER
-   `NEXT_PUBLIC_*`/`EXPO_PUBLIC_*`):
-   - `FCM_PROJECT_ID` — the Project ID from item 2.3.
-   - `FCM_SERVICE_ACCOUNT_JSON` — the full JSON file contents, as a single
-     env var value.
-5. For running `send-test-push.ts` locally/manually, put the same two vars
-   in `apps/worker/.env` (gitignored) alongside the existing Supabase
-   creds — see the top of that script for the exact names.
+1. Apple Developer portal → **Certificates, Identifiers & Profiles → Keys →
+   +**, tick **Apple Push Notifications service (APNs)**, register, and
+   download the `.p8` immediately (one download only). Note the **Key ID**.
+   Team ID is `D9N628AFHS`. The App Store Connect API key
+   (`AuthKey_QU7P2WC49Z.p8`) is a different key and is rejected by APNs.
+2. Upload it to EAS: `eas credentials -p ios` → production → **Push
+   Notifications: Manage your Apple Push Notifications Key** → use an
+   existing key (.p8 + Key ID). (Or expo.dev → Credentials → iOS.)
 
-## 5. Upload the APNs auth key (needed for iOS delivery)
+## 5. Where the server-side env vars live
 
-FCM fronts APNs, but APNs still needs its own key uploaded to Firebase.
-**Requires Apple Developer account access** (per the founder update above,
-this now exists — Wyatt has it).
-
-1. Apple Developer portal (https://developer.apple.com/account) → **Certificates,
-   Identifiers & Profiles → Keys** → **+** to create a new key.
-2. Name it (e.g. "LongLive APNs"), check **Apple Push Notifications service
-   (APNs)**, then **Continue → Register**.
-3. Download the `.p8` key file **immediately** — Apple only lets you
-   download it once. Note the **Key ID** shown on this page.
-4. Also note your **Team ID** (top-right of the Apple Developer portal, or
-   Membership page).
-5. Firebase console → **Project settings → Cloud Messaging → Apple app
-   configuration → APNs Authentication Key → Upload**. Provide the `.p8`
-   file, Key ID, and Team ID.
-
-## 6. Where these env vars actually live
-
-Phase 2's router (`POST-turned-GET /api/notifications/dispatch`,
-`packages/core/src/notification-sender.ts`) runs as a **Vercel** API route,
-not a Supabase Edge Function — same stack every other route in `apps/web`
-already uses (Phase 0/1's routes), so no separate Supabase Edge Function
-deploy is needed. Set these as **Vercel project env vars** (Project
-Settings → Environment Variables), never prefixed `NEXT_PUBLIC_*`:
+Phase 2's router (`GET /api/notifications/dispatch`,
+`packages/core/src/notification-sender.ts`) runs as a **Vercel** API route.
+Set these as **Vercel project env vars**, never prefixed `NEXT_PUBLIC_*`:
 
 ```
-FCM_PROJECT_ID=<project-id>
-FCM_SERVICE_ACCOUNT_JSON=<paste full JSON, one line>
 CRON_SECRET=<a random 32+ char string you generate — e.g. `openssl rand -hex 32`>
+EXPO_ACCESS_TOKEN=<optional — see item 6>
 ```
 
-`send-test-push.ts` (run locally, not on Vercel) reads the same two FCM
-vars from `apps/worker/.env` (gitignored) — see item 4 above for exactly
-where to add them there too. `CRON_SECRET` is Vercel-only: setting a
-project env var with that EXACT name makes Vercel Cron automatically send
-`Authorization: Bearer $CRON_SECRET` on every scheduled call to
-`/api/notifications/dispatch` (configured every 15 min in
-`apps/web/vercel.json`'s `crons` array) — the route checks that header and
-returns 401/503 without it, so nothing sends until this is set.
+`CRON_SECRET` makes Vercel Cron send `Authorization: Bearer $CRON_SECRET`
+on every scheduled call to `/api/notifications/dispatch` (every 15 min in
+`apps/web/vercel.json`'s `crons` array) — the route returns 401/503 without
+it, so nothing sends until this is set.
+
+The old `FCM_PROJECT_ID` / `FCM_SERVICE_ACCOUNT_JSON` vars are no longer
+read by anything; delete them wherever they were set.
+
+## 6. Optional: enhanced push security
+
+By default anyone holding a device's Expo push token can send to it. To
+require a secret: expo.dev → Account settings → Access tokens → create a
+robot token, set it as `EXPO_ACCESS_TOKEN` (Vercel + `apps/worker/.env`),
+**then** turn on "Enhanced Security for Push Notifications" in the EAS
+project settings. Turning it on before the env var is set stops every send.
 
 ## 7. Notifications event-producer secrets (GitHub Actions)
 
@@ -139,7 +121,7 @@ each script's own log line for confirmation once added.
 
 ## 8. Verifying it worked
 
-Once items 1–7 are done:
+Once items 1–7 are done (item 6 optional):
 
 ```
 # register a real device from the app first (grants push permission),

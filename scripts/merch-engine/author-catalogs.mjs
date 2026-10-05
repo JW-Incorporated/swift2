@@ -124,6 +124,12 @@ export function authorOfficialCatalog({
   return {
     catalog,
     rejected,
+    // Full-field rows (price/inStock/discoveredAt, etc.) for the same new
+    // products socialDraft.products narrows to {sourceId, item, url} --
+    // build-drop-draft.mjs's intent needs the catalog metadata this
+    // function already computed, not a re-derivation from the CLI's
+    // narrower socialDraft handoff (2026-09-12, Tree Overhaul T6 review).
+    newProducts,
     summary: {
       eraAttributed: catalog.filter((row) => row.eraId).length,
       verifiedAlternate: catalog.filter((row) => row.altListing).length,
@@ -239,6 +245,7 @@ async function main() {
       rejected: result.rejected.length,
       ...result.summary,
       socialDraft: result.socialDraft,
+      newProducts: result.newProducts,
     };
   }
   if (fanmadeCuration) {

@@ -62,14 +62,14 @@ drifts).
 |---|---|---|---|---|
 | ~~Photo Enrichment worker~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01Vcz4iSM9NoUmt7CZ7pkHaB` | ~~`21 6 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 3), warm spare | `claude-sonnet-5` |
 | News Triage — news_story to intake issues | `trig_019NuR7EpN7TA28yfmzKPAC7` | `40 15 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage.yml` | `claude-sonnet-5` — **T-3 trial live 2026-09-01 → 2026-09-15**, see § News Triage below |
-| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-news-triage-recall.yml` | `claude-opus-4-8` — 2-week trial instrument, disable after 2026-09-15 verdict |
+| News Triage recall check — T-3 trial audit | `trig_01V8JrQPZfWpUqUWiy9fvmkh` | `0 17 * * 2` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — **retired 2026-09-10**, `routine-news-triage-recall.yml` deleted (docs/decisions.md) | `claude-opus-4-8` — 2-week trial instrument, retired, see docs/decisions.md 2026-09-10 |
 | ~~Cross-Link builder~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01FxMuDtwScPFvSgvhFCxdfP` | ~~`51 9 * * 1,4`~~ | ⛔ disabled — superseded by The Vault Run (lane 5), warm spare | `claude-sonnet-5` |
 | ~~Stylist — shop-link sourcing & upkeep~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_011BiHZqLEVHAJ4chfaYfGZH` | ~~`33 16 * * 0`~~ | ⛔ disabled — superseded by The Vault Run (lane 6), warm spare | `claude-sonnet-5` |
 | ~~Rumor Desk — sourcing & lifecycle~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01GS6bcMsEQjXwmyxGr7S1js` | ~~`47 14 */2 * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 4), warm spare | `claude-opus-4-8` |
 | Lex depth (sole instance) | `trig_01BoVCT67VbeLE8sRiaYPju4` | `20 */2 * * *` | ⛔ **disabled** (warm spare, intentional) | `claude-opus-4-8` |
 | ~~Answerer (sole instance)~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_016hygyYPEV9T7BunnTHAWbZ` | ~~`50 13 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 2), warm spare | `claude-opus-4-8` |
 | Tree — weekly social plan | `trig_015YHCK6J3FwKLVn2oABUSic` | `0 10 * * 1` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-tree-weekly-plan.yml` | `claude-opus-5` |
-| Growth — daily draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-growth-draft.yml` | `claude-opus-4-8` |
+| Tree — daily social draft | `trig_01UBvxMi2Pz7x7qnsffLHAU3` | `0 11 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-tree-daily-draft.yml` | `claude-opus-4-8` |
 | Paul Blart — security patrol | `trig_01Px9HckABpWC4Bq1JQomfWT` | `20 22 * * 1` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-paul-blart.yml` | `claude-opus-4-8` |
 | Laura — a11y walk | `trig_019aY4jhN6T9ZDAMve8YaRGw` | `20 18 * * 2,5` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-laura-a11y-walk.yml` | `claude-sonnet-5` |
 | Austin — build runs | `trig_01FE8o9vscpHts7FwsVKGMZm` | `0 21 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-austin-build.yml` | `claude-opus-4-8` — 2-week trial 2026-08-31→2026-09-14 (was `claude-fable-5`; Joey D5=A, `decisions.md`) |
@@ -619,8 +619,8 @@ inventory drifting ahead of reality.
 |---|---|---|---|---|---|
 | Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
-| Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
-| Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Growth draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Growth executes it. Charter: [`tree.md`](tree.md) |
+| Tree — daily social draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/tree-daily-draft.md`](runner-prompts/tree-daily-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md` at the time; folded into `docs/agents/tree.md` 2026-09-12, T1) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason. **Since 2026-08-11 it drafts Tree's calendar rather than inventing content** |
+| Tree — weekly social plan | `0 10 * * 1` (Mondays, an hour before that day's Tree daily draft, so the fresh calendar is readable the same morning) | **Opus** — genuine strategy judgment; a script-and-summarize tier would restore the formula loop it exists to break | [`runner-prompts/tree-weekly-plan.md`](runner-prompts/tree-weekly-plan.md) | **Wyatt** | Added 2026-08-11 (Joey): posting was strategically random — 12 of 14 captions opened "did you know", every IG image a generic era tile, and feature launches / the six threads / Mood had never been posted about. Tree plans `social/calendar.md`; Tree's daily draft executes it. Charter: [`tree.md`](tree.md) |
 | Austin — build runs (historical ×2/day entry — **stale, fixed 2026-08-31 per T-19/T-11**; the charter's Cadence section correctly described the event/hourly poll all along, and the live registry above shows one daily trigger at `0 21 * * *`, now on `claude-opus-4-8` for the D5=A trial) | ~~`0 16 * * *`, `0 21 * * *`~~ superseded — see live table above | Fable (superseded — see live table above) | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** (superseded — Joey per D1=B) | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
@@ -632,7 +632,7 @@ inventory drifting ahead of reality.
 | **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
-| watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+| watchdog / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
 ## Karen Deep — trigger config to create (2026-08-11; spend approved 2026-08-31, Joey, D3=A)
@@ -793,7 +793,7 @@ the API silently no-ops `mcp_connections: []`).
 To bring Tree live, from Joey's account: create a routine named
 `Tree — weekly social plan`, cron `0 10 * * 1`, model `claude-opus-5` (or the
 fleet's current Opus), prompt = the **exact contents** of
-[`runner-prompts/tree-plan.md`](runner-prompts/tree-plan.md), then run the
+[`runner-prompts/tree-weekly-plan.md`](runner-prompts/tree-weekly-plan.md), then run the
 `routine-invariants.md` checklist on it — remove the `Claude_Code_Remote`
 connector (Edit → Connectors → `×` → Save; the API silently ignores
 `mcp_connections: []`), `persist_session: false`, no `Task` in `allowed_tools`.
@@ -872,6 +872,12 @@ it against):
    `DONE`.
 
 ### News Triage recall check — trigger config (2-week trial, T-3)
+
+**RETIRED 2026-09-10** (see `docs/decisions.md`) — zero verified false
+negatives attributable to News Triage's own judgment across the 3 recall
+issues on record (#3628, #3661, #4027); `routine-news-triage-recall.yml` and
+`docs/agents/runner-prompts/news-triage-recall-check.md` are deleted. The
+config below is retained as historical record only.
 
 **Created 2026-09-01**, trigger ID `trig_01V8JrQPZfWpUqUWiy9fvmkh` (also
 recorded in the Live trigger IDs table above). Weekly Opus audit; see
@@ -988,9 +994,11 @@ Extending to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul
 Blart, Austin, Growth) is now one more `check_lane` line, once/if one of them
 is actually observed going dark — not pre-built speculatively for all of them.
 
-Also fixed: every `watchdog-alert` issue is now real-emailed via
-`scripts/watchdog/send-mail.py` (the same delivery path `brief-mailer.yml`
-uses), not just GitHub-mentioned. `@sffan15-sys` / `@wjduvall-cmd` mentions
+Also fixed: every `watchdog-alert` issue now posts to `#longlive-marjorie` by
+default (via `scripts/marjorie/post-or-mail.mjs`), with email only as the
+Discord-failure fallback or `production-backup.yml`'s deliberate exception
+(Marjorie Overhaul C3) — not just GitHub-mentioned. `@sffan15-sys` /
+`@wjduvall-cmd` mentions
 don't reach the founders' actual inboxes (see `marjorie.md` › Delivery) —
 that gap is exactly why four consecutive daily "no Founders' Brief" alerts
 (#947, #1177, #1203, #1224) sat open and uncommented-on for days. Alert
@@ -1032,3 +1040,10 @@ removes both. Cron floor is 1 hour, so sub-hourly radar is not expressible in cl
   them, with an explicit account owner justified against the 1:10 split.
 - The manager-hat telemetry reports tokens-per-account monthly so the split
   is measured, not assumed.
+
+
+## GitHub-Actions-only routines (no claude.ai trigger)
+
+| Routine | Workflow | Cadence (UTC) | Model | Notes |
+|---|---|---|---|---|
+| Plan recheck — Tree Overhaul | `plan-recheck.yml` | daily `33 15 * * *`, gated on `docs/plans/tree-overhaul/checkpoints.json` due dates | `claude-opus-5` | Read-only verifier; posts to #4117, opens a docs PR. Prompt `docs/agents/runner-prompts/plan-recheck.md`. Expected to run 4 times total (R1–R4) then be retired with the epic. |

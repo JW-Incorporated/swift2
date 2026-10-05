@@ -2,7 +2,18 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkLength, weightedTweetLength, checkMedia, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkFastLaneDisplacement, checkLength, weightedTweetLength, checkMedia, checkCritique, checkDraft } from './check-drafts.mjs';
+import { contentHash } from './lib/queue.mjs';
+import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
+
+const VALID_CRITIQUE = {
+  v: 1,
+  scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+  total: 23,
+  rationale: "This is the Decode thread's origin-story beat, using a dated, verifiable 2012 detail rather than a vibe.",
+  rulesChecked: [],
+  revision: 1,
+};
 
 // checkMedia reads real files under apps/web/public/ (PUBLIC_DIR in
 // check-drafts.mjs), so the aspect-ratio-rejection test below needs an actual
@@ -136,6 +147,7 @@ describe('09-08 paired launch preview', () => {
     mediaKind: 'photo',
     mediaCredit: 'Paolo Villanueva (CC BY 2.0), via Wikimedia Commons',
     mediaSource: 'https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg',
+    critique: VALID_CRITIQUE,
   };
   const campaign = 'launch:shop-the-look:announce:2026-09-08';
   const queue = [
@@ -447,6 +459,74 @@ describe('checkCrossPostCopy', () => {
       ];
       expect(checkCrossPostCopy('x.json', all[1].data, all)).toEqual([]);
     });
+  });
+});
+
+describe('checkFastLaneDisplacement (Tree Overhaul T6 — spec AC#9)', () => {
+  it('fails a merch X item sharing a platform + UTC day with a calendar X item (AC#9)', () => {
+    const all = [
+      { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'calendar-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T23:00:00Z' } },
+    ];
+    const findings = checkFastLaneDisplacement('merch-x.json', all[0].data, all);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('calendar-x.json');
+  });
+
+  it('fires symmetrically when checking the calendar item instead', () => {
+    const all = [
+      { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'calendar-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T23:00:00Z' } },
+    ];
+    const findings = checkFastLaneDisplacement('calendar-x.json', all[1].data, all);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('merch-x.json');
+  });
+
+  it('passes a fast-lane item and a calendar item on different UTC days', () => {
+    const all = [
+      { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'calendar-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-19T23:00:00Z' } },
+    ];
+    expect(checkFastLaneDisplacement('merch-x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('passes a fast-lane item and a calendar item on the same day but different platforms', () => {
+    const all = [
+      { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'calendar-ig.json', data: { platform: 'instagram', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T23:00:00Z' } },
+    ];
+    expect(checkFastLaneDisplacement('merch-x.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is silent between two fast-lane items, or two calendar items, on the same day (not this check\'s job)', () => {
+    const twoFastLane = [
+      { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'appearance-x.json', data: { platform: 'x', lane: 'appearance', body: 'b', scheduledAt: '2026-09-18T20:00:00Z' } },
+    ];
+    expect(checkFastLaneDisplacement('merch-x.json', twoFastLane[0].data, twoFastLane)).toEqual([]);
+    const twoCalendar = [
+      { file: 'cal1-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } },
+      { file: 'cal2-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T20:00:00Z' } },
+    ];
+    expect(checkFastLaneDisplacement('cal1-x.json', twoCalendar[0].data, twoCalendar)).toEqual([]);
+  });
+
+  it('is a no-op for a reddit-lane item (not part of this pairing)', () => {
+    const all = [{ file: 'reddit.json', data: { platform: 'x', lane: 'reddit', body: 'b', scheduledAt: '2026-09-18T15:00:00Z' } }];
+    expect(checkFastLaneDisplacement('reddit.json', all[0].data, all)).toEqual([]);
+  });
+
+  it('is a no-op for an unrecognized platform or invalid scheduledAt (checkSchema already flags those)', () => {
+    expect(checkFastLaneDisplacement('x.json', { platform: 'tiktok', lane: 'merch', scheduledAt: '2026-09-18T15:00:00Z' }, [])).toEqual([]);
+    expect(checkFastLaneDisplacement('x.json', { platform: 'x', lane: 'merch', scheduledAt: 'not-a-date' }, [])).toEqual([]);
+  });
+
+  it('is wired into checkDraft alongside the other rule families', async () => {
+    const target = { file: 'merch-x.json', data: { platform: 'x', lane: 'merch', body: 'a perfectly fine fan post.', scheduledAt: '2026-09-18T15:00:00Z', media: ['/social/library/photos/a.jpg'], altText: ['alt'], critique: { v: 2, scores: { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 5, timely: 5 }, total: 30, rationale: 'r', rulesChecked: [], revision: 1 } } };
+    const calendarSibling = { file: 'calendar-x.json', data: { platform: 'x', lane: 'calendar', body: 'b', scheduledAt: '2026-09-18T23:00:00Z' } };
+    const findings = await checkDraft(target, { allQueue: [target, calendarSibling], openerContext: [], recentIg: [] });
+    expect(findings.some((f) => f.includes('fast-lane displacement'))).toBe(true);
   });
 });
 
@@ -942,5 +1022,89 @@ describe('checkMedia', () => {
   it('rejects mediaKind "video-thumb" on X too — no exempt lane remains (2026-09-10, kanban t_bac31b1a)', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', campaign: 'appearance:video-id', mediaKind: 'video-thumb', body: 'text with a link' }, []);
     expect(findings.length).toBeGreaterThan(0);
+  });
+});
+
+describe('checkCritique (Tree Overhaul T2 — spec AC#4)', () => {
+  it('passes a well-formed critique', () => {
+    expect(checkCritique({ critique: VALID_CRITIQUE })).toEqual([]);
+  });
+
+  // AC#4's exact quoted format, naming the dimension and its score.
+  it('fails a below-threshold draft with a message naming the dimension and its score', () => {
+    const critique = { ...VALID_CRITIQUE, scores: { ...VALID_CRITIQUE.scores, notEmbarrassed: 3 }, total: 21 };
+    expect(checkCritique({ critique })).toContain('critique.notEmbarrassed is 3, needs 4');
+  });
+
+  // AC#10's testable half: a fixture engineered to fail `specific` names
+  // that dimension (the daily run's own PR-body naming of the failing
+  // dimension is the runner prompt's job, not something check-drafts.mjs
+  // can produce — see the PR body for that caveat).
+  it('names `specific` when that is the dimension a fixture is engineered to fail', () => {
+    const critique = { ...VALID_CRITIQUE, scores: { ...VALID_CRITIQUE.scores, specific: 2 }, total: 20 };
+    expect(checkCritique({ critique })).toContain('critique.specific is 2, needs 3');
+  });
+
+  it('flags a missing critique entirely', () => {
+    expect(checkCritique({}).some((f) => f.includes('critique'))).toBe(true);
+  });
+
+  // Real-CI regression (PR #4144): an item already carrying a
+  // shape/hash-valid approval (any real content, no critique — exactly
+  // the four live 2026-09-12/13 social/queue/ items, which predate T2) is
+  // exempt from critique entirely — checkCritique shares
+  // findCritiqueIssues, so this is the same rule as queue-schema.test.ts's,
+  // re-verified at this gate too so the two can never drift on which items
+  // are exempt. `sig` below is NOT a valid signature (round 2 LOW rename —
+  // it's an all-zero forgery, deliberately: this checks the unkeyed
+  // shape/hash-only path checkCritique actually uses, same as
+  // queue-schema.test.ts's dedicated forged-approval security test).
+  it('is exempt once the item already carries a shape/hash-valid approval — even with no critique at all', () => {
+    const base = { platform: 'x', body: 'a real tweet', scheduledAt: '2026-08-12T23:00:00Z', media: ['/social/library/photos/a.jpg'], altText: ['alt'] };
+    const approved = {
+      ...base,
+      approval: {
+        v: 2,
+        by: SOCIAL_APPROVERS[0],
+        at: '2026-09-11T16:26:33.227Z',
+        pr: 4108,
+        message: '1',
+        contentHash: contentHash(base),
+        sig: `hmac-sha256:${'0'.repeat(64)}`, // unsigned forgery, not a real signature — see comment above
+      },
+    };
+    expect(checkCritique(approved)).toEqual([]);
+  });
+
+  it('is wired into checkDraft alongside the other rule families', async () => {
+    // Same fixture as "runs the full rule set for a schema-valid item"
+    // above (no media, so checkMedia short-circuits on its own "requires at
+    // least one image" finding rather than touching disk) — proves a
+    // missing `critique` now ALSO surfaces alongside that finding.
+    const target = { file: 'no-critique.json', data: { platform: 'instagram', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z' } };
+    const findings = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(findings.some((f) => f.includes('critique'))).toBe(true);
+  });
+
+  // Round 2 review (real CI-only-vs-PR-time gate drift, T5): this is the
+  // draft-time gate — the one that is supposed to stop a bad draft before a
+  // PR is ever opened. It must reject exactly what queue-schema.mjs's CI
+  // backstop rejects, or the rule only ever surfaces as an avoidable red CI
+  // check on an already-opened PR.
+  it('rejects empty rulesChecked when activeLessonIds is non-empty, accepts it when omitted (matches queue-schema.mjs)', () => {
+    const critique = { ...VALID_CRITIQUE, rulesChecked: [] };
+    expect(checkCritique({ critique }, { activeLessonIds: ['L001'] })).toContain(
+      'critique.rulesChecked: must be non-empty — social/lessons.md has active rules that must be checked and recorded.',
+    );
+    expect(checkCritique({ critique })).toEqual([]);
+    expect(checkCritique({ critique }, { activeLessonIds: [] })).toEqual([]);
+  });
+
+  it('threads activeLessonIds through checkDraft, not just checkCritique directly', async () => {
+    const target = { file: 'empty-rules.json', data: { platform: 'instagram', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z', critique: { ...VALID_CRITIQUE, rulesChecked: [] } } };
+    const withLessons = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+    expect(withLessons.some((f) => f.includes('critique.rulesChecked: must be non-empty'))).toBe(true);
+    const withoutLessons = await checkDraft(target, { allQueue: [], openerContext: [], recentIg: [] });
+    expect(withoutLessons.some((f) => f.includes('critique.rulesChecked'))).toBe(false);
   });
 });

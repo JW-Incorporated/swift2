@@ -83,6 +83,12 @@ export async function fetchSubredditPosts(
         title: item.title ?? null,
         permalink: item.link,
         url: outboundUrl(item.content) || item.link,
+        // Atom feed's <author><name>/u/handle</name></author> — stripped of
+        // the leading "/u/" prefix so callers get a bare handle. Added for
+        // kanban t_a66e5eb2 (concert-photo sourcing credit field) — every
+        // existing caller (community-crawl.mjs's crawlSubreddit) already
+        // ignores unused fields on this object, so this is additive only.
+        author: typeof item.author === 'string' ? item.author.replace(/^\/u\//, '') : null,
         createdAt: item.isoDate ?? null,
         rank: index + 1,
       };

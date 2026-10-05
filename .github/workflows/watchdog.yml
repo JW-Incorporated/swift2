@@ -51,6 +51,7 @@ permissions:
 jobs:
   watchdog:
     runs-on: ubuntu-latest
+    environment: ops
     steps:
       # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
       # and send-mail.py, which need the repo checked out -- this workflow
@@ -83,30 +84,6 @@ jobs:
             echo "MISSING: no brief titled '$TITLE'"
           fi
 
-      - name: Ensure today's brief was actually emailed (same-day catch-up)
-        if: steps.brief.outputs.missing == 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          TODAY_UTC=$(date -u +%F)
-          MAILED=false
-          for id in $(gh run list --repo "$REPO" --workflow brief-mailer.yml \
-              --created "${TODAY_UTC}" --limit 20 --json databaseId,conclusion \
-              --jq '.[] | select(.conclusion=="success") | .databaseId'); do
-            if gh run view "$id" --repo "$REPO" --log 2>/dev/null | grep -q "Mailed \[Founders' Brief"; then
-              MAILED=true
-              break
-            fi
-          done
-          if [ "$MAILED" = "true" ]; then
-            echo "Today's brief was already mailed."
-          else
-            echo "Brief exists but wasn't mailed today (scheduled trigger likely missed it) — retrying now."
-            gh workflow run brief-mailer.yml --repo "$REPO" -f mode=brief
-          fi
-
       - name: Alert founders (brief missing)
         if: steps.brief.outputs.missing == 'true'
         env:
@@ -115,6 +92,7 @@ jobs:
           TODAY: ${{ steps.brief.outputs.today }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -142,6 +120,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -194,6 +173,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -230,6 +210,49 @@ jobs:
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           exit 1
 
+      # Vercel production deploy failure check (t_85667a3c, 2026-09-23).
+      # WHY: the "Prod smoke check" above only catches an outage AFTER it
+      # has already reached the live site, and the daily maintenance
+      # snapshot (scripts/ops/collect-maintenance.mjs, folded into the
+      # Founders' Brief) only asks Vercel's own deployment API once a day.
+      # The 2026-09-23 incident (PR #4534's production deploy failed at
+      # e17860a76 and nobody knew for hours, t_3dab9cf8) fell exactly in
+      # the gap between those two: the site was still serving the PREVIOUS
+      # good build (so the smoke check saw nothing wrong) while main sat
+      # ahead of what was actually live, undetected until the next day's
+      # brief. This step asks Vercel directly, hourly (same `if: always()`
+      # ungating as the smoke check above, for the same reason: an
+      # unrelated earlier failure must not skip it), and is the one check
+      # in this file that pings with a real Discord @-mention
+      # (ALERT_MENTION_FOUNDER=1) rather than only a GitHub issue + email —
+      # see scripts/watchdog/upsert-alert.sh and
+      # scripts/marjorie/post-or-mail.mjs's --mention-founder for why a
+      # plain issue mention of a bot identity does not reach the founder.
+      - name: Vercel production deploy check (real-time, @-mentions on failure)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: Vercel production deploy failed"
+          # See the work-ownership step below for why STATUS is captured
+          # this way rather than a bare `cmd; STATUS=$?` under errexit.
+          STATUS=0
+          node scripts/watchdog/vercel-deploy-check.mjs --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vercel-deploy-check OK"
+          else
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vercel-deploy-check ALARM (see /tmp/alert-body.md)"
+          fi
+
       # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
       # red-looped hourly for a full day — every run crashing in ~1s on unset
       # SUPABASE_* secrets — and nothing surfaced it, so the intake queue
@@ -243,6 +266,24 @@ jobs:
       # success(), so a live prod outage was silently skipping this detection
       # step too — the same idiom the "PRs stuck" step below already uses,
       # applied here for the same reason.
+      # WATCHED list dynamic since tree-overhaul epic #4117 task A1
+      # (2026-09-11): the old hand-maintained `news-worker.yml:10
+      # social-poster.yml:6 marjorie-inbox.yml:6` list only ever covered
+      # three workflows and rotted silently as `routine-*.yml` files were
+      # added — nothing forced it to stay in sync with the repo. WATCHED is
+      # now built from every `routine-*.yml` file (excluding the reusable
+      # `routine-template.yml` caller template, which has no schedule of its
+      # own) plus explicitly `output-sampling.yml`, `plan-recheck.yml`,
+      # `fleet-telemetry-snapshot.yml`, `bot-chat-poll.yml` (M5, 2026-09-13 —
+      # a poll that dies silently leaves founder messages unanswered), and (issue #4131 fold-in, 2026-09-12
+      # — dropped by the rebuild above since none match `routine-*.yml`)
+      # `news-worker.yml`, `social-poster.yml`, `marjorie-inbox.yml`.
+      # Per-workflow maxage-hours is derived
+      # straight from each file's own cron via
+      # scripts/watchdog/cron-maxage-hours.mjs (same "~2x the schedule"
+      # principle the old hand-tuned windows used, with a bit more slack —
+      # see that script's header). A workflow with no `schedule:` trigger at
+      # all is skipped, same as the old per-entry `gh workflow view` guard.
       - name: Scheduled workflows healthy (cadence view)
         if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
@@ -250,18 +291,32 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          # workflow:max-age-hours — a workflow with NO successful run inside
-          # its window is considered down. Windows are ~2x the schedule so a
-          # single miss doesn't page anyone.
-          WATCHED="news-worker.yml:10 social-poster.yml:6 marjorie-inbox.yml:6"
+          WATCHED=""
+          for F in .github/workflows/routine-*.yml \
+                   .github/workflows/output-sampling.yml \
+                   .github/workflows/plan-recheck.yml \
+                   .github/workflows/plan-recheck-marjorie.yml \
+                   .github/workflows/fleet-telemetry-snapshot.yml \
+                   .github/workflows/bot-chat-poll.yml \
+                   .github/workflows/news-worker.yml \
+                   .github/workflows/social-poster.yml; do
+            [ -f "$F" ] || continue
+            WF=$(basename "$F")
+            [ "$WF" = "routine-template.yml" ] && continue
+            MAXAGE=$(node scripts/watchdog/cron-maxage-hours.mjs "$F" 2>/dev/null) || continue
+            [ -z "$MAXAGE" ] && continue
+            # Skip a workflow that isn't in this repo (keeps the list portable).
+            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
+            WATCHED="${WATCHED} ${WF}:${MAXAGE}"
+          done
+
           BROKEN=""
           for ENTRY in $WATCHED; do
             WF="${ENTRY%%:*}"; MAXAGE="${ENTRY##*:}"
-            # Skip a workflow that isn't in this repo (keeps the list portable).
-            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
             LAST_OK=$(gh run list --repo "$REPO" --workflow "$WF" --status success \
               --limit 1 --json createdAt --jq '.[0].createdAt // empty')
             if [ -z "$LAST_OK" ]; then
@@ -280,18 +335,42 @@ jobs:
             echo "All watched workflows are succeeding as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "cadence OK"
-            exit 0
+          else
+            {
+              echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
+              echo ""
+              printf "%b" "$BROKEN"
+              echo "Check the run logs: https://github.com/${REPO}/actions"
+              echo ""
+              echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — a routine reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets."
+            } > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           fi
 
-          {
-            echo "@sffan15-sys — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
-            echo ""
-            printf "%b" "$BROKEN"
-            echo "Check the run logs: https://github.com/${REPO}/actions"
-            echo ""
-            echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
-          } > /tmp/alert-body.md
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          # NEW (task A1): 2 consecutive scheduled-run failures for a watched
+          # workflow opens a DEDICATED per-workflow self-healing issue,
+          # distinct from the combined cadence alert above (which only fires
+          # once NOTHING has succeeded inside the whole maxage window). This
+          # catches a workflow that ran recently — so the combined check
+          # above stays quiet — but has failed its last two scheduled runs in
+          # a row. Resolves automatically: the next scheduled success makes
+          # this loop close it, same upsert-alert.sh mechanism as every other
+          # alert in this file.
+          for ENTRY in $WATCHED; do
+            WF="${ENTRY%%:*}"
+            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
+              --limit 2 --json conclusion --jq '[.[].conclusion]')
+            COUNT=$(echo "$LAST_TWO" | jq 'length')
+            FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
+            ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
+            if [ "$COUNT" -ge 2 ] && [ "$FAILS" -eq "$COUNT" ]; then
+              echo "@sffan15-sys — \`${WF}\`'s last ${COUNT} scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            else
+              echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            fi
+          done
 
       # ── Stalled PRs: red too long, or a check that will never come back ──
       # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
@@ -381,6 +460,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
         run: |
@@ -558,6 +638,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -660,7 +741,6 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-
       # Work-ownership check (2026-08-11). Every other job in this file watches
       # whether a RUNNER is alive. None of them watch whether the WORK has an
       # owner, and that is the failure the 2026-08-11 audit actually found: on
@@ -700,6 +780,75 @@ jobs:
         with:
           node-version: '24'
 
+      # Vault Run scheduled-cadence check (2026-09-12, swift2#58). Replaces
+      # the one-off founder ask "confirm vault-run holds up under daily
+      # scheduling" with a standing, self-reporting watchdog: routine-vault-
+      # run.yml's scheduled runs failed four days straight (2026-09-06 →
+      # 2026-09-09) before a turn-budget fix landed 2026-09-10, and only one
+      # clean scheduled day (2026-09-11) had been observed as of filing. This
+      # step watches every future scheduled run instead of asking a human to
+      # keep re-checking. Logic lives in
+      # scripts/watchdog/routine-vault-run-check.mjs (unit-tested,
+      # deterministic, zero AI) — same shape as the Karen/news-worker checks
+      # below. Placed AFTER setup-node (Codex review, 2026-09-12): the
+      # invocation uses `node --use-env-proxy`, a Node 24+ flag (#2008) — an
+      # unrecognised flag on whatever Node a runner image happens to
+      # preinstall exits 9 with "bad option" before a line of the script
+      # runs, so this step, like the Karen/news-worker checks below, must
+      # come after Node is pinned. Same daily-only gate as those: cadence
+      # questions don't need an hourly look.
+      - name: Vault Run scheduled-cadence check
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: routine-vault-run scheduled cadence"
+          if node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
+              --repo "$REPO" --alert-body /tmp/alert-body.md; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vault-run cadence OK"
+          else
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vault-run cadence ALARM"
+          fi
+
+      # docs/social/RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
+      # OPEN [BLOCKING] human action is older than 24h." Tonight's near-miss
+      # (#56, the freeze, filed but not executed until a session caught it
+      # independently) is the exact single point of failure this closes: a
+      # load-bearing human action may be late, but must never be silent.
+      # Read-only against HUMAN-ACTIONS.md — never writes to it (that file's
+      # entry-numbering/SKIP-is-final convention is a separate concern).
+      - name: Aged [BLOCKING] human actions (RULINGS-SOCIAL A6)
+        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: an OPEN [BLOCKING] human action is aging silently"
+          STATUS=0
+          node scripts/watchdog/blocking-human-actions-check.mjs --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "blocking-human-actions OK"
+          elif [ "$STATUS" -eq 1 ]; then
+            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+          else
+            echo "::error::blocking-human-actions-check.mjs exited $STATUS — the check is broken, not clear."
+            exit "$STATUS"
+          fi
+
       - name: Work-ownership check (zero AI)
         if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
         env:
@@ -707,6 +856,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -uo pipefail
@@ -730,112 +880,6 @@ jobs:
             # invalid budget, a GitHub query returning fields it reasons about
             # as null). That must not be reported as "no ownership problems".
             echo "::error::check-work-ownership.mjs exited $STATUS — the check is broken, not clear."
-            exit "$STATUS"
-          fi
-
-      # Karen post-repair confirmation (2026-08-15, SELF-LIMITING — full
-      # design in scripts/watchdog/karen-post-repair-check.mjs's header). The
-      # standing "Karen filed what she found" step above answers "is Karen
-      # healthy" with a 9-day staleness tolerance, which is the right
-      # permanent alarm (the real cadence is still unconfirmed per
-      # docs/agents/runners.md) but too slack to answer THIS week's specific
-      # question: did the 2026-08-14/15 repair (6ec8d6ca, d51676ce) actually
-      # work? This is a clearly-scoped SIBLING rather than an edit to that
-      # step — tightening its 9-day tolerance would be wrong for the reason
-      # already documented there, and duplicating its staleness/provenance/
-      # filing ladder inline behind a second deadline is exactly the kind of
-      # bash growth CLAUDE.md's rule 8 says to pull into a tested script
-      # instead. Confirms via the strongest signal first (a merged Karen PR),
-      # falling back to the same `cie-run`/`cie-filing` markers the standing
-      # step reads, via the same parser (scripts/content-engine/lib/report.mjs)
-      # — no marker parsing is duplicated.
-      #
-      # HOW THE FOUNDER TURNS THIS OFF: it turns itself off. It only opens an
-      # alert while unconfirmed AND inside the window; it closes that alert
-      # the moment a genuine run is confirmed, and also closes it (standing
-      # down instead of nagging) once 2026-08-22 passes — at which point the
-      # standing 9-day check above is already covering the same question. To
-      # remove it immediately instead, delete this step and
-      # scripts/watchdog/karen-post-repair-check.mjs; nothing else references
-      # either.
-      #
-      # Placed after the setup-node step above (needs Node for the .mjs
-      # script) rather than next to the standing Karen step higher up, which
-      # is pure bash and runs before Node exists on this runner.
-      # `!cancelled()`, same reasoning as every step below setup-node: an
-      # unrelated earlier-step failure must not silently skip this too.
-      - name: Karen post-repair confirmation (self-limiting, remove after 2026-08-22)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          set -uo pipefail
-          ALERT_TITLE="Watchdog: Karen post-repair still unconfirmed"
-          # GitHub Actions runs `run:` blocks as `bash -e {0}` — errexit is ON
-          # by default, and `set -uo pipefail` above does NOT clear it. A
-          # non-zero exit here IS the alarm signal, not a step failure, so a
-          # bare `cmd; STATUS=$?` would die on the `node` line before STATUS
-          # is ever assigned and this whole branch would be skipped. Putting
-          # the command on the left of `||` makes it a guarded context, so
-          # errexit does not fire and STATUS captures the real exit code.
-          STATUS=0
-          node --use-env-proxy scripts/watchdog/karen-post-repair-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md || STATUS=$?
-          if [ "$STATUS" -eq 0 ]; then
-            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "karen-post-repair OK (confirmed, or window expired)"
-          elif [ "$STATUS" -eq 1 ]; then
-            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-          else
-            echo "::error::karen-post-repair-check.mjs exited $STATUS — the check is broken, not clear."
-            exit "$STATUS"
-          fi
-
-      # news-worker Supabase key rotation confirmation (2026-08-15,
-      # SELF-LIMITING — full design in
-      # scripts/watchdog/news-worker-rotation-check.mjs's header).
-      # SUPABASE_SERVICE_ROLE_KEY was rotated 2026-08-15T18:31:50Z; its only
-      # consumer is news-worker.yml. The standing "Scheduled workflows
-      # healthy" cadence check above only asks "has SOMETHING succeeded
-      # within 10h" — it cannot say whether the FIRST run after the rotation
-      # specifically authenticated, and cannot distinguish an
-      # authentication-shaped failure (the rotation broke it) from an
-      # ordinary one (something else broke, unrelated to the key — worth
-      # knowing separately since news-worker is a documented no-op with zero
-      # news_source rows seeded). Sibling, not an edit, for the same reason as
-      # the Karen check above: classifying WHY a specific run failed is a
-      # different question than "did something succeed recently".
-      #
-      # HOW THE FOUNDER TURNS THIS OFF: it only ever opens an alert for the
-      # one shape it exists to catch — a confirmed authentication failure. A
-      # confirmed success, a confirmed unrelated failure, still-pending, or a
-      # window expiry (2026-08-22) all close/no-op silently — those are either
-      # good news or the standing cadence check's alarm to raise, not this
-      # one's. To remove it immediately instead, delete this step and
-      # scripts/watchdog/news-worker-rotation-check.mjs.
-      - name: news-worker rotation confirmation (self-limiting, remove after 2026-08-22)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          set -uo pipefail
-          ALERT_TITLE="Watchdog: news-worker rotated key looks broken"
-          node --use-env-proxy scripts/watchdog/news-worker-rotation-check.mjs --repo "$REPO" --alert-body /tmp/alert-body.md
-          STATUS=$?
-          if [ "$STATUS" -eq 0 ]; then
-            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
-            echo "news-worker-rotation OK (confirmed, unrelated failure, pending, or window expired)"
-          elif [ "$STATUS" -eq 1 ]; then
-            scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-          else
-            echo "::error::news-worker-rotation-check.mjs exited $STATUS — the check is broken, not clear."
             exit "$STATUS"
           fi
 
@@ -904,6 +948,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -983,6 +1028,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -1048,6 +1094,7 @@ jobs:
           REPO: ${{ github.repository }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

@@ -76,6 +76,7 @@ describe('reddit-rss', () => {
         url: 'https://www.etsy.com/listing/7',
         createdAt: '2026-08-30T00:00:00.000Z',
         rank: 1,
+        author: null,
       },
     ]);
   });

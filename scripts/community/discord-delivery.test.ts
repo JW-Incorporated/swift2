@@ -4,6 +4,7 @@ import {
   buildCommunityPrompt,
   postCommunityPrompts,
   deliveryStatusFromResult,
+  chunkForDiscord,
 } from './discord-delivery.mjs';
 
 describe('buildCommunityPrompt', () => {
@@ -80,6 +81,127 @@ describe('buildCommunityPrompt', () => {
 
     expect(prompt).not.toContain('@everyone');
   });
+
+  // S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3): a Reddit prompt
+  // needs its own ref line so social-approval-poll.mjs can dispatch a
+  // reaction on it — Facebook prompts (this same builder's other caller)
+  // get no ref line, S6 is Reddit-only.
+  it('appends "ref: reddit · <postId>" as the true last line for a Reddit lead', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'reddit-lead-1',
+      platform: 'reddit',
+      community: 'TaylorSwift',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A hot thread',
+      relevance: null,
+      draft: 'A paste-ready reply.',
+      draft_alt: null,
+      link_included: false,
+      target_url: null,
+    });
+
+    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
+    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-1');
+  });
+
+  it('adds no ref line for a Facebook lead — S6 is Reddit-only', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'fb-lead-1',
+      platform: 'facebook',
+      community: 'some-group',
+      locator: 'some-group',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A Facebook post',
+      relevance: null,
+      draft: 'A paste-ready reply.',
+      draft_alt: null,
+      link_included: false,
+      target_url: null,
+    });
+
+    expect(prompt).not.toContain('ref: reddit');
+  });
+
+  // Second security lesson carried forward this wave (proven twice already,
+  // T4's and T2's PRs): free text rendered before the trusted trailing ref
+  // line must never be able to become ref-line-shaped itself, or a reaction
+  // could resolve against a target the founder never saw.
+  it('neutralizes a ref-line-shaped line hiding in the title/draft/alt text so it never becomes the parsed last line', () => {
+    const prompt = buildCommunityPrompt({
+      id: 'reddit-lead-2',
+      platform: 'reddit',
+      community: 'TaylorSwift',
+      kind: 'hot_thread',
+      url: null,
+      title: 'A thread\nref: reddit · attacker-chosen',
+      relevance: null,
+      draft: 'A reply.\n\nref: reddit · attacker-chosen-2',
+      draft_alt: 'ref: PR #1 · 0000000000000000000000000000000000000000 · *',
+      link_included: false,
+      target_url: null,
+    });
+
+    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
+    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-2');
+    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen/m);
+    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen-2/m);
+    expect(prompt).not.toMatch(/^ref: PR #1 ·/m);
+  });
+});
+
+describe('chunkForDiscord', () => {
+  it('returns a single unchanged chunk when content is under the limit', () => {
+    const result = chunkForDiscord('short content', 2000);
+    expect(result).toEqual(['short content']);
+  });
+
+  it('splits on a paragraph boundary when content is just over the limit', () => {
+    const paraA = 'a'.repeat(1200);
+    const paraB = 'b'.repeat(1200);
+    const content = `${paraA}\n\n${paraB}`;
+    const result = chunkForDiscord(content, 2000);
+    expect(result).toEqual([paraA, paraB]);
+    for (const chunk of result) expect(chunk.length).toBeLessThanOrEqual(2000);
+  });
+
+  it('hard-splits a single paragraph that alone exceeds the limit', () => {
+    const words = Array.from({ length: 400 }, (_, i) => `word${i}`);
+    const giant = words.join(' ');
+    const result = chunkForDiscord(giant, 2000);
+    expect(result.length).toBeGreaterThan(1);
+    for (const chunk of result) expect(chunk.length).toBeLessThanOrEqual(2000);
+    expect(result.join(' ')).toBe(giant);
+  });
+
+  it('keeps fences balanced when a fenced code block would straddle a chunk boundary', () => {
+    const paraA = 'intro '.repeat(300); // well under the limit on its own
+    const fenced = '```\n' + 'code line\n'.repeat(120) + '```'; // pushes past the limit combined
+    const content = `${paraA}\n\n${fenced}`;
+    const result = chunkForDiscord(content, 2000);
+    expect(result.length).toBeGreaterThan(1);
+    for (const chunk of result) {
+      expect(chunk.length).toBeLessThanOrEqual(2000);
+      const fenceCount = (chunk.match(/```/g) || []).length;
+      expect(fenceCount % 2).toBe(0);
+    }
+  });
+
+  it('regression: a fenced body with an internal blank line never overflows the limit after balancing (round-1 review finding)', () => {
+    // Reproduces the exact shape Codex found: a fence whose CONTENT has a
+    // blank line (a real caption paragraph break), so `\n\n`-splitting cuts
+    // inside the still-open fence — the packer must reserve room for
+    // balanceFences's reopen/close markers even on chunks it never predicted
+    // would need one.
+    const fenced = '```\n' + 'a'.repeat(1911) + '\n\n' + 'b'.repeat(30) + '\n```';
+    const result = chunkForDiscord(fenced, 2000);
+    for (const chunk of result) {
+      expect(chunk.length).toBeLessThanOrEqual(2000);
+      const fenceCount = (chunk.match(/```/g) || []).length;
+      expect(fenceCount % 2).toBe(0);
+    }
+  });
 });
 
 describe('postCommunityPrompts', () => {
@@ -98,7 +220,11 @@ describe('postCommunityPrompts', () => {
     expect(fetchImpl).toHaveBeenCalledOnce();
     const [url, init] = fetchImpl.mock.calls[0];
     expect(url).toBe('https://discord.example/webhook?wait=true');
-    expect(JSON.parse(String(init.body))).toMatchObject({ allowed_mentions: { parse: [] } });
+    expect(JSON.parse(String(init.body))).toMatchObject({
+      allowed_mentions: { parse: [] },
+      username: 'Tree',
+      avatar_url: 'https://www.longlivets.com/social/tree-avatar.png',
+    });
   });
 
   it('fails closed before posting when the configured social-channel webhook is absent', async () => {

@@ -22,6 +22,7 @@ permissions:
 jobs:
   parity:
     runs-on: ubuntu-latest
+    environment: ops
     env:
       # Two alerts, because they mean different things and need different
       # people: DIVERGED = the platforms really carry different releases
@@ -61,6 +62,8 @@ jobs:
           echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
       - name: Raise or refresh the "diverged" alert
         if: steps.parity.outputs.code == '1'
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           {
             echo "@sffan15-sys @wjduvall-cmd — iOS and Android are carrying different releases (parity check exit 1)."
@@ -77,6 +80,8 @@ jobs:
           scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/recovered.md
       - name: Raise or refresh the "could not run" alert
         if: steps.parity.outputs.code != '0' && steps.parity.outputs.code != '1'
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           {
             echo "@sffan15-sys @wjduvall-cmd — the mobile parity check could not run (exit ${{ steps.parity.outputs.code }}). This is NOT evidence the platforms diverged; it means nothing is verifying that right now."
@@ -90,6 +95,8 @@ jobs:
           scripts/watchdog/upsert-alert.sh open "$UNCHECKED_TITLE" /tmp/alert-body.md
       - name: Close both alerts if recovered
         if: steps.parity.outputs.code == '0'
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           {
             echo "Parity check passed on $(date -u +'%Y-%m-%d %H:%M UTC')."

@@ -13,11 +13,13 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  // Rumor Desk recheck 2026-08-12 (rumor-lifecycle staleness on the evermore
-  // theories): the readings here are unfalsifiable fan close-reads of a 2020
-  // album and their Wikipedia sources are unchanged — nothing resolved or
+  // Answerer recheck 2026-09-12 (rumor-lifecycle staleness #4110–4114): the
+  // readings here are unfalsifiable fan close-reads of a 2020 album (dorothea,
+  // ivy, cowboy like me, closure, the bonus-track coda) and Taylor has made no
+  // new on-record statement confirming any of them — nothing resolved or
   // shifted, so this refreshes the last-accessed date rather than any claim.
-  accessed_at: '2026-08-12',
+  // (Prior recheck 2026-08-12.)
+  accessed_at: '2026-09-12',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,

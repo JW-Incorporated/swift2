@@ -15,6 +15,12 @@ on:
   schedule:
     - cron: "40 15 * * *" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        required: false
+        type: number
+        default: 0
 
 permissions:
   contents: read
@@ -30,6 +36,26 @@ jobs:
       model: claude-sonnet-5
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
       timeout_minutes: 30
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
       checkout_token_secret: GITHUB_TOKEN
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  verify-receipt:
+    needs: run
+    if: always() && !cancelled()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Verify this attempt left a News Triage receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/news/check-triage-receipt.mjs

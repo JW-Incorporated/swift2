@@ -12,14 +12,22 @@
 // `docs/audits/fleet-telemetry/`, so the next optimization pass is a diff
 // against this file's history instead of a fresh hand-count.
 //
-// WHAT THIS DOES NOT DO: it cannot see Claude Code routine token spend —
-// that lives entirely on Anthropic's side of the Claude_Code_Remote
-// connector, with no repo-visible API. That is exactly why the Routine
+// ROUTINE USAGE TELEMETRY (2026-09-10, closes the other half of the T-17
+// visibility gap): each `routine-*.yml` run now uploads a `routine-usage`
+// artifact (`scripts/routine-usage-report.mjs`, wired in
+// `.github/workflows/routine-template.yml`) carrying that run's turn count,
+// duration, and a cost-equivalent parsed from the Claude Code SDK's
+// terminal `result` message. This script aggregates those artifacts
+// per-routine into the "Routine usage telemetry" report section below.
+// IMPORTANT CAVEAT: `total_cost_usd` there is a LIST-PRICE EQUIVALENT under
+// the shared `CLAUDE_CODE_OAUTH_TOKEN` plan-usage model
+// (`routine-template.yml`'s header) — not a real billed dollar amount, since
+// this account is not metered per-token. The actual constraint remains
+// Joey's plan rate limit, not money — this closes a VISIBILITY gap, not a
+// dollar-cap gap (that's architecturally impossible here). The Routine
 // Auditor's own weekly comment (docs/agents/routine-invariants.md § Auditor
-// arithmetic, T-17's other half) carries the enabled-trigger-count and
-// per-routine cadence-sum numbers instead — the two systems compose to
-// cover both halves of the fleet (Actions workflows here, Claude Code
-// routines there); neither claims to see the other's half.
+// arithmetic) still separately reports enabled-trigger-count and
+// per-routine cadence-sum — the two do not duplicate each other.
 //
 // WHY PER-WORKFLOW TOTAL_COUNT, NOT ONE PAGED LIST: this repo already
 // exceeds 1,000 matching runs in a 30-day window (CodeQL + CI alone), and
@@ -29,11 +37,16 @@
 // regardless of that pagination cap, and this repo has ~40 workflows, so
 // ~40 cheap `per_page=1` calls (reading only `.total_count`) is the correct
 // shape, not one huge paged fetch.
-import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gh } from './lib/gh.mjs';
 import { runMain } from './lib/cli.mjs';
+
+// `routine-usage` artifact name written by `scripts/routine-usage-report.mjs`
+// (`.github/workflows/routine-template.yml`'s upload-artifact step).
+const ROUTINE_ARTIFACT_NAME = 'routine-usage';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'fleet-telemetry');
@@ -112,6 +125,244 @@ async function fetchRunCounts(sinceIso) {
   return buildRunCounts(totals);
 }
 
+/**
+ * True for a `routine-*.yml` caller workflow whose runs carry `routine-usage`
+ * telemetry artifacts — excludes `routine-template` itself, the reusable
+ * workflow those callers invoke via `uses:`, which is never run directly and
+ * so never has its own artifact-bearing runs. Exported and pure for tests.
+ */
+export function isRoutineWorkflow(name) {
+  return typeof name === 'string' && name.startsWith('routine-') && name !== 'routine-template';
+}
+
+/** Run IDs for one workflow since `sinceIso`. Routine cadence (daily/weekly) stays well under the 1,000-run pagination cap this window covers, so a full paginated list (not just `total_count`) is safe here. */
+async function fetchRoutineRunIds(workflowId, sinceIso) {
+  const { stdout } = await gh([
+    'api',
+    `repos/${REPO}/actions/workflows/${workflowId}/runs`,
+    '--paginate',
+    '-X',
+    'GET',
+    '-f',
+    `created=>=${sinceIso}`,
+    '-f',
+    'per_page=100',
+    '--jq',
+    '.workflow_runs[].id',
+  ]);
+  const text = stdout.trim();
+  if (!text) return [];
+  return text.split('\n').filter(Boolean).map((line) => parseInt(line, 10));
+}
+
+/**
+ * Artifact names attached to one workflow run. `--paginate` + `per_page=100`
+ * (a routine run realistically carries 1-2 artifacts, so this is cheap
+ * insurance, not new plumbing) so a run with more artifacts than the
+ * default page size of 30 can't silently hide `routine-usage` past page 1.
+ * Lets a real API failure propagate — callers must not silently fold that
+ * into "no artifact" (Codex review round 1, finding 3).
+ */
+async function fetchRunArtifactNames(runId) {
+  const { stdout } = await gh([
+    'api',
+    `repos/${REPO}/actions/runs/${runId}/artifacts`,
+    '--paginate',
+    '-X',
+    'GET',
+    '-f',
+    'per_page=100',
+    '--jq',
+    '.artifacts[].name',
+  ]);
+  return stdout.trim().split('\n').filter(Boolean);
+}
+
+/**
+ * Downloads and parses one run's `routine-usage` artifact.
+ *
+ * Returns `null` when the run genuinely has none (a skipped/guarded-off
+ * routine run never produces one — not a coverage gap, just nothing to
+ * report). Returns an INCOMPLETE placeholder record (routineName known,
+ * every metric `null`, `incomplete: true`) when the artifact SHOULD exist
+ * but the lookup, download, or parse failed — this must read as "we don't
+ * know", never silently as "this run used ~0 turns" (Codex review round 1,
+ * finding 3). A single bad run must never abort the whole snapshot.
+ */
+async function fetchRoutineUsageRecord(runId, routineName) {
+  const incomplete = (reason) => ({
+    routineName,
+    numTurns: null,
+    durationMs: null,
+    totalCostUsd: null,
+    incomplete: true,
+    reason,
+  });
+
+  let names;
+  try {
+    names = await fetchRunArtifactNames(runId);
+  } catch (err) {
+    console.error(`fleet-telemetry-snapshot: artifact lookup failed for run ${runId}: ${err?.message ?? err}`);
+    return incomplete('lookup-failed');
+  }
+  if (!names.includes(ROUTINE_ARTIFACT_NAME)) return null;
+
+  const dir = await mkdtemp(path.join(tmpdir(), 'routine-usage-'));
+  try {
+    await gh(['run', 'download', String(runId), '--name', ROUTINE_ARTIFACT_NAME, '--dir', dir, '--repo', REPO]);
+    const raw = await readFile(path.join(dir, 'routine-usage.json'), 'utf8');
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || typeof parsed.routineName !== 'string') {
+      console.error(`fleet-telemetry-snapshot: routine-usage artifact for run ${runId} failed schema validation.`);
+      return incomplete('invalid-schema');
+    }
+    return parsed;
+  } catch (err) {
+    console.error(`fleet-telemetry-snapshot: could not read routine-usage artifact for run ${runId}: ${err?.message ?? err}`);
+    return incomplete('download-failed');
+  } finally {
+    await rm(dir, { recursive: true, force: true }).catch(() => {});
+  }
+}
+
+/** All parsed `routine-usage` records (including `incomplete` placeholders for lookup/download/parse failures) across every `routine-*` workflow's runs this window. */
+async function fetchRoutineUsageRecords(sinceIso) {
+  const workflows = (await fetchWorkflows()).filter((wf) => isRoutineWorkflow(wf.name));
+  const records = [];
+  for (const wf of workflows) {
+    const runIds = await fetchRoutineRunIds(wf.id, sinceIso);
+    for (const runId of runIds) {
+      const record = await fetchRoutineUsageRecord(runId, wf.name);
+      if (record) records.push(record);
+    }
+  }
+  return records;
+}
+
+/** Median of a numeric array, or `null` for an empty array. Exported and pure for tests. */
+export function median(nums) {
+  if (!nums.length) return null;
+  const sorted = [...nums].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
+/**
+ * Groups `routine-usage.json` records by routine name into per-routine run
+ * count / total & median turns / total duration / summed cost-equivalent.
+ *
+ * Uses a `Map`, NOT a plain object, as the accumulator — a routine literally
+ * named (or otherwise keyed as) `constructor` resolves `{}`'s inherited
+ * `Object.prototype.constructor` instead of creating a new entry, then
+ * crashes reading `.turns` off it (Codex review round 1, finding 2,
+ * reproduced with `aggregateRoutineUsage([{routineName: 'constructor', ...}])`).
+ *
+ * Every record is schema-checked before it is aggregated: not an object, or
+ * `routineName` isn't a non-empty string, is skipped entirely (unattributable
+ * — there is no row to charge it to). A record explicitly marked
+ * `incomplete: true` (an upstream lookup/download/parse failure —
+ * `fetchRoutineUsageRecord`) or missing/non-finite on any of its three
+ * numeric fields counts toward `runCount` but NOT `recordsWithData`, so a
+ * row's `partial` flag surfaces exactly the case Codex flagged: one real run
+ * plus one run with null metrics must never render identically to two full
+ * runs' worth of data. Numeric fields still individually accumulate
+ * wherever they ARE present, so a partial row's totals are still the best
+ * available lower bound, just visibly labeled as such by the caller.
+ * Exported and pure for tests.
+ */
+export function aggregateRoutineUsage(records) {
+  const byRoutine = new Map();
+  for (const r of records || []) {
+    if (!r || typeof r.routineName !== 'string' || !r.routineName) continue;
+    let agg = byRoutine.get(r.routineName);
+    if (!agg) {
+      agg = {
+        routineName: r.routineName,
+        runCount: 0,
+        recordsWithData: 0,
+        turns: [],
+        totalDurationMs: 0,
+        totalCostUsd: 0,
+        hasCost: false,
+      };
+      byRoutine.set(r.routineName, agg);
+    }
+    agg.runCount += 1;
+    const numTurnsOk = Number.isFinite(r.numTurns);
+    const durationOk = Number.isFinite(r.durationMs);
+    const costOk = Number.isFinite(r.totalCostUsd);
+    if (r.incomplete !== true && numTurnsOk && durationOk && costOk) agg.recordsWithData += 1;
+    if (numTurnsOk) agg.turns.push(r.numTurns);
+    if (durationOk) agg.totalDurationMs += r.durationMs;
+    if (costOk) {
+      agg.totalCostUsd += r.totalCostUsd;
+      agg.hasCost = true;
+    }
+  }
+  return [...byRoutine.values()]
+    .map((agg) => ({
+      routineName: agg.routineName,
+      runCount: agg.runCount,
+      recordsWithData: agg.recordsWithData,
+      partial: agg.recordsWithData < agg.runCount,
+      totalTurns: agg.turns.reduce((a, b) => a + b, 0),
+      medianTurns: median(agg.turns),
+      totalDurationMs: agg.totalDurationMs,
+      totalCostUsd: agg.hasCost ? agg.totalCostUsd : null,
+    }))
+    .sort((a, b) => b.runCount - a.runCount || a.routineName.localeCompare(b.routineName));
+}
+
+function formatDurationTotal(ms) {
+  if (!Number.isFinite(ms) || ms <= 0) return '0m';
+  const totalMinutes = Math.round(ms / 60000);
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+/**
+ * Renders the routine-usage telemetry markdown section. Exported and pure
+ * for tests. `total_cost_usd` here is explicitly labeled a list-price
+ * equivalent, never a real bill — every routine authenticates via the
+ * shared `CLAUDE_CODE_OAUTH_TOKEN` plan-usage pool (`routine-template.yml`'s
+ * header), not metered per-token billing.
+ */
+export function renderRoutineUsageSection(aggregates) {
+  const header = [
+    '',
+    '## Routine usage telemetry',
+    '',
+    'Per-routine aggregation of `routine-usage` artifacts written by' +
+      ' `scripts/routine-usage-report.mjs` (T-17\'s routine-fleet visibility' +
+      ' gap — see module header). **`total_cost_usd` here is a LIST-PRICE' +
+      ' EQUIVALENT under the shared `CLAUDE_CODE_OAUTH_TOKEN` plan-usage' +
+      ' model, not a real billed dollar amount** — the actual constraint' +
+      ' remains Joey\'s plan rate limit, not money.',
+    '',
+    '`Coverage` is `recordsWithData/runCount` — a row marked ⚠️ PARTIAL had' +
+      ' at least one run whose artifact lookup/download/parse failed or was' +
+      ' missing a metric; its totals below are a lower bound from the runs' +
+      ' that DID report, never a stand-in for the missing ones.',
+    '',
+  ];
+  if (!aggregates.length) {
+    return [...header, '_No `routine-usage` artifacts found in this window._', ''].join('\n');
+  }
+  const rows = aggregates.map(
+    (a) =>
+      `| ${a.routineName} | ${a.runCount} | ${a.recordsWithData}/${a.runCount}${a.partial ? ' ⚠️ PARTIAL' : ''} | ${a.totalTurns} | ${a.medianTurns ?? '—'} | ${formatDurationTotal(a.totalDurationMs)} | ${a.totalCostUsd != null ? `$${a.totalCostUsd.toFixed(2)}` : '—'} |`,
+  );
+  return [
+    ...header,
+    '| Routine | Runs | Coverage | Total turns | Median turns | Total duration | List-price cost-equivalent |',
+    '|---|---|---|---|---|---|---|',
+    ...rows,
+    '',
+  ].join('\n');
+}
+
 async function fetchOpenPrCount() {
   // `gh pr list` truncates at its --limit even with a large value; this repo
   // is nowhere near 200 open PRs today but the count must stay correct as it
@@ -148,7 +399,7 @@ function delta(current, previous) {
  * is exactly the fleet-retirement signal this report exists to surface.
  * Dropping it silently would hide the change instead of reporting it.
  */
-export function buildReport({ month, sinceIso, runCounts, openPrCount, previous }) {
+export function buildReport({ month, sinceIso, runCounts, openPrCount, previous, routineUsage = [] }) {
   const totalRuns = Object.values(runCounts).reduce((a, b) => a + b, 0);
   const previousCounts = previous?.runCounts ?? {};
   const allNames = new Set([...Object.keys(runCounts), ...Object.keys(previousCounts)]);
@@ -180,7 +431,7 @@ export function buildReport({ month, sinceIso, runCounts, openPrCount, previous 
     '| Workflow | Runs (last 30d) | Δ vs. previous snapshot |',
     '|---|---|---|',
     ...rows,
-    '',
+    renderRoutineUsageSection(routineUsage),
   ];
   return lines.join('\n');
 }
@@ -204,11 +455,16 @@ async function main() {
   const jsonFile = `${month}.json`;
   const mdFile = `${month}.md`;
 
-  const [runCounts, openPrCount] = await Promise.all([fetchRunCounts(sinceIso), fetchOpenPrCount()]);
+  const [runCounts, openPrCount, routineUsageRecords] = await Promise.all([
+    fetchRunCounts(sinceIso),
+    fetchOpenPrCount(),
+    fetchRoutineUsageRecords(sinceIso),
+  ]);
   const previous = await findPreviousSnapshot(jsonFile);
+  const routineUsage = aggregateRoutineUsage(routineUsageRecords);
 
-  const report = buildReport({ month, sinceIso, runCounts, openPrCount, previous });
-  const data = { month, sinceIso, generatedAt: now.toISOString(), runCounts, openPrCount };
+  const report = buildReport({ month, sinceIso, runCounts, openPrCount, previous, routineUsage });
+  const data = { month, sinceIso, generatedAt: now.toISOString(), runCounts, openPrCount, routineUsage };
 
   if (process.env.DRY_RUN === 'true') {
     console.log(`DRY RUN — would write docs/audits/fleet-telemetry/${mdFile} and ${jsonFile}\n\n${report}`);

@@ -21,6 +21,10 @@ export function validatePhotoEntry(entry) {
   }
   if (typeof entry.credit !== 'string' || entry.credit.trim() === '') findings.push('credit is required');
   if (!isHttpUrl(entry.source)) findings.push('source must be an http(s) URL');
+  // docs/social/RULINGS-SOCIAL.md A3/B2 — alt text is written ONCE per library entry
+  // (the photo never changes per post), never per draft, so it must exist
+  // here before any draft can bind to this entry at all.
+  if (typeof entry.alt !== 'string' || entry.alt.trim() === '') findings.push('alt is required — write the accessibility description once here (RULINGS-SOCIAL A3)');
   // Fable ruling, kanban t_75ec7106 (2026-09-10, PR #4062 review round 2): a
   // library entry carrying a blank/whitespace-only tags[] entry would let a
   // caller-supplied blank requiredTags value in selectSocialPhoto's
@@ -32,6 +36,20 @@ export function validatePhotoEntry(entry) {
   if (entry.tags !== undefined) {
     if (!Array.isArray(entry.tags) || entry.tags.some((tag) => typeof tag !== 'string' || tag.trim() === '')) {
       findings.push('tags entries must be non-blank strings');
+    }
+  }
+  // `venue`/`date` (kanban t_e1d26de7, 2026-09-22 — pool-expansion pipeline,
+  // per-concert coverage): optional per-photo identifiers of the specific
+  // show a photo came from, so `photo-coverage.mjs` can report concentration
+  // by concert rather than only by era. Kept optional and loosely typed —
+  // older/era-only entries (the original 10) remain valid without them.
+  if (entry.venue !== undefined && (typeof entry.venue !== 'string' || entry.venue.trim() === '')) {
+    findings.push('venue, if present, must be a non-blank string');
+  }
+  if (entry.date !== undefined) {
+    const dateMs = new Date(entry.date).getTime();
+    if (typeof entry.date !== 'string' || !Number.isFinite(dateMs)) {
+      findings.push('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
     }
   }
   return findings;

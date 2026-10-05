@@ -150,4 +150,18 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
     expect(problems.some((p: string) => p.includes('no top-level `name:`'))).toBe(true);
     expect(problems.some((p: string) => p.includes('no `on.schedule.cron`'))).toBe(true);
   });
+
+  it('accepts a workflow_dispatch-only routine whose header says dispatch-only', () => {
+    const text = '# routine-chat — dispatch-only: fired once per message by bot-chat-poll.yml\nname: routine-chat\non:\n  workflow_dispatch:\n    inputs:\n      message_id:\n        type: string\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "Bash"\n';
+    const { problems, report } = checkRoutineWorkflows({ '.github/workflows/routine-chat.yml': text });
+    expect(problems).toEqual([]);
+    expect(report.some((l: string) => l.includes('dispatch-only → 0'))).toBe(true);
+    expect(report.some((l: string) => l.includes('not modeled'))).toBe(false);
+  });
+
+  it('still flags a schedule-less routine that does not declare itself dispatch-only', () => {
+    const text = '# routine-chat, fired by hand\nname: routine-chat\non:\n  workflow_dispatch:\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n';
+    const { problems } = checkRoutineWorkflows({ '.github/workflows/routine-chat.yml': text });
+    expect(problems.some((p: string) => p.includes('no `on.schedule.cron`'))).toBe(true);
+  });
 });

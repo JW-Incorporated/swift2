@@ -26,7 +26,7 @@ const TRACK_FIVE_SOURCE = 'https://www.billboard.com/lists/taylor-swift-track-fi
 export function TrackFivePill() {
   return (
     <span
-      className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-white"
+      className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[color:var(--era-accent-fg)]"
       style={{ backgroundColor: 'var(--era-accent)' }}
       title={TRACK_FIVE_TRADITION}
     >

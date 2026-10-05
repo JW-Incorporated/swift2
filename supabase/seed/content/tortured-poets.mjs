@@ -2325,8 +2325,6 @@ export default {
       sourceUrl:
         'https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/',
       thumbnailUrl: null,
-      photosReviewed:
-        'private-individual/minor redline — the only images of the visit are hospital and press-CDN frames that pair Taylor with pediatric patients (private minors); none exists on a reusable allowlisted host, so no photo is carried per privacy-redlines.md (reviewed 2026-09-05)',
       moment: {
         context:
           'In June 2025, while she was in South Florida around the Stanley Cup Final, Taylor made an unannounced visit to Joe DiMaggio Children\'s Hospital in Hollywood, Florida, spending the afternoon going room to room with young patients and their families. She introduced herself, asked for hugs, handed out signed copies of her book and posed for selfies; the hospital said she "turned hospital hallways into a place of joy, comfort, and connection."\n\nAmong the patients she met was Valentina Olivares, diagnosed at 15 with a rare B-cell lymphoma found only in her spinal fluid and treated there with CAR T-cell therapy. Olivares had missed an Eras Tour date in Tampa to a fever during treatment — her care team recreated the show in her hospital room — and later attended her first concert ever, an Eras Tour night at Miami\'s Hard Rock Stadium. The selfie she took with Taylor that afternoon became, in her own words, the wallpaper on her phone.\n\nMore than a year later, a September 2026 CBS Miami retrospective for Pediatric Cancer Awareness Month caught up with her: three years past diagnosis, finished with treatment, and studying accounting at Broward College. "You are so much stronger than you think," she said. "Everything works out in the end. You just have to give it time, take one day at a time." The visit fits a year of quiet, reactive giving from Taylor — the kind that arrives without a press release and is told, when it is told at all, by the people on the receiving end. Olivares appears here only as a patient who has publicly shared her own story with the outlet that reported it.',
@@ -2359,7 +2357,21 @@ export default {
             accessed_at: '2026-09-05',
             reliability_score: 4,
           },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/',
+            source_title: 'Taylor Swift Showgirl style',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
         ],
+        photos: [{
+          url: 'https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg',
+          focalPoint: '50% 35%', credit: 'Mert Alas and Marcus Piggott, via Marie Claire',
+          caption: 'Reference photo: Taylor Swift publicity portrait from Showgirl coverage.', kind: 'reference',
+        }],
       },
     },
     {
@@ -5174,7 +5186,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed — the going estimate lands around $360 million (Billboard), close to what Shamrock Capital itself had paid when it bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020, a 2020 purchase price variously reported at roughly $300 million (Rolling Stone/Variety) to $405 million (Billboard/Music Business Worldwide). As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of Reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed — the going estimate lands around $360 million (Billboard), close to what Shamrock Capital itself had paid when it bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020, a 2020 purchase price variously reported at roughly $300 million (Rolling Stone/Variety) to $405 million (Billboard/Music Business Worldwide). As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs... Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville management team, a source adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe buyback gave Taylor ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned — quietly ending her long campaign urging fans to stream only the re-records. The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled. On the two unfinished re-records the letter was candid: of reputation she wrote, "Full transparency: I haven\'t even re-recorded a quarter of it," explaining the album "was so specific to that time in my life" that she "kept hitting a stopping point" trying to remake it, and said both it and the debut "can still have their moments to re-emerge when the time is right." As of mid-2026 the debut Taylor\'s Version remained finished but unreleased, and reputation (Taylor\'s Version) stayed shelved.',
         sources: [
           {
             outlet: 'Billboard',
@@ -6231,7 +6243,13 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987' },
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
+          { outlet: 'Vogue', url: 'https://www.vogue.com/article/taylor-swift-princess-charlotte-prince-george-selfie' },
         ],
+        photos: [{
+          url: 'https://assets.vogue.com/photos/6676c942811673487dbffdf5/1:1/w_750,h_750,c_limit/Snapinsta.app_448909821_427275280289928_8861614818163226160_n_1024.jpg',
+          focalPoint: '50% 45%', credit: 'Taylor Swift/Instagram, via Vogue',
+          caption: 'Taylor Swift, Travis Kelce and the royal family in the backstage selfie from Wembley on June 21, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6248,28 +6266,40 @@ export default {
         context:
           'Kelce\'s first-ever onstage appearance during the Eras Tour, at Wembley Stadium in London.',
         sources: [
+          { outlet: 'PEOPLE', url: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987' },
           { outlet: 'CNN', url: 'https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-have-london-date-night-after-eras-tour/' },
         ],
+        photos: [{
+          url: 'https://people.com/thmb/bb7rpEeXkPfe9bOEs4u2UEHx8qs%3D/4000x0/filters%3Ano_upscale%28%29%3Amax_bytes%28150000%29%3Astrip_icc%28%29%3Afocal%281148x482%3A1150x484%29%3Aformat%28webp%29/taylor-swift-travis-kelce-london-062424_3602-1dae1b3719184a6f8b7b31beb9cdf52c.jpg',
+          focalPoint: '52% 35%', credit: 'CH/SplashNews, via PEOPLE',
+          caption: 'Taylor Swift and Travis Kelce in London after his June 23, 2024 Eras Tour stage appearance.', kind: 'reference',
+        }],
       },
     },
     {
       year: 2024,
       month: 7,
-      day: 6,
+      day: 5,
       category: 'sighting',
-      title: 'A kiss goodbye after the final Amsterdam Eras Tour show',
+      title: 'A kiss goodbye after the July 5 Amsterdam Eras Tour show',
+      // Preserve the former generated ID as a deep-link alias after correcting the event date.
+      slug: 'vault-ttpd-a-kiss-goodbye-after-the-final-amsterdam-eras-tour-show',
       snippet:
-        'After Taylor\'s third and final Amsterdam concert at Johan Cruijff Arena, she and Kelce left hand-in-hand, with Kelce kissing the top of her head as fans cheered nearby.',
+        'After Taylor\'s July 5 Amsterdam concert at Johan Cruijff Arena, she and Kelce left hand-in-hand, with Kelce kissing the top of her head as fans cheered nearby.',
       sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532',
       thumbnailUrl: null,
       moment: {
         context:
-          'Kelce watched from a stadium suite rather than the usual VIP tent, then reunited with Taylor backstage after the show.',
+          'Kelce watched from a stadium suite rather than the usual VIP tent, then reunited with Taylor backstage after the July 5 show.',
         sources: [
           { outlet: 'TODAY', url: 'https://www.today.com/popculture/music/taylor-swift-travis-kelce-amsterdam-eras-tour-rcna160532' },
-          { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-leave-3rd-amsterdam-eras-concert-together/' },
         ],
+        photos: [{
+          url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-07/taylor-travis-amsterdam-me-240706-24b721.png',
+          focalPoint: '50% 45%', credit: '@_Jolene_Jolene / X, via TODAY',
+          caption: 'Taylor and Travis leave the July 5, 2024 Amsterdam show together in a public fan video.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6285,7 +6315,13 @@ export default {
       moment: {
         sources: [
           { outlet: 'Yahoo Entertainment', url: 'https://www.yahoo.com/entertainment/travis-kelce-rides-bike-amsterdam-181438609.html' },
+          { outlet: 'A to Z Sports', url: 'https://atozsports.com/nfl/kansas-city-chiefs-news/travis-kelce-hint-perform-taylor-swifts-eras-tour-bike-1989/' },
         ],
+        photos: [{
+          url: 'https://atozsports.com/wp-content/uploads/2024/07/63195-screenshot-2024-07-06-at-2.54.07pm.png',
+          focalPoint: '50% 45%', credit: '@TayvisHaze / X, via A to Z Sports',
+          caption: 'Travis with a bicycle in Amsterdam on July 6, 2024, before the Eras Tour show.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6302,9 +6338,15 @@ export default {
         context:
           'Coincided with the end of Kelce\'s preseason schedule and Taylor\'s Eras Tour hiatus before the October North American resumption.',
         sources: [
+          { outlet: 'Billboard / Yahoo', url: 'https://www.yahoo.com/entertainment/taylor-swift-travis-kelce-dance-102901229.html' },
           { outlet: 'People', url: 'https://people.com/everyone-who-joined-taylor-swift-travis-kelce-in-rhode-island-celebrity-guests-8701057' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swifts-rhode-island-getaway-was-grounding-source-says/' },
         ],
+        photos: [{
+          url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024',
+          focalPoint: '50% 30%', credit: 'Gilbert Flores/WWD, via Billboard',
+          caption: 'Reference photo: Taylor Swift and Travis Kelce at Coachella, April 2024.', kind: 'reference',
+        }],
       },
     },
     {
@@ -6323,6 +6365,11 @@ export default {
         sources: [
           { outlet: 'BBC News', url: 'https://www.bbc.co.uk/news/articles/cr5nr3n6epvo' },
         ],
+        photos: [{
+          url: 'https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/ec36/live/7f6ceb20-5f58-11ef-b43e-6916dcba5cbf.jpg',
+          focalPoint: '50% 45%', credit: 'Getty Images, via BBC News',
+          caption: 'Taylor and Florence Welch perform Florida!!! at the final Wembley show on August 20, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6341,7 +6388,13 @@ export default {
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
           { outlet: 'New York Daily News', url: 'https://www.nydailynews.com/2024/09/07/taylor-swift-travis-kelce-brooklyn-date-night-lucali-pizza-nyc/' },
+          { outlet: 'Just Jared', url: 'https://www.justjared.com/photo-gallery/5070787/taylor-swift-travis-kelce-hold-hands-while-leaving-pizza-date-night-32/' },
         ],
+        photos: [{
+          url: 'https://cdn01.justjared.com/wp-content/uploads/2024/09/travis-pizza/taylor-swift-travis-kelce-hold-hands-while-leaving-pizza-date-night-28.jpg',
+          focalPoint: '50% 30%', credit: 'Backgrid, via Just Jared',
+          caption: 'Taylor Swift and Travis Kelce leave Lucali in Brooklyn hand in hand after their Sept. 6, 2024 pizza date.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6360,7 +6413,13 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621' },
           { outlet: 'Heavy.com', url: 'https://heavy.com/entertainment/travis-kelce-paprazzi-pic' },
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2024/10/13/taylor-swift-travis-kelce-dinner-date-nyc/' },
         ],
+        photos: [{
+          url: 'https://imagez.tmz.com/image/04/16by9/2024/10/13/0470896624ca43169938f42ed511de31_xl.jpg',
+          focalPoint: '50% 35%', credit: 'Backgrid, via TMZ',
+          caption: 'Taylor Swift and Travis Kelce arrive for dinner at Torrisi in New York City, Oct. 12, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6380,6 +6439,11 @@ export default {
           { outlet: 'People', url: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641' },
           { outlet: 'TMZ', url: 'https://tmz.com/2024/10/07/taylor-swift-arrives-travis-kelce-chiefs-monday-night-football-game' },
         ],
+        photos: [{
+          url: 'https://imagez.tmz.com/image/ae/16by9/2024/10/08/aea2a6ebf15f476b8d4083287bd61bd3_xl.jpg',
+          focalPoint: '50% 35%', credit: 'Getty Images, via TMZ',
+          caption: 'Taylor arrives in her plaid Vivienne Westwood outfit for the October 7, 2024 Chiefs game.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6396,9 +6460,15 @@ export default {
         context:
           'Their first New Year together following the December end of the Eras Tour.',
         sources: [
+          { outlet: 'Billboard / Yahoo', url: 'https://www.yahoo.com/entertainment/taylor-swift-travis-kelce-dance-102901229.html' },
           { outlet: 'Marca', url: 'https://marca.com/en/nfl/kansas-city-chiefs/2025/01/04/6778bff4268e3e26178b457a.html' },
           { outlet: 'InStyle', url: 'https://www.instyle.com/taylor-swift-travis-kelce-new-years-eve-celebration-8769264' },
         ],
+        photos: [{
+          url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024',
+          focalPoint: '50% 30%', credit: 'Gilbert Flores/WWD, via Billboard',
+          caption: 'Reference photo: Taylor Swift and Travis Kelce at Coachella, April 2024.', kind: 'reference',
+        }],
       },
     },
     {
@@ -6418,6 +6488,11 @@ export default {
           { outlet: 'USA Today', url: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-red-coat-chiefs-game-dec-21-2024-1235863757' },
         ],
+        photos: [{
+          url: 'https://www.usatoday.com/gcdn/authoring/authoring-images/2024/12/21/PNAS/77131684007-usatsi-25039857.jpg?crop=3608,2031,x0,y514&width=3200&height=1802&format=pjpg&auto=webp',
+          focalPoint: '50% 42%', credit: 'Jay Biggerstaff/Imagn Images, via USA Today',
+          caption: 'Taylor arrives at Arrowhead in a red faux-fur coat on December 21, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6437,6 +6512,11 @@ export default {
           { outlet: 'People', url: 'https://people.com/travis-kelce-taylor-swift-tell-each-other-i-love-you-after-chiefs-win-8780926' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/entertainment/news/taylor-swift-kisses-and-cuddles-travis-kelce-on-field-after-chiefs-win/' },
         ],
+        photos: [{
+          url: 'https://www.usmagazine.com/wp-content/uploads/2025/01/GettyImages-2196121416-Taylor-Travis.jpg?crop=0px%2C0px%2C3933px%2C2066px&resize=1200%2C630&quality=78&strip=all',
+          focalPoint: '50% 34%', credit: 'David Eulitt/Getty Images, via Us Weekly',
+          caption: 'Taylor and Travis kiss on the field after the January 26, 2025 AFC Championship win.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6455,7 +6535,13 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-cheers-travis-kelce-kansas-city-chiefs-playoff-game-8774616' },
           { outlet: 'CBS Sports', url: 'https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-chiefs-playoff-game-as-travis-kelce-and-kansas-city-begin-quest-for-three-peat/' },
+          { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-chanel-runway-chiefs-texans-game/' },
         ],
+        photos: [{
+          url: 'https://cdn.mos.cms.futurecdn.net/oVE7GN2dHTk6LP6ftQpeB4-1920-80.jpg',
+          focalPoint: '50% 35%', credit: 'Getty Images, via Marie Claire',
+          caption: 'Taylor arrives in Chanel for the January 18, 2025 divisional playoff game.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6475,6 +6561,11 @@ export default {
           { outlet: 'ABC News', url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-arrives-super-bowl-2025-travis-kelce-1235260088/' },
         ],
+        photos: [{
+          url: 'https://i.abcnewsfe.com/a/2e222f6d-3238-4fb8-b81b-36379944891a/sb65-gty-gmh-250208_1739148915493_hpMain.jpg?w=1500',
+          focalPoint: '50% 42%', credit: 'Gregory Shamus/Getty Images, via ABC News',
+          caption: 'Taylor watches Super Bowl LIX with the Haim sisters and friends on February 9, 2025.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6494,6 +6585,11 @@ export default {
           { outlet: 'PEOPLE', url: 'https://people.com/taylor-swift-travis-kelce-in-philadelphia-for-first-public-spotting-in-months-11732745' },
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1417408/taylor-swift-travis-kelces-rare-outing-will-fill-that-blank-space' },
         ],
+        photos: [{
+          url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20241129/rs_1200x1200-241229094737-1200-taylor-swift-travis-kelce-nyc-2-cjh-122824.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top',
+          focalPoint: '50% 35%', credit: 'E! News',
+          caption: 'Reference photo: Taylor Swift and Travis Kelce from December 2024.', kind: 'reference',
+        }],
       },
     },
     {
@@ -6510,9 +6606,16 @@ export default {
         context:
           'Outing came one day after Taylor announced she had bought back the masters to her first six albums.',
         sources: [
+          { outlet: 'PEOPLE / AOL', url: 'https://www.aol.com/taylor-swift-dazzles-36k-diamond-193028374.html' },
+          { outlet: 'Vogue', url: 'https://www.vogue.com/article/taylor-swift-and-selena-gomez-nail-uptown-style-in-new-york' },
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/' },
           { outlet: 'CelebMafia', url: 'https://celebmafia.com/taylor-swift-gucci-look-monkey-bar-nyc-2025-4507633/' },
         ],
+        photos: [{
+          url: 'https://s.yimg.com/ny/api/res/1.2/TmpRmXOhymizENHuGyIN.A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xNjAwO2NmPXdlYnA-/https%3A/media.zenfs.com/en/people_218/9d99fe8a2ee79a9cb9d58992c1632444',
+          focalPoint: '50% 25%', credit: 'BACKGRID, via People/Yahoo',
+          caption: 'Taylor Swift leaves Monkey Bar with Selena Gomez on May 31, 2025, wearing the sequined Gucci set during her masters-buyback celebration weekend.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6555,28 +6658,48 @@ export default {
       day: 4,
       category: 'relationship',
       title: 'A quiet Fourth of July at Montana\'s Yellowstone Club',
+      // Cross-link (crosslink-opportunity, 2026-09-17): the recurring Fourth of
+      // July tradition across eras.
+      relatedIds: [
+        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       snippet:
         'Skipping her traditional Rhode Island bash for a second year, Taylor and Kelce spent the July 4th weekend low-key at the exclusive Yellowstone Club resort in Big Sky, Montana.',
       sourceUrl: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Reported days after the holiday weekend, this getaway was framed by insiders as "a turning point" in their relationship ahead of Kelce\'s 2025 NFL season.',
+          'Reported days after the holiday weekend, the couple spent it at the members-only Yellowstone Club in Big Sky, Montana — a break from the Rhode Island Fourth of July gathering Taylor had hosted for years. The coverage was tabloid-led: Page Six and Cosmopolitan framed the low-key trip as a grounding "turning point" ahead of Kelce\'s 2025 NFL season. No first-party account of the weekend has surfaced, so every detail here rests on that secondhand reporting rather than anything the couple said.',
         sources: [
-          { outlet: 'Page Six', url: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/' },
-          { outlet: 'Cosmopolitan', url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/' },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',
+            source_title: 'Taylor Swift and Travis Kelce spent Fourth of July in Montana',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Tabloid-tier; reports the Yellowstone Club (Big Sky, Montana) weekend and the break from her usual Rhode Island Fourth of July. No first-party confirmation.',
+          },
+          {
+            outlet: 'Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/',
+            source_title: 'Taylor Swift and Travis Kelce spent the Fourth of July at the Yellowstone Club',
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Entertainment coverage corroborating the Yellowstone Club weekend; not a first-party account. (Replaces a prior Yahoo/Billboard link that resolved to an unrelated article.)',
+          },
         ],
+        photos: [{
+          url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024',
+          focalPoint: '50% 30%', credit: 'Gilbert Flores/WWD, via Billboard',
+          caption: 'Reference photo: Taylor Swift and Travis Kelce at Coachella, April 2024.', kind: 'reference',
+        }],
       },
-      // Privacy redline (t_23e4b90b, 2026-09-06): this getaway happened
-      // entirely inside a private, gated, members-only residential compound —
-      // the whole point of the reporting is that no paparazzi could reach
-      // them there. The only photos in circulation are stock/generic shots of
-      // the resort's private homes and grounds (residence-privacy redline,
-      // location-privacy L2 territory) or unrelated file photos of the couple
-      // from other dates mislabeled as this one — neither is honest. No real,
-      // on-record photo of this specific private weekend exists to source.
-      photosReviewed:
-        'privacy redline — the getaway took place entirely inside a private, gated members-only residential compound with no press access; the only available images are of private homes/grounds (residence-privacy) or unrelated file photos of the couple, neither of which honestly represents this specific event (reviewed 2026-09-06, t_23e4b90b)',
     },
     {
       year: 2025,
@@ -6585,15 +6708,34 @@ export default {
       category: 'sighting',
       title: 'First public outing since the engagement, at a college football game',
       snippet:
-        'Two days after announcing their engagement, Taylor and Kelce were spotted publicly together for the first time as an engaged couple, attending a Cincinnati vs. Nebraska game with the Mahomeses — Taylor wearing her ring in public for the first time.',
-      sourceUrl: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
+        'Two days after announcing their engagement, Taylor and Travis Kelce appeared together publicly for the first time as an engaged couple — at Cincinnati\'s Thursday-night college-football opener against Nebraska at Arrowhead Stadium, her engagement ring visible in public for the first time.',
+      sourceUrl: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599',
       thumbnailUrl: null,
       moment: {
         context:
-          'This marked the couple\'s first public appearance since their Aug. 26 engagement announcement.',
+          'Two days after the August 26, 2025 engagement announcement — a five-photo joint Instagram post — Taylor and Travis Kelce turned up together at Arrowhead Stadium for Cincinnati\'s Thursday-night college-football opener against Nebraska, their first public appearance as an engaged couple. The setting was personal for Kelce: he played tight end for the Cincinnati Bearcats in college, and per the Associated Press he was down on the field during warmups before joining Taylor in the stands. Also there, per the AP, were his brother Jason Kelce — the retired center and his "New Heights" co-host — and Chiefs safety Bryan Cook. The night doubled as the first public sighting of Taylor\'s engagement ring.',
         sources: [
-          { outlet: 'Page Six', url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party' },
-          { outlet: 'AP News', url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599' },
+          {
+            outlet: 'Associated Press',
+            url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599',
+            source_title: 'Travis Kelce and Taylor Swift attend Cincinnati-Nebraska game after their engagement',
+            publisher: 'Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 5,
+            notes:
+              'AP wire: first public appearance as an engaged couple at the Cincinnati-Nebraska opener; Kelce (a former Cincinnati Bearcat) on the field during warmups; Jason Kelce and Chiefs safety Bryan Cook also present; engagement announced two days earlier via a five-photo joint Instagram post.',
+          },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
+            source_title: 'Newly engaged Taylor Swift surfaces in Nashville for Brittany Mahomes\' 30th birthday party',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Tabloid-tier; covers the separate Nashville outing two days later, kept out of the AP-sourced game narrative above.',
+          },
         ],
         // Photo backfill (t_23e4b90b, 2026-09-06): AP's own game photo,
         // HTTP-verified, downloaded and vision-confirmed this session.

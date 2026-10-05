@@ -12,7 +12,15 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-08-08',
+  // Answerer recheck 2026-09-13 (rumor-lifecycle staleness #3986, #3987): the
+  // two Wikipedia-sourced eggs on this helper — "thanK you aIMee" (the KIM
+  // stylization, still an inference from typography Taylor has never confirmed;
+  // the live-tour retitle to "thank You aimEe" doesn't change the studio-title
+  // reading) and "Peter, four years later" (the Peter Pan callback across
+  // cardigan → Peter, still textual with the shared-narrator layer a fan read)
+  // are unchanged on the record. Nothing resolved or shifted, so this refreshes
+  // the last-accessed date rather than any claim. (Prior recheck 2026-08-08.)
+  accessed_at: '2026-09-13',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -127,15 +135,17 @@ export default {
           source_title: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift",
           publisher: 'CNN',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-16',
+          accessed_at: '2026-09-15',
           reliability_score: 4,
+          notes:
+            'Re-verified live 2026-09-15 (was 2026-08-16): the pub at 112 Vauxhall Walk, its "Taylor\'s Version" cocktail board and "home to tortured poets" embrace are still documented. Confidence stays reputable_reporting / partially_confirmed — Taylor has never said she meant this exact pub; the fan identification is the story.',
         },
         {
           source_url: 'https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/',
           source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-16',
+          accessed_at: '2026-09-15',
           reliability_score: 4,
         },
       ],

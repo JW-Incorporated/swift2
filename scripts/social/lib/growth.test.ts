@@ -85,6 +85,19 @@ describe('countPostsByPlatformSince', () => {
   it('returns all zeros for an empty list', () => {
     expect(countPostsByPlatformSince([], '2026-08-11T11:05:00Z')).toEqual({ total: 0, x: 0, instagram: 0, facebook: 0 });
   });
+
+  // Round 6 review (LOW, consistency — currently unreachable in production
+  // since post-queue.mjs's own hardcoded platform gate is upstream of
+  // anything reaching here): `counts` was a plain `{}`, so
+  // `item.platform in counts` walks the prototype chain — the identical
+  // shape this round's PLATFORM_RULES/ACCOUNT_BY_PLATFORM/calibration()
+  // fixes already closed elsewhere.
+  it('an Object.prototype property name as `platform` does not corrupt the counts object', () => {
+    const items = [{ platform: 'constructor', postedAt: '2026-08-11T02:00:00Z' }];
+    const result = countPostsByPlatformSince(items, '2026-08-11T11:05:00Z');
+    expect(result).toEqual({ total: 1, x: 0, instagram: 0, facebook: 0 });
+    expect(result.constructor).toBeUndefined(); // null-prototype: no inherited (or corrupted-own) `constructor` at all
+  });
 });
 
 describe('buildSnapshot', () => {

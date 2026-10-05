@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Deterministic, zero-AI: create-or-update a persistent watchdog-alert issue
-# and email it via send-mail.py. Shared by every alert path in
-# watchdog.yml (2026-07-23) so this pattern -- one evolving issue per
-# condition instead of a new one every day, plus real email delivery -- isn't
-# duplicated per job.
+# Deterministic, zero-AI: create-or-update a persistent watchdog-alert issue,
+# then notify. Shared by every alert path in watchdog.yml (2026-07-23) so this
+# pattern -- one evolving issue per condition instead of a new one every day --
+# isn't duplicated per job.
 #
 # Why persistent, non-date-scoped titles: a date-scoped title ("...for
 # 2026-07-20") mints a brand-new issue every day a condition stays broken --
@@ -11,10 +10,12 @@
 # (#947, #1177, #1203, #1224) with zero comments between them, because
 # nothing tied them together as one ongoing incident.
 #
-# Why emailed here, not left to GitHub @mentions: this repo's own
-# brief-mailer.yml already documents that @sffan15-sys / @wjduvall-cmd are
-# bot identities whose mentions don't reach the founders' real inboxes --
-# that's the same reason those 4 alerts went unseen.
+# Notification: Discord, to #longlive-marjorie via post-or-mail.mjs, is the
+# default channel (Marjorie Overhaul C3 retired the standing bot-email path)
+# and only fires on a state CHANGE (NOTIFY=1) -- an hourly re-check of a
+# standing alert never re-posts. Email is opt-in per call via
+# `ALERT_ALSO_MAIL=1` (still routed through send-mail.py), for the rare
+# caller that still needs a mail leg alongside Discord.
 #
 # Usage:
 #   upsert-alert.sh open  <title> <body-file>   # create, or comment on the existing open one
@@ -29,6 +30,7 @@ ACTION="$1"
 TITLE="$2"
 BODY_FILE="$3"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NOTIFY=0
 
 # --search does a text match, not an exact-title match, so a second jq pass
 # filters to the exact title -- avoids merging two different alerts that
@@ -44,6 +46,7 @@ if [ "$ACTION" = "close" ]; then
     gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
     gh issue close "$EXISTING_NUM" --repo "$REPO"
     ISSUE_URL="$EXISTING_URL"
+    NOTIFY=1
     echo "closed watchdog-alert #$EXISTING_NUM ($TITLE)"
   else
     echo "no open watchdog-alert for '$TITLE' -- nothing to close"
@@ -57,6 +60,7 @@ elif [ "$ACTION" = "open" ]; then
   else
     ISSUE_URL=$(gh issue create --repo "$REPO" --label watchdog-alert \
       --title "$TITLE" --body-file "$BODY_FILE")
+    NOTIFY=1
     echo "opened new watchdog-alert: $ISSUE_URL"
   fi
 else
@@ -64,6 +68,41 @@ else
   exit 2
 fi
 
-jq -n --arg subject "$TITLE" --arg url "$ISSUE_URL" --rawfile body "$BODY_FILE" \
-  '{subject: $subject, body: $body, url: $url}' > /tmp/watchdog-mail-payload.json
-python3 "$SCRIPT_DIR/send-mail.py" /tmp/watchdog-mail-payload.json
+# Mail leg FIRST, deliberately: the script runs under `set -euo pipefail`,
+# so a non-zero exit from post-or-mail.mjs below would abort before the
+# mail ran — and, inside watchdog's per-workflow loop, abort every
+# remaining workflow's check too.
+if [ "${ALERT_ALSO_MAIL:-}" = "1" ]; then
+  jq -n --arg subject "$TITLE" --arg url "$ISSUE_URL" --rawfile body "$BODY_FILE" \
+    '{subject: $subject, body: $body, url: $url}' > /tmp/watchdog-alert-payload.json
+  python3 "$SCRIPT_DIR/send-mail.py" /tmp/watchdog-alert-payload.json
+  MAIL_FLAG=--no-mail-fallback   # already mailed; never mail twice
+fi
+
+# Post to Discord only on a state CHANGE (NOTIFY=1) — otherwise an hourly
+# watchdog re-check of a standing alert would flood the channel.
+#
+# ALERT_MENTION_FOUNDER=1 (t_85667a3c): opt-in per call. Only meaningful on
+# `open` — an `open` only ever fires NOTIFY=1 on the actual open->exists
+# transition (the `elif -n "$EXISTING_NUM"` branch above just comments,
+# NOTIFY stays 0), so a standing, still-broken alert being re-checked every
+# hour never re-pings; a fixed condition that flips back to broken later
+# opens (and pings) again as its own fresh transition, which is correct —
+# that is a new incident. `close` never mentions regardless of this flag:
+# "it's fixed now" is not a page.
+#
+# KNOWN LIMITATION (Codex review, PR #4201): the issue create/close above
+# already happened by the time we get here, so if post-or-mail.mjs fails
+# BOTH legs (Discord down and mail unreachable/unconfigured), this state
+# change is never retried -- the next run either sees "already open" (no
+# NOTIFY) or has nothing left to close. A double-outage at the exact moment
+# of a state change is the only way to hit this; tracked as a hardening
+# follow-up (candidate for the M2 watchdog-handling wave), not fixed here.
+if [ "$NOTIFY" = "1" ]; then
+  MENTION_FLAG=""
+  if [ "$ACTION" = "open" ] && [ "${ALERT_MENTION_FOUNDER:-}" = "1" ]; then
+    MENTION_FLAG=--mention-founder
+  fi
+  node scripts/marjorie/post-or-mail.mjs \
+    --subject "$TITLE" --body-file "$BODY_FILE" --url "$ISSUE_URL" ${MAIL_FLAG:-} ${MENTION_FLAG:-}
+fi

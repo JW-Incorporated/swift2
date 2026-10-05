@@ -63,7 +63,7 @@ function weightPlainText(segment) {
  * a RAW body length of 294-373 characters and all failed with a generic 403
  * — X silently rejecting an over-280-weighted-length tweet on a non-premium
  * account. Nothing in this pipeline ever checked length against X's real
- * limit before now (a doc instruction — growth-draft.md's old "≤280
+ * limit before now (a doc instruction — the drafting prompt's old "≤280
  * characters" — is not a check; see check-drafts.mjs's checkLength and
  * queue-schema.mjs's body rule for the actual gates).
  */

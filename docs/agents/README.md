@@ -24,6 +24,9 @@ PRs — no agent may edit any charter, including its own.
 5. Audited by (who checks it — never itself)
 6. Budget (per-run and standing token/spend expectations)
 7. Migrating to a service (the contract any port must honor)
+8. Sampling rubric — for desks the weekly output sample covers
+   (`.github/workflows/output-sampling.yml`, T-20): the 1–3 scale one merged
+   output of that desk gets scored against, with one evidence sentence
 
 Plus, for every agent: **one checkout per agent** (own worktree/clone,
 verify branch before any git op) and **artifact-only interfaces** (agents
@@ -66,15 +69,15 @@ git worktree add "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-nam
 
 | Charter | Agent | Status |
 |---|---|---|
-| [`marjorie.md`](marjorie.md) | Chief of staff + manager | Phase 1 — active |
+| [`marjorie.md`](marjorie.md) | Chief of staff + manager, and **site-ops manager** — the site runs and the user experience improves; she dispatches every fix (issues to the build desk, human actions for founders) and is accountable for the outcome. Never writes product code or content | **Active** — charter amended 2026-09-12 (epic #4180); everything she says lands in `#longlive-marjorie`, design in [`docs/specs/marjorie-overhaul/`](../specs/marjorie-overhaul/) |
 | [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
 | [`nils.md`](nils.md) | The critic — walks the site daily, tickets what's unworthy | **Active** (2026-07-11, Joey directive) |
 | [`content-shift.md`](content-shift.md) | The standing writer — authors intake + experience + depth tickets | **Active** (2026-07-11, Joey directive) |
-| [`tree.md`](tree.md) | Social media manager — plans `social/calendar.md` weekly; Growth drafts it, the poster ships it | **Active** (2026-08-11, Joey directive) — routine is a pending Wyatt-side paste, see [`runners.md`](runners.md) |
+| [`tree.md`](tree.md) | Social media manager — plans `social/calendar.md` weekly and drafts it daily, the poster ships it | **Active** (2026-08-11, Joey directive; Growth & Community folded in 2026-09-12, T1) — routine is a pending Wyatt-side paste, see [`runners.md`](runners.md) |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
-| *(Phase 3)* | Growth & Community, Watch | Pre-launch |
+| *(Phase 3)* | Watch | Pre-launch |
 
 ## The kill switch — pausing the org (gap analysis G10)
 
@@ -106,6 +109,10 @@ To stop all autonomous activity **right now**:
 | `founders-brief` | Marjorie | The daily brief issues |
 | `watchdog-alert` | watchdog Action | A cadence failed loudly |
 | `intake` | Content desk | A real-world event dropped for authoring |
+| `spam` | Marjorie | A submission that is abuse, a test string, or empty — closed, kept searchable forever |
+| `marjorie-triaged` | Marjorie (machine-only) | Bookkeeping: this submission has been classified. Never apply or remove by hand |
+| `marjorie-filed` | Marjorie | Bookkeeping: Marjorie opened this issue by dispatching work — how "accountable for the outcome, not the ticket" is counted |
+| `link-submission` | `submit-link.ts` route (provisioned by `bootstrap-labels.mjs`) | A user-submitted link candidate, not auto-published |
 | `cie`, `cie:*` | Karen | Content-integrity findings |
 | `kevin-triage`, `kevin-radar`, `user-feedback`, `kevin-digest` | Kevin | Ticket-ops streams |
 

@@ -103,10 +103,18 @@ export const CONFIG = {
     'jj-justjaredjr-media.s3.amazonaws.com',
     'jj-justjaredjr-media.s3.us-east-1.amazonaws.com',
     'cdn01.justjared.com',
+    // Reviewed 2026-09-15: Just Jared's publisher-owned image origin and
+    // UC Riverside's official news photography (CMA announcement / plant bugs).
+    'www.justjared.com', 'news.ucr.edu',
     'a1.espncdn.com', 'img.mlbstatic.com', 'cdn.nba.com',
     'images2.minutemediacdn.com',
     'www.guinnessworldrecords.com', 'thewaltdisneycompany.com',
     'news.wwu.edu', 'wsjshop.com',
+    // Official nonprofit origin; public first-responder photo verified 2026-09-15.
+    'www.answerthecall.org',
+    // Reviewed TTPD event images and their publisher origins, 2026-09-15.
+    'assets.vogue.com', 'atozsports.com', 'ichef.bbci.co.uk',
+    'www.usatoday.com', 'www.usmagazine.com',
     'cloudfront-us-east-1.images.arcpublishing.com',
     'd3i6fh83elv35t.cloudfront.net',
     'wish-media.s3.us-east-2.amazonaws.com',

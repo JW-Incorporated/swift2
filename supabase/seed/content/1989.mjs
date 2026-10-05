@@ -423,7 +423,7 @@ export default {
             price: '$85.00',
             isAlternative: true,
             altNote: 'Her KaufmanFranco mini has no e-commerce path -- this is a current black sequin mini in the same beaded, cutout-adjacent spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -634,12 +634,13 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
-      // annual Rhode Island tradition and the year it moved to Turks and
-      // Caicos — now interlink.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the annual Rhode Island tradition, the year
+      // it moved to Turks and Caicos, and the quiet Yellowstone Club Fourth.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2016,
       month: 7,
@@ -843,7 +844,7 @@ export default {
             price: '£1,690.00',
             isAlternative: true,
             altNote: 'Her exact 2015 Ashish houndstooth set is discontinued -- this is a current Ashish piece, same house, a tartan check rather than houndstooth.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -956,7 +957,7 @@ export default {
             price: '$25.20',
             isAlternative: true,
             altNote: 'The custom Atelier Versace two-piece was one-of-a-kind couture, never sold -- this is a current hot-pink satin skirt in the same color and volume as the memorable half of the look.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -1001,7 +1002,7 @@ export default {
             price: '$191.00',
             isAlternative: true,
             altNote: 'Not her exact styling tool (undocumented) -- a professional flat iron suited to keeping a blunt, straight bob like this one sleek.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -1036,7 +1037,7 @@ export default {
             price: '$153.00',
             isAlternative: true,
             altNote: 'No designer was ever named for this street-style sighting -- this is a current denim overall dress in the same off-duty spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -1087,7 +1088,7 @@ export default {
             price: '$27.99',
             isAlternative: true,
             altNote: 'Her exact 2016 Louis Vuitton mini is discontinued -- this is a current silver snake-print sequin mini in the same reptile-texture spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -2424,6 +2425,7 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png', credit: 'Big Machine Records', caption: 'The original 2014 cover of 1989, the album that marked Taylor Swift’s full pop reinvention.', kind: 'primary', focalPoint: '50% 38%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2523,6 +2525,7 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        photos: [{ url: 'https://s.abcnews.com/images/Entertainment/ABC_taylor_swift_jef_140818_16x9_992.jpg?w=1600', credit: 'Big Machine Records, via ABC News', caption: 'The original Polaroid-framed 1989 cover, the central artifact of the album’s instant-photo visual language.', kind: 'primary', focalPoint: '50% 50%' }],
         sources: [
           {
             outlet: 'ABC News',
@@ -2593,6 +2596,7 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        photos: [{ url: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1', credit: 'Getty Images, via The Hollywood Reporter', caption: 'Taylor Swift arrives at the 2015 VMAs with members of the friend group the press had dubbed her “squad.”', kind: 'primary', focalPoint: '50% 25%' }],
         sources: [
           {
             outlet: 'Slate',
@@ -3054,7 +3058,7 @@ export default {
             price: '$20.19',
             isAlternative: true,
             altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },

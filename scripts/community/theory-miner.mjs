@@ -43,7 +43,10 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { runTheoryMinerStage } from '../../apps/worker/src/extract/run-theory-miner-stage.ts';
+
+async function loadTheoryMinerStage() {
+  return import(new URL('../../apps/worker/src/extract/run-theory-miner-stage.ts', import.meta.url).href);
+}
 
 function parseArgs(argv) {
   const out = {
@@ -60,10 +63,16 @@ function parseArgs(argv) {
 
 export { parseArgs };
 
-async function main() {
-  const { artifact } = parseArgs(process.argv.slice(2));
+export async function runTheoryMiner({
+  argv = process.argv.slice(2),
+  exists = existsSync,
+  readFile = readFileSync,
+  createServiceClient = serviceClient,
+  loadStage = loadTheoryMinerStage,
+} = {}) {
+  const { artifact } = parseArgs(argv);
 
-  if (!existsSync(artifact)) {
+  if (!exists(artifact)) {
     console.log(
       `theory-miner: no crawl artifact at ${artifact} — nothing to mine this run ` +
         '(expected when COMMUNITY_CRAWL_ENABLED is off, or no crawl ran this cycle). Not a failure.',
@@ -73,7 +82,7 @@ async function main() {
 
   let parsed;
   try {
-    parsed = JSON.parse(readFileSync(artifact, 'utf8'));
+    parsed = JSON.parse(readFile(artifact, 'utf8'));
   } catch (err) {
     console.error(`theory-miner: could not parse crawl artifact at ${artifact}: ${err.message}`);
     return 1;
@@ -86,7 +95,7 @@ async function main() {
     return 0;
   }
 
-  const db = serviceClient();
+  const db = createServiceClient();
   if (!db) {
     console.log(
       'theory-miner: SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY not set — degrading to no-op.',
@@ -94,6 +103,7 @@ async function main() {
     return 0;
   }
 
+  const { runTheoryMinerStage } = await loadStage();
   const result = await runTheoryMinerStage(db, { subreddits });
 
   console.log(
@@ -107,6 +117,10 @@ async function main() {
     for (const e of result.errors) console.error(`  • ${e}`);
   }
   return 0;
+}
+
+async function main() {
+  return runTheoryMiner();
 }
 
 if (

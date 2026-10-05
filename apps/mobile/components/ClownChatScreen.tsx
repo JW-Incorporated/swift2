@@ -25,6 +25,7 @@ import {
 } from 'react-native';
 import type { MoodMatch } from '@swift2/experience';
 import { askClown, type ClownAnswer, type ClownTurn } from '../lib/clown-client';
+import { CLOWNBOT_AI_DISCLOSURE } from '../lib/legal-links';
 import { askMood, type MoodResult } from '../lib/mood-client';
 import { clownColors, eraColors } from '../lib/theme';
 
@@ -120,7 +121,16 @@ function MoodResultView({ result }: { result: MoodResult }) {
   );
 }
 
-export function ClownChatScreen({ onClose }: { onClose: () => void }) {
+export function ClownChatScreen({
+  onClose,
+  onOpenPrivacyPolicy,
+}: {
+  onClose: () => void;
+  /** Opens the privacy policy from the always-visible AI disclosure under
+   * the input (App Store guideline 5.1.2(i)). Optional so the screen still
+   * renders standalone; the disclosure text shows either way. */
+  onOpenPrivacyPolicy?: () => void;
+}) {
   const [mode, setMode] = useState<Mode>('clown');
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
@@ -250,6 +260,19 @@ export function ClownChatScreen({ onClose }: { onClose: () => void }) {
           {busy ? <ActivityIndicator color={eraColors.bg} /> : <Text style={styles.sendBtnText}>Send</Text>}
         </Pressable>
       </View>
+      <View style={styles.disclosure}>
+        <Text style={styles.disclosureText}>{CLOWNBOT_AI_DISCLOSURE}</Text>
+        {onOpenPrivacyPolicy && (
+          <Pressable
+            onPress={onOpenPrivacyPolicy}
+            accessibilityRole="link"
+            accessibilityLabel="Open Privacy Policy"
+            hitSlop={12}
+          >
+            <Text style={styles.disclosureLink}>Privacy Policy</Text>
+          </Pressable>
+        )}
+      </View>
     </KeyboardAvoidingView>
   );
 }
@@ -362,4 +385,12 @@ const styles = StyleSheet.create({
   },
   sendBtnDisabled: { opacity: 0.4 },
   sendBtnText: { color: eraColors.bg, fontSize: 14, fontWeight: '700' },
+  disclosure: { alignItems: 'flex-start', gap: 4, paddingBottom: 10, paddingHorizontal: 12 },
+  disclosureText: { color: clownColors.inkSoft, fontSize: 11, lineHeight: 15 },
+  disclosureLink: {
+    color: eraColors.accent,
+    fontSize: 11,
+    fontWeight: '700',
+    textDecorationLine: 'underline',
+  },
 });

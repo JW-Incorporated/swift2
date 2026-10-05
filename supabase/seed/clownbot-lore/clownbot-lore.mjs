@@ -36,8 +36,36 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-06',
+  updatedOn: '2026-09-26',
   items: [
+    {
+      id: 'showgirl-encore-patient-zero',
+      status: 'confirmed',
+      date: '2026-09-25',
+      lastCheckedOn: '2026-09-26',
+      headline: '"The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero"',
+      detail:
+        'On 25 Sept 2026 Taylor released "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album adding four brand-new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" — which she said she wrote afterward in Sweden with Max Martin and Shellback. Spotify said the drop made her the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year. An official lyric video is out; the full "Patient Zero" video, directed by Taylor with Colin Farrell and Dakota Johnson, is set to premiere at the VMAs.',
+      sources: [
+        {
+          name: 'Variety',
+          url: 'https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/',
+        },
+        {
+          name: 'Billboard',
+          url: 'https://www.billboard.com/music/pop/taylor-swift-spotify-record-single-day-patient-zero-1236348113/',
+        },
+        {
+          name: 'The Hollywood Reporter',
+          url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-life-of-a-showgirl-the-encore-4-new-songs-1236708341/',
+        },
+      ],
+      prompts: [
+        'The zero motif ran across the whole rollout — the bio swap, the countdown, "Patient Zero." Decode it: deliberate cipher, or fans connecting dots after the fact? Commit.',
+        'Encore, not TS13. Put a number on the odds this expansion is the last new music before a genuinely new era.',
+      ],
+      tags: ['tloas', 'release', 'patient-zero'],
+    },
     {
       id: 'masters-buyback',
       status: 'confirmed',
@@ -71,7 +99,12 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-09-06',
+      // Rechecked 2026-09-26 (Vault Run): the 22 Sept countdown resolved into a
+      // NEW single, "Patient Zero," and then "The Life of a Showgirl: The
+      // Encore" (four new songs, out 25 Sept) — new music, but NOT a re-record.
+      // The longest-running open question stays open; neither reputation TV nor
+      // debut TV has been released or dated.
+      lastCheckedOn: '2026-09-26',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -151,7 +184,10 @@ export default {
       id: 'swifties-against-ai',
       status: 'reported',
       date: '2025-10-09',
-      lastCheckedOn: '2026-09-06',
+      // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
+      // 25 Sept Encore news cycle revisited the promo-video AI question; her
+      // team has still neither confirmed nor denied it.
+      lastCheckedOn: '2026-09-26',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -179,7 +215,11 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      lastCheckedOn: '2026-09-06',
+      // Rechecked 2026-09-26 (Vault Run): the 22 Sept countdown these clues fed
+      // into resolved to a single ("Patient Zero") and the Showgirl Encore —
+      // not a debut/Reputation/TS13 release. The green-TS read stays fandom
+      // interpretation; nothing official connects the images to a re-record.
+      lastCheckedOn: '2026-09-26',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -206,7 +246,10 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      lastCheckedOn: '2026-09-06',
+      // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
+      // activity was the Showgirl Encore, not a TS13 reveal — no album title,
+      // color system, or release plan has been confirmed.
+      lastCheckedOn: '2026-09-26',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -228,11 +271,15 @@ export default {
     {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
+      // Rechecked 2026-09-26 (Vault Run): the "writing new music" tip is now
+      // partly borne out — she released four brand-new songs on 25 Sept — but
+      // the TS13/next-era read it feeds is still unconfirmed, so status stays
+      // `reported`. Added the Encore as a corroborating source.
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-06',
-      headline: 'Reportedly "writing new music" and "incredibly inspired" since the wedding',
+      lastCheckedOn: '2026-09-26',
+      headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
       detail:
-        'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." Reported across outlets, all tracing to that single Page Six sourcing; Taylor and her team have announced no album, title, or timeline. Status stays `reported`, not `confirmed` — an unnamed-insider report is not an announcement.',
+        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',
       sources: [
         {
           name: 'Page Six (via Just Jared)',
@@ -242,11 +289,15 @@ export default {
           name: 'Rolling Stone',
           url: 'https://www.rollingstone.com/music/music-news/taylor-swift-color-theory-explained-new-music-1235617057/',
         },
+        {
+          name: 'Variety — "The Life of a Showgirl: The Encore"',
+          url: 'https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/',
+        },
       ],
       prompts: [
-        'An insider says she is "writing new music" weeks after the wedding. Real TS13 signal, or just what insiders always say? Commit.',
+        'An insider said she was "writing new music" after the wedding — then the Encore dropped four new songs. Vindicated tip, or is the real question still whether TS13 exists? Commit.',
       ],
-      tags: ['ts13', 'next-era'],
+      tags: ['ts13', 'next-era', 'tloas'],
     },
     {
       id: 'engagement-announcement',
@@ -350,6 +401,54 @@ export default {
         on: '2026-09-02',
       },
       tags: ['relationship', 'confirmed', 'easter-eggs'],
+    },
+    {
+      id: 'cma-return-2026',
+      status: 'confirmed',
+      date: '2026-09-10',
+      lastCheckedOn: '2026-09-20',
+      headline: 'Going back to the CMAs — "I haven\'t yee\'d my last haw"',
+      detail:
+        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year.',
+      sources: [
+        {
+          name: 'Variety',
+          url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+        },
+        {
+          name: 'Just Jared',
+          url: 'https://www.justjared.com/2026/09/10/taylor-swift-confirms-2026-cma-awards-appearance-after-10-year-absence/',
+        },
+      ],
+      prompts: [
+        'A pop superstar wins her way back to country radio on a Pixar soundtrack single and now RSVPs to the CMAs after ten years gone. Decode it: one-off victory lap, or the front edge of a real country re-entry? Commit.',
+        'Rank "I haven\'t yee\'d my last haw" against her other one-line era-teasers. Is it a throwaway caption or a planted flag?',
+      ],
+      tags: ['tloas', 'country', 'awards'],
+    },
+    {
+      id: 'patient-zero-single',
+      status: 'confirmed',
+      date: '2026-09-22',
+      lastCheckedOn: '2026-09-22',
+      headline: '"Patient Zero" — a brand-new single, out September 25',
+      detail:
+        'The countdown clock that had the fandom spiraling over a Debut (Taylor\'s Version) tease resolved on 22 September 2026 into something else entirely: a brand-new single. After her Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u" — the O\'s in "show" and "for" swapped for zeroes — Taylor posted that "Patient Zero" arrives Friday, 25 September, with a 24-hour pre-order window for three collector\'s-edition CDs (standard, acoustic, and piano). It is her first new single since the Toy Story 5 song "I Knew It, I Knew You," and it lands days before she receives the inaugural Artist Director Honor at the 27 September MTV VMAs.',
+      sources: [
+        {
+          name: 'Consequence',
+          url: 'https://consequence.net/2026/09/taylor-swift-announces-patient-zero-new-single-due-friday',
+        },
+        {
+          name: 'The Independent',
+          url: 'https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-new-song-patient-zero-b3054479.html',
+        },
+      ],
+      prompts: [
+        'A countdown clock everyone read as a Debut TV tease resolves into a brand-new single instead. Decode it: was the re-record read ever plausible, or did the "sh0w business" zeroes always point somewhere else?',
+        'Three CD editions, 24 hours only. Rank the odds this is a one-off drop versus the front edge of a full TS13 rollout. Commit to a number.',
+      ],
+      tags: ['tloas', 'release', 'new-music'],
     },
   ],
 };

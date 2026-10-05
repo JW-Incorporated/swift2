@@ -3,7 +3,7 @@
 // Graph API post ID. Not part of the automated pipeline and never runs on
 // a schedule — invoked by hand (workflow_dispatch) when a real duplicate
 // post needs removing, e.g. the 2026-07-17 stuck-state-commit incident
-// (docs/agents/growth.md). Takes IDs from MEDIA_IDS (comma-separated) and
+// (docs/social/pipeline.md). Takes IDs from MEDIA_IDS (comma-separated) and
 // the token from IG_ACCESS_TOKEN, same secret the poster already uses.
 //
 // Facebook Page posts only. Confirmed 2026-07-17: Instagram's Content

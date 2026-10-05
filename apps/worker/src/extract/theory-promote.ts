@@ -34,8 +34,18 @@
 
 import type { FanTheoryStance } from '@swift2/shared/community';
 import { findTheoryMatch, isTheoryMatch } from './theory-match';
+import { symbolMatchScore } from './symbol-match';
 
 export const PROMOTION_MENTION_THRESHOLD = 3;
+/** The heat bar a merged cluster must clear to promote (Community Engine
+ * symbol-scoring follow-up). Same numeric value as the original mention-
+ * only bar — this isn't a stricter or looser gate, it's the same bar
+ * expressed against `heat` (mentionCount + a catalog-fact bonus) instead
+ * of raw mentionCount alone, so a strong deterministic symbol match can
+ * clear it without needing PROMOTION_MENTION_THRESHOLD mentions on its
+ * own. See `mergeTheoryCandidates`' heat computation below for the
+ * weighting and a worked example. */
+export const HEAT_PROMOTION_THRESHOLD = PROMOTION_MENTION_THRESHOLD;
 const MAX_SAMPLE_URLS = 3;
 
 export interface FanTheoryCandidateRow {
@@ -45,6 +55,10 @@ export interface FanTheoryCandidateRow {
   name: string;
   mechanism: string | null;
   symbols: string[];
+  /** Numbers the source theory pointed to (theory-types.ts's
+   * ExtractedFanTheory.numericSignals) — optional/undefined when the
+   * candidate has no numeric evidence. */
+  numericSignals?: number[];
   trackSlug: string | null;
   predicts: string | null;
   predictedDate: string | null;
@@ -65,6 +79,7 @@ export interface MergedTheoryCluster {
   claim: string;
   mechanism: string | null;
   symbols: string[];
+  numericSignals: number[];
   trackSlug: string | null;
   evidenceSummary: string | null;
   mentionCount: number;
@@ -72,6 +87,15 @@ export interface MergedTheoryCluster {
   communities: string[];
   sampleUrls: string[];
   stance: FanTheoryStance;
+  /** 0..1 deterministic catalog-fact match score (symbol-match.ts),
+   * computed from the union of the cluster's numericSignals. Carried on
+   * the cluster mainly for observability/debugging — `heat` below is the
+   * field that actually drives promotion. */
+  symbolMatchScore: number;
+  /** Promotion signal fed into `live_theory.heat` and checked against
+   * HEAT_PROMOTION_THRESHOLD (replaces the old raw-mentionCount gate) —
+   * see the weighting comment on `mergeTheoryCandidates` below. */
+  heat: number;
   decision: 'promote' | 'reject' | 'hold';
 }
 
@@ -178,8 +202,32 @@ export function mergeTheoryCandidates(
     const peakScore = Math.max(...group.map((r) => r.peakScore));
     const stance = clusterStance(group);
     const trackSlug = clusterTrackSlug(sortedGroup);
+    const numericSignals = [...new Set(group.flatMap((r) => r.numericSignals ?? []))];
+    const score = symbolMatchScore(numericSignals);
+    // HEAT WEIGHTING (this card's own call, no existing precedent to
+    // mirror): heat = mentionCount + a catalog-fact bonus, weighted so a
+    // PERFECT symbol match (score === 1) alone is worth exactly
+    // HEAT_PROMOTION_THRESHOLD — i.e. a single low-volume theory (as few
+    // as 1 mention) whose numbers are entirely real catalog facts can
+    // clear the promotion bar on symbol strength alone, without waiting
+    // to accumulate PROMOTION_MENTION_THRESHOLD mentions. A partial score
+    // adds a proportional bonus on top of mentionCount rather than
+    // replacing it, so raw mention volume still counts for something even
+    // when the symbol match is weak or absent (score 0 -> heat ===
+    // mentionCount, i.e. today's original raw-mentionCount behavior,
+    // unchanged for a theory with no numeric signals at all).
+    //
+    // WORKED EXAMPLE (today's live case): a single-mention cluster
+    // ("0 styled as ()" + "12 exclamation points" + "12th studio album",
+    // numericSignals [0, 12]) scores 0.5 (see symbol-match.ts's own worked
+    // example) -> heat = 1 + 0.5 * HEAT_PROMOTION_THRESHOLD = 1 + 1.5 =
+    // 2.5, still short of a threshold-3 bar on this one example alone (an
+    // honest result: half-real numeric evidence at one mention is real
+    // signal, not yet enough to promote alone) — a second mention or a
+    // stronger/more numbers match would clear it.
+    const heat = mentionCount + score * HEAT_PROMOTION_THRESHOLD;
     const decision: MergedTheoryCluster['decision'] =
-      mentionCount < PROMOTION_MENTION_THRESHOLD
+      heat < HEAT_PROMOTION_THRESHOLD
         ? 'hold'
         : stance === 'debunked_by_fans'
           ? 'reject'
@@ -192,6 +240,7 @@ export function mergeTheoryCandidates(
       claim: canonical.claim,
       mechanism: canonical.mechanism,
       symbols: union(group.map((r) => r.symbols)),
+      numericSignals,
       trackSlug,
       evidenceSummary: canonical.evidenceSummary,
       mentionCount,
@@ -202,6 +251,8 @@ export function mergeTheoryCandidates(
         MAX_SAMPLE_URLS,
       ),
       stance,
+      symbolMatchScore: score,
+      heat,
       decision,
     });
   }
@@ -261,7 +312,7 @@ export function buildLiveTheoryUpsert(
     status: cluster.stance === 'debunked_by_fans' ? ('debunked' as const) : ('rumor' as const),
     outcome: 'pending' as const,
     symbols: cluster.symbols,
-    heat: cluster.mentionCount,
+    heat: cluster.heat,
     persistent: true as const,
     mention_count: match ? (match.mentionCount ?? 0) + cluster.mentionCount : cluster.mentionCount,
     communities: match ? union([match.communities, cluster.communities]) : cluster.communities,

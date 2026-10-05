@@ -87,3 +87,12 @@ Bash/Read/Write/Edit/Glob/Grep.
 
 The Founders' Brief (critical CVEs must show up as gates), and the manager-hat
 telemetry (alerts-open-vs-resolved trend).
+
+## Sampling rubric
+
+Score one sampled patrol issue or `paul/security-bumps` PR 1–3, one evidence
+sentence. **3** — alerts ranked by severity × reachability, a per-Dependabot-PR
+verdict citing changelog and maintainer identity, patch-level only, dormant
+scanners flagged. **2** — correct but mechanical: severity without reachability,
+a verdict with no changelog evidence, or the hygiene sweep skipped. **1** — a
+minor/major bump proposed, a scanner weakened, app code edited, or a merge.

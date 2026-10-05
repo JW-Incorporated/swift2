@@ -1479,6 +1479,7 @@ export default {
       relatedIds: [
         'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
         'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
       ],
       year: 2012,
       month: 12,
@@ -2052,6 +2053,7 @@ export default {
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png', credit: 'Big Machine Records', caption: 'The original cover of Red, released on Oct. 22, 2012.', kind: 'primary', focalPoint: '50% 42%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2079,6 +2081,14 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "red-i-knew-you",
+      // Cross-link (2026-09-10, Vault Run crosslink-opportunity): the "I Knew
+      // You Were Trouble" cluster — its dubstep pop-radio debut, the first live
+      // performance at the 2012 AMAs, and the birthday video drop.
+      relatedIds: [
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
       year: 2012,
       month: 11,
       day: 12,
@@ -2117,6 +2127,15 @@ export default {
       // the actual first live performance of "I Knew You Were Trouble" at
       // the 2012 AMAs. Legacy id kept as slug for stability.
       slug: "red-snl",
+      // Cross-link (2026-09-10, Vault Run crosslink-opportunity): the "I Knew
+      // You Were Trouble" cluster — its dubstep pop-radio debut, its global
+      // chart run, and the birthday video drop. This first-live-performance
+      // page was the cluster's outlier (re-sourced 2026-09-05, #3755).
+      relatedIds: [
+        'moment:vault-speak-now-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
+      ],
       year: 2012,
       month: 11,
       day: 18,
@@ -2127,6 +2146,7 @@ export default {
         "A gothic staircase entrance, a discarded pink gown, and a black-and-red reveal mark the song's first live performance.",
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       moment: {
+        photos: [{ url: 'https://townsquare.media/site/252/files/2012/11/Taylor-Swift-AMAs.jpg?a=t&format=natural&h=0&q=89&s=0&w=1200&zc=1', credit: 'Getty Images, via PopCrush', caption: 'Taylor Swift performs “I Knew You Were Trouble” for the first time at the 2012 American Music Awards.', kind: 'primary', focalPoint: '50% 28%' }],
         context:
           "Taylor performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
           sources: [
@@ -2349,10 +2369,13 @@ export default {
     // and an airport look. Every photo URL hotlinked to the outlet's own CDN
     // and checked for a 2xx image response before being added.
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the squad beach-house years and the later
+      // quieter holidays.
       relatedIds: [
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2014,
       month: 7,

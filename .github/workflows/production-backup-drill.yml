@@ -44,6 +44,7 @@ jobs:
   drill:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment: ops
     services:
       postgres:
         # Scratch target only — never touched by the source connection.
@@ -60,12 +61,12 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
-          node-version: 24
+          npm-ci: 'true'
           cache: npm
-      - run: npm ci
 
       - name: Preflight — confirm SUPABASE_DB_URL is configured
         env:
@@ -114,6 +115,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           OUTCOME: ${{ steps.drill.outcome }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           set -euo pipefail
           ALERT_TITLE="Production-bytes backup/restore drill result (#680)"

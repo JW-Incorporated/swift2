@@ -1,8 +1,8 @@
 # Community Answerer desk
 
 **Charter v1 (Phase 1 card P1-4, `docs/proposals/2026-09-06-community-engine-plan.md`
-§2.5).** This desk is new — it does not replace or absorb the Growth &
-Community desk (`docs/agents/growth.md`), which still owns the *outbound*
+§2.5).** This desk is new — it does not replace or absorb Tree
+(`docs/agents/tree.md`), which still owns the *outbound*
 social calendar. This desk owns *inbound* engagement: turning a Reddit/
 Facebook lead someone else surfaced into a paste-ready reply draft for a
 human to use or ignore.
@@ -54,7 +54,7 @@ Reddit or Facebook except through a human's own hands, later, via
 6. **Draft** in the site's Reddit voice: fan-made framing (never official),
    no marketing tone, ≤120 words unless the thread is genuinely long-form, no
    em-dash tells, no "great question" openers, no AI-tell phrases (same
-   register discipline as `docs/agents/growth.md`'s voice section, applied
+   register discipline as `docs/agents/tree.md`'s voice section, applied
    to a reply instead of a post). Two variants (`draft`, `draft_alt`) only
    when a short/detailed split is genuinely useful — never pad a second
    draft that says the same thing.
@@ -105,3 +105,12 @@ relevance score, a voice-correct draft, and a link decision that traces to
 `linkAllowed()`'s three conditions — never a link included on vibes. The
 run's PR/comment states the count drafted, skipped (redline vs
 low-relevance), and left for tomorrow, plus the home-relay call count.
+
+## Sampling rubric
+
+Score one sampled drafted lead 1–3, one evidence sentence. **3** —
+`screenTopic()` ran, relevance traces to `scoreLead()` + `matched_doc_ids`,
+`link_included` traces to `linkAllowed()`'s three conditions, and the draft is
+fan-made Reddit voice ≤120 words with no AI tells. **2** — usable draft but the
+score or reply target is unjustified, or `draft_alt` is padding. **1** — a
+redline lead drafted, a link on vibes, a raw body stored, or a cap overrun.

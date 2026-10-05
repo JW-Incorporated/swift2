@@ -26,7 +26,7 @@ const DESKS = [
   ['desk:critic', 'Critic desk (Nils) — site experience findings'],
   ['desk:a11y', 'Accessibility desk (Laura) — WCAG findings'],
   ['desk:security', 'Security desk (Paul Blart) — dependencies, supply chain, CI/security config'],
-  ['desk:growth', 'Growth desk — social drafting and community'],
+  ['desk:tree', 'Tree — social media manager (drafting and community)'],
   ['desk:founder', 'A human founder owes an action here (TX items, legal, product intent)'],
   ['desk:unowned', 'NO CHARTER COVERS THIS — the fence complement, deliberately countable'],
 ];
@@ -79,6 +79,22 @@ export const LABELS = [
     'Agent-to-agent coordination (merge order, file claims) — mails no one',
   ],
   ['founder-mailed', 'F9D0C4', 'Machine-only: the tree-mail digest already emailed this issue'],
+
+  // Marjorie Overhaul C2 (docs/specs/marjorie-overhaul/c2-brief.md): the
+  // brief's "Since yesterday" accountability line counts open work under
+  // this label. Doesn't exist anywhere yet — added now so a future M2/M3
+  // session doesn't hit a "label doesn't exist" error the first time it
+  // tries to apply it.
+  ['marjorie-filed', '006B75', "Marjorie filed this and is accountable for the outcome, not just the ticket"],
+  // L1 (docs/specs/marjorie-overhaul/l1-loop.md): the mirror of
+  // `marjorie-filed` for asks Tree makes of Marjorie in its Monday brief,
+  // filed by routine-tree-weekly-plan.yml's send-brief job.
+  ['tree-filed', '2E7D32', 'Tree asked Marjorie for this in its Monday brief — Marjorie answers and closes it'],
+  ['spam', '6E6E6E', 'Abuse, a test string, or empty — closed, kept searchable (applied by Marjorie)'],
+  ['marjorie-triaged', 'BFD4F2', 'Bookkeeping: classified. Machine-only — never apply or remove by hand'],
+  ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
+  ['founder-assigned', '1D76DB', 'Founder assigned this Marjorie-filed item to the next build session'],
+  ['deferred', '6E6E6E', 'Founder deferred this item; Marjorie stops chasing it while it remains open'],
 ];
 
 const invokedDirectly =

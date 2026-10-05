@@ -19,10 +19,12 @@
 #
 # Secrets/vars needed (repo Settings): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 # (same pair every Community Engine script uses), COMMUNITY_ACK_SECRET (HMAC
-# secret for the one-click Posted/Skip links, P1-5), MARJORIE_EMAIL (variable)
-# + GMAIL_APP_PASSWORD (secret) — same Gmail account brief-mailer.yml already
-# uses. Any missing piece degrades to a clean no-op log line, never a crash
-# (scripts/community/mailer.mjs's own contract, mirrors scan.mjs).
+# secret for the one-click Posted/Skip links, P1-5), and
+# DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL — delivery is Discord, not email
+# (rerouted per Joey's destination correction and the 2026-09-09 Fable
+# ruling; see scripts/community/mailer.mjs's own header). Any missing piece
+# degrades to a clean no-op log line, never a crash (scripts/community/
+# mailer.mjs's own contract, mirrors scan.mjs).
 name: community-mailer
 
 on:

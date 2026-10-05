@@ -5,7 +5,15 @@ import Image from 'next/image';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
-import { tracksForEra } from '@swift2/experience';
+// NOT '@swift2/experience' directly (issue #4082): this is a 'use client'
+// component, so Next.js/Turbopack builds it into a separate client module
+// graph from the server-only `app/layout.tsx` -> `vault-wiring.ts` chain
+// that calls `setTracksRawProvider`. Importing `tracksForEra` straight from
+// the headless package resolves a client-bundle copy of that module whose
+// provider was never wired, so `trackCount` was always 0 in production —
+// every consumer of the track catalogue must import through
+// `@/lib/longlive/tracks`, which carries the wiring side effect with it.
+import { tracksForEra } from '@/lib/longlive/tracks';
 import { threadsInEra } from '@swift2/experience';
 import { videosForEra, eraVideoFeed } from '@/lib/longlive/videos';
 import { EraSecretCard } from './EraSecretCard';
@@ -27,7 +35,7 @@ import {
 import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
 import type { Era } from '@swift2/experience';
-import type { PlayableVideoNote } from '@/lib/longlive/videos';
+import type { WatchableVideoNote } from '@/lib/longlive/videos';
 import type { CurrentItem } from '@swift2/shared';
 
 /**
@@ -168,7 +176,7 @@ export function EraSection({
   // doorway's mode switch, TheoryGuide's own close effect for an egg
   // doorway's overlay) — see store.tsx's ReturnPoint doc comment.
   const handleOpenDoorway = useCallback(
-    (entry: Extract<EraFeedEntry<PlayableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => {
+    (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => {
       pushReturnPoint({
         mode: 'era',
         eraId: era.id,

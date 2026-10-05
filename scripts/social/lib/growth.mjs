@@ -1,7 +1,8 @@
 // Pure logic for the daily growth snapshot — kept separate from the
 // network/filesystem code in growth-snapshot.mjs so it's unit-testable.
-// See docs/agents/growth.md and the 2026-07-17 growth-snapshot decision
-// for what this feeds (the Founders' Brief's Growth bullet).
+// See docs/agents/tree.md and the 2026-07-17 growth-snapshot decision
+// for what this feeds (the Founders' Brief's Growth bullet — that bullet's
+// own name is unrelated to and unrenamed by Tree Overhaul T1, 2026-09-12).
 
 import { utcDateOnly } from './queue.mjs';
 
@@ -30,7 +31,14 @@ export function countPostsOn(postedItems, date) {
 export function countPostsByPlatformSince(postedItems, now, windowHours = 24) {
   const cutoff = new Date(now).getTime() - windowHours * 60 * 60 * 1000;
   const end = new Date(now).getTime();
-  const counts = { total: 0, x: 0, instagram: 0, facebook: 0 };
+  // Round 6 review: a null prototype, not a plain `{}` — same shape as
+  // this round's PLATFORM_RULES/ACCOUNT_BY_PLATFORM/calibration() fixes.
+  // `item.platform in counts` walks the prototype chain, so
+  // `platform: "constructor"` would pass this guard and then corrupt
+  // `counts.constructor` (currently unreachable: real items only ever
+  // reach here after post-queue.mjs's own hardcoded platform gate, but
+  // the shape is identical to the others this round fixed).
+  const counts = Object.assign(Object.create(null), { total: 0, x: 0, instagram: 0, facebook: 0 });
   for (const item of postedItems) {
     const at = new Date(item.postedAt).getTime();
     if (Number.isNaN(at) || at <= cutoff || at > end) continue;

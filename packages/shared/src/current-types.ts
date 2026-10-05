@@ -99,6 +99,17 @@ export interface CurrentItem {
    * Nh ago" masthead line (PLAN.md Stage 5). */
   updatedAt: string;
   redlineOk: boolean;
+  /** ISO 8601 timestamp of a live countdown/reveal target the site-diff
+   * adapter detected on taylorswift.com, or undefined for every ordinary
+   * current_item. `is pinned` is a plain, computed predicate over this and
+   * `countdownResolvedAt` (t_09dc269f's approved design §2) — never a
+   * separately stored flag, so it can never drift out of sync with the
+   * countdown's actual state. */
+  countdownTargetAt?: string;
+  /** ISO 8601 timestamp the site-diff adapter set once it saw this
+   * countdown's markup disappear from the site — undefined while the
+   * countdown is still live (or for a non-countdown row). */
+  countdownResolvedAt?: string;
 }
 
 /** What fans are saying — aggregate only, never an individual. */

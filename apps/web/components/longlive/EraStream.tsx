@@ -9,6 +9,7 @@ import type { Era } from '@swift2/experience';
 import { EraSection } from './EraSection';
 import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';
+import { CountdownBanner } from './CountdownBanner';
 import { filterChangeScrollDelta } from '@/lib/longlive/era-stream-pin';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
 import { jumpLandingScrollTop, shouldRunEraJump } from '@/lib/longlive/era-jump-landing';
@@ -362,6 +363,13 @@ export function EraStream() {
 
   return (
     <div>
+      {/* The countdown auto-pin banner (t_09dc269f's approved design): sits
+          ABOVE the masthead itself, sticky, so a live taylorswift.com
+          countdown is the very first thing a reader sees — ahead of
+          everything else, per Joey's original ask. Fails soft: renders
+          nothing when there's no live countdown, so this is a true no-op
+          on every ordinary day. */}
+      <CountdownBanner currentItems={currentItems} />
       {/* The masthead (R1, PLAN.md 2026-08-14): mounted ONCE here, above the
           whole sequence — never inside the map below, which repeats per era.
           It sits above the stream's anchor (always the current/newest era,

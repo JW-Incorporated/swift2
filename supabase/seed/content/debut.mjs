@@ -2222,6 +2222,7 @@ export default {
       title: "Curls, sundresses and cowboy boots",
       snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG', credit: 'BHFeller / Wikimedia Commons, public domain', caption: 'Sixteen-year-old Taylor Swift in skull-print cowboy boots before singing the national anthem at Phoenix International Raceway on Nov. 12, 2006.', kind: 'primary', focalPoint: '47% 32%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2259,7 +2260,7 @@ export default {
             price: '$54.99',
             isAlternative: true,
             altNote: 'No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },

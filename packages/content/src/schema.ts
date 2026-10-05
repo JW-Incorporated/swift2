@@ -405,6 +405,8 @@ export const videoNoteSchema = z.object({
   easterEggs: z.array(z.string()),
   symbolism: z.string().nullable(),
   youtubeId: z.string().nullable(),
+  watchUrl: z.string().nullable().optional(),
+  platform: z.string().nullable().optional(),
   sources: z.array(eggSourceSchema),
   tags: z.array(contentTagSchema).optional(),
 });
@@ -587,10 +589,11 @@ export type Manifest = z.infer<typeof manifestSchema>;
 export const contentBundleSchemas = {
   manifest: manifestSchema,
   content: contentBundleFileSchema,
-  tracks: tracksBundleFileSchema,
-  theories: theoriesBundleFileSchema,
-  videos: videosBundleFileSchema,
-  eraSecrets: eraSecretsBundleFileSchema,
+  // The producer writes one catalogue file containing one object per era.
+  tracks: z.array(tracksBundleFileSchema),
+  theories: z.array(theoriesBundleFileSchema),
+  videos: z.array(videosBundleFileSchema),
+  eraSecrets: z.array(eraSecretsBundleFileSchema),
   merch: merchCatalogueSchema,
   songMoods: songMoodsBundleFileSchema,
   clownbotLore: clownbotLoreBundleFileSchema,

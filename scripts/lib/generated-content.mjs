@@ -28,11 +28,26 @@ export const GENERATED_DIR = 'apps/web/lib/longlive';
 export const GENERATED_SUFFIX = '.generated.ts';
 
 /**
+ * OS-021 relocated the headless Long Live core (lenses, types, and — as of
+ * this redo of R10/R12 — the id-union and lens-data generators) out of
+ * `apps/web/lib/longlive/` into `packages/experience/src/`. Generated
+ * artifacts that live there use this second directory constant; everything
+ * below that iterates GENERATED_DIR also iterates this one so the two trees
+ * are covered identically (`listGeneratedOnDisk`, the auto-merge allowlist
+ * check, `check:generated`).
+ */
+export const EXPERIENCE_GENERATED_DIR = 'packages/experience/src';
+
+/**
  * Every generated content artifact, paired with the script that writes it.
  * Order matters: `check:generated` / `sync:content` run the syncs in this
  * order (song-moods reads the track seeds, so it goes last).
  */
 export const SYNC_TARGETS = [
+  {
+    sync: 'scripts/sync-longlive-content-ids.mjs',
+    out: `${EXPERIENCE_GENERATED_DIR}/content-ids.generated.ts`,
+  },
   { sync: 'scripts/sync-longlive-content.mjs', out: `${GENERATED_DIR}/content-vault.generated.ts` },
   { sync: 'scripts/sync-longlive-tracks.mjs', out: `${GENERATED_DIR}/tracks.generated.ts` },
   { sync: 'scripts/sync-longlive-theories.mjs', out: `${GENERATED_DIR}/theories.generated.ts` },
@@ -44,6 +59,10 @@ export const SYNC_TARGETS = [
   { sync: 'scripts/sync-song-moods.mjs', out: `${GENERATED_DIR}/song-moods.generated.ts` },
   { sync: 'scripts/sync-clownbot-lore.mjs', out: `${GENERATED_DIR}/clownbot-lore.generated.ts` },
   { sync: 'scripts/sync-longlive-merch.mjs', out: `${GENERATED_DIR}/merch.generated.ts` },
+  {
+    sync: 'scripts/sync-longlive-lenses.mjs',
+    out: `${EXPERIENCE_GENERATED_DIR}/lenses.generated.ts`,
+  },
   {
     sync: 'scripts/generate-bundle-backed-modules.mjs',
     out: `${GENERATED_DIR}/theories-bundle.generated.ts`,
@@ -89,14 +108,17 @@ export const OTHER_SYNC_TARGETS = [
 ];
 
 /**
- * Ground truth: every `*.generated.ts` actually present in GENERATED_DIR,
- * as repo-relative POSIX paths, sorted. Used to prove SYNC_TARGETS is complete.
+ * Ground truth: every `*.generated.ts` actually present in GENERATED_DIR or
+ * EXPERIENCE_GENERATED_DIR, as repo-relative POSIX paths, sorted. Used to
+ * prove SYNC_TARGETS is complete.
  */
 export function listGeneratedOnDisk(root = ROOT) {
-  const dir = join(root, ...GENERATED_DIR.split('/'));
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((f) => f.endsWith(GENERATED_SUFFIX))
-    .map((f) => `${GENERATED_DIR}/${f}`)
-    .sort();
+  const listDir = (dir) => {
+    const abs = join(root, ...dir.split('/'));
+    if (!existsSync(abs)) return [];
+    return readdirSync(abs)
+      .filter((f) => f.endsWith(GENERATED_SUFFIX))
+      .map((f) => `${dir}/${f}`);
+  };
+  return [...listDir(GENERATED_DIR), ...listDir(EXPERIENCE_GENERATED_DIR)].sort();
 }

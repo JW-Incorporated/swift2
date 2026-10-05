@@ -18,6 +18,37 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { contentHash, signApproval } from './lib/queue.mjs';
+
+// docs/social/RULINGS-SOCIAL-2.md B1: production's SOCIAL_APPROVERS (lib/approvers.mjs)
+// is intentionally EMPTY until the owner's real Discord user id is pinned
+// in — these tests must not depend on that being filled in yet, so they
+// mock the approver list to one fixed test identity. This is the identity
+// every fixture below is stamped as approved by.
+const VALID_APPROVER = 'discord:100000000000000001';
+vi.mock('./lib/approvers.mjs', () => ({ SOCIAL_APPROVERS: [VALID_APPROVER] }));
+
+const TEST_SIGNING_KEY = 'test-signing-key-do-not-use-in-prod';
+
+// A valid, correctly-stamped, SIGNED v2 approval (docs/social/RULINGS-SOCIAL-2.md B1) by
+// the one approver every fixture below authors as. xItem/igItem auto-stamp
+// with this shape (computed against the item's own content) unless a test
+// explicitly overrides `approval` — see those factories below. `at` defaults
+// to "right now" (not a fixed literal) so a freshly-stamped fixture is never
+// accidentally >48h stale under isStaleApproved (lib/queue.mjs) regardless of
+// what day the suite runs — tests that need a STALE approval pass `at`
+// explicitly (see staleApprovedAt() below).
+function validApproval(item: Record<string, unknown>, at: string = new Date().toISOString()) {
+  const unsigned = {
+    v: 2,
+    by: VALID_APPROVER,
+    at,
+    pr: 1,
+    message: '999',
+    contentHash: contentHash(item),
+  };
+  return { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+}
 
 const DUMMY_CREDS_ENV = {
   X_API_KEY: 'dummy-key',
@@ -48,28 +79,55 @@ function stuckDue() {
 function staleDue() {
   return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
 }
+/** Approved 3 days ago — past isStaleApproved's 48h rule (lib/queue.mjs). */
+function staleApprovedAt() {
+  return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+}
+
+/** Stamps `base` with a valid approval UNLESS the caller explicitly passed
+ * an `approval` key (including `null`/`undefined`) — that exact-key check
+ * (not a falsy check) is what lets a refusal test write
+ * `xItem({ approval: null })` / `xItem({ approval: undefined })` and get
+ * genuinely no approval, rather than being silently re-stamped by this
+ * helper. Computed AFTER every other override is applied, so a test that
+ * overrides `body`/`media`/etc. without touching `approval` still gets a
+ * stamp that matches its own final content. */
+function withApproval(base: Record<string, unknown>, overrides: Record<string, unknown>) {
+  if (Object.prototype.hasOwnProperty.call(overrides, 'approval')) {
+    base.approval = overrides.approval;
+  } else {
+    base.approval = validApproval(base);
+  }
+  return base;
+}
 
 function xItem(overrides: Record<string, unknown> = {}) {
-  return {
-    platform: 'x',
-    body: 'on this day in 2010: "mine" leaked early, so taylor just shipped it early.',
-    scheduledAt: justDue(),
-    campaign: 'test',
-    ...overrides,
-  };
+  return withApproval(
+    {
+      platform: 'x',
+      body: 'on this day in 2010: "mine" leaked early, so taylor just shipped it early.',
+      scheduledAt: justDue(),
+      campaign: 'test',
+      ...overrides,
+    },
+    overrides,
+  );
 }
 
 function igItem(overrides: Record<string, unknown> = {}) {
-  return {
-    platform: 'instagram',
-    body: 'there\'s a scarf in "all too well." you know the one.',
-    // A dedicated photo path, NOT /eras/… — generic era art would trip the
-    // era-art guard before the post is ever attempted (see lib/queue.mjs).
-    media: ['/social/2026/scarf.jpg'],
-    scheduledAt: justDue(),
-    campaign: 'test',
-    ...overrides,
-  };
+  return withApproval(
+    {
+      platform: 'instagram',
+      body: 'there\'s a scarf in "all too well." you know the one.',
+      // A dedicated photo path, NOT /eras/… — generic era art would trip the
+      // era-art guard before the post is ever attempted (see lib/queue.mjs).
+      media: ['/social/2026/scarf.jpg'],
+      scheduledAt: justDue(),
+      campaign: 'test',
+      ...overrides,
+    },
+    overrides,
+  );
 }
 
 /** Fresh import each time so module-level state can't leak between cases. */
@@ -148,6 +206,7 @@ beforeEach(async () => {
     ...DUMMY_CREDS_ENV,
     SOCIAL_ROOT: root,
     SOCIAL_POSTER_REPORT: reportPath,
+    SOCIAL_APPROVAL_KEY: TEST_SIGNING_KEY,
   };
   delete process.env.SOCIAL_FREEZE;
   delete process.env.GITHUB_STEP_SUMMARY;
@@ -341,9 +400,11 @@ describe('post-queue: an Instagram failure is reported just as loudly', () => {
 // attempts-exhausted platform rejection — the swallow was in the run's exit
 // code, not in any single failure branch.
 describe('post-queue: every other route into social/failed/ also reddens the run', () => {
-  it('a stale item (>48h past scheduledAt) fails loudly instead of vanishing quietly', async () => {
+  it('a stale item (>48h past founder approval) fails loudly instead of vanishing quietly', async () => {
     const spy = stubFetch({ ok: true, status: 200, body: {} });
-    await seedQueueItem('a-x.json', xItem({ scheduledAt: '2020-01-01T00:00:00Z' }));
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
 
     const outcomes = await runPoster();
 
@@ -353,6 +414,33 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     expect(spy).not.toHaveBeenCalled(); // never attempted — straight to failed/
     expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
     expect(await readFile(reportPath, 'utf-8')).toContain('PERMANENTLY FAILED');
+  });
+
+  it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, justDue());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    expect(spy).toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('a freshly-due item with a stale approval DOES retire (approval.at, not scheduledAt, drives the 48h clock)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: justDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('founder approval');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
   });
 
   it('an item with an invalid scheduledAt is quarantined loudly', async () => {
@@ -690,7 +778,9 @@ describe('post-queue: an indefinitely-skipped item escalates', () => {
 
   it('retires an item stuck past 48h to social/failed/ as a reported failure', async () => {
     stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
-    await seedQueueItem('a-ig.json', igItem({ scheduledAt: staleDue() }));
+    const item = igItem({ scheduledAt: staleDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-ig.json', item);
 
     const outcomes = await runPoster();
 
@@ -865,6 +955,182 @@ describe('post-queue: the happy path stays green', () => {
     expect(outcomes).toEqual([]);
     expect(spy).not.toHaveBeenCalled();
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+});
+
+// ── A2 approval gate (docs/social/RULINGS-SOCIAL.md A2) — the deliverable: a draft with
+// no stamp, a stamp by a non-approver, and a stamp whose contentHash no
+// longer matches must each be refused, with a test proving it. The previous
+// gate ("merge IS the approval") shipped with no test proving it ever
+// refused anything; these three are that proof for its replacement. ─────────
+describe('post-queue: A2 approval gate refusals', () => {
+  it('refuses an item with no approval — reported unapproved, no attempt spent, nothing posted', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('a-x.json', xItem({ approval: null }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes).toHaveLength(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json', platform: 'x' });
+    expect(outcomes[0].error).toContain('no approval on file');
+    // Still in the queue — not posted, not failed, no attempt counter moved.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+    const stillQueued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-x.json'), 'utf-8'));
+    expect(stillQueued.attempts).toBeUndefined();
+    // Green for a recoverable, not-yet-stuck unapproved item (see the 24h
+    // stuck case below for when this turns red).
+    expect(process.exitCode).toBe(0);
+    // Reworded "awaiting founder" (was "awaiting approval") — lib/run-report.mjs.
+    expect(await readFile(reportPath, 'utf-8')).toContain('awaiting founder');
+  });
+
+  it('refuses an approval whose by is a GitHub login — only discord: identities approve', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    const unsigned = { v: 2, by: 'sffan15-sys', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('not a discord: identity');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an item stamped by a well-formed discord: identity who is not in SOCIAL_APPROVERS', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    const unsigned = { v: 2, by: 'discord:999999999999999999', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('not in SOCIAL_APPROVERS');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an approval whose signature does not verify — a hand-written approval object is inert', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    // Every field is well-formed and matches SOCIAL_APPROVERS/contentHash —
+    // EXCEPT the signature, which a hand-written record (by an agent, a
+    // drafter, or a copy-paste of a real record onto different content)
+    // cannot produce without the key. This is the property B1's whole
+    // mechanism rests on.
+    item.approval = {
+      v: 2,
+      by: VALID_APPROVER,
+      at: '2026-09-11T00:00:00Z',
+      pr: 1,
+      message: '999',
+      contentHash: contentHash(item),
+      sig: 'hmac-sha256:' + '0'.repeat(64),
+    };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('signature invalid');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses every item, loud, when SOCIAL_APPROVAL_KEY is not configured — never a silent pass', async () => {
+    delete process.env.SOCIAL_APPROVAL_KEY;
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('SOCIAL_APPROVAL_KEY is not configured');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it("refuses an item whose content changed after approval — the stamp's contentHash no longer matches", async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem({ body: 'the approved, original body' });
+    // Stamp it for the ORIGINAL body, then edit the body afterward — exactly
+    // what a state PR that accidentally touched content (or a drafter
+    // editing a stamped file by hand) would produce.
+    item.approval = validApproval(item);
+    item.body = 'a different body, edited after the stamp was written';
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('edited after approval');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('never grandfathers a pre-A2 draft with no approval key at all — it is refused exactly like any other unapproved item', async () => {
+    // Simulates one of the four real pre-gate files A1 removed: every key
+    // this schema has EXCEPT `approval`, which never existed before
+    // 2026-09-11. There is no key to check for "was this pre-gate" — by
+    // construction, it is indistinguishable from, and refused exactly like,
+    // a brand-new unstamped draft.
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const preGateItem = xItem({ approval: undefined });
+    delete (preGateItem as Record<string, unknown>).approval;
+    await seedQueueItem('pre-gate-x.json', preGateItem);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'pre-gate-x.json' });
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('escalates an unapproved item to a red run once it is stuck >24h overdue, and retires it to failed/ at 48h', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('stuck-x.json', xItem({ approval: null, scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'stuck-x.json' });
+    expect(process.exitCode).toBe(1); // stuck >24h reddens the run (run-report.mjs's isStuck)
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('retires a still-unapproved item to social/failed/ at 48h past scheduledAt, same as any other stuck item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('stale-x.json', xItem({ approval: null, scheduledAt: staleDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', file: 'stale-x.json' });
+    expect(outcomes[0].error).toContain('Unapproved for >48h past scheduledAt');
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['stale-x.json']);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('a validly-approved item still posts normally — the gate is not a general posting block', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'ok-123' } } });
+    await seedQueueItem('a-x.json', xItem()); // default factory auto-stamps a valid approval
+
+    const outcomes = await runPoster();
+
+    expect(spy).toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    const posted = JSON.parse(await readFile(path.join(root, 'social', 'posted', 'a-x.json'), 'utf-8'));
+    expect(posted.approval).toMatchObject({ by: VALID_APPROVER });
+    // The legacy provenance fields are gone — approval IS the record now.
+    expect(posted.approvedBy).toBeUndefined();
+    expect(posted.approvedAt).toBeUndefined();
   });
 });
 

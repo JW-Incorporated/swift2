@@ -7,6 +7,1250 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+### 2026-09-22 — concert photo sourcing at scale: no credit/permission gate on ingestion (kanban t_e1d26de7)
+
+**Decision (Joey, explicit, on record):** expand the social photo pool with
+fan-taken concert photos sourced at scale from public posts, WITHOUT
+requiring a credit/permission-request workflow before ingestion. Joey was
+told plainly that fan photos remain copyrighted by the photographer even
+when posted publicly, and that operating an ingestion pipeline at scale
+without a license/permission/credit gate creates real legal exposure —
+DMCA takedowns, cease-and-desist risk, and rightsholder/agency scanning
+targeting Longlivets.com/JW Labs specifically. Joey chose to proceed
+anyway, prioritizing maximum photo volume across every concert/era over
+that risk.
+
+**Why:** Tree/social flagged the pool as small and concentrated on one
+concert (confirmed: `social/photo-library.json` had 10 entries, 8 of them
+from a single Inglewood 2023 show). The original card asked for a
+licensed/credited/UGC-consent sourcing design; Joey overrode that
+requirement mid-task.
+
+**Scope of this decision:** covers photo *ingestion* only — sourcing and
+adding photos to `social/photo-library.json`/the library directory without
+a rights-check step. Does not change anything about the *posting* pipeline
+(`post-queue.mjs`, approval gates, pairing rules) or grant any new access
+to secrets/credentials/spend. `mediaCredit`/`mediaSource` fields remain
+required per the existing queue schema (data-quality fields, not a
+permission gate) — the change is that ingestion no longer requires an
+opt-in/license/permission-request step before a photo enters the pool.
+
+**Alternatives considered:** (a) official/press-accredited + licensed wire
+sources only, (b) credit-and-permission-request workflow for fan photos,
+(c) opt-in fan-submission/UGC intake. All three were the original card's
+recommended path; Joey rejected all three in favor of unrestricted volume.
+
+**Approved by:** Joey, in chat, mid-task on kanban t_e1d26de7, 2026-09-22.
+
+### 2026-09-15 clarification — verified approval relay
+
+Implementation exposed a mismatch in the M8 design: Kevin accepted only direct
+human comments, while Discord approval is relayed by a bot. Under the founder's
+delegated authority for reversible M8 decisions, Kevin now accepts only the
+exact M8 three-line approval template from a typed, allowlisted Claude or
+GitHub Actions bot, with matching Discord permalink and marker ids. Similar
+prose has no authority, and a later direct founder comment still overrides it.
+This changes no product direction and grants no authority to other chat relays.
+
+## 2026-09-14 — Marjorie drives dispatched work to done: ready-shaped tickets, the founder's yes, a 48/96-hour chase (M8)
+
+**Decision (Joey, in chat, 2026-09-14):** of two proposed designs for getting
+Marjorie's engineering dispatches built, take the first: she files into
+Kevin's existing queue, and Austin's lane picks up what Kevin greenlights;
+no direct Marjorie-to-Austin lane, no change to Austin's fence or Kevin's
+prompts. Added at Joey's numbers: an item of hers with no activity for
+**48 hours** is named on the brief's stalled line and gets one nudge; at
+**96 hours** it becomes one `[DECIDE]` human action (assign, defer or
+close), once per item, `SKIP` final. "I want PRs closed within 2 days
+max." A founder's ✅ or chat yes on one of her items becomes a
+"Plan approved" comment on the issue, which is what Kevin already reads as
+approval. Spec: `docs/specs/marjorie-overhaul/m8-drive-to-done.md`.
+
+**Why:** Marjorie can only file issues (invariant 1). Her filings already
+reach Kevin's triage by authorship, but nothing chased a ticket after
+filing, nothing relayed the founder's yes to the issue, and `desk:build`
+was a marker no routine consumed. Two Tree asks routed to the build desk on
+09-14 (#4296, #4297) would have aged silently.
+
+**Rejected:** a direct `desk:build` queue for Austin. Faster, but it
+bypasses Kevin's judgment, so Marjorie's acceptance criteria would be the
+only quality gate. Revisit if the two-day rule is not met under design 1.
+
+**Open:** Austin's allowlist excludes `scripts/**` and `.github/**`, where
+most of what Marjorie and Tree file lives; widening it is a separate
+charter decision the chase will make the case for or against.
+
+## 2026-09-14 — The routines' clock runs on the home server, not on GitHub's scheduler (M7 amendment)
+
+**V2 authority amendment (2026-09-14):** The installed tag alone pins the
+clock table, repository and inputs. Exactly bot-chat-poll every five minutes
+and routine-marjorie-brief at 12:00 UTC; both retain GitHub schedule triggers.
+The brief first-job guard blocks a second ordinary agent run that UTC day.
+For host configuration, main supplies only the literal CLOCK_LIVE gate, never executable host code
+or a table: effective live = pinnedLive && mainLive === true. V2 explicitly
+authorizes its two rows in the tag while main starts false; the post-update
+flag PR releases that bounded capability. A main commit can still change
+the two workflows' implementation; it cannot widen the host's dispatch list.
+Main is trusted executable authority in Actions: filename confinement does
+not confine what those privileged workflows can do. This is not a semantic
+capability boundary.
+After three failed ten-minute refreshes the host fails closed. Attempts are
+once-only, in memory, with process-start gating and rolling limits.
+
+This replaces the rejected remote-table policy and durable slot ledger.
+Authority is reduced to a reviewed tag rather than trying to validate remote
+policy. Scope: Joey's #4290 decision; mechanics: the architect ruling on
+origin/feature/m7-clock and the v2 spec amendment. Joey approved installing
+the revised unit and daemon-reload in the update HA before its restart, so
+WatchdogSec and StartLimitBurst actually take effect on the existing host.
+The key stays host-only; no approval or social behavior changes.
+
+**Original decision (historical; table policy superseded by v2 above):**
+The M7 doorbell process on the Hermes VM host also keeps the
+clock: it reads a committed schedule table (`scripts/doorbell/schedule.json`,
+seeded from every workflow's own `cron:`) and starts each routine on time
+with `workflow_dispatch`, skipping any slot where a run already exists. The
+GitHub `schedule:` triggers stay in every workflow as the fallback. Spec:
+`docs/specs/marjorie-overhaul/m7-doorbell.md` Pieces 4, Mechanics 10.
+
+**Why:** GitHub drops most of this repo's scheduled runs (#4290, measured
+2026-09-14): the 5-minute chat poll fired 3 times in 14 hours, the hourly
+watchdog twice in 11, and neither the Tree Monday run nor the Marjorie
+brief fired at their slots; nothing was queued, so runs are dropped, not
+delayed. Every "runs on its own" promise in both overhauls rests on that
+clock. A `workflow_dispatch` is a push and is unaffected.
+
+**Alternatives considered:**
+- *Consolidate the 53 crons into one dispatcher workflow:* fewer entries,
+  same scheduler; the one cron can be dropped too.
+- *Accept and widen the rechecks' tolerances:* documents the problem instead
+  of fixing it; a founder message could wait hours.
+- *A separate clock service:* rejected as a second process with the same
+  key on the same host; one service, one env file, one install HA.
+
+**Approved by:** Joey, in chat, 2026-09-14: "yes, let's run the clock on
+the server." Epic #4180.
+
+---
+
+## 2026-09-13 — A doorbell on the home server picks up founder messages in seconds; the poll stays as the fallback (M7; amends the 2026-09-12 channel decision)
+
+**Decision (Joey, in chat, 2026-09-13 19:16 PDT, relay decisions 1–5 all "yes"; recorded on #4180):**
+
+1. **"Long Live Doorbell"**, a non-AI relay, runs always-on on the Hermes VM
+   host, outside Hermes' containers. It holds its own Discord bot token and
+   a fine-grained GitHub key, `longlive-doorbell-dispatch` (swift2 only,
+   Actions: Read and write), both only in a host file. When a founder writes
+   in `#longlive-marjorie` or `#longlive-tree`, it reacts 👀 and starts that
+   bot's chat routine.
+2. **This amends the 2026-09-12 channel decision.** A non-AI relay may watch
+   those two channels and add 👀 or ⚠️ to a founder's own message. It never
+   posts, never reacts ✅ or ❌, and never touches a bot or webhook message,
+   so `#longlive-tree` stays reaction-pure for approvals.
+3. **The always-on relay is accepted as the speed dependency.** The 5-minute
+   poll stays as the fallback and watches the relay.
+4. **👀 only**, no "on it" text.
+5. **A free no-reply alarm.** Joey: "if 2.5 minutes pass without a reply
+   that means something is wrong, so we should have a free method to watch
+   for that and trigger action/escalation."
+   - It is built at 6 minutes, because a normal reply takes about 2.5–3.5
+     minutes. The threshold is re-set from recorded reply times after a
+     week.
+   - A stuck reply, or a doorbell that misses or fails to dispatch, opens a
+     watchdog alert in `#longlive-marjorie` and starts Marjorie's ops
+     routine at once.
+
+**Why:** a reply took about 4.5 minutes, most of it waiting for the poll.
+Hermes answers in seconds because it keeps a live Discord connection. The
+doorbell borrows only that live ear. No AI and no GitHub key enters the
+Hermes runtime, and there is still one Marjorie and one Tree.
+
+**Alternatives considered** (architect evaluation, 2026-09-13):
+- **Hermes answers questions itself while GitHub Marjorie acts.** Rejected
+  for now: two voices, and it needs its own design. Revisit if replies
+  still feel slow after a week.
+- **Hermes becomes Marjorie and Tree.** Rejected: a GitHub key inside the
+  Hermes AI runtime, two Marjories, and the home server's crash record.
+- **A `/ask` slash command.** Rejected: founders change their habits, and
+  it still needs an always-on endpoint.
+
+**Follow-through:**
+- Spec `docs/specs/marjorie-overhaul/m7-doorbell.md`, prompt
+  `docs/plans/marjorie-overhaul/waves/m7-doorbell.md`.
+- HA #72–#74 are the founder's setup (bot, channel limits, key). The install
+  on the host is a HA filed by the build.
+
+---
+
+## 2026-09-13 — The bots answer each other's asks within minutes, not on their next scheduled run (M6, L1 follow-up)
+
+**Decision (Joey, in chat, 2026-09-13: "For #2 I agree, yes to all"):** An
+L1 ask filed by one bot for the other (`tree-filed` + `desk:ops`, or
+`marjorie-filed` + `desk:tree`) immediately dispatches one bounded answer run
+of the addressee. That run reads the issue, acts inside its own charter,
+answers on the issue, and closes it once satisfied. It never files an ask.
+- **Tree answers now and acts Monday.** A calendar change still lands on
+  Monday's plan PR, so there is still one plan PR a week and the approval
+  mechanics don't change.
+- **Echo to the founder.** When the ask started from a founder's chat message
+  in `#longlive-marjorie`, one line is echoed into that Discord thread: "Tree
+  answered #N: …", with a link.
+
+Spec: `docs/specs/marjorie-overhaul/m6-live-asks.md`.
+
+**Why:** Both bots told Joey in their first live chat replies that they
+"can't talk to each other directly" (#4180, 2026-09-13). L1 had accepted that
+an ask could wait up to six days and named this revisit (`l1-loop.md`, Open
+questions). The asks themselves are filed within minutes; only the reading
+waited for each bot's next scheduled run.
+
+**How it is bounded:**
+- *Trigger.* The trusted `run:` step that files the ask then runs `gh
+  workflow run` on the workflow's own token. It does not use `on: issues`,
+  because GitHub starts no workflow from an event a `GITHUB_TOKEN` created. A
+  dispatch is push, so a stalled cron (as on 2026-09-13) never delays it.
+- *No loops.* Answer runs never call the filer. New asks still come only from
+  each bot's capped brief slot (Tree ≤2 a week, Marjorie ≤1 a day) or from a
+  founder-started chat, and each ask gets at most one answer run.
+- *Transcript.* The issue stays the permanent record, surfaced in both
+  briefs as before.
+- *Chat-originated asks.* A trusted `run:` step files them with the
+  `loop-ask` marker; the agent never does. Today a Marjorie chat run files
+  with a plain `gh issue create` and no marker, so Tree's brief cannot see the
+  ask (gap found 2026-09-13).
+- *Authority unchanged.* Tree stays read-mostly, approvals stay reactions,
+  and nothing new posts in `#longlive-tree`.
+
+**Alternatives considered:**
+- *Marjorie's chat run dispatches Tree's chat routine and relays the answer.*
+  Rejected: that is a second ask mechanism beside L1, with no durable
+  transcript.
+- *Both bots in an always-on runtime, calling each other synchronously.*
+  Rejected: Hermes' respawn-loop record shows 898 of its 1,113 crashes this
+  month came from one loop.
+- *`on: issues` triggers.* Rejected: they never fire for asks filed on
+  `GITHUB_TOKEN`.
+
+**Sequencing:** built after the 2026-09-14 Monday L1 cycle, which MR1 checks
+unmodified.
+
+**Not decided here:** the Hermes-VM relay for instant pickup of founder
+messages (a PAT and a new Discord bot app on the VM, plus a channel-rule
+amendment). Founder confirmation is pending.
+
+**Approved by:** Joey, in chat, 2026-09-13. The architecture evaluation was
+done by the architect agent, and the invocation is logged in `STATE.md`.
+Epic #4180.
+
+---
+
+## 2026-09-14 — Chat replies land in the channel, not in a new thread; short by default (#4319, #4320)
+
+**Decision (Joey, in Discord and in chat, 2026-09-14):** amends the M5 entry
+below. A founder's top-level message in `#longlive-marjorie` or
+`#longlive-tree` gets one reply in the channel; a message already in a
+thread gets its reply in that thread. The routines create no threads.
+Ordinary replies default to 2–4 sentences (about 80 words), with more only
+when asked for or essential; the 1,800-character cap stays. The old Hermes
+Tree gateway no longer answers in `#longlive-tree` (host config, not this
+repo). M6's echo line follows the same rule.
+
+**Why:** at M7's live test the bots opened a thread per question and wrote
+long answers, and Tree answered twice. Joey wants one short answer where he
+asked.
+
+**Consequence:** `chat-post.mjs thread` returns an empty id for top-level
+messages; the M5 proof text (in-thread) is historical. Spec:
+`docs/specs/marjorie-overhaul/m7-chat-direct-replies.md`.
+
+## 2026-09-13 — Founders talk to Marjorie and Tree in Discord; Tree may answer in threads (M5)
+
+**Decision:** A founder message in `#longlive-marjorie` or `#longlive-tree`,
+top level or in a thread, gets an in-thread answer from a per-message Opus
+routine (`routine-marjorie-chat.yml` / `routine-tree-chat.yml`).
+`bot-chat-poll.yml` claims each message with the bot's 👀 before
+dispatching. The routine's plain jobs post the reply through the channel's
+webhook and react ✅, or post one `[chat failed]` notice and react ❌.
+Marjorie acts before she answers, inside a fixed list: she closes a human
+action by PR when a founder names it done, closes what her charter already
+lets her close, files `marjorie-filed` issues and dispatches routines. Tree is
+read-mostly. A plan change becomes a proposal comment on the latest plan PR.
+Tree's charter line "never post, never reply" becomes "never posts to social
+platforms and never approves; answers founder questions in `#longlive-tree`
+threads through the chat routine". Spec:
+`docs/specs/marjorie-overhaul/m5-chat.md`.
+
+**Why:** Joey, 2026-09-13: "I want to be able to talk to both of them in
+Discord today … Marjorie has to have power." His reply to that morning's
+brief was a Discord reply, not a thread, and reached no one. A relay onto an
+issue that someone reads the next morning is not a conversation.
+
+**How it is bounded:**
+- *Cost.* The chat poll and the brief-reply relay share one job, which runs
+  every 5 minutes; Joey accepted the fold in chat. Actions minutes on this
+  public repository are not billed: swift2's ~9,000 September minutes netted
+  $0, all discounted. The org's $10/month Actions hard stop draws only on
+  the private repositories. It matters here only if swift2 goes private
+  again, and then the cadence should drop. A chat reply costs one Opus
+  session of at most 25 turns (plan usage) plus roughly 8–12 unbilled
+  Actions minutes.
+- *Exactly once.* A 👀 is never removed and a claimed message is never
+  dispatched twice. The agent and the webhook post run only on a run's first
+  attempt, so a re-run can only settle. Before anything is sent, one shared
+  check (`scripts/marjorie/lib/chat-delivery.mjs`) reads what Discord already
+  shows: a reply, a notice or a reaction. The poll uses the same check to
+  settle a claim still open after 45 minutes.
+- *Secrets.* The bot token and webhooks exist only in plain `run:` jobs
+  under `environment: social`/`ops` that check out `main`.
+  `chat-workflows.test.ts` fails if one reaches the agent job.
+- *Approval surface.* Approvals stay the founder's reactions on Tree's own
+  drafts. A chat reply has its `ref:`-shaped lines defused and never touches
+  `social/queue/`.
+- *Kill switch.* Repo variable `BOT_CHAT_ENABLED=false`.
+
+**Founder calls (Joey, in chat, 2026-09-13: "I agree. Do it."):**
+1. The chat routines' authority is enforced by prompt, tool grants and
+   PR-diff review, not by locked-down tools. The ops and triage routines
+   already run under that boundary. Hardening is tracked in #4271.
+2. This repo is public. While a chat run is in flight (normally about ten
+   minutes, with one-day retention as the backstop), any signed-in GitHub
+   user can download its context artifact: the founder message and recent
+   history. Nothing the chat routines write to GitHub quotes founder text.
+
+**Alternatives considered:**
+- *A 15-minute poll:* built first, on the belief that every poll fire drew on
+  the $10 hard stop. Corrected the same day, once the billing data showed this
+  public repo's minutes net $0. A 15-minute poll plus a routine's start-up
+  can also miss the 15-minute reply target.
+- *A Gateway bot on Hermes' VM for instant replies:* deferred. It crosses the
+  2026-09-12 channel-ownership decision and needs the VM.
+- *Removing the 👀 claim after a failed dispatch, then reconciling against
+  GitHub run history:* rejected in Codex review. Either could strand a message
+  or answer it twice.
+- *A hidden HTML-comment reply marker:* rejected, because Discord shows it.
+- *An extra settlement-gate job:* rejected. It adds a job to every chat run,
+  and first-attempt gating does the same with none.
+
+**Approved by:** reversible, so the AI's call under CLAUDE.md's
+reversibility line. Joey confirmed the cadence fold and the two calls above
+in chat on 2026-09-13. Epic #4180; the poll PR is #4270.
+
+---
+
+## 2026-09-12 — A charter PR merges on green CI; only *Marjorie* may not edit a charter
+
+**Decision (Joey, in chat, 2026-09-12):** "No PR ever needs me — I've been
+fighting this rule for a month." A charter change is an ordinary PR: green
+CI, merged by whoever opened it, **no separate founder approving comment**.
+
+**What actually changed.** `docs/agents/marjorie.md`'s header said "Charter
+changes are founder-approved PRs — Marjorie may not edit this file." Two
+different rules were welded into one sentence, and the weld is what caused
+the problem:
+
+1. *Marjorie may not edit any charter, including her own.* **Kept, unchanged**
+   (hard invariant 5). A running agent editing the contract it is judged
+   against — especially to widen its own authority — is exactly what the rule
+   exists to prevent, and nothing here loosens it. Marjorie is never the
+   author and never the merger of a charter PR.
+2. *A charter PR needs a founder's approving comment before merge.* **Removed.**
+   It was read as a gate on every session, not just on Marjorie, and it
+   stalled real work waiting on a rubber stamp — most recently PR #4183, which
+   sat green and unmerged for no reason a revert could not undo.
+
+**Why.** The line in `CLAUDE.md` is reversibility, not seniority (2026-08-24).
+A charter edit is a markdown diff undone by `git revert`; it fails the
+irreversibility test, so it is the AI's call. The genuinely irreversible list
+is unchanged and short: product direction, spending, secrets/credentials/prod
+infra, deleting data, force-pushing. Nothing about a charter belongs on it.
+
+The distinction that survives is *who is holding the pen*, not *what file is
+being edited*. An agent may not rewrite its own governing document mid-run.
+A human-directed session maintaining that document is doing ordinary
+maintenance.
+
+**Alternatives considered.** Keep the gate but only for authority-expanding
+edits (rejected: "does this expand authority?" is a judgment call made by the
+party that benefits, which is the same failure mode with extra steps). Require
+a Codex review instead of a founder comment (rejected: cross-review already
+applies to every PR per `CLAUDE.md` rule 3 — this would be a second gate
+wearing a different hat).
+
+**Files changed:** `docs/agents/marjorie.md` (header, invariant 5, the
+non-ratchetable-set note), `docs/plans/marjorie-overhaul/PLAN.md` (the M0
+gate). The 2026-09-12 M0 design entry's closing line, which described the
+charter amendment as "a separate founder-approved PR", is superseded by this
+entry.
+
+**Approved by:** Joey, directly, in chat.
+
+---
+
+## 2026-09-12 — Marjorie posts by webhook; the brief is the one daily surface; triage classifies but never decides (Marjorie overhaul, wave M0 design)
+
+Three expensive-to-reverse calls from the M0 design pass. Specs:
+`docs/specs/marjorie-overhaul/` (`c1-delivery.md`, `c2-brief.md`,
+`c3-email-retired.md`, `w1-watchdog-handling.md`, `s1-triage.md`). Epic
+#4180. Implements the channel/email decision recorded above the same day.
+
+### 1. Delivery mechanism: a webhook, not a bot token
+
+**Decision.** Marjorie posts to `#longlive-marjorie` through a Discord
+webhook (`DISCORD_MARJORIE_WEBHOOK_URL`, in a new `main`-only `ops`
+environment) from one module, `scripts/marjorie/lib/discord.mjs`. The
+existing read-only `DISCORD_BOT_TOKEN` is used only by a later poller job
+that reads thread replies — a plain `run:` step, never an agent step,
+modelled on `social-approval-poll.yml`.
+
+**Why.** Every Discord post in this repo is already a webhook post, so a bot
+post would be the only one of its kind with its own auth and error handling.
+#4180 listed unverified bot Send-Messages/Create-Threads permissions as a
+blocker; a webhook has no scopes to verify, so the choice removes the blocker
+instead of scheduling work to clear it. Most importantly **a webhook cannot
+read** — the write credential that runs inside agent steps is structurally
+incapable of pulling channel history, which keeps the standing "agent
+processes never see `DISCORD_BOT_TOKEN`" rule true by construction rather
+than by discipline. A webhook cannot create a thread, but it can post into
+one, which is all the design needs.
+
+**Alternatives considered.** Bot token for both directions (rejected: puts a
+read-capable credential in an agent step, and needs permissions we have not
+verified). A second bot for Marjorie (rejected: an account to provision for
+no capability we lack).
+
+**Reversible?** Yes — a one-file change behind the same `post()` signature.
+
+### 2. The brief is the single daily surface, and it scores the product bar
+
+**Decision.** One message a day in `#longlive-marjorie`, six sections, capped
+at 40 lines, delivered by the brief routine itself at its existing 12:00 UTC
+cron. `brief-mailer.yml` is deleted and no bot mails a founder except the
+production-backup receipt and a mechanical `[discord failed]` fallback. The
+GitHub issue remains the durable copy. Founder replies in the thread become
+issue comments via a poller.
+
+**Distance to done scores `docs/definition-of-done.md`'s eight product items**
+— not `CLAUDE.md`'s six per-feature engineering clauses, and not
+`docs/launch-readiness.md`'s 12 retired gates. `assemble-brief.mjs:645`
+currently carries an in-code admission that its estimator still measures the
+12 gates; that dependency is removed rather than documented again.
+
+**Why.** Three documents in this repo are called some version of "definition
+of done" and they are routinely conflated — the prompt commissioning this
+design conflated two of them. `docs/definition-of-done.md` states in its own
+naming note that it is what a founder means by the phrase about the product.
+A founders' brief that reports engineering-process compliance, or progress
+against a bar the founders retired, is measuring the wrong thing precisely.
+
+**Alternatives considered.** Keep the email as a backup channel (rejected:
+five bot emails a day with no feedback path is the problem being solved, and
+a backup nobody reads is not a backup). Keep the 12-gate estimator alongside
+the new score (rejected: two numbers called "distance to done" is worse than
+one).
+
+**Reversible?** Yes — restoring a mailer is a workflow file.
+
+### 3. Triage classifies and dispatches; it never decides and never closes
+
+**Decision.** Marjorie classifies every site submission into bug / content
+correction / request / spam / needs-founder, files GitHub issues with
+acceptance criteria and the reporter's verbatim words, and posts
+needs-founder items in-channel with a recommendation and a single 7-day
+nudge. **The only thing she may close on her own judgment is spam**, and
+only with a comment and a `spam` label — never silently. Everything else
+stays open until a fix merges or a founder acts. Any founder reply naming a
+class overrules her, and she reverses and says so. She never edits product
+code or content: her routines carry no `Write` or `Edit` tool.
+
+**Why.** Triage authority is the one part of this overhaul that can destroy
+information. A misclassified request that gets closed is a user's report
+deleted by an agent's opinion. Restricting autonomous closure to spam, and
+requiring a labelled comment even there, keeps every judgment reversible and
+searchable. Withholding `Write`/`Edit` makes "never writes product code or
+content" a property of the runtime rather than an instruction that a long
+context might erode.
+
+**Alternatives considered.** Let her close resolved-looking items (rejected:
+no way to distinguish resolved from ignored without a merged fix). A
+confidence threshold for auto-close (rejected: a number invented to license
+an irreversible act).
+
+**Reversible?** The authority is; individual closures are cheap to reopen.
+
+**Approved by:** the owner's standing Decision Authority delegation — all
+three are reversible by a later change and none touches secrets, spend, or
+product direction. The charter amendment that names these duties is a
+separate founder-approved PR.
+
+---
+
+## 2026-09-12 — Three Discord channels, one job each; email retired as a bot channel (Marjorie overhaul kickoff)
+
+**Decision (Joey, in chat, 2026-09-12):**
+
+1. **`#longlive-tree`** (the channel formerly `#longlive-social`, renamed
+   in Discord; every webhook and the reaction poller are bound to the
+   channel id, so nothing broke). Carries only what needs a founder's
+   ✅/✏️/❌ or a thread reply: post briefs, the Monday strategy brief,
+   Reddit reply prompts, and later the posted-under-policy notices. A
+   human writing in this channel is addressing Tree directly, about
+   social. Nothing else posts here, so a reaction always means what the
+   poller thinks it means.
+2. **`#longlive-marjorie`** (new). Marjorie tells the founders things and
+   the founders give her feedback: the daily Founders' Brief, watchdog
+   alerts and their resolutions, submission triage that needs a founder,
+   and the Tree/Marjorie working thread. Replies here are conversation,
+   never a signed approval.
+3. **`#longlive`** (the channel formerly `#long-live`). The founders tell
+   the system to do work. Hermes (bot1) replies and works from here. No
+   scheduled routine ever posts here unprompted.
+4. **Human-action cards** for this project go to Hermes' `human-action-1`
+   channel, because Hermes1 owns the project; they do not go to a
+   Long Live channel.
+5. **Email is retired as a bot channel.** Every routine that mails a
+   founder today (brief mailer, watchdog, Tree's weekly mail, the social
+   poster, production backup) moves to Discord. The only permitted
+   fallback to email is a failed Discord webhook call, decided
+   mechanically, never by judgment. The production-backup receipt stays
+   on email as the one deliberate exception, so a Discord outage never
+   hides a missed backup.
+6. **Wyatt** is not tagged or notified separately anywhere; he reads what
+   Joey reads. The CC on outgoing mail goes away with the mail.
+7. **Marjorie's charter is amended in principle:** she is accountable for
+   the site running and for the user experience, and she *dispatches*
+   every fix (issues to the build desk, Kanban cards, human actions) but
+   never writes product code or content herself. The amendment text
+   lands via the Marjorie overhaul's design wave.
+8. **The FB group export chore** is real but has never been done. It stays
+   a watchdog check; Marjorie turns it into a human action with literal
+   steps rather than a bare alert.
+
+**Why:** three inboxes were drifting into one. The approval channel needs
+to stay reaction-pure or the approval poller's meaning erodes; the
+founders get five bot emails a day with no feedback path; and the new
+site-ops persona needs a place to talk that is neither the approval
+surface nor the command line.
+
+**Alternatives considered:** one channel with prefixes (rejected: reaction
+semantics); keep email for the brief (rejected: no feedback loop, one
+multi-day silent outage already on record).
+
+**Follow-through:** the channel rename is mechanical across docs and
+scripts. Files on CI's posting-path list (`social-approval-poll.mjs`,
+`automerge-social-approval-gate.mjs`, `auto-merge-content.yml`,
+`social-approval-poll.yml`) still say `#longlive-tree` in comments
+and strings; they are renamed in the next freeze window, not in a
+freeze of their own.
+
+## 2026-09-12 — Approval stamps become v3 (the head SHA is signed); a Discord message id is never a gate again (S3 redesign, architect-directed)
+
+**Decision:** `social-approval-poll.mjs` stops using Discord message identity
+to decide anything. Two axes, kept separate by construction:
+
+- **Listening axis (Discord).** The poll reads reactions and replies on
+  *every* message in the 100-message window whose `ref:` line names the PR
+  — header (`*`) or per-file — at *any* head SHA, and classifies the
+  **union** per target: a ❌ anywhere wins, the latest qualifying reply
+  anywhere wins (by timestamp). `approval.message` is still written, but it
+  is **audit-only**: nothing reads it to decide whether to listen, mint, or
+  merge.
+- **Safety axis (git).** The poll mints **v3 stamps** whose signed payload
+  adds the head SHA it stamped on:
+  `${v}|${by}|${at}|${pr}|${sha}|${contentHash}` (`lib/queue.mjs`'s
+  `approvalSigPayload`, now dispatching on `v`; v2's payload is unchanged so
+  every already-issued stamp keeps verifying, and the poster verifies both).
+  One predicate decides both "may this ✅/✏️ mint" and "may this stamp
+  merge": `cleanSince(S, head)` — every path in `git diff --name-only S head`
+  must be a `social/queue/**.json` file that is either absent at head (a
+  deletion cannot publish unseen content) or validly stamped at head;
+  unreadable fails closed — plus `selfClean(F)`, the file's own bytes at
+  `approval.sha` vs head differing only in `approval`/`body`/`edit`. A
+  reaction on a message at SHA `m.sha` may mint `F` iff `m.sha === head`, or
+  `cleanSince(m.sha, head)` holds and `F` is not in that diff. A PR merges
+  iff every queue file at head is validly stamped and passes
+  `cleanSince(approval.sha, head)` and `selfClean`; otherwise one notice per
+  PR per 24h names the offending paths. Drift is recovered by a fresh ✅ on
+  the newest brief; there is no separate stamp-stripping path and no sticky
+  per-file flag.
+- **Ledger rows are derived from state every run**, never only from the
+  run's own actions: approve/edit rows from each valid stamp at head
+  (`ts = approval.at`, `action: "edit"` iff `edit.at === approval.at`, the
+  new `edit.reply` is `replyId`), reject rows from a ❌+reason on a file now
+  absent at head; each row dedupes against the ISO-week file its own `ts`
+  falls in. The MERGED-only self-heal is deleted, as are
+  `partitionCurrentHonoured`, `resolveGoverningRef`, `unsafeFiles`,
+  `isPollAuthorizedDeletion` and `ledgerHasRejectRow`.
+
+**Why:** three consecutive fix attempts on PR #4139 (a per-finding patch, a
+fresh-context redesign around a per-file "governing message", then Codex
+round 3) each closed the reported cases and each opened new ones in the
+same mechanism. The architect (Fable) diagnosis (`DEBUG.md` on that
+branch): all of them gated *listening* on message identity
+(`approval.message === ref.message.id`, then `resolveGoverningRef`) — but
+messages are ephemeral and multiply by construction.
+`social-approval-notify.yml` re-posts the header and every unstamped brief
+on every `synchronize` (including the poll's own stamp/edit/reject pushes),
+the daily digest re-posts at the same SHA, and the 100-message window drops
+old ones. Header-vs-per-file, duplicate briefs, identity not preserved
+across runs, a hand-edited unsigned `message`, stranded `unsafeFiles` — each
+is one more way for the recorded id not to be the message the founder
+actually reacted on. **That class is unbounded; no fourth implementation
+pass closes it by adding a rule.** The durable-record instinct is right for
+the SHA (what the founder saw) and wrong for the message id (which one they
+happened to tap). Signing the SHA is what makes `git diff approval.sha head`
+a trustworthy question; an unsigned field there would be the same hole
+`approval.message` was.
+
+**What this reverses:** the 2026-09-11 S3 entry below ("a Discord brief
+whose `ref:` head SHA is stale is still authoritative for a queue file that
+already carries a valid `approval` naming that exact message … The
+signature payload is therefore left untouched") and the spec's
+§"The stale-SHA problem" honouring rule. A *versioned* payload leaves every
+v2 signature valid, so "changing it would invalidate every prior stamp" no
+longer holds. The spec's "every diff path … validly stamped at head" was
+also over-strict for a deletion (it spawned the ledger-corroboration
+workaround for the poll's own reject commits) and for cross-file drift (a
+permanent strand after any sibling's unrelated change); `selfClean` is
+per-file and self-anchored instead.
+
+**Version-number collision, resolved here:** the T7 entry directly below
+(2026-09-12) reserved `v: 3` for a signed `kind` field. This entry takes
+`v: 3` for `sha` because it lands first and T7 is not yet built; T7's
+`kind` lands as **`v: 4`** = `${v}|${kind}|${by}|${at}|${pr}|${sha}|${contentHash}`,
+layered on v3 — a policy stamp has to be SHA-anchored to pass the merge
+predicate at all, so T7 needs `sha` regardless. T7's spec
+(`docs/specs/tree-overhaul/t7-autonomy-ladder.md`, the payload table and
+acceptance items 4/5) needs that renumber before its Wave 4/5 build.
+
+**Consequences, stated plainly:** a v2 stamp still sitting on an *open* PR
+when this lands needs one fresh ✅ to become a v3 stamp (one-time
+transition; already-merged v2 content keeps posting). ✏️ on a stale message
+now has to pass the mint predicate too (a real tightening). The 100-message
+window is still a spec-accepted limit. A drift confined to non-queue paths
+(e.g. only image bytes changing) does not fire `notify`, so no fresh brief
+appears until the next daily digest — the notice says so rather than
+implying an immediate fix. Later stages (S6, T4, T7) must never treat a
+message id as authoritative state. The cheapest signal this call was wrong:
+an adversarial review finding a merge where a ❌ on any window-visible
+message for that file went unread, or where `git diff approval.sha head`
+contains a non-`social/queue/**` path.
+
+**Alternatives rejected:** (A) a more careful implementation of the
+message-identity model — proven insufficient three rounds running; (B) a
+durable record of "the governing message" (the DEBUG.md synthesis
+hypothesis) — makes the blind spot permanent instead of transient, every
+other message for that file becomes unread by construction; (C) dropping
+stale-SHA honouring entirely — ✏️ makes a stale SHA a certainty, so S3
+without it isn't S3.
+
+**Decided by:** the architect (Fable) verdict recorded in `DEBUG.md` on
+`feat/tree-s3-reason-protocol`, reached through the mandatory debug ladder
+(`CLAUDE.md` two-strike rule), executed by Claude Code. Reversible in code
+(a revert re-mints); the format change is the expensive part, hence this
+entry before implementation.
+
+---
+
+## 2026-09-12 — Autonomy ladder: a campaign type can earn post-and-notify, per type, revocably (T7)
+
+**Decision:** A campaign family that accumulates ≥8 briefs over a trailing
+28 days with ≥95% plain ✅ and **zero** ❌ becomes *eligible*, which permits
+Tree to propose — in the Monday brief, as a numbered proposal — that posts
+of that one family ship on schedule and notify afterwards. Only the
+founder's ✅ on that proposal creates the grant, written to
+`social/autonomy.json` on the `social-ledger` branch and **HMAC-signed with
+`SOCIAL_APPROVAL_KEY` by the poll job** — a grant without a valid signature is
+inert. Signing it is not optional: otherwise any agent could write
+`status: "active"` into that file and the poll, which holds the key, would
+then sign a policy stamp and publish with zero founder involvement. `status`
+is inside the signed payload, so a revoked grant cannot be flipped back to
+active by editing the file. Eligibility never grants anything by itself. The
+approval schema gains `v: 3` with a signed `kind` field (`founder` |
+`policy`); a policy stamp's `by` is `policy:<type>@<grant date>`, which is
+deliberately NOT a `discord:` identity and must never be added to
+`SOCIAL_APPROVERS` (B5's disjointness test). `kind` is inside the v3
+signature payload so a founder stamp can never be relabelled a policy one,
+or the reverse. A ❌ on the after-the-fact notice within 24h revokes the
+grant, strips the policy stamp from every unposted item of that type,
+records a lesson, and retracts what can be retracted. At most one grant
+proposal per week. Grants are per campaign family only — the schema cannot
+express a global grant. Spec: `docs/specs/tree-overhaul/t7-autonomy-ladder.md`.
+
+**Why:** The founder gate is not the bottleneck on an account with zero
+users — the quality of the writing is — so the ladder is deliberately
+narrow, slow and revocable rather than a general loosening. Per-family
+grants are the only unit where evidence can accumulate at all: a `campaign`
+value is story-unique and used once, so a per-campaign grant could never
+earn anything. Zero ❌ (rather than a rate) is required because a rejection
+is categorically different from an edit — an edit says "nearly right", a
+rejection says "don't post this".
+
+**The residual, stated plainly:** Instagram has no delete operation for
+published media — the Graph API rejects it with code 100 / subcode 33
+regardless of token permissions (confirmed 2026-07-17,
+`scripts/social/delete-media.mjs`). So a post shipped under policy can be
+irrevocably public as far as any automation is concerned. X is deletable
+(new work), Facebook is deletable (`delete-media.mjs`), Instagram is
+removable only by a human in the app. The 24h ❌ stops the *next* post and
+hands the founder two taps for that one. **This is the one thing in Wave 1
+the founder had to accept explicitly rather than the AI deciding it**, and
+the spec carries the recommendation to drop T7 entirely if the answer is no.
+
+**Alternatives considered:** a global autonomy grant (rejected — the failure
+mode is unbounded and the schema deliberately cannot express it); X-only
+autonomy (rejected as currently impossible — X+Instagram pairing has been
+mandatory with no exceptions since 2026-08-26, so no X-only campaign
+exists); a shorter eligibility window (rejected — 28 days is the shortest
+window that spans a full campaign rotation); requiring a reason on the
+revoking ❌ (rejected — the post is already public and stopping the next one
+outranks collecting the reason first; the reason is asked for afterwards).
+
+**Recommendation made, and OVERRULED by the founder (2026-09-11) — build it.**
+The recommendation attached to this entry was to approve T7 as a *design* and
+not schedule the build (the independent Fable review of these specs reached the
+same conclusion and rated it the riskiest spec in the set). The founder
+considered that and decided to build it into the plan. Recorded here rather
+than quietly replaced: the reasoning against is still the reasoning that shapes
+*how* it ships.
+
+**How it ships, as a result:** split across two waves rather than built whole.
+Wave 4 takes the read-only half (`eligibility()` and the Monday ladder-standing
+block) — which was already Wave 4's gate criterion and is what generates the
+evidence. **Wave 5**, a new wave, takes the acting half (signed grants, schema
+`v: 3`, policy stamping, the notice, revocation and retraction) and is gated on
+observation checkpoint **R4 (2026-10-16)** reporting a campaign family at or
+near eligibility, on the X delete path being proven against a real post, and on
+the founder **re-confirming** the irrevocable-Instagram acceptance at that time.
+A month-old yes is not consent for an authority change whose worst case cannot
+be reverted. Full reasoning in `docs/plans/tree-overhaul/PLAN.md`, "Why T7 is
+its own wave, gated on R4".
+
+**Amended 2026-09-11 (Wave 1 review):** revocation does **not** "strip the
+policy stamp" from unposted items — those items are already merged to
+branch-protected `main`, which the poll cannot push to, so no file edit is
+possible and none is needed. `approvalStatus` for `kind: "policy"` requires
+an *active* grant, and the poster reads grants from `social-ledger` at post
+time, so revoking the grant invalidates every stamp it minted; the poster
+retires those items as unapproved and Tree re-drafts through the normal
+gate. Likewise the poll writes a `revoke` row to `social/feedback/` rather
+than a lesson — lessons are created only by the Monday run (T5).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Side doors write facts, not captions (T6)
+
+**Decision:** `merch-official-sync` and `appearance-discovery` stop writing
+`social/queue/**` entirely. They write a `social/inbox/<id>.json` *intent*
+carrying only observed metadata (product name/price/availability/URL, or
+channel/title/publish date/video id), the media path, and a deadline (merch
+72h, appearance 48h). Tree's daily run drafts any post from the intent under
+a six-dimension rubric — T2's five plus `timely` — with `timely ≥ 4` a hard
+gate. A fast-lane post **displaces** a planned calendar slot rather than
+adding one (the daily cap is one post per platform per UTC day), capped at
+one per day and three per rolling 7 days. A declined intent gets a
+plain-English `declinedReason` commented back on its source issue/PR and
+reported once in the Monday brief. A ❌-rejected fast-lane draft does not
+return to the inbox. Spec: `docs/specs/tree-overhaul/t6-side-doors.md`.
+
+**Why:** These two lanes are the structural gap named in
+`docs/agents/growth.md` (2026-08-31, kanban `t_895c2ba8`) and issue #3584 —
+template-generated captions reaching the queue with no planning layer and no
+judgment, which is what produced the 2026-08-31 captions that triggered
+`SOCIAL_FREEZE`. Fixing the templates fixed those captions; removing the
+lanes' ability to author a caption at all fixes the class. `timely ≥ 4` is
+what keeps the fast lane a fast lane rather than a second unplanned content
+pipeline, since a fast-lane item is spending a planned slot.
+
+**Alternatives considered:** keeping the lanes' captions but routing them
+through Tree for review (rejected — review is weaker than authorship and
+leaves the templates in place); intake-issue-only, with no fast lane at all
+(rejected — a genuine same-day product drop is worth posting, and the
+founder gate already bounds the risk); letting the fast lane add a post
+rather than displace one (rejected — the per-platform daily cap would just
+drop one silently).
+
+**Amended 2026-09-11 (Wave 1 review):** the rolling-7-day cap is **two**,
+not three. The calendar runs one beat a day (`social/calendar.md`, which
+corrected strategy §2's two beats), so a week has seven slots; the spec's
+"three of fourteen" justification was computed against the superseded
+two-beat day, and three of seven would have been the half-a-calendar the cap
+exists to prevent.
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — The lessons ledger: founder feedback becomes standing rules, in the founder's own words (T5)
+
+**Decision:** `social/lessons.md` is a human-first Markdown ledger, one
+block per rule, carrying id, status, first seen, **times fired**, last
+fired, evidence links, a verbatim **"You said"** quote, and an imperative
+**"So I"** rule. It is distilled every Monday from `social/feedback/*.jsonl`
+(S3) and ingested thread replies, never hand-written by the founder. Tree
+reads every active rule before drafting and cites the ids it checked in
+`critique.rulesChecked`. `Times fired` counts **the founder having to say it
+again** — not Tree's consultations — and at 3 firings Tree files a `codify:`
+issue to turn the rule into a deterministic check in `check-drafts.mjs`,
+after which the rule retires as superseded. At most 3 new rules per week.
+The ledger starts **empty** (Wave 3 audit, 2026-09-12): the Wave 3 brief
+asked for it to be seeded with checker-implied rules, but every rule must
+carry a verbatim "You said" quote and there is none to quote — seeding
+would fabricate founder words. Enforcement is therefore dormant until the
+first real ✏️/❌ reason; that is by design, not an omission.
+Strategy changes implied by a lesson are staged as a diff to
+`docs/marketing/social-strategy.md` in the plan PR and surfaced as a T4
+proposal; **the founder merges that PR themselves** — neither Tree nor the
+approval poll may merge a plan PR. Spec:
+`docs/specs/tree-overhaul/t5-lessons-ledger.md`.
+
+**Why:** The feedback loop was wired but fed nothing (the 2026-09-11
+recheck). A ledger is what turns a one-off correction into a standing
+constraint. Markdown rather than JSON because the founder is the primary
+reader and a rule they can recognise as their own sentence is a rule they
+can correct; verbatim quotes for the same reason. Counting founder
+repetitions rather than agent consultations makes the 3× trigger mean "this
+cannot be trusted to a prompt", which is exactly `CLAUDE.md` rule 8's test.
+The founder merging the strategy PR keeps the one-tap Discord mechanism —
+built to approve captions — from silently acquiring the power to rewrite the
+strategy it implements.
+
+**Alternatives considered:** a JSON ledger (rejected — read by nobody,
+corrected by nobody); paraphrasing feedback into rule language (rejected —
+paraphrase is how feedback becomes unrecognisable to the person who gave
+it); codifying at 2 firings (rejected — 3 matches rule 8 and avoids
+codifying a one-off restated); letting the poll merge an approved strategy
+PR (rejected — see above).
+
+**Amended 2026-09-11 (Wave 1 review):** the strategy diff is **not** staged
+in the plan PR. Tree opens a separate `tree/strategy/<week>-<n>` PR only
+after the founder's ✅ on the proposal, and the founder merges it. Bundling
+it into the plan PR would hold the week's calendar hostage to a strategy
+decision, or let a merge of the calendar silently carry an unapproved
+strategy change — and it contradicted the spec's own Behavior section and
+T4's proposal shape ("I'll open it as a PR for you to merge"). A ❌ opens no
+PR and there is nothing to revert.
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — The Monday brief moves to Discord and becomes two-way (T4)
+
+**Decision:** Tree's weekly plan is posted to `#longlive-tree` as a
+sequence of webhook messages — a 5-line scorecard plus "what changed and
+why", the 14-day calendar in two messages (28 slots will not fit in
+Discord's 2000-character limit), up to three numbered proposals each as its
+own reactable message, and up to two questions. Founder replies, in a thread
+or as a plain reply, are ingested by the approval poll and posted as
+comments on Tree's plan PR (deduped on a `discord-reply: <id>` trailer). A
+reply landing before **Wednesday 23:59 UTC** dispatches exactly one mid-week
+re-plan run (`mode=replan`), which amends the existing plan PR and leaves
+already-approved slots alone; a later reply is deferred to next Monday, not
+dropped. The weekly email becomes a copy of record, dispatched by the plan
+workflow rather than triggered by the PR event. Spec:
+`docs/specs/tree-overhaul/t4-weekly-brief.md`.
+
+**Why:** The founder already answers in Discord; the weekly email asked for
+a reply in a second place and got none, so the "two-way strategy chat"
+Joey asked for on 2026-08-23 never happened. Proposals get one message each
+so a reaction binds unambiguously — the same property the draft brief
+already depends on. The Wednesday cut-off exists so a mid-week answer can
+still change the week it is about; dispatching the mailer instead of
+PR-triggering it removes a real race where the email could beat the Discord
+post and carry no permalink.
+
+**Alternatives considered:** keeping email primary with a Discord pointer
+(rejected — that is today, and it does not work); one message for the whole
+brief (rejected — it does not fit, and a single reaction target could not
+distinguish three proposals); a Friday cut-off (rejected — it leaves no time
+to execute a re-plan).
+
+**Amended 2026-09-11 (Wave 1 review):** at one beat a day the 14-day
+calendar is 14 slots, not 28; the two-message split stands (14 rationale
+lines still crowd the limit, and 28 remains the tested stress case).
+Reactions on non-proposal messages need no reply and draw no nudge — S3's
+reply rule gates an action, and there is none there.
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Tree self-scores every draft, and the score is never part of the approval hash (T2)
+
+**Decision:** Before queueing anything, Tree scores its own draft 1–5 on
+five dimensions — on-strategy, on-voice, specific, media-earns-its-place,
+and "would I be embarrassed to send this" — and writes them into the queue
+item as `critique: { v, scores, total, rationale, rulesChecked, revision }`.
+Queueable requires every dimension ≥3, `total` ≥18/25, and
+`notEmbarrassed` ≥4 as an independent floor. One rewrite on failure, then
+the slot is **left empty**. The two-sentence `rationale` becomes the first
+paragraph of the Discord brief; the numeric scores are never shown to the
+founder. The threshold is enforced in `validateQueueItem`/`check-drafts.mjs`,
+not only in the prompt. **`critique` is deliberately outside
+`contentHashPayload`** and is written once, never updated. Spec:
+`docs/specs/tree-overhaul/t2-self-critique.md`.
+
+**Why for the hash exclusion — the load-bearing part:** S3 lets a founder
+replace a caption by replying ✏️ to the brief. If `critique` were hashed,
+that edit would void the stamp unless Tree re-scored the founder's own
+words, which is either a rubber stamp or Tree refusing to queue the
+founder's caption — there is no coherent behaviour in the hashed design.
+Beyond that, the hash means "what the founder approved" (words, picture,
+time); Tree's reasoning about those things is provenance, the same category
+as the already-unhashed `why` and `mediaCredit`. And the point of scoring at
+all is comparing Tree's *pre-hoc* score to the founder's *post-hoc* verdict,
+which requires an edited item to keep the score Tree gave the draft it
+actually wrote.
+
+**Why enforced in the schema:** a model's promise to self-score is not a
+gate; a failing check is.
+
+**Alternatives considered:** showing scores in the brief (rejected — it
+anchors the founder on auditing Tree's marking instead of judging the post);
+folding "would I be embarrassed" into the total (rejected — it is the only
+dimension that catches what the other four miss, and the one a model is most
+tempted to inflate); prompt-only enforcement (rejected as above);
+re-critiquing after a founder edit (rejected — the founder's edit *is* the
+judgment, and re-scoring destroys the calibration data).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — Growth folds into Tree: one social desk, two runs, one name (T1)
+
+**Decision:** The Growth & Community desk ceases to exist as a separate
+agent. `docs/agents/tree.md` absorbs its mission, its six hard rails, its
+voice and content boundaries, its daily cadence and its definition of done;
+`docs/agents/growth.md` is reduced to a tombstone pointer (not deleted —
+too many in-repo citations). Growth's pipeline mechanics and incident
+history move verbatim to a new `docs/social/pipeline.md`. Tree's invariant
+1 changes from "never writes to `social/queue/`" to "never posts, ever" —
+Tree now drafts. `routine-growth-draft` becomes `routine-tree-daily-draft`,
+the runner prompts are renamed to match, the `growth` label is renamed
+`tree`, Tier-2 attribution becomes `Tree — daily social draft` /
+`Tree — weekly social plan`, and the weekly email's From display name
+becomes "Tree (Long Live social)" via a new optional `fromName` in
+`scripts/watchdog/send-mail.py`. The queue item's `sourceRoutine` becomes
+`lane` (`calendar | merch | appearance | reddit`). **The GitHub PR author
+stays an automation identity.** Spec:
+`docs/specs/tree-overhaul/t1-one-charter.md`.
+
+**Why:** The 2026-09-11 recheck found Tree was not the accountable owner of
+anything a founder sees. With planning and drafting split across two
+charters, every quality problem had two possible owners and therefore none.
+The split was created 2026-08-11 to add a planning layer that did not exist;
+that layer now exists and the second charter is the leftover scaffolding.
+The PR author is left alone because inventing a "Tree" GitHub identity would
+recreate exactly the fiction B1 rejected — GitHub has one login for the
+owner and every routine's PAT; identity lives where it is real, which is
+Discord.
+
+**Alternatives considered:** deleting `growth.md` (rejected — dangling links
+across a dozen docs); absorbing the pipeline history into the charter
+(rejected — a charter nobody finishes reading is not a charter); keeping
+`sourceRoutine` alongside `lane` for a migration period (rejected —
+`social/queue/` is empty today, which is the one moment the rename is free);
+a `Tier-2:` alias so output sampling spans the rename (rejected — permanent
+machinery for a days-long reporting gap at zero users).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-12 — ✏️ and ❌ require a written reason, and every verdict is logged (S3)
+
+**Decision:** The Discord approval gate gains a third reaction, ✏️ (edit),
+and both ✏️ and ❌ require a **reply to the brief message from an approver**
+before anything happens. ✏️ replaces the caption with the reply text
+verbatim, records an unhashed `edit` provenance object, re-stamps against
+the edited content and merges. ❌ removes the file (or closes the PR, on the
+header) with the founder's reason carried into the `reject:` comment. A
+reaction with no reply is `pending`: nothing happens, and the poll posts one
+nudge per target per 24 hours, finding its own prior nudges in the channel
+rather than keeping a state file. **A bare ❌ never closes a PR again.**
+Every resolved verdict — including plain ✅ — is appended to
+`social/feedback/<ISO-week>.jsonl` on the **`social-ledger` branch** (`main` is
+branch-protected and nothing can push to it; `social-ledger` is the pattern
+issue #2040 already established for the posted/failed ledger, and readers
+overlay it exactly as `social-poster.yml` does). The reaction→action table is
+generalised so the third field of the `ref:` line is a scope token, letting
+Reddit items (S6) and Monday brief proposals (T4) reuse the same mechanism.
+Spec: `docs/specs/tree-overhaul/s3-reason-protocol.md`.
+
+**Also decided, and required by ✏️:** a Discord brief whose `ref:` head SHA
+is stale is still authoritative for a queue file that already carries a
+valid `approval` naming that exact message. Freshness is required to
+*create* an approval, never to keep honouring one. This closes #4127's
+second finding, which ✏️ turns from a race into a certainty — the bot's own
+edit commit always moves the head SHA. It does not widen what an automation
+can approve: the honoured path can only merge a file that already carries a
+valid signature over its own content, never mint one, so the fact that
+`approval.message` is outside `approvalSigPayload` grants nothing. The
+signature payload is therefore left untouched (changing it would invalidate
+every prior stamp).
+
+**Why:** The recheck found the feedback loop wired but fed nothing. A ❌
+with no reason teaches nothing and, worse, silently destroyed the PR that
+was the only record of what was rejected. Logging ✅ rows too is what makes
+the edit-rate trend and T7's eligibility computable at all — a ledger of
+failures alone has no denominator.
+
+**Also decided:** the ✏️ edit path runs `checkDraft` on the founder's
+caption *before* stamping. Without it an over-length or duplicate caption
+commits, CI goes red, and the draft strands forever with nothing said in the
+channel. On a failing check the poll writes nothing and says why in the
+channel. Related: ✏️ on the PR-wide header is unsupported — one reply cannot
+be the new caption for an X item and its Instagram sibling at once.
+
+**Alternatives considered:** a slash command or modal for the reason
+(rejected — it is more ceremony than the tap it replaces, and the bot is
+read-only by design with no write scope at all); keeping the ledger on the
+PR branch (rejected — a rejected PR's branch is deleted, destroying the
+record of the very thing it documents); acting on a bare ❌ and asking for
+the reason afterwards (rejected for drafts — nothing is public yet, so
+waiting costs nothing; **note the deliberate opposite call in T7**, where
+the post is already live and stopping the next one outranks collecting the
+reason first).
+
+**Amended 2026-09-11 (Wave 1 review):** the reaction table gains ⏭️ for
+Reddit items (skip — no reason asked, never a rejection, never a lesson),
+and the `reddit` scope is `reddit:<postId>` with `pr: null`, because
+Reddit prompts have no PR, no per-item file and — today — no `ref:` line;
+S6 adds a second ref-line form (`ref: reddit · <postId>`) with its own
+regex rather than stretching the PR form. Latest reply wins for a reason as
+well as for an edit (the spec's open-questions bullet had said otherwise).
+
+**Approved by:** the owner, on the Wave 1 spec PR. Epic #4117.
+
+---
+
+## 2026-09-11 — Approval is the founder's Discord ✅, signed (B1); supersedes A2's merge-keyed stamp
+
+**Decision:** Social-post approval is no longer "a founder merged the
+draft PR" — it is the owner's own ✅ reaction, on Discord, on the exact
+brief message that names the PR/head-SHA/file, verified by a read-only bot
+token and minted into an HMAC-signed v2 stamp (`scripts/social/lib/
+queue.mjs`'s `signApproval`/`verifyApprovalSig`, keyed by
+`SOCIAL_APPROVAL_KEY`, an environment secret restricted to `main`).
+
+**Why:** GitHub has exactly one identity for the owner (`sffan15-sys`) —
+the same login every agent session's `gh`, every content routine's PAT, and
+the auto-merge actor also run as. `scripts/automerge-branch-author-gate.
+mjs`'s `KNOWN_CONTENT_AUTHORS` already listed `sffan15-sys` as a content
+author; A2's `SOCIAL_APPROVERS = ['sffan15-sys']` sat inside that same set.
+No GitHub-recorded event — `merged_by`, a review, an environment approval —
+can ever distinguish the owner's own tap from an agent's `gh pr merge`
+running under his login. Discord is the only channel in this system where
+the owner holds an identity no agent or routine holds: agents have the
+write-only webhook URL, not his user account.
+
+**Alternatives considered:** a second GitHub account (rejected — puts the
+burden on the owner to be logged into the right account on whatever client
+opens the link, and fails silently-ish on the wrong one); an
+email-approval link (rejected — this harness's Gmail MCP tools make a
+mailed link clickable by an agent too, so it carries the same hole).
+
+**Residual, stated plainly:** an agent that rewrites a `main` workflow and
+merges it can still read the environment secrets — that is the
+deliberate-sabotage threat, outside this decision's model (agents doing
+their instructed jobs), and the A6 freeze check makes it a two-step,
+logged act.
+
+**Definition of done for any future identity-keyed gate:** list every
+actor that can produce each input the gate trusts; if any is an automation
+identity, the gate is not done. Today's five (precedent): `sffan15-sys`,
+`wjduvall-cmd`, `claude[bot]`, `github-actions[bot]`, `app/claude`.
+
+**Who approved:** the owner, via the docs/social/RULINGS-SOCIAL-2.md architect
+ruling (B1/B2/B3/B5).
+
+---
+
+## 2026-09-11 — Approval is data (A2), superseding "merge IS the approval" — SUPERSEDED BY THE ENTRY ABOVE
+
+**Decision:** Social-post approval is no longer "the PR was merged" — it is
+a stamped, content-bound `approval` object written into the queue item
+itself, ONLY by a merge-triggered workflow (`.github/workflows/social-
+approval-stamp.yml`), never by a drafter, never by `post-queue.mjs`. `by`
+is checked against a hardcoded `scripts/social/lib/approvers.mjs` list;
+`contentHash` covers `platform`/`body`/`media`/`altText`/`scheduledAt`/
+`campaign`, so editing any of those after the stamp voids it.
+`post-queue.mjs` reads only this object — no GitHub API call at post time —
+and refuses (loud `unapproved` outcome, red past 24h overdue, retired to
+`social/failed/` at 48h) anything without a currently-valid one. A
+pre-2026-09-11 draft has no `approval` key at all, so grandfathering is
+impossible by construction. The dead `scripts/social/lib/
+git-provenance.mjs` (queried `commits/{sha}/pulls`, which never carries
+`merged_by`) is deleted along with the `approvedBy`/`approvedAt` fields it
+populated with `null` on every real run.
+
+**Why now:** the 2026-09-10 "merge IS the approval" decision (entry below)
+could not actually distinguish the owner's own "Merge" tap from an agent's
+`gh pr merge` — `auto-merge-content.yml` arms auto-merge with
+`SOCIAL_POSTER_PAT`, the same identity every agent session's `gh` CLI also
+runs as, so both a hand-merge and a bot-merge recorded the identical
+`merged_by`. An agent merged a social PR on 2026-09-10 night under the old
+rule. Separately, four drafts that landed on `main` BEFORE the 2026-09-10
+gate existed were retroactively invisible to it (approval was "is merged,"
+and they already were) — see the A1 entry and `scratchpad/RCA-social-
+brief-image.md` §0 for the near-miss this produced (an unapproved pair
+~25h from auto-publishing to live IG/X, held off only by an unrelated daily
+cap). Both holes close under A2: approval is now data the poster itself
+checks, not a predicate inferred from a different system's (GitHub's)
+state.
+
+**Fencing the shared identity (owner's kit, not a Swift2 PR):** `Projects/
+.claude/hooks/guard.sh` denies `gh pr merge` on any PR that adds or modifies
+`social/queue/**.json`, and denies an agent writing an `"approval"` key
+anywhere. `CLAUDE.md`'s "Never babysit your own PR" section carries the same
+carve-out for human sessions running through this repo. A Discord-reaction
+approval mechanism (giving the owner an identity agents genuinely cannot
+hold) is deferred, not rejected — build it if the guard above ever logs a
+denied queue-PR merge attempt by an agent.
+
+**Definition of done for any future gate PR:** the PR's CI output must show
+`validate-queue`'s unstamped-draft warnings for whatever already sits on
+`main` at merge time — the list that would have named the four pre-gate
+files on #4090/#4097 before A1 deleted them.
+
+**Requires the owner (A5, unfreeze conditions — NOT all met by this PR):**
+the queue must be empty or fully stamped; PR-B1 (this PR) must be merged
+green with the two named refusal tests; one real `social-approval-notify`
+run must log `approval-prompt: embeds accepted: N` for a founder-visible
+brief with the image; and the owner must say in chat that he saw the image
+in `#longlive-tree`. `SOCIAL_FREEZE` stays `true` until all four hold —
+this PR does not flip it and does not claim to.
+
+**Approved by:** architect (Fable) ruling, `docs/social/RULINGS-SOCIAL.md`,
+2026-09-11T00:10Z.
+
+---
+
+---
+
+## 2026-09-10 — Marjorie explicitly excluded from social/queue merges
+
+**Decision:** Marjorie's standing merge authority (Merge authority amendment, 2026-07-14) is explicitly carved out for `social/queue/` drafts. She must never merge a PR that adds, modifies, renames, or otherwise changes any file under `social/queue/` — those require a founder's own hand per the social-approval-gate decision (2026-09-10 entry below). The gate's guarantee is "no *automated* path arms or merges a queue draft" as a matter of routine instructions, not something enforced solely by a GitHub branch-protection ruleset. Since Marjorie holds `SOCIAL_POSTER_PAT` for other social-posting duties (posting approved content from `social/posted/`), she could technically merge a queue draft anyway, and the audit trail would show only `merged_by: <PAT-owner-login>` — indistinguishable from a real founder merge. This carve-out closes the one routine that was actually instructed in a way that could trigger it.
+
+**Why:** The social-approval-gate relies on founder-visible, founder-executed merges to provide a clear audit trail that a human reviewed and approved each queued post before it reached the live pipeline. Allowing an automated routine to merge queue drafts via a shared PAT, even if the routine is generally trusted, silently breaks this visibility guarantee for the subset of posts that run through an unattended automation path.
+
+**Approved by:** Fable-level review of PR #4090 (the social-approval-gate implementation); this carve-out closes finding B from that review.
+
+---
+
+## 2026-09-10 — Trial routine resolutions: Austin reverted, News Triage recall retired
+
+**Austin (model trial): reverted to `claude-fable-5`.** `routine-austin-build.yml`'s Actions run history showed 3 of 4 runs failing (75% failure rate, over the decision rule's 25% cap), root-caused to a missing `CLAUDE_CODE_OAUTH_TOKEN`/OIDC token fetch failure (`HUMAN-ACTIONS.md` item #49, BLOCKING) — an infra plumbing bug, not a quality problem with `claude-opus-4-8` itself. The decision rule's failure-rate condition is dispositive regardless of the merge-rate ambiguity, so the workflow's `model` input reverts to `claude-fable-5`. Austin is a re-trial candidate on `claude-opus-4-8` once HUMAN-ACTIONS #49 is fixed — this is not a permanent verdict on the model.
+
+**News Triage recall check: retired.** 3 recall-check issues exist on record (#3628, #3661, #4027), with zero verified false negatives attributable to News Triage's own judgment — the one gap on record (#4027) was caused by the same infra outage that hit Austin, not a real miss. Per the decision rule's bias-to-retire on ambiguous/null evidence, and per the routine's own header instruction to disable or delete it once the trial resolves, `routine-news-triage-recall.yml` and `docs/agents/runner-prompts/news-triage-recall-check.md` are deleted; references in `docs/agents/runners.md` and `docs/TIER2-OPTIMIZATION.md` updated to point here instead of the deleted files.
+
+**Approved by:** research pass on this track (evidence-based recommendations), implemented per instruction.
+
+---
+
+## 2026-09-10 — Social posting requires founder approval before publish (reverses #2316)
+
+**Decision:** `social/queue/**.json` drafts may no longer reach `main` without a founder merging their PR. `auto-merge-content.yml` will decline auto-merge for any PR that adds, modifies, or renames a queue draft. Approval prompts are delivered to the `#longlive-tree` Discord channel via the existing `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL` secret, which already routes Reddit community prompts through the same channel (verified in `community-mailer.yml` and `scripts/community/discord-delivery.mjs`).
+
+**Why:** Joey, in chat: "I agree we should reverse the fully automated social approval, and I want all social approval routed to the same channel where our other social questions from Reddit go, #longlive-tree. The channel is already setup with a hook."
+
+**Explicitly supersedes:** the `## 2026-08-25` entry (issue #2316, line 1214) and the 2026-07-25 mechanics decision it rests on. That entry's "Alternatives considered (2): require human merge on social/queue/ PRs specifically while auto-merging everything else — rejected" is exactly the design now being adopted.
+
+**What does NOT change:** `social/posted/` and `social/failed/` remain auto-merge-allowlisted (they are machine-written bookkeeping; stranding them caused the 2026-08-11/12 Instagram triple-post, issue #2031, verified in `social-poster.yml` lines 184-198). `SOCIAL_FREEZE` kill switch and the per-post founder email both stay.
+
+**Approved by:** Joey (direct instruction, in chat, 2026-09-10).
+
+---
+
+## 2026-09-10 — Routine spend is plan usage, not billable dollars; budget in turns, not dollars
+
+**Decision:** all 15 `routine-*.yml` workflows authenticate via `CLAUDE_CODE_OAUTH_TOKEN` (verified in `routine-template.yml` lines 14–19: "uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as Joey's own interactive Claude Code sessions, not metered per-token billing"). There is no dollar figure to cap and no invoice to read — the shared plan-usage pool is not metered per-token. A per-routine dollar hard-cap is therefore not implementable on this auth path (unlike `merch-audit-authoring.yml`'s `ANTHROPIC_API_KEY`-based $5/run cap in `scripts/merch-engine/audit-matches-authoring.mjs`, which IS real metered billing — a different system). The enforceable levers are `max_turns` and `timeout_minutes`.
+
+**Evidence:** `routine-template.yml` header (lines 14–19) explicitly states this is shared plan-usage, not metered billing. `fleet-telemetry-snapshot.yml` (lines 10–14) documents: "It does NOT and CANNOT see Claude Code routine token spend — that has no repo-visible API. The Routine Auditor's own weekly issue comment carries the other half (enabled-trigger count + cadence sum) per docs/agents/routine-invariants.md § Auditor arithmetic."
+
+**Approved by:** routine-spend-classification documentation (already checked in).
+
+---
+
+## 2026-09-10 — Playable-first widened to playable-OR-watchable: 4 of 8 hidden tour films/documentaries now show a watch-link card (#3476)
+
+**Decision:** the 2026-08-13 "Playable-first timeline" rule ("if a video card
+is visible, it plays") stays in force, but "plays" now means "a reader can
+actually watch it" rather than "embeds inline on this site". `VideoNote`
+gains two optional fields, `watchUrl` and `platform`, always set together: a
+canonical official watch page (Netflix, Disney+, Apple Music, a retailer's
+official DVD/Blu-ray page) and the label the UI renders it under.
+`videosForEra()` now returns a record when it has EITHER a verified YouTube
+embed OR a complete `watchUrl`+`platform` pair (`isWatchable`, widening the
+narrower `isPlayable` at that one call site — see
+`packages/content-enrichment/src/videos.ts`). `VideoMomentCard` renders the
+existing click-to-play facade for an embed, or a "Watch on {platform}"
+link-out card (external link icon, `target="_blank" rel="noopener
+noreferrer"`) for a watch-link-only record. A record with neither signal
+stays exactly as hidden as before this change — nothing about the underlying
+invariant weakened, only what counts as satisfying it.
+
+**Why:** issue #3476 (filed by Nils, a routine content-gap walk) found that 8
+records the 08-13 decision hid — *The Eras Tour* film, *Miss Americana*,
+*reputation Stadium Tour*, *City of Lover*, *Journey to Fearless*, *The 1989
+World Tour Live*, *Speak Now World Tour – Live*, and *The Official Release
+Party of a Showgirl* — are Taylor's most significant visual works, hidden by
+a narrower-than-intended reading of "played" as "embeds on this site", not by
+the rule itself. This redo (the original PR #3708 closed stale after
+OS-014/OS-014b/OS-021/OS-022 restructured every file it touched) re-verified
+each of the 8 against live watch destinations as of 2026-09-10 rather than
+reusing the original PR's citations verbatim, and found the situation had
+changed: only 4 have a currently-live official watch destination —
+*Miss Americana* (Netflix), *The Eras Tour* film (Disney+), *Journey to
+Fearless* (retailer Blu-ray/DVD page), and *Speak Now World Tour – Live*
+(retailer DVD page). The other 4 do not: *reputation Stadium Tour* was
+removed from Netflix 2023-12-30 with no replacement, *The 1989 World Tour
+Live* was removed from Apple Music 2020-05-22 with no replacement, *The
+Official Release Party of a Showgirl*'s one-weekend theatrical run (Oct 3–5,
+2025) has no announced streaming/digital release as of this writing, and
+*City of Lover* only ever streamed on Hulu/Disney+ for a limited window in
+May 2020 and has no live destination today (a cross-provider review pass
+caught an initial draft that cited a stale `disneyplus.com` URL still
+resolving from an old crawl — JustWatch confirms the title itself, not just
+that one URL, is currently unavailable to stream anywhere). Those 4 stay
+hidden — the fix restores the reader's actual ability to watch for the
+records that genuinely have somewhere to watch; it does not fabricate a
+watch destination that doesn't exist. Each of the 4 still-hidden seed
+records carries a dated comment explaining why and inviting a
+`watchUrl`/`platform` pair the moment a real destination appears.
+
+**Scope discipline:** `musicVideosForEra()` (the dated chronological-timeline
+merge) stays `isPlayable`-only — that surface embeds inline via `MomentVideo`
+and has no slot for a link-out. Only the Videos-rail path (`videosForEra` →
+`eraVideoFeed` → `VideoMomentCard`) widened. `sync-longlive-videos.mjs`
+normalizes `watchUrl`/`platform` as a matched pair — a seed record with only
+one of the two degrades both to null rather than shipping a link with no
+label or a label with no link. Guardrail test added
+(`apps/web/lib/longlive/videos.test.ts`, "#3476 guardrail") asserting every
+generated record carries an embed or a complete watch-link pair, so a future
+authored-but-unlinkable film fails CI instead of silently vanishing the way
+these records originally did.
+
+**Alternatives considered:** embedding official trailers for the unembeddable
+works (the shipped `folklore: the long pond studio sessions` precedent, noted
+as an option in the 08-13 decision) — not done, because a trailer is not the
+work, and the issue's own concrete fix shape asked for the watch-link
+affordance specifically. Deleting the records — never on the table; the repo
+rule is to never discard sourced work. Citing the original #3708 PR's
+watch-link URLs unverified — rejected: two of them (Netflix, Apple Music) had
+gone stale between the PR's authoring and this redo, which is exactly the
+kind of silently-wrong data the guardrail test and re-verification step exist
+to prevent.
+
+**Who approved:** routine content-completeness fix per issue #3476 — bounded,
+successor to already-closed #721 (which deliberately dropped non-YouTube
+films; this closes most of the resulting gap), no founder decision required.
+
+---
+
 ## 2026-09-10 — Mandatory X+Instagram pairing restored; the 2026-09-05 appearance-lane X-only carve-out is superseded (kanban t_bac31b1a)
 
 **Context:** Joey, 2026-09-10 (#taylor-social), founder directive: "There's
@@ -1506,10 +2750,11 @@ content.
 
 **Decision:** removed two items from `CLAUDE.md` § Decision authority's "AI may
 NOT, without explicit human approval" list — "merge or push to `main`" and
-"deploy anything." Also amended § HUMAN-ACTIONS.md (and the matching line in
-`HUMAN-ACTIONS.md` itself): a session may now write an item's `**Status:**`
-change directly when Joey says so in chat, not only when he edits the file
-himself — a session still may not flip a status on its own judgment.
+"deploy anything." Also amended § HUMAN-ACTIONS.md: format v2 has no
+`**Status:**` field to flip, so this now reads as closing authority — a
+session may run `ha close` (or post the Discord `done`/`skip <why>` reply)
+directly when Joey says so in chat, not only when he closes the card himself
+— a session still may not close an item on its own judgment.
 
 **Why:** Joey's call, made in chat 2026-08-22 while working the Wyatt-account
 routine handoff (issue #2258) — he wants Claude executing this class of work
@@ -1536,6 +2781,12 @@ no-ops `mcp_connections: []`. Corrected in place rather than left to mislead
 the next session working that file.
 
 **Approved by:** Joey
+
+**Superseded in shape, not in authority, by format v2 (2026-09-10):** the
+mechanism changed from "edit a Status word" to "run `ha close` / reply to
+the card," but the rule this entry states — closes only with Joey's
+explicit say-so in chat, never an agent's own judgment — is unchanged and is
+the authority `ha close` exercises.
 
 ## 2026-08-22 — AI Dev OS removed entirely; no orchestration framework replaces it
 

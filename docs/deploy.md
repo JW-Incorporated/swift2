@@ -114,6 +114,73 @@ mode — that's what Path B adds once the app is linked.)
 3. Add the env vars above (Production + Preview).
 4. Deploy. `main` then auto-deploys; PRs get preview URLs.
 
+## Build cost — what builds, and what is skipped
+
+Measured 2026-09-21 from Vercel's own deployment list (`vercel ls swift2-web`,
+240 deployments over 6.13 days):
+
+| | |
+|---|---|
+| deployments | 39/day, ~1,175/month (69 production, 171 preview) |
+| mean build | 53s (median 55s, p90 61s) |
+| build minutes | ~980/month |
+| install | `npm ci` of the whole monorepo: 945 packages, ~113s cold |
+| what `apps/web` actually needs | 178 packages (228 with its own devDeps) |
+
+Two separate levers, and they are independent:
+
+**1. How often it builds.** Every push to every branch deploys by default, and
+most branches here are bots: `news-digest` alone produced 48 of those 240
+builds, all of them a single markdown file under `docs/content-ops/`, and
+`social-ledger` another 16 (one JSONL under `social/`). `apps/web/vercel.json`
+now carries an `ignoreCommand` (`scripts/vercel-ignore-build.mjs`) that skips a
+build when EVERY changed path is provably unable to change what Vercel serves.
+Replayed over those same 240 deployments it skips **105 (43.8%)**; over the
+last 80 commits on `main` with the production override disabled, 60%.
+
+It is a **deny-list that fails open**, never an allow-list, and that asymmetry
+is the whole design: an allow-list has to mirror the build's real input set
+(`supabase/seed/**`, `packages/**`, `scripts/**`, `apps/web/**`,
+`package*.json`), and the moment it drifts it silently stops deploying a file
+that has started mattering — a production 404 nobody sees until a user hits
+it. A deny-list that drifts merely costs a build nobody needed. Production,
+an empty or unreadable diff, a shallow clone, an unknown base sha and any
+unrecognised path all BUILD. To add a path to the inert set, prove nothing on
+the build path reads it and add a case to
+`scripts/lib/vercel-ignore-build.test.ts`.
+
+**2. What each build costs.** The install is already `npm ci` (lockfile
+committed at the repo root, not ignored); it now also passes
+`--prefer-offline --no-audit --no-fund`, which change nothing about what is
+installed. Do **not** add `--omit=dev`: the root `package.json` has *zero*
+production dependencies, and `apps/web`'s `prebuild` chain imports `tsx` and
+`@supabase/supabase-js` from it (`scripts/sync-source-tiers.mjs`,
+`scripts/sync-longlive-content.mjs`), so omitting dev dependencies fails the
+build outright. 721 of the 945 installed packages are unreachable from
+`apps/web` — 485 of them mobile-only (Expo/React Native) — so scoping the
+install is worth real money, but it changes what the deployed functions are
+built against: verify any such change against a real preview deployment and
+its own API endpoints before merging, never by reasoning about it.
+
+**Dashboard settings (org/project admin, not in this repo):** limit preview
+deployments to PR branches instead of every push to every branch
+(Project → Settings → Git → *Ignored Build Step* / *Deployment Branches*).
+That is the single biggest remaining lever — the `ignoreCommand` here cannot
+help with a branch whose commits DO touch real files but which nobody will
+ever open a PR for.
+
+**Verified on a real deployment** (preview `swift2-eknyk7jq2`, 2026-09-22):
+the ignore step runs in Vercel's own clone and resolves a diff there —
+`Running "node ../../scripts/vercel-ignore-build.mjs"` →
+`[vercel-ignore-build] BUILD: 4 of 5 changed paths can affect the deployment`
+— then the new install command runs. On that preview `/` returned 200,
+`/privacy` 200, `/content/current.json` 200 and `/api/og` a 44 KB PNG. That
+last one is the proof that `--omit=dev` must stay off: `/api/og` renders
+through `satori` + `@resvg/resvg-js`, both root devDependencies. (The two
+device/notification routes answer 503 there because preview has no
+`SUPABASE_SERVICE_ROLE_KEY` — their documented unconfigured path, unchanged
+by any of this.) A `--depth 1` clone was checked separately and fails open.
+
 ## After it's live
 
 - Open the URL — you should see the eras with per-era theming.

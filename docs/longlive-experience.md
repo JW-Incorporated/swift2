@@ -15,6 +15,11 @@ before touching anything under `apps/web/components/longlive/**` or
 
 ---
 
+**Photo previews (2026-09-15):** Compact moment cards keep their short date/title
+body, but any unsuppressed authored photo appears above it in a full-width 16:10
+frame. Article length and later arrivals must not shrink that photo to an icon.
+Image-free compact rows, media/hero scoring, and video-image suppression are unchanged.
+
 ## 1. The one-paragraph mental model
 
 The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)

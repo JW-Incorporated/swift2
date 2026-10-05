@@ -208,14 +208,13 @@ export function MomentCardButton({
     );
   }
 
-  // DENSE ROW — routine, day-to-day items. Tight, subordinate, small
-  // thumbnail if there's a real one. Several of these packed together make
-  // the next full card read as an event by contrast.
+  // Compact stories keep their short text body; authored photos still get
+  // a full-width preview, independent of article length or feed recency.
   if (tier === 'chip') {
     return (
       <button onClick={onOpen} className={TIER_BODY.chip}>
         {hero && (
-          <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
+          <div className="relative aspect-[16/10] w-full overflow-hidden">
             <Image
               src={hero.url}
               alt=""
@@ -227,13 +226,15 @@ export function MomentCardButton({
             />
           </div>
         )}
-        <div className="min-w-0 flex-1">
-          <MomentMeta item={item} seen={seen} size="compact" />
-          <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
-            {item.title}
-          </h3>
+        <div className="flex w-full items-center gap-3 px-3 py-2">
+          <div className="min-w-0 flex-1">
+            <MomentMeta item={item} seen={seen} size="compact" />
+            <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
+              {item.title}
+            </h3>
+          </div>
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
         </div>
-        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
       </button>
     );
   }

@@ -1,7 +1,7 @@
 # Social poster — ships founder-approved queue items (social/queue/*.json)
-# to X and Instagram on schedule. See docs/agents/growth.md for the
-# approve-then-post pipeline this is the tail end of, and the crisis-stop
-# rule (repo variable SOCIAL_FREEZE).
+# to X and Instagram on schedule. See docs/social/pipeline.md for the
+# approve-then-post pipeline this is the tail end of, and docs/agents/tree.md
+# for the crisis-stop rule (repo variable SOCIAL_FREEZE).
 #
 # Founder setup (issue #738), all repo SECRETS unless noted:
 #   X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
@@ -74,32 +74,54 @@
 # in the queue-state PR's title and body. The state-commit step runs with
 # `if: always()` so a red run still records what happened — see its comment.
 #
-# Founder success email (2026-08-25, docs/decisions.md same date). Joey,
-# explicit exception to the founder-email cap, scoped to social only: email
-# on EVERY post that actually goes live, not just failures — "I dont mind
-# more emails for social". post-queue.mjs writes a mail-ready payload
-# (SOCIAL_POSTER_NOTIFY) with a real per-platform post link whenever at
-# least one item posted this run; the "Notify founder of successful posts"
-# step below just forwards it through scripts/watchdog/send-mail.py, the
-# same delivery path watchdog.yml and brief-mailer.yml already use. Separate
-# from the failure surfacing above — that reddens the run and alerts via
-# watchdog; this only ever reports good news, one email per run that had one.
+# Founder success email (2026-08-25, docs/decisions.md same date) — RETIRED
+# (Marjorie Overhaul C3, docs/specs/marjorie-overhaul/c3-email-retired.md).
+# Joey's 2026-08-25 exception ("I dont mind more emails for social") narrows
+# to one line instead: the brief's "Since yesterday" section already counts
+# `social/posted/*.json` via `fetchPostedSince`, so the per-post success
+# email step (post-queue.mjs's SOCIAL_POSTER_NOTIFY payload, forwarded
+# through scripts/watchdog/send-mail.py) is deleted rather than re-routed —
+# post-queue.mjs still writes the payload file, it's just unread now.
 #
-# Failure EMAIL (2026-08-25, traced from a real incident — 2026-08-24's
+# Failure ALERT (2026-08-25, traced from a real incident — 2026-08-24's
 # Midnights/Anti-Hero item died to an X 403 "duplicate content" error and
-# nobody heard about it, issue #3282). A red run alone wasn't reaching Joey:
-# watchdog's cadence check only alarms on zero successes in its window, and a
-# single permanently-failed item sandwiched between successful runs (the
-# normal case — most 30-minute runs post something else fine) stays
-# invisible to it. The "Email Joey on a permanent post failure" step below
-# closes that gap directly, reusing the exact send path already proven for
-# the Founders' Brief and watchdog alerts (scripts/watchdog/send-mail.py,
-# GMAIL_APP_PASSWORD + MARJORIE_EMAIL — provisioned since issue #484, no new
-# secret) instead of inventing a second one. This one covers FAILURES only —
-# genuinely independent of the success email above: different trigger
-# (steps.post.outcome == 'failure' vs. a written SOCIAL_POSTER_NOTIFY
-# payload), so a run with both a success and a permanent failure sends both
-# emails, and a run with only one sends only that one.
+# nobody heard about it, issue #3282; rerouted through upsert-alert.sh by
+# Marjorie Overhaul C3). A red run alone wasn't reaching Joey: watchdog's
+# cadence check only alarms on zero successes in its window, and a single
+# permanently-failed item sandwiched between successful runs (the normal
+# case — most 30-minute runs post something else fine) stays invisible to
+# it. The "Alert on a permanent post failure" step below closes that gap
+# directly, posting to #longlive-marjorie via scripts/watchdog/upsert-alert.sh
+# (falling back to email while `social`'s environment still lacks
+# DISCORD_MARJORIE_WEBHOOK_URL — see that step's own comment). This one
+# covers FAILURES only, independent of the deleted success email above:
+# `steps.post.outcome == 'failure'`, not a written SOCIAL_POSTER_NOTIFY
+# payload.
+#
+# KNOWN GAP (Codex review, PR #4201): this step only ever calls `... open`,
+# never `close` — nothing here resolves the alert on a later successful run,
+# so a second, independent post failure after the first only comments on
+# the still-open issue (NOTIFY=0, no fresh Discord post) until someone or
+# something closes it. Per the spec, that's meant to be a Marjorie-ops
+# routine (M2, not built yet) actually handling and closing the alert, not
+# a second automated close call from here — tracked, not silently accepted.
+#
+# NOT chained via workflow_run off social-approval-poll (considered and
+# reverted, 2026-09-11, Tree Overhaul Wave 2 S2, Codex adversarial review
+# round 2 on PR #4125): this workflow's own state-commit PR (the fold-back
+# PR below) touches `social/queue/**`, which is exactly what
+# social-approval-notify.yml's `pull_request_target` trigger watches — and
+# social-approval-poll.yml now fires on social-approval-notify completing
+# (that file's header). Chaining THIS workflow to also fire on
+# social-approval-poll completing therefore closes a real loop: every
+# normal poster run's own state PR can re-trigger notify -> poll -> poster
+# again, regardless of whether anything new was actually approved. Round 1
+# found the 30-minute cron alone doesn't guarantee posting soon after a
+# stamp lands; that gap is real but is NOT closed by this file — closing it
+# needs the notify/poll chain to distinguish "a founder-authored draft PR"
+# from "the poster's own state PR" before firing downstream, which is a
+# bigger change than this task's scope. Left as an open follow-up (see the
+# PR body) rather than shipping the loop.
 name: social-poster
 on:
   schedule:
@@ -109,6 +131,12 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # Marjorie Overhaul C3: the permanent-failure alert step calls
+  # upsert-alert.sh, which creates/comments/closes a `watchdog-alert` issue
+  # via `gh issue`. Without this, that call 403s and, under
+  # upsert-alert.sh's `set -euo pipefail`, aborts before either the Discord
+  # or email leg ever runs (Codex review, PR #4201).
+  issues: write
 
 concurrency:
   group: social-poster
@@ -129,6 +157,10 @@ env:
 jobs:
   post:
     runs-on: ubuntu-latest
+    # docs/social/RULINGS-SOCIAL-2.md B1: SOCIAL_APPROVAL_KEY is an environment secret
+    # restricted to `main` by a custom deployment-branch policy — no
+    # `pull_request` workflow run on a branch can ever read it.
+    environment: social
     steps:
       # SOCIAL_FREEZE first, before anything at all (2026-08-12, PR #2039
       # review): while a founder holds the freeze, runs must be GREEN no-ops —
@@ -148,16 +180,15 @@ jobs:
             echo "frozen=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v7
+      - name: Checkout (resolve local composite actions)
+        if: steps.freeze.outputs.frozen != 'true'
+        uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-repo
         if: steps.freeze.outputs.frozen != 'true'
         with:
           # Real-user token, not the default — see the header note above.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
-
-      - uses: actions/setup-node@v7
-        if: steps.freeze.outputs.frozen != 'true'
-        with:
-          node-version: "24"
 
       # Freshness for social/queue/ (2026-08-12 originally; re-justified
       # 2026-08-25 — this used to also close a race with the now-retired
@@ -195,14 +226,26 @@ jobs:
       # was already >48h past scheduledAt, so the very next run's 48h-stale
       # check immediately re-retired them straight back to social/failed/,
       # producing an identical watchdog alert every run in a loop no queue
-      # edit could ever break. Only posted/failed need the union-with-ledger
-      # treatment; queue must always reflect main, full stop.
+      # edit could ever break. queue must always reflect main, full stop.
+      #
+      # ALSO includes social/feedback (2026-09-11, Codex round-1 review on
+      # PR #4139 finding 6): the "Push ledger update" step below builds its
+      # social-ledger commit from a full `git write-tree` snapshot of this
+      # checkout, not a partial diff — so ANY namespace social-ledger owns
+      # that isn't explicitly overlaid here gets silently reverted to
+      # whatever main's own (possibly stale/absent, since fold-back is
+      # visibility-only) copy has, even with no timing race at all. This
+      # workflow doesn't write social/feedback (that's social-approval-
+      # poll.mjs's job) but a writer that snapshots the whole tree must still
+      # preserve every namespace it doesn't own, or its very first ledger
+      # commit after S3 lands would erase every feedback row recorded since
+      # main's last fold-back.
       #
       # Skips cleanly on a cold start: the branch doesn't exist until the
       # first run that has an actual posted/failed diff pushes it (see
       # the "Push ledger update" step below) — until then main's own copy is
       # the only copy, exactly like before this fix.
-      - name: Read the posted/failed ledger from social-ledger (union with main)
+      - name: Read the posted/failed/feedback ledger from social-ledger (union with main)
         if: steps.freeze.outputs.frozen != 'true'
         run: |
           set -euo pipefail
@@ -224,7 +267,7 @@ jobs:
             # overlay from the ledger for this dir this run" instead of
             # failing the whole step (and the run) closed.
             PATHS=""
-            for d in social/posted social/failed; do
+            for d in social/posted social/failed social/feedback; do
               if git cat-file -e "FETCH_HEAD:$d" 2>/dev/null; then
                 PATHS="$PATHS $d"
               fi
@@ -232,7 +275,7 @@ jobs:
             if [ -n "$PATHS" ]; then
               git archive FETCH_HEAD $PATHS | tar -x
             fi
-            echo "social-ledger: overlaid onto this checkout (posted/failed only, never queue)."
+            echo "social-ledger: overlaid onto this checkout (posted/failed/feedback only, never queue)."
           else
             echo "social-ledger: branch does not exist yet — main's own social/posted|failed is the seed."
           fi
@@ -254,6 +297,14 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
+        # No GH_TOKEN here any more (docs/social/RULINGS-SOCIAL.md A2): the poster is now
+        # the sole approval-enforcement point and reads only the `approval`
+        # object already on each queue item — no GitHub API call at post
+        # time, fail-closed with no network dependence for the gate itself.
+        # The deleted lib/git-provenance.mjs used to need this token to query
+        # commits/{sha}/pulls — an endpoint that never carried `merged_by`
+        # in the first place, so the token was never the fix.
         run: node scripts/social/post-queue.mjs
 
       # THE dedupe WRITE path (issue #2040) — the step correctness now
@@ -294,51 +345,78 @@ jobs:
           # that had nothing to do with a post failing. Set it here, first.
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add social/queue social/posted social/failed
-          if git diff --cached --quiet; then
+          # social/feedback is staged too (finding 6 above) so that WHENEVER
+          # this step does write a commit, its full-tree snapshot carries
+          # social-ledger's own current feedback rows forward rather than
+          # reverting them to main's lagging copy — but it deliberately does
+          # NOT by itself trigger a commit: the emptiness check right below
+          # stays scoped to this workflow's OWN namespaces, so a run that
+          # posted nothing doesn't push a redundant no-op commit just because
+          # feedback hasn't been folded into main yet. social-approval-
+          # poll.mjs's own pushLedgerRows already persists feedback rows the
+          # moment it resolves them, independent of this workflow ever running.
+          git add social/queue social/posted social/failed social/feedback
+          if git diff --cached --quiet -- social/queue social/posted social/failed; then
             echo "No queue/ledger changes this run — social-ledger unchanged."
             exit 0
           fi
-          NEW_TREE=$(git write-tree)
-          if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
-          else
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
-          fi
-          git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"
-          echo "social-ledger updated -> $NEW_COMMIT"
-
-      # Founder success email (2026-08-25, docs/decisions.md same date):
-      # Joey wants an email on every post that actually goes live, not just
-      # failures — explicit exception to the founder-email cap, scoped to
-      # social only ("I dont mind more emails for social"). post-queue.mjs
-      # writes SOCIAL_POSTER_NOTIFY only when at least one item posted this
-      # run, so a "nothing due"/all-failed run sends no mail — this step just
-      # forwards whatever's there through the same mailer watchdog.yml uses
-      # (scripts/watchdog/send-mail.py), never a new send path. Runs whenever
-      # the poster actually ran, same condition as the ledger-push step
-      # above, so a post that landed still gets its email even if a
-      # different item in the same run permanently failed.
-      - name: Notify founder of successful posts
-        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
-        env:
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          # send-mail.py shells out to `gh api markdown` to render the email
-          # body — same as every other caller (brief-mailer.yml, watchdog.yml)
-          # — and needs a token for that. Missing here on first landing
-          # (2026-08-25) made every run's notify step fail with `gh` exit 4
-          # (auth required), even though the post itself succeeded.
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          NOTIFY_FILE="${{ runner.temp }}/social-poster-notify.json"
-          if [ -s "$NOTIFY_FILE" ]; then
-            python3 scripts/watchdog/send-mail.py "$NOTIFY_FILE"
-          else
-            echo "No successful posts this run — nothing to email."
-          fi
+          # Retries on a non-fast-forward (DEBUG.md round-2 finding 3, PR
+          # #4139): social-approval-poll.yml pushes to this SAME branch from
+          # a SEPARATE concurrency group, so a genuine concurrent write here
+          # is expected, not exceptional — a lost push is not "re-derivable
+          # from Discord next run" the way social-approval-poll.mjs's own
+          # ledger push is, because post-queue.mjs already fired the real
+          # X/IG API calls above: losing this push risks a duplicate
+          # real-world post next run, not merely a late ledger row.
+          #
+          # The tree is rebuilt PER ATTEMPT from the branch's FRESH tip
+          # (docs/decisions.md 2026-09-12, architect verdict R2-3): a fixed
+          # full-tree snapshot taken once from this checkout would, on any
+          # retry, re-push social/feedback as this checkout read it at the
+          # start of the run — silently reverting the very feedback rows the
+          # poll pushed in between, which is exactly the write that made the
+          # first attempt non-fast-forward. So each attempt reads the fresh
+          # tip's tree into a scratch index and stages only THIS workflow's
+          # own namespaces (queue/posted/failed) from the working tree over
+          # it; every other namespace (feedback) stays whatever the tip has.
+          # A scratch index (GIT_INDEX_FILE) keeps the real index — which the
+          # fold-back PR step below still needs — exactly as-is. Bounded so a
+          # genuinely stuck branch (e.g. protected out from under us) still
+          # fails the run loudly rather than looping forever.
+          SCRATCH_INDEX_DIR=$(mktemp -d)
+          ATTEMPT=1
+          MAX_ATTEMPTS=5
+          while true; do
+            if [ "$ATTEMPT" -gt 1 ]; then
+              git fetch origin "$LEDGER_BRANCH" || true
+              if git rev-parse --verify --quiet FETCH_HEAD >/dev/null 2>&1; then
+                git update-ref "refs/remotes/origin/$LEDGER_BRANCH" FETCH_HEAD
+              fi
+            fi
+            rm -f "$SCRATCH_INDEX_DIR/index"
+            if git rev-parse --verify --quiet "origin/$LEDGER_BRANCH" >/dev/null 2>&1; then
+              GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git read-tree "origin/$LEDGER_BRANCH"
+              GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git add social/queue social/posted social/failed
+              NEW_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git write-tree)
+              NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "origin/$LEDGER_BRANCH" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ)")
+            else
+              # First push ever: no tip to preserve — this checkout's own
+              # staged tree (main + this run's queue/posted/failed/feedback)
+              # seeds the branch, exactly as before.
+              NEW_TREE=$(git write-tree)
+              NEW_COMMIT=$(git commit-tree "$NEW_TREE" -m "social-poster: ledger update $(date -u +%Y-%m-%dT%H:%M:%SZ) (first push)")
+            fi
+            if git push origin "$NEW_COMMIT:refs/heads/$LEDGER_BRANCH"; then
+              echo "social-ledger updated -> $NEW_COMMIT"
+              break
+            fi
+            if [ "$ATTEMPT" -ge "$MAX_ATTEMPTS" ]; then
+              echo "::error::social-poster: push to $LEDGER_BRANCH failed after $MAX_ATTEMPTS attempts (concurrent writer never cleared) — failing loudly; a subsequent run may re-post whatever this run's posted/failed rows were about to record."
+              exit 1
+            fi
+            ATTEMPT=$((ATTEMPT + 1))
+            sleep "$ATTEMPT"
+          done
 
       # Fold-back PR into main (VISIBILITY ONLY as of issue #2040 — see the
       # header note). Dedupe correctness no longer depends on this PR landing
@@ -360,20 +438,13 @@ jobs:
       # human does not need to drop everything to merge it — watchdog.yml's
       # generic stuck-PR check already surfaces a PR wedged on a failing or
       # missing check.
-      - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
+      - name: Prepare fold-back PR metadata
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
-          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
           POST_OUTCOME: ${{ steps.post.outcome }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add social/queue social/posted social/failed
-          if git diff --cached --quiet; then
-            echo "No queue changes to fold back into main."
-            exit 0
-          fi
+          set -euo pipefail
           TITLE_SUFFIX=""
           if [ "$POST_OUTCOME" != "success" ]; then
             TITLE_SUFFIX=" — ⛔ A POST FAILED"
@@ -385,29 +456,47 @@ jobs:
             echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
           fi
           printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run, folding social-ledger back into main for visibility. No content decisions are made here, and this PR is no longer what dedupe correctness depends on (issue #2040) — the posted/failed record already landed durably on the unprotected `social-ledger` branch in this same run.\n\n⚠️ Please still merge, not close — closing leaves main claiming these items are still queued, which is a staleness/visibility problem even though it can no longer cause a live duplicate post.\n' >> "$BODY_FILE"
-          BRANCH="${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
-          git checkout -b "$BRANCH"
-          git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin "$BRANCH"
-          gh pr create --title "social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX" \
-            --body-file "$BODY_FILE" \
-            --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+          {
+            echo "body_file=$BODY_FILE"
+            echo "branch=${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
+            echo "pr_title=social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX"
+            echo "commit_message=social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> "$GITHUB_ENV"
 
-      # See the "Failure EMAIL" header note above. `if: always()` — this must
-      # fire even if the fold-back step above fails to push/open its PR;
-      # email delivery must not depend on git succeeding. `steps.post.outcome`
-      # is the exact same signal the fold-back step already uses for
-      # POST_OUTCOME / the PR's "⛔ A POST FAILED" title suffix, so there is
-      # no second definition of "did this run fail" to keep in sync.
-      # send-mail.py skips quietly (exit 0) if GMAIL_APP_PASSWORD/
-      # MARJORIE_EMAIL are ever unset — never blocks the run either way.
-      - name: Email Joey on a permanent post failure
+      - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
+        if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/queue social/posted social/failed
+          branch: ${{ env.branch }}
+          commit-message: ${{ env.commit_message }}
+          pr-title: ${{ env.pr_title }}
+          pr-body-file: ${{ env.body_file }}
+          no-changes-message: "No queue changes to fold back into main."
+
+      # Routed through upsert-alert.sh (Marjorie Overhaul C3), not a direct
+      # send-mail.py call: `post` runs under `environment: social`, not
+      # `ops`, so the Discord leg inside upsert-alert.sh finds
+      # DISCORD_MARJORIE_WEBHOOK_URL empty, fails to post, and falls through
+      # to send-mail.py automatically (no ALERT_ALSO_MAIL — this alert never
+      # went through that dual-send path). MARJORIE_EMAIL/GMAIL_APP_PASSWORD
+      # stay here so that fallback keeps working (HUMAN-ACTIONS: add the
+      # Discord webhook to the `social` environment too, so this reaches
+      # #longlive-marjorie like every other alert instead of relying on the
+      # fallback). `if: always()` — this must fire even if the fold-back step
+      # above fails to push/open its PR; alert delivery must not depend on
+      # git succeeding. `steps.post.outcome` is the exact same signal the
+      # fold-back step already uses for POST_OUTCOME / the PR's
+      # "⛔ A POST FAILED" title suffix, so there is no second definition of
+      # "did this run fail" to keep in sync.
+      - name: Alert on a permanent post failure
         if: always() && steps.post.outcome == 'failure'
         env:
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           REPORT_FILE: ${{ runner.temp }}/social-poster-report.md
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -419,6 +508,8 @@ jobs:
           else
             echo "A post permanently failed but produced no report (the poster step crashed before reporting)." > "$BODY_FILE"
           fi
-          jq -n --arg body "$(cat "$BODY_FILE")" --arg url "$RUN_URL" \
-            '{subject: "⛔ Social post failed — longlivets.com", body: $body, url: $url}' > payload.json
-          python3 scripts/watchdog/send-mail.py payload.json
+          {
+            echo ""
+            echo "Run log: $RUN_URL"
+          } >> "$BODY_FILE"
+          scripts/watchdog/upsert-alert.sh open "Watchdog: a social post permanently failed" "$BODY_FILE"

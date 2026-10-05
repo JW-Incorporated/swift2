@@ -15,7 +15,7 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import type { Era, EraId } from '@swift2/experience';
-import type { PlayableVideoNote } from '@swift2/content-enrichment';
+import type { WatchableVideoNote } from '@swift2/content-enrichment';
 import { loadEraStream } from '../lib/era-stream-data';
 import { MomentCard, PlaceholderFeedRow } from './MomentCard';
 import { ThreadDoorwayRow, EggDoorwayRow } from './DoorwayCard';
@@ -79,7 +79,7 @@ export function EraSection({ era, onOpenItem }: { era: Era; onOpenItem: (id: str
 }
 
 function renderEntry(
-  entry: import('@swift2/experience').RenderFeedEntry<PlayableVideoNote>,
+  entry: import('@swift2/experience').RenderFeedEntry<WatchableVideoNote>,
   viewModel: { tiers: Map<string, import('@swift2/experience').CardTier>; imageHiddenIds: ReadonlySet<string> },
   onOpenItem: (id: string) => void,
 ) {

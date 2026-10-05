@@ -1902,6 +1902,7 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg', credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons', caption: 'A later live reference to the Speak Now ballgown aesthetic during the Eras Tour’s lilac-gown set.', kind: 'reference', focalPoint: '59% 51%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -1939,6 +1940,7 @@ export default {
       snippet:
         "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
+        video: { youtubeId: 'jYa1eI1hpDE', title: 'Taylor Swift - Mean' },
         sources: [
           {
             outlet: 'CBS News',
@@ -2079,11 +2081,13 @@ export default {
       month: 10,
       day: 9,
       category: 'music',
-      // Cross-link (Stage 3, 2026-07-27): the "I Knew You Were Trouble"
-      // cluster — the dubstep debut, its global chart run, and the video's
-      // birthday drop — now interlink.
+      // Cross-link (Stage 3, 2026-07-27; extended 2026-09-10, Vault Run
+      // crosslink-opportunity): the "I Knew You Were Trouble" cluster — the
+      // dubstep debut, its global chart run, the first live performance at the
+      // 2012 AMAs, and the video's birthday drop — now interlink.
       relatedIds: [
         'moment:vault-red-i-knew-you-were-trouble-goes-global',
+        'moment:vault-red-i-knew-you-were-trouble-debuts-live-at-the-amas',
         'moment:vault-red-the-i-knew-you-were-trouble-video-drops-on-her-23rd-birthday',
       ],
       title: 'I Knew You Were Trouble brings dubstep to pop radio',

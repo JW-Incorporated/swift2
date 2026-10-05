@@ -88,11 +88,12 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
-import { THEMED_CAMPAIGN_PREFIXES } from './lib/queue-schema.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES } from './lib/queue-schema.mjs';
+import { parseLessons } from './lib/lessons.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
-const POSTED_DIR = path.join(ROOT, 'social', 'posted');
+export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
+export const POSTED_DIR = path.join(ROOT, 'social', 'posted');
 const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
 
 const OPENER_WORDS = 6;
@@ -140,6 +141,20 @@ const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
 const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
 const PHOTO_LIBRARY_BY_ID = new Map(PHOTO_LIBRARY.map((photo) => [photo.id, photo]));
 const PHOTO_LIBRARY_BY_PATH = new Map(PHOTO_LIBRARY.map((photo) => [photo.mediaPath, photo]));
+// Tree Overhaul T5 (round 2 review) — this is the PR-time gate, the one that
+// is supposed to stop a bad draft before a PR is ever opened, so it must read
+// the same active-rules ledger validate-queue.mjs's CI backstop does. Own,
+// independent read (mirrors PHOTO_LIBRARY above) rather than importing from
+// validate-queue.mjs — the two CLI scripts each load their own copy of
+// shared repo data, never each other's exports (see lib/queue-schema.mjs's
+// header on why the two gates stay independent code paths).
+const ACTIVE_LESSON_IDS = (() => {
+  try {
+    return parseLessons(readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8')).active.map((rule) => rule.id);
+  } catch {
+    return [];
+  }
+})();
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
 // 2207009 / code 36003, "the aspect ratio is not supported". X has no such
@@ -163,7 +178,7 @@ const X_WEIGHTED_LENGTH_WARN_THRESHOLD = 270;
 // and main()'s severity split below.
 const WARNING_PREFIX = 'length: warning —';
 
-async function readJsonDir(dir) {
+export async function readJsonDir(dir) {
   let files;
   try {
     files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
@@ -453,6 +468,42 @@ export function checkCrossPostCopy(file, item, allQueueItems) {
   return [];
 }
 
+/**
+ * T6's slot-displacement cap (docs/specs/tree-overhaul/t6-side-doors.md
+ * "Slot displacement"), expressed as a CI backstop: a fast-lane item
+ * (`lane: "merch"|"appearance"`) takes its beat's planned slot rather than
+ * adding to it, so it must never share a `platform` + UTC day with a
+ * `lane: "calendar"` item. The daily-draft prompt is what's actually
+ * supposed to move the bumped calendar item to the next free-beat day in
+ * `social/calendar.md` — this only catches a prompt slip that skipped that
+ * step, turning it into a red CI run instead of two posts fighting over one
+ * day. Symmetric: fires whether the item under check is the fast-lane
+ * draft or the calendar item it collides with.
+ */
+export function checkFastLaneDisplacement(file, item, allQueueItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const isFastLane = FAST_LANE_LANES.includes(item.lane);
+  const isCalendar = item.lane === 'calendar';
+  if (!isFastLane && !isCalendar) return []; // e.g. reddit — not part of this pairing
+
+  const day = utcDateOnly(item.scheduledAt);
+  const conflict = allQueueItems.find((o) => {
+    if (o.file === file || o.data.platform !== item.platform || !isValidScheduledAt(o.data)) return false;
+    if (utcDateOnly(o.data.scheduledAt) !== day) return false;
+    return isFastLane ? o.data.lane === 'calendar' : FAST_LANE_LANES.includes(o.data.lane);
+  });
+  if (!conflict) return [];
+
+  return [
+    `fast-lane displacement: this "${item.lane}" item shares platform "${item.platform}" and UTC day ${day} with ` +
+      `${conflict.file}'s "${conflict.data.lane}" item — a fast-lane post takes its beat's planned slot rather than adding ` +
+      'to it (docs/specs/tree-overhaul/t6-side-doors.md). Move the displaced calendar item to the next day with a free ' +
+      'beat in social/calendar.md and reschedule its queue item, or drop this fast-lane draft.',
+  ];
+}
+
 // The weighted-length rule itself (AUTOLINK_URL_RE, wide-char weighting,
 // weightedTweetLength) lives in lib/x-length.mjs so the CI schema gate
 // (lib/queue-schema.mjs, run on every queue file by validate-queue.mjs in
@@ -724,12 +775,28 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   return findings;
 }
 
-async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
+/**
+ * Tree's self-critique threshold (Tree Overhaul T2), re-checked here — not
+ * only in queue-schema.mjs's CI backstop — because this is the PR-time gate
+ * a drafting run actually sees before merge. Shares queue-schema.mjs's
+ * findCritiqueIssues rather than re-implementing the rubric numbers: two
+ * independent ports would drift, and a drifted rubric is exactly how a
+ * below-threshold draft would slip past one gate but not the other.
+ *
+ * `activeLessonIds` (Tree Overhaul T5, round 2 review) defaults to `[]` —
+ * callers that don't pass one (existing tests, an ad-hoc call) keep today's
+ * lenient behavior; `checkDraft` below always passes the real ledger.
+ */
+export function checkCritique(item, { activeLessonIds = [] } = {}) {
+  return findCritiqueIssues(item, { activeLessonIds });
+}
+
+export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
   const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
   return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
 }
 
-async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
+export async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
   const posted = await readJsonDir(POSTED_DIR);
   return posted.filter((p) => p.data.postedAt && new Date(p.data.postedAt).getTime() >= cutoff).map((p) => ({ file: p.file, body: p.data.body }));
@@ -773,7 +840,7 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [] }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
@@ -783,14 +850,16 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
     ...checkSimultaneousPair(target.file, target.data, allQueue),
     ...checkCrossPostCopy(target.file, target.data, allQueue),
+    ...checkFastLaneDisplacement(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
+    ...checkCritique(target.data, { activeLessonIds }),
   ];
 }
 
 /** True for a finding that's advisory only (see WARNING_PREFIX / checkLength)
  * — main() keeps these out of the pass/fail exit code but still prints them. */
-function isWarningFinding(finding) {
+export function isWarningFinding(finding) {
   return finding.startsWith(WARNING_PREFIX);
 }
 
@@ -844,7 +913,7 @@ async function main() {
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard

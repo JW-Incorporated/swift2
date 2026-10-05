@@ -105,6 +105,16 @@ export function extractHeaderComment(text) {
 }
 
 /**
+ * A routine with no schedule at all is legitimate only when it is fired per
+ * event by another workflow (M5's chat routines, one run per founder
+ * message) — and it must say "dispatch-only" in its header, so an
+ * accidentally deleted `schedule:` still fails CI.
+ */
+export function isDispatchOnly(text) {
+  return /^\s*workflow_dispatch:/m.test(text) && !/^\s*schedule:/m.test(text) && /dispatch-only/i.test(extractHeaderComment(text));
+}
+
+/**
  * Invariant 1: a `Task` grant must be justified by a comment somewhere in
  * the file that mentions `Task` alongside an explanatory word. This is
  * deliberately a loose text match (not tied to header position) because the
@@ -190,8 +200,12 @@ export function checkRoutineWorkflows(files) {
     const header = extractHeaderComment(text);
 
     if (!name) problems.push(`${path}: no top-level \`name:\` found.`);
-    if (!cron) {
-      problems.push(`${path}: no \`on.schedule.cron\` value found — every routine must be scheduled.`);
+    const dispatchOnly = !cron && isDispatchOnly(text);
+    if (!cron && !dispatchOnly) {
+      problems.push(
+        `${path}: no \`on.schedule.cron\` value found — every routine must be scheduled ` +
+          '(or be `workflow_dispatch`-only and say "dispatch-only" in its header comment).',
+      );
     }
 
     // ── 1. Task justification ─────────────────────────────────────────────
@@ -206,7 +220,9 @@ export function checkRoutineWorkflows(files) {
 
     // ── 2. Cadence sum (always reported, never itself a failure) ──────────
     const perWeek = cron ? runsPerWeek(cron) : null;
-    if (perWeek === null) {
+    if (dispatchOnly) {
+      report.push(`${path}: dispatch-only → 0 scheduled run(s)/week${name ? ` (${name})` : ''}.`);
+    } else if (perWeek === null) {
       unmodeled += 1;
       report.push(`${path}: cron \`${cron ?? '(missing)'}\` — cadence not modeled by this checker.`);
     } else {

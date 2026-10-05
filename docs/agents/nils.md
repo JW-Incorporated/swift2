@@ -104,6 +104,15 @@ telemetry (tickets filed vs. tickets that led to merged fixes — a critic
 whose tickets never ship is noise; that ratio reports monthly), and founders
 reading `experience` tickets in the brief.
 
+## Sampling rubric
+
+Score one sampled `experience` ticket 1–3 (this desk files tickets, never PRs),
+one evidence sentence. **3** — an authorable spec: surface, what a fan expects,
+what exists, concrete fix shape, severity matching the rubric above. **2** — a
+real finding but under-specified (no fix shape, or severity inflated), or a
+near-duplicate of an open ticket. **1** — personal taste over the rubric, a
+product gap mis-filed as a content defect, a duplicate, or an edit to content.
+
 ## Migrating to a service
 
 Same contract: GitHub is the store (tickets, log issue, coverage ledger);

@@ -104,5 +104,8 @@ apps/mobile/credentials.json
 # of derived TypeScript that added no reviewable signal to diffs and is
 # regenerated identically on every clone/CI run. Never hand-edited; never
 # committed. See scripts/lib/generated-content.mjs (the manifest of what
-# generates what) and docs/longlive-experience.md §9.
+# generates what) and docs/longlive-experience.md §9. OS-021 relocated the
+# lenses/types/content-id generators' output from apps/web/lib/longlive/
+# into packages/experience/src/ (R10/R12 redo); same rule applies there.
 apps/web/lib/longlive/*.generated.ts
+packages/experience/src/*.generated.ts

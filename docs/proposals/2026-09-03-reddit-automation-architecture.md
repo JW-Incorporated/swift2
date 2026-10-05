@@ -1,7 +1,7 @@
 # Reddit automation architecture — data ingestion, storage, processing, post-draft generation
 
 **Status: architecture doc, no code changes.** Written to satisfy today's goal
-(`GOAL.md`, set by Joey 2026-09-03 in #long-live): "Define the automated
+(`GOAL.md`, set by Joey 2026-09-03 in #longlive): "Define the automated
 Reddit system architecture." Done when a written doc exists covering
 ingestion (via home-relay), storage, processing, and post-draft generation
 for Reddit. This is that doc — implementation is follow-up work, tracked as

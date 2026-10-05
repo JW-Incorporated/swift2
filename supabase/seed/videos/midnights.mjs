@@ -136,12 +136,12 @@ export default {
       symbolism: null,
       easterEggs: [],
       // No official upload of the work itself exists — it is a theatrical release, then Disney+.
-      // With no embed this record is HIDDEN from every reader-facing surface
-      // rather than shown as a card that cannot play (playable-first rule,
-      // docs/decisions.md 2026-08-13). Add a verified official upload here and
-      // it comes back automatically — no code change needed.
+      // Add a `watchUrl`/`platform` pair (#3476) so this stays reachable via
+      // the Videos filter as a link-out card even without an embed.
       officialUrl: null,
       media: [],
+      watchUrl: 'https://disneyplus.com/en-GB/browse/entity-48f31304-ed30-47af-8c7e-83f825129b10',
+      platform: 'Disney+',
       sources: [
         wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour'),
         press(

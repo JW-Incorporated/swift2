@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   PROMOTION_MENTION_THRESHOLD,
+  HEAT_PROMOTION_THRESHOLD,
   mergeTheoryCandidates,
   buildLiveTheoryUpsert,
   type FanTheoryCandidateRow,
@@ -157,6 +158,31 @@ describe('mergeTheoryCandidates', () => {
     const rows = [candidate({ mentionCount: PROMOTION_MENTION_THRESHOLD, stance: 'believed' })];
     const cluster = onlyCluster(mergeTheoryCandidates(rows));
     expect(cluster.decision).toBe('promote');
+  });
+
+  it('promotes a low-mention cluster purely on a strong catalog-fact symbol match (heat-based gate)', () => {
+    // Single mention, well below PROMOTION_MENTION_THRESHOLD on raw
+    // mentionCount alone — but numericSignals is a PERFECT catalog-fact
+    // match (symbolMatchScore === 1), which alone is worth
+    // HEAT_PROMOTION_THRESHOLD in the heat formula. Regression guard for
+    // the headline feature of this card: heat, not raw mentionCount, must
+    // be what the gate checks.
+    const rows = [candidate({ mentionCount: 1, stance: 'believed', numericSignals: [12] })];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.mentionCount).toBeLessThan(PROMOTION_MENTION_THRESHOLD);
+    expect(cluster.symbolMatchScore).toBe(1);
+    expect(cluster.heat).toBeGreaterThanOrEqual(HEAT_PROMOTION_THRESHOLD);
+    expect(cluster.decision).toBe('promote');
+  });
+
+  it('holds a low-mention cluster with no numeric signals — unchanged legacy behavior', () => {
+    // score === 0 -> heat === mentionCount, i.e. today's original
+    // raw-mentionCount-only gate, for a theory with no numeric evidence.
+    const rows = [candidate({ mentionCount: 1, stance: 'believed' })];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.symbolMatchScore).toBe(0);
+    expect(cluster.heat).toBe(1);
+    expect(cluster.decision).toBe('hold');
   });
 
   it('rejects a cluster at/above the threshold whose majority stance is debunked_by_fans', () => {

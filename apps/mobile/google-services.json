@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659974524617",
+    "project_id": "longlive-9d2a9",
+    "storage_bucket": "longlive-9d2a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659974524617:android:131ee54a420d1a99ca0718",
+        "android_client_info": {
+          "package_name": "ai.jwlabs.longlive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3s9axMoHYivDAsfotzQ8wN226PsCpZ0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

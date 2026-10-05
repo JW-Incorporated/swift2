@@ -541,6 +541,60 @@ jobs:
             exit 0
           fi
 
+          # ── SOCIAL APPROVAL GATE (2026-09-10, docs/decisions.md) ────────────
+          # Social posting now requires a founder's PR merge as its approval
+          # step (reverses #2316/the 2026-07-25 no-human-review decision). A
+          # PR that ADDS/MODIFIES/RENAMES a social/queue/**.json draft must
+          # NOT auto-merge — it waits for Joey to merge it by hand, and that
+          # merge IS the approval (prompted to #longlive-social by
+          # social-approval-notify.yml). `removed` is deliberately excluded:
+          # the poster's own fold-back PRs delete queue files as they move to
+          # social/posted/ (social-poster.yml), and stranding those is the
+          # exact 2026-08-11/12 Instagram-triple-post failure mode
+          # (issue #2031) — a removal-only PR still needs to auto-merge.
+          #
+          # EXEMPTION (2026-09-10, Fable review finding A on #4090): the
+          # poster's own `social-poster/state-*` PRs also write `attempts+1`
+          # retry bookkeeping back into an EXISTING queue file — a `modified`
+          # status, not a new draft. Declining those strands the retry
+          # counter forever and pings #longlive-social to "approve" internal
+          # bookkeeping. Only `modified` on this exact branch prefix is
+          # exempt — `added` is NEVER exempt, on any branch, so a state
+          # branch can never smuggle in a brand-new draft. Mirrors
+          # scripts/automerge-social-approval-gate.mjs's STATE_BRANCH_PREFIX
+          # exemption; keep the two in step.
+          #
+          # RULINGS-SOCIAL-2.md B3: the merge-triggered stamper is deleted —
+          # there is no second exemption any more. Stamping happens BEFORE
+          # the merge now (social-approval-poll.yml), so the only PR that
+          # legitimately `modified`s an existing queue file without being a
+          # new draft is the poster's own state-update PR.
+          social_draft_changes=""
+          while IFS="$(printf '\t')" read -r st f prev; do
+            [ -z "$f" ] && continue
+            if printf '%s' "$f" | grep -qE '^social/queue/.*\.json$'; then
+              if [ "$st" = "modified" ]; then
+                case "${HEAD_REF:-}" in
+                  social-poster/state-*) continue ;;
+                esac
+              fi
+              case "$st" in
+                added|modified|renamed|copied|changed)
+                  social_draft_changes="${social_draft_changes}- \`${f}\` (status \`${st}\`)"$'\n'
+                  ;;
+              esac
+            fi
+          done <<<"$files_meta"
+          if [ -n "$social_draft_changes" ]; then
+            verdict "declined — social draft awaiting founder approval" \
+          "PR #$PR adds or changes social draft(s) below. Per RULINGS-SOCIAL-2.md B1 (docs/decisions.md), approval is the founder's own ✅ reaction in #longlive-social on the brief message, not merging this PR — merging it yourself does NOT approve the draft, it kills it (the poll job only ever stamps and merges an OPEN PR). A prompt with the full caption(s) was (or will be) sent to #longlive-social: react ✅ there to approve, ❌ to reject.
+
+          **Social draft(s) awaiting approval**
+
+          ${social_draft_changes}"
+            exit 0
+          fi
+
           # A path under this prefix is allowlisted by .github/content-
           # automerge-allowlist.txt's plain prefix match, but that file only
           # ever sees PATHS — it cannot express "and also must be a small

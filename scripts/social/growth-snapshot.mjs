@@ -7,11 +7,15 @@
 // this file directly off its own checkout — see
 // scripts/marjorie/assemble-brief.mjs's fetchGrowthSnapshot().
 //
-// Deliberately reads only follower counts (not per-post engagement): that's
-// already the weekly growth-plan.md rollup's job. This is a daily pulse
-// check, not the analysis. Each platform fetch is independent and never
-// throws — a single platform's API hiccup yields `null` for that field
-// rather than failing the whole snapshot.
+// Also writes per-post Instagram engagement (Tree Overhaul T3): a
+// `like_count`/`comments_count` file per social/posted/ item still inside
+// its 30-day window, under social/metrics/posts/<YYYY-MM>/<postId>.json —
+// see lib/post-metrics.mjs's header for the IG-only, v1 scope this stops
+// at. Follower counts above stay the daily pulse check they always were;
+// this is the per-post layer growth-plan.md's weekly rollup didn't have.
+// Each platform/post fetch is independent and never throws — a single
+// hiccup yields `null` (or, for a post, no file written today) rather than
+// failing the whole snapshot.
 
 import { readdir, readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -20,6 +24,7 @@ import { oauth1Header } from './lib/oauth1.mjs';
 import { GRAPH_VERSION } from './lib/platforms.mjs';
 import { countPostsOn, countPostsByPlatformSince, buildSnapshot, findSeriesGaps, recentGaps } from './lib/growth.mjs';
 import { utcDateOnly } from './lib/queue.mjs';
+import { selectInstagramPostsForMetrics, postMetricsLocation, buildPostMetricRecord } from './lib/post-metrics.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
@@ -97,6 +102,53 @@ async function fetchFacebookFollowers() {
   }
 }
 
+/**
+ * Per-post Instagram engagement for one media id — same never-throw
+ * contract as the follower fetches above: an API hiccup (or a missing
+ * IG_ACCESS_TOKEN) yields `null`, which writePostMetrics treats as "skip
+ * this post today, try again on the next run while it's still in window,"
+ * never a failed job.
+ */
+async function fetchInstagramMediaEngagement(mediaId) {
+  const { IG_ACCESS_TOKEN } = process.env;
+  if (!IG_ACCESS_TOKEN) return null;
+  try {
+    const url = `https://graph.facebook.com/${GRAPH_VERSION}/${mediaId}?fields=like_count,comments_count&access_token=${encodeURIComponent(IG_ACCESS_TOKEN)}`;
+    const res = await fetch(url);
+    const body = await res.json();
+    if (!res.ok) throw new Error(JSON.stringify(body));
+    return { like_count: body.like_count, comments_count: body.comments_count };
+  } catch (err) {
+    console.error(`growth-snapshot: Instagram media engagement fetch failed for ${mediaId}: ${err.message ?? err}`);
+    return null;
+  }
+}
+
+/**
+ * Writes/refreshes social/metrics/posts/<YYYY-MM>/<postId>.json for every
+ * social/posted/ Instagram item still inside its 30-day window (Tree
+ * Overhaul T3) — see lib/post-metrics.mjs for the selection rule and record
+ * shape. Re-running this on a post still in-window overwrites its file with
+ * fresh counts rather than freezing them at first-fetch, same "always
+ * refresh what's in the window" spirit as the daily follower snapshot.
+ */
+async function writePostMetrics(postedItems, now) {
+  const targets = selectInstagramPostsForMetrics(postedItems, { now });
+  let written = 0;
+  for (const item of targets) {
+    const engagement = await fetchInstagramMediaEngagement(item.platformPostId);
+    if (!engagement) continue;
+    const { yearMonth, postId } = postMetricsLocation(item);
+    const record = buildPostMetricRecord(item, { ...engagement, fetchedAt: now.toISOString() });
+    const dir = path.join(METRICS_DIR, 'posts', yearMonth);
+    await mkdir(dir, { recursive: true });
+    await writeFile(path.join(dir, `${postId}.json`), JSON.stringify(record, null, 2) + '\n');
+    written += 1;
+  }
+  console.log(`growth-snapshot: wrote ${written} post-metrics file(s) under social/metrics/posts/ (${targets.length} candidate(s) in window)`);
+  return written;
+}
+
 async function main() {
   const now = new Date();
   const date = utcDateOnly(now);
@@ -131,6 +183,8 @@ async function main() {
   console.log(`growth-snapshot: wrote social/metrics/${date}.json`, snapshot);
 
   reportGaps(gaps, date);
+
+  await writePostMetrics(postedItems, now);
 }
 
 /** YYYY-MM-DDs already present in social/metrics/. */
