@@ -11,9 +11,25 @@ import type { BridgeClient, ClientOptions, Envelope, IdSource } from '@swift2/ui
 export type ExpoBridgeProps = {
   /** Sequenced native-to-DOM queue, re-delivered whole on every render. */
   inbox: readonly Envelope[];
-  /** Expo DOM native action; may resolve with a `res` envelope, which is fed back. A rejection fails the call at once. */
-  bridge: (env: Envelope) => Promise<unknown> | void;
+  /** Expo DOM native action; may resolve with a `res` envelope, which is fed back. A rejection fails the call at once. The epoch token is its LAST arg. */
+  bridge: (env: Envelope, token: string) => Promise<unknown> | void;
+  /** Native action returning the per-epoch bridge token (the only action that needs none). Absent: no token (web/dev), calls carry ''. */
+  bridgeHello?: () => Promise<string>;
 };
+
+let cachedToken: Promise<string> | null = null;
+/** The epoch token, fetched once per webview and reused by every client (StrictMode re-creation). A failed hello is not cached. */
+export function bridgeToken(hello?: () => Promise<string>): Promise<string> {
+  if (!hello) return Promise.resolve('');
+  cachedToken ??= hello().catch((e) => {
+    cachedToken = null;
+    throw e;
+  });
+  return cachedToken;
+}
+export function resetBridgeTokenForTests() {
+  cachedToken = null;
+}
 
 /**
  * Calls made before the `ready` post succeeds are queued in order and flushed
@@ -22,8 +38,8 @@ export type ExpoBridgeProps = {
  */
 export type ExpoBridgeHooks = Pick<ClientOptions, 'onFatal' | 'onSignal' | 'setTimer' | 'clearTimer'>;
 
-export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?: IdSource, hooks: ExpoBridgeHooks = {}): BridgeClient {
-  return createBridgeClient({ ...hooks, now: () => Date.now(), idGen, queueUntilReady: true, post: (env) => bridge(env) });
+export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?: IdSource, hooks: ExpoBridgeHooks = {}, hello?: ExpoBridgeProps['bridgeHello']): BridgeClient {
+  return createBridgeClient({ ...hooks, now: () => Date.now(), idGen, queueUntilReady: true, post: (env) => (hello ? bridgeToken(hello).then((t) => bridge(env, t)) : bridge(env, '')) });
 }
 
 /**
@@ -32,9 +48,9 @@ export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?
  * fresh one (a new session). One id source (seeded from `Date.now()`) is shared
  * across re-creations, so command ids are strictly increasing and never reused.
  */
-export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSource = monotonicIds(Date.now()), hooks: ExpoBridgeHooks = {}) {
+export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSource = monotonicIds(Date.now()), hooks: ExpoBridgeHooks = {}, hello?: ExpoBridgeProps['bridgeHello']) {
   let live: BridgeClient | null = null;
-  const cur = (): BridgeClient => (live ??= createExpoBridgeClient(bridge, idGen, hooks));
+  const cur = (): BridgeClient => (live ??= createExpoBridgeClient(bridge, idGen, hooks, hello));
   const client: BridgeClient = {
     call: (type, payload, o) => cur().call(type, payload, o),
     on: (type, fn) => cur().on(type, fn),
@@ -52,8 +68,23 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
   return {
     client,
     mount() {
-      client.sendReady();
-      return () => client.dispose();
+      if (!hello) {
+        client.sendReady();
+        return () => client.dispose();
+      }
+      let cancelled = false;
+      bridgeToken(hello).then(
+        () => {
+          if (!cancelled) client.sendReady();
+        },
+        () => {
+          if (!cancelled) hooks.onFatal?.('bridge-hello-failed');
+        },
+      );
+      return () => {
+        cancelled = true;
+        client.dispose();
+      };
     },
   };
 }
@@ -63,15 +94,17 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
  * `setup` runs against the live client after `ready` is posted and BEFORE the inbox is consumed
  * (events consumed with no subscriber are lost); return its unsubscribe.
  */
-export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}, setup?: (client: BridgeClient) => void | (() => void)): BridgeClient {
+export function useExpoBridge({ inbox, bridge, bridgeHello }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}, setup?: (client: BridgeClient) => void | (() => void)): BridgeClient {
   const ref = useRef(bridge);
   ref.current = bridge;
+  const helloRef = useRef(bridgeHello);
+  helloRef.current = bridgeHello;
   const hooksRef = useRef(hooks);
   hooksRef.current = hooks;
   const setupRef = useRef(setup);
   setupRef.current = setup;
   const handle = useMemo(
-    () => createExpoBridge((e) => ref.current(e), undefined, { onFatal: (r) => hooksRef.current.onFatal?.(r), onSignal: (k, d) => hooksRef.current.onSignal?.(k, d) }),
+    () => createExpoBridge((e, t) => ref.current(e, t), undefined, { onFatal: (r) => hooksRef.current.onFatal?.(r), onSignal: (k, d) => hooksRef.current.onSignal?.(k, d) }, helloRef.current && (() => helloRef.current!())),
     [],
   );
   useEffect(() => handle.mount(), [handle]);

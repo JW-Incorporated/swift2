@@ -9,10 +9,11 @@ import type {
   NotificationPref,
 } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
-import { getOrCreateDeviceId } from './device-id';
+import { ensureDeviceRegistered } from './ensure-device-registered';
 
 async function prefsUrl(): Promise<string> {
-  const deviceId = await getOrCreateDeviceId();
+  // Waits for the cold-start device row so a first-run write never 404s ahead of registration.
+  const deviceId = await ensureDeviceRegistered();
   return `${apiBaseUrl()}/api/devices/${deviceId}/prefs`;
 }
 

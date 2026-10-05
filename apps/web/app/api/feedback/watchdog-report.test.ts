@@ -10,7 +10,7 @@ import {
   watchdogCommentFrom,
 } from './watchdog-report';
 
-const valid = () => ({ platform: 'android', buildKey: '42:embedded', category: 'ready-timeout' });
+const valid = () => ({ platform: 'android', buildKey: '18:embedded', category: 'ready-timeout' });
 
 describe('parseWatchdogReport (strict schema)', () => {
   it('accepts exactly {platform, buildKey, category}', () => {
@@ -35,7 +35,7 @@ describe('parseWatchdogReport (strict schema)', () => {
     const parsed = parseWatchdogReport(valid());
     const body = watchdogCommentFrom((parsed as { ok: true; report: Parameters<typeof watchdogCommentFrom>[0] }).report);
     expect(body).toContain('| Platform | android |');
-    expect(body).toContain('| Build key | `42:embedded` |');
+    expect(body).toContain('| Build key | `18:embedded` |');
     expect(body).toContain('| Category | ready-timeout |');
     expect(body).not.toMatch(/Model|OS \||Update id/);
   });

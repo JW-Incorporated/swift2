@@ -21,6 +21,7 @@
  *    to "I want to die" — the API returns `kind: 'crisis'` with no picks, and
  *    this renders the message ALONE.
  */
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Sparkles, CornerDownLeft, Loader2 } from 'lucide-react';
 import type { MoodMatch } from '@swift2/experience';
@@ -87,7 +88,7 @@ export function MoodChat() {
       // scroll brings the box (and the answer starting right below it) into
       // view regardless of how tall the answer itself is.
       requestAnimationFrame(() =>
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
+        formRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'nearest' }),
       );
     } catch {
       setError("That didn't go through. Try again in a moment?");

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { ERA_ART_ORIGIN, FIXED_TIME, LOCAL_HOSTS, repo, type Side } from './env';
+import { BASE, ERA_ART_ORIGIN, FIXED_TIME, LOCAL_HOSTS, repo, type Side } from './env';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page } from '@playwright/test';
 
@@ -41,7 +41,7 @@ async function arm(page: Page, problems: string[]): Promise<void> {
   page.on('console', (msg) => {
     if (msg.type() === 'error') problems.push(`console.error: ${msg.text()}`);
   });
-  await page.route('**/*', (route) => {
+  await page.route('**/*', async (route) => {
     const req = route.request();
     const url = new URL(req.url());
     if (LOCAL_HOSTS.has(url.hostname)) {
@@ -62,6 +62,16 @@ async function arm(page: Page, problems: string[]): Promise<void> {
     if (url.origin === ERA_ART_ORIGIN && url.pathname.startsWith('/vault/live')) {
       // Side b resolves the live-data fetch (resolveUrl) to the canonical origin: same stub as the local hosts.
       return route.fulfill({ json: { items: [], theories: [], signals: [] } });
+    }
+    if (url.origin === ERA_ART_ORIGIN && url.pathname === '/_next/image') {
+      // Side b's responsive era art goes to the canonical optimizer; serve it from side a's local one (same query, same renditions).
+      try {
+        const res = await route.fetch({ url: `${BASE.a}/_next/image${url.search}` });
+        return await route.fulfill({ response: res });
+      } catch {
+        // The test ended mid-flight (context disposed); abort quietly rather than throw.
+        return route.abort().catch(() => {});
+      }
     }
     const era = url.origin === ERA_ART_ORIGIN ?/^\/(eras\/[\w-]+\.png|threads\/[\w-]+\.jpg)$/.exec(url.pathname) : null;
     if (era) {

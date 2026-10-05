@@ -1,35 +1,20 @@
 'use client';
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useReportBusy } from '../lib/useReportBusy';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useHost } from '../../host';
 import { useAppState } from '../store';
-import { getEra } from '@swift2/experience';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { useBackDismiss } from '../lib/useBackDismiss';
+import { describeView } from './lib/feedback-location';
+import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
 // to /api/feedback, which files a GitHub issue (a "ticket") mirroring the Karen
 // shape but flagged user-submitted, and records WHERE in the app the feedback
 // was given (era, view, open moment/track/theory, URL).
-
-type Location = {
-  eraId?: string;
-  eraName?: string;
-  mode?: string;
-  view?: string;
-  openMomentId?: string | null;
-  openTrackKey?: string | null;
-  trackGuideEraId?: string | null;
-  theoryGuideEraId?: string | null;
-  lensId?: string | null;
-  url?: string;
-  pageTitle?: string;
-  viewport?: string;
-  userAgent?: string;
-  ts?: string;
-};
 
 const MAX = 5000;
 
@@ -60,9 +45,14 @@ export function FeedbackButton() {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const [hp, setHp] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
   const [dismissed, setDismissed] = useState(false);
+  const { status, errorMsg, submit } = useFeedbackSubmit({
+    msg,
+    setMsg,
+    hp,
+    onSent: () => setOpen(false),
+  });
+  useReportBusy('feedback', open || msg.trim() !== '' || status === 'sending');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const textareaId = useId();
@@ -113,78 +103,6 @@ export function FeedbackButton() {
   // order while it's invisible. Checked after every hook above so hook order
   // stays identical across renders.
   if (dismissed || state.clownChatExpanded) return null;
-
-  /** Human-readable description of the current view for the ticket. */
-  function describeView(): string {
-    if (state.openItemId) return `moment detail (${state.openItemId})`;
-    if (state.openTrackKey) return `track detail (${state.openTrackKey})`;
-    if (state.trackGuideEraId) return `track guide (${state.trackGuideEraId})`;
-    if (state.theoryGuideEraId) return `theories/eggs (${state.theoryGuideEraId})`;
-    if (state.searchOpen) return 'search';
-    if (state.mode === 'threads') return state.lensId ? `thread: ${state.lensId}` : 'threads gallery';
-    return 'era stream';
-  }
-
-  function buildLocation(): Location {
-    let eraName: string | undefined;
-    try {
-      eraName = getEra(state.eraId)?.name;
-    } catch {
-      eraName = undefined;
-    }
-    return {
-      eraId: state.eraId,
-      eraName,
-      mode: state.mode,
-      view: describeView(),
-      openMomentId: state.openItemId,
-      openTrackKey: state.openTrackKey,
-      trackGuideEraId: state.trackGuideEraId,
-      theoryGuideEraId: state.theoryGuideEraId,
-      lensId: state.lensId,
-      url: host.currentUrl?.(),
-      pageTitle: typeof document !== 'undefined' ? document.title : undefined,
-      viewport:
-        typeof window !== 'undefined' ? `${window.innerWidth}×${window.innerHeight}` : undefined,
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
-      ts: new Date().toISOString(),
-    };
-  }
-
-  async function submit() {
-    const message = msg.trim();
-    if (!message || status === 'sending') return;
-    setStatus('sending');
-    setErrorMsg('');
-    try {
-      const res = await host.apiFetch({
-        method: 'POST',
-        path: '/api/feedback',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, location: buildLocation(), hp }),
-      });
-      let data: { error?: string } = {};
-      try {
-        data = JSON.parse(res.body) ?? {};
-      } catch {
-        data = {};
-      }
-      if (res.status >= 200 && res.status < 300) {
-        setStatus('sent');
-        setMsg('');
-        window.setTimeout(() => {
-          setOpen(false);
-          setStatus('idle');
-        }, 1800);
-      } else {
-        setStatus('error');
-        setErrorMsg(data.error || 'Couldn’t send that — please try again.');
-      }
-    } catch {
-      setStatus('error');
-      setErrorMsg('Network error — please try again.');
-    }
-  }
 
   return (
     <>
@@ -255,9 +173,12 @@ export function FeedbackButton() {
                     {errorMsg}
                   </p>
                 )}
+                <p className="mt-2 text-[11px] text-ink-soft">
+                  Posted publicly on GitHub — please don't include personal details.
+                </p>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[11px] text-ink-soft">
-                    Reporting from: {describeView()}
+                    Reporting from: {describeView(state)}
                   </span>
                   <button
                     type="button"

@@ -34,7 +34,9 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { useNotificationTaps } from './lib/use-notification-taps';
+import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
+import { useDeepLinks } from './lib/use-deep-links';
+import { DiagLinkHost } from './components/DiagLinkHost';
 import {
   DEFAULT_ROUTE_FLAGS,
   createNavigate,
@@ -43,9 +45,10 @@ import {
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
+import { runAfterFirstPaint } from './lib/launch-defer';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
-import { registerDevice } from './lib/push-registration';
+import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
@@ -60,6 +63,7 @@ import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
+import { FirstLaunchScreen } from './components/FirstLaunchScreen';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
@@ -147,17 +151,23 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    registerDevice().catch((e) => {
-      console.warn('device registration failed', e instanceof Error ? e.message : e);
+    // Deferred past first paint (its SecureStore ops would delay the mount gate); ensureDeviceRegistered() is memoized,
+    // so an earlier on-demand caller (prefs client) triggers it once and this call joins it.
+    const cancelRegistration = runAfterFirstPaint(() => {
+      ensureDeviceRegistered().catch((e) => {
+        console.warn('device registration failed', e instanceof Error ? e.message : e);
+      });
     });
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
+    return cancelRegistration;
   }, []);
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
   useNotificationTaps(navigate, domMount.mount === 'native');
+  useDeepLinks(notificationTapGate);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.
@@ -196,6 +206,8 @@ export default function App() {
   );
 
 
+  const getRouteFlags = useCallback(() => routeFlagsRef.current, []);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -210,10 +222,12 @@ export default function App() {
               watch={domMount.watch}
               forceFailure={domMount.forceFailure}
               siteUrl={SITE_URL}
-              getRouteFlags={() => routeFlagsRef.current}
+              getRouteFlags={getRouteFlags}
               state={nativeRoute}
               presenter={presenter}
             />
+          ) : domMount.mount === 'awaiting-content' ? (
+            <FirstLaunchScreen failed={domMount.contentFailed} onRetry={domMount.retryContent} />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : (
@@ -228,6 +242,7 @@ export default function App() {
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
+        <DiagLinkHost />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

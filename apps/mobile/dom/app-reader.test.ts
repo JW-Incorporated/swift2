@@ -3,7 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { createAppStorage } from './bridge/app-adapter-nav';
 import { installStorageShim } from './reader/storage-shim';
 
-const src = readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8');
+const src =
+  readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8') + readFileSync(new URL('./bridge/sample-images.ts', import.meta.url), 'utf8');
 
 describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path)', () => {
   it.each([
@@ -59,5 +60,13 @@ describe('app storage after the DOM shim (the Android DOM has no storage, G3)', 
   it('reportError stays wired through the error listener (message prefix kept)', () => {
     expect(src).toContain('`error: ${e.message}`');
     expect(src).toContain('`unhandledrejection: ${String(e.reason)}`');
+  });
+});
+
+describe('persistent storage boot order', () => {
+  it('loads the native blob before the reader is set', () => {
+    const load = src.indexOf('loadStorageSeed(');
+    expect(load).toBeGreaterThan(-1);
+    expect(load).toBeLessThan(src.indexOf('setReader(() => reader)'));
   });
 });

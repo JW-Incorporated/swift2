@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { setEngaged } from '../../bridge/engaged-signal';
 
 /**
  * Makes the mobile browser/PWA back-swipe gesture dismiss an open overlay
@@ -22,23 +23,87 @@ import { useEffect, useRef } from 'react';
  * swallowed so it can never dismiss the overlay underneath.
  */
 
-type StackEntry = { dismiss: () => void; dismissedByPop: boolean };
+type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean };
 
 const stack: StackEntry[] = [];
+/** Reports whether any hook-registered overlay is open (nav entries do not count) so native content adoption waits for it. */
+const reportOverlays = () => setEngaged('overlay-stack', stack.some((e) => e.overlay));
 /** Pending popstates we caused ourselves (UI-close consuming its entry). */
 let suppressedPops = 0;
 let listenerInstalled = false;
+let seq = 0;
+/**
+ * Ids of hook entries closed while a later entry sat above them in history:
+ * their history entry can't be consumed in place (back() would pop the wrong
+ * one), so a later pop that lands on one skips straight through it.
+ */
+const buried = new Set<number>();
+
+const stateId = (): number | undefined => (window.history.state as { llId?: number } | null)?.llId;
+
+/** history.back() calls we issued whose popstate has not been handled yet (for waitForBackStackIdle). */
+let pendingPops = 0;
+let idleWaiters: Array<() => void> = [];
+
+function historyBack() {
+  pendingPops += 1;
+  window.history.back();
+}
+
+function flushIdle() {
+  if (pendingPops > 0 || suppressedPops > 0) return;
+  const waiters = idleWaiters;
+  idleWaiters = [];
+  for (const w of waiters) w();
+}
+
+/** Test-only: resolves once every history.back() issued here (incl. chained buried-entry skips) has been handled. */
+export function waitForBackStackIdle(): Promise<void> {
+  if (pendingPops === 0 && suppressedPops === 0) return Promise.resolve();
+  return new Promise((r) => idleWaiters.push(r));
+}
+
+/** Test-only: clears module-level stack state between tests. */
+export function resetBackStackForTests() {
+  stack.length = 0;
+  reportOverlays();
+  buried.clear();
+  suppressedPops = 0;
+  pendingPops = 0;
+  flushIdle();
+}
+
+/** After any pop: if history landed on a buried (already-closed) entry, step back over it. */
+function skipBuried() {
+  const id = stateId();
+  if (id !== undefined && buried.has(id)) {
+    buried.delete(id);
+    suppressedPops += 1;
+    historyBack();
+  }
+}
 
 function onPopState() {
+  if (pendingPops > 0) pendingPops -= 1;
+  handlePop();
+  flushIdle();
+}
+
+function handlePop() {
   if (suppressedPops > 0) {
     suppressedPops -= 1;
+    skipBuried();
     return;
   }
   const top = stack[stack.length - 1];
   if (top) {
     top.dismissedByPop = true;
+    // Nav entries have no cleanup path: leave the logical stack here. Hook entries leave via their own cleanup.
+    if (!top.overlay) stack.pop();
+    reportOverlays();
     top.dismiss();
   }
+  skipBuried();
 }
 
 function installListener() {
@@ -62,8 +127,34 @@ function installListener() {
  */
 export function pushBackEntry(onDismiss: () => void) {
   installListener();
-  stack.push({ dismiss: onDismiss, dismissedByPop: false });
-  window.history.pushState({ llOverlay: true }, '');
+  const id = ++seq;
+  stack.push({ id, dismiss: onDismiss, dismissedByPop: false });
+  reportOverlays();
+  window.history.pushState({ llOverlay: true, llId: id }, '');
+}
+
+/**
+ * Native (Android hardware) Back driver: unwinds the TOP of the logical stack,
+ * like the website's Back. An overlay is dismissed (its UI-close cleanup
+ * consumes its history entry); a navigation entry is consumed via
+ * history.back(), so the normal popstate restore runs once. Returns true when
+ * an entry is on the stack, including one whose dismissal from an earlier Back
+ * has not committed yet, so a rapid repeat Back is swallowed rather than
+ * closing the layer beneath or exiting.
+ */
+export function dismissTopOverlayFromNativeBack(): boolean {
+  const e = stack[stack.length - 1];
+  if (!e) return false;
+  if (e.nativeClosing) return true;
+  e.nativeClosing = true;
+  // Safety net: a dismiss that never unmounts must not wedge Back forever.
+  setTimeout(() => {
+    e.nativeClosing = false;
+  }, 500);
+  // Nav entry on top: drive the real history pop so onPopState restores and consumes it exactly once.
+  if (e.overlay) e.dismiss();
+  else historyBack();
+  return true;
 }
 
 export function useBackDismiss(active: boolean, onDismiss: () => void) {
@@ -74,19 +165,25 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
     if (!active) return;
     installListener();
     const entry: StackEntry = {
+      id: ++seq,
       dismiss: () => onDismissRef.current(),
       dismissedByPop: false,
+      overlay: true,
     };
     stack.push(entry);
-    window.history.pushState({ llOverlay: true }, '');
+    reportOverlays();
+    window.history.pushState({ llOverlay: true, llId: entry.id }, '');
     return () => {
       const i = stack.indexOf(entry);
       if (i !== -1) stack.splice(i, 1);
+      reportOverlays();
       if (!entry.dismissedByPop) {
         // Closed by the UI — consume our pushed entry, and flag the popstate
         // that this back() emits so it isn't mistaken for a user gesture.
-        suppressedPops += 1;
-        window.history.back();
+        if (stateId() === entry.id) {
+          suppressedPops += 1;
+          historyBack();
+        } else buried.add(entry.id);
       }
     };
   }, [active]);

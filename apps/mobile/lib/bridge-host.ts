@@ -116,6 +116,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   }
 
   function onCmd(env: Envelope) {
+    // Before ready nothing legitimate is in flight (the client queues until readyAck): reject without moving the high-water mark.
+    if (!ready) return respond(env.id, String(env.type).slice(0, 64), resErr('invalid', 'bridge not ready'));
     if (!admit(env.id, env.type)) return;
     const unknown = answerUnknown(env, BRIDGE_VERSION, now());
     if (unknown) return safeSend(unknown);
@@ -223,7 +225,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       if (env.kind === 'cmd') return onCmd(env);
       if (env.kind === 'res') return onRes(env);
       if (isReady) return onReady(env);
-      handleDomEvent(env, { ready: () => ready, onSignal, onAck, onNavReady: deps.onNavReady, onNavigated: deps.onNavigated, onTheme: deps.onTheme });
+      handleDomEvent(env, { ready: () => ready, onSignal, onAck, onNavReady: deps.onNavReady, onNavigated: deps.onNavigated, onTheme: deps.onTheme, onRoute: deps.onRoute });
     } catch (e) {
       onSignal('bridge-receive-error', String(e).slice(0, 200));
     }

@@ -10,11 +10,11 @@ describe('runtime registries', () => {
     expect(new Set(EVENT_TYPES).size).toBe(EVENT_TYPES.length);
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
-        'api', 'apiRead', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
-        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
+        'api', 'apiRead', 'back', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
+        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share', 'storage.load', 'storage.write',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'route', 'theme']);
   });
 });
 
@@ -22,8 +22,9 @@ describe('JSON round-trip, one sample per type', () => {
   const insets: Insets = { top: 1, right: 2, bottom: 3, left: 4 };
   const commandSamples: { [T in CommandType]: PayloadOf<T> } = {
     navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
-    share: { title: 't', text: 'x', url: 'https://example.test' },
+    share: { title: 't', text: 'x', url: 'https://example.test', image: { url: 'https://example.test/card.png' } },
     haptic: { kind: 'success' },
+    'clipboard.write': { text: 'https://example.test' },
     openExternal: { url: toExternalUrl('https://example.test')! },
     'notifications.status': {},
     'notifications.request': {},
@@ -38,6 +39,8 @@ describe('JSON round-trip, one sample per type', () => {
     api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
     apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },
+    'storage.load': {},
+    'storage.write': { entries: { k: 'v' } },
     back: {},
   };
   const eventSamples: { [T in EventType]: EventPayloadOf<T> } = {
@@ -51,6 +54,7 @@ describe('JSON round-trip, one sample per type', () => {
     navReady: {},
     navigated: { id: 't1', ok: true },
     theme: { statusBarStyle: 'light', background: '#0c0c0c' },
+    route: { path: '/privacy?x=1', busy: true, engaged: true },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
@@ -99,7 +103,7 @@ describe('type-level contract', () => {
   });
 
   it('shared primitive types are the host/types definitions', () => {
-    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload>();
+    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload & { image?: { url: string } }>();
     expectTypeOf<PayloadOf<'haptic'>['kind']>().toEqualTypeOf<HapticKind>();
     expectTypeOf<PayloadOf<'notifications.updatePrefs'>['prefs']>().toEqualTypeOf<NotificationPrefs>();
     expectTypeOf<ResultOf<'notifications.status'>>().toEqualTypeOf<NotificationStatus>();

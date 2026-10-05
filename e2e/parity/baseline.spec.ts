@@ -6,6 +6,7 @@ import {
   captureElement,
   captureLocator,
   captureViewport,
+  captureViewportNoRail,
   captureRoot,
   expect,
   FOOTER_SELECTOR,
@@ -40,7 +41,7 @@ for (const route of ROUTES) {
   // WP2.4-0: the web chrome (TopBar, its timeline rail, BottomNav) is hidden by captureRoot, so cover it whole-viewport before it moves.
   test(`a (web build) ${route.name} viewport`, async ({ page }) => {
     await openRoute(page, 'a', route);
-    expect(await captureViewport(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, PIXEL_OPTS);
+    expect(await captureViewportNoRail(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, PIXEL_OPTS);
   });
 
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
@@ -76,10 +77,14 @@ test.describe('merch', () => {
 
 // W5-parity: a-side baselines for the coverage routes (the element clip when set).
 for (const route of COVERAGE_ROUTES) {
-  test(`a (web build) ${route.name}`, async ({ page }) => {
-    await openAOnlyRoute(page, route);
-    const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
-    expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  test.describe(route.name, () => {
+    // Merch routes render MerchMarquee's un-nonced <style> (see the merch describe above).
+    if (route.path.includes('mode=merch')) test.use({ bypassCSP: true });
+    test(`a (web build) ${route.name}`, async ({ page }) => {
+      await openAOnlyRoute(page, route);
+      const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
+      expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+    });
   });
 }
 

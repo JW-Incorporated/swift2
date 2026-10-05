@@ -1,6 +1,11 @@
 import { fixture, FIXED_TIME } from './env';
 import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, type AOnlyRoute } from './routes';
+import { SEARCH_ROUTES } from './routes-search';
 import { PLACEHOLDER_PNG } from './placeholder';
+import { ERA_CONTROL_ROUTES } from './routes-era-controls';
+import { EMBED_ROUTES } from './routes-embeds';
+import { ERA_LANDING_ROUTES, THREAD_VIEW_ROUTES } from './routes-threads-eras';
+import { SURFACE_COVERAGE_ROUTES } from './routes-coverage-surfaces';
 import { assertNoBaselineCollisions } from './sides';
 import { expect, type Page } from '@playwright/test';
 
@@ -193,8 +198,13 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
       await show(page, 'article:has(button:has-text("Hide the payoff"))');
     },
   },
+  ...ERA_CONTROL_ROUTES,
+  ...THREAD_VIEW_ROUTES,
+  ...ERA_LANDING_ROUTES,
+  ...SURFACE_COVERAGE_ROUTES,
+  ...EMBED_ROUTES,
 ];
 
 /** Every route beyond the two base routes: the lists the a-vs-b, baseline and plumbing specs iterate. */
-export const EXTRA_ROUTES: readonly AOnlyRoute[] = [...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA, ...COVERAGE_ROUTES];
+export const EXTRA_ROUTES: readonly AOnlyRoute[] = [...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA, ...COVERAGE_ROUTES, ...SEARCH_ROUTES];
 assertNoBaselineCollisions(ROUTES, EXTRA_ROUTES);

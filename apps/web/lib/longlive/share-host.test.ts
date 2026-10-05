@@ -32,6 +32,28 @@ describe('share with a host (WP2.4-A2)', () => {
     expect(share.mock.calls[0]?.[0]).toMatchObject({ url: expect.stringContaining('https://www.longlivets.com') });
   });
 
+  it.each([
+    ['iOS', '/private/var/containers/Bundle/Application/ABCD-1234/LongLive.app/dom/index.html'],
+    ['Android', '/data/user/0/com.longlive.app/files/ExponentExperienceData/dom/index.html'],
+  ])('shareTarget in the app (%s file:// bundle) shares the logical path, never the local one', async (_os, local) => {
+    vi.stubGlobal('window', {
+      location: { origin: 'null', pathname: local, search: '?x=1', href: `file://${local}?x=1` },
+      dispatchEvent: () => true,
+    });
+    const share = vi.fn().mockResolvedValue(undefined);
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    const currentUrl = () => 'https://www.longlivets.com/privacy?item=old#frag';
+    expect(await shareTarget(target, data, { share, resolveUrl, currentUrl })).toBe('native');
+    expect(share.mock.calls[0]?.[0]).toMatchObject({ url: 'https://www.longlivets.com/privacy?item=interrupted-speech' });
+    const root = vi.fn().mockResolvedValue(undefined);
+    await shareTarget(target, data, { share: root, resolveUrl, currentUrl: () => 'https://www.longlivets.com/?era=x' });
+    expect(root.mock.calls[0]?.[0]).toMatchObject({ url: 'https://www.longlivets.com?item=interrupted-speech' });
+    const noLogical = vi.fn().mockResolvedValue(undefined);
+    await shareTarget(target, data, { share: noLogical, resolveUrl });
+    expect(JSON.stringify(noLogical.mock.calls[0]?.[0])).not.toContain('Bundle');
+    expect(JSON.stringify(noLogical.mock.calls[0]?.[0])).not.toContain('ExponentExperienceData');
+  });
+
   it('shareTarget without a host keeps the navigator.share path', async () => {
     expect(await shareTarget(target, data)).toBe('native');
     expect(navShare).toHaveBeenCalledTimes(1);
@@ -51,6 +73,23 @@ describe('share with a host (WP2.4-A2)', () => {
     const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
     expect(await shareTarget(target, data, { share, resolveUrl })).toBe('native');
     expect(share.mock.calls[0]?.[0]).toMatchObject({ url: expect.stringContaining('https://www.longlivets.com?item=') });
+  });
+
+  it('shareCardImage with host.share + resolveUrl passes the card URL, no bytes', async () => {
+    const share = vi.fn().mockResolvedValue(undefined);
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    expect(await shareCardImage(target, source, 'story', data, { share, resolveUrl })).toBe('native');
+    const arg = share.mock.calls[0]?.[0] as { image?: { url: string } };
+    expect(arg.image?.url).toMatch(/^https:\/\/www\.longlivets\.com\/api\/share-card\?.*size=story$/);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('shareCardImage reports copied only when the host says imageCopied', async () => {
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    const yes = vi.fn().mockResolvedValue({ imageCopied: true });
+    const no = vi.fn().mockResolvedValue({ imageCopied: false });
+    expect(await shareCardImage(target, source, 'story', data, { share: yes, resolveUrl })).toBe('copied');
+    expect(await shareCardImage(target, source, 'story', data, { share: no, resolveUrl })).toBe('native');
   });
 
   it('shareCardImage with host.share falls back to a link share and fetches no card', async () => {
