@@ -2,7 +2,7 @@ import type { SearchGroup, SearchTarget } from '@swift2/experience';
 import { ResultRow } from './SearchResultRow';
 
 /** Starter queries shown in the empty state — one per corner of the archive. */
-const SUGGESTIONS = ['snake', 'vault', '13', 'crossing'];
+const SUGGESTIONS = ['snake', 'vault', '13', 'cardigan'];
 
 export function SearchResults({
   groups,

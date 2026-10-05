@@ -161,7 +161,7 @@ export function SearchOverlay() {
         actions.openSong(target.eraId, target.trackKey);
         break;
       case 'theory-guide':
-        actions.openTheoryGuide(target.eraId);
+        actions.openTheoryGuide(target.eraId, target.slug);
         break;
       case 'trail':
         actions.openClueWebTrail(target.motifId);

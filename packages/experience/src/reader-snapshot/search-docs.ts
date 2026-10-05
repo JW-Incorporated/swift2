@@ -80,7 +80,7 @@ export function buildSearchDocs(inputs: ReaderSnapshotCoreInputs): SearchDoc[] {
           theory.title,
           theory.claim,
           era.id,
-          { kind: 'theory-guide', eraId: era.id },
+          { kind: 'theory-guide', eraId: era.id, slug: theory.slug },
           [theory.claim, theory.evidence ?? ''],
         ),
       );
