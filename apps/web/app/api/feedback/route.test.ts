@@ -79,13 +79,13 @@ describe('bodyFrom', () => {
   });
 
   it('code-wraps client-supplied environment fields so markdown/mentions in them are inert', () => {
-    const body = bodyFrom('hi', { pageTitle: 'ping @evil', userAgent: 'UA/#9', url: 'http://x/@evil' });
+    const body = bodyFrom('hi', { pageTitle: 'ping @evil', platform: 'web: #9', path: '/@evil' });
     // Rendered inside a code span → literal, no autolink (GitHub does not
     // linkify mentions/refs inside `code`), so the surrounding backticks ARE
     // the neutralization.
     expect(body).toContain('`ping @evil`');
-    expect(body).toContain('`UA/#9`');
-    expect(body).toContain('`http://x/@evil`');
+    expect(body).toContain('`web: #9`');
+    expect(body).toContain('`/@evil`');
   });
 });
 
@@ -215,6 +215,44 @@ describe('POST', () => {
     expect(sent.labels).toContain('user-feedback');
     expect(sent.body).not.toMatch(/@[A-Za-z0-9]/); // no live mention reached GitHub
     expect(sent.body).not.toMatch(/#[0-9]/); // no live issue ref reached GitHub
+  });
+
+  it('strips query/hash and drops the raw user agent from a legacy client payload', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ number: 43, html_url: 'http://gh/43' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+    await POST(
+      req({
+        message: 'hello',
+        location: {
+          url: 'https://www.longlivets.com/era/lover?email=a@b.com&token=SECRET#frag',
+          userAgent: 'Mozilla/5.0 (Windows NT 10.0) UNIQUEUA',
+        },
+      }),
+    );
+    const sent = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(sent.body).toContain('`/era/lover`');
+    expect(sent.body).not.toContain('?');
+    expect(sent.body).not.toContain('SECRET');
+    expect(sent.body).not.toContain('a@b.com');
+    expect(sent.body).not.toContain('frag');
+    expect(sent.body).not.toContain('UNIQUEUA');
+    expect(sent.body).not.toContain('Mozilla');
+    expect(sent.body).not.toContain('User agent');
+  });
+
+  it('drops the host of a protocol-relative url', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ number: 44, html_url: 'http://gh/44' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+    await POST(req({ message: 'hello', location: { url: '//secret.host/era/lover?x=1' } }));
+    const sent = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(sent.body).toContain('`/era/lover`');
+    expect(sent.body).not.toContain('secret.host');
   });
 
   describe('body size cap (32 KB, before JSON parsing)', () => {
