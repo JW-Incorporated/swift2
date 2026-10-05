@@ -46,6 +46,14 @@ export function safeBlockedOrigin(raw: unknown): string {
   }
 }
 
+/** Max request body and max logged string length (log-volume / log-forging cap). */
+const MAX_BODY_BYTES = 16 * 1024;
+const MAX_LOGGED_CHARS = 200;
+
+function clip(v: string): string {
+  return v.replace(/[\r\n\t]+/g, ' ').slice(0, MAX_LOGGED_CHARS);
+}
+
 /** Pull (directive, blocked origin) out of either report shape. */
 export function summarize(body: CspReportBody): { directive: string; blocked: string }[] {
   const reports: Record<string, unknown>[] = [];
@@ -61,7 +69,7 @@ export function summarize(body: CspReportBody): { directive: string; blocked: st
   }
 
   return reports.slice(0, 20).map((r) => ({
-    directive:
+    directive: clip(
       typeof r['effective-directive'] === 'string'
         ? r['effective-directive']
         : typeof r.effectiveDirective === 'string'
@@ -69,7 +77,8 @@ export function summarize(body: CspReportBody): { directive: string; blocked: st
           : typeof r['violated-directive'] === 'string'
             ? r['violated-directive']
             : 'unknown',
-    blocked: safeBlockedOrigin(r['blocked-uri'] ?? r.blockedURL),
+    ),
+    blocked: clip(safeBlockedOrigin(r['blocked-uri'] ?? r.blockedURL)),
   }));
 }
 
@@ -87,8 +96,15 @@ export async function POST(req: Request): Promise<Response> {
   // nothing useful with an error.
   if (rateLimited(ip)) return new NextResponse(null, { status: 204 });
 
+  const declared = Number(req.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
+    return new NextResponse(null, { status: 413 });
+  }
+
   try {
-    const body = (await req.json()) as CspReportBody;
+    const text = await req.text();
+    if (text.length > MAX_BODY_BYTES) return new NextResponse(null, { status: 413 });
+    const body = JSON.parse(text) as CspReportBody;
     for (const { directive, blocked } of summarize(body)) {
       console.warn(`csp-violation directive=${directive} blocked=${blocked}`);
     }

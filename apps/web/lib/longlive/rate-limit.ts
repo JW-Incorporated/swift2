@@ -11,6 +11,8 @@
  * itself trustworthy (#1973); this module only tracks hit counts per key.
  */
 
+import { createHash, timingSafeEqual } from 'node:crypto';
+
 export interface RateLimiterOptions {
   /** Sliding window size in milliseconds. */
   windowMs: number;
@@ -67,4 +69,21 @@ export function makeRateLimiter({ windowMs, max, sweepIntervalMs }: RateLimiterO
  * this repo is optional client input, so anything truthy trips it. */
 export function isHoneypotTripped(hp: unknown): boolean {
   return typeof hp === 'string' && hp.length > 0;
+}
+
+/** Constant-time secret comparison. Both sides are hashed first so the
+ * comparison is length-independent (`timingSafeEqual` throws on unequal
+ * lengths, and bailing early on length would leak it). */
+export function timingSafeSecretEqual(provided: string, expected: string): boolean {
+  const a = createHash('sha256').update(provided).digest();
+  const b = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(a, b);
+}
+
+/** Token from an `Authorization: Bearer <token>` header, or null. */
+export function bearerToken(req: Request): string | null {
+  const header = req.headers.get('authorization');
+  if (!header) return null;
+  const match = /^Bearer (.+)$/.exec(header);
+  return match ? match[1] : null;
 }

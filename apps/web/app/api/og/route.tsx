@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server';
 import { THREADS, getEra, getThread, resolveTrackKey } from '@swift2/experience';
 import { DEFAULT_OG_COPY, renderOgCard, type OgCardCopy } from '@/lib/longlive/og-card';
 import { getContentItemByIdOrSlug } from '@/lib/longlive/content';
+import { trustedClientIp } from '@/lib/longlive/client-ip';
+import { makeRateLimiter } from '@/lib/longlive/rate-limit';
 import '../../../lib/longlive/vault-wiring';
 
 // The "cool feature only" fix (social-strategy.md §2, PR #3922 2026-09-06):
@@ -22,6 +24,10 @@ import '../../../lib/longlive/vault-wiring';
 // `?lens=`/`?mode=` value.
 export const runtime = 'nodejs';
 export const revalidate = 86_400;
+
+// Image rendering is CPU-bound; generous per-IP cap (best-effort, per instance).
+const RENDER_LIMIT_PER_MIN = 120;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: RENDER_LIMIT_PER_MIN, sweepIntervalMs: 60_000 });
 
 const MODE_COPY = new Map<string, OgCardCopy>([
   [
@@ -108,6 +114,9 @@ export function ogCopyForRequest(url: URL): OgCardCopy {
 }
 
 export function GET(req: NextRequest): Response {
+  if (limiter.isLimited(trustedClientIp(req))) {
+    return new Response('Too many requests', { status: 429, headers: { 'Retry-After': '60', 'Cache-Control': 'no-store' } });
+  }
   const copy = ogCopyForRequest(new URL(req.url));
   return renderOgCard(copy);
 }

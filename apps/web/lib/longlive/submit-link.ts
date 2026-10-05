@@ -157,11 +157,20 @@ export function platformGuessFromDomain(domain: string): PlatformGuess {
   return 'other';
 }
 
-/** Hashed client identifier for abuse triage — never store a raw IP. Not a
- * security control (no per-request secret), just avoids writing a plain IP
- * into a spreadsheet/issue that outlives the rate limiter. */
-export function hashClientId(id: string): string {
-  const salt = process.env.SUBMISSIONS_HASH_SALT || 'longlive-submissions';
+/** Hashed client identifier for abuse triage — never store a raw IP. Salted
+ * only by SUBMISSIONS_HASH_SALT; with no salt configured there is NO hash
+ * (null) rather than a committed-default one, since an unsalted IPv4 hash is
+ * reversible and the value is printed in a public issue. */
+let warnedNoSalt = false;
+export function hashClientId(id: string): string | null {
+  const salt = process.env.SUBMISSIONS_HASH_SALT;
+  if (!salt) {
+    if (!warnedNoSalt) {
+      warnedNoSalt = true;
+      console.warn('submit-link: SUBMISSIONS_HASH_SALT not set; omitting clientHash');
+    }
+    return null;
+  }
   return createHash('sha256').update(`${salt}:${id}`).digest('hex').slice(0, 16);
 }
 
@@ -171,7 +180,7 @@ export interface SubmissionRecord {
   platformGuess: PlatformGuess;
   section: Section;
   submittedAt: string;
-  clientHash: string;
+  clientHash?: string | null;
   /** Derived server-side from the validated `section` — never taken from the
    * request body (the form doesn't send it; accepting it was unused attack
    * surface). */
@@ -212,8 +221,8 @@ function githubIssueBody(record: SubmissionRecord): string {
     `- **Domain:** \`${esc(record.domain)}\``,
     `- **Platform guess:** \`${esc(record.platformGuess)}\``,
     `- **Submitted at:** \`${esc(record.submittedAt)}\``,
-    `- **Client hash:** \`${esc(record.clientHash)}\``,
   ];
+  if (record.clientHash) lines.push(`- **Client hash:** \`${esc(record.clientHash)}\``);
   if (record.sourcePage) lines.push(`- **From page:** \`${esc(record.sourcePage)}\``);
   lines.push(
     '',
@@ -319,7 +328,7 @@ export async function postToSheet(record: SubmissionRecord): Promise<SinkOutcome
         notes: n(''),
         submitter_note: n(''),
         source_page: n(record.sourcePage || ''),
-        client_hash: n(record.clientHash),
+        client_hash: n(record.clientHash || ''),
         flags: n(record.flags || ''),
       }),
     });

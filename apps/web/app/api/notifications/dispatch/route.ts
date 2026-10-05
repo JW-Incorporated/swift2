@@ -9,6 +9,7 @@ import {
   runCooldownPass,
 } from '@swift2/core/notifications-server';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
+import { bearerToken, timingSafeSecretEqual } from '../../../../lib/longlive/rate-limit';
 import { trackKeyForLyricSlug } from '../../../../lib/longlive/lyric-track-key';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
@@ -39,8 +40,8 @@ function authorized(req: Request): boolean {
   // Unset secret = route disabled (fails closed), matching every other
   // unconfigured-env route in this repo (503, not "trust the request").
   if (!expected) return false;
-  const header = req.headers.get('authorization');
-  return header === `Bearer ${expected}`;
+  const token = bearerToken(req);
+  return token !== null && timingSafeSecretEqual(token, expected);
 }
 
 export async function GET(req: Request): Promise<Response> {
