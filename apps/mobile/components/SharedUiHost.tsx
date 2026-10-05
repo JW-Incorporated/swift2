@@ -10,11 +10,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardInset } from '../lib/use-keyboard-inset';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { eraColors } from '../lib/theme';
+import { sharedUiDomProps } from '../lib/shared-ui-dom-props';
 import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
@@ -89,6 +91,7 @@ export function SharedUiHost({
   const nativeMs = useRef<number | null>(null);
   const probe = useRef(createProbePublisher({ nativeMs: () => nativeMs.current, withNativeTiming, sinks: [setProbeJson, setLatestProbeJson] })).current;
   const insets = useSafeAreaInsets();
+  const keyboard = useKeyboardInset();
   const speedOn = useSpeedOn();
 
   useEffect(() => {
@@ -185,8 +188,8 @@ export function SharedUiHost({
 
   // The DOM is the sole inset owner: native only reports. The host holds these until `ready`, then flushes.
   useEffect(() => {
-    emitRef.current?.insets(insets);
-  }, [session, insets.top, insets.right, insets.bottom, insets.left]);
+    emitRef.current?.insets({ ...insets, keyboard });
+  }, [session, insets.top, insets.right, insets.bottom, insets.left, keyboard]);
 
   useEffect(() => {
     if (contentToken) emitRef.current?.version(contentToken);
@@ -196,21 +199,8 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) if (session) void handlers.reportError('forced DOM failure', session.token);
   }, [forceFailure, source, session]);
 
-  // iOS: DOM owns insets (--safe-*), no rubber-banding. Inline playback explicit (as MomentSheet/SiteShell) so embeds stay inline; memoized for referentially-equal props.
-  const dom = useMemo(
-    () => ({
-      contentInsetAdjustmentBehavior: 'never' as const,
-      automaticallyAdjustContentInsets: false,
-      bounces: false,
-      allowsInlineMediaPlayback: true,
-      mediaPlaybackRequiresUserAction: true,
-      style: { backgroundColor: eraColors.bg },
-      containerStyle: { backgroundColor: eraColors.bg },
-      onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
-      onRenderProcessGone: handlers.onRenderProcessGone,
-    }),
-    [handlers],
-  );
+  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  const dom = useMemo(() => sharedUiDomProps(handlers), [handlers]);
   const domReadyRef = useRef(domReady);
   domReadyRef.current = domReady;
   const onReadyReal = useMemo(
@@ -242,6 +232,7 @@ export function SharedUiHost({
           dom={dom}
           cacheUri={source.cache?.scriptUri}
           cacheJsonUri={source.cache?.jsonUri}
+          artMapUri={source.cache?.artMapUri}
           inbox={inbox}
           bridge={handlers.bridge}
           bridgeHello={handlers.bridgeHello}

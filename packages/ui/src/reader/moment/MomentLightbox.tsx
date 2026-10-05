@@ -102,6 +102,9 @@ export function MomentLightbox({
         onClose();
       }}
     >
+      <div role="status" aria-live="polite" className="sr-only">
+        {`Photo ${index + 1} of ${count}${img.caption ? `: ${img.caption}` : ''}`}
+      </div>
       <div className="flex shrink-0 items-center justify-between px-4 py-3 text-white">
         <span className="text-xs text-white/60">{count > 1 ? `${index + 1} / ${count}` : ''}</span>
         <button

@@ -56,6 +56,7 @@ vi.mock('../lib/use-content-adoption', () => {
   };
   return { useContentAdoption: () => adoption };
 });
+vi.mock('../lib/use-keyboard-inset', () => ({ useKeyboardInset: () => 0 }));
 vi.mock('../lib/speed-test-runtime', () => ({
   speedTest: { isOn: () => false, onChange: () => () => {} },
 }));
