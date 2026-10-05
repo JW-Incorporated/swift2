@@ -79,7 +79,7 @@ export interface FetchResponseLike {
 
 export type FetchLike = (
   url: string,
-  init?: { headers?: Record<string, string> },
+  init?: { headers?: Record<string, string>; signal?: AbortSignal },
 ) => Promise<FetchResponseLike>;
 
 export interface LoadBundleOptions {
@@ -87,6 +87,8 @@ export interface LoadBundleOptions {
   baseUrl: string;
   /** Injectable fetch implementation. Defaults to `globalThis.fetch`. */
   fetch?: FetchLike;
+  /** Per-request network timeout in ms (default 30 000). A stalled request rejects as a transport failure instead of hanging forever. */
+  requestTimeoutMs?: number;
   /** Injectable storage adapter. Defaults to an in-memory adapter (durable for this process only). Pass a real adapter (e.g. `expo-file-system`-backed on mobile) to persist a last-good bundle across app restarts. */
   storage?: StorageAdapter;
   /** Schema version this loader build supports. Defaults to `SUPPORTED_SCHEMA_VERSION`; override only in tests. */
@@ -229,17 +231,58 @@ async function fetchLastGoodBundle(
   }
 }
 
+const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;
+
 /** Calls `fetchImpl`, converting a network-level throw (offline, DNS, timeout) into a `TransportError` so callers can distinguish it from a data problem in an otherwise-successful response. */
 async function transportFetch(
   fetchImpl: FetchLike,
   url: string,
   init?: { headers?: Record<string, string> },
+  timeoutMs: number = DEFAULT_REQUEST_TIMEOUT_MS,
 ): Promise<FetchResponseLike> {
-  try {
-    return await fetchImpl(url, init);
-  } catch (err) {
+  // setTimeout + AbortController, not AbortSignal.timeout (not guaranteed on Hermes). The race
+  // rejects even if the fetch implementation ignores the signal. The timer stays armed through
+  // the body read (res.text()) and is cleared only once the body is fully read.
+  const controller = typeof AbortController === 'function' ? new AbortController() : undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timedOut = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      controller?.abort();
+      reject(new Error(`Request timed out after ${timeoutMs}ms`));
+    }, timeoutMs);
+  });
+  timedOut.catch(() => {});
+  const fail = (err: unknown): never => {
+    clearTimeout(timer);
     throw new TransportError(`Network request to ${url} failed`, err);
+  };
+  let res: FetchResponseLike;
+  try {
+    res = await Promise.race([
+      fetchImpl(url, controller ? { ...init, signal: controller.signal } : init),
+      timedOut,
+    ]);
+  } catch (err) {
+    return fail(err);
   }
+  if (!res.ok) {
+    clearTimeout(timer);
+    return res;
+  }
+  return {
+    ok: res.ok,
+    status: res.status,
+    headers: res.headers,
+    text: async () => {
+      try {
+        const body = await Promise.race([res.text(), timedOut]);
+        clearTimeout(timer);
+        return body;
+      } catch (err) {
+        return fail(err);
+      }
+    },
+  };
 }
 
 /** Reads and JSON-parses a response body. A malformed body is a DATA problem (the server was reached, it just returned garbage) — never converted to `TransportError`, so it is never masked by the stale-while-revalidate fallback. */
@@ -331,6 +374,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const storage = options.storage ?? new MemoryStorageAdapter();
   const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
   const dropUnknown = options.unknownEnumPolicy === 'drop';
+  const requestTimeoutMs = options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
 
   if (!fetchImpl) {
     throw new BundleLoadError(
@@ -356,7 +400,12 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   let bundleVersion: string;
   const endPointer = beginStage('pointer');
   try {
-    const pointerRes = await transportFetch(fetchImpl, joinUrl(baseUrl, 'current.json'));
+    const pointerRes = await transportFetch(
+      fetchImpl,
+      joinUrl(baseUrl, 'current.json'),
+      undefined,
+      requestTimeoutMs,
+    );
     if (!pointerRes.ok) {
       throw new TransportError(`Fetching current.json failed with HTTP ${pointerRes.status}`);
     }
@@ -374,8 +423,10 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
   // Key name `etag:` and source value 'cache-etag' are kept deliberately: existing
   // installs already hold this key, and renaming the source would break callers.
-  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
-  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
+  // The fingerprint is part of both keys so a build with different schemas never
+  // sees files an older build's zod parse may have stripped (#4800).
+  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
+  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
   const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
 
   let manifest: Manifest;
@@ -411,7 +462,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   const endManifest = beginStage('manifest');
   try {
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl, undefined, requestTimeoutMs);
 
     if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
@@ -455,6 +506,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       const fileRes = await transportFetch(
         fetchImpl,
         joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
+        undefined,
+        requestTimeoutMs,
       );
       if (!fileRes.ok) {
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
@@ -540,8 +593,19 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   await storeSet(storage, manifestCacheKey, manifestJson);
   await storeSet(storage, filesCacheKey, filesJson);
   await storeSet(storage, keyFor(baseUrl, 'last-good'), lastGoodJson(manifestJson, filesJson));
+  const previousFp = await storeGet(storage, schemaFpKey);
   await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
   await storeSet(storage, completeKey, '1');
+  if (previousFp && previousFp !== SCHEMA_FINGERPRINT) {
+    // The previous build's version-keyed entries (several MB) can never be read again.
+    for (const stale of [`etag:${bundleVersion}:${previousFp}`, `files:${bundleVersion}:${previousFp}`]) {
+      try {
+        await storage.removeItem?.(keyFor(baseUrl, stale));
+      } catch {
+        // best effort: leftover bytes are harmless
+      }
+    }
+  }
   endDiskWrite();
 
   return {

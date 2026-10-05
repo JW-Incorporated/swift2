@@ -86,7 +86,7 @@ describe('warm path', () => {
       // fresh storage adapter holding the same data, so each pass exercises the fingerprint path from scratch
       const copy = new MemoryStorageAdapter();
       for (const k of ['etag', 'manifest', 'files', 'schemafp']) {
-        const full = key(k === 'schemafp' ? `schemafp:${v}` : `${k}:${v}`);
+        const full = key(k === 'schemafp' ? `schemafp:${v}` : k === 'manifest' ? `manifest:${v}` : `${k}:${v}:${SCHEMA_FINGERPRINT}`);
         copy.setItem(full, storage.getItem(full) ?? '');
       }
       const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage: copy });
@@ -100,11 +100,27 @@ describe('warm path', () => {
   it('a cached file that no longer validates still falls through to the network when the fingerprint mismatches', async () => {
     await loadBundle({ baseUrl, fetch: makeFetch(), storage });
     storage.setItem(key(`schemafp:${v}`), 'schema-fp-OLD');
-    const files = JSON.parse(storage.getItem(key(`files:${v}`))!);
+    const files = JSON.parse(storage.getItem(key(`files:${v}:${SCHEMA_FINGERPRINT}`))!);
     files[Object.keys(files)[0]!] = { nonsense: true };
-    storage.setItem(key(`files:${v}`), JSON.stringify(files));
+    storage.setItem(key(`files:${v}:${SCHEMA_FINGERPRINT}`), JSON.stringify(files));
     const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage });
     expect(warm.source).toBe('network');
+  });
+
+  it('files stripped by an older build (cache keys under another fingerprint) are refetched, not accepted (#4800)', async () => {
+    await loadBundle({ baseUrl, fetch: makeFetch(), storage });
+    const old = new MemoryStorageAdapter();
+    const files = JSON.parse(storage.getItem(key(`files:${v}:${SCHEMA_FINGERPRINT}`))!);
+    delete files.eras[0].name;
+    old.setItem(key(`manifest:${v}`), storage.getItem(key(`manifest:${v}`))!);
+    old.setItem(key(`schemafp:${v}`), 'schema-fp-OLD');
+    old.setItem(key(`etag:${v}:schema-fp-OLD`), '1');
+    old.setItem(key(`files:${v}:schema-fp-OLD`), JSON.stringify(files));
+    const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage: old });
+    expect(warm.source).toBe('network');
+    expect((warm.files.eras as unknown[])[0]).toHaveProperty('name');
+    expect(old.getItem(key(`files:${v}:schema-fp-OLD`))).toBeNull();
+    expect(old.getItem(key(`etag:${v}:schema-fp-OLD`))).toBeNull();
   });
 });
 
@@ -130,12 +146,12 @@ describe('cold path', () => {
     const filesStringifies = stringify.mock.calls.filter((c) => c[0] === result.files);
     expect(filesStringifies).toHaveLength(1);
     expect(writes.map(([k]) => k.replace(`@swift2/content:v1:${baseUrl}:`, ''))).toEqual([
-      `etag:${v}`,
+      `etag:${v}:${SCHEMA_FINGERPRINT}`,
       `manifest:${v}`,
-      `files:${v}`,
+      `files:${v}:${SCHEMA_FINGERPRINT}`,
       'last-good',
       `schemafp:${v}`,
-      `etag:${v}`,
+      `etag:${v}:${SCHEMA_FINGERPRINT}`,
     ]);
     const lastGood = writes.find(([k]) => k.endsWith(':last-good'))![1];
     expect(lastGood).toBe(JSON.stringify({ manifest: result.manifest, files: result.files }));
