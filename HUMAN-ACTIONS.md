@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #108 🔴 [BLOCKING] Let the ops-fixer push workflow-file fixes (~3 min)
+<!-- ha filed=2026-10-05 -->
+
+**Why:** The new ops-fixer pushes with SOCIAL_POSTER_PAT. GitHub refuses any push touching .github/workflows/** unless that token has Workflows: write, so workflow fixes escalate to you instead of landing.
+
+**Steps:**
+1. Open https://github.com/settings/personal-access-tokens and click the token named `swift2-social-poster`.
+2. Under "Repository permissions" set "Workflows" to "Read and write". Leave every other permission as it is.
+3. Click "Save" at the bottom (the token value does not change; do not touch the repo secret).
+
+**Worked if:** the ops-fixer's next fix that edits a file under .github/workflows/ pushes and opens its PR.
 
 ## #106 🟡 [DECIDE] #4707 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-05 -->

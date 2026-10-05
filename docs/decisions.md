@@ -8673,3 +8673,18 @@ Fable ruling 2026-10-05 07:40 (revises its 2026-10-04 16:30 ruling in part).
 **Decision.** In-launch failures (ready-timeout, dom-error, webview-terminated/render-gone, protocol: everything the attempt monitor's `onStrike` sees) send this launch to Recovery and record `state: 'failed'` plus `lastReason` via `recordLaunchFailure`. `strikes`, `fallbackLaunchesRemaining` and `fallbackCycles` are untouched, so the next cold launch always attempts DOM; an in-launch failure never owes a fallback launch and never quarantines. Cross-launch deaths (`decideMount`: attempting and not backgrounded, abandoned-repeated) are unchanged: 2 consecutive deaths without ready owe a fallback launch, 2 cycles quarantine. `READY_TIMEOUT_MS` 10 s to 20 s (one constant, no first-launch special case). Retry counter semantics unchanged. No schema `v` bump (old records still parse). `pending-expired` removed from `NativeReason` and the `slow` RecoveryScreen variant deleted (dead). Every in-launch failure is reported when `watchdogReports` is on (previously only fallback/quarantined).
 
 **Why.** A slow-but-working first launch hit the 10 s timeout twice, which owed a fallback launch and then quarantined the build: a healthy build became permanently Recovery until the next OTA.
+
+## 2026-10-05 — ops-fixer routine: a bot may edit workflows and scripts and land its own fix (founder decision A)
+
+Joey, 2026-10-05 15:50 PDT, in chat: "A. But minimal guard rails. I want it to fix everything without needing me."
+
+**Decision.** Option A: a dedicated `ops-fixer` routine (`.github/workflows/routine-ops-fix.yml`, charter `docs/agents/ops-fixer.md`) fixes any bot or automation problem Marjorie routes to it, including `.github/workflows/**`, `scripts/**`, configs, prompts and app code. Its PR must pass CI and then auto-merges. Exactly four guard rails, nothing more:
+
+1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2) and stop. (May reference secret NAMES in workflow YAML.)
+2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
+3. Never run the social live-send paths (`scripts/social/post-queue.mjs`, `delete-media.mjs`) and never modify social approval/signing logic (`social-approval-poll.yml` HMAC/stamp code, `scripts/automerge-social-approval-gate.mjs`) or write "approval" keys into `social/queue/**`. It MAY fix other social/Tree code.
+4. Merge only via `gh pr merge --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
+
+Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founder addendum, 15:51 PDT: a bot that cannot fix something posts a copy-paste prompt and where to paste it, not a problem description). `scripts/marjorie/ops-fix-guard.mjs` enforces rails 1-3 on the diff before merge.
+
+**Supersedes in part** the 2026-08-11 merge-delegation proposal's "workflows/CI: human merge" line, for this routine only, by the founder's explicit choice. Pushing under `.github/workflows/**` additionally needs the "Workflows: Read and write" permission on `SOCIAL_POSTER_PAT` (HUMAN-ACTIONS #108).

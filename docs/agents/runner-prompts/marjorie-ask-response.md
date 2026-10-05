@@ -120,3 +120,7 @@ MUST include this exact line:
     Tier-2: Marjorie — ask response
 
 If this run produces no PR/issue at all, there is nothing to tag.
+
+## Routing to the ops-fixer (added 2026-10-05, founder decision A)
+
+For a `routine-failure` issue, or any `desk:ops` / `desk:build` issue whose fix touches `.github/**`, `scripts/**`, configs or prompts (or that Austin cannot take): add the label `desk:ops-fix` (`gh issue edit <N> --repo "$GITHUB_REPOSITORY" --add-label desk:ops-fix`) and say so in the Disposition comment (REROUTE). You cannot dispatch a workflow from this job, so do not try: the hourly `routine-marjorie-ops` sweep sees the label and dispatches `routine-ops-fix.yml` for it itself. Never route an issue that needs a founder's own hands (a secret value, a login) — that is a human action.

@@ -47,6 +47,10 @@ export const LABELS = [
     description,
   ]),
 
+  ['desk:ops-fix', '5319E7', 'Routed to the ops-fixer routine (docs/agents/ops-fixer.md) — workflows, scripts, configs, prompts'],
+  ['ops-fix:dispatched', 'C5DEF5', 'The ops-fixer has been dispatched for this issue — the sweep will not dispatch it again'],
+  ['ops-fix:stuck', 'D93F0B', 'The ops-fixer failed twice or hit a rail — a paste-ready prompt is on the issue'],
+
   // Splits `needs-human-review`, which currently means two opposite things
   // (docs/decisions.md 2026-08-11). Austin applies it when Codex DISAGREED and
   // the disagreement stands; Content Shift applies it when Codex was merely
