@@ -79,7 +79,7 @@ export interface FetchResponseLike {
 
 export type FetchLike = (
   url: string,
-  init?: { headers?: Record<string, string> },
+  init?: { headers?: Record<string, string>; signal?: AbortSignal },
 ) => Promise<FetchResponseLike>;
 
 export interface LoadBundleOptions {
@@ -87,6 +87,8 @@ export interface LoadBundleOptions {
   baseUrl: string;
   /** Injectable fetch implementation. Defaults to `globalThis.fetch`. */
   fetch?: FetchLike;
+  /** Per-request network timeout in ms (default 30 000). A stalled request rejects as a transport failure instead of hanging forever. */
+  requestTimeoutMs?: number;
   /** Injectable storage adapter. Defaults to an in-memory adapter (durable for this process only). Pass a real adapter (e.g. `expo-file-system`-backed on mobile) to persist a last-good bundle across app restarts. */
   storage?: StorageAdapter;
   /** Schema version this loader build supports. Defaults to `SUPPORTED_SCHEMA_VERSION`; override only in tests. */
@@ -229,16 +231,34 @@ async function fetchLastGoodBundle(
   }
 }
 
+const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;
+
 /** Calls `fetchImpl`, converting a network-level throw (offline, DNS, timeout) into a `TransportError` so callers can distinguish it from a data problem in an otherwise-successful response. */
 async function transportFetch(
   fetchImpl: FetchLike,
   url: string,
   init?: { headers?: Record<string, string> },
+  timeoutMs: number = DEFAULT_REQUEST_TIMEOUT_MS,
 ): Promise<FetchResponseLike> {
+  // setTimeout + AbortController, not AbortSignal.timeout (not guaranteed on Hermes). The race
+  // rejects even if the fetch implementation ignores the signal.
+  const controller = typeof AbortController === 'function' ? new AbortController() : undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timedOut = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      controller?.abort();
+      reject(new Error(`Request timed out after ${timeoutMs}ms`));
+    }, timeoutMs);
+  });
   try {
-    return await fetchImpl(url, init);
+    return await Promise.race([
+      fetchImpl(url, controller ? { ...init, signal: controller.signal } : init),
+      timedOut,
+    ]);
   } catch (err) {
     throw new TransportError(`Network request to ${url} failed`, err);
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -331,6 +351,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const storage = options.storage ?? new MemoryStorageAdapter();
   const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
   const dropUnknown = options.unknownEnumPolicy === 'drop';
+  const requestTimeoutMs = options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
 
   if (!fetchImpl) {
     throw new BundleLoadError(
@@ -356,7 +377,12 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   let bundleVersion: string;
   const endPointer = beginStage('pointer');
   try {
-    const pointerRes = await transportFetch(fetchImpl, joinUrl(baseUrl, 'current.json'));
+    const pointerRes = await transportFetch(
+      fetchImpl,
+      joinUrl(baseUrl, 'current.json'),
+      undefined,
+      requestTimeoutMs,
+    );
     if (!pointerRes.ok) {
       throw new TransportError(`Fetching current.json failed with HTTP ${pointerRes.status}`);
     }
@@ -413,7 +439,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   const endManifest = beginStage('manifest');
   try {
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl, undefined, requestTimeoutMs);
 
     if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
@@ -457,6 +483,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       const fileRes = await transportFetch(
         fetchImpl,
         joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
+        undefined,
+        requestTimeoutMs,
       );
       if (!fileRes.ok) {
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);

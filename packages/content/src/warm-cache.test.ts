@@ -118,7 +118,7 @@ describe('warm path', () => {
     old.setItem(key(`files:${v}:schema-fp-OLD`), JSON.stringify(files));
     const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage: old });
     expect(warm.source).toBe('network');
-    expect(warm.files.eras[0]).toHaveProperty('name');
+    expect((warm.files.eras as unknown[])[0]).toHaveProperty('name');
   });
 });
 
