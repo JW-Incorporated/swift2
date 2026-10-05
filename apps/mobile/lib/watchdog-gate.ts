@@ -191,9 +191,14 @@ export function useDomMount(inputs: LaunchInputs | null): {
       const bound = new Promise<null>((resolve) => {
         timer = scheduler.setTimeout(() => resolve(null), ATTEMPT_WRITE_MAX_MS);
       });
-      const attempt = await Promise.race([startAttempt(decision, Date.now(), write), bound]);
+      const started = startAttempt(decision, Date.now(), write);
+      const attempt = await Promise.race([started, bound]);
       scheduler.clearTimeout(timer);
       if (!attempt) {
+        // Fence: if the abandoned write lands late as `attempting`, roll it back through the same ordered writer so the next launch sees no false strike.
+        void started.then((late) => {
+          if (late) void write(decision.record);
+        });
         apply('native', 'attempt-failed');
         return;
       }
