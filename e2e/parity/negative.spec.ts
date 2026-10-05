@@ -66,7 +66,7 @@ test.describe('side-a viewport baseline gate (#5046: the rail is hidden, nothing
   test('removing a TopBar icon fails the rail-hidden viewport capture', async ({ page }, testInfo) => {
     await openRoute(page, 'a', route);
     const clean = await captureViewportNoRail(page);
-    await page.locator('[data-ll-topbar] :is(button, a) svg').evaluateAll((els) => els.forEach((el) => el.remove()));
+    await page.locator('[data-ll-topbar] :is(button, a)').evaluateAll((els) => els.forEach((el) => el.remove()));
     const mutated = await captureViewportNoRail(page);
     expect(await pixelMatches(testInfo, 'neg-viewport-icon', clean, mutated)).toBe(false);
   });
