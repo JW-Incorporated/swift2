@@ -8628,6 +8628,16 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 - Kill switch: JSON `sharedUi: false`, effective on the next launch.
 - Wrong-signal threshold: any `quarantined` or `ready-timeout` `[watchdog]`/`[diag]` report from testers/devices that send reports (absolute, not a percentage).
 
+## 2026-10-04 — One UI PR3: the legacy native UI is deleted (draft, gated on the S8 drill)
+
+**Decision (Joey, CEO, 2026-10-04):** users never see the legacy native UI, so it is deleted rather than kept as a fallback. Supersedes the "legacy native UI to be deleted later" interim above. **Do not merge before the S8 device drill passes** (force DOM failure + airplane mode, Android and iPhone).
+
+- Deleted: `NativeScreenRouter`, `SiteShell`, `VaultNavigator`, `BottomTabBar`, every native Era/Thread/Song/Track/Community/Merch/Clown/Search/Legal/Settings/Onboarding screen with its helpers, data layers (`vault`, `*-data`, `clown-client`, `mood-client`), hooks (`use-native-screen-state`, `settings-entry`, `visible-screen`, `recovery-surface`) and tests.
+- Kept: UpdateRequired, Recovery, Inbox overlay (About/Diagnostics via the hot corner), tap/deep-link intake, `registerDevice`, the watchdog, the JSON route keys in `config/mobile/app-config.json` (old OTAs parse them) and `react-native-webview` in `package.json` (removing it changes the native fingerprint and forces a store build).
+- `flag-off` now shows the Recovery screen. The kill switch for the legacy UI no longer exists; the emergency lever is an OTA rollback (`mobile-rollback.yml`).
+- `lib/routes.ts` shrinks to `sharedUi`; Diagnostics override remnants (`clearOverride`, the `override` want-source) are removed from the watchdog.
+- Native fingerprint is unchanged: no `package.json`, `app.json` or plugin edits.
+
 ## 2026-10-04 — Phones are portrait-only; feedback stays in the public repo for now
 
 Joey, 2026-10-04 21:06 PDT; Fable concurred.
