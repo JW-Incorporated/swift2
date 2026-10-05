@@ -374,8 +374,10 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
   // Key name `etag:` and source value 'cache-etag' are kept deliberately: existing
   // installs already hold this key, and renaming the source would break callers.
-  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
-  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
+  // The fingerprint is part of both keys so a build with different schemas never
+  // sees files an older build's zod parse may have stripped (#4800).
+  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
+  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
   const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
 
   let manifest: Manifest;
