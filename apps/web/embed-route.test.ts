@@ -56,7 +56,7 @@ describe('/embed/youtube/<id> framing exemption (#4954)', () => {
     expect(ok.headers.get('Content-Type')).toContain('text/html');
     const html = await ok.text();
     expect(html).toContain(
-      `https://www.youtube-nocookie.com/embed/${ID}?autoplay=1&amp;rel=0&amp;enablejsapi=1`,
+      `https://www.youtube-nocookie.com/embed/${ID}?autoplay=1&amp;playsinline=1&amp;rel=0&amp;enablejsapi=1`,
     );
     expect(html).toContain('referrerpolicy="strict-origin-when-cross-origin"');
     expect(html.match(/<script/g)).toHaveLength(1);

@@ -142,3 +142,14 @@ describe('notifications.registration', () => {
     expect(await h['notifications.registration']({}, ctx)).toEqual({ ok: true, value: { registered: false } });
   });
 });
+
+describe('notifications.optOutPending', () => {
+  it('answers a strict boolean, and a missing dep or a failure answers the fixed failure', async () => {
+    const h = createHandlers(deps({ optOutPending: vi.fn().mockResolvedValue(true) }) as never);
+    expect(await h['notifications.optOutPending']({}, ctx)).toEqual({ ok: true, value: { pending: true } });
+    const odd = createHandlers(deps({ optOutPending: vi.fn().mockResolvedValue('yes') }) as never);
+    expect(await odd['notifications.optOutPending']({}, ctx)).toEqual({ ok: true, value: { pending: false } });
+    const bare = createHandlers(deps({}) as never);
+    expect(await bare['notifications.optOutPending']({}, ctx)).toEqual(FAILED);
+  });
+});

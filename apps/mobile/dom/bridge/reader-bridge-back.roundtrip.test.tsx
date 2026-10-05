@@ -14,7 +14,7 @@ vi.mock('@swift2/ui/reader/store/index', () => ({
   useAppActions: () => ({ closeItem: vi.fn() }),
 }));
 vi.mock('./reader-controls', () => ({
-  useReaderControls: () => ({ registerBack: (fn: typeof h.back) => (h.back = fn), slottedModes: new Set(), lastSlotted: { current: null }, setApplier: () => {} }),
+  useReaderControls: () => ({ registerBack: (fn: typeof h.back) => (h.back = fn), slottedModes: new Set(), lastSlotted: { current: null }, setApplier: () => {}, setRestorer: () => {} }),
 }));
 
 import { act, cleanup, render } from '@testing-library/react';

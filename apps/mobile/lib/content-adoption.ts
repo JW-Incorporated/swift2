@@ -8,7 +8,10 @@
 // or its state is still unknown (no `route` report yet this epoch; away from the front door, an overlay open, scrolled): every
 // non-stale adoption waits behind a cancellable IDLE_MS idle hold that any engaged/busy signal cancels, unless the app was
 // backgrounded (AppState 'background', wall clock, guarded) for STALE_BACKGROUND_MS or more, when the context is stale anyway, never on navigate, and never
-// sends content over the bridge. A planned reload is announced to the watchdog first (`prepare`).
+// sends content over the bridge. The reader's last reported snapshot (mode/era/lens/open item/scroll, #5114) is kept per epoch and,
+// once the next epoch is ready and has navigated, replayed to it as a `restore` event (an adoption re-key and a crash re-key alike). A planned reload is announced to the watchdog first (`prepare`).
+import type { ReaderSnap } from '@swift2/ui';
+
 export interface ContentAdoptionDeps {
   /** True when a mounted version is known and differs from `version`. */
   differs: (version: string) => boolean;
@@ -33,6 +36,7 @@ const MAX_PLAUSIBLE_BACKGROUND_MS = 7 * 24 * 60 * 60 * 1000;
 const defaultNow = (): number => Date.now();
 
 export type DomNavigator = (path: string) => Promise<boolean>;
+export type SnapRestorer = (snap: ReaderSnap) => void;
 
 export function createContentAdoption(deps: ContentAdoptionDeps) {
   let pending: string | null = null;
@@ -46,6 +50,14 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   let idleTimer: ReturnType<typeof setTimeout> | null = null;
   let backgroundedAt: number | null = null;
   let restore: string | null = null;
+  let snap: ReaderSnap | null = null;
+  let restoreSnap: ReaderSnap | null = null;
+  let restorer: SnapRestorer | null = null;
+  // Cause of the next re-key: only adoption restores; a crash/reload re-key (epochStarted without it) sheds state and drops any pending restore.
+  let adoptionRekey = false;
+  // A navigation other than the restore reached this epoch (tap, deep link, native nav, DOM busy/engaged before the replay): it outranks the restore.
+  let userNav = false;
+  let restoring = false;
   let navOk = false;
   let readerOk = false;
   let navigator: DomNavigator | null = null;
@@ -70,12 +82,16 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
         adopting = false;
         if (!ok || pending === null) return deps.onSignal?.('content-adopt-prepare-failed');
         // Commit only after the planned reload was persisted: from here the re-key is certain.
-        restore = restore ?? route;
+        if (restore === null) {
+          restore = route;
+          restoreSnap = snap;
+        }
         deps.setMounted(pending);
         pending = null;
         navOk = false;
         readerOk = false;
         deps.onSignal?.('content-adopt', restore ?? '');
+        adoptionRekey = true;
         deps.bump();
       });
   };
@@ -108,11 +124,25 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     if (!navOk || !readerOk || !navigator) return;
     if (restore !== null) {
       const path = restore;
+      const toRestore = restoreSnap;
+      const send = restorer;
       restore = null;
+      restoreSnap = null;
       const failed = () => deps.onSignal?.('content-adopt-nav-failed', path.slice(0, 120));
       const gen = generation;
       const failedNow = () => gen === generation && failed();
-      void navigator(path).then((ok) => ok || failedNow(), failedNow);
+      const nav = navigator;
+      const replay = () => {
+        restoring = false;
+        if (gen === generation && navigator === nav && !userNav && toRestore !== null) send?.(toRestore);
+      };
+      if (userNav) deps.onSignal?.('content-adopt-restore-skipped');
+      else if (toRestore !== null && send && path === '/') send(toRestore);
+      else {
+        restoring = true;
+        // The snapshot goes out once the path navigation settled (either way), and only to the epoch that navigated.
+        void nav(path).then((ok) => (ok || failedNow(), replay()), () => (failedNow(), replay()));
+      }
     }
     if (waitingForReady && pending !== null && !adopting) {
       if (busy) waitingForReady = false;
@@ -132,8 +162,10 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       else if (pending !== null && version === deps.getMounted()) pending = null;
     },
     /** The DOM's latest reported route, busy and engaged flags (queued/coalesced `route` event). */
-    route(path: string, isBusy = false, isEngaged = false) {
+    route(path: string, isBusy = false, isEngaged = false, latest: ReaderSnap | null = null) {
       route = path;
+      snap = latest;
+      if (restoreSnap !== null && (isBusy || (isEngaged && !restoring))) userNav = true;
       busy = isBusy;
       engagedFlag = isEngaged;
       routeSeen = true;
@@ -164,16 +196,29 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     },
     /** A new bridge epoch began (mount, crash re-key, adoption re-key): not ready until navReady AND the reader's first paint. */
     epochStarted() {
+      if (!adoptionRekey) {
+        restore = null;
+        restoreSnap = null;
+      }
+      adoptionRekey = false;
+      userNav = false;
+      restoring = false;
+      snap = null;
       routeSeen = false;
       navOk = false;
       readerOk = false;
       navigator = null;
     },
     /** The epoch's DOM `navigate` subscriber is up (implies the handshake is complete); the reader may not be mounted yet. */
-    navReady(navigate: DomNavigator) {
+    navReady(navigate: DomNavigator, restoreSnapshot?: SnapRestorer) {
       navOk = true;
       navigator = navigate;
+      restorer = restoreSnapshot ?? null;
       settle();
+    },
+    /** A navigation other than the restore reached the current epoch (notification tap, deep link, native screen): a pending restore is abandoned. */
+    userNavigated() {
+      userNav = true;
     },
     /** The reader reported ready (first paint): its navigate applier exists now. */
     readerReady() {

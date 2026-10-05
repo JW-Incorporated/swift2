@@ -25,7 +25,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { AppState, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -49,6 +49,7 @@ import { runAfterFirstPaint } from './lib/launch-defer';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
+import { flushPendingOptOut } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
@@ -161,7 +162,12 @@ export default function App() {
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
-    return cancelRegistration;
+    // A turn-off whose server write failed offline is finished the next time the app returns to the foreground.
+    const sub = AppState.addEventListener('change', (s) => s === 'active' && void flushPendingOptOut());
+    return () => {
+      cancelRegistration();
+      sub.remove();
+    };
   }, []);
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
