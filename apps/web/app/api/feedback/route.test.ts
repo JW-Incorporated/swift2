@@ -87,6 +87,29 @@ describe('bodyFrom', () => {
     expect(body).toContain('`web: #9`');
     expect(body).toContain('`/@evil`');
   });
+
+  it('keeps hostile id/name/view fields inside single-line code spans (no links, images, HTML or breakout)', () => {
+    const evil = 'x` ![t](http://tracker/p.png) [a](javascript:alert(1)) <img src=x> @bob\n- injected';
+    const body = bodyFrom('hi', {
+      eraName: evil,
+      eraId: evil,
+      mode: evil,
+      view: evil,
+      openMomentId: evil,
+      openTrackKey: evil,
+      trackGuideEraId: evil,
+      theoryGuideEraId: evil,
+      lensId: evil,
+    });
+    const where = body.split('**Where (in-app location where feedback was given):**')[1]!.split('**Environment:**')[0]!;
+    const lines = where.split('\n').filter((l) => l.startsWith('- '));
+    expect(lines).toHaveLength(7);
+    expect(where).not.toContain('\n- injected');
+    for (const line of lines) {
+      const stripped = line.replace(/`[^`]*`/g, '');
+      expect(stripped).not.toMatch(/[[\]<>!@]/);
+    }
+  });
 });
 
 describe('trustedClientIp (#1973 spoofable-XFF fix)', () => {

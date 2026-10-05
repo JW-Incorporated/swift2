@@ -97,6 +97,13 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
+/** Strict `{ entries: Record<string,string> }`; key length and blob size are the native handler's `invalid`. */
+function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
+  const { entries } = p;
+  if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
+  return { entries: { ...(entries as Record<string, string>) } };
+}
+
 /** Per-command payload validation; returns the cleaned payload or null. */
 export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue | null {
   if (!isRecord(p)) return null;
@@ -121,6 +128,10 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return typeof p.text === 'string' && p.text.length > 0 && p.text.length <= MAX_SHARE_FIELD && Object.keys(p).length === 1 ? { text: p.text } : null;
     case 'haptic':
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
+    case 'storage.load':
+      return Object.keys(p).length === 0 ? {} : null;
+    case 'storage.write':
+      return validStorageWrite(p);
     case 'notifications.updatePrefs':
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':
