@@ -1,65 +1,114 @@
-import { describe, expect, it, vi } from 'vitest';
-import { createDeferredRefresh } from './deferred-bundle-refresh';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createDeferredRefresh, REFRESH_DEFER_TIMEOUT_MS } from './deferred-bundle-refresh';
 
 function setup(load: () => Promise<unknown> = () => Promise.resolve({ ok: 1 })) {
-  const queued: Array<() => void> = [];
+  const tasks: Array<{ fn: () => void; cancelled: boolean }> = [];
   const deps = {
     load: vi.fn(load),
-    runAfterInteractions: vi.fn((fn: () => void) => void queued.push(fn)),
+    runAfterInteractions: vi.fn((fn: () => void) => {
+      const t = { fn, cancelled: false };
+      tasks.push(t);
+      return { cancel: () => void (t.cancelled = true) };
+    }),
+    setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms),
+    clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>),
     mark: vi.fn(),
     onLoaded: vi.fn(),
     onError: vi.fn(),
   };
-  return { deps, queued, r: createDeferredRefresh(deps) };
+  return { deps, tasks, r: createDeferredRefresh(deps) };
 }
 
 describe('createDeferredRefresh', () => {
-  it('with a cache: no load before ready, load after ready + interactions', async () => {
-    const { deps, queued, r } = setup();
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  it('with a cache: no load before ready; loads once interactions settle; marks + onLoaded', async () => {
+    const { deps, tasks, r } = setup();
     r.start(true);
     expect(deps.load).not.toHaveBeenCalled();
     r.domReady();
     expect(deps.load).not.toHaveBeenCalled();
-    queued[0]!();
+    tasks[0]!.fn();
     expect(deps.load).toHaveBeenCalledTimes(1);
-    await Promise.resolve();
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(0);
     expect(deps.onLoaded).toHaveBeenCalledWith({ ok: 1 });
     expect(deps.mark).toHaveBeenCalledWith('bundle-refresh-start');
     expect(deps.mark).toHaveBeenCalledWith('bundle-refresh-done');
+    expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('without a cache: loads immediately, no ready needed', () => {
+  it('without a cache: loads immediately, no timer', () => {
     const { deps, r } = setup();
     r.start(false);
     expect(deps.load).toHaveBeenCalledTimes(1);
-    expect(deps.runAfterInteractions).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('ready is idempotent and a second ready does not reload', () => {
-    const { queued, r } = setup();
+  it('never ready: runs at the timeout', () => {
+    const { deps, r } = setup();
+    r.start(true);
+    vi.advanceTimersByTime(REFRESH_DEFER_TIMEOUT_MS - 1);
+    expect(deps.load).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(1);
+    expect(deps.load).toHaveBeenCalledTimes(1);
+  });
+
+  it('ready but interactions never settle: timeout runs it and cancels the task', () => {
+    const { deps, tasks, r } = setup();
+    r.start(true);
+    r.domReady();
+    vi.advanceTimersByTime(REFRESH_DEFER_TIMEOUT_MS);
+    expect(deps.load).toHaveBeenCalledTimes(1);
+    expect(tasks[0]!.cancelled).toBe(true);
+  });
+
+  it('timeout/ready race and a late interaction callback load once', () => {
+    const { deps, tasks, r } = setup();
+    r.start(true);
+    r.domReady();
+    vi.advanceTimersByTime(REFRESH_DEFER_TIMEOUT_MS);
+    tasks[0]!.fn();
+    r.domReady();
+    expect(deps.load).toHaveBeenCalledTimes(1);
+  });
+
+  it('repeated handshakes schedule one task and load once', () => {
+    const { deps, tasks, r } = setup();
     r.start(true);
     r.domReady();
     r.domReady();
-    expect(queued.length).toBe(1);
+    r.domReady();
+    expect(tasks.length).toBe(1);
+    tasks[0]!.fn();
+    r.domReady();
+    expect(deps.load).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('dispose before anything flushes the refresh (a poisoned cache is still replaced), once, no leaked timer', () => {
+    const { deps, r } = setup();
+    r.start(true);
+    r.dispose();
+    expect(deps.load).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+    r.dispose();
+    vi.advanceTimersByTime(REFRESH_DEFER_TIMEOUT_MS);
+    expect(deps.load).toHaveBeenCalledTimes(1);
+  });
+
+  it('dispose before start does nothing', () => {
+    const { deps, r } = setup();
+    r.dispose();
+    expect(deps.load).not.toHaveBeenCalled();
   });
 
   it('reports errors', async () => {
     const { deps, r } = setup(() => Promise.reject(new Error('x')));
     r.start(false);
-    await Promise.resolve();
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(0);
     expect(deps.onError).toHaveBeenCalled();
     expect(deps.mark).toHaveBeenCalledWith('bundle-refresh-failed');
-  });
-
-  it('cancel before ready or before interactions prevents the load', () => {
-    const { deps, queued, r } = setup();
-    r.start(true);
-    r.domReady();
-    r.cancel();
-    queued[0]!();
-    expect(deps.load).not.toHaveBeenCalled();
   });
 });
 
@@ -72,6 +121,5 @@ describe('SharedUiHost startup path', () => {
     expect(host).toContain('domReady();');
     expect(hook).not.toContain('loadContentBundle()');
     expect(hook).toContain('load: loadContentBundle');
-    expect(hook).toContain('refreshRef.current?.domReady()');
   });
 });

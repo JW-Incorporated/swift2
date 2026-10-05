@@ -20,7 +20,9 @@ export function useDeferredBundleRefresh(
     if (cached) setSource({ cache: cached });
     const refresh = createDeferredRefresh({
       load: loadContentBundle,
-      runAfterInteractions: (fn) => void InteractionManager.runAfterInteractions(fn),
+      runAfterInteractions: (fn) => InteractionManager.runAfterInteractions(fn),
+      setTimeout: (fn, ms) => setTimeout(fn, ms),
+      clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>),
       mark: diagMarkOnce,
       onLoaded: (bundle) => {
         setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
@@ -33,7 +35,7 @@ export function useDeferredBundleRefresh(
     refreshRef.current = refresh;
     refresh.start(!!cached);
     return () => {
-      refresh.cancel();
+      refresh.dispose();
       if (refreshRef.current === refresh) refreshRef.current = null;
     };
   }, [testPage]);
