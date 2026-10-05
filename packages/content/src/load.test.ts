@@ -197,7 +197,7 @@ describe('loadBundle', () => {
     expect(result.source).toBe('network');
   });
 
-  it('a changed version downloads the manifest and every file (integrity checks: the sha256-mismatch test below)', async () => {
+  it('a new version whose files are all unchanged downloads only the pointer and manifest (#4508; reuse cases: load-incremental.test.ts)', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
     const requestLog: string[] = [];
@@ -208,7 +208,7 @@ describe('loadBundle', () => {
     });
     expect(result.source).toBe('network');
     expect(result.manifest.bundleVersion).toBe(V2);
-    expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
+    expect(requestLog.length).toBe(2);
   });
 
   it('never sends request headers (a non-safelisted header forces a CORS preflight from an opaque origin)', async () => {
@@ -249,7 +249,9 @@ describe('loadBundle', () => {
 
     // The server publishes a new version (so the cache does not short-circuit)
     // in which one file's body is corrupted relative to its own manifest entry.
-    const v2 = serveFiles(fixtureServed(), { version: V2 });
+    const changed = fixtureServed();
+    changed.tracks = { ...changed.tracks!, text: `${changed.tracks!.text} ` };
+    const v2 = serveFiles(changed, { version: V2 });
     const corruptFetch: FetchLike = async (url, init) => {
       if (url === `${baseUrl}/${V2}/${manifest.files.tracks!.path}`) {
         return {
