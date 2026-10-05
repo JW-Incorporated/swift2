@@ -6,9 +6,18 @@ import { expect, type Page } from '@playwright/test';
 // with a `clip` tagged by `show` (same machinery as routes-coverage.ts, kept local so the two files do not import each other).
 // The only third-party content is the mood card's YouTube poster, which the harness already answers with the grey placeholder.
 const CLIP = '[data-parity-clip]';
+// Scrolling lands the clip, but the viewport baseline also shows lazy images above and below it: load every image first, then
+// scroll again, so the viewport capture cannot depend on when those images painted.
+const loadAllImages = (page: Page): Promise<void> =>
+  page.evaluate(async () => {
+    const imgs = Array.from(document.images);
+    for (const img of imgs) if (img.loading === 'lazy') img.loading = 'eager';
+    await Promise.all(imgs.map((img) => img.decode().catch(() => undefined)));
+  });
 const show = async (page: Page, selector: string): Promise<void> => {
   const el = page.locator(selector).first();
   await expect(el).toBeVisible();
+  await loadAllImages(page);
   await el.scrollIntoViewIfNeeded();
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
 };
