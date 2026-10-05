@@ -8,16 +8,21 @@ import { expect, type Page } from '@playwright/test';
 // The src each side mounts is asserted separately (embeds.spec.ts): web embeds the provider directly, the app frames the
 // site's /embed/<provider>/... wrapper page on its canonical origin (the device error 153 fix, #4954 / #5025).
 
+/** An iframe src, compared as an exact origin plus a pattern for the path and query (no hostname regex). */
+export interface EmbedSrc {
+  readonly origin: string;
+  readonly path: RegExp;
+}
+
 export interface EmbedRoute extends AOnlyRoute {
   /** Expected iframe src per side. */
-  readonly src: Record<Side, RegExp>;
+  readonly src: Record<Side, EmbedSrc>;
 }
 
 const CLIP = '[data-parity-clip]';
 const DIALOG = '[role="dialog"]';
 const YT_ID = '[\\w-]{11}';
 const SPOTIFY_ID = '[A-Za-z0-9]{22}';
-const escapeOrigin = ERA_ART_ORIGIN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const FRAME_HOSTS = new Set(['www.youtube-nocookie.com', 'open.spotify.com']);
 const FRAME_DOC = '<!doctype html><html><body style="margin:0;background:#222"></body></html>';
@@ -68,9 +73,9 @@ const show = async (page: Page, selector: string): Promise<void> => {
     .toBe(true);
 };
 
-const YOUTUBE_SRC = (id: string): Record<Side, RegExp> => ({
-  a: new RegExp(`^https://www\\.youtube-nocookie\\.com/embed/${id}\\?autoplay=1&rel=0$`),
-  b: new RegExp(`^${escapeOrigin}/embed/youtube/${id}$`),
+const YOUTUBE_SRC = (id: string): Record<Side, EmbedSrc> => ({
+  a: { origin: 'https://www.youtube-nocookie.com', path: new RegExp(`^/embed/${id}\\?autoplay=1&rel=0$`) },
+  b: { origin: ERA_ART_ORIGIN, path: new RegExp(`^/embed/youtube/${id}$`) },
 });
 
 const MOOD_PICK = {
@@ -105,8 +110,8 @@ export const EMBED_ROUTES: readonly EmbedRoute[] = [
     sides: 'both',
     clip: CLIP,
     src: {
-      a: new RegExp(`^https://open\\.spotify\\.com/embed/album/${SPOTIFY_ID}\\?utm_source=generator&theme=0$`),
-      b: new RegExp(`^${escapeOrigin}/embed/spotify/album/${SPOTIFY_ID}$`),
+      a: { origin: 'https://open.spotify.com', path: new RegExp(`^/embed/album/${SPOTIFY_ID}\\?utm_source=generator&theme=0$`) },
+      b: { origin: ERA_ART_ORIGIN, path: new RegExp(`^/embed/spotify/album/${SPOTIFY_ID}$`) },
     },
     init: stubEmbedFrames,
     prepare: async (page) => {

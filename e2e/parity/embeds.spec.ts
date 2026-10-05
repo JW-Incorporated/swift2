@@ -11,7 +11,9 @@ for (const route of EMBED_ROUTES) {
       await openAOnlyRoute(page, route, side);
       const frames = page.locator('iframe');
       await expect(frames).toHaveCount(1);
-      expect(await frames.first().getAttribute('src')).toMatch(route.src[side]);
+      const src = new URL((await frames.first().getAttribute('src')) ?? '');
+      expect(src.origin).toBe(route.src[side].origin);
+      expect(src.pathname + src.search).toMatch(route.src[side].path);
     });
   }
 }
