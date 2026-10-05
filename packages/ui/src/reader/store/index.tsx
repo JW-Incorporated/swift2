@@ -277,38 +277,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
       THREADS.map((t) => t.id),
     );
     if (!target) return;
-    // Web only: the link has been consumed, so drop its keys from the address
-    // bar (state and unknown params kept) — otherwise closing the overlay
-    // leaves a stale ?item= that a refresh reopens. Inert in the app, where
-    // location.search is empty.
-    if (typeof window !== 'undefined' && window.location.search) {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        for (const key of ['item', 'song', 'guide', 'theories', 'lens', 'mode', 'era']) params.delete(key);
-        const rest = params.toString();
-        window.history.replaceState(
-          window.history.state,
-          '',
-          window.location.pathname + (rest ? `?${rest}` : '') + window.location.hash,
-        );
-      } catch {
-        // Address-bar cleanup is best-effort.
-      }
-    }
-    // A deep link is the visitor's FIRST state, not a navigation away from
-    // one — pushing a back-entry here would trap the first back gesture.
-    nav.suppressNavPushRef.current = true;
+    // Resolve to a concrete action first; only a link that actually opens
+    // something is consumed (stripped from the address bar).
+    let run: (() => void) | null = null;
     if (target.kind === 'item') {
       const contentItem = q.getContentItemByIdOrSlug(target.id);
       if (contentItem) {
-        // The moment overlay reads over the era stream.
         // Published links use the stable seed slug; the overlay store uses the
         // generated item id. Keep the original target for the video fallback.
-        overlays.openItem(contentItem.id);
+        run = () => overlays.openItem(contentItem.id);
       } else {
         // Not a moment id — resolve it as a video slug instead (#3312). A
-        // still-unresolved id falls through to the front door, same as a bad
-        // moment id always has.
+        // still-unresolved id falls through to the front door.
         const eraHint = new URLSearchParams(search).get('era');
         const videoEraId = resolveVideoDeepLink(
           target.id,
@@ -317,47 +297,69 @@ export function AppProvider({ children }: { children: ReactNode }) {
           (eraId, slug) => q.allVideoRecordsForEra(eraId as EraId).some((v) => v.slug === slug),
           (slug) => q.eras.find((e) => q.allVideoRecordsForEra(e.id).some((v) => v.slug === slug))?.id ?? null,
         );
-        if (videoEraId) {
-          // Mirrors the `openVideo` action (defined below) exactly: jump to
-          // the video's era, clear filters so its card can't be hidden, and
-          // queue the scroll-to-card anchor EraStream consumes on mount.
-          openVideo(videoEraId as EraId, target.id);
-        }
+        // Mirrors the `openVideo` action (defined below) exactly: jump to the
+        // video's era, clear filters, queue the scroll-to-card anchor.
+        if (videoEraId) run = () => openVideo(videoEraId as EraId, target.id);
       }
     } else if (target.kind === 'song') {
       // The song dossier stacks on top of its album's track guide, so open
-      // both — same state openSong sets. A stale key resolves to null; drop it
-      // and fall through to the front door rather than open an empty overlay.
+      // both — same state openSong sets. A stale key resolves to null.
       const resolved = resolveTrackKey(target.key);
       if (resolved) {
-        overlays.openTrackGuide(resolved.eraId);
-        overlays.openTrack(target.key);
+        run = () => {
+          overlays.openTrackGuide(resolved.eraId);
+          overlays.openTrack(target.key);
+        };
       }
     } else if (target.kind === 'guide') {
-      // Open the album track guide over the era stream. getEra round-trips a
-      // real id (it falls back to the newest era for a bad one); reject the
-      // fallback so a mangled ?guide= can't open the wrong album.
+      // getEra falls back to the newest era for a bad id; reject the fallback
+      // so a mangled ?guide= can't open the wrong album.
       const eraId = getEra(target.eraId).id;
-      if (eraId === target.eraId) {
-        overlays.openTrackGuide(eraId);
-      }
+      if (eraId === target.eraId) run = () => overlays.openTrackGuide(eraId);
     } else if (target.kind === 'theories') {
       const eraId = getEra(target.eraId).id;
-      if (eraId === target.eraId) {
-        overlays.openTheoryGuide(eraId);
-      }
+      if (eraId === target.eraId) run = () => overlays.openTheoryGuide(eraId);
     } else if (target.kind === 'lens') {
-      openThread(target.id as LensId);
+      run = () => openThread(target.id as LensId);
     } else if (target.kind === 'mode') {
       // Threads gallery / Mood / Clownbot / Community / Merch: land on the
-      // bare surface — every other piece of state is still at its
-      // fresh-load default this early in mount, so setting the mode alone
-      // is enough (#2105).
-      nav.setMode(target.mode);
-    } else {
-      nav.setEra(target.id as EraId);
+      // bare surface — setting the mode alone is enough this early (#2105).
+      run = () => nav.setMode(target.mode);
+    } else if (getEra(target.id).id === target.id) {
+      run = () => nav.setEra(target.id as EraId);
     }
+    if (!run) return;
+    // A deep link is the visitor's FIRST state, not a navigation away from
+    // one — pushing a back-entry here would trap the first back gesture.
+    nav.suppressNavPushRef.current = true;
+    run();
     nav.suppressNavPushRef.current = false;
+    // Web only: drop the consumed keys from the address bar so closing the
+    // overlay doesn't leave a stale ?item= that a refresh reopens. Deferred a
+    // tick so Next's app-router (whose effect installs its history patch after
+    // ours) is in place: Next's patch then syncs its canonical URL /
+    // useSearchParams. Our state is passed WITHOUT Next's __NA / internals-tree
+    // markers — carrying them takes Next's bypass branch and desyncs the
+    // router. Next re-adds them from the current entry. Inert in the app.
+    if (typeof window === 'undefined' || !window.location.search) return;
+    const timer = setTimeout(() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        for (const key of ['item', 'song', 'guide', 'theories', 'lens', 'mode', 'era']) params.delete(key);
+        const rest = params.toString();
+        const ours = { ...(window.history.state as Record<string, unknown> | null) };
+        delete ours.__NA;
+        delete ours.__PRIVATE_NEXTJS_INTERNALS_TREE;
+        window.history.replaceState(
+          window.history.state === null ? null : ours,
+          '',
+          window.location.pathname + (rest ? `?${rest}` : '') + window.location.hash,
+        );
+      } catch {
+        // Address-bar cleanup is best-effort.
+      }
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const actions = useMemo<AppActions>(
