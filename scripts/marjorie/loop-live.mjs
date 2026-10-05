@@ -3,14 +3,16 @@
 //
 //   node scripts/marjorie/loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <issue>] [--response] [--dispatch]
 //   node scripts/marjorie/loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]
-//   node scripts/marjorie/loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]
+//   node scripts/marjorie/loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>] [--error]
 //   node scripts/marjorie/loop-live.mjs guard-dispositions --for marjorie|tree --queue <json>
 //
 // `guard-dispositions` is the post-run guard: every ask in the queue file the agent
 // still has no Disposition on gets a fallback NEEDS HELP (lib/loop-fallback.mjs).
 //
 // `save-help` is how an agent with no Write tool saves a help ask: it writes the
-// next `for-*-N.json` (at most two) and never touches GitHub. A response run
+// next `for-*-N.json` (at most two, plus two more with `--error`) and never touches
+// GitHub. `--error` marks an error or blocker: it files past the daily help cap, which
+// is for discretionary asks (docs/decisions.md 2026-10-05). A response run
 // passes `--parent <the ask it answers>`; `file-help --response` takes each
 // ask's depth from that parent and, with none, files the ask but never
 // dispatches it (fail closed — lib/loop-dispatch.mjs).
@@ -34,7 +36,7 @@ import { parseArgs } from './loop-asks.mjs';
 const USAGE =
   'usage: loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <N>] [--response] [--dispatch]\n' +
   '       loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]\n' +
-  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]\n' +
+  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>] [--error]\n' +
   '       loop-live.mjs guard-dispositions --for marjorie|tree --queue <json>';
 const DIRECTION = { tree: 'to-marjorie', marjorie: 'to-tree' };
 const warn = (message) => console.log(`::warning::loop-live: ${message}`);
@@ -73,14 +75,18 @@ export function saveHelp(flags) {
   if (!ask) throw new Error(`--ask is required\n${USAGE}`);
   const dir = typeof flags.dir === 'string' ? flags.dir : '.scratch/out';
   mkdirSync(dir, { recursive: true });
-  const taken = readdirSync(dir).filter((n) => n.startsWith(savedPrefix(flags.side)) && n.endsWith('.json')).length;
-  if (taken >= 2) {
-    console.log('loop-live: two help asks already saved this run — not saving another.');
+  const isError = flags.error === true;
+  const saved = readdirSync(dir).filter((n) => n.startsWith(savedPrefix(flags.side)) && n.endsWith('.json'));
+  const sameKind = saved.filter((n) => {
+    try { return (JSON.parse(readFileSync(path.join(dir, n), 'utf8'))?.kind === 'error') === isError; } catch { return !isError; }
+  }).length;
+  if (sameKind >= 2) {
+    console.log(`loop-live: two ${isError ? 'error' : 'help'} asks already saved this run — not saving another.`);
     return 0;
   }
-  const file = path.join(dir, `${savedPrefix(flags.side)}${taken + 1}.json`);
+  const file = path.join(dir, `${savedPrefix(flags.side)}${saved.length + 1}.json`);
   const parent = Number.isInteger(Number(flags.parent)) && Number(flags.parent) > 0 ? Number(flags.parent) : undefined;
-  writeFileSync(file, `${JSON.stringify({ ask, why: typeof flags.why === 'string' ? flags.why : '', parent })}\n`);
+  writeFileSync(file, `${JSON.stringify({ ask, why: typeof flags.why === 'string' ? flags.why : '', parent, kind: isError ? 'error' : undefined })}\n`);
   console.log(`loop-live: saved ${file} — a plain job files it after this run.`);
   return 0;
 }
@@ -97,7 +103,7 @@ export async function fileHelp(flags, { gh = ghRun, now = Date.now() } = {}) {
     const key = ask?.ask.toLowerCase();
     if (!ask || seen.has(key)) continue;
     seen.add(key);
-    asks.push({ ...ask, parent: Number(entry.parent) > 0 ? Number(entry.parent) : null });
+    asks.push({ ...ask, parent: Number(entry.parent) > 0 ? Number(entry.parent) : null, kind: entry.kind === 'error' ? 'error' : null });
   }
   if (asks.length === 0) {
     console.log(`loop-live: no help ask saved by ${side}.`);
@@ -111,7 +117,11 @@ export async function fileHelp(flags, { gh = ghRun, now = Date.now() } = {}) {
     return 0;
   }
   for (const { ask, number } of budget.duplicates) console.log(`loop-live: "${ask.ask.slice(0, 60)}" is already open as #${number} — not refiled.`);
-  const allowed = budget.fresh.slice(0, budget.remaining);
+  // Errors and blockers file past the discretionary cap (their own backstop applies); everything else is capped.
+  const allowed = [
+    ...budget.fresh.filter((a) => a.kind === 'error').slice(0, budget.errorRemaining),
+    ...budget.fresh.filter((a) => a.kind !== 'error').slice(0, budget.remaining),
+  ];
   if (budget.fresh.length > allowed.length) console.log(`loop-live: ${budget.fresh.length - allowed.length} ask(s) over today's cap (${budget.filedToday} filed already) — not filed.`);
   for (const ask of allowed) {
     try {

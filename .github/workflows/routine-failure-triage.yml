@@ -1,0 +1,72 @@
+# Routine failure triage (BOTS-LOOP, docs/decisions.md 2026-10-05). No LLM, no
+# schedule of its own: it runs on `workflow_run` when any routine-* workflow
+# completes, and files ONE deduped issue per workflow per UTC day for Marjorie
+# (labels desk:ops + marjorie-filed + routine-failure) then starts her response
+# routine — so a failed routine is handled by the team, not found by a founder.
+# All logic is scripts/marjorie/routine-failure-triage.mjs (unit-tested): dedupe
+# by a hidden marker, secret-like log lines withheld, Tree's desk:tree draft
+# receipts adopted instead of duplicated. GitHub needs the names listed
+# explicitly; scripts/marjorie/routine-failure-triage.test.ts fails if a routine
+# is added without being listed here. It never lists itself (no loops).
+name: routine-failure-triage
+
+on:
+  workflow_run:
+    workflows:
+      - routine-austin-build
+      - routine-awareness-answerer
+      - routine-community-answerer
+      - routine-fable-strategy-update
+      - routine-fable-taste-ruling
+      - routine-karen-nightly
+      - routine-kevin-daily-desk
+      - routine-kevin-radar
+      - routine-kevin-s1-karen-solver
+      - routine-laura-a11y-walk
+      - routine-marjorie-ask-response
+      - routine-marjorie-brief
+      - routine-marjorie-chat
+      - routine-marjorie-ops
+      - routine-marjorie-status-reply
+      - routine-marjorie-triage
+      - routine-marjorie-weekly-review
+      - routine-news-triage
+      - routine-nils-walk
+      - routine-paul-blart
+      - routine-tree-ask-response
+      - routine-tree-chat
+      - routine-tree-daily-draft
+      - routine-tree-event-draft
+      - routine-tree-weekly-plan
+      - routine-vault-run
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: write
+  actions: write # reads the failed run's log and dispatches Marjorie's ask-response routine
+
+concurrency:
+  group: routine-failure-triage
+  cancel-in-progress: false # two failures at once must not race the one-issue-per-day dedupe
+
+jobs:
+  triage:
+    if: github.event.workflow_run.head_branch == 'main' && contains(fromJSON('["failure","timed_out","cancelled"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: File or update the failure issue and start Marjorie
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKFLOW_PATH: ${{ github.event.workflow_run.path }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: node scripts/marjorie/routine-failure-triage.mjs --workflow "$(basename "${WORKFLOW_PATH%%@*}" .yml)" --run-id "$RUN_ID" --run-url "$RUN_URL" --conclusion "$CONCLUSION"

@@ -113,7 +113,7 @@ NEEDS HELP: save your one ask back with
 where `<N>` is the queue item you are answering (the ask's depth is read from it; an ask
 with no `--parent` is filed but not started).
 A plain job files it after this run and starts Marjorie's response routine; asks that
-chain are depth-capped, so ask once, precisely. Write nothing else under `.scratch/out/`.
+chain are depth-capped, so ask once, precisely. An error or tool failure you hit while answering is not a discretionary ask: save it with `--error` (before `--ask`) and it is not counted against the daily cap. Never message the founder about an error. Only a genuinely founder-only item (a login, a payment, a secret value, an approval, a physical-world action) goes to the founder, and then only as a `HUMAN-ACTIONS.md` card (`.claude/skills/human-actions/SKILL.md`, format v2) — never `founder-task` prose or chat. Every founder-bound escalation MUST carry WHERE to work ("Claude Code in Documents\Claude\Projects\Swift2", or "…\Projects\Hermes" for anything on the Hermes VM, the bots, the allowlist or the doorbell, or literal clicks for a pure founder action) and a complete copy-paste PROMPT in a fenced code block in the GitHub issue, built with `node scripts/marjorie/escalate.mjs` (it refuses empty parts); the card's steps are then just "1. Open Claude Code in <project>. 2. Paste the prompt from issue #N." Never escalate with only a description of the problem. Write nothing else under `.scratch/out/`.
 
 ## Never
 
