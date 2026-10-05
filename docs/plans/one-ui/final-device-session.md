@@ -92,6 +92,46 @@ Open Diagnostics → tap "Send report" (no typing needed).
 
 ---
 
+## H. iPhone extras
+
+1. Open a moment, then search, then open a legal page (tap a link in Settings).
+   Tap the on-screen Back control each time. You should go back to the previous screen.
+   Swipe from the left edge of the screen — nothing strange should happen ✓
+
+2. In the feed, tap a moment card with a YouTube video.
+   The video should play inside the page, not open in a separate fullscreen player ✓
+
+3. Open search and tap the text box. Type a few characters.
+   The page should not zoom in; the text box and any buttons should stay above the keyboard ✓
+   Close the keyboard by tapping outside. The page should not be left scrolled oddly ✓
+
+4. Open the feedback form (e.g., from Settings or a card's menu). Tap the text box and type.
+   The page should not zoom in; the text box and Send button should stay visible above the keyboard ✓
+   Close the keyboard. The page should not be left scrolled oddly ✓
+
+5. In portrait mode, look at the top bar.
+   It should sit below the Dynamic Island or camera cut-out and not overlap it ✓
+   Look at the bottom bar. It should sit above the home indicator line and not overlap it ✓
+
+6. In the feed, check the status bar icons at the top (time, signal, battery).
+   Icons should be light-colored on the dark background ✓
+   Switch to a different era (e.g., folklore to Midnights).
+   Status bar icons should still be light and correct ✓
+
+7. Find a moment card with a share button. Tap Share → "Save as image".
+   The share sheet should appear and show a preview of the card as an image ✓
+
+8. Find a card that can be marked as visited (e.g., a moment or clip). Mark it.
+   Close the Long Live app completely (swipe up from the app switcher or Settings → Long Live → Force Stop).
+   Reopen the app and find that same card.
+   It should still be marked as visited ✓
+
+9. (Only after universal-links setup is complete) Open the Notes app and add a link: longlivets.com.
+   Tap the link.
+   The Long Live app should open, not Safari ✓
+
+---
+
 ## Done
 
 If anything looks wrong, take a screenshot and send it — that's all.
