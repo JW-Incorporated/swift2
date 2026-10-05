@@ -61,6 +61,7 @@ vi.mock('../lib/speed-test-runtime', () => ({
 }));
 vi.mock('../lib/notification-host-ports', () => ({ createExpoNotificationDeps: () => ({}) }));
 vi.mock('../lib/share-card-ports', () => ({ shareCardPorts: {} }));
+vi.mock('../lib/host-storage-file', () => ({ createFileHostStorage: () => ({}) }));
 vi.mock('../lib/app-handlers', () => ({
   createAppHandlersFor: () => ({}),
   createLiveApiDeps: () => ({}),
