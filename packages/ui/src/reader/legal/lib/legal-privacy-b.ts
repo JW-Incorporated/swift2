@@ -74,15 +74,14 @@ export const PRIVACY_SECTIONS_B: LegalSection[] = [
       {
         // Rewritten 2026-09-06 for OS-039 (docs/specs/2026-09-05-one-
         // source-three-surfaces.md): SiteShell is retired as the app's
-        // default surface. The app now renders native screens for eras,
-        // threads, Clownbot, community, and merch
-        // (apps/mobile/App.tsx + BottomTabBar.tsx), each reading the same
-        // published content bundle as the website (D2: two renderers, one
-        // headless core) — so the DATA and its handling are identical to
-        // the website even though the UI is native, not a WebView. Only
-        // three static pages — Privacy, Terms, and Support — still open in
-        // a WebView (apps/mobile/components/SiteShell.tsx), since they
-        // have no native screen. On top of that the app has its own
+        // default surface. Corrected 2026-10-05 (parity audit PA-3): the
+        // app renders the same shared UI (packages/ui) in an in-app web
+        // view (apps/mobile/dom/AppReader.tsx, 'use dom'), so the DATA and
+        // its handling are identical to the website. Privacy, Terms, and
+        // Support render locally from the bundled copy
+        // (apps/mobile/dom/slots/legal-overlay.tsx), and website analytics
+        // (@vercel/analytics, apps/web only) does not run in the app. On
+        // top of that the app has its own
         // device registry and opt-in push notifications
         // (apps/mobile/lib/device-id.ts, push-registration.ts,
         // prefs-client.ts, inbox-client.ts; apps/web/app/api/devices/**;
@@ -90,11 +89,11 @@ export const PRIVACY_SECTIONS_B: LegalSection[] = [
         // changes the app changes this section in the same release, and
         // both stores' data-safety forms with it.
         kind: 'p',
-        text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged, so the website’s analytics runs on those three pages inside the app. The feedback button, the mood chat, Clownbot, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
+        text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app shows the same screens as the website (eras, threads, Clownbot, community, and merch), drawn by the same shared interface code inside a web view within the app and built from the exact same content and the exact same rules described in every section above, so nothing about what is collected or how it is handled changes because it appears in the app. Privacy, Terms, and Support are shown inside the app the same way, from the app’s own bundled copy rather than loaded from the website, and the website’s analytics does not run in the app. The feedback button, the mood chat, Clownbot, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
       },
       {
         kind: 'p',
-        text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including your anonymous Clownbot identity (a device-bound token in the native chat screen, or the website’s own anonymous session cookie on the Privacy/Terms/Support pages).',
+        text: 'Two things are specific to the app. The first is a device id. On first launch the app creates a random device id — a UUID, not derived from your phone, your Apple or Google account, or any advertising identifier — and stores it in the device’s secure storage. Each time the app starts it sends that id to our server together with the platform (iPhone or Android), your device’s time zone and language setting, and the app version. We keep those in a devices table in our Supabase database so that notification preferences can be saved and so that notifications, if you turn them on, can be delivered at a sensible local hour. None of it names you, and we do not link it to anything that could, including your anonymous Clownbot identity (a device-bound token kept in your phone’s secure storage).',
       },
       {
         kind: 'p',
@@ -106,7 +105,7 @@ export const PRIVACY_SECTIONS_B: LegalSection[] = [
       },
       {
         kind: 'p',
-        text: `Two more things are sent only in narrow cases. Diagnostics: if you open the app's Diagnostics screen and tap "Send report", the app sends your device model, operating-system version, app version and build number, the id of the app update it is running, and timings of its start-up stages. If you switch on "Speed test mode" on that screen, the app sends that same report automatically on each of its next ten launches, then stops. Automatic fallback reports: when the app's start-up safety check has to fall back to its older screens, the app can send the platform (iPhone or Android), its build number and update id, and a coarse failure category. That reporting is switched off today; we can turn it on from our server configuration without an app update, and this page is where that is disclosed. Neither report contains your name, your device id, a push token, your location or any text you typed; the update id identifies an app release, not you or your phone. Both go through our feedback endpoint and are posted as comments on a tracking issue in our GitHub repository, which is public, so anyone can read them.`,
+        text: `Two more things are sent only in narrow cases. Diagnostics: if you open the app's Diagnostics screen and tap "Send report", the app sends your device model, operating-system version, app version and build number, the id of the app update it is running, and timings of its start-up stages. If you switch on "Speed test mode" on that screen, the app sends that same report automatically on each of its next ten launches, then stops. Automatic fallback reports: when the app's start-up safety check falls back to its recovery screen, the app can send the platform (iPhone or Android), its build number and update id, and a coarse failure category. That reporting is switched off today; we can turn it on from our server configuration without an app update, and this page is where that is disclosed. Neither report contains your name, your device id, a push token, your location or any text you typed; the update id identifies an app release, not you or your phone. Both go through our feedback endpoint and are posted as comments on a tracking issue in our GitHub repository, which is public, so anyone can read them.`,
       },
       {
         kind: 'p',
