@@ -53,6 +53,11 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   let snap: ReaderSnap | null = null;
   let restoreSnap: ReaderSnap | null = null;
   let restorer: SnapRestorer | null = null;
+  // Cause of the next re-key: only adoption restores; a crash/reload re-key (epochStarted without it) sheds state and drops any pending restore.
+  let adoptionRekey = false;
+  // A navigation other than the restore reached this epoch (tap, deep link, native nav, DOM busy/engaged before the replay): it outranks the restore.
+  let userNav = false;
+  let restoring = false;
   let navOk = false;
   let readerOk = false;
   let navigator: DomNavigator | null = null;
@@ -86,6 +91,7 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
         navOk = false;
         readerOk = false;
         deps.onSignal?.('content-adopt', restore ?? '');
+        adoptionRekey = true;
         deps.bump();
       });
   };
@@ -118,17 +124,25 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     if (!navOk || !readerOk || !navigator) return;
     if (restore !== null) {
       const path = restore;
+      const toRestore = restoreSnap;
+      const send = restorer;
       restore = null;
+      restoreSnap = null;
       const failed = () => deps.onSignal?.('content-adopt-nav-failed', path.slice(0, 120));
       const gen = generation;
       const failedNow = () => gen === generation && failed();
       const nav = navigator;
-      const toRestore = restoreSnap;
-      const send = restorer;
-      restoreSnap = null;
-      // The snapshot goes out once the path navigation settled (either way), and only to the epoch that navigated.
-      const replay = () => gen === generation && navigator === nav && toRestore !== null && send?.(toRestore);
-      void nav(path).then((ok) => (ok || failedNow(), replay()), () => (failedNow(), replay()));
+      const replay = () => {
+        restoring = false;
+        if (gen === generation && navigator === nav && !userNav && toRestore !== null) send?.(toRestore);
+      };
+      if (userNav) deps.onSignal?.('content-adopt-restore-skipped');
+      else if (toRestore !== null && send && path === '/') send(toRestore);
+      else {
+        restoring = true;
+        // The snapshot goes out once the path navigation settled (either way), and only to the epoch that navigated.
+        void nav(path).then((ok) => (ok || failedNow(), replay()), () => (failedNow(), replay()));
+      }
     }
     if (waitingForReady && pending !== null && !adopting) {
       if (busy) waitingForReady = false;
@@ -150,7 +164,8 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     /** The DOM's latest reported route, busy and engaged flags (queued/coalesced `route` event). */
     route(path: string, isBusy = false, isEngaged = false, latest: ReaderSnap | null = null) {
       route = path;
-      if (latest) snap = latest;
+      snap = latest;
+      if (restoreSnap !== null && (isBusy || (isEngaged && !restoring))) userNav = true;
       busy = isBusy;
       engagedFlag = isEngaged;
       routeSeen = true;
@@ -181,11 +196,13 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     },
     /** A new bridge epoch began (mount, crash re-key, adoption re-key): not ready until navReady AND the reader's first paint. */
     epochStarted() {
-      // A re-key the adoption did not start (a crash/reload) carries the dying epoch's route and snapshot over the same way.
-      if (restore === null && routeSeen && route !== null) {
-        restore = route;
-        restoreSnap = snap;
+      if (!adoptionRekey) {
+        restore = null;
+        restoreSnap = null;
       }
+      adoptionRekey = false;
+      userNav = false;
+      restoring = false;
       snap = null;
       routeSeen = false;
       navOk = false;
@@ -198,6 +215,10 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       navigator = navigate;
       restorer = restoreSnapshot ?? null;
       settle();
+    },
+    /** A navigation other than the restore reached the current epoch (notification tap, deep link, native screen): a pending restore is abandoned. */
+    userNavigated() {
+      userNav = true;
     },
     /** The reader reported ready (first paint): its navigate applier exists now. */
     readerReady() {

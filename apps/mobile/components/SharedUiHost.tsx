@@ -190,9 +190,11 @@ export function SharedUiHost({
         return true;
       },
     });
-    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
+    // A tap/deep-link/native navigation reaching this epoch outranks a pending state restore (content adoption).
+    const gateTarget = { ...target, emit: ((t: 'navigate', p: never) => (adoption.userNavigated(), target.emit(t, p))) as typeof target.emit, navigateDom: (p: string) => (adoption.userNavigated(), target.navigateDom(p)) };
+    const binder = createTapBinder({ gate: notificationTapGate, host: gateTarget, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
-    navRef.current.onDomNavigator?.(target.navigateDom);
+    navRef.current.onDomNavigator?.((p) => (adoption.userNavigated(), target.navigateDom(p)));
     ref.binder = binder;
     ref.host = host;
     hostRef.current = host;

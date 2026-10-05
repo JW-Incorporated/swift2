@@ -47,38 +47,95 @@ describe('content adoption replays the reader snapshot (#5114)', () => {
     expect(restore).toHaveBeenCalledTimes(1);
   });
 
-  it("a route report without a snapshot keeps the epoch's last one; epochStarted resets it", async () => {
-    const { a, restore, newEpoch, advance } = setup();
-    a.loaded('v2');
-    a.route('/', false, true, snap(7));
-    a.route('/', false, true);
-    a.appState('background');
-    advance(STALE_BACKGROUND_MS);
-    a.appState('active');
+  const adoptRekey = async (h: ReturnType<typeof setup>) => {
+    h.a.appState('background');
+    h.advance(STALE_BACKGROUND_MS);
+    h.a.appState('active');
     await flush();
-    newEpoch();
+  };
+
+  it('a route report without a snapshot clears it (never a stale snapshot paired with a newer route)', async () => {
+    const h = setup();
+    h.a.loaded('v2');
+    h.a.route('/', false, true, snap(7));
+    h.a.route('/', false, true);
+    await adoptRekey(h);
+    h.newEpoch();
     await flush();
-    expect(restore).toHaveBeenCalledWith(snap(7));
-    restore.mockClear();
-    newEpoch();
-    await flush();
-    expect(restore).not.toHaveBeenCalled();
+    expect(h.restore).not.toHaveBeenCalled();
   });
 
-  it("crash re-key (no adoption): the dying epoch's route and snapshot are replayed to the next", async () => {
-    const { a, navigate, restore, newEpoch } = setup();
-    a.route('/?era=fearless', false, false, snap(42, 'fearless'));
-    newEpoch();
+  it('a bare route with a snapshot sends the snapshot immediately, without a navigate that would reset it', async () => {
+    const h = setup();
+    h.a.loaded('v2');
+    h.a.route('/', false, true, snap(7));
+    await adoptRekey(h);
+    h.newEpoch();
+    expect(h.restore).toHaveBeenCalledWith(snap(7));
+    expect(h.navigate).not.toHaveBeenCalled();
+    h.restore.mockClear();
+    h.newEpoch();
     await flush();
-    expect(navigate).toHaveBeenCalledWith('/?era=fearless');
-    expect(restore).toHaveBeenCalledWith(snap(42, 'fearless'));
+    expect(h.restore).not.toHaveBeenCalled();
   });
 
-  it('nothing is replayed when the dying epoch never reported', async () => {
-    const { navigate, restore, newEpoch } = setup();
-    newEpoch();
+  it('crash re-key (no adoption): neither the route nor the snapshot is replayed, even one pending from a half-done adoption', async () => {
+    const h = setup();
+    h.a.route('/?era=fearless', false, false, snap(42, 'fearless'));
+    h.newEpoch();
     await flush();
-    expect(navigate).not.toHaveBeenCalled();
-    expect(restore).not.toHaveBeenCalled();
+    expect(h.navigate).not.toHaveBeenCalled();
+    expect(h.restore).not.toHaveBeenCalled();
+    h.a.loaded('v2');
+    h.a.route('/?era=lover', false, true, snap(1));
+    await adoptRekey(h);
+    h.a.epochStarted();
+    h.a.epochStarted();
+    h.a.navReady(h.navigate, h.restore);
+    h.a.readerReady();
+    await flush();
+    expect(h.navigate).not.toHaveBeenCalled();
+    expect(h.restore).not.toHaveBeenCalled();
+  });
+
+  it('a tap/deep link reaching the new epoch before the replay wins: no navigate, no snapshot', async () => {
+    const h = setup();
+    h.a.loaded('v2');
+    h.a.route('/?era=lover', false, true, snap(3));
+    await adoptRekey(h);
+    h.a.epochStarted();
+    h.a.navReady(h.navigate, h.restore);
+    h.a.userNavigated();
+    h.a.readerReady();
+    await flush();
+    expect(h.navigate).not.toHaveBeenCalled();
+    expect(h.restore).not.toHaveBeenCalled();
+  });
+
+  it('a tap while the route navigation is in flight cancels the snapshot', async () => {
+    const h = setup();
+    let done!: (ok: boolean) => void;
+    h.navigate.mockImplementationOnce(() => new Promise<boolean>((r) => void (done = r)));
+    h.a.loaded('v2');
+    h.a.route('/?era=lover', false, true, snap(3));
+    await adoptRekey(h);
+    h.newEpoch();
+    h.a.userNavigated();
+    done(true);
+    await flush();
+    expect(h.restore).not.toHaveBeenCalled();
+  });
+
+  it('user interaction reported by the DOM before the replay (busy) cancels it', async () => {
+    const h = setup();
+    h.a.loaded('v2');
+    h.a.route('/', false, true, snap(3));
+    await adoptRekey(h);
+    h.a.epochStarted();
+    h.a.navReady(h.navigate, h.restore);
+    h.a.route('/', true, false);
+    h.a.readerReady();
+    await flush();
+    expect(h.restore).not.toHaveBeenCalled();
   });
 });
