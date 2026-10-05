@@ -47,7 +47,7 @@ import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
-import { hasOnboardingBeenOffered } from './lib/onboarding-state';
+import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
 import { useNativeScreenState } from './lib/use-native-screen-state';
 import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
@@ -85,6 +85,9 @@ export default function App() {
   // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const { setNativeMounted } = nav;
+  const nativeMounted = !updateRequired && domMount.mount === 'native';
+  useEffect(() => setNativeMounted(nativeMounted), [nativeMounted, setNativeMounted]);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
   useEffect(() => {
@@ -164,6 +167,7 @@ export default function App() {
   const openSettings = useCallback(() => {
     void openSettingsEntry({
       hasOnboardingBeenOffered,
+      isPushPermissionUndetermined,
       openSettings: () => openNativeScreen('settings'),
       openOnboarding: () => setOnboardingOpen(true),
     });
@@ -209,7 +213,6 @@ export default function App() {
               getRouteFlags={() => routeFlagsRef.current}
               state={nativeRoute}
               presenter={presenter}
-              navigate={navigate}
             />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />

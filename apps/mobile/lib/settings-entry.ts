@@ -7,6 +7,8 @@
 
 export interface SettingsEntryDeps {
   hasOnboardingBeenOffered: () => Promise<boolean>;
+  /** True only while the OS permission is still undecided; a fallback after the DOM flow already asked must not re-offer. */
+  isPushPermissionUndetermined: () => Promise<boolean>;
   openSettings: () => void;
   openOnboarding: () => void;
 }
@@ -14,7 +16,7 @@ export interface SettingsEntryDeps {
 export async function openSettingsEntry(deps: SettingsEntryDeps): Promise<void> {
   let offered: boolean;
   try {
-    offered = await deps.hasOnboardingBeenOffered();
+    offered = (await deps.hasOnboardingBeenOffered()) || !(await deps.isPushPermissionUndetermined());
   } catch {
     // Secure store unavailable: never dead-end the tap, fall back to settings.
     deps.openSettings();

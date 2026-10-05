@@ -91,14 +91,14 @@ describe('tap gate', () => {
   });
 
   describe('canonical links in native mode', () => {
-    it('forwards a canonical link the queue does not serve (e.g. /inbox), never the raw string', async () => {
+    it('forwards a canonical link the queue does not serve (e.g. /about), never the raw string', async () => {
       const gate = createTapGate({ siteUrl: SITE, queue: createTapQueue() });
       const nav = vi.fn();
       gate.setNativeNavigator(nav);
-      expect(gate.enqueue({ id: 'm', deepLink: 'https://longlivets.com/inbox?x=1' })).toBe('dropped');
-      gate.enqueue({ id: 'm', deepLink: '/inbox' });
+      expect(gate.enqueue({ id: 'm', deepLink: 'https://longlivets.com/about?x=1' })).toBe('dropped');
+      gate.enqueue({ id: 'm', deepLink: '/about' });
       expect(nav).toHaveBeenCalledTimes(1);
-      expect(nav).toHaveBeenCalledWith(`${SITE}/inbox?x=1`);
+      expect(nav).toHaveBeenCalledWith(`${SITE}/about?x=1`);
     });
     it.each(['https://evil.example/', 'javascript:alert(1)', '//evil.example/x', 'https://longlivets.com@evil.example/', '/a/../b\\c', 'myapp://x'])(
       'hostile link %s opens home, never raw',

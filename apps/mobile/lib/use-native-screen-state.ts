@@ -1,7 +1,8 @@
 // Native screen state for App.tsx (moved verbatim from App.tsx — no behaviour change):
 // which overlay / tab / legal page / track-guide / moment is showing, plus the two
 // openers every navigation entry point funnels through.
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { BackHandler, Platform } from 'react-native';
 import type { EraId, TrackNote } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import type { NativeParams, ScreenId } from './routes';
@@ -9,6 +10,7 @@ import { isLegalPageUrl, legalPageUrl, type LegalPageId } from './legal-links';
 import { ensureTrackGuideWired, loadTrackGuide } from './track-guide-data';
 import { SITE_URL } from '../components/SiteShell';
 import type { HomeTab } from '../components/BottomTabBar';
+import { backAction } from './native-back';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -58,6 +60,13 @@ export function useNativeScreenState() {
   // Holds the id rather than a boolean since the sheet needs it to load the
   // moment.
   const [momentItemId, setMomentItemId] = useState<string | null>(null);
+  // Navigation generation: bumped by every navigation (openers, back, and every
+  // exposed setter) so an async song resolution that started earlier can tell
+  // it is stale and must not open a screen over newer navigation.
+  const navGen = useRef(0);
+  // Hardware Back is claimed only while the native router is what's on screen
+  // (App sets this); the DOM host / SiteShell / LegalPageScreen own Back otherwise.
+  const [nativeMounted, setNativeMounted] = useState(false);
 
   useEffect(() => {
     if (!trackGuideRoute) return;
@@ -85,6 +94,7 @@ export function useNativeScreenState() {
   // resolving one of them just switches `activeTab` (closing every other
   // overlay first, same as every other branch here always has).
   const openNativeScreen = useCallback((screen: ScreenId, params: NativeParams = {}) => {
+    const gen = ++navGen.current;
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
@@ -121,6 +131,7 @@ export function useNativeScreenState() {
       // its own loading state.
       ensureTrackGuideWired()
         .then(() => {
+          if (gen !== navGen.current) return;
           const resolved = resolveTrackKey(key);
           if (resolved) {
             setTrackGuideRoute({ screen: 'song', eraId: resolved.eraId, track: resolved.track });
@@ -146,6 +157,7 @@ export function useNativeScreenState() {
   // (this card's own "done when": no route resolves to `web` except the
   // legal pages).
   const openWebUrl = useCallback((url: string) => {
+    navGen.current++;
     setNotificationSettingsOpen(false);
     setInboxOpen(false);
     setOnboardingOpen(false);
@@ -171,29 +183,111 @@ export function useNativeScreenState() {
   );
 
   const closeLegalPage = useCallback(() => {
+    navGen.current++;
     setLegalUrl(null);
     setLegalReturnTo(null);
     if (legalReturnTo === 'settings') setNotificationSettingsOpen(true);
   }, [legalReturnTo]);
 
+  // Every setter handed out bumps the generation (tab taps, closes, song taps).
+  const setters = useMemo(() => {
+    const bump =
+      <T,>(set: (v: T) => void) =>
+      (v: T) => {
+        navGen.current++;
+        set(v);
+      };
+    return {
+      setActiveTab: bump(setActiveTab),
+      setNotificationSettingsOpen: bump(setNotificationSettingsOpen),
+      setInboxOpen: bump(setInboxOpen),
+      setOnboardingOpen: bump(setOnboardingOpen),
+      setTrackGuideRoute: bump(setTrackGuideRoute),
+      setMomentItemId: bump(setMomentItemId),
+    };
+  }, []);
+
+  // Back closes one level: song -> track guide -> home tab; false at the root
+  // (era) tab so Android's hardware Back may exit the app.
+  const goBack = useCallback((): boolean => {
+    const action = backAction({
+      settingsOpen: notificationSettingsOpen,
+      inboxOpen,
+      trackGuideScreen: trackGuideRoute?.screen ?? null,
+      trackGuideEraId: trackGuideRoute?.eraId ?? null,
+      momentOpen: Boolean(momentItemId),
+      onboardingOpen,
+      legalOpen: Boolean(legalUrl),
+      activeTab,
+    });
+    if (!action) return false;
+    switch (action.type) {
+      case 'close-inbox':
+        setters.setInboxOpen(false);
+        break;
+      case 'close-settings':
+        setters.setNotificationSettingsOpen(false);
+        break;
+      case 'song-to-track-guide':
+        setters.setTrackGuideRoute({ screen: 'track-guide', eraId: action.eraId });
+        break;
+      case 'close-track-guide':
+        setters.setTrackGuideRoute(null);
+        break;
+      case 'close-moment':
+        setters.setMomentItemId(null);
+        break;
+      case 'close-onboarding':
+        setters.setOnboardingOpen(false);
+        break;
+      case 'close-legal':
+        closeLegalPage();
+        break;
+      case 'go-home-tab':
+        setters.setActiveTab('era');
+        break;
+    }
+    return true;
+  }, [
+    activeTab,
+    inboxOpen,
+    legalUrl,
+    momentItemId,
+    notificationSettingsOpen,
+    onboardingOpen,
+    trackGuideRoute,
+    setters,
+    closeLegalPage,
+  ]);
+
+  const goBackRef = useRef(goBack);
+  goBackRef.current = goBack;
+  useEffect(() => {
+    if (Platform.OS !== 'android' || !nativeMounted) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => goBackRef.current());
+    return () => sub.remove();
+  }, [nativeMounted]);
+
   return {
     activeTab,
-    setActiveTab,
+    setActiveTab: setters.setActiveTab,
     legalUrl,
     notificationSettingsOpen,
-    setNotificationSettingsOpen,
+    setNotificationSettingsOpen: setters.setNotificationSettingsOpen,
     inboxOpen,
-    setInboxOpen,
+    setInboxOpen: setters.setInboxOpen,
     onboardingOpen,
-    setOnboardingOpen,
+    setOnboardingOpen: setters.setOnboardingOpen,
     trackGuideRoute,
-    setTrackGuideRoute,
+    setTrackGuideRoute: setters.setTrackGuideRoute,
     trackGuideTracks,
     momentItemId,
-    setMomentItemId,
+    setMomentItemId: setters.setMomentItemId,
     openNativeScreen,
     openWebUrl,
     openLegalPage,
+    goBack,
+    setNativeMounted,
     closeLegalPage,
   };
 }
