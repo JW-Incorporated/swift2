@@ -93,7 +93,7 @@ export function releaseBeforeStrike<W extends { crashed: (k: 'terminated' | 'ren
 }
 
 type NavHost = {
-  emit(type: 'navigate', payload: { path: never; source: 'notification'; id?: string }): AckRef | null;
+  emit(type: 'navigate', payload: { path: never; source: 'notification' | 'deeplink'; id?: string }): AckRef | null;
   onAcked(ref: AckRef, cb: (acked: boolean) => void): () => void;
   isReady(): boolean;
 };
@@ -142,7 +142,7 @@ export function createTapTarget(opts: { host: NavHost; /** Observability: a path
       }
       const id = idByPath.get(path) ?? `t${nonce}-${++counter}`;
       idByPath.set(path, id);
-      const ref = opts.host.emit('navigate', { path: path as never, source: 'notification', id });
+      const ref = opts.host.emit('navigate', { path: path as never, source: payload.source, id });
       if (ref) {
         pathByKey.set(key(ref), path);
         idByRef.set(key(ref), id);

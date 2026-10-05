@@ -109,6 +109,8 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return isBridgeId(p.targetId) ? { targetId: p.targetId } : null;
     case 'share':
       return validShare(p);
+    case 'clipboard.write':
+      return typeof p.text === 'string' && p.text.length > 0 && p.text.length <= MAX_SHARE_FIELD && Object.keys(p).length === 1 ? { text: p.text } : null;
     case 'haptic':
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
     case 'notifications.updatePrefs':

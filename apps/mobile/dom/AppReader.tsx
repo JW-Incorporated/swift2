@@ -8,6 +8,7 @@
 // module-level constants derive from the filled arrays).
 import './reader-spike.css';
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
+import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
@@ -15,10 +16,12 @@ import { backFromDomPath, currentDomUrl, setDomPath } from './bridge/dom-path';
 import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
-import { bridgeToken, useExpoBridge } from './bridge/transport-expo';
+import { useExpoBridge } from './bridge/transport-expo';
+import { createNativeCalls } from './bridge/native-calls';
 import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
-import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
+import { scheduleSnapshotHash } from './reader/deferred-hash';
+import { snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
@@ -141,16 +144,10 @@ export default function AppReader(props: AppReaderProps) {
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
   const probeRef = useRef<Probe>(createProbe(versionToken));
+  const snapRef = useRef<{ core: ReaderSnapshotCore; extensions: ReaderSnapshotExtensions } | null>(null);
   const propsRef = useRef(props);
   propsRef.current = props;
-  // Every native action carries the epoch token; a failed hello or call is swallowed (an unhandled rejection here would re-enter reportError).
-  const native = useRef({
-    onReady: () => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.onReady(t)).catch(() => undefined),
-    reportError: (m: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportError(m, t)).catch(() => undefined),
-    reportProbe: (j: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportProbe(j, t)).catch(() => undefined),
-    reportImageLoad: (v: boolean) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportImageLoad?.(v, t)).catch(() => undefined),
-    reportProtocolFatal: (r: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportProtocolFatal?.(r, t)).catch(() => undefined),
-  }).current;
+  const native = useRef(createNativeCalls(propsRef)).current;
 
   useEffect(() => {
     // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
@@ -203,20 +200,21 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.storage.localStorage = installStorageShim(window).includes('localStorage')
           ? 'shimmed'
           : 'present';
-        let text: string | null = null;
-        if (devLoader) text = await devLoader();
+        let input: string | object | null = null;
+        const tRead = performance.now();
+        if (devLoader) input = await devLoader();
         else if (cacheUri) {
           const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
           probe.attempts(read.attempts);
           readAttempts = read.attempts;
-          text = read.text;
+          input = read.parsed ?? read.text;
         }
-        if (!text) throw new Error('bundle cache unreadable');
-        const { core, extensions, version } = snapshotFromEnvelope(text, { eraVideoFeed });
+        if (!input) throw new Error('bundle cache unreadable');
+        const readMs = Math.round(performance.now() - tRead);
+        const { core, extensions, version, timings } = snapshotFromEnvelope(input, { eraVideoFeed });
+        probe.report.timings = { readMs, ...timings };
         probe.report.version = version;
-        const described = await describeSnapshotSafe(core, extensions);
-        probe.report.snapshot = described.snapshot;
-        if (described.error) probe.report.error = described.error;
+        snapRef.current = { core, extensions };
         fill(core);
         const reader = loadReader(core, extensions);
         setReader(() => reader);
@@ -248,6 +246,10 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
         await native.reportProbe(probe.json());
         await native.onReady();
+        if (snapRef.current) {
+          const { core, extensions } = snapRef.current;
+          scheduleSnapshotHash(core, extensions, probe, () => native.reportProbe(probe.json()));
+        }
         // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
         for (const ms of [4000, 12000]) {
           setTimeout(() => {

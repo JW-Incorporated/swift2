@@ -18,6 +18,7 @@
     "./reader/shell/EraSelector": "./src/reader/shell/EraSelector.tsx",
     "./reader/shell/EraGrid": "./src/reader/shell/EraGrid.tsx",
     "./reader/shell/button": "./src/reader/shell/button.tsx",
+    "./reader/shell/ShareFallbackToast": "./src/reader/shell/ShareFallbackToast.tsx",
     "./reader/shell/timelineScrubberLayout": "./src/reader/shell/timelineScrubberLayout.ts",
     "./reader/shell/topbarLayout": "./src/reader/shell/topbarLayout.ts",
     "./reader/moment": "./src/reader/moment/index.ts",

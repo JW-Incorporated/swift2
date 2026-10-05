@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { describeSnapshot, describeSnapshotSafe, snapshotFromEnvelope, unwrapEnvelope } from './snapshot';
 
@@ -42,5 +42,64 @@ describe('cache envelope to snapshot', () => {
     const loaded = snapshotFromEnvelope(envelope(), { eraVideoFeed });
     const ok = await describeSnapshotSafe(loaded.core, loaded.extensions);
     expect(ok.error).toBeNull();
+  });
+});
+
+describe('object-literal twin (no second parse)', () => {
+  const tricky = {
+    manifest: { bundleVersion: 'v-tricky' },
+    files: {
+      eras: [],
+      milestones: [],
+      merch: { shopTheLook: [], officialStore: [], fanMade: [] },
+      note: ['q"uote', String.fromCharCode(92) + 'slash', String.fromCharCode(0x2028), String.fromCharCode(0x2029), 'end'].join(' '),
+    },
+  };
+
+  it('an already-parsed object builds the same snapshot as the text path, without JSON.parse', async () => {
+    const text = JSON.stringify(tricky);
+    const spy = vi.spyOn(JSON, 'parse');
+    const fromObject = snapshotFromEnvelope(JSON.parse(text) as object, { eraVideoFeed });
+    spy.mockClear();
+    const again = snapshotFromEnvelope(tricky, { eraVideoFeed });
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+    const fromText = snapshotFromEnvelope(text, { eraVideoFeed });
+    expect(again.version).toBe(fromText.version);
+    expect(again.core).toEqual(fromText.core);
+    expect(again.extensions).toEqual(fromText.extensions);
+    expect(await describeSnapshot(fromObject.core, fromObject.extensions)).toEqual(
+      await describeSnapshot(fromText.core, fromText.extensions),
+    );
+  });
+
+  it('records parse and build timings', () => {
+    const t = snapshotFromEnvelope(envelope(), { eraVideoFeed }).timings;
+    expect(t.parseMs).toBeGreaterThanOrEqual(0);
+    expect(t.buildMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it('the snapshot path never hashes (the hash is deferred off the mount path)', async () => {
+    vi.resetModules();
+    const hashSnapshot = vi.fn(async () => ({ hash: 'h' }));
+    vi.doMock('@swift2/experience/reader-snapshot', async (orig) => ({
+      ...(await orig<typeof import('@swift2/experience/reader-snapshot')>()),
+      hashSnapshot,
+    }));
+    const mod = await import('./snapshot');
+    const hashMod = await import('./deferred-hash');
+    const loaded = mod.snapshotFromEnvelope(envelope(), { eraVideoFeed });
+    expect(hashSnapshot).not.toHaveBeenCalled();
+    const queue: Array<() => void> = [];
+    const probe = { report: { snapshot: null, error: null, timings: { readMs: 1 } } } as never as ReturnType<typeof import('./probe').createProbe>;
+    const publish = vi.fn(async () => {});
+    hashMod.scheduleSnapshotHash(loaded.core, loaded.extensions, probe, publish, (cb) => queue.push(cb));
+    expect(hashSnapshot).not.toHaveBeenCalled();
+    queue.shift()!();
+    await vi.waitFor(() => expect(publish).toHaveBeenCalledTimes(1));
+    expect(hashSnapshot).toHaveBeenCalledTimes(1);
+    expect(probe.report.snapshot).toMatchObject({ hash: 'h' });
+    expect(probe.report.timings).toMatchObject({ readMs: 1 });
+    vi.doUnmock('@swift2/experience/reader-snapshot');
   });
 });

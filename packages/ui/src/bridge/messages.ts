@@ -25,6 +25,8 @@ export type DomCommandSpec = {
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload & { image?: { url: string } }, { imageCopied: boolean } | null>;
   haptic: Spec<{ kind: HapticKind }, null>;
+  /** Native clipboard write for the share Copy-link fallback. `text` is a non-empty string of at most 2048 chars. Add-only. */
+  'clipboard.write': Spec<{ text: string }, null>;
   /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
   openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
@@ -138,6 +140,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   navigate: true,
   share: true,
   haptic: true,
+  'clipboard.write': true,
   openExternal: true,
   'notifications.status': true,
   'notifications.request': true,

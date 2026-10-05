@@ -42,6 +42,7 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     navigate: ok,
     share: ok,
     haptic: ok,
+    'clipboard.write': ok,
     openExternal: ok,
     'notifications.status': async () => resOk({ permission: 'granted', registered: true, prefs: {} }),
     'notifications.request': async () => resOk({ permission: 'granted', registered: true, prefs: {} }),
