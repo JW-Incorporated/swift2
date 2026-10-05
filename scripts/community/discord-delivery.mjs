@@ -15,6 +15,57 @@ export const TREE_AVATAR_URL = 'https://www.longlivets.com/social/tree-avatar.pn
  * every webhook post turns link previews off in code, not channel permissions. */
 export const DISCORD_SUPPRESS_EMBEDS = 4;
 
+// Code spans/fences are left verbatim: a URL inside them never unfurls, and
+// wrapping it would change text a founder is reading (e.g. a draft caption).
+const CODE_SEGMENT_RE = /(```[\s\S]*?(?:```|$)|`[^`\n]+`)/;
+const MARKDOWN_LINK_RE = /\]\((https?:\/\/[^\s()<>]+)\)/g;
+const BARE_URL_RE = /(^|[^<\w/])(https?:\/\/[^\s<>]+)/g;
+const TRAILING_PUNCT_RE = /[.,;:!?'"\])]+$/;
+
+function wrapUrl(url) {
+  let trail = url.match(TRAILING_PUNCT_RE)?.[0] ?? '';
+  // Keep a closing paren the URL itself opened (e.g. a Wikipedia path).
+  if (trail.startsWith(')') && url.slice(0, -trail.length).includes('(')) trail = trail.slice(1);
+  const core = url.slice(0, url.length - trail.length);
+  return core ? `<${core}>${trail}` : url;
+}
+
+/** Wraps every bare `http(s)://` URL (and plain markdown link target) outside
+ * code in `<…>`, which Discord never unfurls. Already-wrapped URLs are left. */
+export function angleWrapBareUrls(text) {
+  return String(text ?? '')
+    .split(CODE_SEGMENT_RE)
+    .map((part, i) =>
+      i % 2 === 1
+        ? part
+        : part
+            .replace(MARKDOWN_LINK_RE, '](<$1>)')
+            .replace(BARE_URL_RE, (_, lead, url) => `${lead}${wrapUrl(url)}`),
+    )
+    .join('');
+}
+
+/**
+ * The one place every Discord message payload this repo sends turns link
+ * previews off (owner 2026-10-05: "turn off link previews in all discord
+ * responses"). No deliberate `embeds` → OR in SUPPRESS_EMBEDS, keeping any
+ * other flag bits. With `embeds` the flag would hide them too, so it is
+ * cleared and bare URLs in `content` are angle-wrapped instead. Pure.
+ */
+export function suppressPreviews(payload) {
+  const flags = Number(payload?.flags) || 0;
+  const hasEmbeds = Array.isArray(payload?.embeds) && payload.embeds.length > 0;
+  if (!hasEmbeds) return { ...payload, flags: flags | DISCORD_SUPPRESS_EMBEDS };
+  const rest = { ...payload };
+  delete rest.flags;
+  const kept = flags & ~DISCORD_SUPPRESS_EMBEDS;
+  return {
+    ...rest,
+    ...(typeof payload.content === 'string' ? { content: angleWrapBareUrls(payload.content) } : {}),
+    ...(kept ? { flags: kept } : {}),
+  };
+}
+
 export function neutralizeMentions(text) {
   return String(text ?? '')
     .replace(/@everyone/g, '@\u200beveryone')
@@ -144,13 +195,14 @@ export async function postCommunityPrompts(
       const response = await fetchImpl(`${webhook}?wait=true`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          content: prompt.content,
-          username,
-          avatar_url: TREE_AVATAR_URL,
-          allowed_mentions: { parse: [] },
-          flags: DISCORD_SUPPRESS_EMBEDS,
-        }),
+        body: JSON.stringify(
+          suppressPreviews({
+            content: prompt.content,
+            username,
+            avatar_url: TREE_AVATAR_URL,
+            allowed_mentions: { parse: [] },
+          }),
+        ),
       });
       if (!response.ok)
         throw new Error(`Discord social-channel delivery failed with HTTP ${response.status}`);
@@ -176,13 +228,9 @@ export async function postBatchHeader(
     const response = await fetchImpl(webhook, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        content,
-        username,
-        avatar_url: TREE_AVATAR_URL,
-        allowed_mentions: { parse: [] },
-        flags: DISCORD_SUPPRESS_EMBEDS,
-      }),
+      body: JSON.stringify(
+        suppressPreviews({ content, username, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
+      ),
     });
     return response.ok;
   } catch {

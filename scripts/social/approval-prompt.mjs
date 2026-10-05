@@ -34,6 +34,7 @@
 import { readFile } from 'node:fs/promises';
 import { MEDIA_BASE_URL } from './lib/queue.mjs';
 import { DISCORD_MESSAGE_HARD_CAP } from './lib/approval-text.mjs';
+import { suppressPreviews } from '../community/discord-delivery.mjs';
 import { buildPostMessage, groupPosts } from './lib/approval-post.mjs';
 import { runMain } from '../lib/cli.mjs';
 
@@ -112,17 +113,21 @@ export async function sendApprovalPrompt(
       if (content.length > DISCORD_MESSAGE_HARD_CAP) {
         throw new Error(`approval message is ${content.length} characters, over Discord's ${DISCORD_MESSAGE_HARD_CAP} limit — refusing to send (it must be truncated, never chunked)`);
       }
+      const body = suppressPreviews({
+        content,
+        username: TREE_WEBHOOK_USERNAME,
+        avatar_url: TREE_AVATAR_URL,
+        allowed_mentions: { parse: [] },
+        ...(embeds.length ? { embeds } : {}),
+        ...(flags ? { flags } : {}),
+      });
+      // Angle-wrapping adds 2 chars per URL; never let it push a message the
+      // builder fitted to the cap over it — an unwrapped URL beats no prompt.
+      if (body.content.length > DISCORD_MESSAGE_HARD_CAP) body.content = content;
       const response = await fetchImpl(`${webhook}?wait=true`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          content,
-          username: TREE_WEBHOOK_USERNAME,
-          avatar_url: TREE_AVATAR_URL,
-          allowed_mentions: { parse: [] },
-          ...(embeds.length ? { embeds } : {}),
-          ...(flags ? { flags } : {}),
-        }),
+        body: JSON.stringify(body),
       });
       if (!response.ok) throw new Error(`Discord approval-channel delivery failed with HTTP ${response.status}`);
       const payload = await response.json();
