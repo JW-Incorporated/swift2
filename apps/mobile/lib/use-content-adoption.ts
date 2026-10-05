@@ -8,6 +8,7 @@ import {
   readStampedContentVersion,
   setMountedContentVersion,
   subscribeContentLoaded,
+  UNKNOWN_MOUNTED,
 } from './content-bundle';
 import { lastGoodSource, type LastGoodSource } from './dom-reader-config';
 import type { DomWatch } from './watchdog-gate';
@@ -29,11 +30,15 @@ export function useContentAdoption(
     differs: differsFromMountedContent,
     getMounted: getMountedContentVersion,
     setMounted: setMountedContentVersion,
-    // The refresh overwrote last-good (and its twin): hand the replacement reader the new cache-buster, then
-    // announce the planned reload to the watchdog (re-arms the ready timeout; not a strike).
+    // The refresh overwrote last-good (and its twin): persist the planned reload with the watchdog first (it re-arms
+    // the ready timeout only after the write; never a strike), then hand the replacement reader the new cache-buster.
+    // False = do not re-key.
     prepare: async () => {
-      hostRef.current.setSource({ cache: lastGoodSource() });
-      await hostRef.current.watch.plannedReload?.();
+      const cache = lastGoodSource();
+      if (!cache) return false;
+      if (!(await hostRef.current.watch.plannedReload?.())) return false;
+      hostRef.current.setSource({ cache });
+      return true;
     },
     bump: () => hostRef.current.bump(),
     onSignal: (stage, detail) => hostRef.current.onSignal(stage, detail),
@@ -42,7 +47,7 @@ export function useContentAdoption(
     if (testPage !== false) return;
     const a = adoption.current!;
     // The cache-first mount reads the file the previous process last loaded; its stamp is what the DOM mounted with.
-    setMountedContentVersion(readStampedContentVersion());
+    setMountedContentVersion(readStampedContentVersion() ?? (lastGoodSource() ? UNKNOWN_MOUNTED : null));
     a.appState(AppState.currentState);
     const offLoaded = subscribeContentLoaded((v) => a.loaded(v));
     const sub = AppState.addEventListener('change', (s) => a.appState(s));

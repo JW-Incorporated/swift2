@@ -52,6 +52,8 @@ export async function selfHealOnce(): Promise<void> {
 // A tiny stamp (the version of the last-good file after each load) lets a cache-first launch know what it mounted
 // without reading the multi-MB cache.
 const MOUNTED_STAMP_KEY = '@swift2/content:v1:mounted-version';
+/** Mounted version when a cache exists but its version was never stamped (first launch after the upgrade): differs from every real version, so one planned reload adopts it and the load then stamps. */
+export const UNKNOWN_MOUNTED = 'unknown-mounted';
 let mountedVersion: string | null = null;
 const loadedListeners = new Set<(version: string) => void>();
 

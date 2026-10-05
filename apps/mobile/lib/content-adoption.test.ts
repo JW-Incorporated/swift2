@@ -7,14 +7,15 @@ function setup(mounted: string | null = 'v1') {
   let m = mounted;
   const order: string[] = [];
   const bump = vi.fn(() => void order.push('bump'));
-  const prepare = vi.fn(async () => void order.push('prepare'));
+  const prepare = vi.fn(async () => (order.push('prepare'), true));
   const onSignal = vi.fn();
-  const a = createContentAdoption({ differs: (v) => m !== null && v !== m, getMounted: () => m, setMounted: (v) => void (m = v), prepare, bump, onSignal });
+  const a = createContentAdoption({ differs: (v) => m !== null && v !== m, getMounted: () => m, setMounted: (v) => void (order.push('setMounted'), (m = v)), prepare, bump, onSignal });
   const navigate = vi.fn(async (_p: string) => true);
   a.appState('active');
   a.epochStarted();
   a.navReady(navigate);
   a.readerReady();
+  order.length = 0;
   return { a, bump, prepare, navigate, onSignal, order, mounted: () => m };
 }
 
@@ -29,7 +30,7 @@ describe('content adoption', () => {
     a.appState('inactive');
     a.appState('active');
     await tick();
-    expect(order).toEqual(['prepare', 'bump']);
+    expect(order).toEqual(['prepare', 'setMounted', 'bump']);
     expect(mounted()).toBe('v2');
     a.route('/');
     a.epochStarted();
@@ -55,7 +56,14 @@ describe('content adoption', () => {
     expect(bump).not.toHaveBeenCalled();
   });
 
-  it('first load with nothing mounted records the baseline without arming', async () => {
+  it('an unknown mounted version (cache without a stamp) arms on the first load; a null baseline records it instead', async () => {
+    const u = setup('unknown-mounted');
+    u.a.loaded('v1');
+    u.a.appState('background');
+    u.a.appState('active');
+    await tick();
+    expect(u.bump).toHaveBeenCalledTimes(1);
+    expect(u.mounted()).toBe('v1');
     const { a, bump, mounted } = setup(null);
     a.loaded('v1');
     a.appState('background');
@@ -136,13 +144,59 @@ describe('content adoption', () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 
-  it('a failing prepare still re-keys', async () => {
-    const { a, bump, prepare } = setup();
-    prepare.mockRejectedValueOnce(new Error('x'));
+  it('prepare false (or throwing): no setMounted, no bump, pending kept; the next foreground retries once', async () => {
+    const { a, bump, prepare, order, onSignal } = setup();
+    prepare.mockResolvedValueOnce(false);
     a.loaded('v2');
     a.appState('background');
     a.appState('active');
     await tick();
+    expect(order).toEqual([]);
+    expect(bump).not.toHaveBeenCalled();
+    expect(onSignal).toHaveBeenCalledWith('content-adopt-prepare-failed');
+    prepare.mockRejectedValueOnce(new Error('x'));
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(bump).not.toHaveBeenCalled();
+    expect(prepare).toHaveBeenCalledTimes(2);
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(bump).toHaveBeenCalledTimes(1);
+  });
+
+  it('a version that lands while prepare is awaiting is the one committed', async () => {
+    const { a, bump, prepare, mounted } = setup();
+    let release: (ok: boolean) => void = () => {};
+    prepare.mockImplementationOnce(() => new Promise<boolean>((r) => (release = r)));
+    a.loaded('v2');
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    a.loaded('v3');
+    release(true);
+    await tick();
+    expect(mounted()).toBe('v3');
+    expect(bump).toHaveBeenCalledTimes(1);
+  });
+
+  it('two foregrounds during the prepare await produce one bump', async () => {
+    const { a, bump, prepare } = setup();
+    let release: (ok: boolean) => void = () => {};
+    prepare.mockImplementationOnce(() => new Promise<boolean>((r) => (release = r)));
+    a.loaded('v2');
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    a.appState('background');
+    a.appState('active');
+    release(true);
+    await tick();
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(prepare).toHaveBeenCalledTimes(1);
     expect(bump).toHaveBeenCalledTimes(1);
   });
 });

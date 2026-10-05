@@ -11,8 +11,8 @@ export interface ContentAdoptionDeps {
   differs: (version: string) => boolean;
   getMounted: () => string | null;
   setMounted: (version: string) => void;
-  /** Runs before the re-key: recompute the reader's cache-buster and re-arm the watchdog as a planned (non-strike) reload. */
-  prepare: () => Promise<void> | void;
+  /** Runs before the re-key: persist the planned reload with the watchdog, then hand the reader its new cache-buster. False = do not re-key (pending is kept; retried on the next active transition). */
+  prepare: () => Promise<boolean>;
   /** Re-key the DOM (SharedUiHost bumps `generation`). */
   bump: () => void;
   onSignal?: (stage: string, detail?: string) => void;
@@ -30,20 +30,27 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   let navigator: DomNavigator | null = null;
   let waitingForReady = false;
   let appState: string | null = null;
+  let adopting = false;
 
   const adopt = () => {
-    if (pending === null) return;
+    if (pending === null || adopting) return;
+    adopting = true;
     waitingForReady = false;
-    restore = restore ?? route;
-    deps.setMounted(pending);
-    pending = null;
-    navOk = false;
-    readerOk = false;
-    deps.onSignal?.('content-adopt', restore ?? '');
     void Promise.resolve()
       .then(() => deps.prepare())
-      .catch(() => deps.onSignal?.('content-adopt-prepare-failed'))
-      .then(() => deps.bump());
+      .catch(() => false)
+      .then((ok) => {
+        adopting = false;
+        if (!ok || pending === null) return deps.onSignal?.('content-adopt-prepare-failed');
+        // Commit only after the planned reload was persisted: from here the re-key is certain.
+        restore = restore ?? route;
+        deps.setMounted(pending);
+        pending = null;
+        navOk = false;
+        readerOk = false;
+        deps.onSignal?.('content-adopt', restore ?? '');
+        deps.bump();
+      });
   };
 
   const settle = () => {
@@ -54,7 +61,7 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       const failed = () => deps.onSignal?.('content-adopt-nav-failed', path.slice(0, 120));
       void navigator(path).then((ok) => ok || failed(), failed);
     }
-    if (waitingForReady && pending !== null) {
+    if (waitingForReady && pending !== null && !adopting) {
       if (busy) waitingForReady = false;
       else adopt();
     }
@@ -76,7 +83,7 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     appState(next: string) {
       const prev = appState;
       appState = next;
-      if (next !== 'active' || prev === 'active' || pending === null) return;
+      if (next !== 'active' || prev === 'active' || pending === null || adopting) return;
       if (busy) return deps.onSignal?.('content-adopt-deferred-busy');
       if (navOk && readerOk) adopt();
       else waitingForReady = true;

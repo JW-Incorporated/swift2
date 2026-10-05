@@ -49,6 +49,7 @@ import {
   saveReportsRaw,
   saveWatchdogRecord,
 } from './watchdog-store';
+import { plannedReloadStep } from './watchdog-planned-reload';
 import { createTelemetry } from './watchdog-telemetry';
 
 export type MountState = 'pending' | 'dom' | 'native';
@@ -70,8 +71,8 @@ export interface DomWatch {
   /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload (resolved only after the record was persisted as an unresolved attempt); otherwise struck. */
   crashed: (kind: 'terminated' | 'render-gone') => Promise<CrashOutcome | undefined>;
   protocol: () => void;
-  /** A planned DOM re-key (content adoption): re-arms the ready timeout and persists the attempt as unresolved; the reload itself is never a strike. */
-  plannedReload?: () => Promise<void>;
+  /** A planned DOM re-key (content adoption): persists the attempt as unresolved FIRST, then re-arms the ready timeout; false (nothing persisted or armed) means do not reload. The reload itself is never a strike. */
+  plannedReload?: () => Promise<boolean>;
 }
 
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
@@ -254,13 +255,15 @@ export function useDomMount(inputs: LaunchInputs | null): {
         return monitorRef.current?.crashed(k);
       },
       protocol: () => monitorRef.current?.protocolFatal(),
-      plannedReload: async () => {
-        if (!monitorRef.current?.plannedReload()) return;
-        const r = recordRef.current;
-        if (!r) return;
-        recordRef.current = markReloading(r, Date.now());
-        if (!(await write(recordRef.current, 1))) diagCollector.mark('watchdog-reload-save-failed');
-      },
+      plannedReload: () =>
+        plannedReloadStep({
+          getRecord: () => recordRef.current,
+          setRecord: (r) => void (recordRef.current = r),
+          write,
+          arm: () => monitorRef.current?.plannedReload() ?? false,
+          onWriteFailed: () => diagCollector.mark('watchdog-reload-save-failed'),
+          now: Date.now,
+        }),
     }),
     [],
   );
