@@ -10,7 +10,8 @@
     "song": true,
     "moment": true,
     "clownbot": true,
-    "sharedUi": true
+    "sharedUi": true,
+    "sharedUiIos": false
   },
   "watchdogReports": false
 }

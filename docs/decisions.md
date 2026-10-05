@@ -8619,6 +8619,8 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 
 **Decision (Joey, CEO, 2026-10-04 16:03):** the shared (DOM) UI becomes everyone's default now; the legacy native UI will be deleted in a later PR. This supersedes the "default-off until S7+S8" roadmap.
 
+- Android-only for now (PM, 2026-10-04): the iOS shared UI never reaches ready on iPhone yet, so iOS reads a separate gate `sharedUiIos` (default and JSON `false`); Android reads `sharedUi`. iOS is enabled by a one-line JSON/OTA change after the iOS DOM fix is verified on device. An iOS cache-miss is native `flag-off` (the legacy interim UI).
+- A committed attempt write is bounded at 3000 ms; a hung write mounts native `attempt-failed`.
 - `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: false` (global auto-reporting is deferred until shared sampling/aggregation exists).
 - Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The Diagnostics "Force shared UI" control and its SecureStore key are removed. `PENDING_MAX_MS` stays 1500 and pending expiry is terminal for the launch: no late swap of an interactive native UI; the next launch decides normally.
 - Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is the Recovery screen; only `flag-off` (kill switch) shows the legacy native UI until PR3.
@@ -8631,7 +8633,7 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 **Decision (Joey, CEO, 2026-10-04):** users never see the legacy native UI, so it is deleted rather than kept as a fallback. Supersedes the "legacy native UI to be deleted later" interim above. **Do not merge before the S8 device drill passes** (force DOM failure + airplane mode, Android and iPhone).
 
 - Deleted: `NativeScreenRouter`, `SiteShell`, `VaultNavigator`, `BottomTabBar`, every native Era/Thread/Song/Track/Community/Merch/Clown/Search/Legal/Settings/Onboarding screen with its helpers, data layers (`vault`, `*-data`, `clown-client`, `mood-client`), hooks (`use-native-screen-state`, `settings-entry`, `visible-screen`, `recovery-surface`) and tests.
-- Kept: UpdateRequired, Recovery, Inbox + About overlays, diagnostics hot corner, tap/deep-link intake, `registerDevice`, the watchdog, the JSON route keys in `config/mobile/app-config.json` (old OTAs parse them) and `react-native-webview` in `package.json` (removing it changes the native fingerprint and forces a store build).
+- Kept: UpdateRequired, Recovery, Inbox overlay (About/Diagnostics via the hot corner), tap/deep-link intake, `registerDevice`, the watchdog, the JSON route keys in `config/mobile/app-config.json` (old OTAs parse them) and `react-native-webview` in `package.json` (removing it changes the native fingerprint and forces a store build).
 - `flag-off` now shows the Recovery screen. The kill switch for the legacy UI no longer exists; the emergency lever is an OTA rollback (`mobile-rollback.yml`).
 - `lib/routes.ts` shrinks to `sharedUi`; Diagnostics override remnants (`clearOverride`, the `override` want-source) are removed from the watchdog.
 - Native fingerprint is unchanged: no `package.json`, `app.json` or plugin edits.

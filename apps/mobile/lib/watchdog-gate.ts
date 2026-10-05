@@ -50,12 +50,17 @@ import {
 } from './watchdog-store';
 import { createTelemetry } from './watchdog-telemetry';
 
+/** A storage write that never settles must not hang the launch: treat it as a failed attempt write (native). */
+const ATTEMPT_WRITE_MAX_MS = 3000;
+
 export type MountState = 'pending' | 'dom' | 'native';
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
   /** Last-good cached remote sharedUi (loadLaunchFlags); null = none cached. */
   sharedUi: boolean | null;
+  /** Last-good cached iOS-only gate (iOS reads this instead of sharedUi); null = none cached. */
+  sharedUiIos: boolean | null;
   /** Last-good cached watchdogReports; reports are on ONLY when this is true (null/false = off). */
   watchdogReports: boolean | null;
 }
@@ -163,10 +168,11 @@ export function useDomMount(inputs: LaunchInputs | null): {
     // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
     const struck = decidedStrikeRef.current;
     if (struck) report(struck.lastReason, struck.buildKey);
+    const ios = Platform.OS === 'ios';
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
-      cachedSharedUi: inputs.sharedUi,
-      defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
+      cachedSharedUi: ios ? inputs.sharedUiIos : inputs.sharedUi,
+      defaultSharedUi: ios ? DEFAULT_ROUTE_FLAGS.sharedUiIos : DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     // Pending expiry is terminal for this launch: native stays mounted (never swap an interactive UI); the next launch decides normally.
     if (expiredRef.current) return;
@@ -180,9 +186,14 @@ export function useDomMount(inputs: LaunchInputs | null): {
       if (expiredRef.current) return;
       committedRef.current = true;
       setForceFailure(failure);
-      const attempt = await startAttempt(decision, Date.now(), write);
+      let timer: unknown;
+      const bound = new Promise<null>((resolve) => {
+        timer = scheduler.setTimeout(() => resolve(null), ATTEMPT_WRITE_MAX_MS);
+      });
+      const attempt = await Promise.race([startAttempt(decision, Date.now(), write), bound]);
+      scheduler.clearTimeout(timer);
       if (!attempt) {
-        apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
+        apply('native', 'attempt-failed');
         return;
       }
       recordRef.current = attempt;
