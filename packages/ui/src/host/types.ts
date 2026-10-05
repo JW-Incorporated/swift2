@@ -142,7 +142,12 @@ export type HostNotifications = {
   markOnboardingOffered?(): Promise<void>;
 };
 
+/** Which host runs the shared UI. `app` = the native app on an OS the host could not name. */
+export type HostPlatform = 'ios' | 'android' | 'app' | 'web';
+
 export interface HostAdapter {
+  /** Set explicitly by each adapter (web: `web`; app: the native OS). Absent = an older host; never inferred from the user-agent by new code. */
+  platform?: HostPlatform;
   Link: ForwardRefExoticComponent<HostLinkProps & RefAttributes<HTMLAnchorElement>>;
   Image: ComponentType<HostImageProps>;
   navigate(path: string, opts?: { replace?: boolean }): void;

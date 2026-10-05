@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { loadMetrics } from '@swift2/core/notifications-server';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
+import { bearerToken, timingSafeSecretEqual } from '../../../../lib/longlive/rate-limit';
 
 // Notifications Phase 6 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §11) —
 // GET /api/notifications/metrics: the data source behind the internal
@@ -21,11 +22,14 @@ export function authorizedForDashboard(providedSecret: string | null): boolean {
   // unconfigured-env route in this repo.
   if (!expected) return false;
   if (!providedSecret) return false;
-  return providedSecret === expected;
+  return timingSafeSecretEqual(providedSecret, expected);
 }
 
 export async function GET(req: Request): Promise<Response> {
-  const secret = new URL(req.url).searchParams.get('secret');
+  // Preferred: Authorization: Bearer <secret>. The ?secret= query form is
+  // DEPRECATED (it lands in logs/history/referrers) and is kept only because
+  // the founder-openable /internal/notifications?secret= link still uses it.
+  const secret = bearerToken(req) ?? new URL(req.url).searchParams.get('secret');
   if (!authorizedForDashboard(secret)) {
     const configured = Boolean(process.env.NOTIFICATIONS_DASHBOARD_SECRET);
     return NextResponse.json(

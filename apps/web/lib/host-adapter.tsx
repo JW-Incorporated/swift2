@@ -108,6 +108,7 @@ export type WebRouter = {
 /** Pure factory: callers (the provider) pass the router obtained from their own hook call. */
 export function createWebAdapter(router: WebRouter): HostAdapter {
   return {
+    platform: 'web',
     Link: WebLink,
     Image: WebImage,
     navigate(path, opts) {

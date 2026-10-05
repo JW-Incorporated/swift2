@@ -88,4 +88,44 @@ describe('POST', () => {
     );
     expect(res.status).toBe(204);
   });
+
+  it('rejects an oversized body with 413 and logs nothing', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const big = JSON.stringify({ 'csp-report': { 'effective-directive': 'a'.repeat(20_000) } });
+    const res = await POST(new Request('https://x/api/csp-report', { method: 'POST', body: big }));
+    expect(res.status).toBe(413);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('truncates logged strings and strips line breaks', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const body = JSON.stringify({
+      'csp-report': { 'effective-directive': 'x'.repeat(5_000) + '\nforged=1', 'blocked-uri': 'inline' },
+    });
+    const res = await POST(new Request('https://x/api/csp-report', { method: 'POST', body }));
+    expect(res.status).toBe(204);
+    const line = String(warn.mock.calls[0][0]);
+    expect(line.length).toBeLessThan(300);
+    expect(line).not.toContain('forged');
+  });
+
+  it('rejects on the content-length fast path before reading the body', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const res = await POST(
+      new Request('https://x/api/csp-report', {
+        method: 'POST',
+        headers: { 'content-length': '20000' },
+        body: '{}',
+      }),
+    );
+    expect(res.status).toBe(413);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('counts bytes, not characters, for multi-byte bodies', async () => {
+    // 6000 three-byte chars = 18000 bytes (> 16 KB) but only 6000 characters.
+    const body = JSON.stringify({ 'csp-report': { 'effective-directive': '€'.repeat(6000) } });
+    const res = await POST(new Request('https://x/api/csp-report', { method: 'POST', body }));
+    expect(res.status).toBe(413);
+  });
 });

@@ -24,7 +24,35 @@ export function retryRecord(prev: WatchdogRecord | null | 'corrupt', buildKey: s
   };
 }
 
-export async function retryDomAttempt(now: () => number = Date.now): Promise<RetryOutcome> {
+export const OTA_CHECK_TIMEOUT_MS = 8000;
+export const OTA_FETCH_TIMEOUT_MS = 30000;
+
+export type RetryPhase = 'checking' | 'downloading';
+
+function raceTimeout<T>(work: Promise<T>, ms: number): Promise<T | undefined> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<undefined>((resolve) => {
+    timer = setTimeout(() => resolve(undefined), ms);
+  });
+  return Promise.race([work, timeout]).finally(() => clearTimeout(timer));
+}
+
+// Best effort: a pending OTA may be the very fix for the failure that brought the user here.
+// Any throw or timeout falls through to the reload.
+async function fetchPendingUpdate(onPhase?: (phase: RetryPhase) => void): Promise<void> {
+  try {
+    if (!Updates.isEnabled) return;
+    onPhase?.('checking');
+    const check = await raceTimeout(Updates.checkForUpdateAsync(), OTA_CHECK_TIMEOUT_MS);
+    if (!check?.isAvailable) return;
+    onPhase?.('downloading');
+    await raceTimeout(Updates.fetchUpdateAsync(), OTA_FETCH_TIMEOUT_MS);
+  } catch {
+    // proceed to reload
+  }
+}
+
+export async function retryDomAttempt(now: () => number = Date.now, onPhase?: (phase: RetryPhase) => void): Promise<RetryOutcome> {
   try {
     const writer = currentWatchdogWriter();
     await writer.settled();
@@ -34,6 +62,7 @@ export async function retryDomAttempt(now: () => number = Date.now): Promise<Ret
   } catch {
     return 'save-failed';
   }
+  await fetchPendingUpdate(onPhase);
   try {
     await Updates.reloadAsync();
     return 'reload-requested';

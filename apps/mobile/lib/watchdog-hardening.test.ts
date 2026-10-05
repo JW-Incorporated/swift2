@@ -118,10 +118,10 @@ describe('corrupt record', () => {
 });
 
 describe('quarantine bound', () => {
-  it('worst case is exactly 4 failed launches per build (2 fallback cycles x 2 strikes), then native with no attempt', () => {
+  it('worst case is 8 killed-before-ready launches per build (2 fallback cycles x 2 deaths x 2 abandons), then native with no attempt', () => {
     expect(QUARANTINE_AFTER_FALLBACK_CYCLES).toBe(2);
-    const rows = runDrill('hang', { launches: 12 });
-    expect(rows.filter((r) => r.outcome === 'strike')).toHaveLength(4);
+    const rows = runDrill('abandon', { launches: 12 });
+    expect(rows.filter((r) => !r.skipped)).toHaveLength(8);
     const firstQuarantined = rows.findIndex((r) => r.state === 'quarantined');
     expect(rows.slice(firstQuarantined + 1).every((r) => r.skipped && r.mount === 'native')).toBe(true);
   });

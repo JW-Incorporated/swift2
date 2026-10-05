@@ -87,10 +87,12 @@ jobs:
         run: rm -f apps/worker/.env
       - name: Step summary
         if: always()
+        env:
+          TARGET: ${{ inputs.target }}
         run: |
           {
             echo "### db-seed"
-            echo "- target: \`${{ inputs.target }}\`"
+            echo "- target: \`$TARGET\`"
             if [ "${{ steps.seed.outcome }}" = "success" ]; then
               echo "- result: success"
             else

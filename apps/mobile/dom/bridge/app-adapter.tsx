@@ -21,6 +21,8 @@ export interface AppAdapterDeps {
   /** Canonical site origin; defaults to APP_ORIGIN. */
   origin?: string;
   insets: Insets;
+  /** Native OS (react-native Platform.OS); anything but ios/android becomes the generic `app`. */
+  platform?: string;
   /** Routes native still owns (dom/slots/routes). Those go over the bridge `navigate`. */
   isNativeRoute: (path: string) => boolean;
   /** In-DOM navigation (history + the store's navigation); wired in D2. */
@@ -148,6 +150,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
   });
 
   return {
+    platform: deps.platform === 'ios' || deps.platform === 'android' ? deps.platform : 'app',
     Link,
     Image: AppImage,
     navigate,

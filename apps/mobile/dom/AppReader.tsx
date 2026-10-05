@@ -39,6 +39,8 @@ export interface AppReaderProps {
   artMapUri?: string;
   /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
   versionToken?: string;
+  /** Native OS (react-native Platform.OS), set by the host; labels in-app feedback. */
+  platform?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
   insets?: Insets;
   /** Native actions below take the per-epoch bridge token (from `bridgeHello`) as their LAST arg; the token never travels as a prop. */
@@ -209,7 +211,7 @@ export default function AppReader(props: AppReaderProps) {
   ) : !Reader || !client ? (
     <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ minHeight: '100vh', background: 'var(--era-bg)' }} />
   ) : (
-    <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} />
+    <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} platform={props.platform} />
   );
   return (
     <>

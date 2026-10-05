@@ -9,6 +9,7 @@ export type {
   HostImageProps,
   HostLinkProps,
   HostNotifications,
+  HostPlatform,
   HostStorage,
   HostWebPush,
   Insets,
