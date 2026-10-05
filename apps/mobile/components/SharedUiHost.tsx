@@ -12,6 +12,7 @@ import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } fro
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardInset } from '../lib/use-keyboard-inset';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
@@ -100,6 +101,7 @@ export function SharedUiHost({
   const nativeMs = useRef<number | null>(null);
   const probe = useRef(createProbePublisher({ nativeMs: () => nativeMs.current, withNativeTiming, sinks: [setProbeJson, setLatestProbeJson] })).current;
   const insets = useSafeAreaInsets();
+  const keyboard = useKeyboardInset();
   const speedOn = useSpeedOn();
 
   useEffect(() => {
@@ -224,8 +226,8 @@ export function SharedUiHost({
 
   // The DOM is the sole inset owner: native only reports. The host holds these until `ready`, then flushes.
   useEffect(() => {
-    emitRef.current?.insets(insets);
-  }, [session, insets.top, insets.right, insets.bottom, insets.left]);
+    emitRef.current?.insets({ ...insets, keyboard });
+  }, [session, insets.top, insets.right, insets.bottom, insets.left, keyboard]);
 
   useEffect(() => {
     if (contentToken) emitRef.current?.version(contentToken);

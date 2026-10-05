@@ -28,6 +28,7 @@ import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { loadStorageSeed } from './reader/storage-sync';
 import { setImageLoadListener } from './reader/image-listener';
+import { applyKeyboardInset } from './keyboard-inset';
 import { loadArtMap } from './reader/art-map';
 import { insetsFromQuery } from './reader/insets-query';
 
@@ -251,7 +252,10 @@ export default function AppReader(props: AppReaderProps) {
       bridge={props.bridge}
       bridgeHello={props.bridgeHello}
       onFatal={(reason) => void native.reportProtocolFatal(reason)}
-      onInsets={setHostInsets}
+      onInsets={(i) => {
+        setHostInsets(i);
+        applyKeyboardInset(i.keyboard ?? 0);
+      }}
       onContentVersion={(token) => {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;
       }}

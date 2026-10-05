@@ -11,7 +11,8 @@ import { describe, expect, it } from 'vitest';
 // it. These tests pin that source shape so a layout edit can't quietly put
 // chrome back inside the listbox.
 
-const src = readFileSync(new URL('./SearchOverlay.tsx', import.meta.url), 'utf8');
+const src = readFileSync(new URL('./SearchResults.tsx', import.meta.url), 'utf8');
+const overlaySrc = readFileSync(new URL('./SearchOverlay.tsx', import.meta.url), 'utf8');
 const listboxAt = src.indexOf('role="listbox"');
 
 describe('#1206 search results listbox holds only option/group children', () => {
@@ -23,7 +24,7 @@ describe('#1206 search results listbox holds only option/group children', () => 
     const openEnd = src.indexOf('>', listboxAt);
     const tag = src.slice(openStart, openEnd + 1);
     expect(tag).toContain('id="ll-search-results"');
-    expect(src).toContain('aria-controls="ll-search-results"');
+    expect(overlaySrc).toContain('aria-controls="ll-search-results"');
   });
 
   it('mounts the listbox only when there are results — the aria-expanded condition', () => {
@@ -31,7 +32,7 @@ describe('#1206 search results listbox holds only option/group children', () => 
     // lockstep, so a collapsed combobox never aria-controls a live empty
     // listbox and an expanded one always finds its target id.
     expect(src).toMatch(/\{groups\.length > 0 && \(\s*<div id="ll-search-results" role="listbox"/);
-    expect(src).toContain('aria-expanded={flat.length > 0}');
+    expect(overlaySrc).toContain('aria-expanded={flat.length > 0}');
   });
 
   it('renders every non-result state before (outside) the listbox, never inside it', () => {
@@ -52,7 +53,7 @@ describe('#1206 search results listbox holds only option/group children', () => 
     // Between the listbox tag and the key-hints footer there is only the
     // grouped results markup; options come from <ResultRow>, so any literal
     // <button> here is chrome that has crept back inside the listbox.
-    const end = src.indexOf('{/* Key hints */}');
+    const end = src.indexOf('export function SearchKeyHints');
     expect(end).toBeGreaterThan(listboxAt);
     const inner = src.slice(listboxAt, end);
     expect(inner).not.toContain('<button');
