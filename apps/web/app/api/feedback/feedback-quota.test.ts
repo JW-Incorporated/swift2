@@ -16,6 +16,13 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
+it('pins every configured cap', () => {
+  expect(QUOTA_CAPS).toEqual({
+    feedback: { ip: 5, global: 200 },
+    diag: { ip: 60, global: 500 },
+  });
+});
+
 describe('claimFeedbackSlot', () => {
   it.each(['ok', 'ip_capped', 'global_capped'])('maps %s through', async (v) => {
     rpc.mockResolvedValue({ data: v, error: null });

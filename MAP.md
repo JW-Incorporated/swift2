@@ -120,6 +120,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/app/embed/spotify/[type]/[id]/route.ts` | Spotify wrapper HTML for the app DOM host (One UI W6), same exemption path as YouTube via `isEmbedPath`. UI side: `packages/ui/src/reader/lib/spotify-embed.ts` |
 | `app/vault/live-theories/route.ts` | Stage 7's one read route for both boards below, ISR `revalidate: 900` |
 | `components/longlive/LiveTheoryCard.tsx` | One live `live_theory` card in `TheoryGuide` — dashed-provisional border, heat pill, "fans are saying" line |
+| `apps/web/app/api/feedback/report-guards.ts` | Split out of `feedback/route.ts` (300-line cap, pure move): per-instance IP limiter, `[diag]`/`[watchdog]` validation, durable quota claim |
+| `apps/web/app/api/feedback/feedback-quota.ts` | #5097: hashed-IP durable quota via the `claim_feedback_slot` rpc (caps pinned in `feedback-quota.test.ts`); `unavailable` falls back to in-memory limits |
 | `app/api/intake/route.ts` | "Help us verify" (`CurrentItemDetail.tsx`) files a GitHub `intake`-labeled issue — shape copied from `/api/feedback/route.ts` |
 | `lib/longlive/space-doorways.ts` | `spaceDoorways`/`DOORWAY_MIN_GAP` — spreads doorways through an already-merged feed, never drops one. A displaced doorway is marked `displaced` and STOPS being a scrubber anchor |
 | `lib/longlive/scrubber-anchor-corpus.test.ts` | Locks zero date inversions across all twelve real eras. Was 44 |

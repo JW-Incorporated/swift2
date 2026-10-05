@@ -14,7 +14,7 @@ export type QuotaResult = 'ok' | 'ip_capped' | 'global_capped' | 'unavailable';
 // A diag speed run is up to 31 reports, hence the roomier diag per-IP cap.
 export const QUOTA_CAPS: Record<QuotaKind, { ip: number; global: number }> = {
   feedback: { ip: 5, global: 200 },
-  diag: { ip: 60, global: 1000 },
+  diag: { ip: 60, global: 500 },
 };
 
 // Optional FEEDBACK_QUOTA_SALT env; otherwise this constant pepper. It is NOT
