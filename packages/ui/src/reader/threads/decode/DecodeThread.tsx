@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Filter, ArrowUpDown, CheckCircle2, Layers, ChevronDown, ChevronUp, TrendingUp, X } from 'lucide-react';
 import { getEra, eraIndex } from '@swift2/experience';
 import { CLUE_PAIRS } from '@swift2/experience';
@@ -48,19 +48,6 @@ export function DecodeThread({ clues = CLUE_PAIRS }: { clues?: CluePair[] }) {
   const [showFilters, setShowFilters] = useState(false);
   const [revealedIds, setRevealedIds] = useState<Set<string>>(new Set());
   const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
-
-  // Escape dismisses the top-most in-thread layer (#525), matching the click
-  // affordances: the filter panel first, then the era-filter chip's X.
-  useEffect(() => {
-    if (!showFilters && activeHighlight === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      if (showFilters) setShowFilters(false);
-      else setActiveHighlight(null);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [showFilters, activeHighlight]);
 
   // Let the mobile back-swipe gesture dismiss the same two layers as Escape
   // above instead of leaving the app — same shared-stack pattern DecodeCard

@@ -22,7 +22,7 @@ import { useEffect, useRef } from 'react';
  * swallowed so it can never dismiss the overlay underneath.
  */
 
-type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean };
+type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean; escape?: boolean };
 
 const stack: StackEntry[] = [];
 /** Pending popstates we caused ourselves (UI-close consuming its entry). */
@@ -101,12 +101,31 @@ function handlePop() {
   skipBuried();
 }
 
+/**
+ * The ONE Escape handler: dismisses only the top-most Escape-enabled overlay
+ * (same dismiss path as the native Back driver) and swallows the event so no
+ * other listener closes a second surface on the same keypress. With no such
+ * overlay open the event is left alone (inputs, non-stack surfaces).
+ */
+function onEscapeKey(e: KeyboardEvent) {
+  if (e.key !== 'Escape' || e.defaultPrevented || e.isComposing) return;
+  for (let i = stack.length - 1; i >= 0; i--) {
+    const entry = stack[i]!;
+    if (!entry.overlay || entry.escape === false) continue;
+    e.stopImmediatePropagation();
+    entry.dismiss();
+    return;
+  }
+}
+
 function installListener() {
   if (listenerInstalled) return;
   // Installed once and left in place: it must still observe (and swallow)
   // the popstate emitted by the LAST overlay's UI-close, after the stack
   // is already empty.
   window.addEventListener('popstate', onPopState);
+  // Capture phase: the single Escape dispatcher runs before any element or bubble-phase handler.
+  window.addEventListener('keydown', onEscapeKey, true);
   listenerInstalled = true;
 }
 
@@ -151,7 +170,8 @@ export function dismissTopOverlayFromNativeBack(): boolean {
   return true;
 }
 
-export function useBackDismiss(active: boolean, onDismiss: () => void) {
+/** `escape: false` keeps a back-gesture-only layer out of the Escape dispatcher. */
+export function useBackDismiss(active: boolean, onDismiss: () => void, opts?: { escape?: boolean }) {
   const onDismissRef = useRef(onDismiss);
   onDismissRef.current = onDismiss;
 
@@ -163,6 +183,7 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
       dismiss: () => onDismissRef.current(),
       dismissedByPop: false,
       overlay: true,
+      escape: opts?.escape,
     };
     stack.push(entry);
     window.history.pushState({ llOverlay: true, llId: entry.id }, '');

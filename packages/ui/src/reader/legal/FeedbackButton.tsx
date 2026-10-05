@@ -73,20 +73,13 @@ export function FeedbackButton() {
   useFocusTrap(open, dialogRef);
 
   // Let the mobile back-swipe gesture close the compose panel instead of
-  // leaving the app, matching the Escape handler below.
+  // leaving the app, matching Escape (single dispatcher in useBackDismiss).
   useBackDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => textareaRef.current?.focus(), 60);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener('keydown', onKey);
-    };
+    return () => window.clearTimeout(t);
   }, [open]);
 
   // Dismissed for the rest of this session (sessionStorage), or the clown
