@@ -3,6 +3,8 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
+import { inboxOverlay, useInboxOpen } from '../slots/inbox-store';
+import { onboardingOverlay, useOnboardingPhase } from '../slots/onboarding-store';
 import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
@@ -17,10 +19,16 @@ export function ReaderBridge() {
   const q = useReader();
   // The settings overlay sits above everything: back closes it before any open item.
   const settingsOpen = useSettingsOpen();
+  const inboxOpen = useInboxOpen();
+  // The push offer (when showing) is the top entry: back dismisses it before the inbox/Settings.
+  const offerShown = useOnboardingPhase() === 'shown';
   useBackRegistration(
-    controls.registerBack,
-    settingsOpen ? 'settings' : openItemId,
-    settingsOpen ? settingsOverlay.close : actions.closeItem,
+    // While an offer CTA is in flight every Back is handled outright (never exits mid-save, outside the one-close-per-key guard).
+    (fn) => controls.registerBack(fn && (() => (onboardingOverlay.isBusy() ? 'handled' : fn()))),
+    offerShown ? 'onboarding' : inboxOpen ? 'inbox' : settingsOpen ? 'settings' : openItemId,
+    offerShown
+      ? () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done'))
+      : inboxOpen ? inboxOverlay.close : settingsOpen ? settingsOverlay.close : actions.closeItem,
   );
 
   useEffect(() => {
@@ -40,7 +48,7 @@ export function ReaderBridge() {
         findEraForVideoSlug: (slug) => r.eras.find((e) => r.allVideoRecordsForEra(e.id).some((v) => v.slug === slug))?.id ?? null,
         eraOfTrackKey: (key) => resolveTrackKey(key)?.eraId ?? null,
       };
-      return applyAfterCommit(() => applyDeepLink(search, queries, a));
+      return applyAfterCommit(() => applyDeepLink(search, queries, { ...a, closeInbox: inboxOverlay.close, closeSettings: settingsOverlay.close }));
     });
     return () => controls.setApplier(null);
   }, []);

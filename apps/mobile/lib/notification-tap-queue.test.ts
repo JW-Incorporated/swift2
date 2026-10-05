@@ -226,6 +226,21 @@ describe('notification tap queue', () => {
     expect(onDrop).toHaveBeenCalledWith('stale');
   });
 
+  it('a delivered id is a duplicate only within the TTL; after it, the same id is a new tap', async () => {
+    let t = 0;
+    const q = createTapQueue({ now: () => t, ttlMs: 1000 });
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    expect(q.enqueue(tap('x', '/settings'))).toBe('queued');
+    await q.flush();
+    t = 500;
+    expect(q.enqueue(tap('x', '/settings'))).toBe('duplicate');
+    t = 1501;
+    expect(q.enqueue(tap('x', '/settings'))).toBe('queued');
+    await q.flush();
+    expect(got).toEqual(['/settings', '/settings']);
+  });
+
   it('drops unmappable payloads without throwing', () => {
     const onDrop = vi.fn();
     const q = createTapQueue({ onDrop });
