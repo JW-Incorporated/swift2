@@ -2,17 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #105 🟡 [DECIDE] Store data-safety form still says the app runs analytics (~5 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** The app no longer runs website analytics, but apps/web/lib/longlive/data-inventory.ts (the source for the App Store / Play data-safety answers) still declares it. Over-declaring is safe; fixing it changes the store listings.
-**Steps:**
-1. Decide: `keep` — leave the store forms over-declaring for now; `fix` — AI updates the inventory and files the store-console edits for you.
-**Worked if:** your reply is recorded on this card.
 
 ## #103 🟢 [UPGRADE] Set SUBMISSIONS_HASH_SALT in Vercel production (~3 min)
 <!-- ha filed=2026-10-05 -->
