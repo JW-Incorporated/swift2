@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ os: 'android', saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0, saveFail: false }));
+const h = vi.hoisted(() => ({ os: 'android', saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0, saveFail: false, reportsRaw: null as string | null, send: vi.fn(async (..._a: unknown[]) => ({ ok: true })) }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
   Platform: { get OS() { return h.os; } },
@@ -22,8 +22,8 @@ vi.mock('./watchdog-store', () => ({
     h.saved.push(r as never);
     return true;
   },
-  loadReportsRaw: async () => null,
-  saveReportsRaw: async () => undefined,
+  loadReportsRaw: async () => h.reportsRaw,
+  saveReportsRaw: async (raw: string) => void (h.reportsRaw = raw),
 }));
 vi.mock('./diagnostics-override', () => ({
   getForceDomFailure: async () => 'off',
@@ -31,7 +31,7 @@ vi.mock('./diagnostics-override', () => ({
 }));
 vi.mock('./dom-reader-config', () => ({ lastGoodSource: () => ({ scriptUri: 'x', jsonUri: 'y' }) }));
 vi.mock('./content-bundle', () => ({ loadContentBundle: async () => ({}) }));
-vi.mock('./diagnostics-send', () => ({ sendDiagReport: async () => ({ ok: true }) }));
+vi.mock('./diagnostics-send', () => ({ sendDiagReport: (...a: unknown[]) => h.send(...a) }));
 vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark, elapsed: () => 0 }, setMountInfo: () => undefined }));
 
 import { act, renderHook } from '@testing-library/react';
@@ -52,6 +52,8 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     h.saveFail = false;
     h.os = 'android';
     h.mark.mockClear();
+    h.send.mockClear();
+    h.reportsRaw = null;
   });
   afterEach(() => vi.useRealTimers());
 
@@ -244,6 +246,18 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(result.current.mount).toBe('dom');
     expect(h.saved).toHaveLength(1);
     expect(h.saved[0].strikes).toBe(1);
+  });
+
+  it('a strike folded in when the late record resolves is reported exactly once', async () => {
+    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'attempting', strikes: 1, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: 1 };
+    h.loadDelay = 3000;
+    renderHook(() => useDomMount(inputs({ watchdogReports: true })));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    expect(h.send).not.toHaveBeenCalled();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3000); });
+    expect(h.send).toHaveBeenCalledTimes(1);
+    await act(async () => { await vi.advanceTimersByTimeAsync(5000); });
+    expect(h.send).toHaveBeenCalledTimes(1);
   });
 
   it('late corrupt record: a reset record is written, the DOM stays', async () => {
