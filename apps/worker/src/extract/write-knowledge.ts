@@ -9,7 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { theoriesBoardLink } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -70,7 +70,6 @@ const NOTIFICATION_CATEGORY_BY_CURRENT_ITEM: Partial<
   award: 'award_news',
 };
 
-const SITE_URL = 'https://www.longlivets.com';
 
 async function emitLaunchCategoryEvent(
   db: SupabaseClient,
@@ -84,7 +83,7 @@ async function emitLaunchCategoryEvent(
       category,
       title: item.headline,
       body: item.summary,
-      deepLink: `${SITE_URL}/?current=${encodeURIComponent(currentItemId)}`,
+      deepLink: frontDoorLink(),
       // Deterministic on the SAME underlying detection so a re-extraction
       // of the same story cluster (news-worker.yml re-running against a
       // still-open story) never double-fires — dedupe_key's whole point
