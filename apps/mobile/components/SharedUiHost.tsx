@@ -26,7 +26,6 @@ import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } f
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
 import { newBridgeToken } from '../lib/bridge-token';
-import { primeBridgeSeed } from '../lib/bridge-seed';
 import { createProbePublisher } from '../lib/probe-publisher';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
@@ -46,7 +45,6 @@ import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 
 const SITE_FALLBACK = 'https://www.longlivets.com';
-void primeBridgeSeed();
 
 interface ReaderSource {
   cache: LastGoodSource | null;

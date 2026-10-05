@@ -767,7 +767,7 @@ A1 (clown board/chat client modules only; Mood and all server-side `clown-*` sta
 | `docs/one-ui/wp0.5.md` | WP0.5 spike notes: shims, gaps, recipes, findings |
 | `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals and forwards them to the watchdog; no reload or error screen of its own |
 | `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink, `bridge` action forwarder) and `createBridgeLink` (host `send` -> `inbox` prop / awaited `res`/`readyAck`) |
-| `apps/mobile/lib/bridge-seed.ts`, `apps/mobile/lib/probe-publisher.ts` (+ test) | Per-install SecureStore seed for the token fallback; probe publisher factory (stable, defined before the handlers) |
+| `apps/mobile/lib/probe-publisher.ts` (+ test) | Probe publisher factory (stable, defined before the handlers) |
 | `apps/mobile/lib/bridge-token.ts`, `apps/mobile/lib/use-speed-on.ts`, `apps/mobile/components/bridge-token.test.ts` | Per-epoch bridge token generator (32 hex; checked first by every `dom-host-handlers` action, `bridgeHello` returns it, never a DOM prop, so embedded iframes cannot forge native actions); `useSpeedOn` hook split out of `SharedUiHost` (300-line cap) |
 | `apps/mobile/dom/bridge/api-fetch.ts` (+ test) | H2 DOM side of the `api` command: `createBridgeApiFetch(client)` (ApiFetch over `client.call('api')`, cancelled -> AbortError) and `createBridgeApiStream` (bufferedFrom); not yet imported by the app adapter |
 | `apps/mobile/dom/bridge/api-fetch.wiring.test.ts` | H2 real-bridge test: DOM client + link + host + `createLiveAppHandlers`, only expo/fetch mocked (allowlist/64 KB host validation, cancel propagation, per-endpoint timeouts) |

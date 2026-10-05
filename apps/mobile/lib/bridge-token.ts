@@ -1,16 +1,10 @@
-/** Per-install random seed (persisted by lib/bridge-seed.ts); mixed into the fallback only. */
-let installSeed = '';
-export function setBridgeSeed(seed: string) {
-  installSeed = seed;
-}
-
 type Cryptoish = { getRandomValues?: (a: Uint8Array) => Uint8Array };
 let counter = 0;
 
-/** 128 bits from a cyrb128-style mix of every weak source we have (used only when no CSPRNG exists). */
+/** 128 bits from a cyrb128-style mix of every weak source we have (Math.random x8, Date.now, performance.now, a counter; in-runtime sources only, used only when no CSPRNG exists). */
 function mixedBytes(): Uint8Array {
   const perf = (globalThis as { performance?: { now?: () => number } }).performance;
-  const parts: string[] = [installSeed, String(Date.now()), String(perf?.now?.() ?? ''), String(++counter)];
+  const parts: string[] = [String(Date.now()), String(perf?.now?.() ?? ''), String(++counter)];
   for (let i = 0; i < 8; i++) parts.push(String(Math.random()));
   const s = parts.join('|');
   let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
@@ -35,7 +29,7 @@ function mixedBytes(): Uint8Array {
 /**
  * 32 hex chars, fresh per epoch. Never put it in DOM props: injectedJavaScriptObject is readable from any iframe on Android.
  * Uses crypto.getRandomValues when the runtime has it. The shipped binary has no CSPRNG module, so on device this
- * may be the mixed fallback (generated in the RN JS runtime, which a WebView iframe cannot observe); expo-crypto is the durable fix.
+ * may be the mixed fallback (#5084 adds expo-crypto) (generated in the RN JS runtime, which a WebView iframe cannot observe); expo-crypto is the durable fix.
  */
 export function newBridgeToken(): string {
   const c = (globalThis as { crypto?: Cryptoish }).crypto;
