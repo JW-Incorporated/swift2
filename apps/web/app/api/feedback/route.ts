@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { claimFeedbackSlot } from './feedback-quota';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 import {
   DIAG_ISSUE_NUMBER,
@@ -274,6 +275,13 @@ export async function POST(req: Request): Promise<Response> {
       speedReport = parsed.report.speed;
     }
     diagComment = diagCommentFrom(parsed.report);
+  }
+
+  if (!watchdog) {
+    const quota = await claimFeedbackSlot(diag ? 'diag' : 'feedback', ip);
+    if (quota === 'ip_capped' || quota === 'global_capped') {
+      return NextResponse.json({ error: 'Too many reports. Please try again later.' }, { status: 429 });
+    }
   }
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
