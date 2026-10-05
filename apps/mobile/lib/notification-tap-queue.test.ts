@@ -173,7 +173,7 @@ describe('notification tap queue', () => {
     release(true);
     await q.flush();
     expect(seen).toEqual(['/settings', '/terms']);
-    expect(onDrop).toHaveBeenCalledWith('overflow');
+    expect(onDrop).toHaveBeenCalledWith('overflow', '2');
   });
 
   it('capacity 1 with an in-flight head drops the incoming tap', async () => {

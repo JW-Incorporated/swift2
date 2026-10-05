@@ -45,7 +45,7 @@ describe('notification tap queue (ttl, drops, resolver, sinks)', () => {
     q.attach(sink);
     await q.flush();
     expect(got).toEqual(['/privacy']);
-    expect(onDrop).toHaveBeenCalledWith('stale');
+    expect(onDrop).toHaveBeenCalledWith('stale', 'old');
   });
 
   it('a delivered id is a duplicate only within the TTL; after it, the same id is a new tap', async () => {
@@ -84,7 +84,7 @@ describe('notification tap queue (ttl, drops, resolver, sinks)', () => {
       expect(q.enqueue(tap('u', bad))).toBe('dropped');
     }
     expect(q.size()).toBe(0);
-    expect(onDrop).toHaveBeenCalledWith('unmappable');
+    expect(onDrop).toHaveBeenCalledWith('unmappable', 'u');
   });
 
   it('a dropped tap does not poison its id', () => {
@@ -99,7 +99,7 @@ describe('notification tap queue (ttl, drops, resolver, sinks)', () => {
     q.enqueue(tap('1', '/settings'));
     q.enqueue(tap('2', '/privacy'));
     q.enqueue(tap('3', '/terms'));
-    expect(onDrop).toHaveBeenCalledWith('overflow');
+    expect(onDrop).toHaveBeenCalledWith('overflow', '1');
     const { sink, got } = ackAll();
     q.attach(sink);
     await q.flush();
