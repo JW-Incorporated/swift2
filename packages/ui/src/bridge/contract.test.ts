@@ -60,7 +60,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
     type Empty = Record<string, never>;
     type Exact = {
       navigate: H<{ path: WebPath; replace?: boolean }, null>;
-      share: H<SharePayload, null>;
+      share: H<SharePayload & { image?: { url: string } }, { imageCopied: boolean } | null>;
       haptic: H<{ kind: HapticKind }, null>;
       openExternal: H<{ url: ExternalUrl | MailtoUrl }, null>;
       'notifications.status': H<Empty, NotificationStatus>;
@@ -71,6 +71,8 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.savePrefs': H<NotificationPrefsUpdate, NotificationPrefsState>;
       'notifications.unregister': H<Empty, null>;
       'notifications.registration': H<Empty, { registered: boolean }>;
+      'notifications.onboardingOffered': H<Empty, { offered: boolean }>;
+      'notifications.markOnboardingOffered': H<Empty, null>;
       api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
       apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
@@ -81,7 +83,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'apiRead', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
+      ['api', 'apiRead', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());

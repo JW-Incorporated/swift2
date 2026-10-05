@@ -1,6 +1,7 @@
 // One UI W1-E: which sides a side-a-only route renders on. Pure (no Playwright import) so it unit-tests without a browser.
-// 'a' = web build only (default, today's behaviour); 'both' = web build and the app DOM bundle (side b), compared a-vs-b.
-export type Sides = 'a' | 'both';
+// 'a' = web build only (default, today's behaviour); 'both' = web build and the app DOM bundle (side b), compared a-vs-b;
+// 'b' = app-only surface (no website equivalent): side-b baselines, no a-vs-b compare.
+export type Sides = 'a' | 'b' | 'both';
 
 export interface Sided {
   readonly name: string;
@@ -9,6 +10,9 @@ export interface Sided {
 
 /** Routes a slice D has flipped to both sides; everything else stays a-only. */
 export const bothSidesRoutes = <T extends Sided>(routes: readonly T[]): T[] => routes.filter((r) => r.sides === 'both');
+
+/** Routes that render on side b (flipped to both, or app-only): the ones that own b-* baselines. */
+export const bSideRoutes = <T extends Sided>(routes: readonly T[]): T[] => routes.filter((r) => r.sides === 'both' || r.sides === 'b');
 
 /** Committed baseline file names for a route's side-b captures (root clip, whole viewport with real insets). */
 export const bBaselineNames = (route: Sided): { root: string; viewport: string } => ({
@@ -28,7 +32,7 @@ export function planBSide(routes: readonly Sided[]): { route: string; compare: s
 export function assertNoBaselineCollisions(base: readonly Sided[], routes: readonly Sided[]): void {
   const owner = new Map<string, string>();
   for (const r of base) for (const f of Object.values(bBaselineNames(r))) owner.set(f, r.name);
-  for (const r of bothSidesRoutes(routes)) {
+  for (const r of bSideRoutes(routes)) {
     for (const f of Object.values(bBaselineNames(r))) {
       const prior = owner.get(f);
       if (prior !== undefined) throw new Error(`parity: route "${r.name}" b baseline ${f} collides with route "${prior}"`);

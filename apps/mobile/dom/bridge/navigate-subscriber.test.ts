@@ -3,8 +3,12 @@ import { createAppHandlersFor } from '../../lib/app-handlers';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { createTapGate } from '../../lib/notification-tap-gate';
+import { resolveDestination } from '../../lib/destination-resolver';
 import { createTapBinder, createTapTarget, type TapBinder } from '../../lib/tap-bind-epoch';
+import { isNativeRoute as isHostRoute } from '../slots/routes';
 import { applyNavigateEvent, installNavigateSubscriber } from './navigate-subscriber';
+import { inboxOverlay, resetInboxOverlayForTests } from '../slots/inbox-store';
+import { resetSettingsOverlayForTests, settingsOverlay } from '../slots/settings-store';
 import { createExpoBridge } from './transport-expo';
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
@@ -52,9 +56,9 @@ describe('applyNavigateEvent', () => {
     expect(await applyNavigateEvent({ path: '/?item=gone' as never }, deps)).toBe(false);
   });
 
-  it('an apply failure reports false', async () => {
+  it('an apply failure propagates (no answer is not an ok:false answer)', async () => {
     const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => Promise.reject(new Error('boom'))) };
-    expect(await applyNavigateEvent({ path: '/?item=a' as never }, deps)).toBe(false);
+    await expect(applyNavigateEvent({ path: '/?item=a' as never }, deps)).rejects.toThrow('boom');
   });
 });
 
@@ -78,7 +82,8 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
     onSignal: vi.fn(),
   });
   const openElsewhere = vi.fn(async (_p: string) => true);
-  const target = createTapTarget({ host, isReaderPath: (p) => new URL(p, 'https://x.test').pathname === '/', openElsewhere });
+  const destination = (p: string) => resolveDestination(p, { isHostRoute });
+  const target = createTapTarget({ host, canonicalize: (p) => destination(p).path, isReaderPath: (p) => destination(p).kind === 'dom', openElsewhere });
   const gate = createTapGate({ siteUrl: 'https://www.longlivets.com', retryMs: 60_000 });
   const binder = createTapBinder({ gate, host: target, onReadinessLoss: vi.fn() });
   ref.host = host;
@@ -87,7 +92,7 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
   link.attach(host);
   const dom = createExpoBridge((env) => handlers.bridge(env));
   ref.dom = dom;
-  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true) };
+  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true), setPath: vi.fn(async () => true) };
   dom.mount();
   if (subscribe) installNavigateSubscriber(dom.client, deps);
   const ready = async () => {
@@ -103,7 +108,8 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
 }
 
 describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () => {
-  it.each(['/settings', '/privacy', '/terms', '/support', '/vault', '/settings?tab=1'])('%s is opened by native, never swallowed by the reader', async (path) => {
+  it('/vault (no DOM route) is opened by native, never swallowed by the reader', async () => {
+    const path = '/vault';
     const e = epoch();
     await e.ready();
     e.gate.enqueue({ id: `id${path}`, deepLink: `https://www.longlivets.com${path}` });
@@ -111,6 +117,29 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     await vi.waitFor(() => expect(e.gate.size()).toBe(0));
     expect(e.deps.replaceUrl).not.toHaveBeenCalled();
     expect(e.deps.apply).not.toHaveBeenCalled();
+    e.dispose();
+  });
+
+  // Every backend-emitted settings/inbox/legal link form, through the REAL resolver, tap target and DOM subscriber.
+  it.each([
+    ['https://www.longlivets.com/?screen=settings', 'settings'],
+    ['https://www.longlivets.com/?current=inbox', 'inbox'],
+    ['https://www.longlivets.com/settings', 'settings'],
+    ['https://www.longlivets.com/settings?tab=1', 'settings'],
+    ['/privacy', 'legal'],
+    ['/terms', 'legal'],
+    ['/support', 'legal'],
+  ])('%s opens in the DOM and is delivered, never openElsewhere', async (deepLink, kind) => {
+    const e = epoch();
+    await e.ready();
+    e.gate.enqueue({ id: `d${deepLink}`, deepLink });
+    await vi.waitFor(() => expect(e.gate.size()).toBe(0));
+    expect(e.openElsewhere).not.toHaveBeenCalled();
+    if (kind === 'settings') expect(settingsOverlay.isOpen()).toBe(true);
+    if (kind === 'inbox') expect(inboxOverlay.isOpen()).toBe(true);
+    if (kind === 'legal') expect(e.deps.setPath).toHaveBeenCalledWith(deepLink.replace(/^https:\/\/www\.longlivets\.com/, ''));
+    resetSettingsOverlayForTests();
+    resetInboxOverlayForTests();
     e.dispose();
   });
 
@@ -130,14 +159,12 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     e.dispose();
   });
 
-  it('a DOM failure keeps the tap queued', async () => {
-    const e = epoch({ apply: async () => Promise.reject(new Error('boom')) });
+  it('an unresolved target answers ok:false, which is consumed (never retried at the head until TTL)', async () => {
+    const e = epoch({ apply: async () => false });
     await e.ready();
     e.gate.enqueue({ id: 'f1', deepLink: '/?item=abc' });
     await vi.waitFor(() => expect(e.deps.replaceUrl).toHaveBeenCalled());
-    await tick();
-    await tick();
-    expect(e.gate.size()).toBe(1);
+    await vi.waitFor(() => expect(e.gate.size()).toBe(0));
     e.dispose();
   });
 
@@ -171,5 +198,70 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     await vi.waitFor(() => expect(e.binder.isBound()).toBe(false));
     again.client.dispose();
     e.dispose();
+  });
+});
+
+describe('installNavigateSubscriber delivery dedupe (lost confirmation)', () => {
+  function fake() {
+    let handler!: (e: { path: never; source: 'notification'; id?: string }) => void;
+    const sent: { type: string; payload: unknown }[] = [];
+    const client = {
+      on: (_t: 'navigate', fn: typeof handler) => ((handler = fn), () => {}),
+      sendEvent: (type: 'navReady' | 'navigated', payload: never) => void sent.push({ type, payload }),
+    };
+    return { client, fire: (id: string, path = '/?item=abc') => handler({ path: path as never, source: 'notification', id }), sent };
+  }
+
+  it('a re-emission with the same id applies once and re-sends the confirmation', async () => {
+    const { client, fire, sent } = fake();
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
+    installNavigateSubscriber(client, deps);
+    fire('t1-1');
+    await tick();
+    fire('t1-1');
+    await tick();
+    expect(deps.apply).toHaveBeenCalledTimes(1);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([
+      { type: 'navigated', payload: { id: 't1-1', ok: true } },
+      { type: 'navigated', payload: { id: 't1-1', ok: true } },
+    ]);
+  });
+
+  it('a throwing apply sends no navigated, and the same id re-invokes apply on retry', async () => {
+    const { client, fire, sent } = fake();
+    const apply = vi.fn().mockRejectedValueOnce(new Error('no reader')).mockResolvedValue(true);
+    installNavigateSubscriber(client, { replaceUrl: vi.fn(), apply });
+    fire('t9-1');
+    await tick();
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([]);
+    fire('t9-1');
+    await tick();
+    expect(apply).toHaveBeenCalledTimes(2);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([{ type: 'navigated', payload: { id: 't9-1', ok: true } }]);
+  });
+
+  it('apply -> false answers navigated ok:false once; a repeated id is answered from the cache', async () => {
+    const { client, fire, sent } = fake();
+    const apply = vi.fn(async () => false);
+    installNavigateSubscriber(client, { replaceUrl: vi.fn(), apply });
+    fire('t9-2');
+    await tick();
+    fire('t9-2');
+    await tick();
+    expect(apply).toHaveBeenCalledTimes(1);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([
+      { type: 'navigated', payload: { id: 't9-2', ok: false } },
+      { type: 'navigated', payload: { id: 't9-2', ok: false } },
+    ]);
+  });
+
+  it('a different id applies again', async () => {
+    const { client, fire } = fake();
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
+    installNavigateSubscriber(client, deps);
+    fire('t1-1');
+    fire('t1-2');
+    await tick();
+    expect(deps.apply).toHaveBeenCalledTimes(2);
   });
 });

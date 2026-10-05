@@ -16,6 +16,8 @@ export interface ProbeReport {
   /** Native clock, stamped by the host (not the webview): dom-launch-attempted to onReady. */
   nativeLaunchToReadyMs?: number | null;
   heapMb: number | null;
+  /** Webview cold-start stages in ms (Diagnostics): readMs (twin read), parseMs, buildMs (snapshot), hashMs (deferred, after ready). */
+  timings?: Record<string, number>;
   placeholders: Record<string, { total: number; bad: number; pending: number }> | null;
   error: string | null;
 }
@@ -35,7 +37,7 @@ export function createProbe(version = '') {
   };
   return {
     report,
-    attempts(list: { method: 'fetch' | 'xhr'; ok: boolean }[]) {
+    attempts(list: { method: 'fetch' | 'xhr' | 'script'; ok: boolean }[]) {
       for (const a of list) report.read[a.method] = a.ok ? 'ok' : 'fail';
     },
     json: () => JSON.stringify(report),

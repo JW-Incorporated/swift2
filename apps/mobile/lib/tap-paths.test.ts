@@ -2,22 +2,24 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { applyNavigateEvent } from '../dom/bridge/navigate-subscriber';
 import { isNativeRoute } from '../dom/slots/routes-instance';
 import { registerRoutes, resetRoutesForTests } from '../dom/slots/routes-instance';
+import { inboxOverlay, resetInboxOverlayForTests } from '../dom/slots/inbox-store';
 import { resetSettingsOverlayForTests, settingsOverlay } from '../dom/slots/settings-store';
 import { createTapTarget } from './tap-bind-epoch';
 import { isDomOwnedTapPath } from './tap-paths';
 
 afterEach(() => {
   resetSettingsOverlayForTests();
+  resetInboxOverlayForTests();
   resetRoutesForTests();
 });
 
 describe('isDomOwnedTapPath', () => {
-  it('owns the reader route and the settings pages; native routes and other paths stay native', () => {
-    registerRoutes({ slice: 'host', nativeRoutes: [{ id: 'host:inbox', match: '/inbox' }] });
-    for (const p of ['/', '/?item=x', '/settings', '/settings/notifications', '/settings/notifications?x=1']) {
+  it('owns the reader route, the settings pages and the inbox; native routes and other paths stay native', () => {
+    registerRoutes({ slice: 'test', nativeRoutes: [{ id: 'test:native', match: '/test-native' }] });
+    for (const p of ['/', '/?item=x', '/settings', '/settings/notifications', '/settings/notifications?x=1', '/inbox', '/inbox?x=1', '/privacy', '/terms', '/support', '/?screen=settings', '/?current=inbox', '/?screen=era-stream', '/?screen=song&key=k']) {
       expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(true);
     }
-    for (const p of ['/inbox', '/privacy', '/vault', '/settings/about']) expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(false);
+    for (const p of ['/test-native', '/vault', '/settings/about']) expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(false);
   });
 });
 
@@ -51,6 +53,12 @@ describe('notification tap to settings: real tap target + real DOM subscriber', 
     expect(delivered).toHaveBeenCalledWith(true);
   });
 
+  it('a tap on /inbox is emitted to the DOM and opens the inbox overlay', async () => {
+    const ok = await applyNavigateEvent({ path: '/inbox' as never }, { replaceUrl: vi.fn(), apply: vi.fn() });
+    expect(ok).toBe(true);
+    expect(inboxOverlay.isOpen()).toBe(true);
+  });
+
   it('a non-reader, non-settings path still goes to openElsewhere', () => {
     const openElsewhere = vi.fn().mockResolvedValue(true);
     const emit = vi.fn();
@@ -59,8 +67,8 @@ describe('notification tap to settings: real tap target + real DOM subscriber', 
       isReaderPath: (p) => isDomOwnedTapPath(p, isNativeRoute),
       openElsewhere,
     });
-    target.emit('navigate', { path: '/privacy' as never, source: 'notification' });
-    expect(openElsewhere).toHaveBeenCalledWith('/privacy');
+    target.emit('navigate', { path: '/vault' as never, source: 'notification' });
+    expect(openElsewhere).toHaveBeenCalledWith('/vault');
     expect(emit).not.toHaveBeenCalled();
   });
 });

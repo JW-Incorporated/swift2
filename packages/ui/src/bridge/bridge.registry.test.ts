@@ -11,7 +11,7 @@ describe('runtime registries', () => {
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
         'api', 'apiRead', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
-        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share',
+        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
       ].sort(),
     );
     expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
@@ -22,7 +22,7 @@ describe('JSON round-trip, one sample per type', () => {
   const insets: Insets = { top: 1, right: 2, bottom: 3, left: 4 };
   const commandSamples: { [T in CommandType]: PayloadOf<T> } = {
     navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
-    share: { title: 't', text: 'x', url: 'https://example.test' },
+    share: { title: 't', text: 'x', url: 'https://example.test', image: { url: 'https://example.test/card.png' } },
     haptic: { kind: 'success' },
     openExternal: { url: toExternalUrl('https://example.test')! },
     'notifications.status': {},
@@ -33,6 +33,8 @@ describe('JSON round-trip, one sample per type', () => {
     'notifications.savePrefs': {},
     'notifications.unregister': {},
     'notifications.registration': {},
+    'notifications.onboardingOffered': {},
+    'notifications.markOnboardingOffered': {},
     api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
     apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },
@@ -97,7 +99,7 @@ describe('type-level contract', () => {
   });
 
   it('shared primitive types are the host/types definitions', () => {
-    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload>();
+    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload & { image?: { url: string } }>();
     expectTypeOf<PayloadOf<'haptic'>['kind']>().toEqualTypeOf<HapticKind>();
     expectTypeOf<PayloadOf<'notifications.updatePrefs'>['prefs']>().toEqualTypeOf<NotificationPrefs>();
     expectTypeOf<ResultOf<'notifications.status'>>().toEqualTypeOf<NotificationStatus>();

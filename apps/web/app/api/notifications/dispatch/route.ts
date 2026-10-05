@@ -9,6 +9,7 @@ import {
   runCooldownPass,
 } from '@swift2/core/notifications-server';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
+import { trackKeyForLyricSlug } from '../../../../lib/longlive/lyric-track-key';
 
 // Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
 // the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
@@ -73,7 +74,7 @@ export async function GET(req: Request): Promise<Response> {
     const result = await dispatchPendingEvents(db);
     const digestResult = await dispatchDueDigests(db);
     const clownResult = await dispatchClownReports(db);
-    const funResult = await dispatchFunNotifications(db);
+    const funResult = await dispatchFunNotifications(db, new Date(), { trackKeyForSlug: trackKeyForLyricSlug });
     const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
     const countdownDispatchResult = await dispatchDueCountdowns(db);
     // Phase 5: cooldown is a once-a-day-effective check (isCooldownEligible

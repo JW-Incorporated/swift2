@@ -22,6 +22,13 @@ function harness(fetchImpl?: (url: string, init: RequestInit) => Promise<Respons
 const value = (r: ResResult<ApiResponse | ApiStreamHead>) => (r.ok ? (r.value as ApiResponse) : null);
 
 describe('api handler: allowlist', () => {
+  it('accepts GET /api/notifications/inbox (the DOM inbox feed)', async () => {
+    const { call, fetchMock } = harness();
+    const r = await call({ method: 'GET', path: '/api/notifications/inbox' } as Req);
+    expect(value(r)?.status).toBe(200);
+    expect(fetchMock.mock.calls[0][0]).toBe('https://api.test/api/notifications/inbox');
+  });
+
   it.each(['/api/intake', '/api/feedback', '/api/mood', '/api/submit-link', '/api/clown'])('accepts POST %s', async (p) => {
     const { call, fetchMock } = harness();
     const r = await call(post(p, { body: '{}' }));

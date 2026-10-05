@@ -1,5 +1,7 @@
 import { toWebPath } from '@swift2/ui';
 import type { EventPayloadOf, WebPath } from '@swift2/ui';
+import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
+import { resolveTapDestination } from './destination-resolver';
 
 export const MAX_QUEUED_TAPS = 16;
 export const MAX_SEEN_TAPS = 64;
@@ -7,8 +9,6 @@ export const ACK_TIMEOUT_MS = 15_000;
 export const TAP_TTL_MS = 10 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
-/** First path segments the shared UI serves; `/` itself (query-driven surfaces) is always allowed. */
-const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault']);
 
 /**
  * Canonicalizes a link to a site-relative `path?query#hash`: an app-relative path or an
@@ -34,23 +34,23 @@ export function canonicalizeLink(link: string): string | null {
   } catch {
     return null;
   }
-  const segs = pathname.split('/').filter(Boolean);
-  if (segs.some((s) => s === '..' || s === '.')) return null;
+  const raw = rel.split(/[?#]/)[0].split('/');
+  if (raw.some((s) => s === '..' || s === '.') || pathname.split('/').some((s) => s === '..')) return null;
   return rel;
 }
 
-/** Default tap resolver: a canonical link that lands on an internal shared-UI route (`/api`, `/internal` etc. refused). */
+/** Default tap resolver: the ONE destination resolver (destination-resolver.ts) decides; the queue stores its canonical path. */
 export function resolveTapPath(link: string): WebPath | null {
   const rel = canonicalizeLink(link);
   if (rel === null) return null;
-  const segs = new URL(rel, 'https://www.longlivets.com').pathname.split('/').filter(Boolean);
-  if (segs.length > 0 && !ROUTE_ROOTS.has(segs[0])) return null;
-  return toWebPath(rel);
+  const d = resolveTapDestination(rel, { isHostRoute });
+  return d === null ? null : toWebPath(d.path);
 }
 
 /** A notification response reduced to what the queue needs (no token, no PII). */
-export type RawTap = { id?: unknown; deepLink?: unknown };
-export type Tap = { id: string | null; path: WebPath; receivedAt: number };
+export type TapSource = 'notification' | 'deeplink';
+export type RawTap = { id?: unknown; deepLink?: unknown; source?: TapSource };
+export type Tap = { id: string | null; path: WebPath; receivedAt: number; source: TapSource };
 /**
  * Delivers one tap. Resolves `true` only when the receiver ACKNOWLEDGED it
  * (E2: the DOM's `ack`); `false`, a rejection or a disposed host means "not
@@ -89,7 +89,8 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   const now = deps.now ?? (() => globalThis.performance?.now?.() ?? Date.now());
   const resolvePath = deps.resolvePath ?? resolveTapPath;
   const held: Tap[] = [];
-  const delivered = new Set<string>();
+  // id -> when it was delivered: a repeat id is a duplicate only within the TTL (a reused id later is a new tap).
+  const delivered = new Map<string, number>();
   let sink: TapSink | null = null;
   let flushing: Promise<void> | null = null;
   let again = false;
@@ -104,10 +105,18 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     }
   };
 
+  function isRecentlyDelivered(id: string): boolean {
+    const at = delivered.get(id);
+    if (at === undefined) return false;
+    if (now() - at <= ttl) return true;
+    delivered.delete(id);
+    return false;
+  }
+
   function markDelivered(id: string | null): void {
     if (id === null) return;
-    delivered.add(id);
-    if (delivered.size > seenCap) delivered.delete(delivered.values().next().value as string);
+    delivered.set(id, now());
+    if (delivered.size > seenCap) delivered.delete(delivered.keys().next().value as string);
   }
 
   async function drain(): Promise<void> {
@@ -174,14 +183,14 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       return 'dropped';
     }
     const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= 256 ? raw.id : null;
-    if (id !== null && (delivered.has(id) || held.some((t) => t.id === id))) return 'duplicate';
+    if (id !== null && (isRecentlyDelivered(id) || held.some((t) => t.id === id))) return 'duplicate';
     if (held.length >= capacity) {
       const idx = held[0] === inFlight ? 1 : 0;
       drop('overflow');
       if (idx >= held.length) return 'dropped';
       held.splice(idx, 1);
     }
-    held.push({ id, path, receivedAt: now() });
+    held.push({ id, path, receivedAt: now(), source: raw.source === 'deeplink' ? 'deeplink' : 'notification' });
     void flush();
     return 'queued';
   }
@@ -220,6 +229,6 @@ export const navigateSink =
     source: EventPayloadOf<'navigate'>['source'] = 'notification',
   ): TapSink =>
   (tap, signal = new AbortController().signal) => {
-    const ref = emit('navigate', { path: tap.path, source });
+    const ref = emit('navigate', { path: tap.path, source: tap.source === 'deeplink' ? 'deeplink' : source });
     return awaitAck(tap, ref ? ref : null, signal);
   };

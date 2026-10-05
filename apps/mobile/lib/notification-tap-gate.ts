@@ -10,8 +10,9 @@
 // Native mode wins over a bound host (the host is being torn down).
 // Every sink receives only canonical site-relative links: an unmappable link opens home, never raw.
 import type { Tap, TapQueue, AckRef, RawTap } from './notification-tap-queue';
-import { canonicalizeLink, createTapQueue } from './notification-tap-queue';
+import { createTapQueue } from './notification-tap-queue';
 import type { EventPayloadOf } from '@swift2/ui';
+import { toDomTapPath, toNativeTapPath } from '../dom/slots/settings-paths';
 
 /** The slice of BridgeHost the gate needs. */
 export type TapHost = {
@@ -66,7 +67,7 @@ export function createTapGate(opts: {
     return async (tap: Tap, signal?: AbortSignal) => {
       let ref = refs.get(tap) ?? null;
       if (!ref) {
-        ref = h.emit('navigate', { path: tap.path, source: 'notification' });
+        ref = h.emit('navigate', { path: toDomTapPath(tap.path) as Tap['path'], source: tap.source });
         if (ref) refs.set(tap, ref);
       }
       if (!ref) return false;
@@ -99,23 +100,26 @@ export function createTapGate(opts: {
     target = next;
     if (native) {
       const go = native;
-      queue.attach(async (tap: Tap) => (go(`${opts.siteUrl}${tap.path}`), true));
+      queue.attach(async (tap: Tap) => (go(`${opts.siteUrl}${toNativeTapPath(tap.path)}`), true));
     } else if (host) queue.attach(hostSink(host));
     else queue.detach();
     kick();
   }
 
   return {
-    /** Enqueue one tap. In native mode a link the queue refuses (unknown route root, hostile, absent) opens canonical-or-home, once per id. */
+    /** Enqueue one tap. In native mode a payload with no link opens home once per id; a refused link is logged and never navigated. */
     enqueue(raw: RawTap): 'queued' | 'duplicate' | 'dropped' {
       const outcome = queue.enqueue(raw);
       if (outcome === 'queued' && target !== null && retry === null) kick();
       if (outcome === 'dropped' && native) {
-        const id = typeof raw.id === 'string' && raw.id.length > 0 ? raw.id : null;
-        if (id === null || !legacySeen.has(id)) {
-          if (id !== null) legacySeen.add(id);
-          const rel = typeof raw.deepLink === 'string' ? canonicalizeLink(raw.deepLink) : null;
-          native(`${opts.siteUrl}${rel ?? '/'}`);
+        // Legacy: a payload with no link at all opens home once per id. A present link the queue refused is never navigated.
+        if (typeof raw.deepLink === 'string') console.warn('[tap-gate] refused deep link not navigated');
+        else {
+          const id = typeof raw.id === 'string' && raw.id.length > 0 ? raw.id : null;
+          if (id === null || !legacySeen.has(id)) {
+            if (id !== null) legacySeen.add(id);
+            native(`${opts.siteUrl}/`);
+          }
         }
       }
       return outcome;
