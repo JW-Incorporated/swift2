@@ -33,6 +33,10 @@ describe('share with an image', () => {
     'https://www.longlivets.com.evil.example/x',
     'https://u:p@www.longlivets.com/x',
     'not a url',
+    'https://www.longlivets.com/some/other/path.png',
+    'https://www.longlivets.com/api/share-card/extra?size=story',
+    'https://www.longlivets.com/api/other?size=story',
+    'https://www.longlivets.com/',
   ])('rejects image.url %s as invalid and downloads nothing', async (u) => {
     const { h, ports, env } = setup('ios');
     expect(await h.share(payload({ url: u }), ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
@@ -43,7 +47,7 @@ describe('share with an image', () => {
   it('iOS downloads <size>.png and shares it as a file:// url', async () => {
     const { h, ports, env } = setup('ios');
     expect(await h.share(payload({ url: CARD }), ctx)).toEqual({ ok: true, value: { imageCopied: false } });
-    expect(ports.download).toHaveBeenCalledWith(CARD, expect.stringMatching(/^\d+-1-story$/));
+    expect(ports.download).toHaveBeenCalledWith(CARD, expect.stringMatching(/^\d+-1-story$/), expect.any(AbortSignal));
     expect(ports.prune).toHaveBeenCalledWith(2);
     const arg = (env.share.share as ReturnType<typeof vi.fn>).mock.calls[0]?.[0] as { url: string };
     expect(arg.url).toMatch(/^file:\/\//);
@@ -73,6 +77,50 @@ describe('share with an image', () => {
     await vi.advanceTimersByTimeAsync(8000);
     expect(await p).toEqual({ ok: true, value: null });
     expect(env.share.share).toHaveBeenCalledWith({ title: 'T', message: 'x\nhttps://www.longlivets.com/?item=a' });
+  });
+
+  it('aborts the download on the 8 s timeout and prunes', async () => {
+    vi.useFakeTimers();
+    let signal: AbortSignal | undefined;
+    const { h, ports } = setup('ios', {
+      download: vi.fn((_u: string, _n: string, s?: AbortSignal) => {
+        signal = s;
+        return new Promise<never>(() => {});
+      }),
+    });
+    const p = h.share(payload({ url: CARD }), ctx);
+    await vi.advanceTimersByTimeAsync(7999);
+    expect(signal?.aborted).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    await p;
+    expect(signal?.aborted).toBe(true);
+    expect(ports.prune).toHaveBeenCalledWith(2);
+  });
+
+  it('a newer share aborts the superseded download and still prunes', async () => {
+    const signals: AbortSignal[] = [];
+    let first: (v: { uri: string; base64(): string }) => void = () => {};
+    const download = vi
+      .fn()
+      .mockImplementationOnce((_u: string, _n: string, s: AbortSignal) => {
+        signals.push(s);
+        return new Promise((r) => (first = r));
+      })
+      .mockImplementationOnce(async () => ({ uri: 'file:///cache/share/second.png', base64: () => 'B64' }));
+    const { h, ports } = setup('ios', { download });
+    const a = h.share(payload({ url: CARD }), ctx);
+    await h.share(payload({ url: CARD }), ctx);
+    expect(signals[0]?.aborted).toBe(true);
+    (ports.prune as ReturnType<typeof vi.fn>).mockClear();
+    first({ uri: 'file:///cache/share/first.png', base64: () => 'OLD' });
+    await a;
+    expect(ports.prune).toHaveBeenCalledWith(2);
+  });
+
+  it('prunes after a failed download too', async () => {
+    const { h, ports } = setup('ios', { download: vi.fn(async () => { throw new Error('card too large'); }) });
+    await h.share(payload({ url: CARD }), ctx);
+    expect(ports.prune).toHaveBeenCalledWith(2);
   });
 
   it.each([

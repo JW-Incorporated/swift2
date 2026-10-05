@@ -1,13 +1,14 @@
 // One UI WP2.14: category-only watchdog telemetry, DEFAULT OFF (on only when the
 // remote config explicitly sets `watchdogReports: true`). A report is the
 // minimal `[watchdog]` shape {platform, buildKey, category}: no device model,
-// OS version, update id field or timings, and no free text. At most one report
-// per buildKey per day (the `sent` list persists the throttle) and MAX_PENDING
-// waiting in storage. Pure: storage, network, clock and platform are injected.
+// OS version, update id field or timings, and no free text. A device reports a
+// given buildKey+category at most once PER INSTALL (#4874: the persisted `sent`
+// marks do not expire; a new build has a new buildKey). History is bounded to
+// the most recent MAX_SENT marks (older ones evict), and clearing app data
+// resets it; the server dedupes durably regardless. MAX_PENDING wait in storage. Pure: storage, network, clock and platform are injected.
 import { WATCHDOG_REASONS, type WatchdogReason } from './watchdog-policy';
 
 export const MAX_PENDING = 3;
-export const REPORT_THROTTLE_MS = 24 * 60 * 60 * 1000;
 const MAX_SENT = 50;
 export const WATCHDOG_PREFIX = '[watchdog]';
 
@@ -20,6 +21,7 @@ export interface PendingReport {
 
 export interface SentMark {
   buildKey: string;
+  category?: WatchdogReason;
   at: number;
 }
 
@@ -36,7 +38,7 @@ export interface WatchdogPayload {
 const str = (v: unknown): v is string => typeof v === 'string' && v.length > 0 && v.length <= 80;
 
 /** Defensive parse: anything malformed is dropped, never thrown. */
-export function parseReportState(raw: string | null, now: number = Date.now()): ReportState {
+export function parseReportState(raw: string | null): ReportState {
   const empty: ReportState = { pending: [], sent: [] };
   if (!raw) return empty;
   try {
@@ -49,20 +51,25 @@ export function parseReportState(raw: string | null, now: number = Date.now()): 
       .map((p) => ({ category: p.category, buildKey: p.buildKey }));
     const sent = (Array.isArray(o.sent) ? o.sent : [])
       .filter((s): s is SentMark => !!s && str(s.buildKey) && Number.isFinite(s.at))
-      .map((s) => ({ buildKey: s.buildKey, at: s.at }))
-      .filter((s) => Math.abs(now - s.at) < REPORT_THROTTLE_MS);
+      .map((s) =>
+        (WATCHDOG_REASONS as readonly unknown[]).includes(s.category)
+          ? { buildKey: s.buildKey, category: s.category, at: s.at }
+          : { buildKey: s.buildKey, at: s.at },
+      );
     return { pending: pending.slice(-MAX_PENDING), sent: sent.slice(-MAX_SENT) };
   } catch {
     return empty;
   }
 }
 
-const throttled = (state: ReportState, buildKey: string, now: number): boolean =>
-  state.sent.some((s) => s.buildKey === buildKey && Math.abs(now - s.at) < REPORT_THROTTLE_MS);
+/** A legacy mark (no category, written before #4874) covers the whole buildKey. */
+const alreadySent = (state: ReportState, r: PendingReport): boolean =>
+  state.sent.some((s) => s.buildKey === r.buildKey && (s.category === undefined || s.category === r.category));
 
-/** Adds a report unless that buildKey is already pending or was reported within the last day. */
-export function enqueueReport(state: ReportState, report: PendingReport, now: number): ReportState {
-  if (throttled(state, report.buildKey, now) || state.pending.some((p) => p.buildKey === report.buildKey)) return state;
+/** Adds a report unless that buildKey+category is already pending or is in this install's recent sent history. */
+export function enqueueReport(state: ReportState, report: PendingReport): ReportState {
+  if (alreadySent(state, report) || state.pending.some((p) => p.buildKey === report.buildKey && p.category === report.category))
+    return state;
   return { ...state, pending: [...state.pending, report].slice(-MAX_PENDING) };
 }
 
@@ -86,7 +93,7 @@ export function createTelemetry(deps: TelemetryDeps) {
     tail = run.catch(() => undefined);
     return run;
   };
-  const read = async (): Promise<ReportState> => parseReportState(await deps.load().catch(() => null), deps.now());
+  const read = async (): Promise<ReportState> => parseReportState(await deps.load().catch(() => null));
   const write = (s: ReportState) => deps.save(JSON.stringify(s)).catch(() => undefined);
 
   async function flushNow(enabled: boolean): Promise<void> {
@@ -99,9 +106,7 @@ export function createTelemetry(deps: TelemetryDeps) {
       const now = deps.now();
       state = {
         pending: state.pending.filter((q) => q !== p),
-        sent: [...state.sent, { buildKey: p.buildKey, at: now }]
-          .filter((s) => Math.abs(now - s.at) < REPORT_THROTTLE_MS)
-          .slice(-MAX_SENT),
+        sent: [...state.sent, { buildKey: p.buildKey, category: p.category, at: now }].slice(-MAX_SENT),
       };
       await write(state);
     }
@@ -110,11 +115,11 @@ export function createTelemetry(deps: TelemetryDeps) {
   return {
     /** Sends what is pending when online (next launch at the latest); drops it when reports are off. */
     flush: (enabled: boolean) => serial(() => flushNow(enabled)),
-    /** Enqueues one report (throttled per buildKey per day) and tries to send it straight away. */
+    /** Enqueues one report (once per buildKey+category per install) and tries to send it straight away. */
     report: (category: WatchdogReason, buildKey: string, enabled: boolean) =>
       serial(async () => {
         if (!enabled) return;
-        await write(enqueueReport(await read(), { category, buildKey }, deps.now()));
+        await write(enqueueReport(await read(), { category, buildKey }));
         await flushNow(true);
       }),
   };

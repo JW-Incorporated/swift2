@@ -59,7 +59,7 @@ describe('FeedbackButton host capabilities (WP2.13 A2)', () => {
     const body = JSON.parse(init.body);
     expect(body.message).toBe('typo');
     expect(body.hp).toBe('');
-    expect(body.location.url).toBe(window.location.href);
+    expect(body.location.path).toBe(window.location.pathname);
     await waitFor(() => expect(screen.getByText(/your report was filed/)).toBeTruthy());
   });
 
@@ -99,6 +99,6 @@ describe('FeedbackButton host capabilities (WP2.13 A2)', () => {
     );
     await sendMessage();
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
-    expect(JSON.parse(fetchMock.mock.calls[0][1].body).location.url).toBeUndefined();
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body).location.path).toBeUndefined();
   });
 });

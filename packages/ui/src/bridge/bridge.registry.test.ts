@@ -11,10 +11,10 @@ describe('runtime registries', () => {
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
         'api', 'apiRead', 'back', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
-        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
+        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share', 'storage.load', 'storage.write',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'route', 'theme']);
   });
 });
 
@@ -39,6 +39,8 @@ describe('JSON round-trip, one sample per type', () => {
     api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
     apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },
+    'storage.load': {},
+    'storage.write': { entries: { k: 'v' } },
     back: {},
   };
   const eventSamples: { [T in EventType]: EventPayloadOf<T> } = {
@@ -52,6 +54,7 @@ describe('JSON round-trip, one sample per type', () => {
     navReady: {},
     navigated: { id: 't1', ok: true },
     theme: { statusBarStyle: 'light', background: '#0c0c0c' },
+    route: { path: '/privacy?x=1' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
