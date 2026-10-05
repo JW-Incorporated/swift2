@@ -180,7 +180,7 @@ export function ClownChat({ lore }: ClownChatProps) {
       // the fixed 46rem ceiling still reads comfortably.
       'relative flex h-[var(--clown-panel-h)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)] md:h-[46rem]';
 
-  const panelStyle = { '--clown-panel-h': `max(12rem, calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE} - var(--keyboard-inset, 0px)))` } as React.CSSProperties;
+  const panelStyle = { '--clown-panel-h': `max(12rem, calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - max(${BOTTOM_NAV_CLEARANCE}, calc(var(--keyboard-inset, 0px) + var(--safe-bottom,env(safe-area-inset-bottom)))))` } as React.CSSProperties;
 
   const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
     expanded ? ' pt-[max(0.75rem,var(--safe-top,env(safe-area-inset-top)))]' : ''

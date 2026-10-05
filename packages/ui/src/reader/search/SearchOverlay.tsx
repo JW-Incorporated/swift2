@@ -3,30 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
-import {
-  Clapperboard,
-  Compass,
-  CornerDownLeft,
-  Layers,
-  Lightbulb,
-  Music2,
-  Search,
-  Sparkles,
-  Waypoints,
-  X,
-} from 'lucide-react';
-import { cn } from '../lib/utils';
-import { getEra } from '@swift2/experience';
-import {
-  flattenGroups,
-  searchDocs,
-  type SearchDocType,
-  type SearchResult,
-  type SearchTarget,
-} from '@swift2/experience';
+import { Search, X } from 'lucide-react';
+import { flattenGroups, searchDocs, type SearchTarget } from '@swift2/experience';
 import { useReader } from '../../snapshot/context';
 import { useAppActions, useAppState } from '../store';
 import { useBackDismiss } from '../lib/useBackDismiss';
+import { optionId } from './SearchResultRow';
+import { SearchKeyHints, SearchResults } from './SearchResults';
 
 /**
  * The search overlay (audit T7): a command-palette-style panel over the whole
@@ -50,25 +33,7 @@ import { useBackDismiss } from '../lib/useBackDismiss';
  * crossing overlay are exempt for the same transient-chooser reason.)
  */
 
-const TYPE_ICON: Record<SearchDocType, typeof Search> = {
-  era: Compass,
-  thread: Layers,
-  moment: Sparkles,
-  egg: Waypoints,
-  theory: Lightbulb,
-  track: Music2,
-  video: Clapperboard,
-};
-
-/** Starter queries shown in the empty state — one per corner of the archive. */
-const SUGGESTIONS = ['snake', 'vault', '13', 'crossing'];
-
 const DEBOUNCE_MS = 120;
-
-function optionId(key: string): string {
-  // Doc keys contain spaces/quotes (track titles); ids must be CSS-safe.
-  return `ll-search-opt-${key.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
-}
 
 export function SearchOverlay() {
   const { searchOpen } = useAppState();
@@ -102,7 +67,10 @@ export function SearchOverlay() {
       const el = e.target as HTMLElement | null;
       if (
         el &&
-        (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || el.isContentEditable)
+        (el.tagName === 'INPUT' ||
+          el.tagName === 'TEXTAREA' ||
+          el.tagName === 'SELECT' ||
+          el.isContentEditable)
       ) {
         return;
       }
@@ -165,10 +133,7 @@ export function SearchOverlay() {
         : [],
     [searchIndex, debounced, showAll],
   );
-  const totalMatches = useMemo(
-    () => groups.reduce((n, g) => n + g.totalMatches, 0),
-    [groups],
-  );
+  const totalMatches = useMemo(() => groups.reduce((n, g) => n + g.totalMatches, 0), [groups]);
   const flat = useMemo(() => flattenGroups(groups), [groups]);
 
   // Clamp the active row whenever the result set changes.
@@ -247,13 +212,11 @@ export function SearchOverlay() {
 
   const showEmptyHint = debounced.trim() === '';
   const showNoMatch = !showEmptyHint && flat.length === 0;
-  let flatIndex = -1; // running index across groups, for active-row tracking
-
   return (
     <div
       ref={dialogRef}
       tabIndex={-1}
-      className="fixed inset-0 z-[80] flex flex-col items-center bg-black/60 p-4 pb-[max(1rem,var(--keyboard-inset,0px))] pt-[max(4rem,10vh)] backdrop-blur-sm detail-enter sm:px-6"
+      className="fixed inset-0 z-[80] flex flex-col items-center bg-black/60 p-4 pb-[max(1rem,calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))))] pt-[max(4rem,10vh)] backdrop-blur-sm detail-enter sm:px-6"
       role="dialog"
       aria-modal="true"
       aria-label="Search the archive"
@@ -294,149 +257,22 @@ export function SearchOverlay() {
             <X className="h-4 w-4" />
           </button>
         </div>
+        <SearchResults
+          groups={groups}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          select={select}
+          setQuery={setQuery}
+          setShowAll={setShowAll}
+          showAll={showAll}
+          showEmptyHint={showEmptyHint}
+          showNoMatch={showNoMatch}
+          totalMatches={totalMatches}
+          debounced={debounced}
+        />
 
-        {/* Results / states. The listbox wraps ONLY option/group children
-            (#1206, axe `aria-required-children`): the empty hint, no-match
-            message, and show-all header are chrome, so they live in the scroll
-            container as siblings ABOVE the listbox, which mounts exactly when
-            there are results — the same condition as the input's
-            `aria-expanded`, so its `aria-controls` never points at a missing
-            id while expanded. */}
-        <div className="min-h-0 overflow-y-auto overscroll-contain">
-          {showEmptyHint && (
-            <div className="px-4 py-8 text-center">
-              <p className="text-sm text-[color:var(--era-ink-soft)]">
-                Moments, songs, Easter eggs, theories, videos — the whole archive.
-              </p>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                {SUGGESTIONS.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => setQuery(s)}
-                    className="era-chip rounded-full px-3 py-1 text-xs font-medium"
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {showNoMatch && (
-            <p className="px-4 py-8 text-center text-sm text-[color:var(--era-ink-soft)]">
-              No matches for “{debounced.trim()}” — try an era, a song, or a motif like “snake”.
-            </p>
-          )}
-
-          {showAll && (
-            <div className="flex items-center justify-between gap-3 border-b border-[color:var(--era-line)] px-4 py-3">
-              <p className="text-sm font-semibold">
-                {totalMatches} {totalMatches === 1 ? 'result' : 'results'} for “{debounced.trim()}”
-              </p>
-              <button
-                type="button"
-                onClick={() => setShowAll(false)}
-                className="era-chip shrink-0 rounded-full px-3 py-1 text-xs font-medium"
-              >
-                Back to top matches
-              </button>
-            </div>
-          )}
-
-          {groups.length > 0 && (
-            <div id="ll-search-results" role="listbox" aria-label="Search results">
-              {groups.map((group) => (
-                <div key={group.type} role="group" aria-label={group.label}>
-                  <p
-                    role="presentation"
-                    className="sticky top-0 bg-[color:var(--era-bg)]/95 px-4 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)] backdrop-blur-sm"
-                  >
-                    {group.label}
-                    {!showAll && group.totalMatches > group.results.length && (
-                      <span className="ml-2 font-normal tracking-normal text-[color:var(--era-ink-soft)] normal-case">
-                        {group.results.length} of {group.totalMatches}
-                      </span>
-                    )}
-                  </p>
-                  {group.results.map((result) => {
-                    flatIndex += 1;
-                    return (
-                      <ResultRow
-                        key={result.doc.key}
-                        result={result}
-                        isActive={flatIndex === activeIndex}
-                        index={flatIndex}
-                        onHover={setActiveIndex}
-                        onSelect={select}
-                      />
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Key hints */}
-        <div className="hidden items-center justify-end gap-4 border-t border-[color:var(--era-line)] px-4 py-2 text-[11px] text-[color:var(--era-ink-soft)] sm:flex">
-          <span>
-            <kbd className="rounded border border-[color:var(--era-line)] px-1">↑</kbd>{' '}
-            <kbd className="rounded border border-[color:var(--era-line)] px-1">↓</kbd> navigate
-          </span>
-          <span>
-            <kbd className="rounded border border-[color:var(--era-line)] px-1">↵</kbd> open
-          </span>
-          <span>
-            <kbd className="rounded border border-[color:var(--era-line)] px-1">esc</kbd> close
-          </span>
-        </div>
+        <SearchKeyHints />
       </div>
     </div>
-  );
-}
-
-function ResultRow({
-  result,
-  isActive,
-  index,
-  onHover,
-  onSelect,
-}: {
-  result: SearchResult;
-  isActive: boolean;
-  index: number;
-  onHover: (index: number) => void;
-  onSelect: (target: SearchTarget) => void;
-}) {
-  const { doc } = result;
-  const Icon = TYPE_ICON[doc.type];
-  return (
-    <button
-      type="button"
-      id={optionId(doc.key)}
-      role="option"
-      aria-selected={isActive}
-      onClick={() => onSelect(doc.target)}
-      onMouseMove={() => onHover(index)}
-      className={cn(
-        'flex w-full items-start gap-3 px-4 py-2.5 text-left transition-colors',
-        isActive && 'bg-[color:var(--era-surface-2)]',
-      )}
-    >
-      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-medium">{doc.title}</span>
-        <span className="block truncate text-xs text-[color:var(--era-ink-soft)]">{doc.snippet}</span>
-      </span>
-      {doc.eraId && (
-        <span className="mt-0.5 hidden shrink-0 rounded-full border border-[color:var(--era-line)] px-2 py-0.5 text-[10px] text-[color:var(--era-ink-soft)] sm:inline">
-          {getEra(doc.eraId).shortName}
-        </span>
-      )}
-      {isActive && (
-        <CornerDownLeft className="mt-1 hidden h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] sm:block" aria-hidden />
-      )}
-    </button>
   );
 }

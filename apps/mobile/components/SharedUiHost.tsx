@@ -88,7 +88,7 @@ export function SharedUiHost({
     }),
   ).current;
   useEffect(() => () => activeDeferral.cancel(), []);
-  const emitRef = useRef<{ insets: (i: Insets & { keyboard?: number }) => void; version: (t: string) => void } | null>(null);
+  const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
   const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
   navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);

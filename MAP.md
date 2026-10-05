@@ -718,7 +718,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 
 | Path | What |
 |---|---|
-| `packages/ui/src/reader/search/{SearchOverlay.tsx,search-listbox-children.test.ts}` | MOVED from `apps/web/components/longlive/` (WP2.8-A1, move-only). `apps/web/components/longlive/SearchOverlay.tsx` is a one-line `export *` shim (until D / WP2.13). `lib/longlive/search.ts` stays (still used by `clown-retrieve.ts`, the golden suite, regen script) |
+| `packages/ui/src/reader/search/{SearchOverlay.tsx,search-listbox-children.test.ts}` | MOVED from `apps/web/components/longlive/` (WP2.8-A1, move-only). Split for the 300-line cap (pure move): `SearchResults.tsx` (results/empty states + key hints) and `SearchResultRow.tsx` (`ResultRow`, `optionId`); the listbox test reads `SearchResults.tsx`. `apps/mobile/lib/use-keyboard-inset.ts` + `dom/keyboard-inset.ts` carry the soft-keyboard height to `--keyboard-inset` (Insets.keyboard on the `insets` event). `apps/web/components/longlive/SearchOverlay.tsx` is a one-line `export *` shim (until D / WP2.13). `lib/longlive/search.ts` stays (still used by `clown-retrieve.ts`, the golden suite, regen script) |
 
 ### WP2.9 merch
 (2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. 2.9-A2 moved MerchSection too (takes an `extensions` prop; web wrapper injects `MERCH_EXTENSIONS`); SubmitLinkForm now uses `useHost().apiFetch` and `env.turnstileSiteKey`. See `packages/ui/READER-MOVE.md`.

@@ -73,7 +73,7 @@ type BackFn = () => 'handled' | 'exit';
 type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
 type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
   onFatal: (reason: string) => void;
-  onInsets: (insets: Insets & { keyboard?: number }) => void;
+  onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
   navigateDeps: NavigateDeps;
   backRef: { current: BackFn | null };

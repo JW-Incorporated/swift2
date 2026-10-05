@@ -51,7 +51,7 @@ nav[aria-label='Primary'] {
   [class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
     bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
   }
-  [class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
-    bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  [class~='bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))]'] {
+    bottom: max(calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))), calc(var(--keyboard-inset, 0px) + var(--safe-bottom, env(safe-area-inset-bottom)) + 1rem)) !important;
   }
 }
