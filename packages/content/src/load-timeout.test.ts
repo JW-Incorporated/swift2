@@ -44,6 +44,27 @@ describe('request timeout', () => {
     ).rejects.toThrow();
   });
 
+  it('headers arrive but the body never completes: rejects after the timeout', async () => {
+    const stalled: FetchLike = (url) =>
+      url.endsWith('current.json')
+        ? Promise.resolve({ ok: true, status: 200, text: () => new Promise<string>(() => {}), headers: { get: () => null } })
+        : serve()(url);
+    await expect(
+      loadBundle({ baseUrl, fetch: stalled, storage: new MemoryStorageAdapter(), requestTimeoutMs: 50 }),
+    ).rejects.toThrow(/current.json/);
+  });
+
+  it('a stalled file body rejects after the timeout', async () => {
+    const first = Object.values(manifest.files)[0]!.path;
+    const stalled: FetchLike = (url) =>
+      url.endsWith(`/${first}`)
+        ? Promise.resolve({ ok: true, status: 200, text: () => new Promise<string>(() => {}), headers: { get: () => null } })
+        : serve()(url);
+    await expect(
+      loadBundle({ baseUrl, fetch: stalled, storage: new MemoryStorageAdapter(), requestTimeoutMs: 50 }),
+    ).rejects.toThrow();
+  });
+
   it('the timeout aborts the request signal', async () => {
     let aborted = false;
     const fetchImpl: FetchLike = (_url, init) =>

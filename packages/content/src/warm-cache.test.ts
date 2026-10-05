@@ -119,6 +119,8 @@ describe('warm path', () => {
     const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage: old });
     expect(warm.source).toBe('network');
     expect((warm.files.eras as unknown[])[0]).toHaveProperty('name');
+    expect(old.getItem(key(`files:${v}:schema-fp-OLD`))).toBeNull();
+    expect(old.getItem(key(`etag:${v}:schema-fp-OLD`))).toBeNull();
   });
 });
 
