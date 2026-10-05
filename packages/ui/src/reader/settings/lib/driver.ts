@@ -11,6 +11,8 @@ export type DriverSubscribeResult =
 
 /** What the settings page needs from a host. No device id or push token ever passes through it. */
 export type SettingsDriver = {
+  /** Which host backs this driver: the app's native notifications or the browser's web push. */
+  kind: 'native' | 'web';
   permission(): Promise<DriverPermission>;
   subscribe(): Promise<DriverSubscribeResult>;
   unsubscribe(): Promise<{ ok: true } | { ok: false; error: string }>;
@@ -27,6 +29,7 @@ export function fromWebPush(webPush: HostWebPush, vapidPublicKey: string | null)
   let deviceId: string | null = null;
   const id = () => (deviceId ??= webPush.getDeviceId());
   return {
+    kind: 'web',
     permission: async () => {
       if (!webPush.isSupported()) return 'unsupported';
       if (typeof Notification !== 'undefined' && Notification.permission === 'granted') return 'granted';
@@ -52,6 +55,7 @@ export const APP_DENIED_HINT =
 /** App path: everything goes through host.notifications (the native side owns the device id and token). */
 export function fromNotifications(n: HostNotifications): SettingsDriver {
   return {
+    kind: 'native',
     permission: async () => {
       try {
         const s = await n.status();
