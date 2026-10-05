@@ -139,7 +139,7 @@ export default function App() {
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : (
-            <RecoveryScreen slow={domMount.nativeReason === 'pending-expired'} />
+            <RecoveryScreen />
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
