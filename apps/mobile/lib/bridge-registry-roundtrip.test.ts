@@ -9,7 +9,7 @@ import { PREFS_FIXTURE, setup, tick } from './bridge-host.test-kit';
 // Both tables are exhaustive over DomCommandType, so a new command fails typecheck until it is added here.
 const REQUESTS: { [T in DomCommandType]: PayloadOf<T> } = {
   navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
-  share: { title: 't', text: 'x', url: 'https://example.test' },
+  share: { title: 't', text: 'x', url: 'https://example.test', image: { url: 'https://example.test/i.png' } },
   haptic: { kind: 'success' },
   openExternal: { url: toExternalUrl('https://example.test/a')! },
   'notifications.status': {},
@@ -32,7 +32,7 @@ const REQUESTS: { [T in DomCommandType]: PayloadOf<T> } = {
 
 const RESULTS: { [T in Exclude<DomCommandType, 'cancel'>]: ResultOf<T> } = {
   navigate: null,
-  share: null,
+  share: { imageCopied: true },
   haptic: null,
   openExternal: null,
   'notifications.status': 'granted',

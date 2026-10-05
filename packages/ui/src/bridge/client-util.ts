@@ -45,7 +45,7 @@ const isNull = (v: unknown) => v === null;
 /** Exhaustive over DomCommandType: a new command must declare its result shape here or typecheck fails. */
 const RESULT_FITS: Record<DomCommandType, (v: unknown) => boolean> = {
   navigate: isNull,
-  share: isNull,
+  share: (v) => v === null || (isRec(v) && typeof v.imageCopied === 'boolean' && Object.keys(v).length === 1),
   haptic: isNull,
   openExternal: isNull,
   cancel: isNull,
