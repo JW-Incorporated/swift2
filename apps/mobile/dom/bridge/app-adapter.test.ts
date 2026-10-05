@@ -51,7 +51,6 @@ describe('classifyHref', () => {
     'intent://scan#Intent;scheme=zxing;end',
     'file:///etc/passwd',
     'mailto:a@b.c',
-    'http://example.com',
     'data:text/html,x',
     'relative/path',
     '',
@@ -78,6 +77,13 @@ describe('handleLinkClick', () => {
     const e = click();
     handleLinkClick(e, 'https://example.com/a', plain, d);
     expect(d.openExternal).toHaveBeenCalledWith('https://example.com/a');
+    expect(e.preventDefault).toHaveBeenCalled();
+  });
+  it('upgrades external http to https and opens it', () => {
+    const d = deps();
+    const e = click();
+    handleLinkClick(e, 'http://example.com/a?b=1', plain, d);
+    expect(d.openExternal).toHaveBeenCalledWith('https://example.com/a?b=1');
     expect(e.preventDefault).toHaveBeenCalled();
   });
   it('leaves an already-handled click and bare fragments alone', () => {

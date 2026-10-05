@@ -23,6 +23,7 @@ type Phase = { kind: 'idle' } | { kind: 'busy' } | { kind: 'done'; message: stri
 
 const DONE_MESSAGES = {
   native: '',
+  copied: 'Image copied — paste it into your post',
   cancelled: '',
   downloaded: 'Saved to your device. Post it anywhere.',
   unavailable: "Couldn't save the image on this device.",
