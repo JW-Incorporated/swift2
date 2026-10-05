@@ -75,11 +75,17 @@ describe('POST /api/feedback durable quota', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('a missing token returns 503 without calling the quota rpc', async () => {
+  it('with no token, repeated posts from one IP are all 503, never touch the rpc, and burn no limiter budget', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', '');
     rpc.mockResolvedValue({ data: 'ok', error: null });
-    expect((await post('198.51.100.3')).status).toBe(503);
+    for (let i = 0; i < 6; i++) expect((await post('198.51.100.3')).status).toBe(503);
     expect(rpc).not.toHaveBeenCalled();
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 't');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ ok: true, json: async () => ({ number: 1, html_url: 'u' }) }),
+    );
+    expect((await post('198.51.100.3')).status).toBe(201);
   });
 
   it('falls back to the in-memory limits when the function is missing', async () => {

@@ -174,26 +174,6 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
   }
 
-  const ip = trustedClientIp(req);
-  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
-  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
-  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
-  const speedShaped =
-    message === DIAG_PREFIX &&
-    typeof payload.diag === 'object' &&
-    payload.diag !== null &&
-    'speed' in payload.diag;
-  if (!speedShaped && rateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
-      { status: 429 },
-    );
-  }
-
-  const guarded = await guardReport(payload, message, ip);
-  if ('response' in guarded) return guarded.response;
-  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
-
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
   const token = process.env.GITHUB_FEEDBACK_TOKEN;
@@ -217,6 +197,26 @@ export async function POST(req: Request): Promise<Response> {
       { status: 503 },
     );
   }
+
+  const ip = trustedClientIp(req);
+  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
+  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
+  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
+  const speedShaped =
+    message === DIAG_PREFIX &&
+    typeof payload.diag === 'object' &&
+    payload.diag !== null &&
+    'speed' in payload.diag;
+  if (!speedShaped && rateLimited(ip)) {
+    return NextResponse.json(
+      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
+      { status: 429 },
+    );
+  }
+
+  const guarded = await guardReport(payload, message, ip);
+  if ('response' in guarded) return guarded.response;
+  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
 
   if (quotaKind) {
     const capped = await quotaResponse(quotaKind, ip);
