@@ -26,6 +26,8 @@ import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } f
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
 import { newBridgeToken } from '../lib/bridge-token';
+import { primeBridgeSeed } from '../lib/bridge-seed';
+import { createProbePublisher } from '../lib/probe-publisher';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -44,6 +46,7 @@ import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 
 const SITE_FALLBACK = 'https://www.longlivets.com';
+void primeBridgeSeed();
 
 interface ReaderSource {
   cache: LastGoodSource | null;
@@ -93,7 +96,7 @@ export function SharedUiHost({
   navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
-  const rawProbe = useRef<string | null>(null);
+  const probe = useRef(createProbePublisher({ nativeMs: () => nativeMs.current, withNativeTiming, sinks: [setProbeJson, setLatestProbeJson] })).current;
   const insets = useSafeAreaInsets();
   const speedOn = useSpeedOn();
 
@@ -131,7 +134,7 @@ export function SharedUiHost({
         invalidate: () => void (epochRef.current += 1),
         whenActive: (fn) => activeDeferral.run(fn),
         token: session?.token ?? '',
-        onProbe: publishProbe,
+        onProbe: probe.publish,
         onImageLoad: noteImageLoaded,
       }),
     [session],
@@ -233,13 +236,6 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) if (session) void handlers.reportError('forced DOM failure', session.token);
   }, [forceFailure, source, session]);
 
-  const publishProbe = (json: string) => {
-    const merged = withNativeTiming(json, nativeMs.current);
-    rawProbe.current = json;
-    setProbeJson(merged);
-    setLatestProbeJson(merged);
-  };
-
   // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
   // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
   const dom = {
@@ -277,7 +273,7 @@ export function SharedUiHost({
               ? async (token: string) => {
                   await handlers.onReady(token);
                   nativeMs.current = Date.now() - launchedAt.current;
-                  if (rawProbe.current) publishProbe(rawProbe.current);
+                  if (probe.raw()) probe.publish(probe.raw()!);
                   session.binder.firstPaint();
                 }
               : async () => {}

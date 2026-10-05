@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { describe, expect, it } from 'vitest';
-import { newBridgeToken } from '../lib/bridge-token';
+import { describe, expect, it, vi } from 'vitest';
+import { newBridgeToken, setBridgeSeed } from '../lib/bridge-token';
 
 const host = readFileSync(new URL('./SharedUiHost.tsx', import.meta.url), 'utf8');
 
@@ -9,6 +9,18 @@ describe('bridge token', () => {
     const a = newBridgeToken();
     expect(a).toMatch(/^[0-9a-f]{32}$/);
     expect(newBridgeToken()).not.toBe(a);
+  });
+
+  it('without globalThis.crypto it still yields distinct 32-hex tokens (mixed fallback)', () => {
+    vi.stubGlobal('crypto', undefined);
+    try {
+      setBridgeSeed('install-seed');
+      const seen = new Set(Array.from({ length: 50 }, () => newBridgeToken()));
+      expect(seen.size).toBe(50);
+      for (const t of seen) expect(t).toMatch(/^[0-9a-f]{32}$/);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 
   it('never rides a DOM prop: not in the dom props object, not passed to AppReader/SharedUiTest as a prop', () => {
