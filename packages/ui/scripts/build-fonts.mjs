@@ -139,13 +139,13 @@ export function buildFonts() {
       .join('') + faceCss(f, `url('/fonts/${f.publicName}')`);
   const tail = fallbackCss() + rootCss();
   const web = header + files.map(webFaces).join('') + tail;
-  // The DOM host carries latin + latin-ext only (content has a c-caron; no
-  // Cyrillic/Greek/Vietnamese). Same bytes and ranges as the web faces. The faces are
+  // The DOM host carries every subset the web does (latin-ext, Cyrillic, Greek,
+  // Vietnamese) so text falls back to the same glyphs. Same bytes and ranges as the web faces. The faces are
   // inline data URIs (no network wait), so font-display: block avoids a swap flash in the webview.
   const b64 = (x) => `url(data:font/woff2;base64,${x.bytes.toString('base64')})`;
   const domFaces = (f) =>
     subsets
-      .filter((x) => x.family === f.family && x.style === f.style && x.file.endsWith('-latin-ext'))
+      .filter((x) => x.family === f.family && x.style === f.style)
       .map((x) => faceCss(f, b64(x), x.range, 'block'))
       .join('') + faceCss(f, b64(f), UNICODE_RANGE, 'block');
   const dom = header + files.map(domFaces).join('') + tail;

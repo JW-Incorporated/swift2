@@ -74,7 +74,7 @@ describe('FeedbackButton host capabilities (WP2.13 A2)', () => {
     await waitFor(() => expect(screen.getByRole('alert').textContent).toBe('Too many reports'));
     fireEvent.click(screen.getByRole('button', { name: 'Send' }));
     await waitFor(() =>
-      expect(screen.getByRole('alert').textContent).toBe('Network error — please try again.'),
+      expect(screen.getByRole('alert').textContent).toMatch(/saved and will send when you’re back online/),
     );
   });
 

@@ -50,7 +50,9 @@ export function trapBoundaryTarget<T>(
  * should carry `tabIndex={-1}` so it's a valid focus target on the rare open
  * with no focusable content at all.
  */
-export function useFocusTrap(active: boolean, container: RefObject<HTMLElement | null>): void {
+export function useFocusTrap(active: boolean, container: RefObject<HTMLElement | null>,
+  resetKey?: string | null,
+): void {
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -79,5 +81,5 @@ export function useFocusTrap(active: boolean, container: RefObject<HTMLElement |
       node.removeEventListener('keydown', onKeyDown);
       triggerRef.current?.focus();
     };
-  }, [active, container]);
+  }, [active, container, resetKey]);
 }
