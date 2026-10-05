@@ -35,7 +35,9 @@
  *   - mood chat: apps/web/components/longlive/MoodChat.tsx
  *                apps/web/app/api/mood/route.ts
  *                apps/web/lib/longlive/mood-client.ts
- *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics)
+ *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics);
+ *                website only — the mobile apps include no analytics SDK
+ *                (see the apps/mobile/package.json line below)
  *   - on-device: packages/experience/src/progress.ts (`ll-progress-v1`,
  *                persisted on web via apps/web/lib/longlive/local-storage-adapter.ts)
  *                apps/web/components/longlive/TimelineScrubber.tsx
