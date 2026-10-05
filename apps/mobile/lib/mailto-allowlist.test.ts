@@ -21,6 +21,29 @@ describe('mailto allow-list', () => {
   });
 });
 
+describe('recipient-less compose mailto (share fallback Email)', () => {
+  const share = `mailto:?subject=${encodeURIComponent('Moment: Fearless (Taylor’s Version)')}&body=${encodeURIComponent('Look at this https://longlivets.com/?m=1')}`;
+  it.each([share, 'mailto:?subject=Hi', 'mailto:?body=Hi%20there', 'mailto:?body=a&subject=b'])('allows %s', (u) => {
+    expect(isAllowedMailto(u)).toBe(true);
+    expect(isAppOpenableUrl(u)).toBe(true);
+  });
+  it.each([
+    'mailto:?', 'mailto:?subject', 'mailto:?subject=a&cc=x%40y.test', 'mailto:?bcc=x%40y.test&subject=a',
+    'mailto:?to=x%40y.test&subject=a', 'mailto:?subject=a&subject=b', 'mailto:?subject=a&&body=b',
+    'mailto:?subject=a%0D%0ABcc:%20x%40y.test', 'mailto:?subject=%E0%A4%A', 'mailto:?subject=a b',
+    'mailto:?subject=a&body=b#frag', 'MAILTO:?subject=a', 'mailto:a@b.test?subject=a', 'mailto:,?subject=a',
+    'mailto:?subject=javascript:alert(1)', 'javascript:alert(1)//mailto:?subject=a',
+    `mailto:?subject=${'a'.repeat(201)}`, `mailto:?body=${'a'.repeat(2001)}`,
+    `mailto:?subject=${encodeURIComponent('é'.repeat(201))}`,
+  ])('rejects %s', (u) => {
+    expect(isAllowedMailto(u)).toBe(false);
+    expect(isAppOpenableUrl(u)).toBe(false);
+  });
+  it('accepts the length bounds exactly', () => {
+    expect(isAllowedMailto(`mailto:?subject=${'a'.repeat(200)}&body=${'b'.repeat(2000)}`)).toBe(true);
+  });
+});
+
 describe('navigation policy (SiteShell off-site links)', () => {
   it('opens https', () => expect(isAppOpenableUrl('https://open.spotify.com/x')).toBe(true));
   it.each([

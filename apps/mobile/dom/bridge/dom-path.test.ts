@@ -24,21 +24,44 @@ describe('dom-path', () => {
     expect(window.history.length).toBe(len);
   });
 
-  it('first legal page pushes, legal-to-legal and back-to-root replace, and every change notifies', () => {
+  it('every distinct legal page pushes, the same page is a no-op, back-to-root replaces, and every change notifies', () => {
     const len = window.history.length;
     const cb = vi.fn();
     const off = subscribeDomPath(cb);
     setDomPath('/privacy');
     expect(window.history.length).toBe(len + 1);
     setDomPath('/terms');
-    expect(window.history.length).toBe(len + 1);
+    expect(window.history.length).toBe(len + 2);
     setDomPath('/terms');
     setDomPath('/');
-    expect(window.history.length).toBe(len + 1);
+    expect(window.history.length).toBe(len + 2);
     expect(cb).toHaveBeenCalledTimes(3);
     off();
     setDomPath('/support');
     expect(cb).toHaveBeenCalledTimes(3);
+  });
+
+  it('back from a legal page reached from another legal page returns to that page, then the reader', async () => {
+    const popped = () => new Promise<void>((r) => window.addEventListener('popstate', () => r(), { once: true }));
+    setDomPath('/privacy');
+    setDomPath('/terms');
+    let p = popped();
+    expect(backFromDomPath()).toBe(true);
+    await p;
+    expect(currentDomPath()).toBe('/privacy');
+    p = popped();
+    expect(backFromDomPath()).toBe(true);
+    await p;
+    expect(currentDomPath()).toBe('/');
+    expect(backFromDomPath()).toBe(false);
+  });
+
+  it('a replace-mode change (failed-render rollback) never grows history', () => {
+    setDomPath('/privacy');
+    const len = window.history.length;
+    setDomPath('/terms', window, { replace: true });
+    expect(window.history.length).toBe(len);
+    expect(currentDomPath()).toBe('/terms');
   });
 
   it('a popstate (history back) returns to the previous reader state', async () => {

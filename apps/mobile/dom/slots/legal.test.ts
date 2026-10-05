@@ -76,11 +76,13 @@ describe('legal pages through the real app adapter', () => {
     expect(call).not.toHaveBeenCalled();
   });
 
-  it('round trip: footer link to /terms, then back closes to the reader', async () => {
+  it('round trip: footer link to /terms pushes, back returns to /privacy, back again closes to the reader', async () => {
     const { adapter } = mount();
     act(() => adapter.navigate('/privacy'));
     fireEvent.click(screen.getByRole('link', { name: 'Terms of Use' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/terms/i);
+    act(() => void backFromDomPath());
+    await waitFor(() => expect(document.querySelector('[data-legal-page]')?.getAttribute('data-legal-page')).toBe('privacy'));
     act(() => void backFromDomPath());
     await waitFor(() => expect(document.querySelector('[data-legal-page]')).toBeNull());
     expect(window.history.state).toBeNull();

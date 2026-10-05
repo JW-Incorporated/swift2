@@ -294,6 +294,8 @@ Found and fixed (DOM-only, web unchanged): `reader-spike.css` padded `body` with
 
 ## Accepted platform divergences
 
+- **Submit a link (app hands off to the website).** Web renders the inline form (`SubmitLinkForm`); the app renders a "Submit on longlivets.com ↗" action that opens `https://www.longlivets.com/?mode=community|merch` in the external browser through `openExternal` (host capability `HostAdapter.submitLink: 'inline' | 'external'`, absent = inline, app adapter sets `'external'`). Reason: `/api/submit-link` fails closed without a Cloudflare Turnstile token, and the app's null-origin DOM WebView cannot run the widget (`env.turnstileSiteKey` is null there), so the inline form would reject every submission. PM decision, reversible: drop the flag once the app can mint a token. Covered by `apps/mobile/dom/slots/submit-link-external.test.ts`.
+
 - **Notification inbox (W6-inbox-dom).** The website has no inbox, so side a has nothing to compare: the inbox is app-only (`overlay:inbox`, gated on `host.notifications`, null on the web and in the parity harness) and has no `sides: 'both'` route. Side b renders it only behind the host capability, so no existing route or baseline changes. Covered by unit and render tests (`apps/web/components/longlive/InboxOverlay.app-host.test.tsx`).
 
 

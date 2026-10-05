@@ -87,6 +87,40 @@ export function isMailtoUrl(s: unknown): s is MailtoUrl {
 }
 export const toMailtoUrl = (s: unknown): MailtoUrl | null => (isMailtoUrl(s) ? s : null);
 
+export const COMPOSE_MAILTO_MAX_SUBJECT = 200;
+export const COMPOSE_MAILTO_MAX_BODY = 2000;
+const COMPOSE_MAILTO_MAX_LENGTH = 8192;
+const COMPOSE_LIMITS: Record<string, number> = { subject: COMPOSE_MAILTO_MAX_SUBJECT, body: COMPOSE_MAILTO_MAX_BODY };
+const COMPOSE_VALUE_RE = /^[A-Za-z0-9\-_.!~*'()%]*$/;
+
+/**
+ * A recipient-less compose `mailto:?subject=…&body=…` (the share fallback's Email action): only `subject` and
+ * `body`, each at most once, `encodeURIComponent`-style values that decode cleanly to length-bounded text with
+ * no control characters. No address, so no `to`/`cc`/`bcc` params and no recipient list can ride along.
+ */
+export function isComposeMailtoUrl(s: unknown): s is MailtoUrl {
+  if (typeof s !== 'string' || s.length > COMPOSE_MAILTO_MAX_LENGTH || !s.startsWith('mailto:?')) return false;
+  const seen = new Set<string>();
+  for (const pair of s.slice('mailto:?'.length).split('&')) {
+    const eq = pair.indexOf('=');
+    if (eq < 1) return false;
+    const key = pair.slice(0, eq);
+    const raw = pair.slice(eq + 1);
+    const max = COMPOSE_LIMITS[key];
+    if (max === undefined || seen.has(key) || !COMPOSE_VALUE_RE.test(raw)) return false;
+    seen.add(key);
+    let value: string;
+    try {
+      value = decodeURIComponent(raw);
+    } catch {
+      return false;
+    }
+    if (value.length > max || CONTROL.test(value)) return false;
+  }
+  return true;
+}
+export const toComposeMailtoUrl = (s: unknown): MailtoUrl | null => (isComposeMailtoUrl(s) ? s : null);
+
 /** Ids: non-empty, at most 64 chars, `[A-Za-z0-9_-]`. */
 export const isBridgeId = (s: unknown): s is string => typeof s === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(s);
 

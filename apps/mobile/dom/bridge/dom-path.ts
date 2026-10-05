@@ -30,16 +30,17 @@ export function currentDomUrl(win: DomWin = defaultWin()): string {
 }
 
 /**
- * Shows an allow-listed legal path, or the reader root (`/`). A legal page pushes one entry (back returns to the
- * previous reader state); moving between legal pages, or back to `/`, replaces it. Returns false for any path
- * outside the allow-list (nothing changes).
+ * Shows an allow-listed legal path, or the reader root (`/`). Moving to a DISTINCT legal page pushes one entry (like
+ * the site: back returns to the previous legal page, then the reader); the same page is a no-op; going back to `/`
+ * replaces the entry. `replace` forces a replace (the failed-render rollback). Returns false for any path outside the
+ * allow-list (nothing changes).
  */
-export function setDomPath(path: string, win: DomWin = defaultWin()): boolean {
+export function setDomPath(path: string, win: DomWin = defaultWin(), opts?: { replace?: boolean }): boolean {
   if (path !== '/' && !isDomPath(path)) return false;
   const cur = currentDomPath(win);
   if (path === cur) return true;
   const state = { swift2Path: path };
-  if (path !== '/' && cur === '/') win.history.pushState(state, '');
+  if (path !== '/' && !opts?.replace) win.history.pushState(state, '');
   else win.history.replaceState(state, '');
   win.dispatchEvent(new Event(DOM_PATH_EVENT));
   return true;

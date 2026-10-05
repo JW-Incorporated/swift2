@@ -16,6 +16,6 @@ export async function showDomPath(path: string, win: Win = window): Promise<bool
   } catch {
     // a render error inside the commit: fall through to the restore
   }
-  setDomPath(prev, win);
+  setDomPath(prev, win, { replace: true });
   return false;
 }
