@@ -3,6 +3,7 @@ import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLI
 import { SEARCH_ROUTES } from './routes-search';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { ERA_CONTROL_ROUTES } from './routes-era-controls';
+import { EMBED_ROUTES } from './routes-embeds';
 import { ERA_LANDING_ROUTES, THREAD_VIEW_ROUTES } from './routes-threads-eras';
 import { SURFACE_COVERAGE_ROUTES } from './routes-coverage-surfaces';
 import { assertNoBaselineCollisions } from './sides';
@@ -201,6 +202,7 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
   ...THREAD_VIEW_ROUTES,
   ...ERA_LANDING_ROUTES,
   ...SURFACE_COVERAGE_ROUTES,
+  ...EMBED_ROUTES,
 ];
 
 /** Every route beyond the two base routes: the lists the a-vs-b, baseline and plumbing specs iterate. */

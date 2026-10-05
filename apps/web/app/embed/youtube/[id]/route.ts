@@ -21,7 +21,8 @@ function embedHtml(id: string): string {
 <title>Video</title>
 </head>
 <body style="margin:0;background:#000;overflow:hidden">
-<iframe title="YouTube video" src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&amp;rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:fixed;inset:0;width:100%;height:100%;border:0"></iframe>
+<iframe title="YouTube video" src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&amp;rel=0&amp;enablejsapi=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:fixed;inset:0;width:100%;height:100%;border:0"></iframe>
+<script src="/embed-bridge.js" data-provider="youtube"></script>
 </body>
 </html>
 `;

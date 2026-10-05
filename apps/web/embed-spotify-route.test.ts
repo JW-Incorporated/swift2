@@ -49,7 +49,8 @@ describe('/embed/spotify/<type>/<id> framing exemption', () => {
     expect(html).toContain(`https://open.spotify.com/embed/album/${ID}?utm_source=generator&amp;theme=0`);
     expect(html).toContain('referrerpolicy="strict-origin-when-cross-origin"');
     expect(html).toContain('allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"');
-    expect(html).not.toContain('<script');
+    expect(html.match(/<script/g)).toHaveLength(1);
+    expect(html).toContain('<script src="/embed-bridge.js" data-provider="spotify"></script>');
 
     const bad: [string, string][] = [
       ['artist', ID],
