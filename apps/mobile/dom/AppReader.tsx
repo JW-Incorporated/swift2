@@ -10,7 +10,7 @@ import './reader-spike.css';
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
+import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets, type ReaderSnap } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
 import { backFromDomPath, currentDomUrl, DOM_PATH_EVENT, setDomPath } from './bridge/dom-path';
 import { startRouteReporting } from './bridge/route-report';
@@ -18,7 +18,9 @@ import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
-import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
+import { createNativeCalls } from './bridge/native-calls';
+import { sampleImages } from './bridge/sample-images';
+import { createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
 import { scheduleSnapshotHash } from './reader/deferred-hash';
 import { snapshotFromEnvelope } from './reader/snapshot';
@@ -37,19 +39,22 @@ export interface AppReaderProps {
   versionToken?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
   insets?: Insets;
-  onReady: () => Promise<void>;
-  reportError: (message: string) => Promise<void>;
-  reportProbe: (json: string) => Promise<void>;
+  /** Native actions below take the per-epoch bridge token (from `bridgeHello`) as their LAST arg; the token never travels as a prop. */
+  onReady: (token: string) => Promise<void>;
+  reportError: (message: string, token: string) => Promise<void>;
+  reportProbe: (json: string, token: string) => Promise<void>;
   /** Speed test mode (#4896): one call per loaded image; `visible` = inside the viewport. */
-  reportImageLoad?: (visible: boolean) => Promise<void>;
+  reportImageLoad?: (visible: boolean, token: string) => Promise<void>;
   /** Speed test mode is running: only then are image loads measured and reported. */
   speedTestOn?: boolean;
   /** Bridge (WP2.3): sequenced native-to-DOM queue, re-delivered whole on each render. */
   inbox?: Envelope[];
   /** Bridge native action: posts one envelope; may resolve with the reply (`res`, `readyAck`). Absent on web/dev. */
-  bridge?: (env: Envelope) => Promise<unknown>;
+  bridge?: (env: Envelope, token: string) => Promise<unknown>;
+  /** Native action returning the per-epoch bridge token; absent on web/dev (calls then carry ''). */
+  bridgeHello?: () => Promise<string>;
   /** The DOM client's own protocol fatal (a watchdog strike in every phase, unlike reportError). */
-  reportProtocolFatal?: (reason: string) => Promise<void>;
+  reportProtocolFatal?: (reason: string, token: string) => Promise<void>;
   /** Web/dev only (index.web.ts): supplies the cache envelope text where no native cache exists. */
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
@@ -72,11 +77,12 @@ const getPath = () => currentDomUrl();
 
 type BackFn = () => 'handled' | 'exit';
 type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag' | 'sendEvent'>;
-type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
+type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & Pick<AppReaderProps, 'bridgeHello'> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
   navigateDeps: NavigateDeps;
+  onRestore: (snap: ReaderSnap) => void;
   backRef: { current: BackFn | null };
   onClient: (client: ReaderClient) => void;
 };
@@ -85,9 +91,9 @@ type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
 const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {}, sendEvent: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
-  const client = useExpoBridge({ inbox, bridge }, { onFatal }, (c) =>
-    installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
+function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, onRestore, backRef, onClient }: MountProps) {
+  const client = useExpoBridge({ inbox, bridge, bridgeHello }, { onFatal }, (c) =>
+    installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps, restore: onRestore }),
   );
   useEffect(() => onClient(client), [client]);
   useEffect(() => startRouteReporting((payload) => client.sendEvent('route', payload)), [client]);
@@ -110,6 +116,8 @@ export default function AppReader(props: AppReaderProps) {
   }, [client]);
   // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
   const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
+  const restorerRef = useRef<((snap: ReaderSnap) => void) | null>(null);
+  const onRestore = useRef((snap: ReaderSnap) => restorerRef.current?.(snap)).current;
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => {
       window.history.replaceState(window.history.state, '', relative);
@@ -122,6 +130,7 @@ export default function AppReader(props: AppReaderProps) {
     () => ({
       registerBack: (fn) => void (backRef.current = fn),
       setApplier: (fn) => void (applierRef.current = fn),
+      setRestorer: (fn) => void (restorerRef.current = fn),
       openNative: async (path) => {
         const web = toWebPath(path);
         const c = clientRef.current;
@@ -154,6 +163,7 @@ export default function AppReader(props: AppReaderProps) {
   const snapRef = useRef<{ core: ReaderSnapshotCore; extensions: ReaderSnapshotExtensions } | null>(null);
   const propsRef = useRef(props);
   propsRef.current = props;
+  const native = useRef(createNativeCalls(propsRef)).current;
 
   useEffect(() => {
     // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
@@ -176,17 +186,17 @@ export default function AppReader(props: AppReaderProps) {
 
   useEffect(() => {
     if (!props.speedTestOn) return;
-    setImageLoadListener((visible) => void propsRef.current.reportImageLoad?.(visible));
+    setImageLoadListener((visible) => void native.reportImageLoad(visible));
     return () => setImageLoadListener(null);
   }, [props.speedTestOn]);
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {
       if (cacheUri && e.filename === cacheUri) return; // the <script> twin of the JSON cache
-      void propsRef.current.reportError(`error: ${e.message}`);
+      void native.reportError(`error: ${e.message}`);
     };
     const onRejection = (e: PromiseRejectionEvent) => {
-      void propsRef.current.reportError(`unhandledrejection: ${String(e.reason)}`);
+      void native.reportError(`unhandledrejection: ${String(e.reason)}`);
     };
     window.addEventListener('error', onError);
     window.addEventListener('unhandledrejection', onRejection);
@@ -232,9 +242,9 @@ export default function AppReader(props: AppReaderProps) {
         const message = e instanceof Error ? e.message : String(e);
         probe.report.error = message;
         setFailed(message);
-        await propsRef.current.reportProbe(probe.json());
+        await native.reportProbe(probe.json());
         const unreadable = message === 'bundle cache unreadable' && !devLoader;
-        void propsRef.current.reportError(
+        void native.reportError(
           unreadable ? unreadableMessage(readAttempts, !!cacheUri) : `reader-spike: ${message}`,
         );
       }
@@ -253,25 +263,13 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.firstPaintMs = Math.round(performance.now());
         const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
-        await propsRef.current.reportProbe(probe.json());
-        await propsRef.current.onReady();
+        await native.reportProbe(probe.json());
+        await native.onReady();
         if (snapRef.current) {
           const { core, extensions } = snapRef.current;
-          scheduleSnapshotHash(core, extensions, probe, () => propsRef.current.reportProbe(probe.json()));
+          scheduleSnapshotHash(core, extensions, probe, () => native.reportProbe(probe.json()));
         }
-        // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
-        for (const ms of [4000, 12000]) {
-          setTimeout(() => {
-            const imgs = Array.from(document.images).map((i) => ({
-              src: i.currentSrc || i.src,
-              complete: i.complete,
-              naturalWidth: i.naturalWidth,
-              errored: errored.has(i),
-            }));
-            probe.report.placeholders = countPlaceholders(imgs);
-            void propsRef.current.reportProbe(probe.json());
-          }, ms);
-        }
+        sampleImages(probe, errored, native.reportProbe);
       }),
     );
     return () => document.removeEventListener('error', onImgError, true);
@@ -281,12 +279,14 @@ export default function AppReader(props: AppReaderProps) {
     <ExpoBridgeMount
       inbox={props.inbox ?? []}
       bridge={props.bridge}
-      onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)}
+      bridgeHello={props.bridgeHello}
+      onFatal={(reason) => void native.reportProtocolFatal(reason)}
       onInsets={setHostInsets}
       onContentVersion={(token) => {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;
       }}
       navigateDeps={navigateDeps}
+      onRestore={onRestore}
       backRef={backRef}
       onClient={setBridgeClient}
     />

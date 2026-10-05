@@ -60,6 +60,7 @@ export type {
   NativeEventSpec,
   NativeEventType,
   PayloadOf,
+  ReaderSnap,
   ResponderMap,
   ResultOf,
 } from './messages';
@@ -73,6 +74,8 @@ export {
   isBridgeId,
   isExternalUrl,
   isMailtoUrl,
+  isComposeMailtoUrl,
+  toComposeMailtoUrl,
   isWebPath,
   sanitizeApiRequest,
   toExternalUrl,
@@ -83,3 +86,5 @@ export type { BridgeApiHeaderName, BridgeApiRequest, ExternalUrl, JsonFailure, M
 export { BRIDGE_VERSION, NATIVE_SUPPORTED_RANGE, inRange, isVersionRange, negotiate, parseReady } from './version';
 export type { NegotiateResult, VersionRange } from './version';
 export { isBusy, setBusy, subscribeBusy } from './busy-signal';
+export { isEngaged, setEngaged, subscribeEngaged } from './engaged-signal';
+export { MAX_SNAP_COUNT, MAX_SNAP_SCROLL, MAX_SNAP_STR, getSnapshot, setSnapshot, subscribeSnapshot } from './snapshot-signal';

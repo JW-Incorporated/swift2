@@ -61,7 +61,7 @@ export function ClownChatComposer({ className, text, setText, submit, busy, text
           // h-9 is the single-line baseline before useAutoResizeTextarea
           // above runs; max-h keeps that same MAX_TEXTAREA_HEIGHT_PX cap as a
           // CSS backstop if JS is ever slow to attach.
-          className="h-9 max-h-[136px] min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
+          className="h-9 max-h-[136px] min-w-0 flex-1 resize-none bg-transparent px-0 py-2 text-base sm:text-[15px] leading-relaxed text-[color:var(--clown-ink)] outline-none placeholder:text-[color:var(--clown-ink-soft)] placeholder:opacity-60"
         />
         <button
           type="submit"

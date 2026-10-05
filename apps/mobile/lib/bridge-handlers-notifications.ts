@@ -20,6 +20,7 @@ type NotificationHost = {
   unregister(): Promise<void>;
   registered(): Promise<boolean>;
   /** The one-time push-offer flag (shared with the native OnboardingScreen); absent = the commands answer `failed`. */
+  optOutPending?(): Promise<boolean>;
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
 };
@@ -29,7 +30,7 @@ export type NotificationHandlers = Pick<
   HandlerMap,
   'notifications.status' | 'notifications.request' | 'notifications.register' | 'notifications.updatePrefs'
   | 'notifications.getPrefs' | 'notifications.savePrefs' | 'notifications.unregister' | 'notifications.registration'
-  | 'notifications.onboardingOffered' | 'notifications.markOnboardingOffered'
+  | 'notifications.optOutPending' | 'notifications.onboardingOffered' | 'notifications.markOnboardingOffered'
 >;
 
 const OP_TIMEOUT_MS = 15_000;
@@ -121,6 +122,11 @@ export function createHandlers(deps: NotificationHandlerDeps, opts: { opTimeoutM
     'notifications.getPrefs': (_p, ctx) => guardedT(ctx, async () => projectPrefs(await deps.getPrefs())),
     'notifications.registration': (_p, ctx) => guardedT(ctx, async () => ({ registered: (await deps.registered()) === true })),
     'notifications.unregister': (_p, ctx) => guardedT(ctx, async () => (await deps.unregister(), null)),
+    'notifications.optOutPending': (_p, ctx) =>
+      guardedT(ctx, async () => {
+        if (!deps.optOutPending) throw new Error('unavailable');
+        return { pending: (await deps.optOutPending()) === true };
+      }),
     'notifications.onboardingOffered': (_p, ctx) =>
       guardedT(ctx, async () => {
         if (!deps.onboardingOffered) throw new Error('unavailable');

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHost, useResolveUrl } from '../../host/context';
 import type { HostStorage } from '../../host/types';
 import { useReader } from '../../snapshot/context';
@@ -26,6 +26,7 @@ import { TrackFiveCallout } from '../era/TrackFivePill';
 import { eraStyle } from '../lib/theme';
 import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '../lib/useBackDismiss';
+import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { useSwipeNav } from '../lib/useSwipeNav';
 import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swift2/experience';
 
@@ -108,11 +109,6 @@ export function TrackDetail() {
   useEffect(() => {
     if (!track) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeTrack();
-        return;
-      }
-
       // Left/Right hop songs (#774 Option 2's additive desktop shortcut) —
       // only when focus isn't in an interactive control, so it never steals
       // arrow keys from a text field, a video's own controls, etc.
@@ -127,6 +123,8 @@ export function TrackDetail() {
   }, [track, closeTrack, nextTrack, prevTrack]);
 
   useBackDismiss(Boolean(track), closeTrack);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  useFocusTrap(Boolean(track), dialogRef, openTrackKey);
 
   if (!era || !track) return null;
 
@@ -146,6 +144,8 @@ export function TrackDetail() {
     <div
       // Scroll to the top when hopping song→song (the key remounts the tree).
       key={openTrackKey}
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
       role="dialog"

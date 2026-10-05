@@ -3,13 +3,10 @@
 // reachable through the Diagnostics "test page" toggle. Records the watchdog
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal` and forwards them to the WP0.4b watchdog via `watch`.
-// Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
-// expo wrapper's auto-reload, so the policy is ours (lib/watchdog.ts): a crash before
-// ready, or a repeat within RELOAD_WINDOW_MS, is a watchdog strike that unmounts this
-// host in favour of the native screens (lib/watchdog-gate.ts); the first crash after
-// ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
-// The webview reads the native disk cache itself: only a cache URI and a
-// version token cross the bridge (C6), never content.
+// Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the expo wrapper's
+// auto-reload; policy is ours (lib/watchdog.ts, lib/watchdog-gate.ts): a crash before ready or a repeat
+// within RELOAD_WINDOW_MS is a strike that unmounts this host; the first crash after ready re-keys the mount.
+// The webview reads the native disk cache itself: only a cache URI and version token cross the bridge (C6).
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
@@ -25,6 +22,8 @@ import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
+import { newBridgeToken } from '../lib/bridge-token';
+import { createProbePublisher } from '../lib/probe-publisher';
 import { useContentAdoption } from '../lib/use-content-adoption';
 import { useDeferredBundleRefresh } from '../lib/use-deferred-bundle-refresh';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
@@ -33,7 +32,7 @@ import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
 import { resolveDestination } from '../lib/destination-resolver';
-import { speedTest } from '../lib/speed-test-runtime';
+import { useSpeedOn } from '../lib/use-speed-on';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
 import { createFileHostStorage } from '../lib/host-storage-file';
@@ -76,7 +75,7 @@ export function SharedUiHost({
   const [contentToken, setContentToken] = useState('');
   const [inbox, setInbox] = useState<Envelope[]>([]);
   // One bridge host + link per epoch; the DOM page is keyed by the epoch so it re-handshakes with every new host.
-  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink>; binder: TapBinder } | null>(null);
+  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink>; binder: TapBinder; token: string } | null>(null);
   const [generation, setGeneration] = useState(0);
   const epochRef = useRef(0);
   const hostRef = useRef<BridgeHost | null>(null);
@@ -95,14 +94,9 @@ export function SharedUiHost({
   navRef.current = { siteUrl, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
-  const rawProbe = useRef<string | null>(null);
+  const probe = useRef(createProbePublisher({ nativeMs: () => nativeMs.current, withNativeTiming, sinks: [setProbeJson, setLatestProbeJson] })).current;
   const insets = useSafeAreaInsets();
-  const [speedOn, setSpeedOn] = useState(speedTest.isOn());
-  useEffect(() => {
-    const sync = () => setSpeedOn(speedTest.isOn());
-    sync();
-    return speedTest.onChange(sync);
-  }, []);
+  const speedOn = useSpeedOn();
 
   useEffect(() => {
     launchedAt.current = Date.now();
@@ -125,6 +119,9 @@ export function SharedUiHost({
         isCurrent: session ? () => epochRef.current === session.epoch : undefined,
         invalidate: () => void (epochRef.current += 1),
         whenActive: (fn) => activeDeferral.run(fn),
+        token: session?.token ?? '',
+        onProbe: probe.publish,
+        onImageLoad: noteImageLoaded,
       }),
     [session],
   );
@@ -158,9 +155,9 @@ export function SharedUiHost({
       onReadyAgain: () => ref.binder?.readyAgain(),
       onNavReady: () => {
         ref.binder?.navReady();
-        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false), (snap) => void ref.host?.emit('restore', { snap }));
       },
-      onRoute: (path, busy) => adoption.route(path, busy),
+      onRoute: (path, busy, engaged, snap) => epochRef.current === epoch && adoption.route(path, busy, engaged, snap),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -187,9 +184,11 @@ export function SharedUiHost({
         return true;
       },
     });
-    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
+    // A tap/deep-link/native navigation reaching this epoch outranks a pending state restore (content adoption).
+    const gateTarget = { ...target, emit: ((t: 'navigate', p: never) => (adoption.userNavigated(), target.emit(t, p))) as typeof target.emit, navigateDom: (p: string) => (adoption.userNavigated(), target.navigateDom(p)) };
+    const binder = createTapBinder({ gate: notificationTapGate, host: gateTarget, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
-    navRef.current.onDomNavigator?.(target.navigateDom);
+    navRef.current.onDomNavigator?.((p) => (adoption.userNavigated(), target.navigateDom(p)));
     ref.binder = binder;
     ref.host = host;
     hostRef.current = host;
@@ -199,7 +198,7 @@ export function SharedUiHost({
     };
     link.attach(host);
     setInbox([]);
-    setSession({ epoch, link, binder });
+    setSession({ epoch, link, binder, token: newBridgeToken() });
     return () => {
       navRef.current.onDomNavigator?.(null);
       hostRef.current = null;
@@ -229,24 +228,17 @@ export function SharedUiHost({
   }, [session, contentToken]);
 
   useEffect(() => {
-    if (forceFailure === 'throw' && source) void handlers.reportError('forced DOM failure');
-  }, [forceFailure, source]);
+    if (forceFailure === 'throw' && source) if (session) void handlers.reportError('forced DOM failure', session.token);
+  }, [forceFailure, source, session]);
 
-  const publishProbe = useCallback((json: string) => {
-    const merged = withNativeTiming(json, nativeMs.current);
-    rawProbe.current = json;
-    setProbeJson(merged);
-    setLatestProbeJson(merged);
-  }, []);
-
-  // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
-  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
-  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  // iOS: DOM owns insets (--safe-*), no rubber-banding. Inline playback explicit (as MomentSheet/SiteShell) so embeds stay inline; memoized for referentially-equal props.
   const dom = useMemo(
     () => ({
       contentInsetAdjustmentBehavior: 'never' as const,
       automaticallyAdjustContentInsets: false,
       bounces: false,
+      allowsInlineMediaPlayback: true,
+      mediaPlaybackRequiresUserAction: true,
       style: { backgroundColor: eraColors.bg },
       containerStyle: { backgroundColor: eraColors.bg },
       onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
@@ -257,25 +249,24 @@ export function SharedUiHost({
   const domReadyRef = useRef(domReady);
   domReadyRef.current = domReady;
   const onReadyReal = useMemo(
-    () => async () => {
+    () => async (token: string) => {
+      await handlers.onReady(token);
       nativeMs.current = Date.now() - launchedAt.current;
-      if (rawProbe.current) publishProbe(rawProbe.current);
+      if (probe.raw()) probe.publish(probe.raw()!);
       domReadyRef.current();
-      await handlers.onReady();
       session?.binder.firstPaint();
       adoption.readerReady();
     },
-    [handlers, session, publishProbe, adoption],
+    [handlers, session, probe, adoption],
   );
   const onReadyNoop = useCallback(async () => {}, []);
-  const reportProbe = useCallback(async (json: string) => publishProbe(json), [publishProbe]);
-  const reportImageLoad = useCallback(async (visible: boolean) => noteImageLoaded(visible), []);
 
   return (
     <View style={testPage ? styles.test : styles.fill}>
       {testPage === true ? (
         <SharedUiTest
           dom={dom}
+          bridgeHello={handlers.bridgeHello}
           onReady={handlers.onReady}
           reportError={handlers.reportError}
           forceFailure={forceFailure}
@@ -288,12 +279,13 @@ export function SharedUiHost({
           cacheJsonUri={source.cache?.jsonUri}
           inbox={inbox}
           bridge={handlers.bridge}
+          bridgeHello={handlers.bridgeHello}
           reportProtocolFatal={handlers.reportProtocolFatal}
           onReady={forceFailure === 'off' ? onReadyReal : onReadyNoop}
           reportError={handlers.reportError}
-          reportProbe={reportProbe}
+          reportProbe={handlers.reportProbe}
           speedTestOn={speedOn}
-          reportImageLoad={reportImageLoad}
+          reportImageLoad={handlers.reportImageLoad}
         />
       ) : null}
     </View>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { X } from 'lucide-react';
@@ -17,15 +17,6 @@ export function EraSelector({ header }: { header?: ReactNode } = {}) {
 
   useScrollLock(selectorOpen);
   useFocusTrap(selectorOpen, dialogRef);
-
-  useEffect(() => {
-    if (!selectorOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectorOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [selectorOpen, setSelectorOpen]);
 
   // Let the mobile back-swipe gesture close the selector instead of leaving the app.
   useBackDismiss(selectorOpen, () => setSelectorOpen(false));

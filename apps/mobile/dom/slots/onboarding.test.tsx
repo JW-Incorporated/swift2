@@ -249,8 +249,20 @@ describe('onboarding overlay (DOM push offer)', () => {
     expect(document.activeElement).toBe(buttons[buttons.length - 1]);
     fireEvent.click(screen.getByText('Not now'));
     await flush();
-    expect(document.activeElement).toBe(opener);
+    expect(screen.getByRole('dialog', { name: 'Notification settings' }).contains(document.activeElement)).toBe(true);
     expect(screen.getByRole('dialog', { name: 'Notification settings' }).hasAttribute('inert')).toBe(false);
+  });
+
+  it('Escape dismisses the offer like Not now and returns focus to Settings', async () => {
+    const { n, calls } = fake();
+    mount(n, createElement('div', null, createElement(SettingsPage), createElement('button', { id: 'opener' }, 'opener'), createElement(OnboardingOverlay)) as never);
+    act(() => settingsOverlay.open());
+    await flush();
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Stay in the loop' }), { key: 'Escape' });
+    await flush();
+    expect(calls).toEqual(['mark']);
+    expect(screen.queryByRole('dialog', { name: 'Stay in the loop' })).toBeNull();
+    expect(screen.getByRole('dialog', { name: 'Notification settings' }).contains(document.activeElement)).toBe(true);
   });
 
   it('Customize only navigates if Settings is still open when the flag write resolves', async () => {
