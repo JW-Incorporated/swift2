@@ -1,3 +1,4 @@
+import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
 import { InboxPage } from '@swift2/ui/reader/settings/InboxPage';
 import { toWebPath, useHost } from '@swift2/ui';
 import { canonicalizeLink } from '../../lib/notification-tap-queue';
@@ -20,6 +21,7 @@ export function InboxOverlay() {
   const { navigate, notifications, openExternal, embedOrigin } = useHost();
   const shown = open && Boolean(notifications);
   const dialog = useDialog(shown);
+  useBackDismiss(shown, inboxOverlay.close);
   if (!shown) return null;
   return (
     <div

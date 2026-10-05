@@ -10,6 +10,8 @@ export interface ReadAttempt {
 
 export interface ReadResult {
   text: string | null;
+  /** The twin's already-parsed object (new object-literal twins): hand it on, never re-parse. Null on the text paths. */
+  parsed?: object | null;
   via: 'fetch' | 'xhr' | 'script' | null;
   attempts: ReadAttempt[];
 }
@@ -57,8 +59,9 @@ function xhrRead(make: () => XhrLike, uri: string): Promise<string> {
 
 const GLOBAL_KEY = '__swift2LastGood';
 
-/** Load `uri` (the `.js` twin) as a classic script, take the JSON text it parks on globalThis, then clean up. */
-function scriptRead(uri: string, doc?: Document, timeoutMs = SCRIPT_TIMEOUT_MS): Promise<string> {
+/** Load `uri` (the `.js` twin) as a classic script, take what it parks on globalThis (the parsed object, or the JSON
+ * text from an older string-form twin), then clean up. */
+function scriptRead(uri: string, doc?: Document, timeoutMs = SCRIPT_TIMEOUT_MS): Promise<string | object> {
   return new Promise((resolve, reject) => {
     const d = doc ?? (typeof document === 'undefined' ? undefined : document);
     if (!d) return reject(new Error('no document'));
@@ -76,7 +79,7 @@ function scriptRead(uri: string, doc?: Document, timeoutMs = SCRIPT_TIMEOUT_MS):
     s.onload = () => {
       const text = g[GLOBAL_KEY];
       done();
-      if (typeof text === 'string' && text) resolve(text);
+      if ((typeof text === 'string' && text) || (typeof text === 'object' && text !== null)) resolve(text);
       else reject(new Error('script empty'));
     };
     s.onerror = () => {
@@ -94,9 +97,10 @@ export async function readLocalText({ scriptUri, jsonUri }: ReadUris, deps: Read
   const doFetch = deps.fetch ?? (globalThis.fetch as unknown as ReadDeps['fetch']);
   const makeXhr = deps.xhr ?? (() => new XMLHttpRequest() as unknown as XhrLike);
   try {
-    const text = await scriptRead(scriptUri, deps.doc, deps.scriptTimeoutMs);
+    const got = await scriptRead(scriptUri, deps.doc, deps.scriptTimeoutMs);
     attempts.push({ method: 'script', ok: true });
-    return { text, via: 'script', attempts };
+    if (typeof got === 'string') return { text: got, via: 'script', attempts };
+    return { text: null, parsed: got, via: 'script', attempts };
   } catch (e) {
     attempts.push({ method: 'script', ok: false, error: msg(e) });
   }

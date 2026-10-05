@@ -34,7 +34,8 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { useNotificationTaps } from './lib/use-notification-taps';
+import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
+import { useDeepLinks } from './lib/use-deep-links';
 import {
   DEFAULT_ROUTE_FLAGS,
   createNavigate,
@@ -45,7 +46,7 @@ import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
-import { registerDevice } from './lib/push-registration';
+import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
@@ -147,7 +148,7 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    registerDevice().catch((e) => {
+    ensureDeviceRegistered().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
     });
     registerNotificationActions().catch((e) => {
@@ -158,6 +159,7 @@ export default function App() {
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
   useNotificationTaps(navigate, domMount.mount === 'native');
+  useDeepLinks(notificationTapGate);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.

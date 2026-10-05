@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { NotificationSettingsPage } from '@swift2/ui/reader/settings/NotificationSettingsPage';
 import { ERA_CSS_VAR_NAMES, ERA_TOKENS } from '@swift2/experience';
 import { useHost } from '@swift2/ui';
+import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
 import { inboxOverlay, useInboxOpen } from './inbox-store';
 import { useOnboardingPhase } from './onboarding-store';
 import { useDialog } from './use-dialog';
@@ -48,6 +49,8 @@ export function SettingsPage() {
       live = false;
     };
   }, [open, notifications]);
+
+  useBackDismiss(open, settingsOverlay.close);
 
   if (!open) return null;
   return (
