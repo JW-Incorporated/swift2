@@ -19,16 +19,15 @@ import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { createNativeCalls } from './bridge/native-calls';
-import { sampleImages } from './bridge/sample-images';
 import { createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
-import { scheduleSnapshotHash } from './reader/deferred-hash';
+import { useDomEnvironment } from './reader/use-dom-environment';
+import { useFirstPaintReport } from './reader/use-first-paint-report';
 import { snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { loadStorageSeed } from './reader/storage-sync';
-import { setImageLoadListener } from './reader/image-listener';
 
 export interface AppReaderProps {
   /** file:// URI of the `last-good` cache's `.js` twin (script-loaded, `?v=` cache-busted). */
@@ -165,46 +164,7 @@ export default function AppReader(props: AppReaderProps) {
   propsRef.current = props;
   const native = useRef(createNativeCalls(propsRef)).current;
 
-  useEffect(() => {
-    // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
-    document.body.style.overflow = 'auto';
-    document.body.style.height = 'auto';
-    const root = document.getElementById('root') ?? document.body.firstElementChild;
-    if (root instanceof HTMLElement) {
-      root.style.display = 'block';
-      root.style.height = 'auto';
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!insets) return;
-    const s = document.documentElement.style;
-    for (const side of ['top', 'right', 'bottom', 'left'] as const) {
-      s.setProperty(`--safe-${side}`, `${insets[side]}px`);
-    }
-  }, [insets?.top, insets?.right, insets?.bottom, insets?.left]);
-
-  useEffect(() => {
-    if (!props.speedTestOn) return;
-    setImageLoadListener((visible) => void native.reportImageLoad(visible));
-    return () => setImageLoadListener(null);
-  }, [props.speedTestOn]);
-
-  useEffect(() => {
-    const onError = (e: ErrorEvent) => {
-      if (cacheUri && e.filename === cacheUri) return; // the <script> twin of the JSON cache
-      void native.reportError(`error: ${e.message}`);
-    };
-    const onRejection = (e: PromiseRejectionEvent) => {
-      void native.reportError(`unhandledrejection: ${String(e.reason)}`);
-    };
-    window.addEventListener('error', onError);
-    window.addEventListener('unhandledrejection', onRejection);
-    return () => {
-      window.removeEventListener('error', onError);
-      window.removeEventListener('unhandledrejection', onRejection);
-    };
-  }, [cacheUri]);
+  useDomEnvironment(native, insets, props.speedTestOn, cacheUri);
 
   useEffect(() => {
     if (started.current) return;
@@ -251,29 +211,7 @@ export default function AppReader(props: AppReaderProps) {
     })();
   }, []);
 
-  useEffect(() => {
-    if (!Reader) return;
-    const probe = probeRef.current;
-    const errored = new WeakSet<EventTarget>();
-    // img load/error do not bubble, so listen in the capture phase.
-    const onImgError = (e: Event) => void errored.add(e.target as EventTarget);
-    document.addEventListener('error', onImgError, true);
-    requestAnimationFrame(() =>
-      requestAnimationFrame(async () => {
-        probe.report.firstPaintMs = Math.round(performance.now());
-        const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
-        probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
-        await native.reportProbe(probe.json());
-        await native.onReady();
-        if (snapRef.current) {
-          const { core, extensions } = snapRef.current;
-          scheduleSnapshotHash(core, extensions, probe, () => native.reportProbe(probe.json()));
-        }
-        sampleImages(probe, errored, native.reportProbe);
-      }),
-    );
-    return () => document.removeEventListener('error', onImgError, true);
-  }, [Reader]);
+  useFirstPaintReport(Reader, native, probeRef, snapRef);
 
   const bridgeMount = props.bridge ? (
     <ExpoBridgeMount
