@@ -329,19 +329,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
       run = () => nav.setEra(target.id as EraId);
     }
     if (!run) return;
+    const action = run;
     // A deep link is the visitor's FIRST state, not a navigation away from
     // one — pushing a back-entry here would trap the first back gesture.
-    nav.suppressNavPushRef.current = true;
-    run();
-    nav.suppressNavPushRef.current = false;
-    // Web only: drop the consumed keys from the address bar so closing the
-    // overlay doesn't leave a stale ?item= that a refresh reopens. Deferred a
-    // tick so Next's app-router (whose effect installs its history patch after
-    // ours) is in place: Next's patch then syncs its canonical URL /
-    // useSearchParams. Our state is passed WITHOUT Next's __NA / internals-tree
-    // markers — carrying them takes Next's bypass branch and desyncs the
-    // router. Next re-adds them from the current entry. Inert in the app.
-    if (typeof window === 'undefined' || !window.location.search) return;
+    const open = () => {
+      nav.suppressNavPushRef.current = true;
+      action();
+      nav.suppressNavPushRef.current = false;
+    };
+    // Nothing to strip (the app, or a host with no query): open synchronously.
+    if (typeof window === 'undefined' || !window.location.search) {
+      open();
+      return;
+    }
+    // Web: drop the consumed keys from the address bar BEFORE opening, so the
+    // overlay's back-entry is pushed on top of the clean base URL (Back lands
+    // on it, a refresh doesn't reopen). Deferred a tick so Next's app-router
+    // (whose effect installs its history patch after ours) is in place: its
+    // patch then syncs canonical URL / useSearchParams. State is passed WITHOUT
+    // Next's __NA / internals-tree markers — carrying them takes Next's bypass
+    // branch and desyncs the router; Next re-adds them from the current entry.
     const timer = setTimeout(() => {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -358,6 +365,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       } catch {
         // Address-bar cleanup is best-effort.
       }
+      open();
     }, 0);
     return () => clearTimeout(timer);
   }, []);
