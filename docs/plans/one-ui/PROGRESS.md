@@ -6,6 +6,15 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 08:15 PDT — Audit wave landing. <<<**
+- Merged: #5047 (legacy UI deleted, 07:50), #5142 FI-2/7, #5144 WD-2 Retry OTA, #5147 WD-1 watchdog strike split (Fable 07:40 + 07:58), #5148 SEC-9 workflows.
+- Auto-merge armed (reviewed): #5143 SEC-A, #5146 A11Y-S, #5149 PA-2, #5150 SEC-10, #5151 docs, #5155 OverlayNav label. #5145 A11Y-F RED (build/build-full/pixel-7) → builder diagnosing.
+- Held: #5154 privacy copy (reviewed TRUE) — Joey skim ("OK 5154"); draft #5133 store build.
+- Pending baselines: #5152 A11Y-9/10 (fixture accent2 update approved), #5153 PA-1 (+ hydration test).
+- Building: A11Y-N native screens + #5142 follow-up (wt-a11yn, branch -2), SEC-4 iframe sandbox (wt-sec4).
+- Closed: #5110, #5102, PR #3704. Filed: #5139 (deferred), #5140/#5141 (gated).
+- Queue: Red accent2 contrast; PA-11 safe-area hardening. HA batch: SUBMISSIONS_HASH_SALT, metrics secret rotation, data-inventory over-declares analytics.
+
 **>>> CHECKPOINT 2026-10-05 07:45 PDT — Shared UI live; #5047 landing; audit wave dispatched. <<<**
 - Merged since 04:47: #5042 (shared UI default-on Android+iOS, OTA published), #5043 Recovery, #5099, #5122, #5131, #5130, #5132, #5134–#5138.
 - #5047 (delete legacy native UI): auto-merge armed 07:38, all non-parity green, 0 behind main. After it lands: close #5110 (surface deleted) + #5102 (fixed: recovery-taps.ts gone).
