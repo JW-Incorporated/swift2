@@ -6,6 +6,17 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-04 22:18 PDT — Wave merge; audit suite; founder approval hold. <<<**
+- Merged since 21:31: #5059 persistent storage, #5065 watchdog dedupe, #5092 visual parity, #5098 feedback escaping, #5101 decisions + public notice, #5104 deep-link strip, #5105 offline embeds/outbox, #5106 offline first launch, #5107 longlive://diag, #5109 baseline timeout, #5119 red-main fix, #5060 threads/eras parity.
+- Approved and auto-merging: #5111 offline art, #5113 app parity (submit-link external, email share, legal Back), #5115 adoption respects the reader, #5116 single Escape dispatcher, #5117 native a11y, plus earlier #5079/#5089/#5103/#5076/#5096.
+- Parity sweep: 8 PRs red on their own changes; fixes in flight (5089 clownbot locator, 5068, 5094, 5029 closure spec + privacy baseline, 5051 spec + harness flake, 5066 stale baselines).
+- Security audit: privacy policy said feedback is private → #5029 corrects it (priority); watchdog dedupe poisoning → #5120 / PR #5122 stacked on #5099; #5099 branch contamination being untangled.
+- A11y audit → #5117 (native, merged/auto) and #5118 (shared UI, in review).
+- Fable rulings since 21:31: #5104 r2, #5105 descope, #5111 r2, #5115 r2.
+- Waiting on founder: one combined approval of the migrations in #5099 + #5122 (after re-review).
+- Blocked: Wyatt's iPhone confirmation → #5042/#5043(+#5102 tap fix)/#5047 (all caught up with main, ready).
+- Next: #5114 full reader-state restore (after #5115), #5112 third-party art cache, #5063 bridge exhaustiveness (after #5079/#5089/#5103).
+
 **>>> CHECKPOINT 2026-10-04 21:31 PDT — Migration & quotas decisions; auto-merge queue armed. <<<**
 - Founder decisions 21:04–21:06: OK to migrate #5065; landscape A (phones portrait-only, tablets rotate); feedback stays public for now, private eventually (decisions PR #5101 + follow-up issue).
 - Auto-merge armed (approved, waiting CI): #5065 watchdog dedupe, #5079 bridge token, #5098 feedback escaping/share bounds, #5059 persistent reader storage, #5058 embeds parity, #5076 iOS inline media, #5096 app integration tests, #5095 bundle memo, #5089 keyboard inset (Fable-ruled), #5106 offline first launch (Fable-ruled), #5103 offline opt-out + foreground refresh, #5104 deep-link strip (Fable-ruled), #5107 longlive://diag (closes #4877), #5109 update-baselines timeout.
