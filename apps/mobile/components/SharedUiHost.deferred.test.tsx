@@ -52,7 +52,7 @@ vi.mock('../lib/use-notification-taps', () => ({ notificationTapGate: { bindHost
 vi.mock('../lib/dom-reader-config', () => ({
   lastGoodSource: () => (h.cached ? { scriptUri: 'file:///doc/c.v2.js?v=1', jsonUri: 'file:///doc/c.json' } : null),
 }));
-vi.mock('../lib/content-bundle', () => ({ loadContentBundle: (...a: unknown[]) => h.load(...a) }));
+vi.mock('../lib/content-bundle', async (orig) => ({ ...(await orig<object>()), loadContentBundle: (...a: unknown[]) => h.load(...a) }));
 vi.mock('../dom/SharedUiTest', () => ({ default: () => null }));
 vi.mock('../dom/AppReader', async () => {
   const React = await import('react');

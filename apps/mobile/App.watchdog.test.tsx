@@ -79,7 +79,7 @@ vi.mock('./lib/app-config', async (orig) => ({
   loadLaunchFlags: async () => ({ sharedUi: null, watchdogReports: null }),
 }));
 vi.mock('./lib/dom-reader-config', () => ({ lastGoodSource: () => ({ scriptUri: 'file:///doc/c.v2.js?v=1', jsonUri: 'file:///doc/c.json' }) }));
-vi.mock('./lib/content-bundle', () => ({ loadContentBundle: async () => ({ manifest: { bundleVersion: 'v1' } }) }));
+vi.mock('./lib/content-bundle', async (orig) => ({ ...(await orig<object>()), loadContentBundle: async () => ({ manifest: { bundleVersion: 'v1' } }) }));
 vi.mock('./components/DiagHotCorner', () => ({ DiagHotCorner: () => null }));
 vi.mock('./components/UpdateRequiredScreen', () => ({ UpdateRequiredScreen: () => null }));
 vi.mock('./dom/SharedUiTest', () => ({ default: () => null }));
