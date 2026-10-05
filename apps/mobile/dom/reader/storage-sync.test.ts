@@ -5,15 +5,10 @@ import { createWriteCoalescer, loadStorageSeed } from './storage-sync';
 beforeEach(() => vi.useFakeTimers());
 afterEach(() => vi.useRealTimers());
 
-const okCall = () => vi.fn(async () => ({ ok: true, value: null }));
-
 describe('persistent local storage (DOM side)', () => {
   it('set, then a relaunch (new Map seeded from the native blob) still has the value', () => {
     let blob: Record<string, string> = {};
-    const first = createMapStorage({}, (c) => {
-      if (c.set) blob = { ...blob, [c.set[0]]: c.set[1] };
-      if (c.remove) delete blob[c.remove];
-    });
+    const first = createMapStorage({}, () => void (blob = first.snapshot()));
     first.set('visited', 'yes');
     first.set('gone', 'x');
     first.remove('gone');
@@ -23,9 +18,11 @@ describe('persistent local storage (DOM side)', () => {
   });
 
   it('5 sets in 100 ms produce one storage.write', () => {
-    const call = okCall();
-    const sync = createWriteCoalescer({ call } as never);
-    const s = createMapStorage({}, sync.push);
+    const call = vi.fn(async () => ({ ok: true, value: null }));
+    // eslint-disable-next-line prefer-const -- late-bound: the callback needs the binding assigned below
+    let s!: ReturnType<typeof createMapStorage>;
+    const sync = createWriteCoalescer({ call } as never, () => s.snapshot());
+    s = createMapStorage({}, sync.push);
     for (let i = 0; i < 5; i++) {
       s.set(`k${i}`, String(i));
       vi.advanceTimersByTime(20);
@@ -33,16 +30,6 @@ describe('persistent local storage (DOM side)', () => {
     expect(call).not.toHaveBeenCalled();
     vi.advanceTimersByTime(250);
     expect(call).toHaveBeenCalledTimes(1);
-    expect(call).toHaveBeenCalledWith('storage.write', { set: { k0: '0', k1: '1', k2: '2', k3: '3', k4: '4' } });
-  });
-
-  it('set then remove of one key sends only the remove; flush sends immediately', () => {
-    const call = okCall();
-    const sync = createWriteCoalescer({ call } as never);
-    sync.push({ set: ['a', '1'] });
-    sync.push({ remove: 'a' });
-    sync.flush();
-    expect(call).toHaveBeenCalledWith('storage.write', { remove: ['a'] });
   });
 
   it('load failure (error reply or throw) gives an empty seed and logs', async () => {

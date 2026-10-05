@@ -3,13 +3,22 @@ import { createHandlers } from './bridge-handlers-ui';
 import { createHostStorage, MAX_BLOB_BYTES, utf8Length, type HostStoragePort } from './host-storage';
 
 const ctx = { signal: new AbortController().signal };
-const memPort = (initial: string | null = null): HostStoragePort & { text: string | null } => {
-  const p = {
+type Mem = HostStoragePort & { text: string | null; writes: { text: string; mainTrusted: boolean }[] };
+const memPort = (initial: string | null = null): Mem => {
+  const p: Mem = {
     text: initial,
+    writes: [],
     read: () => p.text,
-    write: (t: string) => void (p.text = t),
+    write: (t, mainTrusted) => {
+      p.text = t;
+      p.writes.push({ text: t, mainTrusted });
+    },
   };
   return p;
+};
+const copies = (main: string | null, tmp: string | null, bak: string | null): HostStoragePort & { writes: boolean[] } => {
+  const writes: boolean[] = [];
+  return { read: () => main, readTmp: () => tmp, readBackup: () => bak, write: (_t, trusted) => void writes.push(trusted), writes };
 };
 const handlers = (port = memPort()) =>
   createHandlers({
@@ -34,49 +43,66 @@ describe('host storage blob', () => {
     };
     expect(createHostStorage(port).load()).toEqual({});
   });
-  it('corrupt main + good backup loads the backup; both bad loads {}', () => {
-    const mk = (main: string | null, bak: string | null): HostStoragePort => ({ read: () => main, readBackup: () => bak, write: vi.fn() });
-    expect(createHostStorage(mk('{broken', '{"a":"1"}')).load()).toEqual({ a: '1' });
-    expect(createHostStorage(mk(null, '{"a":"1"}')).load()).toEqual({ a: '1' });
-    expect(createHostStorage(mk('{broken', '[1]')).load()).toEqual({});
+  it('a mixed-type main falls back to the backup', () => {
+    expect(createHostStorage(copies('{"a":"1","n":2}', null, '{"a":"old"}')).load()).toEqual({ a: 'old' });
   });
-  it('the cap is measured in UTF-8 bytes, not characters', () => {
-    const port = memPort();
-    expect(createHostStorage(port).write({ set: { k: 'é'.repeat(MAX_BLOB_BYTES / 2) } })).toBe(false);
-    expect(utf8Length('é')).toBe(2);
-    expect(utf8Length('\u{1F600}')).toBe(4);
-    expect(port.text).toBeNull();
+  it('load order is main, tmp, then backup', () => {
+    expect(createHostStorage(copies('{bad', '{"t":"1"}', '{"b":"1"}')).load()).toEqual({ t: '1' });
+    expect(createHostStorage(copies('{bad', '{bad', '{"b":"1"}')).load()).toEqual({ b: '1' });
+    expect(createHostStorage(copies('{"m":"1"}', '{"t":"1"}', '{"b":"1"}')).load()).toEqual({ m: '1' });
   });
-  it('persists set/remove and a fresh instance (relaunch) reads them back', () => {
+  it('a main loaded from the backup is untrusted until a write succeeds', () => {
+    const port = copies('{bad', null, '{"a":"1"}');
+    const s = createHostStorage(port);
+    expect(s.load()).toEqual({ a: '1' });
+    expect(s.write({ a: '1', b: '2' })).toBe(true);
+    expect(s.write({ a: '1', b: '3' })).toBe(true);
+    expect(port.writes).toEqual([false, true]);
+  });
+  it('a main loaded from main is trusted on the first write', () => {
+    const port = copies('{"a":"1"}', null, null);
+    expect(createHostStorage(port).write({ a: '2' })).toBe(true);
+    expect(port.writes).toEqual([true]);
+  });
+  it('write replaces the blob wholesale; a fresh instance (relaunch) reads it back', () => {
     const port = memPort();
     const a = createHostStorage(port);
-    expect(a.write({ set: { a: '1', b: '2' } })).toBe(true);
-    expect(a.write({ set: { c: '3' }, remove: ['a'] })).toBe(true);
+    expect(a.write({ a: '1', b: '2' })).toBe(true);
+    expect(a.write({ b: '2', c: '3' })).toBe(true);
     expect(createHostStorage(port).load()).toEqual({ b: '2', c: '3' });
+  });
+  it('over the cap (UTF-8 bytes) is refused and the cache and file are unchanged', () => {
+    const port = memPort('{"a":"1"}');
+    const s = createHostStorage(port);
+    expect(s.write({ k: 'é'.repeat(MAX_BLOB_BYTES / 2) })).toBe(false);
+    expect(s.load()).toEqual({ a: '1' });
+    expect(port.writes).toEqual([]);
+    expect(utf8Length('é')).toBe(2);
+    expect(utf8Length('\u{1F600}')).toBe(4);
   });
 });
 
 describe('storage handlers', () => {
   it('load returns entries; write round-trips', async () => {
     const h = handlers();
-    expect(await h['storage.write']({ set: { k: 'v' } }, ctx)).toEqual({ ok: true, value: null });
+    expect(await h['storage.write']({ entries: { k: 'v' } }, ctx)).toEqual({ ok: true, value: null });
     expect(await h['storage.load']({}, ctx)).toEqual({ ok: true, value: { entries: { k: 'v' } } });
   });
   it('a key over 256 chars is invalid', async () => {
     const port = memPort();
-    const r = await handlers(port)['storage.write']({ set: { ['k'.repeat(257)]: 'v' } }, ctx);
+    const r = await handlers(port)['storage.write']({ entries: { ['k'.repeat(257)]: 'v' } }, ctx);
     expect(r).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(port.text).toBeNull();
   });
-  it('a result over 1 MiB is invalid and writes nothing', async () => {
+  it('a blob over the cap is invalid and writes nothing', async () => {
     const port = memPort();
-    const r = await handlers(port)['storage.write']({ set: { big: 'x'.repeat(MAX_BLOB_BYTES) } }, ctx);
+    const r = await handlers(port)['storage.write']({ entries: { big: 'x'.repeat(MAX_BLOB_BYTES) } }, ctx);
     expect(r).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(port.text).toBeNull();
   });
   it('rejects malformed payloads', async () => {
     const h = handlers();
-    expect(await h['storage.write']({ set: { k: 1 } } as never, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
-    expect(await h['storage.write']({ remove: 'k' } as never, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await h['storage.write']({ entries: { k: 1 } } as never, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await h['storage.write']({ set: { k: 'v' } } as never, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
   });
 });

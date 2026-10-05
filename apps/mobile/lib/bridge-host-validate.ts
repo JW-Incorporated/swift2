@@ -84,20 +84,11 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
-/** Strict `{ set?: Record<string,string>; remove?: string[] }`; key length and blob size are the native handler's `invalid`. */
+/** Strict `{ entries: Record<string,string> }`; key length and blob size are the native handler's `invalid`. */
 function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
-  const out: Record<string, JsonValue> = {};
-  for (const k of Object.keys(p)) {
-    const v = p[k];
-    if (k === 'set') {
-      if (!isRecord(v) || !Object.values(v).every((x) => typeof x === 'string')) return null;
-      out.set = { ...v };
-    } else if (k === 'remove') {
-      if (!Array.isArray(v) || !v.every((x) => typeof x === 'string')) return null;
-      out.remove = [...v];
-    } else return null;
-  }
-  return out;
+  const { entries } = p;
+  if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
+  return { entries: { ...(entries as Record<string, string>) } };
 }
 
 /** Per-command payload validation; returns the cleaned payload or null. */

@@ -24,22 +24,23 @@ export type ReaderProps = {
 };
 
 /** Identical on iOS and Android (the Android DOM has no storage, G3). Tri-state: null = absent. The Map is authoritative and
- * synchronous; `onWrite` (absent for per-launch `session` storage) mirrors each mutation to the native blob. */
+ * synchronous; `onChange` (absent for per-launch `session` storage) fires after each mutation, and `snapshot` is the full map. */
 export function createMapStorage(
   seed: Record<string, string> = {},
-  onWrite?: (change: { set?: [string, string]; remove?: string }) => void,
-): HostStorage {
+  onChange?: () => void,
+): HostStorage & { snapshot(): Record<string, string> } {
   const m = new Map<string, string>(Object.entries(seed));
   return {
     get: (k) => m.get(k) ?? null,
     set: (k, v) => {
       m.set(k, v);
-      onWrite?.({ set: [k, v] });
+      onChange?.();
     },
     remove: (k) => {
       m.delete(k);
-      onWrite?.({ remove: k });
+      onChange?.();
     },
+    snapshot: () => Object.fromEntries(m),
   };
 }
 
@@ -48,7 +49,10 @@ export function createReaderAdapter(
   p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath'> & { insets: Insets; storageSeed?: Record<string, string> },
 ): HostAdapter {
   const apiFetch = createBridgeApiFetch(p.client);
-  const sync = createWriteCoalescer(p.client, (detail) => p.client.sendDiag?.('storage-sync', detail));
+  // eslint-disable-next-line prefer-const -- `local` needs `sync.push`, `sync` needs `local.snapshot` (late-bound)
+  let local: ReturnType<typeof createMapStorage>;
+  const sync = createWriteCoalescer(p.client, () => local.snapshot(), (detail) => p.client.sendDiag?.('storage-sync', detail));
+  local = createMapStorage(p.storageSeed, sync.push);
   if (typeof document !== 'undefined') {
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') sync.flush();
@@ -63,7 +67,7 @@ export function createReaderAdapter(
       navigateDom: p.navigateDom,
       getPath: p.getPath,
       apiFetch,
-      storage: { local: createMapStorage(p.storageSeed, sync.push), session: createMapStorage() },
+      storage: { local, session: createMapStorage() },
       onBack: () => () => {},
     }),
     apiStream: createBridgeApiStream(apiFetch),

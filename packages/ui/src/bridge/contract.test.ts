@@ -77,7 +77,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
       'storage.load': H<Empty, { entries: Record<string, string> }>;
-      'storage.write': H<{ set?: Record<string, string>; remove?: string[] }, null>;
+      'storage.write': H<{ entries: Record<string, string> }, null>;
     };
     expectTypeOf<HandlerMap>().toEqualTypeOf<Exact>();
     expectTypeOf<ResponderMap>().toEqualTypeOf<{ back: H<Empty, 'handled' | 'exit'> }>();

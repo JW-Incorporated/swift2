@@ -20,21 +20,30 @@ export function utf8Length(s: string): number {
   return n;
 }
 
-export type HostStoragePort = { read(): string | null; readBackup?(): string | null; write(text: string): void };
+export type HostStoragePort = {
+  read(): string | null;
+  readTmp?(): string | null;
+  readBackup?(): string | null;
+  /** `mainTrusted`: the current main file is known-good, so it may replace the backup. */
+  write(text: string, mainTrusted: boolean): void;
+};
 export type HostStorage = {
   load(): Record<string, string>;
-  /** false = refused (the resulting blob would exceed the cap); nothing was written. Throws only on an I/O failure. */
-  write(change: { set?: Record<string, string>; remove?: string[] }): boolean;
+  /** Replaces the whole blob. false = refused (over the cap); nothing was written, the cache is unchanged. Throws only on an I/O failure. */
+  write(entries: Record<string, string>): boolean;
 };
 
-/** null = missing or corrupt (so the caller can try the backup). */
+/** null = missing, corrupt, or not an object whose every value is a string (so the caller can try the next copy). */
 function parse(text: string | null): Record<string, string> | null {
   if (!text) return null;
   try {
     const v: unknown = JSON.parse(text);
     if (typeof v !== 'object' || v === null || Array.isArray(v)) return null;
     const out: Record<string, string> = {};
-    for (const [k, val] of Object.entries(v)) if (typeof val === 'string') out[k] = val;
+    for (const [k, val] of Object.entries(v)) {
+      if (typeof val !== 'string') return null;
+      out[k] = val;
+    }
     return out;
   } catch {
     return null;
@@ -43,26 +52,29 @@ function parse(text: string | null): Record<string, string> | null {
 
 export function createHostStorage(port: HostStoragePort): HostStorage {
   let cache: Record<string, string> | null = null;
+  let mainTrusted = false;
+  const attempt = (read?: () => string | null) => {
+    try {
+      return parse(read ? read() : null);
+    } catch {
+      return null;
+    }
+  };
   const current = (): Record<string, string> => {
     if (cache) return cache;
-    const attempt = (read?: () => string | null) => {
-      try {
-        return parse(read ? read() : null);
-      } catch {
-        return null;
-      }
-    };
-    return (cache = attempt(port.read) ?? attempt(port.readBackup?.bind(port)) ?? {});
+    const main = attempt(port.read);
+    if (main) mainTrusted = true;
+    return (cache = main ?? attempt(port.readTmp?.bind(port)) ?? attempt(port.readBackup?.bind(port)) ?? {});
   };
   return {
     load: () => ({ ...current() }),
-    write({ set, remove }) {
-      const next = { ...current() };
-      for (const k of remove ?? []) delete next[k];
-      for (const [k, v] of Object.entries(set ?? {})) next[k] = v;
+    write(entries) {
+      current();
+      const next = { ...entries };
       const text = JSON.stringify(next);
       if (utf8Length(text) > MAX_BLOB_BYTES) return false;
-      port.write(text);
+      port.write(text, mainTrusted);
+      mainTrusted = true;
       cache = next;
       return true;
     },

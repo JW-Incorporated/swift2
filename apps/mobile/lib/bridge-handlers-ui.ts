@@ -113,15 +113,13 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
     'storage.write': async (payload) => {
       const p: unknown = payload;
       if (!isRecord(p)) return invalid('storage.write: payload');
-      const { set, remove } = p;
-      if (set !== undefined && (!isRecord(set) || !Object.values(set).every((v) => typeof v === 'string'))) return invalid('storage.write: set');
-      if (remove !== undefined && (!Array.isArray(remove) || !remove.every((k) => typeof k === 'string'))) return invalid('storage.write: remove');
-      const keys = [...Object.keys(set ?? {}), ...((remove as string[] | undefined) ?? [])];
-      if (keys.some((k) => k.length > MAX_KEY_LENGTH)) return invalid('storage.write: key too long');
+      const { entries } = p;
+      if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((v) => typeof v === 'string')) return invalid('storage.write: entries');
+      if (Object.keys(entries).some((k) => k.length > MAX_KEY_LENGTH)) return invalid('storage.write: key too long');
       const s = deps.hostStorage;
       if (!s) return resErr('failed', 'storage.write unavailable');
       try {
-        if (!s.write({ set: set as Record<string, string> | undefined, remove: remove as string[] | undefined })) {
+        if (!s.write(entries as Record<string, string>)) {
           deps.log('bridge-storage.write-rejected', 'blob over the size cap');
           return invalid('storage.write: too large');
         }

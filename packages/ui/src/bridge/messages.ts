@@ -52,8 +52,8 @@ export type DomCommandSpec = {
   cancel: Spec<{ targetId: string }, null>;
   /** The reader's persistent `local` storage, one native blob. Add-only. */
   'storage.load': Spec<Record<string, never>, { entries: Record<string, string> }>;
-  /** Native answers `invalid` if any key is over 256 chars or the resulting blob is over 1 MiB. */
-  'storage.write': Spec<{ set?: Record<string, string>; remove?: string[] }, null>;
+  /** The FULL map; native replaces the blob wholesale. `invalid` if any key is over 256 chars or the blob is over 192 KiB (UTF-8). */
+  'storage.write': Spec<{ entries: Record<string, string> }, null>;
 };
 
 /** Headers of a streamed `api` response; the body follows via `apiRead`. */

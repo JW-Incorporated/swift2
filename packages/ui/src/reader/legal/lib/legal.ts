@@ -306,7 +306,7 @@ export const PRIVACY_POLICY: LegalDoc = {
           kind: 'list',
           items: [
             'A record of what you have explored — the moments you have opened, the Easter eggs you have read, the clue trails you have started, and anything you have favourited — so your progress and favourites are still there when you come back.',
-            'A flag remembering that you have already seen the timeline-scrubber hint, so it is not shown to you twice.',
+            'A flag remembering that you have already seen the swipe-between-songs hint on a song page, so it is not shown to you twice.',
           ],
         },
         {

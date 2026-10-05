@@ -1,9 +1,8 @@
 // Persistence plumbing for the reader's `local` storage: the native blob is loaded once before the reader mounts
-// (the in-memory Map seeds from it), and later writes are coalesced and sent fire-and-forget.
+// (the in-memory Map seeds from it), and later changes are sent as full-map snapshots, debounced.
 import type { BridgeClient } from '@swift2/ui';
 
 type Caller = Pick<BridgeClient, 'call'>;
-export type StorageChange = { set?: Record<string, string>; remove?: string[] };
 
 export const WRITE_DEBOUNCE_MS = 250;
 export const RETRY_START_MS = 500;
@@ -22,24 +21,25 @@ export async function loadStorageSeed(client: Caller, log: (detail: string) => v
   return {};
 }
 
-type Batch = { set: Map<string, string>; remove: Set<string> };
-
 /**
- * Coalesces set/remove calls into one `storage.write` per quiet period (last write per key wins). One write is in
- * flight at a time (so writes never reorder); a batch is only forgotten once the host acknowledged it, otherwise it is
- * merged back under newer changes and retried with bounded backoff. An `invalid` answer (blob too large) is final for
- * that batch: the in-memory state is kept, one diag is emitted, and nothing loops.
+ * Sends the full in-memory map (`getSnapshot`) as `storage.write`, debounced. `dirty` + one write in flight: the
+ * snapshot is taken at send time, so a changed key can never be lost or reordered. An `invalid` answer (too large)
+ * clears `dirty`, emits one diag, and resends only on the next push; a transport failure keeps `dirty` and retries the
+ * latest snapshot with bounded backoff.
  */
-export function createWriteCoalescer(client: Caller, log: (detail: string) => void = () => {}, ms = WRITE_DEBOUNCE_MS) {
-  const set = new Map<string, string>();
-  const remove = new Set<string>();
+export function createWriteCoalescer(
+  client: Caller,
+  getSnapshot: () => Record<string, string>,
+  log: (detail: string) => void = () => {},
+  ms = WRITE_DEBOUNCE_MS,
+) {
   let timer: ReturnType<typeof setTimeout> | null = null;
+  let dirty = false;
   let inFlight = false;
   let failures = 0;
   let warnedInvalid = false;
   let gaveUp = false;
 
-  const pending = () => set.size > 0 || remove.size > 0;
   const arm = (delay: number) => {
     if (timer !== null) return;
     timer = setTimeout(() => {
@@ -49,24 +49,19 @@ export function createWriteCoalescer(client: Caller, log: (detail: string) => vo
   };
   const backoff = () => Math.min(RETRY_START_MS * 2 ** (failures - 1), RETRY_CAP_MS);
 
-  function requeue(batch: Batch): void {
-    for (const [k, v] of batch.set) if (!set.has(k) && !remove.has(k)) set.set(k, v);
-    for (const k of batch.remove) if (!set.has(k) && !remove.has(k)) remove.add(k);
-  }
-
-  function settle(batch: Batch, ok: boolean, invalid: boolean, detail: string): void {
+  function settle(ok: boolean, invalid: boolean, detail: string): void {
     inFlight = false;
     if (ok) {
       failures = 0;
       gaveUp = false;
     } else if (invalid) {
+      dirty = false;
       if (!warnedInvalid) {
         warnedInvalid = true;
         log(`storage.write rejected (${detail}); kept in memory only`);
       }
     } else {
       failures += 1;
-      requeue(batch);
       if (failures > MAX_RETRIES) {
         if (!gaveUp) log(`storage.write: giving up after retries (${detail})`);
         gaveUp = true;
@@ -75,33 +70,28 @@ export function createWriteCoalescer(client: Caller, log: (detail: string) => vo
       arm(backoff());
       return;
     }
-    if (pending()) arm(ms);
+    if (dirty) arm(ms);
   }
 
   function send(): void {
-    if (inFlight || !pending()) return;
-    const batch: Batch = { set: new Map(set), remove: new Set(remove) };
-    set.clear();
-    remove.clear();
-    const payload: StorageChange = {};
-    if (batch.set.size) payload.set = Object.fromEntries(batch.set);
-    if (batch.remove.size) payload.remove = [...batch.remove];
+    if (inFlight || !dirty) return;
+    dirty = false;
     inFlight = true;
-    client.call('storage.write', payload).then(
-      (r) => settle(batch, r.ok, !r.ok && r.error.code === 'invalid', r.ok ? '' : r.error.code),
-      (e) => settle(batch, false, false, String(e).slice(0, 120)),
+    client.call('storage.write', { entries: getSnapshot() }).then(
+      (r) => {
+        if (!r.ok && r.error.code !== 'invalid') dirty = true;
+        settle(r.ok, !r.ok && r.error.code === 'invalid', r.ok ? '' : r.error.code);
+      },
+      (e) => {
+        dirty = true;
+        settle(false, false, String(e).slice(0, 120));
+      },
     );
   }
 
-  function push(change: { set?: [string, string]; remove?: string }): void {
-    if (change.set) {
-      remove.delete(change.set[0]);
-      set.set(change.set[0], change.set[1]);
-    }
-    if (change.remove !== undefined) {
-      set.delete(change.remove);
-      remove.add(change.remove);
-    }
+  /** Call after every mutation of the map. */
+  function push(): void {
+    dirty = true;
     gaveUp = false;
     arm(failures > 0 ? backoff() : ms);
   }

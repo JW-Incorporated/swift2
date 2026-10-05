@@ -39,7 +39,7 @@ describe('JSON round-trip, one sample per type', () => {
     apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },
     'storage.load': {},
-    'storage.write': { set: { k: 'v' }, remove: ['old'] },
+    'storage.write': { entries: { k: 'v' } },
     back: {},
   };
   const eventSamples: { [T in EventType]: EventPayloadOf<T> } = {

@@ -37,12 +37,12 @@ const mem = (): HostStoragePort & { text: string | null } => {
 };
 
 describe('storage over the real bridge', () => {
-  it('set/remove survive validation and load returns them; the DOM seed receives them', async () => {
+  it('snapshots survive validation and load returns them; the DOM seed receives them', async () => {
     const { client } = rig(mem());
-    const w1 = client.call('storage.write', { set: { a: '1', b: '2' } });
+    const w1 = client.call('storage.write', { entries: { a: '1', b: '2' } });
     await tick();
     expect(await w1).toEqual({ ok: true, value: null });
-    const w2 = client.call('storage.write', { set: { c: '3' }, remove: ['a'] });
+    const w2 = client.call('storage.write', { entries: { b: '2', c: '3' } });
     await tick();
     expect(await w2).toEqual({ ok: true, value: null });
     const seed = loadStorageSeed(client);
@@ -53,7 +53,7 @@ describe('storage over the real bridge', () => {
   it('a blob over the byte cap is invalid, logs a signal, and changes nothing', async () => {
     const port = mem();
     const { client, log } = rig(port);
-    const p = client.call('storage.write', { set: { big: 'é'.repeat(MAX_BLOB_BYTES / 2) } });
+    const p = client.call('storage.write', { entries: { big: 'é'.repeat(MAX_BLOB_BYTES / 2) } });
     await tick();
     expect(await p).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(log).toHaveBeenCalledWith('bridge-storage.write-rejected', expect.any(String));
@@ -62,7 +62,7 @@ describe('storage over the real bridge', () => {
 
   it('a payload with extra keys is invalid', async () => {
     const { client } = rig(mem());
-    const p = client.call('storage.write', { set: { a: '1' }, extra: 1 } as never);
+    const p = client.call('storage.write', { entries: { a: '1' }, extra: 1 } as never);
     await tick();
     expect(await p).toMatchObject({ ok: false, error: { code: 'invalid' } });
   });
