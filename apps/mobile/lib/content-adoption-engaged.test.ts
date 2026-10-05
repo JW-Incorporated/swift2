@@ -210,6 +210,19 @@ describe('content adoption respects the reader (engaged)', () => {
     expect(onSignal).not.toHaveBeenCalledWith('content-adopt', expect.anything());
   });
 
+  it('background -> foreground with a pending version while engaged waits for idle, then adopts after the hold', async () => {
+    const { a, bump } = setup();
+    a.loaded('v2');
+    a.appState('background');
+    a.appState('active');
+    a.route('/', false, true);
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(bump).not.toHaveBeenCalled();
+    a.route('/', false, false);
+    await vi.advanceTimersByTimeAsync(IDLE_MS);
+    expect(bump).toHaveBeenCalledTimes(1);
+  });
+
   it('cold start is unchanged: the first load records the baseline and nothing re-keys', async () => {
     const { a, bump } = setup();
     a.route('/', false, true);

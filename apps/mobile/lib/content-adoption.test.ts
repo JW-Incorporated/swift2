@@ -50,6 +50,23 @@ describe('content adoption', () => {
     expect(bump).toHaveBeenCalledTimes(1);
   });
 
+  it('a wall clock that moved back across a background stay does not go stale (still waits for idle)', async () => {
+    let t = 5_000_000;
+    const bump = vi.fn();
+    const a = createContentAdoption({ differs: (v) => v !== 'v1', getMounted: () => 'v1', setMounted: () => {}, prepare: async () => true, bump, now: () => t });
+    a.appState('active');
+    a.epochStarted();
+    a.navReady(vi.fn(async () => true));
+    a.readerReady();
+    a.route('/', false, true);
+    a.loaded('v2');
+    a.appState('background');
+    t -= 60 * 60 * 1000;
+    a.appState('active');
+    await tick();
+    expect(bump).not.toHaveBeenCalled();
+  });
+
   it('same version never re-keys; no transition (already active) never re-keys', async () => {
     const { a, bump } = setup();
     a.loaded('v1');

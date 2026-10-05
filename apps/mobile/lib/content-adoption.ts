@@ -7,7 +7,7 @@
 // ready), never while the user is mid-interaction (busy: adopted at a later foreground), never while the reader is engaged
 // or its state is still unknown (no `route` report yet this epoch; away from the front door, an overlay open, scrolled): every
 // non-stale adoption waits behind a cancellable IDLE_MS idle hold that any engaged/busy signal cancels, unless the app was
-// backgrounded (AppState 'background', monotonic clock) for STALE_BACKGROUND_MS or more, when the context is stale anyway, never on navigate, and never
+// backgrounded (AppState 'background', wall clock, guarded) for STALE_BACKGROUND_MS or more, when the context is stale anyway, never on navigate, and never
 // sends content over the bridge. A planned reload is announced to the watchdog first (`prepare`).
 export interface ContentAdoptionDeps {
   /** True when a mounted version is known and differs from `version`. */
@@ -19,7 +19,7 @@ export interface ContentAdoptionDeps {
   /** Re-key the DOM (SharedUiHost bumps `generation`). */
   bump: () => void;
   onSignal?: (stage: string, detail?: string) => void;
-  /** Monotonic clock (ms) for the background-duration check. Default: performance.now() when present, else Date.now(); a negative or implausibly large delta never counts as elapsed. */
+  /** Wall clock (ms) for the background-duration check (default Date.now); a negative or implausibly large delta (a clock jump) never counts as elapsed. */
   now?: () => number;
 }
 
@@ -30,10 +30,7 @@ export const STALE_BACKGROUND_MS = 30 * 60 * 1000;
 /** A background delta beyond this is a clock jump, not a stay. */
 const MAX_PLAUSIBLE_BACKGROUND_MS = 7 * 24 * 60 * 60 * 1000;
 
-const defaultNow = (): number => {
-  const p = (globalThis as { performance?: { now?: () => number } }).performance;
-  return typeof p?.now === 'function' ? p.now() : Date.now();
-};
+const defaultNow = (): number => Date.now();
 
 export type DomNavigator = (path: string) => Promise<boolean>;
 
