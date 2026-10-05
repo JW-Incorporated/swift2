@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
 import { SiteFooter } from '@swift2/ui/reader/legal/SiteFooter';
 import { SupportPage } from '@swift2/ui/reader/legal/SupportPage';
@@ -11,25 +12,35 @@ import { useLegalPage } from './use-legal-page';
 // The layer is PORTALED to <body>, outside the reader's themed .era-shell, so it renders with the root palette like the
 // website (inside the shell it would inherit the active era's variables); its scrollbar is hidden so it does not take
 // layout width from the content (web pages scroll the document). It sits above every floating reader control (the
-// feedback button is z-71) and makes the other <body> children inert while open (the reader root, so late-mounted reader
-// chrome is covered too). Keyed per page so each legal page opens scrolled to the top.
-// Opening a legal page over an open overlay (e.g. the non-modal Feedback dialog) is supported: each legal page is one entry
+// feedback button is z-71) and, via useFocusTrap, is a labelled modal dialog: the other <body> children go inert while open,
+// focus moves in and returns to the opener on close. Keyed per page so each legal page opens scrolled to the top.
+// Opening a legal page over an open overlay (e.g. the Feedback dialog, which keeps only its own toggle live) is supported: each legal page is one entry
 // on useBackDismiss's ordered back stack (setDomPath -> pushBackEntry), so Back closes the legal page and the overlay
 // beneath stays open until the next Back (legal-over-feedback.test.ts).
+const PAGE_LABEL = { privacy: 'Privacy Policy', terms: 'Terms of Use', support: 'Support' } as const;
+
 export function LegalOverlay() {
   const page = useLegalPage();
   const ref = useRef<HTMLDivElement>(null);
+  useFocusTrap(!!page, ref, page);
+  // Land on the labelled dialog itself, not its first link: a page-like dialog opens without a focus ring on an arbitrary control.
   useEffect(() => {
-    const el = ref.current;
-    const siblings = Array.from(document.body.children).filter((c) => c !== el && !c.hasAttribute('inert'));
-    if (!el) return;
-    for (const c of siblings) c.setAttribute('inert', '');
-    return () => siblings.forEach((c) => c.removeAttribute('inert'));
+    if (page) ref.current?.focus();
   }, [page]);
   if (!page) return null;
   const footer = <SiteFooter />;
   return createPortal(
-    <div key={page} ref={ref} className="fixed inset-0 z-[80] overflow-y-auto" style={{ scrollbarWidth: 'none' }} data-legal-page={page}>
+    <div
+      key={page}
+      ref={ref}
+      role="dialog"
+      aria-modal="true"
+      aria-label={PAGE_LABEL[page]}
+      tabIndex={-1}
+      className="fixed inset-0 z-[80] overflow-y-auto outline-none"
+      style={{ scrollbarWidth: 'none' }}
+      data-legal-page={page}
+    >
       {page === 'support' ? (
         <SupportPage footer={footer} />
       ) : (

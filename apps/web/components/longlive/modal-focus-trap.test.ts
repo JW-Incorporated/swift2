@@ -146,8 +146,8 @@ describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
     expect(tag).toContain('ref={dialogRef}');
   });
 
-  it('wires the trap onto the panel root while open', () => {
-    expect(src).toContain('useFocusTrap(open, dialogRef);');
+  it('wires the trap onto the panel root while open, keeping its own toggle live', () => {
+    expect(src).toContain('useFocusTrap(open, dialogRef, null, toggleRef);');
   });
 });
 
