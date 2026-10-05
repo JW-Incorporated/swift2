@@ -2,9 +2,10 @@
 // remote config explicitly sets `watchdogReports: true`). A report is the
 // minimal `[watchdog]` shape {platform, buildKey, category}: no device model,
 // OS version, update id field or timings, and no free text. A device reports a
-// given buildKey+category at most ONCE EVER (#4874: the persisted `sent` marks
-// do not expire; a new build has a new buildKey) and MAX_PENDING waiting in
-// storage. Pure: storage, network, clock and platform are injected.
+// given buildKey+category at most once PER INSTALL (#4874: the persisted `sent`
+// marks do not expire; a new build has a new buildKey). History is bounded to
+// the most recent MAX_SENT marks (older ones evict), and clearing app data
+// resets it; the server dedupes durably regardless. MAX_PENDING wait in storage. Pure: storage, network, clock and platform are injected.
 import { WATCHDOG_REASONS, type WatchdogReason } from './watchdog-policy';
 
 export const MAX_PENDING = 3;
@@ -65,7 +66,7 @@ export function parseReportState(raw: string | null): ReportState {
 const alreadySent = (state: ReportState, r: PendingReport): boolean =>
   state.sent.some((s) => s.buildKey === r.buildKey && (s.category === undefined || s.category === r.category));
 
-/** Adds a report unless that buildKey+category is already pending or was ever sent from this device. */
+/** Adds a report unless that buildKey+category is already pending or is in this install's recent sent history. */
 export function enqueueReport(state: ReportState, report: PendingReport): ReportState {
   if (alreadySent(state, report) || state.pending.some((p) => p.buildKey === report.buildKey && p.category === report.category))
     return state;
@@ -114,7 +115,7 @@ export function createTelemetry(deps: TelemetryDeps) {
   return {
     /** Sends what is pending when online (next launch at the latest); drops it when reports are off. */
     flush: (enabled: boolean) => serial(() => flushNow(enabled)),
-    /** Enqueues one report (once per buildKey+category, ever) and tries to send it straight away. */
+    /** Enqueues one report (once per buildKey+category per install) and tries to send it straight away. */
     report: (category: WatchdogReason, buildKey: string, enabled: boolean) =>
       serial(async () => {
         if (!enabled) return;

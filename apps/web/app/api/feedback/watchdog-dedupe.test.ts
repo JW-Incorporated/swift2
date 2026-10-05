@@ -1,55 +1,66 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const state = { admin: true, count: 0 as number | null, countError: false, insertError: null as null | { code: string } };
-const insert = vi.fn(async () => ({ error: state.insertError }));
-vi.mock('../../../lib/supabase-server', () => ({
-  supabaseAdmin: () =>
-    state.admin
-      ? {
-          from: () => ({
-            select: () => ({
-              eq: async () => ({ count: state.count, error: state.countError ? { code: 'x' } : null }),
-            }),
-            insert,
-          }),
-        }
-      : null,
-}));
+const state = { admin: true, data: 'new' as unknown, error: null as null | { code: string }, throws: false };
+const rpc = vi.fn(async (..._args: unknown[]) => {
+  if (state.throws) throw new Error('net');
+  return { data: state.data, error: state.error };
+});
+vi.mock('../../../lib/supabase-server', () => ({ supabaseAdmin: () => (state.admin ? { rpc } : null) }));
 
-import { claimWatchdogReport, WATCHDOG_DURABLE_GLOBAL_MAX_PER_DAY } from './watchdog-dedupe';
+import { claimWatchdogReport, finishWatchdogReport, WATCHDOG_DURABLE_GLOBAL_MAX_PER_DAY } from './watchdog-dedupe';
 
 const report = { platform: 'ios', buildKey: '42:embedded', category: 'protocol' } as const;
 
-describe('claimWatchdogReport', () => {
+describe('watchdog durable dedupe client', () => {
   beforeEach(() => {
-    Object.assign(state, { admin: true, count: 0, countError: false, insertError: null });
-    insert.mockClear();
+    Object.assign(state, { admin: true, data: 'new', error: null, throws: false });
+    rpc.mockClear();
   });
 
-  it('first claim of a day+buildKey+category is new and inserts the UTC day', async () => {
+  it('claims through one RPC with the UTC day and the cap', async () => {
     expect(await claimWatchdogReport(report, new Date('2026-10-04T23:59:00Z'))).toBe('new');
-    expect(insert).toHaveBeenCalledWith({ day: '2026-10-04', build_key: '42:embedded', category: 'protocol' });
+    expect(rpc).toHaveBeenCalledTimes(1);
+    expect(rpc).toHaveBeenCalledWith(
+      'claim_watchdog_report',
+      expect.objectContaining({
+        p_day: '2026-10-04',
+        p_build_key: '42:embedded',
+        p_category: 'protocol',
+        p_max_per_day: WATCHDOG_DURABLE_GLOBAL_MAX_PER_DAY,
+      }),
+    );
   });
 
-  it('a unique-violation is a duplicate', async () => {
-    state.insertError = { code: '23505' };
+  it('maps duplicate and capped outcomes', async () => {
+    state.data = 'duplicate';
     expect(await claimWatchdogReport(report)).toBe('duplicate');
-  });
-
-  it('the durable global daily cap blocks before inserting', async () => {
-    state.count = WATCHDOG_DURABLE_GLOBAL_MAX_PER_DAY;
+    state.data = 'capped';
     expect(await claimWatchdogReport(report)).toBe('capped');
-    expect(insert).not.toHaveBeenCalled();
   });
 
-  it('fails open when unconfigured or on storage errors', async () => {
+  it('fails open when unconfigured, on RPC error, on a throw, or on an unknown value', async () => {
     state.admin = false;
     expect(await claimWatchdogReport(report)).toBe('new');
     state.admin = true;
-    state.countError = true;
+    state.error = { code: 'x' };
     expect(await claimWatchdogReport(report)).toBe('new');
-    state.countError = false;
-    state.insertError = { code: '08006' };
+    state.error = null;
+    state.throws = true;
     expect(await claimWatchdogReport(report)).toBe('new');
+    state.throws = false;
+    state.data = 'weird';
+    expect(await claimWatchdogReport(report)).toBe('new');
+  });
+
+  it('finish marks posted or releases, and never throws', async () => {
+    await finishWatchdogReport(report, true, new Date('2026-10-04T00:00:00Z'));
+    expect(rpc).toHaveBeenCalledWith(
+      'finish_watchdog_report',
+      expect.objectContaining({ p_posted: true, p_day: '2026-10-04' }),
+    );
+    await finishWatchdogReport(report, false);
+    expect(rpc).toHaveBeenLastCalledWith('finish_watchdog_report', expect.objectContaining({ p_posted: false }));
+    state.throws = true;
+    await expect(finishWatchdogReport(report, false)).resolves.toBeUndefined();
   });
 });

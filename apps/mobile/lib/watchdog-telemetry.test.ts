@@ -79,7 +79,7 @@ describe('queue', () => {
 });
 
 describe('telemetry', () => {
-  it('sends once per buildKey+category, ever (marks never expire)', async () => {
+  it('sends once per buildKey+category per install (marks never expire)', async () => {
     const h = harness();
     await h.t.report('ready-timeout', '42:embedded', true);
     await h.t.report('ready-timeout', '42:embedded', true);
