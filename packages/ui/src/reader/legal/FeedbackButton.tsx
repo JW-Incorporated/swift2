@@ -55,6 +55,7 @@ export function FeedbackButton() {
   useReportBusy('feedback', open || msg.trim() !== '' || status === 'sending');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
 
   // Hydrate before paint, never during render — reading sessionStorage
@@ -75,7 +76,8 @@ export function FeedbackButton() {
     writeDismissed();
   }
 
-  useFocusTrap(open, dialogRef);
+  // The toggle stays live while the panel is open (closing via the toggle is expected); the rest of the page is inert.
+  useFocusTrap(open, dialogRef, null, toggleRef);
 
   // Let the mobile back-swipe gesture close the compose panel instead of
   // leaving the app, matching Escape (single dispatcher in useBackDismiss).
@@ -106,6 +108,7 @@ export function FeedbackButton() {
           role="dialog"
           aria-modal="true"
           aria-label="Send feedback"
+          data-ll-safe="feedback-panel"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
           className="fixed bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
@@ -149,7 +152,7 @@ export function FeedbackButton() {
                   }}
                   placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
                   rows={4}
-                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-base sm:text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
+                  className="w-full resize-y rounded-lg border border-ink-soft/75 bg-bg p-2.5 text-base sm:text-sm text-ink placeholder:text-ink-soft/70 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                 />
                 {/* Honeypot — hidden from humans, catches bots. */}
                 <input
@@ -199,6 +202,7 @@ export function FeedbackButton() {
           instead, so the two 44px targets never overlap. */}
       <div
         data-social-hide="feedback-button"
+        data-ll-safe="feedback-button"
         className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4"
       >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
@@ -229,6 +233,7 @@ export function FeedbackButton() {
           </button>
         )}
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close feedback' : 'Send feedback'}

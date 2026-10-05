@@ -49,9 +49,9 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
   }, [load]);
 
   return (
-    <main className="mx-auto flex max-w-xl flex-col gap-6 px-6 py-16">
+    <section aria-labelledby="ll-inbox-heading" className="mx-auto flex max-w-xl flex-col gap-6 px-6 py-16">
       <header className="flex items-center justify-between gap-4">
-        <h1 className="font-era text-2xl font-semibold text-ink">Inbox</h1>
+        <h1 id="ll-inbox-heading" className="font-era text-2xl font-semibold text-ink">Inbox</h1>
         <button
           type="button"
           onClick={onClose}
@@ -101,6 +101,6 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
           ))}
         </ul>
       )}
-    </main>
+    </section>
   );
 }

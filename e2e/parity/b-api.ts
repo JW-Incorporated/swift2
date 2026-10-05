@@ -10,14 +10,16 @@ import type { Page } from '@playwright/test';
 export const NO_BRIDGE_CALL = /call:async\(\)=>\(0,[\w$]+\.resErr\)\('failed','no bridge'\)/;
 export const ENTRY_JS = /^\/_expo\/static\/js\/web\/index-[\w-]+\.js$/;
 
-export async function stubBridgeApiOnB(page: Page, answers: Readonly<Record<string, string>>): Promise<void> {
-  await page.addInitScript((byPath) => {
+export async function stubBridgeApiOnB(page: Page, answers: Readonly<Record<string, string>>, storageSeed?: Readonly<Record<string, string>>): Promise<void> {
+  await page.addInitScript(([byPath, seed]) => {
     (window as unknown as { __parityApi: unknown }).__parityApi = async (type: string, payload: { req?: { path?: string } }) => {
+      if (seed && type === 'storage.load') return { ok: true, value: { entries: seed } };
+      if (seed && type === 'storage.write') return { ok: true, value: null };
       const body = type === 'api' ? byPath[payload.req?.path ?? ''] : undefined;
       if (body === undefined) return { ok: false, error: { code: 'failed', message: 'no bridge' } };
       return { ok: true, value: { status: 200, headers: { 'content-type': 'application/x-ndjson' }, body } };
     };
-  }, answers);
+  }, [answers, storageSeed] as const);
   await page.route(
     (u) => u.origin === BASE.b && ENTRY_JS.test(u.pathname),
     async (route) => {

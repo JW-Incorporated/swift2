@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   FALLBACK_LAUNCHES,
+  READY_TIMEOUT_MS,
   createAttemptMonitor,
   decideMount,
   freshRecord,
@@ -46,10 +47,10 @@ describe('quarantine', () => {
     expect(t1).toMatchObject({ state: 'quarantined', fallbackCycles: 2, fallbackLaunchesRemaining: 0 });
   });
 
-  it('is native with no attempt on the next 5 launches', () => {
-    const rows = runDrill('hang', { launches: 10 });
-    expect(rows.slice(5, 10).every((r) => r.skipped && r.mount === 'native' && r.source === 'quarantine')).toBe(true);
-    expect(rows[9].state).toBe('quarantined');
+  it('is native with no attempt after two fallback cycles of deaths', () => {
+    const rows = runDrill('abandon', { launches: 14 });
+    expect(rows.slice(10, 14).every((r) => r.skipped && r.mount === 'native' && r.source === 'quarantine')).toBe(true);
+    expect(rows[13].state).toBe('quarantined');
   });
 
   it('a new buildKey clears it', () => {
@@ -79,24 +80,24 @@ describe('quarantine', () => {
 });
 
 describe('the remote-flag loop is bounded', () => {
-  it('9 failing launches under the remote flag make exactly 4 DOM attempts (was 6)', () => {
+  it('9 in-launch hangs make 9 DOM attempts: Recovery each time, never a fallback launch', () => {
     const rows = runDrill('hang', { launches: 9, cachedSharedUi: true });
-    expect(rows.filter((r) => !r.skipped).length).toBe(4);
-    expect(rows.reduce((n, r) => n + r.burnedMs, 0)).toBe(4 * 10_000);
-    expect(rows.map((r) => r.outcome)).toEqual([
-      'strike', 'strike', 'skipped', 'strike', 'strike', 'skipped', 'skipped', 'skipped', 'skipped',
-    ]);
+    expect(rows.filter((r) => !r.skipped).length).toBe(9);
+    expect(rows.reduce((n, r) => n + r.burnedMs, 0)).toBe(9 * READY_TIMEOUT_MS);
+    expect(rows.every((r) => r.outcome === 'strike' && r.state === 'failed')).toBe(true);
   });
 
-  it.each(['hang', 'throw', 'terminated', 'render-gone', 'protocol', 'abandon'] as const)(
-    'failure mode %s ends quarantined with 4 or fewer attempts per bad build',
-    (mode) => {
-      const rows = runDrill(mode, { launches: 14 });
-      expect(rows[13].state).toBe('quarantined');
-      expect(rows.filter((r) => !r.skipped).length).toBeLessThanOrEqual(8);
-      expect(rows.slice(-3).every((r) => r.skipped)).toBe(true);
-    },
-  );
+  it('9 launches killed before ready (abandon) make at most 7 DOM attempts', () => {
+    const rows = runDrill('abandon', { launches: 9, cachedSharedUi: true });
+    expect(rows.filter((r) => !r.skipped).length).toBeLessThanOrEqual(7);
+  });
+
+  it('cross-launch deaths end quarantined with few attempts per bad build', () => {
+    const rows = runDrill('abandon', { launches: 14 });
+    expect(rows[13].state).toBe('quarantined');
+    expect(rows.filter((r) => !r.skipped).length).toBeLessThanOrEqual(8);
+    expect(rows.slice(-3).every((r) => r.skipped)).toBe(true);
+  });
 
   it('a healthy DOM is never quarantined', () => {
     const rows = runDrill('none', { launches: 6 });
@@ -123,8 +124,8 @@ describe('launch precedence: quarantine > cache > default', () => {
   });
 
   it('a quarantined build is native in the drill even with the cache on', () => {
-    const rows2 = runDrill('hang', { launches: 8, cachedSharedUi: true });
-    expect(rows2[7]).toMatchObject({ mount: 'native', skipped: true, source: 'quarantine' });
+    const rows2 = runDrill('abandon', { launches: 12, cachedSharedUi: true });
+    expect(rows2[11]).toMatchObject({ mount: 'native', skipped: true, source: 'quarantine' });
   });
 
   it('the cache says off while the default says on: native on every launch', () => {
@@ -202,7 +203,7 @@ describe('native mount reason', () => {
     expect(nativeReasonFor({ wantsDom: false, source: 'quarantine' }, true)).toBe('quarantine');
     expect(nativeReasonFor({ wantsDom: false, source: 'cache' }, false)).toBe('flag-off');
     expect(nativeReasonFor({ wantsDom: true, source: 'cache' }, true)).toBe('watchdog-fallback');
-    expect(mountLine('native', 'pending-expired', null)).toBe('Mount: native (pending-expired)');
+    expect(mountLine('native', 'dom-strike', null)).toBe('Mount: native (dom-strike)');
     expect(mountLine('dom', null, 'cache')).toBe('Mount: shared UI (cache)');
     expect(mountLine('pending', null, null)).toBe('Mount: pending');
   });

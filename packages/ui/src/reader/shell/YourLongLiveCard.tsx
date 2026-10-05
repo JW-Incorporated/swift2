@@ -2,10 +2,10 @@
 
 import { useMemo } from 'react';
 import { EGG_NODES, getEra } from '@swift2/experience';
-import { useReader } from '@swift2/ui';
-import { hasShareableProgress, summarizeProgress } from '@/lib/longlive/share-card-params';
-import { useProgress } from '@/lib/longlive/store';
-import { ShareImageMenu } from './ShareImageMenu';
+import { useReader } from '../../snapshot/context';
+import { hasShareableProgress, summarizeProgress } from '../lib/share-card-params';
+import { useProgress } from '../store';
+import { ShareImageMenu } from '../era/ShareImageMenu';
 
 /**
  * The "Your Long Live" entry point (W9): once a visitor has opened, saved or
@@ -25,8 +25,9 @@ export function YourLongLiveCard() {
       }),
     [q, progress],
   );
-  if (!hydrated || !hasShareableProgress(progress) || summary.eras.length === 0) return null;
-  const top = getEra(summary.eras[0]);
+  const topId = summary.eras[0];
+  if (!hydrated || !hasShareableProgress(progress) || !topId) return null;
+  const top = getEra(topId);
 
   return (
     <section

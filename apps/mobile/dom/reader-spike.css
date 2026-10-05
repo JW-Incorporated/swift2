@@ -9,6 +9,12 @@ body {
   overscroll-behavior: none;
 }
 
+/* 2.4.11 scroll padding (web default in globals.css) plus the native insets the sticky/fixed bars also clear. */
+html {
+  --ll-scroll-pad-top: calc(5rem + var(--safe-top, 0px));
+  --ll-scroll-pad-bottom: calc(6rem + var(--safe-bottom, env(safe-area-inset-bottom)));
+}
+
 /* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
    the native insets (the DOM webview's env() is not reliable on Android). Each
    var falls back to the web's own env() when the bridge has not set it. The web
@@ -34,24 +40,24 @@ header[data-ll-topbar] {
 }
 
 /* BottomNav: fixed, inset-x-0; its padding already clears the home indicator. */
-nav[aria-label='Primary'] {
+[data-ll-safe='bottom-nav'] {
   padding-bottom: var(--safe-bottom, env(safe-area-inset-bottom)) !important;
   padding-left: var(--safe-left, 0px) !important;
   padding-right: var(--safe-right, 0px) !important;
 }
 
 /* LongLive's clearance spacer under the footer (height = bar + inset). */
-[style*='3.5rem + env(safe-area-inset-bottom)'] {
+[data-ll-safe='bottom-spacer'] {
   height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
 }
 
 /* FeedbackButton floats above the bar. Mobile-only: the package gives it md:bottom-4 / md:bottom-20 (no bottom nav
    at >= md), and an unconditional !important here defeated that on iPad. */
 @media (max-width: 767px) {
-  [class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
+  [data-ll-safe='feedback-button'] {
     bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
   }
-  [class~='bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))]'] {
+  [data-ll-safe='feedback-panel'] {
     bottom: max(calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))), calc(var(--keyboard-inset, 0px) + var(--safe-bottom, env(safe-area-inset-bottom)) + 1rem)) !important;
   }
 }

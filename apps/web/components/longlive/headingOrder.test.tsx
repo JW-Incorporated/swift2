@@ -45,11 +45,12 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     // The era hero's h1 must come first, immediately followed by
     // EraFeedList's sr-only h2 before any h3 card title — never an
     // h1 → h3 jump.
-    expect(headings[0]).toBe(1);
-    expect(headings.filter((l) => l === 1)).toHaveLength(1);
-    const h2Index = headings.indexOf(2);
-    expect(h2Index).toBe(1);
-    expect(headings.filter((l) => l === 2)).toHaveLength(1);
+    // A11Y-7: the era hero is an h2 (the masthead owns the page's one h1).
+    expect(headings.filter((l) => l === 1)).toHaveLength(0);
+    expect(headings[0]).toBe(2);
+    expect(headings[1]).toBe(2);
+    const h2Index = 1;
+    expect(headings.filter((l) => l === 2)).toHaveLength(2);
     // Every heading after the h2 (the card titles) is an h3 — never a
     // further h1/h2 reopening the jump the fix closed.
     for (const level of headings.slice(h2Index + 1)) {

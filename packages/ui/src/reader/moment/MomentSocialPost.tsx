@@ -59,6 +59,7 @@ export function MomentSocialPost({
             title={post.label}
             src={`https://www.instagram.com/p/${post.shortcode}/embed/captioned`}
             loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
             scrolling="no"
             className="w-full"
             // Instagram's embed is a fixed-width card that letterboxes itself in

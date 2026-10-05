@@ -35,3 +35,21 @@ describe('OverlayNav share host wiring (WP2.4-A2)', () => {
     expect(share.mock.calls[0]?.[0]).toMatchObject({ url: expect.stringContaining('https://www.longlivets.com') });
   });
 });
+
+describe('OverlayNav era button accessible name (A11Y-6b, WCAG 2.5.3)', () => {
+  it('has no aria-label; both visible variants start with "Era: " and the sr-only suffix follows', () => {
+    const era = getEra('lover');
+    renderWithReader(
+      <HostProvider adapter={base}>
+        <AppProvider>
+          <OverlayNav era={era} onClose={() => {}} />
+        </AppProvider>
+      </HostProvider>,
+    );
+    const btn = screen.getByRole('button', { name: /open the eras menu/i });
+    expect(btn).not.toHaveAttribute('aria-label');
+    expect(btn.querySelector('span.sm\\:hidden')?.textContent).toBe(`Era: ${era.shortName}`);
+    expect(btn.querySelector('span.hidden.sm\\:inline')?.textContent).toBe(`Era: ${era.name}`);
+    expect(btn.querySelector('.sr-only')?.textContent).toBe(' — open the eras menu');
+  });
+});

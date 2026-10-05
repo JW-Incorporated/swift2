@@ -45,7 +45,7 @@ describe('recipient-less compose mailto (share fallback Email)', () => {
   });
 });
 
-describe('navigation policy (SiteShell off-site links)', () => {
+describe('navigation policy (off-site links)', () => {
   it('opens https', () => expect(isAppOpenableUrl('https://open.spotify.com/x')).toBe(true));
   it.each([
     'http://example.com', 'intent://x#Intent;end', 'tel:+15551234', 'sms:123', 'javascript:alert(1)',

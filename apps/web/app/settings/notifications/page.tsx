@@ -22,5 +22,9 @@ export default function NotificationSettingsRoute() {
   // sign push messages. See SETUP_NOTIFICATIONS.md for the full posture.
   const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null;
 
-  return <NotificationSettingsPage vapidPublicKey={vapidPublicKey} />;
+  return (
+    <main>
+      <NotificationSettingsPage vapidPublicKey={vapidPublicKey} />
+    </main>
+  );
 }

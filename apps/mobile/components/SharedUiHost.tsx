@@ -8,7 +8,7 @@
 // within RELOAD_WINDOW_MS is a strike that unmounts this host; the first crash after ready re-keys the mount.
 // The webview reads the native disk cache itself: only a cache URI and version token cross the bridge (C6).
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, BackHandler, StyleSheet, View } from 'react-native';
+import { AppState, BackHandler, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useKeyboardInset } from '../lib/use-keyboard-inset';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -232,6 +232,7 @@ export function SharedUiHost({
         <AppReader
           key={session.epoch}
           dom={dom}
+          platform={Platform.OS}
           cacheUri={source.cache?.scriptUri}
           cacheJsonUri={source.cache?.jsonUri}
           artMapUri={source.cache?.artMapUri}

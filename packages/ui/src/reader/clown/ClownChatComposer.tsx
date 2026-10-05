@@ -35,7 +35,7 @@ export function ClownChatComposer({ className, text, setText, submit, busy, text
       {/* Plus/send: same 32px-visual / 44px-hit-area split as the titlebar toggle, so the pill keeps the mockup's proportions. */}
       <form
         onSubmit={submit}
-        className="flex items-center gap-1.5 rounded-full border border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] py-1 pl-1 pr-1 focus-within:border-[color:var(--era-accent)]"
+        className="flex items-center gap-1.5 rounded-full border border-[color:var(--clown-ink-soft)]/70 bg-[color:var(--clown-panel)] py-1 pl-1 pr-1 focus-within:border-[color:var(--era-accent)] focus-within:ring-2 focus-within:ring-[color:var(--era-accent)]"
       >
         <button
           type="button"

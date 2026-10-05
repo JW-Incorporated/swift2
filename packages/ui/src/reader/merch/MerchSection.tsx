@@ -173,7 +173,7 @@ export function MerchSectionBody() {
         <MerchSectionRail sections={railSections} />
       </div>
 
-      <main className="mx-auto max-w-[1180px] px-4 sm:px-6">
+      <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         {drops.length > 0 && (
           <section aria-labelledby="merch-new-drops" className="pt-[50px]">
             <MerchSectionHead
@@ -243,7 +243,7 @@ export function MerchSectionBody() {
         <div id={suggestLinkSectionId('merch')} className="pb-10">
           <SubmitLinkForm section="merch" />
         </div>
-      </main>
+      </div>
     </div>
   );
 }

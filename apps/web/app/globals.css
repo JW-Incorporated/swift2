@@ -48,6 +48,16 @@ body {
   padding: 0;
 }
 
+/* WCAG 2.4.11: keyboard focus must not land under the sticky TopBar / CountdownBanner (top) or the fixed
+   BottomNav + Feedback cluster (bottom). Applies to the document scroller only: the app's legal overlay scrolls in
+   its own fixed container, where this does not apply (nothing sticky there today). Scoped to :has(:focus-visible) and not to text fields
+   (an autofilled textarea such as the Clownbot composer matches :focus-visible and was shifting the page by the padding),
+   so programmatic scrollIntoView and the parity harness are unchanged. Vars so the app host can add the native insets. */
+html:has(:focus-visible:not(input, textarea, select, [contenteditable])) {
+  scroll-padding-top: var(--ll-scroll-pad-top, 5rem);
+  scroll-padding-bottom: var(--ll-scroll-pad-bottom, 6rem);
+}
+
 body {
   background: var(--era-bg);
   color: var(--era-ink);

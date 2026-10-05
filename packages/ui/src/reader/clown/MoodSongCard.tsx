@@ -53,6 +53,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
               title={pick.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
               onLoad={onLoad}
               onError={onError}
               className="absolute inset-0 h-full w-full"
