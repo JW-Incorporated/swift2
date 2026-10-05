@@ -27,6 +27,11 @@ describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path
     'insetsFromQuery',
   ])('keeps %s', (id) => expect(src).toContain(id));
 
+  it('starts the optional art map without awaiting it (it must never gate the reader paint)', () => {
+    expect(src).toContain('void loadArtMap(');
+    expect(src).not.toMatch(/await[^\n;]*loadArtMap|Promise\.all\([^\n]*loadArtMap/);
+  });
+
   it('has no remount-on-navigate left (reader state survives a native navigate)', () => {
     expect(src).not.toMatch(/readerKey|setReaderKey/);
   });

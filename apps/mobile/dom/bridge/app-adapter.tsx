@@ -3,11 +3,11 @@
 // injected `client` (no transport code here: Expo specifics stay in
 // transport-expo.ts + SharedUiHost). The web adapter's contract applies: the
 // reader only ever sees `useHost()`.
-import { forwardRef, useState, type CSSProperties } from 'react';
+import { forwardRef, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
 import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets } from '@swift2/ui';
 import { isAllowedMailto } from '../../lib/mailto-allowlist';
-import { artSrc, noteArtFallback, noteArtLoaded } from '../reader/art-map';
+import { artSrc, noteArtFallback, noteArtLoaded, subscribeArtMap } from '../reader/art-map';
 import { imageLoaded } from '../reader/image-listener';
 import { resolveAppUrl } from '../reader/resolve-url';
 import { createAppStorage, handleLinkClick, type NavDeps } from './app-adapter-nav';
@@ -55,7 +55,11 @@ export function AppImage({
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const [artFailedSrc, setArtFailedSrc] = useState<string | null>(null);
   // Offline art: a map hit serves the cached file:// copy directly (no srcSet); a miss or onError is today's remote path.
-  const art = artFailedSrc === src ? null : artSrc(src, APP_ORIGIN);
+  // The map loads after first paint (never gating it): re-render on arrival, but leave an image that already loaded remotely alone.
+  const [, bump] = useState(0);
+  useEffect(() => subscribeArtMap(() => bump((n) => n + 1)), []);
+  const remoteOk = useRef<string | null>(null);
+  const art = artFailedSrc === src || remoteOk.current === src ? null : artSrc(src, APP_ORIGIN);
   const responsive = art || failedSrc === src ? null : responsiveAttrs({ src, origin: APP_ORIGIN, width, fill, sizes, unoptimized });
   return (
     <img
@@ -85,6 +89,7 @@ export function AppImage({
       onLoad={(e) => {
         onLoad?.(e);
         if (art) noteArtLoaded();
+        else remoteOk.current = src;
         imageLoaded(e.currentTarget);
       }}
     />

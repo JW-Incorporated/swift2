@@ -7,9 +7,13 @@ export const MANIFEST_NAME = 'manifest.json';
 export const MAP_NAME = 'art-map.js';
 /** Hard cap on the cached art. */
 export const CAP_BYTES = 40 * 1024 * 1024;
-/** Downloads stop starting once a session has pulled this many bytes. */
+/** Declared bytes reserved per session (a failed download keeps its reservation): no download starts past this. */
 export const SESSION_BUDGET_BYTES = 10 * 1024 * 1024;
 export const CONCURRENCY = 2;
+/** Per-item ceiling, judged on the HEAD Content-Length (items with no valid length are skipped). */
+export const MAX_ITEM_BYTES = 5 * 1024 * 1024;
+/** A finished file may exceed its declared length by this much before it is discarded unmapped. */
+export const SLACK_BYTES = 4096;
 
 export interface ArtEntry {
   file: string;
@@ -27,6 +31,8 @@ export interface ArtFs {
   writeText(name: string, text: string): void;
   size(name: string): number | null;
   remove(name: string): void;
+  /** HEAD the url; its Content-Length in bytes, or null when missing/invalid/failed. */
+  headLength(url: string): Promise<number | null>;
   download(url: string, name: string): Promise<void>;
   move(from: string, to: string): Promise<void>;
   uri(name: string): string;
@@ -115,14 +121,14 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
 
   async function run(urls: string[], version: string): Promise<ArtSyncResult> {
     fs.ensureDir();
-    const names = fs.list();
-    for (const n of names) if (n.endsWith('.tmp')) fs.remove(n);
+    for (const n of fs.list()) if (n.endsWith('.tmp')) fs.remove(n);
     const stamp = now();
     const referenced = new Set(urls);
     const entries: ArtEntries = {};
     for (const [url, e] of Object.entries(parseEntries(fs.readText(MANIFEST_NAME)))) {
       if (fs.size(e.file) === null) continue; // file gone: re-download if still referenced
-      entries[url] = referenced.has(url) ? { ...e, lastUsed: stamp, contentVersion: version } : e;
+      // contentVersion is only ever changed by a successful re-fetch below, never relabelled here.
+      entries[url] = referenced.has(url) ? { ...e, lastUsed: stamp } : e;
     }
     let evicted = 0;
     const drop = (url: string) => {
@@ -132,26 +138,43 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
     };
     for (const url of Object.keys(entries)) if (!referenced.has(url)) drop(url);
 
-    const queue = urls.filter((u) => !entries[u]);
-    let pulled = 0;
+    // Missing art first, then entries cached under an older content version (the old file stays mapped until the new one lands).
+    const queue = [...urls.filter((u) => !entries[u]), ...urls.filter((u) => entries[u] && entries[u]!.contentVersion !== version)];
+    let sessionUsed = 0; // bandwidth reserved this session; a failed download keeps its reservation
+    let disk = total(entries); // bytes on disk plus in-flight reservations; a failed download releases its own
     let downloaded = 0;
     const worker = async () => {
       for (let url = queue.shift(); url !== undefined; url = queue.shift()) {
-        if (pulled >= SESSION_BUDGET_BYTES) return;
+        if (sessionUsed >= SESSION_BUDGET_BYTES) return;
+        let declared: number | null = null;
+        try {
+          declared = await fs.headLength(url);
+        } catch {
+          // Unknown length: skipped below.
+        }
+        if (declared === null || !Number.isFinite(declared) || declared <= 0 || declared > MAX_ITEM_BYTES) continue;
+        // Check-and-reserve happens in one tick, so two workers can never both claim the last of the budget.
+        if (sessionUsed + declared > SESSION_BUDGET_BYTES || disk + declared > CAP_BYTES) continue;
+        sessionUsed += declared;
+        disk += declared;
         const file = artFileName(url);
         const tmp = `${file}.tmp`;
         try {
           await fs.download(url, tmp);
-          const size = fs.size(tmp) ?? 0;
-          if (size <= 0 || size > CAP_BYTES) {
+          const size = fs.size(tmp);
+          if (size === null || size <= 0 || size > declared + SLACK_BYTES) {
             fs.remove(tmp);
+            disk -= declared;
             continue;
           }
           await fs.move(tmp, file);
-          pulled += size;
+          const old = entries[url];
+          if (old && old.file !== file) fs.remove(old.file);
+          disk += size - declared - (old ? old.size : 0);
           downloaded += 1;
           entries[url] = { file, size, lastUsed: stamp, contentVersion: version };
         } catch {
+          disk -= declared;
           try {
             fs.remove(tmp);
           } catch {
@@ -162,7 +185,7 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
     };
     await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-    // LRU under the hard cap (ties: the earlier-inserted entry, i.e. the older one, goes first).
+    // Safety net (a manifest already over the cap): LRU, ties go to the earlier-inserted (older) entry.
     const lru = Object.keys(entries)
       .map((url, i) => ({ url, i }))
       .sort((a, b) => entries[a.url]!.lastUsed - entries[b.url]!.lastUsed || a.i - b.i);

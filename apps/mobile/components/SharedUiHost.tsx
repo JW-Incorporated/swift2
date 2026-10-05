@@ -21,6 +21,7 @@ import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { eraColors } from '../lib/theme';
+import { sharedUiDomProps } from '../lib/shared-ui-dom-props';
 import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
@@ -242,21 +243,8 @@ export function SharedUiHost({
     setLatestProbeJson(merged);
   }, []);
 
-  // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
-  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
   // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
-  const dom = useMemo(
-    () => ({
-      contentInsetAdjustmentBehavior: 'never' as const,
-      automaticallyAdjustContentInsets: false,
-      bounces: false,
-      style: { backgroundColor: eraColors.bg },
-      containerStyle: { backgroundColor: eraColors.bg },
-      onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
-      onRenderProcessGone: handlers.onRenderProcessGone,
-    }),
-    [handlers],
-  );
+  const dom = useMemo(() => sharedUiDomProps(handlers), [handlers]);
   const domReadyRef = useRef(domReady);
   domReadyRef.current = domReady;
   const onReadyReal = useMemo(

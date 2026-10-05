@@ -7,7 +7,7 @@ vi.mock('react', async () => await import('../../../web/node_modules/react'));
 // @ts-expect-error -- same copy pinning for the renderer
 vi.mock('react-dom', async () => await import('../../../web/node_modules/react-dom'));
 
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { AppImage } from './app-adapter';
 import { artStats, loadArtMap, resetArtMapForTests } from '../reader/art-map';
 
@@ -58,5 +58,36 @@ describe('AppImage offline art', () => {
     expect(el().getAttribute('src')).not.toContain('file:');
     expect(el().getAttribute('srcset')).toContain('/_next/image');
     expect(artStats()).toMatchObject({ fallback: 1 });
+  });
+
+  it('renders at once with no map and with a map load that hangs (the map never gates paint)', async () => {
+    const hang = { createElement: () => ({ remove: () => {} }), head: { appendChild: () => {} } } as unknown as Document;
+    const pending = loadArtMap('file:///art/art-map.js', hang, 60_000);
+    const { container } = render(img(A));
+    const el = container.querySelector('img')!;
+    expect(el.getAttribute('srcset')).toContain('/_next/image');
+    expect(el.getAttribute('src')).not.toContain('file:');
+    expect(await Promise.race([pending.then(() => 'loaded'), Promise.resolve('still pending')])).toBe('still pending');
+  });
+
+  it('an image mounted before the map arrives picks up the hit when it does', async () => {
+    const { container } = render(img(A));
+    const el = () => container.querySelector('img')!;
+    expect(el().getAttribute('src')).not.toContain('file:');
+    await act(async () => {
+      await withMap({ 'https://www.longlivets.com/eras/a.png': FILE });
+    });
+    expect(el().getAttribute('src')).toBe(FILE);
+    expect(el().getAttribute('srcset')).toBeNull();
+  });
+
+  it('an image that already loaded remotely stays on the remote url when the map arrives', async () => {
+    const { container } = render(img(A));
+    const el = () => container.querySelector('img')!;
+    fireEvent.load(el());
+    await act(async () => {
+      await withMap({ 'https://www.longlivets.com/eras/a.png': FILE });
+    });
+    expect(el().getAttribute('src')).not.toContain('file:');
   });
 });

@@ -7,6 +7,13 @@ const LOAD_TIMEOUT_MS = 1500;
 let map: Record<string, string> = {};
 let loaded = 0;
 let fallback = 0;
+const listeners = new Set<() => void>();
+
+/** AppImage re-renders when the map arrives, so images mounted before it still pick up hits. */
+export function subscribeArtMap(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => void listeners.delete(fn);
+}
 
 export function loadArtMap(uri: string | undefined, doc?: Document, timeoutMs = LOAD_TIMEOUT_MS): Promise<void> {
   return new Promise((resolve) => {
@@ -21,7 +28,10 @@ export function loadArtMap(uri: string | undefined, doc?: Document, timeoutMs = 
     };
     s.onload = () => {
       const m = g[GLOBAL_KEY];
-      if (m && typeof m === 'object') map = m as Record<string, string>;
+      if (m && typeof m === 'object') {
+        map = m as Record<string, string>;
+        for (const fn of [...listeners]) fn();
+      }
       done();
     };
     s.onerror = done;

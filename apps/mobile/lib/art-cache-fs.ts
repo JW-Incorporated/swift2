@@ -6,6 +6,10 @@ import { ART_DIR_NAME, MAP_NAME, collectArtUrls, createArtCache, type ArtFs } fr
 import { diagMarkOnce } from './diagnostics';
 import { SITE_URL } from './site-url';
 
+const HEAD_TIMEOUT_MS = 10_000;
+// Per-process cache-buster for the map twin: deterministic, no file stat on the startup path (a missing file is just a script error).
+const BOOT_TOKEN = Date.now();
+
 const dir = () => new FileSystem.Directory(FileSystem.Paths.document, ART_DIR_NAME);
 const file = (name: string) => new FileSystem.File(dir(), name);
 
@@ -33,6 +37,19 @@ export function expoArtFs(): ArtFs {
       const f = file(name);
       if (f.exists) f.delete();
     },
+    async headLength(url) {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), HEAD_TIMEOUT_MS);
+      try {
+        const res = await fetch(url, { method: 'HEAD', signal: ctl.signal });
+        const n = res.ok ? Number(res.headers.get('content-length')) : NaN;
+        return Number.isInteger(n) && n > 0 ? n : null;
+      } catch {
+        return null;
+      } finally {
+        clearTimeout(timer);
+      }
+    },
     async download(url, name) {
       await FileSystem.File.downloadFileAsync(url, file(name), { idempotent: true });
     },
@@ -41,11 +58,10 @@ export function expoArtFs(): ArtFs {
   };
 }
 
-/** The art map's script URI (cache-busted by mtime) for the DOM, or undefined when there is none yet. Never throws. */
+/** The art map's script URI for the DOM. Never stats the disk and never throws; a map that does not exist yet just fails to load. */
 export function artMapUri(): string | undefined {
   try {
-    const f = file(MAP_NAME);
-    return f.exists && f.size > 0 ? `${f.uri}?v=${f.modificationTime}` : undefined;
+    return `${file(MAP_NAME).uri}?v=${BOOT_TOKEN}`;
   } catch {
     return undefined;
   }

@@ -205,7 +205,8 @@ export default function AppReader(props: AppReaderProps) {
         const tRead = performance.now();
         if (devLoader) input = await devLoader();
         else if (cacheUri) {
-          const [read] = await Promise.all([readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' }), loadArtMap(props.artMapUri)]);
+          void loadArtMap(props.artMapUri); // optional and async: never gates the first paint
+          const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
           probe.attempts(read.attempts);
           readAttempts = read.attempts;
           input = read.parsed ?? read.text;
