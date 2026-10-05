@@ -10,7 +10,8 @@ export type BackFn = () => 'handled' | 'exit';
 export type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag' | 'sendEvent'>;
 type MountProps = {
   inbox: Envelope[];
-  bridge: (env: Envelope) => Promise<unknown>;
+  bridge: (env: Envelope, token: string) => Promise<unknown>;
+  bridgeHello?: () => Promise<string>;
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
@@ -23,8 +24,8 @@ type MountProps = {
 export const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {}, sendEvent: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
-export function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
-  const client = useExpoBridge({ inbox, bridge }, { onFatal }, (c) =>
+export function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
+  const client = useExpoBridge({ inbox, bridge, bridgeHello }, { onFatal }, (c) =>
     installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
   );
   useEffect(() => onClient(client), [client]);

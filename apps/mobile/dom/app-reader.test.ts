@@ -4,7 +4,9 @@ import { createAppStorage } from './bridge/app-adapter-nav';
 import { installStorageShim } from './reader/storage-shim';
 
 const src =
-  readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8') + readFileSync(new URL('./bridge/expo-bridge-mount.tsx', import.meta.url), 'utf8');
+  readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8') +
+  readFileSync(new URL('./bridge/expo-bridge-mount.tsx', import.meta.url), 'utf8') +
+  readFileSync(new URL('./bridge/sample-images.ts', import.meta.url), 'utf8');
 
 describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path)', () => {
   it.each([
