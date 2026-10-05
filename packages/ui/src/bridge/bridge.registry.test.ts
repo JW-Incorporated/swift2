@@ -10,7 +10,7 @@ describe('runtime registries', () => {
     expect(new Set(EVENT_TYPES).size).toBe(EVENT_TYPES.length);
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
-        'api', 'apiRead', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
+        'api', 'apiRead', 'back', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
         'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
       ].sort(),
     );
@@ -24,6 +24,7 @@ describe('JSON round-trip, one sample per type', () => {
     navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
     share: { title: 't', text: 'x', url: 'https://example.test', image: { url: 'https://example.test/card.png' } },
     haptic: { kind: 'success' },
+    'clipboard.write': { text: 'https://example.test' },
     openExternal: { url: toExternalUrl('https://example.test')! },
     'notifications.status': {},
     'notifications.request': {},

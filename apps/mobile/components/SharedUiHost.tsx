@@ -12,6 +12,7 @@
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -136,6 +137,7 @@ export function SharedUiHost({
       linking: Linking,
       share: Share,
       cards: shareCardPorts,
+      clipboard: Clipboard,
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,
