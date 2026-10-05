@@ -6,7 +6,7 @@
 // if that write fails the launch mounts native (fail closed). `pending` is
 // bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); expiry is terminal for the launch (no late swap; the next launch decides).
 //
-// Wiring closed (proved end to end by lib/watchdog-closure.test.ts):
+// Wiring closed (proved end to end by App.watchdog.test.tsx):
 // App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback; D1). While pending no
 // overlay can exist (the DOM host is not mounted), so the pending/launch overlay needs no clearing.
 // Notification taps while quarantined/fallback land natively via lib/notification-tap-gate.ts (H3).
