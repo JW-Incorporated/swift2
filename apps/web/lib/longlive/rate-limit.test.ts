@@ -25,6 +25,11 @@ describe('bearerToken', () => {
     expect(bearerToken(req('Bearer abc123'))).toBe('abc123');
   });
 
+  it('is case-insensitive on the scheme and tolerates extra spaces', () => {
+    expect(bearerToken(req('bearer abc123'))).toBe('abc123');
+    expect(bearerToken(req('BEARER   abc123  '))).toBe('abc123');
+  });
+
   it('returns null for a missing or non-Bearer header', () => {
     expect(bearerToken(req())).toBeNull();
     expect(bearerToken(req('Basic abc123'))).toBeNull();

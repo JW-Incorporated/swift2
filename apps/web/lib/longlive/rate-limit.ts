@@ -80,10 +80,13 @@ export function timingSafeSecretEqual(provided: string, expected: string): boole
   return timingSafeEqual(a, b);
 }
 
-/** Token from an `Authorization: Bearer <token>` header, or null. */
+/** Token from an `Authorization: Bearer <token>` header, or null. Scheme is
+ * case-insensitive and extra spaces are tolerated. A present-but-wrong Bearer
+ * token is returned as-is; callers must NOT fall back to another credential
+ * source (e.g. ?secret=) on mismatch. */
 export function bearerToken(req: Request): string | null {
   const header = req.headers.get('authorization');
   if (!header) return null;
-  const match = /^Bearer (.+)$/.exec(header);
+  const match = /^bearer +(\S.*?) *$/i.exec(header);
   return match ? match[1] : null;
 }

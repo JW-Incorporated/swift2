@@ -54,6 +54,27 @@ function clip(v: string): string {
   return v.replace(/[\r\n\t]+/g, ' ').slice(0, MAX_LOGGED_CHARS);
 }
 
+/** Reads the body as a stream, counting BYTES; returns null (and cancels the
+ * stream) as soon as the cap is exceeded, so an oversized body is never fully
+ * buffered. */
+async function readCapped(req: Request): Promise<string | null> {
+  if (!req.body) return '';
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_BODY_BYTES) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks).toString('utf8');
+}
+
 /** Pull (directive, blocked origin) out of either report shape. */
 export function summarize(body: CspReportBody): { directive: string; blocked: string }[] {
   const reports: Record<string, unknown>[] = [];
@@ -102,8 +123,8 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   try {
-    const text = await req.text();
-    if (text.length > MAX_BODY_BYTES) return new NextResponse(null, { status: 413 });
+    const text = await readCapped(req);
+    if (text === null) return new NextResponse(null, { status: 413 });
     const body = JSON.parse(text) as CspReportBody;
     for (const { directive, blocked } of summarize(body)) {
       console.warn(`csp-violation directive=${directive} blocked=${blocked}`);
