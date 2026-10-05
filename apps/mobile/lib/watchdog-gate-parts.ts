@@ -73,7 +73,7 @@ export function reconcileLateRecord(
   // launch it would have consumed, and let the next launch honour it.
   let rec = shouldMountDom(true, d) ? beginAttempt(d.record, Date.now()) : refundExpiredFallback(prev, d.record, true);
   if (l.ready && rec.state === 'attempting') rec = markReady(rec, Date.now());
-  if (l.strike) rec = recordStrike(rec, l.strike, Date.now()).record;
+  if (l.strike && rec.state === 'attempting') rec = recordStrike(rec, l.strike, Date.now()).record;
   recordRef.current = rec;
   void write(rec);
   return rec;
