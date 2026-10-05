@@ -38,8 +38,8 @@ describe('persistent local storage (DOM side)', () => {
     const thrower = vi.fn(async () => {
       throw new Error('boom');
     });
-    expect(await loadStorageSeed({ call: errReply } as never, log)).toEqual({});
-    expect(await loadStorageSeed({ call: thrower } as never, log)).toEqual({});
+    expect(await loadStorageSeed({ call: errReply } as never, log)).toBeNull();
+    expect(await loadStorageSeed({ call: thrower } as never, log)).toBeNull();
     expect(log).toHaveBeenCalledTimes(2);
   });
 

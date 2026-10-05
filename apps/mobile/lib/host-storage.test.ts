@@ -88,6 +88,18 @@ describe('storage handlers', () => {
     expect(await h['storage.write']({ entries: { k: 'v' } }, ctx)).toEqual({ ok: true, value: null });
     expect(await h['storage.load']({}, ctx)).toEqual({ ok: true, value: { entries: { k: 'v' } } });
   });
+  it('an unflagged empty write over saved data is refused; the file is untouched', async () => {
+    const port = memPort('{"a":"1"}');
+    const h = handlers(port);
+    expect(await h['storage.write']({ entries: {} }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(port.writes).toEqual([]);
+    expect(await h['storage.load']({}, ctx)).toEqual({ ok: true, value: { entries: { a: '1' } } });
+  });
+  it('a flagged empty write clears; an empty write over nothing is allowed', async () => {
+    const h = handlers(memPort('{"a":"1"}'));
+    expect(await h['storage.write']({ entries: {}, allowEmpty: true }, ctx)).toEqual({ ok: true, value: null });
+    expect(await handlers(memPort())['storage.write']({ entries: {} }, ctx)).toEqual({ ok: true, value: null });
+  });
   it('a key over 256 chars is invalid', async () => {
     const port = memPort();
     const r = await handlers(port)['storage.write']({ entries: { ['k'.repeat(257)]: 'v' } }, ctx);
