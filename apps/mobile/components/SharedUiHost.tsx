@@ -35,6 +35,7 @@ import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { createFileHostStorage } from '../lib/host-storage-file';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
@@ -46,6 +47,9 @@ const SITE_FALLBACK = 'https://www.longlivets.com';
 interface ReaderSource {
   cache: LastGoodSource | null;
 }
+
+// One per process: every epoch's bridge host shares the cached blob.
+const hostStorage = createFileHostStorage();
 
 export function SharedUiHost({
   onSignal,
@@ -148,6 +152,7 @@ export function SharedUiHost({
       linking: Linking,
       share: Share,
       haptics: Haptics,
+      hostStorage,
       platformOS: Platform.OS,
       log: onSignal,
       siteUrl: navRef.current.siteUrl,

@@ -50,6 +50,10 @@ export type DomCommandSpec = {
   apiRead: Spec<{ streamId: string }, ApiStreamChunk>;
   /** `targetId` is a command id, or an open stream's id (which aborts that stream). */
   cancel: Spec<{ targetId: string }, null>;
+  /** The reader's persistent `local` storage, one native blob. Add-only. */
+  'storage.load': Spec<Record<string, never>, { entries: Record<string, string> }>;
+  /** Native answers `invalid` if any key is over 256 chars or the resulting blob is over 1 MiB. */
+  'storage.write': Spec<{ set?: Record<string, string>; remove?: string[] }, null>;
 };
 
 /** Headers of a streamed `api` response; the body follows via `apiRead`. */
@@ -152,6 +156,8 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   api: true,
   apiRead: true,
   cancel: true,
+  'storage.load': true,
+  'storage.write': true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
 const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true };

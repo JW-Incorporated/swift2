@@ -3,6 +3,7 @@
 // stays testable under node; SharedUiHost passes the real ones.
 import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
+import type { HostStorage } from './host-storage';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import { resolveDestination } from './destination-resolver';
 
@@ -29,6 +30,7 @@ export type UiDepsEnv = {
    * time. Until the app supplies one (H4/D1) a native-route navigate answers `failed`.
    */
   getPresenter?: () => ((path: WebPath) => unknown) | undefined;
+  hostStorage?: HostStorage;
 };
 
 export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
@@ -59,6 +61,7 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       }
       await env.share.share({ title: p.title, message: p.text, url: p.url });
     },
+    hostStorage: env.hostStorage,
     haptic: haptics ? (kind) => runHaptic(haptics, kind) : undefined,
   };
 }

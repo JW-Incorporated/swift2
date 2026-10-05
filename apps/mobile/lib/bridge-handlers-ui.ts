@@ -14,6 +14,7 @@ import {
   type WebPath,
 } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
+import { MAX_KEY_LENGTH, type HostStorage } from './host-storage';
 
 export type UiHandlerDeps = {
   /** Performs the in-app navigation for an already validated web path. */
@@ -28,9 +29,11 @@ export type UiHandlerDeps = {
   share: (payload: SharePayload) => Promise<void>;
   /** Absent when the haptics module is unavailable: no-op success. */
   haptic?: (kind: HapticKind) => void | Promise<void>;
+  /** The persistent reader `local` blob; absent -> `failed` (the DOM then runs on an empty, non-persistent seed). */
+  hostStorage?: HostStorage;
 };
 
-export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal'>;
+export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal' | 'storage.load' | 'storage.write'>;
 
 const HAPTIC_KINDS: readonly string[] = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const SHARE_KEYS = ['title', 'text', 'url'] as const;
@@ -96,6 +99,34 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       const fn = deps.haptic;
       if (!fn) return resOk(null);
       return run(() => fn(kind), 'haptic');
+    },
+    'storage.load': async () => {
+      const s = deps.hostStorage;
+      if (!s) return resErr('failed', 'storage.load unavailable');
+      try {
+        return resOk({ entries: s.load() });
+      } catch (e) {
+        deps.log('bridge-storage.load-failed', String(e).slice(0, 200));
+        return resErr('failed', 'storage.load failed');
+      }
+    },
+    'storage.write': async (payload) => {
+      const p: unknown = payload;
+      if (!isRecord(p)) return invalid('storage.write: payload');
+      const { set, remove } = p;
+      if (set !== undefined && (!isRecord(set) || !Object.values(set).every((v) => typeof v === 'string'))) return invalid('storage.write: set');
+      if (remove !== undefined && (!Array.isArray(remove) || !remove.every((k) => typeof k === 'string'))) return invalid('storage.write: remove');
+      const keys = [...Object.keys(set ?? {}), ...((remove as string[] | undefined) ?? [])];
+      if (keys.some((k) => k.length > MAX_KEY_LENGTH)) return invalid('storage.write: key too long');
+      const s = deps.hostStorage;
+      if (!s) return resErr('failed', 'storage.write unavailable');
+      try {
+        if (!s.write({ set: set as Record<string, string> | undefined, remove: remove as string[] | undefined })) return invalid('storage.write: too large');
+        return resOk(null);
+      } catch (e) {
+        deps.log('bridge-storage.write-failed', String(e).slice(0, 200));
+        return resErr('failed', 'storage.write failed');
+      }
     },
   };
 }

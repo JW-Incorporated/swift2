@@ -300,7 +300,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage, which never leave your device and are never sent to us or to anyone else:",
+          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage (in the app, a small file on your device instead), which never leave your device and are never sent to us or to anyone else:",
         },
         {
           kind: 'list',
@@ -311,7 +311,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: "Clearing your browser's site data for this site erases both, which resets your progress and your favourites. Nothing else is affected, because we hold no copy.",
+          text: "Clearing your browser's site data for this site (or, in the app, clearing the app's data or uninstalling it) erases both, which resets your progress and your favourites. Nothing else is affected, because we hold no copy.",
         },
       ],
     },
