@@ -52,6 +52,41 @@ describe('cold response is cleared only once its tap settles', () => {
     expect(t.clearLast).toHaveBeenCalledTimes(1);
   });
 
+  it('a cold duplicate of an already-delivered id is cleared at once', async () => {
+    const stored = resp('same', '/?item=abc');
+    let cold: RawResponse | null = null;
+    const t = rig(() => cold);
+    const s = ready();
+    t.gate.bindHost(s.host);
+    t.live(stored);
+    await tick();
+    ack(s);
+    await tick();
+    expect(t.clearLast).not.toHaveBeenCalled();
+    cold = stored;
+    const t2 = startTapIngest(t.gate, { getLast: async () => stored, clearLast: t.clearLast, listen: () => () => {} });
+    await tick();
+    expect(t.clearLast).toHaveBeenCalledTimes(1);
+    t2();
+  });
+
+  it('a cold duplicate of a still-held id is not cleared until that tap settles', async () => {
+    const stored = resp('held', '/?item=abc');
+    const t = rig(() => null);
+    t.live(stored);
+    await tick();
+    const clearLast = vi.fn().mockResolvedValue(undefined);
+    startTapIngest(t.gate, { getLast: async () => stored, clearLast, listen: () => () => {} });
+    await tick();
+    expect(clearLast).not.toHaveBeenCalled();
+    const s = ready();
+    t.gate.bindHost(s.host);
+    await tick();
+    ack(s);
+    await tick();
+    expect(clearLast).toHaveBeenCalledTimes(1);
+  });
+
   it('a live tap never clears', async () => {
     const t = rig(() => null);
     const s = ready();

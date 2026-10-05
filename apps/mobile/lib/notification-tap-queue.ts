@@ -214,6 +214,8 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       abandon?.();
     },
     flush,
+    /** True when this id was already acknowledged (within the TTL); a held, undelivered id is false. */
+    wasDelivered: isRecentlyDelivered,
     size: () => held.length,
   };
 }
