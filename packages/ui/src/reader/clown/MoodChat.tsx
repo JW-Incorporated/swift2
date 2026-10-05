@@ -140,7 +140,7 @@ export function MoodChat() {
         <label htmlFor="mood-input" className="sr-only">
           How are you feeling?
         </label>
-        <div className="flex items-end gap-2 rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-2 focus-within:border-[color:var(--era-accent)]">
+        <div className="flex items-end gap-2 rounded-2xl border border-[color:var(--era-ink-soft)]/75 bg-[color:var(--era-surface)] p-2 focus-within:border-[color:var(--era-accent)] focus-within:ring-2 focus-within:ring-[color:var(--era-accent)]">
           <textarea
             id="mood-input"
             value={text}
