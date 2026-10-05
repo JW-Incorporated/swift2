@@ -83,11 +83,14 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
     setItem(key: string, value: string): void {
       if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
       const file = cacheFile(key);
-      // Twin first: a crash between the writes may leave the DOM newer than native, never older.
-      if (key.endsWith(LAST_GOOD_SUFFIX)) {
-        writeLastGoodTwin(key, value);
-      }
       file.write(value);
+      if (key.endsWith(LAST_GOOD_SUFFIX)) {
+        try {
+          writeLastGoodTwin(key, value);
+        } catch (e) {
+          console.warn('[last-good-twin] write failed', e instanceof Error ? e.message : String(e));
+        }
+      }
     },
     removeItem(key: string): void {
       const file = cacheFile(key);

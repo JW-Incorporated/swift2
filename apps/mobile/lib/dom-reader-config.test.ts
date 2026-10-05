@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const files = new Map<string, string>();
 const ops: string[] = [];
+const mtimes = new Map<string, number>();
+let clock = 0;
+let textReads = 0;
+let failOp: string | null = null;
 vi.mock('expo-file-system', () => {
   class Directory {
     uri: string;
@@ -19,15 +23,26 @@ vi.mock('expo-file-system', () => {
     get exists() {
       return files.has(this.uri);
     }
+    get size() {
+      return (files.get(this.uri) ?? '').length;
+    }
+    get modificationTime() {
+      return mtimes.get(this.uri) ?? null;
+    }
     write(v: string) {
       ops.push(`write ${this.uri.split('/').pop()}`);
+      if (failOp === 'tmp' && this.uri.endsWith('.tmp')) throw new Error('tmp write failed');
       files.set(this.uri, v);
+      mtimes.set(this.uri, ++clock);
     }
     textSync() {
+      textReads++;
       return files.get(this.uri) as string;
     }
     moveSync(dest: { uri: string }) {
       ops.push(`move ${this.uri.split('/').pop()}`);
+      if (failOp === 'move') throw new Error('move failed');
+      mtimes.set(dest.uri, ++clock);
       files.set(dest.uri, files.get(this.uri) as string);
       files.delete(this.uri);
     }
@@ -47,41 +62,59 @@ const jsUri = () => jsonUri().replace(/\.json$/, '.js');
 
 beforeEach(() => {
   files.clear();
+  mtimes.clear();
   ops.length = 0;
+  textReads = 0;
+  failOp = null;
+  vi.useRealTimers();
 });
 
 describe('lastGoodSource', () => {
+  const put = (json: string, twin: string | null) => {
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    if (twin !== null) {
+      files.set(jsUri(), twin);
+      mtimes.set(jsUri(), ++clock);
+    }
+  };
+
   it('is null when no cache is on disk (first launch)', () => {
     expect(lastGoodSource()).toBeNull();
   });
 
-  it('backfills a missing .js twin and returns separate script (?v=id) and json URIs', () => {
-    files.set(jsonUri(), '{"v":1}');
-    expect(lastGoodSource()).toEqual({ scriptUri: `${jsUri()}?v=${contentId('{"v":1}')}`, jsonUri: jsonUri() });
-    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":1}'));
-  });
-
-  it('leaves a valid twin untouched', () => {
-    files.set(jsonUri(), '{"v":1}');
-    files.set(jsUri(), lastGoodScriptSource('{"v":1}'));
-    lastGoodSource();
+  it('a valid pair reads neither file and uses the twin mtime as the buster', () => {
+    put('{"v":1}', lastGoodScriptSource('{"v":1}'));
+    const s = lastGoodSource();
+    expect(s).toEqual({ scriptUri: `${jsUri()}?v=${mtimes.get(jsUri())}`, jsonUri: jsonUri() });
+    expect(textReads).toBe(0);
     expect(ops).toEqual([]);
   });
 
-  it('regenerates a stale twin (older content) and changes the ?v= id', () => {
-    files.set(jsonUri(), '{"v":2}');
-    files.set(jsUri(), lastGoodScriptSource('{"v":1}'));
+  it.each([
+    ['missing', null],
+    ['undersized', 'x'],
+  ])('a %s twin returns synchronously and is rebuilt after a tick', (_n, twin) => {
+    vi.useFakeTimers();
+    put('{"v":1}', twin);
     const s = lastGoodSource();
-    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":2}'));
-    expect(s?.scriptUri.endsWith(`?v=${contentId('{"v":2}')}`)).toBe(true);
-    expect(contentId('{"v":2}')).not.toBe(contentId('{"v":1}'));
+    expect(s?.jsonUri).toBe(jsonUri());
+    expect(s?.scriptUri.startsWith(`${jsUri()}?v=`)).toBe(true);
+    expect(ops).toEqual([]);
+    expect(textReads).toBe(0);
+    vi.runAllTimers();
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":1}'));
   });
 
-  it('regenerates a truncated twin', () => {
-    files.set(jsonUri(), '{"v":1}');
-    files.set(jsUri(), lastGoodScriptSource('{"v":1}').slice(0, 30));
+  it('an older twin (json newer) is rebuilt after a tick', () => {
+    vi.useFakeTimers();
+    const big = lastGoodScriptSource('{"v":1}');
+    put('{"v":1}', big);
+    mtimes.set(jsonUri(), ++clock);
     lastGoodSource();
-    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":1}'));
+    expect(ops).toEqual([]);
+    vi.runAllTimers();
+    expect(ops).toContain('move ' + jsUri().split('/').pop() + '.tmp');
   });
 });
 
@@ -99,10 +132,20 @@ describe('storage adapter .js twin', () => {
     expect(files.get(jsonUri())).toBe(json);
   });
 
-  it('writes the twin atomically (temp then move) and before the .json', () => {
+  it('writes the twin atomically (temp then move) after the .json', () => {
     expoFileSystemStorageAdapter().setItem(key(), '{}');
-    expect(ops).toEqual(['write ' + jsUri().split('/').pop() + '.tmp', 'move ' + jsUri().split('/').pop() + '.tmp', 'write ' + jsonUri().split('/').pop()]);
+    const js = jsUri().split('/').pop();
+    expect(ops).toEqual(['write ' + jsonUri().split('/').pop(), 'write ' + js + '.tmp', 'move ' + js + '.tmp']);
     expect([...files.keys()].sort()).toEqual([jsUri(), jsonUri()].sort());
+  });
+
+  it.each(['move', 'tmp'])('a twin write failure (%s) keeps the .json intact, does not throw, warns once', (op) => {
+    failOp = op;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(() => expoFileSystemStorageAdapter().setItem(key(), '{"full":1}')).not.toThrow();
+    expect(files.get(jsonUri())).toBe('{"full":1}');
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
   });
 
   it('removeItem deletes the .js twin with the .json', () => {
