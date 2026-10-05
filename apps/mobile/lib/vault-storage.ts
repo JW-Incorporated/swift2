@@ -65,9 +65,17 @@ export function writeLastGoodTwin(key: string, jsonText: string): void {
   const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
   tmp.write(lastGoodScriptSource(jsonText));
   tmp.moveSync(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
+  const legacy = new FileSystem.File(CACHE_DIR, legacyLastGoodScriptName(key));
+  if (legacy.exists) legacy.delete();
 }
 
+/** The current (object-literal) twin. Versioned in the filename so a legacy string-form twin never passes as current. */
 export function lastGoodScriptName(key: string): string {
+  return `${encodeURIComponent(key)}.v2.js`;
+}
+
+/** The string-literal twin written by older builds: still readable by the DOM, migrated to v2 after first paint. */
+export function legacyLastGoodScriptName(key: string): string {
   return `${encodeURIComponent(key)}.js`;
 }
 
@@ -102,8 +110,10 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
       const file = cacheFile(key);
       if (file.exists) file.delete();
       if (key.endsWith(LAST_GOOD_SUFFIX)) {
-        const twin = new FileSystem.File(CACHE_DIR, lastGoodScriptName(key));
-        if (twin.exists) twin.delete();
+        for (const name of [lastGoodScriptName(key), legacyLastGoodScriptName(key)]) {
+          const twin = new FileSystem.File(CACHE_DIR, name);
+          if (twin.exists) twin.delete();
+        }
       }
     },
   };

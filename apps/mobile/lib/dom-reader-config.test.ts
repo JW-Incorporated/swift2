@@ -58,7 +58,8 @@ import { contentBaseUrl, contentId, expoFileSystemStorageAdapter, lastGoodScript
 
 const key = () => lastGoodCacheKey(contentBaseUrl());
 const jsonUri = () => `file:///doc/swift2-content-cache/${cacheFileName(key())}`;
-const jsUri = () => jsonUri().replace(/\.json$/, '.js');
+const jsUri = () => jsonUri().replace(/\.json$/, '.v2.js');
+const legacyUri = () => jsonUri().replace(/\.json$/, '.js');
 
 beforeEach(() => {
   files.clear();
@@ -115,6 +116,30 @@ describe('lastGoodSource', () => {
     expect(ops).toEqual([]);
     vi.runAllTimers();
     expect(ops).toContain('move ' + jsUri().split('/').pop() + '.tmp');
+  });
+});
+
+describe('legacy twin upgrade path', () => {
+  it('valid legacy twin: used this launch, v2 rebuilt atomically after the delay, next launch picks v2', () => {
+    vi.useFakeTimers();
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    const first = lastGoodSource();
+    expect(first?.scriptUri).toBe(`${legacyUri()}?v=${mtimes.get(legacyUri())}`);
+    expect(ops).toEqual([]);
+    expect(textReads).toBe(0);
+    vi.advanceTimersByTime(100);
+    expect(ops).toEqual([]);
+    vi.runAllTimers();
+    const v2 = jsUri().split('/').pop();
+    expect(ops).toEqual(['write ' + v2 + '.tmp', 'move ' + v2 + '.tmp']);
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource(json));
+    expect(files.has(legacyUri())).toBe(false);
+    const second = lastGoodSource();
+    expect(second?.scriptUri).toBe(`${jsUri()}?v=${mtimes.get(jsUri())}`);
   });
 });
 

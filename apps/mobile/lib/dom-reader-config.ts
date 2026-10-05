@@ -3,7 +3,10 @@
 // mirrors vault-storage.ts's `cacheFile('<key>')` naming for the loader's
 // `last-good` record (packages/content load.ts `keyFor(baseUrl, 'last-good')`).
 import * as FileSystem from 'expo-file-system';
-import { contentBaseUrl, lastGoodScriptName, writeLastGoodTwin } from './vault-storage';
+import { contentBaseUrl, lastGoodScriptName, legacyLastGoodScriptName, writeLastGoodTwin } from './vault-storage';
+
+/** Long enough that the migration write never competes with the webview's first paint. */
+const POST_PAINT_REBUILD_MS = 4000;
 
 const CACHE_KEY_PREFIX = '@swift2/content:v1:';
 
@@ -30,11 +33,12 @@ export function lastGoodSource(): LastGoodSource | null {
   const json = new FileSystem.File(dir, cacheFileName(key));
   const script = new FileSystem.File(dir, lastGoodScriptName(key));
   if (!json.exists) return null;
-  const valid =
-    script.exists &&
-    script.size > json.size &&
-    (json.modificationTime ?? 0) <= (script.modificationTime ?? 0);
-  if (valid) return { scriptUri: `${script.uri}?v=${script.modificationTime}`, jsonUri: json.uri };
+  const isValid = (f: FileSystem.File) =>
+    f.exists && f.size > json.size && (json.modificationTime ?? 0) <= (f.modificationTime ?? 0);
+  if (isValid(script)) return { scriptUri: `${script.uri}?v=${script.modificationTime}`, jsonUri: json.uri };
+  // A valid legacy (string-form) twin is still handed to the DOM this launch; the v2 rebuild waits until after first paint.
+  const legacy = new FileSystem.File(dir, legacyLastGoodScriptName(key));
+  const useLegacy = isValid(legacy);
   setTimeout(() => {
     try {
       writeLastGoodTwin(key, json.textSync());
@@ -42,6 +46,7 @@ export function lastGoodSource(): LastGoodSource | null {
     } catch (e) {
       console.warn('[last-good-twin] rebuild failed', e instanceof Error ? e.message : String(e));
     }
-  }, 0);
+  }, useLegacy ? POST_PAINT_REBUILD_MS : 0);
+  if (useLegacy) return { scriptUri: `${legacy.uri}?v=${legacy.modificationTime}`, jsonUri: json.uri };
   return { scriptUri: `${script.uri}?v=${Date.now()}`, jsonUri: json.uri };
 }
