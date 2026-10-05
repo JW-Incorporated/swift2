@@ -45,36 +45,52 @@ export function trapBoundaryTarget<T>(
 }
 
 // Ref-counted `inert` claims (A11Y-1): aria-modal alone leaves the background in the AT tree. A dialog marks every
-// sibling of its own ancestor chain inert, so the dialog itself stays live whether it is portaled or nested. Elements
-// already inert for another reason are left untouched; ours are un-inerted when the last claim is released, so
-// stacked dialogs (lightbox over a moment) nest: only the topmost is live, and closing in any order is safe.
+// sibling of its own ancestor chain inert, so the dialog itself stays live whether it is portaled or nested. Stacked
+// dialogs (lightbox over a moment) nest: only the topmost is live, and closing in any order is safe.
+// Ownership: the trap writes the sentinel value below, never a bare `inert=""`. A node that is already inert (e.g. a
+// React `inert` prop) is left alone, and on release the attribute is removed only while it still carries OUR value, so
+// an owner that re-set or cleared it mid-claim is never clobbered.
+// KNOWN LIMITATION: only siblings present when the dialog opens are made inert; there is no MutationObserver, so a
+// region mounted while a dialog is already open stays live until the next open.
+const TRAP_INERT = 'focus-trap';
 const inertClaims = new Map<Element, number>();
 
-function claimInert(node: HTMLElement): () => void {
+const NEVER_INERT = new Set(['HEAD', 'SCRIPT', 'STYLE', 'LINK', 'META', 'TEMPLATE', 'NOSCRIPT']);
+
+function markInert(el: Element, keep: Element | null, claimed: Element[]): void {
+  if (NEVER_INERT.has(el.tagName)) return;
+  if (keep && el !== keep && el.contains(keep)) {
+    for (const child of Array.from(el.children)) markInert(child, keep, claimed);
+    return;
+  }
+  if (el === keep) return;
+  const count = inertClaims.get(el);
+  if (count !== undefined) inertClaims.set(el, count + 1);
+  else if (el.hasAttribute('inert')) return;
+  else {
+    inertClaims.set(el, 1);
+    el.setAttribute('inert', TRAP_INERT);
+  }
+  claimed.push(el);
+}
+
+function claimInert(node: HTMLElement, keep: Element | null): () => void {
   const claimed: Element[] = [];
   for (let el: HTMLElement | null = node; el && el.parentElement; el = el.parentElement) {
     for (const sib of Array.from(el.parentElement.children)) {
-      if (sib === el) continue;
-      const entry = inertClaims.get(sib);
-      if (entry !== undefined) inertClaims.set(sib, entry + 1);
-      else if (sib.hasAttribute('inert')) continue; // someone else's inert (e.g. a React `inert` prop): never touch it
-      else {
-        inertClaims.set(sib, 1);
-        sib.setAttribute('inert', '');
-      }
-      claimed.push(sib);
+      if (sib !== el) markInert(sib, keep, claimed);
     }
   }
   return () => {
-    for (const sib of claimed) {
-      const entry = inertClaims.get(sib);
-      if (entry === undefined) continue;
-      if (entry > 1) {
-        inertClaims.set(sib, entry - 1);
+    for (const el of claimed) {
+      const count = inertClaims.get(el);
+      if (count === undefined) continue;
+      if (count > 1) {
+        inertClaims.set(el, count - 1);
         continue;
       }
-      inertClaims.delete(sib);
-      sib.removeAttribute('inert');
+      inertClaims.delete(el);
+      if (el.getAttribute('inert') === TRAP_INERT) el.removeAttribute('inert');
     }
   };
 }
@@ -83,10 +99,12 @@ function claimInert(node: HTMLElement): () => void {
  * Wire the contract above onto a real dialog root. `container` must be the
  * dialog's own outermost node (a plain ref — not a portal wrapper), and
  * should carry `tabIndex={-1}` so it's a valid focus target on the rare open
- * with no focusable content at all.
+ * with no focusable content at all. `keepLive` is the dialog's own opener/toggle when it must stay operable while
+ * the panel is open (the Feedback toggle); it and its ancestors are exempt from inert, the rest of the page is not.
  */
 export function useFocusTrap(active: boolean, container: RefObject<HTMLElement | null>,
   resetKey?: string | null,
+  keepLive?: RefObject<HTMLElement | null>,
 ): void {
   const triggerRef = useRef<HTMLElement | null>(null);
 
@@ -99,7 +117,7 @@ export function useFocusTrap(active: boolean, container: RefObject<HTMLElement |
     // be restored on close — the trigger card, a nav button, another dialog.
     triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
-    const releaseInert = claimInert(node);
+    const releaseInert = claimInert(node, keepLive?.current ?? null);
 
     const focusables = getFocusableElements(node);
     (focusables[0] ?? node).focus();

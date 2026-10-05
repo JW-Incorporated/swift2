@@ -14,7 +14,7 @@ import { useLegalPage } from './use-legal-page';
 // layout width from the content (web pages scroll the document). It sits above every floating reader control (the
 // feedback button is z-71) and, via useFocusTrap, is a labelled modal dialog: the other <body> children go inert while open,
 // focus moves in and returns to the opener on close. Keyed per page so each legal page opens scrolled to the top.
-// Opening a legal page over an open overlay (e.g. the non-modal Feedback dialog) is supported: each legal page is one entry
+// Opening a legal page over an open overlay (e.g. the Feedback dialog, which keeps only its own toggle live) is supported: each legal page is one entry
 // on useBackDismiss's ordered back stack (setDomPath -> pushBackEntry), so Back closes the legal page and the overlay
 // beneath stays open until the next Back (legal-over-feedback.test.ts).
 const PAGE_LABEL = { privacy: 'Privacy Policy', terms: 'Terms of Use', support: 'Support' } as const;

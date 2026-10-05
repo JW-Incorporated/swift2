@@ -144,6 +144,18 @@ describe('legal pages through the real app adapter', () => {
     expect(document.activeElement).toBe(opener);
   });
 
+  it('Back still closes the legal page with the trap active and releases inert; Escape is unchanged (legal pages never had an Escape dismiss)', async () => {
+    const reader = h('div', null, h('button', { 'data-testid': 'opener' }, 'Open'), h(LegalOverlay));
+    const { adapter } = mount(reader);
+    act(() => adapter.navigate('/terms'));
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Terms of Use' }), { key: 'Escape' });
+    expect(document.querySelector('[data-legal-page="terms"]')).not.toBeNull();
+    expect(screen.getByTestId('opener').closest('[inert]')).not.toBeNull();
+    act(() => void backFromDomPath());
+    await waitFor(() => expect(document.querySelector('[data-legal-page]')).toBeNull());
+    expect(document.querySelectorAll('[inert]').length).toBe(0);
+  });
+
   it('a legal page opens scrolled to the top, also when reached from a scrolled footer', () => {
     const { adapter } = mount();
     act(() => adapter.navigate('/privacy'));

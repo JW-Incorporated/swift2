@@ -55,6 +55,7 @@ export function FeedbackButton() {
   useReportBusy('feedback', open || msg.trim() !== '' || status === 'sending');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
 
   // Hydrate before paint, never during render — reading sessionStorage
@@ -75,7 +76,8 @@ export function FeedbackButton() {
     writeDismissed();
   }
 
-  useFocusTrap(open, dialogRef);
+  // The toggle stays live while the panel is open (closing via the toggle is expected); the rest of the page is inert.
+  useFocusTrap(open, dialogRef, null, toggleRef);
 
   // Let the mobile back-swipe gesture close the compose panel instead of
   // leaving the app, matching Escape (single dispatcher in useBackDismiss).
@@ -229,6 +231,7 @@ export function FeedbackButton() {
           </button>
         )}
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close feedback' : 'Send feedback'}
