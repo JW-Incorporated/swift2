@@ -161,7 +161,7 @@ export function ThreadsMode() {
   // Let the mobile back-swipe gesture (and the browser back button) return to
   // the thread gallery instead of leaving the app — same pattern as the other
   // 8 overlays that already use this hook.
-  useBackDismiss(Boolean(lensId), clearLens);
+  useBackDismiss(Boolean(lensId), clearLens, { escape: false });
 
   if (crossing) return <Crossings a={crossing.a} b={crossing.b} />;
   if (!lensId) return <ThreadsGallery />;

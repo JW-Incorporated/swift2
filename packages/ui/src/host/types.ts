@@ -134,6 +134,8 @@ export type HostNotifications = {
   unregister(): Promise<void>;
   /** Token-free: true when this device is registered for push (permission alone is not registration). */
   registered(): Promise<boolean>;
+  /** App-only: a turn-off whose server write has not landed yet (persisted natively); absent = never pending. */
+  optOutPending?(): Promise<boolean>;
   /** App-only one-time push-offer flag, persisted natively; absent = no offer is ever shown. */
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
@@ -185,6 +187,8 @@ export interface HostAdapter {
   theme?: (theme: ThemeChange) => void;
   /** @later WP2.5 */
   openExternal?: (url: string) => void;
+  /** Where "Submit a link" happens: `inline` (default, the web form) or `external` (the app: a Turnstile token cannot be minted in its null-origin WebView, so the entry opens the website's form via `openExternal`). */
+  submitLink?: 'inline' | 'external';
   /** @later WP2.12 */
   notifications?: HostNotifications;
   /** @later WP2.12 (web adapter only; the app host omits it) */

@@ -1,6 +1,8 @@
 // WP0.5b: what the spike learns on a device. Plain data + pure helpers so the
 // recorder and the placeholder counter are unit-testable; ReaderSpike fills it
 // in and sends it over the bridge as one JSON string (never content).
+import { artStats } from './art-map';
+
 export type Tri = 'ok' | 'fail' | 'n/a';
 
 export interface ProbeReport {
@@ -19,6 +21,8 @@ export interface ProbeReport {
   /** Webview cold-start stages in ms (Diagnostics): readMs (twin read), parseMs, buildMs (snapshot), hashMs (deferred, after ready). */
   timings?: Record<string, number>;
   placeholders: Record<string, { total: number; bad: number; pending: number }> | null;
+  /** Offline art (#5074): map size, file:// images that loaded, onError fallbacks to the remote URL. Absent until art is in play. */
+  art?: { map: number; loaded: number; fallback: number };
   error: string | null;
 }
 
@@ -40,7 +44,7 @@ export function createProbe(version = '') {
     attempts(list: { method: 'fetch' | 'xhr' | 'script'; ok: boolean }[]) {
       for (const a of list) report.read[a.method] = a.ok ? 'ok' : 'fail';
     },
-    json: () => JSON.stringify(report),
+    json: () => JSON.stringify({ ...report, art: artStats() ?? undefined }),
   };
 }
 

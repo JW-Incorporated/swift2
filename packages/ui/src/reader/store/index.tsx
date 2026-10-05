@@ -28,6 +28,8 @@ import type { FilterId } from '@swift2/experience';
 import type { EraId, LensId, MotifId } from '@swift2/experience';
 import type { ClownAnswer } from '@swift2/shared';
 
+import type { ReaderSnap } from '../../bridge/messages';
+import { restoreReaderState } from './restore';
 import { useNavigation, type AppMode, type EraScrollSnapshot } from './navigation';
 import { useReturnPoints, type ReturnPoint } from './return-points';
 import { useOverlays } from './overlays';
@@ -65,6 +67,8 @@ export interface AppState {
   filters: ReadonlySet<FilterId>;
   clownMessages: ClownMessage[];
   clownChatExpanded: boolean;
+  /** Bumped by `restoreReader`: keys the surface so the era stream remounts onto the restored scroll snapshot. */
+  restoreSeq: number;
 }
 
 interface AppActions {
@@ -112,6 +116,8 @@ interface AppActions {
   addClownMessage: (question: string, answer: ClownAnswer) => void;
   clearClownMessages: () => void;
   setClownChatExpanded: (v: boolean) => void;
+  /** Replays a reader snapshot native kept across a re-key (#5114) through the actions above; false = unknown mode/era (front door). */
+  restoreReader: (snap: ReaderSnap) => boolean;
 }
 
 /**
@@ -370,6 +376,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(timer);
   }, []);
 
+  const [restoreSeq, setRestoreSeq] = useState(0);
+  const restoreReader = useCallback(
+    (snap: ReaderSnap) => {
+      const ok = restoreReaderState(snap, {
+        isEra: (id) => getEra(id as EraId).id === id,
+        isLens: (id) => THREADS.some((t) => t.id === id),
+        resolveItem: (id) => q.getContentItemByIdOrSlug(id)?.id ?? null,
+        suppressNavPush: nav.suppressNavPushRef,
+        goHome,
+        setMode: nav.setMode,
+        setEra: nav.setEra,
+        openThread,
+        openItem: overlays.openItem,
+        saveEraScroll: nav.saveEraScroll,
+      });
+      if (ok) setRestoreSeq((n) => n + 1);
+      return ok;
+    },
+    [q, goHome, nav.setMode, nav.setEra, openThread, overlays.openItem, nav.saveEraScroll],
+  );
+
   const actions = useMemo<AppActions>(
     () => ({
       goHome,
@@ -409,6 +436,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addClownMessage: searchShare.addClownMessage,
       clearClownMessages: searchShare.clearClownMessages,
       setClownChatExpanded: searchShare.setClownChatExpanded,
+      restoreReader,
     }),
     [
       goHome,
@@ -447,6 +475,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       searchShare.addClownMessage,
       searchShare.clearClownMessages,
       searchShare.setClownChatExpanded,
+      restoreReader,
     ],
   );
 
@@ -471,8 +500,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       filters: searchShare.state.filters,
       clownMessages: searchShare.state.clownMessages,
       clownChatExpanded: searchShare.state.clownChatExpanded,
+      restoreSeq,
     }),
-    [nav.state, overlays.state, searchShare.state],
+    [nav.state, overlays.state, searchShare.state, restoreSeq],
   );
 
   return (

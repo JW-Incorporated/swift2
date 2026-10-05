@@ -15,6 +15,7 @@ import { ModeFallback } from './overlay-fallback';
 const controls = (ok: boolean): ReaderControls => ({
   registerBack: vi.fn(),
   setApplier: vi.fn(),
+  setRestorer: vi.fn(),
   openNative: vi.fn(async () => ok),
   diag: vi.fn(),
   slottedModes: new Set(['era']),

@@ -106,7 +106,9 @@ describe('lastGoodSource', () => {
   it('a valid pair reads neither file and uses the twin mtime as the buster', () => {
     put('{"v":1}', lastGoodScriptSource('{"v":1}'));
     const s = lastGoodSource();
-    expect(s).toEqual({ scriptUri: `${jsUri()}?v=${mtimes.get(jsUri())}`, jsonUri: jsonUri() });
+    expect(s).toMatchObject({ scriptUri: `${jsUri()}?v=${mtimes.get(jsUri())}`, jsonUri: jsonUri() });
+    // The art map URI is deterministic (no stat, so no file read or write on the startup path), even when no map exists yet.
+    expect(s!.artMapUri).toMatch(/swift2-art-v1\/art-map\.js\?v=\d+$/);
     expect(textReads).toBe(0);
     expect(ops).toEqual([]);
   });

@@ -109,11 +109,6 @@ export function TrackDetail() {
   useEffect(() => {
     if (!track) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeTrack();
-        return;
-      }
-
       // Left/Right hop songs (#774 Option 2's additive desktop shortcut) —
       // only when focus isn't in an interactive control, so it never steals
       // arrow keys from a text field, a video's own controls, etc.

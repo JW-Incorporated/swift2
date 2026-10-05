@@ -4,6 +4,7 @@
 // `last-good` record (packages/content load.ts `keyFor(baseUrl, 'last-good')`).
 import * as FileSystem from 'expo-file-system';
 import { InteractionManager } from 'react-native';
+import { artMapUri } from './art-cache-fs';
 import { contentBaseUrl, lastGoodScriptName, legacyLastGoodScriptName, writeLastGoodTwin, writeLastGoodTwinAsync } from './vault-storage';
 
 /** Hard fallback for the legacy->v2 migration: normally it runs once interactions settle after launch (the host and
@@ -25,6 +26,8 @@ export interface LastGoodSource {
   scriptUri: string;
   /** The `.json` itself, for the XHR/fetch fallbacks. */
   jsonUri: string;
+  /** The offline art map twin (#5074), when one has been written. */
+  artMapUri?: string;
 }
 
 /** The native last-good cache as the DOM needs it, or null when none is on disk yet. Launch-path cheap: the twin is judged
@@ -37,7 +40,8 @@ export function lastGoodSource(): LastGoodSource | null {
   if (!json.exists) return null;
   const isValid = (f: FileSystem.File) =>
     f.exists && f.size > json.size && (json.modificationTime ?? 0) <= (f.modificationTime ?? 0);
-  if (isValid(script)) return { scriptUri: `${script.uri}?v=${script.modificationTime}`, jsonUri: json.uri };
+  const art = artMapUri();
+  if (isValid(script)) return { scriptUri: `${script.uri}?v=${script.modificationTime}`, jsonUri: json.uri, artMapUri: art };
   // A valid legacy (string-form) twin is still handed to the DOM this launch; the v2 rebuild waits until after first paint.
   const legacy = new FileSystem.File(dir, legacyLastGoodScriptName(key));
   const useLegacy = isValid(legacy);
@@ -66,6 +70,6 @@ export function lastGoodSource(): LastGoodSource | null {
       }
     }, 0);
   }
-  if (useLegacy) return { scriptUri: `${legacy.uri}?v=${legacy.modificationTime}`, jsonUri: json.uri };
-  return { scriptUri: `${script.uri}?v=${Date.now()}`, jsonUri: json.uri };
+  if (useLegacy) return { scriptUri: `${legacy.uri}?v=${legacy.modificationTime}`, jsonUri: json.uri, artMapUri: art };
+  return { scriptUri: `${script.uri}?v=${Date.now()}`, jsonUri: json.uri, artMapUri: art };
 }

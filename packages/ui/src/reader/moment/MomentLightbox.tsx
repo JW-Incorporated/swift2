@@ -41,13 +41,12 @@ export function MomentLightbox({
   useBackDismiss(true, onClose);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowRight') onIndex((index + 1) % count);
+      if (e.key === 'ArrowRight') onIndex((index + 1) % count);
       else if (e.key === 'ArrowLeft') onIndex((index - 1 + count) % count);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [index, count, onIndex, onClose]);
+  }, [index, count, onIndex]);
   if (!img) return null;
 
   // PORTALED TO document.body ON PURPOSE. The viewer is `fixed inset-0`, which
@@ -103,6 +102,9 @@ export function MomentLightbox({
         onClose();
       }}
     >
+      <div role="status" aria-live="polite" className="sr-only">
+        {`Photo ${index + 1} of ${count}${img.caption ? `: ${img.caption}` : ''}`}
+      </div>
       <div className="flex shrink-0 items-center justify-between px-4 py-3 text-white">
         <span className="text-xs text-white/60">{count > 1 ? `${index + 1} / ${count}` : ''}</span>
         <button

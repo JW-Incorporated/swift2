@@ -113,19 +113,6 @@ export function SearchOverlay() {
     return () => window.removeEventListener('keydown', onKey);
   }, [setSearchOpen]);
 
-  // Esc closes — captured on window so overlays *underneath* (moment detail,
-  // track guide, …) don't also close on the same keypress.
-  useEffect(() => {
-    if (!searchOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      e.stopPropagation();
-      setSearchOpen(false);
-    };
-    window.addEventListener('keydown', onKey, true);
-    return () => window.removeEventListener('keydown', onKey, true);
-  }, [searchOpen, setSearchOpen]);
-
   useScrollLock(searchOpen);
   useFocusTrap(searchOpen, dialogRef);
 
@@ -265,8 +252,15 @@ export function SearchOverlay() {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
+        <div role="status" aria-live="polite" className="sr-only">
+          {showEmptyHint
+            ? ''
+            : showNoMatch
+              ? `0 results for ${debounced.trim()}`
+              : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
+        </div>
         {/* Input row */}
-        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-[color:var(--era-accent)]">
           <Search className="h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
           <input
             ref={inputRef}
@@ -289,7 +283,7 @@ export function SearchOverlay() {
             type="button"
             onClick={() => setSearchOpen(false)}
             aria-label="Close search"
-            className="era-icon-btn shrink-0 rounded-full p-1.5"
+            className="era-icon-btn shrink-0 rounded-full p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
           >
             <X className="h-4 w-4" />
           </button>
