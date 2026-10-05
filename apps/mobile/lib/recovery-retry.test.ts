@@ -1,14 +1,22 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const h = vi.hoisted(() => ({ rec: null as unknown, saved: [] as unknown[], saveOk: true, reload: vi.fn(async () => {}) }));
+const h = vi.hoisted(() => ({ rec: null as unknown, saved: [] as unknown[], saveOk: true, slowFirst: false, reload: vi.fn(async () => {}) }));
 vi.mock('expo-updates', () => ({ reloadAsync: () => h.reload() }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '7:u1',
   loadWatchdogRecord: async () => h.rec,
-  saveWatchdogRecord: async (r: unknown) => (h.saved.push(r), h.saveOk),
+  saveWatchdogRecord: async (r: unknown) => {
+    if (h.slowFirst) {
+      h.slowFirst = false;
+      await new Promise((res) => setTimeout(res, 20));
+    }
+    h.saved.push(r);
+    return h.saveOk;
+  },
 }));
 
 import { retryDomAttempt, retryRecord } from './recovery-retry';
+import { currentWatchdogWriter } from './watchdog-writer';
 import { decideMount, freshRecord, recordStrike, readRecord, type WatchdogRecord } from './watchdog';
 
 beforeEach(() => {
@@ -52,6 +60,17 @@ describe('retryDomAttempt', () => {
     expect(h.saved).toHaveLength(1);
     expect(h.reload).toHaveBeenCalledTimes(1);
   });
+  it('Retry writes AFTER a pending strike write and reloads only once the queue has settled', async () => {
+    h.slowFirst = true;
+    const strike = { ...freshRecord('7:u1', 1), state: 'fallback' as const, strikes: 2 };
+    void currentWatchdogWriter().write(strike);
+    expect(await retryDomAttempt()).toBe('reload-requested');
+    expect(h.saved).toHaveLength(2);
+    expect(h.saved[0]).toBe(strike);
+    expect(h.saved[1]).toMatchObject({ state: 'idle' });
+    expect(h.reload).toHaveBeenCalledTimes(1);
+  });
+
   it('a failed write does not reload', async () => {
     h.saveOk = false;
     expect(await retryDomAttempt()).toBe('save-failed');

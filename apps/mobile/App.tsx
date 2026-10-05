@@ -157,7 +157,7 @@ export default function App() {
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
   const legacyNative = nativeSurface(domMount.mount, domMount.nativeReason) === 'legacy';
-  useNotificationTaps(navigate, legacyNative);
+  useNotificationTaps(navigate, legacyNative, nativeSurface(domMount.mount, domMount.nativeReason) === 'recovery');
   useDeepLinks(notificationTapGate);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the

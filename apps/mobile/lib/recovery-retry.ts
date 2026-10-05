@@ -5,7 +5,8 @@
 import * as Updates from 'expo-updates';
 import { STRIKES_TO_FALLBACK, freshRecord, type WatchdogRecord } from './watchdog';
 import { QUARANTINE_AFTER_FALLBACK_CYCLES } from './watchdog-policy';
-import { currentBuildKey, loadWatchdogRecord, saveWatchdogRecord } from './watchdog-store';
+import { currentBuildKey, loadWatchdogRecord } from './watchdog-store';
+import { currentWatchdogWriter } from './watchdog-writer';
 
 export type RetryOutcome = 'reload-requested' | 'save-failed' | 'reload-failed';
 
@@ -25,8 +26,11 @@ export function retryRecord(prev: WatchdogRecord | null | 'corrupt', buildKey: s
 
 export async function retryDomAttempt(now: () => number = Date.now): Promise<RetryOutcome> {
   try {
+    const writer = currentWatchdogWriter();
+    await writer.settled();
     const record = retryRecord(await loadWatchdogRecord(), currentBuildKey(), now());
-    if (!(await saveWatchdogRecord(record))) return 'save-failed';
+    if (!(await writer.write(record, 1))) return 'save-failed';
+    await writer.settled();
   } catch {
     return 'save-failed';
   }
