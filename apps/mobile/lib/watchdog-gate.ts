@@ -197,7 +197,6 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       const ios = Platform.OS === 'ios';
       const want = resolveWantsDom({
         quarantined: d.record.state === 'quarantined',
-        override: false,
         cachedSharedUi: ios ? inputs.sharedUiIos : inputs.sharedUi,
         defaultSharedUi: ios ? DEFAULT_ROUTE_FLAGS.sharedUiIos : DEFAULT_ROUTE_FLAGS.sharedUi,
       });

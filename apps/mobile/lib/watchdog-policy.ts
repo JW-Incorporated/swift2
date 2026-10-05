@@ -42,25 +42,22 @@ export function refundExpiredFallback(
 
 /** A quarantined record keeps the DOM path off on every launch; nothing is consumed. */
 export function quarantinedDecision(record: WatchdogRecord, now: number): MountDecision {
-  return { fallbackActive: true, clearOverride: false, record: { ...record, backgrounded: false, at: now } };
+  return { fallbackActive: true, record: { ...record, backgrounded: false, at: now } };
 }
 
-export type WantSource = 'quarantine' | 'override' | 'cache' | 'default';
+export type WantSource = 'quarantine' | 'cache' | 'default';
 
 export interface WantInputs {
   quarantined: boolean;
-  /** C4 "Force shared UI (this device)". */
-  override: boolean;
   /** Last-good cached remote `sharedUi`, or null when none was cached. */
   cachedSharedUi: boolean | null;
   /** Compiled DEFAULT_ROUTE_FLAGS.sharedUi. */
   defaultSharedUi: boolean;
 }
 
-/** Precedence: quarantine > override > cache > default. The network result never enters here. */
+/** Precedence: quarantine > cache > default. The network result never enters here. */
 export function resolveWantsDom(i: WantInputs): { wantsDom: boolean; source: WantSource } {
   if (i.quarantined) return { wantsDom: false, source: 'quarantine' };
-  if (i.override) return { wantsDom: true, source: 'override' };
   if (i.cachedSharedUi !== null) return { wantsDom: i.cachedSharedUi, source: 'cache' };
   return { wantsDom: i.defaultSharedUi, source: 'default' };
 }

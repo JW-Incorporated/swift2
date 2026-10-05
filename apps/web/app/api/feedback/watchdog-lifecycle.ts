@@ -10,6 +10,7 @@ import {
   parseWatchdogReport,
   watchdogAllowed,
   watchdogCommentFrom,
+  watchdogEscalationFrom,
   type WatchdogReport,
 } from './watchdog-report';
 
@@ -45,10 +46,14 @@ export function prepareWatchdog(payload: { message?: string; watchdog?: unknown 
   return { ok: true, report: parsed.report, comment: watchdogCommentFrom(parsed.report), durable };
 }
 
-/** A response when the durable claim says stop (duplicate or capped), else null. A failed post is NOT retried or released. */
-export async function watchdogClaimResponse(report: WatchdogReport): Promise<Response | null> {
-  const claim = await claimWatchdogReport(report);
-  if (claim === 'duplicate') return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-  if (claim === 'capped') return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
-  return null;
+/** Durable claim: a response when it says stop (duplicate or capped), else the comment to post (escalations carry the counts). */
+export async function watchdogClaim(
+  report: WatchdogReport,
+  ip: string,
+  comment: string,
+): Promise<{ stop: Response } | { comment: string }> {
+  const { verdict, n, sources } = await claimWatchdogReport(report, ip);
+  if (verdict === 'duplicate') return { stop: NextResponse.json({ ok: true, duplicate: true }, { status: 200 }) };
+  if (verdict === 'capped') return { stop: NextResponse.json({ error: 'Too many reports.' }, { status: 429 }) };
+  return { comment: verdict === 'escalate' ? watchdogEscalationFrom(report, n, sources) : comment };
 }

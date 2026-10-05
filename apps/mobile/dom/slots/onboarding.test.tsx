@@ -285,15 +285,14 @@ describe('onboarding overlay (DOM push offer)', () => {
     }
   });
 
-  // Structural guard: the only route to the native OnboardingScreen is NativeScreenRouter (App.tsx renders it only
-  // for the native mount), so nothing the DOM host mounts may reference it. Deleted with the screen at WP5.2.
-  it('the native onboarding screen is unreachable while the DOM host is mounted', () => {
+  // Structural guard: the native OnboardingScreen and NativeScreenRouter were deleted (One UI PR3); nothing the app
+  // mounts may reference a native onboarding surface.
+  it('no native onboarding screen exists; the app root never renders one', () => {
     const root = resolve(__dirname, '../..');
     for (const f of ['components/DomHostMount.tsx', 'components/NativeOverlayHost.tsx', 'components/SharedUiHost.tsx', 'lib/use-native-overlay.ts']) {
       expect(readFileSync(resolve(root, f), 'utf8'), f).not.toMatch(/onboarding/i);
     }
     const app = readFileSync(resolve(root, 'App.tsx'), 'utf8');
-    expect(app.indexOf('<DomHostMount')).toBeLessThan(app.indexOf('<NativeScreenRouter'));
-    expect(app.slice(app.indexOf('<DomHostMount'), app.indexOf('<NativeScreenRouter'))).not.toMatch(/openSettings|onboarding/i);
+    expect(app).not.toMatch(/NativeScreenRouter|OnboardingScreen|openSettings/);
   });
 });
