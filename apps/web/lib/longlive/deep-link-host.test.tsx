@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, waitFor } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, cleanup } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { HostProvider } from '@swift2/ui';
 import { useBackDismiss, waitForBackStackIdle } from '@swift2/ui/reader/lib/useBackDismiss';
@@ -28,7 +28,8 @@ async function eraAfterMount(adapter: ReturnType<typeof createWebAdapter>, expec
     </HostProvider>,
   );
   const read = () => container.querySelector('[data-testid="era"]')!.textContent!;
-  await waitFor(() => expect(read()).toBe(expected));
+  await settle();
+  expect(read()).toBe(expected);
   return read();
 }
 
@@ -52,8 +53,21 @@ function BackOverlay() {
 
 const router = { push() {}, replace() {} };
 
+// The strip-then-open runs in one setTimeout(0); fake timers + act() make its effects land deterministically.
+async function settle() {
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(10);
+  });
+}
+
 describe('?era deep link goes through the host (currentUrl)', () => {
-  afterEach(() => window.history.replaceState(null, '', '/'));
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+    window.history.replaceState(null, '', '/');
+  });
 
   it('root adapter: ?era= lands on that era, as before', async () => {
     window.history.replaceState(null, '', '/?era=debut');
@@ -75,7 +89,8 @@ describe('?era deep link goes through the host (currentUrl)', () => {
         </AppProvider>
       </HostProvider>,
     );
-    await waitFor(() => expect(container.querySelector('[data-testid="item"]')!.textContent).toBe(id));
+    await settle();
+    expect(container.querySelector('[data-testid="item"]')!.textContent).toBe(id);
   });
 
   it('?item= opens the overlay and strips the key, keeping history.state and length', async () => {
@@ -84,7 +99,8 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     const len = window.history.length;
     const read = mountItemProbe(createWebAdapter(router));
     expect(read.get()).toBe('');
-    await waitFor(() => expect(read.get()).toBe(id));
+    await settle();
+    expect(read.get()).toBe(id);
     expect(window.location.search).toBe('');
     expect(window.history.state).toEqual({ marker: 1 });
     expect(window.history.length).toBe(len);
@@ -95,7 +111,7 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     window.history.replaceState(null, '', '/some/path');
     const adapter = { ...createWebAdapter(router), currentUrl: () => `file:///bundle/index.html?item=${encodeURIComponent(id)}` };
     expect(mountItemProbe(adapter).get()).toBe(id);
-    await new Promise((r) => setTimeout(r, 10));
+    await settle();
     expect(window.location.pathname).toBe('/some/path');
     expect(window.location.search).toBe('');
   });
@@ -104,7 +120,8 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     const id = CONTENT[0]!.id;
     window.history.replaceState(null, '', `/?utm_source=a&item=${encodeURIComponent(id)}#h`);
     mountItemProbe(createWebAdapter(router));
-    await waitFor(() => expect(window.location.search).toBe('?utm_source=a'));
+    await settle();
+    expect(window.location.search).toBe('?utm_source=a');
     expect(window.location.hash).toBe('#h');
   });
 
@@ -117,7 +134,7 @@ describe('?era deep link goes through the host (currentUrl)', () => {
   ])('unresolved ?%s=%s opens nothing and is NOT stripped', async (key, value) => {
     window.history.replaceState({ marker: 2 }, '', `/?${key}=${value}`);
     expect(mountItemProbe(createWebAdapter(router)).get()).toBe('');
-    await new Promise((r) => setTimeout(r, 10));
+    await settle();
     expect(window.location.search).toBe(`?${key}=${value}`);
     expect(window.history.state).toEqual({ marker: 2 });
   });
@@ -147,18 +164,24 @@ describe('?era deep link goes through the host (currentUrl)', () => {
         );
       const first = mount();
       const text = () => first.container.querySelector('[data-testid="item"]')!.textContent;
-      await waitFor(() => expect(text()).toBe(id));
+      await settle();
+      expect(text()).toBe(id);
       expect(calls.map((c) => c[0])).toEqual(['replaceState', 'pushState']);
       expect(calls[0]![2]).toBe('/');
       expect(calls[0]![1]).toEqual({ keep: 1 });
       expect(window.location.search).toBe('');
+      const popped = new Promise<void>((r) => window.addEventListener('popstate', () => r(), { once: true }));
       window.history.back();
-      await waitFor(() => expect(text()).toBe(''));
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(10);
+        await popped;
+      });
+      expect(text()).toBe('');
       await waitForBackStackIdle();
       expect(window.location.search).toBe('');
       cleanup();
       const second = mount();
-      await new Promise((r) => setTimeout(r, 10));
+      await settle();
       expect(second.container.querySelector('[data-testid="item"]')!.textContent).toBe('');
     } finally {
       window.history.replaceState = rs;
@@ -183,7 +206,8 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     } as typeof window.history.replaceState;
     try {
       mountItemProbe(createWebAdapter(router));
-      await waitFor(() => expect(restores).toEqual(['/']));
+      await settle();
+      expect(restores).toEqual(['/']);
       expect(window.history.state).toEqual(nextState);
       expect(window.location.search).toBe('');
     } finally {
