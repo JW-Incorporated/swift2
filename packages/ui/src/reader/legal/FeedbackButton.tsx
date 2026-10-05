@@ -203,6 +203,9 @@ export function FeedbackButton() {
                     {errorMsg}
                   </p>
                 )}
+                <p className="mt-2 text-[11px] text-ink-soft">
+                  Posted publicly on GitHub — please don't include personal details.
+                </p>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[11px] text-ink-soft">
                     Reporting from: {describeView(state)}
