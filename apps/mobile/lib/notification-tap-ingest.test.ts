@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { merchLink, songLink, theoriesBoardLink } from '@swift2/shared';
 import { createTapGate, type RawResponse } from './notification-tap-gate';
-import { startTapIngest } from './notification-tap-ingest';
 import { createTapQueue } from './notification-tap-queue';
+import { startTapIngest } from './notification-tap-ingest';
 import { createTapTarget } from './tap-bind-epoch';
 
 // Production-shaped end to end: expo response (absolute producer link) -> intake -> real queue -> real gate ->
@@ -51,7 +51,9 @@ function rig(last: RawResponse | null | Promise<RawResponse | null>) {
   };
   const target = createTapTarget({ host, isReaderPath: () => true, openElsewhere: async () => true });
   holder.target = target;
-  const queue = createTapQueue();
+  const settled = new Set<(id: string) => void>();
+  const fire = (id: string | null) => id && [...settled].forEach((l) => l(id));
+  const queue = createTapQueue({ onDelivered: fire, onDrop: (_r, id) => fire(id) });
   const gate = createTapGate({ siteUrl: SITE, queue });
   gate.bindHost(target);
 
@@ -64,6 +66,8 @@ function rig(last: RawResponse | null | Promise<RawResponse | null>) {
         enqueued.bump();
         return outcome;
       },
+      onSettled: (cb) => (settled.add(cb), () => void settled.delete(cb)),
+      wasDelivered: (id) => queue.wasDelivered(id),
     },
     {
       getLast: () => Promise.resolve(last),
@@ -94,9 +98,10 @@ describe('tap ingest (absolute producer links, real queue + gate + DOM ack)', ()
     await t.emitted.reached(1);
     t.deliver(r('same', SONG));
     await t.enqueued.reached(2);
-    await t.cleared.reached(1);
+    expect(t.clearLast).not.toHaveBeenCalled();
     t.domAck(1);
     await t.queue.flush();
+    await t.cleared.reached(1);
     expect(t.emits.map((e) => e.path)).toEqual([SONG_PATH]);
     expect(t.queue.size()).toBe(0);
     expect(t.clearLast).toHaveBeenCalledTimes(1);
