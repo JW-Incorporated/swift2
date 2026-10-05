@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #107 · 2026-10-05 · done · #4719 has had no activity for 4 days — "closed via Discord reply" · by discord
 - #101 · 2026-10-05 · done · S5: test the new app on your Android phone — "owner in chat 2026-10-05 12:31 PDT: checked the app on Android, no issues found, looks great" · by chat
 - #103 · 2026-10-05 · done · Set SUBMISSIONS_HASH_SALT in Vercel production — "owner said '103 done' in chat 2026-10-05 10:55 PDT" · by chat
 - #105 · 2026-10-05 · done · Store data-safety form still says the app runs analytics — "owner decided `keep` in chat 2026-10-05 10:49 PDT; revisit at the next store build (noted on draft #5133)" · by chat
@@ -14,8 +15,6 @@
 - #98 · 2026-10-03 · done · Expo build minutes are used up until Nov 1 (~5 min) — "owner decided in chat 12:04 PDT: reroute (move release orchestration to GitHub Actions); PM executing" · by chat
 - #97 · 2026-10-03 · done · Make the parity check required on main (~3 min) — "owner verified 08:48 PDT — ruleset protect-swift2-main requires [\"build\",\"parity-gate\"]" · by chat
 - #96 · 2026-10-03 · done · Add Associated Domains to the iOS signing profile (~10 min) — "owner regenerated the App Store provisioning profile via EAS at 08:54 PDT (new Developer Portal ID 57SBZ45RQA); release train re-run 37134936992 started" · by chat
-- #95 · 2026-10-01 · done · Save the refreshed Instagram token so DMs and FB comments reach Discord — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5939131633 — owner said done" · by status page
-- #94 · 2026-10-01 · skip · Add a free Reddit API key so Tree finds 10+ opportunities a day — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5938589539 — owner skipped 'Owner decision 2026-10-01: we will NEVER have a Reddit API key. Never raise this again. (Relayed by Claude from Joey's chat.)'" · by status page
 - #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
 - #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
 - #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
@@ -25,10 +24,6 @@
 - #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
 - #91 · 2026-10-01 · skip · May Tree post site-made share cards in the feed? — "Joey in chat 2026-10-01: wrong question for the founder — what Tree posts is Marjorie's and Tree's strategy call (Fable rules on taste); shipped as #4696" · by chat
 - #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
-- #85 · 2026-10-01 · done · #4559 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4559 (2026-09-30), issue closed" · by agent · <!-- marjorie-chase: 96h issue=4559 -->
-- #79 · 2026-10-01 · done · #4324 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4324 (comment 2026-09-30)" · by agent · <!-- marjorie-chase: 96h issue=4324 -->
-- #90 · 2026-10-01 · done · Unfreeze social posting once PR #4660 has merged — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5931982869 — owner said done" · by status page
-- #80 · 2026-09-30 · done · #4364 has had no activity for 4 days — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5925822083 — owner decided 'close'" · by status page · <!-- marjorie-chase: 96h issue=4364 -->
 - #49 · 2026-09-30 · done · Add the shared Community Tasks acknowledgement secret — "Joey said in chat 2026-09-30: close 49; GH secret set, Vercel Production+Preview set and redeployed, manual daily mailer run 36739720371 logged no COMMUNITY_ACK_SECRET unset" · by chat
 - #63 · 2026-09-30 · done · Add instagram_manage_insights scope — "Joey saved regenerated IG_ACCESS_TOKEN (with instagram_manage_insights + instagram_manage_comments) and said close after check; growth-snapshot run 36739561217 succeeded on new token (IG followers + 10 post-metric reads); insights call itself not exercised" · by chat
 - #43 · 2026-09-30 · done · OS-004 — Push credentials on EAS — "Joey said in chat 2026-09-30: close 43" · by chat

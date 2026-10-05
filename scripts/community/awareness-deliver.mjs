@@ -15,7 +15,7 @@
 // optional (without it the message falls back to the reaction footer).
 import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
-import { DISCORD_SUPPRESS_EMBEDS, TREE_AVATAR_URL, postBatchHeader } from './discord-delivery.mjs';
+import { DISCORD_SUPPRESS_EMBEDS, TREE_AVATAR_URL } from './discord-delivery.mjs';
 import { buildAckUrl } from './mailer.mjs';
 import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
@@ -30,7 +30,6 @@ import {
 } from './awareness-image.mjs';
 import {
   AWARENESS_WEBHOOK_USERNAME,
-  buildAwarenessHeader,
   buildAwarenessMessage,
   buildAwarenessReplyText,
   buildMultipartPayload,
@@ -40,7 +39,6 @@ import {
 
 export const BATCH_CAP = 5; // eight batches a day, 15 a day in all: above the owner's 10+ target
 export const DAILY_CAP = 15;
-const UNKNOWN_SUB_RULE = 'Not one of our listed subs: read its rules first. Picture only, no link.';
 const MAX_LEAD_AGE_HOURS = 48;
 
 /** Keeps a validated image_ref, or replaces a bad one with the deterministic pick for the title. */
@@ -141,7 +139,6 @@ export async function runDelivery({
   fetchImpl = fetch,
   now = new Date(),
   dryRun = false,
-  postHeader = postBatchHeader,
 } = {}) {
   const { defaults, subs } = config;
   const tiers = new Map(subs.map((sub) => [sub.name, sub]));
@@ -189,7 +186,7 @@ export async function runDelivery({
         : null;
       const content = buildAwarenessMessage(
         { ...lead, image_ref: imageRef },
-        { postedUrl, skipUrl, rule: tiers.get(lead.community)?.selfPromoNote ?? UNKNOWN_SUB_RULE },
+        { postedUrl, skipUrl },
       );
       const replyText = buildAwarenessReplyText(lead).text;
       if (!replyText) throw new Error(`Awareness opportunity ${lead.id} has no reply text`);
@@ -197,13 +194,6 @@ export async function runDelivery({
     } catch (err) {
       failed.push({ leadId: lead.id, message: String(err?.message ?? err) });
     }
-  }
-  if (prepared.length > 0) {
-    await postHeader(buildAwarenessHeader(today.total + prepared.length, prepared.length), {
-      webhook,
-      fetchImpl,
-      username: AWARENESS_WEBHOOK_USERNAME,
-    });
   }
   const delivered = [];
   for (const item of prepared) {
