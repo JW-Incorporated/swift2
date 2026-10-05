@@ -7,7 +7,7 @@
 // bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); only a
 // Force-shared-UI override that resolves later still upgrades to the DOM host.
 //
-// Wiring closed (proved end to end by lib/watchdog-closure.test.ts):
+// Wiring closed (proved end to end by App.watchdog.test.tsx):
 // App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback; D1). While pending no
 // overlay can exist (the DOM host is not mounted), so the pending/launch overlay needs no clearing.
 // Notification taps while quarantined/fallback land natively via lib/notification-tap-gate.ts (H3).
