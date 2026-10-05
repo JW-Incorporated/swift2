@@ -128,7 +128,7 @@ and a flipped default cannot be killed remotely.
 - **READY_TIMEOUT_MS is 20 s** (was 10 s; one constant, no first-launch special case). S7 time-to-ready data may revise it.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
-- **Pending, not on main:** #5042 (default sharedUi on, Android first via `sharedUiIos`; removes the Force-shared-UI override and bounds the attempt write at 3000 ms), #5043 (Recovery screen replaces the native fallback), #5047 (deletes the legacy native UI). They change the precedence, fallback surface and kill-switch text above; this section describes main.
+- **Landed:** #5042 (default sharedUi on, Android first via `sharedUiIos`; removes the Force-shared-UI override and bounds the attempt write at 3000 ms), #5043 (Recovery screen replaces the native fallback), #5047 (deletes the legacy native UI) are all on main; this section describes main. The fallback surface is the Recovery screen.
 - **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `App.watchdog.test.tsx` renders the real App (native modules, the DOM component and the screens stubbed) over the real
   monitor, tap gate, binder, bridge host/link/handlers and native-route presenter. (1) Protocol fatal from the
   host (version too new) and from the DOM client strikes `protocol`, before and after first paint. (2) A
