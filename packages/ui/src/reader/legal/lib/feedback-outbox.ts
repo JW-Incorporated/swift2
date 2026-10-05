@@ -104,7 +104,8 @@ export function dequeue(host: Host, id: string): void {
   );
 }
 
-export type PostResult = { kind: 'sent' } | { kind: 'http'; error: string };
+/** 'pending': the server is already posting this id (409); transient, the item stays queued. */
+export type PostResult = { kind: 'sent' } | { kind: 'pending' } | { kind: 'http'; error: string };
 
 /**
  * POST one queued report. Resolves for ANY HTTP response (2xx → sent, else a
@@ -123,7 +124,9 @@ export async function postFeedback(
   if (res.status >= 200 && res.status < 300) return { kind: 'sent' };
   let error: string | undefined;
   try {
-    error = (JSON.parse(res.body) as { error?: string } | null)?.error;
+    const parsed = JSON.parse(res.body) as { error?: string; pending?: boolean } | null;
+    if (res.status === 409 && parsed?.pending === true) return { kind: 'pending' };
+    error = parsed?.error;
   } catch {
     error = undefined;
   }

@@ -61,7 +61,7 @@ export const PRIVACY_SECTIONS_A: LegalSection[] = [
       },
       {
         kind: 'p',
-        text: `A submission is filed as a ticket in our private source-code repository on GitHub. That repository is private: it is readable by the project's founders, by the automated agents that triage tickets, and by GitHub as the service provider. It is not published, and feedback is not displayed anywhere on this site.`,
+        text: `A submission is filed as a ticket in our source-code repository on GitHub. That repository is public, so a ticket, including what you typed, can be read by anyone on GitHub; please do not put personal details in it. Feedback is not displayed anywhere on this site itself.`,
       },
       {
         kind: 'p',
@@ -135,7 +135,7 @@ export const PRIVACY_SECTIONS_A: LegalSection[] = [
     blocks: [
       {
         kind: 'p',
-        text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page.',
+        text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it in their own screens, but where the app opens Privacy, Terms or Support as the website itself (inside a web view), that website page loads it like any other page of the site.',
       },
       {
         kind: 'p',

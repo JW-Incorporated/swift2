@@ -98,7 +98,7 @@ export function scrubberAnchorPaddingTop(input: {
 // height > ~369px), and gating it on width would reopen the same
 // short-landscape hole the anchor variant above closes.
 export const SCRUBBER_RAIL_CLASS =
-  'pointer-events-auto relative h-[min(74svh,calc(100svh-6rem))] w-full cursor-ns-resize touch-none select-none outline-none';
+  'pointer-events-auto relative h-[min(74svh,calc(100svh-6rem))] w-full cursor-ns-resize touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]';
 
 /**
  * Grain (ms) `Date.now()` is snapped DOWN to before it's used as the current

@@ -152,21 +152,17 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(h.saved.at(-1)?.state).toBe('attempting');
   });
 
-  it('Android cache-miss mounts DOM; iOS cache-miss is native flag-off; enabling the iOS key mounts DOM', async () => {
+  it('Android and iOS cache-misses both mount DOM; a cached iOS true mounts DOM', async () => {
     const a = renderHook(() => useDomMount(inputs()));
     await flush();
     expect(a.result.current.mount).toBe('dom');
     h.os = 'ios';
     const i = renderHook(() => useDomMount(inputs()));
     await flush();
-    expect(i.result.current.mount).toBe('native');
-    expect(i.result.current.nativeReason).toBe('flag-off');
+    expect(i.result.current.mount).toBe('dom');
     const on = renderHook(() => useDomMount(inputs({ sharedUiIos: true })));
     await flush();
     expect(on.result.current.mount).toBe('dom');
-    const stale = renderHook(() => useDomMount(inputs({ sharedUi: true })));
-    await flush();
-    expect(stale.result.current.mount).toBe('native');
   });
 
   it('an attempt write that never settles mounts the DOM on the in-memory attempt after the bound (never Recovery)', async () => {

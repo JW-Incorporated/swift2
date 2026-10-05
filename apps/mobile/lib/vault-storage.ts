@@ -34,6 +34,42 @@ function cacheFile(key: string): FileSystem.File {
   return new FileSystem.File(CACHE_DIR, `${safeName}.json`);
 }
 
+let sweptStrayTemps = false;
+
+/** Once per process: a kill mid-write leaves a `.tmp` beside the cache files; nothing reads those, so drop them. */
+function sweepStrayTemps(): void {
+  if (sweptStrayTemps) return;
+  sweptStrayTemps = true;
+  try {
+    for (const entry of CACHE_DIR.list()) {
+      if (!entry.name.endsWith('.tmp')) continue;
+      try {
+        new FileSystem.File(CACHE_DIR, entry.name).delete();
+      } catch {
+        // best effort
+      }
+    }
+  } catch {
+    // best effort: a stray temp is harmless, only wasted space
+  }
+}
+
+/** Temp file then move over the target (same pattern as art-cache): a kill mid-write leaves the previous file intact, never truncated JSON. */
+function writeAtomically(key: string, value: string): void {
+  const tmp = new FileSystem.File(CACHE_DIR, `${encodeURIComponent(key)}.json.tmp`);
+  try {
+    tmp.write(value);
+    tmp.moveSync(cacheFile(key), { overwrite: true });
+  } catch (e) {
+    try {
+      if (tmp.exists) tmp.delete();
+    } catch {
+      // best effort
+    }
+    throw e;
+  }
+}
+
 const LAST_GOOD_SUFFIX = ':last-good';
 
 /** The `.js` twin of a last-good cache file: the JSON document as a JS object literal (JSON is valid JS), so the DOM
@@ -104,8 +140,8 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
     },
     setItem(key: string, value: string): void {
       if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
-      const file = cacheFile(key);
-      file.write(value);
+      sweepStrayTemps();
+      writeAtomically(key, value);
       if (key.endsWith(LAST_GOOD_SUFFIX)) {
         try {
           writeLastGoodTwin(key, value);

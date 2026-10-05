@@ -1,23 +1,13 @@
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
-import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { durableClaimResponse, finishDurableClaim } from './idempotency-durable';
 import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
-import {
-  DIAG_ISSUE_NUMBER,
-  DIAG_PREFIX,
-  DIAG_REPO,
-  diagCommentFrom,
-  isDiagMessage,
-  parseDiagReport,
-  speedAllowed,
-  speedCommit,
-  speedDuplicate,
-  speedRefund,
-  type SpeedMeta,
-} from './diag';
-import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
-import { prepareWatchdog, watchdogClaimResponse } from './watchdog-lifecycle';
+import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
+import { readBodyText } from './body-text';
+import { guardReport, quotaResponse, rateLimited } from './report-guards';
+import { watchdogClaimResponse } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -38,38 +28,6 @@ export const dynamic = 'force-dynamic';
 
 const MAX_MESSAGE = 5000;
 const MAX_FIELD = 2000;
-// Route-wide request body cap (bytes), enforced before JSON parsing on every
-// path. 5000 chars of 4-byte UTF-8 is ~20 KB, so real feedback fits. Watch
-// signal: any 413 from a real user in the Vercel logs means the cap is too tight.
-const MAX_BODY_BYTES = 32 * 1024;
-
-/** Read the body as text, aborting past the cap even when no Content-Length is sent. */
-async function readBodyText(req: Request): Promise<string | null> {
-  const declared = Number(req.headers.get('content-length'));
-  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return null;
-  if (!req.body) return '';
-  const reader = req.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > MAX_BODY_BYTES) {
-      await reader.cancel().catch(() => {});
-      return null;
-    }
-    chunks.push(value);
-  }
-  const all = new Uint8Array(total);
-  let offset = 0;
-  for (const c of chunks) {
-    all.set(c, offset);
-    offset += c.byteLength;
-  }
-  return new TextDecoder().decode(all);
-}
-
 type Location = {
   eraId?: string;
   eraName?: string;
@@ -88,23 +46,6 @@ type Location = {
   ts?: string;
 };
 
-// Best-effort per-instance rate limit (serverless instances are ephemeral, so
-// this is bounded per WARM INSTANCE, not globally — an attacker spread across
-// enough cold-started instances still gets more than MAX_PER_WINDOW total.
-// There's no shared KV/Redis/Postgres rate-limit store anywhere in this repo
-// to back it with today (checked), and standing one up is out of scope for
-// this fix — this limitation is real and still open, tracked on #1973.
-//
-// What #1973 actually exploited IS closed here: the IP key comes from
-// trustedClientIp() below (Vercel-set `x-real-ip`, or the edge-appended
-// rightmost `x-forwarded-for` hop), not the client-spoofable leftmost XFF
-// value, so a script can no longer manufacture a fresh bucket per request
-// just by rotating a header.
-const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
-
-function rateLimited(ip: string): boolean {
-  return limiter.isLimited(ip);
-}
 
 // See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale
 // (re-exported here so any existing importer of this route's trustedClientIp
@@ -228,61 +169,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
-  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
   const idemId = parseIdempotencyId(payload.id);
-  if (idemId && isDuplicate(idemId)) {
-    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-  }
-
-  const ip = trustedClientIp(req);
-  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
-  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
-  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
-  const speedShaped =
-    message === DIAG_PREFIX &&
-    typeof payload.diag === 'object' &&
-    payload.diag !== null &&
-    'speed' in payload.diag;
-  if (!speedShaped && rateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
-      { status: 429 },
-    );
-  }
-
-  // One UI WP0.1: a `[diag]` report is never posted as client text. The
-  // structured `diag` payload is validated against an exact schema and the
-  // comment is rebuilt from those values only (see ./diag.ts). Rejects with a
-  // fixed error before anything else, so nothing client-supplied is echoed.
-  const watchdog = isWatchdogMessage(message);
-  const diag = isDiagMessage(message) || watchdog;
-  let diagComment = '';
-  let speedReport: SpeedMeta | null = null;
-  let watchdogReport: WatchdogReport | null = null;
-  if (watchdog) {
-    const prepared = prepareWatchdog(payload, ip);
-    if (!prepared.ok) return prepared.response;
-    watchdogReport = prepared.durable ? prepared.report : null;
-    diagComment = prepared.comment;
-  } else if (diag) {
-    const exactShape =
-      payload.message === DIAG_PREFIX &&
-      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'diag');
-    const parsed = exactShape ? parseDiagReport(payload.diag) : null;
-    if (!parsed?.ok) {
-      return NextResponse.json({ error: 'Invalid diagnostics report.' }, { status: 400 });
-    }
-    if (parsed.report.speed) {
-      if (speedDuplicate(parsed.report.speed)) {
-        return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-      }
-      if (!speedAllowed(parsed.report.speed.run)) {
-        return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
-      }
-      speedReport = parsed.report.speed;
-    }
-    diagComment = diagCommentFrom(parsed.report);
-  }
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -308,6 +195,36 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+  }
+
+  const ip = trustedClientIp(req);
+  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
+  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
+  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
+  const speedShaped =
+    message === DIAG_PREFIX &&
+    typeof payload.diag === 'object' &&
+    payload.diag !== null &&
+    'speed' in payload.diag;
+  if (!speedShaped && rateLimited(ip)) {
+    return NextResponse.json(
+      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
+      { status: 429 },
+    );
+  }
+
+  const guarded = await guardReport(payload, message, ip);
+  if ('response' in guarded) return guarded.response;
+  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
+
+  if (quotaKind) {
+    const capped = await quotaResponse(quotaKind, ip);
+    if (capped) return capped;
+  }
+
   // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
   if (watchdogReport) {
     const stop = await watchdogClaimResponse(watchdogReport);
@@ -321,8 +238,11 @@ export async function POST(req: Request): Promise<Response> {
   delete location.url;
   delete (location as Record<string, unknown>).userAgent;
 
+  const already = idemId ? await durableClaimResponse(idemId) : null;
+  if (already) return already;
   if (idemId) markPending(idemId);
   let filed = false;
+  let issueUrl: string | undefined;
   try {
     const res = await fetch(
       diag
@@ -362,6 +282,7 @@ export async function POST(req: Request): Promise<Response> {
     filed = true;
     if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
+    issueUrl = issue.html_url;
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
       { status: 201 },
@@ -370,6 +291,9 @@ export async function POST(req: Request): Promise<Response> {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
   } finally {
-    if (idemId) settle(idemId, filed);
+    if (idemId) {
+      settle(idemId, filed);
+      await finishDurableClaim(idemId, filed, issueUrl);
+    }
   }
 }

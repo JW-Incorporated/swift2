@@ -54,4 +54,23 @@ describe('flushQueue', () => {
     await flushQueue(host, { current: false }, ctx);
     expect(JSON.parse(apiFetch.mock.calls[0]![0].body).id).toBe(item.id);
   });
+
+  it('a 409 pending keeps the item queued as a transient failure', async () => {
+    const host = hostWith(
+      vi.fn().mockResolvedValue({ status: 409, body: JSON.stringify({ error: 'busy', pending: true }) }),
+    );
+    enqueue(host, 'in flight elsewhere');
+    const res = await flushQueue(host, { current: false }, ctx);
+    expect(res.transport).toBe(true);
+    expect(res.http).toBeUndefined();
+    expect(readQueue(host)).toHaveLength(1);
+  });
+
+  it('a 409 without the pending marker is an ordinary HTTP error', async () => {
+    const host = hostWith(vi.fn().mockResolvedValue({ status: 409, body: JSON.stringify({ error: 'nope' }) }));
+    enqueue(host, 'conflict');
+    const res = await flushQueue(host, { current: false }, ctx);
+    expect(res.http?.error).toBe('nope');
+    expect(readQueue(host)).toEqual([]);
+  });
 });

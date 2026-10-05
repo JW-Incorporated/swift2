@@ -6,8 +6,8 @@
 
 | Member | Web | App (DOM host) |
 |---|---|---|
-| `Link`, `Image` | `next/link`, `next/image` | WP2.4+ |
-| `resolveUrl` (optional; `useResolveUrl()`) | omitted: the path is used unchanged (same-origin) | `https://www.longlivets.com` + path (canonical origin, overridable). Era art (`/eras/*.png`) goes over the network like content photos. **S4: offline/airplane-mode era art must be checked on device.** |
+| `Link`, `Image` | `next/link`, `next/image` | `AppLink` (forwardRef anchor, click routed through native/DOM navigation) and `AppImage` (plain `<img>`, `fill` emulated with inline styles) in `apps/mobile/dom/bridge/app-adapter.tsx`; shipped |
+| `resolveUrl` (optional; `useResolveUrl()`) | omitted: the path is used unchanged (same-origin) | `https://www.longlivets.com` + path (canonical origin, overridable). Era art (`/eras/*.png`) goes over the network like content photos. Offline era and first-party moment art is served from the app's art cache (#5111); **S4: offline/airplane-mode era art must still be checked on device** (`docs/plans/one-ui/device-checklists.md`). |
 | `currentUrl` (optional) | web root adapter only: `window.location.href`; omitted in `createWebAdapter`. The reader reads `?era`/`?item` deep links from it; absent = no deep link | in-DOM web path (not `file://`) |
 | `clipboard` (optional) | web root adapter only: wraps `navigator.clipboard.writeText`; absent = the `navigator.clipboard` fallback | native clipboard |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
@@ -16,6 +16,7 @@
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `embedOrigin` (optional) | omitted: YouTube embeds go direct to youtube-nocookie.com | `https://www.longlivets.com`: embeds frame `<embedOrigin>/embed/youtube/<id>` (a real-origin wrapper page), because a null origin sends no Referer and YouTube refuses with error 153 (#4954) |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
+| `env.affiliate` (optional) | the web ROOT adapter builds the object from `NEXT_PUBLIC_AWIN_ID`, `NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG`, `NEXT_PUBLIC_CATCHALL_ID`; the prod envs are unset today, so every id is `undefined` | unset (G4: plain retailer URLs). **Parity note: affiliate is effectively unset on BOTH web and app today. If affiliate ids are ever enabled on web, the app adapter must pass the same ids, or shop links diverge.** |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
 | `insets` | zeros | WP2.3 |
 | `lazy`, `share`, `openExternal`, `haptic`, `notifications` | optional (`haptic` no-op) | WP2.4/2.5/2.12 |

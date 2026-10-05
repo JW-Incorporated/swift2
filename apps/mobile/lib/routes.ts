@@ -4,8 +4,8 @@
 export interface RouteFlags {
   /** Mounts the shared-UI DOM host. Defaults ON (founder decision 2026-10-04). */
   sharedUi: boolean;
-  /** Same gate for iOS only (iOS reads this, Android reads `sharedUi`). Off until the iOS DOM-ready fix is verified on device; enable with a JSON/OTA one-line change. */
+  /** Same gate for iOS only (iOS reads this, Android reads `sharedUi`). On by default (founder decision 2026-10-05, at risk). */
   sharedUiIos: boolean;
 }
 
-export const DEFAULT_ROUTE_FLAGS: RouteFlags = { sharedUi: true, sharedUiIos: false };
+export const DEFAULT_ROUTE_FLAGS: RouteFlags = { sharedUi: true, sharedUiIos: true };

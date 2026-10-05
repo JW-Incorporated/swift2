@@ -124,11 +124,13 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
-/** Strict `{ entries: Record<string,string> }`; key length and blob size are the native handler's `invalid`. */
+/** Strict `{ entries: Record<string,string>, allowEmpty?: boolean }`; key length and blob size are the native handler's `invalid`. */
 function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
-  const { entries } = p;
-  if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
-  return { entries: { ...(entries as Record<string, string>) } };
+  const { entries, allowEmpty } = p;
+  if (Object.keys(p).length !== (allowEmpty === undefined ? 1 : 2) || (allowEmpty !== undefined && typeof allowEmpty !== 'boolean')) return null;
+  if (!isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
+  const clean = { ...(entries as Record<string, string>) };
+  return allowEmpty === undefined ? { entries: clean } : { entries: clean, allowEmpty };
 }
 
 /** Per-command payload validation; returns the cleaned payload or null. */
@@ -163,8 +165,21 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':
       return validPrefsUpdate(p);
-    default:
+    case 'notifications.status':
+    case 'notifications.request':
+    case 'notifications.register':
+    case 'notifications.getPrefs':
+    case 'notifications.unregister':
+    case 'notifications.registration':
+    case 'notifications.optOutPending':
+    case 'notifications.onboardingOffered':
+    case 'notifications.markOnboardingOffered':
       return {};
+    default: {
+      // A new command must be handled above: this fails typecheck until it is (never a silent {}).
+      const unhandled: never = type;
+      throw new Error(`validateCommand: unhandled command ${String(unhandled)}`);
+    }
   }
 }
 

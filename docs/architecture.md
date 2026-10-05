@@ -54,7 +54,7 @@ load-bearing; none substitutes for another's manual.
 > capabilities. D1 and D4 are unchanged. The migration is gated and in
 > progress: the shared reader is mounted in the app through the DOM host
 > behind `routeFlags.sharedUi` (default-on since 2026-10-04; iOS reads
-> `sharedUiIos`, still off); the "five native screens" description
+> `sharedUiIos`, on since 2026-10-05); the "five native screens" description
 > below is historical (deleted in One UI PR3). Current app architecture
 > (bridge contract, last-good script twin, Back stack, deep links, pending
 > PRs, gaps): `docs/one-ui/app-architecture.md`. Design and

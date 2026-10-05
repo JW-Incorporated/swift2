@@ -41,7 +41,7 @@ vi.mock('expo-file-system', () => {
     }
     write(v: string) {
       ops.push(`write ${this.uri.split('/').pop()}`);
-      if (failOp === 'tmp' && this.uri.endsWith('.tmp')) throw new Error('tmp write failed');
+      if (failOp === 'tmp' && this.uri.endsWith('.js.tmp')) throw new Error('tmp write failed');
       files.set(this.uri, v);
       mtimes.set(this.uri, ++clock);
     }
@@ -58,7 +58,7 @@ vi.mock('expo-file-system', () => {
     }
     moveSync(dest: { uri: string }) {
       ops.push(`move ${this.uri.split('/').pop()}`);
-      if (failOp === 'move') throw new Error('move failed');
+      if (failOp === 'move' && this.uri.endsWith('.js.tmp')) throw new Error('move failed');
       mtimes.set(dest.uri, ++clock);
       files.set(dest.uri, files.get(this.uri) as string);
       files.delete(this.uri);
@@ -106,7 +106,9 @@ describe('lastGoodSource', () => {
   it('a valid pair reads neither file and uses the twin mtime as the buster', () => {
     put('{"v":1}', lastGoodScriptSource('{"v":1}'));
     const s = lastGoodSource();
-    expect(s).toEqual({ scriptUri: `${jsUri()}?v=${mtimes.get(jsUri())}`, jsonUri: jsonUri() });
+    expect(s).toMatchObject({ scriptUri: `${jsUri()}?v=${mtimes.get(jsUri())}`, jsonUri: jsonUri() });
+    // The art map URI is deterministic (no stat, so no file read or write on the startup path), even when no map exists yet.
+    expect(s!.artMapUri).toMatch(/swift2-art-v1\/art-map\.js\?v=\d+$/);
     expect(textReads).toBe(0);
     expect(ops).toEqual([]);
   });
@@ -230,7 +232,8 @@ describe('storage adapter .js twin', () => {
   it('writes the twin atomically (temp then move) after the .json', () => {
     expoFileSystemStorageAdapter().setItem(key(), '{}');
     const js = jsUri().split('/').pop();
-    expect(ops).toEqual(['write ' + jsonUri().split('/').pop(), 'write ' + js + '.tmp', 'move ' + js + '.tmp']);
+    const json = jsonUri().split('/').pop();
+    expect(ops).toEqual(['write ' + json + '.tmp', 'move ' + json + '.tmp', 'write ' + js + '.tmp', 'move ' + js + '.tmp']);
     expect([...files.keys()].sort()).toEqual([jsUri(), jsonUri()].sort());
   });
 
