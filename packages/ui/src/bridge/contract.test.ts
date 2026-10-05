@@ -78,7 +78,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       cancel: H<{ targetId: string }, null>;
       'clipboard.write': H<{ text: string }, null>;
       'storage.load': H<Empty, { entries: Record<string, string> }>;
-      'storage.write': H<{ entries: Record<string, string> }, null>;
+      'storage.write': H<{ entries: Record<string, string>; allowEmpty?: boolean }, null>;
     };
     expectTypeOf<HandlerMap>().toEqualTypeOf<Exact>();
     expectTypeOf<ResponderMap>().toEqualTypeOf<{ back: H<Empty, 'handled' | 'exit'> }>();
