@@ -70,7 +70,6 @@ export function writeLastGoodTwin(key: string, jsonText: string): void {
   if (legacy.exists) legacy.delete();
 }
 
-/** The current (object-literal) twin. Versioned in the filename so a legacy string-form twin never passes as current. */
 /** Same as `writeLastGoodTwin` but with the async read-side/move APIs (`File.write` has no async form in SDK 57), for a rebuild that must not hold the RN thread. */
 export async function writeLastGoodTwinAsync(key: string, jsonText: string): Promise<void> {
   if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
@@ -82,6 +81,7 @@ export async function writeLastGoodTwinAsync(key: string, jsonText: string): Pro
   if (legacy.exists) legacy.delete();
 }
 
+/** The current (object-literal) twin. Versioned in the filename so a legacy string-form twin never passes as current. */
 export function lastGoodScriptName(key: string): string {
   return `${encodeURIComponent(key)}.v2.js`;
 }

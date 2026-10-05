@@ -7,7 +7,15 @@ let clock = 0;
 let textReads = 0;
 let failOp: string | null = null;
 const interactionCbs: Array<() => void> = [];
-vi.mock('react-native', () => ({ InteractionManager: { runAfterInteractions: (cb: () => void) => void interactionCbs.push(cb) } }));
+let syncInteractions = false;
+vi.mock('react-native', () => ({
+  InteractionManager: {
+    runAfterInteractions: (cb: () => void) => {
+      if (syncInteractions) cb();
+      else interactionCbs.push(cb);
+    },
+  },
+}));
 vi.mock('expo-file-system', () => {
   class Directory {
     uri: string;
@@ -77,6 +85,7 @@ beforeEach(() => {
   textReads = 0;
   failOp = null;
   interactionCbs.length = 0;
+  syncInteractions = false;
   vi.useRealTimers();
 });
 
@@ -171,6 +180,22 @@ describe('legacy twin hard fallback', () => {
     interactionCbs[0]!();
     await vi.advanceTimersByTimeAsync(0);
     expect(ops.filter((o) => o.startsWith('move'))).toHaveLength(1);
+  });
+});
+
+describe('legacy twin synchronous interaction callback', () => {
+  it('does not throw and rebuilds once, leaving no pending fallback timer', async () => {
+    vi.useFakeTimers();
+    syncInteractions = true;
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    expect(() => lastGoodSource()).not.toThrow();
+    await vi.advanceTimersByTimeAsync(9000);
+    expect(ops.filter((o) => o.startsWith('move'))).toHaveLength(1);
+    expect(vi.getTimerCount()).toBe(0);
   });
 });
 

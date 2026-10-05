@@ -44,17 +44,18 @@ export function lastGoodSource(): LastGoodSource | null {
   const warnFail = (e: unknown) => console.warn('[last-good-twin] rebuild failed', e instanceof Error ? e.message : String(e));
   if (useLegacy) {
     let started = false;
+    let fallback: ReturnType<typeof setTimeout> | undefined;
     const migrate = () => {
       if (started) return;
       started = true;
-      clearTimeout(fallback);
+      if (fallback !== undefined) clearTimeout(fallback);
       json
         .text()
         .then((text) => writeLastGoodTwinAsync(key, text))
         .then(() => console.warn('[last-good-twin] migrated to v2'), warnFail);
     };
-    const fallback = setTimeout(migrate, MIGRATE_FALLBACK_MS);
     InteractionManager.runAfterInteractions(migrate);
+    if (!started) fallback = setTimeout(migrate, MIGRATE_FALLBACK_MS);
   } else {
     setTimeout(() => {
       try {
