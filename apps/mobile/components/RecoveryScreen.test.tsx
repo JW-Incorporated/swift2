@@ -107,7 +107,7 @@ describe('RecoveryScreen', () => {
     retryDomAttempt.mockResolvedValue('reload-failed');
     render(<RecoveryScreen />);
     fireEvent.click(retryBtn());
-    await screen.findByText("Couldn't restart. Please try again.");
+    await screen.findByText('Close and reopen Long Live.');
     expect(retryBtn().getAttribute('aria-disabled')).toBe('false');
   });
 
