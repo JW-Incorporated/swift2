@@ -8661,3 +8661,11 @@ Joey, 2026-10-05 06:48 PDT: land the held One UI stack now, at risk, without the
 **Decision.** `sharedUiIos` is true in both the shipped `config/mobile/app-config.json` and the compiled `DEFAULT_ROUTE_FLAGS` (a fresh install has no cached config and uses the compiled default). Android was already on, so both platforms default ON.
 
 **Rollback.** Remote config `sharedUiIos: false` (devices with a cached config) plus the watchdog fallback to Recovery. Post-landing iOS confirmation stays on HUMAN-ACTIONS HA #100.
+
+## 2026-10-05 — Watchdog: in-launch failures never make Recovery sticky; ready timeout 20 s
+
+Fable ruling 2026-10-05 07:40 (revises its 2026-10-04 16:30 ruling in part).
+
+**Decision.** In-launch failures (ready-timeout, dom-error, webview-terminated/render-gone, protocol: everything the attempt monitor's `onStrike` sees) send this launch to Recovery and record `state: 'failed'` plus `lastReason` via `recordLaunchFailure`. `strikes`, `fallbackLaunchesRemaining` and `fallbackCycles` are untouched, so the next cold launch always attempts DOM; an in-launch failure never owes a fallback launch and never quarantines. Cross-launch deaths (`decideMount`: attempting and not backgrounded, abandoned-repeated) are unchanged: 2 consecutive deaths without ready owe a fallback launch, 2 cycles quarantine. `READY_TIMEOUT_MS` 10 s to 20 s (one constant, no first-launch special case). Retry counter semantics unchanged. No schema `v` bump (old records still parse). `pending-expired` removed from `NativeReason` and the `slow` RecoveryScreen variant deleted (dead). Every in-launch failure is reported when `watchdogReports` is on (previously only fallback/quarantined).
+
+**Why.** A slow-but-working first launch hit the 10 s timeout twice, which owed a fallback launch and then quarantined the build: a healthy build became permanently Recovery until the next OTA.

@@ -8,6 +8,7 @@ import {
   markReloading,
   parseDomFailureMode,
   parseRecord,
+  recordLaunchFailure,
   recordStrike,
   shouldMountDom,
   startAttempt,
@@ -25,17 +26,12 @@ function launch(
   key = KEY,
 ) {
   const d = decideMount(rec, key, 1);
-  if (d.fallbackActive) return { d, rec: d.record, clear: false };
+  if (d.fallbackActive) return { d, rec: d.record };
   let r = beginAttempt(d.record, 2);
   if (outcome === 'background') r = { ...r, backgrounded: true };
   if (outcome === 'ready') r = markReady(r, 3);
-  let clear = false;
-  if (outcome === 'fail') {
-    const s = recordStrike(r, 'boom', 3);
-    r = s.record;
-    clear = s.fellBack;
-  }
-  return { d, rec: r, clear };
+  if (outcome === 'fail') r = recordLaunchFailure(r, 'boom', 3);
+  return { d, rec: r };
 }
 
 describe('record transitions', () => {
@@ -119,42 +115,89 @@ describe('record transitions', () => {
     expect(launch(l4.rec, 'ready').d.fallbackActive).toBe(false);
   });
 
-  it('strike 1 stays on the DOM path; strike 2 owes one fallback launch', () => {
-    const l1 = launch(null, 'fail');
-    expect(l1.clear).toBe(false);
-    expect(l1.rec.strikes).toBe(1);
-    const l2 = launch(l1.rec, 'fail');
-    expect(l2.clear).toBe(true);
-    expect(l2.rec.fallbackLaunchesRemaining).toBe(1);
+  it('death 1 stays on the DOM path; death 2 owes one fallback launch', () => {
+    const l1 = launch(null, 'abandon');
+    const l2 = launch(l1.rec, 'abandon');
+    expect(l2.d.record.strikes).toBe(1);
+    expect(l2.d.fallbackActive).toBe(false);
+    const l3 = launch(l2.rec, 'abandon');
+    expect(l3.d.fallbackActive).toBe(true);
+    expect(l3.d.record.fallbackLaunchesRemaining).toBe(1);
+    expect(l3.d.record.state).toBe('fallback');
+    expect(l3.d.record.strikes).toBe(2);
   });
 
-  it('a clean (ready) launch breaks the crash streak', () => {
-    const l1 = launch(null, 'fail');
+  it('a clean (ready) launch breaks the death streak', () => {
+    const l1 = launch(null, 'abandon');
     const l2 = launch(l1.rec, 'ready');
-    const l3 = launch(l2.rec, 'fail');
-    expect(l3.rec.strikes).toBe(1);
-    expect(l3.clear).toBe(false);
+    const l3 = launch(l2.rec, 'abandon');
+    const l4 = launch(l3.rec, 'abandon');
+    expect(l4.d.record.strikes).toBe(1);
+    expect(l4.d.fallbackActive).toBe(false);
   });
 
-  it('consecutive crash launches (ready then crash) still reach strike 2', () => {
-    const l1 = launch(null, 'fail');
-    expect(launch(l1.rec, 'fail').clear).toBe(true);
+  it('death, in-launch timeout, death = fallback (strikes 2); in-launch failures leave the counter alone', () => {
+    const l1 = launch(null, 'abandon');
+    const l2 = launch(l1.rec, 'fail');
+    expect(l2.rec).toMatchObject({ state: 'failed', strikes: 1 });
+    const l3 = launch(l2.rec, 'abandon');
+    expect(l3.d.record.strikes).toBe(1);
+    const l4 = launch(l3.rec, 'abandon');
+    expect(l4.d.fallbackActive).toBe(true);
+    expect(l4.d.record.strikes).toBe(2);
+  });
+
+  it('death, ready, then a death starts from strikes 0', () => {
+    const l1 = launch(null, 'abandon');
+    const l2 = launch(l1.rec, 'ready');
+    expect(l2.d.record.strikes).toBe(1);
+    const l3 = launch(l2.rec, 'abandon');
+    expect(l3.d.record.strikes).toBe(0);
+  });
+
+  it('in-launch failures never owe a fallback launch or quarantine, however many', () => {
+    let rec: WatchdogRecord | null = null;
+    for (let i = 0; i < 12; i += 1) {
+      const l = launch(rec, 'fail');
+      expect(l.d.fallbackActive).toBe(false);
+      expect(shouldMountDom(true, l.d)).toBe(true);
+      expect(l.rec).toMatchObject({ state: 'failed', strikes: 0, fallbackLaunchesRemaining: 0, fallbackCycles: 0 });
+      rec = l.rec;
+    }
+  });
+
+  it('recordLaunchFailure never yields fallback/quarantined and preserves the counters (all valid records)', () => {
+    const states = ['idle', 'attempting', 'ready', 'failed', 'fallback', 'quarantined'] as const;
+    for (const state of states) for (const strikes of [0, 1]) for (const fallbackCycles of [0, 1]) {
+      const r: WatchdogRecord = { ...freshRecord(KEY, 0), state, strikes, fallbackCycles, fallbackLaunchesRemaining: 0, backgrounded: true, abandonedStreak: 1 };
+      const out = recordLaunchFailure(r, 'ready-timeout', 9);
+      expect(out.state).toBe('failed');
+      expect(out).toMatchObject({ strikes, fallbackCycles, fallbackLaunchesRemaining: 0, lastReason: 'ready-timeout', backgrounded: false, abandonedStreak: 0, at: 9 });
+      expect(parseRecord(JSON.stringify(out))).toEqual(out);
+    }
+  });
+
+  it('decideMount(failed) is idle with no fallback owed and the strikes preserved', () => {
+    const failed = recordLaunchFailure({ ...beginAttempt(freshRecord(KEY, 0), 1), strikes: 1 }, 'ready-timeout', 2);
+    const d = decideMount(failed, KEY, 3);
+    expect(d.fallbackActive).toBe(false);
+    expect(d.record).toMatchObject({ state: 'idle', strikes: 1, fallbackLaunchesRemaining: 0 });
   });
 
   it('recovers after the fallback launch and may try the DOM again', () => {
-    const l2 = launch(launch(null, 'fail').rec, 'fail');
-    const l3 = launch(l2.rec, 'ready');
-    expect(l3.d.fallbackActive).toBe(true);
+    const l3 = launch(launch(launch(null, 'abandon').rec, 'abandon').rec, 'abandon');
     expect(shouldMountDom(true, l3.d)).toBe(false);
     const l4 = launch(l3.rec, 'ready');
-    expect(l4.d.fallbackActive).toBe(false);
-    expect(l4.d.record.strikes).toBe(0);
-    expect(shouldMountDom(true, l4.d)).toBe(true);
-    expect(shouldMountDom(false, l4.d)).toBe(false);
+    expect(l4.d.fallbackActive).toBe(true);
+    const l5 = launch(l4.rec, 'ready');
+    expect(l5.d.fallbackActive).toBe(false);
+    expect(l5.d.record.strikes).toBe(0);
+    expect(shouldMountDom(true, l5.d)).toBe(true);
+    expect(shouldMountDom(false, l5.d)).toBe(false);
   });
 
   it('a new buildKey resets strikes and fallback', () => {
-    const l2 = launch(launch(null, 'fail').rec, 'fail');
+    const l2 = launch(launch(launch(null, 'abandon').rec, 'abandon').rec, 'abandon');
     const d = decideMount(l2.rec, '43:embedded', 9);
     expect(d.fallbackActive).toBe(false);
     expect(d.record).toEqual(freshRecord('43:embedded', 9));

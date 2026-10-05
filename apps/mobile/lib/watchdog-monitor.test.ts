@@ -33,6 +33,20 @@ function fakeClock(active = true) {
 }
 
 describe('attempt monitor', () => {
+  it('ready timeout is 20 s: ready at 19_999 ms is clean, 20_000 ms strikes', () => {
+    expect(READY_TIMEOUT_MS).toBe(20_000);
+    const a = fakeClock();
+    a.advance(19_999);
+    a.m.ready();
+    a.advance(10);
+    expect(a.onStrike).not.toHaveBeenCalled();
+    const b = fakeClock();
+    b.advance(19_999);
+    expect(b.onStrike).not.toHaveBeenCalled();
+    b.advance(1);
+    expect(b.onStrike).toHaveBeenCalledWith('ready-timeout');
+  });
+
   it('strikes on ready-timeout', () => {
     const { m, advance, onStrike } = fakeClock();
     advance(READY_TIMEOUT_MS - 1);
