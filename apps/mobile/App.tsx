@@ -36,6 +36,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
 import { useDeepLinks } from './lib/use-deep-links';
+import { DiagLinkHost } from './components/DiagLinkHost';
 import {
   DEFAULT_ROUTE_FLAGS,
   createNavigate,
@@ -238,6 +239,7 @@ export default function App() {
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
+        <DiagLinkHost />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
