@@ -25,4 +25,6 @@ Fable rulings, cited by name: the Fable log in PROGRESS.md (PM branch), entries 
 - **`denied-hint-wording`**: the app's own `deniedHint` wording, since the system settings path differs per OS.
 - **`legal-analytics-wording`**: the privacy page says analytics runs on every page of the website, not in the app's own screens, and that the website's analytics does run on the Privacy/Terms/Support pages the app opens as the website. Same words on both sides (Fable ruling c); the divergence is behaviour, not copy.
 
+Not a divergence, but a parity tripwire: `env.affiliate` is unset on both web (prod affiliate envs unset) and app today, so shop links match. Enabling affiliate ids on web without passing them through the app adapter would create one (see `packages/ui/HOST-ADAPTER.md`).
+
 Note: the closure spec reads slot names and native routes from the source files with regexes. That scan is temporary, until PR3 replaces it with a real registry import.

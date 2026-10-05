@@ -13,8 +13,9 @@ import { useLegalPage } from './use-legal-page';
 // layout width from the content (web pages scroll the document). It sits above every floating reader control (the
 // feedback button is z-71) and makes the other <body> children inert while open (the reader root, so late-mounted reader
 // chrome is covered too). Keyed per page so each legal page opens scrolled to the top.
-// Opening a legal page while a reader overlay is open is not supported: its popstate would also dismiss that overlay
-// (useBackDismiss); legal pages are reached from the footer / a native tap, never from under an overlay.
+// Opening a legal page over an open overlay (e.g. the non-modal Feedback dialog) is supported: each legal page is one entry
+// on useBackDismiss's ordered back stack (setDomPath -> pushBackEntry), so Back closes the legal page and the overlay
+// beneath stays open until the next Back (legal-over-feedback.test.ts).
 export function LegalOverlay() {
   const page = useLegalPage();
   const ref = useRef<HTMLDivElement>(null);
