@@ -6,10 +6,15 @@ export type Sides = 'a' | 'b' | 'both';
 export interface Sided {
   readonly name: string;
   readonly sides?: Sides;
+  /** Accepted platform divergence (docs/one-ui/parity.md): still has b-* baselines, but is left out of the a-vs-b compares. */
+  readonly divergent?: boolean;
 }
 
 /** Routes a slice D has flipped to both sides; everything else stays a-only. */
 export const bothSidesRoutes = <T extends Sided>(routes: readonly T[]): T[] => routes.filter((r) => r.sides === 'both');
+
+/** Flipped routes that are compared a-vs-b: every 'both' route except the accepted divergences. */
+export const comparedRoutes = <T extends Sided>(routes: readonly T[]): T[] => bothSidesRoutes(routes).filter((r) => !r.divergent);
 
 /** Routes that render on side b (flipped to both, or app-only): the ones that own b-* baselines. */
 export const bSideRoutes = <T extends Sided>(routes: readonly T[]): T[] => routes.filter((r) => r.sides === 'both' || r.sides === 'b');

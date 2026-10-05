@@ -123,14 +123,15 @@ function installListener() {
  * unlike the hook there is no cleanup path — they are consumed only by the
  * back gesture, or superseded by later entries. Shares the overlay stack, so
  * LIFO order holds across overlays and navigations (an overlay opened after
- * an era jump closes first; the next back undoes the jump).
+ * an era jump closes first; the next back undoes the jump). `state` is merged
+ * into the history entry's state (the in-DOM path lives there).
  */
-export function pushBackEntry(onDismiss: () => void) {
+export function pushBackEntry(onDismiss: () => void, state?: Record<string, unknown>) {
   installListener();
   const id = ++seq;
   stack.push({ id, dismiss: onDismiss, dismissedByPop: false });
   reportOverlays();
-  window.history.pushState({ llOverlay: true, llId: id }, '');
+  window.history.pushState({ ...state, llOverlay: true, llId: id }, '');
 }
 
 /**
