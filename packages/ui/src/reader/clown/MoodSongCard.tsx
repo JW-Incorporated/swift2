@@ -10,14 +10,14 @@
  * oEmbed-verified id and is absent when the track has none). When it is
  * missing we render the card with no embed rather than guessing an id.
  */
-import { useState } from 'react';
 import { Play } from 'lucide-react';
+import { EmbedNotice, useEmbedGate } from '../lib/use-embed-gate';
 import { useHost } from '../../host/context';
 import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
 import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
-  const [playing, setPlaying] = useState(false);
+  const { playing, notice, play, onLoad, onError } = useEmbedGate();
   const { embedOrigin } = useHost();
 
   return (
@@ -32,7 +32,9 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         {/* oneLiner is ORIGINAL prose written for the catalogue — never quoted
             verse. The no-lyrics redline applies to this surface too. */}
         {pick.oneLiner && (
-          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{pick.oneLiner}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            {pick.oneLiner}
+          </p>
         )}
       </div>
 
@@ -48,12 +50,14 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
               title={pick.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              onLoad={onLoad}
+              onError={onError}
               className="absolute inset-0 h-full w-full"
             />
           ) : (
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={play}
               aria-label={`Play ${pick.title} on YouTube`}
               className="group absolute inset-0 h-full w-full"
             >
@@ -72,6 +76,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
           )}
         </div>
       )}
+      {notice && <EmbedNotice message={notice} />}
     </article>
   );
 }

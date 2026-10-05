@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useHost } from '../../host/context';
 import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
+import { EmbedNotice, useEmbedGate } from '../lib/use-embed-gate';
 import { Play } from 'lucide-react';
 import type { MomentVideo as MomentVideoData } from '@swift2/experience';
 
@@ -94,13 +95,20 @@ export function VideoPoster({
           decoding="async"
           unoptimized
         />
-        <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10" />
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10"
+        />
         <span
           aria-hidden
           className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-transform motion-safe:group-hover:scale-110"
           style={{ backgroundColor: 'var(--era-accent)' }}
         >
-          <Play className="h-7 w-7 translate-x-0.5" style={{ color: 'var(--era-bg)' }} fill="currentColor" />
+          <Play
+            className="h-7 w-7 translate-x-0.5"
+            style={{ color: 'var(--era-bg)' }}
+            fill="currentColor"
+          />
         </span>
       </button>
     </VideoFrame>
@@ -153,7 +161,7 @@ export function MomentVideo({
   /** Passed straight to `VideoPoster` — see the note on its `priority`. */
   priority?: boolean;
 }) {
-  const [playing, setPlaying] = useState(startPlaying);
+  const { playing, notice, play, onLoad, onError } = useEmbedGate(startPlaying);
   const { embedOrigin } = useHost();
 
   return (
@@ -167,18 +175,16 @@ export function MomentVideo({
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             loading="lazy"
+            onLoad={onLoad}
+            onError={onError}
             className="absolute inset-0 h-full w-full"
             style={{ border: 0 }}
           />
         </VideoFrame>
       ) : (
-        <VideoPoster
-          video={video}
-          playNoun={playNoun}
-          priority={priority}
-          onPlay={() => setPlaying(true)}
-        />
+        <VideoPoster video={video} playNoun={playNoun} priority={priority} onPlay={play} />
       )}
+      {notice && <EmbedNotice message={notice} />}
       {caption !== null && (
         <figcaption className="mt-2 text-center text-xs text-[color:var(--era-ink-soft)]">
           {caption}
