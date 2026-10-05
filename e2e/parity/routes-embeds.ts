@@ -24,6 +24,22 @@ const FRAME_DOC = '<!doctype html><html><body style="margin:0;background:#222"><
 
 /** Answers every embed document (provider direct on a, the wrapper page on b) with the same blank page, so no request leaves the box. */
 const stubEmbedFrames: NonNullable<AOnlyRoute['init']> = async (page) => {
+  // Side b reads its simulated insets from `?inset=` on every render (AppReader), so an in-app history write that drops the param
+  // makes the viewport capture depend on whether a render lands before it. Keep the param on history writes (a no-op on side a,
+  // which never has it) so the real-inset baselines are deterministic.
+  await page.addInitScript(() => {
+    const inset = new URLSearchParams(location.search).get('inset');
+    if (inset === null) return;
+    for (const method of ['pushState', 'replaceState'] as const) {
+      const original = history[method].bind(history);
+      history[method] = (state: unknown, unused: string, url?: string | URL | null) => {
+        if (url == null) return original(state, unused);
+        const next = new URL(url, location.href);
+        if (!next.searchParams.has('inset')) next.searchParams.set('inset', inset);
+        return original(state, unused, next);
+      };
+    }
+  });
   await page.route(
     (u) => FRAME_HOSTS.has(u.hostname) || (u.origin === ERA_ART_ORIGIN && u.pathname.startsWith('/embed/')),
     (route) => route.fulfill({ status: 200, contentType: 'text/html', body: FRAME_DOC }),
