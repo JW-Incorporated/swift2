@@ -17,7 +17,7 @@ function epoch() {
   const onSignal = vi.fn();
   const ref: { host?: BridgeHost } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
-  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: createUnwiredHandlers(onSignal),
     send: link.send,
@@ -53,7 +53,7 @@ describe('H0 unwired handler map', () => {
 
   it('through the host: haptic fails and nothing reaches the watchdog', async () => {
     const e = epoch();
-    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
+    const bridge = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     bridge.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
     expect(await bridge.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false, error: { code: 'failed' } });
@@ -67,7 +67,7 @@ describe('H0 unwired handler map', () => {
 describe('bridge wiring (SharedUiHost <-> DOM client)', () => {
   it('forwards ready: the DOM gets readyAck back and the host is ready', async () => {
     const e = epoch();
-    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
+    const bridge = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     bridge.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
     expect(e.watch.protocol).not.toHaveBeenCalled();
@@ -77,7 +77,7 @@ describe('bridge wiring (SharedUiHost <-> DOM client)', () => {
 
   it('drains the inbox once, in order, and the ack trims the host outbox', async () => {
     const e = epoch();
-    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
+    const bridge = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     const seen: string[] = [];
     bridge.client.on('contentVersion', (p) => void seen.push(p.token));
     bridge.mount();
@@ -96,12 +96,12 @@ describe('bridge wiring (SharedUiHost <-> DOM client)', () => {
 
   it('a protocol-fatal ready (too new) strikes the watchdog once and later retries reject (no hang)', async () => {
     const e = epoch();
-    const first = e.handlers.bridge(ready('r1', 99));
+    const first = e.handlers.bridge(ready('r1', 99), 'tok');
     first.catch(() => undefined);
     expect(e.watch.protocol).toHaveBeenCalledTimes(1);
     await expect(first).rejects.toThrow('bridge closed');
-    await expect(e.handlers.bridge(ready('r2'))).rejects.toThrow('bridge closed');
-    await expect(e.handlers.bridge(cmd('5', 'haptic', { kind: 'light' }))).rejects.toThrow('bridge closed');
+    await expect(e.handlers.bridge(ready('r2'), 'tok')).rejects.toThrow('bridge closed');
+    await expect(e.handlers.bridge(cmd('5', 'haptic', { kind: 'light' }), 'tok')).rejects.toThrow('bridge closed');
     expect(e.watch.protocol).toHaveBeenCalledTimes(1);
   });
 });
@@ -112,8 +112,8 @@ describe('DOM client protocol fatal', () => {
     ['after first paint', true],
   ])('strikes watch.protocol %s (reportError is ignored once ready)', async (_n, afterPaint) => {
     const e = epoch();
-    if (afterPaint) await e.handlers.onReady();
-    await e.handlers.reportProtocolFatal('ready-failed');
+    if (afterPaint) await e.handlers.onReady('tok');
+    await e.handlers.reportProtocolFatal('ready-failed', 'tok');
     expect(e.watch.protocol).toHaveBeenCalledTimes(1);
     expect(e.watch.error).not.toHaveBeenCalled();
     e.dispose();
@@ -122,7 +122,7 @@ describe('DOM client protocol fatal', () => {
   it('is ignored once the host epoch is closed (stale or already struck)', async () => {
     const e = epoch();
     e.dispose();
-    await e.handlers.reportProtocolFatal('id-space-exhausted');
+    await e.handlers.reportProtocolFatal('id-space-exhausted', 'tok');
     expect(e.watch.protocol).not.toHaveBeenCalled();
   });
 });
@@ -130,14 +130,14 @@ describe('DOM client protocol fatal', () => {
 describe('host epochs and link lifetime', () => {
   it('a recreated host never serves the old client: its calls reject, the new client re-handshakes', async () => {
     const e1 = epoch();
-    const oldClient = createExpoBridge((env) => e1.handlers.bridge(env));
+    const oldClient = createExpoBridge((env, t) => e1.handlers.bridge(env, t), undefined, undefined, () => e1.handlers.bridgeHello());
     oldClient.mount();
     await vi.waitFor(() => expect(e1.host.isReady()).toBe(true));
     e1.dispose();
     const e2 = epoch();
     expect(await oldClient.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false });
     expect(e2.host.isReady()).toBe(false);
-    const newClient = createExpoBridge((env) => e2.handlers.bridge(env));
+    const newClient = createExpoBridge((env, t) => e2.handlers.bridge(env, t), undefined, undefined, () => e2.handlers.bridgeHello());
     newClient.mount();
     await vi.waitFor(() => expect(e2.host.isReady()).toBe(true));
     expect(await newClient.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false, error: { code: 'failed' } });
