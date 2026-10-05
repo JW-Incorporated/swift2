@@ -1,7 +1,7 @@
+import { loadBundle } from '@swift2/content';
 import { describe, expect, it, vi } from 'vitest';
 import {
   classifyContentFailure,
-  contentFailureKind,
   createContentWaiter,
   createRetryScheduler,
   retryDelayMs,
@@ -23,17 +23,45 @@ describe('classifyContentFailure', () => {
     expect(classifyContentFailure(new Error('weird'))).toBe('server');
     expect(classifyContentFailure(undefined)).toBe('server');
   });
-  it('the waiter records the class before flipping failed', async () => {
-    const seen: string[] = [];
+  it('the waiter hands the class to onFailed together with the flip', async () => {
+    const seen: unknown[] = [];
     const w = createContentWaiter(
       () => Promise.reject(transport('Network request failed')),
-      (f) => f && seen.push(contentFailureKind()),
+      (f, kind) => f && seen.push(kind),
       () => false,
     );
     void w.run();
     await Promise.resolve();
     await Promise.resolve();
     expect(seen).toEqual(['offline']);
+  });
+});
+
+// Contract: the REAL errors packages/content throws (loadBundle against a failing fetch), not hand-built lookalikes.
+describe('classifyContentFailure against real packages/content errors', () => {
+  const failWith = async (fetch: (url: string) => Promise<never | { ok: boolean; status: number; headers: { get: () => null }; text: () => Promise<string> }>, requestTimeoutMs?: number) =>
+    loadBundle({ baseUrl: 'https://x.test/c', fetch: fetch as never, requestTimeoutMs }).then(
+      () => { throw new Error('expected loadBundle to reject'); },
+      (e: unknown) => e,
+    );
+
+  it('a rejected fetch (offline) is offline', async () => {
+    const err = await failWith(() => Promise.reject(new TypeError('Network request failed')));
+    expect((err as Error).name).toBe('BundleLoadError');
+    expect(classifyContentFailure(err)).toBe('offline');
+  });
+  it('a non-2xx pointer response is server', async () => {
+    const err = await failWith(() => Promise.resolve({ ok: false, status: 503, headers: { get: () => null }, text: async () => '' }));
+    expect(classifyContentFailure(err)).toBe('server');
+  });
+  it('the transport timeout is timeout', async () => {
+    const err = await failWith(() => new Promise<never>(() => undefined), 20);
+    expect(classifyContentFailure(err)).toBe('timeout');
+  });
+  it('an AbortError cause is timeout; a type-tagged transport error wins over message text', () => {
+    const abort = Object.assign(new Error('The operation was aborted'), { name: 'AbortError' });
+    expect(classifyContentFailure(Object.assign(new Error('x'), { name: 'TransportError', cause: abort }))).toBe('timeout');
+    expect(classifyContentFailure(Object.assign(new Error('Network request to u failed with HTTP 500'), { name: 'TransportError' }))).toBe('server');
   });
 });
 

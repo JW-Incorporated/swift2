@@ -5,9 +5,21 @@ import { setImageLoadListener } from './image-listener';
 
 type NativeCalls = ReturnType<typeof createNativeCalls>;
 
+/** The Expo-generated host page ships no `lang` and a viewport with `user-scalable=no` (blocks pinch zoom, WCAG 1.4.4): set the language and re-enable zoom. */
+export function applyDocumentA11y(doc: Document): void {
+  if (!doc.documentElement.lang) doc.documentElement.lang = 'en';
+  const meta = doc.querySelector('meta[name="viewport"]');
+  const content = meta?.getAttribute('content');
+  if (meta && content && /user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*1(\.0)?\b/i.test(content)) {
+    const kept = content.split(',').map((p) => p.trim()).filter((p) => p && !/^(user-scalable|maximum-scale)\s*=/i.test(p));
+    meta.setAttribute('content', kept.join(', '));
+  }
+}
+
 /** The DOM page environment of AppReader: full-height scroll root, `--safe-*` insets, speed-test image listener, window error reporting. */
 export function useDomEnvironment(native: NativeCalls, insets: Insets | undefined, speedTestOn: boolean | undefined, cacheUri: string | undefined) {
   useEffect(() => {
+    applyDocumentA11y(document);
     // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
     document.body.style.overflow = 'auto';
     document.body.style.height = 'auto';
