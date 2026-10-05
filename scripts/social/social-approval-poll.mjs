@@ -74,7 +74,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { neutralizeMentions, suppressPreviews } from '../community/discord-delivery.mjs';
+import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
 import { approvalStatus } from './lib/queue.mjs';
@@ -441,7 +441,8 @@ async function postToChannel(fetchImpl, webhookUrl, content) {
     await fetchImpl(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(suppressPreviews({ content })),
+      // flags 4 = SUPPRESS_EMBEDS: no link previews on any Tree notice (Bots v2 C6).
+      body: JSON.stringify({ content, flags: 4 }),
     });
   } catch {
     // best-effort notice; callers already log the load-bearing ::error::/::warning::
