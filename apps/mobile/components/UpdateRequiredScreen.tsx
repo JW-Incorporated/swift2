@@ -1,11 +1,11 @@
 // Full-screen blocker shown only when the dormant forced-update gate trips
 // (lib/update-required.ts, docs/mobile-release.md "Forcing an update").
-import { Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 import { storeUrlFor } from '../lib/update-required';
 
 export function UpdateRequiredScreen() {
   return (
-    <View style={styles.fill}>
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.fill}>
       <Text style={styles.message}>
         A new version of Long Live is available — please update to keep going.
       </Text>
@@ -19,22 +19,27 @@ export function UpdateRequiredScreen() {
       >
         <Text style={styles.buttonText}>Update</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scroll: { backgroundColor: '#0b0b0f', flex: 1 },
   fill: {
     alignItems: 'center',
     backgroundColor: '#0b0b0f',
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     padding: 24,
   },
   message: { color: '#ffffff', fontSize: 18, marginBottom: 24, textAlign: 'center' },
   button: {
     backgroundColor: '#f2c744',
+    alignItems: 'center',
     borderRadius: 8,
+    justifyContent: 'center',
+    minHeight: 44,
+    minWidth: 44,
     paddingHorizontal: 24,
     paddingVertical: 12,
   },

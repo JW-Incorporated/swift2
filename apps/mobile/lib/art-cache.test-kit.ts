@@ -35,12 +35,16 @@ export function fakeFs(sizeOf: (url: string) => number = () => 1 * MB, declaredO
       return { status: o.statusOf?.(url) ?? 200, length: declaredOf(url), type: o.typeOf ? o.typeOf(url) : 'image/png' };
     },
     readHead: (n) => (urlOfFile.has(n) ? (o.bytesOf?.(urlOfFile.get(n)!) ?? JPEG) : null),
-    async download(url, name) {
+    async download(url, name, maxBytes) {
       active += 1;
       maxActive = Math.max(maxActive, active);
       await Promise.resolve();
       active -= 1;
       if (url.includes('FAIL')) throw new Error('net');
+      if (sizeOf(url) > maxBytes) {
+        log.push(`abort ${name}`);
+        throw new Error('over cap');
+      }
       files.set(name, { size: sizeOf(url) });
       urlOfFile.set(name, url);
       log.push(`dl ${name}`);

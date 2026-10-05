@@ -36,6 +36,15 @@ describe('authorizedForDashboard', () => {
 });
 
 describe('GET /api/notifications/metrics', () => {
+  it('accepts the secret from an Authorization: Bearer header', async () => {
+    vi.stubEnv('NOTIFICATIONS_DASHBOARD_SECRET', 'real-secret');
+    const { GET } = await import('./route');
+    const bad = await GET(new Request('http://localhost/api/notifications/metrics', { headers: { authorization: 'Bearer wrong' } }));
+    expect(bad.status).toBe(401);
+    const ok = await GET(new Request('http://localhost/api/notifications/metrics', { headers: { authorization: 'Bearer real-secret' } }));
+    expect(ok.status).not.toBe(401);
+  });
+
   it('degrades to 503 when the dashboard secret is not configured', async () => {
     vi.stubEnv('NOTIFICATIONS_DASHBOARD_SECRET', '');
     const res = await get('anything');

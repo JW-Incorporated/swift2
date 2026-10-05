@@ -2,7 +2,7 @@
 // Replaces the legacy native screens: the only actions are Retry (one reload per human tap)
 // and Send report (the existing /api/feedback diagnostics sender).
 import { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import { sendDiagReport } from '../lib/diagnostics-send';
@@ -74,7 +74,7 @@ export function RecoveryScreen() {
   }
 
   return (
-    <View style={styles.fill} testID="recovery-screen">
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.fill} testID="recovery-screen">
       <Text style={styles.title} accessibilityRole="header">
         Something went wrong
       </Text>
@@ -119,12 +119,13 @@ export function RecoveryScreen() {
       <Text style={styles.status} accessibilityLiveRegion="polite" accessibilityRole="alert">
         {status}
       </Text>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  fill: { alignItems: 'center', backgroundColor: '#0c0c0c', flex: 1, justifyContent: 'center', padding: 24 },
+  scroll: { backgroundColor: '#0c0c0c', flex: 1 },
+  fill: { alignItems: 'center', backgroundColor: '#0c0c0c', flexGrow: 1, justifyContent: 'center', padding: 24 },
   title: { color: '#ffffff', fontSize: 22, fontWeight: '700', marginBottom: 12, textAlign: 'center' },
   body: { color: '#a0a0a8', fontSize: 15, lineHeight: 22, marginBottom: 28, maxWidth: 320, textAlign: 'center' },
   primary: { alignItems: 'center', backgroundColor: '#f2c744', borderRadius: 8, minHeight: 44, justifyContent: 'center', minWidth: 160, paddingHorizontal: 24 },

@@ -13,7 +13,7 @@ describe('#773 track overlays keep the global era navigation visible', () => {
     expect(nav).toContain('onClick={goHome}');
     expect(nav).toContain('Era: {era.shortName}');
     expect(nav).toContain('Era: {era.name}');
-    expect(nav).toContain('aria-label={`${era.name} — open the eras menu`}');
+    expect(nav).toContain("{' — open the eras menu'}");
   });
 
   it('leaves the track stack before opening the era selector', () => {

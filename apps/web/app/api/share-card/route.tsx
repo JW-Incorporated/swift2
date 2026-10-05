@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server';
 import { renderShareCard } from '@/lib/longlive/share-card';
 import { canonicalShareCardPath } from '@/lib/longlive/share-card-spec';
 import { parseShareCardRequestFromModules } from '@/lib/longlive/share-card-spec.server';
+import { trustedClientIp } from '@/lib/longlive/client-ip';
+import { makeRateLimiter } from '@/lib/longlive/rate-limit';
 import '../../../lib/longlive/vault-wiring';
 
 // W9 share cards: a deterministic PNG of site content (a moment, an era, or a
@@ -15,7 +17,14 @@ import '../../../lib/longlive/vault-wiring';
 // /api/og is a separate renderer and is untouched.
 export const runtime = 'nodejs';
 
+// Image rendering is CPU-bound; generous per-IP cap (best-effort, per instance).
+const RENDER_LIMIT_PER_MIN = 120;
+const limiter = makeRateLimiter({ windowMs: 60_000, max: RENDER_LIMIT_PER_MIN, sweepIntervalMs: 60_000 });
+
 export function GET(req: NextRequest): Response {
+  if (limiter.isLimited(trustedClientIp(req))) {
+    return new Response('Too many requests', { status: 429, headers: { 'Retry-After': '60', 'Cache-Control': 'no-store' } });
+  }
   const url = new URL(req.url);
   try {
     const request = parseShareCardRequestFromModules(url);

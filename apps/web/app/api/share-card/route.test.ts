@@ -328,3 +328,14 @@ describe('card content', () => {
     expect(STORY_SAFE_Y).toBeGreaterThanOrEqual(250);
   });
 });
+
+describe('GET /api/share-card rate limit', () => {
+  it('returns 429 once a single IP exceeds the per-minute limit', () => {
+    const hit = () =>
+      GET(new Request('http://localhost/api/share-card?bogus=1', { headers: { 'x-real-ip': '203.0.113.8' } }) as never);
+    for (let i = 0; i < 120; i++) expect(hit().status).not.toBe(429);
+    const limited = hit();
+    expect(limited.status).toBe(429);
+    expect(limited.headers.get('retry-after')).toBe('60');
+  });
+});
