@@ -19,7 +19,7 @@ export function AlbumNarrativeCard({ album, index }: { album: ReRecord; index: n
   // leaving the app — same pattern as the app's other overlays. Cards can
   // stack (multiple expanded at once); useBackDismiss's shared stack
   // collapses the most-recently-expanded one first.
-  useBackDismiss(expanded, () => setExpanded(false));
+  useBackDismiss(expanded, () => setExpanded(false), { escape: false });
 
   return (
     <article className="era-card overflow-hidden" style={{ borderLeft: `3px solid ${isPending ? 'var(--status-pending-ink)' : album.color}` }}>

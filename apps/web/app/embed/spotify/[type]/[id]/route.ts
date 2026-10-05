@@ -23,6 +23,7 @@ function embedHtml(type: string, id: string): string {
 </head>
 <body style="margin:0;background:transparent;overflow:hidden">
 <iframe title="Spotify player" src="https://open.spotify.com/embed/${type}/${id}?utm_source=generator&amp;theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" style="position:fixed;inset:0;width:100%;height:100%;border:0;color-scheme:normal"></iframe>
+<script src="/embed-bridge.js" data-provider="spotify"></script>
 </body>
 </html>
 `;

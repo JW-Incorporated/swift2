@@ -6,6 +6,7 @@ import {
   captureElement,
   captureLocator,
   captureViewport,
+  captureViewportNoRail,
   captureRoot,
   expect,
   FOOTER_SELECTOR,
@@ -40,7 +41,7 @@ for (const route of ROUTES) {
   // WP2.4-0: the web chrome (TopBar, its timeline rail, BottomNav) is hidden by captureRoot, so cover it whole-viewport before it moves.
   test(`a (web build) ${route.name} viewport`, async ({ page }) => {
     await openRoute(page, 'a', route);
-    expect(await captureViewport(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, PIXEL_OPTS);
+    expect(await captureViewportNoRail(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, PIXEL_OPTS);
   });
 
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {

@@ -10,6 +10,7 @@ export const ACCEPTED_DIVERGENCES: readonly Divergence[] = [
   { id: 'haptics' },
   { id: 'viewport-gestures' },
   { id: 'phones-portrait-only' },
+  { id: 'submit-link-external' },
   { id: 'about-diagnostics' },
   { id: 'inbox' },
   { id: 'notification-onboarding' },

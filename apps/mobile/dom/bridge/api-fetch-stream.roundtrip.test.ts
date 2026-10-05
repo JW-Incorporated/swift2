@@ -24,7 +24,7 @@ function rig(responses: (() => Response)[], override?: (real: ReturnType<typeof 
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
-  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: (override ? { ...real, ...override(real) } : real) as never,
     send: link.send,
@@ -35,7 +35,7 @@ function rig(responses: (() => Response)[], override?: (real: ReturnType<typeof 
   });
   ref.host = host;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   dom.mount();
   const apiStream = createBridgeApiStream(createBridgeApiFetch(dom.client));
