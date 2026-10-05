@@ -39,6 +39,17 @@ const show = async (page: Page, selector: string): Promise<void> => {
   await expect(el).toBeVisible();
   await el.scrollIntoViewIfNeeded();
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
+  // Mood chat scrolls its form into view with an explicit smooth behaviour (not tamed by the harness's scroll-behavior CSS), so wait
+  // until the clip stops moving: a viewport capture taken mid-scroll differs run to run.
+  let last = Number.NaN;
+  await expect
+    .poll(async () => {
+      const top = (await el.boundingBox())?.y ?? Number.NaN;
+      const still = top === last;
+      last = top;
+      return still;
+    }, { intervals: [150] })
+    .toBe(true);
 };
 
 const YOUTUBE_SRC = (id: string): Record<Side, RegExp> => ({
