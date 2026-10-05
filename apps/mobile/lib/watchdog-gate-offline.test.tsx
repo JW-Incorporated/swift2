@@ -6,6 +6,7 @@ vi.mock('react', async () => await import('../../web/node_modules/react'));
 
 const h = vi.hoisted(() => ({
   saved: [] as { state: string }[],
+  stored: null as unknown,
   mark: vi.fn(),
   monitor: vi.fn(),
   appListener: null as null | ((s: string) => void),
@@ -22,7 +23,7 @@ vi.mock('react-native', () => ({
 }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '1:embedded',
-  loadWatchdogRecord: async () => null,
+  loadWatchdogRecord: async () => h.stored,
   saveWatchdogRecord: async (r: { state: string }) => {
     h.saved.push(r);
     return true;
@@ -54,7 +55,8 @@ vi.mock('./diagnostics', () => ({
 
 import { act, renderHook } from '@testing-library/react';
 import { PENDING_MAX_MS } from './watchdog-policy';
-import { useDomMount, type GateDeps, type LaunchInputs } from './watchdog-gate';
+import { useDomMount, type LaunchInputs } from './watchdog-gate';
+import type { GateDeps } from './watchdog-gate-content';
 
 const flush = () =>
   act(async () => {
@@ -71,6 +73,7 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     h.saved.length = 0;
+    h.stored = null;
     h.mark.mockClear();
     h.monitor.mockClear();
     h.appListener = null;
@@ -87,8 +90,72 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
       await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 1000);
     });
     expect(result.current.mount).toBe('awaiting-content');
-    expect(h.saved.some((r) => r.state === 'attempting')).toBe(false);
+    expect(h.saved).toHaveLength(0);
     expect(h.monitor).not.toHaveBeenCalled();
+  });
+
+  it('no cache with a prior attempting record: nothing is written while awaiting; the writes land once content resolves', async () => {
+    h.stored = {
+      v: 1,
+      fallbackCycles: 0,
+      buildKey: '1:embedded',
+      state: 'attempting',
+      strikes: 0,
+      lastReason: '',
+      fallbackLaunchesRemaining: 0,
+      backgrounded: false,
+      abandonedStreak: 0,
+      at: 1,
+    };
+    const d = deferred();
+    const { result } = renderHook(() =>
+      useDomMount(inputs, { hasLocalContent: () => false, loadContent: () => d.promise }),
+    );
+    await flush();
+    expect(result.current.mount).toBe('awaiting-content');
+    expect(h.saved).toHaveLength(0);
+    await act(async () => {
+      d.resolve();
+      await vi.advanceTimersByTimeAsync(0);
+    });
+    expect(h.saved.length).toBeGreaterThanOrEqual(2);
+    expect(h.saved.at(-1)?.state).toBe('attempting');
+  });
+
+  it('unmount before the load resolves: no write, no monitor', async () => {
+    const d = deferred();
+    const { unmount } = renderHook(() =>
+      useDomMount(inputs, { hasLocalContent: () => false, loadContent: () => d.promise }),
+    );
+    await flush();
+    unmount();
+    await act(async () => {
+      d.resolve();
+      await vi.advanceTimersByTimeAsync(0);
+    });
+    expect(h.saved).toHaveLength(0);
+    expect(h.monitor).not.toHaveBeenCalled();
+  });
+
+  it('unmount before the load rejects, then Retry / foreground: nothing re-runs', async () => {
+    let reject!: (e: Error) => void;
+    const load = vi.fn(() => new Promise<void>((_, rej) => (reject = rej)));
+    const { result, unmount } = renderHook(() =>
+      useDomMount(inputs, { hasLocalContent: () => false, loadContent: load }),
+    );
+    await flush();
+    unmount();
+    await act(async () => {
+      reject(new Error('offline'));
+      await vi.advanceTimersByTimeAsync(0);
+    });
+    await act(async () => {
+      result.current.retryContent();
+      h.appListener?.('active');
+      await vi.advanceTimersByTimeAsync(0);
+    });
+    expect(load).toHaveBeenCalledTimes(1);
+    expect(h.saved).toHaveLength(0);
   });
 
   it('load resolves: one attempt is started and the DOM mounts', async () => {
@@ -115,7 +182,7 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     await flush();
     expect(result.current.mount).toBe('awaiting-content');
     expect(result.current.contentFailed).toBe(true);
-    expect(h.saved.some((r) => r.state === 'attempting')).toBe(false);
+    expect(h.saved).toHaveLength(0);
     await act(async () => {
       result.current.retryContent();
       await vi.advanceTimersByTimeAsync(0);

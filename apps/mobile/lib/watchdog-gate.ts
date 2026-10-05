@@ -14,8 +14,6 @@
 // Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
-import { loadContentBundle } from './content-bundle';
-import { lastGoodSource } from './dom-reader-config';
 import { diagCollector, setMountInfo } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
@@ -52,17 +50,10 @@ import {
   saveWatchdogRecord,
 } from './watchdog-store';
 import { plannedReloadStep } from './watchdog-planned-reload';
-import { createContentWaiter } from './watchdog-await-content';
+import { DEFAULT_DEPS, useContentGate, type GateDeps } from './watchdog-gate-content';
 import { createTelemetry } from './watchdog-telemetry';
 
 export type MountState = 'pending' | 'awaiting-content' | 'dom' | 'native';
-
-/** Injected so tests need no FileSystem. */
-export interface GateDeps {
-  hasLocalContent: () => boolean;
-  loadContent: () => Promise<unknown>;
-}
-const DEFAULT_DEPS: GateDeps = { hasLocalContent: () => lastGoodSource() !== null, loadContent: loadContentBundle };
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
@@ -128,11 +119,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
-  const [contentFailed, setContentFailed] = useState(false);
-  const depsRef = useRef(deps);
-  depsRef.current = deps;
-  const waiterRef = useRef<ReturnType<typeof createContentWaiter> | null>(null);
-  waiterRef.current ??= createContentWaiter(() => depsRef.current.loadContent(), setContentFailed);
+  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef, launchWriteRef, flushLaunchWrite } = useContentGate(deps);
   const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
@@ -158,8 +145,15 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      await write(refundExpiredFallback(prev, d.record, expiredRef.current));
-      if (d.clearOverride) void setForceSharedUi(false);
+      const expired = expiredRef.current;
+      const launchWrite = async () => {
+        await write(refundExpiredFallback(prev, d.record, expired));
+        if (d.clearOverride) void setForceSharedUi(false);
+      };
+      // No cache: hold the launch record in memory until the DOM attempt starts.
+      noContentRef.current = !depsRef.current.hasLocalContent();
+      if (noContentRef.current) launchWriteRef.current = launchWrite;
+      else await launchWrite();
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
@@ -189,7 +183,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     if (struck) report(struck.lastReason, struck.buildKey);
     if (expiredRef.current) {
       // The Force-shared-UI override is a diagnostics path: it resolving late still upgrades native to the DOM host.
-      if (!inputs.override) return;
+      if (!inputs.override) return void flushLaunchWrite();
       expiredRef.current = false;
       diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
     }
@@ -200,26 +194,28 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     if (!shouldMountDom(want.wantsDom, decision)) {
+      void flushLaunchWrite();
       if (mountRef.current !== 'pending') void write(decision.record);
       apply('native', nativeReasonFor(want, decision.fallbackActive));
       return;
     }
     const overrideOn = want.source === 'override';
     void (async () => {
-      if (!depsRef.current.hasLocalContent()) {
-        // No cache on disk: wait natively; no record write, no monitor, and the pending bound must not veto a slow download.
+      if (noContentRef.current) {
+        // Wait natively: no record write or monitor, and the pending bound must not veto a slow download.
         cancelBoundRef.current();
         apply('awaiting-content');
         const t0 = monotonicNow();
-        await waiterRef.current?.run();
+        if (!(await waiterRef.current?.run())) return;
+        await flushLaunchWrite();
         diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
       }
-      setForceFailure(await getForceDomFailure());
+      const forced = await getForceDomFailure();
+      if (unmountedRef.current) return;
+      setForceFailure(forced);
       const attempt = await startAttempt(decision, Date.now(), write, () => overrideOn || !expiredRef.current);
-      if (!attempt) {
-        apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
-        return;
-      }
+      if (unmountedRef.current) return;
+      if (!attempt) return apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
       recordRef.current = attempt;
       if (AppState.currentState !== 'active') {
         recordRef.current = { ...attempt, backgrounded: true };
@@ -253,6 +249,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   }, [decision, inputs]);
 
   useEffect(() => {
+    unmountedRef.current = false;
     const sub = AppState.addEventListener('change', (s) => {
       monitorRef.current?.setActive(s === 'active');
       if (s === 'active') waiterRef.current?.onActive();
@@ -263,6 +260,8 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       }
     });
     return () => {
+      unmountedRef.current = true;
+      waiterRef.current?.release();
       sub.remove();
       monitorRef.current?.dispose();
     };
