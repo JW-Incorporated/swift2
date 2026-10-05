@@ -27,6 +27,8 @@ export interface AOnlyRoute extends RouteLike {
   clip?: string;
   /** Default 'a'. 'both' adds the a-vs-b viewport compare and b-* baselines (a slice D sets it; see docs/one-ui/parity.md). */
   sides?: Sides;
+  /** Accepted platform divergence (docs/one-ui/parity.md): keeps its b-* baselines, skips the a-vs-b compares. */
+  divergent?: boolean;
 }
 /**
  * Side b serves only the DOM entry's index.html, which the reader seeds its legal path from (dom-path.ts reads the page

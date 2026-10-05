@@ -15,7 +15,7 @@ import {
   takeExternalImages,
   test,
 } from './helpers';
-import { bothSidesRoutes } from './sides';
+import { comparedRoutes } from './sides';
 import { collectStructure, diffStructure } from './structure';
 
 // Side a (Next web build) vs side b (the app's DOM entry), zero insets on b,
@@ -70,7 +70,7 @@ for (const route of ROUTES) {
 
 // W1-E: routes a slice D flipped to sides 'both' get a whole-viewport a-vs-b compare (zero insets on b, same engine, font-normalised).
 // Every flipped route (all of A_ONLY_ROUTES, A_ONLY_ROUTES_BETA and COVERAGE_ROUTES) is generated here.
-for (const route of bothSidesRoutes(EXTRA_ROUTES)) {
+for (const route of comparedRoutes(EXTRA_ROUTES)) {
   test(`a vs b viewport: ${route.name}`, async ({ pages }, testInfo) => {
     await openAOnlyRoute(pages.a, route, 'a');
     const pixelsA = await captureViewport(pages.a);
@@ -81,7 +81,7 @@ for (const route of bothSidesRoutes(EXTRA_ROUTES)) {
 }
 
 // W5-parity: the coverage routes are element surfaces (an open picker, lightbox, menu or detail), so the clip itself is also compared a-vs-b.
-for (const route of bothSidesRoutes(COVERAGE_ROUTES).filter((r) => r.clip)) {
+for (const route of comparedRoutes(COVERAGE_ROUTES).filter((r) => r.clip)) {
   test(`a vs b clip: ${route.name}`, async ({ pages }, testInfo) => {
     await openAOnlyRoute(pages.a, route, 'a');
     const pixelsA = await captureElement(pages.a, route.clip!);
