@@ -152,21 +152,21 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(h.saved.at(-1)?.state).toBe('attempting');
   });
 
-  it('Android cache-miss mounts DOM; iOS cache-miss is native flag-off; enabling the iOS key mounts DOM', async () => {
+  it('Android cache-miss mounts DOM; iOS cache-miss mounts DOM too; a cached iOS key of false is native flag-off', async () => {
     const a = renderHook(() => useDomMount(inputs()));
     await flush();
     expect(a.result.current.mount).toBe('dom');
     h.os = 'ios';
     const i = renderHook(() => useDomMount(inputs()));
     await flush();
-    expect(i.result.current.mount).toBe('native');
-    expect(i.result.current.nativeReason).toBe('flag-off');
-    const on = renderHook(() => useDomMount(inputs({ sharedUiIos: true })));
+    expect(i.result.current.mount).toBe('dom');
+    const off = renderHook(() => useDomMount(inputs({ sharedUiIos: false })));
     await flush();
-    expect(on.result.current.mount).toBe('dom');
-    const stale = renderHook(() => useDomMount(inputs({ sharedUi: true })));
+    expect(off.result.current.mount).toBe('native');
+    expect(off.result.current.nativeReason).toBe('flag-off');
+    const stale = renderHook(() => useDomMount(inputs({ sharedUi: false })));
     await flush();
-    expect(stale.result.current.mount).toBe('native');
+    expect(stale.result.current.mount).toBe('dom');
   });
 
   it('an attempt write that never settles mounts the DOM on the in-memory attempt after the bound (never Recovery)', async () => {

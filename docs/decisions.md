@@ -8643,3 +8643,11 @@ Joey, 2026-10-05 05:52 PDT, in chat: "Yes the app can store other sites photos f
 **Decision.** The Expo app extends its offline art cache (#5111) to the third-party primary images of recently viewed eras. The cache is on-device only and is never re-served, uploaded or shared: the same as a browser cache holding the pages a user opened. It stays under the existing 40 MB LRU cap, 10 MB session budget, 5 MB per-item ceiling and next-launch orphan sweep.
 
 **Shape.** Trigger is the reader's `route` event snapshot (`snap.eraId`, #5123), read natively; no new bridge message. After content has loaded and interactions settle, `syncEra` fetches the current era first, then the last 2 viewed eras (MRU list in the manifest). MRU eras' third-party URLs count as referenced, so they are not evicted as orphans. Guard against hotlink placeholders: `image/*` content-type, HEAD Content-Length of at least 2 KB, and a JPEG/PNG/WebP/GIF magic-byte check after download. A 429 skips that host for the session. Requests carry a descriptive `User-Agent` (supported by `File.downloadFileAsync` headers in expo-file-system 57).
+
+## 2026-10-05 — Shared UI ships default-on for iOS without the iOS-1 device session
+
+Joey, 2026-10-05 06:48 PDT: land the held One UI stack now, at risk, without the iOS device check.
+
+**Decision.** `sharedUiIos` is true in both the shipped `config/mobile/app-config.json` and the compiled `DEFAULT_ROUTE_FLAGS` (a fresh install has no cached config and uses the compiled default). Android was already on, so both platforms default ON.
+
+**Rollback.** Remote config `sharedUiIos: false` (devices with a cached config) plus the watchdog fallback to Recovery. Post-landing iOS confirmation stays on HUMAN-ACTIONS HA #100.
