@@ -34,10 +34,11 @@ describe('notification tap queue (ttl, drops, resolver, sinks)', () => {
     dateSpy.mockRestore();
   });
 
-  it('drops stale taps (older than the TTL) at flush', async () => {
+  it('drops taps that waited longer than the TTL with a host attached', async () => {
     let t = 0;
     const onDrop = vi.fn();
     const q = createTapQueue({ now: () => t, ttlMs: 1000, onDrop });
+    q.attach(async () => false);
     q.enqueue(tap('old', '/settings'));
     t = 5000;
     q.enqueue(tap('new', '/privacy'));
@@ -46,6 +47,63 @@ describe('notification tap queue (ttl, drops, resolver, sinks)', () => {
     await q.flush();
     expect(got).toEqual(['/privacy']);
     expect(onDrop).toHaveBeenCalledWith('stale', 'old');
+  });
+
+  it('does not age a tap while no host is attached (FirstLaunch/Recovery wait)', async () => {
+    let t = 0;
+    const onDrop = vi.fn();
+    const q = createTapQueue({ now: () => t, ttlMs: 1000, onDrop });
+    q.enqueue(tap('cold', '/settings'));
+    t = 6 * 60 * 60 * 1000;
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/settings']);
+    expect(onDrop).not.toHaveBeenCalled();
+  });
+
+  it('only counts host-attached stretches toward the TTL', async () => {
+    let t = 0;
+    const onDrop = vi.fn();
+    const q = createTapQueue({ now: () => t, ttlMs: 1000, onDrop });
+    q.attach(async () => false);
+    q.enqueue(tap('a', '/settings'));
+    t = 600;
+    q.detach();
+    t = 100_000;
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/settings']);
+    expect(onDrop).not.toHaveBeenCalled();
+  });
+
+  it('enforces the absolute age cap even if no host ever attached', async () => {
+    let t = 0;
+    const onDrop = vi.fn();
+    const q = createTapQueue({ now: () => t, ttlMs: 1000, maxAgeMs: 5000, onDrop });
+    q.enqueue(tap('ancient', '/settings'));
+    t = 6000;
+    q.enqueue(tap('fresh', '/privacy'));
+    expect(onDrop).toHaveBeenCalledWith('stale', 'ancient');
+    expect(q.size()).toBe(1);
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/privacy']);
+  });
+
+  it('absolute cap also applies at flush for a tap held across attach', async () => {
+    let t = 0;
+    const onDrop = vi.fn();
+    const q = createTapQueue({ now: () => t, ttlMs: 1000, maxAgeMs: 5000, onDrop });
+    q.enqueue(tap('ancient', '/settings'));
+    t = 6000;
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual([]);
+    expect(onDrop).toHaveBeenCalledWith('stale', 'ancient');
   });
 
   it('a delivered id is a duplicate only within the TTL; after it, the same id is a new tap', async () => {
