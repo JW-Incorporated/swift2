@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { CAP_BYTES, MANIFEST_NAME, createArtCache, artFileName } from './art-cache';
+import { CAP_BYTES, MANIFEST_NAME, SESSION_BUDGET_BYTES, createArtCache, artFileName } from './art-cache';
 import { artContext } from './art-era-sync';
-import { MB, ORIGIN, entriesOf, fakeFs, seed, u } from './art-cache.test-kit';
+import { MB, ORIGIN, entriesOf, fakeFs, seed, u, type FakeOpts } from './art-cache.test-kit';
 
 const tp = (era: string, n: number, host = 'img.example.com') => `https://${host}/${era}/${n}.jpg`;
 const content = (urls: string[]) => ({ items: [{ images: urls.map((url) => ({ kind: 'primary', url })) }] });
@@ -120,5 +120,32 @@ describe('429 backoff', () => {
     expect(f.downloads).toEqual([tp('a', 9)]);
     await cache.syncEra('b', 'v1', artContext(bundle({ a: [], b: [tp('b', 1, wiki)] }), ORIGIN));
     expect(f.heads.filter((h) => h.includes(wiki)).length).toBe(headsBefore);
+  });
+});
+
+describe('session budget and negative HEAD cache', () => {
+  it('shares the 10 MB session budget across runs (era flipping cannot re-spend it)', async () => {
+    const f = fakeFs(() => 4 * MB);
+    const cache = createArtCache(f.fs);
+    const eras = Object.fromEntries('abcdef'.split('').map((id) => [id, [tp(id, 1), tp(id, 2)]]));
+    const files = bundle(eras);
+    for (const id of 'abcdef') await cache.syncEra(id, 'v1', artContext(files, ORIGIN));
+    expect(f.downloads.length * 4 * MB).toBeLessThanOrEqual(SESSION_BUDGET_BYTES);
+    expect(f.downloads).toHaveLength(2);
+  });
+
+  const cases: Array<[string, FakeOpts, () => number]> = [
+    ['non-image type', { typeOf: () => 'text/html' }, () => 50_000],
+    ['405 HEAD unsupported', { statusOf: () => 405 }, () => 50_000],
+    ['over 5 MB', {}, () => 6 * MB],
+  ];
+  it.each(cases)('does not HEAD a %s url again in later runs', async (_n, opts, size) => {
+    const f = fakeFs(size, size, opts);
+    const cache = createArtCache(f.fs);
+    const files = bundle({ a: [tp('a', 1)] });
+    await cache.syncEra('a', 'v1', artContext(files, ORIGIN));
+    await cache.syncEra('a', 'v1', artContext(files, ORIGIN));
+    expect(f.heads).toEqual([tp('a', 1)]);
+    expect(f.downloads).toHaveLength(0);
   });
 });

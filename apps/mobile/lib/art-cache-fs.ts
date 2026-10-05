@@ -57,7 +57,7 @@ export function expoArtFs(): ArtFs {
       const ctl = new AbortController();
       const timer = setTimeout(() => ctl.abort(), HEAD_TIMEOUT_MS);
       try {
-        const res = await fetch(url, { method: 'HEAD', signal: ctl.signal, headers: HEADERS });
+        const res = await fetch(url, { method: 'HEAD', signal: ctl.signal, headers: HEADERS, credentials: 'omit' });
         const n = res.ok ? Number(res.headers.get('content-length')) : NaN;
         return { status: res.status, length: Number.isInteger(n) && n > 0 ? n : null, type: res.headers.get('content-type') };
       } catch {

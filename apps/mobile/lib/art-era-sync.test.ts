@@ -4,8 +4,10 @@ import { ORIGIN } from './art-cache.test-kit';
 
 const files = { eras: [], 'content:a': { items: [] }, 'content:b': { items: [] } };
 
-function setup() {
-  const syncEra = vi.fn(async (..._args: unknown[]) => null);
+const OK = { downloaded: 0, evicted: 0, entries: 0, bytes: 0 };
+
+function setup(result: typeof OK | null = OK) {
+  const syncEra = vi.fn(async (..._args: unknown[]) => result);
   const queued: Array<() => void> = [];
   const s = createEraSync({ syncEra, origin: ORIGIN, afterInteractions: (fn) => void queued.push(fn) });
   const flush = async () => {
@@ -51,5 +53,17 @@ describe('createEraSync', () => {
     s.noteEra(undefined);
     await flush();
     expect(syncEra).toHaveBeenCalledTimes(1);
+  });
+
+  it('retries a failed (null) run for the same era on the next trigger, but never loops on its own', async () => {
+    const { s, syncEra, flush } = setup(null);
+    s.setContent(files, 'v1');
+    s.noteEra('a');
+    await flush();
+    await flush();
+    expect(syncEra).toHaveBeenCalledTimes(1);
+    s.trigger();
+    await flush();
+    expect(syncEra).toHaveBeenCalledTimes(2);
   });
 });

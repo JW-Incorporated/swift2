@@ -129,7 +129,8 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
   let running: Promise<ArtSyncResult | null> | null = null;
   let swept = false;
   const blockedHosts = new Set<string>(); // answered 429 this session: no more requests to them
-  const rejected = new Set<string>(); // failed the placeholder guard this session: not retried
+  const rejected = new Set<string>(); // failed the placeholder guard or HEAD this session: not retried
+  let sessionUsed = 0; // bandwidth reserved this process; shared by every run (era flipping cannot re-spend it); a failed download keeps its reservation
 
   async function run(urls: string[], version: string, ctx: ArtContext, era?: string): Promise<ArtSyncResult> {
     fs.ensureDir();
@@ -170,7 +171,6 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
     // Missing art first, then entries cached under an older content version (the old file stays mapped until the new one lands).
     const ordered = [...new Set(urls)];
     const queue = [...ordered.filter((u) => !entries[u]), ...ordered.filter((u) => entries[u] && entries[u]!.contentVersion !== version)];
-    let sessionUsed = 0; // bandwidth reserved this session; a failed download keeps its reservation
     let disk = total(entries); // bytes on disk plus in-flight reservations; a failed download releases its own
     let downloaded = 0;
     const worker = async () => {
@@ -183,10 +183,12 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
         try {
           const head = await fs.head(url);
           if (head.status === 429) blockedHosts.add(host);
-          else if (!strict || isImageType(head.type)) declared = head.length;
+          else if (head.status === 405 || head.status === 501 || (strict && !isImageType(head.type))) rejected.add(url);
+          else declared = head.length;
         } catch {
           // Unknown length: skipped below.
         }
+        if (declared !== null && declared > MAX_ITEM_BYTES) rejected.add(url);
         if (declared === null || !Number.isFinite(declared) || declared <= 0 || declared > MAX_ITEM_BYTES) continue;
         if (strict && declared < MIN_THIRD_PARTY_BYTES) {
           rejected.add(url);

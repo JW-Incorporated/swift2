@@ -40,6 +40,11 @@ export function createEraSync(deps: EraSyncDeps) {
       .then((r) => {
         running = false;
         deps.onResult?.(r);
+        if (r === null) {
+          // A failed run is retried on the next trigger (an era change, a base sync, a new bundle), never in a tight loop.
+          if (synced === key) synced = null;
+          if (`${content?.version}|${era}` === key) return;
+        }
         trigger(); // the era may have changed while this ran
       });
   };
