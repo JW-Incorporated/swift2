@@ -46,7 +46,7 @@ import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
-import { registerDevice } from './lib/push-registration';
+import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
@@ -148,7 +148,7 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    registerDevice().catch((e) => {
+    ensureDeviceRegistered().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
     });
     registerNotificationActions().catch((e) => {
