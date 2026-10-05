@@ -20,6 +20,7 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Check, Loader2 } from 'lucide-react';
 import { useHost } from '../../host/context';
+import { SubmitLinkExternal } from './SubmitLinkExternal';
 
 declare global {
   interface Window {
@@ -56,7 +57,14 @@ function looksLikeUrl(value: string): boolean {
   }
 }
 
+/** Web renders the inline form; a host that cannot mint a Turnstile token (`submitLink: 'external'`, the app) hands off to the website. */
 export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
+  const host = useHost();
+  if (host.submitLink === 'external') return <SubmitLinkExternal section={section} heading={SECTION_COPY[section].heading} />;
+  return <InlineSubmitLinkForm section={section} />;
+}
+
+function InlineSubmitLinkForm({ section }: SubmitLinkFormProps) {
   const [url, setUrl] = useState('');
   const [hp, setHp] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');

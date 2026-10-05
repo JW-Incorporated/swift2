@@ -4,7 +4,7 @@
 // transport-expo.ts + SharedUiHost). The web adapter's contract applies: the
 // reader only ever sees `useHost()`.
 import { forwardRef, useEffect, useRef, useState, type CSSProperties } from 'react';
-import { toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
+import { toComposeMailtoUrl, toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
 import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets } from '@swift2/ui';
 import { isAllowedMailto } from '../../lib/mailto-allowlist';
 import { artSrc, noteArtFallback, noteArtLoaded, subscribeArtMap } from '../reader/art-map';
@@ -111,7 +111,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
   };
 
   const openExternal = (url: string) => {
-    const ext = toExternalUrl(url) ?? (isAllowedMailto(url) ? toMailtoUrl(url) : null);
+    const ext = toExternalUrl(url) ?? (isAllowedMailto(url) ? (toMailtoUrl(url) ?? toComposeMailtoUrl(url)) : null);
     if (ext) void deps.client.call('openExternal', { url: ext });
   };
 
@@ -157,6 +157,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     apiFetch: deps.apiFetch,
     storage: deps.storage ?? { local: webStorage('localStorage'), session: webStorage('sessionStorage') },
     env: { turnstileSiteKey: null, origin },
+    submitLink: 'external',
     insets: deps.insets,
     currentUrl: () => resolveAppUrl(toWebPath(deps.getPath()) ?? '/', origin),
     openExternal,

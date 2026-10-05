@@ -110,7 +110,7 @@ export function ClueWeb() {
   // instead of leaving the app — same pattern as the app's other overlays.
   // Matches the existing in-app back buttons, which already return straight
   // to home rather than stepping back one level at a time.
-  useBackDismiss(view.kind !== 'home', () => go({ kind: 'home' }));
+  useBackDismiss(view.kind !== 'home', () => go({ kind: 'home' }), { escape: false });
 
   return (
     <div ref={topRef} className="scroll-mt-24 pt-8">
