@@ -2,11 +2,11 @@
 // registers itself as the current writer, so the Recovery screen's Retry writes through the SAME
 // queue and can never be overwritten by an earlier-queued strike/ready/reload write. `settled()`
 // resolves once every write queued so far has finished.
-import { createWriteQueue, type WatchdogRecord } from './watchdog';
+import { createWriteQueue, type RecordSource } from './watchdog';
 import { saveWatchdogRecord } from './watchdog-store';
 
 export interface WatchdogWriter {
-  write(record: WatchdogRecord, retries?: number): Promise<boolean>;
+  write(record: RecordSource, retries?: number): Promise<boolean>;
   settled(): Promise<void>;
 }
 
