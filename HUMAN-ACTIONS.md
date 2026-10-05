@@ -2,46 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #105 🟡 [DECIDE] Store data-safety form still says the app runs analytics (~5 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** The app no longer runs website analytics, but apps/web/lib/longlive/data-inventory.ts (the source for the App Store / Play data-safety answers) still declares it. Over-declaring is safe; fixing it changes the store listings.
-**Steps:**
-1. Decide: `keep` — leave the store forms over-declaring for now; `fix` — AI updates the inventory and files the store-console edits for you.
-**Worked if:** your reply is recorded on this card.
-
-## #104 🟢 [UPGRADE] Rotate the notifications metrics secret (~5 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** The /api/notifications/metrics secret used to travel in URLs (logs, browser history). PR #5143 moved it to a header; a fresh value retires any copy that leaked.
-**Steps:**
-1. Open https://vercel.com → the longlivets project → Settings → Environment Variables.
-2. Find the notifications metrics secret variable (named in SETUP_NOTIFICATIONS.md); Edit → paste a new random value → Save (Production).
-3. Redeploy production (Deployments → latest → Redeploy).
-**Worked if:** the /internal/notifications page still loads metrics after you sign in with the new value.
-
-## #103 🟢 [UPGRADE] Set SUBMISSIONS_HASH_SALT in Vercel production (~3 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** Since PR #5143, link submissions omit the anonymous client hash unless this salt is set (the old public fallback salt was removed). Without it, repeat-submitter detection in the sheet is off.
-**Steps:**
-1. Open https://vercel.com → the longlivets project → Settings → Environment Variables.
-2. Add `SUBMISSIONS_HASH_SALT` = any long random string → Production → Save.
-3. Redeploy production (Deployments → latest → Redeploy).
-**Worked if:** the next link submission issue shows a "Client hash" line again.
-
-## #102 🟡 [DECIDE] Skim the corrected privacy-policy wording (PR #5154) (~3 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** The live privacy policy still says the app uses native screens and runs website analytics on legal pages — both false now. PR #5154 fixes 4 sentences (all verified against the code); it is live legal text, so it waits for you.
-**Steps:**
-1. Open https://github.com/JW-Incorporated/swift2/pull/5154 and read the before/after sentences in the description.
-2. Decide: `ok` — merge as written; `edit` — reply with the wording you want.
-**Worked if:** PR #5154 is merged, or your wording is applied to it.
 
 ## #101 🔴 [BLOCKING] S5: test the new app on your Android phone (~20 min)
 <!-- ha filed=2026-10-04 -->
