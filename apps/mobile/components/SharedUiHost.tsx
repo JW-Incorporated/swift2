@@ -109,7 +109,7 @@ export function SharedUiHost({
   }, []);
 
   const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);
-  const adoption = useContentAdoption(testPage, () => setGeneration((g) => g + 1), onSignal);
+  const adoption = useContentAdoption(testPage, { bump: () => setGeneration((g) => g + 1), onSignal, setSource, watch });
 
   const handlers = useMemo(
     () =>
@@ -156,7 +156,7 @@ export function SharedUiHost({
         ref.binder?.navReady();
         adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
       },
-      onRoute: adoption.route,
+      onRoute: (path, busy) => adoption.route(path, busy),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -273,6 +273,7 @@ export function SharedUiHost({
                   domReady();
                   await handlers.onReady();
                   session.binder.firstPaint();
+                  adoption.readerReady();
                 }
               : async () => {}
           }

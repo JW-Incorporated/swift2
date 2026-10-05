@@ -8,7 +8,7 @@ import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-hand
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
 
 /** Real DOM client <-> real host. `gate` holds the DOM's `ready` back to model a delayed handshake. */
-function wire(onRoute: (p: string) => void, onSignal = vi.fn()) {
+function wire(onRoute: (p: string, busy: boolean) => void, onSignal = vi.fn()) {
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
   const sent: { kind: string; type: string }[] = [];
@@ -64,9 +64,23 @@ describe('route event (fire-and-forget)', () => {
     expect(onRoute).not.toHaveBeenCalled();
     w.release();
     await vi.waitFor(() => expect(onRoute).toHaveBeenCalledTimes(1));
-    expect(onRoute).toHaveBeenCalledWith('/terms?x=1');
+    expect(onRoute).toHaveBeenCalledWith('/terms?x=1', false);
     expect(onSignal).not.toHaveBeenCalledWith('bridge-pre-ready', 'route');
     expect(w.sent.some((e) => e.type === 'route' || e.kind === 'res')).toBe(false);
+    w.dom.client.dispose();
+    w.host.dispose();
+  });
+
+  it('carries the busy flag through the real client and host, coalesced with the path', async () => {
+    const onRoute = vi.fn();
+    const w = wire(onRoute);
+    w.gate();
+    w.dom.mount();
+    w.dom.client.sendEvent('route', { path: '/' });
+    w.dom.client.sendEvent('route', { path: '/', busy: true });
+    w.release();
+    await vi.waitFor(() => expect(onRoute).toHaveBeenCalledTimes(1));
+    expect(onRoute).toHaveBeenCalledWith('/', true);
     w.dom.client.dispose();
     w.host.dispose();
   });
@@ -78,7 +92,7 @@ describe('route event (fire-and-forget)', () => {
     await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
     await vi.waitFor(() => {
       w.dom.client.sendEvent('route', { path: '/support' });
-      expect(onRoute).toHaveBeenCalledWith('/support');
+      expect(onRoute).toHaveBeenCalledWith('/support', false);
     });
     w.dom.client.dispose();
     w.host.dispose();
@@ -93,7 +107,7 @@ describe('route event (fire-and-forget)', () => {
     expect(onSignal).toHaveBeenCalledWith('bridge-pre-ready', 'route');
     w.dom.mount();
     await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
-    const bad = [{ path: 'x' }, { path: '/' + 'a'.repeat(2048) }, { path: '/x', extra: 1 }, {}, { path: 3 }, 'x'];
+    const bad = [{ path: 'x' }, { path: '/' + 'a'.repeat(2048) }, { path: '/x', extra: 1 }, { path: '/x', busy: 'yes' }, { path: '/x', busy: true, extra: 1 }, {}, { path: 3 }, 'x'];
     bad.forEach((payload, i) => w.host.receive({ v: 1, id: 'b' + i, kind: 'evt', type: 'route', payload, ts: 1 } as never));
     expect(onRoute).not.toHaveBeenCalled();
     expect(onSignal.mock.calls.filter((c) => c[0] === 'bridge-invalid' && c[1] === 'route payload')).toHaveLength(bad.length);

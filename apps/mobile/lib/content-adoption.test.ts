@@ -1,21 +1,26 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createContentAdoption } from './content-adoption';
 
+const tick = () => new Promise((r) => setTimeout(r, 0));
+
 function setup(mounted: string | null = 'v1') {
   let m = mounted;
-  const bump = vi.fn();
+  const order: string[] = [];
+  const bump = vi.fn(() => void order.push('bump'));
+  const prepare = vi.fn(async () => void order.push('prepare'));
   const onSignal = vi.fn();
-  const a = createContentAdoption({ differs: (v) => m !== null && v !== m, getMounted: () => m, setMounted: (v) => void (m = v), bump, onSignal });
+  const a = createContentAdoption({ differs: (v) => m !== null && v !== m, getMounted: () => m, setMounted: (v) => void (m = v), prepare, bump, onSignal });
   const navigate = vi.fn(async (_p: string) => true);
   a.appState('active');
   a.epochStarted();
   a.navReady(navigate);
-  return { a, bump, navigate, onSignal, mounted: () => m };
+  a.readerReady();
+  return { a, bump, prepare, navigate, onSignal, order, mounted: () => m };
 }
 
 describe('content adoption', () => {
-  it('newer bundle + background -> foreground: bumps once, navigates to the latest route after the new epoch is ready', () => {
-    const { a, bump, navigate, mounted } = setup();
+  it('newer bundle + background -> foreground: prepares then bumps once, navigates to the latest route only after navReady AND reader ready', async () => {
+    const { a, bump, order, mounted } = setup();
     a.route('/privacy');
     a.route('/terms?x=1');
     a.loaded('v2');
@@ -23,55 +28,95 @@ describe('content adoption', () => {
     expect(bump).not.toHaveBeenCalled();
     a.appState('inactive');
     a.appState('active');
-    expect(bump).toHaveBeenCalledTimes(1);
+    await tick();
+    expect(order).toEqual(['prepare', 'bump']);
     expect(mounted()).toBe('v2');
     a.route('/');
     a.epochStarted();
-    expect(navigate).not.toHaveBeenCalled();
     const next = vi.fn(async (_p: string) => true);
     a.navReady(next);
+    expect(next).not.toHaveBeenCalled();
+    a.readerReady();
     expect(next).toHaveBeenCalledExactlyOnceWith('/terms?x=1');
     a.appState('background');
     a.appState('active');
+    await tick();
     expect(bump).toHaveBeenCalledTimes(1);
   });
 
-  it('same version never re-keys; no transition (already active) never re-keys', () => {
+  it('same version never re-keys; no transition (already active) never re-keys', async () => {
     const { a, bump } = setup();
     a.loaded('v1');
     a.appState('background');
     a.appState('active');
-    expect(bump).not.toHaveBeenCalled();
     a.loaded('v2');
     a.appState('active');
+    await tick();
     expect(bump).not.toHaveBeenCalled();
   });
 
-  it('first load with nothing mounted records the baseline without arming', () => {
+  it('first load with nothing mounted records the baseline without arming', async () => {
     const { a, bump, mounted } = setup(null);
     a.loaded('v1');
     a.appState('background');
     a.appState('active');
+    await tick();
     expect(mounted()).toBe('v1');
     expect(bump).not.toHaveBeenCalled();
   });
 
-  it('never re-keys mid-handshake: defers to the epoch ready, then adopts once', () => {
+  it('never re-keys mid-handshake: defers until navReady AND reader ready, then adopts once', async () => {
     const { a, bump, navigate } = setup();
     a.route('/support');
     a.loaded('v2');
     a.epochStarted();
     a.appState('background');
     a.appState('active');
+    await tick();
     expect(bump).not.toHaveBeenCalled();
     a.navReady(navigate);
+    await tick();
+    expect(bump).not.toHaveBeenCalled();
+    a.readerReady();
+    await tick();
     expect(bump).toHaveBeenCalledTimes(1);
     a.epochStarted();
     a.route('/');
     const next = vi.fn(async (_p: string) => true);
     a.navReady(next);
+    a.readerReady();
     expect(next).toHaveBeenCalledExactlyOnceWith('/support');
+    await tick();
     expect(bump).toHaveBeenCalledTimes(1);
+  });
+
+  it('defers while the user is busy (draft / ClownBot / feedback) and adopts at the next foreground when idle', async () => {
+    const { a, bump, onSignal } = setup();
+    a.loaded('v2');
+    a.route('/', true);
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(bump).not.toHaveBeenCalled();
+    expect(onSignal).toHaveBeenCalledWith('content-adopt-deferred-busy');
+    a.route('/', false);
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(bump).toHaveBeenCalledTimes(1);
+  });
+
+  it('a busy flag raised while waiting for the epoch to be ready cancels that adoption', async () => {
+    const { a, bump, navigate } = setup();
+    a.loaded('v2');
+    a.epochStarted();
+    a.appState('background');
+    a.appState('active');
+    a.route('/', true);
+    a.navReady(navigate);
+    a.readerReady();
+    await tick();
+    expect(bump).not.toHaveBeenCalled();
   });
 
   it('a failed restore navigate signals and is not retried', async () => {
@@ -80,12 +125,24 @@ describe('content adoption', () => {
     a.loaded('v2');
     a.appState('background');
     a.appState('active');
+    await tick();
     a.epochStarted();
     const next = vi.fn(async (_p: string) => false);
     a.navReady(next);
-    await Promise.resolve();
+    a.readerReady();
+    await tick();
     expect(onSignal).toHaveBeenCalledWith('content-adopt-nav-failed', '/privacy');
-    a.navReady(next);
+    a.readerReady();
     expect(next).toHaveBeenCalledTimes(1);
+  });
+
+  it('a failing prepare still re-keys', async () => {
+    const { a, bump, prepare } = setup();
+    prepare.mockRejectedValueOnce(new Error('x'));
+    a.loaded('v2');
+    a.appState('background');
+    a.appState('active');
+    await tick();
+    expect(bump).toHaveBeenCalledTimes(1);
   });
 });

@@ -77,7 +77,7 @@ export type DomEventSpec = {
   /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
   theme: ThemeChange;
   /** Fire-and-forget (no res, no ack): the DOM's current route (`/`-rooted path plus query/hash, <= 2048 chars) changed. Queued/coalesced like `theme`: only the latest matters. Add-only. */
-  route: { path: string };
+  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean };
 };
 
 /** Native -> DOM events. */

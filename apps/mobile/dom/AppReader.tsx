@@ -89,7 +89,7 @@ function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, n
     installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
   );
   useEffect(() => onClient(client), [client]);
-  useEffect(() => startRouteReporting((path) => client.sendEvent('route', { path })), [client]);
+  useEffect(() => startRouteReporting((payload) => client.sendEvent('route', payload)), [client]);
   return null;
 }
 

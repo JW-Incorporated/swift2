@@ -70,6 +70,8 @@ export interface DomWatch {
   /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload (resolved only after the record was persisted as an unresolved attempt); otherwise struck. */
   crashed: (kind: 'terminated' | 'render-gone') => Promise<CrashOutcome | undefined>;
   protocol: () => void;
+  /** A planned DOM re-key (content adoption): re-arms the ready timeout and persists the attempt as unresolved; the reload itself is never a strike. */
+  plannedReload?: () => Promise<void>;
 }
 
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
@@ -252,6 +254,13 @@ export function useDomMount(inputs: LaunchInputs | null): {
         return monitorRef.current?.crashed(k);
       },
       protocol: () => monitorRef.current?.protocolFatal(),
+      plannedReload: async () => {
+        if (!monitorRef.current?.plannedReload()) return;
+        const r = recordRef.current;
+        if (!r) return;
+        recordRef.current = markReloading(r, Date.now());
+        if (!(await write(recordRef.current, 1))) diagCollector.mark('watchdog-reload-save-failed');
+      },
     }),
     [],
   );

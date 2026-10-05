@@ -9,7 +9,7 @@ export type DomEventHooks = {
   onNavReady?: () => void;
   onNavigated?: (e: { id: string; ok: boolean }) => void;
   onTheme?: (theme: ThemeChange) => void;
-  onRoute?: (path: string) => void;
+  onRoute?: (path: string, busy: boolean) => void;
 };
 
 /** Handles every non-`ready` DOM event. Events carry no reply: nothing here ever sends. */
@@ -26,8 +26,8 @@ export function handleDomEvent(env: Envelope, h: DomEventHooks): void {
     return;
   }
   if (env.type === 'route') {
-    const path = validRoute(p);
-    if (path) h.onRoute?.(path);
+    const route = validRoute(p);
+    if (route) h.onRoute?.(route.path, route.busy);
     else h.onSignal('bridge-invalid', 'route payload');
     return;
   }

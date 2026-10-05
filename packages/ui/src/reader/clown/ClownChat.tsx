@@ -33,6 +33,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useReportBusy } from '../lib/useReportBusy';
 import type { ClownAnswer, InvestigationStep } from '@swift2/shared';
 import type { BoardItem } from './lib/clown-board';
 import type { ClownTurn } from '@swift2/shared';
@@ -85,6 +86,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const messages = clownMessages;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  useReportBusy('clown-chat', busy || text.trim() !== '');
   // The agent loop's live trail (PLAN.md Stage 10) — reset per ask, cleared
   // once the final answer lands (it is rendered from `message.answer.
   // investigation` after that, not from this transient state).
