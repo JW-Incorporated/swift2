@@ -171,7 +171,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   }, []);
 
   const panelClassName = expanded
-    ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
+    ? 'fixed inset-x-0 top-0 bottom-[var(--keyboard-inset,0px)] z-50 flex w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
     : // Mobile: height comes from `--clown-panel-h` below, a measured fit
       // under the chrome and above BottomNav so the composer lands on
       // screen without scrolling (founder, first phone test, 2026-08-14).
@@ -180,7 +180,7 @@ export function ClownChat({ lore }: ClownChatProps) {
       // the fixed 46rem ceiling still reads comfortably.
       'relative flex h-[var(--clown-panel-h)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)] md:h-[46rem]';
 
-  const panelStyle = { '--clown-panel-h': `calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE})` } as React.CSSProperties;
+  const panelStyle = { '--clown-panel-h': `max(12rem, calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE} - var(--keyboard-inset, 0px)))` } as React.CSSProperties;
 
   const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
     expanded ? ' pt-[max(0.75rem,var(--safe-top,env(safe-area-inset-top)))]' : ''

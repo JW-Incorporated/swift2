@@ -50,7 +50,7 @@ export function createNavigateDom(d: NavigateDomDeps) {
 }
 
 export type ReaderBridgeHandlers = {
-  onInsets: (insets: Insets) => void;
+  onInsets: (insets: Insets & { keyboard?: number }) => void;
   onContentVersion: (token: string) => void;
   back: () => 'handled' | 'exit';
   nav: NavigateDeps;

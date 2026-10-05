@@ -25,6 +25,7 @@ import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { setImageLoadListener } from './reader/image-listener';
+import { applyKeyboardInset } from './keyboard-inset';
 
 export interface AppReaderProps {
   /** file:// URI of the `last-good` cache's `.js` twin (script-loaded, `?v=` cache-busted). */
@@ -72,7 +73,7 @@ type BackFn = () => 'handled' | 'exit';
 type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
 type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
   onFatal: (reason: string) => void;
-  onInsets: (insets: Insets) => void;
+  onInsets: (insets: Insets & { keyboard?: number }) => void;
   onContentVersion: (token: string) => void;
   navigateDeps: NavigateDeps;
   backRef: { current: BackFn | null };
@@ -268,7 +269,10 @@ export default function AppReader(props: AppReaderProps) {
       inbox={props.inbox ?? []}
       bridge={props.bridge}
       onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)}
-      onInsets={setHostInsets}
+      onInsets={(i) => {
+        setHostInsets(i);
+        applyKeyboardInset(i.keyboard ?? 0);
+      }}
       onContentVersion={(token) => {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;
       }}

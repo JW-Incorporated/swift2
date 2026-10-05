@@ -253,7 +253,7 @@ export function SearchOverlay() {
     <div
       ref={dialogRef}
       tabIndex={-1}
-      className="fixed inset-0 z-[80] flex flex-col items-center bg-black/60 p-4 pt-[max(4rem,10vh)] backdrop-blur-sm detail-enter sm:px-6"
+      className="fixed inset-0 z-[80] flex flex-col items-center bg-black/60 p-4 pb-[max(1rem,var(--keyboard-inset,0px))] pt-[max(4rem,10vh)] backdrop-blur-sm detail-enter sm:px-6"
       role="dialog"
       aria-modal="true"
       aria-label="Search the archive"

@@ -152,13 +152,13 @@ const sameInsets = (a: Insets, b: Insets) =>
   a.top === b.top && a.right === b.right && a.bottom === b.bottom && a.left === b.left;
 
 /** Emits `insets` only when the (finite, non-negative) values changed. */
-export function createInsetsEmitter(emit: (insets: Insets) => void) {
-  let last: Insets | null = null;
-  return function update(next: Insets): void {
-    const ok = [next.top, next.right, next.bottom, next.left].every((n) => Number.isFinite(n) && n >= 0);
+export function createInsetsEmitter(emit: (insets: Insets & { keyboard?: number }) => void) {
+  let last: (Insets & { keyboard?: number }) | null = null;
+  return function update(next: Insets & { keyboard?: number }): void {
+    const ok = [next.top, next.right, next.bottom, next.left, next.keyboard ?? 0].every((n) => Number.isFinite(n) && n >= 0);
     if (!ok) return;
-    if (last && sameInsets(last, next)) return;
-    last = { top: next.top, right: next.right, bottom: next.bottom, left: next.left };
+    if (last && sameInsets(last, next) && (last.keyboard ?? 0) === (next.keyboard ?? 0)) return;
+    last = { top: next.top, right: next.right, bottom: next.bottom, left: next.left, ...(next.keyboard ? { keyboard: next.keyboard } : {}) };
     emit(last);
   };
 }

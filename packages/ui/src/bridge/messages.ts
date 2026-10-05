@@ -80,7 +80,7 @@ export type DomEventSpec = {
 
 /** Native -> DOM events. */
 export type NativeEventSpec = {
-  insets: Insets;
+  insets: Insets & { keyboard?: number };
   contentVersion: { token: string };
   /** Unsequenced reply to each accepted `ready`: the host's cmd-id high-water mark (-1 -> 0). */
   readyAck: { hwm: number };

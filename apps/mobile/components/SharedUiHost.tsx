@@ -14,6 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardInset } from '../lib/use-keyboard-inset';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
@@ -87,13 +88,14 @@ export function SharedUiHost({
     }),
   ).current;
   useEffect(() => () => activeDeferral.cancel(), []);
-  const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
+  const emitRef = useRef<{ insets: (i: Insets & { keyboard?: number }) => void; version: (t: string) => void } | null>(null);
   const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
   navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
   const insets = useSafeAreaInsets();
+  const keyboard = useKeyboardInset();
   const [speedOn, setSpeedOn] = useState(speedTest.isOn());
   useEffect(() => {
     const sync = () => setSpeedOn(speedTest.isOn());
@@ -210,8 +212,8 @@ export function SharedUiHost({
 
   // The DOM is the sole inset owner: native only reports. The host holds these until `ready`, then flushes.
   useEffect(() => {
-    emitRef.current?.insets(insets);
-  }, [session, insets.top, insets.right, insets.bottom, insets.left]);
+    emitRef.current?.insets({ ...insets, keyboard });
+  }, [session, insets.top, insets.right, insets.bottom, insets.left, keyboard]);
 
   useEffect(() => {
     if (contentToken) emitRef.current?.version(contentToken);
