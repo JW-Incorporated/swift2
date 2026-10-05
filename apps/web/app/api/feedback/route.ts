@@ -15,13 +15,8 @@ import {
   speedRefund,
   type SpeedMeta,
 } from './diag';
-import {
-  WATCHDOG_PREFIX,
-  isWatchdogMessage,
-  parseWatchdogReport,
-  watchdogAllowed,
-  watchdogCommentFrom,
-} from './watchdog-report';
+import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
+import { prepareWatchdog, watchdogClaimResponse } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -253,18 +248,12 @@ export async function POST(req: Request): Promise<Response> {
   const diag = isDiagMessage(message) || watchdog;
   let diagComment = '';
   let speedReport: SpeedMeta | null = null;
+  let watchdogReport: WatchdogReport | null = null;
   if (watchdog) {
-    const exactShape =
-      payload.message === WATCHDOG_PREFIX &&
-      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'watchdog');
-    const parsed = exactShape ? parseWatchdogReport(payload.watchdog) : null;
-    if (!parsed?.ok) {
-      return NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 });
-    }
-    if (!watchdogAllowed(parsed.report.buildKey)) {
-      return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
-    }
-    diagComment = watchdogCommentFrom(parsed.report);
+    const prepared = prepareWatchdog(payload, ip);
+    if (!prepared.ok) return prepared.response;
+    watchdogReport = prepared.durable ? prepared.report : null;
+    diagComment = prepared.comment;
   } else if (diag) {
     const exactShape =
       payload.message === DIAG_PREFIX &&
@@ -307,6 +296,12 @@ export async function POST(req: Request): Promise<Response> {
       { error: 'Feedback isn’t wired up in this environment yet.' },
       { status: 503 },
     );
+  }
+
+  // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
+  if (watchdogReport) {
+    const stop = await watchdogClaimResponse(watchdogReport);
+    if (stop) return stop;
   }
 
   const location = (payload.location ?? {}) as Location;
