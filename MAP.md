@@ -197,6 +197,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
+| `packages/ui/src/reader/clown/lib/useClownAsk.ts` | `/api/clown` ask loop hook (busy/error/investigating state, abort, stream reader), split out of `ClownChat.tsx` (300-line cap, pure move) |
+| `packages/ui/src/reader/legal/lib/feedback-location.ts` | `Location` type + `describeView`/`buildLocation` for the feedback ticket, split out of `FeedbackButton.tsx` (300-line cap, pure move) |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
