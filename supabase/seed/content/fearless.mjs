@@ -1482,7 +1482,7 @@ export default {
           },
           {
             outlet: 'Long Island Press',
-            url: 'http://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/',
+            url: 'https://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/',
             source_title: 'Justin Bieber Performs With Broken Foot',
             publisher: 'Long Island Press',
             source_type: 'reputable_press',

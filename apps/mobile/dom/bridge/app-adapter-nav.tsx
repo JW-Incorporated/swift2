@@ -29,9 +29,9 @@ export interface ClickLike {
 }
 
 /**
- * Every in-app route must pass `toWebPath`; https elsewhere is external; a bare `#fragment`
- * passes; everything else (malformed paths, `//host`, `javascript:`, `intent:`, `file:`,
- * `mailto:`, plain http, relative hrefs) is blocked so it can never reach the host webview.
+ * Every in-app route must pass `toWebPath`; https elsewhere is external (plain http is
+ * upgraded to https first); a bare `#fragment` passes; everything else (malformed paths,
+ * `//host`, `javascript:`, `intent:`, `file:`, `mailto:`, relative hrefs) is blocked so it can never reach the host webview.
  */
 export function classifyHref(href: string, origin: string): LinkTarget {
   if (href.startsWith('#')) return { kind: 'pass' };
@@ -46,6 +46,7 @@ export function classifyHref(href: string, origin: string): LinkTarget {
   } catch {
     return { kind: 'blocked' };
   }
+  if (url.protocol === 'http:') url.protocol = 'https:';
   if (url.protocol !== 'https:') return { kind: 'blocked' };
   if (url.origin === origin) return asPath(`${url.pathname}${url.search}${url.hash}`);
   return { kind: 'external', url: url.href };
