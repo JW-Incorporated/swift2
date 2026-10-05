@@ -6,6 +6,15 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-04 23:47 PDT — Wave integration; bridge token audit complete; founder decisions pending. <<<**
+- Merged since 22:18: #5029 closure + privacy-policy correction (feedback is public), #5051 phone-drift + parity harness flake fix, #5066 era-controls parity, #5068 dialog a11y, #5079 per-epoch bridge token, #5094 focus traps, #5113 app parity (submit-link external, email share, legal Back via back stack), #5115 adoption respects the reader, #5116 single Escape dispatcher (+ onboarding Escape = Not now), #5117 native a11y.
+- Auto-merging (approved, CI pending): #5071 legal split (re-done, text byte-identical), #5076 iOS inline media, #5089 keyboard inset, #5096 app integration tests, #5103 offline opt-out + foreground refresh, #5111 offline art cache, #5118 shared-UI a11y, #5123 reader state restore (adoption only; tap wins; crash sheds state), #5126 no storage wipe on failed load; #5125 restore-window bound (merge right after #5123).
+- Integration audit (Claude, 23:24): bridge token coverage complete; storage-wipe bug → #5126; legal Back → fixed by #5113; tap vs restore → #5123.
+- Held stack #5042/#5043/#5047: composition fixes applied (single bounded attempt write; refund at terminal decision; cold tap response cleared only on ack/drop), scoped review APPROVED; waiting on Wyatt's iOS confirmation.
+- Founder decisions pending: OK to migrate #5099 + #5122 (both reviewed); #5112 Q — OK to cache third-party news photos on-device for offline?
+- Next: #5063 (after #5089/#5103), #5112 (after decision), #5120 shipped via #5122.
+- Lessons: gh run rerun reuses old merge ref (merge main instead); reviewers must check parity before approving; agents never copy files from other branches.
+
 **>>> CHECKPOINT 2026-10-04 22:18 PDT — Wave merge; audit suite; founder approval hold. <<<**
 - Merged since 21:31: #5059 persistent storage, #5065 watchdog dedupe, #5092 visual parity, #5098 feedback escaping, #5101 decisions + public notice, #5104 deep-link strip, #5105 offline embeds/outbox, #5106 offline first launch, #5107 longlive://diag, #5109 baseline timeout, #5119 red-main fix, #5060 threads/eras parity.
 - Approved and auto-merging: #5111 offline art, #5113 app parity (submit-link external, email share, legal Back), #5115 adoption respects the reader, #5116 single Escape dispatcher, #5117 native a11y, plus earlier #5079/#5089/#5103/#5076/#5096.
