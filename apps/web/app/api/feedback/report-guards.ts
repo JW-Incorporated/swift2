@@ -11,7 +11,7 @@ import {
   speedDuplicate,
   type SpeedMeta,
 } from './diag';
-import { isWatchdogMessage, type WatchdogReport } from './watchdog-report';
+import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
 import { prepareWatchdog } from './watchdog-lifecycle';
 
 // Request guards for POST /api/feedback, split out of route.ts (300-line cap,
@@ -32,16 +32,8 @@ import { prepareWatchdog } from './watchdog-lifecycle';
 // just by rotating a header.
 const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
 
-// Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
-// the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
-// limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
-export function ipThrottled(message: string, payload: { diag?: unknown }, ip: string): boolean {
-  const speedShaped =
-    message === DIAG_PREFIX &&
-    typeof payload.diag === 'object' &&
-    payload.diag !== null &&
-    'speed' in payload.diag;
-  return !speedShaped && limiter.isLimited(ip);
+export function rateLimited(ip: string): boolean {
+  return limiter.isLimited(ip);
 }
 
 export type ReportGuard =

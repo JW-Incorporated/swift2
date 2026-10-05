@@ -51,14 +51,6 @@ export function watchdogCommentFrom(r: WatchdogReport): string {
   ].join('\n');
 }
 
-/** Escalation comment: the same fixed template plus counts; only server-validated fields and numbers. */
-export function watchdogEscalationFrom(r: WatchdogReport, n: number, sources: number): string {
-  const lines = watchdogCommentFrom(r).split('\n');
-  const at = lines.indexOf('<!-- watchdog:v1 -->');
-  lines.splice(at, 0, `**${Math.trunc(n)} reports from ${Math.trunc(sources)} sources today**`, '');
-  return lines.join('\n');
-}
-
 export const WATCHDOG_WINDOW_MS = 24 * 60 * 60_000;
 export const WATCHDOG_MAX_PER_WINDOW = 20;
 export const WATCHDOG_GLOBAL_MAX_PER_WINDOW = 100;
