@@ -34,6 +34,7 @@ vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark, elapsed: () => 
 import { act, renderHook } from '@testing-library/react';
 import { PENDING_MAX_MS } from './watchdog-policy';
 import { useDomMount, type LaunchInputs } from './watchdog-gate';
+import { decideMount } from './watchdog';
 
 const flush = () => act(async () => { await vi.advanceTimersByTimeAsync(0); });
 const inputs = (p: Partial<LaunchInputs> = {}): LaunchInputs => ({ sharedUi: null, sharedUiIos: null, watchdogReports: null, ...p });
@@ -144,6 +145,22 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
     expect(result.current.mount).toBe('native');
     expect(result.current.nativeReason).toBe('attempt-failed');
+  });
+
+  it('an attempt write that settles after the bound is rolled back: no attempting record persists, no false strike next launch', async () => {
+    h.saveDelay = 3500;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
+    expect(result.current.mount).toBe('native');
+    expect(result.current.nativeReason).toBe('attempt-failed');
+    await act(async () => { await vi.advanceTimersByTimeAsync(600); });
+    expect(result.current.mount).toBe('native');
+    const last = h.saved.at(-1)!;
+    expect(last.state).toBe('idle');
+    expect(last.strikes).toBe(0);
+    expect(decideMount(last as never, '1:embedded', Date.now()).record.strikes).toBe(0);
   });
 
   it('an owed fallback is honoured: native, no attempt, launch consumed', async () => {
