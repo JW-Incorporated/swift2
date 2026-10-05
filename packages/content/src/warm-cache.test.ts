@@ -153,6 +153,7 @@ describe('cold path', () => {
       'last-good',
       `schemafp:${v}`,
       'last-good-fp',
+      'last-good-ver',
       `etag:${v}:${SCHEMA_FINGERPRINT}`,
     ]);
     const lastGood = writes.find(([k]) => k.endsWith(':last-good'))![1];

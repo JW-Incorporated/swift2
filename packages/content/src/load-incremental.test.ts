@@ -124,6 +124,31 @@ describe('incremental bundle load (#4508)', () => {
     expect(v2.fileRequests.length).toBe(names.length);
   });
 
+  it('an older load finishing after a newer one leaves the newer one intact', async () => {
+    const storage = new TrackingStorage();
+    await loadBundle({ baseUrl, fetch: publish(V1).fetchImpl, storage });
+    const V3 = 'c'.repeat(64);
+    const slow = publish(V2, tweak('tracks'));
+    let release: () => void = () => {};
+    const gate = new Promise<void>((r) => (release = r));
+    const gated: FetchLike = async (url, init) => {
+      if (url.endsWith(base.files.tracks!.path)) await gate;
+      return slow.fetchImpl(url, init);
+    };
+    const older = loadBundle({ baseUrl, fetch: gated, storage });
+    await new Promise((r) => setTimeout(r, 20));
+    await loadBundle({ baseUrl, fetch: publish(V3, tweak('eras')).fetchImpl, storage });
+    release();
+    await older;
+    const keys = storage.keys();
+    expect(keys.some((k) => k.includes(V3))).toBe(true);
+    expect(keys.some((k) => k.includes(V2))).toBe(false);
+    expect(await storage.getItem(storage.keyEndingWith('last-good-ver'))).toBe(V3);
+    const warm = publish(V3, tweak('eras'));
+    const again = await loadBundle({ baseUrl, fetch: warm.fetchImpl, storage });
+    expect(again.source).toBe('cache-etag');
+  });
+
   it('drops the superseded version cache entries once the new version is written', async () => {
     const storage = new TrackingStorage();
     await loadBundle({ baseUrl, fetch: publish(V1).fetchImpl, storage });

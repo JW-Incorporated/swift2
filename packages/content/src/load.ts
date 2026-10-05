@@ -63,6 +63,7 @@ import {
   persistFullLoad,
   persistPartialLoad,
   readCompleteCache,
+  readLastGoodVersion,
   readReusableBundle,
   revalidateLastGood,
 } from './load-cache';
@@ -206,6 +207,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
   }
 
+  const startedFrom = await readLastGoodVersion(storage, baseUrl);
   const reusable = await readReusableBundle(storage, baseUrl);
   let files: LoadedBundle['files'];
   let skipped: string[];
@@ -247,7 +249,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     bundleVersion,
     manifest,
     files,
-    reusable?.manifest.bundleVersion,
+    startedFrom,
   );
   endDiskWrite();
 

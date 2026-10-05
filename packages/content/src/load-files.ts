@@ -94,7 +94,7 @@ export async function fetchBundleFiles(args: {
       if (!settled.ok) throw settled.error;
       const text = settled.value;
       if (text === null) {
-        // Unchanged since a validated full load under this schema fingerprint: the manifest hash match is the integrity check.
+        // Trust model: the cache holds parsed JSON, not the downloaded bytes, so the hash cannot be recomputed here. The entry is trusted because its manifest sha256 + bytes equal the entry of a full load that already passed the byte/sha256 check and zod validation under this schema fingerprint — the same trust the warm path gives a cached bundle.
         files[name] = reusable!.files[name];
         continue;
       }

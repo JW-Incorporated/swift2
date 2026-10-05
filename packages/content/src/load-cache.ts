@@ -121,7 +121,6 @@ export async function readCompleteCache(
   return warm;
 }
 
-/** A partial (pruned/skipped) load writes ONLY last-good: it never touches the version-keyed manifest/files/marker trio, so an overlapping full load of the same version can never be overwritten by pruned data. */
 /** The last FULL load's manifest + files, usable as a source of unchanged files — null unless it was written by a full load under this build's schema fingerprint (a partial load or another build's zod parse may have pruned/stripped it). */
 export async function readReusableBundle(
   storage: StorageAdapter,
@@ -137,6 +136,19 @@ export async function readReusableBundle(
   }
 }
 
+/** A partial (pruned/skipped) load writes ONLY last-good: it never touches the version-keyed manifest/files/marker trio, so an overlapping full load of the same version can never be overwritten by pruned data. */
+/** Version of the stored last-good (small key, so no multi-MB parse). */
+export async function readLastGoodVersion(
+  storage: StorageAdapter,
+  baseUrl: string,
+): Promise<string | undefined> {
+  try {
+    return (await storeGet(storage, keyFor(baseUrl, 'last-good-ver'))) || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export async function persistPartialLoad(
   storage: StorageAdapter,
   baseUrl: string,
@@ -145,6 +157,7 @@ export async function persistPartialLoad(
 ): Promise<void> {
   await storeSet(storage, keyFor(baseUrl, 'last-good-fp'), '');
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  await storeSet(storage, keyFor(baseUrl, 'last-good-ver'), manifest.bundleVersion);
 }
 
 /**
@@ -161,6 +174,12 @@ export async function persistFullLoad(
   files: BundleFiles,
   previousVersion?: string,
 ): Promise<void> {
+  // A slower, older load must not clobber a newer one that persisted while it ran: last-good's version is no longer the one this load started from.
+  const supersededByNewer = async () => {
+    const current = await readLastGoodVersion(storage, baseUrl);
+    return current !== undefined && current !== previousVersion && current !== bundleVersion;
+  };
+  if (await supersededByNewer()) return;
   const completeKey = completeKeyFor(baseUrl, bundleVersion);
   const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
   const manifestJson = JSON.stringify(manifest);
@@ -173,8 +192,9 @@ export async function persistFullLoad(
   const previousFp = await storeGet(storage, schemaFpKey);
   await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
   await storeSet(storage, keyFor(baseUrl, 'last-good-fp'), SCHEMA_FINGERPRINT);
+  await storeSet(storage, keyFor(baseUrl, 'last-good-ver'), bundleVersion);
   await storeSet(storage, completeKey, '1');
-  if (previousVersion && previousVersion !== bundleVersion) {
+  if (previousVersion && previousVersion !== bundleVersion && !(await supersededByNewer())) {
     // The superseded version's trio (~4.6 MB) is no longer served; its unchanged files live on in this one.
     for (const stale of [
       `etag:${previousVersion}:${SCHEMA_FINGERPRINT}`,
