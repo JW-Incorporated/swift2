@@ -18,7 +18,8 @@ import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { createNativeCalls } from './bridge/native-calls';
-import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
+import { sampleImages } from './bridge/sample-images';
+import { createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
 import { scheduleSnapshotHash } from './reader/deferred-hash';
 import { snapshotFromEnvelope } from './reader/snapshot';
@@ -250,19 +251,7 @@ export default function AppReader(props: AppReaderProps) {
           const { core, extensions } = snapRef.current;
           scheduleSnapshotHash(core, extensions, probe, () => native.reportProbe(probe.json()));
         }
-        // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
-        for (const ms of [4000, 12000]) {
-          setTimeout(() => {
-            const imgs = Array.from(document.images).map((i) => ({
-              src: i.currentSrc || i.src,
-              complete: i.complete,
-              naturalWidth: i.naturalWidth,
-              errored: errored.has(i),
-            }));
-            probe.report.placeholders = countPlaceholders(imgs);
-            void native.reportProbe(probe.json());
-          }, ms);
-        }
+        sampleImages(probe, errored, native.reportProbe);
       }),
     );
     return () => document.removeEventListener('error', onImgError, true);
