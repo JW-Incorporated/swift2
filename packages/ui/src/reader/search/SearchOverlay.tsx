@@ -273,7 +273,7 @@ export function SearchOverlay() {
               : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
         </div>
         {/* Input row */}
-        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 focus-within:ring-2 focus-within:ring-inset focus-within:ring-[color:var(--era-accent)]">
+        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-[color:var(--era-accent)]">
           <Search className="h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
           <input
             ref={inputRef}
