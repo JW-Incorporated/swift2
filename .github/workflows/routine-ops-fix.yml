@@ -3,7 +3,8 @@
 # `gh pr merge --squash --auto --delete-branch`, so required checks gate it.
 # Founder decision A (Joey, 2026-10-05, docs/decisions.md): "minimal guard
 # rails. I want it to fix everything without needing me." Charter + the four
-# rails: docs/agents/ops-fixer.md. Dispatched by Marjorie only:
+# rails: docs/agents/ops-fixer.md. This routine is dispatch-only (no cron),
+# dispatched by Marjorie only:
 # `gh workflow run routine-ops-fix.yml -f issue=<n>`.
 #
 # Three jobs, so the rails do not depend on the agent obeying its prompt:
