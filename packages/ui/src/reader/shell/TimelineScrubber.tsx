@@ -45,6 +45,33 @@ function fmtMonth(ms: number): string {
   return new Date(ms).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
 
+/** Keyboard target date for the vertical slider (top of the rail = newest =
+ *  Home, bottom = oldest = End); null for a key the slider doesn't handle. */
+export function scrubberKeyTarget(
+  key: string,
+  currentDate: number,
+  start: number,
+  end: number,
+): number | null {
+  const step = Math.max(1, end - start) / 24;
+  switch (key) {
+    case 'ArrowUp':
+      return Math.min(end, currentDate + step);
+    case 'ArrowDown':
+      return Math.max(start, currentDate - step);
+    case 'PageUp':
+      return Math.min(end, currentDate + step * 4);
+    case 'PageDown':
+      return Math.max(start, currentDate - step * 4);
+    case 'Home':
+      return end;
+    case 'End':
+      return start;
+    default:
+      return null;
+  }
+}
+
 export function TimelineScrubber() {
   const { eraId } = useAppState();
   const { setScrubbing } = useAppActions();
@@ -550,6 +577,7 @@ export function TimelineScrubber() {
           tabIndex={0}
           aria-label={`${era.name} timeline scrubber`}
           aria-describedby={`ll-scrubber-desc-${era.id}`}
+          aria-orientation="vertical"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(currentPct ?? 0)}
@@ -568,23 +596,15 @@ export function TimelineScrubber() {
           }}
           onKeyDown={(e) => {
             if (currentDate == null) return;
-            const step = span / 24;
             // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
             // date-stepping (not a continuous drag), so deriving pct from date
             // here is fine — no gesture to snap out from under.
-            if (e.key === 'ArrowUp') {
-              e.preventDefault();
-              const d = Math.min(end, currentDate + step);
-              setCurrentDate(d);
-              setCurrentPct(pctForDate(d));
-              scrollToDate(d);
-            } else if (e.key === 'ArrowDown') {
-              e.preventDefault();
-              const d = Math.max(start, currentDate - step);
-              setCurrentDate(d);
-              setCurrentPct(pctForDate(d));
-              scrollToDate(d);
-            }
+            const d = scrubberKeyTarget(e.key, currentDate, start, end);
+            if (d == null) return;
+            e.preventDefault();
+            setCurrentDate(d);
+            setCurrentPct(pctForDate(d));
+            scrollToDate(d);
           }}
           className={SCRUBBER_RAIL_CLASS}
           style={

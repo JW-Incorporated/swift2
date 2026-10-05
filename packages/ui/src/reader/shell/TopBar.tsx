@@ -78,7 +78,7 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
-              aria-label={`${era.name} — open the eras menu`}
+              aria-label={`Era: ${era.name} — open the eras menu`}
               className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
             >
               <span className="min-w-0 truncate text-sm font-medium text-ink">
@@ -228,7 +228,7 @@ export function ModeToggle({
   return (
     <div
       ref={containerRef}
-      role="tablist"
+      role="group"
       aria-label="Navigation mode"
       className={cn(
         'relative flex w-auto items-center rounded-full border border-line bg-surface p-1',
@@ -249,8 +249,7 @@ export function ModeToggle({
       />
       <button
         ref={registerTab('era')}
-        role="tab"
-        aria-selected={mode === 'era'}
+        aria-pressed={mode === 'era'}
         // Below `sm` the visible label is hidden (icon-only), so name the tab
         // explicitly — otherwise a screen reader announces an unlabeled button
         // on mobile (#656, WCAG 4.1.2).
@@ -267,8 +266,7 @@ export function ModeToggle({
       </button>
       <button
         ref={registerTab('threads')}
-        role="tab"
-        aria-selected={mode === 'threads'}
+        aria-pressed={mode === 'threads'}
         aria-label="Threads"
         title="Threads"
         onClick={() => onChange('threads')}
@@ -282,8 +280,7 @@ export function ModeToggle({
       </button>
       <button
         ref={registerTab('mood')}
-        role="tab"
-        aria-selected={mode === 'mood'}
+        aria-pressed={mode === 'mood'}
         // Same reason as the other two: below `sm` this is icon-only, so the
         // tab needs an explicit name or a screen reader announces an unlabeled
         // button (#656, WCAG 4.1.2).
@@ -300,8 +297,7 @@ export function ModeToggle({
       </button>
       <button
         ref={registerTab('clownbot')}
-        role="tab"
-        aria-selected={mode === 'clownbot'}
+        aria-pressed={mode === 'clownbot'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Clownbot"
         title="Clownbot"
@@ -316,8 +312,7 @@ export function ModeToggle({
       </button>
       <button
         ref={registerTab('community')}
-        role="tab"
-        aria-selected={mode === 'community'}
+        aria-pressed={mode === 'community'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Community"
         title="Community"
@@ -332,8 +327,7 @@ export function ModeToggle({
       </button>
       <button
         ref={registerTab('merch')}
-        role="tab"
-        aria-selected={mode === 'merch'}
+        aria-pressed={mode === 'merch'}
         // Same reason as the others (#656, WCAG 4.1.2).
         aria-label="Merch"
         title="Merch"

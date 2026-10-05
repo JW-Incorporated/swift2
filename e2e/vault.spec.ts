@@ -178,18 +178,8 @@ test.describe('Vault smoke', () => {
   test('merch All items clears an active product-kind filter', async ({ page }) => {
     await gotoVault(page);
 
-    // The desktop tab rail and mobile primary navigation both expose a
-    // "Merch" control, but not with the same accessible role: TopBar's
-    // ModeToggle (desktop) renders each tab as a `<button role="tab">` — an
-    // explicit role attribute wins over the element's implicit one, so
-    // Playwright resolves it as "tab", not "button" — while BottomNav
-    // (mobile) renders a plain, role-less `<button>`. A single
-    // `getByRole('button', ...)` therefore only ever matched on mobile;
-    // desktop-chrome waited the full 45s for a "button" that structurally
-    // could never appear. `.or()` covers both roles under the one label.
-    const merchNav = page
-      .getByRole('tab', { name: 'Merch' })
-      .or(page.getByRole('button', { name: 'Merch' }));
+    // Desktop ModeToggle and mobile BottomNav both expose a "Merch" button.
+    const merchNav = page.getByRole('button', { name: 'Merch' });
     await merchNav.click();
 
     const allItems = page.getByRole('button', { name: 'All items' });
