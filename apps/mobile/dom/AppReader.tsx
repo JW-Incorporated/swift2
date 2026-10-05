@@ -15,7 +15,7 @@ import { backFromDomPath, currentDomUrl, setDomPath } from './bridge/dom-path';
 import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
-import { useExpoBridge } from './bridge/transport-expo';
+import { bridgeToken, useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
@@ -33,19 +33,22 @@ export interface AppReaderProps {
   versionToken?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
   insets?: Insets;
-  onReady: () => Promise<void>;
-  reportError: (message: string) => Promise<void>;
-  reportProbe: (json: string) => Promise<void>;
+  /** Native actions below take the per-epoch bridge token (from `bridgeHello`) as their LAST arg; the token never travels as a prop. */
+  onReady: (token: string) => Promise<void>;
+  reportError: (message: string, token: string) => Promise<void>;
+  reportProbe: (json: string, token: string) => Promise<void>;
   /** Speed test mode (#4896): one call per loaded image; `visible` = inside the viewport. */
-  reportImageLoad?: (visible: boolean) => Promise<void>;
+  reportImageLoad?: (visible: boolean, token: string) => Promise<void>;
   /** Speed test mode is running: only then are image loads measured and reported. */
   speedTestOn?: boolean;
   /** Bridge (WP2.3): sequenced native-to-DOM queue, re-delivered whole on each render. */
   inbox?: Envelope[];
   /** Bridge native action: posts one envelope; may resolve with the reply (`res`, `readyAck`). Absent on web/dev. */
-  bridge?: (env: Envelope) => Promise<unknown>;
+  bridge?: (env: Envelope, token: string) => Promise<unknown>;
+  /** Native action returning the per-epoch bridge token; absent on web/dev (calls then carry ''). */
+  bridgeHello?: () => Promise<string>;
   /** The DOM client's own protocol fatal (a watchdog strike in every phase, unlike reportError). */
-  reportProtocolFatal?: (reason: string) => Promise<void>;
+  reportProtocolFatal?: (reason: string, token: string) => Promise<void>;
   /** Web/dev only (index.web.ts): supplies the cache envelope text where no native cache exists. */
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
@@ -68,7 +71,7 @@ const getPath = () => currentDomUrl();
 
 type BackFn = () => 'handled' | 'exit';
 type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
-type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
+type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & Pick<AppReaderProps, 'bridgeHello'> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
@@ -81,8 +84,8 @@ type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
 const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
-  const client = useExpoBridge({ inbox, bridge }, { onFatal }, (c) =>
+function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
+  const client = useExpoBridge({ inbox, bridge, bridgeHello }, { onFatal }, (c) =>
     installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
   );
   useEffect(() => onClient(client), [client]);
@@ -140,6 +143,14 @@ export default function AppReader(props: AppReaderProps) {
   const probeRef = useRef<Probe>(createProbe(versionToken));
   const propsRef = useRef(props);
   propsRef.current = props;
+  // Every native action carries the epoch token; a failed hello or call is swallowed (an unhandled rejection here would re-enter reportError).
+  const native = useRef({
+    onReady: () => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.onReady(t)).catch(() => undefined),
+    reportError: (m: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportError(m, t)).catch(() => undefined),
+    reportProbe: (j: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportProbe(j, t)).catch(() => undefined),
+    reportImageLoad: (v: boolean) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportImageLoad?.(v, t)).catch(() => undefined),
+    reportProtocolFatal: (r: string) => bridgeToken(propsRef.current.bridgeHello).then((t) => propsRef.current.reportProtocolFatal?.(r, t)).catch(() => undefined),
+  }).current;
 
   useEffect(() => {
     // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
@@ -162,17 +173,17 @@ export default function AppReader(props: AppReaderProps) {
 
   useEffect(() => {
     if (!props.speedTestOn) return;
-    setImageLoadListener((visible) => void propsRef.current.reportImageLoad?.(visible));
+    setImageLoadListener((visible) => void native.reportImageLoad(visible));
     return () => setImageLoadListener(null);
   }, [props.speedTestOn]);
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {
       if (cacheUri && e.filename === cacheUri) return; // the <script> twin of the JSON cache
-      void propsRef.current.reportError(`error: ${e.message}`);
+      void native.reportError(`error: ${e.message}`);
     };
     const onRejection = (e: PromiseRejectionEvent) => {
-      void propsRef.current.reportError(`unhandledrejection: ${String(e.reason)}`);
+      void native.reportError(`unhandledrejection: ${String(e.reason)}`);
     };
     window.addEventListener('error', onError);
     window.addEventListener('unhandledrejection', onRejection);
@@ -214,9 +225,9 @@ export default function AppReader(props: AppReaderProps) {
         const message = e instanceof Error ? e.message : String(e);
         probe.report.error = message;
         setFailed(message);
-        await propsRef.current.reportProbe(probe.json());
+        await native.reportProbe(probe.json());
         const unreadable = message === 'bundle cache unreadable' && !devLoader;
-        void propsRef.current.reportError(
+        void native.reportError(
           unreadable ? unreadableMessage(readAttempts, !!cacheUri) : `reader-spike: ${message}`,
         );
       }
@@ -235,8 +246,8 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.firstPaintMs = Math.round(performance.now());
         const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
-        await propsRef.current.reportProbe(probe.json());
-        await propsRef.current.onReady();
+        await native.reportProbe(probe.json());
+        await native.onReady();
         // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
         for (const ms of [4000, 12000]) {
           setTimeout(() => {
@@ -247,7 +258,7 @@ export default function AppReader(props: AppReaderProps) {
               errored: errored.has(i),
             }));
             probe.report.placeholders = countPlaceholders(imgs);
-            void propsRef.current.reportProbe(probe.json());
+            void native.reportProbe(probe.json());
           }, ms);
         }
       }),
@@ -259,7 +270,8 @@ export default function AppReader(props: AppReaderProps) {
     <ExpoBridgeMount
       inbox={props.inbox ?? []}
       bridge={props.bridge}
-      onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)}
+      bridgeHello={props.bridgeHello}
+      onFatal={(reason) => void native.reportProtocolFatal(reason)}
       onInsets={setHostInsets}
       onContentVersion={(token) => {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;

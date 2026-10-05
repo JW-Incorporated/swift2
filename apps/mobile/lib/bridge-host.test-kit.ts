@@ -70,13 +70,21 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     onSignal,
     ...extra,
   });
-  const cmd = (id: string, type: string, payload: unknown = {}) =>
-    host.receive({ v: 1, id, kind: 'cmd', type, payload, ts: 1 });
+  let isReady = false;
+  const rawCmd = (id: string, type: string, payload: unknown = {}) => host.receive({ v: 1, id, kind: 'cmd', type, payload, ts: 1 });
+  // The host rejects commands before ready, so `cmd` performs the handshake first (use `rawCmd` to send one pre-ready).
+  const cmd = (id: string, type: string, payload: unknown = {}) => {
+    if (!isReady) makeReady();
+    rawCmd(id, type, payload);
+  };
   const evt = (type: string, payload: unknown, id = `e-${type}`) =>
     host.receive({ v: 1, id, kind: 'evt', type, payload, ts: 1 });
-  const makeReady = (id = 'e-ready') => evt('ready', { v: BRIDGE_VERSION }, id);
+  const makeReady = (id = 'e-ready') => {
+    isReady = true;
+    evt('ready', { v: BRIDGE_VERSION }, id);
+  };
   const resFor = (id: string) => sent.filter((e) => e.kind === 'res' && e.id === id);
-  return { host, sent, readyAcks, sch, onProtocolFatal, onSignal, cmd, evt, makeReady, resFor };
+  return { host, sent, readyAcks, sch, onProtocolFatal, onSignal, cmd, evt, makeReady, resFor, rawCmd };
 }
 
 export const body = (e: Envelope) => e.payload as ResResult;
