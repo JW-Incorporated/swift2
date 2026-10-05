@@ -28,6 +28,7 @@ import {
 } from '@swift2/shared';
 import { useHost } from '../../host/context';
 import { selectDriver } from './lib/driver';
+import { settingsCopy } from './lib/copy';
 
 const CADENCE_LABEL: Record<NotificationCadence, string> = {
   instant: 'Instant',
@@ -164,6 +165,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   }
 
   const groups = useMemo(groupedCategories, []);
+  const copy = settingsCopy(driver?.kind);
 
   if (subscribeState.kind === 'checking') {
     return <p className="text-ink-soft">Checking notification support…</p>;
@@ -171,10 +173,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
 
   if (subscribeState.kind === 'unsupported') {
     return (
-      <p className="text-ink-soft">
-        This browser doesn&rsquo;t support web notifications. Get the Long Live app instead, or try
-        a different browser.
-      </p>
+      <p className="text-ink-soft">{copy.unsupported}</p>
     );
   }
 
@@ -289,7 +288,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
         onClick={handleUnsubscribe}
         className="self-start text-xs text-ink-soft underline hover:text-ink"
       >
-        Turn off web notifications for this browser
+        {copy.turnOff}
       </button>
     </div>
   );
