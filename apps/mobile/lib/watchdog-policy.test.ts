@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   FALLBACK_LAUNCHES,
+  READY_TIMEOUT_MS,
   createAttemptMonitor,
   decideMount,
   freshRecord,
@@ -82,7 +83,7 @@ describe('the remote-flag loop is bounded', () => {
   it('9 failing launches under the remote flag make exactly 4 DOM attempts (was 6)', () => {
     const rows = runDrill('hang', { launches: 9, cachedSharedUi: true });
     expect(rows.filter((r) => !r.skipped).length).toBe(4);
-    expect(rows.reduce((n, r) => n + r.burnedMs, 0)).toBe(4 * 10_000);
+    expect(rows.reduce((n, r) => n + r.burnedMs, 0)).toBe(4 * READY_TIMEOUT_MS);
     expect(rows.map((r) => r.outcome)).toEqual([
       'strike', 'strike', 'skipped', 'strike', 'strike', 'skipped', 'skipped', 'skipped', 'skipped',
     ]);
@@ -202,7 +203,7 @@ describe('native mount reason', () => {
     expect(nativeReasonFor({ wantsDom: false, source: 'quarantine' }, true)).toBe('quarantine');
     expect(nativeReasonFor({ wantsDom: false, source: 'cache' }, false)).toBe('flag-off');
     expect(nativeReasonFor({ wantsDom: true, source: 'cache' }, true)).toBe('watchdog-fallback');
-    expect(mountLine('native', 'pending-expired', null)).toBe('Mount: native (pending-expired)');
+    expect(mountLine('native', 'dom-strike', null)).toBe('Mount: native (dom-strike)');
     expect(mountLine('dom', null, 'cache')).toBe('Mount: shared UI (cache)');
     expect(mountLine('pending', null, null)).toBe('Mount: pending');
   });

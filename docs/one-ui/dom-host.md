@@ -77,7 +77,7 @@ DOM bundle under `www.bundle/`.
 
 **This MUST be merged, and installed apps must carry it, before any channel
 publishes remote `routeFlags.sharedUi: true` or the compiled default flips.**
-Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
+Without it a broken DOM bundle costs 2 of every 3 launches up to 20 s each,
 and a flipped default cannot be killed remotely.
 
 - **Resolved once per launch, from local state only.** Precedence:
@@ -90,7 +90,8 @@ and a flipped default cannot be killed remotely.
   and publish (docs/mobile-release.md). A device fetches it on a launch, so it
   is native from that device's second launch after publish. A device that never
   cached a config follows the compiled default. The compiled default is now `true` (the JSON agrees, tested).
-- **Quarantine.** Strike 2 owes one native fallback launch; the second such
+- **In-launch failures vs cross-launch deaths (Fable 2026-10-05).** An in-launch failure (ready-timeout, dom-error, webview-*, protocol: anything the monitor reports) sends THIS launch to Recovery and records state `failed` with `lastReason` (`recordLaunchFailure`); strikes, `fallbackLaunchesRemaining` and `fallbackCycles` are untouched, so the next cold launch always attempts DOM and never owes a fallback launch or quarantines. Only cross-launch deaths (`decideMount`: attempting and not backgrounded, or abandoned-repeated) are strikes. Every in-launch failure is reported (category-only) when `watchdogReports` is on.
+- **Quarantine.** Strike 2 (two consecutive cross-launch deaths without ready) owes one native fallback launch; the second such
   cycle in one `buildKey` (`QUARANTINE_AFTER_FALLBACK_CYCLES = 2`) quarantines the build:
   native on every launch until a new OTA or binary changes the `buildKey`, or
   Diagnostics "Reset watchdog". A ready launch zeroes the cycle count. Worst
@@ -112,8 +113,7 @@ and a flipped default cannot be killed remotely.
   A SLOW attempt write (3 s) mounts the DOM on the in-memory attempt; a FAILED
   write still fails closed (`attempt-failed`). Each bound firing records a `mount-pending-expired`
   mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
-  `Mount:` line with the reason the mount is native (`pending-expired`,
-  `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
+  `Mount:` line with the reason the mount is native (`quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
   or the source of a shared-UI mount. The mark is not in the `[diag]` /
   `[watchdog]` server whitelists (apps/web), so it does not yet reach a report.
 - **Telemetry (default OFF).** Category-only `[watchdog]` reports, a separate
@@ -125,8 +125,7 @@ and a flipped default cannot be killed remotely.
   `watchdogReports:true` in the cached config turns them on; absent or false =
   off, and anything queued is dropped. The server also rejects more than 5 per
   `buildKey` per 10 minutes per instance (in-memory, best effort).
-- **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
-  then set it to `max(10 s, 2 x p95 on the slowest device)`.
+- **READY_TIMEOUT_MS is 20 s** (was 10 s; one constant, no first-launch special case). S7 time-to-ready data may revise it.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
 - **Pending, not on main:** #5042 (default sharedUi on, Android first via `sharedUiIos`; removes the Force-shared-UI override and bounds the attempt write at 3000 ms), #5043 (Recovery screen replaces the native fallback), #5047 (deletes the legacy native UI). They change the precedence, fallback surface and kill-switch text above; this section describes main.
@@ -188,9 +187,9 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
 
 1. Diagnostics > Force DOM failure `hang`, airplane mode, relaunch: neutral
    background within 1.5 s, the DOM attempt, native after the ready timeout
-   (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
-   attempt). Relaunch twice more: quarantined, native with no attempt.
-   Diagnostics shows `Quarantined: yes`.
+   (Recovery; no strike). Relaunch: the DOM is attempted again, every time, and never
+   quarantines. Fallback and quarantine come only from launches killed before ready
+   (force-quit or crash in the foreground twice in a row).
 2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (default-on, via the flag). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per (build, category) per day on #4791.

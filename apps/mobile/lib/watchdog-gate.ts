@@ -126,7 +126,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     report(struck.lastReason, struck.buildKey);
   };
   const onFolded = (reason: string | null, record: WatchdogRecord) => {
-    if (reason && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+    if (reason) report(reason, record.buildKey);
   };
 
   const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
@@ -240,7 +240,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
           late: lateRef,
           write,
           onStrike: (reason, record, persisted) => {
-            if (persisted && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+            if (persisted) report(reason, record.buildKey);
             apply('native', 'dom-strike');
           },
         });

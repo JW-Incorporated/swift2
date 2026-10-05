@@ -75,13 +75,6 @@ describe('RecoveryScreen', () => {
     expect(screen.getByLabelText('Send report')).toBeTruthy();
   });
 
-  it('slow (pending expiry) renders the neutral title and body', () => {
-    render(<RecoveryScreen slow />);
-    expect(screen.getByText('Taking longer than expected')).toBeTruthy();
-    expect(screen.getByText('Tap Retry to load Long Live.')).toBeTruthy();
-    expect(screen.queryByText('Something went wrong')).toBeNull();
-  });
-
   it('a double-tap on Retry requests one reload and shows the busy state', async () => {
     render(<RecoveryScreen />);
     fireEvent.click(retryBtn());
