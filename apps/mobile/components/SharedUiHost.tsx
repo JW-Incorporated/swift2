@@ -11,7 +11,7 @@
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import { AppState, BackHandler, InteractionManager, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -25,6 +25,8 @@ import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
+import { createDeferredRefresh, type DeferredRefresh } from '../lib/deferred-bundle-refresh';
+import { diagMarkOnce } from '../lib/diagnostics';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -90,6 +92,7 @@ export function SharedUiHost({
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
   const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
   navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
+  const refreshRef = useRef<DeferredRefresh | null>(null);
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
@@ -112,14 +115,25 @@ export function SharedUiHost({
     // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
     const cached = lastGoodSource();
     if (cached) setSource({ cache: cached });
-    void loadContentBundle()
-      .then((bundle) => {
-        setContentToken(bundle.manifest.bundleVersion);
+    // With a cache the refresh waits for the DOM ready signal (lib/deferred-bundle-refresh.ts).
+    const refresh = createDeferredRefresh({
+      load: loadContentBundle,
+      runAfterInteractions: (fn) => void InteractionManager.runAfterInteractions(fn),
+      mark: diagMarkOnce,
+      onLoaded: (bundle) => {
+        setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
         if (!cached) setSource({ cache: lastGoodSource() });
-      })
-      .catch(() => {
+      },
+      onError: () => {
         if (!cached) setSource({ cache: null });
-      });
+      },
+    });
+    refreshRef.current = refresh;
+    refresh.start(!!cached);
+    return () => {
+      refresh.cancel();
+      if (refreshRef.current === refresh) refreshRef.current = null;
+    };
   }, [testPage]);
 
   const handlers = useMemo(
@@ -276,6 +290,7 @@ export function SharedUiHost({
               ? async () => {
                   nativeMs.current = Date.now() - launchedAt.current;
                   if (rawProbe.current) publishProbe(rawProbe.current);
+                  refreshRef.current?.domReady();
                   await handlers.onReady();
                   session.binder.firstPaint();
                 }
