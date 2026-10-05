@@ -174,9 +174,15 @@ export async function startAttempt(
   decision: MountDecision,
   now: number,
   save: (r: WatchdogRecord) => Promise<boolean>,
+  stillWanted: () => boolean = () => true,
 ): Promise<WatchdogRecord | null> {
   const attempt = beginAttempt(decision.record, now);
   if (!(await save(attempt))) return null;
+  if (!stillWanted()) {
+    // Unmounted mid-flow: nothing mounted, so un-record the attempt (no strike).
+    await save(decision.record);
+    return null;
+  }
   return attempt;
 }
 

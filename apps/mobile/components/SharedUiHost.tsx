@@ -10,8 +10,9 @@
 // ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -24,6 +25,7 @@ import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
+import { useContentAdoption } from '../lib/use-content-adoption';
 import { useDeferredBundleRefresh } from '../lib/use-deferred-bundle-refresh';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
@@ -34,6 +36,7 @@ import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { createFileHostStorage } from '../lib/host-storage-file';
 import { shareCardPorts } from '../lib/share-card-ports';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import type { LastGoodSource } from '../lib/dom-reader-config';
@@ -46,6 +49,9 @@ const SITE_FALLBACK = 'https://www.longlivets.com';
 interface ReaderSource {
   cache: LastGoodSource | null;
 }
+
+// One per process: every epoch's bridge host shares the cached blob.
+const hostStorage = createFileHostStorage();
 
 export function SharedUiHost({
   onSignal,
@@ -105,6 +111,7 @@ export function SharedUiHost({
   }, []);
 
   const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);
+  const adoption = useContentAdoption(testPage, { bump: () => setGeneration((g) => g + 1), onSignal, setSource, watch });
 
   const handlers = useMemo(
     () =>
@@ -124,6 +131,7 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
+    adoption.epochStarted();
     const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
@@ -133,7 +141,9 @@ export function SharedUiHost({
       linking: Linking,
       share: Share,
       cards: shareCardPorts,
+      clipboard: Clipboard,
       haptics: Haptics,
+      hostStorage,
       platformOS: Platform.OS,
       log: onSignal,
       siteUrl: navRef.current.siteUrl,
@@ -146,7 +156,11 @@ export function SharedUiHost({
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
       onBeforeShutdown: () => ref.binder?.release(),
       onReadyAgain: () => ref.binder?.readyAgain(),
-      onNavReady: () => ref.binder?.navReady(),
+      onNavReady: () => {
+        ref.binder?.navReady();
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+      },
+      onRoute: (path, busy) => adoption.route(path, busy),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -218,24 +232,44 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) void handlers.reportError('forced DOM failure');
   }, [forceFailure, source]);
 
-  const publishProbe = (json: string) => {
+  const publishProbe = useCallback((json: string) => {
     const merged = withNativeTiming(json, nativeMs.current);
     rawProbe.current = json;
     setProbeJson(merged);
     setLatestProbeJson(merged);
-  };
+  }, []);
 
   // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
   // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
-  const dom = {
-    contentInsetAdjustmentBehavior: 'never' as const,
-    automaticallyAdjustContentInsets: false,
-    bounces: false,
-    style: { backgroundColor: eraColors.bg },
-    containerStyle: { backgroundColor: eraColors.bg },
-    onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
-    onRenderProcessGone: handlers.onRenderProcessGone,
-  };
+  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  const dom = useMemo(
+    () => ({
+      contentInsetAdjustmentBehavior: 'never' as const,
+      automaticallyAdjustContentInsets: false,
+      bounces: false,
+      style: { backgroundColor: eraColors.bg },
+      containerStyle: { backgroundColor: eraColors.bg },
+      onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
+      onRenderProcessGone: handlers.onRenderProcessGone,
+    }),
+    [handlers],
+  );
+  const domReadyRef = useRef(domReady);
+  domReadyRef.current = domReady;
+  const onReadyReal = useMemo(
+    () => async () => {
+      nativeMs.current = Date.now() - launchedAt.current;
+      if (rawProbe.current) publishProbe(rawProbe.current);
+      domReadyRef.current();
+      await handlers.onReady();
+      session?.binder.firstPaint();
+      adoption.readerReady();
+    },
+    [handlers, session, publishProbe, adoption],
+  );
+  const onReadyNoop = useCallback(async () => {}, []);
+  const reportProbe = useCallback(async (json: string) => publishProbe(json), [publishProbe]);
+  const reportImageLoad = useCallback(async (visible: boolean) => noteImageLoaded(visible), []);
 
   return (
     <View style={testPage ? styles.test : styles.fill}>
@@ -255,21 +289,11 @@ export function SharedUiHost({
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}
-          onReady={
-            forceFailure === 'off'
-              ? async () => {
-                  nativeMs.current = Date.now() - launchedAt.current;
-                  if (rawProbe.current) publishProbe(rawProbe.current);
-                  domReady();
-                  await handlers.onReady();
-                  session.binder.firstPaint();
-                }
-              : async () => {}
-          }
+          onReady={forceFailure === 'off' ? onReadyReal : onReadyNoop}
           reportError={handlers.reportError}
-          reportProbe={async (json) => publishProbe(json)}
+          reportProbe={reportProbe}
           speedTestOn={speedOn}
-          reportImageLoad={async (visible) => noteImageLoaded(visible)}
+          reportImageLoad={reportImageLoad}
         />
       ) : null}
     </View>

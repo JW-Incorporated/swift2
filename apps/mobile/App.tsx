@@ -23,8 +23,10 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
 import { useDeepLinks } from './lib/use-deep-links';
+import { DiagLinkHost } from './components/DiagLinkHost';
 import { loadAppConfig, loadLaunchFlags } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
+import { runAfterFirstPaint } from './lib/launch-defer';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
@@ -38,6 +40,7 @@ import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { eraColors } from './lib/theme';
 import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
+import { FirstLaunchScreen } from './components/FirstLaunchScreen';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
@@ -90,17 +93,22 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    ensureDeviceRegistered().catch((e) => {
-      console.warn('device registration failed', e instanceof Error ? e.message : e);
+    // Deferred past first paint (its secure-storage ops would delay the mount gate); ensureDeviceRegistered() is memoized,
+    // so an earlier on-demand caller (prefs client) triggers it once and this call joins it.
+    const cancelRegistration = runAfterFirstPaint(() => {
+      ensureDeviceRegistered().catch((e) => {
+        console.warn('device registration failed', e instanceof Error ? e.message : e);
+      });
     });
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
+    return cancelRegistration;
   }, []);
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts): held until the DOM host
-  // binds and acks. On the Recovery screen taps and deep links are consumed and dropped (diag mark), never queued.
-  useNotificationTaps(domMount.mount === 'native');
+  // binds and acks. The Recovery screen holds them like pending (#5102)
+  useNotificationTaps();
   useDeepLinks(notificationTapGate);
 
   return (
@@ -120,6 +128,8 @@ export default function App() {
               state={nativeRoute}
               presenter={presenter}
             />
+          ) : domMount.mount === 'awaiting-content' ? (
+            <FirstLaunchScreen failed={domMount.contentFailed} onRetry={domMount.retryContent} />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : (
@@ -127,6 +137,7 @@ export default function App() {
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
+        <DiagLinkHost />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

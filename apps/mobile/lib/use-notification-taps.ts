@@ -6,23 +6,16 @@ import * as Notifications from 'expo-notifications';
 import { SITE_URL } from './site-url';
 import { createTapGate, type RawResponse } from './notification-tap-gate';
 import { startTapIngest } from './notification-tap-ingest';
-import { recoveryTapDiscard } from './recovery-taps';
 
 export const notificationTapGate = createTapGate({ siteUrl: SITE_URL });
 
 /**
  * Feeds cold-start and live notification taps into the gate (serialized, see
- * notification-tap-ingest.ts). `recovery` is true while the Recovery screen is mounted: taps and deep
- * links are consumed and dropped (diag mark), never queued or navigated. Otherwise (pending) they stay
- * held for the DOM host. Returning to the foreground retries held taps (an ack wait can time out
- * while backgrounded).
+ * notification-tap-ingest.ts). There is no native navigator: while the DOM host is not mounted
+ * (pending, Recovery) the queue is detached and taps stay held for it (10-min TTL). Returning to the
+ * foreground retries held taps (an ack wait can time out while backgrounded).
  */
-export function useNotificationTaps(recovery = false): void {
-  useEffect(() => {
-    notificationTapGate.setNativeNavigator(recovery ? recoveryTapDiscard() : null);
-    return () => notificationTapGate.setNativeNavigator(null);
-  }, [recovery]);
-
+export function useNotificationTaps(): void {
   useEffect(() => {
     const stop = startTapIngest(notificationTapGate, {
       getLast: async () => (await Notifications.getLastNotificationResponseAsync()) as RawResponse | null,
