@@ -19,6 +19,8 @@ vi.mock('react-native', async () => {
       accessibilityLabel,
       accessibilityRole,
       accessibilityLiveRegion,
+      accessibilityElementsHidden,
+      importantForAccessibility,
       style,
       contentContainerStyle,
     }: Record<string, unknown>) =>
@@ -30,6 +32,8 @@ vi.mock('react-native', async () => {
           'aria-label': accessibilityLabel,
           role: accessibilityRole,
           'aria-live': accessibilityLiveRegion,
+          'aria-hidden': accessibilityElementsHidden ? 'true' : undefined,
+          'data-ifa': importantForAccessibility,
           'data-style': JSON.stringify([style, contentContainerStyle].flat(Infinity).filter(Boolean)),
         },
         children as never,
@@ -123,11 +127,14 @@ describe('FirstLaunchScreen', () => {
     vi.advanceTimersByTime(10 * 60_000);
     expect(onRetry).not.toHaveBeenCalled();
   });
-  it('spinner is labelled, Retry is a 44pt target, content scrolls (ScrollView with flexGrow)', () => {
+  it('spinner is hidden from AT (the adjacent text names it), Retry is a 44pt target, content scrolls (ScrollView with flexGrow)', () => {
     const { container, getByLabelText, rerender, getByTestId } = render(
       createElement(FirstLaunchScreen, { failed: false, onRetry: () => undefined }),
     );
-    expect(container.querySelector('i')!.getAttribute('aria-label')).toBe('Downloading Long Live');
+    const spinner = container.querySelector('i')!;
+    expect(spinner.getAttribute('aria-hidden')).toBe('true');
+    expect(spinner.getAttribute('data-ifa')).toBe('no-hide-descendants');
+    expect(spinner.getAttribute('aria-label')).toBeNull();
     expect(getByTestId('first-launch-screen').getAttribute('data-style')).toContain('flexGrow');
     rerender(createElement(FirstLaunchScreen, { failed: true, onRetry: () => undefined, kind: 'server' }));
     expect(JSON.parse(getByLabelText('Retry').getAttribute('data-style')!)[0].minHeight).toBeGreaterThanOrEqual(44);

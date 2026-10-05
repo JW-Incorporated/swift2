@@ -56,7 +56,7 @@ export function FirstLaunchScreen({
         </>
       ) : (
         <>
-          <ActivityIndicator color="#f2c744" size="large" accessibilityLabel="Downloading Long Live" />
+          <ActivityIndicator color="#f2c744" size="large" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" />
           <Text style={[styles.message, styles.loading]} accessibilityLiveRegion="polite">Downloading Long Live…</Text>
         </>
       )}
