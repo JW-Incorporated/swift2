@@ -6,6 +6,13 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 10:18 PDT — Audit wave nearly landed. <<<**
+- Merged since 08:15: #5143 SEC-A, #5145 A11Y-F, #5149 PA-2, #5150 SEC-10, #5151 docs, #5152 A11Y-9/10, #5153 PA-1, #5155, #5156 A11Y-N, #5157 SEC-4 (sandbox only), #5161 HA #102-#105.
+- Open: #5146 A11Y-S (stale selector fixed, CI running, auto-merge armed); building #5160 Red accent2 + PA-11 safe-area hooks.
+- Gated issues filed: #5158 font scaling, #5159 nav guard (both native → store build).
+- Held for Joey: #5154 privacy copy (HA #102), HA #103-#105, draft #5133 store build.
+- Lessons: approve `action_required` runs only on the PR HEAD sha (`gh api -X POST .../actions/runs/<id>/approve`); parity triage — check whether failing runs predate a suspected main merge before blaming it; selectors on aria-label break when labels move to sr-only text.
+
 **>>> CHECKPOINT 2026-10-05 08:15 PDT — Audit wave landing. <<<**
 - Merged: #5047 (legacy UI deleted, 07:50), #5142 FI-2/7, #5144 WD-2 Retry OTA, #5147 WD-1 watchdog strike split (Fable 07:40 + 07:58), #5148 SEC-9 workflows.
 - Auto-merge armed (reviewed): #5143 SEC-A, #5146 A11Y-S, #5149 PA-2, #5150 SEC-10, #5151 docs, #5155 OverlayNav label. #5145 A11Y-F RED (build/build-full/pixel-7) → builder diagnosing.
