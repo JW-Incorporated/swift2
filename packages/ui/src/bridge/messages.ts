@@ -83,7 +83,7 @@ export type DomEventSpec = {
   /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
   theme: ThemeChange;
   /** Fire-and-forget (no res, no ack): the DOM's current route (`/`-rooted path plus query/hash, <= 2048 chars) changed. Queued/coalesced like `theme`: only the latest matters. Add-only. */
-  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean };
+  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean; /** The reader is away from rest (not the front door, an overlay or legal page open, or scrolled down): native defers content adoption until it idles. Absent = idle. */ engaged?: boolean };
 };
 
 /** Native -> DOM events. */

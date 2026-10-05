@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { setEngaged } from '../../bridge/engaged-signal';
 
 /**
  * Makes the mobile browser/PWA back-swipe gesture dismiss an open overlay
@@ -25,6 +26,8 @@ import { useEffect, useRef } from 'react';
 type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean };
 
 const stack: StackEntry[] = [];
+/** Reports whether any hook-registered overlay is open (nav entries do not count) so native content adoption waits for it. */
+const reportOverlays = () => setEngaged('overlay-stack', stack.some((e) => e.overlay));
 /** Pending popstates we caused ourselves (UI-close consuming its entry). */
 let suppressedPops = 0;
 let listenerInstalled = false;
@@ -63,6 +66,7 @@ export function waitForBackStackIdle(): Promise<void> {
 /** Test-only: clears module-level stack state between tests. */
 export function resetBackStackForTests() {
   stack.length = 0;
+  reportOverlays();
   buried.clear();
   suppressedPops = 0;
   pendingPops = 0;
@@ -96,6 +100,7 @@ function handlePop() {
     top.dismissedByPop = true;
     // Nav entries have no cleanup path: leave the logical stack here. Hook entries leave via their own cleanup.
     if (!top.overlay) stack.pop();
+    reportOverlays();
     top.dismiss();
   }
   skipBuried();
@@ -125,6 +130,7 @@ export function pushBackEntry(onDismiss: () => void, state?: Record<string, unkn
   installListener();
   const id = ++seq;
   stack.push({ id, dismiss: onDismiss, dismissedByPop: false });
+  reportOverlays();
   window.history.pushState({ ...state, llOverlay: true, llId: id }, '');
 }
 
@@ -166,10 +172,12 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
       overlay: true,
     };
     stack.push(entry);
+    reportOverlays();
     window.history.pushState({ llOverlay: true, llId: entry.id }, '');
     return () => {
       const i = stack.indexOf(entry);
       if (i !== -1) stack.splice(i, 1);
+      reportOverlays();
       if (!entry.dismissedByPop) {
         // Closed by the UI — consume our pushed entry, and flag the popstate
         // that this back() emits so it isn't mistaken for a user gesture.

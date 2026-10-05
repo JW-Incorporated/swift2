@@ -85,3 +85,4 @@ export type { BridgeApiHeaderName, BridgeApiRequest, ExternalUrl, JsonFailure, M
 export { BRIDGE_VERSION, NATIVE_SUPPORTED_RANGE, inRange, isVersionRange, negotiate, parseReady } from './version';
 export type { NegotiateResult, VersionRange } from './version';
 export { isBusy, setBusy, subscribeBusy } from './busy-signal';
+export { isEngaged, setEngaged, subscribeEngaged } from './engaged-signal';

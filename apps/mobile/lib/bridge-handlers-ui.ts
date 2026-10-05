@@ -50,7 +50,7 @@ function isCardUrl(u: string, host: string | undefined): boolean {
   if (!host) return false;
   try {
     const url = new URL(u);
-    return url.protocol === 'https:' && url.host === host && !url.username && !url.password;
+    return url.protocol === 'https:' && url.host === host && !url.username && !url.password && url.pathname === '/api/share-card';
   } catch {
     return false;
   }

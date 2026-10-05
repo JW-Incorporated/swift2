@@ -54,7 +54,7 @@ describe('JSON round-trip, one sample per type', () => {
     navReady: {},
     navigated: { id: 't1', ok: true },
     theme: { statusBarStyle: 'light', background: '#0c0c0c' },
-    route: { path: '/privacy?x=1' },
+    route: { path: '/privacy?x=1', busy: true, engaged: true },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
