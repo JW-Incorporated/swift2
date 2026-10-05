@@ -14,6 +14,8 @@ vi.mock('react-native', async () => {
   const el = (tag: string) => (p: Record<string, unknown>) => React.createElement(tag, null, p.children as never);
   return {
     View: el('div'),
+    ScrollView: (p: { children?: unknown; contentContainerStyle?: { flexGrow?: number } }) =>
+      React.createElement('div', { 'data-testid': 'scroll', 'data-flexgrow': String(p.contentContainerStyle?.flexGrow) }, p.children as never),
     Text: (p: { children?: unknown; accessibilityLiveRegion?: string }) =>
       React.createElement('span', { 'data-live': p.accessibilityLiveRegion }, p.children as never),
     StyleSheet: { create: (s: unknown) => s },
@@ -73,6 +75,11 @@ describe('RecoveryScreen', () => {
     expect(screen.getByText('Something went wrong')).toBeTruthy();
     expect(retryBtn()).toBeTruthy();
     expect(screen.getByLabelText('Send report')).toBeTruthy();
+  });
+
+  it('content scrolls at large font scale (ScrollView, flexGrow content)', () => {
+    render(<RecoveryScreen />);
+    expect(screen.getByTestId('scroll').getAttribute('data-flexgrow')).toBe('1');
   });
 
   it('slow (pending expiry) renders the neutral title and body', () => {

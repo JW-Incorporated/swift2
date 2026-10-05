@@ -4,28 +4,36 @@
 
 export type ContentFailureKind = 'offline' | 'timeout' | 'server';
 
-function chainText(err: unknown): string {
-  const parts: string[] = [];
-  let e: unknown = err;
-  for (let i = 0; i < 4 && e; i++) {
-    parts.push(e instanceof Error ? e.message : String(e));
-    e = (e as { cause?: unknown }).cause;
-  }
-  return parts.join(' | ');
+function chainOf(err: unknown): unknown[] {
+  const chain: unknown[] = [];
+  for (let e = err; e && chain.length < 6; e = (e as { cause?: unknown }).cause) chain.push(e);
+  return chain;
 }
 
-/** Failure class for the copy: a bare transport failure is offline; a timeout or an HTTP/data failure is the server side. */
+const text = (e: unknown): string => (e instanceof Error ? e.message : String(e));
+const nameOf = (e: unknown): string => (e as { name?: unknown } | null)?.name as string;
+// packages/content does not export TransportError (only sets .name), so match by name; the contract test pins it.
+const isTransportError = (e: unknown): boolean => nameOf(e) === 'TransportError';
+const looksLikeTimeout = (e: unknown): boolean => /^(Abort|Timeout)Error$/.test(nameOf(e) ?? '') || /timed out|timeout|abort/i.test(text(e));
+
+/**
+ * Failure class for the copy. packages/content wraps a network-level failure as TransportError(msg, cause) (the cause is
+ * the fetch rejection or the 'Request timed out' Error) and an HTTP failure as a cause-less TransportError; both may sit
+ * under a BundleLoadError. Message text is only the last fallback, for errors with no TransportError in their chain.
+ */
 export function classifyContentFailure(err: unknown): ContentFailureKind {
-  const text = chainText(err);
-  if (/timed out|timeout|abort/i.test(text)) return 'timeout';
-  if (/HTTP \d{3}/.test(text)) return 'server';
-  if (/Network request|network|offline|ENOTFOUND|ECONN/i.test(text)) return 'offline';
+  const chain = chainOf(err);
+  const transport = chain.find(isTransportError) as { cause?: unknown } | undefined;
+  if (transport) {
+    if (transport.cause === undefined) return 'server';
+    return chain.some(looksLikeTimeout) ? 'timeout' : 'offline';
+  }
+  const joined = chain.map(text).join(' | ');
+  if (/timed out|timeout|abort/i.test(joined)) return 'timeout';
+  if (/HTTP \d{3}/.test(joined)) return 'server';
+  if (/Network request|network|offline|ENOTFOUND|ECONN/i.test(joined)) return 'offline';
   return 'server';
 }
-
-let lastKind: ContentFailureKind = 'server';
-/** Class of the most recent content failure (set before onFailed(true), so a render on that flip reads it). */
-export const contentFailureKind = (): ContentFailureKind => lastKind;
 
 /** Auto-retry waits while the failure screen is visible and the app is foregrounded: 5 s, 15 s, 30 s, then every 60 s. */
 export const RETRY_BACKOFF_MS = [5_000, 15_000, 30_000] as const;
@@ -74,7 +82,7 @@ export interface ContentWaiter {
 
 export function createContentWaiter(
   loadContent: () => Promise<unknown>,
-  onFailed: (failed: boolean) => void,
+  onFailed: (failed: boolean, kind?: ContentFailureKind) => void,
   isDisposed: () => boolean,
 ): ContentWaiter {
   let kick: (() => void) | null = null;
@@ -89,8 +97,7 @@ export function createContentWaiter(
           return !isDisposed();
         } catch (err) {
           if (isDisposed()) return false;
-          lastKind = classifyContentFailure(err);
-          onFailed(true);
+          onFailed(true, classifyContentFailure(err));
           await new Promise<void>((resolve) => (kick = resolve));
           kick = null;
         }
