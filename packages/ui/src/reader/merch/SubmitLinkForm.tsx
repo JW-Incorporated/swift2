@@ -20,6 +20,7 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Check, Loader2 } from 'lucide-react';
 import { useHost } from '../../host/context';
+import { SubmitLinkExternal } from './SubmitLinkExternal';
 
 declare global {
   interface Window {
@@ -56,7 +57,14 @@ function looksLikeUrl(value: string): boolean {
   }
 }
 
+/** Web renders the inline form; a host that cannot mint a Turnstile token (`submitLink: 'external'`, the app) hands off to the website. */
 export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
+  const host = useHost();
+  if (host.submitLink === 'external') return <SubmitLinkExternal section={section} heading={SECTION_COPY[section].heading} />;
+  return <InlineSubmitLinkForm section={section} />;
+}
+
+function InlineSubmitLinkForm({ section }: SubmitLinkFormProps) {
   const [url, setUrl] = useState('');
   const [hp, setHp] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
@@ -169,7 +177,7 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
             onChange={(e) => setUrl(e.target.value)}
             placeholder={copy.placeholder}
             aria-describedby={statusId}
-            className="min-h-[44px] flex-1 rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-bg)] px-3 text-sm text-[color:var(--era-ink)] placeholder:text-[color:var(--era-ink-soft)]/70 focus:border-[color:var(--era-accent)] focus:outline-none"
+            className="min-h-[44px] flex-1 rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-bg)] px-3 text-base sm:text-sm text-[color:var(--era-ink)] placeholder:text-[color:var(--era-ink-soft)]/70 focus:border-[color:var(--era-accent)] focus:outline-none"
           />
           {/* Honeypot — visually hidden via off-screen positioning, not
               display:none, which automated form-fillers can detect and skip

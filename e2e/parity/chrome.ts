@@ -13,7 +13,7 @@ export interface ChromeCase {
 const byName = (name: string): AOnlyRoute =>
   [...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA].find((r) => r.name === name) ?? (() => { throw new Error(`parity: no route ${name}`); })();
 
-/** Home (top and an era stream scrolled), the item dialog, threads and merch (top and foot, where the footer shows). */
+/** Home (top and an era stream scrolled), the item dialog, threads (top and foot, where the footer shows) and merch (top). Merch's foot is left out: it ends on the Submit-a-link block, an accepted divergence. */
 export const CHROME_CASES: readonly ChromeCase[] = [
   { name: 'home', route: ROUTES[0], scroll: 0 },
   { name: 'home-scrolled', route: ROUTES[0], scroll: 800 },
@@ -21,7 +21,6 @@ export const CHROME_CASES: readonly ChromeCase[] = [
   { name: 'threads', route: byName('threads'), scroll: 0 },
   { name: 'threads-foot', route: byName('threads'), scroll: 'bottom' },
   { name: 'merch', route: byName('merch'), scroll: 0 },
-  { name: 'merch-foot', route: byName('merch'), scroll: 'bottom' },
 ];
 
 const ENV_INSET = /env\(safe-area-inset-(top|right|bottom|left)\)/g;

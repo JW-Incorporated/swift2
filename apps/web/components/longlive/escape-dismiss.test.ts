@@ -25,7 +25,7 @@ const ESCAPE_DISMISS_COMPONENTS = [
   '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
   '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
   '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
-  '../../../../packages/ui/src/reader/threads/love-story/EntryDetail.tsx',
+  '../../../../packages/ui/src/reader/threads/love-story/LoveStoryThread.tsx',
 ];
 
 describe('#525 every close-affordance component dismisses on Escape', () => {
@@ -33,12 +33,12 @@ describe('#525 every close-affordance component dismisses on Escape', () => {
     describe(file, () => {
       const src = read(file);
 
-      it('handles the Escape key', () => {
-        expect(src).toMatch(/e\.key (===|!==) 'Escape'/);
+      it('is on the one ordered back stack (the single Escape dispatcher in useBackDismiss)', () => {
+        expect(src).toContain('useBackDismiss(');
       });
 
-      it("registers a window 'keydown' listener (not a focus-dependent JSX handler)", () => {
-        expect(src).toContain("window.addEventListener('keydown'");
+      it('has no private window Escape listener (would double-close with the dispatcher)', () => {
+        expect(src).not.toMatch(/e.key (===|!==) 'Escape'/);
       });
     });
   }

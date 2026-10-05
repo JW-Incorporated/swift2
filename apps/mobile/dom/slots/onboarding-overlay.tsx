@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ONBOARDING_PRESETS, type OnboardingPresetId } from '@swift2/shared';
 import { useHost } from '@swift2/ui';
 import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
@@ -25,7 +25,9 @@ export function OnboardingOverlay() {
   const dialog = useDialog(phase === 'shown');
   const capable = !!notifications?.onboardingOffered && !!notifications.markOnboardingOffered;
   // Back while a CTA is in flight is swallowed by the bridge's busy guard before the stack is consulted.
-  useBackDismiss(phase === 'shown' && !!notifications, () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done')));
+  // Escape is "Not now" (marks the offer seen); Back only closes it, so the offer returns next time.
+  const skipRef = useRef<() => void>(() => {});
+  useBackDismiss(phase === 'shown' && !!notifications, () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done')), { onEscape: () => skipRef.current() });
 
   useEffect(() => {
     if (!settingsOpen || phase !== 'idle' || !notifications || !capable) return;
@@ -86,8 +88,11 @@ export function OnboardingOverlay() {
       await persist();
     });
 
+  const skip = () => void (busy === null && run('skip', async () => void (await persist())));
+  skipRef.current = skip;
+
   return (
-    <div {...dialog(() => void (busy === null && run('skip', async () => void (await persist()))))} role="dialog" aria-modal="true" aria-label="Stay in the loop" className="fixed inset-0 z-[60] overflow-y-auto outline-none" style={NEUTRAL}>
+    <div {...dialog(skip)} role="dialog" aria-modal="true" aria-label="Stay in the loop" className="fixed inset-0 z-[60] overflow-y-auto outline-none" style={NEUTRAL}>
       <div className="mx-auto flex max-w-xl flex-col gap-4 px-6 pb-16 pt-[max(4rem,var(--safe-top,0px))]">
         <h2 className="text-2xl font-semibold text-ink">Stay in the loop</h2>
         <p className="text-sm text-ink/70">Pick how much you want to hear from Long Live. You can change this any time.</p>

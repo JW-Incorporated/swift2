@@ -3,13 +3,10 @@
 // reachable through the Diagnostics "test page" toggle. Records the watchdog
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal` and forwards them to the WP0.4b watchdog via `watch`.
-// Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
-// expo wrapper's auto-reload, so the policy is ours (lib/watchdog.ts): a crash before
-// ready, or a repeat within RELOAD_WINDOW_MS, is a watchdog strike that unmounts this
-// host in favour of the native screens (lib/watchdog-gate.ts); the first crash after
-// ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
-// The webview reads the native disk cache itself: only a cache URI and a
-// version token cross the bridge (C6), never content.
+// Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the expo wrapper's
+// auto-reload; policy is ours (lib/watchdog.ts, lib/watchdog-gate.ts): a crash before ready or a repeat
+// within RELOAD_WINDOW_MS is a strike that unmounts this host; the first crash after ready re-keys the mount.
+// The webview reads the native disk cache itself: only a cache URI and version token cross the bridge (C6).
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
@@ -161,9 +158,9 @@ export function SharedUiHost({
       onReadyAgain: () => ref.binder?.readyAgain(),
       onNavReady: () => {
         ref.binder?.navReady();
-        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false), (snap) => void ref.host?.emit('restore', { snap }));
       },
-      onRoute: (path, busy, engaged) => adoption.route(path, busy, engaged),
+      onRoute: (path, busy, engaged, snap) => epochRef.current === epoch && adoption.route(path, busy, engaged, snap),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -190,9 +187,11 @@ export function SharedUiHost({
         return true;
       },
     });
-    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
+    // A tap/deep-link/native navigation reaching this epoch outranks a pending state restore (content adoption).
+    const gateTarget = { ...target, emit: ((t: 'navigate', p: never) => (adoption.userNavigated(), target.emit(t, p))) as typeof target.emit, navigateDom: (p: string) => (adoption.userNavigated(), target.navigateDom(p)) };
+    const binder = createTapBinder({ gate: notificationTapGate, host: gateTarget, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
-    navRef.current.onDomNavigator?.(target.navigateDom);
+    navRef.current.onDomNavigator?.((p) => (adoption.userNavigated(), target.navigateDom(p)));
     ref.binder = binder;
     ref.host = host;
     hostRef.current = host;
@@ -235,14 +234,14 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) if (session) void handlers.reportError('forced DOM failure', session.token);
   }, [forceFailure, source, session]);
 
-  // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
-  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
-  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  // iOS: DOM owns insets (--safe-*), no rubber-banding. Inline playback explicit (as MomentSheet/SiteShell) so embeds stay inline; memoized for referentially-equal props.
   const dom = useMemo(
     () => ({
       contentInsetAdjustmentBehavior: 'never' as const,
       automaticallyAdjustContentInsets: false,
       bounces: false,
+      allowsInlineMediaPlayback: true,
+      mediaPlaybackRequiresUserAction: true,
       style: { backgroundColor: eraColors.bg },
       containerStyle: { backgroundColor: eraColors.bg },
       onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
