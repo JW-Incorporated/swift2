@@ -8,7 +8,6 @@ import {
   markReady,
   markReloading,
   recordLaunchFailure,
-  recordStrike,
   shouldMountDom,
   type AttemptMonitor,
   type MountDecision,
@@ -83,7 +82,7 @@ export function reconcileLateRecord(
     if (l.ready && rec.state === 'attempting') rec = markReady(rec, Date.now());
     let struck: string | null = null;
     if (l.strike && rec.state === 'attempting') {
-      rec = recordStrike(rec, l.strike, Date.now()).record;
+      rec = recordLaunchFailure(rec, l.strike, Date.now());
       struck = l.strike;
     }
     if (current?.state === 'ready' && rec.state === 'attempting') rec = current;
