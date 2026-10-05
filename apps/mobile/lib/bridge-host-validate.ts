@@ -165,8 +165,21 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':
       return validPrefsUpdate(p);
-    default:
+    case 'notifications.status':
+    case 'notifications.request':
+    case 'notifications.register':
+    case 'notifications.getPrefs':
+    case 'notifications.unregister':
+    case 'notifications.registration':
+    case 'notifications.optOutPending':
+    case 'notifications.onboardingOffered':
+    case 'notifications.markOnboardingOffered':
       return {};
+    default: {
+      // A new command must be handled above: this fails typecheck until it is (never a silent {}).
+      const unhandled: never = type;
+      throw new Error(`validateCommand: unhandled command ${String(unhandled)}`);
+    }
   }
 }
 
