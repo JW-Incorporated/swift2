@@ -16,6 +16,7 @@ export const RELOAD_GRACE_MS = 3000;
 const LEGAL_ORIGIN = 'https://www.longlivets.com';
 
 const ERROR_RETRY = "Couldn't restart. Please try again.";
+const ERROR_REOPEN = 'Close and reopen Long Live.';
 const ERROR_NO_RELOAD = "The app didn't restart. Please try again.";
 
 export function RecoveryScreen() {
@@ -52,7 +53,10 @@ export function RecoveryScreen() {
     retryLock.current = true;
     setRetrying(true);
     say('Retrying');
-    const outcome = await retryDomAttempt();
+    const outcome = await retryDomAttempt(Date.now, (phase) => {
+      if (mounted.current) say(phase === 'checking' ? 'Checking for an update…' : 'Downloading update…');
+    });
+    if (outcome === 'reload-failed') return reopenRetry(ERROR_REOPEN);
     if (outcome !== 'reload-requested') return reopenRetry(ERROR_RETRY);
     timer.current = setTimeout(() => reopenRetry(ERROR_NO_RELOAD), RELOAD_GRACE_MS);
   }
