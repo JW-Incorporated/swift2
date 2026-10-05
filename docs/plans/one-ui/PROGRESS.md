@@ -6,6 +6,16 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-04 21:31 PDT — Migration & quotas decisions; auto-merge queue armed. <<<**
+- Founder decisions 21:04–21:06: OK to migrate #5065; landscape A (phones portrait-only, tablets rotate); feedback stays public for now, private eventually (decisions PR #5101 + follow-up issue).
+- Auto-merge armed (approved, waiting CI): #5065 watchdog dedupe, #5079 bridge token, #5098 feedback escaping/share bounds, #5059 persistent reader storage, #5058 embeds parity, #5076 iOS inline media, #5096 app integration tests, #5095 bundle memo, #5089 keyboard inset (Fable-ruled), #5106 offline first launch (Fable-ruled), #5103 offline opt-out + foreground refresh, #5104 deep-link strip (Fable-ruled), #5107 longlive://diag (closes #4877), #5109 update-baselines timeout.
+- Merged: #5060 threads + 11 eras parity (no real diffs).
+- Waiting on founder: #5099 durable feedback quotas (Codex r2 approved) — needs "OK to migrate 5099".
+- In flight: #5105 offline embeds + feedback outbox (Codex r2), Escape single dispatcher, offline art cache (#5074), #5101 decisions.
+- Filed: #5102 Recovery drops queued taps, #5108 durable feedback dedupe.
+- Fable rulings tonight: offline first launch (awaiting-content), #5089 keyboard geometry, deep-link strip-on-open, #5106 r2, #5104 r2.
+- Blocked: Wyatt's iPhone confirmation of #5045 → #5042 sharedUiIos=true → #5043 → S8 drill → #5047 (keep runAfterFirstPaint on rebase).
+
 **>>> CHECKPOINT 2026-10-03 05:51 PDT — AUTHORITATIVE; everything below is history. <<<**
 Owner: "keep going… run all night… parallel agents" (02:08). Cap 5 workers (+Codex jobs).
 **DONE ON MAIN:** G1 (harness, a11y, always-run parity-gate #4840, image race #4845,
