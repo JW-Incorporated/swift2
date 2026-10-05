@@ -8627,3 +8627,11 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 - Order: the S8 drill moves before the deletion PR (PR3); S7 becomes production telemetry.
 - Kill switch: JSON `sharedUi: false`, effective on the next launch.
 - Wrong-signal threshold: any `quarantined` or `ready-timeout` `[watchdog]`/`[diag]` report from testers/devices that send reports (absolute, not a percentage).
+
+## 2026-10-04 — Phones are portrait-only; feedback stays in the public repo for now
+
+Joey, 2026-10-04 21:06 PDT; Fable concurred.
+
+**Phone orientation.** The app is portrait-only on phones; tablets rotate. This is an accepted divergence from the website (listed in `docs/one-ui/parity.md`). Rationale: platform convention for content and fan apps, and it avoids a second test matrix. Revisit if user feedback asks. Watch: fullscreen video must still rotate under the lock; if it does not, unlock on fullscreen and relock, never a global unlock.
+
+**Feedback destination.** Feedback issues stay in the public `JW-Incorporated/swift2` repo for now. The founder wants a private repo eventually. Deferred because five same-repo consumers read `user-feedback` issues through the repo-scoped `GITHUB_TOKEN`: `routine-marjorie-triage.yml`, Kevin's daily-desk digest, `scripts/marjorie/lib/status-fans.mjs`, `scripts/ops/unowned-sweep.mjs` and assemble-brief. Privacy mitigations in place: #5029 disclosure, #5085 minimisation, #5098 escaping. The feedback form now says "Posted publicly on GitHub — please don't include personal details." Tracked in the move-to-private issue.

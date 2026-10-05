@@ -107,7 +107,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
             <div
               className={`font-[family-name:var(--era-font)] font-semibold leading-none tabular-nums text-[color:var(--era-ink)] ${bigStatSize}`}
             >
-              {community.memberCount!.toLocaleString()}
+              {community.memberCount!.toLocaleString('en-US')}
             </div>
             <span className="mt-1 block text-[11px] font-medium uppercase tracking-wide text-[color:var(--era-ink-soft)]">
               members
@@ -123,7 +123,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
                   boxShadow: '0 0 0 3px color-mix(in srgb, var(--era-accent) 16%, transparent)',
                 }}
               />
-              {community.onlineCount.toLocaleString()}{' '}
+              {community.onlineCount.toLocaleString('en-US')}{' '}
               <small className="text-[color:var(--era-ink-soft)]">online</small>
             </span>
           ) : (
