@@ -51,8 +51,8 @@ export function AppImage({
   style,
   onLoad,
 }: HostImageProps) {
-  const [failed, setFailed] = useState(false);
-  const responsive = failed ? null : responsiveAttrs({ src, origin: APP_ORIGIN, width, fill, sizes, unoptimized });
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const responsive = failedSrc === src ? null : responsiveAttrs({ src, origin: APP_ORIGIN, width, fill, sizes, unoptimized });
   return (
     <img
       referrerPolicy="no-referrer"
@@ -68,7 +68,7 @@ export function AppImage({
       className={className}
       draggable={draggable}
       style={fill ? { ...FILL, ...style } : style}
-      onError={responsive ? () => setFailed(true) : undefined}
+      onError={responsive ? () => setFailedSrc(src) : undefined}
       onLoad={(e) => {
         onLoad?.(e);
         imageLoaded(e.currentTarget);
