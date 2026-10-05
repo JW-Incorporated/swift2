@@ -66,7 +66,7 @@ function epoch() {
   const navigate = vi.fn(async () => resOk(null));
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
-  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: { ...createUnwiredHandlers(onSignal), navigate } as never,
     send: link.send,
@@ -78,7 +78,7 @@ function epoch() {
   });
   ref.host = host;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   return { host, dom, navigate, onNavigated, watch, dispose: () => (dom.client.dispose(), host.dispose(), link.dispose()) };
 }

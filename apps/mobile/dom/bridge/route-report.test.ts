@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest';
-import { setBusy } from '@swift2/ui';
+import { setBusy, setEngaged } from '@swift2/ui';
 import { setDomPath } from './dom-path';
 import { startRouteReporting } from './route-report';
 
@@ -35,5 +35,22 @@ describe('startRouteReporting', () => {
     setBusy('t', true);
     expect(send).toHaveBeenCalledTimes(3);
     setBusy('t', false);
+  });
+
+  it('reports engaged from the signal and from a legal page, never a repeat', () => {
+    window.history.replaceState(null, '', '/');
+    const send = vi.fn();
+    const stop = startRouteReporting(send);
+    setEngaged('t', true);
+    setEngaged('u', true);
+    expect(send).toHaveBeenLastCalledWith({ path: '/', engaged: true });
+    setEngaged('t', false);
+    setEngaged('u', false);
+    expect(send).toHaveBeenLastCalledWith({ path: '/' });
+    setDomPath('/privacy');
+    expect(send).toHaveBeenLastCalledWith({ path: '/privacy', engaged: true });
+    expect(send).toHaveBeenCalledTimes(4);
+    stop();
+    setDomPath('/');
   });
 });
