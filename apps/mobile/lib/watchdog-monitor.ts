@@ -1,7 +1,7 @@
 // One UI WP0.4b: the per-launch attempt monitor (ready-timeout + signal accounting), split out of
 // watchdog.ts. Pure (no RN/Expo imports); watchdog.ts re-exports everything here.
 
-export const READY_TIMEOUT_MS = 10_000;
+export const READY_TIMEOUT_MS = 20_000;
 export const MAX_REASON_CHARS = 120;
 /** A 2nd post-ready webview termination within this window (monotonic ms) is a strike; the 1st only reloads the DOM. */
 export const RELOAD_WINDOW_MS = 5 * 60_000;

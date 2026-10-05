@@ -86,7 +86,7 @@ vi.mock('./components/UpdateRequiredScreen', () => ({ UpdateRequiredScreen: () =
 vi.mock('./dom/SharedUiTest', () => ({ default: () => null }));
 vi.mock('./components/RecoveryScreen', async () => {
   const React = await import('react');
-  return { RecoveryScreen: () => React.createElement('div', { 'data-testid': 'native-surface' }) };
+  return { RecoveryScreen: (p: object) => React.createElement('div', { 'data-testid': 'native-surface', 'data-props': Object.keys(p).join(',') }) };
 });
 vi.mock('./components/NativeOverlayHost', async () => {
   const React = await import('react');
@@ -165,8 +165,8 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
     expect(screen.queryByTestId('overlay')).toBeNull();
     expect(h.overlay!.presenter.getState()).toMatchObject({ phase: 'idle', route: null });
     expect(notificationTapGate.size()).toBe(1);
-    // the strike is persisted: the next launch starts from a fallback record, not a fresh attempt
-    expect(JSON.parse(h.store.get('longlive_watchdog_v1')!)).toMatchObject({ strikes: 1, lastReason: 'protocol-fatal' });
+    // the failure is persisted as a failed launch with no strike: the next cold launch attempts DOM again
+    expect(JSON.parse(h.store.get('longlive_watchdog_v1')!)).toMatchObject({ state: 'failed', strikes: 0, lastReason: 'protocol-fatal' });
   });
 
   it('a protocol version the host cannot speak (host-detected fatal) falls back the same way', async () => {
@@ -175,6 +175,24 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
     await bridge(env('r1', 'evt', 'ready', { v: 99 }));
     await vi.waitFor(() => expect(screen.getByTestId('native-surface')).toBeTruthy());
     expect(screen.queryByTestId('dom-reader')).toBeNull();
+  });
+});
+
+describe('App: an in-launch ready timeout', () => {
+  it('a DOM host that never reaches ready lands on Recovery only after 20 s (still mounted at 15 s), with no slow prop, and records a failed launch without a strike', async () => {
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    try {
+      render(<App />);
+      await vi.waitFor(() => expect(h.reader).not.toBeNull());
+      await act(async () => void (await vi.advanceTimersByTimeAsync(15_000)));
+      expect(screen.queryByTestId('native-surface')).toBeNull();
+      await act(async () => void (await vi.advanceTimersByTimeAsync(5_000)));
+      await vi.waitFor(() => expect(screen.getByTestId('native-surface')).toBeTruthy());
+      expect(screen.getByTestId('native-surface').getAttribute('data-props')).toBe('');
+      expect(JSON.parse(h.store.get('longlive_watchdog_v1')!)).toMatchObject({ state: 'failed', strikes: 0, lastReason: 'ready-timeout' });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

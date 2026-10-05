@@ -16,9 +16,10 @@ export const RELOAD_GRACE_MS = 3000;
 const LEGAL_ORIGIN = 'https://www.longlivets.com';
 
 const ERROR_RETRY = "Couldn't restart. Please try again.";
+const ERROR_REOPEN = 'Close and reopen Long Live.';
 const ERROR_NO_RELOAD = "The app didn't restart. Please try again.";
 
-export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
+export function RecoveryScreen() {
   const [retrying, setRetrying] = useState(false);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState('');
@@ -52,7 +53,10 @@ export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
     retryLock.current = true;
     setRetrying(true);
     say('Retrying');
-    const outcome = await retryDomAttempt();
+    const outcome = await retryDomAttempt(Date.now, (phase) => {
+      if (mounted.current) say(phase === 'checking' ? 'Checking for an update…' : 'Downloading update…');
+    });
+    if (outcome === 'reload-failed') return reopenRetry(ERROR_REOPEN);
     if (outcome !== 'reload-requested') return reopenRetry(ERROR_RETRY);
     timer.current = setTimeout(() => reopenRetry(ERROR_NO_RELOAD), RELOAD_GRACE_MS);
   }
@@ -72,10 +76,10 @@ export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
   return (
     <View style={styles.fill} testID="recovery-screen">
       <Text style={styles.title} accessibilityRole="header">
-        {slow ? "Taking longer than expected" : "Something went wrong"}
+        Something went wrong
       </Text>
       <Text style={styles.body}>
-        {slow ? "Tap Retry to load Long Live." : "Long Live hit a snag loading. Try again, and if it keeps happening, send us a report."}
+        Long Live hit a snag loading. Try again, and if it keeps happening, send us a report.
       </Text>
       <Pressable
         onPress={retry}

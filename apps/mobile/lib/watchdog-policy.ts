@@ -63,7 +63,7 @@ export function resolveWantsDom(i: WantInputs): { wantsDom: boolean; source: Wan
 }
 
 /** Why the current mount is native (never free text; shown in Diagnostics). */
-export type NativeReason = 'pending-expired' | 'quarantine' | 'watchdog-fallback' | 'flag-off' | 'attempt-failed' | 'dom-strike';
+export type NativeReason = 'quarantine' | 'watchdog-fallback' | 'flag-off' | 'attempt-failed' | 'dom-strike';
 
 /** Local cause of a native mount once the launch decision resolved without an attempt. */
 export function nativeReasonFor(want: { wantsDom: boolean; source: WantSource }, fallbackActive: boolean): NativeReason {
