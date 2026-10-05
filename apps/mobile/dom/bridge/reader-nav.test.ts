@@ -65,7 +65,7 @@ function epoch() {
   const navigate = vi.fn(async () => resOk(null));
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
-  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: { ...createUnwiredHandlers(onSignal), navigate } as never,
     send: link.send,
@@ -77,7 +77,7 @@ function epoch() {
   });
   ref.host = host;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   return { host, dom, navigate, onNavigated, watch, dispose: () => (dom.client.dispose(), host.dispose(), link.dispose()) };
 }
@@ -106,12 +106,22 @@ describe('AppReader bridge round trip (real host + DOM client)', () => {
     const client = { on: vi.fn((_type: string, _fn: unknown) => off), handle: vi.fn((_type: string, _fn: () => string) => off), sendEvent: vi.fn() };
     const back = vi.fn(() => 'handled' as const);
     const stop = installReaderBridge(client as never, { onInsets: vi.fn(), onContentVersion: vi.fn(), back, nav: { replaceUrl: vi.fn(), apply: async () => true } });
-    expect(client.on.mock.calls.map((c) => c[0]).sort()).toEqual(['contentVersion', 'insets', 'navigate']);
+    expect(client.on.mock.calls.map((c) => c[0]).sort()).toEqual(['contentVersion', 'insets', 'navigate', 'restore']);
     const [type, fn] = client.handle.mock.calls[0]!;
     expect([type, fn()]).toEqual(['back', 'handled']);
     expect(client.sendEvent).toHaveBeenCalledWith('navReady', {});
     stop();
-    expect(off).toHaveBeenCalledTimes(4);
+    expect(off).toHaveBeenCalledTimes(5);
+  });
+
+  it('a native restore event reaches the restore handler with its snapshot', () => {
+    const handlers: Record<string, (e: unknown) => void> = {};
+    const client = { on: vi.fn((t: string, fn: (e: unknown) => void) => ((handlers[t] = fn), vi.fn())), handle: vi.fn(() => vi.fn()), sendEvent: vi.fn() };
+    const restore = vi.fn();
+    installReaderBridge(client as never, { onInsets: vi.fn(), onContentVersion: vi.fn(), back: vi.fn(() => 'handled' as const), nav: { replaceUrl: vi.fn(), apply: async () => true }, restore });
+    const snap = { v: 1, mode: 'era', eraId: 'lover', scrollY: 5 };
+    handlers.restore!({ snap });
+    expect(restore).toHaveBeenCalledWith(snap);
   });
 
   it('the adapter built on the live client reaches the host handler (one lifetime for host and transport)', async () => {

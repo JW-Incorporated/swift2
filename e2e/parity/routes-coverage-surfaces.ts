@@ -80,6 +80,8 @@ export const SURFACE_COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     path: '/?mode=merch',
     root: 'main',
     sides: 'both',
+    // Accepted divergence: the app hands off to the website's form (Turnstile cannot run in the DOM host); see docs/one-ui/parity.md.
+    divergent: true,
     clip: CLIP,
     prepare: (page) => show(page, 'section:has(> h2:text-is("Found something we should add?"))'),
   },

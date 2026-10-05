@@ -67,7 +67,7 @@ export function DecodeCard({
   // leaving the app — same pattern as the app's other overlays. Cards can
   // stack (multiple revealed at once); useBackDismiss's shared stack
   // dismisses the most-recently-revealed one first.
-  useBackDismiss(revealed, onToggle);
+  useBackDismiss(revealed, onToggle, { escape: false });
 
   return (
     <article

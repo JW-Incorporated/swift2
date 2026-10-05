@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '../store';
@@ -246,7 +247,7 @@ export function EraStream() {
       if (cancelled) return;
       const el = document.querySelector<HTMLElement>(`[data-ll-item="${pendingVideoAnchor}"]`);
       if (el) {
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        el.scrollIntoView({ block: 'center', behavior: smoothScrollBehavior() });
         clearPendingVideoAnchor();
         return;
       }

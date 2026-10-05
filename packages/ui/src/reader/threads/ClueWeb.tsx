@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import type React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -101,7 +102,7 @@ export function ClueWeb() {
     setView(next);
     // Re-anchor to the top of the mini-app so a new view starts in view.
     requestAnimationFrame(() =>
-      topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      topRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'start' }),
     );
   };
 
@@ -109,7 +110,7 @@ export function ClueWeb() {
   // instead of leaving the app — same pattern as the app's other overlays.
   // Matches the existing in-app back buttons, which already return straight
   // to home rather than stepping back one level at a time.
-  useBackDismiss(view.kind !== 'home', () => go({ kind: 'home' }));
+  useBackDismiss(view.kind !== 'home', () => go({ kind: 'home' }), { escape: false });
 
   return (
     <div ref={topRef} className="scroll-mt-24 pt-8">

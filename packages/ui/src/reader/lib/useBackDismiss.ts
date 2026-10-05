@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { setEngaged } from '../../bridge/engaged-signal';
 
 /**
  * Makes the mobile browser/PWA back-swipe gesture dismiss an open overlay
@@ -22,9 +23,11 @@ import { useEffect, useRef } from 'react';
  * swallowed so it can never dismiss the overlay underneath.
  */
 
-type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean };
+type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean; escape?: boolean; escapeDismiss?: () => void };
 
 const stack: StackEntry[] = [];
+/** Reports whether any hook-registered overlay is open (nav entries do not count) so native content adoption waits for it. */
+const reportOverlays = () => setEngaged('overlay-stack', stack.some((e) => e.overlay));
 /** Pending popstates we caused ourselves (UI-close consuming its entry). */
 let suppressedPops = 0;
 let listenerInstalled = false;
@@ -63,6 +66,7 @@ export function waitForBackStackIdle(): Promise<void> {
 /** Test-only: clears module-level stack state between tests. */
 export function resetBackStackForTests() {
   stack.length = 0;
+  reportOverlays();
   buried.clear();
   suppressedPops = 0;
   pendingPops = 0;
@@ -96,9 +100,27 @@ function handlePop() {
     top.dismissedByPop = true;
     // Nav entries have no cleanup path: leave the logical stack here. Hook entries leave via their own cleanup.
     if (!top.overlay) stack.pop();
+    reportOverlays();
     top.dismiss();
   }
   skipBuried();
+}
+
+/**
+ * The ONE Escape handler: dismisses only the top-most Escape-enabled overlay
+ * (same dismiss path as the native Back driver) and swallows the event so no
+ * other listener closes a second surface on the same keypress. With no such
+ * overlay open the event is left alone (inputs, non-stack surfaces).
+ */
+function onEscapeKey(e: KeyboardEvent) {
+  if (e.key !== 'Escape' || e.defaultPrevented || e.isComposing) return;
+  for (let i = stack.length - 1; i >= 0; i--) {
+    const entry = stack[i]!;
+    if (!entry.overlay || entry.escape === false) continue;
+    e.stopImmediatePropagation();
+    (entry.escapeDismiss ?? entry.dismiss)();
+    return;
+  }
 }
 
 function installListener() {
@@ -107,6 +129,8 @@ function installListener() {
   // the popstate emitted by the LAST overlay's UI-close, after the stack
   // is already empty.
   window.addEventListener('popstate', onPopState);
+  // Capture phase: the single Escape dispatcher runs before any element or bubble-phase handler.
+  window.addEventListener('keydown', onEscapeKey, true);
   listenerInstalled = true;
 }
 
@@ -118,13 +142,15 @@ function installListener() {
  * unlike the hook there is no cleanup path — they are consumed only by the
  * back gesture, or superseded by later entries. Shares the overlay stack, so
  * LIFO order holds across overlays and navigations (an overlay opened after
- * an era jump closes first; the next back undoes the jump).
+ * an era jump closes first; the next back undoes the jump). `state` is merged
+ * into the history entry's state (the in-DOM path lives there).
  */
-export function pushBackEntry(onDismiss: () => void) {
+export function pushBackEntry(onDismiss: () => void, state?: Record<string, unknown>) {
   installListener();
   const id = ++seq;
   stack.push({ id, dismiss: onDismiss, dismissedByPop: false });
-  window.history.pushState({ llOverlay: true, llId: id }, '');
+  reportOverlays();
+  window.history.pushState({ ...state, llOverlay: true, llId: id }, '');
 }
 
 /**
@@ -151,9 +177,12 @@ export function dismissTopOverlayFromNativeBack(): boolean {
   return true;
 }
 
-export function useBackDismiss(active: boolean, onDismiss: () => void) {
+/** `escape: false` keeps a back-gesture-only layer out of the Escape dispatcher; `onEscape` replaces the dismiss for Escape only (Back keeps `onDismiss`). */
+export function useBackDismiss(active: boolean, onDismiss: () => void, opts?: { escape?: boolean; onEscape?: () => void }) {
   const onDismissRef = useRef(onDismiss);
   onDismissRef.current = onDismiss;
+  const onEscapeRef = useRef(opts?.onEscape);
+  onEscapeRef.current = opts?.onEscape;
 
   useEffect(() => {
     if (!active) return;
@@ -163,12 +192,16 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
       dismiss: () => onDismissRef.current(),
       dismissedByPop: false,
       overlay: true,
+      escape: opts?.escape,
+      escapeDismiss: () => (onEscapeRef.current ?? onDismissRef.current)(),
     };
     stack.push(entry);
+    reportOverlays();
     window.history.pushState({ llOverlay: true, llId: entry.id }, '');
     return () => {
       const i = stack.indexOf(entry);
       if (i !== -1) stack.splice(i, 1);
+      reportOverlays();
       if (!entry.dismissedByPop) {
         // Closed by the UI — consume our pushed entry, and flag the popstate
         // that this back() emits so it isn't mistaken for a user gesture.

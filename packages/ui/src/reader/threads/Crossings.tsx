@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Heart, Shirt, RefreshCw, Gem, ArrowLeft, ArrowRight, X, GitFork } from 'lucide-react';
 import { useAppActions } from '../store';
 import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@swift2/experience';
@@ -49,18 +49,6 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   const { openCrossing, closeCrossing, openThread, openEra } = useAppActions();
   const q = useReader();
   const [selected, setSelected] = useState<number | null>(null);
-
-  // Close on Escape (#525) — the open crossing detail first (same as its X),
-  // otherwise back to the thread gallery (same as "All threads").
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      if (selected !== null) setSelected(null);
-      else closeCrossing();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [selected, closeCrossing]);
 
   // Let the mobile back-swipe gesture dismiss the same two layers as Escape
   // above, in the same order (open crossing detail first, then the view

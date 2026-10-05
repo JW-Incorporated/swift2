@@ -62,17 +62,9 @@ export function ShareImageMenu({
     const onPointer = (e: PointerEvent) => {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     };
-    // Capture + stopPropagation: Escape closes this menu only, not the sheet beneath it.
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      e.stopPropagation();
-      setOpen(false);
-    };
     document.addEventListener('pointerdown', onPointer);
-    document.addEventListener('keydown', onKey, true);
     return () => {
       document.removeEventListener('pointerdown', onPointer);
-      document.removeEventListener('keydown', onKey, true);
     };
   }, [open]);
 

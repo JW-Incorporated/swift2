@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { X, Heart, Star, Music, BookText } from 'lucide-react';
-import { useAppActions, useAppState } from '../../store';
+import { useAppActions } from '../../store';
 import { getEra } from '@swift2/experience';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '../lib/love-story';
 import { useReader } from '@swift2/ui';
@@ -26,21 +26,9 @@ function entryColor(entry: LoveStoryEntry): string {
  * shown as an unfinished-looking gap in a shipped page.
  */
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
-  const { trackGuideEraId } = useAppState();
   const resolveUrl = useResolveUrl();
   const { openSong } = useAppActions();
   const { contentForThreadInRange, songTargetOf } = useReader();
-
-  // Escape collapses the expanded entry (#525), matching its X. Only mounted
-  // while an entry is expanded, so the listener exists only then; higher
-  // overlays own Escape while they are open on top.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !trackGuideEraId) onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [trackGuideEraId, onClose]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') return;

@@ -78,20 +78,13 @@ export function FeedbackButton() {
   useFocusTrap(open, dialogRef);
 
   // Let the mobile back-swipe gesture close the compose panel instead of
-  // leaving the app, matching the Escape handler below.
+  // leaving the app, matching Escape (single dispatcher in useBackDismiss).
   useBackDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => textareaRef.current?.focus(), 60);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener('keydown', onKey);
-    };
+    return () => window.clearTimeout(t);
   }, [open]);
 
   // Dismissed for the rest of this session (sessionStorage), or the clown
@@ -156,7 +149,7 @@ export function FeedbackButton() {
                   }}
                   placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
                   rows={4}
-                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
+                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-base sm:text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
                 />
                 {/* Honeypot — hidden from humans, catches bots. */}
                 <input
