@@ -6,6 +6,15 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 07:45 PDT — Shared UI live; #5047 landing; audit wave dispatched. <<<**
+- Merged since 04:47: #5042 (shared UI default-on Android+iOS, OTA published), #5043 Recovery, #5099, #5122, #5131, #5130, #5132, #5134–#5138.
+- #5047 (delete legacy native UI): auto-merge armed 07:38, all non-parity green, 0 behind main. After it lands: close #5110 (surface deleted) + #5102 (fixed: recovery-taps.ts gone).
+- Audits on #5047 head (scratchpad/audit-*.md): fresh-install, security (no P0), a11y (4 P1), parity (pending).
+- Fable 07:40: watchdog — in-launch failures never sticky (Recovery this launch only), deaths unchanged, ready 20 s, Retry fetches OTA; FI-1 deferred (#5139). Revises 10-04 16:30 partially.
+- Building (6 writers, PRs without auto-merge → PM review): FI-2/7 first-launch retry, WD-1 strike split, WD-2 Retry OTA, SEC-1/5/6/8 web API, A11Y-1/2/3 focus, A11Y-5–12 semantics.
+- Queue: FI-6 stale refs; native a11y (4/13–16); A11Y-9/10 contrast; SEC-9 workflows; SEC-4 iframe sandbox; SEC-10 art-cache cap. Gated issues: #5140, #5141.
+- Held: draft #5133 (store build — Joey).
+
 **>>> CHECKPOINT 2026-10-05 04:47 PDT — Wave complete; auto-merge pending CI; held stack awaiting Wyatt iOS confirmation. <<<**
 - Merged since 23:47: #5029 closure + privacy correction (verified live on www.longlivets.com/privacy at 02:48: "That repository is public…"), #5071 legal split, #5076 iOS inline media, #5089 keyboard inset, #5096 app integration tests, #5103 offline opt-out + foreground refresh, #5111 offline art cache, #5113 app parity, #5116 Escape dispatcher, #5118 shared a11y, #5123 reader state restore, #5125 restore window bound, #5126 no storage wipe, #5128 parity matrix timeout 35 min.
 - Auto-merging (approved, CI pending): #5127 (split SharedUiHost 254 / AppReader 220, pure move, reviewed), #5063 (bridge validator exhaustiveness: every command must have validator + result shape, compile-time + runtime gates; token tests).
