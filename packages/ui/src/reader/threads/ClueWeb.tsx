@@ -35,6 +35,7 @@ import {
   useProgressActions,
 } from '../store';
 import type { EggNode, Motif, MotifId } from '@swift2/experience';
+import { ClueWebNode } from './ClueWebNode';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { useLiveTheories } from '../lib/use-live-theories';
 import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from './lib/live-theories';
@@ -721,7 +722,7 @@ function ConstellationView({
           <svg
             viewBox="0 0 100 56.25"
             className="h-full w-full"
-            role="img"
+            role="group"
             aria-label="Clue web constellation"
           >
             {EGG_LINKS.map((link) => {
@@ -743,30 +744,16 @@ function ConstellationView({
                 />
               );
             })}
-            {EGG_NODES.map((n) => {
-              const era = getEra(n.eraId);
-              const isActive = active === n.id;
-              const isTheory = n.confirmed === false;
-              return (
-                <g
-                  key={n.id}
-                  transform={`translate(${n.x} ${n.y * 0.5625})`}
-                  onClick={() => setActive(isActive ? null : n.id)}
-                  onMouseEnter={() => setHovered(n.id)}
-                  className="cursor-pointer"
-                  style={{ opacity: muted(n.id) ? 0.28 : 1, transition: 'opacity 200ms' }}
-                >
-                  <circle
-                    r={isActive ? 2.6 : n.kind === 'payoff' ? 2 : 1.5}
-                    fill={n.kind === 'payoff' ? era.theme.accent : 'var(--era-bg)'}
-                    stroke={era.theme.accent}
-                    strokeWidth={0.4}
-                    strokeDasharray={isTheory ? '0.8 0.6' : undefined}
-                  />
-                  {n.kind === 'clue' && !isTheory && <circle r={0.6} fill={era.theme.accent} />}
-                </g>
-              );
-            })}
+            {EGG_NODES.map((n) => (
+              <ClueWebNode
+                key={n.id}
+                node={n}
+                isActive={active === n.id}
+                muted={muted(n.id)}
+                onToggle={() => setActive(active === n.id ? null : n.id)}
+                onHover={() => setHovered(n.id)}
+              />
+            ))}
           </svg>
 
           {EGG_NODES.filter((n) => showLabel(n.id) || active === n.id).map((n) => (

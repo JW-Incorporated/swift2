@@ -265,8 +265,15 @@ export function SearchOverlay() {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
+        <div role="status" aria-live="polite" className="sr-only">
+          {showEmptyHint
+            ? ''
+            : showNoMatch
+              ? `No matches for ${debounced.trim()}`
+              : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
+        </div>
         {/* Input row */}
-        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 focus-within:ring-2 focus-within:ring-inset focus-within:ring-[color:var(--era-accent)]">
           <Search className="h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
           <input
             ref={inputRef}
@@ -289,7 +296,7 @@ export function SearchOverlay() {
             type="button"
             onClick={() => setSearchOpen(false)}
             aria-label="Close search"
-            className="era-icon-btn shrink-0 rounded-full p-1.5"
+            className="era-icon-btn shrink-0 rounded-full p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
           >
             <X className="h-4 w-4" />
           </button>

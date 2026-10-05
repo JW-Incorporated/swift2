@@ -312,7 +312,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
             scrollToDate(d);
           }
         }}
-        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none"
+        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
       >
         {/* Era bands (faint, era-accent colored) */}
         {eraBands.map((b) => (

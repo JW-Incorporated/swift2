@@ -70,6 +70,16 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
         </div>
       )}
 
+      <div role="status" aria-live="polite" className="sr-only">
+        {events === null
+          ? error
+            ? ''
+            : 'Loading inbox'
+          : events.length === 0
+            ? 'Inbox is empty. Nothing here yet.'
+            : `Inbox loaded, ${events.length} ${events.length === 1 ? 'notification' : 'notifications'}.`}
+      </div>
+
       {events === null && !error && <p className="text-ink-soft">Loading&hellip;</p>}
       {events?.length === 0 && <p className="text-ink-soft">Nothing here yet &mdash; check back soon.</p>}
 
