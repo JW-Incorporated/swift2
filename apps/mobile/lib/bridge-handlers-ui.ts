@@ -29,13 +29,15 @@ export type UiHandlerDeps = {
   share: (payload: SharePayload & { image?: { url: string } }) => Promise<void | { imageCopied: boolean }>;
   /** Host of the one origin a share card may be downloaded from (the site); absent = images rejected. */
   imageHost?: string;
+  /** expo-clipboard `setStringAsync` in the host; absent = `clipboard.write` answers `failed`. */
+  copyText?: (text: string) => Promise<void>;
   /** Absent when the haptics module is unavailable: no-op success. */
   haptic?: (kind: HapticKind) => void | Promise<void>;
   /** The persistent reader `local` blob; absent -> `failed` (the DOM then runs on an empty, non-persistent seed). */
   hostStorage?: HostStorage;
 };
 
-export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal' | 'storage.load' | 'storage.write'>;
+export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal' | 'clipboard.write' | 'storage.load' | 'storage.write'>;
 
 const HAPTIC_KINDS: readonly string[] = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const SHARE_KEYS = ['title', 'text', 'url'] as const;
@@ -114,6 +116,16 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
         if (v) outcome = { imageCopied: v.imageCopied === true };
       }, 'share');
       return res.ok ? resOk(outcome) : res;
+    },
+    'clipboard.write': async (payload) => {
+      const p: unknown = payload;
+      if (!isRecord(p) || typeof p.text !== 'string' || p.text.length === 0 || p.text.length > MAX_SHARE_FIELD) return invalid('clipboard: text');
+      const text = p.text;
+      const copy = deps.copyText;
+      return run(async () => {
+        if (!copy) throw new Error('clipboard unavailable');
+        await copy(text);
+      }, 'clipboard');
     },
     haptic: async (payload) => {
       const p: unknown = payload;

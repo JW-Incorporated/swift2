@@ -76,6 +76,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
       apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
+      'clipboard.write': H<{ text: string }, null>;
       'storage.load': H<Empty, { entries: Record<string, string> }>;
       'storage.write': H<{ entries: Record<string, string> }, null>;
     };
@@ -85,12 +86,12 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'apiRead', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share', 'storage.load', 'storage.write'].sort(),
+      ['api', 'apiRead', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share', 'storage.load', 'storage.write'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
     expect([...NATIVE_EVENT_TYPES].sort()).toEqual(['contentVersion', 'insets', 'navigate', 'readyAck']);
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'route', 'theme']);
     const posted: string[] = [];
     let i = 0;
     const c = createBridgeClient({ post: (e) => void posted.push(e.type), now: () => 1, idGen: () => `y${i++}`, setTimer: () => 0 });
@@ -163,7 +164,7 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   });
 
   it('reader consumers (WP2.4-A2): ShareHost, resolveUrl and storage.local', () => {
-    expectTypeOf<ShareHost>().toEqualTypeOf<Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard'>>();
+    expectTypeOf<ShareHost>().toEqualTypeOf<Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard' | 'currentUrl'>>();
     expectTypeOf<NonNullable<ShareHost['share']>>().toEqualTypeOf<NonNullable<HostAdapter['share']>>();
     expectTypeOf<NonNullable<HostAdapter['resolveUrl']>>().toEqualTypeOf<(path: string) => string>();
     expectTypeOf<HostAdapter['storage']['local']>().toEqualTypeOf<HostStorage>();

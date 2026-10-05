@@ -118,7 +118,7 @@ cp .env.example .env                        # fill in EXPO_PUBLIC_* creds
 npm run start --workspace @swift2/mobile    # open in Expo Go / emulator
 ```
 
-**Mobile diagnostics panel (One UI WP0.1):** Settings -> tap the version label at the bottom 7 times (within ~2 s of each other). Shows load-stage timings, model, OS, build and update id; "Send report" posts a structured `[diag]` payload; `/api/feedback` validates it strictly and appends a templated comment on tracking issue #4791 (no client text is ever posted). Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" is a stub until WP0.4. **Speed test mode** (#4896) auto-sends the next 10 launches plus a PASS/FAIL summary with no taps; procedure in `docs/one-ui/dom-host.md`.
+**Mobile diagnostics panel (One UI WP0.1):** Tap the invisible hot corner (status-bar area at the top, or the bottom inset strip) 7 times within ~2 s; the Settings -> About path no longer exists (About was retired in W6, #5031; with the shared UI mounted the hot corner is the only way in, see `docs/one-ui/dom-host.md`). Shows load-stage timings, model, OS, build and update id; "Send report" posts a structured `[diag]` payload; `/api/feedback` validates it strictly and appends a templated comment on tracking issue #4791 (no client text is ever posted). Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" overrides the `sharedUi` flag for this device (removed by pending #5042). **Speed test mode** (#4896) auto-sends the next 10 launches plus a PASS/FAIL summary with no taps; procedure in `docs/one-ui/dom-host.md`.
 
 ## Data model (5 tables · RLS public-read)
 

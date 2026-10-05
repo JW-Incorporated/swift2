@@ -50,8 +50,12 @@ load-bearing; none substitutes for another's manual.
 > mounted in the apps through a single Expo DOM host. Content flows through
 > one versioned `ReaderSnapshot`, and the native shell keeps only
 > capabilities. D1 and D4 are unchanged. The migration is gated and in
-> progress, so the "five native screens" description below remains the
-> *current* state until `routeFlags.sharedUi` is default-on. Design and
+> progress: the shared reader is mounted in the app through the DOM host
+> behind `routeFlags.sharedUi` (default-off on main; #5042 flips it), so the
+> "five native screens" description below is the legacy/fallback state until
+> that lands. Current app architecture (bridge contract, last-good script
+> twin, Back stack, deep links, pending PRs, gaps):
+> `docs/one-ui/app-architecture.md`. Design and
 > gates: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
 
 Ratified 2026-09-05 (`docs/decisions.md` "Convergence decisions D1–D4",
@@ -189,8 +193,9 @@ version: `current.json`'s `bundleVersion` is the content hash, and an unchanged 
 with a complete cached copy returns with zero manifest/file downloads. `/api/*` stays
 same-origin only: the reader reaches it through the `ApiFetch` seam
 (`packages/content/src/api-fetch.ts`, bridge-serializable request/response; web default
-`webApiFetch`). WP2.1/2.3 implement the app side (bridge -> native fetch); existing call
-sites are not migrated yet.
+`webApiFetch`). The app side is live (bridge `api` over native fetch, #4969; streaming for
+ClownChat, #5033). On iOS the DOM reads the content cache through a `.js`
+script twin because WKWebView blocks file:// fetch/XHR (#5045).
 
 ## Data architecture: two worlds, kept apart
 

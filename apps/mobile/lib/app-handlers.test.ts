@@ -46,6 +46,7 @@ describe('createAppHandlers', () => {
       [
         'api',
         'apiRead',
+        'clipboard.write',
         'haptic',
         'navigate',
         'notifications.register',

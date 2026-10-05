@@ -1,13 +1,13 @@
 import type { JsonValue } from './envelope';
 
 /** DOM events that wait for the handshake like calls do (the host rejects pre-ready events). `diag`/`ready`/`ack` pass straight through. */
-export type QueuedEventType = 'navReady' | 'navigated' | 'theme';
+export type QueuedEventType = 'navReady' | 'navigated' | 'theme' | 'route';
 export const MAX_QUEUED_EVENTS = 32;
 
 type Entry = { type: string; id?: string; transmit(): void; resolve(r: never): void; evt?: { type: QueuedEventType; payload: JsonValue } };
 
 /**
- * Adds a pre-ready event to the shared call queue (flush keeps arrival order). `theme` coalesces in
+ * Adds a pre-ready event to the shared call queue (flush keeps arrival order). `theme` and `route` coalesce in
  * place: the queued entry keeps its position and takes the newest payload. At the cap the oldest
  * queued event is dropped (`event-dropped`). Returns the new queue.
  */
@@ -18,8 +18,8 @@ export function queueEvent<E extends Entry>(
   post: (payload: JsonValue) => void,
   onSignal?: (kind: string, detail?: number) => void,
 ): E[] {
-  if (type === 'theme') {
-    const existing = queue.find((e) => e.evt?.type === 'theme');
+  if (type === 'theme' || type === 'route') {
+    const existing = queue.find((e) => e.evt?.type === type);
     if (existing?.evt) {
       existing.evt.payload = payload;
       return queue;

@@ -32,6 +32,8 @@ export type UiDepsEnv = {
   linking: { openURL(url: string): Promise<unknown> };
   share: { share(content: { title?: string; message?: string; url?: string }): Promise<unknown> };
   cards?: ShareCardPorts;
+  /** expo-clipboard; absent = `clipboard.write` answers `failed`. */
+  clipboard?: { setStringAsync(text: string): Promise<unknown> };
   /** Absent when the haptics module is unavailable: the handler answers no-op success. */
   haptics?: HapticsLike;
   platformOS: string;
@@ -91,6 +93,7 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       await shareLink(link);
     },
     hostStorage: env.hostStorage,
+    copyText: env.clipboard ? async (text) => void (await env.clipboard!.setStringAsync(text)) : undefined,
     haptic: haptics ? (kind) => runHaptic(haptics, kind) : undefined,
   };
 

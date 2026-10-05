@@ -196,12 +196,12 @@ export const PRIVACY_POLICY: LegalDoc = {
               'So a report about "this page" can be traced to an actual page.',
             ],
             [
-              'The page address (URL) and page title at the moment you sent it',
+              'The page path (for example /era/lover) and page title at the moment you sent it. The query string and anything after a # are removed before sending and are never included',
               'Same reason — it is the most reliable pointer to what you were looking at.',
             ],
             [
-              "Your browser window size and your browser's user-agent string (browser and operating system name and version)",
-              'Layout and rendering bugs are usually specific to a browser or a screen size.',
+              "Your window size and a coarse platform label (\"iOS app\", \"Android app\", \"web: mobile\" or \"web: desktop\"). Your browser's user-agent string is not sent",
+              'Layout and rendering bugs are usually specific to a screen size or to the app versus the web.',
             ],
             ['The date and time you sent it', 'Ordering and triage.'],
           ],
