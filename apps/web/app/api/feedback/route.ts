@@ -243,7 +243,7 @@ export async function POST(req: Request): Promise<Response> {
   if (watchdog) {
     const prepared = prepareWatchdog(payload, ip);
     if (!prepared.ok) return prepared.response;
-    watchdogReport = prepared.report;
+    watchdogReport = prepared.durable ? prepared.report : null;
     diagComment = prepared.comment;
   } else if (diag) {
     const exactShape =

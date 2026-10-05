@@ -17,7 +17,12 @@ import {
 export const WATCHDOG_IP_MAX_PER_HOUR = 6;
 const ipLimiter = makeRateLimiter({ windowMs: 60 * 60_000, max: WATCHDOG_IP_MAX_PER_HOUR, sweepIntervalMs: 10 * 60_000 });
 
-type Prepared = { ok: true; report: WatchdogReport; comment: string } | { ok: false; response: Response };
+// Unknown native builds (e.g. a store release before the allow-list is updated) are still posted, but only through this
+// small global in-memory bucket and WITHOUT a durable claim, so they can never touch the shared durable quota.
+export const WATCHDOG_UNKNOWN_BUILD_MAX_PER_DAY = 10;
+const unknownBuildLimiter = makeRateLimiter({ windowMs: 24 * 60 * 60_000, max: WATCHDOG_UNKNOWN_BUILD_MAX_PER_DAY, sweepIntervalMs: 60 * 60_000 });
+
+type Prepared = { ok: true; report: WatchdogReport; comment: string; durable: boolean } | { ok: false; response: Response };
 
 export function prepareWatchdog(payload: { message?: string; watchdog?: unknown }, ip: string): Prepared {
   const exactShape =
@@ -27,16 +32,17 @@ export function prepareWatchdog(payload: { message?: string; watchdog?: unknown 
   if (!parsed?.ok) {
     return { ok: false, response: NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 }) };
   }
-  if (!isKnownBuildKey(parsed.report.buildKey)) {
-    return { ok: false, response: NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 }) };
-  }
+  const durable = isKnownBuildKey(parsed.report.platform, parsed.report.buildKey);
   if (ipLimiter.isLimited(ip)) {
+    return { ok: false, response: NextResponse.json({ error: 'Too many reports.' }, { status: 429 }) };
+  }
+  if (!durable && unknownBuildLimiter.isLimited('unknown')) {
     return { ok: false, response: NextResponse.json({ error: 'Too many reports.' }, { status: 429 }) };
   }
   if (!watchdogAllowed(parsed.report.buildKey)) {
     return { ok: false, response: NextResponse.json({ error: 'Too many reports.' }, { status: 429 }) };
   }
-  return { ok: true, report: parsed.report, comment: watchdogCommentFrom(parsed.report) };
+  return { ok: true, report: parsed.report, comment: watchdogCommentFrom(parsed.report), durable };
 }
 
 /** A response when the durable claim says stop (duplicate or capped), else null. A failed post is NOT retried or released. */
