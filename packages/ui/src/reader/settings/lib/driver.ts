@@ -16,6 +16,8 @@ export type SettingsDriver = {
   permission(): Promise<DriverPermission>;
   subscribe(): Promise<DriverSubscribeResult>;
   unsubscribe(): Promise<{ ok: true } | { ok: false; error: string }>;
+  /** App only: true while a turn-off is still waiting for its server write (persisted natively). Absent on the web. */
+  optOutPending?(): Promise<boolean>;
   loadPrefs(): Promise<unknown>;
   savePrefs(body: { settings?: object; prefs?: object[] }): Promise<unknown>;
   /** Shown instead of the web "blocked in your browser" copy; the web driver omits it. */
@@ -87,6 +89,7 @@ export function fromNotifications(n: HostNotifications): SettingsDriver {
         return { ok: false, error: 'Could not turn off notifications.' };
       }
     },
+    optOutPending: n.optOutPending ? async () => (await n.optOutPending!().catch(() => false)) === true : undefined,
     loadPrefs: async () => {
       try {
         return await n.loadPrefs();

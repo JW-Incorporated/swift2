@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { resErr, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
+import { resErr, type BridgeClient, type Envelope, type Insets, type ReaderSnap } from '@swift2/ui';
 import type { NavigateDeps } from './navigate-subscriber';
 import { backFromDomPath } from './dom-path';
 import { startRouteReporting } from './route-report';
@@ -16,6 +16,7 @@ type MountProps = {
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
   navigateDeps: NavigateDeps;
+  onRestore: (snap: ReaderSnap) => void;
   backRef: { current: BackFn | null };
   onClient: (client: ReaderClient) => void;
 };
@@ -24,9 +25,9 @@ type MountProps = {
 export const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {}, sendEvent: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
-export function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
+export function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, onRestore, backRef, onClient }: MountProps) {
   const client = useExpoBridge({ inbox, bridge, bridgeHello }, { onFatal }, (c) =>
-    installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
+    installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps, restore: onRestore }),
   );
   useEffect(() => onClient(client), [client]);
   useEffect(() => startRouteReporting((payload) => client.sendEvent('route', payload)), [client]);
