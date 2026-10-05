@@ -6,6 +6,7 @@ import { useReader } from '@swift2/ui';
 import { inboxOverlay, useInboxOpen } from '../slots/inbox-store';
 import { onboardingOverlay, useOnboardingPhase } from '../slots/onboarding-store';
 import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
+import { dismissTopOverlayFromNativeBack } from '@swift2/ui/reader/lib/useBackDismiss';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
 import { applyAfterCommit } from './commit-apply';
@@ -24,7 +25,16 @@ export function ReaderBridge() {
   const offerShown = useOnboardingPhase() === 'shown';
   useBackRegistration(
     // While an offer CTA is in flight every Back is handled outright (never exits mid-save, outside the one-close-per-key guard).
-    (fn) => controls.registerBack(fn && (() => (onboardingOverlay.isBusy() ? 'handled' : fn()))),
+    (fn) =>
+      controls.registerBack(
+        fn &&
+          (() => {
+            if (onboardingOverlay.isBusy()) return 'handled';
+            // An open useBackDismiss overlay (search, pickers, guides, feedback...) is the top layer unless the offer is showing.
+            if (onboardingOverlay.phase() !== 'shown' && dismissTopOverlayFromNativeBack()) return 'handled';
+            return fn();
+          }),
+      ),
     offerShown ? 'onboarding' : inboxOpen ? 'inbox' : settingsOpen ? 'settings' : openItemId,
     offerShown
       ? () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done'))

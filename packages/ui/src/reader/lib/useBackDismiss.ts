@@ -22,7 +22,7 @@ import { useEffect, useRef } from 'react';
  * swallowed so it can never dismiss the overlay underneath.
  */
 
-type StackEntry = { dismiss: () => void; dismissedByPop: boolean };
+type StackEntry = { dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean };
 
 const stack: StackEntry[] = [];
 /** Pending popstates we caused ourselves (UI-close consuming its entry). */
@@ -66,6 +66,29 @@ export function pushBackEntry(onDismiss: () => void) {
   window.history.pushState({ llOverlay: true }, '');
 }
 
+/**
+ * Native (Android hardware) Back driver: dismisses the TOP-most open overlay
+ * (hook entries only; navigation entries are skipped). Returns true when an
+ * overlay is open, including one whose dismissal from an earlier Back has not
+ * committed yet, so a rapid repeat Back is swallowed rather than closing the
+ * layer beneath or exiting. The overlay's UI-close cleanup consumes its history entry.
+ */
+export function dismissTopOverlayFromNativeBack(): boolean {
+  for (let i = stack.length - 1; i >= 0; i--) {
+    const e = stack[i]!;
+    if (!e.overlay) continue;
+    if (e.nativeClosing) return true;
+    e.nativeClosing = true;
+    // Safety net: a dismiss that never unmounts must not wedge Back forever.
+    setTimeout(() => {
+      e.nativeClosing = false;
+    }, 500);
+    e.dismiss();
+    return true;
+  }
+  return false;
+}
+
 export function useBackDismiss(active: boolean, onDismiss: () => void) {
   const onDismissRef = useRef(onDismiss);
   onDismissRef.current = onDismiss;
@@ -76,6 +99,7 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
     const entry: StackEntry = {
       dismiss: () => onDismissRef.current(),
       dismissedByPop: false,
+      overlay: true,
     };
     stack.push(entry);
     window.history.pushState({ llOverlay: true }, '');
