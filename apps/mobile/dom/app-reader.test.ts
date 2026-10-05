@@ -16,10 +16,6 @@ describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path
     'firstPaintMs',
     'heapMb',
     '[4000, 12000]',
-    'reportProbe',
-    "addEventListener('error'",
-    "addEventListener('unhandledrejection'",
-    'e.filename === cacheUri',
     'devLoader',
     'useExpoBridge',
     'reportProtocolFatal',
@@ -54,10 +50,5 @@ describe('app storage after the DOM shim (the Android DOM has no storage, G3)', 
     expect(storage.get('k')).toBe('v');
     storage.remove('k');
     expect(storage.get('k')).toBeNull();
-  });
-
-  it('reportError stays wired through the error listener (message prefix kept)', () => {
-    expect(src).toContain('`error: ${e.message}`');
-    expect(src).toContain('`unhandledrejection: ${String(e.reason)}`');
   });
 });

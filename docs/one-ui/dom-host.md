@@ -127,7 +127,7 @@ and a flipped default cannot be killed remotely.
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
-- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `lib/watchdog-closure.test.ts` drives the real
+- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `App.watchdog.test.tsx` renders the real App (native modules, the DOM component and the screens stubbed) over the real
   monitor, tap gate, binder, bridge host/link/handlers and native-route presenter. (1) Protocol fatal from the
   host (version too new) and from the DOM client strikes `protocol`, before and after first paint. (2) A
   strike resets any open native overlay (hardware back stops being consumed) and releases the host lease first.
