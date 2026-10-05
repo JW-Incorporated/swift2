@@ -132,6 +132,24 @@ Open Diagnostics → tap "Send report" (no typing needed).
 
 ---
 
+## I. Android extras (Pixel)
+
+1. Tap into the ClownBot chat, search, the mood chat and the feedback form: the keyboard must not cover the text box or the Send button.
+
+2. Turn on Dark theme in Android settings, reopen the app: colours look the same as before (nothing inverted or washed out).
+
+3. Set the largest font size in Android settings (Display → Font size), reopen: text is bigger but nothing overlaps or is cut off; set it back afterwards.
+
+4. Open a moment, then swipe back from the screen edge: you go back inside the app (it does not close). Do the same from the home screen: the app closes normally.
+
+5. Play a YouTube video and a Spotify song: both play inside the page; note whether Spotify plays a full song or only a preview.
+
+6. Tap an outside link (e.g. a source link): it opens in the browser; then use Back to return to the app.
+
+7. Put the app in the background, open several other heavy apps, come back: the app reloads to where you were (or at least to the home screen) without an error.
+
+---
+
 ## Done
 
 If anything looks wrong, take a screenshot and send it — that's all.
