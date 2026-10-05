@@ -70,6 +70,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   const driver = useMemo(() => selectDriver(host, vapidPublicKey), [host, vapidPublicKey]);
   const [subscribeState, setSubscribeState] = useState<SubscribeState>({ kind: 'checking' });
   const [prefsState, setPrefsState] = useState<DevicePrefsResponse | null>(null);
+  const [optOutPending, setOptOutPending] = useState(false);
   const [prefsError, setPrefsError] = useState<string | null>(null);
   const [pendingKeys, setPendingKeys] = useState<Set<string>>(new Set());
 
@@ -139,6 +140,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
 
   async function handleSubscribe() {
     setSubscribeState({ kind: 'subscribing' });
+    setOptOutPending(false);
     const result = await driver!.subscribe();
     if (result.status === 'subscribed') {
       setSubscribeState({ kind: 'subscribed' });
@@ -161,6 +163,12 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     if (outcome.ok) {
       setSubscribeState({ kind: 'not_subscribed' });
       setPrefsState(null);
+      setOptOutPending(false);
+    } else if (driver!.kind === 'native') {
+      // The app keeps the local opt-out (the user's intent wins) and retries the server write when back online.
+      setSubscribeState({ kind: 'not_subscribed' });
+      setPrefsState(null);
+      setOptOutPending(true);
     }
   }
 
@@ -180,6 +188,11 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   if (subscribeState.kind !== 'subscribed') {
     return (
       <div className="flex flex-col items-center gap-4">
+        {optOutPending && (
+          <p role="status" className="max-w-md text-center text-sm text-ink-soft">
+            We’ll finish turning off notifications when you’re back online.
+          </p>
+        )}
         {subscribeState.kind === 'denied' && (
           <p className="max-w-md text-center text-sm text-ink-soft">
             {driver?.deniedHint ??
