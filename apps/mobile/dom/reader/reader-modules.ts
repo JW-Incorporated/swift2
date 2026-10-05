@@ -63,6 +63,12 @@ export function createMapStorage(
   };
 }
 
+const disposers = new WeakMap<object, () => void>();
+/** Stops an adapter's pending storage recovery (call on unmount / re-key). */
+export function disposeReaderAdapter(adapter: object): void {
+  disposers.get(adapter)?.();
+}
+
 /** One adapter per client lifetime (host and transport share it); insets are layered on without rebuilding it. */
 export function createReaderAdapter(
   p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath'> & { insets: Insets; storageSeed?: Record<string, string> | null },
@@ -73,14 +79,15 @@ export function createReaderAdapter(
   const sync = createWriteCoalescer(p.client, () => local.snapshot(), (detail) => p.client.sendDiag?.('storage-sync', detail));
   local = createMapStorage(p.storageSeed ?? {}, sync.push);
   // null seed = the load failed (not "empty"): keep working in memory, never push over the saved file, retry once.
-  if (p.storageSeed === null) recoverStorage(p.client, local, sync, (detail) => p.client.sendDiag?.('storage-sync', detail));
+  const stopRecovery =
+    p.storageSeed === null ? recoverStorage(p.client, local, sync, (detail) => p.client.sendDiag?.('storage-sync', detail)) : null;
   if (typeof document !== 'undefined') {
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') sync.flush();
     });
     window.addEventListener('pagehide', () => sync.flush());
   }
-  return {
+  const adapter: HostAdapter = {
     ...createAppAdapter({
       client: p.client,
       insets: p.insets,
@@ -93,6 +100,8 @@ export function createReaderAdapter(
     }),
     apiStream: createBridgeApiStream(apiFetch),
   };
+  if (stopRecovery) disposers.set(adapter, stopRecovery);
+  return adapter;
 }
 
 export function loadReader(
@@ -123,6 +132,7 @@ export function loadReader(
       () => installBlankCapture(document as unknown as Parameters<typeof installBlankCapture>[0], { origin: adapter.env.origin, navigate: adapter.navigate, openExternal: adapter.openExternal! }),
       [base],
     );
+    useEffect(() => () => disposeReaderAdapter(base), [base]);
     const withModes = useMemo(() => ({ ...controls, slottedModes }), [controls]);
     return createElement(
       HostProvider,

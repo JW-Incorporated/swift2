@@ -20,8 +20,8 @@ function boot(loads: unknown[]) {
   let local!: ReturnType<typeof createMapStorage>;
   const sync = createWriteCoalescer({ call } as never, () => local.snapshot());
   local = createMapStorage({}, sync.push);
-  recoverStorage({ call } as never, local, sync);
-  return { local, writes };
+  const dispose = recoverStorage({ call } as never, local, sync);
+  return { local, writes, call, dispose };
 }
 
 describe('a failed seed load never wipes the saved blob', () => {
@@ -41,6 +41,39 @@ describe('a failed seed load never wipes the saved blob', () => {
     await vi.advanceTimersByTimeAsync(LOAD_RETRY_MS + 1);
     await vi.advanceTimersByTimeAsync(500);
     expect(writes).toEqual([{ entries: { fav: '2', outbox: 'q', new: 'n' } }]);
+  });
+
+  it('disposed before the retry fires: no load, no push', async () => {
+    const { local, writes, call, dispose } = boot([{ ok: true, value: { entries: { a: '1' } } }]);
+    local.set('x', '1');
+    dispose();
+    await vi.advanceTimersByTimeAsync(LOAD_RETRY_MS + 5000);
+    expect(call).not.toHaveBeenCalled();
+    expect(writes).toEqual([]);
+  });
+
+  it('disposed while the retry load is in flight: nothing is rebased or pushed', async () => {
+    let resolveLoad!: (v: unknown) => void;
+    const writes: unknown[] = [];
+    const call = vi.fn((type: string, payload: unknown) => {
+      if (type === 'storage.write') {
+        writes.push(payload);
+        return Promise.resolve({ ok: true, value: null });
+      }
+      return new Promise((r) => (resolveLoad = r));
+    });
+    // eslint-disable-next-line prefer-const -- late-bound
+    let local!: ReturnType<typeof createMapStorage>;
+    const sync = createWriteCoalescer({ call } as never, () => local.snapshot());
+    local = createMapStorage({}, sync.push);
+    const dispose = recoverStorage({ call } as never, local, sync);
+    local.set('x', '1');
+    await vi.advanceTimersByTimeAsync(LOAD_RETRY_MS);
+    dispose();
+    resolveLoad({ ok: true, value: { entries: { a: '1' } } });
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(writes).toEqual([]);
+    expect(local.get('a')).toBeNull();
   });
 
   it('a successful retry with no changes since writes nothing', async () => {

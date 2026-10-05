@@ -35,15 +35,23 @@ export function recoverStorage(
   sync: { hold(): void; release(changed: boolean): void },
   log: (detail: string) => void = () => {},
   ms = LOAD_RETRY_MS,
-): void {
+): () => void {
+  let disposed = false;
   local.track();
   sync.hold();
-  setTimeout(() => {
+  const timer = setTimeout(() => {
+    if (disposed) return;
     void loadStorageSeed(client, log).then((base) => {
+      if (disposed) return;
       if (!base) return log('storage.load retry failed; not persisting this session');
       sync.release(local.rebase(base));
     });
   }, ms);
+  /** Teardown (unmount / re-key): the dead adapter must never load or push through its old client. */
+  return () => {
+    disposed = true;
+    clearTimeout(timer);
+  };
 }
 
 /**
