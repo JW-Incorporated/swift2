@@ -28,6 +28,12 @@ export interface DomHostHandlerDeps {
   invalidate?: () => void;
   // Runs fn now, or once the app is active (Android render-process-gone, as Expo's own default recovery did).
   whenActive?: (fn: () => void) => void;
+  // Per-epoch bridge token (never placed in DOM props). Every DOM-callable action but `bridgeHello` must present it as its LAST arg:
+  // third-party iframes can reach the native actions (Android interface / iOS shim are not main-frame-only) but cannot learn it.
+  token: string;
+  // Native-side effects of the probe / image-load actions (run only after the token check).
+  onProbe?: (json: string) => void;
+  onImageLoad?: (visible: boolean) => void;
 }
 
 const live = (deps: DomHostHandlerDeps) => deps.isCurrent?.() !== false;
@@ -50,27 +56,52 @@ function crash(deps: DomHostHandlerDeps, stage: string, kind: 'terminated' | 're
 }
 
 export function createDomHostHandlers(deps: DomHostHandlerDeps) {
+  // Checked FIRST by every action: a mismatch signals, throws and has no other effect (the bridge host never sees the call).
+  const auth = (name: string, token: unknown) => {
+    if (token === deps.token && typeof token === 'string' && token !== '') return;
+    deps.onSignal('bridge-unauth', name);
+    throw new Error('bridge unauthorized');
+  };
   return {
-    onReady: async () => {
+    // The one unauthenticated action: its result rides injectJavaScript to the main frame only. Idempotent.
+    bridgeHello: async (): Promise<string> => {
+      if (!live(deps)) throw new Error('stale epoch');
+      return deps.token;
+    },
+    onReady: async (token?: string) => {
+      auth('onReady', token);
       if (!live(deps)) return;
       deps.onSignal('dom-ready');
       deps.watch.ready();
     },
-    reportError: async (message: string) => {
+    reportError: async (message: string, token?: string) => {
+      auth('reportError', token);
       if (!live(deps)) return;
       deps.onSignal('dom-error', message.slice(0, 200));
       deps.watch.error(message);
     },
     // Forwards one DOM envelope to the bridge host; resolves with the envelope the DOM is awaiting, if any.
-    bridge: async (env: unknown): Promise<unknown> => {
+    bridge: async (env: unknown, token?: string): Promise<unknown> => {
+      auth('bridge', token);
       if (!live(deps)) throw new Error('stale epoch');
       return deps.bridge?.(env);
     },
     // The DOM client's own protocol fatal (ready-failed, id-space-exhausted): a strike in every phase, unlike reportError.
-    reportProtocolFatal: async (reason: string) => {
+    reportProtocolFatal: async (reason: string, token?: string) => {
+      auth('reportProtocolFatal', token);
       if (deps.bridgeClosed?.() || !live(deps)) return;
       deps.onSignal('dom-protocol-fatal', String(reason).slice(0, 200));
       deps.watch.protocol?.();
+    },
+    reportProbe: async (json: string, token?: string) => {
+      auth('reportProbe', token);
+      if (!live(deps)) return;
+      deps.onProbe?.(json);
+    },
+    reportImageLoad: async (visible: boolean, token?: string) => {
+      auth('reportImageLoad', token);
+      if (!live(deps)) return;
+      deps.onImageLoad?.(visible);
     },
     onContentProcessDidTerminate: () => crash(deps, 'dom-process-terminated', 'terminated'),
     onRenderProcessGone: () => crash(deps, 'dom-render-process-gone', 'render-gone', deps.whenActive),

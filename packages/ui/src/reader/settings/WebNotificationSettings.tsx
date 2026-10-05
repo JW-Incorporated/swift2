@@ -214,12 +214,13 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
 
       <div className="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
-          <p className="font-medium text-ink">Notifications</p>
+          <p id="notif-master-label" className="font-medium text-ink">Notifications</p>
           <p className="text-sm text-ink-soft">Turn all Long Live notifications on or off.</p>
         </div>
         <button
           type="button"
           role="switch"
+          aria-labelledby="notif-master-label"
           aria-checked={settings.masterEnabled}
           disabled={pendingKeys.has('settings:masterEnabled')}
           onClick={() =>
@@ -227,7 +228,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
               settings: { masterEnabled: !settings.masterEnabled },
             })
           }
-          className={`h-7 w-12 rounded-full p-0.5 transition-colors ${
+          className={`relative h-7 w-12 rounded-full p-0.5 transition-colors before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-[max(100%,44px)] before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] ${
             settings.masterEnabled ? 'bg-accent' : 'bg-white/20'
           }`}
         >
@@ -248,9 +249,9 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
             const pendingKey = `cadence:${def.id}`;
             return (
               <div key={def.id} className="flex flex-col gap-1.5 border-b border-white/5 pb-4">
-                <p className="text-sm font-medium text-ink">{def.name}</p>
+                <p id={`notif-cat-${def.id}`} className="text-sm font-medium text-ink">{def.name}</p>
                 <p className="text-xs text-ink-soft">{def.description}</p>
-                <div className="flex flex-wrap gap-1.5" role="radiogroup">
+                <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-labelledby={`notif-cat-${def.id}`}>
                   {options.map((option) => {
                     const active = option === cadence;
                     return (
@@ -266,7 +267,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
                             prefs: [{ category: def.id, cadence: option }],
                           })
                         }
-                        className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
+                        className={`relative rounded-full border px-3 py-1 text-xs before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-[max(100%,44px)] before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] font-semibold transition-colors ${
                           active
                             ? 'border-accent bg-accent text-[color:var(--era-accent-fg)]'
                             : 'border-white/20 text-ink-soft hover:border-white/40'

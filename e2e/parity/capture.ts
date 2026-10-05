@@ -27,6 +27,14 @@ export async function captureViewport(page: Page, hideSelectors: string[] = []):
   return page.screenshot({ scale: 'css' });
 }
 
+/** Viewport capture with the timeline scrubber (rail, ridge, dots) hidden: its percent-positioned geometry anti-aliases differently run to run on phones (#5046), so it is excluded rather than the whole viewport being loosened. */
+export const SCRUBBER_RAIL = '[role="slider"][aria-label$="timeline scrubber"]';
+export async function captureViewportNoRail(page: Page): Promise<Buffer> {
+  // CSSOM write, not a stylesheet: side a's CSP blocks inline style tags.
+  await page.evaluate((sel) => document.querySelectorAll<HTMLElement>(sel).forEach((el) => el.style.setProperty('visibility', 'hidden')), SCRUBBER_RAIL);
+  return captureViewport(page);
+}
+
 export type Clip = { x: number; y: number; width: number; height: number };
 
 /** Bounding box of one element in page coordinates (feed it back to captureElement to hold the clip fixed across a mutation). */
