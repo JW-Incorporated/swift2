@@ -23,7 +23,7 @@ import { setEngaged } from '../../bridge/engaged-signal';
  * swallowed so it can never dismiss the overlay underneath.
  */
 
-type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean; escape?: boolean };
+type StackEntry = { id: number; dismiss: () => void; dismissedByPop: boolean; overlay?: boolean; nativeClosing?: boolean; escape?: boolean; escapeDismiss?: () => void };
 
 const stack: StackEntry[] = [];
 /** Reports whether any hook-registered overlay is open (nav entries do not count) so native content adoption waits for it. */
@@ -118,7 +118,7 @@ function onEscapeKey(e: KeyboardEvent) {
     const entry = stack[i]!;
     if (!entry.overlay || entry.escape === false) continue;
     e.stopImmediatePropagation();
-    entry.dismiss();
+    (entry.escapeDismiss ?? entry.dismiss)();
     return;
   }
 }
@@ -176,10 +176,12 @@ export function dismissTopOverlayFromNativeBack(): boolean {
   return true;
 }
 
-/** `escape: false` keeps a back-gesture-only layer out of the Escape dispatcher. */
-export function useBackDismiss(active: boolean, onDismiss: () => void, opts?: { escape?: boolean }) {
+/** `escape: false` keeps a back-gesture-only layer out of the Escape dispatcher; `onEscape` replaces the dismiss for Escape only (Back keeps `onDismiss`). */
+export function useBackDismiss(active: boolean, onDismiss: () => void, opts?: { escape?: boolean; onEscape?: () => void }) {
   const onDismissRef = useRef(onDismiss);
   onDismissRef.current = onDismiss;
+  const onEscapeRef = useRef(opts?.onEscape);
+  onEscapeRef.current = opts?.onEscape;
 
   useEffect(() => {
     if (!active) return;
@@ -190,6 +192,7 @@ export function useBackDismiss(active: boolean, onDismiss: () => void, opts?: { 
       dismissedByPop: false,
       overlay: true,
       escape: opts?.escape,
+      escapeDismiss: () => (onEscapeRef.current ?? onDismissRef.current)(),
     };
     stack.push(entry);
     reportOverlays();

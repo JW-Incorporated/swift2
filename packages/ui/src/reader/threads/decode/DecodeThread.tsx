@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../../lib/scroll-behavior';
 import { useState, useMemo } from 'react';
 import { Filter, ArrowUpDown, CheckCircle2, Layers, ChevronDown, ChevronUp, TrendingUp, X } from 'lucide-react';
 import { getEra, eraIndex } from '@swift2/experience';
@@ -218,7 +219,7 @@ export function DecodeThread({ clues = CLUE_PAIRS }: { clues?: CluePair[] }) {
           clues={clues}
           onSelect={(id) => {
             const el = document.getElementById(`decode-card-${id}`);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (el) el.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'center' });
           }}
         />
 

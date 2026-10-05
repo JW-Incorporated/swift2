@@ -8,10 +8,23 @@ vi.mock('react-native', async () => {
   const R = await import('../../web/node_modules/react');
   const el =
     (tag: string) =>
-    ({ children, onPress, testID, accessibilityLabel }: Record<string, unknown>) =>
+    ({
+      children,
+      onPress,
+      testID,
+      accessibilityLabel,
+      accessibilityRole,
+      accessibilityLiveRegion,
+    }: Record<string, unknown>) =>
       R.createElement(
         tag,
-        { onClick: onPress, 'data-testid': testID, 'aria-label': accessibilityLabel },
+        {
+          onClick: onPress,
+          'data-testid': testID,
+          'aria-label': accessibilityLabel,
+          role: accessibilityRole,
+          'aria-live': accessibilityLiveRegion,
+        },
         children as never,
       );
   return {
@@ -34,6 +47,7 @@ describe('FirstLaunchScreen', () => {
     );
     expect(getByText('Downloading Long Live…')).toBeTruthy();
     expect(queryByLabelText('Retry')).toBeNull();
+    expect(getByText('Downloading Long Live…').getAttribute('aria-live')).toBe('polite');
   });
 
   it('failed state shows offline copy and Retry fires the callback', () => {
@@ -41,7 +55,9 @@ describe('FirstLaunchScreen', () => {
     const { getByText, getByLabelText } = render(
       createElement(FirstLaunchScreen, { failed: true, onRetry }),
     );
-    expect(getByText("You're offline — connect to load Long Live")).toBeTruthy();
+    expect(getByText("You're offline — connect to load Long Live").getAttribute('role')).toBe(
+      'alert',
+    );
     fireEvent.click(getByLabelText('Retry'));
     expect(onRetry).toHaveBeenCalledTimes(1);
   });
