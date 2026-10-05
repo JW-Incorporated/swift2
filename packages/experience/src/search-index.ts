@@ -31,7 +31,7 @@ export type SearchTarget =
   | { kind: 'moment'; itemId: string }
   | { kind: 'era'; eraId: EraId }
   | { kind: 'track'; eraId: EraId; trackKey: string }
-  | { kind: 'theory-guide'; eraId: EraId }
+  | { kind: 'theory-guide'; eraId: EraId; slug?: string }
   | { kind: 'trail'; motifId: MotifId }
   | { kind: 'thread'; lensId: LensId }
   | { kind: 'video'; eraId: EraId; videoId: string };
