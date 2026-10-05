@@ -1,7 +1,7 @@
 // Re-checks content when the app returns to the foreground (the launch refresh is one-shot, so an offline launch would
 // otherwise stay stale until remount). No connectivity module ships in the binary, so AppState -> active is the
 // reconnect signal. At most one load in flight; at least MIN_INTERVAL_MS between successful checks; failures back off
-// exponentially (BASE..MAX). The launch refresh reports through `track` so its outcome feeds the same schedule.
+// exponentially (BASE..MAX). The launch refresh reports through `launch` so its outcome feeds the same schedule.
 export const MIN_INTERVAL_MS = 5 * 60_000;
 export const BACKOFF_BASE_MS = 10_000;
 export const BACKOFF_MAX_MS = MIN_INTERVAL_MS;
@@ -36,7 +36,8 @@ export function createForegroundRefresh<T>(deps: ForegroundRefreshDeps<T>) {
     );
   };
   return {
-    track,
+    /** The launch refresh, routed through the injected `load` so its outcome feeds the schedule. */
+    launch: (): Promise<T> => track(deps.load()),
     /** AppState became active. */
     foreground(): void {
       if (disposed || inflight || deps.now() < nextAllowed) return;

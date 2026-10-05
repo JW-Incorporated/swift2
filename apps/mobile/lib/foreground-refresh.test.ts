@@ -19,7 +19,7 @@ function setup(results: Array<'ok' | 'fail'>) {
 describe('foreground refresh', () => {
   it('launch offline -> foreground online -> exactly one refresh', async () => {
     const s = setup(['fail', 'ok']);
-    await s.fr.track(s.load()).catch(() => undefined);
+    await s.fr.launch().catch(() => undefined);
     s.load.mockClear();
     s.advance(BACKOFF_BASE_MS);
     s.fr.foreground();
@@ -37,7 +37,7 @@ describe('foreground refresh', () => {
 
   it('rapid foregrounds after a success are debounced to the 5 minute floor', async () => {
     const s = setup([]);
-    await s.fr.track(s.load());
+    await s.fr.launch();
     s.load.mockClear();
     s.advance(MIN_INTERVAL_MS - 1);
     s.fr.foreground();
@@ -50,7 +50,7 @@ describe('foreground refresh', () => {
 
   it('failures back off exponentially', async () => {
     const s = setup(['fail', 'fail', 'fail']);
-    await s.fr.track(s.load()).catch(() => undefined);
+    await s.fr.launch().catch(() => undefined);
     s.load.mockClear();
     s.advance(BACKOFF_BASE_MS);
     s.fr.foreground();
@@ -68,7 +68,7 @@ describe('foreground refresh', () => {
 
   it('ignores foregrounds after dispose', async () => {
     const s = setup([]);
-    await s.fr.track(s.load());
+    await s.fr.launch();
     s.load.mockClear();
     s.fr.dispose();
     s.advance(MIN_INTERVAL_MS);

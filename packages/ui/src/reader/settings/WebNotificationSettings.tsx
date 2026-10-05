@@ -29,6 +29,8 @@ import {
 import { useHost } from '../../host/context';
 import { selectDriver } from './lib/driver';
 import { settingsCopy } from './lib/copy';
+import { SubscribePrompt } from './lib/SubscribePrompt';
+import { useOptOutPending } from './lib/useOptOutPending';
 
 const CADENCE_LABEL: Record<NotificationCadence, string> = {
   instant: 'Instant',
@@ -70,7 +72,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   const driver = useMemo(() => selectDriver(host, vapidPublicKey), [host, vapidPublicKey]);
   const [subscribeState, setSubscribeState] = useState<SubscribeState>({ kind: 'checking' });
   const [prefsState, setPrefsState] = useState<DevicePrefsResponse | null>(null);
-  const [optOutPending, setOptOutPending] = useState(false);
+  const { pending: optOutPending, refresh: refreshOptOut } = useOptOutPending(driver);
   const [prefsError, setPrefsError] = useState<string | null>(null);
   const [pendingKeys, setPendingKeys] = useState<Set<string>>(new Set());
 
@@ -140,7 +142,6 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
 
   async function handleSubscribe() {
     setSubscribeState({ kind: 'subscribing' });
-    setOptOutPending(false);
     const result = await driver!.subscribe();
     if (result.status === 'subscribed') {
       setSubscribeState({ kind: 'subscribed' });
@@ -163,12 +164,13 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     if (outcome.ok) {
       setSubscribeState({ kind: 'not_subscribed' });
       setPrefsState(null);
-      setOptOutPending(false);
+      void refreshOptOut();
     } else if (driver!.kind === 'native') {
-      // The app keeps the local opt-out (the user's intent wins) and retries the server write when back online.
-      setSubscribeState({ kind: 'not_subscribed' });
-      setPrefsState(null);
-      setOptOutPending(true);
+      // Durable intent recorded (pending flag): the opt-out stands and finishes later. Otherwise nothing was saved.
+      if (await refreshOptOut().catch(() => false)) {
+        setSubscribeState({ kind: 'not_subscribed' });
+        setPrefsState(null);
+      } else setPrefsError(outcome.error);
     }
   }
 
@@ -187,30 +189,13 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
 
   if (subscribeState.kind !== 'subscribed') {
     return (
-      <div className="flex flex-col items-center gap-4">
-        {optOutPending && (
-          <p role="status" className="max-w-md text-center text-sm text-ink-soft">
-            We’ll finish turning off notifications when you’re back online.
-          </p>
-        )}
-        {subscribeState.kind === 'denied' && (
-          <p className="max-w-md text-center text-sm text-ink-soft">
-            {driver?.deniedHint ??
-              'Notifications are blocked for this site in your browser settings. Allow them there, then reload this page.'}
-          </p>
-        )}
-        {subscribeState.kind === 'error' && (
-          <p className="max-w-md text-center text-sm text-ink-soft">{subscribeState.message}</p>
-        )}
-        <button
-          type="button"
-          onClick={handleSubscribe}
-          disabled={subscribeState.kind === 'subscribing' || subscribeState.kind === 'denied'}
-          className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity hover:opacity-90 disabled:opacity-50"
-        >
-          {subscribeState.kind === 'subscribing' ? 'Enabling\u2026' : 'Enable notifications'}
-        </button>
-      </div>
+      <SubscribePrompt
+        kind={subscribeState.kind}
+        message={subscribeState.kind === 'error' ? subscribeState.message : undefined}
+        deniedHint={driver?.deniedHint}
+        optOutPending={optOutPending}
+        onSubscribe={handleSubscribe}
+      />
     );
   }
 

@@ -28,7 +28,7 @@ export function useDeferredBundleRefresh(
     };
     const foreground = createForegroundRefresh({ load: loadContentBundle, now: Date.now, onLoaded, onError });
     const refresh = createDeferredRefresh({
-      load: () => foreground.track(loadContentBundle()),
+      load: foreground.launch,
       runAfterInteractions: (fn) => InteractionManager.runAfterInteractions(fn),
       setTimeout: (fn, ms) => setTimeout(fn, ms),
       clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>),

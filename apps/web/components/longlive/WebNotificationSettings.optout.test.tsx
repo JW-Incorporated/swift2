@@ -7,7 +7,7 @@ import { createWebAdapter } from '@/lib/host-adapter';
 
 const base = createWebAdapter({ push() {}, replace() {} });
 
-function notifications(unregister: () => Promise<void>): HostNotifications {
+function notifications(unregister: () => Promise<void>, optOutPending?: () => Promise<boolean>): HostNotifications {
   return {
     status: async () => 'granted',
     request: async () => 'granted',
@@ -17,6 +17,7 @@ function notifications(unregister: () => Promise<void>): HostNotifications {
     savePrefs: vi.fn(),
     unregister,
     registered: async () => true,
+    optOutPending,
   };
 }
 
@@ -26,7 +27,7 @@ describe('native opt-out while offline', () => {
   it('keeps the local opt-out and shows a non-blocking notice when the server write fails', async () => {
     const unregister = vi.fn().mockRejectedValue(new Error('offline'));
     render(
-      <HostProvider adapter={{ ...base, notifications: notifications(unregister) }}>
+      <HostProvider adapter={{ ...base, notifications: notifications(unregister, async () => true) }}>
         <WebNotificationSettings vapidPublicKey={null} />
       </HostProvider>,
     );
@@ -35,9 +36,30 @@ describe('native opt-out while offline', () => {
     expect(screen.getByRole('button', { name: /enable notifications/i })).toBeTruthy();
   });
 
+  it('a failure with no durable marker (storage failure) is surfaced honestly: still on, error shown, no notice', async () => {
+    render(
+      <HostProvider adapter={{ ...base, notifications: notifications(vi.fn().mockRejectedValue(new Error('x')), async () => false) }}>
+        <WebNotificationSettings vapidPublicKey={null} />
+      </HostProvider>,
+    );
+    fireEvent.click(await screen.findByRole('button', { name: /turn off/i }));
+    await waitFor(() => expect(screen.getByText(/could not turn off notifications/i)).toBeTruthy());
+    expect(screen.queryByText(/back online/i)).toBeNull();
+    expect(screen.queryByRole('button', { name: /enable notifications/i })).toBeNull();
+  });
+
+  it('the notice is derived from the persisted flag on mount', async () => {
+    render(
+      <HostProvider adapter={{ ...base, notifications: { ...notifications(async () => undefined, async () => true), registered: async () => false } }}>
+        <WebNotificationSettings vapidPublicKey={null} />
+      </HostProvider>,
+    );
+    await waitFor(() => expect(screen.getByText(/back online/i)).toBeTruthy());
+  });
+
   it('shows no notice when the server write succeeds', async () => {
     render(
-      <HostProvider adapter={{ ...base, notifications: notifications(async () => undefined) }}>
+      <HostProvider adapter={{ ...base, notifications: notifications(async () => undefined, async () => false) }}>
         <WebNotificationSettings vapidPublicKey={null} />
       </HostProvider>,
     );

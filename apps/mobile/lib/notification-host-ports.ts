@@ -4,7 +4,7 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './onboarding-state';
 import { fetchDevicePrefs, saveDevicePrefs } from './prefs-client';
-import { clearRegisteredToken, isExplicitlyUnregistered, requestPushRegistration } from './push-registration';
+import { clearRegisteredToken, isExplicitlyUnregistered, isOptOutPending, requestPushRegistration } from './push-registration';
 import { createHandlers } from './bridge-handlers-notifications';
 import { createNotificationHostDeps, type NotificationPorts, type Permission } from './notification-host-deps';
 
@@ -30,6 +30,7 @@ export const expoNotificationPorts: NotificationPorts = {
   writePrefs: (body, signal) => saveDevicePrefs(body, signal),
   clearPushToken: () => clearRegisteredToken(),
   isRegistered: async () => !(await isExplicitlyUnregistered()),
+  optOutPending: isOptOutPending,
   onboardingOffered: hasOnboardingBeenOffered,
   markOnboardingOffered,
 };

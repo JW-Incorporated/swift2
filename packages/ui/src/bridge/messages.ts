@@ -37,6 +37,8 @@ export type DomCommandSpec = {
   'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
   'notifications.unregister': Spec<Record<string, never>, null>;
   'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
+  /** Add-only: true while an in-app turn-off still awaits its server write (retried on launch/foreground). */
+  'notifications.optOutPending': Spec<Record<string, never>, { pending: boolean }>;
   /** Add-only (W6): the native one-time push-offer flag, shared with the native OnboardingScreen's SecureStore key. */
   'notifications.onboardingOffered': Spec<Record<string, never>, { offered: boolean }>;
   'notifications.markOnboardingOffered': Spec<Record<string, never>, null>;
@@ -152,6 +154,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.savePrefs': true,
   'notifications.unregister': true,
   'notifications.registration': true,
+  'notifications.optOutPending': true,
   'notifications.onboardingOffered': true,
   'notifications.markOnboardingOffered': true,
   api: true,

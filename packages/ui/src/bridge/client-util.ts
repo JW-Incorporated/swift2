@@ -44,6 +44,7 @@ export function resultFits(type: DomCommandType, v: unknown): boolean {
   if (type === 'notifications.status' || type === 'notifications.request') return STATUSES.includes(v);
   if (type === 'notifications.getPrefs' || type === 'notifications.savePrefs') return isDevicePrefsResponse(v);
   if (type === 'notifications.registration') return isRec(v) && typeof v.registered === 'boolean' && Object.keys(v).length === 1;
+  if (type === 'notifications.optOutPending') return isRec(v) && typeof v.pending === 'boolean' && Object.keys(v).length === 1;
   if (type === 'notifications.onboardingOffered') return isRec(v) && typeof v.offered === 'boolean' && Object.keys(v).length === 1;
   if (type === 'api') {
     if (!isRec(v) || typeof v.status !== 'number' || !isRec(v.headers) || !Object.values(v.headers).every((h) => typeof h === 'string')) return false;
