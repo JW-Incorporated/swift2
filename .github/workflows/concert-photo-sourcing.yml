@@ -76,19 +76,22 @@ jobs:
         if: steps.enabled.outputs.enabled == 'true'
         env:
           HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
+          LIMIT_PER_SUB: ${{ inputs.limit_per_sub || '25' }}
         run: |
           node scripts/social/source-reddit-photos.mjs \
             --output .artifacts/concert-photo-candidates-reddit.json \
-            --limit-per-sub "${{ inputs.limit_per_sub || '25' }}"
+            --limit-per-sub "$LIMIT_PER_SUB"
 
       - name: Source candidate photos from Wikimedia Commons
         if: steps.enabled.outputs.enabled == 'true'
+        env:
+          WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries || 'Taylor Swift Eras Tour debut,Taylor Swift Eras Tour fearless,Taylor Swift Eras Tour speak now,Taylor Swift Eras Tour red,Taylor Swift Eras Tour 1989,Taylor Swift Eras Tour reputation,Taylor Swift Eras Tour lover,Taylor Swift Eras Tour folklore,Taylor Swift Eras Tour evermore,Taylor Swift Eras Tour midnights,Taylor Swift Eras Tour tortured poets' }}
         run: |
           # One query per era/tour-name (default set) so every era gets a
           # deliberate search rather than one generic query that only ever
           # surfaces the most-photographed eras (see PR description — this
           # is exactly the per-era starvation this workflow exists to fix).
-          IFS=',' read -ra QUERIES <<< "${{ inputs.wikimedia_queries || 'Taylor Swift Eras Tour debut,Taylor Swift Eras Tour fearless,Taylor Swift Eras Tour speak now,Taylor Swift Eras Tour red,Taylor Swift Eras Tour 1989,Taylor Swift Eras Tour reputation,Taylor Swift Eras Tour lover,Taylor Swift Eras Tour folklore,Taylor Swift Eras Tour evermore,Taylor Swift Eras Tour midnights,Taylor Swift Eras Tour tortured poets' }}"
+          IFS=',' read -ra QUERIES <<< "$WIKIMEDIA_QUERIES"
           mkdir -p .artifacts/wikimedia
           i=0
           for q in "${QUERIES[@]}"; do

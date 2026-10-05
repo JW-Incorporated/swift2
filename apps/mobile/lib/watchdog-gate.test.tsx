@@ -175,7 +175,7 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(result.current.nativeReason).toBeNull();
   });
 
-  it('an attempt write that lands after the bound records a real attempt (the DOM is mounting); a strike then persists in order', async () => {
+  it('an attempt write that lands after the bound records a real attempt (the DOM is mounting); an in-launch failure then persists in order (no strike)', async () => {
     h.saveDelay = 3500;
     const { result } = renderHook(() => useDomMount(inputs()));
     await flush();
@@ -186,7 +186,7 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(h.saved.at(-1)?.state).toBe('attempting');
     await act(async () => { result.current.watch.error('boom'); await vi.advanceTimersByTimeAsync(0); });
     expect(result.current.mount).toBe('native');
-    expect(h.saved.at(-1)?.strikes).toBe(1);
+    expect(h.saved.at(-1)).toMatchObject({ state: 'failed', strikes: 0 });
   });
 
   it('a slow attempt write that lands after ready cannot regress it: the serialized queue persists attempting, then ready', async () => {
@@ -294,13 +294,13 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(h.saved.at(-1)).toMatchObject({ state: 'fallback', fallbackLaunchesRemaining: 0 });
   });
 
-  it('a DOM error strikes once and reports dom-strike', async () => {
+  it('a DOM error records a failed launch (no strike) and reports dom-strike', async () => {
     const { result } = renderHook(() => useDomMount(inputs()));
     await flush();
     expect(result.current.mount).toBe('dom');
     await act(async () => { result.current.watch.error('boom'); await vi.advanceTimersByTimeAsync(0); });
     expect(result.current.mount).toBe('native');
     expect(result.current.nativeReason).toBe('dom-strike');
-    expect(h.saved.at(-1)?.strikes).toBe(1);
+    expect(h.saved.at(-1)).toMatchObject({ state: 'failed', strikes: 0 });
   });
 });
