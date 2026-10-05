@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **2 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #106 🟡 [DECIDE] #4707 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (Drop the non-Taylor Reddit photos from the social photo library, and stop the sourcer adm…). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4707 under stalled.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->
