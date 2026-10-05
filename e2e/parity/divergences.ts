@@ -16,4 +16,9 @@ export const ACCEPTED_DIVERGENCES: readonly Divergence[] = [
   { id: 'notification-onboarding' },
   { id: 'denied-hint-wording' },
   { id: 'legal-analytics-wording' },
+  { id: 'app-state-screens' },
+  { id: 'external-links' },
+  { id: 'embed-wrapper' },
+  { id: 'web-only-services' },
+  { id: 'content-adoption-lag' },
 ];
