@@ -28,10 +28,7 @@ function blend(fg: string, bg: string, alpha: number): [number, number, number] 
 
 describe('era theme contrast', () => {
   it('accent2 clears 4.5:1 on bg, surface and surface2 for every era (A11Y-9)', () => {
-    // Red's accent2 (#c96a3a) is 4.37 / 3.86 on surface / surface2; known and
-    // out of scope here (the audit flagged only Speak Now). Remove this skip
-    // when Red's accent2 is lifted.
-    for (const era of ERAS.filter((e) => e.id !== 'red')) {
+    for (const era of ERAS) {
       const t = era.theme;
       for (const key of ['bg', 'surface', 'surface2'] as const) {
         const r = ratio(rgb(t.accent2), rgb(t[key]));
