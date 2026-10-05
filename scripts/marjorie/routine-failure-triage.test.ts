@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, shouldComment, triage } from './routine-failure-triage.mjs';
+import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, mentionsUrl, shouldComment, triage } from './routine-failure-triage.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { parseMarker } from './lib/loop-asks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -11,6 +11,7 @@ import { selectPending } from './lib/loop-queue.mjs';
 const NOW = Date.parse('2026-10-05T12:00:00Z');
 const WF = 'routine-austin-build';
 const URL1 = 'https://github.com/o/r/actions/runs/111';
+const RUN_RE = /https:\/\/github\.com\/o\/r\/actions\/runs\/111(?![0-9])/;
 const BOT = { login: 'github-actions[bot]' };
 const LOG = ['run / Run Claude\tRun Claude\t2026-10-05T11:00:00.1Z error_max_turns reached', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:01.1Z CLAUDE_CODE_OAUTH_TOKEN=abc123', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:02.1Z done'].join('\n');
 
@@ -57,7 +58,7 @@ describe('issue body', () => {
     expect(issue.title).toBe(`routine failure: ${WF} 2026-10-05`);
     expect(issue.body).toContain(`<!-- routine-failure: ${WF} 2026-10-05 -->`);
     expect(parseMarker(issue.body).key).toBe(`routine-failure-${WF}-2026-10-05`);
-    expect(issue.body).toContain(URL1);
+    expect(issue.body).toMatch(RUN_RE);
     expect(issue.body).toContain('REROUTE');
     expect(issue.body).toContain('`run / Run Claude` / `Run Claude`');
     expect(issue.body).toContain('read the logs via the run URL');
@@ -89,7 +90,11 @@ describe('triage', () => {
     log.mockRestore();
     expect(res).toEqual({ action: 'commented', number: 5100 });
     expect(verbs(calls)).toEqual(['run view', 'issue comment']);
-    expect(calls.find((c) => c[1] === 'comment')?.join(' ')).toContain(URL1);
+    expect(calls.find((c) => c[1] === 'comment')?.join(' ')).toMatch(RUN_RE);
+  });
+  it('matches a whole run URL only: run 111 is not run 1111', () => {
+    expect(mentionsUrl('see https://github.com/o/r/actions/runs/1111', URL1)).toBe(false);
+    expect(mentionsUrl('see https://github.com/o/r/actions/runs/111.', URL1)).toBe(true);
   });
   it('does not repeat a run URL it already recorded', async () => {
     const { gh, calls } = fakeGh({ open: [issueRow(5100, `${failureMarker(WF, '2026-10-05')} ${URL1}`)] });
@@ -143,7 +148,7 @@ describe('triage', () => {
       const { gh } = fakeGh({ jobs: CANCELLED, ...fake });
       const q = quiet();
       expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('skipped');
-      const warned = q.mock.calls.some((c) => String(c[0]).startsWith('::warning::') && String(c[0]).includes(URL1));
+      const warned = q.mock.calls.some((c) => String(c[0]).startsWith('::warning::') && RUN_RE.test(String(c[0])));
       q.mockRestore();
       expect(warned).toBe(true);
     }

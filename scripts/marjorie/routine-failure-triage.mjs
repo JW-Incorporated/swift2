@@ -110,6 +110,12 @@ async function cancelledByTimeout(gh, repo, jobs, runUrl) {
   return false;
 }
 
+/** Whole-URL match (run 111 is not run 1111) without a substring test on a URL. */
+export function mentionsUrl(text, url) {
+  const escaped = String(url).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(escaped + '(?![0-9A-Za-z/_-])').test(String(text ?? ''));
+}
+
 /** One comment per repeat failure, but never within an hour of the last triage comment or past five. */
 export function shouldComment(comments, now) {
   const mine = (comments || []).filter((c) => String(c.body ?? '').includes(COMMENT_MARKER));
@@ -141,7 +147,7 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
     const existing = (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).find((i) => String(i.body).includes(marker));
     if (existing) {
       const comments = (await api(`/repos/${repo}/issues/${existing.number}/comments?per_page=100`)) || [];
-      const seen = String(existing.body).includes(runUrl) || comments.some((c) => String(c.body ?? '').includes(runUrl));
+      const seen = [existing.body, ...comments.map((c) => c.body)].some((text) => mentionsUrl(text, runUrl));
       if (!seen && shouldComment(comments, now)) {
         await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}\n\n${COMMENT_MARKER}`]);
       }
