@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #103 🟢 [UPGRADE] Set SUBMISSIONS_HASH_SALT in Vercel production (~3 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** Since PR #5143, link submissions omit the anonymous client hash unless this salt is set (the old public fallback salt was removed). Without it, repeat-submitter detection in the sheet is off.
-**Steps:**
-1. Open https://vercel.com → the longlivets project → Settings → Environment Variables.
-2. Add `SUBMISSIONS_HASH_SALT` = any long random string → Production → Save.
-3. Redeploy production (Deployments → latest → Redeploy).
-**Worked if:** the next link submission issue shows a "Client hash" line again.
 
 ## #101 🔴 [BLOCKING] S5: test the new app on your Android phone (~20 min)
 <!-- ha filed=2026-10-04 -->
