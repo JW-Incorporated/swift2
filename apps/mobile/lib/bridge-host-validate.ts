@@ -84,6 +84,22 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
+/** Strict `{ set?: Record<string,string>; remove?: string[] }`; key length and blob size are the native handler's `invalid`. */
+function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
+  const out: Record<string, JsonValue> = {};
+  for (const k of Object.keys(p)) {
+    const v = p[k];
+    if (k === 'set') {
+      if (!isRecord(v) || !Object.values(v).every((x) => typeof x === 'string')) return null;
+      out.set = { ...v };
+    } else if (k === 'remove') {
+      if (!Array.isArray(v) || !v.every((x) => typeof x === 'string')) return null;
+      out.remove = [...v];
+    } else return null;
+  }
+  return out;
+}
+
 /** Per-command payload validation; returns the cleaned payload or null. */
 export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue | null {
   if (!isRecord(p)) return null;
@@ -106,6 +122,10 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return validShare(p);
     case 'haptic':
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
+    case 'storage.load':
+      return Object.keys(p).length === 0 ? {} : null;
+    case 'storage.write':
+      return validStorageWrite(p);
     case 'notifications.updatePrefs':
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':

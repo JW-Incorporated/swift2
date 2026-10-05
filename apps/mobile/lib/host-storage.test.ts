@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createHandlers } from './bridge-handlers-ui';
-import { createHostStorage, MAX_BLOB_BYTES, type HostStoragePort } from './host-storage';
+import { createHostStorage, MAX_BLOB_BYTES, utf8Length, type HostStoragePort } from './host-storage';
 
 const ctx = { signal: new AbortController().signal };
 const memPort = (initial: string | null = null): HostStoragePort & { text: string | null } => {
@@ -33,6 +33,19 @@ describe('host storage blob', () => {
       write: vi.fn(),
     };
     expect(createHostStorage(port).load()).toEqual({});
+  });
+  it('corrupt main + good backup loads the backup; both bad loads {}', () => {
+    const mk = (main: string | null, bak: string | null): HostStoragePort => ({ read: () => main, readBackup: () => bak, write: vi.fn() });
+    expect(createHostStorage(mk('{broken', '{"a":"1"}')).load()).toEqual({ a: '1' });
+    expect(createHostStorage(mk(null, '{"a":"1"}')).load()).toEqual({ a: '1' });
+    expect(createHostStorage(mk('{broken', '[1]')).load()).toEqual({});
+  });
+  it('the cap is measured in UTF-8 bytes, not characters', () => {
+    const port = memPort();
+    expect(createHostStorage(port).write({ set: { k: 'é'.repeat(MAX_BLOB_BYTES / 2) } })).toBe(false);
+    expect(utf8Length('é')).toBe(2);
+    expect(utf8Length('\u{1F600}')).toBe(4);
+    expect(port.text).toBeNull();
   });
   it('persists set/remove and a fresh instance (relaunch) reads them back', () => {
     const port = memPort();

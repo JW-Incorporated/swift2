@@ -121,7 +121,10 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       const s = deps.hostStorage;
       if (!s) return resErr('failed', 'storage.write unavailable');
       try {
-        if (!s.write({ set: set as Record<string, string> | undefined, remove: remove as string[] | undefined })) return invalid('storage.write: too large');
+        if (!s.write({ set: set as Record<string, string> | undefined, remove: remove as string[] | undefined })) {
+          deps.log('bridge-storage.write-rejected', 'blob over the size cap');
+          return invalid('storage.write: too large');
+        }
         return resOk(null);
       } catch (e) {
         deps.log('bridge-storage.write-failed', String(e).slice(0, 200));

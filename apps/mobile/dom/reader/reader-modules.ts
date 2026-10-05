@@ -53,6 +53,7 @@ export function createReaderAdapter(
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') sync.flush();
     });
+    window.addEventListener('pagehide', () => sync.flush());
   }
   return {
     ...createAppAdapter({

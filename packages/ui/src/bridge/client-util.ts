@@ -50,6 +50,7 @@ export function resultFits(type: DomCommandType, v: unknown): boolean {
     if (Object.keys(v).length !== 3) return false;
     return typeof v.body === 'string' !== (typeof v.streamId === 'string');
   }
+  if (type === 'storage.load') return isRec(v) && Object.keys(v).length === 1 && isRec(v.entries) && Object.values(v.entries).every((e) => typeof e === 'string');
   if (type === 'apiRead') return isRec(v) && typeof v.chunk === 'string' && typeof v.done === 'boolean' && Object.keys(v).length === 2;
   return v === null;
 }
