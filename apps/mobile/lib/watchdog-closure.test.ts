@@ -56,14 +56,14 @@ function app() {
   const target = createTapTarget({ host, isReaderPath: () => true, openElsewhere: async () => true });
   const binder = createTapBinder({ gate, host: target, onReadinessLoss: vi.fn() });
   holder.binder = binder;
-  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch: releaseBeforeStrike(baseWatch, binder), bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch: releaseBeforeStrike(baseWatch, binder), bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   applyMount();
   return { gate, presenter, host, binder, handlers, nativeOpened, getMount: () => mount, getRecord: () => record };
 }
 
 async function bindDom(a: ReturnType<typeof app>) {
-  await a.handlers.bridge(ready());
-  await a.handlers.onReady();
+  await a.handlers.bridge(ready(), 'tok');
+  await a.handlers.onReady('tok');
   a.binder.navReady();
   a.binder.firstPaint();
   expect(a.binder.isBound()).toBe(true);
@@ -75,8 +75,8 @@ describe('(1) protocol fatal strikes the real watchdog, before and after first p
     ['host-detected after first paint', true],
   ])('%s', async (_n, afterPaint) => {
     const a = app();
-    if (afterPaint) await a.handlers.onReady();
-    void a.handlers.bridge(ready('r1', 99)).catch(() => undefined);
+    if (afterPaint) await a.handlers.onReady('tok');
+    void a.handlers.bridge(ready('r1', 99), 'tok').catch(() => undefined);
     expect(a.getRecord().strikes).toBe(1);
     expect(a.getRecord().lastReason).toBe('protocol-fatal');
     expect(a.getMount()).toBe('native');
@@ -87,8 +87,8 @@ describe('(1) protocol fatal strikes the real watchdog, before and after first p
     ['DOM-reported after first paint', true],
   ])('%s', async (_n, afterPaint) => {
     const a = app();
-    if (afterPaint) await a.handlers.onReady();
-    await a.handlers.reportProtocolFatal('ready-failed');
+    if (afterPaint) await a.handlers.onReady('tok');
+    await a.handlers.reportProtocolFatal('ready-failed', 'tok');
     expect(a.getRecord().strikes).toBe(1);
     expect(a.getRecord().lastReason).toBe('protocol-fatal');
     expect(a.getMount()).toBe('native');
@@ -102,7 +102,7 @@ describe('(2) fallback clears the open overlay and releases the native back owne
     expect(a.presenter.presentNativeRoute('/settings')).toBe('applied');
     a.presenter.opened(a.presenter.getState().seq);
     expect(a.presenter.getState().phase).toBe('open');
-    await a.handlers.reportProtocolFatal('id-space-exhausted');
+    await a.handlers.reportProtocolFatal('id-space-exhausted', 'tok');
     expect(a.getMount()).toBe('native');
     expect(a.presenter.getState()).toMatchObject({ phase: 'idle', route: null, deadlineAt: null });
     expect(a.presenter.handleBack()).toBe(false);
@@ -111,7 +111,7 @@ describe('(2) fallback clears the open overlay and releases the native back owne
   it('the host lease is released before the strike lands, so the gate is no longer bound', async () => {
     const a = app();
     await bindDom(a);
-    await a.handlers.reportProtocolFatal('ready-failed');
+    await a.handlers.reportProtocolFatal('ready-failed', 'tok');
     expect(a.binder.isBound()).toBe(false);
   });
 });
@@ -123,7 +123,7 @@ describe('(3) taps while quarantined/fallback route natively; taps held at fallb
     expect(a.gate.enqueue({ id: 'n1', deepLink: '/settings' })).toBe('queued');
     await Promise.resolve();
     expect(a.nativeOpened).toEqual([]);
-    await a.handlers.reportProtocolFatal('ready-failed');
+    await a.handlers.reportProtocolFatal('ready-failed', 'tok');
     await vi.waitFor(() => expect(a.nativeOpened).toEqual([`${SITE}/settings`]));
     await vi.waitFor(() => expect(a.gate.size()).toBe(0));
   });
@@ -132,7 +132,7 @@ describe('(3) taps while quarantined/fallback route natively; taps held at fallb
     const a = app();
     a.gate.enqueue({ id: 'p1', deepLink: '/support' });
     expect(a.gate.size()).toBe(1);
-    await a.handlers.reportProtocolFatal('ready-failed');
+    await a.handlers.reportProtocolFatal('ready-failed', 'tok');
     await vi.waitFor(() => expect(a.nativeOpened).toEqual([`${SITE}/support`]));
     await vi.waitFor(() => expect(a.gate.size()).toBe(0));
   });

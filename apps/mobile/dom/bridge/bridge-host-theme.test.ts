@@ -15,7 +15,7 @@ function wire(onTheme: (t: unknown) => void, onSignal = vi.fn()) {
   const link = createBridgeLink(() => void ref.host?.inbox());
   const sent: { kind: string; type: string }[] = [];
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
-  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: createAppHandlersFor(vi.fn(), {}),
     send: (e) => {
@@ -33,13 +33,13 @@ function wire(onTheme: (t: unknown) => void, onSignal = vi.fn()) {
   link.attach(host);
   const held: Envelope[] = [];
   let gated = false;
-  const dom = createExpoBridge((env) => {
+  const dom = createExpoBridge((env, t) => {
     if (gated && env.type === 'ready') {
       held.push(env);
       return;
     }
-    return handlers.bridge(env);
-  });
+    return handlers.bridge(env, t);
+  }, undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   return {
     host,
@@ -48,7 +48,7 @@ function wire(onTheme: (t: unknown) => void, onSignal = vi.fn()) {
     gate: () => void (gated = true),
     release: () => {
       gated = false;
-      for (const e of held.splice(0)) void handlers.bridge(e);
+      for (const e of held.splice(0)) void handlers.bridge(e, 'tok');
     },
   };
 }

@@ -17,7 +17,7 @@ function epoch(presentNativeRoute?: (path: WebPath) => unknown) {
   const onSignal = vi.fn();
   const ref: { host?: BridgeHost } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
-  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const uiDeps = createUiDeps({
     linking: { openURL: vi.fn(async () => true) },
     share: { share: vi.fn(async () => ({})) },
@@ -56,7 +56,7 @@ describe('H1 UI commands over a real host and DOM client', () => {
     registerRoutes({ slice: 'test', nativeRoutes: [{ id: 'test:native', match: '/test-native' }] });
     const present = vi.fn(() => 'applied');
     const e = epoch(present);
-    const dom = createExpoBridge((env) => e.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
     expect(await dom.client.call('navigate', { path: '/test-native' as never })).toMatchObject({ ok: true });
@@ -71,7 +71,7 @@ describe('H1 UI commands over a real host and DOM client', () => {
 
   it('haptic with no haptics module and an https openExternal succeed, a file: url is refused', async () => {
     const e = epoch();
-    const dom = createExpoBridge((env) => e.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
     expect(await dom.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: true });
@@ -90,7 +90,7 @@ describe('H1 UI commands over a real host and DOM client', () => {
 
   it('hardware back after ready asks the DOM first: handled stays in the app, exit leaves it', async () => {
     const e = epoch();
-    const dom = createExpoBridge((env) => e.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     let open: string | null = 'item';
     const responder = createBackResponder();
     dom.client.handle('back', () => {
@@ -118,7 +118,7 @@ describe('H1 UI commands over a real host and DOM client', () => {
     const e = epoch();
     const got: Insets[] = [];
     const tokens: string[] = [];
-    const dom = createExpoBridge((env) => e.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => e.handlers.bridge(env, t), undefined, undefined, () => e.handlers.bridgeHello());
     dom.client.on('insets', (i) => void got.push(i));
     dom.client.on('contentVersion', (p) => void tokens.push(p.token));
     e.insets(portrait);
