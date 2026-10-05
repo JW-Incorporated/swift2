@@ -1,5 +1,6 @@
 import { ACCEPTED_DIVERGENCES } from './divergences';
 import { EXTRA_ROUTES, ROUTES } from './helpers';
+import { B_ONLY_ROUTES } from './routes-b-only';
 import { bBaselineNames } from './sides';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -13,10 +14,13 @@ import { expect, test } from '@playwright/test';
 const A_ONLY_ALLOW_LIST: readonly string[] = [];
 
 /**
- * Every slot a dom/slots slice registers, mapped to the parity route that exercises it. The slot list itself is read from the
- * slice files (below), so this map is the only thing a new slot has to touch, and forgetting it fails the first test.
+ * Every slot a dom/slots slice registers, and how parity covers it: a bare string is a both-sides parity route; `{ bOnly }` is an
+ * app-only surface (sides 'b': b baselines, no a-vs-b compare); `{ divergence }` is an accepted divergence with no route
+ * (docs/one-ui/parity-divergences.md). The slot list itself is read from the slice files (below), so this map is the only thing a
+ * new slot has to touch, and forgetting it fails the first test.
  */
-const SLOT_ROUTE: Readonly<Record<string, string>> = {
+type SlotCoverage = string | { readonly bOnly: string } | { readonly divergence: string };
+const SLOT_ROUTE: Readonly<Record<string, SlotCoverage>> = {
   'surface:era': 'home',
   'surface:threads': 'threads',
   'surface:mood': 'mood',
@@ -31,6 +35,9 @@ const SLOT_ROUTE: Readonly<Record<string, string>> = {
   'overlay:theory-guide': 'theories',
   'overlay:track-guide': 'guide',
   'overlay:song': 'song',
+  'overlay:inbox': { bOnly: 'inbox-list' },
+  'overlay:onboarding': { bOnly: 'onboarding-offer' },
+  'overlay:share-fallback': { divergence: 'share-fallback-toast' },
   footer: 'support-footer',
   floating: 'feedback-dialog-open',
 };
@@ -60,8 +67,13 @@ test('every registered slot maps to a both-sides parity route', () => {
   expect(slots.length, 'no slots found: the scan is broken').toBeGreaterThanOrEqual(14);
   expect(slots, 'slot registered without a SLOT_ROUTE entry (or a stale entry)').toEqual(Object.keys(SLOT_ROUTE).sort());
   const routes = new Map(allRoutes().map((r) => [r.name, r.sides]));
+  const bOnly = new Set(B_ONLY_ROUTES.filter((r) => r.sides === 'b').map((r) => r.name));
+  const divergences = new Set(ACCEPTED_DIVERGENCES.map((d) => d.id));
   for (const slot of slots) {
-    expect(routes.get(SLOT_ROUTE[slot]!), `${slot} -> ${SLOT_ROUTE[slot]} must be a both-sides parity route`).toBe('both');
+    const cov = SLOT_ROUTE[slot]!;
+    if (typeof cov === 'string') expect(routes.get(cov), `${slot} -> ${cov} must be a both-sides parity route`).toBe('both');
+    else if ('bOnly' in cov) expect(bOnly.has(cov.bOnly), `${slot} -> ${cov.bOnly} must be a b-only parity route`).toBe(true);
+    else expect(divergences.has(cov.divergence), `${slot} -> ${cov.divergence} must be an accepted divergence`).toBe(true);
   }
 });
 
@@ -94,17 +106,13 @@ test('every both route has b baselines for all four projects', () => {
   expect(missing, 'missing b baselines (run parity.yml update-baselines)').toEqual([]);
 });
 
-test('native routes, the divergence manifest and parity-divergences.md agree exactly', () => {
+test('no native routes remain, and the divergence manifest and parity-divergences.md agree exactly', () => {
   const host = readFileSync(resolve(slotsDir, 'host.routes.ts'), 'utf8');
-  const native = [...host.matchAll(/match:\s*'([^']+)'/g)].map((m) => m[1]!).sort();
-  expect(native.length, 'no native routes found: the scan is broken').toBeGreaterThan(0);
-  const manifestNative = ACCEPTED_DIVERGENCES.flatMap((d) => (d.nativeRoute ? [d.nativeRoute] : [])).sort();
-  expect(manifestNative, 'a native route is not a documented divergence (or the reverse)').toEqual(native);
+  const decl = /nativeRoutes:\s*\[([\s\S]*?)\]/.exec(host.replace(/\/\/.*$/gm, ''));
+  expect(decl, 'nativeRoutes declaration not found: the scan is broken').not.toBeNull();
+  expect(decl![1]!.trim(), 'a native route was registered: render it in the DOM host or document it as a divergence').toBe('');
 
   const doc = readFileSync(resolve(here, '../../docs/one-ui/parity-divergences.md'), 'utf8');
   const documented = [...doc.matchAll(/^- \*\*`([a-z0-9-]+)`\*\*/gm)].map((m) => m[1]!).sort();
   expect(documented, 'parity-divergences.md bullets must equal the manifest ids').toEqual(ACCEPTED_DIVERGENCES.map((d) => d.id).sort());
-  for (const d of ACCEPTED_DIVERGENCES) {
-    if (d.nativeRoute) expect(doc, `${d.id} must cite ${d.nativeRoute}`).toContain(`\`${d.nativeRoute}\``);
-  }
 });
