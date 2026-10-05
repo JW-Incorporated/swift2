@@ -9,7 +9,7 @@ import {
   createAttemptMonitor,
   decideMount,
   markReady,
-  recordStrike,
+  recordLaunchFailure,
   shouldMountDom,
   READY_TIMEOUT_MS,
   type WatchdogRecord,
@@ -97,7 +97,7 @@ export function runDrill(failure: DrillFailure, opts: DrillOptions = {}): DrillR
       record = markReady(record, launch);
       outcome = 'ready';
     } else if (struck !== null) {
-      record = recordStrike(record, struck, launch).record;
+      record = recordLaunchFailure(record, struck, launch);
       category = reasonCategory(struck);
       outcome = 'strike';
     }

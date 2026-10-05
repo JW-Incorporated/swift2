@@ -1,5 +1,26 @@
-import { describe, expect, it } from 'vitest';
-import { buildLocation, pathOnly } from './feedback-location';
+import { describe, expect, it, vi } from 'vitest';
+import { buildLocation, pathOnly, platformLabel } from './feedback-location';
+
+describe('platformLabel', () => {
+  it('uses the host platform, never the user-agent, when the host names one', () => {
+    expect(platformLabel('ios')).toBe('iOS app');
+    expect(platformLabel('android')).toBe('Android app');
+    expect(platformLabel('app')).toBe('mobile app');
+  });
+  it('labels the web host by viewport width', () => {
+    vi.stubGlobal('navigator', { userAgent: 'Mozilla/5.0' });
+    vi.stubGlobal('window', { innerWidth: 500 });
+    expect(platformLabel('web')).toBe('web: mobile');
+    vi.stubGlobal('window', { innerWidth: 1200 });
+    expect(platformLabel('web')).toBe('web: desktop');
+    vi.unstubAllGlobals();
+  });
+  it('flows through buildLocation from the host adapter', () => {
+    const state = { eraId: 'lover', mode: 'era' } as never;
+    expect(buildLocation(state, { platform: 'ios' } as never).platform).toBe('iOS app');
+    expect(buildLocation(state, { platform: 'android' } as never).platform).toBe('Android app');
+  });
+});
 
 describe('pathOnly', () => {
   it('drops origin, query string and hash', () => {

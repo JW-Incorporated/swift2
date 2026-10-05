@@ -42,6 +42,7 @@ import {
   saveReportsRaw,
 } from './watchdog-store';
 import { DEFAULT_DEPS, boundedForceFailure, startAttemptBounded, useContentGate, type GateDeps } from './watchdog-gate-content';
+import type { ContentFailureKind } from './watchdog-await-content';
 import { createTelemetry } from './watchdog-telemetry';
 import { createWatchdogWriter, type WatchdogWriter } from './watchdog-writer';
 
@@ -84,6 +85,8 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   nativeReason: NativeReason | null;
   /** awaiting-content only: the load failed (offline) / re-run it. */
   contentFailed: boolean;
+  /** Class of the latest content failure (valid while contentFailed). */
+  contentKind: ContentFailureKind;
   retryContent: () => void;
 } {
   const [decision, setDecision] = useState<MountDecision | null>(null);
@@ -126,10 +129,10 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     report(struck.lastReason, struck.buildKey);
   };
   const onFolded = (reason: string | null, record: WatchdogRecord) => {
-    if (reason && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+    if (reason) report(reason, record.buildKey);
   };
 
-  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
+  const { contentFailed, contentKind, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
   const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
@@ -240,7 +243,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
           late: lateRef,
           write,
           onStrike: (reason, record, persisted) => {
-            if (persisted && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+            if (persisted) report(reason, record.buildKey);
             apply('native', 'dom-strike');
           },
         });
@@ -275,5 +278,5 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
 
   const watch = useMemo<DomWatch>(() => createDomWatch(monitorRef, recordRef, write, lateRef), []);
 
-  return { mount, watch, forceFailure, nativeReason, contentFailed, retryContent: () => waiterRef.current?.retry() };
+  return { mount, watch, forceFailure, nativeReason, contentFailed, contentKind, retryContent: () => waiterRef.current?.retry() };
 }

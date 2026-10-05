@@ -92,14 +92,23 @@ describe('platformGuessFromDomain', () => {
 });
 
 describe('hashClientId', () => {
+  it('returns no hash at all when SUBMISSIONS_HASH_SALT is unset', () => {
+    vi.stubEnv('SUBMISSIONS_HASH_SALT', '');
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(hashClientId('1.2.3.4')).toBeNull();
+  });
+
   it('is deterministic and never returns the raw input', () => {
+    vi.stubEnv('SUBMISSIONS_HASH_SALT', 'test-salt');
     const a = hashClientId('1.2.3.4');
     const b = hashClientId('1.2.3.4');
     expect(a).toBe(b);
     expect(a).not.toContain('1.2.3.4');
+    expect(a).toHaveLength(16);
   });
 
   it('differs for different inputs', () => {
+    vi.stubEnv('SUBMISSIONS_HASH_SALT', 'test-salt');
     expect(hashClientId('1.2.3.4')).not.toBe(hashClientId('5.6.7.8'));
   });
 });
@@ -158,6 +167,15 @@ const baseRecord: SubmissionRecord = {
 };
 
 describe('postGitHubIssue', () => {
+  it('omits the Client hash line when there is no hash', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ number: 9, html_url: 'http://gh/9' }), { status: 201 }));
+    vi.stubGlobal('fetch', fetchSpy);
+    await postGitHubIssue({ ...baseRecord, clientHash: null });
+    const sent = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(sent.body).not.toContain('Client hash');
+  });
+
   it('is not attempted without GITHUB_FEEDBACK_TOKEN', async () => {
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);

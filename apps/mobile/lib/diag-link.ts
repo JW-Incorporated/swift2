@@ -1,7 +1,7 @@
 // Diagnostics deep link (issue #4877): `longlive://diag` opens the Diagnostics panel for devices where both inset
 // strips of the hot corner are untappable. Only the OS-delivered URL path (use-deep-links intake) calls
 // `openDiagPanel`; the DOM bridge cannot reach it (`navigate` takes site paths, `openExternal` is https/mailto only,
-// and SiteShell never forwards a non-https scheme to Linking). The panel is the same one the 7-tap corner opens.
+// and the bridge never forwards a non-https scheme to Linking). The panel is the same one the 7-tap corner opens.
 import { useSyncExternalStore } from 'react';
 
 const DIAG_LINK = /^longlive:\/\/\/?diag\/?$/;

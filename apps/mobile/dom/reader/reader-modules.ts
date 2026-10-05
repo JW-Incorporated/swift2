@@ -21,6 +21,8 @@ export type ReaderProps = {
   controls: Omit<ReaderControls, 'slottedModes'>;
   navigateDom: (path: string) => void;
   getPath: () => string;
+  /** Native OS from the host (react-native Platform.OS); labels in-app feedback. */
+  platform?: string;
 };
 
 /** Identical on iOS and Android (the Android DOM has no storage, G3). Tri-state: null = absent. The Map is authoritative and
@@ -71,7 +73,7 @@ export function disposeReaderAdapter(adapter: object): void {
 
 /** One adapter per client lifetime (host and transport share it); insets are layered on without rebuilding it. */
 export function createReaderAdapter(
-  p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath'> & { insets: Insets; storageSeed?: Record<string, string> | null },
+  p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath' | 'platform'> & { insets: Insets; storageSeed?: Record<string, string> | null },
 ): HostAdapter {
   const apiFetch = createBridgeApiFetch(p.client);
   // eslint-disable-next-line prefer-const -- `local` needs `sync.push`, `sync` needs `local.snapshot` (late-bound)
@@ -91,6 +93,7 @@ export function createReaderAdapter(
     ...createAppAdapter({
       client: p.client,
       insets: p.insets,
+      platform: p.platform,
       isNativeRoute,
       navigateDom: p.navigateDom,
       getPath: p.getPath,
@@ -125,8 +128,8 @@ export function loadReader(
   });
   const slottedModes = new Set(Object.keys(slots.surfaces));
 
-  return function Reader({ client, insets, controls, navigateDom, getPath }: ReaderProps) {
-    const base = useMemo(() => createReaderAdapter({ client, insets, navigateDom, getPath, storageSeed }), [client]);
+  return function Reader({ client, insets, controls, navigateDom, getPath, platform }: ReaderProps) {
+    const base = useMemo(() => createReaderAdapter({ client, insets, navigateDom, getPath, platform, storageSeed }), [client]);
     const adapter = useMemo(() => ({ ...base, insets }), [base, insets.top, insets.right, insets.bottom, insets.left]);
     useEffect(
       () => installBlankCapture(document as unknown as Parameters<typeof installBlankCapture>[0], { origin: adapter.env.origin, navigate: adapter.navigate, openExternal: adapter.openExternal! }),
