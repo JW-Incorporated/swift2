@@ -7,6 +7,9 @@ vi.mock('react', async () => await import('../../web/node_modules/react'));
 const h = vi.hoisted(() => ({
   saved: [] as { state: string }[],
   stored: null as unknown,
+  loadDelay: 0,
+  delayState: null as string | null,
+  saveDelay: 0,
   mark: vi.fn(),
   monitor: vi.fn(),
   appListener: null as null | ((s: string) => void),
@@ -23,8 +26,12 @@ vi.mock('react-native', () => ({
 }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '1:embedded',
-  loadWatchdogRecord: async () => h.stored,
+  loadWatchdogRecord: async () => {
+    if (h.loadDelay) await new Promise((r) => setTimeout(r, h.loadDelay));
+    return h.stored;
+  },
   saveWatchdogRecord: async (r: { state: string }) => {
+    if (h.delayState === r.state) await new Promise((res) => setTimeout(res, h.saveDelay));
     h.saved.push(r);
     return true;
   },
@@ -74,6 +81,9 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     vi.useFakeTimers();
     h.saved.length = 0;
     h.stored = null;
+    h.loadDelay = 0;
+    h.delayState = null;
+    h.saveDelay = 0;
     h.mark.mockClear();
     h.monitor.mockClear();
     h.appListener = null;
@@ -156,6 +166,105 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     });
     expect(load).toHaveBeenCalledTimes(1);
     expect(h.saved).toHaveLength(0);
+  });
+
+  it('no cache + storage resolving at 2 s: awaiting-content, never native, no expiry mark', async () => {
+    h.loadDelay = 2000;
+    const { result } = renderHook(() =>
+      useDomMount(inputs, {
+        hasLocalContent: () => false,
+        loadContent: () => new Promise<void>(() => undefined),
+      }),
+    );
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2100);
+    });
+    expect(result.current.mount).toBe('awaiting-content');
+    expect(h.mark).not.toHaveBeenCalledWith('mount-pending-expired', expect.anything());
+  });
+
+  it('no cache + inputs resolving at 2 s: awaiting-content, never native, no expiry mark', async () => {
+    const deps: GateDeps = {
+      hasLocalContent: () => false,
+      loadContent: () => new Promise<void>(() => undefined),
+    };
+    const { result, rerender } = renderHook(
+      ({ i }: { i: LaunchInputs | null }) => useDomMount(i, deps),
+      { initialProps: { i: null as LaunchInputs | null } },
+    );
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2000);
+    });
+    expect(result.current.mount).toBe('pending');
+    rerender({ i: inputs });
+    await flush();
+    expect(result.current.mount).toBe('awaiting-content');
+    expect(h.mark).not.toHaveBeenCalledWith('mount-pending-expired', expect.anything());
+  });
+
+  it('cache present + slow storage: pending-expired native (regression)', async () => {
+    h.loadDelay = 2000;
+    const { result } = renderHook(() =>
+      useDomMount(inputs, { hasLocalContent: () => true, loadContent: vi.fn() }),
+    );
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2100);
+    });
+    expect(result.current.mount).toBe('native');
+    expect(result.current.nativeReason).toBe('pending-expired');
+  });
+
+  it('unmount while the attempt save is in flight: the attempt is un-recorded, nothing mounts', async () => {
+    h.delayState = 'attempting';
+    h.saveDelay = 100;
+    const d = deferred();
+    const { unmount } = renderHook(() =>
+      useDomMount(inputs, { hasLocalContent: () => false, loadContent: () => d.promise }),
+    );
+    await flush();
+    await act(async () => {
+      d.resolve();
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    unmount();
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(500);
+    });
+    expect(h.saved.at(-1)?.state).not.toBe('attempting');
+    expect(h.monitor).not.toHaveBeenCalled();
+  });
+
+  it('fallback path: the launch record is persisted before native mounts', async () => {
+    h.stored = {
+      v: 1,
+      fallbackCycles: 0,
+      buildKey: '1:embedded',
+      state: 'fallback',
+      strikes: 0,
+      lastReason: 'x',
+      fallbackLaunchesRemaining: 1,
+      backgrounded: false,
+      abandonedStreak: 0,
+      at: 1,
+    };
+    h.delayState = 'fallback';
+    h.saveDelay = 100;
+    const { result } = renderHook(() =>
+      useDomMount(inputs, {
+        hasLocalContent: () => false,
+        loadContent: () => new Promise<void>(() => undefined),
+      }),
+    );
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    expect(h.saved).toHaveLength(0);
+    expect(result.current.mount).not.toBe('native');
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(200);
+    });
+    expect(h.saved.at(-1)?.state).toBe('fallback');
+    expect(result.current.mount).toBe('native');
   });
 
   it('load resolves: one attempt is started and the DOM mounts', async () => {

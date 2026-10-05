@@ -131,7 +131,9 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   };
 
   useEffect(() => {
-    cancelBoundRef.current = armPendingBound(scheduler, () => {
+    // No cache on disk: the launch waits natively for the download, so the pending bound is never armed.
+    noContentRef.current = !depsRef.current.hasLocalContent();
+    cancelBoundRef.current = noContentRef.current ? () => undefined : armPendingBound(scheduler, () => {
         expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
         if (mountRef.current === 'pending') apply('native', 'pending-expired');
@@ -151,7 +153,6 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
         if (d.clearOverride) void setForceSharedUi(false);
       };
       // No cache: hold the launch record in memory until the DOM attempt starts.
-      noContentRef.current = !depsRef.current.hasLocalContent();
       if (noContentRef.current) launchWriteRef.current = launchWrite;
       else await launchWrite();
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
@@ -194,16 +195,16 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     if (!shouldMountDom(want.wantsDom, decision)) {
-      void flushLaunchWrite();
-      if (mountRef.current !== 'pending') void write(decision.record);
-      apply('native', nativeReasonFor(want, decision.fallbackActive));
-      return;
+      return void (async () => {
+        await flushLaunchWrite();
+        if (unmountedRef.current) return;
+        if (mountRef.current !== 'pending') void write(decision.record);
+        apply('native', nativeReasonFor(want, decision.fallbackActive));
+      })();
     }
     const overrideOn = want.source === 'override';
     void (async () => {
       if (noContentRef.current) {
-        // Wait natively: no record write or monitor, and the pending bound must not veto a slow download.
-        cancelBoundRef.current();
         apply('awaiting-content');
         const t0 = monotonicNow();
         if (!(await waiterRef.current?.run())) return;
@@ -213,7 +214,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       const forced = await getForceDomFailure();
       if (unmountedRef.current) return;
       setForceFailure(forced);
-      const attempt = await startAttempt(decision, Date.now(), write, () => overrideOn || !expiredRef.current);
+      const attempt = await startAttempt(decision, Date.now(), write, () => (overrideOn || !expiredRef.current) && !unmountedRef.current);
       if (unmountedRef.current) return;
       if (!attempt) return apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
       recordRef.current = attempt;
