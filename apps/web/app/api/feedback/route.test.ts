@@ -243,6 +243,18 @@ describe('POST', () => {
     expect(sent.body).not.toContain('User agent');
   });
 
+  it('drops the host of a protocol-relative url', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ number: 44, html_url: 'http://gh/44' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+    await POST(req({ message: 'hello', location: { url: '//secret.host/era/lover?x=1' } }));
+    const sent = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(sent.body).toContain('`/era/lover`');
+    expect(sent.body).not.toContain('secret.host');
+  });
+
   describe('body size cap (32 KB, before JSON parsing)', () => {
     const big = JSON.stringify({ message: 'x'.repeat(40_000) });
 

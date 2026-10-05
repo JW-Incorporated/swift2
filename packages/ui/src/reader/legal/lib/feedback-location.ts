@@ -40,7 +40,7 @@ export function describeView(state: AppState): string {
 export function pathOnly(url: string | undefined): string | undefined {
   if (!url) return undefined;
   let rest = url.trim();
-  const scheme = /^[a-z][a-z0-9+.-]*:\/\/[^/?#]*/i.exec(rest);
+  const scheme = /^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i.exec(rest);
   if (scheme) rest = rest.slice(scheme[0].length);
   rest = rest.split('#')[0]!.split('?')[0]!;
   return rest.startsWith('/') ? rest : `/${rest}`;

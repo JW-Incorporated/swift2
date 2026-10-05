@@ -6,6 +6,7 @@ describe('pathOnly', () => {
     expect(pathOnly('https://www.longlivets.com/era/lover?x=1&email=a@b.c#sec')).toBe('/era/lover');
     expect(pathOnly('/threads?lens=a')).toBe('/threads');
     expect(pathOnly('https://x.com')).toBe('/');
+    expect(pathOnly('//secret.host/era/lover?x=1')).toBe('/era/lover');
     expect(pathOnly(undefined)).toBeUndefined();
   });
 });

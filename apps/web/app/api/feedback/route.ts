@@ -122,7 +122,7 @@ const clip = (s: unknown, n: number): string =>
 // can carry personal values, and older clients still send a full URL.
 const pathOnly = (s: unknown): string => {
   if (typeof s !== 'string') return '';
-  const rest = s.trim().replace(/^[a-z][a-z0-9+.-]*:\/\/[^/?#]*/i, '').split('#')[0]!.split('?')[0]!;
+  const rest = s.trim().replace(/^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i, '').split('#')[0]!.split('?')[0]!;
   return rest ? (rest.startsWith('/') ? rest : `/${rest}`) : '';
 };
 
