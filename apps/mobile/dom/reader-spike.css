@@ -40,24 +40,24 @@ header[data-ll-topbar] {
 }
 
 /* BottomNav: fixed, inset-x-0; its padding already clears the home indicator. */
-nav[aria-label='Primary'] {
+[data-ll-safe='bottom-nav'] {
   padding-bottom: var(--safe-bottom, env(safe-area-inset-bottom)) !important;
   padding-left: var(--safe-left, 0px) !important;
   padding-right: var(--safe-right, 0px) !important;
 }
 
 /* LongLive's clearance spacer under the footer (height = bar + inset). */
-[style*='3.5rem + env(safe-area-inset-bottom)'] {
+[data-ll-safe='bottom-spacer'] {
   height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
 }
 
 /* FeedbackButton floats above the bar. Mobile-only: the package gives it md:bottom-4 / md:bottom-20 (no bottom nav
    at >= md), and an unconditional !important here defeated that on iPad. */
 @media (max-width: 767px) {
-  [class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
+  [data-ll-safe='feedback-button'] {
     bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
   }
-  [class~='bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))]'] {
+  [data-ll-safe='feedback-panel'] {
     bottom: max(calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))), calc(var(--keyboard-inset, 0px) + var(--safe-bottom, env(safe-area-inset-bottom)) + 1rem)) !important;
   }
 }

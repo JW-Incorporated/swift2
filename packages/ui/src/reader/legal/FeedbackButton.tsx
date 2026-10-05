@@ -108,6 +108,7 @@ export function FeedbackButton() {
           role="dialog"
           aria-modal="true"
           aria-label="Send feedback"
+          data-ll-safe="feedback-panel"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
           className="fixed bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
@@ -201,6 +202,7 @@ export function FeedbackButton() {
           instead, so the two 44px targets never overlap. */}
       <div
         data-social-hide="feedback-button"
+        data-ll-safe="feedback-button"
         className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4"
       >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it

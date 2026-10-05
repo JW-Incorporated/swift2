@@ -74,6 +74,7 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
           safe-area inset it pads with; zero at md+, where there is no bar. */}
       <div
         aria-hidden
+        data-ll-safe="bottom-spacer"
         className="md:hidden"
         style={{ height: 'calc(3.5rem + env(safe-area-inset-bottom))' }}
       />
