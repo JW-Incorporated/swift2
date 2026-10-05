@@ -7,8 +7,8 @@ import type { Page } from '@playwright/test';
  * apiFetch, not the network. The exported entry bundle is patched in flight so that NO_BRIDGE.call answers `window.__parityApi`,
  * which the init script defines and which serves `answers` by api path. A bundle that no longer contains NO_BRIDGE fails loudly.
  */
-const NO_BRIDGE_CALL = /call:async\(\)=>\(0,[\w$]+\.resErr\)\('failed','no bridge'\)/;
-const ENTRY_JS = /^\/_expo\/static\/js\/web\/index-[\w-]+\.js$/;
+export const NO_BRIDGE_CALL = /call:async\(\)=>\(0,[\w$]+\.resErr\)\('failed','no bridge'\)/;
+export const ENTRY_JS = /^\/_expo\/static\/js\/web\/index-[\w-]+\.js$/;
 
 export async function stubBridgeApiOnB(page: Page, answers: Readonly<Record<string, string>>): Promise<void> {
   await page.addInitScript((byPath) => {
