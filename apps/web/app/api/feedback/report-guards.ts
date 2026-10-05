@@ -32,8 +32,16 @@ import { prepareWatchdog } from './watchdog-lifecycle';
 // just by rotating a header.
 const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
 
-export function rateLimited(ip: string): boolean {
-  return limiter.isLimited(ip);
+// Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
+// the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
+// limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
+export function ipThrottled(message: string, payload: { diag?: unknown }, ip: string): boolean {
+  const speedShaped =
+    message === DIAG_PREFIX &&
+    typeof payload.diag === 'object' &&
+    payload.diag !== null &&
+    'speed' in payload.diag;
+  return !speedShaped && limiter.isLimited(ip);
 }
 
 export type ReportGuard =

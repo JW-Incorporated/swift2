@@ -36,7 +36,7 @@ describe('POST [watchdog] durable claim', () => {
   });
 
   it('duplicate -> 200 duplicate, no GitHub call', async () => {
-    claim.mockResolvedValue('duplicate');
+    claim.mockResolvedValue({ verdict: 'duplicate', n: 1, sources: 1 });
     const spy = vi.fn();
     vi.stubGlobal('fetch', spy);
     const res = await POST(req());
@@ -45,8 +45,18 @@ describe('POST [watchdog] durable claim', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
+  it('escalate -> posts the counts comment built from validated fields only', async () => {
+    claim.mockResolvedValue({ verdict: 'escalate', n: 5, sources: 3 });
+    const spy = vi.fn(async () => new Response(JSON.stringify({ id: 1 }), { status: 201 }));
+    vi.stubGlobal('fetch', spy);
+    expect((await POST(req())).status).toBe(201);
+    const sent = JSON.parse((spy.mock.calls[0] as unknown as [string, { body: string }])[1].body) as { body: string };
+    expect(sent.body).toContain('**5 reports from 3 sources today**');
+    expect(sent.body).toContain('38:embedded');
+  });
+
   it('capped -> 429, no GitHub call', async () => {
-    claim.mockResolvedValue('capped');
+    claim.mockResolvedValue({ verdict: 'capped', n: 1, sources: 1 });
     const spy = vi.fn();
     vi.stubGlobal('fetch', spy);
     expect((await POST(req())).status).toBe(429);
@@ -54,14 +64,14 @@ describe('POST [watchdog] durable claim', () => {
   });
 
   it('new + successful post -> 201', async () => {
-    claim.mockResolvedValue('new');
+    claim.mockResolvedValue({ verdict: 'new', n: 1, sources: 1 });
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ id: 1 }), { status: 201 })));
     expect((await POST(req())).status).toBe(201);
     expect(claim).toHaveBeenCalledTimes(1);
   });
 
   it('new + failed post -> 502 and the claim is not released or retried', async () => {
-    claim.mockResolvedValue('new');
+    claim.mockResolvedValue({ verdict: 'new', n: 1, sources: 1 });
     const spy = vi.fn(async () => new Response('no', { status: 500 }));
     vi.stubGlobal('fetch', spy);
     expect((await POST(req())).status).toBe(502);
@@ -76,14 +86,14 @@ describe('POST [watchdog] durable claim', () => {
   });
 
   it('accepts the known build with an OTA update UUID', async () => {
-    claim.mockResolvedValue('new');
+    claim.mockResolvedValue({ verdict: 'new', n: 1, sources: 1 });
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ id: 1 }), { status: 201 })));
     const buildKey = '38:123e4567-e89b-12d3-a456-426614174000';
     expect((await POST(req({ ...body.watchdog, buildKey }))).status).toBe(201);
   });
 
   it('one IP rotating categories cannot take more than the per-IP hourly share of the claims', async () => {
-    claim.mockResolvedValue('new');
+    claim.mockResolvedValue({ verdict: 'new', n: 1, sources: 1 });
     vi.useFakeTimers();
     try {
       vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ id: 1 }), { status: 201 })));

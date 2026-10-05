@@ -4,10 +4,10 @@ import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 import { durableClaimResponse, finishDurableClaim } from './idempotency-durable';
 import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
-import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
+import { DIAG_ISSUE_NUMBER, DIAG_REPO, speedCommit, speedRefund } from './diag';
 import { readBodyText } from './body-text';
-import { guardReport, quotaResponse, rateLimited } from './report-guards';
-import { watchdogClaimResponse } from './watchdog-lifecycle';
+import { guardReport, ipThrottled, quotaResponse } from './report-guards';
+import { watchdogClaim } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -201,15 +201,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const ip = trustedClientIp(req);
-  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
-  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
-  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
-  const speedShaped =
-    message === DIAG_PREFIX &&
-    typeof payload.diag === 'object' &&
-    payload.diag !== null &&
-    'speed' in payload.diag;
-  if (!speedShaped && rateLimited(ip)) {
+  if (ipThrottled(message, payload, ip)) {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
       { status: 429 },
@@ -226,9 +218,11 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
+  let postComment = diagComment;
   if (watchdogReport) {
-    const stop = await watchdogClaimResponse(watchdogReport);
-    if (stop) return stop;
+    const claimed = await watchdogClaim(watchdogReport, ip, diagComment);
+    if ('stop' in claimed) return claimed.stop;
+    postComment = claimed.comment;
   }
 
   const location = (payload.location ?? {}) as Location;
@@ -259,7 +253,7 @@ export async function POST(req: Request): Promise<Response> {
         },
         body: JSON.stringify(
           diag
-            ? { body: diagComment }
+            ? { body: postComment }
             : {
                 title: titleFrom(message),
                 body: bodyFrom(message, location),
