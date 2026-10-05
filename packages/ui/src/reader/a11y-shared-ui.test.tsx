@@ -158,7 +158,7 @@ describe('InboxPage status', () => {
     );
     const status = getByRole('status');
     expect(status.getAttribute('aria-live')).toBe('polite');
-    await findByText('Inbox is empty. Nothing here yet.');
+    await findByText('Inbox is empty.');
     expect(getByRole('status')).toBe(status);
   });
 });

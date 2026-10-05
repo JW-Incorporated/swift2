@@ -76,7 +76,7 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
             ? ''
             : 'Loading inbox'
           : events.length === 0
-            ? 'Inbox is empty. Nothing here yet.'
+            ? 'Inbox is empty.'
             : `Inbox loaded, ${events.length} ${events.length === 1 ? 'notification' : 'notifications'}.`}
       </div>
 
