@@ -4,6 +4,7 @@ import {
   captureRoot,
   captureElement,
   captureViewport,
+  captureViewportNoRail,
   elementBox,
   ERA_ART_ORIGIN,
   expect,
@@ -58,6 +59,16 @@ test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar growth must fail 
     });
     const mutated = await captureViewport(page);
     expect(await pixelMatches(testInfo, 'neg-topbar-1px', clean, mutated)).toBe(false);
+  });
+});
+
+test.describe('side-a viewport baseline gate (#5046: the rail is hidden, nothing else is loosened)', () => {
+  test('removing a TopBar icon fails the rail-hidden viewport capture', async ({ page }, testInfo) => {
+    await openRoute(page, 'a', route);
+    const clean = await captureViewportNoRail(page);
+    await page.locator('[data-ll-topbar] :is(button, a)').evaluateAll((els) => els.forEach((el) => el.remove()));
+    const mutated = await captureViewportNoRail(page);
+    expect(await pixelMatches(testInfo, 'neg-viewport-icon', clean, mutated)).toBe(false);
   });
 });
 

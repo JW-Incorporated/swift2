@@ -11,24 +11,11 @@ const sha = (buf: Buffer) => createHash('sha256').update(buf).digest('hex').slic
 
 // The generator writes `<file>.<hash>.woff2` URLs for web and base64 data URIs
 // for the DOM host; both must name the same bytes (pixel parity, WP2.1-C).
-const LATIN = new Set([
-  'inter',
-  'playfair-display',
-  'special-elite',
-  'dancing-script',
-  'bodoni-moda',
-  'bodoni-moda-italic',
-]);
 const webHashes = [
   ...readFileSync(join(fonts, 'fonts.web.css'), 'utf8').matchAll(
     /url\('\/fonts\/([\w-]+)\.([0-9a-f]{8})\.woff2'\)/g,
   ),
-]
-  .map((m) => `${m[1]}:${m[2]}`)
-  .filter((h) => {
-    const name = h.split(':')[0] as string;
-    return LATIN.has(name) || name.endsWith('-latin-ext');
-  });
+].map((m) => `${m[1]}:${m[2]}`);
 const domHashes = [
   ...readFileSync(join(fonts, 'fonts.dom.css'), 'utf8').matchAll(
     /url\(data:font\/woff2;base64,([A-Za-z0-9+/=]+)\)/g,
@@ -46,7 +33,7 @@ describe('self-hosted reader fonts', () => {
   });
 
   it('web CSS and DOM CSS reference the same font bytes, face for face', () => {
-    expect(webHashes.length).toBe(12);
+    expect(webHashes.length).toBe(24);
     expect(domHashes).toEqual(webHashes.map((h) => h.split(':')[1]));
   });
 

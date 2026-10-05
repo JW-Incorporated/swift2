@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -147,7 +148,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
         y = anchor.top;
       }
     }
-    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : smoothScrollBehavior() });
   }, []);
 
   const syncFromScroll = useCallback(() => {

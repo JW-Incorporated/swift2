@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getEra } from '@swift2/experience';
@@ -298,7 +299,7 @@ export function TimelineScrubber() {
   // Scrolls the feed so document-Y `y` lands at the reading reference line.
   const scrollToY = useCallback((y: number) => {
     const offset = measureChromeHeight() + window.innerHeight * REF_RATIO;
-    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : smoothScrollBehavior() });
   }, []);
 
   // Target date → feed scroll position (inverse of the above). Only for

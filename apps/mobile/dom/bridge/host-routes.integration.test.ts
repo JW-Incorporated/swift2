@@ -17,7 +17,7 @@ function epoch() {
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
-  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const ui = createUiDeps({
     linking: { openURL: async () => true },
     share: { share: async () => ({}) },
@@ -35,7 +35,7 @@ function epoch() {
   });
   ref.host = host;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   return { presenter, host, dom, dispose: () => (dom.client.dispose(), host.dispose(), link.dispose()) };
 }

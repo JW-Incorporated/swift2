@@ -23,11 +23,11 @@ async function wire() {
   const onSignal = vi.fn();
   const ref: { host?: BridgeHost } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
-  const handlers = createDomHostHandlers({ onSignal, watch: { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() }, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch: { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() }, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({ handlers: createLiveAppHandlers(onSignal), send: link.send, now: Date.now, scheduler, onProtocolFatal: () => link.dispose(), onSignal });
   ref.host = host;
   link.attach(host);
-  const bridge = createExpoBridge((env) => handlers.bridge(env));
+  const bridge = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   bridge.mount();
   await vi.waitFor(() => expect(host.isReady()).toBe(true));
   return { apiFetch: createBridgeApiFetch(bridge.client), dispose: () => { bridge.client.dispose(); host.dispose(); link.dispose(); } };
