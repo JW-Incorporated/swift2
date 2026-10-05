@@ -6,6 +6,14 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 04:47 PDT — Wave complete; auto-merge pending CI; held stack awaiting Wyatt iOS confirmation. <<<**
+- Merged since 23:47: #5029 closure + privacy correction (verified live on www.longlivets.com/privacy at 02:48: "That repository is public…"), #5071 legal split, #5076 iOS inline media, #5089 keyboard inset, #5096 app integration tests, #5103 offline opt-out + foreground refresh, #5111 offline art cache, #5113 app parity, #5116 Escape dispatcher, #5118 shared a11y, #5123 reader state restore, #5125 restore window bound, #5126 no storage wipe, #5128 parity matrix timeout 35 min.
+- Auto-merging (approved, CI pending): #5127 (split SharedUiHost 254 / AppReader 220, pure move, reviewed), #5063 (bridge validator exhaustiveness: every command must have validator + result shape, compile-time + runtime gates; token tests).
+- Held stack #5042/#5043/#5047 refreshed vs main 00:25 and reviewed — waiting on Wyatt's iOS confirmation.
+- Founder decisions pending: OK to migrate #5099 + #5122; #5112 third-party photo caching.
+- Lessons: bot baseline pushes don't trigger PR CI (push an empty commit); `gh run rerun` reuses the old merge ref; reviewers check parity before approving; agents never copy files between branches.
+- Next: once Wyatt confirms → flip sharedUiIos on #5042, land, retarget #5043, S8 drill, #5047.
+
 **>>> CHECKPOINT 2026-10-04 23:47 PDT — Wave integration; bridge token audit complete; founder decisions pending. <<<**
 - Merged since 22:18: #5029 closure + privacy-policy correction (feedback is public), #5051 phone-drift + parity harness flake fix, #5066 era-controls parity, #5068 dialog a11y, #5079 per-epoch bridge token, #5094 focus traps, #5113 app parity (submit-link external, email share, legal Back via back stack), #5115 adoption respects the reader, #5116 single Escape dispatcher (+ onboarding Escape = Not now), #5117 native a11y.
 - Auto-merging (approved, CI pending): #5071 legal split (re-done, text byte-identical), #5076 iOS inline media, #5089 keyboard inset, #5096 app integration tests, #5103 offline opt-out + foreground refresh, #5111 offline art cache, #5118 shared-UI a11y, #5123 reader state restore (adoption only; tap wins; crash sheds state), #5126 no storage wipe on failed load; #5125 restore-window bound (merge right after #5123).
