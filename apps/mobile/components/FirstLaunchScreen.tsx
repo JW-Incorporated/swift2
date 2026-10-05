@@ -7,7 +7,7 @@ export function FirstLaunchScreen({ failed, onRetry }: { failed: boolean; onRetr
     <View style={styles.fill} testID="first-launch-screen">
       {failed ? (
         <>
-          <Text style={styles.message}>You're offline — connect to load Long Live</Text>
+          <Text style={styles.message} accessibilityRole="alert">You're offline — connect to load Long Live</Text>
           <Pressable
             onPress={onRetry}
             accessibilityRole="button"
@@ -20,7 +20,7 @@ export function FirstLaunchScreen({ failed, onRetry }: { failed: boolean; onRetr
       ) : (
         <>
           <ActivityIndicator color="#f2c744" size="large" />
-          <Text style={[styles.message, styles.loading]}>Downloading Long Live…</Text>
+          <Text style={[styles.message, styles.loading]} accessibilityLiveRegion="polite">Downloading Long Live…</Text>
         </>
       )}
     </View>
