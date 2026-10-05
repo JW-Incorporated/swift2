@@ -24,7 +24,8 @@ export function useChromeOffset(topBarSelector: string): number {
     update();
     const topBar = document.querySelector<HTMLElement>(topBarSelector);
     const ro = topBar ? new ResizeObserver(update) : undefined;
-    ro?.observe(topBar as HTMLElement);
+    // border-box: padding-only growth (the app host's safe-area top inset arriving after mount) is invisible to the default content-box.
+    ro?.observe(topBar as HTMLElement, { box: 'border-box' });
     window.addEventListener('resize', update);
     return () => {
       ro?.disconnect();

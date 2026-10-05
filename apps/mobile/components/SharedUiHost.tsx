@@ -35,6 +35,7 @@ import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { shareCardPorts } from '../lib/share-card-ports';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
@@ -147,6 +148,7 @@ export function SharedUiHost({
     const uiDeps = createUiDeps({
       linking: Linking,
       share: Share,
+      cards: shareCardPorts,
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,

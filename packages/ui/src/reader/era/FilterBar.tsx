@@ -87,7 +87,8 @@ export function FilterBar() {
     const update = () => setTop(header.getBoundingClientRect().height);
     update();
     const ro = new ResizeObserver(update);
-    ro.observe(header);
+    // border-box: the app host grows TopBar's padding when native insets arrive after mount, which a content-box observer misses.
+    ro.observe(header, { box: 'border-box' });
     return () => ro.disconnect();
   }, []);
 
