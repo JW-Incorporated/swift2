@@ -73,6 +73,8 @@ export {
   isBridgeId,
   isExternalUrl,
   isMailtoUrl,
+  isComposeMailtoUrl,
+  toComposeMailtoUrl,
   isWebPath,
   sanitizeApiRequest,
   toExternalUrl,

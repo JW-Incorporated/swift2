@@ -41,13 +41,12 @@ export function MomentLightbox({
   useBackDismiss(true, onClose);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowRight') onIndex((index + 1) % count);
+      if (e.key === 'ArrowRight') onIndex((index + 1) % count);
       else if (e.key === 'ArrowLeft') onIndex((index - 1 + count) % count);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [index, count, onIndex, onClose]);
+  }, [index, count, onIndex]);
   if (!img) return null;
 
   // PORTALED TO document.body ON PURPOSE. The viewer is `fixed inset-0`, which

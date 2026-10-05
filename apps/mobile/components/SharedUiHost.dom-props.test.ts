@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 describe('SharedUiHost dom props', () => {
   const src = readFileSync(join(__dirname, 'SharedUiHost.tsx'), 'utf8');
-  const dom = src.slice(src.indexOf('const dom = {'), src.indexOf('return (', src.indexOf('const dom = {')));
+  const dom = src.slice(src.indexOf('const dom = useMemo('), src.indexOf('return (', src.indexOf('const dom = useMemo(')));
 
   it('sets inline media playback and user-action requirement explicitly', () => {
     expect(dom).toContain('allowsInlineMediaPlayback: true');

@@ -15,7 +15,7 @@ import { useDialog } from './use-dialog';
 // has none, so the overlay can never show there). A row's deep link is canonicalized to a site-relative path (the
 // producers store absolute https://www.longlivets.com URLs); only a valid same-site link navigates (the reader's
 // deep-link apply closes the inbox once the target resolves); anything else is refused and the inbox stays open.
-// Modal: focus moves in and is trapped, Escape closes it, and Settings underneath is inert (settings-page.tsx).
+// Modal: focus moves in and is trapped, Escape closes it (single dispatcher in useBackDismiss), and Settings underneath is inert (settings-page.tsx).
 export function InboxOverlay() {
   const open = useInboxOpen();
   const { navigate, notifications, openExternal, embedOrigin } = useHost();
