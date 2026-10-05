@@ -169,11 +169,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
-  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
   const idemId = parseIdempotencyId(payload.id);
-  if (idemId && isDuplicate(idemId)) {
-    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-  }
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -197,6 +193,11 @@ export async function POST(req: Request): Promise<Response> {
       { error: 'Feedback isn’t wired up in this environment yet.' },
       { status: 503 },
     );
+  }
+
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
   }
 
   const ip = trustedClientIp(req);

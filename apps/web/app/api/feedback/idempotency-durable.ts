@@ -23,15 +23,19 @@ export async function claimFeedbackId(id: string): Promise<{ state: ClaimState; 
   }
 }
 
-/** Best-effort: a failure here only means a later resend relies on the in-memory dedupe. */
+/** Best-effort: retried once after 250 ms; a double failure only means a resend relies on the in-memory dedupe. */
 export async function markFeedbackPosted(id: string, url: string | undefined): Promise<void> {
-  try {
-    await supabaseAdmin()
-      ?.from('feedback_idempotency')
-      .update({ status: 'posted', issue_url: url ?? null })
-      .eq('id', id);
-  } catch {
-    /* best-effort */
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await supabaseAdmin()
+        ?.from('feedback_idempotency')
+        .update({ status: 'posted', issue_url: url ?? null })
+        .eq('id', id);
+      if (!res?.error) return;
+    } catch {
+      /* retry once */
+    }
+    if (attempt === 0) await new Promise((r) => setTimeout(r, 250));
   }
 }
 

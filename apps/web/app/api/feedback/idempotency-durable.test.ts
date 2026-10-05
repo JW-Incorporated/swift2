@@ -115,6 +115,15 @@ describe('route durable idempotency', () => {
     expect(fetchSpy).toHaveBeenCalledTimes(1);
   });
 
+  it('retries marking posted once when the first attempt fails', async () => {
+    claimAs('new');
+    eq.mockResolvedValueOnce({ error: { message: 'blip' } }).mockResolvedValue({ error: null });
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(ok(11)));
+    const res = await POST(req({ id: 'durable-retry-01', message: 'hello' }, '10.1.0.8'));
+    expect(res.status).toBe(201);
+    expect(update).toHaveBeenCalledTimes(2);
+  });
+
   it('no token means no claim is made', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', '');
     claimAs('new');
