@@ -46,7 +46,7 @@ export function ipThrottled(message: string, payload: { diag?: unknown }, ip: st
 
 export type ReportGuard =
   | { response: Response }
-  | { diag: boolean; diagComment: string; speedReport: SpeedMeta | null; watchdogReport: WatchdogReport | null };
+  | { diag: boolean; diagComment: string; speedReport: SpeedMeta | null; watchdogReport: WatchdogReport | null; quotaKind: 'diag' | 'feedback' | null };
 
 export async function guardReport(
   payload: { message?: string; diag?: unknown; watchdog?: unknown },
@@ -87,11 +87,15 @@ export async function guardReport(
     diagComment = diagCommentFrom(parsed.report);
   }
 
-  if (!watchdog) {
-    const quota = await claimFeedbackSlot(diag ? 'diag' : 'feedback', ip);
-    if (quota === 'ip_capped' || quota === 'global_capped') {
-      return { response: NextResponse.json({ error: 'Too many reports. Please try again later.' }, { status: 429 }) };
-    }
+  return { diag, diagComment, speedReport, watchdogReport, quotaKind: watchdog ? null : diag ? 'diag' : 'feedback' };
+}
+
+// Claimed by the route only after the GitHub token check, so a misconfigured
+// deploy (503) never burns a durable slot.
+export async function quotaResponse(kind: 'diag' | 'feedback', ip: string): Promise<Response | null> {
+  const quota = await claimFeedbackSlot(kind, ip);
+  if (quota === 'ip_capped' || quota === 'global_capped') {
+    return NextResponse.json({ error: 'Too many reports. Please try again later.' }, { status: 429 });
   }
-  return { diag, diagComment, speedReport, watchdogReport };
+  return null;
 }

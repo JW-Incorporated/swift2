@@ -7,10 +7,17 @@
 -- (last_notified). Counting continues past the global cap; only a NEW row spends
 -- quota. Service-role only, same RLS/revoke/grant as the other watchdog tables.
 -- Idempotent (the migrate script replays every migration on every deploy).
+-- sources is added with DEFAULT 0: rows that predate this migration have no
+-- source rows yet, so their next report must count its (first) source itself, not
+-- land on top of a phantom 1. The default is then flipped to 1 for new inserts
+-- (the insert path counts the first source via the column default). Replays never
+-- touch existing values: add-if-not-exists is a no-op and SET DEFAULT is metadata.
 alter table public.watchdog_report_dedupe
   add column if not exists n integer not null default 1,
-  add column if not exists sources integer not null default 1,
+  add column if not exists sources integer not null default 0,
   add column if not exists last_notified integer not null default 1;
+
+alter table public.watchdog_report_dedupe alter column sources set default 1;
 
 create table if not exists public.watchdog_report_source (
   day date not null,
