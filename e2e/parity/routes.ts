@@ -35,6 +35,8 @@ export interface AOnlyRoute extends RouteLike {
  * pathname): answer the legal paths on b with that file, keeping the URL. Side a (the real web routes) is untouched.
  */
 // Side b also renders the reader's own <main> under the legal layer, so the root is the legal document's <main> (its breadcrumb is its first child on both sides).
+/** The settings page is a labelled <section> (the web route wraps it in <main>); the section is the 576px column both sides share. */
+export const NOTIFICATION_SETTINGS_ROOT = 'section[aria-labelledby="ll-notification-settings-heading"]';
 export const LEGAL_MAIN = 'main:has(> nav[aria-label="Breadcrumb"])';
 const LEGAL_PATHS = ['/privacy', '/terms', '/support'];
 export const serveLegalOnB: NonNullable<AOnlyRoute['init']> = async (page) => {
@@ -152,7 +154,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
   {
     name: 'settings-notifications',
     path: '/settings/notifications',
-    root: 'main',
+    root: NOTIFICATION_SETTINGS_ROOT,
     sides: 'both',
     init: async (page) => {
       await page.addInitScript(() => {
@@ -183,7 +185,7 @@ export const BETA_NEGATIVE_TARGETS: Record<string, string> = {
   clownbot: 'div:has(> button[aria-label="Expand to full screen"])',
   'clownbot-transcript': 'div:has(> button[aria-label="Expand to full screen"])',
   mood: 'form:has(#mood-input)',
-  'settings-notifications': 'main h1',
+  'settings-notifications': `${NOTIFICATION_SETTINGS_ROOT} h1`,
   privacy: `${LEGAL_MAIN} h1`,
   terms: `${LEGAL_MAIN} h1`,
   support: `${LEGAL_MAIN} h1`,
