@@ -174,18 +174,6 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
   }
 
-  const ip = trustedClientIp(req);
-  if (ipThrottled(message, payload, ip)) {
-    return NextResponse.json(
-      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
-      { status: 429 },
-    );
-  }
-
-  const guarded = await guardReport(payload, message, ip);
-  if ('response' in guarded) return guarded.response;
-  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
-
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
   const token = process.env.GITHUB_FEEDBACK_TOKEN;
@@ -209,6 +197,18 @@ export async function POST(req: Request): Promise<Response> {
       { status: 503 },
     );
   }
+
+  const ip = trustedClientIp(req);
+  if (ipThrottled(message, payload, ip)) {
+    return NextResponse.json(
+      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
+      { status: 429 },
+    );
+  }
+
+  const guarded = await guardReport(payload, message, ip);
+  if ('response' in guarded) return guarded.response;
+  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
 
   if (quotaKind) {
     const capped = await quotaResponse(quotaKind, ip);

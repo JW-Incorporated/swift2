@@ -20,7 +20,8 @@ function fakeClaim() {
   return (hash: string) => {
     const fresh = row.n === 0;
     row.n += 1;
-    if (!ips.has(hash)) {
+    const sourceAdded = !ips.has(hash);
+    if (sourceAdded) {
       ips.add(hash);
       if (!fresh) row.sources += 1;
     }
@@ -28,7 +29,7 @@ function fakeClaim() {
       row.sources = 1;
       return { verdict: 'new', n: 1, sources: 1 };
     }
-    const hit = ([5, 25, 100].includes(row.n) || [3, 10].includes(row.sources)) && row.n > row.last;
+    const hit = ([5, 25, 100].includes(row.n) || (sourceAdded && [3, 10].includes(row.sources))) && row.n > row.last;
     if (hit) row.last = row.n;
     return { verdict: hit ? 'escalate' : 'duplicate', n: row.n, sources: row.sources };
   };
@@ -94,5 +95,16 @@ describe('claim_watchdog_report threshold semantics', () => {
     expect(verdicts.every((v) => v.sources === 1)).toBe(true);
     const fired = verdicts.map((v, i) => (v.verdict === 'escalate' ? i + 1 : 0)).filter(Boolean);
     expect(fired).toEqual([5, 25]);
+  });
+
+  it('3 sources escalate once; repeats from one source escalate only at n=5; a 4th source is a duplicate', () => {
+    const claim = fakeClaim();
+    expect(claim('a').verdict).toBe('new');
+    expect(claim('b').verdict).toBe('duplicate');
+    expect(claim('c')).toMatchObject({ verdict: 'escalate', n: 3, sources: 3 });
+    const repeats = Array.from({ length: 10 }, () => claim('a'));
+    const fired = repeats.map((v, i) => (v.verdict === 'escalate' ? i + 4 : 0)).filter(Boolean);
+    expect(fired).toEqual([5]);
+    expect(claim('d')).toMatchObject({ verdict: 'duplicate', sources: 4 });
   });
 });

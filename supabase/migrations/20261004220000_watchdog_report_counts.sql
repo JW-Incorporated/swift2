@@ -54,6 +54,7 @@ declare
   v_n integer;
   v_sources integer;
   v_last integer;
+  v_source_added boolean;
 begin
   delete from public.watchdog_report_dedupe where day < p_day - 7;
   delete from public.watchdog_report_quota where day < p_day - 7;
@@ -64,6 +65,7 @@ begin
   values (p_day, p_build_key, p_category, p_ip_hash)
   on conflict do nothing;
   get diagnostics v_rows = row_count;
+  v_source_added := v_rows = 1;
 
   insert into public.watchdog_report_dedupe as d (day, build_key, category)
   values (p_day, p_build_key, p_category)
@@ -84,7 +86,7 @@ begin
     return jsonb_build_object('verdict', 'new', 'n', v_n, 'sources', v_sources);
   end if;
 
-  if (v_n in (5, 25, 100) or v_sources in (3, 10)) and v_n > v_last then
+  if (v_n in (5, 25, 100) or (v_source_added and v_sources in (3, 10))) and v_n > v_last then
     update public.watchdog_report_dedupe set last_notified = v_n
       where day = p_day and build_key = p_build_key and category = p_category;
     return jsonb_build_object('verdict', 'escalate', 'n', v_n, 'sources', v_sources);
