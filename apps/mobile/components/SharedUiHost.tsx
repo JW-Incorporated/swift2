@@ -164,7 +164,7 @@ export function SharedUiHost({
         ref.binder?.navReady();
         adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
       },
-      onRoute: (path, busy) => adoption.route(path, busy),
+      onRoute: (path, busy, engaged) => adoption.route(path, busy, engaged),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
