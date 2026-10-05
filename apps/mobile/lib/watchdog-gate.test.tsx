@@ -191,6 +191,80 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(h.saved.at(-1)?.strikes).toBe(1);
   });
 
+  it('a slow attempt write that lands after ready cannot regress it: the serialized queue persists attempting, then ready', async () => {
+    h.saveDelay = 3500;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
+    expect(result.current.mount).toBe('dom');
+    act(() => result.current.watch.ready());
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(h.saved.map((r) => r.state)).toEqual(['attempting', 'ready']);
+  });
+
+  it('a write failure detected AFTER the DOM mounted does not flip to native (diag mark only)', async () => {
+    h.saveDelay = 3500;
+    h.saveFail = true;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
+    expect(result.current.mount).toBe('dom');
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.mark).toHaveBeenCalledWith('watchdog-attempt-late-save-failed');
+  });
+
+  it('late prev=quarantined: quarantine is persisted (not regressed) and the next launch goes native', async () => {
+    const q = { v: 1, fallbackCycles: 2, buildKey: '1:embedded', state: 'quarantined', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: 1 };
+    h.stored = q;
+    h.loadDelay = 3000;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    act(() => result.current.watch.ready());
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].state).toBe('quarantined');
+    h.stored = h.saved[0];
+    h.loadDelay = 0;
+    const next = renderHook(() => useDomMount(inputs()));
+    await flush();
+    expect(next.result.current.mount).toBe('native');
+    expect(next.result.current.nativeReason).toBe('quarantine');
+  });
+
+  it('late prev=attempting (the last launch died): the strike is folded in and the DOM stays', async () => {
+    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'attempting', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: 1 };
+    h.loadDelay = 3000;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].strikes).toBe(1);
+  });
+
+  it('late corrupt record: a reset record is written, the DOM stays', async () => {
+    h.stored = 'corrupt';
+    h.loadDelay = 3000;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].strikes).toBe(0);
+  });
+
+  it('inputs, record and the bound all landing together mount once: exactly one attempt write', async () => {
+    h.loadDelay = PENDING_MAX_MS;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 200); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.saved.filter((r) => r.state === 'attempting')).toHaveLength(1);
+  });
+
   it('an attempt write that FAILS (not slow) still fails closed to native', async () => {
     h.saveFail = true;
     const { result } = renderHook(() => useDomMount(inputs()));

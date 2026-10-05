@@ -214,7 +214,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
         setForceFailure(failure);
         const attempt = slow
           ? beginAttempt(d.record, Date.now())
-          : await startAttemptBounded(d, write, scheduler, () => !unmountedRef.current);
+          : await startAttemptBounded(d, write, scheduler, () => !unmountedRef.current, () => diagCollector.mark('watchdog-attempt-late-save-failed'));
         if (unmountedRef.current) return;
         if (!attempt) return apply('native', 'attempt-failed');
         recordRef.current = attempt;
