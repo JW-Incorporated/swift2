@@ -49,8 +49,9 @@ export function resolveTapPath(link: string): WebPath | null {
 }
 
 /** A notification response reduced to what the queue needs (no token, no PII). */
-export type RawTap = { id?: unknown; deepLink?: unknown };
-export type Tap = { id: string | null; path: WebPath; receivedAt: number };
+export type TapSource = 'notification' | 'deeplink';
+export type RawTap = { id?: unknown; deepLink?: unknown; source?: TapSource };
+export type Tap = { id: string | null; path: WebPath; receivedAt: number; source: TapSource };
 /**
  * Delivers one tap. Resolves `true` only when the receiver ACKNOWLEDGED it
  * (E2: the DOM's `ack`); `false`, a rejection or a disposed host means "not
@@ -190,7 +191,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       if (idx >= held.length) return 'dropped';
       held.splice(idx, 1);
     }
-    held.push({ id, path, receivedAt: now() });
+    held.push({ id, path, receivedAt: now(), source: raw.source === 'deeplink' ? 'deeplink' : 'notification' });
     void flush();
     return 'queued';
   }
@@ -229,6 +230,6 @@ export const navigateSink =
     source: EventPayloadOf<'navigate'>['source'] = 'notification',
   ): TapSink =>
   (tap, signal = new AbortController().signal) => {
-    const ref = emit('navigate', { path: tap.path, source });
+    const ref = emit('navigate', { path: tap.path, source: tap.source === 'deeplink' ? 'deeplink' : source });
     return awaitAck(tap, ref ? ref : null, signal);
   };
