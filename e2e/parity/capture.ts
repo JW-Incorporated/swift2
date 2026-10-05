@@ -72,6 +72,9 @@ export async function runtimeHash(page: Page, side: Side): Promise<{ hash?: stri
 
 export const PIXEL_OPTS = { threshold: 0.3, maxDiffPixelRatio: 0.001 };
 
+/** Side-a whole-viewport baselines: the fixed timeline rail and its dots anti-alias differently run to run on phones (#5046, ~660 px of 335k). */
+export const VIEWPORT_PIXEL_OPTS = { threshold: 0.3, maxDiffPixelRatio: 0.003 };
+
 /** True when `actual` matches `ref` within the pixel tolerance (ref goes through a temp snapshot file). */
 export async function pixelMatches(
   testInfo: TestInfo,

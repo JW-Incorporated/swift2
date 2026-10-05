@@ -23,6 +23,7 @@ import {
   SEARCH_ROW_CLIP,
   SONG_NAV_CLIP,
   test,
+  VIEWPORT_PIXEL_OPTS,
 } from './helpers';
 import { bBaselineNames, bothSidesRoutes } from './sides';
 
@@ -39,7 +40,7 @@ for (const route of ROUTES) {
   // WP2.4-0: the web chrome (TopBar, its timeline rail, BottomNav) is hidden by captureRoot, so cover it whole-viewport before it moves.
   test(`a (web build) ${route.name} viewport`, async ({ page }) => {
     await openRoute(page, 'a', route);
-    expect(await captureViewport(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, PIXEL_OPTS);
+    expect(await captureViewport(page)).toMatchSnapshot(`a-${route.name}-viewport.png`, VIEWPORT_PIXEL_OPTS);
   });
 
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
