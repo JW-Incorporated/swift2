@@ -14,12 +14,13 @@ interface BoundScheduler {
   clearTimeout: (h: unknown) => void;
 }
 
-/** startAttempt bounded by ATTEMPT_WRITE_MAX_MS; a write that lands after the bound is rolled back through the same ordered writer so the next launch sees no false strike. */
+/** startAttempt bounded by ATTEMPT_WRITE_MAX_MS; on the bound the (refunded) pre-attempt record is queued behind the stuck write through the same ordered writer, so the next launch sees no false strike. */
 export async function startAttemptBounded(
   decision: MountDecision,
   write: (r: WatchdogRecord) => Promise<boolean>,
   scheduler: BoundScheduler,
   stillWanted: () => boolean,
+  rollback: WatchdogRecord,
 ): Promise<WatchdogRecord | null> {
   let timer: unknown;
   const bound = new Promise<null>((resolve) => {
@@ -28,11 +29,7 @@ export async function startAttemptBounded(
   const started = startAttempt(decision, Date.now(), write, stillWanted);
   const attempt = await Promise.race([started, bound]);
   scheduler.clearTimeout(timer);
-  if (!attempt) {
-    void started.then((late) => {
-      if (late) void write(decision.record);
-    });
-  }
+  if (!attempt) void write(rollback);
   return attempt;
 }
 
@@ -59,19 +56,11 @@ export function useContentGate(deps: GateDeps) {
   );
   /** Set once at launch decision: no cache on disk. */
   const noContentRef = useRef(false);
-  const launchWriteRef = useRef<(() => Promise<void>) | null>(null);
-  const flushLaunchWrite = async () => {
-    const f = launchWriteRef.current;
-    launchWriteRef.current = null;
-    await f?.();
-  };
   return {
     contentFailed,
     depsRef,
     unmountedRef,
     waiterRef,
     noContentRef,
-    launchWriteRef,
-    flushLaunchWrite,
   };
 }

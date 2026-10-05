@@ -104,7 +104,7 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     expect(h.monitor).not.toHaveBeenCalled();
   });
 
-  it('no cache with a prior attempting record: nothing is written while awaiting; the writes land once content resolves', async () => {
+  it('no cache with a prior attempting record: nothing is written while awaiting; exactly one bounded write lands once content resolves', async () => {
     h.stored = {
       v: 1,
       fallbackCycles: 0,
@@ -128,8 +128,8 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
       d.resolve();
       await vi.advanceTimersByTimeAsync(0);
     });
-    expect(h.saved.length).toBeGreaterThanOrEqual(2);
-    expect(h.saved.at(-1)?.state).toBe('attempting');
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].state).toBe('attempting');
   });
 
   it('unmount before the load resolves: no write, no monitor', async () => {
@@ -234,7 +234,7 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     expect(h.monitor).not.toHaveBeenCalled();
   });
 
-  it('fallback path: the launch record is persisted before native mounts', async () => {
+  it('fallback path: native mounts without awaiting the launch write, which still lands', async () => {
     h.stored = {
       v: 1,
       fallbackCycles: 0,
@@ -259,12 +259,11 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
       await vi.advanceTimersByTimeAsync(10);
     });
     expect(h.saved).toHaveLength(0);
-    expect(result.current.mount).not.toBe('native');
+    expect(result.current.mount).toBe('native');
     await act(async () => {
       await vi.advanceTimersByTimeAsync(200);
     });
     expect(h.saved.at(-1)?.state).toBe('fallback');
-    expect(result.current.mount).toBe('native');
   });
 
   it('load resolves: one attempt is started and the DOM mounts', async () => {
