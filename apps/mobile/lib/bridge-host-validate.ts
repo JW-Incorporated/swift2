@@ -13,6 +13,12 @@ export function validTheme(p: unknown): ThemeChange | null {
     : null;
 }
 
+/** The `route` event payload: exactly `{ path }`, a `/`-rooted string of at most 2048 chars; anything else is null (dropped). */
+export function validRoute(p: unknown): string | null {
+  if (!isRecord(p) || Object.keys(p).length !== 1 || typeof p.path !== 'string') return null;
+  return p.path.startsWith('/') && p.path.length <= MAX_SHARE_FIELD ? p.path : null;
+}
+
 export const MAX_PREFS = 64;
 export const MAX_PREF_KEY = 64;
 
