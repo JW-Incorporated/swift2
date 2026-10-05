@@ -21,12 +21,13 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { useNotificationTaps } from './lib/use-notification-taps';
+import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
+import { useDeepLinks } from './lib/use-deep-links';
 import { loadAppConfig, loadLaunchFlags } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
-import { registerDevice } from './lib/push-registration';
+import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { registerNotificationActions } from './lib/notification-actions';
 import { SITE_URL } from './lib/site-url';
 import { RecoveryScreen } from './components/RecoveryScreen';
@@ -89,7 +90,7 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    registerDevice().catch((e) => {
+    ensureDeviceRegistered().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
     });
     registerNotificationActions().catch((e) => {
@@ -97,8 +98,10 @@ export default function App() {
     });
   }, []);
 
-  // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts): held until the DOM host binds and acks.
-  useNotificationTaps();
+  // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts): held until the DOM host
+  // binds and acks. On the Recovery screen taps and deep links are consumed and dropped (diag mark), never queued.
+  useNotificationTaps(domMount.mount === 'native');
+  useDeepLinks(notificationTapGate);
 
   return (
     <GestureHandlerRootView style={styles.fill}>

@@ -19,7 +19,6 @@ import { getForceDomFailure } from './diagnostics-override';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
 import {
   createAttemptMonitor,
-  createWriteQueue,
   decideMount,
   markReady,
   markReloading,
@@ -46,9 +45,9 @@ import {
   loadReportsRaw,
   loadWatchdogRecord,
   saveReportsRaw,
-  saveWatchdogRecord,
 } from './watchdog-store';
 import { createTelemetry } from './watchdog-telemetry';
+import { createWatchdogWriter, type WatchdogWriter } from './watchdog-writer';
 
 /** A storage write that never settles must not hang the launch: treat it as a failed attempt write (native). */
 const ATTEMPT_WRITE_MAX_MS = 3000;
@@ -99,9 +98,9 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
-  const writeRef = useRef<ReturnType<typeof createWriteQueue> | null>(null);
-  writeRef.current ??= createWriteQueue(saveWatchdogRecord);
-  const write = writeRef.current;
+  const writerRef = useRef<WatchdogWriter | null>(null);
+  writerRef.current ??= createWatchdogWriter();
+  const write = writerRef.current.write;
   const telemetryRef = useRef<ReturnType<typeof createTelemetry> | null>(null);
   telemetryRef.current ??= createTelemetry({
     load: loadReportsRaw,
@@ -190,9 +189,14 @@ export function useDomMount(inputs: LaunchInputs | null): {
       const bound = new Promise<null>((resolve) => {
         timer = scheduler.setTimeout(() => resolve(null), ATTEMPT_WRITE_MAX_MS);
       });
-      const attempt = await Promise.race([startAttempt(decision, Date.now(), write), bound]);
+      const started = startAttempt(decision, Date.now(), write);
+      const attempt = await Promise.race([started, bound]);
       scheduler.clearTimeout(timer);
       if (!attempt) {
+        // Fence: if the abandoned write lands late as `attempting`, roll it back through the same ordered writer so the next launch sees no false strike.
+        void started.then((late) => {
+          if (late) void write(decision.record);
+        });
         apply('native', 'attempt-failed');
         return;
       }

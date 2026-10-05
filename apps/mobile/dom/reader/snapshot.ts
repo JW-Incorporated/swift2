@@ -3,8 +3,7 @@
 // this unwraps it and builds the snapshot in-webview (C6).
 import {
   attachExtensions,
-  extensionsFromBundle,
-  fromBundleCore,
+  snapshotPartsFromBundle,
   hashSnapshot,
   type BundleLike,
 } from '@swift2/experience/reader-snapshot';
@@ -14,8 +13,9 @@ import type {
   ReaderSnapshotExtensions,
 } from '@swift2/experience/reader-snapshot';
 
-export function unwrapEnvelope(text: string): BundleLike {
-  const rec = JSON.parse(text) as Partial<BundleLike> | null;
+/** `input` is the JSON text, or the object an object-literal twin already parsed (no second parse). */
+export function unwrapEnvelope(input: string | object): BundleLike {
+  const rec = (typeof input === 'string' ? JSON.parse(input) : input) as Partial<BundleLike> | null;
   const version = rec?.manifest?.bundleVersion;
   if (!rec || typeof version !== 'string' || !rec.files || typeof rec.files !== 'object') {
     throw new Error('cache envelope is not { manifest, files }');
@@ -23,12 +23,16 @@ export function unwrapEnvelope(text: string): BundleLike {
   return { manifest: rec.manifest as BundleLike['manifest'], files: rec.files };
 }
 
-export function snapshotFromEnvelope(text: string, deps: ReaderSnapshotDeps) {
-  const bundle = unwrapEnvelope(text);
+export function snapshotFromEnvelope(input: string | object, deps: ReaderSnapshotDeps) {
+  const t0 = performance.now();
+  const bundle = unwrapEnvelope(input);
+  const t1 = performance.now();
+  const { core, extensions } = snapshotPartsFromBundle(bundle, deps);
   return {
-    core: fromBundleCore(bundle, deps),
-    extensions: extensionsFromBundle(bundle),
+    core,
+    extensions,
     version: bundle.manifest.bundleVersion,
+    timings: { parseMs: Math.round(t1 - t0), buildMs: Math.round(performance.now() - t1) },
   };
 }
 

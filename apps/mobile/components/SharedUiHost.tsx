@@ -24,7 +24,7 @@ import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
-import { loadContentBundle } from '../lib/content-bundle';
+import { useDeferredBundleRefresh } from '../lib/use-deferred-bundle-refresh';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -34,8 +34,9 @@ import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { shareCardPorts } from '../lib/share-card-ports';
 import { notificationTapGate } from '../lib/use-notification-taps';
-import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
+import type { LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
@@ -103,20 +104,7 @@ export function SharedUiHost({
     void getUseTestPage().then(setTestPage);
   }, []);
 
-  useEffect(() => {
-    if (testPage !== false) return;
-    // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
-    const cached = lastGoodSource();
-    if (cached) setSource({ cache: cached });
-    void loadContentBundle()
-      .then((bundle) => {
-        setContentToken(bundle.manifest.bundleVersion);
-        if (!cached) setSource({ cache: lastGoodSource() });
-      })
-      .catch(() => {
-        if (!cached) setSource({ cache: null });
-      });
-  }, [testPage]);
+  const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);
 
   const handlers = useMemo(
     () =>
@@ -144,6 +132,7 @@ export function SharedUiHost({
     const uiDeps = createUiDeps({
       linking: Linking,
       share: Share,
+      cards: shareCardPorts,
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,
@@ -271,6 +260,7 @@ export function SharedUiHost({
               ? async () => {
                   nativeMs.current = Date.now() - launchedAt.current;
                   if (rawProbe.current) publishProbe(rawProbe.current);
+                  domReady();
                   await handlers.onReady();
                   session.binder.firstPaint();
                 }

@@ -27,7 +27,7 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
 }
 
 export interface LaunchFlags {
-  /** Last-good cached remote `sharedUi`; null when nothing was cached. */
+  /** Last-good cached remote `sharedUi`; null when nothing was cached or the cache says false (see loadLaunchFlags). */
   sharedUi: boolean | null;
   /** Same for the iOS-only gate `sharedUiIos`. */
   sharedUiIos: boolean | null;
@@ -39,6 +39,9 @@ export interface LaunchFlags {
  * WP2.14: the flags a launch is decided on. One local read of the last-good
  * cache, never the network, so the DOM-or-native choice is made once at launch
  * and a fresh fetch applies on the NEXT launch. Never throws.
+ *
+ * One UI PR3 removed the kill switch (the legacy native UI is gone; the only lever is an OTA rollback), so a stale
+ * cached `false` from before it is ignored: it reads as null and the compiled default decides.
  */
 export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): Promise<LaunchFlags> {
   try {
@@ -47,8 +50,8 @@ export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): 
     const sharedUi = cached?.routeFlags.sharedUi;
     const sharedUiIos = cached?.routeFlags.sharedUiIos;
     return {
-      sharedUi: typeof sharedUi === 'boolean' ? sharedUi : null,
-      sharedUiIos: typeof sharedUiIos === 'boolean' ? sharedUiIos : null,
+      sharedUi: sharedUi === true ? true : null,
+      sharedUiIos: sharedUiIos === true ? true : null,
       watchdogReports: typeof cached?.watchdogReports === 'boolean' ? cached.watchdogReports : null,
     };
   } catch {

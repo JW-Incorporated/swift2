@@ -256,11 +256,20 @@ async function main() {
     // Notifications Phase 5 seam (see authorFanmadeCatalog's header
     // comment): fire fan_merch's notification event from the SAME
     // authoring invocation that writes the catalog, rather than requiring
-    // a separate manual step. Never fails the authoring run — same
-    // stage-isolation discipline as emit-fanmade-event.mjs's own
-    // try/catch.
+    // a separate manual step. An emit miss never fails the authoring run
+    // (same stage-isolation discipline as emit-fanmade-event.mjs's own
+    // try/catch), but a module-load failure (e.g. ERR_MODULE_NOT_FOUND under
+    // plain node, #5050) is a broken environment, not a miss: it throws.
+    let emitFanmadeEvent;
     try {
-      const { emitFanmadeEvent } = await import('./emit-fanmade-event.mjs');
+      ({ emitFanmadeEvent } = await import('./emit-fanmade-event.mjs'));
+    } catch (error) {
+      throw new Error(
+        `fan_merch notification emitter failed to load (run under \`npx tsx\`, not plain node): ${error.message}`,
+        { cause: error },
+      );
+    }
+    try {
       const db = supabaseAdminForNotifications();
       if (db) await emitFanmadeEvent(result.socialDraft, { db });
     } catch (error) {

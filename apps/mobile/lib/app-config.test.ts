@@ -8,6 +8,7 @@ vi.mock('./vault-storage', () => ({
 import { MemoryStorageAdapter } from '@swift2/content';
 import { APP_CONFIG_CACHE_KEY, loadAppConfig, loadLaunchFlags } from './app-config';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
+import { resolveWantsDom } from './watchdog-policy';
 import shippedConfig from '../../../config/mobile/app-config.json';
 
 function okFetch(body: unknown): typeof fetch {
@@ -25,13 +26,32 @@ describe('shipped config', () => {
   it('defaults sharedUi on and the shipped config agrees', () => {
     expect(DEFAULT_ROUTE_FLAGS.sharedUi).toBe(true);
     expect(shippedConfig.routeFlags.sharedUi).toBe(true);
-    expect(DEFAULT_ROUTE_FLAGS.sharedUiIos).toBe(false);
-    expect(shippedConfig.routeFlags.sharedUiIos).toBe(false);
     expect(shippedConfig.watchdogReports).toBe(false);
   });
 });
 
+// One UI PR3 deletes the legacy native UI: a device whose resolved flag is false has nothing to fall back to but the
+// Recovery screen. This fails until BOTH the compiled default and the shipped config enable iOS, so PR3 cannot land
+// ahead of the iOS flip and strand iPhones on Recovery.
+describe('PR3 requires the shared UI on for every platform', () => {
+  it('sharedUi and sharedUiIos are true in the compiled defaults and the shipped config', () => {
+    expect(DEFAULT_ROUTE_FLAGS).toEqual({ sharedUi: true, sharedUiIos: true });
+    expect(shippedConfig.routeFlags.sharedUi).toBe(true);
+    expect(shippedConfig.routeFlags.sharedUiIos).toBe(true);
+  });
+});
+
 describe('loadLaunchFlags (WP2.14)', () => {
+  it('ignores a stale cached false (kill switch removed): null, so the default decides and the DOM attempt is made', async () => {
+    const storage = new MemoryStorageAdapter();
+    storage.setItem(APP_CONFIG_CACHE_KEY, JSON.stringify({ routeFlags: { sharedUi: false, sharedUiIos: false } }));
+    const flags = await loadLaunchFlags({ storage });
+    expect(flags).toEqual({ sharedUi: null, sharedUiIos: null, watchdogReports: null });
+    expect(resolveWantsDom({ quarantined: false, cachedSharedUi: flags.sharedUi, defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi })).toEqual({ wantsDom: true, source: 'default' });
+    // With the iOS default on (required by the guard above) the stale iOS false cannot strand the device either.
+    expect(resolveWantsDom({ quarantined: false, cachedSharedUi: flags.sharedUiIos, defaultSharedUi: true })).toEqual({ wantsDom: true, source: 'default' });
+  });
+
   it('reads only the last-good cache: cached sharedUi and watchdogReports', async () => {
     const storage = new MemoryStorageAdapter();
     storage.setItem(

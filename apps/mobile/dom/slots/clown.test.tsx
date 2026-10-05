@@ -10,28 +10,29 @@ vi.mock('react-dom', async () => await import('../../../web/node_modules/react-d
 
 import { render } from '@testing-library/react';
 import { ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
-import { MoodChat } from '@swift2/ui/reader/clown/MoodChat';
 import { register, resetSlotsForTests, slots } from './instance';
 import { APP_ORIGIN, createAppAdapter } from '../bridge/app-adapter';
-import { ClownSurface, CLOWN_SLICE } from './clown';
+import { ClownSurface } from './clown';
 
 const seen = vi.hoisted(() => ({ lore: undefined as unknown }));
-vi.mock('@swift2/ui/reader/clown/ClownChat', () => ({
-  ClownChat: ({ lore }: { lore?: unknown }) => {
+vi.mock('./lazy-loaders', () => ({
+  loadClownChat: () => ({ lore }: { lore?: unknown }) => {
     seen.lore = lore;
     return null;
   },
+  loadMoodChat: () => () => null,
+  loadThreadsMode: () => () => null,
+  loadCommunitySection: () => () => null,
 }));
 
 afterEach(() => resetSlotsForTests());
 
 describe('clown slice', () => {
   it('registers the clownbot and mood surfaces', () => {
-    register({ slice: CLOWN_SLICE, slots: { 'surface:clownbot': ClownSurface, 'surface:mood': MoodChat } });
     const s = slots();
     expect(s['surface:clownbot']).toBe(ClownSurface);
-    expect(s['surface:mood']).toBe(MoodChat);
-    expect(() => register({ slice: 'other', slots: { 'surface:mood': MoodChat } })).toThrow(/duplicate slot/);
+    expect(s['surface:mood']).toBeTypeOf('function');
+    expect(() => register({ slice: 'other', slots: { 'surface:mood': () => null } })).toThrow(/duplicate slot/);
   });
 
   it('feeds ClownChat the lore from the extensions provider', () => {

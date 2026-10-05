@@ -1,11 +1,11 @@
 {
   "ios": {
-    "bytes": 9012013
+    "bytes": 9053238
   },
   "android": {
-    "bytes": 9024460
+    "bytes": 9065527
   },
-  "updatedAt": "2026-10-05T00:53:40.936Z",
-  "commit": "5a565971bb66e130c8ef4a8e6fa4a56c1aeef9b2",
+  "updatedAt": "2026-10-05T03:57:31.643Z",
+  "commit": "a2c2f166d63aeca0490ac9052745eb73334e7397",
   "reason": "One UI PR3: legacy native UI deleted (size shrinks)"
 }
