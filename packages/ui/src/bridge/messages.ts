@@ -78,6 +78,8 @@ export type DomEventSpec = {
   navigated: { id: string; ok: boolean };
   /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
   theme: ThemeChange;
+  /** Fire-and-forget (no res, no ack): the DOM's current route (`/`-rooted path plus query/hash, <= 2048 chars) changed. Queued/coalesced like `theme`: only the latest matters. Add-only. */
+  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean };
 };
 
 /** Native -> DOM events. */
@@ -157,7 +159,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   cancel: true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
-const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true };
+const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true, route: true };
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,
