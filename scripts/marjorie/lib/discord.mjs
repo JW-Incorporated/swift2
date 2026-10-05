@@ -8,12 +8,17 @@
 // `discord-delivery.mjs`/`weekly-brief.mjs`/`approval-prompt.mjs` — this
 // module adds only what was genuinely missing (retry, thread support, the
 // fallback-friendly return shape) instead of re-deriving chunking rules.
-import { neutralizeMentions, chunkForDiscord } from '../../community/discord-delivery.mjs';
+import {
+  neutralizeMentions,
+  chunkForDiscord,
+  suppressPreviews,
+  DISCORD_SUPPRESS_EMBEDS,
+} from '../../community/discord-delivery.mjs';
 
 // Discord message flag 1 << 2: no link-preview embeds (Bots v2 C6). Set in code
 // on every Marjorie post rather than by channel permission, which would also
 // strip deliberate embeds elsewhere in the channel.
-export const SUPPRESS_EMBEDS = 4;
+export const SUPPRESS_EMBEDS = DISCORD_SUPPRESS_EMBEDS;
 const RETRY_WAIT_MS = 2000;
 const MAX_RETRY_WAIT_MS = 120_000;
 
@@ -61,12 +66,9 @@ function postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMention
   return fetchImpl(postUrl(webhook, thread), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      content: chunk,
-      username,
-      allowed_mentions: allowedMentions,
-      flags: SUPPRESS_EMBEDS,
-    }),
+    body: JSON.stringify(
+      suppressPreviews({ content: chunk, username, allowed_mentions: allowedMentions }),
+    ),
   });
 }
 
