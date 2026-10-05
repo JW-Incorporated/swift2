@@ -32,6 +32,8 @@ export const IDLE_MS = 2000;
 export const STALE_BACKGROUND_MS = 30 * 60 * 1000;
 /** A background delta beyond this is a clock jump, not a stay. */
 const MAX_PLAUSIBLE_BACKGROUND_MS = 7 * 24 * 60 * 60 * 1000;
+/** The restore navigation may take this long; after it the restore is abandoned (no replay). */
+export const RESTORE_WINDOW_MS = 2000;
 
 const defaultNow = (): number => Date.now();
 
@@ -58,6 +60,9 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   // A navigation other than the restore reached this epoch (tap, deep link, native nav, DOM busy/engaged before the replay): it outranks the restore.
   let userNav = false;
   let restoring = false;
+  // Target path of the in-flight restore navigation: the restore's own route reports (same path) must not cancel it.
+  let restorePath: string | null = null;
+  let restoreTimer: ReturnType<typeof setTimeout> | null = null;
   let navOk = false;
   let readerOk = false;
   let navigator: DomNavigator | null = null;
@@ -132,14 +137,29 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       const gen = generation;
       const failedNow = () => gen === generation && failed();
       const nav = navigator;
+      let abandoned = false;
       const replay = () => {
-        restoring = false;
-        if (gen === generation && navigator === nav && !userNav && toRestore !== null) send?.(toRestore);
+        if (restoreTimer !== null) clearTimeout(restoreTimer);
+        restoreTimer = null;
+        if (gen === generation && navigator === nav) {
+          restoring = false;
+          restorePath = null;
+        }
+        if (gen === generation && navigator === nav && !userNav && !abandoned && toRestore !== null) send?.(toRestore);
       };
       if (userNav) deps.onSignal?.('content-adopt-restore-skipped');
       else if (toRestore !== null && send && path === '/') send(toRestore);
       else {
         restoring = true;
+        restorePath = path;
+        restoreTimer = setTimeout(() => {
+          restoreTimer = null;
+          if (gen !== generation || navigator !== nav) return;
+          abandoned = true;
+          restoring = false;
+          restorePath = null;
+          deps.onSignal?.('content-adopt-restore-timeout', path.slice(0, 120));
+        }, RESTORE_WINDOW_MS);
         // The snapshot goes out once the path navigation settled (either way), and only to the epoch that navigated.
         void nav(path).then((ok) => (ok || failedNow(), replay()), () => (failedNow(), replay()));
       }
@@ -165,7 +185,9 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     route(path: string, isBusy = false, isEngaged = false, latest: ReaderSnap | null = null) {
       route = path;
       snap = latest;
-      if (restoreSnap !== null && (isBusy || (isEngaged && !restoring))) userNav = true;
+      if (!restoring && restoreSnap !== null && (isBusy || isEngaged)) userNav = true;
+      // During the restore navigation: busy, or engaged on any path but the restore target (that report is the restore itself), is a user action.
+      if (restoring && (isBusy || (isEngaged && path !== restorePath))) userNav = true;
       busy = isBusy;
       engagedFlag = isEngaged;
       routeSeen = true;
@@ -203,6 +225,9 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       adoptionRekey = false;
       userNav = false;
       restoring = false;
+      restorePath = null;
+      if (restoreTimer !== null) clearTimeout(restoreTimer);
+      restoreTimer = null;
       snap = null;
       routeSeen = false;
       navOk = false;
@@ -229,6 +254,10 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     dispose() {
       generation++;
       clearIdle();
+      if (restoreTimer !== null) clearTimeout(restoreTimer);
+      restoreTimer = null;
+      restoring = false;
+      restorePath = null;
       adopting = false;
       watchIdle = false;
       waitingForReady = false;
