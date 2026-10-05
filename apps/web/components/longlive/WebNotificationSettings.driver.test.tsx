@@ -8,6 +8,7 @@ import { createWebAdapter } from '@/lib/host-adapter';
 
 const base = createWebAdapter({ push() {}, replace() {} });
 const WEB_DENIED = /Notifications are blocked for this site in your browser settings\. Allow them there, then reload this page\./;
+const NATIVE_UNSUPPORTED = /Notifications aren.t available on this device/;
 const UNSUPPORTED = /support web notifications/;
 const PREFS = {
   settings: { masterEnabled: true, snoozeUntil: null, dailyCap: 3, quietStart: 22, quietEnd: 8, digestHour: 9 },
@@ -64,7 +65,7 @@ describe('WebNotificationSettings: web driver vs app driver (same markup per sta
     const loaded = () => screen.getByRole('switch');
     const web = await html({ ...base, webPush: webHost() }, loaded);
     const app = await html({ ...base, notifications: appHost('granted') }, loaded);
-    expect(app).toBe(web);
+    expect(app.replace('Turn off notifications on this device', 'X')).toBe(web.replace('Turn off web notifications for this browser', 'X'));
   });
 
   it('denied: identical except the driver-supplied hint', async () => {
@@ -74,11 +75,23 @@ describe('WebNotificationSettings: web driver vs app driver (same markup per sta
     expect(app.replace(APP_DENIED_HINT, 'HINT')).toBe(web.replace(/Notifications are blocked[^<]*/, 'HINT'));
   });
 
-  it('unsupported: an unsupported browser and an app reporting unsupported render the same', async () => {
-    const unsupported = () => screen.getByText(UNSUPPORTED);
-    const web = await html({ ...base, webPush: { ...webHost(), isSupported: () => false } }, unsupported);
-    const app = await html({ ...base, notifications: appHost('unsupported') }, unsupported);
-    expect(app).toBe(web);
+  it('unsupported: browser keeps website copy; app shows device copy and no app-download nudge', async () => {
+    const web = await html({ ...base, webPush: { ...webHost(), isSupported: () => false } }, () => screen.getByText(UNSUPPORTED));
+    expect(web).toContain('Get the Long Live app');
+    const app = await html({ ...base, notifications: appHost('unsupported') }, () => screen.getByText(NATIVE_UNSUPPORTED));
+    expect(app).not.toContain('Get the Long Live app');
+    expect(app).not.toContain('browser');
+  });
+
+  it('subscribed: turn-off action is per-driver', async () => {
+    vi.stubGlobal('Notification', { permission: 'granted' });
+    await html({ ...base, webPush: webHost() }, () => screen.getByRole('button', { name: 'Turn off web notifications for this browser' }));
+    await html({ ...base, notifications: appHost('granted') }, () => screen.getByRole('button', { name: 'Turn off notifications on this device' }));
+  });
+
+  it('unsubscribed (app): shows the enable action, not the turn-off one', async () => {
+    await html({ ...base, notifications: appHost('undetermined') }, () => screen.getByRole('button', { name: /enable notifications/i }));
+    expect(screen.queryByText(/Turn off/)).toBeNull();
   });
 
   it('a host with neither webPush nor notifications is unsupported', async () => {
