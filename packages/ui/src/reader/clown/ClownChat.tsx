@@ -117,16 +117,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   // measure/re-measure mechanics (split out for file-length hygiene).
   const chromeOffsetPx = useChromeOffset('[data-ll-topbar]');
 
-  // Escape exits full screen. Listener only lives while expanded, and is
-  // torn down on every collapse/unmount via the effect's own cleanup.
-  useEffect(() => {
-    if (!expanded) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setExpanded(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [expanded]);
+  // Escape exits full screen via the single dispatcher in useBackDismiss.
 
   // Return focus to the toggle button on collapse (Escape or the button
   // itself), so keyboard users aren't dumped at the top of the document.
