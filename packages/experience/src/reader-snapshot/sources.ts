@@ -176,6 +176,21 @@ export function extensionsFromBundle(bundle: BundleLike): ReaderSnapshotExtensio
   return { merch, songMoods, lore };
 }
 
+/** App path, core + extensions in ONE traversal of the bundle (`inputsFromBundle` runs once, not once per half). */
+export function snapshotPartsFromBundle(
+  bundle: BundleLike,
+  deps: ReaderSnapshotDeps,
+): { core: ReaderSnapshotCore; extensions: ReaderSnapshotExtensions } {
+  const inputs = inputsFromBundle(bundle);
+  const core = buildReaderSnapshotCore(
+    inputs,
+    deps,
+    { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion },
+    stateFromBundle(bundle),
+  );
+  return { core, extensions: { merch: inputs.merch, songMoods: inputs.songMoods, lore: inputs.lore } };
+}
+
 /** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */
 export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
   const inputs = inputsFromBundle(bundle);

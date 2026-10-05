@@ -24,7 +24,8 @@ import {
   SONG_NAV_CLIP,
   test,
 } from './helpers';
-import { bBaselineNames, bothSidesRoutes } from './sides';
+import { B_ONLY_ROUTES } from './routes-b-only';
+import { bBaselineNames, bothSidesRoutes, bSideRoutes } from './sides';
 
 // Per-side baselines (Linux-only, generated in the pinned Playwright container).
 // Side b is captured with the project's REAL simulated safe-area insets.
@@ -75,10 +76,14 @@ test.describe('merch', () => {
 
 // W5-parity: a-side baselines for the coverage routes (the element clip when set).
 for (const route of COVERAGE_ROUTES) {
-  test(`a (web build) ${route.name}`, async ({ page }) => {
-    await openAOnlyRoute(page, route);
-    const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
-    expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  test.describe(route.name, () => {
+    // Merch routes render MerchMarquee's un-nonced <style> (see the merch describe above).
+    if (route.path.includes('mode=merch')) test.use({ bypassCSP: true });
+    test(`a (web build) ${route.name}`, async ({ page }) => {
+      await openAOnlyRoute(page, route);
+      const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
+      expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+    });
   });
 }
 
@@ -90,6 +95,16 @@ for (const route of bothSidesRoutes(EXTRA_ROUTES)) {
     expect(await captureViewport(page)).toMatchSnapshot(names.viewport, PIXEL_OPTS);
     const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
     expect(pixels).toMatchSnapshot(names.root, PIXEL_OPTS);
+  });
+}
+
+// App-only surfaces (inbox, push-permission offer): side-b baselines only; the token assertions live in b-only.spec.ts.
+for (const route of bSideRoutes(B_ONLY_ROUTES)) {
+  test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
+    const names = bBaselineNames(route);
+    await openAOnlyRoute(page, route, 'b', realInsets(testInfo));
+    expect(await captureViewport(page)).toMatchSnapshot(names.viewport, PIXEL_OPTS);
+    expect(await captureElement(page, route.clip!)).toMatchSnapshot(names.root, PIXEL_OPTS);
   });
 }
 
