@@ -53,7 +53,7 @@ const COUNTDOWN_ITEM = {
 
 export const ERA_SELECTOR_CLIP = '[role="dialog"][aria-labelledby="era-selector-title"]';
 export const SHARE_MENU_CLIP = '[role="group"][aria-label="Share this moment as an image"]';
-export const CLOWN_FULLSCREEN_CLIP = 'div.fixed.inset-0:has(button[aria-label="Exit full screen"])';
+export const CLOWN_FULLSCREEN_CLIP = 'div.fixed.inset-x-0:has(button[aria-label="Exit full screen"])';
 export const LOVE_ENTRY_CLIP = 'div:has(> button[aria-expanded="true"])';
 
 export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
