@@ -56,15 +56,23 @@ export function resetBundleMemoForTests(): void {
   inFlight = null;
 }
 
-/** The lightweight pointer check: null when unreachable/unreadable (callers then keep what they have). */
-async function fetchCurrentVersion(): Promise<string | null> {
+/**
+ * The lightweight pointer check. 'unreachable' (network/HTTP failure) keeps the memo silently;
+ * 'malformed' (reachable but unparseable) is a data problem that must still trigger the OTA repair.
+ */
+async function fetchCurrentVersion(): Promise<string | 'unreachable' | 'malformed'> {
+  let res: Response;
   try {
-    const res = await fetch(`${contentBaseUrl().replace(/\/+$/, '')}/current.json`);
-    if (!res.ok) return null;
-    const body = (await res.json()) as { bundleVersion?: unknown };
-    return typeof body.bundleVersion === 'string' ? body.bundleVersion : null;
+    res = await fetch(`${contentBaseUrl().replace(/\/+$/, '')}/current.json`);
+    if (!res.ok) return 'unreachable';
   } catch {
-    return null;
+    return 'unreachable';
+  }
+  try {
+    const body = (await res.json()) as { bundleVersion?: unknown };
+    return typeof body.bundleVersion === 'string' && body.bundleVersion ? body.bundleVersion : 'malformed';
+  } catch {
+    return 'malformed';
   }
 }
 
@@ -88,12 +96,21 @@ export function loadContentBundle(): Promise<LoadedBundle> {
 
 async function refresh(): Promise<LoadedBundle> {
   const held = memo;
+  let advertised: string | null = null;
   if (held) {
     const current = await fetchCurrentVersion();
-    if (current === null || current === held.manifest?.bundleVersion) return held;
+    if (current === 'unreachable') return held;
+    if (current === 'malformed') {
+      void selfHealOnce();
+      return held;
+    }
+    if (current === held.manifest?.bundleVersion) return held;
+    advertised = current;
   }
   try {
     const next = await loadOnce();
+    // A resolved fallback (stale last-good) must not displace a memo: only the advertised version replaces it.
+    if (held && next.manifest?.bundleVersion !== advertised) return held;
     memo = next;
     return next;
   } catch (err) {

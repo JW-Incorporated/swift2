@@ -179,6 +179,34 @@ describe('loadContentBundle in-flight sharing', () => {
     expect(loadBundle).toHaveBeenCalledTimes(2);
   });
 
+  it('keeps the memo when a refresh resolves a stale older bundle (no repeated parse)', async () => {
+    const v1 = withVersion('v1');
+    loadBundle
+      .mockResolvedValueOnce(v1)
+      .mockResolvedValueOnce({ ...withVersion('v1'), source: 'offline-last-good', stale: true });
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    await loadContentBundle();
+    vi.stubGlobal('fetch', pointerFetch('v2'));
+    await expect(loadContentBundle()).resolves.toBe(v1);
+    await expect(loadContentBundle()).resolves.toBe(v1);
+    expect(loadBundle).toHaveBeenCalledTimes(3);
+  });
+
+  it.each([
+    ['invalid JSON', async () => ({ ok: true, json: async () => JSON.parse('{') })],
+    ['non-string bundleVersion', async () => ({ ok: true, json: async () => ({ bundleVersion: 5 }) })],
+  ])('self-heals once and keeps the memo on a malformed pointer (%s)', async (_n, bad) => {
+    const v1 = withVersion('v1');
+    loadBundle.mockResolvedValue(v1);
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    await loadContentBundle();
+    vi.stubGlobal('fetch', vi.fn(bad));
+    await expect(loadContentBundle()).resolves.toBe(v1);
+    await settle();
+    expect(fake.updates.checkForUpdateAsync).toHaveBeenCalledTimes(1);
+    expect(loadBundle).toHaveBeenCalledTimes(1);
+  });
+
   it('serves the memo when the pointer is unreachable', async () => {
     loadBundle.mockResolvedValue(withVersion('v1'));
     vi.stubGlobal('fetch', pointerFetch('v1'));
