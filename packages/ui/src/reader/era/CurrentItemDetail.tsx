@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, House, MessageCircleQuestion, X } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
 import type { Era } from '@swift2/experience';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useBackDismiss } from '../lib/useBackDismiss';
+import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { formatFullDate } from '@swift2/experience';
 import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '../lib/theme';
@@ -42,7 +43,9 @@ export function CurrentItemDetail({
   const { apiFetch } = useHost();
   const [verifyState, setVerifyState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   useScrollLock(item != null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   useBackDismiss(item != null, onClose);
+  useFocusTrap(item != null, dialogRef);
 
   if (!item) return null;
   const status = CURRENT_ITEM_STATUS_COPY[item.status];
@@ -78,6 +81,8 @@ export function CurrentItemDetail({
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       role="dialog"
       aria-modal="true"
       aria-label={item.headline}
