@@ -1,4 +1,5 @@
 import { getEra } from '@swift2/experience';
+import { inAppPlatformFromUserAgent } from '../../lib/in-app';
 import type { useHost } from '../../../host';
 import type { useAppState } from '../../store';
 
@@ -15,10 +16,12 @@ export type Location = {
   trackGuideEraId?: string | null;
   theoryGuideEraId?: string | null;
   lensId?: string | null;
-  url?: string;
+  /** Page path only — never the query string or hash. */
+  path?: string;
   pageTitle?: string;
   viewport?: string;
-  userAgent?: string;
+  /** Coarse label ("iOS app", "Android app", "web: mobile|desktop") — never the raw user-agent. */
+  platform?: string;
   ts?: string;
 };
 
@@ -31,6 +34,24 @@ export function describeView(state: AppState): string {
   if (state.searchOpen) return 'search';
   if (state.mode === 'threads') return state.lensId ? `thread: ${state.lensId}` : 'threads gallery';
   return 'era stream';
+}
+
+/** Path of a URL with the query string and hash dropped (they can carry personal values). */
+export function pathOnly(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  let rest = url.trim();
+  const scheme = /^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i.exec(rest);
+  if (scheme) rest = rest.slice(scheme[0].length);
+  rest = rest.split('#')[0]!.split('?')[0]!;
+  return rest.startsWith('/') ? rest : `/${rest}`;
+}
+
+export function platformLabel(): string | undefined {
+  if (typeof navigator === 'undefined') return undefined;
+  const app = inAppPlatformFromUserAgent(navigator.userAgent);
+  if (app) return app === 'ios' ? 'iOS app' : 'Android app';
+  if (typeof window === 'undefined') return undefined;
+  return window.innerWidth < 768 ? 'web: mobile' : 'web: desktop';
 }
 
 export function buildLocation(state: AppState, host: Host): Location {
@@ -50,11 +71,11 @@ export function buildLocation(state: AppState, host: Host): Location {
     trackGuideEraId: state.trackGuideEraId,
     theoryGuideEraId: state.theoryGuideEraId,
     lensId: state.lensId,
-    url: host.currentUrl?.(),
+    path: pathOnly(host.currentUrl?.()),
     pageTitle: typeof document !== 'undefined' ? document.title : undefined,
     viewport:
       typeof window !== 'undefined' ? `${window.innerWidth}×${window.innerHeight}` : undefined,
-    userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
+    platform: platformLabel(),
     ts: new Date().toISOString(),
   };
 }

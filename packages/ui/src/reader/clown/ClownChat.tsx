@@ -34,6 +34,7 @@
 
 import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useReportBusy } from '../lib/useReportBusy';
 import type { BoardItem } from './lib/clown-board';
 import type { LoreItem } from '@swift2/experience';
 import { promptForItem, FAN_THEORY_CHIP_PROMPT } from './lib/clown-starters';
@@ -80,6 +81,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const { setClownChatExpanded } = useAppActions();
   const messages = clownMessages;
   const { busy, error, investigating, ask } = useClownAsk(setText);
+  useReportBusy('clown-chat', busy || text.trim() !== '');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const streamRef = useRef<HTMLDivElement>(null);
 

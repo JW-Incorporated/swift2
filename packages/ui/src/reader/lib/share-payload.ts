@@ -33,13 +33,28 @@ export type SharePayloadData = Pick<ReaderQueries, 'getContentItem' | 'resolveTr
  * The host members a share needs (`useHost()`). Omitted on the web: the
  * navigator.share / clipboard path and same-origin URLs are unchanged.
  */
-export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard'>;
+export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard' | 'currentUrl'>;
+
+/**
+ * The query-free logical path to share. A host that owns its own routing (the app: the WebView document is a
+ * file:// bundle URL) reports it through `currentUrl()`; `window.location.pathname` is only the web's answer.
+ */
+function logicalPathname(host: ShareHost | undefined): string {
+  const current = host?.currentUrl?.();
+  if (current) {
+    try {
+      return new URL(current, 'https://logical.invalid').pathname;
+    } catch {
+      // fall through
+    }
+  }
+  return host?.resolveUrl ? '/' : window.location.pathname;
+}
 
 function shareBaseUrl(host: ShareHost | undefined): string {
   if (typeof window === 'undefined') return host?.resolveUrl ? host.resolveUrl('/') : '/';
-  return host?.resolveUrl
-    ? host.resolveUrl(window.location.pathname)
-    : window.location.origin + window.location.pathname;
+  const path = logicalPathname(host);
+  return host?.resolveUrl ? host.resolveUrl(path) : window.location.origin + path;
 }
 
 export function sharePayloadForTarget(
