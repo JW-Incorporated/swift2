@@ -40,8 +40,8 @@ export interface ArtFs {
   head(url: string): Promise<ArtHead>;
   /** The first `count` bytes of a stored file, or null when unreadable. */
   readHead(name: string, count: number): Uint8Array | null;
-  /** Streams the body to `name`; must stop, delete the partial file and reject as soon as more than `maxBytes` arrive. */
-  download(url: string, name: string, maxBytes: number): Promise<void>;
+  /** Streams the body to `name`; must stop, delete the partial file and reject as soon as more than `maxBytes` arrive, or when the body ends short of `minBytes`. */
+  download(url: string, name: string, maxBytes: number, minBytes?: number): Promise<void>;
   move(from: string, to: string): Promise<void>;
   uri(name: string): string;
 }
@@ -203,9 +203,9 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
         const tmp = `${file}.tmp`;
         try {
           const limit = Math.min(MAX_ITEM_BYTES, declared + SLACK_BYTES);
-          await fs.download(url, tmp, limit);
+          await fs.download(url, tmp, limit, Math.max(1, declared - SLACK_BYTES));
           const size = fs.size(tmp);
-          if (size === null || size <= 0 || size > limit) {
+          if (size === null || size <= 0 || size > limit || size < declared - SLACK_BYTES) {
             fs.remove(tmp);
             disk -= declared;
             continue;

@@ -8,6 +8,9 @@ import { diagMarkOnce } from './diagnostics';
 import { SITE_URL } from './site-url';
 
 const HEAD_TIMEOUT_MS = 10_000;
+const IDLE_TIMEOUT_MS = 30_000;
+const OVERALL_TIMEOUT_MS = 120_000;
+const WRITE_BATCH_BYTES = 256 * 1024;
 // Wikimedia (and others) ask API clients for a descriptive User-Agent; sent on every art request.
 const USER_AGENT = 'LongLiveApp/1 (+https://www.longlivets.com; offline art cache)';
 const HEADERS = { 'User-Agent': USER_AGENT };
@@ -66,37 +69,77 @@ export function expoArtFs(): ArtFs {
         clearTimeout(timer);
       }
     },
-    async download(url, name, maxBytes) {
+    async download(url, name, maxBytes, minBytes = 1) {
       const f = file(name);
       let handle: FileSystem.FileHandle | null = null;
+      let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+      let idle: ReturnType<typeof setTimeout> | undefined;
+      let overall: ReturnType<typeof setTimeout> | undefined;
       try {
         const { fetch: expoFetch } = await import('expo/fetch'); // lazy: only a real download needs the native stream
         const res = await expoFetch(url, { headers: HEADERS, credentials: 'omit' });
-        const reader = res.ok ? res.body?.getReader() : undefined;
-        if (!reader) throw new Error(`art download failed (${res.status})`);
+        if (!res.ok) {
+          void res.body?.cancel().catch(() => {});
+          throw new Error(`art download failed (${res.status})`);
+        }
+        if (!res.body || typeof res.body.getReader !== 'function') {
+          // Streaming unsupported on this device: whole-file download, then the same bounds before anything is indexed.
+          await FileSystem.File.downloadFileAsync(url, f, { idempotent: true, headers: HEADERS });
+          const size = f.exists ? f.size : 0;
+          if (size > maxBytes || size < minBytes) throw new Error('art download outside the size bounds');
+          return;
+        }
+        reader = res.body.getReader();
+        let fail: (e: Error) => void = () => {};
+        const timedOut = new Promise<never>((_, reject) => {
+          fail = reject;
+        });
+        timedOut.catch(() => {});
+        const armIdle = () => {
+          clearTimeout(idle);
+          idle = setTimeout(() => fail(new Error('art download stalled')), IDLE_TIMEOUT_MS);
+        };
+        overall = setTimeout(() => fail(new Error('art download timed out')), OVERALL_TIMEOUT_MS);
         if (f.exists) f.delete();
         f.create();
         handle = f.open(FileSystem.FileMode.WriteOnly);
         let written = 0;
-        for (let chunk = await reader.read(); !chunk.done; chunk = await reader.read()) {
+        let pending: Uint8Array[] = [];
+        let pendingBytes = 0;
+        const flush = () => {
+          for (const part of pending) handle!.writeBytes(part);
+          pending = [];
+          pendingBytes = 0;
+        };
+        for (;;) {
+          armIdle();
+          const chunk = await Promise.race([reader.read(), timedOut]);
+          if (chunk.done) break;
           written += chunk.value.byteLength;
-          if (written > maxBytes) {
-            void reader.cancel().catch(() => {});
-            throw new Error('art download over the size cap');
-          }
-          handle.writeBytes(chunk.value);
+          if (written > maxBytes) throw new Error('art download over the size cap');
+          pending.push(chunk.value);
+          pendingBytes += chunk.value.byteLength;
+          if (pendingBytes >= WRITE_BATCH_BYTES) flush();
         }
+        flush();
+        if (written === 0 || written < minBytes) throw new Error('art download ended early');
       } catch (e) {
+        void reader?.cancel().catch(() => {});
+        const h = handle;
+        handle = null;
         try {
-          handle?.close();
-          handle = null;
+          h?.close();
           if (f.exists) f.delete();
         } catch {
           // Best-effort: the next start sweeps stray .tmp files.
         }
         throw e;
       } finally {
-        handle?.close();
+        clearTimeout(idle);
+        clearTimeout(overall);
+        const h = handle;
+        handle = null;
+        h?.close();
       }
     },
     move: (from, to) => file(from).move(file(to), { overwrite: true }),

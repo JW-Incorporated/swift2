@@ -21,6 +21,14 @@ describe('streamed size cap', () => {
     expect([...f.files.keys()].some((n) => n.endsWith('.tmp'))).toBe(false);
   });
 
+  it('does not index a file that ends well short of the declared length', async () => {
+    const f = fakeFs(() => 1000, () => 50_000);
+    const r = await sync(f, [u(1)]);
+    expect(r?.downloaded).toBe(0);
+    expect(Object.keys(entriesOf(f))).toEqual([]);
+    expect([...f.files.keys()].some((n) => n.endsWith('.tmp'))).toBe(false);
+  });
+
   it('never downloads when the HEAD length is missing', async () => {
     const f = fakeFs(() => 10 * MB, () => null);
     const r = await sync(f, [u(1)]);
