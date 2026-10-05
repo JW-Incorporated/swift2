@@ -325,7 +325,9 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 |---|---|
 | `supabase/migrations/20260909000000_notifications_devices.sql` | The `devices` table (spec §9). RLS on, no `anon`/`authenticated` policies — `service_role` only |
 | `packages/shared/src/notifications-types.ts` | Portable category catalogue (spec §4, minus Fun categories — Phase 4), `DeviceRegistrationInput` |
-| `packages/core/src/devices.ts` | `upsertDevice()` — the one write path, service-role only, called from the register route |
+| `packages/core/src/devices.ts` | `upsertDevice()` — the one write path, service-role only, called from the register route; calls `upsert_device_ordered` (stale `seq` writes ignored), falling back to a plain upsert if the migration is not yet applied |
+| `supabase/migrations/20261004010000_devices_register_seq.sql` | `devices.register_seq` + `upsert_device_ordered()` (service_role-only) — server-side ordering for register writes (#5039) |
+| `packages/shared/src/device-registration.ts` | `DevicePlatform` + `DeviceRegistrationInput` (incl. optional `seq`), split out of `notifications-types.ts` |
 | `apps/web/app/api/devices/register/route.ts` (+ `.test.ts`) | `POST /api/devices/register` — upsert-by-`device_id`, same call for first registration and token refresh |
 | `apps/mobile/lib/api-base.ts` (+ test) | `apiBaseUrl()` / `DEFAULT_API_BASE_URL` — the one place the mobile API host is decided (`EXPO_PUBLIC_API_BASE_URL` override) |
 | `apps/mobile/lib/device-id.ts` | Anonymous `device_id` generation + SecureStore persistence (spec §2) |
