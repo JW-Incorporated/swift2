@@ -62,3 +62,11 @@ describe('app storage after the DOM shim (the Android DOM has no storage, G3)', 
     expect(src).toContain('`unhandledrejection: ${String(e.reason)}`');
   });
 });
+
+describe('persistent storage boot order', () => {
+  it('loads the native blob before the reader is set', () => {
+    const load = src.indexOf('loadStorageSeed(');
+    expect(load).toBeGreaterThan(-1);
+    expect(load).toBeLessThan(src.indexOf('setReader(() => reader)'));
+  });
+});

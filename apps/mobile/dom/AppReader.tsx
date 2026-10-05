@@ -27,6 +27,7 @@ import { snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
+import { loadStorageSeed } from './reader/storage-sync';
 import { setImageLoadListener } from './reader/image-listener';
 
 export interface AppReaderProps {
@@ -107,6 +108,11 @@ export default function AppReader(props: AppReaderProps) {
   const client = props.bridge ? bridgeClient : NO_BRIDGE;
   const clientRef = useRef(client);
   clientRef.current = client;
+  const clientWaiters = useRef<((c: ReaderClient) => void)[]>([]);
+  useEffect(() => {
+    if (!client) return;
+    for (const w of clientWaiters.current.splice(0)) w(client);
+  }, [client]);
   // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
   const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
   const navigateDeps = useRef<NavigateDeps>({
@@ -222,7 +228,10 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.version = version;
         snapRef.current = { core, extensions };
         fill(core);
-        const reader = loadReader(core, extensions);
+        // The persisted `local` blob must be in the adapter's Map before the reader's first read (never a re-rendering prop).
+        const live = clientRef.current ?? (await new Promise<ReaderClient>((res) => void clientWaiters.current.push(res)));
+        const seed = await loadStorageSeed(live, (d) => live.sendDiag('storage-sync', d));
+        const reader = loadReader(core, extensions, seed);
         setReader(() => reader);
         void checkMarkers(version, probe);
       } catch (e) {

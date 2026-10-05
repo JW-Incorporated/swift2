@@ -10,7 +10,7 @@
 // ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
@@ -39,6 +39,7 @@ import { resolveDestination } from '../lib/destination-resolver';
 import { useSpeedOn } from '../lib/use-speed-on';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { createFileHostStorage } from '../lib/host-storage-file';
 import { shareCardPorts } from '../lib/share-card-ports';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import type { LastGoodSource } from '../lib/dom-reader-config';
@@ -51,6 +52,9 @@ const SITE_FALLBACK = 'https://www.longlivets.com';
 interface ReaderSource {
   cache: LastGoodSource | null;
 }
+
+// One per process: every epoch's bridge host shares the cached blob.
+const hostStorage = createFileHostStorage();
 
 export function SharedUiHost({
   onSignal,
@@ -142,6 +146,7 @@ export function SharedUiHost({
       cards: shareCardPorts,
       clipboard: Clipboard,
       haptics: Haptics,
+      hostStorage,
       platformOS: Platform.OS,
       log: onSignal,
       siteUrl: navRef.current.siteUrl,
@@ -232,15 +237,33 @@ export function SharedUiHost({
 
   // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
   // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
-  const dom = {
-    contentInsetAdjustmentBehavior: 'never' as const,
-    automaticallyAdjustContentInsets: false,
-    bounces: false,
-    style: { backgroundColor: eraColors.bg },
-    containerStyle: { backgroundColor: eraColors.bg },
-    onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
-    onRenderProcessGone: handlers.onRenderProcessGone,
-  };
+  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  const dom = useMemo(
+    () => ({
+      contentInsetAdjustmentBehavior: 'never' as const,
+      automaticallyAdjustContentInsets: false,
+      bounces: false,
+      style: { backgroundColor: eraColors.bg },
+      containerStyle: { backgroundColor: eraColors.bg },
+      onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
+      onRenderProcessGone: handlers.onRenderProcessGone,
+    }),
+    [handlers],
+  );
+  const domReadyRef = useRef(domReady);
+  domReadyRef.current = domReady;
+  const onReadyReal = useMemo(
+    () => async (token: string) => {
+      await handlers.onReady(token);
+      nativeMs.current = Date.now() - launchedAt.current;
+      if (probe.raw()) probe.publish(probe.raw()!);
+      domReadyRef.current();
+      session?.binder.firstPaint();
+      adoption.readerReady();
+    },
+    [handlers, session, probe, adoption],
+  );
+  const onReadyNoop = useCallback(async () => {}, []);
 
   return (
     <View style={testPage ? styles.test : styles.fill}>
@@ -262,18 +285,7 @@ export function SharedUiHost({
           bridge={handlers.bridge}
           bridgeHello={handlers.bridgeHello}
           reportProtocolFatal={handlers.reportProtocolFatal}
-          onReady={
-            forceFailure === 'off'
-              ? async (token: string) => {
-                  await handlers.onReady(token);
-                  nativeMs.current = Date.now() - launchedAt.current;
-                  if (probe.raw()) probe.publish(probe.raw()!);
-                  domReady();
-                  session.binder.firstPaint();
-                  adoption.readerReady();
-                }
-              : async () => {}
-          }
+          onReady={forceFailure === 'off' ? onReadyReal : onReadyNoop}
           reportError={handlers.reportError}
           reportProbe={handlers.reportProbe}
           speedTestOn={speedOn}

@@ -118,7 +118,7 @@ describe('SharedUiHost startup path', () => {
     const host = readFileSync(new URL('../components/SharedUiHost.tsx', import.meta.url), 'utf8');
     const hook = readFileSync(new URL('./use-deferred-bundle-refresh.ts', import.meta.url), 'utf8');
     expect(host).not.toMatch(/loadContentBundle/);
-    expect(host).toContain('domReady();');
+    expect(host).toMatch(/domReady(Ref\.current)?\(\)/);
     expect(hook).not.toContain('loadContentBundle()');
     expect(hook).toContain('load: loadContentBundle');
   });
