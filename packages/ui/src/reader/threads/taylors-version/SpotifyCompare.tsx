@@ -48,6 +48,7 @@ function SpotifyEmbed({ id, title }: { id: string; title: string }) {
           onLoad={onLoad}
           onError={onError}
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
           style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
         />
         <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
