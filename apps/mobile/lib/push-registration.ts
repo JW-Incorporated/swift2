@@ -15,7 +15,7 @@ import type { DevicePlatform, DeviceRegistrationInput } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
 import { registerNotificationChannels } from './notification-channels';
-import { enqueueRegistration } from './registration-queue';
+import { enqueueRegistration, type RegistrationWrite } from './registration-queue';
 
 /**
  * Token-free registration flag, stored as the INVERSE ("explicitly unregistered", set by the in-app turn-off) so
@@ -24,8 +24,25 @@ import { enqueueRegistration } from './registration-queue';
 const REQUEST_TIMEOUT_MS = 10_000;
 export const UNREGISTERED_KEY = 'longlive_push_unregistered';
 
+/** Set when the in-app turn-off could not reach the server; cleared once a null-token write lands or a later opt-in supersedes it. */
+export const OPTOUT_PENDING_KEY = 'longlive_push_optout_pending';
+
+export async function isOptOutPending(): Promise<boolean> {
+  return (await SecureStore.getItemAsync(OPTOUT_PENDING_KEY)) === '1';
+}
+
+async function sendAndSettle(write: RegistrationWrite): Promise<void> {
+  await registerWithBackend(write);
+  if (write.pushToken === null && (await isOptOutPending())) {
+    // The server now agrees; make the local opt-out permanent before dropping the retry marker.
+    await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
+    await SecureStore.deleteItemAsync(OPTOUT_PENDING_KEY);
+  }
+}
+
 export async function isExplicitlyUnregistered(): Promise<boolean> {
-  return (await SecureStore.getItemAsync(UNREGISTERED_KEY)) === '1';
+  // A pending turn-off counts too: the retry marker alone must already suppress token registration.
+  return (await SecureStore.getItemAsync(UNREGISTERED_KEY)) === '1' || (await isOptOutPending());
 }
 
 function currentPlatform(): DevicePlatform {
@@ -73,7 +90,7 @@ export function registerDevice(): Promise<{ status: 'registered_no_token'; devic
     if (!isCurrent()) return { write: null, result };
     if (pushToken && (await isExplicitlyUnregistered())) pushToken = null;
     return { write: { deviceId, platform: currentPlatform(), pushToken }, result };
-  }, registerWithBackend, { supersede: false });
+  }, sendAndSettle, { supersede: false });
 }
 
 /**
@@ -84,9 +101,23 @@ export function clearRegisteredToken(): Promise<void> {
   return enqueueRegistration(async (isCurrent) => {
     const deviceId = await getOrCreateDeviceId();
     if (!isCurrent()) return { write: null, result: undefined };
+    // Retry marker FIRST: if it cannot be written the opt-out is not durable and this throws before anything changes.
+    await SecureStore.setItemAsync(OPTOUT_PENDING_KEY, '1');
     await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
     return { write: { deviceId, platform: currentPlatform(), pushToken: null }, result: undefined };
-  }, registerWithBackend, { supersede: true });
+  }, sendAndSettle, { supersede: true });
+}
+
+/**
+ * Retries a turn-off whose server write failed (launch / foreground). Idempotent: the cold refresh writes the null
+ * token for an opted-out device and settles the flag; a no-op when nothing is pending. Never throws.
+ */
+export async function flushPendingOptOut(): Promise<void> {
+  try {
+    if (await isOptOutPending()) await registerDevice();
+  } catch (e) {
+    console.warn('flushPendingOptOut: still offline, will retry', e);
+  }
 }
 
 /**
@@ -118,7 +149,10 @@ export async function requestPushRegistration(opts: { clearOptOut?: boolean } = 
     const platform = currentPlatform();
     const finish = async (result: PushRegistrationResult, pushToken: string | null) => {
       if (!isCurrent()) return { write: null, result }; // superseded by a newer user intent
-      if (opts.clearOptOut) await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
+      if (opts.clearOptOut) {
+        await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
+        await SecureStore.deleteItemAsync(OPTOUT_PENDING_KEY);
+      }
       return { write: { deviceId, platform, pushToken }, result };
     };
 

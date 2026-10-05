@@ -185,7 +185,7 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     route(path: string, isBusy = false, isEngaged = false, latest: ReaderSnap | null = null) {
       route = path;
       snap = latest;
-      if (restoreSnap !== null && (isBusy || isEngaged)) userNav = true;
+      if (!restoring && restoreSnap !== null && (isBusy || isEngaged)) userNav = true;
       // During the restore navigation: busy, or engaged on any path but the restore target (that report is the restore itself), is a user action.
       if (restoring && (isBusy || (isEngaged && path !== restorePath))) userNav = true;
       busy = isBusy;

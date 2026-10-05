@@ -6,6 +6,7 @@ const state = vi.hoisted(() => ({
   store: new Map<string, string>(),
   tokenFails: false,
   deviceId: 'dev-1',
+  failWrite: null as string | null,
 }));
 const requestPermissionsAsync = vi.hoisted(() => vi.fn());
 const getExpoPushTokenAsync = vi.hoisted(() => vi.fn());
@@ -24,14 +25,17 @@ vi.mock('expo-notifications', () => ({
 }));
 vi.mock('expo-secure-store', () => ({
   getItemAsync: async (k: string) => state.store.get(k) ?? null,
-  setItemAsync: async (k: string, v: string) => void state.store.set(k, v),
+  setItemAsync: async (k: string, v: string) => {
+    if (k === state.failWrite) throw new Error('storage full');
+    state.store.set(k, v);
+  },
   deleteItemAsync: async (k: string) => void state.store.delete(k),
 }));
 vi.mock('./device-id', () => ({ getOrCreateDeviceId: async () => state.deviceId }));
 vi.mock('./notification-channels', () => ({ registerNotificationChannels: async () => undefined }));
 vi.mock('./api-base', () => ({ apiBaseUrl: () => 'https://api.test' }));
 
-import { REGISTER_SEQ_KEY, UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice, requestPushRegistration } from './push-registration';
+import { OPTOUT_PENDING_KEY, REGISTER_SEQ_KEY, UNREGISTERED_KEY, clearRegisteredToken, flushPendingOptOut, isExplicitlyUnregistered, isOptOutPending, registerDevice, requestPushRegistration } from './push-registration';
 
 const bodies: { pushToken: string | null; seq?: number }[] = [];
 
@@ -40,6 +44,7 @@ beforeEach(() => {
   state.permission = 'granted';
   state.store.clear();
   state.deviceId = 'dev-1';
+  state.failWrite = null;
   bodies.length = 0;
   requestPermissionsAsync.mockReset();
   getExpoPushTokenAsync.mockReset().mockResolvedValue({ data: 'tok' });
@@ -163,5 +168,80 @@ describe('write ordering sequence', () => {
     await registerDevice();
     expect(bodies.map((b) => b.seq)).toEqual([1, 2, 1]);
     expect(state.store.get(REGISTER_SEQ_KEY)).toBe('dev-2:1');
+  });
+});
+
+describe('pending opt-out (server write failed offline)', () => {
+  const offline = () =>
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new Error('offline');
+      }),
+    );
+  const online = () =>
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (_u: string, init: { body: string }) => (bodies.push(JSON.parse(init.body)), { ok: true, status: 200 })),
+    );
+
+  it('offline opt-out keeps the local flag and sets the pending flag', async () => {
+    offline();
+    await expect(clearRegisteredToken()).rejects.toThrow();
+    expect(await isExplicitlyUnregistered()).toBe(true);
+    expect(await isOptOutPending()).toBe(true);
+  });
+
+  it('next foreground online sends the null-token write once and clears the flag', async () => {
+    offline();
+    await clearRegisteredToken().catch(() => undefined);
+    online();
+    await flushPendingOptOut();
+    await flushPendingOptOut();
+    expect(bodies.map((b) => b.pushToken)).toEqual([null]);
+    expect(await isOptOutPending()).toBe(false);
+  });
+
+  it('a flush that is still offline keeps the flag for the next try', async () => {
+    offline();
+    await clearRegisteredToken().catch(() => undefined);
+    await flushPendingOptOut();
+    expect(await isOptOutPending()).toBe(true);
+  });
+
+  it('a later opt-in clears the flag without sending a null token', async () => {
+    offline();
+    await clearRegisteredToken().catch(() => undefined);
+    online();
+    await requestPushRegistration({ clearOptOut: true });
+    await flushPendingOptOut();
+    expect(await isOptOutPending()).toBe(false);
+    expect(bodies.map((b) => b.pushToken)).toEqual(['tok']);
+  });
+
+  it('a successful opt-out leaves no pending flag', async () => {
+    await clearRegisteredToken();
+    expect(await isOptOutPending()).toBe(false);
+  });
+
+  it('a storage failure writing the retry marker is not a durable opt-out: nothing changes', async () => {
+    state.failWrite = OPTOUT_PENDING_KEY;
+    await expect(clearRegisteredToken()).rejects.toThrow();
+    expect(await isOptOutPending()).toBe(false);
+    expect(await isExplicitlyUnregistered()).toBe(false);
+    expect(bodies).toEqual([]);
+  });
+
+  it('the marker alone suppresses registration if the opt-out flag write fails, and the retry makes it permanent', async () => {
+    state.failWrite = UNREGISTERED_KEY;
+    await expect(clearRegisteredToken()).rejects.toThrow();
+    expect(await isOptOutPending()).toBe(true);
+    expect(await isExplicitlyUnregistered()).toBe(true);
+    state.failWrite = null;
+    await registerDevice();
+    expect(bodies.map((b) => b.pushToken)).toEqual([null]);
+    expect(getExpoPushTokenAsync).not.toHaveBeenCalled();
+    expect(state.store.get(UNREGISTERED_KEY)).toBe('1');
+    expect(await isOptOutPending()).toBe(false);
   });
 });

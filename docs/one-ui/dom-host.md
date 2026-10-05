@@ -130,7 +130,7 @@ and a flipped default cannot be killed remotely.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
 - **Pending, not on main:** #5042 (default sharedUi on, Android first via `sharedUiIos`; removes the Force-shared-UI override and bounds the attempt write at 3000 ms), #5043 (Recovery screen replaces the native fallback), #5047 (deletes the legacy native UI). They change the precedence, fallback surface and kill-switch text above; this section describes main.
-- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `lib/watchdog-closure.test.ts` drives the real
+- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `App.watchdog.test.tsx` renders the real App (native modules, the DOM component and the screens stubbed) over the real
   monitor, tap gate, binder, bridge host/link/handlers and native-route presenter. (1) Protocol fatal from the
   host (version too new) and from the DOM client strikes `protocol`, before and after first paint. (2) A
   strike resets any open native overlay (hardware back stops being consumed) and releases the host lease first.
