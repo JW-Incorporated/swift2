@@ -4,6 +4,7 @@
 // carries only model, OS, build, update id and timings — never a device id,
 // push token or personal data.
 import { setLoadTimingSink, type LoadTimingEvent } from '@swift2/content';
+import { markFirstPaint } from './launch-defer';
 
 export interface DiagMark {
   stage: string;
@@ -262,6 +263,7 @@ export function diagMarkOnce(stage: string, detail?: string): void {
   if (!installed || markedOnce.has(stage)) return;
   markedOnce.add(stage);
   diagCollector.mark(stage, detail);
+  if (stage === 'first-era-paint') markFirstPaint();
   if (stage === 'first-era-paint' || stage === 'resume-paint') paintListener?.(stage, detail);
 }
 

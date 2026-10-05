@@ -46,6 +46,7 @@ describe('createAppHandlers', () => {
       [
         'api',
         'apiRead',
+        'clipboard.write',
         'haptic',
         'navigate',
         'notifications.register',
@@ -60,6 +61,8 @@ describe('createAppHandlers', () => {
         'notifications.markOnboardingOffered',
         'openExternal',
         'share',
+        'storage.load',
+        'storage.write',
       ].sort(),
     );
   });

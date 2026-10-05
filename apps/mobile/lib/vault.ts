@@ -17,11 +17,9 @@ import {
 import { loadContentBundle } from './content-bundle';
 
 /**
- * Loads the current published bundle. Always calls `loadBundle`, never short-circuits on an in-memory cache: the
- * loader itself re-checks `current.json` and revalidates the manifest by ETag every call, so a fresh publish is
- * picked up immediately (a stale in-memory copy here would otherwise let `loadMoment`/`loadTrackGuide` keep serving
- * an old bundle version indefinitely after `loadSkeleton()` last ran, even once a newer one is live) — a 304 makes
- * the "already have this version" case just as cheap as an in-memory read would have been.
+ * Loads the current published bundle via `loadContentBundle`, which keeps the settled bundle in memory for the
+ * process lifetime and revalidates only the lightweight current.json pointer: a newer published version replaces
+ * the memo, an unchanged one costs no file read or parse.
  */
 async function ensureBundle() {
   return loadContentBundle();

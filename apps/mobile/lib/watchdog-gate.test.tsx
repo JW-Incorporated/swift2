@@ -28,6 +28,8 @@ vi.mock('./diagnostics-override', () => ({
   getForceDomFailure: async () => 'off',
   setForceSharedUi: async () => undefined,
 }));
+vi.mock('./dom-reader-config', () => ({ lastGoodSource: () => ({ scriptUri: 'x', jsonUri: 'y' }) }));
+vi.mock('./content-bundle', () => ({ loadContentBundle: async () => ({}) }));
 vi.mock('./diagnostics-send', () => ({ sendDiagReport: async () => ({ ok: true }) }));
 vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark, elapsed: () => 0 }, setMountInfo: () => undefined }));
 

@@ -90,6 +90,19 @@ export function createAttemptMonitor(opts: AttemptMonitorOptions) {
       if (activeNow) startTimer();
       return 'reload';
     },
+    /**
+     * A PLANNED webview reload (content adoption re-keys the DOM): the new reader must reach ready like a launch, so
+     * the ready timeout re-arms and a DOM error before ready strikes. Unlike a crash it is not counted toward
+     * RELOAD_WINDOW_MS, so a planned reload followed by a genuine crash is the first crash, not a repeat.
+     */
+    plannedReload(): boolean {
+      if (struck) return false;
+      readySeen = false;
+      remaining = total;
+      stopTimer();
+      if (activeNow) startTimer();
+      return true;
+    },
     protocolFatal() {
       strike('protocol-fatal');
     },
