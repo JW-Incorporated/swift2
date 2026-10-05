@@ -80,7 +80,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     <Modal visible animationType="slide" onRequestClose={onClose}>
       <View style={styles.fill}>
         <View style={styles.header}>
-          <Text style={styles.title}>Diagnostics</Text>
+          <Text style={styles.title} accessibilityRole="header">Diagnostics</Text>
           <Pressable onPress={onClose} accessibilityLabel="Close diagnostics" hitSlop={12}>
             <Text style={styles.close}>Done</Text>
           </Pressable>

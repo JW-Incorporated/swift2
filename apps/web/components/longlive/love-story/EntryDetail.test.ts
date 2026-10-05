@@ -36,8 +36,8 @@ describe('EntryDetail song chips (#1856)', () => {
     expect(fallbackBranch).toContain('<span');
   });
 
-  it('leaves Escape to the song overlay before collapsing the underlying chapter', () => {
-    expect(source).toContain("e.key === 'Escape' && !trackGuideEraId");
+  it('leaves Escape to the single dispatcher (top of the back stack: song overlay before the chapter)', () => {
+    expect(source).not.toContain("'Escape'");
   });
 });
 

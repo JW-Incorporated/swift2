@@ -5,6 +5,8 @@ import { getEra } from '@swift2/experience';
 import { AppProvider, useAppState } from '../store';
 import type { AppMode } from '../store/navigation';
 import { useHost, type ThemeChange } from '../../host';
+import { useReportEngaged } from '../lib/useReportEngaged';
+import { useReportSnapshot } from '../lib/useReportSnapshot';
 import { eraStyle, vaultStyle, merchStyle, statusBarStyleFor, VAULT_THEME, MERCH_THEME } from '../lib/theme';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
@@ -31,8 +33,10 @@ function ThemeEmitter({ color, emit }: { color: string; emit: (t: ThemeChange) =
 }
 
 export function ReaderShell({ slots }: { slots: ReaderSlots }) {
-  const { mode, eraId } = useAppState();
+  const { mode, eraId, restoreSeq } = useAppState();
   const themeHost = useHost().theme;
+  useReportEngaged();
+  useReportSnapshot();
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
   const inMerch = mode === 'merch';
@@ -62,7 +66,7 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
     >
       {themeHost ? <ThemeEmitter color={themeColor} emit={themeHost} /> : null}
       <TopBar />
-      <main>{Surface ? <Surface /> : <Fallback mode={mode} />}</main>
+      <main>{Surface ? <Surface key={restoreSeq} /> : <Fallback mode={mode} />}</main>
       {Footer ? <Footer /> : null}
       {/* Clearance for the fixed BottomNav. It cannot push content itself, so
           without this the last card of every surface — and the footer — sit

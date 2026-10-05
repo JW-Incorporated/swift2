@@ -1,5 +1,5 @@
 // DOM -> native `evt` dispatch for the bridge host (split from bridge-host.ts). Pure: the host injects its hooks.
-import type { Envelope, ThemeChange } from '@swift2/ui';
+import type { Envelope, ReaderSnap, ThemeChange } from '@swift2/ui';
 import { isRecord, validRoute, validTheme } from './bridge-host-validate';
 
 export type DomEventHooks = {
@@ -9,7 +9,7 @@ export type DomEventHooks = {
   onNavReady?: () => void;
   onNavigated?: (e: { id: string; ok: boolean }) => void;
   onTheme?: (theme: ThemeChange) => void;
-  onRoute?: (path: string, busy: boolean) => void;
+  onRoute?: (path: string, busy: boolean, engaged: boolean, snap: ReaderSnap | null) => void;
 };
 
 /** Handles every non-`ready` DOM event. Events carry no reply: nothing here ever sends. */
@@ -27,7 +27,7 @@ export function handleDomEvent(env: Envelope, h: DomEventHooks): void {
   }
   if (env.type === 'route') {
     const route = validRoute(p);
-    if (route) h.onRoute?.(route.path, route.busy);
+    if (route) h.onRoute?.(route.path, route.busy, route.engaged, route.snap);
     else h.onSignal('bridge-invalid', 'route payload');
     return;
   }
