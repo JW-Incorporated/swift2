@@ -5,6 +5,7 @@ import { Music, Play } from 'lucide-react';
 import type { ReRecord } from '@swift2/experience';
 import { useHost } from '../../../host/context';
 import { spotifyEmbedSrc } from '../../lib/spotify-embed';
+import { EmbedNotice, useEmbedGate } from '../../lib/use-embed-gate';
 
 type SpotifyRefs = ReRecord['spotify'];
 type Side = 'original' | 'taylorsVersion';
@@ -26,50 +27,68 @@ const EMBED_HEIGHT = 352;
  * embeds in the viewport together.
  */
 function SpotifyEmbed({ id, title }: { id: string; title: string }) {
-  const [playing, setPlaying] = useState(false);
   const { embedOrigin } = useHost();
+  const { playing, notice, stalled, reloadKey, iframeRef, play, reload, onLoad, onError } =
+    useEmbedGate(false, embedOrigin);
 
   if (playing) {
     return (
-      <iframe
-        title={title}
-        // No `autoplay` param: EraMedia's facade doesn't use one either, and
-        // Spotify's widget ignores it for anonymous listeners anyway. The click
-        // mounts the player; the player's own control starts it.
-        src={spotifyEmbedSrc('album', id, embedOrigin)}
-        width="100%"
-        height={EMBED_HEIGHT}
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
-      />
+      <>
+        <iframe
+          key={reloadKey}
+          ref={iframeRef}
+          title={title}
+          // No `autoplay` param: EraMedia's facade doesn't use one either, and
+          // Spotify's widget ignores it for anonymous listeners anyway. The click
+          // mounts the player; the player's own control starts it.
+          src={spotifyEmbedSrc('album', id, embedOrigin)}
+          width="100%"
+          height={EMBED_HEIGHT}
+          loading="lazy"
+          onLoad={onLoad}
+          onError={onError}
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
+        />
+        <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
+      </>
     );
   }
 
   return (
-    <button
-      type="button"
-      onClick={() => setPlaying(true)}
-      // The visible label ("Play on Spotify") must be a prefix of the
-      // accessible name — WCAG 2.5.3 Label in Name, same as EraMedia (#702).
-      aria-label={`Play on Spotify: ${title}`}
-      className="group flex w-full flex-col items-center justify-center gap-3 rounded-lg px-4 text-center transition hover:brightness-110"
-      style={{
-        height: EMBED_HEIGHT,
-        border: '1px solid var(--era-line)',
-        backgroundColor: 'var(--era-surface-2)',
-      }}
-    >
-      <span
-        className="flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110"
-        style={{ backgroundColor: 'var(--era-accent)' }}
+    <>
+      <button
+        type="button"
+        onClick={play}
+        // The visible label ("Play on Spotify") must be a prefix of the
+        // accessible name — WCAG 2.5.3 Label in Name, same as EraMedia (#702).
+        aria-label={`Play on Spotify: ${title}`}
+        className="group flex w-full flex-col items-center justify-center gap-3 rounded-lg px-4 text-center transition hover:brightness-110"
+        style={{
+          height: EMBED_HEIGHT,
+          border: '1px solid var(--era-line)',
+          backgroundColor: 'var(--era-surface-2)',
+        }}
       >
-        <Play className="h-6 w-6 translate-x-px" style={{ color: 'var(--era-bg)' }} fill="currentColor" />
-      </span>
-      <span className="text-[11px] uppercase tracking-[0.2em]" style={{ color: 'var(--era-ink-soft)' }}>
-        Play on Spotify
-      </span>
-    </button>
+        <span
+          className="flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110"
+          style={{ backgroundColor: 'var(--era-accent)' }}
+        >
+          <Play
+            className="h-6 w-6 translate-x-px"
+            style={{ color: 'var(--era-bg)' }}
+            fill="currentColor"
+          />
+        </span>
+        <span
+          className="text-[11px] uppercase tracking-[0.2em]"
+          style={{ color: 'var(--era-ink-soft)' }}
+        >
+          Play on Spotify
+        </span>
+      </button>
+      <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
+    </>
   );
 }
 
@@ -101,15 +120,30 @@ function SidePanel({
 }
 
 /** Rendered when a side has no available album to link. */
-function MissingPanel({ label, accent, message }: { label: string; accent: string; message: string }) {
+function MissingPanel({
+  label,
+  accent,
+  message,
+}: {
+  label: string;
+  accent: string;
+  message: string;
+}) {
   return (
     <SidePanel label={label} sublabel="" accent={accent}>
       <div
         className="flex flex-col items-center justify-center gap-2 rounded-lg px-4 py-8 text-center"
-        style={{ height: 352, border: '1px dashed var(--era-line)', backgroundColor: 'var(--era-surface-2)' }}
+        style={{
+          height: 352,
+          border: '1px dashed var(--era-line)',
+          backgroundColor: 'var(--era-surface-2)',
+        }}
       >
         <Music size={20} style={{ color: 'var(--era-ink-soft)', opacity: 0.5 }} />
-        <p className="max-w-[16rem] text-sm leading-relaxed" style={{ color: 'var(--era-ink-soft)' }}>
+        <p
+          className="max-w-[16rem] text-sm leading-relaxed"
+          style={{ color: 'var(--era-ink-soft)' }}
+        >
           {message}
         </p>
       </div>
@@ -135,7 +169,9 @@ export function SpotifyCompare({
   isPending: boolean;
 }) {
   const { original, taylorsVersion } = spotify;
-  const [mobileSide, setMobileSide] = useState<Side>(taylorsVersion ? 'taylorsVersion' : 'original');
+  const [mobileSide, setMobileSide] = useState<Side>(
+    taylorsVersion ? 'taylorsVersion' : 'original',
+  );
 
   if (!original && !taylorsVersion) return null;
 
@@ -143,7 +179,8 @@ export function SpotifyCompare({
   const originalMissingMsg = isPending
     ? "No Taylor's Version to compare against yet."
     : `The original ${albumName} master isn't the release Taylor points fans to — she encourages streaming Taylor's Version instead.`;
-  const tvMissingMsg = "Taylor's Version hasn't been released yet. When it lands, it will appear here for side-by-side listening.";
+  const tvMissingMsg =
+    "Taylor's Version hasn't been released yet. When it lands, it will appear here for side-by-side listening.";
 
   return (
     <div>
@@ -163,12 +200,14 @@ export function SpotifyCompare({
             role="group"
             aria-label="Choose which version to play"
           >
-            {(
-              [
-                { key: 'original' as Side, label: 'Original', accent: 'var(--status-disputed-ink)' },
-                { key: 'taylorsVersion' as Side, label: "Taylor's Version", accent: 'var(--status-reclaimed-ink)' },
-              ]
-            ).map((opt) => (
+            {[
+              { key: 'original' as Side, label: 'Original', accent: 'var(--status-disputed-ink)' },
+              {
+                key: 'taylorsVersion' as Side,
+                label: "Taylor's Version",
+                accent: 'var(--status-reclaimed-ink)',
+              },
+            ].map((opt) => (
               <button
                 key={opt.key}
                 onClick={() => setMobileSide(opt.key)}
@@ -176,7 +215,8 @@ export function SpotifyCompare({
                 style={{
                   backgroundColor: mobileSide === opt.key ? 'var(--era-surface-2)' : 'transparent',
                   color: mobileSide === opt.key ? opt.accent : 'var(--era-ink-soft)',
-                  border: mobileSide === opt.key ? '1px solid var(--era-line)' : '1px solid transparent',
+                  border:
+                    mobileSide === opt.key ? '1px solid var(--era-line)' : '1px solid transparent',
                 }}
                 aria-pressed={mobileSide === opt.key}
               >
@@ -188,7 +228,10 @@ export function SpotifyCompare({
             <SpotifyEmbed id={original} title={`${albumName} — original master on Spotify`} />
           )}
           {mobileSide === 'taylorsVersion' && taylorsVersion && (
-            <SpotifyEmbed id={taylorsVersion} title={`${albumName} (Taylor's Version) on Spotify`} />
+            <SpotifyEmbed
+              id={taylorsVersion}
+              title={`${albumName} (Taylor's Version) on Spotify`}
+            />
           )}
         </div>
       )}
@@ -196,19 +239,38 @@ export function SpotifyCompare({
       {/* Desktop: both side by side (or whichever single one exists) */}
       <div className={bothAvailable ? 'hidden gap-4 md:flex' : 'flex flex-col gap-4 sm:flex-row'}>
         {original ? (
-          <SidePanel label="Original master" sublabel="Original recording" accent="var(--status-disputed-ink)">
+          <SidePanel
+            label="Original master"
+            sublabel="Original recording"
+            accent="var(--status-disputed-ink)"
+          >
             <SpotifyEmbed id={original} title={`${albumName} — original master on Spotify`} />
           </SidePanel>
         ) : (
-          <MissingPanel label="Original master" accent="var(--status-disputed-ink)" message={originalMissingMsg} />
+          <MissingPanel
+            label="Original master"
+            accent="var(--status-disputed-ink)"
+            message={originalMissingMsg}
+          />
         )}
 
         {taylorsVersion ? (
-          <SidePanel label="Taylor's Version" sublabel="Re-recorded · hers" accent="var(--status-reclaimed-ink)">
-            <SpotifyEmbed id={taylorsVersion} title={`${albumName} (Taylor's Version) on Spotify`} />
+          <SidePanel
+            label="Taylor's Version"
+            sublabel="Re-recorded · hers"
+            accent="var(--status-reclaimed-ink)"
+          >
+            <SpotifyEmbed
+              id={taylorsVersion}
+              title={`${albumName} (Taylor's Version) on Spotify`}
+            />
           </SidePanel>
         ) : (
-          <MissingPanel label="Taylor's Version" accent="var(--status-reclaimed-ink)" message={tvMissingMsg} />
+          <MissingPanel
+            label="Taylor's Version"
+            accent="var(--status-reclaimed-ink)"
+            message={tvMissingMsg}
+          />
         )}
       </div>
     </div>
