@@ -101,3 +101,21 @@ describe('InboxPage status', () => {
     expect(getByRole('status')).toBe(status);
   });
 });
+
+describe('embed play focus', () => {
+  it('moves focus to the titled iframe after Play', async () => {
+    const { MomentVideo } = await import('./era/MomentVideo');
+    const adapter = { Image: () => null } as unknown as HostAdapter;
+    const { getByRole, container } = render(
+      <HostProvider adapter={adapter}>
+        <MomentVideo video={{ youtubeId: 'abc123', title: 'A video' } as never} />
+      </HostProvider>,
+    );
+    const play = getByRole('button');
+    play.focus();
+    fireEvent.click(play);
+    const frame = container.querySelector('iframe')!;
+    expect(frame.getAttribute('title')).toBe('A video');
+    expect(document.activeElement).toBe(frame);
+  });
+});
