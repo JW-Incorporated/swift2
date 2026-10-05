@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useResolveUrl } from '../../host/context';
 import type { ImageRef } from '@swift2/experience';
 import { useFocusTrap } from './lib/useFocusTrap';
+import { useBackDismiss } from '../lib/useBackDismiss';
 import { isPointerOutsideContainedImage } from './lib/contain-fit';
 import { ZoomableImage } from './ZoomableImage';
 import { isRemoteUrl } from './momentShared';
@@ -37,6 +38,7 @@ export function MomentLightbox({
   // between openLightbox() and onClose(), so mount/unmount already is the
   // open/close lifecycle (mirrors the Escape effect below).
   useFocusTrap(true, dialogRef);
+  useBackDismiss(true, onClose);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();

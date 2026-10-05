@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ONBOARDING_PRESETS, type OnboardingPresetId } from '@swift2/shared';
 import { useHost } from '@swift2/ui';
+import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { onboardingOverlay, useOnboardingPhase } from './onboarding-store';
 import { NEUTRAL } from './settings-page';
@@ -24,6 +25,8 @@ export function OnboardingOverlay() {
   const root = useRef<HTMLDivElement>(null);
   const capable = !!notifications?.onboardingOffered && !!notifications.markOnboardingOffered;
   useFocusTrap(phase === 'shown', root);
+  // Back while a CTA is in flight is swallowed by the bridge's busy guard before the stack is consulted.
+  useBackDismiss(phase === 'shown' && !!notifications, () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done')));
 
   useEffect(() => {
     if (!settingsOpen || phase !== 'idle' || !notifications || !capable) return;
