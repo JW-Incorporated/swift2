@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
-import { inboxOverlay, useInboxOpen } from '../slots/inbox-store';
-import { onboardingOverlay, useOnboardingPhase } from '../slots/onboarding-store';
-import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
+import { inboxOverlay } from '../slots/inbox-store';
+import { onboardingOverlay } from '../slots/onboarding-store';
+import { settingsOverlay } from '../slots/settings-store';
 import { dismissTopOverlayFromNativeBack } from '@swift2/ui/reader/lib/useBackDismiss';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
@@ -18,27 +18,13 @@ export function ReaderBridge() {
   const { mode, openItemId } = useAppState();
   const actions = useAppActions();
   const q = useReader();
-  // The settings overlay sits above everything: back closes it before any open item.
-  const settingsOpen = useSettingsOpen();
-  const inboxOpen = useInboxOpen();
-  // The push offer (when showing) is the top entry: back dismisses it before the inbox/Settings.
-  const offerShown = useOnboardingPhase() === 'shown';
+  // One ordered stack (useBackDismiss): settings, inbox, the push offer and every reader overlay register in open
+  // order, so Back closes whichever opened last; only then does the open item (or exit) answer.
   useBackRegistration(
     // While an offer CTA is in flight every Back is handled outright (never exits mid-save, outside the one-close-per-key guard).
-    (fn) =>
-      controls.registerBack(
-        fn &&
-          (() => {
-            if (onboardingOverlay.isBusy()) return 'handled';
-            // An open useBackDismiss overlay (search, pickers, guides, feedback...) is the top layer unless the offer is showing.
-            if (onboardingOverlay.phase() !== 'shown' && dismissTopOverlayFromNativeBack()) return 'handled';
-            return fn();
-          }),
-      ),
-    offerShown ? 'onboarding' : inboxOpen ? 'inbox' : settingsOpen ? 'settings' : openItemId,
-    offerShown
-      ? () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done'))
-      : inboxOpen ? inboxOverlay.close : settingsOpen ? settingsOverlay.close : actions.closeItem,
+    (fn) => controls.registerBack(fn && (() => (onboardingOverlay.isBusy() || dismissTopOverlayFromNativeBack() ? 'handled' : fn()))),
+    openItemId,
+    actions.closeItem,
   );
 
   useEffect(() => {

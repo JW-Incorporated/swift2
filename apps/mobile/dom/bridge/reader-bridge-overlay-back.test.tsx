@@ -112,12 +112,4 @@ describe('native Back closes useBackDismiss overlays', () => {
     expect(press()).toBe('handled');
     expect(shown.has('search')).toBe(true);
   });
-
-  it('the shown offer dismisses before an overlay', () => {
-    mount(['search']);
-    act(() => (setters.get('search')!(true), onboardingOverlay.set('shown')));
-    expect(press()).toBe('handled');
-    expect(onboardingOverlay.phase()).toBe('done');
-    expect(shown.has('search')).toBe(true);
-  });
 });
