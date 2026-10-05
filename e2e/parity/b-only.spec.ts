@@ -21,7 +21,7 @@ const pick = (s: Style, keys: readonly string[]): Style => Object.fromEntries(ke
 test('app-only surfaces use the website Settings page tokens', async ({ pages }, testInfo) => {
   await openAOnlyRoute(pages.a, SETTINGS, 'a');
   const aHeading = await styleOf(pages.a, 'main h1', TEXT);
-  const aBody = await styleOf(pages.a, 'main > p', ['fontFamily', 'color']);
+  const aBody = await styleOf(pages.a, 'main section > p', ['fontFamily', 'color']);
   const aPill = await styleOf(pages.a, 'main a[href="/"]', PILL);
   const aBg = await pages.a.evaluate(() => getComputedStyle(document.body).backgroundColor);
 

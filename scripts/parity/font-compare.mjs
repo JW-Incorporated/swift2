@@ -68,8 +68,7 @@ const PAGES = [
     path: '/',
     steps: async (p) => {
       await p
-        .getByRole('tab', { name: 'Merch', exact: true })
-        .or(p.getByRole('button', { name: 'Merch', exact: true }))
+        .getByRole('button', { name: 'Merch', exact: true })
         .first()
         .click();
     },

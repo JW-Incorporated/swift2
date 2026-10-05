@@ -3,7 +3,14 @@ import type {} from '@testing-library/jest-dom/vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
+import { HostProvider } from '@swift2/ui';
+import { createWebAdapter } from '@/lib/host-adapter';
 import { act, render, screen, within } from '@testing-library/react';
+
+const live = vi.hoisted(() => ({ theories: [] as unknown[] }));
+vi.mock('@swift2/ui/reader/lib/use-live-theories', () => ({
+  useLiveTheories: () => ({ theories: live.theories, signals: [] }),
+}));
 
 vi.mock('next/link', () => ({
   default: ({ href, children, ...props }: { href: string; children: React.ReactNode }) =>
@@ -14,10 +21,16 @@ vi.mock('next/link', () => ({
 import { TopBar, ModeToggle } from './TopBar';
 import { ShareFallbackToast } from './ShareFallbackToast';
 import { EraSection } from './EraSection';
+import { CountdownBanner } from './CountdownBanner';
+import { TimelineScrubber } from './TimelineScrubber';
+import { InboxPage } from '@swift2/ui/reader/settings/InboxPage';
+import { NotificationSettingsPage } from '@swift2/ui/reader/settings/NotificationSettingsPage';
+import { MerchSection } from '@swift2/ui/reader/merch/MerchSection';
 import { scrubberKeyTarget } from '@swift2/ui/reader/shell/TimelineScrubber';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
+import { MERCH_EXTENSIONS } from '@/lib/longlive/merch-extensions';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 
 const reader = (rel: string) =>
@@ -46,8 +59,14 @@ describe('A11Y-6 era button accessible name contains its visible label', () => {
     );
     const era = getEra(CURRENT_ERA_ID);
     const btn = screen.getByRole('button', { name: /open the eras menu/i });
-    expect(btn.getAttribute('aria-label')).toBe(`Era: ${era.name} — open the eras menu`);
-    expect(btn.textContent).toContain(`Era: ${era.name}`);
+    expect(btn).not.toHaveAttribute('aria-label');
+    // Both responsive spans (mobile shortName, desktop name) are in the name
+    // source, each starting with the visible "Era: " text, then the suffix.
+    const mobile = btn.querySelector('span.sm\\:hidden')!;
+    const desktop = btn.querySelector('span.hidden.sm\\:inline')!;
+    expect(mobile.textContent).toBe(`Era: ${era.shortName}`);
+    expect(desktop.textContent).toBe(`Era: ${era.name}`);
+    expect(btn.querySelector('.sr-only')?.textContent).toBe(' — open the eras menu');
   });
 });
 
@@ -74,18 +93,47 @@ describe('A11Y-7 era heading is an h2 labelling its section', () => {
 });
 
 describe('A11Y-8 no nested main landmarks', () => {
-  it.each(['merch/MerchSection.tsx', 'settings/InboxPage.tsx', 'settings/NotificationSettingsPage.tsx'])(
-    '%s renders no <main>',
-    (rel) => {
-      expect(reader(rel)).not.toMatch(/<\/?main\b/);
-    },
-  );
-  it.each(['settings/InboxPage.tsx', 'settings/NotificationSettingsPage.tsx'])(
-    '%s section is labelled by its heading',
-    (rel) => {
-      expect(reader(rel)).toMatch(/<section\s+aria-labelledby="(ll-[a-z-]+)"/);
-    },
-  );
+  it('the notification settings page renders a section labelled by its h1, no main', () => {
+    const { container } = render(
+      <TestHostProvider>
+        <NotificationSettingsPage vapidPublicKey={null} />
+      </TestHostProvider>,
+    );
+    expect(container.querySelector('main')).toBeNull();
+    expect(screen.getByRole('region', { name: 'Notification settings' })).toBeInTheDocument();
+  });
+
+  it('the notification settings route supplies the one main around it', () => {
+    const src = readFileSync(
+      join(__dirname, '../../app/settings/notifications/page.tsx'),
+      'utf8',
+    );
+    expect(src).toMatch(/<main>\s*<NotificationSettingsPage/);
+  });
+
+  it('the inbox page renders a labelled section, no main', () => {
+    const apiFetch = vi.fn().mockResolvedValue({ status: 200, headers: {}, body: JSON.stringify({ events: [] }) });
+    const adapter = { ...createWebAdapter({ push() {}, replace() {} }), apiFetch };
+    const { container } = render(
+      <HostProvider adapter={adapter}>
+        <InboxPage onClose={() => undefined} onOpenItem={() => undefined} />
+      </HostProvider>,
+    );
+    expect(container.querySelector('main')).toBeNull();
+    expect(screen.getByRole('region', { name: 'Inbox' })).toBeInTheDocument();
+  });
+
+  it('the merch section renders no main', () => {
+    const { container } = renderWithReader(
+      <TestHostProvider>
+        <AppProvider>
+          <MerchSection extensions={MERCH_EXTENSIONS} />
+        </AppProvider>
+      </TestHostProvider>,
+    );
+    expect(container.querySelector('main')).toBeNull();
+    expect(container.firstElementChild).not.toBeNull();
+  });
 });
 
 describe('A11Y-11 live regions are mounted before content', () => {
@@ -110,16 +158,45 @@ describe('A11Y-11 live regions are mounted before content', () => {
     expect(screen.getByRole('complementary')).not.toHaveAttribute('aria-live');
   });
 
-  it('CountdownBanner renders a persistent status region and its slots carry no role=status', () => {
-    const src = reader('era/CountdownBanner.tsx');
-    expect(src.match(/role="status"/g)).toHaveLength(1);
-    expect(src).toContain('data-ll-banner-live');
+  it('CountdownBanner keeps one status node while its announcement text arrives', () => {
+    live.theories = [];
+    const { container, rerender } = render(
+      <TestHostProvider>
+        <CountdownBanner currentItems={[]} />
+      </TestHostProvider>,
+    );
+    const region = screen.getByRole('status');
+    expect(region).toHaveTextContent('');
+    expect(container.querySelector('[data-ll-theory-banner]')).toBeNull();
+    live.theories = [
+      { id: 't1', name: 'The Big One', status: 'rumor', heat: 9, claim: '', origin: 'fan' },
+    ];
+    rerender(
+      <TestHostProvider>
+        <CountdownBanner currentItems={[]} />
+      </TestHostProvider>,
+    );
+    expect(screen.getByRole('status')).toBe(region);
+    expect(region).toHaveTextContent('Fans are onto something: The Big One');
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+    expect(container.querySelector('[data-ll-theory-banner]')).toHaveAttribute('aria-hidden', 'true');
+    live.theories = [];
   });
 });
 
 describe('A11Y-12 timeline scrubber slider', () => {
-  it('declares vertical orientation', () => {
-    expect(reader('shell/TimelineScrubber.tsx')).toContain('aria-orientation="vertical"');
+  it('the rendered slider declares vertical orientation', () => {
+    renderWithReader(
+      <TestHostProvider>
+        <AppProvider>
+          <TimelineScrubber />
+        </AppProvider>
+      </TestHostProvider>,
+    );
+    expect(screen.getByRole('slider', { name: /timeline scrubber$/i })).toHaveAttribute(
+      'aria-orientation',
+      'vertical',
+    );
   });
   it('maps Home/End/PageUp/PageDown/Arrow keys and ignores others', () => {
     const start = 0;

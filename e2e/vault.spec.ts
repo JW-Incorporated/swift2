@@ -41,11 +41,7 @@ function realMomentItems(scope: Page | Locator): Locator {
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
   await page.goto('/');
-  // This used to wait on the nav-mode tablist's "Eras" tab. That tablist
-  // (TopBar's ModeToggle) is wrapped in `hidden md:block` — mobile gets the
-  // BottomNav rail instead, whose buttons carry no `role="tab"` at all — so
-  // the locator could never match on the mobile-chrome project, by design,
-  // on every run. The "open the eras menu" button is the one hydration
+  // The "open the eras menu" button is the one hydration
   // signal both layouts always render unconditionally: its label only
   // reflects the real current era once the client store has hydrated, so
   // its presence proves interactivity, on both mobile and desktop.
