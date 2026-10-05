@@ -269,7 +269,7 @@ export function SearchOverlay() {
           {showEmptyHint
             ? ''
             : showNoMatch
-              ? `No matches for ${debounced.trim()}`
+              ? `0 results for ${debounced.trim()}`
               : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
         </div>
         {/* Input row */}
