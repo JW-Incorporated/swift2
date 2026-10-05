@@ -20,9 +20,8 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { insertEvent } from '@swift2/core';
+import { merchLink } from '@swift2/shared';
 import { serviceClient } from '../lib/supabase.mjs';
-
-const SITE_URL = 'https://www.longlivets.com';
 
 export async function emitFanmadeEvent(socialDraft, { db, now = new Date() } = {}) {
   const products = Array.isArray(socialDraft?.products) ? socialDraft.products : [];
@@ -49,7 +48,7 @@ export async function emitFanmadeEvent(socialDraft, { db, now = new Date() } = {
     category: 'fan_merch',
     title: 'New fan-made merch',
     body: `${lead}${more}`,
-    deepLink: `${SITE_URL}/?current=merch`,
+    deepLink: merchLink(),
     dedupeKey,
     now,
   });

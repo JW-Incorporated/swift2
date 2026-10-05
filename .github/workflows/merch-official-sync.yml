@@ -155,7 +155,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: node scripts/merch-engine/emit-official-merch-event.mjs --social-draft .official-social-draft.json
+        run: npx tsx scripts/merch-engine/emit-official-merch-event.mjs --social-draft .official-social-draft.json
       - name: Compute PR metadata
         if: ${{ steps.diff.outputs.changed == 'true' || steps.drop.outputs.count != '0' }}
         run: echo "branch=merch-official-sync/${{ github.run_id }}" >> "$GITHUB_ENV"
