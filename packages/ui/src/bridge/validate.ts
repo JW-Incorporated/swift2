@@ -92,12 +92,18 @@ export const COMPOSE_MAILTO_MAX_BODY = 2000;
 const COMPOSE_MAILTO_MAX_LENGTH = 8192;
 const composeLimit = (key: string): number | undefined =>
   key === 'subject' ? COMPOSE_MAILTO_MAX_SUBJECT : key === 'body' ? COMPOSE_MAILTO_MAX_BODY : undefined;
+/** Body only: CR (13) and LF (10) are legitimate there; every other control character is not. */
+const hasControlExceptNewline = (v: string): boolean =>
+  [...v].some((c) => {
+    const n = c.charCodeAt(0);
+    return (n < 32 && n !== 10 && n !== 13) || n === 127;
+  });
 const COMPOSE_VALUE_RE = /^[A-Za-z0-9\-_.!~*'()%]*$/;
 
 /**
  * A recipient-less compose `mailto:?subject=…&body=…` (the share fallback's Email action): only `subject` and
  * `body`, each at most once, `encodeURIComponent`-style values that decode cleanly to length-bounded text with
- * no control characters. No address, so no `to`/`cc`/`bcc` params and no recipient list can ride along.
+ * no control characters (a `body` may contain CR/LF; a `subject` may not). No address, so no `to`/`cc`/`bcc` params and no recipient list can ride along.
  */
 export function isComposeMailtoUrl(s: unknown): s is MailtoUrl {
   if (typeof s !== 'string' || s.length > COMPOSE_MAILTO_MAX_LENGTH || !s.startsWith('mailto:?')) return false;
@@ -116,7 +122,7 @@ export function isComposeMailtoUrl(s: unknown): s is MailtoUrl {
     } catch {
       return false;
     }
-    if (value.length > max || CONTROL.test(value)) return false;
+    if (value.length > max || (key === 'body' ? hasControlExceptNewline(value) : CONTROL.test(value))) return false;
   }
   return true;
 }
