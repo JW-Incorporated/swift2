@@ -66,9 +66,12 @@ describe('createDeferredRefresh', () => {
 describe('SharedUiHost startup path', () => {
   it('never calls the bundle loader directly; only via the deferred refresh, released on DOM ready', async () => {
     const { readFileSync } = await import('node:fs');
-    const src = readFileSync(new URL('../components/SharedUiHost.tsx', import.meta.url), 'utf8');
-    expect(src).not.toMatch(/loadContentBundle\(\)/);
-    expect(src).toMatch(/load: loadContentBundle/);
-    expect(src).toMatch(/refreshRef\.current\?\.domReady\(\)/);
+    const host = readFileSync(new URL('../components/SharedUiHost.tsx', import.meta.url), 'utf8');
+    const hook = readFileSync(new URL('./use-deferred-bundle-refresh.ts', import.meta.url), 'utf8');
+    expect(host).not.toMatch(/loadContentBundle/);
+    expect(host).toContain('domReady();');
+    expect(hook).not.toContain('loadContentBundle()');
+    expect(hook).toContain('load: loadContentBundle');
+    expect(hook).toContain('refreshRef.current?.domReady()');
   });
 });
