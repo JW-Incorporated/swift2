@@ -11,7 +11,7 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -20,6 +20,7 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import * as SystemUI from 'expo-system-ui';
 import { useNotificationTaps } from './lib/use-notification-taps';
 import { loadAppConfig, loadLaunchFlags } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
@@ -35,6 +36,7 @@ import { DomHostMount } from './components/DomHostMount';
 import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { eraColors } from './lib/theme';
+import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
@@ -51,6 +53,13 @@ export default function App() {
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
+  const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
+  useEffect(() => {
+    if (!domRendered) resetNativeTheme();
+  }, [domRendered]);
+  useEffect(() => {
+    void SystemUI.setBackgroundColorAsync(theme.background).catch(() => {});
+  }, [theme.background]);
   useEffect(() => {
     void lockPhonesToPortrait();
     void loadLaunchFlags().then((flags) => setLaunchInputs(flags));
@@ -96,8 +105,8 @@ export default function App() {
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         {/* #4953: ONE inset owner. The DOM mount is edge-to-edge (edges={[]}) and the DOM owns the
             insets via --safe-top/--safe-bottom; native screens and the fallback keep all four edges. */}
-        <SafeAreaView style={styles.fill} edges={domRendered ? [] : undefined}>
-          <StatusBar style="light" />
+        <SafeAreaView style={[styles.fill, { backgroundColor: theme.background }]} edges={domRendered ? [] : undefined}>
+          <StatusBar style={theme.statusBarStyle} />
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
@@ -121,5 +130,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  fill: { backgroundColor: '#0b0b0f', flex: 1 },
+  fill: { backgroundColor: eraColors.bg, flex: 1 },
 });

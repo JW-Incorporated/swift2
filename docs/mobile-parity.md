@@ -2,7 +2,7 @@
 
 What the web app (`apps/web`) exposes, and whether the Expo app (`apps/mobile`)
 has a native equivalent. Since One UI PR3 (2026-10-04) the shared-UI DOM host (`apps/mobile/dom/AppReader.tsx`)
-handles every surface except the native Inbox and About overlays; the
+handles every surface; the
 legacy native screens and `resolve`/`openNativeScreen` routing were deleted.
 Deep-link kinds still come from `destinationFor` in `packages/shared/src/notification-deep-links.ts`. That
 function ignores the URL path and keys only on query params, so a web route
@@ -46,11 +46,11 @@ Native status values:
 | `?mode=clownbot` | query | web-only | `destinationFor` does not read this value, so the link degrades to the era tab. The native Clownbot screen is reached via `?screen=clownbot`. |
 | `?mode=mood` | query | web-only | Not read by `destinationFor`. A native mood mode exists inside `apps/mobile/dom/AppReader.tsx` but has no deep link. |
 | `?era=<eraId>` | query | web-only | Not read by `destinationFor` outside `?screen=track-guide`; degrades to the era tab. |
-| `?current=inbox` | query | native screen (`apps/mobile/components/NotificationInboxScreen.tsx`) | `destinationFor` returns kind `inbox`. |
+| `?current=inbox` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `inbox`. |
 | `?current=<other>` | query | web-only | Notification values such as `theories`, `merch`, `countdowns` or an event id. No reader found in `apps/web`, so what the site does with them is unverified. |
 | `kind: 'web'` | deep-link kind | web-only | Handed to the WebView only for the three legal pages; anything else degrades to the era tab. |
 | `kind: 'settings'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=settings`. |
-| `kind: 'inbox'` | deep-link kind | native screen (`apps/mobile/components/NotificationInboxScreen.tsx`) | Reached via `?current=inbox`. |
+| `kind: 'inbox'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?current=inbox`. |
 | `kind: 'era-stream'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=era-stream`. |
 | `kind: 'threads'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?mode=threads`. |
 | `kind: 'community'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?mode=community`. |

@@ -4,8 +4,8 @@
 > BottomTabBar worlds, every native Era/Thread/Song/Track/Community/Merch/
 > Clown/Search/Legal/Settings/Onboarding screen, the Vault navigator and its
 > data layer) is deleted. The app mounts the shared-UI DOM host
-> (`components/SharedUiHost.tsx` via `DomHostMount`); native only supplies the
-> Inbox and About overlays, the Recovery screen (shown whenever the DOM host
+> (`components/SharedUiHost.tsx` via `DomHostMount`); native only supplies
+> the Recovery screen (shown whenever the DOM host
 > is not mounted), UpdateRequired, the diagnostics hot corner, notification
 > tap intake, device registration and the watchdog. See `docs/one-ui/dom-host.md`.
 
@@ -26,8 +26,7 @@ bytecode — `npx expo export --platform ios|android` → ~3.4 MB `.hbc` each,
 no errors):
 
 - **Shared-UI DOM host** (`App.tsx` -> `components/DomHostMount.tsx`): the whole reader
-  runs in the DOM host; `NativeOverlayHost` presents the native Inbox and About
-  screens over it. When the DOM host is not mounted (watchdog fallback,
+  runs in the DOM host; `NativeOverlayHost` is the empty D-7 seam (no native route renders). When the DOM host is not mounted (watchdog fallback,
   quarantine, pending expiry, `sharedUi` flag off) `RecoveryScreen` shows.
 - **Routing** (`lib/routes.ts`): only the `sharedUi` flag remains. The JSON route
   keys in `config/mobile/app-config.json` stay because old OTAs still parse them.

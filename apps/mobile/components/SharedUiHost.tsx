@@ -16,9 +16,11 @@ import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
+import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
-import { isDomOwnedTapPath } from '../lib/tap-paths';
+import { eraColors } from '../lib/theme';
+import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
@@ -28,11 +30,12 @@ import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
+import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
-import { lastGoodCacheUri } from '../lib/dom-reader-config';
+import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
@@ -40,7 +43,7 @@ import type { DomWatch } from '../lib/watchdog-gate';
 const SITE_FALLBACK = 'https://www.longlivets.com';
 
 interface ReaderSource {
-  cacheUri: string | null;
+  cache: LastGoodSource | null;
 }
 
 export function SharedUiHost({
@@ -54,7 +57,7 @@ export function SharedUiHost({
   onSignal: DomSignal;
   watch: DomWatch;
   forceFailure: DomFailureMode;
-  /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); default: production site. */
+  /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); defaults: production site, DEFAULT_ROUTE_FLAGS. */
   siteUrl?: string;
   /** The D-7 presenter. Absent: a native-route `navigate` answers `failed`. */
   presentNativeRoute?: (path: WebPath) => unknown;
@@ -103,15 +106,15 @@ export function SharedUiHost({
   useEffect(() => {
     if (testPage !== false) return;
     // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
-    const cached = lastGoodCacheUri();
-    if (cached) setSource({ cacheUri: cached });
+    const cached = lastGoodSource();
+    if (cached) setSource({ cache: cached });
     void loadContentBundle()
       .then((bundle) => {
         setContentToken(bundle.manifest.bundleVersion);
-        if (!cached) setSource({ cacheUri: lastGoodCacheUri() });
+        if (!cached) setSource({ cache: lastGoodSource() });
       })
       .catch(() => {
-        if (!cached) setSource({ cacheUri: null });
+        if (!cached) setSource({ cache: null });
       });
   }, [testPage]);
 
@@ -144,6 +147,7 @@ export function SharedUiHost({
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,
+      siteUrl: navRef.current.siteUrl,
       getPresenter: () => navRef.current.presentNativeRoute,
     });
     const host = createBridgeHost({
@@ -155,6 +159,7 @@ export function SharedUiHost({
       onReadyAgain: () => ref.binder?.readyAgain(),
       onNavReady: () => ref.binder?.navReady(),
       onNavigated: (e) => ref.target?.onNavigated(e),
+      onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
         if (epochRef.current !== epoch) return;
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
@@ -163,11 +168,15 @@ export function SharedUiHost({
       },
       onSignal,
     });
+    const destination = (p: string) => resolveDestination(p, { isHostRoute, siteUrl: navRef.current.siteUrl ?? SITE_FALLBACK });
     const target = createTapTarget({
       host,
-      isReaderPath: (p) => isDomOwnedTapPath(p, (x) => uiDeps.isNativeRoute(x as WebPath), SITE_FALLBACK),
+      onGiveUp: () => onSignal('bridge-nav-gave-up'),
+      onRejected: (p) => onSignal('bridge-nav-rejected', p.slice(0, 120)),
+      canonicalize: (p) => destination(p).path,
+      isReaderPath: (p) => destination(p).kind === 'dom',
       openElsewhere: async (p) => {
-        if (uiDeps.isNativeRoute(p as WebPath)) {
+        if (isHostRoute(p)) {
           const r = navRef.current.presentNativeRoute?.(p as WebPath);
           return r === 'applied' || r === 'noop';
         }
@@ -193,6 +202,7 @@ export function SharedUiHost({
       hostRef.current = null;
       emitRef.current = null;
       disposeEpoch(binder, host, link);
+      resetNativeTheme();
       setSession(null);
       setInbox([]);
     };
@@ -232,6 +242,8 @@ export function SharedUiHost({
     contentInsetAdjustmentBehavior: 'never' as const,
     automaticallyAdjustContentInsets: false,
     bounces: false,
+    style: { backgroundColor: eraColors.bg },
+    containerStyle: { backgroundColor: eraColors.bg },
     onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
     onRenderProcessGone: handlers.onRenderProcessGone,
   };
@@ -249,7 +261,8 @@ export function SharedUiHost({
         <AppReader
           key={session.epoch}
           dom={dom}
-          cacheUri={source.cacheUri ?? undefined}
+          cacheUri={source.cache?.scriptUri}
+          cacheJsonUri={source.cache?.jsonUri}
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}
@@ -274,6 +287,6 @@ export function SharedUiHost({
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1, backgroundColor: '#0b0b0f' },
-  test: { flex: 1, backgroundColor: '#0b0b0f', justifyContent: 'center', padding: 24 },
+  fill: { flex: 1, backgroundColor: eraColors.bg },
+  test: { flex: 1, backgroundColor: eraColors.bg, justifyContent: 'center', padding: 24 },
 });

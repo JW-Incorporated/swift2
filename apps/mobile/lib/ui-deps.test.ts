@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { HandlerContext, WebPath } from '@swift2/ui';
 import { createHandlers } from './bridge-handlers-ui';
+import { registerRoutes, resetRoutesForTests } from '../dom/slots/routes-instance';
 import { createUiDeps, type HapticsLike, type UiDepsEnv } from './ui-deps';
 
 const ctx: HandlerContext = { signal: new AbortController().signal };
@@ -27,15 +28,18 @@ function setup(over: Partial<UiDepsEnv> = {}) {
   return { env, h: createHandlers(createUiDeps(env)) };
 }
 
+beforeEach(() => registerRoutes({ slice: 'test', nativeRoutes: [{ id: 'test:native', match: '/test-native' }] }));
+afterEach(resetRoutesForTests);
+
 describe('navigate', () => {
   it('a native route goes to the presenter, never stays in the DOM', async () => {
     const present = vi.fn(() => 'applied');
     const { h } = setup({ getPresenter: () => present });
-    expect(await h.navigate({ path: path('/inbox') }, ctx)).toEqual({ ok: true, value: null });
-    expect(present).toHaveBeenCalledWith('/inbox');
+    expect(await h.navigate({ path: path('/test-native') }, ctx)).toEqual({ ok: true, value: null });
+    expect(present).toHaveBeenCalledWith('/test-native');
   });
 
-  it.each(['/', '/?current=theories', '/?song=abc', '/vault', '/settings', '/?screen=nope', '/?screen=settings', '/?current=inbox'])('a DOM route (%s) stays in the DOM: invalid, presenter untouched', async (p) => {
+  it.each(['/', '/?current=theories', '/?song=abc', '/vault', '/settings', '/?screen=nope', '/?screen=settings', '/?current=inbox', '/inbox', '/privacy', '/?item=abc'])('a DOM route (%s) stays in the DOM: invalid, presenter untouched', async (p) => {
     const present = vi.fn();
     const { h } = setup({ getPresenter: () => present });
     expect(await h.navigate({ path: path(p) }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
@@ -44,21 +48,21 @@ describe('navigate', () => {
 
   it('a native route with no presenter attached answers failed, not success', async () => {
     const { h, env } = setup();
-    expect(await h.navigate({ path: path('/inbox') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await h.navigate({ path: path('/test-native') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
     expect(env.log).toHaveBeenCalledWith('bridge-navigate-failed', expect.stringContaining('presenter'));
   });
 
   it('a presenter that rejects the route answers failed', async () => {
     const { h } = setup({ getPresenter: () => () => 'rejected' });
-    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await h.navigate({ path: path('/test-native') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
   });
 
   it('reads the presenter at call time (attached after the host was built)', async () => {
     const ref: { present?: (p: WebPath) => unknown } = {};
     const { h } = setup({ getPresenter: () => ref.present });
-    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toMatchObject({ ok: false });
+    expect(await h.navigate({ path: path('/test-native') }, ctx)).toMatchObject({ ok: false });
     ref.present = vi.fn();
-    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toEqual({ ok: true, value: null });
+    expect(await h.navigate({ path: path('/test-native') }, ctx)).toEqual({ ok: true, value: null });
   });
 });
 

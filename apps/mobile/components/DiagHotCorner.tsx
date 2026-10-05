@@ -5,7 +5,7 @@
 // with zIndex/elevation so the strips take touches over the full-bleed webview on
 // iOS and Android. The bottom strip sits on the home indicator; it renders only when
 // insets.bottom >= MIN_STRIP_HEIGHT (20pt), so a device without a home indicator
-// relies on the top strip / Settings -> About. No visual change by design.
+// relies on the top strip. No visual change by design.
 import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

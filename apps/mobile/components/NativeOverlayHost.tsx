@@ -8,20 +8,15 @@ import { diagCollector } from '../lib/diagnostics';
 import type { NativeRouteState } from '../lib/dom-host-handlers';
 import type { NativeOverlayPresenter } from '../lib/use-native-overlay';
 import { DiagHotCorner } from './DiagHotCorner';
-import { NativeAboutScreen } from './NativeAboutScreen';
-import { canonicalizeLink } from '../lib/notification-tap-queue';
-import { NotificationInboxScreen } from './NotificationInboxScreen';
 
 const FILL = { flex: 1, backgroundColor: '#0b0b0f' } as const;
 
 export function NativeOverlayHost({
   state,
   presenter,
-  navigateDom,
 }: {
   state: NativeRouteState;
   presenter: NativeOverlayPresenter;
-  navigateDom: (path: string) => Promise<boolean>;
 }) {
   return (
     <Modal
@@ -41,22 +36,7 @@ export function NativeOverlayHost({
     >
       <GestureHandlerRootView style={FILL}>
         <SafeAreaView style={FILL}>
-          {state.route === '/inbox' ? (
-            <NotificationInboxScreen
-              onClose={() => presenter.dismiss()}
-              onOpenItem={(event) => {
-                void navigateDom(canonicalizeLink(event.deepLink) ?? '/').then((ok) => {
-                  if (ok) presenter.dismiss();
-                });
-              }}
-            />
-          ) : null}
-          {state.route === '/settings/about' ? (
-            <NativeAboutScreen
-              onClose={() => presenter.dismiss()}
-              navigateDom={navigateDom}
-            />
-          ) : null}
+          {/* No native route renders today (host.routes.ts registers none, so the Modal never opens); the presenter and Modal stay as the D-7 seam for a future native route. */}
         </SafeAreaView>
         <DiagHotCorner />
       </GestureHandlerRootView>

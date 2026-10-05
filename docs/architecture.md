@@ -105,7 +105,7 @@ Monorepo, npm workspaces:
 
 ```
 apps/web            Next.js reader (~55k lines incl. app/lib/components)
-apps/mobile         Expo app: shared-UI DOM host + native shell (Recovery, Inbox/About overlays)
+apps/mobile         Expo app: shared-UI DOM host + native shell (Recovery screen only)
 apps/worker         News/Current ingest pipeline, polls every 4h (~7.4k lines)
 packages/shared     types + domain, zero I/O — portable (~5.6k lines)
 packages/core       shared Vault types + News/Current live-read helpers (~8k lines)

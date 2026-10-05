@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ERAS } from '@swift2/experience';
-import { eraStyle, MERCH_THEME, themeStyle, VAULT_THEME } from './theme';
+import { eraStyle, statusBarStyleFor, MERCH_THEME, themeStyle, VAULT_THEME } from './theme';
 
 // #659: --era-accent-text needs to reach every consumer even though most
 // themes don't set an explicit `accentText` override.
@@ -116,5 +116,14 @@ describe('.era-icon-btn (#525 close-affordance contrast) — WCAG AA 4.5:1', () 
   it.each(themes)('$id: hover state (glyph era-bg on 82/18 ink/bg fill) clears 4.5:1', ({ theme }) => {
     const hoverFill = `#${mixSrgb(theme.ink, 0.82, theme.bg)}`;
     expect(contrastRatio(theme.bg, hoverFill)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+describe('statusBarStyleFor', () => {
+  it('light content on dark backgrounds, dark content on light', () => {
+    expect(statusBarStyleFor('#0c0c0c')).toBe('light');
+    expect(statusBarStyleFor(VAULT_THEME.bg)).toBe('light');
+    expect(statusBarStyleFor('#ffffff')).toBe('dark');
+    expect(statusBarStyleFor('#f3efe6')).toBe('dark');
   });
 });

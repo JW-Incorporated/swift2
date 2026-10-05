@@ -8,6 +8,7 @@ export * from './moment-load';
 export * from './youtube';
 export * from './current-types';
 export * from './notifications-types';
+export * from './device-registration';
 export * from './notification-deep-links';
 export * from './notification-digest-copy';
 export * from './api';

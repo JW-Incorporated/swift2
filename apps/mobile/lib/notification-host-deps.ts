@@ -30,6 +30,9 @@ export interface NotificationPorts {
   clearPushToken(): Promise<void>;
   /** Persisted, token-free registration flag. */
   isRegistered(): Promise<boolean>;
+  /** The persisted one-time push-offer flag (the native OnboardingScreen's key). */
+  onboardingOffered?(): Promise<boolean>;
+  markOnboardingOffered?(): Promise<void>;
 }
 
 export function cadenceFor(category: NotificationPref['category'], on: boolean): NotificationCadence {
@@ -51,6 +54,8 @@ export function createNotificationHostDeps(ports: NotificationPorts): Notificati
     savePrefs: (body, signal) => ports.writePrefs(body, signal),
     registered: () => ports.isRegistered(),
     unregister: () => ports.clearPushToken(),
+    onboardingOffered: ports.onboardingOffered && (() => ports.onboardingOffered!()),
+    markOnboardingOffered: ports.markOnboardingOffered && (() => ports.markOnboardingOffered!()),
     updatePrefs: async (prefs) => {
       const list: NotificationPref[] = [];
       for (const [category, on] of Object.entries(prefs)) {
