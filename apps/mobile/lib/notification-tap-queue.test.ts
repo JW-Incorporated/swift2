@@ -376,7 +376,7 @@ describe('resolveTapPath', () => {
   it('converts absolute longlivets.com and www payloads', () => {
     expect(resolveTapPath('https://longlivets.com/vault/folklore?x=1')).toBe('/vault/folklore?x=1');
     expect(resolveTapPath('https://www.longlivets.com/settings')).toBe('/settings');
-    expect(resolveTapPath('https://www.longlivets.com/?current=inbox')).toBe('/?current=inbox');
+    expect(resolveTapPath('https://www.longlivets.com/?current=inbox')).toBe('/inbox');
   });
   it('refuses http, other ports and hosts', () => {
     expect(resolveTapPath('http://longlivets.com/settings')).toBeNull();

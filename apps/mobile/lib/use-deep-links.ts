@@ -6,17 +6,36 @@ import { useEffect } from 'react';
 import { canonicalizeLink } from './notification-tap-queue';
 import type { TapGate } from './notification-tap-gate';
 
-/** The same URL arriving again inside this window is one launch (initial URL + first `url` event). */
-export const DEEP_LINK_DEDUPE_MS = 3000;
-
 const APP_SCHEME = 'longlive://';
 const SITE = 'https://www.longlivets.com';
+const MAX_URL = 2048;
 
-/** `longlive://settings` / `longlive://vault/x?y=1` map to the same site path as the https link; anything else passes through. */
+/**
+ * Structural parse of `longlive://<path>` (also the empty-authority form `longlive:///<path>`) onto the site path;
+ * anything else passes through unchanged. Traversal (plain or percent-encoded dots), backslashes, whitespace/control
+ * characters, a second leading slash and over-long input leave the link unmapped, so the https validation refuses it.
+ */
 export function normalizeDeepLink(url: string): string {
   if (!url.startsWith(APP_SCHEME)) return url;
-  const rest = url.slice(APP_SCHEME.length);
-  return rest.startsWith('/') || rest.split(/[/?#]/)[0].includes('..') || rest.includes('/..') ? url : `${SITE}/${rest}`;
+  if (url.length > MAX_URL || /[\\\s]/.test(url) || [...url].some((ch) => ch.charCodeAt(0) < 0x20 || ch.charCodeAt(0) === 0x7f)) return url;
+  let rest = url.slice(APP_SCHEME.length);
+  if (rest.startsWith('/')) rest = rest.slice(1);
+  if (rest.startsWith('/')) return url;
+  const path = rest.split(/[?#]/, 1)[0];
+  if (path.split('/').some((seg) => /^(\.|%2e){1,2}$/i.test(seg))) return url;
+  return `${SITE}/${rest}`;
+}
+
+/** FNV-1a over the full URL with two seeds (64 bits) plus its length: collision-safe ids without truncating the URL. */
+function urlKey(url: string): string {
+  let h1 = 0x811c9dc5;
+  let h2 = 0x01000193;
+  for (let i = 0; i < url.length; i++) {
+    const c = url.charCodeAt(i);
+    h1 = Math.imul(h1 ^ c, 0x01000193) >>> 0;
+    h2 = Math.imul(h2 ^ c, 0x85ebca6b) >>> 0;
+  }
+  return `${url.length.toString(36)}-${h1.toString(36)}${h2.toString(36)}`;
 }
 
 export interface DeepLinkPorts {
@@ -25,26 +44,34 @@ export interface DeepLinkPorts {
   listen(cb: (url: string) => void): () => void;
 }
 
-export function startDeepLinkIntake(
-  gate: Pick<TapGate, 'enqueue'>,
-  ports: DeepLinkPorts,
-  now: () => number = Date.now,
-): () => void {
+/**
+ * The cold URL (getInitialURL) and the FIRST live 'url' event at launch are one launch: when they carry the same URL
+ * they share the stable id `cold:<key>` whatever the delay or order, so the queue dedupes them. Every later event
+ * (a user re-tapping the same link) gets a fresh sequence id and navigates again.
+ */
+export function startDeepLinkIntake(gate: Pick<TapGate, 'enqueue'>, ports: DeepLinkPorts): () => void {
   let stopped = false;
-  let last: { url: string; at: number } | null = null;
-  const ingest = (raw: unknown) => {
-    if (stopped || typeof raw !== 'string') return;
+  let seq = 0;
+  let firstEventSeen = false;
+  const send = (url: string, id: string) => gate.enqueue({ id, deepLink: url, source: 'deeplink' });
+  const valid = (raw: unknown): string | null => {
+    if (stopped || typeof raw !== 'string') return null;
     const url = normalizeDeepLink(raw);
-    if (canonicalizeLink(url) === null) return;
-    const at = now();
-    if (last && last.url === url && at - last.at <= DEEP_LINK_DEDUPE_MS) return;
-    last = { url, at };
-    gate.enqueue({ id: `deeplink:${at}|${url}`.slice(0, 256), deepLink: url, source: 'deeplink' });
+    return canonicalizeLink(url) === null ? null : url;
   };
-  const off = ports.listen(ingest);
+  const off = ports.listen((raw) => {
+    const url = valid(raw);
+    const first = !firstEventSeen;
+    firstEventSeen = true;
+    if (url === null) return;
+    send(url, first ? `cold:${urlKey(url)}` : `link:${++seq}:${urlKey(url)}`);
+  });
   ports
     .getInitialURL()
-    .then(ingest)
+    .then((raw) => {
+      const url = valid(raw);
+      if (url !== null) send(url, `cold:${urlKey(url)}`);
+    })
     .catch(() => {});
   return () => {
     stopped = true;

@@ -56,3 +56,30 @@ export function resolveDestination(
   if (pathname === '/' || isSettingsPath(pathname) || isInboxPath(pathname) || isDomPath(pathname)) return { kind: 'dom', path };
   return { kind: 'native', path };
 }
+
+/** First path segments that are never a user destination (API/internal/build routes): a tap to one is rejected, not routed. */
+const DENIED_ROOTS = new Set(['api', 'internal', '_next']);
+
+/**
+ * The tap queue's single ownership decision: the canonical destination for a link, or null when the link is not a
+ * local destination at all (foreign host, non-https, userinfo/port, API/internal root). An unknown same-site path is
+ * NOT rejected: it resolves to a native destination (the shell opens it), so future host routes are never dropped.
+ */
+export function resolveTapDestination(
+  link: string,
+  opts: { isHostRoute: (path: string) => boolean; siteUrl?: string },
+): Destination | null {
+  const site = opts.siteUrl ?? DEFAULT_SITE_URL;
+  let u: URL;
+  try {
+    u = new URL(link, site);
+  } catch {
+    return null;
+  }
+  const own = u.origin === new URL(site).origin;
+  const prod = u.protocol === 'https:' && SITE_HOSTS.has(u.hostname) && !u.port && !u.username && !u.password;
+  if ((!own && !prod) || u.username || u.password) return null;
+  const root = u.pathname.split('/').filter(Boolean)[0];
+  if (root !== undefined && DENIED_ROOTS.has(root)) return null;
+  return resolveDestination(link, opts);
+}

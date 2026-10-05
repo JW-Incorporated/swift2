@@ -1,5 +1,7 @@
 import { toWebPath } from '@swift2/ui';
 import type { EventPayloadOf, WebPath } from '@swift2/ui';
+import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
+import { resolveTapDestination } from './destination-resolver';
 
 export const MAX_QUEUED_TAPS = 16;
 export const MAX_SEEN_TAPS = 64;
@@ -7,8 +9,6 @@ export const ACK_TIMEOUT_MS = 15_000;
 export const TAP_TTL_MS = 10 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
-/** First path segments the shared UI serves; `/` itself (query-driven surfaces) is always allowed. */
-const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault', 'inbox']);
 
 /**
  * Canonicalizes a link to a site-relative `path?query#hash`: an app-relative path or an
@@ -34,18 +34,17 @@ export function canonicalizeLink(link: string): string | null {
   } catch {
     return null;
   }
-  const segs = pathname.split('/').filter(Boolean);
-  if (segs.some((s) => s === '..' || s === '.')) return null;
+  const raw = rel.split(/[?#]/)[0].split('/');
+  if (raw.some((s) => s === '..' || s === '.') || pathname.split('/').some((s) => s === '..')) return null;
   return rel;
 }
 
-/** Default tap resolver: a canonical link that lands on an internal shared-UI route (`/api`, `/internal` etc. refused). */
+/** Default tap resolver: the ONE destination resolver (destination-resolver.ts) decides; the queue stores its canonical path. */
 export function resolveTapPath(link: string): WebPath | null {
   const rel = canonicalizeLink(link);
   if (rel === null) return null;
-  const segs = new URL(rel, 'https://www.longlivets.com').pathname.split('/').filter(Boolean);
-  if (segs.length > 0 && !ROUTE_ROOTS.has(segs[0])) return null;
-  return toWebPath(rel);
+  const d = resolveTapDestination(rel, { isHostRoute });
+  return d === null ? null : toWebPath(d.path);
 }
 
 /** A notification response reduced to what the queue needs (no token, no PII). */
