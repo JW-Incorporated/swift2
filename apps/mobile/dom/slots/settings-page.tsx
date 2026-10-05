@@ -30,7 +30,7 @@ export function SettingsPage() {
   const inboxOpen = useInboxOpen();
   const behindOffer = useOnboardingPhase() === 'shown';
   // The inbox row is host-gated: they show only once the native bridge answers (a plain browser has none).
-  const dialog = useDialog(open);
+  const dialog = useDialog(open, true);
   const [native, setNative] = useState(false);
 
   // A page loaded directly at a settings path (the parity harness, a reload) opens the overlay.
