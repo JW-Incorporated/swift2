@@ -6,6 +6,11 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 11:15 PDT — Audit wave COMPLETE; founder-gated only. <<<**
+- Merged since 10:18: #5146, #5163 PA-11, #5154 privacy copy, #5164 Red accent2, #5165 HA closures.
+- No agent-doable One UI work open. Founder: device sessions HA #100/#101 (recommended next), HA #99 app IDs, store build (draft #5133; data-safety update noted there), launch gates #4729.
+- Gated issues: #5139 (deferred), #5140, #5141, #5158, #5159.
+
 **>>> CHECKPOINT 2026-10-05 10:18 PDT — Audit wave nearly landed. <<<**
 - Merged since 08:15: #5143 SEC-A, #5145 A11Y-F, #5149 PA-2, #5150 SEC-10, #5151 docs, #5152 A11Y-9/10, #5153 PA-1, #5155, #5156 A11Y-N, #5157 SEC-4 (sandbox only), #5161 HA #102-#105.
 - Open: #5146 A11Y-S (stale selector fixed, CI running, auto-merge armed); building #5160 Red accent2 + PA-11 safe-area hooks.
