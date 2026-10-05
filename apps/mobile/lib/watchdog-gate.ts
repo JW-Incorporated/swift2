@@ -14,6 +14,8 @@
 // Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
+import { loadContentBundle } from './content-bundle';
+import { lastGoodSource } from './dom-reader-config';
 import { diagCollector, setMountInfo } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
@@ -50,9 +52,17 @@ import {
   saveWatchdogRecord,
 } from './watchdog-store';
 import { plannedReloadStep } from './watchdog-planned-reload';
+import { createContentWaiter } from './watchdog-await-content';
 import { createTelemetry } from './watchdog-telemetry';
 
-export type MountState = 'pending' | 'dom' | 'native';
+export type MountState = 'pending' | 'awaiting-content' | 'dom' | 'native';
+
+/** Injected so tests need no FileSystem. */
+export interface GateDeps {
+  hasLocalContent: () => boolean;
+  loadContent: () => Promise<unknown>;
+}
+const DEFAULT_DEPS: GateDeps = { hasLocalContent: () => lastGoodSource() !== null, loadContent: loadContentBundle };
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
@@ -82,11 +92,14 @@ const elapsedMs = (): number => Math.round(diagCollector.elapsed());
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
 
-export function useDomMount(inputs: LaunchInputs | null): {
+export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAULT_DEPS): {
   mount: MountState;
   watch: DomWatch;
   forceFailure: DomFailureMode;
   nativeReason: NativeReason | null;
+  /** awaiting-content only: the load failed (offline) / re-run it. */
+  contentFailed: boolean;
+  retryContent: () => void;
 } {
   const [decision, setDecision] = useState<MountDecision | null>(null);
   const [mount, setMount] = useState<MountState>('pending');
@@ -115,6 +128,12 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
+  const [contentFailed, setContentFailed] = useState(false);
+  const depsRef = useRef(deps);
+  depsRef.current = deps;
+  const waiterRef = useRef<ReturnType<typeof createContentWaiter> | null>(null);
+  waiterRef.current ??= createContentWaiter(() => depsRef.current.loadContent(), setContentFailed);
+  const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
   const apply = (m: MountState, reason: NativeReason | null = null, source: WantSource | null = null) => {
@@ -124,15 +143,14 @@ export function useDomMount(inputs: LaunchInputs | null): {
     setMountInfo({ mount: m, reason: m === 'native' ? reason : null, source: m === 'dom' ? source : null });
   };
 
-  useEffect(
-    () =>
-      armPendingBound(scheduler, () => {
+  useEffect(() => {
+    cancelBoundRef.current = armPendingBound(scheduler, () => {
         expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
         if (mountRef.current === 'pending') apply('native', 'pending-expired');
-      }),
-    [],
-  );
+      });
+    return () => cancelBoundRef.current();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -188,6 +206,14 @@ export function useDomMount(inputs: LaunchInputs | null): {
     }
     const overrideOn = want.source === 'override';
     void (async () => {
+      if (!depsRef.current.hasLocalContent()) {
+        // No cache on disk: wait natively; no record write, no monitor, and the pending bound must not veto a slow download.
+        cancelBoundRef.current();
+        apply('awaiting-content');
+        const t0 = monotonicNow();
+        await waiterRef.current?.run();
+        diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
+      }
       setForceFailure(await getForceDomFailure());
       const attempt = await startAttempt(decision, Date.now(), write, () => overrideOn || !expiredRef.current);
       if (!attempt) {
@@ -229,6 +255,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
   useEffect(() => {
     const sub = AppState.addEventListener('change', (s) => {
       monitorRef.current?.setActive(s === 'active');
+      if (s === 'active') waiterRef.current?.onActive();
       const r = recordRef.current;
       if (r?.state === 'attempting' && r.backgrounded !== (s !== 'active')) {
         recordRef.current = { ...r, backgrounded: s !== 'active' };
@@ -268,5 +295,5 @@ export function useDomMount(inputs: LaunchInputs | null): {
     [],
   );
 
-  return { mount, watch, forceFailure, nativeReason };
+  return { mount, watch, forceFailure, nativeReason, contentFailed, retryContent: () => waiterRef.current?.retry() };
 }

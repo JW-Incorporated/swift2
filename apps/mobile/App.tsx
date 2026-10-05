@@ -62,6 +62,7 @@ import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
+import { FirstLaunchScreen } from './components/FirstLaunchScreen';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
@@ -222,6 +223,8 @@ export default function App() {
               state={nativeRoute}
               presenter={presenter}
             />
+          ) : domMount.mount === 'awaiting-content' ? (
+            <FirstLaunchScreen failed={domMount.contentFailed} onRetry={domMount.retryContent} />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : (
