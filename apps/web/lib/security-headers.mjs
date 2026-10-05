@@ -122,7 +122,11 @@ function enforcedDirectives(embed = false) {
  * @returns {string[]}
  */
 export function contentSecurityPolicy({ nonce, dev = false, embed = false }) {
-  const script = ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", VERCEL_ANALYTICS];
+  // Embed wrapper pages are static route handlers with no nonce; they load one
+  // same-origin script (/embed-bridge.js), so they get 'self' alone.
+  const script = embed
+    ? ["'self'"]
+    : ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", VERCEL_ANALYTICS];
   // Next's dev bundler uses eval-based source maps. Production builds do not.
   if (dev) script.push("'unsafe-eval'");
 

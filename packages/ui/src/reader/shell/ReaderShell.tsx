@@ -5,6 +5,7 @@ import { getEra } from '@swift2/experience';
 import { AppProvider, useAppState } from '../store';
 import type { AppMode } from '../store/navigation';
 import { useHost, type ThemeChange } from '../../host';
+import { useReportEngaged } from '../lib/useReportEngaged';
 import { eraStyle, vaultStyle, merchStyle, statusBarStyleFor, VAULT_THEME, MERCH_THEME } from '../lib/theme';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
@@ -33,6 +34,7 @@ function ThemeEmitter({ color, emit }: { color: string; emit: (t: ThemeChange) =
 export function ReaderShell({ slots }: { slots: ReaderSlots }) {
   const { mode, eraId } = useAppState();
   const themeHost = useHost().theme;
+  useReportEngaged();
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
   const inMerch = mode === 'merch';

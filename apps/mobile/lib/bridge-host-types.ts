@@ -36,8 +36,8 @@ export interface BridgeHostDeps {
   onNavigated?: (e: { id: string; ok: boolean }) => void;
   /** The DOM's theme event (validated; no reply is ever sent). */
   onTheme?: (theme: ThemeChange) => void;
-  /** The DOM's route event (validated; no reply is ever sent): its current path plus query/hash, and whether the user is mid-interaction. */
-  onRoute?: (path: string, busy: boolean) => void;
+  /** The DOM's route event (validated; no reply is ever sent): its current path plus query/hash, whether the user is mid-interaction, and whether the reader is away from rest (not the front door / overlay open / scrolled). */
+  onRoute?: (path: string, busy: boolean, engaged: boolean) => void;
 }
 
 export type AckRef = { epoch: number; seq: number };
