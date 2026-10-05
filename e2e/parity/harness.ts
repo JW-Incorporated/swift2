@@ -65,8 +65,13 @@ async function arm(page: Page, problems: string[]): Promise<void> {
     }
     if (url.origin === ERA_ART_ORIGIN && url.pathname === '/_next/image') {
       // Side b's responsive era art goes to the canonical optimizer; serve it from side a's local one (same query, same renditions).
-      const res = await route.fetch({ url: `${BASE.a}/_next/image${url.search}` });
-      return route.fulfill({ response: res });
+      try {
+        const res = await route.fetch({ url: `${BASE.a}/_next/image${url.search}` });
+        return await route.fulfill({ response: res });
+      } catch {
+        // The test ended mid-flight (context disposed); abort quietly rather than throw.
+        return route.abort().catch(() => {});
+      }
     }
     const era = url.origin === ERA_ART_ORIGIN ?/^\/(eras\/[\w-]+\.png|threads\/[\w-]+\.jpg)$/.exec(url.pathname) : null;
     if (era) {

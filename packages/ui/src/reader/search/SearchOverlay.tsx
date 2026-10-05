@@ -113,19 +113,6 @@ export function SearchOverlay() {
     return () => window.removeEventListener('keydown', onKey);
   }, [setSearchOpen]);
 
-  // Esc closes — captured on window so overlays *underneath* (moment detail,
-  // track guide, …) don't also close on the same keypress.
-  useEffect(() => {
-    if (!searchOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      e.stopPropagation();
-      setSearchOpen(false);
-    };
-    window.addEventListener('keydown', onKey, true);
-    return () => window.removeEventListener('keydown', onKey, true);
-  }, [searchOpen, setSearchOpen]);
-
   useScrollLock(searchOpen);
   useFocusTrap(searchOpen, dialogRef);
 

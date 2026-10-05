@@ -9,6 +9,7 @@ import { LEGAL_FACTS } from '@swift2/ui/reader/legal/lib/legal';
 // @ts-expect-error no types for the deep path; only the runtime module matters
 vi.mock('react', async () => await import('../../../web/node_modules/react/index.js'));
 import { createAppAdapter } from '../bridge/app-adapter';
+import { resetBackStackForTests } from '@swift2/ui/reader/lib/useBackDismiss';
 import { backFromDomPath, currentDomPath, currentDomUrl, setDomPath } from '../bridge/dom-path';
 import { showDomPath } from '../bridge/dom-path-commit';
 import { applyNavigateEvent } from '../bridge/navigate-subscriber';
@@ -45,6 +46,7 @@ function mount(children: ReactNode = h(LegalOverlay)) {
 
 afterEach(() => {
   cleanup();
+  resetBackStackForTests();
   window.history.replaceState(null, '');
   resetSlotsForTests();
 });
@@ -76,11 +78,13 @@ describe('legal pages through the real app adapter', () => {
     expect(call).not.toHaveBeenCalled();
   });
 
-  it('round trip: footer link to /terms, then back closes to the reader', async () => {
+  it('round trip: footer link to /terms pushes, back returns to /privacy, back again closes to the reader', async () => {
     const { adapter } = mount();
     act(() => adapter.navigate('/privacy'));
     fireEvent.click(screen.getByRole('link', { name: 'Terms of Use' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/terms/i);
+    act(() => void backFromDomPath());
+    await waitFor(() => expect(document.querySelector('[data-legal-page]')?.getAttribute('data-legal-page')).toBe('privacy'));
     act(() => void backFromDomPath());
     await waitFor(() => expect(document.querySelector('[data-legal-page]')).toBeNull());
     expect(window.history.state).toBeNull();
@@ -154,6 +158,18 @@ describe('native-to-DOM navigate to a legal path (real subscriber + rendered ove
   it('answers false and restores the previous path when no legal layer is mounted', async () => {
     const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true), setPath: showDomPath };
     expect(await applyNavigateEvent({ path: '/privacy' as never }, deps)).toBe(false);
+    expect(currentDomPath()).toBe('/');
+  });
+
+  it('a failed legal-to-legal commit pops its pushed entry: no duplicate entry, one Back reaches the reader', async () => {
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true), setPath: showDomPath };
+    window.history.pushState({ swift2Path: '/privacy' }, '');
+    expect(currentDomPath()).toBe('/privacy');
+    expect(await applyNavigateEvent({ path: '/terms' as never }, deps)).toBe(false);
+    expect(currentDomPath()).toBe('/privacy');
+    expect(window.history.state).toMatchObject({ swift2Path: '/privacy' });
+    window.history.back();
+    await new Promise((r) => window.addEventListener('popstate', () => r(null), { once: true }));
     expect(currentDomPath()).toBe('/');
   });
 });
