@@ -13,8 +13,8 @@ const DIALOG = '[role="dialog"]';
 
 /** Tags a Playwright-selected element as the clip (CSS-only machinery such as settle cannot take :has-text) and scrolls it into view. */
 export const PARITY_CLIP = '[data-parity-clip]';
-const show = async (page: Page, selector: string): Promise<void> => {
-  const el = page.locator(selector).first();
+const show = async (page: Page, selector: string, last = false): Promise<void> => {
+  const el = last ? page.locator(selector).last() : page.locator(selector).first();
   await expect(el).toBeVisible();
   await el.scrollIntoViewIfNeeded();
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
@@ -201,11 +201,8 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     init: serveLegalOnB,
     sides: 'both',
     clip: PARITY_CLIP,
-    prepare: async (page) => {
-      await show(page, 'footer');
-      const d = await page.evaluate(() => { const f=document.querySelectorAll('footer'); return JSON.stringify({n:f.length,r:[...f].map(e=>{const b=e.getBoundingClientRect();return [b.x,b.y,b.width,b.height]}),vh:innerHeight,vw:innerWidth,sy:scrollY,dh:document.documentElement.scrollHeight,path:location.pathname}); });
-      throw new Error('DEBUGFOOTER '+d);
-    },
+    // Side b also mounts the reader's own footer under the legal layer; the legal page's footer is the last one on both sides.
+    prepare: (page) => show(page, 'footer', true),
   },
   {
     name: 'feedback-dialog-open',
