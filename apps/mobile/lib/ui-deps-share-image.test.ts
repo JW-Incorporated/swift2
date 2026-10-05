@@ -104,3 +104,21 @@ describe('share with an image', () => {
     expect(download.mock.calls[0]?.[1]).not.toBe(download.mock.calls[1]?.[1]);
   });
 });
+
+describe('superseded shares', () => {
+  it('two quick shares open exactly one sheet: the newer', async () => {
+    let first: (v: { uri: string; base64(): string }) => void = () => {};
+    const download = vi
+      .fn()
+      .mockImplementationOnce(() => new Promise((r) => (first = r)))
+      .mockImplementationOnce(async () => ({ uri: 'file:///cache/share/second.png', base64: () => 'B64' }));
+    const { h, env } = setup('ios', { download });
+    const a = h.share(payload({ url: CARD }), ctx);
+    const b = h.share(payload({ url: CARD }), ctx);
+    expect(await b).toEqual({ ok: true, value: { imageCopied: false } });
+    first({ uri: 'file:///cache/share/first.png', base64: () => 'OLD' });
+    expect(await a).toEqual({ ok: true, value: null });
+    const urls = (env.share.share as ReturnType<typeof vi.fn>).mock.calls.map((c) => (c[0] as { url: string }).url);
+    expect(urls).toEqual(['file:///cache/share/second.png']);
+  });
+});

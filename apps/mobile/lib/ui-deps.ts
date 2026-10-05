@@ -68,6 +68,7 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       const { image, ...link } = p;
       const gen = ++generation;
       const card = image && env.cards ? await fetchCard(env.cards, image.url, gen) : null;
+      if (gen !== generation) return;
       if (card) {
         if (env.platformOS === 'android') {
           // No file share on Android in this build: put the card on the clipboard, then share the text.
