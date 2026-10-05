@@ -8,7 +8,7 @@ let ipCounter = 0;
 function fakeDb() {
   const row: { push_token: string | null; register_seq: number | null } = { push_token: null, register_seq: null };
   const rpc = vi.fn((_name: string, a: { p_push_token: string | null; p_seq: number | null }) => {
-    if (a.p_seq === null || row.register_seq === null || row.register_seq <= a.p_seq) {
+    if (a.p_seq === null || row.register_seq === null || row.register_seq < a.p_seq) {
       row.push_token = a.p_push_token;
       row.register_seq = a.p_seq ?? row.register_seq;
     }
@@ -77,6 +77,13 @@ describe('POST /api/devices/register ordering', () => {
     await post({ pushToken: null });
     expect(db.row.push_token).toBeNull();
     expect(db.rpc).toHaveBeenLastCalledWith('upsert_device_ordered', expect.objectContaining({ p_seq: null }));
+  });
+
+  it('conflicting writes with an equal seq keep the first applied row', async () => {
+    const { db, post } = await setup();
+    await post({ pushToken: 'first', seq: 6 });
+    await post({ pushToken: 'second', seq: 6 });
+    expect(db.row).toEqual({ push_token: 'first', register_seq: 6 });
   });
 
   it('duplicate requests with the same seq are idempotent', async () => {

@@ -3,10 +3,13 @@
 -- `seq`; a write whose seq is LOWER than the last applied one is stale (e.g. a
 -- delayed register arriving after the opt-out null write) and is ignored.
 -- Legacy clients send no seq: their writes stay unconditional and never touch
--- the stored value. One statement, so concurrent writers are ordered by the
+-- the stored value. Only a STRICTLY higher seq overwrites; an equal seq returns
+-- the current row unchanged. One statement, so concurrent writers are ordered by the
 -- row lock, not by a read-then-write race.
+set lock_timeout = '3s';
 alter table public.devices
   add column if not exists register_seq bigint;
+reset lock_timeout;
 
 create or replace function public.upsert_device_ordered(
   p_id uuid,
@@ -34,7 +37,7 @@ begin
         app_version = excluded.app_version,
         register_seq = coalesce(excluded.register_seq, d.register_seq),
         last_seen_at = now()
-    where p_seq is null or d.register_seq is null or d.register_seq <= p_seq
+    where p_seq is null or d.register_seq is null or d.register_seq < p_seq
   returning d.*;
   if not found then
     return query select * from public.devices where id = p_id;

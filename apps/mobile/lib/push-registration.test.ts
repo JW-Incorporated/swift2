@@ -5,6 +5,7 @@ const state = vi.hoisted(() => ({
   permission: 'granted' as string,
   store: new Map<string, string>(),
   tokenFails: false,
+  deviceId: 'dev-1',
 }));
 const requestPermissionsAsync = vi.hoisted(() => vi.fn());
 const getExpoPushTokenAsync = vi.hoisted(() => vi.fn());
@@ -26,11 +27,11 @@ vi.mock('expo-secure-store', () => ({
   setItemAsync: async (k: string, v: string) => void state.store.set(k, v),
   deleteItemAsync: async (k: string) => void state.store.delete(k),
 }));
-vi.mock('./device-id', () => ({ getOrCreateDeviceId: async () => 'dev-1' }));
+vi.mock('./device-id', () => ({ getOrCreateDeviceId: async () => state.deviceId }));
 vi.mock('./notification-channels', () => ({ registerNotificationChannels: async () => undefined }));
 vi.mock('./api-base', () => ({ apiBaseUrl: () => 'https://api.test' }));
 
-import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice, requestPushRegistration } from './push-registration';
+import { REGISTER_SEQ_KEY, UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice, requestPushRegistration } from './push-registration';
 
 const bodies: { pushToken: string | null; seq?: number }[] = [];
 
@@ -38,6 +39,7 @@ beforeEach(() => {
   state.isDevice = true;
   state.permission = 'granted';
   state.store.clear();
+  state.deviceId = 'dev-1';
   bodies.length = 0;
   requestPermissionsAsync.mockReset();
   getExpoPushTokenAsync.mockReset().mockResolvedValue({ data: 'tok' });
@@ -132,9 +134,34 @@ describe('write ordering sequence', () => {
     await registerDevice();
     await clearRegisteredToken();
     await registerDevice();
-    const seqs = bodies.map((b) => b.seq);
-    expect(seqs.every((n) => Number.isInteger(n))).toBe(true);
-    expect(seqs[1]).toBeGreaterThan(seqs[0] as number);
-    expect(seqs[2]).toBeGreaterThan(seqs[1] as number);
+    expect(bodies.map((b) => b.seq)).toEqual([1, 2, 3]);
+  });
+
+  it('continues from the persisted counter after a restart (store survives, memory does not)', async () => {
+    await registerDevice();
+    await registerDevice();
+    vi.resetModules();
+    const fresh = await import('./push-registration');
+    await fresh.registerDevice();
+    expect(bodies.map((b) => b.seq)).toEqual([1, 2, 3]);
+  });
+
+  it('is immune to a backward clock', async () => {
+    const now = vi.spyOn(Date, 'now');
+    now.mockReturnValue(2_000_000_000_000);
+    await registerDevice();
+    now.mockReturnValue(1_000_000_000_000);
+    await registerDevice();
+    now.mockRestore();
+    expect(bodies.map((b) => b.seq)).toEqual([1, 2]);
+  });
+
+  it('restarts at 1 for a regenerated device id (reinstall / data clear), never stale', async () => {
+    await registerDevice();
+    await registerDevice();
+    state.deviceId = 'dev-2'; // new id, old counter still in the store
+    await registerDevice();
+    expect(bodies.map((b) => b.seq)).toEqual([1, 2, 1]);
+    expect(state.store.get(REGISTER_SEQ_KEY)).toBe('dev-2:1');
   });
 });
