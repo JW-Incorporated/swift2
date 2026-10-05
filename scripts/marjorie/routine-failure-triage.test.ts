@@ -126,7 +126,7 @@ describe('triage', () => {
   });
   it('skips successes, its own runs and plain cancellations; a cancelled max-turns run is triaged', async () => {
     const q = quiet();
-    for (const [workflow, conclusion] of [[WF, 'success'], [WF, 'skipped'], ['routine-failure-triage', 'failure']]) {
+    for (const [workflow, conclusion] of [[WF, 'success'], [WF, 'skipped'], ['bot-failure-triage', 'failure']]) {
       const { gh, calls } = fakeGh();
       expect((await triage({ workflow, runId: '1', runUrl: URL1, conclusion }, { gh, now: NOW })).action).toBe('skipped');
       expect(calls).toEqual([]);
@@ -217,14 +217,14 @@ describe('triage', () => {
 
 describe('workflow wiring', () => {
   const root = path.resolve(__dirname, '../..');
-  const text = readFileSync(path.join(root, '.github/workflows/routine-failure-triage.yml'), 'utf8');
-  const routines = readdirSync(path.join(root, '.github/workflows')).filter((f) => f.startsWith('routine-') && f.endsWith('.yml') && f !== 'routine-template.yml' && f !== 'routine-failure-triage.yml').map((f) => f.replace(/\.yml$/, '')).sort();
+  const text = readFileSync(path.join(root, '.github/workflows/bot-failure-triage.yml'), 'utf8');
+  const routines = readdirSync(path.join(root, '.github/workflows')).filter((f) => f.startsWith('routine-') && f.endsWith('.yml') && f !== 'routine-template.yml' && f !== 'bot-failure-triage.yml').map((f) => f.replace(/\.yml$/, '')).sort();
   it('listens to every routine workflow and never to itself', () => {
     const listed = [...text.matchAll(/^ {6}- (routine-[a-z0-9-]+)\s*$/gm)].map((m) => m[1]).sort();
     expect(listed.filter((n: string) => n !== 'routine-ops-fix')).toEqual(routines.filter((n: string) => n !== 'routine-ops-fix'));
     expect(listed).toContain('routine-ops-fix');
-    expect(text).toContain('group: routine-failure-triage-${{ github.event.workflow_run.name }}');
-    expect(listed).not.toContain('routine-failure-triage');
+    expect(text).toContain('group: bot-failure-triage-${{ github.event.workflow_run.name }}');
+    expect(listed).not.toContain('bot-failure-triage');
   });
   it('uses least privilege and never interpolates event data inside run:', () => {
     expect(text).toMatch(/permissions:\n {2}contents: read\n {2}issues: write\n {2}actions: write/);

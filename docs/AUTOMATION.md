@@ -94,7 +94,7 @@ why desk routines can open a PR and exit instead of babysitting it (which was
 
 | Workflow | Trigger | LLM | Mutates | Docs |
 |---|---|---|---|---|
-| [`routine-failure-triage.yml`](../.github/workflows/routine-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
+| [`bot-failure-triage.yml`](../.github/workflows/bot-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
 
 Logic in `scripts/marjorie/routine-failure-triage.mjs`; the escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 

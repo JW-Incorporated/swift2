@@ -98,7 +98,7 @@ const firstLine = (err) => String(err?.message || err).split('\n')[0].slice(0, 2
  * throws: every refusal or failure is a `{ dispatched: false, reason }` and a
  * `::warning::` line, because a filing must never be lost to a dispatch.
  * `response` marks a filing made by a response run (parent required). `countToday` replaces the
- * run-list count with the caller's own, so a different filer (routine-failure-triage) can have its own cap.
+ * run-list count with the caller's own, so a different filer (bot-failure-triage) can have its own cap.
  */
 export async function dispatchResponse(direction, number, { repo = REPO, gh = ghRun, now = Date.now(), parent = null, response = false, cap = DAILY_CAP, countToday = null, log = console.log } = {}) {
   const target = DIRECTIONS[direction];

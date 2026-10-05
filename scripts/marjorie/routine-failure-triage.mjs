@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Routine failure triage (BOTS-LOOP, docs/decisions.md 2026-10-05). A routine
 // run that dies — turn cap, timeout, setup error — used to leave a red run
-// nobody read. Plain code, no LLM: the `routine-failure-triage.yml` workflow
+// nobody read. Plain code, no LLM: the `bot-failure-triage.yml` workflow
 // (workflow_run on every routine-*) calls this, which files ONE issue per
 // workflow per UTC day for Marjorie and starts her response routine, so the
 // team handles it before a founder ever sees it.
@@ -40,7 +40,7 @@ const TIMEOUT_RE = /exceeded the maximum execution time/i;
 // The exact title prefix this script writes; its daily dispatch cap counts only issues carrying it.
 export const TITLE_PREFIX = 'routine failure:';
 
-const warn = (message) => console.log(`::warning::routine-failure-triage: ${message}`);
+const warn = (message) => console.log(`::warning::bot-failure-triage: ${message}`);
 const utcDay = (ms) => new Date(ms).toISOString().slice(0, 10);
 
 /** First failing job and step NAMES from `gh run view --json jobs`; never log text. */
@@ -131,7 +131,7 @@ export function shouldComment(comments, now) {
 export async function triage({ workflow, runId, runUrl, conclusion }, { repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
   try {
     if (!workflow || !runId) return { action: 'skipped', reason: 'missing workflow or run id' };
-    if (workflow === 'routine-failure-triage') return { action: 'skipped', reason: 'never triages itself' };
+    if (workflow === 'bot-failure-triage') return { action: 'skipped', reason: 'never triages itself' };
     const failed = FAILED_CONCLUSIONS.has(conclusion);
     if (!failed && conclusion !== 'cancelled') return { action: 'skipped', reason: `conclusion ${conclusion}` };
     let jobs = null;
@@ -151,7 +151,7 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
       if (!seen && shouldComment(comments, now)) {
         await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}\n\n${COMMENT_MARKER}`]);
       }
-      log(`routine-failure-triage: #${existing.number} already filed for ${workflow} ${day}.`);
+      log(`bot-failure-triage: #${existing.number} already filed for ${workflow} ${day}.`);
       return { action: 'commented', number: existing.number };
     }
 
@@ -178,7 +178,7 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
       if (!number) throw new Error('gh issue create printed no issue URL');
       action = 'filed';
     }
-    log(`routine-failure-triage: ${action} #${number} for ${workflow} ${day}.`);
+    log(`bot-failure-triage: ${action} #${number} for ${workflow} ${day}.`);
     // The ops-fix routine's own failures go to Marjorie/escalation only — never back into a dispatch loop.
     if (!isOpsFix) {
       // Failure dispatches have their own daily cap, counted from today's failure issues (this one included), not Tree's shared run count.
@@ -201,5 +201,5 @@ async function main() {
 }
 
 if (process.argv[1]?.replace(/\\/g, '/').endsWith('scripts/marjorie/routine-failure-triage.mjs')) {
-  runMain(main, { name: 'routine-failure-triage' });
+  runMain(main, { name: 'bot-failure-triage' });
 }
