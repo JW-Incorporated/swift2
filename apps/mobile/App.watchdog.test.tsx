@@ -25,7 +25,7 @@ vi.mock('react-native', async () => {
   const el = (tag: string) => (p: { children?: unknown; testID?: string }) => React.createElement(tag, { 'data-testid': p.testID }, p.children as never);
   return {
     View: el('div'),
-    Platform: { OS: 'ios' },
+    Platform: { OS: 'android' },
     StyleSheet: { create: (s: unknown) => s, hairlineWidth: 1 },
     AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
     BackHandler: { addEventListener: () => ({ remove: () => undefined }), exitApp: () => undefined },
@@ -116,7 +116,6 @@ vi.mock('./dom/AppReader', async () => {
 
 import App from './App';
 import { registerRoutes } from './dom/slots/routes';
-import { FORCE_SHARED_UI_KEY } from './lib/diagnostics-override';
 import { notificationTapGate } from './lib/use-notification-taps';
 import { beginAttempt, decideMount, recordStrike, shouldMountDom, type WatchdogRecord } from './lib/watchdog';
 
@@ -127,7 +126,6 @@ const tapResponse = (id: string, deepLink: string) => ({ notification: { date: 1
 
 /** Mount the App on the DOM host and run the DOM side of the handshake up to a bound tap target. */
 async function mountDomApp() {
-  h.store.set(FORCE_SHARED_UI_KEY, 'true');
   render(<App />);
   await vi.waitFor(() => expect(h.reader).not.toBeNull());
   await bridge(env('r1', 'evt', 'ready', { v: 1 }));
@@ -147,7 +145,7 @@ afterEach(() => {
 });
 
 describe('App: a DOM protocol fatal strikes the real watchdog and falls back to native', () => {
-  it('mounts the DOM host first (override on), no native surface yet', async () => {
+  it('mounts the DOM host first (default-on), no native surface yet', async () => {
     await mountDomApp();
     expect(screen.getByTestId('dom-reader')).toBeTruthy();
     expect(screen.queryByTestId('native-surface')).toBeNull();
@@ -178,7 +176,6 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
   });
 
   it('a protocol version the host cannot speak (host-detected fatal) falls back the same way', async () => {
-    h.store.set(FORCE_SHARED_UI_KEY, 'true');
     render(<App />);
     await vi.waitFor(() => expect(h.reader).not.toBeNull());
     await bridge(env('r1', 'evt', 'ready', { v: 99 }));
@@ -197,7 +194,6 @@ describe('App: a quarantined build never mounts the DOM host, and taps open nati
     }
     expect(decideMount(record, '1:embedded', Date.now()).record.state).toBe('quarantined');
     h.store.set('longlive_watchdog_v1', JSON.stringify(record));
-    h.store.set(FORCE_SHARED_UI_KEY, 'true');
     render(<App />);
     await vi.waitFor(() => expect(screen.getByTestId('native-surface')).toBeTruthy());
     expect(h.reader).toBeNull();

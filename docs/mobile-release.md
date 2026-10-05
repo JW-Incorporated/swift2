@@ -305,11 +305,10 @@ config is safe to publish.
 ### Kill switch for the shared UI (`sharedUi`), and quarantine (WP2.14)
 
 `sharedUi` is the one flag where the latency matters. The launch decision
-reads the **cached** config only (quarantine > override > cache > compiled
+reads the **cached** config only (quarantine > cache > compiled
 default), so `sharedUi:false` published to `app-config.json` takes effect on a
 device's **second launch** after publish (the first launch fetches and caches
-it). A device with no cached config follows the compiled default. WP5.1 must
-flip both the JSON and `DEFAULT_ROUTE_FLAGS.sharedUi`.
+it). A device with no cached config follows the compiled default, which is now `true` (JSON and default agree, tested). A device whose cache still holds `false` gets the DOM UI from its second launch after the OTA.
 
 A build whose DOM bundle keeps failing quarantines itself: two fallback cycles
 (4 failed attempts) in one `buildKey`, then native until the next OTA or a

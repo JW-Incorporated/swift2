@@ -13,8 +13,8 @@
 // ready launch clears. A failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone before ready or a repeat within RELOAD_WINDOW_MS of a
 // post-ready reload) is a strike: strike 1 mounts native for this launch;
-// strike 2 (consecutive) also clears the C4 override and makes the next launch
-// native too.
+// strike 2 (consecutive) makes the next launch native too (the C4 override was
+// removed 2026-10-04; its clearing code is deferred to the native-UI deletion PR).
 
 import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
 import { truncateReason } from './watchdog-monitor';
@@ -184,7 +184,7 @@ export async function startAttempt(
   const attempt = beginAttempt(decision.record, now);
   if (!(await save(attempt))) return null;
   if (!stillWanted()) {
-    // The flag flipped off mid-flow: nothing mounted, so un-record the attempt (no strike).
+    // Unmounted mid-flow: nothing mounted, so un-record the attempt (no strike).
     await save(decision.record);
     return null;
   }
@@ -194,13 +194,24 @@ export async function startAttempt(
 /**
  * Every record write goes through one in-order chain, so the last write issued
  * is the last persisted. A failed write is retried `retries` times in place
- * (inside its own turn, so a retry can never land after a later write).
+ * (inside its own turn, so a retry can never land after a later write). A write may be a compute function
+ * `(current) => record`: it runs INSIDE its turn (once, not per retry) and sees the last record this queue
+ * persisted, so it can build on writes queued before it instead of a stale snapshot.
  */
+export type RecordSource = WatchdogRecord | ((current: WatchdogRecord | null) => WatchdogRecord);
+
 export function createWriteQueue(save: (r: WatchdogRecord) => Promise<boolean>) {
   let tail: Promise<unknown> = Promise.resolve();
-  return (record: WatchdogRecord, retries = 0): Promise<boolean> => {
+  let last: WatchdogRecord | null = null;
+  return (source: RecordSource, retries = 0): Promise<boolean> => {
     const run = async (): Promise<boolean> => {
-      for (let i = 0; i <= retries; i += 1) if (await save(record)) return true;
+      const record = typeof source === 'function' ? source(last) : source;
+      for (let i = 0; i <= retries; i += 1) {
+        if (await save(record)) {
+          last = record;
+          return true;
+        }
+      }
       return false;
     };
     const result = tail.then(run, run);

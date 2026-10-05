@@ -24,10 +24,10 @@ the DOM bundles.
   before ready, or a repeat inside 5 min, is a watchdog strike that unmounts
   the host; the first crash after ready re-keys the mount once (see the W3-iOS
   note at the end). Android render-process-gone waits for the app to be active.
-- `routeFlags.sharedUi` (default `false`; `config/mobile/app-config.json`
-  and `packages/content/src/app-config.ts`). When true, or when the
-  diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
-  mounts the host instead of the native reader.
+- `routeFlags.sharedUi` (default `true` since 2026-10-04; `config/mobile/app-config.json`
+  and `packages/content/src/app-config.ts`). When true, App.tsx mounts the host
+  instead of the native reader. There is no Diagnostics override; the kill
+  switch is JSON `sharedUi:false`.
 - Diagnostics access while the host is mounted (#4872): the Settings -> About
   path is unreachable, so an invisible native hot corner
   (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits in
@@ -41,8 +41,6 @@ the DOM bundles.
   feed one shared counter. To open Diagnostics on the shared-UI path: tap the
   status-bar area (top) or the bottom inset strip 7 times within 2 s, in any
   mix of the two.
-  The same `DiagnosticsPanel`'s "Force shared UI" switch turns the override off
-  (applies next launch).
 - `apps/mobile/lib/orientation-lock.ts` — `app.json` is `orientation:
   "default"`; phones are locked to portrait at runtime (tablets rotate).
 
@@ -83,16 +81,15 @@ Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
 and a flipped default cannot be killed remotely.
 
 - **Resolved once per launch, from local state only.** Precedence:
-  quarantine > override > cache > default. Quarantine = this build's record is
-  `quarantined`; override = Diagnostics "Force shared UI"; cache = the last-good
+  quarantine > cache > default. Quarantine = this build's record is
+  `quarantined`; cache = the last-good
   `app-config.json` `sharedUi` (`loadLaunchFlags`, one local read); default =
   `DEFAULT_ROUTE_FLAGS.sharedUi`. The network config is cached and applies on
   the NEXT launch: there is no native-to-DOM swap mid-launch.
 - **Kill switch latency.** Set `sharedUi:false` in `config/mobile/app-config.json`
   and publish (docs/mobile-release.md). A device fetches it on a launch, so it
   is native from that device's second launch after publish. A device that never
-  cached a config follows the compiled default. WP5.1 flips BOTH the JSON and
-  the compiled default.
+  cached a config follows the compiled default. The compiled default is now `true` (the JSON agrees, tested).
 - **Quarantine.** Strike 2 owes one native fallback launch; the second such
   cycle in one `buildKey` (`QUARANTINE_AFTER_FALLBACK_CYCLES = 2`) quarantines the build:
   native on every launch until a new OTA or binary changes the `buildKey`, or
@@ -106,11 +103,14 @@ and a flipped default cannot be killed remotely.
   delta counts as zero elapsed).
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
-  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch, with one exception:
-  the Diagnostics "Force shared UI" override. If it resolves ON after the bound
-  (slow iOS keychain on a cold launch), the DOM host still mounts (late upgrade,
-  `mount-late-upgrade` mark). Every expiry records a `mount-pending-expired`
+  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`. Slow local reads never
+  decide (#5040): at the bound the launch starts from the compiled default
+  flag and a fresh record, so the DOM mounts (never native or Recovery for
+  latency). Late evidence is for the next launch: a late flag is ignored, a late
+  quarantine/owed fallback is refunded and honoured next time, and until the
+  record resolves nothing is persisted (then ONE record folds in ready/strike).
+  A SLOW attempt write (3 s) mounts the DOM on the in-memory attempt; a FAILED
+  write still fails closed (`attempt-failed`). Each bound firing records a `mount-pending-expired`
   mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
   `Mount:` line with the reason the mount is native (`pending-expired`,
   `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
@@ -191,7 +191,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
    attempt). Relaunch twice more: quarantined, native with no attempt.
    Diagnostics shows `Quarantined: yes`.
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (default-on, via the flag). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per (build, category) per day on #4791.
 4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
@@ -212,7 +212,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
   19.2.3 for mobile; same split as `react`, handled by the Metro singleton
   pins) and patch-level SDK drift on pre-existing packages (deliberately not
   bumped: this batch adds only the signed list).
-- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) clears the C4 override and keeps the next launch native too. A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Re-enabling the override in Diagnostics clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
+- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) keeps the next launch native too (the C4 override no longer exists). A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Diagnostics "Reset watchdog" clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
 - **App links declared but unverified: URL intake shipped (#5069, `longlive://` + www links), the `.well-known` association files are still pending (#4988 after HA #99); risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without the files Android 12+ opens these links in the browser by default; only test devices exist (C5).
 
 ## Speed test mode (#4896) — the S2/S4 device procedure

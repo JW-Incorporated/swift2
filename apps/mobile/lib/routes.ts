@@ -101,8 +101,10 @@ export interface RouteFlags {
    * defaults OFF (see DEFAULT_ROUTE_FLAGS). */
   clownbot: boolean;
   /** One UI WP0.4: mounts the shared-UI DOM host instead of the native
-   * reader. Defaults OFF; the diagnostics C4 override can force it per device. */
+   * reader. Defaults ON (founder decision 2026-10-04); JSON sharedUi:false is the kill switch. */
   sharedUi: boolean;
+  /** Same gate for iOS only (iOS reads this, Android reads `sharedUi`). On by default (founder decision 2026-10-05, at risk); JSON sharedUiIos:false is the iOS kill switch. */
+  sharedUiIos: boolean;
 }
 
 /** OS-039: every native screen this phase built now ships ON by default —
@@ -125,7 +127,8 @@ export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   song: true,
   moment: true,
   clownbot: true,
-  sharedUi: false,
+  sharedUi: true,
+  sharedUiIos: true,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {

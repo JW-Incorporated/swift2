@@ -215,19 +215,23 @@ describe('serialized record writes', () => {
     const failing = createWriteQueue(vi.fn().mockResolvedValue(false));
     expect(await failing(rec, 1)).toBe(false);
   });
-});
 
-describe('wantsDom re-check', () => {
-  it('un-records the attempt and mounts native (no strike) when the flag went off mid-flow', async () => {
-    const d = decideMount(null, KEY, 1);
+  it('a compute write runs inside its turn, after earlier writes land, and sees the last persisted record (once, not per retry)', async () => {
     const saved: string[] = [];
-    const save = async (r: WatchdogRecord) => {
+    const save = vi.fn(async (r: { state: string }) => {
+      await new Promise((res) => setTimeout(res, 5));
       saved.push(r.state);
       return true;
-    };
-    expect(await startAttempt(d, 2, save, () => false)).toBeNull();
-    expect(saved).toEqual(['attempting', 'idle']);
-    expect(decideMount(d.record, KEY, 3).record.strikes).toBe(0);
+    });
+    const write = createWriteQueue(save as never);
+    const first = markReady(beginAttempt(freshRecord(KEY, 0), 1), 2);
+    const compute = vi.fn((current: typeof first | null) => (current?.state === 'ready' ? current : beginAttempt(freshRecord(KEY, 0), 3)));
+    void write(first);
+    expect(compute).not.toHaveBeenCalled();
+    await write(compute, 1);
+    expect(compute).toHaveBeenCalledTimes(1);
+    expect(compute).toHaveBeenCalledWith(first);
+    expect(saved).toEqual(['ready', 'ready']);
   });
 });
 
