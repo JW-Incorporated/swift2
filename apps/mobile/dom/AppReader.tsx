@@ -12,7 +12,8 @@ import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/exper
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
-import { backFromDomPath, currentDomUrl, setDomPath } from './bridge/dom-path';
+import { backFromDomPath, currentDomUrl, DOM_PATH_EVENT, setDomPath } from './bridge/dom-path';
+import { startRouteReporting } from './bridge/route-report';
 import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
@@ -74,7 +75,7 @@ const ZERO_INSETS: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
 const getPath = () => currentDomUrl();
 
 type BackFn = () => 'handled' | 'exit';
-type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
+type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag' | 'sendEvent'>;
 type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & Pick<AppReaderProps, 'bridgeHello'> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
@@ -85,7 +86,7 @@ type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & Pick<AppR
 };
 
 /** Web/dev (no native host): the bridge calls the adapter makes fail closed. */
-const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {} };
+const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {}, sendEvent: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
 function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
@@ -93,6 +94,7 @@ function ExpoBridgeMount({ inbox, bridge, bridgeHello, onFatal, onInsets, onCont
     installReaderBridge(c, { onInsets, onContentVersion, back: () => (backFromDomPath() ? 'handled' : (backRef.current?.() ?? 'exit')), nav: navigateDeps }),
   );
   useEffect(() => onClient(client), [client]);
+  useEffect(() => startRouteReporting((payload) => client.sendEvent('route', payload)), [client]);
   return null;
 }
 
@@ -108,7 +110,10 @@ export default function AppReader(props: AppReaderProps) {
   // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
   const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
   const navigateDeps = useRef<NavigateDeps>({
-    replaceUrl: (relative) => window.history.replaceState(window.history.state, '', relative),
+    replaceUrl: (relative) => {
+      window.history.replaceState(window.history.state, '', relative);
+      window.dispatchEvent(new Event(DOM_PATH_EVENT));
+    },
     setPath: (path) => showDomPath(path),
     apply: (search) => (applierRef.current ? applierRef.current(search) : Promise.reject(new Error('reader not mounted'))),
   }).current;

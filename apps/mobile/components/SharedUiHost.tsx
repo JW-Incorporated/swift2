@@ -27,6 +27,7 @@ import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } f
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { newBridgeToken } from '../lib/bridge-token';
 import { createProbePublisher } from '../lib/probe-publisher';
+import { useContentAdoption } from '../lib/use-content-adoption';
 import { useDeferredBundleRefresh } from '../lib/use-deferred-bundle-refresh';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
@@ -106,6 +107,7 @@ export function SharedUiHost({
   }, []);
 
   const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);
+  const adoption = useContentAdoption(testPage, { bump: () => setGeneration((g) => g + 1), onSignal, setSource, watch });
 
   const handlers = useMemo(
     () =>
@@ -128,6 +130,7 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
+    adoption.epochStarted();
     const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
@@ -151,7 +154,11 @@ export function SharedUiHost({
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
       onBeforeShutdown: () => ref.binder?.release(),
       onReadyAgain: () => ref.binder?.readyAgain(),
-      onNavReady: () => ref.binder?.navReady(),
+      onNavReady: () => {
+        ref.binder?.navReady();
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+      },
+      onRoute: (path, busy) => adoption.route(path, busy),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -263,6 +270,7 @@ export function SharedUiHost({
                   if (probe.raw()) probe.publish(probe.raw()!);
                   domReady();
                   session.binder.firstPaint();
+                  adoption.readerReady();
                 }
               : async () => {}
           }

@@ -225,7 +225,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       if (env.kind === 'cmd') return onCmd(env);
       if (env.kind === 'res') return onRes(env);
       if (isReady) return onReady(env);
-      handleDomEvent(env, { ready: () => ready, onSignal, onAck, onNavReady: deps.onNavReady, onNavigated: deps.onNavigated, onTheme: deps.onTheme });
+      handleDomEvent(env, { ready: () => ready, onSignal, onAck, onNavReady: deps.onNavReady, onNavigated: deps.onNavigated, onTheme: deps.onTheme, onRoute: deps.onRoute });
     } catch (e) {
       onSignal('bridge-receive-error', String(e).slice(0, 200));
     }
