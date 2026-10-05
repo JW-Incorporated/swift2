@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ONBOARDING_PRESETS, type OnboardingPresetId } from '@swift2/shared';
 import { useHost } from '@swift2/ui';
-import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { onboardingOverlay, useOnboardingPhase } from './onboarding-store';
 import { NEUTRAL } from './settings-page';
+import { useDialog } from './use-dialog';
 import { settingsOverlay, useSettingsOpen } from './settings-store';
 
 // The push-permission offer (spec §7), shown once at the first value moment: the first time the settings overlay
@@ -21,9 +21,8 @@ export function OnboardingOverlay() {
   const phase = useOnboardingPhase();
   const [busy, setBusy] = useState<OnboardingPresetId | 'skip' | 'customize' | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const root = useRef<HTMLDivElement>(null);
+  const dialog = useDialog(phase === 'shown');
   const capable = !!notifications?.onboardingOffered && !!notifications.markOnboardingOffered;
-  useFocusTrap(phase === 'shown', root);
 
   useEffect(() => {
     if (!settingsOpen || phase !== 'idle' || !notifications || !capable) return;
@@ -85,7 +84,7 @@ export function OnboardingOverlay() {
     });
 
   return (
-    <div ref={root} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Stay in the loop" className="fixed inset-0 z-[60] overflow-y-auto outline-none" style={NEUTRAL}>
+    <div {...dialog(() => void (busy === null && run('skip', async () => void (await persist()))))} role="dialog" aria-modal="true" aria-label="Stay in the loop" className="fixed inset-0 z-[60] overflow-y-auto outline-none" style={NEUTRAL}>
       <div className="mx-auto flex max-w-xl flex-col gap-4 px-6 pb-16 pt-[max(4rem,var(--safe-top,0px))]">
         <h2 className="text-2xl font-semibold text-ink">Stay in the loop</h2>
         <p className="text-sm text-ink/70">Pick how much you want to hear from Long Live. You can change this any time.</p>

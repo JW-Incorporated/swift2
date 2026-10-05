@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import type React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -101,7 +102,7 @@ export function ClueWeb() {
     setView(next);
     // Re-anchor to the top of the mini-app so a new view starts in view.
     requestAnimationFrame(() =>
-      topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      topRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'start' }),
     );
   };
 
