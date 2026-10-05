@@ -139,6 +139,14 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(stale.result.current.mount).toBe('native');
   });
 
+  it('pending expiry with the decision ready writes the refunded record (owed fallback launch not consumed)', async () => {
+    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'fallback', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 1, backgrounded: false, abandonedStreak: 0, at: 1 };
+    renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0]).toMatchObject({ state: 'fallback', fallbackLaunchesRemaining: 1 });
+  });
+
   it('an attempt write that never settles mounts native (attempt-failed) within the bound', async () => {
     h.saveDelay = 1e9;
     const { result } = renderHook(() => useDomMount(inputs()));

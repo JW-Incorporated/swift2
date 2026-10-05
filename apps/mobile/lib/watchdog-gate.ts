@@ -99,6 +99,9 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const expiredRef = useRef(false);
   const committedRef = useRef(false);
   const decidedRef = useRef(false);
+  const prevRef = useRef<WatchdogRecord | null | 'corrupt'>(null);
+  const refundWrittenRef = useRef(false);
+  const decisionRef = useRef<MountDecision | null>(null);
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
@@ -118,7 +121,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
-  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef, launchWriteRef, flushLaunchWrite } = useContentGate(deps);
+  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
   const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
@@ -135,7 +138,13 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     cancelBoundRef.current = noContentRef.current ? () => undefined : armPendingBound(scheduler, () => {
         expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
-        if (mountRef.current === 'pending' && !committedRef.current) apply('native', 'pending-expired');
+        if (mountRef.current === 'pending' && !committedRef.current) {
+          if (decisionRef.current) {
+            refundWrittenRef.current = true;
+            void write(refundExpiredFallback(prevRef.current, decisionRef.current.record, true));
+          }
+          apply('native', 'pending-expired');
+        }
       });
     return () => cancelBoundRef.current();
   }, []);
@@ -146,13 +155,8 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      const expired = expiredRef.current;
-      const launchWrite = async () => {
-        await write(refundExpiredFallback(prev, d.record, expired));
-      };
-      // No cache: hold the launch record in memory until the DOM attempt starts.
-      if (noContentRef.current) launchWriteRef.current = launchWrite;
-      else await launchWrite();
+      prevRef.current = prev;
+      decisionRef.current = d;
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
@@ -188,28 +192,26 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       defaultSharedUi: ios ? DEFAULT_ROUTE_FLAGS.sharedUiIos : DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     // Pending expiry is terminal for this launch: native stays mounted (never swap an interactive UI); the next launch decides normally.
-    if (expiredRef.current) return void flushLaunchWrite();
+    if (expiredRef.current) {
+      if (!refundWrittenRef.current) void write(refundExpiredFallback(prevRef.current, decision.record, true));
+      return;
+    }
     if (!shouldMountDom(want.wantsDom, decision)) {
-      return void (async () => {
-        await flushLaunchWrite();
-        if (unmountedRef.current) return;
-        if (mountRef.current !== 'pending') void write(decision.record);
-        apply('native', nativeReasonFor(want, decision.fallbackActive));
-      })();
+      void write(decision.record);
+      return apply('native', nativeReasonFor(want, decision.fallbackActive));
     }
     void (async () => {
       if (noContentRef.current) {
         apply('awaiting-content');
         const t0 = monotonicNow();
         if (!(await waiterRef.current?.run())) return;
-        await flushLaunchWrite();
         diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
       }
       const failure = await getForceDomFailure();
       if (unmountedRef.current || expiredRef.current) return;
       committedRef.current = true;
       setForceFailure(failure);
-      const attempt = await startAttemptBounded(decision, write, scheduler, () => !unmountedRef.current);
+      const attempt = await startAttemptBounded(decision, write, scheduler, () => !unmountedRef.current, refundExpiredFallback(prevRef.current, decision.record, true));
       if (unmountedRef.current) return;
       if (!attempt) return apply('native', 'attempt-failed');
       recordRef.current = attempt;
