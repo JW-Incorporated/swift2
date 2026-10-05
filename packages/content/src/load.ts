@@ -43,263 +43,50 @@
  */
 import { z } from 'zod';
 import { manifestSchema, type Manifest } from './schema';
-import { lookupSchema } from './validation-contract';
-import { MemoryStorageAdapter, type StorageAdapter } from './cache';
-import { createHash } from './hash';
-import {
-  assertSchemaVersionSupported,
-  CURRENT_SCHEMA_VERSION,
-  isSchemaVersionSupported,
-} from './compat';
-import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
-import { mapPool } from './pool';
+import { MemoryStorageAdapter } from './cache';
+import { assertSchemaVersionSupported } from './compat';
 import { beginStage } from './timing';
 import {
-  lastGoodJson,
-  readWarmCache,
-  SCHEMA_FINGERPRINT,
-} from './warm-cache';
+  BundleLoadError,
+  isDataError,
+  LOAD_SOURCE,
+  SchemaVersionMismatchError,
+  SUPPORTED_SCHEMA_VERSION,
+  TransportError,
+  type FetchLike,
+  type LoadBundleOptions,
+  type LoadedBundle,
+} from './load-types';
+import { DEFAULT_REQUEST_TIMEOUT_MS, joinUrl, readJson, transportFetch } from './load-transport';
+import {
+  fetchLastGoodBundle,
+  persistFullLoad,
+  persistPartialLoad,
+  readCompleteCache,
+  revalidateLastGood,
+} from './load-cache';
+import { fetchBundleFiles } from './load-files';
 
-const FETCH_CONCURRENCY = 5;
-
-/** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
-export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
+export {
+  BundleIntegrityError,
+  BundleLoadError,
+  isDataError,
+  LOAD_SOURCE,
+  SchemaVersionMismatchError,
+  SUPPORTED_SCHEMA_VERSION,
+} from './load-types';
+export type {
+  BundleFiles,
+  FetchLike,
+  FetchResponseLike,
+  LoadBundleOptions,
+  LoadedBundle,
+  LoadSource,
+} from './load-types';
 
 const pointerSchema = z.object({
   bundleVersion: z.string().min(1),
 });
-
-/** Minimal subset of the standard `Response` shape the loader needs — satisfied by the global `fetch` in browsers, Node 18+, and Expo, and trivially fakeable in tests. */
-export interface FetchResponseLike {
-  ok: boolean;
-  status: number;
-  text(): Promise<string>;
-  headers: { get(name: string): string | null };
-}
-
-export type FetchLike = (
-  url: string,
-  init?: { headers?: Record<string, string>; signal?: AbortSignal },
-) => Promise<FetchResponseLike>;
-
-export interface LoadBundleOptions {
-  /** Where the bundle is published, e.g. `https://www.longlivets.com/content` or a Supabase Storage bucket URL. No trailing slash required. */
-  baseUrl: string;
-  /** Injectable fetch implementation. Defaults to `globalThis.fetch`. */
-  fetch?: FetchLike;
-  /** Per-request network timeout in ms (default 30 000). A stalled request rejects as a transport failure instead of hanging forever. */
-  requestTimeoutMs?: number;
-  /** Injectable storage adapter. Defaults to an in-memory adapter (durable for this process only). Pass a real adapter (e.g. `expo-file-system`-backed on mobile) to persist a last-good bundle across app restarts. */
-  storage?: StorageAdapter;
-  /** Schema version this loader build supports. Defaults to `SUPPORTED_SCHEMA_VERSION`; override only in tests. */
-  schemaVersion?: number;
-  /**
-   * `'reject'` (default): an unknown enum value or manifest entry fails the load.
-   * `'drop'` (installed apps): unknown enum values are pruned via
-   * `pruneUnknownEnumValues` and manifest entries with no schema in this build
-   * are skipped; both are listed on `skipped`. See docs/decisions.md 2026-10-01.
-   */
-  unknownEnumPolicy?: 'reject' | 'drop';
-  /**
-   * `'throw'` (default): a data error always throws. `'last-good'`: a data
-   * error (see `isDataError`) serves the cached last-good bundle with
-   * `source: 'last-good-after-data-error'` and the error on `dataError`;
-   * still throws when nothing is cached.
-   */
-  dataErrorFallback?: 'throw' | 'last-good';
-}
-
-export type BundleFiles = Record<string, unknown>;
-
-export const LOAD_SOURCE = {
-  network: 'network',
-  cacheEtag: 'cache-etag',
-  offlineLastGood: 'offline-last-good',
-  lastGoodAfterDataError: 'last-good-after-data-error',
-} as const;
-
-export type LoadSource = (typeof LOAD_SOURCE)[keyof typeof LOAD_SOURCE];
-
-export interface LoadedBundle {
-  manifest: Manifest;
-  /** Manifest entry name -> the file's content, already zod-validated. */
-  files: BundleFiles;
-  source: LoadSource;
-  /** True when this bundle was served from the last-good cache (transport failure, or a data error under `dataErrorFallback: 'last-good'`), not freshly confirmed current. */
-  stale: boolean;
-  /** The data error that made this load fall back (`source: 'last-good-after-data-error'` only). */
-  dataError?: Error;
-  /** Manifest entries left out under `unknownEnumPolicy: 'drop'` (no schema in this build, or the whole file held an unknown value). */
-  skipped?: string[];
-}
-
-export class BundleLoadError extends Error {
-  constructor(
-    message: string,
-    readonly cause?: unknown,
-  ) {
-    super(message);
-    this.name = 'BundleLoadError';
-  }
-}
-
-export class SchemaVersionMismatchError extends Error {
-  constructor(
-    readonly found: number,
-    readonly supported: number,
-    cause?: unknown,
-  ) {
-    super(
-      `Content bundle schemaVersion ${found} is not supported by this build (this loader ` +
-        `supports schemaVersion ${supported}, plus its N-1 window per OS-041's compatibility ` +
-        `policy — see ./compat.ts). Ship a build whose packages/content loader understands ` +
-        `schemaVersion ${found} before publishing a bundle at that version.` +
-        (cause instanceof Error ? ` (${cause.message})` : ''),
-    );
-    this.name = 'SchemaVersionMismatchError';
-  }
-}
-
-export class BundleIntegrityError extends Error {
-  constructor(
-    readonly fileName: string,
-    detail: string,
-  ) {
-    super(`Content bundle file "${fileName}" failed integrity check: ${detail}`);
-    this.name = 'BundleIntegrityError';
-  }
-}
-
-/**
- * Marks a failure as transport-level (unreachable server, network throw, or a
- * non-2xx/non-304 HTTP status) — the ONLY category of failure that may fall
- * back to a cached last-good bundle. Anything else (JSON parse errors, zod
- * validation, integrity mismatches, schema version mismatches) is a data
- * problem with a genuinely reachable response and must never be silently
- * papered over by stale-while-revalidate.
- */
-class TransportError extends Error {
-  constructor(
-    message: string,
-    readonly cause?: unknown,
-  ) {
-    super(message);
-    this.name = 'TransportError';
-  }
-}
-
-function schemaForManifestEntry(name: string): z.ZodTypeAny {
-  const schema = lookupSchema(name);
-  if (!schema) {
-    throw new BundleLoadError(
-      `No schema mapped for manifest entry "${name}" — update schemaForManifestEntry() in load.ts.`,
-    );
-  }
-  return schema;
-}
-
-const CACHE_KEY_PREFIX = '@swift2/content:v1:';
-const keyFor = (baseUrl: string, suffix: string) => `${CACHE_KEY_PREFIX}${baseUrl}:${suffix}`;
-
-interface CachedBundleRecord {
-  manifest: Manifest;
-  files: BundleFiles;
-}
-
-async function storeGet(storage: StorageAdapter, key: string): Promise<string | null> {
-  return (await storage.getItem(key)) ?? null;
-}
-
-async function storeSet(storage: StorageAdapter, key: string, value: string): Promise<void> {
-  await storage.setItem(key, value);
-}
-
-function joinUrl(base: string, path: string): string {
-  return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
-}
-
-async function fetchLastGoodBundle(
-  storage: StorageAdapter,
-  baseUrl: string,
-): Promise<CachedBundleRecord | null> {
-  const raw = await storeGet(storage, keyFor(baseUrl, 'last-good'));
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as CachedBundleRecord;
-  } catch {
-    return null;
-  }
-}
-
-const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;
-
-/** Calls `fetchImpl`, converting a network-level throw (offline, DNS, timeout) into a `TransportError` so callers can distinguish it from a data problem in an otherwise-successful response. */
-async function transportFetch(
-  fetchImpl: FetchLike,
-  url: string,
-  init?: { headers?: Record<string, string> },
-  timeoutMs: number = DEFAULT_REQUEST_TIMEOUT_MS,
-): Promise<FetchResponseLike> {
-  // setTimeout + AbortController, not AbortSignal.timeout (not guaranteed on Hermes). The race
-  // rejects even if the fetch implementation ignores the signal. The timer stays armed through
-  // the body read (res.text()) and is cleared only once the body is fully read.
-  const controller = typeof AbortController === 'function' ? new AbortController() : undefined;
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const timedOut = new Promise<never>((_, reject) => {
-    timer = setTimeout(() => {
-      controller?.abort();
-      reject(new Error(`Request timed out after ${timeoutMs}ms`));
-    }, timeoutMs);
-  });
-  timedOut.catch(() => {});
-  const fail = (err: unknown): never => {
-    clearTimeout(timer);
-    throw new TransportError(`Network request to ${url} failed`, err);
-  };
-  let res: FetchResponseLike;
-  try {
-    res = await Promise.race([
-      fetchImpl(url, controller ? { ...init, signal: controller.signal } : init),
-      timedOut,
-    ]);
-  } catch (err) {
-    return fail(err);
-  }
-  if (!res.ok) {
-    clearTimeout(timer);
-    return res;
-  }
-  return {
-    ok: res.ok,
-    status: res.status,
-    headers: res.headers,
-    text: async () => {
-      try {
-        const body = await Promise.race([res.text(), timedOut]);
-        clearTimeout(timer);
-        return body;
-      } catch (err) {
-        return fail(err);
-      }
-    },
-  };
-}
-
-/** Reads and JSON-parses a response body. A malformed body is a DATA problem (the server was reached, it just returned garbage) — never converted to `TransportError`, so it is never masked by the stale-while-revalidate fallback. */
-async function readJson<T>(res: FetchResponseLike): Promise<T> {
-  const text = await res.text();
-  return JSON.parse(text) as T;
-}
-
-/** A problem in data the server actually returned (never a transport failure) — the only errors `dataErrorFallback: 'last-good'` may absorb. */
-export function isDataError(err: unknown): err is Error {
-  return (
-    err instanceof SchemaVersionMismatchError ||
-    err instanceof BundleIntegrityError ||
-    err instanceof SyntaxError ||
-    err instanceof z.ZodError
-  );
-}
 
 /**
  * Load the content bundle, validating everything against `schema.ts` before
@@ -328,44 +115,6 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
       ...(readable.skipped.length ? { skipped: readable.skipped } : {}),
     };
   }
-}
-
-/**
- * The cache outlives OTA updates, so a last-good record may have been written
- * by a different JS build. Re-check it against THIS build (schema window and
- * every file, same rules as a network load) before serving it; null = unusable.
- */
-function revalidateLastGood(
-  record: CachedBundleRecord,
-  options: LoadBundleOptions,
-): { files: BundleFiles; skipped: string[] } | null {
-  const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
-  if (!isSchemaVersionSupported(record.manifest?.schemaVersion, schemaVersion)) return null;
-  if (!record.files || typeof record.files !== 'object') return null;
-  const dropUnknown = options.unknownEnumPolicy === 'drop';
-  const files: BundleFiles = {};
-  const skipped: string[] = [];
-  for (const [name, value] of Object.entries(record.files)) {
-    const schema = lookupSchema(name);
-    if (!schema) {
-      if (!dropUnknown) return null;
-      skipped.push(name);
-      continue;
-    }
-    const result = validateEntry(schema, value, dropUnknown);
-    if (result.kind === 'invalid') return null;
-    if (result.kind === 'drop-file') skipped.push(name);
-    else files[name] = result.data;
-  }
-  return { files, skipped };
-}
-
-/** Parse one entry against `schema`; under `dropUnknown`, prune unknown enum values first. Mutates `value`. */
-function validateEntry(schema: z.ZodTypeAny, value: unknown, dropUnknown: boolean): PruneResult {
-  const parsed = schema.safeParse(value);
-  if (parsed.success) return { kind: 'ok', data: parsed.data, removed: 0 };
-  if (!dropUnknown) return { kind: 'invalid', issues: parsed.error.issues };
-  return pruneUnknownEnumValues(schema, value);
 }
 
 async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
@@ -420,45 +169,15 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   }
 
   const manifestUrl = joinUrl(baseUrl, `${bundleVersion}/manifest.json`);
-  const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
-  // Key name `etag:` and source value 'cache-etag' are kept deliberately: existing
-  // installs already hold this key, and renaming the source would break callers.
-  // The fingerprint is part of both keys so a build with different schemas never
-  // sees files an older build's zod parse may have stripped (#4800).
-  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
-  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}:${SCHEMA_FINGERPRINT}`);
-  const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
+
+  const warm = await readCompleteCache(storage, baseUrl, bundleVersion, schemaVersion);
+  if (warm) {
+    // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
+    beginStage('manifest')('304');
+    return { ...warm, source: 'cache-etag', stale: false };
+  }
 
   let manifest: Manifest;
-
-  // `bundleVersion` is the bundle's content hash and its URL directory is
-  // immutable, so a fully validated cached copy of this exact version needs no
-  // manifest or file downloads. Plain requests only: a conditional header
-  // (If-None-Match) would force a CORS preflight from the app's opaque origin.
-  // Any truthy marker counts, including a legacy ETag string: the previous code
-  // wrote it only after the whole bundle was fetched and validated, and '' for
-  // pruned loads. An unreadable cache falls through to the network load.
-  if (await storeGet(storage, completeKey)) {
-    const cachedRaw = await storeGet(storage, manifestCacheKey);
-    const cachedFilesRaw = await storeGet(storage, filesCacheKey);
-    if (cachedRaw && cachedFilesRaw) {
-      // The fingerprint says this build's schemas already validated these bytes.
-      const trusted = (await storeGet(storage, schemaFpKey)) === SCHEMA_FINGERPRINT;
-      const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion, lookupSchema, trusted);
-      if (warm) {
-        if (!trusted) {
-          try {
-            await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
-          } catch {
-            // best effort: the next warm launch just validates again
-          }
-        }
-        // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
-        beginStage('manifest')('304');
-        return { ...warm, source: 'cache-etag', stale: false };
-      }
-    }
-  }
 
   const endManifest = beginStage('manifest');
   try {
@@ -486,79 +205,18 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
   }
 
-  const files: BundleFiles = {};
-  const skipped: string[] = [];
-  let pruned = false;
+  let files: LoadedBundle['files'];
+  let skipped: string[];
+  let pruned: boolean;
   try {
-    const wanted: Array<[string, (typeof manifest.files)[string]]> = [];
-    for (const [name, entry] of Object.entries(manifest.files)) {
-      // A catalogue added after this build has nothing here that could read it.
-      if (dropUnknown && !lookupSchema(name)) skipped.push(name);
-      else wanted.push([name, entry]);
-    }
-    // Bodies download concurrently (capped), so per-file 'download' marks now
-    // overlap in time. Hash/parse/validate below stay in manifest order, so the
-    // first failing file in manifest order decides the error. We never await
-    // fetches past a decisive failure (a hung one must not block the fallback);
-    // their results are discarded and nothing they do is written.
-    const { slots, stop } = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
-      const endDownload = beginStage('download', name);
-      const fileRes = await transportFetch(
-        fetchImpl,
-        joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
-        undefined,
-        requestTimeoutMs,
-      );
-      if (!fileRes.ok) {
-        throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
-      }
-      const body = await fileRes.text();
-      endDownload();
-      return body;
-    });
-    try {
-      for (const [i, [name, entry]] of wanted.entries()) {
-        const settled = await slots[i]!;
-        if (!settled.ok) throw settled.error;
-        const text = settled.value;
-        const endHash = beginStage('hash', name);
-        const bytes = new TextEncoder().encode(text);
-        const byteLength = bytes.length;
-        if (byteLength !== entry.bytes) {
-          throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
-        }
-        const actualHash = await createHash(bytes);
-        if (actualHash !== entry.sha256) {
-          throw new BundleIntegrityError(
-            name,
-            `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
-          );
-        }
-        endHash();
-        const schema = schemaForManifestEntry(name);
-        const endParse = beginStage('parse', name);
-        const json: unknown = JSON.parse(text);
-        endParse();
-        const endValidate = beginStage('validate', name);
-        const result = validateEntry(schema, json, dropUnknown);
-        endValidate();
-        if (result.kind === 'invalid') {
-          throw new BundleIntegrityError(
-            name,
-            `schema validation failed: ${JSON.stringify(result.issues)}`,
-          );
-        }
-        if (result.kind === 'drop-file') {
-          pruned = true;
-          skipped.push(name);
-        } else {
-          if (result.removed > 0) pruned = true;
-          files[name] = result.data;
-        }
-      }
-    } finally {
-      stop();
-    }
+    ({ files, skipped, pruned } = await fetchBundleFiles({
+      manifest,
+      bundleVersion,
+      baseUrl,
+      fetchImpl,
+      requestTimeoutMs,
+      dropUnknown,
+    }));
   } catch (err) {
     return fallbackOrRethrow(
       err,
@@ -566,13 +224,10 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     );
   }
 
-  // A partial (pruned/skipped) load writes ONLY last-good: it never touches the
-  // version-keyed manifest/files/marker trio, so an overlapping full load of the
-  // same version can never be overwritten by pruned data.
   const partial = pruned || skipped.length > 0;
   const endDiskWrite = beginStage('disk-write');
   if (partial) {
-    await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+    await persistPartialLoad(storage, baseUrl, manifest, files);
     endDiskWrite();
     return {
       manifest,
@@ -583,30 +238,9 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     };
   }
 
-  // Full load — once the manifest AND every file it lists have been fetched and
-  // validated together — persist the cache so a warm load can never find the
-  // complete marker without its matching files: the marker is cleared first and
-  // set LAST, so a failed write mid-way leaves it unset.
-  const manifestJson = JSON.stringify(manifest);
-  const filesJson = JSON.stringify(files);
-  await storeSet(storage, completeKey, '');
-  await storeSet(storage, manifestCacheKey, manifestJson);
-  await storeSet(storage, filesCacheKey, filesJson);
-  await storeSet(storage, keyFor(baseUrl, 'last-good'), lastGoodJson(manifestJson, filesJson));
-  const previousFp = await storeGet(storage, schemaFpKey);
-  await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
-  await storeSet(storage, completeKey, '1');
-  if (previousFp && previousFp !== SCHEMA_FINGERPRINT) {
-    // The previous build's version-keyed entries (several MB) can never be read again.
-    for (const stale of [`etag:${bundleVersion}:${previousFp}`, `files:${bundleVersion}:${previousFp}`]) {
-      try {
-        await storage.removeItem?.(keyFor(baseUrl, stale));
-      } catch {
-        // best effort: leftover bytes are harmless
-      }
-    }
-  }
+  await persistFullLoad(storage, baseUrl, bundleVersion, manifest, files);
   endDiskWrite();
+
 
   return {
     manifest,
