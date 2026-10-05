@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #101 · 2026-10-05 · done · S5: test the new app on your Android phone — "owner in chat 2026-10-05 12:31 PDT: checked the app on Android, no issues found, looks great" · by chat
 - #103 · 2026-10-05 · done · Set SUBMISSIONS_HASH_SALT in Vercel production — "owner said '103 done' in chat 2026-10-05 10:55 PDT" · by chat
 - #105 · 2026-10-05 · done · Store data-safety form still says the app runs analytics — "owner decided `keep` in chat 2026-10-05 10:49 PDT; revisit at the next store build (noted on draft #5133)" · by chat
 - #104 · 2026-10-05 · skip · Rotate the notifications metrics secret — "owner declined rotation in chat 2026-10-05 10:46 PDT" · by chat

@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -27,17 +27,6 @@
 1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
 **Worked if:** the next brief no longer lists #4707 under stalled.
-
-## #101 🔴 [BLOCKING] S5: test the new app on your Android phone (~20 min)
-<!-- ha filed=2026-10-04 -->
-
-**Why:** All Wave 4 screens (nav, era picker, track guide, search, merch, community, ClownChat, settings, legal) shipped by OTA to Play build 18; S5 confirms them on Android before the next gate.
-**Steps:**
-1. Open Long Live, wait 10 s, force-stop, reopen (the update applies).
-2. Follow docs/plans/one-ui/device-checklists.md → "S5 Android" (8 steps).
-3. Never type numbers — tap Send report and run Speed test mode; reports reach issue #4791.
-4. Reply `pass 1-6, fail 7: <what you saw>`.
-**Worked if:** the reply is all-pass, or each failure names what was on screen.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->
