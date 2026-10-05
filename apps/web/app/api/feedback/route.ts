@@ -5,7 +5,7 @@ import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
 import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
 import { readBodyText } from './body-text';
-import { guardReport, rateLimited } from './report-guards';
+import { guardReport, quotaResponse, rateLimited } from './report-guards';
 import { watchdogClaimResponse } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
@@ -192,7 +192,7 @@ export async function POST(req: Request): Promise<Response> {
 
   const guarded = await guardReport(payload, message, ip);
   if ('response' in guarded) return guarded.response;
-  const { diag, diagComment, speedReport, watchdogReport } = guarded;
+  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -216,6 +216,11 @@ export async function POST(req: Request): Promise<Response> {
       { error: 'Feedback isn’t wired up in this environment yet.' },
       { status: 503 },
     );
+  }
+
+  if (quotaKind) {
+    const capped = await quotaResponse(quotaKind, ip);
+    if (capped) return capped;
   }
 
   // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
