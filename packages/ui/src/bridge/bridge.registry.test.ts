@@ -14,7 +14,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'route', 'theme']);
   });
 });
 
@@ -52,6 +52,7 @@ describe('JSON round-trip, one sample per type', () => {
     navReady: {},
     navigated: { id: 't1', ok: true },
     theme: { statusBarStyle: 'light', background: '#0c0c0c' },
+    route: { path: '/privacy?x=1' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);

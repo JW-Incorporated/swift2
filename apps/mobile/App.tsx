@@ -44,6 +44,7 @@ import {
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
+import { runAfterFirstPaint } from './lib/launch-defer';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
@@ -148,12 +149,17 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    ensureDeviceRegistered().catch((e) => {
-      console.warn('device registration failed', e instanceof Error ? e.message : e);
+    // Deferred past first paint (its SecureStore ops would delay the mount gate); ensureDeviceRegistered() is memoized,
+    // so an earlier on-demand caller (prefs client) triggers it once and this call joins it.
+    const cancelRegistration = runAfterFirstPaint(() => {
+      ensureDeviceRegistered().catch((e) => {
+        console.warn('device registration failed', e instanceof Error ? e.message : e);
+      });
     });
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
+    return cancelRegistration;
   }, []);
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):

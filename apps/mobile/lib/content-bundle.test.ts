@@ -273,3 +273,21 @@ describe('selfHealOnce', () => {
     expect(fake.updates.fetchUpdateAsync).not.toHaveBeenCalled();
   });
 });
+
+describe('mounted-version comparison', () => {
+  it('notifies subscribers with each loaded version; differs only once a mounted version is known', async () => {
+    const { differsFromMountedContent, setMountedContentVersion, subscribeContentLoaded } = await import('./content-bundle');
+    loadBundle.mockResolvedValue({ manifest: { bundleVersion: 'v9' }, files: {}, source: 'network', stale: false });
+    const seen: string[] = [];
+    const off = subscribeContentLoaded((v) => seen.push(v));
+    setMountedContentVersion(null);
+    expect(differsFromMountedContent('v9')).toBe(false);
+    await loadContentBundle();
+    off();
+    expect(seen).toEqual(['v9']);
+    setMountedContentVersion('v8');
+    expect(differsFromMountedContent('v9')).toBe(true);
+    setMountedContentVersion('v9');
+    expect(differsFromMountedContent('v9')).toBe(false);
+  });
+});

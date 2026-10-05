@@ -47,6 +47,15 @@ vi.mock('../lib/use-deferred-bundle-refresh', () => ({
     return () => {};
   },
 }));
+vi.mock('../lib/use-content-adoption', () => {
+  const adoption = {
+    epochStarted() {},
+    navReady() {},
+    route() {},
+    readerReady() {},
+  };
+  return { useContentAdoption: () => adoption };
+});
 vi.mock('../lib/speed-test-runtime', () => ({
   speedTest: { isOn: () => false, onChange: () => () => {} },
 }));
