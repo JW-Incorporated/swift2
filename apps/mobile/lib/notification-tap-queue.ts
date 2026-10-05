@@ -8,7 +8,7 @@ export const TAP_TTL_MS = 10 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
 /** First path segments the shared UI serves; `/` itself (query-driven surfaces) is always allowed. */
-const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault']);
+const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault', 'inbox']);
 
 /**
  * Canonicalizes a link to a site-relative `path?query#hash`: an app-relative path or an
@@ -89,7 +89,8 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   const now = deps.now ?? (() => globalThis.performance?.now?.() ?? Date.now());
   const resolvePath = deps.resolvePath ?? resolveTapPath;
   const held: Tap[] = [];
-  const delivered = new Set<string>();
+  // id -> when it was delivered: a repeat id is a duplicate only within the TTL (a reused id later is a new tap).
+  const delivered = new Map<string, number>();
   let sink: TapSink | null = null;
   let flushing: Promise<void> | null = null;
   let again = false;
@@ -104,10 +105,18 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     }
   };
 
+  function isRecentlyDelivered(id: string): boolean {
+    const at = delivered.get(id);
+    if (at === undefined) return false;
+    if (now() - at <= ttl) return true;
+    delivered.delete(id);
+    return false;
+  }
+
   function markDelivered(id: string | null): void {
     if (id === null) return;
-    delivered.add(id);
-    if (delivered.size > seenCap) delivered.delete(delivered.values().next().value as string);
+    delivered.set(id, now());
+    if (delivered.size > seenCap) delivered.delete(delivered.keys().next().value as string);
   }
 
   async function drain(): Promise<void> {
@@ -174,7 +183,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       return 'dropped';
     }
     const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= 256 ? raw.id : null;
-    if (id !== null && (delivered.has(id) || held.some((t) => t.id === id))) return 'duplicate';
+    if (id !== null && (isRecentlyDelivered(id) || held.some((t) => t.id === id))) return 'duplicate';
     if (held.length >= capacity) {
       const idx = held[0] === inFlight ? 1 : 0;
       drop('overflow');

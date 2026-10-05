@@ -45,6 +45,7 @@ describe('createAppHandlers', () => {
     expect(Object.keys(createAppHandlers({ ui, notifications, api })).sort()).toEqual(
       [
         'api',
+        'apiRead',
         'haptic',
         'navigate',
         'notifications.register',
@@ -55,6 +56,8 @@ describe('createAppHandlers', () => {
         'notifications.savePrefs',
         'notifications.unregister',
         'notifications.registration',
+        'notifications.onboardingOffered',
+        'notifications.markOnboardingOffered',
         'openExternal',
         'share',
       ].sort(),

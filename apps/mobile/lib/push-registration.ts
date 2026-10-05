@@ -144,6 +144,22 @@ export async function requestPushRegistration(opts: { clearOptOut?: boolean } = 
     }
   }, registerWithBackend, { supersede: true });
 }
+export const REGISTER_SEQ_KEY = 'longlive_register_seq';
+
+/**
+ * Persisted per-install write counter, stored as "<deviceId>:<n>" next to the device identity. A regenerated device id
+ * (reinstall / data clear) is a new server row, so a counter scoped to another id restarts at 1. Never clock-derived,
+ * so restarts, OTAs and clock rollback cannot lower it. Callers are serialized by the registration queue.
+ */
+async function nextSeq(deviceId: string): Promise<number> {
+  const raw = await SecureStore.getItemAsync(REGISTER_SEQ_KEY);
+  const sep = raw ? raw.lastIndexOf(':') : -1;
+  const prev = raw && sep > 0 && raw.slice(0, sep) === deviceId ? Number(raw.slice(sep + 1)) : 0;
+  const next = (Number.isSafeInteger(prev) && prev > 0 ? prev : 0) + 1;
+  await SecureStore.setItemAsync(REGISTER_SEQ_KEY, `${deviceId}:${next}`);
+  return next;
+}
+
 async function registerWithBackend(input: {
   deviceId: string;
   platform: DevicePlatform;
@@ -159,6 +175,7 @@ async function registerWithBackend(input: {
     tz,
     locale,
     appVersion,
+    seq: await nextSeq(input.deviceId),
   };
 
   const controller = new AbortController();

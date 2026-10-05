@@ -17,7 +17,7 @@ import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
-import { probeScript, readLocalText } from './reader/read-local';
+import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
@@ -25,8 +25,10 @@ import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { setImageLoadListener } from './reader/image-listener';
 
 export interface AppReaderProps {
-  /** file:// URI of the native `last-good` cache file. */
+  /** file:// URI of the `last-good` cache's `.js` twin (script-loaded, `?v=` cache-busted). */
   cacheUri?: string;
+  /** file:// URI of the `last-good` cache `.json`, for the XHR/fetch fallbacks. */
+  cacheJsonUri?: string;
   /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
   versionToken?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
@@ -88,7 +90,7 @@ function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, n
 }
 
 export default function AppReader(props: AppReaderProps) {
-  const { cacheUri, versionToken = '', devLoader } = props;
+  const { cacheUri, cacheJsonUri, versionToken = '', devLoader } = props;
   const [hostInsets, setHostInsets] = useState<Insets | undefined>();
   const insets = hostInsets ?? props.insets ?? (devLoader ? insetsFromQuery() : undefined);
   const backRef = useRef<BackFn | null>(null);
@@ -166,7 +168,7 @@ export default function AppReader(props: AppReaderProps) {
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {
-      if (cacheUri && e.filename === cacheUri) return; // the <script> probe of the JSON cache
+      if (cacheUri && e.filename === cacheUri) return; // the <script> twin of the JSON cache
       void propsRef.current.reportError(`error: ${e.message}`);
     };
     const onRejection = (e: PromiseRejectionEvent) => {
@@ -185,6 +187,7 @@ export default function AppReader(props: AppReaderProps) {
     started.current = true;
     const probe = probeRef.current;
     void (async () => {
+      let readAttempts: ReadAttempt[] = [];
       try {
         probe.report.storage.localStorage = installStorageShim(window).includes('localStorage')
           ? 'shimmed'
@@ -192,8 +195,9 @@ export default function AppReader(props: AppReaderProps) {
         let text: string | null = null;
         if (devLoader) text = await devLoader();
         else if (cacheUri) {
-          const read = await readLocalText(cacheUri);
+          const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
           probe.attempts(read.attempts);
+          readAttempts = read.attempts;
           text = read.text;
         }
         if (!text) throw new Error('bundle cache unreadable');
@@ -211,7 +215,10 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.error = message;
         setFailed(message);
         await propsRef.current.reportProbe(probe.json());
-        void propsRef.current.reportError(`reader-spike: ${message}`);
+        const unreadable = message === 'bundle cache unreadable' && !devLoader;
+        void propsRef.current.reportError(
+          unreadable ? unreadableMessage(readAttempts, !!cacheUri) : `reader-spike: ${message}`,
+        );
       }
     })();
   }, []);
@@ -230,7 +237,6 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
         await propsRef.current.reportProbe(probe.json());
         await propsRef.current.onReady();
-        if (cacheUri) probe.report.read.script = (await probeScript(cacheUri)) ? 'ok' : 'fail';
         // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
         for (const ms of [4000, 12000]) {
           setTimeout(() => {
@@ -267,9 +273,7 @@ export default function AppReader(props: AppReaderProps) {
   const view = failed ? (
     <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>
   ) : !Reader || !client ? (
-    <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
-      Loading...
-    </div>
+    <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ minHeight: '100vh', background: 'var(--era-bg)' }} />
   ) : (
     <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} />
   );

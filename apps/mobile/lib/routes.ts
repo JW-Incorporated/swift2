@@ -103,6 +103,8 @@ export interface RouteFlags {
   /** One UI WP0.4: mounts the shared-UI DOM host instead of the native
    * reader. Defaults ON (founder decision 2026-10-04); JSON sharedUi:false is the kill switch. */
   sharedUi: boolean;
+  /** Same gate for iOS only (iOS reads this, Android reads `sharedUi`). Off until the iOS DOM-ready fix is verified on device; enable with a JSON/OTA one-line change. */
+  sharedUiIos: boolean;
 }
 
 /** OS-039: every native screen this phase built now ships ON by default —
@@ -126,6 +128,7 @@ export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   moment: true,
   clownbot: true,
   sharedUi: true,
+  sharedUiIos: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {

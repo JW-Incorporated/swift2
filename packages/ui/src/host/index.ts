@@ -17,6 +17,7 @@ export type {
   NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
+  ThemeChange,
   Unsubscribe,
   WebPushSubscribeResult,
 } from './types';

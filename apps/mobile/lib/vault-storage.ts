@@ -37,6 +37,34 @@ function cacheFile(key: string): FileSystem.File {
   return new FileSystem.File(CACHE_DIR, `${safeName}.json`);
 }
 
+const LAST_GOOD_SUFFIX = ':last-good';
+
+/** The `.js` twin of a last-good cache file: the JSON document as a JS string literal, so the DOM webview can load it
+ * with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS). */
+export function lastGoodScriptSource(jsonText: string): string {
+  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+}
+
+/** FNV-1a 32-bit over the JSON text + its length: the twin's content id, also the `?v=` cache-buster. */
+export function contentId(text: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 0x01000193);
+  return `${(h >>> 0).toString(16)}-${text.length}`;
+}
+
+/** Atomic twin write: temp file, then move over the target (a reader sees the old or the new twin, never a partial one). */
+export function writeLastGoodTwin(key: string, jsonText: string): void {
+  if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
+  const name = lastGoodScriptName(key);
+  const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
+  tmp.write(lastGoodScriptSource(jsonText));
+  tmp.moveSync(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
+}
+
+export function lastGoodScriptName(key: string): string {
+  return `${encodeURIComponent(key)}.js`;
+}
+
 /** `StorageAdapter` (packages/content/src/cache.ts) backed by expo-file-system, so a bundle validated once survives
  * an app restart — the loader's `TransportError` fallback (offline, no network) can then serve last-good from disk
  * instead of only from the in-memory default. Shared by `vault.ts` (Tier 0/1) and `era-stream-data.ts` (OS-032) so
@@ -56,10 +84,21 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
       if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
       const file = cacheFile(key);
       file.write(value);
+      if (key.endsWith(LAST_GOOD_SUFFIX)) {
+        try {
+          writeLastGoodTwin(key, value);
+        } catch (e) {
+          console.warn('[last-good-twin] write failed', e instanceof Error ? e.message : String(e));
+        }
+      }
     },
     removeItem(key: string): void {
       const file = cacheFile(key);
       if (file.exists) file.delete();
+      if (key.endsWith(LAST_GOOD_SUFFIX)) {
+        const twin = new FileSystem.File(CACHE_DIR, lastGoodScriptName(key));
+        if (twin.exists) twin.delete();
+      }
     },
   };
 }

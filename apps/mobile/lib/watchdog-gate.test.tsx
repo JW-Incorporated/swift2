@@ -5,10 +5,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
+const h = vi.hoisted(() => ({ os: 'android', saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
-  Platform: { OS: 'ios' },
+  Platform: { get OS() { return h.os; } },
 }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '1:embedded',
@@ -36,7 +36,7 @@ import { PENDING_MAX_MS } from './watchdog-policy';
 import { useDomMount, type LaunchInputs } from './watchdog-gate';
 
 const flush = () => act(async () => { await vi.advanceTimersByTimeAsync(0); });
-const inputs = (p: Partial<LaunchInputs> = {}): LaunchInputs => ({ sharedUi: null, watchdogReports: null, ...p });
+const inputs = (p: Partial<LaunchInputs> = {}): LaunchInputs => ({ sharedUi: null, sharedUiIos: null, watchdogReports: null, ...p });
 
 describe('useDomMount slow storage (iPhone cold launch)', () => {
   beforeEach(() => {
@@ -45,6 +45,7 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     h.stored = null;
     h.loadDelay = 0;
     h.saveDelay = 0;
+    h.os = 'android';
     h.mark.mockClear();
   });
   afterEach(() => vi.useRealTimers());
@@ -116,6 +117,33 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(result.current.mount).toBe('dom');
     expect(result.current.nativeReason).toBeNull();
     expect(h.saved.at(-1)?.state).toBe('attempting');
+  });
+
+  it('Android cache-miss mounts DOM; iOS cache-miss is native flag-off; enabling the iOS key mounts DOM', async () => {
+    const a = renderHook(() => useDomMount(inputs()));
+    await flush();
+    expect(a.result.current.mount).toBe('dom');
+    h.os = 'ios';
+    const i = renderHook(() => useDomMount(inputs()));
+    await flush();
+    expect(i.result.current.mount).toBe('native');
+    expect(i.result.current.nativeReason).toBe('flag-off');
+    const on = renderHook(() => useDomMount(inputs({ sharedUiIos: true })));
+    await flush();
+    expect(on.result.current.mount).toBe('dom');
+    const stale = renderHook(() => useDomMount(inputs({ sharedUi: true })));
+    await flush();
+    expect(stale.result.current.mount).toBe('native');
+  });
+
+  it('an attempt write that never settles mounts native (attempt-failed) within the bound', async () => {
+    h.saveDelay = 1e9;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
+    expect(result.current.mount).toBe('native');
+    expect(result.current.nativeReason).toBe('attempt-failed');
   });
 
   it('an owed fallback is honoured: native, no attempt, launch consumed', async () => {

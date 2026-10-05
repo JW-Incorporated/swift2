@@ -1,4 +1,12 @@
-export { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, apiCommandTimeout, apiTimeoutFor } from './api-timeout';
+export {
+  API_STREAM_BUFFER_BYTES,
+  API_STREAM_CHUNK_BYTES,
+  API_STREAM_POLL_MS,
+  API_TIMEOUT_MS,
+  CLOWN_TIMEOUT_MS,
+  apiCommandTimeout,
+  apiTimeoutFor,
+} from './api-timeout';
 export { DEFAULT_TIMEOUT_MS, DOM_SUPPORTED_RANGE, MAX_BATCH, MAX_PENDING, createBridgeClient, monotonicIds } from './client';
 export type { BridgeClient, CallOptions, ClientOptions, IdSource } from './client';
 export {
@@ -33,6 +41,8 @@ export {
   isNativeEventType,
 } from './messages';
 export type {
+  ApiStreamChunk,
+  ApiStreamHead,
   CommandSpec,
   CommandType,
   DomCommandSpec,

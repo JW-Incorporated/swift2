@@ -8619,6 +8619,8 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 
 **Decision (Joey, CEO, 2026-10-04 16:03):** the shared (DOM) UI becomes everyone's default now; the legacy native UI will be deleted in a later PR. This supersedes the "default-off until S7+S8" roadmap.
 
+- Android-only for now (PM, 2026-10-04): the iOS shared UI never reaches ready on iPhone yet, so iOS reads a separate gate `sharedUiIos` (default and JSON `false`); Android reads `sharedUi`. iOS is enabled by a one-line JSON/OTA change after the iOS DOM fix is verified on device. An iOS cache-miss is native `flag-off` (the legacy interim UI).
+- A committed attempt write is bounded at 3000 ms; a hung write mounts native `attempt-failed`.
 - `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: false` (global auto-reporting is deferred until shared sampling/aggregation exists).
 - Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The Diagnostics "Force shared UI" control and its SecureStore key are removed. `PENDING_MAX_MS` stays 1500 and pending expiry is terminal for the launch: no late swap of an interactive native UI; the next launch decides normally.
 - Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is the Recovery screen; only `flag-off` (kill switch) shows the legacy native UI until PR3.

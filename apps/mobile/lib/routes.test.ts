@@ -103,6 +103,7 @@ describe('resolve — feature flags (OS-030: toggle without a rebuild)', () => {
       moment: false,
       clownbot: false,
       sharedUi: false,
+      sharedUiIos: false,
     };
     expect(resolve('https://www.longlivets.com/?screen=settings', undefined, flags)).toEqual({
       web: 'https://www.longlivets.com',
