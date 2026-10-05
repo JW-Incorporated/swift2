@@ -177,6 +177,7 @@ export function MomentVideo({
             referrerPolicy={YOUTUBE_REFERRER_POLICY}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation"
             loading="lazy"
             onLoad={onLoad}
             onError={onError}
