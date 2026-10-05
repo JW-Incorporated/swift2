@@ -277,6 +277,24 @@ export function AppProvider({ children }: { children: ReactNode }) {
       THREADS.map((t) => t.id),
     );
     if (!target) return;
+    // Web only: the link has been consumed, so drop its keys from the address
+    // bar (state and unknown params kept) — otherwise closing the overlay
+    // leaves a stale ?item= that a refresh reopens. Inert in the app, where
+    // location.search is empty.
+    if (typeof window !== 'undefined' && window.location.search) {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        for (const key of ['item', 'song', 'guide', 'theories', 'lens', 'mode', 'era']) params.delete(key);
+        const rest = params.toString();
+        window.history.replaceState(
+          window.history.state,
+          '',
+          window.location.pathname + (rest ? `?${rest}` : '') + window.location.hash,
+        );
+      } catch {
+        // Address-bar cleanup is best-effort.
+      }
+    }
     // A deep link is the visitor's FIRST state, not a navigation away from
     // one — pushing a back-entry here would trap the first back gesture.
     nav.suppressNavPushRef.current = true;

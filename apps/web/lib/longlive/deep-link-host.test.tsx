@@ -56,6 +56,53 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     expect(container.querySelector('[data-testid="item"]')!.textContent).toBe(id);
   });
 
+  it('?item= opens the overlay and strips the key, keeping history.state and length', () => {
+    const id = CONTENT[0]!.id;
+    window.history.replaceState({ marker: 1 }, '', `/?item=${encodeURIComponent(id)}`);
+    const len = window.history.length;
+    const { container } = renderWithReader(
+      <HostProvider adapter={createWebAdapter(router)}>
+        <AppProvider>
+          <ItemProbe />
+        </AppProvider>
+      </HostProvider>,
+    );
+    expect(container.querySelector('[data-testid="item"]')!.textContent).toBe(id);
+    expect(window.location.search).toBe('');
+    expect(window.history.state).toEqual({ marker: 1 });
+    expect(window.history.length).toBe(len);
+  });
+
+  it('app-style host (currentUrl link, empty window.location.search): opens, no throw, path intact', () => {
+    const id = CONTENT[0]!.id;
+    window.history.replaceState(null, '', '/some/path');
+    const adapter = { ...createWebAdapter(router), currentUrl: () => `file:///bundle/index.html?item=${encodeURIComponent(id)}` };
+    const { container } = renderWithReader(
+      <HostProvider adapter={adapter}>
+        <AppProvider>
+          <ItemProbe />
+        </AppProvider>
+      </HostProvider>,
+    );
+    expect(container.querySelector('[data-testid="item"]')!.textContent).toBe(id);
+    expect(window.location.pathname).toBe('/some/path');
+    expect(window.location.search).toBe('');
+  });
+
+  it('unknown params survive the strip', () => {
+    const id = CONTENT[0]!.id;
+    window.history.replaceState(null, '', `/?utm_source=a&item=${encodeURIComponent(id)}#h`);
+    renderWithReader(
+      <HostProvider adapter={createWebAdapter(router)}>
+        <AppProvider>
+          <ItemProbe />
+        </AppProvider>
+      </HostProvider>,
+    );
+    expect(window.location.search).toBe('?utm_source=a');
+    expect(window.location.hash).toBe('#h');
+  });
+
   it('no window and no currentUrl: renders without crashing', () => {
     const html = renderToString(
       <WebReaderSnapshotProvider>
