@@ -136,6 +136,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     share: async (payload) => {
       const r = await withFocusRestore(() => deps.client.call('share', payload));
       if (!r.ok) throw new Error(`share ${r.error.code}`);
+      return r.value;
     },
     haptic: (kind) => {
       void deps.client.call('haptic', { kind });

@@ -11,4 +11,13 @@ export const shareCardPorts: ShareCardPorts = {
     return { uri: file.uri, base64: () => file.base64() };
   },
   copyImage: (base64) => Clipboard.setImageAsync(base64),
+  async prune(keep) {
+    try {
+      const dir = new Directory(Paths.cache, 'share');
+      const files = dir.list().filter((e): e is File => e instanceof File).sort((a, b) => a.name.localeCompare(b.name));
+      for (const f of files.slice(0, Math.max(0, files.length - keep))) f.delete();
+    } catch {
+      // best-effort cleanup
+    }
+  },
 };

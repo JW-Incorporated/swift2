@@ -62,6 +62,14 @@ describe('share with a host (WP2.4-A2)', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it('shareCardImage reports copied only when the host says imageCopied', async () => {
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    const yes = vi.fn().mockResolvedValue({ imageCopied: true });
+    const no = vi.fn().mockResolvedValue({ imageCopied: false });
+    expect(await shareCardImage(target, source, 'story', data, { share: yes, resolveUrl })).toBe('copied');
+    expect(await shareCardImage(target, source, 'story', data, { share: no, resolveUrl })).toBe('native');
+  });
+
   it('shareCardImage with host.share falls back to a link share and fetches no card', async () => {
     const share = vi.fn().mockResolvedValue(undefined);
     expect(await shareCardImage(target, source, 'portrait', data, { share })).toBe('native');

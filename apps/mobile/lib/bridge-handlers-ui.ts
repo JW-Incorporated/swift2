@@ -25,7 +25,7 @@ export type UiHandlerDeps = {
   /** `Linking.openURL` in the host. */
   openURL: (url: string) => Promise<void>;
   /** RN `Share.share` in the host; resolves once the sheet has closed. */
-  share: (payload: SharePayload & { image?: { url: string } }) => Promise<void>;
+  share: (payload: SharePayload & { image?: { url: string } }) => Promise<void | { imageCopied: boolean }>;
   /** Host of the one origin a share card may be downloaded from (the site); absent = images rejected. */
   imageHost?: string;
   /** Absent when the haptics module is unavailable: no-op success. */
@@ -105,7 +105,12 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
         if (typeof u !== 'string' || u.length > MAX_SHARE_FIELD || !isCardUrl(u, deps.imageHost)) return invalid('share: image');
         image = { url: u };
       }
-      return run(() => deps.share(image ? { ...out, image } : out), 'share');
+      let outcome: { imageCopied: boolean } | null = null;
+      const res = await run(async () => {
+        const v = await deps.share(image ? { ...out, image } : out);
+        if (v) outcome = { imageCopied: v.imageCopied === true };
+      }, 'share');
+      return res.ok ? resOk(outcome) : res;
     },
     haptic: async (payload) => {
       const p: unknown = payload;

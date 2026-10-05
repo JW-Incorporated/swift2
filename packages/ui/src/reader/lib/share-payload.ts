@@ -90,7 +90,7 @@ export async function shareTarget(
 ): Promise<WebShareResult> {
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
   const result = await triggerWebShare(payload, {
-    share: host?.share ?? navigator.share?.bind(navigator),
+    share: host?.share ? async (p) => void (await host.share!(p)) : navigator.share?.bind(navigator),
     copyText: host?.clipboard
       ? (text) => host.clipboard!.writeText(text)
       : navigator.clipboard?.writeText.bind(navigator.clipboard),
@@ -180,15 +180,15 @@ export async function shareCardImage(
   size: ShareCardSize,
   data: SharePayloadData,
   host?: ShareHost,
-): Promise<ImageShareResult | 'error'> {
+): Promise<ImageShareResult | 'copied' | 'error'> {
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
   // The bridge carries a card URL, never bytes: the host downloads it and shares the file.
   if (host?.share) {
     try {
-      await host.share(
+      const shared = await host.share(
         host.resolveUrl ? { ...payload, image: { url: host.resolveUrl(shareCardPath(source, size)) } } : payload,
       );
-      return 'native';
+      return shared?.imageCopied === true ? 'copied' : 'native';
     } catch (error) {
       return error instanceof Error && error.name === 'AbortError' ? 'cancelled' : 'error';
     }
