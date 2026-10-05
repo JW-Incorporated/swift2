@@ -202,7 +202,7 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     expect(h.mark).not.toHaveBeenCalledWith('mount-pending-expired', expect.anything());
   });
 
-  it('cache present + slow storage: pending-expired native (regression)', async () => {
+  it('cache present + slow storage: DOM mounts at the bound, never native for latency', async () => {
     h.loadDelay = 2000;
     const { result } = renderHook(() =>
       useDomMount(inputs, { hasLocalContent: () => true, loadContent: vi.fn() }),
@@ -210,8 +210,8 @@ describe('useDomMount awaiting-content (offline first launch)', () => {
     await act(async () => {
       await vi.advanceTimersByTimeAsync(2100);
     });
-    expect(result.current.mount).toBe('native');
-    expect(result.current.nativeReason).toBe('pending-expired');
+    expect(result.current.mount).toBe('dom');
+    expect(result.current.nativeReason).toBeNull();
   });
 
   it('unmount while the attempt save is in flight: the attempt is un-recorded, nothing mounts', async () => {

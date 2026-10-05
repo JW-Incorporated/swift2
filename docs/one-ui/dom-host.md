@@ -103,10 +103,14 @@ and a flipped default cannot be killed remotely.
   delta counts as zero elapsed).
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
-  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch: expiry is
-  terminal, the next launch decides normally (no late swap of an interactive
-  native UI). Every expiry records a `mount-pending-expired`
+  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`. Slow local reads never
+  decide (#5040): at the bound the launch starts from the compiled default
+  flag and a fresh record, so the DOM mounts (never native or Recovery for
+  latency). Late evidence is for the next launch: a late flag is ignored, a late
+  quarantine/owed fallback is refunded and honoured next time, and until the
+  record resolves nothing is persisted (then ONE record folds in ready/strike).
+  A SLOW attempt write (3 s) mounts the DOM on the in-memory attempt; a FAILED
+  write still fails closed (`attempt-failed`). Each bound firing records a `mount-pending-expired`
   mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
   `Mount:` line with the reason the mount is native (`pending-expired`,
   `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
