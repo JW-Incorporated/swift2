@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
@@ -23,6 +23,10 @@ export function LegalOverlay() {
   const page = useLegalPage();
   const ref = useRef<HTMLDivElement>(null);
   useFocusTrap(!!page, ref, page);
+  // Land on the labelled dialog itself, not its first link: a page-like dialog opens without a focus ring on an arbitrary control.
+  useEffect(() => {
+    if (page) ref.current?.focus();
+  }, [page]);
   if (!page) return null;
   const footer = <SiteFooter />;
   return createPortal(
