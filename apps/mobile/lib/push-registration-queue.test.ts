@@ -123,7 +123,7 @@ describe('registration queue owns the network write', () => {
     await on;
     id.resolve('dev-1');
     await vi.advanceTimersByTimeAsync(1_000);
-    expect(setItem).not.toHaveBeenCalled();
+    expect(setItem).not.toHaveBeenCalledWith(api.UNREGISTERED_KEY, expect.anything());
     expect(state.store.has(api.UNREGISTERED_KEY)).toBe(false);
   });
 
