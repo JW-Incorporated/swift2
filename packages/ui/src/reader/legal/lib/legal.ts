@@ -198,12 +198,12 @@ export const PRIVACY_POLICY: LegalDoc = {
               'So a report about "this page" can be traced to an actual page.',
             ],
             [
-              'The page address (URL) and page title at the moment you sent it',
+              'The page path (for example /era/lover) and page title at the moment you sent it. The query string and anything after a # are removed before sending and are never included',
               'Same reason — it is the most reliable pointer to what you were looking at.',
             ],
             [
-              "Your browser window size and your browser's user-agent string (browser and operating system name and version)",
-              'Layout and rendering bugs are usually specific to a browser or a screen size.',
+              "Your window size and a coarse platform label (\"iOS app\", \"Android app\", \"web: mobile\" or \"web: desktop\"). Your browser's user-agent string is not sent",
+              'Layout and rendering bugs are usually specific to a screen size or to the app versus the web.',
             ],
             ['The date and time you sent it', 'Ordering and triage.'],
           ],
@@ -302,18 +302,18 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage, which never leave your device and are never sent to us or to anyone else:",
+          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage (in the app, a small file on your device instead). We never receive them and never send them to anyone else; in the app, your phone's own iCloud or Google backup may include that file:",
         },
         {
           kind: 'list',
           items: [
             'A record of what you have explored — the moments you have opened, the Easter eggs you have read, the clue trails you have started, and anything you have favourited — so your progress and favourites are still there when you come back.',
-            'A flag remembering that you have already seen the timeline-scrubber hint, so it is not shown to you twice.',
+            'A flag remembering that you have already seen the swipe-between-songs hint on a song page, so it is not shown to you twice.',
           ],
         },
         {
           kind: 'p',
-          text: "Clearing your browser's site data for this site erases both, which resets your progress and your favourites. Nothing else is affected, because we hold no copy.",
+          text: "Clearing your browser's site data for this site (or, in the app, clearing the app's data) erases both on that device, which resets your progress and your favourites; a copy in your own phone backup, if any, is yours to manage. Nothing else is affected, because we hold no copy.",
         },
       ],
     },

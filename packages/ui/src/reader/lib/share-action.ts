@@ -59,8 +59,9 @@ export async function triggerWebShare(
     try {
       await share(payload);
       return 'native';
-    } catch {
-      return 'cancelled';
+    } catch (error) {
+      // Only a dismissed picker (AbortError) is "cancelled"; a genuine failure drops to the copy fallback.
+      if (error instanceof Error && error.name === 'AbortError') return 'cancelled';
     }
   }
   if (!copyText) return 'unavailable';

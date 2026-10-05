@@ -126,3 +126,49 @@ describe('attempt monitor', () => {
     expect(onStrike).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('planned reload (content adoption)', () => {
+  it('re-arms the ready timeout: a replacement reader that never readies is a ready-timeout strike', () => {
+    const { m, advance, onStrike } = fakeClock();
+    m.ready();
+    advance(READY_TIMEOUT_MS * 2);
+    expect(m.plannedReload()).toBe(true);
+    advance(READY_TIMEOUT_MS - 1);
+    expect(onStrike).not.toHaveBeenCalled();
+    advance(1);
+    expect(onStrike).toHaveBeenCalledWith('ready-timeout');
+  });
+
+  it('a DOM error from the replacement reader strikes, and its ready clears the attempt without a strike', () => {
+    const a = fakeClock();
+    a.m.ready();
+    a.m.plannedReload();
+    a.m.error('boom');
+    expect(a.onStrike).toHaveBeenCalledWith('dom-error: boom');
+    const b = fakeClock();
+    b.m.ready();
+    b.m.plannedReload();
+    b.m.ready();
+    b.advance(READY_TIMEOUT_MS * 2);
+    expect(b.onStrike).not.toHaveBeenCalled();
+    expect(b.onReady).toHaveBeenCalledTimes(2);
+  });
+
+  it('is not itself a strike and does not count toward the crash repeat window', () => {
+    const { m, advance, onStrike } = fakeClock();
+    m.ready();
+    expect(m.plannedReload()).toBe(true);
+    expect(onStrike).not.toHaveBeenCalled();
+    m.ready();
+    advance(1000);
+    expect(m.crashed('terminated')).toBe('reload');
+    expect(onStrike).not.toHaveBeenCalled();
+  });
+
+  it('after a strike it is a no-op', () => {
+    const { m, onStrike } = fakeClock();
+    m.error('x');
+    expect(m.plannedReload()).toBe(false);
+    expect(onStrike).toHaveBeenCalledTimes(1);
+  });
+});

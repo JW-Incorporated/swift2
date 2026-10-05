@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { parseWatchdogReport } from '../../web/app/api/feedback/watchdog-report';
 import {
   MAX_PENDING,
-  REPORT_THROTTLE_MS,
   createTelemetry,
   enqueueReport,
   parseReportState,
@@ -36,7 +35,7 @@ function harness(online = true, start = 1_000_000) {
     platform: () => 'android',
     now: () => t,
   });
-  return { t: tel, sent, send, state: () => parseReportState(raw, t), advance: (ms: number) => (t += ms) };
+  return { t: tel, sent, send, state: () => parseReportState(raw), advance: (ms: number) => (t += ms) };
 }
 
 describe('report payload', () => {
@@ -60,11 +59,11 @@ describe('report payload', () => {
 describe('queue', () => {
   it('enqueues once per buildKey and caps at 3', () => {
     let s: ReportState = { pending: [], sent: [] };
-    s = enqueueReport(s, rep(), 0);
-    expect(enqueueReport(s, rep(), 0)).toBe(s);
-    s = enqueueReport(s, rep({ buildKey: '43:x' }), 0);
-    s = enqueueReport(s, rep({ buildKey: '44:x' }), 0);
-    s = enqueueReport(s, rep({ buildKey: '45:x' }), 0);
+    s = enqueueReport(s, rep());
+    expect(enqueueReport(s, rep())).toBe(s);
+    s = enqueueReport(s, rep({ buildKey: '43:x' }));
+    s = enqueueReport(s, rep({ buildKey: '44:x' }));
+    s = enqueueReport(s, rep({ buildKey: '45:x' }));
     expect(s.pending).toHaveLength(MAX_PENDING);
     expect(s.pending[0].buildKey).toBe('43:x');
   });
@@ -75,23 +74,27 @@ describe('queue', () => {
       pending: [rep(), { category: 'x' }, rep({ category: 'free text' as never })],
       sent: [{ buildKey: 'a', at: 1 }, 5, { buildKey: 'b', at: 'x' }],
     });
-    expect(parseReportState(raw, 1)).toEqual({ pending: [rep()], sent: [{ buildKey: 'a', at: 1 }] });
+    expect(parseReportState(raw)).toEqual({ pending: [rep()], sent: [{ buildKey: 'a', at: 1 }] });
   });
 });
 
 describe('telemetry', () => {
-  it('sends when online, and at most once per buildKey per day', async () => {
+  it('sends once per buildKey+category per install (marks never expire)', async () => {
     const h = harness();
     await h.t.report('ready-timeout', '42:embedded', true);
-    await h.t.report('protocol', '42:embedded', true);
+    await h.t.report('ready-timeout', '42:embedded', true);
     expect(h.sent).toHaveLength(1);
     expect(h.state().pending).toEqual([]);
-    h.advance(REPORT_THROTTLE_MS - 1);
-    await h.t.report('protocol', '42:embedded', true);
+    h.advance(400 * 24 * 60 * 60 * 1000);
+    await h.t.report('ready-timeout', '42:embedded', true);
     expect(h.sent).toHaveLength(1);
-    h.advance(2);
     await h.t.report('protocol', '42:embedded', true);
     expect(h.sent).toHaveLength(2);
+  });
+
+  it('a legacy mark without a category covers the whole buildKey', () => {
+    const raw = JSON.stringify({ pending: [], sent: [{ buildKey: '42:embedded', at: 1 }] });
+    expect(enqueueReport(parseReportState(raw), rep({ category: 'protocol' })).pending).toEqual([]);
   });
 
   it('the throttle survives a restart (it is persisted, not in memory)', async () => {
@@ -112,7 +115,7 @@ describe('telemetry', () => {
     expect(sent).toHaveLength(1);
   });
 
-  it('keeps the daily throttle for the first key after 7+ distinct keys in one day', async () => {
+  it('keeps the mark for the first key after 7+ distinct keys in one day', async () => {
     const h = harness();
     for (let i = 0; i < 8; i += 1) await h.t.report('dom-error', `${40 + i}:embedded`, true);
     expect(h.sent).toHaveLength(8);

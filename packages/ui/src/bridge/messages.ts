@@ -25,6 +25,8 @@ export type DomCommandSpec = {
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload & { image?: { url: string } }, { imageCopied: boolean } | null>;
   haptic: Spec<{ kind: HapticKind }, null>;
+  /** Native clipboard write for the share Copy-link fallback. `text` is a non-empty string of at most 2048 chars. Add-only. */
+  'clipboard.write': Spec<{ text: string }, null>;
   /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
   openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
@@ -50,6 +52,10 @@ export type DomCommandSpec = {
   apiRead: Spec<{ streamId: string }, ApiStreamChunk>;
   /** `targetId` is a command id, or an open stream's id (which aborts that stream). */
   cancel: Spec<{ targetId: string }, null>;
+  /** The reader's persistent `local` storage, one native blob. Add-only. */
+  'storage.load': Spec<Record<string, never>, { entries: Record<string, string> }>;
+  /** The FULL map; native replaces the blob wholesale. `invalid` if any key is over 256 chars or the blob is over 192 KiB (UTF-8). */
+  'storage.write': Spec<{ entries: Record<string, string> }, null>;
 };
 
 /** Headers of a streamed `api` response; the body follows via `apiRead`. */
@@ -76,6 +82,8 @@ export type DomEventSpec = {
   navigated: { id: string; ok: boolean };
   /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
   theme: ThemeChange;
+  /** Fire-and-forget (no res, no ack): the DOM's current route (`/`-rooted path plus query/hash, <= 2048 chars) changed. Queued/coalesced like `theme`: only the latest matters. Add-only. */
+  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean };
 };
 
 /** Native -> DOM events. */
@@ -138,6 +146,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   navigate: true,
   share: true,
   haptic: true,
+  'clipboard.write': true,
   openExternal: true,
   'notifications.status': true,
   'notifications.request': true,
@@ -152,9 +161,11 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   api: true,
   apiRead: true,
   cancel: true,
+  'storage.load': true,
+  'storage.write': true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
-const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true };
+const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true, route: true };
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,
