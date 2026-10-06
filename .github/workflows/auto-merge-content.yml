@@ -377,10 +377,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [check-drafts, guard-code]
-    # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
+    # NOTE: this job never checks out PR HEAD code. `pull_request_target`
     # runs with repo secrets against the BASE ref; checking out PR head code
-    # here would hand those secrets to whatever the PR contains. We only ever
-    # call `gh` against the API, which is the documented-safe usage.
+    # here would hand those secrets to whatever the PR contains. The only
+    # checkout is the explicit BASE ref (trusted, credentials not persisted),
+    # used to run the unit-tested merch-drop exemption predicate; everything
+    # else is `gh` against the API, which is the documented-safe usage.
     #
     # `!cancelled()` (2026-08-12, PR #2039 review): this job must run even when
     # a needed job FAILED, because disarming a previously-armed auto-merge
@@ -395,6 +397,13 @@ jobs:
       github.event.pull_request.draft == false &&
       github.event.pull_request.base.ref == 'main'
     steps:
+      # Base-ref checkout (trusted — never the PR head) so the unit-tested
+      # merch-drop exemption predicate in scripts/ can run. Credentials are not
+      # persisted; the PAT below is only ever used by `gh`.
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          persist-credentials: false
       - name: Decide and enable
         env:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -770,7 +779,15 @@ jobs:
           # validate a draft, DECLINE — the fail-safe direction. (When a draft IS
           # present, check-drafts is a hard `needs:` of this job, so a failing
           # draft check skips `enable` entirely; this only adds the no-draft case.)
-          social_media=$(printf '%s\n' "$files" | grep -E '^apps/web/public/social/.*\.(png|jpg|jpeg)$' || true)
+          #
+          # Narrow exemption (docs/decisions.md 2026-10-05, founder decision A):
+          # a merch-official-sync/* PR's newly-added
+          # apps/web/public/social/library/merch-drop-<digits>.png card counts as
+          # accompanied when the same PR adds a social/inbox/merch-*.json fact
+          # sheet. The predicate lives in scripts/automerge-merch-drop-exemption.mjs
+          # (unit-tested), run from the base-ref checkout; it prints only the
+          # images that are NOT exempt. The branch/author gate above already ran.
+          social_media=$(printf '%s\n' "$files_meta" | HEAD_REF="$HEAD_REF" node scripts/automerge-merch-drop-exemption.mjs)
           if [ -n "$social_media" ] && [ "${HAS_DRAFTS:-false}" != "true" ]; then
             image_list=$(printf '%s\n' "$social_media" | sed 's/^/- `/; s/$/`/')
             verdict "declined — image needs an accompanying draft" \
