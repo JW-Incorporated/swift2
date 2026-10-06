@@ -25,7 +25,103 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 90
+
+## Taylor Swift Tops Billboard Hot 100, Displacing Ella Langley
+
+- first seen: 2026-10-06 18:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has taken the number one spot on the Billboard Hot 100, surpassing Ella Langley's hit 'Choosin' Texas.' This marks a significant achievement in the charts for Swift.
+- sources:
+  - [unverified] KSDK — https://news.google.com/rss/articles/CBMi_AFBVV95cUxNVmpDcDdjRndpd2EzU3JuRXg5RHBJOVpnTXNPYkNoMlo1ekFxREJiSDVoaDF1WFY2LXRHSmZsaFZ6X1BSX2NkQnJaOXBBd0RmOElCc2hqY08zeDBaV2JuVGhDQWttY0M5bnFNTWVZcW9FQ094cWx3aHR5RnU5RzBGb1czOHI2UWpQWkJWWmRIaGNvTU8ybXFtdnREd0VILWdvT3o5UzNNXzh2NHhyQVNRNTJSYVlaa1B1dHpaRUVVT24zdUtCQi1tcFJkMkdZMDhKcUVZYzhmT3FyLV9YUU44MzJxVHVoX2lxQy1Rcmo1Qy1iYWc5WUl6bkphaTM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Viral Sign Critiques Taylor Swift's Rating of Travis Kelce
+
+- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Raiders fan's sign featuring a critical rating of Taylor Swift in relation to Travis Kelce has gone viral. The moment has drawn attention on social media, highlighting the intersection of Swift's popularity and the NFL.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQTGNSc0pNT1JLMVVtOTlGMERFOHFjdVN5YzZ4WHFJN3VRZXNfeXU4WXhuejhyUkZlcWdfMFYyUUJUQU1wRGZYbmpndnZReV9OUi1jalY0ZHh4NXlJanJ6WjZXaVlKWmpYdTlsbE9JU1pFblVYQ0VKNkxCcGUzRTFMd2ZtZ1ZoTTd0SmU1NVBBVXdsbDJRdU9NWl8zV3VCX3VPblFN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Raiders Fan Critiques Taylor Swift's Looks at NFL Game
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Raiders fan displayed a sign targeting Taylor Swift's appearance during the Chiefs game, alongside other criticisms aimed at NFL referees and parental behavior. The incident highlights the ongoing intersection of sports and pop culture.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Unveils New Date Night Shoe in Collaboration with Jimmy Choo
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has introduced a new go-to date night shoe, developed in partnership with Jimmy Choo. This launch highlights her influence in the fashion industry.
+- sources:
+  - [unverified] WWD — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNaWhxeG03Q1lkQzhubDhMeGM4eFdxcDdqQVRXd202LWdPZlFYd1JzUVJsck9LSlpkMHRlN3ZieXhhclVJVjJxZ0Y5c3ZUcVZRRjRobnRvQVVyN2dad2EzdUx1a0pDSXRCYl9kdUdKWmZHTV95dlZITHJUTzFqaTIwaE5rejJMcFNaLTc1TUNuYkN4S2RVYUxFZ0hOUlVhbVlQeW45TzFXSkY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## NFL Fan Criticized for Sign Regarding Taylor Swift's Appearance
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A fan at an NFL game has faced backlash for displaying a sign that was deemed 'classless' concerning Taylor Swift's appearance. The incident has sparked discussions on the appropriateness of such comments in sports settings.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOVGlZTWZpWTBVMm9HbExja3RIRnFOZUNGRE0wczNqOVUzcmQtY1czSTZaNnUxN0VjUDJQZXVUdlZjcDJpMUlhYmkwWVRDb3dIQzNxeVJVeXpVMXBYQk54cHV5d3JFWjFsNmpkZ25UaUFYdVVCLVMzU3l0MWhtQ1VzVjBvMXY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves Billboard Milestone with Four Songs in Global Top 10
+
+- first seen: 2026-10-06 18:53 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has set a new record on the Billboard charts by placing four of her songs in the Global Top 10. This achievement highlights her significant impact on the music industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNY04tMU95S2xQbE12bUZnTnpFbU9vSmlYRFRGaU9udXQ0LXpFWVUxT0N4QzB0a3VfWXhPWkUzdWVCaV9vUWJPQXk4WTByUHFXQUNCUDhFMVphOElSdjhyM3dMeURKRHdMZzNzUm5rQUdmSzlNd0pqR1htNEdQTTY3bWlBSU5OV3dBU3oySHpTN3paQ0k1eXhJN1dpa1ZXTXBxUEl3Uw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Celebrate His Birthday in NYC
+
+- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted dining together in New York City to celebrate Kelce's 37th birthday.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikgFBVV95cUxNLVlOQWZ1cy1DYS1HTjhDdFJBNC1ocjRqQkRIM2c2T2VJV0p1XzNPVHY2cW9DdHpqRG10NS1BTmtkelFvTjRKelEyM0dZVXEtRUFmVDdubUl0a0VEZXZGeFAyZUxoNGljcUc3QlZJN3ZFaDNmN3BNYmpLSnlWUkJyYUV2dnNrbHI2T3lTR0daMkUzZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Saint Laurent Jacket Over Lace Dress
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted in a stylish ensemble featuring a Saint Laurent jacket paired with a plunging lace dress. The look highlights her fashion sense and choice of high-end brands.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAFBVV95cUxNdTZabFNVZ0Z1R0hPYTZsT2N5ZEhuQ05FQTJRcmY3YTFVT1ZadWpIcVprMkg1SzRpTjllRVhxei1aV2c2S3ZSMnNWck5TamdyS0VoejNkcWRnLUs2eG83UW8xRWxwTXZqMGdmZ3BCV1dpdzY0amE2XzF3dzVmVFJReEc5NVhpbm1ZY2t2czlRQXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kanye West Contacts Blake Lively Regarding Taylor Swift
+
+- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Kanye West is reportedly reaching out to Blake Lively for assistance in his ongoing situation with Taylor Swift. The details of their communication and the intended actions are not disclosed.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxNRVpZLTBKRk1iY01sbGtQVTNBWGtrcHY2Ynk0OGVXZEEtZDBBWkdfTTd2VVhaTmlFRjFyNlJKVFBrdmVtNkxoYmNIcko2RDNJSmk2VUt3c0tmbUpEWGgyLXZlZVV4bGpsRGt5d2hMd3lXMFdUMVRvOWdvX0hYN3JGbDYweVc1czFxVVg5OE9MTjVIYmRr?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Frequently Wears This Fashion Brand, Date-Night Dress Highlights It
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift continues to showcase her affinity for a particular fashion brand, as demonstrated by her recent date-night dress. The choice reflects her ongoing style choices.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa2pOWGpNekZwX2hQaktfdmdrNjFRc2E4ODEtLThDcDg3MEMtNDMzXy16UXduQzZ6ZXo1b3IxeXVuTE02YmhRbWUyWkRpYTFMVWNaWEZZQk1fOUswYnRpcFZsNnhwMS1PQ04xUTRWS1FwdWsyekQwQ2ExcEJrb1h1QjMzd3ZydHd3R3JDMGFubHBXTVFsUVREdEJ1MFd5NWxHblFkOUtyNWxPdGFjRlpkWVZHTUxBMWNyVWhVeXlR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears $10,000 Outfit for Travis Kelce’s Birthday Celebration
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a statement at Travis Kelce's 37th birthday celebration, donning a plunging lace little black dress valued at over $10,000. The event highlighted her fashionable presence alongside the NFL star.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMinwFBVV95cUxPZUE0SWwxQjZpcWEyUWJwNldiWGtTQnloczN6aDV4LW9PVkVTQnYxXy1LcjdQNzlfMWkxQmJxS2N3YzBPYzVuVmhaSE43VU00ZGpfd0t1ZWtuazUxMXhEaVlPbEFDc1dNb21XYV9iUy1FdGRxbzhYU1l4MDhPWkh2Rm5BZXVadUpTUm41UUVURjAwNmIwTkVDb0MxYW5pa2M?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Paul McCartney Shares Wedding Idea for Taylor Swift
+
+- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Paul McCartney discusses a thoughtful wedding idea he envisioned for Taylor Swift. The details highlight a friendly connection between the musician and the pop star.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxOZEdhcXA2b2d6eU5hMHYyUU0tSWxPTi0wdTJISzQzY1R6QnpNRzR2LVdOOGlSZDJDYnVOQ1pCRUtyVDVUdjhESm45M3lTQVBFTGcyR3Q3ZEV2T3RCdncxNkhUTTBwZkxkVkc0eFpxQ3pkN3Q5Q3Npd0lZWmVHTlB3NWRxQXg5cTE0TkR4bmZKZjJFbFZHSmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Celebrate His Birthday Together
 
@@ -42,15 +138,6 @@ Stories: 81
 - summary: A member of Taylor Swift's family has reportedly offered an unexpected apology to Kate Middleton. The details surrounding the reason for the apology were not disclosed in the article.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPWnpZTDFfMzg2QXdGRFBUdDZ3VC1NWmtNbllBX3I1N1V2bzRnQ1JBcXlkMjZPbW1tZ3FYRDFpTWNwTEhvOGZjUmRUYlFlU2tmUnlkT0xFbjNxd3RxQnNOSE80eWZjVWFlakpRM1ZrRVJJN0pLQVJFdUZ3V1VmNGEzUkFxeldnSVloSkVObm9EX1hVYXItWmRsN0x0Um5iSUtHdEMwUHdXaVJZZktheDFHS25n?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce reminds Taylor Swift about handling criticism
-
-- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce reportedly told Taylor Swift that it's impossible to please everyone amidst ongoing criticism. This reminder comes during a time when the couple faces public scrutiny over their relationship.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1I0NVFpSGo3Z2RVT19jRkFHTVl0YXc1emYxbEdudnNRWm5ickJtUm5xOGhyQVZOZ2dMcTNsb0oxUzdZNjBfcXVseHlQWHFQdHJvbkV5TURzSHpIaWpiZkJjLUNZOWt0eUNnUTNScWxOc05KNF8xOXJJMmNybFRiWTIzQ2hzcERROTVGcXE2NGNXcWNkR21JTXpRdm5IaEp2bElCcU9neUhJMXRaYjF0ZGVndDNLT3pxWjBHSw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNd0dYYnhHcFItZHlaRUxNYkFqNlZNMll4czN0b1Z4Y19SWGI1cmxLMWM3VzByLUZZRmhBV2R6WnNOUUlrejFNQ3Y5VzQzV01sbU54RUptV1FIaUVZLW9fdVhQUU5WUVlhNUlyZWREMHREZEZvWmhOZEZkNWVueTBLbXluTkVCczVCR0dYd3hkOU5TX2Q3VFNZUUtFX3U?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Discusses Songwriting Challenges Without Heartbreak
 
@@ -76,6 +163,15 @@ Stories: 81
 - sources:
   - [unverified] 6abc Philadelphia — https://news.google.com/rss/articles/CBMi8glBVV95cUxOdUN5NEtJTlVYa1llcExuQktzRjNEWFdpYkpnWkwtVXFoWnZYM012X1MxZ25DQ2FsNmdWUEh2OTZNX0FPeXBQUnpjbE5laU5TWE00NkdtYjRXUW5wWlNTN3NKaEJWNFRqbEZuOHEyRmI0U3NiUUNLWnp5MnN0anlEVThfbmpndXBWSkRqa1lHY2hjZV9HMF9DbGxERE1KT3VqRHoweEhYcGRwME9DdWtqUFFtZ0p4amYyZlhpSkNHMjdvVUZhQlZHazBCWUM0WElQOXRyVmVKRWJUMkQ0NDNWSndJcG5SdEE5LUhEVGFVZGhkTHhSV01DMFFYQmw1cDF3VXpOSVZnVmpxb3Y2bXN0djk2UkVwQ3ZiTlJ5Q2ZfT0x5dWdlNm1BOGJQUWgyWmw3Mkg5U1p5aUhkMVhxZ3BTWWcwYmN2SkhJWEUtZTZCSUFudmhtc3k1Ql81SUFVVG56X2xmcjNsNHN0RnNIX1dLUmZNdWdsUU9DaW52MU9kS1RDTUF4MlE4cW4weV9ENDlWNDJtRmhGLV8ySFRvT1JYcklqZUtuWWRqQTZJSXVYeG5HRUNsclhxVXh4WGhNbFhMN1hVeU9BUWtKaDBIRnVJS1FaaTNMYWVJd0M3N08xSEZ4YUlmZ3NaSjNsd085ZHEwSDA5RlhHNExaOTlzdGxwMTFHMkpLYi14SkhLdXFWT0ViVUtMV3lHckV6b1NJU1h1UFlfcEpWT09sMjI4QU9oTVR0eGl6MVJiSWdENkdCM1V0ODZqY3lSU25GZ1JtQ3E3UDgtVGZCZW9pMGdRY1RZemFlYzNEam5lNWt2VTZ6TC1MZ1FJcHhwWFNfbms3NFNKa1JYa2k5QmptbG9DZnBkMkRhM2lFeUVUUzFLWms1OUVBTmJQRnR1bk1tbkh2R2dHcDRrRUNXQkFRRlhUSTFUN0JLbUowblhiWTl4OWVTdjkwM214bk1lWnpaaXI5UWVVUlZjVkZiWHFmVV9YSTRDMW9VbnE3NzNaNUJSVE0tRFZDSEdYendEU0dHalR0and5alp0NC05VFVZLXFLS3BIeS04ZUs1bmpteEFkcElNcWhrMEdLVHQwRHRlbW1nMFFJUG8yNnVmZDBoai1jSExKekM2RlpkcXF6TWJ1OWRqdFFtYnNZWWZKdTlmczNUZmFIYVVfeDBwWWZKUzg4ZWd1TDUxaVp3V0RmV1RSR3pXYTZBMEFCWXU4YVFyTHY5TFVWY0FOMnpuYVdEcEgxYVZRY1BZQ2tuREhKQlRGYjd6a29WM3JEOWhVcEc1NjFiRUU2U3I4ejlYNjdnaEdMejJNMnUyaFAyMGVmbDM2ZW5hWFJDTXRjT3ZsNjJ0aEZkVzFPVm9HeDVXVTdDbHgyaWhqZ3BmdXdjYlh4QzE0ZS1QTWtHNnlydTBTR3hpN1Q1NzJjdzcyWlhSV1Y2VGRfUlRYdmo0LWFmeVVkdlY1c0xnODBHMHpJQkRvZ2tBRE04RVJkNWRNdDFFeEJSUnhZc1E0Wm9qaDJCZ2lrRjNBeFZaMTlDdENsZGh1cEh6OTByY3FTUUw4V01UeUpkXzVZN00zeEM0dlg3SXhKZFFBSTU1cjJQazg3UWt3c3FqQVNnMnpsTkluaWFlRUU4Q0E1SFpISVJOLUtwUkMzblBfdEdKMjlheVBUUzhEUkpHbGVScThHLWfSAZABQVVfeXFMUEVQWlFPOW00ODljUGhCb2t2dDVvR3B5X0g5eDZBQlFRTDlzVl9DWC14YmMxWjI3UlNBM211bDc1Uk93eUc2djFwWk02MTYwbWxHeThJS3hvRzltaFM4ajFNVTlPdXdlcDY3OEU0eXZnYV9uN1BpWDhqTWhEM2NnZzdQYWxIeU4zS0xYdGlhVVh6?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Travis Kelce reminds Taylor Swift about handling criticism
+
+- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce reportedly told Taylor Swift that it's impossible to please everyone amidst ongoing criticism. This reminder comes during a time when the couple faces public scrutiny over their relationship.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1I0NVFpSGo3Z2RVT19jRkFHTVl0YXc1emYxbEdudnNRWm5ickJtUm5xOGhyQVZOZ2dMcTNsb0oxUzdZNjBfcXVseHlQWHFQdHJvbkV5TURzSHpIaWpiZkJjLUNZOWt0eUNnUTNScWxOc05KNF8xOXJJMmNybFRiWTIzQ2hzcERROTVGcXE2NGNXcWNkR21JTXpRdm5IaEp2bElCcU9neUhJMXRaYjF0ZGVndDNLT3pxWjBHSw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNd0dYYnhHcFItZHlaRUxNYkFqNlZNMll4czN0b1Z4Y19SWGI1cmxLMWM3VzByLUZZRmhBV2R6WnNOUUlrejFNQ3Y5VzQzV01sbU54RUptV1FIaUVZLW9fdVhQUU5WUVlhNUlyZWREMHREZEZvWmhOZEZkNWVueTBLbXluTkVCczVCR0dYd3hkOU5TX2Q3VFNZUUtFX3U?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## R.I. Property Owners Sue Over Controversial 'Taylor Swift Tax'
 
 - first seen: 2026-10-06 11:59 UTC | category: business | importance: 6
@@ -83,14 +179,6 @@ Stories: 81
 - summary: Property owners in Rhode Island have filed a lawsuit concerning a tax reportedly associated with Taylor Swift. The legal action has garnered attention due to its connection to the singer's impact on local property values.
 - sources:
   - [unverified] Brown Daily Herald — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOWRucUg2eWt3cTBtM0ZGOTZETXNnbXMyNmNNWEhRdGxxY3UzNGhLZWN0RU4tN2R2R1FmOGdWbVk1REphdWJDVG9BQkdpR1l3dDhwdGtIOV9uaEVySVVkWHlYZFlpNDNib200NVVocjJFTUJ1RTBvWTVIeXRJSWlRbDNza2t3YkZLakZkNk04emI1M0MwM29HdWEyZWg4MXZKUHB0Z3E3OF9RUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of 'The Life of a Showgirl: The Encore' Released
-
-- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A review of 'The Life of a Showgirl: The Encore' explores the theme of authenticity in the showgirl performance. The piece reflects on whether the essence of the showgirl still exists in contemporary performances.
-- sources:
-  - [unverified] The Harvard Crimson — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMG1JZWR4cVEyOUQ4Ukl2bWFNVzRrOEpTaEVELUVEQzlZd0ZlS1VKQlJnVGx0SVV0UkJnUFNIclA5N0VheHljd0UxaXJqRkVJMEFkOEpHQkhESktmTmxyUnlmOTJGdlltb3dPNlpiWFlBQ2p3QnlFTjZ4OFVwbGRyOUYySlhyVkNqNFZZcGMzemRFdF9IRjZkbDduLUk1Zlg3ZzZ1ZHE5YTk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Blake Lively Reportedly Upset Over Taylor Swift's New Friendship
 
@@ -107,6 +195,15 @@ Stories: 81
 - summary: Chrissie Hynde has been noted as possibly the only supporter of Taylor Swift's song 'Cleveland!'.
 - sources:
   - [unverified] pastemagazine.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdjFQeWQzUW0xTWpmdzIwVTlGYmhsWlVtb3FNYllid3pTeGdxRlJhbWttVDNqWVRUMHRsdmoxMi1EZldBY1NCcUJqUzdMV0Q2bWRmVUd0bEhHc1hMYUxjdDZkTmkzOUFVWV9WNmQyOEZnc0NCOWcyakZkLWFzTGpaZWtyNEd2Wm9SUmttTy1XbGZsLUFyV015b3NxWi0xZmJXUDZ5T2VCMVNXSTZNR3lSakhNUlIwOTQwVUhCdEZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Review of 'The Life of a Showgirl: The Encore' Released
+
+- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A review of 'The Life of a Showgirl: The Encore' explores the theme of authenticity in the showgirl performance. The piece reflects on whether the essence of the showgirl still exists in contemporary performances.
+- sources:
+  - [unverified] Atwood Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNm1KTnhCalNjZWJWRDRIZkFsTU5Tb19TdExORjM2Q0xHTDhjYnU5MFNMNjZPdTlrNHhyQTNVX3JQRl9SeENWMWxUYk5aT01qY0JIQjluQXRjWDU0U2xRRFhLR2pGUE1Yay1XckZIRzZEVmg4azBhRDJoN0d2YjJQc3AzZ1VMbThZQ0prQkUwWFFWQ2xUdlh2SUhxZ2FGUlF5RmV1SjlOYUt4UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Harvard Crimson — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMG1JZWR4cVEyOUQ4Ukl2bWFNVzRrOEpTaEVELUVEQzlZd0ZlS1VKQlJnVGx0SVV0UkJnUFNIclA5N0VheHljd0UxaXJqRkVJMEFkOEpHQkhESktmTmxyUnlmOTJGdlltb3dPNlpiWFlBQ2p3QnlFTjZ4OFVwbGRyOUYySlhyVkNqNFZZcGMzemRFdF9IRjZkbDduLUk1Zlg3ZzZ1ZHE5YTk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Showcase Coordinated Looks at Birthday Dinner
 
@@ -685,28 +782,3 @@ Stories: 81
 - sources:
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisgFBVV95cUxPMk1OMWRHRjlyWTRtb09VMjUwUXJadG0xM0dkSHVhRFJETkdwTUtPSWUzVEdwdXZxNHJaUTE2VUdCLWNLWldXaUpuYkZsclZmWFlYU2JRM1NFcEhxYTR0X0k5UUxPQk9NSTNUUTRhczNTQTFPQWp3ZHpmblJuekJCeTJBT0tTYWZid1RxNHFKZjNHZWtoRGcxbTZUTTM1TkhaUXZ6Y2dxTjJRTUxJM1pZc2dR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/
-
-## Taylor Swift Honors Dolly Parton During VMA Acceptance Speech
-
-- first seen: 2026-10-03 14:18 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: During her acceptance speech at the VMAs, Taylor Swift dedicated her win to Dolly Parton, calling her 'The Ultimate Showgirl.' This gesture highlights Swift's admiration for the iconic singer and performer.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOS2s2MDBPclQtVUtXRXpiYXRxSDZWWUlsVHZDdjlkdlduZjFFeS1OcFo4T1ZQS1RXNnVRTTZJY3ViSGF3WFc1LTEwNWVQUVVjaFhnQU0tRUZfN091MERWeEZ4VmNqQVA4UTlHdW5JdUFOaThtdU5NQnh3NTFBV3FPMTB1M0dTNDBaSnhxUWMzb3JVMDRVSjJjVzlHb1g?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Marks Musical Milestone in Meaningful Outfit
-
-- first seen: 2026-10-03 14:18 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift celebrates a significant musical achievement while showcasing a symbolic outfit, as reported by Page Six.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMinAFBVV95cUxPeUk4eGRYRkZsR29QM0VQbXlMaWQyaUpaejJMbFlGejhONm45SVVPb3ZNTnRueTd6UWZNX2g5eHlQWVhQOXdDTGFVYVlrNHkwM0NJMDNZeEZhRHBkclpEZ1lOX0I5TVB4ek4zcm45Yll4R3NMR2xxTS1YMXpNWm04SkY0RWFZQmJiR3YzaHdLejBDaVNLUm1YWHVrWjA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Wedding Linked to Presley Gerber's Final Months
-
-- first seen: 2026-10-03 14:18 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Reports suggest a poignant connection between Taylor Swift's wedding and the final months of Presley Gerber. The details highlight the emotional context surrounding the event.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUnNURVcyNVN3NlhFd3RVRlZaQ3BlcTA1Zkg3UGFhTllCTWh6alFlX0gtTmZSNFFtMFBLa3lFTkpocEhTZUE3TXN0bGJaU1NQTk44eGZvNGJlYTJhMGhFNV8wbnd2eTA3Tk12X2tTaGJneGVvMnVBS19qbzV1QjVkS19iYzRCNjlsYjlmY3VwWm1oQVRwa1RTN0ZqREdlNGhucndkTw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdkNKbXRwN2drM3pfaUx2bTdIbjEweHR3Z3ZyOGZBc0EybUNsZTdPc2Jkb2UybzR0ZTV5ci14VTRxa0lEZ3pfWEJWR0lDRDAzcGxPNDQ1UEpKdmlZSlhhQ1lTWkkzTEhFb2FWN2ExOWN2eTJMT2xjMFpMX1BNX2tSSUJvbUJDT0I3b0hUanVYbjhPcE5VOUFlWmNMVnBjUEdpMWFmRHZycw?oc=5&hl=en-US&gl=US&ceid=US:en
