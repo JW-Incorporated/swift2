@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4767 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4767 under stalled.
 
 ## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
