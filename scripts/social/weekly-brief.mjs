@@ -29,7 +29,7 @@
 // DATA, fetched by the workflow via the GitHub API, never by checking out
 // that branch's code.
 import { readFile } from 'node:fs/promises';
-import { chunkForDiscord, neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
+import { chunkForDiscord, neutralizeMentions, DISCORD_MESSAGE_LIMIT, suppressPreviews } from '../community/discord-delivery.mjs';
 import { TREE_WEBHOOK_USERNAME, TREE_AVATAR_URL } from './approval-prompt.mjs';
 import { buildScorecard, renderScorecard } from './weekly-scorecard.mjs';
 import { runMain } from '../lib/cli.mjs';
@@ -203,13 +203,14 @@ export async function sendWeeklyBrief(messages, { webhook = process.env.SOCIAL_A
         const response = await fetchImpl(`${webhook}?wait=true`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            content: chunks[i],
-            username: TREE_WEBHOOK_USERNAME,
-            avatar_url: TREE_AVATAR_URL,
-            allowed_mentions: { parse: [] },
-            flags: 4, // SUPPRESS_EMBEDS: no link previews (Bots v2 C6)
-          }),
+          body: JSON.stringify(
+            suppressPreviews({
+              content: chunks[i],
+              username: TREE_WEBHOOK_USERNAME,
+              avatar_url: TREE_AVATAR_URL,
+              allowed_mentions: { parse: [] },
+            }),
+          ),
         });
         if (!response.ok) throw new Error(`Discord weekly-brief delivery failed with HTTP ${response.status}`);
         const payload = await response.json();
@@ -283,7 +284,7 @@ export async function sendReplanUpdate(summary, headerPermalink, { webhook = pro
       const response = await fetchImpl(`${webhook}?wait=true`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ content: chunks[i], username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] }, flags: 4 }), // flags 4: no link previews (Bots v2 C6)
+        body: JSON.stringify(suppressPreviews({ content: chunks[i], username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } })),
       });
       if (!response.ok) throw new Error(`Discord replan-update delivery failed with HTTP ${response.status}`);
     } catch (err) {

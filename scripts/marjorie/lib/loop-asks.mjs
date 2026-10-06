@@ -44,6 +44,8 @@ const CONTRADICTS_RE = /\s*\(contradicts #(\d+)\)\s*$/i;
 // line — arrow text inside an ask (e.g. "#4200 → #4300") must never read as
 // already filed.
 const FILED_RE = / → \[#(\d+)\]\(<[^()<>]+\/issues\/\1>\)(?: ⚠️ contradicts #\d+ — your call)?$/;
+// An ask that reports an error or a blocker (not a discretionary request) carries this and does not count against the daily help cap.
+export const ERROR_MARKER = '<!-- loop-kind: error -->';
 const MARKER_RE = /<!-- loop-ask: ([a-z0-9-]+)(?: contradicts=(\d+))? -->/g;
 const TITLE_PREFIX_RE = /^(Tree|Marjorie) → (Tree|Marjorie): /;
 
@@ -74,7 +76,7 @@ function stripCr(line) {
  * this module appends after it — neutralizing a comment opener keeps ask
  * text from forging an earlier `<!-- loop-ask: ... -->` that `parseMarker`
  * could pick up instead of the real one. */
-function neutralizeMarker(text) {
+export function neutralizeMarker(text) {
   return String(text ?? '').replace(/<!--/g, '&lt;!--');
 }
 
@@ -128,10 +130,13 @@ export function parseTreeAsks(plan) {
     const dedupeKey = clean(ask).toLowerCase();
     if (seen.has(dedupeKey)) { duplicates += 1; continue; }
     seen.add(dedupeKey);
-    valid.push({ ask, why: truncate(clean(entry?.why), MAX_ASK_CHARS), contradicts: positiveInt(entry?.contradicts) });
+    valid.push({ ask, why: truncate(clean(entry?.why), MAX_ASK_CHARS), contradicts: positiveInt(entry?.contradicts), ...(entry?.kind === 'error' ? { kind: 'error' } : {}) });
   }
   const { max } = SIDES.tree;
-  return { asks: valid.slice(0, max), overCap: Math.max(valid.length - max, 0), invalid, duplicates };
+  // Errors and blockers are not discretionary asks: they never take one of the max slots.
+  const errors = valid.filter((v) => v.kind === 'error');
+  const discretionary = valid.filter((v) => v.kind !== 'error');
+  return { asks: [...errors, ...discretionary.slice(0, max)], overCap: Math.max(discretionary.length - max, 0), invalid, duplicates };
 }
 
 /** Marjorie's ask from the brief body's first `- For Tree:` line.
@@ -194,6 +199,7 @@ export function renderIssue(sideName, ask, { key, sourceUrl }) {
       : null,
     `From: ${sourceUrl}`,
     `**${side.to}:** if it's inside your charter, do it, comment what you did, and close this. If you can't or shouldn't, comment why in one sentence and leave it open — it keeps showing in both briefs until it closes.`,
+    ask.kind === 'error' ? ERROR_MARKER : null,
     renderMarker(key, ask.contradicts),
     side.trailer,
   ].filter(Boolean).join('\n\n');

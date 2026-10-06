@@ -23,7 +23,7 @@
 // empty. The bot token is used only in `run:` steps and never in an agent step.
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, founderIds, isFailureNotice } from './chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction } from './discord-bot.mjs';
-import { SUPPRESS_EMBEDS } from './discord.mjs';
+import { suppressPreviews } from '../../community/discord-delivery.mjs';
 
 /**
  * True only for a message a founder typed: not a webhook post, not a bot, and
@@ -150,12 +150,11 @@ export async function readDeliveryState({ bot, messageId, channelId, sourceThrea
 
 /** The bot-token notice: a reply to the founder's message (a webhook cannot reply). */
 export function failureBody(messageId, runUrl = '') {
-  return {
+  return suppressPreviews({
     content: `${FAILURE_PREFIX} ${runUrl ? `${runUrl} ` : ''}— please send it again`,
     allowed_mentions: { parse: [] },
-    flags: SUPPRESS_EMBEDS,
     message_reference: { message_id: messageId, fail_if_not_exists: false },
-  };
+  });
 }
 
 export async function postFailure({ where, messageId, runUrl, token, fetchImpl = fetch, sleepImpl = defaultSleep }) {

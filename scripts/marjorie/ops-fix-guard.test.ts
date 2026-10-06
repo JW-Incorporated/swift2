@@ -20,7 +20,7 @@ describe('checkDiff', () => {
     }
   });
   it('protects the ops-fixer machinery and the required-check workflows', () => {
-    for (const p of ['scripts/marjorie/ops-fix-guard.mjs', 'scripts/marjorie/ops-fix-guard.test.ts', 'scripts/marjorie/ops-fix-escalate.mjs', 'scripts/marjorie/ops-fix-trust.mjs', '.github/workflows/routine-ops-fix.yml', 'docs/agents/runner-prompts/ops-fix.md', 'docs/agents/ops-fixer.md', '.github/workflows/routine-template.yml', '.github/workflows/ci.yml', '.github/workflows/parity.yml', '.github/CODEOWNERS', '.github/rulesets/main.json']) {
+    for (const p of ['scripts/marjorie/ops-fix-guard.mjs', 'scripts/marjorie/ops-fix-guard.test.ts', 'scripts/marjorie/ops-fix-escalate.mjs', 'scripts/marjorie/ops-fix-trust.mjs', '.github/workflows/routine-ops-fix.yml', 'docs/agents/runner-prompts/ops-fix.md', 'docs/agents/ops-fixer.md', '.github/workflows/routine-template.yml', '.github/workflows/bot-failure-triage.yml', 'scripts/marjorie/routine-failure-triage.mjs', 'scripts/marjorie/routine-failure-triage.test.ts', '.github/workflows/ci.yml', '.github/workflows/parity.yml', '.github/CODEOWNERS', '.github/rulesets/main.json']) {
       expect(checkDiff(file(p, 'x'))).toEqual([expect.stringContaining('rail 4')]);
     }
   });

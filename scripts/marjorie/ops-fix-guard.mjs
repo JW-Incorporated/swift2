@@ -28,6 +28,8 @@ const SELF = [
   /^scripts\/marjorie\/ops-fix-(?:guard|trust)\.test\.ts$/,
   /^\.github\/workflows\/routine-ops-fix\.yml$/,
   /^\.github\/workflows\/routine-template\.yml$/,
+  /^\.github\/workflows\/bot-failure-triage\.yml$/,
+  /^scripts\/marjorie\/routine-failure-triage(?:\.test)?\.(?:mjs|ts)$/,
   /^\.github\/workflows\/ci\.yml$/,
   /^\.github\/workflows\/parity\.yml$/,
   /^docs\/agents\/runner-prompts\/ops-fix\.md$/,

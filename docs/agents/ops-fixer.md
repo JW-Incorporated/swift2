@@ -45,7 +45,7 @@ workflow, outside the agent (`routine-ops-fix.yml`):
   branch-protection API calls, `"approval"` in `social/queue/**`, and edits to
   the social approval/signing/live-send files; and it protects rail 4's
   integrity by refusing edits to its own machinery (guard, escalate, trust,
-  tests, `routine-ops-fix.yml`, `routine-template.yml`, this charter and the
+  tests, `routine-ops-fix.yml`, `routine-template.yml`, `bot-failure-triage.yml` and its script (the loop that routes the ops-fixer's own failures), this charter and the
   runner prompt), the workflows behind the required checks (`ci.yml`,
   `parity.yml`), CODEOWNERS and rulesets. A human session can change those; the
   escalation prompt is the path.

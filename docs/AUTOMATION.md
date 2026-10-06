@@ -71,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (29 automatic + 10 manual)
+## Tier 1 — GitHub Actions (30 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -89,6 +89,14 @@ counts are `automatic + manual`.
 `auto-merge-content.yml` is the single most load-bearing workflow here: it is
 why desk routines can open a PR and exit instead of babysitting it (which was
 ~69% of all agent token spend before 2026-07-25).
+
+### Routine failure triage (1)
+
+| Workflow | Trigger | LLM | Mutates | Docs |
+|---|---|---|---|---|
+| [`bot-failure-triage.yml`](../.github/workflows/bot-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
+
+Logic in `scripts/marjorie/routine-failure-triage.mjs`; the escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 
 ### Watchdogs and freshness (5)
 

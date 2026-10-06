@@ -16,9 +16,9 @@
 // `lastRun[source]` lets the notifier poll its hourly sources once an hour.
 import {
   DISCORD_MESSAGE_LIMIT,
-  DISCORD_SUPPRESS_EMBEDS,
   TREE_AVATAR_URL,
   neutralizeMentions,
+  suppressPreviews,
 } from '../../community/discord-delivery.mjs';
 
 export const REPLIES_WEBHOOK_USERNAME = 'Tree · Replies';
@@ -177,13 +177,14 @@ export async function postDiscord(content, { webhook, fetchImpl = fetch }) {
       method: 'POST',
       signal: globalThis.AbortSignal.timeout(15_000),
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        content,
-        username: REPLIES_WEBHOOK_USERNAME,
-        avatar_url: TREE_AVATAR_URL,
-        allowed_mentions: { parse: [] },
-        flags: DISCORD_SUPPRESS_EMBEDS,
-      }),
+      body: JSON.stringify(
+        suppressPreviews({
+          content,
+          username: REPLIES_WEBHOOK_USERNAME,
+          avatar_url: TREE_AVATAR_URL,
+          allowed_mentions: { parse: [] },
+        }),
+      ),
     });
   try {
     let res = await send();

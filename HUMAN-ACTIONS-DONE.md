@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #106 · 2026-10-05 · done · #4707 has had no activity for 4 days — "owner replied assign in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556802849772540005" · by chat
 - #107 · 2026-10-05 · done · #4719 has had no activity for 4 days — "closed via Discord reply" · by discord
 - #101 · 2026-10-05 · done · S5: test the new app on your Android phone — "owner in chat 2026-10-05 12:31 PDT: checked the app on Android, no issues found, looks great" · by chat
 - #103 · 2026-10-05 · done · Set SUBMISSIONS_HASH_SALT in Vercel production — "owner said '103 done' in chat 2026-10-05 10:55 PDT" · by chat

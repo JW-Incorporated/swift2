@@ -105,6 +105,7 @@ export const LABELS = [
   // Bots v2 W5 (docs/plans/bots-v2/PLAN.md): the weekly growth review's plan
   // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
   ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
+  ['routine-failure', 'B60205', 'A routine workflow run failed — auto-filed by bot-failure-triage.yml for Marjorie'],
   ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
   // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
   ...LOOP_LABELS,
