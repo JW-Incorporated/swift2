@@ -365,26 +365,40 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           fi
 
-          # NEW (task A1): 2 consecutive scheduled-run failures for a watched
-          # workflow opens a DEDICATED per-workflow self-healing issue,
-          # distinct from the combined cadence alert above (which only fires
-          # once NOTHING has succeeded inside the whole maxage window). This
-          # catches a workflow that ran recently — so the combined check
-          # above stays quiet — but has failed its last two scheduled runs in
-          # a row. Resolves automatically: the next scheduled success makes
-          # this loop close it, same upsert-alert.sh mechanism as every other
-          # alert in this file.
-          for ENTRY in $WATCHED; do
-            WF="${ENTRY%%:*}"
-            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
-              --limit 2 --json conclusion --jq '[.[].conclusion]')
-            COUNT=$(echo "$LAST_TWO" | jq 'length')
-            FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
+      # Per-workflow "failed its last 2 scheduled runs" alert (task A1, widened
+      # 2026-10-06). Targets are EVERY workflow file with a `schedule:`
+      # trigger (scripts/watchdog/scheduled-failures.mjs, minus its EXCLUDE
+      # list) — link-sweep and merch-awin-sync were red every daily run
+      # 10-02..06 unnoticed under the old hand-kept list. Runs on EVERY
+      # trigger (incl. the hourly clock dispatch) so a recovered workflow's
+      # alert closes within the hour instead of waiting for the 14:35 daily
+      # pass; OPENING (which comments on an existing issue) stays daily-only
+      # so a standing alert is not re-commented hourly. The latest settled
+      # schedule/workflow_dispatch runs count, so a clock-dispatched success
+      # closes it too.
+      - name: Scheduled workflows failing twice (per-workflow view)
+        if: (!cancelled())
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
+        run: |
+          set -euo pipefail
+          OPEN_TITLES=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
+          for WF in $(node scripts/watchdog/scheduled-failures.mjs list); do
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
-            if [ "$COUNT" -ge 2 ] && [ "$FAILS" -eq "$COUNT" ]; then
-              echo "@sffan15-sys — \`${WF}\`'s last ${COUNT} scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
-              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-            else
+            VERDICT=$(gh run list --repo "$REPO" --workflow "$WF" --limit 10 \
+              --json event,conclusion | node scripts/watchdog/scheduled-failures.mjs verdict)
+            if [ "$VERDICT" = "alert" ]; then
+              if [ "$IS_DAILY" = "1" ]; then
+                echo "@sffan15-sys — \`${WF}\`'s last 2 scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+                scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+              fi
+            elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
               echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
               scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             fi
