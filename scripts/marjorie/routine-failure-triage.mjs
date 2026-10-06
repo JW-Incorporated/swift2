@@ -128,7 +128,7 @@ export function shouldComment(comments, now) {
  * Files, comments on or adopts the failure issue, then starts Marjorie.
  * Returns `{ action: 'skipped' | 'commented' | 'adopted' | 'filed', number? }`; never throws.
  */
-export async function triage({ workflow, runId, runUrl, conclusion }, { repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
+export async function triage({ workflow, runId, runUrl, conclusion, day: dayOverride }, { repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
   try {
     if (!workflow || !runId) return { action: 'skipped', reason: 'missing workflow or run id' };
     if (workflow === 'bot-failure-triage') return { action: 'skipped', reason: 'never triages itself' };
@@ -139,7 +139,7 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
     const { job, step } = failingJobStep(jobs);
     // A cancelled run is a manual stop or a concurrency swap unless a cancelled job's annotation says it hit the time limit.
     if (!failed && !(await cancelledByTimeout(gh, repo, jobs, runUrl))) return { action: 'skipped', reason: 'cancelled, not a timeout' };
-    const day = utcDay(now);
+    const day = dayOverride ?? utcDay(now);
     const marker = failureMarker(workflow, day);
     const api = apiFor(gh);
 
@@ -192,11 +192,58 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
   }
 }
 
+export const SWEEP_WINDOW_MS = 2 * 3_600_000;
+export const SWEEP_LIST_MS = 6 * 3_600_000;
+const SWEEP_PAGE = 100;
+const SWEEP_MAX_PAGES = 10;
+
+/** The dedupe day is the run's completion day on every path, so workflow_run and the sweep agree across midnight. */
+export const dayOf = (updatedAt, now) => utcDay(Date.parse(updatedAt) || now);
+const ROUTINE_PATH_RE = /^\.github\/workflows\/(routine-(?!template\b)[a-z0-9-]+)\.yml(?:@|$)/;
+
+/**
+ * Catches failures that never produced a workflow_run event (runs started with GITHUB_TOKEN emit none).
+ * Every failed/timed-out/cancelled main run of a routine-* workflow in the window goes through triage();
+ * its per-workflow-per-day marker and run-URL check make overlap with the workflow_run path, or with the
+ * previous sweep, a no-op (no second issue, no second dispatch). The day is the run's completion day so a
+ * sweep just after midnight joins the issue the workflow_run path filed for that run.
+ */
+export async function sweep({ repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
+  const since = new Date(now - SWEEP_LIST_MS).toISOString().replace(/\.\d+Z$/, 'Z');
+  const runs = new Map();
+  for (const status of ['failure', 'timed_out', 'cancelled']) {
+    try {
+      for (let page = 1; page <= SWEEP_MAX_PAGES; page++) {
+        const out = JSON.parse(String((await gh(['api', `repos/${repo}/actions/runs?status=${status}&branch=main&created=%3E%3D${since}&per_page=${SWEEP_PAGE}&page=${page}`])).stdout || '{}'));
+        const rows = out.workflow_runs ?? [];
+        for (const run of rows) runs.set(run.id, run);
+        if (rows.length < SWEEP_PAGE) break;
+      }
+    } catch (err) {
+      warn(`could not list ${status} runs: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+    }
+  }
+  const results = [];
+  for (const run of [...runs.values()].sort((a, b) => a.id - b.id)) {
+    const workflow = ROUTINE_PATH_RE.exec(String(run.path ?? ''))?.[1];
+    if (!workflow || run.head_branch !== 'main' || !['failure', 'timed_out', 'cancelled'].includes(run.conclusion)) continue;
+    if (Date.parse(run.updated_at) < now - SWEEP_WINDOW_MS) continue;
+    const day = dayOf(run.updated_at, now);
+    results.push(await triage({ workflow, runId: String(run.id), runUrl: run.html_url, conclusion: run.conclusion, day }, { repo, gh, now, log }));
+  }
+  log(`bot-failure-triage: swept ${results.length} failed routine run(s).`);
+  return results;
+}
+
 async function main() {
+  if (process.argv.includes('--sweep')) {
+    await sweep();
+    return 0;
+  }
   const { flags } = parseArgs(['triage', ...process.argv.slice(2)]);
   const missing = ['workflow', 'run-id', 'run-url', 'conclusion'].filter((n) => typeof flags[n] !== 'string');
   if (missing.length > 0) throw new Error(`missing --${missing.join(', --')}`);
-  await triage({ workflow: flags.workflow, runId: flags['run-id'], runUrl: flags['run-url'], conclusion: flags.conclusion });
+  await triage({ workflow: flags.workflow, runId: flags['run-id'], runUrl: flags['run-url'], conclusion: flags.conclusion, day: typeof flags['updated-at'] === 'string' ? dayOf(flags['updated-at'], Date.now()) : undefined });
   return 0;
 }
 
