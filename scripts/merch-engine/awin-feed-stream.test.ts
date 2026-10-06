@@ -37,6 +37,52 @@ describe('Awin streaming feed parser', () => {
     }
   });
 
+  it('strips a leading UTF-8 BOM so the first header column still matches', async () => {
+    const plain = (await collect(feedRowBatches(FEED, chunksOf(Buffer.from(CSV), 64)))).flat();
+    expect(plain).toHaveLength(3);
+    for (const size of [1, 2, 3, 64]) {
+      const withBom = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(CSV)]);
+      const rows = (await collect(feedRowBatches(FEED, chunksOf(withBom, size)))).flat();
+      expect(rows).toEqual(plain);
+    }
+  });
+
+  (sqliteSupported ? it : it.skip)(
+    'rolls back and flags a feed that streams cleanly but yields zero rows, with or without old rows',
+    async () => {
+      const directory = await mkdtemp(join(tmpdir(), 'awin-zero-'));
+      const indexPath = join(directory, 'index.sqlite');
+      const html = Buffer.from('<html>temporary error</html>\n');
+      const productIds = async (feedId: string) => {
+        const { DatabaseSync } = await import('node:sqlite');
+        const database = new DatabaseSync(indexPath);
+        const rows = database
+          .prepare('SELECT product_id FROM products WHERE feed_id = ?')
+          .all(feedId);
+        database.close();
+        return rows.map((row) => row.product_id);
+      };
+      try {
+        const old = Buffer.from('aw_product_id,product_name\nold1,A\n');
+        await writeFeedStream(indexPath, 'f1', feedRowBatches(FEED, chunksOf(old, 8)));
+        await expect(
+          writeFeedStream(indexPath, 'f1', feedRowBatches(FEED, chunksOf(html, 8))),
+        ).rejects.toMatchObject({ feedSource: true, message: expect.stringContaining('0 rows') });
+        expect(await productIds('f1')).toEqual(['old1']);
+        await expect(
+          writeFeedStream(
+            indexPath,
+            'fresh',
+            feedRowBatches({ ...FEED, feedId: 'fresh' }, chunksOf(html, 8)),
+          ),
+        ).rejects.toMatchObject({ feedSource: true });
+        expect(await productIds('fresh')).toEqual([]);
+      } finally {
+        await rm(directory, { force: true, recursive: true });
+      }
+    },
+  );
+
   it('emits row batches of the configured size', async () => {
     const csv = `aw_product_id,product_name\n${Array.from({ length: 5 }, (_, i) => `${i},n${i}`).join('\n')}\n`;
     const batches = await collect(

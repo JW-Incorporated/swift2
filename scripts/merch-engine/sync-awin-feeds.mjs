@@ -149,7 +149,7 @@ export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms)
       if (onFeed) await onFeed({ ...feed, body: idleWatched(stream, arm), contentLength: response.headers?.get('content-length') ?? null });
       downloaded.push(feed);
     } catch (error) {
-      if (!(controller.signal.aborted || error?.feedSource || !stream)) throw error;
+      if (stream && !error?.feedSource) throw error;
       const message = controller.signal.aborted ? `stalled, no data for ${idleTimeoutMs / 1000}s` : error instanceof Error ? error.message : String(error);
       failures.push({ feedId: feed.feedId, message });
       console.warn(`::warning::Awin feed ${feed.feedId} not refreshed, will retry next run: ${message}`);

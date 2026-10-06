@@ -136,6 +136,14 @@ export async function* feedRowBatches(
   try {
     const splitter = createRecordSplitter();
     const decoder = new StringDecoder('utf8');
+    let atStart = true;
+    const decode = (piece) => {
+      if (atStart && piece.length > 0) {
+        atStart = false;
+        return piece.charCodeAt(0) === 0xfeff ? piece.slice(1) : piece;
+      }
+      return piece;
+    };
     let mapRow = null;
     let bytes = 0;
     let rows = 0;
@@ -169,9 +177,9 @@ export async function* feedRowBatches(
         throw new Error(
           `feed ${feed.feedId} exceeded the ${describeBytes(maxBytes)} size cap (streamed ${describeBytes(bytes)}); skipped`,
         );
-      for (const full of consume(splitter.push(decoder.write(chunk)))) yield full;
+      for (const full of consume(splitter.push(decode(decoder.write(chunk))))) yield full;
     }
-    for (const full of consume(splitter.push(decoder.end()))) yield full;
+    for (const full of consume(splitter.push(decode(decoder.end())))) yield full;
     for (const full of consume(splitter.end())) yield full;
     if (batch.length > 0) yield batch;
   } catch (error) {
@@ -223,14 +231,25 @@ export async function writeFeedStream(path, feedId, batches) {
   let written = 0;
   database.exec('BEGIN');
   try {
-    removeFeed.run(feedId);
+    const { changes: previousRows } = removeFeed.run(feedId);
     for await (const batch of batches) {
       for (const row of batch) insert.run(...productValues(row));
       written += batch.length;
     }
+    if (written === 0) {
+      const empty = new Error(
+        `feed ${feedId} yielded 0 rows (${previousRows} existing rows kept); not cached`,
+      );
+      empty.feedSource = true;
+      throw empty;
+    }
     database.exec('COMMIT');
   } catch (error) {
-    database.exec('ROLLBACK');
+    try {
+      database.exec('ROLLBACK');
+    } catch {
+      // keep the original error
+    }
     throw error;
   } finally {
     database.close();
