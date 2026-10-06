@@ -12,12 +12,13 @@ import { pathToFileURL } from 'node:url';
 export const WORKFLOW = 'bot-failure-triage.yml';
 export const MIN_GAP_MS = 25 * 60_000;
 
-const defaultGh = (args) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+const defaultGh = (args) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 30_000 });
 
 export function dispatchSweep({ gh = defaultGh, repo, now = Date.now(), log = console.log } = {}) {
   try {
-    const out = gh(['run', 'list', '--repo', repo, '--workflow', WORKFLOW, '--limit', '1', '--json', 'createdAt']);
-    const last = JSON.parse(out || '[]')[0]?.createdAt;
+    const out = gh(['run', 'list', '--repo', repo, '--workflow', WORKFLOW, '--limit', '20', '--json', 'createdAt,event']);
+    // workflow_run-event runs are created on every routine completion (even when the job is skipped); only sweep starts count.
+    const last = JSON.parse(out || '[]').find((r) => r.event === 'schedule' || r.event === 'workflow_dispatch')?.createdAt;
     if (last) {
       const ageMs = now - Date.parse(last);
       if (ageMs < MIN_GAP_MS) {

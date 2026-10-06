@@ -3,12 +3,12 @@ import { describe, expect, it } from 'vitest';
 import { dispatchSweep } from './dispatch-triage-sweep.mjs';
 
 const NOW = Date.parse('2026-10-06T12:00:00Z');
-const fakeGh = (lastCreatedAt: string | null, fail = false) => {
+const fakeGh = (lastCreatedAt: string | null, fail = false, extra: object[] = []) => {
   const calls: string[][] = [];
   const gh = (args: string[]) => {
     calls.push(args);
     if (fail) throw new Error('HTTP 403: forbidden');
-    return args[0] === 'run' ? JSON.stringify(lastCreatedAt ? [{ createdAt: lastCreatedAt }] : []) : '';
+    return args[0] === 'run' ? JSON.stringify([...extra, ...(lastCreatedAt ? [{ createdAt: lastCreatedAt, event: 'workflow_dispatch' }] : [])]) : '';
   };
   return { gh, calls };
 };
@@ -28,6 +28,21 @@ describe('dispatchSweep', () => {
     const { gh, calls } = fakeGh(null);
     expect(dispatchSweep({ gh, repo: 'o/r', now: NOW, log: () => {} })).toBe('dispatched');
     expect(calls.some((c) => c[0] === 'workflow')).toBe(true);
+  });
+  it('ignores recent workflow_run entries and dispatches off an old sweep start', () => {
+    const { gh, calls } = fakeGh('2026-10-06T11:00:00Z', false, [{ createdAt: '2026-10-06T11:55:00Z', event: 'workflow_run' }]);
+    expect(dispatchSweep({ gh, repo: 'o/r', now: NOW, log: () => {} })).toBe('dispatched');
+    expect(calls.some((c) => c[0] === 'workflow')).toBe(true);
+  });
+  it('dispatches when only workflow_run entries exist', () => {
+    const { gh } = fakeGh(null, false, [{ createdAt: '2026-10-06T11:59:00Z', event: 'workflow_run' }]);
+    expect(dispatchSweep({ gh, repo: 'o/r', now: NOW, log: () => {} })).toBe('dispatched');
+  });
+  it('turns a gh timeout into a warning', () => {
+    const gh = () => { throw Object.assign(new Error('spawnSync gh ETIMEDOUT'), { code: 'ETIMEDOUT' }); };
+    const logs: string[] = [];
+    expect(dispatchSweep({ gh, repo: 'o/r', now: NOW, log: (m: string) => logs.push(m) })).toBe('error');
+    expect(logs[0]).toMatch(/^::warning::.*ETIMEDOUT/);
   });
   it('turns a gh error into a warning, never a throw', () => {
     const { gh } = fakeGh(null, true);
