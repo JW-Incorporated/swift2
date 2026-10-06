@@ -38,6 +38,8 @@ jobs:
           npm-ci: 'true'
           npm-ci-args: '--ignore-scripts'
           cache: npm
+      - name: Generate vault modules (audit-matches imports gitignored *.generated.ts)
+        run: npm run sync:content
       # Detection only restores and reads the score cache authoring keeps
       # renewing below (never writes it) so a fixed pinned key can never go
       # stale: the newest key matching the prefix always wins (#3447 P1).
