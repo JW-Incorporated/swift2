@@ -1131,3 +1131,35 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "knowledge-freshness ALARM (stale)"
           fi
+
+  # Fallback dispatcher for bot-failure-triage.yml's SWEEP (2026-10-06). GitHub
+  # never emitted a schedule event for that workflow's own cron (none since
+  # 2026-10-06T01:26Z), but this workflow's schedule fires reliably, so it kicks
+  # the sweep off from here. Independent job (no needs), schedule events only,
+  # throttled by the latest sweep run's createdAt (cadence-independent): skipped
+  # if the last run is under 25 min old. workflow_dispatch with GITHUB_TOKEN is
+  # the documented exception that does start a run. The sweep's own concurrency
+  # group serialises any overlap with its workflow_run or native schedule runs.
+  triage-sweep-dispatch:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Dispatch bot-failure-triage sweep unless one ran in the last 25 minutes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          LAST=$(gh run list --repo "$REPO" --workflow bot-failure-triage.yml --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+          if [ -n "$LAST" ]; then
+            AGE_MIN=$(( ( $(date -u +%s) - $(date -u -d "$LAST" +%s) ) / 60 ))
+            if [ "$AGE_MIN" -lt 25 ]; then
+              echo "last triage run ${AGE_MIN}m ago (<25m) - skipping dispatch"
+              exit 0
+            fi
+          fi
+          gh workflow run bot-failure-triage.yml --repo "$REPO" --ref main
+          echo "dispatched bot-failure-triage sweep (last run: ${LAST:-none})"
