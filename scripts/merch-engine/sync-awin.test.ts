@@ -23,6 +23,12 @@ import {
   writeSqlite,
 } from './sync-awin-feeds.mjs';
 
+const drainFeed = vi.fn(async (_path: string, _feedId: string, batches: AsyncIterable<unknown[]>) => {
+  let rows = 0;
+  for await (const batch of batches) rows += batch.length;
+  return rows;
+});
+
 const EMPTY_DIRECTORY = 'feed id,last imported,url,advertiser id\n';
 const CURRENT_DIRECTORY =
   'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100';
@@ -258,6 +264,7 @@ describe('E0 Awin sync', () => {
             apiKey: 'test',
             fetchImpl,
             writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
           }),
         ).rejects.toThrow('download failed');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
@@ -270,6 +277,7 @@ describe('E0 Awin sync', () => {
           apiKey: 'test',
           fetchImpl,
           writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
         });
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
           feeds: { retained: '2026-08-29' },
@@ -287,7 +295,7 @@ describe('E0 Awin sync', () => {
         const writeSqliteImpl = vi.fn().mockRejectedValue(new Error('index write failed'));
 
         await expect(
-          syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl }),
+          syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl: drainFeed }),
         ).rejects.toThrow('index write failed');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
           feeds: { current: '2026-08-30', retained: '2026-08-29' },
@@ -312,6 +320,7 @@ describe('E0 Awin sync', () => {
             apiKey: 'test',
             fetchImpl,
             writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
           }),
         ).rejects.toThrow('directory response is incomplete');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
@@ -352,8 +361,10 @@ describe('E0 Awin sync', () => {
         Promise.resolve(new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x')),
       );
       const writeSqliteImpl = vi.fn();
-      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, maxFeeds: 2 });
-      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['b'], ['c'], ['gone']]);
+      const writeFeedImpl = vi.fn(drainFeed);
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl, maxFeeds: 2 });
+      expect(writeFeedImpl.mock.calls.map((call) => call[1])).toEqual(['b', 'c']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['gone']]);
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
         feeds: { a: '2026-09-01', b: '2026-10-01', c: '2026-10-02' },
       });
@@ -373,10 +384,10 @@ describe('E0 Awin sync', () => {
         return Promise.resolve(new Response('aw_product_id,product_name\n1,x'));
       });
       const writeSqliteImpl = vi.fn();
-      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
-      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['b'], []]);
-      expect(writeSqliteImpl.mock.calls[0][1]).toHaveLength(1);
-      expect(writeSqliteImpl.mock.calls.every((call) => call[1].every((row: { feedId: string }) => row.feedId !== 'a'))).toBe(true);
+      const writeFeedImpl = vi.fn(drainFeed);
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl });
+      expect(writeFeedImpl.mock.calls.map((call) => call[1])).toEqual(['b']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([[]]);
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
         feeds: { a: '2026-09-01', b: '2026-10-02' },
       });
@@ -397,7 +408,7 @@ describe('E0 Awin sync', () => {
       );
       const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const okWrite = vi.fn();
-      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: okWrite });
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: okWrite, writeFeedImpl: drainFeed });
       expect(JSON.parse(String(logSpy.mock.calls.at(-1)?.[0])).indexedProducts).toBe(4);
       logSpy.mockRestore();
     });
@@ -408,13 +419,13 @@ describe('E0 Awin sync', () => {
         ),
       );
       const written: string[] = [];
-      const failingWrite = vi.fn((_path: string, _rows: unknown, ids: string[]) => {
-        if (ids[0] === 'b') return Promise.reject(new Error('write b failed'));
-        written.push(ids[0]);
-        return Promise.resolve();
+      const failingWrite = vi.fn(async (path: string, feedId: string, batches: AsyncIterable<unknown[]>) => {
+        if (feedId === 'b') throw new Error('write b failed');
+        written.push(feedId);
+        return drainFeed(path, feedId, batches);
       });
       await expect(
-        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: failingWrite }),
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn(), writeFeedImpl: failingWrite }),
       ).rejects.toThrow('write b failed');
       expect(written).toEqual(['a']);
       expect(JSON.parse(readFileSync(cachePath, 'utf8')).feeds.b).toBeUndefined();
@@ -428,7 +439,7 @@ describe('E0 Awin sync', () => {
         Promise.resolve(url.includes('datafeed/list') ? new Response(directory) : new Response('', { status: 503 })),
       );
       await expect(
-        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() }),
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn(), writeFeedImpl: drainFeed }),
       ).rejects.toThrow('download failed');
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
     });
