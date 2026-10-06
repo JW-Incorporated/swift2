@@ -40,9 +40,19 @@ const COUNTED_EVENTS = new Set(['schedule', 'workflow_dispatch']);
 const FAILING = new Set(['failure', 'timed_out']);
 const SETTLED = new Set(['success', ...FAILING]);
 
+// `gh workflow list --all --json path,state` -> file names of enabled workflows.
+export function activeFiles(ghWorkflows) {
+  return ghWorkflows
+    .filter((w) => w.state === 'active')
+    .map((w) => w.path.split('/').pop());
+}
+
+// Runs may arrive as several per-event lists concatenated; newest first is
+// restored from createdAt when present.
 export function verdict(runs) {
   const last = runs
     .filter((r) => COUNTED_EVENTS.has(r.event) && SETTLED.has(r.conclusion))
+    .sort((a, b) => String(b.createdAt ?? '').localeCompare(String(a.createdAt ?? '')))
     .slice(0, 2);
   return last.length >= 2 && last.every((r) => FAILING.has(r.conclusion)) ? 'alert' : 'ok';
 }
@@ -55,8 +65,10 @@ if (invokedDirectly) {
     process.stdout.write(listScheduledWorkflows(arg).join('\n') + '\n');
   } else if (cmd === 'verdict') {
     process.stdout.write(verdict(JSON.parse(readFileSync(0, 'utf8'))) + '\n');
+  } else if (cmd === 'active') {
+    process.stdout.write(activeFiles(JSON.parse(readFileSync(0, 'utf8'))).join('\n') + '\n');
   } else {
-    console.error('Usage: scheduled-failures.mjs list [dir] | verdict < runs.json');
+    console.error('Usage: scheduled-failures.mjs list [dir] | verdict < runs.json | active < workflows.json');
     process.exit(2);
   }
 }

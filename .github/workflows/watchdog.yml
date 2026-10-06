@@ -378,6 +378,7 @@ jobs:
       # closes it too.
       - name: Scheduled workflows failing twice (per-workflow view)
         if: (!cancelled())
+        timeout-minutes: 10
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -389,10 +390,24 @@ jobs:
         run: |
           set -euo pipefail
           OPEN_TITLES=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
+          # Disabled workflows are skipped (their last runs say nothing about
+          # health now). If the lookup itself fails, fall back to all.
+          ACTIVE=$(gh workflow list --repo "$REPO" --all --limit 500 --json path,state \
+            | node scripts/watchdog/scheduled-failures.mjs active) || ACTIVE=""
           for WF in $(node scripts/watchdog/scheduled-failures.mjs list); do
+            if [ -n "$ACTIVE" ] && ! printf '%s\n' "$ACTIVE" | grep -qxF "$WF"; then
+              continue
+            fi
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
-            VERDICT=$(gh run list --repo "$REPO" --workflow "$WF" --limit 10 \
-              --json event,conclusion | node scripts/watchdog/scheduled-failures.mjs verdict)
+            # Per-event lists: an unfiltered list lets push/PR runs crowd out
+            # the schedule/dispatch runs. Manual workflow_dispatch runs count
+            # too (the clock's dispatches need to) — accepted trade-off.
+            # An errored lookup must neither open nor close an alert.
+            RUNS=$({ gh run list --repo "$REPO" --workflow "$WF" --event schedule --limit 5 --json event,conclusion,createdAt \
+              && gh run list --repo "$REPO" --workflow "$WF" --event workflow_dispatch --limit 5 --json event,conclusion,createdAt; } \
+              | jq -s 'add') || { echo "::warning::run lookup failed for ${WF}; skipping"; continue; }
+            VERDICT=$(printf '%s' "$RUNS" | node scripts/watchdog/scheduled-failures.mjs verdict) \
+              || { echo "::warning::verdict failed for ${WF}; skipping"; continue; }
             if [ "$VERDICT" = "alert" ]; then
               if [ "$IS_DAILY" = "1" ]; then
                 echo "@sffan15-sys — \`${WF}\`'s last 2 scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md

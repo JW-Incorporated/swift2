@@ -2,7 +2,7 @@ import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { EXCLUDE, listScheduledWorkflows, verdict } from './scheduled-failures.mjs';
+import { EXCLUDE, activeFiles, listScheduledWorkflows, verdict } from './scheduled-failures.mjs';
 
 const SCHEDULED = 'on:\n  schedule:\n    - cron: "0 5 * * *"\n  workflow_dispatch:\n';
 const NOT_SCHEDULED = 'on:\n  push:\n  workflow_dispatch:\n';
@@ -67,6 +67,37 @@ describe('verdict', () => {
   it('ignores in-progress, cancelled and non-clock events', () => {
     const runs = [run('schedule', null), run('push', 'success'), run('schedule', 'cancelled'), run('schedule', 'failure'), run('schedule', 'failure')];
     expect(verdict(runs)).toBe('alert');
+  });
+});
+
+describe('verdict with merged per-event lists', () => {
+  it('still alerts when 10 pull_request runs sit between older failed schedule runs', () => {
+    const prs = Array.from({ length: 10 }, (_, i) => ({ event: 'pull_request', conclusion: 'success', createdAt: `2026-10-06T0${i}:00:00Z` }));
+    const failed = [
+      { event: 'schedule', conclusion: 'failure', createdAt: '2026-10-04T00:00:00Z' },
+      { event: 'schedule', conclusion: 'failure', createdAt: '2026-10-03T00:00:00Z' },
+    ];
+    expect(verdict([...prs, ...failed])).toBe('alert');
+  });
+
+  it('sorts concatenated lists by createdAt so a newer dispatch success wins', () => {
+    const sched = [
+      { event: 'schedule', conclusion: 'failure', createdAt: '2026-10-04T00:00:00Z' },
+      { event: 'schedule', conclusion: 'failure', createdAt: '2026-10-03T00:00:00Z' },
+    ];
+    const disp = [{ event: 'workflow_dispatch', conclusion: 'success', createdAt: '2026-10-05T00:00:00Z' }];
+    expect(verdict([...sched, ...disp])).toBe('ok');
+  });
+});
+
+describe('activeFiles', () => {
+  it('keeps only enabled workflows, by file name', () => {
+    const list = [
+      { path: '.github/workflows/a.yml', state: 'active' },
+      { path: '.github/workflows/b.yml', state: 'disabled_manually' },
+      { path: '.github/workflows/c.yml', state: 'disabled_inactivity' },
+    ];
+    expect(activeFiles(list)).toEqual(['a.yml']);
   });
 });
 
