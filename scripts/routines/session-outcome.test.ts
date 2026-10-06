@@ -15,6 +15,13 @@ describe('decideOutcome', () => {
     expect(r.message).toContain('42 turns (cap 40)');
   });
 
+  it('fails when the action failed on a clean success result that was not over the cap', () => {
+    const l = log({ subtype: 'success', is_error: false, num_turns: 40 });
+    expect(decideOutcome(l, { maxTurns: '40', stepOutcome: 'failure' }).pass).toBe(false);
+    expect(decideOutcome(l, { maxTurns: '50', stepOutcome: 'failure' }).pass).toBe(false);
+    expect(decideOutcome(l, { stepOutcome: 'failure' }).pass).toBe(false);
+  });
+
   it('fails on a genuine turn cutoff', () => {
     const r = decideOutcome(log({ subtype: 'error_max_turns', is_error: false, num_turns: 40 }), {
       stepOutcome: 'failure',

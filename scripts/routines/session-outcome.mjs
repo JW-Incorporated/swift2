@@ -30,6 +30,12 @@ export function decideOutcome(rawLog, { maxTurns, stepOutcome } = {}) {
   }
   if (!result) return { pass: false, message: 'no terminal result message — treating the routine step as failed' };
   if (result.subtype === 'success' && result.is_error === false) {
+    if (!(Number(result.num_turns) > Number(maxTurns))) {
+      return {
+        pass: false,
+        message: `action failed but the session was not over its turn cap (turns ${result.num_turns ?? 'unknown'}, cap ${maxTurns ?? 'unknown'}) — routine step failed`,
+      };
+    }
     return {
       pass: true,
       message: `session used ${result.num_turns ?? 'unknown'} turns (cap ${maxTurns ?? 'unknown'}) — consider raising max_turns`,
