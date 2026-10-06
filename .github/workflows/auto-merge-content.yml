@@ -142,6 +142,7 @@ on:
       - "social/strategy-params.json"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
+      - "docs/ops/AFFILIATE-COVERAGE.md"
       - "apps/web/public/social/**"
       - "apps/web/lib/longlive/**"
       - "apps/web/app/**"
