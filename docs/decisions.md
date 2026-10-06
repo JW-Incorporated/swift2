@@ -8699,4 +8699,6 @@ Joey, 2026-10-05 (BOTS-LOOP; the founder requirement added in chat the same day 
 
 **Out of scope, unchanged** (founder decision pending): any bot write access to `.github/**`, Austin's allowlist, merge authority, `scripts/social/**`, `social/queue/**`, the Hermes VM.
 
+**2026-10-06 amendment.** `workflow_run` is never emitted for a run started with `GITHUB_TOKEN` (run 37392659004, `routine-marjorie-ops`, dispatched by github-actions[bot], failed unseen), so `bot-failure-triage.yml` also runs a half-hourly sweep (`schedule` + `workflow_dispatch`, `routine-failure-triage.mjs --sweep`) over the last 2h of failed `routine-*` runs on main, through the same per-run handler; the daily marker and run-URL check make overlap idempotent (one issue, one dispatch), the day key is the run's completion day, and one global concurrency group serialises sweep and `workflow_run`. `routine-marjorie-ops` `max_turns` 60 → 90.
+
 **Supersedes in part** the "`.github/**` stays out of every bot's reach" line of the 2026-10-05 "Bots self-heal" entry (and `docs/agents/marjorie.md`): the ops-fixer is the one bot that may edit `.github/**`, under the four rails. Failures of `routine-ops-fix` itself are routed by `bot-failure-triage.yml` to `ops-fix:stuck`, never back to the ops-fixer, and the guard refuses any ops-fixer edit to that triage loop.
