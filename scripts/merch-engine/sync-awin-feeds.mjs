@@ -7,6 +7,9 @@ import { runMain } from '../lib/cli.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const MIN_REQUEST_INTERVAL_MS = 12_000;
+const MAX_FEEDS_PER_RUN = 60;
+const RUN_BUDGET_MS = 25 * 60_000;
+const FEED_REQUEST_TIMEOUT_MS = 120_000;
 
 function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
@@ -109,12 +112,30 @@ export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
   };
 }
 
-export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS }) {
+export function boundChangedFeeds(changed, maxFeeds = MAX_FEEDS_PER_RUN) {
+  const ordered = [...changed].sort((a, b) => String(a.updatedAt).localeCompare(String(b.updatedAt)) || String(a.feedId).localeCompare(String(b.feedId)));
+  return Number.isFinite(maxFeeds) && maxFeeds > 0 ? ordered.slice(0, maxFeeds) : ordered;
+}
+
+export function nextFeedCache({ feeds, cache = {}, refreshed }) {
+  const previous = cache.feeds ?? {};
+  const done = new Set(refreshed.map((feed) => feed.feedId));
+  const next = {};
+  for (const feed of feeds) {
+    if (done.has(feed.feedId)) next[feed.feedId] = feed.updatedAt;
+    else if (feed.feedId in previous) next[feed.feedId] = previous[feed.feedId];
+  }
+  return { feeds: next };
+}
+
+export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now }) {
   const downloaded = [];
+  const startedAt = now();
   for (let index = 0; index < feeds.length; index += 1) {
+    if (deadlineMs !== null && index > 0 && now() - startedAt >= deadlineMs) break;
     if (index > 0) await sleep(requestIntervalMs);
     const feed = feeds[index];
-    const response = await fetchImpl(feed.downloadUrl);
+    const response = await fetchImpl(feed.downloadUrl, { signal: globalThis.AbortSignal.timeout(FEED_REQUEST_TIMEOUT_MS) });
     if (!response.ok) throw new Error(`Awin feed ${feed.feedId} download failed (${response.status})`);
     downloaded.push({ ...feed, csv: await response.text() });
   }
@@ -196,6 +217,8 @@ export async function syncAwinFeeds({
   apiKey,
   fetchImpl = fetch,
   writeSqliteImpl = writeSqlite,
+  maxFeeds = MAX_FEEDS_PER_RUN,
+  deadlineMs = RUN_BUDGET_MS,
 } = {}) {
   if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
   const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
@@ -217,12 +240,12 @@ export async function syncAwinFeeds({
     await writeFile(cacheTarget, `${JSON.stringify(cacheWithoutEmptyDirectoryStreak, null, 2)}\n`);
   }
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
-  const downloaded = await fetchChangedFeeds({ feeds: changed, fetchImpl });
+  const downloaded = await fetchChangedFeeds({ feeds: boundChangedFeeds(changed, maxFeeds), fetchImpl, deadlineMs });
   const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
   await mkdir(dirname(cacheTarget), { recursive: true });
-  if (changed.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...changed.map((feed) => feed.feedId), ...removed]);
-  await writeFile(cacheTarget, `${JSON.stringify({ feeds: Object.fromEntries(feeds.map((feed) => [feed.feedId, feed.updatedAt])) }, null, 2)}\n`);
-  console.log(JSON.stringify({ changedFeeds: changed.length, removedFeeds: removed.length, indexedProducts: rows.length }));
+  if (downloaded.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...downloaded.map((feed) => feed.feedId), ...removed]);
+  await writeFile(cacheTarget, `${JSON.stringify(nextFeedCache({ feeds, cache, refreshed: downloaded }), null, 2)}\n`);
+  console.log(JSON.stringify({ changedFeeds: downloaded.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts: rows.length }));
 }
 
 async function main() {

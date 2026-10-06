@@ -339,6 +339,43 @@ describe('E0 Awin sync', () => {
     });
   });
 
+  it('bounds a run to the oldest changed feeds and carries stale cache entries forward', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-03,https://feeds.example/a.csv,1',
+      'b,2026-10-01,https://feeds.example/b.csv,2',
+      'c,2026-10-02,https://feeds.example/c.csv,3',
+      'd,2026-10-05,https://feeds.example/d.csv,4',
+    ].join('\n');
+    await withCache({ feeds: { a: '2026-09-01', gone: '2026-09-01' } }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x')),
+      );
+      const writeSqliteImpl = vi.fn();
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, maxFeeds: 2 });
+      expect(writeSqliteImpl.mock.calls[0][2]).toEqual(['b', 'c', 'gone']);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+        feeds: { a: '2026-09-01', b: '2026-10-01', c: '2026-10-02' },
+      });
+    });
+  });
+
+  it('stops starting new downloads once the run budget is spent', async () => {
+    let clock = 0;
+    const fetchImpl = vi.fn(() => Promise.resolve(new Response('h\n')));
+    const feeds = ['a', 'b', 'c'].map((feedId) => ({ feedId, downloadUrl: `https://f/${feedId}`, updatedAt: '1' }));
+    const downloaded = await fetchChangedFeeds({
+      feeds,
+      fetchImpl,
+      sleep: async () => {
+        clock += 10;
+      },
+      deadlineMs: 5,
+      now: () => clock,
+    });
+    expect(downloaded.map((feed: { feedId: string }) => feed.feedId)).toEqual(['a', 'b']);
+  });
+
   const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;
   (sqliteSupported ? it : it.skip)(
     'removes absent feeds and keeps FTS lookups linked to refreshed products',
