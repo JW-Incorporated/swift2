@@ -360,6 +360,40 @@ describe('E0 Awin sync', () => {
     });
   });
 
+  it('keeps refreshing after one feed fails and leaves the old cache entry of the failed feed', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-01,https://feeds.example/a.csv,1',
+      'b,2026-10-02,https://feeds.example/b.csv,2',
+    ].join('\n');
+    await withCache({ feeds: { a: '2026-09-01' } }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) => {
+        if (url.includes('datafeed/list')) return Promise.resolve(new Response(directory));
+        if (url.includes('/a.csv')) return Promise.resolve(new Response('', { status: 500 }));
+        return Promise.resolve(new Response('aw_product_id,product_name\n1,x'));
+      });
+      const writeSqliteImpl = vi.fn();
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
+      expect(writeSqliteImpl.mock.calls[0][2]).toEqual(['b']);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+        feeds: { a: '2026-09-01', b: '2026-10-02' },
+      });
+    });
+  });
+
+  it('exits non-zero when every attempted feed fails', async () => {
+    const directory = 'feed id,last imported,url,advertiser id\na,2026-10-01,https://feeds.example/a.csv,1';
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(url.includes('datafeed/list') ? new Response(directory) : new Response('', { status: 503 })),
+      );
+      await expect(
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn() }),
+      ).rejects.toThrow('download failed');
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
+    });
+  });
+
   it('stops starting new downloads once the run budget is spent', async () => {
     let clock = 0;
     const fetchImpl = vi.fn(() => Promise.resolve(new Response('h\n')));

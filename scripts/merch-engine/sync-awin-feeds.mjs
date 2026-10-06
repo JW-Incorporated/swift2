@@ -113,7 +113,12 @@ export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
 }
 
 export function boundChangedFeeds(changed, maxFeeds = MAX_FEEDS_PER_RUN) {
-  const ordered = [...changed].sort((a, b) => String(a.updatedAt).localeCompare(String(b.updatedAt)) || String(a.feedId).localeCompare(String(b.feedId)));
+  const byDate = (a, b) => {
+    const left = Date.parse(a.updatedAt);
+    const right = Date.parse(b.updatedAt);
+    return Number.isNaN(left) || Number.isNaN(right) ? String(a.updatedAt).localeCompare(String(b.updatedAt)) : left - right;
+  };
+  const ordered = [...changed].sort((a, b) => byDate(a, b) || String(a.feedId).localeCompare(String(b.feedId)));
   return Number.isFinite(maxFeeds) && maxFeeds > 0 ? ordered.slice(0, maxFeeds) : ordered;
 }
 
@@ -128,16 +133,22 @@ export function nextFeedCache({ feeds, cache = {}, refreshed }) {
   return { feeds: next };
 }
 
-export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now }) {
+export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now, failures = [] }) {
   const downloaded = [];
   const startedAt = now();
   for (let index = 0; index < feeds.length; index += 1) {
     if (deadlineMs !== null && index > 0 && now() - startedAt >= deadlineMs) break;
     if (index > 0) await sleep(requestIntervalMs);
     const feed = feeds[index];
-    const response = await fetchImpl(feed.downloadUrl, { signal: globalThis.AbortSignal.timeout(FEED_REQUEST_TIMEOUT_MS) });
-    if (!response.ok) throw new Error(`Awin feed ${feed.feedId} download failed (${response.status})`);
-    downloaded.push({ ...feed, csv: await response.text() });
+    try {
+      const response = await fetchImpl(feed.downloadUrl, { signal: globalThis.AbortSignal.timeout(FEED_REQUEST_TIMEOUT_MS) });
+      if (!response.ok) throw new Error(`Awin feed ${feed.feedId} download failed (${response.status})`);
+      downloaded.push({ ...feed, csv: await response.text() });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push({ feedId: feed.feedId, message });
+      console.warn(`::warning::Awin feed ${feed.feedId} not refreshed, will retry next run: ${message}`);
+    }
   }
   return downloaded;
 }
@@ -240,12 +251,15 @@ export async function syncAwinFeeds({
     await writeFile(cacheTarget, `${JSON.stringify(cacheWithoutEmptyDirectoryStreak, null, 2)}\n`);
   }
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
-  const downloaded = await fetchChangedFeeds({ feeds: boundChangedFeeds(changed, maxFeeds), fetchImpl, deadlineMs });
+  const failures = [];
+  const attempted = boundChangedFeeds(changed, maxFeeds);
+  const downloaded = await fetchChangedFeeds({ feeds: attempted, fetchImpl, deadlineMs, failures });
+  if (downloaded.length === 0 && failures.length > 0) throw new Error(`All ${failures.length} attempted Awin feed downloads failed; first: ${failures[0].message}`);
   const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
   await mkdir(dirname(cacheTarget), { recursive: true });
   if (downloaded.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...downloaded.map((feed) => feed.feedId), ...removed]);
   await writeFile(cacheTarget, `${JSON.stringify(nextFeedCache({ feeds, cache, refreshed: downloaded }), null, 2)}\n`);
-  console.log(JSON.stringify({ changedFeeds: downloaded.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts: rows.length }));
+  console.log(JSON.stringify({ changedFeeds: downloaded.length, failedFeeds: failures.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts: rows.length }));
 }
 
 async function main() {
