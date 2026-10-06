@@ -19,9 +19,9 @@
 # GitHub drops most scheduled runs in this repo and never registered this
 # workflow's own cron (no schedule event since 2026-10-06T01:26Z; watchdog's
 # hourly cron was observed firing every 1-6h on 2026-10-05/06). So the sweep is
-# dispatched by scripts/marjorie/dispatch-triage-sweep.mjs: primary =
-# bot-chat-poll.yml (~5-min clock, throttled to ~30 min), backup = watchdog.yml's
-# `triage-sweep-dispatch` job. The cron below is kept: harmless if it ever
+# dispatched by scripts/ops/clock-dispatch.mjs (table: scripts/ops/clock-table.json,
+# 25-min gap for this workflow): primary = bot-chat-poll.yml (~5-min clock),
+# backup = watchdog.yml's `triage-sweep-dispatch` job. The cron below is kept: harmless if it ever
 # starts, the global concurrency group serialises any overlap.
 name: Bot failure triage
 

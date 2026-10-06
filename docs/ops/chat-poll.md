@@ -14,6 +14,14 @@ stuck run was cancelled by hand (2026-10-01, ~16:20Z). A new run now cancels a s
 one, so the same fault clears itself at the next dispatch. Still only one poll runs at a time, and
 the brief-reply relay is idempotent on its `<!-- relay-id: ... -->` marker.
 
+## The clock-dispatch step (2026-10-06)
+
+The poll's final step (`if: always()`) runs `scripts/ops/clock-dispatch.mjs`, which dispatches the
+workflows in `scripts/ops/clock-table.json` (the ones GitHub's cron keeps dropping) when none has
+started within its gap. It never fails the poll. A newer poll that cancels this one before that step
+only delays the dispatch by one tick; `watchdog.yml`'s backup job covers the rest. Add a row to the
+table, not a new step.
+
 ## The claimed-not-dispatched window
 
 The poll adds 👀 first, then dispatches `routine-marjorie-chat.yml`. If a newer run cancels this one
