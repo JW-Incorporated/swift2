@@ -148,7 +148,7 @@ jobs:
             RUN_START=$(gh run view "$RUN_ID" --repo "$REPO" --json createdAt --jq .createdAt) || RUN_START=""
             PRS_JSON=$(gh pr list --repo "$REPO" --state open --limit 500 --json number,headRefName,author,createdAt,title,body) || PRS_JSON=""
             PRS=""
-            if [ -z "$ACTOR" ] || [ -z "$RUN_START" ] || [ -z "$PRS_JSON" ] || ! PRS=$(printf '%s' "$PRS_JSON" | jq -r --arg a "$ACTOR" --arg s "$RUN_START" --arg i "$ISSUE" '.[] | select((.author.login == $a and .createdAt >= $s) or (.headRefName | startswith("ops-fix/" + $i + "-")) or ((.title + " " + (.body // "")) | test("#" + $i + "\\b"))) | .number'); then
+            if [ -z "$ACTOR" ] || [ -z "$RUN_START" ] || [ -z "$PRS_JSON" ] || ! PRS=$(printf '%s' "$PRS_JSON" | jq -r --arg a "$ACTOR" --arg s "$RUN_START" --arg i "$ISSUE" '.[] | select((.author.login == $a and .createdAt >= $s) or (.headRefName | startswith("ops-fix/" + $i + "-")) or ((.title + " " + (.body // "")) | test("#" + $i + "(?![0-9])"))) | .number'); then
               STUCK="finish could not enumerate PRs"
             fi
             for PR in $PRS; do
