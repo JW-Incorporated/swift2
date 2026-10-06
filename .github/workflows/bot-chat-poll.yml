@@ -80,3 +80,14 @@ jobs:
           REPO: ${{ github.repository }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: node scripts/marjorie/chat-poll.mjs poll
+
+      # Primary clock for bot-failure-triage.yml's sweep: GitHub drops most
+      # scheduled runs here, this 5-minute poll is reliable, and the script
+      # throttles to one dispatch per ~30 min and never fails this job. It holds
+      # no secrets beyond the job token and runs main's checked-out script.
+      - name: Kick off the bot-failure triage sweep (throttled)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/marjorie/dispatch-triage-sweep.mjs
