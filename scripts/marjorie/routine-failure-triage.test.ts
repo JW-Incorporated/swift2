@@ -312,16 +312,16 @@ describe('workflow wiring', () => {
     expect(text).toContain("github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main'");
     expect(text).toContain('routine-failure-triage.mjs --sweep');
   });
-  it('is also dispatched by bot-chat-poll (primary) and watchdog (backup) via the one throttled script', () => {
+  it('is also dispatched by bot-chat-poll (primary) and watchdog (backup) via the one throttled clock script', () => {
     const poll = readFileSync(path.join(root, '.github/workflows/bot-chat-poll.yml'), 'utf8');
-    expect(poll).toMatch(/if: always\(\)\n {8}env:\n {10}GH_TOKEN: \$\{\{ github.token \}\}\n {10}REPO: \$\{\{ github.repository \}\}\n {8}run: node scripts\/marjorie\/dispatch-triage-sweep.mjs/);
+    expect(poll).toMatch(/if: always\(\)\n {8}env:\n {10}GH_TOKEN: \$\{\{ github.token \}\}\n {10}REPO: \$\{\{ github.repository \}\}\n {8}run: node scripts\/ops\/clock-dispatch.mjs/);
     expect(poll).toMatch(/^ {2}actions: write/m);
     const wd = readFileSync(path.join(root, '.github/workflows/watchdog.yml'), 'utf8');
     const job = wd.slice(wd.indexOf('  triage-sweep-dispatch:'));
     expect(job).toContain("if: github.event_name == 'schedule'");
     expect(job).toMatch(/permissions:\n {6}contents: read.*\n {6}actions: write\n/);
     expect(job).not.toContain('needs:');
-    expect(job).toContain('run: node scripts/marjorie/dispatch-triage-sweep.mjs');
+    expect(job).toContain('run: node scripts/ops/clock-dispatch.mjs');
   });
   it('uses least privilege and never interpolates event data inside run:', () => {
     expect(text).toMatch(/permissions:\n {2}contents: read\n {2}issues: write\n {2}actions: write/);

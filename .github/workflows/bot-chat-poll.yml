@@ -81,13 +81,14 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: node scripts/marjorie/chat-poll.mjs poll
 
-      # Primary clock for bot-failure-triage.yml's sweep: GitHub drops most
-      # scheduled runs here, this 5-minute poll is reliable, and the script
-      # throttles to one dispatch per ~30 min and never fails this job. It holds
+      # Primary clock for the frequent workflows GitHub's cron drops (table:
+      # scripts/ops/clock-table.json): GitHub delivers only 2-22% of hourly-or-
+      # faster crons here, this 5-minute poll is reliable, and the script
+      # throttles each entry to its own gap and never fails this job. It holds
       # no secrets beyond the job token and runs main's checked-out script.
-      - name: Kick off the bot-failure triage sweep (throttled)
+      - name: Clock-dispatch the throttled workflow table
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-        run: node scripts/marjorie/dispatch-triage-sweep.mjs
+        run: node scripts/ops/clock-dispatch.mjs
