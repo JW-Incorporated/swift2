@@ -2,22 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #112 🟡 [DECIDE] Briefly freeze social posting so two bot-fix PRs can merge (~3 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** PRs #5204 (merch-sync bot: no duplicate PRs) and #5207 (merch drop-card auto-merge, your decision A) edit `.github/workflows/auto-merge-content.yml`, which is on the live posting path. Ruling A6 makes CI fail such PRs unless `SOCIAL_FREEZE` is `true`. Agents cannot change repo variables. Posting pauses only while the freeze is on (~30 min).
-
-**Steps:**
-1. Open https://github.com/JW-Incorporated/swift2/settings/variables/actions
-2. Click the pencil next to `SOCIAL_FREEZE`, change the value to `true`, click "Update variable".
-3. Tell the PM session `freeze on`. It re-runs CI on #5204 and #5207 and merges them.
-4. When the PM says both merged, set `SOCIAL_FREEZE` back to `false` the same way.
-
-**Worked if:** #5204 and #5207 show Merged and `SOCIAL_FREEZE` is back to `false`.
 
 ## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->

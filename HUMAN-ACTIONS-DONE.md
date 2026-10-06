@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #112 · 2026-10-05 · done · Briefly freeze social posting so two bot-fix PRs can merge — "Done 2026-10-05: SOCIAL_FREEZE flipped true for #5204/#5207, both merged 03:48Z, flipped back to false (verified). The A6 CI freeze requirement was removed in #5211, so this ask won't recur." · by chat
 - #108 · 2026-10-05 · done · Give the ops-fixer its own token for workflow-file fixes — "Joey created the ops-fixer PAT (classic, scopes Repo and Workflows) and saved it as OPS_FIXER_PAT 2026-10-05; verified via gh secret list" · by chat
 - #106 · 2026-10-05 · done · #4707 has had no activity for 4 days — "owner replied assign in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556802849772540005" · by chat
 - #107 · 2026-10-05 · done · #4719 has had no activity for 4 days — "closed via Discord reply" · by discord
