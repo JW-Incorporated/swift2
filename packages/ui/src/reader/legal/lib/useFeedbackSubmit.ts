@@ -54,6 +54,7 @@ export function useFeedbackSubmit({
   const msgRef = useRef(msg);
   msgRef.current = msg;
   const lastPersisted = useRef('');
+  const sentTimer = useRef<number | undefined>(undefined);
   const live = useRef({ state, host, hp });
   live.current = { state, host, hp };
 
@@ -64,7 +65,8 @@ export function useFeedbackSubmit({
 
   function showSent() {
     setStatus('sent');
-    window.setTimeout(() => {
+    window.clearTimeout(sentTimer.current);
+    sentTimer.current = window.setTimeout(() => {
       onSent();
       setStatus('idle');
     }, SENT_LINGER_MS);
@@ -155,6 +157,8 @@ export function useFeedbackSubmit({
       else void retryRef.current();
     }
   }, []);
+
+  useEffect(() => () => window.clearTimeout(sentTimer.current), []);
 
   // Persist the draft on edit (debounced); an empty box clears it.
   useEffect(() => {

@@ -1,10 +1,19 @@
 // @vitest-environment jsdom
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { FeedbackButton } from './FeedbackButton';
 import { FEEDBACK_DRAFT_KEY, FEEDBACK_QUEUE_KEY } from './lib/feedback-outbox';
+import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
 vi.mock('../store', () => ({ useAppState: () => ({ clownChatExpanded: false }) }));
 vi.mock('./lib/feedback-location', () => ({
@@ -63,7 +72,10 @@ describe('FeedbackButton outbox', () => {
     local = new Map();
     apiFetch = vi.fn().mockResolvedValue(ok);
   });
-  afterEach(() => setOnline(true));
+  afterEach(() => {
+    cleanup();
+    setOnline(true);
+  });
 
   it('is attempt-first: navigator.onLine=false does not stop the send, and the POST carries an id', async () => {
     setOnline(false);
@@ -139,6 +151,30 @@ describe('FeedbackButton outbox', () => {
     mount(local, apiFetch);
     fireEvent.click(screen.getByRole('button', { name: 'Send feedback' }));
     expect(((await screen.findByRole('textbox')) as HTMLTextAreaElement).value).toBe('keep me');
+  });
+
+  it('unmounting during the sent linger never fires onSent', async () => {
+    const onSent = vi.fn();
+    vi.useFakeTimers();
+    try {
+      const { result, unmount } = renderHook(
+        () => useFeedbackSubmit({ msg: 'typo', setMsg: () => {}, hp: '', onSent }),
+        {
+          wrapper: ({ children }) => (
+            <HostProvider adapter={makeHost(local, apiFetch)}>{children}</HostProvider>
+          ),
+        },
+      );
+      await act(async () => {
+        await result.current.submit();
+      });
+      expect(result.current.status).toBe('sent');
+      unmount();
+      vi.advanceTimersByTime(5000);
+      expect(onSent).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('a new mount sends a queued report once, then clears it', async () => {
