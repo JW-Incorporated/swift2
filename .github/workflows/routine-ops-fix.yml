@@ -17,8 +17,8 @@
 #            skip or edit it: it is a separate job that runs `if: always()`, and
 #            the guard/escalate files are on the guard's own protected list.
 #
-# TOKEN: the agent pushes with OPS_FIXER_PAT (a dedicated fine-grained PAT with
-# Workflows: read/write, HUMAN-ACTIONS #108), falling back to SOCIAL_POSTER_PAT
+# TOKEN: the agent pushes with OPS_FIXER_PAT (a dedicated classic PAT with
+# Repo and Workflows: read/write, created 2026-10-05 per HA #108), falling back to SOCIAL_POSTER_PAT
 # until it exists. Without Workflows write, a push under .github/workflows/**
 # is rejected and escalated; every other fix is unaffected.
 name: routine-ops-fix
