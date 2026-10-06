@@ -6,6 +6,11 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-05 17:22 PDT — One UI done pending founder; session handoff. <<<**
+- Since 11:15: HA #101 Android passed (Joey), #102–#105 closed (privacy copy merged #5154; salt set; rotation skipped; data-safety keep → revisit at store build, noted on #5133).
+- Remaining One UI = founder-gated: HA #100 iOS device check, HA #99 app IDs (universal links #4988), store build #5133, launch gates #4729.
+- Bots work (Joey priority) tracked in STATE.md handoff (#5183/#5188/#5189 merged; #5190 ops-fixer armed).
+
 **>>> CHECKPOINT 2026-10-05 11:15 PDT — Audit wave COMPLETE; founder-gated only. <<<**
 - Merged since 10:18: #5146, #5163 PA-11, #5154 privacy copy, #5164 Red accent2, #5165 HA closures.
 - No agent-doable One UI work open. Founder: device sessions HA #100/#101 (recommended next), HA #99 app IDs, store build (draft #5133; data-safety update noted there), launch gates #4729.
