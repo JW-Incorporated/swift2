@@ -307,7 +307,7 @@ describe('workflow wiring', () => {
     expect(listed).not.toContain('bot-failure-triage');
   });
   it('also runs the sweep on a schedule and by hand, and only filters workflow_run events', () => {
-    expect(text).toContain('cron: "17,47 * * * *"');
+    expect(text).toContain('cron: "11,41 * * * *"');
     expect(text).toMatch(/^ {2}workflow_dispatch:/m);
     expect(text).toContain("github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main'");
     expect(text).toContain('routine-failure-triage.mjs --sweep');
