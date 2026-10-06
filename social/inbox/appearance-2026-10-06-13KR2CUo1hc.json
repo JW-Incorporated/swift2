@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-06-13KR2CUo1hc",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-06T19:02:23.738Z",
+  "deadline": "2026-10-08T19:02:23.738Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Jimmy Kimmel Live",
+    "videoTitle": "Paul McCartney on Singing at Taylor Swift’s Wedding, Grammys Party Rejection & Duet with Ringo",
+    "publishedAt": "2026-10-03T06:00:23+00:00",
+    "videoId": "13KR2CUo1hc",
+    "url": "https://www.youtube.com/watch?v=13KR2CUo1hc"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 5240
+  }
+}
