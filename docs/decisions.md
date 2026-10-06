@@ -8732,3 +8732,9 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Decision.** The per-workflow alert now targets every `.github/workflows/*.yml` with a `schedule:` trigger (derived at runtime by `scripts/watchdog/scheduled-failures.mjs`), minus an explicit `EXCLUDE` map with a reason per entry (today: `mobile-parity.yml`, which fails on purpose and raises its own "diverged" issue). It runs on every watchdog trigger so a recovered workflow closes within the hour; opening stays daily-only. Latest settled `schedule`/`workflow_dispatch` runs count; `timed_out` now counts as failing.
 
 **Why.** `link-sweep` and `merch-awin-sync` were red on every daily run 2026-10-02..06 and nobody was alerted: the check only covered a hand-kept list. Alerts #4996 and #5174 also stayed open after a success because the close path only ran in the daily 14:35 pass and only looked at `schedule` events.
+
+## 2026-10-06 — CI check: workflow jobs must install the deps their scripts import
+
+**Decision.** `npm run check:workflow-deps` (ci.yml build-full) fails when a workflow job runs a repo node/tsx script that imports an npm/workspace package (transitively through relative imports) without installing deps, or imports a gitignored `*.generated.*` module without `npm run sync:content`. Builtin-only scripts keep the no-install fast path. Fixed alongside: merch-awin-directory-shortlist/recommendations, merch-e5-evidence, routine-marjorie-weekly-review (collect), merch-audit-detect/authoring (sync:content).
+
+**Why.** `.github/actions/setup-repo` defaults `npm-ci` to false; the trap bit twice in one day (#5219 merch-awin-sync, #5224 appearance-discovery), each red on every scheduled run for days. Second occurrence means an automated check (CLAUDE.md rule 8).
