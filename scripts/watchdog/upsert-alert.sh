@@ -31,11 +31,13 @@ TITLE="$2"
 BODY_FILE="$3"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 NOTIFY=0
+# shellcheck source=scripts/watchdog/gh-retry.sh
+. "$SCRIPT_DIR/gh-retry.sh"
 
 # --search does a text match, not an exact-title match, so a second jq pass
 # filters to the exact title -- avoids merging two different alerts that
 # happen to share a word.
-EXISTING_JSON=$(gh issue list --repo "$REPO" --label watchdog-alert \
+EXISTING_JSON=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert \
   --search "\"$TITLE\" in:title" --state open --json number,url,title \
   | jq --arg t "$TITLE" '[.[] | select(.title == $t)] | .[0] // empty')
 EXISTING_NUM=$(echo "$EXISTING_JSON" | jq -r '.number // empty')
@@ -43,8 +45,8 @@ EXISTING_URL=$(echo "$EXISTING_JSON" | jq -r '.url // empty')
 
 if [ "$ACTION" = "close" ]; then
   if [ -n "$EXISTING_NUM" ]; then
-    gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
-    gh issue close "$EXISTING_NUM" --repo "$REPO"
+    gh_retry gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
+    gh_retry gh issue close "$EXISTING_NUM" --repo "$REPO"
     ISSUE_URL="$EXISTING_URL"
     NOTIFY=1
     echo "closed watchdog-alert #$EXISTING_NUM ($TITLE)"
@@ -54,11 +56,11 @@ if [ "$ACTION" = "close" ]; then
   fi
 elif [ "$ACTION" = "open" ]; then
   if [ -n "$EXISTING_NUM" ]; then
-    gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
+    gh_retry gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
     ISSUE_URL="$EXISTING_URL"
     echo "commented on existing watchdog-alert #$EXISTING_NUM ($TITLE)"
   else
-    ISSUE_URL=$(gh issue create --repo "$REPO" --label watchdog-alert \
+    ISSUE_URL=$(gh_retry gh issue create --repo "$REPO" --label watchdog-alert \
       --title "$TITLE" --body-file "$BODY_FILE")
     NOTIFY=1
     echo "opened new watchdog-alert: $ISSUE_URL"
