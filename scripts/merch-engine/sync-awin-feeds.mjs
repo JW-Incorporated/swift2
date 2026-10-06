@@ -133,22 +133,28 @@ export function nextFeedCache({ feeds, cache = {}, refreshed }) {
   return { feeds: next };
 }
 
-export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now, failures = [] }) {
+export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now, failures = [], onFeed = null }) {
   const downloaded = [];
   const startedAt = now();
   for (let index = 0; index < feeds.length; index += 1) {
     if (deadlineMs !== null && index > 0 && now() - startedAt >= deadlineMs) break;
     if (index > 0) await sleep(requestIntervalMs);
     const feed = feeds[index];
+    let csv;
     try {
       const response = await fetchImpl(feed.downloadUrl, { signal: globalThis.AbortSignal.timeout(FEED_REQUEST_TIMEOUT_MS) });
       if (!response.ok) throw new Error(`Awin feed ${feed.feedId} download failed (${response.status})`);
-      downloaded.push({ ...feed, csv: await response.text() });
+      csv = await response.text();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       failures.push({ feedId: feed.feedId, message });
       console.warn(`::warning::Awin feed ${feed.feedId} not refreshed, will retry next run: ${message}`);
+      continue;
     }
+    if (onFeed) {
+      await onFeed({ ...feed, csv });
+      downloaded.push(feed);
+    } else downloaded.push({ ...feed, csv });
   }
   return downloaded;
 }
@@ -188,7 +194,7 @@ async function jsonFrom(path, fallback) {
   }
 }
 
-export async function writeSqlite(path, rows, replacedFeedIds) {
+export async function writeSqlite(path, rows, replacedFeedIds, { rebuildFts = true } = {}) {
   const { DatabaseSync } = await import('node:sqlite');
   const database = new DatabaseSync(path);
   database.exec('CREATE TABLE IF NOT EXISTS products (feed_id TEXT NOT NULL, advertiser_mid TEXT, product_id TEXT, title TEXT, description TEXT, brand TEXT, price TEXT, stock TEXT, image_url TEXT, destination_url TEXT, deeplink TEXT, category TEXT, updated_at TEXT, PRIMARY KEY(advertiser_mid, product_id));');
@@ -196,23 +202,35 @@ export async function writeSqlite(path, rows, replacedFeedIds) {
   if (!columns.some((column) => column.name === 'feed_id')) database.exec("ALTER TABLE products ADD COLUMN feed_id TEXT NOT NULL DEFAULT ''");
   const removeFeed = database.prepare('DELETE FROM products WHERE feed_id = ?');
   const insert = database.prepare('INSERT OR REPLACE INTO products (feed_id, advertiser_mid, product_id, title, description, brand, price, stock, image_url, destination_url, deeplink, category, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-  for (const feedId of replacedFeedIds) removeFeed.run(feedId);
-  for (const row of rows) {
-    insert.run(...[
-      row.feedId,
-      row.advertiserMid,
-      row.productId,
-      row.title,
-      row.description,
-      row.brand,
-      row.price,
-      row.stock,
-      row.imageUrl,
-      row.destinationUrl,
-      row.deeplink,
-      row.category,
-      row.updatedAt,
-    ].map(sqliteText));
+  database.exec('BEGIN');
+  try {
+    for (const feedId of replacedFeedIds) removeFeed.run(feedId);
+    for (const row of rows) {
+      insert.run(...[
+        row.feedId,
+        row.advertiserMid,
+        row.productId,
+        row.title,
+        row.description,
+        row.brand,
+        row.price,
+        row.stock,
+        row.imageUrl,
+        row.destinationUrl,
+        row.deeplink,
+        row.category,
+        row.updatedAt,
+      ].map(sqliteText));
+    }
+    database.exec('COMMIT');
+  } catch (error) {
+    database.exec('ROLLBACK');
+    database.close();
+    throw error;
+  }
+  if (!rebuildFts) {
+    database.close();
+    return;
   }
   database.exec('DROP TABLE IF EXISTS products_fts; CREATE VIRTUAL TABLE products_fts USING fts5(product_key UNINDEXED, title, description, brand);');
   const insertFts = database.prepare('INSERT INTO products_fts (product_key, title, description, brand) VALUES (?, ?, ?, ?)');
@@ -253,13 +271,24 @@ export async function syncAwinFeeds({
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
   const failures = [];
   const attempted = boundChangedFeeds(changed, maxFeeds);
-  const downloaded = await fetchChangedFeeds({ feeds: attempted, fetchImpl, deadlineMs, failures });
+  const indexTarget = resolve(ROOT, indexPath);
+  let indexedProducts = 0;
+  const downloaded = await fetchChangedFeeds({
+    feeds: attempted,
+    fetchImpl,
+    deadlineMs,
+    failures,
+    onFeed: async (feed) => {
+      const rows = rowsFromCsv(feed, feed.csv);
+      indexedProducts += rows.length;
+      await writeSqliteImpl(indexTarget, rows, [feed.feedId], { rebuildFts: false });
+    },
+  });
   if (downloaded.length === 0 && failures.length > 0) throw new Error(`All ${failures.length} attempted Awin feed downloads failed; first: ${failures[0].message}`);
-  const rows = downloaded.flatMap((feed) => rowsFromCsv(feed, feed.csv));
   await mkdir(dirname(cacheTarget), { recursive: true });
-  if (downloaded.length > 0 || removed.length > 0) await writeSqliteImpl(resolve(ROOT, indexPath), rows, [...downloaded.map((feed) => feed.feedId), ...removed]);
+  if (downloaded.length > 0 || removed.length > 0) await writeSqliteImpl(indexTarget, [], removed, { rebuildFts: true });
   await writeFile(cacheTarget, `${JSON.stringify(nextFeedCache({ feeds, cache, refreshed: downloaded }), null, 2)}\n`);
-  console.log(JSON.stringify({ changedFeeds: downloaded.length, failedFeeds: failures.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts: rows.length }));
+  console.log(JSON.stringify({ changedFeeds: downloaded.length, failedFeeds: failures.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts }));
 }
 
 async function main() {

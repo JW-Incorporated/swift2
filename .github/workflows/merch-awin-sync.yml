@@ -58,6 +58,7 @@ jobs:
       - name: Refresh changed product feeds into cached index
         env:
           AWIN_FEED_API_KEY: ${{ secrets.AWIN_FEED_API_KEY }}
+          NODE_OPTIONS: --max-old-space-size=6144
         run: node scripts/merch-engine/sync-awin-feeds.mjs --cache awin-feed-cache.json --index awin-product-index.sqlite
       - uses: actions/upload-artifact@v7
         with:
