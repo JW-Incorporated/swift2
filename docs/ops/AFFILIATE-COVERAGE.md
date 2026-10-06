@@ -15,6 +15,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | "I Knew It, I Knew You" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "Miss Americana" Film Phone Case | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "Not a Lot Going on at the Moment" Unisex T-Shirt | upper90studio.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-ashish-22-outfit-recreated-for-red | not listed in checked-in E0 Awin advertiser directory |
+| "Patient Zero" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 14K Yellow Gold Vintage Old Mine Cut Diamond Ring | mpopeandco.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already | not listed in checked-in E0 Awin advertiser directory |
 | 1989 (Taylor's Version) Beige Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Blue Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -412,6 +413,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Life of a Showgirl: Sweat and Vanilla Perfume Cassette | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: Sweat and Vanilla Perfume CD with Poster | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: Sweat and Vanilla Perfume Portofino Orange Glitter Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Life of a Showgirl: The Encore Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Old Taylor Can't Come To The Phone Right Now – Phone Case | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Reina Gown | herveleger.com | none | uncovered | direct retailer URL | red.vault-red-retro-pin-curls-and-a-crimson-crystal-herv-l-ger-gown-at-the | not listed in checked-in E0 Awin advertiser directory |
 | The Sky is Opalite Choker Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -491,9 +493,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 477 |
+| total | 479 |
 | wrapped | 0 |
 | awin-apply | 10 |
 | pending-signup | 8 |
 | uncovered | 104 |
-| direct-by-policy | 355 |
+| direct-by-policy | 357 |

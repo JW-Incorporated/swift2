@@ -6,6 +6,19 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
+## #112 🟡 [DECIDE] Briefly freeze social posting so two bot-fix PRs can merge (~3 min)
+<!-- ha filed=2026-10-05 -->
+
+**Why:** PRs #5204 (merch-sync bot: no duplicate PRs) and #5207 (merch drop-card auto-merge, your decision A) edit `.github/workflows/auto-merge-content.yml`, which is on the live posting path. Ruling A6 makes CI fail such PRs unless `SOCIAL_FREEZE` is `true`. Agents cannot change repo variables. Posting pauses only while the freeze is on (~30 min).
+
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/settings/variables/actions
+2. Click the pencil next to `SOCIAL_FREEZE`, change the value to `true`, click "Update variable".
+3. Tell the PM session `freeze on`. It re-runs CI on #5204 and #5207 and merges them.
+4. When the PM says both merged, set `SOCIAL_FREEZE` back to `false` the same way.
+
+**Worked if:** #5204 and #5207 show Merged and `SOCIAL_FREEZE` is back to `false`.
+
 ## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4767 -->
@@ -38,20 +51,6 @@
 1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
 **Worked if:** the next brief no longer lists #4324 under stalled.
-
-## #108 🟢 [UPGRADE] Give the ops-fixer its own token for workflow-file fixes (~5 min)
-<!-- ha filed=2026-10-05 -->
-
-**Why:** Only fixes under .github/workflows/ are blocked without it: GitHub rejects that push unless the token has Workflows write. A dedicated token keeps the social poster's token narrow; other fixes work now.
-
-**Steps:**
-1. Open https://github.com/settings/personal-access-tokens/new
-2. Name it `swift2-ops-fixer`, set Expiration to 1 year, Resource owner `JW-Incorporated`, choose "Only select repositories" and pick `JW-Incorporated/swift2`.
-3. Under "Repository permissions" set Contents, Pull requests, Issues, Workflows and Actions each to "Read and write". Leave the rest alone.
-4. Click "Generate token" and copy the value.
-5. Open https://github.com/JW-Incorporated/swift2/settings/secrets/actions/new, enter Name `OPS_FIXER_PAT`, paste the value, click "Add secret".
-
-**Worked if:** the ops-fixer's next fix that edits a file under .github/workflows/ pushes and opens its PR.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->

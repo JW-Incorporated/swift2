@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #108 · 2026-10-05 · done · Give the ops-fixer its own token for workflow-file fixes — "Joey created the ops-fixer PAT (classic, scopes Repo and Workflows) and saved it as OPS_FIXER_PAT 2026-10-05; verified via gh secret list" · by chat
 - #106 · 2026-10-05 · done · #4707 has had no activity for 4 days — "owner replied assign in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556802849772540005" · by chat
 - #107 · 2026-10-05 · done · #4719 has had no activity for 4 days — "closed via Discord reply" · by discord
 - #101 · 2026-10-05 · done · S5: test the new app on your Android phone — "owner in chat 2026-10-05 12:31 PDT: checked the app on Android, no issues found, looks great" · by chat
