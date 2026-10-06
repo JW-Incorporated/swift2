@@ -51,7 +51,7 @@ on:
       - routine-vault-run
     types: [completed]
   schedule:
-    - cron: "17,47 * * * *"
+    - cron: "11,41 * * * *"
   workflow_dispatch:
 
 permissions:
