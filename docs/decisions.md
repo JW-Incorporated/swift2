@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-05 — Drop the CI freeze gate from RULINGS-SOCIAL A6
+
+**Decision (Joey, chat, 2026-10-05 20:41 PDT).** Remove the `build-full` step that failed any PR touching the live posting path unless `SOCIAL_FREEZE` was `true`. Posting-path PRs now get the same review and full CI as every other PR. `SOCIAL_FREEZE` itself is unchanged: still read by the poster and approval workflows as the founder's instant emergency stop. A6's watchdog half (`blocking-human-actions-check.mjs`) is unchanged.
+
+**Why.** The gate made the founder flip `SOCIAL_FREEZE` on and off around agent PRs: a mechanical relay with no judgment, since review plus full CI already cover these PRs. Agents cannot set repo variables, so every such PR forced a founder round-trip.
+
+**Alternatives.** Keep the gate (rejected: recurring founder relay); let agents set the variable (rejected: variable mutation is on the human-only list).
+
+---
+
 ## 2026-10-04 — Affiliate tags: none (owner informed; web unset → app parity)
 
 **Decision (PM call, 2026-10-04 07:05 PDT).** The environment variables `NEXT_PUBLIC_AWIN_ID`, `AMAZON_ASSOCIATES_TAG`, and `CATCHALL_ID` are unset in Vercel swift2-web (verified live). The app sends no affiliate tags (parity). The owner was informed.
