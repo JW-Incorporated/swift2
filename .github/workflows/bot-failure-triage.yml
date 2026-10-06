@@ -1,6 +1,12 @@
-# Routine failure triage (BOTS-LOOP, docs/decisions.md 2026-10-05). No LLM, no
-# schedule of its own: it runs on `workflow_run` when any routine-* workflow
-# completes, and files ONE deduped issue per workflow per UTC day for Marjorie
+# Routine failure triage (BOTS-LOOP, docs/decisions.md 2026-10-05). No LLM: it
+# runs on `workflow_run` when any routine-* workflow completes, plus a half-hourly
+# SWEEP (schedule / manual dispatch). The sweep exists because GitHub emits NO
+# workflow_run event for a run started with GITHUB_TOKEN — i.e. every routine
+# dispatched by another workflow (bot-chat-poll, this one's own ask-response
+# dispatch) — so those failures were invisible (run 37392659004, 2026-10-06).
+# The sweep lists the last 2h of failed main routine-* runs and feeds each through
+# the same handler; the dedupe makes overlap with workflow_run a no-op. It
+# files ONE deduped issue per workflow per UTC day for Marjorie
 # (labels desk:ops + marjorie-filed + routine-failure) then starts her response
 # routine — so a failed routine is handled by the team, not found by a founder.
 # All logic is scripts/marjorie/routine-failure-triage.mjs (unit-tested): dedupe
@@ -42,6 +48,9 @@ on:
       - routine-tree-weekly-plan
       - routine-vault-run
     types: [completed]
+  schedule:
+    - cron: "17,47 * * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -49,12 +58,12 @@ permissions:
   actions: write # reads the failed run's log and dispatches Marjorie's ask-response routine
 
 concurrency:
-  group: bot-failure-triage-${{ github.event.workflow_run.name }}
-  cancel-in-progress: false # two failures of ONE workflow must not race the one-issue-per-day dedupe; different workflows run in parallel
+  group: bot-failure-triage
+  cancel-in-progress: false # ONE group for every event: the sweep touches every workflow's dedupe marker, so only a global serial lane keeps sweep and workflow_run from both filing (find-then-create is not atomic). A queued run replaced by a newer pending one is harmless — the next sweep re-reads the whole 2h window.
 
 jobs:
   triage:
-    if: github.event.workflow_run.head_branch == 'main' && contains(fromJSON('["failure","timed_out","cancelled"]'), github.event.workflow_run.conclusion)
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main' && contains(fromJSON('["failure","timed_out","cancelled"]'), github.event.workflow_run.conclusion))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -64,7 +73,13 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
+      - name: Sweep recent failed routine runs
+        if: github.event_name != 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/marjorie/routine-failure-triage.mjs --sweep
       - name: File or update the failure issue and start Marjorie
+        if: github.event_name == 'workflow_run'
         env:
           GH_TOKEN: ${{ github.token }}
           WORKFLOW_PATH: ${{ github.event.workflow_run.path }}

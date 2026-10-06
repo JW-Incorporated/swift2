@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, mentionsUrl, shouldComment, triage } from './routine-failure-triage.mjs';
+import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, mentionsUrl, shouldComment, sweep, triage } from './routine-failure-triage.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { parseMarker } from './lib/loop-asks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -215,6 +215,68 @@ describe('triage', () => {
   });
 });
 
+describe('sweep', () => {
+  const run = (id: number, over: Record<string, unknown> = {}) => ({ id, path: `.github/workflows/${WF}.yml`, html_url: `https://github.com/o/r/actions/runs/${id}`, head_branch: 'main', conclusion: 'failure', updated_at: '2026-10-05T11:30:00Z', ...over });
+  function sweepGh(runs: unknown[]) {
+    const open: unknown[] = [];
+    const fake = fakeGh({ open });
+    const gh = vi.fn(async (args: string[]) => {
+      if (args[0] === 'api' && args[1].includes('/actions/runs?')) {
+        fake.calls.push(args);
+        return { stdout: JSON.stringify({ workflow_runs: runs }) };
+      }
+      const res = await fake.gh(args);
+      if (args[0] === 'issue' && args[1] === 'create') open.push(issueRow(5200, args[args.indexOf('--body') + 1], args[args.indexOf('--title') + 1]));
+      return res;
+    });
+    return { gh, calls: fake.calls };
+  }
+  it('picks up a failed run that no workflow_run event announced (bot-dispatched)', async () => {
+    const { gh, calls } = sweepGh([run(111, { actor: BOT, event: 'workflow_dispatch' })]);
+    const q = quiet();
+    const res = await sweep({ gh, now: NOW });
+    q.mockRestore();
+    expect(res).toEqual([{ action: 'filed', number: 5200 }]);
+    expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
+    expect(calls.find((c) => c[1]?.includes?.('/actions/runs?'))?.[1]).toMatch(/branch=main&created=%3E%3D2026-10-05T10:00:00Z/);
+  });
+  it('sweep plus workflow_run (either order) and a repeat sweep give one issue and one dispatch', async () => {
+    const { gh, calls } = sweepGh([run(111)]);
+    const q = quiet();
+    await triage({ workflow: WF, runId: '111', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    expect((await sweep({ gh, now: NOW })).map((r: { action: string }) => r.action)).toEqual(['commented']);
+    expect((await sweep({ gh, now: NOW + 1_800_000 })).map((r: { action: string }) => r.action)).toEqual(['commented']);
+    q.mockRestore();
+    expect(calls.filter((c) => c[0] === 'issue' && c[1] === 'create')).toHaveLength(1);
+    expect(calls.filter((c) => c[1] === 'comment' && String(c.at(-1)).includes(COMMENT_MARKER))).toHaveLength(0);
+    expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
+  });
+  it('a run swept after midnight joins the issue of the day it finished', async () => {
+    const { gh, calls } = sweepGh([run(111, { updated_at: '2026-10-05T23:50:00Z' })]);
+    const q = quiet();
+    await triage({ workflow: WF, runId: '111', runUrl: URL1, conclusion: 'failure' }, { gh, now: Date.parse('2026-10-05T23:51:00Z') });
+    await sweep({ gh, now: Date.parse('2026-10-06T00:17:00Z') });
+    q.mockRestore();
+    expect(calls.filter((c) => c[0] === 'issue' && c[1] === 'create')).toHaveLength(1);
+    expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
+  });
+  it('ignores non-main, successful, non-routine and its own runs', async () => {
+    const { gh, calls } = sweepGh([run(1, { head_branch: 'feature/x' }), run(2, { conclusion: 'success' }), run(3, { path: '.github/workflows/ci.yml' }), run(4, { path: '.github/workflows/bot-failure-triage.yml' }), run(5, { path: '.github/workflows/routine-template.yml' })]);
+    const q = quiet();
+    expect(await sweep({ gh, now: NOW })).toEqual([]);
+    q.mockRestore();
+    expect(verbs(calls)).toEqual([]);
+  });
+  it('routine-ops-fix failures found by the sweep are labelled ops-fix:stuck and never dispatched', async () => {
+    const { gh, calls } = sweepGh([run(9, { path: '.github/workflows/routine-ops-fix.yml' })]);
+    const q = quiet();
+    await sweep({ gh, now: NOW });
+    q.mockRestore();
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
+    expect((calls.find((c) => c[0] === 'issue' && c[1] === 'create') as string[]).includes('ops-fix:stuck')).toBe(true);
+  });
+});
+
 describe('workflow wiring', () => {
   const root = path.resolve(__dirname, '../..');
   const text = readFileSync(path.join(root, '.github/workflows/bot-failure-triage.yml'), 'utf8');
@@ -223,8 +285,14 @@ describe('workflow wiring', () => {
     const listed = [...text.matchAll(/^ {6}- (routine-[a-z0-9-]+)\s*$/gm)].map((m) => m[1]).sort();
     expect(listed.filter((n: string) => n !== 'routine-ops-fix')).toEqual(routines.filter((n: string) => n !== 'routine-ops-fix'));
     expect(listed).toContain('routine-ops-fix');
-    expect(text).toContain('group: bot-failure-triage-${{ github.event.workflow_run.name }}');
+    expect(text).toMatch(/^ {2}group: bot-failure-triage$/m);
     expect(listed).not.toContain('bot-failure-triage');
+  });
+  it('also runs the sweep on a schedule and by hand, and only filters workflow_run events', () => {
+    expect(text).toContain('cron: "17,47 * * * *"');
+    expect(text).toMatch(/^ {2}workflow_dispatch:/m);
+    expect(text).toContain("github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main'");
+    expect(text).toContain('routine-failure-triage.mjs --sweep');
   });
   it('uses least privilege and never interpolates event data inside run:', () => {
     expect(text).toMatch(/permissions:\n {2}contents: read\n {2}issues: write\n {2}actions: write/);
