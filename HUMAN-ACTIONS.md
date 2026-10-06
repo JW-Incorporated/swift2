@@ -2,9 +2,31 @@
 
 <!-- ha-format: 2 -->
 
-> **2 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4720 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4720 under stalled.
+
+## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4324 -->
+
+**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4324 under stalled.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->
