@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
+
+**Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.
+
+**Why.** claude-code-action fails a successful session that used more turns than the cap (plan-recheck run 37526654935: 42 > 40; routine-marjorie-ops run 37392659004: 63 > 60). Finished work was marked failed, producing false triage issues and Marjorie dispatches. Alternative (raise every cap) hides real runaways. Approved: Claude (reversible).
+
+---
+
 ## 2026-10-05 — Drop the CI freeze gate from RULINGS-SOCIAL A6
 
 **Decision (Joey, chat, 2026-10-05 20:41 PDT).** Remove the `build-full` step that failed any PR touching the live posting path unless `SOCIAL_FREEZE` was `true`. Posting-path PRs now get the same review and full CI as every other PR. `SOCIAL_FREEZE` itself is unchanged: still read by the poster and approval workflows as the founder's instant emergency stop. A6's watchdog half (`blocking-human-actions-check.mjs`) is unchanged.

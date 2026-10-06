@@ -239,6 +239,7 @@ jobs:
       - name: Run ${{ inputs.routine_name }}
         id: claude
         if: steps.guard.outputs.skip == 'false'
+        continue-on-error: true # outcome decided by "Decide routine outcome" below
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -251,6 +252,18 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      # claude-code-action fails a SUCCESSFUL session that used more turns than
+      # --max-turns. That is a false failure; this step passes it with a warning
+      # and keeps every genuine failure (error_max_turns, is_error, no result)
+      # red. Decision logic + tests: scripts/routines/session-outcome.mjs.
+      - name: Decide routine outcome
+        if: always() && steps.guard.outputs.skip == 'false' && steps.claude.outcome != 'skipped'
+        run: node scripts/routines/session-outcome.mjs
+        env:
+          STEP_OUTCOME: ${{ steps.claude.outcome }}
+          MAX_TURNS: ${{ inputs.max_turns }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file || format('{0}/claude-execution-output.json', runner.temp) }}
 
       - name: Upload post-run artifact from .scratch/out/
         if: always() && steps.guard.outputs.skip == 'false' && inputs.post_run_artifact != ''
