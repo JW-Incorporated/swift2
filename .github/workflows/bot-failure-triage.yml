@@ -40,7 +40,7 @@ on:
       - routine-marjorie-weekly-review
       - routine-news-triage
       - routine-nils-walk
-      # routine-ops-fix: not yet on main (PR #5190); names are matched at runtime. Its failures are labelled ops-fix:stuck and never dispatched back.
+      # routine-ops-fix: names are matched at runtime. Its failures are labelled ops-fix:stuck and never dispatched back.
       - routine-ops-fix
       - routine-paul-blart
       - routine-tree-ask-response

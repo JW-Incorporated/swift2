@@ -8674,6 +8674,21 @@ Fable ruling 2026-10-05 07:40 (revises its 2026-10-04 16:30 ruling in part).
 
 **Why.** A slow-but-working first launch hit the 10 s timeout twice, which owed a fallback launch and then quarantined the build: a healthy build became permanently Recovery until the next OTA.
 
+## 2026-10-05 — ops-fixer routine: a bot may edit workflows and scripts and land its own fix (founder decision A)
+
+Joey, 2026-10-05 15:50 PDT, in chat: "A. But minimal guard rails. I want it to fix everything without needing me."
+
+**Decision.** Option A: a dedicated `ops-fixer` routine (`.github/workflows/routine-ops-fix.yml`, charter `docs/agents/ops-fixer.md`) fixes any bot or automation problem Marjorie routes to it, including `.github/workflows/**`, `scripts/**`, configs, prompts and app code. Its PR must pass CI and then auto-merges. Exactly four guard rails, nothing more:
+
+1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2) and stop. (May reference secret NAMES in workflow YAML.)
+2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
+3. Never run the social live-send paths (`scripts/social/post-queue.mjs`, `delete-media.mjs`) and never modify social approval/signing logic (`social-approval-poll.yml` HMAC/stamp code, `scripts/automerge-social-approval-gate.mjs`) or write "approval" keys into `social/queue/**`. It MAY fix other social/Tree code.
+4. Merge only via `gh pr merge --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
+
+Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founder addendum, 15:51 PDT: a bot that cannot fix something posts a copy-paste prompt and where to paste it, not a problem description). `scripts/marjorie/ops-fix-guard.mjs` enforces rails 1-3 on the diff before merge.
+
+**Supersedes in part** the 2026-08-11 merge-delegation proposal's "workflows/CI: human merge" line, for this routine only, by the founder's explicit choice. Pushing under `.github/workflows/**` additionally needs the "Workflows: Read and write" permission, so the routine uses a dedicated `OPS_FIXER_PAT` (falling back to `SOCIAL_POSTER_PAT`) rather than widening the social poster's token (HUMAN-ACTIONS #108). Review round 1 hardened enforcement without adding rails: an issue-author + label trust gate before the agent, a deterministic 2-run cap, a post-agent `finish` job that runs the guard from main's copy and disables auto-merge on a violation, and a guard that refuses edits to the ops-fixer's own machinery and the required-check workflows.
+
 ## 2026-10-05 — Bots self-heal: routine failures auto-file to Marjorie; founder only for founder-only items
 
 Joey, 2026-10-05 (BOTS-LOOP; the founder requirement added in chat the same day is item 4 below).
@@ -8685,3 +8700,5 @@ Joey, 2026-10-05 (BOTS-LOOP; the founder requirement added in chat the same day 
 **Out of scope, unchanged** (founder decision pending): any bot write access to `.github/**`, Austin's allowlist, merge authority, `scripts/social/**`, `social/queue/**`, the Hermes VM.
 
 **2026-10-06 amendment.** `workflow_run` is never emitted for a run started with `GITHUB_TOKEN` (run 37392659004, `routine-marjorie-ops`, dispatched by github-actions[bot], failed unseen), so `bot-failure-triage.yml` also runs a half-hourly sweep (`schedule` + `workflow_dispatch`, `routine-failure-triage.mjs --sweep`) over the last 2h of failed `routine-*` runs on main, through the same per-run handler; the daily marker and run-URL check make overlap idempotent (one issue, one dispatch), the day key is the run's completion day, and one global concurrency group serialises sweep and `workflow_run`. `routine-marjorie-ops` `max_turns` 60 → 90.
+
+**Supersedes in part** the "`.github/**` stays out of every bot's reach" line of the 2026-10-05 "Bots self-heal" entry (and `docs/agents/marjorie.md`): the ops-fixer is the one bot that may edit `.github/**`, under the four rails. Failures of `routine-ops-fix` itself are routed by `bot-failure-triage.yml` to `ops-fix:stuck`, never back to the ops-fixer, and the guard refuses any ops-fixer edit to that triage loop.

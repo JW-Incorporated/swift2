@@ -2,9 +2,56 @@
 
 <!-- ha-format: 2 -->
 
-> **2 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4767 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4767 under stalled.
+
+## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4720 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4720 under stalled.
+
+## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4324 -->
+
+**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4324 under stalled.
+
+## #108 🟢 [UPGRADE] Give the ops-fixer its own token for workflow-file fixes (~5 min)
+<!-- ha filed=2026-10-05 -->
+
+**Why:** Only fixes under .github/workflows/ are blocked without it: GitHub rejects that push unless the token has Workflows write. A dedicated token keeps the social poster's token narrow; other fixes work now.
+
+**Steps:**
+1. Open https://github.com/settings/personal-access-tokens/new
+2. Name it `swift2-ops-fixer`, set Expiration to 1 year, Resource owner `JW-Incorporated`, choose "Only select repositories" and pick `JW-Incorporated/swift2`.
+3. Under "Repository permissions" set Contents, Pull requests, Issues, Workflows and Actions each to "Read and write". Leave the rest alone.
+4. Click "Generate token" and copy the value.
+5. Open https://github.com/JW-Incorporated/swift2/settings/secrets/actions/new, enter Name `OPS_FIXER_PAT`, paste the value, click "Add secret".
+
+**Worked if:** the ops-fixer's next fix that edits a file under .github/workflows/ pushes and opens its PR.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->

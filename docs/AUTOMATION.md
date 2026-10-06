@@ -378,6 +378,7 @@ designed every-other-day cadence. See
 | Kevin — S3 eng triage | daily 15:43 | Sonnet 5 | [`kevin.md`](kevin.md) |
 | Kevin — S3 comment radar | 01:23 + 13:23 | Haiku 4.5 | [`kevin.md`](kevin.md) |
 | Austin — build runs | daily 21:00 | Opus 4.8 (2-week trial 2026-08-31→2026-09-14; was Fable 5) | [`agents/austin.md`](agents/austin.md) |
+| ops-fixer — fixes routed bot/automation problems and lands its own PR (dispatch-only, one run per routed issue, max 80 turns) | on dispatch by Marjorie | Opus 5 (`claude-opus-5`) | [`agents/ops-fixer.md`](agents/ops-fixer.md) |
 
 ### Founder-facing and social planning
 
