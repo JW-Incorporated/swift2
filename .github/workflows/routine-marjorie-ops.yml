@@ -116,7 +116,11 @@ jobs:
           set -euo pipefail
           COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
           CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
-          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ]; then
+          FIXQ=0
+          for N in $(gh issue list --repo "$REPO" --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number --jq '.[].number'); do
+            if node scripts/marjorie/ops-fix-trust.mjs "$N" --repo "$REPO" > /dev/null; then FIXQ=$((FIXQ+1)); fi
+          done
+          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ] || [ "$FIXQ" -gt 0 ]; then
             echo "work=yes" >> "$GITHUB_OUTPUT"
           else
             echo "work=no" >> "$GITHUB_OUTPUT"
