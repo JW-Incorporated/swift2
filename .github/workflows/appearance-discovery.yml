@@ -118,6 +118,9 @@ jobs:
       - uses: ./.github/actions/setup-repo
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
+          cache: npm
 
       # Scheduled runs always file. A manual run can ask for a dry run, which
       # makes zero GitHub calls and only reads RSS.
