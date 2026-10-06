@@ -72,6 +72,7 @@ describe('clock-table.json', () => {
   it('names only real, dispatchable workflows, never a social-* one', () => {
     expect(TABLE.map((e: { workflow: string }) => e.workflow)).toEqual([
       'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
+      'merch-awin-sync.yml',
     ]);
     for (const e of TABLE) {
       const f = path.join(root, '.github/workflows', e.workflow);

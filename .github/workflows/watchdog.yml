@@ -389,7 +389,8 @@ jobs:
           IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
         run: |
           set -euo pipefail
-          OPEN_TITLES=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
+          . scripts/watchdog/gh-retry.sh
+          OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
           # Disabled workflows are skipped (their last runs say nothing about
           # health now). If the lookup itself fails, fall back to all.
           ACTIVE=$(gh workflow list --repo "$REPO" --all --limit 500 --json path,state \
