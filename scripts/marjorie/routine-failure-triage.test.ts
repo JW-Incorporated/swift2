@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, mentionsUrl, shouldComment, sweep, triage } from './routine-failure-triage.mjs';
+import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, dayOf, mentionsUrl, shouldComment, sweep, triage } from './routine-failure-triage.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { parseMarker } from './lib/loop-asks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -238,7 +238,7 @@ describe('sweep', () => {
     q.mockRestore();
     expect(res).toEqual([{ action: 'filed', number: 5200 }]);
     expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
-    expect(calls.find((c) => c[1]?.includes?.('/actions/runs?'))?.[1]).toMatch(/branch=main&created=%3E%3D2026-10-05T10:00:00Z/);
+    expect(calls.find((c) => c[1]?.includes?.('/actions/runs?'))?.[1]).toMatch(/branch=main&created=%3E%3D2026-10-05T06:00:00Z/);
   });
   it('sweep plus workflow_run (either order) and a repeat sweep give one issue and one dispatch', async () => {
     const { gh, calls } = sweepGh([run(111)]);
@@ -251,14 +251,32 @@ describe('sweep', () => {
     expect(calls.filter((c) => c[1] === 'comment' && String(c.at(-1)).includes(COMMENT_MARKER))).toHaveLength(0);
     expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
   });
-  it('a run swept after midnight joins the issue of the day it finished', async () => {
-    const { gh, calls } = sweepGh([run(111, { updated_at: '2026-10-05T23:50:00Z' })]);
+  it('a run failing 23:59 and triaged by workflow_run at 00:00:30 is the same issue the 00:17 sweep finds', async () => {
+    const { gh, calls } = sweepGh([run(111, { updated_at: '2026-10-05T23:59:00Z' })]);
     const q = quiet();
-    await triage({ workflow: WF, runId: '111', runUrl: URL1, conclusion: 'failure' }, { gh, now: Date.parse('2026-10-05T23:51:00Z') });
+    await triage({ workflow: WF, runId: '111', runUrl: URL1, conclusion: 'failure', day: dayOf('2026-10-05T23:59:00Z', 0) }, { gh, now: Date.parse('2026-10-06T00:00:30Z') });
     await sweep({ gh, now: Date.parse('2026-10-06T00:17:00Z') });
     q.mockRestore();
     expect(calls.filter((c) => c[0] === 'issue' && c[1] === 'create')).toHaveLength(1);
     expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
+  });
+  it('lists runs created up to 6h back but only triages those completed in the last 2h, and follows pages', async () => {
+    const page1 = Array.from({ length: 100 }, (_, i) => run(1000 + i, { conclusion: 'success' }));
+    const old = run(5, { updated_at: '2026-10-05T08:00:00Z' });
+    const fresh = run(6, { path: '.github/workflows/routine-laura-a11y-walk.yml', updated_at: '2026-10-05T11:45:00Z' });
+    const calls: string[][] = [];
+    const gh = vi.fn(async (args: string[]) => {
+      calls.push(args);
+      if (args[0] === 'api' && args[1].includes('status=failure&')) return { stdout: JSON.stringify({ workflow_runs: args[1].endsWith('page=1') ? page1 : [old, fresh] }) };
+      if (args[0] === 'api' && args[1].includes('/actions/runs?')) return { stdout: '{}' };
+      return fakeGh().gh(args);
+    });
+    const q = quiet();
+    const res = await sweep({ gh, now: NOW });
+    q.mockRestore();
+    expect(res).toHaveLength(1);
+    expect(calls.some((c) => c[1]?.includes?.('status=failure&') && c[1].endsWith('page=2'))).toBe(true);
+    expect(calls.filter((c) => c[0] === 'issue' && c[1] === 'create').length).toBe(1);
   });
   it('ignores non-main, successful, non-routine and its own runs', async () => {
     const { gh, calls } = sweepGh([run(1, { head_branch: 'feature/x' }), run(2, { conclusion: 'success' }), run(3, { path: '.github/workflows/ci.yml' }), run(4, { path: '.github/workflows/bot-failure-triage.yml' }), run(5, { path: '.github/workflows/routine-template.yml' })]);
