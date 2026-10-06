@@ -25,7 +25,104 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 81
+
+## Taylor Swift and Travis Kelce Celebrate His Birthday Together
+
+- first seen: 2026-10-06 11:59 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen dining with her husband, Travis Kelce, to celebrate his 37th birthday. New photos from the event have emerged showing the couple enjoying their time together.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMixAFBVV95cUxNRDZMR3VnaHJGU2lxMFUwTHMyRGpOVDBIVmFxc0J3ODE4U0VwWm84cXhQLU9maU5mT2doVzFMN2k2bEhvUExNRmhob1VYNU1LSWF2bUNoUzZENDY2SkZmcVlvLTRfTkhBcXFocGFuZVg0Z0VTQkhJZjdhNUllX2ExTFhRcmFGMDdpbEhNRmlncEFpak45RDhYUFVYUzY4OUhQU1NYdUQxeVR3bnVHc0VRcW1zZUJpRUhwcjFKMEFaV2JXeDBE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Family Member Issues Apology to Kate Middleton
+
+- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A member of Taylor Swift's family has reportedly offered an unexpected apology to Kate Middleton. The details surrounding the reason for the apology were not disclosed in the article.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPWnpZTDFfMzg2QXdGRFBUdDZ3VC1NWmtNbllBX3I1N1V2bzRnQ1JBcXlkMjZPbW1tZ3FYRDFpTWNwTEhvOGZjUmRUYlFlU2tmUnlkT0xFbjNxd3RxQnNOSE80eWZjVWFlakpRM1ZrRVJJN0pLQVJFdUZ3V1VmNGEzUkFxeldnSVloSkVObm9EX1hVYXItWmRsN0x0Um5iSUtHdEMwUHdXaVJZZktheDFHS25n?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce reminds Taylor Swift about handling criticism
+
+- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce reportedly told Taylor Swift that it's impossible to please everyone amidst ongoing criticism. This reminder comes during a time when the couple faces public scrutiny over their relationship.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1I0NVFpSGo3Z2RVT19jRkFHTVl0YXc1emYxbEdudnNRWm5ickJtUm5xOGhyQVZOZ2dMcTNsb0oxUzdZNjBfcXVseHlQWHFQdHJvbkV5TURzSHpIaWpiZkJjLUNZOWt0eUNnUTNScWxOc05KNF8xOXJJMmNybFRiWTIzQ2hzcERROTVGcXE2NGNXcWNkR21JTXpRdm5IaEp2bElCcU9neUhJMXRaYjF0ZGVndDNLT3pxWjBHSw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNd0dYYnhHcFItZHlaRUxNYkFqNlZNMll4czN0b1Z4Y19SWGI1cmxLMWM3VzByLUZZRmhBV2R6WnNOUUlrejFNQ3Y5VzQzV01sbU54RUptV1FIaUVZLW9fdVhQUU5WUVlhNUlyZWREMHREZEZvWmhOZEZkNWVueTBLbXluTkVCczVCR0dYd3hkOU5TX2Q3VFNZUUtFX3U?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Songwriting Challenges Without Heartbreak
+
+- first seen: 2026-10-06 11:59 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent piece, Taylor Swift addresses the difficulties she faces in songwriting when not experiencing heartbreak. This highlights her creative process and the emotional influences behind her music.
+- sources:
+  - [unverified] The Diamondback — https://news.google.com/rss/articles/CBMijgFBVV95cUxPZU1UTEZhOTlhaUpORW80WmhvNmZRb2dwMXlUYmxFQmJ0NDhnWWhPVm5MOHRteTlfTVYwSXBhQk85eVVfQmlsbVJNaTA5OVdZZHJjNXBFX3BoY2I4QmI5S0M2S2g3dGJoQnlTYkNyemRtaG02bGl3LVdKNGZSeXd1MFZWMHFuRFk4Z0Zvdkh3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Surprise TV Appearance to Praise Cleveland
+
+- first seen: 2026-10-06 11:59 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a surprise appearance on national television, Taylor Swift expressed her approval for Cleveland, capturing the attention of fans and viewers alike. The moment highlighted her connection with the city and delighted her audience.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNWFKVmZsQlEwMXFQbUtDd00yRUdCMUk2NzdIMDJlMVdUZGZMODBXcW1QUEg1aDJyclRTVnlFdmFYbi1TRTBhRFM2cmJ4VHRrd0MxZUN3LWtzY0hJaEpyYXZvY2RxUnlIZlg1STRqTkJmbnZEa3B1NEpMM2hxdmRyR2s3R2JnR3FDel9udmJfSXRUX3NzUFZpVDJUOTlGOXIzZTh2WktR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts Music Video for 'Toy Story 5' Song
+
+- first seen: 2026-10-06 11:59 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a music video for her original song featured in 'Toy Story 5'. This new addition showcases her involvement with the beloved franchise.
+- sources:
+  - [unverified] 6abc Philadelphia — https://news.google.com/rss/articles/CBMi8glBVV95cUxOdUN5NEtJTlVYa1llcExuQktzRjNEWFdpYkpnWkwtVXFoWnZYM012X1MxZ25DQ2FsNmdWUEh2OTZNX0FPeXBQUnpjbE5laU5TWE00NkdtYjRXUW5wWlNTN3NKaEJWNFRqbEZuOHEyRmI0U3NiUUNLWnp5MnN0anlEVThfbmpndXBWSkRqa1lHY2hjZV9HMF9DbGxERE1KT3VqRHoweEhYcGRwME9DdWtqUFFtZ0p4amYyZlhpSkNHMjdvVUZhQlZHazBCWUM0WElQOXRyVmVKRWJUMkQ0NDNWSndJcG5SdEE5LUhEVGFVZGhkTHhSV01DMFFYQmw1cDF3VXpOSVZnVmpxb3Y2bXN0djk2UkVwQ3ZiTlJ5Q2ZfT0x5dWdlNm1BOGJQUWgyWmw3Mkg5U1p5aUhkMVhxZ3BTWWcwYmN2SkhJWEUtZTZCSUFudmhtc3k1Ql81SUFVVG56X2xmcjNsNHN0RnNIX1dLUmZNdWdsUU9DaW52MU9kS1RDTUF4MlE4cW4weV9ENDlWNDJtRmhGLV8ySFRvT1JYcklqZUtuWWRqQTZJSXVYeG5HRUNsclhxVXh4WGhNbFhMN1hVeU9BUWtKaDBIRnVJS1FaaTNMYWVJd0M3N08xSEZ4YUlmZ3NaSjNsd085ZHEwSDA5RlhHNExaOTlzdGxwMTFHMkpLYi14SkhLdXFWT0ViVUtMV3lHckV6b1NJU1h1UFlfcEpWT09sMjI4QU9oTVR0eGl6MVJiSWdENkdCM1V0ODZqY3lSU25GZ1JtQ3E3UDgtVGZCZW9pMGdRY1RZemFlYzNEam5lNWt2VTZ6TC1MZ1FJcHhwWFNfbms3NFNKa1JYa2k5QmptbG9DZnBkMkRhM2lFeUVUUzFLWms1OUVBTmJQRnR1bk1tbkh2R2dHcDRrRUNXQkFRRlhUSTFUN0JLbUowblhiWTl4OWVTdjkwM214bk1lWnpaaXI5UWVVUlZjVkZiWHFmVV9YSTRDMW9VbnE3NzNaNUJSVE0tRFZDSEdYendEU0dHalR0and5alp0NC05VFVZLXFLS3BIeS04ZUs1bmpteEFkcElNcWhrMEdLVHQwRHRlbW1nMFFJUG8yNnVmZDBoai1jSExKekM2RlpkcXF6TWJ1OWRqdFFtYnNZWWZKdTlmczNUZmFIYVVfeDBwWWZKUzg4ZWd1TDUxaVp3V0RmV1RSR3pXYTZBMEFCWXU4YVFyTHY5TFVWY0FOMnpuYVdEcEgxYVZRY1BZQ2tuREhKQlRGYjd6a29WM3JEOWhVcEc1NjFiRUU2U3I4ejlYNjdnaEdMejJNMnUyaFAyMGVmbDM2ZW5hWFJDTXRjT3ZsNjJ0aEZkVzFPVm9HeDVXVTdDbHgyaWhqZ3BmdXdjYlh4QzE0ZS1QTWtHNnlydTBTR3hpN1Q1NzJjdzcyWlhSV1Y2VGRfUlRYdmo0LWFmeVVkdlY1c0xnODBHMHpJQkRvZ2tBRE04RVJkNWRNdDFFeEJSUnhZc1E0Wm9qaDJCZ2lrRjNBeFZaMTlDdENsZGh1cEh6OTByY3FTUUw4V01UeUpkXzVZN00zeEM0dlg3SXhKZFFBSTU1cjJQazg3UWt3c3FqQVNnMnpsTkluaWFlRUU4Q0E1SFpISVJOLUtwUkMzblBfdEdKMjlheVBUUzhEUkpHbGVScThHLWfSAZABQVVfeXFMUEVQWlFPOW00ODljUGhCb2t2dDVvR3B5X0g5eDZBQlFRTDlzVl9DWC14YmMxWjI3UlNBM211bDc1Uk93eUc2djFwWk02MTYwbWxHeThJS3hvRzltaFM4ajFNVTlPdXdlcDY3OEU0eXZnYV9uN1BpWDhqTWhEM2NnZzdQYWxIeU4zS0xYdGlhVVh6?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## R.I. Property Owners Sue Over Controversial 'Taylor Swift Tax'
+
+- first seen: 2026-10-06 11:59 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Property owners in Rhode Island have filed a lawsuit concerning a tax reportedly associated with Taylor Swift. The legal action has garnered attention due to its connection to the singer's impact on local property values.
+- sources:
+  - [unverified] Brown Daily Herald — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOWRucUg2eWt3cTBtM0ZGOTZETXNnbXMyNmNNWEhRdGxxY3UzNGhLZWN0RU4tN2R2R1FmOGdWbVk1REphdWJDVG9BQkdpR1l3dDhwdGtIOV9uaEVySVVkWHlYZFlpNDNib200NVVocjJFTUJ1RTBvWTVIeXRJSWlRbDNza2t3YkZLakZkNk04emI1M0MwM29HdWEyZWg4MXZKUHB0Z3E3OF9RUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Review of 'The Life of a Showgirl: The Encore' Released
+
+- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A review of 'The Life of a Showgirl: The Encore' explores the theme of authenticity in the showgirl performance. The piece reflects on whether the essence of the showgirl still exists in contemporary performances.
+- sources:
+  - [unverified] The Harvard Crimson — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMG1JZWR4cVEyOUQ4Ukl2bWFNVzRrOEpTaEVELUVEQzlZd0ZlS1VKQlJnVGx0SVV0UkJnUFNIclA5N0VheHljd0UxaXJqRkVJMEFkOEpHQkhESktmTmxyUnlmOTJGdlltb3dPNlpiWFlBQ2p3QnlFTjZ4OFVwbGRyOUYySlhyVkNqNFZZcGMzemRFdF9IRjZkbDduLUk1Zlg3ZzZ1ZHE5YTk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Blake Lively Reportedly Upset Over Taylor Swift's New Friendship
+
+- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively is said to be feeling 'devastated' after Taylor Swift has reportedly befriended another A-list actress, leading to feelings of betrayal. Sources indicate that Lively is struggling with this change in their friendship dynamic.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQZmJ3MFZzOWpIY3FzVzVFY1U2UTUycG8zVjFRUXZTblZSM05kdVhNTEtiZkpFOEtXcFJoOWFXSTVhaHNnd1o4dVlYM0pJc3JyZXBmZklham85cEFyTVl2Z2xST0F2RHRYcnB4dlc5bnd2OGFDdG91X2MxRkkzSmVEaFVHRHpvS3R2cXF5SWk4VklpQlo4QmhQSWRFZkFrZ3YyWlBGbndRRXY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Chrissie Hynde Expresses Appreciation for Taylor Swift's 'Cleveland!'
+
+- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chrissie Hynde has been noted as possibly the only supporter of Taylor Swift's song 'Cleveland!'.
+- sources:
+  - [unverified] pastemagazine.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdjFQeWQzUW0xTWpmdzIwVTlGYmhsWlVtb3FNYllid3pTeGdxRlJhbWttVDNqWVRUMHRsdmoxMi1EZldBY1NCcUJqUzdMV0Q2bWRmVUd0bEhHc1hMYUxjdDZkTmkzOUFVWV9WNmQyOEZnc0NCOWcyakZkLWFzTGpaZWtyNEd2Wm9SUmttTy1XbGZsLUFyV015b3NxWi0xZmJXUDZ5T2VCMVNXSTZNR3lSakhNUlIwOTQwVUhCdEZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Showcase Coordinated Looks at Birthday Dinner
+
+- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted in coordinated outfits during a dinner date in New York City, celebrating his birthday. The couple's stylish appearance drew attention as they stepped out together.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNeFdzTWZsRDluWGR6UWgtYlp1OFB5TVlxeVVkNE9VN0w0Sm81UmxtaXV2U3FTd2JCY0pKbjdyakl0MEJBTVRxc3RyV0lHdmpwcjNTYlNSWm05SGpaajd5WHZ5MzdhRWhZQVM1Tjk1b1BUdDBlb2lWQXVrdVlxOE85bmRGeFBTc1gtVlpRdEdqdXB0SzhmYUlyLTdMNUpBQTk5aWg3eWpka3dwRm9Eakw2bFZrNEpJMVh4RWl3REFBMy1SR0NybGhncQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Showcases Bad Girl Style in Vogue Feature
+
+- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Vogue has introduced Taylor Swift's interpretation of bad girl style, highlighting her fashion choices. The piece focuses on Swift's unique approach to style and trends.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiekFVX3lxTE9GN1hXYmpfSlN6eVQ2QWxWUm5VRkFIV2RWZGRzXzRDejNhT3FWOFFGd0U3Y0c1blVJdk05MVF4TWFYQTNvNXBKOGc5bEIyVEpZWXlYTVlvZnRyRW1OUDZqQzl3RmZ1c21oM2FjVVRiM05Ob1BSWDFOREhn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Tom Cruise and Taylor Swift's Friendship Faces Controversy
 
@@ -237,6 +334,18 @@ Stories: 76
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi2AFBVV95cUxQUWxSN1ZEOWc2dWxnQ0s5Qi13MjRvTVJXdG1PVXdEOVNweEQtbzFqMUs0QnJfRnYyWXhnaUZsYUpqQkRiWWU0QlYtUFU5emVDUkVNS2FWR3BzVUkxLUV4MnVBV08zVFdZN1E4RUtmSkRROUhFUlNTYVpaSHJFSTg0b0tIQlVWU25oZ3JwbnFDWF9ZUUllcDU2M2puOTg4eTVDYUVuVkYtVXEtNjhYYjdGb1U0al9ZMVhJalhCTElzSFB3RGxMU2N6S3prM0pTYmFVQVpSQ2U1bUY?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQWmZjSXJrZlB3RDFHS1c3TzFXZkJvRlpaMmp3Qm5Odl9ZajdZREY3R2lnT2Z4NzZVS3hydG8xLVhUeWcwM0hNNTZ4NGR1bm5aSHBFamRScktVUEhxSmxGMTNoR3ltb0lMWFh4VVVsQWp5MEw2Vy1SeUhRN1gyNk5vWFQ1ODR3QWdqZHpreEEtMHlnRFlxdEJaeUc5eXdGT2RpcjdqZ2dRTFN3MG5UYVJXVFpuVHc2eWxheFZB?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift absent as Travis Kelce and Chiefs win against Raiders
+
+- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift did not attend the game where Travis Kelce's team, the Chiefs, secured a victory over the Raiders in Las Vegas.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPYXJ6MlpSc2VuUF8yT2VtMVZUczBIeFJrV2JSaVIycUR6ZGpsVHRoblRyV0tPc2h1RDdjZ2dFdUNMOHcwcmVtX2phVERib0swWXU0YkIzWU1rQXVOVUhEWWxiS0ctN2h4VFpVNUZaRVhjR0ZiNEJvanBHbk8wR0gyR3BXRVNZV3dveGdFb25ZaEt3dlV2R0NTOFhrLXE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE54YW1zb1REV0Q1eUE2b2xQZWVqTmJQSjN3STN4dVlkSUhLTWQ4ZzJUUkxrUFpHdkM1aC1iUDZfcDJweEtQZ3R0NXlOWW92YlBFNm1pcWdhM20xR0o4c3hWS3A4dGhQQUdSRXpB0gFrQVVfeXFMTnJXTWdrTjQzY25FckZvWHdaR1RmLTVDNld2NlJOTDFfVUZxbDFicUFXOXVVMDF1SUxHcllRMG9kam1RRXdoUWdKNzN4WGE2bkhfRmlIcVR0SDUwc3lWQ1p4UFh1SENkWVR5eTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMimgFBVV95cUxOM2FOSy1DVmJURHpfUDhBWlpSQmwtR3pEd0xONFVCeVRLM0VBTW1WcmZFbklXWE9aSUR3aW1PdGpxd1lpNnRrUkRmWTV2bzRGQlpZNkYxNU10LWcxZjhmOW96azAtTGVLZlBVVV9reTVHSFVzZW03ZGxSZXdOZm9kWjlXWExKMEJzQmlEUlYwU2labWlSZFoyTXh3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxOeHRjWXlXQU9IV1lmemxWeURCdDFVal9hdHBRV19kWEFwRU0wVG01Q0ZFek9WbXNxSHoyRlNmSFdBS09oSFNSZ3oxODBsMWx2aDhSWkV3bUhVNTdKR3ZFTnlMRU1ick5TXzhYUFBmd1ZoRURiZHhYeGNhNTF0a29CLWRvNDhjSHI3cHhmUThRcTdFaEdlS3MyY082dlMzSWkyM3FXZHltUmdfMEJTZWVrX1FFcXAyZXdNR2NFTUJB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNdkFxQnJlY0dEMmc0LS1OMHZZRFAyQ2tVaFlFcFFfaEVVbGNqaDZ5QkRYTWNVXzZrRnVUa2x3OFZiZVpXMzhfVmRldkxJclA3SE44NmY1NXV2dHJaWXdUVElCUjk5b1RuQmlKakhnbEthcG9PSi0wdWgtb25BRWdfWlJXOGJ3YjRINVFmamJSNE5wdHVHRTVvQTAxU1B3Q3drdTJF?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Paul McCartney Performed at Taylor Swift's Wedding
 
 - first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 7
@@ -244,17 +353,6 @@ Stories: 76
 - summary: Billboard reports on the circumstances that led to Paul McCartney performing at Taylor Swift's wedding. The article details how the collaboration came to be and highlights the significance of the event.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxPU2NxMnJlVmxLVkVOUFZHcjRaTUI0aWw3MmVfeVFxMGt4NVMwS3ZCQTJMVk9HZ1M2NnY4emxjdE1TdWQ2b1pDS3Y1WWpWaWdvN0lFT1JaOHVNelI3aDVRbmZxOWlUT1g1dkJoVlM5cTVqVk9Yd2xBN3FzZHdwSUpNclVkWEhIMzNxd2FxTkJUS05HV25zWDhCYUxSdG9fX0xmM0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift absent as Travis Kelce and Chiefs win against Raiders
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift did not attend the game where Travis Kelce's team, the Chiefs, secured a victory over the Raiders in Las Vegas.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPYXJ6MlpSc2VuUF8yT2VtMVZUczBIeFJrV2JSaVIycUR6ZGpsVHRoblRyV0tPc2h1RDdjZ2dFdUNMOHcwcmVtX2phVERib0swWXU0YkIzWU1rQXVOVUhEWWxiS0ctN2h4VFpVNUZaRVhjR0ZiNEJvanBHbk8wR0gyR3BXRVNZV3dveGdFb25ZaEt3dlV2R0NTOFhrLXE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE54YW1zb1REV0Q1eUE2b2xQZWVqTmJQSjN3STN4dVlkSUhLTWQ4ZzJUUkxrUFpHdkM1aC1iUDZfcDJweEtQZ3R0NXlOWW92YlBFNm1pcWdhM20xR0o4c3hWS3A4dGhQQUdSRXpB0gFrQVVfeXFMTnJXTWdrTjQzY25FckZvWHdaR1RmLTVDNld2NlJOTDFfVUZxbDFicUFXOXVVMDF1SUxHcllRMG9kam1RRXdoUWdKNzN4WGE2bkhfRmlIcVR0SDUwc3lWQ1p4UFh1SENkWVR5eTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxOeHRjWXlXQU9IV1lmemxWeURCdDFVal9hdHBRV19kWEFwRU0wVG01Q0ZFek9WbXNxSHoyRlNmSFdBS09oSFNSZ3oxODBsMWx2aDhSWkV3bUhVNTdKR3ZFTnlMRU1ick5TXzhYUFBmd1ZoRURiZHhYeGNhNTF0a29CLWRvNDhjSHI3cHhmUThRcTdFaEdlS3MyY082dlMzSWkyM3FXZHltUmdfMEJTZWVrX1FFcXAyZXdNR2NFTUJB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNdkFxQnJlY0dEMmc0LS1OMHZZRFAyQ2tVaFlFcFFfaEVVbGNqaDZ5QkRYTWNVXzZrRnVUa2x3OFZiZVpXMzhfVmRldkxJclA3SE44NmY1NXV2dHJaWXdUVElCUjk5b1RuQmlKakhnbEthcG9PSi0wdWgtb25BRWdfWlJXOGJ3YjRINVFmamJSNE5wdHVHRTVvQTAxU1B3Q3drdTJF?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## 'The Life of a Showgirl' Hits No. 1 After Encore Reissue
 
@@ -612,64 +710,3 @@ Stories: 76
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUnNURVcyNVN3NlhFd3RVRlZaQ3BlcTA1Zkg3UGFhTllCTWh6alFlX0gtTmZSNFFtMFBLa3lFTkpocEhTZUE3TXN0bGJaU1NQTk44eGZvNGJlYTJhMGhFNV8wbnd2eTA3Tk12X2tTaGJneGVvMnVBS19qbzV1QjVkS19iYzRCNjlsYjlmY3VwWm1oQVRwa1RTN0ZqREdlNGhucndkTw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdkNKbXRwN2drM3pfaUx2bTdIbjEweHR3Z3ZyOGZBc0EybUNsZTdPc2Jkb2UybzR0ZTV5ci14VTRxa0lEZ3pfWEJWR0lDRDAzcGxPNDQ1UEpKdmlZSlhhQ1lTWkkzTEhFb2FWN2ExOWN2eTJMT2xjMFpMX1BNX2tSSUJvbUJDT0I3b0hUanVYbjhPcE5VOUFlWmNMVnBjUEdpMWFmRHZycw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Off New Curly Hairstyle and Shorter Haircut
-
-- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent photo, Taylor Swift unveiled a new curly hairstyle along with a shorter haircut. The update showcases her evolving look as she continues to capture fans' attention with her style choices.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitAFBVV95cUxOUmU2Qmt6d0tkazZtSkdOVzlqajhlYnprcS1EQVlFbmRrS2xNSlhSQzNHVDVDd1dVSFIzRndOODFLUzVwdFRveFNvLXBBZlZodFBseFk5R2pTNEktbXlma0V2UWFHUTVVNE1DbzVueDFFUXpwY1Vjb29UalRxd3A1OHljY25hRnZDVnFHRk9pZkdBckszanRoaUh0ZzEzTWFHczN1Q2VEVi11SWRYd2pSM0pmZWU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Comments on Controversial Taylor Swift Song
-
-- first seen: 2026-10-03 06:25 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has responded to fan criticisms of a Taylor Swift song that has been labeled as her 'worst' by some. The discourse surrounds public reactions to the track, adding to ongoing discussions about Swift's music.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQTUx0dGJXX2t0RkpoX0dWUTY5LTdpcW1oako3b0dlYlRBUkEyRjJXbTIyeVR5QnpIMlFubmswRWQwTlFtNk00TFhBVjBvLTFLdmJ2LXdLTTFSMmtMOURKSXVkdkN1NG5hYTZhTUlxV0xkM2t3T29KRy1wUUQ5VXJEQVNmU0p5NDhkeE1ZX2pzeEJZeXo2azVGUEwyMmRLc3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Off New Short Curly Lob Hairstyle
-
-- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has debuted a new shorter hairstyle featuring a curly lob, showcasing her latest transformation. The change has garnered attention from fans and media alike.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxQcnpmcXJRSFlGWWlHUWFya2JPZS1yUmpscnFVZGhiWGtTdVNrblRtQ0czUV9Dc2ZhTDV2dkUxVmh3Z0ExWWpLUnlKbzlJc0dOcGctN1BKemFjUEhMR3YxTURlTy0xNzVTb2E2V0tvUW1hWllfR0d5S3ZVT2RtV3JLRkJHNFJZZjBNMGxnMlo3M1FlMUFqdWVJVENiREppUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of Taylor Swift's Extended Album Published
-
-- first seen: 2026-10-03 06:25 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article titled 'My Thoughts on Taylor Swift’s Extended Album' has been released by The Decaturian, discussing the details and insights regarding the album.
-- sources:
-  - [unverified] The Decaturian — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQZlF3eFJ5Y1FoRnBZQjQ1R19JblZScWR4bWpuRGt4TEpUbEg5ZjNaSzVwcENPUTl3NG41SmxDbUhfSDAyQ0FlNmVYTkZxZVNUV1RJbzhkTUMtQTRRc0swRV9pamFVTlc5X3ZDalBERWVyLVFfeF9DTTNHa3hFSVVXTGdjaDVlN2RzUmVv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reveals New Short Hair and Curls for Career Milestone
-
-- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has debuted a new hairstyle with shorter locks and revived curls as she marks a significant career milestone. The change in her appearance coincides with her professional achievements.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNUG1EdVVvOUgwUm5CcTJmUVFKNjFKeURJSnNNdkJVdlA2bGszR2g5WUp3eHlkbTFkRzZBWmk2MkxIRnFJenlhOGVwYWxCb1p0RUswWGZ2V2h4ZldySXJIb1N5dTk0cXVrMklTTldVdWRuWGtCbV82d1lrblNNS1lZWkNzN1RqTUo1UzI0U3JqbUZxcGRMWnFScl9RUnJTRl9OYkoySDR3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Friend to Host 'SNL' Tonight
-
-- first seen: 2026-10-03 06:25 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A close friend of Taylor Swift is set to host Saturday Night Live this evening. Fans can find information on how to watch the episode.
-- sources:
-  - [unverified] Centre Daily Times — https://news.google.com/rss/articles/CBMiggFBVV95cUxPc1Q4R0dGVEJ0Yi1kNzlrclYzdGhIQWJiM0V2cU1ta1RLYVhWZk9ONGF2a3ZGVm5JVzlQMmJ1b2p4bmlpYk14eGMydzIzc3cyQkJCVW0zcHhYa1ZBRmZNQm9vUGdMdEVaVHJMbGlMOUZ1MGxHMWRyMzVaeHRRa3lLblhn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOLUp3NXZoMHRpckRScEFPWkU1c2xDSUJ2QUFQcXgzZGxfUXQ3dWFCRV9lTmU0TjRNZkZpLWY2cTZUWW1CQm9uOFFXSl9VSHNoMjRDM0NfNW1HZTlVbmZib21XT3A0eE1yRDBHYU1VcHNIU3hPWk5XZktvVWM0azJoSmxBSVZJVDFnbFZrU3d6b1VSaGpRRVFYNS0wVHlRTGl4YUdsbC1YQ3VyUWt2LTNMRGdYdWZDQ010Si14WVFYTkJQMjdSaFF0cTRNZFcwcGh1WUNrVm1OZXZaejhoeFFKVkFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
-
-- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift has revealed a new curly hairstyle, prompting fans to speculate about its significance, including potential connections to Travis Kelce and the VMAs.
-- sources:
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMilAJBVV95cUxOYl93WGdBc2pQd1BPTWF4eEp5dWVlbjVYOXhyNndtQTM5MzBINkZ5THZ2aHFpd2pNX0M3VVBkZFJ2Sk80R01mWklRYmM1b0VhYzdxdGp5dlYycXhqZGdKN0wyRVJGSjZjMUJFdEdGODRJTDVuRjFQdHZYcDJWM0Y2OTRMSjBFdEdMN1Jva3FOWW43a2lkSm1RaUZ6SHMxaHY3d3NwVlpZNEVqclU1azRRY1Z0bG9kZjQ3WTFwX1ZxM3JpeWZtYjFSa1ZwLUplN3V5b1ZYME9JS090cnMtOVE5TTBNU2k2dGVZYUMxZ1k0OGxoTERkYkhDdjl6Y2t2OUdXbnRUNmpwRFJKR1A4Q21ORHUyd0fSAZoCQVVfeXFMUG5IV21mY2tsb0lfdy1MVlhGVlVRTGxuNjMxVmJlZ3VNUkFwOTVNUXFhSUt5RDNkNTY0akgzSjd3X0NJY2U5enlNUHdfR092VjNrZGpWRWxjb0luR3VXcXVRUEFCM29DVjNfVVRBaUpvcHRldGtqejFJczNxQjh4R3pnUTNCTmZPNkxBaFlKU0Q2YU9zMlBrVm83TGV5dmZHdmFyZm9SOUVha24yYmFBOFlFTEd2YzVROUdjRXJPUTZfT2IySElETGhiWllLR2VuZWVXR0d5eGJkdGItbTNFMmhEUXd5djhWV1pFZEprVi1iMlhULVk4ZDJqLUpuakxiTllLcGU0ZWQxejRFcmVYLXk5dUxKQkx4SWFB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOVDhSdURvOFN0empwUkxIWS1ra0MyQno5blhCUWVfUXFHcG1DNkJZS0huYzNnRGZOVjZZdFlNMUg3MVRsMXdJbWhsVTQ1QlNBTEpCcUhkcHpsWXJMS3hBcWswTEEtX1l1R3RIbkRtNFpodE9rUkFTV203ckxkbTJCSW4yN3ZBOGQtWndlRi1EZjRndlMtYmdnWU83NEdMM1F4dXh4M05XOWc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQRDZPOUxUMHlPUzUzYXZKYWM3Y00xMVpxMTNPOVRnX1pqS2pvbTRDTWkyaWNsRGJxYXRIamw3eHhzWGxfYUJjZTVYN2lVNW5HeEtCSExtVVdRRWMxSG4zeUNWS3RFdUJxVWJMbW91STdQVGpmUUdsclc1SV9XUUotUlhSTzI4Mkp3eVNja0hxc3RMOElKSXdfbkJjV0dBU2k0cTZDQXBVZlNwT2tVVlZrc2NfeXJ2eDZiS3o1U29hWlVOcW9wVWM2aVhVbk0yYnVPVlRfTmVGdGY4eG9rR0JOSndWalRhNFhaYVAzYjBSdTF4dXkx?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WHIO TV — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZHdSSUFmRnVvVjVYbGZhdGo4SGRWZTRxbWVGS1kzUE5EUDlIRmwzMTNNQXMtZDRiZVFBc05HNHYzdm5RdlZNdmtORFppQ0lvWUxNOGVic2tOdW0wa2lKV2d1NlFYbEh3Y0FoTHBNUVJLUmdfZXNySmRrVlpzUnpmM3J3RXcwdENjQUl0VUdWWTUyTzVMRlNKSm5EYjFDd1dDRi0tMWRnSVIyMENpQWZEemVNSVRqd0tVNkNNQ0NMYWYwLVNRekN2dtIB3AFBVV95cUxQVWg0OEY5d2p3NjJDNUJxTUdac3lzcVdhR2pobXA3d1RzQjVmRl82UWlMX0lLLURhZDhweXQyVElXYlJuTmFveUJueVdCQjRNNkY2Znl0aHZWV21ZMjAyeV8wTVI5eHE1MUNGaHFMcEpzTklHcjM4U3VRVTQxakF2YTR1ZllMXzVZNDB0YUlmRXBvNEdiQlZrU0VPeThOT1EtRk9KUVFScDZwM2djN0IzMXVoMEZwQVZfaHRXTGxEM1VrZk9YZGNKYWJKS1dFeEhwZWtmaVNLZ3NFaVEy?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMifEFVX3lxTE11R20zTE9IQVF0bnhuWmQzQzk2Q3lxNFozVVd5NlRHVlh5Y05WU3A5YXJROTYyUWtNWmtacGtUVWVOZXJqSTRQM3VOTDhqeGpCODBmR0VHYzZ0RGk0ckZjY1ltUUY0TjBmN3ZSeWkwNXZCOGRkQ2NnZ2NlSTg?oc=5&hl=en-US&gl=US&ceid=US:en
