@@ -96,7 +96,7 @@ describe('affiliate coverage', () => {
     );
   });
 
-  it('has zero unexplained uncovered rows in the generated 477-product report', () => {
+  it('has zero unexplained uncovered rows in the generated 479-product report', () => {
     const generated = parseCoverage(readFileSync('docs/ops/AFFILIATE-COVERAGE.md', 'utf8'));
     const uncovered = generated.rows.filter((row) => row.status === 'uncovered');
 
@@ -104,7 +104,7 @@ describe('affiliate coverage', () => {
     // launch items (see supabase/seed/merch/fanmade.mjs); this pinned total
     // tracks the checked-in generated report and must move in lockstep with
     // `npm run merch:coverage` regenerations.
-    expect(generated.summary.total).toBe(477);
+    expect(generated.summary.total).toBe(479);
     expect(uncovered).not.toHaveLength(0);
     expect(uncovered.filter((row) => !row.reason)).toHaveLength(0);
   });
