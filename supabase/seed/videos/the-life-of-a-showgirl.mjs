@@ -303,7 +303,7 @@ export default {
       relatedSongs: [],
       tags: ['Tour', 'Relationship'],
       summary:
-        'A second, fuller trailer for "The End of an Era" docuseries, released a month before the Dec 12 Disney+ premiere — including Taylor and Travis Kelce on why their jobs are the same: "You\'ve got teammates, I got teammates."',
+        'A second, fuller trailer for "The End of an Era" docuseries, released a month before the Dec 12 Disney+ premiere — including Taylor on why she and Travis Kelce "basically have the same job," and Travis\'s reply: "You\'ve got teammates, I got teammates."',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=dSSqCoCiQVs',
@@ -338,7 +338,7 @@ export default {
           'https://www.eonline.com/news/1425550/taylor-swift-travis-kelce-romance-in-eras-tour-docuseries-clip',
           'Taylor Swift Calls Travis Kelce Romance the "Most Meaningful" in New Docuseries Clip',
           'E! News',
-          'reports the docuseries footage of Taylor on her relationship with Travis Kelce and their shared careers ("We both entertain people")',
+          'reports a separate Nov 25, 2025 clip from the same docuseries in which Taylor discusses Travis Kelce and their shared careers ("We both entertain people"); corroborates the segment\'s subject, not the trailer\'s exact lines',
         ),
       ],
     },
