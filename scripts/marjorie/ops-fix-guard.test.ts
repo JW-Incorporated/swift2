@@ -20,9 +20,24 @@ describe('checkDiff', () => {
     }
   });
   it('protects the ops-fixer machinery and the required-check workflows', () => {
-    for (const p of ['scripts/marjorie/ops-fix-guard.mjs', 'scripts/marjorie/ops-fix-guard.test.ts', 'scripts/marjorie/ops-fix-escalate.mjs', 'scripts/marjorie/ops-fix-trust.mjs', '.github/workflows/routine-ops-fix.yml', 'docs/agents/runner-prompts/ops-fix.md', 'docs/agents/ops-fixer.md', '.github/workflows/routine-template.yml', '.github/workflows/bot-failure-triage.yml', 'scripts/marjorie/routine-failure-triage.mjs', 'scripts/marjorie/routine-failure-triage.test.ts', '.github/workflows/ci.yml', '.github/workflows/parity.yml', '.github/CODEOWNERS', '.github/rulesets/main.json']) {
+    for (const p of ['scripts/marjorie/ops-fix-guard.mjs', 'scripts/marjorie/ops-fix-guard.test.ts', 'scripts/marjorie/ops-fix-escalate.mjs', 'scripts/marjorie/ops-fix-trust.mjs', '.github/workflows/routine-ops-fix.yml', 'docs/agents/runner-prompts/ops-fix.md', 'docs/agents/ops-fixer.md', '.github/workflows/routine-template.yml', '.github/workflows/routine-marjorie-ops.yml', 'docs/agents/runner-prompts/marjorie-ops.md', '.github/workflows/bot-failure-triage.yml', 'scripts/marjorie/routine-failure-triage.mjs', 'scripts/marjorie/routine-failure-triage.test.ts', '.github/workflows/ci.yml', '.github/workflows/parity.yml', '.github/CODEOWNERS', '.github/rulesets/main.json']) {
       expect(checkDiff(file(p, 'x'))).toEqual([expect.stringContaining('rail 4')]);
     }
+  });
+  it('checks both sides of a rename and a delete', () => {
+    const rename = ['diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml.off', 'similarity index 100%', 'rename from .github/workflows/ci.yml', 'rename to .github/workflows/ci.yml.off'].join('\n');
+    expect(checkDiff(rename)).toEqual([expect.stringContaining('rail 4')]);
+    const guardRename = 'diff --git a/scripts/marjorie/ops-fix-guard.mjs b/scripts/marjorie/x.mjs';
+    expect(checkDiff(guardRename)).toEqual([expect.stringContaining('rail 4')]);
+    const del = ['diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml', 'deleted file mode 100644'].join('\n');
+    expect(checkDiff(del)).toEqual([expect.stringContaining('rail 4')]);
+  });
+  it('asks git for a rename-free diff', () => {
+    const calls: string[][] = [];
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    main([], (_c: string, a: string[]) => { calls.push(a); return ''; });
+    log.mockRestore();
+    expect(calls[0]).toContain('--no-renames');
   });
   it('blocks --admin merges and ruleset/branch-protection API calls', () => {
     for (const l of ['gh pr merge 5 --squash --admin', 'gh api -X PUT repos/o/r/rulesets/1', 'gh api repos/o/r/branches/main/protection']) {

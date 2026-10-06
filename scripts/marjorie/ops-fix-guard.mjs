@@ -28,6 +28,8 @@ const SELF = [
   /^scripts\/marjorie\/ops-fix-(?:guard|trust)\.test\.ts$/,
   /^\.github\/workflows\/routine-ops-fix\.yml$/,
   /^\.github\/workflows\/routine-template\.yml$/,
+  /^\.github\/workflows\/routine-marjorie-ops\.yml$/,
+  /^docs\/agents\/runner-prompts\/marjorie-ops\.md$/,
   /^\.github\/workflows\/bot-failure-triage\.yml$/,
   /^scripts\/marjorie\/routine-failure-triage(?:\.test)?\.(?:mjs|ts)$/,
   /^\.github\/workflows\/ci\.yml$/,
@@ -49,8 +51,10 @@ export function checkDiff(diff) {
     const head = line.match(/^diff --git a\/(.+?) b\/(.+)$/);
     if (head) {
       file = head[2];
-      if (SOCIAL.some((re) => re.test(file))) violations.push(`rail 3: edits social approval/signing/live-send file ${file}`);
-      if (SELF.some((re) => re.test(file))) violations.push(`rail 4: edits ops-fixer/required-check machinery ${file}`);
+      for (const p of new Set([head[1], head[2]])) {
+        if (SOCIAL.some((re) => re.test(p))) violations.push(`rail 3: edits social approval/signing/live-send file ${p}`);
+        if (SELF.some((re) => re.test(p))) violations.push(`rail 4: edits ops-fixer/required-check machinery ${p}`);
+      }
       continue;
     }
     if (!line.startsWith('+') || line.startsWith('+++')) continue;
@@ -68,7 +72,7 @@ export function main(argv = process.argv.slice(2), exec = execFileSync) {
   const base = i >= 0 ? argv[i + 1] : 'origin/main';
   const h = argv.indexOf('--head');
   const head = h >= 0 ? argv[h + 1] : 'HEAD';
-  const diff = exec('git', ['diff', `${base}...${head}`, '--unified=0'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  const diff = exec('git', ['diff', '--no-renames', `${base}...${head}`, '--unified=0'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   const violations = checkDiff(diff);
   for (const v of violations) console.error(`ops-fix-guard: ${v}`);
   if (violations.length) return 1;

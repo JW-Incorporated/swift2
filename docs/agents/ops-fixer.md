@@ -53,8 +53,12 @@ workflow, outside the agent (`routine-ops-fix.yml`):
   posts the escalation when the run ended anything but success.
 
 Residual, prompt-only: secret-value reads, and the window between the agent
-arming auto-merge and `finish` disabling it (seconds, against a `build` run of
-minutes). Rail 4 itself (merge only via `--auto`) is the prompt's.
+arming auto-merge and `finish` disabling it: auto-merge can land before `finish`
+runs if `build` and `parity-gate` finish before the agent exits. The signal is an
+ops-fix PR merged with no `finish` comment on it. `finish` guards every open PR
+the agent could have opened (author is the token's user and created after the
+run started, OR branch `ops-fix/<issue>-*`, OR the issue number in title/body —
+a union), and treats any failure to enumerate PRs as stuck. Rail 4 itself (merge only via `--auto`) is the prompt's.
 
 ## Flow
 

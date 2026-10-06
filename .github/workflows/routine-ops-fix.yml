@@ -69,8 +69,10 @@ jobs:
             echo "state=untrusted" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          PRIOR=$(gh run list --repo "$REPO" --workflow routine-ops-fix.yml --limit 200 --json databaseId,displayTitle --jq "[.[] | select(.databaseId != $RUN_ID and (.displayTitle | endswith(\"#$ISSUE\")))] | length") || PRIOR=0
-          if [ "${PRIOR:-0}" -ge 2 ]; then
+          if ! PRIOR=$(gh run list --repo "$REPO" --workflow routine-ops-fix.yml --limit 500 --json databaseId,displayTitle --jq "[.[] | select(.databaseId != $RUN_ID and (.displayTitle | endswith(\"#$ISSUE\")))] | length"); then
+            PRIOR=99
+          fi
+          if [ "$PRIOR" -ge 2 ]; then
             echo "state=capped" >> "$GITHUB_OUTPUT"
           else
             echo "state=trusted" >> "$GITHUB_OUTPUT"
@@ -116,6 +118,7 @@ jobs:
       contents: read
       issues: write
       pull-requests: write
+      actions: read
     steps:
       - uses: actions/checkout@v7
         with:
@@ -129,6 +132,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           ISSUE: ${{ inputs.issue }}
+          OPS_PAT: ${{ secrets.OPS_FIXER_PAT || secrets.SOCIAL_POSTER_PAT }}
+          RUN_ID: ${{ github.run_id }}
           STATE: ${{ needs.context.outputs.state }}
           RUN_RESULT: ${{ needs.run.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -139,8 +144,15 @@ jobs:
           if [ "$STATE" = capped ]; then
             STUCK="two ops-fixer runs were already spent on this issue"
           else
-            for PR in $(gh pr list --repo "$REPO" --state open --json number,headRefName --jq ".[] | select(.headRefName | startswith(\"ops-fix/${ISSUE}-\")) | .number"); do
-              git fetch -q origin "refs/pull/$PR/head:refs/remotes/pr/$PR"
+            ACTOR=$(GH_TOKEN="$OPS_PAT" gh api user --jq .login) || ACTOR=""
+            RUN_START=$(gh run view "$RUN_ID" --repo "$REPO" --json createdAt --jq .createdAt) || RUN_START=""
+            PRS_JSON=$(gh pr list --repo "$REPO" --state open --limit 500 --json number,headRefName,author,createdAt,title,body) || PRS_JSON=""
+            PRS=""
+            if [ -z "$ACTOR" ] || [ -z "$RUN_START" ] || [ -z "$PRS_JSON" ] || ! PRS=$(printf '%s' "$PRS_JSON" | jq -r --arg a "$ACTOR" --arg s "$RUN_START" --arg i "$ISSUE" '.[] | select((.author.login == $a and .createdAt >= $s) or (.headRefName | startswith("ops-fix/" + $i + "-")) or ((.title + " " + (.body // "")) | test("#" + $i + "\\b"))) | .number'); then
+              STUCK="finish could not enumerate PRs"
+            fi
+            for PR in $PRS; do
+              git fetch -q origin "refs/pull/$PR/head:refs/remotes/pr/$PR" || { STUCK="finish could not fetch PR #$PR"; continue; }
               if ! node scripts/marjorie/ops-fix-guard.mjs --base origin/main --head "refs/remotes/pr/$PR" 2> .scratch/guard.err; then
                 gh pr merge "$PR" --repo "$REPO" --disable-auto || true
                 MSG="ops-fix-guard (run from main, outside the agent) rejected this diff and auto-merge is disabled: $(tr '\n' ' ' < .scratch/guard.err)"
