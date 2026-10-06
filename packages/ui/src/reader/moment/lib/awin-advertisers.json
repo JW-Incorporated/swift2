@@ -1,6 +1,6 @@
 {
   "source": "E0 Awin Publisher API cross-reference",
-  "generatedAt": "2026-09-05T11:25:52.557Z",
+  "generatedAt": "2026-10-06T15:49:33.980Z",
   "advertisers": [
     {
       "retailer": "agolde.com",
@@ -30,6 +30,11 @@
     {
       "retailer": "meshki.us",
       "awinmid": "15378",
+      "joined": false
+    },
+    {
+      "retailer": "patmcgrath.com",
+      "awinmid": "130943",
       "joined": false
     },
     {

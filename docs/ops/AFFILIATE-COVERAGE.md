@@ -166,7 +166,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Leave It With Me I Protect The Family Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Life is a Willow Zip Up Sherpa Fleece Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lipstick in Ravishing Red (Matte) | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | evermore.vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv |  |
-| LiquiLUST: Legendary Wear Lipstick in Elson 4 | patmcgrath.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30- | not listed in checked-in E0 Awin advertiser directory |
+| LiquiLUST: Legendary Wear Lipstick in Elson 4 | patmcgrath.com | none | awin-apply | direct retailer URL | midnights.vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30- |  |
 | Locked Kiss 24HR Lipstick in Ruby True | maccosmetics.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-signature-eras-tour-red-lip-decoded-mac-ruby-true-and-a- | not listed in checked-in E0 Awin advertiser directory |
 | Long Live All The Magic We Made Picture Frame | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Look At Me Baby Tweed Corset | shopakira.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-2024-vmas-red-carpet-a-tartan-dior-corset-and-cape | not listed in checked-in E0 Awin advertiser directory |
@@ -495,7 +495,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | --- | ---: |
 | total | 479 |
 | wrapped | 0 |
-| awin-apply | 10 |
+| awin-apply | 11 |
 | pending-signup | 8 |
-| uncovered | 104 |
+| uncovered | 103 |
 | direct-by-policy | 357 |
