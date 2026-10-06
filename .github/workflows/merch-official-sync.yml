@@ -88,8 +88,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          number=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --limit 200 --json number,headRefName --jq '[.[] | select(.headRefName | startswith("merch-official-sync/"))][0].number // empty')
+          # Only a sync PR younger than 3 days blocks a new one. An older open
+          # PR is stuck, not pending: warn (watchdog/triage surface it) and
+          # proceed from current main rather than silently stalling every sync.
+          prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --limit 200 --json number,headRefName,createdAt)
+          number=$(echo "$prs" | jq -r '[.[] | select(.headRefName | startswith("merch-official-sync/")) | select((.createdAt | fromdateiso8601) > (now - 259200))][0].number // empty')
+          stale=$(echo "$prs" | jq -r '[.[] | select(.headRefName | startswith("merch-official-sync/")) | select((.createdAt | fromdateiso8601) <= (now - 259200)) | .number] | join(", #")')
           echo "number=$number" >> "$GITHUB_OUTPUT"
+          if [ -n "$stale" ]; then
+            echo "::warning::Stale merch-official-sync PR(s) #$stale open for more than 3 days; not blocking this run. A founder or triage should merge or close them."
+          fi
           if [ -n "$number" ]; then
             echo "::notice::Sync PR #$number is still open; skipping authoring, inbox fact sheets, card and notification so this run cannot duplicate it."
           fi
