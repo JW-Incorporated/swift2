@@ -292,7 +292,7 @@ describe('E0 Awin sync', () => {
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
           feeds: { current: '2026-08-30', retained: '2026-08-29' },
         });
-        expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+        expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained'], { rebuildFts: true });
       },
     );
   });
@@ -334,7 +334,7 @@ describe('E0 Awin sync', () => {
       });
 
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
-      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained'], { rebuildFts: true });
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
     });
   });
@@ -353,7 +353,7 @@ describe('E0 Awin sync', () => {
       );
       const writeSqliteImpl = vi.fn();
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, maxFeeds: 2 });
-      expect(writeSqliteImpl.mock.calls[0][2]).toEqual(['b', 'c', 'gone']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['b'], ['c'], ['gone']]);
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
         feeds: { a: '2026-09-01', b: '2026-10-01', c: '2026-10-02' },
       });
@@ -374,10 +374,50 @@ describe('E0 Awin sync', () => {
       });
       const writeSqliteImpl = vi.fn();
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
-      expect(writeSqliteImpl.mock.calls[0][2]).toEqual(['b']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['b'], []]);
+      expect(writeSqliteImpl.mock.calls[0][1]).toHaveLength(1);
+      expect(writeSqliteImpl.mock.calls.every((call) => call[1].every((row: { feedId: string }) => row.feedId !== 'a'))).toBe(true);
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
         feeds: { a: '2026-09-01', b: '2026-10-02' },
       });
+    });
+  });
+
+  it('writes each feed on its own, counts rows per feed, and leaves a feed whose write fails untouched', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-01,https://feeds.example/a.csv,1',
+      'b,2026-10-02,https://feeds.example/b.csv,2',
+    ].join('\n');
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(
+          new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x\n2,y'),
+        ),
+      );
+      const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+      const okWrite = vi.fn();
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: okWrite });
+      expect(JSON.parse(String(logSpy.mock.calls.at(-1)?.[0])).indexedProducts).toBe(4);
+      logSpy.mockRestore();
+    });
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(
+          new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x\n2,y'),
+        ),
+      );
+      const written: string[] = [];
+      const failingWrite = vi.fn((_path: string, _rows: unknown, ids: string[]) => {
+        if (ids[0] === 'b') return Promise.reject(new Error('write b failed'));
+        written.push(ids[0]);
+        return Promise.resolve();
+      });
+      await expect(
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: failingWrite }),
+      ).rejects.toThrow('write b failed');
+      expect(written).toEqual(['a']);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8')).feeds.b).toBeUndefined();
     });
   });
 
