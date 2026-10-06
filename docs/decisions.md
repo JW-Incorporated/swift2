@@ -8689,6 +8689,8 @@ Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founde
 
 **Supersedes in part** the 2026-08-11 merge-delegation proposal's "workflows/CI: human merge" line, for this routine only, by the founder's explicit choice. Pushing under `.github/workflows/**` additionally needs the "Workflows: Read and write" permission, so the routine uses a dedicated `OPS_FIXER_PAT` (falling back to `SOCIAL_POSTER_PAT`) rather than widening the social poster's token (HUMAN-ACTIONS #108). Review round 1 hardened enforcement without adding rails: an issue-author + label trust gate before the agent, a deterministic 2-run cap, a post-agent `finish` job that runs the guard from main's copy and disables auto-merge on a violation, and a guard that refuses edits to the ops-fixer's own machinery and the required-check workflows.
 
+**Update 2026-10-05:** OPS_FIXER_PAT (classic PAT with scopes Repo and Workflows) created and saved as `OPS_FIXER_PAT` secret; HA #108 resolved.
+
 ## 2026-10-05 — Bots self-heal: routine failures auto-file to Marjorie; founder only for founder-only items
 
 Joey, 2026-10-05 (BOTS-LOOP; the founder requirement added in chat the same day is item 4 below).

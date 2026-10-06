@@ -85,11 +85,11 @@ value, a login, a token permission) get literal clicks instead.
 
 ## Token
 
-The routine checks out and pushes with `OPS_FIXER_PAT`, a dedicated fine-grained
-PAT (Contents, Pull requests, Issues, Workflows, Actions: read and write), and
-falls back to `SOCIAL_POSTER_PAT` while it is unset. Only fixes under
-`.github/workflows/**` need the Workflows permission; HUMAN-ACTIONS #108 asks
-for the token. Until then a rejected workflow push is escalated, not counted as
+The routine checks out and pushes with `OPS_FIXER_PAT`, a dedicated classic
+PAT with scopes Repo and Workflows (read and write), created 2026-10-05.
+Falls back to `SOCIAL_POSTER_PAT` while unset. Only fixes under
+`.github/workflows/**` need the Workflows permission; the token resolves HA #108.
+Until then a rejected workflow push is escalated, not counted as
 a failed attempt. The social poster's own token is never widened for this.
 
 ## Cost
