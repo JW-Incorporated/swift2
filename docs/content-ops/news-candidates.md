@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 88
+
+## Travis Kelce Celebrates 37th Birthday with Taylor Swift
+
+- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce expressed his excitement about spending his 37th birthday with Taylor Swift, stating that it was a great day for him.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQTHAyOG9DRjRIc0pqdDRVaFgzNGFPbk1LT0FVd0RRNVRGWGxmYVNoNS00ZU05bTNWN0RienNBMksxOWV5LWJvTm1Pd3FIb3NVaTd4N3BzRGdmdTRBUVExMExLYXZtb2taQm14TEUxeVEwR0Qzby1RaDFXaVZOXy1vMGdOOXdLYWFtZk5nNVl2S3gwNEs0YkpZd2pYaC1ZRFNkVldGVnNQdG00VDZqdm82cQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fraudster Sentenced for Using Bots to Manipulate Streaming Numbers Against Taylor Swift
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A fraudster has been imprisoned for employing 10,000 bots and AI-generated songs to artificially boost streaming figures to surpass those of Taylor Swift. This case highlights ongoing issues in music streaming integrity.
+- sources:
+  - [unverified] Ars Technica — https://news.google.com/rss/articles/CBMivwFBVV95cUxOcDBDS1ljWVgyZ1NScFpfVzZWcUJJV3E4MUhodnJBSTI2Y2hObzhDOTJuUFRMZk9OdElCbVYxVDJISGFBVzltLVFnbTdoOHVIWHc4RTg4aWJCUmNaU3VOWVdIa0N3bUJuUzRtZktLMHA4U3hPekhTODAybldHR2FxQU94MnVzZXBFaGFWcE5TRFBETXEwcC1WZkFsbk5mdXR0aTJYYlZnOVlxTW1TY0hWQUp1VTlWamVsTzlLWDRtWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Responds to Halloween Display Featuring Taylor Swift
+
+- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared his reaction to a Halloween display depicting a 'cross-eyed' version of Taylor Swift. The display has drawn attention for its whimsical portrayal of the pop star.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOSGpmSDBUVTdjSFJMT2dxXzFubVBRRXprS3ZxdnhFN0ZNakQ3ZndRU0hILWtwQ2k3MU4zcFhiemc4czkteThlN1FXQkN4bVVycVJoM0lISDFZamRnZnZHOWtXd01iazZGZ0c0Ym52ZnZFRkpXM0RrVHVuUFZBanNzQWk1TmRXWFBRT25xX1Q3X2d6bHVTdUlTUk5DMFI?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Paul McCartney Revive Old Albums with Similar Strategies
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Forbes discusses how both Taylor Swift and Paul McCartney are employing similar methods to refresh their older albums, making them relevant to new audiences. This approach highlights innovative marketing tactics in the music industry.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPMTc2Q055ZFg2a1FIbUVFT090b1BaYmpoaFlMYi1xZ3VUUFYtRFNkQ29hNDl3UVhhYmZLYl95OXcxU1JPM0pRRWV2Nm1YUzZhRDB5ZGR0UjU4MU1OVzNzN3hNay1acUxPTEdQcFlPY0RwMV9BYmNNS19sTms3RG5mVlB2aUZxeXlCZHMzYzJXQTNyeko3eXFZZ2hVSzUtcTJrT2FscHRWVkN1dVFEcmZQYmZYU0RkdXItQ1ZQY2N0Q2N6NmtCUzQ1SFg3VDZpTmI5bHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves 12th No. 1 on Streaming Songs with 'Patient Zero'
+
+- first seen: 2026-10-07 21:57 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached her 12th No. 1 spot on the Streaming Songs chart with her latest track 'Patient Zero,' according to Billboard. This milestone underscores her continued success in the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikAFBVV95cUxNVjlneWgtSlZIZWNsYmk5LVJCZEhkVC1uRHFFWWktM2FuR0FLa0xCYkVtLVJOanFDTFhPR1c1akJLRWpvLUlNd1JFaDVLS1lpMUJNRm1aajgxbFRReDJXcVkwVC1wcEJ4a1JTZXZCbkFiUWhNaU9FOGlkUlVEV1IwLUtzc3ZmbTUxVjYtYXo1Q1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Predicting 2027 Grammys Album of the Year Contenders Featuring Olivia
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A discussion on potential contenders for the 2027 Grammys' Album of the Year, focusing on artists named Olivia, particularly Olivia Rodrigo and another Olivia. The article suggests that their competition may dominate the awards
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-album-of-year-2027-nominations-predictions-olivia-1236904555/
+
+## Taylor Swift Approaches Long-Standing Beatles Record
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is on the verge of breaking a record held by The Beatles for 56 years, highlighting her significant impact on the music industry.
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPNVg0bDdjNkNGUHZneWJfWHBaWURaOUQ4MHNaa0hJVFhyb1BLcXhxUVlFVWc4aXdIdkdpWDZlZWlJWUhtTkZ1MUEzSkFUbFN4eUcxSWVFX0tpLTBCX3RGcTU0M3ItNGJKQVlhYzlmUDlDOUZVNlZ3VTlxRGpQb0d1bnRPOFVsRDlBV3pnYVZHeHF4blNUSDdXc3p4TjB6UEdXWFc2NWQzakR6UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Billboard Hit Inspired by Travis Kelce's Cleveland Roots
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new Billboard top 5 hit from Taylor Swift has been inspired by Travis Kelce's Cleveland roots, highlighting the connection between the artist and the NFL star.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQVk41bXlybm9UV1hqbzVGbVJtdmpqQVRkb0Rjb3NyNkk4d2prbmRCcmU1cVJZR3JmY0Q1ZE9aNFdWc1AxRGZsZkVTWjN0UUtpUTVLRnFMV1pEakE4RUV2ckN5Mnlrc3FSSGxXNGxqX1pQV01nUjJ4aGJIQWJob29BQzRyZnBoUU1xaXcwRElqVVdscTRQTHpleUlPVXFsUHRzclVNQ09jcWUyZDA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Celebrates Birthday with Taylor Swift in NYC
+
+- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce celebrated his 37th birthday with a dinner date in New York City alongside Taylor Swift. The couple also shared significant news during their celebration.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPVTZ2X2UxaHUzZGJHa1lVMy1uY0hTNmJsZV91a2tNZjBWVHp6eUZOV2cyVWcyZ2s1STVpelktWjBVN2xraDh3U2ZNZDV2clIzYXdkeDlicGFKUi0yYXNTOUNvWUpZNDZtSEFQWmQ1MHU0R2NOQ0xzeTE4a0hJTmdrZHJTNFh4VXc0Qi1ZVi1rekN6b1czNWdIeno0UUhvYlJDSkhIT0l1RmVLOVBiTjR3TUxFbE1kcFpv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Takes Recent Album Criticism Personally
+
+- first seen: 2026-10-07 21:57 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly very sensitive to criticism regarding her recent album, which has been described as a flop. Sources indicate that she takes such feedback very personally.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxNYTVtVnFDUjVFMHRRTklnV0U1Y0s4dl82MWd5ckF2QzVlcFVmbEZLM25DSUZKZ1k3Z1d0MzQwd0tpUmkxUHpLM0RfZlltRkJrZXBJNzZUd3NWVHNXT0diS2xzVElWQkxGakhqMF9RaXBjdl9yakdvZ2g1OTZFNGpvN1pCLTFmT1ZFZzZ5SEtfTHMwUlRoUTVBWm4xSUtRcl8wSTBXR1pESEt0VUdr?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Shares Insight into Birthday Dinner with Taylor Swift
 
@@ -51,14 +131,6 @@ Stories: 84
 - sources:
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMid0FVX3lxTE01ME4yZ25iS1VUNTNZVE1ocTdUMlZaNXJ2enRobm55Q0txSTZhOWMtYlpVZmE5anBrSVlkQ2R1YXZ2M3NtWktTbHhKMUN4ZUZmRVhVTFBQdWVTaUtBd2hZSTZlS21TY0xGeXFhMTZZVW02TVJjaFNZ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Trainer Indicates Taylor Swift's Impact on Travis Kelce's Fitness
-
-- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A trainer has suggested that Taylor Swift may be influencing the fitness regimen of NFL player Travis Kelce. This statement draws attention to their relationship and its potential effects on Kelce's performance.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxNUjhMbGExajJwc3lLLV9FR2hMc3JCQ1hlU0RuVXNZZ05MS0VfRHE4endXcWFuZy02T3ZlOUpvSU1jdHV1eGFKSjd3XzBpTHdVVjA0SEhzcmE1U1M4TEloSE5sMUZLUnhqOFZWbUtXZFRDYk9Kc3JGcW1zZ0pabW9ieDJlUTZNdDFxOUVQRDRReURfMXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce Coordinated Looks Highlighted
 
 - first seen: 2026-10-07 16:23 UTC | category: fashion | importance: 5
@@ -83,6 +155,15 @@ Stories: 84
 - sources:
   - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNTnVmbHBMYmk0RnpVZmE2U2dibWF1VnRaU0d2RW5PeUcwS3V6ZUpIeTVjbUlzOGRXM0hOQ1RWU1Q4c3psT3hJNVVCUmFraHVHeTZNN0c5RDBRMTFOaWFsY3ZxV25jTHp3Wlltdk1pVXh1S0VKVlBqc1d4YUlWemVfV28tMUI4MjFsX0NTYmNOSEJsTUNKMnlHbkRn?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Trainer Indicates Taylor Swift's Impact on Travis Kelce's Fitness
+
+- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: A trainer has suggested that Taylor Swift may be influencing the fitness regimen of NFL player Travis Kelce. This statement draws attention to their relationship and its potential effects on Kelce's performance.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUk8tMEhfek9uaWgzLW5FY3ZsUktrTU43U2RQbmY4ZEhPOG1SN3IwQ3dlbFNrQWE4aWM0bTlmNThhU3JiX2xKZzlMYV9YS0RfdWhnNUd2a1pkdHFUeXJQcHlIYkh2WXNkc04yZWxkaldVSlFKTUNITDdsZjNNZUQ1QUNwRmoxWTl5Y3B2Ml84cFVWYV9wY243bkJBRjNOeDFweGtr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxNUjhMbGExajJwc3lLLV9FR2hMc3JCQ1hlU0RuVXNZZ05MS0VfRHE4endXcWFuZy02T3ZlOUpvSU1jdHV1eGFKSjd3XzBpTHdVVjA0SEhzcmE1U1M4TEloSE5sMUZLUnhqOFZWbUtXZFRDYk9Kc3JGcW1zZ0pabW9ieDJlUTZNdDFxOUVQRDRReURfMXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift approaches Beatles' record of 20 Hot 100 No. 1s
 
 - first seen: 2026-10-07 07:11 UTC | category: music | importance: 8
@@ -90,15 +171,6 @@ Stories: 84
 - summary: Taylor Swift is nearing the record of 20 Hot 100 No. 1 hits, previously held by The Beatles. This milestone highlights her significant impact on the music charts.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUE9XZWlMVVpkcTRWbUt3OHBIV1laV0JfSlp3ZmFVeExqc2E2WlNMTFZCVTNCVmRTcjU3SkVDanZvZHRKX3dBazQ1MTd1ajZpN0MwS0pzR3RUTjFJS21DSG5qYVE2a3Ayd0VyTjU5a1dBUjJveFpGS0NlNmRYOVpIeGZHQjZFMm1NLXlEYWszd19kTEJET1ZZVDhpbFFWaG9uWkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
-
-- first seen: 2026-10-07 07:11 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The Bratenahl board has delayed a tree plan for the property owned by Taylor Swift and Travis Kelce due to a height dispute. The decision reflects ongoing local governance issues related to the couple's real estate.
-- sources:
-  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMixgFBVV95cUxPbW1hck5WaGlQZjEzbDdPX2NxUlhBbnZ1OWItS0g5S0NONkJyU2JOMjlwLU43U1lVNGoxWGNhcVdfMjc2TGg5OF9hZlJwdnhHNHptZ0lUT0VQWWF4SGdvQ3FUWXc0SkVjUTR0NkdycnA2dGVzcnhXQkZVRXNWX2pZNGlSQURRT1lYWGhGMHVHa3VwdXZxbzAwZlBXcEdFQ3c3RnlDUklGTldLaGlfSWNsX2RXTlpkb0MxNmloLVMydy1CdFRObFE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## The Butler Collegian Reviews Taylor Swift’s ‘The Encore’
 
@@ -108,6 +180,16 @@ Stories: 84
 - sources:
   - [unverified] The Amherst Student — https://news.google.com/rss/articles/CBMijgFBVV95cUxNdjBXdnV0MVkzNFRMLTRiOVBCTG5idU9hc3c0RklEZ1JSZjVTYmRWTEZUT2JrYjRVMWUxSFZla3hLSGZrdXcwUkdjU3prUFdyOU9laGJZOVdrTGF2Q0dQQ1FLaldNZmxzajdSM0d1SE9VbGN4LTJVZVRSX2d2akVqQWxkMjdoUmJ0bm5MV1V3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Butler Collegian — https://news.google.com/rss/articles/CBMijAFBVV95cUxNZmpfd3pkb185YjZ6QXRPQ1JQWGZVRW9UZGJJZWpNTG5CWnMxeG0xd09vY0JIb2cxNU1Va29jWDNQaFNMYW9hYUlnT2VEeDZWcFdlSHJvcVJqYVk4M2lLamc0TENweno1aXV6MVdDY2lPcDMxN3F2R0c3ek9vMnZhazIzOV9KQ3Y1REpjYQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
+
+- first seen: 2026-10-07 07:11 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: The Bratenahl board has delayed a tree plan for the property owned by Taylor Swift and Travis Kelce due to a height dispute. The decision reflects ongoing local governance issues related to the couple's real estate.
+- sources:
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMixgFBVV95cUxPbW1hck5WaGlQZjEzbDdPX2NxUlhBbnZ1OWItS0g5S0NONkJyU2JOMjlwLU43U1lVNGoxWGNhcVdfMjc2TGg5OF9hZlJwdnhHNHptZ0lUT0VQWWF4SGdvQ3FUWXc0SkVjUTR0NkdycnA2dGVzcnhXQkZVRXNWX2pZNGlSQURRT1lYWGhGMHVHa3VwdXZxbzAwZlBXcEdFQ3c3RnlDUklGTldLaGlfSWNsX2RXTlpkb0MxNmloLVMydy1CdFRObFE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxOa2VqUnVzZmtmejRxYUthQ0pFWVlJbHBNMHVOcmNvV1dHYXZEdTBHejhOMm51bzJ4WTl3WjYyYnNpSXMtSTFfR21JRUxyV055NGJFX2lLWWV4cm15ZXZBX0R4NS13WS12SGZ2TEhUVnJVODl5SmJQWHZudFc1SGJmV0NadlRmRWpoTTdZdjByRXc2cThEemtnb3M0RFpvQ2NLX21SWVJKT0NkU0dpNXlubjR4eE8ydHdoRnM5cTMxR18wUkdDVkVQRnp3RQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'Patient Zero' Debuts at No. 1
 
@@ -672,53 +754,3 @@ Stories: 84
 - summary: A former football player from the Raiders has issued a warning to Taylor Swift that is gaining attention ahead of the Sunday game. The comments have sparked discussions among fans and media outlets alike.
 - sources:
   - [unverified] OregonLive.com — https://news.google.com/rss/articles/CBMizgFBVV95cUxQNFduekhPd2dKc3dFV2dqb2lkVjBLMGpIYmY5dWZJY2FNdlF3ZWZxSmlEcGRSRlBtSTgyNGpqZElXczZRRkVLWTZlekdmRmxyZUw5U1U3TnE4c0lUdUR0ZzlfV0JiRU5OeVNKM1YtT1pmSVB1dzN3NkxNWUF1R0lacTlDV0ZvZ0lrZEdIM2NXaGdudTFzWk5ic0otNGVaNGJOQmNCUHo4YU1HdzgtUnFYQndvTExpUzM0Q1RwTFlDVXF0ekp2M2ZxUGk2M08xZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Attendance at Travis Kelce's Game on October 4
-
-- first seen: 2026-10-04 20:07 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the speculation around Taylor Swift potentially attending Travis Kelce's game on October 4. It provides information on what is currently known regarding her plans for the event.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPLWVzRWo3X3RMRjl5NkdRZGlaY2JvN0pvbTl3d2pqS3VKZmpnUFlHLTV5eF9xdWhwWlNjbzBXVnd0ZUVqTDNBejFLUHBsYkRkY0wwTnlpdnlKcnpyc1VmUFpndlJ3UmpLT1ZMa2ZkRjRvV0M3ZjJPSVVEbHdTMEEyZGNFNFJVa09LS294SC1PQl8tenFhdm0tWmdRWmxSeEZsZTJKal9sWWJVYUVTVEZXT214RThfblg1?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'SNL' Appearance Supports Fan Theories
-
-- first seen: 2026-10-04 20:07 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift's recent appearance on 'SNL' has confirmed a number of theories proposed by fans, sparking discussion and interest.
-- sources:
-  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMickFVX3lxTE9fUGh6eGhWZHlyZnZoTnNYajFvMk1BOG02ZmIzdnpDNUg3SXJoekpacHNlcnlSNGFrMEFkWktrSkNRbFFpdFowcjBSWGkzU2lLenVzeksxdWNYV0g1TzdRNG1CTXRDeFQxOWtOUEVFUldIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxQN1FGcmtEN2hzN2NGMnVINHU3OU5ma290X1hoVHctZk1xNFhGQTFaY1dCa29fcHpVcGRtcEJ0VUR0S3RjaU12dW5Vdkc1RmViNG9YQy0yN3FGNzJhMldORGNUaDhqRDR4Z29KX3NpNUtlOXVoejdBSE9JaVpPc09jd1hab0dfQUN4eTBhNHNsbU1EVzJiNXJoYkM5V0lvOERO?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Support Role for Dakota Johnson Post-Breakup
-
-- first seen: 2026-10-04 20:07 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent piece by ELLE, Taylor Swift talks about her supportive role in Dakota Johnson's life following a breakup. The insights reflect their friendship and the emotional support provided during difficult times.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMioAFBVV95cUxPOVRRRVlrZ2s5dFhyaVItYVVwMGFoeWdydzd4MGI5WlBQSlNIai00dTh2SmlmbTNYVEpKREt2a09rZDdPLTdBLS1XSmc4c1dmWnF4NF9LUTZCbC0zSUhmdU14UUhwY25jckhGQmI2WmtFcE9qS3hSczMxdXRBNUh2REVBVFM3OHJ5cHY4TC03ZDVXSHZPcjZvSjd0Nmx4WkNh?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Highlights Plaid Minidress as Fall Essential
-
-- first seen: 2026-10-04 20:07 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases the plaid minidress in a recent feature by ELLE, emphasizing its status as a must-have for the fall season. The piece highlights her fashion choices and sets trends for the upcoming months.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxNWURWWTZDZEpBQzViby1aNGdHUE13RmhVYktEcmItS0lVX1NZVmtXM2FvbnZVdGc5RkFtWDJoNDExZ1hzSThoU3E0N3dZa045WGs2QmhVTGxTcjdjaHFaaWdmTzdiRnpvbUVkaUpNNUw2YXB5U1lYeGZNSzNtSDdEUURqQUhQcEtYWGdLam1qNVJCNUh2ZEgtMUIwY2U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Working on New Album
-
-- first seen: 2026-10-04 20:07 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: According to a report, Taylor Swift is currently in the process of creating an entirely new album. The news emphasizes her commitment to her fans, ensuring she stays connected with her Swifties.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPdjRGWUExUHp4eGpPNTMtMDYya2V0NUFHQ2lZcmVnYzVTZVRSZnVyTUk2SzFQeUJibzg2VEpZY2tSMnhoUlUzR3Z2YlRLT0JwNHg1SkRqSHZqZk1ISW5ZLUdXZFF1dXZrYUd5NlpCSmNqMkM0eXVQTkNQMm5vNnVEYUVmX21nc2owYkFlVUpoU21qZjhFTDFadnBMUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Attendance Update on Taylor Swift at Chiefs-Raiders Game
-
-- first seen: 2026-10-04 20:07 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Latest information is being gathered about Taylor Swift's potential attendance at the Chiefs-Raiders game today.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQSlNlQUJIVmhoZzE1eXc5Q3R4a01EclRTRExwcjdGSUc0Z3doU2FRUUNxdnFwYTF0MUY1TmN0WmVXTFZXYnEzQWhNN1owazhMaUZZRHhUd3I2SHgyZ1RQZUZKNXdhUjFsNnN0QzBBMXpvQklSZUxuMGZiZ3pQNDhvYzNiMlJLMFBuVm12TkQ3dTVaWENXRVpsQVllMWNMZmZUQnZQUw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSXk3TzVyaHBBOUFHNno3SGstVEFyQ1FHQW9XZFBia1R6RmtoNEpiN1Itb0xNVFNjcXo2dnEteFNyeWxlOUpqc1NlWVdORWZqdVVLNU1OaU9KOWhlTFVLdVoxQ3R4NkZRWFJWSTkwdUR4dnJNc1FLbTZrMGNKTFZMUGNpRWVmaWg0?oc=5&hl=en-US&gl=US&ceid=US:en
