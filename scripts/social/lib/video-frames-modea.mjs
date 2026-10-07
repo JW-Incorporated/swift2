@@ -139,6 +139,7 @@ export async function sourceVideoFrames(id, scratchDir, { exec = execFile, maxFr
   const videoFile = await downloadVideo(id, videoDir, { exec, cookiesFromBrowser });
   try {
     const duration = await probeDuration(videoFile, { exec });
+    await rm(frameDir, { recursive: true, force: true }); // stale frames from a crashed prior run
     const raw = await extractSceneFrames(videoFile, frameDir, duration, { exec });
     return { ...(await filterFrames(raw, { maxFrames })), rawCount: raw.length };
   } finally {

@@ -1,6 +1,12 @@
+import { mkdtemp, realpath, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
+import { FRAMES_SCRATCH_DIR } from './import-photo-library.mjs';
+import { resolveFrameFile } from './lib/frame-path.mjs';
 import { blocky, stampLogo } from './lib/frame-fixtures';
-import { ModeAUnavailable } from './lib/video-frames-modea.mjs';
+import { ModeAUnavailable, sourceVideoFrames } from './lib/video-frames-modea.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { buildCandidate, runSourcing, sourceStills, stillUrls, watchUrl } from './source-video-frames.mjs';
 
@@ -151,5 +157,39 @@ describe('runSourcing', () => {
     const l = ledger();
     await runSourcing([videos[0]], l, { mode: 'b', limit: 1, scratch: 'x', modeB: async () => ({ frames: [] }) });
     expect(l.processed.aaaaaaaaaaa).toMatchObject({ frames: 0 });
+  });
+});
+
+describe('Mode A frames land inside the importer jail', () => {
+  const root = path.resolve(__dirname, '..', '..');
+
+  it('a frame written by sourceVideoFrames resolves through resolveFrameFile(<scratch>/frames)', async () => {
+    const scratch = await mkdtemp(path.join(os.tmpdir(), 'jail-'));
+    const exec = async (cmd: string, args: string[]) => {
+      if (cmd === 'yt-dlp') {
+        const out = args[args.indexOf('-o') + 1].replace('%(ext)s', 'mp4');
+        await writeFile(out, 'video');
+        return { code: 0, stdout: '', stderr: '' };
+      }
+      if (cmd === 'ffprobe') return { code: 0, stdout: '10\n', stderr: '' };
+      await writeFile(args[args.length - 1].replace('%04d', '0001'), await blocky(1));
+      return { code: 0, stdout: '', stderr: 'pts_time:2' };
+    };
+    const out = await sourceVideoFrames('abc', scratch, { exec });
+    expect(out.kept).toHaveLength(1);
+    const resolved = await resolveFrameFile(pathToFileURL(out.kept[0].file).href, path.join(scratch, 'frames'));
+    expect(resolved).toBe(await realpath(out.kept[0].file));
+  });
+
+  it('the importer default jail is <repo>/.artifacts/video-scratch/frames and the default scratch frame path is inside it', () => {
+    expect(FRAMES_SCRATCH_DIR).toBe(path.join(root, '.artifacts', 'video-scratch', 'frames'));
+    const defaultScratch = path.join(root, '.artifacts', 'video-scratch');
+    expect(path.relative(FRAMES_SCRATCH_DIR, path.resolve(defaultScratch, 'frames', 'abc', 'f_0001.jpg')).startsWith('..')).toBe(false);
+  });
+
+  it('runSourcing hands Mode A the scratch root (not a per-video dir)', async () => {
+    const modeA = vi.fn(async () => ({ kept: [] }));
+    await runSourcing([video('aaaaaaaaaaa')], { version: 1, processed: {} }, { limit: 1, scratch: '/s', modeA, modeB: vi.fn(), warn: () => {} });
+    expect(modeA).toHaveBeenCalledWith('aaaaaaaaaaa', '/s', expect.anything());
   });
 });

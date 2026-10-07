@@ -23,7 +23,7 @@
 // Usage:
 //   node scripts/social/source-video-frames.mjs --output out.json [--videos 8] [--mode auto|a|b]
 //     [--budget-minutes 20] [--max-frames 25] [--max-candidates 60: stop starting new videos past this] [--ledger social/video-frames-ledger.json]
-//     [--scratch .artifacts/video-scratch] [--cookies-from-browser chrome] [--include-thumbnail]
+//     [--scratch .artifacts/video-scratch (tests only — the importer jail is fixed at .artifacts/video-scratch/frames)] [--cookies-from-browser chrome] [--include-thumbnail]
 //   node scripts/social/source-video-frames.mjs --probe     # Mode B yield on ALL official ids, no writes
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -108,7 +108,7 @@ export async function runSourcing(videos, ledger, opts = {}) {
     let usedMode = null;
     if (mode !== 'b' && !aBlocked && now() - started < budgetMs) {
       try {
-        const out = await modeA(video.id, path.join(scratch, video.id), { maxFrames, cookiesFromBrowser });
+        const out = await modeA(video.id, scratch, { maxFrames, cookiesFromBrowser });
         if (out.logo) warn(`source-video-frames: ${video.id} dropped whole — persistent ${out.logo.corner} logo in ${Math.round(out.logo.ratio * 100)}% of frames.`);
         frames = out.kept.map((f) => buildCandidate(video, { key: `t${Math.floor(f.time)}`, sourceUrl: pathToFileURL(f.file).href, seconds: f.time }));
         usedMode = 'a';
