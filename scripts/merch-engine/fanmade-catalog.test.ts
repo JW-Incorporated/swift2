@@ -12,10 +12,7 @@ import { FAN_MADE } from '../../supabase/seed/merch/fanmade.mjs';
 // padded to 25; the shortfall is recorded on the acceptance child per
 // Fable ruling JWL-ARB-t_aec44307-01 ("If fewer than 25 qualify, record
 // the true shortfall").
-// 22 -> 21 (link sweep #4324, 2026-09-30): one Etsy listing ("I Protect the
-// Family" sticker) is gone ("This item is unavailable"), so it was removed
-// instead of shipping a dead shop link; the evidence-backed count is now 21.
-const MINIMUM_LAUNCH_ITEMS = 21;
+const MINIMUM_LAUNCH_ITEMS = 22;
 
 // Independently-evidenced listings come from more than one retailer/lane
 // (an original Shopify-hosted listing plus a batch of Etsy listings from
