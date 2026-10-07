@@ -38,7 +38,10 @@ PATTERNS = [
     (r"\bgit\s+clean\b", "git clean"),
     (r"--no-verify\b", "verification bypass (--no-verify)"),
     (r"\bchmod\s+(-R\s+)?777\b", "chmod 777"),
-    (r"\bgh\s+(secret|variable)\s+(set|delete)\b", "gh secret/variable mutation"),
+    (r"\bgh\s+secret\s+(set|delete|remove)\b", "gh secret mutation (founder-only)"),
+    (r"\bgh\s+variable\s+delete\b", "gh variable delete (a deleted SOCIAL_FREEZE reads as unfrozen)"),
+    (r"\bgh\s+variable\s+set\b",
+     "raw gh variable set (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason \"...\"` for allowlisted switches)"),
     (r"\brepowise\s+init(?!.*--no-editor-setup)", "bare repowise init (edits ~/.claude/settings.json machine-wide — use the repowise-setup skill instead)"),
 
     # --- swift2-specific, below this line ---

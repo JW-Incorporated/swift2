@@ -55,6 +55,16 @@ assert_denied "gh workflow run remove-x-site-screens.yml" \
 assert_allowed "gh workflow run unrelated.yml" \
   "gh workflow run unrelated.yml"
 
+# --- gh secret/variable mutation vs the set-switch wrapper (2026-10-06) ---
+assert_denied "gh secret set" "gh secret set X_API_KEY --body abc"
+assert_denied "gh secret delete" "gh secret delete X_API_KEY"
+assert_denied "gh variable delete" "gh variable delete SOCIAL_FREEZE"
+assert_denied "raw gh variable set" "gh variable set SOCIAL_FREEZE --body false"
+assert_denied "raw gh variable set with --repo" "gh variable set BOT_CHAT_ENABLED --repo JW-Incorporated/swift2 --body true"
+assert_allowed "set-switch wrapper" \
+  "node scripts/ops/set-switch.mjs BOT_CHAT_ENABLED true --reason \"launch\""
+assert_allowed "gh variable get" "gh variable get SOCIAL_FREEZE"
+
 # --- unrelated command stays allowed ---
 assert_allowed "plain unrelated command" \
   "echo hello"

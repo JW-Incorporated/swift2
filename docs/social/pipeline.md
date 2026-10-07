@@ -16,7 +16,10 @@ and what has broken before.
 and files each item under `social/posted/` (success) or `social/failed/`
 (3 failed attempts). Full schema and the founder crisis-stop switch
 (`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
-in `social/README.md`. As of 2026-09-10, reaching `social/queue/` on `main`
+in `social/README.md`. Agents can engage the freeze themselves
+(`node scripts/ops/set-switch.mjs SOCIAL_FREEZE true --reason "..."`, logged
+in `docs/ops/switch-ledger.md`); the wrapper refuses any other value, so only
+the founder lifts it (founder decision 2026-10-06). As of 2026-09-10, reaching `social/queue/` on `main`
 at all requires a founder's PR merge (the approval gate above); from there,
 `isDue` still just checks `scheduledAt`, so an approved item posts when its
 `scheduledAt` arrives with no further per-item check. `approvedBy`/

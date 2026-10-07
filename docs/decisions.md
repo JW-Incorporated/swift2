@@ -8743,6 +8743,12 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 
 **Why.** `link-sweep` and `merch-awin-sync` were red on every daily run 2026-10-02..06 and nobody was alerted: the check only covered a hand-kept list. Alerts #4996 and #5174 also stayed open after a success because the close path only ran in the daily 14:35 pass and only looked at `schedule` events.
 
+## 2026-10-06 — Agents may flip allowlisted non-secret switches (founder decision, Joey)
+
+**Decision.** `scripts/ops/set-switch.mjs <NAME> <VALUE> --reason "..."` lets agents set an allowlist of NON-SECRET repo variables: every `*_ENABLED` variable the workflows read (`AWARENESS_LANE_ENABLED`, `BOT_CHAT_ENABLED`, `CODE_SCANNING_ENABLED`, `COMMUNITY_CRAWL_ENABLED`, `COMMUNITY_SCAN_ENABLED`, `CONCERT_PHOTO_SOURCING_ENABLED`, `REPLY_NOTIFIER_ENABLED`; true/false), `CONTENT_AUTOMERGE_FREEZE` (true/false), `COMMUNITY_CRAWL_BUDGET` (positive integer), and `SOCIAL_FREEZE` with value `true` ONLY. Secrets, `MARJORIE_EMAIL`, `DISCORD_FOUNDER_IDS`, `OWNER_DISCORD_ID`, `HOME_RELAY_URL` and any name containing TOKEN/KEY/SECRET/PASSWORD/WEBHOOK/ID/EMAIL stay founder-only. The wrapper never deletes (a deleted `SOCIAL_FREEZE` reads as unfrozen) and logs every flip to `docs/ops/switch-ledger.md`. guard.sh still denies all `gh secret` mutation, `gh variable delete` and raw `gh variable set`.
+
+**Why.** The blanket guard deny forced founder relays for harmless flips (HA #56/#60/#61/#65/#68/#112 freeze flips; #84/#54 feature flags). Agents may now engage the social freeze, but only the founder lifts it.
+
 ## 2026-10-06 — CI check: workflow jobs must install the deps their scripts import
 
 **Decision.** `npm run check:workflow-deps` (ci.yml build-full) fails when a workflow job runs a repo node/tsx script that imports an npm/workspace package (transitively through relative imports) without installing deps, or imports a gitignored `*.generated.*` module without `npm run sync:content`. Builtin-only scripts keep the no-install fast path. Fixed alongside: merch-awin-directory-shortlist/recommendations, merch-e5-evidence, routine-marjorie-weekly-review (collect), merch-audit-detect/authoring (sync:content).
