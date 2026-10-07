@@ -130,6 +130,8 @@ jobs:
         run: |
           git lfs version
           git lfs install --local
+          git config lfs.locksverify false
+          git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
 
       # Scheduled runs always file. A manual run can ask for a dry run, which
       # makes zero GitHub calls and only reads RSS.
