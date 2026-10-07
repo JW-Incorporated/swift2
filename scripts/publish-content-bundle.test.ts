@@ -27,6 +27,30 @@ describe('publishBundle', () => {
     expect(Array.isArray(eras)).toBe(true);
   }, 60_000);
 
+  it('writes the remote app config next to current.json, never as a manifest entry', async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), 'publish-content-bundle-appcfg-'));
+    const { manifest, appConfigPath } = await publishBundle({ outRoot: dir, resync: false });
+
+    expect(appConfigPath).toBe(path.join(dir, 'app-config.json'));
+    const written = JSON.parse(await readFile(appConfigPath, 'utf-8'));
+    const source = JSON.parse(await readFile(path.join(process.cwd(), 'config', 'mobile', 'app-config.json'), 'utf-8'));
+    expect(written).toEqual(source);
+    expect(existsSync(path.join(dir, manifest.bundleVersion, 'app-config.json'))).toBe(false);
+    expect(JSON.stringify(manifest.files)).not.toContain('app-config');
+  }, 60_000);
+
+  it('fails the publish when the app config is invalid', async () => {
+    dir = await mkdtemp(path.join(os.tmpdir(), 'publish-content-bundle-badcfg-'));
+    const badConfig = path.join(dir, 'bad-app-config.json');
+    await writeFile(badConfig, JSON.stringify({ routeFlags: { song: 'nope' } }));
+    const outRoot = path.join(dir, 'out');
+
+    await expect(
+      publishBundle({ outRoot, resync: false, appConfigPath: badConfig }),
+    ).rejects.toThrow(/invalid app config/);
+    expect(existsSync(path.join(outRoot, 'current.json'))).toBe(false);
+  }, 60_000);
+
   it('resyncs a clean checkout before writing the first published current.json pointer', async () => {
     dir = await mkdtemp(path.join(os.tmpdir(), 'publish-content-bundle-resync-'));
     const publishedRoot = path.join(process.cwd(), 'apps', 'web', 'public', 'content');

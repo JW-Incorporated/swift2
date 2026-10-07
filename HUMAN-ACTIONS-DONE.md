@@ -3,6 +3,38 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #112 · 2026-10-05 · done · Briefly freeze social posting so two bot-fix PRs can merge — "Done 2026-10-05: SOCIAL_FREEZE flipped true for #5204/#5207, both merged 03:48Z, flipped back to false (verified). The A6 CI freeze requirement was removed in #5211, so this ask won't recur." · by chat
+- #108 · 2026-10-05 · done · Give the ops-fixer its own token for workflow-file fixes — "Joey created the ops-fixer PAT (classic, scopes Repo and Workflows) and saved it as OPS_FIXER_PAT 2026-10-05; verified via gh secret list" · by chat
+- #106 · 2026-10-05 · done · #4707 has had no activity for 4 days — "owner replied assign in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556802849772540005" · by chat
+- #107 · 2026-10-05 · done · #4719 has had no activity for 4 days — "closed via Discord reply" · by discord
+- #101 · 2026-10-05 · done · S5: test the new app on your Android phone — "owner in chat 2026-10-05 12:31 PDT: checked the app on Android, no issues found, looks great" · by chat
+- #103 · 2026-10-05 · done · Set SUBMISSIONS_HASH_SALT in Vercel production — "owner said '103 done' in chat 2026-10-05 10:55 PDT" · by chat
+- #105 · 2026-10-05 · done · Store data-safety form still says the app runs analytics — "owner decided `keep` in chat 2026-10-05 10:49 PDT; revisit at the next store build (noted on draft #5133)" · by chat
+- #104 · 2026-10-05 · skip · Rotate the notifications metrics secret — "owner declined rotation in chat 2026-10-05 10:46 PDT" · by chat
+- #102 · 2026-10-05 · done · Skim the corrected privacy-policy wording (PR #5154) — "owner said '#102 looks good' in chat 2026-10-05 10:46 PDT; PR #5154 merged" · by chat
+- #98 · 2026-10-04 · done · Scrub ~70 unhashed FB names leaked into engagement_lead now, or wait? — "owner said answered in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602 (decision scrub recorded on issue #4885, repair shipped in PR #4951)" · by chat
+- #70 · 2026-10-04 · done · Confirm the first automated Facebook export — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
+- #88 · 2026-10-04 · done · Finish the weekly Facebook export setup — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
+- #98 · 2026-10-03 · done · Expo build minutes are used up until Nov 1 (~5 min) — "owner decided in chat 12:04 PDT: reroute (move release orchestration to GitHub Actions); PM executing" · by chat
+- #97 · 2026-10-03 · done · Make the parity check required on main (~3 min) — "owner verified 08:48 PDT — ruleset protect-swift2-main requires [\"build\",\"parity-gate\"]" · by chat
+- #96 · 2026-10-03 · done · Add Associated Domains to the iOS signing profile (~10 min) — "owner regenerated the App Store provisioning profile via EAS at 08:54 PDT (new Developer Portal ID 57SBZ45RQA); release train re-run 37134936992 started" · by chat
+- #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
+- #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
+- #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
+- #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
+- #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
+- #82 · 2026-10-01 · done · GH_DISPATCH_TOKEN can't dispatch workflows — "GH_DISPATCH_TOKEN is SOCIAL_POSTER_PAT (routine-template.yml); fixed by #86's token, proven by run 36889947595" · by chat
+- #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
+- #91 · 2026-10-01 · skip · May Tree post site-made share cards in the feed? — "Joey in chat 2026-10-01: wrong question for the founder — what Tree posts is Marjorie's and Tree's strategy call (Fable rules on taste); shipped as #4696" · by chat
+- #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
+- #49 · 2026-09-30 · done · Add the shared Community Tasks acknowledgement secret — "Joey said in chat 2026-09-30: close 49; GH secret set, Vercel Production+Preview set and redeployed, manual daily mailer run 36739720371 logged no COMMUNITY_ACK_SECRET unset" · by chat
+- #63 · 2026-09-30 · done · Add instagram_manage_insights scope — "Joey saved regenerated IG_ACCESS_TOKEN (with instagram_manage_insights + instagram_manage_comments) and said close after check; growth-snapshot run 36739561217 succeeded on new token (IG followers + 10 post-metric reads); insights call itself not exercised" · by chat
+- #43 · 2026-09-30 · done · OS-004 — Push credentials on EAS — "Joey said in chat 2026-09-30: close 43" · by chat
+- #67 · 2026-09-30 · done · Add DISCORD_MARJORIE_WEBHOOK_URL to the social environment — "Joey confirmed in chat 2026-09-30: secret added on social env (page shows it updated now); close 67" · by chat
+- #84 · 2026-09-30 · done · Turn on the recurring concert-photo sourcing crawl — "Joey asked agent to close verified-done items 2026-09-30; CONCERT_PHOTO_SOURCING_ENABLED=true (set 2026-09-22); scheduled run 2026-09-28 succeeded" · by agent
+- #83 · 2026-09-30 · done · Give the swift2 board a Vercel API token — "Joey asked agent to close verified-done items 2026-09-30; gh secret list shows VERCEL_TOKEN (set 2026-09-23)" · by agent
+- #81 · 2026-09-30 · done · PR #4220 (social-poster branch) red for 7 days — "Joey asked agent to close verified-done items 2026-09-30; PR #4220 CLOSED 2026-09-25, not merged" · by agent
+- #54 · 2026-09-30 · done · Turn on Code Scanning and set CODE_SCANNING_ENABLED — "Joey asked agent to close verified-done items 2026-09-30; default-setup configured, CODE_SCANNING_ENABLED=true, codeql.yml push run 2026-09-25 succeeded, alerts populated" · by agent
 - #48 · 2026-09-16 · done · Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — "Play internal testing serves 1.0.0 (13), status completed; uploaded bundle sha256 matches the local EAS artifact exactly. PLAY_SERVICE_ACCOUNT_JSON is now set, so the train submits itself." · by owner
 - #77 · 2026-09-15 · done · Restore Claude organization access for GitHub routines — "Joey: 'claude is back on'; bounded GitHub OAuth probe 34978823809 passed. Basic testing authorized up to 3 USD." · by chat
 - #76 · 2026-09-14 · done · Update the Hermes doorbell to doorbell-v2 — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756" · by agent
@@ -11,6 +43,7 @@
 - #73 · 2026-09-13 · done · Limit the Doorbell bot to #longlive-marjorie and #longlive-tree — "Joey confirmed in chat 2026-09-13: Doorbell bot limited to #longlive-marjorie and #longlive-tree" · by chat
 - #74 · 2026-09-13 · done · Create the GitHub key the Doorbell uses to wake Marjorie and Tree — "Joey confirmed in chat 2026-09-13: fine-grained key longlive-doorbell-dispatch created and saved" · by chat
 - #71 · 2026-09-13 · done · Send two or three short Discord messages so the bot chat can be proven — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1548841758950162463" · by chat
+- #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
 - #69 · 2026-09-13 · done · Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree — "owner said done in chat; reply-poll run 34774300277 read the channel without a 403" · by chat
 - #68 · 2026-09-13 · done · Freeze, merge PR #4202 (social-poster alert reroute), unfreeze — "PR #4202 MERGED; SOCIAL_FREEZE verified false via gh variable list" · by agent
 - #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord

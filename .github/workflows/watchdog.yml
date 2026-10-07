@@ -39,7 +39,14 @@ on:
   schedule:
     - cron: "35 14 * * *"
     - cron: "5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      # Set by scripts/ops/clock-dispatch.mjs: run as the hourly trigger (smoke
+      # check only), not as a manual daily run (brief/mailer-retry/cadence jobs).
+      hourly:
+        description: "Clock-dispatched hourly run: skip the daily-only jobs"
+        type: boolean
+        default: false
 
 permissions:
   issues: write
@@ -52,11 +59,22 @@ jobs:
   watchdog:
     runs-on: ubuntu-latest
     environment: ops
+    # Serialises a cron + clock double-fire of the hourly smoke check (alert
+    # upserts are find-then-create); the daily run keeps its own lane so a
+    # queued hourly run can never replace it as the one pending run.
+    concurrency:
+      group: watchdog-${{ github.event.schedule == '35 14 * * *' && 'daily' || 'hourly' }}
+      cancel-in-progress: false
     steps:
       # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
       # and send-mail.py, which need the repo checked out -- this workflow
       # previously ran entirely on gh/curl and never needed it.
       - uses: actions/checkout@v7
+
+      # Bots v2 W4: the brief check below runs repo scripts (status-note.mjs).
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
 
       # Daily-only gate (ALARMS gate #799, 2026-07-29): this job now also
       # fires hourly (see the `on.schedule` comment above) so the prod smoke
@@ -65,7 +83,7 @@ jobs:
       # still run on the daily cron and on a manual workflow_dispatch.
       - name: Check today's Founders' Brief exists
         id: brief
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -73,8 +91,8 @@ jobs:
           set -euo pipefail
           TODAY=$(TZ=America/Los_Angeles date +%F)
           TITLE="Founders' Brief — ${TODAY}"
-          FOUND=$(gh issue list --repo "$REPO" --label founders-brief \
-            --search "\"$TITLE\" in:title" --state all --json number --jq 'length')
+          # Bots v2 W4: the brief is now Marjorie's dated note on the status page.
+          FOUND=$(node scripts/marjorie/status-note.mjs today)
           echo "today=$TODAY" >> "$GITHUB_OUTPUT"
           if [ "$FOUND" -gt 0 ]; then
             echo "missing=false" >> "$GITHUB_OUTPUT"
@@ -285,7 +303,7 @@ jobs:
       # see that script's header). A workflow with no `schedule:` trigger at
       # all is skipped, same as the old per-entry `gh workflow view` guard.
       - name: Scheduled workflows healthy (cadence view)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -347,26 +365,56 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           fi
 
-          # NEW (task A1): 2 consecutive scheduled-run failures for a watched
-          # workflow opens a DEDICATED per-workflow self-healing issue,
-          # distinct from the combined cadence alert above (which only fires
-          # once NOTHING has succeeded inside the whole maxage window). This
-          # catches a workflow that ran recently — so the combined check
-          # above stays quiet — but has failed its last two scheduled runs in
-          # a row. Resolves automatically: the next scheduled success makes
-          # this loop close it, same upsert-alert.sh mechanism as every other
-          # alert in this file.
-          for ENTRY in $WATCHED; do
-            WF="${ENTRY%%:*}"
-            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
-              --limit 2 --json conclusion --jq '[.[].conclusion]')
-            COUNT=$(echo "$LAST_TWO" | jq 'length')
-            FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
+      # Per-workflow "failed its last 2 scheduled runs" alert (task A1, widened
+      # 2026-10-06). Targets are EVERY workflow file with a `schedule:`
+      # trigger (scripts/watchdog/scheduled-failures.mjs, minus its EXCLUDE
+      # list) — link-sweep and merch-awin-sync were red every daily run
+      # 10-02..06 unnoticed under the old hand-kept list. Runs on EVERY
+      # trigger (incl. the hourly clock dispatch) so a recovered workflow's
+      # alert closes within the hour instead of waiting for the 14:35 daily
+      # pass; OPENING (which comments on an existing issue) stays daily-only
+      # so a standing alert is not re-commented hourly. The latest settled
+      # schedule/workflow_dispatch runs count, so a clock-dispatched success
+      # closes it too.
+      - name: Scheduled workflows failing twice (per-workflow view)
+        if: (!cancelled())
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
+        run: |
+          set -euo pipefail
+          . scripts/watchdog/gh-retry.sh
+          OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
+          # Disabled workflows are skipped (their last runs say nothing about
+          # health now). If the lookup itself fails, fall back to all.
+          ACTIVE=$(gh workflow list --repo "$REPO" --all --limit 500 --json path,state \
+            | node scripts/watchdog/scheduled-failures.mjs active) || ACTIVE=""
+          for WF in $(node scripts/watchdog/scheduled-failures.mjs list); do
+            if [ -n "$ACTIVE" ] && ! printf '%s\n' "$ACTIVE" | grep -qxF "$WF"; then
+              continue
+            fi
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
-            if [ "$COUNT" -ge 2 ] && [ "$FAILS" -eq "$COUNT" ]; then
-              echo "@sffan15-sys — \`${WF}\`'s last ${COUNT} scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
-              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-            else
+            # Per-event lists: an unfiltered list lets push/PR runs crowd out
+            # the schedule/dispatch runs. Manual workflow_dispatch runs count
+            # too (the clock's dispatches need to) — accepted trade-off.
+            # An errored lookup must neither open nor close an alert.
+            RUNS=$({ gh run list --repo "$REPO" --workflow "$WF" --event schedule --limit 5 --json event,conclusion,createdAt \
+              && gh run list --repo "$REPO" --workflow "$WF" --event workflow_dispatch --limit 5 --json event,conclusion,createdAt; } \
+              | jq -s 'add') || { echo "::warning::run lookup failed for ${WF}; skipping"; continue; }
+            VERDICT=$(printf '%s' "$RUNS" | node scripts/watchdog/scheduled-failures.mjs verdict) \
+              || { echo "::warning::verdict failed for ${WF}; skipping"; continue; }
+            if [ "$VERDICT" = "alert" ]; then
+              if [ "$IS_DAILY" = "1" ]; then
+                echo "@sffan15-sys — \`${WF}\`'s last 2 scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+                scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+              fi
+            elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
               echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
               scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             fi
@@ -462,7 +510,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
+          IS_DAILY_RUN: ${{ (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *' }}
         run: |
           set -euo pipefail
           RED_AFTER_H=6         # a PR may be open and unhealthy this long before we shout (was 24h; auto-merge-keepup.yml now prevents the staleness class that made 24h necessary)
@@ -632,7 +680,7 @@ jobs:
       # that hid a five-day Karen outage a second time. Same idiom as that
       # step already uses.
       - name: Karen filed what she found (CIE ticket-filing check)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -798,7 +846,7 @@ jobs:
       # come after Node is pinned. Same daily-only gate as those: cadence
       # questions don't need an hourly look.
       - name: Vault Run scheduled-cadence check
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -826,7 +874,7 @@ jobs:
       # Read-only against HUMAN-ACTIONS.md — never writes to it (that file's
       # entry-numbering/SKIP-is-final convention is a separate concern).
       - name: Aged [BLOCKING] human actions (RULINGS-SOCIAL A6)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -850,7 +898,7 @@ jobs:
           fi
 
       - name: Work-ownership check (zero AI)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -942,7 +990,7 @@ jobs:
       # `!cancelled()` added 2026-08-15 (P0), same reasoning as the Karen and
       # work-ownership steps above.
       - name: Content lane liveness checks
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1014,15 +1062,15 @@ jobs:
 
       # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
       # fb-export-reminder.yml files a fresh "FB group export due — week of
-      # <date>" issue every Sunday; Joey closes it once he's run
-      # `npm run knowledge:fb-upload`. STALE_DAYS=9 mirrors the Karen
+      # <date>" issue every Sunday; the local Windows collector closes it
+      # after a fully successful run. STALE_DAYS=9 mirrors the Karen
       # staleness check above: 7-day cadence + a 2-day buffer, without
       # tolerating a second consecutive miss going unnoticed. Skipped
       # entirely (not an alarm) while HUMAN-ACTIONS.md #16 is still open —
       # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
       # so there is nothing yet for a real export to close.
       - name: Facebook export freshness
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1066,7 +1114,7 @@ jobs:
           AGE_DAYS=$(( ( $(date -u +%s) - $(date -u -d "$CLOSED_AT" +%s) ) / 86400 ))
 
           if [ "$AGE_DAYS" -gt "$STALE_DAYS" ]; then
-            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The weekly export task (proposal §4.7) may have stalled — \`npm run knowledge:fb-upload\` is the last step once this week's pages are saved." > /tmp/alert-body.md
+            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The local weekly collector (proposal §4.7; decision 2026-09-30) may have stalled — run \`npm run knowledge:fb-export\` to see and report its safe status." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "FB export ALARM (${AGE_DAYS}d since last close)"
           else
@@ -1088,7 +1136,7 @@ jobs:
       # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no
       # new secret, no HUMAN-ACTIONS item.
       - name: Knowledge engine freshness (current tier < 24h)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1126,3 +1174,32 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "knowledge-freshness ALARM (stale)"
           fi
+
+  # BACKUP dispatcher for the clock table (scripts/ops/clock-table.json,
+  # 2026-10-06). The primary clock is bot-chat-poll.yml (5-minute); GitHub drops
+  # most scheduled runs in this repo (this workflow's hourly cron was observed
+  # firing every 1-6h on 2026-10-05/06), so this only backs it up. Same script,
+  # per-entry throttle, never fails. Independent job (no needs), schedule events
+  # only: a clock-dispatched watchdog is a workflow_dispatch run, so this job
+  # never re-dispatches itself.
+  # workflow_dispatch with GITHUB_TOKEN is the documented exception that does
+  # start a run; the sweep's global concurrency group serialises any overlap.
+  triage-sweep-dispatch:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read # checkout only
+      actions: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Clock-dispatch the throttled workflow table
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/ops/clock-dispatch.mjs

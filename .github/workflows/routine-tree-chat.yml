@@ -15,6 +15,8 @@
 #                     stay in the channel and existing user threads are preserved,
 #                     and stops a duplicate run (message already ✅/❌). Its
 #                     outputs (reply thread, message link) outlive artifacts.
+#   typing (social)   beside `run`: shows Discord's "typing…" until `deliver`
+#                     starts (chat-typing.mjs); never blocks or fails a run.
 #   run (template)    Opus reads .scratch/chat-context.json and saves its reply
 #                     under .scratch/out/. No Discord secret is passed to it,
 #                     no PAT, no dispatch token, no git.
@@ -101,7 +103,7 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: node scripts/marjorie/chat-post.mjs thread --context .scratch/chat-context.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.thread.outputs.skip != 'true'
         with:
           name: chat-context
@@ -126,6 +128,36 @@ jobs:
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
+  # Discord "typing…" while the agent composes (scripts/marjorie/chat-typing.mjs,
+  # docs/ops/chat-poll.md). Parallel to `run` and in no job's `needs`, so it can
+  # never delay or fail the reply: it ends itself when `deliver` starts or `run`
+  # fails (it reads this run's jobs with the workflow token), and at 20 minutes.
+  # A missing Send Messages permission is a 403: one log line, exit 0.
+  typing:
+    needs: context
+    if: github.run_attempt == '1' && needs.context.outputs.skip != 'true' && !inputs.force_fail
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 22
+    continue-on-error: true
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Show typing until the reply is on its way
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
+        run: node scripts/marjorie/chat-typing.mjs start --channel-id "$CHANNEL_ID" --thread-id "$REPLY_THREAD_ID" --stop-job deliver
+
   deliver:
     needs: [context, run]
     if: always() && needs.context.outputs.skip != 'true'
@@ -145,7 +177,7 @@ jobs:
           node-version: "24"
       - name: Fetch the reply (absent when the agent was skipped or saved none)
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: chat-reply
           path: .scratch/out
@@ -173,6 +205,17 @@ jobs:
           POST_RESULT: ${{ steps.post.outputs.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node scripts/marjorie/chat-post.mjs finish --bot tree --message-id "$MESSAGE_ID" --channel-id "$CHANNEL_ID" --source-thread-id "$THREAD_ID" --reply-thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL" --post-result "$POST_RESULT" --reply-dir .scratch/out --run-url "$RUN_URL"
+
+      # Bots v2 W7: a help ask saved with `loop-live.mjs save-help` is filed here, by the
+      # workflow token (loop-asks only trusts that identity), and Marjorie's response
+      # routine starts at once. Soft-fail: it must never turn a chat run red.
+      - name: File a help ask for Marjorie, when one was saved
+        if: always() && github.run_attempt == '1' && needs.context.result == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: timeout 180 node scripts/marjorie/loop-live.mjs file-help --side tree --dir .scratch/out --source "$GITHUB_RUN_ID" --source-url "$RUN_URL" --dispatch
 
       # This repo is public, and a public run's artifacts are downloadable by
       # any signed-in GitHub user. The context and reply carry founder

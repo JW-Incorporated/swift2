@@ -15,17 +15,17 @@ import { describe, expect, it } from 'vitest';
 const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
 
 const ESCAPE_DISMISS_COMPONENTS = [
-  './Crossings.tsx',
-  './CurrentItemDetail.tsx',
-  './EraSelector.tsx',
-  './FeedbackButton.tsx',
-  './MomentDetail.tsx',
-  './SearchOverlay.tsx',
-  './TheoryGuide.tsx',
-  './TrackDetail.tsx',
-  './TrackGuide.tsx',
-  './decode/DecodeThread.tsx',
-  './love-story/EntryDetail.tsx',
+  '../../../../packages/ui/src/reader/threads/Crossings.tsx',
+  '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
+  '../../../../packages/ui/src/reader/shell/EraSelector.tsx',
+  '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
+  '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
+  '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
+  '../../../../packages/ui/src/reader/threads/TheoryGuide.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
+  '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
+  '../../../../packages/ui/src/reader/threads/love-story/LoveStoryThread.tsx',
 ];
 
 describe('#525 every close-affordance component dismisses on Escape', () => {
@@ -33,12 +33,12 @@ describe('#525 every close-affordance component dismisses on Escape', () => {
     describe(file, () => {
       const src = read(file);
 
-      it('handles the Escape key', () => {
-        expect(src).toMatch(/e\.key (===|!==) 'Escape'/);
+      it('is on the one ordered back stack (the single Escape dispatcher in useBackDismiss)', () => {
+        expect(src).toContain('useBackDismiss(');
       });
 
-      it("registers a window 'keydown' listener (not a focus-dependent JSX handler)", () => {
-        expect(src).toContain("window.addEventListener('keydown'");
+      it('has no private window Escape listener (would double-close with the dispatcher)', () => {
+        expect(src).not.toMatch(/e.key (===|!==) 'Escape'/);
       });
     });
   }

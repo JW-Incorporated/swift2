@@ -91,9 +91,64 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
     expect(template).toMatch(/allowed_bots:\n(?: {8}.*\n)+? {8}default: ""/);
   });
 
+  it('shows typing beside the agent without ever gating or failing the reply', () => {
+    const stopJob = bot === 'tree' ? 'deliver' : 'post';
+    const typing = byJob.typing;
+    expect(typing).toMatch(/^ {4}needs: context$/m);
+    expect(typing).toMatch(/^ {4}continue-on-error: true$/m);
+    expect(typing).toMatch(/^ {4}timeout-minutes: 2\d$/m);
+    expect(typing).toMatch(/^ {4}environment: social$/m);
+    expect(typing).toMatch(/^ {6}actions: read\n {6}contents: read\n/m);
+    expect(typing).not.toMatch(/: write/);
+    expect(typing).toContain(`chat-typing.mjs start --channel-id "$CHANNEL_ID" --thread-id "$REPLY_THREAD_ID" --stop-job ${stopJob}`);
+    expect(typing).not.toMatch(/WEBHOOK|download-artifact|CLAUDE_CODE/);
+    expect(byJob[stopJob]).toBeDefined();
+    for (const [name, job] of Object.entries(byJob)) {
+      if (name === 'typing') continue;
+      expect(job.match(/^ {4}needs: .*$/m)?.[0] ?? '', name).not.toContain('typing');
+    }
+    // The bot token reaches the typing job and the two jobs that already held it, nowhere else.
+    expect(Object.keys(byJob).filter((name) => /secrets\.DISCORD_BOT_TOKEN/.test(byJob[name])).sort()).toEqual(
+      bot === 'tree' ? ['context', 'deliver', 'typing'] : ['context', 'finish', 'typing'],
+    );
+  });
+
   it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
     if (bot !== 'tree') return;
     expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);
+  });
+});
+
+describe('marjorie chat -> bot1 now (owner asks only)', () => {
+  const text = read('.github/workflows/routine-marjorie-chat.yml');
+  const byJob = jobs(text);
+
+  it('sends through the shared bridge from the chat reply artifact, after context and run, owner-verified only', () => {
+    const bot1 = byJob.bot1;
+    expect(bot1).toMatch(/^ {4}needs: \[context, run\]$/m);
+    expect(bot1).toContain('uses: ./.github/workflows/marjorie-bot1-bridge.yml');
+    expect(bot1).toContain('artifact: chat-reply');
+    expect(bot1).toMatch(/^ {4}if: always\(\) && github\.run_attempt == '1' && needs\.run\.result == 'success' && needs\.context\.outputs\.owner_verified == 'true'$/m);
+    expect(bot1).not.toMatch(/secrets\.|DISCORD_|WEBHOOK/);
+    expect(byJob.run).toContain('post_run_artifact: chat-reply');
+    expect(byJob.context).toContain('owner_verified: ${{ steps.thread.outputs.owner_verified }}');
+  });
+
+  it('keeps the artifact alive until the bridge has read it, and the agent away from the webhook', () => {
+    expect(byJob.finish).toMatch(/^ {4}needs: \[context, run, post, bot1\]$/m);
+    expect(byJob.finish).toContain('select(.name == "chat-context" or .name == "chat-reply")');
+    expect(byJob.run).not.toMatch(/DISCORD_|WEBHOOK|LONGLIVE/);
+  });
+
+  it('the bridge can be called with an artifact, and the prompt says send-now for the owner, candidate comment otherwise', () => {
+    expect(read('.github/workflows/marjorie-bot1-bridge.yml')).toMatch(/workflow_call:\n {4}inputs:\n {6}artifact:/);
+    const prompt = read('docs/agents/runner-prompts/marjorie-chat.md').replace(/\s+/g, ' ');
+    expect(prompt).toContain('chat-post.mjs save-bot1');
+    expect(prompt).toContain('"sent to bot1 — card coming in #longlive"');
+    expect(prompt).toContain('At most one per chat run');
+    expect(prompt).toContain('bot1-candidate:');
+    expect(prompt).not.toContain('the bridge is off until the owner turns it on');
+    expect(read('.claude/skills/prompting-bot1/SKILL.md').replace(/\s+/g, ' ')).not.toContain('chat leaves a `bot1-candidate:` comment');
   });
 });
 

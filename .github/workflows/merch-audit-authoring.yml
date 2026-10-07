@@ -39,6 +39,8 @@ jobs:
           npm-ci: 'true'
           npm-ci-args: '--ignore-scripts'
           cache: npm
+      - name: Generate vault modules (audit-matches imports gitignored *.generated.ts)
+        run: npm run sync:content
       # Restore the newest completed receipt so previously judged pairs remain cached.
       - uses: actions/cache/restore@v6
         with:

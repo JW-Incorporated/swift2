@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { LegalDocument } from '@/components/longlive/LegalDocument';
+import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
+import { SiteFooter } from '@/components/longlive/SiteFooter';
 import { TERMS_OF_USE, legalRobots } from '@/lib/longlive/legal';
 
 // Copy lives in `lib/longlive/legal.ts`. New route for #800 — the LEGAL launch
@@ -15,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
-  return <LegalDocument doc={TERMS_OF_USE} />;
+  return <LegalDocument doc={TERMS_OF_USE} footer={<SiteFooter />} />;
 }

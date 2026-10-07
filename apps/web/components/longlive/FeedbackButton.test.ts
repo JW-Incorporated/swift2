@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 // FeedbackButton has no jsdom/testing-library render harness in this repo
 // (same constraint TimelineScrubber.test.ts documents), so these are
 // source-level regression pins for two re-review findings (2026-08-13).
-const src = readFileSync(join(__dirname, 'FeedbackButton.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '..', '..', '..', '..', 'packages', 'ui', 'src', 'reader', 'legal', 'FeedbackButton.tsx'), 'utf8');
 const globalsCss = readFileSync(join(__dirname, '..', '..', 'app', 'globals.css'), 'utf8');
 
 /** The idle floating cluster: everything from the trigger row's marker down. */
@@ -109,5 +109,13 @@ describe('FeedbackButton — #835 (outcomes silent to screen readers)', () => {
     expect(src).toContain('Describe the issue');
     expect(src).toMatch(/<label htmlFor=\{textareaId\}/);
     expect(src).toMatch(/<textarea\s+id=\{textareaId\}/);
+  });
+});
+
+describe('FeedbackButton — public-posting notice', () => {
+  it('warns above the submit row that feedback is posted publicly, once', () => {
+    const notice = "Posted publicly on GitHub — please don't include personal details.";
+    expect(src.split(notice).length - 1).toBe(1);
+    expect(src.indexOf(notice)).toBeLessThan(src.indexOf('Reporting from:'));
   });
 });

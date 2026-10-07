@@ -3,6 +3,24 @@
 // never made ineligible: a finite library must still be able to serve a valid
 // paired campaign after every entry has appeared.
 
+/** A variant (make-ig-variants.mjs) and its original are one photograph: both resolve to the original's id. */
+export const canonicalPhotoId = (entry) => (typeof entry?.variantOf === 'string' && entry.variantOf.trim() ? entry.variantOf.trim() : entry?.id);
+
+/**
+ * True when a credit names no photographer: absent, null, blank, "unknown" or
+ * "u/unknown via r/…". An unknown credit is allowed (owner, chat, 2026-10-01,
+ * docs/social/guardrails.md row 2) — the post simply carries no credit line and
+ * never prints "unknown". A KNOWN credit always ships with the post.
+ */
+export function isUnknownCredit(credit) {
+  return typeof credit !== 'string' || credit.trim() === '' || /\bunknown\b/i.test(credit);
+}
+
+/** A draft's `mediaCredit` matches its library entry's `credit`: identical, or both unknown (the draft then omits it). */
+export function creditsMatch(draftCredit, libraryCredit) {
+  return draftCredit === libraryCredit || (isUnknownCredit(draftCredit) && isUnknownCredit(libraryCredit));
+}
+
 function isHttpUrl(value) {
   try {
     const url = new URL(value);
@@ -19,7 +37,7 @@ export function validatePhotoEntry(entry) {
   if (typeof entry.mediaPath !== 'string' || !entry.mediaPath.startsWith('/social/library/photos/')) {
     findings.push('mediaPath must point to /social/library/photos/');
   }
-  if (typeof entry.credit !== 'string' || entry.credit.trim() === '') findings.push('credit is required');
+  if (entry.credit !== undefined && entry.credit !== null && typeof entry.credit !== 'string') findings.push('credit, if present, must be a string (omit it when the photographer is unknown)');
   if (!isHttpUrl(entry.source)) findings.push('source must be an http(s) URL');
   // docs/social/RULINGS-SOCIAL.md A3/B2 — alt text is written ONCE per library entry
   // (the photo never changes per post), never per draft, so it must exist
@@ -52,11 +70,31 @@ export function validatePhotoEntry(entry) {
       findings.push('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
     }
   }
+  // `variantOf` (Bots v2 W10): an Instagram-ready padded copy of another entry (make-ig-variants.mjs).
+  if (entry.variantOf !== undefined && (typeof entry.variantOf !== 'string' || entry.variantOf.trim() === '' || entry.variantOf === entry.id)) {
+    findings.push('variantOf, if present, must be the id of a different library entry');
+  }
   return findings;
 }
 
-function historyFor(entry, history) {
-  return history.filter((record) => record?.photoId === entry.id || record?.media?.includes(entry.mediaPath));
+/** `mediaPath` plus the paths of every other entry that is the same photograph (original <-> its IG-ready variants). */
+export function samePhotoPaths(mediaPath, allPhotos) {
+  const entry = allPhotos.find((p) => p.mediaPath === mediaPath);
+  if (!entry) return [mediaPath];
+  const root = canonicalPhotoId(entry);
+  return [...new Set([mediaPath, ...allPhotos.filter((p) => canonicalPhotoId(p) === root).map((p) => p.mediaPath)])];
+}
+
+/** Ids and media paths of every entry that is the same photograph as `entry` (itself, its original, its variants). */
+function photoGroup(entry, allPhotos) {
+  const root = canonicalPhotoId(entry);
+  const members = allPhotos.filter((p) => canonicalPhotoId(p) === root || p.id === entry.id);
+  return { ids: new Set(members.map((p) => p.id)), paths: new Set(members.map((p) => p.mediaPath)) };
+}
+
+function historyFor(entry, history, allPhotos) {
+  const { ids, paths } = photoGroup(entry, allPhotos);
+  return history.filter((record) => ids.has(record?.photoId) || (Array.isArray(record?.media) && record.media.some((m) => paths.has(m))));
 }
 
 function timestamp(value) {
@@ -77,7 +115,7 @@ export function photoMatchesRequiredTags(entry, requiredTags) {
 }
 
 /**
- * Picks the least-used credited photo, then the longest-unseen, then a stable
+ * Picks the least-used photo, then the longest-unseen, then a stable
  * id tie-breaker. This is deliberately total over a non-empty valid library:
  * reuse improves diversity but can never halt an otherwise valid calendar —
  * AS LONG AS the theme/era is not constrained (see `requiredTags` below).
@@ -115,9 +153,12 @@ export function selectSocialPhoto(library, history = [], options = {}) {
   const pool = requiredTags.length ? eligible.filter((entry) => photoMatchesRequiredTags(entry, requiredTags)) : eligible;
   if (!pool.length) return null;
 
+  // `options.allPhotos` (Bots v2 W10): the FULL library when `library` is a filtered subset, so an IG-ready
+  // variant and its original share one use history even when only one of them is a candidate.
+  const allPhotos = Array.isArray(options.allPhotos) ? options.allPhotos : library;
   const ranked = pool
     .map((entry) => {
-      const uses = historyFor(entry, history);
+      const uses = historyFor(entry, history, allPhotos);
       const lastUsedAt = uses.reduce((latest, use) => Math.max(latest, timestamp(use.postedAt)), 0);
       return { entry, useCount: uses.length, lastUsedAt };
     })

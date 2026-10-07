@@ -2,6 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "cd ../.. && npm ci --prefer-offline --no-audit --no-fund",
   "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs",
+  "git": {
+    "deploymentEnabled": {
+      "**": false,
+      "main": true
+    }
+  },
   "github": {
     "silent": true
   },

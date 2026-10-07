@@ -262,7 +262,10 @@ NOTIFICATIONS_DASHBOARD_SECRET=<a random 32+ char string — e.g. `openssl rand 
 Set as a Vercel project env var. Once set, the dashboard is reachable at
 `https://<your-vercel-domain>/internal/notifications?secret=<that value>`
 — bookmark that full URL, don't share the bare `/internal/notifications`
-path.
+path. Scripts and routines should send the secret as an
+`Authorization: Bearer <secret>` header on `GET /api/notifications/metrics`
+instead; the `?secret=` query form is deprecated (it ends up in logs and
+browser history) and remains only for the browser link above.
 
 ### 3. Nothing else — the pipeline is unchanged
 

@@ -1,0 +1,28 @@
+name: Perf (reader snapshot, report-only)
+
+# Manual, report-only perf gate for the reader snapshot core build (One UI
+# WP2.2-B). Never a required check, never on pull_request.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  perf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --apply
+      - run: npx playwright test --config e2e/perf/playwright.config.ts
+        env:
+          PERF_URL: http://127.0.0.1:4180/

@@ -1114,7 +1114,7 @@ export default {
           },
           {
             outlet: 'Vogue Arabia',
-            url: 'https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/',
+            url: 'https://web.archive.org/web/20240917152259/https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/',
           },
         ],
         photos: [
@@ -3860,15 +3860,6 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-24',
             reliability_score: 2,
-          },
-          {
-            outlet: 'Taylor Swift Official Store',
-            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
-            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
-            publisher: 'Taylor Swift Official Store',
-            source_type: 'official',
-            accessed_at: '2026-07-24',
-            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being

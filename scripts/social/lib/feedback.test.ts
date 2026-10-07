@@ -430,3 +430,161 @@ describe('aggregateLatency', () => {
     expect(latency).toEqual({ median: expectedMs, slowest: expectedMs });
   });
 });
+
+// Bots v2 W2 (owner 2026-09-30; docs/decisions.md): on an approval post a
+// reply IS the rejection, a bare ❌ still rejects ("none given"), and one post
+// message fans out to every file it names.
+describe("classifyReaction — approval-post kinds ('post' and the legacy 'pr' header)", () => {
+  for (const kind of ['post', 'pr']) {
+    describe(`kind: ${kind}`, () => {
+      it('a qualifying reply alone (no ❌) rejects, reason = the reply text, approver = the replier', () => {
+        const r = classifyReaction({}, [reply({ content: 'wrong photo for IG' })], { kind });
+        expect(r).toMatchObject({ action: 'reject', reason: 'wrong photo for IG', approver: APPROVER, replyId: 'reply-1' });
+      });
+
+      it('a reply beats a ✅ — approving then commenting is a rejection', () => {
+        const r = classifyReaction({ approvedBy: [APPROVER] }, [reply()], { kind });
+        expect(r.action).toBe('reject');
+      });
+
+      it('a bare ❌ rejects with reason "none given" (no pending, no nudge)', () => {
+        const r = classifyReaction({ rejectedBy: [APPROVER] }, [], { kind });
+        expect(r).toMatchObject({ action: 'reject', reason: 'none given', approver: APPROVER, replyId: null });
+      });
+
+      it('❌ + a reply: the reply text is the reason', () => {
+        const r = classifyReaction({ rejectedBy: [APPROVER] }, [reply({ content: 'too salesy' })], { kind });
+        expect(r).toMatchObject({ action: 'reject', reason: 'too salesy' });
+      });
+
+      it('a non-approver reply is ignored; a blank reply is ignored', () => {
+        expect(classifyReaction({}, [reply({ authorId: NON_APPROVER })], { kind }).action).toBe('none');
+        expect(classifyReaction({ approvedBy: [APPROVER] }, [reply({ content: '   ' })], { kind }).action).toBe('approve');
+        expect(classifyReaction({ rejectedBy: [APPROVER] }, [reply({ authorId: NON_APPROVER })], { kind }).reason).toBe('none given');
+      });
+
+      it('✅ alone approves; nothing at all is none', () => {
+        expect(classifyReaction({ approvedBy: [APPROVER] }, [], { kind }).action).toBe('approve');
+        expect(classifyReaction({}, [], { kind }).action).toBe('none');
+      });
+    });
+  }
+
+  it("the legacy ✏️ protocol survives on a single-draft post: ✏️ + reply is an edit, ✏️ alone is pending", () => {
+    expect(classifyReaction({ editedBy: [APPROVER] }, [reply({ content: 'new caption' })], { kind: 'post' })).toMatchObject({ action: 'edit', editedBody: 'new caption' });
+    expect(classifyReaction({ editedBy: [APPROVER] }, [], { kind: 'post' }).action).toBe('pending');
+  });
+
+  it("the legacy header's ✏️ stays unsupported even with a reply (no whole-PR rejection by accident)", () => {
+    expect(classifyReaction({ editedBy: [APPROVER] }, [reply()], { kind: 'pr' })).toMatchObject({ action: 'pending', reason: PENCIL_UNSUPPORTED_ON_HEADER });
+  });
+
+  it("the weekly brief's own kinds are unchanged: a reply alone does NOT reject a 'draft'/'proposal' target", () => {
+    expect(classifyReaction({}, [reply()], { kind: 'draft' }).action).toBe('none');
+    expect(classifyReaction({}, [reply()], { kind: 'proposal' }).action).toBe('none');
+    expect(classifyReaction({ rejectedBy: [APPROVER] }, [], { kind: 'draft' }).action).toBe('pending');
+  });
+});
+
+describe('groupTargets / classifyTarget — one post message naming several files', () => {
+  const SHA = 'a'.repeat(40);
+  const msg = { id: 'post-1', timestamp: '2026-09-19T00:00:00Z' };
+
+  it('fans a comma-listed ref out to every file it names, flagged multi; a single-file ref is untouched', () => {
+    const targets = groupTargets([
+      { message: msg, sha: SHA, file: 'social/queue/a-x.json,social/queue/a-ig.json' },
+      { message: { id: 'legacy', timestamp: msg.timestamp }, sha: SHA, file: 'social/queue/a-x.json' },
+    ]);
+    expect([...targets.keys()]).toEqual(['social/queue/a-x.json', 'social/queue/a-ig.json']);
+    expect(targets.get('social/queue/a-x.json')!.map((r) => [r.message.id, r.multi ?? false])).toEqual([['post-1', true], ['legacy', false]]);
+    expect(targets.get('social/queue/a-ig.json')!.map((r) => r.message.id)).toEqual(['post-1']);
+  });
+
+  it("both files classify identically from the one message's ✅ and anchor on it", () => {
+    const targets = groupTargets([{ message: msg, sha: SHA, file: 'social/queue/a-x.json,social/queue/a-ig.json' }]);
+    for (const refs of targets.values()) {
+      const r = classifyTarget(refs.map((ref) => ({ message: ref.message, sha: ref.sha, multi: ref.multi === true, reactions: { approvedBy: [APPROVER] }, replies: [] })), { kind: 'post' });
+      expect(r).toMatchObject({ action: 'approve', messageId: 'post-1' });
+    }
+  });
+
+  it('a reply to the one message rejects both files, anchored on the replied-to post', () => {
+    const targets = groupTargets([{ message: msg, sha: SHA, file: 'social/queue/a-x.json,social/queue/a-ig.json' }]);
+    for (const refs of targets.values()) {
+      const r = classifyTarget(refs.map((ref) => ({ message: ref.message, sha: ref.sha, multi: true, reactions: {}, replies: [reply({ content: 'nope' })] })), { kind: 'post' });
+      expect(r).toMatchObject({ action: 'reject', reason: 'nope', replyId: 'reply-1' });
+      expect(r.anchors[0]).toEqual({ messageId: 'post-1', sha: SHA });
+    }
+  });
+
+  it('a ✏️ on a multi-file post is ignored — ✏️ + reply is a rejection, ✏️ alone is nothing', () => {
+    const entry = (replies: unknown[]) => [{ message: msg, sha: SHA, multi: true, reactions: { editedBy: [APPROVER] }, replies }];
+    expect(classifyTarget(entry([reply({ content: 'new caption' })]), { kind: 'post' }).action).toBe('reject');
+    expect(classifyTarget(entry([]), { kind: 'post' }).action).toBe('none');
+  });
+});
+
+// Review round 1 on the W2 branch (findings 1 and 3).
+describe('groupTargets — a multi-file ref binds only strict queue paths (finding 1, defence in depth)', () => {
+  const SHA = 'a'.repeat(40);
+  const msg = { id: 'post-1', timestamp: '2026-09-19T00:00:00Z' };
+
+  it('one odd token (a bare name, a traversal, a stray space) and the WHOLE multi-file ref binds nothing', () => {
+    for (const file of [
+      'social/queue/a.json,victim.json',
+      'social/queue/a.json,social/queue/../../etc/x.json',
+      'social/queue/a.json,social/queue/b c.json',
+      'social/queue/a.json,social/queue/b.txt',
+      'social/queue/a.json,https://evil.example/x.json',
+    ]) {
+      expect([...groupTargets([{ message: msg, sha: SHA, file }]).keys()]).toEqual([]);
+    }
+  });
+
+  it('a well-formed multi-file ref still fans out', () => {
+    expect([...groupTargets([{ message: msg, sha: SHA, file: 'social/queue/a.json,social/queue/b.json' }]).keys()]).toEqual(['social/queue/a.json', 'social/queue/b.json']);
+  });
+
+  it('a single-token ref gets the same strict check — traversal, foreign paths and bad names bind nothing', () => {
+    for (const file of ['social/queue/../../etc/x.json', 'other/dir/x.json', 'social/queue/sub/x.json', 'b c.json', 'x.txt', 'https://evil.example/x.json', '../x.json']) {
+      expect([...groupTargets([{ message: msg, sha: SHA, file }]).keys()]).toEqual([]);
+    }
+  });
+
+  it('a single-token ref in the legacy bare form or the full form still binds, header included', () => {
+    expect([...groupTargets([{ message: msg, sha: SHA, file: 'a.json' }, { message: msg, sha: SHA, file: 'social/queue/b.json' }, { message: msg, sha: SHA, file: '*' }]).keys()]).toEqual(['social/queue/a.json', 'social/queue/b.json', '*']);
+  });
+});
+
+describe("classifyTarget kind 'post' — a stale reply cannot override a newer message's ✅ (finding 3)", () => {
+  const SHA = 'a'.repeat(40);
+  const entry = (id: string, timestamp: string, reactions: Record<string, string[]> = {}, replies: Array<Record<string, unknown>> = []) => ({ message: { id, timestamp }, sha: SHA, multi: true, reactions, replies });
+  const aReply = (content: string) => reply({ id: 'r1', content, timestamp: '2026-09-19T01:00:00Z' });
+  const OLD = '2026-09-19T00:00:00Z';
+  const NEW = '2026-09-20T00:00:00Z';
+
+  it('a reply on an OLDER message is ignored when a NEWER message carries a ✅', () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('wrong photo')]), entry('new', NEW, { approvedBy: [APPROVER] })], { kind: 'post' });
+    expect(r).toMatchObject({ action: 'approve', messageId: 'new' });
+  });
+
+  it('a reply on the NEWEST message still rejects, even beside a ✅', () => {
+    const r = classifyTarget([entry('old', OLD, { approvedBy: [APPROVER] }), entry('new', NEW, {}, [aReply('changed my mind')])], { kind: 'post' });
+    expect(r).toMatchObject({ action: 'reject', reason: 'changed my mind' });
+  });
+
+  it('a reply on an older message still rejects when no newer message is approved', () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('nope')]), entry('new', NEW, {})], { kind: 'post' });
+    expect(r.action).toBe('reject');
+  });
+
+  it("a ✅ on a newer message from a non-approver does not neutralise the older reply", () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('nope')]), entry('new', NEW, { approvedBy: [NON_APPROVER] })], { kind: 'post' });
+    expect(r.action).toBe('reject');
+  });
+
+  it('the same pair under the legacy kinds is untouched (stale-reply rule is post/pr only)', () => {
+    const r = classifyTarget([entry('old', OLD, { rejectedBy: [APPROVER] }, [aReply('wrong photo')]), entry('new', NEW, { approvedBy: [APPROVER] })], { kind: 'draft' });
+    expect(r.action).toBe('reject');
+  });
+});

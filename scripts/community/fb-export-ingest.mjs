@@ -71,7 +71,9 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseFacebookExport, extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
-import { serviceClient } from '../lib/supabase.mjs';
+import { serviceClient, normalizeSupabaseUrl } from '../lib/supabase.mjs';
+
+export { normalizeSupabaseUrl };
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
 
@@ -86,8 +88,14 @@ export function resolveGroupName(slug, { groupNameOverride, checklist = FB_GROUP
   return groupNameOverride || checklist.find((g) => g.slug === slug)?.label || slug;
 }
 
-function parseArgs(argv) {
-  const flags = { dryRun: false, group: null, maxLeadsPerGroup: DEFAULT_MAX_LEADS_PER_GROUP, files: [] };
+export function parseArgs(argv) {
+  const flags = {
+    dryRun: false,
+    group: null,
+    exportedAt: null,
+    maxLeadsPerGroup: DEFAULT_MAX_LEADS_PER_GROUP,
+    files: [],
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--dry-run') {
@@ -97,6 +105,9 @@ function parseArgs(argv) {
       i += 1;
     } else if (arg === '--max-leads-per-group') {
       flags.maxLeadsPerGroup = Number(argv[i + 1]) || DEFAULT_MAX_LEADS_PER_GROUP;
+      i += 1;
+    } else if (arg === '--exported-at') {
+      flags.exportedAt = argv[i + 1] ?? null;
       i += 1;
     } else if (arg === '--shop-links-out') {
       flags.shopLinksOut = argv[i + 1] ?? null;
@@ -162,9 +173,21 @@ export function shopLinksFromPosts(posts, { groupSlug }) {
 
 /** First `MAX_LOCATOR_EXCERPT` chars of screened post text, used for both
  * `locator` (how Joey finds the post again) and `context` (our-words
- * summary, never a raw quote used downstream — see header). */
+ * summary, never a raw quote used downstream — see header).
+ *
+ * Sliced by CODE POINT, not by UTF-16 code unit. These posts are full of
+ * emoji, and a plain `slice(0, 80)` can cut an emoji's surrogate pair in
+ * half. `JSON.stringify` then emits the unpaired half as a lone `\uXXXX`
+ * escape, which RFC 8259 forbids, so PostgREST's JSON decoder rejects the
+ * entire insert with "Empty or invalid json". `[...text]` iterates code
+ * points, so a slice never splits a character. (Latent until the parser fix
+ * put real post text in the first 80 chars — before it, they were ASCII
+ * markup.) */
 function excerpt(text) {
-  return text.length > MAX_LOCATOR_EXCERPT ? `${text.slice(0, MAX_LOCATOR_EXCERPT)}…` : text;
+  const points = [...text];
+  return points.length > MAX_LOCATOR_EXCERPT
+    ? `${points.slice(0, MAX_LOCATOR_EXCERPT).join('')}…`
+    : text;
 }
 
 /**
@@ -255,11 +278,16 @@ async function writeResult(supabase, result) {
 async function main() {
   const flags = parseArgs(process.argv.slice(2));
   if (!flags.group) {
-    console.error('fb-export-ingest: usage: --group <slug> [--group-name "Human Name"] [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
+    console.error('fb-export-ingest: usage: --group <slug> [--group-name "Human Name"] [--exported-at ISO] [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
     return 1;
   }
   if (flags.files.length === 0) {
     console.error('fb-export-ingest: no export files given.');
+    return 1;
+  }
+  const exportedAt = flags.exportedAt ? new Date(flags.exportedAt) : new Date();
+  if (Number.isNaN(exportedAt.getTime())) {
+    console.error('fb-export-ingest: --exported-at must be a valid ISO timestamp.');
     return 1;
   }
 
@@ -285,7 +313,7 @@ async function main() {
     const result = buildIngestResult(html, {
       groupSlug: flags.group,
       groupName,
-      exportedAt: new Date(),
+      exportedAt,
       maxLeadsPerGroup: flags.maxLeadsPerGroup,
     });
     allShopLinks.push(...result.shopLinks);

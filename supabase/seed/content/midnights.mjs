@@ -1539,13 +1539,13 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-3b", label: "Record 4th AOTY", kind: "award" },
       snippet: 'Presented by Céline Dion in a rare public appearance — Taylor\'s fourth AOTY win, more than any artist in Grammy history.',
-      sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+      sourceUrl: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         context:
           'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Taylor\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
         sources: [
-          { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
+          { outlet: 'Grammy.com', url: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/',
@@ -2368,7 +2368,7 @@ export default {
           },
           {
             outlet: 'GRAMMY.com',
-            url: 'https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys',
+            url: 'https://web.archive.org/web/20260301081805/https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys',
             source_title:
               'Taylor Swift Makes GRAMMY History (Again) With Best Music Video Win For "All Too Well: The Short Film"',
             publisher: 'The Recording Academy',
@@ -3074,8 +3074,8 @@ export default {
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
           },
           {
-            outlet: 'Entertainment Tonight (via AOL)',
-            url: 'https://www.aol.com/taylor-swift-monopolizes-top-10-194834436.html',
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-top-10-billboard-hot-100-midnights-rcna54887',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
         ],
@@ -4269,7 +4269,7 @@ export default {
           },
           {
             outlet: 'AOL / People',
-            url: 'https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
+            url: 'https://web.archive.org/web/20241008041622/https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
             source_title: 'Taylor Swift Surpasses Rihanna as Richest Female Musician with $1.6 Billion Net Worth',
             publisher: 'People',
             source_type: 'reputable_press',
@@ -5013,7 +5013,7 @@ export default {
           },
           {
             outlet: 'GRAMMY.com',
-            url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+            url: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
             source_title: 'Taylor Swift Wins Album Of The Year For Midnights At The 2024 GRAMMYs',
             publisher: 'The Recording Academy',
             source_type: 'reputable_press',
@@ -5274,8 +5274,8 @@ export default {
           },
           {
             outlet: 'BBC Newsround',
-            url: 'https://feeds.bbci.co.uk/newsround/articles/c0xx9yj7jjpo',
-            source_title: 'Taylor Swift: Why do fans make and swap friendship bracelets?',
+            url: 'https://www.bbc.co.uk/newsround/articles/c0xx9yj7jjpo',
+            source_title: 'Taylor Swift fan spreads joy making bracelets for care home residents',
             publisher: 'BBC',
             source_type: 'reputable_press',
             accessed_at: '2026-08-12',
@@ -5747,7 +5747,7 @@ export default {
           'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Taylor\'s Sept. 24 Chiefs game appearance made the relationship public.',
         sources: [
           { outlet: 'The Kansas City Star', url: 'https://kansascity.com/news/local/article280456364.html' },
-          { outlet: 'Yahoo Entertainment', url: 'https://aol.com/travis-kelce-jokingly-ends-interview-030921483.html' },
+          { outlet: 'CBS News Philadelphia', url: 'https://www.cbsnews.com/philadelphia/news/travis-kelce-taylor-swift-dating-plane-photo/' },
         ],
       },
     },

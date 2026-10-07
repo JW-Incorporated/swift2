@@ -58,6 +58,10 @@ jobs:
       timeout_minutes: 45
       max_turns: 80 # was the template default 40: the 09-07 run needed 48 on a shorter prompt, and the 09-14 run died at 40 mid-task (same class as #4221)
       checkout_token_secret: SOCIAL_POSTER_PAT
+      # Needed by the `taste` job below: it downloads .scratch/out/ to file a taste-ruling question
+      # the agent saved (taste-ruling.mjs save). Only that one small JSON is ever written there;
+      # retention is 1 day (routine-template.yml).
+      post_run_artifact: tree-weekly-plan-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -251,7 +255,7 @@ jobs:
           PR_NUMBER: ${{ steps.find_pr.outputs.number }}
           PR_URL: ${{ steps.find_pr.outputs.url }}
         run: |
-          timeout 120 node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/calendar.brief.json --pr "$PR_NUMBER" --pr-url "$PR_URL" --out /tmp/loop.json \
+          timeout 120 node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/calendar.brief.json --pr "$PR_NUMBER" --pr-url "$PR_URL" --out /tmp/loop.json --dispatch \
             || echo "::warning::loop-asks file-tree failed; the brief goes out with a could-not-load line instead"
 
       # mode=replan: docs/agents/runner-prompts/tree-weekly-plan.md's own
@@ -335,3 +339,18 @@ jobs:
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ steps.find_pr.outputs.number }}
         run: gh workflow run tree-mail.yml --repo "$REPO" -f pr="$PR_NUMBER"
+
+  # S2 (docs/decisions.md 2026-10-01): a taste/strategy question the agent saved as
+  # .scratch/out/taste-ruling-1.json (`taste-ruling.mjs save`) is filed by a plain
+  # job and Fable's ruling routine starts at once — never the owner. A green no-op
+  # when nothing was saved.
+  taste:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/taste-ruling-file.yml
+    with:
+      artifact: tree-weekly-plan-out
+    permissions:
+      contents: read
+      issues: write
+      actions: write

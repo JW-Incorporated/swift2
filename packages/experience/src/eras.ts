@@ -84,7 +84,7 @@ export const ERAS: Era[] = [
       inkSoft: '#c3a8e0',
       line: '#412a5e',
       accent: '#b06be0',
-      accent2: '#7d5bd0',
+      accent2: '#9e84dc',
       glow: 'rgba(176, 107, 224, 0.3)',
       font: 'script',
     },
@@ -115,7 +115,7 @@ export const ERAS: Era[] = [
       // surface pairing fails AA's 4.5:1 for small text (#659). This lighter
       // red clears both (4.64:1 surface, 5.08:1 bg) while staying red.
       accentText: '#de6159',
-      accent2: '#c96a3a',
+      accent2: '#cf7a4f',
       glow: 'rgba(216, 67, 58, 0.32)',
       font: 'serif',
     },

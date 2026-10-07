@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const src = readFileSync(new URL('./OwnershipTimeline.tsx', import.meta.url), 'utf8');
+const src = readFileSync(new URL('../../../../../packages/ui/src/reader/threads/taylors-version/OwnershipTimeline.tsx', import.meta.url), 'utf8');
 
 /** All JSX opening tags in the source, as [tagName, attributes] pairs. */
 function openingTags(): Array<{ tag: string; attrs: string }> {

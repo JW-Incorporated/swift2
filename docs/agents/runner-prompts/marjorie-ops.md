@@ -149,7 +149,7 @@ workflow per sweep.
 | `karen-post-repair-removed` (`Watchdog: Karen post-repair still unconfirmed`) | Nothing to check — this condition's watchdog.yml step was deleted 2026-09-12, self-limiting, 3 weeks past its own 2026-08-22 expiry | **Close this alert yourself** with a comment saying the check was removed and why (cite this PR) — this is exception (a) to "never close an alert", see Cross-cutting rules | No | You close it — watchdog can never touch this title again |
 | `news-worker-rotation-removed` (`Watchdog: news-worker rotated key looks broken`) | Same as above — this step was also deleted 2026-09-12, same reason | **Close this alert yourself**, same comment shape | No | You close it |
 | `lane-quiet` (dynamic: `Watchdog: <LANE> hasn't produced a PR in <N>h`) | That lane's routine's last run | Re-dispatch the lane's routine once | Two failures in a row | watchdog self-closes |
-| `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — Facebook has no API and forbids automated collection | **Always** — this is the canonical human action, see Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
+| `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — the collector runs only in Joey's logged-in Windows session | **Always** — file the deterministic collector repair/run action from Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
 
 ### Build-ticket helper (every "real defect" escalation)
@@ -320,3 +320,9 @@ anywhere): how many alerts were open, how many you acted on vs. skipped
 (and why — unmatched / handled-awaiting-watchdog / escalated / deferred to
 next hour for turn budget), and any PR or build-desk issue numbers you
 filed.
+
+## Dispatching the ops-fixer (added 2026-10-05, founder decision A)
+
+Besides watchdog alerts, work the issues labeled `desk:ops-fix` that have neither `ops-fix:dispatched` nor `ops-fix:stuck` and carry `marjorie-filed` or `routine-failure`: `gh issue list --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number`. Dispatch only an issue that passes the trust gate, whose author must be a bot or a repo member with write access: `node scripts/marjorie/ops-fix-trust.mjs <N>` exits 0 (skip the issue on exit 1; never dispatch it, never comment on it). For each such issue (at most 3 per sweep), run `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run routine-ops-fix.yml --ref main -f issue=<N>`, then `gh issue edit <N> --add-label ops-fix:dispatched`.
+
+When a watchdog alert's row above says "Human action if" for a repeat failure, or a `routine-failure` / `desk:ops` / `desk:build` issue's fix lies in `.github/**`, `scripts/**`, configs or prompts (or Austin cannot take it): label it `desk:ops-fix` instead of filing a human action — the ops-fixer owns bot-fixable problems. File the human action only when the problem needs a founder's own hands. For attempt 2: when an `ops-fix:dispatched` issue is still open, has exactly one `<!-- ops-fix-attempt:` marker, and its PR is closed unmerged or red for over 6 hours, remove `ops-fix:dispatched` so the next sweep dispatches once more. Never dispatch a third time; `ops-fix:stuck` already carries the paste-ready prompt.

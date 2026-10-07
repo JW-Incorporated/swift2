@@ -16,29 +16,154 @@ posting, by copy-pasting into the site yourself.
 
 ## 1. What you'll see day to day
 
-**One email a day**, subject "Community Tasks — YYYY-MM-DD", sent to
-Marjorie's Gmail-fed founder mail (same inbox as the Founders' Brief). It
-lists, in order:
-1. Any reply someone left on a comment we already posted (these matter
-   most — a stale reply looks bad).
-2. Everything else, best opportunity first.
+**Reply opportunities in Discord** (the same channel as Tree's approvals,
+posted under the name **Tree · Reply opportunities**). Twice a day at most
+(about 15:36 UTC, plus a later send only for replies to our own comments)
+`community-mailer` posts a one-line lead-in ("💬 N reply opportunities")
+and then **one message per opportunity**, replies-to-us first, then best
+opportunity first. No link previews. Each message is:
 
-Each item in the email gives you:
-- **Where** — the subreddit/thread (or, for Facebook, the group + a few
-  words of the post so you can find it — we never store a private-group
-  link).
-- **The paste-ready text** — copy it as-is, or edit it, then paste it
-  yourself on Reddit/Facebook.
-- **A "Posted" link and a "Skip" link** — click "Posted" after you paste it
-  so we never suggest the same thread again; click "Skip" if you don't want
-  to answer that one. Clicking either takes one click, no login.
+```
+💬 Reply opportunity · r/<sub>
+<thread title>
+<thread link>
+Why: one line on why it is worth a reply
+[the drafted reply, in a code block, ready to copy]
+Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
+```
 
-Some days there's also a **second, shorter email** in the evening — only
-when someone replied to one of our own comments after the morning email
-already went out. This is capped at one extra email per day; you will never
-get more than two Community Emails on the same day.
+- **Copy** the code block, edit if you like, paste it yourself.
+- **Posted / Skip** links record the outcome (one click, no login) so we never
+  suggest the same thread again; the ✅ / ⏭️ reactions feed Tree's feedback
+  ledger. Nothing posts automatically.
+- A lead the Answerer has not written reply text for is **not sent** (there
+  is nothing to copy); it stays queued and is sent once a draft exists.
+- Every mailer run logs `webhook target channel_id=… name=…` (never the
+  URL) so you can confirm in the Actions log which channel it posts to.
+- **Facebook** leads only appear once the Facebook export collector is
+  running (it needs the owner's Facebook login); until then only Reddit
+  opportunities arrive.
+
+(The older "one email a day" description below is historical; delivery moved
+to Discord on 2026-09-09.)
+
+### Awareness replies (picture-only replies, 10+ a day)
+
+Owner direction 2026-10-01 (`docs/strategy/growth-strategy.md`, bet 2): find
+Reddit and Facebook threads where a **picture of the site, with no link**,
+invites "what is that?!", then explain once someone asks. The system finds the
+threads, picks the picture, drafts a short reply and posts the lot to the same
+Discord channel under **Tree · Awareness replies**. **You post every reply
+yourself** (guardrail 6); nothing posts automatically.
+
+Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there
+is something to send) Tree posts two messages per opportunity, with no batch
+header and no explanatory text (owner 2026-10-05: "the link, the text to post,
+and the image"): the card, and right after it the reply text on its own.
+
+```
+https://www.reddit.com/r/<sub>/comments/<id>/<slug>/     [card PNG attached]
+✅ Posted · Skip
+ref: reddit · <lead id>        (Reddit only; routes a ✅/⏭️ reaction)
+```
+```
+[the reply text, alone, nothing else in the message]
+```
+
+The link is the canonical thread URL with every tracking parameter stripped
+(`cleanThreadUrl` in `scripts/community/awareness-message.mjs`; Facebook keeps
+only post/comment ids such as `story_fbid`, `id`, `comment_id`). The reply is
+its own plain message because long-press **Copy Text** copies a whole message,
+so that message holds only the reply. Tap Posted/Skip (or react) on the
+**card**, not the reply message — the links live on the card so they never
+end up in what you copy.
+
+The card is **attached as a PNG** (not a link). Paste the reply, attach the
+picture, post. No link, no site name in the text: the unexplained picture is
+the hook. If someone asks, that is the moment to talk about the site.
+
+How it works, in three workflows (kill switch: repo variable
+`AWARENESS_LANE_ENABLED=false`; unset means on):
+
+1. `community-awareness-scan` (every ~20 minutes with a random start delay,
+   2 anonymous Reddit requests a run, skipped on 429, optional `HOME_RELAY_URL`
+   fallback) reads `scripts/community/awareness-subs.json` (the subs, a note on
+   each one's self-promo rule, and the caps) and takes the feeds fetched
+   longest ago first: every sub in hot and new, plus Reddit-wide search RSS,
+   so each feed is asked several times a day. A 429 stops the run and puts that
+   feed, and the whole scan, on a cooldown (30 minutes, doubling to 6 hours)
+   remembered across runs in `awareness_source_state`. Search finds Taylor
+   threads outside the fan subs (r/popculturechat, r/AskReddit, r/Music ...),
+   the best targets; those use a strict Taylor-name filter and a block list.
+   It keeps titles that fit a picture: era
+   rankings/debates, timeline questions, Easter-egg/theory threads, nostalgia
+   and anniversary threads, news reactions. It skips threads older than 48
+   hours, megathreads, crafts and fan art, redline and personal-life topics
+   (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
+   run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
+   export leads are adopted as awareness rows too.
+2. `routine-awareness-answerer` (every 3 hours) is ONE Claude run per batch (not per lead; at
+   most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
+   waiting. It writes the words only, with no shell and no database secret
+   (it reads untrusted Reddit titles): a plain job exports the waiting leads
+   to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
+   a plain job validates it (`awareness-draft.mjs apply`): the picture id must
+   exist and a reply with a link, a domain, "check out", an em dash or more
+   than 300 characters is rejected. Delivery lints every reply again.
+3. `community-awareness-deliver` sends at most 5 per batch, 3 per sub per day
+   (4 for r/TaylorSwift and r/swifties) and 15 per day, image-capable subs
+   first, unverified next, **text-only sub** last. An unverified sub is never
+   dropped: the label tells you to post the text if there is no image button.
+
+**Image comments per sub.** The scan reads one sub's public `about.json` per run, caches a good reading for a week (and a blocked attempt for 12 hours) in `awareness_sub_cache`,
+(`comment_contribution_settings.allowed_media_types`; `static` means still
+images). Reddit blocks that request from CI and from the build environment
+(HTTP 403, 2026-10-01), so today every sub reads "image comments unverified
+(look for the image icon in the comment box)". To pin a sub, set its
+`imageComments` to `"image"` or `"text_only"` in `awareness-subs.json` once you
+have seen its comment box. A sub marked `verified: false` there was named from
+memory; a missing sub just yields no threads.
+
+**Numbers.** Posted and Skip clicks feed Marjorie's weekly review as
+`awareness: {delivered, posted, skipped, open}` (by delivery week); tell
+Marjorie in `#longlive-marjorie` how many people replied "what is that?".
+Delivery is at-least-once: if Discord confirms a message but marking the lead
+`delivered` then fails, that opportunity can arrive again in a later batch;
+skip the repeat. Posting an awareness reply does not count toward the 20 non-promo
+contributions the link gate waits for (it is promotion, not a plain contribution).
 
 Expect to spend roughly 10–15 minutes on this most days.
+
+#### No Reddit API key, ever
+
+Owner decision, 2026-10-01 (`docs/decisions.md`): this project will never have
+a Reddit API key. Reddit discovery works anonymously (public RSS) or it does
+not run. Nobody proposes, files a card for, or asks the owner for Reddit OAuth
+credentials, a Reddit app, or any `REDDIT_*` secret.
+
+**How 10+ a day works without one.** Anonymous RSS from GitHub runners is
+throttled (run 36908472939: HTTP 429 on 4 of 6 requests in one burst), so the
+scan sends many tiny runs instead of a burst: ~72 runs a day, 2 requests each,
+a random start delay, and a hard stop on the first 429 with a persisted
+cooldown. r/TaylorSwift's feed alone yields about 7 fitting threads per fetch;
+the caps (4 a day for r/TaylorSwift and r/swifties, 3 for other subs, 15 in
+total) are what limit volume, not the request count. If GitHub's IPs turn out
+to be blocked outright, the next anonymous options are a home relay
+(`HOME_RELAY_URL`, already supported, on a residential machine) or a
+self-hosted runner; neither is built.
+
+#### Replying as the brand account
+
+If you are logged into two Reddit accounts, every Reddit thread link Tree sends
+to Discord as a reply opportunity carries the URL
+parameters in `scripts/community/reddit-account.json` (`redditLinkParams`,
+including `target_user=NegativeRest9507`, the same parameter Reddit's own email
+links use), so the link opens as the brand account. Each such message also has
+a `↪️ Reply as u/NegativeRest9507` line. Change the parameters in that file, no
+code change needed. Non-Reddit links are left untouched. Awareness-reply
+cards are the exception (owner 2026-10-05): their link is stripped to the bare
+thread URL with no `target_user` and no `Reply as` line, so check which
+account you are on before posting.
 
 ### Reddit notification intake
 

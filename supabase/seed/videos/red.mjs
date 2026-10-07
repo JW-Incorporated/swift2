@@ -147,7 +147,7 @@ export default {
       sources: [
         wiki('Everything_Has_Changed', 'Everything Has Changed'),
         press(
-          'https://www.billboard.com/music/music-news/taylor-swift-ed-sheeran-return-to-childhood-in-everything-has-changed-video-watch-1565874/',
+          'https://www.billboard.com/music/music-news/taylor-swift-ed-sheeran-return-to-childhood-in-everything-has-1566117/',
           "Taylor Swift, Ed Sheeran Return to Childhood in 'Everything Has Changed' Video: Watch",
           'Billboard',
           'supports the Philip Andelman video release and child-counterpart story framing',

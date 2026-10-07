@@ -131,6 +131,7 @@ export const NEVER_ALLOWLIST = {
   'docs/agents/': 'Desk charters. `docs/agents/README.md`: "no agent may edit any charter, including its own."',
   'docs/decisions.md': 'The authority trail. A grant that could record itself is not a grant.',
   'docs/cto-role.md': 'Role and authority limits.',
+  'docs/social/guardrails.md': 'The founder-owned social guardrails — the one short list the owner still sets (docs/decisions.md 2026-10-01). Never auto-merged, never bot-edited.',
   'docs/architecture.md': 'The hard boundaries daily work is judged against.',
   'docs/proposals/': 'Specs and operating-model design, including the tier/authority model.',
   'docs/specs/': 'Approved specs — the thing "implement the approved spec exactly" refers to.',

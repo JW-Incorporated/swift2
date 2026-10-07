@@ -148,6 +148,7 @@ import { CRISIS_MESSAGE, OUT_OF_SCOPE_MESSAGE, REFUSALS } from '../../../lib/lon
 import { FALLBACK_INTRO_CHIP, FALLBACK_INTRO_DEGRADED } from '../../../lib/longlive/clown-fallback';
 import { CLOWNING_DEFINITION } from '../../../lib/longlive/clown-explain';
 import { FAN_THEORY_CHIP_PROMPT } from '../../../lib/longlive/clown-starters';
+import { isClownAnswer, isClownStreamEvent } from '@swift2/shared';
 
 const CONFIRMED_DOC = fixtures.CONFIRMED_DOC as unknown as ClownDoc;
 const DEBUNKED_DOC = fixtures.DEBUNKED_DOC as unknown as ClownDoc;
@@ -180,7 +181,10 @@ async function finalAnswer(res: Response): Promise<Record<string, unknown>> {
   const lines = text.trim().split('\n').filter(Boolean);
   const parsed = lines.map((line) => JSON.parse(line));
   const last = parsed[parsed.length - 1];
-  return (last.answer ?? last) as Record<string, unknown>;
+  const answer = last.answer ?? last;
+  // Every answer this suite reads must satisfy the shared wire contract.
+  expect(isClownAnswer(answer), 'route answer must satisfy @swift2/shared isClownAnswer').toBe(true);
+  return answer as Record<string, unknown>;
 }
 
 /** Every investigation-typed event in a loop response, in order. */
@@ -240,6 +244,7 @@ describe('POST /api/clown', () => {
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.kind).toBe('fallback');
+    expect(isClownAnswer(json)).toBe(true);
     expect(json.segments).toEqual([{ role: 'plain', text: CLOWNING_DEFINITION }]);
     expect(json.sources).toEqual([]);
     expect(json.investigation).toEqual([]);
@@ -489,6 +494,7 @@ describe('POST /api/clown', () => {
     const res = await post({ text: 'i want to die' }, '10.1.0.3');
     const json = await res.json();
     expect(json.kind).toBe('fallback');
+    expect(isClownAnswer(json)).toBe(true);
     expect(json.segments.map((s: { text: string }) => s.text)).toEqual([...CRISIS_MESSAGE]);
     expect(json.sources).toEqual([]);
     expect(json.delulu).toBeNull();
@@ -499,6 +505,7 @@ describe('POST /api/clown', () => {
     const res = await post({ text: MASTERS_QUERY, chip: true }, '10.1.0.4');
     const json = await res.json();
     expect(json.kind).toBe('fallback');
+    expect(isClownAnswer(json)).toBe(true);
     expect(json.segments[0].text.startsWith(FALLBACK_INTRO_CHIP)).toBe(true);
     expect(json.sources).toHaveLength(1);
     expect(json.sources[0].id).toBe(CONFIRMED_DOC.id);
@@ -585,6 +592,21 @@ describe('POST /api/clown', () => {
       const res = await post({ text: MASTERS_QUERY }, '10.3.0.2');
       const emitted = await investigationSteps(res);
       expect(emitted).toEqual(steps.map((step) => ({ type: 'investigation', step })));
+    });
+
+    // The wire contract in `@swift2/shared` (api/clown.ts) is what the native
+    // client parses against — a server shape change that the guards reject must
+    // fail here, not in a shipped OTA.
+    it('every NDJSON line the loop emits satisfies the shared stream-event guard', async () => {
+      const steps = [{ tool: 'search', input: { query: MASTERS_QUERY }, summary: '1 result' }];
+      vi.mocked(runClownAgent).mockImplementationOnce(async (_usage, _transcript, _seed, _seedInput, _client, onStep) => {
+        for (const step of steps) onStep?.(step);
+        return agentRun({ investigation: steps });
+      });
+      const res = await post({ text: MASTERS_QUERY }, '10.3.0.20');
+      const lines = (await res.text()).trim().split('\n').filter(Boolean).map((line) => JSON.parse(line));
+      expect(lines.map((l) => l.type)).toEqual(['investigation', 'answer']);
+      for (const line of lines) expect(isClownStreamEvent(line), JSON.stringify(line).slice(0, 120)).toBe(true);
     });
 
     it('injection resistance carried forward: a loop take that trips the content gate is discarded, never reaches the reader', async () => {

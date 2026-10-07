@@ -293,6 +293,28 @@ describe('checkCampaignPair', () => {
     expect(checkCampaignPair('x.json', all[0].data, all, [])).toHaveLength(1);
   });
 
+  // Bots v2 C4 (owner, 2026-09-30): the one sanctioned exemption is a written
+  // `singlePlatformReason` on the item itself.
+  it('passes an unpaired item that carries its own written singlePlatformReason', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', singlePlatformReason: 'Breaking news: speed beats polish, IG caption follows later.' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+  });
+
+  it('rejects a throwaway or oversized singlePlatformReason — it must be a real written reason', () => {
+    for (const singlePlatformReason of ['n/a', '   too short   ', 'x'.repeat(301), 42]) {
+      const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', singlePlatformReason } };
+      expect(checkCampaignPair('x.json', x.data, [x], [])).toHaveLength(1);
+    }
+  });
+
+  it('does not let a sibling\'s singlePlatformReason excuse THIS file', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } },
+      { file: 'x2.json', data: { platform: 'x', campaign: 'c1', body: 'b2', singlePlatformReason: 'Breaking news: speed beats polish, IG later.' } },
+    ];
+    expect(checkCampaignPair('x.json', all[0].data, all, [])).toHaveLength(1);
+  });
+
   // Verbatim from the two drafts that shipped X-only on 2026-08-26 while
   // Instagram got nothing all day — still fails, same as any other marker.
   it('rejects the calendar/dropped-slot pretext that was actually used', () => {
@@ -693,10 +715,20 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('no declared `mediaKind`'))).toBe(true);
   });
 
-  it('requires mediaCredit AND mediaSource on a photo tile', async () => {
+  it('requires mediaSource on a photo tile but no longer requires mediaCredit (owner, 2026-10-01)', async () => {
     const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo' }, []);
-    expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(true);
+    expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(false);
     expect(findings.some((f) => f.includes('requires `mediaSource`'))).toBe(true);
+  });
+
+  it('accepts a credit-less photo bound to an unknown-credit library entry, and still binds a known credit', async () => {
+    const UNKNOWN_ID = 'reddit-taylorswiftpictures-1nxmfeq-ig45';
+    const UNKNOWN_TILE = '/social/library/photos/reddit-taylorswiftpictures-1nxmfeq-ig45.jpg';
+    const UNKNOWN_SOURCE = 'https://www.reddit.com/r/TaylorSwiftPictures/comments/1nxmfeq/beautiful_showgirl/';
+    const uncredited = await checkMedia('a.json', { platform: 'instagram', media: [UNKNOWN_TILE], mediaKind: 'photo', photoId: UNKNOWN_ID, mediaSource: UNKNOWN_SOURCE }, []);
+    expect(uncredited.filter((f) => !f.startsWith('[warn]') && !f.includes('warning'))).toEqual([]);
+    const knownOmitted = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaSource: CORPUS_PHOTO_SOURCE }, []);
+    expect(knownOmitted.some((f) => f.includes('must use its inventory media path, exact credit'))).toBe(true);
   });
 
   it('requires an exact inventory binding for every credited photo tile', async () => {

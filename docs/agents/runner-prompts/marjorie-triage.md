@@ -74,7 +74,7 @@ requirement below.
 | **bug** | describes behavior that is wrong AND carries enough to act: a surface, a reproduction, or a clear expectation (`location` from `/api/feedback` usually supplies the surface) | file a build-desk issue (below); comment on the original naming class/evidence and linking it; `marjorie-triaged`; leave original **open** |
 | **content correction** | asserts a fact on the site is wrong | same shape as bug, aimed at content; must cite both what the site says today and what the submitter claims; you do not judge which is right |
 | **request** | asks for something that does not exist | issue labelled `enhancement`+`marjorie-filed`, your one-paragraph UX recommendation; `marjorie-triaged` on original |
-| **needs-founder** | product-direction, legal/safety, money, or a bug whose fix is a product decision | `founder-decision`+`marjorie-triaged` on original; in-channel message (below) |
+| **needs-founder** | product-direction, legal/safety, money, or a bug whose fix is a product decision. A content or social DECIDE item qualifies ONLY if it touches `docs/social/guardrails.md` — otherwise decide it, or save a `taste-ruling` question for Fable (`node scripts/marjorie/taste-ruling.mjs save --side marjorie --question "<≤300 chars>" --context "<evidence>"`); never a founder-decision, status-page DECIDE or `HUMAN-ACTIONS.md` item | `founder-decision`+`marjorie-triaged` on original; in-channel message (below) |
 
 A submission that **looks like** a bug but lacks a surface/repro/expectation
 is not spam — see "bug, unactionable" below.
@@ -305,6 +305,34 @@ under a new class isn't built yet — leave it for a human rather than
 guessing at closing/relabelling a dispatched issue yourself. Say this
 plainly in your run summary every time it happens; it's a known, deliberate
 scope gap, not a silent miss.
+
+## Work only bot1 can do (rare)
+
+bot1 is the Hermes bot the founders command in `#longlive`. A submission is
+almost never bot1 work — bugs, requests and corrections are build-desk
+issues above. Read `.claude/skills/prompting-bot1/SKILL.md` and use it only
+when its table says so (Hermes-side work, something only bot1 can unblock, or
+a `marjorie-filed` issue stuck more than 7 days past a nudge). You have no
+webhook and never post to Discord: write the prompt, worded per the skill
+(plain text only, no preamble), to `.scratch/out/bot1-prompt-1.md` (then `-2`,
+`-3`; at most three). After you finish, a plain job sends them through the
+bridge — only while the owner has it switched on, at most three a UTC day
+across every routine, duplicates refused. A prompt never replaces the GitHub
+issue for repo work. Never put a submitter's words in it; the repo is public.
+The Sunday growth review is the backstop for anything you leave out.
+
+## An ask of Tree (Bots v2 W7, rare)
+
+A submission or a reconciled fix can mean Tree's calendar or drafting should change
+today: a broken link in a queued post, a feature that just shipped and needs an arc,
+a content lane to pause. That is an ask of Tree, never a build ticket and never an
+issue you create by hand (a hand-made issue is not a loop ask). Save at most ONE per
+run with
+`node scripts/marjorie/loop-live.mjs save-help --side marjorie --ask "<≤300 chars, one plain sentence, standing alone as an issue title>" --why "<≤300 chars>"`
+(no submitter's words — the repo is public). After you finish, a plain job files it as
+a `marjorie-filed` + `desk:tree` issue (at most 4 a day across every routine, never
+one already open) and starts Tree's response routine at once; Tree comments a
+`Disposition:` on it. Never for a founder decision or a strategy opinion.
 
 ## Cross-cutting rules
 

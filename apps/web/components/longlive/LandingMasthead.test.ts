@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 // No jsdom/testing-library render harness for this component (same
 // constraint TimelineScrubber.test.ts documents) — source-level regression
 // pin for re-review finding F (2026-08-13).
-const src = readFileSync(join(__dirname, 'LandingMasthead.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/era/LandingMasthead.tsx'), 'utf8');
 
 describe('LandingMasthead — re-review finding F (gloss line flash and reflow)', () => {
   it('swaps in the daily gloss in a pre-paint layout effect, not a post-paint effect', () => {

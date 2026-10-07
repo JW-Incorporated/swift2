@@ -1,13 +1,13 @@
 import { describe, expect, it, beforeEach } from 'vitest';
+import { releasedFactValue } from './track-guide';
 import {
   adjacentTrackOnAlbum,
   keepExploring,
   nextTrackOnAlbum,
-  releasedFactValue,
   resolveConnections,
   songTargetOf,
   tracksForEra,
-} from './track-guide';
+} from './track-guide-injected';
 import { setTracksRawProvider } from './track-catalogue-provider';
 import { setContentItemLookup } from './content-item-provider';
 import type { ContentItem, EraId, TrackNote } from './types';

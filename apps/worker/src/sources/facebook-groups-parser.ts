@@ -1,15 +1,14 @@
 // Facebook groups parser — turns a saved "Webpage, Complete" HTML export
 // (proposal §4.7, PLAN.md Stage 6) into one `fan_signal`-shaped draft row.
-// Pure/offline: no network, no Facebook access of any kind (Facebook has no
-// API for groups an account doesn't administer and prohibits *automated*
-// collection — this only ever processes a file Joey saved by hand in a
-// normal logged-in browser, per that section's rule).
+// Pure/offline: no network or Facebook access of any kind. Since the
+// 2026-09-30 owner decision, a deterministic local browser collector saves
+// the file from Joey's personal account; this parser still only receives the
+// saved HTML and never receives a credential or live browser handle.
 //
 // HONEST LIMITATION, read before trusting this against a real export:
 // Facebook's saved-HTML structure was NOT available to verify this against
 // — no Facebook account/group export exists in this build environment, and
-// creating one is outside what an agent may do unattended (CLAUDE.md
-// Decision Authority: no signing up for services). `extractPostsFromHtml`
+// the automation has not completed its first real run. `extractPostsFromHtml`
 // targets `role="article"` post containers and `aria-label` profile links —
 // both long-standing Facebook accessibility attributes, chosen because
 // they're far more stable across Facebook's markup changes than its
@@ -66,13 +65,20 @@ function hashAuthor(name: string): string {
   return createHash('sha256').update(name.trim().toLowerCase()).digest('hex').slice(0, 16);
 }
 
-function stripTags(html: string): string {
-  return html
-    .replace(/<[^>]+>/g, ' ')
+/** The handful of entities `stripTags` decodes, shared so an author name can
+ * be decoded the same way the body text is before the two are compared.
+ * `&amp;` is decoded LAST, so an input of `&amp;quot;` yields the literal
+ * `&quot;` rather than being double-unescaped into `"`. */
+function decodeEntities(value: string): string {
+  return value
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&#39;|&apos;/g, "'")
     .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&');
+}
+
+function stripTags(html: string): string {
+  return decodeEntities(html.replace(/<[^>]+>/g, ' '))
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -81,23 +87,84 @@ function stripTags(html: string): string {
  * Splits the export on `role="article"` boundaries — see module header for
  * why that attribute, not a CSS class, is the split point. Each resulting
  * block is treated as one post.
+ *
+ * Each block starts at the `<` of the tag CARRYING the attribute, not at the
+ * attribute match itself: slicing from the attribute left every block
+ * beginning with an unclosed tag fragment (`role="article" data-posinset="65">`)
+ * which `stripTags`'s `/<[^>]+>/` could not match — so that markup leaked
+ * verbatim into the derived text (issue #4885, bug 1).
  */
 function articleBlocks(html: string): string[] {
   const marker = 'role="article"';
   const blocks: string[] = [];
-  let start = html.indexOf(marker);
-  while (start !== -1) {
-    const nextStart = html.indexOf(marker, start + marker.length);
-    const end = nextStart === -1 ? html.length : nextStart;
+  let match = html.indexOf(marker);
+  while (match !== -1) {
+    const nextMatch = html.indexOf(marker, match + marker.length);
+    // Fall back to the attribute position itself if there is no enclosing
+    // tag start (malformed input) rather than dropping the block.
+    const tagStart = html.lastIndexOf('<', match);
+    const start = tagStart === -1 ? match : tagStart;
+    const nextTagStart = nextMatch === -1 ? -1 : html.lastIndexOf('<', nextMatch);
+    const end = nextMatch === -1 ? html.length : nextTagStart === -1 ? nextMatch : nextTagStart;
     blocks.push(html.slice(start, end));
-    start = nextStart;
+    match = nextMatch;
   }
   return blocks;
 }
 
 const REACTION_RE = /([\d,]+)\s*(?:reactions?|likes?)\b/i;
 const COMMENT_RE = /([\d,]+)\s*comments?\b/i;
-const AUTHOR_RE = /aria-label="([^"]{2,80})"/;
+/**
+ * A profile link, matched as a WHOLE unit — opening tag, visible anchor text
+ * and closing tag — so the member's name is removed from the block in both
+ * the `aria-label` attribute and the rendered text. Matching only the
+ * attribute (the original `/aria-label="([^"]{2,80})"/`) left the identical
+ * name sitting in the anchor's inner text, which `stripTags` keeps (it
+ * strips tags, not tag contents), so real unhashed names of private group
+ * members became the leading words of the derived post text (issue #4885,
+ * bug 2 — privacy).
+ */
+const AUTHOR_ANCHOR_RE = /<a\b[^>]*\baria-label="([^"]{2,80})"[^>]*>([\s\S]*?)<\/a\s*>/gi;
+/** Attribute-only fallback for a profile link with no closing `</a>` in the block. */
+const AUTHOR_ATTR_RE = /\baria-label="([^"]{2,80})"/g;
+/**
+ * A profile link with NO `aria-label` at all, recognised by its href. Facebook
+ * renders a @mention of another member this way, so without this the mentioned
+ * person's name would survive in the text even though the poster's does not.
+ *
+ * Scoped to Facebook's OWN profile-link shapes — a root-relative
+ * `/groups/<id>/user/<id>/`, `/profile.php?id=`, or `/people/<name>/<id>`, or
+ * the same paths on a facebook.com host — so an outbound third-party link
+ * whose path merely contains `/user/` or `/people/`
+ * (`https://www.gq.com/people/taylor-swift`) keeps its visible text instead of
+ * having it stripped and added to the redaction list.
+ */
+const FB_PROFILE_PATH = '(?:\\/groups\\/[^"\\/]+)?\\/(?:user\\/|profile\\.php|people\\/)';
+const PROFILE_HREF_ANCHOR_RE = new RegExp(
+  `<a\\b[^>]*\\bhref="(?:https?:\\/\\/(?:[a-z0-9-]+\\.)*facebook\\.com)?${FB_PROFILE_PATH}[^"]*"[^>]*>([\\s\\S]*?)<\\/a\\s*>`,
+  'gi',
+);
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Removes every occurrence of each known author name from already-stripped
+ * text. Belt-and-braces on top of dropping the profile links themselves:
+ * Facebook repeats the poster's name outside the profile anchor too (e.g.
+ * "<Name> shared a link", a "Reply to <Name>" affordance), and none of those
+ * copies may survive into anything we persist.
+ */
+function redactNames(text: string, names: string[]): string {
+  let out = text;
+  for (const name of names) {
+    const decoded = decodeEntities(name).trim();
+    if (decoded.length < 2) continue;
+    out = out.replace(new RegExp(escapeRegExp(decoded), 'gi'), ' ');
+  }
+  return out.replace(/\s+/g, ' ').trim();
+}
 
 function parseCount(match: RegExpMatchArray | null): number {
   if (!match?.[1]) return 0;
@@ -108,18 +175,36 @@ function parseCount(match: RegExpMatchArray | null): number {
 export function extractPostsFromHtml(html: string): ParsedFacebookPost[] {
   const posts: ParsedFacebookPost[] = [];
   for (const block of articleBlocks(html)) {
-    const authorMatch = block.match(AUTHOR_RE);
-    const authorName = authorMatch?.[1];
-    // Author label (if present) usually leads the block — strip it out of
-    // the body text so it isn't double-counted as post content.
-    const withoutAuthorTag = authorMatch ? block.replace(authorMatch[0], '') : block;
-    const text = stripTags(withoutAuthorTag);
+    // Every profile link in the block is dropped as a whole unit (attribute
+    // AND visible text); the first one is treated as the post's author for
+    // the hash. Names are collected so any further copy of them outside an
+    // anchor can be redacted from the derived text too.
+    const names: string[] = [];
+    let withoutAuthors = block.replace(AUTHOR_ANCHOR_RE, (_full, label: string) => {
+      names.push(label);
+      return ' ';
+    });
+    if (names.length === 0) {
+      withoutAuthors = withoutAuthors.replace(AUTHOR_ATTR_RE, (_full, label: string) => {
+        names.push(label);
+        return ' ';
+      });
+    }
+    const authorName = names[0];
+    // A mentioned member's profile link carries no aria-label; drop those
+    // anchors (and their visible text) too, but never count one as the author.
+    withoutAuthors = withoutAuthors.replace(PROFILE_HREF_ANCHOR_RE, (_full, inner: string) => {
+      const mentioned = stripTags(inner);
+      if (mentioned.length >= 2 && mentioned.length <= 80) names.push(mentioned);
+      return ' ';
+    });
+    const text = redactNames(stripTags(withoutAuthors), names);
     if (!text) continue;
     posts.push({
       text,
       reactionCount: parseCount(block.match(REACTION_RE)),
       commentCount: parseCount(block.match(COMMENT_RE)),
-      authorHash: authorName ? hashAuthor(authorName) : null,
+      authorHash: authorName ? hashAuthor(decodeEntities(authorName)) : null,
     });
   }
   return posts;

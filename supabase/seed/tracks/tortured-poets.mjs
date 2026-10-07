@@ -1446,8 +1446,8 @@ const TRACKS = [
         wiki('The Black Dog (song)', 'The_Black_Dog_(song)', 'song article: composition, chart, live history, reception'),
         ALBUM,
         {
-          source_url: 'https://www.cbsnews.com/news/taylor-swift-the-black-dog-pub-london-tortured-poets-department/',
-          source_title: "London pub becomes Taylor Swift fan destination after 'The Black Dog'",
+          source_url: 'https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/',
+          source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
@@ -1455,8 +1455,8 @@ const TRACKS = [
           notes: 'The Vauxhall pub phenomenon; marketing manager on turning customers away daily',
         },
         {
-          source_url: 'https://www.justjared.com/2025/10/06/taylor-swift-reveals-fans-have-no-idea-what-the-black-dog-is-really-about/',
-          source_title: "Taylor Swift Says Fans 'Have No Idea' What 'The Black Dog' Is About",
+          source_url: 'https://www.justjared.com/2025/10/06/taylor-swift-says-nobody-knows-what-shes-talking-about-on-this-song-they-think-they-know/',
+          source_title: "Taylor Swift Says 'Nobody Knows' What She's Talking About on This Song: 'They Think They Know'",
           publisher: 'Just Jared',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
@@ -1503,8 +1503,8 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Black Dog (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Black_Dog_(song)" },
-          { name: "CBS News: London pub becomes Taylor Swift fan destination after 'The Black Dog'", url: "https://www.cbsnews.com/news/taylor-swift-the-black-dog-pub-london-tortured-poets-department/" },
-          { name: "Just Jared: Taylor Swift Says Fans 'Have No Idea' What 'The Black Dog' Is About", url: "https://www.justjared.com/2025/10/06/taylor-swift-reveals-fans-have-no-idea-what-the-black-dog-is-really-about/" }
+          { name: "CBS News: Why Swifties have sniffed out and descended upon London's Black Dog pub", url: "https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/" },
+          { name: "Just Jared: Taylor Swift Says 'Nobody Knows' What She's Talking About on This Song: 'They Think They Know'", url: "https://www.justjared.com/2025/10/06/taylor-swift-says-nobody-knows-what-shes-talking-about-on-this-song-they-think-they-know/" }
         ]
       },
     },
@@ -2279,7 +2279,7 @@ const TRACKS = [
           notes: 'Rob Sheffield groups "The Bolter" with the Anthology\'s "stark piano narratives" about women seeking revenge.',
         },
         {
-          source_url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html',
+          source_url: 'https://web.archive.org/web/20240710055500/https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html',
           source_title: "Is Taylor Swift's song 'The Bolter' based on a true story?",
           publisher: 'AOL / Yahoo Entertainment',
           source_type: 'reputable_press',
@@ -2342,7 +2342,7 @@ const TRACKS = [
           { name: 'Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in One Week', url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/' },
           { name: "Rolling Stone: See Taylor Swift Debut 'The Bolter,' 'Crazier' Live at Edinburgh", url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-bolter-crazier-live-debut-eras-tour-1235036115/' },
           { name: 'Rolling Stone: TTPD — The Anthology Review', url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/' },
-          { name: "AOL/Yahoo: Is Taylor Swift's 'The Bolter' based on a true story?", url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html' },
+          { name: "AOL/Yahoo: Is Taylor Swift's 'The Bolter' based on a true story?", url: 'https://web.archive.org/web/20240710055500/https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html' },
         ],
       },
     },

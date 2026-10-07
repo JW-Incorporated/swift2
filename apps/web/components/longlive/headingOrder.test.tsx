@@ -1,9 +1,11 @@
 // @vitest-environment jsdom
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { render } from '@testing-library/react';
+
 import { EraSection } from './EraSection';
+import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 
 /** Heading levels as they appear in a component's source, in JSX order —
@@ -28,10 +30,12 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
   // the file regardless of whether it renders.
   it('EraSection renders the era hero h1, and EraFeedList (nested inside it) contributes the only h2', () => {
     const era = getEra(CURRENT_ERA_ID);
-    const { container } = render(
-      <AppProvider>
-        <EraSection era={era} />
-      </AppProvider>,
+    const { container } = renderWithReader(
+      <TestHostProvider>
+        <AppProvider>
+          <EraSection era={era} />
+        </AppProvider>
+      </TestHostProvider>,
     );
 
     const headings = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((el) =>
@@ -41,11 +45,12 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     // The era hero's h1 must come first, immediately followed by
     // EraFeedList's sr-only h2 before any h3 card title — never an
     // h1 → h3 jump.
-    expect(headings[0]).toBe(1);
-    expect(headings.filter((l) => l === 1)).toHaveLength(1);
-    const h2Index = headings.indexOf(2);
-    expect(h2Index).toBe(1);
-    expect(headings.filter((l) => l === 2)).toHaveLength(1);
+    // A11Y-7: the era hero is an h2 (the masthead owns the page's one h1).
+    expect(headings.filter((l) => l === 1)).toHaveLength(0);
+    expect(headings[0]).toBe(2);
+    expect(headings[1]).toBe(2);
+    const h2Index = 1;
+    expect(headings.filter((l) => l === 2)).toHaveLength(2);
     // Every heading after the h2 (the card titles) is an h3 — never a
     // further h1/h2 reopening the jump the fix closed.
     for (const level of headings.slice(h2Index + 1)) {
@@ -53,7 +58,7 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     }
   });
 
-  it.each([['./runway/RunwayThread.tsx'], ['./proposal/ProposalThread.tsx']])(
+  it.each([['../../../../packages/ui/src/reader/threads/runway/RunwayThread.tsx'], ['../../../../packages/ui/src/reader/threads/proposal/ProposalThread.tsx']])(
     "%s opens with an h2, before any h3 card title",
     (relPath) => {
       const levels = headingLevels(relPath);

@@ -5,7 +5,9 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { chunkForDiscord, neutralizeMentions } from '../community/discord-delivery.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { ORDINARY_WORD_CAP, REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, turnLog } from './chat-post.mjs';
+import { ORDINARY_WORD_CAP, REPLY_CAP, composePost, finish, postCmd, save, saveBot1, startThread, thread, turnLog } from './chat-post.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { MAX_PROMPT_CHARS } from './lib/bot1-bridge.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API, snowflakeMs } from './lib/discord-bot.mjs';
 
@@ -106,18 +108,67 @@ describe('thread', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
+  it('outputs owner_verified=true only when the context job verified the owner, false for a duplicate run', async () => {
+    const dir = tmp();
+    const { fetchImpl } = recorder();
+    const read = async (over: Record<string, unknown>) => {
+      const out = join(dir, `gh-output-${Math.random()}`);
+      await thread({ context: ctxFile(dir, over) }, { env: { GITHUB_OUTPUT: out }, fetchImpl, sleepImpl });
+      return readFileSync(out, 'utf8');
+    };
+    expect(await read({ owner: { configured: true, verified: true } })).toContain('owner_verified=true');
+    expect(await read({ owner: { configured: true, verified: false } })).toContain('owner_verified=false');
+    expect(await read({})).toContain('owner_verified=false');
+    expect(await read({ already: 'replied', owner: { configured: true, verified: true } })).toContain('owner_verified=false');
+  });
+
   it('outputs channel level for a top-level message and preserves its link', async () => {
     const dir = tmp();
     const out = join(dir, 'gh-output');
     const { fetchImpl } = recorder();
     expect(await thread({ context: ctxFile(dir) }, { env: { GITHUB_OUTPUT: out }, fetchImpl, sleepImpl })).toBe(0);
-    expect(readFileSync(out, 'utf8')).toBe(`skip=false\nreply_thread_id=\nmessage_url=https://discord.com/channels/1/${MARJ}/${MID}\n`);
+    expect(readFileSync(out, 'utf8')).toBe(`skip=false\nreply_thread_id=\nmessage_url=https://discord.com/channels/1/${MARJ}/${MID}\nowner_verified=false\n`);
     expect(fetchImpl).not.toHaveBeenCalled();
     writeFileSync(join(dir, 'chat-reply.md'), 'A short answer.\n');
     const delivery = recorder();
     expect(await postCmd({ bot: 'marjorie', 'reply-dir': dir, 'thread-id': '', 'message-url': `https://discord.com/channels/1/${MARJ}/${MID}` }, { env: { DISCORD_MARJORIE_WEBHOOK_URL: HOOK }, fetchImpl: delivery.fetchImpl, sleepImpl })).toBe(0);
     expect(delivery.log[0].key).toBe(`POST ${HOOK}?wait=true`);
     expect(delivery.log[0].body).toMatchObject({ content: `↪ https://discord.com/channels/1/${MARJ}/${MID}\nA short answer.` });
+  });
+});
+
+describe('saveBot1', () => {
+  const owner = { owner: { configured: true, verified: true } };
+
+  it('writes one bot1 prompt file for the owner and replaces an earlier one', () => {
+    const dir = tmp();
+    const context = ctxFile(dir, owner);
+    expect(saveBot1({ dir, context }, { readStdin: () => '  Re-sync the webhook check. Done when you reply with the channel name.\n' })).toBe(0);
+    expect(readFileSync(join(dir, 'bot1-prompt-1.md'), 'utf8')).toBe('Re-sync the webhook check. Done when you reply with the channel name.\n');
+    expect(saveBot1({ dir, context, text: 'Second wording.' })).toBe(0);
+    expect(readFileSync(join(dir, 'bot1-prompt-1.md'), 'utf8')).toBe('Second wording.\n');
+    expect(existsSync(join(dir, 'bot1-prompt-2.md'))).toBe(false);
+  });
+
+  it('refuses unless the context job verified the owner, and writes nothing', () => {
+    const dir = tmp();
+    for (const over of [{}, { owner: { configured: true, verified: false } }, { owner: { configured: false, verified: false } }]) {
+      expect(saveBot1({ dir, context: ctxFile(dir, over), text: 'Do a thing.' })).toBe(1);
+    }
+    expect(saveBot1({ dir, context: join(dir, 'missing.json'), text: 'Do a thing.' })).toBe(1);
+    expect(existsSync(join(dir, 'bot1-prompt-1.md'))).toBe(false);
+  });
+
+  it('enforces the bridge prompt limit, mentions and secrets, leaving no stale file', () => {
+    const dir = tmp();
+    const context = ctxFile(dir, owner);
+    expect(saveBot1({ dir, context, text: 'x'.repeat(MAX_PROMPT_CHARS) })).toBe(0);
+    expect(saveBot1({ dir, context, text: 'x'.repeat(MAX_PROMPT_CHARS + 1) })).toBe(1);
+    expect(existsSync(join(dir, 'bot1-prompt-1.md'))).toBe(false);
+    expect(saveBot1({ dir, context, text: 'ping @everyone' })).toBe(1);
+    expect(saveBot1({ dir, context, text: 'use ghp_abcdef' })).toBe(1);
+    expect(saveBot1({ dir, context }, { readStdin: () => '  ' })).toBe(1);
+    expect(existsSync(join(dir, 'bot1-prompt-1.md'))).toBe(false);
   });
 });
 
@@ -196,6 +247,7 @@ describe('finish', () => {
     const now = () => snowflakeMs(MID) + 154_400;
     expect(await finish(base(dir, 'replied'), { env: { REPO: 'o/r' }, fetchImpl, sleepImpl, execImpl, now })).toBe(0);
     expect(keys(log)).toEqual([reaction('✅')]);
+    expect(execImpl.mock.calls[0][1]).toContain('status-page');
     expect(execImpl.mock.calls[1][1].slice(0, 5)).toEqual(['issue', 'comment', '42', '--repo', 'o/r']);
     expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
   });

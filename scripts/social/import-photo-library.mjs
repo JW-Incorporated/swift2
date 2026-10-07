@@ -78,6 +78,13 @@ async function main() {
       if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
         throw new Error(`${candidate?.id ?? '(unknown)'}: --fetch requires a candidate "sourceUrl" http(s) URL to download from.`);
       }
+      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches
+      // (429s observed sourcing photos for the founder-directed photo-reuse
+      // fix, 2026-09-28/29); a small courtesy delay between downloads keeps
+      // this script a well-behaved client of any external image host, not
+      // just Wikimedia — mirrors the pacing already used in
+      // source-reddit-photos.mjs's relayFetchImpl.
+      await new Promise((resolve) => setTimeout(resolve, 500 + Math.random() * 500));
       const res = await fetch(candidate.sourceUrl, {
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
       });

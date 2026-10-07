@@ -83,6 +83,11 @@ drifts).
 | The Vault Run — all content lanes | `trig_01XKjJCfxyL2Bm24Ko4M4mWR` | `7 16 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-vault-run.yml` | `claude-opus-4-8` |
 | ~~Content Shift — authoring runs~~ **(DISABLED 2026-09-01, T-1 Vault Phase 4)** | `trig_01PonDFeQCL4iRNzceGyAYrm` | ~~`0 17 * * *`~~ | ⛔ disabled — superseded by The Vault Run (lane 1), warm spare | `claude-opus-4-8` |
 | Marjorie — 6 AM Founders' Brief | `trig_018eDoH5pWRvwGMEg58aW4f3` | `0 12 * * *` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — superseded by `routine-marjorie-brief.yml` | `claude-opus-4-8` |
+| Marjorie — weekly growth review | none (GitHub Action: `routine-marjorie-weekly-review.yml`) | `13 20 * * 0` | ✅ live as a scheduled Action since 2026-09-30 (prompt: `runner-prompts/marjorie-weekly-review.md`) | `claude-fable-5` |
+| Marjorie — ask response (Bots v2 W7) | none (GitHub Action: `routine-marjorie-ask-response.yml`) | dispatch-only | ✅ started by `loop-asks.mjs`/`loop-live.mjs --dispatch` the moment Tree files a `tree-filed` ask; drains the oldest unanswered asks, four a run; no cadence entry (an event, not a clock) (prompt: `runner-prompts/marjorie-ask-response.md`) | `claude-opus-5` |
+| Routine failure triage (BOTS-LOOP) | none (GitHub Action: `bot-failure-triage.yml`) | `workflow_run` on every `routine-*` | ✅ plain code, no LLM: files one `routine-failure` + `desk:ops` issue per failed workflow per UTC day and starts Marjorie's ask-response routine; no cadence entry (an event) | none |
+| Tree — ask response (Bots v2 W7) | none (GitHub Action: `routine-tree-ask-response.yml`) | dispatch-only | ✅ started the moment Marjorie files a `marjorie-filed` + `desk:tree` ask; opens a `tree/ask/<N>-<slug>` PR when it can act (prompt: `runner-prompts/tree-ask-response.md`) | `claude-opus-5` |
+| Fable — taste ruling (S2) | none (GitHub Action: `routine-fable-taste-ruling.yml`) | dispatch-only | ✅ started by `taste-ruling.mjs file --dispatch` (via `taste-ruling-file.yml`, called from Tree's and Marjorie's routines) for a NEW `taste-ruling` issue the workflow filed; at most 2 a UTC day; writes `Ruling: <decision>`, a plain job posts it and closes the issue (prompt: `runner-prompts/fable-taste-ruling.md`) | `claude-fable-5` |
 | ~~Marjorie — 8 PM Evening Delta~~ **(DISABLED 2026-08-31, Joey, T-13)** | `trig_01L2EG5veWBQwMowaykXAi6B` | ~~`0 3 * * *`~~ | ⛔ disabled (warm spare, intentional — prompt preserved in `runner-prompts/marjorie-delta.md`) | `claude-fable-5` |
 | Routine Auditor — fleet invariants | `trig_011p74968vLqMFeC8HzfCvAL` | `11 16 * * 0` | ⛔ disabled 2026-09-06 (Joey, HUMAN-ACTIONS.md #47) — retired outright, replaced by `scripts/check-routine-workflows.mjs` in CI | `claude-haiku-4-5-20251001` |
 | ~~swift2 Getty purge — GitHub GC watch~~ **(DISABLED 2026-08-31, Joey, T-14)** | `trig_018QuJozjMr1bYMPcqgKUmvL` | ~~`0 3,15 * * *`~~ | ⛔ disabled (purge verified complete pre-disable — zero `media.gettyimages.com` refs remain in repo, PR #3246; no prompt file existed for this trigger, so its full `job_config` was not captured before the operator disabled it via the routines UI — if the exact original config is ever needed, it is not recoverable from this repo) | `claude-sonnet-5` |
@@ -953,6 +958,9 @@ Four site-maintenance additions, designed in
 - **Karen** (extended) — nightly now also runs `scripts/check-link-liveness.mjs`
   to sweep **every** source URL (not just images), suggesting archive.org/Wayback
   snapshots for dead links.
+  Since #4324 the same script covers every link class (sources, shop/product,
+  community, app) and also runs as the deterministic nightly `link-sweep.yml`
+  Action, which fails on any dead link.
 - **Nils** (extended) — daily walk now also judges **SEO/discoverability**
   (metadata / Open Graph / JSON-LD / sitemap), and its live-site target moved off
   the internal `swift2-ten` alias to the public domain **www.longlivets.com**

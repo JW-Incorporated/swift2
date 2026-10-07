@@ -1,0 +1,47 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "the blank spaces timeline just reached the joe jonas chapter and honestly? i wasn't ready 😭\n\npicture it: 2008, Taylor's 18, and the relationship ends over a phone call so short it became one of the most-told stories in her whole history. and what does she do with that? writes 'forever & always' and slips it onto fearless. the receipts, in song form.\n\nthis is the thing i love about laying it all out in order — you watch a teenage heartbreak turn into one of the songs that built the fearless era, right there on the page.\n\ntap through the timeline and tell us which chapter you're emotionally Not Recovering from.\n\n(pictured: Taylor backstage on the eras tour — photo u/Friscic via r/erastour)\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-erastour-1ptssc4-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-erastour-1ptssc4-ig45",
+  "mediaCredit": "u/Friscic via r/erastour",
+  "mediaSource": "https://www.reddit.com/r/erastour/comments/1ptssc4/taylor_swift_lipstick_eras_tour/",
+  "scheduledAt": "2026-10-01T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/erastour: Taylor Swift lipstick eras tour"
+  ],
+  "campaign": "timeline:love-story:joe-jonas-2008:2026-10-01",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "IG sibling of the Joe Jonas (2008) love-story timeline chapter — fan-gush lead, then the confirmed facts (brief phone-call breakup, 'Forever & Always' on Fearless) and a tag-a-chapter share ask. Photo is the handed credited Taylor backstage shot; no disputed second-count asserted.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of timeline:love-story:joe-jonas-2008 (Calendar 2026-10-01 23:00Z). Longer fan-gush caption + inline credit, distinct opener from the X half ('the blank spaces timeline just reached' vs '2008.'). Same sourced facts: 2008 relationship, the famously brief phone-call breakup Taylor discussed on Ellen, 'Forever & Always' on Fearless; no invented stat. Share hook (tell us which chapter). Photo reddit-erastour-1ptssc4-ig45 (viewed, Taylor in frame), shared with the X half per W8. photoEra unset (reddit pick carries no era tag).",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-01T16:18:45.931Z",
+    "pr": 4704,
+    "sha": "aa62a4548f4af7b374d6acbb934d5f08ed80c325",
+    "message": "1555245514482786446",
+    "contentHash": "sha256:1b81a632f8ffe9b691d5356c11c8fef50e9ab53b7fcef18d7d2acc99b7485a86",
+    "sig": "hmac-sha256:c06cdfc0e65aef4633e09d5b40ec344aa57542f19b14152bd8238d1f83d3d4cd"
+  },
+  "postedAt": "2026-10-01T23:42:57.640Z",
+  "platformPostId": "17964251547187034",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

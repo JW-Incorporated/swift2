@@ -15,9 +15,8 @@ import {
   threadHeroCredit,
   threadHeroSourceUrl,
   threadHeroTiles,
-  threadPoints,
-  threadsInEra,
 } from './lenses';
+import { threadPoints, threadsInEra } from './lenses-injected';
 
 describe('threadPoints("love-story")', () => {
   it('emits a point for every era a relationship spans, not just the first', () => {

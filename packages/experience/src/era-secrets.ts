@@ -1,10 +1,11 @@
-import type { ContentItem, EraId, EraSecret, TrackNote } from './types';
-import {
-  eraSecretsRawInjected,
-  songTargetInjected,
-  contentItemInjected,
-} from './thread-content-provider';
+import type { EraId, EraSecret } from './types';
+import { contentItemInjected } from './thread-content-provider';
+import type { ReaderCorpus } from './corpus';
+import { resolveEraSecretLinkIn, type EraSecretLink } from './era-secrets-link';
+import { injectedCorpus } from './corpus-injected';
 import { epochDay } from './epoch-day';
+
+export { resolveEraSecretLinkIn, type EraSecretLink };
 
 /**
  * Per-era "Era Secret" pool (#688) — static data synced at build time from the
@@ -23,8 +24,12 @@ import { epochDay } from './epoch-day';
  * scope), so the app wires them in at import time via the injected
  * providers — see `thread-content-provider.ts`.
  */
+export function eraSecretsForEraIn(corpus: ReaderCorpus, eraId: EraId): EraSecret[] {
+  return corpus.eraSecrets()[eraId] ?? [];
+}
+
 export function eraSecretsForEra(eraId: EraId): EraSecret[] {
-  return eraSecretsRawInjected()[eraId] ?? [];
+  return eraSecretsForEraIn(injectedCorpus(), eraId);
 }
 
 /**
@@ -42,26 +47,7 @@ export function dailyEraSecret(eraId: EraId, dayKey: string): EraSecret | null {
   return pool[epochDay(dayKey) % pool.length] ?? null;
 }
 
-/** A resolved `EraSecret.deeperLink`, ready to navigate. */
-export type EraSecretLink =
-  | { kind: 'song'; eraId: EraId; track: TrackNote }
-  | { kind: 'moment'; item: ContentItem };
-
-/**
- * Resolve an `EraSecret.deeperLink` to a concrete navigation target. `song:`
- * ids resolve against the track guide, `moment:` ids against era content.
- * Everything else — `egg:` (the Clue Web has no per-egg deep-link target yet),
- * other namespaces, and unknown ids — resolves to null, and the card renders
- * with no deeper link rather than a dead one (same silent-skip contract as
- * lib/longlive/related.ts and the dossier connections).
- */
+/** Keeps the era-secret link's historical lookup: the content provider, not the content-item lookup. */
 export function resolveEraSecretLink(deeperLink?: string): EraSecretLink | null {
-  if (!deeperLink) return null;
-  const song = songTargetInjected(deeperLink);
-  if (song) return { kind: 'song', eraId: song.eraId, track: song.track };
-  if (deeperLink.startsWith('moment:')) {
-    const item = contentItemInjected(deeperLink.slice('moment:'.length));
-    if (item) return { kind: 'moment', item };
-  }
-  return null;
+  return resolveEraSecretLinkIn({ ...injectedCorpus(), getContentItem: contentItemInjected }, deeperLink);
 }

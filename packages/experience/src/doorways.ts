@@ -1,6 +1,7 @@
 import type { EraId, LensId, TheoryNote } from './types';
-import { getThread, threadPoints, threadsInEra } from './lenses';
-import { theoriesForEra } from './theories';
+import { getThread, threadPointsIn, threadsInEraIn } from './lenses';
+import { theoriesForEraIn } from './theories';
+import type { ReaderCorpus } from './corpus';
 import { resolveAnchor } from './anchor-date';
 import type { Anchored, ThreadDoorway, EggDoorway } from './feed-types';
 
@@ -46,13 +47,14 @@ const EGG_DOORWAY_KICKER = 'EGGS — the secrets she plants';
  * without any special-casing here. A point already inside the window is
  * untouched and keeps its real, exact, displayed date.
  */
-export function threadDoorwaysForEra(
+export function threadDoorwaysForEraIn(
+  corpus: ReaderCorpus,
   eraId: EraId,
   eraStart: string,
   eraEnd: string,
 ): { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }[] {
-  return threadsInEra(eraId).map(({ id }) => {
-    const points = threadPoints(id)
+  return threadsInEraIn(corpus, eraId).map(({ id }) => {
+    const points = threadPointsIn(corpus, id)
       .filter((p) => p.eraId === eraId)
       .sort((a, b) => a.date.localeCompare(b.date));
     const point = points[0]!; // threadsInEra's count > 0 guarantees this
@@ -86,12 +88,13 @@ export function threadDoorwaysForEra(
  * `track-video.ts` (PLAN.md P2 step 10), for the same reason and a stronger
  * one here: there is no curated pointer to even start from.
  */
-export function eggDoorwaysForEra(
+export function eggDoorwaysForEraIn(
+  corpus: ReaderCorpus,
   eraId: EraId,
   eraStart: string,
   eraEnd: string,
 ): { kind: 'egg'; doorway: EggDoorway; anchor: Anchored }[] {
-  return theoriesForEra(eraId).map((theory) => ({
+  return theoriesForEraIn(corpus, eraId).map((theory) => ({
     kind: 'egg' as const,
     doorway: {
       eggId: `${eraId}:${theory.slug}`,

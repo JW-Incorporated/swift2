@@ -11,7 +11,7 @@ added). Paste from here into App Store Connect.
   bundle id `ai.jwlabs.longlive`, all wired into `apps/mobile/eas.json`
   `submit.production.ios`. The ASC API key `.p8` lives only on Joey's
   machine (`apps/mobile/credentials/`, gitignored).
-- **EAS project** `@wjduvall/swift2-vault` (id `a4ff0e9b-…`), production
+- **EAS project** `@jw-labs/swift2-vault` (id `a4ff0e9b-…`), production
   env vars `EXPO_PUBLIC_SUPABASE_URL` / `EXPO_PUBLIC_SUPABASE_ANON_KEY` set.
 - **App icon** `apps/mobile/assets/icon.png` — 1024×1024, real branding
   (heart-hands on purple). Has an alpha channel but every pixel is opaque;

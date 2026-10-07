@@ -29,7 +29,7 @@
 // DATA, fetched by the workflow via the GitHub API, never by checking out
 // that branch's code.
 import { readFile } from 'node:fs/promises';
-import { chunkForDiscord, neutralizeMentions, DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
+import { chunkForDiscord, neutralizeMentions, DISCORD_MESSAGE_LIMIT, suppressPreviews } from '../community/discord-delivery.mjs';
 import { TREE_WEBHOOK_USERNAME, TREE_AVATAR_URL } from './approval-prompt.mjs';
 import { buildScorecard, renderScorecard } from './weekly-scorecard.mjs';
 import { runMain } from '../lib/cli.mjs';
@@ -162,18 +162,15 @@ export function buildWeeklyBrief(plan, scorecard, { headSha, pr, loopLines = [] 
 
 const REF_LINE_TAIL_RE = /^ref: PR #\d+ · [0-9a-f]{40} · .+$/;
 
-/** MEDIUM 7 (Codex round 1): approval-prompt.mjs's shared
- * `chunkPreservingRefLine` (lib/ref-line-chunk.mjs) puts the ref line on
- * only the LAST chunk of an over-limit message — correct for a draft
- * (only the last chunk is ever that target's mint source there), wrong
+/** MEDIUM 7 (Codex round 1): a ref line on only the LAST chunk of an
+ * over-limit message (what approval-prompt.mjs's chunker used to do for a
+ * draft, before it stopped chunking at all — Bots v2 W2) is wrong
  * here: social-approval-poll.mjs only recognizes a message that carries a
  * ref line AT ALL, so a reaction or reply on an EARLIER chunk of an
  * oversized T4 message would be silently unbound, and a permalink built
  * from a message's first chunk could point founders at a message with no
  * binding whatsoever. Every chunk of a T4 message carries the SAME ref
- * line instead — this is a local function, not a change to the shared
- * ref-line-chunk.mjs, which approval-prompt.mjs's own draft/header path
- * still needs exactly as it was. social-approval-poll.mjs's groupPlanRefs
+ * line instead. social-approval-poll.mjs's groupPlanRefs
  * already unions reactions/replies across every message naming one scope
  * (the same shape a re-briefed draft already produces), so several bound
  * chunks for one scope is not a new case to handle. */
@@ -206,12 +203,14 @@ export async function sendWeeklyBrief(messages, { webhook = process.env.SOCIAL_A
         const response = await fetchImpl(`${webhook}?wait=true`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            content: chunks[i],
-            username: TREE_WEBHOOK_USERNAME,
-            avatar_url: TREE_AVATAR_URL,
-            allowed_mentions: { parse: [] },
-          }),
+          body: JSON.stringify(
+            suppressPreviews({
+              content: chunks[i],
+              username: TREE_WEBHOOK_USERNAME,
+              avatar_url: TREE_AVATAR_URL,
+              allowed_mentions: { parse: [] },
+            }),
+          ),
         });
         if (!response.ok) throw new Error(`Discord weekly-brief delivery failed with HTTP ${response.status}`);
         const payload = await response.json();
@@ -285,7 +284,7 @@ export async function sendReplanUpdate(summary, headerPermalink, { webhook = pro
       const response = await fetchImpl(`${webhook}?wait=true`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ content: chunks[i], username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
+        body: JSON.stringify(suppressPreviews({ content: chunks[i], username: TREE_WEBHOOK_USERNAME, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } })),
       });
       if (!response.ok) throw new Error(`Discord replan-update delivery failed with HTTP ${response.status}`);
     } catch (err) {

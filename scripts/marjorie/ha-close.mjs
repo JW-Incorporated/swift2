@@ -27,9 +27,9 @@ export function laToday(now = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(now);
 }
 
-function cleanNote(note) {
+function cleanNote(note, noteCap = NOTE_CAP) {
   const flat = String(note || '').replace(/\s+/g, ' ').replace(/"/g, "'").trim();
-  return flat.length > NOTE_CAP ? `${flat.slice(0, NOTE_CAP - 1)}…` : flat;
+  return flat.length > noteCap ? `${flat.slice(0, noteCap - 1)}…` : flat;
 }
 
 /** Drops separators left back-to-back (or leading/trailing) and runs of blank lines. */
@@ -52,11 +52,11 @@ function tidy(lines) {
  * item's block runs from its `## #N` heading to the next item heading or
  * `---` separator. The ledger line goes above the newest existing one.
  */
-export function closeHumanAction(openMd, doneMd, { number, date, note, by = 'chat', outcome = 'done' }) {
+export function closeHumanAction(openMd, doneMd, { number, date, note, by = 'chat', outcome = 'done', noteCap = NOTE_CAP }) {
   if (!Number.isInteger(number) || number < 1) return { ok: false, reason: 'item number must be a positive integer' };
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '')) return { ok: false, reason: 'date must be YYYY-MM-DD' };
   if (!['done', 'skip'].includes(outcome)) return { ok: false, reason: 'outcome must be done or skip' };
-  const why = cleanNote(note);
+  const why = cleanNote(note, noteCap);
   if (!why) return { ok: false, reason: 'a note quoting why it closed is required' };
 
   const eol = openMd.includes('\r\n') ? '\r\n' : '\n';

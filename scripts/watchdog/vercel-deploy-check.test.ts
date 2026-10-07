@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { evaluate, latestProductionDeploys, WATCHED_PROJECT } from './vercel-deploy-check.mjs';
+import {
+  applySkipOverride,
+  evaluate,
+  isLegitimateSkipStatus,
+  latestProductionDeploys,
+  WATCHED_PROJECT,
+} from './vercel-deploy-check.mjs';
 
 const dep = (overrides = {}) => ({
   name: 'swift2-web',
@@ -98,5 +104,87 @@ describe('evaluate', () => {
 
   it('defaults watchProject to WATCHED_PROJECT ("swift2-web" unless overridden by env)', () => {
     expect(WATCHED_PROJECT).toBe('swift2-web');
+  });
+});
+
+describe('isLegitimateSkipStatus (issue #4616 false-alarm signal)', () => {
+  it('recognizes the exact confirmed shape from the false alarm', () => {
+    expect(
+      isLegitimateSkipStatus({ context: 'Vercel', state: 'success', description: 'Skipped - Not affected' }),
+    ).toBe(true);
+  });
+
+  it('is case-insensitive on the description wording', () => {
+    expect(isLegitimateSkipStatus({ context: 'Vercel', description: 'skipped - not affected' })).toBe(true);
+  });
+
+  it('rejects a status from a different context, even with "skip" in the description', () => {
+    expect(isLegitimateSkipStatus({ context: 'some-other-check', description: 'Skipped - Not affected' })).toBe(
+      false,
+    );
+  });
+
+  it('rejects a genuine Vercel failure status with no skip wording', () => {
+    expect(isLegitimateSkipStatus({ context: 'Vercel', state: 'error', description: 'Build failed' })).toBe(
+      false,
+    );
+  });
+
+  it('rejects null/undefined/non-object input', () => {
+    expect(isLegitimateSkipStatus(null)).toBe(false);
+    expect(isLegitimateSkipStatus(undefined)).toBe(false);
+    expect(isLegitimateSkipStatus('Skipped - Not affected')).toBe(false);
+  });
+});
+
+describe('applySkipOverride (issue #4616: distinguish auto-skip from a real cancel/abort)', () => {
+  it('(a) leaves a genuine ERROR alarming — ERROR is never skip-eligible, regardless of skipConfirmed', () => {
+    const latest = latestProductionDeploys([dep({ readyState: 'ERROR', uid: 'dpl_real_error' })]);
+    const failed = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(failed.status).toBe('confirmed-failure');
+
+    const out = applySkipOverride(failed, true);
+    expect(out.status).toBe('confirmed-failure');
+  });
+
+  it('(b) leaves a genuine aborted CANCELED (no skip signal) alarming', () => {
+    const latest = latestProductionDeploys([dep({ readyState: 'CANCELED', uid: 'dpl_real_cancel' })]);
+    const failed = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(failed.status).toBe('confirmed-failure');
+
+    // skipConfirmed === false: GitHub API answered, no skip status found.
+    expect(applySkipOverride(failed, false).status).toBe('confirmed-failure');
+    // skipConfirmed === undefined: cross-check couldn't run at all — must
+    // still alarm ("null never renders as green"), never silently clear.
+    expect(applySkipOverride(failed, undefined).status).toBe('confirmed-failure');
+  });
+
+  it('(c) clears a CANCELED that is positively confirmed as a legitimate Vercel auto-skip — does not alarm', () => {
+    // Mirrors the real issue #4616 incident: dpl_ApJCx54DfzffC9jSQi3vSYwcXKvW,
+    // sha ce7f39e0, readyState CANCELED, GitHub commit status "Skipped - Not affected".
+    const latest = latestProductionDeploys([
+      dep({
+        readyState: 'CANCELED',
+        uid: 'dpl_ApJCx54DfzffC9jSQi3vSYwcXKvW',
+        meta: { githubCommitSha: 'ce7f39e0512e2a3b151b9faeb5d5528b1f888b22' },
+      }),
+    ]);
+    const failed = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(failed.status).toBe('confirmed-failure');
+    expect(failed.deploy.commitSha).toBe('ce7f39e0512e2a3b151b9faeb5d5528b1f888b22');
+
+    const out = applySkipOverride(failed, true);
+    expect(out.status).toBe('confirmed-skipped');
+    // Must not read as a founder-@-mention-worthy alarm string.
+    expect(out.reason).toMatch(/legitimate/i);
+    expect(out.status).not.toBe('confirmed-failure');
+  });
+
+  it('is a no-op on an already confirmed-ok or unknown result', () => {
+    const ok = evaluate({ latest: latestProductionDeploys([dep({ readyState: 'READY' })]), watchProject: 'swift2-web' });
+    expect(applySkipOverride(ok, true)).toBe(ok);
+
+    const unknown = evaluate({ latest: null, fetchOk: false });
+    expect(applySkipOverride(unknown, true)).toBe(unknown);
   });
 });

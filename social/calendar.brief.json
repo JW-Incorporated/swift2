@@ -1,43 +1,43 @@
 {
-  "weekOf": "2026-09-21",
-  "whatChangedAndWhy": "You rejected a draft for the first time — \"we've used this image before\" — and you were right: we own 10 photographs, nine of them from the same 2023 Inglewood show, against 14 photo slots a week. So X goes text-only by default this fortnight (strategy already allows it, rung 3), which cuts photo demand to 7 a week and is the only arrangement where no photo repeats inside 7 days. That rejection also became L001, the first rule in the lessons ledger, which had been empty since it was built. Openers are healthy again at 14 distinct across 14 posts, but the 48h approval sweep ate another approved post (the Runway thread's only September slot), so Runway ends the month 0 of 2.",
+  "weekOf": "2026-09-28",
+  "whatChangedAndWhy": "The photo drought is over: PR #4592 merged this morning and the library went from 10 photographs to 30, twenty of which have never shipped — so every one of the thirteen draftable days below gets its own never-used photo and none repeats. In exchange I've broadened lesson L001 to what you actually said (\"All re-used pictures will be rejected\") — a photo that has ever shipped is now ineligible, full stop, and I've filed #4601 to put that rule in the checker instead of a prompt. The thing still broken is throughput, not quality: six draft PRs are open because one rejected picture blocks every approved post sitting beside it, which is why 3 posts shipped this week against 7 planned and why Mood — approved by you on 09-23 — still has never posted.",
   "calendar": [
-    { "day": 1, "text": "09-21 — Shop-the-look callback, X half only, text-only. The IG half is already approved and waiting in PR #4471; its X sibling is the one you rejected, so it gets re-drafted without a photo." },
-    { "day": 2, "text": "09-22 — Taylor's Version thread hero, origin-story angle. A Lover-era photo on purpose: the re-recording story starts in that era, so the tile and the subject actually line up." },
-    { "day": 3, "text": "09-23 — Mood, September's last chance. Mood has never shipped a single post and it was one of the three gaps this desk exists to close; if this slot goes empty, that's two months at zero." },
-    { "day": 4, "text": "09-24 — Blank Spaces timeline, the Joe Jonas chapter. Confirmed public history only; if the Vault has no confirmed anchor, the drafter skips forward rather than reaching." },
-    { "day": 5, "text": "09-25 — Taylor's Version slot 2, a different way into the same angle. Window closes today, so it drops rather than slides." },
-    { "day": 6, "text": "09-26 — End Game thread hero. The lens closest to the blocklist, so settled public fact only, nothing else." },
-    { "day": 7, "text": "09-27 — The Speak Now post that died in the sweep on 09-13, rebuilt under a fresh campaign value. The only heartbeat slot in the fortnight." },
-    { "day": 8, "text": "09-28 — Community Engine launch arc, day 0. Gated: the drafter opens the live site and confirms the Clownbot theory chip and the Clue Web live board both render before a word is written." },
-    { "day": 9, "text": "09-29 — End Game slot 2, a different item told whole. Window closes 09-30." },
-    { "day": 10, "text": "09-30 — Blank Spaces timeline, next chapter. Same confirmed-only bar, and the drafter records which chapter it landed on so the next calendar can continue the sequence." },
-    { "day": 11, "text": "10-01 — Community Engine +3, the how-to. Literally where to tap, for someone who has never found it." },
-    { "day": 12, "text": "10-02 — The Decode thread hero, October's angle (find-it challenge). New cycle month starts here." },
-    { "day": 13, "text": "10-03 — Mood again, October's format: the real songs it gave back. Mood wins this slot over the launch arc's example beat, because the arc can slide and Mood has already waited two months." },
-    { "day": 14, "text": "10-04 — The Decode slot 2, answering 10-02's challenge or posing a new one. Window closes 10-05." }
+    { "day": 1, "text": "Mon 09-28 — lost. No draft run produced a PR today and the window has passed; I'm not backfilling a day-late post." },
+    { "day": 2, "text": "Tue 09-29 — End Game thread, one item told whole. September's End Game window closes tomorrow and it's shipped nothing, so this is its first of two last chances." },
+    { "day": 3, "text": "Wed 09-30 — End Game again, a different item. Window-bound: it runs tonight or September ends with this thread at zero." },
+    { "day": 4, "text": "Thu 10-01 — Blank Spaces relationship timeline, next confirmed chapter. This is the standing weekly minimum and it hasn't shipped since 09-21." },
+    { "day": 5, "text": "Fri 10-02 — The Decode thread, October's 'go find it and reply' angle. Opens October's rotation and it's the angle that actually asks for a reply." },
+    { "day": 6, "text": "Sat 10-03 — Mood, 'what it gave me'. Mood has never posted once; both halves of the version you approved on 09-23 are still stuck in an unmerged PR." },
+    { "day": 7, "text": "Sun 10-04 — The Decode, the answer beat to Friday's challenge, or a fresh one if nobody replied." },
+    { "day": 8, "text": "Mon 10-05 — Community Engine launch, day 0. Deferred from today; it now also covers the fan theories you can see on the front page. Only drafts if the drafter sees all three surfaces working live." },
+    { "day": 9, "text": "Tue 10-06 — Clue Web thread, how it knows what it knows. October's window opens and behind-the-data is its angle." },
+    { "day": 10, "text": "Wed 10-07 — Blank Spaces timeline, next chapter. The weekly minimum for the week of 10-05." },
+    { "day": 11, "text": "Thu 10-08 — Community Engine, the how-to. Literally where to tap, for someone who's never found it." },
+    { "day": 12, "text": "Fri 10-09 — Clue Web, a second item. Window closes 10-10, so it runs now or not at all." },
+    { "day": 13, "text": "Sat 10-10 — Community Engine, one real thing the feature produced. The proof it's good, not a description of it." },
+    { "day": 14, "text": "Sun 10-11 — Heartbeat, the Speak Now week-one record. The only everyday post in the fortnight; it died in the pipeline twice and gets a third run." }
   ],
   "proposals": [
     {
-      "title": "Write a hard photo-repeat floor into strategy §2's media ladder: no photograph twice inside 7 days, and X drops to text-only rather than repeat a tile",
-      "evidence": "Your own rejection on 2026-09-21: \"Not approved. we've used this image before\" — the first ❌ in the ledger. It was unavoidable under the current rules: social/photo-library.json holds 10 photographs and the calendar consumes 14 photo slots a week, so every photo was shipping roughly every ten days and several shipped twice inside one week. Nine of the ten are from the same 2023 Inglewood Eras Tour night. Strategy §2 already permits text-only X posts (rung 3) and §3 already excludes them from the media-mix target, but nothing anywhere forbids a repeat, so nothing stopped it.",
-      "cost": "X posts lose their images. Images do lift X engagement, and we have no reach data to measure how much we'd give up. Against that: 7 photo slots a week against 10 photographs is the only arrangement where nothing repeats inside a week, and the grid — the thing you judge this account by — is Instagram, which keeps every photo it has.",
-      "onApprove": "Next Monday's run opens tree/strategy/2026-W39-1 as its own PR adding the repeat floor and the text-only fallback to §2, quoting this proposal and your ✅. A human merges it. I've already planned this fortnight that way, so approval just makes it permanent rather than a calendar note.",
-      "onReject": "X keeps carrying photos, and I plan around repeats instead — which in practice means accepting a repeat roughly every ten days and telling you in the brief each time it happens, rather than you finding it in a draft."
+      "title": "Amend strategy §2 so the default is an UNUSED photograph, and name what happens when we run out",
+      "evidence": "Your four rejections in eight days, escalating to the absolute: \"Not approved. we've used this image before\" (#4471), \"Stop re-using pictures. No picture re-use allowed. If you need mroe pictures, made an issue and lets solve it\" (#4513), \"STOP TRYING TO REPOST THIS\" (#4544), and \"The reason for all the 'no's' on all of these posts is teh same: Re-used picture. All re-used pictures will be rejected. We need new pictures.\" (#4556). Strategy §2 currently says a real photograph is \"THE default for every post\" and says nothing about re-use, and social/photo-library.json says the opposite of your rule outright — that recency is \"never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted.\" Right now the written strategy and your standing instruction disagree.",
+      "cost": "Nothing to build — it's a wording change to one section, plus the checker work already filed as #4601. The real cost is that on any day with no unused photo left, Instagram posts nothing rather than repeating a tile.",
+      "onApprove": "Next week's run opens a separate PR changing strategy §2 to make 'a photograph that has never shipped' the default, and to state the fallback explicitly: X goes text-only and the Instagram slot stays empty rather than repeating. Your rule stops living only in a lessons file.",
+      "onReject": "I keep L001 as a drafting lesson only and leave strategy §2 as written, which means the strategy doc and your instruction stay in disagreement and the next agent to read §2 will reasonably re-use a photo."
     }
   ],
   "questions": [
-    "Four weeks of founder-task issues (#3990, #4294) are open with zero of the tasks ticked — including the week I cut it to a single four-minute ask. In the same week you answered 14 post approvals and 12 Reddit prompts in Discord, median under five hours. The GitHub issue clearly isn't where you work and Discord clearly is. Do you want the weekly reach task moved into #longlive-tree as a prompt you can answer like the others, and the founder-task issue retired?",
-    "Is the Android app live in the Play Store — yes or no? It's been open four runs. HUMAN-ACTIONS #17 calls the device test \"the only thing left before Play Store\" while PR #3534 calls it \"the shipped Android app\", and I'm barred from planning a single post about it until someone confirms. A yes is the biggest launch story we have available; a no and I stop asking."
+    "Sixteen of the twenty new photographs are credited only as \"u/unknown via r/TaylorSwiftPictures\" — we have the Reddit link but not the person's name. Our own rule says we never repost someone's picture without crediting them. Can I ship those with the Reddit link as the credit, or should nothing go out until someone's real username is filled in? (Four photos do name their uploader; I've put those on the four biggest posts.)",
+    "Your weekly task email has gone five weeks with nothing ticked, while you answered nine post approvals in Discord this week in about three hours each. Should I stop sending the weekly task as a GitHub email and post it in #longlive-tree instead?"
   ],
   "needsFromMarjorie": [
     {
-      "ask": "Grow social/photo-library.json well past 10 credited photographs, and past a single 2023 concert",
-      "why": "The library holds 10 entries, 9 of them from the same Inglewood 2023 Eras Tour night, against 14 photo slots a week — every entry shipped inside the last 14 days except one. Joey rejected the 2026-09-21 shop-the-look callback with \"we've used this image before\" (social/feedback/2026-W38.jsonl), which is the first draft rejection this account has ever had. Tree cannot write this file. The rights posture is already settled (docs/decisions.md 2026-08-12: rehost with credit, unrestricted), and supabase/seed/content/** moment.photos plus apps/web/lib/longlive/lenses.ts already hold 1,000+ credited candidates to draw from."
+      "ask": "Get the real Reddit usernames filled into the 16 photo-library entries currently credited 'u/unknown'",
+      "why": "social/photo-library.json has 16 of 30 entries crediting 'u/unknown via r/TaylorSwiftPictures' while carrying the exact source post URL, and Tree's charter bars reposting media without credit — Tree may not write the library or scripts, so 13 of this fortnight's 14 Instagram slots are planned on photos I cannot fully clear myself."
     },
     {
-      "ask": "Unstick Tree's daily-draft PR #4471 — an already-approved Instagram post is stranded in it",
-      "why": "PR #4471 holds social/queue/2026-09-21-shop-the-look-callback-ig.json, founder-approved on 2026-09-21, but the PR is still open and unmerged because its X sibling was rejected in the same batch. The approval poll only stamps and merges an open PR, so the approved half is sitting there un-shipped and will hit the 48h sweep. Related and still open from last week: #4296 (the sweep itself, which has now cost a second post — the Runway thread's only September slot) and #4220 (the social-poster queue-state PR, red since 09-13, HA #81)."
+      "ask": "Get issue #4475 picked up — one rejected item blocks every approved post in the same draft PR",
+      "why": "#4475 has been open and unactioned since 09-20; six Tree draft PRs (#4471, #4513, #4544, #4556, #4565, #4574) are stuck behind a single rejection each, which is why 3 posts shipped this week against 7 planned and why the Mood pair you approved on 09-23 has still never posted."
     }
   ]
 }

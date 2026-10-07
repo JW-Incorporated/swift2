@@ -6,10 +6,14 @@
 //
 //   save    agent job      stdin (or --text) → .scratch/out/chat-reply.md,
 //                          --summary → .scratch/out/chat-summary.txt
+//   save-bot1 agent job    stdin (or --text) → .scratch/out/bot1-prompt-1.md, one per run,
+//                          refused unless the context file says owner.verified. The
+//                          workflow's `bot1` job sends it, gated on owner_verified again
 //   thread  context job    selects the reply location; existing user threads
 //           (social)       are preserved and top-level messages stay in the channel;
 //                          a message already carrying ✅/❌ is a duplicate run → skip=true.
-//                          Outputs reply_thread_id and message_url, which
+//                          Outputs reply_thread_id, message_url and owner_verified
+//                          (true only when the author is the verified owner), which
 //                          survive a re-run (artifacts may not)
 //   post    post step      the reply through the channel's webhook as the bot.
 //           (ops / social) No reply file → nothing sent, result=missing: only
@@ -33,6 +37,7 @@ import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
 import { postFailure, readDeliveryState, writtenByFounder } from './lib/chat-delivery.mjs';
+import { validatePrompt } from './lib/bot1-bridge.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
 import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
@@ -43,6 +48,7 @@ const DETAIL_REASONS = new Set(['requested', 'essential']);
 const SUMMARY_CAP = 120;
 const REPLY_FILE = 'chat-reply.md';
 const SUMMARY_FILE = 'chat-summary.txt';
+const BOT1_PROMPT_FILE = 'bot1-prompt-1.md';
 const OUT_DIR = path.join('.scratch', 'out');
 export const WEBHOOK_ENV = { marjorie: 'DISCORD_MARJORIE_WEBHOOK_URL', tree: 'DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL' };
 
@@ -108,6 +114,32 @@ export function save(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) 
   return 0;
 }
 
+/**
+ * The agent's way to hand one prompt to bot1 now (no Write tool). It writes
+ * .scratch/out/bot1-prompt-1.md — at most one per chat run — and only when the
+ * context job verified the message author is the owner; the `bot1` job then
+ * sends it through the bridge (same gate again, in the workflow).
+ */
+export function saveBot1(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) {
+  const ctx = readJson(flags.context || path.join('.scratch', 'chat-context.json'));
+  if (ctx?.owner?.verified !== true) {
+    console.log("chat-post save-bot1: the message's author is not the verified owner — nothing written");
+    return 1;
+  }
+  const dir = flags.dir || OUT_DIR;
+  const file = path.join(dir, BOT1_PROMPT_FILE);
+  if (existsSync(file)) unlinkSync(file);
+  const checked = validatePrompt(flags.text ? flags.text : readStdin());
+  if (!checked.ok) {
+    console.log(`chat-post save-bot1: ${checked.reason} — nothing written`);
+    return 1;
+  }
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(file, `${checked.body}\n`);
+  console.log(`chat-post save-bot1: ${checked.body.length} chars saved for the bridge`);
+  return 0;
+}
+
 export async function startThread({ ctx }) {
   if (!ctx.top_level) return { threadId: ctx.thread_id, note: 'already in a thread' };
   return { threadId: '', note: 'replying at channel top level' };
@@ -125,6 +157,7 @@ export async function thread(flags, { env = process.env } = {}) {
     setOutput(env, 'skip', 'true');
     setOutput(env, 'reply_thread_id', '');
     setOutput(env, 'message_url', '');
+    setOutput(env, 'owner_verified', 'false');
     return 0;
   }
   const { threadId, note } = await startThread({ ctx });
@@ -132,6 +165,7 @@ export async function thread(flags, { env = process.env } = {}) {
   setOutput(env, 'skip', 'false');
   setOutput(env, 'reply_thread_id', threadId);
   setOutput(env, 'message_url', ctx.url || '');
+  setOutput(env, 'owner_verified', ctx.owner?.verified === true ? 'true' : 'false');
   return 0;
 }
 
@@ -202,9 +236,9 @@ export function turnLog({ bot, summary, replied, messageId, repliedIn = null }) 
 function writeTurnLog({ comment, env, execImpl }) {
   const repo = env.REPO || env.GITHUB_REPOSITORY || '';
   try {
-    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
+    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'status-page', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
     if (!issues[0]) {
-      console.log('no open founders-brief issue — turn log skipped');
+      console.log('no open status-page issue — turn log skipped');
     } else {
       execImpl('gh', ['issue', 'comment', String(issues[0].number), '--repo', repo, '--body', comment], { encoding: 'utf8' });
       console.log(`turn log → #${issues[0].number}`);
@@ -279,10 +313,11 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const [cmd, ...rest] = argv;
   const flags = parseFlags(rest);
   if (cmd === 'save') return save(flags, deps);
+  if (cmd === 'save-bot1') return saveBot1(flags, deps);
   if (cmd === 'thread') return thread(flags, deps);
   if (cmd === 'post') return postCmd(flags, deps);
   if (cmd === 'finish') return finish(flags, deps);
-  console.log('usage: chat-post.mjs save|thread|post|finish [flags] — see the header of scripts/marjorie/chat-post.mjs');
+  console.log('usage: chat-post.mjs save|save-bot1|thread|post|finish [flags] — see the header of scripts/marjorie/chat-post.mjs');
   return 2;
 }
 

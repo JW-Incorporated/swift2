@@ -2462,5 +2462,66 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-10-01 (Vault Run, Content Shift lane) from intake #4588.
+      // Placed in the debut era by the universal era-by-date rule: the CMT
+      // Crossroads taping happened in October 2008, inside the debut era's
+      // range (ends 2008-11-10), even though the pairing sat on the cusp of
+      // Fearless. The anecdote resurfaced in a Sept. 2026 Louder Sound
+      // interview; the event it documents is the 2008 duet. Public-media
+      // quotes about a televised performance — no privacy redline.
+      year: 2008,
+      month: 10,
+      category: 'music',
+      title: '“I can’t sing that line”: the teenage Taylor and Def Leppard on CMT Crossroads',
+      snippet:
+        'For CMT Crossroads, a teenage Taylor paired with Def Leppard — and, singer Joe Elliott recalled years later, quietly asked to change a lyric in “Pour Some Sugar on Me” she found too risqué.',
+      sourceUrl:
+        'https://www.loudersound.com/bands-artists/taylor-swift-def-leppard-duet-crossroads',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'One of the odder, fonder pairings of Taylor’s earliest years was the night she shared a stage with Def Leppard for CMT Crossroads, the network’s series that yokes a country act to an unlikely partner. Taped in Nashville and broadcast on CMT in November 2008, the show had the teenage Taylor trading her own songs — “Love Story,” “Teardrops on My Guitar,” “Our Song” — with the British hard-rock band’s catalog, opening on a duet of their 1983 single “Photograph” and running through “Pour Some Sugar on Me” and “When Love and Hate Collide.”\n\nRevisiting it in a September 2026 interview with Louder Sound, frontman Joe Elliott remembered the care that went into making a glam-metal catalog fit a country teenager’s voice — including one lyric she simply would not sing. “Taylor says, ‘I can’t sing that line’, cos it was a bit too risqué,” Elliott recalled of their work on “Pour Some Sugar on Me,” so the two “swapped things around” until it sat right.\n\nElliott never pretended the match was obvious. He had told Rolling Stone at the time that he “loved the idea of something that’s gonna either piss people off or they go, good for you for doing something different” — a gamble that, by his later telling, paid off. For Taylor, it was a marker of how far the debut era had already carried her: not yet twenty, a year on from her first album, and already trusted to hold her own against one of rock’s biggest live bands on national television.',
+        sources: [
+          {
+            outlet: 'Louder Sound',
+            url: 'https://www.loudersound.com/bands-artists/taylor-swift-def-leppard-duet-crossroads',
+            source_title:
+              '“Me and Taylor sat down, and she says, ‘I can’t sing that line’”: Def Leppard’s Joe Elliott on duetting with the teenage Taylor Swift',
+            publisher: 'Louder Sound',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Smooth Radio',
+            url: 'https://www.smoothradio.com/news/country/taylor-swift-def-leppard-duet-cmt-crossroads/',
+            source_title:
+              'When a 17-year-old Taylor Swift and Def Leppard teamed up for an unlikely concert',
+            publisher: 'Smooth Radio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+        ],
+        // Visual (charter step 3b): Def Leppard frontman Joe Elliott, whose
+        // recollection anchors this moment, performing in 2018. Wikimedia
+        // Commons, curl-verified HTTP 200 image/jpeg at 2139x3210, downloaded
+        // and vision-confirmed as Joe Elliott (long blond hair, the band’s
+        // signature gold-braided military jacket). CC BY 2.0, credited. The
+        // 2008 broadcast has no reusable still; the band’s frontman is the
+        // connected archival visual.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/69/DefLappardO2061218-24_%2849913647568%29_Cropped.jpg',
+            focalPoint: '50% 28%',
+            credit: 'Raph_PH, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Def Leppard frontman Joe Elliott, whose 2026 recollection of the CMT Crossroads duet surfaced the lyric Taylor asked to change.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
   ],
 };

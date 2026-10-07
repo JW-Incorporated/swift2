@@ -1,0 +1,342 @@
+// GENERATED FILE — do not hand-edit.
+// Produced by scripts/generate-bundle-backed-modules.mjs from the published
+// content bundle (apps/web/public/content/<bundleVersion>/theories.json).
+// Re-run "npm run prebuild" (apps/web) after the bundle changes; don't edit
+// this file directly.
+
+import type { EraId, TheoryNote } from '@swift2/experience';
+
+export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
+  "fearless": [
+    {
+      "slug": "the-best-day-liner-note-code",
+      "kind": "easter_egg",
+      "title": "A liner-note code hidden inside \"The Best Day\"",
+      "claim": "The 2008 Fearless CD booklet capitalized scattered letters within \"The Best Day\" lyric sheet that, read in order, spell out \"GOD BLESS ANDREA SWIFT\" — a hidden tribute to her mother.",
+      "evidence": "Taylor used this capitalization-code technique across her early album booklets, letting fans decode a short message per song from oddly capitalized letters in the printed lyrics. For \"The Best Day\" — itself written about her mother — the decoded message names her directly, tying the song's subject to its hidden dedication.",
+      "confidence": "official",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Taylor Swift's 13 Best Liner Note Secret Messages",
+          "url": "https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/",
+          "reliability": 4,
+          "type": "reputable_press"
+        }
+      ],
+      "relatedSlugs": [
+        "fearless:the-best-day-surprise-home-video"
+      ]
+    },
+    {
+      "slug": "vault-track-anagram-reveal",
+      "kind": "easter_egg",
+      "title": "An anagram video unlocks the \"From the Vault\" track list",
+      "claim": "Before officially announcing the six \"From the Vault\" songs on Fearless (Taylor's Version), Taylor posted a scrambled-letter anagram video on social media that fans raced to decode, correctly working out the titles — and a Keith Urban feature — hours ahead of the formal reveal.",
+      "evidence": "The teaser clip showed jumbled letters that fans reassembled into the vault-track titles; Taylor confirmed the full list, including the Keith Urban duet, on April 3, 2021, six days ahead of the April 9 release. The announcement date (Feb. 11) and release date (April 9) each reduce to her frequently cited number 13 (2+11 and 4+9), a numerology pattern she has said she builds into release timing on purpose.",
+      "confidence": "official",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Fearless (Taylor's Version)",
+          "url": "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)",
+          "reliability": 2,
+          "type": "wiki"
+        },
+        {
+          "name": "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet",
+          "url": "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/",
+          "reliability": 4,
+          "type": "reputable_press"
+        }
+      ]
+    },
+    {
+      "slug": "the-best-day-surprise-home-video",
+      "kind": "easter_egg",
+      "title": "The home video she made in secret",
+      "claim": "Taylor wrote and recorded \"The Best Day\" about her mother and then, without telling her, cut a music video out of the family's real home movies — saving the whole thing as a Christmas surprise before it ever reached the public.",
+      "evidence": "She kept the song and the video hidden from Andrea, then played both for her on Christmas Eve. \"That's when I lost it,\" Andrea recalled, \"and I've lost it pretty much every time I've heard that song since.\" The self-edited clip of childhood footage went public on May 1, 2009 as a Mother's Day release through Big Machine — the moving-image companion to the booklet's decoded \"GOD BLESS ANDREA SWIFT\" tribute, so the same dedication is hidden twice on the same album, once in the printed letters and once on film. Years later she extended the gesture, adding never-before-seen home movies to the \"Best Day (Taylor's Version)\" lyric video.",
+      "confidence": "official",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "The Best Day (Taylor Swift song)",
+          "url": "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)",
+          "reliability": 2,
+          "type": "wiki"
+        },
+        {
+          "name": "Taylor Swift Pays Tribute to Mom Andrea With Unseen Home Movies in 'The Best Day' Lyric Video",
+          "url": "https://www.eonline.com/news/1257438/taylor-swift-pays-tribute-to-mom-andrea-with-unseen-home-movies-in-the-best-day-lyric-video",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ],
+      "relatedSlugs": [
+        "fearless:the-best-day-liner-note-code"
+      ]
+    },
+    {
+      "slug": "love-story-rewritten-ending",
+      "kind": "theory",
+      "title": "The Shakespeare rewrite",
+      "claim": "The reading — which Taylor has confirmed — that \"Love Story\" deliberately rewrites Romeo and Juliet: it keeps the star-crossed lovers and the disapproving family, then throws out the double suicide and hands the couple the ending Shakespeare denied them.",
+      "evidence": "Taylor has said she wrote the song in about twenty minutes on her bedroom floor, using Romeo and Juliet as the frame but refusing its tragedy: \"I thought, why can't you make it a happy ending and put a key change in the song and turn it into a marriage proposal?\" The finished lyric ends not with a tomb but with a proposal, and the music literally lifts a whole step at the payoff — the key change she described built into the song. It is a reading about craft and literary source, not about who the song is written for.",
+      "confidence": "confirmed_interview",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Love Story (Taylor Swift song)",
+          "url": "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)",
+          "reliability": 2,
+          "type": "wiki"
+        },
+        {
+          "name": "Love Story by Taylor Swift",
+          "url": "https://www.songfacts.com/facts/taylor-swift/love-story",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ]
+    },
+    {
+      "slug": "change-underdog-anthem",
+      "kind": "theory",
+      "title": "\"Change\" is the underdog-label anthem",
+      "claim": "The reading — in Taylor's own words — that \"Change\" isn't a breakup song but an underdog anthem: she wrote it about being sixteen on the smallest label in Nashville, willing her tiny team to beat the giants, and only later did an Olympics broadcast make it about athletes.",
+      "evidence": "Taylor has called it plainly \"an underdog story,\" written \"about being on a small record label and being a 16 year-old girl and having a lot of odds against all of us\" — Big Machine against the Nashville majors, the feeling of \"when are we going to get a fighting chance?\" She finished it around her 2007 CMA Horizon Award win, watching label head Scott Borchetta react. NBC then chose it for the 2008 Summer Olympics and the AT&T Team USA Soundtrack, which she found fitting but unexpected: \"it's kind of crazy to think that the Olympics chose this.\" The entry is about the song's stated meaning and rollout, not any relationship.",
+      "confidence": "confirmed_interview",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Change (Taylor Swift song)",
+          "url": "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)",
+          "reliability": 2,
+          "type": "wiki"
+        },
+        {
+          "name": "Change by Taylor Swift",
+          "url": "https://www.songfacts.com/facts/taylor-swift/change",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ]
+    }
+  ],
+  "tloas": [
+    {
+      "slug": "orange-era-clues",
+      "kind": "theory",
+      "title": "The orange era, called before the announcement",
+      "claim": "Through the TTPD stretch, TS12 watchers bet the next era's color was orange — reading glittery orange accents into late Eras Tour looks and posts. When The Life of a Showgirl arrived, the branding was orange head to toe.",
+      "evidence": "The album was announced on the New Heights podcast in August 2025 wrapped in glittering orange (and mint) — instantly validating months of color-watching. How much of the pre-announcement orange was planted versus pattern-matched has never been itemized, so the call is graded, not fully confirmed.",
+      "confidence": "strong_fan_consensus",
+      "outcome": "partially_confirmed",
+      "sources": [
+        {
+          "name": "The Life of a Showgirl",
+          "url": "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "midnights:album-color-canon"
+      ]
+    },
+    {
+      "slug": "ophelia-rewrite",
+      "kind": "easter_egg",
+      "title": "Ophelia, rewritten to live",
+      "claim": "The lead single \"The Fate of Ophelia\" flips Shakespeare: where Hamlet's Ophelia drowns in abandonment, the song's narrator is pulled out of that fate by love — a literary inversion fans and critics mapped line by line.",
+      "evidence": "The allusion is the title, and Taylor confirmed the conceit herself: she has said she has \"this fixation on Shakespeare characters that I love and I can't stand to see them meet a tragic demise,\" and framed the song as \"someone comes into your life and rescues you from the fate of being driven mad by love\" — the narrator \"dug me out of my grave and saved my heart from the fate of Ophelia.\" Critics and fans had already mapped the Hamlet inversion line by line, continuing the quill-pen literary streak from TTPD (Peter Pan, Cassandra, Clara Bow); her own explanation confirms the inversion rather than merely the imagery.",
+      "confidence": "confirmed_interview",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "The Meaning Behind 'Ophelia' on Taylor Swift's The Life of a Showgirl",
+          "url": "https://time.com/7322789/taylor-swift-ophelia-life-of-a-showgirl/",
+          "reliability": 4,
+          "type": "reputable_press"
+        },
+        {
+          "name": "The Fate of Ophelia",
+          "url": "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "ttpd:peter-pan-throughline"
+      ]
+    },
+    {
+      "slug": "father-figure-george-michael-interpolation",
+      "kind": "easter_egg",
+      "title": "Father Figure, built on George Michael's own",
+      "claim": "Track 4, \"Father Figure,\" is not just named after George Michael's 1987 classic — it interpolates it, rebuilding the hook and melody of Michael's chorus inside a TS12 song. The tell is in the credits: George Michael is listed as a co-writer, a Wham!-era hitmaker folded whole into the album decades on.",
+      "evidence": "An interpolation re-records a song's musical elements rather than sampling the original master, and it shows up as a formal songwriting credit — which is exactly where this one is documented, with George Michael credited as a co-writer on \"Father Figure.\" Coverage describes Taylor's track as an interpolation of Michael's song, reusing its title-line hook and a similar melody. Reaching back into a specific catalog and crediting it in the liner metadata is the same buried-clue instinct that runs through her rollouts; here the clue is hiding in the songwriting credits themselves.",
+      "confidence": "official",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Father Figure (Taylor Swift song)",
+          "url": "https://en.wikipedia.org/wiki/Father_Figure_(Taylor_Swift_song)",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:ophelia-rewrite"
+      ]
+    },
+    {
+      "slug": "eldest-daughter-track-five",
+      "kind": "easter_egg",
+      "title": "Eldest Daughter and the Track 5 rule",
+      "claim": "Swifties treat track 5 as sacred: since Fearless, the fifth song on each album is reliably her most emotionally exposed — a pattern she has spoken about and fans now brace for. On The Life of a Showgirl, track 5 is \"Eldest Daughter,\" and reviewers immediately read it as this album's Track 5 confessional.",
+      "evidence": "The \"Track 5\" convention — the album's most vulnerable, confessional song deliberately placed fifth — is a long-documented Taylor trademark running through the catalog (e.g. \"The Archer\" on Lover, \"mirrorball\" on folklore). \"Eldest Daughter\" is the fifth track on The Life of a Showgirl, and critics placed it directly in that lineage, comparing it to \"The Archer\" and \"mirrorball\" and their shared themes of perseverance, desperation and perfectionism. The egg is structural rather than hidden-in-the-art: knowing the rule tells a listener where to look for the album's emotional core before pressing play.",
+      "confidence": "reputable_reporting",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "Eldest Daughter",
+          "url": "https://en.wikipedia.org/wiki/Eldest_Daughter",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:ophelia-rewrite"
+      ]
+    },
+    {
+      "slug": "ophelia-video-self-references",
+      "kind": "easter_egg",
+      "title": "The Ophelia video, hiding the rest of the album",
+      "claim": "The video for lead single \"The Fate of Ophelia\" is seeded with easter eggs — visual callbacks to other songs on The Life of a Showgirl and to moments from the Eras Tour — plus a brief cameo of Vancouver's Science World near the end. The rollout hid the album inside its own opening visual.",
+      "evidence": "Documentation of the video notes that it features easter eggs referencing other tracks from The Life of a Showgirl and moments from the Eras Tour, and that Vancouver's Science World makes a brief appearance near the end. Planting references to the record's other songs inside the first video is the same self-referential clue-laying — the album teasing itself — that has defined her visual rollouts since the reputation and Lover eras; here it runs through the era's very first frames.",
+      "confidence": "reputable_reporting",
+      "outcome": "confirmed",
+      "sources": [
+        {
+          "name": "The Fate of Ophelia",
+          "url": "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:ophelia-rewrite"
+      ]
+    },
+    {
+      "slug": "ts12-twelfth-album-twelve-tracks",
+      "kind": "easter_egg",
+      "title": "TS12: the twelfth album, twelve tracks",
+      "claim": "The Life of a Showgirl is Taylor's twelfth studio album, and its standard edition runs exactly twelve tracks — the era Swifties had been counting toward and tagging \"TS12\" before it had a title. Fans read the twelve-on-twelfth alignment as one more of her deliberate number games.",
+      "evidence": "The album is her twelfth studio LP and its standard tracklist is twelve songs long — both plain, documented facts. Taylor has a long, self-acknowledged history of number play (the recurring 13 motif; release dates and track counts used as planted clues), which is why fans read the twelve-on-twelfth symmetry as intentional rather than incidental. The alignment itself is verified fact; the intent behind it is the fan reading, so the egg is graded partially confirmed — the numbers line up, but Taylor has not itemized this one as a wink.",
+      "confidence": "strong_fan_consensus",
+      "outcome": "partially_confirmed",
+      "sources": [
+        {
+          "name": "The Life of a Showgirl",
+          "url": "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl",
+          "reliability": 2,
+          "type": "wiki"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:orange-era-clues"
+      ]
+    },
+    {
+      "slug": "showgirl-spotify-canvas-color-swap",
+      "kind": "theory",
+      "title": "The Spotify canvas colors that set off a re-recording hunt",
+      "claim": "Over the weekend of July 18–19, 2026, fans clocked that Taylor had quietly swapped the Spotify canvases — the short looping visuals behind a track — on three songs: \"I Knew It, I Knew You\" went green, its Piano Version purple, and \"Blank Space\" red. Swifties read the color-coding as an easter-egg tease of a re-recording, most loudly a debut \"Taylor's Version.\"",
+      "evidence": "The change itself is documented — Just Jared (Bradley Stern, July 20) and geo.tv both logged the three new canvases — but nothing was announced, and Just Jared's own line was that \"no one seems to know what it means yet.\" Everything past the color swap is fan decoding, and the reads openly contradict each other. The loudest leans on green as debut's color, pointing to a debut \"Taylor's Version.\" A date-code version lines up the three albums' release days — debut on Oct 24, Speak Now on Oct 25, Red on Oct 22 — and fixates on the missing Oct 23, a Friday in 2026 and Taylor's usual release day. A numerology version adds the albums' places in her catalog (Red 4th + Speak Now 3rd + reputation 6th = 13). None of them cleanly accounts for \"Blank Space,\" a 1989 track that belongs to none of those records — which is exactly why it stays a theory. If a re-recording or new release follows, this promotes with the citation; if it goes quiet, it fades.",
+      "confidence": "plausible",
+      "outcome": "pending",
+      "sources": [
+        {
+          "name": "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories",
+          "url": "https://www.justjared.com/2026/07/20/taylor-swift-fans-spiral-over-tiny-spotify-change-fueling-new-album-taylors-version-theories/",
+          "reliability": 3,
+          "type": "reputable_press"
+        },
+        {
+          "name": "Taylor Swift sparks curiosity with new \"Easter Eggs\" on streaming platforms",
+          "url": "https://www.geo.tv/latest/673940-taylor-swift-sparks-curiosity-with-new-easter-eggs-on-streaming-platforms",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:orange-era-clues"
+      ]
+    },
+    {
+      "slug": "gracie-abrams-death-wish-not-about-taylor",
+      "kind": "theory",
+      "title": "The \"Death Wish\" theory, shut down by its own co-writer",
+      "claim": "When Gracie Abrams's \"Death Wish\" circulated, some Swifties read its lines about power, cruelty and a damaged relationship as a coded shot at Taylor — folding Abrams, one of Taylor's close friends and Eras Tour openers, into a supposed hidden feud.",
+      "evidence": "The song's co-writer and producer, Aaron Dessner — the same collaborator behind folklore and evermore — was asked about the theory head-on in a July 21, 2026 Billboard interview and shut it down flatly: \"Yeah, definitely not.\" He said Abrams wrote it \"at a time when [Gracie] was writing about a friend's ex, being in a bad relationship,\" and added that he did not even know the person's identity — so there is no hidden third party to expose, and nothing about Taylor in it. NME and E! News carried the same denial. The reading was always a fan inference stacked on a public friendship, never anything Abrams or Dessner had suggested; on the record from the man who helped write the song, it resolves debunked.",
+      "confidence": "confirmed_interview",
+      "outcome": "debunked",
+      "sources": [
+        {
+          "name": "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift",
+          "url": "https://www.billboard.com/music/music-news/aaron-dessner-gracie-abrams-death-wish-noah-kahan-interview-1236299956/",
+          "reliability": 4,
+          "type": "reputable_press"
+        },
+        {
+          "name": "The National's Aaron Dessner speaks out on if Gracie Abrams' 'Death Wish' is about Taylor Swift",
+          "url": "https://www.nme.com/news/music/the-nationals-aaron-dessner-speaks-out-on-if-gracie-abrams-death-wish-is-about-taylor-swift-3958555",
+          "reliability": 4,
+          "type": "reputable_press"
+        },
+        {
+          "name": "Gracie Abrams Song \"Death Wish\" Is Not About Taylor Swift",
+          "url": "https://www.eonline.com/news/1434254/gracie-abrams-song-death-wish-is-not-about-taylor-swift",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ]
+    },
+    {
+      "slug": "showgirl-esb-green-ts-debut-era",
+      "kind": "theory",
+      "title": "The green Empire State Building and the \"TS\" logos that lit a new-era hunt",
+      "claim": "On Aug 20, 2026 the Empire State Building glowed green, its official X account captioning it \"WhaTS happening?\" — capitalized \"TS\" reading as Taylor's initials. The same day, a green \"TS\" logo turned up on a black wall at an undisclosed spot, with more spotted across several cities. Swifties read the convergence as an easter-egg cue for her next era.",
+      "evidence": "The facts are on the record and sourced (the ESB light change and the ESB official account's \"WhaTS happening?\" post); everything past them is fan decoding, and the reads openly diverge. The loudest ties green to her 2006 self-titled debut — whose 20th anniversary lands Oct 24, 2026 — and reads it as a debut \"Taylor's Version\" tease; others point instead to reputation's black-and-green snake imagery, the other un-re-recorded title. Fans noted the font and layout match none of her past album branding. The pattern is real — the ESB lit orange in Aug 2025 for The Life of a Showgirl and blue in Jul 2026 for the wedding — but so is the countervailing coverage (\"Swifties calm down, not everything is an Easter egg\"). Nothing so far officially links the green display to any confirmed project. If an announcement or a debunk follows, this promotes with the citation; if it goes quiet, it fades.",
+      "confidence": "plausible",
+      "outcome": "pending",
+      "sources": [
+        {
+          "name": "Taylor Swift Fuels Album Theories as Empire State Building Flashes Green 'TS' Logo and Asks 'WhaTS Happening?'",
+          "url": "https://www.ibtimes.co.uk/empire-state-building-green-taylor-swift-speculation-1815429",
+          "reliability": 3,
+          "type": "reputable_press"
+        },
+        {
+          "name": "Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories",
+          "url": "https://www.contactmusic.com/story/467/3593838/empire-state-building-goes-green-as-mysterious-ts-symbols-spark-taylor-swift-fan-theories",
+          "reliability": 3,
+          "type": "reputable_press"
+        },
+        {
+          "name": "Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories",
+          "url": "https://uk.news.yahoo.com/empire-state-building-goes-green-090000104.html",
+          "reliability": 3,
+          "type": "reputable_press"
+        }
+      ],
+      "relatedSlugs": [
+        "tloas:showgirl-spotify-canvas-color-swap"
+      ]
+    }
+  ]
+};

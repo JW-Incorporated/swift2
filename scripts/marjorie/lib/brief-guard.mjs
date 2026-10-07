@@ -74,6 +74,12 @@ export function guard({ env = process.env, execImpl = execFileSync, log = consol
       if (comments.some((c) => typeof c.body !== 'string')) throw new Error('comments');
       if (comments.some((c) => MARKER.test(c.body))) return emit({ proceed: false, reason: 'already-delivered' });
     }
+    // Bots v2 W4: a delivered brief is now the dated ping stamp on the status page.
+    const statusRows = ghJson(execImpl, `repos/${repo}/issues?state=open&labels=status-page&per_page=5`);
+    if (!Array.isArray(statusRows)) throw new Error('status');
+    if (statusRows.some((row) => !row.pull_request && new RegExp(`<!--\\s*marjorie-ping date=${localDate}\\b`).test(row.body || ''))) {
+      return emit({ proceed: false, reason: 'already-delivered' });
+    }
     return emit(decision);
   } catch {
     return emit({ proceed: false, reason: 'unreadable-history' }, 1);

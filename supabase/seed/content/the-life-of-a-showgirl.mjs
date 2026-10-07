@@ -16,6 +16,138 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-04 (Vault Run, Content Shift lane) from intake #5001.
+      // Public live-TV appearance (an SNL cold-open monologue) — no privacy
+      // redline. Placed by broadcast date: the episode aired Saturday,
+      // Oct. 3, 2026, the eve of Dakota Johnson's Oct. 4 birthday. Intake
+      // #5001 dated it "Oct. 4 (Saturday)"; corrected here, because Oct. 4,
+      // 2026 was a Sunday and SNL airs Saturday night. The "subtle Travis
+      // Kelce salute" the intake cited to The Hollywood Reporter was CUT:
+      // THR is bot-gated in this run environment and none of the sources
+      // that did load (NBC News, Billboard, Deadline) mention it — the
+      // no-fabrication rule governs over a single unverifiable outlet.
+      slug: 'showgirl-dakota-johnson-snl-monologue-cameo',
+      year: 2026,
+      month: 10,
+      day: 3,
+      category: 'sighting',
+      title: 'Taylor crashes Dakota Johnson’s SNL monologue as her reluctant “therapist”',
+      snippet:
+        'Hosting Saturday Night Live on the eve of her birthday, Dakota Johnson introduced “my literal therapist” — and out walked Taylor to set the record straight: “I’m not your therapist, actually.” The two “Patient Zero” collaborators sparred through the cold-open monologue, and Taylor came back at the goodnights carrying a birthday cake.',
+      sourceUrl:
+        'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Dakota Johnson returned to host Saturday Night Live on Oct. 3, 2026 — the eve of her 37th birthday — with Turnstile as the night’s musical guest, and she gave the cold open to a surprise. Deep into a monologue about her well-documented history of dating musicians, Johnson told the crowd she leans on supportive friends who "don’t judge me for dating these men," then introduced "my literal therapist." Out walked Taylor, who had co-starred in Johnson’s corner of the "Patient Zero" music video weeks earlier, to correct the record.\n\n"I’m not your therapist, actually," Taylor deadpanned. "You just show up once a week at my house with an empty bottle of wine and ask if I want some." She described their standing arrangement — Johnson flopping onto her couch to overshare while Taylor offers the occasional "Damn, that’s crazy" — before clarifying that the evenings end not with a sleepover but with a Pedialyte and a ride home courtesy of security.\n\nThe friendship got a second beat at the end of the night: Taylor reappeared during the goodnights carrying a blue-and-white birthday cake for Johnson, who turned 37 that Sunday. It was the latest public thread in a friendship the "Patient Zero" shoot had already put on screen, and it kept Taylor in the room during the Encore stretch of the Showgirl rollout without a performance or an announcement attached.',
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-10/261004-dakota-johnson-taylor-swift-vl-1109a-a229c7.jpg',
+            credit: 'NBC, via NBC News',
+            caption:
+              'Taylor (right) joins host Dakota Johnson during the Oct. 3, 2026 Saturday Night Live opening monologue.',
+            kind: 'primary',
+            focalPoint: '55% 32%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+            source_title:
+              'Taylor Swift pops into ‘SNL’ to joke around with host Dakota Johnson',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 5,
+            notes:
+              'Primary source (loaded directly) for the monologue bit, the "I’m not your therapist" lines, Turnstile as musical guest, and the birthday-cake reappearance at the goodnights. Supplied the credited still used here.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-dakota-johnson-snl-monologue-1236353893/',
+            source_title:
+              'Taylor Swift Makes Surprise ‘SNL’ Cameo in Dakota Johnson’s Monologue',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 4,
+            notes:
+              'Confirms Johnson’s "dating musicians" framing, the "literal therapist" introduction, and the "Patient Zero" co-starring connection.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/',
+            source_title:
+              'Taylor Swift Joins ‘SNL’ host Dakota Johnson In Opening Monologue',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 4,
+            notes:
+              'Independent confirmation of the surprise cameo during the opening monologue.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-01 (Vault Run, Content Shift lane) from intake #4560.
+      // On-the-record interview quotes about a public topic (handling online
+      // criticism) — no privacy redline. Extends the sombr friendship already
+      // on this page (the June 2026 Songwriters Hall of Fame tribute),
+      // authored as its own dated Sept. 2026 moment per the era-by-date rule
+      // rather than folded into that June entry.
+      slug: 'showgirl-sombr-taylor-advice-hate-comments',
+      year: 2026,
+      month: 9,
+      day: 23,
+      category: 'music',
+      title: 'Taylor’s advice to sombr on hate comments: “a privilege to be receiving these”',
+      snippet:
+        'Asked by Elle for the best advice he had ever gotten, the 21-year-old sombr — the singer Taylor hand-picked to cover her songs at her Songwriters Hall of Fame induction — went straight to “the person I look up to most” and her counsel on online hate: if it ever stops, maybe you have slipped from your peak.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/sombr-taylor-swift-advice-dealing-with-hate-1236345453/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Asked by Elle (published Sept. 23, 2026) for the best advice he had ever been given, the 21-year-old singer-songwriter sombr went straight to Taylor: “The person I look up to most has given me. The amazing pop star.” Her counsel was about living with online hate as his profile climbed — reframe it as a scoreboard rather than a wound. In his telling, the lesson ran: “if these hate comments go away, maybe you’re not at your peak anymore. I think it’s a privilege to be receiving these and rise above it.”\n\nHe added that time had changed how he answers critics at all. A younger sombr, thrust into the spotlight as a teenager, once felt the pull to defend himself; he said he “wouldn’t respond now,” having learned that reacting tends to make things worse.\n\nThe exchange is the latest beat in a friendship that started the way many of his heroes’ do — Taylor praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. At her June 2026 Songwriters Hall of Fame induction she had asked the then-20-year-old to open her segment with covers of “Cardigan” and “Dear John” in place of a performance of her own, calling him “the future.” The advice on hate reads as an extension of that mentorship: a veteran of nearly two decades of public scrutiny handing a rising artist a way to carry it.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/sombr-taylor-swift-advice-dealing-with-hate-1236345453/',
+            source_title: 'Sombr Talks Taylor Swift & Her Advice on Dealing With Hate',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Contactmusic',
+            url: 'https://www.contactmusic.com/story/467/3613951/sombr-reveals-the-invaluable-advice-taylor-swift-gave-him',
+            source_title: 'Sombr reveals the invaluable advice Taylor Swift gave him',
+            publisher: 'Contactmusic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+        ],
+        // Visual (charter step 3b): sombr performing in London, 2025 (the artist
+        // the moment is about). Wikimedia Commons, curl-verified HTTP 200
+        // image/jpeg at 2336x3000, downloaded and vision-confirmed as sombr
+        // (curly hair, the signature “S” wrist tattoo). CC BY 2.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Sombr%2C_Islington_Academy%2C_London_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Drew de F Fawkes, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'sombr performing in London in 2025 — the rising singer-songwriter Taylor has mentored since praising him in an interview.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
       slug: 'showgirl-emmys-svu-sketch-2026',
       year: 2026,
       month: 9,
@@ -2744,18 +2876,18 @@ export default {
           },
           {
             outlet: 'People',
-            url: 'https://www.aol.com/articles/charli-xcx-declines-whether-taylor-001018233.html',
+            url: 'https://nz.news.yahoo.com/charli-xcx-declines-whether-taylor-001018434.html',
             source_title: 'Charli XCX Declines to Say Whether Taylor Swift\'s "Actually Romantic" Is About Her',
-            publisher: 'People (via AOL)',
+            publisher: 'People (via Yahoo)',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 4,
           },
           {
-            outlet: 'People',
-            url: 'https://www.aol.com/lifestyle/taylor-swift-actually-romantic-lyrics-040600872.html',
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-says-actually-romantic-is-a-love-letter-to-someone-who-hates-you-3897306',
             source_title: 'Taylor Swift Explains the Meaning Behind "Actually Romantic"',
-            publisher: 'People (via AOL)',
+            publisher: 'NME',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 3,
@@ -3721,13 +3853,15 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
-            // "not confirmed" banner): re-verified the moment's status against
-            // current reporting — the late-Aug Grammy Museum "next album"
-            // speculation (see the new rumor entry below) confirms no album 13
-            // or re-record has been announced, so the banner stays and this
-            // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Answerer re-check 2026-10-04 (lifecycle finding #4552: 30d-stale
+            // "not confirmed" banner; newest source was 2026-08-25): re-verified
+            // via WebSearch. Still no album 13 announced — "The Life of a
+            // Showgirl: The Encore" (Sept 25, 2026) expanded her TWELFTH album
+            // with four new tracks ("Patient Zero" et al.), it is not a new
+            // standalone record; fan timelines now put a possible TS13 in 2027
+            // and nothing is titled, dated, or confirmed. Banner stays
+            // (confidence reputable_reporting); this records that someone looked.
+            accessed_at: '2026-10-04',
             reliability_score: 4,
           },
         ],
@@ -5798,7 +5932,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Surprisingly understated for a showgirl-era debut, per Marie Claire\'s close-read of the look — the accessories carried the theme instead: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.\n\nThe David Koma piece itself is retail, not custom: Marie Claire identified it as the label\'s "Crystal-Embellished Halterneck Minidress," a $1,875 piece sold via Mytheresa, with DeBeers diamond drop earrings completing the jewels alongside the Artifex Fine engagement ring. It wasn\'t a new pairing — stylist Joseph Cassell Falconer has sourced David Koma little black dresses for Taylor\'s TV interviews before this appearance too — though no public comment from David Koma or the label about dressing her for this specific stop turned up in the coverage reviewed. Cassell styled the rest of the press run as well: Fallon (Oct. 6) got a Giuseppe Di Morabito crystal minidress with an asymmetric one-shoulder drape and Jimmy Choo "Claressa" platform heels, and Seth Meyers (Oct. 8) got a two-piece Wiederhoeft look — the corseted "Julie" brocade bustier and matching mini skirt — with a David Morris "Meteora" collar necklace and Aquazzura "Ce Soir" sandals. The full Graham Norton couch that Oct. 2 night also included Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — the same lineup later cast, cameos and all, in the "Opalite" music video.',
+          'Taylor kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design — a black velvet mini with a crystal-embroidered halter neckline that read as a choker of jewels on camera. Surprisingly understated for a showgirl-era debut, per Marie Claire\'s close-read of the look — the accessories carried the theme instead: drop earrings, the signature red lip, and the Artifex Fine engagement ring, on its first talk-show outing since the August proposal.\n\nThe Oct. 2 taping opened a compact, TV-first promo cycle rather than a full magazine-cover blitz: London first, then The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops. The dress set the press-run template — one designer statement per couch, jewels doing the showgirl signaling — that ran through the rest of release week.\n\nThe David Koma piece itself is retail, not custom: Marie Claire identified it as the label\'s "Crystal-Embellished Halterneck Minidress," a $1,875 piece sold via Mytheresa, with DeBeers diamond drop earrings completing the jewels alongside the Artifex Fine engagement ring. It wasn\'t a new pairing — stylist Joseph Cassell Falconer has sourced David Koma little black dresses for Taylor\'s TV interviews before this appearance too — though no public comment from David Koma or the label about dressing her for this specific stop turned up in the coverage reviewed. Cassell styled the rest of the press run as well: Fallon (Oct. 6) got a Giuseppe Di Morabito crystal minidress with an asymmetric one-shoulder drape and Jimmy Choo "Claressa" platform heels, and Seth Meyers (Oct. 8) got a two-piece Wiederhoeft look — the corseted "Julie" brocade bustier and matching mini skirt — with a David Morris "Meteora" collar necklace and Aquazzura "Ce Soir" sandals. The full Graham Norton couch that Oct. 2 night also included Cillian Murphy, Jodie Turner-Smith, Greta Lee and Domhnall Gleeson, with Lewis Capaldi performing — the same lineup later cast, cameos and all, in the "Opalite" music video.\n\nA year on, the taping became its own Swiftie mystery, and Graham Norton put it to rest himself. At the Royal Television Society conference in London on Sept. 29, 2026, interviewer Tina Daheley raised a fan theory that Taylor had shot the "Opalite" video first and then stacked its cast onto his sofa to tease it. Norton laughed it off — "The Swifties, they love a conspiracy theory. So there were Swifties who thought we\'d filmed the music video first and then orchestrated to get all the people on the sofa" — and Daheley set the record straight: "It was literally an idea she came up with while she was on the show." The sequence ran the other way: during the October taping Domhnall Gleeson joked about appearing in one of her videos, the concept, as Taylor later put it, "crash-landed into my imagination" while she was still on the couch, and the video — with Gleeson, Greta Lee, Jodie Turner-Smith, Cillian Murphy and Lewis Capaldi, the night\'s whole lineup — was shot afterward, arriving that February.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5849,6 +5983,16 @@ export default {
             accessed_at: '2026-07-29',
             reliability_score: 4,
             notes: 'the full Oct. 2 couch lineup (Murphy, Turner-Smith, Lee, Gleeson, Capaldi)',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/global/graham-norton-opalite-taylor-swift-conspiracy-theory-1236878178/',
+            source_title: "Graham Norton Shoots Down 'Conspiracy Theory' That Taylor Swift's 'Opalite' Video Was Shot Before She Came on His Show",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-05',
+            reliability_score: 4,
+            notes: 'Norton at the Royal Television Society conference (Sept. 29, 2026) refuting the "video filmed first" fan theory; confirms the idea was hatched on the couch and the video shot after (Content Shift enrichment, closes #4654).',
           },
         ],
         // Photo of the actual appearance, hotlinked from Marie Claire's
@@ -6499,7 +6643,7 @@ export default {
           },
           {
             outlet: 'Sports Illustrated',
-            url: 'https://www.si.com/nfl/mics-caught-travis-kelces-classy-message-to-bo-nix-last-chiefs-home-game',
+            url: 'https://www.si.com/nfl/mics-caught-travis-kelce-classy-message-to-bo-nix-last-chiefs-home-game',
             source_title: "Mics Caught Travis Kelce's Classy Message to Bo Nix in Possibly Last Chiefs Home Game",
             publisher: 'Sports Illustrated',
             source_type: 'reputable_press',
@@ -6910,10 +7054,10 @@ export default {
             reliability_score: 3,
           },
           {
-            outlet: 'AOL',
-            url: 'https://www.aol.com/articles/graham-norton-jokes-had-sign-163611686.html',
-            source_title: "Graham Norton Jokes He Had to Sign 'So Many' NDAs for Taylor Swift and Travis Kelce's Wedding",
-            publisher: 'AOL',
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/graham-norton-reveals-detail-taylor-193213283.html',
+            source_title: "Graham Norton Reveals New Detail on Taylor Swift, Travis Kelce Wedding",
+            publisher: 'Yahoo Entertainment',
             source_type: 'reputable_press',
             accessed_at: '2026-07-29',
             reliability_score: 3,
@@ -14663,7 +14807,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.',
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.\n\nThe commercial run kept building abroad. On the ARIA chart dated Oct. 2, 2026, the Encore sent The Life of a Showgirl back to No. 1 in Australia — a jump from No. 23 the week before — while "Patient Zero" debuted at No. 1 on the ARIA Singles Chart, and all four new Encore songs took four of the top five singles spots. A clean Australian chart double a week on from the release.',
         // No `video` field on purpose: the lyric-video frame is used as a plain
         // credited photo (and the video is cited as a source below). Declaring
         // it as `video` here would make the ytimg-still-as-hero the moment's own
@@ -14724,6 +14868,176 @@ export default {
             reliability_score: 4,
             notes:
               'source for the full music video — directed by Taylor, featuring Colin Farrell and Dakota Johnson — premiering during the 2026 MTV VMAs on Sept. 27. The lyric video (this entry\'s visual) is separate and already live.',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
+            source_title: "Taylor Swift's The Life of a Showgirl: The Encore Doubles Down",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-29',
+            reliability_score: 4,
+            notes:
+              'Release-day review of the four new tracks; source for the mixed-to-cool critical reception and the quoted verdict ("the encore sounds a lot like the show we just sat through" / "a predictable, bordering-on-bland caricature").',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-the-life-of-a-showgirl-returns-no-1-australia-1236352841/',
+            source_title: "Take a Bow: Taylor Swift's 'The Life Of A Showgirl' Returns to No. 1 In Australia",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the Oct. 2, 2026 ARIA chart double (album 23->1, "Patient Zero" debuts No. 1 on ARIA Singles). billboard.com is tollbit/bot-gated in the run environment; confirmed against ARIA\'s own charts-news page.',
+          },
+          {
+            outlet: 'ARIA',
+            url: 'https://www.aria.com.au/charts/news/taylor-swift-comes-back-for-an-encore',
+            source_title: 'Taylor Swift comes back for an encore',
+            publisher: 'ARIA (Australian Recording Industry Association)',
+            source_type: 'official',
+            accessed_at: '2026-10-02',
+            reliability_score: 5,
+            notes:
+              'The chart body\'s own announcement — The Life of a Showgirl returns to No. 1 on the ARIA Albums Chart and the four Encore tracks take four of the top five on the ARIA Singles Chart, led by "Patient Zero" at No. 1.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored by the Vault Run Content Shift lane, 2026-10-01 (intake #4567).
+      // Distinct from 'patient-zero-single-announced' (the Sept. 22-23 reveal)
+      // and 'patient-zero-released-spotify-records' (the Sept. 25 song release,
+      // which flagged this full video as "still to come") — this is the video's
+      // actual VMAs premiere and YouTube debut, with facts those entries do not
+      // carry: the Lubezki cinematography, the Farrell/Johnson/Delevingne/
+      // Stafford cast, and the ghost storyline.
+      slug: 'patient-zero-music-video-vmas-premiere',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      significance: 'notable',
+      title:
+        'The "Patient Zero" video premieres at the VMAs — self-directed, shot by Lubezki, haunting Colin Farrell and Dakota Johnson',
+      snippet:
+        'The music video for "Patient Zero" — directed by Taylor, shot by Oscar-winning cinematographer Emmanuel Lubezki, and starring Colin Farrell and Dakota Johnson with Taylor as a ghost — had its world premiere at the 2026 MTV VMAs on Sept. 27 and reached YouTube two days later.',
+      sourceUrl: 'https://www.youtube.com/watch?v=mw3kSNIxjqo',
+      thumbnailUrl: null,
+      moment: {
+        // No `video` field on purpose (same reasoning as the sibling
+        // 'patient-zero-released-spotify-records' entry, issue #4134): a
+        // seed-only lane cannot move the video-affordance real-vault counts
+        // (video-affordance.test.ts asserts exactly 19 video-carrying moments
+        // / 11 promoted heroes), so the official MV frame is used here as a
+        // plain credited photo. The watchable player URL is the sourceUrl.
+        context:
+          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.\n\nOne of the cameos came with a story of its own. Rams quarterback Matthew Stafford — a friend of the couple who, with his wife Kelly, attended their July 2026 wedding — told reporters in early October that his four daughters were the real reason he said yes: "They were right there with me. That\'s one of the main reasons that I ended up going to do that," he said, framing it as Taylor wanting "to offer an experience for our family and our kids to see that." What stuck with him was watching her run the set rather than his own brief turn on camera: "Just to watch her do her thing is pretty impressive. From borderline directing, producing, writing, all of it, editing live as we were doing it." He joked he would likely never act again "based on my acting chops."',
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: a Lubezki-style wide, symmetrical frame inside a glass-
+            // and-concrete modernist home over the ocean, two figures flanking a
+            // classical statue — the official MV hero frame. oEmbed verified:
+            // title "Taylor Swift - Patient Zero (Official Music Video)",
+            // author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 55%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption:
+              'A frame from the official "Patient Zero" music video, directed by Taylor and shot by Emmanuel Lubezki.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Patient_Zero_(song)',
+            source_title: 'Patient Zero (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-10-01',
+            reliability_score: 2,
+            notes:
+              'confirms the video director (Taylor), cinematographer (Emmanuel Lubezki), cast (Colin Farrell, Dakota Johnson; cameos Cara Delevingne, Matthew Stafford), the Sept. 27 VMAs premiere and the Sept. 29 YouTube debut.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/',
+            source_title: "Taylor Swift Premieres Star-Filled 'Patient Zero' Music Video at VMAs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/',
+            source_title: "Taylor Swift's 'Patient Zero' Music Video To Debut At VMAs",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+            notes:
+              "CBS/MTV's official premiere announcement, the self-directed credit, the Lubezki cinematography, and the Farrell/Johnson casting.",
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/',
+            source_title: "Taylor Swift's 'Patient Zero' Video to Premiere at the VMAs",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is tollbit/bot-gated in the run environment, so the body could not be loaded directly; the premiere, director and cast were confirmed against Wikipedia and the Variety/Deadline coverage that did load.',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-patient-zero-music-video-outfits-mtv-vmas-2026/',
+            source_title:
+              'Taylor Swift and Dakota Johnson Twin in Minimalist Looks for the "Patient Zero" Music Video',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the matching Valentino Bow Embellished Tulle Gown (beige, ~$30,000, plunging V-neck, floral sequin/crystal embroidery) worn by Taylor and Dakota Johnson in the ballroom scene; corroborated by theFashionSpot and Yahoo Lifestyle.',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-reveals-meaning-behind-212107292.html',
+            source_title:
+              'Taylor Swift Reveals the Meaning Behind the $47 Million Beverly Hills Fortress in the "Patient Zero" Music Video',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              "source for Taylor's Instagram quote that the house was \"a metaphor for the coldness of a relationship that's faded and atrophied.\"",
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-patient-zero-house-134844887.html',
+            source_title: "Taylor Swift's 'Patient Zero' House Was Sold for Nearly $47 Million — Report",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the filming location (an ~18,300 sq ft concrete Beverly Hills mansion built in 2014 for Oakley founder James Jannard) and its ~$46.95M June 2026 sale; corroborated by The Statesman. Address withheld per privacy-redlines.md — a past filming location, not a residence, capped at city level.',
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo',
+            source_title: "Matthew Stafford explains his cameo in Taylor Swift's 'Patient Zero' music video",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 5,
+            notes:
+              'source for Stafford\'s on-record account of the cameo (added 2026-10-03, intake #4891): his daughters as the reason, the "offer an experience for our family" and "borderline directing, producing, writing... editing live" quotes, and the acting-chops joke. Corroborated by Yahoo Sports and E! Online.',
           },
         ],
       },
@@ -14850,6 +15164,199 @@ export default {
             reliability_score: 3,
             notes:
               'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
+          },
+        ],
+      },
+    },
+    {
+      // The Sept. 27 ceremony is the OUTCOME of the pre-show entries above —
+      // 'vma-2026-artist-director-honor' (the Sept. 22 announcement of the
+      // honor) and 'patient-zero-released-spotify-records' (which flagged the
+      // full "Patient Zero" video as "set to premiere" at the VMAs). This is a
+      // new wavetop for the night itself, not a duplicate of either.
+      slug: 'showgirl-vmas-2026-ceremony',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      significance: 'notable',
+      title: 'Most decorated in VMAs history: Taylor sweeps the night, dedicates Video of the Year to Dolly Parton',
+      snippet:
+        'At the 2026 MTV VMAs, Taylor accepted the inaugural Artist Director Honors, won Best Direction for "Opalite" and Video of the Year for "The Fate of Ophelia," and left the most-decorated artist in the show\'s history — past Beyoncé. She dedicated Video of the Year to "the ultimate showgirl," the late Dolly Parton, and premiered the self-directed "Patient Zero" video.',
+      sourceUrl:
+        'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 MTV Video Music Awards, held Sunday, Sept. 27 at the Peacock Theater in Los Angeles and hosted by Snoop Dogg, turned into a record-setting night for Taylor. She accepted the inaugural Artist Director Honors — the award MTV created for her and announced five days earlier — presented on stage by Dakota Johnson, then won Best Direction for "Opalite" and, in the night\'s marquee category, Video of the Year for the self-directed "The Fate of Ophelia."\n\nThe two competitive Moon Persons lifted her career total to 32, moving her past Beyoncé (30) as the most-awarded artist the show has ever had; counted with the honorary Artist Director trophy, she left the Peacock Theater with 33 VMAs, more than anyone in the ceremony\'s history. Madonna led the field on the night with a haul that included Artist of the Year.\n\nAccepting Video of the Year, Taylor turned the moment into a tribute. She dedicated the award to "the ultimate showgirl," the late Dolly Parton — who had died the month before — praising the vividness of her storytelling: "Every single song that she wrote, her storytelling was so vivid and so rich... I think we were all very lucky to share this planet with Dolly Parton for a time." Kacey Musgraves paid her own tribute to Parton during the broadcast.\n\nThe night also delivered the visual the Encore rollout had been building toward: the full "Patient Zero" music video, which Taylor directed with cinematography by Emmanuel Lubezki, had its world premiere during the show. The star-filled cut features Dakota Johnson and Colin Farrell, with a cameo from Cara Delevingne as the "other woman" and a black-tie-party appearance by Rams quarterback Matthew Stafford and his wife, Kelly.',
+        // Fresh, unused stage photo of this exact moment — the Artist Director
+        // Honors acceptance — on NBC News's own reusable Cloudinary CDN
+        // (media-cldnry.s-nbcnews.com, on CONFIG.hostAllowlist). curl-verified
+        // HTTP 200 image/jpeg, 1500x1000, 138KB, downloaded and vision-confirmed:
+        // Taylor at the podium holding a Moon Person in a black halter and silver
+        // sequin skirt in front of the red "ARTIST DIRECTOR" screen. Photographer
+        // credit and caption pulled from the NBC article: Kevin Winter/Getty
+        // Images, "Taylor Swift accepts the Artist Director Honors." Not a
+        // watermarked getty comp, no signed/expiring token on the URL.
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/taylor-swift-vmas-lc-260927-7156aa.jpg',
+            credit: 'Kevin Winter/Getty Images, via NBC News',
+            caption:
+              'Taylor accepts the inaugural Artist Director Honors at the 2026 MTV VMAs on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'primary',
+            focalPoint: '50% 28%',
+          },
+          {
+            // Second, distinct frame from the same NBC News coverage: a press-line
+            // portrait at the 2026 VMAs (not the podium acceptance above). NBC's
+            // own reusable Cloudinary CDN (media-cldnry.s-nbcnews.com, allowlisted).
+            // curl-verified HTTP 200 image/jpeg, 1667x2500, ~279KB, downloaded and
+            // vision-confirmed: Taylor in a black halter dress with bangs against
+            // the blue VMAs step-and-repeat. Credit maps in the article HTML to
+            // Frazer Harrison/Getty Images (the podium frame is Kevin Winter);
+            // caption from NBC's schema. Not a watermarked getty comp; no signed URL.
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/260927-mtv-vma-taylor-swift-ww-1707-b09bea.jpg',
+            focalPoint: '42% 24%',
+            credit: 'Frazer Harrison/Getty Images, via NBC News',
+            caption:
+              'Taylor at the 2026 MTV VMAs at the Peacock Theater in Los Angeles on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'archival',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+            source_title:
+              'Taylor Swift surpasses Beyoncé to become most decorated solo artist in MTV VMAs history',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 5,
+            notes:
+              'Primary source for the most-decorated record (past Beyoncé, 30 to 33), the Sept. 27 Peacock Theater ceremony, the "Patient Zero" premiere, and the Emmanuel Lubezki cinematography credit.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/2026-vmas-highlights-madonna-taylor-swift/',
+            source_title:
+              'Madonna wins 2026 MTV VMAs Artist of the Year, Taylor Swift accepts Artist Director Honor',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'Confirms the Artist Director Honors acceptance, Madonna as Artist of the Year, and the Kacey Musgraves tribute to Dolly Parton.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-extends-record-mtv-vmas-win-1236713296/',
+            source_title: 'Taylor Swift Wins Video of the Year at 2026 MTV VMAs, Extends Her Record',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'hollywoodreporter.com is bot-gated in the run environment (a tollbit 402 redirect), so the page could not be loaded directly; the Video of the Year win and the record were confirmed against NBC News and CBS News, which did load.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-dolly-parton-vmas-video-of-the-year-ophelia-1235631582/',
+            source_title:
+              'Taylor Swift Pays Tribute to Dolly Parton While Accepting Video of the Year Award at 2026 VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is bot-gated (tollbit 402) in the run environment; the Dolly Parton dedication and "ultimate showgirl" quote were confirmed against NBC News and CBS News.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/',
+            source_title: "Taylor Swift Premieres Star-Filled 'Patient Zero' Music Video at VMAs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'variety.com is bot-gated (tollbit 402) in the run environment; the "Patient Zero" premiere and the Dakota Johnson / Colin Farrell / Cara Delevingne casting were confirmed against NBC News and E! News.',
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo',
+            source_title: "Matthew Stafford makes cameo in Taylor Swift's 'Patient Zero' music video",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes: 'Source for the Matthew Stafford (and wife Kelly) black-tie-party cameo in the "Patient Zero" video.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-03 (Vault Run, Content Shift lane) from intake #4626.
+      // An artist's on-the-record recollection of a public-facing industry
+      // kindness — no privacy redline (no location/health/security, and the
+      // only private detail is one Rexha volunteered about herself). Placed in
+      // the current era by the real-world date of the remark (the Sept. 27,
+      // 2026 VMAs red carpet), the same era-by-date treatment the sombr advice
+      // item at the top of this file uses for a 2026 interview about an older
+      // friendship.
+      slug: 'showgirl-bebe-rexha-taylor-2019-grammys-dress-support',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      title: 'Bebe Rexha on Taylor reaching out during her 2019 Grammys dress struggle: “really, really kind”',
+      snippet:
+        'On the 2026 VMAs red carpet, Bebe Rexha told E! News that Taylor had quietly reached out to her back in 2019, when — as Rexha said publicly at the time — several designers declined to dress her for the Grammys because of her size. “Nobody really reached out,” Rexha said; Taylor, at “such a high level,” made her “feel like I belonged.”',
+      sourceUrl:
+        'https://www.eonline.com/news/1436463/vmas-2026-taylor-swift-helped-bebe-rexha-when-designers-wouldnt-dress-her',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Working the 2026 MTV VMAs red carpet on Sept. 27 — the night Taylor became the most-decorated artist in the show’s history — Bebe Rexha was asked by E! News about Taylor and reached back seven years for her answer. “I remember when I had that whole Grammys situation when I couldn’t find a dress and she reached out to me because we’re the same age, and I thought that was really, really kind of her,” Rexha said. What made it land, she added, was how rare it was: “Nobody really reached out. Some people did, but for her at such a high level to make me feel like I belonged was really, really nice.”\n\nThe “Grammys situation” Rexha referred to is a documented one. Ahead of the 61st Grammy Awards in February 2019, Rexha — then up for Best New Artist and Best Country Duo/Group Performance for “Meant to Be” — said publicly that several designers had turned down the chance to dress her because of her size, telling fans a number of houses had declined because she was, in her words, “too big.” She turned the slight into a talking point about fashion and body image, and ultimately walked the Grammys red carpet in a custom red gown. Rexha’s 2026 recollection adds a private coda the public story never had: that amid the noise, Taylor — an exact contemporary, both born in 1989 — was one of the few who reached out directly.\n\nIt is the latest in a run of these quiet-support stories surfacing from across the industry, the same shape as the advice Taylor gave the young singer-songwriter sombr about handling online hate: a gesture made privately years earlier, recounted on the record by its recipient rather than publicized by Taylor herself.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1436463/vmas-2026-taylor-swift-helped-bebe-rexha-when-designers-wouldnt-dress-her',
+            source_title: 'VMAs 2026: Taylor Swift Helped Bebe Rexha When Designers Wouldn’t Dress Her',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 4,
+            notes:
+              'Primary source: the outlet that conducted the Sept. 27, 2026 VMAs red-carpet interview; carries Rexha’s on-record quote about Taylor reaching out during the 2019 Grammys dress situation.',
+          },
+          {
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/bebe-rexha-taylor-swift-2019-grammys-dress-support-1822432',
+            source_title: 'Bebe Rexha Says Taylor Swift Reached Out After Designers Refused To Dress Her for 2019 Grammys',
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 3,
+            notes:
+              'Corroborating source, loaded directly in the run environment: confirms the full “Nobody really reached out… make me feel like I belonged” quote, the red-carpet setting, and the 2019 “too big” dress controversy. Does not name a single designer who ultimately dressed her, so no designer is asserted here.',
+          },
+        ],
+        // Visual (charter step 3b): a 2019 red-carpet portrait of Bebe Rexha —
+        // the subject of the moment, from the same year as the dress story.
+        // Wikimedia Commons (upload.wikimedia.org, allowlisted reusable host),
+        // curl-verified HTTP 200 image/jpeg at 1884x2640, downloaded and
+        // vision-confirmed as Bebe Rexha (blonde, wide-brim black hat with chin
+        // tie, awards step-and-repeat behind). CC BY-SA 4.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Bebe_Rexha_2019_-3_by_Glenn_Francis_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Glenn Francis, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Bebe Rexha on a red carpet in 2019 — the year she said several designers declined to dress her for the Grammys, and Taylor reached out.',
+            kind: 'archival',
           },
         ],
       },

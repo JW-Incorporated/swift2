@@ -16,7 +16,7 @@ import { join } from 'node:path';
 // Scoped to app/ + components/ — where page content renders — not lib/ or
 // scripts, and not node_modules/.next build output.
 const ROOT = join(__dirname, '..');
-const SCAN_DIRS = ['app', 'components'];
+const SCAN_DIRS = ['app', 'components', '../../packages/ui/src'];
 
 function listSourceFiles(dir: string): string[] {
   const out: string[] = [];
@@ -51,7 +51,7 @@ describe('no user/content HTML sink (issue #1975)', () => {
     expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/\/app\/layout\.tsx$/),
-        expect.stringMatching(/\/components\/longlive\/merch\/MerchCard\.tsx$/),
+        expect.stringMatching(/\/reader\/merch\/MerchCard\.tsx$/),
       ]),
     );
   });

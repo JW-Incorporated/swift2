@@ -12,7 +12,8 @@ import { countPostsByPlatformSince, computeDeltas } from './lib/growth.mjs';
 import { isPlausibleCritiqueTotal } from './lib/queue-schema.mjs';
 import { aggregateLatency, aggregateVerdicts, snowflakeTimestampMs } from './lib/feedback.mjs';
 import { buildLadderStanding, renderLadderStanding } from './lib/ladder-standing.mjs';
-import { buildEngagementSummary, renderEngagement } from './lib/post-metrics.mjs';
+import { buildEngagementSummary, renderEngagement, readPostMetrics } from './lib/post-metrics.mjs';
+import { buildPerformanceReport, isoWeekWindow, renderPerformanceReport } from './lib/scorecard-report.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
@@ -436,4 +437,46 @@ export function renderScorecard(card) {
   lines.push(renderLadderStanding(card.ladderStanding));
   lines.push(renderEngagement(card.postEngagement)); // Tree Overhaul T3
   return lines.join('\n');
+}
+
+
+/**
+ * CLI entry (issue #4297): `node scripts/social/weekly-scorecard.mjs
+ * [--week YYYY-Www] [--json]`. Without `--week` the window is the trailing 7
+ * days ending now, same as buildScorecard always used. With it, every
+ * windowed number is that ISO week (Mon 00:00 UTC to next Mon); follower
+ * deltas still compare the newest snapshot on disk (weeklyFollowerDeltas).
+ * Read-only: files on disk only, no network, no LLM.
+ */
+export function runScorecard({ week, now = Date.now(), dirs = {} } = {}) {
+  const window = week ? isoWeekWindow(week) : { startMs: now - WEEK_HOURS * 3600 * 1000, endMs: now, label: null };
+  const card = buildScorecard({ now: window.endMs, ...dirs });
+  const ledgerRows = fetchLedgerRows(dirs.feedbackDir);
+  const inWeek = ledgerRows.filter((r) => { const at = Date.parse(r?.ts ?? ''); return at >= window.startMs && at < window.endMs; });
+  const performance = buildPerformanceReport({
+    posted: fetchPosted(dirs.postedDir),
+    postMetrics: readPostMetrics(dirs.postsMetricsDir ?? POSTS_METRICS_DIR),
+    ledgerRows,
+    calibration: calibration({ ledgerRows: inWeek }),
+    window,
+  });
+  return { card, performance };
+}
+
+function main(argv) {
+  const weekIdx = argv.indexOf('--week');
+  const week = weekIdx >= 0 ? argv[weekIdx + 1] : undefined;
+  if (weekIdx >= 0 && (!week || week.startsWith('--'))) throw new Error('--week needs a value like 2026-W40');
+  const { card, performance } = runScorecard({ week });
+  if (argv.includes('--json')) process.stdout.write(JSON.stringify({ scorecard: card, performance }, null, 2) + '\n');
+  else process.stdout.write(renderScorecard(card) + '\n\n' + renderPerformanceReport(performance) + '\n');
+}
+
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('scripts/social/weekly-scorecard.mjs')) {
+  try {
+    main(process.argv.slice(2));
+  } catch (err) {
+    console.error(`weekly-scorecard: ${err?.message ?? err}`);
+    process.exitCode = 1;
+  }
 }

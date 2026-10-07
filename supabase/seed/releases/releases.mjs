@@ -797,9 +797,9 @@ export default {
       sources: [
         wiki('Midnights', 'Midnights', "Til Dawn Edition date + added tracks documented in the album article"),
         press(
-          'https://people.com/music/taylor-swift-announces-midnights-til-dawn-edition-ice-spice-lana-del-rey/',
-          "Taylor Swift Announces Midnights (Til Dawn Edition) Featuring Ice Spice and More Lana Del Rey",
-          'People',
+          'https://variety.com/2023/music/news/taylor-swift-ice-spice-midnights-til-dawn-edition-lana-del-rey-exclusive-vault-track-1235624159/',
+          "Taylor Swift Announces 'Midnights' Deluxe Album With Ice Spice and More Lana Del Rey",
+          'Variety',
           'supports the Til Dawn Edition additions: Hits Different, More Lana Del Rey, and Karma featuring Ice Spice',
         ),
       ],

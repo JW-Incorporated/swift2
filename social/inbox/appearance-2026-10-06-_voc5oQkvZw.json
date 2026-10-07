@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-06-_voc5oQkvZw",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-06T19:02:23.738Z",
+  "deadline": "2026-10-08T19:02:23.738Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Taylor Swift",
+    "videoTitle": "The Life of a Showgirl: The Encore including 4 new songs is available to pre-order & save now ❤️‍🔥",
+    "publishedAt": "2026-09-23T13:15:36+00:00",
+    "videoId": "_voc5oQkvZw",
+    "url": "https://www.youtube.com/watch?v=_voc5oQkvZw"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 5235
+  }
+}

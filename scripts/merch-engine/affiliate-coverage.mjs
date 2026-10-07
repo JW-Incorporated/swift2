@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const OUTPUT = 'docs/ops/AFFILIATE-COVERAGE.md';
-export const AWIN_DIRECTORY = 'apps/web/lib/longlive/awin-advertisers.json';
+export const AWIN_DIRECTORY = 'packages/ui/src/reader/moment/lib/awin-advertisers.json';
 
 const STATUSES = ['wrapped', 'awin-apply', 'pending-signup', 'uncovered', 'direct-by-policy'];
 
@@ -109,7 +109,7 @@ async function main() {
   // fail-closed pre-E0 state (Amazon only, no assumed Awin advertisers).
   let networkFor;
   try {
-    ({ networkFor } = await import('../../apps/web/lib/longlive/shop-networks.ts'));
+    ({ networkFor } = await import('../../packages/ui/src/reader/moment/lib/shop-networks.ts'));
   } catch (error) {
     if (error?.code !== 'ERR_MODULE_NOT_FOUND') throw error;
     networkFor = (retailer) =>

@@ -622,8 +622,8 @@ export const CLUE_PAIRS = [
     connection: 'A movie-trailer snippet preceded the standalone release of the full Taylor’s Version recording.',
     confirmed: true,
     sources: [
-      { name: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-wildest-dreams-taylors-version-spirit-untamed-trailer-9540468/' },
-      { name: 'NME', url: 'https://www.nme.com/news/music/taylor-swift-releases-wildest-dreams-taylors-version-after-it-goes-viral-on-tiktok-3048170' },
+      { name: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-wildest-dreams-re-recording-new-spirit-untamed-trailer-9549285/' },
+      { name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-wildest-dreams-taylors-version-1228197/' },
     ],
   },
   {
@@ -644,8 +644,7 @@ export const CLUE_PAIRS = [
     connection: 'The trailer acted as a one-day breadcrumb for the next 1989 Taylor’s Version song drop.',
     confirmed: true,
     sources: [
-      { name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-this-love-taylors-version-the-summer-i-turned-pretty-trailer' },
-      { name: 'Variety', url: 'https://variety.com/2022/music/news/taylor-swift-this-love-taylors-version-summer-i-turned-pretty-trailer-1235260492/' },
+      { name: 'Variety', url: 'https://variety.com/2022/music/news/taylor-swift-this-love-taylors-version-1989-trailer-amazon-summer-i-turned-pretty-1235258942/' },
     ],
   },
   {

@@ -181,6 +181,15 @@ device/notification routes answer 503 there because preview has no
 `SUPABASE_SERVICE_ROLE_KEY` — their documented unconfigured path, unchanged
 by any of this.) A `--depth 1` clone was checked separately and fails open.
 
+## Rolling back content
+
+Revert the content PR on `main`; the next publish rebuilds the bundle from the
+reverted seed (`content-publish.yml` plus Vercel's own prebuild). The
+alternative is the owner's Vercel Instant Rollback, which reverts content
+**and** web code to the earlier deployment. There is no content-rollback
+workflow. Mobile JS rollback is separate: `docs/mobile-release.md` "Rolling
+back an OTA".
+
 ## After it's live
 
 - Open the URL — you should see the eras with per-era theming.
@@ -195,8 +204,9 @@ by any of this.) A `--depth 1` clone was checked separately and fails open.
 
 Superseded 2026-09-05 by the **mobile release train** — see
 `docs/mobile-release.md`. In short: a merge to `main` touching
-`apps/mobile/**` or `packages/**` runs `apps/mobile/.eas/workflows/release.yml`
-on EAS, which decides per platform (by native fingerprint) between one OTA
+`apps/mobile/**` or `packages/**` runs `.github/workflows/mobile-release.yml`
+(GitHub Actions driving the EAS CLI; moved off EAS Workflows 2026-10-03, HA #98,
+because the Free plan's CI/CD minutes ran out), which decides per platform (by native fingerprint) between one OTA
 update group to both platforms and store builds for both, and never submits
 one platform without the other. `scripts/mobile/check-parity.mjs` proves it
 every 6 hours. Do not run `eas build`/`eas update` for production by hand;

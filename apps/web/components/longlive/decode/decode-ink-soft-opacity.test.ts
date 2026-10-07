@@ -10,7 +10,7 @@ import { describe, expect, it } from 'vitest';
 // an opacity multiplier can't quietly ride along with the token again;
 // opacity utilities on non-text elements and other tokens stay untouched.
 
-const ROOT = fileURLToPath(new URL('.', import.meta.url));
+const ROOT = fileURLToPath(new URL('../../../../../packages/ui/src/reader/threads/decode/', import.meta.url));
 
 const tsxFiles = (dir: string): string[] =>
   readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
