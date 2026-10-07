@@ -29,12 +29,40 @@ import { validatePhotoEntry } from './lib/photo-library.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
 
+/** 1.5 MB cap on library photos, enforced from the recorded `bytes` because the
+ * auto-merge-content.yml Contents-API size check sees only the ~131-byte LFS
+ * pointer (docs/decisions.md 2026-10-07). These eight pre-LFS entries predate
+ * the cap and are grandfathered; do not add to this list. */
+export const MAX_LIBRARY_PHOTO_BYTES = 1.5 * 1024 * 1024;
+const OVERSIZE_GRANDFATHERED = new Set([
+  'reddit-erastour-1ptssc4',
+  'reddit-erastour-1q65hiz',
+  'reddit-taylorswiftpictures-1nz3wbn',
+  'reddit-taylorswiftpictures-1pm1yly',
+  'reddit-taylorswiftpictures-1pphafw',
+  'reddit-taylorswiftpictures-1qgb3m8',
+  'reddit-taylorswiftpictures-1r38qiv',
+  'speaknow-inglewood-2023',
+]);
+
 /** Validates every social/photo-library.json entry with validatePhotoEntry.
  * The library auto-merges from the concert-photo-sourcing bot (docs/decisions.md
  * 2026-10-06), so CI is its only reviewer. Returns `id: reason` strings. */
 export function validatePhotoLibrary(photos) {
   if (!Array.isArray(photos)) return ['photo-library.json: `photos` must be an array'];
-  return photos.flatMap((photo, i) => validatePhotoEntry(photo ?? {}).map((finding) => `${photo?.id ?? `#${i}`}: ${finding}`));
+  return photos.flatMap((photo, i) => {
+    const findings = validatePhotoEntry(photo ?? {});
+    // Photos are Git LFS pointers in CI, so every tool relies on these recorded
+    // file facts instead of reading the binary (docs/decisions.md 2026-10-07).
+    if (!/^[0-9a-f]{64}$/.test(photo?.sha256 ?? '')) findings.push('sha256 is required (64 hex chars of the stored file)');
+    for (const key of ['width', 'height', 'bytes']) {
+      if (!Number.isInteger(photo?.[key]) || photo[key] <= 0) findings.push(`${key} is required (positive integer recorded at import)`);
+    }
+    if (photo?.bytes > MAX_LIBRARY_PHOTO_BYTES && !OVERSIZE_GRANDFATHERED.has(photo.id)) {
+      findings.push(`bytes ${photo.bytes} is over the ${MAX_LIBRARY_PHOTO_BYTES}-byte (1.5MB) library photo cap — normalize/downscale before import`);
+    }
+    return findings.map((finding) => `${photo?.id ?? `#${i}`}: ${finding}`);
+  });
 }
 
 /** Reads `<root>/social/lessons.md` and returns its active rule ids —

@@ -20,6 +20,16 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
  * entirely rather than rely on it. */
 export const MEDIA_BASE_URL = 'https://www.longlivets.com';
 
+/** Social photo library binaries live in Git LFS and are excluded from the
+ * Vercel deploy (apps/web/.vercelignore), so they are NOT served from
+ * MEDIA_BASE_URL — platforms fetch them from GitHub's LFS media endpoint. */
+export const PHOTO_MEDIA_BASE_URL = 'https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public';
+
+/** The public URL a platform should fetch `p` (a /social/... path) from. */
+export function mediaUrlFor(p, mediaBaseUrl = MEDIA_BASE_URL) {
+  return p.startsWith('/social/library/photos/') ? `${PHOTO_MEDIA_BASE_URL}${p}` : `${mediaBaseUrl}${p}`;
+}
+
 /** Hard per-run and per-platform-per-day backstops (charter rail 3: caps are
  * code, never trust-based). Overridable only by editing this file — a PR,
  * same as any other rail change. */
@@ -407,7 +417,7 @@ export function needsMediaPreflight(item) {
 
 /** Full media URLs for `item`, for the deploy-lag preflight to HEAD-check. */
 export function mediaUrlsFor(item, mediaBaseUrl) {
-  return (item.media ?? []).map((p) => `${mediaBaseUrl}${p}`);
+  return (item.media ?? []).map((p) => mediaUrlFor(p, mediaBaseUrl));
 }
 
 /**

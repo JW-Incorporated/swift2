@@ -28,7 +28,9 @@ export const variantMediaPath = (mediaPath, suffix) => mediaPath.replace(/\.[A-Z
 
 /** The library entry for a variant: every field of the original, re-pointed at the variant file. */
 export function variantEntry(original, plan) {
-  return { ...original, id: `${original.id}${plan.suffix}`, mediaPath: variantMediaPath(original.mediaPath, plan.suffix), variantOf: original.id };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- the original's recorded file facts do not describe the variant's own file
+  const { width, height, bytes, sha256, ...rest } = original;
+  return { ...rest, id: `${original.id}${plan.suffix}`, mediaPath: variantMediaPath(original.mediaPath, plan.suffix), variantOf: original.id };
 }
 
 /** `{ buffer, width, height, quality }` — the original centred (never upscaled) over its blurred, darkened self. */

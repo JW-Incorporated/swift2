@@ -122,6 +122,15 @@ jobs:
           npm-ci-args: '--ignore-scripts'
           cache: npm
 
+      # Library photos are Git LFS objects (docs/decisions.md 2026-10-07): the
+      # LFS clean filter must be active before anything is staged, or new
+      # photos would land as raw blobs. The commit-and-pr action then gates
+      # on every staged photo being an LFS pointer.
+      - name: Enable Git LFS filters
+        run: |
+          git lfs version
+          git lfs install --local
+
       # Scheduled runs always file. A manual run can ask for a dry run, which
       # makes zero GitHub calls and only reads RSS.
       #
