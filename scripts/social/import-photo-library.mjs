@@ -23,6 +23,7 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -130,7 +131,7 @@ async function main() {
   if (!Array.isArray(candidates)) throw new Error('Candidate file must be a JSON array or an object with a photos array.');
 
   const inventory = JSON.parse(await readFile(inventoryPath, 'utf8'));
-  const seenHashes = await existingLibraryHashes(inventory);
+  const seenHashes = existingLibraryHashes(inventory);
   const skippedDuplicates = [];
 
   const failed = [];
@@ -159,8 +160,10 @@ async function main() {
     const { sourceUrl, ...entry } = candidate;
     try {
       const bytes = await readFile(path.join(ROOT, 'apps', 'web', 'public', entry.mediaPath));
-      const meta = imageMeta(bytes);
-      if (meta?.width && meta?.height) Object.assign(entry, { width: meta.width, height: meta.height, bytes: bytes.byteLength });
+      const meta = isLfsPointerBuffer(bytes) ? null : imageMeta(bytes);
+      if (meta?.width && meta?.height) {
+        Object.assign(entry, { width: meta.width, height: meta.height, bytes: bytes.byteLength, sha256: createHash('sha256').update(bytes).digest('hex') });
+      }
     } catch {
       // File not on disk (dry run in fetch mode) — dimensions get recorded on the --write run.
     }
@@ -181,21 +184,12 @@ async function main() {
   }
 }
 
-async function sha256OfFile(filePath) {
-  const buf = await readFile(filePath);
-  return createHash('sha256').update(buf).digest('hex');
-}
-
-async function existingLibraryHashes(inventory) {
+// Dedupe against the `sha256` recorded in photo-library.json — existing photos
+// are Git LFS pointers in CI checkouts, so their files are never read here.
+function existingLibraryHashes(inventory) {
   const hashes = new Map(); // hash -> id
   for (const photo of inventory.photos) {
-    const filePath = path.join(ROOT, 'apps', 'web', 'public', photo.mediaPath);
-    try {
-      hashes.set(await sha256OfFile(filePath), photo.id);
-    } catch {
-      // File missing on disk (e.g. running against a checkout without LFS
-      // assets) — can't hash it, so it just won't be a dedup candidate.
-    }
+    if (typeof photo.sha256 === 'string') hashes.set(photo.sha256, photo.id);
   }
   return hashes;
 }

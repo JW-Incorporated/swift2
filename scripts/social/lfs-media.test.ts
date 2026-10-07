@@ -2,10 +2,13 @@
 // are fetched from GitHub's LFS media endpoint, never from the deployed site,
 // and no workflow may materialise LFS objects in a checkout.
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ROOT } from '../lib/generated-content.mjs';
+import { isLfsPointer, isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { validatePhotoLibrary } from './validate-queue.mjs';
 import { MEDIA_BASE_URL, PHOTO_MEDIA_BASE_URL, mediaUrlFor, mediaUrlsFor } from './lib/queue.mjs';
 
 describe('mediaUrlFor', () => {
@@ -34,5 +37,36 @@ describe('Git LFS workflow guard', () => {
       .filter((f) => /\.ya?ml$/.test(f))
       .filter((f) => /^\s*lfs:\s*true\b/m.test(readFileSync(join(dir, f), 'utf8')));
     expect(offenders).toEqual([]);
+  });
+});
+
+describe('isLfsPointer', () => {
+  it('detects pointer files and ignores real images and missing files', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'lfs-pointer-'));
+    try {
+      const pointer = join(dir, 'p.jpg');
+      const real = join(dir, 'r.jpg');
+      writeFileSync(pointer, 'version https://git-lfs.github.com/spec/v1\noid sha256:' + 'a'.repeat(64) + '\nsize 3\n');
+      writeFileSync(real, Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0x10]));
+      expect(await isLfsPointer(pointer)).toBe(true);
+      expect(await isLfsPointer(real)).toBe(false);
+      expect(await isLfsPointer(join(dir, 'missing.jpg'))).toBe(false);
+      expect(isLfsPointerBuffer(readFileSync(pointer))).toBe(true);
+      expect(isLfsPointerBuffer(readFileSync(real))).toBe(false);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('validatePhotoLibrary file facts', () => {
+  const entry = { id: 'a', mediaPath: '/social/library/photos/a.jpg', source: 'https://example.test/a', alt: 'x', width: 10, height: 10, bytes: 5, sha256: 'a'.repeat(64) };
+  it('accepts an entry with sha256/width/height/bytes and flags each missing one', () => {
+    expect(validatePhotoLibrary([entry])).toEqual([]);
+    for (const key of ['sha256', 'width', 'height', 'bytes']) {
+      const rest: Record<string, unknown> = { ...entry };
+      delete rest[key];
+      expect(validatePhotoLibrary([rest]).join(' ')).toContain(`a: ${key} is required`);
+    }
   });
 });

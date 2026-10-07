@@ -92,6 +92,7 @@ import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidS
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
 import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
@@ -687,7 +688,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
       } else {
         try {
           const bytes = await readFile(full);
-          if (String(mediaPath).startsWith(PHOTO_PREFIX) && bytes.subarray(0, 24).toString('utf8').startsWith('version https://git-lfs')) {
+          if (String(mediaPath).startsWith(PHOTO_PREFIX) && isLfsPointerBuffer(bytes)) {
             findings.push(`media: "${mediaPath}" — library entry missing width/height (the photo is a Git LFS pointer here, so dimensions cannot be read). Add width/height/bytes to its social/photo-library.json entry.`);
             meta = 'reported';
           } else {

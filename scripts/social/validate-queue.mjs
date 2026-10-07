@@ -34,7 +34,16 @@ const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-
  * 2026-10-06), so CI is its only reviewer. Returns `id: reason` strings. */
 export function validatePhotoLibrary(photos) {
   if (!Array.isArray(photos)) return ['photo-library.json: `photos` must be an array'];
-  return photos.flatMap((photo, i) => validatePhotoEntry(photo ?? {}).map((finding) => `${photo?.id ?? `#${i}`}: ${finding}`));
+  return photos.flatMap((photo, i) => {
+    const findings = validatePhotoEntry(photo ?? {});
+    // Photos are Git LFS pointers in CI, so every tool relies on these recorded
+    // file facts instead of reading the binary (docs/decisions.md 2026-10-07).
+    if (!/^[0-9a-f]{64}$/.test(photo?.sha256 ?? '')) findings.push('sha256 is required (64 hex chars of the stored file)');
+    for (const key of ['width', 'height', 'bytes']) {
+      if (!Number.isInteger(photo?.[key]) || photo[key] <= 0) findings.push(`${key} is required (positive integer recorded at import)`);
+    }
+    return findings.map((finding) => `${photo?.id ?? `#${i}`}: ${finding}`);
+  });
 }
 
 /** Reads `<root>/social/lessons.md` and returns its active rule ids —
