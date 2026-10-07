@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Concert photo sourcing: Reddit is optional until HOME_RELAY_URL exists
+
+**Decision.** `concert-photo-sourcing.yml` had been red since Reddit began returning 403 to GitHub Actions IPs (`reddit-rss fetch failed for r/erastour (403)`), which aborted the run before the Wikimedia, import and PR steps. `source-reddit-photos.mjs` now treats a 403 as non-fatal only when `HOME_RELAY_URL` is unset: it emits `::warning::Reddit blocked from Actions IPs; set HOME_RELAY_URL to enable`, writes `[]` and exits 0. Any other error, or a 403 with a relay configured, still fails. The Wikimedia source (same CC BY / BY-SA / CC0 / PD filter) now runs ~60 queries (eras, past tours, general concert/live, Eras Tour cities; `scripts/social/lib/wikimedia-queries.mjs`) at 100 results each, and a run imports at most 150 new photos so the PR stays reviewable.
+
+**Why.** Founder priority: more photos. Wikimedia is the one source that works from Actions; Reddit needs a residential relay whose URL is not yet set. No Reddit API credentials, ever (founder rule). Alternatives: `continue-on-error` on the step (rejected — would hide real script bugs).
+
+---
+
 ## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
 
 **Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.

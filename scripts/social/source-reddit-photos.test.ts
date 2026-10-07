@@ -7,6 +7,8 @@ import {
   isDirectImageUrl,
   buildCandidate,
   sourceSubreddit,
+  sourceAllSubreddits,
+  REDDIT_BLOCKED_WARNING,
   dedupeById,
   probeHomeRelay,
   TOUR_DATE_HINTS,
@@ -166,6 +168,38 @@ describe('sourceSubreddit', () => {
     const warn = () => {};
     const candidates = await sourceSubreddit('erastour', { limit: 10, time: 'year', fetchImpl, warn });
     expect(candidates).toEqual([]);
+  });
+});
+
+describe('sourceAllSubreddits', () => {
+  const blocked = async () => new Response('', { status: 403 });
+
+  it('warns and returns [] on a 403 when no relay is configured (tolerateBlock)', async () => {
+    const warnings: string[] = [];
+    const out = await sourceAllSubreddits(['erastour', 'TaylorSwiftPictures'], {
+      limit: 10,
+      time: 'year',
+      fetchImpl: blocked,
+      tolerateBlock: true,
+      warn: (m: string) => warnings.push(m),
+    });
+    expect(out).toEqual([]);
+    expect(warnings).toEqual([REDDIT_BLOCKED_WARNING]);
+    expect(REDDIT_BLOCKED_WARNING).toContain('::warning::');
+    expect(REDDIT_BLOCKED_WARNING).toContain('HOME_RELAY_URL');
+  });
+
+  it('still throws a 403 when a relay is configured', async () => {
+    await expect(
+      sourceAllSubreddits(['erastour'], { limit: 10, time: 'year', fetchImpl: blocked, tolerateBlock: false }),
+    ).rejects.toThrow(/403/);
+  });
+
+  it('still throws non-403 errors even when tolerateBlock is set', async () => {
+    const boom = async () => new Response('', { status: 500 });
+    await expect(
+      sourceAllSubreddits(['erastour'], { limit: 10, time: 'year', fetchImpl: boom, tolerateBlock: true }),
+    ).rejects.toThrow(/500/);
   });
 });
 
