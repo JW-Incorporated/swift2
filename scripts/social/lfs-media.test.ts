@@ -70,3 +70,27 @@ describe('validatePhotoLibrary file facts', () => {
     }
   });
 });
+
+describe('library photo size cap', () => {
+  const base = { id: 'a', mediaPath: '/social/library/photos/a.jpg', source: 'https://example.test/a', alt: 'x', width: 10, height: 10, sha256: 'a'.repeat(64) };
+  it('fails a new entry over 1.5 MB but grandfathers the pre-LFS oversize ones', () => {
+    expect(validatePhotoLibrary([{ ...base, bytes: 400_000 }])).toEqual([]);
+    expect(validatePhotoLibrary([{ ...base, bytes: 2_000_000 }]).join(' ')).toContain('1.5MB');
+    expect(validatePhotoLibrary([{ ...base, id: 'speaknow-inglewood-2023', bytes: 2_000_000 }])).toEqual([]);
+  });
+});
+
+describe('workflows that write library photos', () => {
+  const dir = join(ROOT, '.github', 'workflows');
+  const writers = readdirSync(dir)
+    .filter((f) => /\.ya?ml$/.test(f))
+    .filter((f) => readFileSync(join(dir, f), 'utf8').includes('social/library/photos'));
+  it('are the two known photo writers', () => {
+    expect(writers.sort()).toEqual(['appearance-discovery.yml', 'concert-photo-sourcing.yml']);
+  });
+  it.each(writers)('%s runs `git lfs install` and never sets sign-commits: true', (f) => {
+    const text = readFileSync(join(dir, f), 'utf8');
+    expect(text).toMatch(/git lfs install/);
+    expect(text).not.toMatch(/sign-commits:\s*true/);
+  });
+});

@@ -142,6 +142,15 @@ jobs:
             console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
           "
 
+      # Library photos are Git LFS objects (docs/decisions.md 2026-10-07): the
+      # LFS clean filter must be active before create-pull-request stages them
+      # (git-CLI mode, no sign-commits — API commits would bypass LFS).
+      - name: Enable Git LFS filters
+        if: steps.enabled.outputs.enabled == 'true'
+        run: |
+          git lfs version
+          git lfs install --local
+
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'
         run: |
@@ -154,6 +163,7 @@ jobs:
         run: node scripts/social/photo-coverage.mjs
 
       - name: Open gated photo-library update
+        id: open-pr
         if: steps.enabled.outputs.enabled == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
@@ -169,3 +179,22 @@ jobs:
             D1=B, docs/decisions.md 2026-09-22 — no credit/permission gate on
             ingestion). Never touches the live posting pipeline.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      # Correctness gate: every photo this run added must be an LFS pointer on
+      # the PR branch. A raw blob here means the LFS filter was bypassed.
+      - name: Assert new photos are Git LFS pointers
+        if: steps.enabled.outputs.enabled == 'true' && steps.open-pr.outputs.pull-request-head-sha != ''
+        env:
+          PR_BRANCH: social/concert-photo-sourcing
+        run: |
+          set -euo pipefail
+          git fetch origin main "$PR_BRANCH"
+          git diff --name-only --diff-filter=A origin/main FETCH_HEAD -- apps/web/public/social/library/photos > "$RUNNER_TEMP/new-photos.txt"
+          git lfs ls-files FETCH_HEAD --name-only > "$RUNNER_TEMP/lfs-files.txt"
+          missing=$(grep -vxFf "$RUNNER_TEMP/lfs-files.txt" "$RUNNER_TEMP/new-photos.txt" || true)
+          if [ -n "$missing" ]; then
+            echo "::error::New library photos are not Git LFS pointers:"
+            echo "$missing"
+            exit 1
+          fi
+          echo "All $(wc -l < "$RUNNER_TEMP/new-photos.txt") new photo(s) are LFS pointers."
