@@ -37,6 +37,7 @@ import path from 'node:path';
 import { URLSearchParams } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { DEFAULT_QUERIES } from './lib/wikimedia-queries.mjs';
+import { PHOTO_BOT_USER_AGENT, stripUtmParams } from './lib/polite-fetch.mjs';
 
 export { DEFAULT_QUERIES };
 
@@ -48,7 +49,9 @@ export const REQUEST_DELAY_MS = 250;
 
 // Wikimedia's API etiquette policy asks every automated client to identify
 // itself; an unidentified client is more likely to be rate-limited.
-const USER_AGENT = 'longlivets-photo-sourcing/1.0 (https://longlivets.com; social photo pipeline)';
+const USER_AGENT = PHOTO_BOT_USER_AGENT;
+// Width of the thumbnail the importer downloads instead of the full original.
+export const THUMB_WIDTH_PX = 2048;
 
 // Commons-accepted free licenses only. Checked against `extmetadata.License`
 // (a normalized slug like "cc-by-2.0" or "cc0-1.0", not the human-readable
@@ -167,7 +170,7 @@ export function buildCandidate(page) {
     mediaPath: `/social/library/photos/${id}.${ext}`,
     credit: `${artist} (${licenseShortName}), via Wikimedia Commons`,
     source: info.descriptionurl,
-    sourceUrl: info.url,
+    sourceUrl: stripUtmParams(info.thumburl || info.url),
     alt: description ? description.slice(0, 200) : `Taylor Swift photo from Wikimedia Commons: ${page.title}`.slice(0, 200),
     tags,
   };
@@ -238,6 +241,7 @@ export async function fetchImageInfo(
           titles: chunks[i].join('|'),
           prop: 'imageinfo',
           iiprop: 'url|mime|size|extmetadata',
+          iiurlwidth: String(THUMB_WIDTH_PX),
           format: 'json',
         }).toString(),
       });
