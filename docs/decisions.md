@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-07 — The website's own content photos feed the social photo library (`import-site-photos.mjs`)
+
+**Decision.** Founder request (Joey, 2026-10-07; goal >10,000 awesome Taylor photos for social posts, "our website already has tons of cover photos for our content — use those for social"). `scripts/social/import-site-photos.mjs` enumerates the photo refs the site itself resolves from content seeds (`moment.photos[]`, runway-look `images[]`, item `thumbnailUrl` under `supabase/seed/{content,lenses,candidates}`), downloads them and adds them to `social/photo-library.json` through the existing library schema (`validatePhotoEntry`, `existingLibraryHashes`, `resolvePhotoDestPath` from `import-photo-library.mjs`). Entries are tagged `<era>` + `site-photo`; credit is carried when the seed has one, omitted otherwise. Kept only when the decoded file is jpeg/png/webp with a long edge >= 800 px and not content-identical (sha256) to an existing entry. Every kept file is normalized (repo-size rule, architect storage ruling 2026-10-07): long edge <= 2048 px (never upscaled), orientation applied, EXIF/metadata stripped, JPEG q85 (PNG only with real transparency); entries record `width`/`height`/`bytes`. Wikimedia Commons files are fetched as 1920 px thumbnails, as Wikimedia asks of bots. Image binaries land in a follow-up commit once Git LFS is in place.
+
+**Excluded.** Getty/stock comp hosts (watermarked previews; 2026-08-15 and 2026-08-24 rulings), merch/product hosts and `products[].imageUrl`, YouTube thumbnails (`i.ytimg.com`; a separate founder call is pending), album/single cover art and logos, `reference`/product `kind`s (other people, shopping shots), relationship portraits, and anything already in the library. Watermark heuristic: host denylist plus URL-path hints (`watermark`, `comp`, `sample`, `placeholder`).
+
+**Rights basis.** `docs/social/guardrails.md` Guardrail 2 (hosting real internet photos is unrestricted as a knowing accepted risk; hard bars: no AI images of Taylor, no watermarks, no fan edits without creator permission, takedown on request); 2026-10-01 (uncredited photos are fine, growing the photo library is Tree's standing priority, `mediaSource` required); 2026-09-22 (no credit/permission gate on ingestion). Importing a photo does not approve any post; every post still needs the owner's reaction.
+
+**Alternatives.** Hotlinking from the seeds (rejected: dead links, no dimension/watermark gate); per-photo manual review (rejected: the guardrail removed that gate).
+
+---
+
 ## 2026-10-06 — Marjorie's assign/defer/close chases default to `defer` after 7 days of silence
 
 **Decision.** A 96h chase HA open 7 days with no founder reply is auto-applied as `defer` (same marker/label path as a typed reply), closed as `skip` with the note "auto-deferred after 7 days of silence (founder decision 2026-10-06)", and the issue gets one comment saying how to re-open the chase. Issues labelled `founder-decision`, `desk:founder` or `founder-task` are never auto-deferred. Runs as a plain deterministic `auto-defer` job in `routine-marjorie-ops.yml` (no LLM, never starts the Sonnet session).

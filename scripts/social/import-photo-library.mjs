@@ -49,7 +49,7 @@ export function resolvePhotoDestPath(mediaPath, photosDir) {
 // all (repo push warned it exceeded GitHub's own recommended 50MB limit) — cap
 // ingestion at a sane social-media size so one oversized source never bloats
 // the repo or slows the site.
-const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
+export const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
 
 /**
  * Downloads each candidate's `sourceUrl` (and writes it when `write`). A
@@ -178,7 +178,7 @@ async function sha256OfFile(filePath) {
   return createHash('sha256').update(buf).digest('hex');
 }
 
-async function existingLibraryHashes(inventory) {
+export async function existingLibraryHashes(inventory) {
   const hashes = new Map(); // hash -> id
   for (const photo of inventory.photos) {
     const filePath = path.join(ROOT, 'apps', 'web', 'public', photo.mediaPath);
