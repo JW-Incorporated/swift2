@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Human actions with a checkable outcome close themselves; agents file only what needs Joey
+
+**Decision.** (1) An open `HUMAN-ACTIONS.md` entry may carry `<!-- ha verify: <kind> <args> -->` with kind one of `secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`, `workflow-green`. `scripts/human-actions/auto-close.mjs` (hourly, `marjorie-status.yml` job `autoclose`) evaluates them with read-only `gh` calls and, on a pass, closes the entry through the existing rolling close PR (`status-page/ha-closes`, auto-merge), ledger note `auto-closed: <check> passed <UTC date>`. The workflow token cannot read secret/variable settings, so those two kinds alone use the existing `OPS_FIXER_PAT` (no new secret) as GH_TOKEN for their read-only call, and are skipped (left open, one warning) if it is absent or unauthorized. (2) Filing rule: agents file only what needs the founder's judgment, identity/login, money, or physical hands; reversible agent-doable work is done and noted in one line; checkable entries must carry a verify line (`npm run check:human-actions` warns, never fails).
+
+**Why.** Joey was being asked to reply "done" to switch flips a machine can see for itself. Alternatives: a new bot PR flow (rejected — the rolling close PR already auto-merges and heals); a hard CI failure on missing verify lines (rejected — would block unrelated PRs). Approved: Joey, chat 2026-10-06 (fixes 3 and 4 of 4 "stop switch-flip asks").
+
+---
+
 ## 2026-10-06 — Concert photo sourcing: Reddit is optional until HOME_RELAY_URL exists
 
 **Decision.** `concert-photo-sourcing.yml` had been red since Reddit began returning 403 to GitHub Actions IPs (`reddit-rss fetch failed for r/erastour (403)`), which aborted the run before the Wikimedia, import and PR steps. `source-reddit-photos.mjs` now treats a 403 as non-fatal only when `HOME_RELAY_URL` is unset: it emits `::warning::Reddit blocked from Actions IPs; set HOME_RELAY_URL to enable`, writes `[]` and exits 0. Any other error, or a 403 with a relay configured, still fails. The Wikimedia source (same CC BY / BY-SA / CC0 / PD filter) now runs ~60 queries (eras, past tours, general concert/live, Eras Tour cities; `scripts/social/lib/wikimedia-queries.mjs`) at 100 results each, and a run imports at most 150 new photos so the PR stays reviewable.

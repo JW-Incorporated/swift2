@@ -31,6 +31,13 @@ describe('marjorie-status.yml', () => {
     expect(render).toMatch(/concurrency:\n {6}group: marjorie-status-render\n {6}cancel-in-progress: false/);
     expect(render).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
   });
+  it('auto-closes verified human actions hourly on the heal lane, through the rolling close PR', () => {
+    const auto = job(status, 'autoclose', 'reply');
+    expect(auto).toContain("github.event_name != 'push'");
+    expect(auto).toMatch(/group: marjorie-status-heal\n {6}cancel-in-progress: false/);
+    expect(auto).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
+    expect(auto).toContain('node scripts/human-actions/auto-close.mjs');
+  });
   it('keeps the rolling close PR mergeable: a heal job on its own lane, never in the reply group', () => {
     const heal = job(status, 'heal', 'reply');
     expect(heal).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
