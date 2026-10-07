@@ -258,7 +258,7 @@ export function evaluateDispatchChase({
     items,
     nudges,
     humanActions,
-    autoDefers: planAutoDefers({ issues, openActions, now: nowMs }),
+    autoDefers: planAutoDefers({ issues, openActions, pendingHaPrs, now: nowMs }),
     pendingHumanActions: pendingHaPrs.filter((pr) => /^marjorie\/chase-ha-\d+(?:-\d+)*$/.test(pr.headRef || '')).map((pr) => pr.number),
     brief: {
       stalled: items.filter((item) => /^stale-/.test(item.verdict)),

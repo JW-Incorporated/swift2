@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { applyAutoDefers, planAutoDefers, AUTO_DEFER_NOTE } from './chase-auto-defer.mjs';
-import { applyDispatchChase } from './dispatch-chase-apply.mjs';
+import { runAutoDefer } from './chase-auto-defer-run.mjs';
 import { actionMarker } from './chase-action.mjs';
 
 const NOW = Date.parse('2026-10-13T12:00:00Z');
@@ -9,7 +9,8 @@ const block = (ha: number, issue: number, filed: string) =>
   `## #${ha} 🟡 [DECIDE] #${issue} has had no activity for 4 days (~2 min)\n<!-- ha filed=${filed} -->\n<!-- marjorie-chase: 96h issue=${issue} -->\n\n**Why:** x.\n\n**Steps:**\n1. Reply.\n\n**Worked if:** y.\n`;
 const openMd = (...blocks: string[]) => `# Human actions\n\n> **${blocks.length} open.**\n\n${blocks.join('\n')}`;
 const DONE = '# Done\n\n- #1 · 2026-01-01 · done · old — "x" · by chat\n';
-const issue = (number: number, labels: string[] = [], comments: { body: string }[] = []) => ({ number, labels: labels.map((name) => ({ name })), comments });
+const BOT = { login: 'claude[bot]', type: 'Bot' };
+const issue = (number: number, labels: string[] = [], comments: { body: string; author?: { login: string; type: string } }[] = []) => ({ number, labels: labels.map((name) => ({ name })), comments });
 
 function harness(files: Record<string, string>) {
   const calls: string[][] = [];
@@ -39,7 +40,7 @@ describe('planAutoDefers', () => {
   });
   it('leaves an already-replied chase to the reply path', () => {
     const open = openMd(block(109, 4324, '2026-10-01'));
-    const reply = { body: `Founder assigned.\n\n${actionMarker({ ha: 109, issue: 4324, action: 'assign', messageId: '123456789012345678' })}` };
+    const reply = { body: `Founder assigned.\n\n${actionMarker({ ha: 109, issue: 4324, action: 'assign', messageId: '123456789012345678' })}`, author: BOT };
     expect(planAutoDefers({ issues: [issue(4324, [], [reply])], openActions: open, now: NOW })).toEqual([]);
     expect(planAutoDefers({ issues: [issue(4324, ['deferred'])], openActions: open, now: NOW })).toEqual([]);
     expect(planAutoDefers({ issues: [issue(4324, ['founder-assigned'])], openActions: open, now: NOW })).toEqual([]);
@@ -51,12 +52,33 @@ describe('planAutoDefers', () => {
   });
 });
 
+
+describe('planAutoDefers rules', () => {
+  const open = openMd(block(109, 4324, '2026-10-06'));
+  it('counts 7 days in America/Los_Angeles (no early firing)', () => {
+    expect(planAutoDefers({ issues: [issue(4324)], openActions: open, now: Date.parse('2026-10-13T06:59:00Z') })).toEqual([]);
+    expect(planAutoDefers({ issues: [issue(4324)], openActions: open, now: Date.parse('2026-10-13T07:00:00Z') })).toHaveLength(1);
+  });
+  it('skips an HA that already has an open auto-defer PR', () => {
+    const pending = [{ headRef: 'marjorie/chase-auto-defer-ha-109-110' }];
+    expect(planAutoDefers({ issues: [issue(4324)], openActions: open, pendingHaPrs: pending, now: NOW })).toEqual([]);
+    expect(planAutoDefers({ issues: [issue(4324)], openActions: open, pendingHaPrs: [{ headRef: 'marjorie/chase-auto-defer-ha-111' }], now: NOW })).toHaveLength(1);
+  });
+  it('ignores a marker that was not authored by the bot', () => {
+    const body = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'assign', messageId: '123456789012345678' })}`;
+    const human = { body, author: { login: 'someone', type: 'User' } };
+    expect(planAutoDefers({ issues: [issue(4324, [], [human])], openActions: open, now: NOW })).toHaveLength(1);
+  });
+});
+
 describe('applyAutoDefers', () => {
   const files = () => ({ 'HUMAN-ACTIONS.md': openMd(block(109, 4324, '2026-10-06'), block(110, 4720, '2026-10-06')), 'HUMAN-ACTIONS-DONE.md': DONE });
+  const cand = (ha: number, number: number) => ({ ha, issue: number, commented: false, labeled: false });
+  const clean = async (number: number) => issue(number);
 
   it('defers the issue, comments once, closes the HA as skip, opens an auto-merged PR', async () => {
     const h = harness(files());
-    const out = await applyAutoDefers('o/r', [{ ha: 109, issue: 4324, commented: false, labeled: false }], { ...h, now: NOW });
+    const out = await applyAutoDefers('o/r', [cand(109, 4324)], { ...h, now: NOW, fetchIssue: clean });
     expect(out.status).toBe('auto-deferred');
     const comment = h.calls.find((c) => c[1] === 'issue' && c[2] === 'comment')!;
     expect(comment[comment.indexOf('--body') + 1]).toContain(actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: 'auto-7d' }));
@@ -69,12 +91,35 @@ describe('applyAutoDefers', () => {
     expect(h.calls.some((c) => c[1] === 'pr' && c[2] === 'merge' && c.includes('--auto'))).toBe(true);
   });
 
-  it('a re-run with the auto marker adds no second comment or label, and a pending PR is not duplicated', async () => {
+  it('a resumed item (marker + label present) adds no second comment or label', async () => {
     const h = harness(files());
-    const out = await applyAutoDefers('o/r', [{ ha: 109, issue: 4324, commented: true, labeled: true }],
-      { ...h, now: NOW, pendingHaPrs: [{ headRef: 'marjorie/chase-auto-defer-ha-109' }] });
-    expect(out.status).toBe('close-pending');
-    expect(h.calls).toEqual([]);
+    const body = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: 'auto-7d' })}`;
+    await applyAutoDefers('o/r', [{ ha: 109, issue: 4324, commented: true, labeled: true }], { ...h, now: NOW, fetchIssue: async () => issue(4324, ['deferred'], [{ body }]) });
+    expect(h.calls.some((c) => c[1] === 'issue')).toBe(false);
+  });
+
+  it('one failing item only warns; the rest still land', async () => {
+    const h = harness(files());
+    const exec = async (cmd: string, args: string[]) => {
+      if (args[0] === 'issue' && args[1] === 'comment' && args[2] === '4324') throw new Error('boom');
+      return h.exec(cmd, args);
+    };
+    const out = await applyAutoDefers('o/r', [cand(109, 4324), cand(110, 4720)], { ...h, exec, now: NOW, fetchIssue: clean });
+    expect(out).toMatchObject({ status: 'auto-deferred', ha: [110] });
+    expect(h.files['HUMAN-ACTIONS.md']).toContain('## #109');
+    expect(h.files['HUMAN-ACTIONS.md']).not.toContain('## #110');
+  });
+
+  it('skips when a reply or exception label appeared after planning (race)', async () => {
+    const h = harness(files());
+    const out = await applyAutoDefers('o/r', [cand(109, 4324), cand(110, 4720)], { ...h, now: NOW, fetchIssue: async (n: number) => (n === 4324 ? issue(n, ['founder-decision']) : issue(n)) });
+    expect(out).toMatchObject({ ha: [110] });
+    expect(h.calls.filter((c) => c[1] === 'issue' && c[2] === 'comment')).toHaveLength(1);
+    const reply = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: '123456789012345678' })}`;
+    const h2 = harness(files());
+    const out2 = await applyAutoDefers('o/r', [cand(109, 4324)], { ...h2, now: NOW, fetchIssue: async () => issue(4324, [], [{ body: reply, author: BOT }]) });
+    expect(out2.status).toBe('none');
+    expect(h2.calls).toEqual([]);
   });
 
   it('does nothing without candidates', async () => {
@@ -84,11 +129,12 @@ describe('applyAutoDefers', () => {
   });
 });
 
-describe('applyDispatchChase wiring', () => {
-  it('runs the auto-defer on a due chase HA', async () => {
+describe('runAutoDefer entrypoint', () => {
+  it('applies a due auto-defer with no agent session', async () => {
     const h = harness({ 'HUMAN-ACTIONS.md': openMd(block(109, 4324, '2026-10-06')), 'HUMAN-ACTIONS-DONE.md': DONE });
-    const state = { issues: [{ ...issue(4324), createdAt: '2026-09-14T00:00:00Z', updatedAt: '2026-10-12T00:00:00Z', title: 't' }], prs: [], openActions: h.files['HUMAN-ACTIONS.md'], doneActions: DONE, pendingHaPrs: [], now: NOW };
-    await applyDispatchChase('o/r', { exec: h.exec, fetchState: async () => state, readFileImpl: h.readFileImpl, writeFileImpl: h.writeFileImpl });
+    const state = { issues: [issue(4324)], openActions: h.files['HUMAN-ACTIONS.md'], doneActions: DONE, pendingHaPrs: [], now: NOW };
+    const out = await runAutoDefer('o/r', { exec: h.exec, fetchState: async () => state, readFileImpl: h.readFileImpl, writeFileImpl: h.writeFileImpl, fetchIssue: async (n: number) => issue(n) });
+    expect(out.status).toBe('auto-deferred');
     expect(h.calls.filter((c) => c[1] === 'issue' && c[2] === 'comment')).toHaveLength(1);
     expect(h.files['HUMAN-ACTIONS.md']).not.toContain('## #109');
   });

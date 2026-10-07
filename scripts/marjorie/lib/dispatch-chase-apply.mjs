@@ -3,7 +3,6 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { evaluateDispatchChase, renderHumanAction } from './dispatch-chase.mjs';
-import { applyAutoDefers } from './chase-auto-defer.mjs';
 import { fetchDispatchChaseState } from './dispatch-chase-state.mjs';
 
 const execFileAsync = promisify(execFile);
@@ -156,7 +155,6 @@ export async function applyDispatchChase(repo, {
       await exec('gh', [target.type, 'comment', String(target.number), '--repo', repo, '--body', nudge.body]);
 
   const pendingHaPrs = state.pendingHaPrs || [];
-  await applyAutoDefers(repo, plan.autoDefers || [], { exec, pendingHaPrs, now: state.now, readFileImpl, writeFileImpl });
   const resumed = await resumePending(repo, state, pendingHaPrs, exec);
   if (resumed.status !== 'none') return { ...resumed, nudges: plan.nudges.length, plan };
   const candidates = plan.humanActions;

@@ -626,9 +626,12 @@ posts are authorized beyond the existing brief and chat replies.
 
 Silence defaults to `defer` (founder decision 2026-10-06): a chase human
 action open 7 days (its `<!-- ha filed=YYYY-MM-DD -->` date) with no founder
-reply is applied as `defer` by `scripts/marjorie/lib/chase-auto-defer.mjs`,
-run from `dispatch-chase-apply.mjs` in the Step 2b sweep of
-`routine-marjorie-ops.yml`. It posts the same chase-action marker (message id
+reply (7 days counted in America/Los_Angeles) is applied as `defer` by
+`scripts/marjorie/lib/chase-auto-defer.mjs`, run by the plain `auto-defer` job
+of `routine-marjorie-ops.yml` (entrypoint `chase-auto-defer-run.mjs`, no LLM,
+never starts the Sonnet session). It re-reads the issue right before writing
+and skips on a reply, bot-authored marker or exception label; one failing item
+only logs a `::warning::`. It posts the same chase-action marker (message id
 `auto-7d`) and `deferred` label as a typed `defer`, comments once on the issue,
 then closes the HA as `skip` ("auto-deferred after 7 days of silence") through
 one auto-merged PR. Re-runs are idempotent (marker, label, pending branch).
