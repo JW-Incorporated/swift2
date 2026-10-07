@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 91
+
+## Taylor Swift's 'Patient Zero' Debuts at No. 1
+
+- first seen: 2026-10-07 00:38 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's latest release, 'Patient Zero', has debuted at number one according to ABC News. The song is making waves in the music industry, marking another success for the artist.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE1KYnVWRjBkRVc1VThBd0RlY2hvdXIyRUVMdHh2c0dWNVduWndfd2pXN2hpeUozWFk0cjltTmJJUGZadjFUeXdjLTJIby0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Chart Highlights Featuring Taylor Swift and Others
+
+- first seen: 2026-10-07 00:38 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The latest Billboard chart highlights include Taylor Swift alongside Tinashe and Kenny Chesney. This roundup focuses on their recent performances on music charts.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMilgFBVV95cUxOcUZhLTdNMkFqa1NNWUJSTmUyYWtCTDNvTF94eWxUaE90RkRnaEJMNVBMc3U3TzVpYWt2QjBTZTVQSTJtV0hwdG0ySWFpanZyMHVRRWZTUkdFWGFOVXlESjVzWFB3bGxINDBDZ2JnR1pFWTNRYUtocmRqcXhQVi1YMGdTM3RxdDdHcHRXTFQ5Qmg3RWdpM3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Book Explores Taylor Swift's Early Years in Nashville
+
+- first seen: 2026-10-07 00:38 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new book titled 'Taylor Swift: The Debut Years' discusses how Nashville influenced the superstar's career. An interview with the author provides insights into her formative years in the music industry.
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMigwFBVV95cUxQdkpFMkFSeW5Mb3I3bkM1c19XM2lWa3FZSFRmQTgyUUlTTG1rYlJEMVZGZThUbFJOMFpHUUx1aGt5MzhvVWNVRzROdjRTZFpLQmxMNGJsVzQwZnhXS21PeUJvUklfS0I0cm52OGNJckR2ZFRRQjJVNm95azhUS0l5VDdIOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## 'Choosin' Texas' Falls to No. 2 as Taylor Swift Achieves Chart Milestone
+
+- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: 'Choosin' Texas' has fallen to the No. 2 position on the charts as Taylor Swift interrupts with her continued success. The impact of Swift's presence in the music landscape is highlighted once again.
+- sources:
+  - [unverified] AL.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxOR3RhU0RQMDRHcUVUcDRHdmlTQkpzZk00QVU0VzZsdXJIVEwwbGJ5eVpIZ1c5R3Q1dkplQW1vMzFDX1Z6YlhCTXNodl8zOVpkYkhrMDFKQ012ZnpCS3E2d2JVa1hxS3h2N2I1TzZFdi0xdlRWdEFrbVJsRXg0ZTNWUGxYZTZUVTVtY0pVYlBNS21manBhbDFsRW1UenVQbFQxaWtOatIBuAFBVV95cUxPYldYbl9zbUh2a2JMS2s4dkRpWjlJRzdBY2lHblRVblU5YlNCWnZJWnVCX1R3UmVrYVgtM2FWZXdmeWhheFEtbUVVcDlGRVFUMDVvMm5IdWFvTGxsSWMtUTVYcEtNeWwwYU5aMk1Ec1F0eTZxWEZwWkhtMzZqN0drMTlCY1IwR3FlbVgxbjh5U3ZqRFRBRVFKOTF0MzZSZ2h5VVViYWxMSUxua1ZmcUt6SkQzVE1zdGh0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s LBD Features a Chic Detail for Fall Outfits
+
+- first seen: 2026-10-07 00:38 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased an elegant little black dress during a recent date night, which featured a delicate detail that enhances fall outfit styling. The design is noted for its ability to elevate casual looks this season.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNUU40MjBLMGllMkc2VDFWMENGZjdiaWpCcGVLdDFfN2FzY3M1REJrNHhxOW1oNXBIaDh1a0ZsT1g4YXY1OGt0Nml6RlVLWjJwSlFkM3d5NF9NOWpDaTlFTEtTTjNNNllGT0E3a2V3QXAzaW5KY2c5SjdxYm0zRGx4VGpEM291QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Yankees' Playoff Loss Referenced in Taylor Swift Headline
+
+- first seen: 2026-10-07 00:38 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A newspaper headline referencing Taylor Swift was used to troll the Yankees following their errors in the recent MLB playoffs. The response highlights the intersection of sports and pop culture.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMizgFBVV95cUxPRkc4U2xCTW56blRTN2hYYWxkbWlHaTFFaTMweGwwWm5lRmZia0hCYWJSWFFJbDhqaFE1cVlqNm8zMkJJWng2ZWlKbXEwYVpEZWJxTXhudS1NWENpWEhiZ1p4MkFXa2J4Y2lLTDdYanVsZl9KTktRaGFiekVlNmRvUDVSVHU2TndlY0JhMjNqMUJJTTNlME5fd2xzZzdfU3BXb1g5eXVCWG0wcy14eWhHR0QzalFpWksxR1ZkVlZzM0pSQzhDTFJ1djV0T1BXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Updating Fall Wardrobe with Taylor Swift Inspired Styles
+
+- first seen: 2026-10-07 00:38 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses updating fall wardrobes with outfit inspirations from Taylor Swift. Various Swift-inspired fashion items are available, starting at just $13.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9YNF9HcEVVaUlpbnhLbjNabDNzMHhwYjZRbmJpVklKc0dtVXRKcmp6VmlpNkRtYTdFRXdKeE9uVkJBNXJIYXkwb0dfU1oxMFpUWGR0NVBiVXFjdTVuZjZraEFVQXlCZ3NfU3hMU1FqXzQ3ZjYx?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Potential to Surpass The Beatles' No. 1 Hits Discussed by Billboard
+
+- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Billboard explores the possibility of Taylor Swift exceeding The Beatles' record for the most Hot 100 No. 1 hits, highlighting her ongoing success in the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipgFBVV95cUxOU2xCT0JncXVMbmt4WGYySWFQZVZ3N182VHEyVUIzTTNyUXFVd2pWZ2x5YmhnMGNLME1MU09hRWpkSjVtUXdBcnV4Z1ZwdjdxOGZiTTUwUU9JR1lmaW1WQVlkekd3ZFp6SmVObnpkcmVKOVRwWFRyQ1RRSF9ueUFKS0YwNjVScjFIUjRpNzJzSnhlN1RtTGZQeVJJdmpManFocEhESmFB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Celebrate His Birthday Together in NYC
+
+- first seen: 2026-10-07 00:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen matching in black on his 37th birthday while enjoying a romantic evening in New York City. The couple put on a loving display during their date night.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNTkp0UjlGMU1ncWZQSmNpc2kwLXVEQ2VyaU4zV3RIaVA0NjRlbUx2MzVIOEFmU0J3STJoTXp6dzFMaEZaT0xGVVJiM1RoMG90QUZWOC11RTVzZEdVMGNYZk1IdU1rbHRmbnRJU3hLdkxYeVdBejBTcUJlYkVqbHRWWDdlcEtZdkQ0VkVZbUNaS3ZwZWV5SXhsQVE4TXNRUW5HTmxZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Releases New Video Inspired by Daphne du Maurier's Rebecca
+
+- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a new music video that draws inspiration from the literary classic 'Rebecca' by Daphne du Maurier. The video showcases a ghostly theme reflecting the novel's atmosphere.
+- sources:
+  - [unverified] The Conversation — https://news.google.com/rss/articles/CBMiswFBVV95cUxQTVRON2N6bnlHOWFlZS1URWtRYXdhSmVzYWQ4ZEhqUEJoa3dBMV9Rc1dsVzlFS0JtTGFDeWVYNHFmX1huRU1iNm4xZml2NnczRlhQSi15XzdHRmpiT3FSaTMyM1hwWFc0VkItWG5tQlpxa21iVWtOeG1DdVpYTkMwVjFoNi1nT084U0o0U1NNT2FtaWxjakY0OGhnVUpmSThIUFBLLVk1T3UzQzcxY1RhUWVLMA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Tops Billboard Hot 100, Displacing Ella Langley
 
@@ -42,14 +122,6 @@ Stories: 90
 - summary: A Raiders fan's sign featuring a critical rating of Taylor Swift in relation to Travis Kelce has gone viral. The moment has drawn attention on social media, highlighting the intersection of Swift's popularity and the NFL.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQTGNSc0pNT1JLMVVtOTlGMERFOHFjdVN5YzZ4WHFJN3VRZXNfeXU4WXhuejhyUkZlcWdfMFYyUUJUQU1wRGZYbmpndnZReV9OUi1jalY0ZHh4NXlJanJ6WjZXaVlKWmpYdTlsbE9JU1pFblVYQ0VKNkxCcGUzRTFMd2ZtZ1ZoTTd0SmU1NVBBVXdsbDJRdU9NWl8zV3VCX3VPblFN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Raiders Fan Critiques Taylor Swift's Looks at NFL Game
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Raiders fan displayed a sign targeting Taylor Swift's appearance during the Chiefs game, alongside other criticisms aimed at NFL referees and parental behavior. The incident highlights the ongoing intersection of sports and pop culture.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Unveils New Date Night Shoe in Collaboration with Jimmy Choo
 
@@ -78,9 +150,10 @@ Stories: 90
 ## Taylor Swift and Travis Kelce Celebrate His Birthday in NYC
 
 - first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift and Travis Kelce were spotted dining together in New York City to celebrate Kelce's 37th birthday.
 - sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxObUZYRWRnVlRWN3JaY0YyNWdkYkwzcG9KeUdzSnBGMWFFWlc4YWtsSWpjN3B5VWtCWWhyWWEwa1hxUjZFbmhhdzV4S3RkY0dweXhKd2pWWHlyNFdkbnBiR3ppSDlZN25wWnVBN3NaRm1Za3hDRFVGdE1jRzJwN3IxNFBYNXlPRXhzaUI2Xy04d0ZLbjFHN0NhdUF4a2U4dw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMikgFBVV95cUxNLVlOQWZ1cy1DYS1HTjhDdFJBNC1ocjRqQkRIM2c2T2VJV0p1XzNPVHY2cW9DdHpqRG10NS1BTmtkelFvTjRKelEyM0dZVXEtRUFmVDdubUl0a0VEZXZGeFAyZUxoNGljcUc3QlZJN3ZFaDNmN3BNYmpLSnlWUkJyYUV2dnNrbHI2T3lTR0daMkUzZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears Saint Laurent Jacket Over Lace Dress
@@ -102,10 +175,11 @@ Stories: 90
 ## Taylor Swift Frequently Wears This Fashion Brand, Date-Night Dress Highlights It
 
 - first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift continues to showcase her affinity for a particular fashion brand, as demonstrated by her recent date-night dress. The choice reflects her ongoing style choices.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa2pOWGpNekZwX2hQaktfdmdrNjFRc2E4ODEtLThDcDg3MEMtNDMzXy16UXduQzZ6ZXo1b3IxeXVuTE02YmhRbWUyWkRpYTFMVWNaWEZZQk1fOUswYnRpcFZsNnhwMS1PQ04xUTRWS1FwdWsyekQwQ2ExcEJrb1h1QjMzd3ZydHd3R3JDMGFubHBXTVFsUVREdEJ1MFd5NWxHblFkOUtyNWxPdGFjRlpkWVZHTUxBMWNyVWhVeXlR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcFY1NXdITUlPODZRMTVBYy1sTDItZWk4NldxS2ZoZWs1blpiaEVUbFhNQWh2N2RnNl9EWHRpRmNRc2sxZmZZalpCdGJOSUtrYlJZVVZLWDFXUkhXR2FORXFYVEZzSkowY2dIM0s1UUxjanZBYWdLV0VNX211SjdDcEVoeDJ4ZmVZSXlMU0ZSeWJsWHhUbVRxc0l2dXVfX0xLcXJGdTB6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears $10,000 Outfit for Travis Kelce’s Birthday Celebration
 
@@ -122,6 +196,16 @@ Stories: 90
 - summary: Paul McCartney discusses a thoughtful wedding idea he envisioned for Taylor Swift. The details highlight a friendly connection between the musician and the pop star.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxOZEdhcXA2b2d6eU5hMHYyUU0tSWxPTi0wdTJISzQzY1R6QnpNRzR2LVdOOGlSZDJDYnVOQ1pCRUtyVDVUdjhESm45M3lTQVBFTGcyR3Q3ZEV2T3RCdncxNkhUTTBwZkxkVkc0eFpxQ3pkN3Q5Q3Npd0lZWmVHTlB3NWRxQXg5cTE0TkR4bmZKZjJFbFZHSmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Raiders Fan Critiques Taylor Swift's Looks at NFL Game
+
+- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: A Raiders fan displayed a sign targeting Taylor Swift's appearance during the Chiefs game, alongside other criticisms aimed at NFL referees and parental behavior. The incident highlights the ongoing intersection of sports and pop culture.
+- sources:
+  - [unverified] Facebook — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPYjB0YmtUandEQzVieUhqZ2hSV3VseWRTdVV1dXl0T01UT0JZZDhTNkpqdUpoQWxxb3ZRVWxGZ0dOTG9VT096MDR0bk5sRjBXaVdvckpWNDZRRWJfQ1lzNTRjVnlYbTlORU9CeUJwNVNqWEVFRU52T0t0NHBTQ04xNHN5a0RBYkhTTmJYNGpBUW1USTllRko3VjhmWG9Makc0dE5GZmp3X0t4clR3MFhKM0RKLTVmT3RkSWZoTTA0U2phOVd4SmR3WmQ3b0ZNWkxGbThhX2VCSUltUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7wFBVV95cUxPMG9IUnBCYkFiVUlFWVRKYk9VcnFBVUVPX0hDekFGSzBWU0ZMUzBielEzc2RxcnkyNTJENU52Wi1vNUFiUXpaNk43X0FwT0hmNG5XOGItb0hLalYtWjk2eDBhRFd0UnBRR3RXelpVeWVpbkJwS285aDUza3Z3Vm5EX3FwRzVQWDNGdGFpMEw1cHdFeGtUanNNTE5mdzRiVkgtWXlESHpxSEdzUHlBbVVRaEFoTTFESmx6c1lxSUxhNDBaR29DWjlmeVp3aGY4VmhDYTg4Y09PWmJJMjVFTjVKUWVBOHlIN2FKanpFY00xRQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Celebrate His Birthday Together
 
@@ -707,78 +791,3 @@ Stories: 90
   - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOR0NXck1VYUFMajc1TEVmbHB2OFFnSDR2THhXQkxUVGIxVllqUmROd3JHclUzTlBwdnVOT1JYV25vRjZPVE5CY05pNk04TjFaMTQybWNVNHJwTzZBNWxvbzBnV2dnZUtYaGFiZlFGU2dRemJreEhxQU01S2hpNmRWQ2tlcFk2R0dOUWEwbmRLR0JHcDQ2M2EwaXRsUVB0R3RYbHQ3VGt5bTM?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-snl-cameo-dakota-johnson-saturday-night-live-1236898411/
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUHhJYnd5WkhkSTNKS3gyVWdLZVRpYTR1NEE4TS00ZGFKTjM1b0NvZUxMYlBqcEtacGlWQ2U3R2RrYVpFcVF1a1Ayb2wzZlNXQ05RUC1JZTdfV0VxcmIzZi1HcktSa2RkQVN4Z1RWTnFHY3NkanhrSkZWbVFGTUVDTFJnVDJFSVU1R0RZaS1XcUhBa0FKN2FCbkw2ZmVQRzZ1d2Jtb1VEMkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Close Friendship with Dakota Johnson
-
-- first seen: 2026-10-03 23:45 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift offers insight into her strong bond with actress Dakota Johnson, showcasing the closeness of their friendship. The discussion highlights their shared moments and mutual support.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYXBPX3JTby1aeGdrRXRrd185OXlvV2JMNDBhYVg5Ym8wS2tmdzh2OWZUS1dKTlFUYzNuTWFfMlhjSHRuSDhXbHloZWsxWGtWa3RwcVY3OVlFd0N1emdNTWZXTGVqWldhSkg1SjZFRGliaFhsVFNZV0JaNFFOUDBLa25iYVRBMWFlamMwVDYyaWhjUTFR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Flanagan Discusses 'Cornell 7' and Gender Issues
-
-- first seen: 2026-10-03 19:49 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Flanagan elaborates on the concept of the 'Cornell 7' and its relation to gender dynamics. The insights were shared in a piece by The Free Press.
-- sources:
-  - [unverified] The Free Press — https://news.google.com/rss/articles/CBMiaEFVX3lxTE9FQmdJWjF6Q3kzckhsQWhMSU02R05iWDd0aWJfTGlhbGNfTlppVXBsNTEtaTIxUmlfckwwN0d3bGRmMnNPekpWNDdTcXRxYnY5eE5lTE4zM05nOV9JOWVuVkxTcGNCME5q?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reveals Her Favorite Seasonal Fashion Staples
-
-- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a feature by Harper's BAZAAR, Taylor Swift shares her favorite fashion staples for the upcoming season, promoting cozy styles. The article highlights her fashion choices that embrace the season.
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiygFBVV95cUxPa1ktRGVQek1rYVVockw3eUpsa2Q2aVlqNE1neGdzVGl2MkV2aFpVMElfS1FQNVcxM1dGd2ZPa0o1NmhYVWFFUlFFckpzVENiZjE2bHJlZG9MbVZFYnJpSEl6Z0tlNV9vRG55Uzdhb1owZnpfbXdGY0RMUXVYbmMtTXBYNmxwTHBOTWNmOWZkN3FqeEIwSU9SZzBqZGFZc1ViSUdzSlZtM29NZmxqT1V5Q0dnSGhTdmt5RG5Rb1lVZTBXbVZfcGJaV3dR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Matthew Stafford Discusses Cameo in Taylor Swift's Music Video
-
-- first seen: 2026-10-03 19:49 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matthew Stafford shares insights about his appearance in a Taylor Swift music video, providing details about his experience on set.
-- sources:
-  - [unverified] Rams Wire — https://news.google.com/rss/articles/CBMizgFBVV95cUxPTUE1UnhvTlFWdDhRb0pUanh0dWRiZFZaWDRreV82eEFtczBHZHFMd0J0OVVPNFR0VVZDdkRka09xbVdqenZjTFA0T01WVUVaWDcwdUFIQVNFQUF0VDBMRWJ5SFplbW9wYjZjT2dWLWtaS2lRMjlFNi1HZ2FRLXpuRGZTeEpHXzZIOWhaMWVhQWlCZjRqZUwzek9pRnRzMEVSVU5yU2ZPMWlvNTVPZWR6UTJJZHdQNWdvWTU0eVA0QzZhOURfV2JGSjNwTDQ0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Insights on 'Patient Zero' in New Video
-
-- first seen: 2026-10-03 19:49 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has released an expanded video that explores the making of her music video for 'Patient Zero.' The video features comments from Dakota Johnson and Anne Hathaway, discussing their impressions and experiences related to the project.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNU9IaGdVcmhLaV8tS24xa2x5RTNQb0VycC1YTzRCSHBweVpCUU94U19fQzktM0tJVzZxZHpZRWQwakJDdzY2RlBITDBWUUJzVU9XVnpUSHZjZ3o0VkN1eXgxMEdmVlp5UURiaVF5aDFWbGpJQi1RNDZ5emJDNmlYTVI5T0VZY0ZtblFwZE54UkZtbE1YUGhVSk1DOExSOXlBRVFTSF95bTk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNQTVRdmQtQmMydS1oTUxnaDBvb1dzOXlDQnlYRFY3c1dEVkhfTlNQNFFlc3ZLRDh3WjE3cmtpMFBmV2RrczdvMVhsM3RKdEJHZER3YmgwVm5MSVBXZGFTUU1IZjAwcmhrVVBYOUJ3MGJnSGtsMHd4NGdjRkl2OFV5MzBZQVcybU4zRVNlbzFxYU9oLVpGRDBzU0p3eXQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Country singer who guided Taylor Swift passes away at 84
-
-- first seen: 2026-10-03 19:49 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: A country singer known for influencing Taylor Swift and his notable lyrics has died at the age of 84, as reported by LehighValleyLive.com.
-- sources:
-  - [unverified] AL.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNcl85MmNmaWtQSVNDbnRiZWk2QzJYYXllWFNXSDQwbzZvT2NTQUNTRDlUT3JCUm1jalNnaVFVRzI3Z0xFZzZlRkpNQlQzMk1QWEdVNFVzalUwU2kyS0R6RE9DVGMxdkM3NmFDb2ZEUktSV0RLZzZQMzBwTHRRWFhzem1OM3VTRk9xeTByZXpiTzRSbFhoT0gwVks2UENFZ3RGS2JGeGFKSDFMNjctUzBRSU9tTG5TSzjSAcsBQVVfeXFMTVlpTEZVN0d6dkhmWG50SUwteW5JcWJlLWJuT1Z5amo4ZHdZeW5mQlljcEtsM3BvVjQ4NWJGZ2E3YmpvU3lESHo2b0p3MVNQZEhCbnFWa1diUWpZZURDT2pxb2NscTV3eDM5eXVvUWl1RGlyZjdnNjVUZzNWUWNwREd2bk1CUW9HaDFQbHN1MHJjaEJWNFZoa1VyUGJNQzczVjMybHA0bXctN2ZzajR5U3A4M0JJTVJ2VFd2RU9xU0pwMlAzS1VQSE1mZDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] LehighValleyLive.com — https://news.google.com/rss/articles/CBMi1gFBVV95cUxOMXpWWVRJMFJadUhfdWNCamRPV2pNcHhsMk53TUxtZG5FUjZLQi16enVXajE4V2Z2Q3ZIS2Fmako4eTBNUk01QnkyYThqZWh6cC13My1wRVBJVzVUSGRkQkVVNlFJNVFTVEd3U1p0RHhWdWxhY1dJeE1IMjh5TV9PZHZ3eTNrbFdoV1hlOUk4NTlobnNsZlVUR1NZcXNmN29sQkpFQkc1ZDNMbWRRelZkM3BPMDZtMjdLTlVuRXZZRlhPd2Z6VXVBVWN1ZFJiak5MWmJ6a3hn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts New Curly Shoulder-Length Lob
-
-- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In her latest hair transformation, Taylor Swift has unveiled a curly shoulder-length lob, showcasing her evolving style. The new look has been featured by various media outlets, including NBC Los Angeles.
-- sources:
-  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMldvTi1QVmJmRUt0akFRbGdHWlF0d0JJUUNIZW5maUprMUdDdnZyTm1NdmlHQ2YwcjZDUDFid19lTDdLU0NwS1JGRU1uSUhXeElXaFNQMndVVmFJeTJnMnIzU0FCSlFESFpYQ3dpbWpQN1VfMnRRM1htMnk2UUVfaUNWQXJFdGFqMF94ZHF1MWJReWN6N2NuTzR6ZFhaV1NZS0hFQmxBbnZ2NlkzRDZ5dVRsVmItUDRNZVRsRWc4SWxpRjlVZ190c2kwYUw5SGxNRC1GbzhFOElOQzBw0gHkAUFVX3lxTFBvNWt5eGZXa003d2wwQXRxN0YyM0NESkdOQnpibEExQkFaU25JS1ZGYk4tcW1RTkhQREotR3BId0JSbEpEaEpFSHd2MWhLeWhQbDQ1REo2Z3g4MXZ5OF9Lcks4YXIzc3hKZ1RvcWFXdEVPdW9xVjdDektxVnM2UUE4WHlnTHFtWWpkaFVaRm9JWWxmaFRUYXRtdjRTdTU1eHUzaXpvVUsyS1ZSYXJRMmVYUkplYlhMV2QtSXcwekdTamlkRVJabDBOS3dtcVY2WlQ5Zm12eWNjdFJodVNXVmtwb2cyYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Off New Curly Hairstyle
-
-- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has debuted a new curly hairstyle following her recent career milestones. The change in her look was highlighted in a feature by USA Today.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiswFBVV95cUxOZk9BTWotczFxSmhyeFRWRkZFMUExbDh4ZnNBTkdZd3dXSzE2X2REcnZUaFp4QjZMTWVqX05CekhCWkpsaG1faVdLNXFLNnlwMU9zY1RRaTlrYnZ4dWRBbDVwc1BTYUdKQzM3M2I4dWVLNzZPQkJmaV9MSmotU2NBeUNuS2htRVNCbWd1V0tCcTM1MmljYVJmMVk3R1RYcEFQbVNDc2NKR2R2dmNMOTNRY19lcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Paul McCartney Shares Reason for Performing at Taylor Swift's Wedding
-
-- first seen: 2026-10-03 19:49 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Paul McCartney explained that he performed at Taylor Swift's wedding because she requested him to do so. He also mentioned an incident involving Larry David during his appearance on Jimmy Kimmel Live.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisgFBVV95cUxPMk1OMWRHRjlyWTRtb09VMjUwUXJadG0xM0dkSHVhRFJETkdwTUtPSWUzVEdwdXZxNHJaUTE2VUdCLWNLWldXaUpuYkZsclZmWFlYU2JRM1NFcEhxYTR0X0k5UUxPQk9NSTNUUTRhczNTQTFPQWp3ZHpmblJuekJCeTJBT0tTYWZid1RxNHFKZjNHZWtoRGcxbTZUTTM1TkhaUXZ6Y2dxTjJRTUxJM1pZc2dR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/
