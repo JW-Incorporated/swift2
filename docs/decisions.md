@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Human actions with a checkable outcome close themselves; agents file only what needs Joey
+
+**Decision.** (1) An open `HUMAN-ACTIONS.md` entry may carry `<!-- ha verify: <kind> <args> -->` with kind one of `secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`, `workflow-green`. `scripts/human-actions/auto-close.mjs` (hourly, `marjorie-status.yml` job `autoclose`) evaluates them with read-only `gh` calls and, on a pass, closes the entry through the existing rolling close PR (`status-page/ha-closes`, auto-merge), ledger note `auto-closed: <check> passed <UTC date>`. The workflow token cannot read secret/variable settings, so those two kinds need an optional `HA_VERIFY_TOKEN` and are skipped (left open) without one. (2) Filing rule: agents file only what needs the founder's judgment, identity/login, money, or physical hands; reversible agent-doable work is done and noted in one line; checkable entries must carry a verify line (`npm run check:human-actions` warns, never fails).
+
+**Why.** Joey was being asked to reply "done" to switch flips a machine can see for itself. Alternatives: a new bot PR flow (rejected — the rolling close PR already auto-merges and heals); a hard CI failure on missing verify lines (rejected — would block unrelated PRs). Approved: Joey, chat 2026-10-06 (fixes 3 and 4 of 4 "stop switch-flip asks").
+
+---
+
 ## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
 
 **Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.

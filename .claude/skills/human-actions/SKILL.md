@@ -47,13 +47,38 @@ Never reused, never renumbered. Allocator is always `max(N in open file ∪
 N in ledger) + 1` — never "next free-looking number." Duplicate `N` in the
 open file, or the same `N` in both, is a lint error.
 
+## What may be filed (founder decision 2026-10-06)
+
+**Only file an item that needs the founder's judgment, identity/login, money,
+or physical hands.** If it is reversible and an agent can do it, do it and note
+it in one line — do not file it.
+
+## Machine-checked close
+
+An item whose **Worked if** is machine-checkable **must** carry one hidden line
+under its heading, next to `ha filed`:
+
+```markdown
+<!-- ha verify: <kind> <args> -->
+```
+
+Kinds (fixed set, no shell): `secret-exists <NAME>` · `variable-equals <NAME>
+<VALUE>` · `pr-merged <N>` · `issue-closed <N>` · `workflow-green <file.yml>`.
+`scripts/human-actions/auto-close.mjs` runs hourly (marjorie-status.yml job
+`autoclose`); when the check passes it closes the item through the rolling close
+PR with the ledger note `auto-closed: <check> passed <date>` — no owner reply
+needed. `secret-exists` and `variable-equals` need a token with settings-read
+permission (`HA_VERIFY_TOKEN`); without it they are skipped, never closed.
+`npm run check:human-actions` warns (never fails) on a checkable Worked-if with
+no verify line.
+
 ## Filing and closing
 
 File via `ha add` on the VM; on the PC, write v2 directly and expect the
 lint on the next sync/commit — it is the contract, not a courtesy.
-Close: exactly two paths — `done`/`skip <why>` reply to the card in
-Discord, or `ha close` run because the owner said so in chat. **Never an
-agent's own judgment** — not "the owner seemed to say it was done," not
+Close: exactly three paths — `done`/`skip <why>` reply to the card in
+Discord, `ha close` run because the owner said so in chat, or a passing
+`ha verify` check (above). **Never an agent's own judgment** — not "the owner seemed to say it was done," not
 inferred from unrelated conversation. **`SKIP` is final** — never re-raise
 or re-argue a skipped item.
 
