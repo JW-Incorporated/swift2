@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 85
+
+## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
+
+- first seen: 2026-10-07 07:11 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The Bratenahl board has delayed a tree plan for the property owned by Taylor Swift and Travis Kelce due to a height dispute. The decision reflects ongoing local governance issues related to the couple's real estate.
+- sources:
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMixgFBVV95cUxPbW1hck5WaGlQZjEzbDdPX2NxUlhBbnZ1OWItS0g5S0NONkJyU2JOMjlwLU43U1lVNGoxWGNhcVdfMjc2TGg5OF9hZlJwdnhHNHptZ0lUT0VQWWF4SGdvQ3FUWXc0SkVjUTR0NkdycnA2dGVzcnhXQkZVRXNWX2pZNGlSQURRT1lYWGhGMHVHa3VwdXZxbzAwZlBXcEdFQ3c3RnlDUklGTldLaGlfSWNsX2RXTlpkb0MxNmloLVMydy1CdFRObFE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## The Butler Collegian Reviews Taylor Swift’s ‘The Encore’
+
+- first seen: 2026-10-07 07:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Butler Collegian has published a review stating that Taylor Swift’s latest work, ‘The Encore,’ did not meet expectations and is considered a disappointment.
+- sources:
+  - [unverified] The Butler Collegian — https://news.google.com/rss/articles/CBMijAFBVV95cUxNZmpfd3pkb185YjZ6QXRPQ1JQWGZVRW9UZGJJZWpNTG5CWnMxeG0xd09vY0JIb2cxNU1Va29jWDNQaFNMYW9hYUlnT2VEeDZWcFdlSHJvcVJqYVk4M2lLamc0TENweno1aXV6MVdDY2lPcDMxN3F2R0c3ek9vMnZhazIzOV9KQ3Y1REpjYQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift approaches Beatles' record of 20 Hot 100 No. 1s
+
+- first seen: 2026-10-07 07:11 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is nearing the record of 20 Hot 100 No. 1 hits, previously held by The Beatles. This milestone highlights her significant impact on the music charts.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUE9XZWlMVVpkcTRWbUt3OHBIV1laV0JfSlp3ZmFVeExqc2E2WlNMTFZCVTNCVmRTcjU3SkVDanZvZHRKX3dBazQ1MTd1ajZpN0MwS0pzR3RUTjFJS21DSG5qYVE2a3Ayd0VyTjU5a1dBUjJveFpGS0NlNmRYOVpIeGZHQjZFMm1NLXlEYWszd19kTEJET1ZZVDhpbFFWaG9uWkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'Patient Zero' Debuts at No. 1
 
@@ -207,6 +232,16 @@ Stories: 91
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7wFBVV95cUxPMG9IUnBCYkFiVUlFWVRKYk9VcnFBVUVPX0hDekFGSzBWU0ZMUzBielEzc2RxcnkyNTJENU52Wi1vNUFiUXpaNk43X0FwT0hmNG5XOGItb0hLalYtWjk2eDBhRFd0UnBRR3RXelpVeWVpbkJwS285aDUza3Z3Vm5EX3FwRzVQWDNGdGFpMEw1cHdFeGtUanNNTE5mdzRiVkgtWXlESHpxSEdzUHlBbVVRaEFoTTFESmx6c1lxSUxhNDBaR29DWjlmeVp3aGY4VmhDYTg4Y09PWmJJMjVFTjVKUWVBOHlIN2FKanpFY00xRQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift and Travis Kelce Showcase Coordinated Looks at Birthday Dinner
+
+- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift and Travis Kelce were spotted in coordinated outfits during a dinner date in New York City, celebrating his birthday. The couple's stylish appearance drew attention as they stepped out together.
+- sources:
+  - [unverified] Extra — https://news.google.com/rss/articles/CBMioAFBVV95cUxNazkxWERKVGVNRGRtVVhIV1ZOWVcxdXgtaUVwMk1uOURGWEgzOXlNeTFwZUtOUXRqVzBjbmhYTVJxYXBFaXJ3bzlPV2pPN2JKd2FNMEtiZ2xYSURMMEd6ZmtPUTZMMW1QQXFUa1V4OElfa2pVRnc0c3QwRjVlaWVYQTRzejFSZkU0ak5YNTZOQXhZbzRNNXlsaVFwN1RsbXIz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNeFdzTWZsRDluWGR6UWgtYlp1OFB5TVlxeVVkNE9VN0w0Sm81UmxtaXV2U3FTd2JCY0pKbjdyakl0MEJBTVRxc3RyV0lHdmpwcjNTYlNSWm05SGpaajd5WHZ5MzdhRWhZQVM1Tjk1b1BUdDBlb2lWQXVrdVlxOE85bmRGeFBTc1gtVlpRdEdqdXB0SzhmYUlyLTdMNUpBQTk5aWg3eWpka3dwRm9Eakw2bFZrNEpJMVh4RWl3REFBMy1SR0NybGhncQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNVE5VLW0yS2UzYUlKMUZHakFNaks0Ri1OYnpXdDlJSHpjcERsbk81WXh2Z2lkaUhNMUtFYlRPRF94SzNmM3ItSlVaMUJNZ3RDa28wUGxLVzROa2cwQ2FvenJRWU05UlBlaVNncHgzek9RZU10cmJWNERPY3BGR3NHMXoyUXBWVWZ6Q05LTzdjVWprd2tCdWpZVFVFQ0NIMndFOUpyRm11eW8xQXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Celebrate His Birthday Together
 
 - first seen: 2026-10-06 11:59 UTC | category: sighting | importance: 5
@@ -250,9 +285,10 @@ Stories: 91
 ## Travis Kelce reminds Taylor Swift about handling criticism
 
 - first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce reportedly told Taylor Swift that it's impossible to please everyone amidst ongoing criticism. This reminder comes during a time when the couple faces public scrutiny over their relationship.
 - sources:
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMiswFBVV95cUxPWVFjOFk3Wm9sVDRPeWJRNFJxT1JsUmFiQ0pxdEFBaGRTNG9xVS1sMUNmeFdWb3dvT2w0c19LU0ZEdFYxelM1Ui0wVVFDSXp0STNVdkg2WVJXUHRVb1NRWVQ4RXV2ZVJFdTRhWm10RTgtOTRIanJxY29VRkRPQUZXbXhQMWg2RVZrdmRsYXJNaTlncHhDMG9Td0Z3bUgzRjNGbWR2UjVlcG1KY3V4LV9HUEh0RdIBxwFBVV95cUxQWkJkM1Z5RFZPWXRaVy1HSWlvLThHcVMzbmFLZHdBTGNxNG5laGpSaVMtUDEzMkczdWFpX0RFa1h5SnoycEE3MDlGNDZiRHRqdXdTaHBLeFBmYy13b2pRTnExWDRpdzE5cl93OVJzMkJkNnRqQnAwSEhRa2c3LW1uQmh0QXdaN08wSm8zRHAxYWM2WHhfR3JyclpvS2RsT1p6Q2UwQUV1ZDR1a1VFVjYwODVFdXlyeGpaWDdDNUVpaTRXVFRxSnNR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1I0NVFpSGo3Z2RVT19jRkFHTVl0YXc1emYxbEdudnNRWm5ickJtUm5xOGhyQVZOZ2dMcTNsb0oxUzdZNjBfcXVseHlQWHFQdHJvbkV5TURzSHpIaWpiZkJjLUNZOWt0eUNnUTNScWxOc05KNF8xOXJJMmNybFRiWTIzQ2hzcERROTVGcXE2NGNXcWNkR21JTXpRdm5IaEp2bElCcU9neUhJMXRaYjF0ZGVndDNLT3pxWjBHSw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNd0dYYnhHcFItZHlaRUxNYkFqNlZNMll4czN0b1Z4Y19SWGI1cmxLMWM3VzByLUZZRmhBV2R6WnNOUUlrejFNQ3Y5VzQzV01sbU54RUptV1FIaUVZLW9fdVhQUU5WUVlhNUlyZWREMHREZEZvWmhOZEZkNWVueTBLbXluTkVCczVCR0dYd3hkOU5TX2Q3VFNZUUtFX3U?oc=5&hl=en-US&gl=US&ceid=US:en
 
@@ -288,14 +324,6 @@ Stories: 91
 - sources:
   - [unverified] Atwood Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNm1KTnhCalNjZWJWRDRIZkFsTU5Tb19TdExORjM2Q0xHTDhjYnU5MFNMNjZPdTlrNHhyQTNVX3JQRl9SeENWMWxUYk5aT01qY0JIQjluQXRjWDU0U2xRRFhLR2pGUE1Yay1XckZIRzZEVmg4azBhRDJoN0d2YjJQc3AzZ1VMbThZQ0prQkUwWFFWQ2xUdlh2SUhxZ2FGUlF5RmV1SjlOYUt4UQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Harvard Crimson — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMG1JZWR4cVEyOUQ4Ukl2bWFNVzRrOEpTaEVELUVEQzlZd0ZlS1VKQlJnVGx0SVV0UkJnUFNIclA5N0VheHljd0UxaXJqRkVJMEFkOEpHQkhESktmTmxyUnlmOTJGdlltb3dPNlpiWFlBQ2p3QnlFTjZ4OFVwbGRyOUYySlhyVkNqNFZZcGMzemRFdF9IRjZkbDduLUk1Zlg3ZzZ1ZHE5YTk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Showcase Coordinated Looks at Birthday Dinner
-
-- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted in coordinated outfits during a dinner date in New York City, celebrating his birthday. The couple's stylish appearance drew attention as they stepped out together.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNeFdzTWZsRDluWGR6UWgtYlp1OFB5TVlxeVVkNE9VN0w0Sm81UmxtaXV2U3FTd2JCY0pKbjdyakl0MEJBTVRxc3RyV0lHdmpwcjNTYlNSWm05SGpaajd5WHZ5MzdhRWhZQVM1Tjk1b1BUdDBlb2lWQXVrdVlxOE85bmRGeFBTc1gtVlpRdEdqdXB0SzhmYUlyLTdMNUpBQTk5aWg3eWpka3dwRm9Eakw2bFZrNEpJMVh4RWl3REFBMy1SR0NybGhncQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Showcases Bad Girl Style in Vogue Feature
 
@@ -702,92 +730,3 @@ Stories: 91
 - sources:
   - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxOWVU1NG9ZUzdFNXpsZjRaNXItWnJSZDY3cjQzTThJVmZHS20tNmVfNU9KOEFZaGFJd1QxVDRJcHExMkFtWTZFRXNoSmd4NGFkZURaaV9fcktJSTF6YUo1a0szaFBJdlFoSnlfU01KMzlJbU53Q19jWWM1VGZVUG4yVDFoNExmTHJRcG9keExwT2szY3NqS2dHZnlNTzFQR0R0SXhFSm1WUEE4NjFD?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSU1GcmZtQkJRSEU0bEluMUtmejVHeHY0UkNoT3Z5azFvSGM3UTNObDFDQVVWT3lSQVc5ZTdvYXU5SlViQ2tPSE52a3c4RFVHd1l2YVNSZkR0UEd2ZEVKdEJTZFJCMkJRLVJuWWNMZFZkVXpIcFlwaEVfZWtnWXBCQS1oaUdBS0pHUkoyaXZyUDNBWmhmdHliTEVvNWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson Cast in Taylor Swift's Patient Zero Video
-
-- first seen: 2026-10-04 06:48 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dakota Johnson has been cast in the video for Taylor Swift's song 'Patient Zero'. This collaboration adds to the ongoing buzz around Swift's recent projects.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOU3ZpT0pZSWp3Sm4zbkRTUS1QcEotZDF0dFpjVVdMZkQ5R05MeGpmcnVUMk9FWVktekx3MjZ0bVlROUxad1FEaS1uZjhTS0JLYnZyUnZtVHZEZUJ6RjN2RU1XSjdSOThsTHptNE40SnB1UmV2ZGt3UWgxeDFZRHNsMk56NG05aWsxbEJLX1pYYS0wTzlwMXVtNm5VZW5kbTB4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kaley Cuoco's Second Child May Have a Taylor Swift-Inspired Name
-
-- first seen: 2026-10-04 06:48 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A baby name expert suggests that Kaley Cuoco's second child could be named after Taylor Swift, hinting at a possible Swift-inspired choice. The discussion highlights the influence of Taylor Swift's name in popular culture.
-- sources:
-  - [unverified] women.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPR0VQRVpTT0xJbEdkMEZfWVVRVDJQZ3ZfRm9wU3lFTUtUdTBLRVdHbF90c2JsS1hfa29FdUIyZDMwQ3VyVUxFWWhKbVlIT3lBMlZLeGRlYm5BSjVpeEpwN19SdmZ1RW52UExQLWFqQVZON2JyM2xiSmFEX3l2NWQ3eXpQZVktaU5YZ0p5cXFzMnNuVEZEYU9wckVWSmxpaGZBT1lqMDR4WW9yTTR6NFdmdEc3WDJDM0Rj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Gives Dakota Johnson Breakup Advice on 'SNL'
-
-- first seen: 2026-10-04 06:48 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During her recent appearance on 'SNL', Taylor Swift offered Dakota Johnson advice on dealing with breakups. The segment highlighted Swift's humorous perspective on relationships.
-- sources:
-  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMilwFBVV95cUxQVVBvS283blloT2U5RXFWaTFIdlBpcm9KdEd5N0tybXlmb3JZd3FYUGhuTU12N3R3NHd2ejVIZ1AyR2czZ3ZwWnlHdE1yRkprRVNzQlBDZnNGMUNUbndPWng2bTBmWW9La01lYXBqcjc3YVdFZm1peFZTMzE5RGYzMXVpTWN5YnE1RzU1TUI3WDdWLTlLWkZB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reveals New Short Curly Hairstyle
-
-- first seen: 2026-10-04 06:48 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has unveiled a new hairstyle, featuring a dramatic cut and curly look. The change has caught the attention of fans and media alike.
-- sources:
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiowFBVV95cUxQTDBsLUc1aEl2Ykl6T1ctMGJvN0JsZWRldS1aUnlGN0tfamF3TUJSSlBBZ005VU10ZlBfWjc2b2Q4MEZCUW5LaHZCYkRobGZoRzVnR1NBZDRjcHpYQXIxV2lQcUdCczZCSTRwZGlScXdpSmFjd2hTTGxuWDdHT2c1S2JJSEx1R3VhZERBNEpfNS10bmg3WjJ0c2hHX055NzJmYjRn0gGiAUFVX3lxTFBrSklpbC1iRUdDU1NoSk83SHpVQlZUbUNqVFlVaFpLQ0pVS3htaDg4UzJPekluRG42NGZyQXRZY2RDaklkdFZVV3loZTRqbGdKVjZjbnM2cWhmeExKUkVLYlZJTjJ5eFhjTG5xUmlHbzl6d0M3WU51blItLW5lRUpMbEJzcGMwVERsZEFNUXlkM1ozTDJGdGUzcVNxMncwX1hXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Baby Names Inspired By Taylor Swift Songs
-
-- first seen: 2026-10-04 06:48 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from mom.com lists 10 baby names that are inspired by songs written by Taylor Swift. The names reflect the themes and characters present in her music.
-- sources:
-  - [unverified] mom.com — https://news.google.com/rss/articles/CBMickFVX3lxTE42LUVaNXhFekRVbmhTMy1zRzk0QXRaNU5rVWV3Mm80SGR4Ym84NkYzTElXSWhyOHVvTzRRdW56M0ZLM1VHQkpweEYyc3BiREhsZEhfYzRrNkt1WXBWTTZ3SEw4NG9IclRJN2Q5dUV0aF92UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears on SNL with Dakota Johnson
-
-- first seen: 2026-10-04 06:48 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift made a surprise appearance during Dakota Johnson's opening monologue on Saturday Night Live, humorously referencing their past collaboration in the 'Patient Zero' music video. The cameo coincided with Johnson's upcoming birthday celebration.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdFJZUXItN1NIa2licEtQMGNCNV9wbUdjanZDc2xrUmJNUG5NaUNxV3JVWHdpU2xFSk9ZT0ZNblg5NWNEVF8xT1h2b0x2ZndZRUFyd0xpZDVKOHZRZlJ2ZGpkek05eWFtVWtpWnZWaVFIZWtBVGtzMUtPdGM1UzMzLVN3R2FZVWNLdFRr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/
-
-## Dakota Johnson Talks Dating Musicians with Taylor Swift on 'SNL'
-
-- first seen: 2026-10-04 06:48 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: During a segment on 'SNL,' Dakota Johnson shared her thoughts on dating musicians while confiding in Taylor Swift, humorously suggesting it serves as a public service for women. The conversation touched on personal experiences in the music industry.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMivwFBVV95cUxNLWtpY3ZuM2l0akRhVWNVOU1IVVEyeE5jQkVIY3R0Wk11WmpRbjFXVlh5Y3BxS2pqRm5ocVY3UVZ6QV9SMVVjTDJqMlRMQkswYmVoMERvTlh4T040VmFqVERiOXBmZ0ctSjNXY0Q4bVRXcHZUTGh0NVNLbEdWWmR4SFRaOEFfNDd3cHhSLWpUVEF5cHBacTJhMkVsaDE1UzVYMGd2SnBxSU5OektoN1pGYThrd0d1NzR2YkV6dG1PRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/snl-dakota-johnson-confides-taylor-swift-dating-musicians-1235636528/
-
-## Taylor Swift Surprises Audience with Appearance on 'SNL'
-
-- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
-- sources:
-  - [unverified] boston.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPSTZxLXJqcUN5b1E2ZEEtTjF3STMyUVZrVGtHZ3VQdFl0UThWdWE4Z0o3NFIyeWdYZjd6ZVRsX3p2MTM3QzM0eFlGWDRGWkhWWVJWUDVVQ1pUMFlhZENvS0UzdkF5X0pvUUljX2t3UW0xMktiU2l5NDd3RXdHNzF2eVV4NVVwMlFtV01WZlViWGo1SHYyc0FFLWYtaw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] CNN — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZFlPV1FnNVlFVDNFUjhDbFNpazhBM3FwbjlsWkliWnJ5WDM0Y3p4VVY4elQzU2I1d1BKUEFpSF93cnNPTFJFUEswY0sxUFIxM056LVZRQ0xNTTNnWi1yMC1IenQ3Y25ia0x4V2YwU19OTjZWU3FSTVZMYkplakMtaVZ5aF81alB4dWd0c2xicXlzZDQ5YkZQUjZ6QkVWMVNWdGlpeGNxNjFuRFpvSlhjTFJnUXp3QlNL?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMimgFBVV95cUxPQzlKSTFkNVEyOGJzTnZDQUVscks3N3dnY0RpMU5ia2hrSjdZMEt2YzlPSkxCMG04QlJJd1N4eFZZdkRuMjJ4S0lEV3dnQ2s4SHlpS1pLT0tSSTJXNzFyenNlTzZFLUpxenBOSkFaMks2emUxNExjdFk3TmVHcnY0OVVLRFhDSWJLTzB6Z1ZISFczbnpOeHN2eWV3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMigAFBVV95cUxPb19PdzNrS3J2eUZ1WmlxakZIMEtXN0NzMVhDUDNUTmxYTS00UU11bXZjVmVWZnBpbGNnWnhYUnBXbG9sbUp1TlNDcEtLVWNnN2ppdHVYRFNhZDViS09RQXFYR1g0eHJxd1diS1FMaV9tdU9pTFlLeW0zdjVZbm1nTw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisAFBVV95cUxQV3hkQkJKM0lZTllHQmMwVnVqMk5JaHlyaUQxYVBNNTJHQk5vNzFrb0JZdmVTM0FQWW9VYlJZYUlYUzhiLVVNbUtBNWJHUms2SUdzd3MyclV5Q2lpTTJzOHlNc3BBdDQ3RFFmbUJ5MmhxUEticzRzT1k4ZzQ3c0tHYnF6QkZ5NGhZUjdxTURrVENhMXMtYzB4WjJFbWF0cEtLdV95VzhwV09aTDRHSXlBVg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/tv-and-radio/2026/oct/04/saturday-night-live-dakota-johnson-host-taylor-swift-cameo
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPYlUyOHNqNVZIQmxaYzZLZm5LMGx6QW5RUl82T2FhU2JOV0pRNnF1TGFvbkxfdDBEN2YtRXZTNTFHYjA1Z0xIU2dJTHZpS21HU0xFdktWV0MxYVNQUnQ2cmR2d1J0RGx4dDM2eWJmbVdKV3pkQWJpTWN6Wlc5ZFZ4cmN0aXZxckJ1cGVyLVcyYWlUYmZVbTFSMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise Appearance at Dakota Johnson's SNL Hosting
-
-- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift unexpectedly joined Dakota Johnson during her hosting segment on 'Saturday Night Live.' During the opening monologue, Swift acknowledged Travis Kelce with a subtle salute.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUFaVWQ0Q3BuQ05SVjhBVU13aXpOQTc2T1ZHZUpTYjVVeGI4Y1daR3dOaUNUaGt6bV9sTjUyVm9OZUMySnNLNlpWbXU2aGVQTWFCc3JNamxwZVpBWlg0UHJZUHZVeHVXZWhzdEFxX1V4eV81cTNObGFZSFkzdHR5VUJ0U2dzRW04anVXci11ZE0tMnplRDgxWC1haw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPM2N5Zi12U1lrWi1qRWg5VmllYTVKUHNCYUxQMjNOU1B1RWtBcE1uV1ZqS2FVQkhCalcyVWdISVJmdGtuY2g4WHpHTFJPcGxSeUJqU25FY3RuQmFkS0dGTGJnUzhhbUpROXVkSVBVYXc0b09GY1Q4aTNVWW9YZUZBU0FmcXdxVVltcDZB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQaURER0l5TkNUVjR6ZHNzUm1yRTBZSkJCTXU1VEhMNGJ2U29BRUF3N19zYWtBbVZIeEc3ZnQwRHhrVzBwekhMazBCS2twUE5xd2FGTHZ4VTFwU0FTbnppbk9XOUlZVFNiTVRCLTJhNGZTc2dKb3VBRUR3c1ZXQkVwMEpuN1BfUFZ1c0d0Yk95aw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVXhhb1RydGN5WWtWVE9JRFA4QV9CaVdSM0p6QmM0ckd1OEM5QlZGU0JQY2twU012WU5oaEJpZVYtbDNoNzdvUVgtQlBMTFZhZzJ5bEFRdEFfNEVXSjFMRmxxU3dEMVBXck9YT1JURkRfUXM2WkpobWY5dVphT1BySUVzRnMtWDRmZmE0VjdxY3NhWUNKRmptRUVmWC1SbXBFTE9ldXJpYw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-dakota-johnson-saturday-night-live-1236721702/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOR0NXck1VYUFMajc1TEVmbHB2OFFnSDR2THhXQkxUVGIxVllqUmROd3JHclUzTlBwdnVOT1JYV25vRjZPVE5CY05pNk04TjFaMTQybWNVNHJwTzZBNWxvbzBnV2dnZUtYaGFiZlFGU2dRemJreEhxQU01S2hpNmRWQ2tlcFk2R0dOUWEwbmRLR0JHcDQ2M2EwaXRsUVB0R3RYbHQ3VGt5bTM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-snl-cameo-dakota-johnson-saturday-night-live-1236898411/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUHhJYnd5WkhkSTNKS3gyVWdLZVRpYTR1NEE4TS00ZGFKTjM1b0NvZUxMYlBqcEtacGlWQ2U3R2RrYVpFcVF1a1Ayb2wzZlNXQ05RUC1JZTdfV0VxcmIzZi1HcktSa2RkQVN4Z1RWTnFHY3NkanhrSkZWbVFGTUVDTFJnVDJFSVU1R0RZaS1XcUhBa0FKN2FCbkw2ZmVQRzZ1d2Jtb1VEMkE?oc=5&hl=en-US&gl=US&ceid=US:en
