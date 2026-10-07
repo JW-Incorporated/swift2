@@ -24,9 +24,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolveFrameFile } from './lib/frame-path.mjs';
 import { describePhoto, normalizePhoto } from './lib/normalize-photo.mjs';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { dHash, findNearDuplicate } from './lib/perceptual-hash.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
-import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
@@ -63,8 +64,9 @@ const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, hashImpl = dHash, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
 ) {
+  const seenPerceptual = [];
   const skippedDuplicates = [];
   const failed = [];
   await mkdir(photosDir, { recursive: true });
@@ -95,9 +97,24 @@ export async function fetchCandidates(
       }
       // Normalize BEFORE hashing: the library's existing hashes are of stored (normalized) bytes.
       const buf = await normalizeImpl(raw, candidate.mediaPath);
+      if (candidate.minLongEdge !== undefined) {
+        const meta = imageMeta(buf);
+        const longEdge = Math.max(meta?.width ?? 0, meta?.height ?? 0);
+        if (longEdge < candidate.minLongEdge) {
+          throw new Error(`image long edge is ${longEdge || 'unreadable'}px, under the ${candidate.minLongEdge}px minimum (${candidate.sourceUrl})`);
+        }
+      }
       const hash = createHash('sha256').update(buf).digest('hex');
       if (seenHashes.has(hash)) {
         skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
+        continue;
+      }
+      // The same wire photo republished by another outlet is recompressed, so
+      // sha256 misses it; a perceptual hash within this run's downloads catches it.
+      const perceptual = await hashImpl(buf);
+      const near = findNearDuplicate(perceptual, seenPerceptual);
+      if (near) {
+        skippedDuplicates.push({ id: candidate.id, duplicateOf: near.id });
         continue;
       }
       const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
@@ -105,6 +122,7 @@ export async function fetchCandidates(
       if (write) await writeFile(destPath, buf);
       seenHashes.set(hash, candidate.id);
       Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
+      if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
     } catch (err) {
       failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
     }
@@ -168,8 +186,8 @@ async function main() {
 
   const merged = [...inventory.photos];
   for (const candidate of toImport) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl is fetch-only plumbing, never stored in the inventory
-    const { sourceUrl, ...entry } = candidate;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl/minLongEdge are fetch-only plumbing, never stored in the inventory
+    const { sourceUrl, minLongEdge, ...entry } = candidate;
     try {
       const bytes = await readFile(path.join(ROOT, 'apps', 'web', 'public', entry.mediaPath));
       const meta = isLfsPointerBuffer(bytes) ? null : imageMeta(bytes);
