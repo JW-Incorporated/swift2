@@ -91,6 +91,7 @@ describe('workflows that write library photos', () => {
   it.each(writers)('%s runs `git lfs install` and never sets sign-commits: true', (f) => {
     const text = readFileSync(join(dir, f), 'utf8');
     expect(text).toMatch(/git lfs install/);
+    expect(text).toMatch(/git config lfs\.locksverify false/);
     expect(text).not.toMatch(/sign-commits:\s*true/);
   });
 });
