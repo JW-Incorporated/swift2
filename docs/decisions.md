@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Marjorie's assign/defer/close chases default to `defer` after 7 days of silence
+
+**Decision.** A 96h chase HA open 7 days with no founder reply is auto-applied as `defer` (same marker/label path as a typed reply), closed as `skip` with the note "auto-deferred after 7 days of silence (founder decision 2026-10-06)", and the issue gets one comment saying how to re-open the chase. Issues labelled `founder-decision`, `desk:founder` or `founder-task` are never auto-deferred. Runs in the existing Step 2b chase sweep of `routine-marjorie-ops.yml`.
+
+**Why.** Chases waited on founder silence forever (HA #109-#111 etc.). Defer is the safe default: the issue stays open, only the chasing stops, and it is reversible. Real product decisions still ask. Alternative (auto-close or auto-assign) rejected as not reversible/not safe. Approved: Joey, chat 2026-10-06.
+
+---
+
 ## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
 
 **Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.

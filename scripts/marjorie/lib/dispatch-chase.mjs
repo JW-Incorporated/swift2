@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
+import { planAutoDefers } from './chase-auto-defer.mjs';
 
 export const STALE_48_MS = 48 * 60 * 60 * 1000;
 export const STALE_96_MS = 96 * 60 * 60 * 1000;
@@ -257,6 +258,7 @@ export function evaluateDispatchChase({
     items,
     nudges,
     humanActions,
+    autoDefers: planAutoDefers({ issues, openActions, now: nowMs }),
     pendingHumanActions: pendingHaPrs.filter((pr) => /^marjorie\/chase-ha-\d+(?:-\d+)*$/.test(pr.headRef || '')).map((pr) => pr.number),
     brief: {
       stalled: items.filter((item) => /^stale-/.test(item.verdict)),
