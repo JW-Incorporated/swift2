@@ -6,7 +6,9 @@ import {
   extractPageImage,
   isAcceptableImageUrl,
   isOnTopicArticle,
+  fetchPageImage,
   pressCandidateId,
+  readCapped,
   resolveExtension,
   searchGnews,
   sourcePressPhotos,
@@ -105,7 +107,7 @@ describe('searchGnews', () => {
 });
 
 describe('sourcePressPhotos', () => {
-  const page = (og: string) => () => new Response(html(`<meta property="og:image" content="${og}">`), { status: 200 });
+  const page = (og: string) => () => new Response(html(`<meta property="og:image" content="${og}">`), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   const opts = { sleepImpl: async () => {}, now: Date.UTC(2026, 9, 7) };
 
   it('turns GNews JSON into candidates: og:image first, GNews image second, off-topic and denied hosts dropped', async () => {
@@ -138,11 +140,17 @@ describe('sourcePressPhotos', () => {
     expect(calls).toHaveLength(2);
   });
 
-  it('quota exhaustion (403) warns and returns [] instead of throwing', async () => {
+  it('an expired/rejected key (401/403) logs ::error:: but still returns []', async () => {
     const warn = vi.fn();
     const out = await sourcePressPhotos({ apiKey: 'k', fetchImpl: fakeFetch({ 'https://gnews.io': () => json({ errors: ['quota'] }, 403) }), warn, ...opts });
     expect(out).toEqual([]);
-    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/::warning::.*403/));
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/::error::.*403/));
+  });
+
+  it('a 429 stays a warning', async () => {
+    const warn = vi.fn();
+    expect(await sourcePressPhotos({ apiKey: 'k', fetchImpl: fakeFetch({ 'https://gnews.io': () => json({}, 429) }), warn, ...opts })).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/::warning::.*429/));
   });
 
   it('a network failure also warns and returns []', async () => {
@@ -160,5 +168,42 @@ describe('sourcePressPhotos', () => {
     expect(await sourcePressPhotos({ apiKey: '', fetchImpl, warn, ...opts })).toEqual([]);
     expect(fetchImpl).not.toHaveBeenCalled();
     expect(warn).toHaveBeenCalledOnce();
+  });
+});
+
+describe('bounded page reads', () => {
+  const oversized = (pulled: { n: number; cancelled: boolean }) =>
+    new Response(
+      new ReadableStream({
+        pull(controller) {
+          pulled.n += 1;
+          controller.enqueue(new TextEncoder().encode('x'.repeat(100_000)));
+        },
+        cancel() {
+          pulled.cancelled = true;
+        },
+      }),
+      { headers: { 'content-type': 'text/html' } },
+    );
+
+  it('readCapped stops pulling and cancels the stream once the cap is reached', async () => {
+    const pulled = { n: 0, cancelled: false };
+    const text = await readCapped(oversized(pulled), 250_000);
+    expect(text.length).toBe(250_000);
+    expect(pulled.cancelled).toBe(true);
+    expect(pulled.n).toBeLessThan(10);
+  });
+
+  it('fetchPageImage finds og:image in the first bytes of an endless page and skips non-HTML', async () => {
+    const head = '<meta property="og:image" content="https://cdn.example.com/og.jpg">';
+    const body = new ReadableStream({
+      pull(controller) {
+        controller.enqueue(new TextEncoder().encode(head + '<p>' + 'x'.repeat(200_000)));
+      },
+    });
+    const page = vi.fn(async () => new Response(body, { headers: { 'content-type': 'text/html' } })) as unknown as typeof fetch;
+    expect(await fetchPageImage('https://news.example.com/a', { fetchImpl: page })).toBe('https://cdn.example.com/og.jpg');
+    const pdf = vi.fn(async () => new Response('%PDF', { headers: { 'content-type': 'application/pdf' } })) as unknown as typeof fetch;
+    expect(await fetchPageImage('https://news.example.com/a', { fetchImpl: pdf })).toBeNull();
   });
 });

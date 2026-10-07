@@ -49,6 +49,7 @@ on:
         type: string
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -139,7 +140,19 @@ jobs:
         if: steps.enabled.outputs.enabled == 'true'
         env:
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
+          # Once-a-day guard on the shared GNews quota. The clock dispatches
+          # via workflow_dispatch, so the event type can't tell a manual run
+          # from a scheduled one: skip when a run of this workflow already
+          # succeeded today (UTC). The run in progress is not yet 'success'.
+          today=$(date -u +%F)
+          prior=$(gh run list --workflow concert-photo-sourcing.yml --status success --created ">=$today" --json databaseId --jq length)
+          if [ "${prior:-0}" -gt 0 ]; then
+            echo "Press sourcing already ran in a successful run today ($today); skipping to protect the shared GNews quota."
+            exit 0
+          fi
           node scripts/social/source-press-photos.mjs \
             --output .artifacts/concert-photo-candidates-press.json
 

@@ -59,6 +59,13 @@ export const DEFAULT_MAX_REQUESTS = 6;
 export const REQUEST_DELAY_MS = 2000;
 export const MIN_LONG_EDGE_PX = 800;
 const SKIPPED_PROVIDERS = new Set(['wikimedia', 'wikimedia_commons']);
+// Openverse providers/sources that mostly index AI art or generated/stock-style
+// illustrations rather than real event photos (rawpixel: AI-remixed public-domain
+// art; wordpress: blog uploads with unverifiable provenance). Dropped outright —
+// the owner's hard bar is no AI images of Taylor (guardrails.md Guardrail 2).
+export const AI_ART_HOSTS = ['rawpixel', 'wordpress'];
+// A tag that is exactly an AI-generation marker (one tag per line when tested).
+const AI_TAG_RE = /^(ai|ai[- ]generated|aigenerated|midjourney|stable[- ]?diffusion|dall[- ]?e)$/im;
 const ACCEPTED_FILETYPES = new Set(['jpg', 'jpeg', 'png', 'webp']);
 const USER_AGENT = 'longlivets-photo-sourcing/1.0 (https://longlivets.com; social photo pipeline)';
 
@@ -78,10 +85,14 @@ export function buildOpenverseCandidate(item) {
   if (filetype && !ACCEPTED_FILETYPES.has(filetype)) return null;
   const longEdge = Math.max(Number(item.width) || 0, Number(item.height) || 0);
   if (longEdge && longEdge < MIN_LONG_EDGE_PX) return null;
-  const tagText = (item.tags ?? []).map((tag) => tag?.name).filter(Boolean).join(' ');
+  const tagNames = (item.tags ?? []).map((tag) => String(tag?.name ?? '').trim()).filter(Boolean);
+  const tagText = tagNames.join(' ');
   const title = stripHtmlTags(item.title ?? '').trim();
   if (!TOPIC_RE.test(`${title} ${tagText}`)) return null;
   if (looksAiGenerated(title, tagText)) return null;
+  if (!title && !tagText) return null;
+  if (AI_TAG_RE.test(tagNames.join('\n'))) return null;
+  if ([item.provider, item.source].some((host) => AI_ART_HOSTS.includes(String(host ?? '').toLowerCase()))) return null;
   if (item.mature) return null;
 
   const ext = filetype === 'jpeg' || !filetype ? 'jpg' : filetype;

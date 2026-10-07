@@ -61,6 +61,16 @@ describe('buildOpenverseCandidate', () => {
     expect(buildOpenverseCandidate(item({ title: 'Taylor Swift Midjourney portrait' }))).toBeNull();
   });
 
+  it('drops known AI-art hosts, AI tags (any case) and items with no title and no tags', () => {
+    expect(buildOpenverseCandidate(item({ provider: 'rawpixel', source: 'rawpixel' }))).toBeNull();
+    expect(buildOpenverseCandidate(item({ provider: 'WordPress', source: 'wordpress' }))).toBeNull();
+    for (const name of ['AI', 'AI-Generated', 'Midjourney', 'Stable Diffusion', 'DALL-E']) {
+      expect(buildOpenverseCandidate(item({ tags: [{ name }] }))).toBeNull();
+    }
+    expect(buildOpenverseCandidate(item({ title: '', tags: [] }))).toBeNull();
+    expect(buildOpenverseCandidate(item({ title: '  ', tags: [] }))).toBeNull();
+  });
+
   it('uses the provider as credit when the creator is missing', () => {
     expect(buildOpenverseCandidate(item({ creator: null }))!.credit).toBe('flickr (CC BY 2.0), via Openverse');
   });

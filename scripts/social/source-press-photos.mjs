@@ -155,12 +155,32 @@ export function extractPageImage(html, pageUrl) {
   }
 }
 
+/** Reads at most `maxBytes` of a response body as text, cancelling the stream once the cap is hit. */
+export async function readCapped(res, maxBytes) {
+  if (!res.body) return (await res.text()).slice(0, maxBytes);
+  const reader = res.body.getReader();
+  const chunks = [];
+  let total = 0;
+  while (total < maxBytes) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    total += value.byteLength;
+  }
+  await reader.cancel().catch(() => {});
+  return Buffer.concat(chunks).subarray(0, maxBytes).toString('utf8');
+}
+
 /** Fetches an article page and returns its og:image/twitter:image, or `null` on any failure (best effort). */
 export async function fetchPageImage(articleUrl, { fetchImpl = fetch } = {}) {
   try {
     const res = await fetchImpl(articleUrl, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html' }, signal: AbortSignal.timeout(15_000) });
     if (!res.ok) return null;
-    return extractPageImage((await res.text()).slice(0, PAGE_FETCH_BYTES), articleUrl);
+    if (!/text\/html|application\/xhtml/i.test(res.headers.get('content-type') ?? '')) {
+      await res.body?.cancel();
+      return null;
+    }
+    return extractPageImage(await readCapped(res, PAGE_FETCH_BYTES), articleUrl);
   } catch {
     return null;
   }
@@ -206,7 +226,11 @@ export async function searchGnews(query, apiKey, { fetchImpl = fetch, from } = {
   } catch (err) {
     throw new SourceApiError(`GNews request failed: ${err instanceof Error ? err.message : String(err)}`);
   }
-  if (!res.ok) throw new SourceApiError(`GNews returned ${res.status} ${res.statusText}`.trim());
+  if (!res.ok) {
+    const error = new SourceApiError(`GNews returned ${res.status} ${res.statusText}`.trim());
+    error.authFailure = res.status === 401 || res.status === 403;
+    throw error;
+  }
   const body = await res.json();
   return Array.isArray(body?.articles) ? body.articles : [];
 }
@@ -237,7 +261,9 @@ export async function sourcePressPhotos({
       articles.push(...(await searchGnews(query, apiKey, { fetchImpl, from })));
     } catch (err) {
       if (!(err instanceof SourceApiError)) throw err;
-      warn(`::warning::press-photo sourcing: ${err.message} — keeping the ${articles.length} article(s) gathered so far.`);
+      // 401/403 = a rejected or expired key (or exhausted daily quota): make it loud, still exit 0 with [].
+      const level = err.authFailure ? 'error' : 'warning';
+      warn(`::${level}::press-photo sourcing: ${err.message} — keeping the ${articles.length} article(s) gathered so far.`);
       break;
     }
   }
