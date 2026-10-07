@@ -245,3 +245,7 @@ nothing. Credentials are `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`,
   review; not requested. Only Instagram DMs are covered.
 - **Replying.** Guardrail 6: replies and DMs stay human. Nothing here drafts or
   sends one.
+
+## Media URLs and the photo library (2026-10-07)
+
+Library photos (`/social/library/photos/**`) are Git LFS objects, excluded from the Vercel deploy. `mediaUrlFor` (`scripts/social/lib/queue.mjs`) sends them to `https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public<path>`; every other `/social/**` image still comes from `MEDIA_BASE_URL` (longlivets.com). The X upload, Instagram and Facebook image URLs, the deploy-lag preflight and the approval-prompt embed all go through it. CI checkouts hold LFS pointers only (`.lfsconfig` `fetchexclude`), so `check-drafts` and `igUsablePhotos` read `width`/`height` from `social/photo-library.json`; `import-photo-library.mjs` records them (plus `bytes`) at import. Never set `lfs: true` in a workflow checkout. See `docs/decisions.md` 2026-10-07.

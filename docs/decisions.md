@@ -8792,3 +8792,9 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Decision.** Founder decision (Joey, chat, "social yes"): `social-poster.yml` (minGap 28) and `social-approval-poll.yml` (minGap 14) join `scripts/ops/clock-table.json`, so `clock-dispatch.mjs` starts them from the 5-minute clock; their GitHub cron stays as backup. Dispatched runs are identical to scheduled ones (no `event_name` branching, no inputs; both already have `workflow_dispatch` and a serialising `concurrency` group with `cancel-in-progress: false`). Approval is unchanged: nothing posts without the founder's own Discord check.
 
 **Why.** GitHub delivered about 9 of 96 expected `*/30` poster fires and about 10 of 192 expected 15-minute poll fires per 48h, so approved posts went out late.
+
+## 2026-10-07 — Social photo library moves to Git LFS
+
+**Decision.** Architect ruling (2026-10-07). `apps/web/public/social/library/photos/**` is stored in Git LFS (`.gitattributes`). Posts load these photos from `https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public` (`PHOTO_MEDIA_BASE_URL`, `mediaUrlFor` in `scripts/social/lib/queue.mjs`), not from longlivets.com. `apps/web/.vercelignore` keeps the folder out of the Vercel deploy. `.lfsconfig` sets `fetchexclude` so clones and CI hold pointers only; no workflow may use `lfs: true` (guarded by `scripts/social/lfs-media.test.ts`). Each `social/photo-library.json` entry records `width`/`height`/`bytes` so `check-drafts` and the pre-compute never read the binary. Never rewrite a photo in place: a new crop is a new id and path. Never `git lfs prune` or rewrite history.
+
+**Why.** The library is heading past 10,000 photos; as plain blobs they bloat every clone, every one of ~92 workflow checkouts, and the website deploy, though the site never references them. Quota: org JW-Incorporated is on GitHub Team, 250 GiB LFS storage and 250 GiB/month bandwidth, so no founder action.

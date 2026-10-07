@@ -23,6 +23,7 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
@@ -156,6 +157,13 @@ async function main() {
   for (const candidate of toImport) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl is fetch-only plumbing, never stored in the inventory
     const { sourceUrl, ...entry } = candidate;
+    try {
+      const bytes = await readFile(path.join(ROOT, 'apps', 'web', 'public', entry.mediaPath));
+      const meta = imageMeta(bytes);
+      if (meta?.width && meta?.height) Object.assign(entry, { width: meta.width, height: meta.height, bytes: bytes.byteLength });
+    } catch {
+      // File not on disk (dry run in fetch mode) — dimensions get recorded on the --write run.
+    }
     const existing = merged.findIndex((photo) => photo.id === entry.id || photo.mediaPath === entry.mediaPath);
     if (existing === -1) merged.push(entry);
     else merged[existing] = entry;
