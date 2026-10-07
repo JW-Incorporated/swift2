@@ -118,16 +118,38 @@ export function stripHtmlTags(text) {
   return current;
 }
 
+// Only real raster photos: Commons search also returns DjVu/PDF scans, TIFF,
+// SVG, GIF and video (2026-10-06: a DjVu book scan crashed the first run).
+export const ACCEPTED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+// Long edge in px — drops thumbnails, icons and logos.
+export const MIN_LONG_EDGE_PX = 800;
+const TOPIC_RE = /taylor swift/i;
+
+/** True for a jpeg/png/webp at least MIN_LONG_EDGE_PX on its long edge. */
+export function isUsablePhotoFile(info) {
+  if (!ACCEPTED_MIME_TYPES.includes(String(info?.mime ?? '').toLowerCase())) return false;
+  return Math.max(Number(info.width) || 0, Number(info.height) || 0) >= MIN_LONG_EDGE_PX;
+}
+
+/** True when title, name, description or categories mention Taylor Swift. */
+export function isOnTopic(page, meta) {
+  const text = [page?.title, meta.ObjectName?.value, meta.ImageDescription?.value, meta.Categories?.value].join(' ');
+  return TOPIC_RE.test(text);
+}
+
 /**
  * Builds one candidate object in `import-photo-library.mjs --fetch`'s exact
  * expected shape from a Commons `imageinfo` page result. Returns `null` when
- * the file's license isn't in the accepted free-license set (caller should
+ * the file isn't a large-enough jpeg/png/webp, doesn't mention Taylor Swift,
+ * or its license isn't in the accepted free-license set (caller should
  * skip it, never fall back to including it unlicensed).
  */
 export function buildCandidate(page) {
   const info = page?.imageinfo?.[0];
   if (!info) return null;
   const meta = info.extmetadata ?? {};
+  if (!isUsablePhotoFile(info)) return null;
+  if (!isOnTopic(page, meta)) return null;
   const licenseSlug = meta.License?.value;
   if (!isAcceptedLicense(licenseSlug)) return null;
   const licenseShortName = meta.LicenseShortName?.value ?? licenseSlug;
@@ -177,7 +199,7 @@ export async function fetchImageInfo(titles, { fetchImpl = fetch } = {}) {
     action: 'query',
     titles: titles.join('|'),
     prop: 'imageinfo',
-    iiprop: 'url|extmetadata',
+    iiprop: 'url|mime|size|extmetadata',
     format: 'json',
   }).toString();
   const res = await fetchImpl(infoUrl.toString(), { headers: { 'User-Agent': USER_AGENT } });
@@ -212,7 +234,7 @@ export async function sourceWikimediaQuery(
     for (const page of pages) {
       const candidate = buildCandidate(page);
       if (candidate) candidates.push(candidate);
-      else warn(`source-wikimedia-photos: skipped "${page.title}" — no accepted free license found.`);
+      else warn(`source-wikimedia-photos: skipped "${page.title}" — not an accepted on-topic, free-licensed photo.`);
     }
     titlesSeen += results.length;
     if (results.length < pageSize) break;
