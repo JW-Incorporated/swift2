@@ -86,6 +86,8 @@ runs:
         git config user.name "$GIT_USER_NAME"
         git config user.email "$GIT_USER_EMAIL"
         git lfs install --local
+        git config lfs.locksverify false
+        git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
         git add $STAGE_PATHS
         # LFS correctness gate (docs/decisions.md 2026-10-07): every staged
         # social library photo must be an LFS pointer, never a raw blob.

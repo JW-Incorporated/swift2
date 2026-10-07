@@ -19,6 +19,105 @@
       "sha256": "a3745050ac057a91dcac568cadb28a78eb61c085a925f4d1f0e35a088e065c0f"
     },
     {
+      "id": "1989-inglewood-2023-2",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-2.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
+      "alt": "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 725,
+      "bytes": 134661,
+      "sha256": "72118277ec167fbd2e952edcef0ac29911ea93853fd862dac1433c924fea831a"
+    },
+    {
+      "id": "1989-inglewood-2023-2-ig191",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-2-ig191.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
+      "alt": "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "1989-inglewood-2023-2",
+      "width": 1080,
+      "height": 566,
+      "bytes": 41444,
+      "sha256": "b8c92c605a850e96014325918b208eacb0ccf6ab049dcfddbc5fb1b5326a9347"
+    },
+    {
+      "id": "1989-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980722).jpg",
+      "alt": "Taylor Swift singing the 1989 set of the Eras Tour in Inglewood, 2023, in a sparkling crop top and skirt, with her close-up on the screen behind her.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 725,
+      "bytes": 287307,
+      "sha256": "b99c0deac8765f868937be6120730e13cec8896529e8637672d6bc7ca6b77a0a"
+    },
+    {
+      "id": "1989-inglewood-2023-3-ig191",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-3-ig191.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980722).jpg",
+      "alt": "Taylor Swift singing the 1989 set of the Eras Tour in Inglewood, 2023, in a sparkling crop top and skirt, with her close-up on the screen behind her.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "1989-inglewood-2023-3",
+      "width": 1080,
+      "height": 566,
+      "bytes": 87805,
+      "sha256": "eab7702a8287b1cdb4b3ea67a77735bcaeb96bfee89e77ed88c23e00c077c67c"
+    },
+    {
+      "id": "1989-inglewood-2023-4",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-4.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108989577).jpg",
+      "alt": "Taylor Swift and her dancers mid-choreography during the 1989 set of the Eras Tour in Inglewood, 2023, arms raised under dark stage lighting.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 804,
+      "bytes": 255398,
+      "sha256": "9a1a1d7e4ecc90f0e7883416e2e77eb2aad034d5f03be1d2d32f05d407579109"
+    },
+    {
+      "id": "1989-inglewood-2023-4-ig191",
+      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-4-ig191.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108989577).jpg",
+      "alt": "Taylor Swift and her dancers mid-choreography during the 1989 set of the Eras Tour in Inglewood, 2023, arms raised under dark stage lighting.",
+      "tags": [
+        "1989",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "1989-inglewood-2023-4",
+      "width": 1080,
+      "height": 566,
+      "bytes": 96077,
+      "sha256": "13032433b94404ae2c1494eccabc4cb04e7faa42a8c4cdbcd12266d5189c97cd"
+    },
+    {
       "id": "debut-acoustic-2007",
       "mediaPath": "/social/library/photos/taylor-debut-2007-acoustic.jpg",
       "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
@@ -33,6 +132,84 @@
       "height": 1283,
       "bytes": 338141,
       "sha256": "8d2f461179f34d044e8e68f615b28a8ccbde166ed3eeaeeee374e51e0ce4c3ad"
+    },
+    {
+      "id": "debut-live-2007-4",
+      "mediaPath": "/social/library/photos/taylor-debut-live-2007-4.jpg",
+      "credit": "minds-eye (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007).jpg",
+      "alt": "A young Taylor Swift with long blonde curls playing an acoustic guitar and singing into a microphone during a 2007 debut-era concert.",
+      "tags": [
+        "debut",
+        "2007"
+      ],
+      "width": 819,
+      "height": 546,
+      "bytes": 225090,
+      "sha256": "3a31ee1144feaa73c7526e0638937b11cf6123f9859f81597f89673df9fd741f"
+    },
+    {
+      "id": "debut-yahoo-2007-2",
+      "mediaPath": "/social/library/photos/taylor-debut-yahoo-2007-2.jpg",
+      "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_at_Yahoo_2007.jpg",
+      "alt": "A young Taylor Swift in a white sundress singing at a microphone during a 2007 debut-album promotional appearance at Yahoo, next to a host.",
+      "tags": [
+        "debut",
+        "2007"
+      ],
+      "width": 1920,
+      "height": 1440,
+      "bytes": 595967,
+      "sha256": "83fe682d3883d5dab583ca5dc536c8d52bc6c166aa2df5fca89b414283c000e0"
+    },
+    {
+      "id": "debut-yahoo-2007-3",
+      "mediaPath": "/social/library/photos/taylor-debut-yahoo-2007-3.jpg",
+      "credit": "Yahoo! Blog (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Terry_%26_Filo_honor_country_music_star_Taylor_Swift_1.jpg",
+      "alt": "A young Taylor Swift in a white dress standing with two hosts during her 2007 debut-era appearance at Yahoo.",
+      "tags": [
+        "debut",
+        "2007"
+      ],
+      "width": 1920,
+      "height": 1280,
+      "bytes": 585530,
+      "sha256": "bf72d1629d5bbbacef5168aa8b50f90582ca1cb3e4564dd5c9d35e28e574507f"
+    },
+    {
+      "id": "evermore-arlington-2023-2",
+      "mediaPath": "/social/library/photos/taylor-evermore-arlington-2023-2.jpg",
+      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
+      "alt": "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "arlington"
+      ],
+      "width": 879,
+      "height": 1400,
+      "bytes": 324134,
+      "sha256": "3bd561cbbe073235901677c79a5b7b56f0b9b7daa7f6a071937e3c04dfcf8e45"
+    },
+    {
+      "id": "evermore-arlington-2023-2-ig45",
+      "mediaPath": "/social/library/photos/taylor-evermore-arlington-2023-2-ig45.jpg",
+      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
+      "alt": "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "arlington"
+      ],
+      "variantOf": "evermore-arlington-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 312916,
+      "sha256": "d8b488b5539feae2760b1d196cea568ce049698cb28393cd7b103c3dd2f90559"
     },
     {
       "id": "evermore-inglewood-2023",
@@ -51,6 +228,72 @@
       "sha256": "717caa96a1eea2ce73172108ede32a993a054c0f5d5840887c73022aebf0defc"
     },
     {
+      "id": "evermore-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109409921).jpg",
+      "alt": "Taylor Swift in a mustard-yellow dress playing guitar alongside her band during the evermore set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 905,
+      "bytes": 227256,
+      "sha256": "93892c0e1f2f006449fa81aa6ec949f4ec71d766e184abcb6dd0c6c438234936"
+    },
+    {
+      "id": "evermore-inglewood-2023-3-ig191",
+      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-3-ig191.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109409921).jpg",
+      "alt": "Taylor Swift in a mustard-yellow dress playing guitar alongside her band during the evermore set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "evermore-inglewood-2023-3",
+      "width": 1080,
+      "height": 566,
+      "bytes": 87935,
+      "sha256": "47006a3567385947a5c3231dbee3f55b372236dc099ad7987e6c0294c5922b08"
+    },
+    {
+      "id": "evermore-inglewood-2023-4",
+      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-4.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109827795).jpg",
+      "alt": "Taylor Swift in a mustard-yellow dress, seen large on the stadium screen above a blue forest-lit stage, during the evermore set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 776,
+      "bytes": 382954,
+      "sha256": "b85efdb5892595e56cbf7d8934b3ce24acf4d9aa89f14a2bc2ab91922a295668"
+    },
+    {
+      "id": "evermore-inglewood-2023-4-ig191",
+      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-4-ig191.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109827795).jpg",
+      "alt": "Taylor Swift in a mustard-yellow dress, seen large on the stadium screen above a blue forest-lit stage, during the evermore set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "evermore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "evermore-inglewood-2023-4",
+      "width": 1080,
+      "height": 566,
+      "bytes": 123245,
+      "sha256": "e341dee08a495fa8b4d46d5a894b0148803081c29740f3b6cb2b79091c6958a1"
+    },
+    {
       "id": "fearless-inglewood-2023",
       "mediaPath": "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
@@ -67,6 +310,104 @@
       "sha256": "75526eb1461702160b9c44880e9b3684da03ade08de47003191279bda336c394"
     },
     {
+      "id": "fearless-inglewood-2023-2",
+      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-2.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53108836472).jpg",
+      "alt": "Taylor Swift in a gold fringed mini dress singing into a microphone during the Fearless set of the Eras Tour, Inglewood 2023, lit by a single spotlight.",
+      "tags": [
+        "fearless",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 3084,
+      "bytes": 745827,
+      "sha256": "d2fa4bca6fbd0079a8c866e2621d372539597f1f4d74efad5db35876996bd4be"
+    },
+    {
+      "id": "fearless-inglewood-2023-2-ig45",
+      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-2-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53108836472).jpg",
+      "alt": "Taylor Swift in a gold fringed mini dress singing into a microphone during the Fearless set of the Eras Tour, Inglewood 2023, lit by a single spotlight.",
+      "tags": [
+        "fearless",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "fearless-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 115755,
+      "sha256": "e7ffc8cd9807277a6cee1b970f0cf51b9e882d4bec128d92be48cd9fc7fa45b9"
+    },
+    {
+      "id": "fearless-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109405681).jpg",
+      "alt": "Taylor Swift in a shimmering gold fringed dress, microphone in hand, performing the Fearless set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "fearless",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 869,
+      "height": 1400,
+      "bytes": 247813,
+      "sha256": "be45a155381a06f4f354168892966ed55e8a5006dea9ee6a6585e86252762ee1"
+    },
+    {
+      "id": "fearless-inglewood-2023-3-ig45",
+      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-3-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109405681).jpg",
+      "alt": "Taylor Swift in a shimmering gold fringed dress, microphone in hand, performing the Fearless set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "fearless",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "fearless-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 253834,
+      "sha256": "4aa87312f911503d3f92f88dc9dd3a963db3fceafe766d7dc1e9fc18872b9c2c"
+    },
+    {
+      "id": "fearless-tour-2009-4",
+      "mediaPath": "/social/library/photos/taylor-fearless-tour-2009-4.jpg",
+      "credit": "calmdownlove (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg",
+      "alt": "Wide view of Taylor Swift performing on a brightly lit stage in front of a large video wall during a 2009 Fearless-era concert.",
+      "tags": [
+        "fearless",
+        "concert",
+        "2009"
+      ],
+      "width": 1920,
+      "height": 1493,
+      "bytes": 778003,
+      "sha256": "7087112e6153ca6a40cdbf411a8e399e1a8671b576c1c7da81bc6e1634597a24"
+    },
+    {
+      "id": "folklore-arlington-2023-2",
+      "mediaPath": "/social/library/photos/taylor-folklore-arlington-2023-2.jpg",
+      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Arlington,_TX_-_Folklore_act_2.jpg",
+      "alt": "Taylor Swift in a flowing cream gown lying on the moss-covered cabin roof during the folklore set of the Eras Tour in Arlington, Texas, 2023.",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "arlington"
+      ],
+      "width": 1920,
+      "height": 1198,
+      "bytes": 1153037,
+      "sha256": "0d7ccbc0cd0a64cd67659ea32c36e71f9ef34010cef4c702c941bf6748cd7233"
+    },
+    {
       "id": "folklore-inglewood-2023",
       "mediaPath": "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
@@ -81,6 +422,72 @@
       "height": 1350,
       "bytes": 419480,
       "sha256": "1e945b821613dd464d1674c85946f0a69df6c41d771ae37b0a60c2f68869b5ac"
+    },
+    {
+      "id": "folklore-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53108933272).jpg",
+      "alt": "Taylor Swift in a long pale-blue gown singing into a microphone during the folklore set of the Eras Tour, Inglewood 2023, under soft stage light.",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 962,
+      "height": 1551,
+      "bytes": 1122477,
+      "sha256": "4eae9db0c3ade5101cf8a50fdfc49bf3090d52855f281796fda721ec2d2c239c"
+    },
+    {
+      "id": "folklore-inglewood-2023-3-ig45",
+      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-3-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53108933272).jpg",
+      "alt": "Taylor Swift in a long pale-blue gown singing into a microphone during the folklore set of the Eras Tour, Inglewood 2023, under soft stage light.",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "folklore-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 306459,
+      "sha256": "bf9a883e27ccc8de786375f5adeba8434b1b6f6daa8e10f900575e05b545b7f6"
+    },
+    {
+      "id": "folklore-inglewood-2023-4",
+      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-4.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109704999).jpg",
+      "alt": "Taylor Swift in a flowing pale-blue gown with one arm raised, singing during the folklore set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1920,
+      "height": 2796,
+      "bytes": 1384577,
+      "sha256": "e398ba819d1c22491007ed24064df3eebe9d083e1eb9c5977f174d4a9fd81718"
+    },
+    {
+      "id": "folklore-inglewood-2023-4-ig45",
+      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-4-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109704999).jpg",
+      "alt": "Taylor Swift in a flowing pale-blue gown with one arm raised, singing during the folklore set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "folklore",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "folklore-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 303511,
+      "sha256": "0669df216f6ce4d7a0c324afd6feea965f1a7a2ff68ac72075be9ceceb8b0ecc"
     },
     {
       "id": "lover-minneapolis-2023",
@@ -129,6 +536,105 @@
       "height": 1350,
       "bytes": 113868,
       "sha256": "9caf2f7a3fea5f9718205f48b942e8f890e06c7beb228973cf7178d4c019e12e"
+    },
+    {
+      "id": "red-inglewood-2023-2",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-2.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
+      "alt": "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 923,
+      "height": 1524,
+      "bytes": 1129000,
+      "sha256": "c1e73b64ff01b6d180922ea022fc9e92b5f465bb469918c9db773f869c98d21c"
+    },
+    {
+      "id": "red-inglewood-2023-2-ig45",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-2-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
+      "alt": "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "red-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 262355,
+      "sha256": "8085d545ff739678f97c8cd15dbe74c4f7472cbcf2f796d5e576ef93c3816857"
+    },
+    {
+      "id": "red-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_5.jpg",
+      "alt": "Taylor Swift singing into a microphone in the Red set of the Eras Tour, Inglewood 2023, wearing a glittering red top, black shorts and boots.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 886,
+      "height": 1400,
+      "bytes": 193224,
+      "sha256": "4ae4b6d8deb7787d11a0b2bc6c39a758ebf59bed4f1c2e7afc841c20a2a736ad"
+    },
+    {
+      "id": "red-inglewood-2023-3-ig45",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-3-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_5.jpg",
+      "alt": "Taylor Swift singing into a microphone in the Red set of the Eras Tour, Inglewood 2023, wearing a glittering red top, black shorts and boots.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "red-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 174433,
+      "sha256": "582561311bdc3c51428071660b5c7da3ec2f9ae39c6549e437c7139ae0a0888a"
+    },
+    {
+      "id": "red-inglewood-2023-4",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-4.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_(53109764406).jpg",
+      "alt": "Taylor Swift silhouetted against a burst of pink stage smoke, microphone raised, during the Red set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 935,
+      "height": 1400,
+      "bytes": 199793,
+      "sha256": "7e4796d10948539ae3ba3a1c6eb05a5fc8911dfe38e880620b861921cf306544"
+    },
+    {
+      "id": "red-inglewood-2023-4-ig45",
+      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-4-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_(53109764406).jpg",
+      "alt": "Taylor Swift silhouetted against a burst of pink stage smoke, microphone raised, during the Red set of the Eras Tour in Inglewood, 2023.",
+      "tags": [
+        "red",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "red-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 207406,
+      "sha256": "41236d0a4352233e4ddfdfdd9443fdda0aa230c3b26034d51fb6487fabcb517b"
     },
     {
       "id": "reddit-erastour-1ptssc4",
@@ -691,6 +1197,1626 @@
       "sha256": "f1f9db4b332d092c272d1653c1995192613bc953f7cf1ef44d44b88ddcd35ac9"
     },
     {
+      "id": "reputation-inglewood-2023-2",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-2.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
+      "alt": "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1206,
+      "height": 1900,
+      "bytes": 1136666,
+      "sha256": "67d9b61c27f1c43c9446a64c50d1d192546b0b74a2361bfbe69a5dfd5a6080ba"
+    },
+    {
+      "id": "reputation-inglewood-2023-2-ig45",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-2-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
+      "alt": "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "reputation-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 124633,
+      "sha256": "d58b0876dbc6f908dcc4634579fd68bdf38bf4c04edcf96b7f98e62445a9fd78"
+    },
+    {
+      "id": "reputation-inglewood-2023-3",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-3.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
+      "alt": "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 937,
+      "height": 1400,
+      "bytes": 231132,
+      "sha256": "39700da488c96d3065ff9b5e99022e2a3e685ae7d2d40d58afc56be1adfef6c1"
+    },
+    {
+      "id": "reputation-inglewood-2023-3-ig45",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-3-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
+      "alt": "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "reputation-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 143473,
+      "sha256": "d21c524393ad4246f96df92efa7adbdd9be7cb31b295eef34dfcee2843556f96"
+    },
+    {
+      "id": "reputation-inglewood-2023-4",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-4.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+      "alt": "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "width": 1077,
+      "height": 1571,
+      "bytes": 870211,
+      "sha256": "37e20c6f9474a4c3362e97b5420e238314276c3145495946dc89af1d9157415d"
+    },
+    {
+      "id": "reputation-inglewood-2023-4-ig45",
+      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-4-ig45.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+      "alt": "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023.",
+      "tags": [
+        "reputation",
+        "eras-tour",
+        "inglewood"
+      ],
+      "variantOf": "reputation-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 194746,
+      "sha256": "1a2905c1edf27441e911e15cf2b56116ef00c3f8004ce957d74358570f6fe5cf"
+    },
+    {
+      "id": "site-1989-0286613c81",
+      "mediaPath": "/social/library/photos/site-1989-0286613c81.jpg",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg",
+      "alt": "Taylor Swift: Pulls her entire catalog from Spotify",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1549,
+      "height": 1743,
+      "bytes": 193730,
+      "sha256": "4c084bdf6913be037e68fafe1ac08896a62154399ff64db5953dbc0b70e93e7a"
+    },
+    {
+      "id": "site-1989-0932f25702",
+      "mediaPath": "/social/library/photos/site-1989-0932f25702.jpg",
+      "credit": "Kevin Winter/Getty Images, via Rolling Stone",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2018/06/rs-173469-457813554.jpg?w=1600&h=900&crop=1",
+      "alt": "Performing at CBS Radio's We Can Survive concert in Los Angeles, Oct. 24, 2014 — nine days before her label pulled her catalog from Spotify.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 130120,
+      "sha256": "6dc270be184f6265efa860685c80ac335a68eaa5866e7e9dbc5d440cd29d8462"
+    },
+    {
+      "id": "site-1989-0ed383c608",
+      "mediaPath": "/social/library/photos/site-1989-0ed383c608.jpg",
+      "credit": "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg",
+      "alt": "Performing \"...Ready for It?\" — the show opener on the reputation Stadium Tour — in Seattle, May 22, 2018.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1409,
+      "height": 2048,
+      "bytes": 377123,
+      "sha256": "07e907d4098c2a31190cc76ba587784bd36283eff6760d1d20a3f0b4ac37e81b"
+    },
+    {
+      "id": "site-1989-17f8e599aa",
+      "mediaPath": "/social/library/photos/site-1989-17f8e599aa.jpg",
+      "credit": "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg",
+      "alt": "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1389,
+      "height": 2048,
+      "bytes": 246265,
+      "sha256": "1edbcb065fc67bde76d5a3b9ed1530a06fc2d1b3065a016115bacd4a9b9b8f9a"
+    },
+    {
+      "id": "site-1989-192e81178b",
+      "mediaPath": "/social/library/photos/site-1989-192e81178b.jpg",
+      "source": "https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg",
+      "alt": "Taylor Swift: 1989 becomes her third million-copy opening week",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1125,
+      "height": 750,
+      "bytes": 130613,
+      "sha256": "a06f01ec0a0b18d6820aea15aa8abc5d18c3d5548f8439b823fcf135ecaf34eb"
+    },
+    {
+      "id": "site-1989-291d43191f",
+      "mediaPath": "/social/library/photos/site-1989-291d43191f.jpg",
+      "credit": "Stringer/Reuters, via The Guardian",
+      "source": "https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=1000",
+      "alt": "Taylor stands on the Grammy stage during the ceremony where 1989 won Album of the Year.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1000,
+      "height": 600,
+      "bytes": 66571,
+      "sha256": "83a5b3ef33189ff3f53e3a2b5ac625da68a7f1cdf988b68759f4edd66aa7d513"
+    },
+    {
+      "id": "site-1989-4430783502",
+      "mediaPath": "/social/library/photos/site-1989-4430783502.jpg",
+      "credit": "tonyshek / Wikimedia Commons, CC BY-SA 2.0",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png",
+      "alt": "At the mic on the 1989 World Tour (Ford Field, Detroit, May 30, 2015) — the tour where Clean became the nightly spoken-word confessional. The song itself had no music video.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1720,
+      "height": 2048,
+      "bytes": 167523,
+      "sha256": "324922baff79bf34313e4ef7053ec4d0ed4c5a724d98336c1c0eda2de7ec2405"
+    },
+    {
+      "id": "site-1989-7f38b9e4d2",
+      "mediaPath": "/social/library/photos/site-1989-7f38b9e4d2.jpg",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg",
+      "alt": "Taylor Swift: The 1989 World Tour closes in Melbourne: 85 shows, $250.7 million, 2.28 million tickets",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1920,
+      "height": 1729,
+      "bytes": 150777,
+      "sha256": "115e4e7573de5aa48d31d2a290472ad524e9e886f1aaf7e501c3334a66bfcb42"
+    },
+    {
+      "id": "site-1989-86d0cbd584",
+      "mediaPath": "/social/library/photos/site-1989-86d0cbd584.jpg",
+      "credit": "Jana Zills / Wikimedia Commons (CC BY 2.0)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_Red_Tour_2%2C_2013.jpg",
+      "alt": "On the Red Tour, March 2013 — the assault happened that June at a pre-show meet-and-greet on the same tour's Denver stop.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 990,
+      "height": 1541,
+      "bytes": 176252,
+      "sha256": "f939c034b80ecbb27e77924d9f451e82bf097ea1ef05427d2368ee35eeab7ac1"
+    },
+    {
+      "id": "site-1989-8f7aa28091",
+      "mediaPath": "/social/library/photos/site-1989-8f7aa28091.jpg",
+      "credit": "Gary Miller/FilmMagic, via Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 104157,
+      "sha256": "f5961042bef199e51f7dcc9dc00a5409e6d87e7572664e5c000d302d70252938"
+    },
+    {
+      "id": "site-1989-9eeb801e98",
+      "mediaPath": "/social/library/photos/site-1989-9eeb801e98.jpg",
+      "credit": "GabboT / Wikimedia Commons, CC BY-SA 2.0",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg",
+      "alt": "The silver sequined bomber jacket and blue skater skirt worn for the \"Style\"/\"New York\" opening stretch, Ford Field, Detroit, May 30, 2015.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1464,
+      "height": 2048,
+      "bytes": 452502,
+      "sha256": "ad2899f3a43c658f9c2af79b5a981571b674ef2d9758651296f9aedfa9490abd"
+    },
+    {
+      "id": "site-1989-ca95861174",
+      "mediaPath": "/social/library/photos/site-1989-ca95861174.jpg",
+      "credit": "WireImage/Getty Images, via Vanity Fair",
+      "source": "https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg",
+      "alt": "Taylor accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1035,
+      "height": 691,
+      "bytes": 131222,
+      "sha256": "4a670de1744697bb1920ed4bdc76576a86891183a1fc8650070d268adf7a5a3a"
+    },
+    {
+      "id": "site-1989-d160d4d88b",
+      "mediaPath": "/social/library/photos/site-1989-d160d4d88b.jpg",
+      "credit": "Robyn Beck/AFP/Getty Images, via TIME",
+      "source": "https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2",
+      "alt": "Taylor opens the 58th Grammy Awards with \"Out of the Woods.\"",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 2048,
+      "height": 1365,
+      "bytes": 274893,
+      "sha256": "27cd828c77c1adfa259bab1c43b30db6ca334bd38fc6823d4fbaec84b02473cf"
+    },
+    {
+      "id": "site-1989-e760956427",
+      "mediaPath": "/social/library/photos/site-1989-e760956427.jpg",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg",
+      "alt": "Taylor Swift: The 1989 World Tour opens with two sold-out nights in Tokyo",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1280,
+      "height": 960,
+      "bytes": 95905,
+      "sha256": "feed9b866874e34c3f0b97de9ecc7242c5d07150bf04036fe42f9a91899baef0"
+    },
+    {
+      "id": "site-1989-f9351b7667",
+      "mediaPath": "/social/library/photos/site-1989-f9351b7667.jpg",
+      "source": "https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1",
+      "alt": "Taylor Swift: A silver snakeskin Louis Vuitton mini co-chairing the 2016 Met Gala",
+      "tags": [
+        "1989",
+        "site-photo"
+      ],
+      "width": 1296,
+      "height": 730,
+      "bytes": 128061,
+      "sha256": "19e2ba03f44d7404387bbd2596df2fc21434c57117d0b5258f9b4cea5a4485ca"
+    },
+    {
+      "id": "site-debut-099a9eb443",
+      "mediaPath": "/social/library/photos/site-debut-099a9eb443.jpg",
+      "credit": "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Taylor_Swift_%282007%29_retouched.jpg",
+      "alt": "Taylor Swift: Her Grand Ole Opry debut, in a sundress at 16",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1866,
+      "height": 1870,
+      "bytes": 382867,
+      "sha256": "45ee55fcad2ebb88c878720a7ea003fc5232852da19cfda7833eb7265af8b699"
+    },
+    {
+      "id": "site-debut-16b3c96e38",
+      "mediaPath": "/social/library/photos/site-debut-16b3c96e38.jpg",
+      "credit": "Ethan Miller/ACMA/Getty Images for ACMA",
+      "source": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-performance-2007-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor Swift: Our Song becomes her first No. 1",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 72436,
+      "sha256": "c2494a1f399530160ed4dd73afd477ee1b62ee182441a192006d7ecf229cee06"
+    },
+    {
+      "id": "site-debut-1eda16f921",
+      "mediaPath": "/social/library/photos/site-debut-1eda16f921.jpg",
+      "credit": "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the AGT finale)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG",
+      "alt": "Taylor Swift: A surprise duet with a 14-year-old AGT finalist, off a red-eye flight",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1920,
+      "height": 1518,
+      "bytes": 211554,
+      "sha256": "16b6098411011da705e606b88e5ce43c6dd7d328115f4a21165fa6600e9cde63"
+    },
+    {
+      "id": "site-debut-3ab72d7758",
+      "mediaPath": "/social/library/photos/site-debut-3ab72d7758.jpg",
+      "credit": "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, May 2007",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift_at_Yahoo_2007_%282%29.jpg",
+      "alt": "Mid-song in profile, spring 2007 — deep in the opening-act year that started with the Strait arenas in January.",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1819,
+      "height": 2048,
+      "bytes": 448106,
+      "sha256": "9dffc903480b789b973ad71a8a58d9bbb5596f4d6bf8c4cb248135a163c3808f"
+    },
+    {
+      "id": "site-debut-62cda11718",
+      "mediaPath": "/social/library/photos/site-debut-62cda11718.jpg",
+      "credit": "Adam Bielawski, Wikimedia Commons (CC BY-SA 3.0) — Taylor Swift performing in Joliet, IL, February 2008",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg",
+      "alt": "On stage in early 2008 — the stopgap-EP year, still touring the debut while Fearless waited in November.",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1920,
+      "height": 1286,
+      "bytes": 151851,
+      "sha256": "31f85f7a02a954f510adfcb523082924d726e21df60e6d5ccd47886289a19894"
+    },
+    {
+      "id": "site-debut-7730e702ca",
+      "mediaPath": "/social/library/photos/site-debut-7730e702ca.jpg",
+      "credit": "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg",
+      "alt": "Taylor Swift: Joe Jonas ends it in a 27-second phone call",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1596,
+      "height": 2048,
+      "bytes": 233972,
+      "sha256": "ff81c0a28a796291ddf3ace1c407bc330045b313618b1b7342dca15b0a099e54"
+    },
+    {
+      "id": "site-debut-87b80ba273",
+      "mediaPath": "/social/library/photos/site-debut-87b80ba273.jpg",
+      "credit": "Brian Cantoni / Wikimedia Commons, CC BY 2.0",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/TaylorSwift4.jpg",
+      "alt": "Performing at a separate May 16, 2007 Yahoo appearance the same year.",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1920,
+      "height": 1440,
+      "bytes": 454645,
+      "sha256": "17f293060d591630221833b7d0d8379027bd3cd2a9220ddd4412f33ce32e32ec"
+    },
+    {
+      "id": "site-debut-9f3a8fdbf4",
+      "mediaPath": "/social/library/photos/site-debut-9f3a8fdbf4.jpg",
+      "credit": "Dwight McCann, CC BY-SA 2.5, via Wikimedia Commons",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Taylor_Swift.jpg",
+      "alt": "Performing at the Maverick Saloon & Grill in Santa Maria, California, June 16, 2006 — three days before \"Tim McGraw\" came out.",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 1920,
+      "height": 1280,
+      "bytes": 267730,
+      "sha256": "c4a19a7807888f278334e248e45267c8de3bf40196080b4f2dd2668ad8428c1d"
+    },
+    {
+      "id": "site-debut-ef98f79009",
+      "mediaPath": "/social/library/photos/site-debut-ef98f79009.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-National-Anthem-as-the-Detroit-Lions-2006-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor Swift: Singing the anthem at a Detroit Lions Thanksgiving game, 16 years old",
+      "tags": [
+        "debut",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 75171,
+      "sha256": "e829ce5a13737669d0080eaf8599d54bf5d5d87765c53038799852d27a2a0112"
+    },
+    {
+      "id": "site-evermore-19f309b396",
+      "mediaPath": "/social/library/photos/site-evermore-19f309b396.jpg",
+      "credit": "E! News / Getty Images",
+      "source": "https://akns-images.eonline.com/eol_images/Entire_Site/2021214/rs_1200x1200-210314182056-1200.-taylor-swift-performance-2021-grammy-awards-red-carpet-fashion.jpg",
+      "alt": "\"willow\" performed live for the first time at the 2021 Grammy Awards, March 14, 2021.",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 1200,
+      "bytes": 275257,
+      "sha256": "7d608e72e2c210293ee4f47217ca04b4bf59ed66c51641d7e541e4e6041fa7d1"
+    },
+    {
+      "id": "site-evermore-1ba3613937",
+      "mediaPath": "/social/library/photos/site-evermore-1ba3613937.png",
+      "source": "https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024",
+      "alt": "Taylor Swift: Nashville Songwriters name her Songwriter-Artist of the Decade — and she debuts her \"pen\" framework",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1023,
+      "height": 677,
+      "bytes": 393182,
+      "sha256": "67d776427a643ac2f871b724c40677f4fa0cf7fc9cbfd20b4f5f580a460e30dd"
+    },
+    {
+      "id": "site-evermore-28bd963cb7",
+      "mediaPath": "/social/library/photos/site-evermore-28bd963cb7.jpg",
+      "source": "https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg",
+      "alt": "Taylor Swift: An honorary NYU doctorate, and a graduation-cap 'first'",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 630,
+      "bytes": 166242,
+      "sha256": "6cb2f0d7c8296417a5a1adf439042972f62061d560614b4278c742358b88a774"
+    },
+    {
+      "id": "site-evermore-64259e69eb",
+      "mediaPath": "/social/library/photos/site-evermore-64259e69eb.jpg",
+      "credit": "Getty Images",
+      "source": "https://imgix.bustle.com/uploads/getty/2022/8/29/fdcc3cbd-5c3b-47f7-8469-a2a3836de5a0-getty-1418938602.jpg?w=980&fit=max",
+      "alt": "Arriving at the Fleur Room after-party in the star-embroidered Moschino romper, hours after announcing Midnights.",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 1470,
+      "bytes": 191498,
+      "sha256": "412009252d2f629ba34036d5947c9740268308887a0e2fbcb6fcfa46dbc31c83"
+    },
+    {
+      "id": "site-evermore-7abc8f050a",
+      "mediaPath": "/social/library/photos/site-evermore-7abc8f050a.jpg",
+      "credit": "Getty Images via Rolling Stone",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2022/08/taylor-swift-new-album.jpg?w=1600&h=900&crop=1",
+      "alt": "In the VMAs press room minutes later — jeweled eye makeup, and a brand-new album on the calendar for October 21.",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 124405,
+      "sha256": "7f749b410a68bdc5dad33a27b03ffb7b52bbfc81f3fe5e9f841bec744e941c3a"
+    },
+    {
+      "id": "site-evermore-93b1a5eaff",
+      "mediaPath": "/social/library/photos/site-evermore-93b1a5eaff.jpg",
+      "source": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg",
+      "alt": "Taylor Swift: The ivory Zimmermann gown from the \"willow\" video",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 819,
+      "height": 1024,
+      "bytes": 112550,
+      "sha256": "df33664d9c749904af088f8ee500b1d3ac3b1997eb3ee6893c6a21df8139e621"
+    },
+    {
+      "id": "site-evermore-a22baff37f",
+      "mediaPath": "/social/library/photos/site-evermore-a22baff37f.jpg",
+      "source": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg",
+      "alt": "Taylor Swift: A 3D-floral Oscar de la Renta mini dress for the 2021 Grammys red carpet",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 731,
+      "height": 1024,
+      "bytes": 123624,
+      "sha256": "2c155ac0df7416d1f5a7280e6bdac53707e7c9d2ed07cc68233d00b53792e455"
+    },
+    {
+      "id": "site-evermore-a7292079d4",
+      "mediaPath": "/social/library/photos/site-evermore-a7292079d4.jpg",
+      "credit": "Beth Garrabrant, via Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/2020/12/03-taylor-swift-press-cr-Beth-Garrabrant-2020-billboard-1548-1607617377.jpg?w=1024",
+      "alt": "A Beth Garrabrant press portrait of Taylor from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 95875,
+      "sha256": "ccf156be866c252f1c991bcfc6e9d0dbab2c0327c9112061a9b5bc1a0f8a9fa9"
+    },
+    {
+      "id": "site-evermore-b99e2b3acd",
+      "mediaPath": "/social/library/photos/site-evermore-b99e2b3acd.jpg",
+      "source": "https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2",
+      "alt": "Taylor Swift: Spotted leaving the VMAs in a Midnights-teasing star romper",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1306,
+      "height": 1960,
+      "bytes": 235118,
+      "sha256": "b218d4201bb3c7460c705e4bc8c2f5a06c8ab2f0fbaaca47ece57ab8a8df5cb7"
+    },
+    {
+      "id": "site-evermore-ca7b46b066",
+      "mediaPath": "/social/library/photos/site-evermore-ca7b46b066.jpg",
+      "credit": "Republic Records / Taylor Swift (All Too Well: The Short Film still)",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-car.jpg?w=1600&h=900&crop=1",
+      "alt": "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Taylor wrote and directed and released alongside the 10-minute version — central to the promotional push that took the…",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 185764,
+      "sha256": "669b80ddca5b84595e45a90806801b4c4172e77ff3d4939abb5becd91e50a161"
+    },
+    {
+      "id": "site-evermore-d23549a22f",
+      "mediaPath": "/social/library/photos/site-evermore-d23549a22f.jpg",
+      "credit": "Kevin Mazur/Getty Images for The Recording Academy, via NME",
+      "source": "https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg",
+      "alt": "Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 2000,
+      "height": 1270,
+      "bytes": 263790,
+      "sha256": "1b35f4b28ec97661766b47bf9256125b73bca0efcdd0f68cbcacc3792e11e909"
+    },
+    {
+      "id": "site-evermore-ed146bbdc0",
+      "mediaPath": "/social/library/photos/site-evermore-ed146bbdc0.jpg",
+      "source": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg",
+      "alt": "Taylor Swift: The 'siren red' lip and cat eye that came to define the Red (TV) era",
+      "tags": [
+        "evermore",
+        "site-photo"
+      ],
+      "width": 750,
+      "height": 969,
+      "bytes": 119409,
+      "sha256": "a86b37a92649de76a147451b42deebaa43d58d3dbf816eeef371e1a2acdec995"
+    },
+    {
+      "id": "site-fearless-7495b2b28a",
+      "mediaPath": "/social/library/photos/site-fearless-7495b2b28a.jpg",
+      "credit": "Soth Loeu / Wikimedia Commons, CC BY-SA 3.0",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift%2C_Fearless_tour%2C_Australia%2C_2010.jpg",
+      "alt": "A silver fringed dress during the tour's Australian leg, 2010.",
+      "tags": [
+        "fearless",
+        "site-photo"
+      ],
+      "width": 1544,
+      "height": 2048,
+      "bytes": 95129,
+      "sha256": "a96c419595e1a5cb904fccd3ee25106b7b426f414ef48ed024b8013e4638f1f6"
+    },
+    {
+      "id": "site-fearless-77cb4c0aab",
+      "mediaPath": "/social/library/photos/site-fearless-77cb4c0aab.jpg",
+      "credit": "Michael Caulfield/WireImage/Getty Images, via TIME",
+      "source": "https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp",
+      "alt": "Taylor performs onstage during the 52nd Grammy Awards at Staples Center.",
+      "tags": [
+        "fearless",
+        "site-photo"
+      ],
+      "width": 2048,
+      "height": 1364,
+      "bytes": 333115,
+      "sha256": "5168345d672ba8810a83578092519ec131ec46193e3311479d66a2245c41ae52"
+    },
+    {
+      "id": "site-fearless-7ce5a7e000",
+      "mediaPath": "/social/library/photos/site-fearless-7ce5a7e000.jpg",
+      "credit": "Stephen Lovekin/FilmMagic/Getty Images, via TIME",
+      "source": "https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp",
+      "alt": "Taylor arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.",
+      "tags": [
+        "fearless",
+        "site-photo"
+      ],
+      "width": 2048,
+      "height": 1364,
+      "bytes": 216620,
+      "sha256": "ff8a22bebfe07cb4e632af00a28328d7c206cc46401923300112ccec59a528a7"
+    },
+    {
+      "id": "site-fearless-855d0a7a92",
+      "mediaPath": "/social/library/photos/site-fearless-855d0a7a92.jpg",
+      "credit": "alexahalasan via Wikimedia Commons, CC BY-SA 2.0",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/6/64/Taylor_Swift_-_Fearless_Tour_Prudential_Center_Newark_%28May_13%2C_2010%29.jpg",
+      "alt": "On the Fearless Tour with the koi-fish Taylor guitar — the album that filled arenas, Newark, 2010.",
+      "tags": [
+        "fearless",
+        "site-photo"
+      ],
+      "width": 1467,
+      "height": 2048,
+      "bytes": 233511,
+      "sha256": "2c786d300cdfffcdb7c7c925f90212c2de4e0a021d5295109b887bac3403e199"
+    },
+    {
+      "id": "site-fearless-8c85b96e5b",
+      "mediaPath": "/social/library/photos/site-fearless-8c85b96e5b.jpg",
+      "credit": "Michael Tran/FilmMagic, via Teen Vogue",
+      "source": "https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg",
+      "alt": "Taylor poses in the Grammy press room with all four awards she won that night, including Album of the Year.",
+      "tags": [
+        "fearless",
+        "site-photo"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 199843,
+      "sha256": "a8223c30aedf64a88f1d941150ce7e7a72b19ab506a89d3e91f2ba92b2b1ec84"
+    },
+    {
+      "id": "site-folklore-096c7dd6c6",
+      "mediaPath": "/social/library/photos/site-folklore-096c7dd6c6.jpg",
+      "credit": "Beth Garrabrant",
+      "source": "https://www.billboard.com/wp-content/uploads/2020/07/03-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547189.jpg?w=1024",
+      "alt": "The folklore press-kit portrait that ran with the chart coverage of the surprise No. 1 debut.",
+      "tags": [
+        "folklore",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 134464,
+      "sha256": "b2075cf8456147215813f5322b5ebc1ce999eb54121e87946060cd2d8686482c"
+    },
+    {
+      "id": "site-folklore-154994d7af",
+      "mediaPath": "/social/library/photos/site-folklore-154994d7af.jpg",
+      "source": "https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1",
+      "alt": "Taylor Swift: folklore makes her the first artist to top both charts at once",
+      "tags": [
+        "folklore",
+        "site-photo"
+      ],
+      "width": 1296,
+      "height": 730,
+      "bytes": 272148,
+      "sha256": "a1eb70c35d241563772c4860c02039ccf601dc16acb991bf1356b7a5bc4fcfd2"
+    },
+    {
+      "id": "site-folklore-557c5372df",
+      "mediaPath": "/social/library/photos/site-folklore-557c5372df.jpg",
+      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/1/13/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped%29.jpg",
+      "alt": "Performing \"august\" during the Eras Tour folklore act, Arlington, March 2023.",
+      "tags": [
+        "folklore",
+        "site-photo"
+      ],
+      "width": 1479,
+      "height": 2048,
+      "bytes": 289491,
+      "sha256": "f003fe4014a5569e57d6eff7201a1128f7ff9428c316760c506bb08b4096ccf0"
+    },
+    {
+      "id": "site-folklore-bfbdae9349",
+      "mediaPath": "/social/library/photos/site-folklore-bfbdae9349.jpg",
+      "credit": "Beth Garrabrant",
+      "source": "https://www.billboard.com/wp-content/uploads/2020/07/01-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547205.jpg?w=1024",
+      "alt": "From the folklore press shoot — the image Billboard ran with the million-copies milestone.",
+      "tags": [
+        "folklore",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 85399,
+      "sha256": "b7044d7cbdf61c1e1c8b5c07797dce85c9c22736d22e09ce17d4ac906f31a37c"
+    },
+    {
+      "id": "site-folklore-c39ab7c66d",
+      "mediaPath": "/social/library/photos/site-folklore-c39ab7c66d.jpg",
+      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_My_Tears_Ricochet_%28cropped%29.jpg",
+      "alt": "Performing \"my tears ricochet\" in the folklore set at the Eras Tour, Arlington, March 2023.",
+      "tags": [
+        "folklore",
+        "site-photo"
+      ],
+      "width": 1290,
+      "height": 2048,
+      "bytes": 288357,
+      "sha256": "b2617fe04a795cd70293e0c5d07a1b48724c521e0b5926863f4f2caaeb0e6ea8"
+    },
+    {
+      "id": "site-lover-36382d02c5",
+      "mediaPath": "/social/library/photos/site-lover-36382d02c5.jpg",
+      "credit": "ABC News / Good Morning America",
+      "source": "https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg",
+      "alt": "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1620,
+      "height": 1080,
+      "bytes": 132233,
+      "sha256": "e1a88debc2eaa8028513f28c25aeb2e1c22c32f480e8591c6141c75df3844fe6"
+    },
+    {
+      "id": "site-lover-4149e7b8ba",
+      "mediaPath": "/social/library/photos/site-lover-4149e7b8ba.jpg",
+      "source": "https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992",
+      "alt": "Taylor Swift: Artist of the Decade, and a record 29 AMA wins",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 992,
+      "height": 659,
+      "bytes": 95091,
+      "sha256": "00eef57ff2bfb2077bd4a7b40ac424a45366059bcbd54f13a8f8bd0447a830e8"
+    },
+    {
+      "id": "site-lover-501adb3d06",
+      "mediaPath": "/social/library/photos/site-lover-501adb3d06.jpg",
+      "credit": "Dave Hogan, via HollywoodLife",
+      "source": "https://media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-6.jpg",
+      "alt": "Taylor Swift performing at her City of Lover concert at L'Olympia, Paris, Sept. 9, 2019.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1000,
+      "height": 1500,
+      "bytes": 237267,
+      "sha256": "6d1b4645ed830a6e07d0029d872b206948a2db50168f777d4e0a395774bd6ad3"
+    },
+    {
+      "id": "site-lover-5fc2553a8c",
+      "mediaPath": "/social/library/photos/site-lover-5fc2553a8c.jpg",
+      "credit": "Beth Garrabrant, via Vanity Fair",
+      "source": "https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg",
+      "alt": "A separate Garrabrant image from the isolated folklore photo shoot shows Taylor in the album's woodland setting.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1602,
+      "height": 2000,
+      "bytes": 621464,
+      "sha256": "b839ce172cbf90af7fed4dd560bd4f8f1a92678d0e31c2d190d2a037e82ca77a"
+    },
+    {
+      "id": "site-lover-79dae384ac",
+      "mediaPath": "/social/library/photos/site-lover-79dae384ac.jpg",
+      "credit": "Good Morning America",
+      "source": "https://s.abcnews.com/images/GMA/taylor-swift-speak-mo_hpMain_20191124-220426_16x9_992.jpg?w=992",
+      "alt": "Opening the medley with \"The Man,\" in a button-down printed with the names of the albums she didn't own.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 992,
+      "height": 558,
+      "bytes": 60784,
+      "sha256": "f81d3e3ece1d461a20d0f9299dceb1e89cc56bc6001c8416d284690435873beb"
+    },
+    {
+      "id": "site-lover-8474755167",
+      "mediaPath": "/social/library/photos/site-lover-8474755167.jpg",
+      "credit": "Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-shanghai-2019-billboard-1548.jpg?w=1024",
+      "alt": "Onstage at Alibaba's 11.11 Countdown Gala at the Mercedes-Benz Arena in Shanghai, November 10, 2019.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 64736,
+      "sha256": "d4b6d0c5024005c80fa99e782d45632882d7b1ecfd1f0922c68fb368348576db"
+    },
+    {
+      "id": "site-lover-9034f8b24a",
+      "mediaPath": "/social/library/photos/site-lover-9034f8b24a.jpg",
+      "credit": "Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/media/01-taylor-swift-speach-2019-wim-billboard-1548.jpg",
+      "alt": "Accepting the inaugural Woman of the Decade award at Billboard's Women in Music, Hollywood Palladium, Dec. 12, 2019.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 130317,
+      "sha256": "f223a9d36d2fdd926f74b98512b0c666248f7ea73d548d4cb3ddb30ad94eeddd"
+    },
+    {
+      "id": "site-lover-9091efd08b",
+      "mediaPath": "/social/library/photos/site-lover-9091efd08b.jpg",
+      "credit": "Townsquare Media, via The Boot",
+      "source": "https://townsquare.media/site/623/files/2019/11/taylor-siwft-2019-amas-40.jpg?w=980&q=75",
+      "alt": "The 2019 AMAs medley two weeks earlier, opening in a shirt printed with the titles of the six disputed albums — the same standoff this item is about.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 657,
+      "bytes": 77223,
+      "sha256": "cdb13b627ab74cadacf325532a2b90b746c96183ddb5b51b31096fbcb2ef7b28"
+    },
+    {
+      "id": "site-lover-b8df553413",
+      "mediaPath": "/social/library/photos/site-lover-b8df553413.jpg",
+      "source": "https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960",
+      "alt": "Taylor Swift: \"Shake It Off\" becomes her first Diamond-certified single",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 960,
+      "height": 640,
+      "bytes": 53843,
+      "sha256": "974453313d99de8804e7e01d366eef8016e0a7c7032aaa70636af5e44bbcbfd8"
+    },
+    {
+      "id": "site-lover-de3ee82a12",
+      "mediaPath": "/social/library/photos/site-lover-de3ee82a12.jpg",
+      "credit": "Leah Puttkammer/Getty Images, via Newsweek",
+      "source": "https://assets.newsweek.com/wp-content/uploads/2025/08/1406339-gettyimages-1145071309.jpg",
+      "alt": "Taylor greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before \"ME!\" dropped.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 2048,
+      "height": 1366,
+      "bytes": 243645,
+      "sha256": "80724da6397dd32731b4d21aa5e5b27d3c0eb72ced4734e16acfe9e0b7bcc0f3"
+    },
+    {
+      "id": "site-lover-f182dea083",
+      "mediaPath": "/social/library/photos/site-lover-f182dea083.jpg",
+      "credit": "Dave Hogan, via HollywoodLife",
+      "source": "https://media.hollywoodlife.com/uploads/2020/05/taylor-swift-city-of-lover-7.jpg",
+      "alt": "Taylor Swift mid-performance at the same L'Olympia show, Sept. 9, 2019.",
+      "tags": [
+        "lover",
+        "site-photo"
+      ],
+      "width": 1000,
+      "height": 1500,
+      "bytes": 193981,
+      "sha256": "67e8a5f3ce640bc0ca089741f60ecee1f50d9b71e8cc6fecb2b91b3cbe3ba262"
+    },
+    {
+      "id": "site-midnights-026abe515a",
+      "mediaPath": "/social/library/photos/site-midnights-026abe515a.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024",
+      "alt": "Taylor Swift: Midnights debuts at No. 1 on the Billboard 200",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 62173,
+      "sha256": "10e1977163c86794750f48640f2358abb15ecca4b1dcf32c51499aace5d13f0e"
+    },
+    {
+      "id": "site-midnights-0af5de6b45",
+      "mediaPath": "/social/library/photos/site-midnights-0af5de6b45.jpg",
+      "source": "https://www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1",
+      "alt": "Taylor Swift: A record-tying 9 VMA wins in one night",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 675,
+      "bytes": 131288,
+      "sha256": "eb47716a391d036f225adecf9c89a48dd51c830ccd8db3afd52423ae0553e4eb"
+    },
+    {
+      "id": "site-midnights-11d9b134a9",
+      "mediaPath": "/social/library/photos/site-midnights-11d9b134a9.jpg",
+      "credit": "Kevin Winter/Getty Images via Rolling Stone",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2022/11/Taylor-Artist-1443142818.jpg?w=1600&h=900&crop=1",
+      "alt": "Taylor accepting at the 2022 American Music Awards in Los Angeles, where she went six-for-six.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 107442,
+      "sha256": "156cbb30cac16b3376ae858436a01fd92951fe97b94c06c3cf5b8c3ba5fe2822"
+    },
+    {
+      "id": "site-midnights-3b376122a5",
+      "mediaPath": "/social/library/photos/site-midnights-3b376122a5.jpg",
+      "credit": "Variety",
+      "source": "https://variety.com/wp-content/uploads/2024/02/Taylor-Swift-Album-of-the-Year.jpg?w=1000",
+      "alt": "Accepting the record fourth Album of the Year Grammy for Midnights, with Jack Antonoff at her shoulder — the moment she passed Stevie Wonder, Frank Sinatra and Paul Simon.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1000,
+      "height": 563,
+      "bytes": 59370,
+      "sha256": "dd4a6874846c582afe7d157f6f4dc544c0380ce5531e0468de6155c83555a362"
+    },
+    {
+      "id": "site-midnights-3f21d5aef2",
+      "mediaPath": "/social/library/photos/site-midnights-3f21d5aef2.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg",
+      "alt": "Taylor Swift: A magenta Jessica Jones gown for the surprise-song set",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 141293,
+      "sha256": "3c66c927a76e0cd0712c25e202250cce3f83dadb5f7ab76cce75ee163306530a"
+    },
+    {
+      "id": "site-midnights-421d07500b",
+      "mediaPath": "/social/library/photos/site-midnights-421d07500b.jpg",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2024/01/TaylorSwiftChiefs-1.jpeg?w=1600&h=900&crop=1",
+      "alt": "Taylor Swift: A frigid Wild Card game, bundled in a No. 87 puffer",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 127652,
+      "sha256": "4f2d1a0f63f1045c70e99704ce516e85c249044b7d05a7eae981b1cac4ff461d"
+    },
+    {
+      "id": "site-midnights-43fdb9127e",
+      "mediaPath": "/social/library/photos/site-midnights-43fdb9127e.jpg",
+      "credit": "Kevin Mazur/GI for TAS Rights Management",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/09-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: Oscar de la Renta closes the night for Midnights",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 189312,
+      "sha256": "6c4cf0e61053681913720cf4b2e086fc8cd97df04d38dc2190aa3fa1f86ff8f9"
+    },
+    {
+      "id": "site-midnights-4b205f87c1",
+      "mediaPath": "/social/library/photos/site-midnights-4b205f87c1.jpg",
+      "credit": "Paolo V, CC BY 2.0, via Wikimedia Commons",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/d/de/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109523971%29_%28cropped%29.jpg",
+      "alt": "Taylor in the blue-crystal 1989 era set at SoFi Stadium that night — the color-coded tease that fans read as a signal before the 1989 (Taylor's Version) reveal.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 537,
+      "height": 1086,
+      "bytes": 159152,
+      "sha256": "78ba2e2a445cefc448b6f428bd36d115eea840815bd3ef69c8445a09c9a47da9"
+    },
+    {
+      "id": "site-midnights-4b2b67a1c1",
+      "mediaPath": "/social/library/photos/site-midnights-4b2b67a1c1.jpg",
+      "credit": "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles",
+      "source": "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474459817-copy.jpg?tl=1&ve=1",
+      "alt": "Taylor performs during another costume-and-set chapter of the Eras Tour's opening night.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 932,
+      "height": 524,
+      "bytes": 58833,
+      "sha256": "b4a71ad063ea12e5b56042969784bdb7d419b5ced39d277db0183c8467d9c6c9"
+    },
+    {
+      "id": "site-midnights-4b7550b306",
+      "mediaPath": "/social/library/photos/site-midnights-4b7550b306.jpg",
+      "credit": "Kevin Mazur/Getty Images for TAS Rights Management (via Billboard)",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-1-2023-billboard-1548.png?w=1024",
+      "alt": "Opening the Lover set in the crystal bodysuit on night one in Glendale, March 17, 2023 — the first minutes of the tour that would define the next two years.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1023,
+      "height": 677,
+      "bytes": 54452,
+      "sha256": "5bbfe11bf1e34d3be7d9387b4163e022f3b595cf1a3727d093b4c407d4ae8426"
+    },
+    {
+      "id": "site-midnights-51aa12bf8d",
+      "mediaPath": "/social/library/photos/site-midnights-51aa12bf8d.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: A mustard Etro gown and cape for evermore",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 166835,
+      "sha256": "6e8085900d5cc0c1024b1fb150df0bc299a8b238a157cd4b1cbf939ea100dc1b"
+    },
+    {
+      "id": "site-midnights-5ccbfdb74a",
+      "mediaPath": "/social/library/photos/site-midnights-5ccbfdb74a.jpg",
+      "credit": "Beth Garrabrant/Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-bb-1548.jpg?w=1024",
+      "alt": "Another Beth Garrabrant frame from the 1989 (Taylor's Version) beach shoot, run with Billboard's chart coverage of the record-resetting vinyl week.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 98154,
+      "sha256": "8d4e5b6d0b6e1fb3aada9114994987593a8da4c9db7de5316dc9a4659f459c31"
+    },
+    {
+      "id": "site-midnights-5d6bd41666",
+      "mediaPath": "/social/library/photos/site-midnights-5d6bd41666.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg",
+      "alt": "Taylor Swift: Oscar de la Renta closes the night for Midnights",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 202671,
+      "sha256": "5cbf440b169998690c023365456e0d0fc36bdffb1f1e2b7ad8b45d07be3bf761"
+    },
+    {
+      "id": "site-midnights-604ac45d66",
+      "mediaPath": "/social/library/photos/site-midnights-604ac45d66.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: A Nicole + Felicia princess gown for Speak Now",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 322024,
+      "sha256": "fe3a916046dbdd3874a4b0437d9055b3115b77b2807ed8da6785898c8917090a"
+    },
+    {
+      "id": "site-midnights-6b0cd5e914",
+      "mediaPath": "/social/library/photos/site-midnights-6b0cd5e914.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: The Ashish \"22\" outfit, recreated for Red",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 362274,
+      "sha256": "b975c1da59df60b6c02776676d22874bd7f34c805b62c9d724f756f124d317b4"
+    },
+    {
+      "id": "site-midnights-6e0d3f17cd",
+      "mediaPath": "/social/library/photos/site-midnights-6e0d3f17cd.jpg",
+      "credit": "Jason Hanna/Getty Images, via Vanity Fair",
+      "source": "https://media.vanityfair.com/photos/6511b258c700cad4c4f82633/master/w_2560%2Cc_limit/Taylor-Swift.jpg",
+      "alt": "Taylor reacts from the Arrowhead suite during the first Chiefs game she attended.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 2000,
+      "height": 1333,
+      "bytes": 426189,
+      "sha256": "822f5541c55091b4b4cd1bc7eddfb9df92b5ecc7e44d24902f0ea99c2aeadb39"
+    },
+    {
+      "id": "site-midnights-7299c74035",
+      "mediaPath": "/social/library/photos/site-midnights-7299c74035.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: The original reputation catsuit, cut-outs and all",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 201618,
+      "sha256": "695cbc757b2433b5ab9250d6c01c1519deaca74b6e48c41890e16b641cebd580"
+    },
+    {
+      "id": "site-midnights-746c418913",
+      "mediaPath": "/social/library/photos/site-midnights-746c418913.jpg",
+      "credit": "Ashley Landis/AP, via Las Vegas Review-Journal",
+      "source": "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-28.jpg",
+      "alt": "A third Ashley Landis frame shows Taylor performing at the Eras Tour opener.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 800,
+      "bytes": 97721,
+      "sha256": "73eb2c375cbc5e921d404fe71b72fa154f893fbaf4ea6b8cbb919de4df5137bd"
+    },
+    {
+      "id": "site-midnights-76be06dbfe",
+      "mediaPath": "/social/library/photos/site-midnights-76be06dbfe.jpg",
+      "credit": "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles",
+      "source": "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1",
+      "alt": "In a glittering silver blazer dress and knee-high boots, flanked by suited backup dancers in front of the reputation set's office-desk backdrop.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 932,
+      "height": 524,
+      "bytes": 91962,
+      "sha256": "15bf1d375b9bc67dbbd2f925b5bbb68b680c30deef3351f92d5c2c0a2aaab9fc"
+    },
+    {
+      "id": "site-midnights-877d6a1904",
+      "mediaPath": "/social/library/photos/site-midnights-877d6a1904.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/12/01-taylor-swift-dec-13-2023-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor Swift: A crescent-moon dress for her 34th birthday, with Blake Lively",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 70552,
+      "sha256": "a6a8d7d72e5b11cfaa24e30255b83d1f296eb5a5085ba9ce3ace69ff48df0eac"
+    },
+    {
+      "id": "site-midnights-980c7182d3",
+      "mediaPath": "/social/library/photos/site-midnights-980c7182d3.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg",
+      "alt": "Taylor Swift: Roberto Cavalli gold fringe for the Fearless set",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 133022,
+      "sha256": "6eb91c95ea8075b5f95bfd06428cf1c6d0c9eacaa49f7b1412849fbffa1552c0"
+    },
+    {
+      "id": "site-midnights-9af537f960",
+      "mediaPath": "/social/library/photos/site-midnights-9af537f960.jpg",
+      "credit": "Ashley Landis/AP, via Las Vegas Review-Journal",
+      "source": "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-31.jpg",
+      "alt": "A second AP frame captures Taylor during the opening-night Glendale performance.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 800,
+      "bytes": 64301,
+      "sha256": "60981e3ca699ed53609432c8e870aca16d0a8a893dc25032379f2b499d609aec"
+    },
+    {
+      "id": "site-midnights-a304f4ff15",
+      "mediaPath": "/social/library/photos/site-midnights-a304f4ff15.jpg",
+      "source": "https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg",
+      "alt": "Taylor Swift: She's Time's 2023 Person of the Year",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 630,
+      "bytes": 74305,
+      "sha256": "1794db519a525e04cef9c797f3d9d59e1faf7d6a9d6e8cf93910ccedabe4985e"
+    },
+    {
+      "id": "site-midnights-ab2c209851",
+      "mediaPath": "/social/library/photos/site-midnights-ab2c209851.jpg",
+      "credit": "Getty Images via Billboard",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/02/04-taylor-swift-2023-grammys-red-carpet-billboard-1548.jpg?w=1024",
+      "alt": "Close-up on the same Grammys carpet: the diamond-and-amethyst drop earrings over the beaded Cavalli turtleneck.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 47829,
+      "sha256": "14d04e80511a4e59f3259e3ae01af295713ae35054c641145e010d301d157f38"
+    },
+    {
+      "id": "site-midnights-ac65baf9ac",
+      "mediaPath": "/social/library/photos/site-midnights-ac65baf9ac.jpg",
+      "credit": "Todd Owyoung/NBC (via Billboard)",
+      "source": "https://www.billboard.com/wp-content/uploads/2022/10/taylor-swift-tonight-show-cr-todd-owyoung-1548.jpg?w=1024",
+      "alt": "Walking out on The Tonight Show Starring Jimmy Fallon on Oct. 24, 2022 — the release-week victory lap while Midnights was racking up the numbers behind this chart debut.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 938,
+      "height": 619,
+      "bytes": 97708,
+      "sha256": "f9d9f22b6c041b44ed3b0f2af30e5cd2e914fba763e13f0d1d54fb8b905c9381"
+    },
+    {
+      "id": "site-midnights-d21c532cdc",
+      "mediaPath": "/social/library/photos/site-midnights-d21c532cdc.jpg",
+      "credit": "Getty Images via Rolling Stone",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2023/02/GettyImages-1463251082.jpg?w=1600&h=900&crop=1",
+      "alt": "The star-scattered midnight-blue Roberto Cavalli at the 2023 Grammys — the carpet look she kept on through the evening ceremony after the afternoon Best Music Video win.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 157830,
+      "sha256": "c082824f0a3af6904944cab2197728bace174ef18cbafaeea6e5c2c6ede081eb"
+    },
+    {
+      "id": "site-midnights-d42eb9710a",
+      "mediaPath": "/social/library/photos/site-midnights-d42eb9710a.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/Taylor-Swift-outfit-gallery-night-1-billboard-1240.jpg",
+      "alt": "Taylor Swift: A pink-toned Versace bodysuit opens the Lover set",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1240,
+      "height": 1840,
+      "bytes": 186264,
+      "sha256": "b31cd13733390710d13a9f10dc34f3bd7fa038466817c8ee2c4cbd2987e4ac45"
+    },
+    {
+      "id": "site-midnights-d52d25316e",
+      "mediaPath": "/social/library/photos/site-midnights-d52d25316e.jpg",
+      "credit": "Getty Images",
+      "source": "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg",
+      "alt": "Taylor Swift: A midnight-blue, star-scattered Roberto Cavalli look at the 2023 Grammys",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 683,
+      "height": 1024,
+      "bytes": 83383,
+      "sha256": "7c325c140f0cbe37f053059a99723c701fa29ca45148bcdcc0c4347b49ac67c8"
+    },
+    {
+      "id": "site-midnights-d739211537",
+      "mediaPath": "/social/library/photos/site-midnights-d739211537.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024",
+      "alt": "Taylor Swift: Cruel Summer hits No. 1 — four years after it came out",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 54478,
+      "sha256": "e1841beee38387893040737e605103cb61cbc41b93d2cba3f5c14675ca453d10"
+    },
+    {
+      "id": "site-midnights-e163673df5",
+      "mediaPath": "/social/library/photos/site-midnights-e163673df5.jpg",
+      "credit": "Ashley Landis/AP, via Las Vegas Review-Journal",
+      "source": "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_.jpg",
+      "alt": "Taylor performs during the opening Eras Tour concert at State Farm Stadium on March 17, 2023.",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 800,
+      "bytes": 105396,
+      "sha256": "219e3575a7811e128a17bec1758534da66924dde676c84165f61346b38d6dcf5"
+    },
+    {
+      "id": "site-midnights-f0570dc012",
+      "mediaPath": "/social/library/photos/site-midnights-f0570dc012.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024",
+      "alt": "Taylor Swift: A record fourth Album of the Year Grammy, for Midnights",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1024,
+      "height": 677,
+      "bytes": 52195,
+      "sha256": "2fabdcb5b6fd423fd6af4da17ba8311f2162fc32c36468ed28aa4cfad3b2b304"
+    },
+    {
+      "id": "site-midnights-f10dad4fe5",
+      "mediaPath": "/social/library/photos/site-midnights-f10dad4fe5.png",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024",
+      "alt": "Taylor Swift: The Eras Tour kicks off in Glendale",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1023,
+      "height": 677,
+      "bytes": 566619,
+      "sha256": "8515272dadd0d825a3caa75c0fdcf6d7dbd956836d4d86194faad9108b22f598"
+    },
+    {
+      "id": "site-midnights-f68f8757ec",
+      "mediaPath": "/social/library/photos/site-midnights-f68f8757ec.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg",
+      "alt": "Taylor Swift: Roberto Cavalli and Louboutin for the 1989 set",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 256827,
+      "sha256": "f04924bbe39db8bc0a4d423fbb4e97004308ad5cdd3a1628c38ff66142e3ed28"
+    },
+    {
+      "id": "site-midnights-fc3ef488cf",
+      "mediaPath": "/social/library/photos/site-midnights-fc3ef488cf.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg",
+      "alt": "Taylor Swift: A flowing purple Alberta Ferretti dress for folklore",
+      "tags": [
+        "midnights",
+        "site-photo"
+      ],
+      "width": 1548,
+      "height": 1024,
+      "bytes": 188317,
+      "sha256": "8b798d77a16a67271e2d33441668bbffbe70c45a10bc9109045e0ed064fb0012"
+    },
+    {
+      "id": "site-red-21821fff1b",
+      "mediaPath": "/social/library/photos/site-red-21821fff1b.jpg",
+      "source": "https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg",
+      "alt": "Taylor Swift: A Mary Katrantzou romper signals the turn toward 1989",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 634,
+      "height": 1024,
+      "bytes": 127639,
+      "sha256": "60f31e15f32f52182ac8dbfc831c35c7d2a05a6e81bab657a1b48f91d0983903"
+    },
+    {
+      "id": "site-red-3ef250e33c",
+      "mediaPath": "/social/library/photos/site-red-3ef250e33c.jpg",
+      "source": "https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75",
+      "alt": "Taylor Swift: An ankle-length red dress with a thigh-high slit for 'Red' at the CMTs",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 653,
+      "bytes": 59874,
+      "sha256": "4801fa93996ffd5b5507fbad480c6e40c2d2c6ee811bdafb56161fe136e10240"
+    },
+    {
+      "id": "site-red-40b48b38e7",
+      "mediaPath": "/social/library/photos/site-red-40b48b38e7.jpg",
+      "credit": "Kevork Djansezian, Getty Images / PopCrush",
+      "source": "https://townsquare.media/site/252/files/2014/01/TaylorSwift.jpg?w=980&q=75",
+      "alt": "Mid-hair-whip at the piano — \"All Too Well\" at the 56th Grammy Awards, January 26, 2014, with her lucky 13 stenciled on the piano.",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 653,
+      "bytes": 53847,
+      "sha256": "09f258da57298f1aae291817778624df4c523f95d0e30d695015edfd6c5e1e61"
+    },
+    {
+      "id": "site-red-6f29467e44",
+      "mediaPath": "/social/library/photos/site-red-6f29467e44.jpg",
+      "credit": "Getty Images, via PopCrush",
+      "source": "https://townsquare.media/site/252/files/2012/11/Taylor-Swift-AMAs.jpg?a=t&format=natural&h=0&q=89&s=0&w=1200&zc=1",
+      "alt": "Taylor Swift performs “I Knew You Were Trouble” for the first time at the 2012 American Music Awards.",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 1200,
+      "height": 800,
+      "bytes": 133753,
+      "sha256": "3783730da571786bbe67d214e4a9e1fcc855b48615660daa6c027f07d5841924"
+    },
+    {
+      "id": "site-red-84622fe2c8",
+      "mediaPath": "/social/library/photos/site-red-84622fe2c8.jpg",
+      "credit": "Bryan Bedder, Getty Images / PopCrush",
+      "source": "https://townsquare.media/site/252/files/2013/12/TaylorSwift26.jpg?w=980&q=75",
+      "alt": "Taylor performing \"I Knew You Were Trouble\" during the Snow Angels finale of the 2013 Victoria's Secret Fashion Show — the night she and Karlie Kloss finally met.",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 653,
+      "bytes": 53072,
+      "sha256": "dc772216801c213e82612d4e820a020801134f67462b4b3a16d570addbb3f34e"
+    },
+    {
+      "id": "site-red-ba42cfd4e5",
+      "mediaPath": "/social/library/photos/site-red-ba42cfd4e5.jpg",
+      "credit": "TSA / Getty Images",
+      "source": "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100",
+      "alt": "Taylor Swift: Caught mid-rehearsal for the Red Tour, days before it opened",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 653,
+      "bytes": 23785,
+      "sha256": "27c983880796102e278d7be1be67c5a6b351c7fc4c0372afccb1d8937aa03ebc"
+    },
+    {
+      "id": "site-red-bb9da0c510",
+      "mediaPath": "/social/library/photos/site-red-bb9da0c510.jpg",
+      "credit": "Via E! News",
+      "source": "https://akns-images.eonline.com/eol_images/Entire_Site/2013110/634.2swift.show.ls.21013.jpg",
+      "alt": "The white ringmaster look that opened the 2013 Grammys — \"We Are Never Ever Getting Back Together\" as circus.",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 634,
+      "height": 1024,
+      "bytes": 100225,
+      "sha256": "42cf7074b612494d09191a1fe54b9753080fda3a2762a57bbe3f69af6532ee7a"
+    },
+    {
+      "id": "site-red-f191f06faa",
+      "mediaPath": "/social/library/photos/site-red-f191f06faa.jpg",
+      "credit": "Getty Images / PopCrush",
+      "source": "https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75",
+      "alt": "Taylor Swift: 'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      "tags": [
+        "red",
+        "site-photo"
+      ],
+      "width": 980,
+      "height": 653,
+      "bytes": 129393,
+      "sha256": "0c0c92796ed02a9e6aa542e8c2b0de99dcf1e66f4561f6e37b65921db9193b1f"
+    },
+    {
+      "id": "site-reputation-2a8ab23e59",
+      "mediaPath": "/social/library/photos/site-reputation-2a8ab23e59.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-nyc-April-22-2019-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor Swift: A denim-themed birthday party for Gigi Hadid — sans denim",
+      "tags": [
+        "reputation",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 110622,
+      "sha256": "98472e9e42d8dfc087bdf61337e99c30024e027d9411940a320633231b572f16"
+    },
+    {
+      "id": "site-reputation-8bc01c2fbd",
+      "mediaPath": "/social/library/photos/site-reputation-8bc01c2fbd.jpg",
+      "credit": "Kevin Mazur/Getty Images for TAS, via NME",
+      "source": "https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956299498.jpg",
+      "alt": "Taylor performs opening night of the reputation Stadium Tour, May 8, 2018.",
+      "tags": [
+        "reputation",
+        "site-photo"
+      ],
+      "width": 1000,
+      "height": 635,
+      "bytes": 64380,
+      "sha256": "b1c5ab32ebe00effd009265cc8de34febf9ca1f83a18793739bb58d9d48aa6c3"
+    },
+    {
+      "id": "site-reputation-92e80f830e",
+      "mediaPath": "/social/library/photos/site-reputation-92e80f830e.jpg",
+      "source": "https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale",
+      "alt": "Taylor Swift: 23 AMA wins — more than any woman in history",
+      "tags": [
+        "reputation",
+        "site-photo"
+      ],
+      "width": 959,
+      "height": 684,
+      "bytes": 82700,
+      "sha256": "fbca909b181d9dccc07947747ce2dcd1a67b76e78509348f2a2ad136973578c8"
+    },
+    {
+      "id": "site-reputation-a75ef93f13",
+      "mediaPath": "/social/library/photos/site-reputation-a75ef93f13.jpg",
+      "source": "https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1",
+      "alt": "Taylor Swift: One nomination for the year's best-selling album",
+      "tags": [
+        "reputation",
+        "site-photo"
+      ],
+      "width": 1600,
+      "height": 900,
+      "bytes": 201942,
+      "sha256": "4abb3b7b4a1493e11287f5ec6b23304b0e2d49de2037271d8ff876e241cc024b"
+    },
+    {
+      "id": "site-reputation-c3c21c8064",
+      "mediaPath": "/social/library/photos/site-reputation-c3c21c8064.jpg",
+      "source": "https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1",
+      "alt": "Taylor Swift: Breaking a Rolling Stones record set a decade earlier — in almost half the shows",
+      "tags": [
+        "reputation",
+        "site-photo"
+      ],
+      "width": 942,
+      "height": 628,
+      "bytes": 64172,
+      "sha256": "25f20dfa768bab734b5aac8d3230b90b784b931984646d483ee70a4a1a7a3524"
+    },
+    {
       "id": "speaknow-inglewood-2023",
       "mediaPath": "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
@@ -804,611 +2930,6 @@
       "height": 1350,
       "bytes": 235957,
       "sha256": "54a732c36b771b34f5c96d81432b9f276cd7af51bf38d6bf5d9ff2891c388585"
-    },
-    {
-      "id": "1989-inglewood-2023-2",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-2.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
-      "alt": "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 725,
-      "bytes": 134661,
-      "sha256": "72118277ec167fbd2e952edcef0ac29911ea93853fd862dac1433c924fea831a"
-    },
-    {
-      "id": "1989-inglewood-2023-2-ig191",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-2-ig191.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
-      "alt": "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "1989-inglewood-2023-2",
-      "width": 1080,
-      "height": 566,
-      "bytes": 41444,
-      "sha256": "b8c92c605a850e96014325918b208eacb0ccf6ab049dcfddbc5fb1b5326a9347"
-    },
-    {
-      "id": "1989-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980722).jpg",
-      "alt": "Taylor Swift singing the 1989 set of the Eras Tour in Inglewood, 2023, in a sparkling crop top and skirt, with her close-up on the screen behind her.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 725,
-      "bytes": 287307,
-      "sha256": "b99c0deac8765f868937be6120730e13cec8896529e8637672d6bc7ca6b77a0a"
-    },
-    {
-      "id": "1989-inglewood-2023-3-ig191",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-3-ig191.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980722).jpg",
-      "alt": "Taylor Swift singing the 1989 set of the Eras Tour in Inglewood, 2023, in a sparkling crop top and skirt, with her close-up on the screen behind her.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "1989-inglewood-2023-3",
-      "width": 1080,
-      "height": 566,
-      "bytes": 87805,
-      "sha256": "eab7702a8287b1cdb4b3ea67a77735bcaeb96bfee89e77ed88c23e00c077c67c"
-    },
-    {
-      "id": "1989-inglewood-2023-4",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-4.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108989577).jpg",
-      "alt": "Taylor Swift and her dancers mid-choreography during the 1989 set of the Eras Tour in Inglewood, 2023, arms raised under dark stage lighting.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 804,
-      "bytes": 255398,
-      "sha256": "9a1a1d7e4ecc90f0e7883416e2e77eb2aad034d5f03be1d2d32f05d407579109"
-    },
-    {
-      "id": "1989-inglewood-2023-4-ig191",
-      "mediaPath": "/social/library/photos/taylor-1989-inglewood-2023-4-ig191.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108989577).jpg",
-      "alt": "Taylor Swift and her dancers mid-choreography during the 1989 set of the Eras Tour in Inglewood, 2023, arms raised under dark stage lighting.",
-      "tags": [
-        "1989",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "1989-inglewood-2023-4",
-      "width": 1080,
-      "height": 566,
-      "bytes": 96077,
-      "sha256": "13032433b94404ae2c1494eccabc4cb04e7faa42a8c4cdbcd12266d5189c97cd"
-    },
-    {
-      "id": "red-inglewood-2023-2",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-2.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
-      "alt": "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 923,
-      "height": 1524,
-      "bytes": 1129000,
-      "sha256": "c1e73b64ff01b6d180922ea022fc9e92b5f465bb469918c9db773f869c98d21c"
-    },
-    {
-      "id": "red-inglewood-2023-2-ig45",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-2-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
-      "alt": "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "red-inglewood-2023-2",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 262355,
-      "sha256": "8085d545ff739678f97c8cd15dbe74c4f7472cbcf2f796d5e576ef93c3816857"
-    },
-    {
-      "id": "red-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_5.jpg",
-      "alt": "Taylor Swift singing into a microphone in the Red set of the Eras Tour, Inglewood 2023, wearing a glittering red top, black shorts and boots.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 886,
-      "height": 1400,
-      "bytes": 193224,
-      "sha256": "4ae4b6d8deb7787d11a0b2bc6c39a758ebf59bed4f1c2e7afc841c20a2a736ad"
-    },
-    {
-      "id": "red-inglewood-2023-3-ig45",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-3-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_5.jpg",
-      "alt": "Taylor Swift singing into a microphone in the Red set of the Eras Tour, Inglewood 2023, wearing a glittering red top, black shorts and boots.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "red-inglewood-2023-3",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 174433,
-      "sha256": "582561311bdc3c51428071660b5c7da3ec2f9ae39c6549e437c7139ae0a0888a"
-    },
-    {
-      "id": "red-inglewood-2023-4",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-4.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_(53109764406).jpg",
-      "alt": "Taylor Swift silhouetted against a burst of pink stage smoke, microphone raised, during the Red set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 935,
-      "height": 1400,
-      "bytes": 199793,
-      "sha256": "7e4796d10948539ae3ba3a1c6eb05a5fc8911dfe38e880620b861921cf306544"
-    },
-    {
-      "id": "red-inglewood-2023-4-ig45",
-      "mediaPath": "/social/library/photos/taylor-red-inglewood-2023-4-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_(53109764406).jpg",
-      "alt": "Taylor Swift silhouetted against a burst of pink stage smoke, microphone raised, during the Red set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "red",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "red-inglewood-2023-4",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 207406,
-      "sha256": "41236d0a4352233e4ddfdfdd9443fdda0aa230c3b26034d51fb6487fabcb517b"
-    },
-    {
-      "id": "fearless-inglewood-2023-2",
-      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-2.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53108836472).jpg",
-      "alt": "Taylor Swift in a gold fringed mini dress singing into a microphone during the Fearless set of the Eras Tour, Inglewood 2023, lit by a single spotlight.",
-      "tags": [
-        "fearless",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 3084,
-      "bytes": 745827,
-      "sha256": "d2fa4bca6fbd0079a8c866e2621d372539597f1f4d74efad5db35876996bd4be"
-    },
-    {
-      "id": "fearless-inglewood-2023-2-ig45",
-      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-2-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53108836472).jpg",
-      "alt": "Taylor Swift in a gold fringed mini dress singing into a microphone during the Fearless set of the Eras Tour, Inglewood 2023, lit by a single spotlight.",
-      "tags": [
-        "fearless",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "fearless-inglewood-2023-2",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 115755,
-      "sha256": "e7ffc8cd9807277a6cee1b970f0cf51b9e882d4bec128d92be48cd9fc7fa45b9"
-    },
-    {
-      "id": "fearless-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109405681).jpg",
-      "alt": "Taylor Swift in a shimmering gold fringed dress, microphone in hand, performing the Fearless set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "fearless",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 869,
-      "height": 1400,
-      "bytes": 247813,
-      "sha256": "be45a155381a06f4f354168892966ed55e8a5006dea9ee6a6585e86252762ee1"
-    },
-    {
-      "id": "fearless-inglewood-2023-3-ig45",
-      "mediaPath": "/social/library/photos/taylor-fearless-inglewood-2023-3-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109405681).jpg",
-      "alt": "Taylor Swift in a shimmering gold fringed dress, microphone in hand, performing the Fearless set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "fearless",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "fearless-inglewood-2023-3",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 253834,
-      "sha256": "4aa87312f911503d3f92f88dc9dd3a963db3fceafe766d7dc1e9fc18872b9c2c"
-    },
-    {
-      "id": "fearless-tour-2009-4",
-      "mediaPath": "/social/library/photos/taylor-fearless-tour-2009-4.jpg",
-      "credit": "calmdownlove (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg",
-      "alt": "Wide view of Taylor Swift performing on a brightly lit stage in front of a large video wall during a 2009 Fearless-era concert.",
-      "tags": [
-        "fearless",
-        "concert",
-        "2009"
-      ],
-      "width": 1920,
-      "height": 1493,
-      "bytes": 778003,
-      "sha256": "7087112e6153ca6a40cdbf411a8e399e1a8671b576c1c7da81bc6e1634597a24"
-    },
-    {
-      "id": "folklore-arlington-2023-2",
-      "mediaPath": "/social/library/photos/taylor-folklore-arlington-2023-2.jpg",
-      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Arlington,_TX_-_Folklore_act_2.jpg",
-      "alt": "Taylor Swift in a flowing cream gown lying on the moss-covered cabin roof during the folklore set of the Eras Tour in Arlington, Texas, 2023.",
-      "tags": [
-        "folklore",
-        "eras-tour",
-        "arlington"
-      ],
-      "width": 1920,
-      "height": 1198,
-      "bytes": 1153037,
-      "sha256": "0d7ccbc0cd0a64cd67659ea32c36e71f9ef34010cef4c702c941bf6748cd7233"
-    },
-    {
-      "id": "folklore-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53108933272).jpg",
-      "alt": "Taylor Swift in a long pale-blue gown singing into a microphone during the folklore set of the Eras Tour, Inglewood 2023, under soft stage light.",
-      "tags": [
-        "folklore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 962,
-      "height": 1551,
-      "bytes": 1122477,
-      "sha256": "4eae9db0c3ade5101cf8a50fdfc49bf3090d52855f281796fda721ec2d2c239c"
-    },
-    {
-      "id": "folklore-inglewood-2023-3-ig45",
-      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-3-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53108933272).jpg",
-      "alt": "Taylor Swift in a long pale-blue gown singing into a microphone during the folklore set of the Eras Tour, Inglewood 2023, under soft stage light.",
-      "tags": [
-        "folklore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "folklore-inglewood-2023-3",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 306459,
-      "sha256": "bf9a883e27ccc8de786375f5adeba8434b1b6f6daa8e10f900575e05b545b7f6"
-    },
-    {
-      "id": "folklore-inglewood-2023-4",
-      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-4.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109704999).jpg",
-      "alt": "Taylor Swift in a flowing pale-blue gown with one arm raised, singing during the folklore set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "folklore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 2796,
-      "bytes": 1384577,
-      "sha256": "e398ba819d1c22491007ed24064df3eebe9d083e1eb9c5977f174d4a9fd81718"
-    },
-    {
-      "id": "folklore-inglewood-2023-4-ig45",
-      "mediaPath": "/social/library/photos/taylor-folklore-inglewood-2023-4-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109704999).jpg",
-      "alt": "Taylor Swift in a flowing pale-blue gown with one arm raised, singing during the folklore set of the Eras Tour in Inglewood, 2023.",
-      "tags": [
-        "folklore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "folklore-inglewood-2023-4",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 303511,
-      "sha256": "0669df216f6ce4d7a0c324afd6feea965f1a7a2ff68ac72075be9ceceb8b0ecc"
-    },
-    {
-      "id": "evermore-arlington-2023-2",
-      "mediaPath": "/social/library/photos/taylor-evermore-arlington-2023-2.jpg",
-      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
-      "alt": "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "arlington"
-      ],
-      "width": 879,
-      "height": 1400,
-      "bytes": 324134,
-      "sha256": "3bd561cbbe073235901677c79a5b7b56f0b9b7daa7f6a071937e3c04dfcf8e45"
-    },
-    {
-      "id": "evermore-arlington-2023-2-ig45",
-      "mediaPath": "/social/library/photos/taylor-evermore-arlington-2023-2-ig45.jpg",
-      "credit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
-      "alt": "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "arlington"
-      ],
-      "variantOf": "evermore-arlington-2023-2",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 312916,
-      "sha256": "d8b488b5539feae2760b1d196cea568ce049698cb28393cd7b103c3dd2f90559"
-    },
-    {
-      "id": "evermore-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109409921).jpg",
-      "alt": "Taylor Swift in a mustard-yellow dress playing guitar alongside her band during the evermore set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 905,
-      "bytes": 227256,
-      "sha256": "93892c0e1f2f006449fa81aa6ec949f4ec71d766e184abcb6dd0c6c438234936"
-    },
-    {
-      "id": "evermore-inglewood-2023-3-ig191",
-      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-3-ig191.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109409921).jpg",
-      "alt": "Taylor Swift in a mustard-yellow dress playing guitar alongside her band during the evermore set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "evermore-inglewood-2023-3",
-      "width": 1080,
-      "height": 566,
-      "bytes": 87935,
-      "sha256": "47006a3567385947a5c3231dbee3f55b372236dc099ad7987e6c0294c5922b08"
-    },
-    {
-      "id": "evermore-inglewood-2023-4",
-      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-4.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109827795).jpg",
-      "alt": "Taylor Swift in a mustard-yellow dress, seen large on the stadium screen above a blue forest-lit stage, during the evermore set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1920,
-      "height": 776,
-      "bytes": 382954,
-      "sha256": "b85efdb5892595e56cbf7d8934b3ce24acf4d9aa89f14a2bc2ab91922a295668"
-    },
-    {
-      "id": "evermore-inglewood-2023-4-ig191",
-      "mediaPath": "/social/library/photos/taylor-evermore-inglewood-2023-4-ig191.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109827795).jpg",
-      "alt": "Taylor Swift in a mustard-yellow dress, seen large on the stadium screen above a blue forest-lit stage, during the evermore set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "evermore",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "evermore-inglewood-2023-4",
-      "width": 1080,
-      "height": 566,
-      "bytes": 123245,
-      "sha256": "e341dee08a495fa8b4d46d5a894b0148803081c29740f3b6cb2b79091c6958a1"
-    },
-    {
-      "id": "reputation-inglewood-2023-2",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-2.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
-      "alt": "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1206,
-      "height": 1900,
-      "bytes": 1136666,
-      "sha256": "67d9b61c27f1c43c9446a64c50d1d192546b0b74a2361bfbe69a5dfd5a6080ba"
-    },
-    {
-      "id": "reputation-inglewood-2023-2-ig45",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-2-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
-      "alt": "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "reputation-inglewood-2023-2",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 124633,
-      "sha256": "d58b0876dbc6f908dcc4634579fd68bdf38bf4c04edcf96b7f98e62445a9fd78"
-    },
-    {
-      "id": "reputation-inglewood-2023-3",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-3.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
-      "alt": "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 937,
-      "height": 1400,
-      "bytes": 231132,
-      "sha256": "39700da488c96d3065ff9b5e99022e2a3e685ae7d2d40d58afc56be1adfef6c1"
-    },
-    {
-      "id": "reputation-inglewood-2023-3-ig45",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-3-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
-      "alt": "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "reputation-inglewood-2023-3",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 143473,
-      "sha256": "d21c524393ad4246f96df92efa7adbdd9be7cb31b295eef34dfcee2843556f96"
-    },
-    {
-      "id": "reputation-inglewood-2023-4",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-4.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
-      "alt": "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "width": 1077,
-      "height": 1571,
-      "bytes": 870211,
-      "sha256": "37e20c6f9474a4c3362e97b5420e238314276c3145495946dc89af1d9157415d"
-    },
-    {
-      "id": "reputation-inglewood-2023-4-ig45",
-      "mediaPath": "/social/library/photos/taylor-reputation-inglewood-2023-4-ig45.jpg",
-      "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
-      "alt": "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023.",
-      "tags": [
-        "reputation",
-        "eras-tour",
-        "inglewood"
-      ],
-      "variantOf": "reputation-inglewood-2023-4",
-      "width": 1080,
-      "height": 1350,
-      "bytes": 194746,
-      "sha256": "1a2905c1edf27441e911e15cf2b56116ef00c3f8004ce957d74358570f6fe5cf"
-    },
-    {
-      "id": "debut-yahoo-2007-2",
-      "mediaPath": "/social/library/photos/taylor-debut-yahoo-2007-2.jpg",
-      "credit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_at_Yahoo_2007.jpg",
-      "alt": "A young Taylor Swift in a white sundress singing at a microphone during a 2007 debut-album promotional appearance at Yahoo, next to a host.",
-      "tags": [
-        "debut",
-        "2007"
-      ],
-      "width": 1920,
-      "height": 1440,
-      "bytes": 595967,
-      "sha256": "83fe682d3883d5dab583ca5dc536c8d52bc6c166aa2df5fca89b414283c000e0"
-    },
-    {
-      "id": "debut-yahoo-2007-3",
-      "mediaPath": "/social/library/photos/taylor-debut-yahoo-2007-3.jpg",
-      "credit": "Yahoo! Blog (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Terry_%26_Filo_honor_country_music_star_Taylor_Swift_1.jpg",
-      "alt": "A young Taylor Swift in a white dress standing with two hosts during her 2007 debut-era appearance at Yahoo.",
-      "tags": [
-        "debut",
-        "2007"
-      ],
-      "width": 1920,
-      "height": 1280,
-      "bytes": 585530,
-      "sha256": "bf72d1629d5bbbacef5168aa8b50f90582ca1cb3e4564dd5c9d35e28e574507f"
-    },
-    {
-      "id": "debut-live-2007-4",
-      "mediaPath": "/social/library/photos/taylor-debut-live-2007-4.jpg",
-      "credit": "minds-eye (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007).jpg",
-      "alt": "A young Taylor Swift with long blonde curls playing an acoustic guitar and singing into a microphone during a 2007 debut-era concert.",
-      "tags": [
-        "debut",
-        "2007"
-      ],
-      "width": 819,
-      "height": 546,
-      "bytes": 225090,
-      "sha256": "3a31ee1144feaa73c7526e0638937b11cf6123f9859f81597f89673df9fd741f"
     }
   ]
 }
