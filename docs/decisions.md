@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Concert-photo library imports auto-merge ("Photos A")
+
+**Decision.** AMENDS, and does not delete, the 2026-08-11 social-image rule (an `apps/web/public/social/**` image only auto-merges when it rides with a validated `social/queue/**.json` draft) and its 2026-10-05 merch drop-card amendment. A second narrow carve-out: an image counts as accompanied ONLY when ALL hold: (1) the PR head branch is exactly `social/concert-photo-sourcing` (the single fixed branch of `concert-photo-sourcing.yml`, now an exact entry in the branch/author gate, same author set as every other content lane); (2) the image path matches `^apps/web/public/social/library/photos/[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$` (directly in that directory, no subdirectory, no traversal) and the PR newly adds it; (3) the same PR adds or modifies `social/photo-library.json` (now allowlisted and in `on.paths`). Every other image case stays fail-closed; the merch rule is unchanged. The predicate stays one module, renamed `scripts/automerge-bot-image-exemption.mjs` (was `automerge-merch-drop-exemption.mjs`; the 2026-10-05 entry's references are historical).
+
+**Why.** Library photos are not posts: importing one publishes nothing. Joey's approval (the ✅ in `#longlive-tree`) still gates every post that uses a photo, so the human look is kept where it matters, and the bot's photo PRs no longer wait on a manual merge. Approved: Joey, chat 2026-10-06 22:33 PDT, "Photos A".
+
+---
+
 ## 2026-10-06 — Human actions with a checkable outcome close themselves; agents file only what needs Joey
 
 **Decision.** (1) An open `HUMAN-ACTIONS.md` entry may carry `<!-- ha verify: <kind> <args> -->` with kind one of `secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`, `workflow-green`. `scripts/human-actions/auto-close.mjs` (hourly, `marjorie-status.yml` job `autoclose`) evaluates them with read-only `gh` calls and, on a pass, closes the entry through the existing rolling close PR (`status-page/ha-closes`, auto-merge), ledger note `auto-closed: <check> passed <UTC date>`. The workflow token cannot read secret/variable settings, so those two kinds alone use the existing `OPS_FIXER_PAT` (no new secret) as GH_TOKEN for their read-only call, and are skipped (left open, one warning) if it is absent or unauthorized. (2) Filing rule: agents file only what needs the founder's judgment, identity/login, money, or physical hands; reversible agent-doable work is done and noted in one line; checkable entries must carry a verify line (`npm run check:human-actions` warns, never fails).

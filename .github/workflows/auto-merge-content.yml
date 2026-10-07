@@ -140,6 +140,9 @@ on:
       - "social/lessons.md"
       - "docs/marketing/social-strategy.md"
       - "social/strategy-params.json"
+      # Concert-photo-sourcing's library inventory (docs/decisions.md
+      # 2026-10-06): library photos are not posts; the ✅ still gates posts.
+      - "social/photo-library.json"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
       - "docs/ops/AFFILIATE-COVERAGE.md"
@@ -492,7 +495,7 @@ jobs:
           # already documents for itself.
           branch_ok=0
           case "${HEAD_REF:-}" in
-            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes)
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes|social/concert-photo-sourcing)
               branch_ok=1 ;;
           esac
           author_ok=0
@@ -785,10 +788,13 @@ jobs:
           # a merch-official-sync/* PR's newly-added
           # apps/web/public/social/library/merch-drop-<digits>.png card counts as
           # accompanied when the same PR adds a social/inbox/merch-*.json fact
-          # sheet. The predicate lives in scripts/automerge-merch-drop-exemption.mjs
+          # sheet. The predicate lives in scripts/automerge-bot-image-exemption.mjs
           # (unit-tested), run from the base-ref checkout; it prints only the
-          # images that are NOT exempt. The branch/author gate above already ran.
-          social_media=$(printf '%s\n' "$files_meta" | HEAD_REF="$HEAD_REF" node scripts/automerge-merch-drop-exemption.mjs)
+          # images that are NOT exempt. A second rule (2026-10-06, "Photos A")
+          # exempts the social/concert-photo-sourcing branch's newly-added
+          # library/photos/<id>.<img> files when the same PR changes
+          # social/photo-library.json. The branch/author gate above already ran.
+          social_media=$(printf '%s\n' "$files_meta" | HEAD_REF="$HEAD_REF" node scripts/automerge-bot-image-exemption.mjs)
           if [ -n "$social_media" ] && [ "${HAS_DRAFTS:-false}" != "true" ]; then
             image_list=$(printf '%s\n' "$social_media" | sed 's/^/- `/; s/$/`/')
             verdict "declined — image needs an accompanying draft" \
