@@ -45,6 +45,66 @@ export function resolvePhotoDestPath(mediaPath, photosDir) {
   return destPath;
 }
 
+// 2026-09-28: a 62MB GIF got sourced and shipped once with no size check at
+// all (repo push warned it exceeded GitHub's own recommended 50MB limit) — cap
+// ingestion at a sane social-media size so one oversized source never bloats
+// the repo or slows the site.
+const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
+
+/**
+ * Downloads each candidate's `sourceUrl` (and writes it when `write`). A
+ * failure on one candidate is recorded in `failed` and skipped — it never
+ * aborts the rest (2026-10-06: one DjVu book scan killed a whole run).
+ */
+export async function fetchCandidates(
+  candidates,
+  { write, photosDir, seenHashes, fetchImpl = fetch, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+) {
+  const skippedDuplicates = [];
+  const failed = [];
+  await mkdir(photosDir, { recursive: true });
+  for (const candidate of candidates) {
+    const id = candidate?.id ?? '(unknown)';
+    try {
+      if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
+        throw new Error('--fetch requires a candidate "sourceUrl" http(s) URL to download from.');
+      }
+      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
+      // small courtesy delay between downloads keeps this a well-behaved client.
+      await sleepImpl(500 + Math.random() * 500);
+      const res = await fetchImpl(candidate.sourceUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
+      });
+      if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.byteLength > MAX_PHOTO_BYTES) {
+        throw new Error(
+          `fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
+        );
+      }
+      const hash = createHash('sha256').update(buf).digest('hex');
+      if (seenHashes.has(hash)) {
+        skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
+        continue;
+      }
+      const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
+      await mkdir(path.dirname(destPath), { recursive: true });
+      if (write) await writeFile(destPath, buf);
+      seenHashes.set(hash, candidate.id);
+    } catch (err) {
+      failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+    }
+  }
+  return { skippedDuplicates, failed };
+}
+
+/** The run fails only when there was at least one candidate and every one failed. */
+export function assertNotAllFailed(total, failedCount) {
+  if (total > 0 && failedCount === total) {
+    throw new Error(`all ${total} candidate(s) failed to fetch — see warnings above.`);
+  }
+}
+
 // The rest of this file only runs as a CLI entrypoint, never on import (so
 // the export above can be unit-tested without a network call / real argv).
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -72,47 +132,18 @@ async function main() {
   const seenHashes = await existingLibraryHashes(inventory);
   const skippedDuplicates = [];
 
+  const failed = [];
   if (fetchMode) {
-    await mkdir(PHOTOS_DIR, { recursive: true });
-    for (const candidate of candidates) {
-      if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
-        throw new Error(`${candidate?.id ?? '(unknown)'}: --fetch requires a candidate "sourceUrl" http(s) URL to download from.`);
-      }
-      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches
-      // (429s observed sourcing photos for the founder-directed photo-reuse
-      // fix, 2026-09-28/29); a small courtesy delay between downloads keeps
-      // this script a well-behaved client of any external image host, not
-      // just Wikimedia — mirrors the pacing already used in
-      // source-reddit-photos.mjs's relayFetchImpl.
-      await new Promise((resolve) => setTimeout(resolve, 500 + Math.random() * 500));
-      const res = await fetch(candidate.sourceUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
-      });
-      if (!res.ok) throw new Error(`${candidate.id}: failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
-      const buf = Buffer.from(await res.arrayBuffer());
-      // 2026-09-28: a 62MB GIF got sourced and shipped once with no size
-      // check at all (repo push warned it exceeded GitHub's own recommended
-      // 50MB limit) — cap ingestion at a sane social-media size so a single
-      // oversized source never bloats the repo or slows the site.
-      const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
-      if (buf.byteLength > MAX_PHOTO_BYTES) {
-        throw new Error(
-          `${candidate.id}: fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl}) — skip this candidate.`,
-        );
-      }
-      const hash = createHash('sha256').update(buf).digest('hex');
-      if (seenHashes.has(hash)) {
-        skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
-        continue;
-      }
-      const destPath = resolvePhotoDestPath(candidate.mediaPath, PHOTOS_DIR);
-      await mkdir(path.dirname(destPath), { recursive: true });
-      if (write) await writeFile(destPath, buf);
-      seenHashes.set(hash, candidate.id);
-    }
+    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes });
+    skippedDuplicates.push(...result.skippedDuplicates);
+    failed.push(...result.failed);
+    for (const { id, reason } of result.failed) console.log(`::warning::${id}: ${reason}`);
+    assertNotAllFailed(candidates.length, result.failed.length);
   }
 
-  const toImport = candidates.filter((c) => !skippedDuplicates.some((d) => d.id === c.id));
+  const toImport = candidates.filter(
+    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id),
+  );
   for (const candidate of toImport) {
     const findings = validatePhotoEntry(candidate);
     if (findings.length) throw new Error(`${candidate?.id ?? '(unknown)'}: ${findings.join('; ')}`);
@@ -135,7 +166,7 @@ async function main() {
 
   console.log(
     `${write ? 'updated' : 'validated'} photo library: ${toImport.length} candidate(s) imported, ` +
-      `${skippedDuplicates.length} duplicate(s) skipped, ${merged.length} total inventory entries.`,
+      `${skippedDuplicates.length} duplicate(s) skipped, ${failed.length} failed/skipped, ${merged.length} total inventory entries.`,
   );
   if (skippedDuplicates.length) {
     for (const dup of skippedDuplicates) console.log(`  skipped ${dup.id}: content-identical to existing entry "${dup.duplicateOf}"`);

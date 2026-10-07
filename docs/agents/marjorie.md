@@ -624,6 +624,24 @@ action is final. The founder's unambiguous `assign`, `defer` or `close`
 reply is handled through helpers within invariant 3. No additional Discord
 posts are authorized beyond the existing brief and chat replies.
 
+Silence defaults to `defer` (founder decision 2026-10-06): a chase human
+action open 7 days (its `<!-- ha filed=YYYY-MM-DD -->` date) with no founder
+reply (7 days counted in America/Los_Angeles) is applied as `defer` by
+`scripts/marjorie/lib/chase-auto-defer.mjs`, run by the plain `auto-defer` job
+of `routine-marjorie-ops.yml` (entrypoint `chase-auto-defer-run.mjs`, no LLM,
+never starts the Sonnet session). It re-reads the issue right before writing
+and skips on a reply, bot-authored marker or exception label; one failing item
+only logs a `::warning::`. It posts the same chase-action marker (message id
+`auto-7d`) and `deferred` label as a typed `defer`, comments once on the issue,
+then closes the HA as `skip` ("auto-deferred after 7 days of silence") through
+one auto-merged PR. Re-runs are idempotent (marker, label, pending branch).
+The auto marker is trusted only from `AUTO_DEFER_AUTHOR` (the PAT owner); exception
+labels always win. Never defaulted: issues labelled `founder-decision`, `desk:founder` or
+`founder-task` (`AUTO_DEFER_EXCEPTIONS`) keep asking. A chase with any typed
+reply, a `deferred` or `founder-assigned` label is left to the reply path. To
+re-open an auto-deferred chase, remove the `deferred` label and delete the
+issue's line from `HUMAN-ACTIONS-DONE.md`.
+
 Invariants 1 and 3 remain in force: she dispatches engineering work and
 does not implement it; she closes only what her existing authority permits.
 Her routines gain no Write/Edit tool. Contract:

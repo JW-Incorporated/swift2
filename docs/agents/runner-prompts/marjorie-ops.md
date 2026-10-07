@@ -274,6 +274,8 @@ missing-source status means leave that PR unmerged and report the status in
 your run summary; never invent a replacement number or bypass the check.
 Finish alert branches with a clean committed tree before invoking the helper.
 No new Discord post is allowed; the existing brief reports chase outcomes.
+The 7-day silence default (auto-defer) is NOT yours: the plain `auto-defer`
+job applies it without a session. Never apply or re-apply one yourself.
 
 ## Cross-cutting rules
 
