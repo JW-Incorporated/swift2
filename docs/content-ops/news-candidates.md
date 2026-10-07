@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 84
+
+## Travis Kelce Shares Insight into Birthday Dinner with Taylor Swift
+
+- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce offered a peek into his birthday dinner with Taylor Swift, highlighting their shared moments. This gathering adds to the public interest in their relationship.
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMilAFBVV95cUxNOVp5MFkzLVJVNTV4aUhsR011M1JXZ3lnMTYxank5a2VPalhtRmM2VFBCRnpjTFJrT2hOVGgxVTdvMnFWRnhYWWxuSXJxQnV4SnFZWnVyaXBRLTM0MEV4ektqbUl2dTJVYTBuLXNWQWU3NElCa3BKWmN4U21iZHFpTmYxTEdfeXk0N2YzMGRYSW55V080?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Victims Speak Out in Taylor Swift Ticket Fraud Case as Sentencing Postponed
+
+- first seen: 2026-10-07 16:23 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Victims of a ticket fraud scheme involving Taylor Swift have provided impact statements following a delay in sentencing. The case highlights the ongoing issues of ticketing fraud in the music industry.
+- sources:
+  - [unverified] The Globe and Mail — https://news.google.com/rss/articles/CBMiygFBVV95cUxPdlNKZlI1dFNuT0l5M1VZeG9vbjgzWjdsUTd0RThnR1dWaHpvV1hnRVNMU1VOVDEzLXpxVExLaFZQSnNQcFIwSHJlSjV5V19HTEpvQlZsR1pZeW5UT3pHbkFEUEFyQ0U3ZVlIQlBVRkRrZFBRREJmVEdmT21sWktkeVVtOE03VjV4RTYtdFhWRU00dk1RNTZWMElqcEl4T09Hb0VQVXgtTjNHVWIxb0JZSHRYSXhJUzY1UHJoZjV0X3N2OVpFR0xHVFdR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Embraces Bad Girl Style for Fall in Vogue
+
+- first seen: 2026-10-07 16:23 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases her interpretation of bad girl style in a recent Vogue feature. The appearance coincides with the fall season, highlighting her fashion choices.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMid0FVX3lxTE01ME4yZ25iS1VUNTNZVE1ocTdUMlZaNXJ2enRobm55Q0txSTZhOWMtYlpVZmE5anBrSVlkQ2R1YXZ2M3NtWktTbHhKMUN4ZUZmRVhVTFBQdWVTaUtBd2hZSTZlS21TY0xGeXFhMTZZVW02TVJjaFNZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Trainer Indicates Taylor Swift's Impact on Travis Kelce's Fitness
+
+- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A trainer has suggested that Taylor Swift may be influencing the fitness regimen of NFL player Travis Kelce. This statement draws attention to their relationship and its potential effects on Kelce's performance.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxNUjhMbGExajJwc3lLLV9FR2hMc3JCQ1hlU0RuVXNZZ05MS0VfRHE4endXcWFuZy02T3ZlOUpvSU1jdHV1eGFKSjd3XzBpTHdVVjA0SEhzcmE1U1M4TEloSE5sMUZLUnhqOFZWbUtXZFRDYk9Kc3JGcW1zZ0pabW9ieDJlUTZNdDFxOUVQRDRReURfMXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Coordinated Looks Highlighted
+
+- first seen: 2026-10-07 16:23 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new article from People.com outlines nine instances where Taylor Swift and Travis Kelce coordinated their outfits, showcasing their style choices together.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE1WZkV2YURMeTNtWkhVbzFiOVFIdmhaN2c5WFZCM19rSVpYMzg5bm5hTkNSUm1lVnc0VGYtZ2NKREJ2Tk54YVAxOG1xd1FBX3Njd2VxbWo4QVNCRUFOVzBYQU9Xenh4dVFqNndjZ0N3bmZJei10MzlqbHZVWnRfZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses His 37th Birthday Celebration with Taylor Swift
+
+- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares insights about celebrating his 37th birthday with his wife, Taylor Swift, highlighting special moments from the event. The couple's public relationship continues to garner attention.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxObVlXMGJkdEpyQVh6dHZlWE1ad1M1RXpOejVzNTRvWkpGWDJlN0R6YnhIb2FyeXVtU1pna2llNV9vZEtCSkZMcS1oNzZyczFDbWZlQjRiYVRiQVRsTnVPZzQybGhXZlJhRmNyTldQcElfSzdwUzhqdHRPMC1zUklVUno1NGdEZGxjTkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Emily Yahr Publishes Book on Taylor Swift’s Country Music Era
+
+- first seen: 2026-10-07 16:23 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Emily Yahr has released a new book focusing on Taylor Swift's early years in country music, providing insights into that period of her career.
+- sources:
+  - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNTnVmbHBMYmk0RnpVZmE2U2dibWF1VnRaU0d2RW5PeUcwS3V6ZUpIeTVjbUlzOGRXM0hOQ1RWU1Q4c3psT3hJNVVCUmFraHVHeTZNN0c5RDBRMTFOaWFsY3ZxV25jTHp3Wlltdk1pVXh1S0VKVlBqc1d4YUlWemVfV28tMUI4MjFsX0NTYmNOSEJsTUNKMnlHbkRn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift approaches Beatles' record of 20 Hot 100 No. 1s
+
+- first seen: 2026-10-07 07:11 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is nearing the record of 20 Hot 100 No. 1 hits, previously held by The Beatles. This milestone highlights her significant impact on the music charts.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUE9XZWlMVVpkcTRWbUt3OHBIV1laV0JfSlp3ZmFVeExqc2E2WlNMTFZCVTNCVmRTcjU3SkVDanZvZHRKX3dBazQ1MTd1ajZpN0MwS0pzR3RUTjFJS21DSG5qYVE2a3Ayd0VyTjU5a1dBUjJveFpGS0NlNmRYOVpIeGZHQjZFMm1NLXlEYWszd19kTEJET1ZZVDhpbFFWaG9uWkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
 
@@ -39,18 +103,11 @@ Stories: 85
 ## The Butler Collegian Reviews Taylor Swift’s ‘The Encore’
 
 - first seen: 2026-10-07 07:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The Butler Collegian has published a review stating that Taylor Swift’s latest work, ‘The Encore,’ did not meet expectations and is considered a disappointment.
 - sources:
+  - [unverified] The Amherst Student — https://news.google.com/rss/articles/CBMijgFBVV95cUxNdjBXdnV0MVkzNFRMLTRiOVBCTG5idU9hc3c0RklEZ1JSZjVTYmRWTEZUT2JrYjRVMWUxSFZla3hLSGZrdXcwUkdjU3prUFdyOU9laGJZOVdrTGF2Q0dQQ1FLaldNZmxzajdSM0d1SE9VbGN4LTJVZVRSX2d2akVqQWxkMjdoUmJ0bm5MV1V3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Butler Collegian — https://news.google.com/rss/articles/CBMijAFBVV95cUxNZmpfd3pkb185YjZ6QXRPQ1JQWGZVRW9UZGJJZWpNTG5CWnMxeG0xd09vY0JIb2cxNU1Va29jWDNQaFNMYW9hYUlnT2VEeDZWcFdlSHJvcVJqYVk4M2lLamc0TENweno1aXV6MVdDY2lPcDMxN3F2R0c3ek9vMnZhazIzOV9KQ3Y1REpjYQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift approaches Beatles' record of 20 Hot 100 No. 1s
-
-- first seen: 2026-10-07 07:11 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is nearing the record of 20 Hot 100 No. 1 hits, previously held by The Beatles. This milestone highlights her significant impact on the music charts.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUE9XZWlMVVpkcTRWbUt3OHBIV1laV0JfSlp3ZmFVeExqc2E2WlNMTFZCVTNCVmRTcjU3SkVDanZvZHRKX3dBazQ1MTd1ajZpN0MwS0pzR3RUTjFJS21DSG5qYVE2a3Ayd0VyTjU5a1dBUjJveFpGS0NlNmRYOVpIeGZHQjZFMm1NLXlEYWszd19kTEJET1ZZVDhpbFFWaG9uWkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'Patient Zero' Debuts at No. 1
 
@@ -665,68 +722,3 @@ Stories: 85
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQSlNlQUJIVmhoZzE1eXc5Q3R4a01EclRTRExwcjdGSUc0Z3doU2FRUUNxdnFwYTF0MUY1TmN0WmVXTFZXYnEzQWhNN1owazhMaUZZRHhUd3I2SHgyZ1RQZUZKNXdhUjFsNnN0QzBBMXpvQklSZUxuMGZiZ3pQNDhvYzNiMlJLMFBuVm12TkQ3dTVaWENXRVpsQVllMWNMZmZUQnZQUw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSXk3TzVyaHBBOUFHNno3SGstVEFyQ1FHQW9XZFBia1R6RmtoNEpiN1Itb0xNVFNjcXo2dnEteFNyeWxlOUpqc1NlWVdORWZqdVVLNU1OaU9KOWhlTFVLdVoxQ3R4NkZRWFJWSTkwdUR4dnJNc1FLbTZrMGNKTFZMUGNpRWVmaWg0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details Emerge on Dakota Johnson and Colin Farrell's Disagreement
-
-- first seen: 2026-10-04 14:46 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent report uncovers the reasons behind a disagreement between Dakota Johnson and Colin Farrell. Further context on their altercation has drawn attention from fans and media alike.
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNS0QzRll5S09vYzdYMnQ0THlCWG5vUFM4ZENKSjZxSU1FYUg2bkl2U3dxakhzRG1mX1FkczlCS3g4OWJOU0c2dTdIa0cwaGdMdnp3dTFJWlVyUHJyMmZDU1RKYzVOTjZjVlZwSG9QT01MSlV5XzgyM1kyYTZqX0ZWaXF1V3M3a2VnaFZsXzFvaV9iZXV3R3I0UGtjRHcxYVBHRmFwVm0tZEc3Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Dakota Johnson Showcase Unique Bestie Style on SNL
-
-- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: During her appearance on SNL, Taylor Swift, alongside Dakota Johnson, demonstrated that best friend fashion can be unique without being overly coordinated. Their style choices reflected individuality while still maintaining a friendship theme.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRnFQM3dQdzVDU2daRFZrY2VjSU5YaWxReGZVMmo3MTBMa2JtNElLcm9sazVoZnplT3lya0E0SERBVzl0RjF1d2RoMmFfNmFubmZSLS1QNFJLa3ZqZTBjbVR6QUxfTkxDX1IxUTZJVzF3VHhWWFhlSEwwbEF0MDBIN3VaMEpQQUFV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise Cameo on SNL with Dakota Johnson
-
-- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: During the opening monologue of 'Saturday Night Live,' Dakota Johnson, the host, was joined by Taylor Swift in a surprise appearance. The episode featured Turnstile as the musical guest.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/04/arts/television/snl-offers-midterm-promo-help-to-trump-and-hegseth.html
-
-## Taylor Swift Highlights Back-to-School Fashion in SNL Appearance
-
-- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a stylish minidress during her recent appearance on SNL, offering a fresh take on back-to-school fashion trends. The outfit drew attention and set a fashionable tone for the season.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQNmJEYnhWRHJLcHBZM1MwaGIyNnRlY2U1dnBPN1NNbDRvajBtWFQ0QzFkTE8xZXdyNzN3LXozeEppYnR1WWs2Q3lwTWUzbHFhYnlfOHhpSjExQW9QTE1iT196U0VOalNVZm9UN2h2VG9hQ1lpZFdxZHAzRWdydFRmaVM1ZFFQX1RLRGlfS3pUZHAzdmJySEFEcFFMVVktX0k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears During Dakota Johnson's 'SNL' Monologue
-
-- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made an unexpected appearance during Dakota Johnson's monologue on 'SNL'. The moment surprised both the audience and viewers alike.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNaWJERW44QXdUREhBbmxkckJCTDNBc2ZjX1F5dnRkbUFvM3BwNnQzbzMtRHZIYkFmSjNFUllOeFBFUl9mQ3ZnSHFlMWZlWmJnNXVuX3BDaTFBeC11VUlnNi04bVFCeVJDS0dsQW44eXBBNDJSOVFBcVVSY3pXYUZGSTRRZHBCdHNqc2FNbGR4dDFrclRodFEwY19Lb3pOeG1zRFF6TFQ4Y0w1NnpaNGtYb19fbXhDb2tadGxER3c2VkVjNmQ5VEpOYg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cameo on SNL with Turnstile Debut
-
-- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: During the latest episode of Saturday Night Live hosted by Dakota Johnson, Taylor Swift made a cameo appearance as Turnstile debuted as the musical guest. This marks a significant moment as Turnstile is the first hardcore band to perform on the show in 45 years.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513538/turnstile-make-snl-debut-taylor-swift-cameos/news/
-
-## Taylor Swift Appears During Dakota Johnson's SNL Monologue
-
-- first seen: 2026-10-04 14:46 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise appearance during Dakota Johnson's monologue on Saturday Night Live. The moment added excitement to the show's opening, highlighting Swift's presence in the entertainment scene.
-- sources:
-  - [unverified] tvinsider.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQeUtjV0RNTHNUSWlhZTYxX0N1X0Y0Y0FsMC00SVE4NVQzMm0wMVpDVm5KZ3A4YnhFRXFHWmxnVUVZa2htNWpRNk5iQmNGaUpycTdBTC1GZTJPNEtyTEZEa01tVzBadjd2NXNCWUpGUEdTUU9ScjJ4SHJjVnlrYnRDMEFKYWRRWUN4RnFSSw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Game Day Outfits Remain Fashionable
-
-- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The article discusses the timeless nature of Taylor Swift's game day outfits and their enduring style appeal. It highlights how her fashion choices resonate with fans and continue to influence trends.
-- sources:
-  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxOWVU1NG9ZUzdFNXpsZjRaNXItWnJSZDY3cjQzTThJVmZHS20tNmVfNU9KOEFZaGFJd1QxVDRJcHExMkFtWTZFRXNoSmd4NGFkZURaaV9fcktJSTF6YUo1a0szaFBJdlFoSnlfU01KMzlJbU53Q19jWWM1VGZVUG4yVDFoNExmTHJRcG9keExwT2szY3NqS2dHZnlNTzFQR0R0SXhFSm1WUEE4NjFD?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSU1GcmZtQkJRSEU0bEluMUtmejVHeHY0UkNoT3Z5azFvSGM3UTNObDFDQVVWT3lSQVc5ZTdvYXU5SlViQ2tPSE52a3c4RFVHd1l2YVNSZkR0UEd2ZEVKdEJTZFJCMkJRLVJuWWNMZFZkVXpIcFlwaEVfZWtnWXBCQS1oaUdBS0pHUkoyaXZyUDNBWmhmdHliTEVvNWQ?oc=5&hl=en-US&gl=US&ceid=US:en
