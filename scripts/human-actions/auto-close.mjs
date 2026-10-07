@@ -33,9 +33,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const HEADING = /^##\s+#(\d+)\s/;
 const VERIFY_LINE = /^<!--\s*ha verify:\s*(.*?)\s*-->\s*$/;
 const NAME = /^[A-Za-z0-9_]{1,100}$/;
-const VALUE = /^[A-Za-z0-9_.:/@+=-]{1,200}$/;
+const VALUE = /^[A-Za-z0-9][A-Za-z0-9_.:/@+=-]{0,199}$/;
 const NUM = /^\d{1,9}$/;
-const WORKFLOW = /^[A-Za-z0-9_.-]{1,100}\.ya?ml$/;
+const WORKFLOW = /^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}\.ya?ml$/;
 const SKIP_LEDGER = /^-\s+#(\d+)\s*·[^·]*·\s*skip\s*·/;
 
 /** `kind args…` → { kind, args, label } or null when it is not one of the safe kinds. */
@@ -106,12 +106,13 @@ export function evaluate(verify, { gh, repo }) {
         return pr.state === 'MERGED' ? 'pass' : 'fail';
       }
       case 'issue-closed': {
-        const issue = JSON.parse(gh(['issue', 'view', a, '--repo', repo, '--json', 'state']));
-        return issue.state === 'CLOSED' ? 'pass' : 'fail';
+        const issue = JSON.parse(gh(['issue', 'view', a, '--repo', repo, '--json', 'state,stateReason']));
+        return issue.state === 'CLOSED' && issue.stateReason === 'COMPLETED' ? 'pass' : 'fail';
       }
       case 'workflow-green': {
-        const runs = JSON.parse(gh(['run', 'list', '--workflow', a, '--repo', repo, '--status', 'completed', '--limit', '1', '--json', 'conclusion']) || '[]');
-        return runs[0]?.conclusion === 'success' ? 'pass' : 'fail';
+        const runs = JSON.parse(gh(['run', 'list', '--workflow', a, '--repo', repo, '--branch', 'main', '--status', 'completed', '--limit', '20', '--json', 'conclusion,event']) || '[]');
+        const latest = runs.find((r) => !/^pull_request/.test(r.event || ''));
+        return latest?.conclusion === 'success' ? 'pass' : 'fail';
       }
       default:
         return 'skip';
@@ -144,10 +145,13 @@ export function closeRecord({ number, label }, date) {
 
 export async function main({ env = process.env, root = ROOT, exec = execFileSync, log = console.log, now = new Date(), argv = process.argv.slice(2) } = {}) {
   const repo = env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
-  const run = (cmd, args, opts = {}) => exec(cmd, args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...env, ...opts.env } });
+  // The PAT is pulled out of env here: run()/syncCloses (commit, push, PR) never see it.
+  const { OPS_FIXER_PAT: settingsPat, ...rest } = env;
+  const run = (cmd, args, opts = {}) => exec(cmd, args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...rest, ...opts.env } });
   const gh = (args, { admin = false } = {}) => {
-    if (admin && !env.OPS_FIXER_PAT) throw new Error('OPS_FIXER_PAT is not available');
-    return run('gh', args, admin ? { env: { GH_TOKEN: env.OPS_FIXER_PAT } } : {});
+    if (!admin) return run('gh', args);
+    if (!settingsPat) throw new Error('OPS_FIXER_PAT is not available');
+    return run('gh', args, { env: { GH_TOKEN: settingsPat } });
   };
   const openMd = readFileSync(path.join(root, HUMAN_ACTIONS_PATH), 'utf8');
   const doneMd = readFileSync(path.join(root, HUMAN_ACTIONS_DONE_PATH), 'utf8');
