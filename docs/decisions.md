@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Concert-photo library imports auto-merge ("Photos A")
+
+**Decision.** AMENDS, and does not delete, the 2026-08-11 social-image rule (an `apps/web/public/social/**` image only auto-merges when it rides with a validated `social/queue/**.json` draft) and its 2026-10-05 merch drop-card amendment. A second narrow carve-out: an image counts as accompanied ONLY when ALL hold: (1) the PR head branch is exactly `social/concert-photo-sourcing` (the single fixed branch of `concert-photo-sourcing.yml`, now an exact entry in the branch/author gate, same author set as every other content lane); (2) the image path matches `^apps/web/public/social/library/photos/[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$` (directly in that directory, no subdirectory, no traversal) and the PR newly adds it; (3) the same PR adds or modifies `social/photo-library.json` (now allowlisted and in `on.paths`). Every other image case stays fail-closed; the merch rule is unchanged. The predicate stays one module, renamed `scripts/automerge-bot-image-exemption.mjs` (was `automerge-merch-drop-exemption.mjs`; the 2026-10-05 entry's references are historical).
+
+**Why.** Library photos are not posts: importing one publishes nothing. Joey's approval (the ✅ in `#longlive-tree`) still gates every post that uses a photo, so the human look is kept where it matters, and the bot's photo PRs no longer wait on a manual merge. Approved: Joey, chat 2026-10-06 22:33 PDT, "Photos A".
+
+---
+
 ## 2026-10-06 — Marjorie's assign/defer/close chases default to `defer` after 7 days of silence
 
 **Decision.** A 96h chase HA open 7 days with no founder reply is auto-applied as `defer` (same marker/label path as a typed reply), closed as `skip` with the note "auto-deferred after 7 days of silence (founder decision 2026-10-06)", and the issue gets one comment saying how to re-open the chase. Issues labelled `founder-decision`, `desk:founder` or `founder-task` are never auto-deferred. Runs as a plain deterministic `auto-defer` job in `routine-marjorie-ops.yml` (no LLM, never starts the Sonnet session).
