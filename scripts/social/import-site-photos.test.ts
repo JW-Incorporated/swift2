@@ -109,7 +109,7 @@ describe('buildEntry', () => {
     const ref = { url: 'https://example.com/a.jpg', era: 'red' };
     expect(siteEntryId(ref)).toBe(siteEntryId({ ...ref }));
     expect(siteEntryId(ref)).toMatch(/^site-red-[0-9a-f]{10}$/);
-    expect(altFor({ caption: 'word '.repeat(80) }).length).toBeLessThanOrEqual(201);
+    expect(altFor({ caption: 'word '.repeat(80) }).length).toBeLessThanOrEqual(200);
     expect(altFor({ title: '🌈 Calm Down video' })).toBe('Taylor Swift: Calm Down video');
   });
 });
@@ -130,5 +130,30 @@ describe('normalize', () => {
     expect(alpha.ext).toBe('png');
     const tagged = await normalize(await make(1000, 800).withMetadata({ exif: { IFD0: { Copyright: 'x' } } }).jpeg().toBuffer());
     expect((await sharp(tagged.out).metadata()).exif).toBeUndefined();
+  });
+});
+
+describe('audit-driven filters (2026-10-07)', () => {
+  const reason = (url: string, extra = {}) => exclusionReason({ url, caption: 'A photo.', kind: 'primary', ...extra });
+  it('excludes watermarked outlet hosts and non-photo caption words', () => {
+    expect(reason('https://jj-justjared-media.s3.amazonaws.com/a.jpg')).toBe('watermarked-outlet-host');
+    expect(reason('https://akns-images.eonline.com/a.jpg')).toBe('watermarked-outlet-host');
+    expect(reason('https://tayswiftstyle.wordpress.com/a.jpg')).toBe('watermarked-outlet-host');
+    expect(reason('https://example.com/a.jpg', { caption: 'On the cover of a magazine cover story' })).toBe('non-photo-cover-art-or-graphic');
+    expect(reason('https://example.com/a.jpg', { caption: 'A billboard in Times Square' })).toBe('non-photo-cover-art-or-graphic');
+    expect(reason('https://example.com/a.jpg', { kind: 'screenshot' })).toBe('not-taylor-kind');
+    expect(reason('https://example.com/a.jpg', { caption: 'A photographic portrait.' })).toBeNull();
+  });
+  it('takes the era from the content seed file name, never from item fields', () => {
+    const mod = { default: { eraSlug: 'red', items: [{ eraSlug: 'lover', thumbnailUrl: 'https://example.com/t.jpg', title: 'T' }] } };
+    expect(enumerateSitePhotoRefs([{ file: 'content/folklore.mjs', mod }])[0].era).toBe('folklore');
+    expect(enumerateSitePhotoRefs([{ file: 'candidates/00-orbit.mjs', mod }])[0].era).toBe('lover');
+  });
+  it('cuts long alt text at a sentence or word boundary with no ellipsis', () => {
+    const long = `${'Taylor performs on stage in a sparkling bodysuit during the show. '.repeat(1)}${'And then the crowd keeps singing along for a very long time '.repeat(4)}`;
+    expect(altFor({ caption: long })).toBe('Taylor performs on stage in a sparkling bodysuit during the show.');
+    const noStop = altFor({ caption: 'word '.repeat(80) });
+    expect(noStop.endsWith('word')).toBe(true);
+    expect(noStop).not.toContain('…');
   });
 });

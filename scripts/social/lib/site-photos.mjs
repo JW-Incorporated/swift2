@@ -22,8 +22,10 @@ const MERCH_HOSTS = /(^|\.)(shopify\.com|etsy\.com|etsystatic\.com|amazon\.[a-z.
 const THUMBNAIL_HOSTS = /(^|\.)(ytimg\.com|youtube\.com|ggpht\.com)$/i;
 // Streaming/store album art: not photos.
 const COVER_ART_HOSTS = /(^|\.)(scdn\.co|mzstatic\.com|coverartarchive\.org|rapgenius\.com|genius\.com)$/i;
+// Hosts whose photos carry a visible outlet watermark/backdrop (visual audit of batch 1, 2026-10-07).
+const WATERMARKED_OUTLET_HOSTS = /(justjared|eonline\.com|tayswiftstyle|disneyplus|disney\.com|vevo)/i;
 const WATERMARK_HINT = /watermark|[-_./]comps?[-_./]|preview-?comp|[-_/]sample[-_./]|placeholder/i;
-const NON_PHOTO_TEXT = /\b(cover art|album cover|single cover|artwork|official cover|logo|poster|infographic|screenshot)\b/i;
+const NON_PHOTO_TEXT = /\b(cover art|album cover|single cover|artwork|official cover|magazine cover|logo|poster|infographic|screenshot|billboard|graphic|document|lawsuit|filing|storefront|building exterior|venue exterior)\b/i;
 const IMAGE_EXT = /\.(jpe?g|png|webp)$/i;
 
 /** Wikimedia thumbnail URLs -> the original file (we resize ourselves; thumbs are tiny). */
@@ -53,16 +55,21 @@ export function altFor(ref) {
   if (!text) return '';
   if (text.length <= 200) return text;
   const cut = text.slice(0, 200);
-  return `${cut.slice(0, cut.lastIndexOf(' ') > 120 ? cut.lastIndexOf(' ') : 200).replace(/[,;:\s-]+$/, '')}…`;
+  const sentence = cut.match(/^(.{40,}?[.!?])(\s|$)/);
+  if (sentence) return sentence[1];
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[,;:\s-]+$/, '');
 }
 
 /** Every site-photo ref in the given seed modules: `[{ file, mod }]` where `mod` is the module namespace. */
 export function enumerateSitePhotoRefs(modules) {
   const refs = [];
+  // content/<era>.mjs: the file's own era wins; never inferred from item fields.
   const walk = (value, ctx, arrayKey, file) => {
+    const fileEra = /^content\/([^/]+)\.mjs$/.exec(file)?.[1];
     if (Array.isArray(value)) return value.forEach((entry) => walk(entry, ctx, arrayKey, file));
     if (!value || typeof value !== 'object') return;
-    const era = ERA_KEYS.map((k) => value[k]).find((v) => typeof v === 'string') ?? ctx.era;
+    const era = fileEra ?? ERA_KEYS.map((k) => value[k]).find((v) => typeof v === 'string') ?? ctx.era;
     const title = typeof value.title === 'string' ? value.title : typeof value.name === 'string' ? value.name : ctx.title;
     const here = { era, title };
     if (PHOTO_ARRAY_KEYS.has(arrayKey) && typeof value.url === 'string') {
@@ -92,6 +99,7 @@ export function exclusionReason(ref) {
   if (!/^https?:$/.test(url.protocol)) return 'not-a-url';
   const host = url.hostname;
   if (WATERMARK_HOSTS.test(host)) return 'getty-or-stock-comp-host';
+  if (WATERMARKED_OUTLET_HOSTS.test(host)) return 'watermarked-outlet-host';
   if (THUMBNAIL_HOSTS.test(host)) return 'youtube-thumbnail';
   if (MERCH_HOSTS.test(host)) return 'merch-or-product-host';
   if (COVER_ART_HOSTS.test(host) || /^\/wikipedia\/en\//.test(url.pathname) && host === 'upload.wikimedia.org') return 'album-cover-art';

@@ -5,6 +5,7 @@
 // docs/social/guardrails.md Guardrail 2 + docs/decisions.md 2026-10-01.
 //
 //   node scripts/social/import-site-photos.mjs                 dry run: enumerate + exclusion counts only
+//   node scripts/social/import-site-photos.mjs --dry-run       also prints era/kind/url/alt per candidate, to audit before downloading
 //   node scripts/social/import-site-photos.mjs --write [--max-import 500] [--max-mb 2000]
 //
 // Download policy: serial, ~1 req/s, browser-like UA, 20s timeout, any error is a
@@ -103,6 +104,9 @@ async function main() {
   const { candidates, excluded } = selectCandidates(refs, { libraryUrls });
   const stats = { refs: refs.length, candidates: candidates.length, excluded, failed: 0, tooSmall: 0, duplicates: 0, imported: 0, bytes: 0, deferred: 0 };
   console.log(`enumerated ${refs.length} refs -> ${candidates.length} candidates`, JSON.stringify(excluded));
+  if (process.argv.includes('--dry-run')) {
+    for (const c of candidates) console.log(`${c.era ?? '-'}	${c.kind ?? '-'}	${c.url}	${buildEntry(c, 'jpg').alt}`);
+  }
   if (!write) return;
   if (process.argv.includes('--renormalize')) await renormalizeExisting(inventory, inventoryPath);
 
