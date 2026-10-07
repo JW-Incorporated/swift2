@@ -4,5 +4,7 @@
   { "workflow": "routine-marjorie-ops.yml", "minGapMinutes": 55 },
   { "workflow": "marjorie-status.yml", "minGapMinutes": 55 },
   { "workflow": "auto-merge-keepup.yml", "minGapMinutes": 14 },
-  { "workflow": "merch-awin-sync.yml", "minGapMinutes": 360 }
+  { "workflow": "merch-awin-sync.yml", "minGapMinutes": 360 },
+  { "workflow": "social-approval-poll.yml", "minGapMinutes": 14 },
+  { "workflow": "social-poster.yml", "minGapMinutes": 28 }
 ]

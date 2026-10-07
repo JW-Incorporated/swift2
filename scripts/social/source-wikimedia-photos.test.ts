@@ -9,6 +9,7 @@ import {
   fetchImageInfo,
   sourceWikimediaQuery,
   dedupeById,
+  DEFAULT_QUERIES,
   ERA_KEYWORD_HINTS,
 } from './source-wikimedia-photos.mjs';
 
@@ -196,6 +197,63 @@ describe('sourceWikimediaQuery', () => {
     const fetchImpl = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ query: { search: [] } }) });
     expect(await sourceWikimediaQuery('nothing', { fetchImpl })).toEqual([]);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('sourceWikimediaQuery paging', () => {
+  it('pages 50 at a time up to the limit, serially, sleeping between requests', async () => {
+    const titles = (from: number, n: number) => Array.from({ length: n }, (_, i) => ({ title: `File:p${from + i}.jpg` }));
+    const pages = (from: number, n: number) =>
+      Object.fromEntries(Array.from({ length: n }, (_, i) => [String(from + i), makePage({ pageid: from + i, title: `File:p${from + i}.jpg` })]));
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: titles(1, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: pages(1, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: titles(51, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: pages(51, 50) } }) });
+    const sleepImpl = vi.fn().mockResolvedValue(undefined);
+    const out = await sourceWikimediaQuery('Taylor Swift concert', { limit: 100, fetchImpl, sleepImpl, delayMs: 1 });
+    expect(out).toHaveLength(100);
+    expect(fetchImpl).toHaveBeenCalledTimes(4);
+    expect(String(fetchImpl.mock.calls[2][0])).toContain('sroffset=50');
+    expect(sleepImpl).toHaveBeenCalled();
+  });
+
+  it('stops after a short page rather than requesting past the end', async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: [{ title: 'File:a.jpg' }] } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: { '1': makePage() } } }) });
+    const out = await sourceWikimediaQuery('x', { limit: 100, fetchImpl, sleepImpl: async () => {} });
+    expect(out).toHaveLength(1);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('DEFAULT_QUERIES', () => {
+  it('is unique and covers eras, past tours, general concert/live and Eras Tour cities', () => {
+    expect(new Set(DEFAULT_QUERIES).size).toBe(DEFAULT_QUERIES.length);
+    expect(DEFAULT_QUERIES.length).toBeGreaterThanOrEqual(50);
+    for (const q of [
+      'Taylor Swift Eras Tour reputation',
+      'Taylor Swift concert',
+      'Taylor Swift live',
+      'Taylor Swift Reputation Stadium Tour',
+      'Taylor Swift 1989 World Tour',
+      'Taylor Swift Red Tour',
+      'Taylor Swift Speak Now World Tour',
+      'Taylor Swift Fearless Tour',
+      'The Eras Tour London',
+    ]) {
+      expect(DEFAULT_QUERIES).toContain(q);
+    }
+    expect(DEFAULT_QUERIES.every((q) => !q.includes(','))).toBe(true);
+  });
+
+  it('tags past-tour names with the right era', () => {
+    expect(guessEraTag('Taylor Swift Red Tour 2013')).toBe('red');
+    expect(guessEraTag('Taylor Swift 1989 World Tour')).toBe('1989');
+    expect(guessEraTag('Lover Fest')).toBe('lover');
   });
 });
 

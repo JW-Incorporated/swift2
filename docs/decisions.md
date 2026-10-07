@@ -15,6 +15,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Concert photo sourcing: Reddit is optional until HOME_RELAY_URL exists
+
+**Decision.** `concert-photo-sourcing.yml` had been red since Reddit began returning 403 to GitHub Actions IPs (`reddit-rss fetch failed for r/erastour (403)`), which aborted the run before the Wikimedia, import and PR steps. `source-reddit-photos.mjs` now treats a 403 as non-fatal only when `HOME_RELAY_URL` is unset: it emits `::warning::Reddit blocked from Actions IPs; set HOME_RELAY_URL to enable`, writes `[]` and exits 0. Any other error, or a 403 with a relay configured, still fails. The Wikimedia source (same CC BY / BY-SA / CC0 / PD filter) now runs ~60 queries (eras, past tours, general concert/live, Eras Tour cities; `scripts/social/lib/wikimedia-queries.mjs`) at 100 results each, and a run imports at most 150 new photos so the PR stays reviewable.
+
+**Why.** Founder priority: more photos. Wikimedia is the one source that works from Actions; Reddit needs a residential relay whose URL is not yet set. No Reddit API credentials, ever (founder rule). Alternatives: `continue-on-error` on the step (rejected — would hide real script bugs).
+
+---
+
 ## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
 
 **Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.
@@ -8751,8 +8759,20 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 
 **Why.** `link-sweep` and `merch-awin-sync` were red on every daily run 2026-10-02..06 and nobody was alerted: the check only covered a hand-kept list. Alerts #4996 and #5174 also stayed open after a success because the close path only ran in the daily 14:35 pass and only looked at `schedule` events.
 
+## 2026-10-06 — Agents may flip allowlisted non-secret switches (founder decision, Joey)
+
+**Decision.** `scripts/ops/set-switch.mjs <NAME> <VALUE> --reason "..."` lets agents set an allowlist of NON-SECRET repo variables: every `*_ENABLED` variable the workflows read (`AWARENESS_LANE_ENABLED`, `BOT_CHAT_ENABLED`, `COMMUNITY_CRAWL_ENABLED`, `COMMUNITY_SCAN_ENABLED`, `CONCERT_PHOTO_SOURCING_ENABLED`, `REPLY_NOTIFIER_ENABLED`; true/false), `COMMUNITY_CRAWL_BUDGET` (positive integer), and the freezes `SOCIAL_FREEZE` and `CONTENT_AUTOMERGE_FREEZE` and `CODE_SCANNING_ENABLED` with value `true` ONLY (turning security scanning off stays founder-only) (brakes agents engage, only the founder lifts). Secrets, `MARJORIE_EMAIL`, `DISCORD_FOUNDER_IDS`, `OWNER_DISCORD_ID`, `HOME_RELAY_URL` and any name containing TOKEN/KEY/SECRET/PASSWORD/WEBHOOK/ID/EMAIL stay founder-only. The wrapper never deletes (a deleted `SOCIAL_FREEZE` reads as unfrozen) and logs every flip to `docs/ops/switch-ledger.md`. guard.sh still denies all `gh secret` mutation, `gh variable delete` and raw `gh variable set`.
+
+**Why.** The blanket guard deny forced founder relays for harmless flips (HA #56/#60/#61/#65/#68/#112 freeze flips; #84/#54 feature flags). Agents may now engage the social freeze, but only the founder lifts it. An agent may re-enable a founder-paused lane via `*_ENABLED=true` only with a `--reason`, and it is ledgered. Follow-up (security review of PR #5257): guard.sh also denies flag-first CLI forms and non-GET REST calls to the Actions variables/secrets API (`gh api`, `curl`), so the on-only guarantee cannot be bypassed.
+
 ## 2026-10-06 — CI check: workflow jobs must install the deps their scripts import
 
 **Decision.** `npm run check:workflow-deps` (ci.yml build-full) fails when a workflow job runs a repo node/tsx script that imports an npm/workspace package (transitively through relative imports) without installing deps, or imports a gitignored `*.generated.*` module without `npm run sync:content`. Builtin-only scripts keep the no-install fast path. Fixed alongside: merch-awin-directory-shortlist/recommendations, merch-e5-evidence, routine-marjorie-weekly-review (collect), merch-audit-detect/authoring (sync:content).
 
 **Why.** `.github/actions/setup-repo` defaults `npm-ci` to false; the trap bit twice in one day (#5219 merch-awin-sync, #5224 appearance-discovery), each red on every scheduled run for days. Second occurrence means an automated check (CLAUDE.md rule 8).
+
+## 2026-10-06 — Social poster and approval poll go on the 5-minute clock
+
+**Decision.** Founder decision (Joey, chat, "social yes"): `social-poster.yml` (minGap 28) and `social-approval-poll.yml` (minGap 14) join `scripts/ops/clock-table.json`, so `clock-dispatch.mjs` starts them from the 5-minute clock; their GitHub cron stays as backup. Dispatched runs are identical to scheduled ones (no `event_name` branching, no inputs; both already have `workflow_dispatch` and a serialising `concurrency` group with `cancel-in-progress: false`). Approval is unchanged: nothing posts without the founder's own Discord check.
+
+**Why.** GitHub delivered about 9 of 96 expected `*/30` poster fires and about 10 of 192 expected 15-minute poll fires per 48h, so approved posts went out late.
