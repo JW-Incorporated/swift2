@@ -22,7 +22,11 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { dHash, findNearDuplicate } from './lib/perceptual-hash.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './lib/polite-fetch.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
@@ -58,23 +62,27 @@ export const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, fetchImpl = fetch, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+  { write, photosDir, seenHashes, fetchImpl = fetch, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn },
 ) {
+  const seenPerceptual = [];
   const skippedDuplicates = [];
   const failed = [];
+  const deferred = [];
   await mkdir(photosDir, { recursive: true });
+  // Per-host pacing, Retry-After backoff and the total time budget live in the
+  // polite fetcher (Wikimedia 429'd 146 of 150 unpaced downloads, 2026-10-07).
+  const polite = createPoliteFetcher({ fetchImpl, sleepImpl, nowImpl, budgetMs, warn });
   for (const candidate of candidates) {
     const id = candidate?.id ?? '(unknown)';
+    if (polite.budgetSpent()) {
+      deferred.push(id);
+      continue;
+    }
     try {
       if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
         throw new Error('--fetch requires a candidate "sourceUrl" http(s) URL to download from.');
       }
-      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
-      // small courtesy delay between downloads keeps this a well-behaved client.
-      await sleepImpl(500 + Math.random() * 500);
-      const res = await fetchImpl(candidate.sourceUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
-      });
+      const res = await polite.fetch(candidate.sourceUrl);
       if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
       const buf = Buffer.from(await res.arrayBuffer());
       if (buf.byteLength > MAX_PHOTO_BYTES) {
@@ -82,20 +90,37 @@ export async function fetchCandidates(
           `fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
         );
       }
+      if (candidate.minLongEdge !== undefined) {
+        const meta = imageMeta(buf);
+        const longEdge = Math.max(meta?.width ?? 0, meta?.height ?? 0);
+        if (longEdge < candidate.minLongEdge) {
+          throw new Error(`image long edge is ${longEdge || 'unreadable'}px, under the ${candidate.minLongEdge}px minimum (${candidate.sourceUrl})`);
+        }
+      }
       const hash = createHash('sha256').update(buf).digest('hex');
       if (seenHashes.has(hash)) {
         skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
+        continue;
+      }
+      // The same wire photo republished by another outlet is recompressed, so
+      // sha256 misses it; a perceptual hash within this run's downloads catches it.
+      const perceptual = await hashImpl(buf);
+      const near = findNearDuplicate(perceptual, seenPerceptual);
+      if (near) {
+        skippedDuplicates.push({ id: candidate.id, duplicateOf: near.id });
         continue;
       }
       const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
       await mkdir(path.dirname(destPath), { recursive: true });
       if (write) await writeFile(destPath, buf);
       seenHashes.set(hash, candidate.id);
+      if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
     } catch (err) {
-      failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+      if (err instanceof BudgetExhaustedError) deferred.push(id);
+      else failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
     }
   }
-  return { skippedDuplicates, failed };
+  return { skippedDuplicates, failed, deferred };
 }
 
 /** The run fails only when there was at least one candidate and every one failed. */
@@ -129,20 +154,28 @@ async function main() {
   if (!Array.isArray(candidates)) throw new Error('Candidate file must be a JSON array or an object with a photos array.');
 
   const inventory = JSON.parse(await readFile(inventoryPath, 'utf8'));
-  const seenHashes = await existingLibraryHashes(inventory);
+  const seenHashes = existingLibraryHashes(inventory);
   const skippedDuplicates = [];
 
   const failed = [];
+  const deferred = [];
   if (fetchMode) {
-    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes });
+    const budgetIndex = args.indexOf('--budget-minutes');
+    const budgetMinutes = budgetIndex === -1 ? NaN : Number(args[budgetIndex + 1]);
+    const budgetMs = budgetMinutes > 0 ? budgetMinutes * 60_000 : DEFAULT_BUDGET_MS;
+    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes, budgetMs });
     skippedDuplicates.push(...result.skippedDuplicates);
     failed.push(...result.failed);
+    deferred.push(...result.deferred);
     for (const { id, reason } of result.failed) console.log(`::warning::${id}: ${reason}`);
+    if (deferred.length) {
+      console.log(`::warning::download time budget spent; ${deferred.length} candidate(s) deferred to the next run (not imported).`);
+    }
     assertNotAllFailed(candidates.length, result.failed.length);
   }
 
   const toImport = candidates.filter(
-    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id),
+    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id) && !deferred.includes(c.id),
   );
   for (const candidate of toImport) {
     const findings = validatePhotoEntry(candidate);
@@ -154,8 +187,17 @@ async function main() {
 
   const merged = [...inventory.photos];
   for (const candidate of toImport) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl is fetch-only plumbing, never stored in the inventory
-    const { sourceUrl, ...entry } = candidate;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl/minLongEdge are fetch-only plumbing, never stored in the inventory
+    const { sourceUrl, minLongEdge, ...entry } = candidate;
+    try {
+      const bytes = await readFile(path.join(ROOT, 'apps', 'web', 'public', entry.mediaPath));
+      const meta = isLfsPointerBuffer(bytes) ? null : imageMeta(bytes);
+      if (meta?.width && meta?.height) {
+        Object.assign(entry, { width: meta.width, height: meta.height, bytes: bytes.byteLength, sha256: createHash('sha256').update(bytes).digest('hex') });
+      }
+    } catch {
+      // File not on disk (dry run in fetch mode) — dimensions get recorded on the --write run.
+    }
     const existing = merged.findIndex((photo) => photo.id === entry.id || photo.mediaPath === entry.mediaPath);
     if (existing === -1) merged.push(entry);
     else merged[existing] = entry;
@@ -173,21 +215,12 @@ async function main() {
   }
 }
 
-async function sha256OfFile(filePath) {
-  const buf = await readFile(filePath);
-  return createHash('sha256').update(buf).digest('hex');
-}
-
-export async function existingLibraryHashes(inventory) {
+// Dedupe against the `sha256` recorded in photo-library.json — existing photos
+// are Git LFS pointers in CI checkouts, so their files are never read here.
+export function existingLibraryHashes(inventory) {
   const hashes = new Map(); // hash -> id
   for (const photo of inventory.photos) {
-    const filePath = path.join(ROOT, 'apps', 'web', 'public', photo.mediaPath);
-    try {
-      hashes.set(await sha256OfFile(filePath), photo.id);
-    } catch {
-      // File missing on disk (e.g. running against a checkout without LFS
-      // assets) — can't hash it, so it just won't be a dedup candidate.
-    }
+    if (typeof photo.sha256 === 'string') hashes.set(photo.sha256, photo.id);
   }
   return hashes;
 }

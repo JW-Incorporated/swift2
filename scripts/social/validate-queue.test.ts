@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { readActiveLessonIds, validateDir } from './validate-queue.mjs';
+import { readActiveLessonIds, validateDir, validatePhotoLibrary } from './validate-queue.mjs';
 
 const validCritique = {
   v: 1,
@@ -100,5 +100,16 @@ describe('validateDir wiring of activeLessonIds (spec AC#3)', () => {
     } finally {
       await rm(dir, { recursive: true, force: true });
     }
+  });
+});
+
+describe('validatePhotoLibrary', () => {
+  it('passes the committed library and reports id + reason for a bad entry', async () => {
+    const { readFileSync } = await import('node:fs');
+    const photos = JSON.parse(readFileSync('social/photo-library.json', 'utf8')).photos;
+    expect(validatePhotoLibrary(photos)).toEqual([]);
+    const bad = validatePhotoLibrary([{ ...photos[0], source: 'not-a-url' }]);
+    expect(bad).toEqual([`${photos[0].id}: source must be an http(s) URL`]);
+    expect(validatePhotoLibrary({} as never)).not.toEqual([]);
   });
 });
