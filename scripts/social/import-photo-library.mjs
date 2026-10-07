@@ -24,6 +24,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './lib/polite-fetch.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -60,23 +61,26 @@ const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, fetchImpl = fetch, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+  { write, photosDir, seenHashes, fetchImpl = fetch, sleepImpl, nowImpl, budgetMs, warn },
 ) {
   const skippedDuplicates = [];
   const failed = [];
+  const deferred = [];
   await mkdir(photosDir, { recursive: true });
+  // Per-host pacing, Retry-After backoff and the total time budget live in the
+  // polite fetcher (Wikimedia 429'd 146 of 150 unpaced downloads, 2026-10-07).
+  const polite = createPoliteFetcher({ fetchImpl, sleepImpl, nowImpl, budgetMs, warn });
   for (const candidate of candidates) {
     const id = candidate?.id ?? '(unknown)';
+    if (polite.budgetSpent()) {
+      deferred.push(id);
+      continue;
+    }
     try {
       if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
         throw new Error('--fetch requires a candidate "sourceUrl" http(s) URL to download from.');
       }
-      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
-      // small courtesy delay between downloads keeps this a well-behaved client.
-      await sleepImpl(500 + Math.random() * 500);
-      const res = await fetchImpl(candidate.sourceUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
-      });
+      const res = await polite.fetch(candidate.sourceUrl);
       if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
       const buf = Buffer.from(await res.arrayBuffer());
       if (buf.byteLength > MAX_PHOTO_BYTES) {
@@ -94,10 +98,11 @@ export async function fetchCandidates(
       if (write) await writeFile(destPath, buf);
       seenHashes.set(hash, candidate.id);
     } catch (err) {
-      failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+      if (err instanceof BudgetExhaustedError) deferred.push(id);
+      else failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
     }
   }
-  return { skippedDuplicates, failed };
+  return { skippedDuplicates, failed, deferred };
 }
 
 /** The run fails only when there was at least one candidate and every one failed. */
@@ -135,16 +140,24 @@ async function main() {
   const skippedDuplicates = [];
 
   const failed = [];
+  const deferred = [];
   if (fetchMode) {
-    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes });
+    const budgetIndex = args.indexOf('--budget-minutes');
+    const budgetMinutes = budgetIndex === -1 ? NaN : Number(args[budgetIndex + 1]);
+    const budgetMs = budgetMinutes > 0 ? budgetMinutes * 60_000 : DEFAULT_BUDGET_MS;
+    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes, budgetMs });
     skippedDuplicates.push(...result.skippedDuplicates);
     failed.push(...result.failed);
+    deferred.push(...result.deferred);
     for (const { id, reason } of result.failed) console.log(`::warning::${id}: ${reason}`);
+    if (deferred.length) {
+      console.log(`::warning::download time budget spent; ${deferred.length} candidate(s) deferred to the next run (not imported).`);
+    }
     assertNotAllFailed(candidates.length, result.failed.length);
   }
 
   const toImport = candidates.filter(
-    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id),
+    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id) && !deferred.includes(c.id),
   );
   for (const candidate of toImport) {
     const findings = validatePhotoEntry(candidate);
