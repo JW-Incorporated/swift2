@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import sharp from 'sharp';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { blocky } from './lib/frame-fixtures';
 import { assertNotAllFailed, fetchCandidates, resolvePhotoDestPath } from './import-photo-library.mjs';
 
@@ -112,6 +112,23 @@ describe('fetchCandidates normalization + local frames', () => {
     expect(result.failed.map((f) => f.id)).toEqual(['o1', 'o2']);
     expect(result.failed[0].reason).toMatch(/outside the frames scratch directory/);
     expect(await readdir(photosDir)).toEqual([]);
+  });
+
+  it('imports local frames even when the download budget is already spent, without touching the network', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'budget-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await blocky(6));
+    const fetchImpl = vi.fn(async () => {
+      throw new Error('no network');
+    });
+    const result = await fetchCandidates(
+      [{ id: 'b1', mediaPath: '/social/library/photos/b1.jpg', sourceUrl: pathToFileURL(src).href }],
+      { write: true, photosDir: path.join(dir, 'photos'), framesDir: dir, seenHashes: new Map(), fetchImpl: fetchImpl as never, budgetMs: 0, warn: () => {} },
+    );
+    expect(result.deferred).toEqual([]);
+    expect(result.failed).toEqual([]);
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(await readdir(path.join(dir, 'photos'))).toEqual(['b1.jpg']);
   });
 
   it('records width/height/bytes of the stored file on the candidate (so on the library entry)', async () => {

@@ -93,6 +93,18 @@ function makePage(overrides = {}) {
 }
 
 describe('buildCandidate', () => {
+  it('prefers thumburl over the original url and strips utm_* params', () => {
+    const page = makePage();
+    page.imageinfo[0] = {
+      ...page.imageinfo[0],
+      url: 'https://upload.wikimedia.org/wikipedia/commons/x/y/example.jpg?utm_source=commons.wikimedia.org',
+      thumburl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/x/y/example.jpg/2048px-example.jpg?utm_source=commons&keep=1',
+    };
+    expect(buildCandidate(page).sourceUrl).toBe(
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/x/y/example.jpg/2048px-example.jpg?keep=1',
+    );
+  });
+
   it('builds a candidate matching import-photo-library.mjs --fetch\'s expected shape', () => {
     const candidate = buildCandidate(makePage());
     expect(candidate.id).toBe('wikimedia-999');
@@ -205,6 +217,8 @@ describe('fetchImageInfo', () => {
     const pages = await fetchImageInfo(['File:a.jpg'], { fetchImpl });
     expect(pages).toHaveLength(1);
     expect(pages[0].pageid).toBe(999);
+    const sent = new URLSearchParams(String((fetchImpl.mock.calls[0][1] as { body: string }).body));
+    expect(sent.get('iiurlwidth')).toBe('2048');
   });
 
   const okPages = (titles: string[]) => ({
