@@ -5,6 +5,10 @@
 # randomized 1-11s delay per relay request — see that script's header),
 # never retry-storms a 429.
 #
+# Reddit is OPTIONAL (2026-10-06): GitHub's IPs get 403 from Reddit, so
+# without HOME_RELAY_URL the Reddit step warns and writes [] (exit 0); the
+# Wikimedia source carries the run. See docs/decisions.md 2026-10-06.
+#
 # Pipeline: source-reddit-photos.mjs + source-wikimedia-photos.mjs (added
 # 2026-09-29, founder directive: photo library was starved per-era — 8 of
 # Taylor's 12 eras had exactly 1 photo, forcing every themed post for those
@@ -85,13 +89,19 @@ jobs:
       - name: Source candidate photos from Wikimedia Commons
         if: steps.enabled.outputs.enabled == 'true'
         env:
-          WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries || 'Taylor Swift Eras Tour debut,Taylor Swift Eras Tour fearless,Taylor Swift Eras Tour speak now,Taylor Swift Eras Tour red,Taylor Swift Eras Tour 1989,Taylor Swift Eras Tour reputation,Taylor Swift Eras Tour lover,Taylor Swift Eras Tour folklore,Taylor Swift Eras Tour evermore,Taylor Swift Eras Tour midnights,Taylor Swift Eras Tour tortured poets' }}
+          WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries }}
         run: |
           # One query per era/tour-name (default set) so every era gets a
           # deliberate search rather than one generic query that only ever
           # surfaces the most-photographed eras (see PR description — this
           # is exactly the per-era starvation this workflow exists to fix).
-          IFS=',' read -ra QUERIES <<< "$WIKIMEDIA_QUERIES"
+          # Default query set lives in scripts/social/lib/wikimedia-queries.mjs
+          # (eras, past tours, general concert/live, Eras Tour cities).
+          if [ -n "${WIKIMEDIA_QUERIES:-}" ]; then
+            IFS=',' read -ra QUERIES <<< "$WIKIMEDIA_QUERIES"
+          else
+            mapfile -t QUERIES < <(node scripts/social/source-wikimedia-photos.mjs --list-default-queries)
+          fi
           mkdir -p .artifacts/wikimedia
           i=0
           for q in "${QUERIES[@]}"; do
@@ -99,7 +109,7 @@ jobs:
             node scripts/social/source-wikimedia-photos.mjs \
               --output ".artifacts/wikimedia/candidates-$i.json" \
               --query "$q" \
-              --limit 30
+              --limit 100
           done
           node -e "
             const fs = require('node:fs');
@@ -116,12 +126,20 @@ jobs:
         run: |
           node -e "
             const fs = require('node:fs');
-            const reddit = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-reddit.json', 'utf8'));
+            const redditPath = '.artifacts/concert-photo-candidates-reddit.json';
+            const reddit = fs.existsSync(redditPath) ? JSON.parse(fs.readFileSync(redditPath, 'utf8')) : [];
             const wikimedia = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-wikimedia.json', 'utf8'));
+            // Only candidates not already in the library count toward the cap,
+            // so already-imported photos never starve new ones and the PR
+            // stays reviewable.
+            const MAX_NEW = 150;
+            const known = new Set(JSON.parse(fs.readFileSync('social/photo-library.json', 'utf8')).photos.map(p => p.id));
             const seen = new Set();
-            const merged = [...reddit, ...wikimedia].filter(c => (seen.has(c.id) ? false : (seen.add(c.id), true)));
+            const merged = [...reddit, ...wikimedia]
+              .filter(c => (seen.has(c.id) || known.has(c.id) ? false : (seen.add(c.id), true)))
+              .slice(0, MAX_NEW);
             fs.writeFileSync('.artifacts/concert-photo-candidates.json', JSON.stringify(merged, null, 2) + '\n');
-            console.log('Total merged candidates:', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
+            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
           "
 
       - name: Import candidates into the photo library

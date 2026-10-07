@@ -304,6 +304,36 @@ export async function sourceSubreddit(subreddit, { limit, time, fetchImpl, warn 
   return candidates;
 }
 
+export const REDDIT_BLOCKED_WARNING =
+  '::warning::Reddit blocked from Actions IPs; set HOME_RELAY_URL to enable';
+
+/**
+ * Sources every subreddit in order. When `tolerateBlock` is true (no
+ * HOME_RELAY_URL configured) a Reddit 403 means "GitHub's IPs are blocked",
+ * not a bug: warn once and return what was gathered so far (possibly []).
+ * Any other error, or a 403 with a relay configured, still throws.
+ */
+export async function sourceAllSubreddits(
+  subreddits,
+  { limit, time, fetchImpl, tolerateBlock = false, warn = console.warn, onSubreddit = () => {} } = {},
+) {
+  const all = [];
+  for (const subreddit of subreddits) {
+    try {
+      const found = await sourceSubreddit(subreddit, { limit, time, fetchImpl });
+      onSubreddit(subreddit, found);
+      all.push(...found);
+    } catch (err) {
+      if (tolerateBlock && err?.status === 403) {
+        warn(REDDIT_BLOCKED_WARNING);
+        return all;
+      }
+      throw err;
+    }
+  }
+  return all;
+}
+
 /** De-dupes candidates by id, keeping the first occurrence (stable order). */
 export function dedupeById(candidates) {
   const seen = new Set();
@@ -344,12 +374,14 @@ async function main() {
       `${relayReachable ? 'routing Reddit fetches through it' : 'falling back to direct fetch (may 429 sooner)'}.`,
   );
 
-  const all = [];
-  for (const subreddit of args.subreddits) {
-    const found = await sourceSubreddit(subreddit, { limit: args.limit, time: args.time, fetchImpl });
-    console.log(`source-reddit-photos: r/${subreddit} — ${found.length} concert-photo candidate(s).`);
-    all.push(...found);
-  }
+  const all = await sourceAllSubreddits(args.subreddits, {
+    limit: args.limit,
+    time: args.time,
+    fetchImpl,
+    tolerateBlock: !relayUrl,
+    onSubreddit: (subreddit, found) =>
+      console.log(`source-reddit-photos: r/${subreddit} — ${found.length} concert-photo candidate(s).`),
+  });
 
   const deduped = dedupeById(all);
   await mkdir(path.dirname(path.resolve(args.output)), { recursive: true });

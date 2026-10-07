@@ -36,10 +36,16 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { URLSearchParams } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import { DEFAULT_QUERIES } from './lib/wikimedia-queries.mjs';
+
+export { DEFAULT_QUERIES };
 
 const API_BASE = 'https://commons.wikimedia.org/w/api.php';
 export const DEFAULT_QUERY = 'Taylor Swift Eras Tour';
 export const DEFAULT_LIMIT = 50;
+// Politeness gap between Commons API requests (serial, never concurrent).
+export const REQUEST_DELAY_MS = 250;
+
 // Wikimedia's API etiquette policy asks every automated client to identify
 // itself; an unidentified client is more likely to be rate-limited.
 const USER_AGENT = 'longlivets-photo-sourcing/1.0 (https://longlivets.com; social photo pipeline)';
@@ -61,10 +67,10 @@ export const ERA_KEYWORD_HINTS = [
   { era: 'debut', re: /\b(debut era|taylor swift \(album\))\b/i },
   { era: 'fearless', re: /\bfearless\b/i },
   { era: 'speak-now', re: /\bspeak now\b/i },
-  { era: 'red', re: /\bred act\b|\bred era\b/i },
-  { era: '1989', re: /\b1989\s*(act|era)\b/i },
+  { era: 'red', re: /\bred act\b|\bred era\b|\bred tour\b/i },
+  { era: '1989', re: /\b1989\s*(act|era|world tour)\b/i },
   { era: 'reputation', re: /\breputation\b/i },
-  { era: 'lover', re: /\blover\s*(act|era)\b/i },
+  { era: 'lover', re: /\blover\s*(act|era|fest)\b/i },
   { era: 'folklore', re: /\bfolklore\b/i },
   { era: 'evermore', re: /\bevermore\b/i },
   { era: 'midnights', re: /\bmidnights?\s*(act|era)\b/i },
@@ -180,21 +186,36 @@ export async function fetchImageInfo(titles, { fetchImpl = fetch } = {}) {
   return Object.values(data?.query?.pages ?? {});
 }
 
-/** Sources up to `limit` license-verified candidates for one search query. */
-export async function sourceWikimediaQuery(query, { limit = DEFAULT_LIMIT, fetchImpl = fetch, warn = console.warn } = {}) {
-  const results = await searchCommons(query, { limit, fetchImpl });
-  if (!results.length) return [];
-  const titles = results.map((r) => r.title);
-  // Commons' `prop=imageinfo` accepts at most 50 titles per request.
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Sources up to `limit` license-verified candidates for one search query,
+ * paging the Commons search API 50 results at a time. Requests are serial
+ * with a short delay between them (Commons API etiquette). Commons'
+ * `prop=imageinfo` accepts at most 50 titles per request, matching the page size.
+ */
+export async function sourceWikimediaQuery(
+  query,
+  { limit = DEFAULT_LIMIT, fetchImpl = fetch, warn = console.warn, sleepImpl = wait, delayMs = REQUEST_DELAY_MS } = {},
+) {
   const candidates = [];
-  for (let i = 0; i < titles.length; i += 50) {
-    const batch = titles.slice(i, i + 50);
-    const pages = await fetchImageInfo(batch, { fetchImpl });
+  let titlesSeen = 0;
+  while (titlesSeen < limit) {
+    if (titlesSeen > 0) await sleepImpl(delayMs);
+    const pageSize = Math.min(limit - titlesSeen, 50);
+    const results = await searchCommons(query, { limit: pageSize, fetchImpl, sroffset: titlesSeen });
+    if (!results.length) break;
+    await sleepImpl(delayMs);
+    const pages = await fetchImageInfo(results.map((r) => r.title), { fetchImpl });
     for (const page of pages) {
       const candidate = buildCandidate(page);
       if (candidate) candidates.push(candidate);
       else warn(`source-wikimedia-photos: skipped "${page.title}" — no accepted free license found.`);
     }
+    titlesSeen += results.length;
+    if (results.length < pageSize) break;
   }
   return candidates;
 }
@@ -218,12 +239,17 @@ function parseArgs(argv) {
     if (arg === '--output') args.output = argv[++i];
     else if (arg === '--query') args.query = argv[++i];
     else if (arg === '--limit') args.limit = Number(argv[++i]);
+    else if (arg === '--list-default-queries') args.listQueries = true;
   }
   return args;
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  if (args.listQueries) {
+    console.log(DEFAULT_QUERIES.join('\n'));
+    return 0;
+  }
   if (!args.output) {
     throw new Error(
       'Usage: node scripts/social/source-wikimedia-photos.mjs --output <candidates.json> [--query "Taylor Swift Eras Tour"] [--limit 50]',
