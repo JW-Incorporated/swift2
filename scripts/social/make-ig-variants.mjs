@@ -7,11 +7,13 @@
 //
 //   node scripts/social/make-ig-variants.mjs            # dry run (default): report only
 //   node scripts/social/make-ig-variants.mjs --write    # write files + social/photo-library.json
+import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { renderVariant, variantEntry, variantPlan } from './lib/photo-variants.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -48,6 +50,12 @@ export async function makeIgVariants({ root = ROOT, write = false } = {}) {
       skipped.push({ id: original.id, reason: 'source file not found locally' });
       continue;
     }
+    // Library photos are Git LFS pointers in CI checkouts (docs/decisions.md 2026-10-07).
+    if (isLfsPointerBuffer(bytes)) {
+      console.log(`::warning::make-ig-variants: ${original.id} is a Git LFS pointer, not an image — skipped (run git lfs pull for it locally)`);
+      skipped.push({ id: original.id, reason: 'Git LFS pointer, not an image' });
+      continue;
+    }
     const meta = imageMeta(bytes);
     const plan = meta ? variantPlan(meta.width, meta.height) : null;
     if (!plan) continue;
@@ -60,10 +68,15 @@ export async function makeIgVariants({ root = ROOT, write = false } = {}) {
     if (!haveFile) {
       const out = await renderVariant(bytes, plan);
       size = out.buffer.byteLength;
+      Object.assign(entry, { width: out.width, height: out.height, bytes: size, sha256: createHash('sha256').update(out.buffer).digest('hex') });
       if (write) {
         await mkdir(path.dirname(file), { recursive: true });
         await writeFile(file, out.buffer);
       }
+    }
+    if (haveFile && !haveEntry) {
+      const existing = await readFile(file);
+      if (!isLfsPointerBuffer(existing)) Object.assign(entry, { width: plan.width, height: plan.height, bytes: existing.byteLength, sha256: createHash('sha256').update(existing).digest('hex') });
     }
     if (!haveEntry) additions.set(original.id, entry);
     made.push({ id: entry.id, from: original.id, canvas: `${plan.width}x${plan.height}`, bytes: size, file: entry.mediaPath, wroteFile: !haveFile, addedEntry: !haveEntry });

@@ -3,6 +3,11 @@
 Why this exists: Instagram media must be a URL on the deployed site
 (`https://www.longlivets.com` + a path), so every image a post references has
 to already be committed to `apps/web/public/**` before the post can go out.
+**Exception (2026-10-07):** `apps/web/public/social/library/photos/**` is Git LFS
+and is no longer served from the deployed site (`apps/web/.vercelignore`);
+posts load those photos from `media.githubusercontent.com` via `mediaUrlFor`
+(`scripts/social/lib/queue.mjs`). Never rewrite a photo in place; a new crop is
+a new id. See `docs/decisions.md` 2026-10-07.
 Before this, the only committed images were 12 generic era tiles
 (`apps/web/public/eras/*.png`), so every IG post used one of the same 12
 pictures regardless of what it was about. These two tools fix that:

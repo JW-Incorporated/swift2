@@ -92,6 +92,7 @@ import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidS
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
 import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
@@ -679,12 +680,27 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
     // drafts only (X has no such limit). See IG_MIN/MAX_ASPECT_RATIO above.
     if (item.platform === 'instagram') {
       let meta;
-      try {
-        meta = imageMeta(await readFile(full));
-      } catch {
-        meta = null;
+      const libraryEntry = PHOTO_LIBRARY_BY_PATH.get(mediaPath);
+      if (String(mediaPath).startsWith(PHOTO_PREFIX) && libraryEntry?.width && libraryEntry?.height) {
+        // Library photos live in Git LFS (docs/decisions.md 2026-10-07); the
+        // checkout may hold only a pointer, so trust the recorded dimensions.
+        meta = { width: libraryEntry.width, height: libraryEntry.height };
+      } else {
+        try {
+          const bytes = await readFile(full);
+          if (String(mediaPath).startsWith(PHOTO_PREFIX) && isLfsPointerBuffer(bytes)) {
+            findings.push(`media: "${mediaPath}" — library entry missing width/height (the photo is a Git LFS pointer here, so dimensions cannot be read). Add width/height/bytes to its social/photo-library.json entry.`);
+            meta = 'reported';
+          } else {
+            meta = imageMeta(bytes);
+          }
+        } catch {
+          meta = null;
+        }
       }
-      if (!meta || !meta.width || !meta.height) {
+      if (meta === 'reported') {
+        // already flagged above (LFS pointer without recorded dimensions)
+      } else if (!meta || !meta.width || !meta.height) {
         findings.push(
           `media: "${mediaPath}" — could not read image dimensions to verify Instagram's aspect-ratio limit (${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO}, width/height). Re-export a standard PNG/JPEG at 1080x1350.`,
         );

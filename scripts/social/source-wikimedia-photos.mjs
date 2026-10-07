@@ -191,21 +191,67 @@ export async function searchCommons(query, { limit = DEFAULT_LIMIT, fetchImpl = 
   return data?.query?.search ?? [];
 }
 
-/** Fetches imageinfo (url + license/artist metadata) for a batch of Commons file titles. */
-export async function fetchImageInfo(titles, { fetchImpl = fetch } = {}) {
+const IMAGEINFO_MAX_TITLES = 50;
+const IMAGEINFO_MAX_TITLES_CHARS = 6000;
+
+/** Splits titles into chunks of at most 50 titles and ~6,000 encoded characters. */
+export function chunkTitles(titles) {
+  const chunks = [];
+  let current = [];
+  let chars = 0;
+  for (const title of titles) {
+    const size = encodeURIComponent(title).length + 3;
+    if (current.length && (current.length >= IMAGEINFO_MAX_TITLES || chars + size > IMAGEINFO_MAX_TITLES_CHARS)) {
+      chunks.push(current);
+      current = [];
+      chars = 0;
+    }
+    current.push(title);
+    chars += size;
+  }
+  if (current.length) chunks.push(current);
+  return chunks;
+}
+
+/**
+ * Fetches imageinfo (url + license/artist metadata) for Commons file titles.
+ * Titles go out in serial POST chunks (a single long GET caused `414 URI Too
+ * Long`). A failed chunk warns and is skipped; it throws only if every chunk fails.
+ */
+export async function fetchImageInfo(
+  titles,
+  { fetchImpl = fetch, sleepImpl = wait, delayMs = REQUEST_DELAY_MS, warn = (m) => console.warn(`::warning::${m}`) } = {},
+) {
   if (!titles.length) return [];
-  const infoUrl = new URL(API_BASE);
-  infoUrl.search = new URLSearchParams({
-    action: 'query',
-    titles: titles.join('|'),
-    prop: 'imageinfo',
-    iiprop: 'url|mime|size|extmetadata',
-    format: 'json',
-  }).toString();
-  const res = await fetchImpl(infoUrl.toString(), { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`Wikimedia imageinfo failed: ${res.status} ${res.statusText}`);
-  const data = await res.json();
-  return Object.values(data?.query?.pages ?? {});
+  const pages = [];
+  let failures = 0;
+  let lastError = null;
+  const chunks = chunkTitles(titles);
+  for (let i = 0; i < chunks.length; i++) {
+    if (i > 0) await sleepImpl(delayMs);
+    try {
+      const res = await fetchImpl(API_BASE, {
+        method: 'POST',
+        headers: { 'User-Agent': USER_AGENT, 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          action: 'query',
+          titles: chunks[i].join('|'),
+          prop: 'imageinfo',
+          iiprop: 'url|mime|size|extmetadata',
+          format: 'json',
+        }).toString(),
+      });
+      if (!res.ok) throw new Error(`Wikimedia imageinfo failed: ${res.status} ${res.statusText}`);
+      const data = await res.json();
+      pages.push(...Object.values(data?.query?.pages ?? {}));
+    } catch (err) {
+      failures++;
+      lastError = err;
+      warn(`source-wikimedia-photos: imageinfo chunk ${i + 1}/${chunks.length} (${chunks[i].length} titles) skipped — ${err.message}`);
+    }
+  }
+  if (failures === chunks.length) throw lastError;
+  return pages;
 }
 
 function wait(ms) {
@@ -230,7 +276,7 @@ export async function sourceWikimediaQuery(
     const results = await searchCommons(query, { limit: pageSize, fetchImpl, sroffset: titlesSeen });
     if (!results.length) break;
     await sleepImpl(delayMs);
-    const pages = await fetchImageInfo(results.map((r) => r.title), { fetchImpl });
+    const pages = await fetchImageInfo(results.map((r) => r.title), { fetchImpl, sleepImpl, delayMs });
     for (const page of pages) {
       const candidate = buildCandidate(page);
       if (candidate) candidates.push(candidate);

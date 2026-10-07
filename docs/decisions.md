@@ -19,6 +19,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-06 — Concert-photo library imports auto-merge ("Photos A")
+
+**Decision.** AMENDS, and does not delete, the 2026-08-11 social-image rule (an `apps/web/public/social/**` image only auto-merges when it rides with a validated `social/queue/**.json` draft) and its 2026-10-05 merch drop-card amendment. A second narrow carve-out: an image counts as accompanied ONLY when ALL hold: (1) the PR head branch is exactly `social/concert-photo-sourcing` (the single fixed branch of `concert-photo-sourcing.yml`, now an exact entry in the branch/author gate, same author set as every other content lane); (2) the image path matches `^apps/web/public/social/library/photos/[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$` (directly in that directory, no subdirectory, no traversal) and the PR newly adds it; (3) the same PR adds or modifies `social/photo-library.json` (now allowlisted and in `on.paths`). Every other image case stays fail-closed; the merch rule is unchanged. The predicate stays one module, renamed `scripts/automerge-bot-image-exemption.mjs` (was `automerge-merch-drop-exemption.mjs`; the 2026-10-05 entry's references are historical).
+
+**Why.** Library photos are not posts: importing one publishes nothing. Joey's approval (the ✅ in `#longlive-tree`) still gates every post that uses a photo, so the human look is kept where it matters, and the bot's photo PRs no longer wait on a manual merge. Approved: Joey, chat 2026-10-06 22:33 PDT, "Photos A".
+
+---
+
 ## 2026-10-06 — Marjorie's assign/defer/close chases default to `defer` after 7 days of silence
 
 **Decision.** A 96h chase HA open 7 days with no founder reply is auto-applied as `defer` (same marker/label path as a typed reply), closed as `skip` with the note "auto-deferred after 7 days of silence (founder decision 2026-10-06)", and the issue gets one comment saying how to re-open the chase. Issues labelled `founder-decision`, `desk:founder` or `founder-task` are never auto-deferred. Runs as a plain deterministic `auto-defer` job in `routine-marjorie-ops.yml` (no LLM, never starts the Sonnet session).
@@ -8796,3 +8804,11 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Decision.** Founder decision (Joey, chat, "social yes"): `social-poster.yml` (minGap 28) and `social-approval-poll.yml` (minGap 14) join `scripts/ops/clock-table.json`, so `clock-dispatch.mjs` starts them from the 5-minute clock; their GitHub cron stays as backup. Dispatched runs are identical to scheduled ones (no `event_name` branching, no inputs; both already have `workflow_dispatch` and a serialising `concurrency` group with `cancel-in-progress: false`). Approval is unchanged: nothing posts without the founder's own Discord check.
 
 **Why.** GitHub delivered about 9 of 96 expected `*/30` poster fires and about 10 of 192 expected 15-minute poll fires per 48h, so approved posts went out late.
+
+## 2026-10-07 — Social photo library moves to Git LFS
+
+**Decision.** Architect ruling (2026-10-07). `apps/web/public/social/library/photos/**` is stored in Git LFS (`.gitattributes`). Posts load these photos from `https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public` (`PHOTO_MEDIA_BASE_URL`, `mediaUrlFor` in `scripts/social/lib/queue.mjs`), not from longlivets.com. `apps/web/.vercelignore` keeps the folder out of the Vercel deploy. `.lfsconfig` sets `fetchexclude` so clones and CI hold pointers only; no workflow may use `lfs: true` (guarded by `scripts/social/lfs-media.test.ts`). Each `social/photo-library.json` entry records `width`/`height`/`bytes` so `check-drafts` and the pre-compute never read the binary. Never rewrite a photo in place: a new crop is a new id and path. Never `git lfs prune` or rewrite history.
+
+**Why.** The library is heading past 10,000 photos; as plain blobs they bloat every clone, every one of ~92 workflow checkouts, and the website deploy, though the site never references them. Quota: org JW-Incorporated is on GitHub Team, 250 GiB LFS storage and 250 GiB/month bandwidth, so no founder action.
+
+**Follow-ups (2026-10-07, same ruling).** (1) The 1.5 MB image cap in `auto-merge-content.yml` reads the Contents API size, which is the ~131-byte pointer for LFS files, so it is void for library photos; `validate:social` now enforces it from each entry's recorded `bytes` (eight pre-LFS entries are grandfathered in `validate-queue.mjs`). (2) The two workflows that write library photos (`concert-photo-sourcing.yml`, `appearance-discovery.yml` via `.github/actions/commit-and-pr`) run `git lfs install --local` before staging and gate on every new photo being an LFS pointer; `create-pull-request` stays in git-CLI mode (never `sign-commits: true`, which commits via the API and bypasses LFS). `scripts/social/lfs-media.test.ts` pins this.

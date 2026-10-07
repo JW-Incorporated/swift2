@@ -23,6 +23,12 @@ export async function igUsablePhotos(library, publicDir) {
   const usable = new Set();
   const unreadable = [];
   for (const entry of library) {
+    // Library photos are Git LFS pointers in CI checkouts (docs/decisions.md
+    // 2026-10-07), so recorded dimensions win over reading the binary.
+    if (entry.width && entry.height) {
+      if (isIgAspect(entry.width, entry.height)) usable.add(entry.id);
+      continue;
+    }
     try {
       const meta = imageMeta(await readFile(path.join(publicDir, entry.mediaPath)));
       if (meta?.width && meta?.height && isIgAspect(meta.width, meta.height)) usable.add(entry.id);
