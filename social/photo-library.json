@@ -12,7 +12,10 @@
         "1989",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1257,
+      "height": 1571,
+      "bytes": 951745
     },
     {
       "id": "debut-acoustic-2007",
@@ -24,7 +27,10 @@
         "debut",
         "acoustic",
         "2007"
-      ]
+      ],
+      "width": 1280,
+      "height": 1283,
+      "bytes": 338141
     },
     {
       "id": "evermore-inglewood-2023",
@@ -36,7 +42,10 @@
         "evermore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 966,
+      "height": 542,
+      "bytes": 589616
     },
     {
       "id": "fearless-inglewood-2023",
@@ -48,7 +57,10 @@
         "fearless",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1080,
+      "height": 1350,
+      "bytes": 266581
     },
     {
       "id": "folklore-inglewood-2023",
@@ -60,7 +72,10 @@
         "folklore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1080,
+      "height": 1350,
+      "bytes": 419480
     },
     {
       "id": "lover-minneapolis-2023",
@@ -72,7 +87,10 @@
         "lover",
         "eras-tour",
         "minneapolis"
-      ]
+      ],
+      "width": 1280,
+      "height": 964,
+      "bytes": 632566
     },
     {
       "id": "lover-minneapolis-act5-2023",
@@ -84,7 +102,10 @@
         "lover",
         "eras-tour",
         "minneapolis"
-      ]
+      ],
+      "width": 1280,
+      "height": 964,
+      "bytes": 710401
     },
     {
       "id": "red-inglewood-2023",
@@ -96,7 +117,10 @@
         "red",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1080,
+      "height": 1350,
+      "bytes": 113868
     },
     {
       "id": "reddit-erastour-1ptssc4",
@@ -108,7 +132,10 @@
         "fan-photo",
         "eras-tour",
         "concert"
-      ]
+      ],
+      "width": 3024,
+      "height": 4032,
+      "bytes": 3111858
     },
     {
       "id": "reddit-erastour-1ptssc4-ig45",
@@ -121,7 +148,10 @@
         "eras-tour",
         "concert"
       ],
-      "variantOf": "reddit-erastour-1ptssc4"
+      "variantOf": "reddit-erastour-1ptssc4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 156384
     },
     {
       "id": "reddit-erastour-1q65hiz",
@@ -133,7 +163,10 @@
         "fan-photo",
         "eras-tour",
         "concert"
-      ]
+      ],
+      "width": 4284,
+      "height": 5712,
+      "bytes": 5205742
     },
     {
       "id": "reddit-erastour-1q65hiz-ig45",
@@ -146,7 +179,10 @@
         "eras-tour",
         "concert"
       ],
-      "variantOf": "reddit-erastour-1q65hiz"
+      "variantOf": "reddit-erastour-1q65hiz",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 383265
     },
     {
       "id": "reddit-erastour-1q6jwfl",
@@ -157,7 +193,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 609,
+      "height": 1321,
+      "bytes": 146770
     },
     {
       "id": "reddit-erastour-1q6jwfl-ig45",
@@ -169,7 +208,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-erastour-1q6jwfl"
+      "variantOf": "reddit-erastour-1q6jwfl",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 145767
     },
     {
       "id": "reddit-erastour-1q8clxb",
@@ -180,7 +222,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 556,
+      "height": 933,
+      "bytes": 107342
     },
     {
       "id": "reddit-erastour-1q8clxb-ig45",
@@ -192,7 +237,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-erastour-1q8clxb"
+      "variantOf": "reddit-erastour-1q8clxb",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 121147
     },
     {
       "id": "reddit-taylorswiftpictures-1nxmfeq",
@@ -203,7 +251,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1452,
+      "height": 2604,
+      "bytes": 1146862
     },
     {
       "id": "reddit-taylorswiftpictures-1nxmfeq-ig45",
@@ -215,7 +266,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1nxmfeq"
+      "variantOf": "reddit-taylorswiftpictures-1nxmfeq",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 287453
     },
     {
       "id": "reddit-taylorswiftpictures-1nz3wbn",
@@ -226,7 +280,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 400,
+      "height": 401,
+      "bytes": 5494149
     },
     {
       "id": "reddit-taylorswiftpictures-1ocof56",
@@ -237,7 +294,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 736,
+      "height": 981,
+      "bytes": 101015
     },
     {
       "id": "reddit-taylorswiftpictures-1ocof56-ig45",
@@ -249,7 +309,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1ocof56"
+      "variantOf": "reddit-taylorswiftpictures-1ocof56",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 167258
     },
     {
       "id": "reddit-taylorswiftpictures-1ogrcvp",
@@ -260,7 +323,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 3840,
+      "height": 2160,
+      "bytes": 996973
     },
     {
       "id": "reddit-taylorswiftpictures-1ojprpr",
@@ -271,7 +337,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1085,
+      "height": 1466,
+      "bytes": 399664
     },
     {
       "id": "reddit-taylorswiftpictures-1ojprpr-ig45",
@@ -283,7 +352,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1ojprpr"
+      "variantOf": "reddit-taylorswiftpictures-1ojprpr",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 272021
     },
     {
       "id": "reddit-taylorswiftpictures-1pjmwfb",
@@ -294,7 +366,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 862319
     },
     {
       "id": "reddit-taylorswiftpictures-1pm1yly",
@@ -305,7 +380,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 3280,
+      "height": 2460,
+      "bytes": 2080832
     },
     {
       "id": "reddit-taylorswiftpictures-1pphafw",
@@ -316,7 +394,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1080,
+      "height": 1441,
+      "bytes": 1821823
     },
     {
       "id": "reddit-taylorswiftpictures-1pphafw-ig45",
@@ -328,7 +409,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1pphafw"
+      "variantOf": "reddit-taylorswiftpictures-1pphafw",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 198138
     },
     {
       "id": "reddit-taylorswiftpictures-1puk3m7",
@@ -339,7 +423,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 762,
+      "height": 1024,
+      "bytes": 111035
     },
     {
       "id": "reddit-taylorswiftpictures-1puk3m7-ig45",
@@ -351,7 +438,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1puk3m7"
+      "variantOf": "reddit-taylorswiftpictures-1puk3m7",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 168835
     },
     {
       "id": "reddit-taylorswiftpictures-1pxtr93",
@@ -362,7 +452,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1120,
+      "height": 1423,
+      "bytes": 220051
     },
     {
       "id": "reddit-taylorswiftpictures-1pxtr93-ig45",
@@ -374,7 +467,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1pxtr93"
+      "variantOf": "reddit-taylorswiftpictures-1pxtr93",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 200351
     },
     {
       "id": "reddit-taylorswiftpictures-1q1pxtp",
@@ -385,7 +481,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 546,
+      "height": 800,
+      "bytes": 98810
     },
     {
       "id": "reddit-taylorswiftpictures-1q1pxtp-ig45",
@@ -397,7 +496,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1q1pxtp"
+      "variantOf": "reddit-taylorswiftpictures-1q1pxtp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 118802
     },
     {
       "id": "reddit-taylorswiftpictures-1qad9bo",
@@ -408,7 +510,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 2097,
+      "height": 2095,
+      "bytes": 1458840
     },
     {
       "id": "reddit-taylorswiftpictures-1qgb3m8",
@@ -419,7 +524,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2159636
     },
     {
       "id": "reddit-taylorswiftpictures-1qgb3m8-ig45",
@@ -431,7 +539,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1qgb3m8"
+      "variantOf": "reddit-taylorswiftpictures-1qgb3m8",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 230898
     },
     {
       "id": "reddit-taylorswiftpictures-1r38qiv",
@@ -442,7 +553,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 5279,
+      "height": 7918,
+      "bytes": 7482161
     },
     {
       "id": "reddit-taylorswiftpictures-1r38qiv-ig45",
@@ -454,7 +568,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1r38qiv"
+      "variantOf": "reddit-taylorswiftpictures-1r38qiv",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 253069
     },
     {
       "id": "reddit-taylorswiftpictures-1r6n7aq",
@@ -465,7 +582,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1018,
+      "height": 1280,
+      "bytes": 230517
     },
     {
       "id": "reddit-taylorswiftpictures-1r6n7aq-ig45",
@@ -477,7 +597,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1r6n7aq"
+      "variantOf": "reddit-taylorswiftpictures-1r6n7aq",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 224553
     },
     {
       "id": "reddit-taylorswiftpictures-1tl4pqb",
@@ -488,7 +611,10 @@
       "tags": [
         "fan-photo",
         "eras-tour"
-      ]
+      ],
+      "width": 1275,
+      "height": 2048,
+      "bytes": 275801
     },
     {
       "id": "reddit-taylorswiftpictures-1tl4pqb-ig45",
@@ -500,7 +626,10 @@
         "fan-photo",
         "eras-tour"
       ],
-      "variantOf": "reddit-taylorswiftpictures-1tl4pqb"
+      "variantOf": "reddit-taylorswiftpictures-1tl4pqb",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 169644
     },
     {
       "id": "reputation-inglewood-2023",
@@ -512,7 +641,10 @@
         "reputation",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1077,
+      "height": 1346,
+      "bytes": 682185
     },
     {
       "id": "speaknow-inglewood-2023",
@@ -524,7 +656,10 @@
         "speak-now",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1136,
+      "height": 1420,
+      "bytes": 2207235
     },
     {
       "id": "speaknow-inglewood-2023-2",
@@ -536,7 +671,10 @@
         "speak-now",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 916,
+      "height": 1400,
+      "bytes": 277885
     },
     {
       "id": "speaknow-inglewood-2023-2-ig45",
@@ -549,7 +687,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "speaknow-inglewood-2023-2"
+      "variantOf": "speaknow-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 274320
     },
     {
       "id": "speaknow-inglewood-2023-3",
@@ -561,7 +702,10 @@
         "speak-now",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 915,
+      "height": 1400,
+      "bytes": 263909
     },
     {
       "id": "speaknow-inglewood-2023-3-ig45",
@@ -574,7 +718,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "speaknow-inglewood-2023-3"
+      "variantOf": "speaknow-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 227129
     },
     {
       "id": "speaknow-inglewood-2023-4",
@@ -586,7 +733,10 @@
         "speak-now",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 915,
+      "height": 1400,
+      "bytes": 271523
     },
     {
       "id": "speaknow-inglewood-2023-4-ig45",
@@ -599,7 +749,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "speaknow-inglewood-2023-4"
+      "variantOf": "speaknow-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 235957
     },
     {
       "id": "1989-inglewood-2023-2",
@@ -611,7 +764,10 @@
         "1989",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 725,
+      "bytes": 134661
     },
     {
       "id": "1989-inglewood-2023-2-ig191",
@@ -624,7 +780,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "1989-inglewood-2023-2"
+      "variantOf": "1989-inglewood-2023-2",
+      "width": 1080,
+      "height": 566,
+      "bytes": 41444
     },
     {
       "id": "1989-inglewood-2023-3",
@@ -636,7 +795,10 @@
         "1989",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 725,
+      "bytes": 287307
     },
     {
       "id": "1989-inglewood-2023-3-ig191",
@@ -649,7 +811,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "1989-inglewood-2023-3"
+      "variantOf": "1989-inglewood-2023-3",
+      "width": 1080,
+      "height": 566,
+      "bytes": 87805
     },
     {
       "id": "1989-inglewood-2023-4",
@@ -661,7 +826,10 @@
         "1989",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 804,
+      "bytes": 255398
     },
     {
       "id": "1989-inglewood-2023-4-ig191",
@@ -674,7 +842,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "1989-inglewood-2023-4"
+      "variantOf": "1989-inglewood-2023-4",
+      "width": 1080,
+      "height": 566,
+      "bytes": 96077
     },
     {
       "id": "red-inglewood-2023-2",
@@ -686,7 +857,10 @@
         "red",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 923,
+      "height": 1524,
+      "bytes": 1129000
     },
     {
       "id": "red-inglewood-2023-2-ig45",
@@ -699,7 +873,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "red-inglewood-2023-2"
+      "variantOf": "red-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 262355
     },
     {
       "id": "red-inglewood-2023-3",
@@ -711,7 +888,10 @@
         "red",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 886,
+      "height": 1400,
+      "bytes": 193224
     },
     {
       "id": "red-inglewood-2023-3-ig45",
@@ -724,7 +904,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "red-inglewood-2023-3"
+      "variantOf": "red-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 174433
     },
     {
       "id": "red-inglewood-2023-4",
@@ -736,7 +919,10 @@
         "red",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 935,
+      "height": 1400,
+      "bytes": 199793
     },
     {
       "id": "red-inglewood-2023-4-ig45",
@@ -749,7 +935,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "red-inglewood-2023-4"
+      "variantOf": "red-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 207406
     },
     {
       "id": "fearless-inglewood-2023-2",
@@ -761,7 +950,10 @@
         "fearless",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 3084,
+      "bytes": 745827
     },
     {
       "id": "fearless-inglewood-2023-2-ig45",
@@ -774,7 +966,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "fearless-inglewood-2023-2"
+      "variantOf": "fearless-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 115755
     },
     {
       "id": "fearless-inglewood-2023-3",
@@ -786,7 +981,10 @@
         "fearless",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 869,
+      "height": 1400,
+      "bytes": 247813
     },
     {
       "id": "fearless-inglewood-2023-3-ig45",
@@ -799,7 +997,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "fearless-inglewood-2023-3"
+      "variantOf": "fearless-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 253834
     },
     {
       "id": "fearless-tour-2009-4",
@@ -811,7 +1012,10 @@
         "fearless",
         "concert",
         "2009"
-      ]
+      ],
+      "width": 1920,
+      "height": 1493,
+      "bytes": 778003
     },
     {
       "id": "folklore-arlington-2023-2",
@@ -823,7 +1027,10 @@
         "folklore",
         "eras-tour",
         "arlington"
-      ]
+      ],
+      "width": 1920,
+      "height": 1198,
+      "bytes": 1153037
     },
     {
       "id": "folklore-inglewood-2023-3",
@@ -835,7 +1042,10 @@
         "folklore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 962,
+      "height": 1551,
+      "bytes": 1122477
     },
     {
       "id": "folklore-inglewood-2023-3-ig45",
@@ -848,7 +1058,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "folklore-inglewood-2023-3"
+      "variantOf": "folklore-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 306459
     },
     {
       "id": "folklore-inglewood-2023-4",
@@ -860,7 +1073,10 @@
         "folklore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 2796,
+      "bytes": 1384577
     },
     {
       "id": "folklore-inglewood-2023-4-ig45",
@@ -873,7 +1089,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "folklore-inglewood-2023-4"
+      "variantOf": "folklore-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 303511
     },
     {
       "id": "evermore-arlington-2023-2",
@@ -885,7 +1104,10 @@
         "evermore",
         "eras-tour",
         "arlington"
-      ]
+      ],
+      "width": 879,
+      "height": 1400,
+      "bytes": 324134
     },
     {
       "id": "evermore-arlington-2023-2-ig45",
@@ -898,7 +1120,10 @@
         "eras-tour",
         "arlington"
       ],
-      "variantOf": "evermore-arlington-2023-2"
+      "variantOf": "evermore-arlington-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 312916
     },
     {
       "id": "evermore-inglewood-2023-3",
@@ -910,7 +1135,10 @@
         "evermore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 905,
+      "bytes": 227256
     },
     {
       "id": "evermore-inglewood-2023-3-ig191",
@@ -923,7 +1151,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "evermore-inglewood-2023-3"
+      "variantOf": "evermore-inglewood-2023-3",
+      "width": 1080,
+      "height": 566,
+      "bytes": 87935
     },
     {
       "id": "evermore-inglewood-2023-4",
@@ -935,7 +1166,10 @@
         "evermore",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1920,
+      "height": 776,
+      "bytes": 382954
     },
     {
       "id": "evermore-inglewood-2023-4-ig191",
@@ -948,7 +1182,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "evermore-inglewood-2023-4"
+      "variantOf": "evermore-inglewood-2023-4",
+      "width": 1080,
+      "height": 566,
+      "bytes": 123245
     },
     {
       "id": "reputation-inglewood-2023-2",
@@ -960,7 +1197,10 @@
         "reputation",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1206,
+      "height": 1900,
+      "bytes": 1136666
     },
     {
       "id": "reputation-inglewood-2023-2-ig45",
@@ -973,7 +1213,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "reputation-inglewood-2023-2"
+      "variantOf": "reputation-inglewood-2023-2",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 124633
     },
     {
       "id": "reputation-inglewood-2023-3",
@@ -985,7 +1228,10 @@
         "reputation",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 937,
+      "height": 1400,
+      "bytes": 231132
     },
     {
       "id": "reputation-inglewood-2023-3-ig45",
@@ -998,7 +1244,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "reputation-inglewood-2023-3"
+      "variantOf": "reputation-inglewood-2023-3",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 143473
     },
     {
       "id": "reputation-inglewood-2023-4",
@@ -1010,7 +1259,10 @@
         "reputation",
         "eras-tour",
         "inglewood"
-      ]
+      ],
+      "width": 1077,
+      "height": 1571,
+      "bytes": 870211
     },
     {
       "id": "reputation-inglewood-2023-4-ig45",
@@ -1023,7 +1275,10 @@
         "eras-tour",
         "inglewood"
       ],
-      "variantOf": "reputation-inglewood-2023-4"
+      "variantOf": "reputation-inglewood-2023-4",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 194746
     },
     {
       "id": "debut-yahoo-2007-2",
@@ -1034,7 +1289,10 @@
       "tags": [
         "debut",
         "2007"
-      ]
+      ],
+      "width": 1920,
+      "height": 1440,
+      "bytes": 595967
     },
     {
       "id": "debut-yahoo-2007-3",
@@ -1045,7 +1303,10 @@
       "tags": [
         "debut",
         "2007"
-      ]
+      ],
+      "width": 1920,
+      "height": 1280,
+      "bytes": 585530
     },
     {
       "id": "debut-live-2007-4",
@@ -1056,7 +1317,10 @@
       "tags": [
         "debut",
         "2007"
-      ]
+      ],
+      "width": 819,
+      "height": 546,
+      "bytes": 225090
     }
   ]
 }
