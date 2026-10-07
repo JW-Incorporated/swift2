@@ -12,7 +12,10 @@ and what has broken before.
 ## The automated posting pipeline (built 2026-07-17, issue #738)
 
 `social/queue/**.json` → `.github/workflows/social-poster.yml` (runs every
-30 min) → `scripts/social/post-queue.mjs`, which posts to X and Instagram
+30 min; cadence is driven by the 5-minute clock, `scripts/ops/clock-dispatch.mjs`
++ `clock-table.json`, which dispatches it and `social-approval-poll.yml` when
+their newest run is older than 28 / 14 min — GitHub's own cron is only the
+backup, since it delivers a fraction of its fires) → `scripts/social/post-queue.mjs`, which posts to X and Instagram
 and files each item under `social/posted/` (success) or `social/failed/`
 (3 failed attempts). Full schema and the founder crisis-stop switch
 (`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
