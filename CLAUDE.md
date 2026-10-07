@@ -168,7 +168,7 @@ reversible by default — make the call and state it in one line.
 
 Exception (founder decision 2026-10-06): agents may set allowlisted non-secret
 switches via `scripts/ops/set-switch.mjs` (logged to `docs/ops/switch-ledger.md`);
-`SOCIAL_FREEZE` on-only — agents engage it, only Joey lifts it. Secrets and
+freezes (`SOCIAL_FREEZE`, `CONTENT_AUTOMERGE_FREEZE`) are on-only — agents engage them, only Joey lifts them. Secrets and
 identity/approval variables stay founder-only.
 
 ## Roles
@@ -339,7 +339,7 @@ Authority's "may not" list. Denies: recursive/forced `rm`, force push,
 `git reset --hard`/`clean`/`restore`/`checkout --`, `--no-verify`, real `.env`
 files, `chmod 777`, `gh secret` mutation, `gh variable delete`, raw `gh
 variable set` (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason
-"..."` — allowlisted non-secret switches only, `SOCIAL_FREEZE` on-only), and any invocation of the
+"..."` — allowlisted non-secret switches only, freezes on-only), and any invocation of the
 social poster's real-send paths (`scripts/social/post-queue.mjs`,
 `delete-media.mjs` — live, no dry-run, issue #2031). It resolves what a
 command actually executes, not text-matches the path, so `cd scripts/social

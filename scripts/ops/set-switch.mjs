@@ -20,11 +20,10 @@ export const BOOL_SWITCHES = new Set([
   'COMMUNITY_SCAN_ENABLED',
   'CONCERT_PHOTO_SOURCING_ENABLED',
   'REPLY_NOTIFIER_ENABLED',
-  'CONTENT_AUTOMERGE_FREEZE',
 ]);
 export const INT_SWITCHES = new Set(['COMMUNITY_CRAWL_BUDGET']);
-// Agents may engage the social freeze, never lift it.
-export const ON_ONLY_SWITCHES = new Set(['SOCIAL_FREEZE']);
+// Freezes are brakes: agents may engage them, never lift them.
+export const FREEZE_ON_ONLY = new Set(['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE']);
 
 export const DENYLIST = {
   MARJORIE_EMAIL: 'notification address (identity), founder-only',
@@ -43,9 +42,9 @@ export function validate(name, value, reason) {
   if (!/^[A-Z][A-Z0-9_]*$/.test(name ?? '')) return `invalid variable name "${name}"`;
   if (name in DENYLIST) return `${name} is founder-only: ${DENYLIST[name]}`;
   if (DENY_FRAGMENT.test(name)) return `${name} looks like a secret/identity variable (founder-only)`;
-  const known = BOOL_SWITCHES.has(name) || INT_SWITCHES.has(name) || ON_ONLY_SWITCHES.has(name);
+  const known = BOOL_SWITCHES.has(name) || INT_SWITCHES.has(name) || FREEZE_ON_ONLY.has(name);
   if (!known) return `${name} is not on the agent allowlist (founder-only)`;
-  if (ON_ONLY_SWITCHES.has(name)) {
+  if (FREEZE_ON_ONLY.has(name)) {
     if (value !== 'true') return `${name} may only be set to "true" by agents; only the founder lifts it`;
   } else if (BOOL_SWITCHES.has(name)) {
     if (value !== 'true' && value !== 'false') return `${name} must be "true" or "false"`;
