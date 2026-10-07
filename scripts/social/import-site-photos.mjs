@@ -30,6 +30,7 @@ const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library',
 const SEED_DIRS = ['content', 'lenses', 'candidates']; // never supabase/seed/merch
 const MIN_LONG_EDGE = 800;
 const MAX_EDGE = 2048;
+const MAX_ENTRY_BYTES = 1.5 * 1024 * 1024; // library per-photo cap (LFS ruling 2026-10-07)
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const DECODABLE = new Set(['jpeg', 'png', 'webp']);
 
@@ -140,7 +141,8 @@ async function main() {
         continue;
       }
       seenHashes.set(outHash, id);
-      const entry = { ...buildEntry(ref, norm.ext), width: norm.width, height: norm.height, bytes: norm.out.byteLength };
+      const entry = { ...buildEntry(ref, norm.ext), width: norm.width, height: norm.height, bytes: norm.out.byteLength, sha256: outHash };
+      if (norm.out.byteLength > MAX_ENTRY_BYTES) throw new Error(`normalized file is ${norm.out.byteLength} bytes, over the library cap`);
       const findings = validatePhotoEntry(entry);
       if (findings.length) throw new Error(findings.join('; '));
       if (libraryPaths.has(entry.mediaPath)) continue;
@@ -169,7 +171,7 @@ async function renormalizeExisting(inventory, inventoryPath) {
     const newPath = resolvePhotoDestPath(entry.mediaPath, PHOTOS_DIR);
     await writeFile(newPath, norm.out);
     if (newPath !== oldPath) await unlink(oldPath);
-    Object.assign(entry, { width: norm.width, height: norm.height, bytes: norm.out.byteLength });
+    Object.assign(entry, { width: norm.width, height: norm.height, bytes: norm.out.byteLength, sha256: sha256(norm.out) });
     count += 1;
   }
   await saveInventory(inventoryPath, inventory, []);
