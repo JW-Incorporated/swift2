@@ -54,6 +54,7 @@ import { validateIntent } from '../social/lib/inbox.mjs';
 import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { fetchAllFeeds } from './lib/feed-retry.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -62,11 +63,8 @@ const INTAKE_COLOR = '1D76DB';
 const INTAKE_DESC = 'Real-world event dropped for content authoring';
 const LEDGER_LIMIT = 1000;
 const FETCH_TIMEOUT_MS = 30_000;
-// Attempts per channel (1 retry). Worst case bounds the run:
-// 14 channels x 2 attempts x 30s + backoff is under 15 minutes, which is what
-// the workflow's timeout-minutes is sized against.
-const FETCH_ATTEMPTS = 2;
-const RETRY_DELAY_MS = 3_000;
+// Retries are pass-based (lib/feed-retry.mjs): up to 3 attempts per channel,
+// failed channels retried after the first pass with one backoff per pass.
 
 /**
  * A positive-integer argument, or a hard exit. Everything else in this script
@@ -108,10 +106,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function fetchChannelOnce(channel) {
   const url = feedUrl(channel.channelId);
   const res = await withTimeout(httpsRequest(url), FETCH_TIMEOUT_MS, url);
-  // 429 (rate limited) and 5xx are transient by definition; a 404 is a wrong
-  // channel id, which retrying only turns into three requests for the same
-  // wrong answer. Marked so the wrapper can tell them apart.
-  if (res.status === 429 || res.status >= 500) {
+  // 404, 429 and 5xx are all treated as transient: YouTube's feed endpoint
+  // intermittently 404s every channel from datacenter IPs (run 37554874410).
+  // Marked so fetchAllFeeds knows which failures to retry.
+  if (res.status === 404 || res.status === 429 || res.status >= 500) {
     const e = new Error(`${channel.name}: feed HTTP ${res.status}`);
     e.transient = true;
     throw e;
@@ -121,32 +119,17 @@ async function fetchChannelOnce(channel) {
 }
 
 /**
- * Fetch + parse one channel feed, with ONE retry for transient conditions.
- *
- * This lane runs unattended every day against 14 third-party feeds, and any
- * channel failure turns the whole run red (deliberately — see the exit-code
- * note in the header). Without a retry, one dropped TCP connection out of
- * fourteen is a red run and a false alarm, and an alert that cries wolf daily
- * stops being read — which is the same silent-failure class the loud exit code
- * exists to prevent, arriving from the other direction. So: retry the things
- * that are genuinely transient (socket errors, timeouts, 429, 5xx), and stay
- * loud about everything else immediately. A real outage still goes red, one
- * attempt later.
+ * Fetch + parse one channel feed, ONE attempt. Retrying is pass-based in
+ * fetchAllFeeds. A timeout or socket-level error carries no HTTP status and is
+ * transient; parse failures below are final (loud, immediately).
  */
 async function fetchChannel(channel) {
   let res;
-  for (let attempt = 1; ; attempt++) {
-    try {
-      res = await fetchChannelOnce(channel);
-      break;
-    } catch (e) {
-      // A timeout or a socket-level error carries no HTTP status; both are the
-      // transient case. `e.transient` marks the status codes that are too.
-      const transient = e.transient || !/feed HTTP \d+$/.test(e.message);
-      if (!transient || attempt >= FETCH_ATTEMPTS) throw e;
-      console.error(`  … ${channel.name}: ${e.message} — retrying in ${RETRY_DELAY_MS}ms`);
-      await sleep(RETRY_DELAY_MS);
-    }
+  try {
+    res = await fetchChannelOnce(channel);
+  } catch (e) {
+    if (e.transient === undefined && !/feed HTTP \d+$/.test(e.message)) e.transient = true;
+    throw e;
   }
   if (!looksLikeFeed(res.text)) throw new Error(`${channel.name}: response is not an Atom feed`);
   const { channelTitle, entries } = parseFeed(res.text);
@@ -316,9 +299,18 @@ async function main() {
     `appearance-discovery: ${FILE_MODE ? 'FILE mode' : 'DRY RUN (no gh calls)'} — ${CHANNELS.length} channels, window ${MAX_AGE_DAYS}d, cap ${MAX_PER_RUN}/run`,
   );
 
+  const fetched = await fetchAllFeeds({
+    channels: CHANNELS,
+    fetchOne: fetchChannel,
+    sleep,
+    log: (line) => console.error(line),
+  });
+  const failedBy = new Map(fetched.failures.map((f) => [f.channel, f.error]));
+
   for (const channel of CHANNELS) {
     try {
-      const { channelTitle, entries } = await fetchChannel(channel);
+      if (failedBy.has(channel)) throw failedBy.get(channel);
+      const { channelTitle, entries } = fetched.results.get(channel);
       totalEntries += entries.length;
       const hits = [];
       for (const e of entries) {
