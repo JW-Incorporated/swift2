@@ -19,6 +19,17 @@
 # ingestion path) -> photo-coverage.mjs reports the resulting spread as a
 # workflow log line for founders to skim.
 #
+# 2026-10-07 (founder goal: 10,000+ photos): two more sources feed the same
+# merge — source-press-photos.mjs (lead images of Taylor Swift news coverage via
+# GNews; 4 requests/run against the 100/day free tier the news-worker shares,
+# see that script's header) and source-openverse-photos.mjs (CC by / by-sa /
+# cc0 / pdm photographs, no key). Both are non-fatal on API/quota errors.
+# Candidates merge round-robin up to MAX_NEW=300 a run; the importer enforces
+# the real pixel minimum and drops near-duplicate wire photos. The run is now
+# dispatched ~daily by scripts/ops/clock-table.json (minGapMinutes 1380); the
+# twice-weekly cron below stays as a backup. Rights basis: docs/social/
+# guardrails.md Guardrail 2 + docs/decisions.md 2026-10-07.
+#
 # CONCERT_PHOTO_SOURCING_ENABLED defaults to unset/false, checked first,
 # before any network call — same posture as COMMUNITY_CRAWL_ENABLED.
 name: concert-photo-sourcing
@@ -48,7 +59,7 @@ concurrency:
 jobs:
   source:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       # Kill-switch check FIRST, before checkout/install/any network call —
       # same posture as community-crawl.yml's own gate.
@@ -121,25 +132,44 @@ jobs:
             console.log('Merged Wikimedia candidates:', deduped.length);
           "
 
+      # Non-fatal by design: the script turns a missing key, GNews quota
+      # exhaustion or any API/network failure into a ::warning:: and []
+      # (exit 0); a real bug in the script still fails the step.
+      - name: Source candidate photos from Taylor Swift news coverage (GNews)
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+        run: |
+          node scripts/social/source-press-photos.mjs \
+            --output .artifacts/concert-photo-candidates-press.json
+
+      - name: Source candidate photos from Openverse
+        if: steps.enabled.outputs.enabled == 'true'
+        run: |
+          node scripts/social/source-openverse-photos.mjs \
+            --output .artifacts/concert-photo-candidates-openverse.json \
+            --exclude .artifacts/concert-photo-candidates-wikimedia.json
+
       - name: Merge and dedupe candidates from all sources
         if: steps.enabled.outputs.enabled == 'true'
         run: |
-          node -e "
-            const fs = require('node:fs');
-            const redditPath = '.artifacts/concert-photo-candidates-reddit.json';
-            const reddit = fs.existsSync(redditPath) ? JSON.parse(fs.readFileSync(redditPath, 'utf8')) : [];
-            const wikimedia = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-wikimedia.json', 'utf8'));
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            import { mergeCandidates } from './scripts/social/lib/photo-source-common.mjs';
+            const read = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : []);
+            const reddit = read('.artifacts/concert-photo-candidates-reddit.json');
+            const wikimedia = read('.artifacts/concert-photo-candidates-wikimedia.json');
+            const press = read('.artifacts/concert-photo-candidates-press.json');
+            const openverse = read('.artifacts/concert-photo-candidates-openverse.json');
             // Only candidates not already in the library count toward the cap,
             // so already-imported photos never starve new ones and the PR
-            // stays reviewable.
-            const MAX_NEW = 150;
+            // stays reviewable. Round-robin across sources so Wikimedia's
+            // thousands of candidates cannot crowd the others out of the cap.
+            const MAX_NEW = 300;
             const known = new Set(JSON.parse(fs.readFileSync('social/photo-library.json', 'utf8')).photos.map(p => p.id));
-            const seen = new Set();
-            const merged = [...reddit, ...wikimedia]
-              .filter(c => (seen.has(c.id) || known.has(c.id) ? false : (seen.add(c.id), true)))
-              .slice(0, MAX_NEW);
+            const merged = mergeCandidates([press, openverse, reddit, wikimedia], { known, max: MAX_NEW });
             fs.writeFileSync('.artifacts/concert-photo-candidates.json', JSON.stringify(merged, null, 2) + '\n');
-            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
+            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length + ', wikimedia:', wikimedia.length + ', press:', press.length + ', openverse:', openverse.length + ')');
           "
 
       - name: Import candidates into the photo library
@@ -164,8 +194,9 @@ jobs:
           commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
           title: 'social: import sourced concert photos'
           body: |
-            Automated concert-photo-sourcing run. Sourced from public
-            concert-photo subreddits per kanban t_a66e5eb2 (founder decision
-            D1=B, docs/decisions.md 2026-09-22 — no credit/permission gate on
-            ingestion). Never touches the live posting pipeline.
+            Automated concert-photo-sourcing run. Sourced from Wikimedia
+            Commons, Openverse, Taylor Swift news coverage (GNews) and, when a
+            relay is set, public concert-photo subreddits (kanban t_a66e5eb2;
+            docs/decisions.md 2026-09-22 and 2026-10-07 — no credit/permission
+            gate on ingestion). Never touches the live posting pipeline.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

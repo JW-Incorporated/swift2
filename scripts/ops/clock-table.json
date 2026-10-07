@@ -6,5 +6,6 @@
   { "workflow": "auto-merge-keepup.yml", "minGapMinutes": 14 },
   { "workflow": "merch-awin-sync.yml", "minGapMinutes": 360 },
   { "workflow": "social-approval-poll.yml", "minGapMinutes": 14 },
-  { "workflow": "social-poster.yml", "minGapMinutes": 28 }
+  { "workflow": "social-poster.yml", "minGapMinutes": 28 },
+  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 }
 ]
