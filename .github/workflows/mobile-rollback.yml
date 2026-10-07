@@ -1,0 +1,104 @@
+name: Mobile OTA rollback
+
+# One-click OTA rollback. This is the ONLY sanctioned rollback path for
+# JS-only (OTA) mobile releases; do not run `eas update:republish` by hand.
+#
+#   mode=list       print recent update groups on the `production` branch so
+#                   you can pick group ids.
+#   mode=republish  re-point `production` at an older update group (published
+#                   as a new update; installs pick it up on next launch).
+#
+# One EAS publish = TWO update groups (one per platform, iOS and Android), so
+# roll back BOTH: pass ios_group and android_group. Rolling back one platform
+# only breaks the iOS/Android parity invariant (docs/mobile-release.md).
+# A native/fingerprint change cannot be rolled back by OTA — see the runbook
+# section "Rolling back an OTA".
+#
+# Shares the `mobile-release` concurrency group with mobile-release.yml so a
+# rollback never races a release train. Inputs reach the shell only via env
+# vars (never interpolated into run: scripts).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: list = show recent production update groups; republish = roll back to the given group(s)
+        type: choice
+        options: [list, republish]
+        default: list
+      ios_group:
+        description: iOS update group id to republish (mode=republish)
+        type: string
+        required: false
+      android_group:
+        description: Android update group id to republish (mode=republish)
+        type: string
+        required: false
+      message:
+        description: Optional message recorded on the republished update
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-release
+  cancel-in-progress: false
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    # 30: emergency path; setup + CLI install + two republishes, with slack.
+    timeout-minutes: 30
+    steps:
+      - name: Refuse to run half-configured
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::error::EXPO_TOKEN repo secret is missing (HUMAN-ACTIONS.md #48). No mobile rollback can run until it exists."
+            exit 1
+          fi
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm install -g eas-cli@23.2.0
+      - name: List recent production update groups
+        if: inputs.mode == 'list'
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          eas update:list --branch production --non-interactive
+      - name: Republish the given update group(s) to production
+        if: inputs.mode == 'republish'
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          IOS_GROUP: ${{ inputs.ios_group }}
+          ANDROID_GROUP: ${{ inputs.android_group }}
+          MESSAGE: ${{ inputs.message }}
+        run: |
+          set -euo pipefail
+          if [ -z "$IOS_GROUP" ] && [ -z "$ANDROID_GROUP" ]; then
+            echo "::error::mode=republish needs ios_group and/or android_group (run mode=list to find them). Roll back BOTH platforms."
+            exit 1
+          fi
+          if [ -z "$IOS_GROUP" ] || [ -z "$ANDROID_GROUP" ]; then
+            echo "::warning::Only one platform's group was given. One publish = two groups; rolling back one platform breaks iOS/Android parity."
+          fi
+          for GROUP in "$IOS_GROUP" "$ANDROID_GROUP"; do
+            [ -z "$GROUP" ] && continue
+            if ! printf '%s' "$GROUP" | grep -Eq '^[0-9a-fA-F-]{36}$'; then
+              echo "::error::'$GROUP' is not a valid update group id (expected a 36-char UUID)."
+              exit 1
+            fi
+            if [ -n "$MESSAGE" ]; then
+              eas update:republish --branch production --group "$GROUP" --message "$MESSAGE" --non-interactive
+            else
+              eas update:republish --branch production --group "$GROUP" --non-interactive
+            fi
+          done

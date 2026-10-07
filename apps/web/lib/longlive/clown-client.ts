@@ -33,6 +33,7 @@
  * nothing between calls — no history, no session state, nothing written down.
  */
 
+import type { ClownTurn } from '@swift2/shared';
 import type { ClownDoc } from './clown-index';
 import { CLOWN_DAILY_CAP, CLOWN_GLOBAL_SCOPE, type ClownUsage } from './clown-usage';
 import { reserveGlobalUsage } from './usage-db-gate';
@@ -76,11 +77,9 @@ export const REQUEST_TIMEOUT_MS = 9_000;
  * short structured take, not a reasoning task. */
 const THINKING = { type: 'disabled' } as const;
 
-/** One transcript turn. The route builds this; this module never persists it. */
-export interface ClownTurn {
-  role: 'user' | 'assistant';
-  text: string;
-}
+/** One transcript turn. The route builds this; this module never persists it.
+ * Defined once in `@swift2/shared` (api/clown.ts). */
+export type { ClownTurn } from '@swift2/shared';
 
 /** Defensive re-cap — the route owns the real cap, this is belt-and-braces. */
 export const MAX_TRANSCRIPT_TURNS = 6;

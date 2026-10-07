@@ -12,9 +12,10 @@
  *   <baseUrl>/<bundleVersion>/<entry.path>      one validated file per manifest entry
  *
  * Flow: fetch `current.json` to learn the current `bundleVersion`, fetch that
- * version's `manifest.json` (conditionally, with `If-None-Match` against a
- * previously-stored ETag — a 304 short-circuits straight to the cached,
- * already-validated bundle), then fetch every file the manifest lists,
+ * version's `manifest.json` (skipped entirely when a fully validated copy of
+ * that exact version is cached — `bundleVersion` is a content hash, so equal
+ * version means identical bundle; no conditional headers are ever sent), then
+ * fetch every file the manifest lists,
  * verifying byte length + sha256 against the manifest entry before parsing it
  * against its zod schema.
  *
@@ -30,190 +31,101 @@
  * support likewise always throws `SchemaVersionMismatchError` — never
  * silently falls back.
  *
- * The manifest/etag/files/last-good cache entries are only written once the
- * *entire* bundle (every listed file) has been fetched and validated, all in
- * one batch — so a later run never finds a manifest+etag cached without a
- * matching validated file set (which would otherwise make a legitimate
- * server 304 look like corrupted local state).
+ * That is the default, and what build-time callers want. Installed apps opt
+ * out with `unknownEnumPolicy: 'drop'` and `dataErrorFallback: 'last-good'`
+ * (docs/decisions.md 2026-10-01): a bundle published after the app's JS must
+ * degrade, not blank the app.
+ *
+ * The version-keyed manifest/files/complete-marker entries are only written
+ * by a FULL load, once the *entire* bundle has been fetched and validated (marker
+ * cleared first, set last). A partial (pruned/skipped) load writes only
+ * last-good, so it can never clobber a full load of the same version.
  */
 import { z } from 'zod';
-import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
-import { MemoryStorageAdapter, type StorageAdapter } from './cache';
-import { createHash } from './hash';
-import { assertSchemaVersionSupported, CURRENT_SCHEMA_VERSION } from './compat';
+import { manifestSchema, type Manifest } from './schema';
+import { MemoryStorageAdapter } from './cache';
+import { assertSchemaVersionSupported } from './compat';
+import { beginStage } from './timing';
+import {
+  BundleLoadError,
+  isDataError,
+  LOAD_SOURCE,
+  SchemaVersionMismatchError,
+  SUPPORTED_SCHEMA_VERSION,
+  TransportError,
+  type FetchLike,
+  type LoadBundleOptions,
+  type LoadedBundle,
+} from './load-types';
+import { DEFAULT_REQUEST_TIMEOUT_MS, joinUrl, readJson, transportFetch } from './load-transport';
+import {
+  fetchLastGoodBundle,
+  persistFullLoad,
+  persistPartialLoad,
+  readCompleteCache,
+  readLastGoodVersion,
+  readReusableBundle,
+  revalidateLastGood,
+} from './load-cache';
+import { fetchBundleFiles } from './load-files';
 
-/** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
-export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
+export {
+  BundleIntegrityError,
+  BundleLoadError,
+  isDataError,
+  LOAD_SOURCE,
+  SchemaVersionMismatchError,
+  SUPPORTED_SCHEMA_VERSION,
+} from './load-types';
+export type {
+  BundleFiles,
+  FetchLike,
+  FetchResponseLike,
+  LoadBundleOptions,
+  LoadedBundle,
+  LoadSource,
+} from './load-types';
 
 const pointerSchema = z.object({
   bundleVersion: z.string().min(1),
 });
-
-/** Minimal subset of the standard `Response` shape the loader needs — satisfied by the global `fetch` in browsers, Node 18+, and Expo, and trivially fakeable in tests. */
-export interface FetchResponseLike {
-  ok: boolean;
-  status: number;
-  text(): Promise<string>;
-  headers: { get(name: string): string | null };
-}
-
-export type FetchLike = (
-  url: string,
-  init?: { headers?: Record<string, string> },
-) => Promise<FetchResponseLike>;
-
-export interface LoadBundleOptions {
-  /** Where the bundle is published, e.g. `https://www.longlivets.com/content` or a Supabase Storage bucket URL. No trailing slash required. */
-  baseUrl: string;
-  /** Injectable fetch implementation. Defaults to `globalThis.fetch`. */
-  fetch?: FetchLike;
-  /** Injectable storage adapter. Defaults to an in-memory adapter (durable for this process only). Pass a real adapter (e.g. `expo-file-system`-backed on mobile) to persist a last-good bundle across app restarts. */
-  storage?: StorageAdapter;
-  /** Schema version this loader build supports. Defaults to `SUPPORTED_SCHEMA_VERSION`; override only in tests. */
-  schemaVersion?: number;
-}
-
-export type BundleFiles = Record<string, unknown>;
-
-export type LoadSource = 'network' | 'cache-etag' | 'offline-last-good';
-
-export interface LoadedBundle {
-  manifest: Manifest;
-  /** Manifest entry name -> the file's content, already zod-validated. */
-  files: BundleFiles;
-  source: LoadSource;
-  /** True when this bundle was served from the last-good offline cache because the transport (network/server) was unreachable, not because it was freshly confirmed current. */
-  stale: boolean;
-}
-
-export class BundleLoadError extends Error {
-  constructor(
-    message: string,
-    readonly cause?: unknown,
-  ) {
-    super(message);
-    this.name = 'BundleLoadError';
-  }
-}
-
-export class SchemaVersionMismatchError extends Error {
-  constructor(
-    readonly found: number,
-    readonly supported: number,
-    cause?: unknown,
-  ) {
-    super(
-      `Content bundle schemaVersion ${found} is not supported by this build (this loader ` +
-        `supports schemaVersion ${supported}, plus its N-1 window per OS-041's compatibility ` +
-        `policy — see ./compat.ts). Ship a build whose packages/content loader understands ` +
-        `schemaVersion ${found} before publishing a bundle at that version.` +
-        (cause instanceof Error ? ` (${cause.message})` : ''),
-    );
-    this.name = 'SchemaVersionMismatchError';
-  }
-}
-
-export class BundleIntegrityError extends Error {
-  constructor(
-    readonly fileName: string,
-    detail: string,
-  ) {
-    super(`Content bundle file "${fileName}" failed integrity check: ${detail}`);
-    this.name = 'BundleIntegrityError';
-  }
-}
-
-/**
- * Marks a failure as transport-level (unreachable server, network throw, or a
- * non-2xx/non-304 HTTP status) — the ONLY category of failure that may fall
- * back to a cached last-good bundle. Anything else (JSON parse errors, zod
- * validation, integrity mismatches, schema version mismatches) is a data
- * problem with a genuinely reachable response and must never be silently
- * papered over by stale-while-revalidate.
- */
-class TransportError extends Error {
-  constructor(
-    message: string,
-    readonly cause?: unknown,
-  ) {
-    super(message);
-    this.name = 'TransportError';
-  }
-}
-
-/** Same manifest-entry-name -> schema mapping the OS-010 fixture test uses (`content:<eraId>` prefix -> the per-era content file schema; everything else keyed directly into `contentBundleSchemas`). */
-function schemaForManifestEntry(name: string): z.ZodTypeAny {
-  if (name.startsWith('content:')) return contentBundleSchemas.content;
-  const schema = (contentBundleSchemas as Record<string, z.ZodTypeAny>)[name];
-  if (!schema) {
-    throw new BundleLoadError(
-      `No schema mapped for manifest entry "${name}" — update schemaForManifestEntry() in load.ts.`,
-    );
-  }
-  return schema;
-}
-
-const CACHE_KEY_PREFIX = '@swift2/content:v1:';
-const keyFor = (baseUrl: string, suffix: string) => `${CACHE_KEY_PREFIX}${baseUrl}:${suffix}`;
-
-interface CachedBundleRecord {
-  manifest: Manifest;
-  files: BundleFiles;
-}
-
-async function storeGet(storage: StorageAdapter, key: string): Promise<string | null> {
-  return (await storage.getItem(key)) ?? null;
-}
-
-async function storeSet(storage: StorageAdapter, key: string, value: string): Promise<void> {
-  await storage.setItem(key, value);
-}
-
-function joinUrl(base: string, path: string): string {
-  return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
-}
-
-async function fetchLastGoodBundle(
-  storage: StorageAdapter,
-  baseUrl: string,
-): Promise<CachedBundleRecord | null> {
-  const raw = await storeGet(storage, keyFor(baseUrl, 'last-good'));
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as CachedBundleRecord;
-  } catch {
-    return null;
-  }
-}
-
-/** Calls `fetchImpl`, converting a network-level throw (offline, DNS, timeout) into a `TransportError` so callers can distinguish it from a data problem in an otherwise-successful response. */
-async function transportFetch(
-  fetchImpl: FetchLike,
-  url: string,
-  init?: { headers?: Record<string, string> },
-): Promise<FetchResponseLike> {
-  try {
-    return await fetchImpl(url, init);
-  } catch (err) {
-    throw new TransportError(`Network request to ${url} failed`, err);
-  }
-}
-
-/** Reads and JSON-parses a response body. A malformed body is a DATA problem (the server was reached, it just returned garbage) — never converted to `TransportError`, so it is never masked by the stale-while-revalidate fallback. */
-async function readJson<T>(res: FetchResponseLike): Promise<T> {
-  const text = await res.text();
-  return JSON.parse(text) as T;
-}
 
 /**
  * Load the content bundle, validating everything against `schema.ts` before
  * returning it. See module doc for the full flow and fallback behavior.
  */
 export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBundle> {
+  const endTotal = beginStage('load-total');
+  try {
+    const loaded = await loadBundleStrict(options);
+    endTotal(loaded.source);
+    return loaded;
+  } catch (err) {
+    if (options.dataErrorFallback !== 'last-good' || !isDataError(err)) throw err;
+    const lastGood = await fetchLastGoodBundle(
+      options.storage ?? new MemoryStorageAdapter(),
+      options.baseUrl,
+    );
+    const readable = lastGood && revalidateLastGood(lastGood, options);
+    if (!readable) throw err;
+    return {
+      manifest: lastGood.manifest,
+      files: readable.files,
+      source: LOAD_SOURCE.lastGoodAfterDataError,
+      stale: true,
+      dataError: err,
+      ...(readable.skipped.length ? { skipped: readable.skipped } : {}),
+    };
+  }
+}
+
+async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
   const { baseUrl } = options;
   const fetchImpl = options.fetch ?? (globalThis.fetch as unknown as FetchLike | undefined);
   const storage = options.storage ?? new MemoryStorageAdapter();
   const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
+  const dropUnknown = options.unknownEnumPolicy === 'drop';
+  const requestTimeoutMs = options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
 
   if (!fetchImpl) {
     throw new BundleLoadError(
@@ -229,7 +141,7 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
       return {
         manifest: lastGood.manifest,
         files: lastGood.files,
-        source: 'offline-last-good',
+        source: LOAD_SOURCE.offlineLastGood,
         stale: true,
       };
     }
@@ -237,13 +149,20 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
   }
 
   let bundleVersion: string;
+  const endPointer = beginStage('pointer');
   try {
-    const pointerRes = await transportFetch(fetchImpl, joinUrl(baseUrl, 'current.json'));
+    const pointerRes = await transportFetch(
+      fetchImpl,
+      joinUrl(baseUrl, 'current.json'),
+      undefined,
+      requestTimeoutMs,
+    );
     if (!pointerRes.ok) {
       throw new TransportError(`Fetching current.json failed with HTTP ${pointerRes.status}`);
     }
     const pointerRaw = await readJson<unknown>(pointerRes);
     bundleVersion = pointerSchema.parse(pointerRaw).bundleVersion;
+    endPointer();
   } catch (err) {
     return fallbackOrRethrow(
       err,
@@ -252,49 +171,24 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
   }
 
   const manifestUrl = joinUrl(baseUrl, `${bundleVersion}/manifest.json`);
-  const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
-  const etagKey = keyFor(baseUrl, `etag:${bundleVersion}`);
-  const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
+
+  const warm = await readCompleteCache(storage, baseUrl, bundleVersion, schemaVersion);
+  if (warm) {
+    // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
+    beginStage('manifest')('304');
+    return { ...warm, source: 'cache-etag', stale: false };
+  }
 
   let manifest: Manifest;
-  let manifestEtagToStore: string | undefined;
 
+  const endManifest = beginStage('manifest');
   try {
-    const storedEtag = await storeGet(storage, etagKey);
-    const headers: Record<string, string> = {};
-    if (storedEtag) headers['If-None-Match'] = storedEtag;
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl, undefined, requestTimeoutMs);
 
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl, { headers });
-
-    if (manifestRes.status === 304) {
-      const cachedRaw = await storeGet(storage, manifestCacheKey);
-      const cachedFilesRaw = await storeGet(storage, filesCacheKey);
-      if (!cachedRaw || !cachedFilesRaw) {
-        // The server thinks we already have this exact manifest+files (we
-        // sent its own previously-issued ETag back to it), but our local
-        // cache doesn't actually have them — a genuine local-state bug, not
-        // a connectivity problem, so this must NOT be silently treated as
-        // "offline, serve last-good"; it needs to surface as an error.
-        throw new BundleLoadError(
-          'Server returned 304 Not Modified for a cached ETag, but no matching manifest/files ' +
-            'are cached locally — local cache state is inconsistent with the stored ETag.',
-        );
-      }
-      manifest = manifestSchema.parse(JSON.parse(cachedRaw));
-      // A 304 means this exact bundleVersion's manifest and files are unchanged
-      // since we last validated them — return the cached files directly instead
-      // of re-fetching and re-validating every file over the network.
-      return {
-        manifest,
-        files: JSON.parse(cachedFilesRaw) as BundleFiles,
-        source: 'cache-etag',
-        stale: false,
-      };
-    } else if (manifestRes.ok) {
+    if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
       manifest = manifestSchema.parse(manifestRaw);
-      manifestEtagToStore =
-        manifestRes.headers.get('etag') ?? manifestRes.headers.get('ETag') ?? undefined;
+      endManifest('200');
     } else {
       throw new TransportError(`Fetching manifest.json failed with HTTP ${manifestRes.status}`);
     }
@@ -313,38 +207,21 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
     }
   }
 
-  const files: BundleFiles = {};
+  const startedFrom = await readLastGoodVersion(storage, baseUrl);
+  const reusable = await readReusableBundle(storage, baseUrl);
+  let files: LoadedBundle['files'];
+  let skipped: string[];
+  let pruned: boolean;
   try {
-    for (const [name, entry] of Object.entries(manifest.files)) {
-      const fileRes = await transportFetch(
-        fetchImpl,
-        joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
-      );
-      if (!fileRes.ok) {
-        throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
-      }
-      const text = await fileRes.text();
-      const byteLength = new TextEncoder().encode(text).length;
-      if (byteLength !== entry.bytes) {
-        throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
-      }
-      const actualHash = await createHash(text);
-      if (actualHash !== entry.sha256) {
-        throw new BundleIntegrityError(
-          name,
-          `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
-        );
-      }
-      const schema = schemaForManifestEntry(name);
-      const parsed = schema.safeParse(JSON.parse(text));
-      if (!parsed.success) {
-        throw new BundleIntegrityError(
-          name,
-          `schema validation failed: ${JSON.stringify(parsed.error.issues)}`,
-        );
-      }
-      files[name] = parsed.data;
-    }
+    ({ files, skipped, pruned } = await fetchBundleFiles({
+      manifest,
+      bundleVersion,
+      baseUrl,
+      fetchImpl,
+      requestTimeoutMs,
+      dropUnknown,
+      reusable,
+    }));
   } catch (err) {
     return fallbackOrRethrow(
       err,
@@ -352,13 +229,36 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
     );
   }
 
-  // Only now — once the manifest AND every file it lists have been fetched
-  // and validated together — persist the cache atomically, so a future 304
-  // can never find a manifest+etag on disk without its matching files.
-  await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
-  await storeSet(storage, filesCacheKey, JSON.stringify(files));
-  await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  const partial = pruned || skipped.length > 0;
+  const endDiskWrite = beginStage('disk-write');
+  if (partial) {
+    await persistPartialLoad(storage, baseUrl, manifest, files);
+    endDiskWrite();
+    return {
+      manifest,
+      files,
+      source: 'network',
+      stale: false,
+      ...(skipped.length ? { skipped } : {}),
+    };
+  }
 
-  return { manifest, files, source: 'network', stale: false };
+  await persistFullLoad(
+    storage,
+    baseUrl,
+    bundleVersion,
+    manifest,
+    files,
+    startedFrom,
+  );
+  endDiskWrite();
+
+
+  return {
+    manifest,
+    files,
+    source: 'network',
+    stale: false,
+    ...(skipped.length ? { skipped } : {}),
+  };
 }

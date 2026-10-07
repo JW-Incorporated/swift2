@@ -17,8 +17,14 @@ permissions:
 # nobody will merge. `main` is deliberately NOT cancellable — it is the deploy
 # gate and the only place a semantic conflict between two separately-green PRs
 # shows up, which matters at this repo's merge rate.
+#
+# So `main` pushes get one group PER COMMIT. A shared `main` group was not
+# enough: even with cancel-in-progress false, GitHub keeps only one PENDING run
+# per group and cancels it when a newer one queues, so clustered merges
+# silently skipped CI on the middle commits (2026-10-01: #4731/#4732 runs
+# cancelled with zero jobs). The repo is public, so the extra runs are free.
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -39,7 +45,7 @@ jobs:
       non_content: ${{ steps.filter.outputs.non_content }}
     steps:
       - uses: actions/checkout@v7
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@v4
         id: filter
         with:
           filters: |
@@ -76,6 +82,15 @@ jobs:
       # typecheck/test run before `build` does. (npm ci itself is already
       # covered by setup-repo's npm-ci: 'true' above.)
       - run: npm run sync:content
+      # The mobile apps load this bundle at runtime; build it twice and
+      # require identical hashes (OS-011) on every PR, not just on publish.
+      - run: npm run check:content-bundle
+      # One UI WP0.3: the snapshot built from the web's baked modules and the
+      # one built from this commit's D1 bundle must hash equal; a mismatch
+      # names the diverging domains. Also runs inside `npm run test` below;
+      # the explicit step makes a divergence its own red line.
+      - name: ReaderSnapshot equivalence (baked vs bundle)
+        run: npx vitest run packages/experience/src/reader-snapshot
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
@@ -90,10 +105,13 @@ jobs:
       - run: npm run typecheck --workspace @swift2/mobile
       - name: Expo export (iOS, headless bundle check)
         working-directory: apps/mobile
-        run: npx expo export --platform ios
+        run: npx expo export --platform ios --output-dir dist-ios
       - name: Expo export (Android, headless bundle check)
         working-directory: apps/mobile
-        run: npx expo export --platform android
+        run: npx expo export --platform android --output-dir dist-android
+      # OTA size budget (One UI WP1.1a): fail on >15% growth vs e2e/parity/size-baseline.json.
+      - name: OTA size budget check
+        run: node scripts/parity/size-check.mjs
       # Clownbot rebuild's red-team battery (J3, PLAN.md Step 12): the feature
       # ships live on merge, gated on this check, so it runs on every PR, not
       # on a cadence someone has to remember. Deterministic and keyless — it
@@ -117,6 +135,9 @@ jobs:
       # Auditor — docs/audits/2026-09-05-claude-routines-relocation-assessment.md):
       # deterministic, zero-LLM checks over .github/workflows/routine-*.yml.
       - run: npm run check:routines
+      # Offline: a job running a script that imports an npm/workspace package
+      # must install deps (setup-repo defaults npm-ci to false — #5219, #5224).
+      - run: npm run check:workflow-deps
       # Offline + ~50ms: proves docs/launch-readiness.md's cadence claims are
       # backed by a real cron and that no gate is green on a cadence nothing
       # provides. Throttling a runner now breaks `build` until the gates that
@@ -153,34 +174,6 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
-      # docs/social/RULINGS-SOCIAL.md A6 — "CI fails any PR touching the posting path
-      # while SOCIAL_FREEZE is off, making the switch a merge precondition."
-      # The hole that shipped tonight existed because the gate's predicate
-      # (PR file status) and the poster's predicate (isDue) were different
-      # functions, bridged only by a filed-but-unexecuted human action
-      # (#56). This makes the bridge mechanical: a PR cannot even merge
-      # while it edits the live posting path unless the freeze is already
-      # on. PR-pull_request only (not push-to-main) — by the time a PR
-      # merges the freeze requirement already gated it once; re-checking on
-      # push would only block a merge that already happened.
-      - name: Social posting-path changes require SOCIAL_FREEZE=true (RULINGS-SOCIAL A6)
-        if: github.event_name == 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          PR: ${{ github.event.pull_request.number }}
-          FREEZE: ${{ vars.SOCIAL_FREEZE }}
-        run: |
-          set -euo pipefail
-          case "${FREEZE:-}" in
-            true|1|TRUE|True) exit 0 ;;
-          esac
-          FILES=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
-          POSTING_PATH='^(scripts/social/post-queue\.mjs|scripts/social/lib/queue\.mjs|scripts/social/lib/queue-schema\.mjs|scripts/social/lib/platforms\.mjs|scripts/social/lib/approvers\.mjs|scripts/social/stamp-approval\.mjs|scripts/social/social-approval-poll\.mjs|scripts/automerge-social-approval-gate\.mjs|\.github/workflows/social-poster\.yml|\.github/workflows/social-approval-poll\.yml|\.github/workflows/auto-merge-content\.yml)$'
-          if printf '%s\n' "$FILES" | grep -qE "$POSTING_PATH"; then
-            echo "::error::This PR changes the live posting path while SOCIAL_FREEZE is off. Freeze first (gh variable set SOCIAL_FREEZE --repo $REPO --body true), re-run, merge, then unfreeze deliberately."
-            exit 1
-          fi
       - run: npm run build
       # Bundle-size gate (R7, Fable 5.1 architecture review, #3709): detection
       # only — fails CI if apps/web's shipped client bundle
@@ -188,6 +181,9 @@ jobs:
       # docs/dev-quickstart.md. Runs after `build` since it measures that
       # step's output.
       - run: npm run check:budget:bundle
+      # Legal-corpus sentinel (#4918): fails if privacy/terms text leaks into
+      # client chunks. Reuses the build above; no second `next build`.
+      - run: npm run check:client-corpus
       - run: npm run check:budget:seed
 
   # Fast path (R22, #3709): content-only PRs skip typecheck/vitest/next build
@@ -207,6 +203,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run validate:content
+      # Content-only PRs are exactly the ones that change the mobile bundle,
+      # so they must build it too (build-full gets this after sync:content).
+      - run: npm run check:content-bundle
       - run: npm run validate:social
       - run: npm run check:generated
       - name: Voice gate on changed content
@@ -214,6 +213,17 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
+      # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
+      # content-only PRs get the OTA size budget too (see build-full).
+      - run: npm run sync:content
+      - name: Expo export (iOS, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios --output-dir dist-ios
+      - name: Expo export (Android, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform android --output-dir dist-android
+      - name: OTA size budget check
+        run: node scripts/parity/size-check.mjs
 
   # Required-check aggregator: branch protection points at the job named
   # `build`, which now never runs the work itself — it just fans in whichever

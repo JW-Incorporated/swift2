@@ -903,7 +903,7 @@ export default {
       title: "A Central Park stroll confirms she's dating Harry Styles",
       snippet:
         'Photographed walking through Central Park with Harry Styles on December 2, 2012 — the first public sighting of the two together, joined by his stylist Lou Teasdale.',
-      sourceUrl: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+      sourceUrl: 'https://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
       thumbnailUrl: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
       moment: {
         context:
@@ -911,7 +911,7 @@ export default {
         sources: [
           {
             outlet: 'Just Jared',
-            url: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+            url: 'https://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
           },
           {
             outlet: 'E! News',
@@ -1734,7 +1734,7 @@ export default {
       title: 'A $4 million gift opens the Taylor Swift Education Center',
       snippet:
         'The Country Music Hall of Fame opened its Taylor Swift Education Center on October 12, 2013 — funded by the largest individual artist donation the museum had ever received.',
-      sourceUrl: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+      sourceUrl: 'https://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
       moment: {
@@ -1743,7 +1743,7 @@ export default {
         sources: [
           {
             outlet: 'Rolling Stone',
-            url: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+            url: 'https://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
             source_title: 'Taylor Swift Opens Education Center at Country Music Hall of Fame',
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',

@@ -41,7 +41,7 @@ function parseArgs(argv) {
  * Gmail auth failure) and the unset-creds no-op both count as `neither` —
  * only a confirmed send counts as `email`.
  */
-function sendMailFallback(subject, body, url, spawnImpl) {
+export function sendMailFallback(subject, body, url, spawnImpl) {
   // mkdtempSync (not a predictable pid/timestamp filename) avoids a
   // symlink-race on the shared OS temp dir: it atomically creates a
   // fresh, exclusively-owned directory with a random suffix, so nothing

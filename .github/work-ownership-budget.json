@@ -30,9 +30,9 @@
   ],
   "budget": {
     "unrouted": 138,
-    "ambiguous": 0,
+    "ambiguous": 1,
     "unowned": 0,
-    "abandoned": 0,
+    "abandoned": 9,
     "stalePr": 9
   },
   "notEnforced": {

@@ -59,3 +59,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/news/check-triage-receipt.mjs
+
+  # Bots v2 W8: the intake issues this run just filed are the time-sensitive
+  # events Tree should draft for the same day. Issues made with the workflow
+  # token fire no `issues` event, so dispatch the scan explicitly rather than
+  # waiting for its two-hourly cron. A failure here is a warning only.
+  dispatch-social-events:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Dispatch social-event-dispatch.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run social-event-dispatch.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "::warning::could not dispatch social-event-dispatch.yml; its two-hourly cron will pick the events up"

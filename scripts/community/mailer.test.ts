@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
@@ -13,6 +13,7 @@ import {
   markEmailed,
   getOrCreateReceipt,
   MAX_LEADS_PER_EMAIL,
+  shouldPostBatchHeader,
   SITE,
 } from './mailer.mjs';
 
@@ -210,6 +211,8 @@ function fakeSupabase({
       const builder: Record<string, unknown> = {
         select: () => builder,
         eq: () => builder,
+        not: () => builder,
+        neq: () => builder,
         order: () => builder,
         limit: () => Promise.resolve({ data: rows, error: selectError }),
         update: (patch: unknown) => ({
@@ -223,6 +226,14 @@ function fakeSupabase({
     },
   };
 }
+
+describe('shouldPostBatchHeader', () => {
+  it('posts the lead-in only when a lead message follows and this is not a receipt retry', () => {
+    expect(shouldPostBatchHeader({ promptCount: 3, isRetry: false })).toBe(true);
+    expect(shouldPostBatchHeader({ promptCount: 0, isRetry: false })).toBe(false);
+    expect(shouldPostBatchHeader({ promptCount: 3, isRetry: true })).toBe(false);
+  });
+});
 
 describe('fetchLeadsToMail', () => {
   it('fetches drafted leads and orders them (replies-to-us first)', async () => {
@@ -261,6 +272,43 @@ describe('fetchLeadsToMail', () => {
     const result = await fetchLeadsToMail(supabase, { mode: 'daily' });
     expect(result[0].id).toBe('urgent-reply');
     expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+  });
+
+  it('filters null drafts in the query so no-draft rows cannot starve sendable leads', async () => {
+    const not = vi.fn();
+    const neq = vi.fn();
+    const builder: Record<string, unknown> = {
+      select: () => builder,
+      eq: () => builder,
+      not: (...args: unknown[]) => {
+        not(...args);
+        return builder;
+      },
+      neq: (...args: unknown[]) => {
+        neq(...args);
+        return builder;
+      },
+      order: () => builder,
+      limit: () => Promise.resolve({ data: [lead({ id: 'ok' })], error: null }),
+    };
+    const result = await fetchLeadsToMail({ from: () => builder }, { mode: 'daily' });
+    expect(not).toHaveBeenCalledWith('draft', 'is', null);
+    expect(neq).toHaveBeenCalledWith('kind', 'awareness_reply'); // the awareness lane has its own delivery
+    expect(result.map((l: Lead) => l.id)).toEqual(['ok']);
+  });
+
+  it('W3: skips leads with no reply text, reports how many, and never lets them eat a slot', async () => {
+    const rows = [
+      lead({ id: 'blank', draft: null, kind: 'reply_to_us' }),
+      lead({ id: 'spaces', draft: '   ' }),
+      ...Array.from({ length: MAX_LEADS_PER_EMAIL }, (_, i) => lead({ id: `ok-${i}` })),
+    ];
+    const supabase = fakeSupabase({ rows });
+    const onSkipped = vi.fn();
+    const result = await fetchLeadsToMail(supabase, { mode: 'daily', onSkipped });
+    expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+    expect(result.some((l: Lead) => l.id === 'blank' || l.id === 'spaces')).toBe(false);
+    expect(onSkipped).toHaveBeenCalledWith(2);
   });
 
   it('throws on a genuine db error rather than mailing a silently-empty batch', async () => {

@@ -71,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (29 automatic + 10 manual)
+## Tier 1 — GitHub Actions (30 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -89,6 +89,14 @@ counts are `automatic + manual`.
 `auto-merge-content.yml` is the single most load-bearing workflow here: it is
 why desk routines can open a PR and exit instead of babysitting it (which was
 ~69% of all agent token spend before 2026-07-25).
+
+### Routine failure triage (1)
+
+| Workflow | Trigger | LLM | Mutates | Docs |
+|---|---|---|---|---|
+| [`bot-failure-triage.yml`](../.github/workflows/bot-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
+
+Logic in `scripts/marjorie/routine-failure-triage.mjs`; the escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 
 ### Watchdogs and freshness (5)
 
@@ -182,7 +190,7 @@ call a model are separate **manually confirmed** workflows.
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
-| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 18:00 local (`docs/decisions.md`, 2026-09-30) |
+| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 23:00 local (`docs/decisions.md`, 2026-09-30) |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
 
 ### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
@@ -207,6 +215,8 @@ workflow — see its row in the Tier 2 table below.
 | [`community-crawl.yml`](../.github/workflows/community-crawl.yml) | daily 07:13 UTC, bounded | no | year-deep Reddit top-post walker (RSS `t=year` feed, real ceiling ~100 posts/sub) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`, **ships OFF**) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 (landed) |
 | [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
 | [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
+| [`community-awareness-scan.yml`](../.github/workflows/community-awareness-scan.yml) | every 20 minutes (minutes 7, 27, 47; jittered) | no | awareness image-reply lane discovery: many tiny anonymous runs, 2 RSS requests each, rotating through per-sub hot+new and search feeds from `scripts/community/awareness-subs.json` (cursor + 429 cooldowns in `awareness_source_state`; never a Reddit API key) → filters → `engagement_lead(kind='awareness_reply', status='new')` with a validated share-card `image_ref`; kill switch repo variable `AWARENESS_LANE_ENABLED=false` | owner direction 2026-10-01 |
+| [`community-awareness-deliver.yml`](../.github/workflows/community-awareness-deliver.yml) | after each `routine-awareness-answerer` success (every 3 hours) | no | picks ≤5 drafted awareness leads (≤3 per sub/day, 4 for r/TaylorSwift and r/swifties, ≤15/day), posts two Discord messages each (the bare thread link with the share-card PNG attached + Posted/Skip, then the reply text alone; no batch header), marks them `delivered`; the owner posts every reply | owner direction 2026-10-01 |
 | [`theory-miner.yml`](../.github/workflows/theory-miner.yml) | daily 08:20 UTC (after `community-crawl.yml`) | yes (Haiku 4.5 extract, `apps/worker/src/extract/theory-haiku-client.ts`'s forced `record_fan_theories` tool) | downloads the latest successful `community-crawl.yml` run's transient artifact (`gh run download`, since this is a separately scheduled workflow, not a `workflow_run` trigger); one Haiku call per post+comment bundle; every theory screened (`screenTopic()`) before `fan_theory_candidate` upsert, deduped by `theory_key`; a redline hit is never stored at all (no "written but unservable" state, unlike `current_item`/`fan_signal`); has nothing to mine while `COMMUNITY_CRAWL_ENABLED` stays off, which is a clean no-op, not a failure | P2-2 (landed) |
 | [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true, carries `track_slug` — added by P2-6, see below); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
 | [`theory-weaving-intake.yml`](../.github/workflows/theory-weaving-intake.yml) | weekly, Sunday 09:52 UTC (after `theory-promote.yml`) | no (deterministic — reads `live_theory`, no model call) | reads `live_theory` rows `origin='fan'`, `persistent=true`, `track_slug is not null`, not `debunked`, `mention_count >= 8` (a higher bar than P2-3's own `mention_count >= 3` promotion floor — see the script's header for why); files one `intake`-labeled GitHub issue per not-already-filed theory (fingerprint-deduped the same fail-closed way as `appearance-discovery`) pointing Content Shift at `docs/content-ops/theory-weaving.md`'s mainstream-coverage sourcing bar — a LEAD, never a song-page edit; degrades to a clean no-op when `SUPABASE_*` are unset | P2-6 (landed) |
@@ -221,13 +231,59 @@ parameters are appended to drafted links today, so link-CTR cannot be
 measured from click data until that's added.
 
 The local `knowledge:fb-export` command collects and parser-gates weekly
-Facebook HTML, uploads passing files, and closes the reminder issue; its
+Facebook HTML, ingests each passing file before upload, uploads it, and closes
+the reminder issue; its
 Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
-DPAPI credential, run ledgers, screenshots, and the persistent Chrome profile
-all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo. `fb-export-ingest`
-(script, not its own cron — run by the Answerer desk or `workflow_dispatch`
-after a weekly Facebook export lands) and
+run ledgers, private comment files, and the persistent Chrome profile
+all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
+
+Facebook export runbook (extension collector, 2026-09-30). The run starts a
+local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
+debugging port) in the dedicated profile
+`%LOCALAPPDATA%\longlive-fb\chrome-profile`; the unpacked extension in
+`scripts/knowledge/fb-extension` walks the groups and posts results back.
+One-time setup: in that profile open `chrome://extensions`, enable Developer
+mode, and Load unpacked from `<Projects/Swift2>/scripts/knowledge/fb-extension`
+(Chrome 137+ ignores `--load-extension`, so this cannot be automated). The
+profile must stay logged in to Facebook as the owner: there is no automatic
+login any more (the DPAPI login path was removed), so if it logs out, sign in
+by hand in that profile. Stop statuses: `login` (logged out, sign in),
+`checkpoint` / `captcha` (clear the Facebook prompt by hand), `wrong-profile`
+(the profile is not the expected account), `stunted` (feed stayed at 3 or fewer
+slots after 20 scrolls: Facebook is limiting this browser; stopped, retry
+later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
+ran out; unfinished groups are marked failed). All of these stop or fail the
+run and leave the weekly issue open. `stunted` applies only to a tab that
+stayed visible: Chrome throttles a hidden tab and Facebook's feed does not
+load in one. **The run is unattended Sundays 23:00-04:00: the PC must stay on and signed in (locking is fine; don't sign out or shut down), allow wake timers, and don't switch tabs in the export window.**
+The launcher passes `--disable-backgrounding-occluded-windows`,
+`--disable-renderer-backgrounding`, `--disable-background-timer-throttling`
+and `--disable-features=CalculateNativeWinOcclusion` so a covered window keeps working, and the extension makes the run's tab the
+active tab of its window (it never steals OS focus). While the tab is hidden
+the extension pauses scrolling; scrolls that overlap hidden time count toward
+neither the stunted check nor the scroll cap, and the group's wall budget
+keeps running (heartbeats carry `hidden` and `hiddenMs`). A group whose tab is
+hidden 10 min in a row, or that looks stunted with hidden time in the last
+60 s, fails with reason `tab-hidden` — a per-group failure (the run continues
+with the next group), explained in the run summary. **The export must start Chrome itself:** if
+the profile's Chrome is already running (it holds `<profile>/lockfile`), a new
+launch would hand the URL to that process and ignore the flags above, so the
+run does not start Chrome, fails every group with reason `chrome-profile-open`
+and says "close that Chrome window and rerun". A stale lockfile (not held) is
+ignored. Group budgets: taylor-swifts-vault 75 min,
+others 20 min; the scheduled task limit is 5 h. Comments are collected
+privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
+never in the repo and never uploaded. Comment collection never blocks the
+posts: a comment-coverage failure (`comments-collection-failed`,
+`comments-count-drift`, `comments-coverage-missing`, collector error) leaves the
+group `collected` (gate, ingest and upload proceed), the result carries
+`commentsFailed: <code>` plus the counts, the run summary prints `comments:
+FAILED (<code>) — posts uploaded; comments need a selector fix (run
+knowledge:fb-export:capture)`, and the weekly issue still closes (it is about
+posts). Comment-store failures (503 retry) are unchanged. `fb-export-ingest`
+(script, not its own cron — invoked by the local export runner before upload)
+and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
 its final step — `scripts/community/theory-resolve.mjs`, matches
 `fan_theory_candidate.predicts`/`predicted_date` against Vault moments by
@@ -295,6 +351,7 @@ runs in CI as `npm run check:routines` to enforce their routine invariants.
 | News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
 | Community Answerer — engagement drafts (P1-4, `routine-community-answerer.yml`) | daily 14:46 (after `community-scan.yml`, P1-2) | Sonnet 5 (§8-Q4) | [`community-answerer.md`](agents/community-answerer.md) | [`community-answerer.md`](agents/runner-prompts/community-answerer.md) |
+| Awareness Answerer — image replies (`routine-awareness-answerer.yml`) | every 3 hours, 22 min after each awareness scan (minute 41); a plain export job (the only one with the DB secret; the Claude job has none, no shell) skips the Claude run when no lead is waiting; one run per batch, 30 turns, $1 guard | Sonnet 5 | [`community-answerer.md`](agents/community-answerer.md) (hard rails) | [`awareness-answerer.md`](agents/runner-prompts/awareness-answerer.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
@@ -321,6 +378,7 @@ designed every-other-day cadence. See
 | Kevin — S3 eng triage | daily 15:43 | Sonnet 5 | [`kevin.md`](kevin.md) |
 | Kevin — S3 comment radar | 01:23 + 13:23 | Haiku 4.5 | [`kevin.md`](kevin.md) |
 | Austin — build runs | daily 21:00 | Opus 4.8 (2-week trial 2026-08-31→2026-09-14; was Fable 5) | [`agents/austin.md`](agents/austin.md) |
+| ops-fixer — fixes routed bot/automation problems and lands its own PR (dispatch-only, one run per routed issue, max 80 turns) | on dispatch by Marjorie | Opus 5 (`claude-opus-5`) | [`agents/ops-fixer.md`](agents/ops-fixer.md) |
 
 ### Founder-facing and social planning
 
@@ -328,6 +386,7 @@ designed every-other-day cadence. See
 |---|---|---|---|
 | Marjorie — 6 AM Founders' Brief | daily 12:00 | Opus 4.8 | [`agents/marjorie.md`](agents/marjorie.md) |
 | Marjorie — 8 PM Evening Delta | daily 03:00 (comment-only since 2026-08-23) | Fable 5 | [`agents/marjorie.md`](agents/marjorie.md) § Delivery |
+| Marjorie — weekly growth review | Sun 20:13 | Fable 5 (`claude-fable-5`, as Austin's routine) | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-09-30 |
 | Tree — weekly social plan | Mon 10:00 | **Opus 5** | [`agents/tree.md`](agents/tree.md) |
 | Growth — daily draft | daily 11:00 | Opus 4.8 | [`agents/growth.md`](agents/growth.md) |
 

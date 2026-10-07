@@ -76,7 +76,7 @@ export const SINGLE_PERIODS = [
       { name: 'The Recording Academy', url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/', reliability: 5, type: 'official' },
       { name: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/', reliability: 4, type: 'reputable_press' },
       { name: 'Pollstar', url: 'https://news.pollstar.com/2012/03/27/taylor-swift-ends-world-tour-in-auckland/', reliability: 4, type: 'trade_press' },
-      { name: 'Touring Data', url: 'https://touringdata.wordpress.com/2020/12/11/taylor-swift-recap/', reliability: 3, type: 'trade_database' },
+      { name: 'Touring Data', url: 'https://web.archive.org/web/20220928050706/https://touringdata.wordpress.com/2020/12/11/taylor-swift-recap/', reliability: 3, type: 'trade_database' },
     ],
     note: 'The Speak Now World Tour, fully solo.',
   },

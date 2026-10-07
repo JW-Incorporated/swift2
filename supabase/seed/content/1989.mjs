@@ -1450,13 +1450,13 @@ export default {
       title: 'Pulls her entire catalog from Spotify',
       snippet:
         "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
-      sourceUrl: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html',
+      sourceUrl: 'https://www.cnbc.com/2014/11/03/taylor-swift-breaks-up-with-spotify.html',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
       moment: {
         context:
           'On Nov. 3, 2014, Big Machine Records pulled Taylor\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
         sources: [
-          { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
+          { outlet: 'CNBC', url: 'https://www.cnbc.com/2014/11/03/taylor-swift-breaks-up-with-spotify.html' },
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/',
@@ -2208,7 +2208,7 @@ export default {
 'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.\n\n"Famous" arrived as track four on The Life of Pablo, which West released on Tidal on Feb. 14. He spent Feb. 12 defending the line in a fifteen-tweet run — "I did not diss Taylor Swift and I\'ve never dissed her" — and claimed he had "called Taylor and had a hour long convo with her about the line and she thought it was funny and gave her blessings," even asserting the idea was "actually something Taylor came up with." That June he escalated it visually, premiering the song\'s video with a bed of nude wax likenesses of a dozen public figures — Taylor among them — that her camp again said she had never approved.',
         sources: [
           { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
-          { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
+          { outlet: 'CBS News', url: 'https://web.archive.org/web/20250821051051/https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Kanye_West_feud' },
           {
             outlet: 'Billboard',

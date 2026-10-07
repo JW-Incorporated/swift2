@@ -50,6 +50,7 @@ interface RegisterPayload {
   tz?: string | null;
   locale?: string | null;
   appVersion?: string | null;
+  seq?: unknown;
 }
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -65,9 +66,14 @@ export function validateRegistration(
   if (!platform || !isDevicePlatform(platform)) {
     return { ok: false, error: `platform must be one of: ${DEVICE_PLATFORMS.join(', ')}.` };
   }
+  const seq = payload.seq;
+  if (seq !== undefined && seq !== null && (!Number.isSafeInteger(seq) || (seq as number) < 0)) {
+    return { ok: false, error: 'seq must be a non-negative integer.' };
+  }
   return {
     ok: true,
     input: {
+      ...(typeof seq === 'number' ? { seq } : {}),
       deviceId,
       platform,
       pushToken: clip(payload.pushToken, 4096) ?? null,

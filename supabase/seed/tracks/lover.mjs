@@ -210,7 +210,7 @@ const ERA = {
           },
           {
             name: "Taylor Swift Wins Best Direction at 2020 MTV VMAs — MTV",
-            url: "https://www.mtv.com/news/obwt32/taylor-swift-the-man-vma-best-direction",
+            url: "https://web.archive.org/web/20220829212348/https://www.mtv.com/news/obwt32/taylor-swift-the-man-vma-best-direction",
           },
           {
             name: "Taylor Swift's Dad Scott Makes a Cameo in 'The Man' — Billboard",

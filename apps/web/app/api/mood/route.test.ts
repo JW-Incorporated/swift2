@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from './route';
 import { MOOD_STARTERS } from '../../../lib/longlive/mood-starters';
 import { BEREAVEMENT_SLUGS } from '@swift2/experience';
+import { isMoodApiResponse } from '@swift2/shared';
 import '../../../lib/longlive/vault-wiring';
 import { MOOD_BATTERY } from '../../../lib/longlive/mood-battery';
 
@@ -148,6 +149,26 @@ describe('POST /api/mood', () => {
     const json = await res.json();
     expect(json.kind).toBe('matches');
     expect(json.picks.length).toBeGreaterThan(0);
+  });
+
+  // The wire contract in `@swift2/shared` (api/mood.ts) is what the native
+  // client parses against — a route shape change the guard rejects must fail
+  // here, not in a shipped OTA.
+  it('every response kind the route produces satisfies the shared isMoodApiResponse guard', async () => {
+    const cases: Array<[string, unknown, string]> = [
+      ['matches (chip vector)', { moods: { heartbreak: 0.9, anger: 0.7 } }, 'matches'],
+      ['matches (free text, keyword)', { text: 'heartbroken and angry, he betrayed me' }, 'matches'],
+      ['matches with heavy intro', { text: 'so heartbroken and lonely, just crying' }, 'matches'],
+      ['crisis', { text: 'i want to die' }, 'crisis'],
+      ['unclear', { text: 'what is the capital of France' }, 'unclear'],
+      ['honeypot', { hp: 'bot', text: 'hello' }, 'matches'],
+    ];
+    for (const [i, [label, body, kind]] of cases.entries()) {
+      const res = await post(body, `10.5.0.${i}`);
+      const json = await res.json();
+      expect(json.kind, label).toBe(kind);
+      expect(isMoodApiResponse(json), label).toBe(true);
+    }
   });
 
   it('rejects empty text', async () => {

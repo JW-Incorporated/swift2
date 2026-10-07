@@ -3,7 +3,7 @@
     "name": "LongLive",
     "slug": "swift2-vault",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "scheme": "longlive",
     "platforms": ["ios", "android"],
     "userInterfaceStyle": "dark",
@@ -18,6 +18,8 @@
     },
     "ios": {
       "supportsTablet": true,
+      "requireFullScreen": false,
+      "associatedDomains": ["applinks:longlivets.com", "applinks:www.longlivets.com"],
       "bundleIdentifier": "ai.jwlabs.longlive",
       "buildNumber": "1",
       "config": {
@@ -26,6 +28,18 @@
     },
     "android": {
       "package": "ai.jwlabs.longlive",
+      "softwareKeyboardLayoutMode": "resize",
+      "intentFilters": [
+        {
+          "autoVerify": true,
+          "action": "VIEW",
+          "data": [
+            { "scheme": "https", "host": "longlivets.com" },
+            { "scheme": "https", "host": "www.longlivets.com" }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -58,6 +72,6 @@
         "projectId": "a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209"
       }
     },
-    "owner": "wjduvall"
+    "owner": "jw-labs"
   }
 }

@@ -8,7 +8,7 @@ import {
 // @ts-expect-error — plain .mjs module, no type declarations
 import { context, parseFlags, poll, readMessages } from './chat-poll.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { CLAIM, FAILED, FAILURE_PREFIX, REPLIED, dispatchArgs, founderIds, runTitle, selectInbox } from './lib/chat-inbox.mjs';
+import { CLAIM, FAILED, FAILURE_PREFIX, REPLIED, dispatchArgs, founderIds, missingParents, runTitle, selectInbox } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API } from './lib/discord-bot.mjs';
 describe('founderIds', () => {
@@ -54,6 +54,76 @@ describe('selectInbox', () => {
       ['1000000000000000002', THREAD],
       ['1000000000000000003', THREAD],
     ]);
+  });
+  // Bots v2 W2: an owner reply to a social approval post is a REJECTION the
+  // approval poll acts on — it must never also dispatch a Tree chat run.
+  describe('replies to a social approval post are not chat asks', () => {
+    const APPROVAL_ID = '1000000000000000100';
+    const approval = (extra: Record<string, unknown> = {}) =>
+      msg(APPROVAL_ID, { author: { id: '9', bot: true }, webhook_id: '9', content: `**Tree · mood** · X + Instagram · PR #4544
+ref: PR #4544 · ${'a'.repeat(40)} · social/queue/a-x.json,social/queue/a-ig.json`, ...extra });
+    const reply = (extra: Record<string, unknown> = {}) => msg('1000000000000000101', { type: 19, message_reference: { message_id: APPROVAL_ID }, ...extra });
+
+    it('skips a reply whose message_reference is an approval post in the window', () => {
+      expect(pick([approval(), reply()]).picked).toEqual([]);
+    });
+    it('skips it via the embedded referenced_message when the parent is outside the window', () => {
+      expect(pick([reply({ referenced_message: approval() })]).picked).toEqual([]);
+    });
+    it('skips a message posted in a thread started from an approval post', () => {
+      const { picked } = selectInbox(
+        [{ channelId: MARJ, threadId: '', messages: [approval({ id: THREAD })] }, { channelId: MARJ, threadId: THREAD, messages: [msg('1000000000000000102')] }],
+        { founders, now: NOW },
+      );
+      expect(picked).toEqual([]);
+    });
+    it('still picks a reply to an ordinary bot message, and a reply to a weekly-brief ref (not an approval post)', () => {
+      const plain = msg('1000000000000000103', { author: { id: '9', bot: true }, webhook_id: '9', content: 'hello' });
+      const brief = approval({ id: '1000000000000000104', content: `brief
+ref: PR #4544 · ${'a'.repeat(40)} · brief` });
+      const { picked } = pick([plain, brief, msg('1000000000000000105', { type: 19, message_reference: { message_id: '1000000000000000103' } }), msg('1000000000000000106', { type: 19, message_reference: { message_id: '1000000000000000104' } })]);
+      expect(ids(picked)).toEqual(['1000000000000000105', '1000000000000000106']);
+    });
+    it('skips a reply to a community reply-opportunity message (`ref: reddit · <id>`)', () => {
+      const community = approval({ content: 'a thread worth a reply\nref: reddit · 1abc23' });
+      expect(pick([community, reply()]).picked).toEqual([]);
+    });
+    describe('a parent outside the pages read (W8)', () => {
+      const unknownReply = () => msg('1000000000000000107', { type: 19, message_reference: { message_id: '1548716528432713729' } });
+      const run = (parents?: Map<string, unknown>) => selectInbox([{ channelId: MARJ, threadId: '', messages: [unknownReply()] }], { founders, now: NOW, parents });
+      it('is conservatively NOT chat once the poll has tried to fetch parents and still has none', () => {
+        const r = run(new Map());
+        expect(r.picked).toEqual([]);
+        expect(r.unresolved).toEqual(['1000000000000000107']);
+      });
+      it('is recognised as a rejection when the fetched parent is an approval post', () => {
+        expect(run(new Map([['1548716528432713729', approval()]])).picked).toEqual([]);
+      });
+      it('is chat when the fetched parent is an ordinary message', () => {
+        const plain = msg('1548716528432713729', { author: { id: '9', bot: true }, webhook_id: '9', content: 'hello' });
+        expect(ids(run(new Map([['1548716528432713729', plain]])).picked)).toEqual(['1000000000000000107']);
+      });
+      it('lists exactly the founder replies whose parent nothing holds', () => {
+        const sources = [{ channelId: MARJ, threadId: '', messages: [unknownReply(), reply(), msg('1000000000000000108', { author: { id: STRANGER }, type: 19, message_reference: { message_id: '1548716528432713999' } })] }];
+        expect(missingParents(sources, { founders, now: NOW })).toEqual([{ id: '1548716528432713729', where: MARJ }, { id: APPROVAL_ID, where: MARJ }]);
+      });
+    });
+  });
+  describe('replies to the status change ping are chat asks (the reply-poll relay is retired)', () => {
+    const PING_ID = '1000000000000000200';
+    const ping = () => msg(PING_ID, { author: { id: '9', bot: true }, webhook_id: '9', content: '📋 Status updated — +1 needs you · 2 closed — https://github.com/o/r/issues/4' });
+    it('picks a reply to the ping, in the window or via the embedded referenced_message', () => {
+      const reply = (extra: Record<string, unknown> = {}) => msg('1000000000000000201', { type: 19, message_reference: { message_id: PING_ID }, ...extra });
+      expect(ids(pick([ping(), reply()]).picked)).toEqual(['1000000000000000201']);
+      expect(ids(pick([reply({ referenced_message: ping() })]).picked)).toEqual(['1000000000000000201']);
+    });
+    it('picks a message in a thread started from the ping', () => {
+      const { picked } = selectInbox(
+        [{ channelId: MARJ, threadId: '', messages: [{ ...ping(), id: THREAD }] }, { channelId: MARJ, threadId: THREAD, messages: [msg('1000000000000000202')] }],
+        { founders, now: NOW },
+      );
+      expect(ids(picked)).toEqual(['1000000000000000202']);
+    });
   });
   it('treats a top-level Discord reply (type 19) as a top-level message', () => {
     const { picked } = pick([msg('1000000000000000001', { type: 19, message_reference: { message_id: '1548716528432713729' } })]);
@@ -214,9 +284,8 @@ describe('poll', () => {
     expect(result.messages).toHaveLength(1000);
   });
   it('keeps both relay entry points in one concurrency group', () => {
-    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: false/;
+    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: true/;
     expect(readFileSync('.github/workflows/bot-chat-poll.yml', 'utf8')).toMatch(group);
-    expect(readFileSync('.github/workflows/marjorie-reply-poll.yml', 'utf8')).toMatch(group);
   });
 });
 describe('context', () => {
@@ -251,6 +320,30 @@ describe('context', () => {
     expect(ctx).toMatchObject({ top_level: false, thread_id: THREAD, url: `https://discord.com/channels/${GUILD}/${THREAD}/${message.id}` });
     expect(ctx.thread_root).toMatchObject({ text: "Founders' Brief" });
     expect(ctx.already).toBe('replied'); // a duplicate run's context job stops here
+  });
+  describe('owner verification (growth-strategy steering)', () => {
+    const OTHER_FOUNDER = '1421545239650238555';
+    const ownerOf = async (author: string, extraEnv: Record<string, string> = {}) => {
+      const message = msg('1000000000000000009', { author: { id: author, global_name: 'Someone' }, content: 'focus on Reddit' });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${message.id}&limit=14`]: res(200, []),
+      });
+      const file = out();
+      await context(parseFlags(['--bot', 'marjorie', '--channel-id', MARJ, '--message-id', message.id, '--out', file]), { env: { ...env, ...extraEnv }, fetchImpl, sleepImpl });
+      return JSON.parse(readFileSync(file, 'utf8')).owner;
+    };
+    it("verifies only Joey's id as the owner by default", async () => {
+      expect(await ownerOf(JOEY)).toEqual({ configured: true, verified: true });
+    });
+    it('does not verify the other founder, whose messages are answered but never recorded', async () => {
+      expect(await ownerOf(OTHER_FOUNDER)).toEqual({ configured: true, verified: false });
+    });
+    it('honours an OWNER_DISCORD_ID override, and a malformed one verifies nobody', async () => {
+      expect(await ownerOf(OTHER_FOUNDER, { OWNER_DISCORD_ID: OTHER_FOUNDER })).toEqual({ configured: true, verified: true });
+      expect(await ownerOf(JOEY, { OWNER_DISCORD_ID: 'not-an-id' })).toEqual({ configured: false, verified: false });
+    });
   });
   it('refuses non-numeric ids', async () => {
     expect(await context(parseFlags(['--bot', 'marjorie', '--channel-id', '../x', '--message-id', '1', '--out', out()]), { env })).toBe(2);

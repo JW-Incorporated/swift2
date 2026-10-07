@@ -277,7 +277,7 @@ export default {
       sources: [
         yt('AoYtgGHfsG4', 'Taylor Swift Ice Bucket Challenge with Jamie King'),
         press(
-          'https://www.mtv.com/news/gkiyef/taylor-swift-ice-bucket-challenge',
+          'https://web.archive.org/web/20240523031319/https://www.mtv.com/news/gkiyef/taylor-swift-ice-bucket-challenge',
           'Taylor Swift Just Took The Ice Bucket Challenge -- Watch Her Get Drenched',
           'MTV',
           'confirms the August 16, 2014 VMA-rehearsal date, ahead of the official channel\'s later October upload',

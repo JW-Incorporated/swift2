@@ -6,6 +6,10 @@ import 'react-native-gesture-handler';
 import 'react-native-url-polyfill/auto';
 import { registerRootComponent } from 'expo';
 
+// Loads the diagnostics module early so its launch origin (T0) is captured
+// before App and the rest of the tree evaluate.
+import './lib/diagnostics';
+
 import App from './App';
 
 registerRootComponent(App);

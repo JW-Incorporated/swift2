@@ -37,11 +37,27 @@ export interface DeviceRow {
  * they default once at insert and are owned by Phase 1's prefs API from
  * then on; a token-refresh call must never silently reset a user's
  * settings back to defaults.
+ *
+ * Ordering (#5039): a write carrying `seq` lower than the stored `register_seq` is stale and ignored
+ * atomically in the `upsert_device_ordered` function (equal seq also leaves the row unchanged); the current row is returned (idempotent, no error).
+ * Writes without `seq` (old app builds) stay unconditional.
  */
-export async function upsertDevice(
-  db: SupabaseClient,
-  input: DeviceRegistrationInput,
-): Promise<DeviceRow> {
+let warnedMissingRpc = false;
+
+// Deploy-order tolerance: if the ordering migration isn't applied yet, PostgREST reports the function as
+// missing (PGRST202 schema-cache miss, or Postgres 42883 undefined_function).
+function isMissingRpc(error: { code?: string; message?: string }): boolean {
+  return error.code === 'PGRST202' || error.code === '42883';
+}
+
+const DEVICE_COLUMNS =
+  'id,user_id,platform,push_token,tz,locale,app_version,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,digest_hour,created_at,last_seen_at';
+
+async function upsertDeviceUnordered(db: SupabaseClient, input: DeviceRegistrationInput): Promise<DeviceRow> {
+  if (!warnedMissingRpc) {
+    warnedMissingRpc = true;
+    console.warn('upsertDevice: upsert_device_ordered missing (migration not applied); using unordered upsert');
+  }
   const row = {
     id: input.deviceId,
     platform: input.platform,
@@ -51,15 +67,30 @@ export async function upsertDevice(
     app_version: input.appVersion ?? null,
     last_seen_at: new Date().toISOString(),
   };
+  const { data, error } = await db.from('devices').upsert(row, { onConflict: 'id' }).select(DEVICE_COLUMNS).single();
+  if (error) throw new Error(`upsertDevice: ${error.message}`);
+  return data as DeviceRow;
+}
 
+export async function upsertDevice(
+  db: SupabaseClient,
+  input: DeviceRegistrationInput,
+): Promise<DeviceRow> {
   const { data, error } = await db
-    .from('devices')
-    .upsert(row, { onConflict: 'id' })
-    .select(
-      'id,user_id,platform,push_token,tz,locale,app_version,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,digest_hour,created_at,last_seen_at',
-    )
+    .rpc('upsert_device_ordered', {
+      p_id: input.deviceId,
+      p_platform: input.platform,
+      p_push_token: input.pushToken ?? null,
+      p_tz: input.tz ?? 'America/Los_Angeles',
+      p_locale: input.locale ?? null,
+      p_app_version: input.appVersion ?? null,
+      p_seq: input.seq ?? null,
+    })
     .single();
 
-  if (error) throw new Error(`upsertDevice: ${error.message}`);
+  if (error) {
+    if (isMissingRpc(error)) return upsertDeviceUnordered(db, input);
+    throw new Error(`upsertDevice: ${error.message}`);
+  }
   return data as DeviceRow;
 }

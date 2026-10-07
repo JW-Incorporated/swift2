@@ -1757,8 +1757,8 @@ export default {
           },
           {
             outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/zackomalleygreenburg/2018/11/19/taylor-swifts-new-record-deal-could-pay-as-much-as-200m/',
-            source_title: "Taylor Swift's New Record Deal Could Pay As Much As $200M",
+            url: 'https://www.forbes.com/sites/zackomalleygreenburg/2018/11/19/taylor-swift-new-record-deal-worth-up-to-100-million-in-guarantees-universal-republic/',
+            source_title: "Taylor Swift's New Record Deal Could Pay As Much As $200M [Updated]",
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
@@ -1995,7 +1995,7 @@ export default {
           },
           {
             outlet: 'NME',
-            url: 'https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
+            url: 'https://web.archive.org/web/20191118190206/https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
             source_title: 'Taylor Swift – \'Reputation\' Review',
             publisher: 'NME',
             source_type: 'reputable_press',

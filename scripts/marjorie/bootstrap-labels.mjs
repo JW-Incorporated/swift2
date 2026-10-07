@@ -4,6 +4,8 @@
 // so a fresh repo (or the future org home, see org-transfer plans) must run
 // this once:  node --use-env-proxy scripts/marjorie/bootstrap-labels.mjs
 import { gh } from '../lib/gh.mjs';
+import { LOOP_LABELS } from './lib/loop-queue.mjs';
+import { TASTE_LABELS } from './lib/taste-ruling.mjs';
 
 // The `desk:*` routing taxonomy (2026-08-11). EXACTLY ONE of these on an open
 // issue is what "routed" means — see scripts/check-work-ownership.mjs and
@@ -34,6 +36,7 @@ const DESKS = [
 export const LABELS = [
   ['founder-decision', 'B60205', 'Needs a founder answer — banked into the daily Founders Brief'],
   ['founders-brief', '0E8A16', 'The daily Founders Brief issues (Marjorie)'],
+  ['status-page', '5319E7', 'The one pinned Long Live status page (marjorie-status.yml rewrites its body)'],
   ['watchdog-alert', 'D93F0B', 'A scheduled cadence failed — loud by design'],
   ['intake', '1D76DB', 'Real-world event dropped for content authoring'],
   ['needs-sources', 'FBCA04', 'Intake item stalled on real sourcing'],
@@ -43,6 +46,10 @@ export const LABELS = [
     name === 'desk:unowned' ? 'D93F0B' : name === 'desk:founder' ? 'B60205' : '5319E7',
     description,
   ]),
+
+  ['desk:ops-fix', '5319E7', 'Routed to the ops-fixer routine (docs/agents/ops-fixer.md) — workflows, scripts, configs, prompts'],
+  ['ops-fix:dispatched', 'C5DEF5', 'The ops-fixer has been dispatched for this issue — the sweep will not dispatch it again'],
+  ['ops-fix:stuck', 'D93F0B', 'The ops-fixer failed twice or hit a rail — a paste-ready prompt is on the issue'],
 
   // Splits `needs-human-review`, which currently means two opposite things
   // (docs/decisions.md 2026-08-11). Austin applies it when Codex DISAGREED and
@@ -95,6 +102,14 @@ export const LABELS = [
   ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
   ['founder-assigned', '1D76DB', 'Founder assigned this Marjorie-filed item to the next build session'],
   ['deferred', '6E6E6E', 'Founder deferred this item; Marjorie stops chasing it while it remains open'],
+  // Bots v2 W5 (docs/plans/bots-v2/PLAN.md): the weekly growth review's plan
+  // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
+  ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
+  ['routine-failure', 'B60205', 'A routine workflow run failed — auto-filed by bot-failure-triage.yml for Marjorie'],
+  ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
+  // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
+  ...LOOP_LABELS,
+  ...TASTE_LABELS,
 ];
 
 const invokedDirectly =

@@ -1,0 +1,11 @@
+{
+  "_comment": "The brand Reddit account Tree's thread links switch the owner to. redditLinkParams are appended to every Reddit thread link Tree sends to Discord (the set Reddit's own email links use; target_user alone did not switch accounts in the owner's test). Edit the params here, no code change needed. Public config, not a secret.",
+  "redditReplyAccount": "NegativeRest9507",
+  "redditLinkParams": {
+    "target_user": "NegativeRest9507",
+    "ref_source": "email",
+    "ref": "email_digest",
+    "ref_campaign": "email_digest",
+    "$deep_link": "true"
+  }
+}

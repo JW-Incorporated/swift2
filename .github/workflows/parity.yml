@@ -1,0 +1,277 @@
+name: Parity (DOM visual)
+
+# One UI WP1.1c: renders the spike routes twice - (a) the Next web build and
+# (b) the app's DOM entry exported for a browser - in Chromium/WebKit at four
+# device viewports, compares a-vs-b (pixel + structural) and each side against
+# committed Linux baselines in e2e/parity/__screenshots__. Rules and the
+# baseline-update order: docs/one-ui/parity.md. The workflow always runs on every PR (no top-level
+# `paths:`); the `changes` job decides relevance and `parity-gate` is the one
+# stable-named job meant to be marked required (docs/one-ui/parity.md).
+#
+# Build (a) and build (b) run as parallel jobs; the Playwright jobs (one per
+# project) run in the image whose tag must equal the installed
+# @playwright/test version (a step below enforces it), so pixels match.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      update-baselines:
+        description: 'Regenerate baselines and commit them to this ref (never on the default branch)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: parity-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    name: Parity-relevant changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      relevant: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outputs.relevant == 'true' }}
+    steps:
+      - uses: actions/checkout@v7
+        if: github.event_name == 'pull_request'
+      - uses: dorny/paths-filter@v4
+        if: github.event_name == 'pull_request'
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'packages/ui/**'
+              - 'packages/content/**'
+              - 'packages/content-enrichment/**'
+              - 'packages/experience/**'
+              - 'scripts/sync-longlive-content.mjs'
+              - 'apps/web/**'
+              - 'apps/mobile/dom/**'
+              - 'apps/mobile/parity-entry/**'
+              - 'apps/mobile/metro.config.js'
+              - 'apps/mobile/babel.config.js'
+              - 'apps/mobile/index.ts'
+              - 'apps/mobile/index.web.ts'
+              - 'apps/mobile/postcss.config.mjs'
+              - 'apps/mobile/package.json'
+              - 'apps/mobile/app.json'
+              - 'apps/mobile/app.config.*'
+              - 'e2e/parity/**'
+              - 'playwright.parity.config.ts'
+              - 'scripts/parity/**'
+              - '.github/workflows/parity.yml'
+              - 'package-lock.json'
+
+  build-web:
+    name: Build (a) web
+    needs: [changes]
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --silent
+      - name: Sync content (secretless; Supabase degrades to empty, as in build-full)
+        run: npm run sync:content --silent
+      - name: Freeze content (overlay the committed snapshot; fails unless baked and bundle hash equal fixture.json)
+        run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --apply
+      - uses: actions/cache@v6
+        with:
+          path: apps/web/.next/cache
+          key: parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+      - name: Build with next build directly (npm run build would re-run prebuild and re-sync live content over the snapshot)
+        working-directory: apps/web
+        run: npx next build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: parity-a-next
+          path: |
+            apps/web/.next
+            !apps/web/.next/cache
+          include-hidden-files: true
+          retention-days: 1
+
+  build-dom:
+    name: Build (b) DOM entry
+    needs: [changes]
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --silent
+      - name: Sync content (the bundle check needs the published bundle)
+        run: npm run sync:content --silent
+      - name: Web export of the DOM entry
+        working-directory: apps/mobile
+        env:
+          EXPO_NO_WEB_SETUP: '1'
+        run: npx expo export --platform web --output-dir dist/parity-web --clear
+      - name: Native export with sourcemaps (for the no-baked-content proof)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios --source-maps --output-dir "$RUNNER_TEMP/ios-export"
+      - name: No baked content in the DOM bundle
+        run: node scripts/parity/check-dom-bundle.mjs "$RUNNER_TEMP/ios-export"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: parity-b
+          path: apps/mobile/dist/parity-web
+          retention-days: 1
+
+  parity:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.update-baselines) }}
+    name: Parity ${{ matrix.project }}
+    needs: [build-web, build-dom]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [pixel-7, iphone-15, ipad-pro-11-portrait, ipad-pro-11-landscape]
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --silent
+      - name: Playwright version matches the container
+        run: test "$(npx playwright --version)" = "Version 1.63.0"
+      - uses: actions/download-artifact@v8
+        with:
+          name: parity-a-next
+          path: apps/web/.next
+      - uses: actions/download-artifact@v8
+        with:
+          name: parity-b
+          path: apps/mobile/dist/parity-web
+      - name: Parity specs
+        run: npx playwright test -c playwright.parity.config.ts --project=${{ matrix.project }}
+      - name: Upload diffs and report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: parity-failure-${{ matrix.project }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14
+
+  parity-gate:
+    name: parity-gate
+    if: always() && github.event_name == 'pull_request'
+    needs: [changes, build-web, build-dom, parity]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Pass when nothing parity-relevant changed, or every parity job succeeded
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          RELEVANT: ${{ needs.changes.outputs.relevant }}
+          BUILD_WEB: ${{ needs.build-web.result }}
+          BUILD_DOM: ${{ needs.build-dom.result }}
+          PARITY: ${{ needs.parity.result }}
+        run: |
+          echo "changes=$CHANGES relevant=$RELEVANT build-web=$BUILD_WEB build-dom=$BUILD_DOM parity=$PARITY"
+          if [ "$CHANGES" != "success" ]; then
+            echo "::error::The changes job did not succeed ($CHANGES)."
+            exit 1
+          fi
+          if [ "$RELEVANT" != "true" ]; then
+            echo "No parity-relevant paths changed; gate passes."
+            exit 0
+          fi
+          if [ "$BUILD_WEB" = "success" ] && [ "$BUILD_DOM" = "success" ] && [ "$PARITY" = "success" ]; then
+            echo "All parity jobs succeeded; gate passes."
+            exit 0
+          fi
+          echo "::error::A parity job failed, was cancelled, or was skipped."
+          exit 1
+
+  update-baselines:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.update-baselines }}
+    needs: [build-web, build-dom]
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      REF_NAME: ${{ github.ref_name }}
+      IS_DEFAULT: ${{ github.ref_name == github.event.repository.default_branch }}
+    steps:
+      - name: Refuse the default branch
+        run: |
+          if [ "$IS_DEFAULT" = "true" ]; then
+            echo "::error::Baseline regeneration is blocked on the default branch ($REF_NAME). Dispatch on a PR branch instead; see docs/one-ui/parity.md."
+            exit 1
+          fi
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --silent
+      - name: Playwright version matches the container
+        run: test "$(npx playwright --version)" = "Version 1.63.0"
+      - uses: actions/download-artifact@v8
+        with:
+          name: parity-a-next
+          path: apps/web/.next
+      - uses: actions/download-artifact@v8
+        with:
+          name: parity-b
+          path: apps/mobile/dist/parity-web
+      - name: Keep the before set
+        run: |
+          mkdir -p "$RUNNER_TEMP/before" e2e/parity/__screenshots__
+          cp -r e2e/parity/__screenshots__/. "$RUNNER_TEMP/before/"
+      - name: Regenerate baselines
+        env:
+          PARITY_UPDATE: '1'
+        run: npx playwright test -c playwright.parity.config.ts e2e/parity/baseline.spec.ts
+      - name: Regenerate a11y baselines
+        env:
+          A11Y_UPDATE: '1'
+        run: npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts
+      - name: Upload before and after
+        uses: actions/upload-artifact@v7
+        with:
+          name: parity-baselines
+          path: |
+            ${{ runner.temp }}/before/
+            e2e/parity/__screenshots__/
+          retention-days: 14
+      - name: Commit to the branch ref
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add e2e/parity/__screenshots__ e2e/parity/a11y-baseline
+          if git diff --cached --quiet; then
+            echo "Baselines unchanged; nothing to commit."
+            exit 0
+          fi
+          git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
+          git push origin "HEAD:refs/heads/$REF_NAME"

@@ -18,17 +18,17 @@ import { describe, expect, it } from 'vitest';
 const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
 
 const BACK_DISMISS_FILES = [
-  './Crossings.tsx',
-  './CurrentItemDetail.tsx',
-  './EraSelector.tsx',
-  './FeedbackButton.tsx',
-  './MomentDetail.tsx',
-  './SearchOverlay.tsx',
-  './TheoryGuide.tsx',
-  './TrackDetail.tsx',
-  './TrackGuide.tsx',
-  './decode/DecodeThread.tsx',
-  './love-story/LoveStoryThread.tsx', // owns EntryDetail's back-dismiss — see note above
+  '../../../../packages/ui/src/reader/threads/Crossings.tsx',
+  '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
+  '../../../../packages/ui/src/reader/shell/EraSelector.tsx',
+  '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
+  '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
+  '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
+  '../../../../packages/ui/src/reader/threads/TheoryGuide.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
+  '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
+  '../../../../packages/ui/src/reader/threads/love-story/LoveStoryThread.tsx', // owns EntryDetail's back-dismiss — see note above
 ];
 
 describe('#525 every close-affordance component (or its owning parent) supports back-swipe dismiss', () => {

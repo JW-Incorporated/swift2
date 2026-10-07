@@ -23,7 +23,7 @@ describe('community engine enums', () => {
   });
 
   it('lists the four engagement_lead kinds', () => {
-    expect(ENGAGEMENT_LEAD_KINDS).toEqual(['alert', 'digest', 'hot_thread', 'reply_to_us']);
+    expect(ENGAGEMENT_LEAD_KINDS).toEqual(['alert', 'digest', 'hot_thread', 'reply_to_us', 'awareness_reply']);
   });
 
   it('lists the seven engagement_lead statuses (including P1-5\'s founder-skip outcome)', () => {

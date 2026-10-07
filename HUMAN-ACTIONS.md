@@ -2,162 +2,87 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **6 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #88 🔴 [BLOCKING] Store Facebook login and schedule the weekly export (~5 min)
-<!-- ha filed=2026-09-30 -->
+## #114 🟡 [DECIDE] #4804 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4804 -->
 
-**Why:** The weekly Facebook group export is now deterministic local automation
-(`docs/decisions.md`, 2026-09-30), but only Joey can store his personal login
-with Windows DPAPI and register the task in his logged-in Windows session.
-The credential stays user-scoped outside the repo; checkpoints, 2FA, and
-CAPTCHA still stop for Joey.
-**Steps:**
-1. In PowerShell, run
-   `New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\longlive-fb" | Out-Null`
-   and then run exactly
-   `Get-Credential | Export-Clixml "$env:LOCALAPPDATA\longlive-fb\fb-cred.xml"`.
-   Enter the username and password for Joey's personal Facebook account.
-2. In this project folder, run `npm run knowledge:fb-schedule`.
-3. Run `npm run knowledge:fb-export:dry` once. In the visible dedicated Chrome
-   window, sign into Facebook if asked; complete any checkpoint/2FA/CAPTCHA
-   yourself, then rerun the dry run.
-**Worked if:** Windows Task Scheduler shows `Long Live Weekly Facebook Export`
-for Sunday 6:00 PM with “run as soon as possible after a missed start” and
-wake enabled, and the dry run reports every joined group as `validated` (a
-group Joey has not joined may report `not-member`).
-
-## #87 🟡 [DECIDE] Ownership backlog stuck 7+ days — accept it or get it routed (~5 min)
-<!-- ha filed=2026-09-30 -->
-
-**Why:** Issue #4546 has flagged the same "abandoned"/"ambiguous" backlog (9 abandoned + 1 ambiguous issue, budget 0) every day since 2026-09-23 with no automated fix — only a policy call can stop the daily alert.
-**Steps:**
-1. Open github.com/JW-Incorporated/swift2/issues/4546 and read the latest breach list.
-2. Decide: raise the budget in `.github/work-ownership-budget.json` to accept the backlog, or ask for the listed issues to be routed/worked.
-3. Comment your decision on issue #4546.
-**Worked if:** a founder comment on #4546 records either an accepted new budget or a routing decision.
-
-## #86 🔴 [BLOCKING] SOCIAL_POSTER_PAT can't trigger GitHub Actions — Marjorie's routine re-runs 403 (~10 min)
-<!-- ha filed=2026-09-29 -->
-
-**Why:** Marjorie re-runs quiet/failing routines using the SOCIAL_POSTER_PAT secret (as GH_DISPATCH_TOKEN). Every gh workflow run 403s: Resource not accessible by personal access token - it lacks Actions write access, so she cannot restart any stuck routine (hit on issue #4575).
-
-**Steps:**
-1. Find the GitHub account that owns the SOCIAL_POSTER_PAT token (check Settings -> Developer settings -> Personal access tokens on the account that created it).
-2. Open that token. Classic: check the workflow scope box. Fine-grained: set repo access to JW-Incorporated/swift2 with Actions: Read and write. Regenerate.
-3. Copy the new token value.
-4. Go to github.com/JW-Incorporated/swift2 -> Settings -> Secrets and variables -> Actions -> Secrets -> SOCIAL_POSTER_PAT -> Update, paste, Save.
-
-**Worked if:** the next Marjorie ops sweep that tries to re-dispatch a quiet routine reports success instead of a 403 error.
-
-## #85 🟡 [DECIDE] #4559 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-28 -->
-<!-- marjorie-chase: 96h issue=4559 -->
-
-**Why:** Marjorie dispatched it on 2026-09-24 (plan-recheck-marjorie.yml: max_turns=40 too low, fails last 2 scheduled runs despite succ…). Nothing has moved since 2026-09-24. Holder: unclaimed.
+**Why:** Marjorie dispatched it on 2026-10-02 (Watchdog alerts Marjorie can handle should not reach the founders channel). Nothing has moved since 2026-10-02. Holder: unclaimed.
 
 **Steps:**
 1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-**Worked if:** the next brief no longer lists #4559 under stalled.
+**Worked if:** the next brief no longer lists #4804 under stalled.
 
-## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
-<!-- ha filed=2026-09-22 -->
+## #113 🟡 [DECIDE] #4778 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4778 -->
 
-**Why:** Marjorie's hourly watchdog-ops sweep uses the `GH_DISPATCH_TOKEN` secret to re-dispatch quiet or failing scheduled workflows (7 of the 14 alert types rely on it). Re-dispatching `plan-recheck.yml` today failed with HTTP 403 "Resource not accessible by personal access token" — the token can't trigger a workflow run at all, so every re-dispatch action in that sweep is currently a no-op.
-
-**Steps:**
-1. Open the repo's Settings → Secrets and variables → Actions and find the token behind the `GH_DISPATCH_TOKEN` secret.
-2. If it's a fine-grained token, give it "Actions: Read and write" permission for this repo; if it's a classic token, give it the `workflow` scope.
-3. Save the updated token as the `GH_DISPATCH_TOKEN` secret value.
-
-**Worked if:** the next hourly Marjorie ops sweep can run `gh workflow run` without a 403 (visible in that run's log).
-
-## #80 🟡 [DECIDE] #4364 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-19 -->
-<!-- marjorie-chase: 96h issue=4364 -->
-
-**Why:** Marjorie dispatched it on 2026-09-15 (Windows full-suite validation fails on checkout line endings and command resolution). Nothing has moved since 2026-09-15. Holder: unclaimed.
+**Why:** Marjorie dispatched it on 2026-10-02 (Enforce the owner's three post criteria in code: a mediaEarnsItsPlace floor, tunable rubr…). Nothing has moved since 2026-10-02. Holder: unclaimed.
 
 **Steps:**
 1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-**Worked if:** the next brief no longer lists #4364 under stalled.
+**Worked if:** the next brief no longer lists #4778 under stalled.
 
-## #79 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-18 -->
+## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4767 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4767 under stalled.
+
+## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
+<!-- marjorie-chase: 96h issue=4720 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4720 under stalled.
+
+## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4324 -->
 
-**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-14. Holder: unclaimed.
+**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
 
 **Steps:**
 1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
 **Worked if:** the next brief no longer lists #4324 under stalled.
 
-## #78 🔴 [BLOCKING] Add Actions read/write to SOCIAL_POSTER_PAT (~5 min)
-<!-- ha filed=2026-09-16 -->
+## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
+<!-- ha filed=2026-10-04 -->
 
-**Why:** SOCIAL_POSTER_PAT (fine-grained, repo-scoped, currently Contents+PRs read/write) 403s on `gh workflow run`/the dispatches API — confirmed twice (#4223, #4388). Every watchdog handler whose fix is "re-dispatch" (plan-recheck, tree-weekly-plan, vault-run, karen-nightly, output-sampling) is a silent no-op; several have been failing unattended for days (#4411, #4336, #4192, #4129).
-
-**Steps:**
-1. As sffan15-sys, go to github.com/settings/personal-access-tokens.
-2. Open the fine-grained token used for SOCIAL_POSTER_PAT (repo: JW-Incorporated/swift2).
-3. Edit permissions → set repository permission "Actions" to Read and write → save.
-4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
-
-**Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
-
-## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
+**Why:** One UI's iOS-1 gate. All new screens (Waves 1–4) shipped by OTA on TestFlight build 38; nothing more is built on iOS until iPhone and iPad are checked.
 
 **Steps:**
-1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
-2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
-3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
+1. iPhone (coordinate with the iPhone tester) and your iPad: open TestFlight → Long Live → Install/Update.
+2. Follow docs/plans/one-ui/device-checklists.md → "iOS-1": iPhone 7 steps, iPad 8 steps.
+3. Never type numbers — tap Send report and run Speed test mode; reports reach issue #4791.
+4. Reply one line per device, e.g. `iPhone: pass 1-6, fail 7: <what you saw>`.
 
-**Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
+**Worked if:** both devices reply all-pass, or each failure names what was on screen.
 
----
+## #99 🟢 [UPGRADE] Send two app IDs so longlivets.com links open the app (~5 min)
+<!-- ha filed=2026-10-04 -->
 
-## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** the daily Community Tasks workflow is otherwise fully
-configured and its scheduled runs are healthy, but it safely refuses to send
-an email until it can create secure one-click `Posted` and `Skip` links. The
-same value must be available to both the GitHub mailer and the Vercel website:
-the mailer si
+**Why:** One UI H6 (universal links) needs the Apple Team ID and the Play app-signing SHA-256 in the link files. Not needed until Wave 3; nothing is blocked yet.
 
 **Steps:**
-1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
-2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
-3. In the Vercel project that serves `longlivets.com`, open **Settings →
-4. In GitHub, open **Actions → community-mailer → Run workflow**, select
+1. Open https://developer.apple.com/account → Membership details → copy the 10-character Team ID.
+2. Open https://play.google.com/console → Long Live → Test and release → App integrity → Play app signing → Settings.
+3. Under "App signing key certificate", copy the SHA-256 certificate fingerprint.
+4. Paste both into the Claude chat (copy-paste, no typing). They are public identifiers, not secrets.
 
-**Worked if:** a manual `daily` run no longer logs
-`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
-there is at least one drafted lead, and its `Posted`/`Skip` links record the
-chosen outc
-
-## #70 🟡 [DECIDE] Confirm the first automated Facebook export (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** The fan-signal engine reads what Swifties are saying in six Facebook
-groups. Joey approved deterministic collection from his personal account and
-accepted the account risk (`docs/decisions.md`, 2026-09-30), so this is now
-automated. This existing action remains open only until the first successful
-run proves the previously unverified parser against a real export.
-**Steps:**
-1. Complete #88 to store the DPAPI credential and register the Sunday task.
-2. Let `npm run knowledge:fb-export` finish once, or run it yourself after a
-   successful dry run. Do not solve a checkpoint, 2FA prompt, or CAPTCHA with
-   automation; complete it in the visible browser and rerun.
-3. Confirm the weekly `FB group export due — week of ...` issue closed with a
-   comment listing uploaded/not-member counts.
-**Worked if:** the weekly issue is closed, every joined group says `uploaded`,
-no group says `failed`, and this #70 action can then be closed.
+**Worked if:** both values appear in docs/one-ui/drafts/well-known/ in place of the placeholders.

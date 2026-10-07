@@ -80,7 +80,7 @@ describe('POST /api/devices/register', () => {
     expect(limited.status).toBe(429);
   });
 
-  it('upserts via the real Supabase client path, calling from()/upsert()/select()/single()', async () => {
+  it('upserts via the real Supabase client path, calling rpc()/single()', async () => {
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
 
@@ -104,12 +104,10 @@ describe('POST /api/devices/register', () => {
       },
       error: null,
     });
-    const selectMock = vi.fn().mockReturnValue({ single: singleMock });
-    const upsertMock = vi.fn().mockReturnValue({ select: selectMock });
-    const fromMock = vi.fn().mockReturnValue({ upsert: upsertMock });
+    const rpcMock = vi.fn().mockReturnValue({ single: singleMock });
 
     vi.doMock('@supabase/supabase-js', () => ({
-      createClient: () => ({ from: fromMock }),
+      createClient: () => ({ rpc: rpcMock }),
     }));
 
     // Re-import the route with the mocked client in place.
@@ -126,10 +124,9 @@ describe('POST /api/devices/register', () => {
     const json = await res.json();
     expect(json.ok).toBe(true);
     expect(json.device.id).toBe(DEVICE_B);
-    expect(fromMock).toHaveBeenCalledWith('devices');
-    expect(upsertMock).toHaveBeenCalledWith(
-      expect.objectContaining({ id: DEVICE_B, platform: 'android', push_token: 'tok-2' }),
-      { onConflict: 'id' },
+    expect(rpcMock).toHaveBeenCalledWith(
+      'upsert_device_ordered',
+      expect.objectContaining({ p_id: DEVICE_B, p_platform: 'android', p_push_token: 'tok-2', p_seq: null }),
     );
     vi.doUnmock('@supabase/supabase-js');
   });
@@ -158,12 +155,10 @@ describe('POST /api/devices/register', () => {
       },
       error: null,
     });
-    const selectMock = vi.fn().mockReturnValue({ single: singleMock });
-    const upsertMock = vi.fn().mockReturnValue({ select: selectMock });
-    const fromMock = vi.fn().mockReturnValue({ upsert: upsertMock });
+    const rpcMock = vi.fn().mockReturnValue({ single: singleMock });
 
     vi.doMock('@supabase/supabase-js', () => ({
-      createClient: () => ({ from: fromMock }),
+      createClient: () => ({ rpc: rpcMock }),
     }));
     vi.resetModules();
     const mod = await import('./route');
@@ -177,10 +172,9 @@ describe('POST /api/devices/register', () => {
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.device.id).toBe(DEVICE_A);
-    // Upsert conflict target is the id column — same row, new token.
-    expect(upsertMock).toHaveBeenCalledWith(
-      expect.objectContaining({ id: DEVICE_A, push_token: 'tok-refreshed' }),
-      { onConflict: 'id' },
+    expect(rpcMock).toHaveBeenCalledWith(
+      'upsert_device_ordered',
+      expect.objectContaining({ p_id: DEVICE_A, p_push_token: 'tok-refreshed' }),
     );
     vi.doUnmock('@supabase/supabase-js');
   });

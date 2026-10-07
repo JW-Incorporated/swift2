@@ -14,6 +14,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | "I Knew It, I Knew You (Piano Version)" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "I Knew It, I Knew You" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "Not a Lot Going on at the Moment" Unisex T-Shirt | upper90studio.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-ashish-22-outfit-recreated-for-red | not listed in checked-in E0 Awin advertiser directory |
+| "Patient Zero" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Beige Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Blue Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor’s Version) Blue Stripe Poplin Shorts | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -152,7 +153,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Leave It With Me I Protect The Family Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Life is a Willow Zip Up Sherpa Fleece Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lipstick in Ravishing Red (Matte) | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | evermore.vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv |  |
-| LiquiLUST: Legendary Wear Lipstick in Elson 4 | patmcgrath.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30- | not listed in checked-in E0 Awin advertiser directory |
+| LiquiLUST: Legendary Wear Lipstick in Elson 4 | patmcgrath.com | none | awin-apply | direct retailer URL | midnights.vault-midnights-a-dita-von-teese-styled-burlesque-scene-and-pat-mcgraths-30- |  |
 | Locked Kiss 24HR Lipstick in Ruby True | maccosmetics.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-signature-eras-tour-red-lip-decoded-mac-ruby-true-and-a- | not listed in checked-in E0 Awin advertiser directory |
 | Long Live All The Magic We Made Picture Frame | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Look At Me Baby Tweed Corset | shopakira.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-2024-vmas-red-carpet-a-tartan-dior-corset-and-cape | not listed in checked-in E0 Awin advertiser directory |
@@ -351,6 +352,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Life of a Showgirl: Sweat and Vanilla Perfume Cassette | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: Sweat and Vanilla Perfume CD with Poster | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: Sweat and Vanilla Perfume Portofino Orange Glitter Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Life of a Showgirl: The Encore Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Sky is Opalite Choker Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Sky is Opalite Heart Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Story Of Us Purple Crop Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -425,9 +427,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 411 |
+| total | 413 |
 | wrapped | 0 |
-| awin-apply | 9 |
+| awin-apply | 10 |
 | pending-signup | 8 |
-| uncovered | 99 |
-| direct-by-policy | 295 |
+| uncovered | 98 |
+| direct-by-policy | 297 |

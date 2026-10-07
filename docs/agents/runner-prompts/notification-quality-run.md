@@ -10,7 +10,7 @@ Steps:
 
 1. Fetch the metrics payload with the HTTP status captured (never bare
    `curl -s`, which swallows non-2xx and transport failures silently):
-   `curl -s -w '\n%{http_code}' "https://www.longlivets.com/api/notifications/metrics?secret=$NOTIFICATIONS_DASHBOARD_SECRET"`
+   `curl -s -w '\n%{http_code}' -H "Authorization: Bearer $NOTIFICATIONS_DASHBOARD_SECRET" "https://www.longlivets.com/api/notifications/metrics"`
    (the canonical production host — see `docs/deploy.md`; the last line of
    output is the status code, everything before it is the body).
    `NOTIFICATIONS_DASHBOARD_SECRET` must be set in this trigger's Claude

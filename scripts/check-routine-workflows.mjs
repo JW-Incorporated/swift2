@@ -34,6 +34,13 @@
 //      runs) — catching it here means a workflow's own header can never
 //      lie about its own schedule without failing CI.
 //
+//   4. No `allowed_tools` entry contains a space. `routine-template.yml`
+//      interpolates the list UNQUOTED into `claude_args`, and claude-code-action
+//      splits `claude_args` with shell-quote, so `Bash(gh issue comment:*)` arrives
+//      as `Bash(gh`, `issue`, `comment:*)` and the scoped rule is silently never
+//      enforced (Tree/Marjorie ask-response, runs 36828261914 / 36831500246). Use
+//      the space-free scoped form, e.g. `Bash(gh:*)`.
+//
 // Deliberately NOT covered: `routine-template.yml` itself (the reusable
 // callee, not a routine) and anything that isn't `routine-*.yml` — this is
 // a workflow-file check, not a general CI auditor.
@@ -215,6 +222,15 @@ export function checkRoutineWorkflows(files) {
           'routine-invariants.md invariant #4: `Task` is subagent fan-out — one scheduled run ' +
           'silently becomes several. Add a comment explaining why (e.g. "Task is in ' +
           'allowed_tools deliberately... invariant #4 allows Task when the charter says why").',
+      );
+    }
+
+    // ── 4. No allowed_tools entry containing a space ──────────────────────
+    for (const tool of tools.filter((t) => /\s/.test(t))) {
+      problems.push(
+        `${path}: \`allowed_tools\` entry \`${tool}\` contains a space. The template passes the list ` +
+          'unquoted into claude_args, so the entry is split into separate tokens and the scoped ' +
+          'rule is silently not enforced. Use a space-free form such as `Bash(gh:*)`.',
       );
     }
 

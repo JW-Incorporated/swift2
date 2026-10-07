@@ -1,0 +1,163 @@
+# Long Live status page (Bots v2 W4, docs/plans/bots-v2/PLAN.md). One pinned
+# issue labeled `status-page`, body rewritten deterministically (no LLM) by
+# scripts/marjorie/status-page.mjs. Operations: docs/ops/status-page.md.
+#
+# Three jobs, least privilege each:
+#   render  every hour, on a push to main that touches HUMAN-ACTIONS.md or
+#           social/**, and on demand. Reads the repo + GitHub, writes only the
+#           status issue body. Two secrets, each visible to ONE step only:
+#           VERCEL_TOKEN (status-traffic.mjs: the daily site-usage cache) and
+#           the `ops` environment's DISCORD_MARJORIE_WEBHOOK_URL (the single
+#           "Status updated" line when the page materially changed).
+#   heal    hourly and on a push to main that touches HUMAN-ACTIONS.md or social/**: rebuilds the rolling close PR's
+#           bot-owned branch from main when main has moved under it (the only
+#           force-push in this file; never main, never a human's branch).
+#   reply   an issue_comment on the status issue. This repo is public, so the
+#           job's `if` admits ONLY the owner's own account with OWNER/MEMBER/
+#           COLLABORATOR standing on a status-page issue (never a bot, so the job's own ack
+#           comments cannot loop), and status-reply.mjs re-checks the same.
+#           It closes a human action through the ONE rolling PR on
+#           `status-page/ha-closes` (lib/status-closes.mjs: every pending close
+#           lives on it, rebuilt from main each time, so two quick replies can
+#           never conflict), opened with SOCIAL_POSTER_PAT (so required checks
+#           run), then re-renders. The page shows an answered item as "Closing"
+#           the moment that PR is open and drops it once it merges. A free-text
+#           owner comment is dispatched to routine-marjorie-status-reply.yml (the
+#           chat routine's GitHub twin), which answers on the issue.
+# Checkout is always `main`: nothing a comment or a PR carries is executed.
+name: marjorie-status
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - HUMAN-ACTIONS.md
+      - "social/**"
+  workflow_dispatch: {}
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+jobs:
+  render:
+    if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Only to read DISCORD_MARJORIE_WEBHOOK_URL (an environment secret, as in
+    # routine-marjorie-brief.yml's deliver job); checkout stays pinned to main.
+    environment: ops
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    concurrency:
+      group: marjorie-status-render
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      # The only step that sees VERCEL_TOKEN. It calls Vercel at most once a day
+      # (the answer is cached in the status issue) and never prints the token.
+      - name: Cache the daily site-usage numbers
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: node --use-env-proxy scripts/marjorie/status-traffic.mjs
+      - name: Rewrite the status issue and post the change line
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: node scripts/marjorie/status-page.mjs --apply --notify
+
+  heal:
+    if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      # Its own lane: sharing the reply group would let a queued heal run replace
+      # a queued owner reply (GitHub keeps one pending run per group). The two
+      # race safely anyway: the branch push is a force-with-lease and the loser rebuilds.
+      group: marjorie-status-heal
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Rebuild the close PR from main if main moved
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/marjorie/status-heal.mjs
+
+  reply:
+    if: >-
+      github.event_name == 'issue_comment'
+      && github.event.action == 'created'
+      && !github.event.issue.pull_request
+      && github.event.comment.user.login == 'sffan15-sys'
+      && github.event.comment.user.type == 'User'
+      && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+      && contains(github.event.issue.labels.*.name, 'status-page')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: write # dispatch routine-marjorie-status-reply.yml for free-text comments
+      contents: write
+      issues: write
+      pull-requests: write
+    concurrency:
+      # One shared group: replies run strictly one after another, so a second
+      # `done #N` sees the first one's open closing PR instead of racing it.
+      # (GitHub holds one pending run; owner comments are minutes apart.)
+      group: marjorie-status-reply
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Act on the owner's command
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/marjorie/status-reply.mjs
+      # Back on main first: the page reads HUMAN-ACTIONS.md from main and the open
+      # PRs from GitHub, so an answered item shows as "Closing" until its PR lands.
+      - name: Re-render the page
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          git checkout --force --quiet main
+          node scripts/marjorie/status-page.mjs --apply

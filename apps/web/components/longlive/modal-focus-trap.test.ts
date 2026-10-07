@@ -25,10 +25,10 @@ function openingTag(src: string, marker: string): string {
 }
 
 describe('#657 MomentDetail sheet is a real focus-trapped dialog', () => {
-  const src = read('./MomentDetail.tsx');
+  const src = read('../../../../packages/ui/src/reader/moment/MomentDetail.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from './lib/useFocusTrap';");
   });
 
   it('the sheet root declares dialog semantics and a focus target', () => {
@@ -48,25 +48,26 @@ describe('#657 MomentDetail sheet is a real focus-trapped dialog', () => {
     // `<img>` in its prose, which defeats a generic "scan to the next `>`"
     // tag-boundary parse — slice to the next unambiguous anchor (its
     // onClick handler) instead.
-    const tagStart = src.indexOf('const viewer = (');
-    const tagEnd = src.indexOf('onClick={(e) => {', tagStart);
+    const lightbox = read('../../../../packages/ui/src/reader/moment/MomentLightbox.tsx');
+    const tagStart = lightbox.indexOf('const viewer = (');
+    const tagEnd = lightbox.indexOf('onClick={(e) => {', tagStart);
     expect(tagStart).toBeGreaterThan(-1);
     expect(tagEnd).toBeGreaterThan(tagStart);
-    const tag = src.slice(tagStart, tagEnd);
+    const tag = lightbox.slice(tagStart, tagEnd);
     expect(tag).toContain('role="dialog"');
     expect(tag).toContain('aria-modal="true"');
     expect(tag).toContain('aria-label="Photo viewer"');
     expect(tag).toContain('tabIndex={-1}');
     expect(tag).toContain('ref={dialogRef}');
-    expect(src).toContain('useFocusTrap(true, dialogRef);');
+    expect(lightbox).toContain('useFocusTrap(true, dialogRef);');
   });
 });
 
 describe('#657 EraSelector is a real focus-trapped dialog', () => {
-  const src = read('./EraSelector.tsx');
+  const src = read('../../../../packages/ui/src/reader/shell/EraSelector.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the panel root declares dialog semantics and a focus target', () => {
@@ -90,10 +91,10 @@ describe('#657 EraSelector is a real focus-trapped dialog', () => {
 // that issue's audit trail.
 
 describe('#3177 TrackGuide is a real focus-trapped dialog', () => {
-  const src = read('./TrackGuide.tsx');
+  const src = read('../../../../packages/ui/src/reader/tracks/TrackGuide.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the guide root declares dialog semantics and a focus target', () => {
@@ -110,10 +111,10 @@ describe('#3177 TrackGuide is a real focus-trapped dialog', () => {
 });
 
 describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
-  const src = read('./TheoryGuide.tsx');
+  const src = read('../../../../packages/ui/src/reader/threads/TheoryGuide.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the guide root declares dialog semantics and a focus target', () => {
@@ -131,10 +132,10 @@ describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
 
 
 describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
-  const src = read('./FeedbackButton.tsx');
+  const src = read('../../../../packages/ui/src/reader/legal/FeedbackButton.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the panel root declares dialog semantics and a focus target', () => {
@@ -145,16 +146,16 @@ describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
     expect(tag).toContain('ref={dialogRef}');
   });
 
-  it('wires the trap onto the panel root while open', () => {
-    expect(src).toContain('useFocusTrap(open, dialogRef);');
+  it('wires the trap onto the panel root while open, keeping its own toggle live', () => {
+    expect(src).toContain('useFocusTrap(open, dialogRef, null, toggleRef);');
   });
 });
 
 describe('#3177 SearchOverlay is a real focus-trapped dialog', () => {
-  const src = read('./SearchOverlay.tsx');
+  const src = read('../../../../packages/ui/src/reader/search/SearchOverlay.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the overlay root declares dialog semantics and a focus target', () => {

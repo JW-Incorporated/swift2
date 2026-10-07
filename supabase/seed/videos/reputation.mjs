@@ -139,7 +139,7 @@ export default {
       sources: [
         wiki('Taylor_Swift:_Reputation_Stadium_Tour', 'Taylor Swift: Reputation Stadium Tour'),
         press(
-          'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-reputation-stadium-tour-netflix-movie-review-773808/',
+          'https://www.rollingstone.com/tv-movies/tv-movie-features/taylor-swift-reputation-movie-netflix-773838/',
           "Taylor Swift's Reputation Film Shows Why She's One of the All-Time Greats",
           'Rolling Stone',
           'supports the Netflix concert-film release and Dallas stadium-show framing',

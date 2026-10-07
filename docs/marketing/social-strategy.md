@@ -1,8 +1,10 @@
 # Long Live — social operating strategy
 
-**Version 1 — 2026-08-11. Owner: Tree (`docs/agents/tree.md`), the standing
-social-media manager. Founders steer; Joey has final say on anything
-product-facing.**
+**Version 1 — 2026-08-11; ownership revised 2026-10-01. Owner: Tree
+(`docs/agents/tree.md`), the standing social-media manager, for execution and
+format; Marjorie owns the growth goals. The founder-owned limits are
+`docs/social/guardrails.md` and nothing else — everything in this file is
+Tree's to change, by PR with a written reason and evidence.**
 
 This file **supersedes `docs/marketing/growth-plan.md` §4-6 as the posting
 strategy.** Growth-plan keeps everything else and stays live: §0 mental model,
@@ -14,7 +16,7 @@ Who does what, in one line each:
 
 - **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
   drafts what the calendar says into `social/queue/` (a second, daily run).
-- **`social-poster.yml`** ships it every 30 min. No human in the path.
+- **`social-poster.yml`** ships it every 30 min, once the owner's ✅ stamp is on it.
 - **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
@@ -47,7 +49,8 @@ Three structural fixes, in priority order:
 
 ## 1. Campaign architecture
 
-Six campaigns. Every queue item belongs to exactly one. The names below are
+Seven campaigns (News added 2026-10-01, answering #4676). Every queue item
+belongs to exactly one. The names below are
 **families** — a prefix that groups metrics — and the `campaign` field on a
 queue item is never the bare family:
 
@@ -57,6 +60,7 @@ queue item is never the bare family:
 | Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
 | Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
+| **News beat** | `news:<event-slug>` | `news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
 | Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
 | Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
 
@@ -94,7 +98,7 @@ text-only X copy for the X sibling instead.
 
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
-| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: a real credited photo or text-only |
+| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the SAME photo as its IG sibling |
 | +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
 | +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
 | +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
@@ -270,9 +274,10 @@ days running on the same platform:
 - **The honest question** — one we'd actually like answered, not rhetorical.
 - **The challenge** — "find it in ten seconds."
 
-**Rule 6 — always land somewhere.** Every heartbeat post carries a deep link
-(era / item / lens) with the UTM tags from growth-plan §8. "longlivets.com" bare
-is only for Mood posts, which have no deep link.
+**Rule 6 — always land somewhere.** Every post in every lane carries a deep link
+(era / item / lens) with the UTM tags from growth-plan §8 — widened from
+heartbeat-only to all lanes on 2026-10-05, see §2's three criteria.
+"longlivets.com" bare is only for Mood posts, which have no deep link.
 
 **Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
 X counts any autolinked URL (including a bare domain like
@@ -283,6 +288,69 @@ fails anything over the real **280**. A caption that reads short in an editor
 can still be 300+ weighted once the link is counted — this, not duplicate
 sibling copy, is what actually broke 11 of 12 `social/failed/` items (§0,
 corrected 2026-08-11).
+
+### (e2) News beat — same-day coverage of a real-world event
+
+**Added 2026-10-01, answering Marjorie's ask [#4676](https://github.com/JW-Incorporated/swift2/issues/4676)
+(evidence: the week-of-2026-10-05 plan, [#4674](https://github.com/JW-Incorporated/swift2/issues/4674)).**
+27 real-world Taylor events landed in `intake:` issues across the last two
+weeks and **not one of them got a social post**, while the fandom conversation
+those weeks was almost entirely about them. News is the strongest share-bait
+this account has and it had no slot at all: every day of the calendar was
+assigned to a thread, mood, launch or timeline beat, the poster ships **one
+item per platform per UTC day**, and the same-day event run
+(`routine-tree-event-draft.yml`) schedules only onto "a UTC day where neither
+platform is already taken". A full calendar therefore *silently* turned every
+event into a no-post. This section is the slot it was missing.
+
+**Trigger.** A real-world event dated inside the last 48h that no shipped or
+queued post covers (the daily run's `events.uncovered[]`). Confirmed fact
+only, from the intake record — never a rumor-stage claim, and never anything
+on the §Voice blocklist (the confirmed-only carve-out there governs the
+personal-life topics).
+
+**Slot — the news reserve, and this is the first-class part.** Every calendar
+Tree writes **reserves at least one day per week as a news day**: its beat is
+written as `news:` with a **named fallback subject on the same line**, so a
+quiet week still posts and the "a calendar gap is never filled" rule
+(§0/invariant) is never in play — a reserve is an assigned slot with two
+possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
+`events.uncovered[]` first: an uncovered event → leave the beat for the event
+run and draft nothing there; nothing uncovered → draft the named fallback as
+written. A reserve day's beat is never drafted a day early by the previous
+run.
+
+**Yield order, when news lands off-reserve.** News may take the next
+unfilled beat inside 48h, displacing in exactly this order, nearest first:
+
+1. a `heartbeat:` beat — always yields,
+2. a `mood:` beat,
+3. the **second** slot of a thread window (never the hero).
+
+It never displaces the weekly Blank Spaces timeline minimum (§1(c)), a thread
+window's hero, or a launch arc's day 0 / +2 / +4 (§1(a)). The displaced beat
+slides to the next free day where that is possible; a window-bound thread
+slot is dropped rather than slid, same as today. The news item records the
+displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
+the event run may not edit `social/calendar.md`; the next weekly run
+reconciles the calendar to what actually shipped.
+
+**Cap — ≤2 news posts per rolling 7 days.** News is the one campaign that can
+arrive unplanned, so it gets the same bounded shape as the T6 fast lane: the
+rotation it preempts is what teaches new followers the product, and a week of
+pure reaction posting is how a fan account becomes a news aggregator nobody
+needs.
+
+**Bar.** A news beat is scored on the six-dimension rubric the fast lane
+already uses — T2's five plus **`timely`, which must clear 4 on its own** — and
+it has no claim on a slot it cannot clear. One rewrite, then the beat reverts
+to its fallback subject. `lane` stays `"calendar"` (a reserved beat *is* a
+calendar slot; `scripts/social/lib/queue-schema.mjs` has no `news` lane and
+this strategy does not ask for one).
+
+**Platform shape.** IG+X pair like everything else. Speed over polish is the
+one legitimate `singlePlatformReason` for X-first here (§2's sibling rule
+already names it), with Instagram following in the next run.
 
 ### (f) Human reach — the lane APIs can't touch
 
@@ -318,23 +386,71 @@ see §3, it's the only real engagement data we can get.
 
 ## 2. The weekly calendar grammar
 
-### Slots — 2 paired campaign beats per day, fixed times
+### The bar every post clears — three criteria, not an average
+
+**Added 2026-10-05 (Tree), from the owner's own words about the one post he has
+praised.** `social/posted/2026-10-01-love-story-joe-jonas-ig.json` is the
+reference: a credited fan photograph, a sourced and specific chapter narrative,
+and a `/?lens=love-story` deep link into real site content. The owner asked that
+**every** post meet all three. It is written here as three gates because that
+post cleared `total` 21/25 while scoring `mediaEarnsItsPlace: 3` — exactly the
+floor — which is how a merely-defensible image rides to publication on the back
+of the other four scores.
+
+1. **A real picture worth stopping on.** `mediaEarnsItsPlace` has its own floor
+   of **≥4**, independent of `total` — the same shape `notEmbarrassed` already
+   has. A 3 means "defensible"; the ask is "great". *(The scoring floor itself
+   lives in `scripts/social/lib/queue-schema.mjs`'s
+   `CRITIQUE_DIMENSION_MIN_OVERRIDES`, which Tree may not edit — until that
+   lands, this is the bar the drafting run self-scores against and a 3 is a
+   rewrite, not a ship.)*
+2. **Text specific enough that it could not sit above another post.** Rule 4's
+   specificity test, applied to every lane and not just heartbeat.
+3. **A deep link into actual site content.** Rule 6 now covers **every** lane —
+   timeline, thread, launch, mood, merch, appearance, news — not heartbeat
+   alone. Mood is the single named exception, because no Mood deep link exists
+   yet; it says "tap Mood on longlivets.com". The bare homepage is never a
+   landing place.
+
+### Slots — ONE paired campaign beat per day, at `23:00Z`
 
 | Beat | Time (UTC) | Local | Queue items | Normally filled by |
 |---|---|---|---|---|
-| **A** | `15:00Z` | 11am ET / 8am PT | X + Instagram pair | heartbeat (on-this-day when today has a real Vault match) |
-| **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
+| **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, timeline chapter or mood beat; heartbeat otherwise |
 
-Evening-US is the priority window (growth-plan §6), which is why the stronger
-campaign beat sits there. Each beat becomes two queue items authored together,
-with the same story-unique `campaign` and `scheduledAt`. Facebook rides every
-Instagram item automatically (`postToFacebookPage`) — it is never planned or
-drafted separately.
+**One beat, not two (changed 2026-10-05, Tree — the code was always the real
+grammar).** `scripts/social/lib/queue.mjs:61-62` sets `MAX_POSTS_PER_RUN = 1`
+and `MAX_POSTS_PER_PLATFORM_PER_DAY = 1`, so a second same-day pair cannot
+post however it is planned: the `15:00Z` beat A would be skipped, go stale and
+retire to `social/failed/` at 48h. Every calendar since 2026-09-28 has already
+planned one beat a day and flagged the contradiction; this section was the bug.
+`social/calendar.brief.json` is 14 entries, one per day, for the same reason.
+Evening-US is the priority window (growth-plan §6), so the one beat sits there.
 
-**Weekly volume: 14 IG + 14 X = 28 posts.** That sits under every cap: each
-posting cycle handles a two-item pair against the poster's 5-per-run cap, both
-platforms remain under 10/day, and two pairs/day exactly match the Growth run's
-≤4 drafts per run.
+**Weekly volume: 7 IG + 7 X = 14 posts** (was 28 under the unreachable
+two-beat grammar). Each beat is two queue items authored together with the
+same story-unique `campaign` and `scheduledAt`. Facebook rides every Instagram
+item automatically (`postToFacebookPage`) — it is never planned or drafted
+separately.
+
+**A beat is drafted by its OWN day's run, and never parked more than 24h out
+(added 2026-10-05, Tree).** For a founder-approved item the 48h staleness clock
+runs from `approval.at`, not from `scheduledAt` (`social/README.md`'s "48h
+staleness check"; `lib/queue.mjs`'s `isStaleApproved`), so an item approved well
+before its slot can be retired *unposted* before its own scheduled time ever
+arrives. That is what killed the 2026-10-03 Mood pair: drafted by the 10-01 run,
+✅'d at `2026-10-01T16:21Z`, scheduled `2026-10-03T23:00Z` — 54.6h later, 6.6h
+past the sweep — so both halves went to `social/failed/` without a single
+posting attempt, and Mood has still never shipped. A catch-up or re-draft
+subject therefore takes **today's or tomorrow's** beat, never a date two days
+out; a calendar beat further ahead than that is drafted by the run on its own
+day.
+
+**At least one day of every calendar week is a news reserve** (§1(e2), added
+2026-10-01): its beat is written `news:` with a named fallback subject on the
+same line, and it is the only slot the previous day's run leaves alone. A
+calendar that assigns all seven days to planned campaigns is now a planning
+bug, not a full plan — it is what made 27 events in two weeks un-postable.
 
 ### Sibling rule + the X length rule
 
@@ -397,19 +513,20 @@ the byline.
 `scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
 values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
 tiles outright — `photo` is path-bound to `/social/library/photos/` and
-requires `mediaCredit` + `mediaSource`, so a screenshot cannot be laundered as
-a credited photograph and a real photograph cannot ship uncredited. This
+requires `mediaSource` (and `mediaCredit` whenever the photographer is known), so
+a screenshot cannot be laundered as a photograph. This
 section describes that gate; it is not the gate. Where the two ever disagree,
 the code is what actually ships and this file is the bug.
 
 1. **A real photograph of Taylor** — `mediaKind: "photo"`. THE default for
-   every post. Source it from the repo's own credited corpus —
+   every post. Source it from the repo's own corpus —
    `supabase/seed/content/**` `moment.photos` (1,000+ entries, url + credit)
    and `apps/web/lib/longlive/lenses.ts` (per-era Getty/Wikimedia with
    captions) — rehost it under `apps/web/public/social/library/photos/`
-   (≤1.5MB), record `mediaCredit` + `mediaSource` on the queue item, and put
-   the credit line in the caption whenever the platform's length budget
-   allows. Verify the download is the real image (view it — a CDN can serve a
+   (≤1.5MB), record `mediaSource` on the queue item (plus `mediaCredit` when the
+   photographer is known — an unknown photographer means no `mediaCredit` and no
+   credit line, never "unknown"; owner, 2026-10-01), and put a known credit line
+   in the caption whenever the platform's length budget allows. Verify the download is the real image (view it — a CDN can serve a
    placeholder to curl), and that Taylor is actually in the frame.
 
    **Real content verification, not just path/credit (2026-08-31, Joey —
@@ -431,8 +548,9 @@ the code is what actually ships and this file is the bug.
    `social/queue/` at all — the run logs a loud, non-fatal `draftFailures`
    entry and simply produces no post for that video, same shape as any other
    staging failure. This stays inside the fast lane's existing auto-posting
-   flow: the lane still ships with **no human review step** (Joey's ruling,
-   same task — the lane does not become review-first/draft-only), the gate
+   flow: the lane still ships with **no human review step of its own** (Joey's
+   ruling, same task — the lane does not become review-first/draft-only; the
+   owner's ✅ on the approval post gates it like every post), the gate
    is just now a real content check instead of a shape check. Every other
    sourcing path (Content Shift, Growth, Tree — the slower, already-judged
    lanes) is unaffected; a human already looks at those before they land.
@@ -441,7 +559,17 @@ the code is what actually ships and this file is the bug.
    committed `/social/library/` asset. On Instagram, prefer a carousel: Taylor
    photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
    either way. **X site-screen posts are permanently prohibited**; the X
-   sibling uses a real credited photo or text-only copy.
+   sibling carries the same real photograph its Instagram half does.
+
+   **X is never text-only (corrected 2026-10-05, Tree).** `check-drafts.mjs`
+   fails an X item with no media (`social/strategy-params.json`
+   `media.requireImageOnX`), and lesson L001's one sanctioned repeat is exactly
+   this: **one beat, one pair, one image**, shared by the IG and X halves of the
+   same `campaign` because the owner approves the pair as a single post
+   (`docs/decisions.md` 2026-09-30). Every "or text-only" fallback written
+   elsewhere in this file or in an older `social/calendar.md` is dead — dropping
+   X to text-only is never the answer to a media problem, including a photo-reuse
+   one. When no never-used photo fits a beat, the beat is deferred.
 
    **The "cool feature only" rule (Joey, 2026-09-01).** A `site-screen` may
    only show one of the site's genuinely distinctive, visually rich surfaces
@@ -461,33 +589,31 @@ the code is what actually ships and this file is the bug.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
+   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`): rung 3 is closed
+   for pair posts.** `check-drafts.mjs` has failed an X item without media
+   since 2026-09-10, and a post is one IG+X pair on ONE image (the owner
+   approves the pair as one Discord message). A text-only X item now needs a
+   written `singlePlatformReason`, like any other single-platform post. When no
+   never-used photo fits the beat, the beat is deferred — never repeated, never
+   dropped to text-only to dodge L001.
+
 **Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
 and the checker rejects it outright, declared or not — on 2026-08-06 all 17
 posted IG items were era tiles, and the "declared fallback" loophole is how
 they kept shipping.
-**Designed cards** (`render-card.mjs`) are retired from the feed for the same
-reason: a typography tile is still not a picture of Taylor. The script stays
-for possible non-feed uses; re-admitting cards to the feed is a founder call.
-The card redline survives the retirement, wherever a card is ever rendered:
-**cards never reproduce lyrics** — titles, dates, numbers, and sourced quotes
-only, the same no-lyrics line the Mood starter chips hold (docs/decisions.md
-2026-07-09 lyrics entry).
+**Designed cards** (`mediaKind: "card"`) are a sanctioned image source, and
+format choice — photo, card, screenshot or text — is Tree's, judged on what the
+numbers say. A card is a committed PNG saved from the site's own
+`/api/share-card` render (`scripts/social/fetch-share-card.mjs`), recorded as
+`cardUrl`, credited "Long Live". The card redline holds wherever a card is rendered:
+the no-lyrics redline is a founder guardrail — `docs/social/guardrails.md`.
 
 **Instagram media is required. X images work** (up to 4, via the v1.1 media
 endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
-story; the 280-char budget is for words, `mediaCredit` carries the credit when
+story; the 280-char budget is for words, `mediaCredit` carries a known credit when
 the body can't.
 
-**Rights posture** (decision entries 2026-07-09 and 2026-08-12; the
-2026-08-11 entry's *ladder* is superseded, its rights bars are not): hosting real
-internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
-fine — **with credit, always**, as a knowing accepted risk;
-takedown-on-request without argument. The hard bars: **no AI-generated
-images, ever**, and any reference/comparable stand-in must be visibly labeled
-as such (never passed off as Taylor). No watermarked images, no fan edits
-without the creator's permission. Clickability is priority #1 — a
-rights-clean but boring tile is the failure mode we corrected, not the safe
-default.
+**Rights posture** is a founder guardrail — see `docs/social/guardrails.md` (credit the photographer when known and post with no credit line when not — owner, 2026-10-01; takedown on request; no AI images of Taylor; no watermarked images; no fan edits without the creator's permission). Clickability is priority #1 — a rights-clean but boring tile is the failure mode we corrected, not the safe default.
 
 ### Voice
 
@@ -504,30 +630,9 @@ start, per `era-capitalization.mjs` — that is brand-name styling, not
 register, and is unaffected by this change (Joey, 2026-09-10 — "why aren't we
 capitalizing the first letter in a sentence? drives me nuts"; supersedes the
 lowercase-everything register call from 2026-08-25 below). Fan-made is implicit in the
-bio, never claimed as official. The `#36`/Clownbot blocklist (health, pregnancy,
-sexuality, family/minors, legal wrongdoing, private individuals,
-relationship-existence speculation) applies to every draft, and nothing is ever
-invented — no stat, quote, or trend without a Vault item or a verifiable source
-behind it.
+bio, never claimed as official. The sensitive-topic blocklist and the no-fabrication rule are founder guardrails — `docs/social/guardrails.md`.
 
-**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
-`D1=A`).** The blocklist above still bars searching for, drafting, or posting
-any pregnancy or relationship-existence *speculation* — that stays absolute,
-zero exceptions, same as every other rumor-stage topic on this list. The one
-change: once a major personal-life event (pregnancy, engagement, marriage, and
-comparable milestones) is **confirmed** — by Taylor or her team directly, or
-independently reported as settled fact by two major outlets — it is no longer
-"speculation" and social may cover it like any other confirmed public news
-event (the same treatment a Grammy win or a tour date gets): warm, factual,
-sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
-treatment the way an album rollout does — that framing is reserved for
-product launches and creative rollouts, not a person's private life. Until
-confirmation, silence; the moment it's confirmed, normal coverage. This
-carve-out is social-caption policy only (this file, `docs/agents/tree.md`,
-`docs/agents/runner-prompts/tree-daily-draft.md`) — it does not touch the
-site's Vault/editorial pipeline or the Clownbot safety gate, which remain
-governed by their own docs and are outside Tree's mutation
-rights.
+**Major personal-life events — confirmed-only carve-out:** a founder guardrail, in full in `docs/social/guardrails.md` (guardrail 4).
 
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
@@ -578,7 +683,13 @@ IG posts by reach/saves, pasted from IG Insights. 2 minutes, and it is the only
 per-post engagement signal that exists. Tree names those 3 in its next monthly
 review and says what they had in common.
 
-### Targets — reset for reality (revised 2026-09-01 — tied to mechanisms, not hopes)
+### Targets — Marjorie's (moved to her weekly plan 2026-10-01)
+
+Growth targets are Marjorie's: she sets them in the weekly `weekly-plan` issue
+(`docs/agents/runner-prompts/marjorie-weekly-review.md`), judges Tree's
+experiments against them, and changes them as the evidence moves. The table is
+the last baseline Tree and she inherited (revised 2026-09-01 — tied to
+mechanisms, not hopes); it is history once her plan restates a number.
 
 **Why these changed:** the previous targets were floors for an account running growth-plan §6's outward-engagement engine (daily human engagement hour, following relevant accounts, Reddit non-promo participation). That engine has not been running — near-zero traction to date is a symptom of that gap, not of calendar quality. Targets below stay the same numbers but now name the mechanism each one depends on, so a miss tells us *what* to fix, not just *that* something's wrong.
 
@@ -608,8 +719,12 @@ Last Tree run of each month, appended to `social/calendar.md` under
    a hook shape, or a slot time. Not "keep improving".
 4. Rotation state advanced: next month's thread angles, next mood format, the
    next launch arc from the backlog.
-5. Anything that needs a founder decision goes to a `founder-decision` issue —
-   never decided quietly inside the calendar.
+5. Anything that touches `docs/social/guardrails.md` goes to the owner as a
+   `founder-decision` issue — never decided quietly inside the calendar.
+   Everything else is decided here by Tree; a taste dispute with Marjorie goes
+   to a Fable ruling (`taste-ruling` issue), not to the owner.
 
-A change to *this file* is a founder-approved PR. Tree may propose one in its
-review; it may not edit strategy into existence on its own.
+*This file* is Tree's. A change to it is a PR with a written reason and the
+evidence (a scorecard number, a lesson, an experiment result); Tree reports it
+in the weekly plan, and Marjorie's weekly review keeps, reverts or adjusts it.
+It lands without a founder merge.

@@ -40,15 +40,16 @@ own never-used photograph and none repeats.**
 
 ---
 
-## 🔴 READ THIS BEFORE USING ANY NEW PHOTO — the credits are not finished
+## New fan photos — most carry no credit, and that is fine
 
 Sixteen of the twenty new entries carry the credit string **`u/unknown via
-r/TaylorSwiftPictures`**. That is not a credit; it is the absence of one, and
-this desk's own content boundary is *"no reposting others' media without credit
-and permission"* (`docs/agents/tree.md` § Voice and content boundaries). Four
-entries — all four `reddit-erastour-*` — do name a real uploader
-(`u/Friscic`, `u/Shiver8597`, `u/Sensitive-Archer3010` ×2), and those are
-assigned to the four highest-value beats below on purpose.
+r/TaylorSwiftPictures`**: we have the Reddit link, not the person's name. **The
+owner ruled 2026-10-01 that this is fine** ("I'm ok with uncredited photos. If we know who
+took the photo, we should always give them credit, but if we don't that's fine too, just
+post it…", `docs/social/guardrails.md` row 2): credit the photographer when known; when
+not, post with no credit line. Four entries — all four `reddit-erastour-*` — do name a
+real uploader (`u/Friscic`, `u/Shiver8597`, `u/Sensitive-Archer3010` ×2), and those are
+assigned to the four highest-value beats below on purpose; credit them in the caption.
 
 **Binding on the drafter, every slot:**
 
@@ -58,21 +59,20 @@ assigned to the four highest-value beats below on purpose.
    check, not a path check: if Taylor is not plainly in the frame, or the image
    does not match its `alt`, **take the next reserve entry and say which one you
    rejected and why in `why`.**
-2. **Never paste `u/unknown` into a caption.** If the real uploader can be read
-   off the entry's `source` URL, credit them by name. If it cannot, **do not
-   ship that photograph** — take a reserve, or drop to text-only X + an empty
-   Instagram slot. An empty slot beats an uncredited repost.
+2. **Never paste `u/unknown` (or the word "unknown") into a caption.** If the real
+   uploader can be read off the entry's `source` URL, credit them by name. If it cannot,
+   ship the photo anyway with **no credit line and no `mediaCredit` on the item**
+   (the pick from `.scratch/tree-inputs.json` already omits it).
 3. **Never use `reddit-taylorswiftpictures-1nz3wbn`** — it is a 5.4 MB `.gif`.
    The pipeline posts one still image.
 4. **Files over ~1.5 MB may be rejected by the platform** (strategy §2.1's
    rehost budget). Oversized entries are marked `⚠️ size` below; if one 400s,
    take the next reserve and note it.
 5. **These are fan photos with no era tag** (`tags: ["fan-photo","eras-tour"]`).
-   **A caption may not claim era relevance for them.** Credit the photo, say it
+   **A caption may not claim era relevance for them.** Credit the photo when known, say it
    is an Eras Tour fan photo, and let the words carry the era.
 
-This is not fixable from this file — Tree may not write `social/photo-library.json`
-or `scripts/`. Raised this week as an ask of Marjorie and as founder question 1.
+Nothing here blocks on credits any more; the library gaining photos (credited or not) is the priority.
 
 ---
 
@@ -126,7 +126,91 @@ bug is still live — which is exactly why each beat is written to stand alone.
 - **Share-design pass** (strategy, 2026-09-01): every `heartbeat:` and `mood:`
   caption needs one genuine tag/share hook grounded in the actual content. Thread
   and launch posts are exempt. Never bolt on a fake one; say so in `why`.
+- **📰 A NEWS RESERVE day is a slot, not a gap.** Two days below (**10-04**,
+  **10-11**) are reserved for news first, each with a named fallback subject on
+  the day. On a reserve day: check `events.uncovered[]` at 11:00Z, leave the
+  slot for the same-day event run if an event is uncovered, otherwise draft the
+  fallback. **The previous day's run never drafts a reserve day early.** News
+  landing on a non-reserve day may take the next unfilled beat inside 48h,
+  yielding in order heartbeat → mood → a thread window's *second* slot; it
+  never takes the weekly timeline minimum, a thread hero, or a launch day
+  0/+2/+4 (strategy §1(e2)). Cap: **≤2 news posts per rolling 7 days.**
 - **Read `social/lessons.md` first. L001 is active and binding.**
+
+---
+
+## 🧪 EXPERIMENT 01 — hashtags on Instagram (answers ask #4722)
+
+**The finding that started it.** Every one of the **44 Instagram items in
+`social/posted/` carries zero hashtags** — checked this run across the whole
+archive; the only `#` matches in it are issue references (`#3278`, `#36`).
+Instagram sits at **4 followers** and every per-post record in
+`social/metrics/posts/` reads `like_count: 0, comments_count: 0`. At that size a
+post is only ever seen by people who do not follow us, and hashtags/explore are
+the one surface that puts it in front of them. The drafter prompt has said
+"Instagram gets the longer caption + hashtags" since August; it has never once
+happened.
+
+**This is S2's first labelled experiment** (`docs/agents/tree.md`, 2026-10-01 —
+up to ~1 in 4 slots may carry one, and none ever had). It takes 2 of the 8
+remaining slots in this window.
+
+**On a TAGGED slot, copy this object onto BOTH halves of the pair** — do not
+reword it, it is the experiment's identity, and
+`scripts/social/lib/queue-schema.mjs` caps `hypothesis` at 300 characters and
+`variant`/`metric` at 100:
+
+```json
+"experiment": {
+  "hypothesis": "IG reach at 4 followers is nearly all non-follower surfacing, and we have never used the one lever for it: all 44 posted IG items carry zero hashtags and every per-post metric reads 0 likes, 0 comments. A mid-tail Swiftie tag block should earn this account its first non-zero engagement.",
+  "variant": "IG caption ends with 8-12 mid-tail Swiftie hashtags (no mega-tags); the X half is unchanged.",
+  "metric": "like_count + comments_count at 48h in social/metrics/posts/2026-10, tagged pairs vs controls."
+}
+```
+
+**On a control slot: no hashtags and no `experiment` object.** A control is an
+ordinary post; noting "Experiment 01 control" in `why` is all it needs.
+
+**Slot assignment — counterbalanced inside the `thread:` family**, so
+hero-versus-second position cannot explain the result:
+
+| Date | Beat | Arm |
+|---|---|---|
+| 10-02 | The Decode hero | **TAGGED** |
+| 10-04 | The Decode answer beat (only if the news reserve goes unused) | control |
+| 10-06 | Clue Web hero | control |
+| 10-09 | Clue Web, slot 2 | **TAGGED** |
+
+If news takes the 10-04 reserve, that control is simply lost — 10-06 control
+against 10-09 tagged still reads, and the news post sits outside the experiment
+(do not tag it).
+
+**Choosing the tags — 8-12 of them, as the last line of the Instagram caption:**
+
+1. **Mid-tail, never mega-tags.** Not `#taylorswift`, `#swifties`, `#swiftie`
+   or a bare `#erastour`: a tag with tens of millions of posts buries a
+   4-follower account within seconds. Aim at tags plausibly in the
+   thousands-to-low-millions.
+2. **Three kinds, roughly even:** the era or album, the actual subject of the
+   post, and the fan-practice tag a Swiftie would really search.
+3. **Never a tag implying official status** (`#taylornation`,
+   `#taylorswiftofficial`) and never one naming another real person, a
+   relationship, or anything on the #36 blocklist.
+4. **The X half is unchanged.** No tags there — they cost weighted characters
+   and buy us nothing.
+5. **Record the exact tag list in `why`** and cite `ask #4722`, so the readout
+   knows which tags were in play.
+
+**Readout, Sunday 2026-10-11:** `social/metrics/posts/2026-10/*.json` matched by
+`campaign` — `like_count + comments_count` on the two tagged pairs against the
+controls, plus the Instagram follower delta from the weekly scorecard.
+**Written down now so the result is read honestly:** against a baseline of zero
+across 44 posts, *any* non-zero number on a tagged post is the signal — and
+zero on both arms is a real answer too. It would mean engagement cannot
+discriminate anything at this follower count, and the next experiment has to
+wait for the click attribution in
+[#4719](https://github.com/JW-Incorporated/swift2/issues/4719). A 0-vs-0 is not
+"hashtags don't work".
 
 ---
 
@@ -154,6 +238,8 @@ bug is still live — which is exactly why each beat is written to stand alone.
 | IG Insights | **Never supplied**, three months running. **Asked this week** — September's monthly cadence falls on this run. |
 | Founder tasks | **#4294 (09-14) and #3990 (09-07) are both open, 0 ticked — five consecutive weeks, zero completions**, including the week it was cut to a single 4-minute ask. The same founder answered 9 Reddit prompts and 9 draft approvals in Discord in the same period, median 3h 19m. The issue channel is not read as a work queue; Discord is. Founder question 2. |
 | Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The repo-variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; it was inferred from live posting on 09-22 and from approvals continuing through 09-28.)* |
+| **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
+| 🧪 **Experiment 01 — Instagram hashtags** (ask [#4722](https://github.com/JW-Incorporated/swift2/issues/4722)) | **Live from 10-02.** Tagged: 10-02, 10-09. Control: 10-04 (if the reserve goes unused), 10-06. Full protocol in the Experiment 01 section above; readout 10-11. The desk's first labelled experiment under S2. |
 | Social event mode | **`normal`** — `scripts/social/event-status.mjs` run this session returns `{"mode":"normal","kind":null,"windingDown":false,"reservedBeats":0}`. No countdown or big theory is live, so no beats are reserved and the 14 days below are planned as ordinary rotation. |
 
 ### Photo assignment — read this off, then verify
@@ -167,17 +253,17 @@ Run `npm run social:select-photo` to copy the exact `photoId`, `mediaPath`,
 |---|---|---|---|
 | 09-29 | `reddit-erastour-1q6jwfl` | u/Sensitive-Archer3010 | ✅ named uploader |
 | 09-30 | `reddit-erastour-1q8clxb` | u/Sensitive-Archer3010 | ✅ named uploader |
-| 10-01 | `reddit-taylorswiftpictures-1q1pxtp` | u/unknown | ⚠️ resolve the uploader first |
-| 10-02 | `reddit-taylorswiftpictures-1ocof56` | u/unknown | ⚠️ resolve the uploader first |
+| 10-01 | `reddit-taylorswiftpictures-1q1pxtp` | u/unknown | no credit line |
+| 10-02 | `reddit-taylorswiftpictures-1ocof56` | u/unknown | no credit line |
 | 10-03 | `reddit-erastour-1ptssc4` | u/Friscic | ✅ named uploader · ⚠️ size 3.1 MB |
-| 10-04 | `reddit-taylorswiftpictures-1puk3m7` | u/unknown | ⚠️ resolve the uploader first |
+| 10-04 | `reddit-taylorswiftpictures-1puk3m7` | u/unknown | no credit line |
 | 10-05 | `reddit-erastour-1q65hiz` | u/Shiver8597 | ✅ named uploader · ⚠️ size 5.2 MB |
-| 10-06 | `reddit-taylorswiftpictures-1pxtr93` | u/unknown | ⚠️ resolve the uploader first |
-| 10-07 | `reddit-taylorswiftpictures-1r6n7aq` | u/unknown | ⚠️ resolve the uploader first |
-| 10-08 | `reddit-taylorswiftpictures-1tl4pqb` | u/unknown | ⚠️ resolve the uploader first |
-| 10-09 | `reddit-taylorswiftpictures-1ojprpr` | u/unknown | ⚠️ resolve the uploader first |
-| 10-10 | `reddit-taylorswiftpictures-1pjmwfb` | u/unknown | ⚠️ resolve the uploader first |
-| 10-11 | `reddit-taylorswiftpictures-1ogrcvp` | u/unknown | ⚠️ resolve the uploader first |
+| 10-06 | `reddit-taylorswiftpictures-1pxtr93` | u/unknown | no credit line |
+| 10-07 | `reddit-taylorswiftpictures-1r6n7aq` | u/unknown | no credit line |
+| 10-08 | `reddit-taylorswiftpictures-1tl4pqb` | u/unknown | no credit line |
+| 10-09 | `reddit-taylorswiftpictures-1ojprpr` | u/unknown | no credit line |
+| 10-10 | `reddit-taylorswiftpictures-1pjmwfb` | u/unknown | no credit line |
+| 10-11 | `reddit-taylorswiftpictures-1ogrcvp` | u/unknown | no credit line |
 
 **Reserves, in order, all never used:** `1nxmfeq` · `1qad9bo` · `1pphafw`
 (⚠️ 1.8 MB) · `1pm1yly` (⚠️ 2.1 MB) · `1qgb3m8` (⚠️ 2.2 MB) · `1r38qiv`
@@ -237,6 +323,12 @@ already a day late is worth less than the next one being on time.
 
 ## 2026-10-02 (Fri) — The Decode hero, slot 1 of 2 (October window 10-01→05)
 
+🧪 **Experiment 01: TAGGED arm.** The Instagram caption ends with the 8-12
+mid-tail hashtag block and both halves carry the `experiment` object — rules and
+the exact object are in the Experiment 01 section above.
+
+RE-DRAFT ask #4675 by 2026-10-04: the 09-23 Mood pair and the 09-24 Blank Spaces timeline X — founder-✅'d in retired PR #4544, never posted. Re-cover both subjects fresh as single-post items under the per-post approval flow: new openers, a never-used photo (L001), X text-only. Mood rides the 10-03 slot. Cite "ask #4675" in each item's `why`.
+
 - **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — mint
   `thread:hidden-clues:interactive-challenge:2026-10-hero`. Link
   `/?lens=hidden-clues`. **October's angle index** — the cycle month advances here.
@@ -268,7 +360,25 @@ already a day late is worth less than the next one being on time.
   a real result on screen**; else photo-only with the songs in the caption.
   X: **text-only.** **Share hook required.** Hook: **the artifact**.
 
-## 2026-10-04 (Sun) — The Decode, slot 2 of 2 (window closes 10-05)
+## 2026-10-04 (Sun) — 📰 NEWS RESERVE · fallback: The Decode, slot 2 of 2
+
+**This beat is reserved for news first** (strategy §1(e2), added 2026-10-01 for
+[#4676](https://github.com/JW-Incorporated/swift2/issues/4676)). At the 11:00Z
+run on 10-04, read `events.uncovered[]` **before** anything else:
+
+- **An uncovered real-world event from the last 48h → draft nothing here.**
+  Leave the 10-04 `23:00Z` slot open so `routine-tree-event-draft.yml` can take
+  it the same day; mint `news:<event-slug>-2026-10-04`, clear `timely` ≥4 on the
+  six-dimension rubric, and the Decode answer beat below is **dropped** (its
+  window closes 10-05 — drop rather than slide, per the window rule).
+- **Nothing uncovered → draft the fallback below exactly as written.**
+- **The 10-03 run does not draft this day's beat a day early.** That is what
+  makes the reserve a reserve.
+
+Either way the IG tile is 10-04's assigned photo (`reddit-taylorswiftpictures-1puk3m7`)
+unless the event run's own `eventPhoto` supersedes it.
+
+**Fallback beat:**
 
 - **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — a second
   story-unique value: `thread:hidden-clues:interactive-challenge:2026-10-answer`.
@@ -300,6 +410,9 @@ already a day late is worth less than the next one being on time.
   X: **text-only.** Hook: **direct address**.
 
 ## 2026-10-06 (Tue) — Clue Web hero, slot 1 of 2 (October window 10-06→10)
+
+🧪 **Experiment 01: control arm.** No hashtags, no `experiment` object — write
+"Experiment 01 control" in `why`.
 
 - **`23:00Z` · `thread:easter-eggs:behind-the-data`** — mint
   `thread:easter-eggs:behind-the-data:2026-10-hero`. Link `/?lens=easter-eggs`.
@@ -333,6 +446,9 @@ already a day late is worth less than the next one being on time.
 
 ## 2026-10-09 (Fri) — Clue Web, slot 2 of 2 (window closes 10-10)
 
+🧪 **Experiment 01: TAGGED arm** — same rules as 10-02, a different 8-12 tag
+block chosen for this post's own subject.
+
 - **`23:00Z` · `thread:easter-eggs:behind-the-data`** — a second story-unique
   value: `thread:easter-eggs:behind-the-data:2026-10-second`. Link
   `/?lens=easter-eggs`. A different entry point into the same angle — the one
@@ -353,7 +469,19 @@ already a day late is worth less than the next one being on time.
   IG media: `reddit-taylorswiftpictures-1pjmwfb`; slide 2 per 10-05's rule.
   X: **text-only.** Hook: **the artifact**.
 
-## 2026-10-11 (Sun) — Heartbeat · the only one in the fortnight
+## 2026-10-11 (Sun) — 📰 NEWS RESERVE · fallback: the fortnight's one heartbeat
+
+**Second news reserve of this window** (strategy §1(e2)). Same procedure as
+10-04: at the 11:00Z run on 10-11, an uncovered real-world event from the last
+48h takes this slot as `news:<event-slug>-2026-10-11` and the heartbeat below
+**slides into the calendar written 10-12** rather than being dropped (a
+heartbeat is not window-bound). Nothing uncovered → draft the fallback as
+written. The 10-10 run leaves this day alone.
+
+Heartbeat is first in the yield order, so this is the cheapest reserve in the
+fortnight — which is exactly why it is one.
+
+**Fallback beat:**
 
 - **`23:00Z` · `heartbeat:era-deep-cut`** — mint
   `heartbeat:era-deep-cut:speak-now-million-week-2026-10-11`. **A new
@@ -450,8 +578,9 @@ dropped twice. Mood October = `mood:result`. Next launch arc after Community
 Engine: notifications + web push (#3568→#3583).
 
 **5. Needed a founder decision.** Two, both in this week's brief: whether a
-`u/unknown` photo credit may ship at all, and whether the weekly founder task
-moves out of GitHub issues into `#longlive-tree`.
+`u/unknown` photo credit may ship at all (answered 2026-10-01: yes, with no credit
+line), and whether the weekly founder task moves out of GitHub issues into
+`#longlive-tree`.
 
 ---
 

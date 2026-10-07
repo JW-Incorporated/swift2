@@ -59,10 +59,11 @@ export function issueBody(groups) {
     '',
     '**Automation:**',
     '1. Windows runs `npm run knowledge:fb-export` Sunday at 18:00 local time.',
-    '2. Each group is sorted by new activity, scrolled through seven days, expanded, saved outside the repo, and checked with the real parser.',
-    '3. Only files with at least one kept post and a completed age rule upload to the private `facebook-exports` bucket; failed files stay local.',
-    '4. Full success comments counts here and closes this issue. A checkpoint, 2FA, CAPTCHA, selector drift, parser failure, or upload failure comments a safe status and leaves it open.',
-    '5. Manual verification is `npm run knowledge:fb-export:dry` (collection + parser gate only; no upload or issue change).',
+    '2. Each group is sorted by **New posts (chronological)** because the seven-day stop is only sound in creation order; posts are expanded and saved outside the repo.',
+    '3. Collection stops after seven days, feed end, 250 scrolls, or 20 minutes. Limit stops are valid partial coverage; posts older than seven days are omitted, and a group with none left is reported as `no-recent-posts` without upload.',
+    '4. Parser-valid files ingest before upload to the private `facebook-exports` bucket; failed files stay local.',
+    '5. Full success comments per-group posts, stop reason, coverage, and partial groups here and closes this issue. A checkpoint, 2FA, CAPTCHA, selector drift, parser, ingest, or upload failure comments a safe status and leaves it open.',
+    '6. Manual verification is `npm run knowledge:fb-export:dry` (collection + parser and dry-run ingest; no upload, database write, or issue change).',
     '',
     '**First real export — one-time calibration (HUMAN-ACTIONS.md #70):** the parser ' +
       '(`facebook-groups-parser.ts`) was written against Facebook\'s documented `role="article"` / ' +

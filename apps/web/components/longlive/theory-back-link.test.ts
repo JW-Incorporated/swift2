@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 // static source lock, same idiom as close-affordance.test.ts and
 // scrubber-nested-interactive.test.ts.
 
-const src = readFileSync(new URL('./TheoryCard.tsx', import.meta.url), 'utf8');
+const src = readFileSync(new URL('../../../../packages/ui/src/reader/threads/TheoryCard.tsx', import.meta.url), 'utf8');
 
 describe('R4: TheoryCard cannot render without a back-link', () => {
   it('computes a threadId for every card via the shared doorways.ts mapping', () => {

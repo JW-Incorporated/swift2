@@ -12,7 +12,15 @@ not a plan still in progress.
 ## What this repo actually is — two products in one, plus a mobile app now on a headless core
 
 1. **The website.** One client-rendered Next.js page (`apps/web/app/page.tsx`
-   → `<LongLive/>` in `apps/web/components/longlive/**`) driven by
+   → `<LongLive/>` in `apps/web/components/longlive/**`) whose reader UI now
+   lives in `packages/ui/src/reader/**` (old `apps/web` paths are one-line
+   re-export shims; host-specific behaviour goes through the `HostAdapter`
+   seam, `packages/ui/HOST-ADAPTER.md`; `parity-gate` is a
+   required check on main (since 2026-10-03): every PR's CI renders the website
+   (side a) and the shared UI as mounted by the app's DOM entry (side b) and
+   fails if screenshots or requested external images differ; on-device
+   screenshot comparison (decisions.md Gate 1) comes after the app mounts the
+   shared UI, post-G0), driven by data modules in
    `apps/web/lib/longlive/**`. Content used to live in committed
    `*.generated.ts` files; those are gone now (see "Content pipeline" below).
    This is the interactive era/threads reader users see at `/`. **Its
@@ -27,14 +35,30 @@ not a plan still in progress.
    operational manual is `docs/AUTOMATION.md` — read it before touching any
    workflow, script, or desk routine.**
 3. **The mobile app (`apps/mobile`).** No longer a WebView shell. As of
-   OS-039 (2026-09-05), the app's default surface is **five native screens**
-   behind a persistent `BottomTabBar` (era stream, threads, clownbot,
-   community, merch) — see "Mobile app" below.
+   2026-10-04 the default surface is the shared (DOM) UI (`routeFlags.sharedUi`
+   default-on). The legacy native screens (BottomTabBar worlds, SiteShell
+   WebView) were deleted in One UI PR3 (2026-10-04); when the DOM host is not
+   mounted the app shows a minimal Recovery screen, and the emergency lever is an
+   OTA rollback — see "Mobile app" below.
 
 Both apps, the factory, and the shared headless core are real and
 load-bearing; none substitutes for another's manual.
 
 ## Convergence: one content bundle, two renderers, one headless core
+
+> **Direction changed 2026-10-02 (`docs/decisions.md`, "One UI for web,
+> iOS and Android").** The UI half of D2 and D3 below is superseded. The
+> target is **one UI**: the website's reader moves to `packages/ui` and is
+> mounted in the apps through a single Expo DOM host. Content flows through
+> one versioned `ReaderSnapshot`, and the native shell keeps only
+> capabilities. D1 and D4 are unchanged. The migration is gated and in
+> progress: the shared reader is mounted in the app through the DOM host
+> behind `routeFlags.sharedUi` (default-on since 2026-10-04; iOS reads
+> `sharedUiIos`, on since 2026-10-05); the "five native screens" description
+> below is historical (deleted in One UI PR3). Current app architecture
+> (bridge contract, last-good script twin, Back stack, deep links, pending
+> PRs, gaps): `docs/one-ui/app-architecture.md`. Design and
+> gates: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
 
 Ratified 2026-09-05 (`docs/decisions.md` "Convergence decisions D1–D4",
 spec `docs/specs/2026-09-05-one-source-three-surfaces.md`) and now largely
@@ -58,9 +82,9 @@ implemented, not aspirational:
   react-native-web rewrite of the working ~55k-line web app.
 - **D3 — progressive native port, route by route, behind flags, WebView
   shell as fallback until the last route lands.** OS-032..OS-039 shipped
-  five native screens flag-on by default; the WebView (`SiteShell.tsx`)
-  now only ever renders the three static legal pages. **Substantially
-  complete, not "next" — see "Mobile app" below.**
+  five native screens flag-on by default; One UI PR3 (2026-10-04) then
+  deleted them and the SiteShell WebView in favor of the shared DOM host.
+  **Complete — see "Mobile app" below.**
 - **D4 — EAS Update for JS-only mobile changes**, fingerprint runtime
   policy; store builds only when native code changes. See
   `docs/mobile-release.md` for the release train mechanics.
@@ -71,7 +95,7 @@ implemented, not aspirational:
 |-------|--------|-------|
 | Language | **TypeScript** everywhere | Web, mobile, worker, shared logic |
 | Web | **Next.js 16 (App Router)**, React 19 | SSR/SSG + CDN caching; deploys on Vercel |
-| Mobile | **Expo / React Native** | iOS + Android from one codebase; native screens behind a `BottomTabBar`, not a WebView |
+| Mobile | **Expo / React Native** | iOS + Android from one codebase; shared-UI DOM host (legacy native screens deleted in One UI PR3), not a WebView |
 | Headless core | **`packages/experience`** (~11.8k lines, zero-I/O, zero-UI-framework) | Eras, deep links, lenses, filters, feeds, threads, track guide, search — the D2 shared core both renderers consume |
 | Content contract | **`packages/content`** (zod schemas + typed loader) | Reads the published bundle over HTTP with ETag caching + offline last-good fallback (mobile's consumer); `apps/web` reads the same published JSON synchronously off local disk instead — see "Content pipeline" |
 | Content enrichment | **`packages/content-enrichment`** | Zero-`apps/web`-dependency enrichment logic extracted from the old web-only generators (OS-014b) |
@@ -86,7 +110,7 @@ Monorepo, npm workspaces:
 
 ```
 apps/web            Next.js reader (~55k lines incl. app/lib/components)
-apps/mobile         Expo app: 5 native screens + BottomTabBar (~7.9k lines)
+apps/mobile         Expo app: shared-UI DOM host + native shell (Recovery screen only)
 apps/worker         News/Current ingest pipeline, polls every 4h (~7.4k lines)
 packages/shared     types + domain, zero I/O — portable (~5.6k lines)
 packages/core       shared Vault types + News/Current live-read helpers (~8k lines)
@@ -163,6 +187,18 @@ window. `db-seed.yml`'s Vault-content seeding is retired.
 tier (News/Current world, reads `current_item`/`live_theory`/`fan_signal`
 via `apps/web/lib/current.ts`), intentionally left untouched.
 
+**Cross-origin reads (One UI WP0.3b).** The app's DOM host is a `file://` page
+(opaque `null` origin). `/content/**` is served with `Access-Control-Allow-Origin: *`
+(`apps/web/next.config.mjs`; never on `/api` or HTML routes). `loadBundle` sends no
+request headers (no `If-None-Match`), so fetches stay preflight-free; revalidation is by
+version: `current.json`'s `bundleVersion` is the content hash, and an unchanged version
+with a complete cached copy returns with zero manifest/file downloads. `/api/*` stays
+same-origin only: the reader reaches it through the `ApiFetch` seam
+(`packages/content/src/api-fetch.ts`, bridge-serializable request/response; web default
+`webApiFetch`). The app side is live (bridge `api` over native fetch, #4969; streaming for
+ClownChat, #5033). On iOS the DOM reads the content cache through a `.js`
+script twin because WKWebView blocks file:// fetch/XHR (#5045).
+
 ## Data architecture: two worlds, kept apart
 
 The product still has two content cadences that must not be coupled:
@@ -181,7 +217,18 @@ The product still has two content cadences that must not be coupled:
 They live in separate tables and are served on separate surfaces/routes. The
 Vault must never inherit the News feed's volatility or its cache-busting.
 
-## Mobile app — native screens behind a BottomTabBar, not a WebView shell
+## Mobile app — shared-UI DOM host, not a WebView shell
+
+**One UI PR3 (2026-10-04) deleted the legacy native UI described in the
+historical notes below** (`NativeScreenRouter`, `SiteShell`, `VaultNavigator`,
+`BottomTabBar`, every native Era/Thread/Song/Track/Community/Merch/Clown/Search/
+Legal/Settings/Onboarding screen and their data helpers). `App.tsx` now mounts the
+DOM host or, when it is not mounted, the Recovery screen. The JSON route keys in
+`config/mobile/app-config.json` stay (old OTAs parse them) and
+`react-native-webview` stays in `package.json` (removing it would change the
+native fingerprint). See `docs/one-ui/dom-host.md`.
+
+*Historical (pre-PR3):*
 
 **This is the single biggest structural change since the last architecture
 doc revision, and it reverses a decision that doc itself recorded.** The
@@ -219,12 +266,9 @@ the default:
 The site calls `postToNativeApp(message)` (`apps/web/lib/longlive/in-app.ts`),
 detected via the `LongLiveApp/<ver> (ios|android)` user-agent marker
 (OS-001), which does nothing outside the app and otherwise calls
-`window.ReactNativeWebView.postMessage(...)`. `SiteShell` wires the
-WebView's `onMessage` and `App.tsx` maps it onto the corresponding native
-screen. Currently a small closed union (`openNotificationSettings`,
-`openInbox`). Extending it: add a member to `NativeBridgeMessage` in both
-`apps/web/lib/longlive/in-app.ts` and `apps/mobile/components/SiteShell.tsx`
-(kept in sync by hand).
+`window.ReactNativeWebView.postMessage(...)`. (Historical: `SiteShell` wired the
+WebView's `onMessage` before PR3 deleted it.) Currently a small closed union (`openNotificationSettings`,
+`openInbox`). The mobile receiver was deleted in PR3.
 
 ## Reference workload — the era experience (still shapes the build)
 
@@ -355,8 +399,7 @@ flipped on progressively through OS-032..OS-039), not a future plan.
 - News/Current world as a native mobile screen — not yet ported; currently
   web-only.
 - Dead code cleanup: `apps/mobile/lib/vault.ts`, `VaultNavigator.tsx`,
-  `EraTimeline.tsx` are unreferenced from the mounted app after OS-015; no
-  card yet to remove them.
+  `EraTimeline.tsx` were removed in One UI PR3 (2026-10-04).
 
 _Resolved:_ v1 scope is the **Vault only**; the News/Current world is out of
 v1 (2026-07-03). _Resolved:_ the Supabase-direct Vault read path is retired,

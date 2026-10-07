@@ -90,7 +90,7 @@ jobs:
           ref: main
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 

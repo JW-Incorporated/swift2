@@ -26,6 +26,7 @@ import { weightedTweetLength } from './x-length.mjs';
 import { MAX_X_IMAGES } from './platforms.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 import { approvalStatus } from './queue.mjs';
+import { creditsMatch } from './photo-library.mjs';
 
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
@@ -78,7 +79,16 @@ function isThemedCampaign(campaign) {
  * (scripts/appearance-discovery/lib/social-draft.mjs) now sources a real
  * credited photo from social/photo-library.json for BOTH platforms instead
  * of shipping a rehosted thumbnail X-only. */
-export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'card'];
+
+/** `mediaKind: "card"` — a site-rendered share-card PNG (the live
+ * /api/share-card route) committed under CARD_PREFIX. Credit is always the
+ * product, never a photographer. */
+export const CARD_PREFIX = '/social/library/cards/';
+const CARD_PATH_RE = /^\/social\/library\/cards\/[A-Za-z0-9_.-]+\.png$/;
+export const CARD_CREDIT ='Long Live';
+export const CARD_URL_PREFIX = 'https://www.longlivets.com/api/share-card';
+export const EXPERIMENT_LIMITS = { hypothesis: 300, variant: 100, metric: 100 };
 
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
@@ -116,6 +126,18 @@ export const PLATFORM_RULES = Object.assign(Object.create(null), {
   x: { maxBody: 280, media: 'required', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
 });
+
+export const SINGLE_PLATFORM_REASON_MIN = 20;
+export const SINGLE_PLATFORM_REASON_MAX = 300;
+
+/** True for a `singlePlatformReason` that is a real, bounded, written reason —
+ * shared by this schema and check-drafts.mjs's pairing gate so the two can
+ * never disagree about what counts. */
+export function isValidSinglePlatformReason(value) {
+  if (typeof value !== 'string') return false;
+  const len = value.trim().length;
+  return len >= SINGLE_PLATFORM_REASON_MIN && value.length <= SINGLE_PLATFORM_REASON_MAX;
+}
 
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 
@@ -156,7 +178,7 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   }
   const photo = photoLibrary.find((entry) => entry.id === item.photoId);
   if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
-  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
+  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || !creditsMatch(item.mediaCredit, photo.credit) || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
   }
   // Alt text for the library tile is WRITTEN ONCE on the photo entry itself
@@ -542,9 +564,10 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
   // --- mediaKind + photo provenance (2026-08-12, the Taylor-photo standard) --
   // Three declared kinds (see social/README.md's mediaKind section):
   //   "photo"       — a real photograph of Taylor Swift, rehosted from a
-  //                   sourced corpus entry. REQUIRES `mediaCredit` (the
-  //                   photographer/agency line that ships with the post) and
-  //                   should carry `mediaSource` (where it came from).
+  //                   sourced corpus entry. `mediaCredit` (the
+  //                   photographer line that ships with the post) is set when
+  //                   the photographer is known and omitted when not (owner,
+  //                   2026-10-01); REQUIRES `mediaSource` (where it came from).
   //   "site-screen" — a screenshot of the product itself (feature launches).
   //   "era-art"     — the legacy generic era tile. Still schema-valid so old
   //                   records parse, but check-drafts.mjs HARD-FAILS any new
@@ -565,15 +588,30 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
       findings.push(`${field}: must be a non-empty string when present.`);
     }
   }
-  if (item.mediaKind === 'photo' && (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '')) {
-    findings.push(
-      'mediaCredit: required when mediaKind is "photo" — a real photograph of Taylor ships with its photographer/agency credit, always (docs/decisions.md 2026-07-09 media policy).',
-    );
-  }
   if (item.mediaKind === 'photo' && (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '')) {
     findings.push(
       'mediaSource: required when mediaKind is "photo" — the credit must be auditable back to where the photo came from. (Mirrors check-drafts; this gate exists for items that arrive via a path the draft checker never saw.)',
     );
+  }
+  if (item.mediaKind === 'card') {
+    if (item.mediaCredit !== CARD_CREDIT) {
+      findings.push(`mediaCredit: must be exactly ${JSON.stringify(CARD_CREDIT)} when mediaKind is "card".`);
+    }
+    if (
+      typeof item.cardUrl !== 'string' ||
+      !item.cardUrl.startsWith(CARD_URL_PREFIX) ||
+      !(item.cardUrl.length === CARD_URL_PREFIX.length || item.cardUrl[CARD_URL_PREFIX.length] === '?')
+    ) {
+      findings.push(`cardUrl: required when mediaKind is "card" — must be exactly ${CARD_URL_PREFIX}, optionally followed by a "?query" (the route the PNG was rendered from).`);
+    }
+    if (paths.length === 0) {
+      findings.push('media: mediaKind "card" requires at least one media path.');
+    }
+    for (const p of paths) {
+      if (typeof p === 'string' && (/[%\\]|\/\//.test(p) || !CARD_PATH_RE.test(p))) {
+        findings.push(`media: mediaKind "card" path ${JSON.stringify(p)} must be a committed .png under ${CARD_PREFIX} (letters, digits, "_", ".", "-" only).`);
+      }
+    }
   }
   // A QUEUE item carrying media must declare what that media is — the
   // undeclared default is how the Taylor-free grid happened. Applies to the
@@ -649,9 +687,34 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'lastError', 'photoId', 'photoEra']) {
+  for (const field of ['campaign', 'why', 'lastError', 'photoId', 'photoEra', 'singlePlatformReason']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
+    }
+  }
+  // Bots v2 (docs/plans/bots-v2/PLAN.md C4, owner 2026-09-30): the ONE
+  // sanctioned way for an item to ship on a single platform — a written
+  // reason the owner reads on the approval post. A throwaway ("n/a") is not
+  // a reason, and a novel is not one-line material for a Discord message.
+  if (typeof item.singlePlatformReason === 'string' && !isValidSinglePlatformReason(item.singlePlatformReason)) {
+    findings.push(
+      `singlePlatformReason: must be a written reason of ${SINGLE_PLATFORM_REASON_MIN}-${SINGLE_PLATFORM_REASON_MAX} characters (${JSON.stringify(item.singlePlatformReason)}).`,
+    );
+  }
+
+  // Optional A/B bookkeeping the strategy bots attach to a draft.
+  if (item.experiment !== undefined) {
+    const exp = item.experiment;
+    if (exp === null || typeof exp !== 'object' || Array.isArray(exp)) {
+      findings.push('experiment: must be an object { hypothesis, variant, metric } when present.');
+    } else {
+      for (const [field, max] of Object.entries(EXPERIMENT_LIMITS)) {
+        if (typeof exp[field] !== 'string' || exp[field].trim() === '') {
+          findings.push(`experiment.${field}: required, must be a non-empty string.`);
+        } else if (exp[field].length > max) {
+          findings.push(`experiment.${field}: ${exp[field].length} characters exceeds the ${max}-character limit.`);
+        }
+      }
     }
   }
 

@@ -12,7 +12,7 @@ import { describe, expect, it } from 'vitest';
 // back inside the slider. The repo has no component-render setup (node test
 // env, no jsdom/axe), so the lock is static, same as close-affordance.test.ts.
 
-const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
 
 /**
  * End index of the JSX tag that starts at `start`, skipping `>` characters

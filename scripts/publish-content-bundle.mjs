@@ -23,13 +23,37 @@
 // story (mobile clients may still be pinned to an older bundleVersion and
 // need it to keep existing there), so it never calls this with pruning on.
 import path from 'node:path';
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { register } from 'tsx/esm/api';
 import { writeBundle } from './build-content-bundle.mjs';
 import { ROOT } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
 
 export const DEFAULT_OUT_ROOT = path.join(ROOT, 'apps', 'web', 'public', 'content');
+export const DEFAULT_APP_CONFIG_PATH = path.join(ROOT, 'config', 'mobile', 'app-config.json');
+const APP_CONFIG_SCHEMA_FILE = path.join(ROOT, 'packages', 'content', 'src', 'app-config.ts');
+
+/**
+ * Reads + validates the remote app config (kill switch, docs/mobile-release.md)
+ * and returns its normalised body. Throws on invalid config so a bad file
+ * fails the publish instead of reaching installed apps.
+ */
+export async function readAppConfigBody(configPath = DEFAULT_APP_CONFIG_PATH) {
+  const raw = JSON.parse(await readFile(configPath, 'utf-8'));
+  const unregister = register();
+  let schema;
+  try {
+    schema = await import(pathToFileURL(APP_CONFIG_SCHEMA_FILE).href);
+  } finally {
+    await unregister();
+  }
+  const parsed = schema.appConfigSchema.safeParse(raw);
+  if (!parsed.success) {
+    throw new Error(`invalid app config ${configPath}: ${parsed.error.message}`);
+  }
+  return `${JSON.stringify(raw, null, 2)}\n`;
+}
 
 /**
  * Publishes one bundle build into `outRoot`: writes
@@ -42,7 +66,10 @@ export async function publishBundle({
   resync = true,
   generatedAt,
   keepPrevious = false,
+  appConfigPath = DEFAULT_APP_CONFIG_PATH,
 } = {}) {
+  // Validate first: an invalid config must fail the publish before anything is written.
+  const appConfigBody = await readAppConfigBody(appConfigPath);
   const { manifest, dir } = await writeBundle({ outRoot, resync, generatedAt });
 
   if (!keepPrevious) {
@@ -59,7 +86,12 @@ export async function publishBundle({
   const pointerBody = `${JSON.stringify({ bundleVersion: manifest.bundleVersion }, null, 2)}\n`;
   await writeFile(pointerPath, pointerBody);
 
-  return { manifest, dir, pointerPath };
+  // Sibling of current.json — never under a bundleVersion, never a manifest
+  // entry (installed apps hard-fail on unknown manifest entries).
+  const appConfigOutPath = path.join(outRoot, 'app-config.json');
+  await writeFile(appConfigOutPath, appConfigBody);
+
+  return { manifest, dir, pointerPath, appConfigPath: appConfigOutPath };
 }
 
 async function main() {

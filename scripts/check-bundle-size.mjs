@@ -4,7 +4,8 @@
 // longlivets.com. This is detection only — no auto-remediation.
 //
 // Measures apps/web/.next/static (everything the browser actually
-// downloads: JS chunks, CSS, fonts placed there by next/font) after
+// downloads: JS chunks, CSS) plus apps/web/public/fonts (the self-hosted
+// fonts, which next/font used to place under .next/static/media) after
 // `npm run build --workspace @swift2/web`. Excludes .next/server and
 // .next/cache, which never ship to a client.
 //
@@ -16,6 +17,7 @@ import { runMain } from './lib/cli.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const staticDir = join(here, '..', 'apps', 'web', '.next', 'static');
+const fontsDir = join(here, '..', 'apps', 'web', 'public', 'fonts');
 
 // Threshold rationale (2026-09-04, R7): the current apps/web/.next/static
 // output is ~4.9 MB. 8 MB gives ~60% headroom for organic growth (new
@@ -41,7 +43,7 @@ function dirSizeBytes(dir) {
 function main() {
   let bytes;
   try {
-    bytes = dirSizeBytes(staticDir);
+    bytes = dirSizeBytes(staticDir) + dirSizeBytes(fontsDir);
   } catch (err) {
     if (err.code === 'ENOENT') {
       console.error(
@@ -53,7 +55,9 @@ function main() {
   }
 
   const mb = (v) => `${(v / (1024 * 1024)).toFixed(2)} MB`;
-  console.log(`apps/web client bundle (.next/static): ${mb(bytes)} / ${mb(BUDGET_BYTES)} budget`);
+  console.log(
+    `apps/web client bundle (.next/static + public/fonts): ${mb(bytes)} / ${mb(BUDGET_BYTES)} budget`,
+  );
 
   if (bytes > BUDGET_BYTES) {
     console.error(`✗ OVER bundle-size budget by ${mb(bytes - BUDGET_BYTES)}`);

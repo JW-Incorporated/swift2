@@ -8,7 +8,7 @@ import { layoutBottomNavTabs } from '../../lib/longlive/bottom-nav-layout';
 // pin for re-review finding E (2026-08-13).
 describe('BottomNav — mode drives the active tab directly', () => {
   it('has no special-cased front-door mode — the era stream is the front door (R1, PLAN.md 2026-08-14)', () => {
-    const src = readFileSync(join(__dirname, 'BottomNav.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/BottomNav.tsx'), 'utf8');
     expect(src).toContain('const active = mode === tab.mode');
     expect(src).not.toContain('currentMode');
   });
@@ -22,7 +22,7 @@ describe('BottomNav — mode drives the active tab directly', () => {
 // actual bar keeps labels at full growth, not just the pure helper.
 describe('BottomNav — six tabs at full growth keep their labels', () => {
   it('TABS has grown to six entries, including community and merch', () => {
-    const src = readFileSync(join(__dirname, 'BottomNav.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/BottomNav.tsx'), 'utf8');
     const tabsBlock = src.slice(src.indexOf('const TABS'), src.indexOf('];', src.indexOf('const TABS')));
     const tabCount = (tabsBlock.match(/\{ id:/g) ?? []).length;
     expect(tabCount).toBe(6);

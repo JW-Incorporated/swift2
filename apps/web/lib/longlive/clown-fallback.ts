@@ -14,40 +14,18 @@
  * Pure and deterministic: same items in, same `FallbackAnswer` out. No
  * `Date.now()`, no randomness, no network.
  */
+import type { ClownItemSource, ClownItemStatus, ClownRetrievedItem } from '@swift2/shared';
 import type { ClownDoc } from './clown-index';
 
-/** How resolved a retrieved claim is. Mirrors `LoreStatus` (clownbot-lore.ts)
- * and the vault theory corpus's `outcome` field — the two things
- * `clown-retrieve.ts` (PLAN.md Step 3) draws its items from. */
-export type ItemStatus = 'rumor' | 'reported' | 'confirmed' | 'debunked';
-
-export interface ItemSource {
-  name: string;
-  url: string;
-}
-
-/**
- * One retrieval hit, ready to compose. Mirrors the shape already established
- * by `clownbot-lore.ts`'s `LoreItem` and `clownbot-ledger.ts`'s `LedgerEntry`:
- * headline/detail in our own words, a `status` that says exactly how
- * resolved the claim is, and at least one named, dated source.
- *
- * `clown-retrieve.ts` is the intended producer of these (built in parallel,
- * not yet landed as of this file) — this is the shape it needs to hand over
- * for the composer below to have anything to compose against.
- */
-export interface RetrievedItem {
-  id: string;
-  /** One line, our words. */
-  headline: string;
-  /** 1–3 sentences, our words. Never asserts beyond `status`. */
-  detail: string;
-  status: ItemStatus;
-  /** ISO date. */
-  date: string;
-  /** At least one, in real data — composer degrades gracefully to zero. */
-  sources: ItemSource[];
-}
+// One retrieval hit, ready to compose: headline/detail in our own words, a
+// `status` that says exactly how resolved the claim is (mirrors `LoreStatus`
+// and the vault theory corpus's `outcome`), an ISO `date`, and named sources
+// (at least one in real data — the composer degrades gracefully to zero).
+// The wire shape is defined once in `@swift2/shared`'s api/clown.ts; these are
+// the web-side names for it.
+export type ItemStatus = ClownItemStatus;
+export type ItemSource = ClownItemSource;
+export type RetrievedItem = ClownRetrievedItem;
 
 export interface FallbackAnswer {
   /** The composed, in-character text. Fixed framing lines + items' own text. */

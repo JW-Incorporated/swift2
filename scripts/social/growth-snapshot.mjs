@@ -8,7 +8,9 @@
 // scripts/marjorie/assemble-brief.mjs's fetchGrowthSnapshot().
 //
 // Also writes per-post Instagram engagement (Tree Overhaul T3): a
-// `like_count`/`comments_count` file per social/posted/ item still inside
+// `like_count`/`comments_count` file (plus `reach`/`saved`/`shares`/
+// `total_interactions`/`views` from the media insights endpoint, `null` when
+// unavailable) per social/posted/ item still inside
 // its 30-day window, under social/metrics/posts/<YYYY-MM>/<postId>.json —
 // see lib/post-metrics.mjs's header for the IG-only, v1 scope this stops
 // at. Follower counts above stay the daily pulse check they always were;
@@ -24,7 +26,7 @@ import { oauth1Header } from './lib/oauth1.mjs';
 import { GRAPH_VERSION } from './lib/platforms.mjs';
 import { countPostsOn, countPostsByPlatformSince, buildSnapshot, findSeriesGaps, recentGaps } from './lib/growth.mjs';
 import { utcDateOnly } from './lib/queue.mjs';
-import { selectInstagramPostsForMetrics, postMetricsLocation, buildPostMetricRecord } from './lib/post-metrics.mjs';
+import { selectInstagramPostsForMetrics, postMetricsLocation, buildPostMetricRecord, fetchMediaInsights } from './lib/post-metrics.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
@@ -138,8 +140,9 @@ async function writePostMetrics(postedItems, now) {
   for (const item of targets) {
     const engagement = await fetchInstagramMediaEngagement(item.platformPostId);
     if (!engagement) continue;
+    const insights = await fetchMediaInsights(item.platformPostId, { token: process.env.IG_ACCESS_TOKEN });
     const { yearMonth, postId } = postMetricsLocation(item);
-    const record = buildPostMetricRecord(item, { ...engagement, fetchedAt: now.toISOString() });
+    const record = buildPostMetricRecord(item, { ...engagement, insights, fetchedAt: now.toISOString() });
     const dir = path.join(METRICS_DIR, 'posts', yearMonth);
     await mkdir(dir, { recursive: true });
     await writeFile(path.join(dir, `${postId}.json`), JSON.stringify(record, null, 2) + '\n');

@@ -65,3 +65,15 @@ it('reserves pending HA head numbers and only remembers delivered held notices',
   expect(state.pendingHaPrs[0]).toMatchObject({ number: 30, actionsText: '## #81 Pending', headSha: 'a'.repeat(40) });
   expect(state.reportedHeld).toEqual([{ issue: 7, ha: 80 }]);
 });
+
+it('reads reported held items from the status-page issue body (Bots v2 W4)', async () => {
+  const ghImpl = async (args: string[]) => {
+    const endpoint = args[1];
+    const rows = endpoint.includes('labels=status-page')
+      ? [{ ...row(50), body: '## Held\n- #9 thing (HA #81 closed) <!-- marjorie-held: issue=9 ha=81 -->\n- #10 other <!-- marjorie-held: issue=10 ha=0 -->' }]
+      : [];
+    return { stdout: JSON.stringify(rows) };
+  };
+  const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
+  expect(state.reportedHeld).toEqual([{ issue: 9, ha: 81 }, { issue: 10, ha: 0 }]);
+});

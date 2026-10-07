@@ -96,15 +96,18 @@ describe('affiliate coverage', () => {
     );
   });
 
-  it('has zero unexplained uncovered rows in the generated 411-product report', () => {
+  it('has zero unexplained uncovered rows in the generated report', async () => {
     const generated = parseCoverage(readFileSync('docs/ops/AFFILIATE-COVERAGE.md', 'utf8'));
     const uncovered = generated.rows.filter((row) => row.status === 'uncovered');
+    const { MERCH_CATALOGUE } = await import('../../apps/web/lib/longlive/merch.ts');
 
-    // Count was 477; reduced to 411 after removing 66 dead listings in #4324
-    // (60 official-store + 5 shop-the-look + 1 Etsy). This pinned total tracks
-    // the checked-in generated report and must move in lockstep with
-    // `npm run merch:coverage` regenerations.
-    expect(generated.summary.total).toBe(411);
+    // No exact-count pin: check:affiliate-coverage already pins the committed
+    // report byte-for-byte to `npm run merch:coverage` output, and an exact
+    // total turns every automated merch-official-sync drop PR red. Instead the
+    // report must stay internally consistent and cover the whole catalogue.
+    expect(generated.summary.total).toBeGreaterThan(0);
+    expect(generated.summary.total).toBe(generated.rows.length);
+    expect(generated.summary.total).toBe(Object.values(MERCH_CATALOGUE).flat().length);
     expect(uncovered).not.toHaveLength(0);
     expect(uncovered.filter((row) => !row.reason)).toHaveLength(0);
   });

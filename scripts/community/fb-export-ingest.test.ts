@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   buildIngestResult,
   engagementLeadsFromPosts,
+  normalizeSupabaseUrl,
+  parseArgs,
   resolveGroupName,
   shopLinksFromPosts,
 } from './fb-export-ingest.mjs';
@@ -72,6 +74,27 @@ describe('engagementLeadsFromPosts', () => {
     expect(leads[1].locator).toContain('medium heat post');
   });
 
+  // Regression: the 80-char excerpt used to be a raw UTF-16 slice, so an
+  // emoji straddling the boundary was cut in half. The resulting lone
+  // surrogate is valid JS but cannot be UTF-8 encoded, and PostgREST
+  // rejected the whole insert with "Empty or invalid json" — which is
+  // exactly what killed a live re-ingest run. Every string on the row must
+  // survive a UTF-8 round trip.
+  it('never splits an emoji across the excerpt boundary', () => {
+    const text = `${'a'.repeat(79)}\u{1f3a4} the vault door in the new video`;
+    const leads = engagementLeadsFromPosts([{ text, reactionCount: 9, commentCount: 2 }], {
+      groupName: 'Test Group',
+      groupSlug: 'test-group',
+      maxLeadsPerGroup: 1,
+    });
+    for (const value of Object.values(leads[0])) {
+      if (typeof value !== 'string') continue;
+      expect(Buffer.from(value, 'utf8').toString('utf8')).toBe(value);
+      expect(value).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
+    }
+    expect(leads[0].locator).toContain('\u{1f3a4}');
+  });
+
   it('produces schema-shaped rows: platform facebook, kind hot_thread, url null', () => {
     const leads = engagementLeadsFromPosts([{ text: 'a post', reactionCount: 5, commentCount: 1 }], {
       groupName: 'Taylor Swift\u2019s Vault',
@@ -130,6 +153,26 @@ describe('resolveGroupName', () => {
   });
 });
 
+describe('parseArgs', () => {
+  it('accepts the collection timestamp used for fan_signal exportedAt', () => {
+    expect(
+      parseArgs([
+        '--group',
+        'group-a',
+        '--exported-at',
+        '2026-09-30T19:13:00.000Z',
+        '--dry-run',
+        'export.html',
+      ]),
+    ).toMatchObject({
+      group: 'group-a',
+      exportedAt: '2026-09-30T19:13:00.000Z',
+      dryRun: true,
+      files: ['export.html'],
+    });
+  });
+});
+
 describe('buildIngestResult', () => {
   it('produces a fan_signal draft, engagement_leads, and shop-link candidates from the same screened post set', () => {
     const result = buildIngestResult(SYNTHETIC_EXPORT_HTML, {
@@ -159,6 +202,20 @@ describe('buildIngestResult', () => {
     expect(result.skippedRedlineCount).toBe(1);
   });
 
+  it('never lets a member name or a markup fragment into a built lead (#4885)', () => {
+    const result = buildIngestResult(SYNTHETIC_EXPORT_HTML, {
+      groupSlug: 'taylor-swifts-vault',
+      groupName: "Taylor Swift's Vault",
+      exportedAt: new Date('2026-09-07T16:00:00Z'),
+      maxLeadsPerGroup: 10,
+    });
+    for (const lead of result.engagementLeads) {
+      expect(lead.locator).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
+      expect(lead.context).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
+      expect(lead.context).not.toMatch(/role=|aria-label|[<>]/);
+    }
+  });
+
   it('handles an export with zero postable content without crashing', () => {
     const result = buildIngestResult('<html><body>nothing here</body></html>', {
       groupSlug: 'empty-group',
@@ -169,5 +226,20 @@ describe('buildIngestResult', () => {
     expect(result.fanSignal.volume).toBe(0);
     expect(result.engagementLeads).toEqual([]);
     expect(result.shopLinks).toEqual([]);
+  });
+});
+
+describe('normalizeSupabaseUrl', () => {
+  it('prefixes https:// onto a bare host', () => {
+    expect(normalizeSupabaseUrl('abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
+  });
+  it('keeps http and https URLs as they are', () => {
+    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
+    expect(normalizeSupabaseUrl('http://localhost:54321')).toBe('http://localhost:54321');
+  });
+  it('leaves empty or garbage values unchanged', () => {
+    expect(normalizeSupabaseUrl('')).toBe('');
+    expect(normalizeSupabaseUrl('not a url')).toBe('not a url');
+    expect(normalizeSupabaseUrl(undefined)).toBeUndefined();
   });
 });

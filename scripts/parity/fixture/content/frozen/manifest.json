@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "bundleVersion": "frozen",
+  "generatedAt": "2026-10-02T23:36:15.365Z",
+  "files": {
+    "clownbotLore": {
+      "path": "clownbot-lore.json",
+      "sha256": "e9bdd7571c765774f78024915217956b1eedad00f2ae1062677677124bb78bce",
+      "bytes": 21974
+    },
+    "content:fearless": {
+      "path": "eras/fearless.json",
+      "sha256": "7d4063f7c9ed6efd55f84f36f749dea02976b7f7fd921ddeef60231fb92043e3",
+      "bytes": 92406
+    },
+    "content:tloas": {
+      "path": "eras/tloas.json",
+      "sha256": "d194ffa98f40dfc89f56f66dff06428d5e283952581b722aff23c944f75d9fc8",
+      "bytes": 744364
+    },
+    "eraSecrets": {
+      "path": "era-secrets.json",
+      "sha256": "73e4fc97b8a40de6de19a91432353d2576f80aa0b4f777c4b53ed9f073becaef",
+      "bytes": 5418
+    },
+    "eras": {
+      "path": "eras.json",
+      "sha256": "4f7617db7b3a343cffddfea65a604ae9c187ddbb714c9ae12e52bcaf57e4f6a2",
+      "bytes": 11928
+    },
+    "merch": {
+      "path": "merch.json",
+      "sha256": "570879263661b7d0389e378948fd7f95a4a9f4a639e14a6a0763d7fd70b889bf",
+      "bytes": 293681
+    },
+    "milestones": {
+      "path": "milestones.json",
+      "sha256": "4734afd13fd63575493dc2e4eccf9bb14e2b54e2cce0716cc59065bc10f6abef",
+      "bytes": 1193
+    },
+    "songMoods": {
+      "path": "song-moods.json",
+      "sha256": "548bb3c136c81be0465997d5987b160e674d6d869e65c488b1ad991cea1b8339",
+      "bytes": 163031
+    },
+    "theories": {
+      "path": "theories.json",
+      "sha256": "98a5ebb76ad49ab49f9ed33f504863b51eda8bcf4a60bd43d439f17c2cdfc13d",
+      "bytes": 24406
+    },
+    "tracks": {
+      "path": "tracks.json",
+      "sha256": "f1ca5fc109e7ad0429c359d348ca489432b59d2936662598a31eeb55cac2c05b",
+      "bytes": 181774
+    },
+    "videos": {
+      "path": "videos.json",
+      "sha256": "1918d4c11ea26ae9a7e2b72022032b1cfdee5632b8f6c72bd75120c780b60980",
+      "bytes": 31759
+    }
+  }
+}

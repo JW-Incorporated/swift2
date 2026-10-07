@@ -1,12 +1,15 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { API_VERSION } from '@swift2/shared';
 
-import { contentSecurityPolicy } from './lib/security-headers.mjs';
+import { contentSecurityPolicy, FRAME_DENY_HEADER, isEmbedPath } from './lib/security-headers.mjs';
 
 export function proxy(request: NextRequest) {
+  const embed = isEmbedPath(request.nextUrl.pathname);
   const nonce = btoa(crypto.randomUUID());
   const policy = contentSecurityPolicy({
     nonce,
     dev: process.env.NODE_ENV !== 'production',
+    embed,
   }).join('; ');
 
   const requestHeaders = new Headers(request.headers);
@@ -15,6 +18,10 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', policy);
+  if (!embed) response.headers.set(FRAME_DENY_HEADER.key, FRAME_DENY_HEADER.value);
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    response.headers.set('x-api-version', String(API_VERSION));
+  }
   return response;
 }
 
@@ -22,10 +29,6 @@ export const config = {
   matcher: [
     {
       source: '/((?!_next/static|_next/image|favicon.ico).*)',
-      missing: [
-        { type: 'header', key: 'next-router-prefetch' },
-        { type: 'header', key: 'purpose', value: 'prefetch' },
-      ],
     },
   ],
 };
