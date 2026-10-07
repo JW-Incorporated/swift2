@@ -128,6 +128,11 @@ describe('the auto-merge workflow mirrors this gate', () => {
     }
   });
 
+  it('refuses fork PRs inside the branch/author gate', () => {
+    expect(wf).toContain('HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}');
+    expect(wf).toContain('"${HEAD_REPO:-}" = "$REPO"');
+  });
+
   it('reads the PR head branch into the enable job', () => {
     expect(wf).toContain('github.event.pull_request.head.ref');
   });

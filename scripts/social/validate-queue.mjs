@@ -24,9 +24,18 @@ import { validatePhotoInventoryBinding, validateQueueItem } from './lib/queue-sc
 import { approvalStatus } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { parseLessons } from './lib/lessons.mjs';
+import { validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
+
+/** Validates every social/photo-library.json entry with validatePhotoEntry.
+ * The library auto-merges from the concert-photo-sourcing bot (docs/decisions.md
+ * 2026-10-06), so CI is its only reviewer. Returns `id: reason` strings. */
+export function validatePhotoLibrary(photos) {
+  if (!Array.isArray(photos)) return ['photo-library.json: `photos` must be an array'];
+  return photos.flatMap((photo, i) => validatePhotoEntry(photo ?? {}).map((finding) => `${photo?.id ?? `#${i}`}: ${finding}`));
+}
 
 /** Reads `<root>/social/lessons.md` and returns its active rule ids —
  * exported so a test can point it at a fixture ledger under a temp root
@@ -101,6 +110,14 @@ async function main() {
     for (const { file, reason } of result.warnings) {
       console.warn(`WARN ${path.relative(ROOT, path.join(dir, file)).replace(/\\/g, '/')} — unstamped draft (will not post until a founder merge stamps it): ${reason}`);
     }
+  }
+
+  const libraryFindings = validatePhotoLibrary(photoLibrary);
+  if (libraryFindings.length) {
+    console.error('\nFAIL social/photo-library.json');
+    for (const finding of libraryFindings) console.error(`  - ${finding}`);
+    console.error(`\nvalidate-queue: ${libraryFindings.length} photo-library finding(s) — see above.`);
+    process.exit(1);
   }
 
   if (failed) {
