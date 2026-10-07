@@ -2,6 +2,7 @@
 // near-white, flat, blurry and letterboxed frames, and near-duplicates (dHash).
 // Pure functions over a decoded image buffer + sharp; no network, no video.
 import sharp from 'sharp';
+import { looksLikeTextCard } from './frame-text.mjs';
 
 export const MIN_WIDTH_PX = 1280;
 export const MEAN_MIN = 18;
@@ -10,7 +11,6 @@ export const LUMA_VARIANCE_MIN = 250;
 export const SHARPNESS_MIN = 12; // variance of the Laplacian, 320px-wide greyscale
 export const BAR_MEAN_MAX = 10;
 export const DUPLICATE_HAMMING_MAX = 6; // of 64 bits
-
 function stats(raw) {
   let sum = 0;
   for (const v of raw) sum += v;
@@ -46,7 +46,7 @@ export async function analyzeFrame(buffer) {
   const hashRaw = await grey.clone().resize(9, 8, { fit: 'fill' }).raw().toBuffer();
   let bits = '';
   for (let y = 0; y < 8; y += 1) for (let x = 0; x < 8; x += 1) bits += hashRaw[y * 9 + x] < hashRaw[y * 9 + x + 1] ? '1' : '0';
-  return { width: meta.width ?? 0, height: meta.height ?? 0, mean: luma.mean, variance: luma.variance, sharpness, letterboxed, hash: bits };
+  return { width: meta.width ?? 0, height: meta.height ?? 0, mean: luma.mean, variance: luma.variance, sharpness, letterboxed, textCard: looksLikeTextCard(small.data, w, h), hash: bits };
 }
 
 /** Returns a reason string when the frame must be dropped, else null. */
@@ -57,6 +57,7 @@ export function rejectReason(a, { minWidth = MIN_WIDTH_PX } = {}) {
   if (a.variance < LUMA_VARIANCE_MIN) return 'flat (low luminance variance)';
   if (a.sharpness < SHARPNESS_MIN) return 'blurry';
   if (a.letterboxed) return 'letterboxed (black bars)';
+  if (a.textCard) return 'title/end card (text)';
   return null;
 }
 

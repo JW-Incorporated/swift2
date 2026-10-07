@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { blocky } from './lib/frame-fixtures';
+import { blocky, stampLogo } from './lib/frame-fixtures';
 import { ModeAUnavailable } from './lib/video-frames-modea.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { buildCandidate, runSourcing, sourceStills, stillUrls, watchUrl } from './source-video-frames.mjs';
@@ -50,6 +50,16 @@ describe('sourceStills dimension + quality filter', () => {
   });
 });
 
+describe('sourceStills watermark check', () => {
+  it('drops all three stills when they share a corner mark', async () => {
+    const stills = await Promise.all([1, 2, 3].map(async (n) => stampLogo(await blocky(n * 5))));
+    const fetchImpl = async (url: string) => jpegRes(stills[Number(/maxres(\d)/.exec(url)![1]) - 1]);
+    const out = await sourceStills(video('abc'), { fetchImpl: fetchImpl as never });
+    expect(out.frames).toEqual([]);
+    expect(out.dropped).toMatchObject({ 'persistent bottom-right logo': 3 });
+  });
+});
+
 describe('runSourcing', () => {
   const videos = [video('aaaaaaaaaaa'), video('bbbbbbbbbbb'), video('ccccccccccc', 'red')];
   const ledger = () => ({ version: 1, processed: {} as Record<string, unknown> });
@@ -93,6 +103,26 @@ describe('runSourcing', () => {
     const out = await runSourcing(videos, l, { mode: 'b', limit: 10, maxCandidates: 2, scratch: 'x', modeB });
     expect(out.candidates).toHaveLength(2);
     expect(Object.keys(l.processed)).toEqual(['aaaaaaaaaaa', 'bbbbbbbbbbb']);
+  });
+
+  it('logs and ledgers a Mode A video dropped for a persistent logo', async () => {
+    const modeA = vi.fn(async () => ({ kept: [], logo: { corner: 'top-left', ratio: 1 } }));
+    const warn = vi.fn();
+    const l = ledger();
+    const out = await runSourcing([videos[0]], l, { limit: 1, scratch: 'x', modeA, modeB: vi.fn(), warn });
+    expect(out.candidates).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('aaaaaaaaaaa dropped whole'));
+    expect(l.processed.aaaaaaaaaaa).toMatchObject({ frames: 0 });
+  });
+
+  it('persists after EACH video via onVideo (a step timeout loses at most one video)', async () => {
+    const modeB = vi.fn(async (v: { id: string }) => ({ frames: stills(v.id) }));
+    const snapshots: number[][] = [];
+    await runSourcing(videos, ledger(), {
+      mode: 'b', limit: 10, scratch: 'x', modeB,
+      onVideo: async (c: unknown[], l: { processed: object }) => void snapshots.push([c.length, Object.keys(l.processed).length]),
+    });
+    expect(snapshots).toEqual([[1, 1], [2, 2], [3, 3]]);
   });
 
   it('skips Mode A once the time budget is spent', async () => {

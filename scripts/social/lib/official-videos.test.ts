@@ -17,6 +17,14 @@ const mod = {
     { slug: 'lyric', kind: 'lyric_video', title: 'L', media: media('DDDDDDDDDDD', OWN) },
     { slug: 'trailer', kind: 'documentary', title: 'T', media: media('EEEEEEEEEEE', `${OWN} (official trailer)`) },
     { slug: 'film', kind: 'tour_film', title: 'F', media: [] },
+    { slug: 't1', kind: 'music_video', title: 'Song (Lyric Video)', media: media('GGGGGGGGGGG', OWN) },
+    { slug: 't2', kind: 'documentary', title: 'Making of: Behind The Scenes', media: media('HHHHHHHHHHH', OWN) },
+    { slug: 't3', kind: 'documentary', title: 'Studio BTS', media: media('IIIIIIIIIII', OWN) },
+    { slug: 't4', kind: 'music_video', title: 'Song (Visualizer)', media: media('JJJJJJJJJJJ', OWN) },
+    { slug: 't5', kind: 'music_video', title: 'Song (Teaser)', media: media('KKKKKKKKKKK', OWN) },
+    { slug: 'a1', kind: 'music_video', title: 'Fine', media: media('LLLLLLLLLLL', `${OWN} (official audio)`) },
+    { slug: 'a2', kind: 'music_video', title: 'Fine', media: media('MMMMMMMMMMM', `${OWN} (behind the scenes)`) },
+    { slug: 'ok-bts-word', kind: 'performance', title: 'Cobtsworth live', media: media('NNNNNNNNNNN', OWN) },
     { slug: 'perf', kind: 'performance', title: 'P', media: media('FFFFFFFFFFF', OWN) },
   ],
 };
@@ -24,7 +32,7 @@ const mod = {
 describe('selectOfficialVideos', () => {
   it('keeps only Taylor-channel music/short/performance/documentary uploads, de-duped by id', () => {
     const out = selectOfficialVideos([mod]);
-    expect(out.map((v) => v.id)).toEqual(['K-a8s8OLBSE', 'FFFFFFFFFFF']);
+    expect(out.map((v) => v.id)).toEqual(['K-a8s8OLBSE', 'NNNNNNNNNNN', 'FFFFFFFFFFF']);
     expect(out[0]).toMatchObject({ era: 'folklore', slug: 'a', title: 'cardigan', kind: 'music_video' });
   });
 
@@ -50,7 +58,7 @@ describe('ledger', () => {
     empty.processed[videos[0].id] = { at: 'x', mode: 'b', frames: 3 };
     await writeLedger(file, empty);
     const again = await readLedger(file);
-    expect(pendingVideos(videos, again, 10).map((v) => v.id)).toEqual(['FFFFFFFFFFF']);
+    expect(pendingVideos(videos, again, 10).map((v) => v.id)).toEqual(['NNNNNNNNNNN', 'FFFFFFFFFFF']);
     expect(pendingVideos(videos, empty, 0)).toEqual([]);
   });
 });

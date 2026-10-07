@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import { analyzeFrame, dedupeByHash, hamming, rejectReason } from './frame-quality.mjs';
-import { blocky, solid } from './frame-fixtures';
+import { blocky, card, solid } from './frame-fixtures';
 
 describe('frame-quality', () => {
   it('accepts a sharp, mid-luminance HD frame', async () => {
@@ -37,5 +37,15 @@ describe('frame-quality', () => {
   it('counts already-known hashes as duplicates', async () => {
     const a = await analyzeFrame(await blocky(1));
     expect(dedupeByHash([{ hash: a.hash }], { known: [a.hash] })).toEqual([]);
+  });
+});
+
+describe('title/end card heuristic', () => {
+  it('flags a flat card with text-like strokes but not a plain silhouette shot or a busy frame', async () => {
+    const text = await analyzeFrame(await card('text'));
+    expect(text.textCard).toBe(true);
+    expect(rejectReason(text)).toMatch(/title\/end card/);
+    expect((await analyzeFrame(await card('silhouette'))).textCard).toBe(false);
+    expect((await analyzeFrame(await blocky(3))).textCard).toBe(false);
   });
 });

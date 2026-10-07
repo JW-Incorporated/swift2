@@ -29,6 +29,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import { detectPersistentLogo } from './lib/frame-logo.mjs';
 import { analyzeFrame, dedupeByHash, rejectReason } from './lib/frame-quality.mjs';
 import { loadSeedModules, pendingVideos, readLedger, selectOfficialVideos, writeLedger } from './lib/official-videos.mjs';
 import { ModeAUnavailable, sourceVideoFrames } from './lib/video-frames-modea.mjs';
@@ -68,31 +69,35 @@ export async function sourceStills(video, { fetchImpl = fetch, includeThumbnail 
   const dropped = {};
   const note = (reason) => (dropped[reason] = (dropped[reason] ?? 0) + 1);
   for (const { key, url } of stillUrls(video.id, { includeThumbnail })) {
-    const res = await fetchImpl(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' } });
+    const res = await fetchImpl(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' }, signal: globalThis.AbortSignal.timeout(30_000) });
     if (!res.ok || !String(res.headers.get('content-type') ?? '').startsWith('image/')) {
       note(`absent (${res.status})`);
       continue;
     }
     let analysis;
+    let bytes;
     try {
-      analysis = await analyzeFrame(Buffer.from(await res.arrayBuffer()));
+      bytes = Buffer.from(await res.arrayBuffer());
+      analysis = await analyzeFrame(bytes);
     } catch {
       note('undecodable');
       continue;
     }
     const reason = rejectReason(analysis);
     if (reason) note(reason.replace(/ \(.*/, ''));
-    else kept.push({ key, url, hash: analysis.hash });
+    else kept.push({ key, url, hash: analysis.hash, bytes });
   }
   const unique = dedupeByHash(kept);
   if (kept.length > unique.length) dropped.duplicate = kept.length - unique.length;
+  const logo = await detectPersistentLogo(unique.map((f) => f.bytes));
+  if (logo) return { frames: [], dropped: { ...dropped, [`persistent ${logo.corner} logo`]: unique.length } };
   return { frames: unique.map((f) => buildCandidate(video, { key: f.key, sourceUrl: f.url })), dropped };
 }
 
 /** Orchestrates one run. `deps` are injectable for tests; failures never throw out of a video. */
 export async function runSourcing(videos, ledger, opts = {}) {
   const { mode = 'auto', limit = 8, maxFrames = 25, maxCandidates = Infinity, budgetMs = 20 * 60_000, scratch, cookiesFromBrowser, includeThumbnail = false } = opts;
-  const { modeA = sourceVideoFrames, modeB = sourceStills, now = Date.now, warn = console.warn } = opts;
+  const { modeA = sourceVideoFrames, modeB = sourceStills, now = Date.now, warn = console.warn, onVideo = async () => {} } = opts;
   const started = now();
   const candidates = [];
   const report = { videos: 0, modeA: 0, modeB: 0, blocked: false, errors: 0 };
@@ -104,6 +109,7 @@ export async function runSourcing(videos, ledger, opts = {}) {
     if (mode !== 'b' && !aBlocked && now() - started < budgetMs) {
       try {
         const out = await modeA(video.id, path.join(scratch, video.id), { maxFrames, cookiesFromBrowser });
+        if (out.logo) warn(`source-video-frames: ${video.id} dropped whole — persistent ${out.logo.corner} logo in ${Math.round(out.logo.ratio * 100)}% of frames.`);
         frames = out.kept.map((f) => buildCandidate(video, { key: `t${Math.floor(f.time)}`, sourceUrl: pathToFileURL(f.file).href, seconds: f.time }));
         usedMode = 'a';
       } catch (err) {
@@ -118,7 +124,10 @@ export async function runSourcing(videos, ledger, opts = {}) {
     }
     if (frames === null && mode !== 'a') {
       try {
-        frames = (await modeB(video, { includeThumbnail })).frames;
+        const still = await modeB(video, { includeThumbnail });
+        frames = still.frames;
+        const logoKey = Object.keys(still.dropped ?? {}).find((k) => k.startsWith('persistent '));
+        if (logoKey) warn(`source-video-frames: ${video.id} dropped whole — ${logoKey} across its stills.`);
         usedMode = 'b';
       } catch (err) {
         report.errors += 1;
@@ -130,6 +139,7 @@ export async function runSourcing(videos, ledger, opts = {}) {
     report.videos += 1;
     report[usedMode === 'a' ? 'modeA' : 'modeB'] += 1;
     ledger.processed[video.id] = { at: new Date(now()).toISOString(), mode: usedMode, frames: frames.length };
+    await onVideo(candidates, ledger);
   }
   return { candidates, report };
 }
@@ -171,7 +181,14 @@ async function main() {
   let candidates = [];
   try {
     const ledger = await readLedger(args.ledger);
-    const out = await runSourcing(videos, ledger, { ...args, limit: args.videos, budgetMs: args.budgetMinutes * 60_000 });
+    // Persist after EVERY video so a step timeout loses at most the video in flight.
+    const persist = async (soFar) => {
+      candidates = soFar; // survives a later failure: the final write below uses it
+      await writeLedger(args.ledger, ledger);
+      await mkdir(path.dirname(path.resolve(args.output)), { recursive: true });
+      await writeFile(path.resolve(args.output), JSON.stringify(soFar, null, 2) + '\n');
+    };
+    const out = await runSourcing(videos, ledger, { ...args, limit: args.videos, budgetMs: args.budgetMinutes * 60_000, onVideo: persist });
     candidates = out.candidates;
     await writeLedger(args.ledger, ledger);
     console.log(`source-video-frames: ${videos.length} official video(s); this run ${JSON.stringify(out.report)}; ${candidates.length} candidate(s).`);

@@ -22,11 +22,13 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveFrameFile } from './lib/frame-path.mjs';
 import { describePhoto, normalizePhoto } from './lib/normalize-photo.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
+export const FRAMES_SCRATCH_DIR = path.join(ROOT, '.artifacts', 'video-scratch', 'frames');
 
 /**
  * Resolves a candidate's `mediaPath` to an absolute path under `photosDir`,
@@ -59,7 +61,7 @@ const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, fetchImpl = fetch, normalizeImpl = normalizePhoto, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
 ) {
   const skippedDuplicates = [];
   const failed = [];
@@ -73,7 +75,7 @@ export async function fetchCandidates(
       let raw;
       if (/^file:/i.test(candidate.sourceUrl)) {
         // Locally extracted video frames (source-video-frames.mjs Mode A).
-        raw = await readFile(fileURLToPath(candidate.sourceUrl));
+        raw = await readFile(await resolveFrameFile(candidate.sourceUrl, framesDir));
       } else {
         // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
         // small courtesy delay between downloads keeps this a well-behaved client.

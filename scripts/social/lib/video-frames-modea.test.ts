@@ -1,9 +1,10 @@
+import { EventEmitter } from 'node:events';
 import { mkdtemp, readdir, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
-import { blocky } from './frame-fixtures';
-import { downloadVideo, filterFrames, ModeAUnavailable, parseShowinfoTimes, sceneFilter, spread, ytdlpArgs } from './video-frames-modea.mjs';
+import { describe, expect, it, vi } from 'vitest';
+import { blocky, stampLogo } from './frame-fixtures';
+import { downloadVideo, execFile, FFMPEG_TIMEOUT_MS, filterFrames, TIMEOUT_CODE, YTDLP_TIMEOUT_MS, ModeAUnavailable, parseShowinfoTimes, sceneFilter, spread, ytdlpArgs } from './video-frames-modea.mjs';
 
 describe('Mode A helpers', () => {
   it('builds a <=1080p video-only yt-dlp command and an optional cookie source', () => {
@@ -64,5 +65,69 @@ describe('filterFrames', () => {
     expect(out.duplicates).toBe(1);
     expect(out.kept).toHaveLength(2);
     expect((await readdir(dir)).sort()).toEqual(out.kept.map((k: { file: string }) => path.basename(k.file)).sort());
+  });
+});
+
+describe('process timeouts', () => {
+  const fakeChild = (closeOnKill: boolean) => {
+    const child = new EventEmitter() as EventEmitter & { stdout: EventEmitter; stderr: EventEmitter; kill: ReturnType<typeof vi.fn> };
+    child.stdout = new EventEmitter();
+    child.stderr = new EventEmitter();
+    child.kill = vi.fn(() => {
+      if (closeOnKill) setImmediate(() => child.emit('close', null));
+    });
+    return child;
+  };
+
+  it('SIGKILLs a hung process when the timer fires and reports a timeout code', async () => {
+    const child = fakeChild(true);
+    const res = await execFile('yt-dlp', ['x'], {
+      timeoutMs: 300_000,
+      spawnImpl: (() => child) as never,
+      setTimer: ((fn: () => void) => setTimeout(fn, 0)) as never,
+    });
+    expect(child.kill).toHaveBeenCalledWith('SIGKILL');
+    expect(res.code).toBe(TIMEOUT_CODE);
+    expect(res.stderr).toContain('killed: yt-dlp exceeded 300s');
+  });
+
+  it('clears the timer and never kills a process that exits normally', async () => {
+    const child = fakeChild(false);
+    const clear = vi.fn();
+    const pending = execFile('ffmpeg', [], { spawnImpl: (() => child) as never, setTimer: (() => 7) as never, clearTimer: clear as never });
+    child.stdout.emit('data', 'out');
+    child.emit('close', 0);
+    expect(await pending).toEqual({ code: 0, stdout: 'out', stderr: '' });
+    expect(clear).toHaveBeenCalledWith(7);
+    expect(child.kill).not.toHaveBeenCalled();
+  });
+
+  it('applies 5 min to yt-dlp, 3 min to ffmpeg, and the socket/size caps', async () => {
+    expect([YTDLP_TIMEOUT_MS, FFMPEG_TIMEOUT_MS]).toEqual([300_000, 180_000]);
+    expect(ytdlpArgs('abc', 'o').join(' ')).toContain('--socket-timeout 30 --max-filesize 400M');
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'modea-'));
+    const seen: unknown[] = [];
+    const exec = async (_c: string, _a: string[], o: unknown) => {
+      seen.push(o);
+      return { code: TIMEOUT_CODE, stdout: '', stderr: 'killed' };
+    };
+    await expect(downloadVideo('abc', dir, { exec })).rejects.toThrow(/yt-dlp failed/);
+    expect(seen).toEqual([{ timeoutMs: YTDLP_TIMEOUT_MS }]);
+  });
+});
+
+describe('filterFrames watermark check', () => {
+  it('drops ALL frames of a video whose frames share a corner mark, deleting the files', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'logo-'));
+    const raw = [] as { file: string; time: number }[];
+    for (const seed of [1, 2, 3, 4]) {
+      const file = path.join(dir, `f_000${seed}.jpg`);
+      await writeFile(file, await stampLogo(await blocky(seed)));
+      raw.push({ file, time: seed });
+    }
+    const out = await filterFrames(raw, { maxFrames: 25 });
+    expect(out.kept).toEqual([]);
+    expect(out.logo?.corner).toBe('bottom-right');
+    expect(await readdir(dir)).toEqual([]);
   });
 });

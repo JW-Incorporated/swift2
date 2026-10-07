@@ -1,4 +1,4 @@
-import { mkdtemp, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -87,12 +87,31 @@ describe('fetchCandidates normalization + local frames', () => {
     const photosDir = path.join(dir, 'photos');
     const result = await fetchCandidates(
       [{ id: 'f1', mediaPath: '/social/library/photos/f1.jpg', sourceUrl: pathToFileURL(src).href }],
-      { write: true, photosDir, seenHashes: new Map(), fetchImpl: (async () => { throw new Error('no network'); }) as never },
+      { write: true, photosDir, framesDir: dir, seenHashes: new Map(), fetchImpl: (async () => { throw new Error('no network'); }) as never },
     );
     expect(result.failed).toEqual([]);
     const meta = await sharp(path.join(photosDir, 'f1.jpg')).metadata();
     expect(meta.width).toBe(2048);
     expect(meta.exif).toBeUndefined();
+  });
+
+  it('refuses a file:// sourceUrl outside the frames scratch directory (recorded as a failure, nothing written)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'escape-'));
+    const frames = path.join(dir, 'frames');
+    await mkdir(frames);
+    const outside = path.join(dir, 'outside.jpg');
+    await writeFile(outside, await blocky(5));
+    const photosDir = path.join(dir, 'photos');
+    const result = await fetchCandidates(
+      [
+        { id: 'o1', mediaPath: '/social/library/photos/o1.jpg', sourceUrl: pathToFileURL(outside).href },
+        { id: 'o2', mediaPath: '/social/library/photos/o2.jpg', sourceUrl: pathToFileURL(path.join(frames, '..', 'outside.jpg')).href },
+      ],
+      { write: true, photosDir, framesDir: frames, seenHashes: new Map() },
+    );
+    expect(result.failed.map((f) => f.id)).toEqual(['o1', 'o2']);
+    expect(result.failed[0].reason).toMatch(/outside the frames scratch directory/);
+    expect(await readdir(photosDir)).toEqual([]);
   });
 
   it('records width/height/bytes of the stored file on the candidate (so on the library entry)', async () => {
@@ -101,7 +120,7 @@ describe('fetchCandidates normalization + local frames', () => {
     await writeFile(src, await blocky(4, 3000, 1688));
     const photosDir = path.join(dir, 'photos');
     const candidate: Record<string, unknown> = { id: 'f2', mediaPath: '/social/library/photos/f2.jpg', sourceUrl: pathToFileURL(src).href };
-    await fetchCandidates([candidate as never], { write: true, photosDir, seenHashes: new Map() });
+    await fetchCandidates([candidate as never], { write: true, photosDir, framesDir: dir, seenHashes: new Map() });
     const stored = await sharp(path.join(photosDir, 'f2.jpg')).metadata();
     expect([candidate.width, candidate.height]).toEqual([stored.width, stored.height]);
     expect(candidate.bytes).toBe((await readFile(path.join(photosDir, 'f2.jpg'))).byteLength);

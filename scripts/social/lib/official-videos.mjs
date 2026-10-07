@@ -14,7 +14,8 @@ import { pathToFileURL } from 'node:url';
 
 export const OFFICIAL_CHANNEL_RE = /^Taylor Swift\s+—\s+official YouTube channel/i;
 export const ALLOWED_KINDS = new Set(['music_video', 'short_film', 'performance', 'documentary']);
-const EXCLUDED_ATTRIBUTION_RE = /trailer/i;
+// Burned-in text / non-performance footage: checked against BOTH the media attribution and the video title.
+export const EXCLUDED_RE = /lyric|visualizer|audio|teaser|trailer|behind the scenes|\bbts\b/i;
 const YT_ID_RE = /[?&]v=([\w-]{11})(?:[&#]|$)/;
 
 export function youtubeIdFromUrl(url) {
@@ -27,11 +28,11 @@ export function selectOfficialVideos(modules) {
   const out = [];
   for (const mod of modules) {
     for (const video of mod?.videos ?? []) {
-      if (!ALLOWED_KINDS.has(video.kind)) continue;
+      if (!ALLOWED_KINDS.has(video.kind) || EXCLUDED_RE.test(String(video.title ?? ''))) continue;
       for (const media of video.media ?? []) {
         if (media?.provider !== 'youtube') continue;
         const attribution = String(media.attribution ?? '');
-        if (!OFFICIAL_CHANNEL_RE.test(attribution) || EXCLUDED_ATTRIBUTION_RE.test(attribution)) continue;
+        if (!OFFICIAL_CHANNEL_RE.test(attribution) || EXCLUDED_RE.test(attribution)) continue;
         const id = youtubeIdFromUrl(media.post_url);
         if (!id || seen.has(id)) continue;
         seen.add(id);

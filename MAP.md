@@ -562,6 +562,9 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `scripts/social/source-video-frames.mjs` | Official-video stills for the photo library (founder decision 2026-10-07, `docs/decisions.md`): Mode A yt-dlp + ffmpeg scene frames, Mode B static ytimg `maxres1-3` stills; emits importer-shaped candidates, resumable via `social/video-frames-ledger.json`, non-fatal step in `concert-photo-sourcing.yml`. `npm run photos:frames:local -- --videos N` is the PC runner (Mode A with browser cookies; then `import-photo-library.mjs --input .artifacts/video-frames-candidates.json --fetch --write`). `--probe` measures Mode B yield with no writes |
 | `scripts/social/lib/official-videos.mjs` | Picks Taylor's own-channel official videos from `supabase/seed/videos/**` + the processed-video ledger helpers |
 | `scripts/social/lib/frame-quality.mjs` | Frame gates (near-black/white, flat, blurry, letterboxed, <1280px) + dHash dedupe, via sharp |
+| `scripts/social/lib/frame-text.mjs` | Title/end-card heuristic: flat background + a line of glyph-sized connected components |
+| `scripts/social/lib/frame-logo.mjs` | Persistent-corner (burned-in logo) check across one video's frames; drops the whole video |
+| `scripts/social/lib/frame-path.mjs` | Confines the importer's `file://` sourceUrl to `.artifacts/video-scratch/frames` (.jpg, symlink-safe) |
 | `scripts/social/lib/video-frames-modea.mjs` | Mode A: yt-dlp/ffmpeg runners (injectable exec), `ModeAUnavailable` on bot-check/403/429 |
 | `scripts/social/lib/normalize-photo.mjs` | Importer-wide normalization: 2048px long-edge cap, no upscale, JPEG q85, metadata stripped |
 | `scripts/social/lib/frame-fixtures.ts` | Test-only synthetic image builders (no network/video in tests) |

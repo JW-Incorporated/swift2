@@ -132,11 +132,22 @@ jobs:
         if: steps.enabled.outputs.enabled == 'true'
         continue-on-error: true
         timeout-minutes: 20
+        # No `env:` on purpose: this step needs no secrets or variables (the script only
+        # reads public YouTube stills and runs yt-dlp/ffmpeg), and steps do not inherit the
+        # PAT used by the PR step below. yt-dlp is PINNED (latest PyPI release when this was
+        # written, 2026-10-07) — bump deliberately; YouTube breaks old extractors, which
+        # just means Mode A fails and Mode B carries the run.
         run: |
-          pipx install yt-dlp || echo "::warning::yt-dlp install failed — Mode A will be skipped, Mode B stills only"
+          MODE=auto
+          if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null && ffmpeg -version | head -1 && pipx install 'yt-dlp==2026.8.19' && yt-dlp --version; then
+            echo "Mode A tools ready"
+          else
+            echo "::warning::ffmpeg/ffprobe/yt-dlp not all available — Mode B stills only"
+            MODE=b
+          fi
           node scripts/social/source-video-frames.mjs \
             --output .artifacts/concert-photo-candidates-video-frames.json \
-            --videos 8 --max-candidates 60 --budget-minutes 15
+            --videos 8 --max-candidates 60 --budget-minutes 15 --mode "$MODE"
 
       - name: Merge and dedupe candidates from all sources
         if: steps.enabled.outputs.enabled == 'true'
