@@ -67,8 +67,9 @@ Kinds (fixed set, no shell): `secret-exists <NAME>` · `variable-equals <NAME>
 `scripts/human-actions/auto-close.mjs` runs hourly (marjorie-status.yml job
 `autoclose`); when the check passes it closes the item through the rolling close
 PR with the ledger note `auto-closed: <check> passed <date>` — no owner reply
-needed. `secret-exists` and `variable-equals` need a token with settings-read
-permission (`HA_VERIFY_TOKEN`); without it they are skipped, never closed.
+needed. `secret-exists` and `variable-equals` read settings with the existing
+`OPS_FIXER_PAT` (their calls only); if it is absent or unauthorized they are
+skipped with a warning, never closed.
 `npm run check:human-actions` warns (never fails) on a checkable Worked-if with
 no verify line.
 

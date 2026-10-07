@@ -139,13 +139,14 @@ jobs:
       - name: Warn on human actions missing a verify line
         run: node scripts/human-actions/check.mjs
       # Closes entries whose `<!-- ha verify: ... -->` check passes, via the rolling
-      # close PR. VERIFY_TOKEN is optional: without it secret-exists and
-      # variable-equals are skipped (the workflow token cannot read them).
+      # close PR. OPS_FIXER_PAT is used only for the read-only secret-exists and
+      # variable-equals calls; without it they are skipped (the workflow token
+      # cannot read them).
       - name: Close human actions whose check passes
         env:
           GH_TOKEN: ${{ github.token }}
           PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
-          VERIFY_TOKEN: ${{ secrets.HA_VERIFY_TOKEN }}
+          OPS_FIXER_PAT: ${{ secrets.OPS_FIXER_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/human-actions/auto-close.mjs
 

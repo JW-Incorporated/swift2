@@ -12,9 +12,10 @@
 //   issue-closed <N>                 issue #N is closed
 //   workflow-green <file.yml>        the latest completed run of that workflow succeeded
 //
-// The workflow GITHUB_TOKEN cannot read secret or variable settings (the repo
-// admin API); those two kinds need a token with that permission in VERIFY_TOKEN,
-// and when the read fails the entry is SKIPPED (left open), never closed.
+// The workflow GITHUB_TOKEN cannot read secret or variable settings; those two
+// kinds alone use the existing OPS_FIXER_PAT (classic PAT, `repo` scope) as
+// GH_TOKEN for their read-only call. If it is absent or unauthorized the entry
+// is SKIPPED (left open, one ::warning::), never closed.
 // A passing check closes the entry through the ONE rolling close PR
 // (scripts/marjorie/lib/status-closes.mjs), so it auto-merges like an owner
 // `done` reply and the ledger line reads "auto-closed: <check> passed <date>".
@@ -145,17 +146,13 @@ export async function main({ env = process.env, root = ROOT, exec = execFileSync
   const repo = env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
   const run = (cmd, args, opts = {}) => exec(cmd, args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...env, ...opts.env } });
   const gh = (args, { admin = false } = {}) => {
-    const tokens = admin ? [env.VERIFY_TOKEN, env.GH_TOKEN].filter(Boolean) : [env.GH_TOKEN];
-    let last;
-    for (const t of tokens.length ? tokens : [undefined]) {
-      try { return run('gh', args, t ? { env: { GH_TOKEN: t } } : {}); } catch (err) { last = err; }
-    }
-    throw last;
+    if (admin && !env.OPS_FIXER_PAT) throw new Error('OPS_FIXER_PAT is not available');
+    return run('gh', args, admin ? { env: { GH_TOKEN: env.OPS_FIXER_PAT } } : {});
   };
   const openMd = readFileSync(path.join(root, HUMAN_ACTIONS_PATH), 'utf8');
   const doneMd = readFileSync(path.join(root, HUMAN_ACTIONS_DONE_PATH), 'utf8');
   const res = evaluateAll(openMd, doneMd, { gh, repo });
-  for (const s of res.skipped) log(`auto-close: #${s.number} left open — ${s.why}`);
+  for (const s of res.skipped) log(`${env.GITHUB_ACTIONS ? '::warning::' : ''}auto-close: #${s.number} left open — ${s.why}`);
   if (!res.passed.length) { log(`auto-close: nothing to close (${res.failed.length} check(s) not yet passing)`); return 0; }
   if (argv.includes('--dry-run')) {
     for (const p of res.passed) log(`auto-close: would close #${p.number} — ${p.label}`);
