@@ -111,6 +111,45 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/marjorie/status-heal.mjs
 
+  autoclose:
+    if: github.event_name != 'issue_comment' && github.event_name != 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: write
+      issues: read
+      pull-requests: write
+    concurrency:
+      # The heal lane: both rebuild the one rolling close PR branch.
+      group: marjorie-status-heal
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Warn on human actions missing a verify line
+        run: node scripts/human-actions/check.mjs
+      # Closes entries whose `<!-- ha verify: ... -->` check passes, via the rolling
+      # close PR. OPS_FIXER_PAT is used only for the read-only secret-exists and
+      # variable-equals calls; without it they are skipped (the workflow token
+      # cannot read them).
+      - name: Close human actions whose check passes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          OPS_FIXER_PAT: ${{ secrets.OPS_FIXER_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/human-actions/auto-close.mjs
+
   reply:
     if: >-
       github.event_name == 'issue_comment'

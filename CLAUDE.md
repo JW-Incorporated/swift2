@@ -356,6 +356,14 @@ the project root, the moment you identify it. Full conventions (status
 values, numbering, `SKIP` is final) live in the **`human-actions` skill** —
 invoke it whenever you create or open that file.
 
+**Filing rule (founder decision 2026-10-06).** Only file a human action that
+needs the founder's judgment, identity/login, money, or physical hands. If it
+is reversible and an agent can do it, do it and note it in one line. Every
+entry with a checkable outcome must carry a `<!-- ha verify: ... -->` line
+(`secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`,
+`workflow-green`); when the check passes the entry closes itself — no "reply
+done" needed (`scripts/human-actions/auto-close.mjs`).
+
 ## Every work request lands in one of two funnels — never email (#3146)
 
 A request for an engineering change — from a founder, from an agent's brief
