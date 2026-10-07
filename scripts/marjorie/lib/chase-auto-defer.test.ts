@@ -10,6 +10,7 @@ const block = (ha: number, issue: number, filed: string) =>
 const openMd = (...blocks: string[]) => `# Human actions\n\n> **${blocks.length} open.**\n\n${blocks.join('\n')}`;
 const DONE = '# Done\n\n- #1 · 2026-01-01 · done · old — "x" · by chat\n';
 const BOT = { login: 'claude[bot]', type: 'Bot' };
+const OWNER = { login: 'sffan15-sys', type: 'User' };
 const issue = (number: number, labels: string[] = [], comments: { body: string; author?: { login: string; type: string } }[] = []) => ({ number, labels: labels.map((name) => ({ name })), comments });
 
 function harness(files: Record<string, string>) {
@@ -47,8 +48,27 @@ describe('planAutoDefers', () => {
   });
   it('resumes only the HA close once the auto marker exists', () => {
     const body = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: 'auto-7d' })}`;
-    const due = planAutoDefers({ issues: [issue(4324, ['deferred'], [{ body }])], openActions: openMd(block(109, 4324, '2026-10-01')), now: NOW });
+    const due = planAutoDefers({ issues: [issue(4324, ['deferred'], [{ body, author: OWNER }])], openActions: openMd(block(109, 4324, '2026-10-01')), now: NOW, author: 'sffan15-sys' });
     expect(due).toEqual([{ ha: 109, issue: 4324, commented: true, labeled: true }]);
+  });
+  describe('auto marker trust', () => {
+    const open = openMd(block(109, 4324, '2026-10-01'));
+    const body = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: 'auto-7d' })}`;
+    const foreign = { body, author: { login: 'someone', type: 'User' } };
+    it('a foreign auto marker on a founder-decision issue stays untouched', () => {
+      expect(planAutoDefers({ issues: [issue(4324, ['founder-decision'], [foreign])], openActions: open, now: NOW, author: 'sffan15-sys' })).toEqual([]);
+    });
+    it('a foreign auto marker on a normal issue is not trusted', () => {
+      expect(planAutoDefers({ issues: [issue(4324, [], [foreign])], openActions: open, now: NOW, author: 'sffan15-sys' }))
+        .toEqual([{ ha: 109, issue: 4324, commented: false, labeled: false }]);
+    });
+    it('a genuine auto marker never overrides an exception label', () => {
+      expect(planAutoDefers({ issues: [issue(4324, ['founder-decision'], [{ body, author: OWNER }])], openActions: open, now: NOW, author: 'sffan15-sys' })).toEqual([]);
+    });
+    it('an undefined author trusts no auto marker', () => {
+      expect(planAutoDefers({ issues: [issue(4324, [], [{ body, author: OWNER }])], openActions: open, now: NOW, author: undefined }))
+        .toEqual([{ ha: 109, issue: 4324, commented: false, labeled: false }]);
+    });
   });
 });
 
@@ -94,7 +114,7 @@ describe('applyAutoDefers', () => {
   it('a resumed item (marker + label present) adds no second comment or label', async () => {
     const h = harness(files());
     const body = `x\n\n${actionMarker({ ha: 109, issue: 4324, action: 'defer', messageId: 'auto-7d' })}`;
-    await applyAutoDefers('o/r', [{ ha: 109, issue: 4324, commented: true, labeled: true }], { ...h, now: NOW, fetchIssue: async () => issue(4324, ['deferred'], [{ body }]) });
+    await applyAutoDefers('o/r', [{ ha: 109, issue: 4324, commented: true, labeled: true }], { ...h, now: NOW, author: 'sffan15-sys', fetchIssue: async () => issue(4324, ['deferred'], [{ body, author: OWNER }]) });
     expect(h.calls.some((c) => c[1] === 'issue')).toBe(false);
   });
 

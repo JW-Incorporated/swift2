@@ -635,7 +635,8 @@ only logs a `::warning::`. It posts the same chase-action marker (message id
 `auto-7d`) and `deferred` label as a typed `defer`, comments once on the issue,
 then closes the HA as `skip` ("auto-deferred after 7 days of silence") through
 one auto-merged PR. Re-runs are idempotent (marker, label, pending branch).
-Never defaulted: issues labelled `founder-decision`, `desk:founder` or
+The auto marker is trusted only from `AUTO_DEFER_AUTHOR` (the PAT owner); exception
+labels always win. Never defaulted: issues labelled `founder-decision`, `desk:founder` or
 `founder-task` (`AUTO_DEFER_EXCEPTIONS`) keep asking. A chase with any typed
 reply, a `deferred` or `founder-assigned` label is left to the reply path. To
 re-open an auto-deferred chase, remove the `deferred` label and delete the

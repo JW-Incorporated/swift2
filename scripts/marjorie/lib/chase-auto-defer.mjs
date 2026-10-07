@@ -22,32 +22,30 @@ const MARKER = /^<!-- marjorie-chase-action: HA=(\d+) issue=(\d+) action=(\w+) m
 const labelsOf = (issue) => (issue?.labels || []).map((x) => (typeof x === 'string' ? x : x?.name)).filter(Boolean);
 
 // A typed reply's marker is only trusted from the bot, as chase-action.mjs already() does.
-// Our own auto marker is posted under the job's token, so it is recognised by message id alone.
-function actionMarkers(issue) {
+// Our own auto marker is posted under the job's PAT, so it is trusted only from `author` (AUTO_DEFER_AUTHOR).
+function actionMarkers(issue, author) {
   return (issue?.comments || []).flatMap((c) => {
     const m = MARKER.exec(String(c.body || '').trimEnd().split(/\r?\n/).at(-1).trim());
-    const author = c?.author || c?.user;
-    const bot = (author?.type === 'Bot' || author?.__typename === 'Bot') && BOT_LOGINS.includes(author.login);
-    return m && (bot || m[4] === AUTO_DEFER_MESSAGE) ? [{ ha: Number(m[1]), issue: Number(m[2]), action: m[3], message: m[4] }] : [];
+    const who = c?.author || c?.user;
+    const bot = (who?.type === 'Bot' || who?.__typename === 'Bot') && BOT_LOGINS.includes(who.login);
+    return m && (bot || (m[4] === AUTO_DEFER_MESSAGE && Boolean(author) && (c?.author || c?.user)?.login === author)) ? [{ ha: Number(m[1]), issue: Number(m[2]), action: m[3], message: m[4] }] : [];
   });
 }
 
 const addDays = (date, days) => new Date(Date.parse(`${date}T00:00:00Z`) + days * 86400000).toISOString().slice(0, 10);
 
 /** Pure eligibility for one chase HA; null = leave it alone. */
-export function autoDeferState(issue, ha) {
-  const markers = actionMarkers(issue).filter((m) => m.ha === ha);
+export function autoDeferState(issue, ha, author) {
+  const markers = actionMarkers(issue, author).filter((m) => m.ha === ha);
   const auto = markers.some((m) => m.message === AUTO_DEFER_MESSAGE && m.action === 'defer');
   const labels = labelsOf(issue);
-  if (!auto) {
-    if (markers.length || labels.includes('deferred') || labels.includes('founder-assigned')) return null;
-    if (labels.some((label) => label in AUTO_DEFER_EXCEPTIONS)) return null;
-  }
+  if (!auto && (markers.length || labels.includes('deferred') || labels.includes('founder-assigned'))) return null;
+  if (labels.some((label) => label in AUTO_DEFER_EXCEPTIONS)) return null;
   return { commented: auto, labeled: labels.includes('deferred') };
 }
 
 /** Pure: open chase HAs due for the silence default (7 days, America/Los_Angeles). */
-export function planAutoDefers({ issues = [], openActions = '', pendingHaPrs = [], now = Date.now() } = {}) {
+export function planAutoDefers({ issues = [], openActions = '', pendingHaPrs = [], now = Date.now(), author = process.env.AUTO_DEFER_AUTHOR } = {}) {
   const today = laToday(new Date(Number(now)));
   const pending = new Set(pendingHaPrs.flatMap((pr) => {
     const ref = String(pr.headRef || '');
@@ -62,7 +60,7 @@ export function planAutoDefers({ issues = [], openActions = '', pendingHaPrs = [
     const number = Number(ha[1]);
     if (pending.has(number)) continue;
     const issue = issues.find((item) => Number(item.number) === Number(issueNo[1]));
-    const state = issue && autoDeferState(issue, number);
+    const state = issue && autoDeferState(issue, number, author);
     if (state) due.push({ ha: number, issue: Number(issueNo[1]), ...state });
   }
   return due;
@@ -82,11 +80,11 @@ async function freshIssue(repo, number, exec) {
 }
 
 /** Applies the GitHub half per item, then closes the HAs as skip in one auto-merged PR. */
-export async function applyAutoDefers(repo, candidates, { exec, now = Date.now(), readFileImpl = readFile, writeFileImpl = writeFile, fetchIssue = (number) => freshIssue(repo, number, exec) }) {
+export async function applyAutoDefers(repo, candidates, { exec, now = Date.now(), readFileImpl = readFile, writeFileImpl = writeFile, author = process.env.AUTO_DEFER_AUTHOR, fetchIssue = (number) => freshIssue(repo, number, exec) }) {
   const applied = [];
   for (const planned of candidates) {
     try {
-      const fresh = autoDeferState(await fetchIssue(planned.issue), planned.ha);
+      const fresh = autoDeferState(await fetchIssue(planned.issue), planned.ha, author);
       if (!fresh) {
         console.log(`::warning::auto-defer HA #${planned.ha}: a reply or exception appeared, skipped`);
         continue;

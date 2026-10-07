@@ -108,6 +108,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
         run: |
           set -euo pipefail
           mkdir -p .scratch
@@ -164,9 +165,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
           REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
         run: |
           git config user.name "marjorie-auto-defer"
           git config user.email "noreply@github.com"
+          test "$(gh api user --jq .login)" = "$AUTO_DEFER_AUTHOR"
           node scripts/marjorie/lib/chase-auto-defer-run.mjs "$REPO"
 
   run:
