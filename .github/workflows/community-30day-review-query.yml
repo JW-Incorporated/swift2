@@ -1,0 +1,42 @@
+# One-off helper for the Community Engine 30-day review (P3-2,
+# docs/community/30-day-review-plan.md). Runs
+# scripts/community/one-off-30day-review-query.mjs and dumps the result to
+# the job summary so the review's data can be read off the Actions run
+# without a DB client. Disposable — delete this workflow and its script
+# once the review card (board swift2, "Community Engine 30-day review —
+# results") has the data captured, same pattern as fb-lead-scrub.yml.
+name: community-30day-review-query
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      - name: Run review queries
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          node scripts/community/one-off-30day-review-query.mjs | tee /tmp/review-output.json
+          {
+            echo '```json'
+            cat /tmp/review-output.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
