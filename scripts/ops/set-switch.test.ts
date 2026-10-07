@@ -30,15 +30,15 @@ describe('set-switch', () => {
     expect(f.ledger[0]).toContain('(unset) -> true');
   });
 
-  it('allows freezes set to true', () => {
-    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE']) {
+  it('allows on-only switches (freezes, code scanning) set to true', () => {
+    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']) {
       const f = fakes('');
       expect(setSwitch({ name: n, value: 'true', reason: 'brake' }, f.deps).ok).toBe(true);
     }
   });
 
-  it('refuses lifting any freeze (false/0/empty/other) without calling gh', () => {
-    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE']) {
+  it('refuses lifting any on-only switch (false/0/empty/other) without calling gh', () => {
+    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']) {
       for (const v of ['false', '0', '', 'yes']) {
         const f = fakes();
         expect(setSwitch({ name: n, value: v, reason: 'x' }, f.deps).ok).toBe(false);

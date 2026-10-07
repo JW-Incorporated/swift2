@@ -15,15 +15,15 @@ export const REPO = 'JW-Incorporated/swift2';
 export const BOOL_SWITCHES = new Set([
   'AWARENESS_LANE_ENABLED',
   'BOT_CHAT_ENABLED',
-  'CODE_SCANNING_ENABLED',
   'COMMUNITY_CRAWL_ENABLED',
   'COMMUNITY_SCAN_ENABLED',
   'CONCERT_PHOTO_SOURCING_ENABLED',
   'REPLY_NOTIFIER_ENABLED',
 ]);
 export const INT_SWITCHES = new Set(['COMMUNITY_CRAWL_BUDGET']);
-// Freezes are brakes: agents may engage them, never lift them.
-export const FREEZE_ON_ONLY = new Set(['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE']);
+// Brakes and safety nets: agents may engage them (freezes -> true, scanning
+// -> true), never lift/disable them. Turning security scanning off is founder-only.
+export const FREEZE_ON_ONLY = new Set(['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']);
 
 export const DENYLIST = {
   MARJORIE_EMAIL: 'notification address (identity), founder-only',
