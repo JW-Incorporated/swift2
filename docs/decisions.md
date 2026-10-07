@@ -8748,3 +8748,9 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Decision.** `npm run check:workflow-deps` (ci.yml build-full) fails when a workflow job runs a repo node/tsx script that imports an npm/workspace package (transitively through relative imports) without installing deps, or imports a gitignored `*.generated.*` module without `npm run sync:content`. Builtin-only scripts keep the no-install fast path. Fixed alongside: merch-awin-directory-shortlist/recommendations, merch-e5-evidence, routine-marjorie-weekly-review (collect), merch-audit-detect/authoring (sync:content).
 
 **Why.** `.github/actions/setup-repo` defaults `npm-ci` to false; the trap bit twice in one day (#5219 merch-awin-sync, #5224 appearance-discovery), each red on every scheduled run for days. Second occurrence means an automated check (CLAUDE.md rule 8).
+
+## 2026-10-06 — Social poster and approval poll go on the 5-minute clock
+
+**Decision.** Founder decision (Joey, chat, "social yes"): `social-poster.yml` (minGap 28) and `social-approval-poll.yml` (minGap 14) join `scripts/ops/clock-table.json`, so `clock-dispatch.mjs` starts them from the 5-minute clock; their GitHub cron stays as backup. Dispatched runs are identical to scheduled ones (no `event_name` branching, no inputs; both already have `workflow_dispatch` and a serialising `concurrency` group with `cancel-in-progress: false`). Approval is unchanged: nothing posts without the founder's own Discord check.
+
+**Why.** GitHub delivered about 9 of 96 expected `*/30` poster fires and about 10 of 192 expected 15-minute poll fires per 48h, so approved posts went out late.
