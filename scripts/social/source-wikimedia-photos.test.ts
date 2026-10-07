@@ -7,6 +7,7 @@ import {
   buildCandidate,
   searchCommons,
   fetchImageInfo,
+  chunkTitles,
   sourceWikimediaQuery,
   dedupeById,
   DEFAULT_QUERIES,
@@ -204,6 +205,54 @@ describe('fetchImageInfo', () => {
     const pages = await fetchImageInfo(['File:a.jpg'], { fetchImpl });
     expect(pages).toHaveLength(1);
     expect(pages[0].pageid).toBe(999);
+  });
+
+  const okPages = (titles: string[]) => ({
+    ok: true,
+    json: async () => ({
+      query: { pages: Object.fromEntries(titles.map((t, i) => [String(i), makePage({ pageid: i + 1, title: t })])) },
+    }),
+  });
+  const bodyTitles = (call: unknown[]) =>
+    String(new URLSearchParams(String((call[1] as { body: string }).body)).get('titles')).split('|');
+
+  it('posts 120 titles as 3 serial chunks of at most 50', async () => {
+    const titles = Array.from({ length: 120 }, (_, i) => `File:t${i}.jpg`);
+    const fetchImpl = vi.fn().mockImplementation(async (_u: string, init: { body: string }) =>
+      okPages(new URLSearchParams(init.body).get('titles')!.split('|')),
+    );
+    const pages = await fetchImageInfo(titles, { fetchImpl, sleepImpl: async () => {} });
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+    expect(fetchImpl.mock.calls.map((c) => bodyTitles(c).length)).toEqual([50, 50, 20]);
+    expect(fetchImpl.mock.calls[0][1].method).toBe('POST');
+    expect(pages).toHaveLength(120);
+  });
+
+  it('splits chunks further when titles are long', () => {
+    const long = 'File:' + 'x'.repeat(500) + '.jpg';
+    const chunks = chunkTitles(Array.from({ length: 30 }, () => long));
+    expect(chunks.length).toBeGreaterThan(1);
+    expect(chunks.flat()).toHaveLength(30);
+  });
+
+  it('warns and skips a failed chunk but keeps the others', async () => {
+    const titles = Array.from({ length: 120 }, (_, i) => `File:t${i}.jpg`);
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(okPages(titles.slice(0, 50)))
+      .mockResolvedValueOnce({ ok: false, status: 414, statusText: 'URI Too Long' })
+      .mockResolvedValueOnce(okPages(titles.slice(100)));
+    const warn = vi.fn();
+    const pages = await fetchImageInfo(titles, { fetchImpl, sleepImpl: async () => {}, warn });
+    expect(pages).toHaveLength(70);
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+
+  it('throws when every chunk fails', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: false, status: 500, statusText: 'Server Error' });
+    await expect(
+      fetchImageInfo(['File:a.jpg', 'File:b.jpg'], { fetchImpl, sleepImpl: async () => {}, warn: () => {} }),
+    ).rejects.toThrow(/500/);
   });
 });
 
