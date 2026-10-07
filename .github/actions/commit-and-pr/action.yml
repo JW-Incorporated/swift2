@@ -85,7 +85,21 @@ runs:
         set -euo pipefail
         git config user.name "$GIT_USER_NAME"
         git config user.email "$GIT_USER_EMAIL"
+        git lfs install --local
         git add $STAGE_PATHS
+        # LFS correctness gate (docs/decisions.md 2026-10-07): every staged
+        # social library photo must be an LFS pointer, never a raw blob.
+        PHOTOS_DIR=apps/web/public/social/library/photos
+        git diff --cached --name-only --diff-filter=AM -- "$PHOTOS_DIR" > "$RUNNER_TEMP/staged-photos.txt"
+        if [ -s "$RUNNER_TEMP/staged-photos.txt" ]; then
+          git lfs ls-files --name-only > "$RUNNER_TEMP/lfs-files.txt"
+          missing=$(grep -vxFf "$RUNNER_TEMP/lfs-files.txt" "$RUNNER_TEMP/staged-photos.txt" || true)
+          if [ -n "$missing" ]; then
+            echo "::error::Staged library photos are not Git LFS pointers (raw blobs would bloat the repo):"
+            echo "$missing"
+            exit 1
+          fi
+        fi
         if git diff --cached --quiet; then
           echo "$NO_CHANGES_MESSAGE"
           echo "changed=false" >> "$GITHUB_OUTPUT"

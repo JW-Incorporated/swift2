@@ -70,6 +70,7 @@ export const CONTENT_LANE_BRANCH_PREFIXES = [
 export const CONTENT_LANE_EXACT_BRANCHES = [
   'fix/karen-tickets', // docs/agents/runner-prompts/kevin-stream1-karen.md
   'kevin/user-fixes', // docs/agents/runner-prompts/kevin-stream2-digest.md
+  'social/concert-photo-sourcing', // .github/workflows/concert-photo-sourcing.yml's single fixed branch (docs/decisions.md 2026-10-06, "Photos A")
 ];
 
 /**

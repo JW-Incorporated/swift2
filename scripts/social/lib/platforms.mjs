@@ -5,6 +5,7 @@
 
 import { oauth1Header } from './oauth1.mjs';
 import { waitForContainerReady } from './ig-container.mjs';
+import { mediaUrlFor } from './queue.mjs';
 
 export const GRAPH_VERSION = 'v25.0';
 
@@ -104,7 +105,7 @@ async function publishFetch(url, opts, label) {
  * earlier attempt's upload is now orphaned).
  */
 async function uploadXMedia(mediaPath, creds, mediaBaseUrl) {
-  const imageUrl = `${mediaBaseUrl}${mediaPath}`;
+  const imageUrl = mediaUrlFor(mediaPath, mediaBaseUrl);
   const imgRes = await fetch(imageUrl);
   if (!imgRes.ok) throw new Error(`X media fetch failed for ${imageUrl} (${imgRes.status}) — is it merged AND deployed yet?`);
   const bytes = Buffer.from(await imgRes.arrayBuffer());
@@ -238,7 +239,7 @@ export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
   const awaitReady = (id) => waitForContainerReady(graphRoot, creds.accessToken, id, options);
 
   if (item.media.length === 1) {
-    const containerId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${item.media[0]}`, item.body, false, item.altText?.[0]);
+    const containerId = await createImageContainer(base, creds.accessToken, mediaUrlFor(item.media[0], mediaBaseUrl), item.body, false, item.altText?.[0]);
     await awaitReady(containerId);
     return publishContainer(base, creds.accessToken, containerId);
   }
@@ -250,7 +251,7 @@ export async function postToInstagram(item, creds, mediaBaseUrl, options = {}) {
   // on carousel child containers the same as a single-image container.
   const childIds = [];
   for (const [i, path] of item.media.entries()) {
-    const childId = await createImageContainer(base, creds.accessToken, `${mediaBaseUrl}${path}`, null, true, item.altText?.[i]);
+    const childId = await createImageContainer(base, creds.accessToken, mediaUrlFor(path, mediaBaseUrl), null, true, item.altText?.[i]);
     await awaitReady(childId);
     childIds.push(childId);
   }
@@ -326,7 +327,7 @@ export async function postToFacebookPage(item, creds, mediaBaseUrl) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      url: `${mediaBaseUrl}${item.media[0]}`,
+      url: mediaUrlFor(item.media[0], mediaBaseUrl),
       caption: item.body,
       access_token: creds.accessToken,
       // docs/social/RULINGS-SOCIAL.md A3/B2 — same alt text as the Instagram post this

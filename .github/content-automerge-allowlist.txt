@@ -173,6 +173,12 @@ docs/ops/AFFILIATE-COVERAGE.md
 #    media rules in the check-drafts job. ────────────────────────────────────
 apps/web/public/social/
 
+# ── Photo-library inventory written by concert-photo-sourcing alongside its
+#    library/photos/** imports (docs/decisions.md 2026-10-06, "Photos A").
+#    The image gate only exempts those photos when this file changes with them;
+#    library photos are not posts, the founder's ✅ still gates every post. ────
+social/photo-library.json
+
 # ── Built vault: OS-014 (2026-09-05) took these 8 files off git entirely
 #    (gitignored, build-time-only — see scripts/lib/generated-content.mjs and
 #    docs/longlive-experience.md §9). They can never appear in a PR diff any
