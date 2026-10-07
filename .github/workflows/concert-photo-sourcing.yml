@@ -48,7 +48,7 @@ concurrency:
 jobs:
   source:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45 # was 20; +20 for the non-fatal official-video step
     steps:
       # Kill-switch check FIRST, before checkout/install/any network call —
       # same posture as community-crawl.yml's own gate.
@@ -121,6 +121,23 @@ jobs:
             console.log('Merged Wikimedia candidates:', deduped.length);
           "
 
+      # Official-video stills (founder decision 2026-10-07 "frames yes",
+      # docs/decisions.md). NON-FATAL: Mode A (yt-dlp + ffmpeg scene frames) is
+      # tried within a hard time budget and abandoned on the first YouTube
+      # bot-check/403; everything then falls back to Mode B (static ytimg
+      # stills, no video download). Any failure here leaves no candidates file
+      # and the merge step simply sees none. Progress is a committed ledger
+      # (social/video-frames-ledger.json) so runs resume where the last stopped.
+      - name: Source stills from official videos (non-fatal)
+        if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          pipx install yt-dlp || echo "::warning::yt-dlp install failed — Mode A will be skipped, Mode B stills only"
+          node scripts/social/source-video-frames.mjs \
+            --output .artifacts/concert-photo-candidates-video-frames.json \
+            --videos 8 --max-candidates 60 --budget-minutes 15
+
       - name: Merge and dedupe candidates from all sources
         if: steps.enabled.outputs.enabled == 'true'
         run: |
@@ -128,6 +145,8 @@ jobs:
             const fs = require('node:fs');
             const redditPath = '.artifacts/concert-photo-candidates-reddit.json';
             const reddit = fs.existsSync(redditPath) ? JSON.parse(fs.readFileSync(redditPath, 'utf8')) : [];
+            const framesPath = '.artifacts/concert-photo-candidates-video-frames.json';
+            const frames = fs.existsSync(framesPath) ? JSON.parse(fs.readFileSync(framesPath, 'utf8')) : [];
             const wikimedia = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-wikimedia.json', 'utf8'));
             // Only candidates not already in the library count toward the cap,
             // so already-imported photos never starve new ones and the PR
@@ -135,11 +154,13 @@ jobs:
             const MAX_NEW = 150;
             const known = new Set(JSON.parse(fs.readFileSync('social/photo-library.json', 'utf8')).photos.map(p => p.id));
             const seen = new Set();
-            const merged = [...reddit, ...wikimedia]
+            // Frames go BEFORE Wikimedia: the ledger already marked their videos
+            // processed, so a frame cut by the cap here would never be retried.
+            const merged = [...reddit, ...frames, ...wikimedia]
               .filter(c => (seen.has(c.id) || known.has(c.id) ? false : (seen.add(c.id), true)))
               .slice(0, MAX_NEW);
             fs.writeFileSync('.artifacts/concert-photo-candidates.json', JSON.stringify(merged, null, 2) + '\n');
-            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
+            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length, ', video frames:', frames.length, ', wikimedia:', wikimedia.length, ')');
           "
 
       - name: Import candidates into the photo library
@@ -159,6 +180,7 @@ jobs:
         with:
           add-paths: |
             social/photo-library.json
+            social/video-frames-ledger.json
             apps/web/public/social/library/photos/**
           branch: social/concert-photo-sourcing
           commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
@@ -167,5 +189,7 @@ jobs:
             Automated concert-photo-sourcing run. Sourced from public
             concert-photo subreddits per kanban t_a66e5eb2 (founder decision
             D1=B, docs/decisions.md 2026-09-22 — no credit/permission gate on
-            ingestion). Never touches the live posting pipeline.
+            ingestion), Wikimedia Commons, and stills from Taylor's own
+            official-channel videos (founder decision 2026-10-07 "frames yes").
+            Never touches the live posting pipeline.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}

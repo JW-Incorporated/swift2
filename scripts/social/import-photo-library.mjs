@@ -22,6 +22,7 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { describePhoto, normalizePhoto } from './lib/normalize-photo.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -58,7 +59,7 @@ const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, fetchImpl = fetch, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
+  { write, photosDir, seenHashes, fetchImpl = fetch, normalizeImpl = normalizePhoto, sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) },
 ) {
   const skippedDuplicates = [];
   const failed = [];
@@ -66,22 +67,30 @@ export async function fetchCandidates(
   for (const candidate of candidates) {
     const id = candidate?.id ?? '(unknown)';
     try {
-      if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
-        throw new Error('--fetch requires a candidate "sourceUrl" http(s) URL to download from.');
+      if (typeof candidate.sourceUrl !== 'string' || !/^(https?|file):\/\//i.test(candidate.sourceUrl)) {
+        throw new Error('--fetch requires a candidate "sourceUrl" http(s) (or local file://) URL to download from.');
       }
-      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
-      // small courtesy delay between downloads keeps this a well-behaved client.
-      await sleepImpl(500 + Math.random() * 500);
-      const res = await fetchImpl(candidate.sourceUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
-      });
-      if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
-      const buf = Buffer.from(await res.arrayBuffer());
-      if (buf.byteLength > MAX_PHOTO_BYTES) {
+      let raw;
+      if (/^file:/i.test(candidate.sourceUrl)) {
+        // Locally extracted video frames (source-video-frames.mjs Mode A).
+        raw = await readFile(fileURLToPath(candidate.sourceUrl));
+      } else {
+        // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches; a
+        // small courtesy delay between downloads keeps this a well-behaved client.
+        await sleepImpl(500 + Math.random() * 500);
+        const res = await fetchImpl(candidate.sourceUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
+        });
+        if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
+        raw = Buffer.from(await res.arrayBuffer());
+      }
+      if (raw.byteLength > MAX_PHOTO_BYTES) {
         throw new Error(
-          `fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
+          `fetched image is ${(raw.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
         );
       }
+      // Normalize BEFORE hashing: the library's existing hashes are of stored (normalized) bytes.
+      const buf = await normalizeImpl(raw, candidate.mediaPath);
       const hash = createHash('sha256').update(buf).digest('hex');
       if (seenHashes.has(hash)) {
         skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
@@ -91,6 +100,7 @@ export async function fetchCandidates(
       await mkdir(path.dirname(destPath), { recursive: true });
       if (write) await writeFile(destPath, buf);
       seenHashes.set(hash, candidate.id);
+      Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
     } catch (err) {
       failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
     }

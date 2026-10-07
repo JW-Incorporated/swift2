@@ -1,7 +1,10 @@
-import { mkdtemp, readdir } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
+import { blocky } from './lib/frame-fixtures';
 import { assertNotAllFailed, fetchCandidates, resolvePhotoDestPath } from './import-photo-library.mjs';
 
 const PHOTOS_DIR = '/repo/apps/web/public/social/library/photos';
@@ -48,6 +51,7 @@ describe('fetchCandidates', () => {
       photosDir,
       seenHashes: new Map(),
       fetchImpl: fetchImpl as never,
+      normalizeImpl: async (buf: Buffer) => buf,
       sleepImpl: async () => {},
     });
     return { result, files: await readdir(photosDir) };
@@ -72,6 +76,35 @@ describe('fetchCandidates', () => {
       throw new Error('socket hang up');
     });
     expect(result.failed.map((f) => f.reason)).toEqual(['socket hang up', expect.stringContaining('sourceUrl')]);
+  });
+});
+
+describe('fetchCandidates normalization + local frames', () => {
+  it('imports a file:// frame and stores it normalized (long edge <= 2048, EXIF stripped)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'norm-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await sharp(await blocky(3, 3000, 1688)).withExif({ IFD0: { Copyright: 'x' } }).jpeg().toBuffer());
+    const photosDir = path.join(dir, 'photos');
+    const result = await fetchCandidates(
+      [{ id: 'f1', mediaPath: '/social/library/photos/f1.jpg', sourceUrl: pathToFileURL(src).href }],
+      { write: true, photosDir, seenHashes: new Map(), fetchImpl: (async () => { throw new Error('no network'); }) as never },
+    );
+    expect(result.failed).toEqual([]);
+    const meta = await sharp(path.join(photosDir, 'f1.jpg')).metadata();
+    expect(meta.width).toBe(2048);
+    expect(meta.exif).toBeUndefined();
+  });
+
+  it('records width/height/bytes of the stored file on the candidate (so on the library entry)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'dims-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await blocky(4, 3000, 1688));
+    const photosDir = path.join(dir, 'photos');
+    const candidate: Record<string, unknown> = { id: 'f2', mediaPath: '/social/library/photos/f2.jpg', sourceUrl: pathToFileURL(src).href };
+    await fetchCandidates([candidate as never], { write: true, photosDir, seenHashes: new Map() });
+    const stored = await sharp(path.join(photosDir, 'f2.jpg')).metadata();
+    expect([candidate.width, candidate.height]).toEqual([stored.width, stored.height]);
+    expect(candidate.bytes).toBe((await readFile(path.join(photosDir, 'f2.jpg'))).byteLength);
   });
 });
 
