@@ -128,6 +128,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | I Love You It's Ruining My Life Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Love You It's Ruining My Life Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Love You, It's Ruining My Life Loose Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| I Protect the Family - Father Figure Inspired Sticker - Eras | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | I Think I Am Finally Clean Umbrella | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Was Midnight Rain Sweat Shorts | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Was Midnight Rain Zip Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -427,9 +428,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 413 |
+| total | 414 |
 | wrapped | 0 |
 | awin-apply | 10 |
 | pending-signup | 8 |
-| uncovered | 98 |
+| uncovered | 99 |
 | direct-by-policy | 297 |
