@@ -96,6 +96,7 @@ jobs:
       pull-requests: read
     outputs:
       work: ${{ steps.check.outputs.work }}
+      autodefer: ${{ steps.check.outputs.autodefer }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -107,6 +108,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
         run: |
           set -euo pipefail
           mkdir -p .scratch
@@ -121,6 +123,8 @@ jobs:
           set -euo pipefail
           COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
           CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
+          AUTODEFER=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.autoDefers?.length||0)')
+          if [ "$AUTODEFER" -gt 0 ]; then echo "autodefer=yes" >> "$GITHUB_OUTPUT"; else echo "autodefer=no" >> "$GITHUB_OUTPUT"; fi
           FIXQ=0
           for N in $(gh issue list --repo "$REPO" --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number --jq '.[].number'); do
             if node scripts/marjorie/ops-fix-trust.mjs "$N" --repo "$REPO" > /dev/null; then FIXQ=$((FIXQ+1)); fi
@@ -136,6 +140,37 @@ jobs:
           name: dispatch-chase-plan
           path: .scratch/dispatch-chase-plan.json
           retention-days: 1
+
+  # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
+  # auto-defer never starts the Sonnet `run` job. The PAT is needed so the
+  # auto-merge PR can trigger the required `build` check (GITHUB_TOKEN cannot).
+  auto-defer:
+    needs: gate
+    if: needs.gate.outputs.autodefer == 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Apply 7-day silence default to chase HAs
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
+        run: |
+          git config user.name "marjorie-auto-defer"
+          git config user.email "noreply@github.com"
+          test "$(gh api user --jq .login)" = "$AUTO_DEFER_AUTHOR"
+          node scripts/marjorie/lib/chase-auto-defer-run.mjs "$REPO"
 
   run:
     needs: gate
