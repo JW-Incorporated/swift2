@@ -416,6 +416,7 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
           ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
           OWNERSHIP_PATH: .github/content-ownership.json
@@ -503,7 +504,11 @@ jobs:
             sffan15-sys|wjduvall-cmd|"claude[bot]")
               author_ok=1 ;;
           esac
-          if [ "$branch_ok" -ne 1 ] || [ "$author_ok" -ne 1 ]; then
+          # Fork guard: a PR from a fork never auto-merges, whatever its branch
+          # name or author login claims (a fork can reuse any head ref name).
+          repo_ok=0
+          if [ "${HEAD_REPO:-}" = "$REPO" ]; then repo_ok=1; fi
+          if [ "$branch_ok" -ne 1 ] || [ "$author_ok" -ne 1 ] || [ "$repo_ok" -ne 1 ]; then
             verdict "declined — not a recognized content-lane branch/author" \
           "PR #$PR (author \`$PR_AUTHOR\`, branch \`$HEAD_REF\`) does not match this repo's known content-lane branch-naming conventions and/or known routine identities, so it is not even considered for auto-merge — regardless of what files it touches. This is the #1969 fix working as designed, not a failure. If this is genuinely a content-lane routine's PR, either its branch name or its author drifted from scripts/automerge-branch-author-gate.mjs's documented list; fix the drift (in a human-merged PR) rather than widening this gate to match it. A human can still merge this PR."
             exit 0
