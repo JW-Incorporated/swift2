@@ -76,6 +76,9 @@ function makePage(overrides = {}) {
       {
         url: 'https://upload.wikimedia.org/wikipedia/commons/x/y/example.jpg',
         descriptionurl: 'https://commons.wikimedia.org/wiki/File:example.jpg',
+        mime: 'image/jpeg',
+        width: 3000,
+        height: 2000,
         extmetadata: {
           License: { value: 'cc-by-2.0' },
           LicenseShortName: { value: 'CC BY 2.0' },
@@ -125,6 +128,44 @@ describe('buildCandidate', () => {
     const candidate = buildCandidate(page);
     expect(candidate.credit).toContain('Unknown');
     expect(candidate.alt).toContain(page.title);
+  });
+});
+
+describe('buildCandidate photo filters', () => {
+  const withInfo = (info: Record<string, unknown>, extra: Record<string, unknown> = {}) => {
+    const page = makePage(extra);
+    page.imageinfo[0] = { ...page.imageinfo[0], ...info };
+    return page;
+  };
+
+  it('drops djvu, pdf, tiff, svg, gif and video files', () => {
+    for (const mime of ['image/vnd.djvu', 'application/pdf', 'image/tiff', 'image/svg+xml', 'image/gif', 'video/webm']) {
+      expect(buildCandidate(withInfo({ mime }))).toBeNull();
+    }
+  });
+
+  it('keeps jpeg, png and webp', () => {
+    for (const mime of ['image/jpeg', 'image/png', 'image/webp']) {
+      expect(buildCandidate(withInfo({ mime }))).not.toBeNull();
+    }
+  });
+
+  it('drops images under 800px on the long edge but keeps a large portrait', () => {
+    expect(buildCandidate(withInfo({ width: 400, height: 600 }))).toBeNull();
+    expect(buildCandidate(withInfo({ width: 600, height: 1200 }))).not.toBeNull();
+  });
+
+  it('drops off-topic files that never mention Taylor Swift', () => {
+    const page = withInfo({}, { title: 'File:A woman of the century.jpg' });
+    page.imageinfo[0].extmetadata.ImageDescription = { value: 'A book page' };
+    expect(buildCandidate(page)).toBeNull();
+  });
+
+  it('accepts a file whose only Taylor Swift mention is in Categories', () => {
+    const page = withInfo({}, { title: 'File:IMG_0001.jpg' });
+    page.imageinfo[0].extmetadata.ImageDescription = { value: 'Stage lights' };
+    page.imageinfo[0].extmetadata.Categories = { value: 'Concerts|Taylor Swift in 2023' };
+    expect(buildCandidate(page)).not.toBeNull();
   });
 });
 
