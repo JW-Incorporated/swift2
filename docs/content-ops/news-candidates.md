@@ -25,15 +25,131 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 88
 
-## Travis Kelce Shares Highlights from Birthday Dinner with Taylor Swift
+## Ticket Alert for Taylor Swift Among Various Events
 
-- first seen: 2026-10-08 07:17 UTC | category: relationship | importance: 5
+- first seen: 2026-10-08 16:25 UTC | category: tour | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Travis Kelce discusses the most enjoyable aspects of his birthday dinner with Taylor Swift. The event details his appreciation for the time spent together during the celebration.
+- summary: A ticket alert has been issued that includes Taylor Swift alongside events like 'Hobbit', Globetrotters, and Cirque shows. Fans can look forward to multiple entertainment options in the upcoming schedule.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkJxOEJVVm9ZdFdUNERMbWdoUmdDbTZvQWk1YkZzNlBfekprOFVUaE5SbjJXMEk0eWQ1NHA3UjhYZzJtWEQxWno5SWIzc0tjSmNSMVBNWENMZHhpbVd4Qy1aVVF6Q1h4RGpVMDhzMEFOdzlaVi04LWpkaXNDZ3NtSWhIWVlBb0xKTGNTcjZTYWFLRFVoaGRlWHFKWmRRSTRHb1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Orlando Sentinel — https://news.google.com/rss/articles/CBMipwFBVV95cUxPT3o0bnBKZnh3OVRNVlFNeW1uY3FldEhMQXloSDRpamFjUTJZSHBhYjBFM0VudVdfeDRIZnhUczZpM1dmMHZ1WEgzVWNIVS11WjF0blAwcVNCd3NHSVh5aWNNbzdUOWNvdFZ1MFhqVHFkSmI0aG1la1NRTVBPX05Vd1pCM0VQd1oyZ3BLajg0N1E3LXBQRndCNDhNY3g5Z2dIR2V4QWpkQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Planning 2027 Tour
+
+- first seen: 2026-10-08 16:25 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: According to a report from Yahoo, Taylor Swift is in the early planning stages for a tour set for 2027. Further details on the tour have not yet been revealed.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOVm1ZUjZlVGZneW13X0ZsY3BGTGh3YnRieEc1djNUMThCVFJwb0p3ZzUzd3E2MHFSeTZVTWYybzNQX0k1d1JTWmQ0NzR5VDRXYXRzeEZtbU1OZ2lSM0NGRUZOb1FZU1dwNkxoV0t5YlVpUlpMUkN1cVBlVGF0RHhTa1hNS1VFSVFRc0VXOXMydVdIOG9OYkxfcmU1X0N5aTd5cUdydzJB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Files for Personal Top Level Domain
+
+- first seen: 2026-10-08 16:25 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has submitted an application for her own top level domain, according to Domain Name Wire. This move indicates her interest in establishing a personal online presence.
+- sources:
+  - [unverified] Domain Name Wire — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcVNoamNpRDdYTXRGNnFqcDRqekNrZmtjTG1nRUFpRkF4bVBtdWtQRzhQbVE0OHUyT2lLeVBYQlEtY3Z4aF9UQlpMY19tRmQzSE5JWElEQmd1QmZvZ3FsdUU3SkJ1cjl6elZMMUVoVmtxR3FlMEhmT1U1emlqV29jd3VoMkdkcF9RS25WbU5LNEFpdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
+- sources:
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
+
+## AI Songs Surpass Taylor Swift in Streaming Numbers
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A report by Newsweek highlights that AI-generated songs have outstreamed Taylor Swift, although the actual listener engagement appears to be minimal.
+- sources:
+  - [unverified] Newsweek — https://news.google.com/rss/articles/CBMijAFBVV95cUxOV1ltRVQxMFB1NDQ0OER4TUZ5Wm15SS1mNmRaVHRxQzEwa1dPNWFKdFVMS2RfXzVIeHhMakFPYnNpeTVWcFA5R2pRSW9wcElmVnRDdG9KRHhhOFpHT0hGNnRLTXM2NHNQNExWVGJIOEp2Qk13S2dWTTcydFlvaFBod2lBVW9QaEk3YjVzeA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAFBVV95cUxQeEJsWUtxWWVEV2RfbVRhOHBRa2xmM3Vfbldrdms1TXZsd25PSVQwWDdwSnN4a1ZTbWV3ekZNMTRpeEU3Zm93UlpfTHVPeHpsU1BkY2NXaFZodER4Ni1ObHh5dWhTY2I0VGNqeWhnT0EtLWJra3J3LVY5YnBCNll4Z2pEMlNVYVlzT2xfNzhERV8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## US Man Sentenced for $8 Million Streaming Fraud Involving AI Songs
+
+- first seen: 2026-10-08 16:25 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A man in the U.S. has been sentenced to prison for orchestrating an $8 million fraud scheme that involved the use of 10,000 bot accounts and AI-generated songs. This case highlights the ongoing issues of streaming fraud in the music industry.
+- sources:
+  - [unverified] NDTV — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRHU5V2xSRjU0VFBOZlloSzBWZzFqSzY0eXRMSFVkTzFZUDVTZGxMb1F6ZkxvdVdqUkVrQUhRT3pzT1pNN0psZXNYR1k5MnV0UVVGei0zYUhNRkxCUU5WUGp2VEpvanh1NG9yYThPbThhTVVELWpWRkNaNHVueDRoYXdfek9YRllMbFA0aUhoalJLMW9Db2hleGZ2QWw1bTcwWHB1aEFtN0UzcDAxMTVONlpYWFFzTmxhYlJOM01oTVRsTUU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seeks Top Level Domain .Taylorswift
+
+- first seen: 2026-10-08 16:25 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has submitted an application for the top level domain name .Taylorswift, as reported by Futurism. This move could enhance her online presence and brand identity.
+- sources:
+  - [unverified] Futurism — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNZTY2ci1kTTVhUjduYTNXUFhjWWk2M25oNnN5M0JyZGxoRHUwUEZ2Y3VWR0R2MDAwV0NvakhfOXk2SkN2cDRFbzI2R0J1NTNwaGEtajYzS0hyRldGMEpWOUh3Qlg3SU84Z05PYWpqTzdRV2JkZ2NueDBKa0t6MEhScmlIYkZZQ1NaelJPUzBFclR4ZUJIZ3VSQjRwSEJDSUdWa29JNDFiMzI?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Tops Billboard Hot 100, Surpassing Ella Langley
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has claimed the top spot on the Billboard Hot 100, overtaking Ella Langley following Langley's successful run with "Choosin' Texas." This change reflects Swift's continued dominance in the music charts.
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMizAFBVV95cUxNTXlQc0dHUkV3ck84NVVqbFZnTXU1N1lXanFaOHpxbzhYckxOamdCbVFxMkxHbU9UcVRvMUlSR0xmUDRjOWVhLS1iWnFlWC1KSGVzNmZCS0tCNlNwNGRSOGU3bWZkb3hkdFU0QUpOX202SU9vd2w5aUtiY0ZPUjdVWVQyelJ6d2xOVEdORk1xZURxcmoxQ3U2SUg5Sk1mWEFUUmJ2MTZvNms1MnpxMms4Tm5Ualh3UzNaQ28xSFQ3WV9vLWpJWG52VXBrVWw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Leads 2026 Kids' Choice Nominations
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift, along with Ariana Grande and Sabrina Carpenter, has been nominated for the 2026 Kids’ Choice Awards. This recognition highlights their popularity and contributions to music. 
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijwFBVV95cUxOMXN2SV9PcjNnTTg4M05KNDUzeFNWWkhMN1ZtamtlZDlScnJwM2NWR09ta3gyb2h6TGF2Z0JjMWE4eFpkLXpXSXhWQ2psSk1Vc1kxaU5TV2RLd2lrMnBrZ2FpZFVyNDZFU05MN3FGNlF5QS1MSnRvSk54ZkFvcVlUWGhSaFZ6MW5MNU9WeHQyNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZTFsNjEzaGVuTWd2dUpIT3Rac0dLTVlVRXgybHNFbGhpR1hkYWxyUmpRdEYtbTZNUEs4X0V3VHNiYXB6VFBzRmNfT1ZMcW5aTDF1VUttOGpzV1RWRU4yODJkMjU2U0RrUVJqbzhDVVR2TWZBYmJRc1h6NWNiWW9mSGUxZVdTTF9oMm1xWlZYcHNnc0dTV3NpRUpidw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Cleveland!' Explored in Northeast Ohio News Quiz
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cleveland.com features a quiz discussing the reasons behind Taylor Swift's song 'Cleveland!'. The piece engages readers with questions related to the song's themes and relevance.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQN3gtSzVOZUtoVTdpZ1ItYWlRSUtuUWYyNlAtTjI2Q3pVRGJJSWZyNzVWbmVxRnBqOGxTdjBlMHpBUl9ldUxzVmF2Yk1YWkUwaUR4U3cyQ1lYRHdIUnpJLUczOE9MZld4VXR3cGRoeTZDWkhRMFVELWdYcnFMV1NOaGtXTy1GZHp3TDBmN1pmbFZFVXhGTjM0cFhkMnR5Nk81cDYwZVZjaFJDVDQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mariska Hargitay Calls Taylor Swift's Baking 'Extraordinary'
+
+- first seen: 2026-10-08 16:25 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay has praised Taylor Swift's baking skills, describing them as 'extraordinary' and claiming they produced the 'best cookies' she has ever tasted. This accolade highlights Swift's culinary talent. 
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTkk5cGo4VExrenNzUUZDWDl0bnJUbU1FMEtTT0psNFJKWFFBX2Y1RklzSXlCY0dxN013NGlTZ25MMWZ6LXplcEJtWWVIMm9QcDVMZlZFaG0wME1ldnFidlhxZXJQbUlkeDB3N0FQZ2M1b0tINzRScHpNVmxPdUFUQ3dxbEVmeEg3S2NzRzF5aGtHYWpVc0JzX2N4RFdtTG8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kelli Giddish discusses Taylor Swift's 'SVU' skit contributions
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Kelli Giddish shares details about Taylor Swift's secret skit on 'SVU' and discusses what Swift brought to the set during filming.
+- sources:
+  - [unverified] azcentral.com and The Arizona Republic — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOT3RVMXVUZFd0N1Zmc1ZDR1ktWm14UU5aNHpiWFctREswVlJGdU16WFcyNlRfS0RvbzFNNU1zby1HakFwU3M2OVAwcmZzMUQ4VGdJMXA1Q3hZSUZRbUoxRkJtZFdjdTlYV0RjTHZobWRLZW54TVU3dGQ5SnNyRUpBRFdTQnltMHJQUWJDNHJ3Zld3aXg5WnlQdF9mWFliRHpibmNlTEpnUGVDaWRvNlhCMC1EMlNEX09ESWdEY1hqNHJQTEhyd1doQWNUdUlaVUVIQzBYcA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Detroit Free Press — https://news.google.com/rss/articles/CBMivAFBVV95cUxOaDJMejJzMWNsdldIb25ERlc3OW9xeEVleFhudHl4dFdmNTV4LURKOTNKTXZMNFNwc25qdTBhd0tNZnBlWlV4Y01ObndLam1vX1Y5ZmN3VnU0WEU5RkFzeThRQ3g1Y0FWWG9HdHZ3cDFHUUZ1ZVBQeDVUQk5ScGJWLXFpeTAyMmdCQXZ2dF93YmV5cWItNEZsTEVfdlVpWnJVd3k5ZUdtR080ZFNpRVBLWk1STV9sWjF4RXRPYQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Birthday Joy with Taylor Swift
+
+- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Debate Arises Over Taylor Swift's Release of 'The Life of a Showgirl: The Encore'
+
+- first seen: 2026-10-08 16:25 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An opinion piece in The News Record discusses the recent release of Taylor Swift's 'The Life of a Showgirl: The Encore' and argues against its necessity.
+- sources:
+  - [unverified] The News Record — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZHpld3N1bWNhZUhFNk5WM3FXRV9FbUJFMExqNVhuT0hyWDhJS3RfdWdLeDdfNWZGNmRyNmo5RXF2WW8zMGRiTE1hMmdvYmRINzZfSEhpZXRndkdnTVdyOWtJUndzblRqMmxfZThoUVdtd0xmV1VYRk1ZUzFiTmJnbFpPTmozQ3FSWWNOV3lDWU5rUHlLN2luWHp5eE5QclNWNDJyc1RSZU55dlo5eWJEMkpTSjVqbEVFNlh4RHROVGRFcmRha2ZYUnRUZXhySFMzeGRCUTlzczYtLVZVb19UcWtVY1JxbWN1WGlxM2YzZC1CT3U1eGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Confirmation of Release Date for Taylor Swift's Friendship Bracelet
+
+- first seen: 2026-10-08 16:25 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The release date for the friendship bracelet featuring Taylor Swift and Caitlin Clark has been confirmed, according to Yahoo Sports.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxQem1Bb1JsbDBUaWYtRGpwU2dRVjhLTFBYbUhMeU9zS2M3NTdWQnFxNWtUZWxodWxmdDN0WlFaeEdZOGJPVkI1VmRiVTdFcFZBRFlMQ21IVXk0dWI1NnV4YzE5RVRSTVFPSDJSRkNSU0U5Q01FNWlzRnd1RXlMdGJPY3pKMHVyY0dUQlVmMENn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Displays Swimming Skills in "Patient Zero" Music Video
 
@@ -50,6 +166,15 @@ Stories: 73
 - summary: Travis Kelce's birthday celebration featured Taylor Swift, highlighting their coordinated outfits during the event. The occasion showcased their style and camaraderie.
 - sources:
   - [unverified] NBC 4 New York — https://news.google.com/rss/articles/CBMizgFBVV95cUxOUXBHTEdsdFhlXzVUb2lBUm94b0JKMFdFNXp3WEFwc1pDdmJNQy13OUpBaEhzbXhPSjd0Yk1BNlFjRVpyUkVncWZFREZaSDFXWFVMbUM3enMxT0oyZVh1LWl3S0Frcko1YTh2VEppRTI0TDRCY19hVkd1LUJYZ2tLd2d3VGs5RUQzTjh6d1N4Qk84VG1uZV9PeEdtdWdxZmhDbHZVZXpqWk9zTFg5SllxVWI1T21WVmtpN0JRZkh2V2NuWTBfY1hfNk9yWlAwd9IB1gFBVV95cUxOMlJLT0V0MGZTYXBQdm5PTkRjamZpWnJyYUZmazlmZThKNHBJdENaSTJnaGZuNTNsYWxpVWlzaUhrQXMtZm0tZDNmRW1XdUJXMGxWLW5WVUdYUXFXbnZRY01TWWtTYlJjVjZTSElEal9TQnFLYUowTlZWMXc0VDVuUW5fSFNoODNfMWY1Y2lqLXEwbUdyYURSdXhodjlrME5oYU5WeUpBOTdfU3Z6V1VDOV9DSmRNVFVEM2p6dklkUk1jVmVvVEdxR2ptVmd2MmVNbmZrbzlB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Highlights from Birthday Dinner with Taylor Swift
+
+- first seen: 2026-10-08 07:17 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce discusses the most enjoyable aspects of his birthday dinner with Taylor Swift. The event details his appreciation for the time spent together during the celebration.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeHF0LXVYMVdBTFl6Sm13RXJ4Ulo1N2ppTVZ0SzlFNGFBaVZCU005Wkg3Q3U3Sk1oNmk4VlhOTjQwajl1WEZIWWNfQW01Y3lBdXBteGNkZngzOUVIblVLTVdsV1BYa0NYMzdDYVpsem9pWEExbmRTMnJGbkV5bGxiVWtsUVNGUmxMSFVFeFJtTlNpMk9mOHRWQ2lRdDM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkJxOEJVVm9ZdFdUNERMbWdoUmdDbTZvQWk1YkZzNlBfekprOFVUaE5SbjJXMEk0eWQ1NHA3UjhYZzJtWEQxWno5SWIzc0tjSmNSMVBNWENMZHhpbVd4Qy1aVVF6Q1h4RGpVMDhzMEFOdzlaVi04LWpkaXNDZ3NtSWhIWVlBb0xKTGNTcjZTYWFLRFVoaGRlWHFKWmRRSTRHb1E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Celebrates 37th Birthday with Taylor Swift
 
