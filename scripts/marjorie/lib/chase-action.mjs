@@ -1,9 +1,9 @@
 const SNOWFLAKE = /^\d{15,21}$/;
 const URL = /^https:\/\/discord\.com\/channels\/(?:\d+|@me)\/\d+\/(\d{15,21})$/;
-const REF = String.raw`(?:HA\s*#?\s*\d+|#\s*\d+|\d+)`;
+const REF = String.raw`(?:HA(?:\s*#\s*|\s+)?\d+|#\s*\d+|\d+)`;
 const SEP = String.raw`[\s:,;\-–—]`;
 const ACTION = new RegExp(String.raw`^(?:(${REF})${SEP}*)?(assign|defer|close)(?:${SEP}+(${REF}))?[\s.!]*$`, 'i');
-const canonRef = (ref) => (/^\d+$/.test(ref) ? `#${ref}` : ref);
+const canonRef = (ref) => ref.replace(/^HA(?:\s*#\s*|\s+)?(\d+)$/i, 'HA #$1').replace(/^#\s*(\d+)$/, '#$1');
 const CHASE = /<!-- marjorie-chase: 96h issue=(\d+) -->/;
 
 const labels = (issue) => new Set((issue?.labels || []).map((x) => typeof x === 'string' ? x : x?.name));
@@ -72,9 +72,17 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   }
   if (match[1] && match[3]) return { ok: false, reason: 'ambiguous' };
   const action = match[2].toLowerCase();
-  const ref = match[1] || match[3];
+  let ref = match[1] || match[3];
   const open = records(openMd, true);
   const done = records(doneMd, false);
+  if (ref && /^\d+$/.test(ref)) {
+    const n = Number(ref);
+    const known = [...open, ...done];
+    const asHa = known.some((item) => item.ha === n);
+    const asIssue = known.some((item) => item.issue === n);
+    if (asHa === asIssue) return { ok: false, reason: 'ambiguous' };
+    ref = asHa ? `HA #${n}` : `#${n}`;
+  }
   const wanted = targetRefs({ ...context, text: ref ? `${action} ${canonRef(ref)}` : action });
   if (wanted.has.length === 1 && wanted.issues.length > 1) {
     return { ok: false, reason: 'target-mismatch' };

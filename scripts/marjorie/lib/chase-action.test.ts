@@ -44,6 +44,27 @@ describe('resolveChaseAction', () => {
     expect(resolveChaseAction({ context: bare, issues: [issue], openMd, doneMd: '' })).toMatchObject({ ok: true, ha: 76, issue: 4324, action: 'defer', label: 'deferred', haOutcome: 'skip' });
   });
 
+  describe('with two open items', () => {
+    const two = `${openMd}\n## #77 🟡 [DECIDE] #4325 stale\n<!-- marjorie-chase: 96h issue=4325 -->`;
+    const issues = [issue, { number: 4325, state: 'OPEN', labels: [{ name: 'marjorie-filed' }] }];
+    const run = (text: string, md = two) => resolveChaseAction({ context: { ...context, text, replying_to: null }, issues, openMd: md, doneMd: '' });
+
+    it.each([['HA 76 - defer', 76, 4324], ['HA76 defer', 76, 4324], ['77 defer', 77, 4325], ['defer 4325', 77, 4325], ['4324 defer', 76, 4324]])('%j targets exactly one item', (text, ha, target) => {
+      expect(run(text)).toMatchObject({ ok: true, ha, issue: target, action: 'defer' });
+    });
+
+    it('never acts untargeted when a number does not resolve', () => {
+      expect(run('999 defer')).toMatchObject({ ok: false, reason: 'ambiguous' });
+      expect(run('HA 999 defer')).toMatchObject({ ok: false });
+      expect(run('HA 999 defer', openMd)).toMatchObject({ ok: false });
+    });
+
+    it('refuses a bare number that is both an HA and an issue', () => {
+      const both = `${two}\n## #5000 🟡 [DECIDE] #76 stale\n<!-- marjorie-chase: 96h issue=76 -->`;
+      expect(run('76 defer', both)).toMatchObject({ ok: false, reason: 'ambiguous' });
+    });
+  });
+
   it('refuses a reply naming two numbers or two actions', () => {
     const run = (text: string) => resolveChaseAction({ context: { ...context, text, replying_to: null }, issues: [issue], openMd, doneMd: '' });
     expect(run('#4324 defer #4325')).toMatchObject({ ok: false, reason: 'ambiguous' });
