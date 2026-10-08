@@ -2105,6 +2105,19 @@ export default {
           },
         ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour masquerade-ball number, white/
+        // gold gown + masked dancer). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Taylor performs "I Knew You Were Trouble" in its masquerade-ball staging on the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -2970,6 +2983,19 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour B-stage tower, acoustic guitar
+        // on a stool). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor plays "Begin Again" acoustic atop the Red Tour’s B-stage tower.',
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],
