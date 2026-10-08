@@ -282,6 +282,26 @@ export default {
             accessed_at: '2026-09-15',
             reliability_score: 4,
           },
+          {
+            // Enrichment 2026-10-08 (Vault Run, Content Shift lane) from
+            // YouTube-appearance intake #5358. A reflection on this same Emmys
+            // sketch by Kelli Giddish — a former "SVU" cast member — on TODAY,
+            // added as a secondary source to the existing moment rather than a
+            // duplicate entry, per the YouTube-appearance "enrich, don't
+            // create" rule. oEmbed-verified this run: title "Kelli Giddish on
+            // Taylor Swift's Emmys Cameo", author_name "TODAY" (official
+            // channel @TODAY). Not a videos-row candidate — it is talk-show
+            // coverage, not an official performance or documentary.
+            outlet: 'TODAY',
+            url: 'https://www.youtube.com/watch?v=OPdjWiv3Okw',
+            source_title: 'Kelli Giddish on Taylor Swift’s Emmys Cameo',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+            notes:
+              'Official TODAY (NBC) YouTube upload, published Oct. 8, 2026; a former "SVU" cast member’s reflection on Taylor’s pre-taped 2026 Emmys sketch. oEmbed-verified (author_name "TODAY").',
+          },
         ],
         photos: [
           {
@@ -9210,9 +9230,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10 and 2026-08-31: still pending, not faded — awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-10-08',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -9223,11 +9243,35 @@ export default {
               'With "I Knew It, I Knew You" up to No. 7 on Country Airplay, The Tennessean\'s Bryan West reported Taylor\'s team was campaigning the Toy Story 5 ballad for CMA Single of the Year in the first round of CMA Awards voting — her most direct country-awards push in years, two decades after "Tim McGraw."',
             reportedBy: 'The Tennessean (Bryan West, via Yahoo)',
             reportedOn: '2026-07-21',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-enters-cma-awards-170210895.html',
-            note: 'A ballot campaign, not a nomination. Recheck 2026-08-13 (Tennessean\'s Bryan West, via Yahoo): it cleared the write-in round — "I Knew It, I Knew You" advanced to the CMA second ballot for Single of the Year, one of 22 recordings vying for five nominations (voting through Aug. 17). Real momentum, still not a nomination, so unconfirmed. Resolves when official nominees are named.',
+            note: 'A ballot campaign that resolved into a real nomination. Recheck 2026-08-13: it cleared the write-in round to the CMA second ballot. RESOLVED 2026-10-08 (Vault Run, Rumor Desk lane): the campaign succeeded — the CMA named "I Knew It, I Knew You" a Single of the Year nominee at the 60th CMA Awards on 2026-09-10, so the "campaigning for a nomination" claim is now confirmed.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-13',
+            resolution: {
+              on: '2026-09-10',
+              url: 'https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/',
+              outlet: 'Rolling Stone',
+              note: 'The 60th CMA Awards nominated "I Knew It, I Knew You" for Single of the Year (announced 2026-09-10; corroborated by Variety), confirming the campaign the original report described; Taylor said within hours she would attend the Nov. 18 ceremony — her first CMA appearance in a decade.',
+            },
+            lastCheckedOn: '2026-10-08',
+          },
+          {
+            // Rumor Desk 2026-10-08 (Vault Run) from intake #4809: the entertainment
+            // trade The Ankler argued Taylor is quietly building an awards-season
+            // Oscar case without a publicized campaign. Adjudicable (a
+            // nomination/campaign either materializes or not); no privacy redline —
+            // pure career/business speculation. Only the adjudicable framing is
+            // recorded here; the piece's incidental production-credit specifics are
+            // left out rather than asserted as fact.
+            claim:
+              'The trade The Ankler argued ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly assembling an awards-season case — the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without announcing an explicit campaign. Yahoo and heavy.com repackaged it as "quietly setting her sights on an Oscar."',
+            reportedBy: 'The Ankler',
+            reportedOn: '2026-10-01',
+            status: 'unconfirmed',
+            url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
+            note: 'Outlet analysis of intent, not an on-record statement — no one (Taylor, her team, the Academy) has confirmed a campaign. Adjudicable (whether she pursues/gets a nomination), so it clears the admit-the-unsettled bar. Resolves against the 99th Oscars calendar on this page (shortlist 2026-12-15, noms 2027-01-21). Tier capped at tabloid: theankler.com isn\'t on the reputable-source allowlist (RR5).',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-08',
           },
         ],
       },
@@ -15117,6 +15161,14 @@ export default {
     },
     {
       slug: 'oheka-castle-blank-space-auction-2026',
+      // Cross-link (2026-10-08, Vault Run, crosslink-opportunity 0.8): completes
+      // the "Blank Space" cluster — this is the château the 2014 video was shot
+      // at, so a reader here wants the song, its video, and its satire.
+      relatedIds: [
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+      ],
       year: 2026,
       month: 9,
       day: 25,
@@ -15429,6 +15481,88 @@ export default {
             credit: 'Glenn Francis, CC BY-SA 4.0, via Wikimedia Commons',
             caption:
               'Bebe Rexha on a red carpet in 2019 — the year she said several designers declined to dress her for the Grammys, and Taylor reached out.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-08 (Vault Run, Content Shift lane) from intake #5368.
+      // A public awards-recognition milestone — no privacy redline (no
+      // location/health/security/minor). Placed in the current era by the
+      // real-world date of the nominations announcement (Oct. 8, 2026), per the
+      // era-by-date rule. SOURCING NOTE: the three cited music trades
+      // (Billboard, Variety, Deadline) are tollbit/paywall-gated to a direct
+      // fetch in this run; their reporting was read via web search of those
+      // same publisher pages, and only the facts all three state consistently
+      // are asserted here — that Taylor leads all individual nominees with six
+      // nods, the host, the CBS-first simulcast, and the date/venue. The
+      // per-category breakdown of her six was NOT independently enumerated from
+      // a source that totals them, so no specific category is claimed as a
+      // nomination here (the no-fabrication bar over the recency of the item).
+      slug: 'showgirl-2026-kids-choice-awards-nominations-lead',
+      year: 2026,
+      month: 10,
+      day: 8,
+      category: 'music',
+      title: 'Taylor leads the 2026 Kids’ Choice Awards nominees with six nods',
+      snippet:
+        'Nickelodeon unveiled its 2026 Kids’ Choice Awards slate on Oct. 8, and Taylor topped every individual nominee with six nominations — ahead of a five-way tie between Ariana Grande and Sabrina Carpenter. Alex Warren hosts the Nov. 14 ceremony, which airs on CBS for the first time alongside Nickelodeon.',
+      sourceUrl: 'https://www.billboard.com/lists/kids-choice-awards-2026-nominations-list-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When Nickelodeon announced the 2026 Kids’ Choice Awards field on Oct. 8, Taylor came out in front: she led all individual nominees with six nominations, more than any other artist, with Ariana Grande and Sabrina Carpenter tied one back at five apiece. It extends one of her longest-running relationships with the slime-green show — the Kids’ Choice ballot has reached for her across era after era — and this time it lands mid-Encore, as "The Life of a Showgirl: The Encore" sits atop the US charts.\n\nThe ceremony itself gets a first. Alex Warren was announced as host, and the Nov. 14 show will air on CBS for the first time, simulcast with Nickelodeon, broadcasting live from Television City in Los Angeles. It is the franchise’s first outing in well over a year, and the network leaned on a stacked music field to reintroduce it — Taylor at the top of it.\n\nThe nominations are a recognition beat rather than a result: the winners, decided by fan vote, come on the night. What the announcement marks for the Vault is simply that, deep into the Showgirl run, the broadest-audience awards show on the kids’ calendar made Taylor its most-nominated name.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/kids-choice-awards-2026-nominations-list-taylor-swift/',
+            source_title:
+              'Cue the Slime: Taylor Swift, Ariana Grande & Sabrina Carpenter Lead 2026 Kids’ Choice Awards Nominations (Full List)',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 5,
+            notes:
+              'Primary source for the lead-nominee count (Taylor six, most of any individual; Grande/Carpenter tied at five), the host, the CBS-first simulcast, and the Nov. 14 date. Tollbit/bot-gated to a direct fetch in this run; read via web search of this publisher page, which matched Variety and Deadline on all four facts asserted here. Per-category breakdown not enumerated as fact.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/tv/news/kids-choice-awards-2026-alex-warren-nominations-1236904884/',
+            source_title: 'Alex Warren to Host 2026 Kids’ Choice Awards, Nominations Announced',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+            notes:
+              'Independent corroboration of Alex Warren as host and the nominations announcement; confirms the Nov. 14 ceremony and the CBS/Nickelodeon simulcast.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/10/alex-warren-nickelodeon-kids-choice-awards-1237149883/',
+            source_title: 'Alex Warren To Host 2026 Nickelodeon Kids’ Choice Awards',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+            notes:
+              'Second independent trade confirmation of the host and the nominations announcement.',
+          },
+        ],
+        // Visual (charter step 3b): an archival red-carpet portrait of Taylor —
+        // the nominee. Wikimedia Commons (upload.wikimedia.org, allowlisted
+        // reusable host), curl-verified HTTP 200 image/jpeg at 2358x3537,
+        // downloaded and vision-confirmed this run as Taylor (iHeartRadio step-
+        // and-repeat, blue/iridescent sequin dress). Same archival-portrait
+        // route the Bebe Rexha entry above uses for a dateless recognition item
+        // where no event photo exists; CC BY 3.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            focalPoint: '50% 25%',
+            credit: 'Glenn Francis (Pacific Pro Digital Photography), CC BY 3.0, via Wikimedia Commons',
+            caption:
+              'Taylor on a red carpet — the most-nominated individual name on the 2026 Kids’ Choice Awards ballot.',
             kind: 'archival',
           },
         ],
