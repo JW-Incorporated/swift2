@@ -222,6 +222,41 @@ export const RUNWAY_LOOKS = [
     shopTags: ['Cardigan', 'Prairie dress'],
   },
   {
+    id: 'look-folklore-grammys-red-carpet',
+    eraId: 'folklore',
+    name: 'Oscar de la Renta Grammys Florals',
+    // Source: Vogue (2021-03-15) and W (2021-03-14/15): Oscar de la Renta
+    // floral-appliqué dress on the 63rd Grammys red carpet, 2021-03-14,
+    // with a customized floral face mask.
+    description: 'On March 14, 2021, Swift arrived at the 63rd Grammy Awards in a floral-appliqué Oscar de la Renta dress, adding a customized floral face mask once inside. The botanical detailing carried folklore\'s woodland imagery onto the red carpet on the night the album won Album of the Year.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1307122077/photo/los-angeles-california-taylor-swift-winner-of-the-album-of-the-year-award-for-folklore.jpg?s=612x612&w=0&k=20&c=8Z1VYOY-Yc9qqWC8LYlHMDBpJd03w6R2p_QKc_ZkSWY=', credit: 'Kevin Mazur/Getty Images for The Recording Academy', caption: '63rd Grammys media room, March 2021, the night folklore won Album of the Year — soft, muted press-room styling.', kind: 'primary' },
+    ],
+    shopTags: ['Floral appliqué dress', 'Floral face mask'],
+    sources: [
+      { title: 'Vogue: Taylor Swift\'s Floral Dress From the Grammy Awards Is Available for Purchase Online', url: 'https://www.vogue.com/article/taylor-swift-floral-grammy-dress-oscar-de-la-renta' },
+      { title: 'W: Grammys 2021: Taylor Swift Conjured Cottagecore for Her Performance', url: 'https://www.wmagazine.com/culture/taylor-swift-grammys-performance-folklore' },
+    ],
+  },
+  {
+    id: 'look-folklore-grammys-etro',
+    eraId: 'folklore',
+    name: 'Etro Mossy-Ground Performance Gown',
+    // Source: Vanity Fair (2021-03-14) and W (2021-03-15): custom Etro
+    // sequined gown with ruffled hemline and sleeves, purple and gold,
+    // worn for the "cardigan"/"august"/"willow" performance at the 63rd
+    // Grammys, 2021-03-14.
+    description: 'For her 63rd Grammys performance on March 14, 2021, Swift wore a custom, sequined purple-and-gold Etro gown with a ruffled hemline and sleeves and a thin golden headpiece. She performed "cardigan," "august," and "willow" with Jack Antonoff and Aaron Dessner, beginning on a moss-covered set that staged folklore\'s cottagecore world live.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1307107698/photo/los-angeles-california-in-this-image-released-on-march-14-taylor-swift-performs-onstage-for.jpg?s=612x612&w=0&k=20&c=tSXS2cDZuIiO6hOsdBlz5ClyTS44kuywHGxtvubYD64=', credit: 'TAS Rights Management 2021, via Getty Images', caption: '63rd Grammys broadcast performance, March 2021 — the "cardigan"/"august"/"willow" medley.', kind: 'primary' },
+    ],
+    shopTags: ['Sequined gown', 'Gold headpiece'],
+    sources: [
+      { title: 'Vanity Fair: Taylor Swift Takes Her New Stripped-Down Sound to the Grammy 2021 Stage', url: 'https://www.vanityfair.com/style/2021/03/taylor-swift-grammy-2021-stage' },
+      { title: 'W: Grammys 2021: Taylor Swift Conjured Cottagecore for Her Performance', url: 'https://www.wmagazine.com/culture/taylor-swift-grammys-performance-folklore' },
+    ],
+  },
+  {
     id: 'look-evermore',
     eraId: 'evermore',
     name: 'Autumn Flannel',
@@ -234,6 +269,25 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/2163401668/photo/london-england-an-outfit-worn-by-taylor-swift-in-the-willow-music-video-on-display-at-the.jpg?s=612x612&w=0&k=20&c=CNcGuN7SAhF9FTpFsILiccqbV4-UhUZLNb37xxFg_Jc=', credit: 'Gareth Cattermole/Getty Images', caption: 'The actual Zimmermann costume worn in the 2020 "willow" video, on display at the V&A\'s Taylor Swift Songbook Trail, 2024.', kind: 'primary' },
     ],
     shopTags: ['Flannel', 'Braided hair'],
+  },
+  {
+    id: 'look-evermore-willow-zimmermann',
+    eraId: 'evermore',
+    name: 'Willow Zimmermann Lace Gown',
+    // Source: British Vogue (2020-12-10) and Elle (2020-12-11): ivory lace
+    // Zimmermann Charm Star gown with a flower crown / Jennifer Behr bridal
+    // headpiece, shared ahead of the "willow" video; Vanity Fair
+    // (2020-12-11) shows the same dress in evermore album imagery.
+    description: 'Hours before the "willow" video premiered on December 10, 2020, Swift shared a photo in an ivory lace Zimmermann gown, the Charm Star dress, with a pearly flower crown. The bridal-looking silhouette led many fans to guess a wedding announcement before the video arrived.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/2163401668/photo/london-england-an-outfit-worn-by-taylor-swift-in-the-willow-music-video-on-display-at-the.jpg?s=612x612&w=0&k=20&c=CNcGuN7SAhF9FTpFsILiccqbV4-UhUZLNb37xxFg_Jc=', credit: 'Gareth Cattermole/Getty Images', caption: 'The actual Zimmermann costume worn in the 2020 "willow" video, on display at the V&A\'s Taylor Swift Songbook Trail, 2024.', kind: 'primary' },
+    ],
+    shopTags: ['Lace maxi dress', 'Flower crown'],
+    sources: [
+      { title: 'British Vogue: Taylor Swift Announces a Surprise Second 2020 Album', url: 'https://www.vogue.co.uk/news/article/taylor-swift-evermore' },
+      { title: 'Elle: All the Easter Eggs in Taylor Swift\'s "Willow" Video Explained', url: 'https://www.elle.com/culture/music/g34943325/taylor-swift-willow-music-video-easter-eggs/' },
+      { title: 'Vanity Fair: Fashion Inspired by Taylor Swift\'s Evermore', url: 'https://www.vanityfair.com/style/photos/2020/12/fashion-inspired-by-taylor-swifts-evermore' },
+    ],
   },
   {
     id: 'look-midnights',
