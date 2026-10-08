@@ -13,7 +13,15 @@ export function contextFor(subreddit, types, ageHours, rank) {
   return `Awareness candidate in r/${subreddit} (${types.join('/')}), about ${Math.round(ageHours)}h old, feed rank ${rank} (title-only scan, no bodies stored).`;
 }
 
-export function buildAwarenessRow({ subreddit, post, types, ageHours, imageRef, imageComments }) {
+export function buildAwarenessRow({
+  subreddit,
+  post,
+  types,
+  ageHours,
+  imageRef,
+  imageComments,
+  replyUnverified = false,
+}) {
   return {
     platform: 'reddit',
     community: subreddit,
@@ -21,7 +29,9 @@ export function buildAwarenessRow({ subreddit, post, types, ageHours, imageRef, 
     thread_id: post.id,
     url: post.permalink,
     title: post.title,
-    context: contextFor(subreddit, types, ageHours, post.rank),
+    context:
+      contextFor(subreddit, types, ageHours, post.rank) +
+      (replyUnverified ? ' Reply-ability (locked/archived/restricted) unverified.' : ''),
     matched_doc_ids: [],
     status: 'new',
     redline_ok: true, // screenTopic ran on the title in evaluateThread

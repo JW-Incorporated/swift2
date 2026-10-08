@@ -177,7 +177,7 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
   existing anchored comment's id
   (`gh api repos/{owner}/{repo}/issues/{n}/comments --jq '.[] | select(.body
   | startswith("<!-- kevin-stream2-digest -->")) | .id'`), then
-  `gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -f body=@file`
+  `gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -F body=@file` (`-F` reads the file; `-f` posts the literal `@file` text, #4653); new comments use `gh issue comment <n> --body-file <path>`
   to edit that comment's body in place instead of posting a new one. Only
   one anchored comment should ever exist going forward.
   **Fallback (rare):** if `gh` is genuinely unavailable in the run
