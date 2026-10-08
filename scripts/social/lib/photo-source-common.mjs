@@ -106,15 +106,43 @@ export function readCandidateFile(path, fs) {
   try {
     const parsed = JSON.parse(fs.readFileSync(path, 'utf8'));
     if (Array.isArray(parsed)) return { candidates: parsed, status: 'ok' };
-  } catch {
-    // fall through to invalid
+  } catch (e) {
+    return { candidates: [], status: 'invalid', detail: e.message };
   }
-  return { candidates: [], status: 'invalid' };
+  return { candidates: [], status: 'invalid', detail: 'not a JSON array' };
 }
 
-/** One `source=<name> candidates=<n>[ (missing|invalid)]` line per source. */
+/** One `source=<name> candidates=<n>[ (missing|invalid[: detail])]` line per source. */
 export function formatSourceCounts(results) {
-  return results.map(({ name, candidates, status }) => `source=${name} candidates=${candidates.length}${status === 'ok' ? '' : ` (${status})`}`);
+  return results.map(
+    ({ name, candidates, status, detail }) =>
+      `source=${name} candidates=${candidates.length}${status === 'ok' ? '' : ` (${status}${detail ? `: ${detail}` : ''})`}`,
+  );
+}
+
+/**
+ * Workflow annotations for the per-source results. Every missing/invalid source
+ * warns; all sources unreadable, or zero candidates overall with any failure,
+ * is an error (`fail: true`); all-ok-but-empty only warns.
+ */
+export function assessSources(results) {
+  const annotations = results
+    .filter((r) => r.status !== 'ok')
+    .map((r) => `::warning::Photo source ${r.name} is ${r.status}${r.detail ? ` (${r.detail})` : ''}`);
+  const total = results.reduce((n, r) => n + r.candidates.length, 0);
+  const anyFailed = results.some((r) => r.status !== 'ok');
+  if (results.length > 0 && results.every((r) => r.status !== 'ok')) {
+    annotations.push('::error::Every photo source is missing or invalid; nothing was sourced.');
+    return { fail: true, annotations };
+  }
+  if (total === 0) {
+    if (anyFailed) {
+      annotations.push('::error::Zero candidates and at least one source failed.');
+      return { fail: true, annotations };
+    }
+    annotations.push('::warning::All photo sources read OK but produced zero candidates.');
+  }
+  return { fail: false, annotations };
 }
 
 /** A transient API/network failure — the adapters turn this into a warning + an empty candidate list. */

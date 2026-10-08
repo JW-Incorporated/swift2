@@ -200,12 +200,15 @@ jobs:
         run: |
           node --input-type=module -e "
             import fs from 'node:fs';
-            import { formatSourceCounts, mergeCandidates, readCandidateFile } from './scripts/social/lib/photo-source-common.mjs';
+            import { assessSources, formatSourceCounts, mergeCandidates, readCandidateFile } from './scripts/social/lib/photo-source-common.mjs';
             const names = ['reddit', 'wikimedia', 'press', 'openverse', 'video-frames'];
             const results = names.map((name) => ({ name, ...readCandidateFile('.artifacts/concert-photo-candidates-' + name + '.json', fs) }));
             const lines = formatSourceCounts(results);
             for (const line of lines) console.log(line);
             if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '### Candidates per source\n\n' + lines.map((l) => '- ' + l).join('\n') + '\n');
+            const verdict = assessSources(results);
+            for (const a of verdict.annotations) console.log(a);
+            if (verdict.fail) process.exit(1);
             const [reddit, wikimedia, press, openverse, frames] = results.map((r) => r.candidates);
             // Only candidates not already in the library count toward the cap,
             // so already-imported photos never starve new ones and the PR
