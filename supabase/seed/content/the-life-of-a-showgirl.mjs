@@ -15161,6 +15161,14 @@ export default {
     },
     {
       slug: 'oheka-castle-blank-space-auction-2026',
+      // Cross-link (2026-10-08, Vault Run, crosslink-opportunity 0.8): completes
+      // the "Blank Space" cluster — this is the château the 2014 video was shot
+      // at, so a reader here wants the song, its video, and its satire.
+      relatedIds: [
+        'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        'moment:vault-1989-blank-space-flips-the-narrative',
+        'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
+      ],
       year: 2026,
       month: 9,
       day: 25,

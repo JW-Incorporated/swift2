@@ -56,6 +56,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château where this song's video was filmed.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -1646,6 +1649,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): Oheka Castle — the château this
+        // very video was shot at — heads to auction.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -2480,6 +2486,9 @@ export default {
         'moment:vault-midnights-slut-turns-out-to-be-a-love-song',
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château that staged this song's video.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       title: "“Blank Space” flips the narrative",
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
