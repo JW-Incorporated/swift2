@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #116 🔴 [BLOCKING] Free disk: delete old agent worktree folders (~5 min)
+<!-- ha filed=2026-10-08 -->
+
+**Why:** C: has ~11 GB free. About 75 finished agent worktree folders (each 1–2 GB of node_modules) failed to delete on Windows, and the guard blocks agents from deleting folders recursively. The fleet has stopped starting new work.
+**Steps:**
+1. Open PowerShell and run: `cd $env:LOCALAPPDATA\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-Swift2\2fad436e-5ed7-4251-b386-facb1db6e7a6\scratchpad`
+2. Run: `Get-ChildItem -Directory -Filter wt-* | Remove-Item -Recurse -Force`
+3. Run: `git -C $env:USERPROFILE\Documents\Claude\Projects\Swift2 worktree prune`
+**Worked if:** `Get-PSDrive C` shows more than 60 GB free.
 
 ## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-07 -->
