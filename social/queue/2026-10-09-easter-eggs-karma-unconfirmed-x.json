@@ -1,0 +1,40 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "gut-check for the clowns 🤡 the \"Karma\" album — that orange 2016 record everyone swears got buried for reputation — sits in our Clue Web under UNconfirmed. the theory the fandom treats as gospel was never once proven → longlivets.com/?lens=easter-eggs&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-2-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-2-ig45",
+  "photoEra": "reputation",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
+  "scheduledAt": "2026-10-09T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "campaign": "thread:easter-eggs:behind-the-data:2026-10-second",
+  "experiment": {
+    "hypothesis": "A subject-specific 10-tag block lifts IG non-follower reach vs the untagged 2026-10-02 Decode control",
+    "variant": "IG caption adds a 10-hashtag block for this subject (reputation/Karma/theories); X untagged",
+    "metric": "IG non-follower reach (Insights) vs the 2026-10-02 untagged thread post"
+  },
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "X sibling of the behind-the-data contradiction, framed distinctly as a clown gut-check: the 2016 'Karma' album the fandom treats as gospel sits UNconfirmed in our Clue Web. Tight, one link, opener and structure unlike the IG sibling. Reputation photo (red snake sequins) carries both halves.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "X sibling of thread:easter-eggs:behind-the-data:2026-10-second (Calendar 2026-10-09 23:00Z, Clue Web slot 2 of 2, window closes 10-10). Hook = the contradiction, distinct opener and vocabulary from IG ('gut-check for the clowns' vs 'the clue web has one theory'; gospel/buried/proven not in the IG body). Anchored on EGG_NODES seed egg-karma-album-theory (2016, confirmed:false). ~245 weighted chars, one /?lens=easter-eggs link; credit line dropped on X for length (field retained). Same reputation era-matched photo as IG per themed-campaign photoEra rule + W8/L001; X carries the image, not text-only."
+}
