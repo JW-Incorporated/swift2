@@ -179,6 +179,11 @@ apps/web/public/social/
 #    library photos are not posts, the founder's ✅ still gates every post. ────
 social/photo-library.json
 
+# ── Photo-QC rejected-candidate ledger (docs/decisions.md 2026-10-07, "QC sonnet"):
+#    written by import-photo-library.mjs in the same sourcing PR, so a candidate
+#    the vision check rejected is not re-paid on the next run. ──────────────────
+social/photo-qc-rejected.json
+
 # ── Built vault: OS-014 (2026-09-05) took these 8 files off git entirely
 #    (gitignored, build-time-only — see scripts/lib/generated-content.mjs and
 #    docs/longlive-experience.md §9). They can never appear in a PR diff any
