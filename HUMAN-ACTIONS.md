@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #116 🔴 [BLOCKING] PC disk almost full: turn off hibernation (~2 min)
-<!-- ha filed=2026-10-08 -->
-
-**Why:** C: has ~11 GB free, so agents can't start new branches. The Windows hibernation file uses 13.6 GB. The bigger user, Docker (63.5 GB, incl. backtest-os's 42.5 GB lean image), holds other projects' data, so it's your call, not an agent's.
-**Steps:**
-1. Start menu → type `PowerShell` → right-click → Run as administrator.
-2. Run: `powercfg /h off`
-3. Optional, more space: Docker Desktop → Images → delete `quantconnect/lean` if you don't need it right now (re-pullable).
-**Worked if:** `Get-PSDrive C` shows at least 24 GB free.
 
 ## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-07 -->
