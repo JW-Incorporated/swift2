@@ -54,11 +54,11 @@ export function LandingMasthead({
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
+      <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
         The Taylor Swift time machine
       </p>
       <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">Long&nbsp;Live</h1>
-      <p className="max-w-xs text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
+      <p className="max-w-[min(20rem,calc(100vw-2rem))] text-center text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
         {activity
           ? `Updated ${activity.updatedLabel} · ${activity.newThisWeek} new this week.`
           : 'Real-time updates on her whole life — every moment sourced and dated, back through all twelve eras.'}
@@ -66,7 +66,7 @@ export function LandingMasthead({
       <button
         type="button"
         onClick={() => onNavigate(gloss.mode)}
-        className="era-btn-ghost mt-1 inline-flex min-h-14 items-center gap-1.5 rounded-full px-4 text-xs sm:text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)] min-[360px]:whitespace-nowrap"
+        className="era-btn-ghost mt-1 inline-flex min-h-14 max-w-full flex-wrap items-center justify-center gap-x-1.5 rounded-full px-4 py-2 text-center text-xs sm:text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
       >
         <span className="font-semibold text-[color:var(--era-ink)]">{gloss.label}</span>
         <span className="text-[color:var(--era-ink-soft)]">— {gloss.gloss}</span>

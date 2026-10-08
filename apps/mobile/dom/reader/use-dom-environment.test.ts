@@ -50,9 +50,10 @@ describe('applyFontScale', () => {
     expect(root().style.getPropertyValue('--font-scale')).toBe('0.9');
   });
 
-  it('clamps to [0.85, 1] and falls back to 1 for junk', () => {
+  it('clamps to [0.85, 1.5] and falls back to 1 for junk', () => {
     expect(clampFontScale(0.5)).toBe(0.85);
-    expect(clampFontScale(3.5)).toBe(1);
+    expect(clampFontScale(3.5)).toBe(1.5);
+    expect(clampFontScale(1.3)).toBe(1.3);
     expect(clampFontScale(Number.NaN)).toBe(1);
     expect(clampFontScale(undefined)).toBe(1);
     applyFontScale(document, 0.1);
@@ -61,11 +62,18 @@ describe('applyFontScale', () => {
 
   it('is a no-op at 1 and removes a previously set value', () => {
     applyFontScale(document, 0.9);
-    applyFontScale(document, 2);
+    applyFontScale(document, 1);
     expect(root().style.fontSize).toBe('');
     expect(root().style.getPropertyValue('--font-scale')).toBe('');
     applyFontScale(document, 1);
     expect(root().style.fontSize).toBe('');
+  });
+
+  it('enlarges the root font-size up to the cap', () => {
+    applyFontScale(document, 1.3);
+    expect(root().style.fontSize).toBe('130%');
+    applyFontScale(document, 3);
+    expect(root().style.fontSize).toBe('150%');
   });
 
   it('updates when the scale changes', () => {

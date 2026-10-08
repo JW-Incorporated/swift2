@@ -69,7 +69,7 @@ export function TopBar() {
             type="button"
             onClick={handleHome}
             aria-label="Long Live — back to home"
-            className="shrink-0 rounded-md font-era text-base font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
+            className="shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
           >
             Long&nbsp;Live
           </button>
@@ -78,6 +78,7 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
+              title={`Era: ${era.name}`}
               className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
             >
               <span className="min-w-0 truncate text-sm font-medium text-ink">
