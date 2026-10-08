@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { canonicalizeLink } from './notification-tap-queue';
 import type { TapGate } from './notification-tap-gate';
 import { isDiagLink, openDiagPanel } from './diag-link';
+import { noteLiveLink, takeRetainedLink } from './retained-link';
 
 const APP_SCHEME = 'longlive://';
 const SITE = 'https://www.longlivets.com';
@@ -43,6 +44,8 @@ export interface DeepLinkPorts {
   getInitialURL(): Promise<string | null>;
   /** Subscribes to live URL events; returns the unsubscribe. */
   listen(cb: (url: string) => void): () => void;
+  /** #5139: the live link retained across a Recovery Retry reload, read once; absent = none. */
+  takeRetained?(): Promise<string | null>;
 }
 
 /** How long after start a launch URL's other side (initial URL vs its url-event echo) still pairs with it. */
@@ -87,12 +90,19 @@ export function startDeepLinkIntake(
       launch = { key, id: `cold:${key}`, from };
       id = launch.id;
     }
+    if (from === 'event' && id.startsWith('link:')) noteLiveLink(url, now());
     gate.enqueue({ id, deepLink: url, source: 'deeplink' });
   };
   const off = ports.listen((raw) => ingest(raw, 'event'));
   ports
     .getInitialURL()
     .then((raw) => ingest(raw, 'initial'))
+    .catch(() => {})
+    .then(() => ports.takeRetained?.())
+    .then((raw) => {
+      const url = valid(raw);
+      if (url !== null) gate.enqueue({ id: `retained:${urlKey(url)}`, deepLink: url, source: 'deeplink' });
+    })
     .catch(() => {});
   return () => {
     stopped = true;
@@ -108,6 +118,7 @@ export function useDeepLinks(gate: Pick<TapGate, 'enqueue'>): void {
       if (cancelled) return;
       stop = startDeepLinkIntake(gate, {
         getInitialURL: () => Linking.getInitialURL(),
+        takeRetained: () => takeRetainedLink(),
         listen: (cb) => {
           const sub = Linking.addEventListener('url', (e) => cb(e.url));
           return () => sub.remove();
