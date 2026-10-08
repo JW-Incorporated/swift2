@@ -159,18 +159,13 @@ export const RUNWAY_LOOKS = [
     // Source: Swift has spoken on record about adopting a red lip as a
     // deliberate signature during the Red era (2012-2013) alongside
     // vintage-inspired tailoring and knitwear.
-    description: 'Harper\'s Bazaar calls a \'50s-inspired dress with a matching cardigan and a red lip, first seen on October 22, 2012, a classic example of her 2012-2013 style. For her 2012 VMAs performance she wore a red-and-white top, black shorts, and red sneakers (Billboard), and for the 2013 Grammys a white, flowing J. Mendel dress (Who What Wear). On the Red Tour she added a tuxedo-inspired look with a black top hat in Dallas on May 25, 2013.',
+    description: 'A bold red lip as a deliberate signature (Swift has discussed this choice on record), paired with vintage-cut tailoring and autumn knitwear.',
     images: [
       { url: 'https://media.gettyimages.com/id/155121144/photo/nashville-tn-taylor-swift-performs-during-the-46th-annual-cma-awards-at-the-bridgestone-arena.jpg?s=612x612&w=0&k=20&c=_eRjHqsT9GNe4uw9JAAcjwnr5wfnwDQFZkgxMhWDKkQ=', credit: 'Jason Kempin/Getty Images', caption: 'Performing at the 46th CMA Awards, November 2012, just after Red released — red lip and vintage-cut tailoring.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/161394336/photo/los-angeles-ca-taylor-swift-arrives-at-the-55th-annual-grammy-awards-on-february-10-2013-in.jpg?s=612x612&w=0&k=20&c=nAxTPznrcJLJtU5GP1Wndy-vJYC5lIAWbbhUPRohKx8=', credit: 'Christopher Polk/Getty Images for NARAS', caption: '55th Grammy Awards red carpet, February 2013 — the bold-red-lip, structured-glamour signature look.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/168069917/photo/detroit-mi-taylor-swift-swift-played-the-first-of-13-north-american-stadium-dates-on-the-red.jpg?s=612x612&w=0&k=20&c=MLwDmjrMhFEzEDreloQIwSkojuZjE1GeZjlDKID7JyM=', credit: 'Christopher Polk/TAS/Getty Images for TAS', caption: 'Opening night of the RED Tour\'s North American stadium run, Ford Field, Detroit, May 2013.', kind: 'primary' },
     ],
     shopTags: ['Red lipstick', 'Knit scarf', 'High-waist shorts'],
-    sources: [
-      { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g71309753/taylor-swift-complete-style-fashion-evolution/' },
-      { title: 'Billboard: Taylor Swift\'s Style Evolution, From 2006 to Now', url: 'https://www.billboard.com/photos/taylor-swift-style-evolution-photos-429884/' },
-      { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
-    ],
   },
   {
     id: 'look-1989',
