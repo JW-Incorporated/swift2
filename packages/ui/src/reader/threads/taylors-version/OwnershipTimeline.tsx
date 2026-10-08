@@ -235,14 +235,14 @@ export function OwnershipTimeline({
                 <div className="w-28 shrink-0 text-right">
                   {album.reclaimedYear !== null ? (
                     <span
-                      className="era-chip whitespace-nowrap"
+                      className="era-chip max-w-full sm:whitespace-nowrap"
                       style={{ backgroundColor: 'var(--status-reclaimed)', color: 'var(--status-reclaimed-ink)', borderColor: 'var(--status-reclaimed-ink)', opacity: 0.9 }}
                     >
                       Re-recorded
                     </span>
                   ) : (
                     <span
-                      className="era-chip whitespace-nowrap"
+                      className="era-chip max-w-full sm:whitespace-nowrap"
                       style={{ backgroundColor: 'var(--status-pending)', color: 'var(--status-pending-ink)', borderColor: 'var(--status-pending-ink)', opacity: 0.9 }}
                     >
                       Owned · TV soon
@@ -254,14 +254,22 @@ export function OwnershipTimeline({
           })}
         </div>
 
-        <div className="relative mt-1 h-8" style={{ borderTop: '1px solid var(--era-line)', paddingTop: '0.5rem' }}>
-          <div className="absolute" style={{ left: `${yearToPercent(2019)}%` }}>
-            <span className="text-xs italic" style={{ color: 'var(--era-ink-soft)', whiteSpace: 'nowrap' }}>
+        <div
+          className="mt-1 flex min-w-0 flex-wrap gap-x-4 gap-y-1 md:relative md:block md:h-8"
+          style={{
+            borderTop: '1px solid var(--era-line)',
+            paddingTop: '0.5rem',
+            ['--tv-sale-left' as string]: `${yearToPercent(2019)}%`,
+            ['--tv-buyback-left' as string]: `${yearToPercent(buybackFrac)}%`,
+          }}
+        >
+          <div className="min-w-0 max-w-full md:absolute md:left-[var(--tv-sale-left)]">
+            <span className="text-xs italic md:whitespace-nowrap" style={{ color: 'var(--era-ink-soft)' }}>
               Big Machine sold to Ithaca Holdings — Jun 2019
             </span>
           </div>
-          <div className="absolute text-right" style={{ right: 0, left: `${yearToPercent(buybackFrac)}%`, transform: 'translateX(-100%)' }}>
-            <span className="text-xs font-semibold italic" style={{ color: 'var(--status-reclaimed-ink)', whiteSpace: 'nowrap' }}>
+          <div className="min-w-0 max-w-full md:absolute md:right-[calc(100%-var(--tv-buyback-left))] md:text-right">
+            <span className="text-xs font-semibold italic md:whitespace-nowrap" style={{ color: 'var(--status-reclaimed-ink)' }}>
               Bought back all six masters — {buybackDate}
             </span>
           </div>
