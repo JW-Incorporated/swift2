@@ -153,6 +153,27 @@ describe('triage', () => {
       expect(warned).toBe(true);
     }
   });
+  it('a failed run whose annotation says the plan usage limit is exhausted files nothing and dispatches nothing', async () => {
+    const { gh, calls } = fakeGh({ annotations: [{ message: 'plan usage for this account is exhausted, resets 2026-10-05T17:00:00.000Z — transient, not a code defect' }] });
+    const q = quiet();
+    const res = await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    const warned = q.mock.calls.some((c) => String(c[0]).startsWith('::warning::') && RUN_RE.test(String(c[0])) && String(c[0]).includes('2026-10-05T17:00:00.000Z'));
+    q.mockRestore();
+    expect(res).toEqual({ action: 'skipped', reason: 'usage-limit' });
+    expect(warned).toBe(true);
+    expect(verbs(calls)).not.toContain('issue create');
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
+  });
+  it('a failed run with another annotation, none, or an unreadable one still files an issue', async () => {
+    for (const fake of [{ annotations: [{ message: 'Process completed with exit code 1.' }] }, { annotations: [] }, { annotationsError: true }]) {
+      const { gh, calls } = fakeGh(fake);
+      const q = quiet();
+      expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW })).action).toBe('filed');
+      q.mockRestore();
+      expect(verbs(calls)).toContain('issue create');
+      expect(calls.find((c) => c[0] === 'workflow')).toBeDefined();
+    }
+  });
   it('comments on today’s CLOSED issue instead of filing a new one, and never reopens it', async () => {
     const closed = { ...issueRow(5100, `${failureMarker(WF, '2026-10-05')} earlier run`), state: 'closed' };
     const { gh, calls } = fakeGh({ open: [closed] });

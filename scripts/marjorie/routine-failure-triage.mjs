@@ -37,6 +37,8 @@ export const RECEIPT_TITLES = {
 // GitHub reports a timeout-minutes stop as `cancelled`; a manual cancel looks the same. The job's check-run
 // annotation tells them apart: only a timeout says this. (Max-turns stops surface as `failure`, not `cancelled`.)
 const TIMEOUT_RE = /exceeded the maximum execution time/i;
+// scripts/routines/session-outcome.mjs failureHint writes this into the failed job's annotation when the plan's usage limit is hit.
+const USAGE_LIMIT_RE = /plan usage for this account is exhausted/i;
 // The exact title prefix this script writes; its daily dispatch cap counts only issues carrying it.
 export const TITLE_PREFIX = 'routine failure:';
 
@@ -110,6 +112,23 @@ async function cancelledByTimeout(gh, repo, jobs, runUrl) {
   return false;
 }
 
+/** Annotation text of the first failed job that reports the plan usage limit, or null. Fail-open: any read error means null (file the issue). */
+async function blockedByUsageLimit(gh, repo, jobs, runUrl) {
+  const bad = (jobs?.jobs ?? []).filter((j) => j.conclusion === 'failure' || j.conclusion === 'timed_out');
+  for (const job of bad) {
+    const id = job.databaseId ?? job.id;
+    try {
+      const rows = JSON.parse(String((await gh(['api', `repos/${repo}/check-runs/${id}/annotations`])).stdout || '[]'));
+      const hit = Array.isArray(rows) ? rows.find((a) => USAGE_LIMIT_RE.test(String(a?.message ?? ''))) : null;
+      if (hit) return String(hit.message);
+    } catch (err) {
+      warn(`could not read annotations for job ${id} (${String(err?.message || err).split('\n')[0].slice(0, 120)}), triaging anyway: ${runUrl}`);
+      return null;
+    }
+  }
+  return null;
+}
+
 /** Whole-URL match (run 111 is not run 1111) without a substring test on a URL. */
 export function mentionsUrl(text, url) {
   const escaped = String(url).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -139,6 +158,14 @@ export async function triage({ workflow, runId, runUrl, conclusion, day: dayOver
     const { job, step } = failingJobStep(jobs);
     // A cancelled run is a manual stop or a concurrency swap unless a cancelled job's annotation says it hit the time limit.
     if (!failed && !(await cancelledByTimeout(gh, repo, jobs, runUrl))) return { action: 'skipped', reason: 'cancelled, not a timeout' };
+    // A run that only died because the Claude plan's usage limit was exhausted is transient: the next scheduled run recovers.
+    const limited = failed ? await blockedByUsageLimit(gh, repo, jobs, runUrl) : null;
+    if (limited) {
+      const resets = limited.match(/resets (\d{4}-\d{2}-\d{2}T[\d:.]+Z)/)?.[1];
+      log(`bot-failure-triage: ${workflow} hit the plan usage limit, no issue filed.`);
+      warn(`${workflow} failed on the plan usage limit${resets ? ` (resets ${resets})` : ''}, no issue filed: ${runUrl}`);
+      return { action: 'skipped', reason: 'usage-limit' };
+    }
     const day = dayOverride ?? utcDay(now);
     const marker = failureMarker(workflow, day);
     const api = apiFor(gh);
