@@ -91,6 +91,106 @@ export default {
       },
     },
     {
+      // Authored 2026-10-06 (Vault Run, Content Shift lane) from intake #5248.
+      // US-chart follow-on to the Encore-arrival moment
+      // (slug 'showgirl-the-encore-patient-zero-spotify-records'), which
+      // deliberately stopped at the Oct. 2 ARIA (Australian) chart double —
+      // this is the separate Billboard result a week later. Dated to the Oct.
+      // 4-5, 2026 reporting weekend; the Hot 100 it describes is dated Oct. 10,
+      // 2026 (Billboard forward-dates its charts). Facts verified against
+      // Billboard's own report: billboard.com is tollbit/bot-gated in the run
+      // environment, so the figures were confirmed through Yahoo
+      // Entertainment's verbatim syndication of that Billboard piece and the
+      // Cox Media Group (WFTV) wire story, which agree on every number.
+      slug: 'showgirl-patient-zero-hot-100-no-1-encore-billboard-200',
+      year: 2026,
+      month: 10,
+      day: 4,
+      category: 'music',
+      title:
+        '"Patient Zero" debuts at No. 1 — a record-tying 10th — as "Encore" tracks take four of the Hot 100\'s top five',
+      snippet:
+        'A week and a half after "The Life of a Showgirl: The Encore" arrived, the US charts caught up: "Patient Zero" debuted atop the Billboard Hot 100 — Taylor\'s 16th No. 1 and her 10th to enter straight at the top, tying Drake\'s record — while the album surged back to No. 1 on the Billboard 200 for a 13th week.',
+      sourceUrl:
+        'https://www.billboard.com/lists/taylor-swift-patient-zero-hot-100-number-one-debut/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A week and a half after "The Life of a Showgirl: The Encore" landed, the US charts caught up to the streaming numbers. On the Billboard Hot 100 dated Oct. 10, 2026, "Patient Zero" debuted at No. 1 — Taylor\'s 16th career leader on the chart, and her 10th song to enter straight in at the top, which tied her with Drake for the most No. 1 debuts in Hot 100 history. It ended one of the chart\'s longer recent reigns: Ella Langley\'s "Choosin\' Texas," which had held No. 1 for an unprecedented 24 weeks since February, slipped to No. 2.\n\nThe rest of the Encore came up with it. The three other new songs — "Cleveland!," "Babylon" and "Pink Clouding" — bowed at Nos. 3, 4 and 5, handing Taylor four of the Hot 100\'s top five in a single week. On the albums side, the expanded edition pushed "The Life of a Showgirl" — all versions counted together — back to No. 1 on the Billboard 200 for a 13th nonconsecutive week atop the chart, its first week on top since January.',
+        // No `video` field on purpose (same as the Encore-arrival moment): the
+        // official-video frame is used as a plain credited photo so it does not
+        // register as the moment\'s own video for the #2080/#2081 feed-card rule
+        // or the video-affordance real-vault count tests (#4134/#5192), which a
+        // seed-only lane cannot move.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg',
+            // 1280x720 maxresdefault, curl-verified HTTP 200 image/jpeg
+            // (177KB). oEmbed verified: title "Taylor Swift - Patient Zero
+            // (Expanded Video)", author_name "Taylor Swift", author_url
+            // youtube.com/@TaylorSwift (video id j8pR1tyoRFc, posted Oct. 5,
+            // 2026 to her official channel) — the official video for the song
+            // this chart moment is about.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" video, YouTube)',
+            caption:
+              'A frame from the official "Patient Zero" video on Taylor\'s YouTube — the single that debuted at No. 1 on the Billboard Hot 100 dated Oct. 10, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-patient-zero-hot-100-number-one-debut/',
+            source_title:
+              'Taylor Swift’s ‘Patient Zero’ Debuts at No. 1 on Billboard Hot 100',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 5,
+            notes:
+              'Primary source for every figure here: 16th career Hot 100 No. 1; 10th No. 1 debut tying Drake; "Choosin\' Texas" dethroned after 24 weeks to No. 2; "Cleveland!"/"Babylon"/"Pink Clouding" at Nos. 3-5; album back to No. 1 on the Billboard 200 for a 13th week. billboard.com is tollbit/bot-gated in this run, so these were read via the Yahoo and WFTV reprints of this same report below, which match it exactly.',
+          },
+          {
+            outlet: 'Yahoo Entertainment (syndicating Billboard)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-patient-zero-debuts-165721355.html',
+            source_title:
+              'Taylor Swift’s ‘Patient Zero’ Debuts at No. 1 on Billboard Hot 100',
+            publisher: 'Yahoo Entertainment / Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 4,
+            notes:
+              'Accessible verbatim reprint of the Billboard report; the text actually read for this item. Confirms all five chart facts, including the album\'s 13th week on the Billboard 200.',
+          },
+          {
+            outlet: 'WFTV (Cox Media Group)',
+            url: 'https://www.wftv.com/news/trending/patient-zero-no-1-billboard-hot-100-knocks-choosin-texas-off-top-spot/L3JQZ2UWUBAV5DCMTTAIFSMTK4/',
+            source_title:
+              "Taylor Swift's 'Patient Zero' reaches No. 1 on Billboard Hot 100, knocks 'Choosin' Texas' off top spot",
+            publisher: 'WFTV',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 3,
+            notes:
+              'Independent wire corroboration of the Hot 100 No. 1, the 16th-leader count, the "Choosin\' Texas" 24-week run, and the "Cleveland!"/"Babylon"/"Pink Clouding" top-five placements.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-number-one-hot-100-1235635574/',
+            source_title:
+              "Taylor Swift Nabs Yet Another Number One Song With 'Patient Zero'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 4,
+            notes:
+              'Additional established-trade report of the Hot 100 debut (paywalled/bot-gated in this run; listed for provenance alongside the accessible reprints above).',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-01 (Vault Run, Content Shift lane) from intake #4560.
       // On-the-record interview quotes about a public topic (handling online
       // criticism) — no privacy redline. Extends the sombr friendship already
@@ -4022,7 +4122,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Taylor\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand"; guest Pat McAfee said on his show that Avril Lavigne performed "Sk8er Boi" and that Taylor joined Stevie Nicks\'s set. Catering ran through Scott Sartiano\'s orbit — his Sartiano\'s handled the July 2 rehearsal dinner and his club Zero Bond the reception, per Page Six. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
+          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Taylor\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, included Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. No official ceremony or reception photos had been released in the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand" — a song he told "Jimmy Kimmel Live" in October 2026 he had not performed live since 1964, and played only because Taylor asked: "She asked me to do it," he said, adding that he told her, "You should sing along, and you should sing it to your man" (whether they duetted he left unsaid); guest Pat McAfee said on his show that Avril Lavigne performed "Sk8er Boi" and that Taylor joined Stevie Nicks\'s set. Catering ran through Scott Sartiano: his Sartiano\'s handled the July 2 rehearsal dinner and his club Zero Bond the reception, per Page Six. The couple sang too: per Jason Kelce on Ross Tucker\'s Football Podcast (July 21), the newlyweds performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Further confirmed guests: Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
         sources: [
           {
             outlet: 'CBS News',
@@ -4128,6 +4228,37 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+          // Enrichment 2026-10-06 (Vault Run, Content Shift lane) from intake
+          // #5179: Paul McCartney's first on-the-record account of the wedding
+          // performance, on "Jimmy Kimmel Live" (aired Oct. 2-3, 2026). The
+          // performance itself was already on this page (above); this adds the
+          // why — Taylor asked him, the song was one he had not played live
+          // since 1964 — in his own words. Public figure, public anecdote, a
+          // venue already public from prior coverage: no privacy redline.
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/paul-mccartney-reveals-why-performed-193548126.html',
+            source_title:
+              "Paul McCartney Reveals Why He Performed at Taylor Swift's Wedding: 'She Asked Me to Do It'",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 4,
+            notes:
+              'Primary source (read directly) for McCartney\'s Kimmel quotes: "She asked me to do it"; "I Want to Hold Your Hand" not performed live since 1964; "You should sing along, and you should sing it to your man." Notes it is unclear whether the two actually duetted — carried here as left unsaid, not as a duet.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/',
+            source_title:
+              "Paul McCartney Talks Taylor Swift's Wedding for First Time on 'Kimmel'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-06',
+            reliability_score: 4,
+            notes:
+              'Second established-trade report of the same Kimmel appearance (paywalled/bot-gated in this run; listed for provenance).',
           },
         ],
         photos: [
