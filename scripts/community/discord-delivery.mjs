@@ -108,6 +108,27 @@ function balanceFences(chunks) {
   return result;
 }
 
+const graphemes = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+/**
+ * Largest cut index `<= max` (UTF-16 units, so the budget stays conservative
+ * for however Discord counts) that does not split a grapheme cluster. A plain
+ * `slice(0, max)` can cut an emoji's surrogate pair or a ZWJ sequence in half;
+ * `JSON.stringify` then emits a lone `\uXXXX` escape, which RFC 8259 forbids.
+ * If the first cluster alone exceeds `max`, falls back to a code-point-safe cut.
+ */
+function graphemeSafeCut(str, max) {
+  let cut = 0;
+  for (const { index, segment } of graphemes.segment(str)) {
+    const end = index + segment.length;
+    if (end > max) break;
+    cut = end;
+  }
+  if (cut > 0) return cut;
+  const code = str.charCodeAt(max - 1);
+  return code >= 0xd800 && code <= 0xdbff ? max - 1 : max;
+}
+
 /**
  * Splits `content` into Discord-postable chunks, each `<= limit` chars even
  * after fence-balancing. Prefers paragraph (`\n\n`) boundaries; a single
@@ -153,7 +174,7 @@ export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
     let remaining = para;
     while (remaining.length > packLimit) {
       let cut = remaining.lastIndexOf(' ', packLimit);
-      if (cut <= 0) cut = packLimit;
+      if (cut <= 0) cut = graphemeSafeCut(remaining, packLimit);
       rawChunks.push(remaining.slice(0, cut));
       remaining = remaining.slice(cut).replace(/^ /, '');
     }

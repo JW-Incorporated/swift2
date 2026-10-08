@@ -229,8 +229,14 @@ jobs:
           git config lfs.locksverify false
           git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
 
+      # Every new photo passes a Claude Sonnet 5.5 vision check inside the importer
+      # (scripts/social/photo-qc.mjs; docs/decisions.md 2026-10-07 "QC sonnet", about
+      # $24/month at the 200-check cap). Fail-closed: without the key, nothing is imported.
+      # QC_MAX_CHECKS_PER_RUN overrides the cap; the key is on this step only.
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           node scripts/social/import-photo-library.mjs \
             --input .artifacts/concert-photo-candidates.json \
@@ -248,6 +254,7 @@ jobs:
           add-paths: |
             social/photo-library.json
             social/video-frames-ledger.json
+            social/photo-qc-rejected.json
             apps/web/public/social/library/photos/**
           branch: social/concert-photo-sourcing
           commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
