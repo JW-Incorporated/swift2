@@ -159,7 +159,7 @@ export const RUNWAY_LOOKS = [
     // A look is defined by its photos (#5353 ruling, #5355): each caption
     // describes its own image and the description names only what a photo
     // shows. Verified by viewing every photo on 2026-10-08.
-    description: 'The Red era mixed retro sweetness with rock-show brights: Harper\'s Bazaar calls a \'50s-inspired dress, cardigan and red lip a classic example of her 2012-2013 style, and she performed at the 2012 CMA Awards seated in a red polka-dot, 1950s-style dress. At the February 2013 Grammys she walked the red carpet in a white pleated J. Mendel gown (Who What Wear), while on the Red Tour she played in a black-and-white striped top and red pants.',
+    description: 'The Red era mixed retro sweetness with rock-show brights: she performed at the November 2012 CMA Awards seated in a red polka-dot, 1950s-style dress. At the February 2013 Grammys she walked the red carpet in a white pleated J. Mendel gown (Who What Wear), while on the Red Tour she played in a black-and-white striped top and red pants.',
     images: [
       { url: 'https://media.gettyimages.com/id/155121144/photo/nashville-tn-taylor-swift-performs-during-the-46th-annual-cma-awards-at-the-bridgestone-arena.jpg?s=612x612&w=0&k=20&c=_eRjHqsT9GNe4uw9JAAcjwnr5wfnwDQFZkgxMhWDKkQ=', credit: 'Jason Kempin/Getty Images', caption: 'Performing seated at the 46th CMA Awards, November 2012, just after Red released — a red polka-dot, 1950s-style dress.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/161394336/photo/los-angeles-ca-taylor-swift-arrives-at-the-55th-annual-grammy-awards-on-february-10-2013-in.jpg?s=612x612&w=0&k=20&c=nAxTPznrcJLJtU5GP1Wndy-vJYC5lIAWbbhUPRohKx8=', credit: 'Christopher Polk/Getty Images for NARAS', caption: '55th Grammy Awards red carpet, February 2013 — a white pleated J. Mendel gown with a silver-trimmed cutout neckline.', kind: 'primary' },
@@ -167,7 +167,6 @@ export const RUNWAY_LOOKS = [
     ],
     shopTags: ['Red lipstick', 'Polka-dot dress', 'Striped top', 'Red pants'],
     sources: [
-      { title: 'Harper\'s Bazaar: See Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g71309753/taylor-swift-complete-style-fashion-evolution/' },
       { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
     ],
   },
@@ -208,7 +207,7 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/1003511368/photo/east-rutherford-nj-taylor-swift-swift-performs-onstage-during-the-taylor-swift-reputation.jpg?s=612x612&w=0&k=20&c=SvMDUJCj_VP457sTHsu4ccsB-Pm7ZEOuEFvp7RnQnS4=', credit: 'Kevin Mazur/TAS18/Getty Images for TAS', caption: 'reputation Stadium Tour, MetLife Stadium, July 2018 — a black sequined long-sleeve one-piece with fishnet tights and thigh-high black boots.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/961777280/photo/billboard-music-awards-red-carpet-arrivals-2018-bbmas-at-the-mgm-grand-las-vegas-nevada.jpg?s=612x612&w=0&k=20&c=Ma4s1at0Recz800B1mzcLzHjZy3jAXC7FZAyluncfnk=', credit: 'Getty Images', caption: '2018 Billboard Music Awards red carpet — a blush-pink gown with embroidered floral appliqué and a thigh-high slit.', kind: 'primary' },
     ],
-    shopTags: ['Black bodysuit', 'Combat boots'],
+    shopTags: ['Black bodysuit', 'Thigh-high boots'],
     sources: [
       { title: 'Taylor Swift Kicks Off ‘Reputation’ Tour With Sequins, Snakeskin & Custom Louboutin Boots (Footwear News, via Yahoo, May 10, 2018)', url: 'https://www.yahoo.com/lifestyle/taylor-swift-kicks-off-reputation-202710611.html' },
     ],
