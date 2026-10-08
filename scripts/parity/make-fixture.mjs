@@ -9,6 +9,7 @@
 //   --apply               CI (build-web): copy the frozen baked modules and bundle over
 //                         apps/web, then verify. Run after `npm run sync:content`, then
 //                         `next build` directly (NOT `npm run build`: its prebuild re-syncs).
+//   --lenses              CI (build-dom): copy only the frozen lenses module over packages/experience.
 //   --regenerate          deliberate, manual or dispatch only: freeze the LIVE synced tree
 //                         (after `npm run sync:content`) into scripts/parity/fixture/, prune it
 //                         (below) and write fixture.json. CI never runs this.
@@ -36,6 +37,9 @@ const fixtureDir = join(repo, 'scripts/parity/fixture');
 const published = join(repo, 'apps/web/public/content');
 const longlive = join(repo, 'apps/web/lib/longlive');
 const web = pathToFileURL(longlive) + '/';
+const experienceSrc = join(repo, 'packages/experience/src');
+/** Frozen lens data (packages/experience), copied by --apply and --lenses so supabase/seed/lenses/** cannot move baselines. */
+const LENSES = 'lenses.generated.ts';
 
 /** Baked modules the snapshot (and so both rendered sides) is built from. */
 const BAKED = [
@@ -63,7 +67,7 @@ const PER_ERA = { tracks: 'tracks', theories: 'theories', videos: 'videos', eraS
 const ALIAS = 'frozen';
 
 const mode = process.argv[2] ?? '--check';
-if (!['--check', '--apply', '--regenerate', '--prune'].includes(mode)) {
+if (!['--check', '--apply', '--lenses', '--regenerate', '--prune'].includes(mode)) {
   console.error(`parity fixture: unknown mode ${mode}`);
   process.exit(2);
 }
@@ -155,6 +159,11 @@ function pruneFixture() {
   }
 }
 
+if (mode === '--lenses') {
+  cpSync(join(fixtureDir, 'experience', LENSES), join(experienceSrc, LENSES));
+  console.log('parity fixture: lenses applied');
+  process.exit(0);
+}
 if (mode === '--regenerate') {
   rmSync(fixtureDir, { recursive: true, force: true });
   mkdirSync(join(fixtureDir, 'web'), { recursive: true });
@@ -164,10 +173,13 @@ if (mode === '--regenerate') {
   });
   cpSync(join(published, 'current.json'), join(fixtureDir, 'content', 'current.json'));
   for (const f of BAKED) cpSync(join(longlive, f), join(fixtureDir, 'web', f));
+  mkdirSync(join(fixtureDir, 'experience'), { recursive: true });
+  cpSync(join(experienceSrc, LENSES), join(fixtureDir, 'experience', LENSES));
 }
 if (writing) pruneFixture();
 if (mode === '--apply' || writing) {
   for (const f of BAKED) cpSync(join(fixtureDir, 'web', f), join(longlive, f));
+  cpSync(join(fixtureDir, 'experience', LENSES), join(experienceSrc, LENSES));
   rmSync(published, { recursive: true, force: true });
   cpSync(join(fixtureDir, 'content'), published, { recursive: true });
 }
