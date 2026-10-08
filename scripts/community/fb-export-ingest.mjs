@@ -10,11 +10,11 @@
 //      `parseFacebookExport` verbatim — same aggregate-only, redline-screened,
 //      hashed-author draft the plan already specced for E4's fan_signal half);
 //   2. `engagement_lead` rows, `platform='facebook'`, `kind='hot_thread'`,
-//      `url=null`, one per surviving post, ranked by reactions+comments (§2.4
+//      `url` = the post permalink when the saved export carries one, else null, one per surviving post, ranked by reactions+comments (§2.4
 //      step 2) — `locator` is "<group name> — <first 80 chars of post text>"
-//      so Joey can find the post again by scrolling the group himself
-//      (private groups have no permalink this may store, per the schema
-//      comment on `engagement_lead.locator`);
+//      so Joey can find the post again by scrolling the group himself when
+//      the export has no permalink (the awareness card then falls back to a
+//      group link / group search, awareness-message.mjs);
 //   3. a shop-link side-output file (JSON) for E5's fan-merch widen (§3.5,
 //      card P2-7) — any Etsy/Shopify/allowed-domain URL found in post text,
 //      same `SHOP_DOMAIN_ALLOWLIST`/`SHOP_DOMAIN_SUFFIX_ALLOWLIST` E5 already
@@ -207,7 +207,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
       community: `facebook:${groupSlug}`,
       kind: 'hot_thread',
       thread_id: null,
-      url: null,
+      url: post.permalink ?? null,
       locator: `${groupName} — ${short}`,
       title: null,
       context: short,
@@ -249,6 +249,23 @@ export function buildIngestResult(html, { groupSlug, groupName, exportedAt, maxL
   };
 }
 
+/**
+ * A lead the dedupe index already holds keeps its row; when the fresh lead
+ * carries a permalink and the stored row has none, only that url is filled in
+ * (same platform/locator/kind key as the index, thread_id null) — no new row.
+ */
+export async function backfillLeadUrl(supabase, lead) {
+  if (!lead.url || lead.thread_id) return;
+  const { error } = await supabase
+    .from('engagement_lead')
+    .update({ url: lead.url })
+    .eq('platform', lead.platform)
+    .eq('locator', lead.locator)
+    .eq('kind', lead.kind)
+    .is('url', null);
+  if (error) throw new Error(`engagement_lead url backfill failed: ${error.message}`);
+}
+
 async function writeResult(supabase, result) {
   const { error: fanSignalError } = await supabase.from('fan_signal').insert(result.fanSignal);
   if (fanSignalError) throw new Error(`fan_signal insert failed: ${fanSignalError.message}`);
@@ -266,6 +283,7 @@ async function writeResult(supabase, result) {
   for (const lead of result.engagementLeads) {
     const { error } = await supabase.from('engagement_lead').insert(lead);
     if (error?.code === '23505') {
+      await backfillLeadUrl(supabase, lead);
       deduped += 1;
       continue;
     }

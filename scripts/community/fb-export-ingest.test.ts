@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
+  backfillLeadUrl,
   buildIngestResult,
   engagementLeadsFromPosts,
   normalizeSupabaseUrl,
@@ -90,16 +91,21 @@ describe('engagementLeadsFromPosts', () => {
     for (const value of Object.values(leads[0])) {
       if (typeof value !== 'string') continue;
       expect(Buffer.from(value, 'utf8').toString('utf8')).toBe(value);
-      expect(value).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
+      expect(value).not.toMatch(
+        /[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/,
+      );
     }
     expect(leads[0].locator).toContain('\u{1f3a4}');
   });
 
   it('produces schema-shaped rows: platform facebook, kind hot_thread, url null', () => {
-    const leads = engagementLeadsFromPosts([{ text: 'a post', reactionCount: 5, commentCount: 1 }], {
-      groupName: 'Taylor Swift\u2019s Vault',
-      groupSlug: 'taylor-swifts-vault',
-    });
+    const leads = engagementLeadsFromPosts(
+      [{ text: 'a post', reactionCount: 5, commentCount: 1 }],
+      {
+        groupName: 'Taylor Swift\u2019s Vault',
+        groupSlug: 'taylor-swifts-vault',
+      },
+    );
     expect(leads[0]).toMatchObject({
       platform: 'facebook',
       community: 'facebook:taylor-swifts-vault',
@@ -109,15 +115,18 @@ describe('engagementLeadsFromPosts', () => {
       status: 'new',
       redline_ok: true,
     });
-    expect(leads[0].locator).toBe("Taylor Swift\u2019s Vault — a post");
+    expect(leads[0].locator).toBe('Taylor Swift\u2019s Vault — a post');
   });
 
   it('truncates the locator excerpt to 80 chars with an ellipsis', () => {
     const longText = 'x'.repeat(200);
-    const leads = engagementLeadsFromPosts([{ text: longText, reactionCount: 0, commentCount: 0 }], {
-      groupName: 'G',
-      groupSlug: 'g',
-    });
+    const leads = engagementLeadsFromPosts(
+      [{ text: longText, reactionCount: 0, commentCount: 0 }],
+      {
+        groupName: 'G',
+        groupSlug: 'g',
+      },
+    );
     expect(leads[0].locator).toBe(`G — ${'x'.repeat(80)}\u2026`);
   });
 
@@ -143,9 +152,9 @@ describe('resolveGroupName', () => {
 
   it('prefers an explicit override over the checklist lookup', () => {
     const checklist = [{ slug: 'taylor-swifts-vault', label: "Taylor Swift's Vault" }];
-    expect(resolveGroupName('taylor-swifts-vault', { groupNameOverride: 'Custom Name', checklist })).toBe(
-      'Custom Name',
-    );
+    expect(
+      resolveGroupName('taylor-swifts-vault', { groupNameOverride: 'Custom Name', checklist }),
+    ).toBe('Custom Name');
   });
 
   it('falls back to the slug itself when the group is not in the checklist', () => {
@@ -185,7 +194,9 @@ describe('buildIngestResult', () => {
     expect(result.fanSignal.community).toBe('facebook:taylor-swifts-vault');
     expect(result.fanSignal.volume).toBe(3);
     expect(result.engagementLeads).toHaveLength(3);
-    expect(result.shopLinks.map((l) => l.url)).toEqual(['https://www.etsy.com/listing/123456/swiftie-bracelet']);
+    expect(result.shopLinks.map((l) => l.url)).toEqual([
+      'https://www.etsy.com/listing/123456/swiftie-bracelet',
+    ]);
     expect(result.skippedRedlineCount).toBe(0);
   });
 
@@ -234,12 +245,63 @@ describe('normalizeSupabaseUrl', () => {
     expect(normalizeSupabaseUrl('abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
   });
   it('keeps http and https URLs as they are', () => {
-    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
+    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe(
+      'https://abcd1234.supabase.co',
+    );
     expect(normalizeSupabaseUrl('http://localhost:54321')).toBe('http://localhost:54321');
   });
   it('leaves empty or garbage values unchanged', () => {
     expect(normalizeSupabaseUrl('')).toBe('');
     expect(normalizeSupabaseUrl('not a url')).toBe('not a url');
     expect(normalizeSupabaseUrl(undefined)).toBeUndefined();
+  });
+});
+
+// SYNTHETIC permalink fixture (no real export available): the lead stores the
+// permalink in url, a post without one stays null, and the author never leaks.
+describe('permalink on the engagement lead', () => {
+  const html = `<div role="article"><a href="/groups/1/user/9/" aria-label="Jane Fan">Jane Fan</a>
+    <a href="/groups/1/posts/99/?__cft__[0]=x">2d</a><div dir="auto">which era has the best bridge</div>
+    <span>9 reactions</span></div>
+    <div role="article"><div dir="auto">no link on this one at all</div><span>1 reactions</span></div>`;
+
+  it('stores url from the export permalink and null when the export has none', () => {
+    const { engagementLeads } = buildIngestResult(html, {
+      groupSlug: 'g',
+      groupName: 'G',
+      exportedAt: new Date('2026-10-01T00:00:00Z'),
+    });
+    const find = (needle: string) =>
+      engagementLeads.find((l: { locator: string }) => l.locator.includes(needle));
+    expect(find('best bridge').url).toBe('https://www.facebook.com/groups/1/posts/99/');
+    expect(find('no link on this one').url).toBeNull();
+    expect(JSON.stringify(engagementLeads)).not.toContain('Jane Fan');
+  });
+
+  it('backfills only a missing url on the existing row, never inserting', async () => {
+    const calls: string[] = [];
+    const builder: Record<string, unknown> = {
+      update: (v: unknown) => (calls.push(`update ${JSON.stringify(v)}`), builder),
+      eq: (k: string, v: string) => (calls.push(`eq ${k}=${v}`), builder),
+      is: (k: string, v: null) => (calls.push(`is ${k}=${v}`), Promise.resolve({ error: null })),
+    };
+    const supabase = { from: vi.fn(() => builder) };
+    const lead = {
+      platform: 'facebook',
+      kind: 'hot_thread',
+      thread_id: null,
+      locator: 'G — x',
+      url: 'https://www.facebook.com/groups/1/posts/9/',
+    };
+    await backfillLeadUrl(supabase, lead);
+    expect(calls).toEqual([
+      'update {"url":"https://www.facebook.com/groups/1/posts/9/"}',
+      'eq platform=facebook',
+      'eq locator=G — x',
+      'eq kind=hot_thread',
+      'is url=null',
+    ]);
+    await backfillLeadUrl(supabase, { ...lead, url: null });
+    expect(supabase.from).toHaveBeenCalledTimes(1);
   });
 });

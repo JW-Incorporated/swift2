@@ -41,6 +41,8 @@ export interface ParsedFacebookPost {
   reactionCount: number;
   commentCount: number;
   authorHash: string | null;
+  /** Member-visible post URL found in the saved export, tracking stripped; null when the block has none. */
+  permalink?: string | null;
 }
 
 /** `fan_signal`-shaped draft — a future extract-stage write path inserts this, this module only produces it. */
@@ -166,6 +168,40 @@ function redactNames(text: string, names: string[]): string {
   return out.replace(/\s+/g, ' ').trim();
 }
 
+const FB_ORIGIN = 'https://www.facebook.com';
+const PERMALINK_HREF_RE =
+  /href="([^"]*(?:\/posts\/[\w.-]+|\/permalink\/[\w.-]+|story_fbid=)[^"]*)"/i;
+const KEEP_PERMALINK_PARAMS = new Set(['story_fbid', 'id']);
+
+/**
+ * The post's own permalink from a block's raw markup (read BEFORE profile
+ * anchors are dropped), or null. Only facebook.com hosts; a /posts/ or
+ * /permalink/ path keeps no query at all (comment_id and tracking go), a
+ * story_fbid link keeps just story_fbid + id. It is a URL, never a member's
+ * name, and profile links (/user/, /people/) never match.
+ */
+export function extractPermalink(block: string): string | null {
+  const match = PERMALINK_HREF_RE.exec(block);
+  if (!match?.[1]) return null;
+  let url: URL;
+  try {
+    url = new URL(match[1].replace(/&amp;/g, '&'), FB_ORIGIN);
+  } catch {
+    return null;
+  }
+  if (!/^(?:[a-z0-9-]+\.)*facebook\.com$/i.test(url.hostname)) return null;
+  if (!/\/(?:posts|permalink)\/[\w.-]+/.test(url.pathname)) {
+    if (!url.searchParams.get('story_fbid')) return null;
+    for (const key of [...url.searchParams.keys()])
+      if (!KEEP_PERMALINK_PARAMS.has(key)) url.searchParams.delete(key);
+  } else {
+    url.search = '';
+  }
+  url.hash = '';
+  url.protocol = 'https:';
+  return url.toString();
+}
+
 function parseCount(match: RegExpMatchArray | null): number {
   if (!match?.[1]) return 0;
   return Number(match[1].replace(/,/g, '')) || 0;
@@ -205,6 +241,7 @@ export function extractPostsFromHtml(html: string): ParsedFacebookPost[] {
       reactionCount: parseCount(block.match(REACTION_RE)),
       commentCount: parseCount(block.match(COMMENT_RE)),
       authorHash: authorName ? hashAuthor(decodeEntities(authorName)) : null,
+      permalink: extractPermalink(block),
     });
   }
   return posts;
@@ -231,7 +268,8 @@ export function parseFacebookExport(
   // Placeholder scale, not the real cross-source heat model (that lands with
   // the extract stage) — just enough signal that a busy week outranks a
   // quiet one until then.
-  const heat = kept.length > 0 ? Math.min(1, (totalReactions + totalComments * 2) / MAX_REACTIONS_SIGNAL) : 0;
+  const heat =
+    kept.length > 0 ? Math.min(1, (totalReactions + totalComments * 2) / MAX_REACTIONS_SIGNAL) : 0;
 
   return {
     platform: 'facebook',

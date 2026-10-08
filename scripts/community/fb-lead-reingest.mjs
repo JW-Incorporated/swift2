@@ -44,7 +44,11 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { BUCKET } from '../knowledge-fb-upload.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
-import { engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
+import {
+  backfillLeadUrl,
+  engagementLeadsFromPosts,
+  resolveGroupName,
+} from './fb-export-ingest.mjs';
 import { extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
 
@@ -70,7 +74,8 @@ export function latestExportPerGroup(objects, { slugs = null } = {}) {
     if (!parsed) continue;
     if (slugs && !slugs.includes(parsed.slug)) continue;
     const current = latest.get(parsed.slug);
-    if (!current || parsed.date > current.date) latest.set(parsed.slug, { ...parsed, name: object.name });
+    if (!current || parsed.date > current.date)
+      latest.set(parsed.slug, { ...parsed, name: object.name });
   }
   return [...latest.values()].sort((a, b) => a.slug.localeCompare(b.slug));
 }
@@ -110,6 +115,7 @@ async function insertLeads(supabase, leads) {
     const { error } = await supabase.from('engagement_lead').insert(lead);
     // 23505 = the dedupe index already holds this lead (see header).
     if (error?.code === '23505') {
+      await backfillLeadUrl(supabase, lead);
       deduped += 1;
       continue;
     }
@@ -164,7 +170,9 @@ async function main() {
   const flags = parseArgs(process.argv.slice(2));
   const supabase = serviceClient();
   if (!supabase) {
-    console.error('fb-lead-reingest: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set (expected in apps/worker/.env).');
+    console.error(
+      'fb-lead-reingest: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set (expected in apps/worker/.env).',
+    );
     return 1;
   }
 
@@ -173,21 +181,30 @@ async function main() {
 
   const exports_ = latestExportPerGroup(objects ?? [], { slugs });
   if (exports_.length === 0) {
-    console.log(`fb-lead-reingest: no stored exports found in "${BUCKET}" for the requested group(s) — nothing to re-ingest.`);
+    console.log(
+      `fb-lead-reingest: no stored exports found in "${BUCKET}" for the requested group(s) — nothing to re-ingest.`,
+    );
     return 0;
   }
-  console.log(`fb-lead-reingest: ${exports_.length} stored export(s) to re-ingest (newest per group).`);
+  console.log(
+    `fb-lead-reingest: ${exports_.length} stored export(s) to re-ingest (newest per group).`,
+  );
 
   let totalInserted = 0;
   let totalDeduped = 0;
   let totalCleared = 0;
   for (const item of exports_) {
-    const { data: blob, error: downloadError } = await supabase.storage.from(BUCKET).download(item.name);
+    const { data: blob, error: downloadError } = await supabase.storage
+      .from(BUCKET)
+      .download(item.name);
     if (downloadError) {
       console.error(`fb-lead-reingest: could not download ${item.name}: ${downloadError.message}`);
       continue;
     }
-    const html = typeof blob.text === 'function' ? await blob.text() : Buffer.from(await blob.arrayBuffer()).toString('utf8');
+    const html =
+      typeof blob.text === 'function'
+        ? await blob.text()
+        : Buffer.from(await blob.arrayBuffer()).toString('utf8');
     const { leads, postCount, screenedOut } = leadsFromExportHtml(html, {
       slug: item.slug,
       maxLeadsPerGroup: flags.maxLeadsPerGroup,
@@ -214,7 +231,8 @@ async function main() {
   console.log(
     `fb-lead-reingest: inserted ${totalInserted} engagement_lead row(s)` +
       (totalCleared ? `, replaced ${totalCleared} untriaged row(s)` : '') +
-      (totalDeduped ? `, ${totalDeduped} already existed` : '') + '.',
+      (totalDeduped ? `, ${totalDeduped} already existed` : '') +
+      '.',
   );
   return 0;
 }
