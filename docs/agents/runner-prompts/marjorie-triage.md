@@ -165,6 +165,11 @@ For either build class, create a JSON draft under `$RUNNER_TEMP` using a
 }
 ```
 
+`sourceContext` is exactly one of four canonical lines (the helper rejects
+anything else): `**From a site submission** — #<n>` (`source`: `issue`),
+`**From watchdog alert** — <issue URL>` (`alert`), `**From founder chat** — <message URL>`
+(`chat:<URL>`), or `**From Marjorie's weekly growth review** — #<plan issue>` (`review`).
+
 Name concrete repository-relative starting files in `paths`, never globs or
 directories. `estimatedLines` is your honest changed-line estimate; omit it
 when unknown. Set `needsSpec` only when the work is large enough to need a
@@ -176,7 +181,7 @@ unchanged fence; you do not choose `small` or `medium` yourself.
 Run, in order:
 
 ```
-gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" > "$RUNNER_TEMP/marjorie-filed.json"
 node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
@@ -186,7 +191,8 @@ node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
 Run `find` before every create, including a retry after an interrupted run.
 If it prints an issue object, do not create another issue: reuse that number
 and resume the original's audit comment/`marjorie-triaged` label. The paginated
-REST snapshot avoids search-index lag. `find` recognizes a ready build ticket or
+REST snapshot avoids search-index lag; `--slurp` cannot be combined with `--jq`, so
+save the raw pages and let `find` flatten them and skip pull requests. `find` recognizes a ready build ticket or
 a same-source large bank item; a pre-M8 unready filing suppresses neither.
 If `size` prints `large`, do not run `render` and do not file a build ticket:
 bank one issue labeled `founder-decision,marjorie-filed`, naming the spec needed

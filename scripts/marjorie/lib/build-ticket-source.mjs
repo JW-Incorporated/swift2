@@ -7,6 +7,10 @@ export function sourceKey(line) {
     /^\*\*From watchdog alert\*\*\s+—\s+https:\/\/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)\/issues\/([1-9]\d*)(?:[.,;:]?\s+.*|[.)]?)$/,
   );
   if (alert) return `alert:${alert[1].toLowerCase()}/${alert[2].toLowerCase()}#${alert[3]}`;
+  const review = String(line).match(
+    /^\*\*From Marjorie's weekly growth review\*\*\s+—\s+#([1-9]\d*)(?:[.,;:]?\s+.*|[.)]?)$/,
+  );
+  if (review) return `review:${review[1]}`;
   const chat = String(line).match(
     /^\*\*From founder chat\*\*\s+—\s+(https:\/\/\S+)$/,
   );

@@ -390,3 +390,33 @@ describe('CLI', () => {
     expect(result.stderr).toContain('missing section: **Acceptance criteria**');
   });
 });
+
+describe('weekly growth review source', () => {
+  const review = "**From Marjorie's weekly growth review** — #4674, 2026-10-01.";
+  const reviewInput = { ...base, source: 'review', sourceContext: review, reporterSaid: '' };
+
+  it('renders, checks and dedupes on the plan issue number', () => {
+    const body = renderBuildTicket(reviewInput);
+    expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
+    const filed = { number: 9, url: 'https://github.com/o/r/issues/9', labels: [{ name: 'marjorie-filed' }], body };
+    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4674")).toEqual(filed);
+    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4675")).toBeNull();
+  });
+
+  it('rejects a review line under another source and malformed review lines', () => {
+    expect(() => renderBuildTicket({ ...reviewInput, source: 'issue' })).toThrow('does not match source');
+    expect(() =>
+      renderBuildTicket({ ...reviewInput, sourceContext: "**From Marjorie's weekly growth review** — #0" }),
+    ).toThrow('sourceContext needs a canonical');
+  });
+
+  it('find accepts the raw --paginate --slurp pages and skips pull requests', () => {
+    const body = renderBuildTicket(reviewInput);
+    const dir = mkdtempSync(join(tmpdir(), 'build-ticket-find-'));
+    const issue = { number: 9, html_url: 'https://github.com/o/r/issues/9', labels: [{ name: 'marjorie-filed' }], body };
+    writeFileSync(join(dir, 'raw.json'), JSON.stringify([[{ ...issue, number: 8, pull_request: {} }], [issue]]));
+    writeFileSync(join(dir, 'in.json'), JSON.stringify(reviewInput));
+    const out = execFileSync('node', [CLI, 'find', join(dir, 'raw.json'), join(dir, 'in.json')], { encoding: 'utf8' });
+    expect(JSON.parse(out)).toEqual({ number: 9, url: 'https://github.com/o/r/issues/9' });
+  });
+});

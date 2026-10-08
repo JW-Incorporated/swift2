@@ -7,7 +7,7 @@ import { linePositions, sectionBody } from './build-ticket-structure.mjs';
 const NEXT_DYNAMIC_SEGMENT =
   /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
 const TICKET_STRUCTURE =
-  /[\r\n]|\*\*(?:Expected|Where|Size|Acceptance criteria|Reporter said|From (?:a site submission|watchdog alert|founder chat))\*\*|<!-- marjorie-build:/;
+  /[\r\n]|\*\*(?:Expected|Where|Size|Acceptance criteria|Reporter said|From (?:a site submission|watchdog alert|founder chat|Marjorie's weekly growth review))\*\*|<!-- marjorie-build:/;
 export const AUSTIN_PATH_ALLOWLIST = Object.freeze(['apps/web/', 'packages/', 'docs/']);
 export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
   prefixes: [
@@ -127,8 +127,8 @@ function singleLineText(value, name) {
 }
 function sourceValue(source) {
   const value = requiredText(source, 'source');
-  if (value === 'issue' || value === 'alert' || /^chat:https:\/\/\S+$/.test(value)) return value;
-  throw new Error('source must be issue, alert, or chat:<https message link>');
+  if (value === 'issue' || value === 'alert' || value === 'review' || /^chat:https:\/\/\S+$/.test(value)) return value;
+  throw new Error('source must be issue, alert, review, or chat:<https message link>');
 }
 function quoteVerbatim(value) {
   return String(value)
@@ -179,16 +179,17 @@ export function renderBuildTicket(input = {}) {
     throw new Error('sourceContext must be one nonempty line');
   }
   const identity = sourceKey(sourceContext);
-  if (!identity) throw new Error('sourceContext needs a canonical submission number, alert URL, or chat link');
+  if (!identity) throw new Error('sourceContext needs a canonical submission number, alert URL, chat link, or weekly review plan issue');
   if (
     (source === 'issue' && !identity.startsWith('submission:')) ||
     (source === 'alert' && !identity.startsWith('alert:')) ||
+    (source === 'review' && !identity.startsWith('review:')) ||
     (source.startsWith('chat:') && identity !== source)
   ) {
     throw new Error('sourceContext does not match source');
   }
   const context = String(input.context ?? '').trim();
-  if (/^(?:<!-- marjorie-build:|\*\*From (?:a site submission|watchdog alert|founder chat)\*\*)/m.test(context)) {
+  if (/^(?:<!-- marjorie-build:|\*\*From (?:a site submission|watchdog alert|founder chat|Marjorie's weekly growth review)\*\*)/m.test(context)) {
     throw new Error('context must not contain build-ticket marker or source lines');
   }
   if (context) sections.push(context);
@@ -197,6 +198,13 @@ export function renderBuildTicket(input = {}) {
   const checked = checkBuildTicket(body);
   if (!checked.ok) throw new Error(`rendered ticket is not ready: ${checked.errors.join('; ')}`);
   return body;
+}
+
+export function snapshotItems(raw) {
+  return (Array.isArray(raw) ? raw : [])
+    .flat()
+    .filter((item) => item && !item.pull_request)
+    .map((item) => ({ ...item, url: item.html_url ?? item.url }));
 }
 
 export function findExistingBuildTicket(items, sourceContext) {
@@ -220,7 +228,7 @@ export function checkBuildTicket(body) {
   }
   const markers = [
     ...text.matchAll(
-      /^<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|chat:https:\/\/\S+) -->\r?$/gm,
+      /^<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|review|chat:https:\/\/\S+) -->\r?$/gm,
     ),
   ];
   const marker = markers.at(-1);
@@ -330,6 +338,7 @@ export function checkBuildTicket(body) {
     identity &&
     ((marker[2] === 'issue' && !identity.startsWith('submission:')) ||
       (marker[2] === 'alert' && !identity.startsWith('alert:')) ||
+      (marker[2] === 'review' && !identity.startsWith('review:')) ||
       (marker[2].startsWith('chat:') && marker[2] !== identity))
   ) {
     errors.push('canonical source line does not match marker source');
@@ -373,7 +382,7 @@ async function main(argv = process.argv.slice(2)) {
     return 1;
   }
   if (command === 'find' && inputPath && outputPath) {
-    const items = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+    const items = snapshotItems(JSON.parse(fs.readFileSync(inputPath, 'utf8')));
     const input = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
     const found = findExistingBuildTicket(items, input.sourceContext);
     console.log(found ? JSON.stringify({ number: found.number, url: found.url }) : 'none');
