@@ -17,7 +17,7 @@ export function applyDocumentA11y(doc: Document): void {
 }
 
 export const FONT_SCALE_MIN = 0.85;
-export const FONT_SCALE_MAX = 1; // Measured: at 390px and 360px the layout scrolls sideways above 1.0 (#5158 follow-up); raise once the reader reflows.
+export const FONT_SCALE_MAX = 1.5; // Measured (#5322): the shared reader holds with no horizontal scroll at 1.5x on 360px and 390px; the ~284 fixed text-[Npx] labels do not scale yet.
 
 /** Native text-size scale to a safe root multiplier: non-finite or non-positive falls back to 1, then clamped so a huge setting cannot explode the layout. */
 export function clampFontScale(scale: number | undefined): number {
