@@ -184,6 +184,11 @@ social/photo-library.json
 #    the vision check rejected is not re-paid on the next run. ──────────────────
 social/photo-qc-rejected.json
 
+# ── Official-video frame sourcing ledger (docs/decisions.md 2026-10-07 "frames yes"):
+#    which videos were already mined; written by concert-photo-sourcing in the same
+#    PR as the photos, so it must land with them. ──────────────────────────────
+social/video-frames-ledger.json
+
 # ── Built vault: OS-014 (2026-09-05) took these 8 files off git entirely
 #    (gitignored, build-time-only — see scripts/lib/generated-content.mjs and
 #    docs/longlive-experience.md §9). They can never appear in a PR diff any

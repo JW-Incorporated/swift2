@@ -17,7 +17,7 @@ import { isMain } from '../lib/is-main.mjs';
 
 export const QC_MODEL = 'claude-sonnet-5-5';
 export const QC_EDGE_PX = 768;
-export const DEFAULT_MAX_CHECKS = 190;
+export const DEFAULT_MAX_CHECKS = 200;
 export const DEFAULT_CONCURRENCY = 4;
 const PRICE_PER_M_INPUT = 2;
 const PRICE_PER_M_OUTPUT = 10;
@@ -48,19 +48,15 @@ export const QC_SCHEMA = {
   additionalProperties: false,
 };
 
-export const QC_SYSTEM_PROMPT = `You are the photo editor for a Taylor Swift fan app's social posts. Decide whether one candidate image is an awesome photo to post.
+export const QC_SYSTEM_PROMPT = `Photo editor for a Taylor Swift fan app's social posts: is this candidate a good photo to post?
 
-Do NOT identify anyone from facial features. Judge only composition, photo type, quality, overlays, and whether the image plausibly shows what the caption says (for example a single performer on stage, rather than a crowd, venue, object, or several people of equal weight). Treat the caption as the claim about who is pictured.
+Never identify anyone from facial features. Judge only composition, photo type, quality, overlays, and whether the image plausibly shows what the caption claims (the caption says who is pictured).
 
-Answer each check:
-- main_subject_is_single_prominent_person: one person is clearly the main subject, not a crowd, a group of equals, or a dancer or bystander standing in for the subject.
-- consistent_with_caption: the image plausibly shows what the caption says.
-- is_real_photograph: a real photograph, not cover art, a poster, a graphic, a collage, or a screenshot of a UI, TV or text.
-- has_watermark_or_logo_overlay: true if there is a watermark, a logo overlay, or a large legible sponsor backdrop.
-- sharp_and_well_lit: in focus, not blurry, not too dark or blown out, not mostly a back view.
-- subject_fills_frame_enough: the subject's body takes a meaningful share of the frame, not a speck in a wide stage panorama.
-- keep: true only if every positive check above is true and has_watermark_or_logo_overlay is false.
-- reason: one short sentence, at most 100 characters, naming the main failing check, or what makes it good.`;
+Stylized or artistic official music-video stills, editorial portraits and concert close-ups are GOOD when one person is clearly the main subject and it fits the caption.
+
+Reject only: crowd, venue or stage panoramas where the subject is small; other people dominant; objects, buildings or text; cover art, posters, graphics, or screenshots of a UI or TV broadcast; a watermark, agency logo or large sponsor wall; blurry, dark or back-view shots.
+
+Checks: main_subject_is_single_prominent_person; consistent_with_caption; is_real_photograph (not art/poster/graphic/screenshot); has_watermark_or_logo_overlay (true = bad); sharp_and_well_lit; subject_fills_frame_enough (not a speck); keep (true only if all positive checks pass and no watermark); reason (max 80 chars).`;
 
 export function kindFromId(id) {
   const s = String(id ?? '');
@@ -127,6 +123,7 @@ export async function qcPhoto(
   const request = {
     model: QC_MODEL,
     max_tokens: 400,
+    thinking: { type: 'between_tools' },
     system: QC_SYSTEM_PROMPT,
     output_config: { effort: 'low', format: { type: 'json_schema', schema: QC_SCHEMA } },
     messages: [

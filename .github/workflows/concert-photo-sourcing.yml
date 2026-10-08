@@ -231,7 +231,7 @@ jobs:
 
       # Every new photo passes a Claude Sonnet 5.5 vision check inside the importer
       # (scripts/social/photo-qc.mjs; docs/decisions.md 2026-10-07 "QC sonnet", about
-      # $24/month at the 190-check cap). Fail-closed: without the key, nothing is imported.
+      # $24/month at the 200-check cap). Fail-closed: without the key, nothing is imported.
       # QC_MAX_CHECKS_PER_RUN overrides the cap; the key is on this step only.
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'

@@ -58,7 +58,8 @@ describe('qcPhoto', () => {
       effort: 'low',
       format: { type: 'json_schema', schema: QC_SCHEMA },
     });
-    expect(req.system).toMatch(/Do NOT identify anyone/);
+    expect(req.system).toMatch(/Never identify anyone/);
+    expect(req.thinking).toEqual({ type: 'between_tools' });
     expect(req.messages[0].content[0]).toMatchObject({
       type: 'image',
       source: { type: 'base64', media_type: 'image/jpeg' },
@@ -164,11 +165,11 @@ describe('createQcSession', () => {
     );
   });
 
-  it('reads the cap from QC_MAX_CHECKS_PER_RUN and defaults to 190', () => {
+  it('reads the cap from QC_MAX_CHECKS_PER_RUN and defaults to 200', () => {
     expect(
       createQcSession({ client: fakeClient(), env: { QC_MAX_CHECKS_PER_RUN: '7' } }).summary(),
     ).toMatch(/7-check cap/);
-    expect(createQcSession({ client: fakeClient(), env: {} }).summary()).toMatch(/190-check cap/);
+    expect(createQcSession({ client: fakeClient(), env: {} }).summary()).toMatch(/200-check cap/);
   });
 
   it('counts the failing checks of rejected photos', async () => {
@@ -224,6 +225,7 @@ describe('fetchCandidates with QC', () => {
 
   it('writes a photo only when QC keeps it, and reports rejects with their hash', async () => {
     const qc = createQcSession({
+      concurrency: 1,
       client: fakeClient(
         reply(GOOD),
         reply({ ...GOOD, keep: false, consistent_with_caption: false, reason: 'crowd' }),
@@ -238,6 +240,7 @@ describe('fetchCandidates with QC', () => {
 
   it('skips a refusal and an API error without writing or ledgering as a verdict', async () => {
     const qc = createQcSession({
+      concurrency: 1,
       client: fakeClient(reply(GOOD, { stop_reason: 'refusal' }), httpError(400)),
     });
     const { result, files } = await run([cand(1), cand(2)], qc);
@@ -258,7 +261,7 @@ describe('fetchCandidates with QC', () => {
   });
 
   it('defers candidates over the cap', async () => {
-    const qc = createQcSession({ client: fakeClient(reply(GOOD)), maxChecks: 1 });
+    const qc = createQcSession({ client: fakeClient(reply(GOOD)), maxChecks: 1, concurrency: 1 });
     const { result, files } = await run([cand(1), cand(2), cand(3)], qc);
     expect(files).toEqual(['wikimedia-1.jpg']);
     expect(result.qcDeferred).toEqual(['wikimedia-2', 'wikimedia-3']);
