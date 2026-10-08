@@ -90,6 +90,7 @@ jobs:
 
       - name: Source candidate photos from Reddit
         if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
         env:
           HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
           LIMIT_PER_SUB: ${{ inputs.limit_per_sub || '25' }}
@@ -100,6 +101,7 @@ jobs:
 
       - name: Source candidate photos from Wikimedia Commons
         if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
         env:
           WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries }}
         run: |
@@ -121,12 +123,12 @@ jobs:
             node scripts/social/source-wikimedia-photos.mjs \
               --output ".artifacts/wikimedia/candidates-$i.json" \
               --query "$q" \
-              --limit 100
+              --limit 100 || echo "::warning::Wikimedia query failed: $q"
           done
           node -e "
             const fs = require('node:fs');
             const files = fs.readdirSync('.artifacts/wikimedia').filter(f => f.endsWith('.json'));
-            const all = files.flatMap(f => JSON.parse(fs.readFileSync('.artifacts/wikimedia/' + f, 'utf8')));
+            const all = files.flatMap(f => { try { return JSON.parse(fs.readFileSync('.artifacts/wikimedia/' + f, 'utf8')); } catch { console.warn('::warning::Skipping invalid Wikimedia file', f); return []; } });
             const seen = new Set();
             const deduped = all.filter(c => (seen.has(c.id) ? false : (seen.add(c.id), true)));
             fs.writeFileSync('.artifacts/concert-photo-candidates-wikimedia.json', JSON.stringify(deduped, null, 2) + '\n');
@@ -166,6 +168,7 @@ jobs:
       # (exit 0); a real bug in the script still fails the step.
       - name: Source candidate photos from Taylor Swift news coverage (GNews)
         if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
         env:
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           GH_TOKEN: ${{ github.token }}
@@ -186,6 +189,7 @@ jobs:
 
       - name: Source candidate photos from Openverse
         if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
         run: |
           node scripts/social/source-openverse-photos.mjs \
             --output .artifacts/concert-photo-candidates-openverse.json \
@@ -196,13 +200,13 @@ jobs:
         run: |
           node --input-type=module -e "
             import fs from 'node:fs';
-            import { mergeCandidates } from './scripts/social/lib/photo-source-common.mjs';
-            const read = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : []);
-            const reddit = read('.artifacts/concert-photo-candidates-reddit.json');
-            const wikimedia = read('.artifacts/concert-photo-candidates-wikimedia.json');
-            const press = read('.artifacts/concert-photo-candidates-press.json');
-            const openverse = read('.artifacts/concert-photo-candidates-openverse.json');
-            const frames = read('.artifacts/concert-photo-candidates-video-frames.json');
+            import { formatSourceCounts, mergeCandidates, readCandidateFile } from './scripts/social/lib/photo-source-common.mjs';
+            const names = ['reddit', 'wikimedia', 'press', 'openverse', 'video-frames'];
+            const results = names.map((name) => ({ name, ...readCandidateFile('.artifacts/concert-photo-candidates-' + name + '.json', fs) }));
+            const lines = formatSourceCounts(results);
+            for (const line of lines) console.log(line);
+            if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '### Candidates per source\n\n' + lines.map((l) => '- ' + l).join('\n') + '\n');
+            const [reddit, wikimedia, press, openverse, frames] = results.map((r) => r.candidates);
             // Only candidates not already in the library count toward the cap,
             // so already-imported photos never starve new ones and the PR
             // stays reviewable. Round-robin across sources so Wikimedia's

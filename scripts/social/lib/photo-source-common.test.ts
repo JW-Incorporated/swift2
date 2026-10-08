@@ -1,10 +1,45 @@
 import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
-import { dedupeCandidates, looksAiGenerated, mergeCandidates, normalizeSourceUrl } from './photo-source-common.mjs';
+import {
+  dedupeCandidates,
+  formatSourceCounts,
+  looksAiGenerated,
+  mergeCandidates,
+  normalizeSourceUrl,
+  readCandidateFile,
+} from './photo-source-common.mjs';
 import { dHash, findNearDuplicate, hammingDistance } from './perceptual-hash.mjs';
 import { fetchCandidates } from '../import-photo-library.mjs';
 
 const c = (id: string, sourceUrl = `https://x.example/${id}.jpg`, source = `https://p.example/${id}`) => ({ id, sourceUrl, source });
+
+describe('readCandidateFile / formatSourceCounts', () => {
+  const files: Record<string, string> = { '/ok.json': '[{"id":"a"},{"id":"b"}]', '/bad.json': '[{"id":' , '/obj.json': '{}' };
+  const fakeFs = {
+    existsSync: (p: string) => p in files,
+    readFileSync: (p: string) => files[p],
+  };
+
+  it('reads ok, missing and invalid files without throwing', () => {
+    expect(readCandidateFile('/ok.json', fakeFs).status).toBe('ok');
+    expect(readCandidateFile('/nope.json', fakeFs)).toEqual({ candidates: [], status: 'missing' });
+    expect(readCandidateFile('/bad.json', fakeFs)).toEqual({ candidates: [], status: 'invalid' });
+    expect(readCandidateFile('/obj.json', fakeFs)).toEqual({ candidates: [], status: 'invalid' });
+  });
+
+  it('formats one line per source with a status suffix when not ok', () => {
+    const results = [
+      { name: 'wikimedia', ...readCandidateFile('/ok.json', fakeFs) },
+      { name: 'press', ...readCandidateFile('/nope.json', fakeFs) },
+      { name: 'reddit', ...readCandidateFile('/bad.json', fakeFs) },
+    ];
+    expect(formatSourceCounts(results)).toEqual([
+      'source=wikimedia candidates=2',
+      'source=press candidates=0 (missing)',
+      'source=reddit candidates=0 (invalid)',
+    ]);
+  });
+});
 
 describe('normalizeSourceUrl', () => {
   it('ignores scheme, www, query, hash, trailing slash and percent-encoding', () => {

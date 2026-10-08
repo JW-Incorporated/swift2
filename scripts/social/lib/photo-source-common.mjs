@@ -96,5 +96,26 @@ export function mergeCandidates(sources, { known = new Set(), max = 300 } = {}) 
   return merged;
 }
 
+/**
+ * Read one source's candidate file for the merge step. A missing file or invalid
+ * JSON (a source that died mid-write) is an empty list, never a thrown error, so
+ * one dead source cannot fail the run. `status` is 'ok' | 'missing' | 'invalid'.
+ */
+export function readCandidateFile(path, fs) {
+  if (!fs.existsSync(path)) return { candidates: [], status: 'missing' };
+  try {
+    const parsed = JSON.parse(fs.readFileSync(path, 'utf8'));
+    if (Array.isArray(parsed)) return { candidates: parsed, status: 'ok' };
+  } catch {
+    // fall through to invalid
+  }
+  return { candidates: [], status: 'invalid' };
+}
+
+/** One `source=<name> candidates=<n>[ (missing|invalid)]` line per source. */
+export function formatSourceCounts(results) {
+  return results.map(({ name, candidates, status }) => `source=${name} candidates=${candidates.length}${status === 'ok' ? '' : ` (${status})`}`);
+}
+
 /** A transient API/network failure — the adapters turn this into a warning + an empty candidate list. */
 export class SourceApiError extends Error {}
