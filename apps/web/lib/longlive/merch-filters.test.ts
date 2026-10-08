@@ -26,7 +26,9 @@ describe('merchByEra', () => {
     // 100 -> 95 (link sweep #4324, 2026-09-30): five shop-the-look products whose
     // retailer pages were gone (404 / redirected to the retailer homepage / domain
     // no longer resolving) were removed rather than left as dead links.
-    expect(total).toBe(95);
+    // Floor, not an exact pin (#4479): every dead-link removal otherwise breaks
+    // `build`. This only catches a catastrophic drop, e.g. a seed import breaking.
+    expect(total).toBeGreaterThanOrEqual(85);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);
   });
@@ -169,11 +171,13 @@ describe('merchItemImage', () => {
     // moments renderable media, so their products move from product-only to
     // the split product-and-moment composition.
     // 93 -> 88 (link sweep #4324): the five dead-link products above were all split.
-    expect(split).toBe(88);
-    expect(product).toBe(6);
-    expect(moment).toBe(1);
-    expect(monogram).toBe(0);
-    expect(split + product + moment + monogram).toBe(95);
+    // Floors, not exact pins (#4479): link sweeps shift these counts routinely.
+    // The sum check keeps every item in exactly one composition bucket.
+    expect(split).toBeGreaterThanOrEqual(78);
+    expect(product).toBeGreaterThanOrEqual(0);
+    expect(moment).toBeGreaterThanOrEqual(0);
+    expect(monogram).toBeGreaterThanOrEqual(0);
+    expect(split + product + moment + monogram).toBe(MERCH_CATALOGUE.shopTheLook.length);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {
