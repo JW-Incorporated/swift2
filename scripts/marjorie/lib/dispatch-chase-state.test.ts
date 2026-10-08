@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { fetchDispatchChaseState } from './dispatch-chase-state.mjs';
 
 const at = '2026-09-10T12:00:00Z';
@@ -76,4 +76,47 @@ it('reads reported held items from the status-page issue body (Bots v2 W4)', asy
   };
   const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
   expect(state.reportedHeld).toEqual([{ issue: 9, ha: 81 }, { issue: 10, ha: 0 }]);
+});
+
+describe('pending HA PR contents hardening', () => {
+  const sha = 'b'.repeat(40);
+  const make = (fileRows: unknown[], contents: () => unknown) => async (args: string[]) => {
+    const endpoint = args[1];
+    let rows: unknown = [];
+    if (endpoint.includes('/pulls?')) rows = [{ ...row(30), head: { sha, ref: 'ha' } }];
+    else if (endpoint.includes('/pulls/30/files')) rows = fileRows;
+    else if (endpoint.includes('/contents/')) rows = contents();
+    return { stdout: JSON.stringify(rows) };
+  };
+
+  it('skips a PR whose head removed HUMAN-ACTIONS.md without fetching contents', async () => {
+    const calls: string[] = [];
+    const inner = make([{ filename: 'HUMAN-ACTIONS.md', status: 'removed' }], () => { throw new Error('should not fetch'); });
+    const ghImpl = async (args: string[]) => { calls.push(args[1]); return inner(args); };
+    const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
+    expect(state.pendingHaPrs).toEqual([]);
+    expect(calls.some((call) => call.includes('/contents/'))).toBe(false);
+  });
+
+  it('continues with a named warning when the contents fetch 404s', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const ghImpl = make([{ filename: 'HUMAN-ACTIONS.md', status: 'modified' }], () => { throw new Error('gh: Not Found (HTTP 404)'); });
+    const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
+    expect(state.pendingHaPrs).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('PR #30'));
+    warn.mockRestore();
+  });
+
+  it('keeps a renamed-into HUMAN-ACTIONS.md and skips a renamed-away one', async () => {
+    const content = () => ({ encoding: 'base64', content: Buffer.from('## #81 Pending').toString('base64') });
+    const kept = await fetchDispatchChaseState('owner/repo', { ghImpl: make([{ filename: 'HUMAN-ACTIONS.md', status: 'renamed' }], content), readFileImpl: files });
+    expect(kept.pendingHaPrs).toHaveLength(1);
+    const skipped = await fetchDispatchChaseState('owner/repo', { ghImpl: make([{ filename: 'OTHER.md', previous_filename: 'HUMAN-ACTIONS.md', status: 'renamed' }], content), readFileImpl: files });
+    expect(skipped.pendingHaPrs).toEqual([]);
+  });
+
+  it('still fails closed on a 500 and surfaces the PR number and real message', async () => {
+    const ghImpl = make([{ filename: 'HUMAN-ACTIONS.md', status: 'modified' }], () => { throw new Error('gh: Server Error (HTTP 500)'); });
+    await expect(fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files })).rejects.toThrow(/PR #30.*Server Error \(HTTP 500\)/);
+  });
 });
