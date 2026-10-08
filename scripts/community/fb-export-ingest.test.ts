@@ -91,21 +91,16 @@ describe('engagementLeadsFromPosts', () => {
     for (const value of Object.values(leads[0])) {
       if (typeof value !== 'string') continue;
       expect(Buffer.from(value, 'utf8').toString('utf8')).toBe(value);
-      expect(value).not.toMatch(
-        /[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/,
-      );
+      expect(value).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
     }
     expect(leads[0].locator).toContain('\u{1f3a4}');
   });
 
   it('produces schema-shaped rows: platform facebook, kind hot_thread, url null', () => {
-    const leads = engagementLeadsFromPosts(
-      [{ text: 'a post', reactionCount: 5, commentCount: 1 }],
-      {
-        groupName: 'Taylor Swift\u2019s Vault',
-        groupSlug: 'taylor-swifts-vault',
-      },
-    );
+    const leads = engagementLeadsFromPosts([{ text: 'a post', reactionCount: 5, commentCount: 1 }], {
+      groupName: 'Taylor Swift\u2019s Vault',
+      groupSlug: 'taylor-swifts-vault',
+    });
     expect(leads[0]).toMatchObject({
       platform: 'facebook',
       community: 'facebook:taylor-swifts-vault',
@@ -115,18 +110,15 @@ describe('engagementLeadsFromPosts', () => {
       status: 'new',
       redline_ok: true,
     });
-    expect(leads[0].locator).toBe('Taylor Swift\u2019s Vault — a post');
+    expect(leads[0].locator).toBe("Taylor Swift\u2019s Vault — a post");
   });
 
   it('truncates the locator excerpt to 80 chars with an ellipsis', () => {
     const longText = 'x'.repeat(200);
-    const leads = engagementLeadsFromPosts(
-      [{ text: longText, reactionCount: 0, commentCount: 0 }],
-      {
-        groupName: 'G',
-        groupSlug: 'g',
-      },
-    );
+    const leads = engagementLeadsFromPosts([{ text: longText, reactionCount: 0, commentCount: 0 }], {
+      groupName: 'G',
+      groupSlug: 'g',
+    });
     expect(leads[0].locator).toBe(`G — ${'x'.repeat(80)}\u2026`);
   });
 
@@ -152,9 +144,9 @@ describe('resolveGroupName', () => {
 
   it('prefers an explicit override over the checklist lookup', () => {
     const checklist = [{ slug: 'taylor-swifts-vault', label: "Taylor Swift's Vault" }];
-    expect(
-      resolveGroupName('taylor-swifts-vault', { groupNameOverride: 'Custom Name', checklist }),
-    ).toBe('Custom Name');
+    expect(resolveGroupName('taylor-swifts-vault', { groupNameOverride: 'Custom Name', checklist })).toBe(
+      'Custom Name',
+    );
   });
 
   it('falls back to the slug itself when the group is not in the checklist', () => {
@@ -194,9 +186,7 @@ describe('buildIngestResult', () => {
     expect(result.fanSignal.community).toBe('facebook:taylor-swifts-vault');
     expect(result.fanSignal.volume).toBe(3);
     expect(result.engagementLeads).toHaveLength(3);
-    expect(result.shopLinks.map((l) => l.url)).toEqual([
-      'https://www.etsy.com/listing/123456/swiftie-bracelet',
-    ]);
+    expect(result.shopLinks.map((l) => l.url)).toEqual(['https://www.etsy.com/listing/123456/swiftie-bracelet']);
     expect(result.skippedRedlineCount).toBe(0);
   });
 
@@ -245,9 +235,7 @@ describe('normalizeSupabaseUrl', () => {
     expect(normalizeSupabaseUrl('abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
   });
   it('keeps http and https URLs as they are', () => {
-    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe(
-      'https://abcd1234.supabase.co',
-    );
+    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
     expect(normalizeSupabaseUrl('http://localhost:54321')).toBe('http://localhost:54321');
   });
   it('leaves empty or garbage values unchanged', () => {
@@ -303,5 +291,22 @@ describe('permalink on the engagement lead', () => {
     ]);
     await backfillLeadUrl(supabase, { ...lead, url: null });
     expect(supabase.from).toHaveBeenCalledTimes(1);
+  });
+
+  it('warns instead of throwing when the backfill fails, so the ingest loop continues', async () => {
+    const builder: Record<string, unknown> = {
+      update: () => builder,
+      eq: () => builder,
+      is: () => Promise.resolve({ error: { message: 'boom' } }),
+    };
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    await expect(
+      backfillLeadUrl(
+        { from: () => builder },
+        { platform: 'facebook', kind: 'hot_thread', thread_id: null, locator: 'G — x', url: 'https://www.facebook.com/groups/1/posts/9/' },
+      ),
+    ).resolves.toBeUndefined();
+    expect(warn).toHaveBeenCalledOnce();
+    warn.mockRestore();
   });
 });

@@ -6,6 +6,9 @@
 import { applyCandidateCaps } from './awareness-filters.mjs';
 
 export const MAX_THREAD_CHECKS = 12;
+// Only a throttle/bot-challenge stops the checks; a 404, a removed thread or a
+// bad URL marks that one thread unknown and the rest are still checked.
+const THROTTLED_RE = /^HTTP (?:403|429)$/;
 const UNREPLYABLE = new Set(['locked', 'archived', 'no-comment']);
 
 /**
@@ -35,7 +38,7 @@ export async function keepReplyable(
         await sleep(pacingMs);
         const res = await fetchThread(c.post.permalink, { fetchImpl });
         state = res.state;
-        if (res.error) stopped = true;
+        if (THROTTLED_RE.test(res.error ?? '')) stopped = true;
       }
       replyStates.set(c.post.id, state);
       if (UNREPLYABLE.has(state)) {

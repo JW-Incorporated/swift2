@@ -154,6 +154,16 @@ describe('awareness Discord messages', () => {
 });
 
 const NL = String.fromCharCode(10);
+
+describe('Reddit lead message is unchanged', () => {
+  it('renders byte-identically: clean thread link, footer, ref line', () => {
+    expect(buildAwarenessMessage(lead(), ACKS)).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+        NL,
+      ),
+    );
+  });
+});
 const firstLine = (l: unknown) => buildAwarenessMessage(l).split(NL)[0];
 
 describe('Facebook leads without a post url', () => {

@@ -263,7 +263,7 @@ export async function backfillLeadUrl(supabase, lead) {
     .eq('locator', lead.locator)
     .eq('kind', lead.kind)
     .is('url', null);
-  if (error) throw new Error(`engagement_lead url backfill failed: ${error.message}`);
+  if (error) console.warn(`fb-export-ingest: url backfill skipped for one lead: ${error.message}`);
 }
 
 async function writeResult(supabase, result) {

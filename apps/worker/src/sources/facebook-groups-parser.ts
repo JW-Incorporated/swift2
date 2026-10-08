@@ -268,8 +268,7 @@ export function parseFacebookExport(
   // Placeholder scale, not the real cross-source heat model (that lands with
   // the extract stage) — just enough signal that a busy week outranks a
   // quiet one until then.
-  const heat =
-    kept.length > 0 ? Math.min(1, (totalReactions + totalComments * 2) / MAX_REACTIONS_SIGNAL) : 0;
+  const heat = kept.length > 0 ? Math.min(1, (totalReactions + totalComments * 2) / MAX_REACTIONS_SIGNAL) : 0;
 
   return {
     platform: 'facebook',
