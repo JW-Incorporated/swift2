@@ -1,6 +1,9 @@
 const SNOWFLAKE = /^\d{15,21}$/;
 const URL = /^https:\/\/discord\.com\/channels\/(?:\d+|@me)\/\d+\/(\d{15,21})$/;
-const ACTION = /^(assign|defer|close)(?:\s+(HA\s*#\s*\d+|#\s*\d+))?[.!]?$/i;
+const REF = String.raw`(?:HA\s*#?\s*\d+|#\s*\d+|\d+)`;
+const SEP = String.raw`[\s:,;\-–—]`;
+const ACTION = new RegExp(String.raw`^(?:(${REF})${SEP}*)?(assign|defer|close)(?:${SEP}+(${REF}))?[\s.!]*$`, 'i');
+const canonRef = (ref) => (/^\d+$/.test(ref) ? `#${ref}` : ref);
 const CHASE = /<!-- marjorie-chase: 96h issue=(\d+) -->/;
 
 const labels = (issue) => new Set((issue?.labels || []).map((x) => typeof x === 'string' ? x : x?.name));
@@ -67,10 +70,12 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   if (context?.bot !== 'marjorie' || context?.already || !match || !SNOWFLAKE.test(String(context?.message_id || '')) || urlId !== String(context.message_id)) {
     return { ok: false, reason: 'untrusted-or-not-an-action' };
   }
-  const action = match[1].toLowerCase();
+  if (match[1] && match[3]) return { ok: false, reason: 'ambiguous' };
+  const action = match[2].toLowerCase();
+  const ref = match[1] || match[3];
   const open = records(openMd, true);
   const done = records(doneMd, false);
-  const wanted = targetRefs(context);
+  const wanted = targetRefs({ ...context, text: ref ? `${action} ${canonRef(ref)}` : action });
   if (wanted.has.length === 1 && wanted.issues.length > 1) {
     return { ok: false, reason: 'target-mismatch' };
   }

@@ -37,6 +37,21 @@ describe('resolveChaseAction', () => {
     expect(resolveChaseAction({ context, issues: [issue], openMd, doneMd: '', comments: bot })).toMatchObject({ duplicate: true });
   });
 
+  it.each([
+    'defer 4324', '4324 defer', '#4324 defer', 'Defer #4324.', '  #4324   DEFER!  ', 'HA #76: defer', 'defer HA #76', 'HA 76 - defer', '#4324: defer',
+  ])('accepts %j in either word order', (text) => {
+    const bare = { ...context, text, replying_to: null };
+    expect(resolveChaseAction({ context: bare, issues: [issue], openMd, doneMd: '' })).toMatchObject({ ok: true, ha: 76, issue: 4324, action: 'defer', label: 'deferred', haOutcome: 'skip' });
+  });
+
+  it('refuses a reply naming two numbers or two actions', () => {
+    const run = (text: string) => resolveChaseAction({ context: { ...context, text, replying_to: null }, issues: [issue], openMd, doneMd: '' });
+    expect(run('#4324 defer #4325')).toMatchObject({ ok: false, reason: 'ambiguous' });
+    expect(run('4324 defer 4325')).toMatchObject({ ok: false, reason: 'ambiguous' });
+    expect(run('#4324 defer close')).toMatchObject({ ok: false });
+    expect(run('defer close #4324')).toMatchObject({ ok: false });
+  });
+
   it('does not reopen a deferred issue', () => {
     const deferred = { ...issue, labels: [...issue.labels, { name: 'deferred' }] };
     expect(resolveChaseAction({ context, issues: [deferred], openMd, doneMd: '' })).toMatchObject({ ok: true, noop: true, final: true });
