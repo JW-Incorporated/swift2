@@ -15,6 +15,7 @@ import { runMain } from '../lib/cli.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { renderVariant, variantEntry, variantPlan } from './lib/photo-variants.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 
@@ -101,6 +102,6 @@ async function main() {
   return 0;
 }
 
-if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('make-ig-variants.mjs')) {
+if (isMain(import.meta.url, process.argv[1]) || process.argv[1]?.endsWith('make-ig-variants.mjs')) {
   runMain(main, { name: 'make-ig-variants' });
 }

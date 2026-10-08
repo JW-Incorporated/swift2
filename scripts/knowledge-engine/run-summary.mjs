@@ -14,6 +14,7 @@
 
 import { readFileSync } from 'node:fs';
 import { gh } from '../lib/gh.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 export const ISSUE_TITLE = 'knowledge-engine run log';
 export const ISSUE_LABEL = 'knowledge-engine';
@@ -77,7 +78,7 @@ async function main() {
   console.log(`posted to knowledge-engine run log #${number}: ${line}`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (isMain(import.meta.url, process.argv[1])) {
   main().catch((err) => {
     console.error('run-summary failed:', err.message);
     process.exitCode = 1;

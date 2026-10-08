@@ -23,7 +23,11 @@
 // Usage:
 //   node scripts/social/source-video-frames.mjs --output out.json [--videos 8] [--mode auto|a|b]
 //     [--budget-minutes 20] [--max-frames 25] [--max-candidates 60: stop starting new videos past this] [--ledger social/video-frames-ledger.json]
-//     [--scratch .artifacts/video-scratch (tests only — the importer jail is fixed at .artifacts/video-scratch/frames)] [--cookies-from-browser chrome] [--include-thumbnail]
+//     [--scratch .artifacts/video-scratch (tests only — the importer jail is fixed at .artifacts/video-scratch/frames)] [--include-thumbnail]
+//     [--cookies-from-browser <browser>]  opt-in, off by default: pass only when YouTube bot-checks the connection
+//       (e.g. `npm run photos:frames:local -- --cookies-from-browser firefox`). On Windows, Chrome's cookie DPAPI
+//       decrypt fails on every video, so prefer firefox/edge there.
+//   Prints per video: frames extracted / dropped (logo, title card, black/blur, dupe, other) / kept, plus a run total.
 //   node scripts/social/source-video-frames.mjs --probe     # Mode B yield on ALL official ids, no writes
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -94,24 +98,56 @@ export async function sourceStills(video, { fetchImpl = fetch, includeThumbnail 
   return { frames: unique.map((f) => buildCandidate(video, { key: f.key, sourceUrl: f.url })), dropped };
 }
 
+export const DROP_BUCKETS = ['logo', 'title card', 'black/blur', 'dupe', 'other'];
+
+function bucketOf(reason) {
+  if (/logo/.test(reason)) return 'logo';
+  if (/title|end card/.test(reason)) return 'title card';
+  if (/near-black|near-white|flat|blurry|letterboxed/.test(reason)) return 'black/blur';
+  if (/duplicate/.test(reason)) return 'dupe';
+  return 'other';
+}
+
+/** Per-video accounting: frames extracted, dropped by reason bucket, kept. */
+export function summarizeVideo(usedMode, out, keptCount) {
+  const dropped = Object.fromEntries(DROP_BUCKETS.map((b) => [b, 0]));
+  for (const [reason, n] of Object.entries(out.dropped ?? {})) dropped[bucketOf(reason)] += n;
+  if (usedMode === 'a') {
+    dropped.dupe += out.duplicates ?? 0;
+    const accounted = Object.values(dropped).reduce((s, n) => s + n, 0);
+    if (out.logo) dropped.logo += Math.max(0, (out.rawCount ?? 0) - accounted);
+    return { extracted: out.rawCount ?? keptCount, dropped, kept: keptCount };
+  }
+  const extracted = keptCount + Object.values(dropped).reduce((s, n) => s + n, 0);
+  return { extracted, dropped, kept: keptCount };
+}
+
+export function formatStats(label, s) {
+  const parts = DROP_BUCKETS.map((b) => `${b} ${s.dropped[b]}`).join(', ');
+  return `${label}: extracted ${s.extracted}, dropped [${parts}], kept ${s.kept}`;
+}
+
 /** Orchestrates one run. `deps` are injectable for tests; failures never throw out of a video. */
 export async function runSourcing(videos, ledger, opts = {}) {
   const { mode = 'auto', limit = 8, maxFrames = 25, maxCandidates = Infinity, budgetMs = 20 * 60_000, scratch, cookiesFromBrowser, includeThumbnail = false } = opts;
-  const { modeA = sourceVideoFrames, modeB = sourceStills, now = Date.now, warn = console.warn, onVideo = async () => {} } = opts;
+  const { modeA = sourceVideoFrames, modeB = sourceStills, now = Date.now, warn = console.warn, log = console.log, onVideo = async () => {} } = opts;
   const started = now();
   const candidates = [];
+  const total = { extracted: 0, dropped: Object.fromEntries(DROP_BUCKETS.map((b) => [b, 0])), kept: 0 };
   const report = { videos: 0, modeA: 0, modeB: 0, blocked: false, errors: 0 };
   let aBlocked = false;
   for (const video of pendingVideos(videos, ledger, limit)) {
     if (candidates.length >= maxCandidates) break;
     let frames = null;
     let usedMode = null;
+    let stats = null;
     if (mode !== 'b' && !aBlocked && now() - started < budgetMs) {
       try {
         const out = await modeA(video.id, scratch, { maxFrames, cookiesFromBrowser });
         if (out.logo) warn(`source-video-frames: ${video.id} dropped whole — persistent ${out.logo.corner} logo in ${Math.round(out.logo.ratio * 100)}% of frames.`);
         frames = out.kept.map((f) => buildCandidate(video, { key: `t${Math.floor(f.time)}`, sourceUrl: pathToFileURL(f.file).href, seconds: f.time }));
         usedMode = 'a';
+        stats = summarizeVideo('a', out, frames.length);
       } catch (err) {
         if (err instanceof ModeAUnavailable) {
           aBlocked = report.blocked = true;
@@ -129,6 +165,7 @@ export async function runSourcing(videos, ledger, opts = {}) {
         const logoKey = Object.keys(still.dropped ?? {}).find((k) => k.startsWith('persistent '));
         if (logoKey) warn(`source-video-frames: ${video.id} dropped whole — ${logoKey} across its stills.`);
         usedMode = 'b';
+        stats = summarizeVideo('b', still, frames.length);
       } catch (err) {
         report.errors += 1;
         warn(`source-video-frames: stills failed for ${video.id}: ${err.message} — left unprocessed for the next run.`);
@@ -136,12 +173,17 @@ export async function runSourcing(videos, ledger, opts = {}) {
     }
     if (frames === null) continue;
     candidates.push(...frames);
+    log(formatStats(`  ${video.id} (mode ${usedMode.toUpperCase()})`, stats));
+    total.extracted += stats.extracted;
+    total.kept += stats.kept;
+    for (const b of DROP_BUCKETS) total.dropped[b] += stats.dropped[b];
     report.videos += 1;
     report[usedMode === 'a' ? 'modeA' : 'modeB'] += 1;
     ledger.processed[video.id] = { at: new Date(now()).toISOString(), mode: usedMode, frames: frames.length };
     await onVideo(candidates, ledger);
   }
-  return { candidates, report };
+  if (report.videos > 0) log(formatStats('  run total', total));
+  return { candidates, report, total };
 }
 
 function parseArgs(argv) {
