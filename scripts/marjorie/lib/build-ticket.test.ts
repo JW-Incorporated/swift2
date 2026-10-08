@@ -392,21 +392,41 @@ describe('CLI', () => {
 });
 
 describe('weekly growth review source', () => {
-  const review = "**From Marjorie's weekly growth review** — #4674, 2026-10-01.";
+  const review = "**From Marjorie's weekly growth review** — #4674 / fix-blank-timeline, 2026-10-01.";
   const reviewInput = { ...base, source: 'review', sourceContext: review, reporterSaid: '' };
 
   it('renders, checks and dedupes on the plan issue number', () => {
     const body = renderBuildTicket(reviewInput);
     expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
     const filed = { number: 9, url: 'https://github.com/o/r/issues/9', labels: [{ name: 'marjorie-filed' }], body };
-    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4674")).toEqual(filed);
-    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4675")).toBeNull();
+    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4674 / fix-blank-timeline")).toEqual(filed);
+    expect(findExistingBuildTicket([filed], "**From Marjorie's weekly growth review** — #4674 / other-ticket")).toBeNull();
+  });
+
+  it('keeps two tickets from one plan apart and dedupes the same ticket refiled', () => {
+    const a = renderBuildTicket(reviewInput);
+    const bCtx = "**From Marjorie's weekly growth review** — #4674 / second-ticket";
+    const b = renderBuildTicket({ ...reviewInput, sourceContext: bCtx });
+    const mk = (number: number, body: string) => ({ number, url: `https://github.com/o/r/issues/${number}`, labels: [{ name: 'marjorie-filed' }], body });
+    const items = [mk(1, a)];
+    expect(findExistingBuildTicket(items, bCtx)).toBeNull();
+    expect(findExistingBuildTicket([...items, mk(2, b)], bCtx)?.number).toBe(2);
+    expect(findExistingBuildTicket(items, reviewInput.sourceContext + ' again')?.number).toBe(1);
+  });
+
+  it('find also accepts the old flat unslurped array', () => {
+    const body = renderBuildTicket(reviewInput);
+    const dir = mkdtempSync(join(tmpdir(), 'build-ticket-flat-'));
+    writeFileSync(join(dir, 'flat.json'), JSON.stringify([{ number: 7, url: 'https://github.com/o/r/issues/7', labels: [{ name: 'marjorie-filed' }], body }]));
+    writeFileSync(join(dir, 'in.json'), JSON.stringify(reviewInput));
+    const out = execFileSync('node', [CLI, 'find', join(dir, 'flat.json'), join(dir, 'in.json')], { encoding: 'utf8' });
+    expect(JSON.parse(out)).toEqual({ number: 7, url: 'https://github.com/o/r/issues/7' });
   });
 
   it('rejects a review line under another source and malformed review lines', () => {
     expect(() => renderBuildTicket({ ...reviewInput, source: 'issue' })).toThrow('does not match source');
     expect(() =>
-      renderBuildTicket({ ...reviewInput, sourceContext: "**From Marjorie's weekly growth review** — #0" }),
+      renderBuildTicket({ ...reviewInput, sourceContext: "**From Marjorie's weekly growth review** — #4674" }),
     ).toThrow('sourceContext needs a canonical');
   });
 

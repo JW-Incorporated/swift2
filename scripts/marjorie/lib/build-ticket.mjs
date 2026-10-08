@@ -179,7 +179,7 @@ export function renderBuildTicket(input = {}) {
     throw new Error('sourceContext must be one nonempty line');
   }
   const identity = sourceKey(sourceContext);
-  if (!identity) throw new Error('sourceContext needs a canonical submission number, alert URL, chat link, or weekly review plan issue');
+  if (!identity) throw new Error('sourceContext needs a canonical submission number, alert URL, chat link, or weekly review "#<plan> / <slug>"');
   if (
     (source === 'issue' && !identity.startsWith('submission:')) ||
     (source === 'alert' && !identity.startsWith('alert:')) ||

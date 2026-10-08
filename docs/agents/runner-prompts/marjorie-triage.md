@@ -168,7 +168,7 @@ For either build class, create a JSON draft under `$RUNNER_TEMP` using a
 `sourceContext` is exactly one of four canonical lines (the helper rejects
 anything else): `**From a site submission** — #<n>` (`source`: `issue`),
 `**From watchdog alert** — <issue URL>` (`alert`), `**From founder chat** — <message URL>`
-(`chat:<URL>`), or `**From Marjorie's weekly growth review** — #<plan issue>` (`review`).
+(`chat:<URL>`), or `**From Marjorie's weekly growth review** — #<plan issue> / <slug>` (`review`; `<slug>` is a short kebab-case name for this one ticket, unique within the plan, because a plan files several tickets and the dedupe key is `plan/slug`).
 
 Name concrete repository-relative starting files in `paths`, never globs or
 directories. `estimatedLines` is your honest changed-line estimate; omit it

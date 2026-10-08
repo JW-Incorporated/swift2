@@ -8,9 +8,9 @@ export function sourceKey(line) {
   );
   if (alert) return `alert:${alert[1].toLowerCase()}/${alert[2].toLowerCase()}#${alert[3]}`;
   const review = String(line).match(
-    /^\*\*From Marjorie's weekly growth review\*\*\s+—\s+#([1-9]\d*)(?:[.,;:]?\s+.*|[.)]?)$/,
+    /^\*\*From Marjorie's weekly growth review\*\*\s+—\s+#([1-9]\d*)\s+\/\s+([a-z0-9]+(?:-[a-z0-9]+){0,9})(?:[.,;:]?\s+.*|[.)]?)$/,
   );
-  if (review) return `review:${review[1]}`;
+  if (review) return `review:${review[1]}/${review[2]}`;
   const chat = String(line).match(
     /^\*\*From founder chat\*\*\s+—\s+(https:\/\/\S+)$/,
   );
@@ -24,7 +24,7 @@ export function terminalSourceKey(body) {
 
 export function findExistingBySource(items, sourceContext, checkBody) {
   const needle = sourceKey(sourceContext);
-  if (!needle) throw new Error('sourceContext needs a canonical submission number or alert URL');
+  if (!needle) throw new Error('sourceContext needs a canonical submission number or alert URL (or founder chat link, or weekly review "#<plan> / <slug>")');
   return (
     (items || []).find((item) => {
       const labels = (item.labels || []).map((label) => label.name);
