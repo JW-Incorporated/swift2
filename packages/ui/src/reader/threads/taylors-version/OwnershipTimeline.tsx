@@ -135,7 +135,7 @@ export function OwnershipTimeline({
 
         {/* The buyback line — the climax: all masters reclaimed at once */}
         <div
-          className="pointer-events-none absolute z-30"
+          className="pointer-events-none absolute z-[1]"
           style={{
             left: `${yearToPercent(buybackFrac)}%`,
             top: '1.5rem',
@@ -232,18 +232,18 @@ export function OwnershipTimeline({
                   )}
                 </div>
 
-                <div className="w-28 shrink-0 text-right">
+                <div className="relative z-10 w-[min(7rem,30%)] shrink-0 text-right">
                   {album.reclaimedYear !== null ? (
                     <span
-                      className="era-chip max-w-full sm:whitespace-nowrap"
-                      style={{ backgroundColor: 'var(--status-reclaimed)', color: 'var(--status-reclaimed-ink)', borderColor: 'var(--status-reclaimed-ink)', opacity: 0.9 }}
+                      className="era-chip inline-block max-w-full break-words"
+                      style={{ backgroundColor: 'var(--era-surface)', backgroundImage: 'linear-gradient(var(--status-reclaimed), var(--status-reclaimed))', color: 'var(--status-reclaimed-ink)', borderColor: 'var(--status-reclaimed-ink)', opacity: 0.9 }}
                     >
                       Re-recorded
                     </span>
                   ) : (
                     <span
-                      className="era-chip max-w-full sm:whitespace-nowrap"
-                      style={{ backgroundColor: 'var(--status-pending)', color: 'var(--status-pending-ink)', borderColor: 'var(--status-pending-ink)', opacity: 0.9 }}
+                      className="era-chip inline-block max-w-full break-words"
+                      style={{ backgroundColor: 'var(--era-surface)', backgroundImage: 'linear-gradient(var(--status-pending), var(--status-pending))', color: 'var(--status-pending-ink)', borderColor: 'var(--status-pending-ink)', opacity: 0.9 }}
                     >
                       Owned · TV soon
                     </span>
