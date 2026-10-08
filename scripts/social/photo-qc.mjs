@@ -122,7 +122,7 @@ export async function qcPhoto(
   }
   const request = {
     model: QC_MODEL,
-    max_tokens: 400,
+    max_tokens: 800,
     thinking: { type: 'between_tools' },
     system: QC_SYSTEM_PROMPT,
     output_config: { effort: 'low', format: { type: 'json_schema', schema: QC_SCHEMA } },
@@ -171,6 +171,7 @@ export async function qcPhoto(
       reason: 'qc-error: stop_reason ' + response?.stop_reason,
       usage,
       error: true,
+      maxTokens: response?.stop_reason === 'max_tokens',
     };
   const textBlock = (response.content ?? []).find((block) => block?.type === 'text');
   const verdict = parseVerdict(textBlock?.text ?? '');
@@ -213,6 +214,7 @@ export function createQcSession({
     rejected: 0,
     held: 0,
     deferred: 0,
+    maxTokens: 0,
     inputTokens: 0,
     outputTokens: 0,
     failures: {},
@@ -261,6 +263,7 @@ export function createQcSession({
       return { status: 'kept', ...result };
     }
     if (result.error) {
+      if (result.maxTokens) totals.maxTokens++;
       totals.held++;
       return { status: 'held', ...result };
     }
@@ -287,7 +290,7 @@ export function createQcSession({
         .map(([k, n]) => `${k}=${n}`)
         .join(', ') || 'none';
     return (
-      `photo QC: ${totals.checks} checked (${totals.kept} kept, ${totals.rejected} rejected, ${totals.held} held on error/no key), ` +
+      `photo QC: ${totals.checks} checked (${totals.kept} kept, ${totals.rejected} rejected, ${totals.held} held on error/no key, ${totals.maxTokens} of them stopped at max_tokens), ` +
       `${totals.deferred} deferred over the ${cap}-check cap; ${totals.inputTokens} in / ${totals.outputTokens} out tokens, ~$${cost.toFixed(3)}; failing checks: ${failures}`
     );
   }

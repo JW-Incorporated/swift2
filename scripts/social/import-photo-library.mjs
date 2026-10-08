@@ -199,6 +199,9 @@ async function main() {
   const inputPath = inputIndex === -1 ? null : args[inputIndex + 1];
   const write = args.includes('--write');
   const fetchMode = args.includes('--fetch');
+  if (write && !fetchMode && !args.includes('--no-qc')) {
+    throw new Error('--write without --fetch imports photos with no vision QC; pass --fetch (QC runs) or --no-qc to skip it explicitly.');
+  }
 
   if (!inputPath) {
     throw new Error(

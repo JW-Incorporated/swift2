@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import { mkdtemp, readdir } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -53,7 +54,7 @@ describe('qcPhoto', () => {
     expect(result).toMatchObject({ keep: true, usage: { inputTokens: 1000, outputTokens: 100 } });
     const req = client.messages.create.mock.calls[0][0];
     expect(req.model).toBe(QC_MODEL);
-    expect(req.max_tokens).toBe(400);
+    expect(req.max_tokens).toBe(800);
     expect(req.output_config).toEqual({
       effort: 'low',
       format: { type: 'json_schema', schema: QC_SCHEMA },
@@ -178,6 +179,28 @@ describe('createQcSession', () => {
     });
     expect((await qc.check(await input())).status).toBe('rejected');
     expect(qc.totals.failures).toEqual({ is_real_photograph: 1 });
+  });
+});
+
+describe('max_tokens stops', () => {
+  it('are held and counted in the run summary', async () => {
+    const qc = createQcSession({ client: fakeClient(reply(GOOD, { stop_reason: 'max_tokens' })) });
+    expect((await qc.check(await input())).status).toBe('held');
+    expect(qc.summary()).toMatch(/1 of them stopped at max_tokens/);
+  });
+});
+
+describe('importer CLI', () => {
+  it('refuses --write without --fetch unless --no-qc is explicit', () => {
+    const script = path.resolve(__dirname, 'import-photo-library.mjs');
+    const run = (...extra: string[]) =>
+      spawnSync(process.execPath, [script, '--input', 'nope.json', '--write', ...extra], {
+        encoding: 'utf8',
+      });
+    const refused = run();
+    expect(refused.status).toBe(1);
+    expect(refused.stderr).toMatch(/no vision QC/);
+    expect(run('--no-qc').stderr).not.toMatch(/no vision QC/);
   });
 });
 
