@@ -19,7 +19,7 @@ function records(markdown, open) {
   if (!open) return String(markdown || '').split(/\r?\n/).flatMap((line) => {
     const ha = /^- #(?<ha>\d+) .*?· (?<outcome>done|skip) ·/.exec(line);
     const marked = CHASE.exec(line);
-    const issue = marked ? Number(marked[1]) : titled(line.slice(ha ? ha[0].length : 0).split(' — ')[0]);
+    const issue = marked ? Number(marked[1]) : titled(line.slice(ha ? ha[0].length : 0).split(' · ')[0]);
     return ha && issue ? [{ ha: Number(ha.groups.ha), issue, outcome: ha.groups.outcome, open: false }] : [];
   });
   const found = [];

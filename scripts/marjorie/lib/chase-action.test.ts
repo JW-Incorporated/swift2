@@ -104,7 +104,7 @@ describe('resolveChaseAction', () => {
     });
 
     it('ignores a non-chase done line that mentions a chase title after the separator', () => {
-      const doneMd = '- #76 · 2026-10-05 · done · unrelated work — "see #12 has had no activity" · by chat';
+      const doneMd = '- #76 · 2026-10-05 · done · unrelated work · by chat, see #12 has had no activity';
       expect(run('assign HA #76', { doneMd })).toMatchObject({ ok: false, reason: 'ambiguous' });
     });
 
