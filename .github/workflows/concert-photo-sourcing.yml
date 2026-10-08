@@ -226,6 +226,8 @@ jobs:
         run: |
           git lfs version
           git lfs install --local
+          git config lfs.locksverify false
+          git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
 
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'
