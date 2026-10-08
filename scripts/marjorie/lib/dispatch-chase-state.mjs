@@ -27,6 +27,10 @@ function item(row) {
   };
 }
 
+function isNotFound(err) {
+  return err?.status === 404 || /\b404\b|Not Found/i.test(`${err?.message || ''} ${err?.stderr || ''}`);
+}
+
 export async function fetchDispatchChaseState(repo = REPO, {
   now = Date.now(), ghImpl = ghRun, readFileImpl = readFile,
 } = {}) {
@@ -76,9 +80,16 @@ export async function fetchDispatchChaseState(repo = REPO, {
   const pendingHaPrs = [];
   for (const pr of rawPRs) {
     const files = await pages(`${base}/pulls/${pr.number}/files`);
-    if (!files.some((file) => file.filename === 'HUMAN-ACTIONS.md')) continue;
+    if (!files.some((file) => file.filename === 'HUMAN-ACTIONS.md' && file.status !== 'removed')) continue;
     if (!/^[a-f0-9]{40}$/i.test(pr.head?.sha || '')) throw new Error('dispatch chase: invalid pending head');
-    const response = await ghImpl(['api', `${base}/contents/HUMAN-ACTIONS.md?ref=${pr.head.sha}`]);
+    let response;
+    try {
+      response = await ghImpl(['api', `${base}/contents/HUMAN-ACTIONS.md?ref=${pr.head.sha}`]);
+    } catch (err) {
+      if (!isNotFound(err)) throw new Error(`dispatch chase: PR #${pr.number} pending actions fetch failed: ${err?.message || err}`, { cause: err });
+      console.warn(`dispatch chase: PR #${pr.number} has no HUMAN-ACTIONS.md at its head (404); treating as no pending HA content`);
+      continue;
+    }
     const content = JSON.parse(response.stdout);
     if (response.capExhausted || content.encoding !== 'base64' || typeof content.content !== 'string') {
       throw new Error('dispatch chase: unreadable pending actions');
@@ -108,8 +119,8 @@ export async function fetchDispatchChaseState(repo = REPO, {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  fetchDispatchChaseState(process.argv[2] || REPO).then((state) => console.log(JSON.stringify(state))).catch(() => {
-    console.error('dispatch chase: snapshot unavailable; no chase authorized');
+  fetchDispatchChaseState(process.argv[2] || REPO).then((state) => console.log(JSON.stringify(state))).catch((err) => {
+    console.error(`dispatch chase: snapshot unavailable; no chase authorized (${err?.message || err})`);
     process.exitCode = 1;
   });
 }
