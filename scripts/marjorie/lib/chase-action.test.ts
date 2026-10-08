@@ -93,7 +93,7 @@ describe('resolveChaseAction', () => {
     });
 
     it('stays ambiguous when the title names two different issues', () => {
-      const doneMd = '- #76 · 2026-10-05 · done · #4324 has had no activity — see #4325 has had no activity · by chat';
+      const doneMd = '- #76 · 2026-10-05 · done · #4324 has had no activity and #4325 has had no activity · by chat';
       expect(run('assign HA #76', { doneMd })).toMatchObject({ ok: false, reason: 'ambiguous' });
       const openMd2 = '## #76 🟡 [DECIDE] #4324 has had no activity\n[DECIDE] #4325 has had no activity';
       expect(run('assign HA #76', { openMd: openMd2 })).toMatchObject({ ok: true, issue: 4324 });
@@ -101,6 +101,11 @@ describe('resolveChaseAction', () => {
 
     it('reports no match for a reference absent from both files', () => {
       expect(run('assign HA #999', { openMd: bareOpen })).toMatchObject({ ok: false, reason: 'ambiguous', detail: 'no-matching-chase-record' });
+    });
+
+    it('ignores a non-chase done line that mentions a chase title after the separator', () => {
+      const doneMd = '- #76 · 2026-10-05 · done · unrelated work — "see #12 has had no activity" · by chat';
+      expect(run('assign HA #76', { doneMd })).toMatchObject({ ok: false, reason: 'ambiguous' });
     });
 
     it('ignores entries whose title is not a chase title', () => {
