@@ -48,7 +48,7 @@ export const RUNWAY_LOOKS = [
     // Source: each gown/date/event below is the same fact set the removed
     // debut.mjs timeline cards carried (Nylon, E! Online, Who What Wear,
     // Hello! — see the pre-#3226 file for full citations).
-    description: 'The formal counterpoint to the sundress-and-boots look began at her first CMA Awards in 2006, where she wore a black floor-length Elvira gown with black gloves. At her first Grammys in 2008 she wore a pale purple strapless Sandy Spika gown, and that May she made her Met Gala debut in a gold sequined Badgley Mischka gown from the label\'s fall 2008 collection, chosen for the "Superheroes: Fashion and Fantasy" theme.',
+    description: 'The formal counterpoint to the sundress-and-boots look began at her first CMA Awards in 2006, where she wore a black floor-length Elvira gown with black gloves. At her first Grammys in 2008 she wore a pale purple strapless Sandi Spika gown, and that May she made her Met Gala debut in a gold sequined Badgley Mischka gown from the label\'s fall 2008 collection, chosen for the "Superheroes: Fashion and Fantasy" theme.',
     images: [
       { url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces', credit: 'Stephen Lovekin/WireImage/Getty Images', caption: 'The 40th CMA Awards, Nov. 6, 2006 — a black satin Elvira mermaid gown with matching long gloves, weeks after her debut album released.', kind: 'primary', focalPoint: '47% 13%' },
       { url: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg', credit: 'Getty Images', caption: 'The 50th Grammy Awards, Feb. 10, 2008 — her red carpet debut at music\'s biggest night, in a strapless corseted purple Sandi Spika gown.', kind: 'primary', focalPoint: '53% 11%' },
@@ -94,16 +94,16 @@ export const RUNWAY_LOOKS = [
     name: 'The Sweep-Season Gowns',
     // Source: E! Online's CMA style retrospective, Femestella's Grammy
     // retrospective — same facts the removed fearless.mjs cards carried.
-    description: 'Three gowns from Fearless\'s awards run: a gold floor-skimming Reem Acra gown at the 2009 CMA Awards, a mauve Dolce & Gabbana cocktail dress with crystal straps at the pre-telecast Grammy ceremony on Jan. 31, 2010, and a sparkly blue KaufmanFranco gown that evening. At the pre-telecast she won Best Female Country Vocal Performance and Best Country Song for "White Horse," her first Grammys.',
+    description: 'Three gowns from Fearless\'s awards run: a gold floor-skimming Reem Acra gown at the 2009 CMA Awards, a Dolce & Gabbana dress when she accepted a Grammy for "White Horse" at the pre-telecast ceremony on Jan. 31, 2010, and a sparkly blue KaufmanFranco gown for that evening\'s telecast. Harper\'s Bazaar counts Album of the Year for Fearless among her Grammy haul that night.',
     images: [
-      { url: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=', credit: 'Taylor Hill/WireImage, via Getty Images', caption: 'The gold Reem Acra gown on the Nov. 11, 2009 CMA Awards red carpet, the night she swept all four of her nominations.', kind: 'primary' },
-      { url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=', credit: 'Kevin Winter/Getty Images', caption: 'A mauve Dolce & Gabbana cocktail dress at the Jan. 31, 2010 Grammy pre-telecast ceremony, accepting Best Country Song for "White Horse."', kind: 'primary', focalPoint: '49% 14%' },
+      { url: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=', credit: 'Taylor Hill/WireImage, via Getty Images', caption: 'The gold Reem Acra gown on the Nov. 11, 2009 CMA Awards red carpet.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=', credit: 'Kevin Winter/Getty Images', caption: 'A Dolce & Gabbana cocktail dress at the Jan. 31, 2010 Grammy pre-telecast ceremony, accepting a Grammy for "White Horse."', kind: 'primary', focalPoint: '49% 14%' },
       { url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1', credit: 'Depositphotos, via Femestella', caption: 'A navy off-the-shoulder KaufmanFranco sequin gown at the same day\'s Grammy telecast, the night Fearless won Album of the Year.', kind: 'primary', focalPoint: '51% 12%' },
     ],
     shopTags: ['Reem Acra gown', 'Dolce & Gabbana dress', 'KaufmanFranco gown'],
     sources: [
       { title: 'E! Online: Taylor Swift\'s Evolving CMA Awards Style Over the Years', url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years' },
-      { title: 'Extra: Taylor Swift Wins First Grammys!', url: 'https://extratv.com/2010/01/31/taylor-swift-wins-first-grammys/' },
+      { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g71309753/taylor-swift-complete-style-fashion-evolution/' },
       { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
     ],
   },
@@ -159,7 +159,7 @@ export const RUNWAY_LOOKS = [
     // Source: Swift has spoken on record about adopting a red lip as a
     // deliberate signature during the Red era (2012-2013) alongside
     // vintage-inspired tailoring and knitwear.
-    description: 'Kicking off the Red era on October 22, 2012, Swift wore a \'50s-inspired floral dress with a matching cardigan and a red lip, which Harper\'s Bazaar calls a classic example of her 2012-2013 style. Femestella\'s Red-era roundup adds stripes, varsity jackets, short shorts, and Keds to the wardrobe.',
+    description: 'Harper\'s Bazaar calls a \'50s-inspired dress with a matching cardigan and a red lip, first seen on October 22, 2012, a classic example of her 2012-2013 style. For her 2012 VMAs performance she wore a red-and-white top, black shorts, and red sneakers (Billboard), and for the 2013 Grammys a white, flowing J. Mendel dress (Who What Wear). On the Red Tour she added a tuxedo-inspired look with a black top hat in Dallas on May 25, 2013.',
     images: [
       { url: 'https://media.gettyimages.com/id/155121144/photo/nashville-tn-taylor-swift-performs-during-the-46th-annual-cma-awards-at-the-bridgestone-arena.jpg?s=612x612&w=0&k=20&c=_eRjHqsT9GNe4uw9JAAcjwnr5wfnwDQFZkgxMhWDKkQ=', credit: 'Jason Kempin/Getty Images', caption: 'Performing at the 46th CMA Awards, November 2012, just after Red released — red lip and vintage-cut tailoring.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/161394336/photo/los-angeles-ca-taylor-swift-arrives-at-the-55th-annual-grammy-awards-on-february-10-2013-in.jpg?s=612x612&w=0&k=20&c=nAxTPznrcJLJtU5GP1Wndy-vJYC5lIAWbbhUPRohKx8=', credit: 'Christopher Polk/Getty Images for NARAS', caption: '55th Grammy Awards red carpet, February 2013 — the bold-red-lip, structured-glamour signature look.', kind: 'primary' },
@@ -168,7 +168,8 @@ export const RUNWAY_LOOKS = [
     shopTags: ['Red lipstick', 'Knit scarf', 'High-waist shorts'],
     sources: [
       { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g71309753/taylor-swift-complete-style-fashion-evolution/' },
-      { title: 'Femestella: Taylor Swift\'s Most Iconic Outfits From Her Original \'Red Era\'', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-red-era/' },
+      { title: 'Billboard: Taylor Swift\'s Style Evolution, From 2006 to Now', url: 'https://www.billboard.com/photos/taylor-swift-style-evolution-photos-429884/' },
+      { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
     ],
   },
   {
@@ -181,14 +182,15 @@ export const RUNWAY_LOOKS = [
     // press-tour style leaned into cropped separates and pastel minimalism.
     // The cover shoot is widely credited with reviving instant-film
     // cameras' popularity.
-    description: 'On June 18, 2014, Swift stepped out in New York in one of her first two-piece sets, a signature style of 1989 and a marker of her reinvention as a pure pop star. The album\'s packaging was shot on Polaroids by the photography duo Lowfield (Sarah Barlow and Stephen Schofield), and each CD included 13 randomly chosen Polaroids from a set of 65.',
+    description: 'Swift\'s 1989 reinvention centered on two-piece sets: Harper\'s Bazaar says she cut her hair and bought a whole new wardrobe of co-ords, and on June 18, 2014 she stepped out in New York in one of her first, a signature of the album and of her turn to pure pop. At the 57th Grammys in February 2015 she wore a high-low Elie Saab gown (Who What Wear). The album\'s Polaroid-shot packaging, by the photography duo Lowfield, put 13 randomly chosen Polaroids from a set of 65 in each CD.',
     images: [
-      { url: 'https://media.gettyimages.com/id/499012186/photo/sydney-australia-taylor-swift-performs-during-her-1989-world-tour-at-anz-stadium-on-november.jpg?s=612x612&w=0&k=20&c=JZtyafJP6uAUFpBE_Wx2omw9vqifSKHPy3U2mZ_rbLU=', credit: 'Mark Metcalfe/Getty Images', caption: 'Performing at ANZ Stadium, Sydney, on the 1989 World Tour, November 2015 — cropped separates and pastel-pop stagewear.', kind: 'primary' },
-      { url: 'https://media.gettyimages.com/id/463018170/photo/los-angeles-ca-singer-taylor-swift-attends-the-57th-annual-grammy-awards-at-the-staples-center.jpg?s=612x612&w=0&k=20&c=G7tt3sh1t8OjpZ3PE-VVI2bhLkr3_FyipXKqtKzeKOw=', credit: 'Jason Merritt/Getty Images', caption: '57th Grammy Awards, February 2015 — sleek minimalism during the 1989 press cycle.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/499012186/photo/sydney-australia-taylor-swift-performs-during-her-1989-world-tour-at-anz-stadium-on-november.jpg?s=612x612&w=0&k=20&c=JZtyafJP6uAUFpBE_Wx2omw9vqifSKHPy3U2mZ_rbLU=', credit: 'Mark Metcalfe/Getty Images', caption: 'Performing at ANZ Stadium, Sydney, on the 1989 World Tour, November 2015 — a black crop top and a metallic pleated skirt.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/463018170/photo/los-angeles-ca-singer-taylor-swift-attends-the-57th-annual-grammy-awards-at-the-staples-center.jpg?s=612x612&w=0&k=20&c=G7tt3sh1t8OjpZ3PE-VVI2bhLkr3_FyipXKqtKzeKOw=', credit: 'Jason Merritt/Getty Images', caption: '57th Grammy Awards, February 2015 — a teal high-low Elie Saab gown.', kind: 'primary' },
     ],
     shopTags: ['Crop set', 'Pastel blue', 'Instant camera'],
     sources: [
       { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g71309753/taylor-swift-complete-style-fashion-evolution/' },
+      { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
       { title: 'Amateur Photographer: Taylor Swift, 1989 – the story behind the iconic album cover by LOWFIELD', url: 'https://amateurphotographer.com/iconic-images/taylor-swift-1989-the-story-behind-the-album-cover-by-lowfield/' },
     ],
   },
@@ -340,7 +342,7 @@ export const RUNWAY_LOOKS = [
     ],
     shopTags: ['Flannel', 'Braided hair'],
     sources: [
-      { title: 'British Vogue: Taylor Swift Announces a Surprise Second 2020 Album', url: 'https://www.vogue.co.uk/news/article/taylor-swift-evermore' },
+      { title: 'British Vogue: In Cosy Stella McCartney Checks, Taylor Swift Announces A Surprise Second 2020 Album', url: 'https://www.vogue.co.uk/news/article/taylor-swift-evermore' },
       { title: 'Vanity Fair: Fashion Inspired by Taylor Swift\'s Evermore', url: 'https://www.vanityfair.com/style/photos/2020/12/fashion-inspired-by-taylor-swifts-evermore' },
     ],
   },
@@ -359,7 +361,7 @@ export const RUNWAY_LOOKS = [
     ],
     shopTags: ['Lace maxi dress', 'Flower crown'],
     sources: [
-      { title: 'British Vogue: Taylor Swift Announces a Surprise Second 2020 Album', url: 'https://www.vogue.co.uk/news/article/taylor-swift-evermore' },
+      { title: 'British Vogue: In Cosy Stella McCartney Checks, Taylor Swift Announces A Surprise Second 2020 Album', url: 'https://www.vogue.co.uk/news/article/taylor-swift-evermore' },
       { title: 'Elle: All the Easter Eggs in Taylor Swift\'s "Willow" Video Explained', url: 'https://www.elle.com/culture/music/g34943325/taylor-swift-willow-music-video-easter-eggs/' },
       { title: 'Vanity Fair: Fashion Inspired by Taylor Swift\'s Evermore', url: 'https://www.vanityfair.com/style/photos/2020/12/fashion-inspired-by-taylor-swifts-evermore' },
     ],
@@ -371,10 +373,10 @@ export const RUNWAY_LOOKS = [
     // Source: the "Bejeweled" video (2022) and Midnights press cycle used
     // deep-blue, retro-glam sequined styling — widely documented in the
     // video's own credits and press coverage.
-    description: 'Harper\'s Bazaar sums up the Midnights era as deep blues with sparkling accents. At the 2022 MTV VMAs Swift wore a sheer, crystal Oscar de la Renta dress with matching shoes and won Video of the Year for "All Too Well: The Short Film," and at the 2022 MTV EMAs on Nov. 13 she wore a black bodysuit with a David Koma chainmail skirt detailed in green jewels.',
+    description: 'Harper\'s Bazaar sums up the Midnights era as deep blues with sparkling accents. At the 2022 MTV VMAs Swift accepted Video of the Year for "All Too Well: The Short Film" in a sheer, crystal-beaded Oscar de la Renta dress with matching shoes, and at the MTV EMAs on Nov. 13, 2022 she wore a black bodysuit with a David Koma chainmail skirt detailed in green jewels. The sparkle carried onto the Eras Tour, where Billboard notes her bejeweled bodysuits and knee-high boots.',
     images: [
-      { url: 'https://media.gettyimages.com/id/1418923160/photo/newark-new-jersey-taylor-swift-accepts-the-video-of-the-year-award-for-all-too-well-onstage.jpg?s=612x612&w=0&k=20&c=E6UsqO3HGj62L9IfUKzTKWIJFiO21z9WHl8583qqKgc=', credit: 'Kevin Mazur/Getty Images for MTV/Paramount Global', caption: '2022 MTV VMAs, August 2022 — the black gown she wore when she announced Midnights minutes later.', kind: 'primary' },
-      { url: 'https://media.gettyimages.com/id/1801109903/photo/sao-paulo-brazil-taylor-swift-performs-onstage-during-taylor-swift-the-eras-tour-at-allianz.jpg?s=612x612&w=0&k=20&c=cckANjdYrCz8rTv_ePOsBTNJSjjEryBkG4SZf7mbSwg=', credit: 'Buda Mendes/TAS23/Getty Images for TAS Rights Management', caption: 'The Eras Tour\'s Midnights segment, Sao Paulo, November 2023 — the sparkling blue bodysuit built for the set.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1418923160/photo/newark-new-jersey-taylor-swift-accepts-the-video-of-the-year-award-for-all-too-well-onstage.jpg?s=612x612&w=0&k=20&c=E6UsqO3HGj62L9IfUKzTKWIJFiO21z9WHl8583qqKgc=', credit: 'Kevin Mazur/Getty Images for MTV/Paramount Global', caption: '2022 MTV VMAs, August 2022 — a sheer crystal-beaded Oscar de la Renta gown, worn the night she announced Midnights minutes later.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1801109903/photo/sao-paulo-brazil-taylor-swift-performs-onstage-during-taylor-swift-the-eras-tour-at-allianz.jpg?s=612x612&w=0&k=20&c=cckANjdYrCz8rTv_ePOsBTNJSjjEryBkG4SZf7mbSwg=', credit: 'Buda Mendes/TAS23/Getty Images for TAS Rights Management', caption: 'The Eras Tour, Sao Paulo, November 2023 — a crystal-covered silver-and-blue bodysuit with matching knee-high boots.', kind: 'primary' },
     ],
     shopTags: ['Sequin jumpsuit', 'Jewel tones'],
     sources: [
