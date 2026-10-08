@@ -196,3 +196,46 @@ describe('parseFacebookExport', () => {
     expect(draft.summary).toMatch(/no postable content/);
   });
 });
+
+// SYNTHETIC: the href shapes mirror the live-DOM selector the export extension
+// already uses (scripts/knowledge/fb-extension/comments.js postPermalink); no
+// saved real export was available to confirm them (#5013).
+describe('post permalink capture', () => {
+  const post = (anchor: string) =>
+    `<div role="article"><a href="/groups/1/user/9/" aria-label="Jane Fan">Jane Fan</a>${anchor}<div dir="auto">which era has the best bridge</div><span>3 comments</span></div>`;
+
+  it('captures a /posts/ permalink, dropping tracking and comment ids', () => {
+    const [p] = extractPostsFromHtml(
+      post(
+        '<a href="https://www.facebook.com/groups/1/posts/99/?comment_id=5&amp;__cft__[0]=x&amp;__tn__=R">2d</a>',
+      ),
+    );
+    expect(p!.permalink).toBe('https://www.facebook.com/groups/1/posts/99/');
+  });
+
+  it('captures root-relative /permalink/ and story_fbid links', () => {
+    expect(
+      extractPostsFromHtml(post('<a href="/groups/1/permalink/77/?ref=x">1h</a>'))[0]!.permalink,
+    ).toBe('https://www.facebook.com/groups/1/permalink/77/');
+    expect(
+      extractPostsFromHtml(
+        post(
+          '<a href="https://m.facebook.com/permalink.php?story_fbid=55&amp;id=1&amp;fbclid=z">t</a>',
+        ),
+      )[0]!.permalink,
+    ).toBe('https://m.facebook.com/permalink.php?story_fbid=55&id=1');
+  });
+
+  it('is null with no permalink, for profile links, and for off-Facebook hosts', () => {
+    expect(extractPostsFromHtml(post(''))[0]!.permalink).toBeNull();
+    expect(
+      extractPostsFromHtml(post('<a href="https://evil.example/posts/1/">t</a>'))[0]!.permalink,
+    ).toBeNull();
+  });
+
+  it('keeps the permalink out of the text and still strips the author', () => {
+    const [p] = extractPostsFromHtml(post('<a href="/groups/1/posts/99/">2d</a>'));
+    expect(p!.text).not.toContain('Jane Fan');
+    expect(p!.text).not.toContain('/posts/');
+  });
+});
