@@ -5,6 +5,12 @@ const SEP = String.raw`[\s:,;\-–—]`;
 const ACTION = new RegExp(String.raw`^(?:(${REF})${SEP}*)?(assign|defer|close)(?:${SEP}+(${REF}))?[\s.!]*$`, 'i');
 const canonRef = (ref) => ref.replace(/^HA(?:\s*#\s*|\s+)?(\d+)$/i, 'HA #$1').replace(/^#\s*(\d+)$/, '#$1');
 const CHASE = /<!-- marjorie-chase: 96h issue=(\d+) -->/;
+const TITLE = /#(\d+)\s+has had no activity/gi;
+
+function titled(text) {
+  const found = [...new Set([...String(text || '').matchAll(TITLE)].map((m) => Number(m[1])))];
+  return found.length === 1 ? found[0] : undefined;
+}
 
 const labels = (issue) => new Set((issue?.labels || []).map((x) => typeof x === 'string' ? x : x?.name));
 const owned = (issue) => labels(issue).has('marjorie-filed');
@@ -12,15 +18,17 @@ const owned = (issue) => labels(issue).has('marjorie-filed');
 function records(markdown, open) {
   if (!open) return String(markdown || '').split(/\r?\n/).flatMap((line) => {
     const ha = /^- #(?<ha>\d+) .*?· (?<outcome>done|skip) ·/.exec(line);
-    const issue = CHASE.exec(line);
-    return ha && issue ? [{ ha: Number(ha.groups.ha), issue: Number(issue[1]), outcome: ha.groups.outcome, open: false }] : [];
+    const marked = CHASE.exec(line);
+    const issue = marked ? Number(marked[1]) : titled(line);
+    return ha && issue ? [{ ha: Number(ha.groups.ha), issue, outcome: ha.groups.outcome, open: false }] : [];
   });
   const found = [];
   const blocks = String(markdown || '').split(/(?=^## #\d+\s)/m);
   for (const block of blocks) {
     const ha = /^## #(\d+)\s/m.exec(block);
-    const issue = CHASE.exec(block);
-    if (ha && issue) found.push({ ha: Number(ha[1]), issue: Number(issue[1]), open: true });
+    const marked = CHASE.exec(block);
+    const issue = marked ? Number(marked[1]) : titled(block.split(/\r?\n/, 1)[0]);
+    if (ha && issue) found.push({ ha: Number(ha[1]), issue, open: true });
   }
   return found;
 }
@@ -100,7 +108,7 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   if (candidates.length !== 1) {
     const past = done.filter((item) => (!wanted.has.length || item.ha === wanted.has[0]) && (!wanted.issues.length || item.issue === wanted.issues[0]));
     if (past.length === 1) return { ok: true, noop: true, final: past[0].outcome === 'skip', ...past[0], action };
-    return { ok: false, reason: 'ambiguous' };
+    return { ok: false, reason: 'ambiguous', detail: candidates.length === 0 && past.length === 0 ? 'no-matching-chase-record' : 'multiple-matching-records' };
   }
   const target = candidates[0];
   if (wanted.has.length && wanted.issues.length && (target.ha !== wanted.has[0] || target.issue !== wanted.issues[0])) return { ok: false, reason: 'target-mismatch' };

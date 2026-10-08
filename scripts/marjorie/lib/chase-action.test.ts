@@ -73,6 +73,41 @@ describe('resolveChaseAction', () => {
     expect(run('defer close #4324')).toMatchObject({ ok: false });
   });
 
+  describe('markerless records', () => {
+    const run = (text: string, md: { openMd?: string; doneMd?: string }) => resolveChaseAction({ context: { ...context, text, replying_to: null }, issues: [issue], openMd: md.openMd ?? '', doneMd: md.doneMd ?? '' });
+    const bareOpen = '## #76 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)\n<!-- ha filed=2026-09-14 -->\n\n**Why:** stale';
+
+    it('resolves an open entry with no chase marker from its title', () => {
+      expect(run('assign HA #76', { openMd: bareOpen })).toMatchObject({ ok: true, noop: false, ha: 76, issue: 4324, action: 'assign' });
+    });
+
+    it('treats a markerless done line as a no-op, not ambiguous', () => {
+      const doneMd = '- #76 · 2026-10-05 · done · #4324 has had no activity for 4 days — "closed via Discord reply" · by discord';
+      expect(run('assign HA #76', { doneMd })).toMatchObject({ ok: true, noop: true, final: false, ha: 76, issue: 4324 });
+      expect(run('close HA #76', { doneMd })).toMatchObject({ ok: true, noop: true, ha: 76 });
+    });
+
+    it('treats a markerless skipped line as a final no-op', () => {
+      const doneMd = '- #76 · 2026-10-05 · skip · #4324 has had no activity for 4 days — "deferred" · by chat';
+      expect(run('defer HA #76', { doneMd })).toMatchObject({ ok: true, noop: true, final: true });
+    });
+
+    it('stays ambiguous when the title names two different issues', () => {
+      const doneMd = '- #76 · 2026-10-05 · done · #4324 has had no activity — see #4325 has had no activity · by chat';
+      expect(run('assign HA #76', { doneMd })).toMatchObject({ ok: false, reason: 'ambiguous' });
+      const openMd2 = '## #76 🟡 [DECIDE] #4324 has had no activity\n[DECIDE] #4325 has had no activity';
+      expect(run('assign HA #76', { openMd: openMd2 })).toMatchObject({ ok: true, issue: 4324 });
+    });
+
+    it('reports no match for a reference absent from both files', () => {
+      expect(run('assign HA #999', { openMd: bareOpen })).toMatchObject({ ok: false, reason: 'ambiguous', detail: 'no-matching-chase-record' });
+    });
+
+    it('ignores entries whose title is not a chase title', () => {
+      expect(run('assign HA #76', { openMd: '## #76 🟡 [DECIDE] unrelated #4324 thing' })).toMatchObject({ ok: false, reason: 'ambiguous' });
+    });
+  });
+
   it('does not reopen a deferred issue', () => {
     const deferred = { ...issue, labels: [...issue.labels, { name: 'deferred' }] };
     expect(resolveChaseAction({ context, issues: [deferred], openMd, doneMd: '' })).toMatchObject({ ok: true, noop: true, final: true });
