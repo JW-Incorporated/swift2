@@ -1,0 +1,18 @@
+{
+  "platform": "instagram",
+  "body": "ok this one lives in my head rent-free 🏰\n\nwhen it came time to shoot the \"love story\" video, taylor assumed the whole team would have to fly to europe — because obviously a fairy-tale needs a real castle, and castles aren't just... sitting around in tennessee.\n\nexcept one is. castle gwynn, a genuine turreted castle in arrington, about a half hour from nashville, the kind of place that hosts the state's renaissance festival. \"i just didn't think that castles were in tennessee at all,\" she admitted — and then went and filmed one of her most iconic videos basically down the road from home.\n\nthe whole fearless era, from that castle to the gold fringe on the eras stage: longlivets.com/?era=fearless&utm_source=instagram&utm_medium=social&utm_campaign=era-deep-cut\n\n📷 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "media": [
+    "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "scheduledAt": "2026-08-27T23:00:00Z",
+  "campaign": "era-deep-cut:fearless-love-story-castle-gwynn",
+  "why": "Why this: fills 2026-08-27's Instagram heartbeat slot after the calendar's assigned red era-deep-cut became un-draftable — the only cleared red photo (taylor-red-eras-inglewood-2023.jpg) shipped on IG 2026-08-26 and is inside the last-10-posted-IG media-repeat window, and era-art/site-screen are not valid media for a non-product-surface era post. Substituted fearless: its cleared photo is eligible (not in the last 10 IG items; fearless only mildly stacked at x2, red is a lean-on era but blocked) and I visually re-verified the file with the Read tool as an authentic photograph of Taylor in the gold-fringe Fearless Eras Tour costume (clears the calendar ledger's 'not yet independently re-verified' flag on this asset). Why now: opens the Blank Spaces window day with real content instead of an empty slot. Kept the calendar's contradiction hook (a real castle in Tennessee). Source: supabase/seed/era-secrets/fearless.mjs:80-104 (slug fearless-love-story-castle-gwynn), Castle Gwynn / 'Love Story' filming location, per Nashville's WKRN and WSMV; the short attributed quote is Taylor's own, used verbatim and attributed (not lyrics/article-body). Era Secrets carry no momentId, so the deep link is eraId=fearless per the entry's scope. Photo credit Paolo Villanueva (CC BY 2.0), Wikimedia Commons. Blocklist-safe (a filming-location fact). 'taylor' not bare 'Swift'; no lyrics; no AI-tell phrases. Paired X sibling: social/queue/2026-08-27-fearless-love-story-castle-x.json (same campaign, structurally different, verified <80% body overlap).",
+  "postedAt": "2026-08-28T17:37:06.373Z",
+  "platformPostId": "18026921495682122",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122109091749407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122109091749407187"
+}

@@ -1,0 +1,20 @@
+{
+  "platform": "instagram",
+  "body": "ok i need you to go do something for me, because this one still makes me gasp.\n\nin the 'bejeweled' video there's a blink-and-you-miss-it moment in an elevator: two floor buttons glow. button 3 in purple. button 5 in blue. at the time it just looked pretty.\n\nmonths later she re-recorded Speak Now (her third album, purple) and 1989 (her fifth, blue). she'd told us the order, in an elevator, and most of us didn't clock it until it happened.\n\nso — the challenge: open The Clue Web, find the elevator clue, and tell me which two floors lit up and what they turned out to mean. reply with what you got 👇\n\nit lives under Threads on the site. 📷 the eras tour, minneapolis 2023 — michael hicks (cc by 2.0), via wikimedia commons. swipe for the clue web.\n\nlonglivets.com/?lens=easter-eggs&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg",
+    "/social/library/thread-easter-eggs-intro.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "lover-minneapolis-2023",
+  "mediaCredit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
+  "scheduledAt": "2026-09-07T23:00:00Z",
+  "campaign": "thread:easter-eggs:interactive-challenge:2026-09-hero",
+  "why": "Today's Beat B (2026-09-07), The Clue Web hero, angle interactive-challenge. IG sibling of the X item, platform-native (long-form, the whole clue->payoff told, then the challenge). Same sourced pair: lenses.ts egg-bejeweled-elevator (Bejeweled elevator buttons 3/Speak Now + 5/1989, confirmed=true, Teen Vogue). MEDIA SUBSTITUTION (disclosed): the calendar assigned thread-easter-eggs-intro.png as a site-screen tile, but check-drafts.mjs's 2026-08-31 site-screen lock rejects mediaKind site-screen on any non-launch campaign, so this runs as a photo carousel instead — media[0] is the credited Taylor photo selected from the durable inventory and the Clue Web intro screenshot rides slide 2 (same shape the 09-05 run used). The selector prefers less-used, longer-unseen photos and safely reuses an inventory entry when necessary, so the paired calendar cannot stall. Screenshot slide (thread-easter-eggs-intro.png, last posted 08-17). Hook: the challenge. Thread-of-month = share-design-exempt (natural teach-a-lens share hook). Lyric-free, blocklist-safe.",
+  "postedAt": "2026-09-08T01:18:08.819Z",
+  "platformPostId": "17907537189304462",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122111405295407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122111405295407187"
+}

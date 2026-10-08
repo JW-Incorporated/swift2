@@ -1,0 +1,136 @@
+// Idempotent label bootstrap for the desk system (CLAUDE.md rule 8: repo
+// setup is code, not a remembered checklist). Issue forms only apply labels
+// that already exist, and assemble-brief.mjs / watchdog.yml query by label —
+// so a fresh repo (or the future org home, see org-transfer plans) must run
+// this once:  node --use-env-proxy scripts/marjorie/bootstrap-labels.mjs
+import { gh } from '../lib/gh.mjs';
+import { LOOP_LABELS } from './lib/loop-queue.mjs';
+import { TASTE_LABELS } from './lib/taste-ruling.mjs';
+
+// The `desk:*` routing taxonomy (2026-08-11). EXACTLY ONE of these on an open
+// issue is what "routed" means — see scripts/check-work-ownership.mjs and
+// docs/proposals/2026-08-11-autonomous-pickup-and-merge-delegation.md.
+//
+// Why a label and not the assignee: GitHub assignees must be repo
+// collaborators, this repo has exactly two, and both are bot identities every
+// agent runs under. An assignee therefore cannot name a desk. Assignment keeps
+// the meaning Austin's charter already gave it — a CLAIM LOCK on a specific
+// run — and the label carries the route.
+//
+// `desk:unowned` is a first-class answer, not a failure to answer: it is how
+// "no charter covers this" becomes a countable state instead of something
+// nobody is chartered to notice.
+const DESKS = [
+  ['desk:ops', 'Chief of staff (Marjorie) — coordination, briefs, cross-desk chores'],
+  ['desk:build', 'Build desk (Austin) — app code inside his change-type fence'],
+  ['desk:content', 'Content desk (Content Shift / Vault Run) — seed content authoring'],
+  ['desk:integrity', 'Integrity desk (Karen) — content-engine findings and checkers'],
+  ['desk:critic', 'Critic desk (Nils) — site experience findings'],
+  ['desk:a11y', 'Accessibility desk (Laura) — WCAG findings'],
+  ['desk:security', 'Security desk (Paul Blart) — dependencies, supply chain, CI/security config'],
+  ['desk:tree', 'Tree — social media manager (drafting and community)'],
+  ['desk:founder', 'A human founder owes an action here (TX items, legal, product intent)'],
+  ['desk:unowned', 'NO CHARTER COVERS THIS — the fence complement, deliberately countable'],
+];
+
+export const LABELS = [
+  ['founder-decision', 'B60205', 'Needs a founder answer — banked into the daily Founders Brief'],
+  ['founders-brief', '0E8A16', 'The daily Founders Brief issues (Marjorie)'],
+  ['status-page', '5319E7', 'The one pinned Long Live status page (marjorie-status.yml rewrites its body)'],
+  ['watchdog-alert', 'D93F0B', 'A scheduled cadence failed — loud by design'],
+  ['intake', '1D76DB', 'Real-world event dropped for content authoring'],
+  ['needs-sources', 'FBCA04', 'Intake item stalled on real sourcing'],
+
+  ...DESKS.map(([name, description]) => [
+    name,
+    name === 'desk:unowned' ? 'D93F0B' : name === 'desk:founder' ? 'B60205' : '5319E7',
+    description,
+  ]),
+
+  ['desk:ops-fix', '5319E7', 'Routed to the ops-fixer routine (docs/agents/ops-fixer.md) — workflows, scripts, configs, prompts'],
+  ['ops-fix:dispatched', 'C5DEF5', 'The ops-fixer has been dispatched for this issue — the sweep will not dispatch it again'],
+  ['ops-fix:stuck', 'D93F0B', 'The ops-fixer failed twice or hit a rail — a paste-ready prompt is on the issue'],
+
+  // Splits `needs-human-review`, which currently means two opposite things
+  // (docs/decisions.md 2026-08-11). Austin applies it when Codex DISAGREED and
+  // the disagreement stands; Content Shift applies it when Codex was merely
+  // UNREACHABLE. "Contested" and "unreviewed" are not the same risk, and the
+  // 2026-07-18 standing grant lets that class be merged on the assumption it
+  // is the benign one.
+  [
+    'review:not-run',
+    'C5DEF5',
+    'Codex review could not run in the authoring environment — unreviewed, not contested',
+  ],
+  [
+    'review:contested',
+    'B60205',
+    'Codex review ran and a finding stands unresolved — a human must adjudicate',
+  ],
+
+  // Founder-mail semantics (2026-08-11 four-email incident, #1955-#1958):
+  // `founder-task` MAILS the founders (tree-mail.yml digest, body verbatim),
+  // so it is reserved for "a human must personally act, body written for a
+  // non-coder per docs/agents/founder-comms.md". Agent-to-agent coordination
+  // gets `desk-coordination` and mails no one. `founder-mailed` is the
+  // digest's machine-only exactly-once bookkeeping.
+  // (GitHub caps label descriptions at 100 chars.)
+  [
+    'founder-task',
+    'C5DEF5',
+    'A human founder must personally act; body written for a non-coder (docs/agents/founder-comms.md)',
+  ],
+  [
+    'desk-coordination',
+    'EDEDED',
+    'Agent-to-agent coordination (merge order, file claims) — mails no one',
+  ],
+  ['founder-mailed', 'F9D0C4', 'Machine-only: the tree-mail digest already emailed this issue'],
+
+  // Marjorie Overhaul C2 (docs/specs/marjorie-overhaul/c2-brief.md): the
+  // brief's "Since yesterday" accountability line counts open work under
+  // this label. Doesn't exist anywhere yet — added now so a future M2/M3
+  // session doesn't hit a "label doesn't exist" error the first time it
+  // tries to apply it.
+  ['marjorie-filed', '006B75', "Marjorie filed this and is accountable for the outcome, not just the ticket"],
+  // L1 (docs/specs/marjorie-overhaul/l1-loop.md): the mirror of
+  // `marjorie-filed` for asks Tree makes of Marjorie in its Monday brief,
+  // filed by routine-tree-weekly-plan.yml's send-brief job.
+  ['tree-filed', '2E7D32', 'Tree asked Marjorie for this in its Monday brief — Marjorie answers and closes it'],
+  ['spam', '6E6E6E', 'Abuse, a test string, or empty — closed, kept searchable (applied by Marjorie)'],
+  ['marjorie-triaged', 'BFD4F2', 'Bookkeeping: classified. Machine-only — never apply or remove by hand'],
+  ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
+  ['founder-assigned', '1D76DB', 'Founder assigned this Marjorie-filed item to the next build session'],
+  ['deferred', '6E6E6E', 'Founder deferred this item; Marjorie stops chasing it while it remains open'],
+  // Bots v2 W5 (docs/plans/bots-v2/PLAN.md): the weekly growth review's plan
+  // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
+  ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
+  ['routine-failure', 'B60205', 'A routine workflow run failed — auto-filed by bot-failure-triage.yml for Marjorie'],
+  ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
+  // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
+  ...LOOP_LABELS,
+  ...TASTE_LABELS,
+];
+
+const invokedDirectly =
+  process.argv[1] && import.meta.url.endsWith(process.argv[1].split(/[\\/]/).pop());
+if (invokedDirectly) {
+  for (const [name, color, description] of LABELS) {
+    try {
+      await gh([
+        'label',
+        'create',
+        name,
+        '--color',
+        color,
+        '--description',
+        description,
+        '--force',
+      ]);
+      console.log(`ok: ${name}`);
+    } catch (e) {
+      console.error(`FAILED: ${name}: ${e.message}`);
+      process.exitCode = 1;
+    }
+  }
+}

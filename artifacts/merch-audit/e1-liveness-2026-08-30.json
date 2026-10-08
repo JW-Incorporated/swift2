@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-30T19:22:10.691Z",
+  "source": {
+    "livenessCommand": "node scripts/check-link-liveness.mjs --products --json",
+    "menderCommand": "node scripts/merch-engine/mend-links.mjs --input <liveness> --write <plan>",
+    "imageVerifierCommand": "node scripts/merch-engine/verify-images.mjs --input <liveness> --write <image-plan>"
+  },
+  "scope": {
+    "retainedMomentProducts": 108,
+    "scannedTargets": 463
+  },
+  "liveness": {
+    "timeout": 6,
+    "blocked": 5,
+    "soldOut": 1,
+    "dead": 2,
+    "connection": 1,
+    "suspect": 323
+  },
+  "reSource": [
+    {
+      "productId": "reputation:40:0",
+      "url": "https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/",
+      "listing": "primary",
+      "reason": "dead",
+      "result": "retained with inStock: false; no substitute introduced"
+    },
+    {
+      "productId": "the-life-of-a-showgirl:37:0",
+      "url": "https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver",
+      "listing": "primary",
+      "reason": "dead",
+      "result": "retained with inStock: false; no substitute introduced"
+    }
+  ],
+  "retries": [
+    {
+      "productId": "evermore:14:0",
+      "url": "https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981",
+      "listing": "primary",
+      "attempts": 1
+    },
+    {
+      "productId": "folklore:9:1",
+      "url": "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html",
+      "listing": "primary",
+      "attempts": 1
+    },
+    {
+      "productId": "the-life-of-a-showgirl:19:0",
+      "url": "https://us.louisvuitton.com/eng-us/products/louise-pm-earrings-s00-nvprod2950037v/M00396",
+      "listing": "primary",
+      "attempts": 1
+    },
+    {
+      "productId": "the-life-of-a-showgirl:40:0",
+      "url": "https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058",
+      "listing": "primary",
+      "attempts": 1
+    },
+    {
+      "productId": "tortured-poets:33:2",
+      "url": "https://www.neimanmarcus.com/p/gucci-ottavia-leather-platform-loafer-pumps-prod274440624",
+      "listing": "primary",
+      "attempts": 1
+    }
+  ]
+}

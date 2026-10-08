@@ -1,0 +1,1017 @@
+#!/usr/bin/env node
+// Draft-time quality gate for social/queue/**.json — see social/README.md's
+// "Draft-time checks" section. This is now the MAIN quality gate for what
+// ships (WS1+WS5, 2026-08-11): the post-time guards in lib/queue.mjs exist
+// to stop a bad draft from posting wrong, but by the time a draft is posting
+// it has already sat in the queue occupying a slot for potentially days —
+// this catches the same classes of problem before the draft's PR ever
+// merges, which is strictly cheaper.
+//
+// Five independent rule families:
+//   - schema        — body/platform/scheduledAt must be well-formed BEFORE
+//                     any other rule runs (they all assume valid shapes).
+//   - voice        — reuses scripts/content-engine/checkers/voice.mjs's
+//                     surname-overuse / ai-tell / wire-attribution rules
+//                     verbatim against the draft's body (not re-implemented).
+//   - openers       — bans the "did you know" formula opener outright, and
+//                     flags a draft whose first 6 words match the opening of
+//                     any post from the last 14 days or any other queue item.
+//   - campaign pair — the hard pairing rule (Joey, 2026-08-25, made
+//                     UNCONDITIONAL 2026-08-26): a draft whose `campaign` has
+//                     no sibling on the OTHER platform in social/queue/ or
+//                     social/posted/ fails, full stop — there is no
+//                     single-platform exception of any kind. Added
+//                     2026-08-26 after a full day shipped five X posts and
+//                     zero Instagram ones — the rule existed in prose and as
+//                     an advisory P2 finding, but nothing on the merge path
+//                     enforced it. The gate briefly honored a
+//                     `Single-platform exception:` marker for a genuine
+//                     format incompatibility, but that carve-out was itself
+//                     the pretext both of that day's X-only drafts used
+//                     ("the calendar assigns this subject to X only") — Joey
+//                     closed it same-day: "Always an IG copy. Always." See
+//                     checkCampaignPair.
+//   - cross-post copy — an X draft that reads as a near-clone of its IG
+//                     sibling (same `campaign`, or the closest same-day IG
+//                     item when no campaign is set) reads as spam and risks
+//                     X's duplicate-content 403 — still worth blocking on its
+//                     own merits, even though it turned out NOT to be the
+//                     cause of the 11 social/failed/ items as of 2026-08-11
+//                     (see the `length` rule below — corrected 2026-08-11,
+//                     same day: every one of those 11 was a generic 403 from
+//                     exceeding X's 280-character *weighted* length, not
+//                     duplicate content — see docs/decisions.md).
+//   - length        — X drafts only. X counts a tweet's length by its own
+//                     "weighted" rule, not raw JS string length: any
+//                     autolinked URL counts as exactly 23 characters
+//                     regardless of its real length, most emoji/CJK count as
+//                     2, everything else counts as 1 (see
+//                     weightedTweetLength below). HARD FAILS over 280
+//                     weighted (X's real limit — this is what actually
+//                     produced the 11 social/failed/ 403s), WARNS over 270
+//                     (non-fatal — gives headroom before the hard limit).
+//   - media         — IG drafts must have media; every media path must
+//                     exist under apps/web/public/, be a .png/.jpg/.jpeg
+//                     (the only formats this pipeline ever produces or
+//                     uploads to X); media must not repeat the last 10
+//                     posted Instagram items. THE TAYLOR-PHOTO STANDARD
+//                     (2026-08-12): generic era tiles are banned outright,
+//                     and every draft with media must declare mediaKind —
+//                     "photo" (a real photograph of Taylor, with mediaSource and,
+//                     when the photographer is known, mediaCredit) or "site-screen" (a
+//                     deliberate product screenshot under /social/library/).
+//
+// Usage:
+//   node scripts/social/check-drafts.mjs                    # checks every file in social/queue/
+//   node scripts/social/check-drafts.mjs <file> [file…]      # checks only the given files
+//   node scripts/social/check-drafts.mjs --manifest <path>   # checks the files listed in a JSON
+//     array file — what .github/workflows/auto-merge-content.yml passes
+//     (never a raw shell-split arg list: a filename containing a space must
+//     never silently become two bogus paths). Either form's file paths may
+//     be repo-relative or absolute. Only checking a PR's own changed files
+//     (not the whole directory) means tightening a rule after older items
+//     already shipped doesn't retroactively fail every future PR that
+//     merely touches social/queue/ near them.
+//
+// A requested-but-unresolvable target (doesn't exist under social/queue/) is
+// a HARD failure, not a warning — silently checking nothing and exiting 0
+// would be a false green.
+//
+// Exits non-zero with a readable findings list if anything fails.
+
+import { readFileSync } from 'node:fs';
+import { readdir, readFile, access } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { checkSurnameOveruse, checkAiTells, checkWireAttribution } from '../content-engine/checkers/voice.mjs';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
+import { MAX_X_IMAGES } from './lib/platforms.mjs';
+import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
+import { parseLessons } from './lib/lessons.mjs';
+import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
+import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
+import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+// S2 (docs/decisions.md 2026-10-01): the TASTE thresholds below — media kinds,
+// photo reuse, pairing default, opener/hook windows, photo mix, screenshot
+// rules — are Tree's, in social/strategy-params.json (safe defaults when the
+// file is missing). The GUARDRAIL checks (rights/takedown source, X length limit,
+// Instagram image + aspect rules, story-unique campaign) stay hard-coded here
+// and have no parameter. See docs/social/guardrails.md.
+const PARAMS = loadStrategyParams(ROOT);
+export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
+export const POSTED_DIR = path.join(ROOT, 'social', 'posted');
+const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
+
+// (opener window, posted lookback, cross-post similarity threshold and the
+// "paired-looking" floor, IG-history window: strategy-params.json.)
+const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
+const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+// Where rehosted real photographs of Taylor live (the 2026-08-12 standard).
+// mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
+// from it — see the kind checks in checkMedia.
+const PHOTO_PREFIX = '/social/library/photos/';
+
+// The 2026-09-05 checker hole (#3584, Fable ruling on kanban t_36d74b87): a
+// rehosted YouTube/broadcaster thumbnail was declared mediaKind "photo" and
+// sailed through this gate because the gate only checked path + credit
+// strings, never whether the image was actually a license-cleared photo of
+// Taylor vs. a screenshot of someone else's video. docs/decisions.md
+// 2026-08-15 already defined "photo" as a license-cleared local file, and
+// docs/marketing/social-strategy.md §2 already banned typography/designed
+// cards standing in for real media — #3584 is this checker not enforcing
+// policy that already existed, not a new policy.
+//
+// Two independent signals close the hole:
+//   1. mediaCredit/mediaSource text that reads like a rehosted video
+//      thumbnail (VIDEO_THUMBNAIL_CREDIT_RE) — catches the exact shape the
+//      appearance-discovery fast lane produces (`mediaCredit: "Video
+//      thumbnail: <channel>"`).
+//   2. an explicit allowlist of the genuinely cleared corpus files under
+//      PHOTO_PREFIX (CLEARED_PHOTO_ALLOWLIST) — even a photo-shaped file
+//      that dodges signal 1's wording must still be a file this checker
+//      already knows is cleared; a new photo is added to the allowlist only
+//      after confirming (per social/calendar.md's growth instructions) it is
+//      genuinely CC/public-domain and correctly labelled.
+// Either signal alone is a hard fail — the two are deliberately redundant so
+// a thumbnail declared "photo" without an incriminating credit string (or a
+// future non-thumbnail file nobody vetted) still can't launder through.
+const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
+// The durable credited-photo inventory replaces the hand-maintained five-file
+// allowlist. Every entry carries the exact source and credit a draft may use.
+const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
+const PHOTO_LIBRARY_BY_ID = new Map(PHOTO_LIBRARY.map((photo) => [photo.id, photo]));
+const PHOTO_LIBRARY_BY_PATH = new Map(PHOTO_LIBRARY.map((photo) => [photo.mediaPath, photo]));
+// Tree Overhaul T5 (round 2 review) — this is the PR-time gate, the one that
+// is supposed to stop a bad draft before a PR is ever opened, so it must read
+// the same active-rules ledger validate-queue.mjs's CI backstop does. Own,
+// independent read (mirrors PHOTO_LIBRARY above) rather than importing from
+// validate-queue.mjs — the two CLI scripts each load their own copy of
+// shared repo data, never each other's exports (see lib/queue-schema.mjs's
+// header on why the two gates stay independent code paths).
+const ACTIVE_LESSON_IDS = (() => {
+  try {
+    return parseLessons(readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8')).active.map((rule) => rule.id);
+  } catch {
+    return [];
+  }
+})();
+// Instagram rejects a feed image whose aspect ratio (width/height) falls
+// outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
+// 2207009 / code 36003, "the aspect ratio is not supported". The window lives in
+// lib/photo-dimensions.mjs so the daily pre-compute filters on the same numbers. X has no such
+// limit, so this gate is Instagram-only. Nine days of IG posts (15–23 Aug
+// 2026) died silently on this: eight/nine 780x1688 site screenshots (ratio
+// 0.462) were queued and rejected while nothing inspected image shape
+// (social/calendar.md). 1080x1350 = exactly 0.8 and publishes.
+
+// X's own length limit — see checkLength/weightedTweetLength below for the
+// full story. HARD_LIMIT is X's real cap; anything past it gets rejected
+// with a generic 403 (this is what actually broke the 11 social/failed/
+// items, corrected 2026-08-11). WARN_THRESHOLD is a self-imposed target with
+// headroom, not an X rule — flagged as non-fatal.
+const X_WEIGHTED_LENGTH_HARD_LIMIT = 280;
+// Findings that are advisory, not fatal, are tagged with this prefix so
+// main() can tell the two apart without a richer finding-object shape (every
+// other rule family here already returns plain strings) — see checkLength
+// and main()'s severity split below.
+const WARNING_PREFIX = 'length: warning —';
+
+export async function readJsonDir(dir) {
+  let files;
+  try {
+    files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
+  } catch {
+    return [];
+  }
+  const out = [];
+  for (const file of files) {
+    const full = path.join(dir, file);
+    out.push({ file, full, data: JSON.parse(await readFile(full, 'utf-8')) });
+  }
+  return out;
+}
+
+/**
+ * Strips leading non-letter characters (punctuation, smart quotes, emoji,
+ * digits, whitespace — anything that isn't a Unicode letter) down to the
+ * first real word, then lowercases. Used before both the "did you know"
+ * opener ban and the first-N-words formula match, so a body that opens with
+ * a quote mark or emoji before the real text isn't silently exempt from
+ * either check.
+ */
+function normalizeOpener(text) {
+  return String(text ?? '')
+    .replace(/^[^\p{L}]+/u, '')
+    .trim()
+    .toLowerCase();
+}
+
+function firstWords(text, n) {
+  const normalized = normalizeOpener(text).replace(/\s+/g, ' ');
+  return normalized.split(' ').filter(Boolean).slice(0, n).join(' ');
+}
+
+function tokenSet(text) {
+  return new Set(
+    String(text ?? '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(Boolean),
+  );
+}
+
+// Very short texts need a token floor before the overlap coefficient below
+// is trustworthy: two 2-word bodies that happen to share both words look
+// "100% similar" by pure set overlap, which is noise, not a real signal —
+// added 2026-08-11 (Codex review round 1 on PR #1900).
+const MIN_TOKENS_FOR_SIMILARITY = 4;
+
+// Word-level OVERLAP coefficient (intersection / size of the SMALLER set),
+// not Jaccard (intersection / union). An X sibling is deliberately trimmed
+// and shorter than its IG counterpart — Jaccard's union-sized denominator
+// punishes that length gap and undercounts genuine near-duplicates (the
+// real 2026-08-10 TTPD IG/X pair, an near-verbatim trim that plausibly
+// triggered an X duplicate-content 403 per the failed/ evidence, scores only
+// ~0.37 on Jaccard but ~0.89 on overlap). Overlap asks the right question
+// for THIS check: "is nearly everything in the shorter draft also in the
+// longer one," which is exactly what "trimmed the IG caption down for X"
+// looks like, and is far less fooled by the length asymmetry than Jaccard.
+export function bodySimilarity(a, b) {
+  const A = tokenSet(a);
+  const B = tokenSet(b);
+  if (!A.size || !B.size) return 0;
+  if (Math.min(A.size, B.size) < MIN_TOKENS_FOR_SIMILARITY) return 0;
+  let inter = 0;
+  for (const x of A) if (B.has(x)) inter++;
+  return inter / Math.min(A.size, B.size);
+}
+
+async function fileExists(p) {
+  try {
+    await access(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Schema validation — runs BEFORE every other rule family, since voice/
+ * openers/cross-post-copy/media all assume `body` is a real string,
+ * `platform` is recognized, and (for the cross-post fallback)
+ * `scheduledAt` parses. A malformed item fails here and skips the rest
+ * (checkDraft short-circuits) rather than risking a confusing crash or a
+ * misleading finding from a rule that assumed well-formed input.
+ */
+export function checkSchema(item) {
+  const findings = [];
+  if (typeof item?.body !== 'string' || item.body.trim().length === 0) {
+    findings.push('schema: `body` must be a non-empty string.');
+  }
+  if (typeof item?.platform !== 'string' || !RECOGNIZED_PLATFORMS.has(item.platform)) {
+    findings.push(`schema: \`platform\` must be one of ${[...RECOGNIZED_PLATFORMS].join(', ')} (got ${JSON.stringify(item?.platform)}).`);
+  }
+  if (!isValidScheduledAt(item)) {
+    findings.push(`schema: \`scheduledAt\` is missing or not a valid date (got ${JSON.stringify(item?.scheduledAt)}) — this can never become due or stale (see lib/queue.mjs's isValidScheduledAt) and would sit unprocessed forever if it reached the queue.`);
+  }
+  return findings;
+}
+
+/** Voice rules — reuses voice.mjs's checkers rather than re-implementing
+ * the surname/ai-tell/wire-attribution regexes for drafts. */
+export async function checkVoice(file, body) {
+  const asContentItem = [{ type: 'social-draft', file, era: null, key: file, texts: { body } }];
+  const [surname, aiTell, wire] = await Promise.all([
+    checkSurnameOveruse(asContentItem),
+    checkAiTells(asContentItem),
+    checkWireAttribution(asContentItem),
+  ]);
+  return [...surname, ...aiTell, ...wire].map((f) => `voice (${f.checker}): ${f.evidence}`);
+}
+
+export function checkOpeners(file, item, others, params = PARAMS) {
+  const findings = [];
+  const normalized = normalizeOpener(item.body);
+  const OPENER_WORDS = params.openers.wordWindow;
+  // Word boundary (`\b`) so "did you knowledge..." (a real, if unlikely,
+  // sentence) doesn't false-positive — only an actual standalone "know".
+  for (const banned of params.openers.bannedOpeners) {
+    const phrase = banned.trim().toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+    if (new RegExp(`^${phrase}\\b`).test(normalized)) {
+      findings.push(`opener: body opens with "${banned}" — banned formula opener (social/strategy-params.json openers.bannedOpeners), rewrite the hook.`);
+    }
+  }
+  const mine = firstWords(item.body, OPENER_WORDS);
+  if (mine) {
+    for (const other of others) {
+      if (other.file === file) continue;
+      const theirs = firstWords(other.body, OPENER_WORDS);
+      if (theirs && theirs === mine) {
+        findings.push(`opener: first ${OPENER_WORDS} words ("${mine}") match ${other.file} — formula opener, vary the hook.`);
+      }
+    }
+  }
+  return findings;
+}
+
+/**
+ * The hard pairing rule (Joey, 2026-08-25, social/README.md; made
+ * UNCONDITIONAL 2026-08-26): every real campaign is authored as TWO queue
+ * items with the same story-unique `campaign` — one `x`, one `instagram`.
+ * There is no exception of any kind, for any reason.
+ *
+ * Until 2026-08-26 that rule had no gate anywhere on the path that actually
+ * merges a draft. It was prose in social/README.md and the runner prompts,
+ * plus an advisory P2 finding in the content-engine's
+ * `content.social-post-missing` scan — a report nobody has to act on before
+ * a queue PR auto-merges. Predictably, drafting lanes kept shipping X-only:
+ * on 2026-08-26 every one of the five items that posted was `platform: "x"`
+ * and Instagram got nothing at all, which is what the founder noticed.
+ * This is the missing gate. It fails a draft that has no Instagram (or no
+ * X) counterpart, so the PR does not auto-merge and a human sees it.
+ *
+ * The gate briefly (same day) honored a `Single-platform exception: <reason>`
+ * marker in `why` for content whose FORMAT genuinely could not work on the
+ * other platform, rejecting only scheduling pretexts. That carve-out is gone
+ * — it was itself the pretext both of that day's X-only drafts used
+ * ("the calendar assigns this subject to X only; today's IG slot is a
+ * different, dropped subject"), and Joey closed it same-day: "Always an IG
+ * copy. Always." No marker, however genuinely worded, suppresses this
+ * finding any more.
+ *
+ * AMENDED 2026-09-30 (owner, Bots v2 C4): pairing is still the default, but an
+ * item may carry its own written `singlePlatformReason` (no usable image →
+ * X-only; breaking-news speed) — the only exemption, shown to the owner on the
+ * approval post. See docs/decisions.md 2026-09-30.
+ *
+ * Scoped deliberately to the campaign of the draft being checked, not to the
+ * whole corpus: legacy unpaired campaigns already in `social/posted/` are the
+ * advisory checker's business, and must not retroactively fail every future
+ * PR that merely touches social/queue/ (same reasoning as the targets-only
+ * design in main()).
+ */
+export function checkCampaignPair(file, item, allQueueItems, allPostedItems, params = PARAMS) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+
+  const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+  if (!campaign) {
+    return [
+      'campaign pair: no `campaign` value, so this draft has no story-unique key to pair an ' +
+        `${item.platform === 'x' ? 'Instagram' : 'X'} sibling to — and the poster's idempotency check falls back to ` +
+        'matching raw body text. Add a story-unique `campaign` (e.g. "on-this-day:red-announcement-wanegbt") ' +
+        'shared with this story\'s sibling item.',
+    ];
+  }
+
+  // The 2026-09-05 #3584 "appearance:*-family campaigns are X-only" carve-
+  // out was itself the exact single-platform exception the founder had
+  // already closed unconditionally — REMOVED 2026-09-10 (kanban t_bac31b1a,
+  // Joey: "there's never a time where we post to only X, or only IG").
+  // scripts/appearance-discovery/lib/social-draft.mjs now authors a real
+  // photo-backed Instagram sibling for this lane too, so no exemption is
+  // needed here any more.
+  const wanted = item.platform === 'x' ? 'instagram' : 'x';
+  const group = [...allQueueItems, ...allPostedItems].filter(
+    (o) => o.file !== file && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
+  );
+
+  if (group.some((o) => o.data.platform === wanted)) return [];
+  // Tree's call (strategy-params.json pairing.requireBothPlatforms): the
+  // sibling-exists requirement above is taste; the story-unique `campaign`
+  // key (checked first) is a guardrail and stays hard.
+  if (!params.pairing.requireBothPlatforms) return [];
+
+  // Bots v2 (docs/plans/bots-v2/PLAN.md C4, owner 2026-09-30): a WRITTEN
+  // `singlePlatformReason` on THIS item is the one sanctioned exception —
+  // distinct from the removed `why` marker (a reason on a sibling, or inside
+  // `why`, still does not count). The owner reads it on the approval post.
+  if (isValidSinglePlatformReason(item.singlePlatformReason)) return [];
+
+  return [
+    `campaign pair: campaign "${campaign}" has this ${item.platform} item but no ${wanted} sibling in social/queue/ or ` +
+      'social/posted/. Every post ships to BOTH platforms by default — author the ' +
+      `${wanted} item in this same change with the exact same \`campaign\` value, or set a written ` +
+      '`singlePlatformReason` on this item (no usable image → X-only; breaking-news speed). ' +
+      'The Instagram item already cross-posts to Facebook, so never add a third Facebook item.',
+  ];
+}
+
+/**
+ * "All at once" (2026-09-10, kanban t_bac31b1a, Joey: "one idea goes out to
+ * X, Instagram... all together"): a campaign's two queue items must be
+ * scheduled within a tight window of each other, not hours apart same day.
+ * Only checked when BOTH siblings are still in social/queue/ (both being
+ * authored/edited together) — a sibling that already posted is history and
+ * cannot be rescheduled, so it is out of scope here (checkCampaignPair
+ * already treats an already-posted sibling as satisfying pairing).
+ *
+ * Scoped to the campaign of the draft being checked, same reasoning as
+ * checkCampaignPair: legacy queue items scheduled apart before this rule
+ * existed are not this check's business unless someone is actively touching
+ * one of the pair right now.
+ */
+export const SIMULTANEOUS_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+export function checkSimultaneousPair(file, item, allQueueItems, params = PARAMS) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+  if (!campaign) return []; // checkCampaignPair already flags this — nothing to compare against
+
+  const wanted = item.platform === 'x' ? 'instagram' : 'x';
+  const sibling = allQueueItems.find(
+    (o) => o.file !== file && o.data.platform === wanted && (typeof o.data.campaign === 'string' ? o.data.campaign.trim() : '') === campaign,
+  );
+  if (!sibling || !isValidScheduledAt(sibling.data)) return [];
+
+  const deltaMs = Math.abs(new Date(item.scheduledAt).getTime() - new Date(sibling.data.scheduledAt).getTime());
+  const windowMs = params.pairing.simultaneousWindowMinutes * 60 * 1000;
+  if (deltaMs <= windowMs) return [];
+
+  const deltaMinutes = Math.round(deltaMs / 60000);
+  return [
+    `simultaneous pair: campaign "${campaign}" schedules this ${item.platform} item ${deltaMinutes} minute(s) apart from its ` +
+      `${wanted} sibling ${sibling.file} — "all at once" means both siblings ship together (2026-09-10, kanban t_bac31b1a, ` +
+      `Joey: "one idea goes out to X, Instagram... all together"), not hours apart same day. Set both \`scheduledAt\` values ` +
+      `to the same instant (or within ${windowMs / 60000} minutes of each other).`,
+  ];
+}
+
+export function checkCrossPostCopy(file, item, allQueueItems, params = PARAMS) {
+  if (item.platform !== 'x') return [];
+  const SIBLING_SIMILARITY_THRESHOLD = params.crossPost.similarityThreshold;
+  // A same-day IG item this similar to an X draft with no shared `campaign`
+  // is worth flagging as "probably should have been tagged," even below the
+  // near-duplicate threshold — see the fallback path below.
+  const PAIRED_LOOKING_FLOOR = params.crossPost.pairedLookingFloor;
+
+  if (item.campaign) {
+    const sibling = allQueueItems.find((o) => o.file !== file && o.data.platform === 'instagram' && o.data.campaign === item.campaign);
+    if (!sibling) return [];
+    const similarity = bodySimilarity(item.body, sibling.data.body);
+    if (similarity > SIBLING_SIMILARITY_THRESHOLD) {
+      return [
+        `cross-post copy: ${Math.round(similarity * 100)}% similar to its Instagram sibling ${sibling.file} (campaign "${item.campaign}") — ` +
+          'near-identical siblings are what trigger X\'s duplicate-content 403s and break the platform-native rule. Rewrite the X version distinctly.',
+      ];
+    }
+    return [];
+  }
+
+  // No `campaign` to key off of — fall back to "closest same-day Instagram
+  // item" so an X/IG pair authored without a shared campaign still gets
+  // checked, rather than silently skipping this rule just because the
+  // drafter forgot to tag them (added 2026-08-11, Codex review round 1).
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this; nothing more to compare here
+  const itemDay = utcDateOnly(item.scheduledAt);
+  const sameDayIg = allQueueItems.filter(
+    (o) => o.file !== file && o.data.platform === 'instagram' && isValidScheduledAt(o.data) && utcDateOnly(o.data.scheduledAt) === itemDay,
+  );
+  if (!sameDayIg.length) return [];
+
+  sameDayIg.sort(
+    (a, b) => Math.abs(new Date(a.data.scheduledAt).getTime() - new Date(item.scheduledAt).getTime()) - Math.abs(new Date(b.data.scheduledAt).getTime() - new Date(item.scheduledAt).getTime()),
+  );
+  const closest = sameDayIg[0];
+  const similarity = bodySimilarity(item.body, closest.data.body);
+
+  if (similarity > SIBLING_SIMILARITY_THRESHOLD) {
+    return [
+      `cross-post copy: no \`campaign\` set, but this X draft is ${Math.round(similarity * 100)}% similar to ${closest.file} (the closest same-day Instagram item) — ` +
+        'either tag both with a shared `campaign` (recommended, makes this detection reliable) or rewrite the X version distinctly.',
+    ];
+  }
+  if (similarity >= PAIRED_LOOKING_FLOOR) {
+    return [
+      `cross-post copy: no \`campaign\` set on this X draft, and a same-day Instagram item (${closest.file}) looks like it could be its sibling (${Math.round(similarity * 100)}% word overlap) — add a shared \`campaign\` value so this check can compare them reliably.`,
+    ];
+  }
+  return [];
+}
+
+/**
+ * T6's slot-displacement cap (docs/specs/tree-overhaul/t6-side-doors.md
+ * "Slot displacement"), expressed as a CI backstop: a fast-lane item
+ * (`lane: "merch"|"appearance"`) takes its beat's planned slot rather than
+ * adding to it, so it must never share a `platform` + UTC day with a
+ * `lane: "calendar"` item. The daily-draft prompt is what's actually
+ * supposed to move the bumped calendar item to the next free-beat day in
+ * `social/calendar.md` — this only catches a prompt slip that skipped that
+ * step, turning it into a red CI run instead of two posts fighting over one
+ * day. Symmetric: fires whether the item under check is the fast-lane
+ * draft or the calendar item it collides with.
+ */
+export function checkFastLaneDisplacement(file, item, allQueueItems) {
+  if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
+  if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
+
+  const isFastLane = FAST_LANE_LANES.includes(item.lane);
+  const isCalendar = item.lane === 'calendar';
+  if (!isFastLane && !isCalendar) return []; // e.g. reddit — not part of this pairing
+
+  const day = utcDateOnly(item.scheduledAt);
+  const conflict = allQueueItems.find((o) => {
+    if (o.file === file || o.data.platform !== item.platform || !isValidScheduledAt(o.data)) return false;
+    if (utcDateOnly(o.data.scheduledAt) !== day) return false;
+    return isFastLane ? o.data.lane === 'calendar' : FAST_LANE_LANES.includes(o.data.lane);
+  });
+  if (!conflict) return [];
+
+  return [
+    `fast-lane displacement: this "${item.lane}" item shares platform "${item.platform}" and UTC day ${day} with ` +
+      `${conflict.file}'s "${conflict.data.lane}" item — a fast-lane post takes its beat's planned slot rather than adding ` +
+      'to it (docs/specs/tree-overhaul/t6-side-doors.md). Move the displaced calendar item to the next day with a free ' +
+      'beat in social/calendar.md and reschedule its queue item, or drop this fast-lane draft.',
+  ];
+}
+
+// The weighted-length rule itself (AUTOLINK_URL_RE, wide-char weighting,
+// weightedTweetLength) lives in lib/x-length.mjs so the CI schema gate
+// (lib/queue-schema.mjs, run on every queue file by validate-queue.mjs in
+// the required `build` job) enforces the exact same counting as this
+// draft-time checker — two independent ports of X's counting rule would
+// drift, and a drifted length rule is how the 11 social/failed/ 403s
+// happened. Re-exported here so existing importers/tests keep working.
+export { weightedTweetLength } from './lib/x-length.mjs';
+
+/**
+ * X-only. HARD FAILS over X's real 280-weighted-character limit (see
+ * weightedTweetLength's docstring for why this is the rule that was
+ * actually missing). WARNS (non-fatal — main() treats a `WARNING_PREFIX`
+ * finding as advisory, not a checker failure) above 270, to leave headroom
+ * before the hard limit rather than let every draft ride the edge.
+ */
+export function checkLength(item, params = PARAMS) {
+  if (item.platform !== 'x') return [];
+  const X_WEIGHTED_LENGTH_WARN_THRESHOLD = Math.min(params.xLength.warnAt, X_WEIGHTED_LENGTH_HARD_LIMIT);
+  const weighted = weightedTweetLength(item.body);
+  if (weighted > X_WEIGHTED_LENGTH_HARD_LIMIT) {
+    return [
+      `length: weighted ${weighted} exceeds X's real ${X_WEIGHTED_LENGTH_HARD_LIMIT}-character limit (URLs always count as ${WEIGHTED_URL_LENGTH} regardless of actual length; most emoji/CJK count as 2) — X will reject this with a generic 403. Trim the body.`,
+    ];
+  }
+  if (weighted > X_WEIGHTED_LENGTH_WARN_THRESHOLD) {
+    return [`${WARNING_PREFIX} weighted ${weighted} is over the ${X_WEIGHTED_LENGTH_WARN_THRESHOLD}-char target (X's hard limit is ${X_WEIGHTED_LENGTH_HARD_LIMIT}) — trim if it doesn't cost the hook.`];
+  }
+  return [];
+}
+
+function checkInventoryPhotoBinding(item, tile) {
+  if (typeof item.photoId !== 'string' || item.photoId.trim() === '') {
+    return ['media: mediaKind "photo" requires `photoId` from social/photo-library.json so its exact path, credit, and source stay bound together.'];
+  }
+  const selectedPhoto = PHOTO_LIBRARY_BY_ID.get(item.photoId);
+  if (!selectedPhoto) return [`media: photoId ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
+  if (selectedPhoto.mediaPath !== tile || !creditsMatch(item.mediaCredit, selectedPhoto.credit) || selectedPhoto.source !== item.mediaSource) {
+    return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
+  }
+  // photoEra (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
+  // X post that shipped a Lover-era tour photo): a themed draft that declares
+  // its target era must be bound to a photo actually tagged for that era.
+  // Mirrors queue-schema.mjs's validatePhotoInventoryBinding so the CI
+  // backstop and this draft-time gate can never drift on the same rule.
+  if (typeof item.photoEra === 'string' && item.photoEra.trim() !== '') {
+    const era = item.photoEra.trim();
+    if (!Array.isArray(selectedPhoto.tags) || !selectedPhoto.tags.includes(era)) {
+      return [
+        `media: this draft declares photoEra "${era}", but photoId ${JSON.stringify(item.photoId)}'s tags (${JSON.stringify(selectedPhoto.tags ?? [])}) ` +
+          'do not include it — an off-era photo is worse than no photo at all (Joey, 2026-09-10). Re-run ' +
+          `\`node scripts/social/select-photo.mjs --era ${era}\` for a matching photo, or add one to social/photo-library.json first.`,
+      ];
+    }
+  } else if (typeof item.campaign === 'string' && THEMED_CAMPAIGN_PREFIXES.some((prefix) => item.campaign.startsWith(prefix))) {
+    return [
+      `media: campaign ${JSON.stringify(item.campaign)} belongs to a themed family (${THEMED_CAMPAIGN_PREFIXES.join(', ')}) — ` +
+        'these posts are inherently about one specific era, so `photoEra` is required, not optional, for this campaign shape ' +
+        '(kanban t_75ec7106: this is exactly the campaign shape that shipped a Lover-era photo on a reputation-era post). ' +
+        `Set \`photoEra\` to the target era and run \`node scripts/social/select-photo.mjs --era <era>\` for a matching photo.`,
+    ];
+  }
+  return [];
+}
+
+export async function checkMedia(file, item, recentIgPosted, allQueueItems = [], params = PARAMS) {
+  const findings = [];
+  if (item.platform === 'instagram' && !item.media?.length) {
+    findings.push('media: Instagram drafts require at least one image in `media`.');
+    return findings; // nothing else to check without media
+  }
+  if (item.platform === 'x' && !item.media?.length) {
+    // Bots v2 W8: "no usable image → X-only" is the sanctioned single-platform case (checkCampaignPair,
+    // owner 2026-09-30) — it could never pass while this gate demanded media too. Only an X item that
+    // carries its OWN written reason is exempt; a paired X item still needs its image.
+    if (isValidSinglePlatformReason(item.singlePlatformReason)) return findings;
+    if (!params.media.requireImageOnX) return findings; // Tree's call (strategy-params.json media.requireImageOnX)
+    findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
+    return findings;
+  }
+  if (KNOWN_MEDIA_KINDS.includes(item.mediaKind) && !params.media.allowedKinds.includes(item.mediaKind)) {
+    findings.push(`media: mediaKind ${JSON.stringify(item.mediaKind)} is not currently allowed — social/strategy-params.json media.allowedKinds is ${JSON.stringify(params.media.allowedKinds)}.`);
+  }
+  if (item.platform === 'x' && item.mediaKind === 'site-screen') {
+    findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+  }
+  // Website-screenshot-as-media lock (2026-08-31, Joey — kanban t_895c2ba8:
+  // "I want just pictures of Taylor and Taylor related stuff, no more
+  // pictures of our website"). docs/marketing/social-strategy.md §2 already
+  // SAID a site screenshot is only legitimate "for posts whose subject IS a
+  // product surface (a launch, a how-to)" — but nothing on the merge path
+  // enforced that scope, so site-screen drifted to 7 of the last 10 posted
+  // Instagram items (social/posted/*-ig.json, audited this run) while real
+  // Taylor photos ran 3. This is the missing gate: a site-screen tile may
+  // only ship on a `launch:`-family campaign (the feature-launch arc, the
+  // one place strategy §2(a) actually calls it out — "an Instagram
+  // site-screen is legitimate here"). Every other campaign family
+  // (heartbeat, thread, mood) must use a real Taylor photo or go text-only
+  // on X. Strategy §2(a) is more specific than "launch campaigns may use
+  // site-screen" though: "on Instagram the screenshot rides slide 2 of a
+  // carousel behind a Taylor photo tile — the grid shows Taylor either
+  // way." So even on a launch campaign, media[0] (the grid tile) must be a
+  // real Taylor photo and the screenshot(s) must ride slide 2+ — a
+  // single-image site-screen post (no carousel) is not allowed even on a
+  // launch campaign (Codex review round 1, kanban t_895c2ba8).
+  let launchCarouselRequired = false;
+  if (item.platform === 'instagram' && item.mediaKind === 'site-screen') {
+    const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
+    const screenPrefixes = params.siteScreen.allowedCampaignPrefixes;
+    if (!screenPrefixes.some((p) => campaign.startsWith(p))) {
+      findings.push(
+        `media: mediaKind "site-screen" is only allowed on a ${screenPrefixes.map((p) => `\`${p}\``).join('/')}-family campaign (social/strategy-params.json siteScreen; this draft's campaign is ${JSON.stringify(item.campaign ?? null)}) — ` +
+          'per docs/marketing/social-strategy.md §2, a website screenshot is only legitimate for a feature-launch/how-to post. Every other post must use a real credited Taylor photo ' +
+          '(mediaKind "photo") or go text-only on X. (Joey, 2026-08-31: "no more pictures of our website.")',
+      );
+    } else {
+      launchCarouselRequired = params.siteScreen.requirePhotoGridTile;
+      const media = item.media ?? [];
+      if (launchCarouselRequired && (media.length < 2 || !String(media[0]).startsWith(PHOTO_PREFIX))) {
+        findings.push(
+          `media: mediaKind "site-screen" on a launch campaign must be a carousel — media[0] a real Taylor photo under ${PHOTO_PREFIX} (the grid tile), the screenshot(s) as slide 2+ ` +
+            '— per docs/marketing/social-strategy.md §2(a): "the screenshot rides slide 2 of a carousel behind a Taylor photo tile — the grid shows Taylor either way." ' +
+            `Got media: ${JSON.stringify(media)}.`,
+        );
+      }
+    }
+  }
+  if (item.platform === 'x' && (item.media?.length ?? 0) > MAX_X_IMAGES) {
+    findings.push(`media: X posts support at most ${MAX_X_IMAGES} images (this draft has ${item.media.length}).`);
+  }
+  for (const mediaPath of item.media ?? []) {
+    const ext = String(mediaPath).split('.').pop()?.toLowerCase();
+    if (!ALLOWED_MEDIA_EXTENSIONS.has(ext)) {
+      findings.push(`media: "${mediaPath}" has an unsupported extension — only ${[...ALLOWED_MEDIA_EXTENSIONS].join('/')} are produced/uploaded by this pipeline today.`);
+      continue; // an unsupported format isn't worth the existence/repeat checks below
+    }
+    const full = path.join(PUBLIC_DIR, mediaPath);
+    if (!(await fileExists(full))) {
+      findings.push(`media: "${mediaPath}" does not exist under apps/web/public/ — commit it in this PR.`);
+      continue;
+    }
+    // Instagram rejects images outside its aspect-ratio window at publish time,
+    // three days after the draft merged — catch it now, at write time, for IG
+    // drafts only (X has no such limit). See IG_MIN/MAX_ASPECT_RATIO above.
+    if (item.platform === 'instagram') {
+      let meta;
+      const libraryEntry = PHOTO_LIBRARY_BY_PATH.get(mediaPath);
+      if (String(mediaPath).startsWith(PHOTO_PREFIX) && libraryEntry?.width && libraryEntry?.height) {
+        // Library photos live in Git LFS (docs/decisions.md 2026-10-07); the
+        // checkout may hold only a pointer, so trust the recorded dimensions.
+        meta = { width: libraryEntry.width, height: libraryEntry.height };
+      } else {
+        try {
+          const bytes = await readFile(full);
+          if (String(mediaPath).startsWith(PHOTO_PREFIX) && isLfsPointerBuffer(bytes)) {
+            findings.push(`media: "${mediaPath}" — library entry missing width/height (the photo is a Git LFS pointer here, so dimensions cannot be read). Add width/height/bytes to its social/photo-library.json entry.`);
+            meta = 'reported';
+          } else {
+            meta = imageMeta(bytes);
+          }
+        } catch {
+          meta = null;
+        }
+      }
+      if (meta === 'reported') {
+        // already flagged above (LFS pointer without recorded dimensions)
+      } else if (!meta || !meta.width || !meta.height) {
+        findings.push(
+          `media: "${mediaPath}" — could not read image dimensions to verify Instagram's aspect-ratio limit (${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO}, width/height). Re-export a standard PNG/JPEG at 1080x1350.`,
+        );
+      } else {
+        const ratio = meta.width / meta.height;
+        if (ratio < IG_MIN_ASPECT_RATIO || ratio > IG_MAX_ASPECT_RATIO) {
+          findings.push(
+            `media: "${mediaPath}" is ${meta.width}x${meta.height} (aspect ${ratio.toFixed(3)}), outside Instagram's accepted ${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO} range — Instagram rejects it with "the aspect ratio is not supported". Re-export at 1080x1350 (portrait 4:5) or another in-range size.`,
+          );
+        }
+      }
+    }
+    // ── THE TAYLOR-PHOTO STANDARD (2026-08-12, Joey's call — see
+    //    social/README.md's mediaKind section). Generic era tiles are DEAD as
+    //    draft media, full stop: on 2026-08-06 ALL 17 posted IG items were
+    //    era tiles, and after the 2026-08-11/12 incident Joey's verdict was
+    //    "we are a Taylor Swift fan site whose social media has no pictures
+    //    of Taylor Swift." There is no declared-fallback path anymore —
+    //    a draft either ships a real credited photograph (mediaKind
+    //    "photo") or a deliberate product screenshot (mediaKind
+    //    "site-screen"). No tag, no merge. ──────────────────────────────────
+    if (isGenericEraArt(mediaPath)) {
+      findings.push(
+        `media: "${mediaPath}" is a generic era-cover tile — era art is no longer allowed as post media at all (2026-08-12 standard). ` +
+          'Use a real credited photograph of Taylor from the sourced corpus (supabase/seed/content/** moment.photos / lenses.ts), rehosted under /social/library/photos/.',
+      );
+      continue;
+    }
+    const ownCampaign = typeof item.campaign === 'string' && item.campaign.trim() ? item.campaign.trim() : null;
+    // The IG and X halves of ONE campaign share their image by design — only a repeat from another campaign is reuse.
+    const otherCampaignIg = ownCampaign ? recentIgPosted.filter((p) => p.campaign !== ownCampaign) : recentIgPosted;
+    // An Instagram-ready variant and its original are ONE photograph (make-ig-variants.mjs): match either path.
+    const samePhoto = samePhotoPaths(mediaPath, PHOTO_LIBRARY);
+    if (params.photoReuse.scope !== 'none' && samePhoto.some((p) => repeatsRecentIgMedia(p, otherCampaignIg, params.photoReuse.igHistoryWindow))) {
+      findings.push(
+        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but across campaigns it is also a hard finding (photo reuse, L001).`,
+      );
+    }
+    // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
+    // posted-window check above until it's too late (PR #2043 review — two
+    // queued IG items four days apart shared a screenshot and both passed).
+    const alsoQueuedIn = params.photoReuse.scope === 'none' ? undefined : allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).some((m) => samePhoto.includes(m)) && !(ownCampaign && o.data.campaign === ownCampaign));
+    if (alsoQueuedIn) {
+      findings.push(
+        `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,
+      );
+    }
+  }
+
+  // The tile (media[0] — what the Instagram grid and the X card actually
+  // show) must carry a DECLARED kind, and each kind is bound to ITS OWN path
+  // prefix (PR #2043 review: without the path binding, any committed image
+  // could be laundered as a "photo" with a fabricated credit string, and a
+  // real photo declared "site-screen" would ship uncredited).
+  //
+  // Launch carousel exception (2026-08-31, Codex review round 1, kanban
+  // t_895c2ba8): a launch-campaign site-screen post's media[0] is
+  // deliberately a real Taylor PHOTO (the grid tile, validated above) with
+  // the screenshot(s) riding slide 2+ — so for that shape, validate media[0]
+  // against the photo-prefix rule and every remaining slide against the
+  // site-screen prefix rule, instead of applying `item.mediaKind` uniformly
+  // to media[0] alone.
+  if (launchCarouselRequired && item.media?.length >= 2) {
+    const grid = String(item.media[0]);
+    if (!grid.startsWith(PHOTO_PREFIX)) {
+      findings.push(
+        `media: launch-campaign site-screen carousel's grid tile "${grid}" must live under ${PHOTO_PREFIX} — a real credited Taylor photo, not the screenshot.`,
+      );
+    }
+    if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
+      findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
+    }
+    findings.push(...checkInventoryPhotoBinding(item, grid));
+    for (const slide of item.media.slice(1)) {
+      const s = String(slide);
+      if (!s.startsWith('/social/library/') || s.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: launch-campaign carousel slide "${s}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX}).`,
+        );
+      }
+    }
+  } else if (item.media?.length && !isGenericEraArt(item.media[0])) {
+    const tile = String(item.media[0]);
+    if (item.mediaKind === 'photo') {
+      if (!tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "photo" tile "${tile}" must live under ${PHOTO_PREFIX} — the rehosted, credited Taylor-photo corpus. A screenshot or other asset cannot be declared a photo.`,
+        );
+      }
+      // mediaCredit is optional (owner, chat, 2026-10-01): credit the photographer whenever known,
+      // omit it when unknown. A credit that IS present is bound to the library entry above.
+      if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
+        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so any takedown request can be honoured.');
+      }
+      // #3584 (Fable ruling, 2026-09-05): a rehosted YouTube/broadcaster
+      // thumbnail is NOT a "photo" — see the VIDEO_THUMBNAIL_CREDIT_RE /
+      // CLEARED_PHOTO_ALLOWLIST block comment above. Either signal alone is
+      // a hard fail; run both regardless of whether the path check above
+      // already fired, so a thumbnail wrongly staged straight into
+      // PHOTO_PREFIX doesn't dodge this on a technicality.
+      const creditText = `${item.mediaCredit ?? ''} ${item.mediaSource ?? ''}`;
+      const looksLikeThumbnail = VIDEO_THUMBNAIL_CREDIT_RE.test(creditText);
+      const inventoryPhoto = PHOTO_LIBRARY_BY_PATH.get(tile);
+      const notCleared = tile.startsWith(PHOTO_PREFIX) && !inventoryPhoto;
+      if (looksLikeThumbnail || notCleared) {
+        findings.push(
+          `media: "${tile}" cannot be mediaKind "photo" — ${looksLikeThumbnail ? `its mediaCredit/mediaSource ("${creditText.trim()}") reads like a rehosted video thumbnail` : 'it is not in the credited photo inventory'} (docs/decisions.md 2026-08-15: "photo" means a license-cleared local file; #3584 ruling). ` +
+            'Source a genuine credited photo from social/photo-library.json instead — a rehosted thumbnail can never ship on either platform (2026-09-10, kanban t_bac31b1a: no single-platform/uncredited-media exception of any kind).',
+        );
+      }
+      findings.push(...checkInventoryPhotoBinding(item, tile));
+    } else if (item.mediaKind === 'site-screen') {
+      if (!tile.startsWith('/social/library/') || tile.startsWith(PHOTO_PREFIX)) {
+        findings.push(
+          `media: mediaKind "site-screen" tile "${tile}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX} — a real photo must be declared "photo" so its credit is required).`,
+        );
+      }
+    } else if (item.mediaKind === 'card') {
+      const png = await readFile(path.join(PUBLIC_DIR, tile)).catch(() => null);
+      const sidecar = await readFile(path.join(PUBLIC_DIR, cardSidecarPath(tile)), 'utf8').then(JSON.parse).catch(() => null);
+      findings.push(...checkCardMedia(item, tile, { png, sidecar }));
+    } else if (item.mediaKind === 'era-art') {
+      findings.push(
+        'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo", "site-screen" or "card".',
+      );
+    } else {
+      findings.push(
+        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real photograph of Taylor, with mediaSource, and mediaCredit when the photographer is known) "site-screen" (deliberate product screenshot) or "card" (a committed render from /api/share-card). Undeclared media is how the account drifted to a Taylor-free grid.`,
+      );
+    }
+    const mix = photoMixWarning(item, recentIgPosted, params);
+    if (mix) findings.push(`${WARNING_PREFIX} ${mix}`);
+  }
+  return findings;
+}
+
+/**
+ * Tree's self-critique threshold (Tree Overhaul T2), re-checked here — not
+ * only in queue-schema.mjs's CI backstop — because this is the PR-time gate
+ * a drafting run actually sees before merge. Shares queue-schema.mjs's
+ * findCritiqueIssues rather than re-implementing the rubric numbers: two
+ * independent ports would drift, and a drifted rubric is exactly how a
+ * below-threshold draft would slip past one gate but not the other.
+ *
+ * `activeLessonIds` (Tree Overhaul T5, round 2 review) defaults to `[]` —
+ * callers that don't pass one (existing tests, an ad-hoc call) keep today's
+ * lenient behavior; `checkDraft` below always passes the real ledger.
+ */
+export function checkCritique(item, { activeLessonIds = [] } = {}) {
+  return findCritiqueIssues(item, { activeLessonIds });
+}
+
+export async function recentInstagramPosted(n = Math.max(PARAMS.photoReuse.igHistoryWindow, PARAMS.photoMix.window)) {
+  const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
+  return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
+}
+
+export async function recentPostedOpeners(days = PARAMS.openers.postedLookbackDays) {
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  const posted = await readJsonDir(POSTED_DIR);
+  return posted.filter((p) => p.data.postedAt && new Date(p.data.postedAt).getTime() >= cutoff).map((p) => ({ file: p.file, body: p.data.body }));
+}
+
+/**
+ * Resolves CLI args to absolute file paths, or `{ targetPaths: null }`
+ * meaning "everything in social/queue/". `--manifest <path>` reads a JSON
+ * array of strings from that file — the robust option for a caller (the
+ * auto-merge-content.yml workflow) that can't safely word-split filenames
+ * through a shell. Positional args remain supported for local ad-hoc use.
+ * Returns `{ error }` instead of throwing so main() can report it as a
+ * normal (loud, exit-1) failure rather than an uncaught crash.
+ */
+async function resolveTargets(argv) {
+  const manifestIdx = argv.indexOf('--manifest');
+  let rawPaths;
+
+  if (manifestIdx !== -1) {
+    const manifestPath = argv[manifestIdx + 1];
+    if (!manifestPath) return { error: '--manifest requires a file path argument.' };
+    let content;
+    try {
+      content = await readFile(manifestPath, 'utf-8');
+    } catch (err) {
+      return { error: `could not read manifest "${manifestPath}": ${err.message ?? err}` };
+    }
+    try {
+      rawPaths = JSON.parse(content);
+    } catch (err) {
+      return { error: `manifest "${manifestPath}" is not valid JSON: ${err.message ?? err}` };
+    }
+    if (!Array.isArray(rawPaths) || !rawPaths.every((p) => typeof p === 'string')) {
+      return { error: `manifest "${manifestPath}" must be a JSON array of file path strings.` };
+    }
+  } else {
+    rawPaths = argv;
+  }
+
+  if (!rawPaths.length) return { targetPaths: null };
+  return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
+}
+
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS }) {
+  const schemaFindings = checkSchema(target.data);
+  if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
+
+  return [
+    ...(await checkVoice(target.file, target.data.body)),
+    ...checkOpeners(target.file, target.data, openerContext, params),
+    ...checkCampaignPair(target.file, target.data, allQueue, allPosted, params),
+    ...checkSimultaneousPair(target.file, target.data, allQueue, params),
+    ...checkCrossPostCopy(target.file, target.data, allQueue, params),
+    ...checkFastLaneDisplacement(target.file, target.data, allQueue),
+    ...checkLength(target.data, params),
+    ...(await checkMedia(target.file, target.data, recentIg, allQueue, params)),
+    ...checkPhotoReuse(target.file, target.data, allQueue, allPosted, [...PHOTO_LIBRARY_BY_ID.values()], params.photoReuse),
+    ...checkExperiment(target.data),
+    ...checkCritique(target.data, { activeLessonIds }),
+  ];
+}
+
+/** True for a finding that's advisory only (see WARNING_PREFIX / checkLength)
+ * — main() keeps these out of the pass/fail exit code but still prints them. */
+export function isWarningFinding(finding) {
+  return finding.startsWith(WARNING_PREFIX);
+}
+
+async function main() {
+  const resolved = await resolveTargets(process.argv.slice(2));
+  if (resolved.error) {
+    console.error(`check-drafts: ${resolved.error}`);
+    process.exit(1);
+  }
+  const targetPaths = resolved.targetPaths;
+
+  const allQueue = await readJsonDir(QUEUE_DIR);
+  const targets = targetPaths ? allQueue.filter((q) => targetPaths.includes(q.full)) : allQueue;
+
+  if (targetPaths) {
+    // Specific files were requested — every one of them MUST resolve.
+    // A requested-but-missing file (or zero resolved out of N requested) is
+    // a hard failure, not a warning: silently checking nothing while
+    // exiting 0 would be a false green (added 2026-08-11, Codex review
+    // round 1 on PR #1900).
+    const foundFulls = new Set(targets.map((t) => t.full));
+    const unresolved = targetPaths.filter((p) => !foundFulls.has(p));
+    if (unresolved.length) {
+      console.error(`check-drafts: requested file(s) not found under social/queue/ — failing closed:\n${unresolved.map((p) => `  - ${p}`).join('\n')}`);
+      process.exit(1);
+    }
+    if (targets.length === 0) {
+      // Unreachable given the check above (unresolved would already have
+      // caught it), but a second, explicit guard against "0 checked, exit
+      // 0" costs nothing and documents the invariant directly.
+      console.error('check-drafts: targets were requested but none resolved — failing closed.');
+      process.exit(1);
+    }
+  }
+
+  if (!targets.length) {
+    // Only reachable via the "check everything" (no args/manifest) path
+    // with an empty social/queue/ directory.
+    console.log('check-drafts: no target queue files found — nothing to check.');
+    return;
+  }
+
+  const recentIg = await recentInstagramPosted();
+  const recentPosted = await recentPostedOpeners();
+  const openerContext = [...recentPosted, ...allQueue.map((q) => ({ file: q.file, body: q.data.body }))];
+  // Full posted history, not the 14-day opener window: a campaign's sibling
+  // legitimately posted weeks before its partner is drafted, and treating
+  // that as "no sibling" would fail an already-satisfied pairing.
+  const allPosted = await readJsonDir(POSTED_DIR);
+
+  let hadFindings = false;
+  let hadWarnings = false;
+  for (const target of targets) {
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS });
+    // A warning (currently only checkLength's over-270-but-within-280 case)
+    // is advisory: it prints, but never flips the exit code on its own — see
+    // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard
+    // FAIL, same as before this rule existed.
+    const hardFindings = findings.filter((f) => !isWarningFinding(f));
+    const warnFindings = findings.filter(isWarningFinding);
+    if (hardFindings.length) {
+      hadFindings = true;
+      console.error(`\nFAIL ${target.file}`);
+      for (const f of [...hardFindings, ...warnFindings]) console.error(`  - ${f}`);
+    } else if (warnFindings.length) {
+      hadWarnings = true;
+      console.log(`\nWARN ${target.file}`);
+      for (const f of warnFindings) console.log(`  - ${f}`);
+    } else {
+      console.log(`OK   ${target.file}`);
+    }
+  }
+
+  if (hadFindings) {
+    console.error('\ncheck-drafts: one or more queue drafts failed quality checks (see above).');
+    process.exit(1);
+  }
+  if (hadWarnings) {
+    console.log('\ncheck-drafts: all checked drafts passed (warnings above are non-fatal).');
+    return;
+  }
+  console.log('\ncheck-drafts: all checked drafts passed.');
+}
+
+const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (invokedDirectly) {
+  main().catch((err) => {
+    console.error(`check-drafts: crashed: ${err.stack ?? err}`);
+    process.exit(1);
+  });
+}

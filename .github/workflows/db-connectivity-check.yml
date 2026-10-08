@@ -1,0 +1,65 @@
+# Read-only production DB connectivity check.
+#
+# Proves the SUPABASE_DB_URL Actions secret can reach Postgres (SELECT 1)
+# without touching any data. Two triggers:
+#   * workflow_dispatch — the standing "is the DB secret healthy?" button,
+#     for founders and agents alike (e.g. after a credential rotation).
+#   * pull_request scoped to this file — so the secret is proven on the PR
+#     that introduces or edits this check, before merge.
+#
+# This is deliberately the ONLY thing it does: no migrations, no seeds.
+# Those land separately (see the db-automation kanban card) and can rely on
+# this check as the known-good connectivity baseline.
+name: db-connectivity-check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/db-connectivity-check.yml"
+
+permissions:
+  contents: read
+
+concurrency: db-connectivity-check
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Install pg driver (only dependency needed)
+        run: npm install --no-save --silent pg@8
+      - name: SELECT 1 against production (read-only)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          node - <<'EOF'
+          const { Client } = require('pg');
+          const url = process.env.SUPABASE_DB_URL;
+          if (!url) {
+            console.log('FAIL: SUPABASE_DB_URL secret is not configured in repo Actions secrets.');
+            process.exit(1);
+          }
+          const c = new Client({
+            connectionString: url,
+            ssl: { rejectUnauthorized: false },
+            connectionTimeoutMillis: 15000,
+          });
+          c.connect()
+            .then(() => c.query('select 1 as ok, current_database() as db'))
+            .then((r) => {
+              console.log('CONNECTED ok — database:', r.rows[0].db);
+              return c.end();
+            })
+            .catch((e) => {
+              // Redact any connection string that could leak via error text.
+              const msg = String(e.message || e).replace(/postgres(ql)?:\/\/\S+/gi, '<url-redacted>');
+              console.log('FAIL:', msg);
+              process.exit(1);
+            });
+          EOF

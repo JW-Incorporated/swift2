@@ -1,0 +1,64 @@
+name: Founder decision (bank item)
+description: "Any agent or founder: bank a decision that needs Joey/Wyatt. Marjorie curates these into the daily Founders' Brief."
+title: "[decision] <one sentence: what's being decided>"
+labels: ["founder-decision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before filing:** check `docs/decisions.md` and recent Founders' Briefs —
+        if precedent already answers this, apply it and cite it instead of banking.
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Three sentences max. Link tickets/docs for depth — don't inline it.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: "Concrete A-or-B(-or-C) choices a non-coder can answer. One line each."
+      placeholder: |
+        A) …
+        B) …
+    validations:
+      required: true
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Recommendation + why
+      description: One option, one or two sentences of why. "It depends" is a failed field.
+    validations:
+      required: true
+  - type: input
+    id: cost-of-delay
+    attributes:
+      label: Cost of delay
+      description: What stalls (or degrades) while this waits, in plain language.
+    validations:
+      required: true
+  - type: input
+    id: affects
+    attributes:
+      label: Affects
+      description: "Exact issue/PR numbers this decision unblocks, space-separated (e.g. `#123 #456`). Answer propagation is mechanical from this field."
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options:
+        - "T2 — banked for the daily brief (default)"
+        - "T3 — fire: page founders now"
+        - "TX — founder-only action (accounts, payments, signatures)"
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline (only if real)
+      placeholder: "2026-07-20 — after this the option expires because…"

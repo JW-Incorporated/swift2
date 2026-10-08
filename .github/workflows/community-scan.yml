@@ -1,0 +1,77 @@
+# Community Engine P1-2 (docs/proposals/2026-09-06-community-engine-plan.md
+# §2.2 Flow E2, board swift2). Daily RSS hot-thread scan: zero-LLM, reads
+# `community_watchlist` (scan=true, platform=reddit), fetches each
+# subreddit's top-of-day + hot RSS via scripts/lib/reddit-rss.mjs (no keys),
+# dedupes against `engagement_lead` + `community_post_ledger`, inserts new
+# rows as `engagement_lead(kind='hot_thread', status='new')` for the
+# Answerer desk (P1-4) to draft against later. Nothing here drafts, screens,
+# or posts anything — see scripts/community/scan.mjs's header.
+#
+# :17 avoids this repo's :00/:05/:10/:23/:30/:40 cron-contention cluster
+# (watchdog.yml header) and lands well before the Answerer desk's planned
+# daily slot (P1-4, after this scan per the plan's §4 workflow table).
+#
+# Kill switch (§4/§8, same pattern as SOCIAL_FREEZE / COMMUNITY_CRAWL_ENABLED
+# in .github/workflows/social-poster.yml / community-crawl.yml): repo
+# VARIABLE `COMMUNITY_SCAN_ENABLED` — unset/false means this workflow still
+# runs (so it stays visible in the Actions tab) but the script itself no-ops
+# immediately, before any network call. Default OFF at ship time; P1-7's
+# end-to-end dry run flips it to `true` after a human reads a rendered
+# sample "Community Tasks" email. Checked once here (skip early, cheap) and
+# again inside scan.mjs itself (belt and suspenders, same posture as
+# post-queue.mjs re-checking SOCIAL_FREEZE).
+#
+# Secrets/vars needed (repo Settings): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+# (secrets, same pair every other Community Engine / worker script uses —
+# scripts/lib/supabase.mjs); COMMUNITY_SCAN_ENABLED (variable, see above).
+# No new secret. Missing SUPABASE_* degrades to a no-op log line, not a
+# crash (scripts/lib/supabase.mjs's serviceClient() contract).
+name: community-scan
+
+on:
+  schedule:
+    - cron: "17 8 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: community-scan
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Enabled check
+        id: enabled
+        env:
+          FLAG: ${{ vars.COMMUNITY_SCAN_ENABLED }}
+        run: |
+          if [ "$FLAG" = "true" ] || [ "$FLAG" = "1" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "COMMUNITY_SCAN_ENABLED is not set — skipping this run entirely. Kill switch, not a fault."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - uses: actions/setup-node@v7
+        if: steps.enabled.outputs.enabled == 'true'
+        with:
+          node-version: "24"
+
+      - run: npm ci
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - name: Run the daily hot-thread scan
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          COMMUNITY_SCAN_ENABLED: ${{ vars.COMMUNITY_SCAN_ENABLED }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/community/scan.mjs

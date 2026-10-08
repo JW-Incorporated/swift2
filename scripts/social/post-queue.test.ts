@@ -1,0 +1,1226 @@
+// End-to-end regression test for the 2026-08-11 silent-failure bug: an X post
+// that the API rejects must be REPORTED — non-zero exit, an ::error::
+// annotation, a report naming the item and the platform's error text — not
+// swallowed into a green run. Twelve real posts died that way between
+// 2026-07-21 and 2026-08-04 (eleven X, one Instagram — #1897) while every
+// social-poster run stayed green.
+//
+// Also covers the states that deliberately spend no attempt (skipped /
+// waiting) and their escalation ladder: red at 24h overdue
+// (run-report.mjs's STUCK_AFTER_HOURS), retired to social/failed/ at 48h
+// (queue.mjs's isStaleDue).
+//
+// Drives the real post-queue.mjs against a temp SOCIAL_ROOT with `fetch`
+// stubbed. No network, no credentials: the X_*/IG_* env vars below are
+// obvious dummies and never leave the process.
+
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { contentHash, signApproval } from './lib/queue.mjs';
+
+// docs/social/RULINGS-SOCIAL-2.md B1: production's SOCIAL_APPROVERS (lib/approvers.mjs)
+// is intentionally EMPTY until the owner's real Discord user id is pinned
+// in — these tests must not depend on that being filled in yet, so they
+// mock the approver list to one fixed test identity. This is the identity
+// every fixture below is stamped as approved by.
+const VALID_APPROVER = 'discord:100000000000000001';
+vi.mock('./lib/approvers.mjs', () => ({ SOCIAL_APPROVERS: [VALID_APPROVER] }));
+
+const TEST_SIGNING_KEY = 'test-signing-key-do-not-use-in-prod';
+
+// A valid, correctly-stamped, SIGNED v2 approval (docs/social/RULINGS-SOCIAL-2.md B1) by
+// the one approver every fixture below authors as. xItem/igItem auto-stamp
+// with this shape (computed against the item's own content) unless a test
+// explicitly overrides `approval` — see those factories below. `at` defaults
+// to "right now" (not a fixed literal) so a freshly-stamped fixture is never
+// accidentally >48h stale under isStaleApproved (lib/queue.mjs) regardless of
+// what day the suite runs — tests that need a STALE approval pass `at`
+// explicitly (see staleApprovedAt() below).
+function validApproval(item: Record<string, unknown>, at: string = new Date().toISOString()) {
+  const unsigned = {
+    v: 2,
+    by: VALID_APPROVER,
+    at,
+    pr: 1,
+    message: '999',
+    contentHash: contentHash(item),
+  };
+  return { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+}
+
+const DUMMY_CREDS_ENV = {
+  X_API_KEY: 'dummy-key',
+  X_API_KEY_SECRET: 'dummy-key-secret',
+  X_ACCESS_TOKEN: 'dummy-token',
+  X_ACCESS_TOKEN_SECRET: 'dummy-token-secret',
+  IG_ACCESS_TOKEN: 'dummy-ig-token',
+  IG_BUSINESS_ACCOUNT_ID: 'dummy-ig-account',
+};
+
+let root: string;
+let reportPath: string;
+const savedEnv = { ...process.env };
+
+async function seedQueueItem(name: string, item: Record<string, unknown>) {
+  await writeFile(path.join(root, 'social', 'queue', name), JSON.stringify(item, null, 2) + '\n');
+}
+
+/** Recently due (1 minute ago): due, but nowhere near the 48h stale rule. */
+function justDue() {
+  return new Date(Date.now() - 60_000).toISOString();
+}
+/** Due 30 hours ago — past the 24h stuck threshold, before the 48h rule. */
+function stuckDue() {
+  return new Date(Date.now() - 30 * 60 * 60 * 1000).toISOString();
+}
+/** Due 3 days ago — past the 48h staleness rule. */
+function staleDue() {
+  return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+}
+/** Approved 3 days ago — past isStaleApproved's 48h rule (lib/queue.mjs). */
+function staleApprovedAt() {
+  return new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+}
+
+/** Stamps `base` with a valid approval UNLESS the caller explicitly passed
+ * an `approval` key (including `null`/`undefined`) — that exact-key check
+ * (not a falsy check) is what lets a refusal test write
+ * `xItem({ approval: null })` / `xItem({ approval: undefined })` and get
+ * genuinely no approval, rather than being silently re-stamped by this
+ * helper. Computed AFTER every other override is applied, so a test that
+ * overrides `body`/`media`/etc. without touching `approval` still gets a
+ * stamp that matches its own final content. */
+function withApproval(base: Record<string, unknown>, overrides: Record<string, unknown>) {
+  if (Object.prototype.hasOwnProperty.call(overrides, 'approval')) {
+    base.approval = overrides.approval;
+  } else {
+    base.approval = validApproval(base);
+  }
+  return base;
+}
+
+function xItem(overrides: Record<string, unknown> = {}) {
+  return withApproval(
+    {
+      platform: 'x',
+      body: 'on this day in 2010: "mine" leaked early, so taylor just shipped it early.',
+      scheduledAt: justDue(),
+      campaign: 'test',
+      ...overrides,
+    },
+    overrides,
+  );
+}
+
+function igItem(overrides: Record<string, unknown> = {}) {
+  return withApproval(
+    {
+      platform: 'instagram',
+      body: 'there\'s a scarf in "all too well." you know the one.',
+      // A dedicated photo path, NOT /eras/… — generic era art would trip the
+      // era-art guard before the post is ever attempted (see lib/queue.mjs).
+      media: ['/social/2026/scarf.jpg'],
+      scheduledAt: justDue(),
+      campaign: 'test',
+      ...overrides,
+    },
+    overrides,
+  );
+}
+
+/** Fresh import each time so module-level state can't leak between cases. */
+async function runPoster() {
+  vi.resetModules();
+  const mod = await import('./post-queue.mjs');
+  return mod.main();
+}
+
+type StubResponse = { ok?: boolean; status?: number; body?: unknown };
+
+/** lib/platforms.mjs reads bodies via res.text() (parseResponse),
+ * lib/ig-container.mjs's status poll reads res.json(), and
+ * lib/preflight.mjs looks at res.ok/status/headers — cover all of them. */
+function toFetchResponse(r: StubResponse) {
+  const body = r.body ?? {};
+  return {
+    ok: r.ok ?? true,
+    status: r.status ?? 200,
+    json: async () => body,
+    text: async () => JSON.stringify(body),
+    headers: { get: () => null },
+  };
+}
+
+function stubFetch(response: StubResponse) {
+  const spy = vi.fn(async () => toFetchResponse(response));
+  vi.stubGlobal('fetch', spy);
+  return spy;
+}
+
+/**
+ * URL-aware stub for the full Instagram flow, which is now five possible
+ * distinct calls: the deploy-lag HEAD preflight, POST /media (container),
+ * GET the container's status_code (lib/ig-container.mjs's readiness poll),
+ * POST /media_publish, and — when FB_PAGE_ID is set — POST /photos for the
+ * Facebook Page cross-post. Keyed by URL/method rather than by call order so
+ * a test asserting on one step doesn't have to know how many calls the
+ * others make (the status poll in particular may run more than once).
+ */
+function stubIgFetch(steps: {
+  preflight?: StubResponse;
+  container?: StubResponse;
+  status?: StubResponse;
+  publish?: StubResponse;
+  facebook?: StubResponse;
+} = {}) {
+  const ok = (body: unknown): StubResponse => ({ ok: true, status: 200, body });
+  const resolved = {
+    preflight: steps.preflight ?? ok({}),
+    container: steps.container ?? ok({ id: 'container-1' }),
+    status: steps.status ?? ok({ status_code: 'FINISHED' }),
+    publish: steps.publish ?? ok({ id: 'ig-post-1' }),
+    facebook: steps.facebook ?? ok({ post_id: 'fb-post-1' }),
+  };
+  const spy = vi.fn(async (url: string, init?: { method?: string }) => {
+    let step: StubResponse;
+    if (init?.method === 'HEAD') step = resolved.preflight;
+    else if (String(url).includes('/media_publish')) step = resolved.publish;
+    else if (String(url).includes('/photos')) step = resolved.facebook;
+    else if (init?.method === 'POST') step = resolved.container;
+    else step = resolved.status;
+    return toFetchResponse(step);
+  });
+  vi.stubGlobal('fetch', spy);
+  return spy;
+}
+
+beforeEach(async () => {
+  root = await mkdtemp(path.join(tmpdir(), 'social-poster-test-'));
+  for (const dir of ['queue', 'posted', 'failed'])
+    await mkdir(path.join(root, 'social', dir), { recursive: true });
+  reportPath = path.join(root, 'report.md');
+  process.env = {
+    ...savedEnv,
+    ...DUMMY_CREDS_ENV,
+    SOCIAL_ROOT: root,
+    SOCIAL_POSTER_REPORT: reportPath,
+    SOCIAL_APPROVAL_KEY: TEST_SIGNING_KEY,
+  };
+  delete process.env.SOCIAL_FREEZE;
+  delete process.env.GITHUB_STEP_SUMMARY;
+  delete process.env.FB_PAGE_ID;
+  delete process.env.SOCIAL_IG_POLL_TIMEOUT_MS;
+  delete process.env.SOCIAL_IG_POLL_INTERVAL_MS;
+  process.exitCode = 0;
+});
+
+afterEach(async () => {
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+  process.env = { ...savedEnv };
+  process.exitCode = 0;
+  await rm(root, { recursive: true, force: true });
+});
+
+describe('post-queue: a failed X post is reported, never swallowed', () => {
+  it('exits non-zero when an X post exhausts its attempts against a 403', async () => {
+    stubFetch({
+      ok: false,
+      status: 403,
+      body: {
+        detail: 'You are not permitted to perform this action.',
+        status: 403,
+        title: 'Forbidden',
+      },
+    });
+    // attempts: 2 — this run is the third and final attempt.
+    await seedQueueItem('2026-08-04-mine-rush-release-x.json', xItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes).toHaveLength(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x', attempts: 3 });
+    expect(outcomes[0].error).toContain('403');
+  });
+
+  it('names the item, the platform and the API error in the run report', async () => {
+    stubFetch({
+      ok: false,
+      status: 403,
+      body: {
+        detail: 'You are not permitted to perform this action.',
+        status: 403,
+        title: 'Forbidden',
+      },
+    });
+    await seedQueueItem('2026-08-04-mine-rush-release-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('PERMANENTLY FAILED');
+    expect(report).toContain('2026-08-04-mine-rush-release-x.json');
+    expect(report).toContain('You are not permitted to perform this action.');
+    expect(report).toContain('NOT published');
+  });
+
+  it('prints an ::error:: annotation so the failure shows on the Actions run page', async () => {
+    stubFetch({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+    await runPoster();
+
+    const annotations = log.mock.calls
+      .flat()
+      .filter((line) => typeof line === 'string' && line.startsWith('::error'));
+    expect(annotations).toHaveLength(1);
+    expect(annotations[0]).toContain('a-x.json');
+  });
+
+  it('still moves the dead item to social/failed/ — the state a red run must persist', async () => {
+    stubFetch({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+    const dead = JSON.parse(
+      await readFile(path.join(root, 'social', 'failed', 'a-x.json'), 'utf-8'),
+    );
+    expect(dead.attempts).toBe(3);
+    expect(dead.lastError).toContain('403');
+  });
+
+  it('stays green while an X post still has retries left, but reports the attempt', async () => {
+    stubFetch({ ok: false, status: 429, body: { detail: 'Too Many Requests' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    expect(outcomes[0]).toMatchObject({ kind: 'retrying', platform: 'x', attempts: 1 });
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('retrying');
+    expect(report).toContain('a-x.json');
+    // Still queued for the next run.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('reports an X item with too many images as failed rather than posting a subset', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '123' } } });
+    const five = Array.from({ length: 5 }, (_, i) => `/social/library/${i}.png`);
+    await seedQueueItem('a-x.json', xItem({ attempts: 2, media: five }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].error).toContain('X posts support at most 4 images');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+});
+
+// The swallow was never X-specific — it lived in a platform-agnostic catch
+// block. social/failed/2026-07-27-all-too-well-scarf-metaphor-ig.json is the
+// proof it bit Instagram too: a real post killed by Meta error 9007/2207027
+// on a green run. (The container-readiness race that CAUSED that error is
+// issue #1897, fixed in lib/ig-container.mjs — most of these cases assert
+// that when Instagram fails, we hear about it; the IN_PROGRESS case asserts
+// the poll itself refuses to publish an unready container.)
+describe('post-queue: an Instagram failure is reported just as loudly', () => {
+  // Meta's real payload for the post we lost.
+  const NOT_READY = {
+    error: {
+      message: 'Media ID is not available',
+      type: 'OAuthException',
+      code: 9007,
+      error_subcode: 2207027,
+      is_transient: false,
+      error_user_title: 'Cannot Publish',
+      error_user_msg: 'The media is not ready for publishing, please wait for a moment',
+    },
+  };
+
+  it('reddens the run when an IG publish exhausts its attempts', async () => {
+    // Media is live and the container reports FINISHED; the publish that
+    // follows is still the failure.
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
+    await seedQueueItem('2026-07-27-all-too-well-scarf-metaphor-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'instagram', attempts: 3 });
+    expect(outcomes[0].error).toContain('Instagram publish failed');
+    expect(outcomes[0].error).toContain('2207027');
+  });
+
+  it('names Instagram, not just X, in the run report', async () => {
+    stubIgFetch({ publish: { ok: false, status: 400, body: NOT_READY } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    await runPoster();
+
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('PERMANENTLY FAILED (instagram 1)');
+    expect(report).toContain('The media is not ready for publishing');
+  });
+
+  it('surfaces a failure at the container step too, not only at publish', async () => {
+    stubIgFetch({ container: { ok: false, status: 400, body: { error: { message: 'Invalid image URL' } } } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].error).toContain('Instagram media container failed');
+  });
+
+  // #1897: publishing a container Meta hasn't finished is what killed the
+  // real post above. The poll must fail the attempt instead of publishing.
+  it('never publishes a container still stuck IN_PROGRESS', async () => {
+    process.env.SOCIAL_IG_POLL_TIMEOUT_MS = '5';
+    process.env.SOCIAL_IG_POLL_INTERVAL_MS = '0';
+    const spy = stubIgFetch({ status: { body: { status_code: 'IN_PROGRESS' } } });
+    await seedQueueItem('a-ig.json', igItem({ attempts: 2 }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].error).toContain('still "IN_PROGRESS"');
+    const published = spy.mock.calls.filter(([url]) => String(url).includes('/media_publish'));
+    expect(published).toHaveLength(0);
+  });
+});
+
+// Every OTHER path into social/failed/ must be exactly as loud as an
+// attempts-exhausted platform rejection — the swallow was in the run's exit
+// code, not in any single failure branch.
+describe('post-queue: every other route into social/failed/ also reddens the run', () => {
+  it('a stale item (>48h past founder approval) fails loudly instead of vanishing quietly', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('48h');
+    expect(spy).not.toHaveBeenCalled(); // never attempted — straight to failed/
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+    expect(await readFile(reportPath, 'utf-8')).toContain('PERMANENTLY FAILED');
+  });
+
+  it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, justDue());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    expect(spy).toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('a freshly-due item with a stale approval DOES retire (approval.at, not scheduledAt, drives the 48h clock)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: justDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('founder approval');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+  });
+
+  it('an item with an invalid scheduledAt is quarantined loudly', async () => {
+    stubFetch({ ok: true, status: 200, body: {} });
+    await seedQueueItem('bad.json', xItem({ scheduledAt: 'not-a-date' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('scheduledAt');
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['bad.json']);
+  });
+
+  it('an ambiguous transport failure fails loudly WITHOUT being retried', async () => {
+    const spy = vi.fn(async () => {
+      throw new Error('socket hang up');
+    });
+    vi.stubGlobal('fetch', spy);
+    await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x', attempts: 1 });
+    expect(outcomes[0].error).toContain('NOT auto-retried');
+    // Moved to failed/ on the FIRST attempt — never re-queued.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    const dead = JSON.parse(await readFile(path.join(root, 'social', 'failed', 'a-x.json'), 'utf-8'));
+    expect(dead.lastError).toBe('ambiguous');
+  });
+
+  it('a run with due work but missing credentials aborts red, not green', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    delete process.env.X_ACCESS_TOKEN;
+    delete process.env.X_ACCESS_TOKEN_SECRET;
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes).toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
+    // Nothing was touched — the item is still queued, no attempt was burned.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('RUN ABORTED');
+    expect(report).toContain('X_ACCESS_TOKEN');
+  });
+});
+
+describe('post-queue: blocked items are reported as skips, not silently deferred', () => {
+  it('reports an era-art-guard block as a skipped outcome and leaves the item queued', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    await seedQueueItem('a-ig.json', igItem({ media: ['/eras/red.png'] }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    expect(outcomes[0]).toMatchObject({ kind: 'skipped', platform: 'instagram' });
+    expect(outcomes[0].error).toContain('era art');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+    expect(await readFile(reportPath, 'utf-8')).toContain('skipped');
+  });
+});
+
+// --- mandatory X+IG pairing, publishable within one run (2026-09-10, kanban
+// t_bac31b1a — codex review: check-drafts.mjs's checkSimultaneousPair
+// requires both siblings to SCHEDULE within 5 minutes of each other, but
+// that promise is empty if the poster still defers one to the next run
+// (MAX_POSTS_PER_RUN=1) or blocks it as a same-run media repeat (paired
+// siblings deliberately share one credited photo). A due campaign pair is
+// one posting unit.
+describe('post-queue: a due campaign pair both post within the same run', () => {
+  it('posts both X and Instagram siblings of a due pair in one run despite MAX_POSTS_PER_RUN=1', async () => {
+    // Combined stub: X's tweet-create expects {data:{id}}, Instagram's flow
+    // needs the full multi-step shape stubIgFetch already covers. Route by
+    // URL/method the same way stubIgFetch does, but answer the X endpoint
+    // with X's own expected body shape.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.x.com') || String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: true, status: 200, body: { data: { id: 'x-post-1' } } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    await seedQueueItem('a-pair-x.json', xItem({ campaign: 'appearance:abc', media: undefined }));
+    await seedQueueItem('a-pair-ig.json', igItem({ campaign: 'appearance:abc' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const kinds = outcomes.map((o) => `${o.platform}:${o.kind}`).sort();
+    expect(kinds).toEqual(['instagram:posted', 'x:posted']);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'a-pair-ig.json',
+      'a-pair-x.json',
+    ]);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+  });
+
+  // Regression (codex review round 4, kanban t_bac31b1a-followup): the
+  // earlier "exempt only after the sibling has ALREADY posted this run"
+  // implementation broke the moment two different campaigns' due items
+  // interleaved in `due` (which is a single list sorted by scheduledAt, not
+  // grouped by campaign) — e.g. campaign A's X item, then campaign B's
+  // Instagram item, then campaign B's X item, then campaign A's Instagram
+  // item. selectDuePosts now selects complete pairs earliest-first, so the
+  // EARLIER campaign's pair wins the day's single per-platform slot
+  // completely (both siblings), and the later campaign's siblings are
+  // correctly deferred whole — never split across platforms.
+  it('selects and posts the earlier campaign\'s COMPLETE pair, not a split of two interleaved campaigns', async () => {
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: true, status: 200, body: { data: { id: `x-${Math.random()}` } } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: `ig-${Math.random()}` } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: `container-${Math.random()}` } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // Interleaved scheduledAt ordering: A:x, B:instagram, B:x, A:instagram.
+    // A's pair is the earlier campaign (min scheduledAt across its two
+    // siblings) even though B's Instagram item is individually earlier
+    // than A's Instagram item.
+    const t = (offsetMs: number) => new Date(Date.now() - 60_000 + offsetMs).toISOString();
+    await seedQueueItem('campaign-a-x.json', xItem({ campaign: 'appearance:A', media: undefined, scheduledAt: t(0) }));
+    await seedQueueItem('campaign-b-ig.json', igItem({ campaign: 'appearance:B', scheduledAt: t(1000) }));
+    await seedQueueItem('campaign-b-x.json', xItem({ campaign: 'appearance:B', media: undefined, scheduledAt: t(2000) }));
+    await seedQueueItem('campaign-a-ig.json', igItem({ campaign: 'appearance:A', scheduledAt: t(3000) }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    // Only campaign A's pair posts — MAX_POSTS_PER_PLATFORM_PER_DAY=1 means
+    // a single X slot and a single Instagram slot per day, and they must go
+    // to the SAME campaign's siblings, not one platform to A and the other
+    // to B (the exact single-platform-publication bug this fix closes).
+    expect(outcomes.filter((o) => o.kind === 'posted')).toHaveLength(2);
+    const postedPlatformsByFile = Object.fromEntries(
+      outcomes.filter((o) => o.kind === 'posted').map((o) => [o.file, o.platform]),
+    );
+    expect(Object.keys(postedPlatformsByFile).sort()).toEqual(['campaign-a-ig.json', 'campaign-a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'campaign-a-ig.json',
+      'campaign-a-x.json',
+    ]);
+    // Campaign B's siblings are both still queued — deferred WHOLE, not split.
+    expect(await readdir(path.join(root, 'social', 'queue')).then((f) => f.sort())).toEqual([
+      'campaign-b-ig.json',
+      'campaign-b-x.json',
+    ]);
+  });
+
+  // Regression (codex review round 2, kanban t_bac31b1a-followup, Fable
+  // ruling FR-t_bac31b1a-followup-1): `isPairReady` used to be a STATIC
+  // upfront flag — if the FIRST sibling's actual publish attempt fails at
+  // runtime, the second sibling would still post alone through the pair
+  // exemption, the exact single-platform outcome this mechanism exists to
+  // prevent. `brokenPairs` now tracks this live: once a pair sibling's
+  // publish attempt produces any non-POSTED outcome, its partner is
+  // deferred (held, no attempt spent) instead of shipping alone.
+  it('defers the second sibling when the first sibling\'s publish attempt fails, instead of letting it post alone', async () => {
+    // X fails with a definite (non-ambiguous, non-retryable-forever) 403;
+    // Instagram would otherwise succeed if reached.
+    const spy = vi.fn(async (url, init) => {
+      if (String(url).includes('api.twitter.com')) {
+        return toFetchResponse({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+      }
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // X is scheduled first so it is attempted before the Instagram sibling.
+    await seedQueueItem('fail-pair-x.json', xItem({ campaign: 'appearance:fail', media: undefined, attempts: 2, scheduledAt: new Date(Date.now() - 60_000).toISOString() }));
+    await seedQueueItem('fail-pair-ig.json', igItem({ campaign: 'appearance:fail', scheduledAt: new Date(Date.now() - 59_000).toISOString() }));
+
+    const outcomes = await runPoster();
+
+    // The X sibling permanently failed (attempts exhausted at 3).
+    expect(outcomes.some((o) => o.file === 'fail-pair-x.json' && o.kind === 'failed')).toBe(true);
+    // The Instagram sibling must NOT have posted — it was deferred, still
+    // queued, no attempt spent, no outcome recorded for it at all.
+    expect(outcomes.some((o) => o.file === 'fail-pair-ig.json')).toBe(false);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['fail-pair-ig.json']);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  // A campaign whose sibling has ALREADY posted (in an earlier run, and is
+  // therefore no longer in social/queue/) must NOT be treated as an
+  // incomplete pair — the remaining sibling posting now is what completes
+  // it, and it must not be deferred forever waiting for a partner that will
+  // never come back.
+  it('still posts the remaining sibling when its partner already posted in an earlier run (no longer queued)', async () => {
+    const spy = vi.fn(async (url, init) => {
+      if (init?.method === 'HEAD') return toFetchResponse({ ok: true, status: 200, body: {} });
+      if (String(url).includes('/media_publish')) return toFetchResponse({ ok: true, status: 200, body: { id: 'ig-post-1' } });
+      if (init?.method === 'POST') return toFetchResponse({ ok: true, status: 200, body: { id: 'container-1' } });
+      return toFetchResponse({ ok: true, status: 200, body: { status_code: 'FINISHED' } });
+    });
+    vi.stubGlobal('fetch', spy);
+    // The X sibling already posted in a prior run — it's in social/posted/,
+    // NOT social/queue/ (the normal, non-race-condition case).
+    const xPosted = xItem({ campaign: 'appearance:done', media: undefined });
+    await writeFile(
+      path.join(root, 'social', 'posted', 'done-pair-x.json'),
+      JSON.stringify({ ...xPosted, postedAt: new Date().toISOString(), platformPostId: '1', url: 'https://x.com/1' }, null, 2) + '\n',
+    );
+    await seedQueueItem('done-pair-ig.json', igItem({ campaign: 'appearance:done' }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes.some((o) => o.file === 'done-pair-ig.json' && o.kind === 'posted')).toBe(true);
+    expect(await readdir(path.join(root, 'social', 'posted')).then((f) => f.sort())).toEqual([
+      'done-pair-ig.json',
+      'done-pair-x.json',
+    ]);
+  });
+});
+
+// --- the media gate, wired to the schedule --------------------------------
+// Instagram media is FETCHED by Meta from the live site, so an item whose
+// image PR hasn't merged/deployed cannot post no matter what scheduledAt
+// says. It must WAIT — visibly — not burn attempts and die.
+describe('post-queue: media that is not live yet waits instead of failing', () => {
+  it('does not publish, does not spend an attempt, and stays queued', async () => {
+    const spy = stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'waiting', platform: 'instagram' });
+    expect(outcomes[0].error).toContain('not live at');
+    // No container was ever created — no Graph write of any kind.
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    // Still queued, attempts untouched.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+    const stillQueued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-ig.json'), 'utf-8'));
+    expect(stillQueued.attempts).toBeUndefined();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+  });
+
+  it('stays green while waiting — this is holding, not breaking', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem());
+
+    await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('waiting on deploy');
+    expect(report).toContain('a-ig.json');
+    expect(report).not.toContain('PERMANENTLY FAILED');
+  });
+
+  it('ships itself on the next run once the deploy lands', async () => {
+    stubIgFetch();
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-ig.json']);
+  });
+
+  it('reddens the run once the wait passes the 24h stuck threshold', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    await seedQueueItem('a-ig.json', igItem({ scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('waiting');
+    expect(await readFile(reportPath, 'utf-8')).toContain('STUCK more than');
+    // Still queued — loud is not the same as retired; the 48h rule does that.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('does not preflight a text-only X item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'HEAD')).toHaveLength(0);
+  });
+});
+
+// --- a no-attempt skip must not be able to hide forever -------------------
+describe('post-queue: an indefinitely-skipped item escalates', () => {
+  const eraArt = { media: ['/eras/folklore.png'], mediaKind: 'era-art' };
+
+  async function seedRecentEraArtPost() {
+    // A recent IG post using the same era tile makes the guard skip the
+    // queued one, exactly as it skipped the real 2026-08-09 item every 30
+    // minutes.
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-ig.json'),
+      JSON.stringify({ platform: 'instagram', media: ['/eras/folklore.png'], postedAt: '2026-08-04T19:37:29Z' }, null, 2),
+    );
+  }
+
+  it('reddens the run when the era-art guard has skipped an item past the threshold', async () => {
+    stubIgFetch();
+    await seedRecentEraArtPost();
+    await seedQueueItem('2026-08-09-august-augustine-ig.json', igItem({ ...eraArt, scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(1);
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('STUCK more than');
+    expect(report).toContain('2026-08-09-august-augustine-ig.json');
+    expect(report).toContain('a human has to change the item');
+  });
+
+  it('stays green for a skip that is still fresh', async () => {
+    stubIgFetch();
+    await seedRecentEraArtPost();
+    await seedQueueItem('fresh-ig.json', igItem({ ...eraArt, scheduledAt: justDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('retires an item stuck past 48h to social/failed/ as a reported failure', async () => {
+    stubIgFetch({ preflight: { ok: false, status: 404, body: {} } });
+    const item = igItem({ scheduledAt: staleDue() });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-ig.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(1);
+    expect(outcomes[0].kind).toBe('failed');
+    expect(outcomes[0].error).toContain('48h');
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-ig.json']);
+    const retired = JSON.parse(await readFile(path.join(root, 'social', 'failed', 'a-ig.json'), 'utf-8'));
+    expect(retired.failureReason).toContain('48h');
+  });
+});
+
+// --- idempotency: the 2026-07-17 triple-post class ------------------------
+// A post can genuinely succeed while its queue -> posted state-commit PR
+// never lands, so a later run finds the item still in social/queue/. It must
+// be skipped loudly, never reposted.
+describe('post-queue: an already-posted item is never reposted', () => {
+  it('skips a queue item whose campaign already has a posted record', async () => {
+    const spy = stubIgFetch();
+    await writeFile(
+      path.join(root, 'social', 'posted', 'same-campaign-ig.json'),
+      JSON.stringify(
+        { platform: 'instagram', body: 'different text, same campaign', campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://www.instagram.com/p/x' },
+        null,
+        2,
+      ),
+    );
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+    expect(spy.mock.calls.filter(([, init]) => init?.method === 'POST')).toHaveLength(0);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('skips an identical body even with no campaign tag', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    const body = 'the exact same tweet text';
+    await writeFile(
+      path.join(root, 'social', 'posted', 'earlier-x.json'),
+      JSON.stringify({ platform: 'x', body, postedAt: '2026-08-10T19:00:00Z' }, null, 2),
+    );
+    await seedQueueItem('a-x.json', xItem({ body, campaign: undefined }));
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+  });
+});
+
+describe('post-queue: a Facebook cross-post failure is visible, but never reddens the run', () => {
+  it('records facebookError on the posted outcome and warns in the report', async () => {
+    process.env.FB_PAGE_ID = 'dummy-page';
+    stubIgFetch({
+      publish: { ok: true, status: 200, body: { id: 'ig-post-9' } },
+      facebook: { ok: false, status: 400, body: { error: { message: '(#200) requires pages_manage_posts' } } },
+    });
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    // The Instagram post landed — the run must stay green…
+    expect(process.exitCode).toBe(0);
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    // …but the dead cross-post is carried on the outcome and in the report.
+    expect(outcomes[0].facebookError).toContain('pages_manage_posts');
+    const report = await readFile(reportPath, 'utf-8');
+    expect(report).toContain('Facebook Page cross-post FAILED');
+    const posted = JSON.parse(await readFile(path.join(root, 'social', 'posted', 'a-ig.json'), 'utf-8'));
+    expect(posted.facebookPostId).toBeUndefined();
+  });
+
+  it('carries facebookUrl on the outcome when the cross-post succeeds', async () => {
+    process.env.FB_PAGE_ID = 'dummy-page';
+    stubIgFetch({
+      publish: { ok: true, status: 200, body: { id: 'ig-post-10' } },
+      facebook: { ok: true, status: 200, body: { post_id: 'fb-post-77' } },
+    });
+    await seedQueueItem('a-ig.json', igItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'instagram' });
+    expect(outcomes[0].facebookUrl).toContain('fb-post-77');
+    expect(outcomes[0].facebookError).toBeUndefined();
+  });
+});
+
+// 2026-08-25, docs/decisions.md same date: Joey wants an email on every
+// social post that actually goes out, with a real per-platform link — an
+// explicit exception to the founder-email cap. post-queue.mjs writes the
+// mail payload itself (SOCIAL_POSTER_NOTIFY) so the workflow step only has
+// to forward it through scripts/watchdog/send-mail.py.
+describe('post-queue: SOCIAL_POSTER_NOTIFY (founder success-email payload)', () => {
+  it('writes a mail-ready payload with the real post URL when something posts', async () => {
+    const notifyPath = path.join(root, 'notify.json');
+    process.env.SOCIAL_POSTER_NOTIFY = notifyPath;
+    stubFetch({ ok: true, status: 200, body: { data: { id: '2086959658460230140' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    const payload = JSON.parse(await readFile(notifyPath, 'utf-8'));
+    expect(payload.subject).toContain('1 post went live');
+    expect(payload.body).toContain('https://x.com/longlivetscom/status/2086959658460230140');
+  });
+
+  it('writes nothing when the env var is unset', async () => {
+    delete process.env.SOCIAL_POSTER_NOTIFY;
+    stubFetch({ ok: true, status: 200, body: { data: { id: '1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    await runPoster();
+
+    // No path was ever given, so there's nothing to assert a file at — the
+    // real assertion is that main() doesn't throw when the env var is unset.
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('writes no file when nothing posted (e.g. a permanent failure only)', async () => {
+    const notifyPath = path.join(root, 'notify.json');
+    process.env.SOCIAL_POSTER_NOTIFY = notifyPath;
+    stubFetch({ ok: false, status: 403, body: { detail: 'not permitted' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    await expect(readFile(notifyPath, 'utf-8')).rejects.toThrow();
+  });
+});
+
+describe('post-queue: the happy path stays green', () => {
+  it('posts a due X item, records it, and exits zero', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '2086959658460230140' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    const posted = JSON.parse(
+      await readFile(path.join(root, 'social', 'posted', 'a-x.json'), 'utf-8'),
+    );
+    expect(posted.platformPostId).toBe('2086959658460230140');
+    expect(posted.url).toBe('https://x.com/longlivetscom/status/2086959658460230140');
+    expect(await readFile(reportPath, 'utf-8')).toContain('1 posted (x 1)');
+  });
+
+  it('reports "nothing due" without failing when the queue is all future-dated', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    await seedQueueItem('a-x.json', xItem({ scheduledAt: '2099-01-01T00:00:00Z' }));
+
+    const outcomes = await runPoster();
+
+    expect(process.exitCode).toBe(0);
+    expect(outcomes).toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readFile(reportPath, 'utf-8')).toContain('nothing due');
+  });
+
+  it('honours SOCIAL_FREEZE without touching the queue', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    process.env.SOCIAL_FREEZE = 'true';
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(outcomes).toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+});
+
+// ── A2 approval gate (docs/social/RULINGS-SOCIAL.md A2) — the deliverable: a draft with
+// no stamp, a stamp by a non-approver, and a stamp whose contentHash no
+// longer matches must each be refused, with a test proving it. The previous
+// gate ("merge IS the approval") shipped with no test proving it ever
+// refused anything; these three are that proof for its replacement. ─────────
+describe('post-queue: A2 approval gate refusals', () => {
+  it('refuses an item with no approval — reported unapproved, no attempt spent, nothing posted', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('a-x.json', xItem({ approval: null }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes).toHaveLength(1);
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json', platform: 'x' });
+    expect(outcomes[0].error).toContain('no approval on file');
+    // Still in the queue — not posted, not failed, no attempt counter moved.
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+    const stillQueued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-x.json'), 'utf-8'));
+    expect(stillQueued.attempts).toBeUndefined();
+    // Green for a recoverable, not-yet-stuck unapproved item (see the 24h
+    // stuck case below for when this turns red).
+    expect(process.exitCode).toBe(0);
+    // Reworded "awaiting founder" (was "awaiting approval") — lib/run-report.mjs.
+    expect(await readFile(reportPath, 'utf-8')).toContain('awaiting founder');
+  });
+
+  it('refuses an approval whose by is a GitHub login — only discord: identities approve', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    const unsigned = { v: 2, by: 'sffan15-sys', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('not a discord: identity');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an item stamped by a well-formed discord: identity who is not in SOCIAL_APPROVERS', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    const unsigned = { v: 2, by: 'discord:999999999999999999', at: '2026-09-11T00:00:00Z', pr: 1, message: '999', contentHash: contentHash(item) };
+    item.approval = { ...unsigned, sig: signApproval(unsigned, TEST_SIGNING_KEY) };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('not in SOCIAL_APPROVERS');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses an approval whose signature does not verify — a hand-written approval object is inert', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    // Every field is well-formed and matches SOCIAL_APPROVERS/contentHash —
+    // EXCEPT the signature, which a hand-written record (by an agent, a
+    // drafter, or a copy-paste of a real record onto different content)
+    // cannot produce without the key. This is the property B1's whole
+    // mechanism rests on.
+    item.approval = {
+      v: 2,
+      by: VALID_APPROVER,
+      at: '2026-09-11T00:00:00Z',
+      pr: 1,
+      message: '999',
+      contentHash: contentHash(item),
+      sig: 'hmac-sha256:' + '0'.repeat(64),
+    };
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('signature invalid');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('refuses every item, loud, when SOCIAL_APPROVAL_KEY is not configured — never a silent pass', async () => {
+    delete process.env.SOCIAL_APPROVAL_KEY;
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('SOCIAL_APPROVAL_KEY is not configured');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it("refuses an item whose content changed after approval — the stamp's contentHash no longer matches", async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem({ body: 'the approved, original body' });
+    // Stamp it for the ORIGINAL body, then edit the body afterward — exactly
+    // what a state PR that accidentally touched content (or a drafter
+    // editing a stamped file by hand) would produce.
+    item.approval = validApproval(item);
+    item.body = 'a different body, edited after the stamp was written';
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'a-x.json' });
+    expect(outcomes[0].error).toContain('edited after approval');
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('never grandfathers a pre-A2 draft with no approval key at all — it is refused exactly like any other unapproved item', async () => {
+    // Simulates one of the four real pre-gate files A1 removed: every key
+    // this schema has EXCEPT `approval`, which never existed before
+    // 2026-09-11. There is no key to check for "was this pre-gate" — by
+    // construction, it is indistinguishable from, and refused exactly like,
+    // a brand-new unstamped draft.
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const preGateItem = xItem({ approval: undefined });
+    delete (preGateItem as Record<string, unknown>).approval;
+    await seedQueueItem('pre-gate-x.json', preGateItem);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'pre-gate-x.json' });
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('escalates an unapproved item to a red run once it is stuck >24h overdue, and retires it to failed/ at 48h', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('stuck-x.json', xItem({ approval: null, scheduledAt: stuckDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'unapproved', file: 'stuck-x.json' });
+    expect(process.exitCode).toBe(1); // stuck >24h reddens the run (run-report.mjs's isStuck)
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('retires a still-unapproved item to social/failed/ at 48h past scheduledAt, same as any other stuck item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    await seedQueueItem('stale-x.json', xItem({ approval: null, scheduledAt: staleDue() }));
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', file: 'stale-x.json' });
+    expect(outcomes[0].error).toContain('Unapproved for >48h past scheduledAt');
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['stale-x.json']);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('a validly-approved item still posts normally — the gate is not a general posting block', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'ok-123' } } });
+    await seedQueueItem('a-x.json', xItem()); // default factory auto-stamps a valid approval
+
+    const outcomes = await runPoster();
+
+    expect(spy).toHaveBeenCalled();
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+    const posted = JSON.parse(await readFile(path.join(root, 'social', 'posted', 'a-x.json'), 'utf-8'));
+    expect(posted.approval).toMatchObject({ by: VALID_APPROVER });
+    // The legacy provenance fields are gone — approval IS the record now.
+    expect(posted.approvedBy).toBeUndefined();
+    expect(posted.approvedAt).toBeUndefined();
+  });
+});
+
+// ── Fail closed on a broken posted ledger (2026-08-12, issue #2031) ─────────
+//
+// The load-bearing safety property behind the Instagram triple-post. Every
+// dedupe/idempotency check reads social/posted/ from the checkout of main, so
+// "I cannot read the ledger" and "nothing has ever been posted" MUST NOT be
+// the same answer. readJsonDir used to return [] on any readdir failure,
+// which made them identical — a run with a broken ledger would sail past
+// findPostedDuplicate and repost live items.
+//
+// Each case below CONSTRUCTS the broken state and asserts the run refuses:
+// it rejects (main() is invoked bare in the CLI arm, so an unhandled
+// rejection exits non-zero and RED — #1888's loud-failure contract) and the
+// platform is never called. The two controls at the end prove the guard did
+// not simply break posting outright.
+describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)', () => {
+  it('REFUSES when social/posted/ is missing entirely', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    await rm(path.join(root, 'social', 'posted'), { recursive: true, force: true });
+
+    await expect(runPoster()).rejects.toThrow(/REFUSING TO POST/);
+    expect(spy).not.toHaveBeenCalled();
+    // the item is untouched, so the next (healthy) run still ships it
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('REFUSES when social/posted/ is unreadable (not a directory)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    const postedDir = path.join(root, 'social', 'posted');
+    await rm(postedDir, { recursive: true, force: true });
+    // a plain file where the ledger should be: readdir fails with ENOTDIR
+    await writeFile(postedDir, 'not a directory');
+
+    await expect(runPoster()).rejects.toThrow(/REFUSING TO POST/);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('REFUSES when a posted record is truncated/corrupt JSON', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+    // half-written record — exactly what a killed/partial checkout leaves
+    await writeFile(
+      path.join(root, 'social', 'posted', '2026-08-12-truncated-x.json'),
+      '{"platform":"x","body":"on this day in 2010: \\"mine\\" leak',
+    );
+
+    await expect(runPoster()).rejects.toThrow();
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('CONTROL: an intact ledger already recording this post blocks it as a duplicate', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem();
+    await seedQueueItem('a-x.json', item);
+    // postedAt is deliberately a past date (not "now"), not today's real
+    // date — MAX_POSTS_PER_PLATFORM_PER_DAY is 1 as of 2026-08-26, so a
+    // "posted today" record for this platform would consume the entire
+    // daily budget and get the due item filtered out by selectDuePosts's
+    // budget check before it ever reaches the idempotency check this test
+    // is actually exercising. findPostedDuplicate matches by body hash (or
+    // campaign) regardless of date, so this still proves the same thing.
+    await writeFile(
+      path.join(root, 'social', 'posted', '2026-08-12-already-x.json'),
+      JSON.stringify(
+        { ...item, postedAt: '2026-08-12T12:00:00.000Z', url: 'https://x.com/i/status/1' },
+        null,
+        2,
+      ) + '\n',
+    );
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(JSON.stringify(outcomes)).toMatch(/already posted/);
+  });
+
+  it('CONTROL: an intact, legitimately empty ledger still posts (cold start is not an error)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    await seedQueueItem('a-x.json', xItem());
+
+    const outcomes = await runPoster();
+
+    expect(spy).toHaveBeenCalled();
+    expect(JSON.stringify(outcomes)).toMatch(/posted/);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-x.json']);
+  });
+});

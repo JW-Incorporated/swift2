@@ -1,0 +1,137 @@
+import { NextResponse } from 'next/server';
+
+import { trustedClientIp } from '../../../lib/longlive/client-ip';
+import { makeRateLimiter } from '../../../lib/longlive/rate-limit';
+
+// Sink for CSP violation reports (`report-uri` / `report-to` in
+// lib/security-headers.mjs). It exists so the Report-Only policy is
+// actionable: without somewhere to send violations, "ship report-only first"
+// just means "hope somebody has devtools open on the right page".
+//
+// PRIVACY: this is a public, unauthenticated endpoint that browsers POST to
+// automatically, so it is written to capture as little as possible. We log the
+// violated directive and the ORIGIN of the blocked resource — never the full
+// blocked URL, never the referrer, never the sample of inline script/style
+// that Chrome offers in `script-sample`. Origin is all we need to decide
+// whether to allowlist a host; the rest is visitor browsing detail we have no
+// reason to keep. Same reasoning as the feedback route: diagnosable without
+// capturing content.
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+/** Both report shapes browsers send. */
+type CspReportBody = {
+  // report-uri (application/csp-report)
+  'csp-report'?: Record<string, unknown>;
+  // report-to (application/reports+json) — an array of report envelopes
+  [k: string]: unknown;
+};
+
+/**
+ * Reduce a blocked-uri to something safe to log: a bare origin, or one of
+ * CSP's keyword values (`inline`, `eval`, `data`, ...) which carry no URL.
+ * Anything unrecognised collapses to 'other' rather than being echoed.
+ */
+export function safeBlockedOrigin(raw: unknown): string {
+  if (typeof raw !== 'string' || !raw) return 'unknown';
+  const keyword = raw.toLowerCase();
+  if (['inline', 'eval', 'self', 'data', 'blob', 'filesystem', 'wasm-eval'].includes(keyword)) {
+    return keyword;
+  }
+  try {
+    return new URL(raw).origin;
+  } catch {
+    // Some browsers send a bare scheme ("data", "about") or a relative path.
+    return /^[a-z][a-z0-9+.-]*:$/i.test(raw) ? raw.toLowerCase() : 'other';
+  }
+}
+
+/** Max request body and max logged string length (log-volume / log-forging cap). */
+const MAX_BODY_BYTES = 16 * 1024;
+const MAX_LOGGED_CHARS = 200;
+
+function clip(v: string): string {
+  return v.replace(/[\r\n\t]+/g, ' ').slice(0, MAX_LOGGED_CHARS);
+}
+
+/** Reads the body as a stream, counting BYTES; returns null (and cancels the
+ * stream) as soon as the cap is exceeded, so an oversized body is never fully
+ * buffered. */
+async function readCapped(req: Request): Promise<string | null> {
+  if (!req.body) return '';
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_BODY_BYTES) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks).toString('utf8');
+}
+
+/** Pull (directive, blocked origin) out of either report shape. */
+export function summarize(body: CspReportBody): { directive: string; blocked: string }[] {
+  const reports: Record<string, unknown>[] = [];
+
+  if (body['csp-report'] && typeof body['csp-report'] === 'object') {
+    reports.push(body['csp-report'] as Record<string, unknown>);
+  }
+  if (Array.isArray(body)) {
+    for (const entry of body as Record<string, unknown>[]) {
+      const b = entry?.body;
+      if (b && typeof b === 'object') reports.push(b as Record<string, unknown>);
+    }
+  }
+
+  return reports.slice(0, 20).map((r) => ({
+    directive: clip(
+      typeof r['effective-directive'] === 'string'
+        ? r['effective-directive']
+        : typeof r.effectiveDirective === 'string'
+          ? r.effectiveDirective
+          : typeof r['violated-directive'] === 'string'
+            ? r['violated-directive']
+            : 'unknown',
+    ),
+    blocked: clip(safeBlockedOrigin(r['blocked-uri'] ?? r.blockedURL)),
+  }));
+}
+
+// Browsers can fire a report per blocked resource; a bad policy on a
+// 500-image page would otherwise flood the log. Per-instance, best-effort.
+const limiter = makeRateLimiter({ windowMs: 60_000, max: 30 });
+
+function rateLimited(ip: string): boolean {
+  return limiter.isLimited(ip);
+}
+
+export async function POST(req: Request): Promise<Response> {
+  const ip = trustedClientIp(req);
+  // Always 204 — a violation report is fire-and-forget and the browser does
+  // nothing useful with an error.
+  if (rateLimited(ip)) return new NextResponse(null, { status: 204 });
+
+  const declared = Number(req.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
+    return new NextResponse(null, { status: 413 });
+  }
+
+  try {
+    const text = await readCapped(req);
+    if (text === null) return new NextResponse(null, { status: 413 });
+    const body = JSON.parse(text) as CspReportBody;
+    for (const { directive, blocked } of summarize(body)) {
+      console.warn(`csp-violation directive=${directive} blocked=${blocked}`);
+    }
+  } catch {
+    // Malformed/absent body: nothing to learn, nothing to say.
+  }
+
+  return new NextResponse(null, { status: 204 });
+}

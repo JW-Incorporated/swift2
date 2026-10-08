@@ -1,0 +1,18 @@
+{
+  "platform": "instagram",
+  "body": "on this day in 2020, taylor swift was supposed to be standing on a stage at SoFi stadium.\n\nlover fest west -- two nights, july 25 & 26 -- would have made her the first woman in history to open an NFL stadium. lover fest east was set for gillette the week after. she'd framed the whole thing as a sunlit, festival-style summer of open fields and sunsets, a deliberate breather after the reputation stadium tour.\n\nnone of it happened.\n\nbut here's the part that still gets us: the empty summer where lover fest should have been is the summer that became folklore. and the tour she never got to play grew up, waited three years, and came back as the eras tour -- where the lover set finally opened the show every single night.\n\nsometimes the thing that falls apart is just the thing that hadn't become itself yet.\n\nlonglivets.com",
+  "media": [
+    "/eras/lover.png"
+  ],
+  "scheduledAt": "2026-07-25T23:00:00Z",
+  "campaign": "on-this-day-lover-fest-sofi",
+  "why": "IG version of the July-25 on-this-day (Lover Fest SoFi). Same vault sourcing as the X draft; her tour-announcement statement is paraphrased, never quoted verbatim (per the 2026-07-08 sourcing rule). Media: /eras/lover.png (era-representative tile, the safe committed default -- no dedicated event asset), matching the era-art fallback used on the HAIM/ATW posts.",
+  "attempts": 1,
+  "lastError": "Instagram publish failed: {\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Cannot Publish\",\"error_user_msg\":\"The media is not ready for publishing, please wait for a moment\",\"fbtrace_id\":\"AOuxjHh3v9sDiCHptVMxS5_\"}}",
+  "lastAttemptAt": "2026-07-26T04:05:50.252Z",
+  "postedAt": "2026-07-26T07:10:37.497Z",
+  "platformPostId": "18461069821118721",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122100074949407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122100074949407187"
+}

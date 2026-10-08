@@ -1,0 +1,101 @@
+# Community Engine — C1 year-deep top-post crawl (Phase 2, card P2-1).
+# docs/proposals/2026-09-06-community-engine-plan.md §3.2/§4/§6.4.
+#
+# FOUNDER DIRECTIVE (2026-09-06): this is the one Community Engine component
+# with real risk (scraping volume/pace). It ships with its kill switch OFF —
+# `COMMUNITY_CRAWL_ENABLED` defaults to unset/false, checked as the FIRST
+# thing scripts/community/crawl.mjs does, before any network call. Turning it
+# on is a deliberate, separate founder action (Settings → Variables → Actions,
+# same pattern as `SOCIAL_FREEZE` — see docs/community/README.md, P3-1, for
+# the exact toggle steps in plain English). `COMMUNITY_CRAWL_BUDGET` caps how
+# many home-relay full-tree fetches a single run may make (default a
+# conservative small number, see crawl.mjs's DEFAULT_BUDGET) so a founder can
+# run this "a little bit here and there" instead of only full-speed/off.
+#
+# Zero LLM, zero writes to the repo or the database: reads
+# `community_watchlist` (read-only DB connection), walks each `crawl=true`
+# reddit sub's top-of-year RSS feed, and — bounded, probe-before-use, human
+# pacing (1-11s randomized delay per request) — pulls full comment trees for
+# the top 20% by rank via the operator's home-relay when it's reachable and
+# budget remains. Output is a JSON bundle uploaded as a TRANSIENT 24h Actions
+# artifact only; nothing here lands in supabase/** or the repo tree (that's
+# the Theory Miner's job, P2-2, consuming this artifact separately). Hashed
+# authors, no raw comment bodies leave this workflow's own artifact retention
+# window (§6.3).
+#
+# No new secret for the Supabase read (SUPABASE_DB_URL already exists, see
+# db-connectivity-check.yml). HOME_RELAY_URL is optional and unset by
+# default — until a Tailscale-reachable relay endpoint is provisioned for
+# GitHub-hosted runners specifically (a separate, later step; the agent-
+# sandbox home-relay skill's tailnet path does not reach a GitHub Actions
+# runner), this workflow always takes the RSS-partial-depth path. That is the
+# plan's own documented degrade behaviour (§3.2), not a bug.
+name: community-crawl
+
+on:
+  schedule:
+    - cron: "13 7 * * *"
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: 'Override COMMUNITY_CRAWL_BUDGET for this manual run (threads via home-relay)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: community-crawl
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Kill-switch check FIRST, before checkout/install/any network call —
+      # same posture as social-poster.yml's SOCIAL_FREEZE step. A disabled
+      # run must be a fast, green no-op, not a wasted checkout+npm-ci.
+      - name: Kill-switch check
+        id: enabled
+        env:
+          CRAWL_ENABLED: ${{ vars.COMMUNITY_CRAWL_ENABLED }}
+        run: |
+          if [ -n "${CRAWL_ENABLED:-}" ] && [ "$CRAWL_ENABLED" != "false" ] && [ "$CRAWL_ENABLED" != "0" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "COMMUNITY_CRAWL_ENABLED is not \"true\" (repo variable) — kill switch OFF, skipping this run entirely." \
+              "See docs/community/README.md for the toggle steps."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - uses: actions/setup-node@v7
+        if: steps.enabled.outputs.enabled == 'true'
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - name: Run the year-deep crawl
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          COMMUNITY_CRAWL_ENABLED: ${{ vars.COMMUNITY_CRAWL_ENABLED }}
+          COMMUNITY_CRAWL_BUDGET: ${{ inputs.budget || vars.COMMUNITY_CRAWL_BUDGET }}
+          HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          COMMUNITY_CRAWL_OUTPUT: .artifacts/community-crawl.json
+        run: node scripts/community/crawl.mjs
+
+      - name: Upload crawl bundle (transient, 24h retention)
+        if: steps.enabled.outputs.enabled == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: community-crawl-bundle
+          path: .artifacts/community-crawl.json
+          retention-days: 1
+          if-no-files-found: error

@@ -1,0 +1,16 @@
+{
+  "platform": "x",
+  "body": "august 13, 2012: she announced red from her living room on a webcast, 70,000 fans watching, then premiered a brand-new song to close it. three albums into her career, \"we are never ever getting back together\" became her first hot 100 no. 1.\n\nlonglivets.com/?era=red&utm_source=x&utm_medium=social&utm_campaign=on-this-day",
+  "scheduledAt": "2026-08-13T15:00:00Z",
+  "campaign": "on-this-day:red-announcement-wanegbt",
+  "why": "Calendar slot 2026-08-13 15:00Z X, heartbeat:on-this-day, hook \"the contradiction\" — three albums and five country No. 1s deep, and she had never topped the Hot 100 until this night. Genuine dated Vault match: \"Red announced live from her living room, on a Google+ Hangout\" (2012-08-13, sourced Wikipedia + Rolling Stone + The Hollywood Reporter) gives the worldwide webcast from Nashville, 70,000+ at the stream’s peak, and the same-night premiere of \"We Are Never Ever Getting Back Together\" going on to become her first career Hot 100 No. 1. Album count checked against the Vault: debut (2006), Fearless (2008), Speak Now (2010). Rollout/chart lore only, outside every blocklist topic. | 2026-08-12 Taylor-photo standard (issue #2031, Joey directive): attached a real credited photograph of Taylor from the repo corpus (apps/web/lib/longlive/lenses.ts), rehosted under /social/library/photos/. Campaign renamed to a STORY-UNIQUE value: findPostedDuplicate treats same platform+campaign as an already-posted duplicate, so the old thematic bucket campaigns (heartbeat:*) would have false-skipped every post in a bucket after its first one landed. Visible credit line omitted from the body only because it would exceed X’s 280 weighted chars; the credit is recorded in mediaCredit.",
+  "media": [
+    "/social/library/photos/taylor-red-tour-ford-field-2013.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Christopher Polk/TAS/Getty Images for TAS",
+  "mediaSource": "https://media.gettyimages.com/id/168069917/photo/detroit-mi-taylor-swift-swift-played-the-first-of-13-north-american-stadium-dates-on-the-red.jpg?s=612x612&w=0&k=20&c=MLwDmjrMhFEzEDreloQIwSkojuZjE1GeZjlDKID7JyM=",
+  "postedAt": "2026-08-13T15:59:01.538Z",
+  "platformPostId": "2087931946802585707",
+  "url": "https://x.com/longlivetscom/status/2087931946802585707"
+}

@@ -1,0 +1,27 @@
+# Codex adversarial review - track guide Phase 1
+
+1. [high] `scripts/seed-tracks.mjs:69` - The DB seed writes `is_single` from `Boolean(t.isSingle)` only, but the authored data often uses `singleReleaseDate` without `isSingle`, while the generator compensates separately in `factsFrom`. Concrete failure scenario: after `npm run db:seed:tracks`, `supabase/seed/tracks/1989.mjs:62` seeds `blank-space` with `single_release_date = '2014-11-10'` and `is_single = false`; a direct DB/API/mobile consumer filtering `track_note.is_single = true` misses that single. A read-only seed import found 30 rows with `singleReleaseDate` and no `isSingle`.
+
+2. [med] `packages/core/src/map.ts:123` - The Supabase/Core track-guide mapper was not updated for the new schema or the rich provenance source shape. `TrackNoteRow`/`mapTrackNote` still return only the old fields and `asSources` only reads legacy `{ outlet, url }`, while `scripts/seed-tracks.mjs:56` stores rich `{ source_url, source_title, ... }` objects. Concrete failure scenario: `apps/web/app/vault/album/[slug]/tracks/route.ts:12` still serves this path, so `/vault/album/the-life-of-a-showgirl/tracks` returns no `slug`, `release`, `writers`, `producers`, `isSingle`, `dossier`, or usable source list even after the DB has the new columns.
+
+3. [med] `apps/web/components/longlive/TrackGuide.tsx:44` - Escape handling is not top-overlay aware. `TrackGuide` installs a window `keydown` listener while `TrackDetail` also installs one at `TrackDetail.tsx:60`, and `LongLive.tsx:46` mounts `TrackGuide` before `TrackDetail`, so the guide listener fires first. Concrete failure scenario: open a track guide, open a song dossier, press Escape; `closeTrackGuide` clears both `trackGuideEraId` and `openTrackKey` (`store.tsx:408`), so the entire guide stack disappears instead of dismissing only the song detail.
+
+4. [med] `apps/web/components/longlive/TrackGuide.tsx:155` - Dossier rows now make the whole row a `<button>`, but the row body still includes external `<a>` source links at `TrackGuide.tsx:133`. This is invalid nested interactive HTML and an accessibility regression made broader by `hasDeepDive` including `track.dossier` at `TrackGuide.tsx:107`. Concrete failure scenario: a keyboard or screen-reader user lands on a source link inside a button, or a pointer click on the source link also bubbles to the row button and opens `TrackDetail` while trying to open the source.
+
+5. [low] `apps/web/lib/longlive/format.ts:61` - Invalid partial dates bypass the invalid-date guard. `formatFullDate('2025-13')` goes through `formatMonthYear('2025-13-01')` and renders `Invalid Date`; invalid full dates like `2025-02-30` can also roll over to March. `dossierFrom` passes `live.date` through unvalidated at `scripts/sync-longlive-tracks.mjs:172`. Concrete failure scenario: a future sourced live entry typo ships an "On stage" card with `Invalid Date` or the wrong calendar day instead of preserving the raw string or failing validation.
+
+6. [low] `apps/web/lib/longlive/tracks.test.ts:99` - The `resolveConnections` unit test says it resolves "song and moment ids", but the test data includes no `moment:` id at all. Concrete failure scenario: the `moment:` branch at `tracks.ts:65` can be broken or removed and this unit test still passes; only the generated-data invariant might catch current fixture links after regeneration, not the resolver behavior.
+
+7. [low] `apps/web/lib/longlive/tracks.test.ts:69` - The dossier source invariant only checks dossiers that survived generation. Because `dossierFrom` drops a contentful dossier with missing/malformed sources at `scripts/sync-longlive-tracks.mjs:195`, the test does not assert that all 12 TLOAS authored dossiers still render. Concrete failure scenario: remove `sources` from the `cancelled` dossier; the generator drops that dossier, the "every dossier ships with sources" loop sees no broken dossier, and Phase 1's "all 12 tracks" content acceptance silently regresses.
+
+Explicit no-finding checks:
+
+8. No column/parameter count mismatch found in `supabase/migrations/20260710160000_track_note_facts_dossier.sql` plus `scripts/seed-tracks.mjs`: the migration adds the columns the seed INSERT names, and the INSERT has 22 target columns for 22 values. The DB defect I found there is the `is_single` semantic mismatch in item 1.
+
+9. No current `--era-surface2` typo found in the changed TrackDetail/TrackGuide code paths; the changed UI uses existing `era-card` styling or spelled era tokens.
+
+10. No current TLOAS slug mismatch found: importing `supabase/seed/tracks/the-life-of-a-showgirl.mjs` attaches 12 dossiers to 12 tracks, and the sidecar guard rejects unknown dossier keys.
+
+11. No TLOAS lyric reproduction or overlong verbatim quote block found in the changed TLOAS seed/dossier files. The Opalite/Actually Romantic/Ruin the Friendship real-person readings are kept in fan/unsupported tiers rather than stated as confirmed facts.
+
+Test-run note: I attempted `npm.cmd test -- scripts/sync-longlive-tracks.test.ts apps/web/lib/longlive/tracks.test.ts apps/web/lib/longlive/format.test.ts packages/core/src/map.test.ts`, but Vitest/esbuild could not load `vitest.config.ts` in this sandbox because an ancestor directory read returned `Access is denied`. The earlier `npm` wrapper was also blocked by PowerShell execution policy, so these findings are from static review plus read-only Node imports.

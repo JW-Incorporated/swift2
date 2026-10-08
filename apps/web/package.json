@@ -1,0 +1,45 @@
+{
+  "name": "@swift2/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "node ../../scripts/sync-source-tiers.mjs && node ../../scripts/sync-longlive-content-ids.mjs && node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs && node ../../scripts/sync-longlive-era-secrets.mjs && node ../../scripts/sync-song-moods.mjs && node ../../scripts/sync-clownbot-lore.mjs && node ../../scripts/sync-longlive-merch.mjs && node ../../scripts/sync-longlive-lenses.mjs && node ../../scripts/publish-content-bundle.mjs --no-resync && node ../../scripts/generate-bundle-backed-modules.mjs",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-slider": "^1.4.7",
+    "@radix-ui/react-slot": "^1.3.3",
+    "@radix-ui/react-toggle-group": "^1.1.19",
+    "@radix-ui/react-tooltip": "^1.2.16",
+    "@radix-ui/react-visually-hidden": "^1.2.7",
+    "@swift2/content": "*",
+    "@swift2/content-enrichment": "*",
+    "@swift2/core": "*",
+    "@swift2/experience": "*",
+    "@swift2/shared": "*",
+    "@swift2/ui": "*",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@vercel/analytics": "^2.0.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.39.0",
+    "next": "^16.3.8",
+    "postcss": "^8.5.26",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.7",
+    "jsdom": "^26.1.0"
+  }
+}

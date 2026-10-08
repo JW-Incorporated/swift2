@@ -1,0 +1,30 @@
+# Manual-only emergency cleanup for a live Instagram/Facebook post. Never
+# scheduled, never triggered automatically — run by hand from the Actions
+# tab with the media ID(s) to delete. See scripts/social/delete-media.mjs.
+name: social-delete-media
+on:
+  workflow_dispatch:
+    inputs:
+      media_ids:
+        description: "Comma-separated Graph API media/post ID(s) to delete"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Delete media
+        env:
+          MEDIA_IDS: ${{ inputs.media_ids }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/social/delete-media.mjs

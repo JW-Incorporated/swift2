@@ -1,0 +1,10 @@
+{
+  "platform": "x",
+  "body": "albums 1 through 5. that's what she told good morning america she'd re-record — august 22, 2019, the day before lover dropped. \"i think it's important for artists to own their work,\" she said. she started doing exactly that the very next year.\n\nlonglivets.com/?era=lover&utm_source=x&utm_medium=social&utm_campaign=on-this-day",
+  "scheduledAt": "2026-08-22T15:00:00Z",
+  "campaign": "on-this-day:lover-rerecording-pledge",
+  "why": "Calendar slot 2026-08-22 15:00Z X, heartbeat:on-this-day, hook \"the number\" (leads with albums 1 through 5). Preferred over the calendar's midnights fallback because there is a genuine dated Vault match for the exact day. Source: supabase/seed/content/lover.mjs:2842 (slug gma-rerecording-pledge, year 2019/month 8/day 22): on Good Morning America she confirmed \"starting November 2020... I can record albums 1 through 5 all over again\" and \"I think it's important for artists to own their work\"; Lover arrived the next day (Aug 23); \"Fifteen months later she was in the studio doing exactly that.\" Sources cited in seed: Good Morning America/ABC + Variety. Text-only: the moment's photos are external YouTube/ABC URLs, not committed repo files — text is the correct X fallback (never an era tile). Distinct from the 08-13 red on-this-day post (that was WNEGBT becoming her first Hot 100 #1; this is the re-recording pledge — different fact). Blocklist-safe: her own business/artistry decision to own her work, no dispute named, no wrongdoing implied. Campaign story-unique (findPostedDuplicate matches platform+campaign).",
+  "postedAt": "2026-08-22T15:20:29.521Z",
+  "platformPostId": "2091183736259821971",
+  "url": "https://x.com/longlivetscom/status/2091183736259821971"
+}

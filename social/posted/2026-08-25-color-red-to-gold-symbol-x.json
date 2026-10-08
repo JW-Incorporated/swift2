@@ -1,0 +1,10 @@
+{
+  "platform": "x",
+  "body": "a pattern i keep chasing across her eras: red turning to gold from Red onward, and then the \"willow\" video putting a real golden string in her hands — a wink straight back at \"invisible string.\"\n\ncoincidence, or a map she drew years ahead? longlivets.com/?lens=easter-eggs&utm_source=x&utm_medium=social&utm_campaign=color-thread",
+  "scheduledAt": "2026-08-25T23:30:00Z",
+  "campaign": "symbol-thread:red-to-gold-color-arc",
+  "why": "Calendar 2026-08-25 23:30Z X, heartbeat:symbol-thread (easter-eggs / motif atlas), hook 'the honest question' — a real question a fan would answer, phrased WITHOUT the burned words 'an honest question'/'genuine question' (ledger 08-17/08-22). Different subject from the day's other slots. Source: apps/web/lib/longlive/lenses.ts MOTIFS motifId 'color-coding' (all members confirmed:true) — egg-red-burning (Red, 2012, love anchored to color), egg-color-daylight (Lover, 2019, the red->gold resolution), egg-string-willow (evermore, 2020, the 'willow' video's physical golden string resolving folklore's 'invisible string' motif); sources Pitchfork/Rolling Stone/Harper's Bazaar per the atlas. Deliberately references song TITLES ('willow', 'invisible string') and the documented VISUAL easter egg (the golden string in the willow video) rather than quoting any lyric line, honoring the no-lyrics redline (docs/decisions.md 2026-07-09). Text-only (the correct X rung; no committed real photo fits, and the motif spans eras). Link /?lens=easter-eggs (lens id confirmed at lenses.ts:150; the egg IDs have no /?item= route, so the lens is the right landing). Weighted length 263 (<=270). Campaign story-unique. Blocklist-safe (color/visual motif, music videos, song titles).",
+  "postedAt": "2026-08-25T23:51:33.012Z",
+  "platformPostId": "2092399513101058129",
+  "url": "https://x.com/longlivetscom/status/2092399513101058129"
+}

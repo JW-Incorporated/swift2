@@ -1,0 +1,2 @@
+[lfs]
+	fetchexclude = apps/web/public/social/library/photos/**

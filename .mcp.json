@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "repowise": {
+      "command": "C:/Users/Fourtys/AppData/Local/Python/pythoncore-3.14-64/Scripts/repowise.exe",
+      "args": [
+        "mcp",
+        "C:/Users/Fourtys/Documents/Claude/Projects/Swift2",
+        "--transport",
+        "stdio"
+      ],
+      "description": "repowise: codebase intelligence \u2014 docs, graph, git signals, dead code, decisions"
+    }
+  }
+}

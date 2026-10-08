@@ -1,0 +1,43 @@
+# Dependabot — the deterministic detection layer under Paul Blart (docs/agents/paul-blart.md).
+# Groups routine version bumps into few PRs; security updates ride their own faster lane.
+version: 2
+updates:
+  # npm — root workspace (covers apps/* and packages/* via the monorepo lockfile)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+    groups:
+      # One PR for all low-risk dev-dependency patch/minor bumps.
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      # One PR for production patch/minor bumps; majors stay separate for human review.
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+    # Security updates are NOT batched here — GitHub opens them immediately on their own.
+
+  # GitHub Actions — keep CI/security workflows current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    groups:
+      actions:
+        patterns:
+          - "*"

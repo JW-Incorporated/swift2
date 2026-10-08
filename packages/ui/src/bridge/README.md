@@ -1,0 +1,53 @@
+# Bridge types and validators (One UI WP2.3-A)
+
+Transport-neutral message contract between the DOM reader and the native host.
+Pure types plus pure validators; no dispatcher, no transport (that is WP2.3-B).
+
+- The boundary is a string (`postMessage` / `injectJavaScript` deliver strings);
+  validators parse then walk: length > 256 KB is invalid before anything else, then
+  `JSON.parse` in try, then a shape-walk of the plain parsed data.
+- `parseEnvelope(raw: string)` returns `{ok, envelope} | {ok:false, reason}`; the payload must be
+  strict JSON (depth <= 32). It never throws. Object-accepting entry points
+  (`parseEnvelopeValue`, `negotiate`, `parseReady`, `sanitizeApiRequest`) first run
+  `canonicalize` (stringify, length check, parse, all in try), then validate.
+- `ts` is informational and untrusted: never used for auth, ordering or dedup.
+- `isWebPath` / `isExternalUrl` (https only) / `isMailtoUrl` (one bare `mailto:` address,
+  no query; `openExternal` only) / `sanitizeApiRequest` guard what a
+  command may reach. `WebPath`, `ExternalUrl` and `MailtoUrl` are branded; only validators make them.
+- `NATIVE_SUPPORTED_RANGE` is a JS constant. `ready.range` absent means the DOM
+  speaks only `ready.v`. `negotiate` fails closed (`invalid`).
+- Optional payload fields are absent on the wire; an explicit `undefined` is rejected.
+
+## CONTRACT: WP2.3-B acceptance criteria
+
+The dispatcher (WP2.3-B) must implement, and test:
+
+1. Exactly one `res` per `cmd` (never zero, never two).
+2. Unknown command type answers `res {ok:false, error:{code:'unsupported'}}` (see `answerUnknown`).
+3. Per-type timeouts answer `timeout`.
+4. `cancel {targetId}` cancels the in-flight command by id (`cancelled`).
+5. Monotonic command ids (replay protection, docs/decisions.md 2026-10-03). A `cmd` id is a
+   strictly increasing integer per DOM, string-encoded digits (1-15) within the id charset. The
+   host keeps a high-water mark (hwm) that `ready` does NOT reset; an id not above the hwm is
+   answered `invalid` (signal `rejected_monotonic`) and never runs. The DOM seeds its counter from
+   `Date.now()` at client creation, so ids after a reload exceed prior sessions' (client: #4855).
+   Every accepted `ready` is answered with an unsequenced `readyAck {hwm}` (host hwm, -1 sent as
+   0) before any replay; the DOM reseeds its counter to max(now, hwm+1) so a clock that went
+   backwards after reload cannot get every id rejected. hwm >= MAX_SAFE_INTEGER - 1 is protocol-fatal.
+   Assumes FIFO delivery per channel (WKWebView messageHandlers, Android
+   `addJavascriptInterface`): an out-of-order lower id is rejected, not reordered.
+6. Every inbound envelope string goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
+   payloads through `isWebPath`/`isExternalUrl`/`sanitizeApiRequest` before any handler runs.
+7. Pre-ready version negotiation against `NATIVE_SUPPORTED_RANGE`; out-of-range = protocol-fatal → watchdog strike (B: `onProtocolFatal`).
+8. `res` is unsequenced (no `seq`, never queued or replayed on ack/re-ready). A native request
+   leaves the outbox when its `res` arrives (ack governs events/emits only); re-ready retransmits
+   only unsettled requests and unacked emits.
+9. `ready` is rate limited to 3 per 10 s; the 4th is protocol-fatal (`onProtocolFatal`). `ready`
+   is validated against `NATIVE_SUPPORTED_RANGE` and the envelope `v` like every other message.
+
+## DOM client (WP2.3-C)
+
+- Ids: strictly increasing digit strings, seeded from the clock at creation (`monotonicIds`); the host rejects ids at or below its high-water mark.
+- `queueUntilReady`: calls before the handshake completes are queued in order and flushed only when a valid `readyAck` arrives (after the id reseed); their id and timeout are taken when actually sent. A failed `ready` post, or no valid `readyAck` within 2 s, retries (250 ms doubling, cap 5 s, 6 attempts), then `onFatal('ready-failed')` fires and every queued call resolves `failed`. A successful `ready` resets `lastSeq` (host re-flushes its unacked queue).
+- `readyAck {hwm}`: a valid hwm (finite integer, 0 <= hwm < MAX_SAFE_INTEGER - 1) reseeds the id source to max(now, hwm+1); an invalid one is ignored + `onSignal('readyAck-invalid')`. An id reaching MAX_SAFE_INTEGER is fatal (`id-space-exhausted`).
+- Bounds: `MAX_PENDING` (64) calls, `MAX_BATCH` (64) inbox entries per consume (cheap seq check first, full parse only of the batch; the rest stays held for the next consume, `MAX_RETAINED` 1024 total, oldest dropped + `onSignal('inbox-dropped', n)`). Outbound payloads are normalized (undefined keys dropped) and strict-JSON checked (`invalid`); an `ok` res value is shape-checked per command (`failed` on mismatch). `dispose` makes the client unusable.

@@ -1,0 +1,14 @@
+{
+  "reports": [
+    {
+      "network": "awin",
+      "available": false,
+      "reason": "Awin reporting API is not configured"
+    },
+    {
+      "network": "amazon",
+      "available": false,
+      "reason": "Amazon Associates reporting API is not configured"
+    }
+  ]
+}

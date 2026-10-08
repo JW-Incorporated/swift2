@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "sourceRun": "https://github.com/JW-Incorporated/swift2/actions/runs/33332095785",
+  "sourceArtifact": "merch-audit-authoring-artifact",
+  "run": {
+    "capUsd": 5,
+    "reservedCostUsd": 1.703999999999998,
+    "observedCostUsd": null,
+    "stopReason": null,
+    "completedJudgments": 16
+  },
+  "reSource": [
+    {
+      "productId": "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform:0:https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white",
+      "url": "https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Source image shows a V-neck cream/ivory sleeveless top with lace trim, not a square-neck eyelet maxi dress",
+        "Product has structured smocked bodice and ruffled straps, while source garment has thin straps and soft draped V-neckline",
+        "Source image is cropped too high to confirm skirt silhouette or length for comparison",
+        "Both are pale/white tones but fabric texture and garment cut are clearly different"
+      ]
+    },
+    {
+      "productId": "vault-lover-bill-corsos-six-person-prosthetic-transformation-for-the-man:0:https://www.mehron.com/synwax/",
+      "url": "https://www.mehron.com/synwax/",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a special FX modeling wax container, unrelated to the scene of a man in a suit",
+        "No visible use of wax or special FX makeup product features in the source image",
+        "No matching object, packaging, or texture between the two images"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-midnight-blue-star-scattered-roberto-cavalli-look-at-the-2:0:https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue",
+      "url": "https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is light blue with embroidered floral pattern vs source is solid navy with beaded/sequin allover shine",
+        "Product is sleeveless cowl-neck crop top and skirt set vs source has long fitted sleeves and turtleneck",
+        "Both share two-piece cutout silhouette with midriff exposure, but overall color and detailing differ greatly",
+        "Source has a long train, product skirt is floor length without train"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-:0:https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress",
+      "url": "https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a white lace slip dress with sweetheart neckline, source shows a blue furry cardigan covering most of the outfit",
+        "Only a small sliver of a light-colored lace-trimmed garment is visible under the fuzzy jacket in the source, insufficient to confirm same style",
+        "No visible match in silhouette or color between the two garments",
+        "Cannot confirm details like straps, skirt slit, or lace pattern from the source image"
+      ]
+    },
+    {
+      "productId": "vault-red-an-ankle-length-red-dress-with-a-thigh-high-slit-for-red-at-:0:https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html",
+      "url": "https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Both are red, but different silhouettes: product is a flowy ruffled maxi with thigh slit, source is a structured guitar-strap style corset dress with black trim",
+        "Source dress has black bodice contrast and metal stud details not present in product image",
+        "Product dress has ruffle detailing on straps and skirt, source dress appears smooth and structured with no ruffles",
+        "Garment length and fit differ significantly, unlikely same item"
+      ]
+    },
+    {
+      "productId": "vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys:0:https://moniquelhuillier.com/products/pearl-strap-ivory-a-line-gown",
+      "url": "https://moniquelhuillier.com/products/pearl-strap-ivory-a-line-gown",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product has simple pearl-embellished spaghetti straps and smooth A-line silhouette",
+        "Source dress has pleated chiffon fabric with a deep plunge, metallic harness detailing and thigh slit",
+        "No pearl strap detail visible in source image",
+        "Overall silhouette and embellishment style do not match"
+      ]
+    },
+    {
+      "productId": "vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op:0:https://www.shopakira.com/products/drippy-rhinestone-chain-top",
+      "url": "https://www.shopakira.com/products/drippy-rhinestone-chain-top",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a white bralette layered with silver crystal/rhinestone chain draping, source is a yellow feathered showgirl costume with gold crystal bra",
+        "Color palette differs entirely: silver/white vs gold/yellow",
+        "Both feature crystal-embellished chain-draped bra tops, but overall garment design, headwear, and styling context differ significantly",
+        "No matching notable details beyond general 'jeweled bra top' concept"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-box-seats-at-arthur-ashe-for-the-us-open-mens-final:0:https://www.thereformation.com/products/sora-linen-dress/1314992.html",
+      "url": "https://www.thereformation.com/products/sora-linen-dress/1314992.html",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a black off-shoulder mini dress, but no one in the source photo is wearing this garment",
+        "Woman in source photo (left) wears a red and white gingham dress, not black",
+        "No matching silhouette, color, or garment type found in the source image"
+      ]
+    }
+  ]
+}

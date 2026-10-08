@@ -1,0 +1,108 @@
+{
+  "preload": [
+    "/fonts/inter.c9407645.woff2",
+    "/fonts/playfair-display.5d91eb5d.woff2",
+    "/fonts/special-elite.3cf06771.woff2",
+    "/fonts/dancing-script.5e08eb55.woff2",
+    "/fonts/bodoni-moda.c1de3473.woff2",
+    "/fonts/bodoni-moda-italic.8b4fb72e.woff2"
+  ],
+  "files": {
+    "inter": {
+      "hash": "c9407645",
+      "bytes": 48432
+    },
+    "playfair-display": {
+      "hash": "5d91eb5d",
+      "bytes": 38460
+    },
+    "special-elite": {
+      "hash": "3cf06771",
+      "bytes": 53040
+    },
+    "dancing-script": {
+      "hash": "5e08eb55",
+      "bytes": 42604
+    },
+    "bodoni-moda": {
+      "hash": "c1de3473",
+      "bytes": 25804
+    },
+    "bodoni-moda-italic": {
+      "hash": "8b4fb72e",
+      "bytes": 30220
+    },
+    "inter-cyrillic-ext": {
+      "hash": "fccca918",
+      "bytes": 25844
+    },
+    "inter-cyrillic": {
+      "hash": "aebf2ab4",
+      "bytes": 18744
+    },
+    "inter-greek-ext": {
+      "hash": "a2e2c783",
+      "bytes": 11272
+    },
+    "inter-greek": {
+      "hash": "46dd4cdc",
+      "bytes": 19044
+    },
+    "inter-vietnamese": {
+      "hash": "8db00ff4",
+      "bytes": 10280
+    },
+    "inter-latin-ext": {
+      "hash": "a28eb6d3",
+      "bytes": 85272
+    },
+    "playfair-display-cyrillic": {
+      "hash": "d7f9db9b",
+      "bytes": 21144
+    },
+    "playfair-display-vietnamese": {
+      "hash": "8fa67d5f",
+      "bytes": 9056
+    },
+    "playfair-display-latin-ext": {
+      "hash": "56285678",
+      "bytes": 20980
+    },
+    "special-elite-latin-ext": {
+      "hash": "491120b4",
+      "bytes": 24900
+    },
+    "dancing-script-vietnamese": {
+      "hash": "11a88b30",
+      "bytes": 7776
+    },
+    "dancing-script-latin-ext": {
+      "hash": "0be22fba",
+      "bytes": 22608
+    },
+    "bodoni-moda-italic-combining-greek": {
+      "hash": "035a106f",
+      "bytes": 25912
+    },
+    "bodoni-moda-italic-symbols": {
+      "hash": "fd3b5cfe",
+      "bytes": 17880
+    },
+    "bodoni-moda-italic-latin-ext": {
+      "hash": "8851d0cd",
+      "bytes": 16112
+    },
+    "bodoni-moda-combining-greek": {
+      "hash": "c1e90fb6",
+      "bytes": 21572
+    },
+    "bodoni-moda-symbols": {
+      "hash": "2d89db9c",
+      "bytes": 14088
+    },
+    "bodoni-moda-latin-ext": {
+      "hash": "41d1b533",
+      "bytes": 14184
+    }
+  }
+}

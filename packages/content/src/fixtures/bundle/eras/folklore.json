@@ -1,0 +1,25 @@
+{
+  "eraId": "folklore",
+  "items": [
+    {
+      "id": "vault-folklore-001",
+      "eraId": "folklore",
+      "date": "2020-07-24",
+      "dateLabel": "July 24, 2020",
+      "title": "folklore released with no announcement",
+      "summary": "The surprise-drop era begins: a full album announced and released inside 24 hours.",
+      "body": [
+        "Taylor Swift announced folklore on social media and released it less than a day later, breaking from the months-long rollout campaigns of her earlier eras."
+      ],
+      "tags": ["Music"],
+      "images": [
+        { "url": "/eras/folklore.png", "kind": "primary" }
+      ],
+      "sources": [
+        { "name": "Rolling Stone", "url": "https://example.com/folklore-surprise", "reliability": 4 }
+      ],
+      "significance": "defining",
+      "milestone": { "id": "ms-folklore-release", "label": "folklore released", "kind": "album" }
+    }
+  ]
+}

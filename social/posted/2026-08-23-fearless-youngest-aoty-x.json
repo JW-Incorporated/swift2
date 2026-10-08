@@ -1,0 +1,10 @@
+{
+  "platform": "x",
+  "body": "she was twenty. and for a decade after, nobody younger did it: fearless made taylor the youngest album of the year winner ever — a record that only fell when billie eilish took it in 2020.\n\nlonglivets.com/?era=fearless&utm_source=x&utm_medium=social&utm_campaign=era-deep-cut",
+  "scheduledAt": "2026-08-23T23:30:00Z",
+  "campaign": "era-deep-cut:fearless-youngest-aoty",
+  "why": "Calendar slot 2026-08-23 23:30Z X, heartbeat:era-deep-cut on fearless, hook \"the contradiction\" (a 20-year-old holding a record for a decade). Source: supabase/seed/content/fearless.mjs (slug for the 52nd Grammys, Jan 31 2010): at 20, Taylor became the youngest Album of the Year winner ever, a record that stood until 18-year-old Billie Eilish won in 2020; Guinness World Records still lists her as the youngest solo artist to win AOTY. Sources cited in seed: American Songwriter, Guinness World Records, Grammy.com, Recording Academy YouTube. Deep link /?era=fearless (era id confirmed). Text-only: no committed real photo of the 2010 night exists in-repo (moment photos are external Wikimedia/Getty URLs) — text is the correct X fallback (never an era tile). Deliberately a different subject from the 08-23 23:00Z fashion post and the 08-23 lover on-this-day post. Uses \"taylor\" not bare \"Swift\" per the voice standard. Blocklist-safe (an awards record). Campaign story-unique (findPostedDuplicate matches platform+campaign).",
+  "postedAt": "2026-08-23T23:46:01.860Z",
+  "platformPostId": "2091673363236241512",
+  "url": "https://x.com/longlivetscom/status/2091673363236241512"
+}

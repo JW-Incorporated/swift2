@@ -1,0 +1,11 @@
+[
+  { "workflow": "bot-failure-triage.yml", "minGapMinutes": 25 },
+  { "workflow": "watchdog.yml", "minGapMinutes": 55, "inputs": { "hourly": "true" } },
+  { "workflow": "routine-marjorie-ops.yml", "minGapMinutes": 55 },
+  { "workflow": "marjorie-status.yml", "minGapMinutes": 55 },
+  { "workflow": "auto-merge-keepup.yml", "minGapMinutes": 14 },
+  { "workflow": "merch-awin-sync.yml", "minGapMinutes": 360 },
+  { "workflow": "social-approval-poll.yml", "minGapMinutes": 14 },
+  { "workflow": "social-poster.yml", "minGapMinutes": 28 },
+  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 }
+]

@@ -1,0 +1,42 @@
+# Accessibility scan — Laura's detection layer (docs/agents/laura.md).
+# NON-BLOCKING to start (continue-on-error): establishes the axe/pa11y baseline
+# and a trend without gating merges. Promote to a required check once the
+# corpus of a11y tickets is burned down. Runs against the deployed public site.
+name: a11y
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "10 16 * * *"  # daily; Laura reads the artifact + adds judgment. Offset off :00 — see watchdog.yml's 2026-07-18 header note on repo scheduling contention.
+permissions:
+  contents: read
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      # Canonical public URL is defined in docs/deploy.md; keep this in sync.
+      - name: axe-core scan (marquee surfaces)
+        run: |
+          set +e
+          npx --yes @axe-core/cli \
+            --exit \
+            --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa \
+            https://www.longlivets.com/ \
+            | tee axe-report.txt
+          echo "axe exit: $?  (non-blocking)"
+      - name: pa11y scan (WCAG2AA)
+        run: |
+          set +e
+          npx --yes pa11y --standard WCAG2AA https://www.longlivets.com/ | tee pa11y-report.txt
+          echo "pa11y exit: $?  (non-blocking)"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: a11y-reports
+          path: |
+            axe-report.txt
+            pa11y-report.txt
+          if-no-files-found: ignore

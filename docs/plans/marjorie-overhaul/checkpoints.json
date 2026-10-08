@@ -1,0 +1,52 @@
+{
+  "$comment": "Observation checkpoints for the Marjorie Overhaul (epic #4180). plan-recheck-marjorie.yml runs daily; the routine handles every entry whose due <= today and status == pending, then flips status to reported via PR. Statuses: pending | reported | skipped. The M1 session sets MR1/MR2 dates when M1 merges (due is null until then, and a null due is never due). MR1 and MR2 are both reported; MR3 (2027-08-13) is the only live entry and must outlive the epic. Brief-delivery markers have moved twice (brief-issue comments -> deliver-log 'discord-message-id:' -> status page); any future delivery check keys on 'status ping: sent' plus 'status note: ping stamped on #<n>' in the deliver log. See rechecks/MR2.md.",
+  "epic": 4180,
+  "checkpoints": [
+    {
+      "id": "MR1",
+      "due": "2026-09-19",
+      "status": "reported",
+      "title": "Comms hold under real schedules (+7d after M1)",
+      "checks": [
+        "routine-marjorie-brief.yml: every scheduled run since M1 merged succeeded and each posted one message to #longlive-marjorie (run log shows the Discord POST 2xx)",
+        "No workflow other than production-backup.yml invoked scripts/watchdog/send-mail.py in the window (search run logs), and the fallback step never fired unless a Discord call returned non-2xx",
+        "watchdog.yml opened or closed at least one alert in the window and the same alert appeared in #longlive-marjorie (run log)",
+        "marjorie-inbox.yml no longer exists on main",
+        "The brief's waiting-on-you section lists exactly the open HUMAN-ACTIONS.md numbers on the day it ran (compare one brief to the file at that SHA)",
+        "M4 loop, first real cycle (2026-09-14): Tree's weekly-plan brief listed open marjorie-filed #4252 under 'From Marjorie' and Tree closed it with a comment citing its plan PR; Marjorie's 09-14 brief issue Tree section has 'From Tree:' and 'For Tree:' lines; any ask either bot made that week became a tree-filed / marjorie-filed issue with no duplicate (search each label for two issues sharing one loop-ask key)",
+        "M2 and M3 status per #4180"
+      ]
+    },
+    {
+      "id": "MR2",
+      "due": "2026-10-03",
+      "status": "reported",
+      "title": "Marjorie acted on real events (+21d after M1)",
+      "checks": [
+        "routine-marjorie-ops.yml resolved at least one real watchdog-alert issue: the issue shows Marjorie's comment, a dispatch or a human action, and a close",
+        "If the FB export alert fired, a HUMAN-ACTIONS.md item with literal steps was filed by the routine via PR and appeared as a card (HUMAN-ACTIONS.md history)",
+        "routine-marjorie-triage.yml handled at least one intake or feedback issue: either a build-desk issue with acceptance criteria or an in-channel founder question with a recommendation",
+        "Nothing was auto-closed by triage without a founder or a merged fix",
+        "If M4 merged: one Monday cycle produced an issue from a Tree ask and an issue from a Marjorie ask, both numbered in the next brief",
+        "M5 chat: at least one real founder message answered in-thread with ✅ in each of #longlive-marjorie and #longlive-tree since M5 merged (count the brief issues' `💬 chat:` turn-log comments and cite the run URLs); every [chat failed] notice has one ❌ and no second notice for the same message",
+        "M7 doorbell: rang for at least one real founder message in each of #longlive-marjorie and #longlive-tree — the message carries 👀 from Long Live Doorbell and its chat run's triggering actor is the doorbell key's owner (event workflow_dispatch); cite the run URLs and each message-to-✅ time from the run's `replied in <n>s` line",
+        "M8 chase (if merged): one marjorie-filed item was nudged at 48 h and either moved or became a [DECIDE] human action at 96 h; the founder's one-word reply was acted on. Verify one nudge per item, one chase human action per item ever, the brief's stalled line and the final action; cite issue numbers and run URLs",
+        "Carried from MR1 (re-worded for Bots v2 W4, which retired the brief issue): every scheduled routine-marjorie-brief.yml run in the window reached a Discord post — read each run's deliver log for 'discord-message-id:' (absent is a FAIL, two ids for one day is a FAIL). Do not count comments on founders-brief issues; they no longer exist.",
+        "Carried from MR1: Tree's weekly plan PR renders a 'From Marjorie' section naming each open marjorie-filed + desk:tree issue by number (prose mentioning Marjorie does not count; #4603, #4492, #4295 all scored 0)",
+        "This routine can actually land a PR: routine-template.yml grants contents: write, and the previous checkpoint's rechecks/<id>.md is on main with its status 'reported' (MR1 was verified 13 times and landed 0 times — #4462)",
+        "The brief's waiting-on-you list matches the open HUMAN-ACTIONS.md numbers as read from the Discord message or the status-issue journal comment, not from a brief issue",
+        "Recommend close or extend on #4180"
+      ]
+    },
+    {
+      "id": "MR3",
+      "due": "2027-08-13",
+      "status": "pending",
+      "title": "Renew the doorbell's GitHub key a month before it expires (2027-09-13)",
+      "checks": [
+        "longlive-doorbell-dispatch (fine-grained, swift2 only, Actions: Read and write) expires 2027-09-13. If it has not been renewed, file a HUMAN-ACTIONS.md item (v2) to create its replacement with the same scope, replace DOORBELL_GITHUB_TOKEN in /etc/longlive-doorbell.env on the Hermes VM host, and run sudo systemctl restart longlive-doorbell (docs/ops/doorbell.md, Keys)",
+        "After the renewal, confirm a doorbell-started chat run shows event workflow_dispatch by the key's owner"
+      ]
+    }
+  ]
+}

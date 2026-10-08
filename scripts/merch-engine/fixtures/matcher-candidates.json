@@ -1,0 +1,23 @@
+{
+  "moments": [
+    {
+      "moment": { "id": "fixture-fashion-moment", "title": "Fixture fashion moment" },
+      "candidates": [
+        {
+          "id": "fixture-direct-exact",
+          "source": "brand-direct",
+          "score": 91,
+          "urlVerified": true,
+          "imageVerified": true
+        },
+        {
+          "id": "fixture-awin-close",
+          "source": "awin-index",
+          "score": 72,
+          "urlVerified": true,
+          "imageVerified": true
+        }
+      ]
+    }
+  ]
+}

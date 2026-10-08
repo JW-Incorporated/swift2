@@ -1,0 +1,192 @@
+# Marjorie — hourly watchdog-alert handling sweep (Marjorie Overhaul M2,
+# docs/specs/marjorie-overhaul/w1-watchdog-handling.md). Every open
+# `watchdog-alert` issue gets a reply within the hour: what she checked,
+# what she did, and whether it needs a founder — never a silent alert.
+#
+# Zero-cost `gate` job first (spec: "A zero-cost gate job runs first"): a
+# plain `gh issue list` step, no agent, ~5s. Most hours there are no open
+# alerts, so the Sonnet `run` job is skipped entirely via `needs`/`if` and
+# the hourly cadence costs almost nothing. A SKIPPED job does not fail the
+# workflow run as long as nothing else failed, so `conclusion: success` is
+# still reported — confirmed on the first real run per the spec's AC2, not
+# assumed here.
+#
+# No per-alert dispatch from watchdog.yml (architect's call, spec's
+# Mechanics section): watchdog runs at :05 and this sweep follows 13
+# minutes later at :18, so a per-open dispatch would only add a second
+# concurrent run for no latency worth having.
+#
+# `allowed_tools` uses the space-free scoped form the spec asks M2 to try
+# first (`Bash(gh:*),Bash(git:*),Bash(node:*)` — no spaces, so it survives
+# `routine-template.yml`'s UNQUOTED interpolation into `claude_args` the
+# same way every existing routine's bare tool list does) instead of the
+# commissioning brief's `gh issue`/`gh run`/`gh workflow run`/`gh pr` list,
+# which contains spaces and would not. No `Write`, `Edit`, or `Task` — a
+# narrowing, not a guarantee (`Bash` can still write files); the real
+# enforcement that she edits no product code is acceptance criterion 5,
+# checked on the PR diff. `.claude/hooks/guard.sh` denies `gh secret`/
+# `gh variable` on every Bash call regardless.
+#
+# `checkout_token_secret: SOCIAL_POSTER_PAT` — she files HUMAN-ACTIONS.md
+# items and build-desk issues by PR against branch-protected main;
+# `GITHUB_TOKEN` cannot trigger this repo's required `build` check on its
+# own PRs (same reason routine-karen-nightly.yml / routine-marjorie-brief.yml
+# use the PAT). Static per workflow, so the job holds the PAT on every run
+# that gets past the gate, not only when filing a human action — acceptable,
+# not implied away (spec, "On scoping, stated honestly").
+#
+# DISCORD_BOT_TOKEN / any webhook are never passed to this job on purpose —
+# they live only in an `environment:`-scoped plain job elsewhere in this
+# fleet (routine-marjorie-brief.yml's `deliver` job), never in an agent job.
+# Her "post" for a handled alert is the issue comment itself (see the prompt
+# file) — `upsert-alert.sh`'s own open/close cycle is what reaches Discord.
+#
+# `max_turns: 90` (2026-10-06, was 60): run 37392659004 ended `success` at 63
+# turns and the action failed it for exceeding 60 — a real backlog needs more
+# than 60; 90 matches marjorie-weekly-review. The notes below explain the
+# original 60.
+#
+# `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
+# 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
+# ZERO durable progress against 2 simultaneously-open real alerts (#4009,
+# #4129). Tracing this prompt's own instructions turn by turn puts the
+# happy-path count at roughly 29-30 tool calls for handling both — a
+# plausible estimate, not a proven exact minimum (Codex review of PR
+# #4221), but consistent with 30 leaving no margin at all. 30 was also
+# below `routine-template.yml`'s own 40-turn default: `routine-tree-
+# daily-draft.yml` had already exceeded that default by 2 turns and was
+# bumped to 50, and `routine-community-answerer.yml` was bumped to 80
+# "pending actual-usage investigation" rather than a measured need — both
+# softer evidence than "needed exactly N," but both point the same
+# direction (40 runs tight for multi-step routines in this fleet; 60 is a
+# reasoned buffer, not a guarantee against every possible backlog size).
+# `marjorie-ops.md`'s new "work one alert at a time, to a REAL completion
+# (marker comment posted, not just an action taken)" instruction is the
+# more durable half of this fix — no fixed turn number survives an
+# arbitrarily bad backlog day, but finishing what you start and cleanly
+# deferring the rest degrades gracefully where the old zero-margin budget
+# failed catastrophically.
+name: routine-marjorie-ops
+
+on:
+  schedule:
+    - cron: "18 * * * *" # 13 min after watchdog.yml's :05 sweep
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write # gh workflow run — re-dispatching a quiet routine
+  id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+
+# Serialize snapshot through mutation so a queued sweep reads fresh markers.
+concurrency:
+  group: marjorie-ops-sweep
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    outputs:
+      work: ${{ steps.check.outputs.work }}
+      autodefer: ${{ steps.check.outputs.autodefer }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Collect complete dispatch chase snapshot and plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
+        run: |
+          set -euo pipefail
+          mkdir -p .scratch
+          node scripts/marjorie/lib/dispatch-chase-state.mjs "$REPO" > .scratch/dispatch-chase-snapshot.json
+          node scripts/marjorie/lib/dispatch-chase.mjs plan < .scratch/dispatch-chase-snapshot.json > .scratch/dispatch-chase-plan.json
+      - name: Any open watchdog alert or pending chase action?
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
+          CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
+          AUTODEFER=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.autoDefers?.length||0)')
+          if [ "$AUTODEFER" -gt 0 ]; then echo "autodefer=yes" >> "$GITHUB_OUTPUT"; else echo "autodefer=no" >> "$GITHUB_OUTPUT"; fi
+          FIXQ=0
+          for N in $(gh issue list --repo "$REPO" --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number --jq '.[].number'); do
+            if node scripts/marjorie/ops-fix-trust.mjs "$N" --repo "$REPO" > /dev/null; then FIXQ=$((FIXQ+1)); fi
+          done
+          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ] || [ "$FIXQ" -gt 0 ]; then
+            echo "work=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "work=no" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: steps.check.outputs.work == 'yes'
+        with:
+          name: dispatch-chase-plan
+          path: .scratch/dispatch-chase-plan.json
+          retention-days: 1
+
+  # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
+  # auto-defer never starts the Sonnet `run` job. The PAT is needed so the
+  # auto-merge PR can trigger the required `build` check (GITHUB_TOKEN cannot).
+  auto-defer:
+    needs: gate
+    if: needs.gate.outputs.autodefer == 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Apply 7-day silence default to chase HAs
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
+        run: |
+          git config user.name "marjorie-auto-defer"
+          git config user.email "noreply@github.com"
+          test "$(gh api user --jq .login)" = "$AUTO_DEFER_AUTHOR"
+          node scripts/marjorie/lib/chase-auto-defer-run.mjs "$REPO"
+
+  run:
+    needs: gate
+    if: needs.gate.outputs.work == 'yes'
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — site ops"
+      prompt_file: docs/agents/runner-prompts/marjorie-ops.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
+      timeout_minutes: 30
+      max_turns: 90
+      pre_run_artifact: dispatch-chase-plan
+      checkout_token_secret: SOCIAL_POSTER_PAT
+      expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]
+      allowed_bots: github-actions # M7: bot-chat-alarm.yml starts this run on GITHUB_TOKEN; claude-code-action refuses a bot-started run otherwise
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

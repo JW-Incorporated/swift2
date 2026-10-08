@@ -1,0 +1,97 @@
+# community-inbox.yml — Reddit alert/reply email reader (Community Engine
+# Phase 1, card P1-1; docs/proposals/2026-09-06-community-engine-plan.md
+# §2.1 Flow E1, §2.3 Flow E3, §2.6 founder-reply fallback).
+#
+# Same IMAP account and App Password secret as marjorie-inbox.yml (§1 of
+# the plan: "no new mail account, no new secret" — Reddit's own
+# notification emails are pointed at Marjorie's Gmail per §8-Q2's founder
+# answer, b: a Gmail filter forwards from Joey's own Reddit account).
+# Deterministic, zero LLM: reads unread mail every 30 minutes, classifies
+# Reddit notification mail into engagement_lead rows via the shared
+# scripts/lib/reddit-rss.mjs `parseRedditEmail` (P0-3, unit-tested), and
+# separately applies founder `posted <id>` / `skip <id>` replies straight to
+# `engagement_lead.status` (the ack route's HMAC path is P1-5, not built
+# yet — this is the interim/permanent fallback the plan names in §2.6).
+#
+# Idempotent by the engagement_lead schema's own dedupe index
+# (platform, coalesce(thread_id, locator), kind) — see
+# scripts/community/upsert-lead.mjs's header — rather than tracking
+# Message-IDs, since a re-processed Reddit email always resolves to the
+# same thread/kind combination.
+#
+# :05 avoids the repo's :00/:30 cron-contention cluster (same reasoning as
+# marjorie-inbox.yml's own header and watchdog.yml's scheduling note) while
+# still running every 30 minutes.
+name: community-inbox
+
+on:
+  schedule:
+    - cron: '5,35 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Classify and log leads without writing to the DB or marking mail read'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: community-inbox
+  cancel-in-progress: false
+
+jobs:
+  read-inbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+
+      - name: Preflight — confirm mail + DB credentials are configured
+        env:
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "${MARJORIE_EMAIL:-}" ] || [ -z "${GMAIL_APP_PASSWORD:-}" ]; then
+            echo "Mail credentials not configured — skipping (same posture as marjorie-inbox.yml)."
+            echo "SKIP_RUN=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          if [ -z "${SUPABASE_DB_URL:-}" ]; then
+            echo "FAIL: SUPABASE_DB_URL secret is not configured. Cannot upsert engagement_lead rows."
+            exit 1
+          fi
+          echo "SKIP_RUN=false" >> "$GITHUB_ENV"
+
+      - name: Materialize ephemeral apps/worker/.env
+        if: env.SKIP_RUN == 'false'
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          mkdir -p apps/worker
+          umask 077
+          printf 'SUPABASE_DB_URL=%s\n' "$SUPABASE_DB_URL" > apps/worker/.env
+          echo "apps/worker/.env materialized (contents not printed)."
+
+      - name: Read Reddit alert/reply mail → engagement_lead
+        if: env.SKIP_RUN == 'false'
+        env:
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+        run: |
+          trap 'rm -f apps/worker/.env' EXIT
+          python3 scripts/community/inbox.py
+
+      - name: Clean up ephemeral env file
+        if: always()
+        run: rm -f apps/worker/.env

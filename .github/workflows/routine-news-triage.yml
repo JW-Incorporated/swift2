@@ -1,0 +1,78 @@
+# News Triage — news_story to intake issues, migrated to this scheduled
+# Action per docs/audits/2026-09-05-claude-routines-relocation-assessment.md
+# + the 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
+#
+# Files intake issues only (never edits content, never opens a PR), so it
+# needs `issues: write` and the built-in GITHUB_TOKEN — no SOCIAL_POSTER_PAT,
+# no Supabase secrets (docs/agents/runner-prompts/news-triage.md has none).
+# allowed_tools mirrors the prompt's own steps (Bash for `gh`/`curl`, Read/
+# Write/Edit/Glob/Grep for local work, WebSearch/WebFetch for source
+# retrieval and the browser-UA retry) per docs/agents/routine-invariants.md
+# — no Task tool.
+name: routine-news-triage
+
+on:
+  schedule:
+    - cron: "40 15 * * *" # same cadence as the claude.ai trigger (UTC)
+  workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        required: false
+        type: number
+        default: 0
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "News Triage — news_story to intake issues"
+      prompt_file: docs/agents/runner-prompts/news-triage.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
+      timeout_minutes: 30
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
+      checkout_token_secret: GITHUB_TOKEN
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  verify-receipt:
+    needs: run
+    if: always() && !cancelled()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Verify this attempt left a News Triage receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/news/check-triage-receipt.mjs
+
+  # Bots v2 W8: the intake issues this run just filed are the time-sensitive
+  # events Tree should draft for the same day. Issues made with the workflow
+  # token fire no `issues` event, so dispatch the scan explicitly rather than
+  # waiting for its two-hourly cron. A failure here is a warning only.
+  dispatch-social-events:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Dispatch social-event-dispatch.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run social-event-dispatch.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "::warning::could not dispatch social-event-dispatch.yml; its two-hourly cron will pick the events up"

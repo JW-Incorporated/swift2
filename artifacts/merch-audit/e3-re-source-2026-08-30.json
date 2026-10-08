@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "sourceRun": "https://github.com/JW-Incorporated/swift2/actions/runs/33317647145",
+  "sourceArtifact": "merch-audit-authoring-artifact",
+  "run": {
+    "capUsd": 5,
+    "reservedCostUsd": 2.5219199999999953,
+    "observedCostUsd": null,
+    "stopReason": null,
+    "completedJudgments": 31
+  },
+  "reSource": [
+    {
+      "productId": "vault-evermore-the-willow-videos-final-scene-a-gucci-liberty-print-floral-m:0:https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress",
+      "url": "https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is pink with blue rose floral print vs source dress is blue/teal with ditsy floral print",
+        "Source dress has ruffled collar and lace trim details not present on product",
+        "Product has plain round neckline with tie, source has high ruffled Victorian-style collar",
+        "Different overall color palette and print scale"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show:0:https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size",
+      "url": "https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a beaded, floral-embellished V-neck dress with fringe hem; source photo shows a plain white crepe shift dress with jeweled neckline and cuffs",
+        "Silhouettes differ: product has dropped cowl neckline and fringe skirt, source has crew neck and straight mini skirt",
+        "No matching embellishment pattern or fringe detail present in source garment",
+        "Different overall garment construction and texture (heavy beadwork vs smooth solid fabric)"
+      ]
+    },
+    {
+      "productId": "vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s:0:https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress",
+      "url": "https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a pink sleeveless dress with crystal cutout detail, while worn dress is black off-shoulder with belt",
+        "Silhouette differs: off-shoulder wrap style vs crew neck sleeveless",
+        "Color and pattern do not match (black vs pink)",
+        "No crystal cutout or embellishment visible on worn dress"
+      ]
+    },
+    {
+      "productId": "vault-fearless-a-silver-sequined-gown-worn-into-an-interruption-no-one-saw-:0:https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size",
+      "url": "https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is gray off-shoulder mermaid gown with sheer gloves, source is champagne/nude one-shoulder sequined gown with no gloves",
+        "Different color palette: gray-silver vs nude-champagne",
+        "Different neckline/sleeve construction: off-shoulder short sleeves vs one-shoulder halter",
+        "Both are floor-length embellished sparkly gowns with train, sharing general silhouette only"
+      ]
+    },
+    {
+      "productId": "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform:1:https://us.princesspolly.com/products/abner-cable-cardigan-cream",
+      "url": "https://us.princesspolly.com/products/abner-cable-cardigan-cream",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is an oversized cream cable-knit cardigan with graphic tee and striped shorts; source image shows a woman in a sleeveless cream lace-trim top in a forest setting",
+        "No matching garment silhouette or type visible in source image",
+        "Source image shows only a bust-up shot with no cardigan, shorts, or bag present",
+        "Colors are both light/cream but this alone is insufficient to establish a match"
+      ]
+    },
+    {
+      "productId": "vault-folklore-no-glam-team-self-styled-hair-and-makeup-for-the-folklore-er:0:https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator",
+      "url": "https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product image is a cosmetic tube (tinted moisturizer), unrelated to the scene depicted",
+        "Source photo shows a person in a candlelit setting wearing a knit cardigan, no visible cosmetic product",
+        "No shared color, pattern, or garment type between the two images",
+        "No matching notable details connecting the product to the scene"
+      ]
+    },
+    {
+      "productId": "vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se:2:https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold",
+      "url": "https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Source image shows a small ring on hand but details are not clearly visible due to low resolution and distance",
+        "Cannot confirm pearl and pave diamond design elements from source photo",
+        "Hand position obscures most ring details in source image"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-rainbow-versace-blazer-for-the-2019-vmas:0:https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress",
+      "url": "https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a sequined multicolor blazer dress with abstract geometric pattern in pink, gold, lavender tones on black",
+        "Source photo shows a baroque-style jacket with medallion/coin prints, floral and ornate patterns in blue, pink, gold",
+        "Pattern style differs significantly: pixelated abstract vs ornate baroque/medallion print",
+        "Both share a jacket-like silhouette and multicolor palette but details and print motifs do not match"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-floral-oscar-de-la-renta-gown-by-laura-kim-and-fernando-ga:0:https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673",
+      "url": "https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Both are strapless gowns but color differs completely: tan/gold beaded floral vs red/black floral brocade",
+        "Product has 3D beaded floral embellishment on sheer tulle; source has printed/jacquard floral pattern on satin",
+        "Silhouette similar A-line strapless, but fabric and pattern styles are distinct",
+        "No matching notable details like train or pockets visible in product image"
+      ]
+    },
+    {
+      "productId": "vault-lover-a-custom-etro-floral-gown-a-lover-coded-look-for-the-2020-go:0:https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown",
+      "url": "https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a navy blue and gold floral sequined ball gown with spaghetti straps and full skirt",
+        "Source photo shows a green and blue floral print fitted dress with cutout detail and thick straps",
+        "Colors, patterns, and silhouettes do not match",
+        "No shared notable details between the two garments"
+      ]
+    },
+    {
+      "productId": "vault-midnights-the-game-the-world-decided-made-it-official:0:https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle",
+      "url": "https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a white knit button-front tank with lace trim, worn with a white maxi skirt",
+        "Source photo shows a white cropped tank/top with puff sleeve red jacket, different silhouette and styling",
+        "No matching button placket, lace trim, or skirt visible in source image",
+        "Colors both white but garment type and details do not correspond"
+      ]
+    },
+    {
+      "productId": "vault-midnights-high-low-styling-for-the-bills-game-khaite-vintage-and-mejur:0:https://khaite.com/products/jett-skirt-in-black-leather",
+      "url": "https://khaite.com/products/jett-skirt-in-black-leather",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a black leather mini skirt shown in isolation",
+        "Source photo shows a crowd at a football game with no visible skirt matching the product",
+        "No clear garment match can be verified from the visible clothing in the crowd photo",
+        "People in source photo are wearing red/white sports apparel and winter jackets, not black leather skirts"
+      ]
+    },
+    {
+      "productId": "vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks:0:https://area.nyc/products/crystal-hotfix-mini-dress",
+      "url": "https://area.nyc/products/crystal-hotfix-mini-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a brown/black mesh mini dress with rhinestone dot pattern and spaghetti straps, sweetheart neckline",
+        "Source image shows a black long-sleeve bodysuit with tights, no dress present",
+        "No matching silhouette, color, or garment type between the two images",
+        "Source photo is unrelated to the product's style and construction"
+      ]
+    },
+    {
+      "productId": "vault-midnights-a-black-versace-gown-with-gold-buttons-at-the-2023-vmas:0:https://macduggal.com/products/5540",
+      "url": "https://macduggal.com/products/5540",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a fully sequined gold/black gown with flutter sleeves and V-neck, while source is a solid black draped gown with halter straps and button trim",
+        "Different necklines: V-neck flutter sleeve vs one-shoulder/halter sleeveless",
+        "Different embellishment: allover sequins vs plain draped jersey with snap-button placket",
+        "Both have a thigh-high side slit and similar floor length, but overall garment design differs significantly"
+      ]
+    },
+    {
+      "productId": "vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message:0:https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625",
+      "url": "https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a long burgundy beaded halter gown with thigh slit; source is a short strapless gold sequined mini dress",
+        "Different colors: burgundy vs gold/red",
+        "Different silhouettes: floor-length vs mini length",
+        "No shared design details like beading placement or cutouts match"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-reputation-tour-opening-number-gets-a-glitter-cutout-upg:0:https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit",
+      "url": "https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a one-shoulder sequin top with cutout worn with jeans/belt, while source shows a long-sleeved high-neck sequin bodysuit",
+        "Silhouette differs significantly: sleeveless asymmetric top vs full long-sleeve fitted bodysuit",
+        "Both are black sequined garments but garment type and coverage differ substantially",
+        "No matching cutout or asymmetric neckline detail visible in source image"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-sparkling-green-bodysuit-for-the-dress-segment:0:https://shopakira.com/products/shining-down-on-your-sequin-bodysuit",
+      "url": "https://shopakira.com/products/shining-down-on-your-sequin-bodysuit",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is olive green rhinestone halter top vs source images showing black/dark green sequined bodysuit and dress",
+        "Different color palette entirely (olive green vs black/dark tones)",
+        "Source moment features a bodysuit/dress ensemble, not a standalone halter top with keyhole cutout",
+        "No matching notable details like the center front slit or gathered neckline visible in source images"
+      ]
+    },
+    {
+      "productId": "vault-reputation-the-call-it-what-you-want-nice-things-closer-dress:0:https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159",
+      "url": "https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a long, floor-length sequin gown with long sleeves and thigh slit; source is a short fringe sequin mini dress, sleeveless",
+        "Silhouette completely different: bodycon maxi vs. flapper-style mini",
+        "Color differs: solid black vs. dark navy/purple sequins",
+        "No shared design details like fringe or sleeve style"
+      ]
+    },
+    {
+      "productId": "vault-reputation-a-johanna-ortiz-tiered-dress-for-the-lover-music-video:0:https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral",
+      "url": "https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a cream floral midi slip dress vs source's solid yellow full-skirted dress",
+        "Different silhouette: bias-cut slip style vs voluminous fit-and-flare skater dress",
+        "No pattern match: floral print vs solid color",
+        "Different necklines and overall style"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-dove-grey-j-mendel-gown-for-her-second-entertainer-of-the-:0:https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size",
+      "url": "https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a one-shoulder beaded gown with thigh-high slit and sheer gloves; source is a strapless ruched tulle mermaid gown with no slit or gloves",
+        "Different necklines: asymmetric one-shoulder vs strapless straight-across",
+        "Product has intricate silver sequin/beaded leaf pattern, source dress is plain draped fabric with no embellishment",
+        "Different train styles: product has flowing sheer overskirt train, source has ruffled tulle train at hem"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover:0:https://www.formalapproach.com/products/sherri-hill-55304-dress",
+      "url": "https://www.formalapproach.com/products/sherri-hill-55304-dress",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a one-shoulder sequined purple/lavender ombre gown, source is a strapless flowing purple/magenta painted-style gown - different necklines",
+        "Product has heavy sequin texture throughout, source shows smooth flowing fabric with an illustrated paint-splash effect",
+        "Silhouettes differ: product is a fitted mermaid gown with thigh slit, source is a voluminous flowing dress",
+        "Color family is similar purple tones but overall garment construction and details do not match"
+      ]
+    },
+    {
+      "productId": "vault-speak-now-glamour-puts-her-on-its-november-2010-cover:0:https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size",
+      "url": "https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a pale blue beaded halter gown with sheer A-line skirt, while source shows a black lace over nude strapless dress with black waistband",
+        "Completely different color palette and pattern",
+        "Different silhouette: sleeveless halter mermaid/A-line vs strapless fit-and-flare",
+        "No shared notable details between the two garments"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-super-bowl-lix-an-oversized-white-blazer-in-chiefs-colors:0:https://shop.simon.com/products/st-john-double-breasted-knit-blazer",
+      "url": "https://shop.simon.com/products/st-john-double-breasted-knit-blazer",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is a white double-breasted blazer with lapels and buttons, while source shows a plain white sleeveless tank top",
+        "No blazer, lapel, or button details visible in the source image",
+        "Garment silhouette and type do not match: tailored jacket vs. casual tank"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-ttpds-grunge-tea-stained-aesthetic-the-album-photography:0:https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey",
+      "url": "https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Product is an off-shoulder heather grey draped t-shirt with black mini skirt, while source images show a black strapless/bandeau crop top with a voluminous black skirt",
+        "Garment silhouette differs: product top is loose, twisted, short-sleeved jersey; source top is fitted, strapless bustier style",
+        "Color palette mismatch: product features grey top vs. all-black source outfit",
+        "No matching notable details such as headband, jewelry, or bracelet visible in source images"
+      ]
+    },
+    {
+      "productId": "vault-ttpd-2025-grammys-red-carpet-sequined-vivienne-westwood-in-chiefs:0:https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red",
+      "url": "https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red",
+      "action": "removed-from-moment-products",
+      "reason": "vision-audited-mismatch",
+      "auditorReasons": [
+        "Both are one-shoulder mini dresses but product has multicolor striped sequins vs solid red draped fabric in source",
+        "Product has long sleeve on one side, source is fully sleeveless",
+        "Different textures: sequin stripe pattern vs smooth ruched/glittery solid red",
+        "Silhouette differs - source has draped/wrap front, product is straight bodycon"
+      ]
+    }
+  ]
+}

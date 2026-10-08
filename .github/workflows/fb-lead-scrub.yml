@@ -1,0 +1,109 @@
+# Owner-authorized, one-time data repair for issue #4885 / HA #98: scrub the
+# ~72 contaminated Facebook `engagement_lead` rows (leaked markup + a private
+# group member's unhashed name in `locator`/`context`), then regenerate clean
+# leads from the exports already stored in the private `facebook-exports`
+# bucket with the fixed parser.
+#
+# WHY A WORKFLOW: `engagement_lead` is RLS'd service-role-only, so the repair
+# needs SUPABASE_SERVICE_ROLE_KEY. That secret lives only in repo Actions
+# secrets — this workflow is the authorized lane for a privileged one-off,
+# exactly the pattern remove-x-site-screens.yml already uses for its own
+# owner-approved cleanup.
+#
+# SAFE BY DEFAULT: `apply` defaults to false, so a plain dispatch is a dry run
+# that only prints what it WOULD delete/insert. The scrub step uploads the
+# full pre-delete contents of every candidate row as a run artifact
+# (`fb-lead-scrub-candidates`) so the deletion stays auditable either way.
+#
+# Delete this workflow once the repair has run — it is a one-off, not a
+# routine (nothing here is scheduled).
+name: fb-lead-scrub
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Actually delete the contaminated rows and write the clean ones (false = dry run)"
+        type: boolean
+        default: false
+      reingest:
+        description: "Also regenerate clean leads from the stored exports after scrubbing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fb-lead-scrub
+  cancel-in-progress: false
+
+jobs:
+  scrub:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: "true"
+          cache: npm
+
+      - name: Preflight — confirm the service-role pair is configured
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "FAIL: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are not both configured. Nothing was run."
+            exit 1
+          fi
+          echo "Service-role pair is configured."
+
+      - name: Scrub contaminated engagement_lead rows
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          APPLY: ${{ inputs.apply }}
+        run: |
+          if [ "$APPLY" = "true" ]; then
+            node scripts/community/fb-lead-scrub.mjs --apply --json-out scrub-candidates.json
+          else
+            node scripts/community/fb-lead-scrub.mjs --json-out scrub-candidates.json
+          fi
+
+      - name: Upload the deleted rows for audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fb-lead-scrub-candidates
+          path: scrub-candidates.json
+          if-no-files-found: ignore
+          # This artifact deliberately contains the leaked rows VERBATIM —
+          # including the unhashed member names — so the deletion is auditable
+          # and reversible. That is private data in Actions storage: keep the
+          # retention short and delete the artifact once the repair is
+          # confirmed. The repo default retention would be far too long for it.
+          retention-days: 7
+
+      - name: Regenerate clean leads from the stored exports
+        if: ${{ inputs.reingest }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          APPLY: ${{ inputs.apply }}
+        # `tsx`, not bare `node`, and NOT interchangeable: this script reaches
+        # the fixed parser in apps/worker (a .ts file) and `@swift2/shared/redline`
+        # (whose own `./redline-gates` import is extensionless, which node's ESM
+        # resolver rejects outright). Same pattern as theory-miner.yml,
+        # theory-promote.yml and social-event-status.yml. A bare-node run fails
+        # with ERR_MODULE_NOT_FOUND. The scrub step above imports only .mjs
+        # siblings, so it stays on node.
+        run: |
+          if [ "$APPLY" = "true" ]; then
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs --apply
+          else
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs
+          fi

@@ -1,0 +1,52 @@
+# Merch affiliate terms re-check — a quarterly, idempotent reminder to validate
+# rates, cookie windows, disclosure placement, and programme terms against the
+# evidence recorded in docs/ops/AFFILIATE-COVERAGE.md. This workflow never
+# assumes a programme's current terms and never changes affiliate links.
+#
+# :17 avoids this repository's :00/:30 schedule contention. The first day of
+# each calendar quarter provides one deterministic review ticket per quarter.
+name: merch-terms-recheck
+
+on:
+  schedule:
+    - cron: "17 15 1 1,4,7,10 *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: merch-terms-recheck
+  cancel-in-progress: false
+
+jobs:
+  create-ticket:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Create this quarter's terms re-check ticket
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TITLE=$(node scripts/merch-engine/terms-recheck.mjs)
+          EXISTING=$(gh issue list --repo "$REPO" --state all --limit 100 \
+            --search "\"${TITLE}\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "Terms re-check #${EXISTING} already exists for this quarter."
+            exit 0
+          fi
+          cat > /tmp/merch-terms-recheck.md <<EOF
+          Re-check the current terms for every active or planned affiliate network before changing any commercial configuration.
+
+          Required evidence:
+          - Awin: programme eligibility, commission/rate basis, cookie window, deeplink/clickref requirements, and disclosure obligations.
+          - Amazon Associates: Operating Agreement, tag/ascsubtag requirements, qualifying-purchase rules, and disclosure obligations.
+          - Catch-all/direct networks, if configured: current redirect/subid rules, commission basis, cookie window, and disclosure obligations.
+          - Compare each finding with \`docs/ops/AFFILIATE-COVERAGE.md\`; file a scoped repair if the report's terms assumptions are stale.
+
+          Do not change credentials, affiliate links, programme memberships, or live copy in this ticket. Record source URLs, review date, and any required repair as a separate, reviewable task.
+          EOF
+          gh issue create --repo "$REPO" --title "$TITLE" --body-file /tmp/merch-terms-recheck.md
