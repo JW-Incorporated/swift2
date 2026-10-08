@@ -115,6 +115,23 @@ describe('pending HA PR contents hardening', () => {
     expect(skipped.pendingHaPrs).toEqual([]);
   });
 
+  it('skips an over-cap file list loudly and records it instead of killing the snapshot', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const ghImpl = async (args: string[]) => {
+      const endpoint = args[1];
+      let rows: unknown = [];
+      if (endpoint.includes('/pulls?')) rows = [{ ...row(30), head: { sha, ref: 'huge' } }];
+      else if (endpoint.includes('/pulls/30/files')) rows = Array.from({ length: 100 }, (_, i) => ({ filename: `app/file-${i}.ts`, status: 'modified' }));
+      else if (endpoint.includes('/contents/')) throw new Error('should not fetch');
+      return { stdout: JSON.stringify(rows) };
+    };
+    const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
+    expect(state.pendingHaPrs).toEqual([]);
+    expect(state.skippedHaPrs).toEqual([{ number: 30, reason: 'file-list-over-cap', url: 'https://github.com/owner/repo/pull/30' }]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('PR #30 changed more than 2000 files'));
+    warn.mockRestore();
+  });
+
   it('still fails closed on a 500 and surfaces the PR number and real message', async () => {
     const ghImpl = make([{ filename: 'HUMAN-ACTIONS.md', status: 'modified' }], () => { throw new Error('gh: Server Error (HTTP 500)'); });
     await expect(fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files })).rejects.toThrow(/PR #30.*Server Error \(HTTP 500\)/);
