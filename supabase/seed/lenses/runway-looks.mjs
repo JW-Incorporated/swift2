@@ -206,6 +206,46 @@ export const RUNWAY_LOOKS = [
     shopTags: ['Sequin blazer', 'Pastel ombré'],
   },
   {
+    id: 'look-lover-time-100-j-mendel',
+    eraId: 'lover',
+    name: 'J. Mendel Time 100 Gala Gown',
+    // Source: Vogue (2019-04-24), Harper's Bazaar and ELLE (both 2019-04-23):
+    // pale pink and yellow pleated J. Mendel Spring 2019 gown with an oversize
+    // puff-sleeve bolero and a Lorraine Schwartz jeweled headband, worn to the
+    // Time 100 Gala at Jazz at Lincoln Center, 2019-04-23.
+    description: 'On April 23, 2019, Swift arrived at the Time 100 Gala in a pale pink and yellow hand-pleated J. Mendel gown from the label\'s Spring 2019 collection, with an oversize puff-sleeve bolero and a jeweled headband. She performed at the gala in the same dress, an early public look at the Lover era\'s pastel palette.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1138974194/photo/new-york-ny-taylor-swift-attends-the-2019-time-100-gala-at-frederick-p-rose-hall-jazz-at.jpg?s=612x612&w=0&k=20&c=bvYN8djE1PvJKtbXz-q3CYfuNdwW-bflyA5Mq9PtZdk=', credit: 'Jamie McCarthy/WireImage', caption: 'The pale pink and yellow J. Mendel gown on the Time 100 Gala red carpet, Jazz at Lincoln Center, April 23, 2019.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1138995178/photo/new-york-ny-taylor-swift-attends-the-2019-time-100-gala-at-frederick-p-rose-hall-jazz-at.jpg?s=612x612&w=0&k=20&c=U_LzasTgIcCVvskxyYiuSNQYLLpE9YhWD-QruIHpPl4=', credit: 'Jamie McCarthy/WireImage', caption: 'Side view of the gown\'s puff sleeve and yellow floral embroidery, Time 100 Gala, April 23, 2019.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1144701016/photo/new-york-new-york-taylor-swift-performs-during-the-time-100-gala-2019-dinner-at-jazz-at.jpg?s=612x612&w=0&k=20&c=GiT2EwqgitEW-3d2lC7gkSwiS6juPoXAKzzE4BrumZs=', credit: 'Dimitrios Kambouris/Getty Images for TIME', caption: 'Performing in the same gown at the Time 100 Gala dinner, April 23, 2019.', kind: 'primary' },
+    ],
+    shopTags: ['Pleated pastel gown', 'Jeweled headband'],
+    sources: [
+      { title: 'Vogue: Taylor Swift Wears J. Mendel at the Time 100 Gala in New York City', url: 'https://www.vogue.com/vogueworld/article/taylor-swift-time-100-gala-j-mendel' },
+      { title: 'Harper\'s Bazaar: Taylor Swift Looks Like a Disney Princess in Her Pink J. Mendel Gown', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/a27245670/taylor-swift-j-mendel-gown-time-100/' },
+      { title: 'ELLE: Taylor Swift Wore the Ultimate J. Mendel Pastel Princess Dress to Perform at Time 100 Gala', url: 'https://www.elle.com/culture/celebrities/a27245437/taylor-swift-j-mendel-dress-time-100-gala/' },
+    ],
+  },
+  {
+    id: 'look-lover-cats-premiere-oscar-de-la-renta',
+    eraId: 'lover',
+    name: 'Oscar de la Renta Cats Premiere Gown',
+    // Source: Teen Vogue (2019-12-17) and Cosmopolitan UK (2019-12-17): ruby
+    // floral fil coupé satin Oscar de la Renta gown with pockets, at the Cats
+    // world premiere, Alice Tully Hall, New York, 2019-12-16.
+    description: 'On December 16, 2019, Swift walked the red carpet at the world premiere of Cats in New York in a strapless ruby floral fil coupé satin gown by Oscar de la Renta, a full-skirted dress with pockets that Teen Vogue singled out, paired with Chloe Gosselin shoes and Maxior earrings.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1189043623/photo/topshot-us-singer-taylor-swift-arrives-for-the-world-premiere-of-cats-at-the-alice-tully-hall.jpg?s=612x612&w=0&k=20&c=TxKB30hcnzUAdrrKnwYGJ7vq2VU66wWwYVUG_yarzlY=', credit: 'Angela Weiss/AFP via Getty Images', caption: 'The red floral Oscar de la Renta gown at the world premiere of Cats, Alice Tully Hall, New York, December 16, 2019.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1194380161/photo/new-york-new-york-taylor-swift-attends-the-world-premiere-of-cats-at-alice-tully-hall-lincoln.jpg?s=612x612&w=0&k=20&c=msjv2z5zkcKY_Mi4ui0PCEkuaPprYOAO5iWJdHh1qNs=', credit: 'Steven Ferdman/Getty Images', caption: 'Full-length view of the gown and its dark floral train, Cats world premiere, December 16, 2019.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1194381062/photo/new-york-new-york-taylor-swift-attends-the-cats-world-premiere-at-alice-tully-hall-lincoln.jpg?s=612x612&w=0&k=20&c=3dT4uxlOnes2R--K2hVwbC8Rba-rRUg9sU3I6PZpgWY=', credit: 'Theo Wargo/WireImage', caption: 'The strapless bodice and full skirt of the Oscar de la Renta gown, Cats world premiere, December 16, 2019.', kind: 'primary' },
+    ],
+    shopTags: ['Floral satin gown', 'Strapless ball skirt'],
+    sources: [
+      { title: 'Teen Vogue: Taylor Swift Stunned at the Cats Premiere with a Gorgeous Dress', url: 'https://www.teenvogue.com/story/taylor-swift-cats-premiere' },
+      { title: 'Cosmopolitan UK: Taylor Swift Wears a Festive Oscar de la Renta Dress for \'Cats\' Premiere', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/a30252174/taylor-swift-dress-cats-premiere/' },
+    ],
+  },
+  {
     id: 'look-folklore',
     eraId: 'folklore',
     name: 'Cottagecore Cardigan',
@@ -307,6 +347,44 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/1801109903/photo/sao-paulo-brazil-taylor-swift-performs-onstage-during-taylor-swift-the-eras-tour-at-allianz.jpg?s=612x612&w=0&k=20&c=cckANjdYrCz8rTv_ePOsBTNJSjjEryBkG4SZf7mbSwg=', credit: 'Buda Mendes/TAS23/Getty Images for TAS Rights Management', caption: 'The Eras Tour\'s Midnights segment, Sao Paulo, November 2023 — the sparkling blue bodysuit built for the set.', kind: 'primary' },
     ],
     shopTags: ['Sequin jumpsuit', 'Jewel tones'],
+  },
+  {
+    id: 'look-midnights-grammys-cavalli',
+    eraId: 'midnights',
+    name: 'Roberto Cavalli Midnight-Blue Grammys Set',
+    // Source: Cosmopolitan UK (2023-02-06) and Harper's Bazaar retrospective
+    // (slide dated 2023-02-05): midnight-blue sparkling Roberto Cavalli
+    // long-sleeve crop top and skirt, 65th Grammy Awards red carpet, 2023-02-05.
+    description: 'On February 5, 2023, Swift arrived at the 65th Grammy Awards in a sparkling midnight-blue Roberto Cavalli set, a long-sleeve crop top and floor-length skirt with a train, a nod to her album Midnights, released that fall. Cosmopolitan UK reports it was styled with Lorraine Schwartz jewelry including purple sapphire earrings.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1463248197/photo/los-angeles-california-taylor-swift-attends-the-65th-grammy-awards-on-february-05-2023-in-los.jpg?s=612x612&w=0&k=20&c=CfmgejcseRQwymxxfwCJLv5gKVFB73xwnEj2XZhmprY=', credit: 'Kevin Mazur/Getty Images for The Recording Academy', caption: 'The midnight-blue sparkling crop top and train skirt on the 65th Grammys red carpet, February 5, 2023.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1463248117/photo/los-angeles-california-taylor-swift-attends-the-65th-grammy-awards-on-february-05-2023-in-los.jpg?s=612x612&w=0&k=20&c=7eDy9ipZwL9mpzkqjGAvE6WKgOfkILTTEgAEqGh8Vn0=', credit: 'Amy Sussman/Getty Images', caption: 'Three-quarter view of the beaded navy set, 65th Grammy Awards, February 5, 2023.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1463250402/photo/los-angeles-california-taylor-swift-attends-the-65th-grammy-awards-on-february-05-2023-in-los.jpg?s=612x612&w=0&k=20&c=edrvXzbeevI6u5I69_E-Q61KjCDisputcvKjJjCkLSc=', credit: 'Jon Kopaloff/WireImage', caption: 'Front view of the long-sleeve navy sequined top and skirt, 65th Grammy Awards, February 5, 2023.', kind: 'primary' },
+    ],
+    shopTags: ['Midnight-blue crop set', 'Sequined mermaid skirt'],
+    sources: [
+      { title: 'Cosmopolitan UK: Taylor Swift\'s Midnights-Inspired Crop Top Grammys Look Is Her Best Yet', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/g15388341/taylor-swifts-grammy-looks-throughout-the-years/' },
+      { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g65668036/taylor-swift-style-fashion-evolution-1755025743/' },
+    ],
+  },
+  {
+    id: 'look-midnights-iheartradio-vauthier',
+    eraId: 'midnights',
+    name: 'Alexandre Vauthier iHeartRadio Jumpsuit',
+    // Source: ELLE UK (2023-03-29) and Teen Vogue (2023-03-28): hooded,
+    // sparkling Alexandre Vauthier couture jumpsuit worn to accept the
+    // Innovator Award at the iHeartRadio Music Awards, Dolby Theatre, 2023-03-27.
+    description: 'On March 27, 2023, Swift accepted the Innovator Award at the iHeartRadio Music Awards at the Dolby Theatre in a hooded, sparkling Alexandre Vauthier couture jumpsuit. ELLE UK read the glitter as a blend of reputation-era aesthetic and Midnights "Bejeweled" sparkle.',
+    images: [
+      { url: 'https://media.gettyimages.com/id/1477344532/photo/hollywood-california-honoree-taylor-swift-accepts-the-iheartradio-innovator-award-onstage.jpg?s=612x612&w=0&k=20&c=1koqACXgsFzLFjSAys_TjG9FATpFbgyNKXE3WpsBRfw=', credit: 'Monica Schipper/Getty Images for iHeartRadio', caption: 'Accepting the iHeartRadio Innovator Award in the hooded sparkling jumpsuit, Dolby Theatre, March 27, 2023.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1477316502/photo/hollywood-california-taylor-swift-accepts-the-innovator-award-at-the-2023-iheartradio-music.jpg?s=612x612&w=0&k=20&c=QW8gFO31wR7IXXfzyI7z4ktmW6Gtp28unWVZSb5JYQM=', credit: 'Jeff Kravitz/FilmMagic', caption: 'Close view of the sparkling hooded jumpsuit during her Innovator Award speech, March 27, 2023.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/1477295565/photo/los-angeles-california-honoree-taylor-swift-accepts-the-iheartradio-innovator-award-from.jpg?s=612x612&w=0&k=20&c=iLLwd8lYRqQoc3Rx6EvrYWuIJHxa0tXbJqCXkGZghSA=', credit: 'Kevin Winter/Getty Images for iHeartRadio', caption: 'Receiving the Innovator Award from Phoebe Bridgers in the same jumpsuit, iHeartRadio Music Awards, March 27, 2023.', kind: 'primary' },
+    ],
+    shopTags: ['Hooded jumpsuit', 'Sparkling couture'],
+    sources: [
+      { title: 'ELLE UK: Taylor Swift Gave a Great Speech on Failure That Everyone Should Hear', url: 'https://www.elle.com/uk/life-and-culture/a43447960/taylor-swift-iheartradio-music-awards-outfit-speech-failure/' },
+      { title: 'Teen Vogue: Taylor Swift Wears Alexandre Vauthier Couture to iHeartRadio Music Awards 2023', url: 'https://www.teenvogue.com/story/taylor-swift-iheartradio-music-awards-2023' },
+    ],
   },
   {
     id: 'look-ttpd',
