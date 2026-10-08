@@ -12385,22 +12385,6 @@ export default {
             verifiedAt: '2026-08-30T19:22:10.691Z'
           },
           {
-            brand: 'Aquazzura',
-            item: 'Love Struck Sandal 85',
-            retailer: 'aquazzura.com',
-            url: 'https://www.aquazzura.com/us_en/love-struck-sandal-85-light-copper-lskmids0-npl-lco',
-            // Photo pass (t_fa7bfb57, 2026-08-31): retailer PDP og:image
-            // (media.aquazzura.com CDN, not the site logo), curl-verified
-            // 200 image/jpeg (184586 bytes).
-            imageUrl:
-              'https://media.aquazzura.com/media/catalog/product/L/S/LSKMIDS0-NPL-LCO_01.jpg?auto=compress',
-            matchTier: 'unscored',
-            kind: 'shoes',
-            price: '$1,710.00',
-            inStock: true,
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-          {
             brand: 'Christian Louboutin',
             item: 'Loubi54 Ombré Crystal Embellished Clutch',
             retailer: 'nordstrom.com',
