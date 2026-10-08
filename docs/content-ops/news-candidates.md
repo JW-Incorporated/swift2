@@ -25,7 +25,75 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 87
+
+## Taylor Swift Achieves Milestone with 'Patient Zero'
+
+- first seen: 2026-10-08 22:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached a significant milestone with her song 'Patient Zero', as reported by Complex. This achievement showcases her continued impact in the music industry.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMihgFBVV95cUxQa3AwV19kTUVyR0Q4WjIySlkzc1VWY0dRRml5S2IybGFMdkFMNnJxQktEOGMxU184b2ZQVkUzQ0Y4ZHVRdlJyLUt2VmF5U2w5V0FteXdmaHRHR1Y4T3E1WkQ1eUZBZ3dFSno5RTdnMmwyT0FOeEhMR0tPMnhody1rOGlYelRnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Scheduled to Perform at Academy Museum Gala
+
+- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is set to perform at the Academy Museum's Annual Gala, as reported by Rolling Stone. The event is anticipated to attract significant attention due to Swift's participation.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipgFBVV95cUxQMEx1VzJWd29BbFQ1SXA2SUF1MVA2VExRdk5WcjR6QXBNTkx0OV9iVkFYX25lSVQxeGlkdTNIQlV0US1keXVIejBQYTE2UlBOeDZrT0llU1VPNHJXdkowUmVRbXVLSlQ4UHdSZVlkVzJXaE85RU1DRURwYTNTZnFFOERVNnc3cHNSV0JIOGY2aElPWER1Y0J1aFZoajhINTgweHdYQ1pn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-perform-academy-museum-2027-gala-1235639847/
+
+## Taylor Swift to Perform at 2026 Academy Museum Gala
+
+- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 2026 Academy Museum Gala, which will honor Charlize Theron and Colman Domingo. The event promises to be a significant highlight in the upcoming gala calendar.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY2loRGVfeWRLaVc2ankwbURUT1M5UTcwZEpqMkY1ektUX2M0SlFyeTAydWd2UUprdGdxLWZJSEZ2WmFFVmFsc3FmRFoxRXM1em9JeFVMWEo4dXRzcnFHVjNFUTEweDNOUVYzYy1tb1FsaGFPYWw3NF9RQXVpZzZxcXJQWW9vU3d6VzN3Yl9LQktSVU9TRmpaM0ZJcEg0dFpWY1A3N1BUSVlqTms?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Impresses Mariska Hargitay with Unique Skill in Collaboration
+
+- first seen: 2026-10-08 22:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay shared her admiration for Taylor Swift after their recent collaboration, praising Swift's extraordinary skill. The collaboration highlights the talents of both artists in a noteworthy context.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMimAFBVV95cUxPeC1BSzRCWWJSNnVtUUNkcm1LTkdYaGR6OVFYMjBHbjdXSjVqLXJLSUJTekotR21JNlpfSldGTjFEUzV6cThUQ2lvb2pEeS1KSHp2Wlpia19vaTJUdEtEWVdwUDBBM1NGOXlBQkNoTnZhV09uNXJoTkMtSlVRTXFQdXF6UkEySzlHaVF3dkFYVnp3OHhuTUhwcA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Close Academy Museum Gala on October 17
+
+- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift is set to perform at the Academy Museum Gala on October 17, where she will be closing the event. The gala will honor notable figures including Charlize Theron, Colman Domingo, and John Carpenter.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-academy-museum-gala-1236725475/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/columns/taylor-swift-perform-academy-museum-gala-1236905184/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/eye/scoops/taylor-swift-2026-academy-museum-gala-performance-1239333450/
+
+## Producer Jailed for $14 Million Scheme Involving AI Bots and Taylor Swift's Streams
+
+- first seen: 2026-10-08 22:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Producer Michael Smith has been jailed after allegedly profiting $14 million through AI bots streaming Taylor Swift's music. The case raises concerns about music streaming integrity.
+- sources:
+  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2dPTDRzWHJ5WE5xR2MyNEp4MmZoTTJCNjFIMk5fYThPQ25NV1JIbUIta0Z4YXpjenpscm1LREt4WXBKUHVWODUyZmczLVRZU1dfc0lacF92R1B1ZXFLT3ptQUZXR282MGdFb3hWSUN4UHlWbllHTFBYQlFKTkFPWjZteWpkMzJDZnlJLW1DU0pjaHNtZkd6OTBZRHU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Perform at Academy Museum Gala on October 17
+
+- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is set to perform at the Academy Museum's sixth annual gala in L.A. on October 17. This event serves as a major fundraiser for the museum and is a highlight on the Hollywood social calendar.
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYVc5amNGU2JQZ3o4bnBOUFFBZGpTNW1IVVctUjNxLTY4QTR6Ulp5YnI5aE8yZVJCcHlhSWxaZmFLLVNlLUF2dHlhNU5jSHJYeFp4UHgwRXE2dC1PajJsOXNBSnRGc0JPZHFqemVaLXZEMi1qMHppYllzZG1wamx0TVNoM1BMbHFY?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-academy-museum-gala-perform-1237150157/
+
+## Tate McRae Discusses Taylor Swift's Enjoyment of 'Tit for Tat'
+
+- first seen: 2026-10-08 22:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tate McRae expressed surprise regarding Taylor Swift's enjoyment of the song 'Tit for Tat', indicating she didn't initially believe it to be genuine. The conversation highlights interactions within the music industry and reactions to popular work.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQOUdZUWxrWWJiWktWcFowQWxvLTBoTFk5aWRJdkZhUzEtX21neGlGN1phb21IR2tmOTZ0bXVuTEl2Slp1aFJRd3ItSGVnU2Y5dWlQOVEzMnBFbDhQVGNsSGVQaW8xejdHS0pmQWtGc2hfaTdoQnpiQ2gtRUpXNVBFM1dPYlNHZWwxNTdsSVlpQmprREZpNGFJS05RMUd1cDV3aWhOZFBGYXpMWkNMVHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Ticket Alert for Taylor Swift Among Various Events
 
@@ -50,15 +118,6 @@ Stories: 88
 - summary: Taylor Swift has submitted an application for her own top level domain, according to Domain Name Wire. This move indicates her interest in establishing a personal online presence.
 - sources:
   - [unverified] Domain Name Wire — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcVNoamNpRDdYTXRGNnFqcDRqekNrZmtjTG1nRUFpRkF4bVBtdWtQRzhQbVE0OHUyT2lLeVBYQlEtY3Z4aF9UQlpMY19tRmQzSE5JWElEQmd1QmZvZ3FsdUU3SkJ1cjl6elZMMUVoVmtxR3FlMEhmT1U1emlqV29jd3VoMkdkcF9RS25WbU5LNEFpdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
-- sources:
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
 
 ## AI Songs Surpass Taylor Swift in Streaming Numbers
 
@@ -102,6 +161,18 @@ Stories: 88
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMijwFBVV95cUxOMXN2SV9PcjNnTTg4M05KNDUzeFNWWkhMN1ZtamtlZDlScnJwM2NWR09ta3gyb2h6TGF2Z0JjMWE4eFpkLXpXSXhWQ2psSk1Vc1kxaU5TV2RLd2lrMnBrZ2FpZFVyNDZFU05MN3FGNlF5QS1MSnRvSk54ZkFvcVlUWGhSaFZ6MW5MNU9WeHQyNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZTFsNjEzaGVuTWd2dUpIT3Rac0dLTVlVRXgybHNFbGhpR1hkYWxyUmpRdEYtbTZNUEs4X0V3VHNiYXB6VFBzRmNfT1ZMcW5aTDF1VUttOGpzV1RWRU4yODJkMjU2U0RrUVJqbzhDVVR2TWZBYmJRc1h6NWNiWW9mSGUxZVdTTF9oMm1xWlZYcHNnc0dTV3NpRUpidw?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
+- sources:
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
+
 ## Taylor Swift's 'Cleveland!' Explored in Northeast Ohio News Quiz
 
 - first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
@@ -113,10 +184,12 @@ Stories: 88
 ## Mariska Hargitay Calls Taylor Swift's Baking 'Extraordinary'
 
 - first seen: 2026-10-08 16:25 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Mariska Hargitay has praised Taylor Swift's baking skills, describing them as 'extraordinary' and claiming they produced the 'best cookies' she has ever tasted. This accolade highlights Swift's culinary talent. 
 - sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSE5KamVDSnJSQWEtYU9OS0F4WGVhS0JTbk9zOWdLZ0U1Y0F4YXpHdUlPbHBDZWY4Rkw5UUwyWEdZa0VLdmlqaS1qOTRRQVhBcWVpS3lCTEtCYzkzZ0ZhWC1xVEd1RW9QZmN6NUN0eGhwVUNXNy1LOVRZdGpPaVBQRHFvLUVsTmcycERGNFBhRGhUbm9jdkdEVzV2eWV4TjRmQlJxR2RmVjZLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTkk5cGo4VExrenNzUUZDWDl0bnJUbU1FMEtTT0psNFJKWFFBX2Y1RklzSXlCY0dxN013NGlTZ25MMWZ6LXplcEJtWWVIMm9QcDVMZlZFaG0wME1ldnFidlhxZXJQbUlkeDB3N0FQZ2M1b0tINzRScHpNVmxPdUFUQ3dxbEVmeEg3S2NzRzF5aGtHYWpVc0JzX2N4RFdtTG8?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWXRGX19pSW5GVkppcmhHX056Vk1GdXAzV2JLbnIwaEpiOWctQk5aWUh5Wm9qRGt4NjBvVWZRdVJQRGNTRkRaRzVFLUUxSnczS2hIemE1REdKcFZ5Y2YzSUhXSkFqM0p0Z0w1cmtZYkstWGpOR0J6ZXp4MHdGYjlpdGRtU2VlV05DZGlZTld3SnMwVmx1OEdqNHVmQUZJaTk5UHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Kelli Giddish discusses Taylor Swift's 'SVU' skit contributions
 
@@ -127,14 +200,6 @@ Stories: 88
   - [unverified] azcentral.com and The Arizona Republic — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOT3RVMXVUZFd0N1Zmc1ZDR1ktWm14UU5aNHpiWFctREswVlJGdU16WFcyNlRfS0RvbzFNNU1zby1HakFwU3M2OVAwcmZzMUQ4VGdJMXA1Q3hZSUZRbUoxRkJtZFdjdTlYV0RjTHZobWRLZW54TVU3dGQ5SnNyRUpBRFdTQnltMHJQUWJDNHJ3Zld3aXg5WnlQdF9mWFliRHpibmNlTEpnUGVDaWRvNlhCMC1EMlNEX09ESWdEY1hqNHJQTEhyd1doQWNUdUlaVUVIQzBYcA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Detroit Free Press — https://news.google.com/rss/articles/CBMivAFBVV95cUxOaDJMejJzMWNsdldIb25ERlc3OW9xeEVleFhudHl4dFdmNTV4LURKOTNKTXZMNFNwc25qdTBhd0tNZnBlWlV4Y01ObndLam1vX1Y5ZmN3VnU0WEU5RkFzeThRQ3g1Y0FWWG9HdHZ3cDFHUUZ1ZVBQeDVUQk5ScGJWLXFpeTAyMmdCQXZ2dF93YmV5cWItNEZsTEVfdlVpWnJVd3k5ZUdtR080ZFNpRVBLWk1STV9sWjF4RXRPYQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce Shares Birthday Joy with Taylor Swift
-
-- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Debate Arises Over Taylor Swift's Release of 'The Life of a Showgirl: The Encore'
 
 - first seen: 2026-10-08 16:25 UTC | category: release | importance: 5
@@ -142,6 +207,14 @@ Stories: 88
 - summary: An opinion piece in The News Record discusses the recent release of Taylor Swift's 'The Life of a Showgirl: The Encore' and argues against its necessity.
 - sources:
   - [unverified] The News Record — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZHpld3N1bWNhZUhFNk5WM3FXRV9FbUJFMExqNVhuT0hyWDhJS3RfdWdLeDdfNWZGNmRyNmo5RXF2WW8zMGRiTE1hMmdvYmRINzZfSEhpZXRndkdnTVdyOWtJUndzblRqMmxfZThoUVdtd0xmV1VYRk1ZUzFiTmJnbFpPTmozQ3FSWWNOV3lDWU5rUHlLN2luWHp5eE5QclNWNDJyc1RSZU55dlo5eWJEMkpTSjVqbEVFNlh4RHROVGRFcmRha2ZYUnRUZXhySFMzeGRCUTlzczYtLVZVb19UcWtVY1JxbWN1WGlxM2YzZC1CT3U1eGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Birthday Joy with Taylor Swift
+
+- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Confirmation of Release Date for Taylor Swift's Friendship Bracelet
 
@@ -677,76 +750,3 @@ Stories: 88
 - summary: A columnist argues that Taylor Swift should not be considered a problem in current discussions, focusing on broader issues instead. The piece appears in The Vanderbilt Hustler.
 - sources:
   - [unverified] The Vanderbilt Hustler — https://news.google.com/rss/articles/CBMihwFBVV95cUxPRmpsaUlHLW9qR291S1NMN2xXSlo1QVZpM25sSHpvS0tiMVBwMlRRRnJtZ2RDRVMyT095bTdYSG12eEZSOVFVUXdyZVhYdEJhZEFsRGVWX21FOW4zb1hxa2c3cXNSNi1rQ1kxTkFUd1h3akpFWXo5MklXaXZNMjhDNVBqS1dXbDA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Appearance During Dakota Johnson's 'SNL' Monologue
-
-- first seen: 2026-10-05 18:22 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift joined Dakota Johnson on stage during her monologue on 'Saturday Night Live.' The appearance was captured and shared by TODAY.com.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNXzFFSTFnXzVHSW5KMFVjUHEyajFfNVJ2dVNkZWJ5MmpzcE45cUM3NUJ2Uy02V1pyU3Z3VVM2ZkhKcnRwVEJCSUdnUFVlOHdYZ2VqOHJLTUZ3b3JodU9FdWFRRVctV1BZS0tGaUVCdDhCdWFHMDRFMXQ5OWtHOXAwOXpqN1ZnaHljcjBVbFNqWW5zbFdlOU1BRGtpaGE2MjlMQ1FZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## A&E Features Taylor Swift's 'Babylon' as Weekly Song Pick
-
-- first seen: 2026-10-05 18:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The UCSD Guardian has selected Taylor Swift's song 'Babylon' as their Weekly Song Pick, highlighting its appeal and significance. The choice illustrates Swift's ongoing influence in the music industry.
-- sources:
-  - [unverified] The UCSD Guardian — https://news.google.com/rss/articles/CBMihAFBVV95cUxPZDFOMzFvdmk0YTJhdDZjUXMxRElqYkZ5aWRLd1EtVHBrMXFPM0Z3WFMybG1SOWNLOG5NSWNKVGY0Z19rQnpHQkp3V2psV2k2Y2tvT21INGNocGh0OUZqb2NwNDUwM3dfNVpQTFNIa2hJaDBvMS1sQVhjR2t1OVBYWG5PLWM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Patient Zero' Takes No. 1 Spot from 'Choosin' Texas'
-
-- first seen: 2026-10-05 18:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's song 'Patient Zero' has risen to the No. 1 position, displacing the track 'Choosin' Texas'. This change highlights Swift's ongoing impact in the music charts.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOC1LSFZORGdhY2JzM19pal9helBiMjB6MUxKcHI5XzZEZ0E0VnIxUDVRS04yako3RjdMSTFjQlJGa0R6d3hiQWtoOVNjSXZJbmlzb1pyTTJvdXZKXzUtMnR0Rlk4YkRoOHVNRDZXblBVLXotUUNIQkQwdWpqeDBHNEFxbDRyc0lkUjZzSjVuNjZwSWhUWjUtSDRTYWZHLWhyeWtfUVoyelA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Dons High-Value Outfit Before Game
-
-- first seen: 2026-10-05 18:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce was spotted in an outfit valued at nearly $100,000 ahead of the Kansas City Chiefs game. The high-priced ensemble has garnered attention from fashion outlets.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPZ0ZBODduck1scG1oVUgyN0hoRUpwelVOM2FhQ3NTOTdBZnVQLTA0M1VwVW5Db2d4YzZGMlR0b2xkTzc5bXFJdGtxWFVYTk00M05OQlJ0VW5PRFFNRHpyajZlYy1MLXlsSldCVTNub001TXV5U0ZfejhDcnRNWUt6Y0oyUVQ0Tm1qMDBz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Paul McCartney Shares Song Performed at Taylor Swift's Wedding
-
-- first seen: 2026-10-05 18:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Paul McCartney has disclosed the song he performed at Taylor Swift's wedding, highlighting a special moment in her life. The revelation adds to the public's interest in Taylor's personal celebrations.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPNTFNYmo0S1pnUlF5R0ZLU05TYXBYWlN1YjE3dVhuaFFVOXpOZENsSHQ5TWxXUzhPdjcySGFYTzllVWR1Qy1teGt0ckR6V3BGRWxwOTVsaFIxNm5USHlTWDR6U2trVWhndmM3ekZQLWRObUp1Q2FPTHJiVnhEZlc1Y1MyNHFuOFc5c0k0VElBWUZUV3ZzVm5mVkFrSTRLMHp1TjRWUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Chrissie Hynde Praises Taylor Swift's New Song "Cleveland!"
-
-- first seen: 2026-10-05 18:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Renowned musician Chrissie Hynde, known for her critical views, expressed her approval of Taylor Swift's new song "Cleveland!" in a recent statement.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513640/chrissie-hynde-actually-likes-something-taylor-swifts-cleveland/news/
-
-## Presley Gerber Invited to Taylor Swift's Wedding but Unable to Attend
-
-- first seen: 2026-10-05 18:22 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Presley Gerber received an invitation to Taylor Swift’s wedding prior to his passing but felt he was 'in no place' to attend. This highlights Gerber's connection to Swift before his untimely death.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQZG5NYW1xd3VlYzQzLXhGbWZFX1J3ZVJwX0ItWEplZ3hWV20ybTFCa3U5WWdSM3ZWbjJmeTBZa1lPRTV0ekJ0cXBxQjFQclBXSlJ6Yk5paW9BVHdLU3h0QXladjU0WUE0M0lJVGJOTE1SVDBXN1FtQjE2MUhiaUJzNlFJM2h3dlZCcjVhV3hQQXlFazlyVkxvSg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Chrissie Hynde Commends Taylor Swift's Song 'Cleveland!'
-
-- first seen: 2026-10-05 18:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Chrissie Hynde has praised Taylor Swift's new song 'Cleveland!', highlighting Swift's ability to stay on the cutting edge of music. Hynde's remarks celebrate Swift's creative talents and her relevance in today’s music scene.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQRkNlbEtlOW1EZFAwUmFQRGZ5cEdNYzdfdnNrMEdlU0pIVGZ3QjA0WXUwdTVtek5uMkZPc0FDNURBSkZydG9oa0lfbzNBNEdrcWJOMHQtaG1LX1ZLaDRLZmpxRmwwdHlSQ1V0c3VXZUsybUEwdzFWTVJDdU1KNU5PVHJrcThYdDQwdElHUGR0RXlzcXlGd1JsekpxMzZiNUNnTUVOQkZ6dDk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Dakota Johnson Reunite on 'SNL' Following Video Debut
-
-- first seen: 2026-10-05 18:22 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Dakota Johnson were seen reuniting on 'SNL' after the debut of the 'Patient Zero' video. The appearance highlights the close friendship between the two celebrities.
-- sources:
-  - [unverified] freep.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxPMC1kZlR5dHdYUHJRRWo2bTRRNW9pRnNYd0xzaU1PYkpTRmVkMHV4Y0g1bGNGcHBKYmtkWHpSSFRyRGllei1mbUdQSGw0Zl9WMjdRSzBIZ28teG03ajB4bm12dDhaN20yNE9qTkRkT1E1b2dKVHF4bVE5SzVXcG94a2VBdkRkZXRyM2hLNG95NlVmYkVweE5zdjU3Y2hrT1l1TWtZeEpFdENwcnJrV2hHbnBTMjYwR09aNkNSUU96RzFMOFpibkhvSEJ3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NME — https://news.google.com/rss/articles/CBMipwFBVV95cUxOendXLXVFcWQwYndUajRvdkYzU3ZiemtBMlc0Nndyc2NXT0dpZ0FvU2NBRXpJbjJja3RESWdTeW5ZVVlNdlZjbjNuYnlYN2VHTk5EWGh2QTJDajBWWUVhdm9NTUtMOXZ2elBjM2JsTExvS0otM1JuLVdmZGVxSGgwUzFYcHFrUE10ekczZnZiSWo4MGIyRDdDdTdaSHpfZWFLUHhtRTFkOA?oc=5&hl=en-US&gl=US&ceid=US:en
