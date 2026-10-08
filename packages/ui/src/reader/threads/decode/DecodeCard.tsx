@@ -224,7 +224,7 @@ export function DecodeCard({
         <button
           onClick={onToggle}
           className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all active:scale-[0.98]"
-          style={revealed ? { background: 'var(--era-surface-2)', color: 'var(--era-ink-soft)' } : { background: plantColor, color: 'var(--era-bg)' }}
+          style={revealed ? { background: 'var(--era-surface-2)', color: 'var(--era-ink-soft)' } : { background: plantColor, color: accentFgFor(plantEra.theme) }}
         >
           {revealed ? (
             <>
