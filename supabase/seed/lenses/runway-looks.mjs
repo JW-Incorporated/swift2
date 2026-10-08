@@ -242,7 +242,7 @@ export const RUNWAY_LOOKS = [
     shopTags: ['Floral satin gown', 'Strapless ball skirt'],
     sources: [
       { title: 'Teen Vogue: Taylor Swift Stunned at the Cats Premiere with a Gorgeous Dress', url: 'https://www.teenvogue.com/story/taylor-swift-cats-premiere' },
-      { title: 'Cosmopolitan UK: Taylor Swift Wears a Festive Oscar de la Renta Dress for \'Cats\' Premiere', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/a30252174/taylor-swift-dress-cats-premiere/' },
+      { title: 'Cosmopolitan UK: Taylor Swift wears a festive Oscar de la Renta dress for \'Cats\' premiere', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/a30252174/taylor-swift-dress-cats-premiere/' },
     ],
   },
   {
@@ -355,7 +355,7 @@ export const RUNWAY_LOOKS = [
     // Source: Cosmopolitan UK (2023-02-06) and Harper's Bazaar retrospective
     // (slide dated 2023-02-05): midnight-blue sparkling Roberto Cavalli
     // long-sleeve crop top and skirt, 65th Grammy Awards red carpet, 2023-02-05.
-    description: 'On February 5, 2023, Swift arrived at the 65th Grammy Awards in a sparkling midnight-blue Roberto Cavalli set, a long-sleeve crop top and floor-length skirt with a train, a nod to her album Midnights, released that fall. Cosmopolitan UK reports it was styled with Lorraine Schwartz jewelry including purple sapphire earrings.',
+    description: 'On February 5, 2023, Swift arrived at the 65th Grammy Awards in a sparkling midnight-blue Roberto Cavalli set, a long-sleeve crop top and floor-length skirt with a train, a nod to her album Midnights, released the previous October. Cosmopolitan UK reports it was styled with Lorraine Schwartz jewelry including purple sapphire earrings.',
     images: [
       { url: 'https://media.gettyimages.com/id/1463248197/photo/los-angeles-california-taylor-swift-attends-the-65th-grammy-awards-on-february-05-2023-in-los.jpg?s=612x612&w=0&k=20&c=CfmgejcseRQwymxxfwCJLv5gKVFB73xwnEj2XZhmprY=', credit: 'Kevin Mazur/Getty Images for The Recording Academy', caption: 'The midnight-blue sparkling crop top and train skirt on the 65th Grammys red carpet, February 5, 2023.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/1463248117/photo/los-angeles-california-taylor-swift-attends-the-65th-grammy-awards-on-february-05-2023-in-los.jpg?s=612x612&w=0&k=20&c=7eDy9ipZwL9mpzkqjGAvE6WKgOfkILTTEgAEqGh8Vn0=', credit: 'Amy Sussman/Getty Images', caption: 'Three-quarter view of the beaded navy set, 65th Grammy Awards, February 5, 2023.', kind: 'primary' },
@@ -363,7 +363,7 @@ export const RUNWAY_LOOKS = [
     ],
     shopTags: ['Midnight-blue crop set', 'Sequined mermaid skirt'],
     sources: [
-      { title: 'Cosmopolitan UK: Taylor Swift\'s Midnights-Inspired Crop Top Grammys Look Is Her Best Yet', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/g15388341/taylor-swifts-grammy-looks-throughout-the-years/' },
+      { title: 'Cosmopolitan UK: Taylor Swift\'s Grammy dresses throughout the years', url: 'https://www.cosmopolitan.com/uk/fashion/celebrity/g15388341/taylor-swifts-grammy-looks-throughout-the-years/' },
       { title: 'Harper\'s Bazaar: Taylor Swift\'s Style Evolution Through the Years', url: 'https://www.harpersbazaar.com/celebrity/red-carpet-dresses/g65668036/taylor-swift-style-fashion-evolution-1755025743/' },
     ],
   },
@@ -382,8 +382,8 @@ export const RUNWAY_LOOKS = [
     ],
     shopTags: ['Hooded jumpsuit', 'Sparkling couture'],
     sources: [
-      { title: 'ELLE UK: Taylor Swift Gave a Great Speech on Failure That Everyone Should Hear', url: 'https://www.elle.com/uk/life-and-culture/a43447960/taylor-swift-iheartradio-music-awards-outfit-speech-failure/' },
-      { title: 'Teen Vogue: Taylor Swift Wears Alexandre Vauthier Couture to iHeartRadio Music Awards 2023', url: 'https://www.teenvogue.com/story/taylor-swift-iheartradio-music-awards-2023' },
+      { title: 'ELLE UK: Taylor Swift Gave A Great Speech On Giving Yourself ‘Permission To Fail’ At The 2023 iHeartRadio Music Awards', url: 'https://www.elle.com/uk/life-and-culture/a43447960/taylor-swift-iheartradio-music-awards-outfit-speech-failure/' },
+      { title: 'Teen Vogue: Taylor Swift Wears Alexandre Vauthier Couture to iHeartRadio Music Awards 2023 — See Photos', url: 'https://www.teenvogue.com/story/taylor-swift-iheartradio-music-awards-2023' },
     ],
   },
   {
