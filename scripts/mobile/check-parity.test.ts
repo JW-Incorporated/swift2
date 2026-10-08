@@ -346,15 +346,49 @@ describe('evaluateParity — the real failure modes still fire', () => {
     ];
     const now = Date.parse('2026-09-30T20:00:00.000Z');
     expect(
-      evaluateParity({ builds, updateRows: LIVE_UPDATE_ROWS, now, lagHours: 48 }).findings.map(
-        (f) => f.code,
-      ),
+      evaluateParity({ builds, updateRows: [], now, lagHours: 48 }).findings.map((f) => f.code),
     ).toContain('BUILD_LAG');
     expect(
-      evaluateParity({ builds, updateRows: LIVE_UPDATE_ROWS, now, lagHours: 1000 }).findings.map(
-        (f) => f.code,
-      ),
+      evaluateParity({ builds, updateRows: [], now, lagHours: 1000 }).findings.map((f) => f.code),
     ).not.toContain('BUILD_LAG');
+  });
+
+  describe('BUILD_LAG is runtime-aware', () => {
+    const lagBuilds = [
+      build({
+        platform: 'IOS',
+        appBuildVersion: '14',
+        runtime: IOS_RT,
+        commit: 'aaaaaaaa11111111111111111111111111111111',
+        completedAt: '2026-09-20T00:00:00.000Z',
+      }),
+      build({
+        platform: 'ANDROID',
+        appBuildVersion: '15',
+        runtime: ANDROID_RT,
+        commit: 'bbbbbbbb22222222222222222222222222222222',
+        completedAt: '2026-09-30T00:00:00.000Z',
+      }),
+    ];
+    const now = Date.parse('2026-09-30T20:00:00.000Z');
+    const codes = (updateRows: typeof LIVE_UPDATE_ROWS, builds = lagBuilds) =>
+      evaluateParity({ builds, updateRows, now, lagHours: 48 }).findings.map((f) => f.code);
+
+    it('does not fire when the older platform is covered by OTA on its build runtime', () => {
+      expect(codes(LIVE_UPDATE_ROWS)).not.toContain('BUILD_LAG');
+    });
+
+    it('fires when the older platform cohort runtime differs from its build runtime', () => {
+      const rows = LIVE_UPDATE_ROWS.map((r) =>
+        r.runtimeVersion === IOS_RT ? { ...r, runtimeVersion: 'newer-ios-runtime' } : r,
+      );
+      expect(codes(rows)).toContain('BUILD_LAG');
+    });
+
+    it('fires when the older platform has no cohort at all', () => {
+      const rows = LIVE_UPDATE_ROWS.filter((r) => r.runtimeVersion !== IOS_RT);
+      expect(codes(rows)).toContain('BUILD_LAG');
+    });
   });
 
   it('NO_BUILD fires when a platform has no finished production build', () => {
