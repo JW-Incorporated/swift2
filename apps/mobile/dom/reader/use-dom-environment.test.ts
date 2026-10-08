@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest';
-import { applyDocumentA11y } from './use-dom-environment';
+import { applyDocumentA11y, applyFontScale, clampFontScale } from './use-dom-environment';
 
 const EXPO_VIEWPORT = 'width=device-width, initial-scale=1, user-scalable=no';
 
@@ -38,5 +38,31 @@ describe('applyDocumentA11y', () => {
     setHead(null);
     expect(() => applyDocumentA11y(document)).not.toThrow();
     expect(document.documentElement.lang).toBe('en');
+  });
+});
+
+describe('applyFontScale', () => {
+  const root = () => document.documentElement;
+
+  it('scales the root font-size and sets --font-scale', () => {
+    applyFontScale(document, 1.3);
+    expect(root().style.fontSize).toBe('130%');
+    expect(root().style.getPropertyValue('--font-scale')).toBe('1.3');
+  });
+
+  it('clamps to [0.85, 2] and falls back to 1 for junk', () => {
+    expect(clampFontScale(0.5)).toBe(0.85);
+    expect(clampFontScale(3.5)).toBe(2);
+    expect(clampFontScale(Number.NaN)).toBe(1);
+    expect(clampFontScale(undefined)).toBe(1);
+    applyFontScale(document, 9);
+    expect(root().style.fontSize).toBe('200%');
+  });
+
+  it('updates when the scale changes', () => {
+    applyFontScale(document, 1);
+    applyFontScale(document, 1.5);
+    expect(root().style.fontSize).toBe('150%');
+    expect(root().style.getPropertyValue('--font-scale')).toBe('1.5');
   });
 });

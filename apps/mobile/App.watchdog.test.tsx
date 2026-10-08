@@ -26,6 +26,7 @@ vi.mock('react-native', async () => {
   return {
     View: el('div'),
     Platform: { OS: 'android' },
+    PixelRatio: { getFontScale: () => 1 },
     StyleSheet: { create: (s: unknown) => s, hairlineWidth: 1 },
     AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
     BackHandler: { addEventListener: () => ({ remove: () => undefined }), exitApp: () => undefined },
