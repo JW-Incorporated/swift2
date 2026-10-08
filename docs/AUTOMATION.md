@@ -246,7 +246,11 @@ there, because the unattended run must execute reviewed `main` code. The upload
 is retried once; a group whose upload still fails stays ledgered `ingested`
 with its kept file so the next run uploads it without re-ingesting. A GitHub
 lookup or comment failure is a warning appended to the summary, which always
-prints.
+prints; `ok` is false whenever any warning occurs. A refusal is also posted as a
+best-effort comment on the weekly issue, and `fb-export-task.ps1` appends every
+scheduled run's output with a timestamp to `%LOCALAPPDATA%longlive-fbb-export.log`.
+The week ledger is read strictly: only a missing file is an empty ledger; any
+other read error or corrupt JSON aborts the run (exit 1) before any write.
 
 Facebook export runbook (extension collector, 2026-09-30). The run starts a
 local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no

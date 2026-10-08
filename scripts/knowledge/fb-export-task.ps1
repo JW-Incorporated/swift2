@@ -3,7 +3,9 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $npm = (Get-Command npm.cmd -ErrorAction Stop).Source
 $taskName = 'Long Live Weekly Facebook Export'
-$command = "Set-Location -LiteralPath '$($repoRoot.Replace("'", "''"))'; & '$($npm.Replace("'", "''"))' run knowledge:fb-export"
+$logSetup = '$log = Join-Path $env:LOCALAPPDATA ''longlive-fb\fb-export.log''; New-Item -ItemType Directory -Force -Path (Split-Path $log) | Out-Null; '
+$logPipe = ' 2>&1 | ForEach-Object { Add-Content -LiteralPath $log -Value (''{0:o} {1}'' -f (Get-Date), $_); $_ }; exit $LASTEXITCODE'
+$command = "$logSetup" + "Set-Location -LiteralPath '$($repoRoot.Replace("'", "''"))'; & '$($npm.Replace("'", "''"))' run knowledge:fb-export" + $logPipe
 
 $action = New-ScheduledTaskAction `
   -Execute 'powershell.exe' `

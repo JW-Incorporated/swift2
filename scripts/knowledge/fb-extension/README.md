@@ -125,7 +125,9 @@ proves no synthetic sentence, name, id or link survives a skeleton.
 The extension is loaded from this checkout, so `npm run knowledge:fb-export` refuses to run
 (summary says why, exit 1) unless the checkout is on `main` and has no uncommitted changes under
 `scripts/knowledge` or `scripts/community`. If a scheduled run reports a refusal, put
-`Projects/Swift2` back on a clean `main` and re-run; other sessions should use their own worktrees.
+`Projects/Swift2` back on a clean `main` and re-run; other sessions should use their own worktrees. Refusals are posted to the weekly issue (best
+effort) and every scheduled run's output is logged to `%LOCALAPPDATA%longlive-fbb-export.log`.
+Any warning makes the run's `ok` false.
 
 ## Known limits
 

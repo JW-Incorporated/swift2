@@ -208,11 +208,16 @@ export async function uploadOne(filePath, exec = execFileAsync) {
 }
 
 export async function readLedger(path) {
+  let text;
   try {
-    return JSON.parse(await readFile(path, 'utf8'));
-  } catch {
-    return { groups: {} };
+    text = await readFile(path, 'utf8');
+  } catch (error) {
+    // Only a missing file is an empty ledger. Any other read error (EBUSY, EPERM) must abort:
+    // treating it as empty lets the next persist wipe every row (issue #4879).
+    if (error?.code === 'ENOENT') return { groups: {} };
+    throw error;
   }
+  return JSON.parse(text);
 }
 
 export async function writeLedger(path, ledger) {
@@ -342,8 +347,26 @@ export async function runExport(options = {}) {
   if (options.preflight) {
     const probe = options.preflight === true ? gitProbe : options.preflight;
     const check = await checkCheckout(probe, REPO_ROOT);
-    if (!check.ok)
-      return { ok: false, results: [], summary: refusalSummary(check.reason), refused: true };
+    if (!check.ok) {
+      const summary = refusalSummary(check.reason);
+      const reported = dryRun
+        ? { warnings: [] }
+        : await reportToIssue({
+            weekLabel: weekOf(now),
+            summary,
+            failed: true,
+            findIssue: options.findIssue ?? findWeeklyIssue,
+            reportIssue: options.reportIssue ?? reportIssue,
+          });
+      const lines = reported.warnings.map((w) => `- ${w}`);
+      return {
+        ok: false,
+        results: [],
+        summary: lines.length ? [summary, 'Warnings:', ...lines].join('\n') : summary,
+        refused: true,
+        warnings: reported.warnings,
+      };
+    }
   }
   const root =
     options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
@@ -351,7 +374,17 @@ export async function runExport(options = {}) {
   const weekLabel = weekOf(now);
   const outputDir = join(root, 'exports', localDate(now));
   const ledgerPath = join(root, 'ledger', `${weekLabel}.json`);
-  const ledger = await (options.readLedger ?? readLedger)(ledgerPath);
+  let ledger;
+  try {
+    ledger = await (options.readLedger ?? readLedger)(ledgerPath);
+  } catch (error) {
+    return {
+      ok: false,
+      results: [],
+      summary: `Facebook export aborted: the week ledger could not be read (${String(error?.code ?? error?.message ?? error).slice(0, 120)}). Nothing was collected or written; fix the file at ${ledgerPath} and re-run.`,
+      ledgerError: true,
+    };
+  }
   ledger.groups ??= {};
   const persistLedger = async () =>
     (options.writeLedger ?? writeLedger)(ledgerPath, {

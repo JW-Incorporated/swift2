@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { checkCheckout, uploadWithRetry } from './fb-export-resilience.mjs';
-import { runExport as runExportReal } from './fb-export-run.mjs';
+import { readLedger, runExport as runExportReal } from './fb-export-run.mjs';
 
 const runExport = (options: Record<string, unknown> = {}) =>
   runExportReal({ checkEnv: async () => ({ ok: true }), ...options });
@@ -140,5 +143,69 @@ describe('checkout preflight (#4870)', () => {
     expect((await checkCheckout(probeFor('HEAD'))).ok).toBe(false);
     const broken = vi.fn().mockRejectedValue(new Error('git missing'));
     expect((await checkCheckout(broken)).reason).toContain('git check failed');
+  });
+});
+
+describe('ledger read safety (#4879)', () => {
+  it('reads a missing ledger as empty (ENOENT only)', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fb-ledger-'));
+    try {
+      expect(await readLedger(join(dir, 'nope.json'))).toEqual({ groups: {} });
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('rethrows corrupt JSON and non-ENOENT read errors', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fb-ledger-'));
+    try {
+      const bad = join(dir, 'bad.json');
+      await writeFile(bad, '{"groups": {"a":');
+      await expect(readLedger(bad)).rejects.toThrow();
+      await expect(readLedger(dir)).rejects.toMatchObject({ code: 'EISDIR' });
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it.each([
+    ['EBUSY', Object.assign(new Error('resource busy'), { code: 'EBUSY' })],
+    ['corrupt JSON', new SyntaxError('Unexpected end of JSON input')],
+  ])('aborts without collecting or writing on %s', async (_name, error) => {
+    const { options } = baseOptions({ readLedger: vi.fn().mockRejectedValue(error) });
+    const result = await runExport(options);
+    expect(result.ok).toBe(false);
+    expect(result.ledgerError).toBe(true);
+    expect(result.summary).toContain('ledger could not be read');
+    expect((options.writeLedger as ReturnType<typeof vi.fn>).mock.calls).toHaveLength(0);
+    expect((options.collect as ReturnType<typeof vi.fn>).mock.calls).toHaveLength(0);
+  });
+});
+
+describe('preflight refusal is reported (#4870)', () => {
+  const featureProbe = vi.fn(async (args: string[]) =>
+    args[0] === 'rev-parse' ? 'feature/x\n' : '',
+  );
+
+  it('posts a best-effort comment on the weekly issue', async () => {
+    const { options } = baseOptions({ preflight: featureProbe });
+    const result = await runExport(options);
+    expect(result.refused).toBe(true);
+    expect(options.reportIssue).toHaveBeenCalledWith(
+      70,
+      expect.stringContaining("on 'feature/x'"),
+      { close: false },
+    );
+  });
+
+  it('a failing report is just a warning', async () => {
+    const { options } = baseOptions({
+      preflight: featureProbe,
+      findIssue: vi.fn().mockRejectedValue(new Error('no gh')),
+    });
+    const result = await runExport(options);
+    expect(result.ok).toBe(false);
+    expect(result.summary).toContain('refused to run');
+    expect(result.summary).toContain('GitHub issue lookup failed');
   });
 });
