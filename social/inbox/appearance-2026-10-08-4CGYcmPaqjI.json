@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-08-4CGYcmPaqjI",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-08T19:25:09.942Z",
+  "deadline": "2026-10-10T19:25:09.942Z",
+  "status": "open",
+  "facts": {
+    "channelName": "The Tonight Show Starring Jimmy Fallon",
+    "videoTitle": "Tate McRae Couldn't Believe Taylor Swift Liked \"TIT FOR TAT,\" Talks New Song \"Housewife\" Easter Eggs",
+    "publishedAt": "2026-10-08T04:23:03+00:00",
+    "videoId": "4CGYcmPaqjI",
+    "url": "https://www.youtube.com/watch?v=4CGYcmPaqjI"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 5357
+  }
+}
