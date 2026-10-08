@@ -17,7 +17,7 @@ export function applyDocumentA11y(doc: Document): void {
 }
 
 export const FONT_SCALE_MIN = 0.85;
-export const FONT_SCALE_MAX = 2;
+export const FONT_SCALE_MAX = 1; // Measured: at 390px and 360px the layout scrolls sideways above 1.0 (#5158 follow-up); raise once the reader reflows.
 
 /** Native text-size scale to a safe root multiplier: non-finite or non-positive falls back to 1, then clamped so a huge setting cannot explode the layout. */
 export function clampFontScale(scale: number | undefined): number {
@@ -28,6 +28,11 @@ export function clampFontScale(scale: number | undefined): number {
 /** The WebView ignores the OS text size, so scale the root font-size (rem-based text follows) and expose `--font-scale`. */
 export function applyFontScale(doc: Document, scale: number | undefined): void {
   const clamped = clampFontScale(scale);
+  if (clamped === 1) {
+    doc.documentElement.style.removeProperty('font-size');
+    doc.documentElement.style.removeProperty('--font-scale');
+    return;
+  }
   doc.documentElement.style.fontSize = `${clamped * 100}%`;
   doc.documentElement.style.setProperty('--font-scale', String(clamped));
 }

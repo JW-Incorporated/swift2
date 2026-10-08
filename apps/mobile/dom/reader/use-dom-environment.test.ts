@@ -44,25 +44,33 @@ describe('applyDocumentA11y', () => {
 describe('applyFontScale', () => {
   const root = () => document.documentElement;
 
-  it('scales the root font-size and sets --font-scale', () => {
-    applyFontScale(document, 1.3);
-    expect(root().style.fontSize).toBe('130%');
-    expect(root().style.getPropertyValue('--font-scale')).toBe('1.3');
+  it('shrinks the root font-size and sets --font-scale', () => {
+    applyFontScale(document, 0.9);
+    expect(root().style.fontSize).toBe('90%');
+    expect(root().style.getPropertyValue('--font-scale')).toBe('0.9');
   });
 
-  it('clamps to [0.85, 2] and falls back to 1 for junk', () => {
+  it('clamps to [0.85, 1] and falls back to 1 for junk', () => {
     expect(clampFontScale(0.5)).toBe(0.85);
-    expect(clampFontScale(3.5)).toBe(2);
+    expect(clampFontScale(3.5)).toBe(1);
     expect(clampFontScale(Number.NaN)).toBe(1);
     expect(clampFontScale(undefined)).toBe(1);
-    applyFontScale(document, 9);
-    expect(root().style.fontSize).toBe('200%');
+    applyFontScale(document, 0.1);
+    expect(root().style.fontSize).toBe('85%');
+  });
+
+  it('is a no-op at 1 and removes a previously set value', () => {
+    applyFontScale(document, 0.9);
+    applyFontScale(document, 2);
+    expect(root().style.fontSize).toBe('');
+    expect(root().style.getPropertyValue('--font-scale')).toBe('');
+    applyFontScale(document, 1);
+    expect(root().style.fontSize).toBe('');
   });
 
   it('updates when the scale changes', () => {
-    applyFontScale(document, 1);
-    applyFontScale(document, 1.5);
-    expect(root().style.fontSize).toBe('150%');
-    expect(root().style.getPropertyValue('--font-scale')).toBe('1.5');
+    applyFontScale(document, 0.9);
+    applyFontScale(document, 0.95);
+    expect(root().style.fontSize).toBe('95%');
   });
 });

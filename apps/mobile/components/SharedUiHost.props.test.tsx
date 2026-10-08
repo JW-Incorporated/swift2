@@ -18,6 +18,7 @@ vi.mock('react-native', () => ({
   Linking: { openURL: async () => {} },
   Platform: { OS: 'ios' },
   PixelRatio: { getFontScale: () => 1 },
+  Dimensions: { addEventListener: () => ({ remove: () => undefined }) },
   Share: { share: async () => ({}) },
   StyleSheet: { create: <T,>(s: T) => s },
   View: 'div',
