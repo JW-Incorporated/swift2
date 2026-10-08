@@ -88,7 +88,9 @@ reruns of agent or delivery jobs can skip the guard and retain their existing
 operator behavior; this guard does not make delivery idempotent.
 
 The poll and `clock-silent` alarm use one gap verdict: two missed five-minute
-slots raise `Clock is not firing`, after a 30-minute activation grace and a
+slots raise `Clock is not firing` only while the latest two checked slots are
+still unserved at check time (a gap that already recovered raises nothing and
+closes an open alert), after a 30-minute activation grace and a
 ten-minute allowance for runs to appear. Any main poll run serves its slot,
 including cron or a manual dispatch. If both host clock and GitHub cron die,
 detection waits for a surviving cron. This is coverage monitoring; the live

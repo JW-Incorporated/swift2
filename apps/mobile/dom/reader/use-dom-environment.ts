@@ -16,8 +16,29 @@ export function applyDocumentA11y(doc: Document): void {
   }
 }
 
+export const FONT_SCALE_MIN = 0.85;
+export const FONT_SCALE_MAX = 1; // Measured: at 390px and 360px the layout scrolls sideways above 1.0 (#5158 follow-up); raise once the reader reflows.
+
+/** Native text-size scale to a safe root multiplier: non-finite or non-positive falls back to 1, then clamped so a huge setting cannot explode the layout. */
+export function clampFontScale(scale: number | undefined): number {
+  if (typeof scale !== 'number' || !Number.isFinite(scale) || scale <= 0) return 1;
+  return Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, scale));
+}
+
+/** The WebView ignores the OS text size, so scale the root font-size (rem-based text follows) and expose `--font-scale`. */
+export function applyFontScale(doc: Document, scale: number | undefined): void {
+  const clamped = clampFontScale(scale);
+  if (clamped === 1) {
+    doc.documentElement.style.removeProperty('font-size');
+    doc.documentElement.style.removeProperty('--font-scale');
+    return;
+  }
+  doc.documentElement.style.fontSize = `${clamped * 100}%`;
+  doc.documentElement.style.setProperty('--font-scale', String(clamped));
+}
+
 /** The DOM page environment of AppReader: full-height scroll root, `--safe-*` insets, speed-test image listener, window error reporting. */
-export function useDomEnvironment(native: NativeCalls, insets: Insets | undefined, speedTestOn: boolean | undefined, cacheUri: string | undefined) {
+export function useDomEnvironment(native: NativeCalls, insets: Insets | undefined, speedTestOn: boolean | undefined, cacheUri: string | undefined, fontScale?: number) {
   useEffect(() => {
     applyDocumentA11y(document);
     // The host page is a full-height flex root with a non-scrolling body; the reader scrolls the window like the site.
@@ -37,6 +58,11 @@ export function useDomEnvironment(native: NativeCalls, insets: Insets | undefine
       s.setProperty(`--safe-${side}`, `${insets[side]}px`);
     }
   }, [insets?.top, insets?.right, insets?.bottom, insets?.left]);
+
+  useEffect(() => {
+    if (fontScale === undefined) return;
+    applyFontScale(document, fontScale);
+  }, [fontScale]);
 
   useEffect(() => {
     if (!speedTestOn) return;

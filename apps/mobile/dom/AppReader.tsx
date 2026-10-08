@@ -51,6 +51,8 @@ export interface AppReaderProps {
   reportImageLoad?: (visible: boolean, token: string) => Promise<void>;
   /** Speed test mode is running: only then are image loads measured and reported. */
   speedTestOn?: boolean;
+  /** OS text-size scale (PixelRatio.getFontScale) from the host; scales the DOM root font-size, clamped. */
+  fontScale?: number;
   /** Bridge (WP2.3): sequenced native-to-DOM queue, re-delivered whole on each render. */
   inbox?: Envelope[];
   /** Bridge native action: posts one envelope; may resolve with the reply (`res`, `readyAck`). Absent on web/dev. */
@@ -136,7 +138,7 @@ export default function AppReader(props: AppReaderProps) {
   propsRef.current = props;
   const native = useRef(createNativeCalls(propsRef)).current;
 
-  useDomEnvironment(native, insets, props.speedTestOn, cacheUri);
+  useDomEnvironment(native, insets, props.speedTestOn, cacheUri, props.fontScale);
 
   useEffect(() => {
     if (started.current) return;

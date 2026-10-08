@@ -31,6 +31,23 @@ describe('chunkForDiscord', () => {
     expect(result.join(' ')).toBe(giant);
   });
 
+  it('never cuts an emoji or ZWJ sequence at the hard-split boundary', () => {
+    const family = '\u{1f468}‍\u{1f469}‍\u{1f467}';
+    for (const emoji of ['\u{1f3a4}', family]) {
+      for (let pad = 1990; pad <= 2000; pad += 1) {
+        const text = `${'a'.repeat(pad)}${emoji}${'b'.repeat(50)}`;
+        const result = chunkForDiscord(text, 2000);
+        expect(result.join('')).toBe(text);
+        for (const chunk of result) {
+          expect(chunk.length).toBeLessThanOrEqual(2000);
+          expect(chunk).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
+          expect(chunk.endsWith('‍')).toBe(false);
+        }
+        expect(result.some((chunk) => chunk.includes(emoji))).toBe(true);
+      }
+    }
+  });
+
   it('keeps fences balanced when a fenced code block would straddle a chunk boundary', () => {
     const paraA = 'intro '.repeat(300); // well under the limit on its own
     const fenced = '```\n' + 'code line\n'.repeat(120) + '```'; // pushes past the limit combined
