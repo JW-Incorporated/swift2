@@ -1034,6 +1034,8 @@ export interface RunwayLook {
   /** Real, credited photos for this era's style story — always at least one. */
   images: ImageRef[];
   shopTags: string[];
+  /** Optional citations for the look, shown as a quiet "Sources" line. https only. */
+  sources?: { title: string; url: string }[];
 }
 
 export interface ReRecord {
