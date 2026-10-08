@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 73
+
+## Travis Kelce Shares Highlights from Birthday Dinner with Taylor Swift
+
+- first seen: 2026-10-08 07:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discusses the most enjoyable aspects of his birthday dinner with Taylor Swift. The event details his appreciation for the time spent together during the celebration.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkJxOEJVVm9ZdFdUNERMbWdoUmdDbTZvQWk1YkZzNlBfekprOFVUaE5SbjJXMEk0eWQ1NHA3UjhYZzJtWEQxWno5SWIzc0tjSmNSMVBNWENMZHhpbVd4Qy1aVVF6Q1h4RGpVMDhzMEFOdzlaVi04LWpkaXNDZ3NtSWhIWVlBb0xKTGNTcjZTYWFLRFVoaGRlWHFKWmRRSTRHb1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Displays Swimming Skills in "Patient Zero" Music Video
+
+- first seen: 2026-10-08 07:17 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases her swimming abilities in the new music video for "Patient Zero." The video highlights her athleticism while featuring her latest musical work.
+- sources:
+  - [unverified] SwimSwam — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVGVSZkpQcnMyaDZscGJVeVhCQ19rNUY0ZW5CdzZ1RVZqYk5yU3IyNkxpR3RucXlIMFpKQ2J2WTFFbTAwOU1wZGgzLWxESGszZ0RyN1RfZ08wX3R2TzBoTlRVYzBFYmxGNThKanRpaXFXVk1xTXJFVjRQQm1xeFdRTTFuaVVxQzdYaC1JNC1LUHJoSGlzdURUUDhJVHdneVk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Celebrate Birthday with Coordinated Looks
+
+- first seen: 2026-10-08 07:17 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's birthday celebration featured Taylor Swift, highlighting their coordinated outfits during the event. The occasion showcased their style and camaraderie.
+- sources:
+  - [unverified] NBC 4 New York — https://news.google.com/rss/articles/CBMizgFBVV95cUxOUXBHTEdsdFhlXzVUb2lBUm94b0JKMFdFNXp3WEFwc1pDdmJNQy13OUpBaEhzbXhPSjd0Yk1BNlFjRVpyUkVncWZFREZaSDFXWFVMbUM3enMxT0oyZVh1LWl3S0Frcko1YTh2VEppRTI0TDRCY19hVkd1LUJYZ2tLd2d3VGs5RUQzTjh6d1N4Qk84VG1uZV9PeEdtdWdxZmhDbHZVZXpqWk9zTFg5SllxVWI1T21WVmtpN0JRZkh2V2NuWTBfY1hfNk9yWlAwd9IB1gFBVV95cUxOMlJLT0V0MGZTYXBQdm5PTkRjamZpWnJyYUZmazlmZThKNHBJdENaSTJnaGZuNTNsYWxpVWlzaUhrQXMtZm0tZDNmRW1XdUJXMGxWLW5WVUdYUXFXbnZRY01TWWtTYlJjVjZTSElEal9TQnFLYUowTlZWMXc0VDVuUW5fSFNoODNfMWY1Y2lqLXEwbUdyYURSdXhodjlrME5oYU5WeUpBOTdfU3Z6V1VDOV9DSmRNVFVEM2p6dklkUk1jVmVvVEdxR2ptVmd2MmVNbmZrbzlB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Celebrates 37th Birthday with Taylor Swift
 
@@ -184,10 +208,11 @@ Stories: 88
 ## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
 
 - first seen: 2026-10-07 07:11 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: The Bratenahl board has delayed a tree plan for the property owned by Taylor Swift and Travis Kelce due to a height dispute. The decision reflects ongoing local governance issues related to the couple's real estate.
 - sources:
   - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMixgFBVV95cUxPbW1hck5WaGlQZjEzbDdPX2NxUlhBbnZ1OWItS0g5S0NONkJyU2JOMjlwLU43U1lVNGoxWGNhcVdfMjc2TGg5OF9hZlJwdnhHNHptZ0lUT0VQWWF4SGdvQ3FUWXc0SkVjUTR0NkdycnA2dGVzcnhXQkZVRXNWX2pZNGlSQURRT1lYWGhGMHVHa3VwdXZxbzAwZlBXcEdFQ3c3RnlDUklGTldLaGlfSWNsX2RXTlpkb0MxNmloLVMydy1CdFRObFE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxNbGRPbF9ZQUlSOUJBUDZLS19MRHcxMmExcURfQVFBd3N3bE8zRkZQQWlVUFg1MkFRb294NER4YmJxRFd0SG5rYWh3R2VRZU9EUnVFOERIVTA0SklheWRLWi1pUXVuZWk5dFVEbEw5bGVSeXpvOHVab0tBbE5rX19vT0pCbzlxRlE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxOa2VqUnVzZmtmejRxYUthQ0pFWVlJbHBNMHVOcmNvV1dHYXZEdTBHejhOMm51bzJ4WTl3WjYyYnNpSXMtSTFfR21JRUxyV055NGJFX2lLWWV4cm15ZXZBX0R4NS13WS12SGZ2TEhUVnJVODl5SmJQWHZudFc1SGJmV0NadlRmRWpoTTdZdjByRXc2cThEemtnb3M0RFpvQ2NLX21SWVJKT0NkU0dpNXlubjR4eE8ydHdoRnM5cTMxR18wUkdDVkVQRnp3RQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
@@ -600,157 +625,3 @@ Stories: 88
 - sources:
   - [unverified] freep.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxPMC1kZlR5dHdYUHJRRWo2bTRRNW9pRnNYd0xzaU1PYkpTRmVkMHV4Y0g1bGNGcHBKYmtkWHpSSFRyRGllei1mbUdQSGw0Zl9WMjdRSzBIZ28teG03ajB4bm12dDhaN20yNE9qTkRkT1E1b2dKVHF4bVE5SzVXcG94a2VBdkRkZXRyM2hLNG95NlVmYkVweE5zdjU3Y2hrT1l1TWtZeEpFdENwcnJrV2hHbnBTMjYwR09aNkNSUU96RzFMOFpibkhvSEJ3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NME — https://news.google.com/rss/articles/CBMipwFBVV95cUxOendXLXVFcWQwYndUajRvdkYzU3ZiemtBMlc0Nndyc2NXT0dpZ0FvU2NBRXpJbjJja3RESWdTeW5ZVVlNdlZjbjNuYnlYN2VHTk5EWGh2QTJDajBWWUVhdm9NTUtMOXZ2elBjM2JsTExvS0otM1JuLVdmZGVxSGgwUzFYcHFrUE10ekczZnZiSWo4MGIyRDdDdTdaSHpfZWFLUHhtRTFkOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## ‘SNL’ Keeps Cameo Surprise Under Wraps
-
-- first seen: 2026-10-05 06:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ‘SNL’ has taken significant measures to ensure a major cameo remains undisclosed. The secrecy surrounding this appearance highlights the show's efforts to maintain surprise and excitement for viewers.
-- sources:
-  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMisAFBVV95cUxObWxVRHJQX2JXcldJb2VQSkFTT1Z0R1FDLWFzZVA4ODVJaWJ6U2ZaQ1ZnWXdVVlB1N3VhV09FYXJobWxiQkoxQ2pQTlA1a0FhZzktNjFQc2dmeWdlVEpVanEzeUZpVHR3THNXUWdjY1MycUQ0T1NoRnRDUUx1bm9sVXFNSWtmMEVoeGdLeE50dTJVaEFxcWlpQ2g3UFFMckJrS0FtelVPNzBrcDlRT3ItdQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Article Highlights Taylor Swift in 34th Street Magazine
-
-- first seen: 2026-10-05 06:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new article titled 'Meet Me on Your Timeline' discusses Taylor Swift in 34th Street Magazine. The piece explores her impact and presence in contemporary culture.
-- sources:
-  - [unverified] 34th Street Magazine — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSElhZFM5LW9xNko4WWZFTWtHSlA5cjZQRkE3MzRVX1FxMmZYZmhKaElVeXZHaUJ5TTQxckFQeU90S01rNVg0eVNFaVlpdVZ5cWYyaTFMMHNsTC02NzVZbHFrZDNLVzBWWEtUY2dfcGxNeXByNm15NGhkS2J2ajFiQ0hfMk1xWE5FOC1Zai1lS3l1c0hVMVVj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts New Shoulder-Length Bob Hairstyle
-
-- first seen: 2026-10-05 06:57 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has unveiled a new shoulder-length bob hairstyle featuring layers and curls, according to a Yahoo report.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNZUdfQnpnYmxBT0RFZ0VUNHJWMjFVMHV6S1p3WFVoT2RpdlVneExtLU9xR1FvWEVhNkVTMDBaWnUwaTlQQnFxcUpZV0FLM3VRTk9HSXRNTVduMGxndTFnRjJIVjVRMmxSbmVRaGYybTJicmVfaEktTlRWZmUwYzFKbmdNQWxRMGplcVlQYUNmMW5mVnd6NUhlWlFsSEFFaUlnMWtpeF9RZHY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Former Raiders Player Advises Taylor Swift to Stay Home for Game
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A former Raiders player has publicly suggested that Taylor Swift should refrain from attending the upcoming Chiefs-Raiders game, emphasizing her presence in the rivalry. The comment reflects ongoing discussions about her relationship with NFL players.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxNOWlTekwtenVOSWpIUTRCX3dJdGhObmdwRGlVcndNLVNMcHM0VTl0MXJ2aFZ0bVBnMmNzU2dvTU1XTW53Y0tUeThVdm5JS3hQU21HVExPUDg5dkw5czJGRGlnN3MyU3dSMEpycGVUdm5xNFhSdEhOZ3BTNEswc1FSSkNXNGNuNFlYUEdZTWZCR0xXeEF3d3IwbGtiS2xqOExfOUFyZzBoSnZxWG9TSTFPVC1Hb0FfR0MwMWFpWUZzZzRoUk5Qd1BJ0gHbAUFVX3lxTE9aeWZZend4aFMyZkRrUEJCMVp1eGNaVDNtU21nLTdfbXotZUF6ZHBaYzhEd3JXbWs5OUtNMUZRLUxwcmQtWjVFcWtlTWs2MWhvSU5IMTl1dFhxbG9lS1VSM0lIdDN3Y1JKQXBoUWZvZEhsakVQS3JwcmFBOUNnd1pFYzNaWHhNcHBnVU4xbTZzZzNTOGp0RWlVNDl4V2hDTDlSR2haNGhNNV9kZzV5RDVVbEhfVDBNcndDSHlGUF9kRVE0a0FqYXBqSjlrV1JKUE9QT0hBUDhFd0g4Yw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Performance Reviewed on 'The Encore'
-
-- first seen: 2026-10-05 06:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A review of Taylor Swift's recent performance on 'The Encore' by The Daily Targum has described it as unengaging. Critics expressed views on the overall entertainment value of the show.
-- sources:
-  - [unverified] The Daily Targum — https://news.google.com/rss/articles/CBMigwFBVV95cUxPNGlXbHk5bURCdkxEaHRpTXgzMWd2SnNUVWVjMW0zMXdNZkxkaGlJX2ZUdDhiSW5UT1Exb1I4SXZTVENySWM1MUhoNkNGS3JseXY3aUpEdHhZNGpkcXItcmxVdUN0ZWZGWXNvQjdjMFNadDdua2hKUXRnbzFEOWdvUktwZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise Cameo on S.N.L.
-
-- first seen: 2026-10-05 06:57 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent episode of S.N.L., Taylor Swift made a surprise appearance, capturing the attention of viewers alongside other segments. The episode also featured a promotional moment for Trump.
-- sources:
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNb3pnaUx5ZkllTGlXMUVwdDAtVjFTOXFpZ2xzLXBISHhfck5aeFRwbDFnMXRaQS1ZNnVYZGo3bks3NGxSeG5kajZmUXo2V1RIRlE4SEpPNUd0Tlo5MjI3N0RZUlNTN1dGSGRlcXhKY2N3NWl5RU5wcEdLR3h1WlRKd3lYM25kVzR4eHQ2NTlPY3liVjNfWm1KeHhoOU54ckYxMF9yLW4xSTRfdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Absence from Travis Kelce's Second Away Game Explained
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift did not attend Travis Kelce’s second away game of the season, with details about her absence discussed in the article. Additional context around her unavailability is provided.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiswFBVV95cUxOY25CTzF0Ykd5Z2Y1R0RpdEZmWHdFMmgzS3l2cXlWYURPZWRpUnBCdlZFRXRST3ZaQ2RBTFNZZFNEWDZ4MXE1dzIxX3JQR05WOE1GZXotam9paTB3MGdDTkNDZk15aU15VGR5aVI5ZmNOOUVVV21RUXBENWI2bF92TlNpaWtvY0oxMmthT1FBUlBPRF9HNnBJVjFjdmpRdGFSaEcyTzZSN0FIMXhyazVIQW9odw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Ninth Number 1 with 'Patient Zero'
-
-- first seen: 2026-10-05 06:57 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached a new milestone by securing her ninth Number 1 hit with the song 'Patient Zero'. This achievement highlights her continued success in the music industry.
-- sources:
-  - [unverified] BigTop40 — https://news.google.com/rss/articles/CBMie0FVX3lxTFB3c0xHRUs1LUVaRnpMUVRwZ0hfdlIza1E1aXhuWmh5OFBORVUwaVRtNFFhRTAxbjVEUDcxQVFCOWkwcEI1cFZ6dkhqTzEyRkl5MHE3NFkxSVppaldKaWhoSjVIMDBmNmhYZXlaTVNwbWQxeU9YZ0JTalJiZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Absent from First Chiefs Game in October
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not present at the first Kansas City Chiefs game of October, leading to curiosity about her absence. The article explores reasons behind her decision to skip the game.
-- sources:
-  - [unverified] Town & Country Magazine — https://news.google.com/rss/articles/CBMivgFBVV95cUxPX1lPNmZsaEt6QnRVbE5BSVlUR0psZlRZSENQb2RsZ2VTaWE0M0dOWVFFM21WZjc1RnYwTGxYM3d5UG5wQmRicEZPRUFSV3RZV0NhWWdKUElMMWlFR08xQmpRX254d2hHbUxuUTR1dlZQLVU4ZDBIZHdUU29jVmdaaHNIaGdUcEtVRVV2STU5VGNpVlg2QlRuZ1pDQkVTRzF4LUFPdVZwMjZVSzNSZGhqZlRyV3EtUkxNcHdpUXhR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cameo During Dakota Johnson's SNL Monologue
-
-- first seen: 2026-10-05 06:57 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: In a surprising appearance, Taylor Swift interrupted Dakota Johnson's monologue on Saturday Night Live, playfully assuming the role of an unofficial therapist. This unexpected moment added a fun twist to the show's format.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi2AFBVV95cUxQUWxSN1ZEOWc2dWxnQ0s5Qi13MjRvTVJXdG1PVXdEOVNweEQtbzFqMUs0QnJfRnYyWXhnaUZsYUpqQkRiWWU0QlYtUFU5emVDUkVNS2FWR3BzVUkxLUV4MnVBV08zVFdZN1E4RUtmSkRROUhFUlNTYVpaSHJFSTg0b0tIQlVWU25oZ3JwbnFDWF9ZUUllcDU2M2puOTg4eTVDYUVuVkYtVXEtNjhYYjdGb1U0al9ZMVhJalhCTElzSFB3RGxMU2N6S3prM0pTYmFVQVpSQ2U1bUY?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQWmZjSXJrZlB3RDFHS1c3TzFXZkJvRlpaMmp3Qm5Odl9ZajdZREY3R2lnT2Z4NzZVS3hydG8xLVhUeWcwM0hNNTZ4NGR1bm5aSHBFamRScktVUEhxSmxGMTNoR3ltb0lMWFh4VVVsQWp5MEw2Vy1SeUhRN1gyNk5vWFQ1ODR3QWdqZHpreEEtMHlnRFlxdEJaeUc5eXdGT2RpcjdqZ2dRTFN3MG5UYVJXVFpuVHc2eWxheFZB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift absent as Travis Kelce and Chiefs win against Raiders
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift did not attend the game where Travis Kelce's team, the Chiefs, secured a victory over the Raiders in Las Vegas.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxPYXJ6MlpSc2VuUF8yT2VtMVZUczBIeFJrV2JSaVIycUR6ZGpsVHRoblRyV0tPc2h1RDdjZ2dFdUNMOHcwcmVtX2phVERib0swWXU0YkIzWU1rQXVOVUhEWWxiS0ctN2h4VFpVNUZaRVhjR0ZiNEJvanBHbk8wR0gyR3BXRVNZV3dveGdFb25ZaEt3dlV2R0NTOFhrLXE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE54YW1zb1REV0Q1eUE2b2xQZWVqTmJQSjN3STN4dVlkSUhLTWQ4ZzJUUkxrUFpHdkM1aC1iUDZfcDJweEtQZ3R0NXlOWW92YlBFNm1pcWdhM20xR0o4c3hWS3A4dGhQQUdSRXpB0gFrQVVfeXFMTnJXTWdrTjQzY25FckZvWHdaR1RmLTVDNld2NlJOTDFfVUZxbDFicUFXOXVVMDF1SUxHcllRMG9kam1RRXdoUWdKNzN4WGE2bkhfRmlIcVR0SDUwc3lWQ1p4UFh1SENkWVR5eTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMimgFBVV95cUxOM2FOSy1DVmJURHpfUDhBWlpSQmwtR3pEd0xONFVCeVRLM0VBTW1WcmZFbklXWE9aSUR3aW1PdGpxd1lpNnRrUkRmWTV2bzRGQlpZNkYxNU10LWcxZjhmOW96azAtTGVLZlBVVV9reTVHSFVzZW03ZGxSZXdOZm9kWjlXWExKMEJzQmlEUlYwU2labWlSZFoyTXh3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxOeHRjWXlXQU9IV1lmemxWeURCdDFVal9hdHBRV19kWEFwRU0wVG01Q0ZFek9WbXNxSHoyRlNmSFdBS09oSFNSZ3oxODBsMWx2aDhSWkV3bUhVNTdKR3ZFTnlMRU1ick5TXzhYUFBmd1ZoRURiZHhYeGNhNTF0a29CLWRvNDhjSHI3cHhmUThRcTdFaEdlS3MyY082dlMzSWkyM3FXZHltUmdfMEJTZWVrX1FFcXAyZXdNR2NFTUJB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNdkFxQnJlY0dEMmc0LS1OMHZZRFAyQ2tVaFlFcFFfaEVVbGNqaDZ5QkRYTWNVXzZrRnVUa2x3OFZiZVpXMzhfVmRldkxJclA3SE44NmY1NXV2dHJaWXdUVElCUjk5b1RuQmlKakhnbEthcG9PSi0wdWgtb25BRWdfWlJXOGJ3YjRINVFmamJSNE5wdHVHRTVvQTAxU1B3Q3drdTJF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Paul McCartney Performed at Taylor Swift's Wedding
-
-- first seen: 2026-10-05 06:57 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Billboard reports on the circumstances that led to Paul McCartney performing at Taylor Swift's wedding. The article details how the collaboration came to be and highlights the significance of the event.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxPU2NxMnJlVmxLVkVOUFZHcjRaTUI0aWw3MmVfeVFxMGt4NVMwS3ZCQTJMVk9HZ1M2NnY4emxjdE1TdWQ2b1pDS3Y1WWpWaWdvN0lFT1JaOHVNelI3aDVRbmZxOWlUT1g1dkJoVlM5cTVqVk9Yd2xBN3FzZHdwSUpNclVkWEhIMzNxd2FxTkJUS05HV25zWDhCYUxSdG9fX0xmM0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## 'The Life of a Showgirl' Hits No. 1 After Encore Reissue
-
-- first seen: 2026-10-05 06:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift's album 'The Life of a Showgirl' has reclaimed the No. 1 spot following the reissue of 'Encore'. This marks a significant moment in her music career as the album continues to receive recognition.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxNNENfcFlibF9yaUlYM3BvR285Sm9vcWRNdTI0Rm1yYnpzaURVaTVwaDlGLXdYYnpKc1JKQjBSRHVLOWY5SGN4SEtZLWhfVjVDZEY5Z1JKaERoc1ZSVE1EU2lQaW91Z0RXN2RwSXQzbmFJeHFhZzFnakZCWW1neFRaWUx0R2lDWmpLbjJyc2NodnRTY0ZrWlFJRkl2NGVHbFk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Her Campus — https://news.google.com/rss/articles/CBMisgFBVV95cUxPUnY1Rk1IMHBxTm9vcXl3MjlUbU9HQ1VZcWpMb3NGQmViQWdNaW1Pam1lNDlObUZTSFdsbXdDZU0wVEhhcHd5Nmo4NGVQZ1R5TUJCZVI2dE9YLUphc1Q1ZE1RYkIxdEMyRFF6RVNIc2pQR1ROMk1kRDJDdC0wRk9ybk5Ea3VYZ3ZmeGI5RmpUTkJ5aVhaazVWVmxPMVE2clBGVEZlSE5Xbzc3a1VINXJxMWJR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipAFBVV95cUxQRHg2Vnk5N2xmX2hiaGVMTTh0ejBjOTB1ejdfNzdobDRhMHE3V1VpS3pTQ0xQSW45Sk82UVIwYk9pdFEyOWlTTTUyRzZSN0FLMldPWEJkbFlrZFcxWHc3aGJvZ2t3M18xdU44NDRZZXQ3bDF0YUFXaDJwUTFmSTlOWmc5bkFFRTNMVVVWUkRrTHBBN25lOHlSQmZ4Z0VCT1lMa2tuNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-number-one-hot-100-1235635574/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-number-one-hot-100-chart-single-1236899253/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOdl9hTGltRWVhZHZzcG9KT1VuX0R0YmNseUVBUWlrRWRFWWw1V2h6TlZHUzN2WUotM1otb0lfOXNVQy1rVkZWTnRKQk8yT1NGUFYxNXdsY3NfU09WYWF1cjRWUnpFTTlaUkNnUkR5OGxRbWFRNmdUMmRucXpqM01YbDNCWElhc0ZHVU5UNi1PSnRHelgzZUVrVkE1aUFLdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Issued Warning Ahead of Chiefs vs Raiders Game
-
-- first seen: 2026-10-04 23:56 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was warned prior to the upcoming game between the Kansas City Chiefs and the Las Vegas Raiders. The warning included a message to 'better watch yourself'.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNeEp6OWltYl9XcTJ1cVM0enFmZENZdWNBa0t2cVY5T2RtT01HSVo5VFdSSmd3eW8taHRVTTY2OEx2UkMyQ2U3Nk52T3NuNFFsOXJNb3VDT05vWTdjNWVZSi1RTU5yU2FLYUlCYXdWVVdGYkpoTl81MWVXbjgxaU82MzZfM1VUY2hG?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Upcoming NFL Appearance Could Happen in Vegas
-
-- first seen: 2026-10-04 23:56 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is expected to appear at an upcoming NFL game in Las Vegas, featuring the Chiefs versus Raiders. Fans can find information on how to watch the game for free online.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMivgFBVV95cUxQVHZ5eURRUExTNHdsQjlicXFpX3RDUld6Wlo4ZFhzTFJrWDlUX0NHWllIQ3hMVk1aVXpXbURtVmU5Z0xzamhmSUczNFFWQmhyTzZPazNEM3ZnajRZeHcxRGI2V2E0WDBDb1RlY0pOQ2czS1RfT3doTW1RYlgwR0FOZUpwWXBKdUdkMi1KVjYzTnFPLUNpR2Q2YzgtdFBQaTAzNlZ0SE9qUnRhTEs4SHBJSndTYVpLZXhEVGRWMkVR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson Performs with Taylor Swift on SNL
-
-- first seen: 2026-10-04 23:56 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Dakota Johnson appeared alongside Taylor Swift in sketches and monologues during the October 3 episode of SNL. The collaboration showcased their comedic timing and on-stage chemistry.
-- sources:
-  - [unverified] NBC TV — https://news.google.com/rss/articles/CBMihwFBVV95cUxQTXhlY2kzNVgycENaVmtoRlJ6Yk8tS0o2MGFpT0UxdXozcHRMSWVZcm1MMDFWeVdpYW4yWTRSVWc2ZFZhdGJwSGZNQmg4WjBpNThyMHVMMVNveXZYMFo2V1JnQzdnamx1OEU0Z0JhVzUxTk50TE1vWmdla21TSFZaY1NuOE9jWTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Encore' Edition Returns 'Showgirl' to No. 1
-
-- first seen: 2026-10-04 23:56 UTC | category: release | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: The expanded edition of Taylor Swift's 'The Life of a Showgirl' titled 'The Encore' has led the album back to the top of the Billboard 200 chart for the first time since January. This marks the album's 13th week at No. 1.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-showgirl-encore-album-chart-number-one-1236898681/
-
-## Former Raider Issues Warning to Taylor Swift Before Upcoming Game
-
-- first seen: 2026-10-04 23:56 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A former football player from the Raiders has issued a warning to Taylor Swift that is gaining attention ahead of the Sunday game. The comments have sparked discussions among fans and media outlets alike.
-- sources:
-  - [unverified] OregonLive.com — https://news.google.com/rss/articles/CBMizgFBVV95cUxQNFduekhPd2dKc3dFV2dqb2lkVjBLMGpIYmY5dWZJY2FNdlF3ZWZxSmlEcGRSRlBtSTgyNGpqZElXczZRRkVLWTZlekdmRmxyZUw5U1U3TnE4c0lUdUR0ZzlfV0JiRU5OeVNKM1YtT1pmSVB1dzN3NkxNWUF1R0lacTlDV0ZvZ0lrZEdIM2NXaGdudTFzWk5ic0otNGVaNGJOQmNCUHo4YU1HdzgtUnFYQndvTExpUzM0Q1RwTFlDVXF0ekp2M2ZxUGk2M08xZw?oc=5&hl=en-US&gl=US&ceid=US:en
