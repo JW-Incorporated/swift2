@@ -90,11 +90,11 @@ export default {
           source_title: 'Father Figure (Taylor Swift song)',
           publisher: 'Wikipedia',
           source_type: 'wiki',
-          accessed_at: '2026-09-10',
+          accessed_at: '2026-10-08',
           reliability_score: 2,
           excerpt: null,
           notes:
-            'Documents that the song interpolates George Michael\'s "Father Figure" (title-line hook + similar melody) and credits George Michael as a co-writer — the interpolation and credit are official (the George Michael Estate publicly acknowledged the arrangement), so confidence is raised from reputable_reporting to official. Re-verified live 2026-09-10 (was 2026-08-11).',
+            'Documents that the song interpolates George Michael\'s "Father Figure" (title-line hook + similar melody) and credits George Michael as a co-writer — the interpolation and credit are official (the George Michael Estate publicly acknowledged the arrangement), so confidence is official. Re-verified live 2026-10-08 (was 2026-09-10): confidence already at official (the not-confirmed banner no longer applies); accessed_at refreshed to record the re-check per CIE #4057.',
         },
       ],
     },
