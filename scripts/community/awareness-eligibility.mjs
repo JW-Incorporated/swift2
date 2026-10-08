@@ -61,6 +61,55 @@ export async function fetchSubAbout(
   }
 }
 
+// ---- can a reply be posted? (per-thread `<permalink>.json`) -----------------
+// RSS carries no locked/archived flag, so a passing candidate gets one polite
+// anonymous GET of its thread JSON (never OAuth). Anything unreadable is
+// `unknown` — delivered, labelled unverified — never dropped.
+export const REPLY_STATES = ['ok', 'locked', 'archived', 'no-comment', 'unknown'];
+const NO_COMMENT_SUB_TYPES = new Set(['restricted', 'archived', 'private', 'gold_restricted']);
+
+/** Parses a thread.json body ([listing, listing]) into `{ state }`. Never throws. */
+export function parseThreadReplyState(body) {
+  const data = Array.isArray(body)
+    ? body[0]?.data?.children?.[0]?.data
+    : body?.data?.children?.[0]?.data;
+  if (!data || typeof data !== 'object') return { state: 'unknown' };
+  if (data.locked === true) return { state: 'locked' };
+  if (data.archived === true) return { state: 'archived' };
+  if (data.quarantine === true || NO_COMMENT_SUB_TYPES.has(data.subreddit_type))
+    return { state: 'no-comment' };
+  return { state: 'ok' };
+}
+
+/** The anonymous JSON URL for a thread permalink, or null when it is not one. */
+export function threadJsonUrl(permalink) {
+  try {
+    const url = new URL(String(permalink), 'https://www.reddit.com');
+    if (!/(^|\.)reddit\.com$/i.test(url.hostname)) return null;
+    return `https://www.reddit.com${url.pathname.replace(/\/+$/, '')}.json?raw_json=1&limit=1`;
+  } catch {
+    return null;
+  }
+}
+
+/** One polite GET of the thread JSON. Never throws: failures give `{ state: 'unknown', error }`. */
+export async function fetchThreadReplyState(
+  permalink,
+  { fetchImpl = fetch, userAgent = DEFAULT_USER_AGENT } = {},
+) {
+  const target = threadJsonUrl(permalink);
+  if (!target) return { state: 'unknown', error: 'bad permalink' };
+  try {
+    const response = await fetchImpl(target, {
+      headers: { 'User-Agent': userAgent, Accept: 'application/json' },
+    });
+    if (!response.ok) return { state: 'unknown', error: `HTTP ${response.status}` };
+    return parseThreadReplyState(await response.json());
+  } catch (err) {
+    return { state: 'unknown', error: String(err?.message ?? err) };
+  }
+}
+
 /** Short label shown to the owner next to the sub name. */
 export function imageCommentsLabel(state) {
   if (state === 'image') return 'image comments allowed';
