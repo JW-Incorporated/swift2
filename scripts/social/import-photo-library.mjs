@@ -29,6 +29,7 @@ import { dHash, findNearDuplicate } from './lib/perceptual-hash.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './lib/polite-fetch.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
@@ -147,7 +148,7 @@ export function assertNotAllFailed(total, failedCount) {
 
 // The rest of this file only runs as a CLI entrypoint, never on import (so
 // the export above can be unit-tested without a network call / real argv).
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (isMain(import.meta.url, process.argv[1])) {
   await main();
 }
 
