@@ -9230,7 +9230,7 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s scheduled dates remain ahead (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Still live.',
             sourceTier: 'established',
             lastCheckedOn: '2026-10-08',
           },
@@ -9264,13 +9264,13 @@ export default {
             // recorded here; the piece's incidental production-credit specifics are
             // left out rather than asserted as fact.
             claim:
-              'The entertainment trade The Ankler argued in "Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight" that Taylor is quietly assembling an awards-season case — anchored by the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without ever announcing an explicit Oscar campaign. Yahoo and heavy.com repackaged it as her "quietly setting her sights on an Oscar."',
+              'The trade The Ankler argued ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly assembling an awards-season case — the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without announcing an explicit campaign. Yahoo and heavy.com repackaged it as "quietly setting her sights on an Oscar."',
             reportedBy: 'The Ankler',
             reportedOn: '2026-10-01',
             status: 'unconfirmed',
             url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-            note: 'Outlet analysis of intent, not an on-record statement — neither Taylor, her team, nor the Academy has confirmed an actual Oscar campaign. It carries a truth value (whether she pursues/receives a nomination is adjudicable) so it clears the admit-the-unsettled bar. Resolves against the Academy\'s 99th Oscars calendar already tracked on this page (Original Song submission deadline 2026-10-14, shortlist 2026-12-15, nominations 2027-01-21). No location/privacy content.',
-            sourceTier: 'established',
+            note: 'Outlet analysis of intent, not an on-record statement — no one (Taylor, her team, the Academy) has confirmed a campaign. Adjudicable (whether she pursues/gets a nomination), so it clears the admit-the-unsettled bar. Resolves against the 99th Oscars calendar on this page (shortlist 2026-12-15, noms 2027-01-21). Tier capped at tabloid: theankler.com isn\'t on the reputable-source allowlist (RR5).',
+            sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-08',
           },
         ],
