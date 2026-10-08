@@ -30,6 +30,8 @@ import { validatePhotoEntry } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './lib/polite-fetch.mjs';
 import { isMain } from '../lib/is-main.mjs';
+import { createQcSession, hostOf, kindFromId } from './photo-qc.mjs';
+import { loadRejectedLedger, saveRejectedLedger } from './lib/photo-qc-ledger.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
@@ -66,12 +68,16 @@ export const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn },
+  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn, qc, ledger },
 ) {
   const seenPerceptual = [];
   const skippedDuplicates = [];
   const failed = [];
   const deferred = [];
+  const qcRejected = [];
+  const qcHeld = [];
+  const qcDeferred = [];
+  const qcPending = [];
   await mkdir(photosDir, { recursive: true });
   // Per-host pacing, Retry-After backoff and the total time budget live in the
   // polite fetcher (Wikimedia 429'd 146 of 150 unpaced downloads, 2026-10-07).
@@ -83,6 +89,10 @@ export async function fetchCandidates(
     const isLocal = typeof candidate?.sourceUrl === 'string' && /^file:/i.test(candidate.sourceUrl);
     if (!isLocal && polite.budgetSpent()) {
       deferred.push(id);
+      continue;
+    }
+    if (qc && ledger?.hasId(id)) {
+      qcRejected.push({ id, reason: 'qc-ledger', cached: true });
       continue;
     }
     try {
@@ -125,18 +135,48 @@ export async function fetchCandidates(
         skippedDuplicates.push({ id: candidate.id, duplicateOf: near.id });
         continue;
       }
-      const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
-      await mkdir(path.dirname(destPath), { recursive: true });
-      if (write) await writeFile(destPath, buf);
-      seenHashes.set(hash, candidate.id);
-      Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
-      if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
+      const commit = async () => {
+        const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
+        await mkdir(path.dirname(destPath), { recursive: true });
+        if (write) await writeFile(destPath, buf);
+        Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
+      };
+      const markSeen = () => {
+        seenHashes.set(hash, candidate.id);
+        if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
+      };
+      if (!qc) {
+        await commit();
+        markSeen();
+        continue;
+      }
+      // Vision QC (docs/decisions.md 2026-10-07 "QC sonnet"): the photo is written only if it passes.
+      markSeen();
+      if (ledger?.hasHash(hash)) {
+        qcRejected.push({ id, sha256: hash, reason: 'qc-ledger', cached: true });
+        continue;
+      }
+      qcPending.push(
+        (async () => {
+          const verdict = await qc.check({ buffer: buf, caption: candidate.alt, source: hostOf(candidate.source ?? candidate.sourceUrl), kind: kindFromId(id) });
+          if (verdict.status === 'kept') {
+            try {
+              await commit();
+            } catch (err) {
+              failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+            }
+          } else if (verdict.status === 'rejected') qcRejected.push({ id, sha256: hash, reason: verdict.reason });
+          else if (verdict.status === 'held') qcHeld.push({ id, reason: verdict.reason });
+          else qcDeferred.push(id);
+        })(),
+      );
     } catch (err) {
       if (err instanceof BudgetExhaustedError) deferred.push(id);
       else failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
     }
   }
-  return { skippedDuplicates, failed, deferred };
+  await Promise.all(qcPending);
+  return { skippedDuplicates, failed, deferred, qcRejected, qcHeld, qcDeferred };
 }
 
 /** The run fails only when there was at least one candidate and every one failed. */
@@ -159,10 +199,13 @@ async function main() {
   const inputPath = inputIndex === -1 ? null : args[inputIndex + 1];
   const write = args.includes('--write');
   const fetchMode = args.includes('--fetch');
+  if (write && !fetchMode && !args.includes('--no-qc')) {
+    throw new Error('--write without --fetch imports photos with no vision QC; pass --fetch (QC runs) or --no-qc to skip it explicitly.');
+  }
 
   if (!inputPath) {
     throw new Error(
-      'Usage: node scripts/social/import-photo-library.mjs --input <candidates.json> [--write] [--fetch]',
+      'Usage: node scripts/social/import-photo-library.mjs --input <candidates.json> [--write] [--fetch] [--no-qc]',
     );
   }
   const input = JSON.parse(await readFile(path.resolve(ROOT, inputPath), 'utf8'));
@@ -175,11 +218,27 @@ async function main() {
 
   const failed = [];
   const deferred = [];
+  const qcExcluded = [];
+  const qcLedgerPath = path.join(ROOT, 'social', 'photo-qc-rejected.json');
   if (fetchMode) {
     const budgetIndex = args.indexOf('--budget-minutes');
     const budgetMinutes = budgetIndex === -1 ? NaN : Number(args[budgetIndex + 1]);
     const budgetMs = budgetMinutes > 0 ? budgetMinutes * 60_000 : DEFAULT_BUDGET_MS;
-    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes, budgetMs });
+    // Default ON (founder decision "QC sonnet"); --no-qc is for tests and local maintenance only.
+    const qc = args.includes('--no-qc') ? null : createQcSession();
+    const ledger = qc ? await loadRejectedLedger(qcLedgerPath) : null;
+    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes, budgetMs, qc, ledger });
+    if (qc) {
+      for (const r of result.qcRejected) {
+        qcExcluded.push(r.id);
+        if (!r.cached) ledger.add({ ...r, date: new Date().toISOString().slice(0, 10) });
+      }
+      qcExcluded.push(...result.qcHeld.map((h) => h.id), ...result.qcDeferred);
+      if (write && ledger.added().length) await saveRejectedLedger(qcLedgerPath, ledger);
+      console.log(qc.summary());
+      if (result.qcDeferred.length) console.log(`::warning::photo QC check cap reached; ${result.qcDeferred.length} candidate(s) deferred to the next run (not imported).`);
+      if (result.qcHeld.length) console.log(`::warning::photo QC could not check ${result.qcHeld.length} candidate(s) (API error or no key); held out of the library, retried next run.`);
+    }
     skippedDuplicates.push(...result.skippedDuplicates);
     failed.push(...result.failed);
     deferred.push(...result.deferred);
@@ -191,7 +250,7 @@ async function main() {
   }
 
   const toImport = candidates.filter(
-    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id) && !deferred.includes(c.id),
+    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id) && !deferred.includes(c.id) && !qcExcluded.includes(c.id),
   );
   for (const candidate of toImport) {
     const findings = validatePhotoEntry(candidate);

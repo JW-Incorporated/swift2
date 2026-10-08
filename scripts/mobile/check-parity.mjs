@@ -355,7 +355,10 @@ export function evaluateParity({
     if (ios.gitCommitHash && android.gitCommitHash && ios.gitCommitHash !== android.gitCommitHash) {
       const older = new Date(ios.completedAt) < new Date(android.completedAt) ? ios : android;
       const ageH = (now - new Date(older.completedAt)) / 36e5;
-      if (ageH > lagHours) {
+      const olderName = older === ios ? 'ios' : 'android';
+      const olderCohortRuntime = cohortRuntimeFor(latestCohortFor(cohorts, olderName), olderName);
+      const coveredByOta = Boolean(olderCohortRuntime) && olderCohortRuntime === buildRuntimeVersion(older);
+      if (ageH > lagHours && !coveredByOta) {
         findings.push({
           code: 'BUILD_LAG',
           detail: `store builds from different commits (iOS ${ios.gitCommitHash.slice(0, 8)}, Android ${android.gitCommitHash.slice(0, 8)}); ${String(older.platform).toLowerCase()} is ${Math.round(ageH)}h behind`,
