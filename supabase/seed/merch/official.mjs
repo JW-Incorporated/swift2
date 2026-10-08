@@ -714,20 +714,6 @@ export const OFFICIAL = [
     "verifiedAt": "2026-10-08T00:15:56.723Z"
   },
   {
-    "sourceId": "7574938353864",
-    "brand": "Taylor Swift Official",
-    "item": "Speak Now (Taylor's Version) Playing Cards",
-    "retailer": "store.taylorswift.com",
-    "url": "https://store.taylorswift.com/products/speak-now-taylors-version-playing-cards",
-    "price": "$15.00",
-    "inStock": false,
-    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/new-QKr2xIGn9PD3yAUZDJAa.png?v=1688665641",
-    "kind": "other",
-    "discoveredVia": "shopify-sync",
-    "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-10-06T01:21:06.994Z"
-  },
-  {
     "sourceId": "7574940254408",
     "brand": "Taylor Swift Official",
     "item": "Speak Now (Taylor's Version) Black T-Shirt",

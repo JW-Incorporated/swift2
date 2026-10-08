@@ -268,7 +268,6 @@ The explanation column is required for every uncovered row. It reports only the 
 | Speak Now (Taylor's Version) Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Koi Fish Zip Up Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Pin Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Speak Now (Taylor's Version) Playing Cards | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Tracklist Poster | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Tracklist Purple Tie Dye T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Tracklist Taupe T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -428,9 +427,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 414 |
+| total | 413 |
 | wrapped | 0 |
 | awin-apply | 10 |
 | pending-signup | 8 |
 | uncovered | 99 |
-| direct-by-policy | 297 |
+| direct-by-policy | 296 |
