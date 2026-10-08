@@ -58,7 +58,7 @@ export function LandingMasthead({
         The Taylor Swift time machine
       </p>
       <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">Long&nbsp;Live</h1>
-      <p className="max-w-[min(20rem,calc(100vw-2rem))] text-center text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
+      <p className="max-w-[min(20rem,calc(100vw-2rem))] text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
         {activity
           ? `Updated ${activity.updatedLabel} · ${activity.newThisWeek} new this week.`
           : 'Real-time updates on her whole life — every moment sourced and dated, back through all twelve eras.'}

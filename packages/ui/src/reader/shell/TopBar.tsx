@@ -78,10 +78,9 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
-              title={`Era: ${era.name}`}
               className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
             >
-              <span className="min-w-0 truncate text-sm font-medium text-ink">
+              <span className="min-w-[4ch] truncate text-sm font-medium text-ink">
                 {/* Context label (P4 step 19) — mobile shortens to the era's
                     shortName, desktop keeps the full name, same split the era
                     name itself already used. */}
