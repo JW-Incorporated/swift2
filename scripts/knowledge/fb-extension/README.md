@@ -120,6 +120,13 @@ prints counts and that path only. An extension that predates capture mode answer
 `skeletons` → `capture-unsupported`: reload it on `chrome://extensions`. `skeleton.test.ts`
 proves no synthetic sentence, name, id or link survives a skeleton.
 
+## Checkout guard
+
+The extension is loaded from this checkout, so `npm run knowledge:fb-export` refuses to run
+(summary says why, exit 1) unless the checkout is on `main` and has no uncommitted changes under
+`scripts/knowledge` or `scripts/community`. If a scheduled run reports a refusal, put
+`Projects/Swift2` back on a clean `main` and re-run; other sessions should use their own worktrees.
+
 ## Known limits
 
 - **Profile.** Reading as personal, wrong-profile fires on ANY acting-as-a-Page signal: a readable

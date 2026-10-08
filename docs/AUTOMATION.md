@@ -238,6 +238,16 @@ Windows task is installed with `knowledge:fb-schedule`, and
 run ledgers, private comment files, and the persistent Chrome profile
 all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
 
+Run guards (#4870, #4879): before collecting, the export runs `git rev-parse
+--abbrev-ref HEAD` and `git status --porcelain -- scripts/knowledge
+scripts/community` in the checkout it was launched from, and refuses (printing
+the reason as its summary, exit 1) unless that checkout is on `main` and clean
+there, because the unattended run must execute reviewed `main` code. The upload
+is retried once; a group whose upload still fails stays ledgered `ingested`
+with its kept file so the next run uploads it without re-ingesting. A GitHub
+lookup or comment failure is a warning appended to the summary, which always
+prints.
+
 Facebook export runbook (extension collector, 2026-09-30). The run starts a
 local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
 debugging port) in the dedicated profile
