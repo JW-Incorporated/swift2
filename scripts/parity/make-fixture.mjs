@@ -18,7 +18,8 @@
 //                         current era and the fixed item's era), in BOTH the bundle and the baked
 //                         modules, and renames the hash-named content dir to `frozen`.
 //
-// fixture.json = { bundleVersion, hash, itemId }; itemId is the moment-detail route.
+// fixture.json = { bundleVersion, hash, lensesSha256, itemId }; itemId is the moment-detail route,
+// lensesSha256 is the sha256 (LF-normalised) of the frozen experience/lenses.generated.ts.
 import { createHash } from 'node:crypto';
 import {
   cpSync,
@@ -246,16 +247,27 @@ if (
   process.exit(1);
 }
 
+const lensesSha256 = createHash('sha256')
+  .update(readFileSync(join(fixtureDir, 'experience', LENSES), 'utf-8').replaceAll('\r\n', '\n'))
+  .digest('hex');
+
 if (writing) {
   writeFileSync(
     join(fixtureDir, 'fixture.json'),
-    JSON.stringify({ bundleVersion, hash, itemId: FIXED_ITEM_ID }, null, 2) + '\n',
+    JSON.stringify({ bundleVersion, hash, lensesSha256, itemId: FIXED_ITEM_ID }, null, 2) + '\n',
   );
   console.log(
     `parity fixture: ${mode.slice(2).toUpperCase()} ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)} item ${FIXED_ITEM_ID}`,
   );
 } else {
   const committed = JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8'));
+  if (committed.lensesSha256 !== lensesSha256) {
+    console.error(
+      `parity fixture: frozen ${LENSES} (${lensesSha256.slice(0, 12)}) != fixture.json lensesSha256 (${String(committed.lensesSha256).slice(0, 12)}); ` +
+        `the frozen lens module was edited or is stale - regenerate deliberately (docs/one-ui/parity.md)`,
+    );
+    process.exit(1);
+  }
   if (committed.hash !== hash || committed.bundleVersion !== bundleVersion) {
     console.error(
       `parity fixture: committed fixture.json (${committed.hash.slice(0, 12)}) != computed ${hash.slice(0, 12)}; ` +

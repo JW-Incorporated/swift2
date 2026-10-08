@@ -6,6 +6,7 @@ import { gh as ghRun } from '../../lib/gh.mjs';
 import { readHeldMarkers } from './status-held.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
+const PAGE_CAP = 20;
 const ACTIVITY_EVENTS = new Set(['labeled', 'unlabeled', 'assigned', 'unassigned', 'renamed', 'reopened', 'closed', 'milestoned', 'demilestoned']);
 
 function comment(row) {
@@ -35,17 +36,25 @@ export async function fetchDispatchChaseState(repo = REPO, {
   now = Date.now(), ghImpl = ghRun, readFileImpl = readFile,
 } = {}) {
   if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('dispatch chase: invalid repository');
-  async function pages(endpoint) {
+  // Reads up to the page cap and reports whether the list ended inside it, so a
+  // caller can choose between failing closed and skipping one oversized list.
+  async function boundedPages(endpoint) {
     const rows = [];
-    for (let page = 1; page <= 20; page += 1) {
+    for (let page = 1; page <= PAGE_CAP; page += 1) {
       const response = await ghImpl(['api', `${endpoint}${endpoint.includes('?') ? '&' : '?'}per_page=100&page=${page}`]);
       if (response.capExhausted) throw new Error('dispatch chase: incomplete history');
       const batch = JSON.parse(response.stdout);
       if (!Array.isArray(batch)) throw new Error('dispatch chase: invalid history');
       rows.push(...batch);
-      if (batch.length < 100) return rows;
+      if (batch.length < 100) return { rows, complete: true };
     }
-    throw new Error('dispatch chase: history page cap reached');
+    return { rows, complete: false };
+  }
+  // Every verdict below depends on complete history: truncation fails closed.
+  async function pages(endpoint) {
+    const { rows, complete } = await boundedPages(endpoint);
+    if (!complete) throw new Error('dispatch chase: history page cap reached');
+    return rows;
   }
   const base = `repos/${repo}`;
   const [rawIssues, rawPRs, openActions, doneActions] = await Promise.all([
@@ -78,8 +87,16 @@ export async function fetchDispatchChaseState(repo = REPO, {
     return result;
   }
   const pendingHaPrs = [];
+  const skippedHaPrs = [];
   for (const pr of rawPRs) {
-    const files = await pages(`${base}/pulls/${pr.number}/files`);
+    // One oversized PR must not take the whole sweep down: its file list is
+    // unreadable, so record the skip loudly instead of failing the snapshot.
+    const { rows: files, complete } = await boundedPages(`${base}/pulls/${pr.number}/files`);
+    if (!complete) {
+      skippedHaPrs.push({ number: pr.number, reason: 'file-list-over-cap', url: `https://github.com/${repo}/pull/${pr.number}` });
+      console.warn(`dispatch chase: PR #${pr.number} changed more than ${PAGE_CAP * 100} files; its HUMAN-ACTIONS.md status is unknown and it is skipped from pendingHaPrs`);
+      continue;
+    }
     if (!files.some((file) => file.filename === 'HUMAN-ACTIONS.md' && file.status !== 'removed')) continue;
     if (!/^[a-f0-9]{40}$/i.test(pr.head?.sha || '')) throw new Error('dispatch chase: invalid pending head');
     let response;
@@ -115,7 +132,7 @@ export async function fetchDispatchChaseState(repo = REPO, {
     reportedHeld.push(...readHeldMarkers(page.body));
   }
   const [fullIssues, fullPRs] = await Promise.all([enrich(issues, false), enrich(prs, true)]);
-  return { issues: fullIssues, prs: fullPRs, openActions, doneActions, pendingHaPrs, reportedHeld, now };
+  return { issues: fullIssues, prs: fullPRs, openActions, doneActions, pendingHaPrs, skippedHaPrs, reportedHeld, now };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
