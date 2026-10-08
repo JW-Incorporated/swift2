@@ -15,6 +15,7 @@
 import { execFileSync } from 'node:child_process';
 import { runMain } from '../lib/cli.mjs';
 import { STALE_DRAFT_HOURS, listOpenDraftPrs, readDraftPr, readPrQueueItems, staleReason } from './lib/draft-prs.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 export const MAX_RETIRED_PER_RUN = 12;
 export const RETIRED_PREFIX = 'retired:';
@@ -61,6 +62,6 @@ async function main() {
   return 0;
 }
 
-if (process.argv[1]?.endsWith('retire-stale-drafts.mjs') || import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1]?.endsWith('retire-stale-drafts.mjs') || isMain(import.meta.url, process.argv[1])) {
   runMain(main, { name: 'retire-stale-drafts' });
 }

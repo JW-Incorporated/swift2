@@ -80,7 +80,7 @@
     "social:select-photo": "node scripts/social/select-photo.mjs",
     "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
     "social:photo-coverage": "node scripts/social/photo-coverage.mjs",
-    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --cookies-from-browser chrome --output .artifacts/video-frames-candidates.json"
+    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
