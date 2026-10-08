@@ -559,6 +559,16 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `scripts/social/approval-prompt.mjs` | Bots v2 W2: builds + sends the Discord approval prompt — ONE message per post (IG+X pair or lone item), ≤ `DISCORD_MESSAGE_HARD_CAP` (2,000), never chunked; one image embed, `flags: 4` when none |
 | `scripts/social/lib/approval-post.mjs` | Bots v2 W2: `groupPosts` (campaign → post) + `buildPostMessage` (label, schedule, X in full, IG trimmed + link, why, ref LAST; truncate-to-fit, X cut last). Replaced `ref-line-chunk.mjs` (deleted — nothing chunks any more) |
 | `scripts/social/lib/approval-text.mjs` | Bots v2 W2: the ref-line-injection-hardened text helpers (`sanitizeInlineField`, `neutralizeRefLikeLines`, …) moved verbatim out of approval-prompt.mjs, plus `clip`/`angleUrl` and the 2,000-char constant |
+| `scripts/social/source-video-frames.mjs` | Official-video stills for the photo library (founder decision 2026-10-07, `docs/decisions.md`): Mode A yt-dlp + ffmpeg scene frames, Mode B static ytimg `maxres1-3` stills; emits importer-shaped candidates, resumable via `social/video-frames-ledger.json`, non-fatal step in `concert-photo-sourcing.yml`. `npm run photos:frames:local -- --videos N` is the PC runner (Mode A with browser cookies; then `import-photo-library.mjs --input .artifacts/video-frames-candidates.json --fetch --write`). `--probe` measures Mode B yield with no writes |
+| `scripts/social/lib/official-videos.mjs` | Picks Taylor's own-channel official videos from `supabase/seed/videos/**` + the processed-video ledger helpers |
+| `scripts/social/lib/frame-quality.mjs` | Frame gates (near-black/white, flat, blurry, letterboxed, <1280px) + dHash dedupe, via sharp |
+| `scripts/social/lib/frame-text.mjs` | Title/end-card heuristic: flat background + a line of glyph-sized connected components |
+| `scripts/social/lib/frame-logo.mjs` | Persistent-corner (burned-in logo) check across one video's frames; drops the whole video |
+| `scripts/social/lib/frame-path.mjs` | Confines the importer's `file://` sourceUrl to `.artifacts/video-scratch/frames` (.jpg, symlink-safe) |
+| `scripts/social/lib/video-frames-modea.mjs` | Mode A: yt-dlp/ffmpeg runners (injectable exec), `ModeAUnavailable` on bot-check/403/429 |
+| `scripts/social/lib/normalize-photo.mjs` | Importer-wide normalization: 2048px long-edge cap, no upscale, JPEG q85, metadata stripped |
+| `scripts/social/lib/frame-fixtures.ts` | Test-only synthetic image builders (no network/video in tests) |
+| `social/video-frames-ledger.json` | Processed official-video ids (resume state for `source-video-frames.mjs`); written by the workflow's PR |
 | `scripts/social/lib/reject-confirm.mjs` | Bots v2 W2: after a reply-rejection the poll adds ❌ to the post via the bot token; on 403 falls back to one short webhook message (`rejected: <id>` trailer) and warns that "Add Reactions" is needed |
 | `docs/social/pipeline.md` | Wave 3 T1: posting-pipeline mechanics + incident history moved verbatim out of `docs/agents/growth.md` so the merged Tree charter stays readable; linked once from `docs/agents/tree.md` |
 | `social/inbox/`, `social/inbox/closed/` | Wave 3 T1 (T6 slice pulled forward): fact-sheet intents from the merch/appearance side doors — no caption, no queue write; `closed/` holds declined/expired intents |

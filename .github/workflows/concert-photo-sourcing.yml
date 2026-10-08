@@ -133,6 +133,34 @@ jobs:
             console.log('Merged Wikimedia candidates:', deduped.length);
           "
 
+      # Official-video stills (founder decision 2026-10-07 "frames yes",
+      # docs/decisions.md). NON-FATAL: Mode A (yt-dlp + ffmpeg scene frames) is
+      # tried within a hard time budget and abandoned on the first YouTube
+      # bot-check/403; everything then falls back to Mode B (static ytimg
+      # stills, no video download). Any failure here leaves no candidates file
+      # and the merge step simply sees none. Progress is a committed ledger
+      # (social/video-frames-ledger.json) so runs resume where the last stopped.
+      - name: Source stills from official videos (non-fatal)
+        if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
+        timeout-minutes: 20
+        # No `env:` on purpose: this step needs no secrets or variables (the script only
+        # reads public YouTube stills and runs yt-dlp/ffmpeg), and steps do not inherit the
+        # PAT used by the PR step below. yt-dlp is PINNED (latest PyPI release when this was
+        # written, 2026-10-07) — bump deliberately; YouTube breaks old extractors, which
+        # just means Mode A fails and Mode B carries the run.
+        run: |
+          MODE=auto
+          if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null && ffmpeg -version | head -1 && pipx install 'yt-dlp==2026.8.19' && yt-dlp --version; then
+            echo "Mode A tools ready"
+          else
+            echo "::warning::ffmpeg/ffprobe/yt-dlp not all available — Mode B stills only"
+            MODE=b
+          fi
+          node scripts/social/source-video-frames.mjs \
+            --output .artifacts/concert-photo-candidates-video-frames.json \
+            --videos 8 --max-candidates 60 --budget-minutes 15 --mode "$MODE"
+
       # Non-fatal by design: the script turns a missing key, GNews quota
       # exhaustion or any API/network failure into a ::warning:: and []
       # (exit 0); a real bug in the script still fails the step.
@@ -174,15 +202,20 @@ jobs:
             const wikimedia = read('.artifacts/concert-photo-candidates-wikimedia.json');
             const press = read('.artifacts/concert-photo-candidates-press.json');
             const openverse = read('.artifacts/concert-photo-candidates-openverse.json');
+            const frames = read('.artifacts/concert-photo-candidates-video-frames.json');
             // Only candidates not already in the library count toward the cap,
             // so already-imported photos never starve new ones and the PR
             // stays reviewable. Round-robin across sources so Wikimedia's
             // thousands of candidates cannot crowd the others out of the cap.
             const MAX_NEW = 300;
             const known = new Set(JSON.parse(fs.readFileSync('social/photo-library.json', 'utf8')).photos.map(p => p.id));
-            const merged = mergeCandidates([press, openverse, reddit, wikimedia], { known, max: MAX_NEW });
+            // Frames are taken first and uncapped by the round-robin: their videos are already
+            // in the ledger, so a frame cut here would never be retried (the step caps them at ~60).
+            const framesNew = mergeCandidates([frames], { known, max: Infinity });
+            const rest = mergeCandidates([press, openverse, reddit, wikimedia], { known, max: MAX_NEW - framesNew.length });
+            const merged = [...framesNew, ...rest];
             fs.writeFileSync('.artifacts/concert-photo-candidates.json', JSON.stringify(merged, null, 2) + '\n');
-            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(reddit:', reddit.length + ', wikimedia:', wikimedia.length + ', press:', press.length + ', openverse:', openverse.length + ')');
+            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(video frames:', framesNew.length + ', reddit:', reddit.length + ', wikimedia:', wikimedia.length + ', press:', press.length + ', openverse:', openverse.length + ')');
           "
 
       # Library photos are Git LFS objects (docs/decisions.md 2026-10-07): the
@@ -214,13 +247,15 @@ jobs:
         with:
           add-paths: |
             social/photo-library.json
+            social/video-frames-ledger.json
             apps/web/public/social/library/photos/**
           branch: social/concert-photo-sourcing
           commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
           title: 'social: import sourced concert photos'
           body: |
             Automated concert-photo-sourcing run. Sourced from Wikimedia
-            Commons, Openverse, Taylor Swift news coverage (GNews) and, when a
+            Commons, Openverse, stills from Taylor's own official-channel videos
+            (founder decision 2026-10-07 "frames yes"), Taylor Swift news coverage (GNews) and, when a
             relay is set, public concert-photo subreddits (kanban t_a66e5eb2;
             docs/decisions.md 2026-09-22 and 2026-10-07 — no credit/permission
             gate on ingestion). Never touches the live posting pipeline.

@@ -99,6 +99,7 @@ describe('fetchCandidates budget', () => {
       write: false,
       photosDir,
       seenHashes: new Map(),
+      normalizeImpl: async (b: Buffer) => b,
       fetchImpl: fetchImpl as never,
       budgetMs: 60_000,
       warn: () => {},

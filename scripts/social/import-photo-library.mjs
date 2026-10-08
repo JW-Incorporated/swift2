@@ -22,6 +22,8 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveFrameFile } from './lib/frame-path.mjs';
+import { describePhoto, normalizePhoto } from './lib/normalize-photo.mjs';
 import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { dHash, findNearDuplicate } from './lib/perceptual-hash.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
@@ -30,6 +32,7 @@ import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
+export const FRAMES_SCRATCH_DIR = path.join(ROOT, '.artifacts', 'video-scratch', 'frames');
 
 /**
  * Resolves a candidate's `mediaPath` to an absolute path under `photosDir`,
@@ -62,7 +65,7 @@ export const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
  */
 export async function fetchCandidates(
   candidates,
-  { write, photosDir, seenHashes, fetchImpl = fetch, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn },
+  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn },
 ) {
   const seenPerceptual = [];
   const skippedDuplicates = [];
@@ -74,22 +77,33 @@ export async function fetchCandidates(
   const polite = createPoliteFetcher({ fetchImpl, sleepImpl, nowImpl, budgetMs, warn });
   for (const candidate of candidates) {
     const id = candidate?.id ?? '(unknown)';
-    if (polite.budgetSpent()) {
+    // Local frames never touch the network, so the download budget must not defer them
+    // (their videos are already in the ledger and would never be retried).
+    const isLocal = typeof candidate?.sourceUrl === 'string' && /^file:/i.test(candidate.sourceUrl);
+    if (!isLocal && polite.budgetSpent()) {
       deferred.push(id);
       continue;
     }
     try {
-      if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
-        throw new Error('--fetch requires a candidate "sourceUrl" http(s) URL to download from.');
+      if (typeof candidate.sourceUrl !== 'string' || !/^(https?|file):\/\//i.test(candidate.sourceUrl)) {
+        throw new Error('--fetch requires a candidate "sourceUrl" http(s) (or local file://) URL to download from.');
       }
-      const res = await polite.fetch(candidate.sourceUrl);
-      if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
-      const buf = Buffer.from(await res.arrayBuffer());
-      if (buf.byteLength > MAX_PHOTO_BYTES) {
+      let raw;
+      if (isLocal) {
+        // Locally extracted video frames (source-video-frames.mjs Mode A): no network, no pacing, no budget.
+        raw = await readFile(await resolveFrameFile(candidate.sourceUrl, framesDir));
+      } else {
+        const res = await polite.fetch(candidate.sourceUrl);
+        if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
+        raw = Buffer.from(await res.arrayBuffer());
+      }
+      if (raw.byteLength > MAX_PHOTO_BYTES) {
         throw new Error(
-          `fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
+          `fetched image is ${(raw.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
         );
       }
+      // Normalize BEFORE hashing: the library's existing hashes are of stored (normalized) bytes.
+      const buf = await normalizeImpl(raw, candidate.mediaPath);
       if (candidate.minLongEdge !== undefined) {
         const meta = imageMeta(buf);
         const longEdge = Math.max(meta?.width ?? 0, meta?.height ?? 0);
@@ -114,6 +128,7 @@ export async function fetchCandidates(
       await mkdir(path.dirname(destPath), { recursive: true });
       if (write) await writeFile(destPath, buf);
       seenHashes.set(hash, candidate.id);
+      Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
       if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
     } catch (err) {
       if (err instanceof BudgetExhaustedError) deferred.push(id);
