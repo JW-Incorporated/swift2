@@ -41,6 +41,7 @@
     "tokens:generate": "node scripts/generate-design-tokens.mjs",
     "merch:coverage": "tsx scripts/merch-engine/affiliate-coverage.mjs",
     "check:affiliate-coverage": "node scripts/check-affiliate-coverage-in-sync.mjs",
+    "check:human-actions": "node scripts/human-actions/check.mjs",
     "check:automerge-allowlist": "node scripts/check-automerge-allowlist.mjs",
     "check:launch-gates": "node --use-env-proxy scripts/check-launch-gates.mjs",
     "check:content-safety-nightly": "node scripts/content-engine/run.mjs all --no-images",
@@ -78,7 +79,8 @@
     "social:seed-library": "tsx scripts/social/seed-library.mjs",
     "social:select-photo": "node scripts/social/select-photo.mjs",
     "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
-    "social:photo-coverage": "node scripts/social/photo-coverage.mjs"
+    "social:photo-coverage": "node scripts/social/photo-coverage.mjs",
+    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

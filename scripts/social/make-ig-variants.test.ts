@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -66,5 +67,25 @@ describe('make-ig-variants', () => {
     expect(made).toMatchObject([{ id: 'tall-ig45', wroteFile: false, addedEntry: true }]);
     const ids = JSON.parse(await readFile(inventoryPath(), 'utf8')).photos.map((p: { id: string }) => p.id);
     expect(ids.filter((id: string) => id.startsWith('tall'))).toEqual(['tall', 'tall-ig45']);
+  });
+});
+
+describe('make-ig-variants — recorded file facts (LFS-safe)', () => {
+  it('records width/height/bytes/sha256 for the variant, never the original\'s', async () => {
+    const lib = JSON.parse(await readFile(inventoryPath(), 'utf8'));
+    lib.photos[0] = { ...lib.photos[0], width: 500, height: 1400, bytes: 1, sha256: 'a'.repeat(64) };
+    await writeFile(inventoryPath(), `${JSON.stringify(lib, null, 2)}\n`);
+    await makeIgVariants({ root, write: true });
+    const { photos } = JSON.parse(await readFile(inventoryPath(), 'utf8'));
+    const variant = photos.find((p: { id: string }) => p.id === 'tall-ig45');
+    const file = await readFile(path.join(photosDir(), 'tall-ig45.jpg'));
+    expect(variant).toMatchObject({ width: 1080, height: 1350, bytes: file.byteLength, sha256: createHash('sha256').update(file).digest('hex') });
+  });
+
+  it('skips a Git LFS pointer source instead of treating it as an image', async () => {
+    await writeFile(path.join(photosDir(), 'tall.jpg'), 'version https://git-lfs.github.com/spec/v1\noid sha256:' + 'b'.repeat(64) + '\nsize 9\n');
+    const { made, skipped } = await makeIgVariants({ root });
+    expect(made.map((m) => m.id)).toEqual(['wide-ig191']);
+    expect(skipped).toContainEqual({ id: 'tall', reason: 'Git LFS pointer, not an image' });
   });
 });

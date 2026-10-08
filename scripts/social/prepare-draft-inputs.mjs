@@ -24,6 +24,7 @@ import { fromRestIssue, isTrustedAuthor } from './lib/event-dispatch.mjs';
 import { readIntents } from './lib/inbox.mjs';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DAY_MS = 86_400_000;
@@ -91,6 +92,6 @@ async function main() {
   return 0;
 }
 
-if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('prepare-draft-inputs.mjs')) {
+if (isMain(import.meta.url, process.argv[1]) || process.argv[1]?.endsWith('prepare-draft-inputs.mjs')) {
   runMain(main, { name: 'prepare-draft-inputs' });
 }

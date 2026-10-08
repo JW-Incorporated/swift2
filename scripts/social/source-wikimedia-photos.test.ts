@@ -7,8 +7,10 @@ import {
   buildCandidate,
   searchCommons,
   fetchImageInfo,
+  chunkTitles,
   sourceWikimediaQuery,
   dedupeById,
+  DEFAULT_QUERIES,
   ERA_KEYWORD_HINTS,
 } from './source-wikimedia-photos.mjs';
 
@@ -75,6 +77,9 @@ function makePage(overrides = {}) {
       {
         url: 'https://upload.wikimedia.org/wikipedia/commons/x/y/example.jpg',
         descriptionurl: 'https://commons.wikimedia.org/wiki/File:example.jpg',
+        mime: 'image/jpeg',
+        width: 3000,
+        height: 2000,
         extmetadata: {
           License: { value: 'cc-by-2.0' },
           LicenseShortName: { value: 'CC BY 2.0' },
@@ -88,6 +93,18 @@ function makePage(overrides = {}) {
 }
 
 describe('buildCandidate', () => {
+  it('prefers thumburl over the original url and strips utm_* params', () => {
+    const page = makePage();
+    page.imageinfo[0] = {
+      ...page.imageinfo[0],
+      url: 'https://upload.wikimedia.org/wikipedia/commons/x/y/example.jpg?utm_source=commons.wikimedia.org',
+      thumburl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/x/y/example.jpg/2048px-example.jpg?utm_source=commons&keep=1',
+    };
+    expect(buildCandidate(page).sourceUrl).toBe(
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/x/y/example.jpg/2048px-example.jpg?keep=1',
+    );
+  });
+
   it('builds a candidate matching import-photo-library.mjs --fetch\'s expected shape', () => {
     const candidate = buildCandidate(makePage());
     expect(candidate.id).toBe('wikimedia-999');
@@ -127,6 +144,44 @@ describe('buildCandidate', () => {
   });
 });
 
+describe('buildCandidate photo filters', () => {
+  const withInfo = (info: Record<string, unknown>, extra: Record<string, unknown> = {}) => {
+    const page = makePage(extra);
+    page.imageinfo[0] = { ...page.imageinfo[0], ...info };
+    return page;
+  };
+
+  it('drops djvu, pdf, tiff, svg, gif and video files', () => {
+    for (const mime of ['image/vnd.djvu', 'application/pdf', 'image/tiff', 'image/svg+xml', 'image/gif', 'video/webm']) {
+      expect(buildCandidate(withInfo({ mime }))).toBeNull();
+    }
+  });
+
+  it('keeps jpeg, png and webp', () => {
+    for (const mime of ['image/jpeg', 'image/png', 'image/webp']) {
+      expect(buildCandidate(withInfo({ mime }))).not.toBeNull();
+    }
+  });
+
+  it('drops images under 800px on the long edge but keeps a large portrait', () => {
+    expect(buildCandidate(withInfo({ width: 400, height: 600 }))).toBeNull();
+    expect(buildCandidate(withInfo({ width: 600, height: 1200 }))).not.toBeNull();
+  });
+
+  it('drops off-topic files that never mention Taylor Swift', () => {
+    const page = withInfo({}, { title: 'File:A woman of the century.jpg' });
+    page.imageinfo[0].extmetadata.ImageDescription = { value: 'A book page' };
+    expect(buildCandidate(page)).toBeNull();
+  });
+
+  it('accepts a file whose only Taylor Swift mention is in Categories', () => {
+    const page = withInfo({}, { title: 'File:IMG_0001.jpg' });
+    page.imageinfo[0].extmetadata.ImageDescription = { value: 'Stage lights' };
+    page.imageinfo[0].extmetadata.Categories = { value: 'Concerts|Taylor Swift in 2023' };
+    expect(buildCandidate(page)).not.toBeNull();
+  });
+});
+
 describe('searchCommons', () => {
   it('requests the Commons search API with the expected params and a User-Agent', async () => {
     const fetchImpl = vi.fn().mockResolvedValue({
@@ -162,6 +217,56 @@ describe('fetchImageInfo', () => {
     const pages = await fetchImageInfo(['File:a.jpg'], { fetchImpl });
     expect(pages).toHaveLength(1);
     expect(pages[0].pageid).toBe(999);
+    const sent = new URLSearchParams(String((fetchImpl.mock.calls[0][1] as { body: string }).body));
+    expect(sent.get('iiurlwidth')).toBe('2048');
+  });
+
+  const okPages = (titles: string[]) => ({
+    ok: true,
+    json: async () => ({
+      query: { pages: Object.fromEntries(titles.map((t, i) => [String(i), makePage({ pageid: i + 1, title: t })])) },
+    }),
+  });
+  const bodyTitles = (call: unknown[]) =>
+    String(new URLSearchParams(String((call[1] as { body: string }).body)).get('titles')).split('|');
+
+  it('posts 120 titles as 3 serial chunks of at most 50', async () => {
+    const titles = Array.from({ length: 120 }, (_, i) => `File:t${i}.jpg`);
+    const fetchImpl = vi.fn().mockImplementation(async (_u: string, init: { body: string }) =>
+      okPages(new URLSearchParams(init.body).get('titles')!.split('|')),
+    );
+    const pages = await fetchImageInfo(titles, { fetchImpl, sleepImpl: async () => {} });
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+    expect(fetchImpl.mock.calls.map((c) => bodyTitles(c).length)).toEqual([50, 50, 20]);
+    expect(fetchImpl.mock.calls[0][1].method).toBe('POST');
+    expect(pages).toHaveLength(120);
+  });
+
+  it('splits chunks further when titles are long', () => {
+    const long = 'File:' + 'x'.repeat(500) + '.jpg';
+    const chunks = chunkTitles(Array.from({ length: 30 }, () => long));
+    expect(chunks.length).toBeGreaterThan(1);
+    expect(chunks.flat()).toHaveLength(30);
+  });
+
+  it('warns and skips a failed chunk but keeps the others', async () => {
+    const titles = Array.from({ length: 120 }, (_, i) => `File:t${i}.jpg`);
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(okPages(titles.slice(0, 50)))
+      .mockResolvedValueOnce({ ok: false, status: 414, statusText: 'URI Too Long' })
+      .mockResolvedValueOnce(okPages(titles.slice(100)));
+    const warn = vi.fn();
+    const pages = await fetchImageInfo(titles, { fetchImpl, sleepImpl: async () => {}, warn });
+    expect(pages).toHaveLength(70);
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+
+  it('throws when every chunk fails', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: false, status: 500, statusText: 'Server Error' });
+    await expect(
+      fetchImageInfo(['File:a.jpg', 'File:b.jpg'], { fetchImpl, sleepImpl: async () => {}, warn: () => {} }),
+    ).rejects.toThrow(/500/);
   });
 });
 
@@ -196,6 +301,63 @@ describe('sourceWikimediaQuery', () => {
     const fetchImpl = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ query: { search: [] } }) });
     expect(await sourceWikimediaQuery('nothing', { fetchImpl })).toEqual([]);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('sourceWikimediaQuery paging', () => {
+  it('pages 50 at a time up to the limit, serially, sleeping between requests', async () => {
+    const titles = (from: number, n: number) => Array.from({ length: n }, (_, i) => ({ title: `File:p${from + i}.jpg` }));
+    const pages = (from: number, n: number) =>
+      Object.fromEntries(Array.from({ length: n }, (_, i) => [String(from + i), makePage({ pageid: from + i, title: `File:p${from + i}.jpg` })]));
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: titles(1, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: pages(1, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: titles(51, 50) } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: pages(51, 50) } }) });
+    const sleepImpl = vi.fn().mockResolvedValue(undefined);
+    const out = await sourceWikimediaQuery('Taylor Swift concert', { limit: 100, fetchImpl, sleepImpl, delayMs: 1 });
+    expect(out).toHaveLength(100);
+    expect(fetchImpl).toHaveBeenCalledTimes(4);
+    expect(String(fetchImpl.mock.calls[2][0])).toContain('sroffset=50');
+    expect(sleepImpl).toHaveBeenCalled();
+  });
+
+  it('stops after a short page rather than requesting past the end', async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { search: [{ title: 'File:a.jpg' }] } }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ query: { pages: { '1': makePage() } } }) });
+    const out = await sourceWikimediaQuery('x', { limit: 100, fetchImpl, sleepImpl: async () => {} });
+    expect(out).toHaveLength(1);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('DEFAULT_QUERIES', () => {
+  it('is unique and covers eras, past tours, general concert/live and Eras Tour cities', () => {
+    expect(new Set(DEFAULT_QUERIES).size).toBe(DEFAULT_QUERIES.length);
+    expect(DEFAULT_QUERIES.length).toBeGreaterThanOrEqual(50);
+    for (const q of [
+      'Taylor Swift Eras Tour reputation',
+      'Taylor Swift concert',
+      'Taylor Swift live',
+      'Taylor Swift Reputation Stadium Tour',
+      'Taylor Swift 1989 World Tour',
+      'Taylor Swift Red Tour',
+      'Taylor Swift Speak Now World Tour',
+      'Taylor Swift Fearless Tour',
+      'The Eras Tour London',
+    ]) {
+      expect(DEFAULT_QUERIES).toContain(q);
+    }
+    expect(DEFAULT_QUERIES.every((q) => !q.includes(','))).toBe(true);
+  });
+
+  it('tags past-tour names with the right era', () => {
+    expect(guessEraTag('Taylor Swift Red Tour 2013')).toBe('red');
+    expect(guessEraTag('Taylor Swift 1989 World Tour')).toBe('1989');
+    expect(guessEraTag('Lover Fest')).toBe('lover');
   });
 });
 

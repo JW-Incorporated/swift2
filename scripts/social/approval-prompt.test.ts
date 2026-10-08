@@ -116,8 +116,8 @@ describe('buildApprovalPrompt — one message per post (Bots v2 C3)', () => {
 
   it('exactly ONE deliberate image: an explicit embed of the first image, via the poster\'s own host helper — and flags stay unset so the embed shows', () => {
     const [pair, lone] = build([MOOD_IG, MOOD_X, JOE_X]);
-    expect(pair.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg' } }]);
-    expect(lone.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg' } }]);
+    expect(pair.embeds).toEqual([{ image: { url: 'https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg' } }]);
+    expect(lone.embeds).toEqual([{ image: { url: 'https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg' } }]);
     expect(pair.flags).toBeUndefined();
     expect(pair.content).not.toContain('longlivets.com/social/library'); // the image URL is never printed (no unfurl, no clutter)
     expect(pair.content).toContain('different images'); // #4544's halves used different photos — say so instead of hiding it

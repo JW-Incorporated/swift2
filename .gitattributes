@@ -22,3 +22,6 @@
 # .mjs fix above; pin explicitly rather than rely on autocrlf leaving it
 # alone by chance.
 *.sh text eol=lf
+
+# Social photo library binaries live in Git LFS (docs/decisions.md 2026-10-07)
+apps/web/public/social/library/photos/** filter=lfs diff=lfs merge=lfs -text

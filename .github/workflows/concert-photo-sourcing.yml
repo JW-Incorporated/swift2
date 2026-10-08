@@ -5,6 +5,10 @@
 # randomized 1-11s delay per relay request — see that script's header),
 # never retry-storms a 429.
 #
+# Reddit is OPTIONAL (2026-10-06): GitHub's IPs get 403 from Reddit, so
+# without HOME_RELAY_URL the Reddit step warns and writes [] (exit 0); the
+# Wikimedia source carries the run. See docs/decisions.md 2026-10-06.
+#
 # Pipeline: source-reddit-photos.mjs + source-wikimedia-photos.mjs (added
 # 2026-09-29, founder directive: photo library was starved per-era — 8 of
 # Taylor's 12 eras had exactly 1 photo, forcing every themed post for those
@@ -14,6 +18,17 @@
 # import-photo-library.mjs --fetch --write lands them in the library (no new
 # ingestion path) -> photo-coverage.mjs reports the resulting spread as a
 # workflow log line for founders to skim.
+#
+# 2026-10-07 (founder goal: 10,000+ photos): two more sources feed the same
+# merge — source-press-photos.mjs (lead images of Taylor Swift news coverage via
+# GNews; 4 requests/run against the 100/day free tier the news-worker shares,
+# see that script's header) and source-openverse-photos.mjs (CC by / by-sa /
+# cc0 / pdm photographs, no key). Both are non-fatal on API/quota errors.
+# Candidates merge round-robin up to MAX_NEW=300 a run; the importer enforces
+# the real pixel minimum and drops near-duplicate wire photos. The run is now
+# dispatched ~daily by scripts/ops/clock-table.json (minGapMinutes 1380); the
+# twice-weekly cron below stays as a backup. Rights basis: docs/social/
+# guardrails.md Guardrail 2 + docs/decisions.md 2026-10-07.
 #
 # CONCERT_PHOTO_SOURCING_ENABLED defaults to unset/false, checked first,
 # before any network call — same posture as COMMUNITY_CRAWL_ENABLED.
@@ -34,6 +49,7 @@ on:
         type: string
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -44,7 +60,7 @@ concurrency:
 jobs:
   source:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       # Kill-switch check FIRST, before checkout/install/any network call —
       # same posture as community-crawl.yml's own gate.
@@ -85,13 +101,19 @@ jobs:
       - name: Source candidate photos from Wikimedia Commons
         if: steps.enabled.outputs.enabled == 'true'
         env:
-          WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries || 'Taylor Swift Eras Tour debut,Taylor Swift Eras Tour fearless,Taylor Swift Eras Tour speak now,Taylor Swift Eras Tour red,Taylor Swift Eras Tour 1989,Taylor Swift Eras Tour reputation,Taylor Swift Eras Tour lover,Taylor Swift Eras Tour folklore,Taylor Swift Eras Tour evermore,Taylor Swift Eras Tour midnights,Taylor Swift Eras Tour tortured poets' }}
+          WIKIMEDIA_QUERIES: ${{ inputs.wikimedia_queries }}
         run: |
           # One query per era/tour-name (default set) so every era gets a
           # deliberate search rather than one generic query that only ever
           # surfaces the most-photographed eras (see PR description — this
           # is exactly the per-era starvation this workflow exists to fix).
-          IFS=',' read -ra QUERIES <<< "$WIKIMEDIA_QUERIES"
+          # Default query set lives in scripts/social/lib/wikimedia-queries.mjs
+          # (eras, past tours, general concert/live, Eras Tour cities).
+          if [ -n "${WIKIMEDIA_QUERIES:-}" ]; then
+            IFS=',' read -ra QUERIES <<< "$WIKIMEDIA_QUERIES"
+          else
+            mapfile -t QUERIES < <(node scripts/social/source-wikimedia-photos.mjs --list-default-queries)
+          fi
           mkdir -p .artifacts/wikimedia
           i=0
           for q in "${QUERIES[@]}"; do
@@ -99,7 +121,7 @@ jobs:
             node scripts/social/source-wikimedia-photos.mjs \
               --output ".artifacts/wikimedia/candidates-$i.json" \
               --query "$q" \
-              --limit 30
+              --limit 100
           done
           node -e "
             const fs = require('node:fs');
@@ -111,18 +133,101 @@ jobs:
             console.log('Merged Wikimedia candidates:', deduped.length);
           "
 
+      # Official-video stills (founder decision 2026-10-07 "frames yes",
+      # docs/decisions.md). NON-FATAL: Mode A (yt-dlp + ffmpeg scene frames) is
+      # tried within a hard time budget and abandoned on the first YouTube
+      # bot-check/403; everything then falls back to Mode B (static ytimg
+      # stills, no video download). Any failure here leaves no candidates file
+      # and the merge step simply sees none. Progress is a committed ledger
+      # (social/video-frames-ledger.json) so runs resume where the last stopped.
+      - name: Source stills from official videos (non-fatal)
+        if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
+        timeout-minutes: 20
+        # No `env:` on purpose: this step needs no secrets or variables (the script only
+        # reads public YouTube stills and runs yt-dlp/ffmpeg), and steps do not inherit the
+        # PAT used by the PR step below. yt-dlp is PINNED (latest PyPI release when this was
+        # written, 2026-10-07) — bump deliberately; YouTube breaks old extractors, which
+        # just means Mode A fails and Mode B carries the run.
+        run: |
+          MODE=auto
+          if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null && ffmpeg -version | head -1 && pipx install 'yt-dlp==2026.8.19' && yt-dlp --version; then
+            echo "Mode A tools ready"
+          else
+            echo "::warning::ffmpeg/ffprobe/yt-dlp not all available — Mode B stills only"
+            MODE=b
+          fi
+          node scripts/social/source-video-frames.mjs \
+            --output .artifacts/concert-photo-candidates-video-frames.json \
+            --videos 8 --max-candidates 60 --budget-minutes 15 --mode "$MODE"
+
+      # Non-fatal by design: the script turns a missing key, GNews quota
+      # exhaustion or any API/network failure into a ::warning:: and []
+      # (exit 0); a real bug in the script still fails the step.
+      - name: Source candidate photos from Taylor Swift news coverage (GNews)
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Once-a-day guard on the shared GNews quota. The clock dispatches
+          # via workflow_dispatch, so the event type can't tell a manual run
+          # from a scheduled one: skip when a run of this workflow already
+          # succeeded today (UTC). The run in progress is not yet 'success'.
+          today=$(date -u +%F)
+          prior=$(gh run list --workflow concert-photo-sourcing.yml --status success --created ">=$today" --json databaseId --jq length)
+          if [ "${prior:-0}" -gt 0 ]; then
+            echo "Press sourcing already ran in a successful run today ($today); skipping to protect the shared GNews quota."
+            exit 0
+          fi
+          node scripts/social/source-press-photos.mjs \
+            --output .artifacts/concert-photo-candidates-press.json
+
+      - name: Source candidate photos from Openverse
+        if: steps.enabled.outputs.enabled == 'true'
+        run: |
+          node scripts/social/source-openverse-photos.mjs \
+            --output .artifacts/concert-photo-candidates-openverse.json \
+            --exclude .artifacts/concert-photo-candidates-wikimedia.json
+
       - name: Merge and dedupe candidates from all sources
         if: steps.enabled.outputs.enabled == 'true'
         run: |
-          node -e "
-            const fs = require('node:fs');
-            const reddit = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-reddit.json', 'utf8'));
-            const wikimedia = JSON.parse(fs.readFileSync('.artifacts/concert-photo-candidates-wikimedia.json', 'utf8'));
-            const seen = new Set();
-            const merged = [...reddit, ...wikimedia].filter(c => (seen.has(c.id) ? false : (seen.add(c.id), true)));
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            import { mergeCandidates } from './scripts/social/lib/photo-source-common.mjs';
+            const read = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : []);
+            const reddit = read('.artifacts/concert-photo-candidates-reddit.json');
+            const wikimedia = read('.artifacts/concert-photo-candidates-wikimedia.json');
+            const press = read('.artifacts/concert-photo-candidates-press.json');
+            const openverse = read('.artifacts/concert-photo-candidates-openverse.json');
+            const frames = read('.artifacts/concert-photo-candidates-video-frames.json');
+            // Only candidates not already in the library count toward the cap,
+            // so already-imported photos never starve new ones and the PR
+            // stays reviewable. Round-robin across sources so Wikimedia's
+            // thousands of candidates cannot crowd the others out of the cap.
+            const MAX_NEW = 300;
+            const known = new Set(JSON.parse(fs.readFileSync('social/photo-library.json', 'utf8')).photos.map(p => p.id));
+            // Frames are taken first and uncapped by the round-robin: their videos are already
+            // in the ledger, so a frame cut here would never be retried (the step caps them at ~60).
+            const framesNew = mergeCandidates([frames], { known, max: Infinity });
+            const rest = mergeCandidates([press, openverse, reddit, wikimedia], { known, max: MAX_NEW - framesNew.length });
+            const merged = [...framesNew, ...rest];
             fs.writeFileSync('.artifacts/concert-photo-candidates.json', JSON.stringify(merged, null, 2) + '\n');
-            console.log('Total merged candidates:', merged.length, '(reddit:', reddit.length, ', wikimedia:', wikimedia.length, ')');
+            console.log('New candidates (capped at', MAX_NEW + '):', merged.length, '(video frames:', framesNew.length + ', reddit:', reddit.length + ', wikimedia:', wikimedia.length + ', press:', press.length + ', openverse:', openverse.length + ')');
           "
+
+      # Library photos are Git LFS objects (docs/decisions.md 2026-10-07): the
+      # LFS clean filter must be active before create-pull-request stages them
+      # (git-CLI mode, no sign-commits — API commits would bypass LFS).
+      - name: Enable Git LFS filters
+        if: steps.enabled.outputs.enabled == 'true'
+        run: |
+          git lfs version
+          git lfs install --local
+          git config lfs.locksverify false
+          git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
 
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'
@@ -136,18 +241,41 @@ jobs:
         run: node scripts/social/photo-coverage.mjs
 
       - name: Open gated photo-library update
+        id: open-pr
         if: steps.enabled.outputs.enabled == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           add-paths: |
             social/photo-library.json
+            social/video-frames-ledger.json
             apps/web/public/social/library/photos/**
           branch: social/concert-photo-sourcing
           commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
           title: 'social: import sourced concert photos'
           body: |
-            Automated concert-photo-sourcing run. Sourced from public
-            concert-photo subreddits per kanban t_a66e5eb2 (founder decision
-            D1=B, docs/decisions.md 2026-09-22 — no credit/permission gate on
-            ingestion). Never touches the live posting pipeline.
+            Automated concert-photo-sourcing run. Sourced from Wikimedia
+            Commons, Openverse, stills from Taylor's own official-channel videos
+            (founder decision 2026-10-07 "frames yes"), Taylor Swift news coverage (GNews) and, when a
+            relay is set, public concert-photo subreddits (kanban t_a66e5eb2;
+            docs/decisions.md 2026-09-22 and 2026-10-07 — no credit/permission
+            gate on ingestion). Never touches the live posting pipeline.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      # Correctness gate: every photo this run added must be an LFS pointer on
+      # the PR branch. A raw blob here means the LFS filter was bypassed.
+      - name: Assert new photos are Git LFS pointers
+        if: steps.enabled.outputs.enabled == 'true' && steps.open-pr.outputs.pull-request-head-sha != ''
+        env:
+          PR_BRANCH: social/concert-photo-sourcing
+        run: |
+          set -euo pipefail
+          git fetch origin main "$PR_BRANCH"
+          git diff --name-only --diff-filter=A origin/main FETCH_HEAD -- apps/web/public/social/library/photos > "$RUNNER_TEMP/new-photos.txt"
+          git lfs ls-files FETCH_HEAD --name-only > "$RUNNER_TEMP/lfs-files.txt"
+          missing=$(grep -vxFf "$RUNNER_TEMP/lfs-files.txt" "$RUNNER_TEMP/new-photos.txt" || true)
+          if [ -n "$missing" ]; then
+            echo "::error::New library photos are not Git LFS pointers:"
+            echo "$missing"
+            exit 1
+          fi
+          echo "All $(wc -l < "$RUNNER_TEMP/new-photos.txt") new photo(s) are LFS pointers."

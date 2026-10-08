@@ -1,6 +1,6 @@
 {
   "source": "E0 Awin Publisher API cross-reference",
-  "generatedAt": "2026-10-06T19:18:25.713Z",
+  "generatedAt": "2026-10-08T02:53:00.251Z",
   "advertisers": [
     {
       "retailer": "agolde.com",
@@ -20,11 +20,6 @@
     {
       "retailer": "jenniferbehr.com",
       "awinmid": "62941",
-      "joined": false
-    },
-    {
-      "retailer": "markarian-nyc.com",
-      "awinmid": "70482",
       "joined": false
     },
     {

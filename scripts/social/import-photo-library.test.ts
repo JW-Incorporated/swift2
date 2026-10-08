@@ -1,6 +1,11 @@
+import { mkdir, mkdtemp, readdir, readFile, writeFile } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
-import { resolvePhotoDestPath } from './import-photo-library.mjs';
+import { pathToFileURL } from 'node:url';
+import sharp from 'sharp';
+import { describe, expect, it, vi } from 'vitest';
+import { blocky } from './lib/frame-fixtures';
+import { assertNotAllFailed, fetchCandidates, resolvePhotoDestPath } from './import-photo-library.mjs';
 
 const PHOTOS_DIR = '/repo/apps/web/public/social/library/photos';
 
@@ -29,5 +34,120 @@ describe('resolvePhotoDestPath', () => {
   it('allows a nested subdirectory that stays within the photos directory', () => {
     const result = resolvePhotoDestPath('/social/library/photos/2026/taylor-red-2026.jpg', PHOTOS_DIR);
     expect(result).toBe(path.join(PHOTOS_DIR, '2026', 'taylor-red-2026.jpg'));
+  });
+});
+
+describe('fetchCandidates', () => {
+  const cand = (n: number) => ({
+    id: `wikimedia-${n}`,
+    mediaPath: `/social/library/photos/wikimedia-${n}.jpg`,
+    sourceUrl: `https://upload.wikimedia.org/${n}.jpg`,
+  });
+  const ok = (n: number) => ({ ok: true, arrayBuffer: async () => new TextEncoder().encode(`bytes-${n}`).buffer });
+  const run = async (candidates: ReturnType<typeof cand>[], fetchImpl: (url: string) => Promise<unknown>) => {
+    const photosDir = await mkdtemp(path.join(os.tmpdir(), 'photos-'));
+    const result = await fetchCandidates(candidates, {
+      write: true,
+      photosDir,
+      seenHashes: new Map(),
+      fetchImpl: fetchImpl as never,
+      normalizeImpl: async (buf: Buffer) => buf,
+      sleepImpl: async () => {},
+    });
+    return { result, files: await readdir(photosDir) };
+  };
+
+  it('skips a failing candidate and still imports the others', async () => {
+    const { result, files } = await run([cand(1), cand(2), cand(3)], async (url) =>
+      url.includes('/2.') ? { ok: false, status: 404, statusText: 'Not Found' } : ok(Number(url.slice(-5, -4))),
+    );
+    expect(result.failed.map((f) => f.id)).toEqual(['wikimedia-2']);
+    expect(result.failed[0].reason).toContain('404');
+    expect(files.sort()).toEqual(['wikimedia-1.jpg', 'wikimedia-3.jpg']);
+  });
+
+  it('records every candidate as failed when all fail', async () => {
+    const { result } = await run([cand(1), cand(2)], async () => ({ ok: false, status: 500, statusText: 'x' }));
+    expect(result.failed).toHaveLength(2);
+  });
+
+  it('records a thrown network error and a missing sourceUrl as failures, not crashes', async () => {
+    const { result } = await run([cand(1), { ...cand(2), sourceUrl: undefined as never }], async () => {
+      throw new Error('socket hang up');
+    });
+    expect(result.failed.map((f) => f.reason)).toEqual(['socket hang up', expect.stringContaining('sourceUrl')]);
+  });
+});
+
+describe('fetchCandidates normalization + local frames', () => {
+  it('imports a file:// frame and stores it normalized (long edge <= 2048, EXIF stripped)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'norm-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await sharp(await blocky(3, 3000, 1688)).withExif({ IFD0: { Copyright: 'x' } }).jpeg().toBuffer());
+    const photosDir = path.join(dir, 'photos');
+    const result = await fetchCandidates(
+      [{ id: 'f1', mediaPath: '/social/library/photos/f1.jpg', sourceUrl: pathToFileURL(src).href }],
+      { write: true, photosDir, framesDir: dir, seenHashes: new Map(), fetchImpl: (async () => { throw new Error('no network'); }) as never },
+    );
+    expect(result.failed).toEqual([]);
+    const meta = await sharp(path.join(photosDir, 'f1.jpg')).metadata();
+    expect(meta.width).toBe(2048);
+    expect(meta.exif).toBeUndefined();
+  });
+
+  it('refuses a file:// sourceUrl outside the frames scratch directory (recorded as a failure, nothing written)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'escape-'));
+    const frames = path.join(dir, 'frames');
+    await mkdir(frames);
+    const outside = path.join(dir, 'outside.jpg');
+    await writeFile(outside, await blocky(5));
+    const photosDir = path.join(dir, 'photos');
+    const result = await fetchCandidates(
+      [
+        { id: 'o1', mediaPath: '/social/library/photos/o1.jpg', sourceUrl: pathToFileURL(outside).href },
+        { id: 'o2', mediaPath: '/social/library/photos/o2.jpg', sourceUrl: pathToFileURL(path.join(frames, '..', 'outside.jpg')).href },
+      ],
+      { write: true, photosDir, framesDir: frames, seenHashes: new Map() },
+    );
+    expect(result.failed.map((f) => f.id)).toEqual(['o1', 'o2']);
+    expect(result.failed[0].reason).toMatch(/outside the frames scratch directory/);
+    expect(await readdir(photosDir)).toEqual([]);
+  });
+
+  it('imports local frames even when the download budget is already spent, without touching the network', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'budget-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await blocky(6));
+    const fetchImpl = vi.fn(async () => {
+      throw new Error('no network');
+    });
+    const result = await fetchCandidates(
+      [{ id: 'b1', mediaPath: '/social/library/photos/b1.jpg', sourceUrl: pathToFileURL(src).href }],
+      { write: true, photosDir: path.join(dir, 'photos'), framesDir: dir, seenHashes: new Map(), fetchImpl: fetchImpl as never, budgetMs: 0, warn: () => {} },
+    );
+    expect(result.deferred).toEqual([]);
+    expect(result.failed).toEqual([]);
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(await readdir(path.join(dir, 'photos'))).toEqual(['b1.jpg']);
+  });
+
+  it('records width/height/bytes of the stored file on the candidate (so on the library entry)', async () => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'dims-'));
+    const src = path.join(dir, 'frame.jpg');
+    await writeFile(src, await blocky(4, 3000, 1688));
+    const photosDir = path.join(dir, 'photos');
+    const candidate: Record<string, unknown> = { id: 'f2', mediaPath: '/social/library/photos/f2.jpg', sourceUrl: pathToFileURL(src).href };
+    await fetchCandidates([candidate as never], { write: true, photosDir, framesDir: dir, seenHashes: new Map() });
+    const stored = await sharp(path.join(photosDir, 'f2.jpg')).metadata();
+    expect([candidate.width, candidate.height]).toEqual([stored.width, stored.height]);
+    expect(candidate.bytes).toBe((await readFile(path.join(photosDir, 'f2.jpg'))).byteLength);
+  });
+});
+
+describe('assertNotAllFailed', () => {
+  it('throws only when every candidate failed (and there was at least one)', () => {
+    expect(() => assertNotAllFailed(3, 3)).toThrow(/all 3 candidate/);
+    expect(() => assertNotAllFailed(3, 2)).not.toThrow();
+    expect(() => assertNotAllFailed(0, 0)).not.toThrow();
   });
 });

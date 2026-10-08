@@ -166,6 +166,11 @@ spec; touch secrets/credentials/prod infra; spend money/create accounts/sign up
 for services; delete data or force-push. Anything not on this list is
 reversible by default — make the call and state it in one line.
 
+Exception (founder decision 2026-10-06): agents may set allowlisted non-secret
+switches via `scripts/ops/set-switch.mjs` (logged to `docs/ops/switch-ledger.md`);
+freezes (`SOCIAL_FREEZE`, `CONTENT_AUTOMERGE_FREEZE`) and `CODE_SCANNING_ENABLED` are `true`-only — agents engage them, only Joey lifts a freeze or turns scanning off. An agent may re-enable a founder-paused lane (`*_ENABLED=true`) only with a `--reason`, and it is ledgered. Secrets and
+identity/approval variables stay founder-only.
+
 ## Roles
 
 Planning = PM mode: spec, story, acceptance criteria, task breakdown, no code.
@@ -332,7 +337,9 @@ then work; checkpoint reports in a few lines; PR bodies lead with the TL;DR.
 `.claude/hooks/guard.sh` is the deterministic backstop for Decision
 Authority's "may not" list. Denies: recursive/forced `rm`, force push,
 `git reset --hard`/`clean`/`restore`/`checkout --`, `--no-verify`, real `.env`
-files, `chmod 777`, `gh secret`/`variable` mutation, and any invocation of the
+files, `chmod 777`, `gh secret` mutation, `gh variable delete`, raw `gh
+variable set` (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason
+"..."` — allowlisted non-secret switches only, freezes and code scanning on-only; flag-first CLI forms and REST writes to the Actions variables/secrets API are denied too), and any invocation of the
 social poster's real-send paths (`scripts/social/post-queue.mjs`,
 `delete-media.mjs` — live, no dry-run, issue #2031). It resolves what a
 command actually executes, not text-matches the path, so `cd scripts/social
@@ -348,6 +355,14 @@ unreachable UI click, or a guard-denied action goes in `HUMAN-ACTIONS.md` at
 the project root, the moment you identify it. Full conventions (status
 values, numbering, `SKIP` is final) live in the **`human-actions` skill** —
 invoke it whenever you create or open that file.
+
+**Filing rule (founder decision 2026-10-06).** Only file a human action that
+needs the founder's judgment, identity/login, money, or physical hands. If it
+is reversible and an agent can do it, do it and note it in one line. Every
+entry with a checkable outcome must carry a `<!-- ha verify: ... -->` line
+(`secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`,
+`workflow-green`); when the check passes the entry closes itself — no "reply
+done" needed (`scripts/human-actions/auto-close.mjs`).
 
 ## Every work request lands in one of two funnels — never email (#3146)
 

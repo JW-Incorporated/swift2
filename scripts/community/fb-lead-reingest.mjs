@@ -44,7 +44,7 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { BUCKET } from '../knowledge-fb-upload.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
-import { engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
+import { backfillLeadUrl, engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
 import { extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
 
@@ -110,6 +110,7 @@ async function insertLeads(supabase, leads) {
     const { error } = await supabase.from('engagement_lead').insert(lead);
     // 23505 = the dedupe index already holds this lead (see header).
     if (error?.code === '23505') {
+      await backfillLeadUrl(supabase, lead);
       deduped += 1;
       continue;
     }

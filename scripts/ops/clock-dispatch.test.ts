@@ -69,17 +69,24 @@ describe('clockDispatch', () => {
 
 describe('clock-table.json', () => {
   const root = path.resolve(__dirname, '../..');
-  it('names only real, dispatchable workflows, never a social-* one', () => {
+  it('names only real, dispatchable workflows', () => {
     expect(TABLE.map((e: { workflow: string }) => e.workflow)).toEqual([
       'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
-      'merch-awin-sync.yml',
+      'merch-awin-sync.yml', 'social-approval-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
     ]);
     for (const e of TABLE) {
       const f = path.join(root, '.github/workflows', e.workflow);
       expect(existsSync(f)).toBe(true);
       expect(readFileSync(f, 'utf8')).toMatch(/^ {2}workflow_dispatch:/m);
-      expect(e.workflow).not.toMatch(/social/);
       expect(e.minGapMinutes).toBeGreaterThan(0);
+    }
+  });
+
+  it('serialises the social workflows (cancel-in-progress false) and gives them no dispatch inputs', () => {
+    for (const w of ['social-approval-poll.yml', 'social-poster.yml']) {
+      const src = readFileSync(path.join(root, '.github/workflows', w), 'utf8');
+      expect(src).toMatch(/^concurrency:\n {2}group: \S+\n {2}cancel-in-progress: false$/m);
+      expect(TABLE.find((e: { workflow: string }) => e.workflow === w).inputs).toBeUndefined();
     }
   });
 });

@@ -36,13 +36,22 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { URLSearchParams } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import { DEFAULT_QUERIES } from './lib/wikimedia-queries.mjs';
+import { PHOTO_BOT_USER_AGENT, stripUtmParams } from './lib/polite-fetch.mjs';
+
+export { DEFAULT_QUERIES };
 
 const API_BASE = 'https://commons.wikimedia.org/w/api.php';
 export const DEFAULT_QUERY = 'Taylor Swift Eras Tour';
 export const DEFAULT_LIMIT = 50;
+// Politeness gap between Commons API requests (serial, never concurrent).
+export const REQUEST_DELAY_MS = 250;
+
 // Wikimedia's API etiquette policy asks every automated client to identify
 // itself; an unidentified client is more likely to be rate-limited.
-const USER_AGENT = 'longlivets-photo-sourcing/1.0 (https://longlivets.com; social photo pipeline)';
+const USER_AGENT = PHOTO_BOT_USER_AGENT;
+// Width of the thumbnail the importer downloads instead of the full original.
+export const THUMB_WIDTH_PX = 2048;
 
 // Commons-accepted free licenses only. Checked against `extmetadata.License`
 // (a normalized slug like "cc-by-2.0" or "cc0-1.0", not the human-readable
@@ -61,10 +70,10 @@ export const ERA_KEYWORD_HINTS = [
   { era: 'debut', re: /\b(debut era|taylor swift \(album\))\b/i },
   { era: 'fearless', re: /\bfearless\b/i },
   { era: 'speak-now', re: /\bspeak now\b/i },
-  { era: 'red', re: /\bred act\b|\bred era\b/i },
-  { era: '1989', re: /\b1989\s*(act|era)\b/i },
+  { era: 'red', re: /\bred act\b|\bred era\b|\bred tour\b/i },
+  { era: '1989', re: /\b1989\s*(act|era|world tour)\b/i },
   { era: 'reputation', re: /\breputation\b/i },
-  { era: 'lover', re: /\blover\s*(act|era)\b/i },
+  { era: 'lover', re: /\blover\s*(act|era|fest)\b/i },
   { era: 'folklore', re: /\bfolklore\b/i },
   { era: 'evermore', re: /\bevermore\b/i },
   { era: 'midnights', re: /\bmidnights?\s*(act|era)\b/i },
@@ -112,16 +121,38 @@ export function stripHtmlTags(text) {
   return current;
 }
 
+// Only real raster photos: Commons search also returns DjVu/PDF scans, TIFF,
+// SVG, GIF and video (2026-10-06: a DjVu book scan crashed the first run).
+export const ACCEPTED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+// Long edge in px — drops thumbnails, icons and logos.
+export const MIN_LONG_EDGE_PX = 800;
+const TOPIC_RE = /taylor swift/i;
+
+/** True for a jpeg/png/webp at least MIN_LONG_EDGE_PX on its long edge. */
+export function isUsablePhotoFile(info) {
+  if (!ACCEPTED_MIME_TYPES.includes(String(info?.mime ?? '').toLowerCase())) return false;
+  return Math.max(Number(info.width) || 0, Number(info.height) || 0) >= MIN_LONG_EDGE_PX;
+}
+
+/** True when title, name, description or categories mention Taylor Swift. */
+export function isOnTopic(page, meta) {
+  const text = [page?.title, meta.ObjectName?.value, meta.ImageDescription?.value, meta.Categories?.value].join(' ');
+  return TOPIC_RE.test(text);
+}
+
 /**
  * Builds one candidate object in `import-photo-library.mjs --fetch`'s exact
  * expected shape from a Commons `imageinfo` page result. Returns `null` when
- * the file's license isn't in the accepted free-license set (caller should
+ * the file isn't a large-enough jpeg/png/webp, doesn't mention Taylor Swift,
+ * or its license isn't in the accepted free-license set (caller should
  * skip it, never fall back to including it unlicensed).
  */
 export function buildCandidate(page) {
   const info = page?.imageinfo?.[0];
   if (!info) return null;
   const meta = info.extmetadata ?? {};
+  if (!isUsablePhotoFile(info)) return null;
+  if (!isOnTopic(page, meta)) return null;
   const licenseSlug = meta.License?.value;
   if (!isAcceptedLicense(licenseSlug)) return null;
   const licenseShortName = meta.LicenseShortName?.value ?? licenseSlug;
@@ -139,7 +170,7 @@ export function buildCandidate(page) {
     mediaPath: `/social/library/photos/${id}.${ext}`,
     credit: `${artist} (${licenseShortName}), via Wikimedia Commons`,
     source: info.descriptionurl,
-    sourceUrl: info.url,
+    sourceUrl: stripUtmParams(info.thumburl || info.url),
     alt: description ? description.slice(0, 200) : `Taylor Swift photo from Wikimedia Commons: ${page.title}`.slice(0, 200),
     tags,
   };
@@ -163,38 +194,100 @@ export async function searchCommons(query, { limit = DEFAULT_LIMIT, fetchImpl = 
   return data?.query?.search ?? [];
 }
 
-/** Fetches imageinfo (url + license/artist metadata) for a batch of Commons file titles. */
-export async function fetchImageInfo(titles, { fetchImpl = fetch } = {}) {
-  if (!titles.length) return [];
-  const infoUrl = new URL(API_BASE);
-  infoUrl.search = new URLSearchParams({
-    action: 'query',
-    titles: titles.join('|'),
-    prop: 'imageinfo',
-    iiprop: 'url|extmetadata',
-    format: 'json',
-  }).toString();
-  const res = await fetchImpl(infoUrl.toString(), { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`Wikimedia imageinfo failed: ${res.status} ${res.statusText}`);
-  const data = await res.json();
-  return Object.values(data?.query?.pages ?? {});
+const IMAGEINFO_MAX_TITLES = 50;
+const IMAGEINFO_MAX_TITLES_CHARS = 6000;
+
+/** Splits titles into chunks of at most 50 titles and ~6,000 encoded characters. */
+export function chunkTitles(titles) {
+  const chunks = [];
+  let current = [];
+  let chars = 0;
+  for (const title of titles) {
+    const size = encodeURIComponent(title).length + 3;
+    if (current.length && (current.length >= IMAGEINFO_MAX_TITLES || chars + size > IMAGEINFO_MAX_TITLES_CHARS)) {
+      chunks.push(current);
+      current = [];
+      chars = 0;
+    }
+    current.push(title);
+    chars += size;
+  }
+  if (current.length) chunks.push(current);
+  return chunks;
 }
 
-/** Sources up to `limit` license-verified candidates for one search query. */
-export async function sourceWikimediaQuery(query, { limit = DEFAULT_LIMIT, fetchImpl = fetch, warn = console.warn } = {}) {
-  const results = await searchCommons(query, { limit, fetchImpl });
-  if (!results.length) return [];
-  const titles = results.map((r) => r.title);
-  // Commons' `prop=imageinfo` accepts at most 50 titles per request.
+/**
+ * Fetches imageinfo (url + license/artist metadata) for Commons file titles.
+ * Titles go out in serial POST chunks (a single long GET caused `414 URI Too
+ * Long`). A failed chunk warns and is skipped; it throws only if every chunk fails.
+ */
+export async function fetchImageInfo(
+  titles,
+  { fetchImpl = fetch, sleepImpl = wait, delayMs = REQUEST_DELAY_MS, warn = (m) => console.warn(`::warning::${m}`) } = {},
+) {
+  if (!titles.length) return [];
+  const pages = [];
+  let failures = 0;
+  let lastError = null;
+  const chunks = chunkTitles(titles);
+  for (let i = 0; i < chunks.length; i++) {
+    if (i > 0) await sleepImpl(delayMs);
+    try {
+      const res = await fetchImpl(API_BASE, {
+        method: 'POST',
+        headers: { 'User-Agent': USER_AGENT, 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          action: 'query',
+          titles: chunks[i].join('|'),
+          prop: 'imageinfo',
+          iiprop: 'url|mime|size|extmetadata',
+          iiurlwidth: String(THUMB_WIDTH_PX),
+          format: 'json',
+        }).toString(),
+      });
+      if (!res.ok) throw new Error(`Wikimedia imageinfo failed: ${res.status} ${res.statusText}`);
+      const data = await res.json();
+      pages.push(...Object.values(data?.query?.pages ?? {}));
+    } catch (err) {
+      failures++;
+      lastError = err;
+      warn(`source-wikimedia-photos: imageinfo chunk ${i + 1}/${chunks.length} (${chunks[i].length} titles) skipped — ${err.message}`);
+    }
+  }
+  if (failures === chunks.length) throw lastError;
+  return pages;
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Sources up to `limit` license-verified candidates for one search query,
+ * paging the Commons search API 50 results at a time. Requests are serial
+ * with a short delay between them (Commons API etiquette). Commons'
+ * `prop=imageinfo` accepts at most 50 titles per request, matching the page size.
+ */
+export async function sourceWikimediaQuery(
+  query,
+  { limit = DEFAULT_LIMIT, fetchImpl = fetch, warn = console.warn, sleepImpl = wait, delayMs = REQUEST_DELAY_MS } = {},
+) {
   const candidates = [];
-  for (let i = 0; i < titles.length; i += 50) {
-    const batch = titles.slice(i, i + 50);
-    const pages = await fetchImageInfo(batch, { fetchImpl });
+  let titlesSeen = 0;
+  while (titlesSeen < limit) {
+    if (titlesSeen > 0) await sleepImpl(delayMs);
+    const pageSize = Math.min(limit - titlesSeen, 50);
+    const results = await searchCommons(query, { limit: pageSize, fetchImpl, sroffset: titlesSeen });
+    if (!results.length) break;
+    await sleepImpl(delayMs);
+    const pages = await fetchImageInfo(results.map((r) => r.title), { fetchImpl, sleepImpl, delayMs });
     for (const page of pages) {
       const candidate = buildCandidate(page);
       if (candidate) candidates.push(candidate);
-      else warn(`source-wikimedia-photos: skipped "${page.title}" — no accepted free license found.`);
+      else warn(`source-wikimedia-photos: skipped "${page.title}" — not an accepted on-topic, free-licensed photo.`);
     }
+    titlesSeen += results.length;
+    if (results.length < pageSize) break;
   }
   return candidates;
 }
@@ -218,12 +311,17 @@ function parseArgs(argv) {
     if (arg === '--output') args.output = argv[++i];
     else if (arg === '--query') args.query = argv[++i];
     else if (arg === '--limit') args.limit = Number(argv[++i]);
+    else if (arg === '--list-default-queries') args.listQueries = true;
   }
   return args;
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  if (args.listQueries) {
+    console.log(DEFAULT_QUERIES.join('\n'));
+    return 0;
+  }
   if (!args.output) {
     throw new Error(
       'Usage: node scripts/social/source-wikimedia-photos.mjs --output <candidates.json> [--query "Taylor Swift Eras Tour"] [--limit 50]',

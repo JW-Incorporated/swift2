@@ -45,6 +45,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
+import { isMain } from './lib/is-main.mjs';
 
 export const DOC_FILE = 'docs/launch-readiness.md';
 
@@ -413,7 +414,7 @@ async function resolveIssues(nums) {
 }
 
 if (
-  import.meta.url === `file://${process.argv[1]}` ||
+  isMain(import.meta.url, process.argv[1]) ||
   process.argv[1]?.endsWith('check-launch-gates.mjs')
 ) {
   await runMain(main, { name: 'check-launch-gates' });
