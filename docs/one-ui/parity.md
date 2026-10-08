@@ -21,8 +21,15 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Frozen fixture (`scripts/parity/fixture/`, committed): a content snapshot taken
   once: the published bundle (`content/`, side b reads it from disk at `/content`
   via `serve.mjs`) and the seven baked modules the web build imports
-  (`web/*.generated.ts`, side a). BOTH sides render from it, so baselines do NOT move
-  when live content (`supabase/seed/**`) changes. CI `build-web` runs
+  (`web/*.generated.ts`, side a), plus the lens data (`experience/lenses.generated.ts`,
+  overlaid onto `packages/experience/src/` by both builds: `--apply` in build-web, `--lenses` in
+  build-dom). BOTH sides render from it, so baselines do NOT move
+  when live content (`supabase/seed/**`, lenses included) changes. Lenses were once regenerated
+  from `supabase/seed/lenses/**` on every run, which moved `crossing` and `lens-fashion-scrubber`
+  on seed-only PRs that parity skipped (#5341); they are frozen now.
+  To refresh the lenses deliberately: `node scripts/sync-longlive-lenses.mjs`, then
+  `cp packages/experience/src/lenses.generated.ts scripts/parity/fixture/experience/`
+  (or a full `--regenerate`), commit, then re-baseline. CI `build-web` runs
   `npm run sync:content` (for the unrelated generated files), then
   `make-fixture.mjs --apply` (overlays the snapshot over `apps/web` and fails unless
   baked and bundle hash equal `fixture.json`), then `npx next build` directly

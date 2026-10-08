@@ -118,6 +118,8 @@ jobs:
       - run: npm ci --silent
       - name: Sync content (the bundle check needs the published bundle)
         run: npm run sync:content --silent
+      - name: Freeze lenses (overlay the committed lens snapshot so seed changes cannot move baselines)
+        run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --lenses
       - name: Web export of the DOM entry
         working-directory: apps/mobile
         env:
