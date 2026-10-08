@@ -9230,9 +9230,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10 and 2026-08-31: still pending, not faded — awaiting scheduled Academy dates (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Resolves with the shortlist and the January 2027 nominations. Re-checks 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s scheduled dates remain ahead (Original Song submission deadline Oct. 14, 2026; shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is still ahead. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-10-08',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -9243,11 +9243,35 @@ export default {
               'With "I Knew It, I Knew You" up to No. 7 on Country Airplay, The Tennessean\'s Bryan West reported Taylor\'s team was campaigning the Toy Story 5 ballad for CMA Single of the Year in the first round of CMA Awards voting — her most direct country-awards push in years, two decades after "Tim McGraw."',
             reportedBy: 'The Tennessean (Bryan West, via Yahoo)',
             reportedOn: '2026-07-21',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-enters-cma-awards-170210895.html',
-            note: 'A ballot campaign, not a nomination. Recheck 2026-08-13 (Tennessean\'s Bryan West, via Yahoo): it cleared the write-in round — "I Knew It, I Knew You" advanced to the CMA second ballot for Single of the Year, one of 22 recordings vying for five nominations (voting through Aug. 17). Real momentum, still not a nomination, so unconfirmed. Resolves when official nominees are named.',
+            note: 'A ballot campaign that resolved into a real nomination. Recheck 2026-08-13: it cleared the write-in round to the CMA second ballot. RESOLVED 2026-10-08 (Vault Run, Rumor Desk lane): the campaign succeeded — the CMA named "I Knew It, I Knew You" a Single of the Year nominee at the 60th CMA Awards on 2026-09-10, so the "campaigning for a nomination" claim is now confirmed.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-13',
+            resolution: {
+              on: '2026-09-10',
+              url: 'https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/',
+              outlet: 'Rolling Stone',
+              note: 'The 60th CMA Awards nominated "I Knew It, I Knew You" for Single of the Year (announced 2026-09-10; corroborated by Variety), confirming the campaign the original report described; Taylor said within hours she would attend the Nov. 18 ceremony — her first CMA appearance in a decade.',
+            },
+            lastCheckedOn: '2026-10-08',
+          },
+          {
+            // Rumor Desk 2026-10-08 (Vault Run) from intake #4809: the entertainment
+            // trade The Ankler argued Taylor is quietly building an awards-season
+            // Oscar case without a publicized campaign. Adjudicable (a
+            // nomination/campaign either materializes or not); no privacy redline —
+            // pure career/business speculation. Only the adjudicable framing is
+            // recorded here; the piece's incidental production-credit specifics are
+            // left out rather than asserted as fact.
+            claim:
+              'The entertainment trade The Ankler argued in "Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight" that Taylor is quietly assembling an awards-season case — anchored by the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without ever announcing an explicit Oscar campaign. Yahoo and heavy.com repackaged it as her "quietly setting her sights on an Oscar."',
+            reportedBy: 'The Ankler',
+            reportedOn: '2026-10-01',
+            status: 'unconfirmed',
+            url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
+            note: 'Outlet analysis of intent, not an on-record statement — neither Taylor, her team, nor the Academy has confirmed an actual Oscar campaign. It carries a truth value (whether she pursues/receives a nomination is adjudicable) so it clears the admit-the-unsettled bar. Resolves against the Academy\'s 99th Oscars calendar already tracked on this page (Original Song submission deadline 2026-10-14, shortlist 2026-12-15, nominations 2027-01-21). No location/privacy content.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-08',
           },
         ],
       },
