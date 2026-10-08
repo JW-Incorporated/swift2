@@ -122,26 +122,19 @@ export function formatSourceCounts(results) {
 
 /**
  * Workflow annotations for the per-source results. Every missing/invalid source
- * warns; all sources unreadable, or zero candidates overall with any failure,
- * is an error (`fail: true`); all-ok-but-empty only warns.
+ * warns; only ALL sources unreadable is an error (`fail: true`) so an optional
+ * source that is legitimately missing cannot fail a quiet day; zero total only warns.
  */
 export function assessSources(results) {
   const annotations = results
     .filter((r) => r.status !== 'ok')
-    .map((r) => `::warning::Photo source ${r.name} is ${r.status}${r.detail ? ` (${r.detail})` : ''}`);
+    .map((r) => `::warning::Photo source ${r.name} is ${r.status}${r.detail ? ` (${r.detail.replace(/\s+/g, ' ')})` : ''}`);
   const total = results.reduce((n, r) => n + r.candidates.length, 0);
-  const anyFailed = results.some((r) => r.status !== 'ok');
   if (results.length > 0 && results.every((r) => r.status !== 'ok')) {
     annotations.push('::error::Every photo source is missing or invalid; nothing was sourced.');
     return { fail: true, annotations };
   }
-  if (total === 0) {
-    if (anyFailed) {
-      annotations.push('::error::Zero candidates and at least one source failed.');
-      return { fail: true, annotations };
-    }
-    annotations.push('::warning::All photo sources read OK but produced zero candidates.');
-  }
+  if (total === 0) annotations.push('::warning::Photo sources produced zero candidates in total.');
   return { fail: false, annotations };
 }
 

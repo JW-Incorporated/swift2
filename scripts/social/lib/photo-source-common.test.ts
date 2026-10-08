@@ -53,7 +53,11 @@ describe('readCandidateFile / formatSourceCounts', () => {
     const empty = assessSources([ok('a', 0), ok('b', 0)]);
     expect(empty.fail).toBe(false);
     expect(empty.annotations).toEqual([expect.stringMatching(/^::warning::/)]);
-    expect(assessSources([ok('a', 0), bad('b', 'missing')]).fail).toBe(true);
+    const quiet = assessSources([ok('a', 0), bad('b', 'missing')]);
+    expect(quiet.fail).toBe(false);
+    expect(quiet.annotations.some((a: string) => a.startsWith('::error::'))).toBe(false);
+    const multi = assessSources([{ name: 'x', status: 'invalid', detail: 'bad\n  json', candidates: [] }, ok('y', 1)]);
+    expect(multi.annotations[0]).toBe('::warning::Photo source x is invalid (bad json)');
     const partial = assessSources([ok('a', 3), bad('b', 'missing')]);
     expect(partial.fail).toBe(false);
     expect(partial.annotations).toHaveLength(1);
