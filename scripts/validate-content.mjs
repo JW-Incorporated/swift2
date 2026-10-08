@@ -63,6 +63,7 @@ import {
 import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
+import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
 
 async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
@@ -1103,6 +1104,7 @@ for (const file of trackFiles) {
       if (!img.url) err('image missing url');
       if (!img.credit) err('image missing credit');
     }
+    for (const m of runwaySourceErrors(l.sources)) err(m);
   }
 
   // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.
