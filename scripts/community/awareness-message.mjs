@@ -11,6 +11,7 @@ import {
   DISCORD_SUPPRESS_EMBEDS,
   TREE_AVATAR_URL,
 } from './discord-delivery.mjs';
+import { facebookFallbackLine } from './awareness-fb-link.mjs';
 import { clipUnits, oneLine, safe, urlLine } from './reply-opportunity.mjs';
 
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
@@ -102,7 +103,10 @@ export function buildAwarenessMessage(lead, { postedUrl = null, skipUrl = null }
     : 'React ✅ posted · ⏭️ skip';
   const postId = oneLine(lead.id, 100);
   const refLine = isReddit && postId ? `ref: reddit · ${postId}` : null;
-  const link = (lead.url && urlLine(cleanThreadUrl(lead.url))) || oneLine(safe(lead.locator), 160);
+  const link =
+    (lead.url && urlLine(cleanThreadUrl(lead.url))) ||
+    (lead.platform === 'facebook' && facebookFallbackLine(lead)) ||
+    oneLine(safe(lead.locator), 160);
   const { trimmed } = buildAwarenessReplyText(lead);
   const text = [link, ...(trimmed ? [TRIM_NOTE] : []), footer, refLine].filter(Boolean).join('\n');
   if (text.length > DISCORD_MESSAGE_LIMIT)

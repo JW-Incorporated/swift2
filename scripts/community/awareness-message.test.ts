@@ -153,6 +153,75 @@ describe('awareness Discord messages', () => {
   });
 });
 
+const NL = String.fromCharCode(10);
+
+describe('Reddit lead message is unchanged', () => {
+  it('renders byte-identically: clean thread link, footer, ref line', () => {
+    expect(buildAwarenessMessage(lead(), ACKS)).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+        NL,
+      ),
+    );
+  });
+});
+const firstLine = (l: unknown) => buildAwarenessMessage(l).split(NL)[0];
+
+describe('Facebook leads without a post url', () => {
+  const fb = (overrides: Record<string, unknown> = {}) =>
+    lead({
+      platform: 'facebook',
+      community: 'facebook:taylor-swifts-vault',
+      url: null,
+      locator: "Taylor Swift's Vault — which era has the best bridge",
+      ...overrides,
+    });
+
+  it('links the communities.json group and a group search built from the excerpt', () => {
+    const first = firstLine(fb());
+    expect(first).toBe(
+      "Find it in: [Taylor Swift's Vault](<https://www.facebook.com/groups/2254218764714763/>) — which era has the best bridge · [search](<https://www.facebook.com/groups/2254218764714763/search/?q=which%20era%20has%20the%20best%20bridge>)",
+    );
+  });
+
+  it('falls back to the checklist group id when communities.json has no entry', () => {
+    const first = firstLine(
+      fb({
+        community: 'facebook:taylor-swifts-vault-2-0',
+        locator: "Taylor Swift's Vault 2.0 — hello there",
+      }),
+    );
+    expect(first).toContain('(<https://www.facebook.com/groups/taylorswiftsvault2/>)');
+    expect(first).toContain('search/?q=hello%20there');
+  });
+
+  it('keeps the plain locator line when the group is unknown, never a broken link', () => {
+    const text = buildAwarenessMessage(
+      fb({ community: 'facebook:nope', locator: 'Mystery Group — some excerpt' }),
+    );
+    expect(text.split(NL)[0]).toBe('Mystery Group — some excerpt');
+    expect(text).not.toContain('](<');
+  });
+
+  it('escapes brackets so a group name or excerpt cannot form its own link', () => {
+    const first = firstLine(
+      fb({ locator: "Taylor Swift's Vault — [click](http://evil.test) here" }),
+    );
+    expect(first).toContain(String.raw`\[click\]`);
+    expect(first.match(/\]\(</g)).toHaveLength(2); // only our own two links
+  });
+
+  it('stays under the Discord limit for a long excerpt and leaves url leads untouched', () => {
+    const long = buildAwarenessMessage(
+      fb({ locator: `Taylor Swift's Vault — ${'é'.repeat(400)}` }),
+    );
+    expect(long.length).toBeLessThanOrEqual(2000);
+    const withUrl = buildAwarenessMessage(
+      fb({ url: 'https://www.facebook.com/groups/123/posts/456/' }),
+    );
+    expect(withUrl.split(NL)[0]).toBe('<https://www.facebook.com/groups/123/posts/456/>');
+  });
+});
+
 describe('multipart upload builder', () => {
   it('attaches the PNG as files[0] and declares it in payload_json', async () => {
     const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 1, 2, 3]);
