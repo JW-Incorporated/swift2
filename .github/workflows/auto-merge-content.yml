@@ -143,6 +143,10 @@ on:
       # Concert-photo-sourcing's library inventory (docs/decisions.md
       # 2026-10-06): library photos are not posts; the ✅ still gates posts.
       - "social/photo-library.json"
+      # Its photo-QC rejected-candidate ledger (docs/decisions.md 2026-10-07).
+      - "social/photo-qc-rejected.json"
+      # And its official-video frame ledger (docs/decisions.md 2026-10-07).
+      - "social/video-frames-ledger.json"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
       - "docs/ops/AFFILIATE-COVERAGE.md"

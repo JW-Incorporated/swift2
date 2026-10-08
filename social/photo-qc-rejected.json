@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "policy": "Candidates the photo vision check (scripts/social/photo-qc.mjs) rejected, by candidate id and by sha256 of the normalized bytes, so the same photo is never paid for twice. Written only by import-photo-library.mjs --write; a held (API error / no key) or deferred candidate is NOT recorded and is retried on the next run.",
+  "rejected": []
+}
