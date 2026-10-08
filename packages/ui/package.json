@@ -57,11 +57,11 @@
     "@swift2/shared": "*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.39.0",
-    "tailwind-merge": "^3.6.0"
+    "lucide-react": "^1.52.0",
+    "tailwind-merge": "^3.7.0"
   },
   "peerDependencies": {
-    "react": "^18 || ^19"
+    "react": "^18.3.1"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
