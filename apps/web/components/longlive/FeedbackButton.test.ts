@@ -18,7 +18,7 @@ describe('FeedbackButton — re-review finding D (dismiss X covered the trigger 
     // all of it. The fix removes the absolute overlap and uses a flex row.
     expect(src).not.toMatch(/absolute -right-1\.5 -top-1\.5/);
     expect(src).not.toMatch(/grid size-5 place-items-center/);
-    expect(src).toContain("flex items-center gap-2 md:bottom-4");
+    expect(src).toMatch(/flex [^"]*items-center gap-2 md:bottom-4/);
   });
 
   it('both buttons still carry the 44px `.era-icon-btn` floor', () => {
@@ -40,7 +40,7 @@ describe('FeedbackButton — "an X in a circle... as if there\'s an invisible po
     // unlabelled icon under 640px, leaving the dismiss X as the only legible
     // thing in the corner. The label is what ties the X to a "Feedback"
     // control instead of to an imaginary dialog.
-    expect(idleCluster).toContain('<span>Feedback</span>');
+    expect(idleCluster).toMatch(/<span[^>]*>Feedback<\/span>/);
     // Scoped to real class attributes — the prose above this assertion's
     // subject in the component names the old `hidden sm:inline` too.
     for (const [, classes] of idleCluster.matchAll(/className="([^"]*)"/g)) {

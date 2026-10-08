@@ -69,7 +69,7 @@ export function TopBar() {
             type="button"
             onClick={handleHome}
             aria-label="Long Live — back to home"
-            className="shrink-0 rounded-md font-era text-base font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
+            className="shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
           >
             Long&nbsp;Live
           </button>
