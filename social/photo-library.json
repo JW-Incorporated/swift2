@@ -522,21 +522,6 @@
       "sha256": "df0c93c22244ba77e483fa5c17fde2bae8d0b4b9a60179fc1c10077d1af6e123"
     },
     {
-      "id": "official-video--CmadmM5cOk-t10",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t10.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=10s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 0:10).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 105890,
-      "sha256": "597874b121addd0ec077a8e5725dad9cd937b4d021f0cbe4c62cc415e93dcdb4"
-    },
-    {
       "id": "official-video--CmadmM5cOk-t101",
       "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t101.jpg",
       "credit": "Taylor Swift (official video)",
@@ -550,156 +535,6 @@
       "height": 1080,
       "bytes": 75220,
       "sha256": "f249743ebae5c45ce22d9e0e7cde0edcfb7cb4dce88b04719797cf1cc8c54ccf"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t108",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t108.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=108s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 1:48).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 76224,
-      "sha256": "1cd0788c26020608024c79f9c768f019e56366fbbd8e2c52d675bcdee3f57a68"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t15",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t15.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=15s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 0:15).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 47484,
-      "sha256": "002df2b58385d33984c28a657d22905e431fe00b2384666935c8053cd5e041ef"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t152",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t152.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=152s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 2:32).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 40819,
-      "sha256": "41b326e5c14068e9b497606cde5f9aea9220dc31ad6d47100e190b1cfe02c9fe"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t157",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t157.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=157s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 2:37).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 62181,
-      "sha256": "b11456fbe16152cd6b801575b0ba89b044c2d9f279bbd5a7abc7ccfd95b99d40"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t160",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t160.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=160s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 2:40).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 50470,
-      "sha256": "34be9e8036dcdc3bf284e9759be6b81f5ea70dabb53e19dc3c9b1e9437b661b7"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t165",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t165.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=165s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 2:45).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 78701,
-      "sha256": "dc180363544d503fa3b7d6b225b707588961542d7676720c80924709fa2cabbd"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t170",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t170.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=170s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 2:50).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 85307,
-      "sha256": "3f23c625e73425ee0189231a58e2fc6057350cfaafb91c12e0d10758099632a3"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t195",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t195.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=195s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 3:15).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 67211,
-      "sha256": "ccb3609837686bdf5f2cca9ab55055eb7c2521c117e31b9dab692bd9fb82d827"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t199",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t199.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=199s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 3:19).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 36188,
-      "sha256": "e3051dad301595df20e2580546612fa4d83a5ececd7b00b89e55962ead443d91"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t209",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t209.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=209s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 3:29).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 48078,
-      "sha256": "804e726f0c4a5da91fce0960236084ddc36a00082cc9c7bbd9f6b98111dba7f7"
     },
     {
       "id": "official-video--CmadmM5cOk-t217",
@@ -777,36 +612,6 @@
       "sha256": "666e6a43002f60d7f1e20af93e90346742e1aadb36223f5f98567880f1da9ce4"
     },
     {
-      "id": "official-video--CmadmM5cOk-t40",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t40.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=40s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 0:40).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 67330,
-      "sha256": "c945ebaff0d6a28c1559e4673f3a1067f8dd2a1fc1d957bed8a0fbdc8024c315"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t43",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t43.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=43s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 0:43).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 41233,
-      "sha256": "8afe80e7821c097fe80fc901176ae670668a6c593579703d8549e7f71e30f9dc"
-    },
-    {
       "id": "official-video--CmadmM5cOk-t57",
       "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t57.jpg",
       "credit": "Taylor Swift (official video)",
@@ -822,36 +627,6 @@
       "sha256": "e41d1d4a7058162db67029a6fb7e806dc75de2bcb2e5892441d0739119877bb3"
     },
     {
-      "id": "official-video--CmadmM5cOk-t7",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t7.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=7s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 0:07).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 59728,
-      "sha256": "002e275389f661120f9e783261613d4ab1dde514fdfe01cae1bca6c7433e0cb7"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t70",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t70.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=70s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 1:10).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 63602,
-      "sha256": "c5844ac5e66205d90fa9b5aabd468b5dc33492fa6d864d21771e5ae8bbd5a8e1"
-    },
-    {
       "id": "official-video--CmadmM5cOk-t78",
       "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t78.jpg",
       "credit": "Taylor Swift (official video)",
@@ -865,21 +640,6 @@
       "height": 1080,
       "bytes": 60067,
       "sha256": "838396937e9751d7cca7b772ebce70d4ff2487790d8b0de655c222cb4fa63c70"
-    },
-    {
-      "id": "official-video--CmadmM5cOk-t88",
-      "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t88.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=-CmadmM5cOk&t=88s",
-      "alt": "Still from Taylor Swift's official \"Style\" music video (scene at 1:28).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 53393,
-      "sha256": "347e37991add1c7e855d903b12c9a537a0e06b5bcdb334305936aa479939b059"
     },
     {
       "id": "official-video--CmadmM5cOk-t94",
@@ -912,96 +672,6 @@
       "sha256": "18575dc0f463949e348b9da52dfe57cd3acda3b128d8a45ebaa4d2dfcc9a3651"
     },
     {
-      "id": "official-video-nfWlot6h_JM-t107",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t107.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=107s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:47).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 51189,
-      "sha256": "036766cc8601c6f2ee3e347f30dd0a3a1d0f6ab6212306a74121edc412a341e9"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t115",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t115.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=115s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:55).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 59555,
-      "sha256": "a3e11692a33c01d25ec5c427f81cac6cd2b9ab6ef0f1889f6d5c8ea380747b96"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t121",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t121.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=121s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:01).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 172231,
-      "sha256": "e94859e8108ccee686706a2d34b1921d712a63184bec3507fa3f0ce7bfeb885f"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t125",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t125.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=125s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:05).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 73636,
-      "sha256": "4ef73b51c3ce53608a05cf2b127d18bd420060eae982744347ed27e88040cc78"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t131",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t131.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=131s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:11).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 130085,
-      "sha256": "6600615e6024eb1d64f746ba477549efae0c64b481c87c85cfd3302ec1c684d1"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t140",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t140.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=140s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:20).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 137386,
-      "sha256": "7d657bc6c387033a838f93da64e8b0329947edd231eb27e43e782f50f6af11f8"
-    },
-    {
       "id": "official-video-nfWlot6h_JM-t145",
       "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t145.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1015,51 +685,6 @@
       "height": 1080,
       "bytes": 134787,
       "sha256": "7f629e0c15466b3ac9b4db0f79326ff62890b541ac8ae1f973625068657cdc43"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t148",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t148.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=148s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:28).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 143817,
-      "sha256": "24e11c6542af02aa8d0821cc6ee2294fcf633ffa4ea381349a9ad235dd33b978"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t16",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t16.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=16s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 0:16).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 149343,
-      "sha256": "1876586687f2eae7ff265daee558a013d89caab342928bb880e517fa82a3e3ca"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t167",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t167.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=167s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:47).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 101110,
-      "sha256": "97c93166d44124db9e143b3529abf7fcb6bfe487e1c551005d4cd6bbd54d086a"
     },
     {
       "id": "official-video-nfWlot6h_JM-t173",
@@ -1077,36 +702,6 @@
       "sha256": "94dbc874b5a4c07f264507233cd50e32dbe7c3a781fbea78039d7e2bf3652e41"
     },
     {
-      "id": "official-video-nfWlot6h_JM-t178",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t178.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=178s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 2:58).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 101210,
-      "sha256": "0866c3a212c1a59682dfaf57df20a183cf654511c1f56e0df62c1be96510c6cf"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t182",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t182.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=182s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 3:02).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 89525,
-      "sha256": "4b22a3a9a841cecc396682a6d957d02cf6971b7729c206c1a630f8b2ab3400b0"
-    },
-    {
       "id": "official-video-nfWlot6h_JM-t186",
       "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t186.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1120,66 +715,6 @@
       "height": 1080,
       "bytes": 97477,
       "sha256": "f60854e8aea787034a65a63ecc8e7a46578b2e095fa647ca6b458866567bf0b6"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t193",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t193.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=193s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 3:13).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 62159,
-      "sha256": "1f0b46bba589628677c8e9000adb4a47a48e029fb0f724389cf90884697b3385"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t200",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t200.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=200s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 3:20).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 120835,
-      "sha256": "39b3fd4423e61241f65cd3cb8cd31f407988a74bea76493acd61c5437effe2bf"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t214",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t214.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=214s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 3:34).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 54105,
-      "sha256": "d9c5526bd130f410b3f3a9517f73278df64bf705c28de386d2d79bc37d569800"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t38",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t38.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=38s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 0:38).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 82453,
-      "sha256": "df057d18058267d2e2bf54ed39fc4bd18a6d28e5b2c585501a696656f9778c12"
     },
     {
       "id": "official-video-nfWlot6h_JM-t56",
@@ -1197,36 +732,6 @@
       "sha256": "a557ce4110d1291a8195a2dd8e0529491bdf61c4a992a8e4837208a6742a8172"
     },
     {
-      "id": "official-video-nfWlot6h_JM-t67",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t67.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=67s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:07).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 52548,
-      "sha256": "1db1ef1c9a17491a7dc2f252b6d175bc5cfbe49f863787edf80e0e030ceb642e"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t76",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t76.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=76s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:16).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 73553,
-      "sha256": "dad1786e7bd5a690486c9b02dec1cf9ac36f2c35c3ddee85ef8be1d605842701"
-    },
-    {
       "id": "official-video-nfWlot6h_JM-t8",
       "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t8.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1240,36 +745,6 @@
       "height": 1080,
       "bytes": 85295,
       "sha256": "8ab6d057903ef0aa4c67c65cacd24b8dea71f0e55c051c70afcd25f150443f58"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t80",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t80.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=80s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:20).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 133387,
-      "sha256": "03da3815a6816b9c88a2e380f0a543690429f02074fb781f944075b4536780dd"
-    },
-    {
-      "id": "official-video-nfWlot6h_JM-t88",
-      "mediaPath": "/social/library/photos/official-video-nfWlot6h_JM-t88.jpg",
-      "credit": "Taylor Swift (official video)",
-      "source": "https://www.youtube.com/watch?v=nfWlot6h_JM&t=88s",
-      "alt": "Still from Taylor Swift's official \"Shake It Off\" music video (scene at 1:28).",
-      "tags": [
-        "official-video",
-        "1989"
-      ],
-      "width": 1920,
-      "height": 1080,
-      "bytes": 54361,
-      "sha256": "2e3140d45bb4cfabcf2ab90fac61d38c9727a01b75dc54d571eb0d1a9f67f428"
     },
     {
       "id": "red-inglewood-2023",
