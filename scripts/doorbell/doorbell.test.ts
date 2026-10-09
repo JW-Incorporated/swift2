@@ -7,8 +7,8 @@ import { createDoorbell, main } from './doorbell.mjs';
 
 const JOEY = '338508192755482626';
 const GUILD = '900000000000000001';
-const MARJ = '900000000000000010';
-const TREE = '900000000000000020';
+const MARJ = '1548350324891328562';
+const TREE = '1558093607393562644';
 const NEW_THREAD = '900000000000000070';
 const ID = '1000000000000000001';
 const NOW = Date.parse('2026-09-14T18:00:00.000Z');
@@ -34,7 +34,7 @@ function bell(routes: Record<string, unknown> = {}) {
   const lines: string[] = [];
   const config = { ok: true, problems: [], discordToken: 'discord-secret', githubToken: 'github-secret', guildId: '', founders: new Set([JOEY]) };
   const doorbell = createDoorbell({ config, fetchImpl, sleepImpl: vi.fn().mockResolvedValue(undefined), log: (l: string) => lines.push(l), now: () => NOW });
-  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }], threads: [] });
+  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }], threads: [] });
   return { doorbell, calls, lines, keys: () => calls.map((c) => c.key) };
 }
 const founderMessage = (over: Record<string, unknown> = {}) => ({
@@ -47,7 +47,7 @@ afterEach(() => {
 
 describe('the doorbell rings', () => {
   it('logs ready with both channel names', () => {
-    expect(bell().lines).toContain(`ready: #marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
+    expect(bell().lines).toContain(`ready: #marjorie (${MARJ}) and #tree-main (${TREE}); 1 founder id(s)`);
   });
 
   it('adds 👀 as the doorbell bot, then dispatches the chat routine on main with the poll\'s inputs', async () => {
@@ -221,6 +221,7 @@ describe('--check and the bare clone', () => {
       'scripts/doorbell/lib/gateway-health.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
+      'scripts/lib/discord-route.mjs',
       'scripts/marjorie/lib/chat-inbox.mjs',
       'scripts/marjorie/lib/discord-bot.mjs',
       'scripts/social/lib/approvers.mjs',

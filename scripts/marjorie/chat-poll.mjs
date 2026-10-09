@@ -2,7 +2,7 @@
 // A plain script, never an agent step — DISCORD_BOT_TOKEN must never enter an
 // agent context. Invoked only from `run:` steps under `environment: social`:
 //   poll     `bot-chat-poll.yml`. Founder messages in #marjorie and
-//            #longlive-tree (and their active threads), newer than 24 h,
+//            #tree-main (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
 //            Each is claimed with 👀 BEFORE its chat routine is dispatched.
 //            Claims are never removed or re-dispatched. Once a claim is at
@@ -30,7 +30,7 @@ import { watchClock } from './lib/clock-watch.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, CLOCK_LIVE_SINCE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, CLOCK_LIVE_SINCE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, SNOWFLAKE, STALE_CLAIM_MS,
   alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, missingParents, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
@@ -39,33 +39,27 @@ const MAX_PAGES = 10;
 const RUN_LIMIT = 200;
 const PARENT_FETCH_CAP = 5;
 /**
- * Channel ids by name within the guild. The guild comes from the Tree
- * webhook (a webhook GET needs no auth and names its guild and channel —
- * the lookup `social-approval-poll.mjs` already relies on); the Marjorie
- * webhook lives only in `ops`, so her channel is found by id. Order: env
- * var, then BOTS[bot].channelId, then a by-name lookup as the last fallback. Never log the webhook URL.
+ * The two chat channels, by id only: the repo variable (DISCORD_TREE_MAIN_CHANNEL_ID /
+ * DISCORD_MARJORIE_CHANNEL_ID) when it is a valid snowflake, else the id committed in BOTS
+ * (scripts/lib/discord-route.mjs ROUTES). There is no by-name lookup any more — the channels were
+ * renamed and a name match silently found nothing. The guild comes from DISCORD_GUILD_ID, else from
+ * one channel read on the bot token, else from the Tree webhook (a webhook GET needs no auth and
+ * names its guild). Never log the webhook URL.
  */
 export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
-  let guildId = env.DISCORD_GUILD_ID || null;
-  let webhookChannel = null;
-  if (env.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL) {
-    const res = await fetchImpl(env.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL);
-    if (res.ok) {
-      const data = await res.json();
-      guildId = guildId || data.guild_id || null;
-      webhookChannel = data.channel_id || null;
-    } else {
-      console.log(`::warning::chat-poll: Tree webhook lookup -> HTTP ${res.status}`);
-    }
-  }
-  const pinned = (bot) => env[BOTS[bot].channelEnv] || BOTS[bot].channelId || null;
+  const pinned = (bot) => (SNOWFLAKE.test(String(env[BOTS[bot].channelEnv] ?? '').trim()) ? String(env[BOTS[bot].channelEnv]).trim() : BOTS[bot].channelId || null);
   const ids = { marjorie: pinned('marjorie'), tree: pinned('tree') };
-  if (guildId && (!ids.marjorie || !ids.tree)) {
-    const r = await discordRequest('GET', `${DISCORD_API}/guilds/${guildId}/channels`, token, { fetchImpl, sleepImpl });
-    const byName = (name) => (r.ok && Array.isArray(r.data) ? r.data.find((c) => c.name === name)?.id : null) || null;
-    if (!r.ok) console.log(`::warning::chat-poll: guild channel list -> HTTP ${r.status}`);
-    ids.marjorie = ids.marjorie || byName(BOTS.marjorie.channelName);
-    ids.tree = ids.tree || byName(BOTS.tree.channelName) || webhookChannel;
+  let guildId = env.DISCORD_GUILD_ID || null;
+  for (const id of Object.values(ids)) {
+    if (guildId || !id) continue;
+    const r = await discordRequest('GET', `${DISCORD_API}/channels/${id}`, token, { fetchImpl, sleepImpl });
+    if (r.ok) guildId = r.data?.guild_id || null;
+    else console.log(`::warning::chat-poll: channel read ${id} -> HTTP ${r.status}`);
+  }
+  if (!guildId && env.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL) {
+    const res = await fetchImpl(env.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL);
+    if (res.ok) guildId = (await res.json()).guild_id || null;
+    else console.log(`::warning::chat-poll: Tree webhook lookup -> HTTP ${res.status}`);
   }
   return { guildId, ids };
 }
@@ -231,7 +225,7 @@ export async function poll({
     const channelId = ids[bot];
     if (!channelId) {
       failures += 1;
-      console.log(`::error::chat-poll: #${cfg.channelName} not found in the guild (${bot}, tried ${cfg.channelEnv}/channelId ${cfg.channelId || 'none'}, then name) — ${bot} skipped`);
+      console.log(`::error::chat-poll: #${cfg.channelName} has no channel id (${bot}, tried ${cfg.channelEnv} and channelId ${cfg.channelId || 'none'}) — ${bot} skipped`);
       continue;
     }
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });

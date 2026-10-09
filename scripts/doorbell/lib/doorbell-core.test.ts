@@ -10,8 +10,8 @@ const NOW = Date.parse('2026-09-14T18:00:00.000Z');
 const JOEY = '338508192755482626';
 const STRANGER = '111111111111111111';
 const GUILD = '900000000000000001';
-const MARJ = '900000000000000010';
-const TREE = '900000000000000020';
+const MARJ = '1548350324891328562';
+const TREE = '1558093607393562644';
 const THREAD = '900000000000000030';
 const GENERAL = '900000000000000040';
 const GENERAL_THREAD = '900000000000000050';
@@ -22,7 +22,7 @@ function places() {
   const map = createChannelMap();
   map.guild({
     id: GUILD,
-    channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }, { id: GENERAL, name: 'general', type: 0 }],
+    channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }, { id: GENERAL, name: 'general', type: 0 }],
     threads: [{ id: THREAD, parent_id: MARJ, type: 11 }, { id: GENERAL_THREAD, parent_id: GENERAL, type: 11 }],
   });
   return map;
@@ -75,7 +75,7 @@ describe('createChannelMap', () => {
     map.channel({ id: '1548350324891328562', name: 'renamed-again', type: 0, guild_id: GUILD });
     expect(map.resolve('1548350324891328562')).toEqual({ bot: 'marjorie', channelId: '1548350324891328562', threadId: '' });
   });
-  it('follows thread events and a channel renamed away', () => {
+  it('follows thread events; a rename keeps the id, a channel never seen is unknown', () => {
     const map = places();
     map.channel({ id: '900000000000000070', type: 11, parent_id: TREE, guild_id: GUILD });
     expect(map.resolve('900000000000000070')).toEqual({ bot: 'tree', channelId: TREE, threadId: '900000000000000070' });
@@ -84,12 +84,13 @@ describe('createChannelMap', () => {
     map.threadListSync({ guild_id: GUILD, threads: [{ id: '900000000000000080', parent_id: MARJ }] });
     expect(map.resolve('900000000000000080')?.bot).toBe('marjorie');
     map.channel({ id: TREE, name: 'tree-archive', type: 0, guild_id: GUILD });
-    expect(map.resolve(TREE)).toBeNull();
-    expect(readyLine(map.ids(), founders)).toBe('not ready: #longlive-tree not found in the guild');
+    expect(map.resolve(TREE)?.bot).toBe('tree');
+    map.forget(TREE);
+    expect(readyLine(map.ids(), founders)).toBe('not ready: #tree-main not found in the guild');
   });
 
   it('names both channels in the ready line', () => {
-    expect(readyLine(places().ids(), founders)).toBe(`ready: #marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
+    expect(readyLine(places().ids(), founders)).toBe(`ready: #marjorie (${MARJ}) and #tree-main (${TREE}); 1 founder id(s)`);
   });
 
   it('ignores another guild when one is pinned', () => {

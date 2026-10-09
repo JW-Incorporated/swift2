@@ -414,3 +414,44 @@ describe('delivery re-lints what it reads', () => {
     expect(result.drafted).toBe(1);
   });
 });
+
+describe('runDelivery channel routing', () => {
+  it('posts a Reddit card to tree-reddit and a Facebook card to tree-facebook by id', async () => {
+    const { fetchImpl, calls } = discord();
+    const supabase = fakeSupabase({
+      drafted: [lead(1, 'TaylorSwift', { image_ref: null }), lead(2, 'grp', { platform: 'facebook', url: 'https://www.facebook.com/groups/1/posts/2/', image_ref: null })],
+    });
+    const result = await runDelivery({ supabase, webhook: 'https://discord.test/hook', catalog, config: { ...config, subs: [...config.subs, { name: 'grp', tier: 1 }] }, env: { DISCORD_BOT_TOKEN: 'b' }, fetchImpl: fetchImpl as never });
+    expect(result.delivered).toHaveLength(2);
+    const urls = calls.map((c) => c.url);
+    expect(urls.filter((u) => u.includes('/channels/1558093079351787580/messages'))).toHaveLength(2);
+    expect(urls.filter((u) => u.includes('/channels/1558093113807999026/messages'))).toHaveLength(2);
+    expect(urls.some((u) => u.includes('discord.test'))).toBe(false);
+  });
+
+  it('does NOT mark a card delivered when the bot send and the webhook fallback both fail', async () => {
+    const updates: unknown[] = [];
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (String(url).includes('/api/share-card')) return new Response(PNG, { status: 200 });
+      return new Response(JSON.stringify({ code: 50013 }), { status: String(url).includes('discord.test') ? 500 : 403 });
+    });
+    const supabase = fakeSupabase({ drafted: [lead(1, 'TaylorSwift', { image_ref: null })], onUpdate: (p) => updates.push(p) });
+    const result = await runDelivery({ supabase, webhook: 'https://discord.test/hook', catalog, config, env: { DISCORD_BOT_TOKEN: 'b' }, fetchImpl: fetchImpl as never });
+    expect(result.delivered).toEqual([]);
+    expect(result.failed).toHaveLength(1);
+    expect(updates).toEqual([]);
+  });
+
+  it('falls back to the webhook when the bot is refused (403) and then marks it delivered', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (String(url).includes('/api/share-card')) return new Response(PNG, { status: 200 });
+      if (String(url).includes('discord.com/api')) return new Response('{}', { status: 403 });
+      return new Response(JSON.stringify({ id: 'hook-1' }), { status: 200 });
+    });
+    const supabase = fakeSupabase({ drafted: [lead(1, 'TaylorSwift', { image_ref: null })] });
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const result = await runDelivery({ supabase, webhook: 'https://discord.test/hook', catalog, config, env: { DISCORD_BOT_TOKEN: 'b' }, fetchImpl: fetchImpl as never });
+    log.mockRestore();
+    expect(result.delivered).toHaveLength(1);
+  });
+});
