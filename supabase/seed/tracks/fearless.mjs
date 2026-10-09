@@ -1196,13 +1196,13 @@ const TRACKS = [
       summary:
         'Two people who asked for space negotiate the way back: he asks when he can return, she answers with every when she has.',
       inspiration:
-        'Recorded with Keith Urban for the vault; Urban had been an opener on the Speak Now tour, closing an old loop.',
+        'Recorded with Keith Urban for the vault; Swift was Urban\'s opening act during the Fearless era, closing an old loop.',
       themes: ['reconciliation', 'forgiveness', 'timing'],
       sourceUrl: "https://en.wikipedia.org/wiki/That's_When",
       sources: [wiki("That's When", "That's_When", 'song article: Urban collaboration'), TV],
       dossier: {
         whyItMatters: [
-          "The only Fearless (Taylor's Version) vault track with a full duet partner. Variety reported that Keith Urban is a full-on duet partner on it, and Rolling Stone described the structure as a conversation: Swift sings the first verse and chorus, Urban arrives for the second verse, and they harmonize together on the chorus. Urban also sings harmonies on 'We Were Happy'.",
+          "Variety called Keith Urban a full-on duet partner on this vault track, and Rolling Stone described the structure as a conversation: Swift sings the first verse and chorus, Urban arrives for the second verse, and they harmonize together on the chorus. Urban also sings harmonies on 'We Were Happy'.",
           "Rolling Stone reported Swift wrote it early in her career with the sibling songwriting duo the Warren Brothers, and co-produced the new recording with Jack Antonoff."
         ],
         meaning: {

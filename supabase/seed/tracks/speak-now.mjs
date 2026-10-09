@@ -1068,7 +1068,7 @@ const TRACKS = [
     dossier: {
       whyItMatters: [
         "The Speak Now vault's pop-punk duet, and one of two guest features Swift chose to match the album's original influences. Pitchfork reported in June 2023 that the Speak Now (Taylor's Version) track list added vault songs featuring Fall Out Boy and Paramore's Hayley Williams, quoting Swift's explanation that since Speak Now was all about her songwriting, she went to the artists she felt influenced her most powerfully as a lyricist at that time and asked them to sing on the album.",
-        "Rolling Stone's review described Fall Out Boy frontman Patrick Stump as Swift's foil on what it called a pleasantly eager first-date duet, and Billboard's critic heard his jittery register pairing well with her more straightforward delivery.",
+        "Rolling Stone's review described Fall Out Boy frontman Patrick Stump as Swift's foil on what it called a pleasantly eager first-date duet, and Billboard's critic heard his \"jittery soul\" pairing well with her more straightforward delivery.",
       ],
       meaning: {
         confirmed: [
