@@ -22,7 +22,7 @@ function places() {
   const map = createChannelMap();
   map.guild({
     id: GUILD,
-    channels: [{ id: MARJ, name: 'longlive-marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }, { id: GENERAL, name: 'general', type: 0 }],
+    channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }, { id: GENERAL, name: 'general', type: 0 }],
     threads: [{ id: THREAD, parent_id: MARJ, type: 11 }, { id: GENERAL_THREAD, parent_id: GENERAL, type: 11 }],
   });
   return map;
@@ -70,6 +70,11 @@ describe('ringDecision', () => {
 });
 
 describe('createChannelMap', () => {
+  it('a renamed channel still maps to its bot by BOTS channelId', () => {
+    const map = places();
+    map.channel({ id: '1548350324891328562', name: 'renamed-again', type: 0, guild_id: GUILD });
+    expect(map.resolve('1548350324891328562')).toEqual({ bot: 'marjorie', channelId: '1548350324891328562', threadId: '' });
+  });
   it('follows thread events and a channel renamed away', () => {
     const map = places();
     map.channel({ id: '900000000000000070', type: 11, parent_id: TREE, guild_id: GUILD });
@@ -84,12 +89,12 @@ describe('createChannelMap', () => {
   });
 
   it('names both channels in the ready line', () => {
-    expect(readyLine(places().ids(), founders)).toBe(`ready: #longlive-marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
+    expect(readyLine(places().ids(), founders)).toBe(`ready: #marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
   });
 
   it('ignores another guild when one is pinned', () => {
     const map = createChannelMap({ guildId: '900000000000000999' });
-    map.guild({ id: GUILD, channels: [{ id: MARJ, name: 'longlive-marjorie', type: 0 }] });
+    map.guild({ id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }] });
     expect(map.resolve(MARJ)).toBeUndefined();
   });
 });

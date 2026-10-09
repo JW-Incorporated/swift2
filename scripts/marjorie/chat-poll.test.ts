@@ -6,7 +6,7 @@ import {
   CROSS, EYES, GUILD, JOEY, MARJ, NOW, REPO, STRANGER, THREAD, TREE, baseRoutes, discord, env, founders, gh, mine, msg, onlyMarjorie, res, sleepImpl,
 } from './chat-poll.fixtures';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { context, parseFlags, poll, readMessages } from './chat-poll.mjs';
+import { context, parseFlags, poll, readMessages, resolveChannels } from './chat-poll.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { CLAIM, FAILED, FAILURE_PREFIX, REPLIED, dispatchArgs, founderIds, missingParents, runTitle, selectInbox } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -347,5 +347,23 @@ describe('context', () => {
   });
   it('refuses non-numeric ids', async () => {
     expect(await context(parseFlags(['--bot', 'marjorie', '--channel-id', '../x', '--message-id', '1', '--out', out()]), { env })).toBe(2);
+  });
+});
+
+describe('resolveChannels (channel resolved by id, not name)', () => {
+  const REAL_MARJ = '1548350324891328562';
+  const run = (channels: unknown[], e: Record<string, string> = {}) => {
+    const { fetchImpl, log } = discord({
+      [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, channels),
+    });
+    return resolveChannels({ env: { DISCORD_GUILD_ID: GUILD, ...e }, token: 'bot', fetchImpl, sleepImpl }).then((r: { ids: { marjorie: string | null } }) => ({ ...r, log }));
+  };
+  it('a renamed channel still resolves by its BOTS channelId', async () => {
+    const r = await run([{ id: REAL_MARJ, name: 'some-new-name' }, { id: TREE, name: 'longlive-tree' }]);
+    expect(r.ids.marjorie).toBe(REAL_MARJ);
+  });
+  it('the env var wins over the BOTS channelId', async () => {
+    const r = await run([], { DISCORD_MARJORIE_CHANNEL_ID: MARJ });
+    expect(r.ids.marjorie).toBe(MARJ);
   });
 });

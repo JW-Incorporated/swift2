@@ -259,13 +259,13 @@ describe('finding 3 — never a second failure notice', () => {
   });
 });
 
-/** One real poll over #longlive-marjorie holding one stale claim (an hour old, its run finished). */
+/** One real poll over #marjorie holding one stale claim (an hour old, its run finished). */
 const HOOK = 'https://discord.com/api/webhooks/1/secret-token';
 const stale = founder(MID, mine('👀'));
 async function pollWith(routes: Record<string, unknown>) {
   const d = discord({
     [`GET ${HOOK}`]: res(200, { guild_id: GUILD, channel_id: TREE }),
-    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'longlive-marjorie' }, { id: TREE, name: 'longlive-tree' }]),
+    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'marjorie' }, { id: TREE, name: 'longlive-tree' }]),
     [`GET ${DISCORD_API}/guilds/${GUILD}/threads/active`]: res(200, { threads: [] }),
     [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100`]: res(200, [stale]),
     [get(MARJ)]: res(200, stale),
@@ -273,7 +273,7 @@ async function pollWith(routes: Record<string, unknown>) {
   });
   const runs = [{ displayTitle: runTitle('marjorie', MID), status: 'completed', conclusion: 'failure', url: RUN }];
   const execImpl = vi.fn((_cmd: string, args: string[]) => (args[0] === 'run' ? JSON.stringify(runs) : ''));
-  const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
+  const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_MARJORIE_CHANNEL_ID: MARJ, DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
   const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml', clockLive: false });
   return { code, writes: d.writes(), dispatched: execImpl.mock.calls.filter((c) => c[1][0] === 'workflow').length };
 }

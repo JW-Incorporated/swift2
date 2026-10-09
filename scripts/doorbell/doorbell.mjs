@@ -2,7 +2,7 @@
 // install, update, stop and logs: docs/ops/doorbell.md). A systemd service on
 // the Hermes VM host, outside every Hermes container. Two tokens, read only
 // from /etc/longlive-doorbell.env:
-//   DOORBELL_DISCORD_TOKEN  the Long Live Doorbell bot: reads #longlive-marjorie
+//   DOORBELL_DISCORD_TOKEN  the Long Live Doorbell bot: reads #marjorie
 //                           and #longlive-tree and adds reactions there; it can
 //                           post nowhere (HA #73)
 //   DOORBELL_GITHUB_TOKEN   longlive-doorbell-dispatch: Actions read and write
