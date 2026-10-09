@@ -67,5 +67,31 @@ describe('parity frozen fixture includes lenses (#5341)', () => {
       expect(sync).toBeLessThan(apply);
       expect(apply).toBeLessThan(build);
     });
+    it('build-web verifies the frozen lenses after next build', () => {
+      const build = idx('build-web', runs('next build'));
+      const verify = idx('build-web', runs('make-fixture.mjs --verify-lenses'));
+      expect(build).toBeLessThan(verify);
+    });
+
+    it('build-dom: both exports run frozen, then verify lenses', () => {
+      const steps = wf.jobs['build-dom'].steps as (Step & { env?: Record<string, string> })[];
+      const exports = steps.filter((s) => (s.run ?? '').includes('expo export'));
+      expect(exports).toHaveLength(2);
+      for (const s of exports) expect(s.env?.PARITY_FROZEN_LENSES).toBe('1');
+      const last = Math.max(...exports.map((s) => steps.indexOf(s)));
+      expect(idx('build-dom', runs('make-fixture.mjs --verify-lenses'))).toBeGreaterThan(last);
+    });
+  });
+
+  it('metro.config.js skips lens regeneration when PARITY_FROZEN_LENSES=1', () => {
+    const src = read('apps/mobile/metro.config.js');
+    expect(src).toMatch(
+      /if \(process\.env\.PARITY_FROZEN_LENSES !== '1'\) \{\s+execFileSync\([^)]*sync-longlive-lenses\.mjs/,
+    );
+  });
+
+  it('make-fixture has a --verify-lenses mode comparing against fixture.json', () => {
+    const src = read('scripts/parity/make-fixture.mjs');
+    expect(src).toContain("mode === '--verify-lenses'");
   });
 });
