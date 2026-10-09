@@ -1369,15 +1369,6 @@ const TRACKS = [
       sources: [
         wiki('The Alchemy', 'The_Alchemy', 'song article: composition, chart, live history, reception'),
         ALBUM,
-        {
-          source_url: 'https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/',
-          source_title: "Is Taylor Swift's 'The Alchemy' About Travis Kelce?",
-          publisher: 'TIME',
-          source_type: 'reputable_press',
-          accessed_at: '2026-07-24',
-          reliability_score: 4,
-          notes: 'Press football-metaphor reading; labels the subject as fan/press inference, not Swift-confirmed',
-        },
       ],
       dossier: {
         whyItMatters: [
@@ -1412,7 +1403,6 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
-          { name: "TIME: Is Taylor Swift's 'The Alchemy' About Travis Kelce?", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
           { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
         ]
       },
@@ -1950,7 +1940,7 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and one very identifiable "marry, kiss, or kill" reference.',
+      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and a "marry, kiss, or kill" reference.',
       summary:
         'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, alongside The Alchemy.',
       inspiration:
@@ -1958,18 +1948,9 @@ const TRACKS = [
       themes: ['regression to giddiness', 'new love', 'being known simply'],
       fanLore:
         'Fan reading (unconfirmed): a subject attribution that Swift has never confirmed.',
-      sourceUrl: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
+      sourceUrl: 'https://en.wikipedia.org/wiki/So_High_School',
       sources: [
         wiki('So High School', 'So_High_School', 'song article: readings'),
-        {
-          source_url: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
-          source_title: "Taylor Swift's 'So High School' Travis Kelce References Explained",
-          publisher: 'Capital FM',
-          source_type: 'reputable_press',
-          accessed_at: ACCESSED,
-          reliability_score: 3,
-          notes: "'marry, kiss, or kill' lyric and Kelce's 2016 interview clip; bleachers as Eras Tour staging, not a lyric",
-        },
         ALBUM,
       ],
     },
@@ -2058,14 +2039,14 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
       note: 'The stylized capitals in the official title spell out a three-letter name — the pettiest typography in the catalog, attached to a song about thanking your bully.',
       summary:
-        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The K-I-M capitalization is on the official streaming tracklist (fact); the Kardashian reading it triggers has never been stated aloud and never needed to be. It debuted live as an Eras Tour surprise song — June 22, 2024, Wembley Stadium, London — mashed up with "Mean," and charted at No. 23 on the Hot 100 in the album\'s release week.',
+        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The stylized capitalization is on the official streaming tracklist (fact); Taylor has not named a subject, and this guide doesn’t name anyone. It debuted live as an Eras Tour surprise song — June 22, 2024, Wembley Stadium, London — mashed up with "Mean," and charted at No. 23 on the Hot 100 in the album\'s release week.',
       inspiration:
-        'The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Swift has confirmed only that the name is changed and the bully composite.',
+        'The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Taylor has confirmed only that the name is changed and the bully composite.',
       themes: ['bullies as accidental architects', 'ironic gratitude', 'outliving a feud', 'triumph over naysayers'],
       fanLore:
-        'Fan/press reading (unconfirmed but typographically assisted): the Kim Kardashian address.',
+        'Fan/press reading (unconfirmed but typographically assisted): a subject attribution that Taylor has never confirmed and this guide doesn’t name.',
       easterEggs:
-        'The official stylization is the Easter egg — the clue embedded in the tracklist itself, its capitals spelling KIM. The Aug. 15, 2024 limited download edition restyled the title "thank You aimEe," whose capitals spell YE — read by press as a glance at Kanye West. Both name-readings are interpretation, not confirmed.',
+        'The official stylization is the Easter egg — the clue embedded in the tracklist itself, its capitals spelling a short name. The Aug. 15, 2024 limited download edition restyled the title "thank You aimEe," with a different capital pattern. Any name-readings are interpretation, not confirmed by Taylor, and this guide doesn’t name anyone.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Thank_You_Aimee',
       sources: [
         wiki('thanK you aIMee', 'Thank_You_Aimee', 'song article: stylization, charts, live history, readings'),

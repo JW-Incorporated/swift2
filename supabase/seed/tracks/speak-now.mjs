@@ -180,19 +180,19 @@ const TRACKS = [
     dossier: {
       whyItMatters: [
         'Back to December is the first time Taylor wrote herself as the one who did the breaking. She said so plainly at release: the song is an apology to someone who was absolutely wonderful to her, a ball she dropped and needed to own out loud. On an album full of open letters, this is the one addressed from the guilty party — a reversal critics immediately read as a leap in maturity. Released as a single on November 15, 2010, it climbed to No. 6 on the Hot 100 and No. 3 on Hot Country Songs.',
-        "It is also the rare entry in her catalog where the muse question has an on-the-record answer. Taylor declined to name the subject in 2010, but in a 2016 Facebook Live with his Scream Queens castmates, Taylor Lautner acknowledged the song is about him — turning years of fan timeline math into documented fact. She performed it at the 2010 CMA Awards and folded it into an American Music Awards mashup with OneRepublic's Apologize, leaning into the theme.",
+        "It is also the rare entry in her catalog where the muse question has an on-the-record answer. Taylor declined to name the subject in 2010, and this guide doesn't name anyone; the acknowledgment came from an ex who later acknowledged it himself, not from Taylor. She performed it at the 2010 CMA Awards and folded it into an American Music Awards mashup with OneRepublic's Apologize, leaning into the theme.",
       ],
       meaning: {
         confirmed: [
           'Taylor wrote it alone, produced it with Nathan Chapman, and released it as a single on November 15, 2010; it peaked at No. 6 on the Hot 100 and No. 3 on Hot Country Songs.',
-          'She described it as an apology to a past love — the first time she had apologized in a song — saying someone had been absolutely wonderful to her and she dropped the ball; in 2016 Taylor Lautner acknowledged on a Facebook Live with Scream Queens castmates that the song is about him.',
+          'She described it as an apology to a past love — the first time she had apologized in a song — saying someone had been absolutely wonderful to her and she dropped the ball; an ex who later acknowledged it did so himself, and Taylor has not named him.',
         ],
         supported: [
           'Critics praised the emotional honesty and the vulnerability in the vocal, and retrospective rankings often cite it as the moment her writing learned to indict herself as readily as anyone else.',
           'Within the album it balances the ledger: a record famous for its scorched-earth letters also contains its most unguarded act of accountability, sequenced early like a disclosure.',
         ],
         fanTheories: [
-          "Before Lautner's 2016 acknowledgment, the attribution was entirely fan-assembled — a December timeline and a 2009 public friendship mapped onto the lyric. His confirmation made this one of the few Speak Now muse theories ever converted into fact by the named person himself.",
+          "Before the later acknowledgment, the attribution was entirely fan-assembled — a December timeline and a public friendship mapped onto the lyric. Taylor herself has not named the subject.",
         ],
       },
       connections: [
@@ -211,10 +211,6 @@ const TRACKS = [
         {
           name: 'Back to December — Wikipedia',
           url: 'https://en.wikipedia.org/wiki/Back_to_December',
-        },
-        {
-          name: "Time: Taylor Lautner Opens Up About Taylor Swift's Song About Him (2016)",
-          url: 'https://time.com/4445042/taylor-lautner-taylor-swift-song/',
         },
       ],
     },
@@ -307,26 +303,26 @@ const TRACKS = [
       wiki(
         'Dear John (Taylor Swift song)',
         'Dear_John_(Taylor_Swift_song)',
-        'song article: reception and Mayer response',
+        'song article: reception and public response',
       ),
       ALBUM,
     ],
     dossier: {
       whyItMatters: [
         "Dear John is the album's six-minute, forty-three-second center of gravity: a slow blues burn in the track-five slot about a nineteen-year-old picking apart a much older man's games. Never a single, it still reached No. 54 on the Hot 100 on album play in 2010, and the 2023 re-recording climbed to No. 26. In the Speak Now (Taylor's Version) prologue, Taylor named it the most scathing song she has ever written — her own superlative, thirteen years on. She described the album's songs as open letters, and told USA Today this one was like the final e-mail you would send someone you used to be with.",
-        'Its afterlife is a case study in how she manages the muse question. Asked in 2012 whether it was about John Mayer, she called the assumption presumptuous and repeated that she never discloses subjects. Mayer, for his part, went on the record in a June 2012 Rolling Stone interview saying the song humiliated him and dismissing it as cheap songwriting — his reaction is documented fact even though the attribution stays formally unconfirmed. When she finally played it live again on June 24, 2023 in Minneapolis, her first performance in eleven years, she prefaced it by asking fans for kindness and gentleness online, saying she was 33 and cared about nothing from when she was 19 except the songs she wrote.',
+        'Its afterlife is a case study in how she manages the muse question. Asked in 2012 whether it was about a specific person, she called the assumption presumptuous and repeated that she never discloses subjects; the song is about a much older ex, Taylor never named him, and this guide doesn’t name anyone. When she finally played it live again on June 24, 2023 in Minneapolis, her first performance in eleven years, she prefaced it by asking fans for kindness and gentleness online, saying she was 33 and cared about nothing from when she was 19 except the songs she wrote.',
       ],
       meaning: {
         confirmed: [
           "Taylor wrote it alone and produced it with Nathan Chapman; the 6:43 deep cut reached No. 54 on the Hot 100 in 2010, and the Taylor's Version peaked at No. 26 in 2023. In the re-recording's prologue she called it the most scathing song she has ever written.",
-          "She has never named the subject — telling Glamour in 2012 the Mayer assumption was presumptuous — while Mayer publicly responded in Rolling Stone that June, saying the song humiliated him and calling it cheap songwriting. Reviving it in Minneapolis on June 24, 2023, her first performance in eleven years, she asked fans not to defend her online against anyone she might have written about, requesting kindness ahead of the album's release.",
+          "She has never named the subject — telling Glamour in 2012 that assuming a specific person was presumptuous. Reviving it in Minneapolis on June 24, 2023, her first performance in eleven years, she asked fans not to defend her online against anyone she might have written about, requesting kindness ahead of the album's release.",
         ],
         supported: [
           'Critics praised its emotional force while some contemporaries flinched at the accusatory framing; retrospective assessments rank it among her best writing, and the extended guitar language was universally heard as a stylistic tell aimed at its rumored subject.',
           "The song's power move is the reclamation arc: it opens in self-blame — she should have known — and methodically shifts the verdict to the older party who certainly did.",
         ],
         fanTheories: [
-          'The Mayer attribution is the most universal fan reading in the Speak Now catalog, built from the title, the blues-guitar styling, and the 2009-2010 timeline; it remains unconfirmed by Taylor, whose 2023 plea for gentleness is the closest she has come to acknowledging the discourse at all.',
+          'Fans widely attribute the song to a much older ex, building the case from the title, the blues-guitar styling, and the 2009-2010 timeline; Taylor never named him, this guide doesn’t name anyone, and the attribution remains unconfirmed by Taylor, whose 2023 plea for gentleness is the closest she has come to acknowledging the discourse at all.',
         ],
       },
       connections: [
@@ -577,26 +573,26 @@ const TRACKS = [
       wiki(
         'Enchanted (Taylor Swift song)',
         'Enchanted_(Taylor_Swift_song)',
-        'song article: Adam Young exchange and legacy',
+        'song article: composition and legacy',
       ),
       ALBUM,
     ],
     dossier: {
       whyItMatters: [
-        "Enchanted is the song Taylor herself crowned the most wistfully romantic she has ever written, in the Speak Now (Taylor's Version) prologue. The documented origin is unusually specific: she met someone in New York City, and after he used the word wonderstruck in an e-mail to her, she wrote it into the chorus on purpose — then hid the name A-D-A-M in the album booklet's coded liner notes. The infatuation was so legible that the answer arrived in public: in February 2011, Owl City's Adam Young posted a reworked reply version of the song with a message saying he had been enchanted to meet her too.",
-        "Taylor never confirmed or denied the identification, and never responded to the reply — which only deepened the song's what-if architecture. Its commercial afterlife outran the whole era: never a single, it became the name-source for her Wonderstruck fragrance in 2011, went viral on TikTok in late 2021 with millions of weekly streams, and settled into the Eras Tour as the Speak Now act's purple-gown showstopper.",
+        "Enchanted is the song Taylor herself crowned the most wistfully romantic she has ever written, in the Speak Now (Taylor's Version) prologue. The documented origin is unusually specific: she met a musician in New York City, and after he used the word wonderstruck in an e-mail to her, she wrote it into the chorus on purpose, and she also encoded a hidden message in the album booklet's liner notes. Taylor has not named the subject, and this guide doesn't name anyone.",
+        "That reticence only deepened the song's what-if architecture. Its commercial afterlife outran the whole era: never a single, it became the name-source for her Wonderstruck fragrance in 2011, went viral on TikTok in late 2021 with millions of weekly streams, and settled into the Eras Tour as the Speak Now act's purple-gown showstopper.",
       ],
       meaning: {
         confirmed: [
-          "Taylor wrote it alone and produced it with Nathan Chapman; she said it was about meeting someone in New York City she was instantly infatuated with, deliberately used the word wonderstruck because the subject had used it in an e-mail to her, and encoded A-D-A-M in the album booklet. Her Wonderstruck fragrance (October 2011) took its name from the song's vocabulary, and in the 2023 prologue she called it her most wistfully romantic song.",
-          'Adam Young of Owl City publicly responded on February 13, 2011 with a reply version of the song and a message saying he had been enchanted to meet her too; Taylor never confirmed nor denied that he was the subject and did not respond publicly to his cover.',
+          "Taylor wrote it alone and produced it with Nathan Chapman; she said it was about meeting someone in New York City she was instantly infatuated with, deliberately used the word wonderstruck because the subject had used it in an e-mail to her, and encoded a hidden message in the album booklet. Her Wonderstruck fragrance (October 2011) took its name from the song's vocabulary, and in the 2023 prologue she called it her most wistfully romantic song.",
+          'Taylor has never named the person she met; she has neither confirmed nor denied any identification, and this guide doesn’t name anyone.',
         ],
         supported: [
           "Critics singled out the soaring production and the layered vocal coda as the album's most cinematic stretch, and the song's late-blooming streaming life — a TikTok-driven resurgence in October-November 2021 — turned a deep cut into one of the catalog's most-streamed Speak Now tracks.",
           "The song's engine is uncertainty rather than romance: one dazzling evening spent entirely in the subjunctive, spiraling on whether the feeling was mutual and whether someone else was waiting at his home.",
         ],
         fanTheories: [
-          "The Adam Young identification is as close to solved as an unconfirmed muse gets — liner-note cipher, the wonderstruck e-mail detail, and Young's own public reply all point one way — but Taylor has never said his name, so it formally remains a fan-and-press reading.",
+          "Fans have built an identification of the musician from the liner-note cipher and the wonderstruck e-mail detail, but Taylor has never said his name and this guide doesn't name anyone, so it formally remains a fan reading.",
         ],
       },
       connections: [
@@ -662,7 +658,7 @@ const TRACKS = [
           'The rewrite also fits a documented pattern: she had softened a lyric in Picture to Burn early in her career, making Better Than Revenge the second time adult judgment revised a teenage grudge on the record.',
         ],
         fanTheories: [
-          'The widely reported fan reading names actor Camilla Belle — who dated Joe Jonas shortly after Taylor did in 2008 — as the rival; Taylor has never confirmed any subject, and the attribution remains unverified speculation.',
+          'Fans have speculated about who the rival is; Taylor has never confirmed any subject, this guide doesn’t name anyone, and the attribution remains unverified speculation.',
         ],
       },
       connections: [
@@ -698,11 +694,11 @@ const TRACKS = [
     releaseDate: '2010-10-25',
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Nathan Chapman'],
-    note: 'Her formal response to the 2009 VMA interruption — debuted, deliberately, on the VMA stage one year later.',
+    note: 'Debuted, deliberately, on the VMA stage in 2010, a year after the documented 2009 VMA stage interruption.',
     summary:
-      'A pointedly gracious song extending forgiveness after a public humiliation on live TV: everyone is still growing, everyone can still be redeemed.',
+      'A pointedly gracious song extending forgiveness after a public humiliation: everyone is still growing, everyone can still be redeemed.',
     inspiration:
-      'Premiering it at the 2010 VMAs, a year after the 2009 stage interruption, was the statement.',
+      'Premiering it at the 2010 VMAs, a year after the 2009 stage interruption, was the statement; Taylor has not named a subject, and this guide doesn’t name anyone.',
     themes: ['forgiveness', 'public grace', 'growing up in public'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)',
     sources: [
@@ -715,20 +711,20 @@ const TRACKS = [
     ],
     dossier: {
       whyItMatters: [
-        "Innocent is the album's formal reply to the most-watched interruption in awards-show history. After Kanye West seized her microphone at the 2009 VMAs, the world expected a counterpunch; what Taylor wrote instead — over six months, far longer than her usual pace — was a song extending forgiveness, and she has said she deliberately wrote it to him rather than about him. The staging of its debut was the statement: September 12, 2010, on the VMA stage one year later, opening with footage of the incident itself before she sang, barefoot, about growth and redemption.",
-        "It reached No. 27 on the Hot 100 on album release, but its real legacy is the argument it started. Reception split sharply between critics who heard rare public grace and those who found a twenty-year-old absolving a thirty-two-year-old patronizing. That fault line never healed — and after the events of 2016 re-poisoned the well between the two camps, the song's gentleness became one of the catalog's most debated time capsules.",
+        "Innocent is a song of forgiveness, and its debut is tied to a documented public event: the 2009 VMAs stage interruption, the most-watched interruption in awards-show history. The world expected a counterpunch; what Taylor wrote instead — over six months, far longer than her usual pace — was a song extending forgiveness. Taylor has not named a subject, and this guide doesn't name anyone. The staging of its debut was the statement: September 12, 2010, on the VMA stage one year later, opening with footage of the incident itself before she sang, barefoot, about growth and redemption.",
+        "It reached No. 27 on the Hot 100 on album release, but its real legacy is the argument it started. Reception split sharply between critics who heard rare public grace and those who found it patronizing. That fault line never healed, and the song's gentleness became one of the catalog's most debated time capsules.",
       ],
       meaning: {
         confirmed: [
-          "Taylor wrote it alone and produced it with Nathan Chapman, in response to Kanye West's interruption of her acceptance speech at the 2009 MTV Video Music Awards — one of the few subjects in her catalog she publicly confirmed. It peaked at No. 27 on the Hot 100.",
-          "She debuted it at the 2010 VMAs on September 12, 2010, in a performance that opened with footage of the previous year's incident; she said the song took her about six months to write and that she wanted to write it to him rather than about him.",
+          "Taylor wrote it alone and produced it with Nathan Chapman, and debuted a year after the documented 2009 MTV Video Music Awards stage interruption of her acceptance speech. It peaked at No. 27 on the Hot 100.",
+          "She debuted it at the 2010 VMAs on September 12, 2010, in a performance that opened with footage of the previous year's incident; she said the song took her about six months to write.",
         ],
         supported: [
-          'Reception split on arrival and stayed split: supporters heard sympathy and maturity, detractors found the framing condescending — a younger artist granting absolution to an older one — and both readings still circulate.',
+          'Reception split on arrival and stayed split: supporters heard sympathy and maturity, detractors found the framing condescending — a younger artist granting absolution — and both readings still circulate.',
           "The performance's staging did as much narrative work as the lyric: replaying the humiliation on the same stage before answering it framed the song as a public closing of the loop, on her terms.",
         ],
         fanTheories: [
-          "After the 2016 feud reignited everything the song had forgiven, fans widely re-read the reputation era as this track's sequel-in-reverse — grace extended, then rescinded. The arc is a fan framing; Taylor has never described the songs that way herself.",
+          "Fans have re-read the reputation era as this track's sequel-in-reverse — grace extended, then rescinded. The arc is a fan framing; Taylor has never described the songs that way herself.",
         ],
       },
       connections: [
@@ -747,10 +743,6 @@ const TRACKS = [
         {
           name: 'Innocent (Taylor Swift song) — Wikipedia',
           url: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)',
-        },
-        {
-          name: "CBS News: Taylor Swift's 'Innocent' at the 2010 VMAs Reflects on Kanye West Incident",
-          url: 'https://www.cbsnews.com/news/taylor-swift-vmas-2010-innocent-lyrics-reflect-on-kanye-west-incident/',
         },
       ],
     },
@@ -880,7 +872,7 @@ const TRACKS = [
           "Fans turned the lyric's July 9th into an annual observance, resurfacing the song every summer — one of the clearest cases of the fandom building a calendar around a deep cut.",
         ],
         fanTheories: [
-          "The long-standing fan attribution is Joe Jonas: a hidden liner-notes message reading forever and always, an intro fans time at 27 seconds to match the reported length of the 2008 breakup phone call, and a July 9, 2008 airport reunion that matches the lyric's date. Every piece is fan-assembled; Taylor has confirmed none of it.",
+          "The long-standing fan attribution ties the song to a 2008 breakup: a hidden liner-notes message, an intro fans time to the reported length of a phone call, and a July 9, 2008 date that matches the lyric's. Every piece is fan-assembled; Taylor has confirmed none of it, and this guide doesn't name anyone.",
         ],
       },
       connections: [
@@ -1203,26 +1195,26 @@ const TRACKS = [
     dossier: {
       whyItMatters: [
         "I Can See You is the Speak Now vault's showpiece — not for the song alone, but for how Taylor released it. Instead of quietly dropping the video, she premiered it live from the stage on July 7, 2023, the night Speak Now (Taylor's Version) arrived, in the Kansas City stop of the Eras Tour. Musically it is the vault's outlier: a funk-and-surf-rock strut of distorted guitar and synth bass with almost nothing of the album's teenage country in it, which is exactly why critics kept singling it out.",
-        "The video turned the whole re-recording project into a caper. Taylor directed it herself and cast a heist crew that read like a fan's dream footnote: Joey King and Presley Cash reprising the roles they played in the 2011 Mean video, and Taylor Lautner — the acknowledged subject of Back to December — helping break a vault-imprisoned Taylor out. Freeing the old album from a literal vault, with an old flame in on the job, is the masters-reclamation story told as slapstick, and the good-humored public reunion with Lautner became one of the Tour's most-replayed surprises.",
+        "The video turned the whole re-recording project into a caper. Taylor directed it herself and cast a heist crew that read like a fan's dream footnote: Joey King and Presley Cash reprising the roles they played in the 2011 Mean video, and Taylor Lautner (video cast) helping break a vault-imprisoned Taylor out. Freeing the old album from a literal vault is the masters-reclamation story told as slapstick, and the good-humored public reunion became one of the Tour's most-replayed surprises.",
       ],
       meaning: {
         confirmed: [
           'A "From the Vault" track written in the original Speak Now era and left off the 2010 album, released on July 7, 2023 with Speak Now (Taylor\'s Version); Taylor wrote it alone and produced it with Jack Antonoff — a funk/rock departure from the record\'s country songwriting.',
-          'Taylor directed the music video and premiered it live during the Eras Tour in Kansas City on the album\'s release day. Its cast acts out a heist to break her out of a vault — a play on reclaiming her masters — with Joey King and Presley Cash reprising their roles from the 2011 "Mean" video and Taylor Lautner, the confirmed subject of "Back to December," as part of the crew.',
+          'Taylor directed the music video and premiered it live during the Eras Tour in Kansas City on the album\'s release day. Its cast acts out a heist to break her out of a vault — a play on reclaiming her masters — with Joey King and Presley Cash reprising their roles from the 2011 "Mean" video and Taylor Lautner as part of the crew.',
         ],
         supported: [
           "Critics treated it as the standout of the vault batch — Billboard's Jason Lipshutz called it the best of the From the Vault tracks and argued it would have been an excellent addition to the original album — even as others found the retro-pop sound a step too far from Speak Now, and that split became part of its story.",
-          'The video does the era\'s narrative work literally: casting an old collaborator and an old flame to break the artist out of a vault dramatizes the masters-reclamation project every re-recording is quietly about.',
+          'The video does the era\'s narrative work literally: casting familiar faces to break the artist out of a vault dramatizes the masters-reclamation project every re-recording is quietly about.',
         ],
         fanTheories: [
-          "Fans catalog the video's props and beats as a running metaphor for reclaiming the Speak Now masters, and read the Lautner casting as the affectionate closing note to Back to December — a reconciliation the two have played entirely in public and in good humor. Taylor has framed the video as a celebration of the re-recording, not spelled out a prop-by-prop code, so the deeper reading stays a fan one.",
+          "Fans catalog the video's props and beats as a running metaphor for reclaiming the Speak Now masters, and read the casting as an affectionate in-joke. Taylor has not named any song subject, and this guide doesn't name anyone. Taylor has framed the video as a celebration of the re-recording, not spelled out a prop-by-prop code, so the deeper reading stays a fan one.",
         ],
       },
       connections: [
         {
           relatedId: 'song:back-to-december',
           label: 'Back to December',
-          why: "The vault video's headliner is the man Back to December apologizes to — the heist plays as the good-humored public coda to that song's private apology, a decade on.",
+          why: "A fellow Speak Now-era song about a past love, and the vault video's heist plays as a good-humored public wink at the era a decade on.",
         },
         {
           relatedId: 'song:mean',

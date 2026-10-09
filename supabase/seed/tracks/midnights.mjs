@@ -691,7 +691,7 @@ const ERA = {
             "Reception split on the same axis critics still argue: Variety's Chris Willman predicted it would be the album's 'most talked-about song,' Vulture's Justin Curto called it Swift at her 'venomous best,' and The New York Times' Jon Caramanica read the narrator as 'funny, wry, slightly perturbing.' Pitchfork's Quinn Moreland dissented — the revenge-fantasy 'edginess' plays like a 'costume' next to the album's deeper cuts."
           ],
           fanTheories: [
-            "Fans and press widely map the song onto Swift's documented business adversaries (the Scooter Braun / masters dispute) and, less often, Kanye West. Swift has named no subject; the lyric's literal story is a fictional wife-and-mistress revenge plot, and every real-world target is fan/critic reading, not confirmed fact."
+            "Fans and press widely map the song onto Taylor's documented business adversaries. Taylor has named no subject, and this guide doesn't name anyone; the lyric's literal story is a fictional wife-and-mistress revenge plot, and every real-world target is fan/critic reading, not confirmed fact."
           ]
         },
         connections: [
@@ -1040,7 +1040,7 @@ const ERA = {
           confirmed: [
             "Swift told Apple Music's 'New Music Daily' that she wrote 'Karma' from 'a perspective of feeling really happy, really proud of the way your life is, feeling like this must be a reward for doing stuff right.'",
             "Swift directed the song's music video herself, which uses cosmic/outer-space imagery and features her alongside Ice Spice, who appears on the official remix released May 26, 2023.",
-            "Swift changed a lyric during Eras Tour stops (beginning in Buenos Aires, November 2023) from 'Karma is the guy on the screen' to 'Karma is the guy on the Chiefs,' a nod to Travis Kelce that fans and press widely noted as a public relationship signal."
+            "Swift changed a lyric during Eras Tour stops (beginning in Buenos Aires, November 2023) from 'Karma is the guy on the screen' to 'Karma is the guy on the Chiefs,' a nod to her public relationship that fans and press widely noted as a public relationship signal."
           ],
           supported: [
             "Critics including Rolling Stone's CT Jones read the song as a thesis statement for the Midnights era, with the line 'I'm still here' interpreted as a pointed rebuke to those who wished for Swift's professional or public downfall.",
