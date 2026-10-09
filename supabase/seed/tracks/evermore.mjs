@@ -221,7 +221,7 @@ const TRACKS = [
       dossier: {
         whyItMatters: [
           "Evermore's homecoming-for-the-holidays song, and by Aaron Dessner's account one of the album's quickest. He told Billboard that Swift wrote it when she arrived for the first day of rehearsal for the Long Pond Studio Sessions: they stayed up late, and the next morning at about nine she came to him and said she had to sing him a song, which she then did in his kitchen.",
-          "The music underneath is older. Dessner told Billboard he wrote it many years earlier and hid it away because he loved it so much, and told Rolling Stone it is a track that is very special to him. He said the feeling in it, an ache in one person put there by an ache in another, is one everyone can relate to."
+          "The music underneath is older. Dessner told Billboard he wrote it many years earlier and hid it away because he loved it so much, and told Rolling Stone it is a track that is very special to him. Billboard quotes him saying the feeling in it, an ache in one person put there by an ache in another, is one everyone can relate to, and Rolling Stone quotes him calling the song Swift wrote 'instantly relatable.'"
         ],
         meaning: {
           confirmed: [

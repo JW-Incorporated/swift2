@@ -631,7 +631,7 @@ const ERA = {
         meaning: {
           confirmed: [
             "Swift said in the YouTube Live that it was 'really, really hard to write', that putting it on the album was a family decision, and that she is proud of it.",
-            "Rolling Stone quoted Swift's earlier writing in Elle that she has had to learn how to handle serious illness in her family. Elle reported that she had recently said, for its cover feature, that both of her parents have had cancer and that her mother was fighting it again. That is Swift's own disclosure, and the song's subject is as she has described it."
+            "Rolling Stone quoted Swift's earlier writing in Elle that she has had to learn how to handle serious illness in her family. In her own Elle essay, '30 Things I Learned Before Turning 30' (March 2019), Swift wrote that both of her parents have had cancer and that her mother was fighting it again. That is her own disclosure, and the song's subject is as she has described it."
           ],
           supported: [
             "Rolling Stone reported that the instrumentation is two guitars and Martie Maguire's fiddle, that the Chicks' parts are harmonies on the chorus, and that Natalie Maines' voice echoes Swift's in the bridge.",
@@ -660,6 +660,10 @@ const ERA = {
           }
         ],
         sources: [
+          {
+            name: "30 Things I Learned Before Turning 30 - Elle",
+            url: "https://www.elle.com/culture/celebrities/a26628467/taylor-swift-30th-birthday-lessons/"
+          },
           {
             name: "Taylor Swift's 'Soon You'll Get Better' Lyrics Reveal the Struggle of Watching Her Parents Battle Cancer - Elle",
             url: "https://www.elle.com/culture/music/a28787408/taylor-swift-soon-you-get-better-lyrics-meaning-mom/"

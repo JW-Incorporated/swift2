@@ -1005,7 +1005,7 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "A vault song from the Fearless re-recording, and the second 'From the Vault' track released ahead of the album. CNN reported Swift surprise-released it on April 7, 2021, two days before Fearless (Taylor's Version); Billboard noted the only earlier vault release was 'You All Over Me' with Maren Morris.",
+          "A vault song from the Fearless re-recording, and the second 'From the Vault' track released ahead of the album. CNN reported Swift surprise-released it on April 7, 2021, ahead of the Friday debut of Fearless (Taylor's Version); Billboard noted the only earlier vault release was 'You All Over Me' with Maren Morris.",
           "The rollout was a game. Variety reported that Swift first teased the vault titles as scrambled anagrams, then posted the full track list after fans cracked the codes, writing 'You cracked the codes and guessed all the From The Vault titles.'"
         ],
         meaning: {
