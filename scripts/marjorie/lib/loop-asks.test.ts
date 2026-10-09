@@ -215,18 +215,22 @@ describe('fileAsk', () => {
 describe('fileAsk claim-before-create (#4260)', () => {
   const ask = { ask: 'get the daily-draft run green', why: '', contradicts: null };
   const wait = (ms = 3) => new Promise((r) => setTimeout(r, ms));
+  const KEY = askKey('tree', 4300, ask.ask);
+  const CLAIM = `loop-claim:${KEY}`;
 
   /** GitHub stand-in: labels are unique (422 on a repeat) and read back at once;
    * the issues LIST never shows a new issue (worst-case index lag). */
-  function lagGh(opts: { dieAfterClaim?: boolean; failReceipt?: boolean } = {}) {
+  function lagGh(opts: { failCreates?: number; failReceipt?: boolean; seed?: string } = {}) {
     const labels = new Map<string, string>();
+    if (opts.seed) labels.set(CLAIM, opts.seed);
     const issues = new Map<number, Record<string, unknown>>();
     const creates: string[][] = [];
+    let failCreates = opts.failCreates ?? 0;
     let next = 5000;
     const gh = vi.fn(async (args: string[]) => {
       await wait();
       if (args[0] === 'issue' && args[1] === 'create') {
-        if (opts.dieAfterClaim) throw new Error('killed');
+        if (failCreates > 0) { failCreates -= 1; throw new Error('HTTP 502'); }
         creates.push(args);
         const number = next++;
         issues.set(number, { number, html_url: `https://github.com/JW-Incorporated/swift2/issues/${number}`, title: args[args.indexOf('--title') + 1], body: args[args.indexOf('--body') + 1], user: { login: 'github-actions[bot]' }, state: 'open', labels: [] });
@@ -235,17 +239,22 @@ describe('fileAsk claim-before-create (#4260)', () => {
       if (args[0] === 'api' && args[2] === 'POST') {
         const name = args.find((a) => a.startsWith('name='))!.slice(5);
         if (labels.has(name)) throw Object.assign(new Error('gh: Validation Failed (HTTP 422)'), { stderr: 'already_exists' });
-        labels.set(name, '');
+        labels.set(name, args.find((a) => a.startsWith('description='))!.slice(12));
         return { stdout: '{}' };
       }
       if (args[0] === 'api' && args[2] === 'PATCH') {
-        if (opts.failReceipt) throw new Error('boom');
+        if (opts.failReceipt && args[5].startsWith('description=issue')) throw new Error('boom');
         labels.set(decodeURIComponent(args[3].split('/labels/')[1]), args[5].slice('description='.length));
         return { stdout: '{}' };
+      }
+      if (args[0] === 'api' && args[2] === 'DELETE') {
+        labels.delete(decodeURIComponent(args[3].split('/labels/')[1]));
+        return { stdout: '' };
       }
       const path = args[1];
       if (path.includes('/labels/')) {
         const name = decodeURIComponent(path.split('/labels/')[1]);
+        if (!labels.has(name)) throw new Error('gh: Not Found (HTTP 404)');
         return { stdout: JSON.stringify({ name, description: labels.get(name) }) };
       }
       const one = path.match(/\/issues\/(\d+)$/);
@@ -255,7 +264,7 @@ describe('fileAsk claim-before-create (#4260)', () => {
     return { gh, creates, labels };
   }
   const run = (gh: unknown, extra: Record<string, unknown> = {}) =>
-    fileAsk('tree', ask, { sourceNumber: 4300, sourceUrl: 'u', gh: gh as never, sleep: () => wait(), ...extra });
+    fileAsk('tree', ask, { sourceNumber: 4300, sourceUrl: 'u', gh: gh as never, sleep: () => wait(), settleMs: 1, ...extra });
 
   it('two simultaneous filers produce exactly one issue, and both report it', async () => {
     const { gh, creates } = lagGh();
@@ -281,19 +290,35 @@ describe('fileAsk claim-before-create (#4260)', () => {
     expect(new Set(results.map((r) => r.number)).size).toBe(1);
   });
 
-  it('a killed claimant never yields a second issue: the retry warns (throws) instead of creating', async () => {
-    const dead = lagGh({ dieAfterClaim: true });
-    await expect(run(dead.gh)).rejects.toThrow(/killed/);
-    const retry = await run(dead.gh, { claimWaitMs: 20 }).catch((e) => e);
-    expect(retry).toBeInstanceOf(Error);
-    expect(String(retry.message)).toMatch(/claim .* is held/);
-    expect(dead.creates).toHaveLength(0);
+  it('a fresh pending claim with no filing warns (throws) and never creates', async () => {
+    const held = lagGh({ seed: `claimed ${new Date().toISOString()} run other-1` });
+    const err = await run(held.gh, { claimWaitMs: 20 }).catch((e) => e);
+    expect(String(err.message)).toMatch(/is held/);
+    expect(held.creates).toHaveLength(0);
   });
 
-  it('a lost receipt write (kill after create) never yields a second issue either', async () => {
-    const { gh, creates } = lagGh({ failReceipt: true });
+  it('a stale claim (dead claimant) is taken over and exactly one issue is created', async () => {
+    const { gh, creates, labels } = lagGh({ seed: 'claimed 2020-01-01T00:00:00.000Z run dead-1' });
+    const [a, b] = await Promise.all([run(gh), run(gh)]);
+    expect(creates).toHaveLength(1);
+    expect(a.number).toBe(b.number);
+    expect(labels.get(CLAIM)).toMatch(/^issue #5000 at /);
+  });
+
+  it('a create failure releases the claim, and a later run files the ask', async () => {
+    const { gh, creates, labels } = lagGh({ failCreates: 1 });
+    await expect(run(gh)).rejects.toThrow(/502/);
+    expect(labels.has(CLAIM)).toBe(false);
+    const later = await run(gh);
+    expect(later.created).toBe(true);
+    expect(creates).toHaveLength(1);
+  });
+
+  it('a lost receipt write leaves a pending claim that never double-files', async () => {
+    const { gh, creates, labels } = lagGh({ failReceipt: true });
     const first = await run(gh);
     expect(first.created).toBe(true);
+    expect(labels.get(CLAIM)).toMatch(/^claimed /);
     const retry = await run(gh, { claimWaitMs: 20 }).catch((e) => e);
     expect(retry).toBeInstanceOf(Error);
     expect(creates).toHaveLength(1);
@@ -308,6 +333,7 @@ describe('fileAsk claim-before-create (#4260)', () => {
     expect(gh.mock.calls.some((c) => c[0][1] === 'create')).toBe(false);
   });
 });
+
 
 describe('fetchAsksFor', () => {
   it('lists by both the filed and desk labels on the REST issues list', async () => {
