@@ -127,6 +127,21 @@ test.describe('Vault smoke', () => {
     const era = page.locator('section[data-ll-section]').first();
     await expect(era).toBeVisible();
 
+    // The era keeps rendering cards for a few seconds after first paint on
+    // mobile (prod 2026-10-09: 165 at load, 169 five seconds later), so wait
+    // for two consecutive equal reads before taking the baseline.
+    let settled = -1;
+    await expect
+      .poll(
+        async () => {
+          const n = await monthItems(era).count();
+          const stable = n === settled;
+          settled = n;
+          return stable;
+        },
+        { intervals: [500], timeout: 15_000 },
+      )
+      .toBe(true);
     const before = await monthItems(era).count();
     expect(before).toBeGreaterThan(0);
 
