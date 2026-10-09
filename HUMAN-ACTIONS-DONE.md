@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #119 · 2026-10-09 · done · Update the doorbell to doorbell-v4 — "Joey said done in chat 12:25 PDT after running the Hermes-session update." · by chat
 - #118 · 2026-10-09 · done · Let the bot see #longlive-marjorie again — "Joey answered in chat 08:29 PDT: channel renamed to #marjorie, same id. Fixed in code (#5426, resolve by id); bot-chat-poll green 15:45Z." · by chat
 - #116 · 2026-10-08 · skip · PC disk almost full: turn off hibernation — "Joey said skip in chat 08:16 PDT. Moot: the real cause was ~151 GB of stale Claude temp folders, which the Foray UI session cleared (C: back to 117 GB)." · by chat
 - #112 · 2026-10-05 · done · Briefly freeze social posting so two bot-fix PRs can merge — "Done 2026-10-05: SOCIAL_FREEZE flipped true for #5204/#5207, both merged 03:48Z, flipped back to false (verified). The A6 CI freeze requirement was removed in #5211, so this ask won't recur." · by chat
