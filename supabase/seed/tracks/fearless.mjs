@@ -448,6 +448,49 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Fearless duet with a guest writer. Rolling Stone's making-of feature reported that Colbie Caillat, whose 2007 hit 'Bubbly' was a sonic reference point for Swift and producer Nathan Chapman, ended up co-writing and guesting on 'Breathe.' Rolling Stone's October 2, 2008 album preview likewise noted Caillat sings on it.",
+          "Rolling Stone's review of the re-recording said Swift brought Caillat back to redo her backing vocals on 'Breathe' for Fearless (Taylor's Version)."
+        ],
+        meaning: {
+          confirmed: [
+            "In a Billboard Q&A published March 26, 2008, while Fearless was still being made, Swift said she had recorded six songs, 'including one that I wrote with Colbie Caillat, that she's going to throw some harmonies on, which I can't even wait to hear.' She did not name the song in that answer; Rolling Stone's later reporting identifies Caillat as co-writer and guest on 'Breathe.'"
+          ],
+          supported: [
+            "Rolling Stone's making-of feature quotes engineer Justin Niebank on why 'Bubbly' mattered to the sessions: a certain honesty and commitment to keeping the arrangements simple, an 'honest person sitting in a room surrounded by musicians.' That is a collaborator's account of the album's sound, not a statement about this song's subject."
+          ]
+        },
+        live: [
+          {
+            date: "June 10, 2023",
+            event: "The Eras Tour, Detroit (Ford Field)",
+            note: "Billboard's surprise-song list says Swift played it at the piano that night, jumping back to the Fearless era."
+          }
+        ],
+        sources: [
+          {
+            name: "The Billboard Q&A: Taylor Swift - Billboard",
+            url: "https://www.billboard.com/music/music-news/the-billboard-qa-taylor-swift-1046063/"
+          },
+          {
+            name: "Taylor Swift's 'Fearless': How She Made Her Pop Breakthrough - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-fearless-album-making-1126978/"
+          },
+          {
+            name: "Fall Music Preview: Taylor Swift's 'Fearless' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/fall-music-preview-taylor-swifts-fearless-242318/"
+          },
+          {
+            name: "Taylor Swift Carefully Reimagines Her Past on 'Fearless: Taylor's Version' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-fearless-taylors-version-1153454/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'tell-me-why',
@@ -1004,6 +1047,37 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard's February 5, 2010 review called it a new song written for the film Valentine's Day, arriving on the heels of Fearless winning album of the year at the Grammys, and noted its lyrics lean on sweeping emotion rather than the specific, youth-focused imagery of singles like 'Fifteen' and 'You Belong With Me.'",
+          "Billboard's Eras Tour surprise-song list reports Swift played it at the piano on the second of three Houston shows in April 2023, with a dedication to the crowd."
+        ],
+        meaning: {
+          confirmed: [
+            "Before playing it at the second Houston Eras Tour show, Swift told the crowd, 'You make every day on this tour feel like a fairytale,' as quoted by Billboard. She also said, Billboard reported, that the tour had basically become her 'entire personality.'"
+          ],
+          supported: [
+            "Billboard's reviewer heard 'growing maturity' in her vocals and framed the song as one that could help her reach an even broader audience. That is the reviewer's assessment."
+          ]
+        },
+        live: [
+          {
+            date: "April 22, 2023",
+            event: "The Eras Tour, Houston (NRG Stadium)",
+            note: "Billboard lists it as a piano surprise song, noting it was originally on the soundtrack of the 2010 film Valentine's Day."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift, \"Today Was a Fairytale\" - Billboard",
+            url: "https://www.billboard.com/articles/review/1069774/taylor-swift-today-was-a-fairytale"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'you-all-over-me',

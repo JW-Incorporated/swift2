@@ -304,6 +304,40 @@ const _debut = {
         'Fan reading: often ranked by fans among the best-written debut tracks — a favorite pick for early evidence of her bridge-writing instincts.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A debut-album deep cut that Swift herself singled out early. In a Rolling Stone profile (published under the title '2008's Country Lolita') she named it her favorite song on the record lyrically, and in 2023 she played it at the piano as an Eras Tour surprise song in Houston (Billboard said it was her first live performance of it on tour in a decade)."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Rolling Stone: 'My favorite song on the record lyrically is called Cold As You. The hook is I've never been anywhere cold as you. I love a line in a song where afterward you're just like... burn.' Asked whether her best songs are burn songs, she answered, 'Nah, I think my best songs are longing heartbreak songs.'"
+          ],
+          supported: [
+            "A Billboard critic's essay on the debut album called it a bitter kiss-off and an early sign of the sharper takedown songs she would write later. That is the critic's reading, not Swift's."
+          ]
+        },
+        live: [
+          {
+            date: "April 23, 2023",
+            event: "The Eras Tour, Houston (NRG Stadium)",
+            note: "Billboard's surprise-song list says she played it at the piano on the third Houston night, joking 'No shade to the other songs on the album,' and that it trended on Twitter while she sang it."
+          }
+        ],
+        sources: [
+          {
+            name: "2008's Country Lolita: Taylor Swift - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/2008s-country-lolita-taylor-swift-192759/"
+          },
+          {
+            name: "Why Taylor Swift's Self-Titled Debut Is Her Best Album - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-self-titled-debut-best-album-8029960/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-outside',
@@ -358,6 +392,29 @@ const _debut = {
       themes: ['crushes', 'admiration', 'open endings'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A debut-album song Swift brought back for one night in Brazil. Billboard reported that at the Rio de Janeiro Eras Tour show on Nov. 17, 2023, she played 'Stay Beautiful' before debuting 'Suburban Legends' live, and described it as a song from her earliest catalog that 'hadn't been played live in probably 15 years.' That estimate is Billboard's, not Swift's."
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing it in Rio, Swift said (as quoted by Billboard): 'I wanted to play something to honor the fact that so many amazing Brazilian fans have been with me since day one, since the first album.' She added: 'It's because you, just this crowd, Rio, you're just so beautiful. And I hope you stay that way.' That is how she framed the song that night: as a dedication to the crowd, not an explanation of the original song."
+          ]
+        },
+        live: [
+          {
+            date: "November 17, 2023",
+            event: "The Eras Tour, Rio de Janeiro (Estadio Olimpico Nilton Santos)",
+            note: "Billboard reported it was played just before the live debut of 'Suburban Legends,' in the acoustic set."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Performs 'Suburban Legends' Live for the First Time in Rio de Janeiro - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-suburban-legends-live-rio-de-janeiro-brazil-eras-tour-1235491862/"
+          }
+        ]
+      },
     },
     {
       slug: 'shouldve-said-no',
