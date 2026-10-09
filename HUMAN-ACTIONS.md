@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #119 🟢 [UPGRADE] Update the doorbell to doorbell-v4 (~5 min)
+<!-- ha filed=2026-10-09 -->
+
+**Why:** The doorbell still runs v3. It looks for the old channel name, so it can't ring for #marjorie (the 5-min poll still covers it, only slower), and it can sit dead for hours like it did on 10-04. v4 fixes both (#5421, #5426).
+**Steps:**
+1. Open Claude Code in `Projects\Hermes` (a Hermes session; Swift2 sessions can't reach the VM).
+2. Paste: `Update the Swift2 doorbell on the Hermes VM to tag doorbell-v4 per docs/ops/doorbell.md "Update to a new tag" in JW-Incorporated/swift2: fetch+checkout the tag in /opt/longlive-doorbell, copy scripts/doorbell/longlive-doorbell.service to /etc/systemd/system/, daemon-reload, restart longlive-doorbell, then show the last 20 journal lines.`
+**Worked if:** the journal shows `gateway: connected` and a 👀 lands on your next message in #marjorie within seconds.
 
 ## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
 <!-- ha filed=2026-10-08 -->
