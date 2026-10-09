@@ -29,6 +29,7 @@ jobs:
       prompt_file: docs/agents/runner-prompts/laura-walk.md
       model: claude-sonnet-5
       allowed_tools: "Bash,Read,Grep,Glob"
+      disallowed_tools: "Write Edit NotebookEdit Task"
       timeout_minutes: 25
       max_turns: 80 # was the template default 40; the BOTS-LOOP triage (docs/decisions.md 2026-10-05) saw error_max_turns failures. A ceiling, not a spend: only consumed when needed
       checkout_token_secret: GITHUB_TOKEN

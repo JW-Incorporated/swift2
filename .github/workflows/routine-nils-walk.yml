@@ -30,6 +30,7 @@ jobs:
       prompt_file: docs/agents/runner-prompts/nils-walk.md
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,WebFetch"
+      disallowed_tools: "Write Edit NotebookEdit Task"
       timeout_minutes: 35
       checkout_token_secret: GITHUB_TOKEN
     secrets:
