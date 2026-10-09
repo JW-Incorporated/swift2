@@ -1371,7 +1371,7 @@ const TRACKS = [
         ALBUM,
         {
           source_url: 'https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/',
-          source_title: "Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References",
+          source_title: "Is Taylor Swift's 'The Alchemy' About Travis Kelce?",
           publisher: 'TIME',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
@@ -1412,7 +1412,7 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
-          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
+          { name: "TIME: Is Taylor Swift's 'The Alchemy' About Travis Kelce?", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
           { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
         ]
       },
@@ -1704,7 +1704,7 @@ const TRACKS = [
           ],
           fanTheories: [
             "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one.",
-            "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings reported around her public relationship — an interpretation, not anything Taylor has stated."
+            "A widely circulated fan reading maps the song's 'wise men' warnings onto her own life — an interpretation, not anything Taylor has stated."
           ]
         },
         connections: [
