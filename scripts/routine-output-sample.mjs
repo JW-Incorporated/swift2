@@ -74,14 +74,14 @@ export function computeMetrics({ prs, issues }, now) {
   const issuesInWindow = issues.filter((i) => new Date(i.createdAt) >= windowStart);
 
   const prsOpened = prsInWindow.length;
-  const prsMerged = prsInWindow.filter((p) => p.state === 'MERGED').length;
-  const prsClosedUnmerged = prsInWindow.filter((p) => p.state === 'CLOSED').length;
+  const prsMerged = prsInWindow.filter((p) => String(p.state).toUpperCase() === 'MERGED').length;
+  const prsClosedUnmerged = prsInWindow.filter((p) => String(p.state).toUpperCase() === 'CLOSED').length;
   const prsStale72h = prsInWindow.filter(
-    (p) => p.state === 'OPEN' && new Date(p.createdAt) <= staleThreshold,
+    (p) => String(p.state).toUpperCase() === 'OPEN' && new Date(p.createdAt) <= staleThreshold,
   ).length;
 
   const issuesFiled = issuesInWindow.length;
-  const issuesClosed = issuesInWindow.filter((i) => i.state === 'CLOSED').length;
+  const issuesClosed = issuesInWindow.filter((i) => String(i.state).toUpperCase() === 'CLOSED').length;
 
   const closedUnmergedRate = prsOpened > 0 ? prsClosedUnmerged / prsOpened : 0;
   const zeroOutput = prsOpened === 0 && issuesFiled === 0;
