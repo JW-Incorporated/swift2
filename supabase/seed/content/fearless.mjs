@@ -1304,12 +1304,12 @@ export default {
       category: 'music',
       title: 'Hey Stephen, addressed to the opening act',
       snippet:
-        'Written about Stephen Barker Liles of Love and Theft, who\'d opened shows for her — and she spelled out who it was for in the album\'s hidden liner-note code: "LOVE AND THEFT."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
+        'Fans decoded the album\'s hidden liner-note code for this track as "LOVE AND THEFT" — and Stephen Barker Liles of that band, who\'d opened shows for her, has said Taylor told him about the song. She has not named him on record.',
+      sourceUrl: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
       thumbnailUrl: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
       moment: {
         context:
-          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nTaylor texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Taylor a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
+          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to "LOVE AND THEFT" — the era\'s Easter-egg culture, already fully operational in 2008.\n\nLiles told The Boot that Taylor told him about the song but not that it was a nice one: "I\'m just thinking, \'What did I do?\' Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He later told Planet Verge he had been writing a song for her too, built on the line "we try to make it anyway," and recorded it in his home studio.\n\nThe subject link rests on the code and Liles\'s own account; Taylor has not named him on record.',
         sources: [
           {
             outlet: 'Wikipedia',
