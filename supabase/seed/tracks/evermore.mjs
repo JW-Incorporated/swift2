@@ -19,6 +19,25 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
+const RS_REVIEW = {
+  source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-evermore-folklore-1101778/',
+  source_title: "Taylor Swift's 'Evermore': Album Review",
+  publisher: 'Rolling Stone',
+  source_type: 'reputable_press',
+  accessed_at: '2026-10-09',
+  reliability_score: 4,
+  notes: 'album review: Marjorie as a portrait of her grandmother; Happiness recorded a week before release',
+};
+const BB_DESSNER = {
+  source_url: 'https://www.billboard.com/music/pop/aaron-dessner-taylor-swift-evermore-interview-9502756/',
+  source_title: "Aaron Dessner Interview: 'Evermore' & Taylor Swift",
+  publisher: 'Billboard',
+  source_type: 'reputable_press',
+  accessed_at: '2026-10-09',
+  reliability_score: 4,
+  notes: "Dessner on Taylor writing 'Tis the Damn Season at Long Pond",
+};
+
 const RS_DESSNER =
   'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/';
 const WIKI_ALBUM = 'https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)';
@@ -120,7 +139,7 @@ const TRACKS = [
       summary:
         'She turns down a ring in front of everyone and narrates her own condemnation: his mid-sentence stall, the gossiping town, her unnamed reasons. Written with Joe Alwyn, about invented people.',
       inspiration:
-        'Confirmed fiction: Swift described the couple’s backstory as invented; Alwyn co-wrote under the Bowery pseudonym.',
+        'Widely read as fiction: the couple’s backstory is invented; Alwyn co-wrote under the Bowery pseudonym.',
       themes: ['rejected proposals', 'mental health whispered about', 'self-blame'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)',
       sources: [
@@ -269,7 +288,7 @@ const TRACKS = [
       summary:
         'An actress back home for Christmas offers an old flame the weekend, no strings, honesty included: the road not taken looks warm every December. Pairs with dorothea, the same story from the boy who stayed.',
       inspiration:
-        'Dessner has recounted Swift writing it overnight at Long Pond after a dinner gathering; Swift confirmed the Dorothea character connects both songs.',
+        'Dessner told Billboard Taylor wrote it in the middle of the night at Long Pond and sang it to him the next morning; the Dorothea character is widely read as the link to the later song.',
       themes: ['hometown nostalgia', 'temporary love', 'choices and Decembers'],
       sourceUrl: "https://en.wikipedia.org/wiki/'Tis_the_Damn_Season",
       sources: [
@@ -279,6 +298,7 @@ const TRACKS = [
           'song article: overnight writing and character link',
         ),
         ALBUM,
+        BB_DESSNER,
       ],
       dossier: {
         whyItMatters: [
@@ -349,9 +369,9 @@ const TRACKS = [
       producers: ['Aaron Dessner'],
       note: 'Track 5, in 10/8 time — inspired by Daphne du Maurier’s Rebecca, a young wife performing devotion for a man who merely permits it.',
       summary:
-        'She sets the table, learns his favorite everything, and watches it register as furniture: love received as tolerance. The Rebecca influence is confirmed — an age-gap marriage where worship goes unreturned.',
+        'She sets the table, learns his favorite everything, and watches it register as furniture: love received as tolerance. The Rebecca influence is widely noted — an age-gap marriage where worship goes unreturned.',
       inspiration:
-        'Confirmed: Swift cited reading Rebecca and imagining a wife whose lavish attention is merely endured — the track-5 slot did the rest.',
+        'Widely cited as inspired by Rebecca and the image of a wife whose lavish attention is merely endured — the track-5 slot did the rest.',
       themes: ['unreciprocated devotion', 'age-gap imbalance', 'quiet rebellion brewing'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Tolerate_It',
       sources: [wiki('Tolerate It', 'Tolerate_It', 'song article: Rebecca inspiration'), ALBUM],
@@ -430,7 +450,7 @@ const TRACKS = [
       summary:
         'A whodunit where everyone did it: a cheating husband, a vanished friend named Este, and a narrator with an alibi and a boating license. Swift invented the whole crime, casting her real friends as the fictional victims.',
       inspiration:
-        'Confirmed fiction with confirmed casting: written solo about an invented infidelity-murder plot, recorded with the HAIM sisters after Swift decided the story belonged to Este.',
+        'An invented infidelity-murder plot written solo and recorded with the HAIM sisters, with the victim named for Este.',
       themes: ['murder ballad', 'infidelity and comeuppance', 'female solidarity, armed'],
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body%2C_No_Crime',
       sources: [
@@ -521,7 +541,7 @@ const TRACKS = [
       summary:
         'There was happiness, and there will be happiness again — but right now she is standing between the two, refusing to rewrite seven years as villainy. The Gatsby green light drifts through it.',
       inspiration:
-        'Confirmed as the album’s last-written song (days before release); Swift framed it as the rare breakup song written before the dust settles.',
+        'Recorded about a week before release, per Rolling Stone’s review; widely read as the rare breakup song written before the dust settles.',
       themes: ['divorce and dignity', 'both things being true', 'grief mid-stream'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Happiness_(Taylor_Swift_song)',
       sources: [
@@ -531,6 +551,7 @@ const TRACKS = [
           'song article: late writing',
         ),
         ALBUM,
+        RS_REVIEW,
       ],
       dossier: {
         whyItMatters: [
@@ -603,9 +624,9 @@ const TRACKS = [
       producers: ['Aaron Dessner'],
       note: 'The answer record to tis the damn season — the boy who stayed home, keeping a porch light on for the girl on the billboards.',
       summary:
-        'A townie watches his high-school love become famous and promises, without bitterness, that the door stays open if the tinsel wears thin. Swift confirmed the two Dorothea songs share one story.',
+        'A townie watches his high-school love become famous and promises, without bitterness, that the door stays open if the tinsel wears thin. The two Dorothea songs are widely read as one story.',
       inspiration:
-        'Confirmed character link to tis the damn season; Swift has said Dorothea exists in the same loose fictional town universe as the folklore kids.',
+        'A character link to tis the damn season, widely read as a shared story set in the same loose fictional-town universe as the folklore kids.',
       themes: ['the one who stayed', 'fame from the outside', 'unconditional welcome'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
       sources: [
@@ -1029,7 +1050,7 @@ const TRACKS = [
       summary:
         'Grief braided with inherited advice: be polite but keep a knife, be cleverer than clever. The regret of not saving more of someone, answered by literally sampling the recordings that survived.',
       inspiration:
-        'Confirmed: about Marjorie Finlay, Swift’s opera-singer grandmother; Finlay’s archival vocals are credited on the track, the era’s most tender production choice.',
+        'Per Rolling Stone’s review, a portrait of her grandmother Marjorie Finlay, an opera singer; Finlay’s archival vocals are credited on the track, the era’s most tender production choice.',
       themes: ['grief for a grandparent', 'inheritance of spirit', 'what survives us'],
       easterEggs:
         'The pairing with epiphany gives each grandparent a song — grandfather at 13 on folklore’s tracklist mirror, grandmother at 13 here.',
@@ -1037,6 +1058,7 @@ const TRACKS = [
       sources: [
         wiki('Marjorie (song)', 'Marjorie_(song)', 'song article: Finlay tribute and vocal credit'),
         ALBUM,
+        RS_REVIEW,
       ],
       dossier: {
         whyItMatters: [
