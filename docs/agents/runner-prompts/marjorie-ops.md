@@ -97,6 +97,8 @@ move on — the next hour retries. A genuine zero-comment issue prints
 members to `state`, and pass the same list to `marker <action> --targets
 <comma-list>` in Step 3. A marker covers only the targets it names, so a
 workflow or PR added to the alert later reads `unhandled` and gets handled.
+Legacy untargeted markers are grandfathered as covering everything; when
+re-handling such an alert, write a targeted marker.
 
 `viewerDidAuthor` is GitHub's own field for "did the credential running this
 query post this comment" — `state` only trusts a `marjorie-ops-handled`

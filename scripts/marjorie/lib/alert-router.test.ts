@@ -218,6 +218,19 @@ describe('state CLI', () => {
     expect(r.stdout.trim()).toBe('unhandled');
   });
 
+  it('exits 2 with usage when --targets has no value or an empty value', () => {
+    for (const args of [['--targets'], ['--targets', ''], ['--targets', ',']]) {
+      const r = runRaw('[]', args);
+      expect(r.status).toBe(2);
+      expect(r.stderr).toContain('--targets');
+      expect(r.stdout.trim()).toBe('');
+    }
+    const m = spawnSync('node', [CLI_PATH, 'marker', 'escalate', '--targets'], {
+      encoding: 'utf8',
+    });
+    expect(m.status).toBe(2);
+  });
+
   it('passes --targets through to deriveHandledState', () => {
     const marker = renderHandledMarker({
       action: 'escalate',
@@ -288,10 +301,34 @@ describe('per-target handled markers', () => {
     );
   });
 
-  it('a legacy untargeted marker covers nothing once targets are given, everything when not', () => {
-    const legacy = renderHandledMarker({ action: 'escalate', date: '2026-08-01' });
+  it('grandfathers a legacy permanent marker: it covers a new target too', () => {
+    const legacy = renderHandledMarker({ action: 'human-action', date: '2026-08-01' });
     expect(deriveHandledState([own(legacy)], { today })).toBe('escalated');
-    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml'] })).toBe('unhandled');
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('grandfathers a legacy same-day marker, then it expires tomorrow', () => {
+    const legacy = renderHandledMarker({ action: 'comment-only', date: today });
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'handled-awaiting-watchdog',
+    );
+    expect(deriveHandledState([own(legacy)], { today: '2026-09-13', targets: ['a.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('targeted markers still catch a new target alongside no legacy marker', () => {
+    const t = renderHandledMarker({ action: 'escalate', date: '2026-08-01', targets: ['a.yml'] });
+    const sameDay = renderHandledMarker({
+      action: 'comment-only',
+      date: today,
+      targets: ['b.yml'],
+    });
+    expect(deriveHandledState([own(t), own(sameDay)], { today, targets: ['a.yml', 'c.yml'] })).toBe(
+      'unhandled',
+    );
   });
 
   it('ignores a forged targeted marker from a comment the routine did not post', () => {

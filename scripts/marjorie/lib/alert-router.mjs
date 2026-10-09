@@ -155,9 +155,10 @@ export function renderHandledMarker({ action, date = todayLA(), targets } = {}) 
  * unrecognized action value) is silently ignored, never treated as
  * valid-and-dated-today. `targets` (#4219) is the aggregate alert's current
  * member list: a marker only covers the targets it names, so a newly added
- * target is `unhandled` even under a permanent marker. A marker with no
- * `targets=` covers nothing once `targets` is given (and everything when it
- * is not, the original issue-wide behavior). `today` is injectable for
+ * target is `unhandled` even under a permanent marker. A legacy marker with
+ * no `targets=` is grandfathered: it covers EVERY wanted target (permanent
+ * ones forever, same-day ones until the day rolls over), same as the original
+ * issue-wide behavior, so deploying this does not re-handle open alerts. `today` is injectable for
  * tests; the real caller never overrides it, matching `todayLA()`'s own
  * contract.
  */
@@ -167,6 +168,8 @@ export function deriveHandledState(comments, { today = todayLA(), targets } = {}
   const todays = new Set();
   let sawPermanent = false;
   let sawToday = false;
+  let legacyPermanent = false;
+  let legacyToday = false;
   for (const { viewerDidAuthor, body } of comments || []) {
     if (viewerDidAuthor !== true) continue;
     const m = MARKER_RE.exec(String(body || ''));
@@ -176,9 +179,11 @@ export function deriveHandledState(comments, { today = todayLA(), targets } = {}
     const covered = m[3] ? m[3].split(',') : [];
     if (PERMANENT_ACTIONS.has(action)) {
       sawPermanent = true;
+      if (!covered.length) legacyPermanent = true;
       for (const t of covered) permanent.add(t);
     } else if (date === today) {
       sawToday = true;
+      if (!covered.length) legacyToday = true;
       for (const t of covered) todays.add(t);
     }
   }
@@ -186,8 +191,9 @@ export function deriveHandledState(comments, { today = todayLA(), targets } = {}
     if (sawPermanent) return 'escalated';
     return sawToday ? 'handled-awaiting-watchdog' : 'unhandled';
   }
-  if (want.every((t) => permanent.has(t))) return 'escalated';
-  if (want.every((t) => permanent.has(t) || todays.has(t))) return 'handled-awaiting-watchdog';
+  if (want.every((t) => permanent.has(t) || legacyPermanent)) return 'escalated';
+  if (want.every((t) => permanent.has(t) || todays.has(t) || legacyPermanent || legacyToday))
+    return 'handled-awaiting-watchdog';
   return 'unhandled';
 }
 
@@ -243,6 +249,13 @@ with uploaded/not-member counts and no group says \`failed\`.`;
 // entirely: it's a boolean GitHub computes server-side, per query, against
 // whichever credential is actually running it — `gh issue view --json
 // comments` already exposes it directly, no extra call needed.
+function targetsUsage() {
+  console.error(
+    'alert-router: --targets requires a non-empty comma-separated list (e.g. --targets a.yml,b.yml)',
+  );
+  return 2;
+}
+
 async function main(argv = process.argv.slice(2)) {
   const [cmd, ...rest] = argv;
   if (cmd === 'match') {
@@ -270,6 +283,7 @@ async function main(argv = process.argv.slice(2)) {
       return 3;
     }
     const ti = rest.indexOf('--targets');
+    if (ti >= 0 && !parseTargets(rest[ti + 1]).length) return targetsUsage();
     const targets = ti >= 0 ? parseTargets(rest[ti + 1]) : undefined;
     console.log(deriveHandledState(comments, { targets }));
     return 0;
@@ -281,6 +295,7 @@ async function main(argv = process.argv.slice(2)) {
   }
   if (cmd === 'marker') {
     const ti = rest.indexOf('--targets');
+    if (ti >= 0 && !parseTargets(rest[ti + 1]).length) return targetsUsage();
     const targets = ti >= 0 ? rest[ti + 1] : undefined;
     const [action, date] = rest.filter((_, i) => ti < 0 || (i !== ti && i !== ti + 1));
     console.log(renderHandledMarker({ action, date, targets }));
