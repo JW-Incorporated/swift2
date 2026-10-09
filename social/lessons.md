@@ -33,15 +33,30 @@ times with `Codify: —` gets a `codify:` issue filed only while
 a rule quiet for 8 consecutive weeks across ≥10 briefs is retired, not deleted.
 -->
 
+### L002 — Never surface a reply target the founder cannot actually reply to
+
+- **Status:** active
+- **First seen:** 2026-10-06 (PR #5171)
+- **Times fired:** 1
+- **Last fired:** 2026-10-06 (PR #5171)
+- **Evidence:** [2026-10-06 ❌](https://github.com/JW-Incorporated/swift2/pull/5171) (`social/feedback/2026-W41.jsonl`)
+- **Codify:** —
+
+**You said:** Cannot reply to this particular post. Don't show me posts that I can't reply to
+
+**So I:** Check a reply opportunity is still open to comments before it is put in front of the founder: a locked, archived, removed or deleted thread is dropped at selection time, not surfaced and then abandoned. A target that cannot be answered costs the founder the same attention as one that can, and the awareness lane's whole budget is his attention. The selection code lives outside this desk's rights (`scripts/community/**`), so the lane audit is filed to Marjorie alongside this rule; until it lands, treat any surfaced target that turns out to be closed as a drop, never a decline to be explained.
+
+## Retired
 
 ### L001 — Never re-use a photograph that has already shipped
 
-- **Status:** active
+- **Status:** retired
 - **First seen:** 2026-09-21 (PR #4471)
 - **Times fired:** 6
 - **Last fired:** 2026-09-30 (PR #4574)
 - **Evidence:** [#4471 ❌](https://github.com/JW-Incorporated/swift2/pull/4471), [#4513 ❌](https://github.com/JW-Incorporated/swift2/pull/4513), [#4544 ❌](https://github.com/JW-Incorporated/swift2/pull/4544), [#4556 ❌](https://github.com/JW-Incorporated/swift2/pull/4556), [#4565 ❌](https://github.com/JW-Incorporated/swift2/pull/4565), [#4574 ❌](https://github.com/JW-Incorporated/swift2/pull/4574)
-- **Codify:** #4601
+- **Codify:** done (#4601)
+- **Superseded by:** check-drafts.mjs:checkPhotoReuse
 
 **You said:** "The reason for all the "no's" on all of these posts is teh same: Re-used picture. All re-used pictures will be rejected. We need new pictures."
 
