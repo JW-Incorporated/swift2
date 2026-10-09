@@ -81,9 +81,24 @@ on an unmatched issue** — leave it alone, it is not yours.
 ## Step 1 — check whether you already handled it today
 
 ```
-gh issue view <number> --json comments --jq '[.comments[] | {viewerDidAuthor: .viewerDidAuthor, body: .body}]' \
+set -o pipefail; gh issue view <number> --json comments --jq '[.comments[] | {viewerDidAuthor: .viewerDidAuthor, body: .body}]' \
   | node scripts/marjorie/lib/alert-router.mjs state
 ```
+
+**A non-zero exit is a failed lookup, not "unhandled"** (#4226): `state`
+exits 3 on empty or non-array input, and `pipefail` surfaces a failed `gh`.
+Log it in your run summary, take **no action** on that alert this sweep, and
+move on — the next hour retries. A genuine zero-comment issue prints
+`unhandled` with exit 0.
+
+**Aggregate alerts name their targets** (#4219): for
+`scheduled-workflows-not-succeeding` (workflow file names) and `prs-stuck`
+(PR numbers), append `--targets <comma-list>` of the alert body's CURRENT
+members to `state`, and pass the same list to `marker <action> --targets
+<comma-list>` in Step 3. A marker covers only the targets it names, so a
+workflow or PR added to the alert later reads `unhandled` and gets handled.
+Legacy untargeted markers are grandfathered as covering everything; when
+re-handling such an alert, write a targeted marker.
 
 `viewerDidAuthor` is GitHub's own field for "did the credential running this
 query post this comment" — `state` only trusts a `marjorie-ops-handled`
