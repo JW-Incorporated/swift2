@@ -17,6 +17,12 @@
 # `ALERT_ALSO_MAIL=1` (still routed through send-mail.py), for the rare
 # caller that still needs a mail leg alongside Discord.
 #
+# An `open` whose condition Marjorie handles herself holds that Discord line
+# entirely (issue #4804) -- see the FOUNDER-FACING GATE block below and
+# scripts/marjorie/lib/alert-notify.mjs. Nothing a caller passes controls
+# this; the decision is made from the title alone, and unknown titles stay
+# loud, so the non-watchdog callers of this script are unaffected.
+#
 # Usage:
 #   upsert-alert.sh open  <title> <body-file>   # create, or comment on the existing open one
 #   upsert-alert.sh close <title> <body-file>   # comment "recovered" + close, if one is open
@@ -129,6 +135,33 @@ fi
 # NOTIFY) or has nothing left to close. A double-outage at the exact moment
 # of a state change is the only way to hit this; tracked as a hardening
 # follow-up (candidate for the M2 watchdog-handling wave), not fixed here.
+#
+# FOUNDER-FACING GATE (issue #4804): ~10 of the 14 watchdog conditions are
+# re-dispatched or commented on by routine-marjorie-ops.yml within the hour,
+# and announcing those in the founders channel trained the founders to ignore
+# the channel. The issue is still opened and Marjorie still handles it; only
+# the Discord leg is held, and only on `open` -- a `close` is a recovery
+# notice, which is cheap and reassuring, and the 24h backstop below needs the
+# channel to be the place a held alert eventually surfaces.
+# `alert-notify.mjs` owns the whole decision (paging conditions + handler
+# class, unknown titles loud), so no caller of this script needs to know
+# anything about it. Failing open is deliberate at every step: a crashed or
+# missing helper yields `founder-facing` and the line posts as before.
+if [ "$NOTIFY" = "1" ] && [ "$ACTION" = "open" ]; then
+  FACING=$(node scripts/marjorie/lib/alert-notify.mjs founder-facing "$TITLE" || echo founder-facing)
+  if [ "$FACING" = "self-handled" ]; then
+    # Recorded on the issue, not in a side store: it is both the audit trail
+    # for a line that never posted and the clock the 24h backstop reads.
+    SUPPRESS_BODY="$(mktemp)"
+    node scripts/marjorie/lib/alert-notify.mjs suppressed-comment "$TITLE" > "$SUPPRESS_BODY"
+    # The number, not $ISSUE_URL: the create branch above only ever has the
+    # URL, and every other gh call here is number + --repo.
+    gh_retry gh issue comment "${ISSUE_URL##*/}" --repo "$REPO" --body-file "$SUPPRESS_BODY"
+    echo "held Discord line for '$TITLE' (self-handled; backstops in 24h)"
+    NOTIFY=0
+  fi
+fi
+
 if [ "$NOTIFY" = "1" ]; then
   MENTION_FLAG=""
   if [ "$ACTION" = "open" ] && [ "${ALERT_MENTION_FOUNDER:-}" = "1" ]; then
