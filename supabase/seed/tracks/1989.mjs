@@ -995,14 +995,55 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived — inspired by watching Jack and Lena Dunham at home.',
+      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived.',
       summary:
         'A definition of real love assembled from small, unglamorous proofs — burnt toast on a Sunday, a word whispered mid-dance — narrated by someone standing just outside it.',
       inspiration:
-        'Swift confirmed she wrote it after observing Antonoff’s relationship with then-partner Lena Dunham — the ordinary intimacy she had not yet had.',
+        'A song about the ordinary intimacy of a love observed from the outside.',
       themes: ['quiet love', 'witnessing intimacy', 'yearning for the ordinary'],
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Are_in_Love',
       sources: [wiki('You Are in Love', 'You_Are_in_Love', 'song article: inspiration'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A deluxe-edition song that became a surprise-song moment on the Eras Tour. Rolling Stone reported it was the surprise song on Aug. 4, 2023 at SoFi Stadium, paired with 'Our Song,' and that Swift later revealed it as the third surprise song added to the Disney+ version of the Eras Tour concert film.",
+          "Billboard reported the footage of her performing it on piano had been cut from the theatrical and on-demand releases, and was restored for the March 14, 2024 Disney+ release."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's February 2015 report said Swift announced the 1989 deluxe-edition bonus songs, which had been on the Target version since October, would reach iTunes one at a time, starting with 'Wonderland,' with 'You Are in Love' and 'New Romantics' to follow. That is release history, not a statement about the song's subject."
+          ]
+        },
+        live: [
+          {
+            date: "August 4, 2023",
+            event: "The Eras Tour, Inglewood (SoFi Stadium)",
+            note: "Billboard's surprise-song list and Rolling Stone both place it at SoFi Stadium on Aug. 4. Rolling Stone says it was paired with 'Our Song.'"
+          },
+          {
+            date: "March 14, 2024",
+            event: "The Eras Tour (Taylor's Version) on Disney+",
+            note: "Swift confirmed it on Good Morning America as the third of four added acoustic songs. Swift shared a sneak-peek clip of the SoFi performance, sitting at the flower-painted piano as fans waved light-up bracelets."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Reveals 'You Are in Love' as Third Surprise Song for 'Eras Tour' Disney+ Version - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-you-are-in-love-surprise-song-eras-tour-disney-1234987508/"
+          },
+          {
+            name: "Taylor Swift Confirms This '1989' Fan Favorite Is the Third Acoustic Song in Disney+ 'Eras Tour': Watch - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-you-are-in-love-eras-tour-film-disney-sneak-peek-1235632866/"
+          },
+          {
+            name: "Taylor Swift Releasing '1989' Bonus Songs to iTunes - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-1989-bonus-songs-itunes-6473113/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'new-romantics',
@@ -1046,6 +1087,36 @@ export default {
         wiki('"Slut!" (song)', '%22Slut!%22', 'song article: vault context and reception'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift revealed the title on Instagram on Sept. 20, 2023, as one more 'From the Vault' track, alongside the full track list for 1989 (Taylor's Version).",
+          "On release it debuted at No. 3 on the Hot 100 dated Nov. 11, 2023, behind two other 1989 vault songs, per Billboard's chart report."
+        ],
+        meaning: {
+          supported: [
+            "Rolling Stone's review called it a hazy, shimmering ode to being unabashedly in love, even if you are shamed and sexualized for it, and noted it was written when the word was far more common than it is now. That is the reviewer's reading.",
+            "The Guardian's reviewer heard something different in the same song: a shimmering tale of inappropriate sexual adventure, as Swift channels Lana Del Rey cosplaying a moonlit ingenue. The two outlets read its tone differently; these are reviewers' readings."
+          ]
+        },
+        sources: [
+          {
+            name: "Taylor Swift's Full '1989 (Taylor's Version)' Track List Is Here With No Features & One More 'Vault' Track - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-1989-taylors-version-track-list-no-features-1235416961/"
+          },
+          {
+            name: "Taylor Swift Charts All 21 Songs From '1989 (Taylor's Version)' on the Hot 100 - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-all-songs-hot-100-1235464591/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          },
+          {
+            name: "Taylor Swift: 1989 (Taylor's Version) review – subtle bonus tracks add new depths to a classic - The Guardian",
+            url: "https://www.theguardian.com/music/2023/oct/27/taylor-swift-1989-taylors-version-review-republic"
+          }
+        ]
+      },
     },
     {
       slug: 'say-dont-go',
@@ -1065,6 +1136,40 @@ export default {
       themes: ['one-sided devotion', 'waiting to be chosen', 'lost collaborations'],
       sourceUrl: "https://en.wikipedia.org/wiki/Say_Don't_Go",
       sources: [wiki("Say Don't Go", "Say_Don't_Go", 'song article: Warren co-write'), TV],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift and Diane Warren co-wrote the song in 2013, and that on release it launched at No. 5 on the Hot 100 dated Nov. 11, 2023, giving Warren her 33rd career top 10 and her first since 2001.",
+          "Rolling Stone reported that Warren had wondered why the song did not make the original 1989 tracklist, and that she learned from her lawyer that Swift would finally release it nearly ten years later."
+        ],
+        meaning: {
+          supported: [
+            "Warren told Rolling Stone that she and Swift 'sat down and wrote the song' from scratch in the last few days of 2013, and that they demoed it on New Year's Day, with Swift playing it on acoustic guitar. She said Swift was 'very particular about how she said certain things.' This is the co-writer's account; the interview does not quote Swift on the song's subject.",
+            "Warren also told Rolling Stone the released version kept the lyrics they wrote nine years earlier: 'It still stands. It's timeless.'",
+            "Rolling Stone's album review called it a distant cousin of the album's 'I Wish You Would,' reimagined as a straight-up power ballad. That is the reviewer's comparison."
+          ]
+        },
+        voices: [
+          {
+            who: "Diane Warren",
+            context: "Speaking to Rolling Stone around the October 27, 2023 release",
+            note: "'Everything has its time, you know? It took a while to see the light of day, but I'm glad it finally did. It was worth the wait.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift and Diane Warren Wrote 'Say Don't Go' 9 Years Ago. She Still Thinks It's a 'F-cking Hit' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-diane-warren-writing-1989-vault-track-say-dont-go-1234864465/"
+          },
+          {
+            name: "Diane Warren Earns Her 33rd Hot 100 Top 10 as a Writer Thanks to Taylor Swift's 'Say Don't Go (Taylor's Version)' - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/diane-warren-hot-100-top-10-taylor-swift-say-dont-go-1235464596/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          }
+        ]
+      },
     },
     {
       slug: 'now-that-we-dont-talk',
@@ -1148,6 +1253,43 @@ export default {
         wiki('Suburban Legends (song)', 'Suburban_Legends_(song)', 'song article: vault release'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift surprised the Rio de Janeiro crowd by playing it on piano on Nov. 17, 2023, in the acoustic set of the Eras Tour show at Estadio Olimpico Nilton Santos, and described it as the song's live debut.",
+          "On release it entered the Hot 100 at No. 10 on the chart dated Nov. 11, 2023, per Billboard's chart report."
+        ],
+        meaning: {
+          supported: [
+            "Rolling Stone's album review called it a euphoric, dizzying rush, with Jack Antonoff's production likened to the soundtrack to an addictive arcade game. That is the reviewer's description.",
+            "The Guardian's reviewer described it as a doomed schooldays romance full of perfect lines. That is the reviewer's reading; neither review quotes Swift on the song's meaning."
+          ]
+        },
+        live: [
+          {
+            date: "November 17, 2023",
+            event: "The Eras Tour, Rio de Janeiro (Estadio Olimpico Nilton Santos)",
+            note: "Billboard reported the piano performance as the song's live debut, and that the crowd screamed from the first line."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Performs 'Suburban Legends' Live for the First Time in Rio de Janeiro - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-suburban-legends-live-rio-de-janeiro-brazil-eras-tour-1235491862/"
+          },
+          {
+            name: "Taylor Swift Charts All 21 Songs From '1989 (Taylor's Version)' on the Hot 100 - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-all-songs-hot-100-1235464591/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          },
+          {
+            name: "Taylor Swift: 1989 (Taylor's Version) review – subtle bonus tracks add new depths to a classic - The Guardian",
+            url: "https://www.theguardian.com/music/2023/oct/27/taylor-swift-1989-taylors-version-review-republic"
+          }
+        ]
+      },
     },
     {
       slug: 'is-it-over-now',

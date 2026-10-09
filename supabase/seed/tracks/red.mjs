@@ -830,6 +830,37 @@ const TRACKS = [
         'Fan reading (unconfirmed): Joni Mitchell as the model — Mitchell was separately attached to a shelved biopic Swift was once linked to.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Billboard's 2012 track-by-track review of Red described it as a Hollywood cautionary tale about the perils of fame that starts out as a diatribe against celebrity.",
+          "It resurfaced on the Eras Tour: Billboard's surprise-song list reports Swift played it on piano in Arlington, Texas on April 2, 2023, with the audience singing along."
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing it in Arlington, Swift quipped, 'It's about how horrible being famous is,' as quoted by Billboard. Billboard characterized the line as a quip, so treat it as her short, wry summary rather than a full account of the song."
+          ],
+          supported: [
+            "Billboard's 2012 reviewer read the song as moving from a rant against celebrity to a closing turn toward the story of an artist who stepped away from the spotlight. That is the reviewer's reading, not a statement from Swift."
+          ]
+        },
+        live: [
+          {
+            date: "April 2, 2023",
+            event: "The Eras Tour, Arlington (AT&T Stadium)",
+            note: "Billboard's surprise-song list says she played it on piano, looking pleased as the audience sang along."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift, 'Red': Track-By-Track Review - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-red-track-by-track-review-1066798/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'everything-has-changed',
@@ -1087,7 +1118,7 @@ const TRACKS = [
       singleReleaseDate: '2012-09-08',
       note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to cancer research.',
       summary:
-        'A eulogy for Ronan Thompson, who died of neuroblastoma just before turning four, written in his mother’s words and voice — Swift performing it once at Stand Up to Cancer remains one of her heaviest moments.',
+        'A eulogy for Ronan Thompson, written in his mother’s words and voice — one of Swift’s heaviest songs.',
       inspiration:
         'Confirmed: composed from phrases in Maya Thompson’s blog about her son; Thompson is credited as co-writer and approved its Red TV inclusion.',
       themes: ['grief', 'a mother’s love', 'memorial'],
@@ -1096,6 +1127,57 @@ const TRACKS = [
         wiki('Ronan (song)', 'Ronan_(song)', 'song article: charity origin and credit'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Rolling Stone reported on September 8, 2012 that Swift debuted the song at that year's Stand Up To Cancer telethon, and that it then became available on iTunes with all proceeds donated to the Taylor Swift Charitable Fund. Billboard later called it an iTunes-exclusive charity single at the time.",
+          "In July 2021 Billboard reported the song would appear on Red (Taylor's Version), and that Swift had emailed its co-writer to ask how she would feel about that. Rolling Stone's review of the re-recording called it 'a one-of-a-kind song for her.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Billboard's critic's essay reports that at an Arizona stop on the 1989 World Tour, with the song's co-writer in the audience, Swift introduced it by saying that since she became a fan of the blog behind it, 'cancer has hit really close to me and my family.' She warned fans she might not be able to get through it. The essay says the song rarely drew public comment from her."
+          ],
+          supported: [
+            "Rolling Stone and Billboard report the song was built from Maya Thompson's blog about her young son, Ronan (Billboard names it 'Rockstar Ronan'), and that Thompson is credited as co-writer. Billboard says it is written from the mother's perspective.",
+            "Billboard's 2021 lyric-video report says that, according to one of Thompson's blog posts, Swift asked her permission to include the song on Red (Taylor's Version). That is Billboard relaying Thompson's account; Swift's own statement is not quoted."
+          ]
+        },
+        live: [
+          {
+            date: "September 2012",
+            event: "Stand Up To Cancer telethon",
+            note: "Rolling Stone's report, dated September 8, 2012, describes the debut performance as 'Friday night's.' Billboard's 2018 essay calls it a televised performance, and its 2021 report says the boy's face was shown behind her on stage."
+          }
+        ],
+        voices: [
+          {
+            who: "Maya Thompson",
+            context: "On Twitter after seeing the Taylor's Version lyric video, November 11, 2021, as quoted by Billboard",
+            note: "She thanked Swift for loving her son: 'You are one of the greatest loves of my life. TY for loving him.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/"
+          },
+          {
+            name: "'Ronan' Finds a Home on Taylor Swift's Re-Recorded 'Red' Album - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-ronan-red-taylors-version-9608693/"
+          },
+          {
+            name: "Taylor Swift Releases Touching Tribute Lyric Video 'Ronan' With Permission From Family - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-ronan-music-video-9659226/"
+          },
+          {
+            name: "Why Taylor Swift's 'Ronan' Is Her Best Song Never to Appear on an Album: Critic's Take - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-ronan-best-non-album-song-8030275/"
+          },
+          {
+            name: "'Red (Taylor's Version)' Makes a Classic Even Better - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/review-red-taylors-version-1255956/"
+          }
+        ]
+      },
     },
     {
       slug: 'better-man',
