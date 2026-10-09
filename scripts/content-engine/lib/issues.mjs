@@ -105,6 +105,9 @@ function saveFpCache(path, set) {
   } catch { /* best-effort — never block filing on a cache-write failure */ }
 }
 
+// Must stay <= gh.mjs HARD_MAX_PAGES * 100 or the prefetch can never prove completeness.
+export const FP_PREFETCH_LIMIT = 10000;
+
 /**
  * One bulk read of every `cie` issue body → the set of fingerprints already on
  * the tracker.
@@ -119,7 +122,7 @@ function saveFpCache(path, set) {
  * miss proves nothing — the caller falls through to `existsByFp`, which is
  * what makes the cache incapable of causing a duplicate.
  */
-export async function loadKnownFingerprints(limit = 1000) {
+export async function loadKnownFingerprints(limit = FP_PREFETCH_LIMIT) {
   try {
     const res = await gh(['issue', 'list', '--label', PFX, '--state', 'all', '--json', 'number,body', '--limit', String(limit)]);
     const rows = JSON.parse(res.stdout || '[]');
@@ -130,10 +133,10 @@ export async function loadKnownFingerprints(limit = 1000) {
     // AFTER paging, so a truncated fetch can come back under the limit and
     // still be missing issues (#2034). The count stays as the fallback for a
     // transport that could not say.
-    return { fps, issues: rows.length, complete: res.complete ?? rows.length < limit };
+    return { fps, issues: rows.length, complete: res.complete ?? rows.length < limit, capExhausted: res.capExhausted === true };
   } catch (e) {
     // Not fatal: every candidate simply falls through to its own lookup below.
-    return { fps: null, issues: 0, complete: false, error: errText(e) };
+    return { fps: null, issues: 0, complete: false, capExhausted: false, error: errText(e) };
   }
 }
 
@@ -242,6 +245,7 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
     known = pre.fps;
     knownComplete = pre.complete;
     if (pre.error) log(`  (fingerprint prefetch unavailable: ${pre.error} — falling back to per-finding lookups)`);
+    else if (!knownComplete) log(`  !! fingerprint prefetch is TRUNCATED at ${pre.issues} ${PFX} issues (limit ${FP_PREFETCH_LIMIT}) — raise FP_PREFETCH_LIMIT and gh.mjs HARD_MAX_PAGES. Unconfirmable findings will NOT be filed (fail closed).`);
     else log(`  (${pre.issues} existing ${PFX} issues scanned, ${known.size} fingerprints known${knownComplete ? ', complete' : ', possibly truncated'})`);
   }
 
