@@ -194,6 +194,81 @@ const TRACKS = [
           reliability_score: 4,
         },
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track, placed second on the album Swift announced at the 2024 Grammy Awards, where, People reported, she told the audience it was a 'thank you to the fans' with release set for April 19. She said during a Melbourne Eras show, as NME reported, that writing it was 'really a lifeline for me.' Per Wikipedia the song debuted at No. 4 on the Hot 100 in the week she became the first artist to hold the entire top 14, and reached No. 3 in the UK.",
+          "It sets the album's tone: a bright, '80s-flavored synth-pop track that is also a satire of artistic self-seriousness, name-dropping the poets Dylan Thomas and Patti Smith and the pop musician Charlie Puth. Critics were split on that mix of heartbreak and deadpan comedy."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of The Tortured Poets Department (April 19, 2024), written and produced by Swift and Jack Antonoff.",
+            "People reported that Swift announced the album at the 2024 Grammys, then posted its cover on Instagram with the caption 'All's fair in love and poetry... New album THE TORTURED POETS DEPARTMENT. Out April 19.'",
+            "NME reported that Swift told an Eras Tour crowd in Melbourne that writing the album was 'really a lifeline for me,' reminding her how much songwriting gets her through difficult periods, adding 'I never had an album where I needed songwriting more than I needed it on Tortured Poets.'"
+          ],
+          supported: [
+            "Beats Per Minute's John Wohlmacher read the song as satirical: Swift acknowledges that she and her partner fall short of Thomas and Smith, calling them 'modern idiots,' a self-critique that great art comes from honest self-realization, not fame (per Wikipedia).",
+            "Reception was split: Clash's Lauren Webb heard a 1980s power-ballad sensibility, The New York Times's Lindsay Zoladz called it 'chatty, radiant,' while The Irish Times's Finn McRedmond thought it crammed in too many words and Pitchfork's Olivia Horn called it a winking track whose metaphors fall flat (all per Wikipedia)."
+          ],
+          fanTheories: [
+            "Fans have widely attached the song to a specific, publicized 2023 relationship. Swift has not confirmed it, and this guide doesn't name anyone; the song's satire works without that reading.",
+            "A popular fan theory links the title, which famously lacks the apostrophe in 'Poets', to the 1989 film Dead Poets Society, and points to the actors Ethan Hawke and Josh Charles appearing in the 'Fortnight' video. Songfacts reports the theory; it is an interpretation of a pattern, not something Swift has confirmed."
+          ]
+        },
+        live: [
+          {
+            date: "May 25, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "A mashup with 'Now That We Don't Talk', per Wikipedia."
+          },
+          {
+            date: "December 7, 2024",
+            event: "The Eras Tour, Vancouver",
+            note: "A mashup with 'Maroon', per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:fortnight",
+            label: "Fortnight",
+            why: "The song before it on the album, and the video where fans point to the Dead Poets Society cameos that feed the apostrophe theory."
+          },
+          {
+            relatedId: "song:now-that-we-dont-talk",
+            label: "Now That We Don't Talk",
+            why: "Swift mashed the two together in Lisbon on May 25, 2024, pairing this album track with a vault song from 1989 (Taylor's Version)."
+          },
+          {
+            relatedId: "song:suburban-legends",
+            label: "Suburban Legends",
+            why: "The Tennessean's Bryan West said this track's soft beat recalls that of Swift's 2023 song 'Suburban Legends', from 1989 (Taylor's Version)."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Eras Tour show in Melbourne, February 2024, as reported by NME",
+            note: "She called writing the album 'really a lifeline for me' and said she never needed songwriting more than on this record."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift says writing new album 'The Tortured Poets Department' was a \"lifeline\" - NME",
+            url: "https://www.nme.com/news/music/taylor-swift-says-writing-new-album-the-tortured-poets-department-was-a-lifeline-3589651"
+          },
+          {
+            name: "Taylor Swift Shares the Sexy Cover of New Album 'The Tortured Poets Department': 'All's Fair in Love and Poetry' - PEOPLE",
+            url: "https://people.com/2024-grammys-taylor-swift-new-album-cover-tortured-poets-department-8558634"
+          },
+          {
+            name: "The Tortured Poets Department (song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department_(song)"
+          },
+          {
+            name: "The Tortured Poets Department by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-tortured-poets-department"
+          }
+        ]
+      },
     },
     {
       slug: 'my-boy-only-breaks-his-favorite-toys',

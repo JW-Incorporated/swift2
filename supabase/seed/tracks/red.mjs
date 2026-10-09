@@ -751,6 +751,65 @@ const TRACKS = [
       themes: ['mourning', 'haze of memory', 'acceptance'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The quietest breakup song on Red, written at the point when the anger had already burned off. Swift told Billboard the feeling by then 'wasn't sadness and anger or those things anymore. It was wistful loss,' and she built the song from a single rhyme of magic with tragic. She described it as a breakup song in the form of a funeral march, at the opposite end of Red's emotional range from the pop smash 'We Are Never Ever Getting Back Together'.",
+          "It is the album's clearest example of memory as haze rather than argument. In Swift's words she wanted a 'cloudy recollection of what went wrong,' 'the murky gray, looking back on something you can't change or get back.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Track 12 of Red (released October 22, 2012), written by Taylor Swift alone and produced by Swift and Nathan Chapman.",
+            "Swift told Billboard: 'It was after a show and I was on the bus thinking about this relationship that ended months and months before... I just got my guitar and I hit on the fact that I was thinking in terms of rhyming; I rhymed magic with tragic, changed a few things and ended it with what a sad beautiful tragic love affair.'",
+            "In Billboard's cover story she placed it at one end of Red's spectrum: 'Sad Beautiful Tragic' is a breakup song in the form of a funeral march, and 'We Are Never Ever Getting Back Together' is a breakup song in the form of a parade."
+          ],
+          supported: [
+            "The Wikipedia article on Red describes it as an intimate, melancholic acoustic track built from overdubs of acoustic instruments, and groups it with the album's tracks that keep the country sound of her earlier records.",
+            "Musicologist James E. Perone, cited there, argues the song extends the 'lyrical impressionism' of her writing, stacking images without drawing a straight line between them, which matches Swift's stated goal of a recollection that stays blurry."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:we-are-never-ever-getting-back-together",
+            label: "We Are Never Ever Getting Back Together",
+            why: "Swift named the pair herself as the two ends of Red's range in Billboard's cover story: this one a funeral march, that one a parade."
+          },
+          {
+            relatedId: "song:all-too-well",
+            label: "All Too Well",
+            why: "Red's acoustic, country-rooted core: the Red article lists the two among the songs that keep the sound of her earlier albums alive on a record otherwise full of pop and rock."
+          },
+          {
+            relatedId: "song:begin-again",
+            label: "Begin Again",
+            why: "Also listed with it in the Red article's group of country-leaning songs."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Interview with Billboard, 2012",
+            note: "On the mood of the song: 'It's kind of the murky gray, looking back on something you can't change or get back.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Q&A: The Risks of 'Red' and The Joys of Being 22 - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-qa-the-risks-of-red-and-the-joys-of-being-22-474565/"
+          },
+          {
+            name: "Taylor Swift's 'Red': The Billboard Cover Story - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swifts-red-the-billboard-cover-story-474541/"
+          },
+          {
+            name: "Red (Taylor Swift album) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)"
+          },
+          {
+            name: "Sad Beautiful Tragic by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/sad-beautiful-tragic"
+          }
+        ]
+      },
     },
     {
       slug: 'the-lucky-one',

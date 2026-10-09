@@ -138,6 +138,98 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track of the seventh album, and the first song Swift wrote without a co-writer to earn a Song of the Year nomination at the Grammys (2020; it lost to 'Bad Guy'). The New York Times described it as her fourth track nominated for the songwriting award at the Grammys and her first without a co-writer. Per its Wikipedia entry it debuted at No. 19 on the Hot 100 after its August 16, 2019 release and climbed to No. 10 once the video arrived.",
+          "It matters because it is Swift's own account of how a love song gets built: she wrote it late one night at the piano at home in Nashville, played it for Jack Antonoff the next day, and they recorded it at Electric Lady Studios in New York with only engineer Laura Sisk in the room. The target sound was a wedding-reception song that could have been played in 1970, 1980 or now."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of Lover (August 23, 2019), written by Swift alone and produced by Swift and Antonoff. Released for download and streaming on August 16, 2019, a week before the album.",
+            "In The New York Times' 'Diary of a Song,' Swift said inspiration struck late at night in bed in Nashville, when she stumbled over to the piano, and the video includes her voice memo with 'a pretty cool, really simple, beautiful chorus idea called Lover.'",
+            "In the same piece she explained a lyric change: she had toyed with leaving the Christmas lights up 'till April' but settled on January, because 'it's not about that being a crazy thing. It's about how mundane it is.'",
+            "Antonoff tweeted that they did it 'entirely at electric lady in NYC. only laura sisk and taylor in the room,' that 'taylor wrote every stitch of this song and came in and played it for me,' that they worked about 6 hours that night, and that the tracks were live drum, bass, acoustic, 12 string, upright piano and mellotron."
+          ],
+          supported: [
+            "Swift has described the bridge as personal and drawn from how newlyweds personalize their vows. Press have noted it also echoes the bridal rhyme 'something old, something new, something borrowed, something blue' (Wikipedia).",
+            "Critics have read it as a sequel: Paste's Jane Song heard it as a continuation of 'New Year's Day' from Reputation, and Rolling Stone's Rob Sheffield heard a sequel to 'Last Kiss' (Wikipedia). The Telegraph's Alice Vincent thought the 'guitar string scars' phrase alludes to her move from country to pop on Red and 1989."
+          ]
+        },
+        live: [
+          {
+            date: "August 26, 2019",
+            event: "MTV Video Music Awards",
+            note: "A medley with 'You Need to Calm Down', an early performance of the song during album promotion, per Wikipedia."
+          },
+          {
+            date: "September 9, 2019",
+            event: "City of Lover, Paris",
+            note: "A one-off concert whose live recording became an official alternate version."
+          },
+          {
+            date: "October 5, 2019",
+            event: "Saturday Night Live",
+            note: "A stripped-down version, performed the same night as 'False God'."
+          },
+          {
+            date: "November 24, 2019",
+            event: "American Music Awards",
+            note: "As Artist of the Decade she sang an orchestral version at piano while Misty Copeland and Craig Hall danced; the arrangement became the 'First Dance Remix'."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "The song is part of the tour's set list."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:new-years-day",
+            label: "New Year's Day",
+            why: "Critics, including Paste's Jane Song, pair the two as sequel and prequel: the morning-after cleanup of Reputation's closer grows into the domestic life of 'Lover'."
+          },
+          {
+            relatedId: "song:cornelia-street",
+            label: "Cornelia Street",
+            why: "One of the other two songs on Lover that Swift wrote entirely alone."
+          },
+          {
+            relatedId: "song:you-are-in-love",
+            label: "You Are in Love",
+            why: "Songfacts traces the video's snow-globe idea to a lyric in this 1989 bonus track, linking the two songs across five years."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "On Twitter, as reported by Billboard",
+            note: "He wrote that Swift 'wrote every stitch of this song' and came in and played it for him, 'just a perfect moment to hear what she had done alone the night before.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "New York Times, Diary of a Song",
+            note: "On the Christmas-lights line: 'It's not about that being a crazy thing. It's about how mundane it is.'"
+          }
+        ],
+        sources: [
+          {
+            name: "How Taylor Swift Writes a Love Song - The New York Times (Diary of a Song, archived)",
+            url: "https://web.archive.org/web/20201214070550/https://www.nytimes.com/2019/12/24/arts/music/taylor-swift-lover.html"
+          },
+          {
+            name: "Jack Antonoff Says Taylor Swift 'Wrote Every Stitch' of New Song 'Lover' Before He Joined Her in the Studio - Billboard",
+            url: "https://www.billboard.com/music/pop/jack-antonoff-taylor-swift-lover-tweets-8527674/"
+          },
+          {
+            name: "Lover (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)"
+          },
+          {
+            name: "Lover by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/lover"
+          }
+        ]
+      },
     },
     {
       slug: 'the-man',

@@ -213,6 +213,89 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The story-song that proved folklore could be funny, ornate and personal at once. Per its Wikipedia entry every track on the album debuted on the Hot 100 in the same week, and this one entered at No. 13, the fourth-highest of the album's debuts. It also made year-end best-of lists at American Songwriter, Billboard, Pitchfork and Uproxx.",
+          "Its power is the structure. Swift told Entertainment Weekly she wanted to use a standard country narrative device: the first verse you sing about someone else, the second about someone even closer, and in the third, 'Surprise! It was me.' That is what happens when the narrator turns out to be the new owner of the house the heiress once lived in."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
+            "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought.",
+            "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
+            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
+            "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
+          ],
+          supported: [
+            "Swift told People that 'it can be a real pearl-clutching moment for society when a woman owns her desires and wildness,' and that she loved the idea of a woman too joyful in her freedom to care about the talk. Entertainment Weekly's Alex Suskind quotes her saying of Harkness, 'I don't think we often hear about women who did whatever the hell they wanted.'",
+            "The Wikipedia article notes that critics tied the closing refrain to Swift's own press: Watch Hill residents' wariness of attention, her Fourth of July parties, and the 'Taylor Swift tax' nickname for Rhode Island's proposed second-home levy.",
+            "Pitchfork's Julian Mapes hailed it as 'the all-timer, the instant classic' that celebrates society-defying women, and the Wikipedia article calls it thematically feminist and a prequel to 'mad woman'."
+          ]
+        },
+        live: [
+          {
+            date: "2020",
+            event: "folklore: the long pond studio sessions",
+            note: "She performed the song in the concert documentary, in which she plays every track from folklore and discusses the creative process."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "She performed the song on the tour between March 2023 and March 2024, per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mad-woman",
+            label: "mad woman",
+            why: "The Wikipedia article calls this thematically feminist and a prequel to 'mad woman': the town's judgment of Harkness here becomes the narrator's own anger there."
+          },
+          {
+            relatedId: "song:starlight",
+            label: "Starlight",
+            why: "Rolling Stone's Rob Sheffield matched the two: both use the word 'marvelous' and both are inspired by people who lived decades before Swift was born."
+          },
+          {
+            relatedId: "song:love-story",
+            label: "Love Story",
+            why: "Insider's Callie Ahlgrim compared the final chorus's return to the present to the bridge of 'Love Story', where Romeo proposes."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Entertainment Weekly, 2020",
+            note: "On discovering Rebekah Harkness: 'As soon as I found out about her, I wanted to know everything I could.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "People, 2021",
+            note: "She described the pleasure of a woman who 'decided there were marvelous times to be had, and that was more important' than the criticism."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift broke all her rules with 'Folklore' - and gave herself a much-needed escape - Entertainment Weekly (archived)",
+            url: "https://web.archive.org/web/20211222041930/https://ew.com/music/taylor-swift-entertainers-of-the-year-2020/"
+          },
+          {
+            name: "The wild true story behind Taylor Swift's 'The Last Great American Dynasty' - Entertainment Weekly",
+            url: "https://ew.com/music/taylor-swift-rebekah-harkness-last-great-american-dynasty-explained/"
+          },
+          {
+            name: "Taylor Swift Shares 'Folklore' Lyric She's 'Really Proud' Of - PEOPLE",
+            url: "https://people.com/music/taylor-swift-folklore-lyric-really-proud-grammys/"
+          },
+          {
+            name: "The Last Great American Dynasty - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty"
+          },
+          {
+            name: "The Last Great American Dynasty by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-last-great-american-dynasty"
+          }
+        ]
+      },
     },
     {
       slug: 'exile',

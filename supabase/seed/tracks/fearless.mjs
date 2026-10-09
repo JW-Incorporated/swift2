@@ -566,6 +566,69 @@ const TRACKS = [
         wiki('The Way I Loved You', 'The_Way_I_Loved_You', 'song article: co-writing background'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Fearless deep cut that fans never let go of. It debuted and peaked at No. 72 on the Hot 100 and went gold, and when Fearless (Taylor's Version) arrived in April 2021 the re-recording charted too, reaching No. 94 on the Hot 100 and No. 24 on Hot Country Songs (chart facts as summarized in its Wikipedia entry). It was part of the regular set on her first headlining tour.",
+          "What gives it staying power is its premise, which Swift supplied herself: a relationship with a perfectly nice, punctual, door-opening guy where you feel nothing, because the whole time you are thinking about the one who was complicated, messy and frustrating. She brought that idea to the writing session with John Rich."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 10 of Fearless (released November 11, 2008 on Big Machine Records), co-written by Swift and country songwriter John Rich, per Gigwise's retrospective.",
+            "Swift described the concept in her own words, as quoted by Gigwise: 'I got this idea for a song about being in a relationship with a nice guy who is punctual and opens up the door for you and brings you flowers... but you feel nothing. The whole time you're with him, you're thinking about the guy who was complicated and messy and frustrating.'",
+            "Gigwise reports that Swift sought Rich out for a co-writing session and that the song began as a concept she had before the session."
+          ],
+          supported: [
+            "Gigwise hears the song's structure as mirroring its idea: the verses, about the drama-free partner, are softer, while the chorus is full of tension and is 'dominating and addictive.'",
+            "Per its Wikipedia entry, the verses are led by a string quartet and a marching snare that, as Swift described, makes the new boyfriend seem stiff, while distorted electric guitars carry the rest of the song, including the chorus where she remembers the old relationship. Slant's Jonathan Keefe pointed to a nearly a cappella bridge.",
+            "Several critics hear a turning point in her storytelling: iHeartRadio's Emily Lee felt it was the first Swift song with a fictional narrative. Its details also anticipate later habits: cars, faked smiles and kissing in the rain all recur across her catalog, as the Wikipedia article notes."
+          ]
+        },
+        live: [
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "It was on the regular set list of her first headlining tour, per Wikipedia."
+          },
+          {
+            date: "May 24, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "She played it as part of a mashup with 'Come Back... Be Here' and 'The Other Side of the Door', per the song's Wikipedia article."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:come-back-be-here",
+            label: "Come Back... Be Here",
+            why: "Swift folded the two together with this song in a single Eras Tour mashup in Lisbon, pairing a Fearless song with one from Red."
+          },
+          {
+            relatedId: "song:the-other-side-of-the-door",
+            label: "The Other Side of the Door",
+            why: "The third piece of that same Lisbon mashup, and a Fearless sibling of this song."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Describing the song's idea, as quoted by Gigwise",
+            note: "She described a relationship with a punctual, flower-bringing nice guy where 'you feel nothing' because you are thinking about 'the guy who was complicated and messy and frustrating.'"
+          }
+        ],
+        sources: [
+          {
+            name: "The Story Of Us: 'The Way I Loved You' - Gigwise",
+            url: "https://www.gigwise.com/features/3399592/the-story-of-us-the-way-i-loved-you/"
+          },
+          {
+            name: "The Way I Loved You - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You"
+          },
+          {
+            name: "The Way I Loved You by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-way-i-loved-you"
+          }
+        ]
+      },
     },
     {
       slug: 'forever-and-always',

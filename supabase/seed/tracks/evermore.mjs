@@ -538,6 +538,89 @@ const TRACKS = [
         wiki('Marjorie (song)', 'Marjorie_(song)', 'song article: Finlay tribute and vocal credit'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most direct tribute in the catalog: a song about Swift's maternal grandmother, Marjorie Finlay, an opera singer whose career, The Independent reports, inspired Swift to pursue music herself. Finlay's own recorded soprano is on the track. Per its Wikipedia entry, critics including Rolling Stone's Rob Sheffield and Teen Vogue's P. Claire Dodson ranked it among her finest writing.",
+          "On the Eras Tour it became a ritual. At the Atlanta show on April 29, 2023, Billboard reported, tens of thousands of fans sang along with phone lights glimmering, and Swift, at her evermore-era piano, said 'my knees went weak.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Track 13 of evermore (December 11, 2020), written by Swift and Aaron Dessner, who produced it.",
+            "Announcing the album, Swift said one song stars 'my grandmother, Marjorie, who still visits me sometimes... if only in my dreams,' as Rolling Stone and Capital reported.",
+            "Swift said her mom found old records of Finlay singing opera: 'I sent them to Aaron and he added them to the song,' as quoted by Capital. Rolling Stone reported that a lyric video released alongside the song uses vintage footage and photos of Finlay, boarding a plane in a sixties dress, walking along ancient ruins, and playing piano with Swift as a toddler, and noted Justin Vernon harmonizing at the end.",
+            "The Independent reports that Finlay died on June 1, 2003, in Swift's hometown of Reading, Pennsylvania."
+          ],
+          supported: [
+            "Capital describes the song as addressing a late grandmother, referencing sweet times they shared and regretting not finding out more about her life, a regret that the line about wishing she had asked her questions states directly.",
+            "Per Wikipedia, the verses read like chants of Finlay's advice, including a line about being kind but clever, while the refrain insists on her presence after death. The drone in its bridge is the one sampled in 'peace' on folklore."
+          ],
+          fanTheories: [
+            "Fans like to note that Swift considers 13 her lucky number, that this is the 13th track on evermore, and that the matching 13th track on folklore, 'epiphany', honors her grandfather. Songfacts raises the pattern, but it's an observation about her habits, not something she has said about this song."
+          ]
+        },
+        live: [
+          {
+            date: "April 29, 2023",
+            event: "The Eras Tour, Atlanta",
+            note: "Billboard reported tens of thousands of voices singing with Swift, with their phone lights glimmering, over Finlay's recorded vocals; the flashlight tribute continued at later shows, per Wikipedia."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "Variety's Chris Willman and Teen Vogue's P. Claire Dodson both picked it among the show's best moments, per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "'Marjorie' came first: the drone from its bridge became the sample underneath folklore's 'peace', per the song's Wikipedia article."
+          },
+          {
+            relatedId: "song:epiphany",
+            label: "epiphany",
+            why: "The 13th track of folklore honors Swift's grandfather, while 'Marjorie' is the 13th track of evermore and honors her grandmother, as Songfacts points out."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Announcing evermore, December 2020",
+            note: "She said the album includes a song starring her grandmother, Marjorie, 'who still visits me sometimes... if only in my dreams.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "Interview, as quoted by Capital",
+            note: "'My mom found a bunch of her old records, of her singing opera, and I sent them to Aaron and he added them to the song.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Honors Her Grandmother With Heart-Wrenching Lyric Video for 'Marjorie' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-honors-her-grandmother-with-heart-wrenching-lyric-video-for-marjorie-1102391/"
+          },
+          {
+            name: "Taylor Swift Features Grandmother's Opera Singing Vocals On Evermore Track 'Marjorie' - Capital",
+            url: "https://www.capitalfm.com/features/taylor-swift-grandmother-marjorie-opera-singer-evermore-vocals/"
+          },
+          {
+            name: "Taylor Swift song 'Marjorie' is a tribute to her late grandmother - The Independent",
+            url: "https://www.the-independent.com/arts-entertainment/music/news/taylor-swift-marjorie-who-grandmother-b1769792.html"
+          },
+          {
+            name: "13 Best Moments From Taylor Swift's April 29 Atlanta 'Eras' Concert - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-atlanta-april-29-best-moments/a-heavenly-marjorie-experience/"
+          },
+          {
+            name: "Marjorie (song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Marjorie_(song)"
+          },
+          {
+            name: "Marjorie by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/marjorie"
+          }
+        ]
+      },
     },
     {
       slug: 'closure',

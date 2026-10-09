@@ -437,6 +437,77 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The fifth-track confessional of Midnights, which critics singled out as a highlight and a fan favorite. Per its Wikipedia entry it opened at No. 8 on the Hot 100 in the week she became the first artist to hold the entire top 10, peaked at No. 7 on the Billboard Global 200, and reached No. 6 on the Canadian Hot 100. Variety's Chris Willman put it at No. 49 on his ranking of her 50 best songs.",
+          "Its second life came on stage. According to Wikipedia, the 'friendship bracelets' lyric prompted Eras Tour concertgoers to make bracelets spelling out song titles and other phrases; the song itself was a surprise song on several dates and in the concert film."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 5 of Midnights (October 21, 2022), written and produced by Swift and Jack Antonoff.",
+            "Antonoff told Vulture: 'the stuff that shocks me the most is someone's vulnerability in a song. The end of \"You're on Your Own, Kid\" is one of those moments for me. I remember, she wrote that right in front of me and then we put it down, and I was completely punched in the gut.'"
+          ],
+          supported: [
+            "Reviewers have widely heard it as a memoir of her rise: unrequited teenage love, writing alone in her room, the realization that 'my dreams aren't rare,' and a closing turn to hope. Time's Shannon Carlin tied the early verses to the unrequited-love theme of 'You Belong with Me' and 'Hey Stephen'; Atwood Magazine's Nic Nichols noted shared themes with 'Fifteen' (all per Wikipedia).",
+            "The Guardian's Alexis Petridis read the 'blood-soaked gown' as evoking the 1976 horror film Carrie (per Wikipedia)."
+          ]
+        },
+        live: [
+          {
+            date: "April 14, 2023",
+            event: "The Eras Tour, Tampa",
+            note: "Its first live performance, as a surprise song, per Songfacts and Wikipedia."
+          },
+          {
+            date: "2023",
+            event: "The Eras Tour, Los Angeles and Mexico City",
+            note: "More surprise-song outings on August 5 and August 26, 2023, per Wikipedia."
+          },
+          {
+            date: "February 10, 2024",
+            event: "The Eras Tour, Tokyo",
+            note: "Performed as a full song, as it was again in Dublin on June 30, 2024; other nights folded it into mashups with 'Fifteen', 'Long Live', 'State of Grace', 'The Archer' and 'Long Story Short', per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:fifteen",
+            label: "Fifteen",
+            why: "Atwood Magazine linked the shared themes, and Swift paired the two as a mashup in Singapore and Lyon on the Eras Tour."
+          },
+          {
+            relatedId: "song:hey-stephen",
+            label: "Hey Stephen",
+            why: "Time's Shannon Carlin heard the first verse's patient, unrequited crush as in line with this earlier Fearless song."
+          },
+          {
+            relatedId: "song:tolerate-it",
+            label: "Tolerate It",
+            why: "Songfacts lists both among the fifth tracks on her albums, her habit of placing a most emotionally charged song in the fifth slot."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "Speaking to Vulture",
+            note: "'The stuff that shocks me the most is someone's vulnerability in a song,' he said, calling the end of this song one of those moments."
+          }
+        ],
+        sources: [
+          {
+            name: "Jack Antonoff on the Best of Taylor Swift, Lana & Bleachers - Vulture",
+            url: "https://www.vulture.com/2024/02/jack-antonoff-best-taylor-swift-lana-bleachers.html"
+          },
+          {
+            name: "You're on Your Own, Kid - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/You%27re_on_Your_Own,_Kid"
+          },
+          {
+            name: "You're On Your Own, Kid by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/youre-on-your-own-kid"
+          }
+        ]
+      },
     },
     {
       slug: 'midnight-rain',
