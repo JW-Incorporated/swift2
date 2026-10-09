@@ -139,7 +139,7 @@ export default {
       summary:
         'A parody self-portrait of the serial-dating psycho the media described: if that is the character they want, she will write it better than they can. The mansion-wrecking video sealed the bit.',
       inspiration:
-        'Confirmed intent: Swift said she built the song from the media’s jet-setting man-collector caricature of her, treating it as a comic character study.',
+        'Reported intent: Taylor is widely described as building the song from the media’s jet-setting man-collector caricature of her, treating it as a comic character study.',
       themes: ['satire of celebrity narrative', 'media caricature', 'control of the joke'],
       easterEggs:
         'The misheard Starbucks-lovers line became one of pop’s most famous mondegreens — acknowledged by Swift and even her mother.',
@@ -207,7 +207,7 @@ export default {
       summary:
         'Two people who keep crashing back together because the chemistry is timeless even when the relationship is not — desire as a classic silhouette that never goes out of fashion.',
       inspiration:
-        'Swift has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
+        'Taylor has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
       themes: ['cyclical attraction', 'timelessness', 'glamour with dread underneath'],
       fanLore:
         'Fan reading (unconfirmed): the title as a wordplay on fashion and personal style.',
@@ -303,11 +303,11 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Max Martin'],
       isSingle: true,
-      note: 'The first Taylor–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
+      note: 'The first Taylor–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a reported snowmobile crash referenced in the bridge.',
       summary:
         'A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.',
       inspiration:
-        'Swift confirmed the bridge’s snowmobile accident really happened and had been kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
+        'Per the song’s Wikipedia article, the bridge’s snowmobile accident is described as a real event that was kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
       themes: ['anxiety in love', 'fragility', 'surviving the crash'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods',
       sources: [
@@ -430,7 +430,7 @@ export default {
       summary:
         'An ex comes crawling back and the answer is the title: he had one job. The track-5 slot goes, for once, to exasperation instead of devastation.',
       inspiration:
-        'Confirmed: the pitched-up vocal hook came from a dream in which Swift could only squeak the word at a returning ex; she recreated it in the studio.',
+        'Reportedly, the pitched-up vocal hook came from a dream in which Taylor could only squeak the word at a returning ex; she recreated it in the studio.',
       themes: ['too little too late', 'self-worth', 'closing the door'],
       sourceUrl: 'https://en.wikipedia.org/wiki/All_You_Had_to_Do_Was_Stay',
       sources: [
@@ -581,7 +581,7 @@ export default {
       summary:
         'Two stubborn exes driving past each other’s lives, each wishing the other would make the first move neither will make.',
       inspiration:
-        'Confirmed studio story: Antonoff sent the instrumental sketch and Swift wrote the drive-by scenario over it almost immediately.',
+        'Studio story as reported: Antonoff sent the instrumental sketch and Taylor wrote the drive-by scenario over it almost immediately.',
       themes: ['pride', 'missed signals', 'late-night regret'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Wish_You_Would_(Taylor_Swift_song)',
       sources: [
@@ -865,7 +865,7 @@ export default {
       summary:
         'Love as tide: something released that actually comes back — the quietest, most patient song on a maximalist record.',
       inspiration:
-        'Confirmed: Swift wrote it as a poem first, the only 1989 track she wrote alone; the 2022 early release of its re-record for a TV trailer was its second life.',
+        'Per wiki accounts, Taylor wrote it as a poem first, the only 1989 track she wrote alone; the 2022 early release of its re-record for a TV trailer was its second life.',
       themes: ['patience', 'return', 'stillness'],
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
       sources: [
@@ -890,7 +890,7 @@ export default {
       summary:
         'Two people planning a romance like a heist: the watchers are the hunters, the lovers are the foxes, and privacy is the getaway route.',
       inspiration:
-        'Swift said it was written about knowing in advance that any new relationship would be hunted for sport — the hiding plan drafted before the love existed.',
+        'Described as written about knowing in advance that any new relationship would be hunted for sport — the hiding plan drafted before the love existed.',
       themes: ['surveillance', 'protecting love', 'us versus the lens'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Know_Places',
       sources: [wiki('I Know Places', 'I_Know_Places', 'song article: background'), ALBUM],
@@ -908,7 +908,7 @@ export default {
       summary:
         'Healing framed as detox: the drought, the flood, and finally the morning you notice the wound stopped needing checking. Her tour-speech centerpiece for years.',
       inspiration:
-        'Confirmed: sparked by the realization that an old love had quietly evaporated; recorded with Heap in London using Heap’s own instrumental setup.',
+        'Reportedly sparked by the realization that an old love had quietly evaporated; recorded with Heap in London using Heap’s own instrumental setup.',
       themes: ['recovery', 'time as medicine', 'coming out the other side'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
       sources: [wiki('Clean (song)', 'Clean_(song)', 'song article: Heap collaboration'), ALBUM],
@@ -1132,7 +1132,7 @@ export default {
       summary:
         'Loving someone who lets you twist: she keeps waiting for him to fight for it, and the silence is its own answer. A legendary songwriter pairing fans did not know existed until the vault opened.',
       inspiration:
-        'Confirmed: written with Warren during the 1989 sessions — Warren later said she had wondered for years if it would ever surface.',
+        'Written with Warren during the 1989 sessions, per Wikipedia — Warren later said she had wondered for years if it would ever surface.',
       themes: ['one-sided devotion', 'waiting to be chosen', 'lost collaborations'],
       sourceUrl: "https://en.wikipedia.org/wiki/Say_Don't_Go",
       sources: [wiki("Say Don't Go", "Say_Don't_Go", 'song article: Warren co-write'), TV],
