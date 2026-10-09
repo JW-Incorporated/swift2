@@ -87,6 +87,13 @@
     'unknownEmpty',
     'countUnknown',
     'unitsSent',
+    // Per-reason failure counts (counts only, never post or comment text).
+    'failNotFound',
+    'failNoExpander',
+    'failEmptyAfterExpand',
+    'failThrew',
+    'retried',
+    'recovered',
   ];
   // Mirrors COMMENT_ERROR_CODES in fb-export-helpers.mjs.
   const COMMENT_ERRORS = Object.freeze({

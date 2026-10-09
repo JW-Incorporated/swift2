@@ -68,9 +68,27 @@ const PER_ERA = { tracks: 'tracks', theories: 'theories', videos: 'videos', eraS
 const ALIAS = 'frozen';
 
 const mode = process.argv[2] ?? '--check';
-if (!['--check', '--apply', '--lenses', '--regenerate', '--prune'].includes(mode)) {
+if (
+  !['--check', '--apply', '--lenses', '--regenerate', '--prune', '--verify-lenses'].includes(mode)
+) {
   console.error(`parity fixture: unknown mode ${mode}`);
   process.exit(2);
+}
+
+if (mode === '--verify-lenses') {
+  const got = createHash('sha256')
+    .update(readFileSync(join(experienceSrc, LENSES), 'utf-8').replaceAll('\r\n', '\n'))
+    .digest('hex');
+  const want = JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8')).lensesSha256;
+  if (got !== want) {
+    console.error(
+      `parity fixture: packages/experience/src/${LENSES} (${got.slice(0, 12)}) != fixture.json lensesSha256 (${String(want).slice(0, 12)}); ` +
+        `a build step regenerated the lens data after the freeze`,
+    );
+    process.exit(1);
+  }
+  console.log('parity fixture: live lenses match the frozen snapshot');
+  process.exit(0);
 }
 
 const FIXED_ITEM_ID =

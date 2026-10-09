@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
+<!-- ha filed=2026-10-08 -->
+
+**Why:** PR #5385 fixes Facebook comment collection, which only gets 40–60% today. The extension runs in your Chrome, so the fix only takes effect after you reload it. Nothing is blocked; the export keeps working as before until then.
+**Steps:**
+1. In PowerShell, run: `git -C $env:USERPROFILE\Documents\Claude\Projects\Swift2 pull --ff-only` (with the checkout on main).
+2. In Chrome, go to `chrome://extensions`, find the Long Live FB export extension, and click its reload ↻ icon.
+**Worked if:** the next weekly export summary shows a per-group comment success % line.
 
 ## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-07 -->
