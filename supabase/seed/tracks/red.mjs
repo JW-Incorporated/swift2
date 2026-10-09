@@ -258,7 +258,7 @@ const TRACKS = [
       summary:
         'Blame turned inward: the red flags were visible from the parking lot, and she walked in anyway. The bass drop is the floor giving out.',
       inspiration:
-        'Widely read as being about the shame of knowing at first sight exactly how it would end; the Martin/Shellback production made it her boldest pop move to date.',
+        'Often read as being about the shame of knowing at first sight exactly how it would end; the Martin/Shellback production made it her boldest pop move to date.',
       themes: ['self-blame', 'red flags', 'aftermath of bad choices'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       sources: [
@@ -484,7 +484,7 @@ const TRACKS = [
       summary:
         'Hovering over the call button after a breakup: every reason to reach out, met by the one reason not to. The song exists so the phone call did not have to.',
       inspiration:
-        'Widely read as her way of resisting the urge to reconnect — the song replaced the conversation.',
+        'Often read as her way of resisting the urge to reconnect — the song replaced the conversation.',
       themes: ['restraint', 'almosts', 'post-breakup gravity'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       sources: [ALBUM],
@@ -672,7 +672,7 @@ const TRACKS = [
       summary:
         'Years later, the anger burns off and what is left is gratitude: the time was good, the dancing happened, the ground it stood on gets consecrated.',
       inspiration:
-        'Widely read as coming from realizing she could look back at a long-ended relationship and feel thankful rather than bitter.',
+        'Often read as coming from realizing she could look back at a long-ended relationship and feel thankful rather than bitter.',
       themes: ['retrospective grace', 'gratitude', 'making peace with the past'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Holy_Ground_(Taylor_Swift_song)',
       sources: [
@@ -824,7 +824,7 @@ const TRACKS = [
       summary:
         'A golden-age starlet chooses a rose garden over Madison Square Garden; the narrator, now famous herself, starts to suspect the runaway was the lucky one.',
       inspiration:
-        'Widely read as inspired by artists who walked away from fame at their peak; fans map it onto figures like Joni Mitchell (unconfirmed specifics).',
+        'Often read as inspired by artists who walked away from fame at their peak; fans map it onto figures like Joni Mitchell (unconfirmed specifics).',
       themes: ['cost of fame', 'escape', 'foreshadowing'],
       fanLore:
         'Fan reading (unconfirmed): Joni Mitchell as the model — Mitchell was separately attached to a shelved biopic Swift was once linked to.',

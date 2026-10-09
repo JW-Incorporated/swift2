@@ -180,7 +180,7 @@ const TRACKS = [
       summary:
         'A forbidden-romance fantasy sparked by a boy her family disapproved of, recast through Romeo and Juliet — with the tragedy swapped for a proposal.',
       inspiration:
-        'Widely read as beginning with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
+        'Often read as beginning with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
       themes: ['forbidden love', 'fairy-tale rewrites', 'defiance'],
       easterEggs:
         "Love Story (Taylor's Version) was the first re-recorded song she ever released (February 2021) — the opening move of the whole Taylor's Version project.",
@@ -534,7 +534,7 @@ const TRACKS = [
       summary:
         'She stops accepting the same apology on repeat; the piano ballad is the sound of someone finally hanging up.',
       inspiration:
-        'Widely read as written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
+        'Often read as written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
       themes: ['broken trust', 'boundaries', 'finality'],
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Not_Sorry",
       sources: [
