@@ -495,7 +495,7 @@ for (const { file, data } of loaded) {
     try {
       routeAuthor({ surface: 'month_item', category: it.category, override: it.author });
     } catch (e) {
-      err(`${e.message} — extend scripts/copy-desk/routing.mjs in the same PR`);
+      err(`${e.message} — extend packages/experience/src/copy-desk/routing.ts in the same PR`);
     }
 
     // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
