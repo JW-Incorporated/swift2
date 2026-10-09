@@ -5,7 +5,7 @@
 # pins `ref: main` — a secret-holding job never runs dispatch-chosen code.
 #
 # One job, one step:
-#   chat-poll.mjs claims founder messages in #longlive-marjorie and
+#   chat-poll.mjs claims founder messages in #marjorie and
 #      #longlive-tree with 👀 and dispatches routine-marjorie-chat.yml /
 #      routine-tree-chat.yml on this job's own GITHUB_TOKEN. `actions: write`
 #      is enough from a `run:` step — the #4223 403 was the App installation

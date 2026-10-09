@@ -34,7 +34,7 @@ function bell(routes: Record<string, unknown> = {}) {
   const lines: string[] = [];
   const config = { ok: true, problems: [], discordToken: 'discord-secret', githubToken: 'github-secret', guildId: '', founders: new Set([JOEY]) };
   const doorbell = createDoorbell({ config, fetchImpl, sleepImpl: vi.fn().mockResolvedValue(undefined), log: (l: string) => lines.push(l), now: () => NOW });
-  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'longlive-marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }], threads: [] });
+  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }], threads: [] });
   return { doorbell, calls, lines, keys: () => calls.map((c) => c.key) };
 }
 const founderMessage = (over: Record<string, unknown> = {}) => ({
@@ -47,7 +47,7 @@ afterEach(() => {
 
 describe('the doorbell rings', () => {
   it('logs ready with both channel names', () => {
-    expect(bell().lines).toContain(`ready: #longlive-marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
+    expect(bell().lines).toContain(`ready: #marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
   });
 
   it('adds 👀 as the doorbell bot, then dispatches the chat routine on main with the poll\'s inputs', async () => {
