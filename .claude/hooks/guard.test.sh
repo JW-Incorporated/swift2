@@ -143,6 +143,30 @@ assert_denied "ANSI-C quote shifts pairing (post-queue)" \
 assert_denied "ANSI-C quote shifts pairing (delete-media)" \
   "echo \$'\\'' \`node scripts/social/delete-media.mjs\` \$'\\'''"
 
+# --- issue #5457: subshell / process-substitution / exec-wrapper bypasses ---
+for s in post-queue delete-media; do
+  assert_denied "process substitution <( ($s)" "echo x <(node scripts/social/$s.mjs)"
+  assert_denied "process substitution >( ($s)" "echo x >(node scripts/social/$s.mjs)"
+  assert_denied "subshell after ; ($s)" "true ; (node scripts/social/$s.mjs)"
+  assert_denied "subshell with cd ($s)" "( cd scripts/social && node $s.mjs )"
+  assert_denied "command prefix ($s)" "command node scripts/social/$s.mjs"
+  assert_denied "backslash prefix ($s)" "\\node scripts/social/$s.mjs"
+  assert_denied "exec prefix ($s)" "exec node scripts/social/$s.mjs"
+  assert_denied "env prefix ($s)" "env node scripts/social/$s.mjs"
+  assert_denied "env VAR prefix ($s)" "env FOO=bar node scripts/social/$s.mjs"
+  assert_denied "nohup prefix ($s)" "nohup node scripts/social/$s.mjs"
+  assert_denied "time prefix ($s)" "time node scripts/social/$s.mjs"
+  assert_denied "builtin prefix ($s)" "builtin exec node scripts/social/$s.mjs"
+  assert_denied "absolute node path ($s)" "/usr/bin/node scripts/social/$s.mjs"
+  assert_denied "subshell absolute node ($s)" "(/usr/bin/node scripts/social/$s.mjs)"
+done
+assert_allowed "npm test" "npm test"
+assert_allowed "node check script" "node scripts/check-x.mjs"
+assert_allowed "gh pr list" "gh pr list"
+assert_allowed "subshell cd typecheck" "(cd apps/web && npm run typecheck)"
+assert_allowed "command -v node" "command -v node"
+assert_allowed "process substitution diff" "diff <(echo a) <(echo b)"
+
 # --- unrelated command stays allowed ---
 assert_allowed "plain unrelated command" \
   "echo hello"
