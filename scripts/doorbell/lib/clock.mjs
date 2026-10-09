@@ -27,7 +27,7 @@ export function loadPinned() {
 }
 
 export function createClock({ githubToken, fetchImpl = fetch, timers = globalThis, now = Date.now,
-  rows = loadPinned(), processStartMs = now(), progress = () => {}, log = () => {} }) {
+  rows = loadPinned(), processStartMs = now(), progress = () => {}, log = () => {}, onFatal = () => {} }) {
   const handled = new Set();
   const attempts = [];
   let mainLive = false;
@@ -120,7 +120,8 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
     if (fatal) return Promise.resolve();
     tickPromise ||= runTick().catch(() => {
       fatal = true;
-      try { log('clock: unexpected failure; watchdog progress stopped'); } catch { return; }
+      try { log('clock: unexpected failure; watchdog progress stopped'); } catch { /* still escalate */ }
+      try { onFatal(); } catch { /* the stale-tick check still trips the watchdog */ }
     }).finally(() => { tickPromise = null; });
     return tickPromise;
   }

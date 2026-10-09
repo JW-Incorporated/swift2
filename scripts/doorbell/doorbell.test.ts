@@ -139,6 +139,23 @@ describe('the stuck alarm', () => {
   });
 });
 
+describe('clock failure escalation', () => {
+  it('exits the process when the clock latches fatal', async () => {
+    const exit = vi.fn();
+    let broken = false;
+    const lines: string[] = [];
+    const config = { discordToken: 'd', githubToken: 'g', guildId: '', founders: new Set(['1']), ok: true, problems: [] };
+    const doorbell = createDoorbell({
+      config, fetchImpl: vi.fn().mockResolvedValue(new Response('x')), log: (l: string) => lines.push(l), exit,
+      now: () => { if (broken) throw new Error('boom'); return NOW; },
+    });
+    broken = true;
+    await doorbell.clock.tick();
+    expect(exit).toHaveBeenCalledWith(1);
+    expect(lines).toContain('clock: exiting so systemd restarts the unit');
+  });
+});
+
 describe('--check and the bare clone', () => {
   it('prints the config and exits without a request or a connection, never echoing a token', async () => {
     const lines: string[] = [];
@@ -201,6 +218,7 @@ describe('--check and the bare clone', () => {
       'scripts/doorbell/lib/clock-core.mjs',
       'scripts/doorbell/lib/clock.mjs',
       'scripts/doorbell/lib/doorbell-core.mjs',
+      'scripts/doorbell/lib/gateway-health.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
       'scripts/marjorie/lib/chat-inbox.mjs',
@@ -214,7 +232,7 @@ describe('--check and the bare clone', () => {
     expect(unit).toMatch(/^Type=notify$/m);
     expect(unit).toMatch(/^NotifyAccess=all$/m);
     expect(unit).toMatch(/^WatchdogSec=180$/m);
-    expect(unit).toMatch(/^StartLimitIntervalSec=3600$/m);
+    expect(unit).toMatch(/^StartLimitIntervalSec=0$/m);
     expect(unit).toMatch(/^StartLimitBurst=5$/m);
   });
 });

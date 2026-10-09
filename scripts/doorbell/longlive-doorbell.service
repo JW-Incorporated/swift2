@@ -9,7 +9,7 @@
 Description=Long Live Doorbell (founder message pickup and routine clock)
 After=network-online.target
 Wants=network-online.target
-StartLimitIntervalSec=3600
+StartLimitIntervalSec=0
 StartLimitBurst=5
 
 [Service]

@@ -12,7 +12,7 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 5-minute poll still answers.
 
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
-was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v3`.
+was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v4` (#5014; installed tag is still `doorbell-v3` until the update below is run).
 
 ## Clock v3 (installed; noon delivery proof pending)
 
@@ -64,9 +64,9 @@ executable authority for the workflows themselves, not for host code.
 
 At startup the clock waits for one successful main flag read. It refreshes
 every ten minutes and switches off after three failures or 30 minutes
-without a good read. An unexpected clock-loop error stops watchdog heartbeats
-until systemd restarts the process; handled request failures still acknowledge
-progress. The doorbell's message pickup continues independently.
+without a good read. The clock no longer feeds the systemd watchdog (#5014); the watchdog follows
+the Discord gateway (see "Watchdog health" below). The doorbell's message
+pickup and the clock run independently.
 An off switch may take one refresh interval to arrive. An unreadable run
 list never authorizes a dispatch; requests have 15-second deadlines.
 
@@ -118,12 +118,30 @@ clean checkout before restarting. Reverting the checkout to `doorbell-v2`
 and restarting is the code rollback, but restores the cumulative drift bug.
 
 The two unit-install commands were approved on 2026-09-14. They install
-`Type=notify`, `WatchdogSec=180`, `StartLimitBurst=5` and a one-hour start-limit
-window. The running Node process reports progress after clock ticks through
-`systemd-notify`; a hung loop stops watchdog signals. Five starts in an hour
-exhaust the limit; investigate first, then `sudo systemctl reset-failed
-longlive-doorbell` before restarting. Verify with `systemctl show
+`Type=notify`, `WatchdogSec=180` and `StartLimitBurst=5`. From `doorbell-v4` the
+start-limit window is disabled (`StartLimitIntervalSec=0`, `RestartSec=30` kept). The running Node process sends `WATCHDOG=1` through `systemd-notify`
+every 30 s, but only while the gateway is healthy (below). With the limit disabled, restarts
+never exhaust it: a Discord outage makes the unit restart about every 5 minutes
+(120 s grace, then the 180 s watchdog) until Discord returns, and it never ends
+up `failed` waiting for a human. Verify with `systemctl show
 longlive-doorbell -p ActiveState -p WatchdogUSec -p StartLimitBurst`.
+
+### Watchdog health (#5014)
+
+On 2026-10-04 the gateway sat in `gateway: resuming` for 97 minutes while the
+clock kept feeding the watchdog, so systemd saw a healthy unit. Now the feed
+follows the gateway (`scripts/doorbell/lib/gateway-health.mjs`):
+
+- Healthy = READY or RESUMED since the last close, and a heartbeat ACK (or that
+  READY/RESUMED) within two heartbeat intervals.
+- Unhealthy for more than 120 s (less than `WatchdogSec=180`) stops the feed, so
+  systemd restarts the unit. A fresh process gets the same 120 s to connect.
+- Self-heal: a connect or resume that has not reached READY/RESUMED in 45 s is
+  closed and retried with a fresh IDENTIFY (`gateway: resume not ready after 45s
+  — identifying afresh`).
+- The clock is part of the feed: it must also have ticked within 3 minutes (it
+  ticks every minute), so a hung clock stops the feed. A fatal clock-loop error
+  logs `clock: exiting so systemd restarts the unit` and exits 1.
 
 Proof order: one hour of twelve poll slots on main, dispatch actor and IDs,
 within two minutes per slot without doubled clock dispatches; then
@@ -247,6 +265,12 @@ sudo git checkout -q doorbell-v2
 sudo systemctl restart longlive-doorbell
 ```
 
+`doorbell-v4` changes the unit file (`StartLimitIntervalSec=0`), so that update
+also needs the new `longlive-doorbell.service` copied into `/etc/systemd/system/`
+and `sudo systemctl daemon-reload` before the restart. It is a Hermes-session
+or founder action (pull the tag, install the unit, reload, restart); this
+repo change deploys nothing.
+
 Check it worked the same way as after the install.
 
 ## Flags
@@ -279,6 +303,7 @@ host never reads it.
 | `not ready: #longlive-tree not found in the guild` | the bot cannot see that channel, or its id in `BOTS` is wrong | give the bot View Channel there (HA #73); channels resolve by id (`BOTS[bot].channelId`), so a rename needs nothing, but a deleted and recreated channel needs the new id in `chat-inbox.mjs` and a new tag |
 | `gateway: closed (4004) — not reconnecting` | bad Discord token | replace the token line, then restart |
 | `gateway: closed (4014) — not reconnecting` | an intent is disallowed | the doorbell asks only for GUILDS and GUILD_MESSAGES; check the bot's settings |
+| `gateway: resuming` with no `resumed` after it | a resume that hangs | self-heals after 45 s with a fresh IDENTIFY; if the gateway stays down 120 s, the watchdog stops and systemd restarts the unit (restart count rises in `systemctl show longlive-doorbell -p NRestarts`) |
 | `… dispatch … failed (HTTP 401)` or `(HTTP 403)` | the GitHub key expired or lacks Actions write | renew the key (above) |
 
 ### 2026-09-15 allowance clarification and recovery
