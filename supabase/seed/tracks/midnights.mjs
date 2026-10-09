@@ -137,7 +137,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
-          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          source_title: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -147,7 +147,7 @@ const ERA = {
         {
           source_url:
             'https://au.rollingstone.com/music/music-lists/taylor-swift-all-247-songs-ranked-58660/maroon-2022-3-58985',
-          source_title: "Rob Sheffield ranks Taylor Swift's songs: 'Maroon'",
+          source_title: '“Maroon” (2022) - Rolling Stone Australia',
           publisher: 'Rolling Stone Australia',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -529,7 +529,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
-          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          source_title: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -540,7 +540,7 @@ const ERA = {
           source_url:
             'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
           source_title:
-            "Jack Antonoff on vintage gear, analogue synths and making Taylor Swift's 'Midnights'",
+            'Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: “The Oberheim OB-8 was the star of that album”',
           publisher: 'MusicRadar',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -648,7 +648,7 @@ const ERA = {
         {
           source_url:
             'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
-          source_title: 'Jack Antonoff on making Midnights: the tape-transient beat-building technique',
+          source_title: 'Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: “The Oberheim OB-8 was the star of that album”',
           publisher: 'MusicRadar',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -756,7 +756,7 @@ const ERA = {
         {
           source_url:
             'https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/',
-          source_title: 'Taylor Swift Goes Deep Into the Night on Midnights (Rob Sheffield)',
+          source_title: 'Welcome to the Lavender Labyrinth: Taylor Swift’s ‘Midnights’ Is the Mastermind’s Ultimate Power Move',
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -875,7 +875,7 @@ const ERA = {
         {
           source_url:
             'https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/',
-          source_title: 'Taylor Swift’s ‘Midnights’: Rob Sheffield’s Track-by-Track Review',
+          source_title: 'Welcome to the Lavender Labyrinth: Taylor Swift’s ‘Midnights’ Is the Mastermind’s Ultimate Power Move',
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -885,7 +885,7 @@ const ERA = {
         {
           source_url:
             'https://www.today.com/popculture/music/taylor-swift-labyrinth-surprise-song-argentina-rcna124660',
-          source_title: 'Taylor Swift plays ‘Labyrinth’ live for the first time in Argentina',
+          source_title: 'Taylor Swift resumes the ‘Eras Tour’ and her surprise song was about ‘falling in love again’',
           publisher: 'Today',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -895,7 +895,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/',
-          source_title: 'Taylor Swift’s NYU Commencement Speech: Full Transcript',
+          source_title: 'Taylor Swift’s NYU Commencement Speech: Read the Full Transcript',
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1111,7 +1111,7 @@ const ERA = {
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The 3am Edition’s WWI-imagery centerpiece — a relationship’s worst fight survived, with poppies planted over the trench afterward.',
       summary:
-        'Old wounds make her swing at someone innocent; the battle nearly ends them, and the vow that closes it is to never fight like that again — trench warfare as couples therapy. Swift has never named a real-life subject, so that read is lyric interpretation, not a confirmed statement; the closing image is grounded in genuine remembrance symbolism, the red poppy that grew across the Western Front and is worn each Remembrance Day. It is one of three Aaron Dessner co-writes tucked onto the 3am Edition (with “High Infidelity” and “Would’ve, Could’ve, Should’ve”), and its folk-rock build — Dessner on keys, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion and piano, Kyle Resnick’s trumpet and Yuki Numata Resnick’s violin behind a martial drum climb — imports his folklore/evermore texture onto an otherwise Antonoff-built synth-pop record. It debuted and peaked at No. 26 on the Hot 100 (dated Nov. 5, 2022) as one of the ten Midnights tracks to fill the chart’s entire top 10 at once. Its live debut was an Eras Tour surprise song at Tampa’s Raymond James Stadium (April 14, 2023), where Swift brought Dessner out to play it with her — “the collaborator version of a soulmate.” Rolling Stone’s Rob Sheffield singled it out as “one of the stellar Aaron Dessner collaborations tucked away on the Midnights 3 A.M. Edition… a tribute to the type of lover who can help rescue you from your own destructive instincts.”',
+        'Old wounds make her swing at someone innocent; the battle nearly ends them, and the vow that closes it is to never fight like that again — trench warfare as couples therapy. Swift has never named a real-life subject, so that read is lyric interpretation, not a confirmed statement; the closing image is grounded in genuine remembrance symbolism, the red poppy that grew across the Western Front and is worn each Remembrance Day. It is one of three Aaron Dessner co-writes tucked onto the 3am Edition (with “High Infidelity” and “Would’ve, Could’ve, Should’ve”), and its folk-rock build — Dessner on keys, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion and piano, Kyle Resnick’s trumpet and Yuki Numata Resnick’s violin behind a martial drum climb — imports his folklore/evermore texture onto an otherwise Antonoff-built synth-pop record. It debuted at No. 26 on the Hot 100 (dated Nov. 5, 2022) as one of the ten Midnights tracks to fill the chart’s entire top 10 at once. Its live debut was an Eras Tour surprise song at Tampa’s Raymond James Stadium (April 14, 2023), where Swift brought Dessner out to play it with her — “the collaborator version of a soulmate.” Rolling Stone’s Rob Sheffield singled it out as “one of the stellar Aaron Dessner collaborations tucked away on the Midnights 3 A.M. Edition… a tribute to the type of lover who can help rescue you from your own destructive instincts.”',
       inspiration: null,
       themes: ['conflict and repair', 'fighting your own scars', 'armistice'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Midnights',
@@ -1128,7 +1128,7 @@ const ERA = {
         {
           source_url:
             'https://www.rollingstone.com/music/music-news/taylor-swift-aaron-dessner-live-debut-the-great-war-tampa-bay-1234715619/',
-          source_title: "Taylor Swift, Aaron Dessner Perform 'The Great War' at Tampa Bay Shows",
+          source_title: 'Taylor Swift Brings Out Aaron Dessner for ‘The Great War’ and ‘Mad Woman’ at Tampa Bay Shows',
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1138,7 +1138,7 @@ const ERA = {
         {
           source_url:
             'https://au.rollingstone.com/music/music-lists/-84697/the-great-war-2022-4-84964/',
-          source_title: "Rob Sheffield ranks Taylor Swift's songs: 'The Great War'",
+          source_title: '“The Great War” (2022) - Rolling Stone Australia',
           publisher: 'Rolling Stone Australia',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1148,7 +1148,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
-          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          source_title: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1264,7 +1264,7 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The 3am bonus about being so in love the room becomes another city — privacy as the actual romance.',
       summary:
-        'No trip involved: two people draw the blinds, ignore the gossip cycle, and pretend the bedroom is Paris — escapism as a couple’s inside joke. Swift never explained the song on the record, so that bedroom-as-Paris reading is critic-and-fan interpretation, not a confirmed statement. Musically it is one of the brighter, more retro cuts among the moodier 3am material, written and produced with Jack Antonoff in the album’s minimalist synth-pop palette. It debuted and peaked at No. 32 on the Hot 100 (dated Nov. 5, 2022), one of the lower-charting 3am bonus tracks in the week the standard album swept the top 10. PopMatters called it “a solid pop output more in line with earlier Swift albums” that “would seem like a step back had it been included in the more mature, darker Midnights.” Fittingly, its live debut came in Paris: an acoustic guitar surprise song at Paris La Défense Arena on May 9, 2024 — the tour’s first show after The Tortured Poets Department — and three nights later, on May 12, she laced elements of “Paris” into a piano rendition of “Begin Again” at the same venue. Its only official visual is a lyric video; no music video was made.',
+        'No trip involved: two people draw the blinds, ignore the gossip cycle, and pretend the bedroom is Paris — escapism as a couple’s inside joke. Swift never explained the song on the record, so that bedroom-as-Paris reading is critic-and-fan interpretation, not a confirmed statement. Musically it is one of the brighter, more retro cuts among the moodier 3am material, written and produced with Jack Antonoff in the album’s minimalist synth-pop palette. It debuted at No. 32 on the Hot 100 (dated Nov. 5, 2022), one of the lower-charting 3am bonus tracks in the week the standard album swept the top 10. PopMatters called it “a solid pop output more in line with earlier Swift albums” that “would seem like a step back had it been included in the more mature, darker Midnights.” Fittingly, its live debut came in Paris: an acoustic guitar surprise song at Paris La Défense Arena on May 9, 2024 — the tour’s first show after The Tortured Poets Department — and three nights later, on May 12, she laced elements of “Paris” into a piano rendition of “Begin Again” at the same venue. Its only official visual is a lyric video; no music video was made.',
       inspiration: null,
       themes: ['love as elsewhere', 'shutting out the noise', 'giddy secrecy'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Midnights',
@@ -1272,7 +1272,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
-          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          source_title: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1392,7 +1392,7 @@ const ERA = {
         {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
-          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          source_title: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1402,7 +1402,7 @@ const ERA = {
         {
           source_url:
             'https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10',
-          source_title: "Taylor Swift's 8 bonus tracks contain some of her best songwriting ever",
+          source_title: "We are pleased to inform you that Taylor Swift’s 8 bonus tracks for ‘Midnights’ contain some of her best songwriting ever",
           publisher: 'Business Insider',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
