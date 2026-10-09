@@ -511,7 +511,7 @@ const TRACKS = [
         ],
         meaning: {
           confirmed: [
-            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a toddler's voice sample, which Taylor decided to use after playing them an acoustic demo and the toddler kept repeating the word.",
+            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a toddler's voice sample, which Taylor decided to use after playing an acoustic demo and the toddler kept repeating the word.",
             "Big Machine Records released 'Gorgeous' as a promotional single on October 20, 2017, ahead of reputation's release, following 'Look What You Made Me Do' and '...Ready for It?' as the third song issued before the album."
           ],
           supported: [

@@ -180,19 +180,19 @@ const TRACKS = [
     dossier: {
       whyItMatters: [
         'Back to December is the first time Taylor wrote herself as the one who did the breaking. She said so plainly at release: the song is an apology to someone who was absolutely wonderful to her, a ball she dropped and needed to own out loud. On an album full of open letters, this is the one addressed from the guilty party — a reversal critics immediately read as a leap in maturity. Released as a single on November 15, 2010, it climbed to No. 6 on the Hot 100 and No. 3 on Hot Country Songs.',
-        "It is also the rare entry in her catalog where the muse question has an on-the-record answer. Taylor declined to name the subject in 2010, and this guide doesn't name anyone; the acknowledgment came from an ex who later acknowledged it himself, not from Taylor. She performed it at the 2010 CMA Awards and folded it into an American Music Awards mashup with OneRepublic's Apologize, leaning into the theme.",
+        "Taylor declined to name the subject in 2010, and this guide doesn't name anyone. She performed it at the 2010 CMA Awards and folded it into an American Music Awards mashup with OneRepublic's Apologize, leaning into the theme.",
       ],
       meaning: {
         confirmed: [
           'Taylor wrote it alone, produced it with Nathan Chapman, and released it as a single on November 15, 2010; it peaked at No. 6 on the Hot 100 and No. 3 on Hot Country Songs.',
-          'She described it as an apology to a past love — the first time she had apologized in a song — saying someone had been absolutely wonderful to her and she dropped the ball; an ex who later acknowledged it did so himself, and Taylor has not named him.',
+          'She described it as an apology to a past love — the first time she had apologized in a song — saying someone had been absolutely wonderful to her and she dropped the ball; Taylor has not named the subject.',
         ],
         supported: [
           'Critics praised the emotional honesty and the vulnerability in the vocal, and retrospective rankings often cite it as the moment her writing learned to indict herself as readily as anyone else.',
           'Within the album it balances the ledger: a record famous for its scorched-earth letters also contains its most unguarded act of accountability, sequenced early like a disclosure.',
         ],
         fanTheories: [
-          "Before the later acknowledgment, the attribution was entirely fan-assembled — a December timeline and a public friendship mapped onto the lyric. Taylor herself has not named the subject.",
+          "The attribution is entirely fan-assembled — a December timeline and a public friendship mapped onto the lyric. Taylor herself has not named the subject.",
         ],
       },
       connections: [

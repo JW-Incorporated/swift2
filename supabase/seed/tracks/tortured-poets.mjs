@@ -1386,7 +1386,7 @@ const TRACKS = [
             "It is broadly described as the album's rare uncomplicated-joy song — the chemistry-as-love-that-finally-works counterweight to the surrounding wreckage."
           ],
           fanTheories: [
-            "The football vocabulary is read near-universally by the press (TIME, Today, Slate and others) as pointing to Taylor's public relationship, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Taylor has not named the subject of 'The Alchemy' in any interview, liner note or dedication, and this guide doesn't name anyone — it remains a fan-and-press reading."
+            "The football vocabulary is read near-universally by the press (Today, Slate and others) as pointing to Taylor's public relationship, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Taylor has not named the subject of 'The Alchemy' in any interview, liner note or dedication, and this guide doesn't name anyone — it remains a fan-and-press reading."
           ]
         },
         connections: [
