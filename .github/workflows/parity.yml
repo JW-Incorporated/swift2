@@ -96,7 +96,7 @@ jobs:
         run: npx next build
       - name: Verify the lens data is still the frozen snapshot after the build
         run: node scripts/parity/make-fixture.mjs --verify-lenses
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         with:
           name: parity-a-next
           path: |
@@ -137,7 +137,7 @@ jobs:
         run: node scripts/parity/make-fixture.mjs --verify-lenses
       - name: No baked content in the DOM bundle
         run: node scripts/parity/check-dom-bundle.mjs "$RUNNER_TEMP/ios-export"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         with:
           name: parity-b
           path: apps/mobile/dist/parity-web
@@ -177,7 +177,7 @@ jobs:
         run: npx playwright test -c playwright.parity.config.ts --project=${{ matrix.project }}
       - name: Upload diffs and report
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: parity-failure-${{ matrix.project }}
           path: |
@@ -265,7 +265,7 @@ jobs:
           A11Y_UPDATE: '1'
         run: npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts
       - name: Upload before and after
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: parity-baselines
           path: |

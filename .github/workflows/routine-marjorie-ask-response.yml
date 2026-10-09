@@ -72,7 +72,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ inputs.issue_number }}
         run: node scripts/marjorie/loop-live.mjs pending --for marjorie --issue "$ISSUE" --limit 4 --out .scratch/ask-queue.json
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: steps.queue.outputs.skip != 'true'
         with:
           name: marjorie-ask-queue

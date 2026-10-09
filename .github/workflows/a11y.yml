@@ -33,7 +33,7 @@ jobs:
           set +e
           npx --yes pa11y --standard WCAG2AA https://www.longlivets.com/ | tee pa11y-report.txt
           echo "pa11y exit: $?  (non-blocking)"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         with:
           name: a11y-reports
           path: |

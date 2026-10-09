@@ -51,7 +51,7 @@ jobs:
           restore-keys: merch-official-sync-
       - name: Fetch official-store change handoff
         run: node scripts/merch-engine/sync-official.mjs --detect --write-plan official-sync-plan.json --cache official-sync-cache.json --current supabase/seed/merch/official.mjs
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         with:
           name: merch-official-sync-plan
           path: official-sync-plan.json

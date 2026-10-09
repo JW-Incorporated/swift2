@@ -97,7 +97,7 @@ jobs:
 
       - name: Upload the drill report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: production-backup-drill-report
           path: .backups/last-report.json

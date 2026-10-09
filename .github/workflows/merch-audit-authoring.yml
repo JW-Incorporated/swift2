@@ -165,7 +165,7 @@ jobs:
           key: merch-audit-scores-v1-main-${{ github.run_id }}
       - name: Upload auditable authoring artifact
         if: ${{ !cancelled() && steps.author.conclusion != 'skipped' && hashFiles('.artifacts/merch-audit-authoring.json') != '' }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: merch-audit-authoring-artifact
           path: |

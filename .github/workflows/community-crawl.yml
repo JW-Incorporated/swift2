@@ -93,7 +93,7 @@ jobs:
 
       - name: Upload crawl bundle (transient, 24h retention)
         if: steps.enabled.outputs.enabled == 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: community-crawl-bundle
           path: .artifacts/community-crawl.json

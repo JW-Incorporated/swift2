@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload the deleted rows for audit
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: fb-lead-scrub-candidates
           path: scrub-candidates.json

@@ -65,7 +65,7 @@ jobs:
           echo "pending=${n:-0}" >> "$GITHUB_OUTPUT"
       - name: Hand the export to the agent job
         if: steps.export.outputs.pending != '0'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: awareness-pending
           path: .scratch/awareness-in.json

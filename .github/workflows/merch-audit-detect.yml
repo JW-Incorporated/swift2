@@ -58,7 +58,7 @@ jobs:
         run: npx tsx scripts/merch-engine/audit-matches.mjs --detect --cache .cache/merch-audit-scores.json --write-queue .artifacts/merch-audit-queue.json
       - name: Upload scoring queue
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: merch-audit-queue
           path: .artifacts/merch-audit-queue.json
