@@ -291,6 +291,31 @@ export function runSummary(results, actingPageId = null) {
   ].join('\n');
 }
 
+// Success rate over posts with a known non-zero comment count (the #4688 acceptance metric),
+// falling back to all eligible posts for an older extension build. Percent only.
+export function commentSuccessRate(cc) {
+  const denom = Number.isInteger(cc?.knownPositiveEligible)
+    ? cc.knownPositiveEligible
+    : cc?.eligible;
+  if (!denom) return '';
+  return ` (${Math.round((Math.min(cc.processed, denom) / denom) * 100)}% of ${denom} with known comments)`;
+}
+
+// Fixed-code, counts-only reason breakdown; empty for an older extension build.
+export function commentFailureReasons(cc) {
+  if (!cc || cc.failNotFound === undefined) return '';
+  const parts = [
+    ['not-found', cc.failNotFound],
+    ['no-expander', cc.failNoExpander],
+    ['empty-after-expand', cc.failEmptyAfterExpand],
+    ['threw', cc.failThrew],
+  ]
+    .filter(([, n]) => n > 0)
+    .map(([code, n]) => `${code}=${n}`);
+  if (cc.retried > 0) parts.push(`retried=${cc.retried}`, `recovered=${cc.recovered ?? 0}`);
+  return parts.length ? ` [${parts.join(' ')}]` : '';
+}
+
 // Comment outcome, COUNTS ONLY (comments are private): what was stored and how collection went.
 export function formatComments(r) {
   const cc = r.commentCoverage;
@@ -304,7 +329,7 @@ export function formatComments(r) {
     parts.push(`collection error: ${commentErrorCode(cc.error)}`);
   else if (cc)
     parts.push(
-      `${cc.processed}/${cc.eligible} posts read, ${cc.failed} failed, ${cc.timedOut} timed out`,
+      `${cc.processed}/${cc.eligible} posts read${commentSuccessRate(cc)}, ${cc.failed} failed, ${cc.timedOut} timed out${commentFailureReasons(cc)}`,
     );
   return `comments: ${parts.join('; ')}`;
 }

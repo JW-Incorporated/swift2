@@ -87,6 +87,12 @@ const OPTIONAL_COVERAGE_KEYS = [
   'unknownEmpty',
   'countUnknown',
   'unitsSent',
+  'failNotFound',
+  'failNoExpander',
+  'failEmptyAfterExpand',
+  'failThrew',
+  'retried',
+  'recovered',
 ];
 // A feed this busy always shows some "N comments"; every count unknown there is selector drift.
 const COUNT_DRIFT_MIN_UNITS = 10;
@@ -127,6 +133,16 @@ export function commentFailure(body) {
     return 'comments-collection-failed';
   if (!cc && body.units.length > 0) return 'comments-coverage-missing';
   return null;
+}
+
+// Counts-only log suffix for the per-reason breakdown; empty for an older extension build.
+function commentReasonSuffix(cc) {
+  if (cc.failNotFound === undefined) return '';
+  return (
+    ` fail-not-found=${cc.failNotFound} fail-no-expander=${cc.failNoExpander ?? 0}` +
+    ` fail-empty-after-expand=${cc.failEmptyAfterExpand ?? 0} fail-threw=${cc.failThrew ?? 0}` +
+    ` retried=${cc.retried ?? 0} recovered=${cc.recovered ?? 0}`
+  );
 }
 
 export function validateResult(body) {
@@ -600,7 +616,8 @@ export async function startReceiver({
           : ` comment-eligible=${cc.eligible} processed=${cc.processed} failed=${cc.failed} timed-out=${cc.timedOut}` +
             (cc.unknownEmpty !== undefined
               ? ` unknown-empty=${cc.unknownEmpty} count-unknown=${cc.countUnknown}/${cc.unitsSent}`
-              : '');
+              : '') +
+            commentReasonSuffix(cc);
       const reason =
         (result.reason ? ` ${result.reason}` : '') +
         (result.commentsFailed ? ` comments-failed=${result.commentsFailed}` : '');
