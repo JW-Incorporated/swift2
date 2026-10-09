@@ -24,7 +24,7 @@ Steps:
    Content (either location): a compact review LIST (not a table — GitHub only renders clickable checkboxes for top-level list items, in both an issue body and a comment) — one block per pending ticket in the charter's digest-block format: ticket ref, reporter, surface, what the user said, Kevin's read, proposed fix (with a before→after details block), and `- [ ] Accept #N` / `- [ ] Reject #N`. Tickets you cannot confidently fix go under a "Needs human decision" heading with no proposed change.
 4. Image fixes are verify-first per docs/kevin.md invariant 5 (HTTP 200 + Content-Type image/* AND download + vision-confirm) — a proposed image swap only goes in the digest if it verifies; never propose an unverified URL.
 
-Hard limits (docs/kevin.md): never merge; never push to main; never close a user ticket without a recorded human accept/reject decision; validate before every commit (`node scripts/validate-content.mjs` = 0 errors + `node --check` on edited files); never touch or run Karen's engine; keep the Karen stream and user stream on separate PRs. Post a one-line summary.
+Hard limits (docs/kevin.md): never merge or self-arm (Kevin's fix PRs are content-lane; `auto-merge-content.yml` lands them, docs/decisions.md 2026-07-25, 2026-10-09); never push to main; never close a user ticket without a recorded human accept/reject decision; validate before every commit (`node scripts/validate-content.mjs` = 0 errors + `node --check` on edited files); never touch or run Karen's engine; keep the Karen stream and user stream on separate PRs. Post a one-line summary.
 
 ## Run discipline (added 2026-07-25 — token burn)
 

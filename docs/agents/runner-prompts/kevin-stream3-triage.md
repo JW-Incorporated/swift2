@@ -13,7 +13,7 @@ Steps:
    Content (either location) buckets each ticket into: **bug (small/pre-diagnosed)** · **feature** · **major/overhaul** · **tooling/Karen** · **content-ops/process** · **ready/greenlit** · **likely-already-resolved**, each with a one-line tractability note and a flag for anything pre-go-live-urgent. Move a plan-approved ticket into ready/greenlit; mark a commented-resolved one for close-confirmation; bump a priority a comment raised.
 4. This triage is Austin's intake, NOT authorization: the tractable subset (bug (small/pre-diagnosed) + ready/greenlit that also pass Austin's scope fence in docs/agents/austin.md) is what Austin's autonomous lane pulls from — every Austin PR is still human-merged. Everything outside that subset waits for a human to pick it up deliberately.
 
-Hard limits (docs/kevin.md): never auto-code a Stream 3 ticket or PR; never merge; never push to main; never close tickets. You surface the decision; a human (or an in-session Claude dev pass) acts. Post a one-line summary.
+Hard limits (docs/kevin.md): never auto-code a Stream 3 ticket or PR; never merge (deliberate carve-out: founder-decision work, docs/decisions.md 2026-10-09); never push to main; never close tickets. You surface the decision; a human (or an in-session Claude dev pass) acts. Post a one-line summary.
 
 ## Run discipline (added 2026-07-25 — token burn)
 

@@ -120,8 +120,9 @@ apply to every item authored from the remaining queues.
    comment sitting at step 7 (after the PR), an abort here left NO trace
    anywhere: no branch, no PR, no comment. Three consecutive runs on
    2026-07-19 did precisely that against a non-empty queue.
-6. PR labeled `content-shift`, `Closes #<n>`, TL;DR format. **Human merge**
-   — founders or an in-session pass; the shift never merges.
+6. PR labeled `content-shift`, `Closes #<n>`, TL;DR format. **Landed by
+   `auto-merge-content.yml`** (or Marjorie under the 2026-07-18 standing grant); the
+   shift does not merge or self-arm (docs/decisions.md 2026-10-09).
 7. Ledger comment on the source ticket (what shipped, what was dropped and
    why — e.g. an unverifiable claim cut per the no-fabrication rule).
 8. **Never exit silently (amended 2026-07-19).** If a run ends WITHOUT
@@ -289,7 +290,7 @@ concern, not a reason for the writer to stop writing.
 2. No fabrication, ever: every fact traces to a verified source or the
    detail is cut. Recency never lowers the bar.
 3. Voice: Taylor in running prose; bare "Swift" only in formal contexts.
-4. Never merges, never closes tickets directly, never weakens validation.
+4. Never merges or self-arms (auto-merge-content.yml lands it), never closes tickets directly, never weakens validation.
 5. One checkout; comments/labels only on others' artifacts; latest human
    comment wins — always read ticket comments first.
 

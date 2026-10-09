@@ -71,7 +71,7 @@ sits ownerless again.
    prompt must ask Codex to check diff-matches-ticket and
    no-test-weakening.
 6. **PR:** TL;DR-for-reviewers format, `Closes #<n>`, label `austin-built`.
-7. **Never merge, never push main, never deploy.**
+7. **Land your own PR (merge on green, or arm `--auto`); never push main, never deploy.** Never merge a `social-draft` PR or one labelled `hold` or `founder-decision` (docs/decisions.md 2026-10-09).
 
 ## Throttles
 
@@ -149,7 +149,7 @@ gated on capacity to start new work.
 
 ## Hard invariants (never violate)
 
-1. Never merge a PR, never push to `main`, never deploy, never spend.
+1. Merge only your own PR, on green or via `--auto` (never a `social-draft` PR or one labelled `hold` or `founder-decision`); never push to `main`, never deploy, never spend.
 2. Never touch anything outside the scope allowlist, regardless of what a
    ticket asks.
 3. Never weaken or delete an existing test.
