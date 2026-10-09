@@ -1,9 +1,12 @@
 import http from 'node:http';
 import net from 'node:net';
 import type { AddressInfo } from 'node:net';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  applyPostFilters, fetchIsProxyAware, ghApi, httpsRequest, maxPagesFor, planRest,
+  applyPostFilters, defaultRepo, fetchIsProxyAware, ghApi, httpsRequest, maxPagesFor, planRest,
   proxyForHost, resetGhResolution, resetPageCapWarnings, rest, shapeHit,
 } from './gh.mjs';
 // These cover the REST fallback's argv→request translation, which is the part
@@ -169,10 +172,11 @@ describe('maxPagesFor — list pagination honours the caller\'s limit, bounded',
   });
   it('pages far enough to satisfy a large limit — Karen\'s fingerprint prefetch asks for 1000, and a sub-limit result is what proves the cie history COMPLETE (issues.mjs skips the forbidden /search on that proof)', () => {
     expect(maxPagesFor(1000)).toBe(10);
+    expect(maxPagesFor(10000)).toBe(100);
     expect(maxPagesFor(450)).toBe(5);
   });
   it('stays bounded no matter what the caller asks for', () => {
-    expect(maxPagesFor(1e9)).toBe(10);
+    expect(maxPagesFor(1e9)).toBe(100);
   });
 });
 
@@ -349,6 +353,16 @@ describe('a truncated list says so (#2034 finding 6)', () => {
     expect(res.capExhausted).toBe(true);
     expect(res.pagesFetched).toBe(maxPagesFor(1000));
     expect(warnings.join('\n')).toMatch(/TRUNCATED/);
+  });
+
+  it('pages past the old 10-page cap and reports complete on the short page (#3888: 1266 cie issues)', async () => {
+    const plan = planRest(['issue', 'list', '--limit', '10000'], REPO);
+    let calls = 0;
+    const res = await rest(plan, 'tok', async () => { calls++; return ok(page(calls <= 12 ? 100 : 66)); });
+    expect(JSON.parse(res.stdout)).toHaveLength(1266);
+    expect(res.complete).toBe(true);
+    expect(res.capExhausted).toBe(false);
+    expect(res.pagesFetched).toBe(13);
   });
 
   it('does not claim completeness merely because the caller\'s limit was satisfied', async () => {
@@ -590,5 +604,31 @@ describe('gh() — REST fallback when the CLI is present but errors (#4119)', ()
 
     await expect(gh(['issue', 'list', '--json', 'number'])).rejects.toBe(cliError);
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
+
+describe('defaultRepo resolves through a linked-worktree .git file (#3888)', () => {
+  const origEnv = process.env.GITHUB_REPOSITORY;
+  const NL = String.fromCharCode(10);
+  const cfg = (url: string) => ['[remote "origin"]', `  url = ${url}`, ''].join(NL);
+  beforeEach(() => { delete process.env.GITHUB_REPOSITORY; });
+  afterEach(() => { if (origEnv !== undefined) process.env.GITHUB_REPOSITORY = origEnv; });
+
+  it('follows gitdir -> commondir to the main repo config', () => {
+    const root = mkdtempSync(join(tmpdir(), 'gh-wt-'));
+    const wtGitdir = join(root, 'main', '.git', 'worktrees', 'w');
+    mkdirSync(wtGitdir, { recursive: true });
+    writeFileSync(join(root, 'main', '.git', 'config'), cfg('https://github.com/Acme/widgets.git'));
+    writeFileSync(join(wtGitdir, 'commondir'), '../..' + NL);
+    mkdirSync(join(root, 'wt'), { recursive: true });
+    writeFileSync(join(root, 'wt', '.git'), `gitdir: ${wtGitdir}${NL}`);
+    expect(defaultRepo(join(root, 'wt'))).toBe('Acme/widgets');
+  });
+
+  it('still reads a normal checkout', () => {
+    const root = mkdtempSync(join(tmpdir(), 'gh-plain-'));
+    mkdirSync(join(root, '.git'));
+    writeFileSync(join(root, '.git', 'config'), cfg('git@github.com:Acme/plain.git'));
+    expect(defaultRepo(root)).toBe('Acme/plain');
   });
 });
