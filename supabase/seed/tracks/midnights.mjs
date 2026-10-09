@@ -244,12 +244,21 @@ const ERA = {
       summary:
         'Insecurity given a monster-movie budget: sleepless self-loathing, a daydreamed daughter-in-law murder trial, and the it-is-me chorus that became a global catchphrase within days.',
       inspiration:
-        'Confirmed: Swift introduced it in an Instagram video as her most honest inventory of her own flaws and anxieties.',
+        'Taylor introduced it in a confessional Instagram video as one of her favorite songs she has written, saying she had not delved this far into her insecurities before.',
       themes: ['self-loathing', 'anxiety at 3 a.m.', 'being your own problem'],
       easterEggs:
         'The all-top-ten Hot 100 week (a chart first) is the era stat every future record gets measured against.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
       sources: [
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-midnights-everything-we-know/',
+          source_title: 'Everything We Know About Taylor Swift’s ‘Midnights’ So Far',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Taylor introduced the track in a confessional Instagram video about her insecurities',
+        },
         wiki(
           'Anti-Hero (song)',
           'Anti-Hero_(song)',
@@ -682,7 +691,7 @@ const ERA = {
             "Reception split on the same axis critics still argue: Variety's Chris Willman predicted it would be the album's 'most talked-about song,' Vulture's Justin Curto called it Swift at her 'venomous best,' and The New York Times' Jon Caramanica read the narrator as 'funny, wry, slightly perturbing.' Pitchfork's Quinn Moreland dissented — the revenge-fantasy 'edginess' plays like a 'costume' next to the album's deeper cuts."
           ],
           fanTheories: [
-            "Fans and press widely map the song onto Swift's documented business adversaries (the Scooter Braun / masters dispute) and, less often, Kanye West. Swift has named no subject; the lyric's literal story is a fictional wife-and-mistress revenge plot, and every real-world target is fan/critic reading, not confirmed fact."
+            "Fans and press widely map the song onto Taylor's documented business adversaries. Taylor has named no subject, and this guide doesn't name anyone; the lyric's literal story is a fictional wife-and-mistress revenge plot, and every real-world target is fan/critic reading, not confirmed fact."
           ]
         },
         connections: [
@@ -1031,7 +1040,7 @@ const ERA = {
           confirmed: [
             "Swift told Apple Music's 'New Music Daily' that she wrote 'Karma' from 'a perspective of feeling really happy, really proud of the way your life is, feeling like this must be a reward for doing stuff right.'",
             "Swift directed the song's music video herself, which uses cosmic/outer-space imagery and features her alongside Ice Spice, who appears on the official remix released May 26, 2023.",
-            "Swift changed a lyric during Eras Tour stops (beginning in Buenos Aires, November 2023) from 'Karma is the guy on the screen' to 'Karma is the guy on the Chiefs,' a nod to Travis Kelce that fans and press widely noted as a public relationship signal."
+            "Swift changed a lyric during Eras Tour stops (beginning in Buenos Aires, November 2023) from 'Karma is the guy on the screen' to 'Karma is the guy on the Chiefs,' a nod to her public relationship that fans and press widely noted as a public relationship signal."
           ],
           supported: [
             "Critics including Rolling Stone's CT Jones read the song as a thesis statement for the Midnights era, with the line 'I'm still here' interpreted as a pointed rebuke to those who wished for Swift's professional or public downfall.",
@@ -1065,10 +1074,19 @@ const ERA = {
       summary:
         'Industry wolves demand more all day; at home someone wants only her company and a poem from a trip. Its tenderness reads differently since 2023, and fans handle it accordingly.',
       inspiration:
-        'Co-written with Joe Alwyn under the confirmed Bowery pseudonym — the pair’s final released collaboration before their documented 2023 split.',
+        'Co-written with Joe Alwyn under the Bowery pseudonym — the pair’s final released collaboration before their documented 2023 split.',
       themes: ['domestic refuge', 'wanting nothing', 'small love versus big world'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Sweet_Nothing_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/joe-alwyn-wrote-song-on-taylor-swift-midnights-album-1234613601/',
+          source_title: 'See Which ‘Midnights’ Song Joe Alwyn Is Listed as a Co-Writer on With Taylor Swift',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Midnights credits list William Bowery (Alwyn\'s pen name) as sole co-writer of "Sweet Nothing"',
+        },
         wiki(
           'Sweet Nothing (Taylor Swift song)',
           'Sweet_Nothing_(Taylor_Swift_song)',
@@ -1277,14 +1295,14 @@ const ERA = {
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The 3am track that became a grief anthem — embraced especially by listeners mourning pregnancy loss, a reading Taylor has left open.',
+      note: 'The 3am track that became a grief anthem — embraced by listeners mourning a loss that had no name, with Taylor leaving the subject open.',
       summary:
         'A goodbye to something that never got to exist: unnamed, unbounded loss for what was only ever almost. She has never specified the subject, and the ambiguity is why it holds so many people’s grief.',
       inspiration:
-        'Deliberately unspecified; the pregnancy-loss resonance is a documented listener phenomenon rather than a confirmed subject — labeled here accordingly.',
+        'Deliberately unspecified; Taylor has never named the subject, and listeners have brought their own losses to it.',
       themes: ['grief for the almost', 'loss without a name', 'goodbye unearned'],
       fanLore:
-        'Fan reading (unconfirmed, widely embraced): miscarriage and pregnancy loss — the song’s largest documented community of meaning.',
+        'Fan reading (unconfirmed, widely embraced): the song as a space for personal grief of many kinds, since Taylor has not specified a subject.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Bigger_Than_the_Whole_Sky',
       sources: [
         wiki(
@@ -1560,14 +1578,14 @@ const ERA = {
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The 3am edition’s reckoning — an adult re-litigating what happened to her at nineteen, in the fandom’s consensus pick for the deepest cut of the era.',
+      note: 'The 3am edition’s reckoning — an adult re-litigating what happened to her when she was young, in the fandom’s consensus pick for the deepest cut of the era.',
       summary:
-        'Regret with religious imagery: a too-young woman and an older man, and the ruins the memory still makes of her sleep at 32. The age in the lyric does the pointing; fans line it up with Dear John and the same reported chapter (unconfirmed by name).',
+        'Regret with religious imagery: a woman looking back at a relationship from her youth, and the ruins the memory still makes of her sleep at 32.',
       inspiration:
-        'The nineteen reference and its echo of Dear John’s subject matter are the documented basis for the near-universal fan attribution — never named by Swift.',
+        'Taylor has never named a subject for the song.',
       themes: ['delayed reckoning', 'stolen innocence', 'ghosts that keep office hours'],
       fanLore:
-        'Fan reading (widely held, unconfirmed): the same subject fans assign to Dear John, twelve years later.',
+        'Fan reading (unconfirmed): the song as a companion piece to Dear John, linked by theme and the lyric’s age references; Taylor has named no subject.',
       sourceUrl: "https://en.wikipedia.org/wiki/Would've%2C_Could've%2C_Should've",
       sources: [
         wiki(
@@ -1624,7 +1642,7 @@ const ERA = {
       isFromTheVault: true,
       note: 'A vault track first sold on a CD at the May 26, 2023 Eras Tour show in East Rutherford, then released to streaming on Nov. 29, 2023, when Taylor gave it to fans as a thank-you.',
       summary:
-        'A slow-burning vault track about a relationship near its end, built on a sample of Swift’s own heartbeat, per Rolling Stone.',
+        'A slow-burning vault track about pleading to be heard as a connection frays, built on a sample of Taylor’s own heartbeat, per Rolling Stone.',
       inspiration: null,
       themes: ['dying relationships', 'being unchosen', 'the quiet end'],
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Losing_Me",

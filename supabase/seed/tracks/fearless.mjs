@@ -39,7 +39,7 @@ const TRACKS = [
       summary:
         'A first date written as a leap of faith — dancing in a parking lot in the rain because the feeling is worth the risk.',
       inspiration:
-        'Swift said she wrote it on tour about the best first date she had not had yet — an idea of fearlessness in love rather than a specific person.',
+        'Written on tour about the best first date she had not had yet — an idea of fearlessness in love rather than a specific person.',
       themes: ['fearlessness', 'first dates', 'optimism in love'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_song)',
       sources: [
@@ -117,18 +117,18 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Swift's own freshman year alongside her real best friend Abigail Anderson, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Swift has said Anderson consented to the personal references before the song went on the album.",
-          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with Anderson herself."
+          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Taylor's own freshman year alongside a close friend, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Taylor has said her friend consented to the personal references before the song went on the album.",
+          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with her friend."
         ],
         meaning: {
           confirmed: [
-            "Written solo by Swift and produced by Nathan Chapman and Swift; she has described it as a true account of meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them, and has said Anderson gave permission for the personal references.",
+            "Written solo by Taylor and produced by Nathan Chapman and Taylor; she has described it as a true account of meeting a close friend in ninth grade and the heartbreaks that followed both of them, and has said her friend gave permission for the personal references.",
             "It was released to US country radio on Aug. 31, 2009 as the fourth single from Fearless and peaked at No. 23 on the Billboard Hot 100.",
-            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring Anderson alongside Swift.",
-            "The lyric turns on Anderson's real heartbreak — a friend who gave everything to a boy who changed his mind — which Swift has repeatedly pointed to as the song's most personal and painful line."
+            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring her friend alongside Taylor.",
+            "The lyric turns on her friend's real heartbreak — a friend who gave everything to a boy who changed his mind — which Taylor has repeatedly pointed to as the song's most personal and painful line."
           ],
           supported: [
-            "Critics have singled out \"Fifteen\" as evidence of Swift's early gift for specific, diaristic detail — naming a real friend and a real feeling rather than a generic teen archetype.",
+            "Critics have singled out \"Fifteen\" as evidence of Taylor's early gift for specific, diaristic detail — drawing on a real friend and a real feeling rather than a generic teen archetype.",
             "It became a recurring live centerpiece in her early tours, often framed as the song where she speaks directly to younger fans about the same lessons the lyric describes."
           ],
           fanTheories: [
@@ -180,7 +180,7 @@ const TRACKS = [
       summary:
         'A forbidden-romance fantasy sparked by a boy her family disapproved of, recast through Romeo and Juliet — with the tragedy swapped for a proposal.',
       inspiration:
-        'Swift confirmed it began with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
+        'Often read as beginning with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
       themes: ['forbidden love', 'fairy-tale rewrites', 'defiance'],
       easterEggs:
         "Love Story (Taylor's Version) was the first re-recorded song she ever released (February 2021) — the opening move of the whole Taylor's Version project.",
@@ -387,7 +387,7 @@ const TRACKS = [
           ],
           supported: [
             "The single is generally cited as the clearest early proof of Swift's crossover pop instincts — a country-radio song built with the melodic and narrative shape of a mainstream hit.",
-            "The VMA interruption is widely treated as an origin point for the years-long Swift-West public narrative, later echoed in songs like \"Innocent\" and, more combatively, the reputation era."
+            "The VMA interruption is widely treated as an origin point for the years-long public narrative between them that carried into the reputation era."
           ],
           fanTheories: [
             "Fans have long read the girl-next-door narrator as a lightly fictionalized Swift-as-underdog persona rather than a literal account, part of the early-career self-image the Fearless songs build — the outsider watching the popular crowd from the bleachers."
@@ -534,7 +534,7 @@ const TRACKS = [
       summary:
         'She stops accepting the same apology on repeat; the piano ballad is the sound of someone finally hanging up.',
       inspiration:
-        'Swift said it was written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
+        'Often read as written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
       themes: ['broken trust', 'boundaries', 'finality'],
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Not_Sorry",
       sources: [
@@ -614,7 +614,7 @@ const TRACKS = [
       summary:
         'A perfect-on-paper relationship that feels like nothing, held against a chaotic past love that felt like everything: the album’s case that intensity beats comfort.',
       inspiration:
-        'Swift said she wanted to capture wanting the frustrating, passionate love while dating its calm opposite; Rich helped frame the two-boys contrast.',
+        'Written to capture wanting the frustrating, passionate love while dating its calm opposite; Rich helped frame the two-boys contrast.',
       themes: ['passion versus comfort', 'nostalgia', 'self-sabotage'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
       sources: [
@@ -698,7 +698,7 @@ const TRACKS = [
       summary:
         'A promise of forever revoked in real time: she replays the moment someone’s feelings changed and demands to know where the person she knew went.',
       inspiration:
-        'Swift said she added it late in production after a breakup, and has described the very short phone call that ended it.',
+        'Reportedly added late in production after a breakup, with a very short phone call that ended it described as the trigger.',
       themes: ['broken promises', 'whiplash heartbreak', 'anger'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Forever_%26_Always',
       sources: [
@@ -760,7 +760,7 @@ const TRACKS = [
       summary:
         'A thank-you letter to her mother (with a verse for her dad and brother): the parent who drove her away from the mean girls and never said anything but kind words.',
       inspiration:
-        'Confirmed: Swift wrote it for Andrea Swift and kept it secret until it was finished, premiering it with a home-video montage.',
+        'Written for Andrea Swift and kept secret until it was finished, premiering with a home-video montage.',
       themes: ['family', 'gratitude', 'childhood memory'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)',
       sources: [
@@ -874,7 +874,7 @@ const TRACKS = [
       summary:
         'A fight song about believing the scrappy operation you belong to will win someday — the closing promise that these walls will come down.',
       inspiration:
-        'Swift confirmed it was inspired by being on Big Machine, then a startup label competing against giants; its Olympics placement made it the album’s advance single.',
+        'Reportedly inspired by being on Big Machine, then a startup label competing against giants; its Olympics placement made it the album’s advance single.',
       themes: ['underdogs', 'perseverance', 'victory'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)',
       sources: [

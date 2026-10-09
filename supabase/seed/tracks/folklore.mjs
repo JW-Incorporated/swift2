@@ -20,6 +20,16 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
+const BB_LONG_POND = {
+  source_url: 'https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/',
+  source_title: "Taylor Swift's Folklore: The Long Pond Studio Sessions: What We Learned",
+  publisher: 'Billboard',
+  source_type: 'reputable_press',
+  accessed_at: '2026-10-09',
+  reliability_score: 4,
+  notes: "Taylor's own words from the Long Pond Studio Sessions film, as quoted by Billboard",
+};
+
 const TRACKS = [
     {
       slug: 'the-1',
@@ -129,6 +139,7 @@ const TRACKS = [
           'song article: triangle concept and chart history',
         ),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -223,7 +234,7 @@ const TRACKS = [
             "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
             "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought.",
             "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
-            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
+            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Taylor fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
             "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
           ],
           supported: [
@@ -311,12 +322,13 @@ const TRACKS = [
       summary:
         'A breakup staged as two monologues: he saw no warning signs, she gave hundreds — the album’s masterclass in talking past someone you loved.',
       inspiration:
-        'Confirmed in the Long Pond sessions: Alwyn (as William Bowery) wrote the piano part and first melody; Vernon recorded his half remotely mid-pandemic.',
+        'Alwyn co-wrote it as William Bowery, an identity Taylor confirmed in the Long Pond film (per Billboard); Vernon recorded his half remotely mid-pandemic.',
       themes: ['miscommunication', 'exile from a shared world', 'two truths'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Exile_(song)',
       sources: [
         wiki('Exile (song)', 'Exile_(song)', 'song article: Bowery confirmation and duet history'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -381,7 +393,7 @@ const TRACKS = [
         'Confirmed as the album’s first-written song, described by Swift in the Long Pond film in stolen-legacy terms. In a December 2020 Entertainment Weekly interview she confirmed the 2019 sale of her masters shaped it (alongside “mad woman”) — so the masters mapping is Swift-stated, not merely fan reading.',
       themes: ['betrayal by a former ally', 'stolen legacy', 'grief as haunting'],
       fanLore:
-        'The line-by-line mapping onto the Braun/Big Machine principals stays fan close-reading, but Swift has confirmed the masters dispute as the song’s emotional source.',
+        'The line-by-line mapping onto the people involved in the masters dispute stays fan close-reading, but Taylor has confirmed the masters dispute as the song’s emotional source, and this guide doesn’t name anyone.',
       sourceUrl: 'https://en.wikipedia.org/wiki/My_Tears_Ricochet',
       sources: [
         wiki(
@@ -412,7 +424,7 @@ const TRACKS = [
             'It debuted at No. 16 on the Billboard Hot 100 (its peak) and reached No. 3 on Hot Rock & Alternative Songs; despite never being a single it was certified Platinum in the UK and 3× Platinum in Australia, and later featured in the trailer and soundtrack of the film It Ends with Us (2024).',
           ],
           fanTheories: [
-            'The line-by-line mapping onto the Braun/Big Machine principals is fan close-reading; Swift confirmed the masters dispute as the source but has not footnoted individual lyrics.',
+            'The line-by-line mapping onto the people involved in the masters dispute is fan close-reading; Taylor confirmed the masters dispute as the source but has not footnoted individual lyrics, and this guide doesn’t name anyone.',
           ],
         },
         connections: [
@@ -477,12 +489,13 @@ const TRACKS = [
       summary:
         'She is a mirrorball: assembled from reflective fragments, spinning hardest when the crowd might leave. Written, per the Long Pond film, right after the pandemic pulled her stages away.',
       inspiration:
-        'Confirmed in the Long Pond sessions: composed in the first weeks of lockdown, directly about performing identity with nowhere to perform.',
+        'Taylor said in the Long Pond sessions she wrote it right after her shows were canceled, directly about performing identity with nowhere to perform.',
       themes: ['performing the self', 'people-pleasing', 'fragility'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Mirrorball_(song)',
       sources: [
         wiki('Mirrorball (song)', 'Mirrorball_(song)', 'song article: lockdown writing context'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -630,7 +643,7 @@ const TRACKS = [
       easterEggs:
         'August slipping away like a bottle of wine became an annual fan ritual every August 1st — a documented yearly meme-moment.',
       sourceUrl: 'https://en.wikipedia.org/wiki/August_(song)',
-      sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM],
+      sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM, BB_LONG_POND],
       dossier: {
         whyItMatters: [
           "The third side of folklore's teenage love triangle, alongside 'cardigan' and 'betty'. In the Long Pond Studio Sessions film, as Billboard reported, Swift said she had been thinking of the girl in 'august' as either Augusta or Augustine, and that she did not see her as the Inez named in 'betty', which many fans had assumed.",
@@ -976,7 +989,7 @@ const TRACKS = [
       summary:
         'Verse one lands at Guadalcanal with Dean Swift; verse two follows frontline medical workers through the pandemic. Both generations discover some things cannot be spoken, only slept off in dreams.',
       inspiration:
-        'Confirmed: inspired by her grandfather Dean’s WWII service in the Marines and written in tribute to pandemic frontline workers.',
+        'Taylor describes it as drawing parallels between her grandfather’s WWII service and what pandemic frontline workers were going through.',
       themes: ['generational trauma', 'war and pandemic', 'the unspeakable'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)',
       sources: [
@@ -986,6 +999,7 @@ const TRACKS = [
           'song article: grandfather tribute',
         ),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -1080,7 +1094,7 @@ const TRACKS = [
         meaning: {
           confirmed: [
             'Written by Swift with Joe Alwyn under the William Bowery pseudonym, "betty" is the only folklore track produced by both Aaron Dessner and Jack Antonoff (with Swift). Swift has said she heard Alwyn singing the "fully formed chorus" from another room during quarantine and asked to finish it with him. Built on guitars, pedal steel and harmonica, it turns on a key change after the bridge.',
-            'Swift confirmed the narrator names — James, Inez and Betty — were borrowed from the children of Blake Lively and Ryan Reynolds, and stated in the song’s framing that James is seventeen. Because the lyric never assigns James a gender, some listeners first read it through a queer lens; the seventeen-year-old-boy narrator is the on-record reading.',
+            'Taylor confirmed the narrator names — James, Inez and Betty — were borrowed from the children of friends, and stated in the song’s framing that James is seventeen. Because the lyric never assigns James a gender, some listeners first read it through a queer lens; the seventeen-year-old-boy narrator is the on-record reading.',
           ],
           supported: [
             'It reached No. 42 on the Hot 100 and No. 6 on Hot Country Songs (Swift’s 22nd top-ten there), was released to US country radio on August 17, 2020, and was certified Gold in both Canada and the UK.',
@@ -1253,12 +1267,13 @@ const TRACKS = [
       summary:
         'An escape fantasy with a Wordsworth pun in it: leave the hunters and clowns to their internet, take the muse, grow roses somewhere with no wifi. The album’s whole ethos in miniature.',
       inspiration:
-        'Confirmed: written about the Lake District and its Romantic-poet history — Swift called it the thematic summary of folklore, which is why it closes the deluxe edition.',
+        'Written about the Lake District and its Romantic-poet history — Taylor says a trip there crystallized the idea of escaping to a cottage and leaving her life behind.',
       themes: ['escape from public life', 'romantic poets', 'chosen solitude'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',
       sources: [
         wiki('The Lakes (song)', 'The_Lakes_(song)', 'song article: Lake District inspiration'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [

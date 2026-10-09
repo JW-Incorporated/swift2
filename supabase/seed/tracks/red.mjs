@@ -212,7 +212,7 @@ const TRACKS = [
             "Critics widely treat it as an album highlight and some hear it as Swift's first direct engagement with desire in her songwriting, a threshold the later pop albums walk through."
           ],
           fanTheories: [
-            "Fans speculate the subject is Jake Gyllenhaal, as with much of Red, with some arguing for other era figures instead; Swift has never named a subject and has only described the song in abstract emotional terms."
+            "Fans speculate about who the song is about, as with much of Red; Taylor has not named the subject, this guide doesn't name anyone, and she has only described the song in abstract emotional terms."
           ]
         },
         connections: [
@@ -258,7 +258,7 @@ const TRACKS = [
       summary:
         'Blame turned inward: the red flags were visible from the parking lot, and she walked in anyway. The bass drop is the floor giving out.',
       inspiration:
-        'Swift said the song is about the shame of knowing at first sight exactly how it would end; the Martin/Shellback production made it her boldest pop move to date.',
+        'Often read as being about the shame of knowing at first sight exactly how it would end; the Martin/Shellback production made it her boldest pop move to date.',
       themes: ['self-blame', 'red flags', 'aftermath of bad choices'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       sources: [
@@ -284,7 +284,7 @@ const TRACKS = [
             "The song's engine is self-blame rather than accusation: the narrator saw the red flags from the parking lot and walked in anyway, and the drop is the floor giving out."
           ],
           fanTheories: [
-            "Fans widely speculate the subject is Harry Styles — whose relationship with Swift coincided with the single's promotion — or alternatively John Mayer; Swift has never publicly named the song's subject."
+            "Fans speculate about who the song is about; Taylor has not named the subject, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -329,7 +329,7 @@ const TRACKS = [
       summary:
         'A relationship reconstructed object by object — a scarf left at a sister’s house, an autumn upstate, a refrigerator-light dance — because remembering precisely is the only power left.',
       inspiration:
-        'Swift confirmed it began as a long, improvised vent during tour rehearsals; Liz Rose was called in to help carve a song out of it. Swift has never named the song’s subject.',
+        'Reportedly began as a long, improvised vent during tour rehearsals; Liz Rose was called in to help carve a song out of it. Taylor has never named the song’s subject.',
       themes: ['memory as evidence', 'grief for a specific autumn', 'the scarf'],
       fanLore:
         'Fan reading (unconfirmed): the endlessly relitigated real-world scarf.',
@@ -355,8 +355,8 @@ const TRACKS = [
             "The song works by treating memory as evidence — a relationship reconstructed object by object and scene by scene, because remembering precisely is the only power the narrator has left."
           ],
           fanTheories: [
-            "The widely reported fan attribution to Jake Gyllenhaal, whom Swift dated in fall 2010, rests on timeline and the song's autumnal setting — Swift has never confirmed the subject, and this remains an unconfirmed fan theory, not fact.",
-            "The scarf became fandom's favorite real-world artifact hunt, complete with a reported sister's-house location and Maggie Gyllenhaal saying in 2017 she had no idea where it was; Swift has never identified the house or the scarf's whereabouts and has only ever discussed the scarf as symbolic."
+            "Fans attribute the song to a specific relationship based on the timeline and the song's autumnal setting — Taylor has not named the subject, this guide doesn't name anyone, and this remains an unconfirmed fan theory, not fact.",
+            "The scarf became fandom's favorite real-world artifact hunt, complete with fan theories about where it ended up; Taylor has never identified the scarf's whereabouts and has only ever discussed the scarf as symbolic."
           ]
         },
         connections: [
@@ -484,7 +484,7 @@ const TRACKS = [
       summary:
         'Hovering over the call button after a breakup: every reason to reach out, met by the one reason not to. The song exists so the phone call did not have to.',
       inspiration:
-        'Swift said writing it was her way of resisting the urge to reconnect — the song replaced the conversation.',
+        'Often read as her way of resisting the urge to reconnect — the song replaced the conversation.',
       themes: ['restraint', 'almosts', 'post-breakup gravity'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       sources: [ALBUM],
@@ -503,7 +503,7 @@ const TRACKS = [
       summary:
         'A breakup declared with a flounce and an eye-roll, indie-record condescension included — the never-ever is doing gleeful, spiteful work.',
       inspiration:
-        'Confirmed studio lore: an associate of an ex interrupted the session, Swift vented about the never-quite-over relationship, and Martin and Shellback turned the rant into the hook on the spot.',
+        'Studio lore: an associate of an ex interrupted the session, Taylor vented about the never-quite-over relationship, and Martin and Shellback turned the rant into the hook on the spot.',
       themes: ['on-again-off-again fatigue', 'liberation', 'playful spite'],
       sourceUrl: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together',
       sources: [
@@ -529,7 +529,7 @@ const TRACKS = [
             "The spoken-word aside and the mocking indie-record jab work as theater: a breakup declared with a flounce, where the never-ever is doing gleeful, spiteful work on purpose."
           ],
           fanTheories: [
-            "Fans and press very widely assume the ex is Jake Gyllenhaal, pointing to the timeline and the indie-music-snobbery jab; Swift has described the relationship's dynamic in interviews but has never publicly named the person."
+            "Fans and press speculate about who the ex is, pointing to the timeline and the indie-music-snobbery jab; Taylor has described the relationship's dynamic in interviews but has not named the person, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -623,7 +623,7 @@ const TRACKS = [
             "The two simultaneous vocal lines dramatize the impasse structurally: his plea and her exhaustion occupy the same bars because neither is actually listening to the other."
           ],
           fanTheories: [
-            "Fans and press widely tie the song to Jake Gyllenhaal, reading the on-again-off-again scenario and an album liner clue as pointing to that chapter — Rolling Stone's 2012 subject guide named him the likeliest candidate while remaining explicitly speculative; Swift has only ever described the subject as an unreliable ex."
+            "Fans and press tie the song to a specific chapter, reading the on-again-off-again scenario and an album liner clue as pointing to it, while remaining explicitly speculative; Taylor has not named the subject, this guide doesn't name anyone, and she has only ever described the subject as an unreliable ex."
           ]
         },
         connections: [
@@ -672,7 +672,7 @@ const TRACKS = [
       summary:
         'Years later, the anger burns off and what is left is gratitude: the time was good, the dancing happened, the ground it stood on gets consecrated.',
       inspiration:
-        'Swift said it came from realizing she could look back at a long-ended relationship and feel thankful rather than bitter.',
+        'Often read as coming from realizing she could look back at a long-ended relationship and feel thankful rather than bitter.',
       themes: ['retrospective grace', 'gratitude', 'making peace with the past'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Holy_Ground_(Taylor_Swift_song)',
       sources: [
@@ -698,7 +698,7 @@ const TRACKS = [
             "Musicologist James E. Perone reads it as evidence of her maturing pen: a charmingly complicated view of a failed relationship, a deliberate departure from the more bitter breakup framing of earlier records."
           ],
           fanTheories: [
-            "Fans widely read it as being about Joe Jonas, decoding an album liner clue about someone coming to a show in San Diego as Jonas attending her October 2011 concert years after their breakup; a competing 2012 Rolling Stone reading proposed Jake Gyllenhaal from the same clue. Swift has never confirmed either — the coexisting theories are the proof."
+            "Fans decode an album liner clue about someone coming to a show in San Diego in competing ways, and the readings point to different people; Taylor has not named the subject, this guide doesn't name anyone, and the coexisting theories are the proof that none is confirmed."
           ]
         },
         connections: [
@@ -747,7 +747,7 @@ const TRACKS = [
       summary:
         'A relationship viewed from the far shore: no blame left, just the three adjectives of the title taking turns.',
       inspiration:
-        'Swift confirmed she wrote it alone on her tour bus, chasing the hazy mood of a memory rather than the events themselves.',
+        'Reportedly written alone on her tour bus, chasing the hazy mood of a memory rather than the events themselves.',
       themes: ['mourning', 'haze of memory', 'acceptance'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       sources: [ALBUM],
@@ -824,7 +824,7 @@ const TRACKS = [
       summary:
         'A golden-age starlet chooses a rose garden over Madison Square Garden; the narrator, now famous herself, starts to suspect the runaway was the lucky one.',
       inspiration:
-        'Swift said it was inspired by artists who walked away from fame at their peak; fans map it onto figures like Joni Mitchell (unconfirmed specifics).',
+        'Often read as inspired by artists who walked away from fame at their peak; fans map it onto figures like Joni Mitchell (unconfirmed specifics).',
       themes: ['cost of fame', 'escape', 'foreshadowing'],
       fanLore:
         'Fan reading (unconfirmed): Joni Mitchell as the model — Mitchell was separately attached to a shelved biopic Swift was once linked to.',
@@ -876,7 +876,7 @@ const TRACKS = [
       summary:
         'The first-meeting butterflies duet: two people who just met and already divide time into before and after.',
       inspiration:
-        'Confirmed origin: Swift and Sheeran wrote it bouncing on her trampoline in early 2012, then cut it with Butch Walker; Sheeran opened the Red Tour the next year.',
+        'Origin as reported: Taylor and Sheeran wrote it bouncing on her trampoline in early 2012, then cut it with Butch Walker; Sheeran opened the Red Tour the next year.',
       themes: ['new love', 'friendship origin story', 'beginnings'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
       sources: [
@@ -904,7 +904,7 @@ const TRACKS = [
             "The song treats a first meeting as a hinge in time: what matters isn't the romance's outcome but the instant certainty that everything after it will be different."
           ],
           fanTheories: [
-            "Rolling Stone's 2012 speculative subject guide read an album liner clue as pointing to Conor Kennedy as the new romance in the song; Swift has never named a subject — the documented facts are only that she wrote it with Sheeran about the openness of a new connection."
+            "Rolling Stone's 2012 speculative subject guide read an album liner clue as pointing to a specific new romance; Taylor has not named a subject, this guide doesn't name anyone — the documented facts are only that she wrote it with Sheeran about the openness of a new connection."
           ]
         },
         connections: [
@@ -962,7 +962,7 @@ const TRACKS = [
       summary:
         'She invents the whole night around one snapshot: two seventeen-year-olds crashing a yacht-club party, the future unwritten and gleaming.',
       inspiration:
-        'Confirmed: Swift wrote it after seeing a vintage photo of young Ethel and Robert F. Kennedy; Ethel Kennedy attended a screening of the video era with her.',
+        'Reportedly written after seeing a vintage photo of young Ethel and Robert F. Kennedy; Ethel Kennedy attended a screening of the video era with her.',
       themes: ['imagined history', 'youthful glamour', 'possibility'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Starlight_(Taylor_Swift_song)',
       sources: [
@@ -1014,7 +1014,7 @@ const TRACKS = [
             "Perone reads it as Red's thematic conclusion: the album's arc lands not on revenge or grief but on the possibility of a deeper, more lasting relationship."
           ],
           fanTheories: [
-            "The widely reported reading casts the healing first date as Conor Kennedy with the bad relationship left behind as the Gyllenhaal chapter — though fan press has noted the song was written before the Kennedy romance began, which keeps the speculation unresolved; Swift has only ever described the scenario, never its cast."
+            "The widely reported reading casts the song as a healing first date with a bad relationship left behind — though fan press has noted the timeline doesn't line up cleanly, which keeps the speculation unresolved; Taylor has only ever described the scenario, never its cast, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -1120,7 +1120,7 @@ const TRACKS = [
       summary:
         'A eulogy for Ronan Thompson, written in his mother’s words and voice — one of Swift’s heaviest songs.',
       inspiration:
-        'Confirmed: composed from phrases in Maya Thompson’s blog about her son; Thompson is credited as co-writer and approved its Red TV inclusion.',
+        'Composed from phrases in Maya Thompson’s blog about her son; Thompson is credited as co-writer and approved its Red TV inclusion.',
       themes: ['grief', 'a mother’s love', 'memorial'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
       sources: [
@@ -1193,7 +1193,7 @@ const TRACKS = [
       summary:
         'Missing someone and refusing to apologize for leaving: the love was real, but so was the pattern — she just wishes he had been a better man.',
       inspiration:
-        'Confirmed history: cut from the original Red, recorded by Little Big Town in 2016 (CMA Song of the Year), reclaimed by Swift on Red TV.',
+        'History: cut from the original Red, recorded by Little Big Town in 2016 (CMA Song of the Year), reclaimed by Taylor on Red TV.',
       themes: ['leaving well', 'grief without regret', 'what he could have been'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Better_Man_(Little_Big_Town_song)',
       sources: [
@@ -1270,7 +1270,7 @@ const TRACKS = [
       summary:
         'The fear of being novelty: what happens when a newer, shinier girl arrives and everyone stops clapping. Giving the second verse to Bridgers turned a private anxiety into a generational relay.',
       inspiration:
-        'Confirmed: a 2012 composition about the churn of it-girls, unreleased until Red TV; Bridgers has called being asked her career’s pinch-me moment.',
+        'A 2012 composition about the churn of it-girls, unreleased until Red TV; Bridgers has called being asked her career’s pinch-me moment.',
       themes: ['aging in public', 'industry churn', 'women replacing women by design'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Nothing_New_(song)',
       sources: [
@@ -1351,7 +1351,7 @@ const TRACKS = [
       summary:
         'The last straw song: one act of betrayal detonates the whole future tense — every plan they made now needs a new pronoun.',
       inspiration:
-        'Confirmed provenance: written in the Red sessions with Monahan; Sugarland released it as a single in 2018 with Swift featured before her own cut arrived on Red TV.',
+        'Provenance: written in the Red sessions with Monahan; Sugarland released it as a single in 2018 with Taylor featured before her own cut arrived on Red TV.',
       themes: ['betrayal', 'the point of no return', 'canceled futures'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Babe_(Sugarland_song)',
       sources: [
@@ -1432,7 +1432,7 @@ const TRACKS = [
       summary:
         'A crush lobbed into the void like a corked note into the sea: pure fizzy hope that the message finds its way to the right person.',
       inspiration:
-        'Confirmed as the trio’s first-ever collaboration from the Red sessions — the historical footnote is the headline here.',
+        'The trio’s first-ever collaboration, from the Red sessions — the historical footnote is the headline here.',
       themes: ['hope', 'long-shot love', 'pop origins'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Message_in_a_Bottle_(Taylor_Swift_song)',
       sources: [
@@ -1610,7 +1610,7 @@ const TRACKS = [
       summary:
         'An elopement fantasy in hushed harmony: two people ditching everyone’s expectations with a getaway car and a head start.',
       inspiration:
-        'Confirmed: Swift and Sheeran wrote it the first day they worked together in 2012, before Everything Has Changed; it stayed unreleased until Red TV.',
+        'Reportedly written the first day Taylor and Sheeran worked together in 2012, before Everything Has Changed; it stayed unreleased until Red TV.',
       themes: ['escape', 'secret love', 'creative kinship'],
       sourceUrl: "https://en.wikipedia.org/wiki/Red_(Taylor's_Version)",
       sources: [TV],
@@ -1698,7 +1698,7 @@ const TRACKS = [
       summary:
         'Every excised verse returned: the ages, the keys thrown, the twin-flame speech — plus the short film (Sink and Dylan O’Brien) that Swift wrote and directed, which won video-of-the-year trophies and made the scarf mythology canon.',
       inspiration:
-        'Confirmed: this is the full-length version from the original 2011 writing sessions; fan demand for the mythical 10-minute cut is the documented reason it exists in public.',
+        'The full-length version from the original 2011 writing sessions; fan demand for the mythical 10-minute cut is the documented reason it exists in public.',
       themes: ['the director’s cut of heartbreak', 'age-gap retrospect', 'fan-willed history'],
       easterEggs:
         'The short film’s title cards and autumn palette seeded Easter eggs fans later connected forward to Midnights and TTPD imagery.',
@@ -1722,7 +1722,7 @@ const TRACKS = [
             "Rob Sheffield frames the release as the payoff of a decade of underground canonization: a deep cut the hardcore fans kept alive until the mainstream had no choice but to catch up."
           ],
           fanTheories: [
-            "The 2021 release reignited the unconfirmed Jake Gyllenhaal attribution, with fans reading the restored age-gap material and the short film's casting as pointed; Swift has still never named the subject, and the reading remains a fan theory, not fact.",
+            "The 2021 release reignited fan speculation about the subject, with fans reading the restored age-gap material and the short film's casting as pointed; Taylor has still not named the subject, this guide doesn't name anyone, and the reading remains a fan theory, not fact.",
             "When the film's scarf appeared red on screen rather than the fan-reported blue, Swift addressed it only by calling the scarf a metaphor — reinforcing that she treats the object symbolically, not as a real-world artifact to be found."
           ]
         },
