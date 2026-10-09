@@ -1,8 +1,10 @@
 // Awareness lane — Discord message builders (pure). Two messages per
 // opportunity, nothing else (owner 2026-10-05: "the link, the text to post,
-// and the image"): the card — the clean thread link with the site card
-// ATTACHED as a PNG upload, plus the signed Posted/Skip links and the
-// reaction ref line — then the reply text alone as a plain message, so
+// and the image"): the card — the clean thread link, plus the signed
+// Posted/Skip links and the reaction ref line, with a site-card PNG attached
+// only when the drafting step opted that lead in (text-only is the default
+// since #4767, so the card text never names an attachment either way) —
+// then the reply text alone as a plain message, so
 // long-press "Copy Text" on mobile copies exactly what to post. No batch
 // header, title, sub, why, rule or instructions. The owner posts the reply
 // himself; nothing here sends anything (awareness-deliver.mjs does).
@@ -115,8 +117,25 @@ export function buildAwarenessMessage(lead, { postedUrl = null, skipUrl = null }
 }
 
 /**
+ * The plain-JSON webhook body for a message with nothing attached — a
+ * text-only card (the default since #4767) and every reply-text message.
+ */
+export function buildTextPayload({ content, username = AWARENESS_WEBHOOK_USERNAME }) {
+  if (content.length > DISCORD_MESSAGE_LIMIT)
+    throw new Error('awareness message exceeds Discord limit');
+  return {
+    content,
+    username,
+    avatar_url: TREE_AVATAR_URL,
+    allowed_mentions: { parse: [] },
+    flags: DISCORD_SUPPRESS_EMBEDS,
+  };
+}
+
+/**
  * The multipart webhook body: `payload_json` + `files[0]` (the PNG). fetch
- * sets the multipart boundary from the FormData itself.
+ * sets the multipart boundary from the FormData itself. Only used for a lead
+ * the drafting step opted into a card for.
  */
 export function buildMultipartPayload({
   content,
@@ -124,17 +143,11 @@ export function buildMultipartPayload({
   filename,
   username = AWARENESS_WEBHOOK_USERNAME,
 }) {
-  if (content.length > DISCORD_MESSAGE_LIMIT)
-    throw new Error('awareness message exceeds Discord limit');
   const form = new FormData();
   form.append(
     'payload_json',
     JSON.stringify({
-      content,
-      username,
-      avatar_url: TREE_AVATAR_URL,
-      allowed_mentions: { parse: [] },
-      flags: DISCORD_SUPPRESS_EMBEDS,
+      ...buildTextPayload({ content, username }),
       attachments: [{ id: 0, filename }],
     }),
   );

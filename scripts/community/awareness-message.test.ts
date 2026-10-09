@@ -5,6 +5,7 @@ import {
   buildAwarenessMessage,
   buildAwarenessReplyText,
   buildMultipartPayload,
+  buildTextPayload,
   cleanThreadUrl,
   imageFilename,
   selectBatch,
@@ -90,6 +91,24 @@ describe('awareness Discord messages', () => {
       ['<https://www.facebook.com/groups/123/posts/456/>', ACK_LINE].join('\n'),
     );
     expect(buildAwarenessReplyText(fb).text).toBe('The Vault had this one on the timeline too');
+  });
+
+  it('text-only lead: the card renders identically and names no attachment (#4767)', () => {
+    const textOnly = lead({ image_ref: null });
+    const text = buildAwarenessMessage(textOnly, ACKS);
+    expect(text).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+        '\n',
+      ),
+    );
+    for (const attachmentLine of ['Image:', 'Card:', '.png', 'attached', 'Attach'])
+      expect(text).not.toContain(attachmentLine);
+    // The acks are what the owner clicks; they must survive a text-only reply.
+    expect(text).toContain('https://x.test/p');
+    expect(text).toContain('https://x.test/s');
+    expect(buildAwarenessReplyText(textOnly).text).toBe(
+      'folklore at number one and I will not be taking questions',
+    );
   });
 
   it('carries none of the old explanatory lines', () => {
@@ -247,6 +266,20 @@ describe('multipart upload builder', () => {
     expect(() =>
       buildMultipartPayload({ content: 'x'.repeat(2001), png: Buffer.alloc(1), filename: 'a.png' }),
     ).toThrow(/limit/);
+  });
+});
+
+describe('text-only payload builder', () => {
+  it('declares no attachment and still refuses content over the Discord limit', () => {
+    expect(buildTextPayload({ content: 'hello' })).toEqual({
+      content: 'hello',
+      username: 'Tree · Awareness replies',
+      avatar_url: expect.any(String),
+      allowed_mentions: { parse: [] },
+      flags: expect.any(Number),
+    });
+    expect(buildTextPayload({ content: 'hello' })).not.toHaveProperty('attachments');
+    expect(() => buildTextPayload({ content: 'x'.repeat(2001) })).toThrow(/limit/);
   });
 });
 
