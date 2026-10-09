@@ -1280,6 +1280,61 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Swift co-write that lived on someone else's record first. Billboard reported in April 2018 that Swift wrote 'Babe' with Train frontman Pat Monahan while writing for Red, then offered it to Sugarland, who put it on their album Bigger with Swift singing backup. USA Today noted it was the only song on Bigger that Jennifer Nettles and Kristian Bush did not co-write.",
+          "Swift's own recording arrived on Red (Taylor's Version) on November 12, 2021. Rolling Stone's Rob Sheffield counted it, with 'Better Man', among the country hits she gave away and finally sang lead on herself, with Jack Antonoff producing."
+        ],
+        meaning: {
+          supported: [
+            "Sugarland's Nettles said in a statement, as quoted by Billboard and Variety, that the duo had never put someone else's song on a Sugarland record but were immediately interested in 'Babe' the first time they heard it, and saved it for the last afternoon of their recording session. Bush added, per Variety, that the biggest compliment was Swift emailing after hearing their take to say she wanted to be part of it.",
+            "Billboard's 2018 report noted that Swift does not take any of the verses on Sugarland's version; Nettles sings lead and Swift's vocals come in on the chorus.",
+            "Billboard's critic ranked Swift's version ninth of the nine Red (Taylor's Version) vault songs, describing it as offering levity even in the context of a breakup song, with a warm mix of keys, slide guitar and percussion. That is a critic's ranking, not a statement from Swift.",
+            "Sheffield's Rolling Stone review said both 'Babe' and 'Better Man' thrive with Swift singing lead. That is the reviewer's judgment."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:better-man",
+            label: "Better Man",
+            why: "Rolling Stone's review pairs the two as country hits she had given away, and finally recorded herself, on Red (Taylor's Version)."
+          }
+        ],
+        voices: [
+          {
+            who: "Pat Monahan",
+            context: "Speaking to ABC News Radio in 2013, as quoted by USA Today",
+            note: "The Train singer, her co-writer, said of the song 'it's her song; I was just lucky enough to be a part of it with her,' and described the track as originally intended for Red."
+          },
+          {
+            who: "Jennifer Nettles",
+            context: "In a statement on the Sugarland recording, April 2018",
+            note: "She said the collaboration was 'the perfect combination of mutual admiration for each other and mutual admiration for great songs.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Sugarland Teams Up With Taylor Swift For Acoustic Breakup Tune 'Babe' - Billboard",
+            url: "https://www.billboard.com/music/country/sugarland-taylor-swift-new-song-babe-8357952/"
+          },
+          {
+            name: "Sugarland Drop 'Babe,' New Single Featuring and Co-Written by Taylor Swift - Variety",
+            url: "https://variety.com/2018/music/news/sugarland-drop-babe-new-single-featuring-and-co-written-by-taylor-swift-1202770991/"
+          },
+          {
+            name: "Taylor Swift, Sugarland team for country duet 'Babe' - USA Today",
+            url: "https://www.usatoday.com/story/life/music/2018/04/20/taylor-swift-sugarland-team-country-duet-babe/535334002/"
+          },
+          {
+            name: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Red (Taylor's Version)': Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-red-taylors-version-from-the-vault-songs-ranked-9659077/"
+          },
+          {
+            name: "'Red (Taylor's Version)' Makes a Classic Even Better - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/review-red-taylors-version-1255956/"
+          }
+        ]
+      },
     },
     {
       slug: 'message-in-a-bottle',
@@ -1306,6 +1361,58 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "A vault song with a career footnote attached. Pitchfork called it the first song Swift wrote with Max Martin and Shellback, and Rolling Stone's Rob Sheffield added that she wrote it the day she met them. Billboard noted Red was the first album she worked with Martin, a pairing that produced 'We Are Never Ever Getting Back Together' and 'I Knew You Were Trouble', and that Martin's only credit among the Red (Taylor's Version) vault tracks is as co-writer here.",
+          "That makes it a time capsule of the album's pivot. Pitchfork described Red as the album where Swift called in Martin and Shellback to cue the synths and drop the bass, and the first song of that partnership stayed in the vault until November 12, 2021."
+        ],
+        meaning: {
+          supported: [
+            "Credits: Rolling Stone, NME and Billboard all report it was co-written with Max Martin and Shellback. NME noted the pair also worked on 'I Knew You Were Trouble' and '22' in 2012.",
+            "Sheffield wrote that it makes sense she left it off Red because it sounds so similar to '22', and that it sounds as if she is already stretching ahead to 1989. That is the critic's reading, not a statement from Swift.",
+            "Critics heard a dance-pop song: Billboard called it a compact, propulsive dance track; NME an effervescent nugget of pure pop in the vein of Carly Rae Jepsen's Emotion; Pitchfork said its polish nearly makes up for a dearth of personality."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:22",
+            label: "22",
+            why: "Sheffield's Rolling Stone ranking says it sounds so similar to '22' that it makes sense she left this one off Red."
+          },
+          {
+            relatedId: "song:i-knew-you-were-trouble",
+            label: "I Knew You Were Trouble",
+            why: "NME noted that Martin and Shellback also worked on that song in 2012."
+          },
+          {
+            relatedId: "song:we-are-never-ever-getting-back-together",
+            label: "We Are Never Ever Getting Back Together",
+            why: "Billboard cited it as one of the smashes from Swift's first album working with Martin."
+          }
+        ],
+        sources: [
+          {
+            name: "'Red (Taylor's Version)' Makes a Classic Even Better - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/review-red-taylors-version-1255956/"
+          },
+          {
+            name: "All 286 of Taylor Swift's Songs, Ranked - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-lists/taylor-swift-songs-ranked-rob-sheffield-201800/message-in-a-bottle-2021-1261516/"
+          },
+          {
+            name: "Taylor Swift: Red (Taylor's Version) - Pitchfork",
+            url: "https://pitchfork.com/reviews/albums/taylor-swift-red-taylors-version/"
+          },
+          {
+            name: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Red (Taylor's Version)': Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-red-taylors-version-from-the-vault-songs-ranked-9659077/"
+          },
+          {
+            name: "Taylor Swift - 'Red (Taylor's Version)' review: a retread of heartbreak - NME",
+            url: "https://www.nme.com/reviews/album/taylor-swift-red-taylors-version-review-3093107"
+          }
+        ]
+      },
     },
     {
       slug: 'i-bet-you-think-about-me',
@@ -1333,6 +1440,60 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "The Red (Taylor's Version) vault song Swift says was meant to be funny. Billboard reported that in a country radio interview in November 2021 she said she wrote it with Lori McKenna, whom she called one of her favorite singer-songwriters ever, at McKenna's house while she was playing Foxboro on the Speak Now Tour, and that she wanted it to be a comedic, tongue-in-cheek, not-caring-what-anyone-thinks breakup song.",
+          "It was also the vault's country-radio entry. Rolling Stone noted the harmonica-driven track, with harmonies from Chris Stapleton, was Swift's latest song marketed to country radio after 'betty', and Variety reported that Blake Lively directed its music video, released on Monday, November 15, 2021."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said, as quoted by Billboard, that there are many types of heartbreak songs on Red, some very sincere, stoic and sad, and that she and McKenna wanted this to be the moment where you say 'I don't care about anything.'",
+            "She said they wanted to make people laugh with it and wanted it to be 'sort of a drinking song,' adding, 'I think that that's what it ended up being.' Billboard pointed out there is not a single reference to alcohol in the lyrics.",
+            "On the day the video came out she tweeted that it was directed by Blake Lively, 'who SMASHED it just like I smashed this cake' (as quoted by Variety)."
+          ],
+          supported: [
+            "Rolling Stone dated the song to around the Red sessions in 2012. Swift's own account, as quoted by Billboard, places the writing on the Speak Now Tour, which Billboard dated to June 2011. This guide goes with Swift's account.",
+            "Rolling Stone read the lyrics as 'diary-personal' lines contrasting her own modest upbringing with the world of the person she addresses. That is the reviewer's interpretation of the lyrics, not something Swift said.",
+            "Variety described the six-minute video as a wedding-day story in which the groom flashes back on a failed relationship while Swift mischievously knocks over the cake topper, tears into the cake and chugs wine after giving a toast. It marked Lively's first time directing."
+          ],
+          fanTheories: [
+            "Fans commonly attach the song to a specific relationship. Swift's own account, above, describes it as a comedic breakup song and names no one, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "Rolling Stone noted this was Swift's latest song marketed to country radio, following 'betty' from folklore."
+          },
+          {
+            relatedId: "song:all-too-well-10-minute-version",
+            label: "All Too Well (10 Minute Version)",
+            why: "Variety called this video the second high-profile Swift video in three days, after the short film for the 10-minute 'All Too Well' premiered the previous Friday."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In a country radio interview, November 2021, as quoted by Billboard",
+            note: "She described McKenna as one of her favorite singer-songwriters ever and said she had always wanted to write with her."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Calls 'I Bet You Think About Me' the 'Drinking Song' of 'Red (Taylor's Version)' - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-i-bet-you-think-about-me-song-meaning-9659844/"
+          },
+          {
+            name: "Taylor Swift and Chris Stapleton Take Down Her Ex on Collab 'I Bet You Think About Me' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-country/taylor-swift-chris-stapleton-song-i-bet-you-think-about-me-1256983/"
+          },
+          {
+            name: "Taylor Swift and Blake Lively Debut 'I Bet You Think About Me' Music Video Starring Miles Teller - Variety",
+            url: "https://variety.com/2021/music/news/taylor-swift-blake-lively-i-bet-you-think-about-me-music-video-miles-teller-1235111991/"
+          }
+        ]
+      },
     },
     {
       slug: 'forever-winter',
@@ -1371,6 +1532,55 @@ const TRACKS = [
       themes: ['escape', 'secret love', 'creative kinship'],
       sourceUrl: "https://en.wikipedia.org/wiki/Red_(Taylor's_Version)",
       sources: [TV],
+      dossier: {
+        whyItMatters: [
+          "Red (Taylor's Version)'s Ed Sheeran vault duet, and the second Swift and Sheeran co-write on the album after 'Everything Has Changed'. Rolling Stone's Rob Sheffield reported they wrote 'Run' the day they met, on the same trampoline where they wrote 'Everything Has Changed'.",
+          "Billboard heard the vault track as a belated way of giving Sheeran a place in Swift's folklore and evermore era: Aaron Dessner's co-production, it wrote, recalls her indie-folk detour, and the rustic sound suits the pair."
+        ],
+        meaning: {
+          confirmed: [
+            "On August 6, 2021, Swift posted the Red (Taylor's Version) track list on Twitter with the note that the vault tracks would feature Chris Stapleton, Phoebe Bridgers and Ed Sheeran among their guests, adding, 'I can't wait to dust off our highest hopes & relive these memories together.' Billboard quoted the post."
+          ],
+          supported: [
+            "Billboard's August 2021 bonus-track report lists 'Run' featuring Ed Sheeran as track 28 of the 30-song album.",
+            "Rolling Stone called it a peppy acoustic duet; NME called it an earnest duet with production from Dessner; Billboard ranked it sixth of the nine vault songs. These are critics' descriptions of the song, not statements from Swift or Sheeran about its subject."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:everything-has-changed",
+            label: "Everything Has Changed",
+            why: "Rolling Stone reported the two songs were written on the same trampoline, with 'Run' written the day Swift and Sheeran met."
+          },
+          {
+            relatedId: "song:i-bet-you-think-about-me",
+            label: "I Bet You Think About Me",
+            why: "Swift's August 6, 2021 post named Stapleton and Sheeran together as the vault guests, and Billboard ranked these two back to back, fifth and sixth."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Unveils 'Red (Taylor's Version)' Tracklist: 'I Can't Wait to Dust Off Our Highest Hopes' - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-red-taylor-version-tracklist-9611506/"
+          },
+          {
+            name: "Here Are All the Decoded 'Red (Taylor's Version)' Bonus Tracks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-red-taylors-version-bonus-tracks-list-9611265/"
+          },
+          {
+            name: "'Red (Taylor's Version)' Makes a Classic Even Better - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/review-red-taylors-version-1255956/"
+          },
+          {
+            name: "Taylor Swift - 'Red (Taylor's Version)' review: a retread of heartbreak - NME",
+            url: "https://www.nme.com/reviews/album/taylor-swift-red-taylors-version-review-3093107"
+          },
+          {
+            name: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Red (Taylor's Version)': Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-red-taylors-version-from-the-vault-songs-ranked-9659077/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-very-first-night',

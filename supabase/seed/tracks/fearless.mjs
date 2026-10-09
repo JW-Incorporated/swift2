@@ -650,6 +650,47 @@ const TRACKS = [
         wiki('Forever & Always', 'Forever_%26_Always', 'song article: late addition and subject'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "One of the last songs added to Fearless. The Los Angeles Times reported in October 2008 that Swift had recorded it the day before she told a visiting reporter about it (\"You have to hear the song we just recorded yesterday!\"), and that she pleaded with her label head, Scott Borchetta, to let her add it a day before the final version of the album was due.",
+          "It is also an early example of a Swift song that changes temperature as it goes. She told the Times it begins with a pretty, easy-to-sing-along melody and ends with her 'basically screaming it because I'm so mad,' and added, 'I'm really proud of that.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told the Los Angeles Times the song is about watching somebody fade away in a relationship: they said they would be with you forever and that they loved you, then something changed and you can't tell what it is, and you watch them slowly drift.",
+            "She said that emotion of rejection usually starts out sad and then gets mad, and that the song is built to follow that arc from sad to angry.",
+            "The lyric sheet in the original Fearless booklet hides an acrostic message, which Rolling Stone's November 2008 review quoted as 'If you play these games, we're both going to lose.'"
+          ],
+          supported: [
+            "Rolling Stone's review offered the hidden message as an example of Fearless feeling ripped from a suburban girl's diary, and read it as aimed at a particular person. That is the reviewer's inference; Swift's own account to the Times names no one.",
+            "Billboard's chart report in November 2009 noted the song appears in a redone version on the Platinum Edition of Fearless, and that it re-entered the Hot 100 at No. 34 in the chart week it covered."
+          ],
+          fanTheories: [
+            "Fans and some outlets have long attached the song to a specific public relationship. Swift's own account in the Los Angeles Times names no one, and this guide does not either."
+          ]
+        },
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Speaking to the Los Angeles Times, October 2008",
+            note: "She said she cares more about getting the feeling across than about perfect phrasing: 'the writer in me' is 'a little more obsessed with the meaning of the song than the vocal technique.'"
+          }
+        ],
+        sources: [
+          {
+            name: "She's writing her future - Los Angeles Times",
+            url: "https://www.latimes.com/archives/la-xpm-2008-oct-26-ca-swift26-story.html"
+          },
+          {
+            name: "Taylor Swift \"Fearless\" Album Review - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/fearless-252671/"
+          },
+          {
+            name: "DeRulo Tops Hot 100, But Swift Swoops In With Record-Breaking Debut Sum - Billboard",
+            url: "https://www.billboard.com/music/music-news/derulo-tops-hot-100-but-swift-swoops-in-with-record-breaking-debut-sum-266815/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-best-day',
@@ -974,6 +1015,69 @@ const TRACKS = [
         wiki('You All Over Me', 'You_All_Over_Me', 'song article: vault release details'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "The first previously unheard 'From the Vault' song Swift released, ahead of Fearless (Taylor's Version). Rolling Stone and Billboard both reported it arrived at midnight on March 26, 2021, with Maren Morris on backing vocals, following Swift's fully remade 'Love Story'. Swift announced it on Twitter the Wednesday before and teased a snippet on Good Morning America on Thursday morning.",
+          "It also set the template for the vault releases: new songs written in the original era, finished with a current-day collaborator. Billboard reported the song was dreamed up during sessions for the 2008 Fearless album and that it was one of six never-before-released songs on the re-recording."
+        ],
+        meaning: {
+          confirmed: [
+            "Announcing it, Swift tweeted (as quoted by Rolling Stone) that one thing she was loving about the From the Vault songs is that they have never been heard, so she can experiment, play, and even include some of her favorite artists, and that she was excited to have Maren Morris singing background vocals on this one."
+          ],
+          supported: [
+            "Rolling Stone and Billboard both report it was produced by Aaron Dessner and written by Swift with Scooter Carusoe.",
+            "Rolling Stone described it as a mid-tempo, melancholy song about the struggle to move on after a relationship ends, with Morris on the lower harmonies. That is the outlet's description of the song, not a statement from Swift about its subject.",
+            "Billboard noted it was the first recorded collaboration between Swift and Morris, though far from their first interaction."
+          ],
+          fanTheories: [
+            "Because the song dates from the original Fearless era, fans tend to read it against Swift's teenage relationships. None of the sources cited here has Swift naming anyone, and this guide does not either."
+          ]
+        },
+        live: [
+          {
+            date: "June 3, 2023",
+            event: "The Eras Tour, Chicago",
+            note: "Taste of Country reported that Morris joined Swift for a surprise live performance of the song, each playing an acoustic guitar. Swift told the crowd the two had not shared a stage since the Reputation Tour."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mr-perfectly-fine",
+            label: "Mr. Perfectly Fine",
+            why: "The next From the Vault song Swift released ahead of the album, on April 7, 2021."
+          },
+          {
+            relatedId: "song:thats-when",
+            label: "That's When",
+            why: "The vault duet with Keith Urban; Rolling Stone's April 9 piece on that track notes the album's other vault collaboration is this one, with Morris."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Introducing Morris onstage in Chicago, June 2023, as reported by Taste of Country",
+            note: "She called Morris one of her favorite artists and said everything she does is 'so thoughtful, and so brilliant.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Hear Taylor Swift's 'You All Over Me' With Maren Morris - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-you-all-over-me-maren-morris-1146967/"
+          },
+          {
+            name: "Taylor Swift Releases 'You All Over Me (From the Vault)': Stream It Now - Billboard",
+            url: "https://www.billboard.com/music/country/taylor-swift-you-all-over-me-from-the-vault-stream-maren-morris-9546651/"
+          },
+          {
+            name: "A Timeline of Taylor Swift & Maren Morris' Friendship - Billboard",
+            url: "https://www.billboard.com/music/country/taylor-swift-maren-morris-timeline-9546540/"
+          },
+          {
+            name: "WATCH: Maren Morris Joins Taylor Swift For a Surprise Onstage Duet in Chicago - Taste of Country",
+            url: "https://tasteofcountry.com/maren-morris-taylor-swift-you-all-over-me-chicago/"
+          }
+        ]
+      },
     },
     {
       slug: 'mr-perfectly-fine',
@@ -1092,10 +1196,58 @@ const TRACKS = [
       summary:
         'Two people who asked for space negotiate the way back: he asks when he can return, she answers with every when she has.',
       inspiration:
-        'Recorded with Keith Urban for the vault; Urban had been an opener on the Speak Now tour, closing an old loop.',
+        'Recorded with Keith Urban for the vault; Swift was Urban\'s opening act during the Fearless era, closing an old loop.',
       themes: ['reconciliation', 'forgiveness', 'timing'],
       sourceUrl: "https://en.wikipedia.org/wiki/That's_When",
       sources: [wiki("That's When", "That's_When", 'song article: Urban collaboration'), TV],
+      dossier: {
+        whyItMatters: [
+          "Variety called Keith Urban a full-on duet partner on this vault track, and Rolling Stone described the structure as a conversation: Swift sings the first verse and chorus, Urban arrives for the second verse, and they harmonize together on the chorus. Urban also sings harmonies on 'We Were Happy'.",
+          "Rolling Stone reported Swift wrote it early in her career with the sibling songwriting duo the Warren Brothers, and co-produced the new recording with Jack Antonoff."
+        ],
+        meaning: {
+          confirmed: [
+            "Revealing the track list on Twitter on April 3, 2021, Swift said she was honored that Urban was part of the project, duetting on 'That's When' and singing harmonies on 'We Were Happy.' She said she was his opening act during the Fearless album era and that his music has inspired her endlessly. Both Rolling Stone and Variety quote the post."
+          ],
+          supported: [
+            "Rolling Stone's April 3 report said the track was originally written during the sessions for the 2008 Fearless album.",
+            "Rolling Stone's April 9 review of the release called it an introspective retelling of a romance at the brink. That is the outlet's description of the song, not a statement from Swift about its subject."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:we-were-happy",
+            label: "We Were Happy",
+            why: "Urban's other appearance on the album: Rolling Stone and Variety both report he sings harmonies on that vault track."
+          },
+          {
+            relatedId: "song:you-all-over-me",
+            label: "You All Over Me",
+            why: "The other vault track built around a country guest, with Maren Morris on backing vocals; Rolling Stone's April 9 review mentions the two together."
+          }
+        ],
+        voices: [
+          {
+            who: "Keith Urban",
+            context: "Tweeting about the news, as quoted by Variety, April 2021",
+            note: "He wrote that Jack Antonoff and Aaron Dessner asked if he would join their band and he said 'hell yes,' and that he and Swift 'got to sing together and were so happy.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/"
+          },
+          {
+            name: "Taylor Swift Duets With Keith Urban on 'From the Vault' Track 'That's When' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-country/taylor-swift-fearless-keith-urban-thats-when-1153656/"
+          },
+          {
+            name: "Taylor Swift Reveals Track List for 'Fearless (Taylor's Version)'; Keith Urban Delighted to 'Join the Band' - Variety",
+            url: "https://variety.com/2021/music/news/taylor-swift-fearless-bonus-track-titles-anagrams-1234943302/"
+          }
+        ]
+      },
     },
     {
       slug: 'dont-you',
