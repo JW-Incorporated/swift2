@@ -1,0 +1,70 @@
+# Social event-mode transition trigger (t_4ebbe8ba, implementing
+# t_60c73aaa's approved design's card step 7). Same 4h cadence as the
+# site-diff adapter (news-worker.yml) since site-diff IS the countdown
+# signal's source. Runs scripts/social/event-status.mjs (the ONE sensor
+# every consumer of this signal reads — never re-derived), hash-diffs its
+# transition-relevant fields against the last-seen state committed at
+# social/state/event-status.json, and on a normal<->event (or wind-down)
+# transition, dispatches routine-tree-weekly-plan.yml with mode=replan so
+# the 14-day calendar picks up the new state immediately instead of
+# waiting for next Monday.
+#
+# No new approval gate (card step 7, Founder D3=A): a replan only produces
+# a draft calendar PR a founder still reviews before anything drafts, and
+# social-approval-poll.mjs's founder-✅-per-post gate is completely
+# untouched — this workflow never touches social/queue/ or post-queue.mjs
+# (the card's absolute denial, step 9).
+#
+# Offset off the news-worker.yml cadence's own minutes (:10) to avoid two
+# 4h Actions colliding on the same slot, same cron-contention discipline
+# watchdog.yml's header documents.
+name: social-event-status
+on:
+  schedule:
+    - cron: '20 1,5,9,13,17,21 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: social-event-status
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write # dispatches routine-tree-weekly-plan.yml mode=replan on a transition
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Check event-status transition and dispatch a replan if needed
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_DISPATCH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: npx --no-install tsx scripts/social/check-event-transition.mjs
+
+      # Same throwaway-branch + auto-merging-PR pattern growth-snapshot.yml
+      # uses for its own daily metrics commit — main is branch-protected, so
+      # this state file (like social/metrics/*.json) can't be pushed there
+      # directly. A no-op tick (nothing changed) commits nothing.
+      - name: Compute PR metadata
+        run: |
+          echo "branch=social-event-status/$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_ENV"
+          echo "stamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: social/state
+          branch: ${{ env.branch }}
+          commit-message: 'social-event-status: ${{ env.stamp }}'
+          pr-title: 'social-event-status: ${{ env.stamp }}'
+          pr-body: 'Automated social event-mode status snapshot (t_4ebbe8ba). No content decisions are made here — a state transition, if any, already dispatched a mode=replan run separately.'
+          no-changes-message: 'No event-status state changes to commit.'

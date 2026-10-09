@@ -1902,6 +1902,7 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg', credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons', caption: 'A later live reference to the Speak Now ballgown aesthetic during the Eras Tour’s lilac-gown set.', kind: 'reference', focalPoint: '59% 51%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -1939,6 +1940,7 @@ export default {
       snippet:
         "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
+        video: { youtubeId: 'jYa1eI1hpDE', title: 'Taylor Swift - Mean' },
         sources: [
           {
             outlet: 'CBS News',
@@ -1961,6 +1963,20 @@ export default {
           },
         ],
         context: "Taylor has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour "Mean" number — banjo, red top
+        // and white skirt, red boots, staircase set). Wikimedia Commons, curl
+        // HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Taylor_Swift_-_RED_Tour_-_Singapore_-_Mean_%28night_1%29.jpg',
+            focalPoint: '42% 12%',
+            credit: 'Weslam123 / Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Taylor performs "Mean" on banjo during the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {

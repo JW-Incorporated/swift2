@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto';
+
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
@@ -51,6 +53,7 @@ export function titleFrom(headline: string): string {
 }
 
 export function bodyFrom(payload: {
+  key: string;
   headline: string;
   summary: string;
   itemId: string;
@@ -77,8 +80,142 @@ export function bodyFrom(payload: {
     '---',
     '_Reader-flagged via the Current tier — see docs/proposals/2026-08-23-knowledge-engine.md._',
     '<!-- intake:reader-verify -->',
+    itemMarker(payload.itemId, payload.key),
   ];
   return lines.filter((l): l is string => l !== null).join('\n');
+}
+
+// Best-effort idempotency (#4883): a retry after a server-side success must
+// not file a second issue. Layers, cheapest first: per-instance cache of
+// recent creates/hits, per-instance in-flight map, then a GitHub search for
+// an open intake issue carrying the HMAC marker (see findOpenIssue for the
+// trust boundary and residuals). Durable dedupe would need a store.
+export function itemHash(itemId: string, key: string): string {
+  return createHmac('sha256', key).update(itemId).digest('hex').slice(0, 32);
+}
+
+export function itemMarker(itemId: string, key: string): string {
+  return `<!-- intake-item:${itemHash(itemId, key)} -->`;
+}
+
+const INTAKE_LABEL = 'intake';
+const SEARCH_TIMEOUT_MS = 2500;
+const RECENT_TTL_MS = 10 * 60_000;
+const RECENT_MAX = 500;
+
+interface IssueRef {
+  number?: number;
+  url?: string;
+}
+
+interface Outcome {
+  status: number;
+  body: Record<string, unknown>;
+}
+
+const recent = new Map<string, { at: number; ref: IssueRef }>();
+const inflight = new Map<string, Promise<Outcome>>();
+
+function recentGet(hash: string): IssueRef | null {
+  const hit = recent.get(hash);
+  if (!hit) return null;
+  if (Date.now() - hit.at > RECENT_TTL_MS) {
+    recent.delete(hash);
+    return null;
+  }
+  return hit.ref;
+}
+
+function recentSet(hash: string, ref: IssueRef): void {
+  recent.delete(hash);
+  recent.set(hash, { at: Date.now(), ref });
+  while (recent.size > RECENT_MAX) {
+    const oldest = recent.keys().next().value;
+    if (oldest === undefined) break;
+    recent.delete(oldest);
+  }
+}
+
+const ghHeaders = (token: string): Record<string, string> => ({
+  Authorization: `Bearer ${token}`,
+  Accept: 'application/vnd.github+json',
+  'X-GitHub-Api-Version': '2022-11-28',
+  'User-Agent': 'longlive-intake',
+});
+
+// Fails open: any error, timeout, 403/429 or odd response returns null so
+// intake still creates. Trust boundary is the HMAC key: the marker embeds an
+// HMAC of the itemId under the server-only token, so a third party cannot
+// forge a marker for an item they have not seen filed. The intake label is
+// NOT a boundary (.github/ISSUE_TEMPLATE/intake.yml applies it for any
+// submitter); it only narrows the search. Residuals: (1) token rotation
+// changes every marker, so at most one duplicate per item after rotation;
+// (2) once filed, the marker is public, so a copy only matters if the
+// original is closed while the copy stays open, and the copy lands in the
+// founders' intake triage queue; (3) cross-instance duplicates inside
+// GitHub's search-index lag.
+async function findOpenIssue(repo: string, token: string, itemId: string): Promise<IssueRef | null> {
+  try {
+    const marker = itemMarker(itemId, token);
+    const needle = `intake-item:${itemHash(itemId, token)}`;
+    const q = `repo:${repo} is:issue is:open label:${INTAKE_LABEL} in:body "${needle}"`;
+    const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=5`, {
+      headers: ghHeaders(token),
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      items?: {
+        number?: number;
+        html_url?: string;
+        body?: string | null;
+        labels?: ({ name?: string } | string)[];
+      }[];
+    };
+    const hit = data.items?.find(
+      (i) =>
+        typeof i.body === 'string' &&
+        i.body.includes(marker) &&
+        (i.labels ?? []).some((l) => (typeof l === 'string' ? l : l.name) === INTAKE_LABEL),
+    );
+    return hit ? { number: hit.number, url: hit.html_url } : null;
+  } catch {
+    return null;
+  }
+}
+
+async function fileIntake(
+  repo: string,
+  token: string,
+  hash: string,
+  itemId: string,
+  issue: { title: string; body: string },
+): Promise<Outcome> {
+  const existing = recentGet(hash) ?? (await findOpenIssue(repo, token, itemId));
+  if (existing) {
+    recentSet(hash, existing);
+    return { status: 200, body: { ok: true, number: existing.number, url: existing.url, deduped: true } };
+  }
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
+      method: 'POST',
+      headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: issue.title, body: issue.body, labels: [INTAKE_LABEL] }),
+    });
+
+    if (!res.ok) {
+      const detail = await res.text();
+      console.error('intake: GitHub issue create failed', res.status, detail.slice(0, 300));
+      return { status: 502, body: { error: 'Couldn’t file that right now — please try again later.' } };
+    }
+
+    const created = (await res.json()) as { number?: number; html_url?: string };
+    recentSet(hash, { number: created.number, url: created.html_url });
+    return { status: 201, body: { ok: true, number: created.number, url: created.html_url } };
+  } catch (err) {
+    console.error('intake: unexpected error', (err as Error).message);
+    return { status: 500, body: { error: 'Something went wrong filing that.' } };
+  }
 }
 
 export async function POST(req: Request): Promise<Response> {
@@ -123,33 +260,25 @@ export async function POST(req: Request): Promise<Response> {
         .filter((s) => s.url !== '')
     : [];
 
-  try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type': 'application/json',
-        'User-Agent': 'longlive-intake',
-      },
-      body: JSON.stringify({
-        title: titleFrom(headline),
-        body: bodyFrom({ headline, summary, itemId, eraId, status, sources }),
-        labels: ['intake'],
-      }),
-    });
-
-    if (!res.ok) {
-      const detail = await res.text();
-      console.error('intake: GitHub issue create failed', res.status, detail.slice(0, 300));
-      return NextResponse.json({ error: 'Couldn’t file that right now — please try again later.' }, { status: 502 });
+  const hash = itemHash(itemId, token);
+  const pending = inflight.get(hash);
+  if (pending) {
+    const out = await pending;
+    if (out.status === 201) {
+      return NextResponse.json({ ...out.body, deduped: true }, { status: 200 });
     }
+    return NextResponse.json(out.body, { status: out.status });
+  }
 
-    const issue = (await res.json()) as { number?: number; html_url?: string };
-    return NextResponse.json({ ok: true, number: issue.number, url: issue.html_url }, { status: 201 });
-  } catch (err) {
-    console.error('intake: unexpected error', (err as Error).message);
-    return NextResponse.json({ error: 'Something went wrong filing that.' }, { status: 500 });
+  const work = fileIntake(repo, token, hash, itemId, {
+    title: titleFrom(headline),
+    body: bodyFrom({ key: token, headline, summary, itemId, eraId, status, sources }),
+  });
+  inflight.set(hash, work);
+  try {
+    const out = await work;
+    return NextResponse.json(out.body, { status: out.status });
+  } finally {
+    inflight.delete(hash);
   }
 }

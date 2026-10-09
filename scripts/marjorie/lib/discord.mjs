@@ -8,26 +8,48 @@
 // `discord-delivery.mjs`/`weekly-brief.mjs`/`approval-prompt.mjs` — this
 // module adds only what was genuinely missing (retry, thread support, the
 // fallback-friendly return shape) instead of re-deriving chunking rules.
-import { neutralizeMentions, chunkForDiscord } from '../../community/discord-delivery.mjs';
+import {
+  neutralizeMentions,
+  chunkForDiscord,
+  suppressPreviews,
+  DISCORD_SUPPRESS_EMBEDS,
+} from '../../community/discord-delivery.mjs';
 
+// Discord message flag 1 << 2: no link-preview embeds (Bots v2 C6). Set in code
+// on every Marjorie post rather than by channel permission, which would also
+// strip deliberate embeds elsewhere in the channel.
+export const SUPPRESS_EMBEDS = DISCORD_SUPPRESS_EMBEDS;
 const RETRY_WAIT_MS = 2000;
+const MAX_RETRY_WAIT_MS = 120_000;
 
 function defaultWait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Discord's webhook rate-limit shape is a JSON body field (`retry_after`,
-// in seconds) on the 429 response itself, not a `Retry-After` header — this
-// is what distinguishes the 429 case from every other non-2xx failure this
-// function retries on a fixed wait instead.
+function cooldownSeconds(value) {
+  if (typeof value === 'string') {
+    if (!/^\d+(?:\.\d+)?$/.test(value.trim())) return null;
+    value = Number(value);
+  }
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+// Discord documents both Retry-After and retry_after, in seconds. The
+// bucket reset header can be longer; never retry before any valid hint.
 async function retryWaitMs(response) {
   if (response && response.status === 429) {
+    const cooldowns = [
+      response.headers?.get('retry-after'),
+      response.headers?.get('x-ratelimit-reset-after'),
+    ];
     try {
       const body = await response.json();
-      if (body && Number.isFinite(body.retry_after)) return body.retry_after * 1000;
+      cooldowns.push(body?.retry_after);
     } catch {
-      // Not JSON, or no usable retry_after on it — fall back to the fixed wait.
+      // Header-only rate limits need not carry a JSON body.
     }
+    const valid = cooldowns.map(cooldownSeconds).filter((value) => value !== null);
+    return valid.length ? Math.ceil(Math.max(...valid) * 1000) : null;
   }
   return RETRY_WAIT_MS;
 }
@@ -40,15 +62,13 @@ function postUrl(webhook, thread) {
 // One attempt at posting a single chunk. A non-2xx HTTP response is a
 // normal returned Response, not a throw — only a network-level failure
 // (DNS, refused connection, etc.) rejects, which the caller catches.
-function postChunk(chunk, { webhook, thread, username, fetchImpl }) {
+function postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions = { parse: [] } }) {
   return fetchImpl(postUrl(webhook, thread), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      content: chunk,
-      username,
-      allowed_mentions: { parse: [] },
-    }),
+    body: JSON.stringify(
+      suppressPreviews({ content: chunk, username, allowed_mentions: allowedMentions }),
+    ),
   });
 }
 
@@ -79,17 +99,32 @@ async function messageIdOf(response) {
  * `waitImpl` exists only so tests can inject a fake timer instead of
  * actually sleeping through the retry wait, the same way `fetchImpl` lets
  * them inject a fake network — it defaults to a real `setTimeout` wait.
+ *
+ * `mentionUserIds` (t_85667a3c): opt-in, defaults to `[]` so every existing
+ * caller keeps today's behavior of `allowed_mentions: { parse: [] }` (no
+ * ping ever fires, even if the text happens to contain `<@id>`-shaped
+ * text — the untrusted-content callers like community prompts need that).
+ * When a caller passes real Discord user ids here, ONLY those exact ids
+ * are allowlisted to ping (`allowed_mentions: { parse: [], users: [...] }`
+ * — never the blanket `parse: ['users']`, which would let ANY `<@id>`
+ * embedded in `text` ping whoever that id happens to be). This is what
+ * makes a real founder @-mention possible at all: `parse: []` alone
+ * suppresses the ping notification even when the text is literally
+ * `<@338508192755482626>` — Discord still renders the mention link but
+ * never notifies.
  */
 // `username` defaults to Marjorie; M5's Tree chat replies pass 'Tree'.
-export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait } = {}) {
+export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait, mentionUserIds = [] } = {}) {
   const chunks = chunkForDiscord(neutralizeMentions(text));
+  const allowedMentions =
+    mentionUserIds.length > 0 ? { parse: [], users: mentionUserIds } : { parse: [] };
   let delivered = 0;
   let messageId = null;
 
   for (const [index, chunk] of chunks.entries()) {
     let response;
     try {
-      response = await postChunk(chunk, { webhook, thread, username, fetchImpl });
+      response = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
     } catch {
       response = undefined;
     }
@@ -99,12 +134,36 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       continue;
     }
 
-    await waitImpl(await retryWaitMs(response));
+    // A thrown first attempt is ambiguous: Discord may have accepted the post
+    // and the response was lost. Never resend on that (a retry would double
+    // the reply); report failure and let the caller's fallback decide.
+    if (!response) {
+      return {
+        ok: false,
+        chunks: chunks.length,
+        delivered,
+        status: null,
+        error: 'Discord delivery threw a network error',
+      };
+    }
+
+    const waitMs = await retryWaitMs(response);
+    if (waitMs === null || !Number.isFinite(waitMs) || waitMs > MAX_RETRY_WAIT_MS) {
+      return {
+        ok: false,
+        chunks: chunks.length,
+        delivered,
+        status: response.status,
+        retryAfterMs: Number.isFinite(waitMs) ? waitMs : null,
+        error: 'Discord rate limit cooldown is unavailable or exceeds the retry wait limit',
+      };
+    }
+    await waitImpl(waitMs);
 
     let retryResponse;
     let retryError;
     try {
-      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl });
+      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
     } catch (err) {
       retryError = err;
     }
@@ -125,8 +184,11 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       chunks: chunks.length,
       delivered,
       status: retryResponse ? retryResponse.status : null,
+      ...(retryResponse?.status === 429
+        ? { retryAfterMs: await retryWaitMs(retryResponse) }
+        : {}),
       error: retryError
-        ? `Discord delivery threw: ${retryError.message || String(retryError)}`
+        ? 'Discord delivery threw a network error'
         : `Discord delivery failed with HTTP ${retryResponse.status}`,
     };
   }

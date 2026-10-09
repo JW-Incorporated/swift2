@@ -5,7 +5,7 @@
     {
       "id": "R1",
       "due": "2026-09-14",
-      "status": "pending",
+      "status": "reported",
       "title": "Gate reliability + hygiene fixes hold under real schedules",
       "checks": [
         "social-approval-poll.yml: every scheduled run since Wave 2 merged completed (conclusion success), and at least one run log shows a retry or an idle pass, not a crash",
@@ -13,7 +13,7 @@
         "SOCIAL_FREEZE is false (gh variable list)",
         "routine-vault-run.yml: all scheduled runs since 2026-09-11 succeeded; if any failed, did watchdog open a watchdog-alert issue within 2 runs",
         "e2e.yml: scheduled runs green since the Track Guide quarantine",
-        "output-sampling.yml and fleet-telemetry-snapshot.yml each have one natural scheduled run on main with a report PR",
+        "output-sampling.yml (weekly) and fleet-telemetry-snapshot.yml (MONTHLY, cron 17 8 1 * *) each have one natural scheduled run on main with a report PR",
         "No unstamped draft was retired to social/failed/ while its PR was still open",
         "Wave 1 specs merged and Wave 3 started (per #4117 comments)"
       ]
@@ -21,14 +21,14 @@
     {
       "id": "R2",
       "due": "2026-09-21",
-      "status": "pending",
+      "status": "reported",
       "title": "First full week of the closed loop",
       "checks": [
         "A Monday brief was posted in #longlive-tree by Tree (notify run log or social-approval-poll ingestion log) with scorecard, calendar rationale, proposals",
         "social/feedback/*.jsonl has at least one entry with a non-empty reason",
         "The most recent daily draft PR body quotes a prior reason or explicitly states no rejections in window",
         "weekly-scorecard output includes approval latency, edit rate, rejection reasons by category",
-        "Founder thread replies (if any) appear as comments on Tree's plan PR",
+        "Founder thread replies, if any, are ingested into social/feedback/*.jsonl with the reply text as the reason (replyId populated) — NOT as comments on Tree's plan PR; the ledger is the destination (corrected 2026-10-08, R2.md)",
         "Every brief in the channel this week carried the Tree first line and a why paragraph",
         "Wave 4 status per #4117"
       ]
@@ -36,16 +36,33 @@
     {
       "id": "R3",
       "due": "2026-10-02",
-      "status": "pending",
+      "status": "reported",
       "title": "Metrics and memory are real",
       "checks": [
         "social/metrics/posts/ has files for posts published in the last 14 days, written by a scheduled growth-snapshot run",
         "social/lessons.md has >= 3 dated active rules with evidence links, and the last two Monday runs changed it",
         "Any lesson fired 3x has a corresponding checker issue or check-drafts.mjs rule",
-        "fleet-telemetry-snapshot shows week-over-week deltas (A3) or a dated TODO exists",
+        "fleet-telemetry-snapshot shows month-over-month deltas (A3 — the cron is monthly, so week-over-week is unreachable; corrected 2026-10-08) or a dated TODO exists",
         "docs/audits/ has an output-sampling report with per-PR quality scores (A4)",
         "e2e.yml green with the Track Guide quarantine removed, or #4082 open with DEBUG.md",
         "Rejection rate and edit rate for the trailing 2 weeks, compared with week 1"
+      ]
+    },
+    {
+      "id": "R3b",
+      "due": "2026-10-13",
+      "status": "pending",
+      "title": "Finished work reaches the founder (delivery, not production)",
+      "checks": [
+        "plan-recheck.yml opened its own PR on its last due run (gh pr list --label routine-audit) — if not, the push fault named in R1.md Fault A is still live",
+        "plan-recheck.yml's last 3 scheduled runs completed (its 10-06 and 10-07 runs failed; watchdog #5362)",
+        "A Monday brief reached #longlive-tree on 2026-10-12 (routine-tree-weekly-plan.yml success AND send-brief not skipped)",
+        "PR #5171 (the undelivered 2026-10-05 brief) is merged, closed, or superseded",
+        "PR #4727 is merged and `node scripts/social/weekly-scorecard.mjs 2>&1 | grep -c 'unrecognised campaign prefix'` returns 0",
+        "output-sampling.yml's 2026-10-12 scheduled run succeeded (its 10-05 run failed on an unquoted gh search query)",
+        "Something published since 2026-10-02: social/posted/ has an item dated later, or the stall is explained in a draft PR body",
+        "social/lessons.md gained L002 from the 2026-10-06 Reddit-reply reason, or a Monday run states why not",
+        "#4889 (brief delivery) has an owner or a priority label, not just `intake`"
       ]
     },
     {
@@ -55,7 +72,7 @@
       "title": "Is the manager improving? Close or extend the plan",
       "checks": [
         "Trend over 4 weeks: briefs sent, approval rate, edit rate, rejection rate, median approval latency, expired-while-pending",
-        "Any campaign type meets the T7 eligibility bar; if so, did Tree propose it and what did the founder do",
+        "Any campaign type meets the T7 eligibility bar; if so, did Tree propose it and what did the founder do. NOTE (2026-10-08): launch:shop-the-look is at 8 briefs / 1 rejection in 28 days — it clears the brief bar and fails the 0-rejection bar, so it already satisfies PLAN.md's weaker 'within two briefs of eligibility' Wave 5 entry test. Treat this as a live decision.",
         "Founder thread replies ingested in at least 2 of the last 4 weeks",
         "Tree proposed at least one strategy diff to docs/marketing/social-strategy.md and its outcome",
         "Remaining open items from PLAN.md item map, with a recommendation: close the epic, or extend with specific next items and a new checkpoint"

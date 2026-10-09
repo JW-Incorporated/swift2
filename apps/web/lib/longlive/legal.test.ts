@@ -161,7 +161,8 @@ describe('privacy policy — must describe what the code actually does', () => {
     ['embedded audio', 'spotify'],
     ['embedded social posts', 'instagram'],
     ['on-device storage', 'local storage'],
-    ['the user-agent string it sends', 'user-agent'],
+    ['the coarse platform label it sends instead of a user-agent', 'coarse platform label'],
+    ['that the query string is removed from the page path', 'query string'],
     ['IP handling', 'ip address'],
     ['children', 'children'],
     ['Clownbot', 'clownbot'],
@@ -219,7 +220,7 @@ describe('reachability — an unlinked policy is no policy', () => {
   });
 
   it('renders those links from the site footer', () => {
-    const footer = read('../../components/longlive/SiteFooter.tsx');
+    const footer = read('../../../../packages/ui/src/reader/legal/SiteFooter.tsx');
     expect(footer).toContain('LEGAL_LINKS');
     expect(footer).toContain('aria-label="Legal"');
   });
@@ -238,5 +239,20 @@ describe('reachability — an unlinked policy is no policy', () => {
     const terms = read('../../app/terms/page.tsx');
     expect(terms).toContain('TERMS_OF_USE');
     expect(terms).toContain('robots: legalRobots()');
+  });
+});
+
+describe('privacy copy: app reports and feedback repository', () => {
+  const text = JSON.stringify(PRIVACY_POLICY);
+  it('discloses diagnostics, speed test mode and fallback reports', () => {
+    expect(text).toContain('If you switch on \\"Speed test mode\\" on that screen, the app sends that same report automatically on each of its next ten launches, then stops.');
+    expect(text).toContain('That reporting is switched off today; we can turn it on from our server configuration without an app update');
+    expect(text).toContain('posted as comments on a public issue there');
+  });
+  it('never calls the feedback repository private or the fallback reports opt-in', () => {
+    expect(text).not.toMatch(/private (issue|source|repository)|private repo/i);
+    const para = text.slice(text.indexOf('Two more things'), text.indexOf('Uninstalling the app'));
+    expect(para.length).toBeGreaterThan(200);
+    expect(para).not.toMatch(/opt[- ]in/i);
   });
 });

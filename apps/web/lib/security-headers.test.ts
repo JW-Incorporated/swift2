@@ -22,7 +22,8 @@ describe('securityHeaders — the always-on set', () => {
   it('ships every header the audit found missing', () => {
     expect(get(headers, 'Strict-Transport-Security')).toBe('max-age=63072000; includeSubDomains');
     expect(get(headers, 'X-Content-Type-Options')).toBe('nosniff');
-    expect(get(headers, 'X-Frame-Options')).toBe('DENY');
+    // Set per request in proxy.ts (embed-route exemption); see embed-route.test.ts.
+    expect(get(headers, 'X-Frame-Options')).toBe('');
     expect(get(headers, 'Referrer-Policy')).toBe('strict-origin-when-cross-origin');
     expect(get(headers, 'Content-Security-Policy')).toBe('');
   });

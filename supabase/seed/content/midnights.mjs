@@ -218,6 +218,7 @@ export default {
       sourceUrl: 'https://variety.com/2022/film/news/taylor-swift-feature-directing-debut-searchlight-pictures-1235455606/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://variety.com/wp-content/uploads/2022/11/Taylor-Swift.jpg?w=1000&h=563&crop=1', credit: 'Getty Images, via Variety', caption: 'Taylor Swift in 2022, the year Searchlight announced that she would direct her first feature film from her own script.', kind: 'reference', focalPoint: '50% 24%' }],
         context:
           'The December 9 announcement was deliberately spare: an original script, written by Taylor, to be produced by Searchlight — the specialty studio behind Nomadland and The Shape of Water — with plot and casting kept under wraps. Searchlight presidents David Greenbaum and Matthew Greenfield called her "a once in a generation artist and storyteller," adding it was "a genuine joy and privilege to collaborate with her as she embarks on this exciting and new creative journey."\n\nThe timing made it read as a promotion, not a pivot: she came into the deal fresh off All Too Well: The Short Film, which had just won her Best Direction at the 2022 VMAs, and she had written and directed the Anti-Hero video herself weeks earlier. Directing a feature was the logical next rung on a ladder she had been climbing in public, one music video at a time.',
         sources: [
@@ -655,7 +656,7 @@ export default {
             price: '$105.00',
             isAlternative: true,
             altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1273,7 +1274,7 @@ export default {
             price: '$798.00',
             isAlternative: true,
             altNote: 'Her exact Oscar de la Renta gown is discontinued -- this is a current blue floral brocade ball gown in the same full-skirted silhouette, without the original\'s cutouts.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1538,13 +1539,13 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-3b", label: "Record 4th AOTY", kind: "award" },
       snippet: 'Presented by Céline Dion in a rare public appearance — Taylor\'s fourth AOTY win, more than any artist in Grammy history.',
-      sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+      sourceUrl: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         context:
           'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work."\n\nEarlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."\n\nThe trophy was handed over by Céline Dion, whose walk-on was one of her first major public appearances since revealing her stiff-person-syndrome diagnosis the year before. It was Taylor\'s fourth Album of the Year, passing the three-way record she had shared with Frank Sinatra, Stevie Wonder, and Paul Simon and making her the only artist ever to win the category more than three times — the four coming for Fearless (2010), 1989 (2016), folklore (2021), and now Midnights, and capping a Grammy run that began fourteen years earlier, at 20, with Fearless. She had arrived with six nominations that night, and Midnights also won Best Pop Vocal Album — the award she used to announce The Tortured Poets Department with its April 19 date, so the record-setting Grammy ended up splitting its own evening\'s headlines with the surprise of the album that would follow it.',
         sources: [
-          { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
+          { outlet: 'Grammy.com', url: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/',
@@ -1733,7 +1734,7 @@ export default {
             price: '$298.00',
             isAlternative: false,
             altNote: 'The exact AREA Crystal Slit Jean named in the look, currently marked down -- sourcing the jeans only (corset, jacket, boots, and jewelry not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1851,7 +1852,7 @@ export default {
             price: '$27.98',
             isAlternative: true,
             altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1902,7 +1903,7 @@ export default {
             price: '$698.00',
             isAlternative: true,
             altNote: 'The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -2367,7 +2368,7 @@ export default {
           },
           {
             outlet: 'GRAMMY.com',
-            url: 'https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys',
+            url: 'https://web.archive.org/web/20260301081805/https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys',
             source_title:
               'Taylor Swift Makes GRAMMY History (Again) With Best Music Video Win For "All Too Well: The Short Film"',
             publisher: 'The Recording Academy',
@@ -3073,8 +3074,8 @@ export default {
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
           },
           {
-            outlet: 'Entertainment Tonight (via AOL)',
-            url: 'https://www.aol.com/taylor-swift-monopolizes-top-10-194834436.html',
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-top-10-billboard-hot-100-midnights-rcna54887',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
         ],
@@ -4268,7 +4269,7 @@ export default {
           },
           {
             outlet: 'AOL / People',
-            url: 'https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
+            url: 'https://web.archive.org/web/20241008041622/https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
             source_title: 'Taylor Swift Surpasses Rihanna as Richest Female Musician with $1.6 Billion Net Worth',
             publisher: 'People',
             source_type: 'reputable_press',
@@ -5012,7 +5013,7 @@ export default {
           },
           {
             outlet: 'GRAMMY.com',
-            url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+            url: 'https://web.archive.org/web/20260416070120/https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
             source_title: 'Taylor Swift Wins Album Of The Year For Midnights At The 2024 GRAMMYs',
             publisher: 'The Recording Academy',
             source_type: 'reputable_press',
@@ -5273,8 +5274,8 @@ export default {
           },
           {
             outlet: 'BBC Newsround',
-            url: 'https://feeds.bbci.co.uk/newsround/articles/c0xx9yj7jjpo',
-            source_title: 'Taylor Swift: Why do fans make and swap friendship bracelets?',
+            url: 'https://www.bbc.co.uk/newsround/articles/c0xx9yj7jjpo',
+            source_title: 'Taylor Swift fan spreads joy making bracelets for care home residents',
             publisher: 'BBC',
             source_type: 'reputable_press',
             accessed_at: '2026-08-12',
@@ -5603,6 +5604,7 @@ export default {
       sourceUrl: 'https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg', credit: 'TIME / photo by Inez and Vinoodh', caption: 'A later public portrait of Taylor Swift with Benjamin Button for TIME’s 2023 Person of the Year issue; used as a reference for the cat in the private 2022 Instagram Story.', kind: 'reference', focalPoint: '50% 30%' }],
         context:
           'Taylor and Alwyn were famously private about their six-year relationship; this small Instagram Story from Alwyn was treated as a notable public relationship signal during the Midnights promotional period.',
         sources: [
@@ -5622,6 +5624,7 @@ export default {
       sourceUrl: 'https://www.sunherald.com/entertainment/article269923742.html',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/2/20/PreservationHall_2008.jpg', credit: 'Infrogmation of New Orleans / Wikimedia Commons, CC BY-SA 3.0', caption: 'The entrance to Preservation Hall in New Orleans, the venue Taylor Swift and Joe Alwyn quietly visited in December 2022.', kind: 'reference', focalPoint: '50% 45%' }],
         context:
           'A rare, low-key public sighting of the couple together while Alwyn was on location shooting a film in New Orleans, just ahead of the Midnights release-anniversary press cycle.',
         sources: [
@@ -5640,6 +5643,7 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video',
       thumbnailUrl: null,
       moment: {
+        video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
@@ -5659,6 +5663,7 @@ export default {
       sourceUrl: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202297/rs_1200x1200-221007042741-1200-Taylor-Swift-Joe-Alwyn.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'Taylor Swift and Joe Alwyn in a public reference image used by E! in its report on the leather jacket she wore to the 2023 Grammys afterparty.', kind: 'reference', focalPoint: '50% 25%' }],
         context:
           'A source told Entertainment Tonight that Alwyn also attended the afterparty at Chateau Marmont with Taylor, even though he did not accompany her on the Grammys red carpet.',
         sources: [
@@ -5678,6 +5683,7 @@ export default {
       sourceUrl: 'https://extratv.com/2023/04/11/taylor-swift-steps-out-for-first-time-since-joe-alwyn-split',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024', credit: 'Kevin Mazur/Getty Images for TAS Rights Management, via Billboard', caption: 'Taylor Swift on the Eras Tour in March 2023; a public reference portrait from the weeks before her first reported outing after the Alwyn split.', kind: 'reference', focalPoint: '43% 25%' }],
         context:
           'Her first public outing after the Joe Alwyn breakup news broke on April 8, 2023.',
         sources: [
@@ -5697,6 +5703,7 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2023411/rs_1200x1200-230511174510-1200.taylor-swift-matty-healy.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'A composite of public Taylor Swift and Matty Healy portraits used by E! News in its May 2023 coverage; a reference image rather than the Electric Lady exit itself.', kind: 'reference', focalPoint: '50% 28%' }],
         context:
           'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Taylor-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
         sources: [
@@ -5715,6 +5722,7 @@ export default {
       sourceUrl: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg/960px-Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg', credit: 'Mats Rennstam, CC0, via Wikimedia Commons', caption: 'Matty Healy performing with The 1975 at Lollapalooza in 2023, a public reference portrait from the summer their brief rumored relationship ended.', kind: 'reference', focalPoint: '52% 20%' }],
         context:
           'Healy had appeared at Taylor\'s Nashville Eras Tour shows in early May 2023; the pair reportedly split around June 5, 2023, weeks after the romance was first reported.',
         sources: [
@@ -5734,11 +5742,12 @@ export default {
       sourceUrl: 'https://kansascity.com/news/local/article280456364.html',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg', credit: 'Accedie, CC BY-SA 4.0, via Wikimedia Commons', caption: 'Travis Kelce with the Kansas City Chiefs during the 2023 season, a public reference portrait for his August NFL Network interview.', kind: 'reference', focalPoint: '50% 22%' }],
         context:
           'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Taylor\'s Sept. 24 Chiefs game appearance made the relationship public.',
         sources: [
           { outlet: 'The Kansas City Star', url: 'https://kansascity.com/news/local/article280456364.html' },
-          { outlet: 'Yahoo Entertainment', url: 'https://aol.com/travis-kelce-jokingly-ends-interview-030921483.html' },
+          { outlet: 'CBS News Philadelphia', url: 'https://www.cbsnews.com/philadelphia/news/travis-kelce-taylor-swift-dating-plane-photo/' },
         ],
       },
     },
@@ -5753,6 +5762,7 @@ export default {
       sourceUrl: 'https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923', credit: 'Cooper Neill/Getty Images, via Vanity Fair', caption: 'Taylor Swift cheers beside Donna Kelce as the Chiefs play the Bears at Arrowhead Stadium on Sept. 24, 2023.', kind: 'primary', focalPoint: '55% 28%' }],
         context:
           'Widely regarded as the single most consequential sighting of the Midnights era.',
         sources: [

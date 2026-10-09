@@ -97,9 +97,17 @@ export function renderHumanActionLine(item) {
   return `- #${item.number} · ${age} · ${tag}${item.title}${eta}`;
 }
 
-export function buildWaitingOnYouLines(openActions) {
-  if (openActions.length === 0) return ['- Nothing is waiting on you right now.'];
-  const shown = openActions.slice(0, 5).map(renderHumanActionLine);
+export function waitingChaseItems(openActions, dispatched = []) {
+  const actions = new Set(openActions.map((item) => item.number));
+  return [...new Map(dispatched.filter((item) => item.chase?.verdict === 'blocked-on-founder'
+    && !actions.has(item.chase.existingHumanAction)).map((item) => [item.number, item])).values()];
+}
+
+export function buildWaitingOnYouLines(openActions, dispatched = []) {
+  const blocked = waitingChaseItems(openActions, dispatched);
+  const waiting = blocked.length ? [`- waiting on you: ${blocked.slice(0, 8).map((item) => `#${item.number}`).join(', ')}${blocked.length > 8 ? ` +${blocked.length - 8} more` : ''}`] : [];
+  if (openActions.length === 0) return waiting.length ? waiting : ['- Nothing is waiting on you right now.'];
+  const shown = [...waiting, ...openActions.slice(0, 5).map(renderHumanActionLine)];
   return openActions.length > 5
     ? [...shown, `- +${openActions.length - 5} more in HUMAN-ACTIONS.md`]
     : shown;
@@ -135,7 +143,18 @@ export function renderDispatchedLine(dispatched, now) {
   if (list.length === 0) return null;
   const oldest = [...list].sort((x, y) => new Date(x.createdAt).getTime() - new Date(y.createdAt).getTime())[0];
   const ageDays = Math.floor((now - new Date(oldest.createdAt).getTime()) / DAY_MS);
-  return `- dispatched: ${list.length} open, oldest ${ageDays}d (#${oldest.number})`;
+  const summary = `- dispatched: ${list.length} open, oldest ${ageDays}d (#${oldest.number})`;
+  const stalled = list.map((item) => item.chase).filter((entry) => /^stale-(48|96)$/.test(entry?.verdict || ''))
+    .sort((a, b) => b.silenceMs - a.silenceMs || a.number - b.number);
+  const held = list.map((item) => item.chase).filter((entry) => entry?.verdict === 'held' && !entry.heldReported);
+  const heldLine = held.length ? `- held: ${held.slice(0, 8).map((entry) => `#${entry.number} (${entry.held.number ? `HA #${entry.held.number} ${entry.held.status === 'skip' ? 'skipped' : 'closed'}` : 'deferred'}) <!-- marjorie-held: issue=${entry.number} ha=${entry.held.number || 0} -->`).join(' \u00b7 ')}${held.length > 8 ? ` +${held.length - 8} more` : ''}` : '';
+  if (!stalled.length) return [summary, heldLine].filter(Boolean).join('\n');
+  const shown = stalled.slice(0, 8).map((entry) => {
+    const action = entry.existingHumanAction ? `, HA #${entry.existingHumanAction}` : '';
+    return `#${entry.number} (${Math.floor(entry.silenceMs / DAY_MS)}d, ${entry.holder}${action})`;
+  });
+  if (stalled.length > 8) shown.push(`+${stalled.length - 8} more`);
+  return [summary, `- stalled 2d+: ${shown.join(' \u00b7 ')}`, heldLine].filter(Boolean).join('\n');
 }
 
 export function buildSinceYesterdayLines(state, a, now) {
@@ -145,7 +164,11 @@ export function buildSinceYesterdayLines(state, a, now) {
     renderSubmissionsLine(state.submissions),
   ];
   const dispatched = renderDispatchedLine(state.dispatched, now);
-  if (dispatched) lines.push(dispatched);
+  if (dispatched) {
+    const dispatchLines = dispatched.split('\n');
+    // Accountability details take precedence over the aggregate count under the cap.
+    lines.push(...dispatchLines.slice(1), dispatchLines[0]);
+  }
   const treePR = findLatestTreePR(state.allPRs);
   if (treePR && String(treePR.state).toUpperCase() === 'OPEN') {
     lines.push(`- Tree's plan PR #${treePR.number} is up for your ✅ in #longlive-tree`);

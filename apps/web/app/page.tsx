@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { THREADS, getEra, resolveTrackKey } from '@swift2/experience';
 import { LongLive } from '@/components/longlive/LongLive';
-import { getContentItem } from '@/lib/longlive/content';
+import { getContentItemByIdOrSlug } from '@/lib/longlive/content';
 
 // The "cool feature only" fix (social-strategy.md §2, PR #3922 2026-09-06):
 // a shared `/?lens=hidden-clues` or `/?mode=mood` link must unfurl showing
@@ -27,7 +27,7 @@ export async function generateMetadata({
   const { lens, mode, item, era, song, guide, theories } = await searchParams;
   const validLens = lens && VALID_LENS_IDS.has(lens) ? lens : undefined;
   const validMode = mode && FEATURE_MODE_IDS.has(mode) ? mode : undefined;
-  const validItem = item && getContentItem(item) ? item : undefined;
+  const validItem = item && getContentItemByIdOrSlug(item)?.id;
   const validEra = isValidEraId(era) ? era : undefined;
   const validSong = song && resolveTrackKey(song) ? song : undefined;
   const validGuide = isValidEraId(guide) ? guide : undefined;

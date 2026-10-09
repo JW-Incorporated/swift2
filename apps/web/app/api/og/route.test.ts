@@ -3,6 +3,7 @@ import { getEra, setTracksRawProvider, trackKey } from '@swift2/experience';
 
 const item = {
   id: 'interrupted-speech',
+  slug: 'interrupted-speech-slug',
   eraId: 'fearless',
   title: 'The interrupted speech',
   dateLabel: 'September 2009',
@@ -11,7 +12,9 @@ const item = {
 const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
 vi.mock('../../../lib/longlive/vault-wiring', () => ({}));
-vi.mock('@/lib/longlive/content', () => ({ getContentItem: (id: string) => (id === item.id ? item : undefined) }));
+vi.mock('@/lib/longlive/content', () => ({
+  getContentItemByIdOrSlug: (id: string) => (id === item.id || id === item.slug ? item : undefined),
+}));
 
 import { DEFAULT_OG_COPY } from '@/lib/longlive/og-card';
 import { GET, ogCopyForRequest } from './route';
@@ -29,6 +32,10 @@ describe('GET /api/og', () => {
     const res = await get('?lens=hidden-clues');
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toBe('image/png');
+  });
+
+  it('uses the same copy for a stable content slug as for its legacy id', () => {
+    expect(ogCopyForRequest(request(`item=${item.slug}`))).toMatchObject({ title: item.title });
   });
 
   it('renders a PNG for each of the six thread lenses', async () => {
@@ -78,5 +85,16 @@ describe('ogCopyForRequest', () => {
 
   it('falls back to the generic card for an invalid target', () => {
     expect(ogCopyForRequest(request('era=not-an-era'))).toEqual(DEFAULT_OG_COPY);
+  });
+});
+
+describe('GET /api/og rate limit', () => {
+  it('returns 429 once a single IP exceeds the per-minute limit', () => {
+    const hit = () =>
+      GET(new Request('http://localhost/api/og?lens=hidden-clues', { headers: { 'x-real-ip': '203.0.113.7' } }) as never);
+    for (let i = 0; i < 120; i++) expect(hit().status).toBe(200);
+    const limited = hit();
+    expect(limited.status).toBe(429);
+    expect(limited.headers.get('retry-after')).toBe('60');
   });
 });

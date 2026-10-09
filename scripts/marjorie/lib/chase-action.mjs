@@ -1,0 +1,126 @@
+const SNOWFLAKE = /^\d{15,21}$/;
+const URL = /^https:\/\/discord\.com\/channels\/(?:\d+|@me)\/\d+\/(\d{15,21})$/;
+const REF = String.raw`(?:HA(?:\s*#\s*|\s+)?\d+|#\s*\d+|\d+)`;
+const SEP = String.raw`[\s:,;\-–—]`;
+const ACTION = new RegExp(String.raw`^(?:(${REF})${SEP}*)?(assign|defer|close)(?:${SEP}+(${REF}))?[\s.!]*$`, 'i');
+const canonRef = (ref) => ref.replace(/^HA(?:\s*#\s*|\s+)?(\d+)$/i, 'HA #$1').replace(/^#\s*(\d+)$/, '#$1');
+const CHASE = /<!-- marjorie-chase: 96h issue=(\d+) -->/;
+const TITLE = /#(\d+)\s+has had no activity/gi;
+
+function titled(text) {
+  const found = [...new Set([...String(text || '').matchAll(TITLE)].map((m) => Number(m[1])))];
+  return found.length === 1 ? found[0] : undefined;
+}
+
+const labels = (issue) => new Set((issue?.labels || []).map((x) => typeof x === 'string' ? x : x?.name));
+const owned = (issue) => labels(issue).has('marjorie-filed');
+
+function records(markdown, open) {
+  if (!open) return String(markdown || '').split(/\r?\n/).flatMap((line) => {
+    const ha = /^- #(?<ha>\d+) .*?· (?<outcome>done|skip) ·/.exec(line);
+    const marked = CHASE.exec(line);
+    const issue = marked ? Number(marked[1]) : titled(line.slice(ha ? ha[0].length : 0).split(' · ')[0]);
+    return ha && issue ? [{ ha: Number(ha.groups.ha), issue, outcome: ha.groups.outcome, open: false }] : [];
+  });
+  const found = [];
+  const blocks = String(markdown || '').split(/(?=^## #\d+\s)/m);
+  for (const block of blocks) {
+    const ha = /^## #(\d+)\s/m.exec(block);
+    const marked = CHASE.exec(block);
+    const issue = marked ? Number(marked[1]) : titled(block.split(/\r?\n/, 1)[0]);
+    if (ha && issue) found.push({ ha: Number(ha[1]), issue, open: true });
+  }
+  return found;
+}
+
+function refs(text) {
+  const value = String(text || '');
+  const has = [...value.matchAll(/\bHA\s*#\s*(\d+)\b/gi)].map((m) => Number(m[1]));
+  const safe = value.replace(/\bHA\s*#\s*\d+/gi, '');
+  const issues = [...safe.matchAll(/(?:^|\s)#\s*(\d+)(?=$|[\s.,;:!?])/g)].map((m) => Number(m[1]));
+  return { has: [...new Set(has)], issues: [...new Set(issues)] };
+}
+
+function targetRefs(context) {
+  const has = new Set();
+  const issues = new Set();
+  for (const value of [context?.text, context?.replying_to?.text, context?.thread_root?.text]) {
+    const found = refs(value);
+    for (const number of found.has) has.add(number);
+    for (const number of found.issues) issues.add(number);
+  }
+  return { has: [...has], issues: [...issues] };
+}
+
+export function actionMarker({ ha, issue, action, messageId }) {
+  return `<!-- marjorie-chase-action: HA=${ha} issue=${issue} action=${action} message=${messageId} -->`;
+}
+
+export function renderActionComment({ ha, issue, action, messageId, messageUrl }) {
+  if (URL.exec(String(messageUrl || ''))?.[1] !== String(messageId)) throw new Error('action message URL and id must match');
+  const sentence = action === 'assign' ? 'Founder assigned this to the next session.'
+    : action === 'defer' ? 'Founder deferred this item.' : 'Founder closed this item.';
+  return `${sentence} Discord: ${messageUrl}\n\n${actionMarker({ ha, issue, action, messageId })}`;
+}
+
+function already(comments, marker) {
+  return (comments || []).some((comment) => {
+    const author = comment?.author || comment?.user;
+    return (author?.type === 'Bot' || author?.__typename === 'Bot')
+      && ['app/claude', 'claude[bot]', 'claude'].includes(author.login)
+      && String(comment.body || '').trimEnd().split('\n').at(-1) === marker;
+  });
+}
+
+export function resolveChaseAction({ context, issues, openMd, doneMd, comments = [] }) {
+  const match = ACTION.exec(String(context?.text || '').trim());
+  const urlId = URL.exec(String(context?.url || ''))?.[1];
+  if (context?.bot !== 'marjorie' || context?.already || !match || !SNOWFLAKE.test(String(context?.message_id || '')) || urlId !== String(context.message_id)) {
+    return { ok: false, reason: 'untrusted-or-not-an-action' };
+  }
+  if (match[1] && match[3]) return { ok: false, reason: 'ambiguous' };
+  const action = match[2].toLowerCase();
+  let ref = match[1] || match[3];
+  const open = records(openMd, true);
+  const done = records(doneMd, false);
+  if (ref && /^\d+$/.test(ref)) {
+    const n = Number(ref);
+    const known = [...open, ...done];
+    const asHa = known.some((item) => item.ha === n);
+    const asIssue = known.some((item) => item.issue === n);
+    if (asHa === asIssue) return { ok: false, reason: 'ambiguous' };
+    ref = asHa ? `HA #${n}` : `#${n}`;
+  }
+  const wanted = targetRefs({ ...context, text: ref ? `${action} ${canonRef(ref)}` : action });
+  if (wanted.has.length === 1 && wanted.issues.length > 1) {
+    return { ok: false, reason: 'target-mismatch' };
+  }
+  if (wanted.has.length > 1 || wanted.issues.length > 1) return { ok: false, reason: 'ambiguous' };
+  if (wanted.has.length === 1 && wanted.issues.length === 1) {
+    const named = [...open, ...done].find((item) => item.ha === wanted.has[0]);
+    if (named && named.issue !== wanted.issues[0]) {
+      return { ok: false, reason: 'target-mismatch' };
+    }
+  }
+  let candidates = open;
+  if (wanted.has.length) candidates = candidates.filter((item) => item.ha === wanted.has[0]);
+  if (wanted.issues.length) candidates = candidates.filter((item) => item.issue === wanted.issues[0]);
+  if (candidates.length !== 1) {
+    const past = done.filter((item) => (!wanted.has.length || item.ha === wanted.has[0]) && (!wanted.issues.length || item.issue === wanted.issues[0]));
+    if (past.length === 1) return { ok: true, noop: true, final: past[0].outcome === 'skip', ...past[0], action };
+    return { ok: false, reason: 'ambiguous', detail: candidates.length === 0 && past.length === 0 ? 'no-matching-chase-record' : 'multiple-matching-records' };
+  }
+  const target = candidates[0];
+  if (wanted.has.length && wanted.issues.length && (target.ha !== wanted.has[0] || target.issue !== wanted.issues[0])) return { ok: false, reason: 'target-mismatch' };
+  const issue = (issues || []).find((item) => Number(item.number) === target.issue);
+  if (!issue || !owned(issue)) return { ok: false, reason: 'not-marjorie-owned' };
+  if (labels(issue).has('deferred')) return { ok: true, noop: true, final: true, ...target, action };
+  const marker = actionMarker({ ...target, action, messageId: context.message_id });
+  return {
+    ok: true, noop: false, ...target, action, issueObject: issue,
+    duplicate: already(comments, marker), comment: renderActionComment({ ...target, action, messageId: context.message_id, messageUrl: context.url }),
+    label: action === 'assign' ? 'founder-assigned' : action === 'defer' ? 'deferred' : '',
+    closeIssue: action === 'close' && String(issue.state).toLowerCase() === 'open',
+    haOutcome: action === 'defer' ? 'skip' : 'done',
+  };
+}

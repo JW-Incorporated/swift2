@@ -1,0 +1,63 @@
+@import '../../web/app/globals.css';
+@import '../../../packages/ui/fonts/fonts.dom.css';
+@source '../../web';
+@source '../../../packages/ui/src';
+
+/* App only: no pull/rubber-band chaining out of the DOM scroller (web keeps its own behaviour). */
+html,
+body {
+  overscroll-behavior: none;
+}
+
+/* 2.4.11 scroll padding (web default in globals.css) plus the native insets the sticky/fixed bars also clear. */
+html {
+  --ll-scroll-pad-top: calc(5rem + var(--safe-top, 0px));
+  --ll-scroll-pad-bottom: calc(6rem + var(--safe-bottom, env(safe-area-inset-bottom)));
+}
+
+/* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
+   the native insets (the DOM webview's env() is not reliable on Android). Each
+   var falls back to the web's own env() when the bridge has not set it. The web
+   components hard-code env(safe-area-inset-*) in inline styles / utilities, so
+   the overrides below are !important and match what they emit. */
+/* The status-bar / side clearance lives on the themed .era-shell, not on body: body only has the default palette's
+   background, so body padding showed a mismatched band above every non-default era. The sticky TopBar carries the top
+   clearance itself (a strip of --era-bg under the status bar), so it stays pinned below the notch once scrolled
+   instead of at viewport y=0. Shells without a TopBar (legal pages) pad their own top; a nested shell never pads twice. */
+.era-shell {
+  padding-left: var(--safe-left, 0px);
+  padding-right: var(--safe-right, 0px);
+}
+.era-shell:not(:has(> header[data-ll-topbar])) {
+  padding-top: var(--safe-top, 0px);
+}
+.era-shell .era-shell {
+  padding: 0;
+}
+header[data-ll-topbar] {
+  padding-top: var(--safe-top, 0px);
+  background: linear-gradient(var(--era-bg), var(--era-bg)) top / 100% var(--safe-top, 0px) no-repeat;
+}
+
+/* BottomNav: fixed, inset-x-0; its padding already clears the home indicator. */
+[data-ll-safe='bottom-nav'] {
+  padding-bottom: var(--safe-bottom, env(safe-area-inset-bottom)) !important;
+  padding-left: var(--safe-left, 0px) !important;
+  padding-right: var(--safe-right, 0px) !important;
+}
+
+/* LongLive's clearance spacer under the footer (height = bar + inset). */
+[data-ll-safe='bottom-spacer'] {
+  height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+}
+
+/* FeedbackButton floats above the bar. Mobile-only: the package gives it md:bottom-4 / md:bottom-20 (no bottom nav
+   at >= md), and an unconditional !important here defeated that on iPad. */
+@media (max-width: 767px) {
+  [data-ll-safe='feedback-button'] {
+    bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  }
+  [data-ll-safe='feedback-panel'] {
+    bottom: max(calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))), calc(var(--keyboard-inset, 0px) + var(--safe-bottom, env(safe-area-inset-bottom)) + 1rem)) !important;
+  }
+}

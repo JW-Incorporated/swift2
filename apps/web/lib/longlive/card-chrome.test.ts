@@ -70,11 +70,11 @@ describe('per-tier chrome', () => {
 // own files — see MAP.md. `MomentCard` now lives in MomentCard.tsx,
 // `VideoMomentCard` in VideoMomentCard.tsx; both read from there.
 const MOMENT_CARD = readFileSync(
-  new URL('../../components/longlive/MomentCard.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/MomentCard.tsx', import.meta.url),
   'utf8',
 );
 const VIDEO_MOMENT_CARD = readFileSync(
-  new URL('../../components/longlive/VideoMomentCard.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/VideoMomentCard.tsx', import.meta.url),
   'utf8',
 );
 
@@ -177,7 +177,7 @@ describe('one video treatment in the era feed', () => {
 });
 
 const MOMENT_VIDEO = readFileSync(
-  new URL('../../components/longlive/MomentVideo.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/MomentVideo.tsx', import.meta.url),
   'utf8',
 );
 
@@ -228,7 +228,12 @@ describe('VideoPoster keeps the #2051 accessibility contract', () => {
 });
 
 const MOMENT_DETAIL = readFileSync(
-  new URL('../../components/longlive/MomentDetail.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/moment/MomentDetail.tsx', import.meta.url),
+  'utf8',
+);
+
+const MOMENT_HERO = readFileSync(
+  new URL('../../../../packages/ui/src/reader/moment/MomentHero.tsx', import.meta.url),
   'utf8',
 );
 
@@ -249,14 +254,15 @@ describe('the detail hero plays the moment’s own footage', () => {
   });
 
   it('renders the hero player through the same facade every other video uses', () => {
-    const branch = MOMENT_DETAIL.slice(
-      MOMENT_DETAIL.indexOf('{heroVideo ? ('),
-      MOMENT_DETAIL.indexOf(') : ('),
+    const branch = MOMENT_HERO.slice(
+      MOMENT_HERO.indexOf('{heroVideo ? ('),
+      MOMENT_HERO.indexOf(') : ('),
     );
     expect(branch).toContain('<MomentVideo video={heroVideo}');
     // Click-to-load (#1935): the poster is a plain <img> and no iframe exists
     // in this file at all — MomentVideo mounts one only on a real click.
     expect(MOMENT_DETAIL).not.toContain('<iframe');
+    expect(MOMENT_HERO).not.toContain('<iframe');
     // A video hero PLAYS; the lightbox is for photographs. The viewer opens
     // only from `hero`, which is undefined whenever the video took the slot.
     expect(branch).not.toContain('openLightbox');
@@ -266,7 +272,7 @@ describe('the detail hero plays the moment’s own footage', () => {
     // Full-bleed 16:9 is 219px tall at 390px wide and ~850px on a desktop. The
     // width cap makes the height aspect-driven on a phone and exactly 42vh on
     // a desktop, so both look deliberate and the page rhythm is preserved.
-    expect(MOMENT_DETAIL).toContain('max-w-[calc(42vh*16/9)]');
+    expect(MOMENT_HERO).toContain('max-w-[calc(42vh*16/9)]');
   });
 
   it('does not pull the article over a player the way it does over a photo', () => {
@@ -278,8 +284,8 @@ describe('the detail hero plays the moment’s own footage', () => {
   it('keeps one set of sheet controls, reachable from either hero', () => {
     // Favorite/share/close are the way back out of a modal sheet. Defined once
     // and rendered by both branches, so neither can lose them.
-    expect(MOMENT_DETAIL.match(/aria-label="Close"/g)).toHaveLength(1);
-    expect(MOMENT_DETAIL.match(/\{heroControls\}/g)).toHaveLength(2);
+    expect(MOMENT_HERO.match(/aria-label="Close"/g)).toHaveLength(1);
+    expect(MOMENT_HERO.match(/\{heroControls\}/g)).toHaveLength(2);
   });
 
   it('keeps every promoted or duplicated frame out of the photo viewer too', () => {
@@ -300,6 +306,6 @@ describe('the detail hero plays the moment’s own footage', () => {
 
   it('marks the hero poster as the LCP image, as the photo hero already was', () => {
     // A `?item=` share link opens this sheet as the first paint.
-    expect(MOMENT_DETAIL).toContain('<MomentVideo video={heroVideo} className="" priority />');
+    expect(MOMENT_HERO).toContain('<MomentVideo video={heroVideo} className="" priority />');
   });
 });

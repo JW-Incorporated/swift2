@@ -195,6 +195,78 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Swift talked about this song in her 2019 Rolling Stone interview, after the interviewer raised the idea that no one gets through life unscathed. She said it was about doing something so against what she would usually do, after a lifetime of trying to be kind and learning that you can get walked all over.",
+          "It opened the 2018 American Music Awards: Billboard reported it was her first awards-show performance in nearly three years, with Swift atop a stack of dancers in a U-shaped structure, a stage on fire and a giant cobra head rising behind her."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Rolling Stone she has had to reconcile that 'good' complex in the last couple of years: from a kid she tried to be kind and to do the right thing, but sometimes you get walked all over, and you cannot just sit there and let it happen.",
+            "She said 'I Did Something Bad' was about doing something so against what she would usually do."
+          ],
+          supported: [
+            "The New Yorker, reviewing the album in November 2017, described this song as part of a turn in which Swift, once focused on the failures of those around her, now looks inward and revels in a state of sin.",
+            "Vulture's review heard the song as going full 'Maneater', part of Swift's long-awaited heel turn. Billboard's review called the song's dubstep breakdown one of the album's blemishes. Both are critics' judgments rather than statements of intent."
+          ],
+          fanTheories: [
+            "Some fans read the song's 'narcissist' verses as aimed at particular people from the 2016 feuds. None of the sources cited here has Swift confirming a target, and this guide names no one."
+          ]
+        },
+        live: [
+          {
+            date: "October 9, 2018",
+            event: "American Music Awards, Microsoft Theater, Los Angeles",
+            note: "Billboard reported she opened the show with the song, her first awards-show performance in nearly three years."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The New Yorker contrasted the album's inward turn with the cartoonish revenge drama of its lead single."
+          },
+          {
+            relatedId: "song:dress",
+            label: "Dress",
+            why: "The New Yorker discussed the two in the same passage, describing Swift on the record as a 'baby hedonist' who buys a dress so her lover can take it off."
+          },
+          {
+            relatedId: "song:getaway-car",
+            label: "Getaway Car",
+            why: "The New Yorker cited it in the same passage as a place where Swift is eager to implicate herself rather than point at others."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "The Rolling Stone interview, September 2019",
+            note: "She said she had spent her life trying to be a good person, and that responding to being walked all over is something she has had to work out."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Taylor Swift Opens 2018 AMAs With Fiery 'I Did Something Bad': Watch - Billboard",
+            url: "https://www.billboard.com/music/awards/2018-amas-taylor-swift-i-did-something-bad-watch-8479115/"
+          },
+          {
+            name: "Taylor Swift's Confessions on \"Reputation\" - The New Yorker",
+            url: "https://www.newyorker.com/magazine/2017/11/27/taylor-swifts-confessions-on-reputation"
+          },
+          {
+            name: "Taylor Swift's Reputation Fixates on Big Enemies and Budding Romance - Vulture",
+            url: "https://www.vulture.com/2017/11/review-taylor-swifts-album-reputation.html"
+          },
+          {
+            name: "Taylor Swift's 'Reputation': The Pop Star Embraces Her Flaws on Her Riskiest Album Yet - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-reputation-album-review-8031184/"
+          }
+        ]
+      },
     },
     {
       slug: 'dont-blame-me',
@@ -679,6 +751,92 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The calm landing of Reputation. It sits at track 14, the penultimate slot, and Swift said at the album's iHeartRadio release party that the album's storyline runs from rebellion and angst, through falling in love, to 'settling into where I am now,' adding that this song 'really reflects that probably the best on the album.' Released as a promotional single on November 3, 2017, it debuted at No. 27 on the Hot 100 and topped Billboard's Digital Song Sales chart (per its Wikipedia entry), and Rolling Stone ranked it No. 20 on its 50 best songs of 2017.",
+          "It's also one of the album's most sonically spare songs: Jack Antonoff built it with an Akai MPC drum machine, DX7 strings, a live kick and samples of Swift's own voice used as an instrument, which gives it the hushed sound he recommends for headphones at night."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 14 of Reputation (album released November 10, 2017), written and produced by Swift and Jack Antonoff. Released November 3, 2017 as the fourth track available ahead of the album.",
+            "Antonoff wrote on Twitter, as reported by Billboard, that the song was 'made with an MPC, live kick, dx7 strings and samples of taylor's voice as the intro and throughout,' that he loved 'making her voice into an instrument,' and that it is best heard 'on headphones at night on a walk.'",
+            "At the album's iHeartRadio release party Swift described the closing stretch of the album: it begins with rebellion, anger and angst, then 'falling in love, and realizing that you kind of settle into what your priorities are,' and 'this last part of the album feels like settling into where I am now.'"
+          ],
+          supported: [
+            "Critics read the song as the resolution to the album's story. Its opening verse uses royalty and battle imagery for the damage to her reputation, and then turns to the person who steadies her; the New Statesman's Anna Leskiewicz observed (per Wikipedia) that its kingdoms, fairy tales, fire and flowers are recurring Swift motifs used here in a more self-aware way.",
+            "Critics have read the lover in the song as the person she was seeing during the Reputation era. In the interview quotes cited here, though, Swift speaks about the feeling and the album's arc rather than naming anyone."
+          ]
+        },
+        live: [
+          {
+            date: "November 10, 2017",
+            event: "SiriusXM Fishbowl session, New York",
+            note: "An acoustic version for a small group of fans, per its Wikipedia entry."
+          },
+          {
+            date: "November 11, 2017",
+            event: "Saturday Night Live",
+            note: "She performed an acoustic version with four backing vocalists on the show's 43rd season, per Wikipedia."
+          },
+          {
+            date: "2018",
+            event: "Reputation Stadium Tour",
+            note: "Penultimate number of the final act, with a working fountain on stage, per Wikipedia."
+          },
+          {
+            date: "July 1, 2023",
+            event: "The Eras Tour, Cincinnati",
+            note: "A surprise song on upright piano. Three more surprise outings in 2024 paired it with 'This Love' (Singapore, March 4), 'Ivy' (Munich, July 27) and 'Our Song' (New Orleans, October 25), per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:gorgeous",
+            label: "Gorgeous",
+            why: "The third track released ahead of the album, right before this one in the rollout."
+          },
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The album's first single, from the rebellion end of the arc Swift described; both songs were written with Antonoff."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "Swift paired the two, on guitar, at the New Orleans Eras Tour stop on October 25, 2024."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "iHeartRadio album release party, November 2017",
+            note: "On the album's arc: it starts with rebellion, anger and angst, then falling in love, and 'this last part of the album feels like settling into where I am now.'"
+          },
+          {
+            who: "Jack Antonoff",
+            context: "On Twitter, as reported by Billboard",
+            note: "He said he loved 'making her voice into an instrument' on the track."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'Call It What You Want': Jack Antonoff Talks Making the Song - Billboard (archived)",
+            url: "https://web.archive.org/web/20171109101826/http://www.billboard.com/articles/columns/pop/8023178/-taylor-swift-call-it-what-you-want-jack-antonoff-making-of-song-twitter"
+          },
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS",
+            url: "https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/"
+          },
+          {
+            name: "Call It What You Want (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)"
+          },
+          {
+            name: "Call It What You Want by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/call-it-what-you-want"
+          }
+        ]
+      },
     },
     {
       slug: 'new-years-day',

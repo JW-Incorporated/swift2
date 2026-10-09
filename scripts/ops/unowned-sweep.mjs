@@ -33,6 +33,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 export const TRIAGE_LABEL = 'needs-triage';
@@ -85,6 +86,7 @@ export const S1_EXCLUSIONS = ['cie:safety', 'cie:escalate', PARKED_LABEL];
 // digests; they close when their agent's next run supersedes them.
 export const LEDGER_LABELS = new Set([
   'founders-brief',
+  'status-page',
   'kevin-triage',
   'kevin-radar',
   'kevin-digest',
@@ -392,7 +394,7 @@ async function main(argv) {
 
 if (
   process.argv[1] &&
-  import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, '/')}`).href
+  isMain(import.meta.url, process.argv[1])
 ) {
   runMain(() => main(process.argv.slice(2)), { name: 'unowned-sweep' });
 }

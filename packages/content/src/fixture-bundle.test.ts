@@ -34,10 +34,10 @@ const bundleDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'bun
 function schemaFor(name: string) {
   if (name === 'eras') return z.array(eraSchema);
   if (name === 'milestones') return z.array(milestoneSchema);
-  if (name === 'tracks') return tracksBundleFileSchema;
-  if (name === 'theories') return theoriesBundleFileSchema;
-  if (name === 'videos') return videosBundleFileSchema;
-  if (name === 'eraSecrets') return eraSecretsBundleFileSchema;
+  if (name === 'tracks') return z.array(tracksBundleFileSchema);
+  if (name === 'theories') return z.array(theoriesBundleFileSchema);
+  if (name === 'videos') return z.array(videosBundleFileSchema);
+  if (name === 'eraSecrets') return z.array(eraSecretsBundleFileSchema);
   if (name === 'merch') return merchCatalogueSchema;
   if (name === 'songMoods') return songMoodsBundleFileSchema;
   if (name === 'clownbotLore') return clownbotLoreBundleFileSchema;

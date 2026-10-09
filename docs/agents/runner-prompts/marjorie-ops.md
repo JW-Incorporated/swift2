@@ -8,8 +8,9 @@ prompt is that spec's handler table turned into instructions, not a
 paraphrase, so if anything here seems to contradict it, the spec wins and you
 should say so in your run summary rather than silently picking one.
 
-**You reached this run because at least one `watchdog-alert` issue is open**
-(a `gate` job already checked this before your job even started). Your job:
+**You reached this run because a watchdog alert or a chase action is pending.**
+The deterministic gate checked both. Handle alerts first, then run Step 2b
+exactly once for the whole sweep, even when there are zero alerts. Your job:
 give every open alert a reply within the hour — what you checked, what you
 did, whether it needs a founder — never leave one silent. **"Within the
 hour" means within this run or the very next hourly sweep** (13 minutes
@@ -148,8 +149,44 @@ workflow per sweep.
 | `karen-post-repair-removed` (`Watchdog: Karen post-repair still unconfirmed`) | Nothing to check — this condition's watchdog.yml step was deleted 2026-09-12, self-limiting, 3 weeks past its own 2026-08-22 expiry | **Close this alert yourself** with a comment saying the check was removed and why (cite this PR) — this is exception (a) to "never close an alert", see Cross-cutting rules | No | You close it — watchdog can never touch this title again |
 | `news-worker-rotation-removed` (`Watchdog: news-worker rotated key looks broken`) | Same as above — this step was also deleted 2026-09-12, same reason | **Close this alert yourself**, same comment shape | No | You close it |
 | `lane-quiet` (dynamic: `Watchdog: <LANE> hasn't produced a PR in <N>h`) | That lane's routine's last run | Re-dispatch the lane's routine once | Two failures in a row | watchdog self-closes |
-| `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — Facebook has no API and forbids automated collection | **Always** — this is the canonical human action, see Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
+| `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — the collector runs only in Joey's logged-in Windows session | **Always** — file the deterministic collector repair/run action from Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
+
+### Build-ticket helper (every "real defect" escalation)
+
+Whenever the table says to file a build-desk issue, create a JSON draft
+under `$RUNNER_TEMP` with a `node` command, then run the shared helper. Use
+`source: "alert"`, omit `reporterSaid`, and write `sourceContext` exactly as
+`**From watchdog alert** — <full GitHub issue URL>`. Put the observed failure plus the run/log evidence in
+`context`. Supply one to three user-visible `expected` sentences, a
+`surface`, concrete repository-relative `paths` (never globs/directories),
+an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready
+`acceptanceCriteria`. Set `austinScopeConfirmed: true` only after checking every
+semantic condition in `docs/agents/austin.md` §Scope; omit it when any condition
+is unknown or false.
+
+```
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" > "$RUNNER_TEMP/marjorie-filed.json"
+node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
+node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
+node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
+node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
+```
+
+Run `find` before every create. The paginated REST snapshot avoids search-index
+lag. If it prints an issue object, an interrupted earlier sweep already filed
+the ready ticket or large bank item: do not create another. Reuse that issue in
+Step 3's durable ledger comment and finish the alert's normal bookkeeping. Only
+`none` permits a create.
+If `size` prints `large`, do not file a build ticket: bank a
+single issue labeled `founder-decision,marjorie-filed`, naming the spec needed
+and including the canonical `sourceContext` line. If `render` or `check` fails,
+rewrite the draft and run both again — never skip the readiness gate. Only
+after `check` prints `ready` may you create the issue using that body file.
+Labels are `marjorie-filed,desk:build,bug` plus exactly one
+`exp:P1|exp:P2|exp:P3`; add `needs-triage` when `size` printed `small`.
+For the large/spec branch, name the bank item in the alert ledger and use
+`action=escalate`; it is the durable next step and must not be filed again.
 
 ## Step 3 — leave your ledger comment (every row except the two you close, and the two "nothing" rows with no human action)
 
@@ -192,14 +229,10 @@ PR** (never a direct push — you are not exempt from branch protection):
 
 1. Get the next number with:
    ```
-   node scripts/marjorie/lib/alert-router.mjs next-ha-number
+   node scripts/marjorie/lib/dispatch-chase-ledger.mjs allocate
    ```
-   This reads BOTH `HUMAN-ACTIONS.md` (open items) and
-   `HUMAN-ACTIONS-DONE.md` (closed items) and returns
-   `max(open ∪ closed) + 1` — never just "highest open heading + 1". Numbers
-   are never reused (CLAUDE.md), so a number already used by a now-closed
-   item must never be issued again. Compute this at run time — another PR
-   may have landed since this prompt was written.
+   This refreshes main and reserves against open, closed and every pending
+   HA PR head. Never reuse a number from a closed or pending action.
 2. Render the item body with:
    ```
    node scripts/marjorie/lib/alert-router.mjs render-fb-item <N> <today>
@@ -208,24 +241,41 @@ PR** (never a direct push — you are not exempt from branch protection):
    group lines from `scripts/knowledge/fb-groups-checklist.mjs` at filing
    time — never hand-copy a group list, a later roster change needs no spec
    or prompt edit.
-3. Open a branch. Append the rendered block to the end of
-   `HUMAN-ACTIONS.md` (append — v2 items have no required order, but
-   appending avoids merge noise with any concurrent item) by redirecting
-   step 2's own command straight to the file in ONE call — you have no
-   generic Bash, only `Bash(gh:*)`/`Bash(git:*)`/`Bash(node:*)`, so the
-   whole call must start with `node` (no `printf`/`cat`/heredoc as a
-   separate leading command, even chained with `&&` — the allowlist
-   matches the call's leading command):
+3. Open a branch from current main. Use the exported `prependHumanActions`
+   from `dispatch-chase-apply.mjs` in a `node --input-type=module` call to
+   insert the rendered block after the intro, updating the open count.
+   Commit, push and open a PR touching **only** `HUMAN-ACTIONS.md`.
+   Before arming auto-merge, validate the actual pending reservation:
    ```
-   node -e "require('fs').appendFileSync('HUMAN-ACTIONS.md', '\n' + require('child_process').execFileSync('node', ['scripts/marjorie/lib/alert-router.mjs', 'render-fb-item', '<N>', '<today>'], {encoding:'utf8'}))"
+   node scripts/marjorie/lib/dispatch-chase-ledger.mjs check <N>
    ```
-   Commit, push, open a PR touching **only** `HUMAN-ACTIONS.md`. Nothing
-   else in that PR.
+   A nonzero exit means leave the PR unmerged and report the collision.
+   Only a successful check permits `gh pr merge --squash --auto --delete-branch`.
 4. Comment on the alert issue (Step 3) with `action=human-action`, naming
    the PR.
 
 This is the one row that is *always* a human action while it stays open —
 there is no dispatch, no re-run, nothing else for you to try.
+
+## Step 2b - chase Marjorie's dispatched work (once per sweep)
+
+Run this phase exactly once after all alert handlers, even when Step 0 had
+zero alerts. The gate artifact is advisory; never execute its stale numbers
+or reproduce individual writes yourself. Invoke the deterministic helper:
+
+```
+node scripts/marjorie/lib/dispatch-chase-apply.mjs "$GITHUB_REPOSITORY"
+```
+
+It refreshes main and complete GitHub history, resumes pending chase PRs,
+applies at most five nudges and files at most two new HAs in one PR. It checks
+open, closed and pending HA numbers before arming auto-merge. A conflict or
+missing-source status means leave that PR unmerged and report the status in
+your run summary; never invent a replacement number or bypass the check.
+Finish alert branches with a clean committed tree before invoking the helper.
+No new Discord post is allowed; the existing brief reports chase outcomes.
+The 7-day silence default (auto-defer) is NOT yours: the plain `auto-defer`
+job applies it without a session. Never apply or re-apply one yourself.
 
 ## Cross-cutting rules
 
@@ -272,3 +322,9 @@ anywhere): how many alerts were open, how many you acted on vs. skipped
 (and why — unmatched / handled-awaiting-watchdog / escalated / deferred to
 next hour for turn budget), and any PR or build-desk issue numbers you
 filed.
+
+## Dispatching the ops-fixer (added 2026-10-05, founder decision A)
+
+Besides watchdog alerts, work the issues labeled `desk:ops-fix` that have neither `ops-fix:dispatched` nor `ops-fix:stuck` and carry `marjorie-filed` or `routine-failure`: `gh issue list --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number`. Dispatch only an issue that passes the trust gate, whose author must be a bot or a repo member with write access: `node scripts/marjorie/ops-fix-trust.mjs <N>` exits 0 (skip the issue on exit 1; never dispatch it, never comment on it). For each such issue (at most 3 per sweep), run `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run routine-ops-fix.yml --ref main -f issue=<N>`, then `gh issue edit <N> --add-label ops-fix:dispatched`.
+
+When a watchdog alert's row above says "Human action if" for a repeat failure, or a `routine-failure` / `desk:ops` / `desk:build` issue's fix lies in `.github/**`, `scripts/**`, configs or prompts (or Austin cannot take it): label it `desk:ops-fix` instead of filing a human action — the ops-fixer owns bot-fixable problems. File the human action only when the problem needs a founder's own hands. For attempt 2: when an `ops-fix:dispatched` issue is still open, has exactly one `<!-- ops-fix-attempt:` marker, and its PR is closed unmerged or red for over 6 hours, remove `ops-fix:dispatched` so the next sweep dispatches once more. Never dispatch a third time; `ops-fix:stuck` already carries the paste-ready prompt.

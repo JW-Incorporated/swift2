@@ -21,41 +21,37 @@ describe('top-of-feed-photo check', () => {
   });
 
   it('flags the newest photo-less moment in an era', async () => {
-    const m = moment({ key: 'newest', title: 'Newest page', raw: { year: 2026, month: 9, day: 1 } });
+    const m = moment({
+      key: 'newest',
+      title: 'Newest page',
+      raw: { year: 2026, month: 9, day: 1 },
+    });
     const f = await check([m]);
     expect(f).toHaveLength(1);
     expect(f[0].checker).toBe('content.top-of-feed-photo');
     expect(f[0].severity).toBe('P1');
-    expect(f[0].title).toMatch(/no photo \(position 1 of 1\)/);
+    expect(f[0].title).toMatch(/no authored media \(position 1 of 1\)/);
   });
 
   it('does not flag a moment with a real photo', async () => {
     const m = moment({
       key: 'has-photo',
-      raw: { year: 2026, month: 9, day: 1, moment: { photos: [{ url: 'https://example.com/a.jpg' }] } },
-    });
-    expect(await check([m])).toEqual([]);
-  });
-
-  it('does not flag a moment with a genuine privacy-decision photosReviewed reason', async () => {
-    const m = moment({
-      key: 'reviewed-sparse',
-      raw: { year: 2026, month: 9, day: 1, photosReviewed: 'residence privacy redline (L1)' },
-    });
-    expect(await check([m])).toEqual([]);
-  });
-
-  it('does not flag a moment with a private-individual composite redline reason', async () => {
-    const m = moment({
-      key: 'reviewed-private-individual',
       raw: {
         year: 2026,
         month: 9,
         day: 1,
-        photosReviewed: 'private-individual composite redline — every hero image pairs Taylor with a private individual',
+        moment: { photos: [{ url: 'https://example.com/a.jpg' }] },
       },
     });
     expect(await check([m])).toEqual([]);
+  });
+
+  it('flags a privacy note without media because privacy changes the visual choice, not the requirement', async () => {
+    const m = moment({
+      key: 'reviewed-sparse',
+      raw: { year: 2026, month: 9, day: 1, photosReviewed: 'residence privacy redline (L1)' },
+    });
+    expect(await check([m])).toHaveLength(1);
   });
 
   it('flags a moment even with photosReviewed if the string is blank/whitespace', async () => {
@@ -79,7 +75,20 @@ describe('top-of-feed-photo check', () => {
     });
     const f = await check([m]);
     expect(f).toHaveLength(1);
-    expect(f[0].evidence).toMatch(/does not describe a privacy decision/);
+    expect(f[0].evidence).toMatch(/photosReviewed.*do not satisfy/);
+  });
+
+  it.each([
+    { video: { youtubeId: 'abcdefghijk', title: 'Official clip' } },
+    { socialPost: { platform: 'instagram', shortcode: 'ABC_123', label: 'Official post' } },
+  ])('accepts renderable video/embed media (%j)', async (media) => {
+    expect(await check([moment({ raw: { year: 2026, month: 9, day: 1, ...media } })])).toEqual([]);
+  });
+
+  it('rejects a malformed empty photo object', async () => {
+    expect(
+      await check([moment({ raw: { year: 2026, month: 9, day: 1, moment: { photos: [{}] } } })]),
+    ).toHaveLength(1);
   });
 
   it('only considers the N newest moments per era (N = CONFIG.topOfFeed.count, default 10)', async () => {

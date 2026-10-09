@@ -43,7 +43,7 @@ export const THEORY_MINER_SYSTEM_PROMPT = [
   '',
   'OUTPUT — report through the record_fan_theories tool only, no prose outside it:',
   '- `theories`: zero or more theories this bundle genuinely surfaces (empty is normal and expected).',
-  '- For each theory: `name` (short label), `claim` (<=200 chars, our words), `theory_key` (a stable lowercase-hyphenated slug so the same theory dedupes across threads, e.g. "1989-tv-vault-track-count"), `mechanism` (what kind of clue — number, color, wardrobe, caption, lyric_callback, or similar; omit if none applies), `symbols` (matching keys from the given symbol lexicon where they genuinely apply — never invent a new symbol key), `track_slug` (only if the theory clearly concerns one specific track), `predicts` + `predicted_date` (only when the theory makes a checkable prediction), `evidence_summary` (1-2 sentences, aggregate voice), and `stance` (' +
+  '- For each theory: `name` (short label), `claim` (<=200 chars, our words), `theory_key` (a stable lowercase-hyphenated slug so the same theory dedupes across threads, e.g. "1989-tv-vault-track-count"), `mechanism` (what kind of clue — number, color, wardrobe, caption, lyric_callback, or similar; omit if none applies), `symbols` (matching keys from the given symbol lexicon where they genuinely apply — never invent a new symbol key), `numeric_signals` (every distinct NUMBER the discussion itself points to as meaningful — a repeated punctuation count, an album/track ordinal, a date part; omit if the discussion cites no number), `track_slug` (only if the theory clearly concerns one specific track), `predicts` + `predicted_date` (only when the theory makes a checkable prediction), `evidence_summary` (1-2 sentences, aggregate voice), and `stance` (' +
     FAN_THEORY_STANCES.join(', ') +
     ' — how the thread itself receives the theory, not your own view).',
   '- `skip_reason` (one of: ' +
@@ -82,6 +82,12 @@ export const RECORD_FAN_THEORIES_TOOL = {
               items: { type: 'string' },
               description:
                 'Matching keys from the given symbol lexicon where they genuinely apply; never invent a new symbol key.',
+            },
+            numeric_signals: {
+              type: 'array',
+              items: { type: 'number' },
+              description:
+                'Every distinct number the discussion itself points to as meaningful (a repeated punctuation count, an album/track ordinal, a date part). Omit if the discussion cites no number.',
             },
             track_slug: {
               type: 'string',

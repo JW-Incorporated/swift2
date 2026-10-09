@@ -27,6 +27,14 @@ describe('social-approval-notify.yml — the already-stamped filter (PR #4139)',
     for (const p of projections) expect(p).toMatch(/\bcritique\b/);
   });
 
+  // Bots v2 W2: the approval post shows a lone item's written reason, so the
+  // projection must carry it (same failure mode as `critique` above).
+  it('projects `singlePlatformReason` into BOTH manifests — without it the approval post cannot show why an item is single-platform', () => {
+    const projections = wf.match(/'\{file: \$file,[^']*\}'/g) ?? [];
+    expect(projections).toHaveLength(2);
+    for (const p of projections) expect(p).toMatch(/\bsinglePlatformReason\b/);
+  });
+
   it('hands the PR number and head SHA to the filter in BOTH jobs, so a stamp that no longer covers the branch is re-briefed instead of suppressing the whole prompt (round 4, Codex HIGH)', () => {
     const calls = wf.match(/node scripts\/social\/filter-already-stamped\.mjs [^\n]+/g) ?? [];
     expect(calls).toHaveLength(2);

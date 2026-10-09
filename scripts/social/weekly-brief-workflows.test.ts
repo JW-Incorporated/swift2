@@ -120,3 +120,12 @@ describe('LOW (Codex round 3): the permalink line always resolves to the LAST oc
   // re-routed, so there is no more permalink-substitution logic in this file
   // to regress.
 });
+
+describe('#4169: SOCIAL_FREEZE reaches every weekly-brief.mjs step', () => {
+  it('routine-tree-weekly-plan.yml passes vars.SOCIAL_FREEZE to both brief steps', () => {
+    const workflow = readWorkflow('.github/workflows/routine-tree-weekly-plan.yml');
+    expect(countOccurrences(workflow, /SOCIAL_FREEZE: \$\{\{ vars\.SOCIAL_FREEZE \}\}/g)).toBe(
+      countOccurrences(workflow, /node scripts\/social\/weekly-brief\.mjs/g),
+    );
+  });
+});

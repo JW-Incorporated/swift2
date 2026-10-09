@@ -9,6 +9,8 @@
 // not a private/incognito session or a cleared site data).
 'use client';
 
+import type { WebPushSubscribeResult } from '@swift2/ui';
+
 const DEVICE_ID_KEY = 'longlive_web_device_id';
 
 function generateDeviceId(): string {
@@ -63,12 +65,7 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
   return outputArray;
 }
 
-export type WebPushSubscribeResult =
-  | { status: 'subscribed'; deviceId: string }
-  | { status: 'permission_denied'; deviceId: string }
-  | { status: 'unsupported' }
-  | { status: 'vapid_not_configured' }
-  | { status: 'error'; error: string };
+export type { WebPushSubscribeResult };
 
 /**
  * Full subscribe flow: registers the service worker, asks for

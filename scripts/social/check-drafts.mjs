@@ -57,8 +57,8 @@
 //                     posted Instagram items. THE TAYLOR-PHOTO STANDARD
 //                     (2026-08-12): generic era tiles are banned outright,
 //                     and every draft with media must declare mediaKind —
-//                     "photo" (a real credited photograph of Taylor, with
-//                     mediaCredit + mediaSource) or "site-screen" (a
+//                     "photo" (a real photograph of Taylor, with mediaSource and,
+//                     when the photographer is known, mediaCredit) or "site-screen" (a
 //                     deliberate product screenshot under /social/library/).
 //
 // Usage:
@@ -88,22 +88,29 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
-import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES } from './lib/queue-schema.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
+import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
+import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
+import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+// S2 (docs/decisions.md 2026-10-01): the TASTE thresholds below — media kinds,
+// photo reuse, pairing default, opener/hook windows, photo mix, screenshot
+// rules — are Tree's, in social/strategy-params.json (safe defaults when the
+// file is missing). The GUARDRAIL checks (rights/takedown source, X length limit,
+// Instagram image + aspect rules, story-unique campaign) stay hard-coded here
+// and have no parameter. See docs/social/guardrails.md.
+const PARAMS = loadStrategyParams(ROOT);
 export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
 export const POSTED_DIR = path.join(ROOT, 'social', 'posted');
 const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
 
-const OPENER_WORDS = 6;
-const POSTED_LOOKBACK_DAYS = 14;
-const SIBLING_SIMILARITY_THRESHOLD = 0.8;
-// A same-day IG item this similar to an X draft with no shared `campaign`
-// is worth flagging as "probably should have been tagged," even below the
-// near-duplicate threshold above — see checkCrossPostCopy's fallback path.
-const PAIRED_LOOKING_FLOOR = 0.15;
-const ERA_ART_LOOKBACK = 10;
+// (opener window, posted lookback, cross-post similarity threshold and the
+// "paired-looking" floor, IG-history window: strategy-params.json.)
 const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
 const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
 // Where rehosted real photographs of Taylor live (the 2026-08-12 standard).
@@ -157,13 +164,12 @@ const ACTIVE_LESSON_IDS = (() => {
 })();
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
-// 2207009 / code 36003, "the aspect ratio is not supported". X has no such
+// 2207009 / code 36003, "the aspect ratio is not supported". The window lives in
+// lib/photo-dimensions.mjs so the daily pre-compute filters on the same numbers. X has no such
 // limit, so this gate is Instagram-only. Nine days of IG posts (15–23 Aug
 // 2026) died silently on this: eight/nine 780x1688 site screenshots (ratio
 // 0.462) were queued and rejected while nothing inspected image shape
 // (social/calendar.md). 1080x1350 = exactly 0.8 and publishes.
-const IG_MIN_ASPECT_RATIO = 0.8;
-const IG_MAX_ASPECT_RATIO = 1.91;
 
 // X's own length limit — see checkLength/weightedTweetLength below for the
 // full story. HARD_LIMIT is X's real cap; anything past it gets rejected
@@ -171,7 +177,6 @@ const IG_MAX_ASPECT_RATIO = 1.91;
 // items, corrected 2026-08-11). WARN_THRESHOLD is a self-imposed target with
 // headroom, not an X rule — flagged as non-fatal.
 const X_WEIGHTED_LENGTH_HARD_LIMIT = 280;
-const X_WEIGHTED_LENGTH_WARN_THRESHOLD = 270;
 // Findings that are advisory, not fatal, are tagged with this prefix so
 // main() can tell the two apart without a richer finding-object shape (every
 // other rule family here already returns plain strings) — see checkLength
@@ -292,13 +297,17 @@ export async function checkVoice(file, body) {
   return [...surname, ...aiTell, ...wire].map((f) => `voice (${f.checker}): ${f.evidence}`);
 }
 
-export function checkOpeners(file, item, others) {
+export function checkOpeners(file, item, others, params = PARAMS) {
   const findings = [];
   const normalized = normalizeOpener(item.body);
+  const OPENER_WORDS = params.openers.wordWindow;
   // Word boundary (`\b`) so "did you knowledge..." (a real, if unlikely,
   // sentence) doesn't false-positive — only an actual standalone "know".
-  if (/^did you know\b/.test(normalized)) {
-    findings.push('opener: body opens with "did you know" — banned formula opener, rewrite the hook.');
+  for (const banned of params.openers.bannedOpeners) {
+    const phrase = banned.trim().toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+    if (new RegExp(`^${phrase}\\b`).test(normalized)) {
+      findings.push(`opener: body opens with "${banned}" — banned formula opener (social/strategy-params.json openers.bannedOpeners), rewrite the hook.`);
+    }
   }
   const mine = firstWords(item.body, OPENER_WORDS);
   if (mine) {
@@ -338,13 +347,18 @@ export function checkOpeners(file, item, others) {
  * copy. Always." No marker, however genuinely worded, suppresses this
  * finding any more.
  *
+ * AMENDED 2026-09-30 (owner, Bots v2 C4): pairing is still the default, but an
+ * item may carry its own written `singlePlatformReason` (no usable image →
+ * X-only; breaking-news speed) — the only exemption, shown to the owner on the
+ * approval post. See docs/decisions.md 2026-09-30.
+ *
  * Scoped deliberately to the campaign of the draft being checked, not to the
  * whole corpus: legacy unpaired campaigns already in `social/posted/` are the
  * advisory checker's business, and must not retroactively fail every future
  * PR that merely touches social/queue/ (same reasoning as the targets-only
  * design in main()).
  */
-export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
+export function checkCampaignPair(file, item, allQueueItems, allPostedItems, params = PARAMS) {
   if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
 
   const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
@@ -370,13 +384,23 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
   );
 
   if (group.some((o) => o.data.platform === wanted)) return [];
+  // Tree's call (strategy-params.json pairing.requireBothPlatforms): the
+  // sibling-exists requirement above is taste; the story-unique `campaign`
+  // key (checked first) is a guardrail and stays hard.
+  if (!params.pairing.requireBothPlatforms) return [];
+
+  // Bots v2 (docs/plans/bots-v2/PLAN.md C4, owner 2026-09-30): a WRITTEN
+  // `singlePlatformReason` on THIS item is the one sanctioned exception —
+  // distinct from the removed `why` marker (a reason on a sibling, or inside
+  // `why`, still does not count). The owner reads it on the approval post.
+  if (isValidSinglePlatformReason(item.singlePlatformReason)) return [];
 
   return [
     `campaign pair: campaign "${campaign}" has this ${item.platform} item but no ${wanted} sibling in social/queue/ or ` +
-      'social/posted/. Every real campaign ships to BOTH platforms, unconditionally — no single-platform exception of ' +
-      `any kind (social/README.md, Joey 2026-08-25 and 2026-08-26) — author the ${wanted} item in this same change ` +
-      'with the exact same `campaign` value. The Instagram item already cross-posts to Facebook, so never add a ' +
-      'third Facebook item.',
+      'social/posted/. Every post ships to BOTH platforms by default — author the ' +
+      `${wanted} item in this same change with the exact same \`campaign\` value, or set a written ` +
+      '`singlePlatformReason` on this item (no usable image → X-only; breaking-news speed). ' +
+      'The Instagram item already cross-posts to Facebook, so never add a third Facebook item.',
   ];
 }
 
@@ -396,7 +420,7 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
  */
 export const SIMULTANEOUS_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
 
-export function checkSimultaneousPair(file, item, allQueueItems) {
+export function checkSimultaneousPair(file, item, allQueueItems, params = PARAMS) {
   if (!RECOGNIZED_PLATFORMS.has(item.platform)) return []; // checkSchema already flags this
   if (!isValidScheduledAt(item)) return []; // checkSchema already flags this
 
@@ -410,19 +434,25 @@ export function checkSimultaneousPair(file, item, allQueueItems) {
   if (!sibling || !isValidScheduledAt(sibling.data)) return [];
 
   const deltaMs = Math.abs(new Date(item.scheduledAt).getTime() - new Date(sibling.data.scheduledAt).getTime());
-  if (deltaMs <= SIMULTANEOUS_WINDOW_MS) return [];
+  const windowMs = params.pairing.simultaneousWindowMinutes * 60 * 1000;
+  if (deltaMs <= windowMs) return [];
 
   const deltaMinutes = Math.round(deltaMs / 60000);
   return [
     `simultaneous pair: campaign "${campaign}" schedules this ${item.platform} item ${deltaMinutes} minute(s) apart from its ` +
       `${wanted} sibling ${sibling.file} — "all at once" means both siblings ship together (2026-09-10, kanban t_bac31b1a, ` +
       `Joey: "one idea goes out to X, Instagram... all together"), not hours apart same day. Set both \`scheduledAt\` values ` +
-      `to the same instant (or within ${SIMULTANEOUS_WINDOW_MS / 60000} minutes of each other).`,
+      `to the same instant (or within ${windowMs / 60000} minutes of each other).`,
   ];
 }
 
-export function checkCrossPostCopy(file, item, allQueueItems) {
+export function checkCrossPostCopy(file, item, allQueueItems, params = PARAMS) {
   if (item.platform !== 'x') return [];
+  const SIBLING_SIMILARITY_THRESHOLD = params.crossPost.similarityThreshold;
+  // A same-day IG item this similar to an X draft with no shared `campaign`
+  // is worth flagging as "probably should have been tagged," even below the
+  // near-duplicate threshold — see the fallback path below.
+  const PAIRED_LOOKING_FLOOR = params.crossPost.pairedLookingFloor;
 
   if (item.campaign) {
     const sibling = allQueueItems.find((o) => o.file !== file && o.data.platform === 'instagram' && o.data.campaign === item.campaign);
@@ -520,8 +550,9 @@ export { weightedTweetLength } from './lib/x-length.mjs';
  * finding as advisory, not a checker failure) above 270, to leave headroom
  * before the hard limit rather than let every draft ride the edge.
  */
-export function checkLength(item) {
+export function checkLength(item, params = PARAMS) {
   if (item.platform !== 'x') return [];
+  const X_WEIGHTED_LENGTH_WARN_THRESHOLD = Math.min(params.xLength.warnAt, X_WEIGHTED_LENGTH_HARD_LIMIT);
   const weighted = weightedTweetLength(item.body);
   if (weighted > X_WEIGHTED_LENGTH_HARD_LIMIT) {
     return [
@@ -540,7 +571,7 @@ function checkInventoryPhotoBinding(item, tile) {
   }
   const selectedPhoto = PHOTO_LIBRARY_BY_ID.get(item.photoId);
   if (!selectedPhoto) return [`media: photoId ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
-  if (selectedPhoto.mediaPath !== tile || selectedPhoto.credit !== item.mediaCredit || selectedPhoto.source !== item.mediaSource) {
+  if (selectedPhoto.mediaPath !== tile || !creditsMatch(item.mediaCredit, selectedPhoto.credit) || selectedPhoto.source !== item.mediaSource) {
     return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
   }
   // photoEra (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
@@ -568,15 +599,23 @@ function checkInventoryPhotoBinding(item, tile) {
   return [];
 }
 
-export async function checkMedia(file, item, recentIgPosted, allQueueItems = []) {
+export async function checkMedia(file, item, recentIgPosted, allQueueItems = [], params = PARAMS) {
   const findings = [];
   if (item.platform === 'instagram' && !item.media?.length) {
     findings.push('media: Instagram drafts require at least one image in `media`.');
     return findings; // nothing else to check without media
   }
   if (item.platform === 'x' && !item.media?.length) {
+    // Bots v2 W8: "no usable image → X-only" is the sanctioned single-platform case (checkCampaignPair,
+    // owner 2026-09-30) — it could never pass while this gate demanded media too. Only an X item that
+    // carries its OWN written reason is exempt; a paired X item still needs its image.
+    if (isValidSinglePlatformReason(item.singlePlatformReason)) return findings;
+    if (!params.media.requireImageOnX) return findings; // Tree's call (strategy-params.json media.requireImageOnX)
     findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
     return findings;
+  }
+  if (KNOWN_MEDIA_KINDS.includes(item.mediaKind) && !params.media.allowedKinds.includes(item.mediaKind)) {
+    findings.push(`media: mediaKind ${JSON.stringify(item.mediaKind)} is not currently allowed — social/strategy-params.json media.allowedKinds is ${JSON.stringify(params.media.allowedKinds)}.`);
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
     findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
@@ -603,16 +642,17 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   let launchCarouselRequired = false;
   if (item.platform === 'instagram' && item.mediaKind === 'site-screen') {
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
-    if (!campaign.startsWith('launch:')) {
+    const screenPrefixes = params.siteScreen.allowedCampaignPrefixes;
+    if (!screenPrefixes.some((p) => campaign.startsWith(p))) {
       findings.push(
-        `media: mediaKind "site-screen" is only allowed on a \`launch:\`-family campaign (this draft's campaign is ${JSON.stringify(item.campaign ?? null)}) — ` +
+        `media: mediaKind "site-screen" is only allowed on a ${screenPrefixes.map((p) => `\`${p}\``).join('/')}-family campaign (social/strategy-params.json siteScreen; this draft's campaign is ${JSON.stringify(item.campaign ?? null)}) — ` +
           'per docs/marketing/social-strategy.md §2, a website screenshot is only legitimate for a feature-launch/how-to post. Every other post must use a real credited Taylor photo ' +
           '(mediaKind "photo") or go text-only on X. (Joey, 2026-08-31: "no more pictures of our website.")',
       );
     } else {
-      launchCarouselRequired = true;
+      launchCarouselRequired = params.siteScreen.requirePhotoGridTile;
       const media = item.media ?? [];
-      if (media.length < 2 || !String(media[0]).startsWith(PHOTO_PREFIX)) {
+      if (launchCarouselRequired && (media.length < 2 || !String(media[0]).startsWith(PHOTO_PREFIX))) {
         findings.push(
           `media: mediaKind "site-screen" on a launch campaign must be a carousel — media[0] a real Taylor photo under ${PHOTO_PREFIX} (the grid tile), the screenshot(s) as slide 2+ ` +
             '— per docs/marketing/social-strategy.md §2(a): "the screenshot rides slide 2 of a carousel behind a Taylor photo tile — the grid shows Taylor either way." ' +
@@ -640,12 +680,27 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     // drafts only (X has no such limit). See IG_MIN/MAX_ASPECT_RATIO above.
     if (item.platform === 'instagram') {
       let meta;
-      try {
-        meta = imageMeta(await readFile(full));
-      } catch {
-        meta = null;
+      const libraryEntry = PHOTO_LIBRARY_BY_PATH.get(mediaPath);
+      if (String(mediaPath).startsWith(PHOTO_PREFIX) && libraryEntry?.width && libraryEntry?.height) {
+        // Library photos live in Git LFS (docs/decisions.md 2026-10-07); the
+        // checkout may hold only a pointer, so trust the recorded dimensions.
+        meta = { width: libraryEntry.width, height: libraryEntry.height };
+      } else {
+        try {
+          const bytes = await readFile(full);
+          if (String(mediaPath).startsWith(PHOTO_PREFIX) && isLfsPointerBuffer(bytes)) {
+            findings.push(`media: "${mediaPath}" — library entry missing width/height (the photo is a Git LFS pointer here, so dimensions cannot be read). Add width/height/bytes to its social/photo-library.json entry.`);
+            meta = 'reported';
+          } else {
+            meta = imageMeta(bytes);
+          }
+        } catch {
+          meta = null;
+        }
       }
-      if (!meta || !meta.width || !meta.height) {
+      if (meta === 'reported') {
+        // already flagged above (LFS pointer without recorded dimensions)
+      } else if (!meta || !meta.width || !meta.height) {
         findings.push(
           `media: "${mediaPath}" — could not read image dimensions to verify Instagram's aspect-ratio limit (${IG_MIN_ASPECT_RATIO}–${IG_MAX_ASPECT_RATIO}, width/height). Re-export a standard PNG/JPEG at 1080x1350.`,
         );
@@ -674,15 +729,20 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       );
       continue;
     }
-    if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
+    const ownCampaign = typeof item.campaign === 'string' && item.campaign.trim() ? item.campaign.trim() : null;
+    // The IG and X halves of ONE campaign share their image by design — only a repeat from another campaign is reuse.
+    const otherCampaignIg = ownCampaign ? recentIgPosted.filter((p) => p.campaign !== ownCampaign) : recentIgPosted;
+    // An Instagram-ready variant and its original are ONE photograph (make-ig-variants.mjs): match either path.
+    const samePhoto = samePhotoPaths(mediaPath, PHOTO_LIBRARY);
+    if (params.photoReuse.scope !== 'none' && samePhoto.some((p) => repeatsRecentIgMedia(p, otherCampaignIg, params.photoReuse.igHistoryWindow))) {
       findings.push(
-        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but reuse remains valid so a finite library cannot deadlock a paired campaign.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but across campaigns it is also a hard finding (photo reuse, L001).`,
       );
     }
     // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
     // posted-window check above until it's too late (PR #2043 review — two
     // queued IG items four days apart shared a screenshot and both passed).
-    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
+    const alsoQueuedIn = params.photoReuse.scope === 'none' ? undefined : allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).some((m) => samePhoto.includes(m)) && !(ownCampaign && o.data.campaign === ownCampaign));
     if (alsoQueuedIn) {
       findings.push(
         `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,
@@ -710,9 +770,6 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
         `media: launch-campaign site-screen carousel's grid tile "${grid}" must live under ${PHOTO_PREFIX} — a real credited Taylor photo, not the screenshot.`,
       );
     }
-    if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
-      findings.push('media: launch-campaign site-screen carousel requires `mediaCredit` for its Taylor-photo grid tile.');
-    }
     if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
       findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
     }
@@ -733,11 +790,10 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
           `media: mediaKind "photo" tile "${tile}" must live under ${PHOTO_PREFIX} — the rehosted, credited Taylor-photo corpus. A screenshot or other asset cannot be declared a photo.`,
         );
       }
-      if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
-        findings.push('media: mediaKind "photo" requires `mediaCredit` — a real photograph of Taylor always ships with its photographer/agency credit.');
-      }
+      // mediaCredit is optional (owner, chat, 2026-10-01): credit the photographer whenever known,
+      // omit it when unknown. A credit that IS present is bound to the library entry above.
       if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
-        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so the credit is auditable.');
+        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so any takedown request can be honoured.');
       }
       // #3584 (Fable ruling, 2026-09-05): a rehosted YouTube/broadcaster
       // thumbnail is NOT a "photo" — see the VIDEO_THUMBNAIL_CREDIT_RE /
@@ -762,15 +818,21 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
           `media: mediaKind "site-screen" tile "${tile}" must be a committed product screenshot under /social/library/ (and NOT under ${PHOTO_PREFIX} — a real photo must be declared "photo" so its credit is required).`,
         );
       }
+    } else if (item.mediaKind === 'card') {
+      const png = await readFile(path.join(PUBLIC_DIR, tile)).catch(() => null);
+      const sidecar = await readFile(path.join(PUBLIC_DIR, cardSidecarPath(tile)), 'utf8').then(JSON.parse).catch(() => null);
+      findings.push(...checkCardMedia(item, tile, { png, sidecar }));
     } else if (item.mediaKind === 'era-art') {
       findings.push(
-        'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo" or "site-screen".',
+        'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo", "site-screen" or "card".',
       );
     } else {
       findings.push(
-        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) or "site-screen" (deliberate product screenshot). Undeclared media is how the account drifted to a Taylor-free grid.`,
+        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real photograph of Taylor, with mediaSource, and mediaCredit when the photographer is known) "site-screen" (deliberate product screenshot) or "card" (a committed render from /api/share-card). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
+    const mix = photoMixWarning(item, recentIgPosted, params);
+    if (mix) findings.push(`${WARNING_PREFIX} ${mix}`);
   }
   return findings;
 }
@@ -791,12 +853,12 @@ export function checkCritique(item, { activeLessonIds = [] } = {}) {
   return findCritiqueIssues(item, { activeLessonIds });
 }
 
-export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
+export async function recentInstagramPosted(n = Math.max(PARAMS.photoReuse.igHistoryWindow, PARAMS.photoMix.window)) {
   const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
   return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
 }
 
-export async function recentPostedOpeners(days = POSTED_LOOKBACK_DAYS) {
+export async function recentPostedOpeners(days = PARAMS.openers.postedLookbackDays) {
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
   const posted = await readJsonDir(POSTED_DIR);
   return posted.filter((p) => p.data.postedAt && new Date(p.data.postedAt).getTime() >= cutoff).map((p) => ({ file: p.file, body: p.data.body }));
@@ -840,19 +902,21 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [] }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
   return [
     ...(await checkVoice(target.file, target.data.body)),
-    ...checkOpeners(target.file, target.data, openerContext),
-    ...checkCampaignPair(target.file, target.data, allQueue, allPosted),
-    ...checkSimultaneousPair(target.file, target.data, allQueue),
-    ...checkCrossPostCopy(target.file, target.data, allQueue),
+    ...checkOpeners(target.file, target.data, openerContext, params),
+    ...checkCampaignPair(target.file, target.data, allQueue, allPosted, params),
+    ...checkSimultaneousPair(target.file, target.data, allQueue, params),
+    ...checkCrossPostCopy(target.file, target.data, allQueue, params),
     ...checkFastLaneDisplacement(target.file, target.data, allQueue),
-    ...checkLength(target.data),
-    ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
+    ...checkLength(target.data, params),
+    ...(await checkMedia(target.file, target.data, recentIg, allQueue, params)),
+    ...checkPhotoReuse(target.file, target.data, allQueue, allPosted, [...PHOTO_LIBRARY_BY_ID.values()], params.photoReuse),
+    ...checkExperiment(target.data),
     ...checkCritique(target.data, { activeLessonIds }),
   ];
 }

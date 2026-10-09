@@ -198,3 +198,100 @@ Neither bot asks for anything only a founder can decide.
 - **The 200-issue lookup window** (filed label and desk label together) excludes M3's
   build-desk filings. At today's volume (<10 a week) a same-day re-dispatch
   always falls inside it. The structural cap is the same class as #4239.
+
+## Live loop (Bots v2 W7, 2026-09-30)
+
+**Why.** The owner: "If Tree has an issue, like he needs more content, he must be
+able to ask Marjorie's help" and "Tree should address any feedback from Marjorie
+immediately when it comes in." Asks above flowed weekly: Tree filed only from its
+Monday plan, read Marjorie's only on Mondays, and five Tree asks sat unanswered for
+16 days. An ask is now answered the day it is filed, by the other bot, in a comment
+anyone can read. Both bots manage the site together.
+
+**Behavior.**
+
+- **Tree → Marjorie, any day.** Tree's daily draft and chat routines save at most one
+  help ask when blocked (a content gap, a missing asset, a failing workflow). A plain
+  job files it (`tree-filed` + `desk:ops`) and starts `routine-marjorie-ask-response.yml`
+  at once. Marjorie reads the ask, the open `weekly-plan` issue and, only for a numbers
+  question, growth data, then comments one disposition and labels it:
+  `ACCEPT-NOW` (what, who, by when; `loop:accepted`), `SCHEDULE` (which week, why;
+  `loop:scheduled`), `DECLINE` (why, against the plan; `loop:declined`, closed) or
+  `REROUTE` (an engineering issue through the build-ticket funnel, or a bot1 prompt for
+  the bridge; `loop:rerouted`, closed).
+- **Marjorie → Tree, immediately.** Whenever Marjorie files a `marjorie-filed` +
+  `desk:tree` ask — from her brief, weekly review, triage, chat, or a response run —
+  the filer starts `routine-tree-ask-response.yml`. Tree assesses and comments:
+  `DOING IT` (and opens the PR that makes the change now — social strategy is fluid:
+  `docs/marketing/social-strategy.md`, `social/calendar.md`, and `social/lessons.md`
+  through `lib/lessons.mjs`; `loop:accepted`, closed once the PR is open), `CAN'T` (the
+  reason; `loop:declined`, stays open) or `NEEDS HELP` (files a help ask back, which is
+  the Tree → Marjorie flow; `loop:needs-help`, stays open). Never `social/queue/`,
+  approvals, or the posting path — the charter amendment of 2026-09-30 is in
+  `docs/agents/tree.md`.
+- **Backlog.** Each Marjorie response run answers the ask that woke it first, then the
+  oldest still-unanswered `tree-filed` asks, four in all; a manual dispatch with no issue
+  number drains four. Tree's runs answer the woken ask plus one older. Marjorie's daily
+  brief and Tree's Monday plan still write a `Disposition:` for any ask that has none, so
+  a dropped dispatch is picked up within a day.
+
+**Mechanics.** `loop-asks.mjs file-tree|file-marjorie --dispatch` and
+`loop-live.mjs file-help --dispatch` (the shared `loop-file-asks.yml`) file as the
+workflow token and call `lib/loop-dispatch.mjs`; `loop-live.mjs pending` writes
+`.scratch/ask-queue.json` for the response run; `loop-live.mjs save-help` is how an agent
+without a Write tool saves an ask. Responded means a comment by `claude`/`claude[bot]`
+whose line is `Disposition: <WORD>` (`lib/loop-queue.mjs`); nobody else's comment counts — except the post-run `guard` job's marker-bearing fallback `NEEDS HELP` (`lib/loop-fallback.mjs`), posted by the workflow identity on any queued ask the run left unanswered.
+A response run files nothing itself: a counter-ask is saved to `.scratch/out/` and filed by
+the plain `asks` job with `parent` set to the ask it answered.
+
+**Loop guards** (all in code, tested in `lib/loop-dispatch.test.ts`, `lib/loop-queue.test.ts`,
+`loop-live.test.ts`, `loop-live-workflows.test.ts`):
+
+1. *Creation only.* A dispatch happens only for a filing with `created: true`. A re-found
+   ask, a comment, a label or a close dispatches nothing, and neither response workflow
+   has any trigger but `workflow_dispatch` — no bot comment can start a routine.
+2. *Once per issue.* A `<!-- loop-dispatched: <direction> depth=N -->` comment, written by
+   the workflow identity before the dispatch, stops a second dispatch of the same kind for
+   the same issue; a marker from anyone else is ignored (the repo is public).
+3. *Daily cap.* At most 6 per UTC day per direction, counted from GitHub's own run list for
+   the target workflow — durable with no ledger file. Separately, a bot may file at most 2
+   (Tree) or 4 (Marjorie) new help asks a day, never one already open under the same text.
+4. *Depth cap.* An ask filed from a response run carries its parent's depth + 1 and is not
+   dispatched past depth 2, which bounds a Marjorie → Tree → Marjorie chain. Each saved ask
+   names the queue item it answers (`--parent`); a response run's ask with no parent fails
+   closed (depth 3, never dispatched), so a manual or backlog run cannot reset the chain. An
+   undispatched ask records its depth (`<!-- loop-depth: N -->`), is still filed, and shows in
+   both briefs.
+5. *Bounded cost.* Each response run answers at most four asks (Tree: two), costs at most $4 (Marjorie)
+   or $5 (Tree), and skips the agent entirely when the queue is empty.
+
+A dispatch failure never loses the filing: it is a `::warning::` and the daily brief or
+Monday plan answers the ask instead.
+
+**Prompt-injection boundary.** The repo is public, so a response run never reads an issue
+or comment itself: `loop-live.mjs pending` writes the queue file with each bot-filed ask's
+body, its depth, the open weekly plan (only if a trusted identity wrote it) and the comments
+of trusted authors only (workflow and Claude identities, the owner's own account), and the
+run's `gh` access is limited to comment/edit/close/create so it cannot fetch more. Asks that
+contradict another open ask are left out of the queue before the limit.
+
+**Decisions become action.** When the owner replies `decide #N <choice>` on the status
+page, `lib/decision-propagate.mjs` comments the decision on every issue and PR the item
+named (once each, marker `<!-- decision-propagated: HA-N -->`), and Marjorie's next brief
+moves the tickets it settles (`marjorie-brief.md` step 3b).
+
+**Status-page burst fix.** `marjorie-status.yml`'s reply job keeps one pending run, so a
+burst of owner comments could drop one. The job now sweeps the thread
+(`lib/status-sweep.mjs`): every owner comment after the newest `<!-- status-ack: ID -->`
+the workflow wrote is handled, oldest first, each acknowledged by its own reply.
+
+**The 2026-09-30 failures.** `routine-marjorie-triage` and `routine-marjorie-ops` failed
+at 20:51 and 20:54 UTC with a Claude session that returned `is_error: true` after 364 ms,
+zero tokens and no model usage: an upstream refusal before any work, not a code or config
+fault (the next scheduled runs passed). Nothing here retries it; the cadence watchdog
+already reports a missed run.
+
+**Files.** `lib/loop-dispatch.mjs`, `lib/loop-queue.mjs`, `loop-live.mjs`,
+`lib/status-sweep.mjs`, `lib/decision-propagate.mjs`, `loop-file-asks.yml`,
+`routine-marjorie-ask-response.yml`, `routine-tree-ask-response.yml`, their two prompts,
+and edits to the callers and prompts named in `MAP.md`.

@@ -1,11 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { setTracksRawProvider, trackKey } from '@swift2/experience';
 
-const item = { id: 'interrupted-speech' };
+const item = { id: 'interrupted-speech', slug: 'interrupted-speech-slug' };
 const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
 vi.mock('@/components/longlive/LongLive', () => ({ LongLive: () => null }));
-vi.mock('@/lib/longlive/content', () => ({ getContentItem: (id: string) => (id === item.id ? item : undefined) }));
+vi.mock('@/lib/longlive/content', () => ({
+  getContentItemByIdOrSlug: (id: string) => (id === item.id || id === item.slug ? item : undefined),
+}));
 
 import { generateMetadata } from './page';
 
@@ -49,6 +51,7 @@ describe('generateMetadata (og:image selection)', () => {
 
   it('routes item, era, song, guide, and theories targets to their own cached OG cards', async () => {
     await expect(metadataFor({ item: item.id })).resolves.toMatchObject({ openGraph: { images: ['/api/og?item=interrupted-speech'] } });
+    await expect(metadataFor({ item: item.slug })).resolves.toMatchObject({ openGraph: { images: ['/api/og?item=interrupted-speech'] } });
     await expect(metadataFor({ era: 'fearless' })).resolves.toMatchObject({ openGraph: { images: ['/api/og?era=fearless'] } });
     await expect(metadataFor({ song: trackKey('fearless', track) })).resolves.toMatchObject({ openGraph: { images: [`/api/og?song=${encodeURIComponent(trackKey('fearless', track))}`] } });
     await expect(metadataFor({ guide: 'fearless' })).resolves.toMatchObject({ openGraph: { images: ['/api/og?guide=fearless'] } });

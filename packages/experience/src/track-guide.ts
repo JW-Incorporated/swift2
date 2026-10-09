@@ -1,6 +1,5 @@
 import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
-import { tracksRawProvider } from './track-catalogue-provider';
-import { contentItemLookup } from './content-item-provider';
+import type { ReaderCorpus } from './corpus';
 import { getEra } from './eras';
 import { formatFullDate } from './format';
 
@@ -14,8 +13,8 @@ import { formatFullDate } from './format';
  * here are plain lookups.
  */
 
-export function tracksForEra(eraId: EraId): TrackNote[] {
-  return tracksRawProvider()[eraId] ?? [];
+export function tracksForEraIn(corpus: ReaderCorpus, eraId: EraId): TrackNote[] {
+  return corpus.tracks()[eraId] ?? [];
 }
 
 /**
@@ -36,13 +35,16 @@ export function trackKey(eraId: string, track: Pick<TrackNote, 'trackNumber' | '
  * for a stale/mangled key — the store then simply stays on the landing page
  * rather than opening an empty dossier over the wrong era.
  */
-export function resolveTrackKey(key: string): { eraId: EraId; track: TrackNote } | null {
+export function resolveTrackKeyIn(
+  corpus: ReaderCorpus,
+  key: string,
+): { eraId: EraId; track: TrackNote } | null {
   const rawEra = key.split('::')[0] ?? '';
   const eraId = getEra(rawEra).id;
   // getEra falls back to the last era for an unknown id; reject that so a bad
   // era segment can't silently resolve against the wrong album.
   if (eraId !== rawEra) return null;
-  const track = tracksForEra(eraId).find((t) => trackKey(eraId, t) === key);
+  const track = tracksForEraIn(corpus, eraId).find((t) => trackKey(eraId, t) === key);
   return track ? { eraId, track } : null;
 }
 
@@ -71,11 +73,11 @@ export interface SongTarget {
  * collides across eras, the first era (object key order of the generated
  * map) wins.
  */
-export function songTargetOf(relatedId: RelatedId): SongTarget | null {
+export function songTargetOfIn(corpus: ReaderCorpus, relatedId: RelatedId): SongTarget | null {
   if (!relatedId.startsWith('song:')) return null;
   const slug = relatedId.slice('song:'.length);
   if (!slug) return null;
-  for (const [eraId, tracks] of Object.entries(tracksRawProvider()) as [EraId, TrackNote[]][]) {
+  for (const [eraId, tracks] of Object.entries(corpus.tracks()) as [EraId, TrackNote[]][]) {
     const track = tracks.find((t) => t.slug === slug);
     if (track) return { eraId, track };
   }
@@ -93,20 +95,21 @@ export type ResolvedConnection =
  * era content; everything else — other namespaces, unknown ids, and a song
  * pointing at itself (`selfSlug`) — is skipped silently.
  */
-export function resolveConnections(
+export function resolveConnectionsIn(
+  corpus: ReaderCorpus,
   connections: readonly TrackConnection[] | undefined,
   selfSlug?: string,
 ): ResolvedConnection[] {
   const out: ResolvedConnection[] = [];
   for (const connection of connections ?? []) {
-    const song = songTargetOf(connection.relatedId);
+    const song = songTargetOfIn(corpus, connection.relatedId);
     if (song) {
       if (selfSlug && song.track.slug === selfSlug) continue;
       out.push({ kind: 'song', connection, eraId: song.eraId, track: song.track });
       continue;
     }
     if (connection.relatedId.startsWith('moment:')) {
-      const item = contentItemLookup(connection.relatedId.slice('moment:'.length));
+      const item = corpus.getContentItem(connection.relatedId.slice('moment:'.length));
       if (item) out.push({ kind: 'moment', connection, item });
     }
   }
@@ -119,10 +122,10 @@ export function resolveConnections(
  * number ascending, unnumbered last), so "next" is the first later entry
  * with a greater number.
  */
-export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | null {
+export function nextTrackOnAlbumIn(corpus: ReaderCorpus, eraId: EraId, track: TrackNote): TrackNote | null {
   if (track.trackNumber == null) return null;
   return (
-    tracksForEra(eraId).find(
+    tracksForEraIn(corpus, eraId).find(
       (t) => t.trackNumber != null && t.trackNumber > track.trackNumber! && t.slug !== track.slug,
     ) ?? null
   );
@@ -136,12 +139,13 @@ export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | nu
  * explicit scope call on #774 was that Previous/Next must not silently skip
  * a sourced note that lacks a full dossier. Null at either end (no wrap).
  */
-export function adjacentTrackOnAlbum(
+export function adjacentTrackOnAlbumIn(
+  corpus: ReaderCorpus,
   eraId: EraId,
   track: TrackNote,
   direction: 'previous' | 'next',
 ): TrackNote | null {
-  const tracks = tracksForEra(eraId);
+  const tracks = tracksForEraIn(corpus, eraId);
   const key = trackKey(eraId, track);
   const idx = tracks.findIndex((t) => trackKey(eraId, t) === key);
   if (idx === -1) return null;
@@ -157,9 +161,9 @@ export function adjacentTrackOnAlbum(
  * connections still get the next-song entry, so the section is never empty
  * mid-album.
  */
-export function keepExploring(eraId: EraId, track: TrackNote): ResolvedConnection[] {
-  const curated = resolveConnections(track.dossier?.connections, track.slug);
-  const next = nextTrackOnAlbum(eraId, track);
+export function keepExploringIn(corpus: ReaderCorpus, eraId: EraId, track: TrackNote): ResolvedConnection[] {
+  const curated = resolveConnectionsIn(corpus, track.dossier?.connections, track.slug);
+  const next = nextTrackOnAlbumIn(corpus, eraId, track);
   if (!next) return curated;
   const nextEntry: ResolvedConnection = {
     kind: 'song',

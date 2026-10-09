@@ -103,9 +103,9 @@ export default {
       sources: [
         wiki('White_Horse_(Taylor_Swift_song)', 'White Horse (Taylor Swift song)'),
         press(
-          'https://web.archive.org/web/20121106152258/http://www.mtv.com/news/articles/1602728/taylor-swift-talks-about-emotional-new-video-white-horse.jhtml',
-          "Taylor Swift Talks About 'Emotional' New Video For 'White Horse'",
-          'MTV News',
+          'https://www.countryuniverse.net/2009/02/09/taylor-swift-white-horse/',
+          'Taylor Swift, “White Horse”',
+          'Country Universe',
           'supports the White Horse video concept and Trey Fanjoy/Stephen Colletti production context',
         ),
       ],
@@ -208,9 +208,9 @@ export default {
       sources: [
         wiki('Journey_to_Fearless', 'Journey to Fearless'),
         press(
-          'https://www.shoutfactory.com/products/taylor-swift-journey-to-fearless',
-          'Taylor Swift: Journey to Fearless',
-          'Shout! Factory',
+          'https://www.blu-ray.com/dvd/Taylor-Swift-Journey-To-Fearless-DVD/91360/',
+          'Taylor Swift: Journey to Fearless DVD',
+          'Blu-ray.com',
           'supports the DVD/Blu-ray release and documentary-concert-film format',
         ),
       ],

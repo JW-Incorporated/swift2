@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
+import { CONTENT, MILESTONES, build, getContentItemByIdOrSlug, milestonesForEra, type RawItem } from './content';
 import { formatMonthYear } from '@swift2/experience';
 import {
   autoFocalPoint,
@@ -160,6 +160,13 @@ describe('primary image helpers', () => {
 });
 
 describe('CONTENT dataset invariants', () => {
+  it('resolves fresh-load links by stable slug while preserving legacy ids and unknown-id safety', () => {
+    const item = CONTENT.find((candidate) => candidate.slug);
+    expect(item).toBeDefined();
+    expect(getContentItemByIdOrSlug(item!.id)).toBe(item);
+    expect(getContentItemByIdOrSlug(item!.slug!)).toBe(item);
+    expect(getContentItemByIdOrSlug('deep-link-does-not-exist')).toBeUndefined();
+  });
   // The regression test WS1 (#369) never got, per #682's acceptance criteria:
   // a hand-curated item may never mask a day-precision date behind the bare
   // month form of that same date ('June 2006' on date '2006-06-19'). If your

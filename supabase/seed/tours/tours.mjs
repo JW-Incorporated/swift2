@@ -1176,8 +1176,8 @@ export default {
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour'),
         press(
-          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-tour-live-cd-dvd-263669/',
-          'Taylor Swift Announces Speak Now World Tour Live CD/DVD',
+          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-cd-dvd-258307/',
+          'Taylor Swift to Release \'Speak Now\' Concert CD, DVD Set',
           'The Hollywood Reporter',
           'supports the theatrical Speak Now tour production and live-release context',
         ),
@@ -2193,7 +2193,7 @@ export default {
               '2026-07-09',
             ),
             press(
-              'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-reputation-stadium-tour-netflix-movie-review-773808/',
+              'https://www.rollingstone.com/tv-movies/tv-movie-features/taylor-swift-reputation-movie-netflix-773838/',
               "Taylor Swift's Reputation Film Shows Why She's One of the All-Time Greats",
               'Rolling Stone',
               'supports the AT&T Stadium filming and Netflix release',
@@ -2411,7 +2411,7 @@ export default {
       sources: [
         wiki('Reputation_Stadium_Tour', 'reputation Stadium Tour'),
         press(
-          'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-reputation-stadium-tour-netflix-movie-review-773808/',
+          'https://www.rollingstone.com/tv-movies/tv-movie-features/taylor-swift-reputation-movie-netflix-773838/',
           "Taylor Swift's Reputation Film Shows Why She's One of the All-Time Greats",
           'Rolling Stone',
           'supports the stadium-tour production, Dallas filming context, and end-of-era live record',
@@ -2505,8 +2505,8 @@ export default {
               'announcement documented to the 2023-08-09 SoFi show',
             ),
             press(
-              'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-eras-tour-1235693090/',
-              "Taylor Swift Announces '1989 (Taylor's Version)' at Eras Tour Show",
+              'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+              "Taylor Swift Reveals '1989 (Taylor's Version)' Is Coming at L.A. Tour Finale",
               'Variety',
               "supports the August 9 Eras Tour announcement of 1989 (Taylor's Version)",
             ),
@@ -2526,7 +2526,7 @@ export default {
               'the Buenos Aires lyric change is documented in the tour article',
             ),
             press(
-              'https://www.cnn.com/2023/11/12/entertainment/taylor-swift-karma-lyric-travis-kelce/index.html',
+              'https://www.cnn.com/2023/11/12/entertainment/taylor-swift-travis-kelce-karma-lyrics',
               "Taylor Swift changes 'Karma' lyric to reference Travis Kelce at Buenos Aires concert",
               'CNN',
               "supports the Buenos Aires 'Karma' lyric change",
@@ -2548,9 +2548,9 @@ export default {
               'the Wembley cameo is documented in the tour article',
             ),
             press(
-              'https://people.com/travis-kelce-joins-taylor-swift-on-stage-eras-tour-london-8667842',
-              'Travis Kelce Joins Taylor Swift on Stage During Eras Tour in London',
-              'People',
+              'https://abcnews.com/GMA/Culture/travis-kelce-reflects-taylor-swift-onstage-london-eras-tour/story?id=111354122',
+              'Travis Kelce reflects on joining Taylor Swift onstage during London Eras Tour stop',
+              'ABC News',
               "supports Travis Kelce's Wembley stage cameo",
             ),
           ],

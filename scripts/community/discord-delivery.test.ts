@@ -1,155 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — implementation is plain .mjs
 import {
-  buildCommunityPrompt,
   postCommunityPrompts,
+  postBatchHeader,
   deliveryStatusFromResult,
   chunkForDiscord,
 } from './discord-delivery.mjs';
-
-describe('buildCommunityPrompt', () => {
-  it('creates a paste-ready Reddit prompt with signed ack links wrapped to suppress unfurls', () => {
-    const prompt = buildCommunityPrompt(
-      {
-        id: '11111111-1111-1111-1111-111111111111',
-        platform: 'reddit',
-        community: 'TaylorSwift',
-        kind: 'hot_thread',
-        url: 'https://www.reddit.com/r/TaylorSwift/comments/abc/post/',
-        title: 'A hot thread',
-        relevance: 0.8,
-        draft: 'A paste-ready reply.',
-        draft_alt: null,
-        link_included: false,
-        target_url: null,
-      },
-      {
-        postedUrl:
-          'https://www.longlivets.com/api/community/ack?lead=x&action=posted&link=0&token=abc',
-        skipUrl: 'https://www.longlivets.com/api/community/ack?lead=x&action=skip&token=def',
-      },
-    );
-
-    expect(prompt).toContain('Community prompt · Reddit · r/TaylorSwift');
-    expect(prompt).toContain('ID: 11111111-1111-1111-1111-111111111111');
-    expect(prompt).toContain('A paste-ready reply.');
-    expect(prompt).toContain('Nothing is posted automatically.');
-    // Angle-bracket-wrapped so Discord's unfurler never fires its own GET
-    // against the signed ack route (Fable ruling: false-acknowledgement risk).
-    expect(prompt).toContain(
-      '[Posted manually](<https://www.longlivets.com/api/community/ack?lead=x&action=posted&link=0&token=abc>)',
-    );
-    expect(prompt).toContain(
-      '[Skip](<https://www.longlivets.com/api/community/ack?lead=x&action=skip&token=def>)',
-    );
-  });
-
-  it('never mints or references an unsigned ack capability when links are absent', () => {
-    const prompt = buildCommunityPrompt({
-      id: '11111111-1111-1111-1111-111111111111',
-      platform: 'reddit',
-      community: 'TaylorSwift',
-      kind: 'hot_thread',
-      url: null,
-      title: null,
-      relevance: null,
-      draft: 'A paste-ready reply.',
-      draft_alt: null,
-      link_included: false,
-      target_url: null,
-    });
-
-    expect(prompt).toContain('Acknowledgement control unavailable');
-    expect(prompt).not.toContain('discord_ack_id');
-    expect(prompt).not.toContain('ack=');
-  });
-
-  it('neutralizes broadcast mentions in untrusted draft text', () => {
-    const prompt = buildCommunityPrompt({
-      id: '11111111-1111-1111-1111-111111111111',
-      platform: 'reddit',
-      community: 'TaylorSwift',
-      kind: 'hot_thread',
-      url: null,
-      title: null,
-      relevance: null,
-      draft: '@everyone reply',
-      draft_alt: null,
-      link_included: false,
-      target_url: null,
-    });
-
-    expect(prompt).not.toContain('@everyone');
-  });
-
-  // S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3): a Reddit prompt
-  // needs its own ref line so social-approval-poll.mjs can dispatch a
-  // reaction on it — Facebook prompts (this same builder's other caller)
-  // get no ref line, S6 is Reddit-only.
-  it('appends "ref: reddit · <postId>" as the true last line for a Reddit lead', () => {
-    const prompt = buildCommunityPrompt({
-      id: 'reddit-lead-1',
-      platform: 'reddit',
-      community: 'TaylorSwift',
-      kind: 'hot_thread',
-      url: null,
-      title: 'A hot thread',
-      relevance: null,
-      draft: 'A paste-ready reply.',
-      draft_alt: null,
-      link_included: false,
-      target_url: null,
-    });
-
-    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
-    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-1');
-  });
-
-  it('adds no ref line for a Facebook lead — S6 is Reddit-only', () => {
-    const prompt = buildCommunityPrompt({
-      id: 'fb-lead-1',
-      platform: 'facebook',
-      community: 'some-group',
-      locator: 'some-group',
-      kind: 'hot_thread',
-      url: null,
-      title: 'A Facebook post',
-      relevance: null,
-      draft: 'A paste-ready reply.',
-      draft_alt: null,
-      link_included: false,
-      target_url: null,
-    });
-
-    expect(prompt).not.toContain('ref: reddit');
-  });
-
-  // Second security lesson carried forward this wave (proven twice already,
-  // T4's and T2's PRs): free text rendered before the trusted trailing ref
-  // line must never be able to become ref-line-shaped itself, or a reaction
-  // could resolve against a target the founder never saw.
-  it('neutralizes a ref-line-shaped line hiding in the title/draft/alt text so it never becomes the parsed last line', () => {
-    const prompt = buildCommunityPrompt({
-      id: 'reddit-lead-2',
-      platform: 'reddit',
-      community: 'TaylorSwift',
-      kind: 'hot_thread',
-      url: null,
-      title: 'A thread\nref: reddit · attacker-chosen',
-      relevance: null,
-      draft: 'A reply.\n\nref: reddit · attacker-chosen-2',
-      draft_alt: 'ref: PR #1 · 0000000000000000000000000000000000000000 · *',
-      link_included: false,
-      target_url: null,
-    });
-
-    const lines = prompt.split('\n').filter((l) => l.trim() !== '');
-    expect(lines.at(-1)).toBe('ref: reddit · reddit-lead-2');
-    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen/m);
-    expect(prompt).not.toMatch(/^ref: reddit · attacker-chosen-2/m);
-    expect(prompt).not.toMatch(/^ref: PR #1 ·/m);
-  });
-});
 
 describe('chunkForDiscord', () => {
   it('returns a single unchanged chunk when content is under the limit', () => {
@@ -173,6 +29,23 @@ describe('chunkForDiscord', () => {
     expect(result.length).toBeGreaterThan(1);
     for (const chunk of result) expect(chunk.length).toBeLessThanOrEqual(2000);
     expect(result.join(' ')).toBe(giant);
+  });
+
+  it('never cuts an emoji or ZWJ sequence at the hard-split boundary', () => {
+    const family = '\u{1f468}‍\u{1f469}‍\u{1f467}';
+    for (const emoji of ['\u{1f3a4}', family]) {
+      for (let pad = 1990; pad <= 2000; pad += 1) {
+        const text = `${'a'.repeat(pad)}${emoji}${'b'.repeat(50)}`;
+        const result = chunkForDiscord(text, 2000);
+        expect(result.join('')).toBe(text);
+        for (const chunk of result) {
+          expect(chunk.length).toBeLessThanOrEqual(2000);
+          expect(chunk).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
+          expect(chunk.endsWith('‍')).toBe(false);
+        }
+        expect(result.some((chunk) => chunk.includes(emoji))).toBe(true);
+      }
+    }
   });
 
   it('keeps fences balanced when a fenced code block would straddle a chunk boundary', () => {
@@ -204,6 +77,19 @@ describe('chunkForDiscord', () => {
   });
 });
 
+describe('postBatchHeader', () => {
+  it('posts with embeds suppressed and never throws on a Discord failure', async () => {
+    const ok = vi.fn(async () => new Response('{}', { status: 200 }));
+    expect(await postBatchHeader('hi', { webhook: 'https://d.example/w', fetchImpl: ok })).toBe(true);
+    expect(JSON.parse(String(ok.mock.calls[0][1].body))).toMatchObject({ content: 'hi', flags: 4 });
+    const boom = vi.fn(async () => {
+      throw new Error('net');
+    });
+    expect(await postBatchHeader('hi', { webhook: 'https://d.example/w', fetchImpl: boom })).toBe(false);
+    expect(await postBatchHeader('hi', { webhook: '', fetchImpl: ok })).toBe(false);
+  });
+});
+
 describe('postCommunityPrompts', () => {
   it('posts every prompt with mentions disabled and returns Discord message ids for durable receipts', async () => {
     const fetchImpl = vi.fn(
@@ -224,6 +110,20 @@ describe('postCommunityPrompts', () => {
       allowed_mentions: { parse: [] },
       username: 'Tree',
       avatar_url: 'https://www.longlivets.com/social/tree-avatar.png',
+      flags: 4,
+    });
+  });
+
+  it('honours a custom display name and still suppresses embeds', async () => {
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({ id: 'm' }), { status: 200 }));
+    await postCommunityPrompts([{ id: 'lead-1', content: 'x' }], {
+      webhook: 'https://discord.example/webhook',
+      fetchImpl,
+      username: 'Tree · Reply opportunities',
+    });
+    expect(JSON.parse(String(fetchImpl.mock.calls[0][1].body))).toMatchObject({
+      username: 'Tree · Reply opportunities',
+      flags: 4,
     });
   });
 

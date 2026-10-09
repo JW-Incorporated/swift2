@@ -56,6 +56,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château where this song's video was filmed.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -634,12 +637,13 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
-      // annual Rhode Island tradition and the year it moved to Turks and
-      // Caicos — now interlink.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the annual Rhode Island tradition, the year
+      // it moved to Turks and Caicos, and the quiet Yellowstone Club Fourth.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2016,
       month: 7,
@@ -1449,13 +1453,13 @@ export default {
       title: 'Pulls her entire catalog from Spotify',
       snippet:
         "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
-      sourceUrl: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html',
+      sourceUrl: 'https://www.cnbc.com/2014/11/03/taylor-swift-breaks-up-with-spotify.html',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
       moment: {
         context:
           'On Nov. 3, 2014, Big Machine Records pulled Taylor\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
         sources: [
-          { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
+          { outlet: 'CNBC', url: 'https://www.cnbc.com/2014/11/03/taylor-swift-breaks-up-with-spotify.html' },
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/',
@@ -1645,6 +1649,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): Oheka Castle — the château this
+        // very video was shot at — heads to auction.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -2207,7 +2214,7 @@ export default {
 'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.\n\n"Famous" arrived as track four on The Life of Pablo, which West released on Tidal on Feb. 14. He spent Feb. 12 defending the line in a fifteen-tweet run — "I did not diss Taylor Swift and I\'ve never dissed her" — and claimed he had "called Taylor and had a hour long convo with her about the line and she thought it was funny and gave her blessings," even asserting the idea was "actually something Taylor came up with." That June he escalated it visually, premiering the song\'s video with a bed of nude wax likenesses of a dozen public figures — Taylor among them — that her camp again said she had never approved.',
         sources: [
           { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
-          { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
+          { outlet: 'CBS News', url: 'https://web.archive.org/web/20250821051051/https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Kanye_West_feud' },
           {
             outlet: 'Billboard',
@@ -2424,6 +2431,7 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png', credit: 'Big Machine Records', caption: 'The original 2014 cover of 1989, the album that marked Taylor Swift’s full pop reinvention.', kind: 'primary', focalPoint: '50% 38%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2478,6 +2486,9 @@ export default {
         'moment:vault-midnights-slut-turns-out-to-be-a-love-song',
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château that staged this song's video.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       title: "“Blank Space” flips the narrative",
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
@@ -2523,6 +2534,7 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        photos: [{ url: 'https://s.abcnews.com/images/Entertainment/ABC_taylor_swift_jef_140818_16x9_992.jpg?w=1600', credit: 'Big Machine Records, via ABC News', caption: 'The original Polaroid-framed 1989 cover, the central artifact of the album’s instant-photo visual language.', kind: 'primary', focalPoint: '50% 50%' }],
         sources: [
           {
             outlet: 'ABC News',
@@ -2593,6 +2605,7 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        photos: [{ url: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1', credit: 'Getty Images, via The Hollywood Reporter', caption: 'Taylor Swift arrives at the 2015 VMAs with members of the friend group the press had dubbed her “squad.”', kind: 'primary', focalPoint: '50% 25%' }],
         sources: [
           {
             outlet: 'Slate',

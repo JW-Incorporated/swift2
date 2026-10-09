@@ -216,7 +216,7 @@ describe('sendWeeklyBrief', () => {
 
   it('posts each message as its own webhook call under the Tree identity, returning delivered message ids', async () => {
     const messages = buildWeeklyBrief(plan(), SCORECARD, { headSha: HEAD_SHA, pr: PR });
-    const bodies: Array<{ content: string; username: string; avatar_url: string }> = [];
+    const bodies: Array<{ content: string; username: string; avatar_url: string; flags?: number }> = [];
     const fetchImpl = vi.fn(async (_url: string, init: { body: string }) => {
       const body = JSON.parse(init.body);
       bodies.push(body);
@@ -230,6 +230,7 @@ describe('sendWeeklyBrief', () => {
     for (const body of bodies) {
       expect(body.username).toBe('Tree');
       expect(body.avatar_url).toContain('tree-avatar.png');
+      expect(body.flags).toBe(4); // SUPPRESS_EMBEDS — no link previews (Bots v2 C6)
     }
   });
 
@@ -333,6 +334,7 @@ describe('sendReplanUpdate', () => {
     expect(capturedBody.content).toContain('Rewrote Wed-Sun from your reply.');
     expect(capturedBody.content).toContain(PERMALINK);
     expect(capturedBody.username).toBe('Tree');
+    expect(capturedBody.flags).toBe(4); // the permalink must not unfurl (Bots v2 C6)
   });
 
   it('is a clean no-op when the webhook is not configured', async () => {

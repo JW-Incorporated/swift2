@@ -7,6 +7,881 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-07 — The website's own content photos feed the social photo library (`import-site-photos.mjs`)
+
+**Decision.** Founder request (Joey, 2026-10-07; goal >10,000 awesome Taylor photos for social posts, "our website already has tons of cover photos for our content — use those for social"). `scripts/social/import-site-photos.mjs` enumerates the photo refs the site itself resolves from content seeds (`moment.photos[]`, runway-look `images[]`, item `thumbnailUrl` under `supabase/seed/{content,lenses,candidates}`), downloads them and adds them to `social/photo-library.json` through the existing library schema (`validatePhotoEntry`, `existingLibraryHashes`, `resolvePhotoDestPath` from `import-photo-library.mjs`). Entries are tagged `<era>` + `site-photo`; credit is carried when the seed has one, omitted otherwise. Kept only when the decoded file is jpeg/png/webp with a long edge >= 800 px and not content-identical (sha256) to an existing entry. Every kept file is normalized (repo-size rule, architect storage ruling 2026-10-07): long edge <= 2048 px (never upscaled), orientation applied, EXIF/metadata stripped, JPEG q85 (PNG only with real transparency); entries record `width`/`height`/`bytes`. Wikimedia Commons files are fetched as 1920 px thumbnails, as Wikimedia asks of bots. Image binaries land in a follow-up commit once Git LFS is in place.
+
+**Excluded.** Getty/stock comp hosts (watermarked previews; 2026-08-15 and 2026-08-24 rulings), merch/product hosts and `products[].imageUrl`, YouTube thumbnails (`i.ytimg.com`; a separate founder call is pending), album/single cover art and logos, `reference`/product `kind`s (other people, shopping shots), relationship portraits, and anything already in the library. Watermark heuristic: host denylist plus URL-path hints (`watermark`, `comp`, `sample`, `placeholder`).
+
+**Rights basis.** `docs/social/guardrails.md` Guardrail 2 (hosting real internet photos is unrestricted as a knowing accepted risk; hard bars: no AI images of Taylor, no watermarks, no fan edits without creator permission, takedown on request); 2026-10-01 (uncredited photos are fine, growing the photo library is Tree's standing priority, `mediaSource` required); 2026-09-22 (no credit/permission gate on ingestion). Importing a photo does not approve any post; every post still needs the owner's reaction.
+
+**Alternatives.** Hotlinking from the seeds (rejected: dead links, no dimension/watermark gate); per-photo manual review (rejected: the guardrail removed that gate).
+
+---
+
+## 2026-10-07 — Photo sourcing scales toward 10,000+: press lead photos (GNews) and Openverse join the daily run
+
+**Decision (founder request, Joey, 2026-10-07: ">10,000 awesome Taylor Swift photos for social").** `concert-photo-sourcing.yml` gains two non-fatal sources feeding the existing merge/import path: `scripts/social/source-press-photos.mjs` (lead/og:image of Taylor Swift news coverage via GNews) and `scripts/social/source-openverse-photos.mjs` (Openverse, licenses by / by-sa / cc0 / pdm, photographs, no key). The per-run cap rises 150 -> 300 and candidates merge round-robin across sources so Wikimedia's volume cannot crowd the rest out. The run is dispatched ~daily from `scripts/ops/clock-table.json` (`minGapMinutes` 1380; the twice-weekly cron stays as backup; the workflow already had `workflow_dispatch` and a serialising concurrency group). The importer now enforces the real pixel floor on the downloaded bytes (`minLongEdge`: 1080 press, 800 Openverse) and skips near-duplicate wire photos within a run by perceptual hash (dHash, <=4 of 64 bits; `sharp` is already a root dependency).
+
+**Rights basis.** `docs/social/guardrails.md` Guardrail 2: rehosting real internet photos, press/agency included, is allowed as a knowing accepted risk; credit the photographer when known, uncredited is fine (2026-10-01: growing the library is Tree's standing priority, `mediaSource`/`source` stays required on every entry); no credit/permission gate on ingestion (2026-09-22). Hard bars kept in code: no AI images of Taylor (Openverse results with an AI marker in title/tags are dropped; press titles likewise), no watermarked/comp stock hosts (Getty, Shutterstock, Alamy, etc. denylisted; Getty comps excluded), nothing non-free from Openverse (NC/ND dropped), takedown on request. Posting is unchanged: every photo still needs Joey's checkmark in `#longlive-tree`; the PR auto-merges under the existing "Photos A" image exemption (branch name `social/concert-photo-sourcing` unchanged).
+
+**GNews quota.** Free tier is 100 requests/day. The news-worker hard-stops at `GNEWS_DAILY_CAP` = 80 through a Supabase counter this job cannot read, so the press adapter spends its own fixed 4 requests/run (one run/day; 8 even with a manual re-run): worst case 84-88 of 100, margin kept for retries. Free tier returns <=10 articles/request, so the ceiling is ~40 articles/day; each yields its page og:image plus GNews's own image. A 403/429/network failure warns and writes `[]`. Raise only after redoing this arithmetic or upgrading the plan.
+
+**Alternatives.** Reusing the news-worker's ingested items (zero API cost) was rejected for now: they live in Supabase and this workflow has no DB credentials. Near-duplicate checking against the whole existing library (not just within a run) was rejected as it would decode thousands of files every run; exact-hash dedupe against the library still applies.
+
+---
+
+## 2026-10-06 — Concert-photo library imports auto-merge ("Photos A")
+
+**Decision.** AMENDS, and does not delete, the 2026-08-11 social-image rule (an `apps/web/public/social/**` image only auto-merges when it rides with a validated `social/queue/**.json` draft) and its 2026-10-05 merch drop-card amendment. A second narrow carve-out: an image counts as accompanied ONLY when ALL hold: (1) the PR head branch is exactly `social/concert-photo-sourcing` (the single fixed branch of `concert-photo-sourcing.yml`, now an exact entry in the branch/author gate, same author set as every other content lane); (2) the image path matches `^apps/web/public/social/library/photos/[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$` (directly in that directory, no subdirectory, no traversal) and the PR newly adds it; (3) the same PR adds or modifies `social/photo-library.json` (now allowlisted and in `on.paths`). Every other image case stays fail-closed; the merch rule is unchanged. The predicate stays one module, renamed `scripts/automerge-bot-image-exemption.mjs` (was `automerge-merch-drop-exemption.mjs`; the 2026-10-05 entry's references are historical).
+
+**Why.** Library photos are not posts: importing one publishes nothing. Joey's approval (the ✅ in `#longlive-tree`) still gates every post that uses a photo, so the human look is kept where it matters, and the bot's photo PRs no longer wait on a manual merge. Approved: Joey, chat 2026-10-06 22:33 PDT, "Photos A".
+
+---
+
+## 2026-10-06 — Marjorie's assign/defer/close chases default to `defer` after 7 days of silence
+
+**Decision.** A 96h chase HA open 7 days with no founder reply is auto-applied as `defer` (same marker/label path as a typed reply), closed as `skip` with the note "auto-deferred after 7 days of silence (founder decision 2026-10-06)", and the issue gets one comment saying how to re-open the chase. Issues labelled `founder-decision`, `desk:founder` or `founder-task` are never auto-deferred. Runs as a plain deterministic `auto-defer` job in `routine-marjorie-ops.yml` (no LLM, never starts the Sonnet session).
+
+**Why.** Chases waited on founder silence forever (HA #109-#111 etc.). Defer is the safe default: the issue stays open, only the chasing stops, and it is reversible. Real product decisions still ask. Alternative (auto-close or auto-assign) rejected as not reversible/not safe. Approved: Joey, chat 2026-10-06.
+
+---
+
+## 2026-10-06 — Human actions with a checkable outcome close themselves; agents file only what needs Joey
+
+**Decision.** (1) An open `HUMAN-ACTIONS.md` entry may carry `<!-- ha verify: <kind> <args> -->` with kind one of `secret-exists`, `variable-equals`, `pr-merged`, `issue-closed`, `workflow-green`. `scripts/human-actions/auto-close.mjs` (hourly, `marjorie-status.yml` job `autoclose`) evaluates them with read-only `gh` calls and, on a pass, closes the entry through the existing rolling close PR (`status-page/ha-closes`, auto-merge), ledger note `auto-closed: <check> passed <UTC date>`. The workflow token cannot read secret/variable settings, so those two kinds alone use the existing `OPS_FIXER_PAT` (no new secret) as GH_TOKEN for their read-only call, and are skipped (left open, one warning) if it is absent or unauthorized. (2) Filing rule: agents file only what needs the founder's judgment, identity/login, money, or physical hands; reversible agent-doable work is done and noted in one line; checkable entries must carry a verify line (`npm run check:human-actions` warns, never fails).
+
+**Why.** Joey was being asked to reply "done" to switch flips a machine can see for itself. Alternatives: a new bot PR flow (rejected — the rolling close PR already auto-merges and heals); a hard CI failure on missing verify lines (rejected — would block unrelated PRs). Approved: Joey, chat 2026-10-06 (fixes 3 and 4 of 4 "stop switch-flip asks").
+
+---
+
+## 2026-10-06 — Concert photo sourcing: Reddit is optional until HOME_RELAY_URL exists
+
+**Decision.** `concert-photo-sourcing.yml` had been red since Reddit began returning 403 to GitHub Actions IPs (`reddit-rss fetch failed for r/erastour (403)`), which aborted the run before the Wikimedia, import and PR steps. `source-reddit-photos.mjs` now treats a 403 as non-fatal only when `HOME_RELAY_URL` is unset: it emits `::warning::Reddit blocked from Actions IPs; set HOME_RELAY_URL to enable`, writes `[]` and exits 0. Any other error, or a 403 with a relay configured, still fails. The Wikimedia source (same CC BY / BY-SA / CC0 / PD filter) now runs ~60 queries (eras, past tours, general concert/live, Eras Tour cities; `scripts/social/lib/wikimedia-queries.mjs`) at 100 results each, and a run imports at most 150 new photos so the PR stays reviewable.
+
+**Why.** Founder priority: more photos. Wikimedia is the one source that works from Actions; Reddit needs a residential relay whose URL is not yet set. No Reddit API credentials, ever (founder rule). Alternatives: `continue-on-error` on the step (rejected — would hide real script bugs).
+
+---
+
+## 2026-10-06 — Routine sessions that succeed slightly over max_turns pass with a warning
+
+**Decision.** `routine-template.yml` runs the Claude step with `continue-on-error: true` and a follow-up "Decide routine outcome" step (`scripts/routines/session-outcome.mjs`) reads the action's execution file: result `subtype: success` + `is_error: false` passes with a `::warning::` naming turns used vs the cap; `error_max_turns`, any error, or a missing result still fails. Per-routine `max_turns` unchanged.
+
+**Why.** claude-code-action fails a successful session that used more turns than the cap (plan-recheck run 37526654935: 42 > 40; routine-marjorie-ops run 37392659004: 63 > 60). Finished work was marked failed, producing false triage issues and Marjorie dispatches. Alternative (raise every cap) hides real runaways. Approved: Claude (reversible).
+
+---
+
+## 2026-10-05 — Drop the CI freeze gate from RULINGS-SOCIAL A6
+
+**Decision (Joey, chat, 2026-10-05 20:41 PDT).** Remove the `build-full` step that failed any PR touching the live posting path unless `SOCIAL_FREEZE` was `true`. Posting-path PRs now get the same review and full CI as every other PR. `SOCIAL_FREEZE` itself is unchanged: still read by the poster and approval workflows as the founder's instant emergency stop. A6's watchdog half (`blocking-human-actions-check.mjs`) is unchanged.
+
+**Why.** The gate made the founder flip `SOCIAL_FREEZE` on and off around agent PRs: a mechanical relay with no judgment, since review plus full CI already cover these PRs. Agents cannot set repo variables, so every such PR forced a founder round-trip.
+
+**Alternatives.** Keep the gate (rejected: recurring founder relay); let agents set the variable (rejected: variable mutation is on the human-only list).
+
+---
+
+## 2026-10-04 — Affiliate tags: none (owner informed; web unset → app parity)
+
+**Decision (PM call, 2026-10-04 07:05 PDT).** The environment variables `NEXT_PUBLIC_AWIN_ID`, `AMAZON_ASSOCIATES_TAG`, and `CATCHALL_ID` are unset in Vercel swift2-web (verified live). The app sends no affiliate tags (parity). The owner was informed.
+
+**Why.** Affiliate monetization is not yet active on the site; the app's tag handling is unchanged and already sends none because there are no tags to send.
+
+**Approved by.** PM (operational observation, no approval gate required).
+
+---
+
+## 2026-10-04 — OTA size baseline rebaselined after slice batch; 15% budget kept, re-measure after Wave 5
+
+**Decision (PM, 2026-10-04).** After the slice batch (2.5–2.14) merged, the OTA size baseline is rebaselined. The 15% contingency budget is retained. Re-measurement occurs after Wave 5 cleanup to confirm headroom.
+
+**Why.** Slices added content to the DOM bundle; the baseline must track actual size for meaningful budgeting.
+
+**Approved by.** PM (part of Wave 1–3 resource planning).
+
+---
+
+## 2026-10-04 — Universal links claim www.longlivets.com only; apex host redirects via 308
+
+**Decision (PM call, 2026-10-04 06:48 PDT).** The app's universal links and intent filters claim `www.longlivets.com` only. The apex host at the Vercel domain (longlivets.com) issues a 308 redirect to www; the 308 is enforced at Vercel domain level and cannot exempt `/.well-known/` paths. H6 (native build) removes the apex from app.json `associatedDomains` and `intentFilters`, touching only web and app (no native infra).
+
+**Why.** Universal links require `.well-known/apple-app-site-association` hosted at the claimed domain; Vercel's domain-level redirect (before any path checking) would serve a redirect to `/.well-known/` requests rather than the file. Restricting to www simplifies the routing.
+
+**Consequences.** Deep links to the apex (e.g., `longlivets.com/threads/…`) land in the browser first, then redirect to www, then match the intent filter. This is the expected flow.
+
+**Approved by.** PM (routing ops decision).
+
+---
+
+## 2026-10-04 — Settings in app use host.notifications driver; no webPush shim, IDs never cross bridge
+
+**Decision (W2-I PM ruling, 2026-10-04 07:52 PDT).** Settings screens in the app use `host.notifications` (the native notifications driver). There is no webPush shim. Device IDs and push IDs never cross the bridge. Bridge prefs commands are add-only.
+
+**Why.** The app controls notification permissions natively; web and app do not share push token management.
+
+**Consequences.** Settings → Notifications page in the app is routed to the native SettingsNotificationsPage (not the DOM overlay) while SharedUiHost is mounted. The DOM page never renders in the app. The adapter shims `host.webPush` onto bridge `notifications.*` for the PackageNotificationsPage to use if the web version is accessed elsewhere.
+
+**Approved by.** PM (Wave 2 integration design).
+
+---
+
+## 2026-10-04 — ClownChat lore added as third ReaderSnapshotExtensions domain (snapshot contract v2)
+
+**Decision (Fable ruling, 2026-10-04 07:51 PDT).** ClownChat lore is added as a third extension domain in `ReaderSnapshotExtensions` (alongside merch and songMoods). It is optional in `BundleLike` (missing → empty array). The snapshot contract v2 documents this. The equivalence hash covers lore.
+
+**Why.** The ClownChat board is empty in the app until lore is available; one domain is needed for the loader to handle it correctly across web/app.
+
+**Consequences.** Small pre-work (W2-L) wraps MerchSection's pattern for lore before D2 proceeds.
+
+**Approved by.** Fable (2026-10-04 07:51).
+
+---
+
+## 2026-10-04 — OTA DOM/native build skew is atomic (expo-updates) — no per-asset versioning, diag as early-warning
+
+**Decision (Fable ruling, 2026-10-04 07:51 PDT).** OTA DOM and native build skew is impossible: expo-updates publishes an atomic set of assets for a given update ID. Assets cannot be versioned independently or partially fetched. Bridge navigation diagnostics (`bridge-nav-unbound`) serve as an early-warning system if skew ever occurs; the diag system is the only canary.
+
+**Why.** Codex raised a theoretical hazard of DOM JS being one OTA ahead of native binary expectations; Fable ruled the hazard mitigated by atomic updates. An out-of-sync pair would manifest as a bridge communication failure (unbound command handlers), not silent data loss.
+
+**Consequences.** No per-asset caching strategy or fallback versioning is needed. The diag system becomes the primary signal for detecting any skew.
+
+**Approved by.** Fable (2026-10-04 07:51, PM sided with Fable over Codex concern).
+
+---
+
+## 2026-10-04 — Wave 1–3 slices batch-merged after D2, before iOS-1 device session (parallelization override)
+
+**Decision (PM routing, 2026-10-04 07:05 PDT, per owner directive "max out parallelization").** Ready slices (2.5–2.14) are merged in batch after D2 lands, before the iOS-1 device session. This deviates from the G0 ruling (Fable wanted no slice writes before iOS-1); the PM allows building (not merging) at risk per owner directive. Cost is bounded to rework.
+
+**Why.** Owner directive: "max out parallelization." The risk of slice merges before device validation is acceptable if they stack as draft PRs and are reverted if iOS-1 fails.
+
+**Consequences.** Slices land before iOS-1 validation; if iOS-1 finds a blocker, some slices may need backport fixes. The brief ensures all slices depend only on D2 internals and avoid post-D2 bridges.
+
+**Approved by.** Owner (directive via chat, 2026-10-04 07:05 PDT). PM recorded disagreement with Fable (Fable log line 31).
+
+---
+
+## 2026-10-04 — G0 = GO with conditions: Android-only S4; iOS deferred to iOS-1 gate; YouTube wrapper path; S5 + iOS-1 before Wave 4
+
+**Decision (Fable ruling, 2026-10-04 06:39 PDT).** G0 is **GO with conditions** based on Android-only S4 evidence. iOS and iPad are deferred to a new **iOS-1 gate** (between Wave 3 and Wave 4). YouTube embeds use an https wrapper page at `/embed/youtube/[id]` instead of baseUrl spoofing. Wave 1–3 OTA must play on device at S5 and iOS-1 before Wave 4.
+
+**Why.** Android S4 (Pixel 10 Pro, build 18) validated performance, offline, watchdog, and sharing. iOS and iPad need a parallel device session (blocked by build 38 in TestFlight). YouTube baseUrl rewriting is fragile and causes CORS errors; a wrapper page is standard and proven.
+
+**Consequences.** (1) #4954 (YouTube wrapper) is a new WP1-F slice (packages/ui iframe switch when host is app). (2) #4953 (SafeAreaView edges) is bumped to W1-B (ProxyNavigation SafeAreaView edges around DOM host). (3) #4955 (back nav on gesture bar) moves to backlog. (4) iOS-1 becomes a mandatory gate blocking Wave 4. (5) S5 device tests (iOS) run in parallel to iOS-1 device gate (no sequential blocker).
+
+**Approved by.** Fable (2026-10-04 06:39, mandatory G0 go/no-go).
+
+---
+
+## 2026-10-04 — Contaminated Facebook `engagement_lead` rows are deleted and regenerated, not redacted in place (issue #4885, HA #98)
+
+**Decision (Joey, HA #98: "scrub").** The ~72 `platform='facebook'`,
+`status='new'` `engagement_lead` rows written by the pre-fix fb-export ingest
+are DELETED, then regenerated from the exports already stored in the private
+`facebook-exports` bucket with the fixed parser. Two parser bugs caused them
+(`apps/worker/src/sources/facebook-groups-parser.ts`): `articleBlocks()`
+sliced each post from the `role="article"` attribute match instead of the
+enclosing tag's `<`, so an unclosed tag fragment survived `stripTags()`; and
+`AUTHOR_RE` stripped only the `aria-label` attribute copy of the author's
+name, leaving the identical name as the profile anchor's visible text. The
+result was a private group member's real, unhashed name as the leading words
+of `locator`/`context` — contradicting the hashed-authors guarantee
+(`docs/decisions.md` 2026-08-25).
+
+**Why delete rather than redact.** The stored value is a lossy 80-char
+excerpt in which the leaked name and the real post text are interleaved with
+no delimiter; the clean excerpt cannot be recovered from it. Re-running the
+ingest against the same saved exports produces the clean row, so deleting is
+both the complete privacy fix and recoverable. Every affected row is
+`status='new'`: never emailed, never posted, no `community_post_ledger`
+entry.
+
+**Consequences.** `scripts/community/fb-lead-scrub.mjs` (delete) and
+`fb-lead-reingest.mjs` (regenerate) are both dry-run by default, match only
+facebook + `status='new'` + a known checklist group + the leak signature, and
+dump the pre-delete rows for audit. `fan_signal` is deliberately NOT
+re-inserted: those rows hold aggregates only (never a name or an excerpt),
+and the table has no unique constraint, so re-inserting would duplicate a
+week's signal. The same change backfills the 7 missing
+`community_watchlist` rows for groups that were already producing leads.
+
+**Alternatives considered.** (1) Leave the rows as `status='new'` until a
+repair pass fixes them in place — rejected by Joey; it leaves unhashed
+private names persisted in Supabase indefinitely. (2) `UPDATE` the excerpt to
+a truncated/redacted form — rejected: not recoverable to a correct value, and
+a partial redaction of a free-text field is easy to get subtly wrong.
+
+**Approved by.** Joey (HA #98), recorded on issue #4885.
+
+---
+
+## 2026-10-03 — Mobile release train moves from EAS Workflows to GitHub Actions (HA #98)
+
+**Decision (Joey, HA #98, 2026-10-03 12:04 PDT: "reroute").** The Expo account `jw-labs` is on the Free plan and its EAS Workflows CI/CD minutes (60/month) are exhausted until 2026-11-01, so `eas workflow:run` failed at start ("Free plan CI/CD 60 minute limit reached", run 37134936992). The orchestration now lives in `.github/workflows/mobile-release.yml`, driving the EAS CLI with the existing `EXPO_TOKEN`: `eas fingerprint:generate` + `eas build:list --fingerprint-hash` (reuse), `eas build --no-wait` + `eas build:view` polling, `eas update --branch production`, `eas submit`. `apps/mobile/.eas/workflows/release.yml` is removed from the tree (recover with `git show 6a59b605:apps/mobile/.eas/workflows/release.yml`).
+
+**Why.** Paying for a plan or waiting a month stalls every mobile release; EAS Build/Submit/Update run on Expo's servers under separate allowances, so only the orchestrator needed to move. No new secrets; every behavior of the train is kept (see the old-to-new table in `docs/mobile-release.md`).
+
+**Consequences.** Fingerprints are now computed on the GitHub runner, not EAS's machine; if they ever differed from EAS build-time fingerprints, reuse would miss and the train would build instead of OTA (loud, not silent). The `plan_only` dispatch input checks this without mutating anything. Free-plan build allowances are unverified and may also bind. Reversible: restore the workflow file and the old `mobile-release.yml` from git history once CI/CD minutes return.
+
+**Approved by.** Joey (HA #98).
+
+---
+
+## 2026-10-03 — RN↔DOM bridge: monotonic per-DOM command ids (replay protection)
+
+**Decision (ruled by Fable, 04:25, 2026-10-03).** DOM-to-native command ids are strictly increasing integers per DOM (string-encoded digits, 1-15 of them, inside the `isBridgeId` charset). The native host keeps one high-water mark (hwm) that `ready` does not reset; a `cmd` whose id is not above the hwm is answered `invalid` with signal `rejected_monotonic` and never runs. The DOM seeds its counter from `Date.now()` at client creation, so ids after a reload exceed every prior session's (client change: #4855). `ready` is rate limited to 3 per 10 s (the 4th is protocol-fatal, the watchdog fallback) and is checked against `NATIVE_SUPPORTED_RANGE` and the envelope `v` like any other message. Native requests leave the outbox when their `res` arrives; re-ready retransmits only unsettled requests and unacked emits.
+
+**Context.** WP2.3-B first deduplicated `cmd` ids with a bounded seen-id LRU that `ready` cleared. An evicted or cleared id could be replayed and run twice, and a hostile page could force `ready` to reset the set. Dedup that depends on memory of every id cannot be both bounded and sound.
+
+**Consequences.** Replay protection is O(1) state and survives re-ready. The contract now depends on per-channel FIFO delivery (WKWebView message handlers and Android `addJavascriptInterface` are FIFO); an out-of-order lower id is rejected, not reordered. The DOM client must seed from `Date.now()`; until #4855 lands the DOM would be rejected after a reload. Alternative rejected: a larger LRU (still evictable).
+
+**Approved by.** Fable (ruling 04:25); implemented in PR #4853.
+
+---
+
+## 2026-10-02 — One UI for web, iOS and Android: the website's screens become the app's screens (supersedes the UI half of D2/D3)
+
+**Decision (Joey, in chat, 2026-10-02).** After testing Android 1.0.0 (16): "It has to be B, but it has to look exactly like the site. The site is an app - we build it that way on purpose. And we have to keep it maintainable - when we make 1 change, it has to land on the 2 apps and the website." He approved the debated design: "Apple will not reject it. We launch when it looks correct, not sooner."
+- The website's reader moves into `packages/ui`, the only UI. The iOS and Android apps mount it in one Expo DOM host from local assets. The native shell keeps only capabilities: push, back/swipe, share, haptics, safe areas, offline watchdog, update gate.
+- Content reaches both surfaces through one versioned `ReaderSnapshot` (`packages/experience`): baked on the web, loaded inside the webview from the D1 bundle in the app, proven identical by a CI hash test. No content crosses the native bridge.
+- Invariant: one UI source; one merge produces every surface's artifact; there is no separately editable mobile UI.
+- **The iOS app stays identical to the site.** There is no iOS-only visual divergence to placate review. The founder's call is that Apple will approve it. If Apple does reject it, the response is an appeal plus additions that don't change the screens' look, which comes back to the founder.
+- **Store launch (#4729) waits until the app looks correct.** No promotion of the current native-screen builds to public tracks.
+- Gates, in order: (0) trace and fix the 10 s content load (#4783), `ReaderSnapshot` + equivalence test, Expo DOM build prerequisites, spike, milestone estimate; (1) device screenshot + web↔app visual diff + accessibility CI; (2) screen-by-screen migration behind `routeFlags.sharedUi`; (3) performance on Pixel 6a / iPhone 12 vs the native baseline; (4) offline watchdog drill; (5) App Review approval before public default-on. Native screens are retired only after a full store-version cohort.
+
+**Why.** Two UI copies (D2) drifted visibly within four weeks of the spec that said "parity first". Only a single UI source meets both founder requirements. Full rationale and the two Codex review rounds: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
+
+**Alternatives considered.** Visual parity pass on the native screens (drifts; fails "one change"); native shell with web only where it beats native (Codex round 1; still two copies); universal React Native Web rewrite (approximates the CSS, loses Next SSR; already rejected in D2); remote WebView/Capacitor (network on the critical path); react-strict-dom/Tamagui/NativeWind (full restyle, not exact); content baked into the app bundle, and content over the bridge (both withdrawn during the debate).
+
+**Unchanged.** D1 (content bundle source of truth), D4 (EAS Update), `packages/experience` as the headless core.
+
+**Approved by.** Joey (CEO), in chat, 2026-10-02.
+
+---
+
+## 2026-10-01 — Three bots stay three: Tree (social), Marjorie (Long Live head), bot1 (hands)
+
+**Decision (Joey, in chat, 2026-10-01: "Ok 3 bots it is"):** Keep the three bots with sharp roles.
+Tree is the social specialist (drafts, approvals, posting, reply opportunities). Marjorie is the
+head of Long Live (strategy, weekly plan, status page, routing work). bot1 (Hermes1) is the hands
+(Hermes-side work and anything the owner asks it directly). Tree's asks go to Marjorie, who weighs
+them against the weekly plan; most become GitHub issues or content work, and only Hermes-side work
+goes to bot1 (owner chat asks to bot1 are sent immediately, #4780).
+
+**Why:** Marjorie and Tree run on GitHub Actions (cloud-reliable, repo-native, scoped secrets, CI
+guardrails); bot1 runs on the home server (always-on, instant, broad tools, serves every project).
+The 2026-09-13 reasons for not merging Marjorie/Tree into Hermes still hold: home-server reliability,
+secrets inside an always-on Discord-facing AI runtime, guardrails enforced in GitHub, and focus.
+
+**Alternatives considered:** bot1 becomes Marjorie (rejected for the reasons above); Tree → bot1
+directly for Hermes plumbing (not built — zero cases so far; add only if it happens).
+**Revisit if:** the home server proves reliable for a month AND reply speed becomes the main pain.
+
+---
+
+## 2026-10-01 — API version header and a dormant update-required gate
+
+**Decision.**
+- `API_VERSION` (`packages/shared/src/api/version.ts`, currently `1`) names the /api wire contract; bump it only on a breaking change to a shape in `packages/shared/src/api` (additive changes don't bump). `apps/web/proxy.ts` sends it as `x-api-version` on every `/api/*` response.
+- The mobile app ships an update-required gate (`apps/mobile/lib/update-required.ts`, `components/UpdateRequiredScreen.tsx`) driven by the optional `minNativeBuild: { ios?, android? }` in `config/mobile/app-config.json`. It ships **inert**: the key is absent, so no one is ever blocked. Unknown build number, missing key or unknown platform never blocks.
+- **Rule: setting `minNativeBuild` for either platform requires its own `docs/decisions.md` entry, and both store builds at or above that number must already be live in the App Store and Play Store.**
+
+**Why.** If a breaking API or native change ever needs old native builds retired, the app needs an in-app signal to ask for an update, and that signal has to exist in builds already installed. Shipping it dormant now means we never have to guess later.
+
+**Alternatives considered.** Force updates through store-side mechanisms only (rejected: no in-app signal, installed apps would just break).
+
+**Approved by.** The owner's architecture-hardening brief (2026-10-01), executed autonomously under the reversibility rule.
+
+## 2026-10-01 — No Reddit API key, ever — owner decision
+
+**Decision.** No Reddit API key, ever — owner decision. Reddit discovery must work anonymously; never propose, file, or ask for Reddit OAuth credentials. Owner, verbatim: "we will NEVER have a reddit API key. Kill this action and log it somewhere so I never get asked again." Human action #94 (add a Reddit API key) was skipped, which is final.
+
+**Consequences.** The authenticated path added in #4745 (`awareness-reddit-api.mjs`, the `REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET`/`REDDIT_USERNAME` wiring, the OAuth branches in `awareness-scan.mjs`) is removed. The awareness scan gets its volume anonymously instead: many tiny runs (every ~20 minutes, jittered, 2 RSS requests each), a least-recently-fetched rotation over every sub (hot and new) and search query, and a per-feed plus whole-lane cooldown after a 429, persisted in the new `awareness_source_state` table. Caps are unchanged (4/3 per sub a day, 15 a day). If GitHub's IPs are throttled too hard to reach 10+ a day, the next anonymous options are a home relay (`HOME_RELAY_URL`) on a residential machine or a self-hosted runner, each an owner decision, never a key.
+
+**Alternatives rejected.** A free Reddit script-app key (the owner declined it for good).
+
+**Approved by.** Joey (owner), 2026-10-01.
+
+---
+
+## 2026-10-01 — The mobile content loader is forward-compatible: unknown enum values dropped, unknown entries skipped, broken data served last-good
+
+**Decision.** `packages/content`'s `loadBundle` gains two opt-in options; defaults stay strict (web and every existing caller unchanged).
+- `unknownEnumPolicy: 'drop'` — a zod `invalid_value` issue (an enum/literal value this build doesn't know, e.g. a new era id) removes the smallest thing containing it: the primitive array element, else the nearest enclosing array element, else the whole file (listed in `skipped`). Re-parsed up to 5 passes; any other issue code still throws `BundleIntegrityError`. Manifest entries with no schema in this build are skipped (listed in `skipped`) instead of throwing.
+- `dataErrorFallback: 'last-good'` — a data error (`SchemaVersionMismatchError`, malformed JSON, `BundleIntegrityError`, a manifest/pointer failing its schema) serves the cached last-good bundle with `source: 'last-good-after-data-error'`, `stale: true`, and the error on `dataError`, instead of throwing. With no last-good cached it still throws. The mobile app pairs this with a once-per-process OTA self-heal (check → fetch → reload) so an app whose JS is too old fixes itself on the next update.
+- The mobile app opts into both; web never calls `loadBundle` and stays strict at build time (`check:content-bundle` in CI).
+
+**What this does NOT change.** `apps/mobile/app.json`'s `updates` settings stay at their defaults deliberately: editing app.json changes the runtime fingerprint, forces store builds and strands that commit's JS from existing installs. The N-1 `schemaVersion` window, bundle-as-artifact, and the fingerprint runtime policy are unchanged.
+
+**Known limits (accepted).** Pruning repairs only what zod flags: a kept item that references a dropped item/era by id now dangles, so mobile consumers must tolerate missing ids. A pruned load never keeps an ETag (else a 304 would serve the pruned files to a self-healed newer build), so an app stuck on old JS re-downloads the whole bundle each launch until it updates. A last-good record outside the current build's N-1 window is never served — the data error is rethrown.
+
+**Consequence for content authors.** Adding an era (or any enum value) is only safe for app runtimes that already received this loader change. Runtimes older than it still hard-fail on an unknown value — for them a new era still needs the old rule (ship the app change first, then publish content).
+
+**Why.** `eraIdSchema` is a closed enum and the loader rejected any unknown value or manifest entry, so a single new era published from the web side broke every installed app's content load until a new OTA landed — and the web side ships content far more often than the app ships JS (architect review 2026-10-01, top gap #1).
+
+**Alternatives considered.** Open the enum to `z.string()` (rejected: loses build-time typo protection on web and in seeds). Bump `schemaVersion` on every enum addition (rejected: N-1 only buys one cycle, and a new era is not a breaking shape change). Turn on `updates.checkAutomatically`/fallback settings in app.json (rejected: fingerprint change, see above).
+
+**Approved by.** The owner's architecture-hardening brief (2026-10-01), executed autonomously under the reversibility rule.
+
+## 2026-10-01 — Replies in #longlive-marjorie are chat; the reply-poll relay to the status issue is retired
+
+**Decision.** A reply in #longlive-marjorie — including a reply to the "📋 Status updated" change ping — is an ordinary message to Marjorie's chat routine (`bot-chat-poll` claims it, `routine-marjorie-chat` answers). That channel is the owner's steering channel. `reply-poll.mjs` (which relayed replies in the daily brief's Discord thread onto the status issue as link-only comments), its manual `marjorie-reply-poll.yml` workflow, and the relay step in `bot-chat-poll.yml` are removed. `chat-inbox.selectInbox` only skips replies to approval/community posts (`ref:` last line); a reply to the ping is picked, and a test pins that.
+
+**Why.** The ping is no longer a once-a-day message with an id stamped on the page: it is posted only when the page materially changed, so there is no daily thread for a relay to follow, and the relay would have silently no-op'd forever. Two paths for the same reply (chat and relay) would also have answered it twice.
+
+**Alternatives considered.** Keep the relay and stamp every ping's message id (rejected: a ping per change is not a thread anchor, and the relay only ever wrote a link, never an answer). Make the relay a second chat path (rejected: duplicates chat).
+
+**Approved by.** The owner, via the coordinating session, 2026-10-01.
+## 2026-10-01 — Uncredited photos are fine: credit the photographer when known, post without a credit line when not (guardrail 2)
+
+**Decision.** Owner, chat, 2026-10-01, verbatim: "I'm ok with uncredited photos.
+If we know who took the photo, we should always give them credit, but if we don't
+that's fine too, just post it… We must prioritize getting more photos and
+uncredited photos are going to be the bulk of our content."
+
+**Supersedes** the credit-required half of guardrail 2 ("a credit on every
+photo", 2026-07-09 media policy and 2026-08-12 Taylor-photo standard) and every
+"a `u/unknown` credit is unusable / fix the credits first" policy that grew from
+it (the 2026-09-28 calendar note, the `photo-ledger` weak-credit ranking, Marjorie's
+#4604 priority). Unchanged: takedown on request without argument, no lyrics in
+cards, no AI images of Taylor, no watermarked images, no fan edits without the
+creator's permission, `mediaSource` on every photo (the audit trail takedowns
+need), and the exact `"Long Live"` credit on a `card`.
+
+**What changed in code.** `mediaCredit` is optional on a `photo`; a credit that
+IS present must still match its `social/photo-library.json` entry, and a known
+credit still goes in the caption. Unknown means absent, null, blank, "unknown" or
+"u/unknown via r/…" (`isUnknownCredit`, `scripts/social/lib/photo-library.mjs`):
+the picker omits `mediaCredit` for those and the caption has no credit line,
+never the word "unknown". Library entries may omit `credit`. The photo ledger no
+longer ranks a credited photo ahead of an uncredited one. Posting-path touch,
+deliberately minimal: `scripts/social/lib/queue-schema.mjs` only (the credit
+requirement removed, the inventory binding compares via `creditsMatch`).
+
+**Priority.** Growing the photo library is now Tree's standing priority —
+uncredited fan and concert photos are welcome; credit them when known.
+
+**Alternatives considered.** Keeping "unknown" credits as a ranked-last tier
+(rejected: the owner expects uncredited photos to be the bulk of the content).
+
+**Approved by:** the owner, in chat, 2026-10-01 (edit to the founder-owned
+`docs/social/guardrails.md` made on his explicit instruction).
+
+---
+
+## 2026-10-01 — Social strategy and taste belong to Tree and Marjorie; the owner keeps a short guardrails list; Fable rules on taste (S2)
+
+**Decision.** Owner instruction, verbatim (2026-10-01): "What Tree posts should come
+from our social strategy. I should not be defining if it's cards, pictures, or what.
+Marjorie and Tree need to figure out how to grow the site, and they need to decide what
+to post. The rules should be eliminated and they should be figuring out a strategy. I
+don't want to be in the rule making business, I want to be in the reviewing/approving
+business." And: "taste decisions should go to fable."
+
+1. **Ownership split.** `docs/marketing/social-strategy.md`, `social/calendar.md`,
+   `social/lessons.md` and the new `social/strategy-params.json` are owned by **Tree**
+   (execution and format) and **Marjorie** (growth goals, weekly judgment of Tree's
+   changes and experiments). They change by PR with a written reason and evidence and
+   **land without a founder merge** (the first two plus the params file are on
+   `.github/content-automerge-allowlist.txt`). The owner owns exactly one short list,
+   `docs/social/guardrails.md`: the ✅ before anything posts (`SOCIAL_FREEZE`, poster caps),
+   rights/credit/takedown/no lyrics in cards, no AI images of Taylor, confirmed-only
+   sensitive topics, platform limits, replies/DMs human, no new channel/spend, no teasing
+   unshipped features. That file is in `NEVER_ALLOWLIST` — never auto-merged, never
+   bot-edited. Everything not on it is Tree's and Marjorie's.
+2. **Taste checks become parameters.** The thresholds `check-drafts.mjs` and
+   `lib/photo-reuse.mjs` hard-coded as taste — allowed media kinds, photo-reuse
+   window/scope, the both-platforms pairing default and window, opener/hook windows,
+   cross-post similarity, the X warn threshold, photo-mix, screenshot rules — read
+   `social/strategy-params.json` (a missing file or field falls back to the old values).
+   Credit/rights, X's 280 limit, Instagram's image and aspect rules, the story-unique
+   `campaign` and the approval stamp stay hard-coded and have no parameter. Promoting a
+   lesson into a hard gate after 3 firings is Tree's explicit choice (`lessons.autoCodify`,
+   shipped `false`), no longer automatic.
+3. **Cards are a sanctioned image source** (`mediaKind: "card"`: a committed PNG from
+   `/api/share-card`, `cardUrl` recorded, credited "Long Live", never lyrics;
+   `scripts/social/fetch-share-card.mjs`). The 2026-08 cards retirement is no longer a
+   founder rule. `lib/queue-schema.mjs` (a posting-path file) must also list `card` in
+   `MEDIA_KINDS` before the CI backstop accepts one — a separate change.
+4. **Experiments.** An optional `experiment: { hypothesis, variant, metric }` on queue
+   items; Tree spends up to ~1 in 4 slots on a labelled one, Marjorie's weekly review
+   judges approval rate, site clicks and engagement.
+5. **Fable rules on taste.** A Tree-vs-Marjorie disagreement, or a strategy call Tree is
+   unsure of, is a `taste-ruling` issue (filed by a plain job on the workflow identity)
+   ruled on by `routine-fable-taste-ruling.yml` (claude-fable-5, ~$4 / 30 turns, at most 2
+   rulings a UTC day, dispatch-only, no shell). Marjorie's weekly Fable review is the
+   strategy owner of record. A content/social DECIDE item reaches the owner **only** if it
+   touches `guardrails.md`.
+
+**Supersedes.** Tree Overhaul T5's founder-merge on strategy changes (`tree/strategy/` PRs,
+the propose-then-✅ mechanism, hard invariant 2's ✅ gate — the 2026-09-30 amendment's "every
+other strategy change still goes through a Monday proposal"); the 2026-08 retirement of
+designed cards as a founder rule; the "no designed cards / re-admitting cards is a founder
+call" line in strategy §2. **Not superseded:** the owner's ✅ on every post
+(`RULINGS-SOCIAL-2.md` B1), lesson L001's content (now a parameter Tree may tune), and every
+guardrail above.
+
+**Guardrails signed off (owner, chat, 2026-10-01).** Rows 1–5 approved as written,
+conditional on the improved approval flow (#4660: one message per post, one ✅ for IG+X,
+reply = reject). Row 6 reworded at his request: replies/DMs are human *for now* and he
+must be notified of every one; automated replies are a future owner decision, not a
+ban. Paid X API metrics: declined.
+
+**Reversible by** reverting the S2 PR; the allowlist lines, `NEVER_ALLOWLIST` entry and
+params file are independent one-line changes.
+
+**Approved by.** The owner, 2026-10-01 (direction, in chat).
+
+---
+
+## 2026-09-30 — Instagram-ready photo variants: pad, never crop (Bots v2 W10)
+
+**Decision.** Every library photo outside Instagram's 0.8–1.91 aspect window gets a deterministic padded variant (`scripts/social/make-ig-variants.mjs`): the original, uncropped and unaltered, centred on a 4:5 (1080x1350) or 1.91:1 (1080x566) canvas over a blurred, darkened copy of itself. The variant is its own library entry with the original's credit/source/alt/tags and `variantOf`; original and variant count as ONE photo for L001 reuse.
+
+**Why.** After W8, 34 of 54 photos could never ship on Instagram and only 10 never-used photos were drawable; seven eras were exhausted. Cropping would cut the subject; padding keeps the photograph intact and credited. No posting-path file changed: the IG aspect gate lives only in `check-drafts.mjs`/`photo-dimensions.mjs`, which the variant passes.
+
+**Reversible by** deleting the `-ig*.jpg` files and `variantOf` entries.
+
+---
+
+## 2026-09-30 — Tree's drafter un-stuck: one pair, one never-used Instagram-sized photo; pre-compute before the model; same-day event drafts; stale drafts retired (Bots v2 W8; amends lesson L001)
+
+**Why.** Tree posted nothing from 2026-09-22 (0 posts the week of 09-28, 18
+the week before) while six daily drafts sat unapproved and the 09-30 daily run
+died at its turn cap ($8.55, no PR). Diagnosis, from the repo and the open PRs
+(not the agent transcript, which the run log does not keep):
+
+1. **L001 contradicted the rules around it.** L001 said never put one photo on
+   both halves of a pair and, when none is left, drop X to text-only. The pair
+   rule (C4, 2026-09-30) says both halves share one image, and `check-drafts`
+   fails an X item without media. No valid draft existed.
+2. **The photo selector could not see the drafts that mattered.**
+   `select-photo.mjs` ranks by `social/posted/` alone and breaks ties by id, so
+   a draft waiting in an open PR was invisible and every day returned the SAME
+   photo: the six open PRs hold `fearless-inglewood-2023` x3 and
+   `reputation-inglewood-2023` x2 — exactly the "re-used picture" the owner
+   rejected eight times.
+3. **Most of the "never-used" inventory could never ship.** Instagram rejects
+   images outside a 0.8–1.91 aspect ratio and every pair needs an Instagram
+   half. 34 of the 54 library photos are outside it (portrait fan photos, wide
+   stage grabs), including the photos the 09-28 calendar assigned by hand for
+   09-29 to 10-09: each failed `check-drafts` on the aspect gate one at a time,
+   which is the turn-burning loop. Only **10** photos were both never-used and
+   Instagram-sized; none for speak-now, red, 1989, reputation, lover, evermore.
+4. **The weekly calendar said "X: text-only"**, which `check-drafts` has failed
+   since 2026-09-10, and the sanctioned "no usable image → X-only" exception
+   (`singlePlatformReason`) still failed the media gate.
+5. **Stale drafts have no retirement.** The poster's 48h rule only reaches
+   items on main; `social-approval-poll` only stamps and merges. #4471, #4513
+   and #4544 are stamped (approved) but unmergeable — the owner's rejection of
+   one half removed that file and left a lone half the pair rule refuses, so
+   `check-drafts` is red forever; #4556 is empty (all four drafts rejected);
+   #4565 and #4574 were never approved. Nothing closes any of them.
+
+**Decision (a reversible call made under CLAUDE.md Decision authority, per the
+Bots v2 W8 brief; none of it touches a posting-path file).**
+
+- **L001, resolved by the smallest coherent rule.** A photo is ineligible once
+  it appears in `social/posted/`, `social/queue/` or an open draft PR — except
+  across the IG and X halves of the SAME campaign, which carry the same photo
+  by design. The "never both halves" clause is withdrawn; "drop X to
+  text-only" is withdrawn (a text-only X item needs its own written
+  `singlePlatformReason`, and is never a way around L001). When no unused,
+  Instagram-sized photo fits a beat or its era, the beat is deferred, not
+  repeated. L001's counters are refreshed from the ledger (6 PRs, last
+  2026-09-30).
+- **L001 is codified** (#4601): `check-drafts` fails a photo already shipped or
+  queued under a different campaign (`lib/photo-reuse.mjs`) and no longer warns
+  about same-campaign siblings. The text-only-X media gate honours the
+  sanctioned `singlePlatformReason`.
+- **Deterministic pre-compute before the model** (`prepare-draft-inputs.mjs`,
+  run by the daily workflow's `prepare` job): today's calendar slots, what is
+  already drafted on main and in open PRs, one never-used Instagram-sized photo
+  per beat (credited before weakly credited, era-tagged photos kept for themed
+  beats), per-era availability, the active rules, the owner's `reject:`
+  reasons, uncovered intake events and the fast-lane inbox, as one JSON file.
+  The prompt now tells the model to read that, skip the 458-line charter and
+  623-line strategy, do the listening scan AFTER the PR and aim for ≤30 tool
+  calls. `max_turns` stays 50 — the work is bounded, not the cap raised. A
+  failed or capped run leaves a receipt (`draft-receipt.mjs`: run summary plus
+  one deduped `desk:tree` issue per day).
+- **Same-day event drafts.** `social-event-dispatch.yml` (every two hours, and
+  straight after `routine-news-triage`) dispatches
+  `routine-tree-event-draft.yml` for an open `intake:` issue from the last 24h
+  that no social item covers and that reads as a time-boxed event (release,
+  premiere, announcement, win) and not a blocklist topic: at most two a day,
+  deduped by a `tree-event-dispatched` label put on BEFORE the dispatch. Only issues filed by the news desk (`claude[bot]`) or a repo insider (OWNER/MEMBER/COLLABORATOR) count: the intake form auto-labels `intake` for any GitHub user, so an outsider could otherwise trigger an agent run on attacker-written text and burn the cap. The stale sweep re-reads each PR just before closing it. The
+  event run is a 30-turn, one-pair job (or a one-line decline on the issue); its
+  PR waits for the owner's ✅ like every draft. Back-tested on 40 intake issues
+  from 09-15 to 09-30: 19 would have dispatched (about one a day), including
+  both "Patient Zero" items (#4567, #4587).
+- **Stale drafts.** `retire-stale-drafts.mjs --apply` (the daily workflow's
+  `prepare` job) closes a `social-draft` PR open longer than 48h that is empty,
+  never approved, or approved-but-stranded (every file stamped, newest stamp
+  older than 48h, a check red), with a `retired:` comment — deliberately not
+  `reject:`, so it is not a verdict and the drafter reads no reason into it.
+  `social-approval-notify`'s "closed without a reason" backstop accepts
+  `retired:`. It never merges, stamps or touches a queue file.
+- **W2 review follow-ups.** `groupTargets` and the approval post now apply the
+  strict `social/queue/<name>.json` check to single-file refs; chat-poll fetches
+  (bounded, 5) the parents of owner replies that fall outside the pages read and
+  treats a reply whose parent stays unknown as NOT chat; `ref: reddit · <id>`
+  messages count as poll targets, so owner replies to them are not chat.
+
+**Not decided here (owner).** The inventory itself. After this change the honest
+number is 10 usable photos, enough for about ten days of non-themed beats and
+none for six eras; themed beats defer until photos exist. Two ways to unlock
+more, both the owner's call and both open to #4607's rights question: an
+Instagram-ready 4:5 crop of each unshipped portrait photo (a derivative of an
+unshipped picture — the same picture to a viewer), or more sourcing. This
+change does neither.
+
+**Alternatives considered.** Reusing a photo after N days (rejected: the owner's
+"All re-used pictures will be rejected" is absolute); relaxing the era-tag
+requirement (rejected: an off-era photo is worse than none, 2026-09-10);
+raising `max_turns` to 65 (rejected: the cap was hit because the run searched,
+not because 50 is small); having the poll close stale PRs (the poll is a
+posting-path file under the founder social freeze — the sweep lives in the
+daily workflow instead).
+
+**Approved by:** not yet — reversible by a revert; stated in the PR for the owner.
+
+---
+
+## 2026-09-30 — Marjorie-originated asks may change Tree's strategy, calendar and lessons without a founder ✅ (Bots v2 W7; narrows `docs/agents/tree.md` hard invariant 2)
+
+**Decision (owner, 2026-09-30, Bots v2 brief):** "Tree should address any
+feedback from Marjorie immediately when it comes in. Most feedback will pertain
+to social strategy, which should be fluid. Tree should assess Marjorie's
+request and let her know if there's any reason he can't do it, or any help
+needed." Both bots manage the site together.
+
+1. **What changes.** When Marjorie files a `marjorie-filed` + `desk:tree` ask,
+   `routine-tree-ask-response.yml` starts at once and Tree answers `DOING IT` /
+   `CAN'T` / `NEEDS HELP`. A `DOING IT` run opens one `tree/ask/<N>-<slug>` PR
+   that may edit exactly `docs/marketing/social-strategy.md`, `social/calendar.md`
+   and `social/lessons.md` (the last only through `lib/lessons.mjs`). **This
+   narrows hard invariant 2** ("never edits `social-strategy.md` directly; a
+   strategy change needs a founder ✅ on a Monday proposal first") for that one
+   path: a strategy change an ask from Marjorie requests no longer waits for a
+   founder ✅. Every other strategy change still goes through a Monday proposal.
+2. **What does not change.** A post still needs the founder's own ✅ reaction
+   (`docs/social/RULINGS-SOCIAL-2.md` B1): Tree never writes `social/queue/`
+   approvals, `social/posted/`, `social/failed/` or `social/metrics/`, never
+   touches the posting path, and never merges its own PR. The crisis stop,
+   channel-policy rule (an ask for a new channel is `CAN'T`), the unshipped-
+   features rule and `check-drafts.mjs` all stand. Charters stay human-edited.
+3. **Bounds.** The loop is bounded in code: dispatch only on a newly created
+   ask, one dispatch per issue, 6 a day per direction, chain depth capped at 2
+   (a response run that cannot name its parent never dispatches). The response
+   agent reads only the queue file the workflow builds from trusted authors'
+   comments, and its `gh` access cannot fetch issues or comments itself.
+
+**Why.** Strategy feedback that waits for a Monday proposal and a founder's
+reaction is why the five asks of 2026-09-14 sat unanswered for 16 days. The
+owner's time is the scarce resource; the diff is a plain-text strategy file,
+reviewable and revertable in one commit.
+
+**Alternatives considered.** Keep invariant 2 and have Tree only comment
+(rejected — it is the status quo the owner objected to). Let Tree edit
+`social/queue/` for strategy follow-through (rejected — posts keep the
+founder's ✅).
+
+**Reversal.** Delete the `tree-ask-response` workflow or revert the
+`tree.md` amendment; one `git revert`. Any PR the loop opened is an ordinary
+PR and reverts the same way.
+
+**Approved by:** the owner (2026-09-30), by the instruction quoted above. The
+auto-merge treatment of these PRs is a separate change to the merge-authority
+files, made by the coordinator.
+
+---
+
+## 2026-09-30 — Growth-first mandate for Marjorie, a weekly Fable review, and a bounded bot1 bridge
+
+**Decision (owner, 2026-09-30, via the Bots v2 brief; program calls C2 and C5
+in `docs/plans/bots-v2/PLAN.md`):**
+
+1. **Growth is priority #1.** Marjorie manages the business to grow the site
+   by giving fans real value; long-term revenue comes from the fashion section
+   once traffic is significant. Her charter mission (`docs/agents/marjorie.md`)
+   is rewritten accordingly; "the site runs and the user experience improves"
+   (epic #4180, 2026-09-12) becomes the floor, not the goal.
+2. **A weekly Fable review** (`routine-marjorie-weekly-review.yml`, Sundays,
+   before Tree's Monday plan) answers six questions — growth, content quality,
+   social strategy, time-sensitive coverage, money, Tree's asks — from
+   deterministic evidence (`scripts/marjorie/growth-data.mjs`), then opens a
+   `weekly-plan` issue and files work through the existing GitHub funnel
+   (Kevin triages, Austin builds). It files issues itself rather than routing
+   through bot1: bot1 ignores bot/webhook authors today
+   (`DISCORD_ALLOW_BOTS` none) and Hermes cards are invisible to this repo's
+   pipeline, so a bot1 hop would add a dependency and no capability (C2).
+3. **A bounded Marjorie→bot1 bridge** (C5). **This amends the
+   `#longlive` rule** in "Three Discord channels, one job each" (2026-09-12:
+   "No scheduled routine ever posts here unprompted") and the matching
+   charter rule ("Nothing unprompted"). The exception is narrow: a committed
+   flag (`bot1Bridge.enabled`, default **off**) AND a dedicated webhook secret
+   (`DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL`, `ops` environment, never in an agent
+   step) AND at most three prompts per UTC day, each logged on a tracking issue,
+   link previews suppressed (`flags: 4`), worded per
+   `.claude/skills/prompting-bot1/SKILL.md`. Engineering work still goes to
+   GitHub issues, never bot1. The bridge does nothing until Hermes allowlists
+   the webhook's author — a Hermes-session change (cross-project rule l),
+   filed as a human action.
+
+**Why.** The owner's complaint was that Marjorie and Tree were underperforming
+and nobody owned the question "are we growing?". Traffic is currently
+unmeasured (no read-only analytics source exists; `@vercel/analytics` is
+client-only), so the first review reports that honestly and the owner is asked
+to choose a source. Rate-limit state for the bridge lives in the tracking
+issue's own comment log so the counter and the audit trail cannot disagree.
+
+**Alternatives considered.** Route the weekly plan through bot1 (rejected, C2).
+Leave `#longlive` fully closed to Marjorie (rejected — she then cannot unblock
+Hermes-side work). A committed ledger for the rate limit (rejected — an Action
+cannot push to branch-protected `main`).
+
+**Reversal.** Set `bot1Bridge.enabled` back to `false`, or delete the secret.
+Everything else is a `git revert`.
+
+**Approved by:** the growth-first mandate is the owner's (2026-09-30). The
+review design and the bridge (C2, C5) are reversible program calls made under
+his delegation; the bridge stays off until the owner turns it on.
+
+---
+
+## 2026-09-30 — One short Discord approval per post: ✅ approves the pair, any reply rejects it (Bots v2 W2; amends RULINGS-SOCIAL-2 rejection semantics and the 2026-08-26 "no single-platform exception" ruling)
+
+**Decision (Joey, direct instruction, 2026-09-30):** the social approval posts
+in `#longlive-tree` were far too long ("I just want to know what we're
+posting"; a preview image is ideal). Replaced, per
+`docs/plans/bots-v2/PLAN.md` C3/C4/C6:
+
+- **One Discord message per post**, a post being a campaign's IG+X pair or a
+  lone item — never chunked, hard-capped at Discord's 2,000-character webhook
+  limit (`DISCORD_MESSAGE_HARD_CAP`; fields are truncated to fit, X text last,
+  and a test pins every built message). Content: label, schedule, X text in
+  full, IG caption trimmed to ~350 characters with a `<link>` to the full
+  draft on GitHub, a one-line why, one image preview (an explicit embed — the
+  only image form that survives, since `flags: 4` would suppress it — with
+  every URL `<…>`-wrapped), and the `ref:` line last. The separate header
+  message is gone. Builder: `scripts/social/lib/approval-post.mjs`.
+- **✅ approves the whole post** (both halves; one signed stamp per file,
+  schema v2/v3, owner-id check and HMAC unchanged). The ref line names every
+  file in the post (`a.json,b.json`) and `groupTargets` fans the one message
+  out to each file.
+- **Any reply by the owner to the post (message reference or its thread)
+  rejects the whole post**, reason = the reply text, written to the feedback
+  ledger and the `reject:` PR comment exactly as before. A bare ❌ still
+  rejects, reason `"none given"`, and is never nudged. This **amends
+  RULINGS-SOCIAL-2 / S3**, where ❌ needed a reply and a reply alone did
+  nothing. A reply beats a ✅ on the same post (approve-then-comment is a
+  rejection). ✏️ + reply survives only on a legacy single-file message; on a
+  two-file post it is ignored and the reply rejects.
+- **The bot confirms with ❌ itself** (PUT reaction via the existing bot
+  token). The token is read-only by design, so a 403 falls back to one short
+  webhook message with a jump link (`flags: 4`, trailer `rejected: <id>`,
+  idempotent) and a `::warning::` that the owner must grant "Add Reactions" —
+  filed as a human action rather than changing any secret.
+- **Every post is an IG+X pair by default, same image** (`check-drafts.mjs`
+  already failed an unpaired item). The one sanctioned exception is a written
+  item-level `singlePlatformReason` (20–300 characters; schema + gate +
+  shown to the owner on the post) — e.g. no usable image → X-only,
+  breaking-news speed → X first. This **amends the 2026-08-26 "Always an IG
+  copy. Always." ruling** at the owner's instruction; the old `Single-platform
+  exception:` text in `why` still does nothing.
+- **Link previews off (C6)** on every Tree webhook sender in code
+  (`flags: 4` unless a deliberate embed is present): approval posts, the
+  poll's notices, the weekly brief and re-plan update.
+
+**Integrity guards (review):** a draft whose file name is not strictly safe
+(`[A-Za-z0-9_./-]`) gets no approval post at all — it is skipped, logged and
+fails the notify run — because the ref line comma-joins names and a crafted
+name could otherwise stamp a file the owner never saw; `groupTargets` also
+trusts a multi-file ref only when every token is a strict `social/queue/*.json`
+path. A reply on an older re-posted message never overrides a newer message's
+✅, and the chat poll skips owner replies to approval posts (they are
+rejections, not chat asks).
+
+**Legacy:** six draft PRs briefed under the old format were open at the time
+(they retire at 48h). The poll still reads old per-draft + header messages
+(the `*` header target is kept, marked legacy in `social-approval-poll.mjs`);
+delete those paths once none are open.
+
+**Alternatives considered:** an attachment upload for the preview (rejected:
+needs the image bytes at send time, and photos on an unmerged PR are not yet
+deployed); chunking long posts (rejected: a ✅/reply must mean exactly one
+thing); making ✏️ work on a pair (rejected: one caption cannot serve two
+platforms).
+
+**Approved by:** Joey (owner), 2026-09-30.
+
+## 2026-09-30 — Automate the weekly Facebook groups export with a local persistent browser profile
+
+**Decision (Joey, explicit, in session):** automate HUMAN-ACTIONS #70 from
+Joey's personal Facebook account. Joey accepts Meta Terms-of-Service and
+account-flag risk. The deterministic collector may read a password that Joey
+stores himself with Windows DPAPI at
+`%LOCALAPPDATA%\longlive-fb\fb-cred.xml`, keep it only in memory, and type it
+into Facebook's login form when re-authentication is required. It must never
+log, persist, include in an error or command line, or disclose that password to
+Quen or any other LLM. A checkpoint, two-factor prompt, or CAPTCHA always stops
+the run; the automation never attempts to solve one.
+
+**Browser attachment finding:** both Quen profiles configure
+`chrome-devtools-mcp` without `--browserUrl`, `--autoConnect`, or
+`--user-data-dir` (`%LOCALAPPDATA%\quen\home\settings.json:33-39` and
+`home-guard\settings.json:50-56`); `config.json` contains no browser setting.
+That MCP therefore launches Chrome through a pipe with its own persistent
+`~/.cache/chrome-devtools-mcp/chrome-profile`, rather than attaching to Joey's
+already-running default Chrome profile. Its pipe endpoint is not available to
+an independent scheduled process, and Chrome 136+ does not honor remote
+debugging on the default profile. The collector will use the same
+persistent-profile mechanism in a dedicated
+`%LOCALAPPDATA%\longlive-fb\chrome-profile`. Joey signs into that visible
+profile once; subsequent weekly runs reuse its session and may use the DPAPI
+credential for an ordinary login wall.
+
+**Why:** the weekly manual export is already overdue and recurring. A local,
+deterministic browser collector can perform the mechanical work without giving
+credentials or private group content to an LLM. A separate profile avoids
+contending with Joey's everyday Chrome and makes unattended scheduled launches
+possible.
+
+**Alternatives considered:** attaching to everyday Chrome was rejected because
+it is not running with an independently discoverable debugging endpoint;
+reusing Quen's exact profile was rejected because Quen owns that browser over a
+private pipe and Chrome prevents concurrent profile launches; continuing the
+manual export was superseded by Joey's explicit automation decision.
+
+**Approved by:** Joey, in chat, 2026-09-30.
+
+### 2026-09-22 — concert photo sourcing at scale: no credit/permission gate on ingestion (kanban t_e1d26de7)
+
+**Decision (Joey, explicit, on record):** expand the social photo pool with
+fan-taken concert photos sourced at scale from public posts, WITHOUT
+requiring a credit/permission-request workflow before ingestion. Joey was
+told plainly that fan photos remain copyrighted by the photographer even
+when posted publicly, and that operating an ingestion pipeline at scale
+without a license/permission/credit gate creates real legal exposure —
+DMCA takedowns, cease-and-desist risk, and rightsholder/agency scanning
+targeting Longlivets.com/JW Labs specifically. Joey chose to proceed
+anyway, prioritizing maximum photo volume across every concert/era over
+that risk.
+
+**Why:** Tree/social flagged the pool as small and concentrated on one
+concert (confirmed: `social/photo-library.json` had 10 entries, 8 of them
+from a single Inglewood 2023 show). The original card asked for a
+licensed/credited/UGC-consent sourcing design; Joey overrode that
+requirement mid-task.
+
+**Scope of this decision:** covers photo *ingestion* only — sourcing and
+adding photos to `social/photo-library.json`/the library directory without
+a rights-check step. Does not change anything about the *posting* pipeline
+(`post-queue.mjs`, approval gates, pairing rules) or grant any new access
+to secrets/credentials/spend. `mediaCredit`/`mediaSource` fields remain
+required per the existing queue schema (data-quality fields, not a
+permission gate) — the change is that ingestion no longer requires an
+opt-in/license/permission-request step before a photo enters the pool.
+
+**Alternatives considered:** (a) official/press-accredited + licensed wire
+sources only, (b) credit-and-permission-request workflow for fan photos,
+(c) opt-in fan-submission/UGC intake. All three were the original card's
+recommended path; Joey rejected all three in favor of unrestricted volume.
+
+**Approved by:** Joey, in chat, mid-task on kanban t_e1d26de7, 2026-09-22.
+
+### 2026-09-15 clarification — verified approval relay
+
+Implementation exposed a mismatch in the M8 design: Kevin accepted only direct
+human comments, while Discord approval is relayed by a bot. Under the founder's
+delegated authority for reversible M8 decisions, Kevin now accepts only the
+exact M8 three-line approval template from a typed, allowlisted Claude or
+GitHub Actions bot, with matching Discord permalink and marker ids. Similar
+prose has no authority, and a later direct founder comment still overrides it.
+This changes no product direction and grants no authority to other chat relays.
+
+## 2026-09-14 — Marjorie drives dispatched work to done: ready-shaped tickets, the founder's yes, a 48/96-hour chase (M8)
+
+**Decision (Joey, in chat, 2026-09-14):** of two proposed designs for getting
+Marjorie's engineering dispatches built, take the first: she files into
+Kevin's existing queue, and Austin's lane picks up what Kevin greenlights;
+no direct Marjorie-to-Austin lane, no change to Austin's fence or Kevin's
+prompts. Added at Joey's numbers: an item of hers with no activity for
+**48 hours** is named on the brief's stalled line and gets one nudge; at
+**96 hours** it becomes one `[DECIDE]` human action (assign, defer or
+close), once per item, `SKIP` final. "I want PRs closed within 2 days
+max." A founder's ✅ or chat yes on one of her items becomes a
+"Plan approved" comment on the issue, which is what Kevin already reads as
+approval. Spec: `docs/specs/marjorie-overhaul/m8-drive-to-done.md`.
+
+**Why:** Marjorie can only file issues (invariant 1). Her filings already
+reach Kevin's triage by authorship, but nothing chased a ticket after
+filing, nothing relayed the founder's yes to the issue, and `desk:build`
+was a marker no routine consumed. Two Tree asks routed to the build desk on
+09-14 (#4296, #4297) would have aged silently.
+
+**Rejected:** a direct `desk:build` queue for Austin. Faster, but it
+bypasses Kevin's judgment, so Marjorie's acceptance criteria would be the
+only quality gate. Revisit if the two-day rule is not met under design 1.
+
+**Open:** Austin's allowlist excludes `scripts/**` and `.github/**`, where
+most of what Marjorie and Tree file lives; widening it is a separate
+charter decision the chase will make the case for or against.
+
+## 2026-09-14 — The routines' clock runs on the home server, not on GitHub's scheduler (M7 amendment)
+
+**V2 authority amendment (2026-09-14):** The installed tag alone pins the
+clock table, repository and inputs. Exactly bot-chat-poll every five minutes
+and routine-marjorie-brief at 12:00 UTC; both retain GitHub schedule triggers.
+The brief first-job guard blocks a second ordinary agent run that UTC day.
+For host configuration, main supplies only the literal CLOCK_LIVE gate, never executable host code
+or a table: effective live = pinnedLive && mainLive === true. V2 explicitly
+authorizes its two rows in the tag while main starts false; the post-update
+flag PR releases that bounded capability. A main commit can still change
+the two workflows' implementation; it cannot widen the host's dispatch list.
+Main is trusted executable authority in Actions: filename confinement does
+not confine what those privileged workflows can do. This is not a semantic
+capability boundary.
+After three failed ten-minute refreshes the host fails closed. Attempts are
+once-only, in memory, with process-start gating and rolling limits.
+
+This replaces the rejected remote-table policy and durable slot ledger.
+Authority is reduced to a reviewed tag rather than trying to validate remote
+policy. Scope: Joey's #4290 decision; mechanics: the architect ruling on
+origin/feature/m7-clock and the v2 spec amendment. Joey approved installing
+the revised unit and daemon-reload in the update HA before its restart, so
+WatchdogSec and StartLimitBurst actually take effect on the existing host.
+The key stays host-only; no approval or social behavior changes.
+
+**Original decision (historical; table policy superseded by v2 above):**
+The M7 doorbell process on the Hermes VM host also keeps the
+clock: it reads a committed schedule table (`scripts/doorbell/schedule.json`,
+seeded from every workflow's own `cron:`) and starts each routine on time
+with `workflow_dispatch`, skipping any slot where a run already exists. The
+GitHub `schedule:` triggers stay in every workflow as the fallback. Spec:
+`docs/specs/marjorie-overhaul/m7-doorbell.md` Pieces 4, Mechanics 10.
+
+**Why:** GitHub drops most of this repo's scheduled runs (#4290, measured
+2026-09-14): the 5-minute chat poll fired 3 times in 14 hours, the hourly
+watchdog twice in 11, and neither the Tree Monday run nor the Marjorie
+brief fired at their slots; nothing was queued, so runs are dropped, not
+delayed. Every "runs on its own" promise in both overhauls rests on that
+clock. A `workflow_dispatch` is a push and is unaffected.
+
+**Alternatives considered:**
+- *Consolidate the 53 crons into one dispatcher workflow:* fewer entries,
+  same scheduler; the one cron can be dropped too.
+- *Accept and widen the rechecks' tolerances:* documents the problem instead
+  of fixing it; a founder message could wait hours.
+- *A separate clock service:* rejected as a second process with the same
+  key on the same host; one service, one env file, one install HA.
+
+**Approved by:** Joey, in chat, 2026-09-14: "yes, let's run the clock on
+the server." Epic #4180.
+
+---
+
 ## 2026-09-13 — A doorbell on the home server picks up founder messages in seconds; the poll stays as the fallback (M7; amends the 2026-09-12 channel decision)
 
 **Decision (Joey, in chat, 2026-09-13 19:16 PDT, relay decisions 1–5 all "yes"; recorded on #4180):**
@@ -117,6 +992,25 @@ done by the architect agent, and the invocation is logged in `STATE.md`.
 Epic #4180.
 
 ---
+
+## 2026-09-14 — Chat replies land in the channel, not in a new thread; short by default (#4319, #4320)
+
+**Decision (Joey, in Discord and in chat, 2026-09-14):** amends the M5 entry
+below. A founder's top-level message in `#longlive-marjorie` or
+`#longlive-tree` gets one reply in the channel; a message already in a
+thread gets its reply in that thread. The routines create no threads.
+Ordinary replies default to 2–4 sentences (about 80 words), with more only
+when asked for or essential; the 1,800-character cap stays. The old Hermes
+Tree gateway no longer answers in `#longlive-tree` (host config, not this
+repo). M6's echo line follows the same rule.
+
+**Why:** at M7's live test the bots opened a thread per question and wrote
+long answers, and Tree answered twice. Joey wants one short answer where he
+asked.
+
+**Consequence:** `chat-post.mjs thread` returns an empty id for top-level
+messages; the M5 proof text (in-thread) is historical. Spec:
+`docs/specs/marjorie-overhaul/m7-chat-direct-replies.md`.
 
 ## 2026-09-13 — Founders talk to Marjorie and Tree in Discord; Tree may answer in threads (M5)
 
@@ -7774,3 +8668,183 @@ than shipping one.
 with base64 secrets (puts signing material in a second secret store and
 keeps the runner's fingerprint in play); keeping manual `eas build` +
 manual Play upload (the failure mode this replaces).
+
+## 2026-09-30 — Facebook export collects via a Chrome extension, not CDP
+
+Facebook stunts the feed (about 3 slots, never infinite) for any
+CDP-controlled Chrome, including plain Chrome with a debugging port, while the
+same profile in a normal browser loads fine. The weekly export therefore uses
+a content-script extension loaded unpacked in the dedicated profile; Chrome is
+started with no `--remote-debugging-port`, and the extension talks only to a
+local receiver on `127.0.0.1` with a per-run random token, from its background
+worker. **Removed:** the Puppeteer collector (`fb-export-browser.mjs`,
+`fb-export-collect.mjs`, `fb-export-profile.mjs`), the DPAPI login and the
+`--probe-profile` path. New stop status `stunted` halts the run like a
+checkpoint. **Comments** are collected but private and local (per #4649): stored
+only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
+**Trade-off:** the extension must be loaded by hand once (Chrome 137+ ignores
+`--load-extension`) and the profile must stay logged in.
+
+## 2026-10-01 — auto-merge-content disarms only the auto-merge it armed (#4680)
+
+`auto-merge-content.yml` used to run `--disable-auto` on every non-`enabled` verdict, stranding agent PRs that set `gh pr merge --auto` themselves. It now stamps an `automerge:content` label before arming and disarms (and unlabels) only when that label is present; `social-draft` PRs, `social-poster/state-*` branches and the social-draft decline verdict keep the always-disarm behaviour. Tested in `scripts/automerge-own-arm.test.ts`.
+
+## 2026-10-04 — Shared (DOM) UI is the default for everyone; legacy native UI to be deleted later
+
+**Decision (Joey, CEO, 2026-10-04 16:03):** the shared (DOM) UI becomes everyone's default now; the legacy native UI will be deleted in a later PR. This supersedes the "default-off until S7+S8" roadmap.
+
+- Android-only for now (PM, 2026-10-04): the iOS shared UI never reaches ready on iPhone yet, so iOS reads a separate gate `sharedUiIos` (default and JSON `false`); Android reads `sharedUi`. iOS is enabled by a one-line JSON/OTA change after the iOS DOM fix is verified on device. An iOS cache-miss is native `flag-off` (the legacy interim UI).
+- A committed attempt write is bounded at 3000 ms; a hung write mounts native `attempt-failed`.
+- `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: false` (global auto-reporting is deferred until shared sampling/aggregation exists).
+- Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The Diagnostics "Force shared UI" control and its SecureStore key are removed. `PENDING_MAX_MS` stays 1500 and pending expiry is terminal for the launch: no late swap of an interactive native UI; the next launch decides normally.
+- Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is the Recovery screen; only `flag-off` (kill switch) shows the legacy native UI until PR3.
+- Order: the S8 drill moves before the deletion PR (PR3); S7 becomes production telemetry.
+- Kill switch: JSON `sharedUi: false`, effective on the next launch.
+- Wrong-signal threshold: any `quarantined` or `ready-timeout` `[watchdog]`/`[diag]` report from testers/devices that send reports (absolute, not a percentage).
+
+## 2026-10-04 — One UI PR3: the legacy native UI is deleted (draft, gated on the S8 drill)
+
+**Decision (Joey, CEO, 2026-10-04):** users never see the legacy native UI, so it is deleted rather than kept as a fallback. Supersedes the "legacy native UI to be deleted later" interim above. **Do not merge before the S8 device drill passes** (force DOM failure + airplane mode, Android and iPhone).
+
+- Deleted: `NativeScreenRouter`, `SiteShell`, `VaultNavigator`, `BottomTabBar`, every native Era/Thread/Song/Track/Community/Merch/Clown/Search/Legal/Settings/Onboarding screen with its helpers, data layers (`vault`, `*-data`, `clown-client`, `mood-client`), hooks (`use-native-screen-state`, `settings-entry`, `visible-screen`, `recovery-surface`) and tests.
+- Kept: UpdateRequired, Recovery, Inbox overlay (About/Diagnostics via the hot corner), tap/deep-link intake, `registerDevice`, the watchdog, the JSON route keys in `config/mobile/app-config.json` (old OTAs parse them) and `react-native-webview` in `package.json` (removing it changes the native fingerprint and forces a store build).
+- `flag-off` now shows the Recovery screen. The kill switch for the legacy UI no longer exists; the emergency lever is an OTA rollback (`mobile-rollback.yml`).
+- `lib/routes.ts` shrinks to `sharedUi`; Diagnostics override remnants (`clearOverride`, the `override` want-source) are removed from the watchdog.
+- Native fingerprint is unchanged: no `package.json`, `app.json` or plugin edits.
+
+## 2026-10-04 — Phones are portrait-only; feedback stays in the public repo for now
+
+Joey, 2026-10-04 21:06 PDT; Fable concurred.
+
+**Phone orientation.** The app is portrait-only on phones; tablets rotate. This is an accepted divergence from the website (listed in `docs/one-ui/parity.md`). Rationale: platform convention for content and fan apps, and it avoids a second test matrix. Revisit if user feedback asks. Watch: fullscreen video must still rotate under the lock; if it does not, unlock on fullscreen and relock, never a global unlock.
+
+**Feedback destination.** Feedback issues stay in the public `JW-Incorporated/swift2` repo for now. The founder wants a private repo eventually. Deferred because five same-repo consumers read `user-feedback` issues through the repo-scoped `GITHUB_TOKEN`: `routine-marjorie-triage.yml`, Kevin's daily-desk digest, `scripts/marjorie/lib/status-fans.mjs`, `scripts/ops/unowned-sweep.mjs` and assemble-brief. Privacy mitigations in place: #5029 disclosure, #5085 minimisation, #5098 escaping. The feedback form now says "Posted publicly on GitHub — please don't include personal details." Tracked in the move-to-private issue.
+
+## 2026-10-05 — The app may cache other sites' photos on the device for offline use (#5112)
+
+Joey, 2026-10-05 05:52 PDT, in chat: "Yes the app can store other sites photos for offline use."
+
+**Decision.** The Expo app extends its offline art cache (#5111) to the third-party primary images of recently viewed eras. The cache is on-device only and is never re-served, uploaded or shared: the same as a browser cache holding the pages a user opened. It stays under the existing 40 MB LRU cap, 10 MB session budget, 5 MB per-item ceiling and next-launch orphan sweep.
+
+**Shape.** Trigger is the reader's `route` event snapshot (`snap.eraId`, #5123), read natively; no new bridge message. After content has loaded and interactions settle, `syncEra` fetches the current era first, then the last 2 viewed eras (MRU list in the manifest). MRU eras' third-party URLs count as referenced, so they are not evicted as orphans. Guard against hotlink placeholders: `image/*` content-type, HEAD Content-Length of at least 2 KB, and a JPEG/PNG/WebP/GIF magic-byte check after download. A 429 skips that host for the session. Requests carry a descriptive `User-Agent` (supported by `File.downloadFileAsync` headers in expo-file-system 57).
+
+## 2026-10-05 — Shared UI ships default-on for iOS without the iOS-1 device session
+
+Joey, 2026-10-05 06:48 PDT: land the held One UI stack now, at risk, without the iOS device check.
+
+**Decision.** `sharedUiIos` is true in both the shipped `config/mobile/app-config.json` and the compiled `DEFAULT_ROUTE_FLAGS` (a fresh install has no cached config and uses the compiled default). Android was already on, so both platforms default ON.
+
+**Rollback.** Remote config `sharedUiIos: false` (devices with a cached config) plus the watchdog fallback to Recovery. Post-landing iOS confirmation stays on HUMAN-ACTIONS HA #100.
+
+## 2026-10-05 — Privacy policy corrected to describe the app as the shared UI in a web view with analytics off
+
+Parity audit PA-3/PA-4. The policy still described native screens, in-app website analytics on Privacy/Terms/Support, and a cookie-based Clownbot identity. Code: the app renders the shared UI in an in-app web view (`apps/mobile/dom/AppReader.tsx`), legal pages render from the bundled copy (`apps/mobile/dom/slots/legal-overlay.tsx`), `@vercel/analytics` is only in `apps/web`, and the app Clownbot identity is a bearer token in secure storage. Policy copy and the parity manifest entry (`analytics-web-only`) corrected; `data-inventory.ts` and the store data-safety doc are left as-is (founder decision, over-declaring is safe).
+
+## 2026-10-05 — Watchdog: in-launch failures never make Recovery sticky; ready timeout 20 s
+
+Fable ruling 2026-10-05 07:40 (revises its 2026-10-04 16:30 ruling in part).
+
+**Decision.** In-launch failures (ready-timeout, dom-error, webview-terminated/render-gone, protocol: everything the attempt monitor's `onStrike` sees) send this launch to Recovery and record `state: 'failed'` plus `lastReason` via `recordLaunchFailure`. `strikes`, `fallbackLaunchesRemaining` and `fallbackCycles` are untouched, so the next cold launch always attempts DOM; an in-launch failure never owes a fallback launch and never quarantines. Cross-launch deaths (`decideMount`: attempting and not backgrounded, abandoned-repeated) are unchanged: 2 consecutive deaths without ready owe a fallback launch, 2 cycles quarantine. `READY_TIMEOUT_MS` 10 s to 20 s (one constant, no first-launch special case). Retry counter semantics unchanged. No schema `v` bump (old records still parse). `pending-expired` removed from `NativeReason` and the `slow` RecoveryScreen variant deleted (dead). Every in-launch failure is reported when `watchdogReports` is on (previously only fallback/quarantined).
+
+**Why.** A slow-but-working first launch hit the 10 s timeout twice, which owed a fallback launch and then quarantined the build: a healthy build became permanently Recovery until the next OTA.
+
+## 2026-10-05 — ops-fixer routine: a bot may edit workflows and scripts and land its own fix (founder decision A)
+
+Joey, 2026-10-05 15:50 PDT, in chat: "A. But minimal guard rails. I want it to fix everything without needing me."
+
+**Decision.** Option A: a dedicated `ops-fixer` routine (`.github/workflows/routine-ops-fix.yml`, charter `docs/agents/ops-fixer.md`) fixes any bot or automation problem Marjorie routes to it, including `.github/workflows/**`, `scripts/**`, configs, prompts and app code. Its PR must pass CI and then auto-merges. Exactly four guard rails, nothing more:
+
+1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2) and stop. (May reference secret NAMES in workflow YAML.)
+2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
+3. Never run the social live-send paths (`scripts/social/post-queue.mjs`, `delete-media.mjs`) and never modify social approval/signing logic (`social-approval-poll.yml` HMAC/stamp code, `scripts/automerge-social-approval-gate.mjs`) or write "approval" keys into `social/queue/**`. It MAY fix other social/Tree code.
+4. Merge only via `gh pr merge --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
+
+Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founder addendum, 15:51 PDT: a bot that cannot fix something posts a copy-paste prompt and where to paste it, not a problem description). `scripts/marjorie/ops-fix-guard.mjs` enforces rails 1-3 on the diff before merge.
+
+**Supersedes in part** the 2026-08-11 merge-delegation proposal's "workflows/CI: human merge" line, for this routine only, by the founder's explicit choice. Pushing under `.github/workflows/**` additionally needs the "Workflows: Read and write" permission, so the routine uses a dedicated `OPS_FIXER_PAT` (falling back to `SOCIAL_POSTER_PAT`) rather than widening the social poster's token (HUMAN-ACTIONS #108). Review round 1 hardened enforcement without adding rails: an issue-author + label trust gate before the agent, a deterministic 2-run cap, a post-agent `finish` job that runs the guard from main's copy and disables auto-merge on a violation, and a guard that refuses edits to the ops-fixer's own machinery and the required-check workflows.
+
+**Update 2026-10-05:** OPS_FIXER_PAT (classic PAT with scopes Repo and Workflows) created and saved as `OPS_FIXER_PAT` secret; HA #108 resolved.
+
+## 2026-10-05 — Bots self-heal: routine failures auto-file to Marjorie; founder only for founder-only items
+
+Joey, 2026-10-05 (BOTS-LOOP; the founder requirement added in chat the same day is item 4 below).
+
+**Decision.** (1) `bot-failure-triage.yml` (plain Action, no LLM, `workflow_run` on every `routine-*`) files ONE deduped issue per failed workflow per UTC day — hidden marker `<!-- routine-failure: <workflow> <date> -->`, labels `desk:ops` + `marjorie-filed` + `routine-failure`, the failing job and step names and the run URL only — no log text, the repo being public; Marjorie reads the logs via the run URL; a repeat failure the same day adds at most one comment an hour and five in all, a closed same-day issue is commented on never duplicated or reopened, a timeout-minutes stop (reported as cancelled) is detected only from the cancelled job's check-run annotation ("exceeded the maximum execution time"; a plain "The operation was canceled." is a manual stop and is skipped, as is an unreadable annotation, with a warning) — max-turns stops surface as `failure`, so no log is parsed, dispatches have their own 6-a-day cap, and `routine-ops-fix` failures are labelled `ops-fix:stuck` and never dispatched back — and starts `routine-marjorie-ask-response.yml` through the existing guarded dispatcher (creation only, once per issue, 6 a day, never on itself). Tree's `desk:tree` draft receipts are adopted into the same mechanism (labels and markers added, `desk:tree` swapped for `desk:ops` because exactly one `desk:*` label means "routed"), not duplicated. Logic and tests: `scripts/marjorie/routine-failure-triage.mjs`. (2) Tree's errors, blockers, broken links, missing data and tool failures always go to Marjorie (`loop-live.mjs save-help --error`; `"kind": "error"` in `needsFromMarjorie`) and are NOT counted against the 2-a-day help cap, which stays for discretionary asks (backstop: 6 error asks a day). Tree never messages the founder about an error. (3) Marjorie diagnoses a routine failure and REROUTEs it to the build desk with a concrete fix brief; her weekly review and daily brief re-dispatch any `desk:ops`/`desk:build` issue older than 3 days with no linked PR and list anything older than 7 days once as stuck with the blocker named. (4) **Any escalation to the founder carries WHERE and a complete copy-paste PROMPT**: exactly which session to open ("Claude Code in Documents\Claude\Projects\Swift2", "…\Projects\Hermes" for anything on the Hermes VM, bots, allowlist or doorbell, or literal clicks for a pure login/payment/secret-value action) and a self-contained prompt in a fenced block in the GitHub issue (issue number, context, goal, acceptance check, "open a PR and land it per CLAUDE.md"); the `HUMAN-ACTIONS.md` card (format v2) is only "1. Open Claude Code in <project>. 2. Paste the prompt from issue #N." Never a description alone — rendered and validated (empty parts refused) by `scripts/marjorie/escalate.mjs`. Only genuinely founder-only items (login, payment, secret value, approval, physical-world action) reach the founder, as `HUMAN-ACTIONS.md` cards, not `founder-task` prose. (5) `max_turns` 40 → 80 on `routine-austin-build`, `routine-laura-a11y-walk`, `routine-kevin-daily-desk` and `routine-kevin-s1-karen-solver` (a ceiling, only consumed when needed).
+
+**Why.** Failures sat as red runs or `desk:tree` receipts nobody read; Tree's help ask was optional and capped, so blockers spilled into founder chat; four build routines died on the 40-turn ceiling (#5010). Bots must find, file and fix their own problems; a founder is for what only a founder can do, and then must get something pasteable.
+
+**Out of scope, unchanged** (founder decision pending): any bot write access to `.github/**`, Austin's allowlist, merge authority, `scripts/social/**`, `social/queue/**`, the Hermes VM.
+
+**2026-10-06 amendment.** `workflow_run` is never emitted for a run started with `GITHUB_TOKEN` (run 37392659004, `routine-marjorie-ops`, dispatched by github-actions[bot], failed unseen), so `bot-failure-triage.yml` also runs a half-hourly sweep (`schedule` + `workflow_dispatch`, `routine-failure-triage.mjs --sweep`) over the last 2h of failed `routine-*` runs on main, through the same per-run handler; the daily marker and run-URL check make overlap idempotent (one issue, one dispatch), the day key is the run's completion day, and one global concurrency group serialises sweep and `workflow_run`. `routine-marjorie-ops` `max_turns` 60 → 90.
+
+**2026-10-06 fallback dispatch.** GitHub never emitted a `schedule` event for `bot-failure-triage.yml` (none since 2026-10-06T01:26Z, even after the cron was changed to force re-registration, #5213), though manual dispatch works. GitHub drops most scheduled runs in this repo (watchdog's hourly cron was observed firing every 1–6h on 2026-10-05/06), so `scripts/marjorie/dispatch-triage-sweep.mjs` (skip if the latest triage run started under 25 minutes ago, else `gh workflow run bot-failure-triage.yml --ref main`; a gh error is a warning, never a failure) is called by a final `if: always()` step of `bot-chat-poll.yml` (primary: its ~5-minute clock, throttled to ~30 minutes) and by an independent `triage-sweep-dispatch` job in `watchdog.yml` (backup, schedule events only). The triage cron stays; the global concurrency group makes overlap safe.
+
+**2026-10-06 Clock dispatch table** (supersedes the single-workflow `dispatch-triage-sweep.mjs` above, which is deleted). Delivery over 48h (2026-10-04 to 06): GitHub ran only 2-22% of hourly-or-faster crons — `watchdog` 11/49, `routine-marjorie-ops` 8/48, `marjorie-status` 9/48, `auto-merge-keepup` 10/192 — while daily/weekly crons were ~100%. So `scripts/ops/clock-dispatch.mjs` is table-driven (`scripts/ops/clock-table.json`: `bot-failure-triage.yml` 25 min, `watchdog.yml` 55, `routine-marjorie-ops.yml` 55, `marjorie-status.yml` 55, `auto-merge-keepup.yml` 14): per entry it dispatches on `main` unless a `schedule`/`workflow_dispatch` run started within the gap (`workflow_run` runs ignored), one entry's gh error is a warning that never stops the others, and the script always exits 0. Same two callers: `bot-chat-poll.yml` (primary, ~5-min) and `watchdog.yml`'s backup job (schedule events only; a clock-dispatched watchdog is `workflow_dispatch`, so it never re-dispatches itself). GitHub's crons stay as backup. Double-fire safety: `routine-marjorie-ops` (`marjorie-ops-sweep`), `auto-merge-keepup`, `bot-failure-triage` and `marjorie-status` (per-job groups) already serialise with `cancel-in-progress: false`; `watchdog` gained a job-level `watchdog-daily`/`watchdog-hourly` group (daily in its own lane so a queued hourly run can never replace it). Because `watchdog.yml` treated every `workflow_dispatch` as a manual DAILY run (brief alert, mailer retry, cadence jobs), it gained a boolean `hourly` dispatch input, passed by the clock, that restores hourly-trigger gating. Social workflows are deliberately not in the table (founder decision pending). `routine-marjorie-ops` runs Claude, so its 55-min gap matches its hourly cron (`18 * * * *`) intent, no more.
+
+**2026-10-06 (later) clock table + watchdog retry.** `merch-awin-sync.yml` joined the clock table at `minGapMinutes: 360`: it now succeeds (run 37517840689: 60 changed feeds, 515 pending) but its daily cron would need ~9 days to drain the backlog; every 6h (~4 runs/day, 60 feeds/run at the existing 12s spacing) clears it in ~2 days. It already has `workflow_dispatch` and a `merch-awin-sync` concurrency group with `cancel-in-progress: false`, so a cron+clock overlap queues instead of running two refreshes on one cache. Separately, watchdog daily run 37521424662 lost three steps to one transient `GraphQL: Something went wrong` from `gh issue` calls (alert-opening is daily-only, so a blip cost a day of alerts); `scripts/watchdog/gh-retry.sh` (`gh_retry`: 3 attempts, 5s/15s backoff, retry only on non-zero exit, `::warning::` per retry, original exit code after the 3rd failure) now wraps `upsert-alert.sh`'s gh calls and the per-workflow `OPEN_TITLES` lookup.
+
+**Supersedes in part** the "`.github/**` stays out of every bot's reach" line of the 2026-10-05 "Bots self-heal" entry (and `docs/agents/marjorie.md`): the ops-fixer is the one bot that may edit `.github/**`, under the four rails. Failures of `routine-ops-fix` itself are routed by `bot-failure-triage.yml` to `ops-fix:stuck`, never back to the ops-fixer, and the guard refuses any ops-fixer edit to that triage loop.
+
+## 2026-10-05 — Merch drop-card image auto-merge exemption (founder decision A)
+
+Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop-card images to auto-merge.
+
+**Decision.** A narrow carve-out that AMENDS, and does not delete, the 2026-08-11 merge-machinery item 3 ("a social image only auto-merges when it rides with a `social/queue/**.json` draft that `check-drafts.mjs` validated") and the allowlist-scope item 5. An image counts as accompanied ONLY when ALL hold: (1) the PR head branch is `merch-official-sync/*`; (2) the image path is exactly `apps/web/public/social/library/merch-drop-<digits>.png` and the PR newly adds it; (3) the same PR adds at least one top-level `social/inbox/merch-*.json`; (4) the existing branch/author gate already passed for that branch. Every other image case stays fail-closed exactly as before, and `social/queue/` drafts are untouched. The predicate is `scripts/automerge-merch-drop-exemption.mjs` (unit-tested), run from a base-ref checkout in `auto-merge-content.yml`'s `enable` job.
+
+**Why.** merch-official-sync drop PRs (#5162, #5202, #5204) carry a rendered library card plus a `social/inbox` fact sheet but no `social/queue` draft, so every drop needed a manual merge. The inbox fact sheet is the draft intent: Tree drafts the post from it in its next run and the founder still approves that post in #longlive-tree, so no post ships without founder approval.
+
+## 2026-10-06 — Watchdog "failed its last 2 scheduled runs" covers every scheduled workflow
+
+**Decision.** The per-workflow alert now targets every `.github/workflows/*.yml` with a `schedule:` trigger (derived at runtime by `scripts/watchdog/scheduled-failures.mjs`), minus an explicit `EXCLUDE` map with a reason per entry (today: `mobile-parity.yml`, which fails on purpose and raises its own "diverged" issue). It runs on every watchdog trigger so a recovered workflow closes within the hour; opening stays daily-only. Latest settled `schedule`/`workflow_dispatch` runs count; `timed_out` now counts as failing.
+
+**Why.** `link-sweep` and `merch-awin-sync` were red on every daily run 2026-10-02..06 and nobody was alerted: the check only covered a hand-kept list. Alerts #4996 and #5174 also stayed open after a success because the close path only ran in the daily 14:35 pass and only looked at `schedule` events.
+
+## 2026-10-06 — Agents may flip allowlisted non-secret switches (founder decision, Joey)
+
+**Decision.** `scripts/ops/set-switch.mjs <NAME> <VALUE> --reason "..."` lets agents set an allowlist of NON-SECRET repo variables: every `*_ENABLED` variable the workflows read (`AWARENESS_LANE_ENABLED`, `BOT_CHAT_ENABLED`, `COMMUNITY_CRAWL_ENABLED`, `COMMUNITY_SCAN_ENABLED`, `CONCERT_PHOTO_SOURCING_ENABLED`, `REPLY_NOTIFIER_ENABLED`; true/false), `COMMUNITY_CRAWL_BUDGET` (positive integer), and the freezes `SOCIAL_FREEZE` and `CONTENT_AUTOMERGE_FREEZE` and `CODE_SCANNING_ENABLED` with value `true` ONLY (turning security scanning off stays founder-only) (brakes agents engage, only the founder lifts). Secrets, `MARJORIE_EMAIL`, `DISCORD_FOUNDER_IDS`, `OWNER_DISCORD_ID`, `HOME_RELAY_URL` and any name containing TOKEN/KEY/SECRET/PASSWORD/WEBHOOK/ID/EMAIL stay founder-only. The wrapper never deletes (a deleted `SOCIAL_FREEZE` reads as unfrozen) and logs every flip to `docs/ops/switch-ledger.md`. guard.sh still denies all `gh secret` mutation, `gh variable delete` and raw `gh variable set`.
+
+**Why.** The blanket guard deny forced founder relays for harmless flips (HA #56/#60/#61/#65/#68/#112 freeze flips; #84/#54 feature flags). Agents may now engage the social freeze, but only the founder lifts it. An agent may re-enable a founder-paused lane via `*_ENABLED=true` only with a `--reason`, and it is ledgered. Follow-up (security review of PR #5257): guard.sh also denies flag-first CLI forms and non-GET REST calls to the Actions variables/secrets API (`gh api`, `curl`), so the on-only guarantee cannot be bypassed.
+
+## 2026-10-06 — CI check: workflow jobs must install the deps their scripts import
+
+**Decision.** `npm run check:workflow-deps` (ci.yml build-full) fails when a workflow job runs a repo node/tsx script that imports an npm/workspace package (transitively through relative imports) without installing deps, or imports a gitignored `*.generated.*` module without `npm run sync:content`. Builtin-only scripts keep the no-install fast path. Fixed alongside: merch-awin-directory-shortlist/recommendations, merch-e5-evidence, routine-marjorie-weekly-review (collect), merch-audit-detect/authoring (sync:content).
+
+**Why.** `.github/actions/setup-repo` defaults `npm-ci` to false; the trap bit twice in one day (#5219 merch-awin-sync, #5224 appearance-discovery), each red on every scheduled run for days. Second occurrence means an automated check (CLAUDE.md rule 8).
+
+## 2026-10-06 — Social poster and approval poll go on the 5-minute clock
+
+**Decision.** Founder decision (Joey, chat, "social yes"): `social-poster.yml` (minGap 28) and `social-approval-poll.yml` (minGap 14) join `scripts/ops/clock-table.json`, so `clock-dispatch.mjs` starts them from the 5-minute clock; their GitHub cron stays as backup. Dispatched runs are identical to scheduled ones (no `event_name` branching, no inputs; both already have `workflow_dispatch` and a serialising `concurrency` group with `cancel-in-progress: false`). Approval is unchanged: nothing posts without the founder's own Discord check.
+
+**Why.** GitHub delivered about 9 of 96 expected `*/30` poster fires and about 10 of 192 expected 15-minute poll fires per 48h, so approved posts went out late.
+
+## 2026-10-07 — Official music-video stills allowed for social (founder decision 2026-10-07 06:23, "frames yes")
+
+**Decision.** Founder decision (Joey, chat, 2026-10-07 06:23 PDT, "frames yes"; the rights call is his): stills from Taylor Swift's OFFICIAL music videos and official-channel videos may enter the social photo library, toward the stated goal of more than 10,000 good Taylor photos. `scripts/social/source-video-frames.mjs` feeds the existing merge + `import-photo-library.mjs --fetch --write` path from `concert-photo-sourcing.yml` (non-fatal step). Credit `Taylor Swift (official video)`, `source` = the watch URL (so `mediaSource` is always present), tags `official-video` + the era.
+
+**Exclusions (unchanged rules, applied to frames).** Only Taylor Swift's own channel (the vault seed's `Taylor Swift — official YouTube channel` media attribution; kinds music video, short film, performance, behind-the-scenes documentary): never other channels' uploads (talk shows, awards, press, ZAYN), lyric videos or trailers (burned-in text). No AI images, no fan edits. No watermarks: frames with channel bugs, logos or overlays are DROPPED, never cropped; the first/last 3% of a video (title cards, end screens) is skipped, near-black/near-white/flat/blurry/letterboxed frames and near-duplicates are dropped, and the uploader's custom thumbnail (`maxresdefault.jpg`, designed art) is opt-in only. Takedown on request. Posts still need Joey's checkmark in `#longlive-tree`.
+
+**Mechanics.** Mode A = yt-dlp (<=1080p) + ffmpeg scene frames, tried first within a time budget and abandoned on the first YouTube bot-check/403 (datacenter IPs are often refused); Mode B = YouTube's static `maxres1/2/3.jpg` stills, no video download, kept only at >=1280px wide. A committed ledger (`social/video-frames-ledger.json`) makes runs resumable. Separately, in the same PR: the shared importer now normalizes EVERY imported photo (any source) to a 2048px long edge max, never upscaled, JPEG quality 85, metadata stripped (repo size: 10k photos at ~1 MB would be ~10 GB of git history).
+
+**Hardening (review round 1).** Titles/attributions matching `lyric|visualizer|audio|teaser|trailer|behind the scenes|bts` are excluded. Each yt-dlp (5 min) / ffmpeg (3 min) process has a SIGKILL timer, yt-dlp runs with `--socket-timeout 30 --max-filesize 400M` and a pinned version, and the ledger plus candidates file are rewritten after EACH video, so a step timeout loses at most one video. The importer only reads local `file://` frames that resolve (symlinks included) inside `.artifacts/video-scratch/frames` and end in `.jpg`.
+
+**Watermark heuristics and their limits.** (1) Persistent corner mark: per video, each 12%x12% corner patch (on a 160x90 greyscale) is compared with its per-pixel median across the video's frames; a corner where >=70% of frames match (>=75% of pixels within 12 grey levels), the median patch has detail (stddev >=10) and the image centre varies (mean abs diff >=12) is a burned-in logo, and the WHOLE video is dropped and logged, never cropped. Mode B applies it to its 3 stills (all three must match; needs >=3 frames). (2) Title/end card: a frame is dropped when >=50% of its pixels are one flat background (+-12), 0.3%-20% are high-contrast (>90 levels off) ink, AND that ink contains a line of >=6 glyph-sized connected components with matching heights and vertical centres (`lib/frame-text.mjs`). A cheaper rows-crossed test was tried first and rejected: on 45 real stills it dropped 16 good frames (sequins, curtains); the glyph-line test flags 4 of 135 real stills, all genuine title cards. Limits: faint, animated, mid-frame or only-some-frames marks are NOT caught; a static-camera video with a detailed fixed corner and a changing centre can false-positive (dropped, the safe direction); Mode B's 3 stills are a weak sample. Founder review of the first imported batch is the backstop. **Accepted:** a video whose frames the importer later drops (fetch failure, duplicate of an existing hash) is recorded in the ledger and is not retried.
+
+## 2026-10-07 — Social photo library moves to Git LFS
+
+**Decision.** Architect ruling (2026-10-07). `apps/web/public/social/library/photos/**` is stored in Git LFS (`.gitattributes`). Posts load these photos from `https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public` (`PHOTO_MEDIA_BASE_URL`, `mediaUrlFor` in `scripts/social/lib/queue.mjs`), not from longlivets.com. `apps/web/.vercelignore` keeps the folder out of the Vercel deploy. `.lfsconfig` sets `fetchexclude` so clones and CI hold pointers only; no workflow may use `lfs: true` (guarded by `scripts/social/lfs-media.test.ts`). Each `social/photo-library.json` entry records `width`/`height`/`bytes` so `check-drafts` and the pre-compute never read the binary. Never rewrite a photo in place: a new crop is a new id and path. Never `git lfs prune` or rewrite history.
+
+**Why.** The library is heading past 10,000 photos; as plain blobs they bloat every clone, every one of ~92 workflow checkouts, and the website deploy, though the site never references them. Quota: org JW-Incorporated is on GitHub Team, 250 GiB LFS storage and 250 GiB/month bandwidth, so no founder action.
+
+**Follow-ups (2026-10-07, same ruling).** (1) The 1.5 MB image cap in `auto-merge-content.yml` reads the Contents API size, which is the ~131-byte pointer for LFS files, so it is void for library photos; `validate:social` now enforces it from each entry's recorded `bytes` (eight pre-LFS entries are grandfathered in `validate-queue.mjs`). (2) The two workflows that write library photos (`concert-photo-sourcing.yml`, `appearance-discovery.yml` via `.github/actions/commit-and-pr`) run `git lfs install --local` before staging and gate on every new photo being an LFS pointer; `create-pull-request` stays in git-CLI mode (never `sign-commits: true`, which commits via the API and bypasses LFS). `scripts/social/lfs-media.test.ts` pins this.
+
+**Follow-up (2026-10-07, run 37641878433).** The photo-writing workflows also set `git config lfs.locksverify false` (plus the per-URL key) because the git-lfs pre-push hook calls the LFS locks API, which the PAT cannot satisfy (`Unable to verify locks` failed the push after 294 photos imported). `lfs-media.test.ts` pins it.
+
+## 2026-10-07 — Vision quality gate on auto-sourced social photos (founder decision "QC sonnet")
+
+**Decision.** Founder decision (Joey, chat, 2026-10-07 20:19 PDT, "QC sonnet"): every photo the concert-photo-sourcing pipeline (and the local `photos:frames:local` path) imports passes a Claude Sonnet 5.5 vision check before it is written to the library. Approved spend about $18-25/month. Visual audits found roughly 70% of auto-sourced photos off-brief (Taylor a speck in a wide stage shot, press images with no Taylor, crowds, other people dominant, dancer frames, blurry or back-view, cover art or screenshots, sponsor walls, watermarks).
+
+**Cost model (CLAUDE.md: new AI feature gets a cost model before ship).** Model `claude-sonnet-5-5` at $2 per million input tokens, $10 per million output tokens. Image downscaled to 768px long edge for QC (about width x height / 750 = 450-800 tokens), prompt about 300 tokens, structured output about 60 tokens, so about $0.002 per photo. Estimate before measuring: 350 checks per run, one run per day, ceiling about $0.75/day, about $23/month. The measurement below showed the real per-photo cost is about twice the estimate, so the shipped hard cap `QC_MAX_CHECKS_PER_RUN` defaults to 200 checks per run (200 x $0.0041 = $0.82/day, about $24.6/month, inside the approved $18-25); raising it to 350 would cost about $45/month and needs a new founder call. Candidates over the cap are deferred, not imported, and retried next run. A ledger of rejected photos (`social/photo-qc-rejected.json`) means a rejected candidate is never paid for twice. Fail-closed: a missing key, API error, refusal or unparsable answer holds the photo out of the library; nothing is imported unchecked. The check runs worker-side in Actions only, never in a user request path, with the existing `ANTHROPIC_API_KEY` repo secret (no new secret).
+
+**Design.** `scripts/social/photo-qc.mjs` (`qcPhoto`) sends one 768px JPEG plus caption/source/kind with a JSON-schema structured output (`output_config.format`, effort low). The model is told not to identify anyone from facial features; it judges composition, photo type, quality, overlays and consistency with the caption. `keep` requires every positive check and no watermark. Wired into `fetchCandidates` in `import-photo-library.mjs` after normalize and dedupe, before the file is written; `--no-qc` skips it for tests and local maintenance only.
+
+**Measured (3 live calls, 2026-10-07, local video frames).** 1441 input / 139-147 output tokens each, $0.0043 per photo (about 2x the estimate: the rubric prompt plus the 768px image is about 1440 input tokens, and the model writes a 100-140 token verdict). Verdicts were sensible (dancer rejected, off-caption man rejected, stylized effect frame rejected as not a plain photograph). Calibration (same day): turning thinking off (`thinking: { type: "between_tools" }`) and shortening the prompt changed nothing material, because the ~130 output tokens are the JSON verdict itself, not reasoning; 55-photo eval measured 1417 input / 129 output tokens, $0.0041 per photo. A 512px image trial cut that only to $0.00365 and was not adopted (accuracy unverified), so the 768px size and the 200-check cap stand; the $0.0028 target is not reachable with this schema. Ground-truth eval (`scripts/social/photo-qc-eval.mjs`, 55 hand-labelled photos): accuracy 83.6%, 6 of 31 known-drops admitted (19%), 3 of 24 known-keeps rejected. The gate cannot see who is pictured (no face identification), so look-alike drops that fit the caption pass; treat it as a filter for the ~70% obvious misses, not as a guarantee.

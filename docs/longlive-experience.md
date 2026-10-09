@@ -2,8 +2,8 @@
 
 Owner: Engineering. This is the source of truth for the **shipped front-end
 experience** — the interactive era/threads reader that renders at `/`. Read it
-before touching anything under `apps/web/components/longlive/**` or
-`apps/web/lib/longlive/**`.
+before touching anything under `packages/ui/src/reader/**`,
+`apps/web/components/longlive/**` or `apps/web/lib/longlive/**`.
 
 > **Why this doc exists.** `docs/architecture.md` describes the *intended*
 > Supabase-backed two-tier Vault. The experience currently shipped on the web
@@ -14,6 +14,44 @@ before touching anything under `apps/web/components/longlive/**` or
 > converge (data moving to Supabase), update both docs in the same change.
 
 ---
+
+**Where the code lives now (One UI, 2026-10-03).** Most of the reader UI moved
+from `apps/web/components/longlive/**` and `apps/web/lib/longlive/**` into
+`packages/ui/src/reader/<slice>/` (slices: `era`, `store`, `lib`, `shell`,
+`moment`, `threads`, `tracks`, `search`, `merch`, `community`, `clown`,
+`settings`, `legal`). Components are `reader/<slice>/X.tsx`; non-component
+modules are `reader/<slice>/lib/X.ts`. The per-slice file lists, what stayed in
+`apps/web`, and the logged size debt are in `packages/ui/READER-MOVE.md`. The
+directory map in §2 still names the original files; look them up in the package.
+
+- **Shim convention.** Where something outside the moved set still imports an
+  old path, that path is a one-line `export * from '@swift2/ui/reader/…'`
+  shim (kept until WP2.13). New code imports
+  `@swift2/ui/reader/<slice>/…` directly, never the shim. Subpath exports are
+  declared in `packages/ui/package.json`.
+- **Host adapter seam.** `packages/ui` never imports `next/*` or
+  `react-native*`; anything host-specific goes through `useHost()`
+  (`packages/ui/HOST-ADAPTER.md`). The web has two adapters in
+  `apps/web/lib/host-adapter.tsx`: `createWebAdapter` is the base (also spread
+  by the app's DOM host later) and `createWebRootAdapter` is the Next root's
+  adapter, adding affiliate ids and browser web push. Every tree that mounts
+  `AppProvider` needs a `HostProvider`.
+- **Parity-gate rule.** The website is the reference (decisions.md,
+  2026-10-02). `parity-gate` is a required check on main (since 2026-10-03):
+  every PR's CI renders the website (side a) and the shared UI as mounted by
+  the app's DOM entry (side b) and fails if screenshots or requested external
+  images differ (`docs/one-ui/parity.md`, `e2e/parity`). On-device screenshot
+  comparison (decisions.md Gate 1) comes after the app mounts the shared UI
+  (post-G0).
+
+---
+
+**Photo previews (2026-09-15):** Compact moment cards keep their short date/title
+body, but any unsuppressed authored photo appears above it in a full-width 16:10
+frame. Article length and later arrivals must not shrink that photo to an icon.
+Image-free compact rows, media/hero scoring, and video-image suppression are unchanged.
+
+**Reader snapshot provider (One UI WP2.2-B):** `components/longlive/LongLive.tsx` mounts `WebReaderSnapshotProvider` (`lib/longlive/reader-snapshot-provider.tsx`) outermost, around `AppProvider`. It builds one CORE-only `ReaderSnapshot` per instance with `fromBakedCore(bakedModules())` (merch and songMoods attach later, in the merch chunk, via `ReaderExtensionsProvider`); `useReader()` from `@swift2/ui` exposes pure accessors over it (`createReaderQueries`). The search index is the snapshot's own `domains.searchIndex`; the web has no index builder of its own. The synchronous module accessors still serve every other caller until WP2.2-C moves them.
 
 ## 1. The one-paragraph mental model
 
@@ -46,6 +84,11 @@ moment detail) hangs off those two modes. Navigation state lives in one store
 ---
 
 ## 2. Directory map
+
+Pre-move layout: files listed under `components/longlive/` and the logic modules
+under `lib/longlive/` that moved now live in `packages/ui/src/reader/` (see the
+note at the top); data modules (`eras`, `content`, `lenses`, `*.generated.ts`)
+stay in `apps/web/lib/longlive/`.
 
 ```
 apps/web/
@@ -473,6 +516,55 @@ heavy-heartbreak intro.
 
 ---
 
+### 7a. Share cards (W9, Bots v2)
+
+`GET /api/share-card` renders a branded PNG a fan can post: **Format A** a
+moment (`?item=<id or slug>`: date, title, lead sentences of the summary),
+**Format B** "My Eras" (`?eras=<id,id,id>&m=&e=&f=`: top three eras plus
+bucketed moment/egg/saved counts), and an era card (`?era=<id>`, used by the
+era hero's "Share as image"). `size=portrait` is 1080×1350, `size=story`
+1080×1920; unknown sizes fall back to portrait. Palette and heading family
+come from each era's `theme` (`eras.ts`) — `/api/og` and its single hard-coded
+palette are a separate renderer and stay untouched.
+
+Rules that must survive edits:
+
+- **The query only selects, never supplies text.** Era and item ids are
+  allowlist lookups (inherited names like `constructor` resolve to nothing),
+  counts snap down to `COUNT_BUCKETS` (`share-card-params.ts`) so a hostile
+  `?m=` cannot mint cache keys, and anything invalid renders the default
+  brand card with a 200 — never a 500. No LLM, no DB, no network.
+- **Legal:** no Taylor photos, album art, lyrics (`era.lyric` is never drawn),
+  official logos or typography — our own type and era-inspired gradients only.
+- **Honesty:** a sub-confirmed moment is always stamped "Unconfirmed"
+  ("Debunked" for `disproven`), mirroring the feed card.
+- **Watermark** "Fan-made · longlivets.com" sits inside the story safe zone
+  (`STORY_SAFE_Y` = 270px top and bottom; all content shares that inset).
+- **Canonical URLs only:** any query that is not exactly
+  `canonicalShareCardPath` for the card it resolves to (extra keys, slug
+  instead of id, conflicting item+era, invalid ids, unbucketed counts, missing
+  size) gets a 308 to the canonical URL — invalid input to the canonical
+  default card — so the CDN never renders a decorated URL.
+- **Prefetch:** `ShareImageMenu` prefetches both sizes when it opens
+  (`prefetchShareCard`), so the tap calls `navigator.share` with a ready File
+  and no `await` first (iOS Safari drops transient activation otherwise).
+- **Caching:** `Cache-Control: public, max-age=3600, s-maxage=86400,
+  stale-while-revalidate=604800` on every render including the fallback.
+- **Fonts** are vendored in `lib/longlive/share-fonts/` and listed in
+  `next.config.mjs` `outputFileTracingIncludes`; ImageResponse needs raw
+  woff/ttf/otf bytes and a 500 KB bundle ceiling (we ship ~150 KB).
+- **Share UI:** `ShareImageMenu` (Story / Post) fetches the PNG and calls
+  `triggerImageShare`: native `navigator.share({files})` on touch devices
+  that `canShare` files (the link rides in `text`, never `url`, or some
+  targets drop the file), otherwise a download. Desktop always downloads.
+  "Your Long Live" (`YourLongLiveCard`, top of `EraSelector`) appears once
+  `ll-progress-v1` has ≥1 item; only top eras and bucketed counts leave the
+  device, and its share link deep-links to the top era (`?era=`).
+- The era card's fonts: serif/script → Playfair Display, sans → Inter 800,
+  mono → tracked uppercase Inter (the site's script/mono faces are not vendored).
+
+---
+
 ### Casual-language guardrails
 
 Mood's keyword fallback recognizes the issue-named casual register (including
@@ -680,6 +772,29 @@ constellation.
 
 ## 9. Current state / known gaps
 
+### Reader data flow (One UI WP2.2)
+
+- The web reader reads content only through the `ReaderSnapshot`: the web
+  provider (`lib/longlive/reader-snapshot-provider.tsx`) builds the CORE
+  snapshot from `baked-modules.ts` (`fromBakedCore`) and exposes it through
+  the `@swift2/ui` context; components call `useReader()` (or
+  `createReaderQueries`) and never import the content modules.
+- Extension domains (merch, songMoods) attach in the lazy merch chunk via
+  `ReaderExtensionsProvider` (`@swift2/ui`); components read them with
+  `useMerch()` / `useSongMoods()`. The main route never holds them, and no
+  component is allow-listed in `eslint.config.mjs`.
+- Server-only code (API routes, `*.server.ts`, `vault-wiring.ts`) may still
+  use the module-global accessors and injected wrappers; shared helpers take
+  their data as a required parameter.
+- Enforcement: `eslint.config.mjs` bans the old accessors, baked/`*.generated`
+  modules and injected `@swift2/experience` wrappers in
+  `apps/web/components/longlive/**` and `packages/ui/**` (tests and
+  `*.server.*` exempt); `packages/ui/src/reader-lint-ban.test.ts` proves it.
+- Out of scope (PM ruling 2), still module-global readers: server API routes
+  (`app/api/{mood,og,share-card}` via `vault-wiring.ts`), native screens
+  (`apps/mobile/lib/*-data.ts`) and the WP0.5 spike. They retire with native
+  retirement (WP2.13/C5).
+
 - Content in `content.ts` is a mix of hand-curated items plus a generated
   sync (`content-vault.generated.ts`, `VAULT_RAW`) produced by
   `scripts/sync-longlive-content.mjs`, which runs automatically as a
@@ -759,6 +874,7 @@ constellation.
   title match against `VideoNote.relatedSongs` (or the video's own title), no
   fuzzy matching. The rest show no play control in `TrackGuide` (#2051 — no
   control beats a wrong one).
+- Persona bylines (#462, `docs/specs/2026-07-11-persona-authors-copy-desk.md`): moments carry a derived `author` (Theo/Loren/Vera/Deb) stamped by `sync-longlive-content.mjs` via `routeAuthor()` (`packages/experience/src/copy-desk/`); track dossiers and the theories guide are bylined Theo / Loren from the same table. `Byline` renders in detail headers only (feeds stay clean) and links to `/desk`. Not yet bylined: videos, tours/releases tables, hand-curated items without a seed category.
 - Clue Web "explore" constellation label overlap in dense clusters is a known
   polish item (collision-avoidance not yet implemented).
 

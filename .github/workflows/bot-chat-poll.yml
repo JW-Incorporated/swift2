@@ -1,17 +1,20 @@
 # Bot chat poll (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
 # Plain `run:` steps only, never an agent step: DISCORD_BOT_TOKEN lives in the
 # `social` environment (main-only deployment policy) and must never reach an
-# agent context (docs/agents/marjorie.md; reply-poll.mjs header). Checkout
+# agent context (docs/agents/marjorie.md). Checkout
 # pins `ref: main` — a secret-holding job never runs dispatch-chosen code.
 #
-# One job, two steps:
-#   1. chat-poll.mjs claims founder messages in #longlive-marjorie and
+# One job, one step:
+#   chat-poll.mjs claims founder messages in #longlive-marjorie and
 #      #longlive-tree with 👀 and dispatches routine-marjorie-chat.yml /
 #      routine-tree-chat.yml on this job's own GITHUB_TOKEN. `actions: write`
 #      is enough from a `run:` step — the #4223 403 was the App installation
 #      token inside an agent, not this path.
-#   2. reply-poll.mjs, the M2 brief-thread relay, unchanged — moved here from
-#      marjorie-reply-poll.yml's own schedule (that file stays, dispatch-only).
+#
+# A reply to Marjorie's "Status updated" ping is an ordinary chat ask: it is claimed
+# and answered by routine-marjorie-chat like any other message in the channel (owner
+# decision 2026-10-01, docs/decisions.md). The old reply-poll.mjs relay of ping-thread
+# replies onto the status issue is retired.
 #
 # Every 5 minutes, the spec's cadence: a founder's message must be answered
 # within 15 minutes, and a routine takes ~8–10 of them. This repository is
@@ -24,7 +27,7 @@
 # fire never answers a message twice.
 #
 # Kill switch: repo variable BOT_CHAT_ENABLED=false skips the chat step before
-# anything is read. The relay step keeps running.
+# anything is read.
 name: bot-chat-poll
 
 on:
@@ -33,18 +36,25 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "List what would be claimed; add no reaction, dispatch nothing, relay nothing"
+        description: "List what would be claimed; add no reaction, dispatch nothing"
         type: boolean
         default: false
 
 permissions:
   contents: read
   actions: write # gh workflow run for the chat routines, from a run: step
-  issues: write # reply-poll.mjs relays brief-thread replies as issue comments
 
+# `cancel-in-progress: true` (2026-10-01): with `false`, run 35225911621 (2026-09-17,
+# stuck "waiting" on the `social` environment) held this group for two weeks, every
+# later run sat `pending` and was replaced by the next dispatch, and the poll never ran
+# again. A new run now cancels a stuck or in-flight one. One poll is still the only one
+# running and the relay is idempotent on its relay-id marker. A poll cut short between
+# its 👀 claim and its dispatch leaves a claimed-not-dispatched message: claims are never
+# re-dispatched, so after 45 minutes the reconcile posts `[chat failed]` and marks it ❌
+# (docs/ops/chat-poll.md). The window is a few seconds wide.
 concurrency:
   group: bot-chat-poll
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   poll:
@@ -71,10 +81,14 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: node scripts/marjorie/chat-poll.mjs poll
 
-      - name: Relay founder replies to the brief issue
-        if: ${{ !cancelled() && !inputs.dry_run }}
+      # Primary clock for the frequent workflows GitHub's cron drops (table:
+      # scripts/ops/clock-table.json): GitHub delivers only 2-22% of hourly-or-
+      # faster crons here, this 5-minute poll is reliable, and the script
+      # throttles each entry to its own gap and never fails this job. It holds
+      # no secrets beyond the job token and runs main's checked-out script.
+      - name: Clock-dispatch the throttled workflow table
+        if: always()
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-        run: node scripts/marjorie/reply-poll.mjs
+        run: node scripts/ops/clock-dispatch.mjs

@@ -10,7 +10,7 @@ import {
 } from './video-affordance';
 import { ERAS } from '@swift2/experience';
 import { contentForEra } from './content';
-import { eraKnownVideoIds, inlineVideoMomentIds } from '@swift2/experience';
+import { eraKnownVideoIds, inlineVideoMomentIds, isSubConfirmed } from '@swift2/experience';
 import { videosForEra } from './videos';
 import { primaryImageRef } from '@swift2/experience';
 import type { ContentItem, EggSource } from '@swift2/experience';
@@ -389,11 +389,20 @@ describe('heroVideoFor over the real vault', () => {
   const withVideo = ERAS.flatMap((e) => contentForEra(e.id)).filter((i) => i.video);
   const promoted = withVideo.filter((i) => heroVideoFor(i));
 
-  it('promotes the video on the pages whose hero was a still of it', () => {
-    // 11 of the 17 video-carrying moments, measured 2026-09-07. Photo
-    // Enrichment sourced frames as photos for the moments that ARE a video.
-    expect(withVideo).toHaveLength(17);
-    expect(promoted).toHaveLength(11);
+  it('promotes the video on exactly the pages whose hero is a still of it', () => {
+    expect(withVideo).toHaveLength(19);
+    // Derived from the vault rather than hardcoded (#5192): a Photo Enrichment
+    // pass that gives a video-carrying page its own MV still as the hero GROWS
+    // this set by design, and a fixed count turned that into a failure the
+    // seed-only lane could never fix. The expected set is computed from the
+    // data through the public helpers, independent of heroVideoFor itself.
+    const expectedIds = withVideo
+      .filter((i) => youtubeFrameId(primaryImageRef(i)?.url) === i.video!.youtubeId)
+      .filter((i) => !(i.confidence && isSubConfirmed(i.confidence)))
+      .map((i) => i.id)
+      .sort();
+    expect(expectedIds.length).toBeGreaterThan(0);
+    expect(promoted.map((i) => i.id).sort()).toEqual(expectedIds);
   });
 
   it('includes the page Joey pointed at', () => {
@@ -417,7 +426,7 @@ describe('heroVideoFor over the real vault', () => {
     });
   });
 
-  it('leaves the other six pages with hero=photo and body=video', () => {
+  it('leaves the pages whose hero is a genuinely different photo with hero=photo and body=video', () => {
     for (const item of withVideo.filter((i) => !heroVideoFor(i))) {
       expect(detailVideoFor(item)).toEqual({ video: item.video });
       expect(youtubeFrameId(primaryImageRef(item)?.url)).not.toBe(item.video!.youtubeId);

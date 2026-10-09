@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Prints the next credited social photo without mutating the queue or posting.
+// Prints the next never-used social photo without mutating the queue or posting.
 // Growth/Tree can run this before authoring a paired draft; the JSON output is
-// ready to copy into media[0], mediaCredit, mediaSource, and photoId.
+// ready to copy into media[0], mediaCredit (only when the photographer is known — omitted
+// otherwise, owner rule 2026-10-01), mediaSource, and photoId.
 //
 // --era <tag> (2026-09-10, kanban t_75ec7106): when the draft has a target
 // era/theme (the campaign or lens/egg node already names it — see
@@ -15,7 +16,8 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
+import { igUsablePhotos } from './lib/photo-dimensions.mjs';
+import { isUnknownCredit, selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
@@ -28,15 +30,18 @@ const args = process.argv.slice(2);
 // off-era-photo bug this script exists to prevent). Fail loud on anything
 // unrecognized rather than fail open into unconstrained selection.
 let era = null;
+let strict = false;
 for (let i = 0; i < args.length; i++) {
   const arg = args[i];
-  if (arg === '--era') {
+  if (arg === '--strict') {
+    strict = true;
+  } else if (arg === '--era') {
     era = args[++i];
     if (typeof era !== 'string') throw new Error('Usage: node scripts/social/select-photo.mjs [--era <tag>] — --era requires a value.');
   } else if (arg.startsWith('--era=')) {
     era = arg.slice('--era='.length);
   } else {
-    throw new Error(`Usage: node scripts/social/select-photo.mjs [--era <tag>] — unrecognized argument ${JSON.stringify(arg)}.`);
+    throw new Error(`Usage: node scripts/social/select-photo.mjs [--era <tag>] [--strict] — unrecognized argument ${JSON.stringify(arg)}.`);
   }
 }
 era = typeof era === 'string' ? era.trim() : null;
@@ -53,25 +58,49 @@ async function readJsonDir(dir) {
 const inventory = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8'));
 const invalid = inventory.photos.flatMap((photo) => validatePhotoEntry(photo).map((finding) => `${photo.id}: ${finding}`));
 if (invalid.length) throw new Error(`Invalid photo library:\n${invalid.join('\n')}`);
-const posted = await readJsonDir(path.join(ROOT, 'social', 'posted'));
-const selected = selectSocialPhoto(inventory.photos, posted, era ? { requiredTags: [era] } : undefined);
+// History is posted AND queued (L001: a photo that has shipped or is queued is ineligible). A draft
+// still sitting in an open PR is in neither — prepare-draft-inputs.mjs's ledger is the full picture.
+const history = [...(await readJsonDir(path.join(ROOT, 'social', 'posted'))), ...(await readJsonDir(path.join(ROOT, 'social', 'queue')))];
+// Every pair needs an Instagram half and Instagram rejects images outside 0.8-1.91 (photo-dimensions.mjs),
+// so a photo outside that window is never offered — 34 of 54 were, on 2026-09-30.
+const { usable } = await igUsablePhotos(inventory.photos, path.join(ROOT, 'apps', 'web', 'public'));
+// An original outside the window is represented by its IG-ready variant (make-ig-variants.mjs); the pair is
+// one photo for reuse, so `allPhotos` lets the history of either half count against both.
+const selected = selectSocialPhoto(inventory.photos.filter((photo) => usable.has(photo.id)), history, { allPhotos: inventory.photos, ...(era ? { requiredTags: [era] } : {}) });
 if (!selected) {
   throw new Error(
     era
-      ? `No credited photo tagged "${era}" is available in social/photo-library.json. This is a hard block, not a ` +
+      ? `No photo tagged "${era}" is available in social/photo-library.json. This is a hard block, not a ` +
         `fallback-to-another-era situation — add a "${era}"-tagged photo via ` +
         '`npm run social:import-photo-library` before drafting this post (social/README.md).'
-      : 'No credited photo is available in social/photo-library.json.',
+      : 'No photo is available in social/photo-library.json.',
+  );
+}
+// --strict (L001): never hand back a photo that has already shipped or is queued — an exhausted pool is
+// an error, and the beat is deferred rather than drafted with a repeat.
+if (strict && selected.reused) {
+  throw new Error(
+    `No never-used photo${era ? ` tagged "${era}"` : ''} is left (the least-used candidate, ${selected.id}, has already shipped or is queued). ` +
+      'Per L001 do NOT draft this beat with a repeat — defer it and say so in the PR body; more photos are the owner rights call (#4607).',
   );
 }
 // altText[0] (docs/social/RULINGS-SOCIAL.md A3/B2) — copy this verbatim into the
 // draft; validatePhotoInventoryBinding requires it to match the library
 // entry's `alt` exactly, so retyping it is how drift happens.
+// A variant (IG-ready padded copy) names its original: the X half may bind to that instead (X has no aspect gate).
+const original = selected.variantOf ? inventory.photos.find((photo) => photo.id === selected.variantOf) : null;
 console.log(
   JSON.stringify(
-    era
-      ? { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], photoEra: era, reused: selected.reused }
-      : { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], reused: selected.reused },
+    {
+      photoId: selected.id,
+      media: [selected.mediaPath],
+      ...(isUnknownCredit(selected.credit) ? {} : { mediaCredit: selected.credit }),
+      mediaSource: selected.source,
+      altText: [selected.alt],
+      ...(era ? { photoEra: era } : {}),
+      reused: selected.reused,
+      ...(original ? { variantOf: original.id, xOriginal: { photoId: original.id, media: [original.mediaPath] } } : {}),
+    },
     null,
     2,
   ),

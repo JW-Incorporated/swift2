@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-06-d7b1ilF5290",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-06T19:02:23.738Z",
+  "deadline": "2026-10-08T19:02:23.738Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Late Night with Seth Meyers",
+    "videoTitle": "Dakota Johnson Is Hosting SNL on Her Birthday, Talks Filming with Taylor Swift in Patient Zero Video",
+    "publishedAt": "2026-10-02T10:00:11+00:00",
+    "videoId": "d7b1ilF5290",
+    "url": "https://www.youtube.com/watch?v=d7b1ilF5290"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 5239
+  }
+}

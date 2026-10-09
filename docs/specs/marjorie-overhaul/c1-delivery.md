@@ -101,10 +101,22 @@ Behavior, in order:
    `{ content, username: 'Marjorie', avatar_url, allowed_mentions: { parse: [] } }`.
    When `thread` is set, append `&thread_id=${thread}`.
 3. **Retry once** on a non-2xx or a thrown network error, after a 2-second
-   wait. On HTTP 429, honour `retry_after` from the response body instead of
-   the fixed wait. One retry, then give up — this is the only retry.
+   wait. On HTTP 429, use the longest valid nonnegative cooldown from the
+   JSON `retry_after`, `Retry-After` header or `X-RateLimit-Reset-After`
+   header (all seconds), rounded up to milliseconds. If no usable cooldown
+   exists or it exceeds two minutes, fail without retrying. One retry,
+   then give up — this is the only retry. Failed 429 results include
+   `retryAfterMs` (null when unavailable); the CLI prints only numeric
+   metadata, never response text, exception messages or webhook URLs.
 4. Stop at the first chunk that fails both attempts; report which chunk index
    failed so the caller's fallback carries the whole message, not a fragment.
+
+September 15 recovery: run 34984846152 returned HTTP 429 after roughly
+three seconds. The previous transport ignored headers and used a fixed
+two-second wait when the body lacked a cooldown. This is a protocol gap,
+not proof of which header that particular response carried. Header/body
+handling follows [Discord's rate-limit contract](https://docs.discord.com/developers/topics/rate-limits).
+Validation uses injected responses and waits; no live send is needed.
 
 **Reuse, do not re-implement.** `neutralizeMentions` and `chunkForDiscord`
 are imported from `scripts/community/discord-delivery.mjs`
@@ -128,6 +140,15 @@ Calls `post()`. On `ok`, exits 0. On failure, writes
 `{ subject: "[discord failed] <subject>", body, url }` to a temp JSON and
 invokes `python3 scripts/watchdog/send-mail.py <that file>` — the existing
 contract (`send-mail.py:12`, payload shape `:13`/`:77`), unchanged.
+
+The routine and recovery brief delivery steps must explicitly bind
+`MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}` and
+`GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}` in their step environment.
+Repository variables and secrets do not become process environment variables
+automatically. These bindings belong only to the trusted, main-pinned delivery
+jobs, and neither brief caller passes `--no-mail-fallback`. The workflow
+invariants in `brief-delivery-guard.test.ts` protect this wiring; they do not send
+mail or inspect credential values.
 
 **Two traps this must handle, both verified in the source:**
 
@@ -267,3 +288,12 @@ One thing genuinely outside this spec's authority: whether the founders want
 the fallback email to also fire when Discord succeeds but nobody reads the
 channel for N days. That is a product question about attention, not delivery,
 and it is not in scope for M1.
+
+
+### Recovery diagnostics
+
+A failed Discord delivery emits only numeric HTTP status, delivered chunk
+count and total chunk count to stderr. Capturing stdout in a workflow no
+longer hides those diagnostics on a nonzero exit. Provider exception text,
+webhook URLs, credentials and message bodies are never included. A partial
+send must be inspected before recovery to avoid duplicating earlier chunks.

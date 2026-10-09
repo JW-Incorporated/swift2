@@ -16,6 +16,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseLessons, findCodifiableRules } from '../../social/lib/lessons.mjs';
+import { loadStrategyParams } from '../../social/lib/strategy-params.mjs';
 import { buildScorecard } from '../../social/weekly-scorecard.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
@@ -58,7 +59,7 @@ export function renderLessonsLine(active) {
   if (rules.length === 0) return '- Lessons: none logged yet.';
   const latest = [...rules].sort((a, b) => String(b.lastFired).localeCompare(String(a.lastFired)))[0];
   const times = Number(latest.timesFired) || 0;
-  const codifiable = findCodifiableRules({ active: rules }).some((r) => r.id === latest.id);
+  const codifiable = findCodifiableRules({ active: rules }, { autoCodify: loadStrategyParams(ROOT).lessons.autoCodify }).some((r) => r.id === latest.id);
   return `- Lessons: "${latest.youSaid ?? latest.title}" (${ordinal(times)} firing${codifiable ? ' — codify' : ''})`;
 }
 

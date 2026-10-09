@@ -178,10 +178,10 @@ export default {
           source_title: 'Taylor Swift’s Blank Space Lyrics Not About Starbucks Lovers',
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-25',
+          accessed_at: '2026-09-26',
           reliability_score: 4,
           excerpt: null,
-          notes: 'confirms the real lyric and documents the mondegreen as one of the year\'s biggest',
+          notes: 'confirms the real lyric ("Got a long list of ex-lovers") and documents the mondegreen as one of the year\'s biggest. Re-verified live 2026-09-26 (was 2026-08-25); confidence stays joke_meme — an adopted mishearing, not a claim that resolves true/false.',
         },
         {
           source_url: 'https://abcnews.com/Entertainment/taylor-swifts-mom-mishears-starbucks-lovers/story?id=31289081',

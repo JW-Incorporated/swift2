@@ -53,7 +53,13 @@ import { runMain } from '../../lib/cli.mjs';
 import { readNextHumanActionNumber } from '../human-actions.mjs';
 
 /** Closed vocabulary for the marker's `action=` field. */
-export const ACTIONS = ['redispatch', 'comment-only', 'human-action', 'build-desk-issue', 'escalate'];
+export const ACTIONS = [
+  'redispatch',
+  'comment-only',
+  'human-action',
+  'build-desk-issue',
+  'escalate',
+];
 
 /** Actions that never expire — see header. `human-action` and
  * `build-desk-issue` moved here from a redispatch-only set (2026-09-12,
@@ -154,44 +160,31 @@ export function renderFbGroupLines(checklist = FB_GROUPS_CHECKLIST) {
   return checklist.map((g) => `   - ${g.label} → \`${g.slug}\``).join('\n');
 }
 
-/** The full HUMAN-ACTIONS.md v2 item for the FB-export human action,
- * byte-identical to w1-watchdog-handling.md's literal text with `#NN` and
- * the filed date substituted and the group list regenerated from
- * `checklist` (never hard-coded — a later roster change needs no spec
- * edit). */
-export function renderFbHumanAction({ number, date = todayLA(), checklist = FB_GROUPS_CHECKLIST } = {}) {
-  const groupLines = renderFbGroupLines(checklist);
-  return `## #${number} 🟡 [DECIDE] Save this week's Facebook group pages and upload them (~30 min)
+/** The full HUMAN-ACTIONS.md v2 item for a stalled local FB export. The
+ * checklist parameter remains for CLI compatibility with the original manual
+ * renderer; membership rows are now handled by the collector itself. */
+export function renderFbHumanAction({
+  number,
+  date = todayLA(),
+  checklist = FB_GROUPS_CHECKLIST,
+} = {}) {
+  void checklist;
+  return `## #${number} 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
 <!-- ha filed=${date} -->
 
-**Why:** The fan-signal engine reads what Swifties are actually saying in six
-Facebook groups. Facebook has no API for groups you don't run and forbids
-automated collection, so this is the one step a person has to do. Nothing has
-been exported yet — the watchdog has been flagging it since 2026-09-07
-(issue #4009) and two weekly reminders are open (#3911, #3536). Until one
-export lands, nobody knows whether the parser works.
+**Why:** The deterministic local Facebook collector did not close this week's
+reminder issue within nine days. It runs from Joey's personal account under the
+2026-09-30 owner decision, so only Joey's logged-in Windows session can inspect
+a stopped task, checkpoint, 2FA prompt, CAPTCHA, or expired DPAPI credential.
 **Steps:**
-1. In a normal logged-in browser (never a bot), open each group below in turn.
-   All six were found by desk research and **nobody has confirmed you are a
-   member** — if you are not in one, skip it and say which in your reply:
-${groupLines}
-2. In the group, sort posts by **New activity** (not Top).
-3. Scroll down until the posts you can see are older than 7 days. Click
-   "See more" on any long post so its full text is on screen. Do not open
-   comment threads one by one.
-4. Press \`Ctrl+S\` (Windows) or \`Cmd+S\` (Mac). In the save dialog choose
-   **"Webpage, Complete"**. Name the file exactly
-   \`fb-<slug>-<YYYY-MM-DD>.html\` using the slug from step 1 and today's date —
-   for example \`fb-taylor-swifts-vault-2026-09-14.html\`. Save to Downloads.
-5. Repeat steps 2-4 for each group you are a member of.
-6. Open a terminal in the project folder and run, exactly:
-   \`npm run knowledge:fb-upload -- ~/Downloads/fb-*.html\`
-   It prints one line per file. Each says either \`uploaded, local copy
-   deleted\` or gives a reason and \`local copy KEPT\`. A kept file was not
-   uploaded — re-run that one file by name.
-7. Close the open reminder issues #3911 and #3536.
-**Worked if:** step 6 ends with \`knowledge:fb-upload: N/N uploaded\` where N is
-the number of groups you saved, and no line says \`local copy KEPT\`.`;
+1. In the project folder, run \`npm run knowledge:fb-export\`.
+2. If the visible browser stops at a checkpoint, 2FA prompt, or CAPTCHA,
+   complete it yourself and rerun the command. If the credential is missing or
+   expired, recreate it with HUMAN-ACTIONS #88's exact DPAPI commands.
+3. If it prints a selector-repair prompt or another failure, paste that status
+   into the project chat; never attach or paste the credential file.
+**Worked if:** the current \`FB group export due — week of ...\` issue closes
+with uploaded/not-member counts and no group says \`failed\`.`;
 }
 
 // CLI wrapper (only path the routine's Bash-only tool set can use — she has

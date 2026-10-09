@@ -461,3 +461,13 @@ describe('buildBrief — six sections (Marjorie Overhaul C2, 2026-09-12)', () =>
     expect(brief).toContain('blocked on `nobody`');
   });
 });
+
+it('counts founder-blocked issues in the complete waiting section without double-counting an open HA', () => {
+  const blocked = { number: 7, createdAt: new Date(NOW).toISOString(), chase: { verdict: 'blocked-on-founder', existingHumanAction: null } };
+  const text = buildBrief({ ...emptyState, dispatched: [blocked] }, { now: NOW });
+  expect(text).toContain('**Waiting on you (1)**\n- waiting on you: #7');
+  const withAction = buildBrief({ ...emptyState, openActions: [{ number: 80, title: 'Decision', ageDays: 2 }],
+    dispatched: [{ ...blocked, chase: { ...blocked.chase, existingHumanAction: 80 } }] }, { now: NOW });
+  expect(withAction).toContain('**Waiting on you (1)**');
+  expect(withAction).not.toContain('- waiting on you: #7');
+});

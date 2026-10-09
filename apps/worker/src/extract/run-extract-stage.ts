@@ -6,6 +6,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
+import { resolveVanishedCountdowns } from '../sources/site-diff';
 import { extractWithLLM } from './haiku-client';
 import type { ExtractCommentThread } from './types';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
@@ -43,6 +44,7 @@ export interface ExtractStageResult {
   deferred: number;
   theoriesUpserted: number;
   abandonedTheories: number;
+  countdownsResolved: number;
   errors: string[];
 }
 
@@ -59,12 +61,13 @@ interface RawItem {
   url: string;
   sourceType?: string;
   fetchedCommentsAt: string | null;
+  countdownTargetAt: string | null;
 }
 
 async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawItem[]> {
   const { data, error } = await db
     .from('news_raw_item')
-    .select('id, title, snippet, url, fetched_comments_at, news_source(source_type)')
+    .select('id, title, snippet, url, fetched_comments_at, countdown_target_at, news_source(source_type)')
     .eq('story_id', storyId)
     .limit(20);
   if (error) throw new Error(`raw item load failed for story ${storyId}: ${error.message}`);
@@ -78,6 +81,7 @@ async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawIte
       url: r.url as string,
       sourceType: source?.source_type,
       fetchedCommentsAt: (r.fetched_comments_at as string | null) ?? null,
+      countdownTargetAt: (r.countdown_target_at as string | null) ?? null,
     };
   });
 }
@@ -189,6 +193,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
     deferred: 0,
     theoriesUpserted: 0,
     abandonedTheories: 0,
+    countdownsResolved: 0,
     errors,
   };
 
@@ -225,6 +230,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         items.length > 0
           ? items.map(({ title, snippet }) => ({ title, snippet }))
           : [{ title: story.canonical_title, snippet: story.summary ?? '' }];
+      // A countdown target is parsed deterministically at ingest by the
+      // site-diff adapter, never re-derived by the LLM — carry the first
+      // one found on this cluster's raw items straight through to the
+      // current_item row (t_09dc269f's approved design §1).
+      const countdownTargetAt = items.find((item) => item.countdownTargetAt)?.countdownTargetAt ?? undefined;
       // Without a configured model call there is nowhere for transient
       // comment bodies to go, so do not spend Reddit requests enriching a
       // cluster that extractWithLLM will immediately defer.
@@ -252,7 +262,14 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         result.skipped++;
       } else {
         if (extracted.currentItem) {
-          const written = await writeCurrentItem(db, story.id, CURRENT_ERA_ID, extracted.currentItem, sources);
+          const written = await writeCurrentItem(
+            db,
+            story.id,
+            CURRENT_ERA_ID,
+            extracted.currentItem,
+            sources,
+            countdownTargetAt,
+          );
           if (!written.redlineOk) result.screenedOut++;
           else {
             result.extracted++;
@@ -339,6 +356,12 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
 
   try {
     result.abandonedTheories = await abandonQuietTheories(db, today);
+  } catch (err) {
+    errors.push((err as Error).message);
+  }
+
+  try {
+    result.countdownsResolved = await resolveVanishedCountdowns(db, CURRENT_ERA_ID);
   } catch (err) {
     errors.push((err as Error).message);
   }

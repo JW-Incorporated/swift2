@@ -318,6 +318,104 @@ export default {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A synth-pop centerpiece of 1989, and a song whose build never lets up: Jack Antonoff told Billboard 'it doesn't really let up,' that it starts big and then 'explodes even larger' at the chorus. Per its Wikipedia entry it entered the Hot 100 at No. 18, its peak, topped Digital Songs, and was certified platinum; Swift also said while promoting 1989 that it 'best represents' the album.",
+          "It has one of the more durable afterlives in the catalog. It opened the 58th Grammy Awards on February 15, 2016, its vocals were sampled in 2022 for 'Question...?', and it resurfaced on the Eras Tour as a surprise song and in mashups. Its repeated refrain, 'Are we out of the woods yet?', is how the song voices its anxiety about whether the relationship will survive."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff. Rolling Stone reported that it became available for download soon after fans who pre-ordered 1989 received it, and that it immediately shot to No. 1 on the iTunes songs chart.",
+            "Rolling Stone reported that Swift hinted the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room' was inspired by a real incident in which she and an ex were in a serious snowmobile accident that ended in a hospital visit, which never appeared in the tabloids.",
+            "Antonoff told Billboard that 'there's a frantic feeling in the song,' that he was thinking about the band My Morning Jacket and how 'every sound is louder than the last,' and that the idea was 'to keep pushing' rather than drop into a quieter chorus.",
+            "Antonoff also told Billboard the two were 'talking about John Hughes movies' and the 'larger-than-life, anthemic' sound of that era's music while hanging out at her house in Rhode Island.",
+            "Rolling Stone reported that the video, which premiered on Dick Clark's Rockin' Eve with Ryan Seacrest, was shot on location in New Zealand, where a severe storm interrupted filming for a week, and ends on the title card 'She lost him, but she found herself. And somehow, that was everything.'"
+          ],
+          supported: [
+            "Swift has described the song, per Songfacts, as about 'the fragility and kind of breakable nature of some relationships,' one where 'you never feel like you're standing on solid ground,' and the track is built to sound like that anxious questioning. The song's Wikipedia entry reads the accident as also a metaphor for the relationship's fragility."
+          ],
+          fanTheories: [
+            "Fans have long attached the song to a specific, widely reported short relationship. Swift has never named the person, so this guide doesn't either; the claim is speculation, and the song's meaning stands without it."
+          ]
+        },
+        live: [
+          {
+            date: "October 27, 2014",
+            event: "1989 Secret Sessions",
+            note: "Performed in the iHeartRadio and Yahoo livestream on the day the album came out, per its Wikipedia entry."
+          },
+          {
+            date: "September 30, 2015",
+            event: "Grammy Museum, Los Angeles",
+            note: "A stripped-down piano version from an intimate gig, which Rolling Stone's Jon Blistein covered as a one-year-anniversary video for 1989; Rolling Stone's coverage called the performance chilling."
+          },
+          {
+            date: "February 15, 2016",
+            event: "58th Annual Grammy Awards",
+            note: "She opened the show with it, per Wikipedia."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "A surprise song at the Nashville stop, later folded into mashups, including with 'Is It Over Now?' in Buenos Aires and Paris, with 'Clean' in London, and with 'Us' in Toronto alongside Gracie Abrams, per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:question",
+            label: "Question...?",
+            why: "The 2022 Midnights track opens by sampling the vocals from this song; the sample won 'Favorite Use of a Sample' at the 2023 iHeartRadio Music Awards, per Wikipedia."
+          },
+          {
+            relatedId: "song:i-wish-you-would",
+            label: "I Wish You Would",
+            why: "The other song Antonoff produced for 1989's standard edition, alongside this one."
+          },
+          {
+            relatedId: "song:clean",
+            label: "Clean",
+            why: "Swift paired the two in a London mashup on the Eras Tour."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "Speaking to Billboard in 2014",
+            note: "He described the song as having a frantic feeling that doesn't let up: the chorus explodes larger, then the bridge gets 'even more huge.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "In a video explaining the song, as quoted by Songfacts",
+            note: "She said she wanted the songs on 1989 to sound 'exactly the way that the emotions felt when I felt them.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Unveils Synth-Heavy 'Out of the Woods' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-unveils-synth-heavy-new-track-out-of-the-woods-241292/"
+          },
+          {
+            name: "Taylor Swift's 'Out of the Woods': Jack Antonoff Talks New Song - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-out-of-the-woods-jack-antonoff-6281680/"
+          },
+          {
+            name: "Watch Taylor Swift Battle Nature in 'Out of the Woods' Video - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/watch-taylor-swift-battle-nature-in-out-of-the-woods-video-37464/"
+          },
+          {
+            name: "Taylor Swift Delivers Chilling Acoustic 'Out of the Woods' Performance - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-delivers-chilling-acoustic-out-of-the-woods-performance-67474/"
+          },
+          {
+            name: "Out of the Woods - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)"
+          },
+          {
+            name: "Out Of The Woods by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/out-of-the-woods"
+          }
+        ]
+      },
     },
     {
       slug: 'all-you-had-to-do-was-stay',
@@ -814,6 +912,55 @@ export default {
       themes: ['recovery', 'time as medicine', 'coming out the other side'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
       sources: [wiki('Clean (song)', 'Clean_(song)', 'song article: Heap collaboration'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The closer of 1989, and the one Swift tied most directly to where she ended up emotionally after the album. She told Elle in May 2015 that 'Shake It Off' and 'Clean' were the last two songs written for the record, 'so it shows you where I ended up mentally.'",
+          "Rolling Stone's Rob Sheffield framed it as a stark synth-folk ballad about detoxing from an infatuation, with a big assist from Imogen Heap, and an intense finale to the album's homestretch."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Elle she wrote 'Clean' as she was walking out of Liberty in London: it hit her that she had been in the same city as someone she used to date for two weeks without thinking about him, and her reaction was a hope that he was doing well, and nothing else. Her first thought, she said, was 'I'm finally clean.'",
+            "She described the way heartbreak slows a person's time, and how new habits slowly replace old ones, until one day you are in London and realize you have been fine for two weeks.",
+            "She said she wrote it while in a 'media hailstorm' of people having a misconstrued perception of who she was, with snarky headlines focusing on the wrong things.",
+            "Swift explained, as Billboard reported in October 2015, that the song's distinctive percussion and texture come from a couple of Imogen Heap's own instruments: a mbira, or thumb piano, and boomwhackers."
+          ],
+          supported: [
+            "The Elle interviewer, Tavi Gevinson, pointed out a message hidden in the album's printed liner notes for the song: 'She lost him but she found herself and somehow that was everything.'",
+            "Sheffield's reading of the song as detox from an infatuation is a critic's framing; Swift's own account, above, is about a quieter realization of having moved on."
+          ],
+          fanTheories: [
+            "Fans have attached the song to a specific relationship. Swift's own account in Elle names no one, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:shake-it-off",
+            label: "Shake It Off",
+            why: "Swift told Elle the two were the last songs written for 1989, and that together they show where she ended up mentally."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In an Elle interview with Tavi Gevinson, May 2015",
+            note: "She described heartbreak as a state where nothing distracts you and time moves at a different pace, and the moment of realizing she had stopped checking."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Has No Regrets - Elle",
+            url: "https://www.elle.com/fashion/a28210/taylor-swift-elle-june-cover-2015/"
+          },
+          {
+            name: "8 Things You Didn't Know About Taylor Swift's '1989' - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-1989-album-you-didnt-know-6730187/"
+          },
+          {
+            name: "All 286 of Taylor Swift's Songs, Ranked - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-lists/taylor-swift-songs-ranked-rob-sheffield-201800/clean-2014-205630/"
+          }
+        ]
+      },
     },
     {
       slug: 'wonderland',
@@ -971,8 +1118,8 @@ export default {
           notes: 'Sheffield naming it and "Is It Over Now?" the vault highlights, on its "acerbic wit"',
         },
         {
-          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-3527096',
-          source_title: "Taylor Swift – '1989 (Taylor's Version)' review",
+          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-lyrics-tracklist-3522001',
+          source_title: "Taylor Swift - '1989 (Taylor's Version)' review: still her best album",
           publisher: 'NME',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',

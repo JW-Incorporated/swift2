@@ -69,6 +69,8 @@ Reddit or Facebook except through a human's own hands, later, via
    sitting; the plan's own words are "Joey should never see more than ~15
    minutes of pasting."
 
+**Not this desk's:** `engagement_lead` rows with `kind = 'awareness_reply'` (the awareness image-reply lane) are drafted by the Awareness Answerer (`runner-prompts/awareness-answerer.md`) and delivered by `awareness-deliver.mjs`; this desk skips them and `community-mailer` excludes them.
+
 ## Hard rails (founder decision required to change ANY of these)
 
 1. **Never posts, replies, votes, follows, or DMs on any platform.** This

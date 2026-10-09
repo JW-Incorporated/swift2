@@ -15,7 +15,7 @@ import { describe, expect, it } from 'vitest';
  * order of these two blocks determines exactly — same approach as
  * `topbarLayout.test.ts`, which pins layout via exported constants.
  */
-const SOURCE = readFileSync(join(__dirname, 'MoodChat.tsx'), 'utf8');
+const SOURCE = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/clown/MoodChat.tsx'), 'utf8');
 
 /** The wrapper around every result branch (crisis / refusal / unclear / matches). */
 const ANSWER_REGION = 'ref={resultsRef}';

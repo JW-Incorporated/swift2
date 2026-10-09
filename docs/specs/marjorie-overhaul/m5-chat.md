@@ -9,11 +9,17 @@ one covers only the conversational loop. Epic #4180.
 ## Behavior you will see
 
 - You write a message in `#longlive-marjorie` (top level or in any thread).
-  Within about fifteen minutes Marjorie replies **in the same thread** (a
-  top-level message gets a thread started for it) and marks your message
+  Within about fifteen minutes Marjorie replies in the same place: a
+  top-level message gets a channel-level reply, while a message in an
+  existing thread gets a reply in that thread. She marks your message
   👀 when she picks it up and ✅ when her reply is posted. The delay is a
   5-minute poll plus a routine's start-up; the reply says nothing about
-  being late.
+  being late. *(Amended by M7, 2026-09-14: pickup now happens in seconds. The
+  Long Live Doorbell on the home server adds 👀 and starts the routine the
+  moment you post, and the routine's `context` job adds the bot's own 👀 as
+  its claim; the poll stays as the fallback and watches the doorbell. Only
+  pickup changed: this spec is still the contract for the chat loop. See
+  `m7-doorbell.md`.)*
 - The same in `#longlive-tree` gets Tree. Tree's replies are conversation
   only; approvals stay reactions on Tree's own posts, exactly as before, and
   a reply from Tree is never an approval, a post, or a caption change.
@@ -63,22 +69,25 @@ one covers only the conversational loop. Epic #4180.
   without breaking every existing caller.)*
 - **Reply** = one Markdown file the agent writes to
   `.scratch/out/chat-reply.md` (the template uploads `.scratch/out/`)
-  (≤1800 chars; the workflow truncates with "…" when longer). *(Amended at
+  (≤1800 chars; the workflow truncates with "…" when longer). Ordinary
+  questions default to 2–4 short sentences (about 80 words); the agent may
+  expand when the founder asks for detail or action-critical steps or evidence
+  require it. *(Amended at
   build: no link to the run — the run's artifacts are deleted; mentions are
   neutralized and `ref:`-shaped lines defused BEFORE the cap, so what is
   checked is what is sent, always as one Discord message. Codex review of
   the routines PR found expansion after the cap could split a Tree reply and
   start the second message on a forged approval ref.)* Posted by a `run:` step through the channel's existing webhook
   (`DISCORD_MARJORIE_WEBHOOK_URL` / `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`)
-  with `thread_id`. Webhooks cannot create threads, so a top-level founder
-  message is answered by first creating a thread on it with the bot token
-  (`POST /channels/{id}/messages/{id}/threads`; the thread takes the
-  message's id), then posting via webhook. *(Amended at build: the thread is
-  created in the `context` job, before the agent runs — Marjorie's webhook
-  lives only in `ops` and the bot token only in `social`, so no one job can
-  hold both. HA #69 granted Send Messages but not Create Public Threads; if
-  Discord refuses the thread, the reply posts at channel top level with a
-  link to the founder's message and the run logs a warning.)*
+  with `thread_id` only when the founder used an existing thread. Webhooks
+  cannot create threads, so an existing user thread is passed as `thread_id`;
+  an ordinary top-level reply leaves it empty and
+  posts directly in the channel. *(Amended at build: top-level messages no
+  longer create threads; the bot token is used only to read and claim the
+  message, while the webhook posts the one reply.)*
+  *(Historical note: the original build created a thread for top-level
+  messages, but no existing threads are removed.)*
+
 - **Turn log**: each reply run appends one line to the day's brief issue
   (`founders-brief`) as a comment `💬 chat: <channel> → <what was done>`,
   ending in a `<!-- chat-id: <message id> -->` marker, so the next morning's
@@ -119,7 +128,7 @@ one covers only the conversational loop. Epic #4180.
    refused notice leaves no ❌, so the next poll retries it; a successful
    notice is its own idempotency marker, so a refused or interrupted ❌ is
    retried without reposting. A reply is a webhook post under the bot's name
-   in the thread started on the message, or anywhere else opening
+   in the founder's existing thread, or at channel level opening
    `↪ <message link>` (every reply carries that line, so two asks in one
    thread answered out of order are never crossed; a legacy unlinked reply in
    the message's own thread still counts before the next human message) — no
@@ -142,7 +151,7 @@ one covers only the conversational loop. Epic #4180.
 2. **`routine-marjorie-chat.yml` / `routine-tree-chat.yml`** — callers of
    `routine-template.yml`, `workflow_dispatch` only, model `claude-opus-5`,
    `max_turns: 25`, `timeout_minutes: 15`. Jobs: `context` (`social`:
-   `chat-poll.mjs context`, creates the thread for a top-level message,
+  `chat-poll.mjs context`, selects the source place without creating a thread,
    uploads `chat-context`) → `run` (the template, `pre_run_artifact:
    chat-context`, `post_run_artifact: chat-reply`) → post → finish (Mechanics
    3). *(Amended at build: concurrency is per message, via the template's
@@ -216,7 +225,7 @@ one covers only the conversational loop. Epic #4180.
    `bot-chat-poll.yml`'s second step; `marjorie-reply-poll.yml` is
    dispatch-only); the chat routine reads that issue
    too, so a reply in the brief thread gets both an issue comment and an
-   in-thread answer. No double action: the routine checks the issue's
+   answer in that thread. No double action: the routine checks the issue's
    comments for its own `💬 chat:` line before acting.
 7. **Cost**: at most 3 messages per channel per poll, one Opus turn each,
    25 turns; a busy hour is ≤24 routine runs, a normal day a handful. Opus
@@ -229,7 +238,8 @@ one covers only the conversational loop. Epic #4180.
 
 - **Live proof, both bots, cited on #4180 with message links and run URLs**:
   Joey asks each bot "what is your job?" and "can you talk to Tree /
-  Marjorie?" and gets an in-thread reply from each within 15 minutes; both
+  Marjorie?" and gets a reply from each within 15 minutes (in the channel
+  since #4320; in-thread at the 09-13 proof); both
   messages carry ✅.
 - **Power proof**: Joey tells Marjorie in chat that a listed blocker is
   done; her reply cites the PR that removes the human action (or the issue

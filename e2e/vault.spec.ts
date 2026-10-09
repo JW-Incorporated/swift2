@@ -41,11 +41,7 @@ function realMomentItems(scope: Page | Locator): Locator {
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
   await page.goto('/');
-  // This used to wait on the nav-mode tablist's "Eras" tab. That tablist
-  // (TopBar's ModeToggle) is wrapped in `hidden md:block` — mobile gets the
-  // BottomNav rail instead, whose buttons carry no `role="tab"` at all — so
-  // the locator could never match on the mobile-chrome project, by design,
-  // on every run. The "open the eras menu" button is the one hydration
+  // The "open the eras menu" button is the one hydration
   // signal both layouts always render unconditionally: its label only
   // reflects the real current era once the client store has hydrated, so
   // its presence proves interactivity, on both mobile and desktop.
@@ -178,18 +174,8 @@ test.describe('Vault smoke', () => {
   test('merch All items clears an active product-kind filter', async ({ page }) => {
     await gotoVault(page);
 
-    // The desktop tab rail and mobile primary navigation both expose a
-    // "Merch" control, but not with the same accessible role: TopBar's
-    // ModeToggle (desktop) renders each tab as a `<button role="tab">` — an
-    // explicit role attribute wins over the element's implicit one, so
-    // Playwright resolves it as "tab", not "button" — while BottomNav
-    // (mobile) renders a plain, role-less `<button>`. A single
-    // `getByRole('button', ...)` therefore only ever matched on mobile;
-    // desktop-chrome waited the full 45s for a "button" that structurally
-    // could never appear. `.or()` covers both roles under the one label.
-    const merchNav = page
-      .getByRole('tab', { name: 'Merch' })
-      .or(page.getByRole('button', { name: 'Merch' }));
+    // Desktop ModeToggle and mobile BottomNav both expose a "Merch" button.
+    const merchNav = page.getByRole('button', { name: 'Merch' });
     await merchNav.click();
 
     const allItems = page.getByRole('button', { name: 'All items' });

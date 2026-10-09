@@ -20,10 +20,13 @@ const workspaceRoot = path.resolve(projectRoot, '../..');
 // in-process while emitting JSON on stdout, and the generator's progress lines
 // corrupted it ("Failed to run eas build:internal"). Failures still surface —
 // execFileSync throws on a non-zero exit and stderr is passed through.
-execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
-  cwd: workspaceRoot,
-  stdio: ['ignore', 'ignore', 'inherit'],
-});
+// Parity CI freezes the lens data before building; regenerating here would overwrite the frozen copy.
+if (process.env.PARITY_FROZEN_LENSES !== '1') {
+  execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
+    cwd: workspaceRoot,
+    stdio: ['ignore', 'ignore', 'inherit'],
+  });
+}
 
 const config = getDefaultConfig(projectRoot);
 
@@ -56,7 +59,9 @@ config.resolver.nodeModulesPaths = [
 // every bundle, anchored to the app's own node_modules, regardless of how npm
 // lays out the tree (locally or on EAS). react-native-reanimated/-worklets and
 // -gesture-handler live only under apps/mobile, so they need no pinning.
-const singletons = ['react', 'react-native'];
+// react-dom (DOM components) is pinned too: the repo root hoists react-dom
+// 18.3.1 for web, which would pair a React 19 DOM bundle with the wrong renderer.
+const singletons = ['react', 'react-dom', 'react-native'];
 
 function pinnedOrigin(name) {
   // Resolve from the app's own node_modules so we always get the copy that
@@ -67,6 +72,7 @@ function pinnedOrigin(name) {
 const pinnedDirs = Object.fromEntries(singletons.map((name) => [name, pinnedOrigin(name)]));
 
 const defaultResolveRequest = config.resolver.resolveRequest;
+
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   for (const name of singletons) {
     if (moduleName === name || moduleName.startsWith(`${name}/`)) {

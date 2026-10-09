@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
 
 describe('#773 track overlays keep the global era navigation visible', () => {
-  const nav = read('./OverlayNav.tsx');
+  const nav = read('../../../../packages/ui/src/reader/era/OverlayNav.tsx');
 
   it('keeps the wordmark and responsive current-era label in the top-left group', () => {
     expect(nav).toContain('aria-label="Track overlay navigation"');
@@ -13,7 +13,7 @@ describe('#773 track overlays keep the global era navigation visible', () => {
     expect(nav).toContain('onClick={goHome}');
     expect(nav).toContain('Era: {era.shortName}');
     expect(nav).toContain('Era: {era.name}');
-    expect(nav).toContain('aria-label={`${era.name} — open the eras menu`}');
+    expect(nav).toContain("{' — open the eras menu'}");
   });
 
   it('leaves the track stack before opening the era selector', () => {
@@ -38,7 +38,10 @@ describe('#773 track overlays keep the global era navigation visible', () => {
     );
   });
 
-  for (const file of ['./TrackGuide.tsx', './TrackDetail.tsx']) {
+  for (const file of [
+    '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
+    '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  ]) {
     it(`${file} supplies its active era to the shared navigation`, () => {
       expect(read(file)).toMatch(/<OverlayNav\s+[\s\S]*?era=\{era\}/);
     });

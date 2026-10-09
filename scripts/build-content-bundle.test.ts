@@ -4,7 +4,7 @@
 // (bundleVersion/manifest hashing) plus an end-to-end run against the real
 // repo content, asserting two builds produce a byte-identical bundleVersion
 // and identical per-file bytes (generatedAt aside).
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -31,6 +31,27 @@ describe('sha256 / bundleVersionOf', () => {
     const a = bundleVersionOf({ a: 'hash-a', b: 'hash-b' });
     const b = bundleVersionOf({ a: 'hash-a', b: 'DIFFERENT' });
     expect(a).not.toBe(b);
+  });
+});
+
+describe('publication media gate', () => {
+  it('rejects missing media before creating any bundle output', async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), 'content-media-gate-'));
+    const seedDir = path.join(root, 'seed');
+    const outRoot = path.join(root, 'out');
+    await mkdir(path.join(seedDir, 'content'), { recursive: true });
+    await writeFile(
+      path.join(seedDir, 'content', 'test.mjs'),
+      "export default { items: [{ slug: 'new-post', title: 'New post' }] };\n",
+    );
+    try {
+      await expect(writeBundle({ outRoot, seedDir, resync: false })).rejects.toThrow(
+        /test\.mjs\[0\].*needs an authored photo/,
+      );
+      await expect(access(outRoot)).rejects.toThrow();
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   });
 });
 
@@ -78,7 +99,13 @@ describe('assembleBundleEntries', () => {
       },
     ],
     MILESTONES: [
-      { id: 'ms-folklore-release', eraId: 'folklore', date: '2020-07-24', label: 'folklore released', kind: 'album' },
+      {
+        id: 'ms-folklore-release',
+        eraId: 'folklore',
+        date: '2020-07-24',
+        label: 'folklore released',
+        kind: 'album',
+      },
     ],
     CONTENT: [
       {
@@ -153,7 +180,9 @@ describe('assembleBundleEntries', () => {
 
   it('wraps eraSecrets as { eraId, secrets } (renaming the field from perEra.eraSecrets)', () => {
     const entries = assembleBundleEntries(fixtureSources);
-    expect(entries.eraSecrets.value).toEqual([{ eraId: 'folklore', secrets: fixtureSources.perEra[0].eraSecrets }]);
+    expect(entries.eraSecrets.value).toEqual([
+      { eraId: 'folklore', secrets: fixtureSources.perEra[0].eraSecrets },
+    ]);
   });
 
   it('wraps clownbotLore/songMoods as their bundle-file shape', () => {

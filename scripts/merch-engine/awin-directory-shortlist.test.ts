@@ -338,7 +338,7 @@ describe('Awin directory shortlist', () => {
   });
 
   it('keeps the execution lane manual, secret-bound, and artifact-only', () => {
-    const workflow = readFileSync('.github/workflows/merch-awin-directory-shortlist.yml', 'utf8');
+    const workflow = readFileSync('.github/workflows/merch-awin-directory-shortlist.yml', 'utf8').replace(/\r\n/g, '\n');
     const collector = readFileSync('scripts/merch-engine/awin-directory-shortlist.mjs', 'utf8');
 
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);

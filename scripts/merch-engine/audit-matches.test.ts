@@ -241,7 +241,7 @@ describe('R1 lane separation', () => {
   });
 
   it('keeps the scheduled workflow in the detector lane', () => {
-    const workflow = readFileSync('.github/workflows/merch-audit-detect.yml', 'utf8');
+    const workflow = readFileSync('.github/workflows/merch-audit-detect.yml', 'utf8').replace(/\r\n/g, '\n');
     expect(workflow).toContain('audit-matches.mjs --detect');
     expect(workflow).toContain('merch-audit-authoring');
     expect(workflow).toContain('push:');
@@ -273,7 +273,8 @@ describe('fixture-only dry run', () => {
     ] }));
 
     try {
-      execFileSync('npx', ['tsx', 'scripts/merch-engine/audit-matches.mjs', '--detect', '--fixture', fixturePath, '--write-queue', queuePath], { cwd: root, encoding: 'utf8' });
+      // process.execPath + --import tsx: portable (a bare `npx` spawn ENOENTs on Windows, where it is npx.cmd).
+      execFileSync(process.execPath, ['--import', 'tsx', 'scripts/merch-engine/audit-matches.mjs', '--detect', '--fixture', fixturePath, '--write-queue', queuePath], { cwd: root, encoding: 'utf8' });
       expect(JSON.parse(readFileSync(queuePath, 'utf8')).queue).toHaveLength(1);
       expect(execFileSync('git', ['diff', '--', 'supabase/seed'], { cwd: root, encoding: 'utf8' })).toBe(seedBefore);
     } finally {

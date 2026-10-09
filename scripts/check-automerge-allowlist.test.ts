@@ -431,15 +431,21 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
     expect(mergeable('apps/web/public/social/library/merch-drop-123.png')).toBe(true);
   });
 
-  // Tree Overhaul T5 (spec AC#8) — a stays-excluded regression guard, not a
-  // fix: docs/marketing/social-strategy.md already matches no allow prefix
-  // today (only docs/audits/ and docs/ops/MERCH-REVENUE.json are docs/-
-  // prefixed allow entries). This is what keeps a founder's merge the only
-  // way a tree/strategy/<week>-<n> PR (T5) can ever land, even if a future
-  // change widens this file — see docs/specs/tree-overhaul/t5-lessons-ledger.md
-  // "The strategy diff".
-  it('docs/marketing/social-strategy.md matches no allow prefix, so a strategy-diff PR can never auto-merge', () => {
-    expect(mergeable('docs/marketing/social-strategy.md')).toBe(false);
+  // S2 (owner instruction 2026-10-01, docs/decisions.md) flipped Tree Overhaul
+  // T5's strategy-doc guard: the strategy doc and the taste-parameter file are
+  // now Tree's/Marjorie's and land without a founder merge. The one thing the
+  // owner still owns is docs/social/guardrails.md — it can NEVER auto-merge.
+  it('docs/marketing/social-strategy.md and social/strategy-params.json auto-merge (bots own strategy)', () => {
+    expect(mergeable('docs/marketing/social-strategy.md')).toBe(true);
+    expect(mergeable('social/strategy-params.json')).toBe(true);
+  });
+
+  it('docs/social/guardrails.md can NEVER auto-merge — it is barred, not merely unlisted', () => {
+    expect(mergeable('docs/social/guardrails.md')).toBe(false);
+    expect(Object.keys(NEVER_ALLOWLIST)).toContain('docs/social/guardrails.md');
+    expect(
+      barredPrefixes('docs/social/', NEVER_ALLOWLIST, NEVER_ALLOWLIST_EXCEPTIONS),
+    ).toContain('docs/social/guardrails.md');
   });
 });
 

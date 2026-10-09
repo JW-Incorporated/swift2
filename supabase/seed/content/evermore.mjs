@@ -1083,7 +1083,7 @@ export default {
             price: '$1,350.00',
             isAlternative: true,
             altNote: 'Her exact purple suit was custom — this is Etro\'s current velvet blazer (shown styled as a pantsuit), in blue rather than purple.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1114,7 +1114,7 @@ export default {
           },
           {
             outlet: 'Vogue Arabia',
-            url: 'https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/',
+            url: 'https://web.archive.org/web/20240917152259/https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/',
           },
         ],
         photos: [
@@ -3860,15 +3860,6 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-24',
             reliability_score: 2,
-          },
-          {
-            outlet: 'Taylor Swift Official Store',
-            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
-            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
-            publisher: 'Taylor Swift Official Store',
-            source_type: 'official',
-            accessed_at: '2026-07-24',
-            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being

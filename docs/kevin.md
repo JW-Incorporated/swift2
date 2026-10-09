@@ -78,7 +78,8 @@ token is not a defect.
    report 0 errors and `node --check` must pass on each edited file.
 5. **Image fixes are verify-first:** never write an image URL unless it returns
    HTTP 200 + `Content-Type: image/*` **and** is downloaded + vision-confirmed to
-   match its caption (see [`.karenfix/IMAGE-FIX-PROTOCOL.md`]). Never strip a
+   match its caption (this invariant is the whole protocol;
+   there is no separate protocol file). Never strip a
    record to zero photos; if nothing verifies, skip and report it.
 6. **Two streams stay separate** (different trust levels, different PRs, below).
 7. **Always read a ticket's comments, not just its body.** Before acting on any
@@ -89,6 +90,11 @@ token is not a defect.
    or **cancel** the work. **The most recent human comment wins over the original
    body.** Never apply a body's stale suggested fix when a comment has since
    corrected or retracted it, and never re-do work a comment says is already done.
+   Stream 3 has one narrow exception: the exact M8 `marjorie-approval` three-line
+   template counts as a founder approval only when the issue-comments API reports
+   its author as a typed Bot with an allowlisted Claude or GitHub Actions login.
+   The Discord URL id and marker id must match. Similar prose does not count, and
+   any later real founder comment remains authoritative, including revocation.
 8. **Any audit summary relayed to the founders states its scope in the first
    line** (e.g. "prose + sourcing only; photos not checked") — see the
    [audit-reporting scope convention](definition-of-done.md#audit-reporting-scope-convention).
@@ -172,7 +178,7 @@ date — Marjorie posts by ~12:40 UTC / 6:00 AM PT, before Kevin's S2 run at
   existing anchored comment's id
   (`gh api repos/{owner}/{repo}/issues/{n}/comments --jq '.[] | select(.body
   | startswith("<!-- kevin-stream2-digest -->")) | .id'`), then
-  `gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -f body=@file`
+  `gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -F body=@file` (`-F` reads the file; `-f` posts the literal `@file` text, #4653); new comments use `gh issue comment <n> --body-file <path>`
   to edit that comment's body in place instead of posting a new one. Only
   one anchored comment should ever exist going forward.
   **Fallback (rare):** if `gh` is genuinely unavailable in the run
@@ -410,5 +416,3 @@ A service implementation must replicate this contract exactly:
 - **Invariants:** enforce the "Hard invariants" section in code — especially
   never-merge, never-auto-close-user-tickets-without-a-decision, and verify-first
   images. These are safety properties, not conveniences.
-
-[`.karenfix/IMAGE-FIX-PROTOCOL.md`]: ../.karenfix/IMAGE-FIX-PROTOCOL.md

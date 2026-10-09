@@ -9,5 +9,5 @@
  * guide). Re-exported here unchanged so every existing caller/test of this
  * module keeps working without touching an import path.
  */
-export * from '@swift2/experience';
+export { COMMUNITIES, communitiesByNiche, communitiesByPlatform } from '@swift2/experience';
 export type { Community, CommunityPlatform, CommunityVerification, VerificationStatus } from '@swift2/experience';

@@ -36,6 +36,8 @@ describe('Current-tier row mappers', () => {
       expires_at: '2026-11-21T00:00:00.000Z',
       updated_at: '2026-08-23T12:00:00.000Z',
       redline_ok: true,
+      countdown_target_at: null,
+      countdown_resolved_at: null,
     });
     expect(item.storyId).toBeUndefined();
     expect(item.category).toBe('sighting');

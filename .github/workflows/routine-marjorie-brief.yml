@@ -18,6 +18,16 @@ on:
   schedule:
     - cron: "0 12 * * *" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run dollar ceiling; 0 keeps normal routine behavior"
+        required: false
+        type: number
+        default: 0
+      force:
+        description: "Run again even if this UTC day already has a brief"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -25,8 +35,38 @@ permissions:
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
   issues: write
 
+concurrency:
+  group: marjorie-brief-day
+  cancel-in-progress: false
+
 jobs:
+  guard:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+      issues: read
+    outputs:
+      proceed: ${{ steps.guard.outputs.proceed }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Allow only the first brief of the UTC day
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force == true && 'true' || 'false' }}
+        run: node scripts/marjorie/lib/brief-guard.mjs
+
   run:
+    needs: guard
+    if: needs.guard.outputs.proceed == 'true'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — 6 AM Founders' Brief"
@@ -34,6 +74,7 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 40
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -52,14 +93,14 @@ jobs:
   # explicitly rather than trusting the triggering ref, because a job
   # holding a secret must never execute code from a dispatch-controlled or
   # agent-writable ref (same property `routine-tree-weekly-plan.yml`'s
-  # own HIGH-1 finding documents). The issue stays the source of truth for
-  # what gets posted — this job only reads the brief body from it. The one
-  # thing it writes back (M2, moved from M4) is a hidden
-  # `<!-- discord-message-id: ... -->` marker comment recording the posted
-  # message's id, once, right after a successful Discord send — that id is
-  # a Discord thread's root message id (a thread shares its id with the
-  # message it was created on), and without it persisted somewhere,
-  # `reply-poll.mjs` has no way to find the founders' reply thread.
+  # own HIGH-1 finding documents).
+  #
+  # Bots v2 W4 (docs/plans/bots-v2/PLAN.md): the daily brief issue is gone.
+  # The agent step writes Marjorie's judgment into the status page's note
+  # region (scripts/marjorie/status-note.mjs); this job re-renders the page
+  # and posts ONE line to Discord. Delivery is recorded as a dated
+  # `<!-- marjorie-ping ... -->` stamp in the status issue body, which the
+  # guard job reads in place of the old discord-message-id marker.
   deliver:
     needs: run
     if: always() && needs.run.result == 'success'
@@ -68,12 +109,17 @@ jobs:
     environment: ops
     # L1 fix (Codex review, MEDIUM): serializes lookup → create → writeback
     # so two overlapping deliveries of the same brief can never both file it.
+    # Shares marjorie-status.yml's render group on purpose: both rewrite the status
+    # issue body and both may post the change ping, so they must never overlap
+    # (a second ping from a stale baseline).
     concurrency:
-      group: marjorie-brief-deliver
+      group: marjorie-status-render
       cancel-in-progress: false
     permissions:
       contents: read
       issues: write
+      pull-requests: read
+      actions: write # W7: a new ask of Tree starts Tree's response routine (lib/loop-dispatch.mjs guards)
     steps:
       - uses: actions/checkout@v7
         with:
@@ -81,31 +127,45 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Fetch today's brief issue and deliver it
+      - name: Refresh the status page, file the Tree ask, and post the change line if the page changed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           set -euo pipefail
-          ISSUE_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founders-brief --state open --json number,body,url --limit 1)
-          ISSUE_URL=$(echo "$ISSUE_JSON" | jq -r '.[0].url')
-          ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r '.[0].number')
-          # The list above is search-backed and can hand back a body from
-          # before an earlier delivery's writeback (→ [#N]), which would
-          # refile the ask; a single-issue read returns the issue itself.
-          gh issue view "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --json body --jq .body > /tmp/brief-body.md
-          # L1 (docs/specs/marjorie-overhaul/l1-loop.md): file the brief's
-          # `- For Tree:` ask as a `marjorie-filed` + `desk:tree` issue and
-          # write its number into the line — and the issue body — before the
-          # post, so Discord and the durable copy carry the same number. A
-          # plain step on the workflow token; no agent judges the line.
-          # Soft-fail: on any error the body file is untouched and the brief
-          # still goes out.
-          timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file /tmp/brief-body.md --out /tmp/brief-body.md \
-            || echo "::warning::loop-asks file-marjorie failed; delivering the brief unchanged"
-          DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL")
-          echo "$DELIVERY_OUTPUT"
-          MESSAGE_ID=$(echo "$DELIVERY_OUTPUT" | sed -n 's/^discord-message-id: //p')
-          if [ -n "$MESSAGE_ID" ]; then
-            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "<!-- discord-message-id: $MESSAGE_ID -->"
+          # Bots v2 W4: no daily brief issue any more. The agent step wrote
+          # Marjorie's note into the status page; this job re-renders the page
+          # (creating it if missing); the closing step posts the shared change line.
+          node scripts/marjorie/status-page.mjs --apply
+          # Chase items Marjorie stopped chasing: shown on the page and recorded
+          # as hidden markers there, which the chase reads so it never re-announces them.
+          node scripts/marjorie/status-note.mjs stamp-held || echo "::warning::could not record held chase items on the status page"
+          STATUS_URL=$(node scripts/marjorie/status-note.mjs url)
+          STATUS_NUMBER=${STATUS_URL##*/}
+          # L1 (docs/specs/marjorie-overhaul/l1-loop.md): file the note's
+          # `- For Tree:` ask as a `marjorie-filed` + `desk:tree` issue and write
+          # its number into the line. A plain step on the workflow token; soft-fail,
+          # so the ping still goes out.
+          # Only when the agent wrote today's note: re-writing an old note would
+          # stamp it as today's and hide a missed brief from the watchdog.
+          node scripts/marjorie/status-note.mjs extract --out /tmp/note.md
+          if [ "$(node scripts/marjorie/status-note.mjs today)" = "1" ] && grep -q '[^[:space:]]' /tmp/note.md; then
+            cp /tmp/note.md /tmp/note.before.md
+            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$STATUS_NUMBER" --issue-url "$STATUS_URL" --body-file /tmp/note.md --out /tmp/note.md --no-edit --dispatch \
+              || echo "::warning::loop-asks file-marjorie failed; delivering the ping unchanged"
+            cmp -s /tmp/note.md /tmp/note.before.md \
+              || node scripts/marjorie/status-note.mjs write --body-file /tmp/note.md \
+              || echo "::warning::could not write the Tree ask number back into the note"
           fi
+          # One shared "Status updated" line (lib/status-ping.mjs): posted only when
+          # the page materially changed since the owner was last told (the new note
+          # counts), at most one an hour unless a Needs-you item was added. The same
+          # render runs hourly in marjorie-status.yml; this one just makes the
+          # morning note ping without waiting for it.
+          node scripts/marjorie/status-page.mjs --apply --notify
+          # The brief ran and its note is on the page: stamp the day so brief-guard.mjs
+          # never delivers it twice. (No Discord message id any more: the ping is no
+          # longer a once-a-day post; replies in the channel are chat asks.)
+          node scripts/marjorie/status-note.mjs stamp-ping

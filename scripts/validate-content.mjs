@@ -56,8 +56,15 @@ import {
   PROSE_REDLINE_LEGACY,
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
+import {
+  VIDEO_PRESENTATION_EXCEPTIONS,
+  videoPresentationErrors,
+} from './lib/video-presentation-gate.mjs';
+import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
+import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
+import { routeAuthor } from './copy-desk/routing.mjs';
 
 async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
@@ -135,13 +142,6 @@ const SOURCE_TYPES = new Set([
 ]);
 const MEDIA_KINDS = new Set(['oembed', 'owned', 'hotlink_legacy']);
 const MEDIA_RIGHTS = new Set(['platform_tos', 'licensed', 'hotlink_legacy']);
-const VIDEO_PRESENTATION_EXCEPTIONS = new Set([
-  'unavailable',
-  'removed',
-  'rights',
-  'privacy',
-  'safety',
-]);
 
 // Keep in sync with LensId (apps/web/lib/longlive/types.ts) and
 // VALID_THREAD_IDS (sync-longlive-content.mjs). An unknown value here is
@@ -188,6 +188,12 @@ const loaded = [];
 for (const file of contentFiles) {
   const mod = await import(pathToFileURL(join(contentDir, file)).href);
   loaded.push({ file, data: mod.default });
+}
+
+for (const finding of mediaCorpusErrors(loaded)) {
+  const at = finding.file == null ? 'scripts/lib/moment-media-gate.mjs' : `${finding.file}[${finding.index}]`;
+  console.error(`ERROR ${at}: ${finding.message}`);
+  errors += 1;
 }
 
 // Every real `moment:vault-<eraId>-<slug>` id the sync script would generate
@@ -378,31 +384,12 @@ for (const { file, data } of loaded) {
       err(
         `videoPresentationException "${videoException}" not in ${[...VIDEO_PRESENTATION_EXCEPTIONS].join('|')} — exceptions must be explicit and reviewable`,
       );
-    const canonicalYoutubeIds = (it.moment?.sources ?? [])
-      .filter(
-        (s) => s?.source_type === 'official' && /(?:youtube\.com|youtu\.be)/i.test(s?.url ?? ''),
-      )
-      .map((s) => {
-        try {
-          const url = new URL(s.url);
-          return url.hostname.endsWith('youtu.be')
-            ? url.pathname.split('/').filter(Boolean)[0]
-            : url.searchParams.get('v');
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean);
-    if (canonicalYoutubeIds.length && videoException == null) {
-      const video = it.video ?? it.moment?.video;
-      if (!video?.youtubeId)
-        err(
-          `official YouTube source ${canonicalYoutubeIds[0]} has no matching video — attach the canonical player or record videoPresentationException (unavailable|removed|rights|privacy|safety)`,
-        );
-      else if (!canonicalYoutubeIds.includes(video.youtubeId))
-        err(
-          `video.youtubeId "${video.youtubeId}" does not match the official YouTube source (${canonicalYoutubeIds.join(', ')}) — do not attach unrelated footage`,
-        );
+    for (const message of videoPresentationErrors({
+      sources: it.moment?.sources,
+      video: it.video ?? it.moment?.video,
+      videoPresentationException: videoException,
+    })) {
+      err(message);
     }
 
     // --- photo host allowlist (2026-08-24, issue #1968) --------------------
@@ -501,6 +488,14 @@ for (const { file, data } of loaded) {
       err(
         `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
       );
+    }
+
+    // Persona byline (copy-desk spec §3): the category must be routable and an
+    // optional explicit `author` override must be a real persona slug.
+    try {
+      routeAuthor({ surface: 'month_item', category: it.category, override: it.author });
+    } catch (e) {
+      err(`${e.message} — extend packages/experience/src/copy-desk/routing.ts in the same PR`);
     }
 
     // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
@@ -1118,6 +1113,7 @@ for (const file of trackFiles) {
       if (!img.url) err('image missing url');
       if (!img.credit) err('image missing credit');
     }
+    for (const m of runwaySourceErrors(l.sources)) err(m);
   }
 
   // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.

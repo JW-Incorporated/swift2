@@ -1,0 +1,96 @@
+# Marjorie -> bot1 bridge job (bots-v2 C5, docs/plans/bots-v2/PLAN.md).
+# Posts the prompts an agent run saved under `.scratch/out/bot1-prompt-*.md`
+# (the agent's `post_run_artifact`) to #longlive through
+# DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL, via scripts/marjorie/prompt-bot1.mjs.
+#
+# DEFAULT OFF, two independent gates, both enforced by the script and neither
+# by this file: `bot1Bridge.enabled` in scripts/marjorie/marjorie-config.json
+# (committed, false) and the secret's existence. Until both hold every step
+# here is a green no-op. At most 3 prompts per UTC day, counted from the
+# tracking-issue log (see lib/bot1-bridge.mjs for why).
+#
+# The webhook secret lives only in the `ops` environment (main-only) and only
+# in this plain job — never in an agent step. The checkout pins `ref: main`
+# because a job holding a secret must never run dispatch-controlled or
+# agent-writable code, and the prompt files are read as DATA only.
+#
+# Two entry points: `workflow_call` (a routine passes its artifact name —
+# routine-marjorie-weekly-review.yml does) and `workflow_dispatch` (a typed
+# prompt, dry-run by default, for the owner to test the bridge safely).
+name: marjorie-bot1-bridge
+
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        description: "Name of the same-run artifact holding .scratch/out/bot1-prompt-*.md"
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Prompt text for bot1 (one outcome; see .claude/skills/prompting-bot1/SKILL.md)"
+        required: true
+        type: string
+      dry_run:
+        description: "Only show what would be sent"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ops
+    concurrency:
+      group: marjorie-bot1-bridge
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Download the agent's prompt files (same run)
+        if: ${{ inputs.artifact }}
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact }}
+          path: .scratch/out
+
+      - name: Write the dispatched prompt to a file
+        if: ${{ inputs.prompt }}
+        env:
+          PROMPT: ${{ inputs.prompt }}
+        run: |
+          mkdir -p .scratch/out
+          printf '%s\n' "$PROMPT" > .scratch/out/bot1-prompt-1.md
+
+      - name: Send (or dry-run) each prompt, at most three
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL: ${{ secrets.DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -uo pipefail
+          shopt -s nullglob
+          files=(.scratch/out/bot1-prompt-*.md)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "bot1-bridge: no prompts to send."
+            exit 0
+          fi
+          dry=""
+          if [ "${DRY_RUN:-}" = "true" ]; then dry="--dry-run"; fi
+          for f in "${files[@]:0:3}"; do
+            node scripts/marjorie/prompt-bot1.mjs send --file "$f" --source "$RUN_URL" $dry \
+              || echo "::warning::bot1-bridge: $f failed"
+          done

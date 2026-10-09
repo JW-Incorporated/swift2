@@ -78,6 +78,18 @@
 # native auto-merge doesn't know about this file-allowlist at all — only
 # that the checks it actually understands (`build`) passed.
 #
+# OWN ARMS ONLY (#4680, 2026-10-01): that disarm used to run on EVERY non-
+# `enabled` verdict, so an agent PR that armed `gh pr merge --auto` itself
+# (CLAUDE.md "Never babysit your own PR") and merely touched a path in `on.paths`
+# had its arm silently cleared and stranded. Now `enable` stamps the
+# `automerge:content` label (via github.token, so it never re-triggers this
+# workflow) BEFORE it arms, and a non-`enabled` verdict disarms — and removes the
+# label — only when that label is present. An arm this workflow did not make is
+# left alone. Unchanged, always disarmed on any non-`enabled` verdict: a PR
+# labelled `social-draft`, a `social-poster/state-*` head branch (the poster arms
+# its own state PRs; #2039), and the social-draft decline verdict. If the label
+# lookup itself fails the verdict disarms (fail closed).
+#
 # Reconciled 2026-08-11 with #1902's externalized-allowlist + verdict/job-
 # summary rework (this branch and #1902 landed the same day and both touched
 # this file — see PR #1900's "Review round 2" for the merge).
@@ -122,8 +134,22 @@ on:
       - "social/queue/**"
       - "social/posted/**"
       - "social/failed/**"
+      # Tree's operational docs (bots v2 W7, 2026-10-01): Marjorie's feedback
+      # lands without a founder merge; posts still need the founder ✅.
+      - "social/calendar.md"
+      - "social/lessons.md"
+      - "docs/marketing/social-strategy.md"
+      - "social/strategy-params.json"
+      # Concert-photo-sourcing's library inventory (docs/decisions.md
+      # 2026-10-06): library photos are not posts; the ✅ still gates posts.
+      - "social/photo-library.json"
+      # Its photo-QC rejected-candidate ledger (docs/decisions.md 2026-10-07).
+      - "social/photo-qc-rejected.json"
+      # And its official-video frame ledger (docs/decisions.md 2026-10-07).
+      - "social/video-frames-ledger.json"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
+      - "docs/ops/AFFILIATE-COVERAGE.md"
       - "apps/web/public/social/**"
       - "apps/web/lib/longlive/**"
       - "apps/web/app/**"
@@ -359,10 +385,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [check-drafts, guard-code]
-    # NOTE: no `actions/checkout` anywhere in this job. `pull_request_target`
+    # NOTE: this job never checks out PR HEAD code. `pull_request_target`
     # runs with repo secrets against the BASE ref; checking out PR head code
-    # here would hand those secrets to whatever the PR contains. We only ever
-    # call `gh` against the API, which is the documented-safe usage.
+    # here would hand those secrets to whatever the PR contains. The only
+    # checkout is the explicit BASE ref (trusted, credentials not persisted),
+    # used to run the unit-tested merch-drop exemption predicate; everything
+    # else is `gh` against the API, which is the documented-safe usage.
     #
     # `!cancelled()` (2026-08-12, PR #2039 review): this job must run even when
     # a needed job FAILED, because disarming a previously-armed auto-merge
@@ -377,6 +405,13 @@ jobs:
       github.event.pull_request.draft == false &&
       github.event.pull_request.base.ref == 'main'
     steps:
+      # Base-ref checkout (trusted — never the PR head) so the unit-tested
+      # merch-drop exemption predicate in scripts/ can run. Credentials are not
+      # persisted; the PAT below is only ever used by `gh`.
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          persist-credentials: false
       - name: Decide and enable
         env:
           GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -385,6 +420,7 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           FREEZE: ${{ vars.CONTENT_AUTOMERGE_FREEZE }}
           ALLOWLIST_PATH: .github/content-automerge-allowlist.txt
           OWNERSHIP_PATH: .github/content-ownership.json
@@ -393,6 +429,7 @@ jobs:
           GUARD_VERDICT: ${{ needs.guard-code.outputs.verdict }}
           CHECK_DRAFTS_RESULT: ${{ needs.check-drafts.result }}
           GUARD_CODE_RESULT: ${{ needs.guard-code.result }}
+          LABEL_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
@@ -405,19 +442,38 @@ jobs:
           # only required check, so a red run here blocks nothing, it just
           # shouts.
           #
-          # Every NON-"enabled" verdict also disables any previously-armed
+          # Every NON-"enabled" verdict also disables a previously-armed
           # auto-merge (Codex review round 1 on PR #1900): if an earlier commit
           # on this PR passed every check and armed it, and a later commit (this
           # run) fails one, the earlier arm must not survive — otherwise `build`
           # going green on the later, unvetted commit would still merge it.
-          # `|| true` because there may be nothing armed to disable.
+          # Only an arm THIS workflow made is disabled (#4680): own_arm() is true
+          # when the PR carries `automerge:content` (stamped just before arming,
+          # below), or for the social carve-outs that keep the old always-disarm
+          # behaviour. `|| true` because there may be nothing armed to disable.
+          own_arm() {
+            local pr_labels
+            if ! pr_labels=$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name' 2>/dev/null); then
+              return 0
+            fi
+            grep -qx 'automerge:content' <<<"$pr_labels" && return 0
+            grep -qx 'social-draft' <<<"$pr_labels" && return 0
+            case "${HEAD_REF:-}" in
+              social-poster/state-*) return 0 ;;
+            esac
+            case "$1" in
+              "declined — social draft"*) return 0 ;;
+            esac
+            return 1
+          }
           verdict() {
             echo "$2"
             if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
               printf 'auto-merge-content — **%s**\n\n%s\n' "$1" "$2" >>"$GITHUB_STEP_SUMMARY"
             fi
-            if [ "$1" != "enabled" ]; then
+            if [ "$1" != "enabled" ] && own_arm "$1"; then
               gh pr merge "$PR" --repo "$REPO" --disable-auto >/dev/null 2>&1 || true
+              GH_TOKEN="$LABEL_TOKEN" gh pr edit "$PR" --repo "$REPO" --remove-label automerge:content >/dev/null 2>&1 || true
             fi
           }
 
@@ -444,7 +500,7 @@ jobs:
           # already documents for itself.
           branch_ok=0
           case "${HEAD_REF:-}" in
-            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes)
+            content-shift/*|vault/*|growth/*|tree/*|depth/answerer-*|content/rumor-desk-*|content/stylist-*|social-poster/state-*|appearance-discovery/*|merch-revenue/*|merch-official-sync/*|merch-audit-authoring/*|claude/pensive-galileo-*|fix/karen-tickets|kevin/user-fixes|social/concert-photo-sourcing)
               branch_ok=1 ;;
           esac
           author_ok=0
@@ -452,7 +508,11 @@ jobs:
             sffan15-sys|wjduvall-cmd|"claude[bot]")
               author_ok=1 ;;
           esac
-          if [ "$branch_ok" -ne 1 ] || [ "$author_ok" -ne 1 ]; then
+          # Fork guard: a PR from a fork never auto-merges, whatever its branch
+          # name or author login claims (a fork can reuse any head ref name).
+          repo_ok=0
+          if [ "${HEAD_REPO:-}" = "$REPO" ]; then repo_ok=1; fi
+          if [ "$branch_ok" -ne 1 ] || [ "$author_ok" -ne 1 ] || [ "$repo_ok" -ne 1 ]; then
             verdict "declined — not a recognized content-lane branch/author" \
           "PR #$PR (author \`$PR_AUTHOR\`, branch \`$HEAD_REF\`) does not match this repo's known content-lane branch-naming conventions and/or known routine identities, so it is not even considered for auto-merge — regardless of what files it touches. This is the #1969 fix working as designed, not a failure. If this is genuinely a content-lane routine's PR, either its branch name or its author drifted from scripts/automerge-branch-author-gate.mjs's documented list; fix the drift (in a human-merged PR) rather than widening this gate to match it. A human can still merge this PR."
             exit 0
@@ -732,7 +792,18 @@ jobs:
           # validate a draft, DECLINE — the fail-safe direction. (When a draft IS
           # present, check-drafts is a hard `needs:` of this job, so a failing
           # draft check skips `enable` entirely; this only adds the no-draft case.)
-          social_media=$(printf '%s\n' "$files" | grep -E '^apps/web/public/social/.*\.(png|jpg|jpeg)$' || true)
+          #
+          # Narrow exemption (docs/decisions.md 2026-10-05, founder decision A):
+          # a merch-official-sync/* PR's newly-added
+          # apps/web/public/social/library/merch-drop-<digits>.png card counts as
+          # accompanied when the same PR adds a social/inbox/merch-*.json fact
+          # sheet. The predicate lives in scripts/automerge-bot-image-exemption.mjs
+          # (unit-tested), run from the base-ref checkout; it prints only the
+          # images that are NOT exempt. A second rule (2026-10-06, "Photos A")
+          # exempts the social/concert-photo-sourcing branch's newly-added
+          # library/photos/<id>.<img> files when the same PR changes
+          # social/photo-library.json. The branch/author gate above already ran.
+          social_media=$(printf '%s\n' "$files_meta" | HEAD_REF="$HEAD_REF" node scripts/automerge-bot-image-exemption.mjs)
           if [ -n "$social_media" ] && [ "${HAS_DRAFTS:-false}" != "true" ]; then
             image_list=$(printf '%s\n' "$social_media" | sed 's/^/- `/; s/$/`/')
             verdict "declined — image needs an accompanying draft" \
@@ -859,6 +930,17 @@ jobs:
           if [ "$current_sha" != "$SHA" ]; then
             verdict "declined" "PR #$PR head moved ($SHA -> $current_sha) since this run started — not enabling auto-merge; the run triggered by the new commit will re-evaluate it."
             exit 0
+          fi
+
+          # Stamp ownership BEFORE arming, with github.token (a PAT-made label
+          # event would re-trigger this workflow and cancel this run through the
+          # concurrency group). If the stamp fails, never arm: an un-stamped arm
+          # could not be disarmed later (#4680).
+          GH_TOKEN="$LABEL_TOKEN" gh label create automerge:content --repo "$REPO" --force \
+            --color 0E8A16 --description "auto-merge-content armed auto-merge on this PR" >/dev/null 2>&1 || true
+          if ! GH_TOKEN="$LABEL_TOKEN" gh pr edit "$PR" --repo "$REPO" --add-label automerge:content; then
+            verdict "BROKEN GATE" "Could not add the \`automerge:content\` label to PR #$PR — refusing to arm auto-merge it could not later disarm. A human can still merge."
+            exit 1
           fi
 
           verdict "enabled" "PR #$PR is content-only, its queue drafts (if any) passed check-drafts, and it's unlabelled for hold — enabling auto-merge; it lands when \`build\` goes green."

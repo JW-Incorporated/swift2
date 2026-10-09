@@ -9,6 +9,7 @@
 // on_this_day dates send nothing") exercises directly — see
 // notification-fun.test.ts.
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { frontDoorLink, songLink } from '@swift2/shared';
 import { sendPushBatch } from './notification-sender';
 import {
   isWithinSendWindow,
@@ -161,6 +162,11 @@ export interface FunDispatchResult {
   errors: string[];
 }
 
+/** `trackKeyForSlug` maps a lyrics DB slug to the site's composite trackKey (`${era}::n::title`); unresolved links to the front door. */
+export interface FunDispatchOptions {
+  trackKeyForSlug?: (slug: string) => string | null;
+}
+
 /**
  * One dispatch pass: for every device with a non-off lyric_of_day/
  * on_this_day pref, on a day/hour eligible for that pref's cadence, sends
@@ -175,6 +181,7 @@ export interface FunDispatchResult {
 export async function dispatchFunNotifications(
   db: SupabaseClient,
   now: Date = new Date(),
+  opts: FunDispatchOptions = {},
 ): Promise<FunDispatchResult> {
   const result: FunDispatchResult = {
     lyricsSent: 0,
@@ -282,7 +289,7 @@ export async function dispatchFunNotifications(
     }
 
     if (pref.category === 'lyric_of_day') {
-      await sendLyricOfDay(db, device, lyricPool, now, result);
+      await sendLyricOfDay(db, device, lyricPool, now, result, opts);
     } else if (pref.category === 'on_this_day') {
       await sendOnThisDay(db, device, onThisDayPool, now, result);
     }
@@ -297,6 +304,7 @@ async function sendLyricOfDay(
   lyricPool: readonly LyricCandidate[],
   now: Date,
   result: FunDispatchResult,
+  opts: FunDispatchOptions,
 ): Promise<void> {
   const twelveMonthsAgo = new Date(now);
   twelveMonthsAgo.setUTCFullYear(twelveMonthsAgo.getUTCFullYear() - 1);
@@ -315,13 +323,14 @@ async function sendLyricOfDay(
   const lyric = selectLyricForDevice(lyricPool, seenLyricIds, true);
   if (!lyric) return; // exhausted the verified pool within the lookback window — nothing to send
 
+  const trackKey = opts.trackKeyForSlug?.(lyric.slug) ?? null;
   const sendResults = await sendPushBatch([
     {
       deviceId: device.id,
       pushToken: device.push_token as string,
       title: "Today's lyric",
       body: `\u201c${lyric.lyric}\u201d \u2014 ${lyric.song} \u2192`,
-      deepLink: `https://www.longlivets.com/?song=${encodeURIComponent(lyric.slug)}`,
+      deepLink: trackKey ? songLink(trackKey) : frontDoorLink(),
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
   ]);
@@ -571,7 +580,7 @@ export async function dispatchDueCountdowns(
         pushToken: device.push_token,
         title,
         body,
-        deepLink: 'https://www.longlivets.com/?current=countdowns',
+        deepLink: frontDoorLink(),
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);

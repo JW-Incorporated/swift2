@@ -176,8 +176,8 @@ export default {
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour', 'the live album/film is documented in the tour article'),
         press(
-          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-tour-live-cd-dvd-263669/',
-          'Taylor Swift Announces Speak Now World Tour Live CD/DVD',
+          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-cd-dvd-258307/',
+          'Taylor Swift to Release \'Speak Now\' Concert CD, DVD Set',
           'The Hollywood Reporter',
           'supports the live CD/DVD release and theatrical tour-film framing',
         ),
@@ -395,7 +395,7 @@ export default {
           'Safe & Sound (The Hunger Games: Songs From District 12 And Beyond - The Collaboration)',
         ),
         press(
-          'https://www.mtv.com/news/1679213/taylor-swift-safe-and-sound-civil-wars/',
+          'https://web.archive.org/web/20211219224205/https://www.mtv.com/news/1679213/taylor-swift-safe-and-sound-civil-wars/',
           "Taylor Swift's 'Safe & Sound' Came Together 'Organically'",
           'MTV News',
           'sources the T Bone Burnett writing-session account and the two-hour session detail',

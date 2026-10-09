@@ -10,7 +10,7 @@ import { describe, expect, it } from 'vitest';
 // that fix. theme.test.ts already sweeps the token ≥4.5:1 across every theme,
 // so this file only source-locks the pairing here.
 
-const SRC = readFileSync(fileURLToPath(new URL('./TrackFivePill.tsx', import.meta.url)), 'utf8');
+const SRC = readFileSync(fileURLToPath(new URL('../../../../packages/ui/src/reader/era/TrackFivePill.tsx', import.meta.url)), 'utf8');
 
 describe('#3662 TrackFivePill never repaints white text on the raw accent fill', () => {
   it('has no hardcoded text-white left', () => {

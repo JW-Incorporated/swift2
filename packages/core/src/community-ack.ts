@@ -17,6 +17,7 @@ export interface EngagementLeadRow {
   locator: string | null;
   link_included: boolean | null;
   status: string;
+  kind?: string | null;
 }
 
 export type AckOutcome =
@@ -44,7 +45,7 @@ export async function ackPosted(
 ): Promise<AckOutcome> {
   const { data: lead, error: fetchError } = await db
     .from('engagement_lead')
-    .select('id,platform,community,thread_id,locator,link_included,status')
+    .select('id,platform,community,thread_id,locator,link_included,status,kind')
     .eq('id', leadId)
     .maybeSingle();
 
@@ -74,8 +75,9 @@ export async function ackPosted(
   if (ledgerError) return { ok: false, error: 'db_error', message: ledgerError.message };
 
   // Etiquette ledger (§6.5): only a link-free Reddit contribution counts
-  // toward the 20-post threshold that unlocks linking.
-  if (!linkIncluded && row.platform === 'reddit') {
+  // toward the 20-post threshold that unlocks linking. An awareness image
+  // reply shows our own site, so it is promotion, not a non-promo contribution.
+  if (!linkIncluded && row.platform === 'reddit' && row.kind !== 'awareness_reply') {
     const { error: counterError } = await db.rpc('increment_community_counter', {
       p_id: 'reddit_non_promo',
     });

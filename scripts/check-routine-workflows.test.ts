@@ -165,3 +165,18 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
     expect(problems.some((p: string) => p.includes('no `on.schedule.cron`'))).toBe(true);
   });
 });
+
+describe('allowed_tools entries must be space-free (the template passes them unquoted to claude_args)', () => {
+  const withTools = (tools: string) =>
+    `# routine-a, cron 0 12 * * *\nname: routine-a\non:\n  schedule:\n    - cron: "0 12 * * *"\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
+
+  it('flags a scoped rule with a space, naming the file and the entry', () => {
+    const { problems } = checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh issue comment:*),Read') });
+    expect(problems.some((p: string) => p.includes('routine-a.yml') && p.includes('Bash(gh issue comment:*)') && p.includes('contains a space'))).toBe(true);
+  });
+
+  it('passes the space-free scoped form and bare tool names', () => {
+    expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh:*),Bash(node:*),Read,Write') }).problems).toEqual([]);
+    expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash,Read') }).problems).toEqual([]);
+  });
+});

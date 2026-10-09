@@ -209,7 +209,6 @@ export default {
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
         'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
-        'moment:vault-red-everything-has-changed-duet',
         'moment:vault-red-the-last-time-turns-an-on-again-off-again-relationship-into-',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
@@ -220,7 +219,19 @@ export default {
       moment: {
         context:
           'Taylor brought in Butch Walker to produce, saying she knew he would approach it "from an organic place, which is where [Sheeran] comes from." Released as a single in July 2013, it reached No. 32 on the Hot 100 — and did even better in Sheeran\'s home market, hitting the top 10 in the UK and Ireland — went double platinum in the US, and became a live duet throughout the Red Tour\'s North American run, which Sheeran opened.\n\nThe Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Taylor and Sheeran revealed at the end as their parents. The story got an epilogue nine years later: the same two actors, grown up, were brought back for Sheeran\'s 2022 "The Joker and the Queen" video (featuring Taylor), which outlets read as a deliberate sequel.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' },
+          {
+            // Merged from the retired thin "duet" stub (issue #3756, 2026-10-08).
+            outlet: 'Nashville Scene',
+            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
+            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
+            publisher: 'Nashville Scene',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
@@ -391,8 +402,8 @@ export default {
           },
         ],
         // Shop pass (2026-07-21): the exact 2013 stage dress is undocumented
-        // past this description -- a current red thigh-slit dress,
-        // verified in stock, closest real match.
+        // past this description -- a current red thigh-slit dress was a match,
+        // but removed as dead in #4324 link sweep (2026-09-30).
         products: [],
       },
     },
@@ -735,21 +746,7 @@ export default {
         // Shop pass (2026-07-21): the exact 2013 gown is discontinued -- a
         // current Hervé Léger gown, verified in stock, same house and
         // crystal-embellished bandage construction.
-        products: [
-          {
-            brand: 'Hervé Léger',
-            item: 'The Reina Gown',
-            retailer: 'herveleger.com',
-            url: 'https://herveleger.com/products/the-reina-gown-black-001',
-            matchTier: 'unscored',
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0449/6139/8952/files/HLC8549906-001-1.jpg?v=1759859583',
-            price: '$569.00',
-            isAlternative: true,
-            altNote: 'Her exact 2013 gown is long discontinued -- this is a current Hervé Léger black gown, same house and crystal-embellished bandage construction.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        products: [],
       },
     },
     {
@@ -917,7 +914,7 @@ export default {
       title: "A Central Park stroll confirms she's dating Harry Styles",
       snippet:
         'Photographed walking through Central Park with Harry Styles on December 2, 2012 — the first public sighting of the two together, joined by his stylist Lou Teasdale.',
-      sourceUrl: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+      sourceUrl: 'https://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
       thumbnailUrl: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
       moment: {
         context:
@@ -925,7 +922,7 @@ export default {
         sources: [
           {
             outlet: 'Just Jared',
-            url: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+            url: 'https://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
           },
           {
             outlet: 'E! News',
@@ -1748,7 +1745,7 @@ export default {
       title: 'A $4 million gift opens the Taylor Swift Education Center',
       snippet:
         'The Country Music Hall of Fame opened its Taylor Swift Education Center on October 12, 2013 — funded by the largest individual artist donation the museum had ever received.',
-      sourceUrl: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+      sourceUrl: 'https://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
       moment: {
@@ -1757,7 +1754,7 @@ export default {
         sources: [
           {
             outlet: 'Rolling Stone',
-            url: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+            url: 'https://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
             source_title: 'Taylor Swift Opens Education Center at Country Music Hall of Fame',
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
@@ -2053,6 +2050,7 @@ export default {
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png', credit: 'Big Machine Records', caption: 'The original cover of Red, released on Oct. 22, 2012.', kind: 'primary', focalPoint: '50% 42%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2118,6 +2116,19 @@ export default {
           },
         ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour masquerade-ball number, white/
+        // gold gown + masked dancer). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Taylor performs "I Knew You Were Trouble" in its masquerade-ball staging on the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -2145,6 +2156,7 @@ export default {
         "A gothic staircase entrance, a discarded pink gown, and a black-and-red reveal mark the song's first live performance.",
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       moment: {
+        photos: [{ url: 'https://townsquare.media/site/252/files/2012/11/Taylor-Swift-AMAs.jpg?a=t&format=natural&h=0&q=89&s=0&w=1200&zc=1', credit: 'Getty Images, via PopCrush', caption: 'Taylor Swift performs “I Knew You Were Trouble” for the first time at the 2012 American Music Awards.', kind: 'primary', focalPoint: '50% 28%' }],
         context:
           "Taylor performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
           sources: [
@@ -2219,55 +2231,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-everything-changed",
-      // Cross-link (Stage 3, 2026-08-06): the song's writing session.
-      relatedIds: [
-        "moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer",
-      ],
-      year: 2013,
-      month: 7,
-      day: 6,
-      category: "music",
-      title: "“Everything Has Changed” duet",
-      snippet: "A folk-pop collaboration extends the album’s long single run.",
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-      moment: {
-        sources: [
-          {
-            outlet: 'Nashville Scene',
-            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
-            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
-            publisher: 'Nashville Scene',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
-            source_title: 'Everything Has Changed',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-08-11',
-            reliability_score: 2,
-            notes: 'Supplement only, for the single release date — never the load-bearing citation.',
-          },
-        ],
-        context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-            focalPoint: '45% 28%',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
-
     // ── YouTube-appearances research pass (2026-08-12) ──
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
     // and docs/research/2026-08-12-youtube-appearances-manifest.md.
@@ -2367,10 +2330,13 @@ export default {
     // and an airport look. Every photo URL hotlinked to the outlet's own CDN
     // and checked for a 2xx image response before being added.
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the squad beach-house years and the later
+      // quieter holidays.
       relatedIds: [
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2014,
       month: 7,
@@ -2979,6 +2945,19 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour B-stage tower, acoustic guitar
+        // on a stool). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor plays "Begin Again" acoustic atop the Red Tour’s B-stage tower.',
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],

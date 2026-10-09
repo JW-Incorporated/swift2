@@ -88,6 +88,12 @@ describe('closeHumanAction', () => {
     const r = closeHumanAction(OPEN, DONE, { number: 49, date: '2026-09-13', note: 'not needed', outcome: 'skip' });
     expect(r.entry).toContain('· skip ·');
   });
+
+  it('preserves a chase marker in the closed ledger', () => {
+    const marked = OPEN.replace('<!-- ha filed=2026-09-12 -->', '<!-- ha filed=2026-09-12 -->\n<!-- marjorie-chase: 96h issue=4324 -->');
+    const r = closeHumanAction(marked, DONE, { number: 69, date: '2026-09-13', note: 'deferred', outcome: 'skip' });
+    expect(r.entry).toContain('<!-- marjorie-chase: 96h issue=4324 -->');
+  });
 });
 
 describe('CLI', () => {

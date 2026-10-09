@@ -201,7 +201,8 @@ export lands, nobody knows whether the parser works.
    - Kulto ni TAYLOR SWIFT → `kulto-ni-taylor-swift`
    - Taylor Swift Swifties → `taylor-swift-swifties`
    - Friendship Bracelets Buy/Sell/Trade → `friendship-bracelets-buy-sell-trade`
-2. In the group, sort posts by **New activity** (not Top).
+2. In the group, sort posts by **New posts (chronological)** (not Top). The
+   seven-day stop rule is only sound when the feed is in creation order.
 3. Scroll down until the posts you can see are older than 7 days. Click
    "See more" on any long post so its full text is on screen. Do not open
    comment threads one by one.

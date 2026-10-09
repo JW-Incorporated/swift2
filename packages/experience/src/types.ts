@@ -24,6 +24,7 @@
  * to avoid ambiguity between the two id shapes.
  */
 import type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId } from './content-ids.generated';
+import type { PersonaSlug } from './copy-desk/routing';
 export type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId };
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
@@ -498,6 +499,12 @@ export interface ContentItem {
    * `docs/decisions.md` 2026-07-18 for the full decision record.
    */
   significance?: 'defining' | 'notable';
+  /**
+   * Persona byline (copy-desk spec): derived at sync time from category via
+   * `routeAuthor()`, or an explicit seed `author` override. Never stored in
+   * the DB.
+   */
+  author?: PersonaSlug;
   /**
    * Era-timeline milestone marker (consolidation stage 2b, 2026-07-19):
    * items carrying this appear on the TimelineScrubber — MILESTONES in
@@ -1034,6 +1041,8 @@ export interface RunwayLook {
   /** Real, credited photos for this era's style story — always at least one. */
   images: ImageRef[];
   shopTags: string[];
+  /** Optional citations for the look, shown as a quiet "Sources" line. https only. */
+  sources?: { title: string; url: string }[];
 }
 
 export interface ReRecord {

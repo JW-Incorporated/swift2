@@ -13,7 +13,12 @@
 
 alter table public.engagement_lead drop constraint if exists engagement_lead_status_check;
 alter table public.engagement_lead add constraint engagement_lead_status_check
-  check (status in ('new', 'drafted', 'emailed', 'posted',
+-- 'delivered' is listed even though 20260919000000 introduces it: scripts/migrate.mjs
+-- re-applies EVERY file in order on each run (no applied-migration tracking), so
+-- once production holds 'delivered' rows this older constraint would fail on its
+-- re-run (db-migrate run 36907259434) and block every later migration. The final
+-- constraint is still the one 20260919000000 sets.
+  check (status in ('new', 'drafted', 'emailed', 'delivered', 'posted',
     'skipped_redline', 'skipped_low_relevance', 'skipped_by_founder'));
 
 -- `redditNonPromo` counter (plan §2.6/§6.5, mirrored today in

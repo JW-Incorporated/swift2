@@ -601,3 +601,26 @@ describe('video survives the whole chain at either placement (issue #846)', () =
     expect(emit({ ...base })).not.toContain('video:');
   });
 });
+
+describe('persona author survives the whole chain (copy-desk spec)', () => {
+  const base = { year: 2025, month: 10, day: 3, title: 'A moment', snippet: 'A snippet.' };
+  const emit = (item: Record<string, unknown>) => {
+    const byEra = {};
+    addItem(byEra, {}, 'the-life-of-a-showgirl', seedItemToInput(item));
+    return buildOutputSource(byEra);
+  };
+
+  it('derives the author from the category', () => {
+    expect(emit({ ...base, category: 'fashion' })).toContain('author: "vera"');
+    expect(emit({ ...base, category: 'tour' })).toContain('author: "deb"');
+    expect(emit({ ...base, category: 'music' })).toContain('author: "theo"');
+  });
+
+  it('lets a seed author override the routing default', () => {
+    expect(emit({ ...base, category: 'music', author: 'deb' })).toContain('author: "deb"');
+  });
+
+  it('emits no author for an unroutable category', () => {
+    expect(emit({ ...base, category: 'gossip' })).not.toContain('author:');
+  });
+});

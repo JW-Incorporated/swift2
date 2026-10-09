@@ -1,42 +1,13 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
-import {
-  Inter,
-  Playfair_Display,
-  Special_Elite,
-  Dancing_Script,
-  Bodoni_Moda,
-} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import fontManifest from '@swift2/ui/fonts/fonts.manifest.json';
 import { inAppPlatformFromUserAgent } from '@/lib/longlive/in-app';
+import { WebHostProvider } from '@/lib/host-adapter-provider';
 import '@/lib/longlive/vault-wiring';
+import '@swift2/ui/fonts/fonts.web.css';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-});
-const typewriter = Special_Elite({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-typewriter',
-  display: 'swap',
-});
-const script = Dancing_Script({
-  subsets: ['latin'],
-  variable: '--font-script',
-  display: 'swap',
-});
-const bodoni = Bodoni_Moda({
-  subsets: ['latin'],
-  weight: ['400', '600', '800'],
-  style: ['normal', 'italic'],
-  variable: '--font-bodoni',
-  display: 'swap',
-});
 
 // metadataBase + alternates.canonical close part of the #653 SEO gap
 // (Nils, 2026-07-15): with no canonical tag, Google had no signal for which
@@ -120,11 +91,19 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const inAppPlatform = inAppPlatformFromUserAgent(hdrs.get('user-agent'));
 
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${playfair.variable} ${typewriter.variable} ${script.variable} ${bodoni.variable} bg-bg`}
-      {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}
-    >
+    <html lang="en" className="bg-bg" {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}>
+      <head>
+        {fontManifest.preload.map((href) => (
+          <link
+            key={href}
+            rel="preload"
+            href={href}
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+        ))}
+      </head>
       <body>
         <script
           nonce={nonce}
@@ -135,7 +114,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
           }}
         />
-        {children}
+        <WebHostProvider>{children}</WebHostProvider>
         <Analytics />
       </body>
     </html>

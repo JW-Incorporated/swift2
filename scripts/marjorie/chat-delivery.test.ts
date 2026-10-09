@@ -110,6 +110,7 @@ describe('classifyDelivery', () => {
   it('the failure notice text is the one the poll dedups on', () => {
     expect(failureBody(MID, RUN)).toMatchObject({ content: `${FAILURE_PREFIX} ${RUN} — please send it again`, message_reference: { message_id: MID } });
     expect(failureBody(MID).content).toBe(`${FAILURE_PREFIX} — please send it again`);
+    expect(failureBody(MID, RUN).flags).toBe(4);
     expect(isFailureNotice({ ...failureBody(MID, RUN), id: '1000000000000000010', author: { bot: true } }, MID)).toBe(true);
   });
 });
@@ -273,7 +274,7 @@ async function pollWith(routes: Record<string, unknown>) {
   const runs = [{ displayTitle: runTitle('marjorie', MID), status: 'completed', conclusion: 'failure', url: RUN }];
   const execImpl = vi.fn((_cmd: string, args: string[]) => (args[0] === 'run' ? JSON.stringify(runs) : ''));
   const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
-  const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml' });
+  const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml', clockLive: false });
   return { code, writes: d.writes(), dispatched: execImpl.mock.calls.filter((c) => c[1][0] === 'workflow').length };
 }
 

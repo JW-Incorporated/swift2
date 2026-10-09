@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { threadDoorwaysForEra } from './doorways';
-import { threadsInEra } from './lenses';
+import { threadDoorwaysForEra } from './doorways-injected';
+import { threadsInEra } from './lenses-injected';
 import { ERAS } from './eras';
 
 // Real-corpus invariants, in the idiom of track-video.test.ts's "every track

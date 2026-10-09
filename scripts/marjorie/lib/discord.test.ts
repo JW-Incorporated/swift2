@@ -10,11 +10,12 @@ import { neutralizeMentions } from '../../community/discord-delivery.mjs';
 // `webhook` variable instead of the status code/error message alone.
 const FAKE_WEBHOOK = 'https://discord.com/api/webhooks/1111111111111111111/totally-secret-token-do-not-leak';
 
-function fakeResponse(status: number, body: unknown = {}) {
+function fakeResponse(status: number, body: unknown = {}, headers: Record<string, string> = {}) {
   return {
     ok: status >= 200 && status < 300,
     status,
     json: async () => body,
+    headers: new Headers(headers),
   };
 }
 
@@ -63,6 +64,18 @@ describe('post()', () => {
     expect(waitImpl).toHaveBeenCalledTimes(1);
   });
 
+  it('does not resend when the first attempt throws (accepted POST, lost response)', async () => {
+    const fetchImpl = vi.fn().mockRejectedValue(new Error('socket hang up'));
+    const waitImpl = fakeWait();
+
+    const result = await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+
+    expect(result.ok).toBe(false);
+    expect(result.status).toBeNull();
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(waitImpl).not.toHaveBeenCalled();
+  });
+
   it('stops at the first chunk that fails both attempts and reports its index', async () => {
     const message = 'A'.repeat(4100); // chunks into 3 (see chunking test above)
     const fetchImpl = vi.fn()
@@ -100,12 +113,144 @@ describe('post()', () => {
     expect(httpFailResult.ok).toBe(false);
     expect(httpFailResult.error).not.toContain(FAKE_WEBHOOK);
 
-    const networkFailFetch = vi.fn().mockRejectedValue(new Error('fetch failed'));
+    const networkFailFetch = vi.fn().mockRejectedValue(new Error(`fetch failed for ${FAKE_WEBHOOK}`));
     const networkFailResult = await post('short message', {
       webhook: FAKE_WEBHOOK, fetchImpl: networkFailFetch, waitImpl: fakeWait(),
     });
     expect(networkFailResult.ok).toBe(false);
     expect(networkFailResult.status).toBeNull();
     expect(networkFailResult.error).not.toContain(FAKE_WEBHOOK);
+  });
+
+  it('honours a header-only 429 with a non-JSON body, then retries successfully', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(new Response(`provider text ${FAKE_WEBHOOK}`, {
+        status: 429, headers: { 'Retry-After': '65' },
+      }))
+      .mockResolvedValueOnce(fakeResponse(200, { id: 'first-message' }));
+    const waitImpl = fakeWait();
+    const result = await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+    expect(waitImpl).toHaveBeenCalledWith(65_000);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result).toMatchObject({ ok: true, chunks: 1, delivered: 1, messageId: 'first-message' });
+  });
+
+  it('waits for the longest valid cooldown and rounds fractional milliseconds up', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(429, { retry_after: 1 }, {
+        'Retry-After': '2', 'X-RateLimit-Reset-After': '3.0001',
+      }))
+      .mockResolvedValueOnce(fakeResponse(200));
+    const waitImpl = fakeWait();
+    await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+    expect(waitImpl).toHaveBeenCalledWith(3001);
+  });
+
+  it.each([0, 120])('accepts the inclusive wait boundary of %s seconds', async (retryAfter) => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(429, { retry_after: retryAfter }))
+      .mockResolvedValueOnce(fakeResponse(200));
+    const waitImpl = fakeWait();
+    expect((await post('short', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl })).ok).toBe(true);
+    expect(waitImpl).toHaveBeenCalledWith(retryAfter * 1000);
+  });
+
+  it.each([undefined, null, -1, Number.NaN, Number.POSITIVE_INFINITY, '', 'nonsense', true, []])(
+    'does not guess a retry delay from malformed cooldown %j', async (retryAfter) => {
+      const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(429, { retry_after: retryAfter }, {
+        'Retry-After': FAKE_WEBHOOK, 'X-RateLimit-Reset-After': '-2',
+      }));
+      const waitImpl = fakeWait();
+      const result = await post('short', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+      expect(result).toMatchObject({ ok: false, status: 429, delivered: 0, chunks: 1, retryAfterMs: null });
+      expect(fetchImpl).toHaveBeenCalledTimes(1);
+      expect(waitImpl).not.toHaveBeenCalled();
+      expect(JSON.stringify(result)).not.toContain(FAKE_WEBHOOK);
+    },
+  );
+
+  it('does not shorten a long provider cooldown to the local wait limit or replay earlier chunks', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200))
+      .mockResolvedValueOnce(fakeResponse(429, { retry_after: 2 }, { 'Retry-After': '121.001' }));
+    const waitImpl = fakeWait();
+    const result = await post('A'.repeat(4100), { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+    expect(result).toMatchObject({ ok: false, status: 429, delivered: 1, chunks: 3, retryAfterMs: 121001 });
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(waitImpl).not.toHaveBeenCalled();
+  });
+
+  it('fails closed when finite provider seconds overflow milliseconds', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(429, { retry_after: 1e308 }, { 'Retry-After': '1' }));
+    const waitImpl = fakeWait();
+    const result = await post('short', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+    expect(result).toMatchObject({ ok: false, status: 429, retryAfterMs: null });
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(waitImpl).not.toHaveBeenCalled();
+  });
+
+  it('reports the final 429 cooldown without a third attempt or provider text', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(500))
+      .mockResolvedValueOnce(fakeResponse(429, { retry_after: 4, message: FAKE_WEBHOOK }, { 'Retry-After': '6' }));
+    const waitImpl = fakeWait();
+    const result = await post('short', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+    expect(result).toMatchObject({ ok: false, status: 429, retryAfterMs: 6000 });
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(waitImpl).toHaveBeenCalledExactlyOnceWith(2000);
+    expect(JSON.stringify(result)).not.toContain(FAKE_WEBHOOK);
+  });
+
+  // t_85667a3c: mentionUserIds is what makes a real founder @-mention
+  // possible at all — a fresh-context review (Claude, cross-check of the
+  // Codex-review contract) caught that an earlier revision set
+  // allowed_mentions.users without ever putting a matching `<@id>` token
+  // into `content`, which posts silently: Discord's allowed_mentions is
+  // only a FILTER over mentions already in the text, never an injector.
+  // These tests assert the actual outgoing payload, not just the return
+  // value, so that regression cannot recur silently.
+  it('suppresses link-preview embeds (flags: 4) on every chunk, first attempt and retry', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200))
+      .mockResolvedValueOnce(fakeResponse(500))
+      .mockResolvedValueOnce(fakeResponse(200));
+    await post('A'.repeat(2500) + ' https://example.com/preview', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl: fakeWait() });
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+    for (const call of fetchImpl.mock.calls) expect(bodyOf(call).flags).toBe(4);
+  });
+
+  it('defaults to allowed_mentions: {parse: []} when mentionUserIds is omitted (no behavior change for existing callers)', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl });
+    expect(bodyOf(fetchImpl.mock.calls[0]).allowed_mentions).toEqual({ parse: [] });
+  });
+
+  it('sets allowed_mentions.users to exactly the given ids when mentionUserIds is passed', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('<@338508192755482626> production deploy failed', {
+      webhook: FAKE_WEBHOOK,
+      fetchImpl,
+      mentionUserIds: ['338508192755482626'],
+    });
+    expect(bodyOf(fetchImpl.mock.calls[0]).allowed_mentions).toEqual({
+      parse: [],
+      users: ['338508192755482626'],
+    });
+  });
+
+  it('does NOT allowlist a user id that is passed but never appears as a mention token in content', async () => {
+    // allowed_mentions.users is a strict allowlist FILTER, not an
+    // injector — Discord will not ping unless `<@id>` is present in the
+    // posted content. This test documents that contract so a future
+    // caller cannot reintroduce the exact bug this task's review caught
+    // (mentionUserIds set, but nothing ever wrote `<@id>` into the text).
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('production deploy failed', {
+      webhook: FAKE_WEBHOOK,
+      fetchImpl,
+      mentionUserIds: ['338508192755482626'],
+    });
+    const sentContent = bodyOf(fetchImpl.mock.calls[0]).content;
+    expect(sentContent).not.toContain('<@338508192755482626>');
   });
 });

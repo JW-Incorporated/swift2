@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -69,7 +70,6 @@ const NOTIFICATION_CATEGORY_BY_CURRENT_ITEM: Partial<
   award: 'award_news',
 };
 
-const SITE_URL = 'https://www.longlivets.com';
 
 async function emitLaunchCategoryEvent(
   db: SupabaseClient,
@@ -83,7 +83,7 @@ async function emitLaunchCategoryEvent(
       category,
       title: item.headline,
       body: item.summary,
-      deepLink: `${SITE_URL}/?current=${encodeURIComponent(currentItemId)}`,
+      deepLink: frontDoorLink(),
       // Deterministic on the SAME underlying detection so a re-extraction
       // of the same story cluster (news-worker.yml re-running against a
       // still-open story) never double-fires — dedupe_key's whole point
@@ -160,6 +160,7 @@ export async function writeCurrentItem(
   eraId: string,
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
+  countdownTargetAt?: string,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -189,6 +190,7 @@ export async function writeCurrentItem(
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
     redline_ok: screen.ok,
+    countdown_target_at: countdownTargetAt ?? null,
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
@@ -327,7 +329,7 @@ async function emitEasterEggEvent(
       category: 'easter_egg',
       title: 'New theory in play',
       body: theory.name || theory.claim,
-      deepLink: `${SITE_URL}/?current=theories`,
+      deepLink: theoriesBoardLink(),
       // One event per theory id — a re-observation of the SAME theory never
       // reaches this function (it takes the update/bump branch above), so
       // this key is only ever inserted once per theory's lifetime.

@@ -135,4 +135,7 @@ details if Apple review asks:
 The app is an unofficial fan reference. All text is original summaries with
 source links; no lyrics, no reproduced articles, no rehosted third-party
 photos (2026-07-08 media policy). The UNOFFICIAL disclaimer is in the
-listing, in the privacy policy, and (should be) in the app's About surface.
+listing, in the privacy policy, and in the app's Settings → About section
+(which also links Privacy Policy / Terms / Support, guideline 5.1.1(i)).
+Clownbot shows an always-visible AI disclosure under its input naming
+Anthropic's Claude, linked to the privacy policy (guideline 5.1.2(i)).

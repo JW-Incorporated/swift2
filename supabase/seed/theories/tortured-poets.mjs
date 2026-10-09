@@ -135,15 +135,17 @@ export default {
           source_title: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift",
           publisher: 'CNN',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-16',
+          accessed_at: '2026-10-08',
           reliability_score: 4,
+          notes:
+            'Re-verified live 2026-10-08 (was 2026-09-15): the pub at 112 Vauxhall Walk, its "Taylor\'s Version" cocktail board and lyric-window embrace are still documented, and staff still say they cannot be certain Taylor meant this exact bar (an events manager recalled only "a certain blonde regular"). Confidence stays reputable_reporting / partially_confirmed — Taylor has never said she meant this exact pub; the fan identification is the story.',
         },
         {
           source_url: 'https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/',
           source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-16',
+          accessed_at: '2026-10-08',
           reliability_score: 4,
         },
       ],
@@ -195,7 +197,11 @@ export default {
           source_title: 'Taylor Swift Breaks Down the Meaning of "Fortnight," "Clara Bow" and More on "The Tortured Poets Department"',
           publisher: 'Variety',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-04',
+          // Answerer re-check 2026-10-04 (lifecycle #3737, 30d-stale banner):
+          // re-verified — the anchor is Taylor's own April 2024 Variety
+          // interview explaining the song; nothing has changed and the outcome
+          // stays 'confirmed'. This records that someone looked.
+          accessed_at: '2026-10-04',
           reliability_score: 4,
         },
         {
@@ -241,7 +247,11 @@ export default {
           source_title: 'Taylor Swift Explains The Meaning Behind Her \'Cassandra\' Lyrics',
           publisher: 'Capital FM',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-04',
+          // Answerer re-check 2026-10-04 (lifecycle #3738, 30d-stale banner):
+          // re-verified — "Cassandra" remains a documented press/critical
+          // reading of the myth + reputation-era snakes, with no authorial
+          // confirmation beyond it. Outcome stays 'pending'; records the look.
+          accessed_at: '2026-10-04',
           reliability_score: 3,
         },
       ],
@@ -263,7 +273,12 @@ export default {
           source_title: 'Taylor Swift organises her lyrics into three "dorky" pen-themed categories',
           publisher: 'NME',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-04',
+          // Answerer re-check 2026-10-04 (lifecycle #3739, 30d-stale banner):
+          // re-verified via WebSearch — Taylor's 2022 three-pen framework is
+          // unchanged and she still has NOT publicly sorted TTPD's songs by
+          // category, so which tracks are quill/fountain/glitter stays fan
+          // reading. Outcome stays 'pending'; this records the re-check.
+          accessed_at: '2026-10-04',
           reliability_score: 4,
         },
         {

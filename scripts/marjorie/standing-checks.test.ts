@@ -39,7 +39,7 @@ describe('checkRunners', () => {
     expect(loaded.runners.length).toBeGreaterThan(10);
     for (const r of loaded.runners) {
       if (r.checkable === false) expect(r.why).toBeTruthy();
-      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title', 'brief-comment']).toContain(r.match.kind);
+      else expect(['pr-branch', 'pr-title', 'issue-label', 'issue-title', 'brief-comment', 'workflow-name']).toContain(r.match.kind);
       if (r.disabled) expect(r.why).toBeTruthy();
     }
   });
@@ -95,6 +95,61 @@ describe('checkRunners', () => {
     const briefComments = [{ createdAt: ago(5 * HOUR), body: '<!-- kevin-stream2-digest -->\n### Kevin Daily Review' }];
     expect(checkRunners({ allPRs: [], issues: [], briefComments, cadence: c, now: NOW }).status).toBe('ok');
     expect(checkRunners({ allPRs: [], issues: [], briefComments: [], cadence: c, now: NOW }).status).toBe('fail');
+  });
+
+  it('keeps an unseen Action-backed runner unknown when the bounded run page is partial', () => {
+    const actionRunner = { runners: [{ name: 'Austin — build runs', perDay: 1, maxAgeHours: 30, match: { kind: 'workflow-name', value: 'routine-austin-build' } }] };
+    const workflowRuns = Array.from({ length: 100 }, (_, i) => ({
+      name: `unrelated-${i}`,
+      status: 'completed',
+      created_at: ago(i % 6 * HOUR),
+    }));
+
+    const result = checkRunners({
+      allPRs: [],
+      issues: [],
+      cadence: actionRunner,
+      now: NOW,
+      workflowRuns,
+      workflowRunTotalCount: 101,
+    });
+
+    expect(result.rows[0].status).toBe('unknown');
+    expect(result.rows[0].detail).toContain('partial Actions history');
+  });
+
+  it('keeps an Action-backed runner unknown when the Actions source is unavailable', () => {
+    const actionRunner = { runners: [{ name: 'Austin — build runs', perDay: 1, maxAgeHours: 30, match: { kind: 'workflow-name', value: 'routine-austin-build' } }] };
+    const result = checkRunners({
+      allPRs: [],
+      issues: [],
+      cadence: actionRunner,
+      now: NOW,
+      workflowRuns: null,
+      workflowRunTotalCount: 101,
+    });
+
+    expect(result.rows[0].status).toBe('unknown');
+    expect(result.rows[0].detail).toContain('could not be fetched');
+  });
+
+  it('calls an unseen Action-backed runner dark when the fetched page covers its tolerance', () => {
+    const actionRunner = { runners: [{ name: 'Austin — build runs', perDay: 1, maxAgeHours: 30, match: { kind: 'workflow-name', value: 'routine-austin-build' } }] };
+    const workflowRuns = Array.from({ length: 100 }, (_, i) => ({
+      name: `unrelated-${i}`,
+      status: 'completed',
+      created_at: ago((i + 1) * HOUR),
+    }));
+    const result = checkRunners({
+      allPRs: [],
+      issues: [],
+      cadence: actionRunner,
+      now: NOW,
+      workflowRuns,
+      workflowRunTotalCount: 101,
+    });
+
+    expect(result.rows[0].status).toBe('fail');
   });
 });
 

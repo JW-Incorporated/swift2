@@ -52,7 +52,18 @@ export default {
       snippet: 'At the 52nd Grammys, 20-year-old Taylor became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
       sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
       thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
-      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi', 'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-'],
+      // Cross-link depth (Vault Run, Answerer lane, 2026-09-20 — CIE
+      // content.depth-deficit #1719): completed the Album-of-the-Year dynasty
+      // set the prose names outright (1989, folklore, and now Midnights, the
+      // record fourth) and added the 2009 VMA moment the narrative references
+      // directly ("four months after Kanye West took the microphone"). Both IDs
+      // resolve to existing moments already cross-linked from elsewhere.
+      relatedIds: [
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-evermore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+        'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
+      ],
       moment: {
         context:
           'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Taylor became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."\n\nThe four went to Album of the Year and Best Country Album for Fearless, plus Best Country Song and Best Female Country Vocal Performance for "White Horse," her twice-honored co-write with Liz Rose — a haul that made Fearless the most-awarded country album in Grammy history. The album had already closed 2009 as the best-selling release in the United States, and Guinness World Records still lists her as the youngest solo artist ever to win Album of the Year. The mark held for a decade, until 18-year-old Billie Eilish won for When We All Fall Asleep, Where Do We Go? in 2020. It came a little over four months after Kanye West took the microphone from her at the MTV Video Music Awards, and it was the first of four Album of the Year wins — 1989, folklore, and Midnights followed — more than any artist has won in the category, which is why a quiet January night in 2010 reads in hindsight as the start of a dynasty.',
@@ -287,6 +298,8 @@ export default {
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
       ],
+      // Merged from the retired thin "fearless-vmas" stub (issue #3756, 2026-10-08).
+      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nLost in the noise were the trophy and the performance. "You Belong with Me" had won Best Female Video, and earlier that night Taylor had turned in one of the broadcast\'s signature numbers — opening the song in a brown trench coat and black beanie inside a New York subway station, singing on through a moving subway car as she shed the coat to reveal a red cocktail dress, then finishing atop a yellow taxi once the train reached its stop. That neither the win nor a marquee performance is what anyone remembers about the evening is itself the measure of what those seconds at the microphone did.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
@@ -479,7 +492,7 @@ export default {
             price: '$85.00',
             isAlternative: true,
             altNote: 'The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1471,7 +1484,7 @@ export default {
           },
           {
             outlet: 'Long Island Press',
-            url: 'http://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/',
+            url: 'https://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/',
             source_title: 'Justin Bieber Performs With Broken Foot',
             publisher: 'Long Island Press',
             source_type: 'reputable_press',
@@ -1927,42 +1940,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "fearless-vmas",
-      year: 2009,
-      month: 9,
-      day: 13,
-      category: "sighting",
-      title: "The interrupted speech",
-      snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
-      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
-      moment: {
-        sources: [
-          {
-            outlet: 'TIME',
-            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
-            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
-            publisher: 'TIME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'VICE',
-            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
-            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
-            publisher: 'VICE',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
-      },
-    },
-
     {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
       // the song, and its radio-single release.

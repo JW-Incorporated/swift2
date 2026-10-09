@@ -18,6 +18,15 @@ export const CLAIM_WINDOW_MS = 7 * WINDOW_MS;
 export const STALE_CLAIM_MS = 45 * 60 * 1000;
 export const HISTORY_LIMIT = 15;
 export const SNOWFLAKE = /^\d{15,21}$/;
+// M7 (m7-doorbell.md Mechanics 5): the poll watches the doorbell only once its
+// live proof is on #4180. A committed constant flipped by PR — `gh variable`
+// is founder-only.
+export const DOORBELL_LIVE = true;
+// M7 operational clock gate; the installed tag pins its dispatch authority.
+export const CLOCK_LIVE = true;
+export const CLOCK_LIVE_SINCE = '2026-09-15T02:21:13Z';
+export const DOORBELL_GRACE_MS = 60 * 1000;
+export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
 const HISTORY_TEXT_CAP = 1500;
 const MESSAGE_TEXT_CAP = 4000;
 // DEFAULT (0) and REPLY (19) are what a person types; pins, joins and
@@ -37,6 +46,21 @@ export function runTitle(bot, messageId) {
 export function findRuns(runs, bot, messageId) {
   const title = runTitle(bot, messageId);
   return runs.filter((r) => r.displayTitle === title);
+}
+
+/**
+ * The owner's Discord id: the one founder who makes decisions (Joey; CLAUDE.md: the other founder takes
+ * none). Owner direction in the growth strategy counts only from this id, never from "any founder".
+ * SOCIAL_APPROVERS holds both founders and cannot separate them, so this is its own constant (the id
+ * Joey's chat fixtures and docs/social/RULINGS-SOCIAL-2.md list first), overridable by the
+ * `OWNER_DISCORD_ID` repo variable. A set but invalid override yields '' (no owner: nothing is recorded),
+ * never a fall back to a founder.
+ */
+export const OWNER_DISCORD_ID = '338508192755482626';
+export function ownerId(raw = '') {
+  const v = String(raw || '').trim();
+  if (!v) return OWNER_DISCORD_ID;
+  return SNOWFLAKE.test(v) ? v : '';
 }
 
 /**
@@ -90,6 +114,22 @@ export function isFailureNotice(m, messageId) {
   return messageId === undefined || String(ref) === String(messageId);
 }
 
+// A social approval post (scripts/social/approval-prompt.mjs): a webhook
+// message whose LAST non-empty line is `ref: PR #n · <sha> · <file[,file…]|*>`
+// (the same grammar social-approval-poll.mjs's REF_LINE_RE reads, narrowed to
+// queue files — the weekly brief's plan-scope refs are not approval posts). An
+// owner reply to one is a REJECTION the poll acts on (Bots v2 W2), not a chat ask.
+// A community reply-opportunity message (`ref: reddit · <id>`, scripts/community/
+// discord-delivery.mjs) is the same kind of poll target: the owner's reply to it
+// is read by the poll, never by chat (W8, W2 review LOW).
+const APPROVAL_POST_REF = /^ref: (?:PR #\d+ · [0-9a-f]{40} · (?:\*|.+\.json)|reddit · .+)$/;
+
+export function isApprovalPost(m) {
+  if (!m?.webhook_id) return false;
+  const lines = String(m.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  return APPROVAL_POST_REF.test(lines[lines.length - 1] ?? '');
+}
+
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);
 
 /**
@@ -102,19 +142,39 @@ const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (Bi
  * - `empty`: founder messages whose body came back blank — the signature of a
  *   bot without the Message Content intent, which fails the poll run.
  */
-export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
+export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL, parents }) {
   const picked = [];
   const claimed = [];
   const empty = [];
+  const unresolved = [];
+  const byId = new Map();
+  for (const { messages } of sources) for (const m of messages || []) byId.set(String(m.id), m);
+  const parentOf = (m) => {
+    const parentId = m.message_reference?.message_id;
+    return parentId ? (m.referenced_message ?? byId.get(String(parentId)) ?? parents?.get(String(parentId))) : undefined;
+  };
   for (const { channelId, threadId, messages } of sources) {
+    // A thread started from an approval post is the owner's rejection channel for it.
+    if (threadId && isApprovalPost(byId.get(String(threadId)))) continue;
     const notices = new Set((messages || []).filter((m) => isFailureNotice(m)).map((m) => String(m.message_reference.message_id)));
     for (const m of messages || []) {
       const windowMs = hasOwnReaction(m, CLAIM) ? CLAIM_WINDOW_MS : WINDOW_MS;
       if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now, windowMs })) continue;
+      const parentId = m.message_reference?.message_id;
+      const parent = parentOf(m);
+      if (parent && isApprovalPost(parent)) continue; // a rejection reply, not a chat ask
+      // `parents` is passed by the poll after its bounded fetch of out-of-window
+      // parents; a reply whose parent is still unknown then cannot be shown NOT
+      // to be a reply to an approval post, so it is conservatively not chat (W8).
+      if (parentId && !parent && parents && !hasOwnReaction(m, CLAIM)) {
+        unresolved.push(String(m.id));
+        continue;
+      }
       const failed = hasOwnReaction(m, FAILED);
       const item = {
         messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,
         length: String(m.content || '').length, failed, notified: notices.has(String(m.id)),
+        doorbell: hasOthersReaction(m, CLAIM), sticker: Boolean(m.sticker_items?.length),
       };
       // Settled without a claim (e.g. a force_fail smoke run): never re-claim.
       if (!hasOwnReaction(m, CLAIM) && (failed || hasOwnReaction(m, REPLIED))) continue;
@@ -127,12 +187,70 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
       }
     }
   }
-  return { picked: picked.sort(byAge).slice(0, cap), claimed: claimed.sort(byAge), empty };
+  return { picked: picked.sort(byAge).slice(0, cap), claimed: claimed.sort(byAge), empty, unresolved };
+}
+
+/**
+ * Founder messages in the window that reply to a message no source holds and
+ * Discord did not embed — the poll fetches these parents (bounded) before
+ * `selectInbox`, so an old approval post's reply is recognised as a rejection.
+ * Returns `{ id, where }` (`where` = the thread or channel to GET it from).
+ */
+export function missingParents(sources, { founders, now }) {
+  const known = new Set();
+  for (const { messages } of sources) for (const m of messages || []) known.add(String(m.id));
+  const out = [];
+  for (const { channelId, threadId, messages } of sources) {
+    for (const m of messages || []) {
+      const parentId = m.message_reference?.message_id;
+      if (!parentId || m.referenced_message || known.has(String(parentId))) continue;
+      if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now })) continue;
+      if (!out.some((o) => o.id === String(parentId))) out.push({ id: String(parentId), where: threadId || channelId });
+    }
+  }
+  return out;
 }
 
 export function dispatchArgs(repo, workflow, { messageId, channelId, threadId }) {
   return ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main',
     '-f', `message_id=${messageId}`, '-f', `channel_id=${channelId}`, '-f', `thread_id=${threadId}`];
+}
+
+/**
+ * Someone other than this bot reacted `emoji`. On a message the poll has not
+ * claimed, a 👀 like that is the doorbell's (or, rarely, a founder's own).
+ */
+export function hasOthersReaction(message, emoji) {
+  const r = Array.isArray(message?.reactions) ? message.reactions.find((x) => x?.emoji?.name === emoji) : null;
+  return Boolean(r) && Number(r.count ?? 1) > (r.me ? 1 : 0);
+}
+
+export function alarmArgs(repo, stage, { bot = '', messageId = '', channelId = '', threadId = '' } = {}) {
+  return ['workflow', 'run', ALARM_WORKFLOW, '--repo', repo, '--ref', 'main', '-f', `stage=${stage}`,
+    '-f', `bot=${bot}`, '-f', `message_id=${messageId}`, '-f', `channel_id=${channelId}`, '-f', `thread_id=${threadId}`];
+}
+
+/**
+ * m7-doorbell.md Mechanics 5, for one message the poll would claim while
+ * DOORBELL_LIVE. `runs` = this message's chat runs (only read when the
+ * doorbell's 👀 is on it). Returns one of
+ * - `{ action: 'skip', why }`: the doorbell's run is still going, or it rang
+ *   under a minute ago;
+ * - `{ action: 'claim-only', why }`: its run ended before `context` claimed
+ *   the message (cancelled, say). Claim it so the 45-minute reconcile settles
+ *   it, and never start agent work for it twice;
+ * - `{ action: 'claim', alarm }`: claim, raise `alarm` if set, then dispatch.
+ * A sticker message raises no alarm: the doorbell skips stickers by design.
+ */
+export function doorbellWatch(item, { now, runs = [] }) {
+  const young = now - messageTime(item) < DOORBELL_GRACE_MS;
+  if (item.doorbell) {
+    if (runs.some((run) => run.status !== 'completed')) return { action: 'skip', why: 'the doorbell dispatched it and its run is still going' };
+    if (runs.length) return { action: 'claim-only', why: 'its run ended before context claimed it' };
+    if (young) return { action: 'skip', why: 'the doorbell rang under a minute ago with no run yet' };
+    return { action: 'claim', alarm: 'doorbell-dispatch-failed' };
+  }
+  return { action: 'claim', alarm: young || item.sticker ? null : 'doorbell-missed' };
 }
 
 function clip(text, cap) {

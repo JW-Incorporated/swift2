@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "bundleVersion": "bb5e585556a0914cf9f14a78ac336e8e216deae8f2fecede2832a87cfe92b56d",
+  "bundleVersion": "6f01247c6f1c252a4fcd9534e00a3b8f703d95381d45720878cc227aeda11cc1",
   "generatedAt": "2026-09-05T00:00:00.000Z",
   "files": {
     "clownbotLore": {
@@ -15,8 +15,8 @@
     },
     "eraSecrets": {
       "path": "era-secrets.json",
-      "sha256": "9529eedea573072c5388c961d65b54bf4e7a5726c9b78888cfded4fefe6c40e9",
-      "bytes": 453
+      "sha256": "185a0e9fd67eadf41654fbea22d128af974252101b11c0f8a37458ad0a8b3813",
+      "bytes": 457
     },
     "eras": {
       "path": "eras.json",
@@ -40,18 +40,18 @@
     },
     "theories": {
       "path": "theories.json",
-      "sha256": "24fe9325dde2239ad1a282cbe97d27df6dfb4d5195aa15a80c7385daa7579c2c",
-      "bytes": 576
+      "sha256": "dcc5a818a25a816f0c474045bbf3726748889b2e18aeb8394b2b9951bc38d6d6",
+      "bytes": 580
     },
     "tracks": {
       "path": "tracks.json",
-      "sha256": "be070390536e1144dd4f9c9701c6103ce4b7fc4acc13703d3e5c8245b51b6ea0",
-      "bytes": 577
+      "sha256": "28c21b8cf6dbb1aaa6ccd83c1588860ce17bc6226ae1bbc6fc0ec3523ee78318",
+      "bytes": 581
     },
     "videos": {
       "path": "videos.json",
-      "sha256": "dea6a0b09447727f380ac0f6a8836b246eec3f071dd311c3898124bca11573dc",
-      "bytes": 738
+      "sha256": "2177c2c4123edb2c3fcf82d3216d296da41613e385a1a6aa975d8dc6bf411f74",
+      "bytes": 742
     }
   }
 }

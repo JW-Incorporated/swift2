@@ -202,8 +202,9 @@ refresh.
 
 - **Reddit blocks this environment outright** — HTTP 403 at the edge on both
   `www.reddit.com` and `oauth.reddit.com`, and WebFetch refuses the domain. No
-  credential exists here. Do not burn time on user-agent or header tricks; it
-  needs a real Reddit API app (five minutes at `reddit.com/prefs/apps`).
+  credential exists here and none ever will (owner decision 2026-10-01, no
+  Reddit API key, ever; `docs/decisions.md`). Do not burn time on user-agent or
+  header tricks, and never propose Reddit OAuth credentials.
 - **Aggregator numbers are not a substitute.** Published member counts for
   r/TaylorSwift spanned 200,000 to 3.8 million across sources fetched in the
   same week — a 19× spread. 15 of 30 entries carry `memberCount: null` **by

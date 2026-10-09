@@ -963,10 +963,12 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
         // Cross-link (Stage 3, 2026-08-10): the low-key London pub date, same
         // tour break.
         'moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh',
@@ -1755,8 +1757,8 @@ export default {
           },
           {
             outlet: 'Forbes',
-            url: 'https://www.forbes.com/sites/zackomalleygreenburg/2018/11/19/taylor-swifts-new-record-deal-could-pay-as-much-as-200m/',
-            source_title: "Taylor Swift's New Record Deal Could Pay As Much As $200M",
+            url: 'https://www.forbes.com/sites/zackomalleygreenburg/2018/11/19/taylor-swift-new-record-deal-worth-up-to-100-million-in-guarantees-universal-republic/',
+            source_title: "Taylor Swift's New Record Deal Could Pay As Much As $200M [Updated]",
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
@@ -1993,7 +1995,7 @@ export default {
           },
           {
             outlet: 'NME',
-            url: 'https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
+            url: 'https://web.archive.org/web/20191118190206/https://www.nme.com/reviews/review/taylor-swift-reputation-album-review-2158267',
             source_title: 'Taylor Swift – \'Reputation\' Review',
             publisher: 'NME',
             source_type: 'reputable_press',
@@ -2316,26 +2318,7 @@ export default {
             caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
           },
         ],
-        products: [
-          {
-            brand: 'Wrangler',
-            item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
-            retailer: 'jacksonswestern.com',
-            url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): the jacksonswestern.com
-            // PDP is now 404 (delisted); this is the same real Wrangler x Lainey
-            // Wilson Rainbow Bandana Western Snap Shirt product photo from another
-            // in-stock retailer, curl-verified 200 image/png.
-            imageUrl: 'https://bootjack.com/cdn/shop/files/SHIRTLONGG-2024-10-31T142255.702.png?v=1730406459',
-            matchTier: 'unscored',
-            kind: 'top',
-            price: '$55.00',
-            inStock: false,
-            verifiedAt: '2026-08-30T19:22:10.691Z',
-            isAlternative: true,
-            altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
-          },
-        ],
+        products: [],
       },
     },
     {

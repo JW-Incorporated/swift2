@@ -127,8 +127,9 @@ spec covers only how an ask gets answered quickly. Epic #4180.
 
 - **Live, Marjorie → Tree:** a founder asks Marjorie in chat for something
   that needs Tree. Her reply names the filed ask. Tree's answer comment is
-  on the issue within 10 minutes of filing, and one echo line is in the
-  founder's thread. The issue carries the marker with `thread=` and shows in
+  on the issue within 10 minutes of filing, and one echo line is where
+  the founder wrote (the channel for a top-level message, the existing
+  thread otherwise; #4320). The issue carries the marker with `thread=` and shows in
   Tree's next brief.
 - **Live, Tree → Marjorie:** the next Monday `needsFromMarjorie` ask, or a
   smoke run of `send-brief`'s dispatch against a synthetic `[M6 check]` ask,

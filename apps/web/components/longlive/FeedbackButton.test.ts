@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 // FeedbackButton has no jsdom/testing-library render harness in this repo
 // (same constraint TimelineScrubber.test.ts documents), so these are
 // source-level regression pins for two re-review findings (2026-08-13).
-const src = readFileSync(join(__dirname, 'FeedbackButton.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '..', '..', '..', '..', 'packages', 'ui', 'src', 'reader', 'legal', 'FeedbackButton.tsx'), 'utf8');
 const globalsCss = readFileSync(join(__dirname, '..', '..', 'app', 'globals.css'), 'utf8');
 
 /** The idle floating cluster: everything from the trigger row's marker down. */
@@ -18,7 +18,7 @@ describe('FeedbackButton — re-review finding D (dismiss X covered the trigger 
     // all of it. The fix removes the absolute overlap and uses a flex row.
     expect(src).not.toMatch(/absolute -right-1\.5 -top-1\.5/);
     expect(src).not.toMatch(/grid size-5 place-items-center/);
-    expect(src).toContain("flex items-center gap-2 md:bottom-4");
+    expect(src).toMatch(/flex [^"]*items-center gap-2 md:bottom-4/);
   });
 
   it('both buttons still carry the 44px `.era-icon-btn` floor', () => {
@@ -40,7 +40,7 @@ describe('FeedbackButton — "an X in a circle... as if there\'s an invisible po
     // unlabelled icon under 640px, leaving the dismiss X as the only legible
     // thing in the corner. The label is what ties the X to a "Feedback"
     // control instead of to an imaginary dialog.
-    expect(idleCluster).toContain('<span>Feedback</span>');
+    expect(idleCluster).toMatch(/<span[^>]*>Feedback<\/span>/);
     // Scoped to real class attributes — the prose above this assertion's
     // subject in the component names the old `hidden sm:inline` too.
     for (const [, classes] of idleCluster.matchAll(/className="([^"]*)"/g)) {
@@ -109,5 +109,13 @@ describe('FeedbackButton — #835 (outcomes silent to screen readers)', () => {
     expect(src).toContain('Describe the issue');
     expect(src).toMatch(/<label htmlFor=\{textareaId\}/);
     expect(src).toMatch(/<textarea\s+id=\{textareaId\}/);
+  });
+});
+
+describe('FeedbackButton — public-posting notice', () => {
+  it('warns above the submit row that feedback is posted publicly, once', () => {
+    const notice = "Posted publicly on GitHub — please don't include personal details.";
+    expect(src.split(notice).length - 1).toBe(1);
+    expect(src.indexOf(notice)).toBeLessThan(src.indexOf('Reporting from:'));
   });
 });

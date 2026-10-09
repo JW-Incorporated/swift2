@@ -14,7 +14,7 @@ The spec is already written; this session builds and proves it.
 You are executing Wave M7 of the Marjorie Overhaul (`docs/plans/marjorie-overhaul/PLAN.md`, epic #4180): the doorbell, spec `docs/specs/marjorie-overhaul/m7-doorbell.md`. Read it in full first; it is the contract. If the build must deviate, amend the spec in the same PR and say why in one line.
 
 Also read:
-- `docs/specs/marjorie-overhaul/m5-chat.md` (Mechanics 1–3)
+- `docs/specs/marjorie-overhaul/m5-chat.md` (Mechanics 1–3) and `m7-clock.md` (the clock, decided 2026-09-14)
 - `scripts/marjorie/chat-poll.mjs`, `lib/chat-inbox.mjs`, `lib/chat-delivery.mjs`, `lib/discord-bot.mjs`
 - `.github/workflows/routine-marjorie-chat.yml`, `routine-tree-chat.yml`, `bot-chat-poll.yml`
 - `scripts/watchdog/upsert-alert.sh`, `.github/workflows/routine-marjorie-ops.yml`
@@ -69,15 +69,24 @@ Also read:
      - `checkpoints.json`: MR2 gains "doorbell rang for ≥1 real message in each channel", plus a 2027-08-13 key renewal check.
    - Tag the release commit (`doorbell-v1`).
    - File the install HA in v2 format, numbered with `node scripts/marjorie/lib/alert-router.mjs next-ha-number`, by PR with auto-merge. Its literal steps follow spec Mechanics 9 and pin `doorbell-v1`. Its final step: `sudo systemctl stop longlive-doorbell`, post a test message and wait for the reply, then `sudo systemctl start longlive-doorbell` (the fallback proof).
+4b. **The clock** (spec Pieces 4 and `docs/specs/marjorie-overhaul/m7-clock.md`; Joey's decision 2026-09-14 on #4290: "yes, let's run the clock on the server").
+   - `scripts/doorbell/schedule.json` seeded from every workflow's own `cron:` (53 on 09-14), and the test that keeps them equal.
+   - `scripts/doorbell/lib/clock-core.mjs`: due rows, skip when a run already exists in the window (any trigger), retry then give up at 10 minutes. The doorbell loop evaluates it once a minute; `--check` prints the next 10 fires.
+   - `grep -n "event_name" .github/workflows/*.yml`: any step that treats `schedule` specially must treat a clock dispatch the same; list each change in the PR.
+   - The alarm gains `stage=clock-silent`; the poll dispatches it when the newest clock-started poll run is older than 20 minutes and `CLOCK_LIVE` is on.
+   - `CLOCK_LIVE = false` until the live proof. The GitHub `schedule:` triggers stay in every workflow; the clock adds runs, never removes any.
+   - Codex review on this PR too (it dispatches every routine).
 5. **Live proof** (after Joey says the install HA is done).
    - Ask Joey (YOU:) to post one message in each channel. Record 👀 time, run actor, reply and message-to-✅ time.
    - Then flip `DOORBELL_LIVE = true` by PR, and run the fallback proof: service stopped → poll answers + "Doorbell is not answering" alert → service restarted → rings again.
-   - Evidence (run URLs, timings, alert issue) on #4180.
+   - Flip `CLOCK_LIVE = true` by PR, then watch one hour: `bot-chat-poll.yml` starts within 2 minutes of every 5-minute slot and `routine-marjorie-ops.yml` at its slot, all `workflow_dispatch` by the key's owner, none doubled. Then a `dry_run` `clock-silent` alarm.
+   - Evidence (run URLs, timings, alert issue) on #4180, and close #4290 with the hour's run list.
 
 ## Done means
 
 - A founder message in each channel got 👀 from Long Live Doorbell within 5 s and one reply with ✅, and the times are on #4180.
 - With the doorbell stopped, the poll answered and the alert posted in `#longlive-marjorie`.
+- The clock started the 5-minute poll and the hourly ops routine on time for one hour with no doubled runs, and #4290 is closed with that evidence.
 - No duplicate replies.
 - No token anywhere but the host.
 - Unit tests are green and lint has 0 errors.

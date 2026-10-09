@@ -20,7 +20,7 @@ const SEND_MAIL_PY = path.resolve(
 );
 
 function parseArgs(argv) {
-  const args = { subject: '', bodyFile: '', url: '', thread: undefined, noMailFallback: false };
+  const args = { subject: '', bodyFile: '', url: '', thread: undefined, noMailFallback: false, mentionFounder: false };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--subject') args.subject = argv[++i];
@@ -28,6 +28,7 @@ function parseArgs(argv) {
     else if (arg === '--url') args.url = argv[++i];
     else if (arg === '--thread') args.thread = argv[++i];
     else if (arg === '--no-mail-fallback') args.noMailFallback = true;
+    else if (arg === '--mention-founder') args.mentionFounder = true;
   }
   return args;
 }
@@ -40,7 +41,7 @@ function parseArgs(argv) {
  * Gmail auth failure) and the unset-creds no-op both count as `neither` —
  * only a confirmed send counts as `email`.
  */
-function sendMailFallback(subject, body, url, spawnImpl) {
+export function sendMailFallback(subject, body, url, spawnImpl) {
   // mkdtempSync (not a predictable pid/timestamp filename) avoids a
   // symlink-race on the shared OS temp dir: it atomically creates a
   // fresh, exclusively-owned directory with a random suffix, so nothing
@@ -65,9 +66,27 @@ export async function main(argv = process.argv.slice(2), { spawnImpl = spawnSync
   const body = readFileSync(args.bodyFile, 'utf8');
   const webhook = process.env.DISCORD_MARJORIE_WEBHOOK_URL || '';
 
+  // `--mention-founder` (t_85667a3c): a real @-mention, not just a channel
+  // post. FOUNDER_DISCORD_ID reuses the fleet's one existing founder-mention
+  // constant (jw-agent-operating-system/tools/ha_lib/common.py's `OWNER`,
+  // already live for every HUMAN-ACTIONS.md ping) rather than inventing a
+  // second id — a caller opts in per-alert so routine, non-alarm posts
+  // (a healthy brief, a routine status close) never ping.
+  //
+  // `allowed_mentions.users` is only an ALLOWLIST FILTER over mention
+  // tokens already present in the posted content — it cannot inject a
+  // ping by itself (confirmed against Discord's webhook API). The mention
+  // token is therefore prepended to the DISCORD-BOUND text here, not to
+  // `body` itself, so the mail fallback (which reuses `body` verbatim,
+  // sendMailFallback below) never gets a raw Discord snowflake pasted
+  // into an email.
+  const FOUNDER_DISCORD_ID = '338508192755482626';
+  const mentionUserIds = args.mentionFounder ? [FOUNDER_DISCORD_ID] : [];
+  const discordBody = args.mentionFounder ? `<@${FOUNDER_DISCORD_ID}> ${body}` : body;
+
   // A missing/empty webhook is treated exactly like an unreachable one —
   // post() fails the same way either way, no special-casing here.
-  const result = await post(body, { webhook, thread: args.thread });
+  const result = await post(discordBody, { webhook, thread: args.thread, mentionUserIds });
 
   if (result.ok) {
     console.log('delivered: discord');
@@ -78,6 +97,12 @@ export async function main(argv = process.argv.slice(2), { spawnImpl = spawnSync
     if (result.messageId) console.log(`discord-message-id: ${result.messageId}`);
     return 0;
   }
+
+  // Keep failure evidence visible even when a shell captures stdout and
+  // exits on this command's failure. Never print provider text or URLs.
+  const numeric = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 'unknown';
+  const cooldown = result.status === 429 ? ` retryAfterMs=${numeric(result.retryAfterMs)}` : '';
+  console.error(`discord-delivery: status=${numeric(result.status)} delivered=${numeric(result.delivered)} chunks=${numeric(result.chunks)}${cooldown}`);
 
   if (args.noMailFallback) {
     console.log('delivered: neither');

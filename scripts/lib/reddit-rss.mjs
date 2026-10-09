@@ -64,11 +64,27 @@ export async function fetchSubredditPosts(
   subreddit,
   { sort = 'new', time, limit = 100, userAgent = DEFAULT_USER_AGENT, fetchImpl = fetch } = {},
 ) {
-  const requestUrl = feedUrl(subreddit, { sort, time, limit });
+  return fetchFeedPosts(feedUrl(subreddit, { sort, time, limit }), {
+    label: `r/${subreddit}`,
+    userAgent,
+    fetchImpl,
+  });
+}
+
+/**
+ * Same fetch + parse for any public Reddit Atom feed URL (a subreddit
+ * listing, or a site-wide `search.rss`). Same contract as
+ * `fetchSubredditPosts`: a 429 returns `posts: []`, other non-2xx throws
+ * with `error.status`.
+ */
+export async function fetchFeedPosts(
+  requestUrl,
+  { label = 'feed', userAgent = DEFAULT_USER_AGENT, fetchImpl = fetch } = {},
+) {
   const response = await fetchImpl(requestUrl, { headers: { 'User-Agent': userAgent } });
   if (response.status === 429) return { posts: [], status: 429 };
   if (!response.ok) {
-    const error = new Error(`reddit-rss fetch failed for r/${subreddit} (${response.status})`);
+    const error = new Error(`reddit-rss fetch failed for ${label} (${response.status})`);
     error.status = response.status;
     throw error;
   }
@@ -83,6 +99,12 @@ export async function fetchSubredditPosts(
         title: item.title ?? null,
         permalink: item.link,
         url: outboundUrl(item.content) || item.link,
+        // Atom feed's <author><name>/u/handle</name></author> — stripped of
+        // the leading "/u/" prefix so callers get a bare handle. Added for
+        // kanban t_a66e5eb2 (concert-photo sourcing credit field) — every
+        // existing caller (community-crawl.mjs's crawlSubreddit) already
+        // ignores unused fields on this object, so this is additive only.
+        author: typeof item.author === 'string' ? item.author.replace(/^\/u\//, '') : null,
         createdAt: item.isoDate ?? null,
         rank: index + 1,
       };

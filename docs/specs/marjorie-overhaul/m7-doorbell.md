@@ -58,6 +58,19 @@ and there is still exactly one Marjorie and one Tree.
    reply or a doorbell failure into a `watchdog-alert` issue through
    `scripts/watchdog/upsert-alert.sh`, the path that already reaches
    `#longlive-marjorie` and that Marjorie's hourly ops sweep already handles.
+4. **The clock** (added 2026-09-14, Joey: "yes, let's run the clock on the
+   server"; issue #4290). GitHub drops most of this repo's scheduled runs:
+   the 5-minute poll fired 3 times in 14 hours, the hourly watchdog twice in
+   11, and neither Monday routine fired on 09-14. The doorbell process also
+   keeps the clock: it reads a committed schedule table and starts each
+   routine on time with `workflow_dispatch`, which is a push and unaffected
+   by the throttle. The GitHub `schedule:` triggers stay in every workflow as
+   the fallback; the clock adds runs, it never removes any. Mechanics and
+   acceptance: `m7-clock.md`. *(Amended at build: the clock failed its second
+   Codex review (branch `feature/m7-clock`, `DEBUG.md` there) and is being
+   redesigned through the debug ladder. The doorbell ships without it as
+   `doorbell-v1`; the clock follows as a later tag with its own update
+   human action.)*
 
 ## Mechanics
 
@@ -123,7 +136,20 @@ and there is still exactly one Marjorie and one Tree.
      - younger: claim and dispatch as today, with no alarm.
 
    The poll claims before the next pass, so it raises at most one alarm per
-   message.
+   message. *(Amended after Codex review of the build: the poll claims
+   first, then raises the alarm, then dispatches, so a refused claim never
+   repeats an alarm on the next pass. Only a run still going means the
+   doorbell has the message: one that ended before `context` claimed it gets
+   the poll's 👀 with no second dispatch, and the 45-minute reconcile settles
+   it. Skipped messages do not count toward the three-per-channel cap, and the
+   runs are listed once per bot per pass, however many rung messages there
+   are.)*
+   *(Amended at build: a sticker message raises no alarm, because
+   the doorbell skips stickers by design. A rung message whose runs cannot be
+   listed completely is left for the next pass, and that pass fails. A
+   founder's own 👀 on their message reads as someone else's, which costs at
+   most one `doorbell-dispatch-failed` alarm. `context` moved to
+   `lib/chat-context.mjs` to keep `chat-poll.mjs` under 300 lines.)*
 6. **The stuck alarm.**
    - The doorbell arms a 6-minute timer for each message it rings.
    - When the timer fires, it lists the users on the message's ✅ and ❌
@@ -159,6 +185,18 @@ and there is still exactly one Marjorie and one Tree.
 
      Marjorie's hourly sweep closes the alert once it is resolved, as for
      every watchdog alert.
+
+   *(Amended at build: a `[chat failed]` notice already there also ends a
+   `stuck` check with no alert, since the founder has an answer. The
+   concurrency group falls back to the stage when there is no message id.
+   `routine-marjorie-ops.yml` gains `allowed_bots: github-actions`: the alarm
+   starts it on `GITHUB_TOKEN`, and claude-code-action refuses a bot-started
+   run otherwise, as the chat routines found in M5. After Codex review: the
+   `alert` job's one step is `chat-alarm.mjs alert`, which attempts the
+   alert, the ops dispatch and the poll dispatch independently, so a failed
+   notice never skips a dispatch; and a doorbell fault's alarms share one
+   concurrency group per stage, so two can never both create its standing
+   issue.)*
 8. **Timing record.**
    - `finish` adds `replied in <n>s` (the message's snowflake time to its ✅)
      to its run log and to the metadata-only `💬 chat:` turn log.
@@ -238,6 +276,7 @@ and there is still exactly one Marjorie and one Tree.
 ## Files affected
 
 - **New:**
+  - the clock files: see `m7-clock.md`
   - `scripts/doorbell/doorbell.mjs`: the gateway loop, thin
   - `scripts/doorbell/lib/doorbell-core.mjs` + `.test.ts`: selection, ring,
     timer decision, config

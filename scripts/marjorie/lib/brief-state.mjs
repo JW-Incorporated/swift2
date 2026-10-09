@@ -11,6 +11,8 @@ import { fetchSubmissionCounts } from './submissions.mjs';
 import { buildTreeLines } from './tree-line.mjs';
 import { FOR_TREE_PLACEHOLDER, fetchAsksFor, selectAsksFor, renderFromTreeLine } from './loop-asks.mjs';
 import { DAY_MS } from './brief-sections.mjs';
+import { fetchDispatchChaseState } from './dispatch-chase-state.mjs';
+import { evaluateDispatchChase } from './dispatch-chase.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 
@@ -57,9 +59,10 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
   const [
     { rows: allPRs, capExhausted: allPRsCapExhausted },
     alerts,
-    dispatched,
+    dispatchSnapshot,
     submissions,
     asksFromTree,
+    workflowHistory,
   ] = await Promise.all([
     // Org-wide, high-volume list: also feeds Site's Vault Run freshness
     // check via checkRunners, hence ghWithCompleteness (#3689).
@@ -67,14 +70,17 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     // `--state all`, not open-only: Since-yesterday's "opened/closed in 24h"
     // line needs issues that already closed inside the window too.
     gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'all', '--limit', '100', '--json', 'number,title,createdAt,closedAt,state']),
-    gh(['issue', 'list', '--repo', repo, '--label', 'marjorie-filed', '--state', 'open', '--limit', '200', '--json', 'number,createdAt']),
+    fetchDispatchChaseState(repo, { now }),
     fetchSubmissionCounts(repo, { now }),
     // L1: Tree's open asks of Marjorie. Soft — a failed read prints a line
     // saying so rather than taking the whole brief down.
     fetchAsksFor('marjorie', { repo }).catch(() => null),
+    gh(['api', `repos/${repo}/actions/runs?per_page=100`]).catch(() => null),
   ]);
 
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
+  const chase = evaluateDispatchChase(dispatchSnapshot);
+  const dispatched = chase.items.map((entry) => ({ ...entry.issue, chase: { ...entry, heldReported: dispatchSnapshot.reportedHeld.some((report) => report.issue === entry.number && report.ha === (entry.held?.number || 0)) } }));
 
   return {
     allPRs, allPRsCapExhausted,
@@ -83,6 +89,8 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     submissions,
     contentShipped,
     asksFromTree,
+    workflowRuns: workflowHistory?.workflow_runs ?? null,
+    workflowRunTotalCount: workflowHistory?.total_count ?? null,
     // L1 (docs/specs/marjorie-overhaul/l1-loop.md): From Tree, then the
     // For Tree slot the agent fills and `deliver` files.
     treeLines: [

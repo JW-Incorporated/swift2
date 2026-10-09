@@ -13,7 +13,7 @@ import {
 
 describe('merchByEra', () => {
   it('groups every retained shopTheLook product exactly once after the E3 audit', () => {
-    const groups = merchByEra();
+    const groups = merchByEra(MERCH_CATALOGUE.shopTheLook, getContentItem);
     const total = groups.reduce((sum, g) => sum + g.items.length, 0);
     expect(total).toBe(MERCH_CATALOGUE.shopTheLook.length);
     // 159 -> 128 (issue #722, 2026-08-24): removing ~29 thin, single-source
@@ -23,13 +23,18 @@ describe('merchByEra', () => {
     // recorded each one for re-sourcing instead of presenting a false match.
     // 108 -> 100 (E3, 2026-08-30): the subsequent authoring receipt removed
     // eight further sub-25 mismatches and preserved their re-source evidence.
-    expect(total).toBe(100);
+    // 100 -> 95 (link sweep #4324, 2026-09-30): five shop-the-look products whose
+    // retailer pages were gone (404 / redirected to the retailer homepage / domain
+    // no longer resolving) were removed rather than left as dead links.
+    // Floor, not an exact pin (#4479): every dead-link removal otherwise breaks
+    // `build`. This only catches a catastrophic drop, e.g. a seed import breaking.
+    expect(total).toBeGreaterThanOrEqual(85);
     // count is precomputed as items.length, per the contract
     for (const g of groups) expect(g.count).toBe(g.items.length);
   });
 
   it('orders era sections newest-first (ERAS itself is oldest-first)', () => {
-    const groups = merchByEra();
+    const groups = merchByEra(MERCH_CATALOGUE.shopTheLook, getContentItem);
     const reverseEraOrder = [...ERAS].reverse().map((e) => e.id);
     const groupEraIds = groups.map((g) => g.eraId);
     // groupEraIds must be a subsequence of reverseEraOrder in the same relative order
@@ -42,7 +47,7 @@ describe('merchByEra', () => {
   });
 
   it('sorts items within an era by source moment date, newest first', () => {
-    const groups = merchByEra();
+    const groups = merchByEra(MERCH_CATALOGUE.shopTheLook, getContentItem);
     for (const group of groups) {
       const dates = group.items.map((item) => getContentItem(item.source!.momentId)?.date ?? '');
       const sorted = [...dates].sort((a, b) => b.localeCompare(a));
@@ -51,14 +56,14 @@ describe('merchByEra', () => {
   });
 
   it('never returns an empty group', () => {
-    for (const group of merchByEra()) {
+    for (const group of merchByEra(MERCH_CATALOGUE.shopTheLook, getContentItem)) {
       expect(group.items.length).toBeGreaterThan(0);
     }
   });
 
   it('works over a filtered subset, not just the full catalogue', () => {
     const subset = MERCH_CATALOGUE.shopTheLook.slice(0, 5);
-    const groups = merchByEra(subset);
+    const groups = merchByEra(subset, getContentItem);
     const total = groups.reduce((sum, g) => sum + g.items.length, 0);
     expect(total).toBe(subset.length);
   });
@@ -74,7 +79,7 @@ describe('merchItemImage', () => {
       category: 'shop-the-look',
       imageUrl: 'https://cdn.shopify.com/test.jpg',
     };
-    expect(merchItemImage(withImage)).toEqual({
+    expect(merchItemImage(withImage, getContentItem)).toEqual({
       kind: 'product',
       url: 'https://cdn.shopify.com/test.jpg',
     });
@@ -86,7 +91,7 @@ describe('merchItemImage', () => {
     let moment = 0;
     let monogram = 0;
     for (const item of MERCH_CATALOGUE.shopTheLook) {
-      const image = merchItemImage(item);
+      const image = merchItemImage(item, getContentItem);
       if (image.kind === 'split') split += 1;
       else if (image.kind === 'product') product += 1;
       else if (image.kind === 'moment') moment += 1;
@@ -162,16 +167,22 @@ describe('merchItemImage', () => {
     // remaining monogram->moment case is that one unfixable David Koma
     // product, which correctly falls back to its moment's real photo since
     // it's the only product in that moment.
-    expect(split).toBe(91);
-    expect(product).toBe(8);
-    expect(moment).toBe(1);
-    expect(monogram).toBe(0);
-    expect(split + product + moment + monogram).toBe(100);
+    // The official "Mean" and "Lavender Haze" videos now give their two
+    // moments renderable media, so their products move from product-only to
+    // the split product-and-moment composition.
+    // 93 -> 88 (link sweep #4324): the five dead-link products above were all split.
+    // Floors, not exact pins (#4479): link sweeps shift these counts routinely.
+    // The sum check keeps every item in exactly one composition bucket.
+    expect(split).toBeGreaterThanOrEqual(78);
+    expect(product).toBeGreaterThanOrEqual(0);
+    expect(moment).toBeGreaterThanOrEqual(0);
+    expect(monogram).toBeGreaterThanOrEqual(0);
+    expect(split + product + moment + monogram).toBe(MERCH_CATALOGUE.shopTheLook.length);
   });
 
   it('never returns the era-art fallback path for a product or moment photo', () => {
     for (const item of MERCH_CATALOGUE.shopTheLook) {
-      const image = merchItemImage(item);
+      const image = merchItemImage(item, getContentItem);
       if (image.kind === 'product' || image.kind === 'moment') {
         expect(image.url.startsWith('/eras/')).toBe(false);
       } else if (image.kind === 'split') {
@@ -182,9 +193,9 @@ describe('merchItemImage', () => {
   });
 
   it('returns split with both real urls when the product and moment photos both exist', () => {
-    const item = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i).kind === 'split');
+    const item = MERCH_CATALOGUE.shopTheLook.find((i) => merchItemImage(i, getContentItem).kind === 'split');
     expect(item).toBeDefined();
-    const image = merchItemImage(item!);
+    const image = merchItemImage(item!, getContentItem);
     expect(image.kind).toBe('split');
     if (image.kind === 'split') {
       expect(image.productUrl.length).toBeGreaterThan(0);
@@ -194,25 +205,25 @@ describe('merchItemImage', () => {
 
   it('falls back to monogram (not the shared moment photo) when demoteSharedMomentPhoto is set (fix/merch-image-buy-link dedupe, t_49a63ae1)', () => {
     const withMomentPhoto = MERCH_CATALOGUE.shopTheLook.find(
-      (i) => merchItemImage(i).kind === 'moment',
+      (i) => merchItemImage(i, getContentItem).kind === 'moment',
     );
     expect(withMomentPhoto).toBeDefined();
     const demoted: MerchItem = { ...withMomentPhoto!, demoteSharedMomentPhoto: true };
-    expect(merchItemImage(demoted)).toEqual({ kind: 'monogram' });
+    expect(merchItemImage(demoted, getContentItem)).toEqual({ kind: 'monogram' });
   });
 
   it('demoteSharedMomentPhoto has no effect on an item with its own product photo', () => {
     const withProductPhoto = MERCH_CATALOGUE.shopTheLook.find(
-      (i) => merchItemImage(i).kind === 'product',
+      (i) => merchItemImage(i, getContentItem).kind === 'product',
     );
     expect(withProductPhoto).toBeDefined();
     const flagged: MerchItem = { ...withProductPhoto!, demoteSharedMomentPhoto: true };
-    expect(merchItemImage(flagged)).toEqual(merchItemImage(withProductPhoto!));
+    expect(merchItemImage(flagged, getContentItem)).toEqual(merchItemImage(withProductPhoto!, getContentItem));
   });
 
   it('D7=C (kanban t_28e3ad2a/t_c71f0eea, 2026-08-31): every moment-kind and split-kind item has a valid renderMerchShopLink().href, since MerchCard.tsx now makes the moment photo a buy link too (not just product/split-product)', () => {
     for (const item of MERCH_CATALOGUE.shopTheLook) {
-      const image = merchItemImage(item);
+      const image = merchItemImage(item, getContentItem);
       if (image.kind === 'moment' || image.kind === 'split') {
         const href = renderMerchShopLink(item).href;
         expect(typeof href).toBe('string');

@@ -1,33 +1,28 @@
 // Notifications Phase 1 (NOTIFICATIONS_SPEC.md §8, NOTIFICATIONS_PLAN.md
 // Phase 1) — mobile client for the prefs API. Talks to the deployed
-// `GET/PUT /api/devices/:id/prefs` route (same `apiBaseUrl()` fallback
-// pattern `push-registration.ts` uses — there's no local backend to point
-// at from a device/emulator).
+// `GET/PUT /api/devices/:id/prefs` route (host decided in
+// `api-base.ts` — there's no local backend to point at from a
+// device/emulator).
 import type {
   DeviceNotificationSettings,
   DevicePrefsResponse,
   NotificationPref,
 } from '@swift2/shared';
-import { getOrCreateDeviceId } from './device-id';
-
-function apiBaseUrl(): string {
-  return (process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app').replace(
-    /\/$/,
-    '',
-  );
-}
+import { apiBaseUrl } from './api-base';
+import { ensureDeviceRegistered } from './ensure-device-registered';
 
 async function prefsUrl(): Promise<string> {
-  const deviceId = await getOrCreateDeviceId();
+  // Waits for the cold-start device row so a first-run write never 404s ahead of registration.
+  const deviceId = await ensureDeviceRegistered();
   return `${apiBaseUrl()}/api/devices/${deviceId}/prefs`;
 }
 
 /** Fetches the full settings screen's state in one call — device settings
  * (master switch, snooze, daily cap, quiet hours, digest hour) plus every
  * category's current cadence. */
-export async function fetchDevicePrefs(): Promise<DevicePrefsResponse> {
+export async function fetchDevicePrefs(signal?: AbortSignal): Promise<DevicePrefsResponse> {
   const url = await prefsUrl();
-  const res = await fetch(url);
+  const res = await (signal ? fetch(url, { signal }) : fetch(url));
   if (!res.ok) {
     throw new Error(`GET prefs: HTTP ${res.status}`);
   }
@@ -41,15 +36,19 @@ export async function fetchDevicePrefs(): Promise<DevicePrefsResponse> {
  * whole-form batch. Returns the round-tripped state so the caller can
  * reconcile optimistic UI with the server's actual write.
  */
-export async function saveDevicePrefs(input: {
-  settings?: Partial<DeviceNotificationSettings>;
-  prefs?: NotificationPref[];
-}): Promise<DevicePrefsResponse> {
+export async function saveDevicePrefs(
+  input: {
+    settings?: Partial<DeviceNotificationSettings>;
+    prefs?: NotificationPref[];
+  },
+  signal?: AbortSignal,
+): Promise<DevicePrefsResponse> {
   const url = await prefsUrl();
   const res = await fetch(url, {
     method: 'PUT',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(input),
+    ...(signal ? { signal } : null),
   });
   if (!res.ok) {
     throw new Error(`PUT prefs: HTTP ${res.status}`);

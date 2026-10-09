@@ -38,7 +38,12 @@ PATTERNS = [
     (r"\bgit\s+clean\b", "git clean"),
     (r"--no-verify\b", "verification bypass (--no-verify)"),
     (r"\bchmod\s+(-R\s+)?777\b", "chmod 777"),
-    (r"\bgh\s+(secret|variable)\s+(set|delete)\b", "gh secret/variable mutation"),
+    # `[^;&|\n]*` between `gh` and the subcommand catches flag-first forms
+    # (`gh -R o/r variable set`, `gh --repo x secret set`).
+    (r"\bgh\b[^;&|\n]*\bsecret\s+(set|delete|remove)\b", "gh secret mutation (founder-only)"),
+    (r"\bgh\b[^;&|\n]*\bvariable\s+(delete|remove)\b", "gh variable delete (a deleted SOCIAL_FREEZE reads as unfrozen)"),
+    (r"\bgh\b[^;&|\n]*\bvariable\s+set\b",
+     "raw gh variable set (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason \"...\"` for allowlisted switches)"),
     (r"\brepowise\s+init(?!.*--no-editor-setup)", "bare repowise init (edits ~/.claude/settings.json machine-wide — use the repowise-setup skill instead)"),
 
     # --- swift2-specific, below this line ---
@@ -125,6 +130,36 @@ def executes_send_script(command):
     return False
 
 
+# REST route around the variable/secret CLI guards: a non-GET call to the
+# Actions variables/secrets API (via `gh api` or `curl`). Plain GET reads stay
+# allowed; `-f/-F/--input` (gh) and `-d/--data*/-F/--form/-T` (curl) imply a
+# write unless the method is explicitly GET.
+_VARS_API = re.compile(r"actions/(variables|secrets)|environments/\S*/(variables|secrets)")
+_WRITE_METHOD = re.compile(r"(?:^|\s)(?:-X|--method|--request)(?:=|\s+)['\"]?(PUT|PATCH|POST|DELETE)\b", re.I)
+_GET_METHOD = re.compile(r"(?:^|\s)(?:-X|--method|--request)(?:=|\s+)['\"]?GET\b", re.I)
+_GH_FIELDS = re.compile(r"(?:^|\s)(?:-f|-F|--field|--raw-field|--input)(?:=|\s|$)")
+_CURL_BODY = re.compile(r"(?:^|\s)(?:-d|-F|-T|--data\S*|--form|--upload-file|--json)(?:=|\s|$)")
+
+
+def mutates_actions_api(command):
+    for seg in re.split(r"[;&|\n]+", command):
+        if not _VARS_API.search(seg):
+            continue
+        is_gh = re.search(r"\bgh\b[^;&|\n]*\bapi\b", seg)
+        is_curl = re.search(r"\bcurl\b", seg) and "api.github.com" in seg
+        if not (is_gh or is_curl):
+            continue
+        if _WRITE_METHOD.search(seg):
+            return True
+        if _GET_METHOD.search(seg):
+            continue
+        if is_gh and _GH_FIELDS.search(seg):
+            return True
+        if is_curl and _CURL_BODY.search(seg):
+            return True
+    return False
+
+
 def deny(label):
     print(json.dumps({"hookSpecificOutput": {
         "hookEventName": "PreToolUse",
@@ -141,6 +176,10 @@ for pat, label in PATTERNS:
 
 if re.search(ENV_PATTERN[0], cmd_env):
     deny(ENV_PATTERN[1])
+
+if mutates_actions_api(cmd):
+    deny("REST write to the Actions variables/secrets API "
+         "(use scripts/ops/set-switch.mjs for allowlisted switches)")
 
 if executes_send_script(cmd):
     deny("running the social poster's real-send path "

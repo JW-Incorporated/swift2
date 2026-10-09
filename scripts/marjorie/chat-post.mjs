@@ -6,10 +6,14 @@
 //
 //   save    agent job      stdin (or --text) → .scratch/out/chat-reply.md,
 //                          --summary → .scratch/out/chat-summary.txt
-//   thread  context job    starts a thread on a top-level message (a thread
-//           (social)       takes its message's id); a message already
-//                          carrying ✅/❌ is a duplicate run → skip=true.
-//                          Outputs reply_thread_id and message_url, which
+//   save-bot1 agent job    stdin (or --text) → .scratch/out/bot1-prompt-1.md, one per run,
+//                          refused unless the context file says owner.verified. The
+//                          workflow's `bot1` job sends it, gated on owner_verified again
+//   thread  context job    selects the reply location; existing user threads
+//           (social)       are preserved and top-level messages stay in the channel;
+//                          a message already carrying ✅/❌ is a duplicate run → skip=true.
+//                          Outputs reply_thread_id, message_url and owner_verified
+//                          (true only when the author is the verified owner), which
 //                          survive a re-run (artifacts may not)
 //   post    post step      the reply through the channel's webhook as the bot.
 //           (ops / social) No reply file → nothing sent, result=missing: only
@@ -26,21 +30,25 @@
 //                          this run placed that reaction, the `💬 chat:` turn
 //                          log, which carries no founder text (public repo)
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
 import { postFailure, readDeliveryState, writtenByFounder } from './lib/chat-delivery.mjs';
+import { validatePrompt } from './lib/bot1-bridge.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from './lib/discord-bot.mjs';
+import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
 
 export const REPLY_CAP = 1800;
+export const ORDINARY_WORD_CAP = 80;
+const DETAIL_REASONS = new Set(['requested', 'essential']);
 const SUMMARY_CAP = 120;
 const REPLY_FILE = 'chat-reply.md';
 const SUMMARY_FILE = 'chat-summary.txt';
+const BOT1_PROMPT_FILE = 'bot1-prompt-1.md';
 const OUT_DIR = path.join('.scratch', 'out');
 export const WEBHOOK_ENV = { marjorie: 'DISCORD_MARJORIE_WEBHOOK_URL', tree: 'DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL' };
 
@@ -79,32 +87,65 @@ function setOutput(env, key, value) {
 
 export function save(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) {
   const text = String(flags.text ? flags.text : readStdin()).trim();
+  const dir = flags.dir || OUT_DIR;
+  const replyFile = path.join(dir, REPLY_FILE);
+  const summaryFile = path.join(dir, SUMMARY_FILE);
+  for (const file of [replyFile, summaryFile]) {
+    if (existsSync(file)) unlinkSync(file);
+  }
   if (!text) {
     console.log('chat-post save: the reply is empty — nothing written');
     return 1;
   }
-  const dir = flags.dir || OUT_DIR;
+  const detail = String(flags.detail || '');
+  if (detail && !DETAIL_REASONS.has(detail)) {
+    console.log('chat-post save: --detail must be requested or essential — nothing written');
+    return 1;
+  }
+  const words = text.split(/\s+/).length;
+  if (words > ORDINARY_WORD_CAP && !detail) {
+    console.log(`chat-post save: ${words} words exceeds the ordinary ${ORDINARY_WORD_CAP}-word limit; shorten and retry, or use --detail requested|essential when justified — nothing written`);
+    return 1;
+  }
   mkdirSync(dir, { recursive: true });
-  writeFileSync(path.join(dir, REPLY_FILE), `${text}\n`);
-  if (flags.summary) writeFileSync(path.join(dir, SUMMARY_FILE), `${oneLine(flags.summary, SUMMARY_CAP)}\n`);
+  writeFileSync(replyFile, `${text}\n`);
+  if (flags.summary) writeFileSync(summaryFile, `${oneLine(flags.summary, SUMMARY_CAP)}\n`);
   console.log(`chat-post save: ${text.length} chars${text.length > REPLY_CAP ? ` — over ${REPLY_CAP}, the post step will cut it` : ''}`);
   return 0;
 }
 
-export function threadName(bot, text) {
-  return `${BOTS[bot].name} · ${oneLine(text, 80) || 'chat'}`.slice(0, 100);
+/**
+ * The agent's way to hand one prompt to bot1 now (no Write tool). It writes
+ * .scratch/out/bot1-prompt-1.md — at most one per chat run — and only when the
+ * context job verified the message author is the owner; the `bot1` job then
+ * sends it through the bridge (same gate again, in the workflow).
+ */
+export function saveBot1(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) {
+  const ctx = readJson(flags.context || path.join('.scratch', 'chat-context.json'));
+  if (ctx?.owner?.verified !== true) {
+    console.log("chat-post save-bot1: the message's author is not the verified owner — nothing written");
+    return 1;
+  }
+  const dir = flags.dir || OUT_DIR;
+  const file = path.join(dir, BOT1_PROMPT_FILE);
+  if (existsSync(file)) unlinkSync(file);
+  const checked = validatePrompt(flags.text ? flags.text : readStdin());
+  if (!checked.ok) {
+    console.log(`chat-post save-bot1: ${checked.reason} — nothing written`);
+    return 1;
+  }
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(file, `${checked.body}\n`);
+  console.log(`chat-post save-bot1: ${checked.body.length} chars saved for the bridge`);
+  return 0;
 }
 
-export async function startThread({ ctx, token, fetchImpl = fetch, sleepImpl = defaultSleep }) {
+export async function startThread({ ctx }) {
   if (!ctx.top_level) return { threadId: ctx.thread_id, note: 'already in a thread' };
-  const body = { name: threadName(ctx.bot, ctx.text), auto_archive_duration: 1440 };
-  const r = await discordRequest('POST', `${DISCORD_API}/channels/${ctx.channel_id}/messages/${ctx.message_id}/threads`, token, { body, fetchImpl, sleepImpl });
-  if (r.ok) return { threadId: r.data?.id || ctx.message_id, note: 'thread started' };
-  if (r.status === 400 && r.data?.code === 160004) return { threadId: ctx.message_id, note: 'thread already existed' };
-  return { threadId: '', note: `thread refused (HTTP ${r.status}${r.data?.code ? `, code ${r.data.code}` : ''}) — replying at channel top level` };
+  return { threadId: '', note: 'replying at channel top level' };
 }
 
-export async function thread(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
+export async function thread(flags, { env = process.env } = {}) {
   const ctx = readJson(flags.context);
   if (!ctx || !BOTS[ctx.bot]) {
     console.log('::error::chat-post thread: unreadable --context file');
@@ -116,13 +157,15 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
     setOutput(env, 'skip', 'true');
     setOutput(env, 'reply_thread_id', '');
     setOutput(env, 'message_url', '');
+    setOutput(env, 'owner_verified', 'false');
     return 0;
   }
-  const { threadId, note } = await startThread({ ctx, token: env.DISCORD_BOT_TOKEN || '', fetchImpl, sleepImpl });
-  console.log(threadId ? note : `::warning::chat-post thread: ${note}`);
+  const { threadId, note } = await startThread({ ctx });
+  console.log(note);
   setOutput(env, 'skip', 'false');
   setOutput(env, 'reply_thread_id', threadId);
   setOutput(env, 'message_url', ctx.url || '');
+  setOutput(env, 'owner_verified', ctx.owner?.verified === true ? 'true' : 'false');
   return 0;
 }
 
@@ -179,18 +222,23 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
   return 0;
 }
 
-/** Public-issue line: what was done, never what the founder wrote. */
-export function turnLog({ bot, summary, replied, messageId }) {
+/**
+ * Public-issue line: what was done, never what the founder wrote. A reply
+ * also records `replied in <n>s` (message to ✅), the timing M7 uses to re-set
+ * the doorbell's stuck threshold after a week (m7-doorbell.md Mechanics 8).
+ */
+export function turnLog({ bot, summary, replied, messageId, repliedIn = null }) {
   const done = replied ? oneLine(summary, SUMMARY_CAP) || 'answered' : FAILURE_PREFIX;
-  return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}\n\n<!-- chat-id: ${messageId} -->`;
+  const timing = replied && Number.isFinite(repliedIn) ? ` · replied in ${repliedIn}s` : '';
+  return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}${timing}\n\n<!-- chat-id: ${messageId} -->`;
 }
 
 function writeTurnLog({ comment, env, execImpl }) {
   const repo = env.REPO || env.GITHUB_REPOSITORY || '';
   try {
-    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
+    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'status-page', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
     if (!issues[0]) {
-      console.log('no open founders-brief issue — turn log skipped');
+      console.log('no open status-page issue — turn log skipped');
     } else {
       execImpl('gh', ['issue', 'comment', String(issues[0].number), '--repo', repo, '--body', comment], { encoding: 'utf8' });
       console.log(`turn log → #${issues[0].number}`);
@@ -201,7 +249,7 @@ function writeTurnLog({ comment, env, execImpl }) {
   }
 }
 
-export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync } = {}) {
+export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now } = {}) {
   const { bot } = flags;
   const messageId = flags['message-id'] || '';
   const channelId = flags['channel-id'] || '';
@@ -252,10 +300,12 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
     else console.log('no ❌ without a notice — a re-run of this job, or bot-chat-poll, settles this claim later');
   }
   if (!reacted) return 1;
+  const repliedIn = replied ? Math.max(0, Math.round((now() - snowflakeMs(messageId)) / 1000)) : null;
+  if (replied) console.log(`replied in ${repliedIn}s`);
 
   // One turn log per message: the ✅/❌ this run just placed stops every later run.
   const summary = readText(path.join(flags['reply-dir'] || OUT_DIR, SUMMARY_FILE));
-  writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId }), env, execImpl });
+  writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId, repliedIn }), env, execImpl });
   return 0;
 }
 
@@ -263,10 +313,11 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const [cmd, ...rest] = argv;
   const flags = parseFlags(rest);
   if (cmd === 'save') return save(flags, deps);
+  if (cmd === 'save-bot1') return saveBot1(flags, deps);
   if (cmd === 'thread') return thread(flags, deps);
   if (cmd === 'post') return postCmd(flags, deps);
   if (cmd === 'finish') return finish(flags, deps);
-  console.log('usage: chat-post.mjs save|thread|post|finish [flags] — see the header of scripts/marjorie/chat-post.mjs');
+  console.log('usage: chat-post.mjs save|save-bot1|thread|post|finish [flags] — see the header of scripts/marjorie/chat-post.mjs');
   return 2;
 }
 

@@ -8,6 +8,7 @@ import {
   getSymbolActivity,
   getTrack,
   searchKnowledgeDocs,
+  toOrTsQuery,
 } from './client';
 import type { CurrentItemRow, EggLedgerRow, FanSignalRow, KnowledgeDocRow, SymbolActivityRow } from '../current-map';
 
@@ -20,6 +21,8 @@ import type { CurrentItemRow, EggLedgerRow, FanSignalRow, KnowledgeDocRow, Symbo
  * PostgREST query would apply. Matches the `db: SupabaseClient` injection
  * convention `apps/worker/src/extract/write-knowledge.test.ts` already uses.
  */
+const textSearchCalls: { query: string; type: string | undefined }[] = [];
+
 function makeQueryBuilder(rows: unknown[]) {
   let result = [...rows] as Record<string, unknown>[];
   const builder = {
@@ -53,11 +56,13 @@ function makeQueryBuilder(rows: unknown[]) {
       result = result.filter((r) => typeof r[col] === 'string' && re.test(r[col] as string));
       return builder;
     },
-    textSearch: (_col: string, query: string) => {
-      const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    textSearch: (_col: string, query: string, opts?: { type?: string }) => {
+      textSearchCalls.push({ query, type: opts?.type });
+      const raw = opts?.type === undefined; // supabase-js: no `type` = raw to_tsquery
+      const terms = (raw ? query.split('|') : query.split(/\s+/)).map((t) => t.trim().toLowerCase()).filter(Boolean);
       result = result.filter((r) => {
         const hay = `${String(r['title'] ?? '')} ${String(r['text'] ?? '')}`.toLowerCase();
-        return terms.every((t) => hay.includes(t));
+        return raw ? terms.some((t) => hay.includes(t)) : terms.every((t) => hay.includes(t));
       });
       return builder;
     },
@@ -181,6 +186,44 @@ describe('searchKnowledgeDocs', () => {
     const result = await searchKnowledgeDocs(db, '', { symbols: ['13'] });
     expect(result.map((d) => d.id)).toEqual(['current:1']);
   });
+
+  it('returns a doc for a long multi-word title where only one word matches', async () => {
+    const db = fakeDb({ knowledge_doc: docs });
+    const result = await searchKnowledgeDocs(db, 'The Long Mysterious Story of the Number Five Jacket Teaser');
+    expect(result.map((d) => d.id).sort()).toEqual(['current:1', 'moment:1', 'moment:2']);
+  });
+
+  it('sanitizes tsquery syntax characters out of the raw query', async () => {
+    textSearchCalls.length = 0;
+    const db = fakeDb({ knowledge_doc: docs });
+    const result = await searchKnowledgeDocs(db, "teaser & !(jacket) 'x' :* a:b");
+    const call = textSearchCalls[0];
+    expect(call?.type).toBeUndefined();
+    expect(call?.query).toBe('teaser | jacket');
+    expect(call?.query).not.toMatch(/[&!()':*]/);
+    expect(result.map((d) => d.id).sort()).toEqual(['current:1', 'moment:2']);
+  });
+
+  it('degrades an all-stopword query to the plain path', async () => {
+    textSearchCalls.length = 0;
+    const db = fakeDb({ knowledge_doc: docs });
+    await searchKnowledgeDocs(db, 'the and of to');
+    expect(textSearchCalls[0]).toEqual({ query: 'the and of to', type: 'plain' });
+    expect(toOrTsQuery('the and of to')).toBeNull();
+  });
+
+  it('re-ranks by term-hit count, ties keep updated_at desc', async () => {
+    const db = fakeDb({ knowledge_doc: docs });
+    // current:1 is newest but hits only "teaser"; moment:1 hits "track" + "pattern".
+    const result = await searchKnowledgeDocs(db, 'teaser track pattern');
+    expect(result.map((d) => d.id)).toEqual(['moment:1', 'current:1']);
+  });
+
+  it('caps and dedupes OR terms', () => {
+    const q = toOrTsQuery('alpha alpha beta gamma delta epsilon zeta eta1 theta iota kappa lambda mu12 nu34 xi56');
+    expect(q?.split(' | ')).toHaveLength(12);
+    expect(q?.split(' | ').filter((t) => t === 'alpha')).toHaveLength(1);
+  });
 });
 
 describe('getPrecedents', () => {
@@ -257,6 +300,8 @@ describe('getRecentItems', () => {
       expires_at: '2099-01-01T00:00:00.000Z',
       updated_at: '2026-08-23T00:00:00.000Z',
       redline_ok: true,
+      countdown_target_at: null,
+      countdown_resolved_at: null,
       ...overrides,
     };
   }

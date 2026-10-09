@@ -63,7 +63,7 @@ Also read:
 
 ## Done means
 
-- A real Marjorie → Tree ask from a founder's chat was answered by Tree on the issue within 10 minutes, with the echo line in the thread.
+- A real Marjorie → Tree ask from a founder's chat was answered by Tree on the issue within 10 minutes, with the echo line where the founder wrote (channel or existing thread, per #4320).
 - A Tree → Marjorie ask was answered by Marjorie within 10 minutes.
 - No answer run filed anything.
 - Issue links, run URLs and timings are on #4180.

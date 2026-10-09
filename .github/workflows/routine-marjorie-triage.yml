@@ -39,6 +39,12 @@ on:
   schedule:
     - cron: "27 16 * * *" # 09:27 PT, after the morning brief has already reported yesterday's
   workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        required: false
+        type: number
+        default: 0
 
 permissions:
   contents: read
@@ -55,8 +61,39 @@ jobs:
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 25
       max_turns: 40
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
+      post_run_artifact: marjorie-triage-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  # bot1 bridge (bots-v2 C5): sends any `.scratch/out/bot1-prompt-N.md` the run
+  # saved, through the shared bridge workflow (ops environment, main-only, a
+  # green no-op while `bot1Bridge.enabled` is false in marjorie-config.json).
+  # The Sunday weekly review is the backstop for anything this misses.
+  bot1:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/marjorie-bot1-bridge.yml
+    with:
+      artifact: marjorie-triage-out
+    permissions:
+      contents: read
+      issues: write
+
+  # Bots v2 W7: an ask of Tree the run saved with `loop-live.mjs save-help --side
+  # marjorie` (marjorie-triage.md) is filed by a plain job and Tree's response
+  # routine starts at once. A green no-op when nothing was saved.
+  help:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/loop-file-asks.yml
+    with:
+      artifact: marjorie-triage-out
+      side: marjorie
+    permissions:
+      contents: read
+      issues: write
+      actions: write
 
   # Reads the `pending` founder-handoff marker comments `run` left on
   # `founder-decision` issues and posts each one's message text to Discord,
@@ -93,7 +130,8 @@ jobs:
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           set -euo pipefail
-          ISSUES_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founder-decision --state open --json number,url --limit 50)
+          # Fully paginated (no --limit): a bounded fetch would hide every issue past the cap on every sweep (#4239).
+          ISSUES_JSON=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues?labels=founder-decision&state=open&per_page=100" --jq '.[] | select(.pull_request == null) | {number: .number, url: .html_url}' | jq -s '.')
           PENDING_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker pending)
           POSTED_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker posted)
           NUMBERS=$(echo "$ISSUES_JSON" | jq -r '.[].number')
@@ -118,3 +156,18 @@ jobs:
             node scripts/marjorie/post-or-mail.mjs --subject "Needs a founder — #$NUMBER" --body-file "$MESSAGE_FILE" --url "$ISSUE_URL"
             gh issue comment "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$POSTED_MARKER"
           done
+
+  # S2 (docs/decisions.md 2026-10-01): a taste/strategy question the agent saved as
+  # .scratch/out/taste-ruling-1.json (`taste-ruling.mjs save`) is filed by a plain
+  # job and Fable's ruling routine starts at once — never the owner. A green no-op
+  # when nothing was saved.
+  taste:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/taste-ruling-file.yml
+    with:
+      artifact: marjorie-triage-out
+    permissions:
+      contents: read
+      issues: write
+      actions: write

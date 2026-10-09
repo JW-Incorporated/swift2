@@ -53,10 +53,10 @@ describe('tree-weekly-plan.md — the Monday distillation (AC#4-7, #9)', () => {
     expect(doc).toContain('`intake`+`social`');
   });
 
-  it('checks a new/incremented rule against approved strategy before writing it, routing a collision through the proposal mechanism instead (Founder Test finding, 2026-09-12)', () => {
+  it('checks a new/incremented rule against approved strategy before writing it, making that strategy change itself instead of writing a lesson (Founder Test finding 2026-09-12; S2 2026-10-01: no proposal mechanism any more)', () => {
     expect(doc).toContain("check it against `docs/marketing/social-strategy.md`");
     expect(doc).toContain('a strategy question wearing drafting clothes, not a lesson');
-    expect(doc).toContain('do not write it as a lesson: route it as one of this week\'s ≤3 proposals instead');
+    expect(doc).toContain('do not write it as a lesson: make that strategy change yourself instead');
     expect(doc).toContain('prefer the narrower reading');
   });
 
@@ -67,20 +67,23 @@ describe('tree-weekly-plan.md — the Monday distillation (AC#4-7, #9)', () => {
     expect(doc).toContain('never re-created under a new id');
   });
 
-  it('resolves a proposal verdict from a ledger row, never a PR comment', () => {
-    expect(doc).toContain('does not land as a PR comment');
-    expect(doc).toContain('file: "proposal:N"');
+  it('has no proposal mechanism any more (S2): strategy is changed by Tree\'s own PR with a reason and evidence, reported, never a request for a ✅', () => {
+    expect(doc).toContain('There are no strategy proposals any more (S2, 2026-10-01)');
     expect(doc).toContain('tree/strategy/<ISO-week>-<n>');
-    expect(doc).toContain('never staged here, never before this row exists');
+    expect(doc).toContain('a report, never a request for a ✅');
+    expect(doc).toContain('`taste-ruling`');
   });
 
-  it('a rejected proposal opens no PR and is recorded as a firing', () => {
-    expect(doc).toContain('open nothing; count the ❌ as a firing');
+  it('codifying a lesson is Tree\'s explicit choice via strategy-params, not automatic (S2)', () => {
+    expect(doc).toContain('codifying is your explicit choice, not automatic (S2)');
+    expect(doc).toContain('lessons.autoCodify');
+    expect(doc).toContain('autoCodify:');
   });
 
-  it('the hard-limits list of writable files includes social/lessons.md, still forbids the strategy file, and no longer describes the stale pre-T4 propose mechanism', () => {
-    expect(doc).toContain('`social/lessons.md` (T5, step 3.5) are the ONLY files you may write');
-    expect(doc).toContain('never `docs/marketing/social-strategy.md`');
+  it('the hard-limits list of writable files includes social/lessons.md and the strategy files (S2), forbids guardrails.md, and no longer describes the stale pre-T4 propose mechanism', () => {
+    expect(doc).toContain('`social/lessons.md` (T5, step 3.5) and — in the separate strategy PR');
+    expect(doc).toContain('are the ONLY files you may write');
+    expect(doc).toContain('never `docs/social/guardrails.md`');
     expect(doc).not.toContain('propose strategy changes in the PR body or a `founder-decision` issue');
   });
 });
@@ -109,10 +112,11 @@ describe('tree-daily-draft.md — rulesChecked (AC#10)', () => {
 describe('docs/agents/tree.md — invariant 2 and mutation rights (AC#9)', () => {
   const doc = read('docs/agents/tree.md');
 
-  it('restates invariant 2 as propose-in-brief, ✅-then-next-run-opens-its-own-PR, never a merge by Tree', () => {
-    expect(doc).toContain('recorded as a ledger row, never a merge');
+  it('restates invariant 2 (S2): Tree changes strategy by its own PR with reason + evidence, no ✅, Fable rules on disputes, never a merge by Tree', () => {
     expect(doc).toContain('tree/strategy/<ISO-week>-<n>');
-    expect(doc).toContain('Tree never merges it');
+    expect(doc).toContain('`taste-ruling` issue for Fable, never a question to the owner');
+    expect(doc).toContain('Tree never merges its own PR.');
+    expect(doc).toContain('`docs/social/guardrails.md`');
     expect(doc).not.toContain('PR body or a `founder-decision` issue');
   });
 

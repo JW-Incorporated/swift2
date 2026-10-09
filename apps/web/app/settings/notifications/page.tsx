@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { WebNotificationSettings } from '@/components/longlive/WebNotificationSettings';
+import { NotificationSettingsPage } from '@swift2/ui/reader/settings/NotificationSettingsPage';
 
 // Notifications Phase 1 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §8) —
 // `/settings/notifications` on web. Phase 1 shipped this as a static "get
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/settings/notifications' },
 };
 
-export default function NotificationSettingsPage() {
+export default function NotificationSettingsRoute() {
   // VAPID_PUBLIC_KEY is safe to ship to the client — it's the PUBLIC half
   // of the keypair, the same way a TLS certificate's public key is public;
   // only VAPID_PRIVATE_KEY (server-only, never NEXT_PUBLIC_*) can actually
@@ -24,25 +23,8 @@ export default function NotificationSettingsPage() {
   const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null;
 
   return (
-    <main className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center gap-6 px-6 py-16 text-center">
-      <span className="text-4xl" aria-hidden>
-        🔔
-      </span>
-      <h1 className="font-era text-2xl font-semibold text-ink">Notification settings</h1>
-      <p className="max-w-md leading-relaxed text-ink-soft">
-        Get Long Live notifications right here in your browser, or in the app — the master switch,
-        quiet hours, daily limit, and every category&rsquo;s cadence, all in one place, with changes
-        applying instantly.
-      </p>
-
-      <WebNotificationSettings vapidPublicKey={vapidPublicKey} />
-
-      <Link
-        href="/"
-        className="mt-2 inline-flex items-center rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-white/40"
-      >
-        Back to Long Live
-      </Link>
+    <main>
+      <NotificationSettingsPage vapidPublicKey={vapidPublicKey} />
     </main>
   );
 }

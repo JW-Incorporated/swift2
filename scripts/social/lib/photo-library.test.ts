@@ -41,9 +41,12 @@ const library = [
 ];
 
 describe('photo-library', () => {
-  it('requires an auditable source and truthful credit for every inventory entry', () => {
+  it('requires an auditable source for every inventory entry; credit is optional (owner, 2026-10-01)', () => {
     expect(validatePhotoEntry(library[0])).toEqual([]);
-    expect(validatePhotoEntry({ ...library[0], credit: '' })).toContain('credit is required');
+    expect(validatePhotoEntry({ ...library[0], credit: undefined })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: null })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: 'u/unknown via r/TaylorSwiftPictures' })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: 42 })).toContain('credit, if present, must be a string (omit it when the photographer is unknown)');
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
   });
 
@@ -62,6 +65,13 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], tags: ['lover', '   '] })).toContain('tags entries must be non-blank strings');
     expect(validatePhotoEntry({ ...library[0], tags: ['lover', 'eras-tour'] })).toEqual([]);
     expect(validatePhotoEntry({ ...library[0], tags: undefined })).toEqual([]);
+  });
+
+  it('accepts optional venue/date fields and rejects malformed ones', () => {
+    expect(validatePhotoEntry({ ...library[0], venue: 'Inglewood, CA', date: '2023-08-04' })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], venue: '' })).toContain('venue, if present, must be a non-blank string');
+    expect(validatePhotoEntry({ ...library[0], date: 'not-a-date' })).toContain('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
+    expect(validatePhotoEntry({ ...library[0], venue: undefined, date: undefined })).toEqual([]);
   });
 
   it('does not deadlock after all five sources have been used: it selects the least-recently-used credited photo', () => {

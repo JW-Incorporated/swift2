@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
-import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { durableClaimResponse, finishDurableClaim } from './idempotency-durable';
+import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
+import { DIAG_ISSUE_NUMBER, DIAG_REPO, speedCommit, speedRefund } from './diag';
+import { readBodyText } from './body-text';
+import { guardReport, ipThrottled, quotaResponse } from './report-guards';
+import { watchdogClaim } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -22,7 +28,6 @@ export const dynamic = 'force-dynamic';
 
 const MAX_MESSAGE = 5000;
 const MAX_FIELD = 2000;
-
 type Location = {
   eraId?: string;
   eraName?: string;
@@ -33,30 +38,14 @@ type Location = {
   trackGuideEraId?: string | null;
   theoryGuideEraId?: string | null;
   lensId?: string | null;
-  url?: string;
+  url?: string; // legacy clients; reduced to a path server-side
+  path?: string;
   pageTitle?: string;
   viewport?: string;
-  userAgent?: string;
+  platform?: string;
   ts?: string;
 };
 
-// Best-effort per-instance rate limit (serverless instances are ephemeral, so
-// this is bounded per WARM INSTANCE, not globally — an attacker spread across
-// enough cold-started instances still gets more than MAX_PER_WINDOW total.
-// There's no shared KV/Redis/Postgres rate-limit store anywhere in this repo
-// to back it with today (checked), and standing one up is out of scope for
-// this fix — this limitation is real and still open, tracked on #1973.
-//
-// What #1973 actually exploited IS closed here: the IP key comes from
-// trustedClientIp() below (Vercel-set `x-real-ip`, or the edge-appended
-// rightmost `x-forwarded-for` hop), not the client-spoofable leftmost XFF
-// value, so a script can no longer manufacture a fresh bucket per request
-// just by rotating a header.
-const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
-
-function rateLimited(ip: string): boolean {
-  return limiter.isLimited(ip);
-}
 
 // See lib/longlive/client-ip.ts's trustedClientIp for the #1973 rationale
 // (re-exported here so any existing importer of this route's trustedClientIp
@@ -65,6 +54,14 @@ export { trustedClientIp } from '../../../lib/longlive/client-ip';
 
 const clip = (s: unknown, n: number): string =>
   typeof s === 'string' ? s.slice(0, n) : '';
+
+// Public issue tracker: publish the page path only. Query strings and hashes
+// can carry personal values, and older clients still send a full URL.
+const pathOnly = (s: unknown): string => {
+  if (typeof s !== 'string') return '';
+  const rest = s.trim().replace(/^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i, '').split('#')[0]!.split('?')[0]!;
+  return rest ? (rest.startsWith('/') ? rest : `/${rest}`) : '';
+};
 
 // Defang GitHub autolinks in UNTRUSTED user text. This endpoint is public and
 // unauthenticated, and everything a submitter sends (the message AND every
@@ -92,7 +89,10 @@ export function titleFrom(message: string): string {
 export function bodyFrom(message: string, loc: Location): string {
   // Neutralize markdown/backticks in client-supplied free-text by rendering it
   // as a code span (GitHub renders code literally — no autolink, no markdown).
-  const code = (s: string): string => (s ? `\`${s.replace(/`/g, "'")}\`` : '');
+  const code = (s: string): string => {
+    const flat = s.replace(/\s+/g, ' ').replace(/`/g, "'").trim();
+    return flat ? `\`${flat}\`` : '';
+  };
 
   // Wrap multi-line free-text in a fenced code block whose fence is longer
   // than any backtick run already inside it, so the fence can't be broken out
@@ -108,15 +108,15 @@ export function bodyFrom(message: string, loc: Location): string {
 
   const locLines = [
     loc.eraName || loc.eraId
-      ? `- **Era:** ${defangGitHub(clip(loc.eraName, 80)) || ''}${loc.eraId ? ` (\`${clip(loc.eraId, 40)}\`)` : ''}`
+      ? `- **Era:** ${code(clip(loc.eraName, 80))}${loc.eraId ? ` (${code(clip(loc.eraId, 40))})` : ''}`
       : null,
-    loc.mode ? `- **View:** ${defangGitHub(clip(loc.mode, 40))}${loc.view ? ` — ${defangGitHub(clip(loc.view, 120))}` : ''}` : null,
-    loc.openMomentId ? `- **Open moment:** \`${clip(loc.openMomentId, 200)}\`` : null,
-    loc.openTrackKey ? `- **Open track:** \`${clip(loc.openTrackKey, 200)}\`` : null,
-    loc.trackGuideEraId ? `- **Track guide:** \`${clip(loc.trackGuideEraId, 40)}\`` : null,
-    loc.theoryGuideEraId ? `- **Theory guide:** \`${clip(loc.theoryGuideEraId, 40)}\`` : null,
-    loc.lensId ? `- **Thread/lens:** \`${clip(loc.lensId, 40)}\`` : null,
-    loc.url ? `- **URL:** ${code(clip(loc.url, 300))}` : null,
+    loc.mode ? `- **View:** ${code(clip(loc.mode, 40))}${loc.view ? ` — ${code(clip(loc.view, 120))}` : ''}` : null,
+    loc.openMomentId ? `- **Open moment:** ${code(clip(loc.openMomentId, 200))}` : null,
+    loc.openTrackKey ? `- **Open track:** ${code(clip(loc.openTrackKey, 200))}` : null,
+    loc.trackGuideEraId ? `- **Track guide:** ${code(clip(loc.trackGuideEraId, 40))}` : null,
+    loc.theoryGuideEraId ? `- **Theory guide:** ${code(clip(loc.theoryGuideEraId, 40))}` : null,
+    loc.lensId ? `- **Thread/lens:** ${code(clip(loc.lensId, 40))}` : null,
+    loc.path || loc.url ? `- **Path:** ${code(clip(pathOnly(loc.path || loc.url), 300))}` : null,
   ].filter(Boolean);
 
   return [
@@ -137,7 +137,7 @@ export function bodyFrom(message: string, loc: Location): string {
     '**Environment:**',
     `- Page: ${code(clip(loc.pageTitle, 200)) || '—'}`,
     `- Viewport: ${code(clip(loc.viewport, 40)) || '—'}`,
-    `- User agent: ${code(clip(loc.userAgent, 400)) || '—'}`,
+    `- Platform: ${code(clip(loc.platform, 40)) || '—'}`,
     `- Time: ${code(clip(loc.ts, 40)) || new Date().toISOString()}`,
     '',
     '---',
@@ -147,10 +147,17 @@ export function bodyFrom(message: string, loc: Location): string {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { message?: string; location?: Location; hp?: string };
+  let payload: { id?: unknown; message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
+  const bodyText = await readBodyText(req);
+  if (bodyText === null) {
+    return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
+  }
   try {
-    payload = await req.json();
+    payload = JSON.parse(bodyText);
   } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+  }
+  if (typeof payload !== 'object' || payload === null || Array.isArray(payload)) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
@@ -162,13 +169,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
-  const ip = trustedClientIp(req);
-  if (rateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
-      { status: 429 },
-    );
-  }
+  const idemId = parseIdempotencyId(payload.id);
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -194,38 +195,88 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+  }
+
+  const ip = trustedClientIp(req);
+  if (ipThrottled(message, payload, ip)) {
+    return NextResponse.json(
+      { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
+      { status: 429 },
+    );
+  }
+
+  const guarded = await guardReport(payload, message, ip);
+  if ('response' in guarded) return guarded.response;
+  const { diag, diagComment, speedReport, watchdogReport, quotaKind } = guarded;
+
+  if (quotaKind) {
+    const capped = await quotaResponse(quotaKind, ip);
+    if (capped) return capped;
+  }
+
+  // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
+  let postComment = diagComment;
+  if (watchdogReport) {
+    const claimed = await watchdogClaim(watchdogReport, ip, diagComment);
+    if ('stop' in claimed) return claimed.stop;
+    postComment = claimed.comment;
+  }
+
   const location = (payload.location ?? {}) as Location;
   // Clip free-form environment fields defensively before they hit the body.
-  location.userAgent = clip(location.userAgent, MAX_FIELD);
-  location.url = clip(location.url, MAX_FIELD);
+  location.platform = clip(location.platform, MAX_FIELD);
+  location.path = pathOnly(location.path || location.url);
+  delete location.url;
+  delete (location as Record<string, unknown>).userAgent;
 
+  const already = idemId ? await durableClaimResponse(idemId) : null;
+  if (already) return already;
+  if (idemId) markPending(idemId);
+  let filed = false;
+  let issueUrl: string | undefined;
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type': 'application/json',
-        'User-Agent': 'longlive-feedback',
+    const res = await fetch(
+      diag
+        ? `https://api.github.com/repos/${DIAG_REPO}/issues/${DIAG_ISSUE_NUMBER}/comments`
+        : `https://api.github.com/repos/${repo}/issues`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+          'Content-Type': 'application/json',
+          'User-Agent': 'longlive-feedback',
+        },
+        body: JSON.stringify(
+          diag
+            ? { body: postComment }
+            : {
+                title: titleFrom(message),
+                body: bodyFrom(message, location),
+                labels: ['user-feedback', 'feedback'],
+              },
+        ),
       },
-      body: JSON.stringify({
-        title: titleFrom(message),
-        body: bodyFrom(message, location),
-        labels: ['user-feedback', 'feedback'],
-      }),
-    });
+    );
 
     if (!res.ok) {
       const detail = await res.text();
       console.error('feedback: GitHub issue create failed', res.status, detail.slice(0, 300));
+      if (speedReport) speedRefund(speedReport.run);
       return NextResponse.json(
         { error: 'Couldn’t file that right now — please try again later.' },
         { status: 502 },
       );
     }
 
+    filed = true;
+    if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
+    issueUrl = issue.html_url;
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
       { status: 201 },
@@ -233,5 +284,10 @@ export async function POST(req: Request): Promise<Response> {
   } catch (err) {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
+  } finally {
+    if (idemId) {
+      settle(idemId, filed);
+      await finishDurableClaim(idemId, filed, issueUrl);
+    }
   }
 }

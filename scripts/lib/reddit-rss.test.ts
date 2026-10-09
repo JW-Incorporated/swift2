@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-ignore — plain .mjs script, no declaration file
 import {
   fetchSubredditPosts,
+  fetchFeedPosts,
   topPosts,
   postComments,
   parseRedditEmail,
@@ -76,6 +77,7 @@ describe('reddit-rss', () => {
         url: 'https://www.etsy.com/listing/7',
         createdAt: '2026-08-30T00:00:00.000Z',
         rank: 1,
+        author: null,
       },
     ]);
   });
@@ -637,5 +639,35 @@ describe('parseShredditComments', () => {
 
   it('returns an empty array for HTML with no shreddit-comment blocks at all', () => {
     expect(parseShredditComments('<div>nothing here</div>')).toEqual([]);
+  });
+});
+
+describe('fetchFeedPosts', () => {
+  it('parses any feed URL (e.g. site-wide search.rss), backs off on 429 and throws with status otherwise', async () => {
+    const xml = atomFeed([
+      linkPostEntry({
+        id: 'z1',
+        title: 'Taylor thread',
+        permalink: 'https://www.reddit.com/r/Music/comments/z1/t/',
+        createdAt: '2026-10-01T00:00:00+00:00',
+        outboundUrl: 'https://example.com',
+      }),
+    ]);
+    const ok = vi.fn(async () => new Response(xml, { status: 200 }));
+    const res = await fetchFeedPosts('https://www.reddit.com/search.rss?q=taylor', {
+      fetchImpl: ok as never,
+    });
+    expect(res.posts.map((p: { id: string }) => p.id)).toEqual(['z1']);
+    expect(
+      await fetchFeedPosts('u', {
+        fetchImpl: (async () => new Response('', { status: 429 })) as never,
+      }),
+    ).toEqual({ posts: [], status: 429 });
+    await expect(
+      fetchFeedPosts('u', {
+        label: 'search',
+        fetchImpl: (async () => new Response('', { status: 403 })) as never,
+      }),
+    ).rejects.toMatchObject({ status: 403 });
   });
 });
