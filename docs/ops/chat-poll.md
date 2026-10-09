@@ -1,8 +1,10 @@
 # Chat poll — concurrency, stuck runs, and what a cut-short poll leaves behind
 
 `bot-chat-poll.yml` (and `marjorie-reply-poll.yml`, same group `bot-chat-poll`) claims
-founder messages in `#longlive-marjorie` and `#longlive-tree` with 👀 and dispatches the chat
-routines (`scripts/marjorie/chat-poll.mjs`). Mechanics: `docs/specs/marjorie-overhaul/m5-chat.md`,
+founder messages in `#marjorie` and `#longlive-tree` with 👀 and dispatches the chat
+routines (`scripts/marjorie/chat-poll.mjs`). Channels resolve by id, so a Discord rename cannot break the poll: env
+`DISCORD_<BOT>_CHANNEL_ID`, then `BOTS[bot].channelId` (`chat-inbox.mjs`), then a by-name lookup as the last
+fallback (2026-10-09, HA #118). Mechanics: `docs/specs/marjorie-overhaul/m5-chat.md`,
 `m7-doorbell.md`.
 
 ## Why `cancel-in-progress: true` (2026-10-01)
@@ -50,7 +52,7 @@ token every 8 s (each call lasts ~10 s) and reads the run's jobs with `gh run vi
 It stops when `post` (Marjorie) / `deliver` (Tree) starts, when the agent job fails or is cancelled, after 20 minutes,
 or after 5 failed calls in a row. 429 waits `retry_after` (8-60 s).
 
-- Needs the bot to have **Send Messages** in #longlive-marjorie and #longlive-tree. Without it Discord answers
+- Needs the bot to have **Send Messages** in #marjorie and #longlive-tree. Without it Discord answers
   403: the job logs one line (`Discord answered 403 …`), exits 0, and nothing else changes.
 - Never affects delivery: the job is not a dependency of `post`/`deliver`/`finish`, and a failure of it cannot fail the run.
 - Checking it: `gh run view <run-id> --log --job <typing job id>` shows the single exit line (`stopping — post job started`).

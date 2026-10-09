@@ -11,7 +11,7 @@ const REPO_ROOT = path.resolve(__dirname, '../..');
  * Drives the real script with `gh` and `node` replaced by recorders on PATH:
  * `gh` answers the issue-list lookup from a fixture and appends every other
  * invocation to a log, `node` stands in for post-or-mail.mjs and captures the
- * body file it was handed. That body is what #longlive-marjorie actually sees
+ * body file it was handed. That body is what #marjorie actually sees
  * (post-or-mail.mjs posts it verbatim), so it is what these tests assert on.
  */
 function runUpsert(

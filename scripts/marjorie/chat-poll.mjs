@@ -1,7 +1,7 @@
 // Bot chat poll (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
 // A plain script, never an agent step — DISCORD_BOT_TOKEN must never enter an
 // agent context. Invoked only from `run:` steps under `environment: social`:
-//   poll     `bot-chat-poll.yml`. Founder messages in #longlive-marjorie and
+//   poll     `bot-chat-poll.yml`. Founder messages in #marjorie and
 //            #longlive-tree (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
 //            Each is claimed with 👀 BEFORE its chat routine is dispatched.
@@ -42,8 +42,8 @@ const PARENT_FETCH_CAP = 5;
  * Channel ids by name within the guild. The guild comes from the Tree
  * webhook (a webhook GET needs no auth and names its guild and channel —
  * the lookup `social-approval-poll.mjs` already relies on); the Marjorie
- * webhook lives only in `ops`, so her channel is found by name. Env
- * overrides exist for pinning ids later. Never log the webhook URL.
+ * webhook lives only in `ops`, so her channel is found by id. Order: env
+ * var, then BOTS[bot].channelId, then a by-name lookup as the last fallback. Never log the webhook URL.
  */
 export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
   let guildId = env.DISCORD_GUILD_ID || null;
@@ -58,7 +58,8 @@ export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
       console.log(`::warning::chat-poll: Tree webhook lookup -> HTTP ${res.status}`);
     }
   }
-  const ids = { marjorie: env[BOTS.marjorie.channelEnv] || null, tree: env[BOTS.tree.channelEnv] || null };
+  const pinned = (bot) => env[BOTS[bot].channelEnv] || BOTS[bot].channelId || null;
+  const ids = { marjorie: pinned('marjorie'), tree: pinned('tree') };
   if (guildId && (!ids.marjorie || !ids.tree)) {
     const r = await discordRequest('GET', `${DISCORD_API}/guilds/${guildId}/channels`, token, { fetchImpl, sleepImpl });
     const byName = (name) => (r.ok && Array.isArray(r.data) ? r.data.find((c) => c.name === name)?.id : null) || null;
@@ -230,7 +231,7 @@ export async function poll({
     const channelId = ids[bot];
     if (!channelId) {
       failures += 1;
-      console.log(`::error::chat-poll: #${cfg.channelName} not found in the guild — ${bot} skipped`);
+      console.log(`::error::chat-poll: #${cfg.channelName} not found in the guild (${bot}, tried ${cfg.channelEnv}/channelId ${cfg.channelId || 'none'}, then name) — ${bot} skipped`);
       continue;
     }
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
