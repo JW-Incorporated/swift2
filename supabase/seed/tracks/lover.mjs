@@ -292,10 +292,19 @@ const ERA = {
       summary:
         'If she partied, dated, and hustled identically as a man, the same behavior would read as legend, not liability. The self-directed video (with a Dwayne Johnson voice cameo) made the argument literal.',
       inspiration:
-        'Swift confirmed the premise directly in interviews: an inventory of the gendered coverage she had absorbed for a decade, itemized.',
+        'Taylor told Vogue she had long wondered how she would be written about if she were a man, and wrote the song as a thought experiment: the same choices, mistakes and accomplishments, read differently.',
       themes: ['sexist double standards', 'ambition', 'perception'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.vogue.com/article/taylor-swift-cover-september-2019',
+          source_title: 'Taylor Swift on Sexism, Scrutiny, and Standing Up for Herself',
+          publisher: 'Vogue',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor Swift\'s September 2019 cover story: describes writing "The Man" as a thought experiment, and the Equality Act petition and "You Need to Calm Down" video',
+        },
         wiki(
           'The Man (Taylor Swift song)',
           'The_Man_(Taylor_Swift_song)',
@@ -435,7 +444,18 @@ const ERA = {
       inspiration: null,
       themes: ['mutual attraction', 'confidence', 'flirtation'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
-      sources: [ALBUM],
+      sources: [
+    {
+      source_url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
+      source_title: 'Taylor Swift Calls Rom-Com Inspiration Behind ‘Lover’ Song the ‘Most Meta Thing That’s Ever Happened to Me’',
+      publisher: 'Billboard',
+      source_type: 'reputable_press',
+      accessed_at: '2026-10-09',
+      reliability_score: 4,
+      notes: 'Taylor revealed the Netflix film Someone Great inspired the song; the film\'s writer-director said it drew on 1989',
+    },
+        ALBUM,
+      ],
       dossier: {
         whyItMatters: [
           "A Jack Antonoff-produced funk-pop strut and fan-favorite Lover deep cut, built on what Swift called 'quiet confidence' — a partner sure of himself without arrogance. Its 'Sixteenth Avenue' line is a confirmed nod to Nashville, giving a flirty groove a hometown-songwriting anchor.",
@@ -509,14 +529,23 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little'],
       producers: ['Taylor Swift', 'Joel Little'],
-      note: 'High-school Americana as national allegory — the homecoming-queen imagery is confirmed political disillusionment in a letterman jacket.',
+      note: 'High-school Americana as national allegory — the homecoming-queen imagery reads as political disillusionment in a letterman jacket.',
       summary:
-        'A dance at a school where the scoreboard is rigged: Swift confirmed the marching-band metaphor is about watching American politics curdle post-2016 and deciding to speak anyway.',
+        'A dance at a school where the scoreboard is rigged: Taylor told Rolling Stone she wrote it a couple of months after the midterm elections, using a traditional American high school as the metaphorical place for politics.',
       inspiration:
-        'Confirmed: Swift said it channels her disillusionment with U.S. politics through a high-school lens — written around the period covered by the Miss Americana documentary.',
+        'Taylor told Rolling Stone she picked a high school, full of social events that can leave someone feeling alienated, as the stand-in for politics — written around the period covered by the Miss Americana documentary.',
       themes: ['political awakening', 'disillusionment', 'american pageantry'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Miss_Americana_%26_the_Heartbreak_Prince',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          source_title: 'Taylor Swift: The Rolling Stone Interview',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor on writing "Miss Americana & the Heartbreak Prince" after the midterm elections, and on "Daylight" nearly being the title track',
+        },
         wiki(
           'Miss Americana & the Heartbreak Prince',
           'Miss_Americana_%26_the_Heartbreak_Prince',
@@ -709,7 +738,7 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'Taylor said the song was inspired by the Netflix romantic comedy Someone Great, whose director says the film was itself shaped by Swift’s 1989 — a loop Taylor called "the most meta thing that’s ever happened to me."',
       summary:
-        'A breakup song written from the dynamics of fictional characters. Swift said the film Someone Great sparked it, and the film’s writer-director has said she drew on Swift’s own catalog, making it a documented inspiration boomerang.',
+        'A breakup song written from the dynamics of fictional characters. Taylor said the film Someone Great sparked it, and the film’s writer-director has said she drew on Taylor’s own catalog, making it a documented inspiration boomerang.',
       inspiration:
         'Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly.',
       themes: ['imagined grief', 'art feeding art', 'a city full of reminders'],
@@ -917,12 +946,21 @@ const ERA = {
       summary:
         'Three verses of de-escalation: internet haters, anti-LGBTQ protesters, and women pitted against each other all get the same advice. The celebrity-packed video closed with a documented policy ask.',
       inspiration:
-        'Confirmed advocacy: released during Pride 2019 with an Equality Act petition, alongside a celebrity-packed video.',
+        'Advocacy tie-in: released during Pride 2019, after she introduced an Equality Act petition on June 1, alongside a celebrity-packed video.',
       themes: ['allyship', 'anti-harassment', 'solidarity'],
       easterEggs:
         'The video is packed with celebrity cameos that fans itemized frame by frame.',
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down',
       sources: [
+        {
+          source_url: 'https://www.vogue.com/article/taylor-swift-cover-september-2019',
+          source_title: 'Taylor Swift on Sexism, Scrutiny, and Standing Up for Herself',
+          publisher: 'Vogue',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor Swift\'s September 2019 cover story: the June 1 Equality Act petition and the "You Need to Calm Down" video',
+        },
         wiki('You Need to Calm Down', 'You_Need_to_Calm_Down', 'song article: advocacy and video'),
         ALBUM,
       ],
@@ -1118,12 +1156,30 @@ const ERA = {
       summary:
         'The era-closing thesis: real love is not golden drama or red intensity but ordinary daylight. Ends with a spoken vow to be defined by what she loves, not what she hates — the line the whole album walks toward.',
       inspiration:
-        'Confirmed: Swift said Daylight was a candidate album title before Lover won; the closing monologue was written as the record’s mission statement.',
+        'Taylor told Rolling Stone that Daylight almost became the title track and that she had referred to the album as Daylight for a while before choosing Lover; she has described the song as a response to the reputation era, which she likened to a very long night of storms.',
       themes: ['revised definitions of love', 'peace', 'self-definition'],
       easterEggs:
         'The burning-red correction is a direct, deliberate callback to the Red title track — her catalog editing itself in real time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Daylight_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          source_title: 'Taylor Swift: The Rolling Stone Interview',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor on "Daylight" nearly being the title track and having referred to the album as Daylight for a while',
+        },
+        {
+          source_url: 'https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/',
+          source_title: 'Taylor Swift Shares Intimate Details of \'Lover\' Songs During Secret Session',
+          publisher: 'iHeart',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Taylor\'s Lover Secret Session remarks, including that she wrote "Daylight" after the long night of the reputation era',
+        },
         wiki(
           'Daylight (Taylor Swift song)',
           'Daylight_(Taylor_Swift_song)',
