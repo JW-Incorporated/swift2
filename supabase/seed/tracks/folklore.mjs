@@ -1121,7 +1121,7 @@ const TRACKS = [
       dossier: {
         whyItMatters: [
           "The bonus track on folklore's deluxe edition, and a song about wanting to step out of public life. In the Long Pond Studio Sessions film, as Billboard reported it, Swift said a trip to England's Lake District crystallized the idea: 19th-century poets such as William Wordsworth and John Keats spent a lot of time there and were made fun of as eccentrics, and when she visited she thought she could see herself doing the same, in a cottage with wisteria growing up the side.",
-          "Jack Antonoff co-wrote and co-produced it with Swift. He told Billboard it first existed as a 'big orchestral version' until Swift said to 'make it small'; he took everything out and, alone in the studio, thought it was perfect. On the album's first anniversary, July 24, 2021, Swift released that original version as a thank-you to fans."
+          "Jack Antonoff co-wrote and co-produced it with Swift. He told Billboard it first existed as a 'big orchestral version' until Swift said to 'make it small'; he took everything out and, alone in the studio, thought it was perfect. On the album's first anniversary, July 24, 2021, Swift released the original orchestral version as a thank-you to fans."
         ],
         meaning: {
           confirmed: [
