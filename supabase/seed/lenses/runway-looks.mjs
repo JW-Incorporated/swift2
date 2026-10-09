@@ -31,7 +31,7 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/74685453/photo/taylor-swift-accepts-breathrough-video-of-the-year-award-for-tim-mcgraw-at-the-the-curb-event.jpg?s=612x612&w=0&k=20&c=OXeqcfP0Cw1pyRw7pyQvqnnVwE6Tz-7uB4gLLHhUbDU=', credit: 'Kevin Mazur/WireImage', caption: 'Accepting the Breakthrough Video of the Year award for "Tim McGraw," 2007 CMT Music Awards.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/77768817/photo/nashville-tn-singer-taylor-swift-arrives-at-the-41st-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=DHSYR2P-690lCn_YY6YDBibMaj2eXClOHL02I1xLbQE=', credit: 'Bryan Bedder/Getty Images', caption: 'The 2007 CMA Awards, the night she won the Horizon Award for Best New Artist.', kind: 'primary' },
     ],
-    shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar'],
+    shopTags: ['Black gown with gloves', 'Sequin strapless dress', 'Gold satin gown'],
     sources: [
       { title: 'E! Online: Taylor Swift\'s Evolving CMA Awards Style Over the Years', url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years' },
       { title: 'Billboard: Taylor Swift\'s Style Evolution, From 2006 to Now', url: 'https://www.billboard.com/photos/taylor-swift-style-evolution-photos-429884/' },
@@ -86,7 +86,7 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/92993789/photo/nashville-tn-musician-taylor-swift-attends-the-43rd-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=KIGRyZPxBgSgnbtm12oyKoTLquqmZxGh8av7sZmCKio=', credit: 'Frederick Breedon/Getty Images', caption: '43rd Annual CMA Awards, November 2009, the night she won Entertainer of the Year.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/96320463/photo/los-angeles-ca-taylor-swift-accepts-award-at-the-52nd-annual-grammy-awards-held-at-staples.jpg?s=612x612&w=0&k=20&c=OYR0-P-tyCyeRV1MIuieQDkUbXUiw5f_u9Y_uGnC0PU=', credit: 'Kevin Mazur/WireImage', caption: 'The 52nd Grammys, January 2010 — the ceremony where Fearless won Album of the Year.', kind: 'primary' },
     ],
-    shopTags: ['Gold sequins', 'Fringe dress'],
+    shopTags: ['Crimson brocade gown', 'Gold sequin gown', 'Blue sequin gown'],
     sources: [
       { title: 'Wikipedia: Fearless Tour', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
       { title: 'E! Online: Taylor Swift\'s Evolving CMA Awards Style Over the Years', url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years' },
@@ -445,12 +445,12 @@ export const RUNWAY_LOOKS = [
     // Source: The Tortured Poets Department (2024) rollout and Eras Tour
     // set addition used black-and-white, literary-coded styling —
     // documented in the album's own visual campaign and tour costuming.
-    description: 'At the 66th Grammys in February 2024, where she announced The Tortured Poets Department, Swift wore a sculptural white Schiaparelli Haute Couture corset dress with a choker necklace that doubled as a watch. At the September 2024 VMAs she arrived in tartan Dior, then changed into a sequined Monse minidress with UFO embroidery and accepted Video of the Year for "Fortnight" in it.',
+    description: 'At the 66th Grammys in February 2024, where she announced The Tortured Poets Department, Swift wore a sculptural white Schiaparelli Haute Couture corset dress with a choker necklace that doubled as a watch. At the September 2024 VMAs she accepted Video of the Year for "Fortnight" in a sequined Monse minidress with UFO embroidery.',
     images: [
       { url: 'https://media.gettyimages.com/id/1986749514/photo/los-angeles-california-taylor-swift-accepts-the-album-of-the-year-award-for-midnights-during.jpg?s=612x612&w=0&k=20&c=cd2UuP1Rc0TscH2iOlfpaleSHExede-2EvAlQLgEIcY=', credit: 'John Shearer/Getty Images for The Recording Academy', caption: '66th Grammys, February 2024 — the same speech in which she announced The Tortured Poets Department.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/2171433177/photo/elmont-new-york-taylor-swift-accepts-the-the-video-of-the-year-award-for-fortnight-on-stage.jpg?s=612x612&w=0&k=20&c=AhJY-K0dfJtC0fOMvCbeqMMMmegetx3-cyeCsKx9kiw=', credit: 'Noam Galai/Getty Images for MTV', caption: '2024 MTV VMAs, September 11, 2024 — accepting Video of the Year for "Fortnight" in a sequined Monse minidress.', kind: 'primary' },
     ],
-    shopTags: ['White dress', 'Black tailoring'],
+    shopTags: ['White corset gown', 'Choker necklace', 'Sequin minidress'],
     sources: [
       { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
       { title: 'Marie Claire: Taylor Swift Shuts Down the 2024 VMAs Red Carpet in a Tartan Dior Corset and Cape', url: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/' },
@@ -467,7 +467,7 @@ export const RUNWAY_LOOKS = [
       { url: 'https://media.gettyimages.com/id/2239236278/photo/the-tonight-show-starring-jimmy-fallon-episode-2195-pictured-singer-songwriter-taylor-swift.jpg?s=612x612&w=0&k=20&c=dOxOXlE5sjOvB8Ynyh64KVBhylu4nKs0sXjlNFgDjjI=', credit: 'Todd Owyoung/NBC via Getty Images', caption: 'The Tonight Show Starring Jimmy Fallon, October 2025 — three days after Showgirl\'s release.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/2239450762/photo/late-night-with-seth-meyers-episode-1713-pictured-singer-taylor-swift-during-an-interview.jpg?s=612x612&w=0&k=20&c=P7WGBkVpsIdHMdBALdvVxnpM29UTRCj3nofWKqXc2SY=', credit: 'Lloyd Bishop/NBC via Getty Images', caption: 'Late Night with Seth Meyers, October 2025 — another stop on the same TV-first Showgirl press run.', kind: 'primary' },
     ],
-    shopTags: ['Orange sequins', 'Rhinestone bra', 'Feather headpiece'],
+    shopTags: ['Crystal bodysuit', 'Crystal minidress', 'Floral brocade minidress'],
     sources: [
       { title: 'Marie Claire: Taylor Swift\'s \'The Life of a Showgirl\' Style Asks, "Are You Not Entertained?"', url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/' },
       { title: 'Hyperallergic: Did This 19th-Century Painting Inspire Taylor Swift\'s New Album Art?', url: 'https://hyperallergic.com/did-19th-century-ophelia-painting-inspire-taylor-swift-new-showgirl-album-art/' },
