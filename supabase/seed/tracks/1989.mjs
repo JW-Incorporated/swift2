@@ -995,11 +995,11 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived — inspired by watching Jack and Lena Dunham at home.',
+      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived.',
       summary:
         'A definition of real love assembled from small, unglamorous proofs — burnt toast on a Sunday, a word whispered mid-dance — narrated by someone standing just outside it.',
       inspiration:
-        'Swift confirmed she wrote it after observing Antonoff’s relationship with then-partner Lena Dunham — the ordinary intimacy she had not yet had.',
+        'A song about the ordinary intimacy of a love observed from the outside.',
       themes: ['quiet love', 'witnessing intimacy', 'yearning for the ordinary'],
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Are_in_Love',
       sources: [wiki('You Are in Love', 'You_Are_in_Love', 'song article: inspiration'), ALBUM],
@@ -1022,7 +1022,7 @@ export default {
           {
             date: "March 14, 2024",
             event: "The Eras Tour (Taylor's Version) on Disney+",
-            note: "Swift confirmed it on Good Morning America as the third of four added acoustic songs. Billboard shared a clip of the SoFi performance, sitting at the flower-painted piano as fans waved light-up bracelets."
+            note: "Swift confirmed it on Good Morning America as the third of four added acoustic songs. Swift shared a sneak-peek clip of the SoFi performance, sitting at the flower-painted piano as fans waved light-up bracelets."
           }
         ],
         sources: [
@@ -1095,7 +1095,7 @@ export default {
         meaning: {
           supported: [
             "Rolling Stone's review called it a hazy, shimmering ode to being unabashedly in love, even if you are shamed and sexualized for it, and noted it was written when the word was far more common than it is now. That is the reviewer's reading.",
-            "The Guardian's reviewer heard something different in the same song: a shimmering tale of inappropriate sexual adventure, with Swift channeling a moonlit ingenue. The two outlets read its tone differently; these are reviewers' readings."
+            "The Guardian's reviewer heard something different in the same song: a shimmering tale of inappropriate sexual adventure, as Swift channels Lana Del Rey cosplaying a moonlit ingenue. The two outlets read its tone differently; these are reviewers' readings."
           ]
         },
         sources: [

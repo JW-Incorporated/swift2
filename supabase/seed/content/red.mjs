@@ -2755,7 +2755,7 @@ export default {
       category: 'music',
       title: 'Ronan, a charity single built from a grieving mother\'s blog',
       snippet:
-        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
+        'Written from Maya Thompson\'s blog posts about her late son Ronan — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',

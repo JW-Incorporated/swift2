@@ -458,7 +458,7 @@ const TRACKS = [
             "In a Billboard Q&A published March 26, 2008, while Fearless was still being made, Swift said she had recorded six songs, 'including one that I wrote with Colbie Caillat, that she's going to throw some harmonies on, which I can't even wait to hear.' She did not name the song in that answer; Rolling Stone's later reporting identifies Caillat as co-writer and guest on 'Breathe.'"
           ],
           supported: [
-            "Rolling Stone's making-of feature quotes engineer Justin Niebank on why 'Bubbly' mattered to the sessions: a certain honesty and commitment to keeping the arrangements simple, an 'honest person sitting in a room surrounded by musicians.' That is a collaborator's account of the album's sound, not a statement about this song's subject."
+            "Rolling Stone's making-of feature quotes mixer Justin Niebank on why 'Bubbly' mattered to the sessions: a certain honesty and commitment to keeping the arrangements simple, an 'honest person sitting in a room surrounded by musicians.' That is a collaborator's account of the album's sound, not a statement about this song's subject."
           ]
         },
         live: [

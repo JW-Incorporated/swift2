@@ -1118,7 +1118,7 @@ const TRACKS = [
       singleReleaseDate: '2012-09-08',
       note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to cancer research.',
       summary:
-        'A eulogy for Ronan Thompson, who died of neuroblastoma just before turning four, written in his mother’s words and voice — Swift performing it once at Stand Up to Cancer remains one of her heaviest moments.',
+        'A eulogy for Ronan Thompson, written in his mother’s words and voice — one of Swift’s heaviest songs.',
       inspiration:
         'Confirmed: composed from phrases in Maya Thompson’s blog about her son; Thompson is credited as co-writer and approved its Red TV inclusion.',
       themes: ['grief', 'a mother’s love', 'memorial'],
@@ -1137,7 +1137,7 @@ const TRACKS = [
             "Billboard's critic's essay reports that at an Arizona stop on the 1989 World Tour, with the song's co-writer in the audience, Swift introduced it by saying that since she became a fan of the blog behind it, 'cancer has hit really close to me and my family.' She warned fans she might not be able to get through it. The essay says the song rarely drew public comment from her."
           ],
           supported: [
-            "Rolling Stone and Billboard both report the song was built from the blog 'Rockstar Ronan,' written by Maya Thompson about her young son's fatal fight with neuroblastoma, and that Thompson is credited as co-writer. Billboard says it is written from the mother's perspective.",
+            "Rolling Stone and Billboard report the song was built from Maya Thompson's blog about her young son, Ronan (Billboard names it 'Rockstar Ronan'), and that Thompson is credited as co-writer. Billboard says it is written from the mother's perspective.",
             "Billboard's 2021 lyric-video report says that, according to one of Thompson's blog posts, Swift asked her permission to include the song on Red (Taylor's Version). That is Billboard relaying Thompson's account; Swift's own statement is not quoted."
           ]
         },

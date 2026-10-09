@@ -384,11 +384,11 @@ const _debut = {
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
-      note: 'A daydream about a boy named Cory — admiring from a distance and wishing him well whether or not the story ever starts.',
+      note: 'A daydream about a boy she admired from afar — admiring from a distance and wishing him well whether or not the story ever starts.',
       summary:
         'Affection without possession: she catalogs what makes a boy shine and leaves the door open rather than forcing an ending.',
       inspiration:
-        'Swift said in early album commentary it was written about a boy named Cory she admired mostly from afar.',
+        'Swift said in early album commentary it was written about a boy she admired mostly from afar.',
       themes: ['crushes', 'admiration', 'open endings'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
