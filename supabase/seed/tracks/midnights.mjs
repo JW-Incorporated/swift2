@@ -244,12 +244,21 @@ const ERA = {
       summary:
         'Insecurity given a monster-movie budget: sleepless self-loathing, a daydreamed daughter-in-law murder trial, and the it-is-me chorus that became a global catchphrase within days.',
       inspiration:
-        'Confirmed: Swift introduced it in an Instagram video as her most honest inventory of her own flaws and anxieties.',
+        'Taylor introduced it in a confessional Instagram video as one of her favorite songs she has written, saying she had not delved this far into her insecurities before.',
       themes: ['self-loathing', 'anxiety at 3 a.m.', 'being your own problem'],
       easterEggs:
         'The all-top-ten Hot 100 week (a chart first) is the era stat every future record gets measured against.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
       sources: [
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-midnights-everything-we-know/',
+          source_title: 'Everything We Know About Taylor Swift’s ‘Midnights’ So Far',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Taylor introduced the track in a confessional Instagram video about her insecurities',
+        },
         wiki(
           'Anti-Hero (song)',
           'Anti-Hero_(song)',
@@ -1065,10 +1074,19 @@ const ERA = {
       summary:
         'Industry wolves demand more all day; at home someone wants only her company and a poem from a trip. Its tenderness reads differently since 2023, and fans handle it accordingly.',
       inspiration:
-        'Co-written with Joe Alwyn under the confirmed Bowery pseudonym — the pair’s final released collaboration before their documented 2023 split.',
+        'Co-written with Joe Alwyn under the Bowery pseudonym — the pair’s final released collaboration before their documented 2023 split.',
       themes: ['domestic refuge', 'wanting nothing', 'small love versus big world'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Sweet_Nothing_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/joe-alwyn-wrote-song-on-taylor-swift-midnights-album-1234613601/',
+          source_title: 'See Which ‘Midnights’ Song Joe Alwyn Is Listed as a Co-Writer on With Taylor Swift',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Midnights credits list William Bowery (Alwyn\'s pen name) as sole co-writer of "Sweet Nothing"',
+        },
         wiki(
           'Sweet Nothing (Taylor Swift song)',
           'Sweet_Nothing_(Taylor_Swift_song)',

@@ -40,7 +40,7 @@ const TRACKS = [
     summary:
       'A girl who has learned to expect goodbye imagines, verse by verse, what staying could look like.',
     inspiration:
-      'Swift said it is about her tendency to flee relationships to avoid being left, written about a crush who never knew.',
+      'Often read as a song about her tendency to flee relationships to avoid being left, with the crush behind it unnamed.',
     themes: ['fear of abandonment', 'hope against pattern', 'building a life'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)',
     sources: [
@@ -170,7 +170,7 @@ const TRACKS = [
     summary:
       'An apology delivered out loud to someone who deserved better: she replays the December she gave back his love and owns the damage.',
     inspiration:
-      'Taylor confirmed it is an apology to someone she hurt; she has not named the person.',
+      'Often read as an apology to someone she hurt; the person is not named in the song.',
     themes: ['remorse', 'accountability', 'roads not taken'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
     sources: [
@@ -371,7 +371,7 @@ const TRACKS = [
     summary:
       'Aimed at a bully with a platform: someday she will be big enough that the cheap shots cannot reach, and he will still be mean.',
     inspiration:
-      'Taylor confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; she did not name him publicly. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
+      'Often read as being about a critic who savaged her after a rough 2010 Grammys vocal; the song does not name him. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
     themes: ['bullying', 'resilience', 'success as the answer'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
     sources: [
@@ -438,7 +438,7 @@ const TRACKS = [
     summary:
       'A love story that stalled mid-chapter: two people in the same room performing indifference, narrated by the one who hates the silence most.',
     inspiration:
-      'Swift confirmed it was sparked by running into an ex at an awards show and the absurd theater of mutual avoidance.',
+      'Often read as sparked by running into an ex at an awards show and the absurd theater of mutual avoidance.',
     themes: ['awkward encounters', 'pride', 'unfinished stories'],
     sourceUrl: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)',
     sources: [
@@ -568,7 +568,7 @@ const TRACKS = [
     summary:
       'The afterglow of meeting someone wonderstruck-level interesting, and the spiraling hope that he is not going home to somebody else.',
     inspiration:
-      'Taylor confirmed it was written after a first meeting that left her wonderstruck, and her Wonderstruck fragrance took its name from the lyric.',
+      'Often read as written after a first meeting that left her wonderstruck, and her Wonderstruck fragrance took its name from the lyric.',
     themes: ['first meetings', 'infatuation', 'what-ifs'],
     easterEggs:
       'The name of her Wonderstruck perfume line is a direct lift from this song’s vocabulary — an early lyric-to-brand Easter egg.',
@@ -924,7 +924,7 @@ const TRACKS = [
     summary:
       'A toast to everyone who built the improbable early run with her: if it all ends tomorrow, remember how it felt to hold the crown together.',
     inspiration:
-      'Swift confirmed it was written for her band, crew, and fans as a snapshot of the Fearless-era triumphs.',
+      'Read as a thank-you to her band, crew, and fans, a snapshot of the Fearless-era triumphs.',
     themes: ['gratitude', 'shared victory', 'legacy'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)',
     sources: [
