@@ -198,10 +198,13 @@ duplicate the report.
    posts, ever" with the founder's ✅ in front).** Tree writes drafts into
    `social/queue/` on a `tree/draft/*` PR, then dispatches
    `social-tree-approve.yml` with the PR number. That main-only workflow
-   refuses under `SOCIAL_FREEZE`, allows only `social/queue/*.json` and
-   `apps/web/public/social/**` changes, runs the trusted `check-drafts`, mints
-   a signed v4 `tree-auto` stamp and merges. `social-poster.yml` (clock-
-   dispatched, never by an agent) posts it. Tree never calls a platform API,
+   requires the dispatcher and the PR author (and every commit author) to be a
+   committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a
+   `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus
+   referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the trusted
+   `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the
+   stamp if a run fails). `social-poster.yml` (clock-dispatched, never by an
+   agent) posts it. During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required. Tree never calls a platform API,
    never runs `post-queue.mjs`, never dispatches `social-poster.yml`, never
    holds platform credentials, never writes `social/posted/` or
    `social/failed/`, and never merges a PR by any other route. Caps unchanged:
@@ -408,9 +411,9 @@ touching `social/queue/` never auto-merges, even when it ALSO touches
 `social/inbox/` or `social/calendar.md` in the same fast-lane-displacement
 change — `auto-merge-content.yml` declines it. **Since 2026-10-09 Tree clears
 it by dispatching `social-tree-approve.yml`** with the PR number (no founder
-✅, no Discord approval prompt): the workflow refuses under `SOCIAL_FREEZE`,
-allows only `social/queue/*.json` + `apps/web/public/social/**`, runs the
-trusted `check-drafts`, mints a signed v4 `tree-auto` stamp and merges.
+✅ required; During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required.): the workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead,
+allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the
+trusted `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails).
 **Merging a queue-touching PR by hand does NOT approve it, it strands the
 draft unsigned** (invariant 1; docs/social/RULINGS-SOCIAL-2.md B1 still
 governs the stamp itself). Anything else in the diff means Tree did something
@@ -586,9 +589,8 @@ for IG/X; the PR carrying this amendment cites it.
 - **IG and X ship on Tree's own call, no ✅.** Tree drafts to `social/queue/`
   on a `tree/draft/*` PR, then dispatches
   `.github/workflows/social-tree-approve.yml` with the PR number. That
-  main-only workflow refuses under `SOCIAL_FREEZE`, allows only
-  `social/queue/*.json` + `apps/web/public/social/**` changes, runs trusted
-  `check-drafts`, mints a signed v4 `tree-auto` stamp and merges.
+  main-only workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs trusted
+  `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails).
   `social-poster.yml` (clock-dispatched, never by agents) posts it. Caps
   unchanged: 1 post per run, 1 per platform per day, 48h staleness;
   `SOCIAL_FREEZE` is the kill switch.

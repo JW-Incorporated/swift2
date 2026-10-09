@@ -550,7 +550,7 @@ the code is what actually ships and this file is the bug.
    staging failure. This stays inside the fast lane's existing auto-posting
    flow: the lane still ships with **no human review step of its own** (Joey's
    ruling, same task — the lane does not become review-first/draft-only; the
-   owner's ✅ on the approval post gates it like every post), the gate
+   draft is cleared by `social-tree-approve.yml` like every post), the gate
    is just now a real content check instead of a shape check. Every other
    sourcing path (Content Shift, Growth, Tree — the slower, already-judged
    lanes) is unaffected; a human already looks at those before they land.

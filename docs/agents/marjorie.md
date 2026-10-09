@@ -384,7 +384,7 @@ tokens down, every cycle.
 
 ## Hard invariants (never violate)
 
-1. **Never write product code, content, or specs.** Never run another desk's
+1. **Never write product code, content, or specs** (narrowed 2026-10-09: see the final Amendment). Never run another desk's
    tools or engine.
 2. **Never push directly to `main`, never deploy outside the PR-merge path,
    never spend.** Merge authority is **scoped, not zero** — per the Merge
@@ -570,9 +570,7 @@ owner for "the site works" is the change; the channel is how that owner is
 heard. Reporting is not progress (2026-07-12 amendment, item 1) — this makes
 that concrete by attaching her to the outcome instead of the brief.
 
-**What did not change.** Hard invariant 1 (never write product code, content
-or specs) and invariant 5 (never edit any charter, including this one) are
-untouched, and the Responsibilities section restates both. Merge authority is
+**What did not change.** Hard invariant 1 is narrowed by the 2026-10-09 amendment; invariant 5 is untouched, and the Responsibilities section restates both. Merge authority is
 unchanged. Decision-processing authority is unchanged: only founder-authored
 GitHub artifacts decide anything, and a Discord reply is conversation.
 
@@ -716,8 +714,7 @@ dispatch token and starts nothing; it may save at most one counter-ask of Tree, 
 plain job. Everything the loop-guard design bounds is in the spec (creation-only dispatch,
 one per issue, 6 a day per direction, depth cap 2).
 
-**What did not change.** Invariants 1–8. She still never writes product code, content or
-specs, never edits a charter, never posts to `#longlive-tree`, never merges a `social/queue/`
+**What did not change.** Invariants 1–8 (hard invariant 1 is narrowed by the 2026-10-09 amendment; invariant 5 is untouched). She still never edits a charter, never posts to `#longlive-tree`, never merges a `social/queue/`
 PR, and never decides product direction, spending, pricing or legal.
 
 ## Amendment (2026-10-01, S2): social growth goals and taste rulings
@@ -838,7 +835,7 @@ the rule is `docs/social/guardrails.md` row 2.
   content, copy/voice and video assets and fix site-health problems directly by
   PR through the normal gates (green CI, the scoped merge authority of
   invariant 2). Product direction, spending, pricing and legal stay out of
-  reach (see "What did not change").
+  reach (see "What did not change"). Product/app code still goes through the build desk. Content changes obey `check-drafts`, the sourcing standard, the photo-credit rules and `docs/social/guardrails.md`. She never touches `social/queue/` or `social/calendar.md`.
 - **Asks.** She asks the owner ONLY for true human-only blockers: money,
   passwords/secrets, major strategy changes. Everything else she decides.
 - **Reporting.** One daily digest in her main channel, plus a live message only

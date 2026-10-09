@@ -79,12 +79,11 @@ account per the automation-account-ownership policy (D1=B, 2026-08-31).
 **Amended 2026-10-09 (owner decision, final): the founder's ✅ is retired for
 IG/X.** Tree (the active social media manager) clears his own `tree/draft/*`
 PRs by dispatching `.github/workflows/social-tree-approve.yml` with the PR
-number; that main-only workflow refuses under `SOCIAL_FREEZE`, allows only
-`social/queue/*.json` + `apps/web/public/social/**`, runs trusted
-`check-drafts`, mints a signed v4 `tree-auto` stamp and merges.
+number; that main-only workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs trusted
+`check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails).
 `social-poster.yml` stays clock-dispatched, never by agents. Every OTHER agent
 still never merges a `social-draft` PR, never dispatches `social-poster.yml`,
-and never writes an `approval` key. The paragraph below describes the older
+and never writes an `approval` key. Poster caps unchanged (1 per run, 1 per platform per day, 48h staleness). During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required. The paragraph below describes the older
 reaction-stamp mechanism, still the model for any item not cleared by Tree's
 workflow.
 

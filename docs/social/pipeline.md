@@ -24,10 +24,9 @@ in `social/README.md`. Agents can engage the freeze themselves
 in `docs/ops/switch-ledger.md`); the wrapper refuses any other value, so only
 the founder lifts it (founder decision 2026-10-06). As of 2026-10-09 (owner decision), reaching `social/queue/` on `main`
 for IG/X goes through `social-tree-approve.yml`, which Tree dispatches with
-his draft PR number (it refuses under `SOCIAL_FREEZE`, allows only
-`social/queue/*.json` + `apps/web/public/social/**`, runs the trusted
-`check-drafts`, mints a signed v4 `tree-auto` stamp and merges; before that
-date it required a founder's ✅ reaction). `social-poster.yml` stays
+his draft PR number (it requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the trusted
+`check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails); before that
+date it required a founder's ✅ reaction, which now remains only as a transition fallback). `social-poster.yml` stays
 clock-dispatched and is never dispatched by an agent. From there,
 `isDue` still just checks `scheduledAt`, so an approved item posts when its
 `scheduledAt` arrives with no further per-item check. `approvedBy`/
@@ -49,9 +48,9 @@ visibility problem now, not a duplicate-post risk. `social-poster.yml`'s
 own header comment is the fullest account of the mechanics.
 
 **What this still means for the drafting run.** Since 2026-10-09 (owner decision)
-no founder reads IG/X captions before they ship: Tree clears his own drafts
-through `social-tree-approve.yml` (the 2026-09-10 per-post ✅ gate is retired
-for IG/X), so the desk's own judgment is the only editorial gate. The
+no founder read of IG/X captions is required before they ship: Tree clears his own drafts
+through `social-tree-approve.yml` (the 2026-09-10 per-post ✅ gate is no longer required
+for IG/X; During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required.), so the desk's own judgment is the only editorial gate. The
 #36/Clownbot blocklist, the sourcing standard, and the "never invent a stat,
 quote, or trend" rule are still things only the desk reliably catches; don't
 draft assuming anyone will fact-check for you. Draft accordingly.
