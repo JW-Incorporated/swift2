@@ -487,3 +487,70 @@ describe('ghApiSoft — a credential failure is never "this metric is unavailabl
     }
   });
 });
+
+describe('gh() — REST fallback when the CLI is present but errors (#4119)', () => {
+  const saved = { ...process.env };
+  const cliError = new Error('invalid character \'{\' looking for beginning of object key string');
+
+  // execFile is mocked per-test: `--version` probes succeed, the real command fails.
+  async function load(failOn: (args: string[]) => boolean) {
+    vi.resetModules();
+    const calls: string[][] = [];
+    vi.doMock('node:child_process', () => ({
+      execFile: (_cmd: string, args: string[], _opts: unknown, cb: (e: Error | null, r?: unknown) => void) => {
+        calls.push(args);
+        if (args[0] !== '--version' && failOn(args)) cb(cliError);
+        else cb(null, { stdout: '[]', stderr: '' });
+      },
+    }));
+    const mod = await import('./gh.mjs');
+    return { gh: mod.gh, calls };
+  }
+
+  beforeEach(() => {
+    process.env.GH_TOKEN = 'test-token';
+    process.env.GITHUB_REPOSITORY = REPO;
+    for (const k of ['HTTPS_PROXY', 'https_proxy', 'ALL_PROXY', 'all_proxy']) delete process.env[k];
+  });
+  afterEach(() => {
+    process.env = { ...saved };
+    vi.doUnmock('node:child_process');
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+    vi.resetModules();
+  });
+
+  it('retries a failed READ through REST and returns the REST data', async () => {
+    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn(async () => new Response(
+      JSON.stringify([{ number: 7, title: 'T', state: 'open' }]), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    const out = await gh(['issue', 'list', '--label', 'founder-decision', '--json', 'number']);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(out.stdout)).toEqual([{ number: 7 }]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('#4119'));
+  });
+
+  it('rethrows a failed MUTATION without any REST call', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'create', '--title', 'T', '--body', 'B'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rethrows the ORIGINAL CLI error when REST cannot plan the command', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['release', 'view', 'v1'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});

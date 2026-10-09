@@ -768,8 +768,27 @@ function cliListCompleteness(args, stdout) {
 export async function gh(args, opts = {}) {
   const bin = await resolveGh();
   if (bin) {
-    const out = await execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
-    return { ...out, ...cliListCompleteness(args, out.stdout) };
+    try {
+      const out = await execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
+      return { ...out, ...cliListCompleteness(args, out.stdout) };
+    } catch (cliErr) {
+      // #4119: a present-but-failing CLI (e.g. a non-JSON search-proxy error) is
+      // treated like a missing one — for READS only. A mutation may have partly
+      // succeeded, so it is never retried; the original error propagates.
+      const plan = planRest(args, defaultRepo());
+      const token = plan && plan.method === 'GET' ? findToken() : null;
+      if (!plan || !token) throw cliErr;
+      console.error(
+        `⚠ gh.mjs: gh CLI failed for \`gh ${args.join(' ')}\` (${String(cliErr?.message ?? cliErr).split('\n')[0]}); ` +
+        'retrying once via REST (#4119).',
+      );
+      try {
+        return await rest(plan, token);
+      } catch (restErr) {
+        console.error(`⚠ gh.mjs: REST fallback also failed: ${String(restErr?.message ?? restErr).split('\n')[0]}`);
+        throw cliErr;
+      }
+    }
   }
 
   const token = findToken();
