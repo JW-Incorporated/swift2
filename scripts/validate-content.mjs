@@ -64,6 +64,7 @@ import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
+import { routeAuthor } from './copy-desk/routing.mjs';
 
 async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
@@ -487,6 +488,14 @@ for (const { file, data } of loaded) {
       err(
         `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
       );
+    }
+
+    // Persona byline (copy-desk spec §3): the category must be routable and an
+    // optional explicit `author` override must be a real persona slug.
+    try {
+      routeAuthor({ surface: 'month_item', category: it.category, override: it.author });
+    } catch (e) {
+      err(`${e.message} — extend scripts/copy-desk/routing.mjs in the same PR`);
     }
 
     // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a

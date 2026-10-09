@@ -234,6 +234,7 @@ export const contentItemSchema = z.object({
   relatedIds: z.array(relatedIdSchema).optional(),
   threadIds: z.array(lensIdSchema).optional(),
   significance: z.enum(['defining', 'notable']).optional(),
+  author: z.enum(['theo', 'loren', 'vera', 'deb']).optional(),
   milestone: z
     .object({ id: z.string(), label: z.string(), kind: milestoneKindSchema })
     .optional(),
