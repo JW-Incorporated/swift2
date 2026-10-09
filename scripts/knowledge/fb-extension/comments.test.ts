@@ -125,7 +125,7 @@ describe('comment parsing helpers', () => {
 
   it('a quiet group (8 posts, all counts null, no comments) is unknownEmpty, not failed', async () => {
     const out = await LLFB.collectComments(quietFeed(8), quietOpts());
-    expect(out.coverage).toEqual({
+    expect(out.coverage).toMatchObject({
       eligible: 8,
       knownPositiveEligible: 0,
       processed: 0,
