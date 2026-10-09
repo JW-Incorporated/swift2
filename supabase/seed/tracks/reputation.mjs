@@ -388,7 +388,7 @@ const TRACKS = [
       summary:
         'A revenge overture aimed at everyone who wrote her 2016 obituary: the tilted stage, the list of names, the declaration that the old versions of her cannot come to the phone. The Right Said Fred interpolation is why their names sit in the credits.',
       inspiration:
-        'Universally read against the 2016 Kimye phone-call fallout (Swift let the imagery speak rather than confirming specifics); the snake motif reclaimed the emoji flood documented that summer.',
+        'Taylor let the imagery speak rather than naming a target; the snake motif reclaimed the emoji flood documented that summer.',
       themes: ['revenge', 'death of the old self', 'narrative reclamation'],
       easterEggs:
         'The video buries the entire discography: dresses, headlines, and a tombstone-adjacent bathtub of jewels fans have itemized line-by-line since 2017.',
@@ -487,14 +487,14 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
       producers: ['Max Martin', 'Shellback'],
       isSingle: true,
-      note: 'The tipsy crush song that opens with a baby saying the title — credited to James, Blake Lively and Ryan Reynolds’ daughter.',
+      note: 'The tipsy crush song that opens with a small child’s voice saying the title.',
       summary:
         'Being furious at someone for being that attractive while she is spoken for: petty, funny, self-incriminating — the album’s lightest confession.',
       inspiration:
-        'The intro voice is confirmed in the credits as one-year-old James Reynolds — the friendship Easter egg that later paid off again in Betty’s character names.',
+        'The intro is a spoken-word child cameo, a friends-and-family touch in the album’s credits.',
       themes: ['inconvenient attraction', 'humor', 'self-sabotage'],
       easterEggs:
-        'The baby-voice credit connects forward to folklore, where James and Inez name the love-triangle characters.',
+        'The child-voice cameo is a small personal touch fans point to as a recurring friends-and-family thread in the catalog.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
       sources: [
         wiki(

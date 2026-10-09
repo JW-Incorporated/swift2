@@ -38,7 +38,7 @@ const TRACKS = [
     singleReleaseDate: '2010-08-04',
     note: 'The lead single, rush-released early after a leak — about her habit of running from love before it can run from her.',
     summary:
-      'A girl who learned from her parents’ arguments to expect goodbye imagines, verse by verse, what staying could look like — a careless man’s careful daughter finding an exception.',
+      'A girl who has learned to expect goodbye imagines, verse by verse, what staying could look like.',
     inspiration:
       'Swift said it is about her tendency to flee relationships to avoid being left, written about a crush who never knew.',
     themes: ['fear of abandonment', 'hope against pattern', 'building a life'],
@@ -170,7 +170,7 @@ const TRACKS = [
     summary:
       'An apology delivered out loud to someone who deserved better: she replays the December she gave back his love and owns the damage.',
     inspiration:
-      'Swift confirmed it is an apology to someone she hurt; it is widely reported to be about Taylor Lautner, who himself has good-naturedly acknowledged the association in later interviews.',
+      'Taylor confirmed it is an apology to someone she hurt; she has not named the person.',
     themes: ['remorse', 'accountability', 'roads not taken'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
     sources: [
@@ -232,7 +232,7 @@ const TRACKS = [
     summary:
       'A comic fantasy of interrupting a wedding at the speak-now-or-forever-hold-your-peace moment; the album title came from the idea of saying what you feel before the door closes.',
     inspiration:
-      'Swift said the scenario was sparked by a friend whose childhood sweetheart was marrying someone else — she imagined the barge-in her friend never did.',
+      'The scenario is a comic wedding-crashing fantasy; the album’s say-it-now philosophy takes its name from the song.',
     themes: ['speaking up', 'romantic comedy', 'seizing the moment'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_(song)',
     sources: [
@@ -294,14 +294,14 @@ const TRACKS = [
     releaseDate: '2010-10-25',
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Nathan Chapman'],
-    note: 'The 6-minute blues-burn track 5 — an open letter to an older man who played games with a 19-year-old, and one of the most dissected songs she has ever written.',
+    note: 'The 6-minute blues-burn track 5 — an open letter to someone who played games with a young woman, and one of the most dissected songs she has ever written.',
     summary:
-      'A young woman looks back at a manipulative relationship with someone much older and reclaims the story: she should have known, but he definitely did.',
+      'A young woman looks back at a manipulative relationship and reclaims the story: she should have known, but he definitely did.',
     inspiration:
-      'Never explicitly named by Swift; the title and guitar styling made John Mayer the universal press reading, and Mayer publicly objected to the song in a 2012 interview. Before the 2023 re-record, Swift pointedly asked fans for kindness toward the song’s subjects.',
+      'Taylor has never named the song’s subject. Before the 2023 re-record, she asked fans to be kind and not to harass anyone connected to the song.',
     themes: ['age-gap power imbalance', 'manipulation', 'reclaiming the narrative'],
     fanLore:
-      'Fan reading (widely reported, unconfirmed): the Mayer attribution; the documented facts are his public response and Swift’s 2023 no-harassment plea.',
+      'Fan reading (unconfirmed): theories about the subject have circulated since release; the documented fact is Taylor’s 2023 no-harassment plea.',
     sourceUrl: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)',
     sources: [
       wiki(
@@ -371,7 +371,7 @@ const TRACKS = [
     summary:
       'Aimed at a bully with a platform: someday she will be big enough that the cheap shots cannot reach, and he will still be mean.',
     inspiration:
-      'Swift confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; reporting widely identified blogger Bob Lefsetz. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
+      'Taylor confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; she has not named him in the song. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
     themes: ['bullying', 'resilience', 'success as the answer'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
     sources: [
@@ -568,7 +568,7 @@ const TRACKS = [
     summary:
       'The afterglow of meeting someone wonderstruck-level interesting, and the spiraling hope that he is not going home to somebody else.',
     inspiration:
-      'Swift confirmed it was written after meeting Owl City’s Adam Young; Young later responded publicly with his own answer version of the song, and Swift’s Wonderstruck fragrance took its name from the lyric.',
+      'Taylor confirmed it was written after a first meeting that left her wonderstruck, and her Wonderstruck fragrance took its name from the lyric.',
     themes: ['first meetings', 'infatuation', 'what-ifs'],
     easterEggs:
       'The name of her Wonderstruck perfume line is a direct lift from this song’s vocabulary — an early lyric-to-brand Easter egg.',
@@ -700,9 +700,9 @@ const TRACKS = [
     producers: ['Taylor Swift', 'Nathan Chapman'],
     note: 'Her formal response to the 2009 VMA interruption — debuted, deliberately, on the VMA stage one year later.',
     summary:
-      'A pointedly gracious song extending forgiveness to the man who humiliated her on live TV: everyone is still growing, everyone can still be redeemed.',
+      'A pointedly gracious song extending forgiveness after a public humiliation on live TV: everyone is still growing, everyone can still be redeemed.',
     inspiration:
-      'Confirmed response to Kanye West’s 2009 VMAs stage-crash; premiering it at the 2010 VMAs was the statement. The grace curdled after 2016, which is why fans read reputation as this song’s sequel-in-reverse.',
+      'Premiering it at the 2010 VMAs, a year after the 2009 stage interruption, was the statement.',
     themes: ['forgiveness', 'public grace', 'growing up in public'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)',
     sources: [
@@ -859,10 +859,10 @@ const TRACKS = [
     summary:
       'Grief in the present tense: she keeps the details (a first kiss timestamp, his jokes, his jacket) because the details are all that is left.',
     inspiration:
-      'Fans widely link its specifics to the Jonas breakup timeline (unconfirmed by Swift); what is documented is Swift calling it one of the saddest songs she had written to that point.',
+      'Taylor has not named a subject; what is documented is her calling it one of the saddest songs she had written to that point.',
     themes: ['mourning a relationship', 'memory hoarding', 'letting go slowly'],
     fanLore:
-      'Fan reading (unconfirmed): the July date referenced in the lyric matching a documented 2008 relationship timeline.',
+      'Fan reading (unconfirmed): that the dated specifics in the lyric come from a real relationship; Taylor has not said which.',
     sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
     sources: [ALBUM],
     dossier: {
@@ -1030,13 +1030,12 @@ const TRACKS = [
     releaseDate: '2010-10-25',
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Nathan Chapman'],
-    note: 'A deluxe track about watching an impressive older man fly off to his important life — and quietly hoping to be the one he comes back to.',
+    note: 'A deluxe track about watching an impressive man fly off to his important life — and quietly hoping to be the one he comes back to.',
     summary:
       'Hero worship with a bruise in it: he is dazzling and busy saving the world, and she is doing the un-dazzling work of waiting.',
     inspiration:
-      'Fans widely file it in the same chapter as Dear John’s subject (unconfirmed by Swift); she has only said it began with the thought that a man leaving the room looked like a superhero departure.',
+      'Taylor has not named a subject; she has only said it began with the thought that a man leaving the room looked like a superhero departure.',
     themes: ['admiration', 'waiting', 'unequal orbits'],
-    fanLore: 'Fan reading (unconfirmed): the Mayer-era attribution common in fan chronologies.',
     sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
     sources: [ALBUM],
   },
@@ -1184,11 +1183,11 @@ const TRACKS = [
     producers: ['Taylor Swift', 'Jack Antonoff'],
     isFromTheVault: true,
     isSingle: true,
-    note: 'The slinkiest thing in the Speak Now vault — with a heist-movie video starring Taylor Lautner, whose casting was its own reconciliation Easter egg.',
+    note: 'The slinkiest thing in the Speak Now vault — with a heist-movie video starring Taylor Lautner and Joey King.',
     summary:
       'A workplace-crush fantasy kept strictly behind the eyes — desire as a secret both people are pretending not to notice.',
     inspiration:
-      'The 2023 video — Lautner and Joey King breaking a vault-imprisoned Swift out — is the documented meta-joke: liberating the old album, with an old flame helping.',
+      'The 2023 video — Lautner and Joey King breaking a vault-imprisoned Taylor out — is the documented meta-joke: liberating the old album.',
     themes: ['secret desire', 'restraint', 'tension'],
     easterEggs:
       'The video is one long vault metaphor: fans catalog its props as references to reclaiming the Speak Now masters.',
@@ -1407,7 +1406,7 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Jack Antonoff'],
     isFromTheVault: true,
-    note: 'The closing vault track, set in an antique shop among old photographs of couples; critics read it as a nod to Taylor’s grandparents, which Taylor has not confirmed in the sources cited here.',
+    note: 'The closing vault track, set in an antique shop among old photographs of couples.',
     summary:
       'An old-photograph love song: the narrator finds a keepsake in an antique shop and imagines the lives of the couples in it.',
     inspiration: null,
