@@ -1277,14 +1277,14 @@ const ERA = {
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The 3am track that became a grief anthem — embraced especially by listeners mourning pregnancy loss, a reading Taylor has left open.',
+      note: 'The 3am track that became a grief anthem — embraced by listeners mourning a loss that had no name, with Taylor leaving the subject open.',
       summary:
         'A goodbye to something that never got to exist: unnamed, unbounded loss for what was only ever almost. She has never specified the subject, and the ambiguity is why it holds so many people’s grief.',
       inspiration:
-        'Deliberately unspecified; the pregnancy-loss resonance is a documented listener phenomenon rather than a confirmed subject — labeled here accordingly.',
+        'Deliberately unspecified; Taylor has never named the subject, and listeners have brought their own losses to it.',
       themes: ['grief for the almost', 'loss without a name', 'goodbye unearned'],
       fanLore:
-        'Fan reading (unconfirmed, widely embraced): miscarriage and pregnancy loss — the song’s largest documented community of meaning.',
+        'Fan reading (unconfirmed, widely embraced): the song as a space for personal grief of many kinds, since Taylor has not specified a subject.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Bigger_Than_the_Whole_Sky',
       sources: [
         wiki(
@@ -1560,14 +1560,14 @@ const ERA = {
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The 3am edition’s reckoning — an adult re-litigating what happened to her at nineteen, in the fandom’s consensus pick for the deepest cut of the era.',
+      note: 'The 3am edition’s reckoning — an adult re-litigating what happened to her when she was young, in the fandom’s consensus pick for the deepest cut of the era.',
       summary:
-        'Regret with religious imagery: a too-young woman and an older man, and the ruins the memory still makes of her sleep at 32. The age in the lyric does the pointing; fans line it up with Dear John and the same reported chapter (unconfirmed by name).',
+        'Regret with religious imagery: a woman looking back at a relationship from her youth, and the ruins the memory still makes of her sleep at 32.',
       inspiration:
-        'The nineteen reference and its echo of Dear John’s subject matter are the documented basis for the near-universal fan attribution — never named by Swift.',
+        'Taylor has never named a subject for the song.',
       themes: ['delayed reckoning', 'stolen innocence', 'ghosts that keep office hours'],
       fanLore:
-        'Fan reading (widely held, unconfirmed): the same subject fans assign to Dear John, twelve years later.',
+        'Fan reading (unconfirmed): the song as a companion piece to Dear John, linked by theme and the lyric’s age references; Taylor has named no subject.',
       sourceUrl: "https://en.wikipedia.org/wiki/Would've%2C_Could've%2C_Should've",
       sources: [
         wiki(
@@ -1624,7 +1624,7 @@ const ERA = {
       isFromTheVault: true,
       note: 'A vault track first sold on a CD at the May 26, 2023 Eras Tour show in East Rutherford, then released to streaming on Nov. 29, 2023, when Taylor gave it to fans as a thank-you.',
       summary:
-        'A slow-burning vault track about a relationship near its end, built on a sample of Swift’s own heartbeat, per Rolling Stone.',
+        'A slow-burning vault track about pleading to be heard as a connection frays, built on a sample of Taylor’s own heartbeat, per Rolling Stone.',
       inspiration: null,
       themes: ['dying relationships', 'being unchosen', 'the quiet end'],
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Losing_Me",

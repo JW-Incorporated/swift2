@@ -102,7 +102,7 @@ const ERA = {
       summary:
         'A secret summer romance conducted through garden gates and bad decisions, with the catalog’s most famous bridge-yell about blurting out love. Its 2023 chart-topping resurrection is the great fan-willed correction.',
       inspiration:
-        'Widely tied by fans to the guarded start of her late-2016 relationship (unconfirmed); the documented story is the fan campaign that forced its single release in 2023.',
+        'Taylor has not named a subject; the documented story is the fan campaign that forced its single release in 2023.',
       themes: ['secret love', 'desperation under cool', 'delayed victory'],
       easterEggs:
         'The bridge became the Eras Tour’s loudest nightly scream-along — a documented live phenomenon of the 2023 shows.',
@@ -638,11 +638,11 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Solo-written and named for the real West Village street where she rented a townhouse — the address that would become unlivable if this love ever died.',
+      note: 'Solo-written and named for a real West Village street — a place that would become unlivable if this love ever died.',
       summary:
-        'Memory pinned to geography: if it ends, the whole street gets amputated from her map. Fans treat the actual Cornelia Street as a pilgrimage site because of it.',
+        'Memory pinned to geography: if it ends, the whole street gets amputated from her map.',
       inspiration:
-        'Literal, not metaphorical: Swift rented a townhouse on the real Cornelia Street in the West Village in 2016 (while her own TriBeCa home was renovated), documented by NYC property reporting. The romantic subject is read as her relationship’s early days but is not tied to a named person on the record.',
+        'Literal, not metaphorical: the title names a real street in New York’s West Village, where Taylor spent time in 2016. Taylor has not tied the romantic subject to a named person on the record.',
       themes: ['memory and place', 'fear of loss', 'superstition'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Cornelia_Street',
       sources: [
@@ -815,12 +815,12 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The Dixie Chicks collaboration about her mother’s cancer — a song Taylor said the family debated even releasing, and one she almost never performs.',
+      note: 'The Dixie Chicks collaboration about a loved one’s illness — a song Taylor performs only rarely.',
       summary:
-        'Written amid Andrea Swift’s cancer treatment: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.',
+        'A song about a loved one’s illness: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.',
       inspiration:
-        'Confirmed: about her mother’s illness; Swift said the decision to include it was a family conversation, and its rare performances are documented as exceptional events.',
-      themes: ['a parent’s illness', 'bargaining', 'helpless love'],
+        'Taylor has framed it as a song about a loved one’s illness; its rare live performances are documented as exceptional events.',
+      themes: ['a loved one’s illness', 'bargaining', 'helpless love'],
       sourceUrl: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better",
       sources: [
         wiki("Soon You'll Get Better", "Soon_You'll_Get_Better", 'song article: family background'),
@@ -917,10 +917,10 @@ const ERA = {
       summary:
         'Three verses of de-escalation: internet haters, anti-LGBTQ protesters, and women pitted against each other all get the same advice. The celebrity-packed video closed with a documented policy ask.',
       inspiration:
-        'Confirmed advocacy: released during Pride 2019 with an Equality Act petition; the video’s Katy Perry reconciliation cameo formally buried the Bad Blood-era feud.',
+        'Confirmed advocacy: released during Pride 2019 with an Equality Act petition, alongside a celebrity-packed video.',
       themes: ['allyship', 'anti-harassment', 'solidarity'],
       easterEggs:
-        'The burger-and-fries hug is the official end of the Bad Blood storyline — feud opened and closed inside two videos.',
+        'The video is packed with celebrity cameos that fans itemized frame by frame.',
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down',
       sources: [
         wiki('You Need to Calm Down', 'You_Need_to_Calm_Down', 'song article: advocacy and video'),
@@ -1019,7 +1019,7 @@ const ERA = {
       summary:
         'Anxiety torched something good and she claims the arson: an accountability ballad asking the other person to stay inside the glow while she fixes what she broke.',
       inspiration:
-        'Subject unconfirmed — popularly read as an apology to her partner at the time, but Swift has never named it on the record. The song’s documented distinction is its production: the only Lover track built by the Louis Bell / Frank Dukes team rather than the album’s Antonoff / Joel Little core.',
+        'Taylor has never named a subject on the record. The song’s documented distinction is its production: the only Lover track built by the Louis Bell / Frank Dukes team rather than the album’s Antonoff / Joel Little core.',
       themes: ['accountability', 'anxiety in love', 'repair'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
       sources: [ALBUM],
