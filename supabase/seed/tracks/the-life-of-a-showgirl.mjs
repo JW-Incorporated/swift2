@@ -276,7 +276,7 @@ const TRACKS = [
       summary:
         'A happiness the narrator built herself, named for a man-made stone — joy as something manufactured on purpose rather than found by luck.',
       inspiration:
-        'Swift has not named the song\'s subject; the widely repeated fan and critic reading frames the "opalite" of the title as synthetic, self-made contentment. That reading is fan/critic interpretation, not a confirmed statement from Swift.',
+        'Swift has not named the song\'s subject; the widely repeated fan and critic reading frames the "opalite" of the title as synthetic, self-made contentment. That reading is fan/critic interpretation, not a statement from Taylor.',
       themes: ['self-made happiness', 'contentment', 'track-three optimism'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Opalite_(song)',
       sources: [
@@ -926,7 +926,7 @@ const TRACKS = [
       summary:
         'A giddy, knock-on-wood ode to a good thing the narrator is almost afraid to jinx by naming it directly.',
       inspiration:
-        'Swift told Jimmy Fallon the song started somewhere innocent — an idea about knock-on-wood superstition — and only turned cheeky once she and her collaborators got in the studio; critics filed its live-horn, disco-leaning sound alongside "Honey" as the album\'s genre-experiment pocket. It debuted at No. 5 on the Billboard Hot 100 in the week all twelve album tracks charted at once.',
+        'Per press coverage of her Fallon appearance, the song started somewhere innocent — an idea about knock-on-wood superstition — and only turned cheeky once she and her collaborators got in the studio; critics filed its live-horn, disco-leaning sound alongside "Honey" as the album\'s genre-experiment pocket. It debuted at No. 5 on the Billboard Hot 100 in the week all twelve album tracks charted at once.',
       themes: ['superstition', 'playful love', 'disco influence'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Wood_(song)',
       sources: [ALBUM],
@@ -1162,7 +1162,7 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that Taylor said confirmed she was exploring new sonic ground.',
+      note: 'One of the earliest songs written for the album, an R&B-leaning track with horn arrangements that marked her exploring new sonic ground.',
       summary:
         'A term of endearment turned into a small act of trust — softness offered on purpose after a run of songs about armor and image.',
       inspiration:
