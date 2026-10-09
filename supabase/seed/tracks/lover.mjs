@@ -707,7 +707,7 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Swift said the song was inspired by the Netflix romantic comedy Someone Great, whose director says the film was itself shaped by Swift’s 1989 — a loop Swift called "the most meta thing that’s ever happened to me."',
+      note: 'Taylor said the song was inspired by the Netflix romantic comedy Someone Great, whose director says the film was itself shaped by Swift’s 1989 — a loop Taylor called "the most meta thing that’s ever happened to me."',
       summary:
         'A breakup song written from the dynamics of fictional characters. Swift said the film Someone Great sparked it, and the film’s writer-director has said she drew on Swift’s own catalog, making it a documented inspiration boomerang.',
       inspiration:

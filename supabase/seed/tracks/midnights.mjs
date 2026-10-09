@@ -1580,7 +1580,7 @@ const ERA = {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'A vault track first sold on a CD at the May 26, 2023 Eras Tour show in East Rutherford, then released to streaming on Nov. 29, 2023, when Swift gave it to fans as a thank-you.',
+      note: 'A vault track first sold on a CD at the May 26, 2023 Eras Tour show in East Rutherford, then released to streaming on Nov. 29, 2023, when Taylor gave it to fans as a thank-you.',
       summary:
         'A slow-burning vault track about a relationship near its end, built on a sample of Swift’s own heartbeat, per Rolling Stone.',
       inspiration: null,

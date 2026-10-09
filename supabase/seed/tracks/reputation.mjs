@@ -653,7 +653,7 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
       producers: ['Max Martin', 'Shellback'],
-      note: 'A song structured so each section sounds like a later stage of a relationship deepening — a design Swift described herself at the reputation release party.',
+      note: 'A song structured so each section sounds like a later stage of a relationship deepening — a design Taylor described herself at the reputation release party.',
       summary:
         'From liking her own company, to a new person breaking the cynicism, to full fanfare: the structure itself dramatizes commitment deepening. Luxury-brand boys lose to the one with the American smile.',
       inspiration: null,
@@ -739,7 +739,7 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'A slow, hushed love song about desire that Swift named as one of the "true story" moments of reputation — and called a love song about deep and tender feelings despite its pickup-line hook.',
+      note: 'A slow, hushed love song about desire that Taylor named as one of the "true story" moments of reputation — and called a love song about deep and tender feelings despite its pickup-line hook.',
       summary:
         'Friendship burning past its container: the golden-tattoo imagery and the bought-it-so-you-could-take-it-off thesis said what the earlier albums only implied.',
       inspiration: null,
@@ -805,7 +805,7 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Swift introduced it as a song about people taking nice things for granted — friendship, trust, openness — with a spoken-word gag where a toast to forgiveness collapses into laughter.',
+      note: 'Taylor introduced it as a song about people taking nice things for granted — friendship, trust, openness — with a spoken-word gag where a toast to forgiveness collapses into laughter.',
       summary:
         'A party song about trust abused: a toast to forgiveness is offered and then abandoned mid-line in laughter.',
       inspiration: null,

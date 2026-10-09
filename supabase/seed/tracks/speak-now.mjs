@@ -1127,7 +1127,7 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Aaron Dessner'],
     isFromTheVault: true,
-    note: 'A vault ballad that critics describe as a character study of a girl named Emma, with Swift in a narrator’s role.',
+    note: 'A vault ballad that critics describe as a character study of a girl named Emma, with Taylor in a narrator’s role.',
     summary:
       'A character study of a captivating girl named Emma, whose approach to love the narrator watches with admiration and a little envy, per Billboard.',
     inspiration: null,
@@ -1407,7 +1407,7 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Jack Antonoff'],
     isFromTheVault: true,
-    note: 'The closing vault track, set in an antique shop among old photographs of couples; critics read it as a nod to Swift’s grandparents, which Swift has not confirmed in the sources cited here.',
+    note: 'The closing vault track, set in an antique shop among old photographs of couples; critics read it as a nod to Taylor’s grandparents, which Taylor has not confirmed in the sources cited here.',
     summary:
       'An old-photograph love song: the narrator finds a keepsake in an antique shop and imagines the lives of the couples in it.',
     inspiration: null,
