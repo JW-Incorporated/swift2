@@ -25,9 +25,8 @@ export function TrackGuideBar({
         type="button"
         onClick={onOpen}
         className="era-card group flex w-full items-center gap-3 rounded-full border px-4 py-2.5 text-left transition hover:brightness-110"
-        // Accessible name must contain the visible label ("Track guide") to
-        // satisfy WCAG 2.5.3 Label in Name (#702), same rule the old player followed.
-        aria-label={`Track guide: ${trackCount} ${trackCount === 1 ? 'song' : 'songs'}`}
+        // No aria-label: the accessible name derives from the visible text so it
+        // always contains it (WCAG 2.5.3 Label in Name, #702 / #5471).
       >
         <span
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform group-hover:scale-105"
@@ -43,6 +42,7 @@ export function TrackGuideBar({
           <span className="block text-[11px] uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
             Track guide
           </span>
+          {' '}
           <span className="block truncate text-sm font-semibold text-[color:var(--era-ink)]">
             {trackCount} {trackCount === 1 ? 'song' : 'songs'}
           </span>
