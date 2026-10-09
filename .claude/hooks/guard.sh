@@ -95,7 +95,26 @@ ENV_PATTERN = (
 SEND_SCRIPTS = {"post-queue.mjs", "delete-media.mjs", "delete-x-site-screens.mjs"}
 RUNNERS = {"node", "node.exe", "npx", "npx.cmd", "tsx", "ts-node", "bun",
            "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs",
-           "command", "exec", "builtin"}
+           "command", "exec", "builtin",
+           # issue #5474: wrappers and shell control keywords that hand the
+           # next token to a program ("then node x", "! node x", "nice node x")
+           "nice", "timeout", "stdbuf", "ionice", "sudo", "setsid", "watch",
+           "eval", "coproc", "then", "do", "else", "elif", "if", "while",
+           "until", "!"}
+# Runner flags that consume the NEXT token as their value (`node -r x`).
+VALUE_FLAGS = {
+    "node": {"-r", "--require", "--import", "--loader", "--experimental-loader"},
+    "node.exe": {"-r", "--require", "--import", "--loader"},
+    "exec": {"-a"}, "env": {"-u", "--unset", "-C", "--chdir"},
+    "nice": {"-n", "--adjustment"}, "ionice": {"-c", "-n", "-p", "-P", "-u"},
+    "timeout": {"-s", "--signal", "-k", "--kill-after"},
+    "stdbuf": {"-i", "-o", "-e"},
+    "sudo": {"-u", "-g", "-h", "-p", "-C", "-D", "-R", "-T", "-U"},
+    "xargs": {"-I", "-n", "-P", "-L", "-d", "-E", "-s"},
+    "watch": {"-n", "-d"},
+}
+_DURATION = re.compile(r"^\d+(\.\d+)?[smhd]?$")
+_ASSIGN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
 
 
 # Issue #4170: backticks inside a SINGLE-quoted argument of a data-only command
@@ -173,18 +192,42 @@ def executes_send_script(command):
         # Skip leading environment assignments: FOO=bar node x.mjs
         while i < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[i]):
             i += 1
+        cur = None
         while i < len(toks):
             tok = toks[i]
             base = tok.rsplit("/", 1)[-1].rsplit("\\", 1)[-1]
             if base in SEND_SCRIPTS:
                 return True          # reached in executable position
             if base in RUNNERS:
+                cur = base
                 i += 1               # a runner: whatever follows is the target
-                while i < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[i]):
-                    i += 1           # env VAR=x node ...
                 continue
-            if tok.startswith("-"):
+            if cur is not None and _ASSIGN.match(tok):
+                i += 1               # env VAR=x node ...
+                continue
+            if cur == "npm-exec" and tok == "--":
+                i += 1
+                continue
+            if cur is not None and tok.startswith("-"):
                 i += 1               # a flag on the current runner
+                if tok in VALUE_FLAGS.get(cur, ()) and i < len(toks):
+                    i += 1           # ...that takes a value (`node -r x`)
+                continue
+            if cur is not None and _DURATION.match(tok):
+                i += 1               # timeout 60 node ...
+                continue
+            if cur is None and base in ("npm", "pnpm") and i + 1 < len(toks) \
+                    and toks[i + 1] in ("exec", "x"):
+                cur = "npm-exec"
+                i += 2
+                continue
+            if cur is None and base == "find":
+                for j in range(i + 1, len(toks)):
+                    if toks[j] in ("-exec", "-execdir", "-ok", "-okdir"):
+                        i, cur = j + 1, "find-exec"
+                        break
+                else:
+                    break
                 continue
             break                    # a real program; the script would be its ARG
     return False
