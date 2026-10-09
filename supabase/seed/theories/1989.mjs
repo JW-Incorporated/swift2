@@ -31,7 +31,7 @@ export default {
           source_title: "Taylor Swift Wears 'no its becky' T-Shirt",
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-13',
+          accessed_at: '2026-10-09',
           reliability_score: 4,
           excerpt: null,
           notes:

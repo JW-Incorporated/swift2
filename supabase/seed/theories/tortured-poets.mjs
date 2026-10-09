@@ -7,7 +7,7 @@
 // categories) — no relationship/private-life readings, per theory-weaving.md.
 // URLs verified 2026-08-05.
 
-const wiki = (article, title, notes) => ({
+const wiki = (article, title, notes, accessedAt = '2026-09-13') => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
   source_title: title,
   publisher: 'Wikipedia',
@@ -20,7 +20,7 @@ const wiki = (article, title, notes) => ({
   // cardigan → Peter, still textual with the shared-narrator layer a fan read)
   // are unchanged on the record. Nothing resolved or shifted, so this refreshes
   // the last-accessed date rather than any claim. (Prior recheck 2026-08-08.)
-  accessed_at: '2026-09-13',
+  accessed_at: accessedAt,
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -40,7 +40,19 @@ export default {
       confidence: 'reputable_reporting',
       outcome: 'pending',
       relatedSlugs: ['reputation:snake-reclamation'],
-      sources: [wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', 'the stylization and its coverage are documented in the album article')],
+      sources: [
+        {
+          source_url: 'https://www.elle.com/culture/music/a60546527/taylor-swift-thank-you-aimee-lyrics-meaning-kim-kardashian/',
+          source_title: "A Triumphant Taylor Swift Rekindles the Kim Kardashian Rivalry With 'thanK you aIMee'",
+          publisher: 'Elle',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'Notes the capitalized letters in the stylized title and reads the song as aimed at the famous Kim of the claim. Replaces the TTPD Wikipedia article, which describes the song only as an attack on a high-school bully and never mentions the stylization (re-checked 2026-10-09; still unconfirmed by Taylor).',
+        },
+      ],
     },
     {
       slug: 'peter-pan-throughline',
@@ -54,7 +66,7 @@ export default {
       outcome: 'partially_confirmed',
       relatedSlugs: ['folklore:teenage-love-triangle'],
       sources: [
-        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department'),
+        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', undefined, '2026-10-09'),
         wiki('Cardigan_(song)', 'cardigan (song)'),
       ],
     },

@@ -2,12 +2,12 @@
 // vault puzzles, color-coded announcements, the Karma album theory, and the
 // surprise-song metagame. All URLs verified 2026-07-08.
 
-const wiki = (article, title, notes) => ({
+const wiki = (article, title, notes, accessedAt = '2026-09-11') => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-09-11',
+  accessed_at: accessedAt,
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -27,7 +27,19 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'pending',
       relatedSlugs: [],
-      sources: [wiki('Karma_(Taylor_Swift_song)', 'Karma (Taylor Swift song)', 'the lost-album theory is discussed in the song article')],
+      sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-karma-lost-album-real-1234598609/',
+          source_title: "Is 'Karma' Real? Inside The Mystery of Taylor Swift's 'Lost' Album",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            "covers why fans think she scrapped a secret 2016 project titled Karma, framed as theory, not fact. Replaces the Wikipedia song article, which does not discuss the lost-album theory (re-checked 2026-10-09; still unconfirmed and undenied).",
+        },
+      ],
     },
     {
       slug: 'bejeweled-speak-now-clues',
@@ -41,8 +53,8 @@ export default {
       outcome: 'confirmed',
       relatedSlugs: ['lover:mastermind-doctrine'],
       sources: [
-        wiki('Bejeweled_(song)', 'Bejeweled (song)', 'the video easter eggs are documented in the song article'),
-        wiki('Speak_Now_(Taylor%27s_Version)', "Speak Now (Taylor's Version)"),
+        wiki('Bejeweled_(song)', 'Bejeweled (song)', 'the video easter eggs are documented in the song article', '2026-10-09'),
+        wiki('Speak_Now_(Taylor%27s_Version)', "Speak Now (Taylor's Version)", undefined, '2026-10-09'),
       ],
     },
     {
@@ -69,7 +81,7 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'confirmed',
       relatedSlugs: ['midnights:album-color-canon'],
-      sources: [wiki('1989_(Taylor%27s_Version)', "1989 (Taylor's Version)", 'the SoFi 8/9 announcement is documented in the album article')],
+      sources: [wiki('1989_(Taylor%27s_Version)', "1989 (Taylor's Version)", 'the SoFi 8/9 announcement is documented in the album article', '2026-10-09')],
     },
     {
       slug: 'album-color-canon',
@@ -83,8 +95,8 @@ export default {
       outcome: 'partially_confirmed',
       relatedSlugs: ['midnights:eight-nine-sofi'],
       sources: [
-        wiki('The_Eras_Tour', 'The Eras Tour', 'the era-by-era color staging is documented in the tour article'),
-        wiki('Cultural_impact_of_Taylor_Swift', 'Cultural impact of Taylor Swift'),
+        wiki('The_Eras_Tour', 'The Eras Tour', 'the era-by-era color staging is documented in the tour article', '2026-10-09'),
+        wiki('Cultural_impact_of_Taylor_Swift', 'Cultural impact of Taylor Swift', undefined, '2026-10-09'),
       ],
     },
     {
@@ -98,7 +110,7 @@ export default {
       confidence: 'reputable_reporting',
       outcome: 'partially_confirmed',
       relatedSlugs: [],
-      sources: [wiki('The_Eras_Tour', 'The Eras Tour', 'the surprise-song format and its evolution are documented in the tour article')],
+      sources: [wiki('The_Eras_Tour', 'The Eras Tour', 'the surprise-song format and its evolution are documented in the tour article', '2026-10-09')],
     },
     {
       slug: 'friendship-bracelets',
@@ -113,7 +125,7 @@ export default {
       relatedSlugs: [],
       sources: [
         wiki('The_Eras_Tour', 'The Eras Tour', 'the friendship-bracelet phenomenon is documented in the tour article'),
-        wiki('Swifties', 'Swifties'),
+        wiki('Swifties', 'Swifties', undefined, '2026-10-09'),
       ],
     },
   ],
