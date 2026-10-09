@@ -78,8 +78,8 @@ token is not a defect.
    report 0 errors and `node --check` must pass on each edited file.
 5. **Image fixes are verify-first:** never write an image URL unless it returns
    HTTP 200 + `Content-Type: image/*` **and** is downloaded + vision-confirmed to
-   match its caption (this invariant is the whole protocol; the former
-   `.karenfix/IMAGE-FIX-PROTOCOL.md` no longer exists). Never strip a
+   match its caption (this invariant is the whole protocol;
+   there is no separate protocol file). Never strip a
    record to zero photos; if nothing verifies, skip and report it.
 6. **Two streams stay separate** (different trust levels, different PRs, below).
 7. **Always read a ticket's comments, not just its body.** Before acting on any
