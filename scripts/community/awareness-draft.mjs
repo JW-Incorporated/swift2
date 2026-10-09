@@ -9,7 +9,8 @@
 //           here and never exported), capped per sub, each with the sub's
 //           self-promo note and the image candidates, to a JSON file
 //   apply   reads the LLM's drafts file as UNTRUSTED input: for each entry it
-//           validates the image ref against the real catalogue, lints the reply
+//           validates an image ref IF one was given (none = a text-only reply,
+//           the default since #4767), lints the reply
 //           (no link, no site name, no pitch, short), checks the lead really is
 //           a status=new awareness lead, then saves draft/why/image_ref and
 //           flips it to `drafted` (or skipped_low_relevance for a skip)
@@ -62,18 +63,28 @@ export function lintWhy(text) {
     : [`why must be 8-${MAX_WHY_CHARS} chars, one line`];
 }
 
-/** Validates + lints, then returns the row patch or `{ problems }`. Pure given the catalogue. */
-export function buildDraftPatch({ draft, why, imageRef, current }, catalog) {
+/**
+ * Validates + lints, then returns the row patch or `{ problems }`. Pure given
+ * the catalogue.
+ *
+ * The picture is OPT-IN (owner rejected a card reply 2026-10-01, #4767): an
+ * omitted or empty `imageRef` drafts a text-only reply (`image_ref: null`) —
+ * it is NOT filled in from the lead's scan-time suggestion, or every reply
+ * would ship a card again. A ref that IS given still has to be in the real
+ * catalogue.
+ */
+export function buildDraftPatch({ draft, why, imageRef }, catalog) {
   const problems = [...lintReply(draft), ...lintWhy(why)];
-  const ref = imageRef || current;
-  const check = validateImageRef(ref, catalog);
-  if (!check.ok) problems.push(`image ref "${ref}" is not in the catalogue (${check.reason})`);
+  const ref = typeof imageRef === 'string' ? imageRef.trim() : '';
+  const check = ref ? validateImageRef(ref, catalog) : null;
+  if (check && !check.ok)
+    problems.push(`image ref "${ref}" is not in the catalogue (${check.reason})`);
   if (problems.length > 0) return { problems };
   return {
     patch: {
       draft: String(draft).trim(),
       why: String(why).trim(),
-      image_ref: check.ref,
+      image_ref: check ? check.ref : null,
       link_included: false,
       status: 'drafted',
     },
@@ -182,7 +193,7 @@ export async function applyDrafts(supabase, entries, catalog) {
   if (entries.length === 0) return result;
   const { data, error } = await supabase
     .from('engagement_lead')
-    .select('id, image_ref')
+    .select('id')
     .in(
       'id',
       entries.map((e) => e.id),
@@ -208,7 +219,7 @@ export async function applyDrafts(supabase, entries, catalog) {
       continue;
     }
     const built = buildDraftPatch(
-      { draft: entry.draft, why: entry.why, imageRef: entry.image_ref, current: lead.image_ref },
+      { draft: entry.draft, why: entry.why, imageRef: entry.image_ref },
       catalog,
     );
     if (built.problems) {
