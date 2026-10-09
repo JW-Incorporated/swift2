@@ -1003,6 +1003,62 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "A vault song from the Fearless re-recording, and the second 'From the Vault' track released ahead of the album. CNN reported Swift surprise-released it on April 7, 2021, ahead of the Friday debut of Fearless (Taylor's Version); Billboard noted the only earlier vault release was 'You All Over Me' with Maren Morris.",
+          "The rollout was a game. Variety reported that Swift first teased the vault titles as scrambled anagrams, then posted the full track list after fans cracked the codes, writing 'You cracked the codes and guessed all the From The Vault titles.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Announcing the song on Twitter, Swift joked about two eras at once: in 2020 she was writing songs based in fiction to avoid drama and feeling pretty grown up, while her '2008 music from the vault' was demanding to be released. That dates the song to the Fearless era in her own words.",
+            "Swift released it on Wednesday, April 7, 2021, per Billboard, with the full album due that Friday."
+          ],
+          supported: [
+            "Billboard heard it as a classic Fearless-era tale of romantic woe, coming after the character-driven folklore and evermore: the narrator runs through the epithets for a man who says the right things at the right time before changing his mind. That is the outlet's description, not an account of the song's subject."
+          ],
+          fanTheories: [
+            "Fans have long attached the song to a specific teenage-era relationship. Swift has not named anyone in the sources cited here, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:you-all-over-me",
+            label: "You All Over Me",
+            why: "Billboard noted this was the first 'From the Vault' song released, with Maren Morris on background vocals, before Swift surprise-released this one."
+          },
+          {
+            relatedId: "song:thats-when",
+            label: "That's When",
+            why: "Variety confirmed Keith Urban is a full duet partner on this vault track from the same release."
+          },
+          {
+            relatedId: "song:we-were-happy",
+            label: "We Were Happy",
+            why: "Variety confirmed Urban also contributes harmonies to this vault track."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Announcing the song on Twitter, April 7, 2021, as quoted by Billboard",
+            note: "She joked that her 2020 self was writing fiction to avoid drama while her 2008 vault music demanded release."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Kisses Off 'Mr. Perfectly Fine' in Latest 'From the Vault' Release: Listen - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-mr-perfectly-fine-9552574/"
+          },
+          {
+            name: "Taylor Swift surprise releases second 'From the Vault' song, 'Mr. Perfectly Fine' - CNN",
+            url: "https://www.cnn.com/2021/04/07/entertainment/taylor-swift-surprise-song/index.html"
+          },
+          {
+            name: "Taylor Swift Reveals Track List for 'Fearless (Taylor's Version)'; Keith Urban Delighted to 'Join the Band' - Variety",
+            url: "https://variety.com/2021/music/news/taylor-swift-fearless-bonus-track-titles-anagrams-1234943302/"
+          }
+        ]
+      },
     },
     {
       slug: 'we-were-happy',

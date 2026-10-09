@@ -912,6 +912,55 @@ export default {
       themes: ['recovery', 'time as medicine', 'coming out the other side'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
       sources: [wiki('Clean (song)', 'Clean_(song)', 'song article: Heap collaboration'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The closer of 1989, and the one Swift tied most directly to where she ended up emotionally after the album. She told Elle in May 2015 that 'Shake It Off' and 'Clean' were the last two songs written for the record, 'so it shows you where I ended up mentally.'",
+          "Rolling Stone's Rob Sheffield framed it as a stark synth-folk ballad about detoxing from an infatuation, with a big assist from Imogen Heap, and an intense finale to the album's homestretch."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Elle she wrote 'Clean' as she was walking out of Liberty in London: it hit her that she had been in the same city as someone she used to date for two weeks without thinking about him, and her reaction was a hope that he was doing well, and nothing else. Her first thought, she said, was 'I'm finally clean.'",
+            "She described the way heartbreak slows a person's time, and how new habits slowly replace old ones, until one day you are in London and realize you have been fine for two weeks.",
+            "She said she wrote it while in a 'media hailstorm' of people having a misconstrued perception of who she was, with snarky headlines focusing on the wrong things.",
+            "Swift explained, as Billboard reported in October 2015, that the song's distinctive percussion and texture come from a couple of Imogen Heap's own instruments: a mbira, or thumb piano, and boomwhackers."
+          ],
+          supported: [
+            "The Elle interviewer, Tavi Gevinson, pointed out a message hidden in the album's printed liner notes for the song: 'She lost him but she found herself and somehow that was everything.'",
+            "Sheffield's reading of the song as detox from an infatuation is a critic's framing; Swift's own account, above, is about a quieter realization of having moved on."
+          ],
+          fanTheories: [
+            "Fans have attached the song to a specific relationship. Swift's own account in Elle names no one, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:shake-it-off",
+            label: "Shake It Off",
+            why: "Swift told Elle the two were the last songs written for 1989, and that together they show where she ended up mentally."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In an Elle interview with Tavi Gevinson, May 2015",
+            note: "She described heartbreak as a state where nothing distracts you and time moves at a different pace, and the moment of realizing she had stopped checking."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Has No Regrets - Elle",
+            url: "https://www.elle.com/fashion/a28210/taylor-swift-elle-june-cover-2015/"
+          },
+          {
+            name: "8 Things You Didn't Know About Taylor Swift's '1989' - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-1989-album-you-didnt-know-6730187/"
+          },
+          {
+            name: "All 286 of Taylor Swift's Songs, Ranked - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-lists/taylor-swift-songs-ranked-rob-sheffield-201800/clean-2014-205630/"
+          }
+        ]
+      },
     },
     {
       slug: 'wonderland',

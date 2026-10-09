@@ -1195,6 +1195,65 @@ const TRACKS = [
         wiki('Nothing New (song)', 'Nothing_New_(song)', 'song article: Bridgers duet background'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "A vault song that waited a decade. Swift told Late Night with Seth Meyers (as NME reported) that she wrote 'Nothing New' when she was 22, and that it is really special to her because it was the first time she was not a shiny new artist. She sent it to Phoebe Bridgers because she wanted another female artist she loved to sing it with her.",
+          "Pitchfork described it as a somber acoustic ballad about the music business's fickle relationship with young women, and noted that, unlike on 'The Lucky One', Swift sings these anxieties in her own voice rather than projecting them onto a character."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said she wrote the song at 22 and that it was special to her because it was the first time she was not a shiny new artist (NME, quoting her Late Night with Seth Meyers appearance).",
+            "She called Bridgers 'one of my favorite artists in the world' and said that if Bridgers sings something, she will listen to it. Per Rolling Stone, she said she wanted another female artist she loved to sing it with her, 'because I think it was a very female artist perspective', and that Bridgers replied she had been waiting for that text her entire life.",
+            "The song came out as a 'From the Vault' track on Red (Taylor's Version) on November 12, 2021, per NME."
+          ],
+          supported: [
+            "Bridgers told Billboard that recording it was 'just been a dream', and that she got teary doing her part.",
+            "Rolling Stone's reading is that the duet works because Swift's adult voice and Bridgers' hushed one meet at a place of earned wisdom, and that Bridgers was 18 when Red came out, which makes the chorus about knowing everything at 18 and nothing at 22 land. That is the outlet's reading, not Swift's."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:the-lucky-one",
+            label: "The Lucky One",
+            why: "Pitchfork said the same fear of being chewed up and replaced runs through 'The Lucky One', but that here Swift inhabits it in her own voice."
+          },
+          {
+            relatedId: "song:i-bet-you-think-about-me",
+            label: "I Bet You Think About Me",
+            why: "Another 'From the Vault' track with a featured guest: NME noted Chris Stapleton on it, alongside Bridgers here."
+          },
+          {
+            relatedId: "song:run",
+            label: "Run",
+            why: "The third vault track with a featured guest on Red (Taylor's Version): NME noted Ed Sheeran on it."
+          }
+        ],
+        voices: [
+          {
+            who: "Phoebe Bridgers",
+            context: "Speaking to Billboard ahead of Red (Taylor's Version)",
+            note: "She said she was so excited for people to take the song at face value the day it came out, because she got teary recording it."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift recalls texting Phoebe Bridgers to ask her to collaborate - NME",
+            url: "https://www.nme.com/news/music/taylor-swift-recalls-texting-phoebe-bridgers-collaborate-red-3094565"
+          },
+          {
+            name: "Phoebe Bridgers 'Got Teary' Recording Her Part on Taylor Swift's 'Red (Taylor's Version)' - Billboard",
+            url: "https://www.billboard.com/music/pop/phoebe-bridgers-taylor-swift-red-taylors-version-nothing-new-9657454/"
+          },
+          {
+            name: "Congratulations, Indie Fans: We Finally Manifested a Taylor Swift/Phoebe Bridgers Duet - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-phoebe-bridgers-nothing-new-red-1256954/"
+          },
+          {
+            name: "Taylor Swift: Red (Taylor's Version) Album Review - Pitchfork",
+            url: "https://pitchfork.com/reviews/albums/taylor-swift-red-taylors-version/"
+          }
+        ]
+      },
     },
     {
       slug: 'babe',

@@ -218,6 +218,63 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Evermore's homecoming-for-the-holidays song, and by Aaron Dessner's account one of the album's quickest. He told Billboard that Swift wrote it when she arrived for the first day of rehearsal for the Long Pond Studio Sessions: they stayed up late, and the next morning at about nine she came to him and said she had to sing him a song, which she then did in his kitchen.",
+          "The music underneath is older. Dessner told Billboard he wrote it many years earlier and hid it away because he loved it so much, and told Rolling Stone it is a track that is very special to him. Billboard quotes him saying the feeling in it, an ache in one person put there by an ache in another, is one everyone can relate to, and Rolling Stone quotes him calling the song Swift wrote 'instantly relatable.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Swift teased the song's title before the album was announced: Teen Vogue reported that, in the week Entertainment Weekly published her cover shoot and interview, she captioned one of the photos on her Instagram story with the title."
+          ],
+          supported: [
+            "Dessner told Rolling Stone that Swift wrote the lyrics overnight during The Long Pond Studio Sessions, and that hearing her sing it to him was a highlight of the whole period of working together.",
+            "Dessner told Rolling Stone that a wintry nostalgia in much of the evermore music was intentional on his part. The interviewer heard it in this song's icy guitar line, and Dessner replied that the guitar part is simply how he sounds when he fingerpicks an electric guitar.",
+            "Teen Vogue pointed out that the song shares lyric echoes with two folklore songs: the road less traveled and the lingering perfume with 'illicit affairs', and the school reference with 'it's nice to have a friend'. That is the outlet's reading of the connections, not something Swift has said."
+          ],
+          fanTheories: [
+            "Fans commonly pair this song with 'dorothea' as two halves of one story, the one who left and the one who stayed. None of the sources cited here has Swift confirming the link, so treat it as a fan reading."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "Dessner told Rolling Stone that hearing Swift sing this one in his kitchen felt much like the moment she wrote 'peace', 'but even more so'."
+          },
+          {
+            relatedId: "song:its-nice-to-have-a-friend",
+            label: "it's nice to have a friend",
+            why: "Teen Vogue noted the school reference in this song as an echo of that Lover track."
+          },
+          {
+            relatedId: "song:illicit-affairs",
+            label: "illicit affairs",
+            why: "Teen Vogue pointed to two pairs of matching lyric images between this song and 'illicit affairs'."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Billboard in December 2020",
+            note: "He said Swift showed up the morning after rehearsal and told him she had to sing him a song, and that it was a moment where his brain exploded."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on the 'Weird Avalanche' That Resulted in Taylor Swift's 'Evermore' - Billboard",
+            url: "https://www.billboard.com/music/pop/aaron-dessner-taylor-swift-evermore-interview-9502756/"
+          },
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Taylor Swift's \"evermore\" Hidden Meanings - Teen Vogue",
+            url: "https://www.teenvogue.com/story/taylor-swift-evermore-hidden-meanings"
+          }
+        ]
+      },
     },
     {
       slug: 'tolerate-it',
@@ -322,6 +379,72 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Evermore's country murder ballad, and Swift's first recorded collaboration with Haim. Teen Vogue reported, citing what Swift said in the YouTube chat before the 'willow' video premiere, that she wrote it entirely by herself, that it was inspired by her 'obsession with true crime podcasts/documentaries', and that she borrowed the name of her friend Este Haim for the main character. Este, Danielle and Alana Haim sing on the track.",
+          "Vulture called it Swift's first-ever Haim collaboration and noted that Haim had opened for her in 2015, so the song grew out of a friendship that predates the album. The sisters joined her on stage to perform it live for the first time on the Eras Tour in 2023."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said she wrote the song entirely by herself, per Teen Vogue's account of her comments in the YouTube chat before the 'willow' video premiere.",
+            "She said it was inspired by her love of true crime podcasts and documentaries, and that she used the name of one of her best friends, Este Haim, for the central character (same Teen Vogue report)."
+          ],
+          supported: [
+            "Aaron Dessner told Rolling Stone that Swift wrote it alone on a rubber-bridge guitar he had given her, sent him a voice memo of it, and that he then built the track around that memo. He added that she wanted the Haim sisters to sing on it from the start; they recorded their parts in Los Angeles and the track was assembled when Swift was at Long Pond.",
+            "Teen Vogue observed that the verses shift point of view, from the narrator suspecting someone else, to others suspecting her, to a third person suspecting the narrator.",
+            "Vulture heard the song as an attempt at a classic revenge song drawing on Swift's country roots, and its headline verdict was that it tries to be cold-blooded but mostly comes off cold. That is a critic's verdict, not a statement of meaning."
+          ]
+        },
+        live: [
+          {
+            date: "July 22, 2023",
+            event: "The Eras Tour, Seattle",
+            note: "NME reported that Swift and Haim gave the song its live debut during the evermore segment of the show; Haim were supporting on that leg of the tour."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:invisible-string",
+            label: "invisible string",
+            why: "Dessner told Rolling Stone she wrote this song on the same kind of rubber-bridge guitar he plays on 'invisible string'."
+          },
+          {
+            relatedId: "song:the-last-great-american-dynasty",
+            label: "the last great american dynasty",
+            why: "Teen Vogue connected the shifting narrator in this song to the perspective-switching device Swift described to Entertainment Weekly in relation to 'the last great american dynasty'."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the YouTube chat before the 'willow' video premiere, as reported by Teen Vogue",
+            note: "She named true crime podcasts and documentaries as the spark for the song."
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone in December 2020",
+            note: "He said the music he has listened to most in his life is roots, folk and country, which is not the National's sound but 'feels like a warm blanket.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's \"evermore\" Hidden Meanings - Teen Vogue",
+            url: "https://www.teenvogue.com/story/taylor-swift-evermore-hidden-meanings"
+          },
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Watch Taylor Swift debut 'No Body No Crime' live with Haim in Seattle - NME",
+            url: "https://www.nme.com/news/music/watch-taylor-swift-debut-no-body-no-crime-live-with-haim-in-seattle-3472129"
+          },
+          {
+            name: "Taylor Swift's Long-Overdue Haim Collab Tries to Be Cold-Blooded But Is Mostly Just Cold - Vulture",
+            url: "https://www.vulture.com/2020/12/song-review-taylor-swift-haim-no-body-no-crime-lyrics.html"
+          }
+        ]
+      },
     },
     {
       slug: 'happiness',
