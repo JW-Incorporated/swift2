@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  assertNotTruncated,
   buildPlan,
   cieKey,
   collectPrRefs,
@@ -55,21 +56,40 @@ describe('hard guard', () => {
     const prRefs = collectPrRefs([{ title: 't', body: `Fixes #${i.number}` }]);
     expect(plan([i], { prRefs }).plan).toHaveLength(0);
   });
-  it('counts only keyword references in open PRs, not bare #n mentions', () => {
+  it('any #n in an open PR protects it; "Closes #1, #2" protects both', () => {
     const refs = collectPrRefs([
-      { title: 'x', body: 'Closes #1, also fixes #2 and Refs #3. Resolved #4. Ref: #5. See #6 and #7 for context' },
+      { title: 'x', body: 'Closes #1, #2. See #5 and acme/swift2#6 for context' },
     ]);
-    expect([...refs].sort()).toEqual([1, 2, 3, 4, 5]);
+    expect([...refs].sort()).toEqual([1, 2, 5, 6]);
   });
-  it('a bare mention in a PR does not block a close', () => {
+  it('a bare mention in a PR blocks a close', () => {
     const i = issue(stale);
     const prRefs = collectPrRefs([{ title: 't', body: `long bot body mentioning #${i.number}` }]);
-    expect(plan([i], { prRefs }).plan).toHaveLength(1);
+    expect(plan([i], { prRefs }).plan).toHaveLength(0);
   });
-  it('guard runs before supersede: a protected newest does not shield, a protected old is kept', () => {
+  it('a protected newest report is still the target; older eligible ones close pointing at it', () => {
     const a = issue({ labels: lbl('kevin-radar'), title: RADAR('2026-10-01'), createdAt: '2026-10-01T00:00:00Z' });
     const b = issue({ labels: lbl('kevin-radar', 'hold'), title: RADAR('2026-10-02'), createdAt: '2026-10-02T00:00:00Z' });
+    const r = plan([a, b]);
+    expect(r.plan.map((p) => p.number)).toEqual([a.number]);
+    expect(r.plan[0].comment).toContain(`#${b.number}`);
+  });
+  it('a protected OLDER report is never closed', () => {
+    const a = issue({ labels: lbl('kevin-radar', 'hold'), title: RADAR('2026-10-01'), createdAt: '2026-10-01T00:00:00Z' });
+    const b = issue({ labels: lbl('kevin-radar'), title: RADAR('2026-10-02'), createdAt: '2026-10-02T00:00:00Z' });
     expect(plan([a, b]).plan).toHaveLength(0);
+  });
+  it('a human-authored newest report still shields older bot ones (not skipped as newest)', () => {
+    const a = issue({ labels: lbl('kevin-radar'), title: RADAR('2026-10-01'), createdAt: '2026-10-01T00:00:00Z' });
+    const b = issue({ author: { login: 'wjduvall-cmd' }, labels: lbl('kevin-radar'), title: RADAR('2026-10-02'), createdAt: '2026-10-02T00:00:00Z' });
+    expect(plan([a, b]).plan[0].comment).toContain(`#${b.number}`);
+  });
+});
+
+describe('truncation', () => {
+  it('aborts when a list is exactly at the limit', () => {
+    expect(() => assertNotTruncated({ issues: new Array(1000), prs: [] }, 1000)).toThrow(/truncated/);
+    expect(() => assertNotTruncated({ issues: new Array(999), prs: [] }, 1000)).not.toThrow();
   });
 });
 
@@ -169,7 +189,7 @@ describe('cie-duplicate', () => {
     });
 
   it('extracts the outer-quoted page name', () => {
-    expect(cieKey('[CIE P1] banner says "not confirmed": "The "TS" logos"')).toBe('the "ts" logos');
+    expect(cieKey('[CIE P1] banner says "not confirmed": "The "TS" logos"')).toBe('[cie p1] banner says "not confirmed"|the "ts" logos');
   });
   it('keeps the newest per page and closes older duplicates', () => {
     const a = cie('Page A', '2026-10-01T00:00:00Z');
@@ -179,6 +199,17 @@ describe('cie-duplicate', () => {
     expect(r.plan.map((p) => p.number)).toEqual([a.number]);
     expect(r.plan[0].rule).toBe('cie-duplicate');
     expect(r.plan[0].comment).toContain(`#${b.number}`);
+  });
+  it('does not merge different CIE kinds on the same page', () => {
+    const mk = (kind: string, createdAt: string) =>
+      issue({ labels: lbl('cie', 'cie:P1'), createdAt, title: `[CIE P1] ${kind}: "Page A"` });
+    expect(plan([mk('kind one', '2026-10-01T00:00:00Z'), mk('kind two', '2026-10-02T00:00:00Z')]).plan).toHaveLength(0);
+  });
+  it('a protected newest CIE issue is the keeper', () => {
+    const a = cie('Page A', '2026-10-01T00:00:00Z');
+    const b = { ...cie('Page A', '2026-10-02T00:00:00Z'), labels: lbl('cie', 'cie:P1', 'hold') };
+    const r = plan([a, b]);
+    expect(r.plan.map((p) => p.number)).toEqual([a.number]);
   });
   it('ignores cie issues without a priority label', () => {
     const a = issue({ labels: lbl('cie'), title: 'x: "Page A"', createdAt: '2026-10-01T00:00:00Z' });

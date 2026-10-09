@@ -11,8 +11,9 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { runMain } from '../lib/cli.mjs';
-import { buildPlan, collectPrRefs } from './lib/issue-sweeper-rules.mjs';
+import { assertNotTruncated, buildPlan, collectPrRefs } from './lib/issue-sweeper-rules.mjs';
 
+const LIST_LIMIT = 1000;
 const PLAN_PATH = '.scratch/issue-sweeper-plan.json';
 const RULES = ['supersede-report', 'intake-ttl', 'watchdog-recovered', 'cie-duplicate'];
 
@@ -42,7 +43,7 @@ function makeLatestRun() {
     try {
       const out = JSON.parse(
         gh([
-          'run', 'list', '--workflow', file, '--limit', '1', '--status', 'completed',
+          'run', 'list', '--workflow', file, '--branch', 'main', '--limit', '1', '--status', 'completed',
           '--json', 'conclusion,createdAt,url',
         ]),
       );
@@ -66,6 +67,7 @@ async function main() {
   const prs = JSON.parse(
     gh(['pr', 'list', '--state', 'open', '--limit', '1000', '--json', 'number,title,body']),
   );
+  assertNotTruncated({ issues, prs }, LIST_LIMIT);
   const { plan, skipped } = buildPlan({
     issues,
     prRefs: collectPrRefs(prs),

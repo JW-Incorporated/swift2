@@ -58,11 +58,11 @@ export function guardReason(issue, prRefs = new Set()) {
   return null;
 }
 
-// Only explicit references count: closing keywords or "Ref(s) #n". Bare "#n"
-// mentions inside long bot bodies must not block a close.
-const PR_REF_RE = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?|refs?)\b:?\s+#(\d+)/gi;
+// Safe default for an unattended closer: ANY "#n" (including "owner/repo#n")
+// in an open PR's title or body protects that issue. Over-skipping is correct.
+const PR_REF_RE = /#(\d+)/g;
 
-/** Numbers explicitly referenced (closing keyword / Ref) in open PR titles/bodies. */
+/** Every issue number mentioned in open PR titles/bodies. */
 export function collectPrRefs(prs) {
   const refs = new Set();
   for (const pr of prs) {
@@ -74,7 +74,9 @@ export function collectPrRefs(prs) {
 
 const byCreatedDesc = (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt);
 
-export function supersedeReport(issues) {
+// Newest is chosen from ALL open issues of the kind; `canClose` only limits
+// which older ones may be closed.
+export function supersedeReport(issues, canClose = new Set(issues.map((i) => i.number))) {
   const out = [];
   for (const kind of REPORT_KINDS) {
     const group = issues
@@ -83,6 +85,7 @@ export function supersedeReport(issues) {
     if (group.length < 2) continue;
     const newest = group[0];
     for (const old of group.slice(1)) {
+      if (!canClose.has(old.number)) continue;
       out.push({
         number: old.number,
         rule: 'supersede-report',
@@ -144,10 +147,12 @@ export function watchdogRecovered(issues, latestRun) {
 
 export function cieKey(title) {
   const m = /:\s+"(.*)"\s*$/.exec(title ?? '');
-  return m ? m[1].trim().toLowerCase() : null;
+  if (!m) return null;
+  const prefix = (title ?? '').slice(0, m.index).trim().toLowerCase();
+  return `${prefix}|${m[1].trim().toLowerCase()}`;
 }
 
-export function cieDuplicate(issues) {
+export function cieDuplicate(issues, canClose = new Set(issues.map((i) => i.number))) {
   const groups = new Map();
   for (const i of issues) {
     if (!hasLabel(i, 'cie') || !(hasLabel(i, 'cie:P1') || hasLabel(i, 'cie:P2'))) continue;
@@ -161,6 +166,7 @@ export function cieDuplicate(issues) {
     if (group.length < 2) continue;
     group.sort(byCreatedDesc);
     for (const old of group.slice(1)) {
+      if (!canClose.has(old.number)) continue;
       out.push({
         number: old.number,
         rule: 'cie-duplicate',
@@ -185,11 +191,12 @@ export function buildPlan({ issues, prRefs = new Set(), now = new Date(), latest
     if (reason) skipped.push({ number: i.number, title: i.title, reason });
     else eligible.push(i);
   }
+  const canClose = new Set(eligible.map((i) => i.number));
   const candidates = [
-    ...supersedeReport(eligible),
+    ...supersedeReport(issues, canClose),
     ...intakeTtl(eligible, now),
     ...watchdogRecovered(eligible, latestRun),
-    ...cieDuplicate(eligible),
+    ...cieDuplicate(issues, canClose),
   ];
   const seen = new Set();
   const plan = [];
@@ -199,4 +206,13 @@ export function buildPlan({ issues, prRefs = new Set(), now = new Date(), latest
     plan.push(c);
   }
   return { plan, skipped };
+}
+
+/** Throws when any list is exactly at the fetch limit (probably truncated). */
+export function assertNotTruncated(lists, limit) {
+  for (const [name, items] of Object.entries(lists)) {
+    if (items.length >= limit) {
+      throw new Error(`${name} list hit the ${limit} limit; refusing to act on a truncated view`);
+    }
+  }
 }

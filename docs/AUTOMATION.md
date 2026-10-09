@@ -458,8 +458,9 @@ machine-filed issues that rules prove stale; no LLM. Founder-approved
 **Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
 `sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
 `founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
-`status-page`, `weekly-plan`; no open PR closes or `Ref`s it (closing keywords / `Refs #n` only; bare
-`#n` mentions don't count). Max 150
+`status-page`, `weekly-plan`; no open PR title/body mentions it as `#n` (any mention protects it).
+Newest-of-kind is chosen across ALL open issues before the guard; `--apply`
+only runs from `main`, and the sweeper aborts if a list hits its 1000 limit. Max 150
 closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
 writes `.scratch/issue-sweeper-plan.json`.
 

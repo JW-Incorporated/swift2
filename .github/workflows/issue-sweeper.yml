@@ -40,8 +40,10 @@ jobs:
       - uses: ./.github/actions/setup-repo
       - name: Sweep stale machine-filed issues
         env:
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ github.ref != 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        shell: bash
         run: |
+          set -o pipefail
           if [ "$DRY_RUN" = "true" ]; then
             node scripts/ops/issue-sweeper.mjs --dry-run | tee sweep.txt
           else
