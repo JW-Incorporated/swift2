@@ -888,7 +888,7 @@ const TRACKS = [
       sources: [wiki('Mad Woman (song)', 'Mad_Woman', 'song article: themes'), ALBUM],
       dossier: {
         whyItMatters: [
-          "The folklore song Swift has discussed most directly as being about anger. Vogue quotes her from the Long Pond Studio Sessions film telling Aaron Dessner that when she first heard his piano part, with its ominous strings underneath, she knew it was a song about female rage.",
+          "Swift has tied this song directly to anger. Vogue quotes her from the Long Pond Studio Sessions film telling Aaron Dessner that when she first heard his piano part, with its ominous strings underneath, she knew it was a song about female rage.",
           "Dessner wrote the music. He told Rolling Stone it came shortly after the 'peace' sketch and felt close in sound to 'cardigan' and 'seven', and told Vulture it might be the most scathing song on folklore, adding that this was his own interpretation."
         ],
         meaning: {
@@ -1142,9 +1142,9 @@ const TRACKS = [
       producers: ['Aaron Dessner'],
       note: 'The most nakedly personal song on the fiction album — she can offer devotion, loyalty, and fire, but never a normal life.',
       summary:
-        'A pre-nup of the soul: the fame, the scrutiny, the siege conditions are permanent, so the one thing she cannot promise a partner is peace. Swift confirmed this one is fully hers.',
+        'A pre-nup of the soul: the fame, the scrutiny, the siege conditions are permanent, so the one thing she cannot promise a partner is peace.',
       inspiration:
-        'Confirmed in interviews and the Long Pond film as directly autobiographical — the trade-offs of loving someone whose life is public property.',
+        'Widely read as among folklore\'s most autobiographical songs — the trade-offs of loving someone whose life is public property.',
       themes: ['what fame costs a partner', 'devotion with caveats', 'honesty'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Peace_(Taylor_Swift_song)',
       sources: [

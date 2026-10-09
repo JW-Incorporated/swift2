@@ -863,14 +863,14 @@ const TRACKS = [
       summary:
         'Grifters who hustle rich marks recognize each other instantly and break the only rule: never feel anything. Love as the one long con neither of them planned.',
       inspiration:
-        'Mumford’s confirmed backing-vocal cameo came via lockdown-era file-sharing; the swindler romance is pure evermore fiction.',
+        'Marcus Mumford sings a credited harmony vocal; the swindler romance is pure evermore fiction.',
       themes: ['con-artist romance', 'kindred spirits', 'love as the real gamble'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Cowboy_like_Me',
       sources: [wiki('Cowboy like Me', 'Cowboy_like_Me', 'song article: Mumford credit'), ALBUM],
       dossier: {
         whyItMatters: [
           "A Swift and Aaron Dessner song with guest musicians. Dessner told Rolling Stone that Justin Vernon plays drums on it, and Billboard's critics note Marcus Mumford is credited with vocals. Variety's review also credits Mumford with a harmony vocal and some lap steel.",
-          "Dessner singled it out in Rolling Stone as the evermore song that is 'much more familiar, musically', a country-leaning track, while saying Swift was 'just as sharp and just as masterful in her craft' there as on 'closure'."
+          "Dessner told Rolling Stone it is 'much more familiar, musically', a country-leaning track, while saying Swift was 'just as sharp and just as masterful in her craft' there as on 'closure'."
         ],
         meaning: {
           supported: [
@@ -941,11 +941,11 @@ const TRACKS = [
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Aaron Dessner'],
-      note: 'The one openly autobiographical sprint on evermore — 2016 compressed into a past-tense montage that ends happily.',
+      note: 'A fast-forward, past-tense montage of a hard stretch that ends happily.',
       summary:
-        'The pile-on years summarized at fast-forward: wrong fights, bad ground, a fall from the pedestal — survived, married off to a better present, and dispatched with a shrug and advice to her past self.',
+        'The pile-on years summarized at fast-forward: wrong fights, bad ground, a fall from the pedestal — survived, traded for a better present, and dispatched with a shrug and advice to her past self.',
       inspiration:
-        'Swift confirmed it condenses her 2016 nadir and its aftermath — the rare evermore track she filed under her own name rather than a character’s.',
+        'Variety read it as revisiting the Reputation-era backlash; Swift hasn\'t explained it on record.',
       themes: ['surviving the pile-on', 'hindsight', 'peace as the punchline'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)',
       sources: [
