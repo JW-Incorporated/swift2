@@ -107,6 +107,9 @@ _PROSE_SAFE = {"gh", "echo", "printf"}
 
 
 def _demote_single_quoted_backticks(command):
+    # Demote only when quoting is unambiguous: one simple single-line command.
+    if any(s in command for s in ("\n", "\r", "#", "$'", "\\", "<(", ">(")):
+        return command
     out, outside = [], []
     i, n = 0, len(command)
     in_dq = False
@@ -130,6 +133,8 @@ def _demote_single_quoted_backticks(command):
     if in_dq:
         return command
     flat = "".join(outside).replace("'", " ").replace('"', " ")
+    if re.search(r"[;&|()<>`${}]", flat):
+        return command
     for seg in re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", flat):
         toks = seg.split()
         k = 0

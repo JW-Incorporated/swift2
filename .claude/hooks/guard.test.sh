@@ -130,6 +130,19 @@ assert_denied "single-quoted backticks under a non-prose program" \
 assert_denied "git -c pager with single-quoted backticks" \
   "git -c core.pager='\`node scripts/social/post-queue.mjs\`' log"
 
+assert_denied "comment apostrophe across lines (post-queue)" \
+  "echo hi # '
+echo \`node scripts/social/post-queue.mjs\` ''
+# '"
+assert_denied "comment apostrophe across lines (delete-media)" \
+  "echo hi # '
+echo \`node scripts/social/delete-media.mjs\` ''
+# '"
+assert_denied "ANSI-C quote shifts pairing (post-queue)" \
+  "echo \$'\\'' \`node scripts/social/post-queue.mjs\` \$'\\'''"
+assert_denied "ANSI-C quote shifts pairing (delete-media)" \
+  "echo \$'\\'' \`node scripts/social/delete-media.mjs\` \$'\\'''"
+
 # --- unrelated command stays allowed ---
 assert_allowed "plain unrelated command" \
   "echo hello"
