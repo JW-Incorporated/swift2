@@ -207,7 +207,7 @@ export default {
       summary:
         'Two people who keep crashing back together because the chemistry is timeless even when the relationship is not — desire as a classic silhouette that never goes out of fashion.',
       inspiration:
-        'Swift has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
+        'Taylor has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
       themes: ['cyclical attraction', 'timelessness', 'glamour with dread underneath'],
       fanLore:
         'Fan reading (unconfirmed): the title as a wordplay on fashion and personal style.',
@@ -307,7 +307,7 @@ export default {
       summary:
         'A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.',
       inspiration:
-        'Per wiki and fan accounts, the bridge’s snowmobile accident reflects a real event that was kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
+        'Per the song’s Wikipedia article, the bridge’s snowmobile accident is described as a real event that was kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
       themes: ['anxiety in love', 'fragility', 'surviving the crash'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods',
       sources: [
@@ -1132,7 +1132,7 @@ export default {
       summary:
         'Loving someone who lets you twist: she keeps waiting for him to fight for it, and the silence is its own answer. A legendary songwriter pairing fans did not know existed until the vault opened.',
       inspiration:
-        'Written with Warren during the 1989 sessions, per wiki accounts — Warren later said she had wondered for years if it would ever surface.',
+        'Written with Warren during the 1989 sessions, per Wikipedia — Warren later said she had wondered for years if it would ever surface.',
       themes: ['one-sided devotion', 'waiting to be chosen', 'lost collaborations'],
       sourceUrl: "https://en.wikipedia.org/wiki/Say_Don't_Go",
       sources: [wiki("Say Don't Go", "Say_Don't_Go", 'song article: Warren co-write'), TV],
