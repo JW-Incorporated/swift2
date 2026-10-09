@@ -554,6 +554,63 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "By Aaron Dessner's account, the second song of the folklore sessions, after 'cardigan' and before 'peace'. He told Rolling Stone those three set a road map for the album, and that 'seven' is a nostalgic, wistful folk song whose wistfulness he felt in the music before Swift ever sang to it, which is what she gravitated toward.",
+          "Dessner told Vulture the song looks back at childhood, recounting and memorializing memories, and singled out one line as among the most important on the record: 'And just like a folk song, our love will be passed on.' In his words, 'That's what this album is doing.'"
+        ],
+        meaning: {
+          supported: [
+            "Dessner, who wrote the music and produced the track, called it 'a beautiful folk song' about childhood feelings and memories (Vulture, July 2020). That is a collaborator's account of the song, not a statement of its subject by Swift.",
+            "Dessner told Rolling Stone the early songs showed Swift's range: 'cardigan' an experimental ballad, this a nostalgic folk song, and 'peace' just three harmonized basslines and a pulse."
+          ]
+        },
+        live: [
+          {
+            date: "June 17, 2023",
+            event: "The Eras Tour, Pittsburgh",
+            note: "Deadline's list of Eras Tour surprise songs records Swift performing 'Seven' with Aaron Dessner on this night, paired with 'The Story of Us'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:cardigan",
+            label: "cardigan",
+            why: "Dessner told Rolling Stone that 'cardigan' came first, and that it, 'seven' and 'peace' set a road map for the album."
+          },
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "Dessner told Rolling Stone she wrote 'cardigan', then 'seven', then 'peace'."
+          },
+          {
+            relatedId: "song:august",
+            label: "august",
+            why: "Dessner told Vulture that 'august' feels like a fast-forward to the present after the childhood memories of this song."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture, July 2020",
+            note: "He said the album, like this song, is memorializing love, childhood and memories, and called that a folkloric way of processing."
+          }
+        ],
+        sources: [
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'august',
@@ -574,6 +631,65 @@ const TRACKS = [
         'August slipping away like a bottle of wine became an annual fan ritual every August 1st — a documented yearly meme-moment.',
       sourceUrl: 'https://en.wikipedia.org/wiki/August_(song)',
       sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The third side of folklore's teenage love triangle, alongside 'cardigan' and 'betty'. In the Long Pond Studio Sessions film, as Billboard reported, Swift said she had been thinking of the girl in 'august' as either Augusta or Augustine, and that she did not see her as the Inez named in 'betty', which many fans had assumed.",
+          "Jack Antonoff, who worked on the song with Swift, described their process in the film: the song, then a bridge, then a better bridge, then a perfect bridge, then something after the bridge. He said he loved hearing that patchwork come together."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said, in the film, that she had been calling the girl from 'august' either Augusta or Augustine in her head (Billboard, November 2020).",
+            "She also said folklore was the first album where she let go of the need to be 100% autobiographical, which she had felt she needed to do before (Billboard, same report).",
+            "Her July 2021 anniversary post, quoted by Billboard, named Augustine among the characters she thanked fans for helping to create stories around."
+          ],
+          supported: [
+            "Aaron Dessner told Vulture in July 2020 that 'august' is maybe the closest thing to a pop song on the album, loud, with a shimmering summer haze, and that after the seven-year-old on the swing in 'seven' it feels like fast-forwarding to now."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:cardigan",
+            label: "cardigan",
+            why: "Swift said in the film that 'cardigan' is Betty's perspective from 20 to 30 years later, and that in her head Betty and James end up together (Billboard)."
+          },
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "Billboard noted that 'betty' names Inez, whom fans assumed was the girl in 'august'; Swift's own view, quoted above, is different."
+          },
+          {
+            relatedId: "song:seven",
+            label: "seven",
+            why: "Dessner told Vulture 'august' feels like a fast-forward to the present after the childhood images of 'seven'."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the Long Pond Studio Sessions film, as reported by Billboard in November 2020",
+            note: "She described the girl in 'august' as Augusta or Augustine in her own head, not Inez."
+          },
+          {
+            who: "Jack Antonoff",
+            context: "In the same film, as reported by Billboard",
+            note: "He described writing with Swift as a stream of ever-better bridges, and said he loved hearing the patchwork come together on this song."
+          }
+        ],
+        sources: [
+          {
+            name: "11 Things We Learned From Taylor Swift's 'Folklore: The Long Pond Studio Sessions' - Billboard",
+            url: "https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/"
+          },
+          {
+            name: "Taylor Swift Releases 'The Lakes (Original Version)' on 'Folklore' One-Year Anniversary: Listen Now - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-the-lakes-original-version-folklore-one-year-anniversary-9605979/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          }
+        ]
+      },
     },
     {
       slug: 'this-is-me-trying',
@@ -1002,6 +1118,66 @@ const TRACKS = [
         wiki('The Lakes (song)', 'The_Lakes_(song)', 'song article: Lake District inspiration'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The bonus track on folklore's deluxe edition, and a song about wanting to step out of public life. In the Long Pond Studio Sessions film, as Billboard reported it, Swift said a trip to England's Lake District crystallized the idea: 19th-century poets such as William Wordsworth and John Keats spent a lot of time there and were made fun of as eccentrics, and when she visited she thought she could see herself doing the same, in a cottage with wisteria growing up the side.",
+          "Jack Antonoff co-wrote and co-produced it with Swift. He told Billboard it first existed as a 'big orchestral version' until Swift said to 'make it small'; he took everything out and, alone in the studio, thought it was perfect. On the album's first anniversary, July 24, 2021, Swift released the original orchestral version as a thank-you to fans."
+        ],
+        meaning: {
+          confirmed: [
+            "In the Long Pond Studio Sessions film, per Billboard's November 2020 write-up, Swift tied the song to a Lake District visit and the Romantic poets who retreated there, and said she could picture living that way herself.",
+            "Announcing the original version on July 24, 2021, Swift wrote that it was a thank-you for all fans had done to make the album what it was, and wished a happy anniversary to 'Rebekah, Betty, Inez, James, Augustine' and the stories fans created around them (as quoted by Billboard)."
+          ],
+          supported: [
+            "Antonoff told Billboard the song began as a large orchestral arrangement that Swift asked him to shrink; the finished version is the stripped one.",
+            "Aaron Dessner told Vulture in July 2020 that it is 'a Jack song' and described it as being lost in a beautiful garden, with a kind of Greek, tragic poetry to it. That is a collaborator's impression, not a statement of meaning by Swift."
+          ]
+        },
+        live: [
+          {
+            date: "June 2, 2023",
+            event: "The Eras Tour, Chicago",
+            note: "Deadline's list of Eras Tour surprise songs gives 'I Wish You Would' and 'The Lakes' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:august",
+            label: "august",
+            why: "Swift's July 2021 anniversary post, as quoted by Billboard, named Augustine alongside Rebekah, Betty, Inez and James as characters of the album."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the Long Pond Studio Sessions film, as reported by Billboard in November 2020",
+            note: "She said that poets like Wordsworth and Keats lived in the Lake District and were heckled for it, and that on visiting she could imagine doing the same."
+          },
+          {
+            who: "Jack Antonoff",
+            context: "In Billboard's digital cover story, as quoted in July 2021",
+            note: "He said the orchestral version of the song was stripped back at Swift's request and that the small version struck him as perfect."
+          }
+        ],
+        sources: [
+          {
+            name: "11 Things We Learned From Taylor Swift's 'Folklore: The Long Pond Studio Sessions' - Billboard",
+            url: "https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/"
+          },
+          {
+            name: "Taylor Swift Releases 'The Lakes (Original Version)' on 'Folklore' One-Year Anniversary: Listen Now - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-the-lakes-original-version-folklore-one-year-anniversary-9605979/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
 ];
 

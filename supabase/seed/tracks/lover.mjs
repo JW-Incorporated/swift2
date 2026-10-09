@@ -40,6 +40,53 @@ const ERA = {
         wiki('I Forgot That You Existed', 'I_Forgot_That_You_Existed', 'song article: composition'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Lover's opening track, and Swift's stated way of closing out the reputation era. At a Lover Secret Session in August 2019 she said reputation was a coping mechanism, like going through the stages of grief and throwing a funeral for her reputation, and that she wanted the first song on the new album to complete the cycle of grieving. The end of that cycle, she said, is indifference: 'The actual definition of getting over something is a shrug.'",
+          "She wrote it with the production duo Louis Bell and Frank Dukes, and said she wanted the song to be as simple as the emotion of indifference."
+        ],
+        meaning: {
+          confirmed: [
+            "At the Lover Secret Sessions, Swift said that after the reputation album, which she called a response to a lot of things that happened in her life, in picking and writing the first song on Lover she wanted to complete the grieving cycle and arrive at indifference (iHeartRadio, August 2019).",
+            "In her Rolling Stone interview, asked when she reached the place the song describes, Swift said it was sometime on the Reputation tour, which she called the most transformative emotional experience of her career and the healthiest, most balanced place she had been (September 2019)."
+          ]
+        },
+        live: [
+          {
+            date: "August 24, 2023",
+            event: "The Eras Tour, Mexico City",
+            note: "NME reported that Swift gave the song its live debut in the surprise-song segment of the first international Eras show, on acoustic guitar."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:sweet-nothing",
+            label: "Sweet Nothing",
+            why: "NME reported that Swift gave this Midnights song its live debut on the same night as 'I Forgot That You Existed'."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "At a Lover Secret Session, as published by iHeartRadio in August 2019",
+            note: "She said that when you are really done with a frustrating chapter you hit indifference, and she wanted the song to be as simple as that feeling."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Shares Intimate Details of 'Lover' Songs During Secret Session - iHeartRadio",
+            url: "https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/"
+          },
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Watch Taylor Swift debut 'I Forgot That You Existed' and 'Sweet Nothing' live - NME",
+            url: "https://www.nme.com/news/music/watch-taylor-swift-debut-i-forgot-that-you-existed-and-sweet-nothing-live-3488753"
+          }
+        ]
+      },
     },
     {
       slug: 'cruel-summer',
@@ -477,6 +524,45 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Lover's high-school protest song. Swift told Rolling Stone in September 2019 that she wrote it a couple of months after the midterm elections and wanted to pick a metaphorical place for politics to exist: a traditional American high school, full of social events that could leave someone feeling alienated, where people in the political landscape feel they need to 'huddle up under the bleachers and figure out a plan to make things better.'",
+          "Variety's Chris Willman wrote in August 2019 that the song 'feels like the great protest song this generation has needed', and that it works partly because it is cloaked in metaphor, which is unusual for Swift's more literal songwriting."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said she used a high school as the metaphor for politics, and that it was written a couple of months after the midterm elections (Rolling Stone, September 2019).",
+            "When the interviewer suggested her Fall Out Boy fandom had slipped into the title, she said she loves the band, that their songwriting influenced her lyrically maybe more than anyone else, and that they take a phrase and twist it. She did not spell out the title's source in that exchange."
+          ],
+          supported: [
+            "Willman heard echoes of 'You Belong With Me' in the cheerleader sound and the anti-fight-song chorus, and described the song as deeply sad beneath its shiny, tense surface. That is a critic's reading, not Swift's account."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:you-belong-with-me",
+            label: "You Belong With Me",
+            why: "Variety's Chris Willman heard unmistakable, probably intentional echoes of that earlier high-school song."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In The Rolling Stone Interview, September 2019",
+            note: "She said she picked a traditional American high school as the place to put politics, because it is full of events that can leave someone feeling completely alienated."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Taylor Swift's 'Miss Americana' May Be the Great Protest Song of Our Time (Column) - Variety",
+            url: "https://variety.com/2019/music/opinion/taylor-swift-miss-americana-heartbreak-prince-opinion-1203317552/"
+          }
+        ]
+      },
     },
     {
       slug: 'paper-rings',
@@ -494,6 +580,54 @@ const ERA = {
       themes: ['joyful commitment', 'substance over ceremony', 'giddiness'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Paper_Rings',
       sources: [wiki('Paper Rings', 'Paper_Rings', 'song article: composition'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The clearest case of the template Swift set for part of Lover: imagining she was a wedding band at a reception, playing the love songs the couple wanted to hear in 1978 or so. At a Lover Secret Session in August 2019 she said she and Jack Antonoff basically wrote it together, and that Antonoff can be heard counting in the chorus because they wanted so much to sound like a wedding band.",
+          "She told Rolling Stone in September 2019 that for songs like 'Paper Rings' and 'Lover' she imagined a wedding-reception band in the Seventies, which could not play instruments that had not been invented yet."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift described the whole song at the Secret Session as reminiscing on fun memories, with a chorus built on the idea that if you really love someone you do not care what the ring looks like (iHeartRadio, August 2019).",
+            "She said the bridge was inspired by punk girl groups and the way they used to shout their singing in an unapologetic way (same session).",
+            "In her Rolling Stone interview, she said she sometimes imagines where songs would be played, and for this one she pictured a wedding-reception band (September 2019)."
+          ]
+        },
+        live: [
+          {
+            date: "June 23, 2023",
+            event: "The Eras Tour, Minneapolis",
+            note: "Deadline's list of Eras Tour surprise songs gives 'Paper Rings' and 'If This Was a Movie' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:lover",
+            label: "Lover",
+            why: "Swift told Rolling Stone she imagined the same wedding-reception band for both songs."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "At a Lover Secret Session, as published by iHeartRadio in August 2019",
+            note: "She said that part of her template for the album was imagining herself as a wedding band playing the love songs the bride and groom wanted to hear."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Shares Intimate Details of 'Lover' Songs During Secret Session - iHeartRadio",
+            url: "https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/"
+          },
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'cornelia-street',
