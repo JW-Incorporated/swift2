@@ -1160,7 +1160,7 @@ const TRACKS = [
         },
         {
           "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
-          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373013/"
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
         },
         {
           "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
@@ -1380,7 +1380,7 @@ const TRACKS = [
         },
         {
           "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
-          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373013/"
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
         },
         {
           "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
@@ -1433,7 +1433,7 @@ const TRACKS = [
         },
         {
           "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
-          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373013/"
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
         },
         {
           "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",

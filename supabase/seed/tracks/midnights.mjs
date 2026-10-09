@@ -1592,7 +1592,7 @@ const ERA = {
       ],
       dossier: {
         whyItMatters: [
-          "'You're Losing Me' reached listeners through an unusual route: Billboard reported it first appeared on Midnights (The Late Night Edition), a CD available only to fans at Swift's May 26, 2023 Eras Tour show at MetLife Stadium in East Rutherford, N.J., and was briefly sold as an album in her web store that night. It had never been sold as a standalone track until Nov. 29, 2023.",
+          "'You're Losing Me' reached listeners through an unusual route: Billboard reported it first appeared on Midnights (The Late Night Edition), a CD available only to fans at her Eras Tour shows, starting with the May 26, 2023 concert at MetLife Stadium in East Rutherford, N.J., and was briefly sold as an album in her web store that night. It had never been sold as a standalone track until Nov. 29, 2023.",
           "Rolling Stone's writers put it on their list of the 100 best songs of 2023, calling it 'one of Swift's most devastating songs about a relationship on its last pulse.' That is the magazine's critical judgment.",
         ],
         meaning: {

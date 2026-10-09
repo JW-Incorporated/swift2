@@ -717,7 +717,7 @@ const ERA = {
       sources: [ALBUM],
       dossier: {
         whyItMatters: [
-          "Billboard reported that 'Death by a Thousand Cuts' was inspired not by one of Swift's own public breakups but by a film. Swift described crying at Someone Great, then waking up from dreams for about a week in which she was living out its scenario, with lyrics in her head 'based on the dynamics of these characters.'",
+          "Billboard reported that 'Death by a Thousand Cuts' was inspired not by one of Swift's own public breakups but by a film. E! News reported that Swift described crying at Someone Great, then waking up from dreams for about a week in which she was living out its scenario, with lyrics in her head 'based on the dynamics of these characters.'",
           "The song closes a loop between two artists. Billboard reported that the film's writer-director, Jennifer Kaytin Robinson, said on Instagram that Someone Great would not have existed without 1989, and Swift told radio host Elvis Duran: 'I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that's ever happened to me.'",
         ],
         meaning: {
@@ -737,7 +737,7 @@ const ERA = {
           },
           {
             who: 'Jennifer Kaytin Robinson',
-            context: 'Writer-director of Someone Great, Instagram post, August 22, 2019',
+            context: 'Writer-director of Someone Great, Instagram post, August 2019',
             note: "Said she had heard rumors the song was inspired by her film and confirmed it was true, calling it a 'full circle situation.'",
           },
         ],
@@ -774,7 +774,7 @@ const ERA = {
       ],
       dossier: {
         whyItMatters: [
-          "'London Boy' is the most explicitly England-themed song on Lover. Billboard's Jason Lipshutz described it as 'an homage to a transatlantic romance' that 'bursts with cheeky joy', and ranked it last of the album's 18 tracks in his critic's picks, calling it 'knowingly silly'.",
+          "'London Boy' is Lover's England-themed song (Pitchfork's phrase). Billboard's Jason Lipshutz described it as 'an homage to a transatlantic romance' that 'bursts with cheeky joy', and ranked it last of the album's 18 tracks in his critic's picks, calling it 'knowingly silly'.",
           "Its cold open is a sample of actor Idris Elba speaking on The Late Late Show with James Corden in 2017.",
         ],
         meaning: {
