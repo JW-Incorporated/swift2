@@ -1050,7 +1050,7 @@ const TRACKS = [
       summary:
         'Grief braided with inherited advice: be polite but keep a knife, be cleverer than clever. The regret of not saving more of someone, answered by literally sampling the recordings that survived.',
       inspiration:
-        'Per Rolling Stone’s review, a portrait of her grandmother Marjorie Finlay, an opera singer; Finlay’s archival vocals are credited on the track, the era’s most tender production choice.',
+        'Rolling Stone’s review reads it as a portrait of her grandmother Marjorie Finlay; Finlay, an opera singer, is credited with archival vocals on the track, the era’s most tender production choice.',
       themes: ['grief for a grandparent', 'inheritance of spirit', 'what survives us'],
       easterEggs:
         'The pairing with epiphany gives each grandparent a song — grandfather at 13 on folklore’s tracklist mirror, grandmother at 13 here.',
