@@ -795,6 +795,61 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most explicitly historical song on folklore, and the clearest case of Swift writing from outside her own diary. Vogue reported that, in the Disney+ documentary folklore: the long pond studio sessions, she confirmed the song is written from the perspective of her grandfather, Dean Swift, who fought in World War II at the Battle of Guadalcanal, and that she was also thinking of people working in hospitals today.",
+          "Aaron Dessner told Vulture the song began with Swift's idea of a widescreen, drone-based piece: he built the drone from many instruments played, slowed down and reversed, then played piano over it. In his words it is partly a soldier's story and partly a modern medical worker's, about things you can only bear witness to."
+        ],
+        meaning: {
+          confirmed: [
+            "In conversation with Dessner in the documentary (as quoted by Vogue), Swift said she had done a lot of research into her grandfather's war, that he never talked about it with his sons or his wife, and that she tried to imagine what would make a person unable to speak about something.",
+            "She tied that to the present: she said people on a break between hospital shifts are living through trauma they will probably never want to talk about, and called the song 'an opportunity to maybe tell those stories.'",
+            "Dessner told Rolling Stone that he and Swift wrote and conceived the song together, and that he was 'clicking for her' as she composed to the sounds he was building."
+          ],
+          supported: [
+            "Dessner told Vulture the song is partly the story of Swift's grandfather and partly that of a nurse in modern times, and that to him its underlying mission is that some things you see are hard to talk about and you can only bear witness to them. That is his reading, offered as 'to me', not Swift's own statement.",
+            "On sound, Dessner told Rolling Stone the early reference point felt like 'some weird Kate Bush-meets-Peter Gabriel thing', and told Vulture his brother did the orchestration."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "In one Rolling Stone answer Dessner named the reference points for both songs: early Bob Dylan for 'betty', and a Kate Bush-meets-Peter Gabriel feel for this one."
+          },
+          {
+            relatedId: "song:the-last-great-american-dynasty",
+            label: "the last great american dynasty",
+            why: "Vogue's write-up of the documentary treats the two as folklore's research-driven history songs: Swift said she had wanted to write about the history of her own house for years and only found the opening line while making folklore."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In conversation with Aaron Dessner in the Disney+ documentary, as quoted by Vogue",
+            note: "She described imagining what would make someone never able to speak about what happened to them, and linked her grandfather's silence to what hospital workers carry today."
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture in July 2020",
+            note: "He said there is also something soothing and comforting about the song, with an Icelandic, almost classical feel."
+          }
+        ],
+        sources: [
+          {
+            name: "5 Things We Learned Watching Taylor Swift's Surprise New Folklore Documentary - Vogue",
+            url: "https://www.vogue.com/article/taylor-swift-folklore-documentary-5-things-we-learned"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          }
+        ]
+      },
     },
     {
       slug: 'betty',

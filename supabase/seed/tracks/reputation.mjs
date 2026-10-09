@@ -195,6 +195,78 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Swift talked about this song in her 2019 Rolling Stone interview, after the interviewer raised the idea that no one gets through life unscathed. She said it was about doing something so against what she would usually do, after a lifetime of trying to be kind and learning that you can get walked all over.",
+          "It opened the 2018 American Music Awards: Billboard reported it was her first awards-show performance in nearly three years, with Swift atop a stack of dancers in a U-shaped structure, a stage on fire and a giant cobra head rising behind her."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Rolling Stone she has had to reconcile that 'good' complex in the last couple of years: from a kid she tried to be kind and to do the right thing, but sometimes you get walked all over, and you cannot just sit there and let it happen.",
+            "She said 'I Did Something Bad' was about doing something so against what she would usually do."
+          ],
+          supported: [
+            "The New Yorker, reviewing the album in November 2017, described this song as part of a turn in which Swift, once focused on the failures of those around her, now looks inward and revels in a state of sin.",
+            "Vulture's review heard the song as going full 'Maneater', part of Swift's long-awaited heel turn. Billboard's review called the song's dubstep breakdown one of the album's blemishes. Both are critics' judgments rather than statements of intent."
+          ],
+          fanTheories: [
+            "Some fans read the song's 'narcissist' verses as aimed at particular people from the 2016 feuds. None of the sources cited here has Swift confirming a target, and this guide names no one."
+          ]
+        },
+        live: [
+          {
+            date: "October 9, 2018",
+            event: "American Music Awards, Microsoft Theater, Los Angeles",
+            note: "Billboard reported she opened the show with the song, her first awards-show performance in nearly three years."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The New Yorker contrasted the album's inward turn with the cartoonish revenge drama of its lead single."
+          },
+          {
+            relatedId: "song:dress",
+            label: "Dress",
+            why: "The New Yorker discussed the two in the same passage, describing Swift on the record as a 'baby hedonist' who buys a dress so her lover can take it off."
+          },
+          {
+            relatedId: "song:getaway-car",
+            label: "Getaway Car",
+            why: "The New Yorker cited it in the same passage as a place where Swift is eager to implicate herself rather than point at others."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "The Rolling Stone interview, September 2019",
+            note: "She said she had spent her life trying to be a good person, and that responding to being walked all over is something she has had to work out."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Taylor Swift Opens 2018 AMAs With Fiery 'I Did Something Bad': Watch - Billboard",
+            url: "https://www.billboard.com/music/awards/2018-amas-taylor-swift-i-did-something-bad-watch-8479115/"
+          },
+          {
+            name: "Taylor Swift's Confessions on \"Reputation\" - The New Yorker",
+            url: "https://www.newyorker.com/magazine/2017/11/27/taylor-swifts-confessions-on-reputation"
+          },
+          {
+            name: "Taylor Swift's Reputation Fixates on Big Enemies and Budding Romance - Vulture",
+            url: "https://www.vulture.com/2017/11/review-taylor-swifts-album-reputation.html"
+          },
+          {
+            name: "Taylor Swift's 'Reputation': The Pop Star Embraces Her Flaws on Her Riskiest Album Yet - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-reputation-album-review-8031184/"
+          }
+        ]
+      },
     },
     {
       slug: 'dont-blame-me',

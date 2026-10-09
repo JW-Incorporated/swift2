@@ -623,6 +623,61 @@ const ERA = {
         wiki("Soon You'll Get Better", "Soon_You'll_Get_Better", 'song article: family background'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most personal song on Lover, and one Swift said was a family decision to include. In a YouTube Live with fans the night before the album came out (as Elle reported), she said it was really, really hard to write, that songs like that may be hard to write and sing because they are really true, and that she cannot sing it and finds it hard to deal with emotionally.",
+          "Rolling Stone described it as a stripped-down track that Swift wrote about her mother and her continued battle with cancer, co-written and co-produced with Jack Antonoff, with the Dixie Chicks, now the Chicks, adding harmonies."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said in the YouTube Live that it was 'really, really hard to write', that putting it on the album was a family decision, and that she is proud of it.",
+            "Rolling Stone quoted Swift's earlier writing in Elle that she has had to learn how to handle serious illness in her family. Elle reported that she had recently said, for its cover feature, that both of her parents have had cancer and that her mother was fighting it again. That is Swift's own disclosure, and the song's subject is as she has described it."
+          ],
+          supported: [
+            "Rolling Stone reported that the instrumentation is two guitars and Martie Maguire's fiddle, that the Chicks' parts are harmonies on the chorus, and that Natalie Maines' voice echoes Swift's in the bridge.",
+            "Vulture heard it as a return to the intimate disclosure of Swift's early records, and noted that as a preteen she shopped a demo on Music Row that included a Chicks cover. That is the outlet's framing, not Swift's."
+          ]
+        },
+        live: [
+          {
+            date: "April 18, 2020",
+            event: "One World: Together at Home",
+            note: "Billboard reported Swift performed the song live for the first time on the televised benefit, seated at a piano."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-best-day",
+            label: "The Best Day",
+            why: "Elle noted that Swift first released a song about her mother on Fearless with this one, and framed 'Soon You'll Get Better' as the later song on the same relationship."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In a YouTube Live with fans the night before Lover's release, as quoted by Elle",
+            note: "She said songs this hard to write may be hard to sing precisely because they are true, and that the family decided together to put it on the album."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'Soon You'll Get Better' Lyrics Reveal the Struggle of Watching Her Parents Battle Cancer - Elle",
+            url: "https://www.elle.com/culture/music/a28787408/taylor-swift-soon-you-get-better-lyrics-meaning-mom/"
+          },
+          {
+            name: "Hear Taylor Swift, Dixie Chicks Team for Heartfelt Song 'Soon You'll Get Better' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-dixie-chicks-soon-youll-get-better-song-listen-875304/"
+          },
+          {
+            name: "Taylor Swift Sings Heart-Rending 'Soon You'll Get Better' During 'One World' Concert: Watch - Billboard",
+            url: "https://www.billboard.com/music/music-news/one-taylor-swift-soon-youll-get-better-world-togher-at-home-concert-9361327/"
+          },
+          {
+            name: "Taylor Swift and the Dixie Chicks Come Full Circle on the Devastating 'Soon You'll Get Better' - Vulture",
+            url: "https://www.vulture.com/2019/08/taylor-swift-dixie-chicks-soon-youll-get-better-review.html"
+          }
+        ]
+      },
     },
     {
       slug: 'false-god',
@@ -869,6 +924,51 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The closer that nearly gave Lover its name. Swift told Rolling Stone in 2019 that the song 'almost' became the title track: she had been referring to the album as Daylight in her head for a while, and decided it might be too sentimental and too on-the-nose.",
+          "Vulture, in its Lover review, heard the album as daybreak after reputation's dark night, and noted that Swift told fans in a chat the night before release that the record was nearly named after its closer."
+        ],
+        meaning: {
+          confirmed: [
+            "Asked by Rolling Stone why the song was not the title track, Swift agreed it 'almost was', and said she thought the name was a little too sentimental and 'way too on-the-nose.'",
+            "She said she chose Lover because it was a more interesting title, 'a more accurate theme' in her head, and 'more elastic as a concept.'",
+            "Asked about the lyric on crossing lines unforgiven, she told Rolling Stone it is something that bothers her, looking back: that no matter what you screw things up, and that some people who were in your life are not anymore, with nothing you can do to fix it."
+          ],
+          supported: [
+            "Vulture's contrast between the dark mood of reputation and the daybreak of Lover is a critic's framing of where the album sits in her catalog."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:lover",
+            label: "Lover",
+            why: "Swift told Rolling Stone she chose this song's title over 'Daylight' for the album because it was more elastic as a concept."
+          },
+          {
+            relatedId: "song:you-need-to-calm-down",
+            label: "You Need to Calm Down",
+            why: "In the same Rolling Stone answer, Swift said the Lover title works as a theme broad enough to hold songs like this one, which addresses people not being allowed to live without discrimination for who they love."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "The Rolling Stone interview, September 2019",
+            note: "She said she had thought of the album as 'Daylight' for a while, then found 'Lover' a more interesting and more elastic title."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "The Old Taylor Is Back on Lover and the Best She's Been in Years - Vulture",
+            url: "https://www.vulture.com/2019/08/taylor-swift-lover-album-review.html"
+          }
+        ]
+      },
     },
   ],
 };
