@@ -57,6 +57,12 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
   landscape (webkit); 2 workers locally, one CI job per project.
 
+Persona bylines (#5391): every frozen item carries the `author` the live sync derives (`routeAuthor`), in both the bundle
+and the baked `content-vault.generated.ts`, so moment bylines are covered. The frozen category is lost at sync time
+(tags are many-to-one), so the authors were injected into the existing snapshot by id rather than re-freezing all live
+content, which keeps the baseline diff to bylines. `fixture-authors.test.ts` fails if a frozen item lacks one. A later
+`--regenerate` carries authors natively.
+
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
 The a-vs-b specs run each side in its own browser context (`pages.a` is the test's page, `pages.b` a second
