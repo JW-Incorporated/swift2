@@ -34,7 +34,7 @@ const MESSAGE_TEXT_CAP = 4000;
 const HUMAN_TYPES = new Set([0, 19]);
 
 export const BOTS = {
-  marjorie: { name: 'Marjorie', channelName: 'longlive-marjorie', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },
+  marjorie: { name: 'Marjorie', channelName: 'marjorie', channelId: '1548350324891328562', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },
   tree: { name: 'Tree', channelName: 'longlive-tree', workflow: 'routine-tree-chat.yml', channelEnv: 'DISCORD_TREE_CHANNEL_ID' },
 };
 

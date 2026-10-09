@@ -50,7 +50,7 @@ export function baseRoutes(marjMessages: unknown[], threadMessages: unknown[] = 
   ]));
   return {
     [`GET ${HOOK}`]: res(200, { guild_id: GUILD, channel_id: TREE }),
-    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'longlive-marjorie' }, { id: TREE, name: 'longlive-tree' }]),
+    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'marjorie' }, { id: TREE, name: 'longlive-tree' }]),
     [`GET ${DISCORD_API}/guilds/${GUILD}/threads/active`]: res(200, { threads: [{ id: THREAD, parent_id: MARJ, last_message_id: snow(NOW - 3_600_000) }] }),
     [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100`]: res(200, marjMessages),
     [`GET ${DISCORD_API}/channels/${THREAD}/messages?limit=100`]: res(200, threadMessages),
@@ -59,4 +59,4 @@ export function baseRoutes(marjMessages: unknown[], threadMessages: unknown[] = 
     ...exact(THREAD, threadMessages),
   };
 }
-export const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO };
+export const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_MARJORIE_CHANNEL_ID: MARJ, DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO };
