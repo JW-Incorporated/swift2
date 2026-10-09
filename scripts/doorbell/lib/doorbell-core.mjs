@@ -58,13 +58,12 @@ export function createSeen(cap = SEEN_CAP) {
 
 /**
  * Where a message can live. The two chat channels are found by id
- * (`BOTS[bot].channelId`, else by name `BOTS[bot].channelName`); threads by their parent, from GUILD_CREATE, the
+ * (`BOTS[bot].channelId` only — never by name; the channels were renamed); threads by their parent, from GUILD_CREATE, the
  * thread events and a `GET /channels/{id}` fallback. `resolve` returns the
  * place for one of ours, `null` for a channel or thread known to be elsewhere,
  * and `undefined` for an id never seen.
  */
 export function createChannelMap({ guildId = '' } = {}) {
-  const byName = new Map(Object.entries(BOTS).map(([bot, cfg]) => [cfg.channelName, bot]));
   const byId = new Map(Object.entries(BOTS).filter(([, cfg]) => cfg.channelId).map(([bot, cfg]) => [cfg.channelId, bot]));
   const channels = new Map(); // channel id → bot, or null for any other channel
   const threads = new Map(); // thread id → parent channel id
@@ -76,7 +75,7 @@ export function createChannelMap({ guildId = '' } = {}) {
         map.thread(c);
         return;
       }
-      channels.set(String(c.id), byId.get(String(c.id)) || byName.get(c.name) || null);
+      channels.set(String(c.id), byId.get(String(c.id)) || null);
     },
     thread(t) {
       if (t?.id && t.parent_id && inGuild(t)) threads.set(String(t.id), String(t.parent_id));

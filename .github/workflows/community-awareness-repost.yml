@@ -1,0 +1,68 @@
+# One-shot: re-post every awareness card still waiting on Posted/Skip into its new channel
+# (Reddit -> tree-reddit, Facebook -> tree-facebook). workflow_dispatch ONLY; no schedule, no
+# trigger. DRY-RUN BY DEFAULT: with `live` unchecked it only lists what it would send and
+# touches nothing. A live run needs `delivered_before` (an ISO instant, the moment the new
+# routing went live) so a second dispatch cannot re-send the same cards. Plain run: steps, no
+# agent; DISCORD_BOT_TOKEN comes from the main-only `social` environment.
+name: community-awareness-repost
+
+on:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: "Actually post (default off = list only)"
+        type: boolean
+        default: false
+      delivered_before:
+        description: "ISO instant: only cards delivered before it. Required when live. Blank in a dry run = now."
+        type: string
+        default: ""
+      since_days:
+        description: "Ignore cards delivered more than this many days ago"
+        type: string
+        default: "14"
+
+concurrency:
+  group: community-awareness-repost
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  repost:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+
+      - name: Build the offline moment catalogue (seed files only, no secrets)
+        run: node scripts/sync-longlive-content.mjs
+
+      - name: List (default) or re-post the pending awareness cards
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_REDDIT_CHANNEL_ID: ${{ vars.DISCORD_TREE_REDDIT_CHANNEL_ID }}
+          DISCORD_TREE_FACEBOOK_CHANNEL_ID: ${{ vars.DISCORD_TREE_FACEBOOK_CHANNEL_ID }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          INPUT_LIVE: ${{ inputs.live }}
+          INPUT_BEFORE: ${{ inputs.delivered_before }}
+          INPUT_SINCE_DAYS: ${{ inputs.since_days }}
+        run: |
+          ARGS="--since-days=${INPUT_SINCE_DAYS:-14}"
+          if [ -n "$INPUT_BEFORE" ]; then ARGS="$ARGS --delivered-before=$INPUT_BEFORE"; fi
+          if [ "$INPUT_LIVE" = "true" ]; then ARGS="$ARGS --live"; fi
+          npx tsx scripts/community/awareness-repost.mjs $ARGS

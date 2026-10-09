@@ -41,6 +41,7 @@ import { validatePrompt } from './lib/bot1-bridge.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
 import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
+import { discordBotToken } from '../lib/discord-route.mjs';
 
 export const REPLY_CAP = 1800;
 export const ORDINARY_WORD_CAP = 80;
@@ -51,6 +52,9 @@ const SUMMARY_FILE = 'chat-summary.txt';
 const BOT1_PROMPT_FILE = 'bot1-prompt-1.md';
 const OUT_DIR = path.join('.scratch', 'out');
 export const WEBHOOK_ENV = { marjorie: 'DISCORD_MARJORIE_WEBHOOK_URL', tree: 'DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL' };
+// Tree's chat replies are posted by channel id with the bot token (scripts/lib/discord-route.mjs)
+// so they land in tree-main; the webhook (tree-ig-x) is only the fallback. Marjorie stays on her webhook.
+export const CHAT_REPLY_ROUTE = { tree: 'tree-main' };
 
 function oneLine(text, cap) {
   const flat = String(text || '').replace(/\s+/g, ' ').trim();
@@ -198,7 +202,8 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
     return 2;
   }
   const webhook = env[WEBHOOK_ENV[bot]] || '';
-  if (!webhook) {
+  const route = CHAT_REPLY_ROUTE[bot] || null;
+  if (!webhook && !(route && discordBotToken(env))) {
     console.log(`::error::chat-post post: ${WEBHOOK_ENV[bot]} is not set in this job`);
     setOutput(env, 'result', 'post-error');
     return 1;
@@ -211,7 +216,7 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
     setOutput(env, 'result', 'missing');
     return 0;
   }
-  const sent = await webhookPost(text, { thread: threadId || undefined, webhook, username: BOTS[bot].name, fetchImpl, ...(waitImpl ? { waitImpl } : {}) });
+  const sent = await webhookPost(text, { thread: threadId || undefined, webhook, username: BOTS[bot].name, fetchImpl, ...(route ? { route, env } : {}), ...(waitImpl ? { waitImpl } : {}) });
   if (!sent.ok) {
     console.log(`::error::chat-post post: ${sent.error}`);
     setOutput(env, 'result', 'post-error');
