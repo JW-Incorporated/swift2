@@ -157,6 +157,42 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "Maroon is Midnights' New York chapter and its most direct conversation with Swift's own catalog. It narrates a dead romance through shades of red - a cheap rosé, a wine stain, flushed cheeks - and then names the color of what is left. Rolling Stone's Rob Sheffield read it as the New York romance in which the heartache feared in “Cornelia Street” comes true, and, in his review of the album, as a “gorgeous ballad” in the tradition of the New York love story every Swift album seems to need, set ten years after “Holy Ground.”",
+          "It also earned its place on the chart. Maroon debuted and peaked at No. 3 on the Billboard Hot 100 behind “Anti-Hero” and “Lavender Haze,” in the week Swift became the first artist to hold the entire top 10, and reached No. 4 on the Billboard Global 200. Critics were not unanimous - some heard an evocative standout, others a derivative one - which is part of why it stays a lively argument in the fandom.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift and Jack Antonoff, who programmed it and played percussion, Juno 6 and modular synths, piano, electric and bass guitars; Evan Smith played organ, saxophone, flute and clarinet. Per the Midnights credits as summarized in the song's Wikipedia article, it was recorded at Rough Customer Studio (Brooklyn) and Electric Lady Studios (New York), mixed by Serban Ghenea and mastered by Randy Merrill. It runs 3:38.",
+            "Chart facts: No. 3 on the Hot 100 (Billboard's list of all 20 Midnights debuts ranks it behind “Anti-Hero” and “Lavender Haze”) and No. 4 on the Global 200. Swift performed it ten times as an Eras Tour surprise song - four standalone piano performances (East Rutherford, May 26, 2023; Inglewood, Aug. 3, 2023; Mexico City, Aug. 27, 2023; Paris, May 11, 2024) and six piano mashups.",
+          ],
+          supported: [
+            "The lyric reminisces about a former lover Swift's narrator used to dance with in New York; the refrain assigns shades of red to moments of the romance and uses maroon for what remains. Several commentators, per the song's Wikipedia article, read the image of rusting telephone wires as a long-distance relationship that fell apart for lack of communication - a reading of the imagery, not a statement from Swift.",
+            "Sheffield, in Rolling Stone's ranking of Swift's songs (No. 25), calls it a New York romance where the heartache feared in “Cornelia Street” comes true, leaving her haunted by a love that was burning red. Other critics connected it to Red (Slate's Carl Wilson called it a “more melancholy and experienced version” of that album's themes, per Wikipedia).",
+            "The sound is built on an EBow guitar note that sustains and slowly oscillates, thick reverb, layered vocals and trap-style drums. The Guardian's Alexis Petridis heard shoegaze in the guitar and called the song “superb”; The New York Times' Jon Caramanica, by contrast, found the vocals stacked “to the point of suffocation,” and Pitchfork's Quinn Moreland heard the production as “oddly impersonal, bordering on numb” (all as summarized by Wikipedia).",
+          ],
+          fanTheories: [
+            "The idea that Maroon is a deliberate, grown-up sequel to Red's color-coded heartbreak is a press-and-fandom reading (some reviewers noted a probable reference to Red); Swift has not confirmed it as an intentional sequel.",
+            "Swift has not explained who or what the song is about, and no fetched source documents a real-world subject, so any identification of the New York love interest is speculation and is not recorded here.",
+          ],
+        },
+        live: [
+          {
+            date: "May 26, 2023",
+            event: "The Eras Tour, East Rutherford",
+            note: "The earliest of four standalone piano performances listed by Wikipedia (the others: Aug. 3, 2023 in Inglewood; Aug. 27, 2023 in Mexico City; May 11, 2024 in Paris).",
+          },
+          {
+            date: "June 13, 2024",
+            event: "The Eras Tour, Liverpool",
+            note: "Piano mashup with “Cornelia Street.”",
+          },
+          {
+            date: "November 2, 2024",
+            event: "The Eras Tour, Indianapolis",
+            note: "Piano mashup with “Cowboy Like Me.”",
+          },
+        ],
         connections: [
           {
             relatedId: "song:red",
@@ -166,7 +202,7 @@ const ERA = {
           {
             relatedId: "song:cornelia-street",
             label: "Cornelia Street",
-            why: "Its most-repeated Eras Tour surprise pairing — the two New York almost-loves mashed together on piano at Anfield's 100th show (June 13, 2024)."
+            why: "Its most-repeated Eras Tour surprise pairing — the two New York almost-loves mashed together on piano in Liverpool (June 13, 2024)."
           },
           {
             relatedId: "song:cowboy-like-me",
@@ -178,6 +214,18 @@ const ERA = {
           {
             name: "Maroon (song) — Wikipedia",
             url: "https://en.wikipedia.org/wiki/Maroon_(song)"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Welcome to the Lavender Labyrinth: Taylor Swift’s ‘Midnights’ Is the Mastermind’s Ultimate Power Move",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/"
+          },
+          {
+            name: "“Maroon” (2022) - Rolling Stone Australia",
+            url: "https://au.rollingstone.com/music/music-lists/taylor-swift-all-247-songs-ranked-58660/maroon-2022-3-58985"
           }
         ]
       },
@@ -431,6 +479,30 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "Midnight Rain is the Midnights song several critics treat as the album's emotional centerpiece. The narrator looks back on a love left behind in her hometown and on the domestic life she gave up for a career and fame, told in fragments of memory rather than a straight story. The New York Times' Lindsay Zoladz set it against “Love Story”: where that 2008 single treated marriage as the happy ending, Midnight Rain, she argued, expresses ambivalence about marriage and the traditional timelines of adulthood (per Wikipedia's summary of the reviews).",
+          "It is also the album's most audible production gamble. The hook is Swift's own voice dropped about an octave, and Jack Antonoff told MusicRadar he got those vocal sounds mostly with Soundtoys or iZotope VocalSynth, then reprocessed and bounced them. Reviews split on the result, but it did not hurt the chart run: Midnight Rain debuted and peaked at No. 5 on the Hot 100 and No. 5 on the Billboard Global 200, one of five Midnights songs that made Swift the first artist to hold the Global 200's entire top five.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift and Jack Antonoff (modular synths, Juno 6, Moog, Prophet 5, drums, programming, percussion), recorded at Rough Customer Studio (Brooklyn) and Electric Lady Studios (New York) with Laura Sisk, mixed by Serban Ghenea and mastered by Randy Merrill, per the Midnights liner-note credits as summarized in the song's Wikipedia article. It runs 2:54.",
+            "Swift revealed the title in the Sept. 28, 2022 episode of her TikTok series “Midnights Mayhem with Me.” Antonoff told MusicRadar that the vocal processing on this song and “Question...?” was done mostly with Soundtoys or iZotope VocalSynth, processing the vocals with plugins, bouncing them and taking them elsewhere. Billboard's list of the 20 Midnights debuts has it at No. 5 on the Hot 100; it also peaked at No. 5 on the Global 200 and No. 7 on the UK streaming chart.",
+          ],
+          supported: [
+            "As described in Wikipedia's summary of the lyric, the narrator reflects on a hometown boyfriend who stays the same while she changed and chased fame, and ends with regret. Esquire's Alan Light read this as Swift's mature view of the “determination, ambition, and sacrifices” behind her career; The A.V. Club's Saloni Gajjar and Vox's Rebecca Jennings compared the leaving-a-small-town-love theme to evermore songs such as “Champagne Problems” and “Dorothea.” Swift announced only the title and, in the sources reviewed here, did not annotate the story, so these are critics' readings.",
+            "The shifting between a lowered and a natural voice has been read as storytelling: Billboard's Jason Lipshutz described it as a call and response, while musicologist Phoebe E. Hughes and NPR's Ann Powers read it as a narrative device marking the subject's and the narrator's perspectives (Powers felt the effect diminished the songwriting). Lipshutz ranked it fifth of the 13 standard tracks and called the shifted hook “rock-solid”; Spin's Al Shipley called the effects “an embarrassing relic of 2010s SoundCloud production trends,” and Consequence's Mary Siroky found them overwhelming (all as summarized by Wikipedia).",
+          ],
+          fanTheories: [
+            "Attempts to identify the lost hometown love as a specific real person are speculation: Swift has not said whether the song is autobiographical, and no fetched source documents a real-world subject, so none is recorded here.",
+          ],
+        },
+        live: [
+          {
+            date: "2023",
+            event: "The Eras Tour",
+            note: "A fixture of the Midnights act, not a surprise song: Swift opened in an oversize silver shirt on a raised platform with rain-style visuals and umbrella choreography, then changed into a rhinestone bodysuit mid-song while dancers shielded her with umbrellas (Wikipedia).",
+          },
+        ],
         connections: [
           {
             relatedId: "song:labyrinth",
@@ -449,8 +521,12 @@ const ERA = {
             url: "https://en.wikipedia.org/wiki/Midnight_Rain"
           },
           {
-            name: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
             url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: “The Oberheim OB-8 was the star of that album”",
+            url: "https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim"
           }
         ]
       },
@@ -769,6 +845,40 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "Labyrinth is the Midnights track critics say sneaks up on you. Rolling Stone's Rob Sheffield wrote that he barely noticed it for the first few listens, then it “knocked me sideways,” and described it as the album's loveliest melody over dazzling synth sparkles and a hushed vocal. He placed it in the “head-spinning” run of “Vigilante Shit,” “Bejeweled” and “Labyrinth” that he called the heart of Midnights, and elsewhere labeled it a “stealth classic.”",
+          "It is also one of the album's most minimal songs lyrically: a woman talking herself through the vertigo of falling in love again so soon after heartbreak, with the sparse arrangement carrying the feeling. Its afterlife on the Eras Tour is part of its story - it stayed out of the show until it became the piano surprise song when the tour resumed in Buenos Aires in November 2023, then returned twice more in mashups.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift and Jack Antonoff (Juno 6, Realistic synth, OB8, Moog, electric guitars, programming, percussion), mixed by Serban Ghenea and mastered by Randy Merrill, per the Midnights liner-note credits as summarized in the song's Wikipedia article. It runs 4:07, and the outro, from about 2:55, repeats its refrains in Swift's voice pitched down about an octave.",
+            "Swift revealed the title in the Oct. 7, 2022 episode of her TikTok series “Midnights Mayhem with Me.” It debuted and peaked at No. 14 on the Hot 100 (Billboard's list of the 20 Midnights debuts) and reached No. 12 on the Global 200. The four-part breathing phrase in the lyric also appears in Swift's 2022 NYU commencement speech, where she told graduates they would “breathe in, breathe through, breathe deep, breathe out” (Billboard's transcript); Swift has not publicly tied the song to the speech, so the overlap is documented, the connection is not.",
+          ],
+          supported: [
+            "As summarized by Wikipedia, the lyric is about anxiety at a new romantic beginning after a breakup, using plane and elevator imagery. Critics disagree on where it lands: Annie Zaleski heard the refrain's smoother groove as the narrator calming into acceptance, while Rolling Stone's Brittany Spanos thought the romance in question is “potentially lost.” Vox's Rebecca Jennings linked the plane image to uncertainty across Swift's catalog, and Esquire's Alan Light heard her fame-related pressure in the song.",
+            "Reception was largely warm on the writing and divided on the vocal effects. Billboard's Jason Lipshutz placed it sixth of 13 standard tracks and called it the prettiest and most intimate; The A.V. Club's Mary Kate Carr called it “deceptively simple yet hauntingly beautiful.” NPR's Ann Powers, The Times' Will Hodgkinson and Spin's Al Shipley were cooler on the processed vocals (as summarized by Wikipedia).",
+          ],
+          fanTheories: [
+            "When Swift chose Labyrinth as her Buenos Aires surprise song in Nov. 2023, many fans read the choice as a comment on her own new relationship; Today reported that Swift had not publicly commented on her relationship status, so that remains a fan reading of a setlist choice.",
+          ],
+        },
+        live: [
+          {
+            date: "November 9, 2023",
+            event: "The Eras Tour, Buenos Aires",
+            note: "Live debut, a piano surprise song when the tour resumed after a nearly three-month break; Rolling Stone reported it alongside the first-ever live “The Very First Night.”",
+          },
+          {
+            date: "July 18, 2024",
+            event: "The Eras Tour, Gelsenkirchen",
+            note: "Piano mashup with “this is me trying.”",
+          },
+          {
+            date: "November 21, 2024",
+            event: "The Eras Tour, Toronto",
+            note: "Piano mashup with “State of Grace.”",
+          },
+        ],
         connections: [
           {
             relatedId: "song:this-is-me-trying",
@@ -790,6 +900,26 @@ const ERA = {
           {
             name: "Labyrinth (Taylor Swift song) — Wikipedia",
             url: "https://en.wikipedia.org/wiki/Labyrinth_(Taylor_Swift_song)"
+          },
+          {
+            name: "Welcome to the Lavender Labyrinth: Taylor Swift’s ‘Midnights’ Is the Mastermind’s Ultimate Power Move",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/"
+          },
+          {
+            name: "‘The Very First Night’ and ‘Labyrinth’ Get Live Debuts as Taylor Swift Resumes Eras Tour",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-the-very-first-night-labyrinth-live-debuts-1234874614/"
+          },
+          {
+            name: "Taylor Swift resumes the ‘Eras Tour’ and her surprise song was about ‘falling in love again’",
+            url: "https://www.today.com/popculture/music/taylor-swift-labyrinth-surprise-song-argentina-rcna124660"
+          },
+          {
+            name: "Taylor Swift’s NYU Commencement Speech: Read the Full Transcript",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
           }
         ]
       },
@@ -957,6 +1087,30 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "The Great War is the 3am Edition's showcase for the Aaron Dessner side of Swift's work: one of three Dessner co-writes among the seven bonus tracks, bringing the contemplative, organic production of folklore and evermore to an Antonoff-built synth-pop album. Business Insider's section on the song is headed as evidence that Dessner should have had a presence on the standard edition, and Rolling Stone's Rob Sheffield called it one of the stellar Dessner collaborations tucked away on the 3am Edition.",
+          "Its premise is a relationship's worst fight told as First World War. Sheffield read it as a song about how emotional battles happen and how to end them, “especially when you realize you're the one firing the cannons”; Business Insider noted it is packed with floral symbolism and metaphors. It debuted at No. 26 on the Hot 100 and its live debut was a moment of its own: Dessner joined Swift onstage in Tampa, and Swift joked that the title “took on a new meaning” after fans' ticket-buying battle for the tour.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift and Aaron Dessner (Midnights' track listing credits Swift and Dessner as writers); it is track 14 on the 3am Edition, runs 4:00 and debuted at No. 26 on the Hot 100 (Billboard's list of the 20 Midnights debuts). Songfacts' credits list Dessner on keyboards, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion/drum programming and piano, Kyle Resnick on trumpet and Yuki Numata Resnick on violin.",
+            "Live debut: Friday, April 14, 2023, the second Tampa show of the Eras Tour, as part of the acoustic surprise-song section with Dessner (who had attended the previous night's show) on stage; Rolling Stone reports Swift introduced him and joked about the title. The set listing for that night pairs it with “You're on Your Own, Kid” (Variety).",
+          ],
+          supported: [
+            "The lyric uses First World War imagery as an analogy for a relationship's near-collapse; The Atlantic's Shirley Li described the 3am tracks as more cathartic and metaphorical than the standard edition (per Wikipedia's album article). In Songfacts' reading the narrator instigates the fight, the couple reconcile, and the closing garden-and-poppy image is a memorial, the red poppy being a symbol of the war worn around Remembrance Day.",
+            "Critics ranked it among the best of the bonus tracks: Sheffield's Rolling Stone list places it at No. 23, and Business Insider's Courteney Larocca said that pressing play on it at 3 a.m. brought “an intense sense of relief” after the first 13 tracks.",
+          ],
+          fanTheories: [
+            "Swift has not named a real-life subject for the song. Songfacts speculates that it may allude to her early days with a past partner; that is an editorial guess, and nothing from Swift confirms it.",
+          ],
+        },
+        live: [
+          {
+            date: "April 14, 2023",
+            event: "The Eras Tour, Tampa (Raymond James Stadium)",
+            note: "Live debut as a surprise song, with Aaron Dessner joining on stage; he returned the next night for “Mad Woman.”",
+          },
+        ],
         connections: [
           {
             relatedId: "song:high-infidelity",
@@ -977,6 +1131,26 @@ const ERA = {
           {
             name: "Midnights (Taylor Swift album) — Wikipedia",
             url: "https://en.wikipedia.org/wiki/Midnights"
+          },
+          {
+            name: "Taylor Swift Brings Out Aaron Dessner for ‘The Great War’ and ‘Mad Woman’ at Tampa Bay Shows",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-aaron-dessner-live-debut-the-great-war-tampa-bay-1234715619/"
+          },
+          {
+            name: "“The Great War” (2022) - Rolling Stone Australia",
+            url: "https://au.rollingstone.com/music/music-lists/-84697/the-great-war-2022-4-84964/"
+          },
+          {
+            name: "We are pleased to inform you that Taylor Swift's 8 bonus tracks for 'Midnights' contain some of her best songwriting ever",
+            url: "https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Taylor Swift’s Eras Tour: Every Surprise Song She’s Played",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
           }
         ]
       },
@@ -1056,6 +1230,35 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "Paris is the 3am Edition's lightest moment: a song about being so absorbed in a relationship that an ordinary bedroom becomes another city. Business Insider's Courteney Larocca argued that the brilliance of it is that it is all a fantasy - Swift, who usually turns real homes like New York and London into characters, here imagines a foreign, beautiful place while lying in bed - and compared the escape to how many people turned apartments into staycation destinations during the pandemic. Her colleague Callie Ahlgrim praised the song's humor and its undercurrent of fear and anxiety, and predicted it would become a sneaky fan favorite.",
+          "Critics were split on whether it belongs to this album. PopMatters called it “a solid pop output more in line with earlier Swift albums” that “would seem like a step back had it been included in the more mature, darker Midnights,” which is as much a comment on the bonus tracks' role as on the song. It entered the Hot 100 at No. 32, and its most notable afterlife is its Eras Tour debut in the city it is named for.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift and Jack Antonoff, per the Midnights track listing; it is track 16 of the 3am Edition (the bonus tracks were surprise-released three hours after the standard edition) and runs 3:16. It debuted at No. 32 on the Hot 100 (Billboard's list of the 20 Midnights debuts).",
+            "Live: Swift played “Paris” for the first time on May 9, 2024 at Paris La Défense Arena as a surprise song (paired with “loml”), and on May 12, 2024 in the same city it appears in a piano mashup with “Begin Again” (Variety's list of Eras Tour surprise songs).",
+          ],
+          supported: [
+            "Wikipedia's album article summarizes the lyric as Swift fantasizing about a romance in Paris while in her bedroom - a reading of the lyric's setup rather than an account from Swift. Business Insider's Ahlgrim read the bridge's wish to whisk the lover away as a sign of distrust of the world the relationship currently exists in (her interpretation of the lyrics).",
+            "The reception divides along taste: Business Insider found it “catchy and bright without sacrificing storytelling or structure” and “classic Swift and entirely original,” while PopMatters judged it a step back from the album's darker tone.",
+          ],
+          fanTheories: [
+            "Swift has not said what real-life relationship, if any, the song reflects, and no fetched source documents one, so none is recorded here; readings that attach it to a specific person are fan speculation.",
+          ],
+        },
+        live: [
+          {
+            date: "May 9, 2024",
+            event: "The Eras Tour, Paris (La Défense Arena)",
+            note: "Live debut as a surprise song, in the city it is named for; the second song that night was “loml.”",
+          },
+          {
+            date: "May 12, 2024",
+            event: "The Eras Tour, Paris (La Défense Arena)",
+            note: "Piano mashup with “Begin Again,” returning to the same venue.",
+          },
+        ],
         connections: [
           {
             relatedId: "song:sweet-nothing",
@@ -1067,6 +1270,26 @@ const ERA = {
           {
             name: "Midnights (Taylor Swift album) — Wikipedia",
             url: "https://en.wikipedia.org/wiki/Midnights"
+          },
+          {
+            name: "We are pleased to inform you that Taylor Swift's 8 bonus tracks for 'Midnights' contain some of her best songwriting ever",
+            url: "https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10"
+          },
+          {
+            name: "Taylor Swift Setlist, Paris La Défense Arena, May 9, 2024",
+            url: "https://www.setlist.fm/setlist/taylor-swift/2024/paris-la-defense-arena-nanterre-france-6baa46ba.html"
+          },
+          {
+            name: "Taylor Swift Mines Intrusive Thoughts For Pop Artistry on ‘Midnights’",
+            url: "https://www.popmatters.com/taylor-swift-midnights-review"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Taylor Swift’s Eras Tour: Every Surprise Song She’s Played",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
           }
         ]
       },
@@ -1128,6 +1351,35 @@ const ERA = {
         ALBUM,
       ],
       dossier: {
+        whyItMatters: [
+          "High Infidelity is the 3am Edition track that turned a calendar date into a fandom event. The lyric mentions April 29, and fans named the day “High Infidelity Day.” Swift played the song for the first time on April 29, 2023 in Atlanta, strumming the guitar and ad-libbing a line about where she was on that date before singing the full track - a wink at the fandom's attention to the date, though no fetched source records her explaining what the date means.",
+          "Beneath the sleuthing it is a Dessner-co-written song about the end of a relationship: Business Insider's Callie Ahlgrim heard it as walking a fine line between accusation and confession and set it beside “Renegade,” while her colleague Courteney Larocca set it beside “illicit affairs,” both as studies of ill-fated, half-hearted love. Rolling Stone's Rob Sheffield compared the song's audio-distortion metaphor for a bad relationship to Elvis Costello's “High Fidelity.” Critics were not uniformly won over - Vulture's Nate Jones ranked it low and judged the songwriting weaker than folklore and evermore.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift and Aaron Dessner, who played piano, synths, guitars and percussion, with James McAlister, Thomas Bartlett, Ben Lanz and James Krivchenia also credited (credits per Apple Music as summarized in the song's Wikipedia article). It is track 17 of the 3am Edition and runs 3:51; it debuted and peaked at No. 33 on the Hot 100 (Billboard's list of the 20 Midnights debuts), No. 31 on the Global 200 and No. 28 in Canada.",
+            "Swift performed it live twice: on April 29, 2023 in Atlanta as an acoustic-guitar surprise song, and on May 24, 2024 in Lisbon as a piano mashup with “Fresh Out the Slammer” (Wikipedia; Variety's list of Eras Tour surprise songs shows the April 29 Atlanta and May 24 Lisbon slots).",
+          ],
+          supported: [
+            "As summarized by Wikipedia, the lyric has a narrator who leaves a partner after feeling unloved and constantly judged, and asks whether he wants to know how she had already moved on with another man. Variety's Chris Willman called it an intriguing self-referential look at Swift's past relationships; Business Insider's Courteney Larocca likened it to “illicit affairs” as both detail the inevitable end of an ill-fated romance.",
+            "The title is widely read as a play on “high fidelity” (audio faithfulness against romantic faithlessness); Sheffield tied the metaphor to Costello's 1980 song of the same name, but that is a critic's reading, not a statement from Swift.",
+          ],
+          fanTheories: [
+            "Fans have treated April 29 as a clue and tried to match it against events in Swift's public timeline; Business Insider's Larocca teased that the date is significant without stating a conclusion, and Swift has confirmed nothing, so any identification of the song's subject remains speculation and is not recorded here.",
+          ],
+        },
+        live: [
+          {
+            date: "April 29, 2023",
+            event: "The Eras Tour, Atlanta",
+            note: "Live debut, an acoustic-guitar surprise song on the date named in the lyric; Swift improvised a line about where she was on April 29 in Atlanta before the full song.",
+          },
+          {
+            date: "May 24, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "Piano mashup with “Fresh Out the Slammer.”",
+          },
+        ],
         connections: [
           {
             relatedId: "song:wouldve-couldve-shouldve",
@@ -1153,6 +1405,18 @@ const ERA = {
           {
             name: "Midnights (Taylor Swift album) — Wikipedia",
             url: "https://en.wikipedia.org/wiki/Midnights"
+          },
+          {
+            name: "We are pleased to inform you that Taylor Swift's 8 bonus tracks for 'Midnights' contain some of her best songwriting ever",
+            url: "https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From ‘Midnights’ on Billboard Hot 100",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Taylor Swift’s Eras Tour: Every Surprise Song She’s Played",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
           }
         ]
       },
