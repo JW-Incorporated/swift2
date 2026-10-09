@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ExternalLink, ShoppingBag } from 'lucide-react';
 import { useHost } from '../../host/context';
 import type { Product } from '@swift2/experience';
-import { createHostShopLinkRenderer, renderMomentShopLink, SHOP_DISCLOSURE } from './lib/shop';
+import { AMAZON_DISCLOSURE, createHostShopLinkRenderer, renderMomentShopLink, SHOP_DISCLOSURE } from './lib/shop';
 
 /**
  * "Shop the look" — the moment's shoppable products (ContentItem.products),
@@ -36,6 +36,11 @@ export function ShopTheLook({
         <ShoppingBag className="h-4 w-4" />
         Shop the look
       </div>
+      {products.some((product) => renderer.isAmazonMoment(product, context)) && (
+        <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          {AMAZON_DISCLOSURE}
+        </p>
+      )}
       <ul className="mt-3">
         {products.map((p, i) => {
           const soldOut = p.inStock === false;

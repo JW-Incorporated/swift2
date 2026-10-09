@@ -94,6 +94,8 @@ jobs:
       - name: Build with next build directly (npm run build would re-run prebuild and re-sync live content over the snapshot)
         working-directory: apps/web
         run: npx next build
+      - name: Verify the lens data is still the frozen snapshot after the build
+        run: node scripts/parity/make-fixture.mjs --verify-lenses
       - uses: actions/upload-artifact@v7
         with:
           name: parity-a-next
@@ -118,14 +120,21 @@ jobs:
       - run: npm ci --silent
       - name: Sync content (the bundle check needs the published bundle)
         run: npm run sync:content --silent
+      - name: Freeze lenses (overlay the committed lens snapshot so seed changes cannot move baselines)
+        run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --lenses
       - name: Web export of the DOM entry
         working-directory: apps/mobile
         env:
           EXPO_NO_WEB_SETUP: '1'
+          PARITY_FROZEN_LENSES: '1'
         run: npx expo export --platform web --output-dir dist/parity-web --clear
       - name: Native export with sourcemaps (for the no-baked-content proof)
         working-directory: apps/mobile
+        env:
+          PARITY_FROZEN_LENSES: '1'
         run: npx expo export --platform ios --source-maps --output-dir "$RUNNER_TEMP/ios-export"
+      - name: Verify the lens data is still the frozen snapshot after both exports
+        run: node scripts/parity/make-fixture.mjs --verify-lenses
       - name: No baked content in the DOM bundle
         run: node scripts/parity/check-dom-bundle.mjs "$RUNNER_TEMP/ios-export"
       - uses: actions/upload-artifact@v7

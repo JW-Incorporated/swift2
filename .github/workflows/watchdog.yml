@@ -420,6 +420,58 @@ jobs:
             fi
           done
 
+      # news-worker knowledge-extract degraded no-op (issue #4647 item 4).
+      # The extract stage silently did nothing for weeks (schema pending, then
+      # a missing ANTHROPIC_API_KEY -> every cluster deferred) while the run
+      # stayed green. The worker now emits a `::warning title=extract-degraded`
+      # annotation on such a cycle; this step reads the annotations of the last
+      # 6 scheduled runs (4h cadence = 24h) and opens a watchdog-alert when all
+      # are degraded. Runs on every trigger so recovery closes the alert within
+      # the hour; opening stays daily-only. A failed lookup neither opens nor
+      # closes.
+      - name: news-worker extract degraded for 24h
+        if: (!cancelled())
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
+        run: |
+          set -uo pipefail
+          . scripts/watchdog/gh-retry.sh
+          ALERT_TITLE="Watchdog: news-worker knowledge-extract degraded for 24h"
+          RUNS=$(gh_retry gh run list --repo "$REPO" --workflow news-worker.yml --event schedule --status completed --limit 6 --json databaseId,createdAt) \
+            || { echo "::warning::news-worker run lookup failed; skipping"; exit 0; }
+          SUMMARY="[]"
+          for ID in $(printf '%s' "$RUNS" | jq -r '.[].databaseId'); do
+            JOBS=$(gh_retry gh api "repos/$REPO/actions/runs/$ID/jobs" --jq '.jobs[].id') \
+              || { echo "::warning::job lookup failed for run $ID; skipping"; exit 0; }
+            DEGRADED=false
+            for JOB in $JOBS; do
+              HIT=$(gh_retry gh api "repos/$REPO/check-runs/$JOB/annotations" --jq '[.[] | select(.message | contains("extract-degraded:"))] | length') \
+                || { echo "::warning::annotation lookup failed for job $JOB; skipping"; exit 0; }
+              [ "$HIT" -gt 0 ] && DEGRADED=true
+            done
+            CREATED=$(printf '%s' "$RUNS" | jq -r --argjson id "$ID" '.[] | select(.databaseId == $id) | .createdAt')
+            SUMMARY=$(printf '%s' "$SUMMARY" | jq -c --arg c "$CREATED" --argjson d "$DEGRADED" '. + [{createdAt: $c, degraded: $d}]')
+          done
+          VERDICT=$(printf '%s' "$SUMMARY" | node scripts/watchdog/extract-degraded-check.mjs) \
+            || { echo "::warning::verdict failed; skipping"; exit 0; }
+          OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title') || exit 0
+          if [ "$VERDICT" = "alert" ]; then
+            if [ "$IS_DAILY" = "1" ]; then
+              echo "@sffan15-sys — the last 6 news-worker runs (24h) all logged an \`extract-degraded\` annotation: knowledge extraction did nothing (schema pending, no ANTHROPIC_API_KEY, or the extraction cap). The runs stayed green. See the annotation on a recent run: https://github.com/${REPO}/actions/workflows/news-worker.yml. Issue #4647." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            fi
+          elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
+            echo "news-worker extract no longer degraded for 24h as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+          fi
+
       # ── Stalled PRs: red too long, or a check that will never come back ──
       # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
       # original against live data showed it caught nothing (see below).

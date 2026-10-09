@@ -213,6 +213,89 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The story-song that proved folklore could be funny, ornate and personal at once. Per its Wikipedia entry every track on the album debuted on the Hot 100 in the same week, and this one entered at No. 13, the fourth-highest of the album's debuts. It also made year-end best-of lists at American Songwriter, Billboard, Pitchfork and Uproxx.",
+          "Its power is the structure. Swift told Entertainment Weekly she wanted to use a standard country narrative device: the first verse you sing about someone else, the second about someone even closer, and in the third, 'Surprise! It was me.' That is what happens when the narrator turns out to be the new owner of the house the heiress once lived in."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
+            "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought.",
+            "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
+            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
+            "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
+          ],
+          supported: [
+            "Swift told People that 'it can be a real pearl-clutching moment for society when a woman owns her desires and wildness,' and that she loved the idea of a woman too joyful in her freedom to care about the talk. Entertainment Weekly's Alex Suskind quotes her saying of Harkness, 'I don't think we often hear about women who did whatever the hell they wanted.'",
+            "The Wikipedia article notes that critics tied the closing refrain to Swift's own press: Watch Hill residents' wariness of attention, her Fourth of July parties, and the 'Taylor Swift tax' nickname for Rhode Island's proposed second-home levy.",
+            "Pitchfork's Julian Mapes hailed it as 'the all-timer, the instant classic' that celebrates society-defying women, and the Wikipedia article calls it thematically feminist and a prequel to 'mad woman'."
+          ]
+        },
+        live: [
+          {
+            date: "2020",
+            event: "folklore: the long pond studio sessions",
+            note: "She performed the song in the concert documentary, in which she plays every track from folklore and discusses the creative process."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "She performed the song on the tour between March 2023 and March 2024, per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mad-woman",
+            label: "mad woman",
+            why: "The Wikipedia article calls this thematically feminist and a prequel to 'mad woman': the town's judgment of Harkness here becomes the narrator's own anger there."
+          },
+          {
+            relatedId: "song:starlight",
+            label: "Starlight",
+            why: "Rolling Stone's Rob Sheffield matched the two: both use the word 'marvelous' and both are inspired by people who lived decades before Swift was born."
+          },
+          {
+            relatedId: "song:love-story",
+            label: "Love Story",
+            why: "Insider's Callie Ahlgrim compared the final chorus's return to the present to the bridge of 'Love Story', where Romeo proposes."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Entertainment Weekly, 2020",
+            note: "On discovering Rebekah Harkness: 'As soon as I found out about her, I wanted to know everything I could.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "People, 2021",
+            note: "She described the pleasure of a woman who 'decided there were marvelous times to be had, and that was more important' than the criticism."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift broke all her rules with 'Folklore' - and gave herself a much-needed escape - Entertainment Weekly (archived)",
+            url: "https://web.archive.org/web/20211222041930/https://ew.com/music/taylor-swift-entertainers-of-the-year-2020/"
+          },
+          {
+            name: "The wild true story behind Taylor Swift's 'The Last Great American Dynasty' - Entertainment Weekly",
+            url: "https://ew.com/music/taylor-swift-rebekah-harkness-last-great-american-dynasty-explained/"
+          },
+          {
+            name: "Taylor Swift Shares 'Folklore' Lyric She's 'Really Proud' Of - PEOPLE",
+            url: "https://people.com/music/taylor-swift-folklore-lyric-really-proud-grammys/"
+          },
+          {
+            name: "The Last Great American Dynasty - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty"
+          },
+          {
+            name: "The Last Great American Dynasty by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-last-great-american-dynasty"
+          }
+        ]
+      },
     },
     {
       slug: 'exile',
@@ -471,6 +554,63 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "By Aaron Dessner's account, the second song of the folklore sessions, after 'cardigan' and before 'peace'. He told Rolling Stone those three set a road map for the album, and that 'seven' is a nostalgic, wistful folk song whose wistfulness he felt in the music before Swift ever sang to it, which is what she gravitated toward.",
+          "Dessner told Vulture the song looks back at childhood, recounting and memorializing memories, and singled out one line as among the most important on the record: 'And just like a folk song, our love will be passed on.' In his words, 'That's what this album is doing.'"
+        ],
+        meaning: {
+          supported: [
+            "Dessner, who wrote the music and produced the track, called it 'a beautiful folk song' about childhood feelings and memories (Vulture, July 2020). That is a collaborator's account of the song, not a statement of its subject by Swift.",
+            "Dessner told Rolling Stone the early songs showed Swift's range: 'cardigan' an experimental ballad, this a nostalgic folk song, and 'peace' just three harmonized basslines and a pulse."
+          ]
+        },
+        live: [
+          {
+            date: "June 17, 2023",
+            event: "The Eras Tour, Pittsburgh",
+            note: "Deadline's list of Eras Tour surprise songs records Swift performing 'Seven' with Aaron Dessner on this night, paired with 'The Story of Us'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:cardigan",
+            label: "cardigan",
+            why: "Dessner told Rolling Stone that 'cardigan' came first, and that it, 'seven' and 'peace' set a road map for the album."
+          },
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "Dessner told Rolling Stone she wrote 'cardigan', then 'seven', then 'peace'."
+          },
+          {
+            relatedId: "song:august",
+            label: "august",
+            why: "Dessner told Vulture that 'august' feels like a fast-forward to the present after the childhood memories of this song."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture, July 2020",
+            note: "He said the album, like this song, is memorializing love, childhood and memories, and called that a folkloric way of processing."
+          }
+        ],
+        sources: [
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'august',
@@ -491,6 +631,65 @@ const TRACKS = [
         'August slipping away like a bottle of wine became an annual fan ritual every August 1st — a documented yearly meme-moment.',
       sourceUrl: 'https://en.wikipedia.org/wiki/August_(song)',
       sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The third side of folklore's teenage love triangle, alongside 'cardigan' and 'betty'. In the Long Pond Studio Sessions film, as Billboard reported, Swift said she had been thinking of the girl in 'august' as either Augusta or Augustine, and that she did not see her as the Inez named in 'betty', which many fans had assumed.",
+          "Jack Antonoff, who worked on the song with Swift, described their process in the film: the song, then a bridge, then a better bridge, then a perfect bridge, then something after the bridge. He said he loved hearing that patchwork come together."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said, in the film, that she had been calling the girl from 'august' either Augusta or Augustine in her head (Billboard, November 2020).",
+            "She also said folklore was the first album where she let go of the need to be 100% autobiographical, which she had felt she needed to do before (Billboard, same report).",
+            "Her July 2021 anniversary post, quoted by Billboard, named Augustine among the characters she thanked fans for helping to create stories around."
+          ],
+          supported: [
+            "Aaron Dessner told Vulture in July 2020 that 'august' is maybe the closest thing to a pop song on the album, loud, with a shimmering summer haze, and that after the seven-year-old on the swing in 'seven' it feels like fast-forwarding to now."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:cardigan",
+            label: "cardigan",
+            why: "Swift said in the film that 'cardigan' is Betty's perspective from 20 to 30 years later, and that in her head Betty and James end up together (Billboard)."
+          },
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "Billboard noted that 'betty' names Inez, whom fans assumed was the girl in 'august'; Swift's own view, quoted above, is different."
+          },
+          {
+            relatedId: "song:seven",
+            label: "seven",
+            why: "Dessner told Vulture 'august' feels like a fast-forward to the present after the childhood images of 'seven'."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the Long Pond Studio Sessions film, as reported by Billboard in November 2020",
+            note: "She described the girl in 'august' as Augusta or Augustine in her own head, not Inez."
+          },
+          {
+            who: "Jack Antonoff",
+            context: "In the same film, as reported by Billboard",
+            note: "He described writing with Swift as a stream of ever-better bridges, and said he loved hearing the patchwork come together on this song."
+          }
+        ],
+        sources: [
+          {
+            name: "11 Things We Learned From Taylor Swift's 'Folklore: The Long Pond Studio Sessions' - Billboard",
+            url: "https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/"
+          },
+          {
+            name: "Taylor Swift Releases 'The Lakes (Original Version)' on 'Folklore' One-Year Anniversary: Listen Now - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-the-lakes-original-version-folklore-one-year-anniversary-9605979/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          }
+        ]
+      },
     },
     {
       slug: 'this-is-me-trying',
@@ -712,6 +911,61 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most explicitly historical song on folklore, and the clearest case of Swift writing from outside her own diary. Vogue reported that, in the Disney+ documentary folklore: the long pond studio sessions, she confirmed the song is written from the perspective of her grandfather, Dean Swift, who fought in World War II at the Battle of Guadalcanal, and that she was also thinking of people working in hospitals today.",
+          "Aaron Dessner told Vulture the song began with Swift's idea of a widescreen, drone-based piece: he built the drone from many instruments played, slowed down and reversed, then played piano over it. In his words it is partly a soldier's story and partly a modern medical worker's, about things you can only bear witness to."
+        ],
+        meaning: {
+          confirmed: [
+            "In conversation with Dessner in the documentary (as quoted by Vogue), Swift said she had done a lot of research into her grandfather's war, that he never talked about it with his sons or his wife, and that she tried to imagine what would make a person unable to speak about something.",
+            "She tied that to the present: she said people on a break between hospital shifts are living through trauma they will probably never want to talk about, and called the song 'an opportunity to maybe tell those stories.'",
+            "Dessner told Rolling Stone that he and Swift wrote and conceived the song together, and that he was 'clicking for her' as she composed to the sounds he was building."
+          ],
+          supported: [
+            "Dessner told Vulture the song is partly the story of Swift's grandfather and partly that of a nurse in modern times, and that to him its underlying mission is that some things you see are hard to talk about and you can only bear witness to them. That is his reading, offered as 'to me', not Swift's own statement.",
+            "On sound, Dessner told Rolling Stone the early reference point felt like 'some weird Kate Bush-meets-Peter Gabriel thing', and told Vulture his brother did the orchestration."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "In one Rolling Stone answer Dessner named the reference points for both songs: early Bob Dylan for 'betty', and a Kate Bush-meets-Peter Gabriel feel for this one."
+          },
+          {
+            relatedId: "song:the-last-great-american-dynasty",
+            label: "the last great american dynasty",
+            why: "Vogue's write-up of the documentary treats the two as folklore's research-driven history songs: Swift said she had wanted to write about the history of her own house for years and only found the opening line while making folklore."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In conversation with Aaron Dessner in the Disney+ documentary, as quoted by Vogue",
+            note: "She described imagining what would make someone never able to speak about what happened to them, and linked her grandfather's silence to what hospital workers carry today."
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture in July 2020",
+            note: "He said there is also something soothing and comforting about the song, with an Icelandic, almost classical feel."
+          }
+        ],
+        sources: [
+          {
+            name: "5 Things We Learned Watching Taylor Swift's Surprise New Folklore Documentary - Vogue",
+            url: "https://www.vogue.com/article/taylor-swift-folklore-documentary-5-things-we-learned"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          }
+        ]
+      },
     },
     {
       slug: 'betty',
@@ -864,6 +1118,66 @@ const TRACKS = [
         wiki('The Lakes (song)', 'The_Lakes_(song)', 'song article: Lake District inspiration'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The bonus track on folklore's deluxe edition, and a song about wanting to step out of public life. In the Long Pond Studio Sessions film, as Billboard reported it, Swift said a trip to England's Lake District crystallized the idea: 19th-century poets such as William Wordsworth and John Keats spent a lot of time there and were made fun of as eccentrics, and when she visited she thought she could see herself doing the same, in a cottage with wisteria growing up the side.",
+          "Jack Antonoff co-wrote and co-produced it with Swift. He told Billboard it first existed as a 'big orchestral version' until Swift said to 'make it small'; he took everything out and, alone in the studio, thought it was perfect. On the album's first anniversary, July 24, 2021, Swift released the original orchestral version as a thank-you to fans."
+        ],
+        meaning: {
+          confirmed: [
+            "In the Long Pond Studio Sessions film, per Billboard's November 2020 write-up, Swift tied the song to a Lake District visit and the Romantic poets who retreated there, and said she could picture living that way herself.",
+            "Announcing the original version on July 24, 2021, Swift wrote that it was a thank-you for all fans had done to make the album what it was, and wished a happy anniversary to 'Rebekah, Betty, Inez, James, Augustine' and the stories fans created around them (as quoted by Billboard)."
+          ],
+          supported: [
+            "Antonoff told Billboard the song began as a large orchestral arrangement that Swift asked him to shrink; the finished version is the stripped one.",
+            "Aaron Dessner told Vulture in July 2020 that it is 'a Jack song' and described it as being lost in a beautiful garden, with a kind of Greek, tragic poetry to it. That is a collaborator's impression, not a statement of meaning by Swift."
+          ]
+        },
+        live: [
+          {
+            date: "June 2, 2023",
+            event: "The Eras Tour, Chicago",
+            note: "Deadline's list of Eras Tour surprise songs gives 'I Wish You Would' and 'The Lakes' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:august",
+            label: "august",
+            why: "Swift's July 2021 anniversary post, as quoted by Billboard, named Augustine alongside Rebekah, Betty, Inez and James as characters of the album."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the Long Pond Studio Sessions film, as reported by Billboard in November 2020",
+            note: "She said that poets like Wordsworth and Keats lived in the Lake District and were heckled for it, and that on visiting she could imagine doing the same."
+          },
+          {
+            who: "Jack Antonoff",
+            context: "In Billboard's digital cover story, as quoted in July 2021",
+            note: "He said the orchestral version of the song was stripped back at Swift's request and that the small version struck him as perfect."
+          }
+        ],
+        sources: [
+          {
+            name: "11 Things We Learned From Taylor Swift's 'Folklore: The Long Pond Studio Sessions' - Billboard",
+            url: "https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/"
+          },
+          {
+            name: "Taylor Swift Releases 'The Lakes (Original Version)' on 'Folklore' One-Year Anniversary: Listen Now - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-the-lakes-original-version-folklore-one-year-anniversary-9605979/"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
 ];
 

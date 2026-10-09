@@ -65,7 +65,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
 
   return (
     <li
-      className={`era-card relative min-h-[44px] rounded-2xl border p-4 ${featured ? 'md:col-span-2' : ''}`}
+      className={`era-card relative min-h-[44px] min-w-0 rounded-2xl border p-4 ${featured ? 'md:col-span-2' : ''}`}
       style={
         featured
           ? {
@@ -94,7 +94,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
           <span className="font-[family-name:var(--era-font)]">{monogram}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold leading-snug text-[color:var(--era-ink)]">{community.name}</p>
+          <p className="break-words text-sm font-semibold leading-snug text-[color:var(--era-ink)]">{community.name}</p>
           <p className="mt-0.5 text-[11px] uppercase tracking-wide text-[color:var(--era-ink-soft)]">
             {community.platform} · {community.niche}
           </p>
@@ -188,7 +188,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
                   className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]"
                   aria-hidden="true"
                 />
-                {flag}
+                <span className="min-w-0 break-words">{flag}</span>
               </li>
             ))}
           </ul>
@@ -196,7 +196,7 @@ export function CommunityCard({ community, featured }: { community: Community; f
       )}
 
       <div
-        className="mt-3 flex min-h-[44px] items-center justify-between gap-2.5 border-t pt-2.5"
+        className="mt-3 flex min-h-[44px] flex-wrap items-center justify-between gap-2.5 border-t pt-2.5"
         style={{ borderColor: 'var(--era-line)' }}
       >
         <span className="inline-flex max-w-[21ch] items-start gap-1.5 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">

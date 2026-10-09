@@ -779,6 +779,72 @@ const TRACKS = [
       ),
       ALBUM,
     ],
+    dossier: {
+      whyItMatters: [
+        "Speak Now's most theatrical heartbreak track, and the first on which Swift used an orchestra on record. The Los Angeles Times watched her record strings for 'Haunted' and 'Back to December' in October 2010, with arranger and conductor Paul Buckmaster leading 28 players, and reported that she sounded thrilled by what she was hearing.",
+        "It outlived the album cycle. Rolling Stone reported in August 2011 that True Blood's music supervisor Gary Calamar confirmed the show would use it in an episode, saying the idea came from the episode's writer and that, after Swift's camp at first refused permission, she came forward and said she wanted it to happen."
+      ],
+      meaning: {
+        confirmed: [
+          "In a post on her website, as quoted by Rolling Stone in 2023, Swift said 'Haunted' is about the moment you realize the person you love is drifting and fading, when time moves slowly and everything hinges on what the last text message said. She said she went through it and woke up in the middle of the night writing the song.",
+          "She said she wanted the music and orchestration to reflect the intensity of the emotion, so she recorded strings with Paul Buckmaster at Capitol Studios in Los Angeles, which captured the 'intense, chaotic feeling of confusion' she was looking for.",
+          "At the string session, the Los Angeles Times reported, Swift whispered that she could not sleep the night before because she was so freaked about it, and said she was geeky seeing the new songs' names on the players' music stands."
+        ],
+        supported: [
+          "The Los Angeles Times reported that on Speak Now the songs were hers alone, with no outside co-writers, unlike on her first two albums.",
+          "A Billboard staff writer noted in 2020 that 'Haunted' stands out among the album's breakup songs because it does not follow the quiet acoustic formula: it bursts with angst through a belted chorus, a relentless drum line and stirring strings."
+        ]
+      },
+      live: [
+        {
+          date: "November 2010",
+          event: "NBC's Thanksgiving special, Taylor Swift: Speak Now",
+          note: "Rolling Stone reported that she performed it with a full band and string section on the Psycho House set at Universal Studios Hollywood, chosen because 2010 was the 50th anniversary of Hitchcock's film."
+        }
+      ],
+      connections: [
+        {
+          relatedId: "song:back-to-december",
+          label: "Back to December",
+          why: "The Los Angeles Times reported the two songs as the ones receiving the first orchestral treatment of Swift's career, at the same Buckmaster string session."
+        },
+        {
+          relatedId: "song:mine",
+          label: "Mine",
+          why: "The same Los Angeles Times feature covered the album's lead single, which had reached No. 3 on the Hot 100 after leaking online ahead of its scheduled release."
+        },
+        {
+          relatedId: "song:electric-touch",
+          label: "Electric Touch",
+          why: "Rolling Stone's 2023 piece on this performance tied it to the Speak Now (Taylor's Version) vault tracks, including this one featuring Fall Out Boy."
+        }
+      ],
+      voices: [
+        {
+          who: "Taylor Swift",
+          context: "In a post on her website, as quoted by Rolling Stone",
+          note: "She said that when love is fading out, time moves so slowly that everything hinges on the last text message, and that she woke at night and wrote the song about it."
+        }
+      ],
+      sources: [
+        {
+          name: "Taylor Swift: the next chapter - Los Angeles Times",
+          url: "https://www.latimes.com/entertainment/la-ca-taylor-swift-20101024-story.html"
+        },
+        {
+          name: "Taylor Swift Will Soundtrack Next 'True Blood' Episode - Rolling Stone",
+          url: "https://www.rollingstone.com/music/music-news/taylor-swift-will-soundtrack-next-true-blood-episode-71867/"
+        },
+        {
+          name: "Remember When Taylor Swift Went Full Emo Performing 'Haunted' in 2010? We Do - Rolling Stone",
+          url: "https://www.rollingstone.com/music/music-news/taylor-swift-speak-now-haunted-live-performance-throwback-1234783735/"
+        },
+        {
+          name: "Taylor Swift's 'Speak Now' Turns 10: Billboard Staff Goes Track-By-Track On Their Favorite Songs - Billboard",
+          url: "https://www.billboard.com/music/pop/taylor-swift-speak-now-anniversary-favorite-songs-9470930/"
+        }
+      ]
+    },
   },
   {
     slug: 'last-kiss',
@@ -999,6 +1065,57 @@ const TRACKS = [
       ),
       TV,
     ],
+    dossier: {
+      whyItMatters: [
+        "The Speak Now vault's pop-punk duet, and one of two guest features Swift chose to match the album's original influences. Pitchfork reported in June 2023 that the Speak Now (Taylor's Version) track list added vault songs featuring Fall Out Boy and Paramore's Hayley Williams, quoting Swift's explanation that since Speak Now was all about her songwriting, she went to the artists she felt influenced her most powerfully as a lyricist at that time and asked them to sing on the album.",
+        "Rolling Stone's review described Fall Out Boy frontman Patrick Stump as Swift's foil on what it called a pleasantly eager first-date duet, and Billboard's critic heard his \"jittery soul\" pairing well with her more straightforward delivery.",
+      ],
+      meaning: {
+        confirmed: [
+          "In her track-list announcement, as quoted by Pitchfork, Swift said the featured artists were 'so cool and generous for agreeing to support my version of Speak Now,' and that she recorded the album when she was 32.",
+        ],
+        supported: [
+          "Variety's review said the six vault tracks were written, like the rest of the Speak Now material, when she was 18 or 19, and that the pop-rock band sound stays true to the stylistic spirit of 2010.",
+          "Billboard described it as a song in which painful past experiences keep her guard up as a new romance begins, while the excitement of the unknown keeps her hopeful. Rolling Stone said it condenses the anxieties of an anticipated meeting into a shimmering four-minute pop gem. These are critics' readings, not statements from Swift about the song.",
+          "Critics disagreed on its weight: Variety called it probably the least immediately interesting of the six vault songs compositionally and the farthest thing from a Swift classic, while Billboard and Rolling Stone were warmer.",
+        ],
+        fanTheories: [
+          "Fans have tried to match the song to a specific early-2010s relationship. None of the sources cited here has Swift naming anyone for this song, and this guide does not either.",
+        ],
+      },
+      connections: [
+        {
+          relatedId: 'song:castles-crumbling',
+          label: 'Castles Crumbling',
+          why: "Swift's announcement that she asked her lyric-writing influences to sing on the album covers both vault features: Fall Out Boy here and Hayley Williams on that song.",
+        },
+      ],
+      voices: [
+        {
+          who: 'Taylor Swift',
+          context: 'Announcing the track list on social media, June 2023, as quoted by Pitchfork',
+          note: 'She said she recorded the album when she was 32 and still growing up, and could not wait to unveil it on July 7.',
+        },
+      ],
+      sources: [
+        {
+          name: 'Taylor Swift Reveals Hayley Williams and Fall Out Boy Features on New Speak Now (Taylor\'s Version) Tracklist - Pitchfork',
+          url: 'https://pitchfork.com/news/taylor-swift-reveals-hayley-williams-and-fall-out-boy-features-on-new-speak-now-taylors-version-tracklist/',
+        },
+        {
+          name: "Taylor Swift Expands Our Image of a Landmark Album With 'Speak Now: Taylor's Version' - Rolling Stone",
+          url: 'https://www.rollingstone.com/music/music-album-reviews/speak-now-taylors-version-review-1234783042/',
+        },
+        {
+          name: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)': Critic's Picks - Billboard",
+          url: 'https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/',
+        },
+        {
+          name: "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
+          url: 'https://variety.com/2023/music/album-reviews/taylor-swift-vault-tracks-speak-now-taylors-version-hayley-williams-1235663674/',
+        },
+      ],
+    },
   },
   {
     slug: 'when-emma-falls-in-love',

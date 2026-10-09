@@ -14,10 +14,18 @@ import { tmpdir } from 'node:os';
 import { basename, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { pathToFileURL } from 'node:url';
-import { buildIngestResult } from '../community/fb-export-ingest.mjs';import { gh } from '../lib/gh.mjs';
+import { buildIngestResult } from '../community/fb-export-ingest.mjs';
+import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
+import {
+  checkCheckout,
+  gitProbe,
+  refusalSummary,
+  reportToIssue,
+  uploadWithRetry,
+} from './fb-export-resilience.mjs';
 import { CAPTURE_WALL_BUDGET_MS, startReceiver } from './fb-export-receiver.mjs';
 import { commentErrorCode, localDate, weekOf } from './fb-export-helpers.mjs';
 
@@ -200,11 +208,16 @@ export async function uploadOne(filePath, exec = execFileAsync) {
 }
 
 export async function readLedger(path) {
+  let text;
   try {
-    return JSON.parse(await readFile(path, 'utf8'));
-  } catch {
-    return { groups: {} };
+    text = await readFile(path, 'utf8');
+  } catch (error) {
+    // Only a missing file is an empty ledger. Any other read error (EBUSY, EPERM) must abort:
+    // treating it as empty lets the next persist wipe every row (issue #4879).
+    if (error?.code === 'ENOENT') return { groups: {} };
+    throw error;
   }
+  return JSON.parse(text);
 }
 
 export async function writeLedger(path, ledger) {
@@ -278,6 +291,31 @@ export function runSummary(results, actingPageId = null) {
   ].join('\n');
 }
 
+// Success rate over posts with a known non-zero comment count (the #4688 acceptance metric),
+// falling back to all eligible posts for an older extension build. Percent only.
+export function commentSuccessRate(cc) {
+  const denom = Number.isInteger(cc?.knownPositiveEligible)
+    ? cc.knownPositiveEligible
+    : cc?.eligible;
+  if (!denom) return '';
+  return ` (${Math.round((Math.min(cc.processed, denom) / denom) * 100)}% of ${denom} with known comments)`;
+}
+
+// Fixed-code, counts-only reason breakdown; empty for an older extension build.
+export function commentFailureReasons(cc) {
+  if (!cc || cc.failNotFound === undefined) return '';
+  const parts = [
+    ['not-found', cc.failNotFound],
+    ['no-expander', cc.failNoExpander],
+    ['empty-after-expand', cc.failEmptyAfterExpand],
+    ['threw', cc.failThrew],
+  ]
+    .filter(([, n]) => n > 0)
+    .map(([code, n]) => `${code}=${n}`);
+  if (cc.retried > 0) parts.push(`retried=${cc.retried}`, `recovered=${cc.recovered ?? 0}`);
+  return parts.length ? ` [${parts.join(' ')}]` : '';
+}
+
 // Comment outcome, COUNTS ONLY (comments are private): what was stored and how collection went.
 export function formatComments(r) {
   const cc = r.commentCoverage;
@@ -291,7 +329,7 @@ export function formatComments(r) {
     parts.push(`collection error: ${commentErrorCode(cc.error)}`);
   else if (cc)
     parts.push(
-      `${cc.processed}/${cc.eligible} posts read, ${cc.failed} failed, ${cc.timedOut} timed out`,
+      `${cc.processed}/${cc.eligible} posts read${commentSuccessRate(cc)}, ${cc.failed} failed, ${cc.timedOut} timed out${commentFailureReasons(cc)}`,
     );
   return `comments: ${parts.join('; ')}`;
 }
@@ -330,15 +368,50 @@ async function reportIssue(issue, body, { close = false, ghImpl = gh } = {}) {
 export async function runExport(options = {}) {
   const dryRun = options.dryRun ?? false;
   const now = options.now ?? new Date();
+  const warnings = [];
+  if (options.preflight) {
+    const probe = options.preflight === true ? gitProbe : options.preflight;
+    const check = await checkCheckout(probe, REPO_ROOT);
+    if (!check.ok) {
+      const summary = refusalSummary(check.reason);
+      const reported = dryRun
+        ? { warnings: [] }
+        : await reportToIssue({
+            weekLabel: weekOf(now),
+            summary,
+            failed: true,
+            findIssue: options.findIssue ?? findWeeklyIssue,
+            reportIssue: options.reportIssue ?? reportIssue,
+          });
+      const lines = reported.warnings.map((w) => `- ${w}`);
+      return {
+        ok: false,
+        results: [],
+        summary: lines.length ? [summary, 'Warnings:', ...lines].join('\n') : summary,
+        refused: true,
+        warnings: reported.warnings,
+      };
+    }
+  }
   const root =
     options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
   if (!root) throw new Error('LOCALAPPDATA is unavailable');
   const weekLabel = weekOf(now);
   const outputDir = join(root, 'exports', localDate(now));
   const ledgerPath = join(root, 'ledger', `${weekLabel}.json`);
-  const ledger = await (options.readLedger ?? readLedger)(ledgerPath);
+  let ledger;
+  try {
+    ledger = await (options.readLedger ?? readLedger)(ledgerPath);
+  } catch (error) {
+    return {
+      ok: false,
+      results: [],
+      summary: `Facebook export aborted: the week ledger could not be read (${String(error?.code ?? error?.message ?? error).slice(0, 120)}). Nothing was collected or written; fix the file at ${ledgerPath} and re-run.`,
+      ledgerError: true,
+    };
+  }
   ledger.groups ??= {};
-  const persistLedger = () =>
+  const persistLedger = async () =>
     (options.writeLedger ?? writeLedger)(ledgerPath, {
       week: weekLabel,
       ...(ledger.actingPageId ? { actingPageId: ledger.actingPageId } : {}),
@@ -416,7 +489,7 @@ export async function runExport(options = {}) {
   });
   // Upload an already-ingested file; ledger 'uploaded' only on an exact confirmation.
   const uploadAndRecord = async (slug, fields, extra = {}) => {
-    const uploaded = await (options.upload ?? uploadOne)(fields.filePath);
+    const uploaded = await uploadWithRetry(options.upload ?? uploadOne, fields.filePath);
     const summaryFields = {
       postCount: fields.postCount,
       stopReason: fields.stopReason,
@@ -438,6 +511,13 @@ export async function runExport(options = {}) {
     if (uploaded.ok) {
       ledger.groups[slug] = { status: 'uploaded', ...summaryFields, at: now.toISOString() };
       await persistLedger();
+    } else {
+      // Never drop the group: keep it 'ingested' with its kept file so the next run uploads it
+      // without re-ingesting (issue #4879). Re-asserted and persisted, not assumed.
+      ledger.groups[slug] = { ...fields, status: 'ingested' };
+      await persistLedger().catch((error) =>
+        warnings.push(`ledger write failed for ${slug}: ${error?.message ?? error}`),
+      );
     }
   };
   for (const group of missingIngested)
@@ -573,12 +653,29 @@ export async function runExport(options = {}) {
       results,
       summary: runSummary(results, actingPageId),
     };
-  await persistLedger();
+  await persistLedger().catch((error) =>
+    warnings.push(`ledger write failed: ${error?.message ?? error}`),
+  );
   const failed = results.some((row) => ['failed', ...STOP_STATUSES].includes(row.status));
-  const issue = await (options.findIssue ?? findWeeklyIssue)(weekLabel);
-  const summary = runSummary(results, actingPageId);
-  await (options.reportIssue ?? reportIssue)(issue, summary, { close: !failed });
-  return { ok: !failed && Boolean(issue), results, summary, issue };
+  const baseSummary = runSummary(results, actingPageId);
+  const reported = await reportToIssue({
+    weekLabel,
+    summary: baseSummary,
+    failed,
+    findIssue: options.findIssue ?? findWeeklyIssue,
+    reportIssue: options.reportIssue ?? reportIssue,
+  });
+  warnings.push(...reported.warnings);
+  const summary = warnings.length
+    ? `${baseSummary}\nWarnings:\n${warnings.map((w) => `- ${w}`).join('\n')}`
+    : baseSummary;
+  return {
+    ok: !failed && Boolean(reported.issue) && !warnings.length,
+    results,
+    summary,
+    issue: reported.issue,
+    warnings,
+  };
 }
 
 // `--capture` (npm run knowledge:fb-export:capture): the same receiver + plain Chrome flow with
@@ -641,7 +738,7 @@ async function main() {
     return;
   }
   const dryRun = args.includes('--dry-run');
-  const result = await runExport({ dryRun });
+  const result = await runExport({ dryRun, preflight: true });
   console.log(result.summary);
   if (!result.ok) return 1;
 }

@@ -96,5 +96,47 @@ export function mergeCandidates(sources, { known = new Set(), max = 300 } = {}) 
   return merged;
 }
 
+/**
+ * Read one source's candidate file for the merge step. A missing file or invalid
+ * JSON (a source that died mid-write) is an empty list, never a thrown error, so
+ * one dead source cannot fail the run. `status` is 'ok' | 'missing' | 'invalid'.
+ */
+export function readCandidateFile(path, fs) {
+  if (!fs.existsSync(path)) return { candidates: [], status: 'missing' };
+  try {
+    const parsed = JSON.parse(fs.readFileSync(path, 'utf8'));
+    if (Array.isArray(parsed)) return { candidates: parsed, status: 'ok' };
+  } catch (e) {
+    return { candidates: [], status: 'invalid', detail: e.message };
+  }
+  return { candidates: [], status: 'invalid', detail: 'not a JSON array' };
+}
+
+/** One `source=<name> candidates=<n>[ (missing|invalid[: detail])]` line per source. */
+export function formatSourceCounts(results) {
+  return results.map(
+    ({ name, candidates, status, detail }) =>
+      `source=${name} candidates=${candidates.length}${status === 'ok' ? '' : ` (${status}${detail ? `: ${detail}` : ''})`}`,
+  );
+}
+
+/**
+ * Workflow annotations for the per-source results. Every missing/invalid source
+ * warns; only ALL sources unreadable is an error (`fail: true`) so an optional
+ * source that is legitimately missing cannot fail a quiet day; zero total only warns.
+ */
+export function assessSources(results) {
+  const annotations = results
+    .filter((r) => r.status !== 'ok')
+    .map((r) => `::warning::Photo source ${r.name} is ${r.status}${r.detail ? ` (${r.detail.replace(/\s+/g, ' ')})` : ''}`);
+  const total = results.reduce((n, r) => n + r.candidates.length, 0);
+  if (results.length > 0 && results.every((r) => r.status !== 'ok')) {
+    annotations.push('::error::Every photo source is missing or invalid; nothing was sourced.');
+    return { fail: true, annotations };
+  }
+  if (total === 0) annotations.push('::warning::Photo sources produced zero candidates in total.');
+  return { fail: false, annotations };
+}
+
 /** A transient API/network failure — the adapters turn this into a warning + an empty candidate list. */
 export class SourceApiError extends Error {}

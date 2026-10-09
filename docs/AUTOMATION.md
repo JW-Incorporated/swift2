@@ -238,6 +238,20 @@ Windows task is installed with `knowledge:fb-schedule`, and
 run ledgers, private comment files, and the persistent Chrome profile
 all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
 
+Run guards (#4870, #4879): before collecting, the export runs `git rev-parse
+--abbrev-ref HEAD` and `git status --porcelain -- scripts/knowledge
+scripts/community` in the checkout it was launched from, and refuses (printing
+the reason as its summary, exit 1) unless that checkout is on `main` and clean
+there, because the unattended run must execute reviewed `main` code. The upload
+is retried once; a group whose upload still fails stays ledgered `ingested`
+with its kept file so the next run uploads it without re-ingesting. A GitHub
+lookup or comment failure is a warning appended to the summary, which always
+prints; `ok` is false whenever any warning occurs. A refusal is also posted as a
+best-effort comment on the weekly issue, and `fb-export-task.ps1` appends every
+scheduled run's output with a timestamp to `%LOCALAPPDATA%longlive-fbb-export.log`.
+The week ledger is read strictly: only a missing file is an empty ledger; any
+other read error or corrupt JSON aborts the run (exit 1) before any write.
+
 Facebook export runbook (extension collector, 2026-09-30). The run starts a
 local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
 debugging port) in the dedicated profile
@@ -421,6 +435,39 @@ It has **no watchdog** — top recommendation of the 2026-08-31 review
 ([REC-1](automation/review-2026-08-31.md#rec-1)).
 
 ---
+
+## Issue sweeper (backlog cleanup, Tier 1)
+
+[`issue-sweeper.yml`](../.github/workflows/issue-sweeper.yml) runs daily 09:17
+UTC (plus manual dispatch, `dry_run` defaults true) and runs
+`scripts/ops/issue-sweeper.mjs --apply`. It **closes, never deletes**,
+machine-filed issues that rules prove stale; no LLM. Founder-approved
+2026-10-08. Rules live in `scripts/ops/lib/issue-sweeper-rules.mjs`:
+
+1. **supersede-report**: genuine recurring reports only (label AND title
+   pattern): Kevin Review Radar, Kevin Daily Review, Kevin Eng Triage,
+   news-triage recall checks, Paul Blart security patrols. Keep the newest per
+   kind. Real findings labelled `routine-audit`/`automation-review` are never touched.
+2. **intake-ttl**: `intake` issues titled `intake:` with no activity for 14+
+   days; skipped if also `bug`, `desk:*` or `marjorie-filed`.
+3. **watchdog-recovered**: `watchdog-alert` whose workflow's latest completed
+   run is green and newer than the alert.
+4. **cie-duplicate**: `cie` + `cie:P1`/`cie:P2` duplicates by quoted page name;
+   newest kept.
+
+**Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
+`sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
+`founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
+`status-page`, `weekly-plan`; no open PR title/body mentions it as `#n` (any mention protects it).
+Newest-of-kind is chosen across ALL open issues before the guard; `--apply`
+only runs from `main`, and the sweeper aborts if a list hits its 1000 limit. Max 150
+closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
+writes `.scratch/issue-sweeper-plan.json`.
+
+**To reopen:** every close comment names its rule; reopen the issue
+(`gh issue reopen <n>`). The sweeper only looks at open issues, so a reopened
+issue is evaluated again by the rules on the next run; add a guard label such as
+`hold` if it should stay open.
 
 ## Adding a new routine — the checklist
 

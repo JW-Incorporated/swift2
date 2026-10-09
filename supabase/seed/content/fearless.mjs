@@ -298,6 +298,8 @@ export default {
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
       ],
+      // Merged from the retired thin "fearless-vmas" stub (issue #3756, 2026-10-08).
+      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nLost in the noise were the trophy and the performance. "You Belong with Me" had won Best Female Video, and earlier that night Taylor had turned in one of the broadcast\'s signature numbers — opening the song in a brown trench coat and black beanie inside a New York subway station, singing on through a moving subway car as she shed the coat to reveal a red cocktail dress, then finishing atop a yellow taxi once the train reached its stop. That neither the win nor a marquee performance is what anyone remembers about the evening is itself the measure of what those seconds at the microphone did.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
@@ -1938,43 +1940,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "fearless-vmas",
-      year: 2009,
-      month: 9,
-      day: 13,
-      category: "sighting",
-      title: "The interrupted speech",
-      snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
-      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
-      moment: {
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg', credit: 'Philip Nelson, via Wikimedia Commons', caption: 'Taylor Swift at the 2009 MTV Video Music Awards, the night her Best Female Video acceptance speech was interrupted.', kind: 'primary', focalPoint: '40% 28%' }],
-        sources: [
-          {
-            outlet: 'TIME',
-            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
-            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
-            publisher: 'TIME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'VICE',
-            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
-            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
-            publisher: 'VICE',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
-      },
-    },
-
     {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
       // the song, and its radio-single release.
