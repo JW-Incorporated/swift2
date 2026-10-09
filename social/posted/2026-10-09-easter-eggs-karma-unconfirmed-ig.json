@@ -1,0 +1,53 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "the clue web has one theory that drives me genuinely insane 🫠\n\neverybody KNOWS about the lost \"Karma\" album, right? the scrapped, orange-toned record fans swear got shelved back in 2016, before reputation took its place. we talk about it like it's settled fact.\n\nhere's what our Clue Web actually shows: it sits under UNconfirmed. the snake videos from that era? confirmed. Look What You Made Me Do paying them off? confirmed. but the Karma album — ten years, zero confirmation. the theory we're most certain about is the one Taylor never once backed up.\n\nthat's the whole thrill of the easter-eggs lens: it tells you which clues are confirmed and which are pure fandom faith. go find the theory you'd bet your life on, then check whether the data actually has your back 👀\n\n📷 Paolo Villanueva (CC BY 2.0)\n\nopen it → longlivets.com/?lens=easter-eggs&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n#taylorswift #swifties #swiftie #reputationera #karma #taylorswifttheories #swiftietok #easteregg #reptaylorsversion #taylornation",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-2-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-2-ig45",
+  "photoEra": "reputation",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109435666).jpg",
+  "scheduledAt": "2026-10-09T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a black bodysuit with red snake sequins, one arm raised high, on the stage edge during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "campaign": "thread:easter-eggs:behind-the-data:2026-10-second",
+  "experiment": {
+    "hypothesis": "A subject-specific 10-tag block lifts IG non-follower reach vs the untagged 2026-10-02 Decode control",
+    "variant": "IG caption adds a 10-hashtag block for this subject (reputation/Karma/theories); X untagged",
+    "metric": "IG non-follower reach (Insights) vs the 2026-10-02 untagged thread post"
+  },
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 23,
+    "rationale": "Behind-the-data slot 2 as the contradiction: the 2016 'lost Karma album' the fandom treats as fact is the one our Clue Web files UNconfirmed, against the era's confirmed snake videos + LWYMMD. Fan-gush open, dated, reply-bait close; reputation photo (snake sequins) ties to the snake clues.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "Calendar 2026-10-09 23:00Z thread:easter-eggs behind-the-data slot 2 of 2 (window closes 10-10). Minted story-unique thread:easter-eggs:behind-the-data:2026-10-second. Hook = the contradiction. Anchored on EGG_NODES seed: egg-karma-album-theory (2016, confirmed:false, Rolling Stone) vs confirmed egg-snake-instagram + egg-snake-lwymmd (2017). Link /?lens=easter-eggs. Photo: this is a THEMED easter-eggs campaign, which check-drafts requires to carry photoEra + an era-matched photo, so the calendar's generic reddit pick (1ojprpr) is superseded; used photoEra=reputation with the never-used reputation pick reputation-inglewood-2023-2-ig45 (red snake sequins — ties to the snake clues; git-LFS pointer, could not render in CI, trusted library alt/dimensions). Credited (Paolo Villanueva CC BY 2.0) so credit field + IG credit line. Same photo on both halves per W8/L001; X carries the image, not text-only. Experiment 01 TAGGED arm: 10-tag block IG only.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-09T03:11:14.546Z",
+    "pr": 5352,
+    "sha": "3021994621bfb18e6669471981e235486d04842e",
+    "message": "1557894697626640518",
+    "contentHash": "sha256:130975eca0e2cc550f5a2d914ce616f74784317841bc0f17af868e4b51fb268a",
+    "sig": "hmac-sha256:e132689dfaeca385b6749d8992c03541d546ee31c8dd7e45bc07624e9274db16"
+  },
+  "postedAt": "2026-10-09T23:15:49.277Z",
+  "platformPostId": "18135545800777315",
+  "url": "https://www.instagram.com/longlivetscom/"
+}
