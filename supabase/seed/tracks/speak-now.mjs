@@ -371,7 +371,7 @@ const TRACKS = [
     summary:
       'Aimed at a bully with a platform: someday she will be big enough that the cheap shots cannot reach, and he will still be mean.',
     inspiration:
-      'Taylor confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; she has not named him in the song. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
+      'Taylor confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; she did not name him publicly. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys.',
     themes: ['bullying', 'resilience', 'success as the answer'],
     sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
     sources: [

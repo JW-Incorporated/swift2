@@ -820,7 +820,7 @@ const ERA = {
         'A song about a loved one’s illness: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.',
       inspiration:
         'Taylor has framed it as a song about a loved one’s illness; its rare live performances are documented as exceptional events.',
-      themes: ['a parent’s illness', 'bargaining', 'helpless love'],
+      themes: ['a loved one’s illness', 'bargaining', 'helpless love'],
       sourceUrl: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better",
       sources: [
         wiki("Soon You'll Get Better", "Soon_You'll_Get_Better", 'song article: family background'),
