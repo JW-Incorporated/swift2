@@ -478,7 +478,7 @@ export function contentHash(item) {
  * editing an unsigned field. One named function, never inlined.
  */
 export function approvalSigPayload(a) {
-  if (a.v === 4) return `${a.v}|${a.kind}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
+  if (a.v === 4) return `${a.v}|${a.kind}|${a.by}|${a.at}|${a.pr}|${a.contentHash}|${a.mediaDigest}`;
   if (a.v === 3) return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.sha}|${a.contentHash}`;
   return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
 }
@@ -492,6 +492,23 @@ const HEAD_SHA_RE = /^[0-9a-f]{40}$/;
  * be mistaken for (or counted as) the owner's own approval. */
 export const TREE_AUTO_KIND = 'tree-auto';
 export const TREE_AUTO_BY = 'tree:auto';
+
+/**
+ * `sha256:<hex>` over the BYTES of every media file a draft names, in order
+ * (`path NUL sha256(bytes) LF` per file). A v4 stamp signs this, so swapping an
+ * image after the stamp (the content hash covers only the path string) voids it.
+ * `readMedia(mediaPath)` returns a Buffer, or null when the file is missing — in
+ * which case this returns null (nothing can be vouched for).
+ */
+export function mediaDigest(item, readMedia) {
+  const hash = createHash('sha256');
+  for (const media of Array.isArray(item?.media) ? item.media : []) {
+    const bytes = typeof media === 'string' ? readMedia(media) : null;
+    if (!bytes) return null;
+    hash.update(media + String.fromCharCode(0) + createHash('sha256').update(bytes).digest('hex') + String.fromCharCode(10), 'utf8');
+  }
+  return `sha256:${hash.digest('hex')}`;
+}
 
 /** True iff `item.approval` CLAIMS to be a v4 stamp (valid or not) — for
  * callers that must stay out of a tree-auto PR's way. */
@@ -584,7 +601,11 @@ export function approvalStatus(item, options = {}) {
     typeof approval === 'object' &&
     !Array.isArray(approval) &&
     (approval.v === 2 ||
-      (approval.v === 4 && approval.kind === TREE_AUTO_KIND && approval.by === TREE_AUTO_BY) ||
+      (approval.v === 4 &&
+        approval.kind === TREE_AUTO_KIND &&
+        approval.by === TREE_AUTO_BY &&
+        typeof approval.mediaDigest === 'string' &&
+        approval.mediaDigest.startsWith('sha256:')) ||
       (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
     typeof approval.by === 'string' &&
     approval.by.trim() !== '' &&
@@ -614,7 +635,16 @@ export function approvalStatus(item, options = {}) {
       reason: 'edited after approval — body/media/altText/scheduledAt/campaign no longer match what was approved',
     };
   }
+  if (treeAuto && typeof options.readMedia === 'function') {
+    const actual = mediaDigest(item, options.readMedia);
+    if (actual === null || actual !== approval.mediaDigest) {
+      return { ok: false, reason: 'media changed (or is missing) since the tree-auto approval — the signed media digest no longer matches' };
+    }
+  }
   if (hasKey) {
+    if (treeAuto && typeof options.readMedia !== 'function') {
+      return { ok: false, reason: 'tree-auto approval cannot be verified — the caller supplied no way to read the media bytes' };
+    }
     if (!key) {
       return { ok: false, reason: 'approval signature cannot be verified — SOCIAL_APPROVAL_KEY is not configured' };
     }

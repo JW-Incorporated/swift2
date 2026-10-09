@@ -40,10 +40,7 @@ concurrency:
 
 jobs:
   notify-new:
-    # P3 (2026-10): a tree/draft/* PR is approved by social-tree-approve.yml (a v4
-    # tree-auto stamp), not by the owner's Discord ✅ — so no per-post prompt for it.
-    # Skipping the prompt only removes a notification; it approves nothing.
-    if: github.event_name == 'pull_request_target' && !startsWith(github.event.pull_request.head.ref, 'tree/draft/')
+    if: github.event_name == 'pull_request_target'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -126,7 +123,7 @@ jobs:
           # suppress the whole prompt (PR #4139 round 4). The filter reads
           # git only (fetch of this PR's head ref, show, diff) — data,
           # never PR code.
-          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json --pr "$PR" --head "$SHA")
+          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json --pr "$PR" --head "$SHA" --head-ref "$HEAD_REF")
           echo "$FILTER_OUT"
           if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
             echo "has_drafts=false" >> "$GITHUB_OUTPUT"

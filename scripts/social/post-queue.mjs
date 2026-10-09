@@ -75,6 +75,7 @@
 //                             instead of the real 90 seconds.
 
 import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -319,7 +320,15 @@ export async function main() {
     // so grandfathering is impossible by construction: every item that
     // reaches this branch without a CURRENTLY-VALID stamp is unapproved,
     // full stop, whether it never had a key or its content changed since.
-    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '' });
+    // readMedia: a v4 tree-auto stamp signs a digest of the media BYTES, re-computed here.
+    const readMedia = (media) => {
+      try {
+        return readFileSync(path.join(root, 'apps', 'web', 'public', media));
+      } catch {
+        return null;
+      }
+    };
+    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '', readMedia });
     if (!approval.ok) {
       if (isStaleDue(entry.data, now)) {
         const failureReason = `Unapproved for >48h past scheduledAt — ${approval.reason}`;

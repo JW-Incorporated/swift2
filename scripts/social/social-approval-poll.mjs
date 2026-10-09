@@ -78,7 +78,7 @@ import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { routeChannelId } from '../lib/discord-route.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
-import { approvalStatus } from './lib/queue.mjs';
+import { approvalStatus, isV4Stamp } from './lib/queue.mjs';
 import { isQueueJson, makeGitState, parseJson, short, stampHealth } from './lib/stamp-health.mjs';
 import { confirmRejection } from './lib/reject-confirm.mjs';
 import { stampFiles } from './stamp-approval.mjs';
@@ -1092,10 +1092,12 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of prQueueFiles) {
             const item = parseJson(gitState.show(prView.headRefOid, relPath));
             if (!item) continue;
+            // A v4 (tree-auto) stamp is Tree's own, never the owner's: no ledger "approve" row (it would inflate
+            // autonomy eligibility) and never a "merged before approval" notice — social-tree-approve.yml owns it.
+            if (isV4Stamp(item)) continue;
             const stampStatus = item.approval ? approvalStatus(item, statusOptions) : { ok: false };
             if (stampStatus.ok) {
-              // A tree-auto stamp is Tree's own, not the owner's: no ledger "approve" row (it would inflate autonomy eligibility).
-              if (stampStatus.kind !== 'tree-auto') prLedgerRows.push(stampRow(relPath, item));
+              prLedgerRows.push(stampRow(relPath, item));
               continue;
             }
             const own = classified.get(relPath);
@@ -1308,7 +1310,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         if (unresolved.has(relPath)) continue;
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
         if (!item) continue;
-        const health = stampHealth(gitState, relPath, item, headSha, statusOptions);
+        const health = stampHealth(gitState, relPath, item, headSha, { ...statusOptions, headRef: prView.headRefName });
         if (health.ok) continue;
         // The file's own ✅ first, then the header's — and the header is
         // tried whenever the file's own ✅ exists but can't mint (a brief
@@ -1395,7 +1397,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       let allClean = present.length > 0;
       for (const relPath of present) {
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
-        const health = item ? stampHealth(gitState, relPath, item, headSha, statusOptions) : { ok: false, stamped: false, problems: [] };
+        const health = item ? stampHealth(gitState, relPath, item, headSha, { ...statusOptions, headRef: prView.headRefName }) : { ok: false, stamped: false, problems: [] };
         if (health.ok) continue;
         allClean = false;
         if (health.stamped) problems.push(...health.problems);
@@ -1428,8 +1430,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of files) {
             const absPath = path.join(process.cwd(), relPath);
             const item = rejectedThisRun.has(relPath) || !existsSync(absPath) ? null : parseJson(readFileSync(absPath, 'utf8'));
-            const rowStatus = item?.approval ? approvalStatus(item, statusOptions) : { ok: false };
-            if (rowStatus.ok && rowStatus.kind !== 'tree-auto') prLedgerRows.push(stampRow(relPath, item));
+            if (item?.approval && !isV4Stamp(item) && approvalStatus(item, statusOptions).ok) prLedgerRows.push(stampRow(relPath, item));
           }
           for (const [key, c] of classified) {
             if (key === '*' || c.action !== 'reject') continue;

@@ -19,18 +19,28 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { TREE_AUTO_BY, TREE_AUTO_KIND, approvalStatus, contentHash, signApproval } from './lib/queue.mjs';
+import { TREE_AUTO_BY, TREE_AUTO_KIND, approvalStatus, contentHash, mediaDigest, signApproval } from './lib/queue.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..', '..');
 const SAFE_QUEUE_FILE_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/;
 
-/** Runs the trusted check-drafts over `relPaths`; returns { ok, output }. */
-export function runCheckDrafts(relPaths, { root = ROOT } = {}) {
-  const result = spawnSync(process.execPath, [path.join(HERE, 'check-drafts.mjs'), ...relPaths], {
+const MAX_SCHEDULE_AHEAD_MS = 48 * 60 * 60 * 1000;
+const SECRETISH_ENV = /KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|^GH_|^GITHUB_PAT|PAT$/i;
+
+/** process.env minus every credential-looking variable: check-drafts runs checkers over PR-provided data and
+ * must never see the signing key or the PAT. Keeps what node/git need (PATH, HOME, RUNNER_*, ...). */
+export function scrubbedEnv(env = process.env) {
+  return Object.fromEntries(Object.entries(env).filter(([name]) => !SECRETISH_ENV.test(name)));
+}
+
+/** Runs the trusted check-drafts over `relPaths` with a scrubbed env; returns { ok, output }. */
+export function runCheckDrafts(relPaths, { root = ROOT, spawnImpl = spawnSync, env = process.env } = {}) {
+  const result = spawnImpl(process.execPath, [path.join(HERE, 'check-drafts.mjs'), ...relPaths], {
     cwd: root,
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,
+    env: scrubbedEnv(env),
   });
   const output = `${result.stdout ?? ''}${result.stderr ?? ''}`;
   return { ok: result.status === 0 && !result.error, output };
@@ -44,7 +54,7 @@ export function runCheckDrafts(relPaths, { root = ROOT } = {}) {
  */
 export function stampTreeAuto(
   files,
-  { pr, at, message = '', key, root = ROOT, checkDraftsImpl = runCheckDrafts, readFileImpl = readFileSync, writeFileImpl = writeFileSync } = {},
+  { pr, at, message = '', key, root = ROOT, checkDraftsImpl = runCheckDrafts, readFileImpl = readFileSync, writeFileImpl = writeFileSync, readMediaImpl } = {},
 ) {
   const refuse = (reason) => ({ ok: false, reason: `refused — ${reason}; nothing stamped`, stamped: [] });
   if (!key) return refuse('no SOCIAL_APPROVAL_KEY available to sign with');
@@ -75,7 +85,31 @@ export function stampTreeAuto(
       const prior = approvalStatus(item, { approvers: [], key });
       return refuse(`${relPath} already carries an approval (${prior.ok ? 'valid' : prior.reason}) — only unstamped drafts are tree-auto stamped`);
     }
+    // M6: a stamp is good for 48h from NOW (the poster's staleness clock runs from the stamp time). A draft
+    // scheduled further out than that would be stamped, go stale-looking later, or sit signed for days.
+    const scheduled = Date.parse(item.scheduledAt);
+    if (Number.isNaN(scheduled)) return refuse(`${relPath} has no valid scheduledAt`);
+    if (scheduled - Date.parse(at) > MAX_SCHEDULE_AHEAD_MS) {
+      return refuse(`${relPath} is scheduled more than 48h after the stamp time (${item.scheduledAt}) — a tree-auto stamp must not outlive the 48h window`);
+    }
     items.push(item);
+  }
+
+  // Digest of the media BYTES, signed into the stamp (the content hash only covers the path strings).
+  const readMedia =
+    readMediaImpl ??
+    ((media) => {
+      try {
+        return readFileSync(path.join(root, 'apps', 'web', 'public', media));
+      } catch {
+        return null;
+      }
+    });
+  const digests = [];
+  for (let i = 0; i < items.length; i += 1) {
+    const digest = mediaDigest(items[i], readMedia);
+    if (digest === null) return refuse(`${relPaths[i]} names a media file that cannot be read`);
+    digests.push(digest);
   }
 
   const gate = checkDraftsImpl(relPaths, { root });
@@ -83,7 +117,7 @@ export function stampTreeAuto(
 
   const stamped = [];
   relPaths.forEach((relPath, i) => {
-    const unsigned = { v: 4, kind: TREE_AUTO_KIND, by: TREE_AUTO_BY, at, pr, message, contentHash: contentHash(items[i]) };
+    const unsigned = { v: 4, kind: TREE_AUTO_KIND, by: TREE_AUTO_BY, at, pr, message, contentHash: contentHash(items[i]), mediaDigest: digests[i] };
     const approval = { ...unsigned, sig: signApproval(unsigned, key) };
     writeFileImpl(path.join(root, relPath), JSON.stringify({ ...items[i], approval }, null, 2) + '\n');
     stamped.push(relPath);

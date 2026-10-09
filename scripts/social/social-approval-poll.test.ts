@@ -122,12 +122,12 @@ function makeFetchImplByMessage(
   return { impl, calls };
 }
 
-function makeExecGh({ files = [] as Array<{ path: string }> } = {}) {
+function makeExecGh({ files = [] as Array<{ path: string }>, headRef = 'feature/x' } = {}) {
   const calls: string[][] = [];
   const impl = vi.fn((args: string[]) => {
     calls.push(args);
     if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
-      return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'OPEN', number: PR_NUMBER });
+      return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: headRef, state: 'OPEN', number: PR_NUMBER });
     }
     if (args[0] === 'pr' && args[1] === 'view' && args.includes('files')) {
       return JSON.stringify({ files }); // empty keeps the merge phase inert for these tests
@@ -1706,7 +1706,7 @@ describe('Bots v2 W2 — review fixes', () => {
 
 describe('v4 tree-auto stamps — the poll stays out of social-tree-approve.yml\'s way', () => {
   function treeAutoStamp(item: Record<string, unknown>, overrides: Record<string, unknown> = {}) {
-    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: 'run 1', contentHash: contentHash(item), ...overrides };
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: 'run 1', contentHash: contentHash(item), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', ...overrides };
     return { ...unsigned, sig: signApproval(unsigned, TEST_KEY) };
   }
 
@@ -1727,7 +1727,7 @@ describe('v4 tree-auto stamps — the poll stays out of social-tree-approve.yml\
     const driftedText = await seedQueueFile(QUEUE_FILE, drifted);
     const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
     const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
-    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }], headRef: 'tree/draft/2026-10-09' });
     const { impl: execGit } = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: stampedText }, [HEAD_SHA]: { [REL_FILE]: driftedText } } });
 
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
@@ -1738,18 +1738,18 @@ describe('v4 tree-auto stamps — the poll stays out of social-tree-approve.yml\
     expect(readAllLedgerRows()).toEqual([]);
   });
 
-  it('an OPEN PR with an unknown stamp kind (v4, kind not tree-auto) is ignored the same way — no notice, no merge', async () => {
+  it('L7: an OPEN PR with an unknown stamp kind (v4, kind not tree-auto) is reported as a problem, never honoured or merged', async () => {
     const odd = { ...BASE_ITEM, approval: treeAutoStamp(BASE_ITEM, { kind: 'something-new' }) };
     const oddText = await seedQueueFile(QUEUE_FILE, odd);
     const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
     const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
-    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }], headRef: 'tree/draft/2026-10-09' });
     const { impl: execGit } = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: oddText }, [HEAD_SHA]: { [REL_FILE]: oddText } } });
 
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
 
     expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
-    expect(posts.some((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`notice: PR #${PR_NUMBER}`))).toBe(false);
+    expect(posts.some((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`notice: PR #${PR_NUMBER}`))).toBe(true);
   });
 
   it('an already-MERGED PR with a tree-auto stamp writes NO ledger approve row (it must never count toward autonomy eligibility)', async () => {
@@ -1762,5 +1762,23 @@ describe('v4 tree-auto stamps — the poll stays out of social-tree-approve.yml\
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
 
     expect(readAllLedgerRows()).toEqual([]);
+  });
+});
+
+describe('v4 tree-auto stamps are honoured only on tree/draft/* branches (L7)', () => {
+  it('a valid tree-auto stamp on a feature branch raises a notice and never merges', async () => {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: 'run 1', contentHash: contentHash(BASE_ITEM), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' };
+    const stamped = { ...BASE_ITEM, approval: { ...unsigned, sig: signApproval(unsigned, TEST_KEY) } };
+    const text = await seedQueueFile(QUEUE_FILE, stamped);
+    const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }], headRef: 'feature/not-a-tree-branch' });
+    const { impl: execGit } = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: text }, [HEAD_SHA]: { [REL_FILE]: text } } });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    const notice = posts.find((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`notice: PR #${PR_NUMBER}`));
+    expect(notice?.body.content as string).toContain('only honoured on tree/draft');
   });
 });

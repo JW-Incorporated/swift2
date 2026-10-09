@@ -1230,7 +1230,7 @@ describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)'
 // rule) applies to it exactly as to an owner-approved item. ──────────────────
 describe('post-queue: v4 tree-auto stamps', () => {
   function treeAuto(item: Record<string, unknown>, at: string = new Date().toISOString(), key: string = TEST_SIGNING_KEY) {
-    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at, pr: 1, message: 'run 1', contentHash: contentHash(item) };
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at, pr: 1, message: 'run 1', contentHash: contentHash(item), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' };
     return { ...unsigned, sig: signApproval(unsigned, key) };
   }
 

@@ -23,6 +23,7 @@ import {
   contentHashPayload,
   approvalSigPayload,
   approvalStatus,
+  mediaDigest,
   signApproval,
   verifyApprovalSig,
 } from './queue.mjs';
@@ -552,15 +553,17 @@ describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-
 describe('approvalStatus (v4 tree-auto — Tree approves autonomously, kind is signed)', () => {
   const key = 'test-key';
   const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+  const readMedia = () => null; // an item with no media never reads a file
+  const noMediaDigest = mediaDigest(item, readMedia) as string;
 
   function v4Stamp(overrides: Record<string, unknown> = {}) {
-    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(item), ...overrides };
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(item), mediaDigest: noMediaDigest, ...overrides };
     return { ...unsigned, sig: signApproval(unsigned, key) };
   }
 
   it('accepts a correctly signed v4 tree-auto stamp with no approvers list, and reports its kind', () => {
-    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key })).toEqual({ ok: true, kind: 'tree-auto' });
-    expect(approvalStatus({ ...item, approval: v4Stamp() }, { approvers: [], key })).toEqual({ ok: true, kind: 'tree-auto' });
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key, readMedia })).toEqual({ ok: true, kind: 'tree-auto' });
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { approvers: [], key, readMedia })).toEqual({ ok: true, kind: 'tree-auto' });
   });
 
   it('a v3 stamp still validates and carries no kind', () => {
@@ -572,37 +575,74 @@ describe('approvalStatus (v4 tree-auto — Tree approves autonomously, kind is s
 
   it('NEGATIVE: a stamp whose kind was edited after signing fails the signature', () => {
     const tampered = { ...v4Stamp(), kind: 'tree-auto ' };
-    expect(approvalStatus({ ...item, approval: tampered }, { key }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: tampered }, { key, readMedia }).ok).toBe(false);
     const v3Kind = { ...v4Stamp(), kind: 'discord' };
-    expect(approvalStatus({ ...item, approval: v3Kind }, { key }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v3Kind }, { key, readMedia }).ok).toBe(false);
   });
 
   it('NEGATIVE: a v4 stamp signed over a different kind is not accepted, even re-signed correctly', () => {
     const resigned = v4Stamp({ kind: 'other' });
-    expect(approvalStatus({ ...item, approval: resigned }, { key })).toEqual({ ok: false, reason: 'malformed approval record' });
+    expect(approvalStatus({ ...item, approval: resigned }, { key, readMedia })).toEqual({ ok: false, reason: 'malformed approval record' });
   });
 
   it('NEGATIVE: a v4 stamp with a wrong content hash fails (edited after approval)', () => {
     const stamped = { ...item, approval: v4Stamp({ contentHash: contentHash({ ...item, body: 'other' }) }) };
-    const status = approvalStatus(stamped, { key });
+    const status = approvalStatus(stamped, { key, readMedia });
     expect(status.ok).toBe(false);
     expect(status.reason).toMatch(/edited after approval/);
     const edited = { ...item, body: 'edited later', approval: v4Stamp() };
-    expect(approvalStatus(edited, { key }).ok).toBe(false);
+    expect(approvalStatus(edited, { key, readMedia }).ok).toBe(false);
   });
 
   it('NEGATIVE: a v4 stamp signed with the wrong key, or verified with no key configured, fails', () => {
-    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: 'wrong' }).ok).toBe(false);
-    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: '' }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: 'wrong', readMedia }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: '', readMedia }).ok).toBe(false);
   });
 
   it('NEGATIVE: by must be exactly tree:auto — a discord id or GitHub login on a v4 stamp is malformed', () => {
-    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'discord:100000000000000001' }) }, { key }).ok).toBe(false);
-    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'sffan15-sys' }) }, { key }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'discord:100000000000000001' }) }, { key, readMedia }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'sffan15-sys' }) }, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('M5: the signed media digest binds the image BYTES — swapping the file after the stamp voids it', () => {
+    const withMedia = { ...item, media: ['/social/library/a.png'] };
+    const bytes = { current: Buffer.from('original-image') };
+    const read = () => bytes.current;
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(withMedia), mediaDigest: mediaDigest(withMedia, read) };
+    const stamped = { ...withMedia, approval: { ...unsigned, sig: signApproval(unsigned, key) } };
+    expect(approvalStatus(stamped, { key, readMedia: read })).toEqual({ ok: true, kind: 'tree-auto' });
+    bytes.current = Buffer.from('<svg onload=alert(1)>');
+    const swapped = approvalStatus(stamped, { key, readMedia: read });
+    expect(swapped.ok).toBe(false);
+    expect(swapped.reason).toMatch(/media changed/);
+    expect(approvalStatus(stamped, { key, readMedia: () => null }).ok).toBe(false); // missing file
+  });
+
+  it('M5: a stamp whose mediaDigest was edited after signing fails the signature', () => {
+    const tampered = { ...v4Stamp(), mediaDigest: 'sha256:' + '0'.repeat(64) };
+    expect(approvalStatus({ ...item, approval: tampered }, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('M5: the verifying boundary (a key was passed) refuses a v4 stamp when the caller cannot read the media', () => {
+    const status = approvalStatus({ ...item, approval: v4Stamp() }, { key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toMatch(/cannot be verified/);
+  });
+
+  it('a v4 stamp with no mediaDigest at all is malformed', () => {
+    const { mediaDigest: _omit, ...rest } = v4Stamp() as Record<string, unknown>;
+    expect(approvalStatus({ ...item, approval: rest }, { key, readMedia })).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('mediaDigest: stable for an empty media list, order- and path-sensitive, null when a file is missing', () => {
+    expect(mediaDigest({}, () => null)).toBe(mediaDigest({ media: [] }, () => null));
+    const a = mediaDigest({ media: ['/a.png', '/b.png'] }, (m) => Buffer.from(m));
+    expect(a).not.toBe(mediaDigest({ media: ['/b.png', '/a.png'] }, (m) => Buffer.from(m)));
+    expect(mediaDigest({ media: ['/a.png'] }, () => null)).toBeNull();
   });
 
   it('the signed payload binds kind', () => {
-    expect(approvalSigPayload({ v: 4, kind: 'tree-auto', by: 'tree:auto', at: 'a', pr: 1, contentHash: 'sha256:x' })).toBe('4|tree-auto|tree:auto|a|1|sha256:x');
+    expect(approvalSigPayload({ v: 4, kind: 'tree-auto', by: 'tree:auto', at: 'a', pr: 1, contentHash: 'sha256:x', mediaDigest: 'sha256:m' })).toBe('4|tree-auto|tree:auto|a|1|sha256:x|sha256:m');
   });
 });
 

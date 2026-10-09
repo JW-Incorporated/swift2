@@ -120,7 +120,7 @@ describe('validateDir — v4 tree-auto stamps', () => {
     const dir = await mkdtemp(join(tmpdir(), 'validate-queue-test-'));
     try {
       const base = validItem();
-      const approval = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), sig: 'hmac-sha256:' + '0'.repeat(64) };
+      const approval = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', sig: 'hmac-sha256:' + '0'.repeat(64) };
       await writeFile(join(dir, 'a.json'), JSON.stringify({ ...base, approval }));
       const ok = await validateDir(dir, []);
       expect(ok.failures).toEqual([]);

@@ -192,7 +192,7 @@ describe('validateQueueItem', () => {
         delete base.critique;
         const treeAuto = {
           ...base,
-          approval: { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), sig: 'hmac-sha256:' + '0'.repeat(64) },
+          approval: { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', sig: 'hmac-sha256:' + '0'.repeat(64) },
         };
         expect(approvalStatus(treeAuto, { approvers: SOCIAL_APPROVERS }).ok).toBe(true); // shape+hash valid, yet:
         expect(findingFor(treeAuto, 'critique')).toBeDefined();
