@@ -37,7 +37,7 @@
     dialogClose: '[aria-label="Close"][role="button"], [aria-label="Close"]',
   };
   const LABELS = {
-    topLevel: /^comments?\b/i, // aria-label of a top-level comment article
+    topLevel: /^comment\b/i, // aria-label of a top-level comment article
     reply: /^repl(?:y|ied)\b/i, // aria-label of a reply article
     // Opens / extends the comment list of a post.
     openComments: [
