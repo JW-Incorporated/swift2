@@ -12,7 +12,6 @@ import { run } from './social-approval-poll.mjs';
 import { isApprovalPost } from '../marjorie/lib/chat-inbox.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 
-const CHECK_MARK = '%E2%9C%85';
 const REPO = 'JW-Incorporated/swift2';
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/999999999999999999/faketoken';
 const WEBHOOK_CHANNEL = '111111111111111111';
