@@ -253,11 +253,11 @@ const TRACKS = [
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'The flirtiest track on Fearless, addressed by name to a real musician — Stephen Barker Liles of Love and Theft, who got a heads-up text from Taylor herself ("Hey, Track 4") while fans decoded the liner-note code.',
+      note: 'The flirtiest track on Fearless, addressed to a "Stephen" — fans decoded the liner-note code, and later reporting linked it to a musician Swift toured with; she has not named him on record.',
       summary:
         'A confession disguised as a serenade: she lists all the girls who might like the boy, then makes her own case with a wink.',
       inspiration:
-        'Confirmed to be about Stephen Barker Liles of the band Love and Theft, who once opened for Swift; the hidden message in the booklet spelled out the giveaway.',
+        'The booklet\'s hidden message and later reporting linked it to Stephen Barker Liles of Love and Theft, who opened for Swift; she has not named him on record.',
       themes: ['crushes', 'flirtation', 'shooting your shot'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
       sources: [wiki('Hey Stephen', 'Hey_Stephen', 'song article: subject confirmation'), ALBUM],
