@@ -1580,19 +1580,52 @@ const ERA = {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'The heartbeat-drum vault track that dropped weeks after the breakup news — instantly read as the relationship’s death certificate, written from inside it.',
+      note: 'A vault track first sold on a CD at the May 26, 2023 Eras Tour show in East Rutherford, then released to streaming on Nov. 29, 2023, when Swift gave it to fans as a thank-you.',
       summary:
-        'A slow flatline: she is fading in a relationship where the other person will not fight, choose, or even argue. Released as a Til Dawn vault cut in the exact news cycle of her documented 2023 split, which fans treated as the announcement’s B-side.',
-      inspiration:
-        'Recorded in December 2021 per its credits; the timing of its release against the publicly reported breakup is the documented story — Swift let the sequencing speak.',
+        'A slow-burning vault track about a relationship near its end, built on a sample of Swift’s own heartbeat, per Rolling Stone.',
+      inspiration: null,
       themes: ['dying relationships', 'being unchosen', 'the quiet end'],
-      fanLore:
-        'Fan reading (unconfirmed in specifics): the Alwyn relationship’s final chapter — universally assumed, never narrated by Swift.',
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Losing_Me",
       sources: [
         wiki("You're Losing Me", "You're_Losing_Me", 'song article: release timing and credits'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "'You're Losing Me' reached listeners through an unusual route: Billboard reported it first appeared on Midnights (The Late Night Edition), a CD available only to fans at Swift's May 26, 2023 Eras Tour show at MetLife Stadium in East Rutherford, N.J., and was briefly sold as an album in her web store that night. It had never been sold as a standalone track until Nov. 29, 2023.",
+          "Rolling Stone's writers put it on their list of the 100 best songs of 2023, calling it 'one of Swift's most devastating songs about a relationship on its last pulse.' That is the magazine's critical judgment.",
+        ],
+        meaning: {
+          confirmed: [
+            "On Nov. 29, 2023, after Spotify named her its Global Top Artist of the year, Swift wrote on X: 'a lot of you have been asking me to put \"You're Losing Me (From The Vault)\" on streaming... so here you go! You can finally listen EVERYWHERE now.' It was her thank-you to listeners.",
+          ],
+          supported: [
+            "Rolling Stone's writers described the track as built 'over a sample of her heartbeat', and quoted a bridge line in which, they wrote, Swift confesses 'I wouldn't marry me either'. Swift has not explained the song in the sources cited here, and this page does not say who or what it is about.",
+            "Billboard reported that it debuted at No. 46 on the Dec. 9, 2023 Hot 100 after only two days of tracking, with 8.7 million official U.S. streams and 19,000 downloads on Nov. 29-30 according to Luminate, and launched at No. 1 on Digital Song Sales, Swift's record-extending 28th leader there.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'Post on X, November 29, 2023',
+            note: "Thanked listeners after being named Spotify's Global Top Artist for 2023 and said fans' requests to stream the song were why she released it.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'You're Losing Me (From the Vault)' Debuts on Hot 100 - Billboard",
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-youre-losing-me-from-the-vault-debuts-hot-100-1235533932/',
+          },
+          {
+            name: "Taylor Swift Finally Releases 'You're Losing Me' on Streaming Services - Variety",
+            url: 'https://variety.com/2023/music/news/taylor-swift-youre-losing-me-release-from-the-vault-1235812502/',
+          },
+          {
+            name: 'The 100 Best Songs of 2023 - Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-lists/best-songs-of-2023-1234879541/taylor-swift-youre-losing-me-1234897454/',
+          },
+        ],
+      },
     },
   ],
 };
