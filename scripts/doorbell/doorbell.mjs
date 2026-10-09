@@ -27,10 +27,12 @@ import {
   chatDispatch, createChannelMap, createSeen, parseConfig, printable, readyLine, ringDecision, stuckDecision, stuckDispatch,
 } from './lib/doorbell-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
+import { createGatewayHealth } from './lib/gateway-health.mjs';
 import { githubRequest } from './lib/github-rest.mjs';
 import { checkLines, createClock } from './lib/clock.mjs';
 
 const HOUR_MS = 60 * 60 * 1000;
+const WATCHDOG_FEED_MS = 30_000;
 
 const systemdNotify = (state) => execFile('systemd-notify', [state], { timeout: 10_000 }, () => {});
 
@@ -42,7 +44,9 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
   let gateway = null;
   let stoppedReminder = null;
   let announced = '';
-  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs, progress: () => notify('WATCHDOG=1') });
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs });
+  const health = createGatewayHealth({ now });
+  let feedTimer = null;
 
   const discord = async (method, url) => {
     try {
@@ -134,23 +138,28 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
     seen,
     pending,
     clock,
+    health,
     onDispatch,
     onMessage,
     start(WebSocketImpl) {
       gateway = connectGateway({
-        token: config.discordToken, intents: INTENTS, onDispatch, log, WebSocketImpl, timers,
+        token: config.discordToken, intents: INTENTS, onDispatch, log, WebSocketImpl, timers, health,
         onFatal: (code) => {
           stoppedReminder = timers.setInterval(() => log(`gateway still stopped since close ${code}; fix the bot, then restart the service`), HOUR_MS);
         },
       });
       clock.start();
       notify('READY=1');
+      feedTimer = timers.setInterval(() => {
+        if (health.shouldFeed()) notify('WATCHDOG=1');
+      }, WATCHDOG_FEED_MS);
     },
     stop() {
       gateway?.stop();
       for (const timer of pending.values()) timers.clearTimeout(timer);
       pending.clear();
       if (stoppedReminder) timers.clearInterval(stoppedReminder);
+      if (feedTimer) timers.clearInterval(feedTimer);
       clock.stop();
     },
   };

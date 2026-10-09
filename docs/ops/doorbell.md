@@ -64,9 +64,9 @@ executable authority for the workflows themselves, not for host code.
 
 At startup the clock waits for one successful main flag read. It refreshes
 every ten minutes and switches off after three failures or 30 minutes
-without a good read. An unexpected clock-loop error stops watchdog heartbeats
-until systemd restarts the process; handled request failures still acknowledge
-progress. The doorbell's message pickup continues independently.
+without a good read. The clock no longer feeds the systemd watchdog (#5014); the watchdog follows
+the Discord gateway (see "Watchdog health" below). The doorbell's message
+pickup and the clock run independently.
 An off switch may take one refresh interval to arrive. An unreadable run
 list never authorizes a dispatch; requests have 15-second deadlines.
 
@@ -119,11 +119,27 @@ and restarting is the code rollback, but restores the cumulative drift bug.
 
 The two unit-install commands were approved on 2026-09-14. They install
 `Type=notify`, `WatchdogSec=180`, `StartLimitBurst=5` and a one-hour start-limit
-window. The running Node process reports progress after clock ticks through
-`systemd-notify`; a hung loop stops watchdog signals. Five starts in an hour
+window. The running Node process sends `WATCHDOG=1` through `systemd-notify`
+every 30 s, but only while the gateway is healthy (below). Five starts in an hour
 exhaust the limit; investigate first, then `sudo systemctl reset-failed
 longlive-doorbell` before restarting. Verify with `systemctl show
 longlive-doorbell -p ActiveState -p WatchdogUSec -p StartLimitBurst`.
+
+### Watchdog health (#5014)
+
+On 2026-10-04 the gateway sat in `gateway: resuming` for 97 minutes while the
+clock kept feeding the watchdog, so systemd saw a healthy unit. Now the feed
+follows the gateway (`scripts/doorbell/lib/gateway-health.mjs`):
+
+- Healthy = READY or RESUMED since the last close, and a heartbeat ACK (or that
+  READY/RESUMED) within two heartbeat intervals.
+- Unhealthy for more than 120 s (less than `WatchdogSec=180`) stops the feed, so
+  systemd restarts the unit. A fresh process gets the same 120 s to connect.
+- Self-heal: a connect or resume that has not reached READY/RESUMED in 45 s is
+  closed and retried with a fresh IDENTIFY (`gateway: resume not ready after 45s
+  — identifying afresh`).
+- Clock ticks do not feed the watchdog. A clock-loop failure is logged, but no
+  longer restarts the unit.
 
 Proof order: one hour of twelve poll slots on main, dispatch actor and IDs,
 within two minutes per slot without doubled clock dispatches; then
@@ -279,6 +295,7 @@ host never reads it.
 | `not ready: #longlive-tree not found in the guild` | the bot cannot see that channel, or it was renamed | give the bot View Channel there (HA #73); a rename needs `BOTS` in `chat-inbox.mjs` and a new tag |
 | `gateway: closed (4004) — not reconnecting` | bad Discord token | replace the token line, then restart |
 | `gateway: closed (4014) — not reconnecting` | an intent is disallowed | the doorbell asks only for GUILDS and GUILD_MESSAGES; check the bot's settings |
+| `gateway: resuming` with no `resumed` after it | a resume that hangs | self-heals after 45 s with a fresh IDENTIFY; if the gateway stays down 120 s, the watchdog stops and systemd restarts the unit (restart count rises in `systemctl show longlive-doorbell -p NRestarts`) |
 | `… dispatch … failed (HTTP 401)` or `(HTTP 403)` | the GitHub key expired or lacks Actions write | renew the key (above) |
 
 ### 2026-09-15 allowance clarification and recovery

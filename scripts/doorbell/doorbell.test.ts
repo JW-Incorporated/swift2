@@ -201,6 +201,7 @@ describe('--check and the bare clone', () => {
       'scripts/doorbell/lib/clock-core.mjs',
       'scripts/doorbell/lib/clock.mjs',
       'scripts/doorbell/lib/doorbell-core.mjs',
+      'scripts/doorbell/lib/gateway-health.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
       'scripts/marjorie/lib/chat-inbox.mjs',
