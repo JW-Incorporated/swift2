@@ -5,10 +5,10 @@ const triage = readFileSync('docs/agents/runner-prompts/marjorie-triage.md', 'ut
 const workflow = readFileSync('.github/workflows/routine-marjorie-triage.yml', 'utf8');
 
 describe('marjorie triage truncation guards (#4230, #4232, #4239)', () => {
-  it('never requests comments in a bulk gh issue list', () => {
-    const bulk = triage.split('\n').filter((l) => l.startsWith('gh issue list'));
+  it('never requests comments in a bulk gh issue list (indented or reworded too)', () => {
+    const bulk = triage.split('\n').filter((l) => /gh\s+issue\s+list/i.test(l));
     expect(bulk.length).toBeGreaterThan(0);
-    for (const line of bulk) expect(line).not.toMatch(/comments/);
+    for (const line of bulk) expect(line).not.toMatch(/comments/i);
   });
 
   it('writes the reconciled marker only after a COMPLETED closure', () => {
@@ -17,8 +17,10 @@ describe('marjorie triage truncation guards (#4230, #4232, #4239)', () => {
     expect(step).toMatch(/NOT_PLANNED[\s\S]*do \*\*not\*\* write the marker/);
   });
 
-  it('aborts when a bounded list returns exactly its limit', () => {
-    expect(triage.match(/returns exactly 200 items/g)?.length).toBe(2);
+  it('reads comment threads through the one-turn helper, never a per-issue loop', () => {
+    expect(triage.match(/node scripts\/marjorie\/lib\/fetch-issue-comments\.mjs/g)?.length).toBe(2);
+    expect(triage).not.toMatch(/gh\s+issue\s+view\s+<n>[^\n]*comments/i);
+    expect(triage.match(/hit exactly 200/g)?.length).toBe(2);
   });
 
   it('paginates the deliver candidate fetch without a --limit cap', () => {

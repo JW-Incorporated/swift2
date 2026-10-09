@@ -228,15 +228,19 @@ Run this before or after new-submission triage — your call; note which you
 chose and why in your run summary.
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state closed --json number,stateReason --limit 200
+node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-filed --state closed
 ```
 
-If the list returns exactly 200 items, the limit may be hiding more: abort
-the pass and say so in your run summary rather than reconciling a partial set.
+This is ONE command (one turn): it reads every issue per-issue internally (the
+bulk list truncates comments at 100) and prints one JSON array of
+`{number, stateReason, body, comments}`, at most 200 issues. If it exits
+non-zero (a list hit exactly 200 and may hide more), abort the pass and say so
+in your run summary rather than reconciling a partial set. Never loop `gh issue
+view` yourself. Note the issue count in your run summary.
 
-For each filed issue returned:
+For each filed issue in the array:
 
-1. For each number returned, `gh issue view <n> --repo "$GITHUB_REPOSITORY" --json body,comments` (the bulk list truncates comments at 100). Skip if any comment already has `<!-- marjorie-triage-reconciled -->`.
+1. Skip if any comment already has `<!-- marjorie-triage-reconciled -->`.
 2. Extract the original's number from the body's
    `**From a site submission** — #<N>` line.
 3. `gh issue view <N> --json state` — skip if `<N>` is already closed (not
@@ -274,14 +278,18 @@ you've ALREADY triaged (open or closed) or on a filed issue. Before or after
 new-submission triage (your call, same as the Accountability loop), run:
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-triaged --state all --json number --limit 200
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --json number --limit 200
+node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-triaged --label marjorie-filed --state all
 ```
 
-If either list returns exactly 200 items, abort the discovery pass and say so in
-your run summary; a silently truncated set hides overrides.
+ONE command, one turn: it reads each issue per-issue internally (a bulk
+`--json comments` list truncates comments at 100, which can hide an override)
+and prints one JSON array of `{number, stateReason, body, comments}`, at most
+200 issues per label. If it exits non-zero (a list hit exactly 200), abort the
+discovery pass and say so in your run summary; a silently truncated set hides
+overrides. Never loop `gh issue view` yourself. Note the issue count in your run
+summary.
 
-Never request `comments` in the bulk list: the query truncates comments per issue at 100, which can hide an override. For each number returned, run `gh issue view <n> --repo "$GITHUB_REPOSITORY" --json body,comments` and look at comments posted **after your own last
+For every issue in the array, look at comments posted **after your own last
 comment** on it — use `viewerDidAuthor` to find your last comment as the
 boundary, **never a hardcoded login string** (different GitHub API
 surfaces spell this routine's own bot identity differently, the exact
