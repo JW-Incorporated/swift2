@@ -7,6 +7,37 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-09 — Runner prompts follow the land-it merge policy; content lanes and founder-decision work keep their carve-outs (#4187)
+
+**Decision.** Applies the reversibility test (`CLAUDE.md`, 2026-08-24; precedent by analogy: #4185)
+to the runner prompts
+that still said "never merge". Prompt/charter text only; no workflow
+permissions changed.
+
+- **Flipped to land-it** (merge on green with `gh pr merge --squash
+  --delete-branch`, else `--auto`, then exit): Austin (`austin-run.md`,
+  `austin.md`), Karen nightly and Karen Deep (ledger/report PRs), Paul Blart
+  (his own `paul/security-bumps` PR only; he never merges Dependabot PRs, whose
+  auto-merge belongs in its own dependabot[bot]-keyed workflow), and the two plan-recheck runners (their own docs
+  PR). Scope fences are unchanged (Austin's allowlist, Karen read-only on
+  content, Paul manifests/CI config only).
+- **Kept, content lanes** (content-shift, cross-link-builder, answerer,
+  stylist, rumor-desk, vault-run, photo-enrichment, Kevin streams 1 and 2):
+  they do not merge or self-arm, because `auto-merge-content.yml` is the
+  landing mechanism and a self-armed `--auto` would bypass its path,
+  ownership-lock and branch/author gates (2026-07-25; held content-shift PRs
+  go to Marjorie under the 2026-07-18 grant). Text now says who lands the PR
+  instead of implying it waits for a founder.
+- **Kept, other:** Kevin Stream 3 (founder-decision work), Laura, news-triage
+  and notification-quality (no PR to land), and every Tree/social-draft
+  prompt (approval is the founder's signed Discord check, B1).
+- **Exceptions in every flipped prompt:** never merge a `social-draft` PR or
+  one labelled `hold` or `founder-decision`.
+
+**Approved by:** Applies CLAUDE.md "Never babysit your own PR" / Decision authority; extends the 2026-09-12 precedent by analogy, not a new founder ruling.
+
+---
+
 ## 2026-10-07 — The website's own content photos feed the social photo library (`import-site-photos.mjs`)
 
 **Decision.** Founder request (Joey, 2026-10-07; goal >10,000 awesome Taylor photos for social posts, "our website already has tons of cover photos for our content — use those for social"). `scripts/social/import-site-photos.mjs` enumerates the photo refs the site itself resolves from content seeds (`moment.photos[]`, runway-look `images[]`, item `thumbnailUrl` under `supabase/seed/{content,lenses,candidates}`), downloads them and adds them to `social/photo-library.json` through the existing library schema (`validatePhotoEntry`, `existingLibraryHashes`, `resolvePhotoDestPath` from `import-photo-library.mjs`). Entries are tagged `<era>` + `site-photo`; credit is carried when the seed has one, omitted otherwise. Kept only when the decoded file is jpeg/png/webp with a long edge >= 800 px and not content-identical (sha256) to an existing entry. Every kept file is normalized (repo-size rule, architect storage ruling 2026-10-07): long edge <= 2048 px (never upscaled), orientation applied, EXIF/metadata stripped, JPEG q85 (PNG only with real transparency); entries record `width`/`height`/`bytes`. Wikimedia Commons files are fetched as 1920 px thumbnails, as Wikimedia asks of bots. Image binaries land in a follow-up commit once Git LFS is in place.
@@ -3454,7 +3485,7 @@ install for Swift2 (`#2283`) — a session opened the PR and stopped short of
 merging, citing this exact text. The underlying premise was already stale:
 the 2026-08-22 entry below claims `gh pr merge` "always prompts for approval
 regardless of this list (a platform tool-permission behavior, not governed
-by this file)" — but `gh pr merge --squash --delete-branch` on `#2283` ran
+by this file)" — but `gh pr merge <n> --squash --delete-branch` on `#2283` ran
 and merged with no prompt or friction. `.claude/settings.json` allowlists
 `Bash(gh pr *)` and `Bash(git merge *)` directly; there is no separate
 confirmation step left to describe as a "gate."
@@ -8757,7 +8788,7 @@ Joey, 2026-10-05 15:50 PDT, in chat: "A. But minimal guard rails. I want it to f
 1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2) and stop. (May reference secret NAMES in workflow YAML.)
 2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
 3. Never run the social live-send paths (`scripts/social/post-queue.mjs`, `delete-media.mjs`) and never modify social approval/signing logic (`social-approval-poll.yml` HMAC/stamp code, `scripts/automerge-social-approval-gate.mjs`) or write "approval" keys into `social/queue/**`. It MAY fix other social/Tree code.
-4. Merge only via `gh pr merge --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
+4. Merge only via `gh pr merge <n> --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
 
 Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founder addendum, 15:51 PDT: a bot that cannot fix something posts a copy-paste prompt and where to paste it, not a problem description). `scripts/marjorie/ops-fix-guard.mjs` enforces rails 1-3 on the diff before merge.
 

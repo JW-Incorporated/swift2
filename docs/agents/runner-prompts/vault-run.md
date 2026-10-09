@@ -225,7 +225,7 @@ you assume that sentence means someone will keep trying.
   green, so every lane's sourcing bar and every redline is yours alone to
   enforce. That raises the bar for this run; it does not lower it.
 - Never fabricate a fact, a photo, a shortcode, or a product URL.
-- Never merge your own PR.
+- Never merge or self-arm your own PR: `auto-merge-content.yml` lands vault/* PRs (its gates are the authority; docs/decisions.md 2026-07-25, 2026-10-09).
 
 ## Budget
 

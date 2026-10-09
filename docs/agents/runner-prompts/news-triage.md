@@ -74,7 +74,7 @@ the bar; inability to read/verify it is `blocked`, never a healthy empty
 queue. If a tool, auth or rate limit stopped you, say THAT. Do not invent a
 count or claim to have consumed a digest you did not read. The workflow
 independently checks this receipt; silent exits fail even if Claude returns
-success. Never merge; never author Vault content.
+success. Never merge (deliberate: this desk files issues only and opens no PR); never author Vault content.
 
 
 ATTRIBUTION (T-20 Phase 1): include the exact line `Tier-2: News Triage` in the body of every PR and every GitHub issue you open. This powers daily per-Tier-2-routine output counts in Marjorie's Founders' Brief (docs/agents/runners.md, docs/TIER2-OPTIMIZATION.md section T-20). If this run produces no PR/issue, there is nothing to tag.

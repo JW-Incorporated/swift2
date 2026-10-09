@@ -253,14 +253,26 @@ const TRACKS = [
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'The flirtiest track on Fearless, addressed by name to a real musician — Stephen Barker Liles of Love and Theft, who got a heads-up text from Taylor herself ("Hey, Track 4") while fans decoded the liner-note code.',
+      note: 'The flirtiest track on Fearless, addressed to a "Stephen" — fans decoded the liner-note code, and The Boot reports she later revealed the inspiration was a musician she toured with; his own account is that she told him about the song.',
       summary:
         'A confession disguised as a serenade: she lists all the girls who might like the boy, then makes her own case with a wink.',
       inspiration:
-        'Confirmed to be about Stephen Barker Liles of the band Love and Theft, who once opened for Swift; the hidden message in the booklet spelled out the giveaway.',
+        'The booklet\'s hidden message and The Boot reports she later revealed Stephen Barker Liles of Love and Theft, who opened for Swift, was the inspiration; Liles\'s own account is that she told him about the song.',
       themes: ['crushes', 'flirtation', 'shooting your shot'],
-      sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
-      sources: [wiki('Hey Stephen', 'Hey_Stephen', 'song article: subject confirmation'), ALBUM],
+      sourceUrl: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
+      sources: [
+        {
+          source_url: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
+          source_title: "Taylor Swift's 'Hey Stephen' Inspiration Returns the Favor",
+          publisher: 'The Boot',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 3,
+          notes: 'Liles\'s own account of being told about the song; reports Swift later revealed him as the inspiration',
+        },
+        wiki('Hey Stephen', 'Hey_Stephen', 'song article: background'),
+        ALBUM,
+      ],
     },
     {
       slug: 'white-horse',

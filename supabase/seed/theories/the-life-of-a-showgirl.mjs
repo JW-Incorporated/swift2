@@ -23,11 +23,11 @@ export default {
           source_title: 'The Life of a Showgirl',
           publisher: 'Wikipedia',
           source_type: 'wiki',
-          accessed_at: '2026-09-15',
+          accessed_at: '2026-10-09',
           reliability_score: 2,
           excerpt: null,
           notes:
-            'The orange-branded New Heights announcement (Aug. 2025) is documented in the album article. Confidence stays strong_fan_consensus / outcome partially_confirmed: the orange branding is fact, but how much pre-announcement orange was planted versus pattern-matched has never been itemized. Re-verified live 2026-09-15 (was accessed 2026-08-08).',
+            'The orange-branded New Heights announcement (Aug. 2025) is documented in the album article. Confidence stays strong_fan_consensus / outcome partially_confirmed: the orange branding is fact, but how much pre-announcement orange was planted versus pattern-matched has never been itemized. Re-verified live 2026-10-09 (was accessed 2026-09-15).',
         },
       ],
     },

@@ -120,13 +120,29 @@ export function matchAlertTitle(title) {
 // the rest before `-->`. Requiring `\s*-->` immediately after the action
 // word means anything but an exact, closed-vocabulary value now fails to
 // match at all (caught by the `if (!m) continue` below, same as no marker).
-const MARKER_RE = /<!--\s*marjorie-ops-handled\s+date=(\d{4}-\d{2}-\d{2})\s+action=([a-z-]+)\s*-->/;
+//
+// Optional `targets=a,b` (#4219) names which members of an aggregate alert
+// (workflow names, PR numbers) the marker covers; see deriveHandledState.
+const MARKER_RE =
+  /<!--\s*marjorie-ops-handled\s+date=(\d{4}-\d{2}-\d{2})\s+action=([a-z-]+)(?:\s+targets=([\w.#/:,-]+))?\s*-->/;
+
+const TARGET_RE = /^[\w.#/:-]+$/;
+
+/** Normalize a target list (array or comma string) to a sorted, deduped array. */
+export function parseTargets(input) {
+  const raw = Array.isArray(input) ? input : String(input ?? '').split(',');
+  const list = raw.map((t) => String(t).trim()).filter(Boolean);
+  for (const t of list) if (!TARGET_RE.test(t)) throw new Error(`invalid target: ${t}`);
+  return [...new Set(list)].sort();
+}
 
 /** The exact marker line Marjorie's ledger comment must contain for
  * `deriveHandledState` to recognize it. `action` must be one of ACTIONS. */
-export function renderHandledMarker({ action, date = todayLA() } = {}) {
+export function renderHandledMarker({ action, date = todayLA(), targets } = {}) {
   if (!ACTIONS.includes(action)) throw new Error(`unknown action: ${action}`);
-  return `<!-- marjorie-ops-handled date=${date} action=${action} -->`;
+  const list = targets === undefined ? [] : parseTargets(targets);
+  const suffix = list.length ? ` targets=${list.join(',')}` : '';
+  return `<!-- marjorie-ops-handled date=${date} action=${action}${suffix} -->`;
 }
 
 /**
@@ -137,21 +153,48 @@ export function renderHandledMarker({ action, date = todayLA() } = {}) {
  * and only when its `action` is a recognized member of ACTIONS; everything
  * else (a marker on a comment the current credential didn't post, or an
  * unrecognized action value) is silently ignored, never treated as
- * valid-and-dated-today. `today` is injectable for tests; the real caller
- * never overrides it, matching `todayLA()`'s own contract.
+ * valid-and-dated-today. `targets` (#4219) is the aggregate alert's current
+ * member list: a marker only covers the targets it names, so a newly added
+ * target is `unhandled` even under a permanent marker. A legacy marker with
+ * no `targets=` is grandfathered: it covers EVERY wanted target (permanent
+ * ones forever, same-day ones until the day rolls over), same as the original
+ * issue-wide behavior, so deploying this does not re-handle open alerts. `today` is injectable for
+ * tests; the real caller never overrides it, matching `todayLA()`'s own
+ * contract.
  */
-export function deriveHandledState(comments, { today = todayLA() } = {}) {
+export function deriveHandledState(comments, { today = todayLA(), targets } = {}) {
+  const want = targets === undefined ? null : parseTargets(targets);
+  const permanent = new Set();
+  const todays = new Set();
+  let sawPermanent = false;
   let sawToday = false;
+  let legacyPermanent = false;
+  let legacyToday = false;
   for (const { viewerDidAuthor, body } of comments || []) {
     if (viewerDidAuthor !== true) continue;
     const m = MARKER_RE.exec(String(body || ''));
     if (!m) continue;
     const [, date, action] = m;
     if (!ACTIONS.includes(action)) continue;
-    if (PERMANENT_ACTIONS.has(action)) return 'escalated';
-    if (date === today) sawToday = true;
+    const covered = m[3] ? m[3].split(',') : [];
+    if (PERMANENT_ACTIONS.has(action)) {
+      sawPermanent = true;
+      if (!covered.length) legacyPermanent = true;
+      for (const t of covered) permanent.add(t);
+    } else if (date === today) {
+      sawToday = true;
+      if (!covered.length) legacyToday = true;
+      for (const t of covered) todays.add(t);
+    }
   }
-  return sawToday ? 'handled-awaiting-watchdog' : 'unhandled';
+  if (!want || !want.length) {
+    if (sawPermanent) return 'escalated';
+    return sawToday ? 'handled-awaiting-watchdog' : 'unhandled';
+  }
+  if (want.every((t) => permanent.has(t) || legacyPermanent)) return 'escalated';
+  if (want.every((t) => permanent.has(t) || todays.has(t) || legacyPermanent || legacyToday))
+    return 'handled-awaiting-watchdog';
+  return 'unhandled';
 }
 
 /** The six `- Label → \`slug\`` lines (3-space indent, matching the spec's
@@ -206,6 +249,13 @@ with uploaded/not-member counts and no group says \`failed\`.`;
 // entirely: it's a boolean GitHub computes server-side, per query, against
 // whichever credential is actually running it — `gh issue view --json
 // comments` already exposes it directly, no extra call needed.
+function targetsUsage() {
+  console.error(
+    'alert-router: --targets requires a non-empty comma-separated list (e.g. --targets a.yml,b.yml)',
+  );
+  return 2;
+}
+
 async function main(argv = process.argv.slice(2)) {
   const [cmd, ...rest] = argv;
   if (cmd === 'match') {
@@ -216,8 +266,26 @@ async function main(argv = process.argv.slice(2)) {
   if (cmd === 'state') {
     const chunks = [];
     for await (const chunk of process.stdin) chunks.push(chunk);
-    const comments = JSON.parse(Buffer.concat(chunks).toString('utf8') || '[]');
-    console.log(deriveHandledState(comments));
+    // #4226: empty stdin means the upstream `gh issue view` failed (a real
+    // zero-comment issue still emits `[]`); never read it as "no ledger".
+    // Exit 3 = lookup failed: keep prior state, take no action on this alert.
+    const raw = Buffer.concat(chunks).toString('utf8');
+    let comments = null;
+    try {
+      if (raw.trim()) comments = JSON.parse(raw);
+    } catch {
+      comments = null;
+    }
+    if (!Array.isArray(comments)) {
+      console.error(
+        'alert-router: state lookup failed (empty or non-array stdin); keeping prior state, taking no action on this alert',
+      );
+      return 3;
+    }
+    const ti = rest.indexOf('--targets');
+    if (ti >= 0 && !parseTargets(rest[ti + 1]).length) return targetsUsage();
+    const targets = ti >= 0 ? parseTargets(rest[ti + 1]) : undefined;
+    console.log(deriveHandledState(comments, { targets }));
     return 0;
   }
   if (cmd === 'render-fb-item') {
@@ -226,8 +294,11 @@ async function main(argv = process.argv.slice(2)) {
     return 0;
   }
   if (cmd === 'marker') {
-    const [action, date] = rest;
-    console.log(renderHandledMarker({ action, date }));
+    const ti = rest.indexOf('--targets');
+    if (ti >= 0 && !parseTargets(rest[ti + 1]).length) return targetsUsage();
+    const targets = ti >= 0 ? rest[ti + 1] : undefined;
+    const [action, date] = rest.filter((_, i) => ti < 0 || (i !== ti && i !== ti + 1));
+    console.log(renderHandledMarker({ action, date, targets }));
     return 0;
   }
   if (cmd === 'today') {
@@ -239,7 +310,7 @@ async function main(argv = process.argv.slice(2)) {
     return 0;
   }
   console.error(
-    'Usage: alert-router.mjs match "<title>" | state (stdin JSON) | render-fb-item <number> [date] | marker <action> [date] | today | next-ha-number',
+    'Usage: alert-router.mjs match "<title>" | state [--targets a,b] (stdin JSON) | render-fb-item <number> [date] | marker <action> [date] [--targets a,b] | today | next-ha-number',
   );
   return 2;
 }

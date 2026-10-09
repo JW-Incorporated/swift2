@@ -1227,6 +1227,84 @@ jobs:
             echo "knowledge-freshness ALARM (stale)"
           fi
 
+      # The honesty valve behind the founder-facing gate (issue #4804).
+      #
+      # upsert-alert.sh holds the Discord line for a condition Marjorie's ops
+      # routine handles itself, and records that hold as a marker comment on
+      # the alert issue. That is only safe while Marjorie is actually running:
+      # if her routine goes dark, or her fix does not work, the alert would
+      # sit open with nobody told. So this step posts one line to the founders
+      # channel for any held alert still open 24h later -- once ever, enforced
+      # by a second marker, never an hourly re-post.
+      #
+      # Hourly (`if: always()`, no schedule gate -- same ungating and the same
+      # reason as the smoke check above: an earlier failed step must not skip
+      # it), so the worst case between a real failure and the founders hearing
+      # about it is 24h plus one hour. Deliberately NOT gated on the alert
+      # having a marker from this repo's own run: an alert whose line was
+      # never held has no marker and comes back `none`, so founder-facing
+      # alerts -- which already posted at open -- are never re-announced.
+      - name: Held alert still open 24h (founders-channel backstop)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          OPEN_ALERTS=$(gh issue list --repo "$REPO" --label watchdog-alert --state open \
+            --json number,title,url --limit 100) || OPEN_ALERTS=""
+          if [ -z "$OPEN_ALERTS" ]; then
+            echo "backstop: could not list open alerts; nothing done this run"
+            exit 0
+          fi
+          echo "$OPEN_ALERTS" | jq -r '.[] | [.number, .title, .url] | @tsv' \
+            > /tmp/open-alerts.tsv
+          # Loop input on fd 3, not stdin: `backstop-state` reads stdin by
+          # design, and any child inheriting the TSV as stdin would eat the
+          # remaining alerts.
+          while IFS=$'\t' read -r NUM TITLE URL <&3; do
+            [ -n "$NUM" ] || continue
+            COMMENTS=$(gh issue view "$NUM" --repo "$REPO" --json comments \
+              | jq -c '.comments // []') || COMMENTS=""
+            # A failed lookup yields empty, which alert-notify.mjs exits 3 on
+            # rather than reading as "no marker" -- that misreading would
+            # re-post the line every hour.
+            STATE=$(printf '%s' "$COMMENTS" \
+              | node scripts/marjorie/lib/alert-notify.mjs backstop-state) || STATE=lookup-failed
+            if [ "$STATE" != "pending" ]; then
+              echo "backstop: #$NUM $STATE"
+              continue
+            fi
+            {
+              echo "⏰ **Still broken 24h later — this one needs a founder.**"
+              echo ""
+              echo "\`$TITLE\` has been open for over 24 hours. Marjorie's ops routine"
+              echo "normally clears this condition itself, so its channel line was held"
+              echo "when it opened; it has not cleared."
+              echo ""
+              echo "$URL"
+            } > /tmp/backstop-body.md
+            # Marker only after a delivered post: post-or-mail.mjs exits 1
+            # when BOTH its Discord and mail legs fail, and in that case the
+            # alert must stay `pending` so the next hourly run tries again
+            # rather than being marked as announced.
+            POST_STATUS=0
+            node scripts/marjorie/post-or-mail.mjs \
+              --subject "Still open 24h — $TITLE" --body-file /tmp/backstop-body.md --url "$URL" \
+              --mention-founder || POST_STATUS=$?
+            if [ "$POST_STATUS" -ne 0 ]; then
+              echo "backstop: #$NUM delivery failed (status $POST_STATUS); retrying next run"
+              continue
+            fi
+            node scripts/marjorie/lib/alert-notify.mjs backstop-comment > /tmp/backstop-marker.md
+            gh issue comment "$NUM" --repo "$REPO" --body-file /tmp/backstop-marker.md
+            echo "backstop: #$NUM posted to the founders channel"
+          done 3< /tmp/open-alerts.tsv
+
   # BACKUP dispatcher for the clock table (scripts/ops/clock-table.json,
   # 2026-10-06). The primary clock is bot-chat-poll.yml (5-minute); GitHub drops
   # most scheduled runs in this repo (this workflow's hourly cron was observed
