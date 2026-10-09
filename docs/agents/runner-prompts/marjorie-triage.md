@@ -228,12 +228,15 @@ Run this before or after new-submission triage — your call; note which you
 chose and why in your run summary.
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state closed --json number,body,comments,stateReason --limit 200
+gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state closed --json number,stateReason --limit 200
 ```
+
+If the list returns exactly 200 items, the limit may be hiding more: abort
+the pass and say so in your run summary rather than reconciling a partial set.
 
 For each filed issue returned:
 
-1. Skip if any comment already has `<!-- marjorie-triage-reconciled -->`.
+1. For each number returned, `gh issue view <n> --repo "$GITHUB_REPOSITORY" --json body,comments` (the bulk list truncates comments at 100). Skip if any comment already has `<!-- marjorie-triage-reconciled -->`.
 2. Extract the original's number from the body's
    `**From a site submission** — #<N>` line.
 3. `gh issue view <N> --json state` — skip if `<N>` is already closed (not
@@ -244,9 +247,12 @@ For each filed issue returned:
    **do not close the original**; you have no evidence it was addressed.
    Instead comment on the original naming `stateReason` and linking the
    filed issue so a human can judge; leave its label/state unchanged.
-5. Either way, comment on the **filed** issue with
-   `<!-- marjorie-triage-reconciled -->` on its own line — marks
-   "processed," not "closed as fixed."
+5. Only after a `COMPLETED` closure (step 4), comment on the **filed** issue
+   with `<!-- marjorie-triage-reconciled -->` on its own line. For
+   `NOT_PLANNED`/duplicate/missing, do **not** write the marker: a later
+   reopen-and-complete must still be reconciled, and re-checking each run
+   is cheap. To avoid repeating the human-judge comment on the original,
+   skip it if the original already has a comment linking this filed issue.
 
 Closing on a `COMPLETED` filed issue is the one other case besides `spam`
 where you close a submission, and it isn't your judgment — it's a merged
@@ -268,11 +274,14 @@ you've ALREADY triaged (open or closed) or on a filed issue. Before or after
 new-submission triage (your call, same as the Accountability loop), run:
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-triaged --state all --json number,comments --limit 200
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --json number,body,comments --limit 200
+gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-triaged --state all --json number --limit 200
+gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --json number --limit 200
 ```
 
-For every issue returned, look at comments posted **after your own last
+If either list returns exactly 200 items, abort the discovery pass and say so in
+your run summary; a silently truncated set hides overrides.
+
+Never request `comments` in the bulk list: the query truncates comments per issue at 100, which can hide an override. For each number returned, run `gh issue view <n> --repo "$GITHUB_REPOSITORY" --json body,comments` and look at comments posted **after your own last
 comment** on it — use `viewerDidAuthor` to find your last comment as the
 boundary, **never a hardcoded login string** (different GitHub API
 surfaces spell this routine's own bot identity differently, the exact
