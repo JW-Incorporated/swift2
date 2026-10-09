@@ -17,7 +17,7 @@ export const OVERRIDE_WORDS = ['spam', 'bug', 'content', 'request', 'founder', '
 // Pre-marker history is grandfathered: founder comments older than this predate
 // the actioned-marker scheme and were handled (or deliberately ignored) under
 // the old boundary, so they must never read as pending on the first run.
-export const CUTOFF = '2026-10-09T00:00:00Z';
+export const CUTOFF = '2026-10-09T14:30:00Z';
 const MARKER = /<!--\s*marjorie-override-actioned:\s*(\S+?)\s*-->/g;
 
 export function overrideWord(body) {
