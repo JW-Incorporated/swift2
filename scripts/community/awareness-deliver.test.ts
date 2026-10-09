@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { BATCH_CAP, DAILY_CAP, ensureImageRef, runDelivery } from './awareness-deliver.mjs';
+import { BATCH_CAP, DAILY_CAP, resolveAttachment, runDelivery } from './awareness-deliver.mjs';
 
 const PNG = Buffer.concat([
   Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
@@ -77,14 +77,33 @@ function discord() {
   return { fetchImpl, calls };
 }
 
-describe('ensureImageRef', () => {
-  it('keeps a valid ref and replaces an unknown one with the deterministic pick', () => {
-    expect(ensureImageRef({ image_ref: 'moment:vault-folklore-x', title: 't' }, catalog)).toBe(
-      'moment:vault-folklore-x',
-    );
+/** The card message's text, whichever way it was posted. */
+const cardContent = (body: unknown) =>
+  body instanceof FormData
+    ? String(JSON.parse(String(body.get('payload_json'))).content)
+    : String(JSON.parse(String(body)).content);
+
+describe('resolveAttachment', () => {
+  it('attaches only an opted-in catalogue ref on an image-comment sub', () => {
     expect(
-      ensureImageRef({ image_ref: 'moment:made-up', title: 'Ranking folklore' }, catalog),
-    ).toBe('era:folklore');
+      resolveAttachment(
+        { image_ref: 'moment:vault-folklore-x', image_comments: 'image', title: 't' },
+        catalog,
+      ),
+    ).toBe('moment:vault-folklore-x');
+  });
+
+  it('is text-only for no ref, a ref outside the catalogue, or a sub that is not image-capable', () => {
+    for (const lead of [
+      { image_ref: null, image_comments: 'image' },
+      { image_ref: '', image_comments: 'image' },
+      { image_ref: '   ', image_comments: 'image' },
+      { image_ref: 'moment:made-up', image_comments: 'image' },
+      { image_ref: 'era:folklore', image_comments: 'text_only' },
+      { image_ref: 'era:folklore', image_comments: 'unknown' },
+      { image_ref: 'era:folklore' },
+    ])
+      expect(resolveAttachment({ title: 'Ranking folklore', ...lead }, catalog)).toBeNull();
   });
 });
 
@@ -309,15 +328,69 @@ describe('runDelivery caps and unlisted subs', () => {
       postHeader: async () => true,
     });
     expect(ok.delivered).toHaveLength(1);
-    const content = String(
-      JSON.parse(String((calls[0].body as FormData).get('payload_json'))).content,
-    );
+    const content = cardContent(calls[0].body);
     // Owner 2026-10-05: the card is the link only — no rule note, no label.
     expect(content).toBe(
       '<https://www.reddit.com/r/AskReddit/comments/1/x/>\nReact ✅ posted · ⏭️ skip\nref: reddit · lead-1',
     );
     expect(DAILY_CAP).toBe(15);
     expect(BATCH_CAP).toBe(5);
+  });
+});
+
+describe('text-only replies (#4767)', () => {
+  it('delivers a drafted lead with no image ref, attaching nothing and fetching no card', async () => {
+    const { fetchImpl, calls } = discord();
+    const updates: unknown[] = [];
+    const result = await runDelivery({
+      supabase: fakeSupabase({
+        drafted: [lead(1, 'TaylorSwift', { image_ref: null })],
+        onUpdate: (p) => updates.push(p),
+      }),
+      webhook: 'https://discord.test/hook',
+      catalog,
+      config,
+      ackSecret: 'secret',
+      fetchImpl: fetchImpl as never,
+    });
+    expect(result.delivered).toEqual([expect.objectContaining({ leadId: 'lead-1', card: null })]);
+    expect(result.failed).toEqual([]);
+    // No share-card request at all, and both messages are plain JSON posts.
+    expect(fetchImpl.mock.calls.some(([url]) => String(url).includes('/api/share-card'))).toBe(
+      false,
+    );
+    expect(calls).toHaveLength(2);
+    expect(calls.every((c) => !(c.body instanceof FormData))).toBe(true);
+    const card = JSON.parse(String(calls[0].body));
+    expect(card).not.toHaveProperty('attachments');
+    expect(card.content.split('\n')[0]).toBe(
+      '<https://www.reddit.com/r/TaylorSwift/comments/1/x/>',
+    );
+    expect(card.content).toContain('/api/community/ack?lead=lead-1&action=posted');
+    expect(JSON.parse(String(calls[1].body)).content).toBe('reply number 1');
+    // The record says text-only, not the scan's suggestion.
+    expect(updates.find((p) => (p as { status?: string }).status === 'delivered')).toMatchObject({
+      image_ref: null,
+    });
+  });
+
+  it('is the default: an image-capable sub still attaches only the opted-in card', async () => {
+    const { fetchImpl, calls } = discord();
+    await runDelivery({
+      supabase: fakeSupabase({
+        drafted: [
+          lead(1, 'TaylorSwift', { image_ref: null }),
+          lead(2, 'swifties', { image_ref: 'era:ttpd' }),
+        ],
+      }),
+      webhook: 'h',
+      catalog,
+      config,
+      fetchImpl: fetchImpl as never,
+    });
+    const cards = calls.filter((_, i) => i % 2 === 0);
+    expect(cards.map((c) => c.body instanceof FormData)).toEqual([false, true]);
+    expect((cards[1].body as FormData).get('files[0]')).toBeInstanceOf(File);
   });
 });
 

@@ -12,7 +12,7 @@ Steps:
 5. In your own fresh cloud checkout of the repo (you do NOT have any local worktree — clone/checkout is yours): branch `fix/karen-tickets` from `origin/main` (if a PR for that branch is already open, fetch and continue on it; if it merged/gone, start a fresh branch off origin/main and open a new PR). Apply each remaining ticket's sourced Suggested fix. Factual = smallest voice-preserving text edit (+ update moment.sources if the backing changes). Image = verify-first per docs/kevin.md invariant 5 (curl must return HTTP 200 + Content-Type image/*, AND download + vision-confirm the image matches its caption before writing any URL; never strip a record to zero photos; skip if unverifiable).
 6. Validate before committing: `node scripts/validate-content.mjs` must report 0 errors, and `node --check` must pass on each edited file. Commit; push; update the PR body with `Closes #<n>` for each fixed ticket.
 
-Hard limits (docs/kevin.md): never merge; never push to main; never close a ticket directly (cie tickets close via `Closes #` when the PR merges); never touch or run Karen's engine (scripts/content-engine/); never edit user-feedback or non-Karen tickets (those are Streams 2/3). Post a one-line summary of what this run did.
+Hard limits (docs/kevin.md): never merge or self-arm (Kevin's fix PRs are content-lane; `auto-merge-content.yml` lands them, docs/decisions.md 2026-07-25, 2026-10-09); never push to main; never close a ticket directly (cie tickets close via `Closes #` when the PR merges); never touch or run Karen's engine (scripts/content-engine/); never edit user-feedback or non-Karen tickets (those are Streams 2/3). Post a one-line summary of what this run did.
 
 ## Run discipline (added 2026-07-25 — token burn)
 

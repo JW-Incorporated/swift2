@@ -33,7 +33,7 @@ Fix NEW Karen `cie` tickets on a single review PR; no-op cheaply if none.
 5. Branch `fix/karen-tickets` from `origin/main` (if a PR for that branch is already open, fetch and continue on it; if it merged/gone, start a fresh branch off `origin/main` and open a new PR). Apply each remaining ticket's sourced Suggested fix. Factual = smallest voice-preserving text edit (+ update `moment.sources` if the backing changes). Image = verify-first per `docs/kevin.md invariant 5` (curl must return HTTP 200 + `Content-Type: image/*`, AND download + vision-confirm the image matches its caption before writing any URL; never strip a record to zero photos; skip if unverifiable).
 6. Validate before committing: `node scripts/validate-content.mjs` must report 0 errors, and `node --check` must pass on each edited file. Commit; push; update the PR body with `Closes #<n>` for each fixed ticket.
 
-Never merge; never push to `main`; never close a `cie` ticket directly (it closes via `Closes #` when the PR merges); never touch or run Karen's engine (`scripts/content-engine/`).
+Never merge or self-arm (content-lane: auto-merge-content.yml lands it, docs/decisions.md 2026-10-09); never push to `main`; never close a `cie` ticket directly (it closes via `Closes #` when the PR merges); never touch or run Karen's engine (`scripts/content-engine/`).
 
 ---
 
@@ -53,7 +53,7 @@ Process yesterday's review decisions, then refresh today's digest.
    Content: a compact review LIST (top-level list items, not a table — GitHub only renders clickable checkboxes there) — one block per pending ticket in `docs/kevin.md`'s digest-block format. Tickets you cannot confidently fix go under a "Needs human decision" heading with no proposed change.
 4. Image fixes are verify-first per `docs/kevin.md invariant 5` — a proposed image swap only goes in the digest if it verifies; never propose an unverified URL.
 
-Never merge; never push to `main`; never close a user ticket without a recorded human accept/reject decision; validate before every commit (`node scripts/validate-content.mjs` = 0 errors + `node --check` on edited files); never touch or run Karen's engine; keep this PR separate from Stream 1's.
+Never merge or self-arm (content-lane: auto-merge-content.yml lands it, docs/decisions.md 2026-10-09); never push to `main`; never close a user ticket without a recorded human accept/reject decision; validate before every commit (`node scripts/validate-content.mjs` = 0 errors + `node --check` on edited files); never touch or run Karen's engine; keep this PR separate from Stream 1's.
 
 ---
 
@@ -66,9 +66,9 @@ Never merge; never push to `main`; never close a user ticket without a recorded 
    - **Found (normal mode):** post ONE comment on that issue, first line `<!-- kevin-stream3-triage -->`. **Edit-in-place, restored (2026-09-06, #3631):** same as Stream 2 above — find the existing anchored comment's id (`gh api repos/{owner}/{repo}/issues/{n}/comments --jq '.[] | select(.body | startswith("<!-- kevin-stream3-triage -->")) | .id'`) and PATCH it (`gh api -X PATCH repos/{owner}/{repo}/issues/comments/<id> -F body=@file`; a new comment is `gh issue comment <n> --body-file <path>` (only `--body-file` and `-F` read a file; `-f` and `--body` post the `@path` text literally)) instead of posting a new one. Never edit the brief body itself. If `gh` is unavailable, fall back to append-and-supersede (new anchored comment + `_Supersedes the earlier comment(s) above with this anchor — read this one._`). The most recent anchored comment on the issue is always current.
    - **Not found (degraded mode):** post/update ONE issue titled `Kevin Eng Triage — YYYY-MM-DD` (label `kevin-triage`), exactly as before.
    Content buckets each ticket into: **bug (small/pre-diagnosed)** · **feature** · **major/overhaul** · **tooling/Karen** · **content-ops/process** · **ready/greenlit** · **likely-already-resolved**, each with a one-line tractability note and a flag for anything pre-go-live-urgent.
-4. This triage is Austin's intake, NOT authorization: the subset (`bug (small/pre-diagnosed)` + `ready/greenlit` that also pass Austin's scope fence in `docs/agents/austin.md`) is what Austin's autonomous lane pulls from — every Austin PR is still human-merged. Everything else waits for a human to pick it up deliberately.
+4. This triage is Austin's intake, NOT authorization: the subset (`bug (small/pre-diagnosed)` + `ready/greenlit` that also pass Austin's scope fence in `docs/agents/austin.md`) is what Austin's autonomous lane pulls from — Austin lands his own PRs under the land-it rule (docs/decisions.md 2026-10-09). Everything else waits for a human to pick it up deliberately.
 
-Never auto-code a Stream 3 ticket or PR; never merge; never push to `main`; never close tickets. You surface the decision; a human (or an in-session Claude dev pass) acts.
+Never auto-code a Stream 3 ticket or PR; never merge (deliberate carve-out: Stream 3 is founder-decision work, label `founder-decision`; docs/decisions.md 2026-10-09); never push to `main`; never close tickets. You surface the decision; a human (or an in-session Claude dev pass) acts.
 
 ---
 

@@ -265,7 +265,7 @@ PR** (never a direct push — you are not exempt from branch protection):
    node scripts/marjorie/lib/dispatch-chase-ledger.mjs check <N>
    ```
    A nonzero exit means leave the PR unmerged and report the collision.
-   Only a successful check permits `gh pr merge --squash --auto --delete-branch`.
+   Only a successful check permits `gh pr merge <n> --squash --auto --delete-branch`.
 4. Comment on the alert issue (Step 3) with `action=human-action`, naming
    the PR.
 
