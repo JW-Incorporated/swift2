@@ -600,7 +600,7 @@ const TRACKS = [
             url: "https://www.rollingstone.com/music/music-news/taylor-swift-honors-her-grandmother-with-heart-wrenching-lyric-video-for-marjorie-1102391/"
           },
           {
-            name: "Taylor Swift includes opera singing grandmother's vocals on 'Marjorie' - Capital",
+            name: "Taylor Swift Features Grandmother's Opera Singing Vocals On Evermore Track 'Marjorie' - Capital",
             url: "https://www.capitalfm.com/features/taylor-swift-grandmother-marjorie-opera-singer-evermore-vocals/"
           },
           {

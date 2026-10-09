@@ -129,7 +129,7 @@ const _debut = {
             "Track 2 of Taylor Swift (October 24, 2006), written by Swift and Liz Rose and produced by Nathan Chapman.",
             "Swift called it 'my angry song on my album' in a CMT Insider interview before the video shoot, and described the song as being about 'just being mad,' adding that it is 'brutally honest' and has 'a comedic edge.'",
             "She told CMT it was the first time she had fire in one of her videos, and that the song 'would get the most crowd response' at her shows before it was a single.",
-            "In a 2008 MTV News interview she recalled the song as talking about how 'I hate your truck' and 'I hate that you ignored me,' and said she wouldn't express that pain the same way now."
+            "In a 2011 MTV News interview she recalled the song as talking about how 'I hate your truck' and 'I hate that you ignored me,' and said she wouldn't express that pain the same way now."
           ],
           supported: [
             "Swift has said the song is about a guy who didn't like her back and whom she found cocky; her account of an after-school writing session with Liz Rose, in which the chorus grew out of her blurting that she hated his truck, is reported by Songfacts and Wikipedia. She has described it as one of her most honest songs.",

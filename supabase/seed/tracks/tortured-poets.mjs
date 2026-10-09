@@ -256,8 +256,8 @@ const TRACKS = [
             url: "https://www.nme.com/news/music/taylor-swift-says-writing-new-album-the-tortured-poets-department-was-a-lifeline-3589651"
           },
           {
-            name: "Taylor Swift Shares the Sexy Cover of New Album 'The Tortured Poets Department': 'All's Fair in Love and Poetry' - PEOPLE (archived)",
-            url: "https://web.archive.org/web/20241228163954/https://people.com/2024-grammys-taylor-swift-new-album-cover-tortured-poets-department-8558634"
+            name: "Taylor Swift Shares the Sexy Cover of New Album 'The Tortured Poets Department': 'All's Fair in Love and Poetry' - PEOPLE",
+            url: "https://people.com/2024-grammys-taylor-swift-new-album-cover-tortured-poets-department-8558634"
           },
           {
             name: "The Tortured Poets Department (song) - Wikipedia",

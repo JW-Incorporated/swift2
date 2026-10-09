@@ -221,7 +221,7 @@ const TRACKS = [
         meaning: {
           confirmed: [
             "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
-            "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought. Entertainment Weekly reported that Swift's purchase came 31 years after Harkness's death.",
+            "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought.",
             "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
             "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
             "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
@@ -279,12 +279,12 @@ const TRACKS = [
             url: "https://web.archive.org/web/20211222041930/https://ew.com/music/taylor-swift-entertainers-of-the-year-2020/"
           },
           {
-            name: "The wild true story behind Taylor Swift's 'The Last Great American Dynasty' - Entertainment Weekly (archived)",
-            url: "https://web.archive.org/web/20211031102309/https://ew.com/music/taylor-swift-rebekah-harkness-last-great-american-dynasty-explained/"
+            name: "The wild true story behind Taylor Swift's 'The Last Great American Dynasty' - Entertainment Weekly",
+            url: "https://ew.com/music/taylor-swift-rebekah-harkness-last-great-american-dynasty-explained/"
           },
           {
-            name: "Taylor Swift Shares 'Folklore' Lyric She's 'Really Proud' Of - PEOPLE (archived)",
-            url: "https://web.archive.org/web/20220522204928/https://people.com/music/taylor-swift-folklore-lyric-really-proud-grammys/"
+            name: "Taylor Swift Shares 'Folklore' Lyric She's 'Really Proud' Of - PEOPLE",
+            url: "https://people.com/music/taylor-swift-folklore-lyric-really-proud-grammys/"
           },
           {
             name: "The Last Great American Dynasty - Wikipedia",
