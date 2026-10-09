@@ -20,6 +20,16 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
+const BB_LONG_POND = {
+  source_url: 'https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/',
+  source_title: "Taylor Swift's Folklore: The Long Pond Studio Sessions: What We Learned",
+  publisher: 'Billboard',
+  source_type: 'reputable_press',
+  accessed_at: '2026-10-09',
+  reliability_score: 4,
+  notes: "Taylor's own words from the Long Pond Studio Sessions film, as quoted by Billboard",
+};
+
 const TRACKS = [
     {
       slug: 'the-1',
@@ -129,6 +139,7 @@ const TRACKS = [
           'song article: triangle concept and chart history',
         ),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -311,12 +322,13 @@ const TRACKS = [
       summary:
         'A breakup staged as two monologues: he saw no warning signs, she gave hundreds — the album’s masterclass in talking past someone you loved.',
       inspiration:
-        'Confirmed in the Long Pond sessions: Alwyn (as William Bowery) wrote the piano part and first melody; Vernon recorded his half remotely mid-pandemic.',
+        'Alwyn co-wrote it as William Bowery, an identity Taylor confirmed in the Long Pond film (per Billboard); Vernon recorded his half remotely mid-pandemic.',
       themes: ['miscommunication', 'exile from a shared world', 'two truths'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Exile_(song)',
       sources: [
         wiki('Exile (song)', 'Exile_(song)', 'song article: Bowery confirmation and duet history'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -477,12 +489,13 @@ const TRACKS = [
       summary:
         'She is a mirrorball: assembled from reflective fragments, spinning hardest when the crowd might leave. Written, per the Long Pond film, right after the pandemic pulled her stages away.',
       inspiration:
-        'Confirmed in the Long Pond sessions: composed in the first weeks of lockdown, directly about performing identity with nowhere to perform.',
+        'Taylor said in the Long Pond sessions she wrote it right after her shows were canceled, directly about performing identity with nowhere to perform.',
       themes: ['performing the self', 'people-pleasing', 'fragility'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Mirrorball_(song)',
       sources: [
         wiki('Mirrorball (song)', 'Mirrorball_(song)', 'song article: lockdown writing context'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -630,7 +643,7 @@ const TRACKS = [
       easterEggs:
         'August slipping away like a bottle of wine became an annual fan ritual every August 1st — a documented yearly meme-moment.',
       sourceUrl: 'https://en.wikipedia.org/wiki/August_(song)',
-      sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM],
+      sources: [wiki('August (song)', 'August_(song)', 'song article: triangle role'), ALBUM, BB_LONG_POND],
       dossier: {
         whyItMatters: [
           "The third side of folklore's teenage love triangle, alongside 'cardigan' and 'betty'. In the Long Pond Studio Sessions film, as Billboard reported, Swift said she had been thinking of the girl in 'august' as either Augusta or Augustine, and that she did not see her as the Inez named in 'betty', which many fans had assumed.",
@@ -976,7 +989,7 @@ const TRACKS = [
       summary:
         'Verse one lands at Guadalcanal with Dean Swift; verse two follows frontline medical workers through the pandemic. Both generations discover some things cannot be spoken, only slept off in dreams.',
       inspiration:
-        'Confirmed: inspired by her grandfather Dean’s WWII service in the Marines and written in tribute to pandemic frontline workers.',
+        'Taylor describes it as drawing parallels between her grandfather’s WWII service and what pandemic frontline workers were going through.',
       themes: ['generational trauma', 'war and pandemic', 'the unspeakable'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)',
       sources: [
@@ -986,6 +999,7 @@ const TRACKS = [
           'song article: grandfather tribute',
         ),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
@@ -1253,12 +1267,13 @@ const TRACKS = [
       summary:
         'An escape fantasy with a Wordsworth pun in it: leave the hunters and clowns to their internet, take the muse, grow roses somewhere with no wifi. The album’s whole ethos in miniature.',
       inspiration:
-        'Confirmed: written about the Lake District and its Romantic-poet history — Swift called it the thematic summary of folklore, which is why it closes the deluxe edition.',
+        'Written about the Lake District and its Romantic-poet history — Taylor says a trip there crystallized the idea of escaping to a cottage and leaving her life behind.',
       themes: ['escape from public life', 'romantic poets', 'chosen solitude'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',
       sources: [
         wiki('The Lakes (song)', 'The_Lakes_(song)', 'song article: Lake District inspiration'),
         ALBUM,
+        BB_LONG_POND,
       ],
       dossier: {
         whyItMatters: [
