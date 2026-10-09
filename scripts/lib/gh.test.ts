@@ -553,4 +553,42 @@ describe('gh() — REST fallback when the CLI is present but errors (#4119)', ()
     await expect(gh(['release', 'view', 'v1'])).rejects.toBe(cliError);
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it.each([
+    ['a filtered list', ['issue', 'list', '--author', 'x', '--json', 'number']],
+    ['a --search list', ['issue', 'list', '--search', 'foo', '--json', 'number']],
+    ['gh api -X POST', ['api', '-X', 'POST', 'repos/o/r/issues']],
+    ['gh api -f', ['api', 'repos/o/r/issues', '-f', 'title=T']],
+  ])('rethrows %s without falling back', async (_n, args) => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(args)).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rethrows the original CLI error when the REST retry also fails', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn(async () => new Response('boom', { status: 500 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'list', '--json', 'number'])).rejects.toBe(cliError);
+    expect(fetchMock).toHaveBeenCalled();
+  });
+
+  it('rethrows when no token is available', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    delete process.env.GH_TOKEN;
+    delete process.env.GITHUB_TOKEN;
+    process.env.HOME = process.env.USERPROFILE = 'C:/nonexistent-home-4119';
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'list', '--json', 'number'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });

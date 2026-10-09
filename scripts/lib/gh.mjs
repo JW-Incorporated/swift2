@@ -757,6 +757,15 @@ function cliListCompleteness(args, stdout) {
   return { complete: rows.length < limit, capExhausted: false, pagesFetched: 1 };
 }
 
+// Flags planRest() actually applies to a list. Any other flag (--author,
+// --head, --base, --search, -R ...) would be silently dropped by the REST plan,
+// returning UNFILTERED rows, so the CLI-error fallback refuses those (#4119).
+const REST_HONOURED_FLAGS = new Set(['--repo', '--limit', '--state', '--label', '--json']);
+
+function onlyModelledFlags(args) {
+  return args.every((t) => !String(t).startsWith('-') || REST_HONOURED_FLAGS.has(String(t).split('=')[0]));
+}
+
 /**
  * Run a gh command. Uses the CLI when present, REST when it isn't.
  * Returns `{ stdout }` so it is a drop-in for the old promisified execFile.
@@ -776,7 +785,7 @@ export async function gh(args, opts = {}) {
       // treated like a missing one — for READS only. A mutation may have partly
       // succeeded, so it is never retried; the original error propagates.
       const plan = planRest(args, defaultRepo());
-      const token = plan && plan.method === 'GET' ? findToken() : null;
+      const token = plan && plan.method === 'GET' && onlyModelledFlags(args) ? findToken() : null;
       if (!plan || !token) throw cliErr;
       console.error(
         `⚠ gh.mjs: gh CLI failed for \`gh ${args.join(' ')}\` (${String(cliErr?.message ?? cliErr).split('\n')[0]}); ` +
