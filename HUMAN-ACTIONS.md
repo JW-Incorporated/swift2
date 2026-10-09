@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -24,7 +24,6 @@
 1. Open Claude Code in `Projects\Hermes` (a Hermes session; Swift2 sessions can't reach the VM).
 2. Paste: `Update the Swift2 doorbell on the Hermes VM to tag doorbell-v4 per docs/ops/doorbell.md "Update to a new tag" in JW-Incorporated/swift2: fetch+checkout the tag in /opt/longlive-doorbell, copy scripts/doorbell/longlive-doorbell.service to /etc/systemd/system/, daemon-reload, restart longlive-doorbell, then show the last 20 journal lines.`
 **Worked if:** the journal shows `gateway: connected` and a 👀 lands on your next message in #marjorie within seconds.
-
 ## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
 <!-- ha filed=2026-10-08 -->
 
