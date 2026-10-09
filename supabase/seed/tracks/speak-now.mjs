@@ -1065,6 +1065,57 @@ const TRACKS = [
       ),
       TV,
     ],
+    dossier: {
+      whyItMatters: [
+        "The Speak Now vault's pop-punk duet, and one of two guest features Swift chose to match the album's original influences. Pitchfork reported in June 2023 that the Speak Now (Taylor's Version) track list added vault songs featuring Fall Out Boy and Paramore's Hayley Williams, quoting Swift's explanation that since Speak Now was all about her songwriting, she went to the artists she felt influenced her most powerfully as a lyricist at that time and asked them to sing on the album.",
+        "Rolling Stone's review described Fall Out Boy frontman Patrick Stump as Swift's foil on what it called a pleasantly eager first-date duet, and Billboard's critic heard his jittery register pairing well with her more straightforward delivery.",
+      ],
+      meaning: {
+        confirmed: [
+          "In her track-list announcement, as quoted by Pitchfork, Swift said the featured artists were 'so cool and generous for agreeing to support my version of Speak Now,' and that she recorded the album when she was 32.",
+        ],
+        supported: [
+          "Variety's review said the six vault tracks were written, like the rest of the Speak Now material, when she was 18 or 19, and that the pop-rock band sound stays true to the stylistic spirit of 2010.",
+          "Billboard described it as a song in which painful past experiences keep her guard up as a new romance begins, while the excitement of the unknown keeps her hopeful. Rolling Stone said it condenses the anxieties of an anticipated meeting into a shimmering four-minute pop gem. These are critics' readings, not statements from Swift about the song.",
+          "Critics disagreed on its weight: Variety called it probably the least immediately interesting of the six vault songs compositionally and the farthest thing from a Swift classic, while Billboard and Rolling Stone were warmer.",
+        ],
+        fanTheories: [
+          "Fans have tried to match the song to a specific early-2010s relationship. None of the sources cited here has Swift naming anyone for this song, and this guide does not either.",
+        ],
+      },
+      connections: [
+        {
+          relatedId: 'song:castles-crumbling',
+          label: 'Castles Crumbling',
+          why: "Swift's announcement that she asked her lyric-writing influences to sing on the album covers both vault features: Fall Out Boy here and Hayley Williams on that song.",
+        },
+      ],
+      voices: [
+        {
+          who: 'Taylor Swift',
+          context: 'Announcing the track list on social media, June 2023, as quoted by Pitchfork',
+          note: 'She said she recorded the album when she was 32 and still growing up, and could not wait to unveil it on July 7.',
+        },
+      ],
+      sources: [
+        {
+          name: 'Taylor Swift Reveals Hayley Williams and Fall Out Boy Features on New Speak Now (Taylor\'s Version) Tracklist - Pitchfork',
+          url: 'https://pitchfork.com/news/taylor-swift-reveals-hayley-williams-and-fall-out-boy-features-on-new-speak-now-taylors-version-tracklist/',
+        },
+        {
+          name: "Taylor Swift Expands Our Image of a Landmark Album With 'Speak Now: Taylor's Version' - Rolling Stone",
+          url: 'https://www.rollingstone.com/music/music-album-reviews/speak-now-taylors-version-review-1234783042/',
+        },
+        {
+          name: "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)': Critic's Picks - Billboard",
+          url: 'https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/',
+        },
+        {
+          name: "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
+          url: 'https://variety.com/2023/music/album-reviews/taylor-swift-vault-tracks-speak-now-taylors-version-hayley-williams-1235663674/',
+        },
+      ],
+    },
   },
   {
     slug: 'when-emma-falls-in-love',
