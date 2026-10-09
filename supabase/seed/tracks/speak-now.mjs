@@ -1127,14 +1127,11 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Aaron Dessner'],
     isFromTheVault: true,
-    note: 'A piano portrait of a friend who loves carefully and completely — the vault song that launched a thousand which-Emma theories.',
+    note: 'A vault ballad that critics describe as a character study of a girl named Emma, with Taylor in a narrator’s role.',
     summary:
-      'An admiring character study of a friend named Emma: how she falls, how she guards herself, and why the narrator wishes she were more like her.',
-    inspiration:
-      'Swift has said only that it is about a friend; fans overwhelmingly speculate Emma Stone (the two have a documented long friendship) — unconfirmed.',
+      'A character study of a captivating girl named Emma, whose approach to love the narrator watches with admiration and a little envy, per Billboard.',
+    inspiration: null,
     themes: ['friendship', 'admiration', 'how people love differently'],
-    fanLore:
-      'Fan reading (unconfirmed): the Emma Stone identification, based on the friendship timeline.',
     sourceUrl: 'https://en.wikipedia.org/wiki/When_Emma_Falls_in_Love',
     sources: [
       wiki(
@@ -1144,6 +1141,37 @@ const TRACKS = [
       ),
       TV,
     ],
+    dossier: {
+      "whyItMatters": [
+        "'When Emma Falls in Love' is one of the six 'From The Vault' songs on Speak Now (Taylor's Version). It debuted at No. 34 on the Hot 100 dated July 22, 2023, per Billboard's list of all 22 album songs that entered the chart that week.",
+        "Variety's Chris Willman placed it among 'sweet songs about fictional girls that have Swift doing a little third-person projecting', and wrote that it comes 'close to being up with there with \"Betty\"'. That is the critic's comparison."
+      ],
+      "meaning": {
+        "supported": [
+          "Billboard's Jason Lipshutz called it a 'gorgeously rendered character study' of a girl named Emma 'whose considered approach to relationships deepens with each new verse', and wrote that Swift sings of her 'with a tinge of envy'. He noted that Swift co-created the production with Aaron Dessner.",
+          "Rolling Stone's Maura Johnston described it as 'a glittery ballad about an alluring older-sister figure'. Willman described a 'lilting piano' lead-in that gives the song 'a childlike spirit'.",
+          "These are critics' descriptions. Swift has not explained who or what the song is about in the sources cited here, and this page does not identify any real person as its subject."
+        ]
+      },
+      "sources": [
+        {
+          "name": "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)': Critic's Picks - Billboard",
+          "url": "https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/"
+        },
+        {
+          "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
+        },
+        {
+          "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
+          "url": "https://variety.com/2023/music/album-reviews/taylor-swift-vault-tracks-speak-now-taylors-version-hayley-williams-1235663674"
+        },
+        {
+          "name": "Taylor Swift Expands Our Image of a Landmark Album With 'Speak Now: Taylor's Version' - Rolling Stone",
+          "url": "https://www.rollingstone.com/music/music-album-reviews/speak-now-taylors-version-review-1234783042/"
+        }
+      ]
+    },
   },
   {
     slug: 'i-can-see-you',
@@ -1326,13 +1354,48 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Aaron Dessner'],
     isFromTheVault: true,
-    note: 'The vault’s self-aware spiral — narrating her own delusion about a man who is never going to call, in real time.',
+    note: 'A five-minute vault ballad in which the narrator chides herself for hoping that unreturned attention will turn into love.',
     summary:
-      'She lectures herself mid-daydream: stop reading into the crumbs, stop planning the wedding — and then keeps doing both.',
+      'A narrator talking herself out of waiting for a love that is not coming, in country-pop dress, according to critics.',
     inspiration: null,
     themes: ['self-delusion', 'waiting by the phone', 'hard truths'],
     sourceUrl: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)",
     sources: [TV],
+    dossier: {
+      "whyItMatters": [
+        "'Foolish One' is one of the six previously unreleased 'From The Vault' songs on Speak Now (Taylor's Version). Billboard's list of Hot 100 debuts places it at No. 40 on the chart dated July 22, 2023, when all 22 songs from the album entered.",
+        "The Guardian's Laura Snapes wrote that it shows 'Swift the realist v Swift the hopeless romantic', an example of songwriting that puts Swift 'in conversation with herself'. That is the critic's framing."
+      ],
+      "meaning": {
+        "supported": [
+          "The Guardian's Snapes wrote that on the 'limpid, puttering' song Swift 'sweetly chides herself for her naivety'.",
+          "Pitchfork's Vrinda Jagota described it as a 'breezy country-pop song' on which Swift 'reminds herself that she is not the exception to the general rule that if someone is acting disinterested, they probably don't want to be with you.'",
+          "Variety's Chris Willman wrote that it 'teeters back and forth between possible optimism about the outcome of a relationship and fatalism', but 'lands on the side of one-sided love'. Billboard's Lipshutz called it a heartbreak tale that fills 'five minutes and change', and said Swift's vocal strikes 'an affecting balance between chastising and hurt.' These are critics' readings; Swift has not explained the song in the sources cited here."
+        ]
+      },
+      "sources": [
+        {
+          "name": "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)': Critic's Picks - Billboard",
+          "url": "https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/"
+        },
+        {
+          "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
+        },
+        {
+          "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
+          "url": "https://variety.com/2023/music/album-reviews/taylor-swift-vault-tracks-speak-now-taylors-version-hayley-williams-1235663674"
+        },
+        {
+          "name": "Taylor Swift: Speak Now (Taylor's Version) review – re-recording project starting to feel wearying and pointless - The Guardian",
+          "url": "https://www.theguardian.com/music/2023/jul/07/taylor-swift-speak-now-taylors-version-review"
+        },
+        {
+          "name": "Taylor Swift: Speak Now (Taylor's Version) - Pitchfork",
+          "url": "https://pitchfork.com/reviews/albums/taylor-swift-speak-now-taylors-version/"
+        }
+      ]
+    },
   },
   {
     slug: 'timeless',
@@ -1344,14 +1407,44 @@ const TRACKS = [
     writers: ['Taylor Swift'],
     producers: ['Taylor Swift', 'Jack Antonoff'],
     isFromTheVault: true,
-    note: 'The vault closer built from an antique-shop box of strangers’ photographs — love stories she reverse-engineered from other people’s snapshots.',
+    note: 'The closing vault track, set in an antique shop among old photographs of couples; critics read it as a nod to Taylor’s grandparents, which Taylor has not confirmed in the sources cited here.',
     summary:
-      'Flipping through old photos of couples who survived wars and disapproval, she decides she would have found the same person in any century.',
-    inspiration:
-      'The antique-store photograph conceit is in the song’s own framing; the lyric-video treatment leaned on vintage imagery to match.',
+      'An old-photograph love song: the narrator finds a keepsake in an antique shop and imagines the lives of the couples in it.',
+    inspiration: null,
     themes: ['fated love', 'history', 'love across eras'],
     sourceUrl: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)",
     sources: [TV],
+    dossier: {
+      "whyItMatters": [
+        "'Timeless' closes Speak Now (Taylor's Version) as the last of its six 'From The Vault' songs. Variety's Chris Willman called it the most 'organic'-sounding of the vault tracks, with ukulele and flute behind the acoustic guitars, and wrote that it is a ballad you can imagine Swift having considered for the album-closer slot in 2010, instead of 'Long Live'. That is the critic's speculation.",
+        "Per Billboard's list of Hot 100 debuts, it entered the chart at No. 48 on the Hot 100 dated July 22, 2023, one of all 22 songs from the album to debut that week."
+      ],
+      "meaning": {
+        "supported": [
+          "Billboard's Jason Lipshutz described it as 'an epic love poem' about star-crossed romance that 'harkens back to Swift's grandparents', and wrote that it sets small gestures such as 'each knickknack in an antique shop' against 'generations-defying emotion'. Swift has not explained the song in the sources cited here, so the grandparents link is Billboard's reading.",
+          "The Guardian's Laura Snapes described the song as Swift 'finding old photos of couples in an antique shop and imagining herself yearning for a lover who's gone off to war', and called the vault tracks' fantasy streak 'endearingly unhinged, and she knows it.'",
+          "Willman reported that photos of Swift's grandmother, Marjorie Finlay, appear throughout the lyric video for 'Timeless', and wrote that her relationship with Swift's grandfather is a focus of the song. Those are his observations of the lyric video and lyrics, not a statement from Swift."
+        ]
+      },
+      "sources": [
+        {
+          "name": "Every 'From The Vault' Song Ranked on Taylor Swift's 'Speak Now (Taylor's Version)': Critic's Picks - Billboard",
+          "url": "https://www.billboard.com/lists/taylor-swift-speak-now-taylors-version-vault-songs-ranked/"
+        },
+        {
+          "name": "All 22 Songs From Taylor Swift's 'Speak Now (Taylor's Version)' Debut on Hot 100 - Billboard",
+          "url": "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-all-songs-hot-100-debut-1235373016/"
+        },
+        {
+          "name": "Taylor Swift 'Speak Now (Taylor's Version)' Vault Tracks Review: Key Co-Stars Include Hayley Williams, Fall Out Boy and… Grandmother Marjorie - Variety",
+          "url": "https://variety.com/2023/music/album-reviews/taylor-swift-vault-tracks-speak-now-taylors-version-hayley-williams-1235663674"
+        },
+        {
+          "name": "Taylor Swift: Speak Now (Taylor's Version) review – re-recording project starting to feel wearying and pointless - The Guardian",
+          "url": "https://www.theguardian.com/music/2023/jul/07/taylor-swift-speak-now-taylors-version-review"
+        }
+      ]
+    },
   },
 ];
 

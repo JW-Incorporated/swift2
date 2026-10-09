@@ -653,13 +653,58 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
       producers: ['Max Martin', 'Shellback'],
-      note: 'A relationship built in three acts of drum programming — each section written as a later stage of falling.',
+      note: 'A song structured so each section sounds like a later stage of a relationship deepening — a design Taylor described herself at the reputation release party.',
       summary:
         'From liking her own company, to a new person breaking the cynicism, to full fanfare: the structure itself dramatizes commitment deepening. Luxury-brand boys lose to the one with the American smile.',
       inspiration: null,
       themes: ['stages of falling in love', 'substance over flash', 'contentment'],
       sourceUrl: 'https://en.wikipedia.org/wiki/King_of_My_Heart',
       sources: [wiki('King of My Heart', 'King_of_My_Heart', 'song article: structure'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Swift described King of My Heart as a song built around an idea about structure: she said she had long wanted one in which each section (verse, pre-chorus, chorus) sounded like its own phase of a relationship, moving forward as the song went on.",
+          "The Guardian's Alexis Petridis grouped it with 'Gorgeous' and 'Getaway Car' as songs 'filled with fantastic melodies', and Pitchfork's Jamieson Cox cited the 'infatuated android' of this track as one side of the range on the album.",
+        ],
+        meaning: {
+          confirmed: [
+            "At the iHeartRadio reputation release party, played alongside audio from her Secret Sessions, Swift said she finds the 'moments where it switches' in people's love stories interesting, because 'you always hope that that switch is going to move you forward and not backward.'",
+            "She said she had 'always wanted to structure a song where each individual section of the song sounded like a move forward in the relationship, but still be listenable', with the verse, pre-chorus and chorus each sounding like 'its own phase of a relationship', getting 'deeper and more fast-paced as the song went on.' Of the result she said: 'finally, I was able to achieve that in a song.'",
+          ],
+          supported: [
+            "Cox of Pitchfork described the track's narrator as 'infatuated', contrasting her with the 'tough-talking schemer' of 'I Did Something Bad' to argue the tracklist shows several sides of Swift. That is the critic's characterization, not Swift's.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017 (Secret Sessions audio)',
+            note: "Said people tend to describe falling in love as a series of definitive phases, and that the 'switch' between phases is what she finds interesting.",
+          },
+          {
+            who: 'Joseph Kahn',
+            context: 'Director, speaking on the Ourselves podcast (as reported by Cosmopolitan, August 2025)',
+            note: "Said he and Swift 'started shooting' a video for the song that was never finished because she 'switched gears in the middle of it' to make a video for '...Ready for It?'. It has not been released.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: Reputation review – superb songcraft meets extreme drama - The Guardian',
+            url: 'https://www.theguardian.com/music/2017/nov/10/taylor-swift-reputation-review-superb-songcraft-meets-extreme-drama',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+          {
+            name: 'Taylor Swift Filmed a Music Video for "King of My Heart" That Was Never Released - Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/celebs/a65602374/taylor-swift-king-of-my-heart-music-video/',
+          },
+        ],
+      },
     },
     {
       slug: 'dancing-with-our-hands-tied',
@@ -694,18 +739,62 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The most adult song in the catalog to that point — desire stated plainly enough that fans watched her parents’ reactions at the listening parties.',
+      note: 'A slow, hushed love song about desire that Taylor named as one of the "true story" moments of reputation — and called a love song about deep and tender feelings despite its pickup-line hook.',
       summary:
         'Friendship burning past its container: the golden-tattoo imagery and the bought-it-so-you-could-take-it-off thesis said what the earlier albums only implied.',
-      inspiration:
-        'Fans connect the buzzed-hair and flower details in the bridge to documented 2016 events (unconfirmed by Swift).',
+      inspiration: null,
       themes: ['desire', 'friends to lovers', 'grown-up candor'],
-      fanLore: 'Fan reading (unconfirmed): the bridge details fans use to identify the subject.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Dress_(Taylor_Swift_song)',
       sources: [
         wiki('Dress (Taylor Swift song)', 'Dress_(Taylor_Swift_song)', 'song article: reception'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Dress is one of the slow, intimate songs on reputation. Swift later named it as one of the album's 'moments of my true story', describing reputation as 'a love story in amongst chaos'.",
+          "Billboard's Andrew Unterberger called it a 'blood-rushing slow jam' that 'easily marks her sexiest song to date' on its release, and argued in his headline that it is the best song on the album. That is his critical verdict, not a consensus.",
+        ],
+        meaning: {
+          confirmed: [
+            "At the iHeartRadio reputation release party, Swift said 'almost every line' of 'Dress' was 'something that I came up with like a year before', and that when writing it she 'cherry picked' from those lines. She said she was 'really proud of the hook of this because it sounds like a pickup line, and yet it is a love song about deep and tender feelings.'",
+            "In her September 2019 Rolling Stone interview, Swift listed 'Delicate,' 'New Year's Day,' 'Call It What You Want' and 'Dress' as 'the moments of my true story on that album', saying the 'bait-and-switch of Reputation is that it was actually a love story' while 'all the weaponized sort of metallic battle anthems were what was going on outside.'",
+          ],
+          supported: [
+            "Unterberger wrote that Rihanna is 'probably the most obvious point of reference' for the beat and phrasing, and named Prince and D'Angelo as other reference points. Those are the critic's comparisons.",
+            "Pitchfork's Jamieson Cox called it 'a panting, shuddering highlight' of the album.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017',
+            note: "Said the hook sounds like a pickup line but the song is about deep and tender feelings.",
+          },
+          {
+            who: 'Taylor Swift',
+            context: 'Rolling Stone cover interview with Brian Hiatt, September 2019',
+            note: "Named 'Dress' among the songs that tell the true story of reputation: a love story inside the chaos.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: The Rolling Stone Interview - Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+          {
+            name: "Yes, the Best Song on Taylor Swift's 'Reputation' Is the Slow Jam: Critic's Take - Billboard",
+            url: 'https://www.billboard.com/music/pop/taylor-swift-dress-reputation-best-song-8031203/',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+        ],
+      },
     },
     {
       slug: 'this-is-why-we-cant-have-nice-things',
@@ -716,16 +805,48 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The party-crash diss track about a friendship that came with a knife in it — forgiveness gets offered mid-song and then gleefully retracted.',
+      note: 'Taylor introduced it as a song about people taking nice things for granted — friendship, trust, openness — with a spoken-word gag where a toast to forgiveness collapses into laughter.',
       summary:
-        'She throws a housewarming for her own success, names the betrayal that wrecked it, fake-raises a toast to forgiveness, and bursts out laughing instead. The album’s id, unsupervised.',
-      inspiration:
-        'Universally read as the Kanye West friendship post-2016 (unconfirmed in so many words); the golden-things-broken framing matches the era’s documented events beat for beat.',
+        'A party song about trust abused: a toast to forgiveness is offered and then abandoned mid-line in laughter.',
+      inspiration: null,
       themes: ['betrayed trust', 'mock forgiveness', 'gleeful pettiness'],
-      fanLore:
-        'Fan/press reading: the West fallout as subject — treated as obvious, never officially footnoted.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Swift introduced the song at the reputation release party as being about trust and friendship taken for granted. On release, The Guardian's Alexis Petridis wrote that it and 'Look What You Made Me Do' 'feel like the end of the line' for the kind of songs that provoke fans to start throwing hashtags around, while Pitchfork's Jamieson Cox wrote that its over-the-top villainy 'scans as stubborn petulance'. Both are critical opinions.",
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing the song at the iHeartRadio reputation release party, Swift said: 'It's about when people take nice things for granted. Like friendship, or trusting people, or being open or whatever. Letting people in on your life, trusting people, respect -- those are all really nice things.'",
+          ],
+          supported: [
+            "Petridis described the song as 'dressing down a former friend'. He wrote 'whoever the subject' and did not identify one himself.",
+            "Cox described the spoken-word moment, in which she 'sneers' a toast to her 'reeeeeal friends' before 'faking a weepy apology and breaking into cackling laughter', as an attempt at 'over-the-top, campy villainy'. That is the critic's description of the track, not Swift's.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017 (Secret Sessions audio)',
+            note: "Said the song is about people taking nice things for granted: friendship, trust, openness and respect.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: Reputation review – superb songcraft meets extreme drama - The Guardian',
+            url: 'https://www.theguardian.com/music/2017/nov/10/taylor-swift-reputation-review-superb-songcraft-meets-extreme-drama',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+        ],
+      },
     },
     {
       slug: 'call-it-what-you-want',

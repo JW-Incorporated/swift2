@@ -707,14 +707,51 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'A breakup song written inside a happy relationship — confirmed to be inspired by the Netflix rom-com Someone Great, closing a strange creative loop.',
+      note: 'Taylor said the song was inspired by the Netflix romantic comedy Someone Great, whose director says the film was itself shaped by Swift’s 1989 — a loop Taylor called "the most meta thing that’s ever happened to me."',
       summary:
-        'An imagined heartbreak felt in a hundred small places at once. Swift confirmed the film Someone Great sparked it — whose writer-director had partly drawn on Swift’s own catalog, making it a documented inspiration boomerang.',
+        'A breakup song written from the dynamics of fictional characters. Swift said the film Someone Great sparked it, and the film’s writer-director has said she drew on Swift’s own catalog, making it a documented inspiration boomerang.',
       inspiration:
-        'Confirmed: Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly.',
+        'Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly.',
       themes: ['imagined grief', 'art feeding art', 'a city full of reminders'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that 'Death by a Thousand Cuts' was inspired not by one of Swift's own public breakups but by a film. E! News reported that Swift described crying at Someone Great, then waking up from dreams for about a week in which she was living out its scenario, with lyrics in her head 'based on the dynamics of these characters.'",
+          "The song closes a loop between two artists. Billboard reported that the film's writer-director, Jennifer Kaytin Robinson, said on Instagram that Someone Great would not have existed without 1989, and Swift told radio host Elvis Duran: 'I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that's ever happened to me.'",
+        ],
+        meaning: {
+          confirmed: [
+            "Speaking to Elvis Duran's iHeartRadio morning show on August 23, 2019, Swift said: 'I watched this movie on Netflix called Someone Great.' She added that she cried watching it, and that she 'went in the studio with Jack Antonoff' with lyrics 'based on the dynamics of these characters.'",
+            "She described the film as one about a woman who must end a relationship she did not want to end because the couple 'just grew apart and he's not a jerk', adding: 'time passed and now we're different people and that is the most devastating thing.'",
+          ],
+          supported: [
+            "Robinson posted on Instagram (as quoted by Billboard) that she had been 'listening to Taylor's music since her very first album', and that in 2014 the album 1989 'was there like a best friend with a bottle of tequila and a bear hug' while she was heartbroken, naming 'Clean' as the song that comforted her and inspired Someone Great.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: "Interview with Elvis Duran, iHeartRadio, August 23, 2019",
+            note: "Said she finds it 'highly inspiring' when people, especially women, make art that inspires other art, and that Someone Great made her cry.",
+          },
+          {
+            who: 'Jennifer Kaytin Robinson',
+            context: 'Writer-director of Someone Great, Instagram post, August 2019',
+            note: "Said she had heard rumors the song was inspired by her film and confirmed it was true, calling it a 'full circle situation.'",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Calls Rom-Com Inspiration Behind 'Lover' Song the 'Most Meta Thing That's Ever Happened to Me' - Billboard",
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
+          },
+          {
+            name: "Taylor Swift Explains How Netflix's Someone Great Inspired \"Death By a Thousand Cuts\" - E! News",
+            url: 'https://www.eonline.com/news/1067502/taylor-swift-explains-how-netflix-s-someone-great-inspired-death-by-a-thousand-cuts',
+          },
+        ],
+      },
     },
     {
       slug: 'london-boy',
@@ -725,17 +762,49 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Cautious Clay', 'Sounwave'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Sounwave'],
-      note: 'The tourist-map valentine to a British partner’s city — opening with an Idris Elba clip from the James Corden show, and cheerfully mispricing London geography per every British fan ever.',
+      note: 'Lover’s England-themed song, which opens with a clip of Idris Elba from a 2017 appearance on The Late Late Show with James Corden.',
       summary:
-        'An American falls for the whole kit: pubs, rugby screenings, high tea with the lads. The affectionate geographic chaos (Camden to Brixton like it is one stroll) became its own beloved joke.',
-      inspiration:
-        'The Elba voice clip and the Cautious Clay interpolation are both in the official credits; the subject’s nationality made the reading self-evident and fans ran the borough-hopping audit for sport.',
+        'An American narrator falls for the whole kit: pubs, rugby screenings, high tea. Critics split on the joke — Billboard heard cheeky joy, Pitchfork a parade of clichés.',
+      inspiration: null,
       themes: ['loving someone’s world', 'anglophilia', 'playful devotion'],
       sourceUrl: 'https://en.wikipedia.org/wiki/London_Boy_(song)',
       sources: [
         wiki('London Boy (song)', 'London_Boy_(song)', 'song article: samples and reception'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "'London Boy' is Lover's England-themed song (Pitchfork's phrase). Billboard's Jason Lipshutz described it as 'an homage to a transatlantic romance' that 'bursts with cheeky joy', and ranked it last of the album's 18 tracks in his critic's picks, calling it 'knowingly silly'.",
+          "Its cold open is a sample of actor Idris Elba speaking on The Late Late Show with James Corden in 2017.",
+        ],
+        meaning: {
+          supported: [
+            "Mashable's Rachel Thompson reported that the song's opening is a snippet of Elba, Swift's co-star in the film Cats, from his 2017 Late Late Show appearance. In it he describes how he auctioned a Valentine's Day date with himself on the site Omaze, raising $750,000, and says of the winner: 'We can go driving on my scooter.'",
+            "Pitchfork's Anna Gaca called the song 'perky' and 'England-themed' and wrote that it 'devolves into a parade of rugby and high tea', while noting that she could 'only imagine what it sounds like to a Brit'. Lipshutz wrote that it 'never quite pulls off its premise' but is 'entertaining enough as an indulgence'. These are critics' opinions of the song, not Swift's account of it.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Idris Elba',
+            context: 'The Late Late Show with James Corden, 2017 (the clip Swift sampled)',
+            note: "Talked about the Valentine's Day date with himself that he auctioned on Omaze, saying that he and the winner could go 'driving on my scooter'.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'London Boy' features Idris Elba talking to James Corden - Mashable",
+            url: 'https://mashable.com/video/taylor-swift-london-boy-idris-elba',
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Lover': Critic's Picks - Billboard",
+            url: 'https://www.billboard.com/music/pop/taylor-swift-lover-tracks-ranked-8528254/',
+          },
+          {
+            name: 'Taylor Swift: Lover - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-lover/',
+          },
+        ],
+      },
     },
     {
       slug: 'soon-youll-get-better',
