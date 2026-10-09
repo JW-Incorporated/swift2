@@ -6,6 +6,7 @@
 //   npm run news --workspace @swift2/worker           (via tsx)
 
 import { createWorkerDbClient } from './db/client';
+import { detectExtractDegraded } from './extract/degraded';
 import { runCycle } from './pipeline/run-cycle';
 
 async function main() {
@@ -53,6 +54,17 @@ async function main() {
     );
     for (const err of pendingErrors) console.warn(`news-worker:   (schema-pending) ${err}`);
   }
+
+  // A green job that did nothing must not stay invisible (#4647 item 4): emit a
+  // warning annotation; watchdog.yml escalates once it is sustained.
+  const degraded = detectExtractDegraded({
+    clustersConsidered: result.extract.clustersConsidered,
+    extracted: result.extract.extracted,
+    deferred: result.extract.deferred,
+    schemaPending: pendingErrors.length,
+    hasApiKey: Boolean(process.env.ANTHROPIC_API_KEY),
+  });
+  if (degraded) console.warn(`::warning title=extract-degraded::${degraded.message}`);
 
   // Stage isolation means individual failures never abort the cycle — but a
   // cycle that logged a GENUINE error should still fail the Action so it's
