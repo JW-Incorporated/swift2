@@ -3,7 +3,7 @@
 The doorbell is the one small program the Marjorie Overhaul runs off GitHub
 (M7; spec `docs/specs/marjorie-overhaul/m7-doorbell.md`).
 
-- A founder message in `#longlive-marjorie` or `#longlive-tree` gets 👀
+- A founder message in `#marjorie` or `#longlive-tree` gets 👀
   within a second, and its chat routine starts at once.
 - Six minutes later, if no ✅ or ❌ has arrived, it adds ⚠️ and starts
   `bot-chat-alarm.yml`.
@@ -172,7 +172,7 @@ A healthy start shows `gateway: connecting`, then `gateway: connected as …`,
 then:
 
 ```
-ready: #longlive-marjorie (<id>) and #longlive-tree (<id>); 2 founder id(s)
+ready: #marjorie (<id>) and #longlive-tree (<id>); 2 founder id(s)
 ```
 
 Each founder message adds `rang marjorie <id> → routine-marjorie-chat.yml`
@@ -198,7 +198,7 @@ installed checkout remains pinned to `doorbell-v1`. Full evidence is on
 
 - `#longlive-tree`: 67-word reply, ✅ by the reply bot, check at 86.608 s;
   👀 pickup ≤2.343744 s; run `34876298473`.
-- `#longlive-marjorie`: 74-word reply, ✅ by the reply bot, check at 127.576 s;
+- `#marjorie`: 74-word reply, ✅ by the reply bot, check at 127.576 s;
   👀 pickup ≤1.954189 s; run `34876301348`.
 - These top-level messages received no new threads, duplicate replies, or
   replies from the old Hermes Tree identity.
@@ -231,7 +231,7 @@ sudo systemctl restart longlive-doorbell
 
 - **While it is stopped,** founder messages wait for the poll: up to 5
   minutes, whenever GitHub's cron fires. While `DOORBELL_LIVE` is on, the poll
-  also posts `Doorbell is not answering` in `#longlive-marjorie`.
+  also posts `Doorbell is not answering` in `#marjorie`.
 - **A restart** forgets the pending 6-minute timers; the poll's 45-minute
   reconcile is the backstop.
 
@@ -276,7 +276,7 @@ host never reads it.
 
 | Journal line | Meaning | Fix |
 |---|---|---|
-| `not ready: #longlive-tree not found in the guild` | the bot cannot see that channel, or it was renamed | give the bot View Channel there (HA #73); a rename needs `BOTS` in `chat-inbox.mjs` and a new tag |
+| `not ready: #longlive-tree not found in the guild` | the bot cannot see that channel, or its id in `BOTS` is wrong | give the bot View Channel there (HA #73); channels resolve by id (`BOTS[bot].channelId`), so a rename needs nothing, but a deleted and recreated channel needs the new id in `chat-inbox.mjs` and a new tag |
 | `gateway: closed (4004) — not reconnecting` | bad Discord token | replace the token line, then restart |
 | `gateway: closed (4014) — not reconnecting` | an intent is disallowed | the doorbell asks only for GUILDS and GUILD_MESSAGES; check the bot's settings |
 | `… dispatch … failed (HTTP 401)` or `(HTTP 403)` | the GitHub key expired or lacks Actions write | renew the key (above) |

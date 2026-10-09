@@ -161,7 +161,7 @@ export function renderHumanAction({ number, issue, title, createdAt, now, holder
     300,
   );
   const step = clip(
-    '1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
+    '1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
     200,
   );
   return {

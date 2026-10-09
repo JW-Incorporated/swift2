@@ -10,7 +10,7 @@
 # (#947, #1177, #1203, #1224) with zero comments between them, because
 # nothing tied them together as one ongoing incident.
 #
-# Notification: Discord, to #longlive-marjorie via post-or-mail.mjs, is the
+# Notification: Discord, to #marjorie via post-or-mail.mjs, is the
 # default channel (Marjorie Overhaul C3 retired the standing bot-email path)
 # and only fires on a state CHANGE (NOTIFY=1) -- an hourly re-check of a
 # standing alert never re-posts. Email is opt-in per call via
@@ -42,7 +42,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 NOTIFY=0
 NOTIFY_TITLE="$TITLE"
 
-# A `close` body is a RECOVERY notice, and #longlive-marjorie only ever sees
+# A `close` body is a RECOVERY notice, and #marjorie only ever sees
 # the BODY -- post-or-mail.mjs posts the body file verbatim and uses the
 # subject for the mail leg alone. So a bare caller line like
 # "`link-sweep.yml` not 2-consecutive-failing as of 14:35 UTC." lands in the
