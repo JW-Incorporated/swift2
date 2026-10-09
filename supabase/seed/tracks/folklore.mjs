@@ -424,7 +424,7 @@ const TRACKS = [
             'It debuted at No. 16 on the Billboard Hot 100 (its peak) and reached No. 3 on Hot Rock & Alternative Songs; despite never being a single it was certified Platinum in the UK and 3× Platinum in Australia, and later featured in the trailer and soundtrack of the film It Ends with Us (2024).',
           ],
           fanTheories: [
-            'The line-by-line mapping onto the people involved in the masters dispute is fan close-reading; Taylor confirmed the masters dispute as the source but has not footnoted individual lyrics, and this guide doesn't name anyone.',
+            'The line-by-line mapping onto the people involved in the masters dispute is fan close-reading; Taylor confirmed the masters dispute as the source but has not footnoted individual lyrics, and this guide doesn’t name anyone.',
           ],
         },
         connections: [
