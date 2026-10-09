@@ -1099,6 +1099,48 @@ const ERA = {
         wiki('Mastermind (song)', 'Mastermind_(song)', 'song article: closer analysis'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The closer of the standard edition of Midnights. It debuted at No. 13 on the Billboard Hot 100 dated Nov. 5, 2022, per Billboard's recap of all 20 Midnights songs charting.",
+          "Rolling Stone's Rob Sheffield called it 'the perfect theme song for this album', because 'she can never resist overdoing it', and built his review around the idea of the mastermind."
+        ],
+        meaning: {
+          supported: [
+            "Sheffield summarized the song as one about plotting each chess move in advance to make a love happen, and pointed to the line 'I'm only cryptic and Machiavellian because I care' as Swift in a nutshell. That is the critic's reading of the lyric; Swift has not explained the song in the sources cited here.",
+            "Jack Antonoff, who co-wrote and co-produced it, told Vulture it may be a song he and Swift could not have made before Midnights, calling it 'a strange little song' they laughed about while going 'this way and that way' in the studio."
+          ]
+        },
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "Speaking to Vulture, February 2024",
+            note: "He said the bulk of Midnights was made in the small studio in his apartment, where he and Swift had worked for many years."
+          },
+          {
+            who: "Taylor Swift",
+            context: "Rolling Stone cover interview, September 2019, three years before the song",
+            note: "On her business choices, she said she was 'sick and tired of having to pretend like I don't mastermind my own business.' She was talking about marketing and strategy in general, not this song."
+          }
+        ],
+        sources: [
+          {
+            name: "Welcome to the Lavender Labyrinth: Taylor Swift's 'Midnights' Is the Mastermind's Ultimate Power Move - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/"
+          },
+          {
+            name: "Jack Antonoff on the Hardest and Most Surprising Music of His Career - Vulture",
+            url: "https://www.vulture.com/2024/02/jack-antonoff-best-taylor-swift-lana-bleachers.html"
+          },
+          {
+            name: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100 - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/"
+          },
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-great-war',
