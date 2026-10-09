@@ -43,7 +43,7 @@ export default {
       sources: [
         {
           source_url: 'https://www.elle.com/culture/music/a60546527/taylor-swift-thank-you-aimee-lyrics-meaning-kim-kardashian/',
-          source_title: "A Triumphant Taylor Swift Rekindles the Kim Kardashian Rivalry With 'thanK you aIMee'",
+          source_title: "What Taylor Swift's 'thanK you aIMee' Song Lyrics Really Mean and Kim Kardashian References",
           publisher: 'Elle',
           source_type: 'reputable_press',
           accessed_at: '2026-10-09',
@@ -67,7 +67,17 @@ export default {
       relatedSlugs: ['folklore:teenage-love-triangle'],
       sources: [
         wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', undefined, '2026-10-09'),
-        wiki('Cardigan_(song)', 'cardigan (song)'),
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/',
+          source_title: "Taylor Swift's 'The Tortured Poets Department' Songs Ranked",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            "Describes \"Peter\" as built on the Peter Pan idea (\"You said you were gonna grow up / Then you were gonna come find me\"). Replaces the cardigan Wikipedia article, which never mentions Peter; the shared-narrator link to cardigan remains the fan layer (re-checked 2026-10-09).",
+        },
       ],
     },
     {

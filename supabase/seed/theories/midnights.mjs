@@ -30,7 +30,7 @@ export default {
       sources: [
         {
           source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-karma-lost-album-real-1234598609/',
-          source_title: "Is 'Karma' Real? Inside The Mystery of Taylor Swift's 'Lost' Album",
+          source_title: "Taylor Swift's 'Lost' Album: All The Theories Surrounding 'Karma'",
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: '2026-10-09',
@@ -54,7 +54,17 @@ export default {
       relatedSlugs: ['lover:mastermind-doctrine'],
       sources: [
         wiki('Bejeweled_(song)', 'Bejeweled (song)', 'the video easter eggs are documented in the song article', '2026-10-09'),
-        wiki('Speak_Now_(Taylor%27s_Version)', "Speak Now (Taylor's Version)", undefined, '2026-10-09'),
+        {
+          source_url: 'https://www.elle.com/culture/music/a41760214/taylor-swift-bejeweled-music-video-easter-eggs/',
+          source_title: "Taylor Swift's 'Bejeweled' Music Video Easter Eggs Explained",
+          publisher: 'Elle',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            "Fans noted the Speak Now references in the video, including the 3 elevator button (her third album). Replaces the Speak Now (Taylor's Version) Wikipedia article, which never mentions Bejeweled (re-checked 2026-10-09).",
+        },
       ],
     },
     {
@@ -124,7 +134,17 @@ export default {
       outcome: 'confirmed',
       relatedSlugs: [],
       sources: [
-        wiki('The_Eras_Tour', 'The Eras Tour', 'the friendship-bracelet phenomenon is documented in the tour article'),
+        {
+          source_url: 'https://www.today.com/popculture/music/taylor-swift-eras-tour-friendship-bracelets-rcna99768',
+          source_title: "Taylor Swift Era's Tour Friendship Bracelets: Why Fans Are Trading Them",
+          publisher: 'TODAY',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            "Traces the Eras Tour friendship-bracelet trend to the \"You're On Your Own, Kid\" lyric. Replaces the Eras Tour Wikipedia article, which only covers PixMob LED bracelets (re-checked 2026-10-09).",
+        },
         wiki('Swifties', 'Swifties', undefined, '2026-10-09'),
       ],
     },
