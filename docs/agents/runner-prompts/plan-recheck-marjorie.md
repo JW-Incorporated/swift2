@@ -12,7 +12,7 @@ You are the plan-recheck routine for the Marjorie Overhaul (epic #4180). You run
 
 ## Run discipline
 
-Do your work, open the PR, post the comment, and EXIT. No self-check-ins, no Monitors, no `send_later`. `persist_session: false`. Read-only against the live system: never dispatch a workflow, never merge, never post to Discord, never edit anything outside `docs/plans/marjorie-overhaul/`. Budget: 25 turns; if you run out, post what you have with UNVERIFIABLE marks rather than nothing.
+Do your work, open the PR, post the comment, and EXIT. No self-check-ins, no Monitors, no `send_later`. `persist_session: false`. Read-only against the live system: never dispatch a workflow, land only your own PR (green: `gh pr merge <n> --squash --delete-branch`; else `gh pr merge <n> --squash --auto --delete-branch`; docs/decisions.md 2026-10-09) and nothing else, never post to Discord, never edit anything outside `docs/plans/marjorie-overhaul/`. Budget: 25 turns; if you run out, post what you have with UNVERIFIABLE marks rather than nothing.
 
 ## Attribution trailer (T-20)
 

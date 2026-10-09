@@ -949,8 +949,8 @@ Four site-maintenance additions, designed in
 - **Paul Blart** (new) — dependency & supply-chain security. Native detection:
   `.github/dependabot.yml` (grouped weekly bumps + a separate security lane) +
   `.github/workflows/codeql.yml` + secret scanning (enable in repo settings).
-  Paul triages alerts + Dependabot PRs into a weekly `security` patrol issue and
-  never merges. Charter: [`paul-blart.md`](paul-blart.md).
+  Paul triages alerts + Dependabot PRs into a weekly `security` patrol issue,
+  never merges a Dependabot PR, and lands only his own `paul/security-bumps` PR. Charter: [`paul-blart.md`](paul-blart.md).
 - **Laura** (new) — accessibility auditor to **WCAG 2.2 AA**. Native detection:
   `.github/workflows/a11y.yml` (axe/pa11y, non-blocking to start). Laura files
   `a11y` specs and always names the ~50% manual residual. Charter:
