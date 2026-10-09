@@ -213,6 +213,76 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The story-song that proved folklore could be funny, ornate and personal at once. Every track on the album debuted on the Hot 100 in the same week, and this one entered at No. 13, the fourth-highest of the album's debuts, behind 'cardigan', 'the 1' and 'exile'. It also made year-end best-of lists at American Songwriter, Billboard, Pitchfork and Uproxx.",
+          "Its power is the structure. Swift has described the country-songwriting trick it relies on: the first verse is about someone else, the second about someone even closer, and in the third you reveal 'Surprise! It was me.' That is exactly what happens when the narrator turns out to be the new owner of the house the heiress once lived in."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it; Dessner built the instrumental after the electric guitars on Radiohead's In Rainbows, and Swift wrote the lyrics in less time than it took him to go out for a run and return.",
+            "It is about Rebekah Harkness, a socialite who lived in Holiday House in Watch Hill, Rhode Island, which Swift bought in 2013. Swift told Entertainment Weekly she first heard of Harkness from the real estate agent showing her the house, then read everything she could find, and saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
+            "Per its Wikipedia entry, the biographical frame is factual: Rebekah West, a divorcee from St. Louis, married Standard Oil heir William Harkness in 1947, he died in 1954, and in 1964 she founded the Harkness Ballet. It runs in G major at 148 BPM.",
+            "Swift performed the song in the concert film folklore: the long pond studio sessions (2020) and on the Eras Tour."
+          ],
+          supported: [
+            "Swift told People in 2021 that Harkness appealed to her because 'it can be a real pearl-clutching moment for society when a woman owns her desires and wildness,' and she loved the idea of a woman too joyful in her freedom to care about the talk.",
+            "The Wikipedia article notes the song's town legends are gossip-grade: the champagne in the pool and the dyed pet are retellings of what actually happened, which echoes folklore's recurring theme of rumor and half-truth. Critics have also tied the closing refrain to Swift's own press: Watch Hill residents' wariness of her Fourth of July parties and the 'Taylor Swift tax' nickname for Rhode Island's proposed second-home levy.",
+            "Pitchfork's Julian Mapes hailed it as 'the all-timer, the instant classic' that celebrates society-defying women, and the Wikipedia article calls it thematically feminist and a prequel to 'mad woman'."
+          ]
+        },
+        live: [
+          {
+            date: "2020",
+            event: "folklore: the long pond studio sessions",
+            note: "She performed the song in the concert documentary, in which she plays every track from folklore and discusses the creative process."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "She performed the song on the tour between March 2023 and March 2024."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mad-woman",
+            label: "mad woman",
+            why: "The Wikipedia article calls this thematically feminist and a prequel to 'mad woman': the town's judgment of Harkness here becomes the narrator's own anger there."
+          },
+          {
+            relatedId: "song:starlight",
+            label: "Starlight",
+            why: "Rolling Stone's Rob Sheffield matched the two: both use the word 'marvelous' and both are inspired by people who lived decades before Swift was born."
+          },
+          {
+            relatedId: "song:love-story",
+            label: "Love Story",
+            why: "Insider's Callie Ahlgrim compared the final chorus's return to the present to the bridge of 'Love Story', where Romeo proposes."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Entertainment Weekly interview, as quoted by Songfacts",
+            note: "On discovering Rebekah Harkness: 'As soon as I found out about her, I wanted to know everything I could.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "People, 2021, as quoted in the song's Wikipedia article",
+            note: "She described the pleasure of a woman who 'decided there were marvelous times to be had, and that was more important' than the criticism."
+          }
+        ],
+        sources: [
+          {
+            name: "The Last Great American Dynasty - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty"
+          },
+          {
+            name: "The Last Great American Dynasty by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-last-great-american-dynasty"
+          }
+        ]
+      },
     },
     {
       slug: 'exile',

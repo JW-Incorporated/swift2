@@ -538,6 +538,67 @@ const TRACKS = [
         wiki('Marjorie (song)', 'Marjorie_(song)', 'song article: Finlay tribute and vocal credit'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most direct tribute in the catalog: a song about Swift's maternal grandmother, Marjorie Finlay, an opera singer who inspired her to pursue music. Finlay's own soprano is on the record, which Dessner added to the outro. Critics including Rolling Stone's Rob Sheffield and Teen Vogue's P. Claire Dodson ranked it among her finest writing, and it charted at No. 66 on the Billboard Global 200.",
+          "On the Eras Tour it became a ritual. At the Atlanta show on April 29, 2023, fans turned on their phone flashlights during the song to honor Finlay, and the gesture carried on at later shows. Teen Vogue noted the song's presence on the set list was a surprise given how personal it is."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 13 of evermore (December 11, 2020), written by Swift and Aaron Dessner, who produced it. It was recorded at Long Pond Studio in the Hudson Valley, with Justin Vernon on backing vocals.",
+            "Swift has said her mother found old LPs of Finlay singing opera and sent them to Dessner, who added her voice to the outro; Finlay's soprano also returns after the line about hearing her sing. A lyric video released with the album uses photos and clips of Finlay, including from the family's life in Singapore in the 1960s.",
+            "The drone in the bridge of 'Marjorie' is the same one sampled in 'peace' on folklore, making it that song's precursor, according to the song's Wikipedia entry."
+          ],
+          supported: [
+            "Swift told Apple Music's Zane Lowe that one of the hardest regrets is 'being so young when you lost someone that you didn't have the perspective to learn and appreciate who they were fully,' and described wishing she had asked her grandmother where she wore every dress in her closet. The song's guilt is that regret set to music.",
+            "The verses read like chants of Finlay's advice, including a line about being kind but clever, while the refrain insists on her presence after death. Songfacts says Swift has said her grandmother 'still visits me sometimes... if only in my dreams.'"
+          ],
+          fanTheories: [
+            "Fans like to note that Swift considers 13 her lucky number, that this is the 13th track on evermore, and that the grandmother died when Swift was in her early teens; the matching 13th track on folklore, 'epiphany', honors her grandfather. Songfacts raises the pattern, but it's an observation about her habits, not something she has said about this song."
+          ]
+        },
+        live: [
+          {
+            date: "April 29, 2023",
+            event: "The Eras Tour, Atlanta",
+            note: "Fans lit their phone flashlights for Marjorie Finlay during the song, a tradition repeated at later shows."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "Variety's Chris Willman and Teen Vogue's P. Claire Dodson both picked it among the show's best moments."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "'Marjorie' came first: the drone from its bridge became the sample underneath folklore's 'peace', per the song's Wikipedia article."
+          },
+          {
+            relatedId: "song:epiphany",
+            label: "epiphany",
+            why: "The 13th track of folklore honors Swift's grandfather, while 'Marjorie' is the 13th track of evermore and honors her grandmother, as Songfacts points out."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Interview with Apple Music's Zane Lowe, as quoted by Songfacts",
+            note: "She said her grandmother died while she was away in Nashville shopping her demo CD, and described the regret of not having the perspective, so young, to ask her about her life."
+          }
+        ],
+        sources: [
+          {
+            name: "Marjorie (song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Marjorie_(song)"
+          },
+          {
+            name: "Marjorie by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/marjorie"
+          }
+        ]
+      },
     },
     {
       slug: 'closure',

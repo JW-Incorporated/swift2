@@ -679,6 +679,84 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The calm landing of Reputation. It sits at track 14, the penultimate slot, and Swift has said the album's storyline runs from rebellion and angst, through falling in love, to settling into 'where I am now.' This is the song where that settling happens. Released as a promotional single on November 3, 2017, it debuted at No. 27 on the Hot 100 and topped Billboard's Digital Song Sales chart, and Rolling Stone ranked it No. 20 on its 50 best songs of 2017.",
+          "It's also one of the album's most sonically spare songs: Jack Antonoff built it with an Akai MPC drum machine, DX7 strings, a live kick and samples of Swift's own voice as an instrument, which gives it the hushed sound Antonoff recommends for headphones at night."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 14 of Reputation (album released November 10, 2017), written and produced by Swift and Jack Antonoff, who programmed it. Released November 3, 2017 as the fourth track available ahead of the album, following 'Look What You Made Me Do', '...Ready for It?' and 'Gorgeous'. A lyric video with handwritten lyrics and home-video footage of Swift came out at the same time.",
+            "Antonoff has said the track was made with an MPC, a live kick, DX7 strings and samples of Swift's voice, and recommended hearing it 'on headphones at night on a walk.'",
+            "At the album's iHeartRadio release party Swift described the closing stretch as 'settling into where I am now' after the album's opening anger and the falling in love in its middle."
+          ],
+          supported: [
+            "Critics read the song as the resolution to the album's story. Its opening verse uses royalty and battle imagery for the damage to her reputation, and then turns to the person who steadies her; the New Statesman's Anna Leskiewicz observed that its kingdoms, fairy tales, fire and flowers are recurring Swift motifs used here in a more self-aware way.",
+            "Critics have read the lover in the song as the person she was seeing during the Reputation era. In the interview quotes cited here, though, Swift speaks about the feeling and the album's arc rather than naming anyone."
+          ]
+        },
+        live: [
+          {
+            date: "November 10, 2017",
+            event: "SiriusXM Fishbowl session, New York",
+            note: "An acoustic version for a small group of fans, with vocalists, a second guitarist and a cellist."
+          },
+          {
+            date: "November 11, 2017",
+            event: "Saturday Night Live",
+            note: "She performed an acoustic version with four backing vocalists on the show's 43rd season."
+          },
+          {
+            date: "2018",
+            event: "Reputation Stadium Tour",
+            note: "Penultimate number of the final act, with a working fountain on stage and a Great Gatsby-style mansion on the screen."
+          },
+          {
+            date: "July 1, 2023",
+            event: "The Eras Tour, Cincinnati",
+            note: "A surprise song on upright piano. Three more surprise outings in 2024 paired it with 'This Love' (Singapore, March 4), 'Ivy' (Munich, July 27) and 'Our Song' (New Orleans, October 25)."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:gorgeous",
+            label: "Gorgeous",
+            why: "The third track released ahead of the album, right before this one in the rollout."
+          },
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The album's first single, from the rebellion end of the arc Swift described; both songs were written with Antonoff."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "Swift paired the two, on guitar, at the New Orleans Eras Tour stop on October 25, 2024."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "iHeartRadio album listening session, as quoted in the song's Wikipedia article",
+            note: "On the album's arc: it starts with rebellion, anger and angst, then falling in love and realizing 'what your priorities are,' and this last part 'feels like settling into where I am now.'"
+          },
+          {
+            who: "Jack Antonoff",
+            context: "Via Twitter, as quoted by Songfacts",
+            note: "He said he loved 'making her voice into an instrument' on the track."
+          }
+        ],
+        sources: [
+          {
+            name: "Call It What You Want (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)"
+          },
+          {
+            name: "Call It What You Want by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/call-it-what-you-want"
+          }
+        ]
+      },
     },
     {
       slug: 'new-years-day',

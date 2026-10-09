@@ -194,6 +194,73 @@ const TRACKS = [
           reliability_score: 4,
         },
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track, placed second on the album Swift announced in her acceptance speech for Best Pop Vocal Album at the 66th Grammy Awards on February 4, 2024. She has called the record a 'lifeline' album that she really needed to make. The song itself debuted at No. 3 on the Billboard Global 200 and No. 4 on the Hot 100, in the week she became the first artist to hold the entire top 14 of the Hot 100, and reached No. 3 in the UK and Australia.",
+          "It sets the album's tone: a bright, '80s-flavored synth-pop track that is also a satire of artistic self-seriousness, name-dropping the poets Dylan Thomas and Patti Smith and the pop musician Charlie Puth. Critics were split on that mix of heartbreak and deadpan comedy."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of The Tortured Poets Department (April 19, 2024), written and produced by Swift and Jack Antonoff. It is a synth-pop and jangle-pop song built on hushed drums and sparkling synth arpeggios.",
+            "Its lyrics refer to Dylan Thomas and Patti Smith, who both lived at the Chelsea Hotel in Manhattan, and to Charlie Puth.",
+            "Swift performed it twice on the Eras Tour, both times in mashups: with 'Now That We Don't Talk' in Lisbon on May 25, 2024, and with 'Maroon' in Vancouver on December 7, 2024."
+          ],
+          supported: [
+            "Beats Per Minute's John Wohlmacher read the song as satirical: Swift acknowledges that she and her partner fall short of Thomas and Smith, calling them 'modern idiots,' a self-critique that the best art comes from honest self-realization, not fame.",
+            "Reception was split, which the article documents: Clash's Lauren Webb heard a 1980s power-ballad sensibility and untrod sonic ground for Swift, The New York Times's Lindsay Zoladz called it 'chatty, radiant,' while The Irish Times's Finn McRedmond thought it crammed in too many words and Pitchfork's Olivia Horn called it a winking track whose metaphors fall flat."
+          ],
+          fanTheories: [
+            "Fans have widely attached the song to a specific, publicized 2023 relationship. Swift has not confirmed it, and this guide doesn't name anyone; the song's satire works without that reading.",
+            "A popular fan theory links the title, which famously lacks the apostrophe in 'Poets', to the 1989 film Dead Poets Society, and points to the actors Ethan Hawke and Josh Charles appearing in the 'Fortnight' video. It is an interpretation of a pattern, not something Swift has confirmed."
+          ]
+        },
+        live: [
+          {
+            date: "May 25, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "A mashup with 'Now That We Don't Talk'."
+          },
+          {
+            date: "December 7, 2024",
+            event: "The Eras Tour, Vancouver",
+            note: "A mashup with 'Maroon'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:fortnight",
+            label: "Fortnight",
+            why: "The song before it on the album, and the video where fans point to the Dead Poets Society cameos that feed the apostrophe theory."
+          },
+          {
+            relatedId: "song:now-that-we-dont-talk",
+            label: "Now That We Don't Talk",
+            why: "Swift mashed the two together in Lisbon on May 25, 2024, pairing this album track with a vault song from 1989 (Taylor's Version)."
+          },
+          {
+            relatedId: "song:suburban-legends",
+            label: "Suburban Legends",
+            why: "The Tennessean's Bryan West said this track's soft beat recalls that of Swift's 2023 song 'Suburban Legends', from 1989 (Taylor's Version)."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "On the album, as summarized in the song's Wikipedia article",
+            note: "She described The Tortured Poets Department as a 'lifeline' album that she 'really needed' to make."
+          }
+        ],
+        sources: [
+          {
+            name: "The Tortured Poets Department (song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department_(song)"
+          },
+          {
+            name: "The Tortured Poets Department by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-tortured-poets-department"
+          }
+        ]
+      },
     },
     {
       slug: 'my-boy-only-breaks-his-favorite-toys',

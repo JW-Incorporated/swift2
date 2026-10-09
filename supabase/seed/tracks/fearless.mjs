@@ -566,6 +566,65 @@ const TRACKS = [
         wiki('The Way I Loved You', 'The_Way_I_Loved_You', 'song article: co-writing background'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Fearless deep cut that fans never let go of. It debuted and peaked at No. 72 on the Hot 100 and went gold, and when Fearless (Taylor's Version) arrived in April 2021 the re-recording charted too, reaching No. 94 on the Hot 100 and No. 24 on Hot Country Songs. It also stayed in live rotation: it was part of the regular set on her first headlining tour.",
+          "What gives it staying power is its premise, which Swift supplied herself. She has said the idea was a relationship with a perfectly nice, punctual, flower-bringing guy where you feel nothing because you are thinking about the complicated, messy one. She brought the concept and title to the writing session with John Rich, and he understood it because, in her words, he was 'that complicated, frustrating messy guy.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Track 10 of Fearless (released November 11, 2008 on Big Machine Records), written by Swift with John Rich and produced by Swift and Nathan Chapman. It runs 4:03 and was mixed by Justin Nieback at Blackbird Studio in Nashville.",
+            "Swift told That's Country that it was always a goal to write with Rich, and that she knew they were both opinionated writers, so the session could be 'the best thing in the world' or 'a complete train wreck.'",
+            "The re-recording, 'The Way I Loved You (Taylor's Version)', was produced by Swift and Christopher Rowe and came out in April 2021 as part of Fearless (Taylor's Version); Swift's vocals were recorded at Kitty Committee Studios in London."
+          ],
+          supported: [
+            "Per its Wikipedia entry, the song was inspired by meeting a guy who seemed ideal to date but who she felt would be less exciting than a more volatile partner, so the song is built on a contrast between a stable present relationship and a tumultuous past one.",
+            "Several critics hear it as a turning point in her storytelling: iHeartRadio's Emily Lee felt it was the first Swift song with a fictional narrative. Its details also anticipate her later habits: cars, a faked smile and kissing in the rain all recur across her catalog, as the article notes.",
+            "Musically, the verses are led by a string quartet and a marching snare that, as Swift described, makes the new boyfriend seem stiff, while the rest of the song, including the chorus where she remembers the old relationship, is driven by distorted electric guitars. Slant's Jonathan Keefe pointed to a nearly a cappella bridge."
+          ]
+        },
+        live: [
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "It was on the regular set list of her first headlining tour; she wore a purple sparkling dress for it."
+          },
+          {
+            date: "May 24, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "She played it as part of a mashup with 'Come Back... Be Here' and 'The Other Side of the Door', per the song's Wikipedia article."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:come-back-be-here",
+            label: "Come Back... Be Here",
+            why: "Swift folded the two together with this song in a single Eras Tour mashup in Lisbon, pairing a Fearless song with one from Red."
+          },
+          {
+            relatedId: "song:the-other-side-of-the-door",
+            label: "The Other Side of the Door",
+            why: "The third piece of that same Lisbon mashup, and a Fearless sibling of this song."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Telling That's Country how the song began, as quoted by Songfacts",
+            note: "She described bringing the idea, the title and 'where I thought the song should go' to John Rich, and said it was 'just so cool to get in a room and write with him because he really is an incredible writer.'"
+          }
+        ],
+        sources: [
+          {
+            name: "The Way I Loved You - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You"
+          },
+          {
+            name: "The Way I Loved You by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-way-i-loved-you"
+          }
+        ]
+      },
     },
     {
       slug: 'forever-and-always',

@@ -138,6 +138,90 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track of the seventh album, and the first song Swift wrote alone to earn a Song of the Year nomination at the Grammys (2020; it lost to 'Bad Guy'). It debuted at No. 19 on the Hot 100 after its August 16, 2019 release and climbed to No. 10 once the video arrived, giving her a 25th top-10 entry; it also reached No. 3 in both Australia and New Zealand.",
+          "It matters because it is Swift's own account of what a 'pure' love song is: she has called it the first one she wrote, and she is proud of it. She wrote it late one night on piano at her home in Nashville, sent Jack Antonoff a voice memo, and the two recorded it in about six hours the next day at Electric Lady Studios in New York. The target sound was a wedding-reception song that could be from 1970, 1980 or now."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of Lover (August 23, 2019). Written by Swift alone, one of three solo-written songs on the album with 'Cornelia Street' and 'Daylight', and produced by Swift and Antonoff, with Laura Sisk engineering and Antonoff playing drums, bass, upright piano and Mellotron. Released for download and streaming on August 16, 2019, a week before the album.",
+            "Swift and Drew Kirsch directed the video, released August 22, 2019, in which a couple lives in a dollhouse inside a snow globe, an idea Songfacts traces to a line in 'You Are in Love'.",
+            "Three alternate versions were released: a duet remix with Shawn Mendes, an orchestral 'First Dance Remix' based on her 2019 American Music Awards performance, and a live version from the 2019 City of Lover concert.",
+            "Swift has said she changed the opening line from 'April' to 'January' on purpose: the point is not that leaving the Christmas lights up is crazy, but 'how mundane it is.'"
+          ],
+          supported: [
+            "Swift has described the bridge as personal and drawn from how newlyweds personalize their vows. Press have noted it also echoes the bridal rhyme 'something old, something new, something borrowed, something blue.'",
+            "Critics have read it as a sequel: Paste's Jane Song heard it as a continuation of 'New Year's Day' from Reputation, with the same cleaning-up-after-friends domestic imagery, and Rolling Stone's Rob Sheffield heard a sequel to 'Last Kiss'. The Telegraph's Alice Vincent thought the 'guitar string scars' phrase alludes to her move from country to pop on Red and 1989."
+          ]
+        },
+        live: [
+          {
+            date: "August 26, 2019",
+            event: "MTV Video Music Awards",
+            note: "A medley with 'You Need to Calm Down', an early performance of the song during album promotion; she played a pink guitar under a hovering moon."
+          },
+          {
+            date: "September 9, 2019",
+            event: "City of Lover, Paris",
+            note: "A one-off concert whose live recording became an official alternate version."
+          },
+          {
+            date: "October 5, 2019",
+            event: "Saturday Night Live",
+            note: "A stripped-down version, performed the same night as 'False God'."
+          },
+          {
+            date: "November 24, 2019",
+            event: "American Music Awards",
+            note: "As Artist of the Decade she sang an orchestral version at piano while Misty Copeland and Craig Hall danced; Variety's Chris Willman called it the night's most memorable highlight, and the arrangement became the 'First Dance Remix'."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "The song is part of the tour's set list."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:new-years-day",
+            label: "New Year's Day",
+            why: "Critics, including Paste's Jane Song, pair the two as sequel and prequel: the morning-after cleanup of Reputation's closer grows into the long-term domestic life of 'Lover'."
+          },
+          {
+            relatedId: "song:cornelia-street",
+            label: "Cornelia Street",
+            why: "One of the other two songs on Lover that Swift wrote entirely alone; the three solo songs are the album's most personal pieces."
+          },
+          {
+            relatedId: "song:you-are-in-love",
+            label: "You Are in Love",
+            why: "Songfacts traces the video's snow-globe idea to a lyric in this 1989 bonus track, linking the two songs across five years."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "On Twitter, as quoted by Songfacts",
+            note: "He wrote that Swift 'wrote every stitch of this song' and came in and played it for him, 'a perfect moment to hear what she had done alone the night before.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "Spotify storyline, as quoted by Songfacts",
+            note: "She explained she made it the title track because it's 'such a perfect example of what I was trying to do with the album': music that feels timeless and is really confessional."
+          }
+        ],
+        sources: [
+          {
+            name: "Lover (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)"
+          },
+          {
+            name: "Lover by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/lover"
+          }
+        ]
+      },
     },
     {
       slug: 'the-man',

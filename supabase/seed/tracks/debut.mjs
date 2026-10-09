@@ -119,6 +119,71 @@ const _debut = {
         wiki('Picture to Burn', 'Picture_to_Burn', 'song article: lyric edit and single history'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The debut album's loudest act of revenge, and a real hit: released to US country radio on February 4, 2008 as the fourth single from Taylor Swift, it reached No. 3 on Hot Country Songs and No. 28 on the Hot 100, and was certified double platinum by the RIAA in 2014. According to its Wikipedia entry, she chose it as a single because crowds at her 2006-07 shows seemed to scream it back the hardest.",
+          "It matters because it is the unvarnished version of a teenager's anger, and she never disowned it. She has called it the only anger-driven song on the debut, and looking back she said she would express that pain very differently now, but that she is glad it exists: 'It's like recording your diary over the years, and that's a gift.' Its reach shows up in small ways too: Songfacts notes that the first video Sabrina Carpenter ever posted to YouTube, on August 3, 2009, was a cover of it."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of Taylor Swift (October 24, 2006), written by Swift and Liz Rose and produced by Nathan Chapman. It runs 2:55 and pairs banjo (Jeff Hyde) and fiddle (Rob Hajacos) with distorted electric guitar (Chapman).",
+            "Released to US country radio on February 4, 2008 and to contemporary hit radio on July 15, 2008. It peaked at No. 28 on the Hot 100 (chart dated May 17, 2008) and No. 3 on Hot Country Songs.",
+            "The original album version contained a line about telling friends the ex is gay; the radio edit and later versions replaced it with a milder line. That edit is documented in both the song's Wikipedia article and Songfacts.",
+            "Trey Fanjoy directed the video, which premiered March 14, 2008 on AOL's The Boot; Swift chose football player Justin Sandy to play the ex."
+          ],
+          supported: [
+            "Swift told The Washington Post it is 'about a guy who didn't like me back, and I got really mad,' and has said she also found him narcissistic. She told Great American Country she never 'officially' dated the boy; they 'almost dated.'",
+            "Swift has described how the chorus grew out of an after-school writing session with Rose, when she blurted out that she hated his truck, which he would not let her drive. She called it one of the most honest songs she has written.",
+            "Critics read the song as teenage anger played with a wink. About.com's reviewer found a feminist streak in it, and musicologist James E. Perone heard country and alternative rock deliberately fused, noting that the guitar and banjo breaks tie it to both worlds."
+          ]
+        },
+        live: [
+          {
+            date: "October 10, 2007",
+            event: "Regis & Kelly",
+            note: "An early television performance during promotion of the debut album, per the song's Wikipedia entry, which also lists Studio 330 Sessions, Good Morning America and the 2008 CMT Music Awards among its single-era appearances."
+          },
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "On her first headlining tour she used it to close the main set, just before the encore, on every date."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:tim-mcgraw",
+            label: "Tim McGraw",
+            why: "Both debut-album songs were written with Liz Rose and produced by Nathan Chapman: 'Tim McGraw' is the wistful goodbye, 'Picture to Burn' the furious one."
+          },
+          {
+            relatedId: "song:teardrops-on-my-guitar",
+            label: "Teardrops on My Guitar",
+            why: "An earlier single from the same record that tells the opposite side of the same teenage story: the crush who never noticed her, where this one is the boy she can't stand."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "A third debut-era single in a very different mood; together with this song it shows the range the album ran on, from giddy to scorched earth."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Looking back, as quoted in the song's Wikipedia article",
+            note: "She said the song is how she expressed anger as a teenager ('I didn't know anything then'), that she would feel and say it very differently now, and that she isn't regretful because it captures those emotions 'like recording your diary over the years.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Picture to Burn - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Picture_to_Burn"
+          },
+          {
+            name: "Picture To Burn by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/picture-to-burn"
+          }
+        ]
+      },
     },
     {
       slug: 'teardrops-on-my-guitar',
