@@ -82,7 +82,17 @@ export function createShopLinkBuilder(config: ShopLinkBuilderConfig = {}) {
     return listing.url;
   }
 
-  return { buildUrl, isAffiliate };
+  function isAmazonAffiliate(listing: ShopListing, context?: ShopLinkContext): boolean {
+    return isAffiliate(listing, context) && resolveNetwork(listing.retailer).network === 'amazon';
+  }
+
+  return { buildUrl, isAffiliate, isAmazonAffiliate };
+}
+
+function merchContext(listing: MerchItem): ShopLinkContext | undefined {
+  if (listing.category === 'official-store') return undefined;
+  if (listing.category === 'fan-made') return { bucket: 'fanmade' };
+  return listing.source ?? undefined;
 }
 
 export function createShopLinkRenderer(shopLinks: ReturnType<typeof createShopLinkBuilder>) {
@@ -95,11 +105,14 @@ export function createShopLinkRenderer(shopLinks: ReturnType<typeof createShopLi
     forMoment: (listing: ShopListing, context: Extract<ShopLinkContext, { eraId: string }>) => render(listing, context),
     forMerch: (listing: ShopListing, bucket: Extract<ShopLinkContext, { bucket: string }>['bucket']) =>
       render(listing, { bucket }),
-    forMerchItem: (listing: MerchItem) => {
-      if (listing.category === 'official-store') return render(listing);
-      if (listing.category === 'fan-made') return render(listing, { bucket: 'fanmade' });
-      return listing.source ? render(listing, listing.source) : render(listing);
-    },
+    forMerchItem: (listing: MerchItem) => render(listing, merchContext(listing)),
+    isAmazonMoment: (listing: ShopListing, context: Extract<ShopLinkContext, { eraId: string }>) =>
+      shopLinks.isAmazonAffiliate(listing, context),
+    isAmazonMerch: (listing: ShopListing, bucket: Extract<ShopLinkContext, { bucket: string }>['bucket']) =>
+      shopLinks.isAmazonAffiliate(listing, { bucket }),
+    isAmazonMerchItem: (listing: MerchItem) => shopLinks.isAmazonAffiliate(listing, merchContext(listing)),
+    hasAmazonMerch: (listings: readonly MerchItem[]) =>
+      listings.some((listing) => shopLinks.isAmazonAffiliate(listing, merchContext(listing))),
     hasAffiliateMerch: (listings: readonly MerchItem[]) =>
       listings.some((listing) =>
         listing.category !== 'official-store' &&
@@ -194,3 +207,10 @@ export function isAffiliateListing(listing: ShopListing, context: ShopLinkContex
  */
 export const SHOP_DISCLOSURE =
   'Some links may earn Long Live a commission at no extra cost to you.';
+
+/**
+ * Amazon Associates Operating Agreement (updated 2025-10-15) statement, shown
+ * in addition to SHOP_DISCLOSURE, before the links, whenever any rendered
+ * product is an Amazon affiliate link.
+ */
+export const AMAZON_DISCLOSURE = 'As an Amazon Associate I earn from qualifying purchases.';

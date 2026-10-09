@@ -92,6 +92,8 @@ describe('MerchCard alt-piece clarity', () => {
 
     expect(html).toContain('https://www.amazon.com/dp/B123?tag=longlive-20&amp;ascsubtag=official');
     expect(html).toContain('commission at no extra cost to you');
+    expect(html).toContain('As an Amazon Associate I earn from qualifying purchases.');
+    expect(html.indexOf('As an Amazon Associate')).toBeLessThan(html.indexOf('href="https://www.amazon.com'));
   });
 
   it('a host with no env.affiliate (the app) renders plain retailer URLs and no disclosure, even if the process env has tags', () => {
@@ -106,6 +108,7 @@ describe('MerchCard alt-piece clarity', () => {
     expect(html).toContain('href="https://www.amazon.com/dp/B123"');
     expect(html).not.toMatch(/tag=|ascsubtag/);
     expect(html).not.toContain('commission');
+    expect(html).not.toContain('Amazon Associate');
   });
 
   it('emits schema.org Product JSON-LD for every card (SPEC.merch-autonomy.md §9)', () => {

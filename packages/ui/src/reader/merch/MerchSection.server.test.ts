@@ -12,7 +12,7 @@ vi.mock('@swift2/ui', () => ({
   useHost: () => ({ env: {} }),
   useMerch: () => ({ officialStore: [{ url: 'https://example.com/new-drop' }], fanMade: [], shopTheLook: [] }),
 }));
-vi.mock('../moment/lib/shop', () => ({ createHostShopLinkRenderer: () => ({ hasAffiliateMerch: () => false }), SHOP_DISCLOSURE: '' }));
+vi.mock('../moment/lib/shop', () => ({ createHostShopLinkRenderer: () => ({ hasAffiliateMerch: () => false, hasAmazonMerch: () => false }), SHOP_DISCLOSURE: '', AMAZON_DISCLOSURE: 'amazon' }));
 vi.mock('./lib/section-jump', () => ({ suggestLinkSectionId: () => 'suggest-link' }));
 vi.mock('./SubmitLinkForm', () => ({ SubmitLinkForm: () => null }));
 vi.mock('./MerchMarquee', () => ({ MerchMarquee: () => null }));
