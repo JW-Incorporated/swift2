@@ -388,7 +388,7 @@ const _debut = {
       summary:
         'Affection without possession: she catalogs what makes a boy shine and leaves the door open rather than forcing an ending.',
       inspiration:
-        'Swift said in early album commentary it was written about a boy she admired mostly from afar.',
+        'Described in early album commentary as written about a boy she admired mostly from afar.',
       themes: ['crushes', 'admiration', 'open endings'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
@@ -503,7 +503,7 @@ const _debut = {
       summary:
         'A love story that ages from seven to eighty-seven, tracing a couple from backyard dares to a porch-swing forever.',
       inspiration:
-        'Swift confirmed the song was inspired by her real next-door neighbors, a couple who shared their decades-long love story over dinner.',
+        'Reportedly inspired by her real next-door neighbors, a couple who shared their decades-long love story over dinner.',
       themes: ['lifelong love', 'small-town roots', 'growing old together'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
