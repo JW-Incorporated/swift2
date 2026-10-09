@@ -329,10 +329,10 @@ const TRACKS = [
       summary:
         'A relationship reconstructed object by object — a scarf left at a sister’s house, an autumn upstate, a refrigerator-light dance — because remembering precisely is the only power left.',
       inspiration:
-        'Swift confirmed it began as a long, improvised vent during tour rehearsals; Liz Rose was called in to help carve a song out of it. The muse is widely reported as Jake Gyllenhaal — never confirmed by Swift.',
+        'Swift confirmed it began as a long, improvised vent during tour rehearsals; Liz Rose was called in to help carve a song out of it. Swift has never named the song’s subject.',
       themes: ['memory as evidence', 'grief for a specific autumn', 'the scarf'],
       fanLore:
-        'Fan reading (widely reported, unconfirmed): the Gyllenhaal attribution and the endlessly relitigated real-world scarf.',
+        'Fan reading (unconfirmed): the endlessly relitigated real-world scarf.',
       easterEggs:
         'Track 5 — the fan-observed emotional-centerpiece slot she later acknowledged as a real tradition.',
       sourceUrl: 'https://en.wikipedia.org/wiki/All_Too_Well',
@@ -1063,7 +1063,7 @@ const TRACKS = [
       summary:
         'Standing in a party dress watching the door: the relationship ends not with a fight but with an empty doorway at her own birthday.',
       inspiration:
-        'Widely tied by fans to her 21st birthday and the Gyllenhaal chapter (unconfirmed by Swift); the party scenario is the song’s own explicit frame.',
+        'Swift has not named the song’s subject; the party scenario is the song’s own explicit frame.',
       themes: ['disappointment', 'the no-show', 'endings you watch happen'],
       fanLore:
         'Fan reading (unconfirmed): the 21st-birthday timeline fans cross-reference with All Too Well.',
@@ -1116,7 +1116,7 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Maya Thompson'],
       producers: ['Taylor Swift', 'Christopher Rowe'],
       singleReleaseDate: '2012-09-08',
-      note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to cancer research.',
+      note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to charity.',
       summary:
         'A eulogy for Ronan Thompson, written in his mother’s words and voice — one of Swift’s heaviest songs.',
       inspiration:

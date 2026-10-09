@@ -120,7 +120,7 @@ const TRACKS = [
         'Confirmed by Swift: one of three songs (with betty and august) telling an invented love triangle from three perspectives.',
       themes: ['teenage love triangle', 'being chosen late', 'memory'],
       easterEggs:
-        'Real cardigans were the merch drop; the James/Betty/Inez names came from friends’ children, confirmed on record.',
+        'Real cardigans were the merch drop; the triangle’s character names came from friends’ daughters.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Cardigan_(song)',
       sources: [
         wiki(
@@ -202,7 +202,7 @@ const TRACKS = [
       summary:
         'A gossiped-about widow scandalizes a New England town for fifty years; then the narrator buys the house and inherits the reputation. History as a hand-me-down.',
       inspiration:
-        'Confirmed: about Rebekah Harkness, previous owner of Swift’s Holiday House in Watch Hill — Swift learned the story when she bought the property.',
+        'About Rebekah Harkness, whose Rhode Island house Swift bought — Swift learned the story when she bought the property.',
       themes: ['women labeled mad', 'inherited notoriety', 'history rhyming'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty',
       sources: [
@@ -700,12 +700,12 @@ const TRACKS = [
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Three verses, three different people barely holding on — Taylor said one narrator is fighting addiction, another squandered potential, all of them showing up anyway.',
+      note: 'Three verses, three fictional narrators barely holding on, all of them showing up anyway.',
       summary:
-        'Effort as the whole achievement: pulling up to a driveway you almost drove past, one year sober with no one clapping. The bar is on the floor and clearing it is heroic.',
+        'Effort as the whole achievement: pulling up to a driveway you almost drove past, a small win with no one clapping. The bar is on the floor and clearing it is heroic.',
       inspiration:
         'Swift described the multiple-narrator design in the Long Pond film — deliberately voicing people whose trying is invisible from outside.',
-      themes: ['addiction and recovery', 'invisible effort', 'compassion'],
+      themes: ['invisible effort', 'second chances', 'compassion'],
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Is_Me_Trying',
       sources: [
         wiki('This Is Me Trying', 'This_Is_Me_Trying', 'song article: narrator design'),
@@ -972,9 +972,9 @@ const TRACKS = [
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Aaron Dessner'],
-      note: 'Her grandfather’s war and 2020’s hospital wards in one hymn — twenty minutes of trauma, a lifetime of not talking about it.',
+      note: 'Her grandfather’s war and 2020’s frontline medical workers in one hymn — twenty minutes of trauma, a lifetime of not talking about it.',
       summary:
-        'Verse one lands at Guadalcanal with Dean Swift; verse two puts on a mask in a COVID ward. Both generations discover some things cannot be spoken, only slept off in dreams.',
+        'Verse one lands at Guadalcanal with Dean Swift; verse two follows frontline medical workers through the pandemic. Both generations discover some things cannot be spoken, only slept off in dreams.',
       inspiration:
         'Confirmed: inspired by her grandfather Dean’s WWII service in the Marines and written in tribute to pandemic frontline workers.',
       themes: ['generational trauma', 'war and pandemic', 'the unspeakable'],
@@ -1057,7 +1057,7 @@ const TRACKS = [
       summary:
         'A seventeen-year-old shows up at a party to grovel: he did the damage in august, heard about it through the grapevine, and bets everything on a doorstep apology. Whether Betty takes him back stays unwritten.',
       inspiration:
-        'Confirmed: the triangle from James’s perspective, with names borrowed from Blake Lively and Ryan Reynolds’ daughters — a fact confirmed when the couple’s third child’s name matched.',
+        'The triangle from James’s perspective, with character names borrowed from friends’ daughters.',
       themes: ['apology', 'teenage recklessness', 'asking forgiveness'],
       easterEggs:
         'Its country-radio single push and its 2020 ACM Awards performance were the era’s single wink back at her first genre.',

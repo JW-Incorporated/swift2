@@ -36,7 +36,7 @@ const _debut = {
       summary:
         'A girl asks to be remembered through the soundtrack of a first love: when her favorite country star comes on, she hopes her ex thinks of her.',
       inspiration:
-        'Swift has said she wrote it in math class about Brett, a senior boyfriend about to leave for college, then finished it with Liz Rose after school.',
+        'Swift has said she wrote it in math class about an older boyfriend about to leave for college, then finished it with Liz Rose after school.',
       themes: ['first love', 'memory and nostalgia', 'small-town summer'],
       easterEggs:
         'Her early liner notes hid capitalized-letter messages per song — the codes that trained fans to hunt for Easter eggs in everything since.',
@@ -203,11 +203,11 @@ const _debut = {
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
       isSingle: true,
-      note: 'The unrequited-crush ballad that named the real boy — Drew from her high school — and crossed her over to pop radio for the first time.',
+      note: 'The unrequited-crush ballad about a boy who only confided in her about someone else — and crossed her over to pop radio for the first time.',
       summary:
         'She is the shoulder a boy leans on while he gushes about another girl; the song sits in the ache of smiling through it.',
       inspiration:
-        'Confirmed to be about classmate Drew Hardwick, whom Swift named publicly; he reportedly had no idea until the song was on the radio.',
+        'Swift has said it is about a real high-school classmate she liked, who has never been publicly identified by name.',
       themes: ['unrequited love', 'hiding feelings', 'high-school heartache'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
       sources: [
@@ -366,11 +366,11 @@ const _debut = {
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
-      note: 'Written the day she learned a friend was struggling with an eating disorder — the debut album at its most tender.',
+      note: 'Written the day she learned a friend was going through a hard time — the debut album at its most tender.',
       summary:
         'A letter to a beautiful friend who is quietly falling apart, about how the girls who seem to have it all can be the ones barely holding on.',
       inspiration:
-        'Swift confirmed she wrote it about a close friend battling bulimia, starting it the same day she found out.',
+        'Written about a close friend who was struggling, started the day she learned of it.',
       themes: ['friendship', 'hidden pain', 'beauty-standard pressure'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
@@ -601,7 +601,7 @@ const _debut = {
       inspiration: null,
       themes: ['authenticity', 'friendship', 'belonging'],
       fanLore:
-        'Fan reading: the home-video-style music video starred her real childhood best friend Abigail, cementing the friendship interpretation.',
+        'Fan reading: the home-video-style music video starred her real childhood best friend, cementing the friendship interpretation.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
     },
