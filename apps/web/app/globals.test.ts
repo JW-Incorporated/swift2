@@ -51,6 +51,16 @@ describe('.era-icon-btn (#525 close-affordance floor)', () => {
   });
 });
 
+describe('.era-icon-btn:focus-visible (#525 visible focus ring)', () => {
+  const block = ruleBlock('.era-icon-btn:focus-visible');
+
+  it('draws a visible outline in the era ink with an offset halo', () => {
+    expect(block).toMatch(/outline:\s*2px solid var\(--era-ink\)/);
+    expect(block).toMatch(/outline-offset:\s*2px/);
+    expect(block).toMatch(/box-shadow:[^;]*var\(--era-bg\)/);
+  });
+});
+
 // #659: the "Hidden clue" badge's animation used to dip its own opacity to
 // 0.35 for most of the cycle, which measured as low as 2.02:1 against the
 // era surface (WCAG 1.4.3) — the badge's accessible text/icon has to stay
