@@ -209,7 +209,6 @@ export default {
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
         'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
-        'moment:vault-red-everything-has-changed-duet',
         'moment:vault-red-the-last-time-turns-an-on-again-off-again-relationship-into-',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
@@ -220,7 +219,19 @@ export default {
       moment: {
         context:
           'Taylor brought in Butch Walker to produce, saying she knew he would approach it "from an organic place, which is where [Sheeran] comes from." Released as a single in July 2013, it reached No. 32 on the Hot 100 — and did even better in Sheeran\'s home market, hitting the top 10 in the UK and Ireland — went double platinum in the US, and became a live duet throughout the Red Tour\'s North American run, which Sheeran opened.\n\nThe Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Taylor and Sheeran revealed at the end as their parents. The story got an epilogue nine years later: the same two actors, grown up, were brought back for Sheeran\'s 2022 "The Joker and the Queen" video (featuring Taylor), which outlets read as a deliberate sequel.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' },
+          {
+            // Merged from the retired thin "duet" stub (issue #3756, 2026-10-08).
+            outlet: 'Nashville Scene',
+            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
+            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
+            publisher: 'Nashville Scene',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
@@ -2105,6 +2116,19 @@ export default {
           },
         ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour masquerade-ball number, white/
+        // gold gown + masked dancer). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Taylor performs "I Knew You Were Trouble" in its masquerade-ball staging on the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -2207,55 +2231,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-everything-changed",
-      // Cross-link (Stage 3, 2026-08-06): the song's writing session.
-      relatedIds: [
-        "moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer",
-      ],
-      year: 2013,
-      month: 7,
-      day: 6,
-      category: "music",
-      title: "“Everything Has Changed” duet",
-      snippet: "A folk-pop collaboration extends the album’s long single run.",
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-      moment: {
-        sources: [
-          {
-            outlet: 'Nashville Scene',
-            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
-            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
-            publisher: 'Nashville Scene',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
-            source_title: 'Everything Has Changed',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-08-11',
-            reliability_score: 2,
-            notes: 'Supplement only, for the single release date — never the load-bearing citation.',
-          },
-        ],
-        context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-            focalPoint: '45% 28%',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
-
     // ── YouTube-appearances research pass (2026-08-12) ──
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
     // and docs/research/2026-08-12-youtube-appearances-manifest.md.
@@ -2970,6 +2945,19 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour B-stage tower, acoustic guitar
+        // on a stool). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor plays "Begin Again" acoustic atop the Red Tour’s B-stage tower.',
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],

@@ -119,6 +119,79 @@ const _debut = {
         wiki('Picture to Burn', 'Picture_to_Burn', 'song article: lyric edit and single history'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The debut album's loudest act of revenge, and a real hit: released to US country radio on February 4, 2008 as the fourth single from Taylor Swift, it reached No. 3 on Hot Country Songs and No. 28 on the Hot 100, and was certified double platinum by the RIAA in 2014 (chart and certification figures as summarized in its Wikipedia entry). Swift told CMT at the time that, even before it was a single, it 'would get the most crowd response' on the road, which is why she was excited to release it.",
+          "It matters because it is the unvarnished version of a teenager's anger, and she never disowned it. She called it 'my angry song on my album,' and later told MTV News that the way she would say and feel that kind of pain now is 'a lot different,' while having no regrets about her earlier songs. Songfacts adds a footnote on its reach: the first video Sabrina Carpenter ever posted to YouTube, on August 3, 2009, was a cover of it."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of Taylor Swift (October 24, 2006), written by Swift and Liz Rose and produced by Nathan Chapman.",
+            "Swift called it 'my angry song on my album' in a CMT Insider interview before the video shoot, and described the song as being about 'just being mad,' adding that it is 'brutally honest' and has 'a comedic edge.'",
+            "She told CMT it was the first time she had fire in one of her videos, and that the song 'would get the most crowd response' at her shows before it was a single.",
+            "In a 2011 MTV News interview she recalled the song as talking about how 'I hate your truck' and 'I hate that you ignored me,' and said she wouldn't express that pain the same way now."
+          ],
+          supported: [
+            "Swift has said the song is about a guy who didn't like her back and whom she found cocky; her account of an after-school writing session with Liz Rose, in which the chorus grew out of her blurting that she hated his truck, is reported by Songfacts and Wikipedia. She has described it as one of her most honest songs.",
+            "The original album lyric included a line about telling the ex's friends he is gay; later versions replaced it with a milder line. That edit is documented in both the song's Wikipedia article and Songfacts.",
+            "Critics read the song as teenage anger played with a wink. Musicologist James E. Perone, cited in Wikipedia, heard country and alternative rock deliberately fused, with banjo and distorted guitar breaks tying it to both worlds."
+          ]
+        },
+        live: [
+          {
+            date: "October 10, 2007",
+            event: "Regis & Kelly",
+            note: "An early television performance during promotion of the debut album, per the song's Wikipedia entry."
+          },
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "On her first headlining tour, per Wikipedia, it closed the main set before the encore."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:tim-mcgraw",
+            label: "Tim McGraw",
+            why: "Both debut-album songs were written with Liz Rose and produced by Nathan Chapman: 'Tim McGraw' is the wistful goodbye, 'Picture to Burn' the furious one."
+          },
+          {
+            relatedId: "song:teardrops-on-my-guitar",
+            label: "Teardrops on My Guitar",
+            why: "An earlier single from the same record that tells the opposite side of the same teenage story: the crush who never noticed her, where this one is the boy she can't stand."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "Another single from the debut in a very different mood; together with this song it shows the range the album ran on, from giddy to scorched earth."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Telling MTV News how her songwriting had changed",
+            note: "She recalled the song as being about hating a boy's truck and being ignored, said the way she'd say and feel that pain now is 'a lot different,' and said she had no regrets about her earlier songs."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Fans the Flames on \"Picture to Burn\" - CMT News (2008, archived)",
+            url: "https://web.archive.org/web/20121022081232/http://www.cmt.com/news/country-music/1583617/taylor-swift-fans-the-flames-on-picture-to-burn.jhtml"
+          },
+          {
+            name: "Taylor Swift Explains How Her Songwriting Has Grown - MTV News (archived)",
+            url: "https://web.archive.org/web/20110903125904/http://www.mtv.com/news/articles/1664730/taylor-swift-songwriting.jhtml"
+          },
+          {
+            name: "Picture to Burn - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Picture_to_Burn"
+          },
+          {
+            name: "Picture To Burn by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/picture-to-burn"
+          }
+        ]
+      },
     },
     {
       slug: 'teardrops-on-my-guitar',

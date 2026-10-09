@@ -237,7 +237,7 @@ export function EraSection({
 
           <h2
             id={`ll-era-heading-${era.id}`}
-            className="font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
+            className="font-[family-name:var(--era-font)] text-balance font-semibold leading-[1.05] tracking-tight text-[length:min(3rem,calc(100vw/7))] sm:text-7xl">
             {era.name}
           </h2>
           {era.lyric ? (

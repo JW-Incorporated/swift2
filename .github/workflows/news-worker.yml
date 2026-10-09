@@ -8,6 +8,8 @@
 # Secrets needed (repo Settings -> Secrets, all founder TX items):
 #   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — see apps/worker/.env.example
 #     for exactly where in the Supabase dashboard each comes from.
+#   ANTHROPIC_API_KEY — passed to the knowledge-extract stage; optional,
+#     unset means extraction defers (per-cluster, not fatally).
 #   OPENAI_API_KEY — optional; unset means the worker runs entirely on the
 #     deterministic rule-based classifier (the designed degraded-but-
 #     functional path, not a broken state).
@@ -57,6 +59,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}

@@ -874,6 +874,7 @@ constellation.
   title match against `VideoNote.relatedSongs` (or the video's own title), no
   fuzzy matching. The rest show no play control in `TrackGuide` (#2051 — no
   control beats a wrong one).
+- Persona bylines (#462, `docs/specs/2026-07-11-persona-authors-copy-desk.md`): moments carry a derived `author` (Theo/Loren/Vera/Deb) stamped by `sync-longlive-content.mjs` via `routeAuthor()` (`packages/experience/src/copy-desk/`); track dossiers and the theories guide are bylined Theo / Loren from the same table. `Byline` renders in detail headers only (feeds stay clean) and links to `/desk`. Not yet bylined: videos, tours/releases tables, hand-curated items without a seed category.
 - Clue Web "explore" constellation label overlap in dense clusters is a known
   polish item (collision-avoidance not yet implemented).
 

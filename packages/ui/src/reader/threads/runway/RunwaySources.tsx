@@ -10,7 +10,7 @@ export function RunwaySources({ sources }: { sources?: RunwayLook['sources'] }) 
       {sources.map((s, i) => (
         <span key={`${s.url}-${i}`}>
           {i > 0 && ', '}
-          <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+          <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-[color:var(--era-ink)]">
             {s.title}
           </a>
         </span>

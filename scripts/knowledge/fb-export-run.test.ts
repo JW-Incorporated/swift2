@@ -226,7 +226,27 @@ describe('Facebook export gate', () => {
       commentCoverage: { eligible: 3, processed: 2, failed: 1, timedOut: 0 },
     };
     expect(runSummary([row])).toContain(
-      'comments: 12 comments + 4 replies on 2 posts; 2/3 posts read, 1 failed, 0 timed out',
+      'comments: 12 comments + 4 replies on 2 posts; 2/3 posts read (67% of 3 with known comments), 1 failed, 0 timed out',
+    );
+    // Per-group success rate and reason codes (#4688), counts only.
+    expect(
+      formatComments({
+        commentCoverage: {
+          eligible: 6,
+          knownPositiveEligible: 5,
+          processed: 4,
+          failed: 2,
+          timedOut: 0,
+          failNotFound: 1,
+          failNoExpander: 0,
+          failEmptyAfterExpand: 1,
+          failThrew: 0,
+          retried: 3,
+          recovered: 1,
+        },
+      }),
+    ).toBe(
+      'comments: 4/6 posts read (80% of 5 with known comments), 2 failed, 0 timed out [not-found=1 empty-after-expand=1 retried=3 recovered=1]',
     );
     expect(formatComments({ commentCoverage: { error: 'collector-missing' } })).toBe(
       'comments: collection error: collector-missing',

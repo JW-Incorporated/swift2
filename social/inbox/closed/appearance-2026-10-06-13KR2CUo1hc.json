@@ -5,7 +5,7 @@
   "lane": "appearance",
   "createdAt": "2026-10-06T19:02:23.738Z",
   "deadline": "2026-10-08T19:02:23.738Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "channelName": "Jimmy Kimmel Live",
     "videoTitle": "Paul McCartney on Singing at Taylor Swift’s Wedding, Grammys Party Rejection & Duet with Ringo",
@@ -17,5 +17,6 @@
   "links": {
     "pr": null,
     "issue": 5240
-  }
+  },
+  "declinedReason": "Third-party Jimmy Kimmel clip centered on Paul McCartney and Taylors private life (her wedding); off-brand personal-life content for a fan product account, with no Long Live surface to anchor it."
 }

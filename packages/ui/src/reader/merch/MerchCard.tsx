@@ -35,7 +35,7 @@ import { useHost, useReader } from '@swift2/ui';
 import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '../store';
 import { merchItemImage } from './lib/merch-filters';
-import { createHostShopLinkRenderer, SHOP_DISCLOSURE } from '../moment/lib/shop';
+import { AMAZON_DISCLOSURE, createHostShopLinkRenderer, SHOP_DISCLOSURE } from '../moment/lib/shop';
 import { MerchCardHalf } from './MerchCardHalf';
 import { merchProductJsonLd, type MerchItem } from '@swift2/content-enrichment';
 
@@ -65,6 +65,13 @@ export function MerchCard({ item }: { item: MerchItem }) {
       ? renderer.forMerch(item.altListing, 'official')
       : renderer.forMerchItem({ ...item, ...item.altListing })
     : undefined;
+  const showsAmazon =
+    renderer.isAmazonMerchItem(item) ||
+    (item.altListing
+      ? item.category === 'official-store'
+        ? renderer.isAmazonMerch(item.altListing, 'official')
+        : renderer.isAmazonMerchItem({ ...item, ...item.altListing })
+      : false);
   // SEO (SPEC.merch-autonomy.md §9): schema.org Product JSON-LD, `offers`
   // included only when merchProductJsonLd() itself finds a fresh,
   // machine-verified price+stock pair — never asserted here.
@@ -168,6 +175,12 @@ export function MerchCard({ item }: { item: MerchItem }) {
           <span className="mt-2 inline-block border border-[color:var(--merch-line)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--merch-muted)]">
             Sold out
           </span>
+        )}
+
+        {showsAmazon && (
+          <p className="mt-3 text-[11px] leading-relaxed text-[color:var(--merch-muted)]">
+            {AMAZON_DISCLOSURE}
+          </p>
         )}
 
         <a
