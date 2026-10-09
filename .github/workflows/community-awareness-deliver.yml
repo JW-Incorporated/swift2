@@ -30,6 +30,9 @@ jobs:
   deliver:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    # DISCORD_BOT_TOKEN lives in the main-only `social` environment. This job is plain run: steps
+    # (no agent), and posts each card to its platform channel by id (scripts/lib/discord-route.mjs).
+    environment: social
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -48,6 +51,12 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          DISCORD_TREE_IG_X_CHANNEL_ID: ${{ vars.DISCORD_TREE_IG_X_CHANNEL_ID }}
+          DISCORD_TREE_REDDIT_CHANNEL_ID: ${{ vars.DISCORD_TREE_REDDIT_CHANNEL_ID }}
+          DISCORD_TREE_FACEBOOK_CHANNEL_ID: ${{ vars.DISCORD_TREE_FACEBOOK_CHANNEL_ID }}
           COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           AWARENESS_LANE_ENABLED: ${{ vars.AWARENESS_LANE_ENABLED }}
         run: npx tsx scripts/community/awareness-deliver.mjs

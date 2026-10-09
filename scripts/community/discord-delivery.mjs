@@ -1,4 +1,5 @@
 import { runMain } from '../lib/cli.mjs';
+import { discordBotToken, routedPost } from '../lib/discord-route.mjs';
 
 export const DISCORD_MESSAGE_LIMIT = 2_000;
 
@@ -201,9 +202,12 @@ export async function postCommunityPrompts(
     fetchImpl = fetch,
     onDelivered = null,
     username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
   } = {},
 ) {
-  if (!webhook) return { status: 'unconfigured', delivered: [], failed: [] };
+  if (!webhook && !(route && discordBotToken(env)))
+    return { status: 'unconfigured', delivered: [], failed: [] };
   const delivered = [];
   const failed = [];
   for (const prompt of prompts) {
@@ -213,7 +217,7 @@ export async function postCommunityPrompts(
           `Community prompt ${prompt.id} exceeds Discord's ${DISCORD_MESSAGE_LIMIT}-character limit`,
         );
       }
-      const response = await fetchImpl(`${webhook}?wait=true`, {
+      const init = {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(
@@ -224,7 +228,10 @@ export async function postCommunityPrompts(
             allowed_mentions: { parse: [] },
           }),
         ),
-      });
+      };
+      const response = route
+        ? await routedPost(route, init, { env, webhook, fetchImpl })
+        : await fetchImpl(`${webhook}?wait=true`, init);
       if (!response.ok)
         throw new Error(`Discord social-channel delivery failed with HTTP ${response.status}`);
       const payload = await response.json();
@@ -242,17 +249,26 @@ export async function postCommunityPrompts(
 /** Best-effort one-line lead-in before a batch; never throws, never blocks the batch. */
 export async function postBatchHeader(
   content,
-  { webhook = process.env.DISCORD_SOCIAL_WEBHOOK, fetchImpl = fetch, username = TREE_WEBHOOK_USERNAME } = {},
+  {
+    webhook = process.env.DISCORD_SOCIAL_WEBHOOK,
+    fetchImpl = fetch,
+    username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
+  } = {},
 ) {
-  if (!webhook) return false;
+  if (!webhook && !(route && discordBotToken(env))) return false;
   try {
-    const response = await fetchImpl(webhook, {
+    const init = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(
         suppressPreviews({ content, username, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
       ),
-    });
+    };
+    const response = route
+      ? await routedPost(route, init, { env, webhook, fetchImpl })
+      : await fetchImpl(webhook, init);
     return response.ok;
   } catch {
     return false;

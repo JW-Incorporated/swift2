@@ -20,6 +20,7 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
 import { buildAckUrl } from './mailer.mjs';
 import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
+import { discordBotToken, routedPost, routeForPlatform } from '../lib/discord-route.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { lintReply } from './awareness-draft.mjs';
 import { eligibilityRank } from './awareness-eligibility.mjs';
@@ -97,10 +98,12 @@ export async function postAwarenessMessage({
   content,
   png = null,
   filename,
+  route = null,
+  env = process.env,
   fetchImpl = fetch,
 }) {
-  const response = await fetchImpl(
-    `${webhook}?wait=true`,
+  const response = await routedPost(
+    route,
     png
       ? { method: 'POST', body: buildMultipartPayload({ content, png, filename }) }
       : {
@@ -108,6 +111,7 @@ export async function postAwarenessMessage({
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(buildTextPayload({ content })),
         },
+    { env, webhook, fetchImpl },
   );
   if (!response.ok) throw new Error(`Discord delivery failed with HTTP ${response.status}`);
   const payload = await response.json();
@@ -116,12 +120,22 @@ export async function postAwarenessMessage({
 }
 
 /** The reply text alone, right after its card, so it copies cleanly on mobile. */
-export async function postAwarenessReplyText({ webhook, text, fetchImpl = fetch }) {
-  const response = await fetchImpl(`${webhook}?wait=true`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(buildTextPayload({ content: text })),
-  });
+export async function postAwarenessReplyText({
+  webhook,
+  text,
+  route = null,
+  env = process.env,
+  fetchImpl = fetch,
+}) {
+  const response = await routedPost(
+    route,
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(buildTextPayload({ content: text })),
+    },
+    { env, webhook, fetchImpl },
+  );
   if (!response.ok)
     throw new Error(`Discord reply-text delivery failed with HTTP ${response.status}`);
 }
@@ -148,6 +162,7 @@ export async function runDelivery({
   config = loadConfig(),
   ackSecret = null,
   fetchImpl = fetch,
+  env = process.env,
   now = new Date(),
   dryRun = false,
 } = {}) {
@@ -213,8 +228,11 @@ export async function runDelivery({
   const delivered = [];
   for (const item of prepared) {
     try {
+      const route = routeForPlatform(item.lead.platform);
       const messageId = await postAwarenessMessage({
         webhook,
+        route,
+        env,
         content: item.content,
         png: item.png,
         filename: item.imageRef ? imageFilename(item.imageRef) : undefined,
@@ -225,7 +243,7 @@ export async function runDelivery({
       // failure is still reported so the run shows it.
       let replyError = null;
       try {
-        await postAwarenessReplyText({ webhook, text: item.replyText, fetchImpl });
+        await postAwarenessReplyText({ webhook, route, env, text: item.replyText, fetchImpl });
       } catch (err) {
         replyError = String(err?.message ?? err);
       }
@@ -265,9 +283,9 @@ async function main() {
     return 0;
   }
   const webhook = process.env.DISCORD_SOCIAL_WEBHOOK;
-  if (!webhook && !dryRun) {
+  if (!webhook && !discordBotToken(process.env) && !dryRun) {
     console.error(
-      'awareness-deliver: DISCORD_SOCIAL_WEBHOOK is not configured (repo secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL). 0 delivered.',
+      'awareness-deliver: neither a Discord bot token nor DISCORD_SOCIAL_WEBHOOK is configured. 0 delivered.',
     );
     return 1;
   }

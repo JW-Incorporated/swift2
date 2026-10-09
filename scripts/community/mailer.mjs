@@ -467,10 +467,12 @@ async function main() {
   if (shouldPostBatchHeader({ promptCount: prompts.length, isRetry: Boolean(receipt.existing) })) {
     await postBatchHeader(buildBatchHeader(prompts.length, { mode }), {
       username: COMMUNITY_WEBHOOK_USERNAME,
+      route: 'tree-main',
     });
   }
   const result = await postCommunityPrompts(prompts, {
     username: COMMUNITY_WEBHOOK_USERNAME,
+    route: 'tree-main',
     onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
   });
   result.failed = [...(result.failed ?? []), ...buildFailed];
