@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 85
+
+## Neighbors Oppose Fence Around Taylor Swift and Travis Kelce's Ohio Home
+
+- first seen: 2026-10-09 07:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce in Ohio have voiced their opposition to a fence that the couple plans to build around their home. The decision has garnered attention as the couple settles into their new environment.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikAFBVV95cUxOVExQN2VmU0xJSGgxcVItZVJsR3doQnFhU2pqVEVIS25MTG45bGpKcktEZi1qbDBnQWR3ejZwVGwybEJWeFpuWTBoU3F1UzJXUWZ6cHVxRFJQMFhIYVhtSnh6TUlfUkR3b1hRT2k5eGVWNWNfRFlrMWJvUnczd0pWN1RScXRPbTc4MWpEbWxwdks?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mariska Hargitay Unfamiliar with Taylor Swift's 'Saccharide, Aries' Easter Egg
+
+- first seen: 2026-10-09 07:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay expressed uncertainty regarding the meaning of Taylor Swift's 'Saccharide, Aries' Easter egg, as reported by Entertainment Weekly.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiogFBVV95cUxQbW1RRzVsTE9nUVROeF9LOEFIWkt2VUpMM3hPaTRaQ2NvX3JYX3NIS3o3d0JHSjNKNEJNQ3pmU0F4RE1ObE10WEsxRm54QVdBQ0l3Sjh0dVZySVhfaC05T3hYaEVfLXRkSVd4LXNTLW50QUhHT1hnY2tXdlNQNTdTWjdIU3o4ZzE2MDdkRHhLWnhSeFBKMTdiRnIyeDA0b3U0aGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Fall Fashion Inspires Dressing Trends
+
+- first seen: 2026-10-09 07:20 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article discusses Taylor Swift's recent plaid dress and tall boots, highlighting their influence on fall fashion choices and providing similar style options starting at $7.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE03bEpMdHZZV2tDZWw0N3RHZ0dvSW5lU3hWMldSeHBqcVVaelZ0eS1lOUp3S1hvNElhNU1fRmRyUWhfRmJQbTZueGpGLS1vbFJISUZUcWx6c1ZiYVdTVTlOeXVyanRhZzdHMXkwY2hOWXBaRzU5SWl6R0R2ZWU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Embraces Fall 2026 Fashion Trend
+
+- first seen: 2026-10-09 07:20 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases a bold and edgy look in line with the Fall 2026 fashion trends that are gaining popularity among style enthusiasts. Her new appearance has caught the attention of fans and fashion followers alike.
+- sources:
+  - [unverified] www.instyle.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5UNG03a0JZRnZwMmVMcU13dHUzMGQ3OENZbGsxcjFXaDN4VTNTd1hjZHpXMUZldUVia3poVDZhc2Fyd2Y1bGxkQzNRbVFEQkJGNklMVEUtWEhIb2x3QWdsYWU5N1MxNExZWnVaUml6c2pKd0lL?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Vulture Reviews Taylor Swift's 'This Is Her Trying'
+
+- first seen: 2026-10-09 07:20 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Vulture has published a review of Taylor Swift's song 'This Is Her Trying.' The article discusses the themes and musical elements of the track, offering insights into Swift's artistry.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMikwFBVV95cUxPTmNmRGhpc21aVEF6S29qOW1PYTBYWHpfV1V3dWVMVzRiRU9YR25SOGI1VTd4LTlCX0dINU5NYnV5QkNTT1cyaFFxOHFCWXZnOVhVMlhwanVFeV9xTzRhUUZwdGZLM3NUREFqUjFfLUJpR0VPZGdyREN3Z0V6MWZYSTZ2djFVWWoyOE5jQjVUbHFqY00?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves Milestone with 'Patient Zero'
 
@@ -164,14 +204,17 @@ Stories: 87
 ## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
 
 - first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
 - sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinAFBVV95cUxPVUpXX2c2b3cxYnd6Q0stSjlfWWxCQkJsRDZGRng0NFFsUFo0b1BfU195WnNTTlNMS2tlTXF3Y2F4WEFMUklZZnhLMTVsRnY0OUVVUDczaXFJVTNZQ1JYTk5GajBwUDZkRmNLTjVIRE5aWThabS13cTlpSF91ZzZwTUh5TFhHR3ExWnVaMld6Y2szdUhiV29NU2hfREbSAaIBQVVfeXFMT2xYbkdhTThJcHdBdU05ek8tTTMtVUdzbkE2LUxvcHdvREE3bG5Vb0VnUkxqS1VzeDlwS0JmaHlWMjBsYjlsZEhPYjRma1ZfZTdKOGF5Z05VTDNOU1hHU1J6cGEydy1fRUNCMDhZTnQ1V1dLdUVzaVlrdXRIejY2ZndqVUJIa0JPMmdfOWpPRjUwU3F6R1pPMWNEcVlqMVNua3pn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOVjdvd1NtWF9sS2Vmc3NJNV9NeGtkQnFOTzkxNE85R0JkU2lseWVCV0lwVzhkS2dMaDlBeVl6SnZjRVVhRlNlQTFjMVhLX3lQUlVrN0dlLVc0Nnp4TV9Bam9RaTNmMXlSNW9zRHJsak05cDJSejhscGlHUGdFOWlkN1h6cGwzOWJGYTBEcE9CNzZKWGY4MDIxTU1rSnFCcHlCR0stZkNTcEtxcC1nRmtVOXVXb1NKc2szM2gzd0MwbGVickdnWXdObGI4TXU1UF9iTDBraWtYTDlzcEpfUWg2VnF3M1M4OVlG0gHoAUFVX3lxTE1lUTh0alhZSUtuS1FlWlZ5NDhpUXpheXFWY2E3Nm9KUGVyM1M4elB4YWVWcXh5NzdRZ3oxNzBGZTdyWkczaGhqckMtMk04dHV6OGJUU2NBRzlPeHQ2S2g5MXZTQTNmZWtFa1dNTU01ZEc3NXd6VDVYVDdFTXZvX196N0tDeHBodVJQYjItaG9uVTVLNFdMX1FqTFdnMnJDZ19XZmJnaFpVdlM3M3hTeGJxdjFaTC1JNmxnckhpdFVKLURBaU5hSTFtNENrTFFXUmFqNGVyM1A0MF9Ga2JQNzhXZnBFZ2xSeVg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxQSHJMUHhOUkR1Wmg4bVpIMFpVUTFzQnVhcXZZZG1pSnA1VUNFUHo0aTlUSVJMdUlzaFZOU1p2SF95ZXFueEZaQU04MUJiMXZyTkJCYzBrdjY2Z0loSXk0MTdHUTk5Z0FEUkpSMXZYaXhCc05fQkVDMnhEUVRic3ktQ3hhWVNTVjVpZDZGdHNpZzFYVTVB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'Cleveland!' Explored in Northeast Ohio News Quiz
 
@@ -694,59 +737,3 @@ Stories: 87
 - summary: Vogue has introduced Taylor Swift's interpretation of bad girl style, highlighting her fashion choices. The piece focuses on Swift's unique approach to style and trends.
 - sources:
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMiekFVX3lxTE9GN1hXYmpfSlN6eVQ2QWxWUm5VRkFIV2RWZGRzXzRDejNhT3FWOFFGd0U3Y0c1blVJdk05MVF4TWFYQTNvNXBKOGc5bEIyVEpZWXlYTVlvZnRyRW1OUDZqQzl3RmZ1c21oM2FjVVRiM05Ob1BSWDFOREhn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tom Cruise and Taylor Swift's Friendship Faces Controversy
-
-- first seen: 2026-10-06 01:44 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that the friendship between Tom Cruise and Taylor Swift is facing some controversy, amidst negative news surrounding Cruise. The situation reflects ongoing public interest in their relationship dynamics.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQRGZQaGlVTXZUckdNc25JRTFQSTN5SFYwd182Rk0xcGlnc2psMU5rWnlEZ05hel8wVDMyaFVDN3VlVHhDV25sREpkUk5LVm5HVktOVDBia0pKRk9ib1N4azhHMEdHc3VqUUhtOE1zZV9JZjhydklQVXZFZ3RxMEJtcnRscVlLUGl1WDZGTGJMVWVJM2NxekNVWVVhaGxsREJlYUF0UnJHb0Q?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Evidence Surfaces Regarding Taylor Swift's New Song Title
-
-- first seen: 2026-10-06 01:44 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Fans have discovered indications that Taylor Swift's upcoming song may be titled 'That’s What Friends Are For'. This news has sparked excitement and speculation among her fanbase.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZWc1V2hESGVQZTFfYnJBT1JTWlNzZkZGdFJ0MURHT0hCbVVFN2lXbzZ4RExFN3NFNTI2WjNvZWpoNVhsVFU2dFA1WWxNY3BkTzd4NGdCS25lVzRRZTV6dEZfbEdUemxfYmxWWTFkSl9KMFh2eGhNS1diMGI2UEpQMlJIaUZuYXU0d1lCUEx1OVc2NElGMDFPU0gycXAwU0xYUzJvOEN5a1JTUjg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Renews Subscription to Service
-
-- first seen: 2026-10-06 01:44 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has renewed her subscription to a service, described in the context of patriarchal themes, according to Lifestyle.INQ.
-- sources:
-  - [unverified] Lifestyle.INQ — https://news.google.com/rss/articles/CBMikwFBVV95cUxPRkdXcGxoc2NxcGQtZjBEa2pIRFJuWmdMbXhPNlhtcmhUeEZCaEVZMDQ1dHNPOW5LNjNIUjlUNi1hdlBWb2ljUDlJQUtqWTJiYnhPN3YxZWVnZ0tmVFhYQWlrcDdXTTJIOHI5T1JtbFRQeTJYclRnbVFpaHNLSFM2a1pWZWtxZnRCYUhHTDV2UU1IcjDSAZgBQVVfeXFMTTJyX19rY3gzYW9VT0VIcEtkUHVISTc4STNUdEZ0cUZhQUl2NGZtYzVSTnZOaXd3MG55MnliNGJWMWZURkxNYlBpQlRtUUlMTnlNMG4yVlJNazdkc1JLYkZjbG5uYnZZWXJyWVd6WDhHVXgwelZFcXdIQzk2TGRPdTM0YnBXMWZJZEFvbjE2a1pwNTY5ejM4cWw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Country singer who supported Taylor Swift's move to Nashville has passed away
-
-- first seen: 2026-10-06 01:44 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An influential country singer, who claimed he encouraged Taylor Swift to relocate to Nashville, has died at the age of 84. His contributions to music have left a lasting impact on many artists, including Swift.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPSmlfbUZCam81c0prejNSMnhMWnNVdjEtVFhJWWFzY1F2SGo5QlZxSzRtNXFJX3lxRkEtU3RyRUpzMGdNcVZpUlRZdjNSZEs3eUI0d2RYY3VvZ2dFNWFsYlZsSklVN0g5Q1VQTFV5eG44a21rTDFHakJVWUFRQ0U4MnZGMkVjSTRHNkpxblpVT0NtanBPdXVCUXd3Z2VISjRudnBSRW1SUnpRcTlVUTlwTmYyUXlMaHZM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Phil Collins Discusses Music and Taylor Swift on Piers Morgan's Show
-
-- first seen: 2026-10-06 01:44 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Phil Collins appeared on Piers Morgan Uncensored, discussing various topics including Donald Trump and music icons like Taylor Swift and Paul McCartney. He is set to be inducted into the Rock & Roll Hall Of Fame as a solo artist next month.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513650/phil-collins-weighs-in-on-nasty-donald-trump-has-an-idea-for-a-song-about-america-called-fat-people-with-guns/news/
-
-## Kanye West Allegedly Plans Revenge Against Taylor Swift With Blake Lively's Help
-
-- first seen: 2026-10-06 01:44 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A source claims Kanye West is plotting revenge against Taylor Swift and is seeking assistance from Blake Lively.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOVEVoT2hjLUpTSG1hdkc1aXJJQWZVOW9NZUhSTWlBZl9KZHBhanFORWNha3JxNVk4V2dQa0o0NTIxYXQ3VVk0M0FPdTBMODRXX255QUNLa25GR2M3Q09GNXU2Qm1wcmxNWUphVW1pb0N5ZWFiMzJQczhZb3JsM3JUMldySFk4VzhJb0JCRGtpU1VfR2JTV0lzYmlQaTdISUY3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift discussion deemed not problematic by columnist
-
-- first seen: 2026-10-06 01:44 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A columnist argues that Taylor Swift should not be considered a problem in current discussions, focusing on broader issues instead. The piece appears in The Vanderbilt Hustler.
-- sources:
-  - [unverified] The Vanderbilt Hustler — https://news.google.com/rss/articles/CBMihwFBVV95cUxPRmpsaUlHLW9qR291S1NMN2xXSlo1QVZpM25sSHpvS0tiMVBwMlRRRnJtZ2RDRVMyT095bTdYSG12eEZSOVFVUXdyZVhYdEJhZEFsRGVWX21FOW4zb1hxa2c3cXNSNi1rQ1kxTkFUd1h3akpFWXo5MklXaXZNMjhDNVBqS1dXbDA?oc=5&hl=en-US&gl=US&ceid=US:en
