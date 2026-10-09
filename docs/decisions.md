@@ -7,6 +7,31 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-09 — Routine `disallowed_tools` input: `allowed_tools` only preapproves, so file-write tools are removed explicitly on read-only routines (#4218)
+
+**Decision.** `routine-template.yml` gains an optional `disallowed_tools` input
+(space-separated bare names, default empty = no flag, no behaviour change) that
+appends `--disallowedTools '<value>'` to `claude_args`. `allowed_tools` is
+documented as a preapproval list only. Set to `Write Edit NotebookEdit Task` on
+`routine-fable-strategy-update`, `routine-laura-a11y-walk`, `routine-nils-walk`.
+
+**Why.** `--allowedTools` preapproves; it does not restrict, and the project
+`.claude/settings.json` (`acceptEdits`, allow Write/Edit/Task) loads inside
+routines, so omitting Write/Edit from `allowed_tools` was never a block.
+`--disallowedTools` with a bare name removes the tool from context and wins over
+allows. These three prompts/charters never use Write/Edit/Task (fable writes via
+a Bash heredoc; Laura and Nils are read-only by charter).
+
+**Deliberately not changed.** `marjorie-*` (triage, weekly-review, ops,
+status-reply, chat) and `tree-*` are left for the Tree/Marjorie chat rework;
+`kevin-radar` left for doubt about doc edits in its Step 3. Next steps from #4218
+(`--setting-sources`, `--tools`, scoped Bash) remain open.
+
+**Revert.** Delete the `disallowed_tools:` line from a caller, or the input and
+its expression from the template.
+
+---
+
 ## 2026-10-09 — Runner prompts follow the land-it merge policy; content lanes and founder-decision work keep their carve-outs (#4187)
 
 **Decision.** Applies the reversibility test (`CLAUDE.md`, 2026-08-24; precedent by analogy: #4185)

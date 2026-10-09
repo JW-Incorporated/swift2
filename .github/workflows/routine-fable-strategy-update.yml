@@ -85,6 +85,7 @@ jobs:
       prompt_file: docs/agents/runner-prompts/fable-strategy-update.md
       model: claude-fable-5
       allowed_tools: "Bash,Read,Grep,Glob"
+      disallowed_tools: "Write Edit NotebookEdit Task"
       timeout_minutes: 25
       max_turns: 40
       max_budget_usd: 6
