@@ -1412,7 +1412,7 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
-          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and its public-relationship references", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
+          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
           { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
         ]
       },
@@ -1723,7 +1723,6 @@ const TRACKS = [
           { name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" },
           { name: "Billboard: Taylor Swift Announces 'The Albatross' Edition of 'Tortured Poets'", url: "https://www.billboard.com/music/pop/taylor-swift-tortured-poets-the-albatross-edition-eras-tour-announcement-1235613344/" },
           { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" },
-          { name: "In The Know (AOL): 'The Albatross' lyrics and the warnings reported around her public relationship", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
         ]
       },
     },

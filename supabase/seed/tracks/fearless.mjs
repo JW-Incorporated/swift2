@@ -387,7 +387,7 @@ const TRACKS = [
           ],
           supported: [
             "The single is generally cited as the clearest early proof of Swift's crossover pop instincts — a country-radio song built with the melodic and narrative shape of a mainstream hit.",
-            "The VMA interruption is widely treated as an origin point for the years-long Swift-West public narrative, later echoed in songs like \"Innocent\" and, more combatively, the reputation era."
+            "The VMA interruption is widely treated as an origin point for the years-long public narrative between them that carried into the reputation era."
           ],
           fanTheories: [
             "Fans have long read the girl-next-door narrator as a lightly fictionalized Swift-as-underdog persona rather than a literal account, part of the early-career self-image the Fearless songs build — the outsider watching the popular crowd from the bleachers."

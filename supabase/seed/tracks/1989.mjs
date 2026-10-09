@@ -326,7 +326,7 @@ export default {
         meaning: {
           confirmed: [
             "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff. Rolling Stone reported that it became available for download soon after fans who pre-ordered 1989 received it, and that it immediately shot to No. 1 on the iTunes songs chart.",
-            "Rolling Stone reported that Taylor has said a real, frightening incident inspired the imagery of the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room.'",
+            "Rolling Stone reported that Taylor has said a real incident inspired the imagery of the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room.'",
             "Antonoff told Billboard that 'there's a frantic feeling in the song,' that he was thinking about the band My Morning Jacket and how 'every sound is louder than the last,' and that the idea was 'to keep pushing' rather than drop into a quieter chorus.",
             "Antonoff also told Billboard the two were 'talking about John Hughes movies' and the 'larger-than-life, anthemic' sound of that era's music while hanging out at her house in Rhode Island.",
             "Rolling Stone reported that the video, which premiered on Dick Clark's Rockin' Eve with Ryan Seacrest, was shot on location in New Zealand, where a severe storm interrupted filming for a week, and ends on the title card 'She lost him, but she found herself. And somehow, that was everything.'"
@@ -1364,7 +1364,6 @@ export default {
           { name: "Is It Over Now? - Wikipedia", url: "https://en.wikipedia.org/wiki/Is_It_Over_Now%3F" },
           { name: "1989 (Taylor's Version) - Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" },
           { name: "How Taylor Swift's new song 'Is It Over Now?' answers her big relationship question from 'Out of the Woods' - Entertainment Weekly", url: "https://ew.com/music/taylor-swift-is-it-over-now-answers-out-of-the-woods-question-1989-taylors-version/" },
-          { name: "What Taylor Swift's 'Is It Over Now?' lyrics are about - TODAY.com", url: "https://www.today.com/popculture/music/taylor-swift-is-it-over-now-meaning-rcna122453" },
           { name: "Taylor Swift References Viral Boat Photo in New Vault Track 'Is It Over Now?' - People", url: "https://people.com/taylor-swift-references-viral-boat-photo-in-vault-track-is-it-over-now-8383895" }
         ]
       },
