@@ -207,7 +207,7 @@ const _debut = {
       summary:
         'She is the shoulder a boy leans on while he gushes about another girl; the song sits in the ache of smiling through it.',
       inspiration:
-        'Swift has said it is about a real high-school classmate she liked, who has never been publicly identified by name.',
+        'About a real high-school classmate she liked, whom she has not identified by full name.',
       themes: ['unrequited love', 'hiding feelings', 'high-school heartache'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
       sources: [

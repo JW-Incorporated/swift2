@@ -1180,10 +1180,10 @@ const TRACKS = [
       summary:
         'A catalog of a casually cruel ex’s personas, from charming to checked-out — teenage Swift already perfecting the receipts-song format.',
       inspiration:
-        'Written in the Fearless era and shelved until 2021; fans widely time-stamp it to the Joe Jonas breakup (unconfirmed), and Sophie Turner’s playful public endorsement of the song became part of its story.',
+        'Written in the Fearless era and shelved until 2021; Swift has not named the song’s subject.',
       themes: ['double standards in moving on', 'wit as armor', 'receipts'],
       fanLore:
-        'Fan reading (unconfirmed): the Jonas-era timing; Turner posting the song with a wink is the documented moment fans cite.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
       sources: [
         wiki(

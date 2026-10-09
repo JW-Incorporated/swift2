@@ -1116,7 +1116,7 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Maya Thompson'],
       producers: ['Taylor Swift', 'Christopher Rowe'],
       singleReleaseDate: '2012-09-08',
-      note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to charity.',
+      note: 'The charity single built from a grieving mother’s blog — Maya Thompson shares the writing credit, and every profit went to cancer research.',
       summary:
         'A eulogy for Ronan Thompson, written in his mother’s words and voice — one of Swift’s heaviest songs.',
       inspiration:

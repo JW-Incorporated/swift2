@@ -1271,10 +1271,10 @@ const TRACKS = [
       summary:
         'Someone vanished without explanation and she drafts the charges: coward, operative, hometown embarrassment. The fury is that she still does not know which betrayal it was.',
       inspiration:
-        'Fan attribution splits between the era’s two reported exes (unconfirmed either way) — the ambiguity is itself the fandom’s longest-running TTPD debate.',
+        'Swift has not named the song’s subject; fan attribution is unconfirmed and debated.',
       themes: ['contempt', 'unexplained abandonment', 'demanding an autopsy'],
       fanLore:
-        'Fan reading (contested, unconfirmed): the great Healy-versus-Alwyn attribution war of 2024.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived',
       sources: [
         wiki(
@@ -1358,7 +1358,7 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The one happy chemical reaction on the album — stacked with touchdown and trophy imagery that made the subject reading a national headline.',
       summary:
-        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction (unconfirmed in the lyric, extremely confirmed by the tour cameras).',
+        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction.',
       inspiration:
         'Swift has not named the song’s subject; the football and trophy imagery is the lyric’s own framing.',
       themes: ['new love as chemistry', 'winning', 'rare joy on a grief album'],
@@ -1842,7 +1842,7 @@ const TRACKS = [
         'Aaron Dessner co-wrote and co-produced it, recording at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett’s home studio in Paris; the waltz-time arrangement builds from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames) that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
       fanLore:
-        'Fan/press reading (near-universal, unconfirmed): the close of the six-year Joe Alwyn relationship — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
       easterEggs:
         'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
