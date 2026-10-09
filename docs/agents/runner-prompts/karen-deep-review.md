@@ -43,7 +43,7 @@ Steps:
    ```
    `issues --create` is fingerprint-deduped and exits **non-zero** if any detected finding could not be filed — if it does, that is a REAL failure: say so loudly in the PR body and do not describe the run as successful. `record-review` marks only the batches that actually produced an output file; a batch that failed or hit a session limit stays unreviewed and returns to the front of tomorrow's queue automatically. Do not hand-edit the ledger.
 
-4. Open a small PR with **only** `docs/audits/engine/agent-review-ledger.json` (plus the run report if it changed), label `cie`, title `karen-deep: agent review <date>`. Land it: if checks are green `gh pr merge --squash --delete-branch`, otherwise `gh pr merge --squash --auto --delete-branch`, then exit (docs/decisions.md 2026-10-09). The ledger is the review layer's only durable memory — a run whose PR never lands is a run that will be repeated.
+4. Open a small PR with **only** `docs/audits/engine/agent-review-ledger.json` (plus the run report if it changed), label `cie`, title `karen-deep: agent review <date>`. Land it: if checks are green `gh pr merge <n> --squash --delete-branch`, otherwise `gh pr merge <n> --squash --auto --delete-branch`, then exit (docs/decisions.md 2026-10-09). The ledger is the review layer's only durable memory — a run whose PR never lands is a run that will be repeated.
 
 5. In the PR body, state: batches dispatched vs completed, findings by checker, issues filed, and the coverage line from `record-review` (`X/1137 factual reviewed`, `Y/1056 images`). If coverage did not move, say why.
 

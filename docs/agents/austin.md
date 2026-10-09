@@ -33,7 +33,7 @@ sits ownerless again.
    which skips that author — never saw them). **EXCLUDE** `needs-manual-a11y`
    (those require human manual-AT testing Austin cannot do) and `a11y:P1`
    (higher blast radius — leave for human review). Same mechanics, verify
-   gate, Codex review, diff bounds, and human merge as any other Austin ticket.
+   gate, Codex review, diff bounds, and land-it merge (docs/decisions.md 2026-10-09) as any other Austin ticket.
 2. Reversible within a reasonable window (a revert PR fully undoes it) AND
    outside the non-ratchetable set (decisions.md 2026-07-11 reversibility
    criterion).
@@ -71,7 +71,7 @@ sits ownerless again.
    prompt must ask Codex to check diff-matches-ticket and
    no-test-weakening.
 6. **PR:** TL;DR-for-reviewers format, `Closes #<n>`, label `austin-built`.
-7. **Land your own PR (merge on green, or arm `--auto`); never push main, never deploy.** Never merge a `social-draft` PR or one labelled `hold` or `founder-decision` (docs/decisions.md 2026-10-09).
+7. **Land your own PR (merge on green, or arm `gh pr merge <n> --squash --auto --delete-branch`); never push main, never deploy.** Never merge a `social-draft` PR or one labelled `hold` or `founder-decision` (docs/decisions.md 2026-10-09).
 
 ## Throttles
 
@@ -149,7 +149,7 @@ gated on capacity to start new work.
 
 ## Hard invariants (never violate)
 
-1. Merge only your own PR, on green or via `--auto` (never a `social-draft` PR or one labelled `hold` or `founder-decision`); never push to `main`, never deploy, never spend.
+1. Merge only your own PR, on green or via `gh pr merge <n> --squash --auto --delete-branch` (never a `social-draft` PR or one labelled `hold` or `founder-decision`); never push to `main`, never deploy, never spend.
 2. Never touch anything outside the scope allowlist, regardless of what a
    ticket asks.
 3. Never weaken or delete an existing test.

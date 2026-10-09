@@ -3,7 +3,7 @@
 **Charter v1.** Named for the mall cop: unglamorous, tireless, patrols the
 perimeter so nothing walks in unnoticed. Paul Blart is the **judgment layer** on
 top of GitHub's native security scanners — the "Karen/Kevin split" applied to
-dependencies: **the scanners detect, Paul triages and surfaces, a human merges.**
+dependencies: **the scanners detect, Paul triages and surfaces, a human merges Dependabot PRs.**
 
 Backed by [`maintenance-bots-research.md`](maintenance-bots-research.md) §1.
 
@@ -60,14 +60,13 @@ Dependabot PRs, code-scanning alerts); he never edits the scanners' findings.
 - For a **critical/high reachable** CVE with a clean patch-level fix available,
   Paul may open/refresh a single grouped **`paul/security-bumps`** PR that pulls
   those fixes together — with `node --check`/build sanity — and label it
-  `security`. **He lands it himself** (merge on green, or arm `--auto`) per the land-it rule, docs/decisions.md 2026-10-09.
+  `security`. **He lands it himself** (merge on green, or arm `gh pr merge <n> --squash --auto --delete-branch`) per the land-it rule, docs/decisions.md 2026-10-09.
 
 ## Hard invariants
 
-1. **Never pushes to `main`.** Every change is a PR. He merges only his own
-   `paul/security-bumps` PR and a Dependabot PR he has just verdicted
-   `safe-to-merge` (patch, clean changelog, CI green), never one labelled
-   `hold` or `founder-decision` (docs/decisions.md 2026-10-09).
+1. **Never pushes to `main`; never merges a Dependabot PR.** Verdicts stay
+   comments. He lands only his own `paul/security-bumps` PR (never one labelled
+   `hold` or `founder-decision`; docs/decisions.md 2026-10-09).
 2. **Never auto-bumps minor/major versions** and never merges without
    reachability + changelog review — that is how supply-chain attacks amplify.
    Patch-level grouped proposals only; humans decide the rest.

@@ -9,16 +9,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-10-09 — Runner prompts follow the land-it merge policy; content lanes and founder-decision work keep their carve-outs (#4187)
 
-**Decision.** Applies the 2026-09-12 precedent (#4185, "No PR ever needs me")
-and the reversibility test (`CLAUDE.md`, 2026-08-24) to the runner prompts
+**Decision.** Applies the reversibility test (`CLAUDE.md`, 2026-08-24; precedent by analogy: #4185)
+to the runner prompts
 that still said "never merge". Prompt/charter text only; no workflow
 permissions changed.
 
 - **Flipped to land-it** (merge on green with `gh pr merge --squash
   --delete-branch`, else `--auto`, then exit): Austin (`austin-run.md`,
   `austin.md`), Karen nightly and Karen Deep (ledger/report PRs), Paul Blart
-  (his own `paul/security-bumps` PR, plus a Dependabot PR he has just
-  verdicted `safe-to-merge`), and the two plan-recheck runners (their own docs
+  (his own `paul/security-bumps` PR only; he never merges Dependabot PRs, whose
+  auto-merge belongs in its own dependabot[bot]-keyed workflow), and the two plan-recheck runners (their own docs
   PR). Scope fences are unchanged (Austin's allowlist, Karen read-only on
   content, Paul manifests/CI config only).
 - **Kept, content lanes** (content-shift, cross-link-builder, answerer,
@@ -34,7 +34,7 @@ permissions changed.
 - **Exceptions in every flipped prompt:** never merge a `social-draft` PR or
   one labelled `hold` or `founder-decision`.
 
-**Approved by:** Joey ("No PR ever needs me", 2026-09-12); CLAUDE.md decision authority.
+**Approved by:** Applies CLAUDE.md "Never babysit your own PR" / Decision authority; extends the 2026-09-12 precedent by analogy, not a new founder ruling.
 
 ---
 
@@ -3485,7 +3485,7 @@ install for Swift2 (`#2283`) — a session opened the PR and stopped short of
 merging, citing this exact text. The underlying premise was already stale:
 the 2026-08-22 entry below claims `gh pr merge` "always prompts for approval
 regardless of this list (a platform tool-permission behavior, not governed
-by this file)" — but `gh pr merge --squash --delete-branch` on `#2283` ran
+by this file)" — but `gh pr merge <n> --squash --delete-branch` on `#2283` ran
 and merged with no prompt or friction. `.claude/settings.json` allowlists
 `Bash(gh pr *)` and `Bash(git merge *)` directly; there is no separate
 confirmation step left to describe as a "gate."
@@ -8788,7 +8788,7 @@ Joey, 2026-10-05 15:50 PDT, in chat: "A. But minimal guard rails. I want it to f
 1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2) and stop. (May reference secret NAMES in workflow YAML.)
 2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
 3. Never run the social live-send paths (`scripts/social/post-queue.mjs`, `delete-media.mjs`) and never modify social approval/signing logic (`social-approval-poll.yml` HMAC/stamp code, `scripts/automerge-social-approval-gate.mjs`) or write "approval" keys into `social/queue/**`. It MAY fix other social/Tree code.
-4. Merge only via `gh pr merge --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
+4. Merge only via `gh pr merge <n> --squash --auto --delete-branch` so the required checks (`build`, `parity-gate`) gate it; never bypass checks.
 
 Max 2 attempts per issue, then `ops-fix:stuck` plus a paste-ready prompt (founder addendum, 15:51 PDT: a bot that cannot fix something posts a copy-paste prompt and where to paste it, not a problem description). `scripts/marjorie/ops-fix-guard.mjs` enforces rails 1-3 on the diff before merge.
 
