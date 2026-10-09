@@ -14,6 +14,10 @@ import { fileURLToPath } from 'node:url';
 import { isFounder } from '../founder-gate.mjs';
 
 export const OVERRIDE_WORDS = ['spam', 'bug', 'content', 'request', 'founder', 'close', 'reopen'];
+// Pre-marker history is grandfathered: founder comments older than this predate
+// the actioned-marker scheme and were handled (or deliberately ignored) under
+// the old boundary, so they must never read as pending on the first run.
+export const CUTOFF = '2026-10-09T00:00:00Z';
 const MARKER = /<!--\s*marjorie-override-actioned:\s*(\S+?)\s*-->/g;
 
 export function overrideWord(body) {
@@ -38,6 +42,7 @@ export function pendingOverrides(issues, { founderCheck = isFounder } = {}) {
     const done = actionedUrls(comments);
     for (const c of comments) {
       if (c.viewerDidAuthor || !founderCheck(c.author?.login)) continue;
+      if (c.createdAt && Date.parse(c.createdAt) < Date.parse(CUTOFF)) continue;
       const word = overrideWord(c.body);
       if (!word || done.has(c.url)) continue;
       out.push({ number: issue.number, word, url: c.url, author: c.author.login, createdAt: c.createdAt });
@@ -47,5 +52,5 @@ export function pendingOverrides(issues, { founderCheck = isFounder } = {}) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  process.stdout.write(`${JSON.stringify(pendingOverrides(JSON.parse(readFileSync(0, 'utf8'))))}\n`);
+  process.stdout.write(`${JSON.stringify(pendingOverrides(JSON.parse(readFileSync(0, 'utf8')).flat()))}\n`);
 }

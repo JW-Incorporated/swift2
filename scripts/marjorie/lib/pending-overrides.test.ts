@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { overrideWord, pendingOverrides } from './pending-overrides.mjs';
+import { CUTOFF, overrideWord, pendingOverrides } from './pending-overrides.mjs';
 
 const founder = 'sffan15-sys';
 const c = (id: number, body: string, o: Record<string, unknown> = {}) => ({
@@ -8,7 +8,7 @@ const c = (id: number, body: string, o: Record<string, unknown> = {}) => ({
   body,
   author: { login: founder },
   viewerDidAuthor: false,
-  createdAt: `2026-09-0${id}T00:00:00Z`,
+  createdAt: `2026-10-1${id}T00:00:00Z`,
   ...o,
 });
 const bot = (id: number, body: string) => c(id, body, { viewerDidAuthor: true });
@@ -55,6 +55,25 @@ describe('pendingOverrides (#4231)', () => {
   it('a deleted override simply disappears; the rest still surface', () => {
     const issue = { number: 1, comments: [c(2, 'close')] };
     expect(pendingOverrides([issue]).map((o) => o.url)).toEqual(['https://x/issues/1#issuecomment-2']);
+  });
+});
+
+describe('pendingOverrides cutoff and gap words (#4231)', () => {
+  it('grandfathers founder comments older than CUTOFF', () => {
+    const old = c(1, 'close', { createdAt: '2026-10-08T23:59:59Z' });
+    const fresh = c(2, 'close', { createdAt: CUTOFF });
+    expect(pendingOverrides([{ number: 1, comments: [old, fresh] }]).map((o) => o.url)).toEqual([fresh.url]);
+  });
+
+  it("never counts the bot's own comment as an override, even under a founder login", () => {
+    const own = c(1, 'I filed this as bug', { viewerDidAuthor: true, author: { login: founder } });
+    expect(pendingOverrides([{ number: 1, comments: [own] }])).toEqual([]);
+  });
+
+  it('a marker clears a gap-word override (bug/content/request/founder)', () => {
+    const comments = ['bug', 'content', 'request', 'founder'].map((w, i) => c(i + 1, w));
+    const marker = bot(5, comments.map((x) => `<!-- marjorie-override-actioned: ${x.url} -->`).join(' '));
+    expect(pendingOverrides([{ number: 1, comments: [...comments, marker] }])).toEqual([]);
   });
 });
 

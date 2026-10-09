@@ -335,7 +335,9 @@ table's action to the original, and note on the filed issue what happened.
 For `bug`/`content`/`request`/`founder`: comment on the original that a
 founder overruled your prior call to `<word>` and that automatic re-filing
 under a new class isn't built yet — leave it for a human rather than
-guessing at closing/relabelling a dispatched issue yourself. Say this
+guessing at closing/relabelling a dispatched issue yourself. That comment MUST also carry the
+`<!-- marjorie-override-actioned: <override url> -->` marker, or the override
+stays pending and is re-surfaced every run. Say this
 plainly in your run summary every time it happens; it's a known, deliberate
 scope gap, not a silent miss.
 
