@@ -134,6 +134,19 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       continue;
     }
 
+    // A thrown first attempt is ambiguous: Discord may have accepted the post
+    // and the response was lost. Never resend on that (a retry would double
+    // the reply); report failure and let the caller's fallback decide.
+    if (!response) {
+      return {
+        ok: false,
+        chunks: chunks.length,
+        delivered,
+        status: null,
+        error: 'Discord delivery threw a network error',
+      };
+    }
+
     const waitMs = await retryWaitMs(response);
     if (waitMs === null || !Number.isFinite(waitMs) || waitMs > MAX_RETRY_WAIT_MS) {
       return {
