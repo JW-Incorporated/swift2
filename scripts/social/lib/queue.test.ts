@@ -549,6 +549,63 @@ describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-
   });
 });
 
+describe('approvalStatus (v4 tree-auto — Tree approves autonomously, kind is signed)', () => {
+  const key = 'test-key';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+
+  function v4Stamp(overrides: Record<string, unknown> = {}) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(item), ...overrides };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('accepts a correctly signed v4 tree-auto stamp with no approvers list, and reports its kind', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key })).toEqual({ ok: true, kind: 'tree-auto' });
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { approvers: [], key })).toEqual({ ok: true, kind: 'tree-auto' });
+  });
+
+  it('a v3 stamp still validates and carries no kind', () => {
+    const approver = 'discord:100000000000000001';
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha: 'a'.repeat(40), message: '1', contentHash: contentHash(item) };
+    const stamped = { ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } };
+    expect(approvalStatus(stamped, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+
+  it('NEGATIVE: a stamp whose kind was edited after signing fails the signature', () => {
+    const tampered = { ...v4Stamp(), kind: 'tree-auto ' };
+    expect(approvalStatus({ ...item, approval: tampered }, { key }).ok).toBe(false);
+    const v3Kind = { ...v4Stamp(), kind: 'discord' };
+    expect(approvalStatus({ ...item, approval: v3Kind }, { key }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: a v4 stamp signed over a different kind is not accepted, even re-signed correctly', () => {
+    const resigned = v4Stamp({ kind: 'other' });
+    expect(approvalStatus({ ...item, approval: resigned }, { key })).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('NEGATIVE: a v4 stamp with a wrong content hash fails (edited after approval)', () => {
+    const stamped = { ...item, approval: v4Stamp({ contentHash: contentHash({ ...item, body: 'other' }) }) };
+    const status = approvalStatus(stamped, { key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toMatch(/edited after approval/);
+    const edited = { ...item, body: 'edited later', approval: v4Stamp() };
+    expect(approvalStatus(edited, { key }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: a v4 stamp signed with the wrong key, or verified with no key configured, fails', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: 'wrong' }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: '' }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: by must be exactly tree:auto — a discord id or GitHub login on a v4 stamp is malformed', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'discord:100000000000000001' }) }, { key }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'sffan15-sys' }) }, { key }).ok).toBe(false);
+  });
+
+  it('the signed payload binds kind', () => {
+    expect(approvalSigPayload({ v: 4, kind: 'tree-auto', by: 'tree:auto', at: 'a', pr: 1, contentHash: 'sha256:x' })).toBe('4|tree-auto|tree:auto|a|1|sha256:x');
+  });
+});
+
 describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec AC#7)', () => {
   const base = { platform: 'x', body: 'hello', media: [], altText: [], scheduledAt: '2026-09-20T00:00:00Z', campaign: 'launch:x:y' };
   const critiqueA = { v: 1, scores: { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 5 }, total: 25, rationale: 'a', rulesChecked: [], revision: 1 };

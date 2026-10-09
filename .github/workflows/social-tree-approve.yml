@@ -1,0 +1,220 @@
+# social-tree-approve — Tree's autonomous approval path (P3, 2026-10): a
+# `tree/draft/*` draft PR is stamped (schema v4 `tree-auto`, HMAC-signed with
+# SOCIAL_APPROVAL_KEY), waits for the required `build` check, and is
+# squash-merged — all without the owner's Discord ✅. Dispatched on demand
+# (workflow_dispatch, input `pr`); nothing schedules it.
+#
+# What it does NOT touch: the poster's caps (MAX_POSTS_PER_RUN,
+# MAX_POSTS_PER_PLATFORM_PER_DAY), the 48h staleness rule, and SOCIAL_FREEZE
+# all still apply at post time in social-poster.yml / post-queue.mjs, exactly
+# as for an owner-approved item. This workflow refuses to run while
+# SOCIAL_FREEZE is set, too.
+#
+# Trust model (same discipline as social-approval-notify / auto-merge-content):
+#   - runs only from `main` in the main-only `social` environment, so
+#     SOCIAL_APPROVAL_KEY is never readable from a branch run;
+#   - the code that RUNS (check-drafts.mjs, stamp-tree-auto.mjs) is main's. The
+#     PR's changed files are fetched as raw bytes via the Contents API and only
+#     ever READ as data; the PR branch is never checked out into the workspace,
+#     and the stamp commit is built in a separate worktree that nothing in it is
+#     ever executed from;
+#   - the PR may touch ONLY social/queue/*.json and apps/web/public/social/**,
+#     with only added/modified files — anything else (a script, a workflow, a
+#     deleted or renamed file) fails closed before the key is ever used;
+#   - the stamp is minted only after the trusted check-drafts passes over all
+#     the queue files together (scripts/social/stamp-tree-auto.mjs);
+#   - the merge pins --match-head-commit to the stamp commit, so a commit that
+#     lands after the stamp cannot ride the merge.
+# Content auto-merge (auto-merge-content.yml) still declines every queue PR;
+# this workflow is the only thing that merges a `tree/draft/*` one.
+name: social-tree-approve
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "Number of the tree/draft/* pull request to approve and merge (digits only)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: social-tree-approve-${{ inputs.pr }}
+  cancel-in-progress: false
+
+jobs:
+  approve:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 60
+    env:
+      REPO: ${{ github.repository }}
+      PR_INPUT: ${{ inputs.pr }}
+      GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+    steps:
+      - name: Validate the PR number and honour SOCIAL_FREEZE
+        id: init
+        env:
+          FREEZE: ${{ vars.SOCIAL_FREEZE }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$PR_INPUT" =~ ^[0-9]{1,8}$ ]]; then
+            echo "::error::input pr must be digits only" >&2
+            exit 1
+          fi
+          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
+            echo "::error::SOCIAL_FREEZE is set (\"$FREEZE\") — refusing to approve or merge anything" >&2
+            exit 1
+          fi
+          echo "pr=$PR_INPUT" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Gate the PR (open, same-repo, tree/draft/*, queue+social-media files only)
+        id: gate
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+        run: |
+          set -euo pipefail
+          VIEW=$(gh pr view "$PR" --repo "$REPO" --json state,isDraft,baseRefName,headRefName,headRefOid,isCrossRepository,changedFiles)
+          STATE=$(jq -r .state <<<"$VIEW")
+          BASE=$(jq -r .baseRefName <<<"$VIEW")
+          HEAD_REF=$(jq -r .headRefName <<<"$VIEW")
+          HEAD_SHA=$(jq -r .headRefOid <<<"$VIEW")
+          CROSS=$(jq -r .isCrossRepository <<<"$VIEW")
+          WANT_COUNT=$(jq -r .changedFiles <<<"$VIEW")
+
+          [ "$STATE" = "OPEN" ] || { echo "::error::PR #$PR is $STATE, not OPEN" >&2; exit 1; }
+          [ "$BASE" = "main" ] || { echo "::error::PR #$PR targets $BASE, not main" >&2; exit 1; }
+          [ "$CROSS" = "false" ] || { echo "::error::PR #$PR is from a fork" >&2; exit 1; }
+          [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::unexpected head sha" >&2; exit 1; }
+          case "$HEAD_REF" in
+            tree/draft/*) : ;;
+            *) echo "::error::head ref \"$HEAD_REF\" is not tree/draft/*" >&2; exit 1 ;;
+          esac
+          if ! [[ "$HEAD_REF" =~ ^tree/draft/[A-Za-z0-9._/-]+$ ]] || [[ "$HEAD_REF" == *..* ]]; then
+            echo "::error::head ref has unexpected characters" >&2
+            exit 1
+          fi
+
+          META=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | [.status, .filename] | @tsv')
+          GOT_COUNT=$(printf '%s\n' "$META" | grep -c . || true)
+          if [ "$GOT_COUNT" -ne "$WANT_COUNT" ] || [ "$GOT_COUNT" -eq 0 ]; then
+            echo "::error::file enumeration returned $GOT_COUNT of $WANT_COUNT changed files — failing closed" >&2
+            exit 1
+          fi
+
+          QUEUE_RE='^social/queue/[A-Za-z0-9][A-Za-z0-9._-]*\.json$'
+          MEDIA_RE='^apps/web/public/social/[A-Za-z0-9._/-]+$'
+          : > /tmp/queue-files.txt
+          : > /tmp/media-files.txt
+          while IFS=$'\t' read -r status file; do
+            [ -z "$file" ] && continue
+            case "$status" in
+              added|modified) : ;;
+              *) echo "::error::$file has status $status — only added/modified files may ride a tree-auto approval" >&2; exit 1 ;;
+            esac
+            if [[ "$file" == *..* ]]; then
+              echo "::error::suspicious path $file" >&2
+              exit 1
+            fi
+            if [[ "$file" =~ $QUEUE_RE ]]; then
+              printf '%s\n' "$file" >> /tmp/queue-files.txt
+            elif [[ "$file" =~ $MEDIA_RE ]]; then
+              printf '%s\n' "$file" >> /tmp/media-files.txt
+            else
+              echo "::error::$file is outside social/queue/*.json and apps/web/public/social/** — refusing" >&2
+              exit 1
+            fi
+          done <<<"$META"
+          [ -s /tmp/queue-files.txt ] || { echo "::error::PR touches no social/queue/*.json draft" >&2; exit 1; }
+
+          {
+            echo "head_ref=$HEAD_REF"
+            echo "head_sha=$HEAD_SHA"
+          } >> "$GITHUB_OUTPUT"
+
+      # Data only: raw bytes from the PR head commit overlaid onto main's
+      # checkout, so the trusted check-drafts sees exactly what would merge.
+      - name: Fetch the PR's files as data
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+          HEAD_SHA: ${{ steps.gate.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            mkdir -p "$(dirname "$f")"
+            gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$HEAD_SHA" > "$f"
+          done < <(cat /tmp/queue-files.txt /tmp/media-files.txt)
+
+      - name: Mint the tree-auto stamp (runs main's check-drafts first; writes nothing if it fails)
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+          SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
+        run: |
+          set -euo pipefail
+          mapfile -t QUEUE < /tmp/queue-files.txt
+          node scripts/social/stamp-tree-auto.mjs --pr "$PR" --message "social-tree-approve run ${GITHUB_RUN_ID}" "${QUEUE[@]}"
+
+      # The stamp commit is built in a SEPARATE worktree of the PR head (never
+      # the workspace), so no PR file is ever on the path of anything we run.
+      - name: Commit the stamp to the PR branch
+        id: commit
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+          HEAD_REF: ${{ steps.gate.outputs.head_ref }}
+          HEAD_SHA: ${{ steps.gate.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/$HEAD_REF"
+          [ "$(git rev-parse FETCH_HEAD)" = "$HEAD_SHA" ] || { echo "::error::PR head moved since the gate ($HEAD_SHA) — re-dispatch" >&2; exit 1; }
+          git worktree add --detach "$RUNNER_TEMP/pr-branch" "$HEAD_SHA"
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            cp -- "$f" "$RUNNER_TEMP/pr-branch/$f"
+          done < /tmp/queue-files.txt
+          cd "$RUNNER_TEMP/pr-branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- social/queue
+          git commit -m "social: tree-auto approval stamp (PR #$PR)"
+          STAMP_SHA=$(git rev-parse HEAD)
+          git push origin "HEAD:refs/heads/$HEAD_REF"
+          echo "stamp_sha=$STAMP_SHA" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with the real-user PAT start CI (a GITHUB_TOKEN push would
+      # not — see social-approval-poll.yml's note); wait for the required
+      # `build` check to appear on the stamp commit, then for it to pass.
+      - name: Wait for the required build check
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 40); do
+            N=$(gh api "repos/$REPO/commits/$STAMP_SHA/check-runs" --jq '[.check_runs[] | select(.name == "build")] | length')
+            [ "$N" -gt 0 ] && break
+            sleep 15
+          done
+          [ "$N" -gt 0 ] || { echo "::error::no build check appeared on $STAMP_SHA" >&2; exit 1; }
+          gh pr checks "$PR" --repo "$REPO" --required --watch --fail-fast
+
+      - name: Squash-merge (pinned to the stamp commit)
+        env:
+          PR: ${{ steps.init.outputs.pr }}
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+        run: |
+          set -euo pipefail
+          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch --match-head-commit "$STAMP_SHA"

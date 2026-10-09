@@ -40,7 +40,10 @@ concurrency:
 
 jobs:
   notify-new:
-    if: github.event_name == 'pull_request_target'
+    # P3 (2026-10): a tree/draft/* PR is approved by social-tree-approve.yml (a v4
+    # tree-auto stamp), not by the owner's Discord ✅ — so no per-post prompt for it.
+    # Skipping the prompt only removes a notification; it approves nothing.
+    if: github.event_name == 'pull_request_target' && !startsWith(github.event.pull_request.head.ref, 'tree/draft/')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

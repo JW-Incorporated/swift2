@@ -102,3 +102,34 @@ describe('stampHealth', () => {
     expect(stampHealth(makeGitState(git.impl, PR), REL, forged, HEAD, noKey).ok).toBe(true);
   });
 });
+
+describe('v4 tree-auto stamps (social-tree-approve.yml owns them)', () => {
+  function v4(item: Record<string, unknown>, overrides: Record<string, unknown> = {}) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00Z', pr: PR, message: 'run 1', contentHash: contentHash(item), ...overrides };
+    return { ...item, approval: { ...unsigned, sig: signApproval(unsigned, KEY) } };
+  }
+
+  it('stampHealth reports a tree-auto stamp as unstamped-with-no-problems and never ok, so the poll neither merges it nor raises a notice', () => {
+    const stamped = v4(BASE);
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(stamped) } } });
+    const health = stampHealth(makeGitState(git.impl, PR), REL, stamped, HEAD, withKey);
+    expect(health).toMatchObject({ ok: false, stamped: false, problems: [], treeAuto: true });
+  });
+
+  it('an unknown v4 kind is treated the same way (ignored, no notice) — never as a drift problem', () => {
+    const odd = v4(BASE, { kind: 'something-new' });
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(odd) } } });
+    const health = stampHealth(makeGitState(git.impl, PR), REL, odd, HEAD, withKey);
+    expect(health).toMatchObject({ ok: false, stamped: false, problems: [] });
+  });
+
+  it('the notifier drops a validly tree-auto-stamped draft (no founder brief), but still briefs a forged/invalid v4 one', () => {
+    const good = v4(BASE);
+    const bad = { ...v4(BASE), body: 'edited after the stamp' };
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(good), [REL_G]: text(bad) } } });
+    const kept = filterAlreadyStamped([{ file: REL, ...good }, { file: REL_G, ...bad }], { head: HEAD, gitState: makeGitState(git.impl, PR), approvers: SOCIAL_APPROVERS });
+    expect(kept.map((d) => d.file)).toEqual([REL_G]);
+    const keptNoGit = filterAlreadyStamped([{ file: REL, ...good }, { file: REL_G, ...bad }], { approvers: SOCIAL_APPROVERS });
+    expect(keptNoGit.map((d) => d.file)).toEqual([REL_G]);
+  });
+});

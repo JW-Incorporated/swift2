@@ -1091,9 +1091,10 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of prQueueFiles) {
             const item = parseJson(gitState.show(prView.headRefOid, relPath));
             if (!item) continue;
-            const ok = Boolean(item.approval) && approvalStatus(item, statusOptions).ok;
-            if (ok) {
-              prLedgerRows.push(stampRow(relPath, item));
+            const stampStatus = item.approval ? approvalStatus(item, statusOptions) : { ok: false };
+            if (stampStatus.ok) {
+              // A tree-auto stamp is Tree's own, not the owner's: no ledger "approve" row (it would inflate autonomy eligibility).
+              if (stampStatus.kind !== 'tree-auto') prLedgerRows.push(stampRow(relPath, item));
               continue;
             }
             const own = classified.get(relPath);
@@ -1426,7 +1427,8 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of files) {
             const absPath = path.join(process.cwd(), relPath);
             const item = rejectedThisRun.has(relPath) || !existsSync(absPath) ? null : parseJson(readFileSync(absPath, 'utf8'));
-            if (item?.approval && approvalStatus(item, statusOptions).ok) prLedgerRows.push(stampRow(relPath, item));
+            const rowStatus = item?.approval ? approvalStatus(item, statusOptions) : { ok: false };
+            if (rowStatus.ok && rowStatus.kind !== 'tree-auto') prLedgerRows.push(stampRow(relPath, item));
           }
           for (const [key, c] of classified) {
             if (key === '*' || c.action !== 'reject') continue;

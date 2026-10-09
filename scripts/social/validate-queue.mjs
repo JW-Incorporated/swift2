@@ -112,6 +112,8 @@ export async function validateDir(dir, activeLessonIds = []) {
     // PR merges), so this is a WARNING, never a hard failure; it never adds
     // to `failures`/the non-zero exit. This is exactly the list that would
     // have named the four pre-gate drafts on #4090 before A1 deleted them.
+    // A v4 tree-auto stamp is recognised here too (shape + content hash; the
+    // signature is the poster's job) so a stamped tree/draft/* PR shows no warning.
     const approval = approvalStatus(data, { approvers: SOCIAL_APPROVERS });
     if (!approval.ok) warnings.push({ file, reason: approval.reason });
   }

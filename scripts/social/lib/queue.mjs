@@ -478,11 +478,26 @@ export function contentHash(item) {
  * editing an unsigned field. One named function, never inlined.
  */
 export function approvalSigPayload(a) {
+  if (a.v === 4) return `${a.v}|${a.kind}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
   if (a.v === 3) return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.sha}|${a.contentHash}`;
   return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
 }
 
 const HEAD_SHA_RE = /^[0-9a-f]{40}$/;
+
+/** Schema v4 (2026-10): Tree's autonomous approval — the stamp
+ * `social-tree-approve.yml` mints after trusted check-drafts passes, with no
+ * Discord ✅. `kind` sits INSIDE the signed payload so it cannot be edited
+ * after signing; `by` is fixed, never a discord: identity, so it can never
+ * be mistaken for (or counted as) the owner's own approval. */
+export const TREE_AUTO_KIND = 'tree-auto';
+export const TREE_AUTO_BY = 'tree:auto';
+
+/** True iff `item.approval` CLAIMS to be a v4 stamp (valid or not) — for
+ * callers that must stay out of a tree-auto PR's way. */
+export function isV4Stamp(item) {
+  return item?.approval?.v === 4;
+}
 
 /** The head SHA a v3 stamp was minted against, or null for anything else
  * (a v2 stamp has none; a `sha` hand-added to a v2 record is ignored by
@@ -529,7 +544,9 @@ export function verifyApprovalSig(a, key) {
  * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
  * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1; or v3, which
  * additionally signs the head SHA it was minted on — docs/decisions.md
- * 2026-09-12)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
+ * 2026-09-12; or v4 `tree-auto`, Tree's own autonomous approval — signed
+ * `kind`, no discord:/SOCIAL_APPROVERS check, and `{ ok: true, kind:
+ * 'tree-auto' }` so callers can refuse to treat it as the owner's ✅)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
  * this fixed order so the first true reason is always what's reported:
  * absent → malformed → not-a-discord-identity → not-in-approvers →
  * content-hash mismatch → bad signature.
@@ -566,7 +583,9 @@ export function approvalStatus(item, options = {}) {
   const shapeOk =
     typeof approval === 'object' &&
     !Array.isArray(approval) &&
-    (approval.v === 2 || (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
+    (approval.v === 2 ||
+      (approval.v === 4 && approval.kind === TREE_AUTO_KIND && approval.by === TREE_AUTO_BY) ||
+      (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
     typeof approval.by === 'string' &&
     approval.by.trim() !== '' &&
     typeof approval.at === 'string' &&
@@ -579,13 +598,14 @@ export function approvalStatus(item, options = {}) {
   if (!shapeOk) {
     return { ok: false, reason: 'malformed approval record' };
   }
-  if (!/^discord:\d{17,20}$/.test(approval.by)) {
+  const treeAuto = approval.v === 4;
+  if (!treeAuto && !/^discord:\d{17,20}$/.test(approval.by)) {
     return {
       ok: false,
       reason: `approved by "${approval.by}", which is not a discord: identity — GitHub logins can never approve`,
     };
   }
-  if (!Array.isArray(approvers) || !approvers.includes(approval.by)) {
+  if (!treeAuto && (!Array.isArray(approvers) || !approvers.includes(approval.by))) {
     return { ok: false, reason: `approved by "${approval.by}", who is not in SOCIAL_APPROVERS` };
   }
   if (approval.contentHash !== contentHash(item)) {
@@ -602,5 +622,5 @@ export function approvalStatus(item, options = {}) {
       return { ok: false, reason: 'approval signature invalid — this record was not written by the approval workflow' };
     }
   }
-  return { ok: true };
+  return treeAuto ? { ok: true, kind: TREE_AUTO_KIND } : { ok: true };
 }

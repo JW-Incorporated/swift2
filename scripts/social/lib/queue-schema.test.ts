@@ -187,6 +187,20 @@ describe('validateQueueItem', () => {
         expect(findingFor(fakeApproval, 'critique')).toBeDefined();
       });
 
+      it('a v4 tree-auto stamp NEVER buys the approved-critique exemption — Tree approving itself still has to clear the full critique rubric', () => {
+        const base: Record<string, unknown> = { ...validX };
+        delete base.critique;
+        const treeAuto = {
+          ...base,
+          approval: { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), sig: 'hmac-sha256:' + '0'.repeat(64) },
+        };
+        expect(approvalStatus(treeAuto, { approvers: SOCIAL_APPROVERS }).ok).toBe(true); // shape+hash valid, yet:
+        expect(findingFor(treeAuto, 'critique')).toBeDefined();
+        expect(findCritiqueIssues(treeAuto).length).toBeGreaterThan(0);
+        // and with a real critique it validates clean, v4 stamp and all
+        expect(validateQueueItem({ ...treeAuto, critique: validX.critique })).toEqual([]);
+      });
+
       // Codex round 1, MEDIUM 2 (corrected round 2 — see findCritiqueIssues's
       // docstring): the unkeyed approvalStatus call this exemption uses
       // (shape/id/hash only — this module never holds SOCIAL_APPROVAL_KEY)

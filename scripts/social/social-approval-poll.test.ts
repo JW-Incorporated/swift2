@@ -1703,3 +1703,64 @@ describe('Bots v2 W2 — review fixes', () => {
     expect(String(confirmations[0][0])).toContain(`/messages/${NEW_ID}/reactions/${CROSS_MARK}/@me`);
   });
 });
+
+describe('v4 tree-auto stamps — the poll stays out of social-tree-approve.yml\'s way', () => {
+  function treeAutoStamp(item: Record<string, unknown>, overrides: Record<string, unknown> = {}) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-10T00:00:00Z', pr: PR_NUMBER, message: 'run 1', contentHash: contentHash(item), ...overrides };
+    return { ...unsigned, sig: signApproval(unsigned, TEST_KEY) };
+  }
+
+  function nonOpenExecGh(state: 'MERGED' | 'CLOSED') {
+    return vi.fn((args: string[]) => {
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
+        return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'tree/draft/x', state, number: PR_NUMBER });
+      }
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('files')) return JSON.stringify({ files: [{ path: REL_FILE }] });
+      return '';
+    });
+  }
+
+  it('an OPEN PR whose draft carries a tree-auto stamp (even drifted) raises no drift notice, mints nothing and never merges', async () => {
+    const stamped = { ...BASE_ITEM, approval: treeAutoStamp(BASE_ITEM) };
+    const drifted = { ...stamped, why: 'changed after the stamp' }; // would be an R3-style notice under v3
+    const stampedText = JSON.stringify(stamped, null, 2) + '\n';
+    const driftedText = await seedQueueFile(QUEUE_FILE, drifted);
+    const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+    const { impl: execGit } = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: stampedText }, [HEAD_SHA]: { [REL_FILE]: driftedText } } });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    expect(posts.some((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`notice: PR #${PR_NUMBER}`))).toBe(false);
+    expect(JSON.parse(await readFile(path.join(root, REL_FILE), 'utf8')).approval.v).toBe(4);
+    expect(readAllLedgerRows()).toEqual([]);
+  });
+
+  it('an OPEN PR with an unknown stamp kind (v4, kind not tree-auto) is ignored the same way — no notice, no merge', async () => {
+    const odd = { ...BASE_ITEM, approval: treeAutoStamp(BASE_ITEM, { kind: 'something-new' }) };
+    const oddText = await seedQueueFile(QUEUE_FILE, odd);
+    const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+    const { impl: execGit } = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: oddText }, [HEAD_SHA]: { [REL_FILE]: oddText } } });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    expect(posts.some((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`notice: PR #${PR_NUMBER}`))).toBe(false);
+  });
+
+  it('an already-MERGED PR with a tree-auto stamp writes NO ledger approve row (it must never count toward autonomy eligibility)', async () => {
+    const stampedText = JSON.stringify({ ...BASE_ITEM, approval: treeAutoStamp(BASE_ITEM) }, null, 2) + '\n';
+    const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE })], { [MESSAGE_ID]: {} });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const execGh = nonOpenExecGh('MERGED');
+    const { impl: execGit } = makeFakeGit({ trees: { [HEAD_SHA]: { [REL_FILE]: stampedText } } });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(readAllLedgerRows()).toEqual([]);
+  });
+});
