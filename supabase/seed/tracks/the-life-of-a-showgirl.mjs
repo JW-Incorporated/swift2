@@ -332,7 +332,7 @@ const TRACKS = [
             "As track three, it functions as the record's open window after the first two songs establish rescue and fame anxiety."
           ],
           fanTheories: [
-            "Fans and critics often connect the opal imagery to Travis Kelce's October birth month, but Swift has not confirmed the subject, so that reading belongs here rather than in confirmed meaning."
+            "Fans and critics often connect the opal imagery to her public relationship, but Taylor has not confirmed the subject, so that reading belongs here rather than in confirmed meaning."
           ]
         },
         connections: [
@@ -669,7 +669,7 @@ const TRACKS = [
       dossier: {
         whyItMatters: [
           "Ruin the Friendship is the album's quietest ache: not public spectacle, not chart conquest, but the private violence of a chance not taken. In a record full of adult certainty, it reaches backward to the high-school almost, where the stakes feel small until time proves they were permanent.",
-          "The sourcing line is especially important here. Swift has not named the subject. The specific-person reading is a fan interpretation, so the dossier has to preserve both truths: the theory is meaningful to listeners, and it is still not confirmation."
+          "The sourcing line is especially important here. Taylor has not named the subject, and this guide doesn't name anyone. Reading it as a real high-school friendship is a fan interpretation, so the dossier has to preserve both truths: the reading is meaningful to listeners, and it is still not confirmation."
         ],
         meaning: {
           supported: [
@@ -699,7 +699,7 @@ const TRACKS = [
           {
             relatedId: "moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high",
             label: "A Regret from Hendersonville High",
-            why: "The vault moment documents the fan-traced background while keeping the key boundary intact: the Lang connection is moving, public, and unconfirmed."
+            why: "The vault moment documents the fan-traced background while keeping the key boundary intact: Taylor has not named who the song is about, and this guide doesn't name anyone."
           }
         ],
         sources: [

@@ -234,7 +234,7 @@ const TRACKS = [
             "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
             "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought.",
             "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
-            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
+            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, and that Taylor fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
             "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
           ],
           supported: [
@@ -424,7 +424,7 @@ const TRACKS = [
             'It debuted at No. 16 on the Billboard Hot 100 (its peak) and reached No. 3 on Hot Rock & Alternative Songs; despite never being a single it was certified Platinum in the UK and 3× Platinum in Australia, and later featured in the trailer and soundtrack of the film It Ends with Us (2024).',
           ],
           fanTheories: [
-            'The line-by-line mapping onto the Braun/Big Machine principals is fan close-reading; Swift confirmed the masters dispute as the source but has not footnoted individual lyrics.',
+            'The line-by-line mapping onto the people involved in the masters dispute is fan close-reading; Taylor confirmed the masters dispute as the source but has not footnoted individual lyrics, and this guide doesn't name anyone.',
           ],
         },
         connections: [

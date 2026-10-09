@@ -117,18 +117,18 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Swift's own freshman year alongside her real best friend Abigail Anderson, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Swift has said Anderson consented to the personal references before the song went on the album.",
-          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with Anderson herself."
+          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Taylor's own freshman year alongside a close friend, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Taylor has said her friend consented to the personal references before the song went on the album.",
+          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with her friend."
         ],
         meaning: {
           confirmed: [
-            "Written solo by Swift and produced by Nathan Chapman and Swift; she has described it as a true account of meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them, and has said Anderson gave permission for the personal references.",
+            "Written solo by Taylor and produced by Nathan Chapman and Taylor; she has described it as a true account of meeting a close friend in ninth grade and the heartbreaks that followed both of them, and has said her friend gave permission for the personal references.",
             "It was released to US country radio on Aug. 31, 2009 as the fourth single from Fearless and peaked at No. 23 on the Billboard Hot 100.",
-            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring Anderson alongside Swift.",
-            "The lyric turns on Anderson's real heartbreak — a friend who gave everything to a boy who changed his mind — which Swift has repeatedly pointed to as the song's most personal and painful line."
+            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring her friend alongside Taylor.",
+            "The lyric turns on her friend's real heartbreak — a friend who gave everything to a boy who changed his mind — which Taylor has repeatedly pointed to as the song's most personal and painful line."
           ],
           supported: [
-            "Critics have singled out \"Fifteen\" as evidence of Swift's early gift for specific, diaristic detail — naming a real friend and a real feeling rather than a generic teen archetype.",
+            "Critics have singled out \"Fifteen\" as evidence of Taylor's early gift for specific, diaristic detail — drawing on a real friend and a real feeling rather than a generic teen archetype.",
             "It became a recurring live centerpiece in her early tours, often framed as the song where she speaks directly to younger fans about the same lessons the lyric describes."
           ],
           fanTheories: [

@@ -1395,14 +1395,14 @@ const TRACKS = [
             "It is broadly described as the album's rare uncomplicated-joy song — the chemistry-as-love-that-finally-works counterweight to the surrounding wreckage."
           ],
           fanTheories: [
-            "The football vocabulary is read near-universally by the press (TIME, Today, Slate and others) as pointing to Swift's documented relationship with Travis Kelce, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Swift has never confirmed the Kelce reading of 'The Alchemy' in any interview, liner note or dedication — it remains a fan-and-press reading."
+            "The football vocabulary is read near-universally by the press (TIME, Today, Slate and others) as pointing to Taylor's public relationship, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Taylor has not named the subject of 'The Alchemy' in any interview, liner note or dedication, and this guide doesn't name anyone — it remains a fan-and-press reading."
           ]
         },
         connections: [
           {
             relatedId: "song:so-high-school",
             label: "So High School",
-            why: "The album's other track the press reads as Kelce-adjacent; outlets pair the two as TTPD's new-love duo (a fan-and-press reading, not a Swift-stated one)."
+            why: "The album's other track the press reads as tied to her public relationship; outlets pair the two as TTPD's new-love duo (a fan-and-press reading, not a Taylor-stated one)."
           },
           {
             relatedId: "song:treacherous",
@@ -1412,7 +1412,7 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
-          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
+          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and its public-relationship references", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
           { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
         ]
       },
@@ -1704,7 +1704,7 @@ const TRACKS = [
           ],
           fanTheories: [
             "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one.",
-            "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings Travis Kelce was reported to have gotten about dating her — a public-relationship interpretation, not anything Swift has stated."
+            "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings reported around her public relationship — an interpretation, not anything Taylor has stated."
           ]
         },
         connections: [
@@ -1723,7 +1723,7 @@ const TRACKS = [
           { name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" },
           { name: "Billboard: Taylor Swift Announces 'The Albatross' Edition of 'Tortured Poets'", url: "https://www.billboard.com/music/pop/taylor-swift-tortured-poets-the-albatross-edition-eras-tour-announcement-1235613344/" },
           { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" },
-          { name: "In The Know (AOL): 'The Albatross' Lyrics Seemingly Reveal the Warnings Travis Kelce Got About Her", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
+          { name: "In The Know (AOL): 'The Albatross' lyrics and the warnings reported around her public relationship", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
         ]
       },
     },
@@ -2242,7 +2242,7 @@ const TRACKS = [
             "It was performed live once — an Eras Tour surprise-song mashup with folklore's 'mad woman' and reputation's 'I Did Something Bad' in Toronto on November 22, 2024.",
           ],
           supported: [
-            "The song adapts the Cassandra myth directly — the seer whose warnings go unheeded until the city falls — and threads it with the imagery of a woman condemned by a mob. Billboard's Jason Lipshutz read the lyric as insight into 'the period in Swift's life that led to her album Reputation,' when the feud with Kanye West and Kim Kardashian 'turned many against her,' pointing to its lines about supposed supporters who did not take her side.",
+            "The song adapts the Cassandra myth directly — the seer whose warnings go unheeded until the city falls — and threads it with the imagery of a woman condemned by a mob. Billboard's Jason Lipshutz read the lyric as insight into 'the period in Swift's life that led to her album Reputation,' the reputation-era feud that 'turned many against her,' pointing to its lines about supposed supporters who did not take her side.",
             "Reception ran mixed-to-strong: Rolling Stone's Rob Sheffield called it one of the most powerful Swift–Dessner songs and Beats Per Minute's John Wohlmacher and USA Today's Melissa Ruggieri praised its 'pretty' piano, while Vulture's Craig Jenkins found the central metaphor 'a stretch,' Slate's Carl Wilson faulted Swift for criticizing readings-into-songs while doing the same, and The Hollywood Reporter ranked it the album's weakest track.",
           ],
           fanTheories: [
@@ -2282,7 +2282,7 @@ const TRACKS = [
           {
             who: "Jason Lipshutz",
             context: "Billboard",
-            note: "Read it as insight into the reputation-era period when the West/Kardashian feud 'turned many against her.'",
+            note: "Read it as insight into the reputation-era feud that 'turned many against her.'",
           },
         ],
         sources: [

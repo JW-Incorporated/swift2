@@ -252,7 +252,7 @@ export default {
             "The Kyle Newman-directed video (premiered February 13, 2015, co-starring Dominic Sherwood, shot in Los Angeles over four days) drops any clear narrative for fragmented flashbacks glimpsed through broken glass and a rear-view mirror — widely read as a fractured, can't-quite-connect romance, though Newman never stated that intent on the record.",
           ],
           fanTheories: [
-            "The title is near-universally read as a pun on Harry Styles's surname, tying the song to their brief 2012-13 romance — but Swift has never confirmed it, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
+            "Fans read the title as a pun and connect the song to a specific past romance — but Taylor has not named the subject, this guide doesn't name anyone, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
             "A recurring fan claim that the chorus melody echoes another song (for instance 'Careless Whisper') is undocumented; the producers cite only Daft Punk and funky-electronic influences.",
           ],
         },
@@ -326,7 +326,7 @@ export default {
         meaning: {
           confirmed: [
             "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff. Rolling Stone reported that it became available for download soon after fans who pre-ordered 1989 received it, and that it immediately shot to No. 1 on the iTunes songs chart.",
-            "Rolling Stone reported that Swift hinted the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room' was inspired by a real incident in which she and an ex were in a serious snowmobile accident that ended in a hospital visit, which never appeared in the tabloids.",
+            "Rolling Stone reported that Taylor has said a real, frightening incident inspired the imagery of the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room.'",
             "Antonoff told Billboard that 'there's a frantic feeling in the song,' that he was thinking about the band My Morning Jacket and how 'every sound is louder than the last,' and that the idea was 'to keep pushing' rather than drop into a quieter chorus.",
             "Antonoff also told Billboard the two were 'talking about John Hughes movies' and the 'larger-than-life, anthemic' sound of that era's music while hanging out at her house in Rhode Island.",
             "Rolling Stone reported that the video, which premiered on Dick Clark's Rockin' Eve with Ryan Seacrest, was shot on location in New Zealand, where a severe storm interrupted filming for a week, and ends on the title card 'She lost him, but she found herself. And somehow, that was everything.'"
@@ -671,8 +671,8 @@ export default {
             "The video cast carries code names — Swift as Catastrophe, Selena Gomez as Arsyn, Kendrick Lamar as Welvin da Great, Lena Dunham as Lucky Fiori, plus Cara Delevingne, Zendaya, Gigi Hadid, Hailee Steinfeld, Ellie Goulding, Hayley Williams, Karlie Kloss, Cindy Crawford and more.",
           ],
           supported: [
-            "The press near-universally read the unnamed subject as Katy Perry, whose team had reportedly poached backing dancers from Swift’s tour; Perry never confirmed being the target and answered in 2017 with ‘Swish Swish’ (featuring Nicki Minaj). That identification is media inference, not a Swift confirmation.",
-            "The feud resolved publicly in the June 17, 2019 ‘You Need to Calm Down’ video, which ends with Swift and Perry embracing dressed as fries and a hamburger (Perry reprising her 2019 Met Gala burger look).",
+            "Press and fans have speculated about the unnamed subject, but Taylor has not named her and this guide doesn't name anyone; any identification is media inference, not a Taylor confirmation.",
+            "The June 17, 2019 ‘You Need to Calm Down’ video ends with Taylor embracing another pop star, the two dressed as fries and a hamburger, a public moment of reconciliation.",
             "Critics were split: the 1989 album cut drew mixed-to-negative reviews as one of the record’s weaker tracks, while the Kendrick remix was received more warmly — the Guardian’s Alexis Petridis called it ‘a masterstroke.’",
           ],
           fanTheories: [
@@ -1334,8 +1334,8 @@ export default {
             "Multiple outlets drew direct musical and narrative parallels between 'Is It Over Now?' and 'Out of the Woods,' framing the newer song as effectively answering the earlier song's central question about whether the relationship survived."
           ],
           fanTheories: [
-            "Widely repeated fan theory (not confirmed by Swift): the song is about her 2012–2013 relationship with Harry Styles, based on lyrical details fans connect to that era — including 'blue dress on a boat,' read as a reference to a paparazzi photo of Swift alone on a boat after their reported breakup, and 'red blood, white snow,' read as an allusion to a snowmobile incident Swift has said inspired similar imagery in 'Out of the Woods.'",
-            "Fans have also speculated that a lyric about a 'new girl' who resembles the narrator references women Styles reportedly dated after Swift who fans felt resembled her, though this reading is speculative and unconfirmed by either party."
+            "Widely repeated fan theory (not confirmed by Taylor): the song is about a past relationship, based on lyrical details fans connect to that era, including 'blue dress on a boat,' read as a reference to a paparazzi photo of Taylor alone on a boat. Taylor has not named the subject, and this guide doesn't name anyone.",
+            "Fans have also speculated about who a lyric about a 'new girl' who resembles the narrator refers to, though this reading is speculative and unconfirmed."
           ]
         },
         connections: [
@@ -1364,7 +1364,7 @@ export default {
           { name: "Is It Over Now? - Wikipedia", url: "https://en.wikipedia.org/wiki/Is_It_Over_Now%3F" },
           { name: "1989 (Taylor's Version) - Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" },
           { name: "How Taylor Swift's new song 'Is It Over Now?' answers her big relationship question from 'Out of the Woods' - Entertainment Weekly", url: "https://ew.com/music/taylor-swift-is-it-over-now-answers-out-of-the-woods-question-1989-taylors-version/" },
-          { name: "Are Taylor Swift's 'Is It Over Now?' Lyrics About Harry Styles? - TODAY.com", url: "https://www.today.com/popculture/music/taylor-swift-is-it-over-now-meaning-rcna122453" },
+          { name: "What Taylor Swift's 'Is It Over Now?' lyrics are about - TODAY.com", url: "https://www.today.com/popculture/music/taylor-swift-is-it-over-now-meaning-rcna122453" },
           { name: "Taylor Swift References Viral Boat Photo in New Vault Track 'Is It Over Now?' - People", url: "https://people.com/taylor-swift-references-viral-boat-photo-in-vault-track-is-it-over-now-8383895" }
         ]
       },
