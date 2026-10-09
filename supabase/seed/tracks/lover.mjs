@@ -444,7 +444,18 @@ const ERA = {
       inspiration: null,
       themes: ['mutual attraction', 'confidence', 'flirtation'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
-      sources: [ALBUM],
+      sources: [
+    {
+      source_url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
+      source_title: 'Taylor Swift Calls Rom-Com Inspiration Behind ‘Lover’ Song the ‘Most Meta Thing That’s Ever Happened to Me’',
+      publisher: 'Billboard',
+      source_type: 'reputable_press',
+      accessed_at: '2026-10-09',
+      reliability_score: 4,
+      notes: 'Taylor revealed the Netflix film Someone Great inspired the song; the film\'s writer-director said it drew on 1989',
+    },
+        ALBUM,
+      ],
       dossier: {
         whyItMatters: [
           "A Jack Antonoff-produced funk-pop strut and fan-favorite Lover deep cut, built on what Swift called 'quiet confidence' — a partner sure of himself without arrogance. Its 'Sixteenth Avenue' line is a confirmed nod to Nashville, giving a flirty groove a hometown-songwriting anchor.",
@@ -761,15 +772,6 @@ const ERA = {
         ],
         sources: [
           {
-            source_url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
-            source_title: 'Taylor Swift Calls Rom-Com Inspiration Behind ‘Lover’ Song the ‘Most Meta Thing That’s Ever Happened to Me’',
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-10-09',
-            reliability_score: 4,
-            notes: 'Taylor revealed the Netflix film Someone Great inspired the song; the film\'s writer-director said it drew on 1989',
-          },
-          {
             name: "Taylor Swift Calls Rom-Com Inspiration Behind 'Lover' Song the 'Most Meta Thing That's Ever Happened to Me' - Billboard",
             url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
           },
@@ -957,7 +959,7 @@ const ERA = {
           source_type: 'reputable_press',
           accessed_at: '2026-10-09',
           reliability_score: 5,
-          notes: 'Taylor Swift\'s September 2019 cover story: describes writing "The Man" as a thought experiment, and the Equality Act petition and "You Need to Calm Down" video',
+          notes: 'Taylor Swift\'s September 2019 cover story: the June 1 Equality Act petition and the "You Need to Calm Down" video',
         },
         wiki('You Need to Calm Down', 'You_Need_to_Calm_Down', 'song article: advocacy and video'),
         ALBUM,
@@ -1167,7 +1169,7 @@ const ERA = {
           source_type: 'reputable_press',
           accessed_at: '2026-10-09',
           reliability_score: 5,
-          notes: 'Taylor on writing "Miss Americana & the Heartbreak Prince" after the midterm elections, and on "Daylight" nearly being the title track',
+          notes: 'Taylor on "Daylight" nearly being the title track and having referred to the album as Daylight for a while',
         },
         {
           source_url: 'https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/',
