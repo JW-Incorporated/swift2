@@ -94,7 +94,8 @@ ENV_PATTERN = (
 # real-delete shape as delete-media.mjs, just for X-site screenshots.
 SEND_SCRIPTS = {"post-queue.mjs", "delete-media.mjs", "delete-x-site-screens.mjs"}
 RUNNERS = {"node", "node.exe", "npx", "npx.cmd", "tsx", "ts-node", "bun",
-           "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs"}
+           "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs",
+           "command", "exec", "builtin"}
 
 
 # Issue #4170: backticks inside a SINGLE-quoted argument of a data-only command
@@ -162,7 +163,7 @@ def _segments(command):
     """
     command = _demote_single_quoted_backticks(command)
     c = command.replace("'", " ").replace('"', " ")
-    return re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", c)
+    return re.split(r"[;&|`\n]+|\$\(|\(|\)|\{|\}", c)
 
 
 def executes_send_script(command):
@@ -179,6 +180,8 @@ def executes_send_script(command):
                 return True          # reached in executable position
             if base in RUNNERS:
                 i += 1               # a runner: whatever follows is the target
+                while i < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[i]):
+                    i += 1           # env VAR=x node ...
                 continue
             if tok.startswith("-"):
                 i += 1               # a flag on the current runner
