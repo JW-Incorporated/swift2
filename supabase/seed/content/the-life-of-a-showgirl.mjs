@@ -15019,28 +15019,6 @@ export default {
             notes:
               'The chart body\'s own announcement — The Life of a Showgirl returns to No. 1 on the ARIA Albums Chart and the four Encore tracks take four of the top five on the ARIA Singles Chart, led by "Patient Zero" at No. 1.',
           },
-          {
-            outlet: 'Taylor Swift (YouTube)',
-            url: 'https://www.youtube.com/watch?v=kXOKQCtttbw',
-            source_title: 'Taylor Swift - Pink Clouding (Official Lyric Video)',
-            publisher: 'Taylor Swift (official YouTube channel)',
-            source_type: 'official',
-            accessed_at: '2026-10-09',
-            reliability_score: 5,
-            notes:
-              'Official lyric video for "Pink Clouding," one of the four Encore tracks named above, posted to Taylor\'s own YouTube channel the release weekend (published 2026-09-26). oEmbed verified 2026-10-09: title "Taylor Swift - Pink Clouding (Official Lyric Video)", author_name "Taylor Swift", author_url youtube.com/@TaylorSwift (intake #5237).',
-          },
-          {
-            outlet: 'Taylor Swift (YouTube)',
-            url: 'https://www.youtube.com/watch?v=tZnNLoPKriU',
-            source_title: 'Taylor Swift - Babylon (Official Lyric Video)',
-            publisher: 'Taylor Swift (official YouTube channel)',
-            source_type: 'official',
-            accessed_at: '2026-10-09',
-            reliability_score: 5,
-            notes:
-              'Official lyric video for "Babylon," one of the four Encore tracks named above, posted to Taylor\'s own YouTube channel the release weekend (published 2026-09-26). oEmbed verified 2026-10-09: title "Taylor Swift - Babylon (Official Lyric Video)", author_name "Taylor Swift", author_url youtube.com/@TaylorSwift (intake #5238).',
-          },
         ],
       },
     },
