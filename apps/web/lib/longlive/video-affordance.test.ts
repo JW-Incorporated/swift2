@@ -390,7 +390,11 @@ describe('heroVideoFor over the real vault', () => {
   const promoted = withVideo.filter((i) => heroVideoFor(i));
 
   it('promotes the video on exactly the pages whose hero is a still of it', () => {
-    expect(withVideo).toHaveLength(19);
+    // A floor, not an exact count (#4134): content lanes add video-carrying
+    // moments by design. The floor still fails if the vault silently loses
+    // videos (or the filter above stops matching) and the checks below go vacuous.
+    expect(withVideo.length).toBeGreaterThanOrEqual(19);
+    for (const item of withVideo) expect(item.video!.youtubeId).toMatch(/^[\w-]{11}$/);
     // Derived from the vault rather than hardcoded (#5192): a Photo Enrichment
     // pass that gives a video-carrying page its own MV still as the hero GROWS
     // this set by design, and a fixed count turned that into a failure the
