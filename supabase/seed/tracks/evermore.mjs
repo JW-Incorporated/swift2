@@ -193,6 +193,68 @@ const TRACKS = [
       themes: ['jealousy', 'daydream romance', 'self-protective retreat'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Evermore',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Aaron Dessner told Billboard that Swift wrote 'gold rush' with Jack Antonoff, in the burst of writing that followed folklore: 'by the end there were 17 songs, and it was only a couple months after Folklore came out.'",
+          "Variety's review of evermore called it 'one of the standout songs on the new album.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing the song in Philadelphia on May 12, 2023, Swift addressed the debate over the 'Eagles T-shirt hanging from the door' lyric, saying people had wondered whether it meant the band or the team: 'I love the band the Eagles, but guys, like, come on, I'm from Philly,' as Billboard quotes her. She did not spell out an answer beyond that."
+          ],
+          supported: [
+            "Billboard's critics heard Swift rapidly spilling jealous feelings and longstanding insecurities, asking what it must be like to grow up that beautiful, over drums, horns and violins.",
+            "Variety's review read it as being about falling out of love with someone even prettier and more magnetic than the narrator, and expected it to spark fan speculation."
+          ],
+          fanTheories: [
+            "As Variety anticipated, fans have speculated about who the song describes. Swift has not named a subject in the sources cited here, and this guide does not either."
+          ]
+        },
+        live: [
+          {
+            date: "May 12, 2023",
+            event: "The Eras Tour, Philadelphia",
+            note: "Played as a surprise song, introduced with a joke about the Eagles lyric, per Billboard's list of Eras Tour surprise songs."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mirrorball",
+            label: "mirrorball",
+            why: "Billboard's critics said the song begins with layered vocals that immediately recall this folklore standout."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Billboard, December 2020",
+            note: "He listed 'gold rush' among the songs from the writing stretch after folklore, and said Swift wrote it with Antonoff."
+          },
+          {
+            who: "Taylor Swift",
+            context: "On stage in Philadelphia, May 12, 2023, as quoted by Billboard",
+            note: "She said she loves the band the Eagles but, being from Philly, felt she had to address the debate over the lyric."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on the 'Weird Avalanche' That Resulted in Taylor Swift's 'Evermore' - Billboard",
+            url: "https://www.billboard.com/music/pop/aaron-dessner-taylor-swift-evermore-interview-9502756/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "Taylor Swift Has Her Second Great Album of 2020 With 'Evermore': Album Review - Variety",
+            url: "https://variety.com/2020/music/reviews/taylor-swift-evermore-album-review-1234851525/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'tis-the-damn-season',
@@ -805,6 +867,70 @@ const TRACKS = [
       themes: ['con-artist romance', 'kindred spirits', 'love as the real gamble'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Cowboy_like_Me',
       sources: [wiki('Cowboy like Me', 'Cowboy_like_Me', 'song article: Mumford credit'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A Swift and Aaron Dessner song with guest musicians. Dessner told Rolling Stone that Justin Vernon plays drums on it, and Billboard's critics note Marcus Mumford is credited with vocals. Variety's review also credits Mumford with a harmony vocal and some lap steel.",
+          "Dessner singled it out in Rolling Stone as the evermore song that is 'much more familiar, musically', a country-leaning track, while saying Swift was 'just as sharp and just as masterful in her craft' there as on 'closure'."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics heard a song that finds Swift circling thoughts of love, independence and commitment in the context of another person with a similar mindset, in a mix of folk, sun-kissed alternative and a whiff of country. They ranked it No. 9 on the deluxe edition.",
+            "Variety's review described its story of male and female grifters meeting, and maybe falling in love, as 'more determinedly Western than C&W.' That is the outlet's reading of the lyric; Swift has not commented on it in the sources cited here."
+          ]
+        },
+        live: [
+          {
+            date: "March 25, 2023",
+            event: "The Eras Tour, Las Vegas",
+            note: "Swift brought out Marcus Mumford to sing it with her as a surprise song. Billboard quotes her asking, 'Would you sing 'Cowboy Like Me' with me?'"
+          },
+          {
+            date: "November 2, 2024",
+            event: "The Eras Tour, Indianapolis",
+            note: "Deadline's and Variety's lists give a mash-up of 'Maroon' and 'Cowboy Like Me' as one of the night's surprise slots."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:closure",
+            label: "closure",
+            why: "Dessner told Rolling Stone that Vernon plays drums on both songs, and used the pair to illustrate how Swift tells stories equally well in an experimental song and in a country-leaning one."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone, December 2020",
+            note: "He said Vernon played drums on the track and that Swift's craft was just as sharp here as on 'closure'."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "Taylor Swift Has Her Second Great Album of 2020 With 'Evermore': Album Review - Variety",
+            url: "https://variety.com/2020/music/reviews/taylor-swift-evermore-album-review-1234851525/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
     {
       slug: 'long-story-short',
@@ -830,6 +956,65 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard's critics put it at No. 1 in their ranking of the evermore deluxe edition, writing that it 'crystallizes one of Swift's greatest strengths as a songwriter: creating music that is deceptively simple but is bursting with layers and moving pieces.'",
+          "Variety's review called it the song that most outrightly revives the narrative of Reputation and Lover, a rough public stretch followed by a better one, and noted a 'major note-to-younger-self' in its bridge."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics heard the song as framing Swift's personal redemption as the reason she has been able to open her heart to another person, over dense but uncrowded indie-rock instrumentation.",
+            "Variety's review heard advice to her past self that her enemies will undo themselves before she has to swing. Swift has not given her own account of the song in the sources cited here, so these are critics' readings."
+          ]
+        },
+        live: [
+          {
+            date: "March 2, 2024",
+            event: "The Eras Tour, Singapore",
+            note: "Deadline's and Variety's lists give a mash-up of 'long story short' and 'The Story of Us' as a surprise-song slot."
+          },
+          {
+            date: "June 2, 2024",
+            event: "The Eras Tour, Lyon",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Prophecy' and 'long story short'."
+          },
+          {
+            date: "November 16, 2024",
+            event: "The Eras Tour, Toronto",
+            note: "Deadline's and Variety's lists give a mash-up of 'You're On Your Own, Kid' and 'long story short'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-prophecy",
+            label: "The Prophecy",
+            why: "The two songs were mashed up in Lyon on June 2, 2024, per Deadline's and Variety's lists."
+          },
+          {
+            relatedId: "song:youre-on-your-own-kid",
+            label: "You're On Your Own, Kid",
+            why: "The two songs were mashed up in Toronto on November 16, 2024, per Deadline's and Variety's lists."
+          }
+        ],
+        sources: [
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "Taylor Swift Has Her Second Great Album of 2020 With 'Evermore': Album Review - Variety",
+            url: "https://variety.com/2020/music/reviews/taylor-swift-evermore-album-review-1234851525/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
     {
       slug: 'marjorie',

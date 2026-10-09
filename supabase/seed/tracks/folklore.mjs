@@ -886,6 +886,82 @@ const TRACKS = [
         'Fan reading (unconfirmed): the neighborhood-bully verses aimed at the masters-sale principals.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mad_Woman',
       sources: [wiki('Mad Woman (song)', 'Mad_Woman', 'song article: themes'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The folklore song Swift has discussed most directly as being about anger. Vogue quotes her from the Long Pond Studio Sessions film telling Aaron Dessner that when she first heard his piano part, with its ominous strings underneath, she knew it was a song about female rage.",
+          "Dessner wrote the music. He told Rolling Stone it came shortly after the 'peace' sketch and felt close in sound to 'cardigan' and 'seven', and told Vulture it might be the most scathing song on folklore, adding that this was his own interpretation."
+        ],
+        meaning: {
+          confirmed: [
+            "In the Long Pond Studio Sessions film, as quoted by Billboard, Swift told Dessner the most rage-provoking element of being a woman is the gaslighting, and that when a woman responds to bad behavior, 'that response is treated like the offense itself.'",
+            "In the same conversation she said she had recently dealt with 'somebody who is very guilty of this in my life.' The words Billboard and Vogue reproduce do not name that person.",
+            "Introducing the song at the Eras Tour's Tampa show on April 15, 2023, she said, as Billboard quotes her, that she and Dessner wrote it and 'it allowed me to get a lot off my chest.'"
+          ],
+          supported: [
+            "Dessner told Vulture the song has a cathartic darkness, with themes of witch-hunting, gaslighting and bullying, and called it the record's 'goth song.' He framed this as his own interpretation."
+          ],
+          fanTheories: [
+            "Vogue reported that many fans read the story of a woman treated as delusional for wanting what is rightfully hers as being about Swift's fight over her master recordings, and wrote that she 'appears to implicitly confirm' this in the documentary. The words quoted from her describe an unnamed person, so this guide treats the masters reading as a fan reading and names no one."
+          ]
+        },
+        live: [
+          {
+            date: "April 15, 2023",
+            event: "The Eras Tour, Tampa",
+            note: "Played as a surprise song on piano with Aaron Dessner, who also joined her the night before for 'The Great War'. Billboard quotes Swift asking the crowd, 'who doesn't love a mad woman?'"
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-great-war",
+            label: "The Great War",
+            why: "Rolling Stone reported that Swift brought Dessner out for this song's live debut the night before the Tampa performance of 'mad woman'."
+          },
+          {
+            relatedId: "song:peace",
+            label: "peace",
+            why: "Dessner told Rolling Stone he wrote 'mad woman' shortly after the 'peace' sketch."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In the Long Pond Studio Sessions film, as quoted by Vogue and Billboard, November 2020",
+            note: "She tied the song to female rage and to gaslighting, describing a recent experience with an unnamed person."
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture, July 2020",
+            note: "He called it possibly the most scathing song on folklore, and added that this was just his own interpretation."
+          }
+        ],
+        sources: [
+          {
+            name: "11 Things We Learned From Taylor Swift's 'Folklore: The Long Pond Studio Sessions' - Billboard",
+            url: "https://www.billboard.com/music/pop/folklore-the-long-pond-studio-sessions-taylor-swift-things-learned-taylor-swift-9490082/"
+          },
+          {
+            name: "5 Things We Learned Watching Taylor Swift’s Surprise New “Folklore” Documentary - Vogue",
+            url: "https://www.vogue.com/article/taylor-swift-folklore-documentary-5-things-we-learned"
+          },
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          },
+          {
+            name: "Taylor Swift Brings Out Aaron Dessner for 'The Great War' and 'Mad Woman' at Tampa Bay Shows - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-aaron-dessner-live-debut-the-great-war-tampa-bay-1234715619/"
+          }
+        ]
+      },
     },
     {
       slug: 'epiphany',
@@ -1079,6 +1155,72 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Aaron Dessner wrote the music over a pulse that Justin Vernon had sent him. Dessner told Rolling Stone the track is 'just three harmonized bass lines and a pulse', and that when Swift wrote the song to it he thought 'anything can happen here.'",
+          "Dessner told Vulture the same origin: Vernon made a folder with a pulse in it, Dessner wrote basslines to that pulse, and Swift heard the sketch and wrote the song."
+        ],
+        meaning: {
+          supported: [
+            "Dessner told Vulture he hears 'peace' and 'hoax' together as a recognition that 'you take on the burden of your partners, your loved ones, and their ups and downs.' That is his own reading, given as a collaborator.",
+            "He compared the song to Joni Mitchell, calling it a powerful and emotional love song with an impressionistic, almost jazz-like bridge."
+          ]
+        },
+        live: [
+          {
+            date: "February 24, 2024",
+            event: "The Eras Tour, Sydney",
+            note: "Deadline's and Variety's lists of Eras Tour surprise songs give a mash-up of 'New Year's Day' and 'peace' as one of the two surprise slots for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:hoax",
+            label: "hoax",
+            why: "Dessner told Vulture he hears this song and 'peace' as expressing the same recognition about carrying a partner's ups and downs."
+          },
+          {
+            relatedId: "song:exile",
+            label: "exile",
+            why: "Dessner told Rolling Stone that Vernon had heard nothing else from the album before it was announced except 'exile', even though the pulse under 'peace' was his."
+          },
+          {
+            relatedId: "song:mad-woman",
+            label: "mad woman",
+            why: "Dessner told Rolling Stone he wrote 'mad woman' shortly after the 'peace' sketch."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone, 2020",
+            note: "He said the song showed him the incredible versatility Swift had, and that the pulse was Vernon's, sent with the request to 'do something with this.'"
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Vulture, July 2020",
+            note: "He said the song reminded him of Joni Mitchell and that his harmonized basslines come partly from being inspired by how Vernon plays."
+          }
+        ],
+        sources: [
+          {
+            name: "The Story Behind Every Song on Taylor Swift's folklore - Vulture",
+            url: "https://www.vulture.com/2020/07/taylor-swift-folklore-aaron-dessner-breaks-down-every-song.html"
+          },
+          {
+            name: "How Aaron Dessner and Taylor Swift Stripped Down Her Sound on 'Folklore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-taylor-swift-interview-folklore-1033870/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
     {
       slug: 'hoax',

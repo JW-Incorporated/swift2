@@ -2125,6 +2125,65 @@ const TRACKS = [
       themes: ['fate and bargaining', 'fear of unlovability', 'petitioning the universe'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A Swift and Aaron Dessner song from the Anthology half of the album. Rolling Stone's Rob Sheffield named it with 'Peter' and 'Cassandra' as 'some of the most powerful songs Swift and Dessner have crafted together' and said it has 'the album's fiercest vocals.'",
+          "Billboard's critics noted that it features some of Dessner's typical indie-folk work and opens up during an instrumental break."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics read it as a song about the idea that no one can have it all: for Swift, they wrote, sacrificing a relationship's stability for professional enormity, and later understanding that apparent fate to be a raw deal.",
+            "Sheffield described the narrator as a character that recurs across the album, the woman who has been waiting far too long for her dreams to come true until she feels her youth drain away, and said the song leads naturally into 'Cassandra.' Swift has not explained the song in the sources cited here, so these are critics' readings."
+          ]
+        },
+        live: [
+          {
+            date: "June 2, 2024",
+            event: "The Eras Tour, Lyon",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Prophecy' and 'long story short' as a surprise-song slot."
+          },
+          {
+            date: "November 2, 2024",
+            event: "The Eras Tour, Indianapolis",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Prophecy' and 'This Love' as a surprise-song slot."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:cassandra",
+            label: "Cassandra",
+            why: "Rolling Stone's review says the song leads naturally into this track."
+          },
+          {
+            relatedId: "song:peter",
+            label: "Peter",
+            why: "Rolling Stone's review names it alongside 'The Prophecy' and 'Cassandra' among the strongest Swift and Dessner collaborations on the album."
+          },
+          {
+            relatedId: "song:long-story-short",
+            label: "long story short",
+            why: "The two songs were mashed up in Lyon on June 2, 2024, per Deadline's and Variety's lists."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'The Tortured Poets Department': All 31 Tracks Ranked - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/"
+          },
+          {
+            name: "Taylor Swift Busts Out the Quill Pen and Delivers an Epic Double Album with 'TTPD: The Anthology' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
     {
       slug: 'cassandra',
@@ -2520,6 +2579,65 @@ const TRACKS = [
         'Fans map its verses onto the All Too Well mythology — the manuscript rereading as the scarf saga’s final form (fan reading, unconfirmed).',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "One of the four bonus tracks from the physical editions of The Tortured Poets Department, with 'The Black Dog', 'The Albatross' and 'The Bolter'. Rolling Stone's Rob Sheffield said they fit together almost as a suite, framing the second half of the Anthology like bookends.",
+          "Billboard's critics wrote that, after the big-picture anger of the album, Swift ends up focusing on the minuscule moments she cannot let go."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics heard Swift 'trying and failing to script life's remarkable spontaneity', with stray memories of quiet exchanges that do not lead to a grand future and become more wrenching in their intimacy.",
+            "Sheffield called the four bonus tracks 'stark piano narratives about different kinds of mad women', each looking for a different kind of revenge, whether the world views them as romantic ideals ('The Manuscript') or in some other light. Swift has not explained the song in the sources cited here, so these are critics' readings."
+          ]
+        },
+        live: [
+          {
+            date: "June 15, 2024",
+            event: "The Eras Tour, Liverpool",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Manuscript' and 'Red' as a surprise-song slot."
+          },
+          {
+            date: "December 8, 2024",
+            event: "The Eras Tour, Vancouver",
+            note: "Deadline's and Variety's lists give a mash-up of 'Long Live', 'New Year's Day' and 'The Manuscript'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-black-dog",
+            label: "The Black Dog",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          },
+          {
+            relatedId: "song:the-albatross",
+            label: "The Albatross",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          },
+          {
+            relatedId: "song:the-bolter",
+            label: "The Bolter",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'The Tortured Poets Department': All 31 Tracks Ranked - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/"
+          },
+          {
+            name: "Taylor Swift Busts Out the Quill Pen and Delivers an Epic Double Album with 'TTPD: The Anthology' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
 ];
 
