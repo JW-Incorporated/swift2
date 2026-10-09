@@ -8,8 +8,9 @@
 // - Token: DISCORD_TREE_BOT_TOKEN when set (Tree's own bot, later), else
 //   DISCORD_BOT_TOKEN. This is the ONLY place that picks it.
 // - Senders keep building the same webhook-shaped request (`init`); `routedPost`
-//   adapts it (drops the webhook-only `username` / `avatar_url`, which a bot post
-//   ignores) so card format stays byte-for-byte what it was.
+//   adapts it (drops the webhook-only `username` / `avatar_url`). The text, link, PNG and
+//   signed links are unchanged, but a bot post shows the bot's own name and avatar, not the
+//   webhook's "Tree" identity.
 // - No bot token or no channel id -> the caller's webhook (tree-ig-x, the old
 //   behaviour) with a loud warning, so cards keep flowing instead of vanishing.
 //
@@ -72,36 +73,36 @@ function botBody(init) {
   throw new Error('routedPost: unsupported request body');
 }
 
-const defaultSleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const BOT_REFUSED = new Set([401, 403, 404]);
 
 /**
  * POST `init` (a webhook-shaped fetch init: JSON string body or FormData with a
  * `payload_json` field) to `route`. Resolves the fetch Response (`{ id }` body,
- * same as a `?wait=true` webhook). `threadId` posts inside that thread. A 429
- * with a short `retry_after` is retried once.
+ * same as a `?wait=true` webhook). `threadId` posts inside that thread.
+ *
+ * - If the bot send is refused (401/403/404, e.g. Discord 50001/50013 missing access or
+ *   permission in the new channel) and a webhook is configured, the same request is sent once via
+ *   the webhook with a `::warning::`, so a reply or card is never lost to a permission gap.
+ * - A 429 is returned untouched (body unread): callers such as `post()` own the retry.
  */
-export async function routedPost(route, init, { env = process.env, webhook = '', threadId = '', fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
+export async function routedPost(route, init, { env = process.env, webhook = '', threadId = '', fetchImpl = fetch } = {}) {
   const token = discordBotToken(env);
   const channelId = route ? routeChannelId(route, env) : '';
+  const viaWebhook = () => fetchImpl(`${webhook}?wait=true${threadId ? `&thread_id=${threadId}` : ''}`, init);
   if (!token || !channelId) {
     if (!webhook) throw new Error(`routedPost: no bot token or channel for "${route}" and no webhook fallback`);
     if (route) console.log(`::warning::discord-route: no bot token/channel id for "${route}" — falling back to the webhook channel`);
-    const url = `${webhook}?wait=true${threadId ? `&thread_id=${threadId}` : ''}`;
-    return fetchImpl(url, init);
+    return viaWebhook();
   }
-  const target = threadId || channelId;
-  const send = () => {
-    const { body, headers } = botBody(init);
-    return fetchImpl(`${DISCORD_API}/channels/${target}/messages`, { method: 'POST', headers: { ...headers, Authorization: `Bot ${token}` }, body });
-  };
-  let res = await send();
-  if (res.status === 429) {
-    const retry = await res.json().catch(() => ({}));
-    const wait = typeof retry.retry_after === 'number' ? retry.retry_after : 1;
-    if (wait <= 10) {
-      await sleepImpl(Math.ceil(wait * 1000));
-      res = await send();
-    }
+  const { body, headers } = botBody(init);
+  const res = await fetchImpl(`${DISCORD_API}/channels/${threadId || channelId}/messages`, {
+    method: 'POST',
+    headers: { ...headers, Authorization: `Bot ${token}` },
+    body,
+  });
+  if (webhook && BOT_REFUSED.has(res.status)) {
+    console.log(`::warning::discord-route: bot send to "${route}" refused (HTTP ${res.status}) — retrying once via the webhook channel`);
+    return viaWebhook();
   }
   return res;
 }

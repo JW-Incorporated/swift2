@@ -11,10 +11,14 @@
 // DRY-RUN BY DEFAULT: it only LISTS what it would send. `--live` is refused without
 // `--delivered-before`.
 //
-// "Not yet posted" = status 'delivered' (sent, no Posted/Skip ack yet). Idempotent without a
-// schema change: a re-posted lead gets a new discord_delivered_at (>= the run time), so a second
-// run with the same --delivered-before cutoff no longer selects it. Pick the cutoff once (the
-// moment the new routing went live) and reuse it for any retry.
+// "Not yet posted" = status 'delivered' (sent, no Posted/Skip ack yet). No schema change: each
+// lead is CLAIMED first (discord_delivered_at set to now, guarded by status='delivered' AND
+// discord_delivered_at < cutoff, rows returned), then sent, then its discord_message_id is
+// recorded. A rerun with the same cutoff therefore never selects or claims a lead that was already
+// claimed, even concurrently. Residuals: a send that fails after the claim is un-claimed (timestamp
+// restored) so a rerun retries it; if that restore itself fails, or the message id cannot be
+// recorded, the lead is reported as failed (non-zero exit) with its ids for manual repair.
+// The cutoff must not be in the future (it would match leads claimed by this very run).
 import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
 import { discordBotToken, routeChannelId, routeForPlatform } from '../lib/discord-route.mjs';
@@ -65,14 +69,41 @@ export async function fetchPending(supabase, { before, sinceDays = DEFAULT_SINCE
   return data ?? [];
 }
 
-/** Points the lead at the new card; status stays 'delivered' until the owner acks. */
-export async function markReposted(supabase, leadId, messageId, now = new Date()) {
-  const { error } = await supabase
+/** Claims one lead for this run: true only when exactly one still-pending row was updated. */
+export async function claimLead(supabase, leadId, before, now = new Date()) {
+  const { data, error } = await supabase
     .from('engagement_lead')
-    .update({ discord_delivered_at: now.toISOString(), discord_message_id: messageId })
+    .update({ discord_delivered_at: now.toISOString() })
     .eq('id', leadId)
-    .eq('status', 'delivered');
+    .eq('status', 'delivered')
+    .lt('discord_delivered_at', before)
+    .select('id');
   if (error) throw error;
+  return Array.isArray(data) && data.length === 1;
+}
+
+/** Puts the original timestamp back after a failed send so a rerun retries the lead. */
+export async function unclaimLead(supabase, leadId, originalDeliveredAt) {
+  const { data, error } = await supabase
+    .from('engagement_lead')
+    .update({ discord_delivered_at: originalDeliveredAt })
+    .eq('id', leadId)
+    .eq('status', 'delivered')
+    .select('id');
+  if (error) throw error;
+  if (!Array.isArray(data) || data.length !== 1) throw new Error('un-claim updated no row');
+}
+
+/** Records the new card's message id; a zero-row update is an error, never a silent success. */
+export async function recordMessageId(supabase, leadId, messageId) {
+  const { data, error } = await supabase
+    .from('engagement_lead')
+    .update({ discord_message_id: messageId })
+    .eq('id', leadId)
+    .eq('status', 'delivered')
+    .select('id');
+  if (error) throw error;
+  if (!Array.isArray(data) || data.length !== 1) throw new Error('recording the new message id updated no row');
 }
 
 export async function runRepost({
@@ -88,6 +119,7 @@ export async function runRepost({
   now = new Date(),
   log = console.log,
 } = {}) {
+  if (!(Date.parse(before) <= now.getTime())) throw new Error('delivered-before must be a past instant');
   const leads = await fetchPending(supabase, { before, sinceDays, now });
   const plan = leads.map((lead) => ({
     leadId: lead.id,
@@ -106,8 +138,10 @@ export async function runRepost({
 
   const reposted = [];
   const failed = [];
+  const skipped = [];
   for (const lead of leads) {
     const route = routeForPlatform(lead.platform);
+    let claimed = false;
     try {
       const imageRef = resolveAttachment(lead, catalog);
       const png = imageRef ? (await fetchCardPng(imageRef, { fetchImpl })).png : null;
@@ -116,6 +150,11 @@ export async function runRepost({
       const content = buildAwarenessMessage(lead, { postedUrl, skipUrl });
       const replyText = buildAwarenessReplyText(lead).text;
       if (!replyText) throw new Error(`lead ${lead.id} has no reply text`);
+      if (!(await claimLead(supabase, lead.id, before, now))) {
+        skipped.push(lead.id);
+        continue;
+      }
+      claimed = true;
       const messageId = await postAwarenessMessage({
         webhook,
         route,
@@ -125,8 +164,13 @@ export async function runRepost({
         filename: imageRef ? imageFilename(imageRef) : undefined,
         fetchImpl,
       });
-      // Record the new card first: it is the record acks route by, and a retry must not re-send it.
-      await markReposted(supabase, lead.id, messageId, new Date());
+      claimed = false; // the card exists now; never un-claim past this point
+      try {
+        await recordMessageId(supabase, lead.id, messageId);
+      } catch (err) {
+        failed.push({ leadId: lead.id, message: `CARD SENT (message ${messageId}) but not recorded: ${String(err?.message ?? err)}` });
+        continue;
+      }
       reposted.push({ leadId: lead.id, route, messageId, card: imageRef ? cardUrlForRef(imageRef) : null });
       try {
         await postAwarenessReplyText({ webhook, route, env, text: replyText, fetchImpl });
@@ -135,9 +179,17 @@ export async function runRepost({
       }
     } catch (err) {
       failed.push({ leadId: lead.id, message: String(err?.message ?? err) });
+      if (claimed) {
+        try {
+          await unclaimLead(supabase, lead.id, lead.discord_delivered_at);
+        } catch (restoreErr) {
+          failed.push({ leadId: lead.id, message: `could not un-claim after the failed send (${String(restoreErr?.message ?? restoreErr)}); it will not be retried until repaired` });
+        }
+      }
     }
   }
-  return { pending: plan.length, counts, plan, reposted, failed, dryRun: false };
+  if (skipped.length) log(`awareness-repost: ${skipped.length} lead(s) already claimed by an earlier run — skipped`);
+  return { pending: plan.length, counts, plan, reposted, failed, skipped, dryRun: false };
 }
 
 async function main() {
@@ -145,6 +197,10 @@ async function main() {
   const before = parseCutoff(args.deliveredBefore) ?? (args.live ? null : new Date().toISOString());
   if (!before) {
     console.error('awareness-repost: --live needs a valid --delivered-before=<ISO instant>; refusing.');
+    return 1;
+  }
+  if (Date.parse(before) > Date.now()) {
+    console.error('awareness-repost: --delivered-before is in the future; refusing (it would match cards this run re-posts).');
     return 1;
   }
   if (!Number.isFinite(args.sinceDays) || args.sinceDays <= 0) {

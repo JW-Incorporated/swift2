@@ -127,10 +127,15 @@ export function isFailureNotice(m, messageId) {
 // is read by the poll, never by chat (W8, W2 review LOW).
 const APPROVAL_POST_REF = /^ref: (?:PR #\d+ · [0-9a-f]{40} · (?:\*|.+\.json)|reddit · .+)$/;
 
+// Reddit/Facebook cards are now posted by the bot (no webhook_id; scripts/lib/discord-route.mjs), so a
+// bot-authored card whose last line is a `ref: reddit ·` line counts too — never a bot PR-approval ref.
+const REDDIT_POST_REF = /^ref: reddit · .+$/;
+
 export function isApprovalPost(m) {
-  if (!m?.webhook_id) return false;
-  const lines = String(m.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
-  return APPROVAL_POST_REF.test(lines[lines.length - 1] ?? '');
+  const lines = String(m?.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const last = lines[lines.length - 1] ?? '';
+  if (m?.webhook_id) return APPROVAL_POST_REF.test(last);
+  return Boolean(m?.author?.bot) && REDDIT_POST_REF.test(last);
 }
 
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);

@@ -63,11 +63,34 @@ describe('discord-route', () => {
     log.mockRestore();
   });
 
-  it('retries once on a short 429', async () => {
-    const fetchImpl = vi.fn().mockResolvedValueOnce({ ok: false, status: 429, json: async () => ({ retry_after: 0.1 }) }).mockResolvedValueOnce(ok());
-    const sleepImpl = vi.fn().mockResolvedValue(undefined);
-    const res = await routedPost('tree-main', { method: 'POST', body: '{}' }, { env, fetchImpl, sleepImpl });
-    expect(res.ok).toBe(true);
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+  it('retries once via the webhook when the bot is refused (401/403/404), with a warning', async () => {
+    for (const status of [401, 403, 404]) {
+      const fetchImpl = vi.fn().mockResolvedValueOnce({ ok: false, status, json: async () => ({ code: 50013 }) }).mockResolvedValueOnce(ok('hook'));
+      const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const res = await routedPost('tree-main', { method: 'POST', body: '{"content":"x"}' }, { env, webhook: 'https://hook', threadId: '5', fetchImpl });
+      expect(fetchImpl).toHaveBeenCalledTimes(2);
+      expect(fetchImpl.mock.calls[1][0]).toBe('https://hook?wait=true&thread_id=5');
+      expect(await res.json()).toEqual({ id: 'hook' });
+      expect(log.mock.calls.flat().join()).toContain(`HTTP ${status}`);
+      log.mockRestore();
+    }
+  });
+
+  it('returns a refusal as is when there is no webhook, and does not fall back on a 5xx', async () => {
+    const refused = { ok: false, status: 403, json: async () => ({}) };
+    expect(await routedPost('tree-main', { method: 'POST', body: '{}' }, { env, fetchImpl: vi.fn().mockResolvedValue(refused) })).toBe(refused);
+    const boom = { ok: false, status: 500, json: async () => ({}) };
+    const fetchImpl = vi.fn().mockResolvedValue(boom);
+    expect(await routedPost('tree-main', { method: 'POST', body: '{}' }, { env, webhook: 'https://hook', fetchImpl })).toBe(boom);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns a 429 untouched with its body unread (callers own the retry)', async () => {
+    const json = vi.fn();
+    const limited = { ok: false, status: 429, json };
+    const fetchImpl = vi.fn().mockResolvedValue(limited);
+    expect(await routedPost('tree-main', { method: 'POST', body: '{}' }, { env, webhook: 'https://hook', fetchImpl })).toBe(limited);
+    expect(json).not.toHaveBeenCalled();
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 });
