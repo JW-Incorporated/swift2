@@ -273,6 +273,7 @@ jobs:
         id: send_replan
         env:
           SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
           PR_BODY: ${{ steps.find_pr.outputs.body }}
         run: |
           set -euo pipefail
@@ -308,6 +309,7 @@ jobs:
         id: send
         env:
           SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
           PR_NUMBER: ${{ steps.find_pr.outputs.number }}
           PR_URL: ${{ steps.find_pr.outputs.url }}
           HEAD_SHA_OUT: ${{ steps.find_pr.outputs.head_sha }}
