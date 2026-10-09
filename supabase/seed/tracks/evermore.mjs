@@ -470,6 +470,65 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "One of the last songs added to evermore. Dessner told Rolling Stone that Swift wrote it 'literally days before we were supposed to master', alongside the bonus track 'right where you left me', and compared it to what happened on folklore with 'the 1' and 'hoax'. She sang her vocal remotely.",
+          "The music was Dessner's. He told Rolling Stone he had been working on it since the previous year, even sang a little on it, and thought of it as a Big Red Machine song until Swift loved the instrumental and wrote to it."
+        ],
+        meaning: {
+          supported: [
+            "Elle read the song's lyrics as a breakup song that draws on The Great Gatsby, pointing to the green light and the 'beautiful fool' lines, and noted it was not clear who or what inspired it. That is the outlet's reading; Swift has not confirmed the allusions in the sources cited here.",
+            "Billboard's critic Jason Lipshutz heard it as capturing the post-split scramble of working out who you are now, inside one of the album's most ornate arrangements."
+          ],
+          fanTheories: [
+            "Fans have linked the song to a specific real-life breakup. Swift has not named anyone in the sources cited here, and this guide does not either."
+          ]
+        },
+        live: [
+          {
+            date: "July 2024",
+            event: "The Eras Tour, Hamburg",
+            note: "Rolling Stone reported that at the first of two Hamburg shows Swift played 'We Were Happy' and 'Happiness' live for the first time, as a mash-up, telling the crowd she had never played them live and to wish her luck."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:we-were-happy",
+            label: "We Were Happy",
+            why: "Rolling Stone reported the two songs were performed as a mash-up for their live debut."
+          },
+          {
+            relatedId: "song:hoax",
+            label: "hoax",
+            why: "Dessner told Rolling Stone this song's late writing was similar to folklore's 'the 1' and 'hoax', which she also wrote days before the deadline."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone, December 2020",
+            note: "He said Swift often writes a lot of songs and then, at the very end, writes one or two more, and that they are often important ones."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Taylor Swift's 'Happiness' Lyrics Turn The Great Gatsby Into a Poignant Breakup Song - Elle",
+            url: "https://www.elle.com/culture/celebrities/a34944812/taylor-swift-happiness-lyrics-meaning-evermore/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "Watch Taylor Swift Mash-Up 'We Were Happy,' 'Happiness' Live in Hamburg - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-we-were-happy-happiness-live-debut-hamburg-1235066612/"
+          }
+        ]
+      },
     },
     {
       slug: 'dorothea',
@@ -491,6 +550,83 @@ const TRACKS = [
         wiki('Dorothea (song)', 'Dorothea_(song)', 'song article: character universe'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "One of the two songs Swift wrote to instrumentals that Aaron Dessner had first thought were for Big Red Machine, his project with Justin Vernon (the other was 'closure'). Rolling Stone reported that Dessner came to hear both as continuations of folklore's characters and stories, and he told Billboard that 'dorothea' felt like it was 'reflecting on some character.'",
+          "Swift's own description, quoted by Capital, is of 'the girl who left her small town to chase down Hollywood dreams' and what happens when she comes home for the holidays and rediscovers an old flame."
+        ],
+        meaning: {
+          confirmed: [
+            "Capital quotes Swift describing Dorothea as the girl who left her small town to chase Hollywood dreams, and what happens when she comes back for the holidays and rediscovers an old flame.",
+            "In a YouTube Q&A reported by Capital, Swift said there is not a direct continuation of the Betty, James and August storyline, but that in her mind Dorothea went to the same school as Betty, James and Inez."
+          ],
+          supported: [
+            "Capital reads the song as sung from the point of view of the old flame, and as tied to ''tis the damn season', which is sung from Dorothea's side. That is the outlet's reading of the pairing.",
+            "Billboard's critic Jason Lipshutz heard it as Swift creating stakes by zooming in on passed-down narratives and singing from new perspectives, with the drama mattering more than the characters' backstories."
+          ],
+          fanTheories: [
+            "From the day the album came out, fans have theorized that Dorothea is based on a real person. Capital listed several such theories; Swift's own account, above, describes a fictional character, and this guide does not name anyone."
+          ]
+        },
+        live: [
+          {
+            date: "July 8, 2023",
+            event: "The Eras Tour, Kansas City",
+            note: "Deadline's list of Eras Tour surprise songs gives 'Last Kiss' and 'Dorothea' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:tis-the-damn-season",
+            label: "'tis the damn season",
+            why: "Capital read this song and 'dorothea' as the two sides of the same homecoming."
+          },
+          {
+            relatedId: "song:closure",
+            label: "closure",
+            why: "Dessner told Rolling Stone and Billboard that Swift wrote this song and 'closure' to his Big Red Machine-era instrumentals."
+          },
+          {
+            relatedId: "song:betty",
+            label: "betty",
+            why: "Swift said in a YouTube Q&A, as reported by Capital, that in her mind Dorothea went to the same school as Betty."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Quoted by Capital on December 11, 2020",
+            note: "She framed Dorothea as a girl from a small town chasing Hollywood dreams who returns home for the holidays."
+          },
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Billboard, December 2020",
+            note: "He said 'closure' and 'dorothea' were the two early songs he and Swift both thought were for Big Red Machine, before they felt like Taylor songs."
+          }
+        ],
+        sources: [
+          {
+            name: "Who is Dorothea on Taylor Swift's Evermore? All the theories explained - Capital",
+            url: "https://www.capitalfm.com/artists/taylor-swift/who-is-dorothea-evermore-meaning-lyrics/"
+          },
+          {
+            name: "Aaron Dessner on the 'Weird Avalanche' That Resulted in Taylor Swift's 'Evermore' - Billboard",
+            url: "https://www.billboard.com/music/pop/aaron-dessner-taylor-swift-evermore-interview-9502756/"
+          },
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'coney-island',
@@ -517,6 +653,62 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Evermore's duet with The National. Dessner told Rolling Stone he was not thinking of the music as a National song while writing it, but once Swift and a co-writer credited as William Bowery had written the words, he and others felt it was the song 'most related to the National'; it almost felt like a story Matt Berninger might tell. He called Berninger, and the band recorded it.",
+          "Bryan Devendorf plays drums, Scott Devendorf plays bass and a pocket piano, and Bryce Dessner helped produce, per Dessner's account to Rolling Stone. Billboard's critic heard the duet as a meeting point of Swift's and the band's approaches, resting on gentle recollections rather than the escalating drama of folklore's 'exile'."
+        ],
+        meaning: {
+          supported: [
+            "Dessner told Rolling Stone the track was first recorded with just Swift's vocals over music that was everything but the drums, and that the song has a beautiful arc to its story and is one of the strongest on the record, lyrically and musically.",
+            "Teen Vogue pointed to lyric echoes: the word 'delicate' links it to the reputation track of that name, and its colors, blue and gold, match imagery Swift has used elsewhere. That is the outlet's reading of the connections, not something Swift has said."
+          ]
+        },
+        live: [
+          {
+            date: "April 28, 2023",
+            event: "The Eras Tour, Atlanta",
+            note: "Deadline's list of Eras Tour surprise songs gives 'The Other Side of the Door' and 'Coney Island' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:delicate",
+            label: "Delicate",
+            why: "Teen Vogue noted the shared word 'delicate' as a more obvious tie to another Swift song."
+          },
+          {
+            relatedId: "song:exile",
+            label: "exile",
+            why: "Billboard contrasted this duet with the folklore duet with Bon Iver, which it said was founded on escalated drama."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone, December 2020",
+            note: "He said it was nice to reconnect with his band, since they had not played a show in a year, and that he loves how Berninger and Swift sound together."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          },
+          {
+            name: "Taylor Swift's \"evermore\" Hidden Meanings - Teen Vogue",
+            url: "https://www.teenvogue.com/story/taylor-swift-evermore-hidden-meanings"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'ivy',
@@ -761,6 +953,54 @@ const TRACKS = [
       themes: ['refusing cheap absolution', 'boundaries', 'discordant peace'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Evermore',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The other song Swift wrote to Dessner's Big Red Machine-era instrumentals (the first was 'dorothea'). Rolling Stone describes it as an experimental electronic track in 5/4 time over a staccato drum kit; Dessner told Billboard that although it is very experimental and in an odd time signature, lyrically it felt like an evolution of folklore.",
+          "Rolling Stone noted that parts of Swift's vocal are filtered through the Messina, a vocal modifier Justin Vernon uses a lot in his Bon Iver work. Dessner said he made one trip to see Vernon, that they worked together at Vernon's place, and that they processed her vocals through Vernon's Messina chain together. Vernon also plays drums on the track."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critic Jason Lipshutz heard the song as Swift rejecting the false niceties of someone who reaches back out to absolve themselves, over a skittering arrangement that recalls mid-period Radiohead, and called it one of the album's most daring highlights. That is a critic's reading.",
+            "Dessner told Rolling Stone that he was impressed Swift could tell stories as easily in a track like 'closure' as in a country song like 'cowboy like me', and that her craft was as sharp in both."
+          ],
+          fanTheories: [
+            "Fans have attached the song to real-life figures from Swift's public history. Swift has not named anyone in the sources cited here, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:dorothea",
+            label: "dorothea",
+            why: "Dessner told Rolling Stone and Billboard that these were the two songs written to his Big Red Machine-era instrumentals."
+          },
+          {
+            relatedId: "song:cowboy-like-me",
+            label: "cowboy like me",
+            why: "Dessner told Rolling Stone that Justin Vernon plays drums on both songs."
+          }
+        ],
+        voices: [
+          {
+            who: "Aaron Dessner",
+            context: "Speaking to Rolling Stone, December 2020",
+            note: "He said he went to see Justin Vernon once, the one trip he made, and that they worked on the vocal processing at Vernon's place."
+          }
+        ],
+        sources: [
+          {
+            name: "Aaron Dessner on How His Collaborative Chemistry With Taylor Swift Led to 'Evermore' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/"
+          },
+          {
+            name: "Aaron Dessner on the 'Weird Avalanche' That Resulted in Taylor Swift's 'Evermore' - Billboard",
+            url: "https://www.billboard.com/music/pop/aaron-dessner-taylor-swift-evermore-interview-9502756/"
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Evermore' Deluxe Edition: Critic's Picks - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-evermore-songs-ranked-9498113/"
+          }
+        ]
+      },
     },
     {
       slug: 'evermore',
