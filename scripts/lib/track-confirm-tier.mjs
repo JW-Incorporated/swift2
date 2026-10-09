@@ -5,12 +5,16 @@ export const TRACK_CONFIRM_FIELDS = ['note', 'summary', 'inspiration'];
 
 const NEGATED =
   /\b(?:unconfirmed|never\s+confirmed|not\s+confirmed|(?:hasn['’]t|has\s+not|haven['’]t|have\s+not|hadn['’]t|had\s+not)\s+confirmed)\b/gi;
-const CONFIRM = /\bconfirm(?:ed|s)?\b|\bswift\s+said\b|\bshe\s+said\b|\btold\s+[A-Z]/i;
-const WEAK_TYPES = new Set(['wiki', 'fan']);
+const CONFIRM = /\bconfirm(?:ed|s)?\b|\bswift\s+said\b|\bshe\s+said\b/i;
+// Case-sensitive on purpose: "told Rolling Stone", not "told me".
+const TOLD_OUTLET = /\btold\s+[A-Z]/;
+// vault-types.ts: fan_forum|wiki|social alone never satisfy a claim.
+const WEAK_TYPES = new Set(['wiki', 'fan_forum', 'social', 'fan']);
 
 export function hasConfirmLanguage(text) {
   if (typeof text !== 'string' || !text) return false;
-  return CONFIRM.test(text.replace(NEGATED, ' '));
+  const t = text.replace(NEGATED, ' ');
+  return CONFIRM.test(t) || TOLD_OUTLET.test(t);
 }
 
 export function onlyWeakSources(sources) {
