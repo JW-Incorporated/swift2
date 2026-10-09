@@ -96,6 +96,21 @@ describe('MerchCard alt-piece clarity', () => {
     expect(html.indexOf('As an Amazon Associate')).toBeLessThan(html.indexOf('href="https://www.amazon.com'));
   });
 
+  it('shows the Amazon statement when only the alternate listing is an Amazon affiliate link', () => {
+    vi.stubEnv('NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG', 'longlive-20');
+    const adapter = createWebRootAdapter({ push() {}, replace() {} });
+    const item: MerchItem = {
+      ...baseItem,
+      category: 'official-store',
+      altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B123' },
+    };
+    const html = renderToStaticMarkup(createElement(HostProvider, { adapter }, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
+
+    expect(html).toContain('As an Amazon Associate I earn from qualifying purchases.');
+    const plain = renderToStaticMarkup(createElement(HostProvider, { adapter }, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item: baseItem }))));
+    expect(plain).not.toContain('Amazon Associate');
+  });
+
   it('a host with no env.affiliate (the app) renders plain retailer URLs and no disclosure, even if the process env has tags', () => {
     vi.stubEnv('NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG', 'longlive-20');
     const item: MerchItem = {

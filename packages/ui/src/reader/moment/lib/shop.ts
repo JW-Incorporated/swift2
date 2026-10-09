@@ -111,6 +111,8 @@ export function createShopLinkRenderer(shopLinks: ReturnType<typeof createShopLi
     isAmazonMerch: (listing: ShopListing, bucket: Extract<ShopLinkContext, { bucket: string }>['bucket']) =>
       shopLinks.isAmazonAffiliate(listing, { bucket }),
     isAmazonMerchItem: (listing: MerchItem) => shopLinks.isAmazonAffiliate(listing, merchContext(listing)),
+    // Unlike hasAffiliateMerch this does not skip official-store items: the statement is required whenever
+    // any Amazon affiliate link renders, and an official item context-less listing never resolves as affiliate anyway.
     hasAmazonMerch: (listings: readonly MerchItem[]) =>
       listings.some((listing) => shopLinks.isAmazonAffiliate(listing, merchContext(listing))),
     hasAffiliateMerch: (listings: readonly MerchItem[]) =>
