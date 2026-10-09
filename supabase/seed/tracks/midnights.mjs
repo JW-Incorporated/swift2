@@ -184,7 +184,7 @@ const ERA = {
           },
           {
             date: "June 13, 2024",
-            event: "The Eras Tour, Liverpool (Anfield)",
+            event: "The Eras Tour, Liverpool",
             note: "Piano mashup with “Cornelia Street.”",
           },
           {
@@ -202,7 +202,7 @@ const ERA = {
           {
             relatedId: "song:cornelia-street",
             label: "Cornelia Street",
-            why: "Its most-repeated Eras Tour surprise pairing — the two New York almost-loves mashed together on piano at Anfield's 100th show (June 13, 2024)."
+            why: "Its most-repeated Eras Tour surprise pairing — the two New York almost-loves mashed together on piano in Liverpool (June 13, 2024)."
           },
           {
             relatedId: "song:cowboy-like-me",
@@ -490,7 +490,7 @@ const ERA = {
           ],
           supported: [
             "As described in Wikipedia's summary of the lyric, the narrator reflects on a hometown boyfriend who stays the same while she changed and chased fame, and ends with regret. Esquire's Alan Light read this as Swift's mature view of the “determination, ambition, and sacrifices” behind her career; The A.V. Club's Saloni Gajjar and Vox's Rebecca Jennings compared the leaving-a-small-town-love theme to evermore songs such as “Champagne Problems” and “Dorothea.” Swift announced only the title and, in the sources reviewed here, did not annotate the story, so these are critics' readings.",
-            "The shifting between a lowered and a natural voice has been read as storytelling: musicologist Phoebe E. Hughes and Billboard's Jason Lipshutz described it as a call-and-response, and NPR's Ann Powers read it as the subject's and narrator's perspectives (though she felt the effect diminished the songwriting). Lipshutz ranked it fifth of the 13 standard tracks and called the shifted hook “rock-solid”; Spin's Al Shipley called the effects “an embarrassing relic of 2010s SoundCloud production trends,” and Consequence's Mary Siroky found them overwhelming (all as summarized by Wikipedia).",
+            "The shifting between a lowered and a natural voice has been read as storytelling: Billboard's Jason Lipshutz described it as a call and response, while musicologist Phoebe E. Hughes and NPR's Ann Powers read it as a narrative device marking the subject's and the narrator's perspectives (Powers felt the effect diminished the songwriting). Lipshutz ranked it fifth of the 13 standard tracks and called the shifted hook “rock-solid”; Spin's Al Shipley called the effects “an embarrassing relic of 2010s SoundCloud production trends,” and Consequence's Mary Siroky found them overwhelming (all as summarized by Wikipedia).",
           ],
           fanTheories: [
             "Attempts to identify the lost hometown love as a specific real person are speculation: Swift has not said whether the song is autobiographical, and no fetched source documents a real-world subject, so none is recorded here.",
@@ -1088,12 +1088,12 @@ const ERA = {
       ],
       dossier: {
         whyItMatters: [
-          "The Great War is the 3am Edition's showcase for the Aaron Dessner side of Swift's work: one of three Dessner co-writes among the seven bonus tracks, bringing the contemplative, organic production of folklore and evermore to an Antonoff-built synth-pop album. Business Insider's Callie Ahlgrim argued it was evidence Dessner should have had a presence on the standard edition, and Rolling Stone's Rob Sheffield called it one of the stellar Dessner collaborations tucked away on the 3am Edition.",
+          "The Great War is the 3am Edition's showcase for the Aaron Dessner side of Swift's work: one of three Dessner co-writes among the seven bonus tracks, bringing the contemplative, organic production of folklore and evermore to an Antonoff-built synth-pop album. Business Insider's section on the song is headed as evidence that Dessner should have had a presence on the standard edition, and Rolling Stone's Rob Sheffield called it one of the stellar Dessner collaborations tucked away on the 3am Edition.",
           "Its premise is a relationship's worst fight told as First World War. Sheffield read it as a song about how emotional battles happen and how to end them, “especially when you realize you're the one firing the cannons”; Business Insider noted it is packed with floral symbolism and metaphors. It debuted at No. 26 on the Hot 100 and its live debut was a moment of its own: Dessner joined Swift onstage in Tampa, and Swift joked that the title “took on a new meaning” after fans' ticket-buying battle for the tour.",
         ],
         meaning: {
           confirmed: [
-            "Written and produced by Swift and Aaron Dessner (Midnights' track listing credits Swift and Dessner as writers); it is track 14 on the 3am Edition, runs 4:00 and debuted and peaked at No. 26 on the Hot 100 (Billboard's list of the 20 Midnights debuts). Songfacts' credits list Dessner on keyboards, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion/drum programming and piano, Kyle Resnick on trumpet and Yuki Numata Resnick on violin.",
+            "Written and produced by Swift and Aaron Dessner (Midnights' track listing credits Swift and Dessner as writers); it is track 14 on the 3am Edition, runs 4:00 and debuted at No. 26 on the Hot 100 (Billboard's list of the 20 Midnights debuts). Songfacts' credits list Dessner on keyboards, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion/drum programming and piano, Kyle Resnick on trumpet and Yuki Numata Resnick on violin.",
             "Live debut: Friday, April 14, 2023, the second Tampa show of the Eras Tour, as part of the acoustic surprise-song section with Dessner (who had attended the previous night's show) on stage; Rolling Stone reports Swift introduced him and joked about the title. The set listing for that night pairs it with “You're on Your Own, Kid” (Variety).",
           ],
           supported: [
@@ -1236,7 +1236,7 @@ const ERA = {
         ],
         meaning: {
           confirmed: [
-            "Written by Swift and Jack Antonoff, per the Midnights track listing; it is track 16 of the 3am Edition (the bonus tracks were surprise-released three hours after the standard edition) and runs 3:16. It debuted and peaked at No. 32 on the Hot 100 (Billboard's list of the 20 Midnights debuts).",
+            "Written by Swift and Jack Antonoff, per the Midnights track listing; it is track 16 of the 3am Edition (the bonus tracks were surprise-released three hours after the standard edition) and runs 3:16. It debuted at No. 32 on the Hot 100 (Billboard's list of the 20 Midnights debuts).",
             "Live: Swift played “Paris” for the first time on May 9, 2024 at Paris La Défense Arena as a surprise song (paired with “loml”), and on May 12, 2024 in the same city it appears in a piano mashup with “Begin Again” (Variety's list of Eras Tour surprise songs).",
           ],
           supported: [
@@ -1274,6 +1274,10 @@ const ERA = {
           {
             name: "We are pleased to inform you that Taylor Swift's 8 bonus tracks for 'Midnights' contain some of her best songwriting ever",
             url: "https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10"
+          },
+          {
+            name: "Taylor Swift Setlist, Paris La Défense Arena, May 9, 2024",
+            url: "https://www.setlist.fm/setlist/taylor-swift/2024/paris-la-defense-arena-nanterre-france-6baa46ba.html"
           },
           {
             name: "Taylor Swift Mines Intrusive Thoughts For Pop Artistry on ‘Midnights’",
