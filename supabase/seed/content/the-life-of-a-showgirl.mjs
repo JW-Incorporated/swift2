@@ -13998,8 +13998,8 @@ export default {
         // side by side at the podcast desk.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/cZKgEhA_KyA/hqdefault.jpg',
-            focalPoint: '50% 30%',
+            url: 'https://i.ytimg.com/vi/cZKgEhA_KyA/maxresdefault.jpg',
+            focalPoint: '50% 35%',
             credit: 'New Heights (official YouTube episode thumbnail, EP 199)',
             caption:
               'The New Heights season-five premiere — Travis and Jason Kelce at the podcast desk for the episode where Travis first recounted the wedding.',

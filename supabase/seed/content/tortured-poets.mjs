@@ -6233,6 +6233,22 @@ export default {
           focalPoint: '50% 45%', credit: 'Taylor Swift/Instagram, via Vogue',
           caption: 'Taylor Swift, Travis Kelce and the royal family in the backstage selfie from Wembley on June 21, 2024.', kind: 'primary',
         }],
+        // Part B embed (Photo Enrichment, Vault Run 2026-10-09): the page IS
+        // this Instagram post, so embed the real post rather than only the
+        // Vogue-hosted still. Shortcode taken from the Vogue article that
+        // embeds it; verified via the rendered embed/captioned page as
+        // taylorswift's own account (273M followers, verified), caption
+        // "Happy Bday M8! London shows are off to a splendid start 🇬🇧🇺🇸🤝"
+        // tagging @princeandprincessofwales — the June 21, 2024 royal
+        // backstage visit. The sibling shortcode C8hINcxNFo5 is the Wales
+        // account's post, not hers.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            "Taylor's own Instagram: the backstage selfie with Travis Kelce and the Wales family at her first London Eras Tour show — \"Happy Bday M8! London shows are off to a splendid start.\"",
+          postedOn: '2024-06-21',
+        },
       },
     },
     {
