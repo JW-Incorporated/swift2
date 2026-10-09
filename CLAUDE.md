@@ -76,6 +76,18 @@ founder's eyes before it merges, then exit without merging that one. Fix
 what you can see is red before you exit. Scheduled runners live on Joey's
 account per the automation-account-ownership policy (D1=B, 2026-08-31).
 
+**Amended 2026-10-09 (owner decision, final): the founder's ✅ is retired for
+IG/X.** Tree (the active social media manager) clears his own `tree/draft/*`
+PRs by dispatching `.github/workflows/social-tree-approve.yml` with the PR
+number; that main-only workflow refuses under `SOCIAL_FREEZE`, allows only
+`social/queue/*.json` + `apps/web/public/social/**`, runs trusted
+`check-drafts`, mints a signed v4 `tree-auto` stamp and merges.
+`social-poster.yml` stays clock-dispatched, never by agents. Every OTHER agent
+still never merges a `social-draft` PR, never dispatches `social-poster.yml`,
+and never writes an `approval` key. The paragraph below describes the older
+reaction-stamp mechanism, still the model for any item not cleared by Tree's
+workflow.
+
 **Exception — approval is the founder's own ✅ in `#longlive-tree`, not a
 merge (docs/social/RULINGS-SOCIAL-2.md B1, superseding A2's merge-keyed stamp).** A
 Discord reaction from the owner's own Discord user id is stamped and

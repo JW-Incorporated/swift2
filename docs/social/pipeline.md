@@ -22,8 +22,13 @@ and files each item under `social/posted/` (success) or `social/failed/`
 in `social/README.md`. Agents can engage the freeze themselves
 (`node scripts/ops/set-switch.mjs SOCIAL_FREEZE true --reason "..."`, logged
 in `docs/ops/switch-ledger.md`); the wrapper refuses any other value, so only
-the founder lifts it (founder decision 2026-10-06). As of 2026-09-10, reaching `social/queue/` on `main`
-at all requires a founder's PR merge (the approval gate above); from there,
+the founder lifts it (founder decision 2026-10-06). As of 2026-10-09 (owner decision), reaching `social/queue/` on `main`
+for IG/X goes through `social-tree-approve.yml`, which Tree dispatches with
+his draft PR number (it refuses under `SOCIAL_FREEZE`, allows only
+`social/queue/*.json` + `apps/web/public/social/**`, runs the trusted
+`check-drafts`, mints a signed v4 `tree-auto` stamp and merges; before that
+date it required a founder's ✅ reaction). `social-poster.yml` stays
+clock-dispatched and is never dispatched by an agent. From there,
 `isDue` still just checks `scheduledAt`, so an approved item posts when its
 `scheduledAt` arrives with no further per-item check. `approvedBy`/
 `approvedAt` are written automatically by the poster as an audit trail
@@ -43,13 +48,13 @@ check) immediately after posting, and reads the union of that branch and
 visibility problem now, not a duplicate-post risk. `social-poster.yml`'s
 own header comment is the fullest account of the mechanics.
 
-**What this still means for the drafting run.** A founder now reads every
-caption before it can ship (the 2026-09-10 approval gate), but that founder
-look is a fast yes/no on the prompt in `#longlive-tree`, not an editorial
-pass — the desk's own judgment is still the real editorial gate. The
+**What this still means for the drafting run.** Since 2026-10-09 (owner decision)
+no founder reads IG/X captions before they ship: Tree clears his own drafts
+through `social-tree-approve.yml` (the 2026-09-10 per-post ✅ gate is retired
+for IG/X), so the desk's own judgment is the only editorial gate. The
 #36/Clownbot blocklist, the sourcing standard, and the "never invent a stat,
 quote, or trend" rule are still things only the desk reliably catches; don't
-draft assuming a founder will fact-check for you. Draft accordingly.
+draft assuming anyone will fact-check for you. Draft accordingly.
 
 Live once these exist (founder TX, issue #738): an X (Twitter) developer
 App on `@longlivetscom` with Read+Write permissions → repo secrets
@@ -100,7 +105,9 @@ DID recur on 2026-08-11/12 through a different strand (the auto-merge
 allowlist never covered `social/posted/`, and PR #1900's disarm-on-decline
 then stranded every success-recording state PR; see issue #2031 and
 `docs/decisions.md` 2026-08-12). The durable lesson: ANY stranded state PR
-means a stale ledger, whatever stranded it. PR #2039 made that fail closed
+means a stale ledger, whatever stranded it. **Never run `post-queue.mjs`
+locally or from an agent — not even to "test"; it posts for real (guard-denied
+for this reason), and Tree's autonomy (2026-10-09) does not change that.** PR #2039 made that fail closed
 (refuses to post, loudly) while one is open; issue #2040 (2026-08-25) then
 removed the dependency on that PR merging at all — see the paragraph above
 and `docs/decisions.md` 2026-08-25. A state PR should still always be
@@ -167,7 +174,8 @@ Closed by T6 (`docs/specs/tree-overhaul/t6-side-doors.md`, 2026-09-12): the
 merch and appearance side doors no longer write captions or queue drafts at
 all — they write a fact sheet to `social/inbox/`, and Tree drafts (or
 declines) any post from it in its own next daily run, under the same
-founder ✅ gate as every other post.
+clearing path as every other post (Tree's own `social-tree-approve.yml`
+dispatch since 2026-10-09; a founder ✅ before that).
 
 ## Reply notifier (2026-10-01)
 

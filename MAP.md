@@ -58,7 +58,7 @@ docs `CLAUDE.md` points at:
 | `supabase/` | Database project (migrations, config) | — |
 | `e2e/` | Playwright specs (`npm run test:e2e`) | — |
 | `docs/` | All durable knowledge | Don't leave a decision only in a conversation |
-| `.github/workflows/` | CI + scheduled runners. `ci.yml` job `build` is the required check | Don't dispatch `social-poster.yml` / `social-delete-media.yml` |
+| `.github/workflows/` | CI + scheduled runners. `ci.yml` job `build` is the required check | Don't dispatch `social-poster.yml` / `social-delete-media.yml`. Exception (2026-10-09, owner): Tree dispatches `social-tree-approve.yml` with his draft PR number — nothing else |
 
 ## Session infrastructure (`.claude/` and the standing files)
 

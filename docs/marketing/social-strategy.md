@@ -16,7 +16,7 @@ Who does what, in one line each:
 
 - **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
   drafts what the calendar says into `social/queue/` (a second, daily run).
-- **`social-poster.yml`** ships it every 30 min, once the owner's ✅ stamp is on it.
+- **`social-poster.yml`** ships it every 30 min, once a signed stamp is on it — since 2026-10-09 (owner decision) Tree mints it for IG/X by dispatching `social-tree-approve.yml`, with no per-post ✅. Reddit and Facebook are owner-posted from Tree's paste-ready cards.
 - **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
