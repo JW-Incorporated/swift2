@@ -37,15 +37,20 @@ const WATCHDOG_FEED_MS = 30_000;
 const systemdNotify = (state) => execFile('systemd-notify', [state], { timeout: 10_000 }, () => {});
 
 export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log,
-  now = Date.now, processStartMs = now(), notify = systemdNotify }) {
+  now = Date.now, processStartMs = now(), notify = systemdNotify, exit = (code) => process.exit(code) }) {
   const channels = createChannelMap({ guildId: config.guildId });
   const seen = createSeen();
   const pending = new Map();
   let gateway = null;
   let stoppedReminder = null;
   let announced = '';
-  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs });
   const health = createGatewayHealth({ now });
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs,
+    progress: () => health.tick(),
+    onFatal: () => {
+      log('clock: exiting so systemd restarts the unit');
+      exit(1);
+    } });
   let feedTimer = null;
 
   const discord = async (method, url) => {

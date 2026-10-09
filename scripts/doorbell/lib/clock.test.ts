@@ -101,6 +101,7 @@ describe('host clock', () => {
   it('latches an unexpected tick failure without leaking its error or resuming progress', async () => {
     const progress = vi.fn();
     const log = vi.fn();
+    const onFatal = vi.fn();
     let calls = 0;
     const now = () => {
       calls += 1;
@@ -108,11 +109,12 @@ describe('host clock', () => {
       return start;
     };
     const fetchImpl = vi.fn().mockResolvedValue(response(liveText));
-    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now, processStartMs: start, progress, log });
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now, processStartMs: start, progress, log, onFatal });
     await clock.refresh();
     await clock.tick();
     await clock.tick();
     expect(progress).not.toHaveBeenCalled();
+    expect(onFatal).toHaveBeenCalledOnce();
     expect(log).toHaveBeenCalledOnce();
     expect(log).toHaveBeenCalledWith('clock: unexpected failure; watchdog progress stopped');
     expect(log.mock.calls.flat().join(' ')).not.toContain('secret exception details');

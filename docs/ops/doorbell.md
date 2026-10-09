@@ -12,7 +12,7 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 5-minute poll still answers.
 
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
-was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v3`.
+was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v4` (#5014; installed tag is still `doorbell-v3` until the update below is run).
 
 ## Clock v3 (installed; noon delivery proof pending)
 
@@ -118,11 +118,12 @@ clean checkout before restarting. Reverting the checkout to `doorbell-v2`
 and restarting is the code rollback, but restores the cumulative drift bug.
 
 The two unit-install commands were approved on 2026-09-14. They install
-`Type=notify`, `WatchdogSec=180`, `StartLimitBurst=5` and a one-hour start-limit
-window. The running Node process sends `WATCHDOG=1` through `systemd-notify`
-every 30 s, but only while the gateway is healthy (below). Five starts in an hour
-exhaust the limit; investigate first, then `sudo systemctl reset-failed
-longlive-doorbell` before restarting. Verify with `systemctl show
+`Type=notify`, `WatchdogSec=180` and `StartLimitBurst=5`. From `doorbell-v4` the
+start-limit window is disabled (`StartLimitIntervalSec=0`, `RestartSec=30` kept). The running Node process sends `WATCHDOG=1` through `systemd-notify`
+every 30 s, but only while the gateway is healthy (below). With the limit disabled, restarts
+never exhaust it: a Discord outage makes the unit restart about every 5 minutes
+(120 s grace, then the 180 s watchdog) until Discord returns, and it never ends
+up `failed` waiting for a human. Verify with `systemctl show
 longlive-doorbell -p ActiveState -p WatchdogUSec -p StartLimitBurst`.
 
 ### Watchdog health (#5014)
@@ -138,8 +139,9 @@ follows the gateway (`scripts/doorbell/lib/gateway-health.mjs`):
 - Self-heal: a connect or resume that has not reached READY/RESUMED in 45 s is
   closed and retried with a fresh IDENTIFY (`gateway: resume not ready after 45s
   — identifying afresh`).
-- Clock ticks do not feed the watchdog. A clock-loop failure is logged, but no
-  longer restarts the unit.
+- The clock is part of the feed: it must also have ticked within 3 minutes (it
+  ticks every minute), so a hung clock stops the feed. A fatal clock-loop error
+  logs `clock: exiting so systemd restarts the unit` and exits 1.
 
 Proof order: one hour of twelve poll slots on main, dispatch actor and IDs,
 within two minutes per slot without doubled clock dispatches; then
@@ -262,6 +264,12 @@ sudo git fetch --depth 1 origin tag doorbell-v2
 sudo git checkout -q doorbell-v2
 sudo systemctl restart longlive-doorbell
 ```
+
+`doorbell-v4` changes the unit file (`StartLimitIntervalSec=0`), so that update
+also needs the new `longlive-doorbell.service` copied into `/etc/systemd/system/`
+and `sudo systemctl daemon-reload` before the restart. It is a Hermes-session
+or founder action (pull the tag, install the unit, reload, restart); this
+repo change deploys nothing.
 
 Check it worked the same way as after the install.
 

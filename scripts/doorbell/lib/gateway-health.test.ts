@@ -25,6 +25,7 @@ describe('gateway health state machine', () => {
     for (let i = 0; i < 10; i += 1) {
       t += 41_250;
       h.ack();
+      h.tick();
       expect(h.shouldFeed()).toBe(true);
     }
     h.closed();
@@ -38,6 +39,7 @@ describe('gateway health state machine', () => {
     t += 600_000;
     h.ack();
     h.ready();
+    h.tick();
     expect(h.shouldFeed()).toBe(true);
   });
 
@@ -72,6 +74,26 @@ describe('gateway health state machine', () => {
     expect(fed.slice(0, 2)).toEqual([true, true]);
     expect(fed.at(-1)).toBe(false);
     expect(fed.indexOf(false)).toBeGreaterThan(4);
+  });
+
+  it('a hung clock stops the feed even with a healthy gateway', () => {
+    const h = make();
+    h.hello(41_250);
+    h.ready();
+    for (let i = 0; i < 5; i += 1) {
+      t += 30_000;
+      h.ack();
+      h.tick();
+      expect(h.shouldFeed()).toBe(true);
+    }
+    for (let i = 0; i < 8; i += 1) {
+      t += 30_000;
+      h.ack();
+    }
+    expect(h.isHealthy()).toBe(true);
+    expect(h.shouldFeed()).toBe(false);
+    h.tick();
+    expect(h.shouldFeed()).toBe(true);
   });
 
   it('an ack arriving before ready does not count as healthy', () => {
@@ -128,6 +150,23 @@ describe('gateway feeds health and bounds a stuck connect', () => {
     expect(fresh.sent.some((f) => f.op === 2)).toBe(true);
     fresh.frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's2', resume_gateway_url: 'wss://resume.discord.gg' } });
     expect(h.isHealthy()).toBe(true);
+    gw.stop();
+  });
+
+  it('an invalid session (op 9) is not healthy and identifies afresh', () => {
+    const h = createGatewayHealth({ now: () => Date.now() });
+    const gw = connectGateway({
+      token: 't', intents: 1, onDispatch: () => {}, log: () => {}, WebSocketImpl: FakeSocket, random: () => 0.5, health: h,
+    });
+    const first = latest();
+    first.frame({ op: 10, d: { heartbeat_interval: 40_000 } });
+    first.frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://resume.discord.gg' } });
+    first.frame({ op: 9, d: false });
+    expect(h.isHealthy()).toBe(false);
+    vi.advanceTimersByTime(1_000);
+    const next = latest();
+    next.frame({ op: 10, d: { heartbeat_interval: 40_000 } });
+    expect(next.sent.some((f) => f.op === 2)).toBe(true);
     gw.stop();
   });
 });
