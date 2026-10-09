@@ -393,7 +393,7 @@ const TRACKS = [
         'Confirmed as the album’s first-written song, described by Swift in the Long Pond film in stolen-legacy terms. In a December 2020 Entertainment Weekly interview she confirmed the 2019 sale of her masters shaped it (alongside “mad woman”) — so the masters mapping is Swift-stated, not merely fan reading.',
       themes: ['betrayal by a former ally', 'stolen legacy', 'grief as haunting'],
       fanLore:
-        'The line-by-line mapping onto the Braun/Big Machine principals stays fan close-reading, but Swift has confirmed the masters dispute as the song’s emotional source.',
+        'The line-by-line mapping onto the people involved in the masters dispute stays fan close-reading, but Taylor has confirmed the masters dispute as the song’s emotional source, and this guide doesn’t name anyone.',
       sourceUrl: 'https://en.wikipedia.org/wiki/My_Tears_Ricochet',
       sources: [
         wiki(
@@ -1094,7 +1094,7 @@ const TRACKS = [
         meaning: {
           confirmed: [
             'Written by Swift with Joe Alwyn under the William Bowery pseudonym, "betty" is the only folklore track produced by both Aaron Dessner and Jack Antonoff (with Swift). Swift has said she heard Alwyn singing the "fully formed chorus" from another room during quarantine and asked to finish it with him. Built on guitars, pedal steel and harmonica, it turns on a key change after the bridge.',
-            'Swift confirmed the narrator names — James, Inez and Betty — were borrowed from the children of Blake Lively and Ryan Reynolds, and stated in the song’s framing that James is seventeen. Because the lyric never assigns James a gender, some listeners first read it through a queer lens; the seventeen-year-old-boy narrator is the on-record reading.',
+            'Taylor confirmed the narrator names — James, Inez and Betty — were borrowed from the children of friends, and stated in the song’s framing that James is seventeen. Because the lyric never assigns James a gender, some listeners first read it through a queer lens; the seventeen-year-old-boy narrator is the on-record reading.',
           ],
           supported: [
             'It reached No. 42 on the Hot 100 and No. 6 on Hot Country Songs (Swift’s 22nd top-ten there), was released to US country radio on August 17, 2020, and was certified Gold in both Canada and the UK.',

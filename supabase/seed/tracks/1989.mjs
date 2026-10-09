@@ -235,7 +235,7 @@ export default {
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
           reliability_score: 3,
-          notes: 'Swift never confirmed the Harry Styles reading; her own coy framing',
+          notes: 'Taylor never confirmed a subject; her own coy framing',
         },
       ],
       dossier: {
@@ -607,10 +607,10 @@ export default {
       summary:
         'A friendship betrayed at the professional level: not a breakup, a backstab — with a chorus built for stadium-sized grudge-holding.',
       inspiration:
-        'Swift’s 2014 Rolling Stone interview confirmed the subject was another female artist who attempted to poach her tour dancers; the press universally read Katy Perry (unconfirmed then; the two publicly reconciled in 2019).',
+        'Taylor’s 2014 Rolling Stone interview described the subject only as another female artist who attempted to poach her tour dancers, without naming anyone; this guide doesn’t name anyone either.',
       themes: ['betrayed friendship', 'professional sabotage', 'grudges'],
       fanLore:
-        'Fan/press reading: the Perry feud — effectively closed by their documented burger-and-fries reconciliation in the You Need to Calm Down video.',
+        'Fans and press speculated about who the song is about; Taylor has not named her, and this guide doesn’t name anyone. The burger-and-fries moment in the You Need to Calm Down video is a documented public reconciliation.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
       sources: [
         wiki(
@@ -638,22 +638,13 @@ export default {
           notes: 'the Joseph Kahn video’s Billboard Music Awards premiere (May 17, 2015) and star cast',
         },
         {
-          source_url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/',
-          source_title: 'A Timeline of the Taylor Swift–Katy Perry Feud',
-          publisher: 'Time',
-          source_type: 'reputable_press',
-          accessed_at: '2026-07-24',
-          reliability_score: 4,
-          notes: 'the Perry press reading, "Swish Swish," and the 2019 reconciliation — all labeled inference/resolution, not Swift confirmation',
-        },
-        {
           source_url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/',
           source_title: "Watch Taylor Swift Reunite With Katy Perry in 'You Need to Calm Down' Video",
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
           reliability_score: 4,
-          notes: 'the June 17, 2019 burger-and-fries reconciliation that publicly closed the feud',
+          notes: 'the June 17, 2019 burger-and-fries video moment, a public reconciliation',
         },
       ],
       // Depth ledger #1376 (2026-07-24): the Kendrick remix, production, the

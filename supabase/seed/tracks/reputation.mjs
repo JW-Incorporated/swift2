@@ -57,7 +57,7 @@ const TRACKS = [
           ],
           supported: [
             "Wikipedia's sourced composition summary and multiple outlets describe the lyrics as using criminal and heist imagery — including a bank robbery, holding someone 'for ransom,' and going into hiding together — as metaphors for intense new romantic attraction and desire to escape public scrutiny.",
-            "Several publications, including Songfacts, note the lyric describing her love interest as 'younger than my exes' who nonetheless 'acts like such a man' aligns with Joe Alwyn, who was younger than Swift when they began dating and when the song was released; additional numeric and visual cues in the music video (including birth-year references) are widely cited by press as reinforcing this reading.",
+            "Several publications, including Songfacts, note the lyric describing her love interest as 'younger than my exes' who nonetheless 'acts like such a man' aligns with her new relationship at the time, though Taylor has not named the subject and this guide doesn't name anyone; additional numeric and visual cues in the music video (including birth-year references) are widely cited by press as reinforcing this reading.",
             "Music critics, as summarized on Wikipedia, generally praised the track's anthemic production and considered it a stronger single than 'Look What You Made Me Do,' while some reviews found its sound generic or too aligned with contemporary trap-pop trends of the period.",
             "The Joseph Kahn-directed music video, which depicts a cloaked human Swift battling a robotic double, has been widely interpreted by critics and fans as a visual metaphor for the tension between Swift's authentic self and her public, media-constructed persona during the reputation era."
           ]
@@ -66,7 +66,7 @@ const TRACKS = [
           {
             relatedId: "song:gorgeous",
             label: "Gorgeous",
-            why: "Both songs document the same early-relationship infatuation (read by press as being about Joe Alwyn) — one through crime-thriller intensity, the other through flirtatious comedy."
+            why: "Both songs document the same early-relationship infatuation (read by press as being about her new relationship at the time) — one through crime-thriller intensity, the other through flirtatious comedy."
           },
           {
             relatedId: "song:look-what-you-made-me-do",
@@ -417,7 +417,7 @@ const TRACKS = [
             "Produced by Swift and Jack Antonoff, the track breaks deliberately from its sing-song verses into a chanted title-hook chorus — the team stripped the vocal down to the repeated title, echoing the 'I'm Too Sexy' cadence — before the spoken 'the old Taylor can't come to the phone right now... she's dead' bridge.",
           ],
           fanTheories: [
-            "Swift never named a target on record — the reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as the 2016 Kanye West / Kim Kardashian / Katy Perry fallout is fan interpretation, not confirmed fact.",
+            "Swift never named a target on record — the reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as being about the 2016 public fallout is fan interpretation, not confirmed fact.",
             "The video is a museum of self-reference: press-confirmed intentional Easter eggs include the 'Nils Sjöberg' tombstone (Swift's real songwriting pseudonym on Calvin Harris's 'This Is What You Came For'), the 'I ❤ TS' crop-tops, and the tower of past-era Taylors reciting old quotes; finer 'receipts' readings are more fan-itemized than documented.",
           ],
         },
@@ -511,12 +511,12 @@ const TRACKS = [
         ],
         meaning: {
           confirmed: [
-            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a sample of James Reynolds, daughter of Blake Lively and Ryan Reynolds, which Swift decided to use after playing them an acoustic demo and the toddler kept repeating the word.",
+            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a toddler's voice sample, which Taylor decided to use after playing an acoustic demo and the toddler kept repeating the word.",
             "Big Machine Records released 'Gorgeous' as a promotional single on October 20, 2017, ahead of reputation's release, following 'Look What You Made Me Do' and '...Ready for It?' as the third song issued before the album."
           ],
           supported: [
             "Critics and Wikipedia's composition summary describe the lyrics as a flirtatious, self-deprecating confession to a new love interest — the narrator jokes that his good looks make her miserable and torn, including a self-aware nod to being tempted to stray from a current boyfriend, played for comic exaggeration rather than literal confession.",
-            "Multiple outlets, including Wikipedia's sourced composition notes, connect the song's romantic subject to Swift's real-life relationship with actor Joe Alwyn, framing 'Gorgeous' as an early, tongue-in-cheek document of new infatuation within the reputation era's broader love story.",
+            "Multiple outlets, including Wikipedia's sourced composition notes, connect the song's romantic subject to Taylor's new relationship at the time (Taylor has not named the subject, and this guide doesn't name anyone), framing 'Gorgeous' as an early, tongue-in-cheek document of new infatuation within the reputation era's broader love story.",
             "Critical reception was split: some reviewers praised its bright, 'radio-friendly' production as a welcome contrast to the album's darker early singles, while others, per Billboard and Wikipedia's aggregated critical summary, felt the songwriting was simplistic compared to Swift's usual standard."
           ]
         },
@@ -524,7 +524,7 @@ const TRACKS = [
           {
             relatedId: "song:ready-for-it",
             label: "...Ready for It?",
-            why: "Both songs chart the same new relationship (widely read as with Joe Alwyn) at different emotional temperatures — one breathless and cinematic, the other giddy and self-mocking."
+            why: "Both songs chart the same new relationship (widely read as her new relationship at the time) at different emotional temperatures — one breathless and cinematic, the other giddy and self-mocking."
           },
           {
             relatedId: "song:call-it-what-you-want",

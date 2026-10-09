@@ -324,7 +324,7 @@ const ERA = {
             "The 'Tyler' transformation was led by Oscar-winning makeup artist Bill Corso and took roughly four to six hours to apply (about ten prosthetic pieces plus a muscle suit). Dwayne Johnson voices 'the man'; Swift's father, Scott Swift, cameos as the tennis umpire whose bad call triggers Tyler's on-court meltdown, alongside TikTok stars Loren Gray and Dominic Toliver and actress Jayden Bartels.",
           ],
           fanTheories: [
-            "A red 'No Scooters' traffic sign at the video's (13th Street) subway set is widely read as a jab at Scooter Braun, who then controlled her masters. Swift has never confirmed the reference, so it stays fan reading rather than documented fact.",
+            "A red 'No Scooters' traffic sign at the video's (13th Street) subway set is widely read as a jab related to her masters dispute. Taylor has never confirmed the reference, so it stays fan reading rather than documented fact.",
           ],
         },
         live: [
