@@ -97,6 +97,57 @@ RUNNERS = {"node", "node.exe", "npx", "npx.cmd", "tsx", "ts-node", "bun",
            "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs"}
 
 
+# Issue #4170: backticks inside a SINGLE-quoted argument of a data-only command
+# (gh / echo / printf / git commit) are inert prose, not command substitution.
+# Everything else keeps the strict behaviour: only single quotes are inert in
+# bash (double-quoted backticks execute, and `bash -c '...'` runs its single-
+# quoted text), so the demotion applies only when every segment OUTSIDE the
+# single-quoted spans starts with one of these programs.
+_PROSE_SAFE = {"gh", "echo", "printf"}
+
+
+def _demote_single_quoted_backticks(command):
+    out, outside = [], []
+    i, n = 0, len(command)
+    in_dq = False
+    while i < n:
+        ch = command[i]
+        if ch == "\\" and i + 1 < n:
+            out.append(command[i:i + 2]); outside.append(command[i:i + 2]); i += 2
+            continue
+        if ch == '"':
+            in_dq = not in_dq
+        elif ch == "'" and not in_dq:
+            j = command.find("'", i + 1)
+            if j < 0:
+                return command       # unterminated: stay strict
+            out.append("'" + command[i + 1:j].replace("`", " ") + "'")
+            outside.append("X")
+            i = j + 1
+            continue
+        out.append(ch); outside.append(ch)
+        i += 1
+    if in_dq:
+        return command
+    flat = "".join(outside).replace("'", " ").replace('"', " ")
+    for seg in re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", flat):
+        toks = seg.split()
+        k = 0
+        while k < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[k]):
+            k += 1
+        if k >= len(toks):
+            continue
+        prog = toks[k]
+        if prog in _PROSE_SAFE:
+            if prog == "gh" and k + 1 < len(toks) and toks[k + 1] == "alias":
+                return command
+            continue
+        if prog == "git" and k + 1 < len(toks) and toks[k + 1] == "commit":
+            continue
+        return command
+    return "".join(out)
+
+
 def _segments(command):
     """Split into independently-executed segments.
 
@@ -104,6 +155,7 @@ def _segments(command):
     are treated as SEPARATORS (not whitespace) so a command substitution such
     as ``echo `node .../post-queue.mjs` `` is examined as its own segment.
     """
+    command = _demote_single_quoted_backticks(command)
     c = command.replace("'", " ").replace('"', " ")
     return re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", c)
 

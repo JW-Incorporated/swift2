@@ -102,6 +102,34 @@ assert_allowed "gh api GET with jq" "gh api repos/o/r/actions/variables --jq '.v
 assert_allowed "curl GET variables" "curl https://api.github.com/repos/o/r/actions/variables"
 assert_allowed "gh api write to an unrelated path" "gh api -X POST repos/o/r/issues -f title=t"
 
+# --- backtick prose (issue #4170): only SINGLE-quoted prose is inert ---
+assert_allowed "single-quoted gh body naming a guarded file in backticks" \
+  "gh issue comment 1 --body 'see \`scripts/social/post-queue.mjs\` for details'"
+assert_allowed "single-quoted git commit message naming a guarded file" \
+  "git commit -m 'doc \`node scripts/social/delete-media.mjs\` behaviour'"
+assert_allowed "single-quoted echo prose with backticks" \
+  "echo 'run \`node scripts/social/post-queue.mjs\` never'"
+assert_denied "real backtick substitution executing the poster" \
+  "echo \`node scripts/social/post-queue.mjs\`"
+assert_denied "real \$(...) substitution executing the poster" \
+  "echo \$(node scripts/social/post-queue.mjs)"
+assert_denied "double-quoted backtick substitution executing the poster" \
+  "gh issue comment 1 --body \"x \`node scripts/social/post-queue.mjs\` y\""
+assert_denied "double-quoted backtick executing delete-media" \
+  "echo \"\`node scripts/social/delete-media.mjs\`\""
+assert_denied "bash -c with single-quoted backtick substitution" \
+  "bash -c 'echo \`node scripts/social/post-queue.mjs\`'"
+assert_denied "bash -c single-quoted direct run" \
+  "bash -c 'node scripts/social/post-queue.mjs'"
+assert_denied "cd && node still denied" \
+  "cd scripts/social && node post-queue.mjs"
+assert_denied "single-quoted prose does not mask a later real run" \
+  "echo 'a \`b\`' && node scripts/social/post-queue.mjs"
+assert_denied "single-quoted backticks under a non-prose program" \
+  "sh -c 'x' 'y' ; eval 'echo \`node scripts/social/post-queue.mjs\`'"
+assert_denied "git -c pager with single-quoted backticks" \
+  "git -c core.pager='\`node scripts/social/post-queue.mjs\`' log"
+
 # --- unrelated command stays allowed ---
 assert_allowed "plain unrelated command" \
   "echo hello"
