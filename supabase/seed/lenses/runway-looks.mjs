@@ -25,13 +25,17 @@ export const RUNWAY_LOOKS = [
     // seven near-duplicate moments. The gowns themselves now have their own
     // dedicated gallery card below (issue #722 walk-15's "destination half":
     // a real second look per era, not just a description-line mention).
-    description: 'Sundresses, natural ringlet curls, and cowboy boots — the everyday uniform across her earliest public appearances, 2006-2008.',
+    description: 'Natural ringlet curls were the constant through her first awards seasons, 2006-2007: a black gown with long black gloves at her first CMA Awards in 2006 (E! and Billboard), a strapless sequined dress to accept the 2007 CMT Breakthrough Video of the Year award, and a gold satin gown at the 2007 CMA Awards, where she won the Horizon Award (E!).',
     images: [
       { url: 'https://media.gettyimages.com/id/72424326/photo/nashville-tn-singer-taylor-swift-attends-the-40th-annual-cma-awards-at-the-gaylord.jpg?s=612x612&w=0&k=20&c=FMqoljbEnk8vDoj9GV31oa5bc-XfMFv5IBBru2GpOOU=', credit: 'Peter Kramer/Getty Images', caption: 'The 2006 CMA Awards — her first CMA red carpet, two weeks after her debut album released.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/74685453/photo/taylor-swift-accepts-breathrough-video-of-the-year-award-for-tim-mcgraw-at-the-the-curb-event.jpg?s=612x612&w=0&k=20&c=OXeqcfP0Cw1pyRw7pyQvqnnVwE6Tz-7uB4gLLHhUbDU=', credit: 'Kevin Mazur/WireImage', caption: 'Accepting the Breakthrough Video of the Year award for "Tim McGraw," 2007 CMT Music Awards.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/77768817/photo/nashville-tn-singer-taylor-swift-arrives-at-the-41st-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=DHSYR2P-690lCn_YY6YDBibMaj2eXClOHL02I1xLbQE=', credit: 'Bryan Bedder/Getty Images', caption: 'The 2007 CMA Awards, the night she won the Horizon Award for Best New Artist.', kind: 'primary' },
     ],
     shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar'],
+    sources: [
+      { title: 'E! Online: Taylor Swift\'s Evolving CMA Awards Style Over the Years', url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years' },
+      { title: 'Billboard: Taylor Swift\'s Style Evolution, From 2006 to Now', url: 'https://www.billboard.com/photos/taylor-swift-style-evolution-photos-429884/' },
+    ],
   },
   {
     // Second look per era (issue #722 walk-15, 2026-08-25): the gowns PR
@@ -76,13 +80,18 @@ export const RUNWAY_LOOKS = [
     // milestone moments (the CMA sweep, the Grammy AOTY win) keep their own
     // dedicated timeline cards. Those gowns now have their own dedicated
     // gallery card below (issue #722 walk-15's "destination half").
-    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — shimmer as the era\'s visual signature.',
+    description: 'Fearless-era fairy-tale glamour: on the Fearless Tour she sang "Love Story" in a crimson gown with golden accents that critics likened to Victorian, Edwardian or Elizabethan fashion; at the 2009 CMA Awards she wore a gold gown (E!); and at the 2010 Grammys, a sparkly blue KaufmanFranco gown (Who What Wear).',
     images: [
-      { url: 'https://media.gettyimages.com/id/90123128/photo/new-york-musician-taylor-swift-performs-during-the-fearless-tour-at-madison-square-garden-on.jpg?s=612x612&w=0&k=20&c=YHmf-SDSDaqBJE0v3LoyXCOEAfp5H7LAFhEFUaU6w2Q=', credit: 'Jason Kempin/Getty Images', caption: 'Onstage at Madison Square Garden on the Fearless Tour, August 2009 — the gold sequin-and-fringe stage costuming.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/90123128/photo/new-york-musician-taylor-swift-performs-during-the-fearless-tour-at-madison-square-garden-on.jpg?s=612x612&w=0&k=20&c=YHmf-SDSDaqBJE0v3LoyXCOEAfp5H7LAFhEFUaU6w2Q=', credit: 'Jason Kempin/Getty Images', caption: 'Onstage at Madison Square Garden on the Fearless Tour, August 27, 2009, in the "Love Story" act — a crimson brocade gown with gold accents.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/92993789/photo/nashville-tn-musician-taylor-swift-attends-the-43rd-annual-cma-awards-at-the-sommet-center-on.jpg?s=612x612&w=0&k=20&c=KIGRyZPxBgSgnbtm12oyKoTLquqmZxGh8av7sZmCKio=', credit: 'Frederick Breedon/Getty Images', caption: '43rd Annual CMA Awards, November 2009, the night she won Entertainer of the Year.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/96320463/photo/los-angeles-ca-taylor-swift-accepts-award-at-the-52nd-annual-grammy-awards-held-at-staples.jpg?s=612x612&w=0&k=20&c=OYR0-P-tyCyeRV1MIuieQDkUbXUiw5f_u9Y_uGnC0PU=', credit: 'Kevin Mazur/WireImage', caption: 'The 52nd Grammys, January 2010 — the ceremony where Fearless won Album of the Year.', kind: 'primary' },
     ],
     shopTags: ['Gold sequins', 'Fringe dress'],
+    sources: [
+      { title: 'Wikipedia: Fearless Tour', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
+      { title: 'E! Online: Taylor Swift\'s Evolving CMA Awards Style Over the Years', url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years' },
+      { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
+    ],
   },
   {
     // Second look per era (issue #722 walk-15, 2026-08-25): same rationale
@@ -144,13 +153,18 @@ export const RUNWAY_LOOKS = [
     // Source: Yahoo/Insider's CMA style retrospective, Femestella's
     // Speak-Now-era retrospective, Taste of Country — same facts the removed
     // speak-now.mjs cards carried.
-    description: 'A run of red-carpet gowns from the Speak Now rollout: a strapless red Monique Lhuillier gown at the 2010 CMA Awards the same month the album topped the charts, a beaded gold Zuhair Murad minidress at the 2011 Vanity Fair Oscar Party — a designer relationship she\'d return to a year later in Zuhair Murad Couture at the Grammys — and a strapless pink Elie Saab sequin gown at the 2011 Billboard Music Awards, the night she won Country Artist of the Year.',
+    description: 'A run of red-carpet gowns from the Speak Now rollout: a strapless red Monique Lhuillier gown at the 2010 CMA Awards the same month the album topped the charts, a beaded gold Zuhair Murad minidress at the 2011 Vanity Fair Oscar Party, and a strapless pink Elie Saab sequin gown at the 2011 Billboard Music Awards, where she won Top Country Artist.',
     images: [
       { url: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859', credit: 'Larry Busacca/Getty Images', caption: 'A strapless red Monique Lhuillier gown at the Nov. 10, 2010 CMA Awards, the same month Speak Now topped the charts.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=', credit: 'Jon Kopaloff/Getty Images', caption: 'A beaded gold Zuhair Murad minidress at the Feb. 27, 2011 Vanity Fair Oscar Party, Sunset Tower.', kind: 'primary' },
-      { url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg', credit: 'Depositphotos, via Femestella', caption: 'A strapless pink Elie Saab sequin gown at the May 22, 2011 Billboard Music Awards, the night she won Country Artist of the Year.', kind: 'primary' },
+      { url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg', credit: 'Depositphotos, via Femestella', caption: 'A strapless pink Elie Saab sequin gown at the May 22, 2011 Billboard Music Awards, the night she won Top Country Artist.', kind: 'primary' },
     ],
     shopTags: ['Monique Lhuillier gown', 'Zuhair Murad minidress', 'Elie Saab gown'],
+    sources: [
+      { title: 'Just Jared: Taylor Swift: CMA & BMI Awards in Nashville', url: 'https://www.justjared.com/2010/11/11/taylor-swift-cma-bmi-awards-in-nashville/' },
+      { title: 'Taste of Country: Taylor Swift Shines in New Pictures From Vanity Fair\'s Oscars After-Party', url: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/' },
+      { title: 'E! Online: Every Time Taylor Swift\'s Fashion Reigned Supreme at the Billboard Music Awards', url: 'https://www.eonline.com/news/1270415/every-time-taylor-swifts-fashion-reigned-supreme-at-the-billboard-music-awards' },
+    ],
   },
   {
     id: 'look-red',
@@ -431,23 +445,33 @@ export const RUNWAY_LOOKS = [
     // Source: The Tortured Poets Department (2024) rollout and Eras Tour
     // set addition used black-and-white, literary-coded styling —
     // documented in the album's own visual campaign and tour costuming.
-    description: 'Black-and-white, sheer-layered styling for the 2024 Tortured Poets Department rollout and its Eras Tour set — literary austerity as the era\'s visual language.',
+    description: 'At the 66th Grammys in February 2024, where she announced The Tortured Poets Department, Swift wore a sculptural white Schiaparelli Haute Couture corset dress with a choker necklace that doubled as a watch. At the September 2024 VMAs she arrived in tartan Dior, then changed into a sequined Monse minidress with UFO embroidery and accepted Video of the Year for "Fortnight" in it.',
     images: [
       { url: 'https://media.gettyimages.com/id/1986749514/photo/los-angeles-california-taylor-swift-accepts-the-album-of-the-year-award-for-midnights-during.jpg?s=612x612&w=0&k=20&c=cd2UuP1Rc0TscH2iOlfpaleSHExede-2EvAlQLgEIcY=', credit: 'John Shearer/Getty Images for The Recording Academy', caption: '66th Grammys, February 2024 — the same speech in which she announced The Tortured Poets Department.', kind: 'primary' },
-      { url: 'https://media.gettyimages.com/id/2171433177/photo/elmont-new-york-taylor-swift-accepts-the-the-video-of-the-year-award-for-fortnight-on-stage.jpg?s=612x612&w=0&k=20&c=AhJY-K0dfJtC0fOMvCbeqMMMmegetx3-cyeCsKx9kiw=', credit: 'Noam Galai/Getty Images for MTV', caption: '2024 MTV VMAs, September 2024 — accepting Video of the Year for "Fortnight," the black-and-white typewriter aesthetic.', kind: 'primary' },
+      { url: 'https://media.gettyimages.com/id/2171433177/photo/elmont-new-york-taylor-swift-accepts-the-the-video-of-the-year-award-for-fortnight-on-stage.jpg?s=612x612&w=0&k=20&c=AhJY-K0dfJtC0fOMvCbeqMMMmegetx3-cyeCsKx9kiw=', credit: 'Noam Galai/Getty Images for MTV', caption: '2024 MTV VMAs, September 11, 2024 — accepting Video of the Year for "Fortnight" in a sequined Monse minidress.', kind: 'primary' },
     ],
     shopTags: ['White dress', 'Black tailoring'],
+    sources: [
+      { title: 'Who What Wear: Taylor Swift\'s Grammys Fashion Evolution, Explained by a Fashion Editor', url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective' },
+      { title: 'Marie Claire: Taylor Swift Shuts Down the 2024 VMAs Red Carpet in a Tartan Dior Corset and Cape', url: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/' },
+      { title: 'WWD: Taylor Swift Goes High-low in Tartan Dior Outfit With Velvet Shorts for MTV VMAs 2024 Red Carpet', url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-christian-dior-outfit-mtv-vmas-1236609528/' },
+    ],
   },
   {
     id: 'look-tloas',
     eraId: 'tloas',
     name: 'Bathtub Showgirl',
-    description: 'Portofino-orange sequins, rhinestone bras, and Bob Mackie-inspired feathers — a Vegas showgirl’s victory lap.',
+    description: 'The Life of a Showgirl era ran on crystal. The album cover, an apparent wink to Millais\'s Ophelia in teal-green water, shows her in a crystalline bodysuit by Area; on the October 2025 TV-first press run she wore a Giuseppe Di Morabito crystal minidress on Jimmy Fallon and a strapless floral-brocade minidress on Late Night with Seth Meyers.',
     images: [
       { url: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png', credit: 'Mert Alas & Marcus Piggott / Republic Records, via Wikipedia', caption: 'The Life of a Showgirl album cover, October 2025 — restaging Millais\'s Ophelia beneath the orange-glitter title.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/2239236278/photo/the-tonight-show-starring-jimmy-fallon-episode-2195-pictured-singer-songwriter-taylor-swift.jpg?s=612x612&w=0&k=20&c=dOxOXlE5sjOvB8Ynyh64KVBhylu4nKs0sXjlNFgDjjI=', credit: 'Todd Owyoung/NBC via Getty Images', caption: 'The Tonight Show Starring Jimmy Fallon, October 2025 — three days after Showgirl\'s release.', kind: 'primary' },
       { url: 'https://media.gettyimages.com/id/2239450762/photo/late-night-with-seth-meyers-episode-1713-pictured-singer-taylor-swift-during-an-interview.jpg?s=612x612&w=0&k=20&c=P7WGBkVpsIdHMdBALdvVxnpM29UTRCj3nofWKqXc2SY=', credit: 'Lloyd Bishop/NBC via Getty Images', caption: 'Late Night with Seth Meyers, October 2025 — another stop on the same TV-first Showgirl press run.', kind: 'primary' },
     ],
     shopTags: ['Orange sequins', 'Rhinestone bra', 'Feather headpiece'],
+    sources: [
+      { title: 'Marie Claire: Taylor Swift\'s \'The Life of a Showgirl\' Style Asks, "Are You Not Entertained?"', url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/' },
+      { title: 'Hyperallergic: Did This 19th-Century Painting Inspire Taylor Swift\'s New Album Art?', url: 'https://hyperallergic.com/did-19th-century-ophelia-painting-inspire-taylor-swift-new-showgirl-album-art/' },
+      { title: 'WWD: Taylor Swift Shimmers From Head to Toe in Giuseppe Di Morabito Crystal Minidress for \'Jimmy Fallon\' Appearance', url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-giuseppe-di-morabito-minidress-jimmy-fallon-1238287155/' },
+    ],
   },
 ];
