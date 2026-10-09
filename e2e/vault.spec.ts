@@ -129,17 +129,19 @@ test.describe('Vault smoke', () => {
 
     // The era keeps rendering cards for a few seconds after first paint on
     // mobile (prod 2026-10-09: 165 at load, 169 five seconds later), so wait
-    // for two consecutive equal reads before taking the baseline.
-    let settled = -1;
+    // until the count holds for four consecutive reads (~1.5s) before taking
+    // the baseline. There is no render-complete marker to wait on instead.
+    let last = -1;
+    let steady = 0;
     await expect
       .poll(
         async () => {
           const n = await monthItems(era).count();
-          const stable = n === settled;
-          settled = n;
-          return stable;
+          steady = n === last ? steady + 1 : 0;
+          last = n;
+          return steady >= 3;
         },
-        { intervals: [500], timeout: 15_000 },
+        { intervals: [500], timeout: 20_000 },
       )
       .toBe(true);
     const before = await monthItems(era).count();
