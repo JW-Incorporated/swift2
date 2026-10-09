@@ -212,7 +212,7 @@ const TRACKS = [
             "Critics widely treat it as an album highlight and some hear it as Swift's first direct engagement with desire in her songwriting, a threshold the later pop albums walk through."
           ],
           fanTheories: [
-            "Fans speculate the subject is Jake Gyllenhaal, as with much of Red, with some arguing for other era figures instead; Swift has never named a subject and has only described the song in abstract emotional terms."
+            "Fans speculate about who the song is about, as with much of Red; Taylor has not named the subject, this guide doesn't name anyone, and she has only described the song in abstract emotional terms."
           ]
         },
         connections: [
@@ -284,7 +284,7 @@ const TRACKS = [
             "The song's engine is self-blame rather than accusation: the narrator saw the red flags from the parking lot and walked in anyway, and the drop is the floor giving out."
           ],
           fanTheories: [
-            "Fans widely speculate the subject is Harry Styles — whose relationship with Swift coincided with the single's promotion — or alternatively John Mayer; Swift has never publicly named the song's subject."
+            "Fans speculate about who the song is about; Taylor has not named the subject, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -355,8 +355,8 @@ const TRACKS = [
             "The song works by treating memory as evidence — a relationship reconstructed object by object and scene by scene, because remembering precisely is the only power the narrator has left."
           ],
           fanTheories: [
-            "The widely reported fan attribution to Jake Gyllenhaal, whom Swift dated in fall 2010, rests on timeline and the song's autumnal setting — Swift has never confirmed the subject, and this remains an unconfirmed fan theory, not fact.",
-            "The scarf became fandom's favorite real-world artifact hunt, complete with a reported sister's-house location and Maggie Gyllenhaal saying in 2017 she had no idea where it was; Swift has never identified the house or the scarf's whereabouts and has only ever discussed the scarf as symbolic."
+            "Fans attribute the song to a specific relationship based on the timeline and the song's autumnal setting — Taylor has not named the subject, this guide doesn't name anyone, and this remains an unconfirmed fan theory, not fact.",
+            "The scarf became fandom's favorite real-world artifact hunt, complete with fan theories about where it ended up; Taylor has never identified the scarf's whereabouts and has only ever discussed the scarf as symbolic."
           ]
         },
         connections: [
@@ -529,7 +529,7 @@ const TRACKS = [
             "The spoken-word aside and the mocking indie-record jab work as theater: a breakup declared with a flounce, where the never-ever is doing gleeful, spiteful work on purpose."
           ],
           fanTheories: [
-            "Fans and press very widely assume the ex is Jake Gyllenhaal, pointing to the timeline and the indie-music-snobbery jab; Swift has described the relationship's dynamic in interviews but has never publicly named the person."
+            "Fans and press speculate about who the ex is, pointing to the timeline and the indie-music-snobbery jab; Taylor has described the relationship's dynamic in interviews but has not named the person, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -623,7 +623,7 @@ const TRACKS = [
             "The two simultaneous vocal lines dramatize the impasse structurally: his plea and her exhaustion occupy the same bars because neither is actually listening to the other."
           ],
           fanTheories: [
-            "Fans and press widely tie the song to Jake Gyllenhaal, reading the on-again-off-again scenario and an album liner clue as pointing to that chapter — Rolling Stone's 2012 subject guide named him the likeliest candidate while remaining explicitly speculative; Swift has only ever described the subject as an unreliable ex."
+            "Fans and press tie the song to a specific chapter, reading the on-again-off-again scenario and an album liner clue as pointing to it, while remaining explicitly speculative; Taylor has not named the subject, this guide doesn't name anyone, and she has only ever described the subject as an unreliable ex."
           ]
         },
         connections: [
@@ -698,7 +698,7 @@ const TRACKS = [
             "Musicologist James E. Perone reads it as evidence of her maturing pen: a charmingly complicated view of a failed relationship, a deliberate departure from the more bitter breakup framing of earlier records."
           ],
           fanTheories: [
-            "Fans widely read it as being about Joe Jonas, decoding an album liner clue about someone coming to a show in San Diego as Jonas attending her October 2011 concert years after their breakup; a competing 2012 Rolling Stone reading proposed Jake Gyllenhaal from the same clue. Swift has never confirmed either — the coexisting theories are the proof."
+            "Fans decode an album liner clue about someone coming to a show in San Diego in competing ways, and the readings point to different people; Taylor has not named the subject, this guide doesn't name anyone, and the coexisting theories are the proof that none is confirmed."
           ]
         },
         connections: [
@@ -904,7 +904,7 @@ const TRACKS = [
             "The song treats a first meeting as a hinge in time: what matters isn't the romance's outcome but the instant certainty that everything after it will be different."
           ],
           fanTheories: [
-            "Rolling Stone's 2012 speculative subject guide read an album liner clue as pointing to Conor Kennedy as the new romance in the song; Swift has never named a subject — the documented facts are only that she wrote it with Sheeran about the openness of a new connection."
+            "Rolling Stone's 2012 speculative subject guide read an album liner clue as pointing to a specific new romance; Taylor has not named a subject, this guide doesn't name anyone — the documented facts are only that she wrote it with Sheeran about the openness of a new connection."
           ]
         },
         connections: [
@@ -1014,7 +1014,7 @@ const TRACKS = [
             "Perone reads it as Red's thematic conclusion: the album's arc lands not on revenge or grief but on the possibility of a deeper, more lasting relationship."
           ],
           fanTheories: [
-            "The widely reported reading casts the healing first date as Conor Kennedy with the bad relationship left behind as the Gyllenhaal chapter — though fan press has noted the song was written before the Kennedy romance began, which keeps the speculation unresolved; Swift has only ever described the scenario, never its cast."
+            "The widely reported reading casts the song as a healing first date with a bad relationship left behind — though fan press has noted the timeline doesn't line up cleanly, which keeps the speculation unresolved; Taylor has only ever described the scenario, never its cast, and this guide doesn't name anyone."
           ]
         },
         connections: [
@@ -1722,7 +1722,7 @@ const TRACKS = [
             "Rob Sheffield frames the release as the payoff of a decade of underground canonization: a deep cut the hardcore fans kept alive until the mainstream had no choice but to catch up."
           ],
           fanTheories: [
-            "The 2021 release reignited the unconfirmed Jake Gyllenhaal attribution, with fans reading the restored age-gap material and the short film's casting as pointed; Swift has still never named the subject, and the reading remains a fan theory, not fact.",
+            "The 2021 release reignited fan speculation about the subject, with fans reading the restored age-gap material and the short film's casting as pointed; Taylor has still not named the subject, this guide doesn't name anyone, and the reading remains a fan theory, not fact.",
             "When the film's scarf appeared red on screen rather than the fan-reported blue, Swift addressed it only by calling the scarf a metaphor — reinforcing that she treats the object symbolically, not as a real-world artifact to be found."
           ]
         },
