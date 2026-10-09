@@ -135,11 +135,12 @@ describe('runCheckDrafts — credentials never reach the checker (L8)', () => {
   });
 
   it('the child process is spawned with the scrubbed env', () => {
-    const spawnImpl = vi.fn((..._args: unknown[]) => ({ status: 0, stdout: 'ok', stderr: '' }));
+    const spawnImpl = vi.fn(() => ({ status: 0, stdout: 'ok', stderr: '' }));
+    const callArgs = () => (spawnImpl.mock.calls as unknown as unknown[][])[0];
     const r = runCheckDrafts(['social/queue/a.json'], { spawnImpl, env: { SOCIAL_APPROVAL_KEY: 'k', GH_TOKEN: 't', PATH: '/bin' } });
     expect(r.ok).toBe(true);
-    expect(spawnImpl.mock.calls[0][2]).toMatchObject({ env: { PATH: '/bin' } });
-    expect(JSON.stringify(spawnImpl.mock.calls[0][2])).not.toMatch(/SOCIAL_APPROVAL_KEY|GH_TOKEN/);
+    expect(callArgs()[2]).toMatchObject({ env: { PATH: '/bin' } });
+    expect(JSON.stringify(callArgs()[2])).not.toMatch(/SOCIAL_APPROVAL_KEY|GH_TOKEN/);
   });
 
   it('the real runCheckDrafts fails closed on a file that does not exist under social/queue/', () => {

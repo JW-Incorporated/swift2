@@ -24,6 +24,8 @@ export const TREE_DISPATCHERS = ['sffan15-sys'];
 export const TREE_PR_AUTHORS = ['claude[bot]', 'sffan15-sys'];
 export const TREE_COMMIT_AUTHORS = ['claude[bot]', 'github-actions[bot]', 'sffan15-sys'];
 
+const hasControlOrBackslash = (s) => [...s].some((ch) => ch.charCodeAt(0) < 32 || ch === String.fromCharCode(92));
+
 export const MAX_MEDIA_BYTES = 1572864; // 1.5MB — auto-merge-content.yml's image cap
 export const MAX_QUEUE_BYTES = 256 * 1024;
 export const MAX_SIDECAR_BYTES = 16 * 1024;
@@ -89,7 +91,7 @@ export function evaluateGate({ actor, pr, commitAuthors, changes, drafts }) {
   const paths = new Set();
   for (const c of changes ?? []) {
     const p = c.path;
-    if (typeof p !== 'string' || p.includes('..') || p.startsWith('/') || /[\0-\x1f\\]/.test(p)) {
+    if (typeof p !== 'string' || p.includes('..') || p.startsWith('/') || hasControlOrBackslash(p)) {
       fail(`suspicious path ${JSON.stringify(p)}`);
       continue;
     }

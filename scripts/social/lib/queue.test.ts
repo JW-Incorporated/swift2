@@ -630,7 +630,8 @@ describe('approvalStatus (v4 tree-auto — Tree approves autonomously, kind is s
   });
 
   it('a v4 stamp with no mediaDigest at all is malformed', () => {
-    const { mediaDigest: _omit, ...rest } = v4Stamp() as Record<string, unknown>;
+    const rest = { ...v4Stamp() } as Record<string, unknown>;
+    delete rest.mediaDigest;
     expect(approvalStatus({ ...item, approval: rest }, { key, readMedia })).toEqual({ ok: false, reason: 'malformed approval record' });
   });
 
