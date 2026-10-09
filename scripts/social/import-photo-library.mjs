@@ -22,10 +22,20 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveFrameFile } from './lib/frame-path.mjs';
+import { describePhoto, normalizePhoto } from './lib/normalize-photo.mjs';
+import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
+import { dHash, findNearDuplicate } from './lib/perceptual-hash.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
+import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
+import { BudgetExhaustedError, DEFAULT_BUDGET_MS, createPoliteFetcher } from './lib/polite-fetch.mjs';
+import { isMain } from '../lib/is-main.mjs';
+import { createQcSession, hostOf, kindFromId } from './photo-qc.mjs';
+import { loadRejectedLedger, saveRejectedLedger } from './lib/photo-qc-ledger.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PHOTOS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'photos');
+export const FRAMES_SCRATCH_DIR = path.join(ROOT, '.artifacts', 'video-scratch', 'frames');
 
 /**
  * Resolves a candidate's `mediaPath` to an absolute path under `photosDir`,
@@ -45,9 +55,140 @@ export function resolvePhotoDestPath(mediaPath, photosDir) {
   return destPath;
 }
 
+// 2026-09-28: a 62MB GIF got sourced and shipped once with no size check at
+// all (repo push warned it exceeded GitHub's own recommended 50MB limit) — cap
+// ingestion at a sane social-media size so one oversized source never bloats
+// the repo or slows the site.
+export const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
+
+/**
+ * Downloads each candidate's `sourceUrl` (and writes it when `write`). A
+ * failure on one candidate is recorded in `failed` and skipped — it never
+ * aborts the rest (2026-10-06: one DjVu book scan killed a whole run).
+ */
+export async function fetchCandidates(
+  candidates,
+  { write, photosDir, seenHashes, framesDir = FRAMES_SCRATCH_DIR, fetchImpl = fetch, normalizeImpl = normalizePhoto, hashImpl = dHash, sleepImpl, nowImpl, budgetMs, warn, qc, ledger },
+) {
+  const seenPerceptual = [];
+  const skippedDuplicates = [];
+  const failed = [];
+  const deferred = [];
+  const qcRejected = [];
+  const qcHeld = [];
+  const qcDeferred = [];
+  const qcPending = [];
+  await mkdir(photosDir, { recursive: true });
+  // Per-host pacing, Retry-After backoff and the total time budget live in the
+  // polite fetcher (Wikimedia 429'd 146 of 150 unpaced downloads, 2026-10-07).
+  const polite = createPoliteFetcher({ fetchImpl, sleepImpl, nowImpl, budgetMs, warn });
+  for (const candidate of candidates) {
+    const id = candidate?.id ?? '(unknown)';
+    // Local frames never touch the network, so the download budget must not defer them
+    // (their videos are already in the ledger and would never be retried).
+    const isLocal = typeof candidate?.sourceUrl === 'string' && /^file:/i.test(candidate.sourceUrl);
+    if (!isLocal && polite.budgetSpent()) {
+      deferred.push(id);
+      continue;
+    }
+    if (qc && ledger?.hasId(id)) {
+      qcRejected.push({ id, reason: 'qc-ledger', cached: true });
+      continue;
+    }
+    try {
+      if (typeof candidate.sourceUrl !== 'string' || !/^(https?|file):\/\//i.test(candidate.sourceUrl)) {
+        throw new Error('--fetch requires a candidate "sourceUrl" http(s) (or local file://) URL to download from.');
+      }
+      let raw;
+      if (isLocal) {
+        // Locally extracted video frames (source-video-frames.mjs Mode A): no network, no pacing, no budget.
+        raw = await readFile(await resolveFrameFile(candidate.sourceUrl, framesDir));
+      } else {
+        const res = await polite.fetch(candidate.sourceUrl);
+        if (!res.ok) throw new Error(`failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
+        raw = Buffer.from(await res.arrayBuffer());
+      }
+      if (raw.byteLength > MAX_PHOTO_BYTES) {
+        throw new Error(
+          `fetched image is ${(raw.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl})`,
+        );
+      }
+      // Normalize BEFORE hashing: the library's existing hashes are of stored (normalized) bytes.
+      const buf = await normalizeImpl(raw, candidate.mediaPath);
+      if (candidate.minLongEdge !== undefined) {
+        const meta = imageMeta(buf);
+        const longEdge = Math.max(meta?.width ?? 0, meta?.height ?? 0);
+        if (longEdge < candidate.minLongEdge) {
+          throw new Error(`image long edge is ${longEdge || 'unreadable'}px, under the ${candidate.minLongEdge}px minimum (${candidate.sourceUrl})`);
+        }
+      }
+      const hash = createHash('sha256').update(buf).digest('hex');
+      if (seenHashes.has(hash)) {
+        skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
+        continue;
+      }
+      // The same wire photo republished by another outlet is recompressed, so
+      // sha256 misses it; a perceptual hash within this run's downloads catches it.
+      const perceptual = await hashImpl(buf);
+      const near = findNearDuplicate(perceptual, seenPerceptual);
+      if (near) {
+        skippedDuplicates.push({ id: candidate.id, duplicateOf: near.id });
+        continue;
+      }
+      const commit = async () => {
+        const destPath = resolvePhotoDestPath(candidate.mediaPath, photosDir);
+        await mkdir(path.dirname(destPath), { recursive: true });
+        if (write) await writeFile(destPath, buf);
+        Object.assign(candidate, await describePhoto(buf)); // width/height/bytes land in the library entry
+      };
+      const markSeen = () => {
+        seenHashes.set(hash, candidate.id);
+        if (perceptual) seenPerceptual.push({ hash: perceptual, id: candidate.id });
+      };
+      if (!qc) {
+        await commit();
+        markSeen();
+        continue;
+      }
+      // Vision QC (docs/decisions.md 2026-10-07 "QC sonnet"): the photo is written only if it passes.
+      markSeen();
+      if (ledger?.hasHash(hash)) {
+        qcRejected.push({ id, sha256: hash, reason: 'qc-ledger', cached: true });
+        continue;
+      }
+      qcPending.push(
+        (async () => {
+          const verdict = await qc.check({ buffer: buf, caption: candidate.alt, source: hostOf(candidate.source ?? candidate.sourceUrl), kind: kindFromId(id) });
+          if (verdict.status === 'kept') {
+            try {
+              await commit();
+            } catch (err) {
+              failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+            }
+          } else if (verdict.status === 'rejected') qcRejected.push({ id, sha256: hash, reason: verdict.reason });
+          else if (verdict.status === 'held') qcHeld.push({ id, reason: verdict.reason });
+          else qcDeferred.push(id);
+        })(),
+      );
+    } catch (err) {
+      if (err instanceof BudgetExhaustedError) deferred.push(id);
+      else failed.push({ id, reason: err instanceof Error ? err.message : String(err) });
+    }
+  }
+  await Promise.all(qcPending);
+  return { skippedDuplicates, failed, deferred, qcRejected, qcHeld, qcDeferred };
+}
+
+/** The run fails only when there was at least one candidate and every one failed. */
+export function assertNotAllFailed(total, failedCount) {
+  if (total > 0 && failedCount === total) {
+    throw new Error(`all ${total} candidate(s) failed to fetch — see warnings above.`);
+  }
+}
+
 // The rest of this file only runs as a CLI entrypoint, never on import (so
 // the export above can be unit-tested without a network call / real argv).
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (isMain(import.meta.url, process.argv[1])) {
   await main();
 }
 
@@ -58,10 +199,13 @@ async function main() {
   const inputPath = inputIndex === -1 ? null : args[inputIndex + 1];
   const write = args.includes('--write');
   const fetchMode = args.includes('--fetch');
+  if (write && !fetchMode && !args.includes('--no-qc')) {
+    throw new Error('--write without --fetch imports photos with no vision QC; pass --fetch (QC runs) or --no-qc to skip it explicitly.');
+  }
 
   if (!inputPath) {
     throw new Error(
-      'Usage: node scripts/social/import-photo-library.mjs --input <candidates.json> [--write] [--fetch]',
+      'Usage: node scripts/social/import-photo-library.mjs --input <candidates.json> [--write] [--fetch] [--no-qc]',
     );
   }
   const input = JSON.parse(await readFile(path.resolve(ROOT, inputPath), 'utf8'));
@@ -69,50 +213,45 @@ async function main() {
   if (!Array.isArray(candidates)) throw new Error('Candidate file must be a JSON array or an object with a photos array.');
 
   const inventory = JSON.parse(await readFile(inventoryPath, 'utf8'));
-  const seenHashes = await existingLibraryHashes(inventory);
+  const seenHashes = existingLibraryHashes(inventory);
   const skippedDuplicates = [];
 
+  const failed = [];
+  const deferred = [];
+  const qcExcluded = [];
+  const qcLedgerPath = path.join(ROOT, 'social', 'photo-qc-rejected.json');
   if (fetchMode) {
-    await mkdir(PHOTOS_DIR, { recursive: true });
-    for (const candidate of candidates) {
-      if (typeof candidate.sourceUrl !== 'string' || !/^https?:\/\//i.test(candidate.sourceUrl)) {
-        throw new Error(`${candidate?.id ?? '(unknown)'}: --fetch requires a candidate "sourceUrl" http(s) URL to download from.`);
+    const budgetIndex = args.indexOf('--budget-minutes');
+    const budgetMinutes = budgetIndex === -1 ? NaN : Number(args[budgetIndex + 1]);
+    const budgetMs = budgetMinutes > 0 ? budgetMinutes * 60_000 : DEFAULT_BUDGET_MS;
+    // Default ON (founder decision "QC sonnet"); --no-qc is for tests and local maintenance only.
+    const qc = args.includes('--no-qc') ? null : createQcSession();
+    const ledger = qc ? await loadRejectedLedger(qcLedgerPath) : null;
+    const result = await fetchCandidates(candidates, { write, photosDir: PHOTOS_DIR, seenHashes, budgetMs, qc, ledger });
+    if (qc) {
+      for (const r of result.qcRejected) {
+        qcExcluded.push(r.id);
+        if (!r.cached) ledger.add({ ...r, date: new Date().toISOString().slice(0, 10) });
       }
-      // 2026-09-29: Wikimedia Commons rate-limits bursty automated fetches
-      // (429s observed sourcing photos for the founder-directed photo-reuse
-      // fix, 2026-09-28/29); a small courtesy delay between downloads keeps
-      // this script a well-behaved client of any external image host, not
-      // just Wikimedia — mirrors the pacing already used in
-      // source-reddit-photos.mjs's relayFetchImpl.
-      await new Promise((resolve) => setTimeout(resolve, 500 + Math.random() * 500));
-      const res = await fetch(candidate.sourceUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LongLiveSocialLibraryImporter/1.0)' },
-      });
-      if (!res.ok) throw new Error(`${candidate.id}: failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
-      const buf = Buffer.from(await res.arrayBuffer());
-      // 2026-09-28: a 62MB GIF got sourced and shipped once with no size
-      // check at all (repo push warned it exceeded GitHub's own recommended
-      // 50MB limit) — cap ingestion at a sane social-media size so a single
-      // oversized source never bloats the repo or slows the site.
-      const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
-      if (buf.byteLength > MAX_PHOTO_BYTES) {
-        throw new Error(
-          `${candidate.id}: fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl}) — skip this candidate.`,
-        );
-      }
-      const hash = createHash('sha256').update(buf).digest('hex');
-      if (seenHashes.has(hash)) {
-        skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
-        continue;
-      }
-      const destPath = resolvePhotoDestPath(candidate.mediaPath, PHOTOS_DIR);
-      await mkdir(path.dirname(destPath), { recursive: true });
-      if (write) await writeFile(destPath, buf);
-      seenHashes.set(hash, candidate.id);
+      qcExcluded.push(...result.qcHeld.map((h) => h.id), ...result.qcDeferred);
+      if (write && ledger.added().length) await saveRejectedLedger(qcLedgerPath, ledger);
+      console.log(qc.summary());
+      if (result.qcDeferred.length) console.log(`::warning::photo QC check cap reached; ${result.qcDeferred.length} candidate(s) deferred to the next run (not imported).`);
+      if (result.qcHeld.length) console.log(`::warning::photo QC could not check ${result.qcHeld.length} candidate(s) (API error or no key); held out of the library, retried next run.`);
     }
+    skippedDuplicates.push(...result.skippedDuplicates);
+    failed.push(...result.failed);
+    deferred.push(...result.deferred);
+    for (const { id, reason } of result.failed) console.log(`::warning::${id}: ${reason}`);
+    if (deferred.length) {
+      console.log(`::warning::download time budget spent; ${deferred.length} candidate(s) deferred to the next run (not imported).`);
+    }
+    assertNotAllFailed(candidates.length, result.failed.length);
   }
 
-  const toImport = candidates.filter((c) => !skippedDuplicates.some((d) => d.id === c.id));
+  const toImport = candidates.filter(
+    (c) => !skippedDuplicates.some((d) => d.id === c.id) && !failed.some((x) => x.id === c.id) && !deferred.includes(c.id) && !qcExcluded.includes(c.id),
+  );
   for (const candidate of toImport) {
     const findings = validatePhotoEntry(candidate);
     if (findings.length) throw new Error(`${candidate?.id ?? '(unknown)'}: ${findings.join('; ')}`);
@@ -123,8 +262,17 @@ async function main() {
 
   const merged = [...inventory.photos];
   for (const candidate of toImport) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl is fetch-only plumbing, never stored in the inventory
-    const { sourceUrl, ...entry } = candidate;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl/minLongEdge are fetch-only plumbing, never stored in the inventory
+    const { sourceUrl, minLongEdge, ...entry } = candidate;
+    try {
+      const bytes = await readFile(path.join(ROOT, 'apps', 'web', 'public', entry.mediaPath));
+      const meta = isLfsPointerBuffer(bytes) ? null : imageMeta(bytes);
+      if (meta?.width && meta?.height) {
+        Object.assign(entry, { width: meta.width, height: meta.height, bytes: bytes.byteLength, sha256: createHash('sha256').update(bytes).digest('hex') });
+      }
+    } catch {
+      // File not on disk (dry run in fetch mode) — dimensions get recorded on the --write run.
+    }
     const existing = merged.findIndex((photo) => photo.id === entry.id || photo.mediaPath === entry.mediaPath);
     if (existing === -1) merged.push(entry);
     else merged[existing] = entry;
@@ -135,28 +283,19 @@ async function main() {
 
   console.log(
     `${write ? 'updated' : 'validated'} photo library: ${toImport.length} candidate(s) imported, ` +
-      `${skippedDuplicates.length} duplicate(s) skipped, ${merged.length} total inventory entries.`,
+      `${skippedDuplicates.length} duplicate(s) skipped, ${failed.length} failed/skipped, ${merged.length} total inventory entries.`,
   );
   if (skippedDuplicates.length) {
     for (const dup of skippedDuplicates) console.log(`  skipped ${dup.id}: content-identical to existing entry "${dup.duplicateOf}"`);
   }
 }
 
-async function sha256OfFile(filePath) {
-  const buf = await readFile(filePath);
-  return createHash('sha256').update(buf).digest('hex');
-}
-
-async function existingLibraryHashes(inventory) {
+// Dedupe against the `sha256` recorded in photo-library.json — existing photos
+// are Git LFS pointers in CI checkouts, so their files are never read here.
+export function existingLibraryHashes(inventory) {
   const hashes = new Map(); // hash -> id
   for (const photo of inventory.photos) {
-    const filePath = path.join(ROOT, 'apps', 'web', 'public', photo.mediaPath);
-    try {
-      hashes.set(await sha256OfFile(filePath), photo.id);
-    } catch {
-      // File missing on disk (e.g. running against a checkout without LFS
-      // assets) — can't hash it, so it just won't be a dedup candidate.
-    }
+    if (typeof photo.sha256 === 'string') hashes.set(photo.sha256, photo.id);
   }
   return hashes;
 }

@@ -7,8 +7,8 @@ import { createDoorbell, main } from './doorbell.mjs';
 
 const JOEY = '338508192755482626';
 const GUILD = '900000000000000001';
-const MARJ = '900000000000000010';
-const TREE = '900000000000000020';
+const MARJ = '1548350324891328562';
+const TREE = '1558093607393562644';
 const NEW_THREAD = '900000000000000070';
 const ID = '1000000000000000001';
 const NOW = Date.parse('2026-09-14T18:00:00.000Z');
@@ -34,7 +34,7 @@ function bell(routes: Record<string, unknown> = {}) {
   const lines: string[] = [];
   const config = { ok: true, problems: [], discordToken: 'discord-secret', githubToken: 'github-secret', guildId: '', founders: new Set([JOEY]) };
   const doorbell = createDoorbell({ config, fetchImpl, sleepImpl: vi.fn().mockResolvedValue(undefined), log: (l: string) => lines.push(l), now: () => NOW });
-  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'longlive-marjorie', type: 0 }, { id: TREE, name: 'longlive-tree', type: 0 }], threads: [] });
+  doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }], threads: [] });
   return { doorbell, calls, lines, keys: () => calls.map((c) => c.key) };
 }
 const founderMessage = (over: Record<string, unknown> = {}) => ({
@@ -47,7 +47,7 @@ afterEach(() => {
 
 describe('the doorbell rings', () => {
   it('logs ready with both channel names', () => {
-    expect(bell().lines).toContain(`ready: #longlive-marjorie (${MARJ}) and #longlive-tree (${TREE}); 1 founder id(s)`);
+    expect(bell().lines).toContain(`ready: #marjorie (${MARJ}) and #tree-main (${TREE}); 1 founder id(s)`);
   });
 
   it('adds 👀 as the doorbell bot, then dispatches the chat routine on main with the poll\'s inputs', async () => {
@@ -139,6 +139,23 @@ describe('the stuck alarm', () => {
   });
 });
 
+describe('clock failure escalation', () => {
+  it('exits the process when the clock latches fatal', async () => {
+    const exit = vi.fn();
+    let broken = false;
+    const lines: string[] = [];
+    const config = { discordToken: 'd', githubToken: 'g', guildId: '', founders: new Set(['1']), ok: true, problems: [] };
+    const doorbell = createDoorbell({
+      config, fetchImpl: vi.fn().mockResolvedValue(new Response('x')), log: (l: string) => lines.push(l), exit,
+      now: () => { if (broken) throw new Error('boom'); return NOW; },
+    });
+    broken = true;
+    await doorbell.clock.tick();
+    expect(exit).toHaveBeenCalledWith(1);
+    expect(lines).toContain('clock: exiting so systemd restarts the unit');
+  });
+});
+
 describe('--check and the bare clone', () => {
   it('prints the config and exits without a request or a connection, never echoing a token', async () => {
     const lines: string[] = [];
@@ -201,8 +218,10 @@ describe('--check and the bare clone', () => {
       'scripts/doorbell/lib/clock-core.mjs',
       'scripts/doorbell/lib/clock.mjs',
       'scripts/doorbell/lib/doorbell-core.mjs',
+      'scripts/doorbell/lib/gateway-health.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
+      'scripts/lib/discord-route.mjs',
       'scripts/marjorie/lib/chat-inbox.mjs',
       'scripts/marjorie/lib/discord-bot.mjs',
       'scripts/social/lib/approvers.mjs',
@@ -214,7 +233,7 @@ describe('--check and the bare clone', () => {
     expect(unit).toMatch(/^Type=notify$/m);
     expect(unit).toMatch(/^NotifyAccess=all$/m);
     expect(unit).toMatch(/^WatchdogSec=180$/m);
-    expect(unit).toMatch(/^StartLimitIntervalSec=3600$/m);
+    expect(unit).toMatch(/^StartLimitIntervalSec=0$/m);
     expect(unit).toMatch(/^StartLimitBurst=5$/m);
   });
 });

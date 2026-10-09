@@ -75,6 +75,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
+import { routeChannelId } from '../lib/discord-route.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
 import { approvalStatus } from './lib/queue.mjs';
@@ -1454,44 +1455,79 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   // reaction resolution (classifyTarget, reused unchanged), its own
   // ledger-row push. No file operations, no stamping, no merging, ever —
   // every reddit action is a ledger row and a scorecard count only.
-  const redditGroups = new Map(); // postId -> Discord message[]
-  for (const m of candidates) {
-    const match = extractRedditRefLine(m.content);
-    if (!match) continue;
-    const postId = match[1];
-    if (!redditGroups.has(postId)) redditGroups.set(postId, []);
-    redditGroups.get(postId).push(m);
+  // Reddit cards now live in tree-reddit / tree-facebook / tree-main and are posted by a BOT (no
+  // webhook_id; scripts/lib/discord-route.mjs). The anchor for those is the author id of the sending
+  // bot itself, resolved with GET /users/@me on the same token(s) — an agent cannot author a message
+  // as that bot. Cards still in the webhook channel keep the webhook_id anchor.
+  const redditSources = [{ channelId, candidates, repliesByParent, failedThreadMessageIds }];
+  const botIds = new Set();
+  for (const token of new Set([botToken, process.env.DISCORD_TREE_BOT_TOKEN].filter(Boolean))) {
+    try {
+      const me = await discordGet(`${DISCORD_API}/users/@me`, token, discordOpts);
+      if (me?.id) botIds.add(String(me.id));
+    } catch (err) {
+      console.error(`::warning::social-approval-poll: could not resolve the bot user id (${err.message}) — bot-posted reddit cards are skipped this run`);
+    }
+  }
+  if (botIds.size) {
+    for (const route of ['tree-reddit', 'tree-facebook', 'tree-main']) {
+      const extraId = routeChannelId(route, process.env);
+      if (!extraId || extraId === String(channelId)) continue;
+      let extraMessages;
+      try {
+        extraMessages = await discordGet(`${DISCORD_API}/channels/${extraId}/messages?limit=100`, botToken, discordOpts);
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not read ${route} (${err.message}) — its reddit cards are unresolved this run`);
+        continue;
+      }
+      const extraCandidates = extraMessages.filter((m) => !m.webhook_id && botIds.has(String(m.author?.id)));
+      const extraThreads = await fetchThreadReplies(extraCandidates, botToken, discordOpts);
+      redditSources.push({
+        channelId: extraId,
+        candidates: extraCandidates,
+        repliesByParent: mergeReplyMaps(buildRepliesByParent(extraMessages), extraThreads.repliesByParent),
+        failedThreadMessageIds: extraThreads.failedThreadMessageIds,
+      });
+    }
   }
 
   const redditReactionCache = new Map();
   const redditLedgerRows = [];
-  for (const [postId, msgs] of redditGroups) {
-    const entries = [];
-    let failed = false;
-    for (const message of msgs) {
-      let reactions;
-      try {
-        reactions = await getRedditMessageApprovals(message, channelId, botToken, discordOpts, redditReactionCache);
-      } catch (err) {
-        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (reddit:${postId}) — treating the target as unresolved this run (retries next run): ${err.message}`);
-        failed = true;
-        break;
-      }
-      if (failedThreadMessageIds.has(message.id)) {
-        console.error(`::warning::social-approval-poll: message ${message.id} (reddit:${postId}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
-        failed = true;
-        break;
-      }
-      entries.push({ message, sha: null, reactions, replies: repliesByParent.get(message.id) ?? [] });
+  for (const source of redditSources) {
+    const redditGroups = new Map(); // postId -> Discord message[]
+    for (const m of source.candidates) {
+      const match = extractRedditRefLine(m.content);
+      if (!match) continue;
+      const postId = match[1];
+      if (!redditGroups.has(postId)) redditGroups.set(postId, []);
+      redditGroups.get(postId).push(m);
     }
-    if (failed) continue;
-    const result = classifyTarget(entries, { kind: 'reddit' });
-    // 'none': nothing happened yet. 'pending' (✏️/❌ with no reply): spec
-    // §3's generic rule for every kind — "the poll acts on nothing, logs
-    // nothing, re-evaluates next run." A reddit-specific nudge is not
-    // built here — out of this task's declared scope; see the PR body.
-    if (result.action === 'none' || result.action === 'pending') continue;
-    redditLedgerRows.push(redditRow(postId, result, runResolvedAt));
+    for (const [postId, msgs] of redditGroups) {
+      const entries = [];
+      let failed = false;
+      for (const message of msgs) {
+        let reactions;
+        try {
+          reactions = await getRedditMessageApprovals(message, source.channelId, botToken, discordOpts, redditReactionCache);
+        } catch (err) {
+          console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (reddit:${postId}) — treating the target as unresolved this run (retries next run): ${err.message}`);
+          failed = true;
+          break;
+        }
+        if (source.failedThreadMessageIds.has(message.id)) {
+          console.error(`::warning::social-approval-poll: message ${message.id} (reddit:${postId}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
+          failed = true;
+          break;
+        }
+        entries.push({ message, sha: null, reactions, replies: source.repliesByParent.get(message.id) ?? [] });
+      }
+      if (failed) continue;
+      const result = classifyTarget(entries, { kind: 'reddit' });
+      // 'none': nothing happened yet. 'pending' (✏️/❌ with no reply): the poll acts on nothing and
+      // re-evaluates next run (spec §3). Every reddit action is a ledger row and a scorecard count only.
+      if (result.action === 'none' || result.action === 'pending') continue;
+      redditLedgerRows.push(redditRow(postId, result, runResolvedAt));
+    }
   }
 
   try {

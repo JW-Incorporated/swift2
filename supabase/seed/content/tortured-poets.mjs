@@ -6051,24 +6051,7 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
-        products: [
-          {
-            brand: 'M. Pope and Co',
-            item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
-            retailer: 'mpopeandco.com',
-            url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): mpopeandco.com does not
-            // resolve; same real ring (M. Pope & Co estate jewelry) sourced from
-            // the jeweler's own shop platform, curl-verified 200 image/jpeg.
-            imageUrl: 'https://cdn.shoplightspeed.com/shops/641941/files/75979408/14k-yellow-gold-vintage-old-mine-cut-diamond-ring.jpg',
-            matchTier: 'unscored',
-            kind: 'jewelry',
-            price: '$3,250.00',
-            isAlternative: true,
-            altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        products: [],
       },
     },
     // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
@@ -6250,6 +6233,22 @@ export default {
           focalPoint: '50% 45%', credit: 'Taylor Swift/Instagram, via Vogue',
           caption: 'Taylor Swift, Travis Kelce and the royal family in the backstage selfie from Wembley on June 21, 2024.', kind: 'primary',
         }],
+        // Part B embed (Photo Enrichment, Vault Run 2026-10-09): the page IS
+        // this Instagram post, so embed the real post rather than only the
+        // Vogue-hosted still. Shortcode taken from the Vogue article that
+        // embeds it; verified via the rendered embed/captioned page as
+        // taylorswift's own account (273M followers, verified), caption
+        // "Happy Bday M8! London shows are off to a splendid start 🇬🇧🇺🇸🤝"
+        // tagging @princeandprincessofwales — the June 21, 2024 royal
+        // backstage visit. The sibling shortcode C8hINcxNFo5 is the Wales
+        // account's post, not hers.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            "Taylor's own Instagram: the backstage selfie with Travis Kelce and the Wales family at her first London Eras Tour show — \"Happy Bday M8! London shows are off to a splendid start.\"",
+          postedOn: '2024-06-21',
+        },
       },
     },
     {

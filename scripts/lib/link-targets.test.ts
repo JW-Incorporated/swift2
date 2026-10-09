@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { enumerateTargets, extractUrls, isProbeable, stripComments } from './link-targets.mjs';
+import { PENDING_LINKS, enumerateTargets, extractUrls, isProbeable, stripComments } from './link-targets.mjs';
 
 describe('extractUrls', () => {
   it('keeps an apostrophe inside a double-quoted URL', () => {
@@ -52,7 +52,25 @@ describe('isProbeable', () => {
     ['https://www.ralphlauren.com/...exact-product-page'],
     ['https://youtu.be/ID'],
     ['https://example.com/${slug}'],
+    ['http://dom.invalid'],
+    ['https://x.invalid/path'],
+    ['https://foo.example/page'],
+    ['https://foo.test/page'],
+    ['https://app.localhost/page'],
+    ['https://www.example.net/page'],
+    ['https://example.org/page'],
+    ['http://localhost:3000/page'],
   ])('skips %s', (url) => expect(isProbeable(url)).toBe(false));
+
+  it('skips every PENDING_LINKS entry, and each carries a reason', () => {
+    expect(PENDING_LINKS.length).toBeGreaterThan(0);
+    for (const entry of PENDING_LINKS) {
+      expect(entry.reason.trim().length).toBeGreaterThan(0);
+      expect(isProbeable(entry.url)).toBe(false);
+    }
+    expect(isProbeable('https://apps.apple.com/app/id6807657306')).toBe(false);
+    expect(isProbeable('https://apps.apple.com/app/id1')).toBe(true);
+  });
 });
 
 describe('enumerateTargets', () => {

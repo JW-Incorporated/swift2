@@ -47,41 +47,48 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)
 
-### Awareness replies (picture-only replies, 10+ a day)
+### Awareness replies (10+ a day)
 
 Owner direction 2026-10-01 (`docs/strategy/growth-strategy.md`, bet 2): find
-Reddit and Facebook threads where a **picture of the site, with no link**,
-invites "what is that?!", then explain once someone asks. The system finds the
-threads, picks the picture, drafts a short reply and posts the lot to the same
-Discord channel under **Tree · Awareness replies**. **You post every reply
-yourself** (guardrail 6); nothing posts automatically.
+Reddit and Facebook threads where a reply **with no link** invites "what is
+that?!", then explain once someone asks. The system finds the threads, drafts
+a short reply and posts the lot to the same Discord channel under **Tree ·
+Awareness replies**. **You post every reply yourself** (guardrail 6); nothing
+posts automatically.
 
-Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there is something to send) a header reads
-**🎯 Awareness replies — N today** (N counts today's total, including that
-batch), then two messages per opportunity: the card, and right after it the
-reply text on its own.
+**A reply is plain text by default** (owner rejected a card reply 2026-10-01,
+#4767: a Long Live card in a comment thread reads as branded promo and tells
+the reader nothing). A share card is attached only for the rare lead where the
+picture IS the answer — the drafting step has to opt that lead in, and the sub
+has to allow image comments. Most cards you get will have nothing attached.
+
+Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there
+is something to send) Tree posts two messages per opportunity, with no batch
+header and no explanatory text (owner 2026-10-05: "the link, the text to post,
+and the image"): the card, and right after it the reply text on its own.
 
 ```
-🎯 Awareness reply · r/<sub> · image comments allowed (or: 🖼️ image replies unverified — if there's no image button, post the text)
-<thread title>  +  <thread link>
-Why: one line on why a picture fits
-Image: attached card (era:folklore). Post it with the reply, no link.
-Sub rule: that sub's self-promo note
-📋 Reply: next message ↓ (long-press it → Copy Text)
-Done? ✅ Posted · Skip
+https://www.reddit.com/r/<sub>/comments/<id>/<slug>/     [card PNG attached, rarely]
+✅ Posted · Skip
+ref: reddit · <lead id>        (Reddit only; routes a ✅/⏭️ reaction)
 ```
 ```
 [the reply text, alone, nothing else in the message]
 ```
 
-The reply is its own plain message because Discord mobile can't select text
-in a code block, and long-press **Copy Text** copies a whole message: on a
-phone, long-press the reply message → Copy Text; on desktop, select it as
-usual. Tap Posted/Skip (or react) on the **card**, not the reply message.
+The link is the canonical thread URL with every tracking parameter stripped
+(`cleanThreadUrl` in `scripts/community/awareness-message.mjs`; Facebook keeps
+only post/comment ids such as `story_fbid`, `id`, `comment_id`). The reply is
+its own plain message because long-press **Copy Text** copies a whole message,
+so that message holds only the reply. Tap Posted/Skip (or react) on the
+**card**, not the reply message — the links live on the card so they never
+end up in what you copy.
 
-The card is **attached as a PNG** (not a link). Paste the reply, attach the
-picture, post. No link, no site name in the text: the unexplained picture is
-the hook. If someone asks, that is the moment to talk about the site.
+Usually there is nothing attached: paste the reply and post. When a card IS
+attached it comes as a PNG (not a link) — paste the reply, attach the picture,
+post. Either way: no link, no site name in the text. The reply earns its place
+by being useful in the thread; if someone asks what the site is, that is the
+moment to talk about it.
 
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
@@ -108,13 +115,16 @@ How it works, in three workflows (kill switch: repo variable
    waiting. It writes the words only, with no shell and no database secret
    (it reads untrusted Reddit titles): a plain job exports the waiting leads
    to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
-   a plain job validates it (`awareness-draft.mjs apply`): the picture id must
-   exist and a reply with a link, a domain, "check out", an em dash or more
-   than 300 characters is rejected. Delivery lints every reply again.
+   a plain job validates it (`awareness-draft.mjs apply`): a reply with a link,
+   a domain, "check out", an em dash or more than 300 characters is rejected,
+   and a picture id, if the agent asked for one at all, must exist in the real
+   catalogue. No picture id means a text-only reply, which is the normal case.
+   Delivery lints every reply again.
 3. `community-awareness-deliver` sends at most 5 per batch, 3 per sub per day
    (4 for r/TaylorSwift and r/swifties) and 15 per day, image-capable subs
-   first, unverified next, **text-only sub** last. An unverified sub is never
-   dropped: the label tells you to post the text if there is no image button.
+   first, unverified next, **text-only sub** last. A card is attached only on
+   an image-capable sub for a lead the drafting step opted in; everything else
+   ships as text, so no sub is ever dropped for its image setting.
 
 **Image comments per sub.** The scan reads one sub's public `about.json` per run, caches a good reading for a week (and a blocked attempt for 12 hours) in `awareness_sub_cache`,
 (`comment_contribution_settings.allowed_media_types`; `static` means still
@@ -156,12 +166,15 @@ self-hosted runner; neither is built.
 #### Replying as the brand account
 
 If you are logged into two Reddit accounts, every Reddit thread link Tree sends
-to Discord (reply opportunities and awareness replies) carries the URL
+to Discord as a reply opportunity carries the URL
 parameters in `scripts/community/reddit-account.json` (`redditLinkParams`,
 including `target_user=NegativeRest9507`, the same parameter Reddit's own email
 links use), so the link opens as the brand account. Each such message also has
 a `↪️ Reply as u/NegativeRest9507` line. Change the parameters in that file, no
-code change needed. Non-Reddit links are left untouched.
+code change needed. Non-Reddit links are left untouched. Awareness-reply
+cards are the exception (owner 2026-10-05): their link is stripped to the bare
+thread URL with no `target_user` and no `Reply as` line, so check which
+account you are on before posting.
 
 ### Reddit notification intake
 

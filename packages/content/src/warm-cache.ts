@@ -22,7 +22,7 @@ import type { z } from 'zod';
 import { isSchemaVersionSupported } from './compat';
 import { manifestSchema, type Manifest } from './schema';
 
-export const SCHEMA_FINGERPRINT = 'schema-fp-1';
+export const SCHEMA_FINGERPRINT = 'schema-fp-3';
 
 export type BundleFilesRecord = Record<string, unknown>;
 export interface WarmBundle {

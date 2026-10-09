@@ -41,6 +41,7 @@
     "tokens:generate": "node scripts/generate-design-tokens.mjs",
     "merch:coverage": "tsx scripts/merch-engine/affiliate-coverage.mjs",
     "check:affiliate-coverage": "node scripts/check-affiliate-coverage-in-sync.mjs",
+    "check:human-actions": "node scripts/human-actions/check.mjs",
     "check:automerge-allowlist": "node scripts/check-automerge-allowlist.mjs",
     "check:launch-gates": "node --use-env-proxy scripts/check-launch-gates.mjs",
     "check:content-safety-nightly": "node scripts/content-engine/run.mjs all --no-images",
@@ -52,6 +53,7 @@
     "validate:social": "node scripts/social/validate-queue.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "check:routines": "node scripts/check-routine-workflows.mjs",
+    "check:workflow-deps": "node scripts/check-workflow-deps.mjs",
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
@@ -77,7 +79,8 @@
     "social:seed-library": "tsx scripts/social/seed-library.mjs",
     "social:select-photo": "node scripts/social/select-photo.mjs",
     "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
-    "social:photo-coverage": "node scripts/social/photo-coverage.mjs"
+    "social:photo-coverage": "node scripts/social/photo-coverage.mjs",
+    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -86,20 +89,25 @@
     "@fontsource/playfair-display": "^5.3.0",
     "@playwright/test": "^1.63.0",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.4",
     "@types/pg": "^8.23.1",
-    "@vitejs/plugin-react": "^6.1.1",
-    "eslint": "^10.11.0",
-    "pg": "^8.23.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.12.0",
+    "jsdom": "^30.1.2",
+    "pg": "^8.23.1",
     "prettier": "^3.9.9",
-    "satori": "^0.33.5",
-    "sharp": "^0.35.4",
+    "satori": "^0.35.0",
+    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.70.1",
-    "vitest": "^5.0.2"
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
   },
   "overrides": {
-    "uuid": "^11.1.1"
+    "uuid": "^11.1.1",
+    "why-is-node-running": "3.2.2"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.132.1"
   }
 }

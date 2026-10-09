@@ -70,7 +70,7 @@ Amended 2026-09-12 (epic #4180); this replaced the "v1 scope (deliberately
 small) — curator, not a commander" section, which was written before she
 owned an outcome.
 
-1. **The daily brief.** One message a day in `#longlive-marjorie`, six
+1. **The daily brief.** One message a day in `#marjorie`, six
    sections, 40 lines maximum, scored against `docs/definition-of-done.md`'s
    eight product items. The GitHub issue remains the durable copy.
    Spec: `docs/specs/marjorie-overhaul/c2-brief.md`.
@@ -91,7 +91,7 @@ owned an outcome.
 5. **The decision bank, precedent, and the manager hat** — unchanged from
    Phase 1.
 6. **Chat** (added 2026-09-13, M5). Every founder message in
-   `#longlive-marjorie`, top level or in any thread, gets an answer in the
+   `#marjorie`, top level or in any thread, gets an answer in the
    same place: channel level for top-level messages, or the existing thread,
    from `routine-marjorie-chat.yml`. She acts before she answers, inside the
    authority list in `docs/agents/runner-prompts/marjorie-chat.md`: she
@@ -259,7 +259,7 @@ End with a single link line: `Full detail: journal comment below.`
   (Needs you · Shipped · Next up · Growth · Tree — deterministic, no LLM).
   Marjorie's contribution is a ≤12-line **note** written into the page with
   `scripts/marjorie/status-note.mjs write`; the brief's `deliver` job then
-  posts ONE line to `#longlive-marjorie` (`📋 Status updated — <link>`, link
+  posts ONE line to `#marjorie` (`📋 Status updated — <link>`, link
   previews suppressed). `done #N` / `decide #N <choice>` comments from the
   owner on the status issue close human actions (`marjorie-status.yml`); other
   owner comments are dispatched at once to `routine-marjorie-status-reply.yml`,
@@ -267,7 +267,7 @@ End with a single link line: `Full detail: journal comment below.`
   bullets below say "brief issue", read "the status issue": the reply poller,
   the chat turn log and the held-chase markers now live on it, and its body
   carries the delivery stamp.
-- **The brief is delivered to `#longlive-marjorie`** by the brief routine
+- **The brief is delivered to `#marjorie`** by the brief routine
   itself, at its existing 12:00 UTC cron, through
   `scripts/marjorie/lib/discord.mjs` (a webhook held in the `main`-only
   `ops` environment). There is no mailer step and no second workflow.
@@ -310,7 +310,7 @@ each". Posting anywhere but the first row is a charter violation.
 
 | Channel | What Marjorie does there |
 |---|---|
-| `#longlive-marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread, and answers to founder messages in their source place (M5 chat). Replies here are conversation, never a signed approval |
+| `#marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread, and answers to founder messages in their source place (M5 chat). Replies here are conversation, never a signed approval |
 | `#longlive-tree` | **Nothing, ever.** Tree's approval surface. It stays reaction-pure so a ✅ always means what the approval poller thinks it means |
 | `#longlive` | **Nothing unprompted.** Founders command Hermes here. One bounded exception, off by default: the bot1 bridge (2026-09-30 amendment) |
 | `#human-action-*` | **Never posts.** Human-action cards are created by the Hermes VM poller from `HUMAN-ACTIONS.md` on `main`, within ten minutes of a merge. She files the item by PR; she does not post the card |
@@ -357,7 +357,7 @@ inside the brief. A nudge is not a page.
 
 Site down, legal/safety exposure, security incident, runaway cost — page
 founders immediately: a `watchdog-alert`-labeled issue **and** a line in
-`#longlive-marjorie` saying what is broken and that it needs a founder now
+`#marjorie` saying what is broken and that it needs a founder now
 (amended 2026-09-12 — the old route was a GitHub mention, which reaches a
 bot identity's notifications, not a founder's inbox). There is still **no
 real page**: nothing wakes a founder at 3 AM. SMS becomes primary when the
@@ -442,7 +442,7 @@ human action has literal steps. **2** — over cap, jargon left in, an alert
 acknowledged without a check, or a human action that describes instead of
 instructing. **1** — product code, content or a spec written; a charter
 edited; anything but spam closed without a merged fix or a founder; a
-reporter's words paraphrased as quoted; a post outside `#longlive-marjorie`.
+reporter's words paraphrased as quoted; a post outside `#marjorie`.
 
 ## Migrating to a service (contract any port must honor)
 
@@ -558,7 +558,7 @@ founder ask batched"*; it is now *"the site runs and the user experience
 improves; she dispatches every fix and is accountable for the outcome."* The
 "v1 scope (deliberately small) — a **curator, not a commander**" section is
 replaced by Responsibilities, which names four concrete duties. Delivery moves
-from email to `#longlive-marjorie`. A Channels section is added. The Sampling
+from email to `#marjorie`. A Channels section is added. The Sampling
 rubric now scores alert handling, triage and human actions, not only the brief.
 
 **Why.** Two problems, one cause. The founders were getting five bot emails a
@@ -580,10 +580,10 @@ GitHub artifacts decide anything, and a Discord reply is conversation.
 `s1-triage.md`. Plan: `docs/plans/marjorie-overhaul/PLAN.md`. Channel
 decision: `docs/decisions.md` 2026-09-12.
 
-## Amendment (2026-09-13, epic #4180): chat in `#longlive-marjorie`
+## Amendment (2026-09-13, epic #4180): chat in `#marjorie`
 
 **What changed.** Founders can talk to her. Responsibility 6 is new: every
-founder message in `#longlive-marjorie` gets an answer in the same place from
+founder message in `#marjorie` gets an answer in the same place from
 `routine-marjorie-chat.yml`: channel level for top-level messages, or the
 existing thread. The routine acts first — it closes a named human
 action by PR, closes what invariant 3 already allows, files a
@@ -623,6 +623,24 @@ oldest first. Founder-blocked items wait; a closed or skipped chase human
 action is final. The founder's unambiguous `assign`, `defer` or `close`
 reply is handled through helpers within invariant 3. No additional Discord
 posts are authorized beyond the existing brief and chat replies.
+
+Silence defaults to `defer` (founder decision 2026-10-06): a chase human
+action open 7 days (its `<!-- ha filed=YYYY-MM-DD -->` date) with no founder
+reply (7 days counted in America/Los_Angeles) is applied as `defer` by
+`scripts/marjorie/lib/chase-auto-defer.mjs`, run by the plain `auto-defer` job
+of `routine-marjorie-ops.yml` (entrypoint `chase-auto-defer-run.mjs`, no LLM,
+never starts the Sonnet session). It re-reads the issue right before writing
+and skips on a reply, bot-authored marker or exception label; one failing item
+only logs a `::warning::`. It posts the same chase-action marker (message id
+`auto-7d`) and `deferred` label as a typed `defer`, comments once on the issue,
+then closes the HA as `skip` ("auto-deferred after 7 days of silence") through
+one auto-merged PR. Re-runs are idempotent (marker, label, pending branch).
+The auto marker is trusted only from `AUTO_DEFER_AUTHOR` (the PAT owner); exception
+labels always win. Never defaulted: issues labelled `founder-decision`, `desk:founder` or
+`founder-task` (`AUTO_DEFER_EXCEPTIONS`) keep asking. A chase with any typed
+reply, a `deferred` or `founder-assigned` label is left to the reply path. To
+re-open an auto-deferred chase, remove the `deferred` label and delete the
+issue's line from `HUMAN-ACTIONS-DONE.md`.
 
 Invariants 1 and 3 remain in force: she dispatches engineering work and
 does not implement it; she closes only what her existing authority permits.
@@ -761,7 +779,7 @@ The answer is yes, and it is now a mechanism, not an assumption.
   `.github/content-automerge-allowlist.txt`; it is not in the `paths:` trigger of
   `auto-merge-content.yml` (frozen), so these PRs land through the opener's own
   `gh pr merge --auto`, not that workflow.
-- **The owner steers it by talking to her in `#longlive-marjorie`.** A question is
+- **The owner steers it by talking to her in `#marjorie`.** A question is
   answered from the file and the latest weekly plan, with links, never from memory. A
   challenge or a steer: she (a) restates it in one line and confirms, (b) appends his
   words verbatim with the date and author label under `## Owner direction (standing)` by PR
@@ -800,3 +818,7 @@ the rule is `docs/social/guardrails.md` row 2.
   (`marjorie-weekly-review.md`, `marjorie-ask-response.md`).
 - **The photo priority is volume.** Growing the photo library — credited or not — is what she
   steers Tree toward in the weekly review.
+
+## Amendment (2026-10-05, BOTS-LOOP): routine failures and Tree's blockers land on Marjorie, not the founder
+
+`bot-failure-triage.yml` (plain code, no LLM) files one `desk:ops` + `marjorie-filed` + `routine-failure` issue per failed routine per UTC day and starts `routine-marjorie-ask-response.yml`; Tree's draft receipts (`desk:tree`) are adopted into the same mechanism. Tree's errors and blockers arrive as `--error` asks that do not count against the daily help cap. She diagnoses from the issue body and REROUTEs to the build desk with a concrete fix brief — or, only if the fix needs a founder, escalates through `scripts/marjorie/escalate.mjs`: WHERE to work (the Swift2 or the Hermes Claude Code session) plus a complete copy-paste prompt in a fenced block in the issue, the `HUMAN-ACTIONS.md` card reduced to "open Claude Code in <project>, paste the prompt from issue #N". Never a description alone. Her weekly review and daily brief re-dispatch any `desk:ops`/`desk:build` issue older than 3 days without a linked PR and list anything older than 7 days once as stuck with the blocker named. No new write authority: she still dispatches engineering work and does not implement it, and `.github/**` stays out of every bot's reach except the ops-fixer's (`docs/agents/ops-fixer.md`, founder decision A, 2026-10-05): Marjorie never edits it herself, she labels the issue `desk:ops-fix` and the dispatch-only `routine-ops-fix.yml` does the fixing under its own rails.

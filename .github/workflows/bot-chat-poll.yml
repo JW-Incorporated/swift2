@@ -5,7 +5,7 @@
 # pins `ref: main` — a secret-holding job never runs dispatch-chosen code.
 #
 # One job, one step:
-#   chat-poll.mjs claims founder messages in #longlive-marjorie and
+#   chat-poll.mjs claims founder messages in #marjorie and
 #      #longlive-tree with 👀 and dispatches routine-marjorie-chat.yml /
 #      routine-tree-chat.yml on this job's own GITHUB_TOKEN. `actions: write`
 #      is enough from a `run:` step — the #4223 403 was the App installation
@@ -76,7 +76,21 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
           DISCORD_FOUNDER_IDS: ${{ vars.DISCORD_FOUNDER_IDS }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          DISCORD_MARJORIE_CHANNEL_ID: ${{ vars.DISCORD_MARJORIE_CHANNEL_ID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: node scripts/marjorie/chat-poll.mjs poll
+
+      # Primary clock for the frequent workflows GitHub's cron drops (table:
+      # scripts/ops/clock-table.json): GitHub delivers only 2-22% of hourly-or-
+      # faster crons here, this 5-minute poll is reliable, and the script
+      # throttles each entry to its own gap and never fails this job. It holds
+      # no secrets beyond the job token and runs main's checked-out script.
+      - name: Clock-dispatch the throttled workflow table
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/ops/clock-dispatch.mjs

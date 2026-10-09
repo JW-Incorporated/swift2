@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
+import { planAutoDefers } from './chase-auto-defer.mjs';
 
 export const STALE_48_MS = 48 * 60 * 60 * 1000;
 export const STALE_96_MS = 96 * 60 * 60 * 1000;
@@ -160,7 +161,7 @@ export function renderHumanAction({ number, issue, title, createdAt, now, holder
     300,
   );
   const step = clip(
-    '1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
+    '1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
     200,
   );
   return {
@@ -177,6 +178,7 @@ export function evaluateDispatchChase({
   openActions = '',
   doneActions = '',
   pendingHaPrs = [],
+  skippedHaPrs = [],
   now = Date.now(),
   ownAuthors = [],
 } = {}) {
@@ -257,7 +259,11 @@ export function evaluateDispatchChase({
     items,
     nudges,
     humanActions,
+    autoDefers: planAutoDefers({ issues, openActions, pendingHaPrs, now: nowMs }),
     pendingHumanActions: pendingHaPrs.filter((pr) => /^marjorie\/chase-ha-\d+(?:-\d+)*$/.test(pr.headRef || '')).map((pr) => pr.number),
+    // PRs whose HUMAN-ACTIONS.md status could not be read; carried so the sweep
+    // log names them rather than silently treating them as untouched.
+    skippedHaPrs,
     brief: {
       stalled: items.filter((item) => /^stale-/.test(item.verdict)),
       held: items.filter((item) => item.verdict === 'held'),

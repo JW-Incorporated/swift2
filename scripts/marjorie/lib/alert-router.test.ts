@@ -1,4 +1,4 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -189,5 +189,152 @@ describe('state CLI', () => {
   it('ignores a marker on a comment the routine did not post', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
     expect(runStateCli([{ viewerDidAuthor: false, body: marker }])).toBe('unhandled');
+  });
+
+  // #4226: a failed upstream `gh issue view` pipes nothing; that must not read
+  // as a fresh, ledger-less alert.
+  function runRaw(input: string, args: string[] = []) {
+    return spawnSync('node', [CLI_PATH, 'state', ...args], { input, encoding: 'utf8' });
+  }
+
+  it('treats empty stdin as a failed lookup (exit 3, logged), not unhandled', () => {
+    for (const input of ['', '  \n']) {
+      const r = runRaw(input);
+      expect(r.status).toBe(3);
+      expect(r.stdout.trim()).toBe('');
+      expect(r.stderr).toContain('lookup failed');
+    }
+  });
+
+  it('treats non-JSON or non-array stdin as a failed lookup', () => {
+    for (const input of ['gh: HTTP 502', '{"message":"Not Found"}', 'null']) {
+      expect(runRaw(input).status).toBe(3);
+    }
+  });
+
+  it('still reads a genuine zero-comment issue ([]) as unhandled', () => {
+    const r = runRaw('[]');
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe('unhandled');
+  });
+
+  it('exits 2 with usage when --targets has no value or an empty value', () => {
+    for (const args of [['--targets'], ['--targets', ''], ['--targets', ',']]) {
+      const r = runRaw('[]', args);
+      expect(r.status).toBe(2);
+      expect(r.stderr).toContain('--targets');
+      expect(r.stdout.trim()).toBe('');
+    }
+    const m = spawnSync('node', [CLI_PATH, 'marker', 'escalate', '--targets'], {
+      encoding: 'utf8',
+    });
+    expect(m.status).toBe(2);
+  });
+
+  it('passes --targets through to deriveHandledState', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: '2020-01-01',
+      targets: ['a.yml'],
+    });
+    const input = JSON.stringify([{ viewerDidAuthor: true, body: marker }]);
+    expect(runRaw(input, ['--targets', 'a.yml']).stdout.trim()).toBe('escalated');
+    expect(runRaw(input, ['--targets', 'a.yml,b.yml']).stdout.trim()).toBe('unhandled');
+  });
+});
+
+// #4219: a handled marker covers only the aggregate-alert targets it names.
+describe('per-target handled markers', () => {
+  const own = (body: string) => ({ viewerDidAuthor: true, body });
+  const today = '2026-09-12';
+
+  it('renders a sorted, deduped targets suffix and round-trips it', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: today,
+      targets: ['b.yml', 'a.yml', 'a.yml'],
+    });
+    expect(marker).toBe(
+      '<!-- marjorie-ops-handled date=2026-09-12 action=escalate targets=a.yml,b.yml -->',
+    );
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('rejects a target that would break out of the marker', () => {
+    expect(() => renderHandledMarker({ action: 'escalate', targets: ['a b'] })).toThrow();
+    expect(() => renderHandledMarker({ action: 'escalate', targets: ['a-->'] })).toThrow();
+  });
+
+  it('does not let a permanent marker suppress a newly added target', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: '2026-08-01',
+      targets: ['a.yml'],
+    });
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml'] })).toBe('escalated');
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('unions coverage across several markers', () => {
+    const a = renderHandledMarker({
+      action: 'human-action',
+      date: '2026-08-01',
+      targets: ['a.yml'],
+    });
+    const b = renderHandledMarker({ action: 'escalate', date: '2026-09-01', targets: ['b.yml'] });
+    expect(deriveHandledState([own(a), own(b)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('scopes a same-day redispatch marker to its targets too', () => {
+    const marker = renderHandledMarker({ action: 'redispatch', date: today, targets: ['a.yml'] });
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml'] })).toBe(
+      'handled-awaiting-watchdog',
+    );
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('grandfathers a legacy permanent marker: it covers a new target too', () => {
+    const legacy = renderHandledMarker({ action: 'human-action', date: '2026-08-01' });
+    expect(deriveHandledState([own(legacy)], { today })).toBe('escalated');
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('grandfathers a legacy same-day marker, then it expires tomorrow', () => {
+    const legacy = renderHandledMarker({ action: 'comment-only', date: today });
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'handled-awaiting-watchdog',
+    );
+    expect(deriveHandledState([own(legacy)], { today: '2026-09-13', targets: ['a.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('targeted markers still catch a new target alongside no legacy marker', () => {
+    const t = renderHandledMarker({ action: 'escalate', date: '2026-08-01', targets: ['a.yml'] });
+    const sameDay = renderHandledMarker({
+      action: 'comment-only',
+      date: today,
+      targets: ['b.yml'],
+    });
+    expect(deriveHandledState([own(t), own(sameDay)], { today, targets: ['a.yml', 'c.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('ignores a forged targeted marker from a comment the routine did not post', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: today, targets: ['a.yml'] });
+    expect(
+      deriveHandledState([{ viewerDidAuthor: false, body: marker }], { today, targets: ['a.yml'] }),
+    ).toBe('unhandled');
   });
 });

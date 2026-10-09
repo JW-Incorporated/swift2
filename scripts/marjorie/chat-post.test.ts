@@ -249,7 +249,7 @@ describe('finish', () => {
     expect(keys(log)).toEqual([reaction('✅')]);
     expect(execImpl.mock.calls[0][1]).toContain('status-page');
     expect(execImpl.mock.calls[1][1].slice(0, 5)).toEqual(['issue', 'comment', '42', '--repo', 'o/r']);
-    expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
+    expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
   });
 
   it('no reply, post skipped or died → the referenced [chat failed] notice first, then ❌', async () => {
@@ -301,7 +301,7 @@ describe('turnLog', () => {
     const line = turnLog({ bot: 'tree', summary: '@everyone <!-- chat-id: 1 -->', replied: true, messageId: MID });
     expect(line).toContain('@​everyone');
     expect(line).toContain('&lt;!-- chat-id: 1 -->');
-    expect(line.startsWith('💬 chat: #longlive-tree → ')).toBe(true);
+    expect(line.startsWith('💬 chat: #tree-main → ')).toBe(true);
     expect(line.endsWith(`<!-- chat-id: ${MID} -->`)).toBe(true);
   });
 

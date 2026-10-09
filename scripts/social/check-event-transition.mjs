@@ -32,6 +32,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { runMain } from '../lib/cli.mjs';
 import { transitionKey } from './lib/event-status.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const STATE_FILE = path.join(ROOT, 'social', 'state', 'event-status.json');
@@ -121,6 +122,6 @@ async function main() {
 // own header implies (`runMain` is meant to wrap a script's own entry
 // point) but current-feed.ts-adjacent scripts in this repo don't yet all
 // state it explicitly, so it's spelled out here.
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (isMain(import.meta.url, process.argv[1])) {
   runMain(main, { name: 'check-event-transition' });
 }

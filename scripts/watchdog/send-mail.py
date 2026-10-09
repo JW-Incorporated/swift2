@@ -106,7 +106,7 @@ Sent by the shared watchdog/brief mailer - deterministic, no AI involved.</p>
     )
 
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as s:
             s.login(sender, pw)
             s.send_message(msg)
     except smtplib.SMTPAuthenticationError as e:
@@ -119,6 +119,9 @@ Sent by the shared watchdog/brief mailer - deterministic, no AI involved.</p>
             f"Gmail said: {e}",
             file=sys.stderr,
         )
+        return 1
+    except (OSError, smtplib.SMTPException) as e:
+        print(f"Mail send failed ({type(e).__name__}): {e}", file=sys.stderr)
         return 1
 
     print(f"Mailed [{payload['subject']}] To {TO}")

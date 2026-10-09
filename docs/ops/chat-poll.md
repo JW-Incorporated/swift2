@@ -1,8 +1,10 @@
 # Chat poll — concurrency, stuck runs, and what a cut-short poll leaves behind
 
 `bot-chat-poll.yml` (and `marjorie-reply-poll.yml`, same group `bot-chat-poll`) claims
-founder messages in `#longlive-marjorie` and `#longlive-tree` with 👀 and dispatches the chat
-routines (`scripts/marjorie/chat-poll.mjs`). Mechanics: `docs/specs/marjorie-overhaul/m5-chat.md`,
+founder messages in `#marjorie` and `#longlive-tree` with 👀 and dispatches the chat
+routines (`scripts/marjorie/chat-poll.mjs`). Channels resolve by id, so a Discord rename cannot break the poll: env
+`DISCORD_<BOT>_CHANNEL_ID`, then `BOTS[bot].channelId` (`chat-inbox.mjs`), then a by-name lookup as the last
+fallback (2026-10-09, HA #118). Mechanics: `docs/specs/marjorie-overhaul/m5-chat.md`,
 `m7-doorbell.md`.
 
 ## Why `cancel-in-progress: true` (2026-10-01)
@@ -13,6 +15,14 @@ With `false`, run 35225911621 (2026-09-17, stuck "waiting" on the `social` envir
 stuck run was cancelled by hand (2026-10-01, ~16:20Z). A new run now cancels a stuck or in-flight
 one, so the same fault clears itself at the next dispatch. Still only one poll runs at a time, and
 the brief-reply relay is idempotent on its `<!-- relay-id: ... -->` marker.
+
+## The clock-dispatch step (2026-10-06)
+
+The poll's final step (`if: always()`) runs `scripts/ops/clock-dispatch.mjs`, which dispatches the
+workflows in `scripts/ops/clock-table.json` (the ones GitHub's cron keeps dropping) when none has
+started within its gap. It never fails the poll. A newer poll that cancels this one before that step
+only delays the dispatch by one tick; `watchdog.yml`'s backup job covers the rest. Add a row to the
+table, not a new step.
 
 ## The claimed-not-dispatched window
 
@@ -42,7 +52,7 @@ token every 8 s (each call lasts ~10 s) and reads the run's jobs with `gh run vi
 It stops when `post` (Marjorie) / `deliver` (Tree) starts, when the agent job fails or is cancelled, after 20 minutes,
 or after 5 failed calls in a row. 429 waits `retry_after` (8-60 s).
 
-- Needs the bot to have **Send Messages** in #longlive-marjorie and #longlive-tree. Without it Discord answers
+- Needs the bot to have **Send Messages** in #marjorie and #longlive-tree. Without it Discord answers
   403: the job logs one line (`Discord answered 403 …`), exits 0, and nothing else changes.
 - Never affects delivery: the job is not a dependency of `post`/`deliver`/`finish`, and a failure of it cannot fail the run.
 - Checking it: `gh run view <run-id> --log --job <typing job id>` shows the single exit line (`stopping — post job started`).

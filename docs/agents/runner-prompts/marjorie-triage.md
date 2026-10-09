@@ -165,6 +165,11 @@ For either build class, create a JSON draft under `$RUNNER_TEMP` using a
 }
 ```
 
+`sourceContext` is exactly one of four canonical lines (the helper rejects
+anything else): `**From a site submission** — #<n>` (`source`: `issue`),
+`**From watchdog alert** — <issue URL>` (`alert`), `**From founder chat** — <message URL>`
+(`chat:<URL>`), or `**From Marjorie's weekly growth review** — #<plan issue> / <slug>` (`review`; `<slug>` is a short kebab-case name for this one ticket, unique within the plan, because a plan files several tickets and the dedupe key is `plan/slug`).
+
 Name concrete repository-relative starting files in `paths`, never globs or
 directories. `estimatedLines` is your honest changed-line estimate; omit it
 when unknown. Set `needsSpec` only when the work is large enough to need a
@@ -176,7 +181,7 @@ unchanged fence; you do not choose `small` or `medium` yourself.
 Run, in order:
 
 ```
-gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" > "$RUNNER_TEMP/marjorie-filed.json"
 node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
@@ -186,7 +191,8 @@ node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
 Run `find` before every create, including a retry after an interrupted run.
 If it prints an issue object, do not create another issue: reuse that number
 and resume the original's audit comment/`marjorie-triaged` label. The paginated
-REST snapshot avoids search-index lag. `find` recognizes a ready build ticket or
+REST snapshot avoids search-index lag; `--slurp` cannot be combined with `--jq`, so
+save the raw pages and let `find` flatten them and skip pull requests. `find` recognizes a ready build ticket or
 a same-source large bank item; a pre-M8 unready filing suppresses neither.
 If `size` prints `large`, do not run `render` and do not file a build ticket:
 bank one issue labeled `founder-decision,marjorie-filed`, naming the spec needed
@@ -222,10 +228,17 @@ Run this before or after new-submission triage — your call; note which you
 chose and why in your run summary.
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state closed --json number,body,comments,stateReason --limit 200
+node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-filed --state closed
 ```
 
-For each filed issue returned:
+This is ONE command (one turn): it reads every issue per-issue internally (the
+bulk list truncates comments at 100) and prints one JSON array of
+`{number, stateReason, body, comments}`, at most 200 issues. If it exits
+non-zero (a list hit exactly 200 and may hide more), abort the pass and say so
+in your run summary rather than reconciling a partial set. Never loop `gh issue
+view` yourself. Note the issue count in your run summary.
+
+For each filed issue in the array:
 
 1. Skip if any comment already has `<!-- marjorie-triage-reconciled -->`.
 2. Extract the original's number from the body's
@@ -238,9 +251,12 @@ For each filed issue returned:
    **do not close the original**; you have no evidence it was addressed.
    Instead comment on the original naming `stateReason` and linking the
    filed issue so a human can judge; leave its label/state unchanged.
-5. Either way, comment on the **filed** issue with
-   `<!-- marjorie-triage-reconciled -->` on its own line — marks
-   "processed," not "closed as fixed."
+5. Only after a `COMPLETED` closure (step 4), comment on the **filed** issue
+   with `<!-- marjorie-triage-reconciled -->` on its own line. For
+   `NOT_PLANNED`/duplicate/missing, do **not** write the marker: a later
+   reopen-and-complete must still be reconciled, and re-checking each run
+   is cheap. To avoid repeating the human-judge comment on the original,
+   skip it if the original already has a comment linking this filed issue.
 
 Closing on a `COMPLETED` filed issue is the one other case besides `spam`
 where you close a submission, and it isn't your judgment — it's a merged
@@ -262,22 +278,39 @@ you've ALREADY triaged (open or closed) or on a filed issue. Before or after
 new-submission triage (your call, same as the Accountability loop), run:
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-triaged --state all --json number,comments --limit 200
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --json number,body,comments --limit 200
+node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-triaged --label marjorie-filed --state all
 ```
 
-For every issue returned, look at comments posted **after your own last
-comment** on it — use `viewerDidAuthor` to find your last comment as the
-boundary, **never a hardcoded login string** (different GitHub API
-surfaces spell this routine's own bot identity differently, the exact
-lesson `alert-router.mjs`'s header documents; `viewerDidAuthor` is
-computed server-side, never wrong).
+ONE command, one turn: it reads each issue per-issue internally (a bulk
+`--json comments` list truncates comments at 100, which can hide an override)
+and prints one JSON array of `{number, stateReason, body, comments}`, at most
+200 issues per label. If it exits non-zero (a list hit exactly 200), abort the
+discovery pass and say so in your run summary; a silently truncated set hides
+overrides. Never loop `gh issue view` yourself. Note the issue count in your run
+summary.
+
+Redirect that output to `.scratch/threads.json`, then run:
+
+```
+node scripts/marjorie/lib/pending-overrides.mjs < .scratch/threads.json
+```
+
+It scans EVERY comment on every issue (no "after my last comment" cutoff, #4231:
+bot comments or edits can never move a boundary past an override) and prints
+the founder overrides not yet actioned, as `[{number, word, url, author}]`.
+A comment is settled only by a comment of yours carrying the marker
+`<!-- marjorie-override-actioned: <override url> -->`, so you MUST include that
+marker (with the override comment's `url`) in the comment you post when you act
+on it. `viewerDidAuthor` is the server-side own-comment test, **never a
+hardcoded login string** (different GitHub API surfaces spell this routine's
+bot identity differently, the lesson `alert-router.mjs`'s header documents).
 
 **2. Verify the commenter is an actual founder — this repo is PUBLIC.**
 `viewerDidAuthor` only tells you a comment isn't yours, not who it IS — any
 GitHub account, or another agent's bot identity, can comment here. Check
 the comment's `author.login` against the roster already in
-`scripts/marjorie/founder-gate.mjs`:
+`scripts/marjorie/founder-gate.mjs` (`pending-overrides.mjs` already applies
+it; this is the manual form for any comment you inspect yourself):
 
 ```
 node -e "import('./scripts/marjorie/founder-gate.mjs').then(m => process.exit(m.isFounder(process.argv[1]) ? 0 : 1))" "<author.login>"
@@ -302,7 +335,9 @@ table's action to the original, and note on the filed issue what happened.
 For `bug`/`content`/`request`/`founder`: comment on the original that a
 founder overruled your prior call to `<word>` and that automatic re-filing
 under a new class isn't built yet — leave it for a human rather than
-guessing at closing/relabelling a dispatched issue yourself. Say this
+guessing at closing/relabelling a dispatched issue yourself. That comment MUST also carry the
+`<!-- marjorie-override-actioned: <override url> -->` marker, or the override
+stays pending and is re-surfaced every run. Say this
 plainly in your run summary every time it happens; it's a known, deliberate
 scope gap, not a silent miss.
 

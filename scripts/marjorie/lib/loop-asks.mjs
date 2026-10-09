@@ -9,6 +9,7 @@
 import { createHash } from 'node:crypto';
 import { gh as ghRun } from '../../lib/gh.mjs';
 import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
+import { acquireClaim, createFiling, sweepClaims, withTimeout } from './ask-claim.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 const DAY_MS = 86_400_000;
@@ -44,6 +45,8 @@ const CONTRADICTS_RE = /\s*\(contradicts #(\d+)\)\s*$/i;
 // line — arrow text inside an ask (e.g. "#4200 → #4300") must never read as
 // already filed.
 const FILED_RE = / → \[#(\d+)\]\(<[^()<>]+\/issues\/\1>\)(?: ⚠️ contradicts #\d+ — your call)?$/;
+// An ask that reports an error or a blocker (not a discretionary request) carries this and does not count against the daily help cap.
+export const ERROR_MARKER = '<!-- loop-kind: error -->';
 const MARKER_RE = /<!-- loop-ask: ([a-z0-9-]+)(?: contradicts=(\d+))? -->/g;
 const TITLE_PREFIX_RE = /^(Tree|Marjorie) → (Tree|Marjorie): /;
 
@@ -74,21 +77,8 @@ function stripCr(line) {
  * this module appends after it — neutralizing a comment opener keeps ask
  * text from forging an earlier `<!-- loop-ask: ... -->` that `parseMarker`
  * could pick up instead of the real one. */
-function neutralizeMarker(text) {
+export function neutralizeMarker(text) {
   return String(text ?? '').replace(/<!--/g, '&lt;!--');
-}
-
-/** Bounds a `gh` call so a hang can never eat a whole delivery's timeout
- * budget — `gh()` in scripts/lib/gh.mjs has no timeout on its REST fallback
- * path, so this races the call itself rather than passing one through. */
-function withTimeout(promise, ms, label) {
-  let timer;
-  const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
-  });
-  // Cleared on settle: a pending 30 s timer would otherwise hold the process
-  // open long after a fast filing finished (Codex round 2).
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 function clean(text) {
@@ -128,10 +118,13 @@ export function parseTreeAsks(plan) {
     const dedupeKey = clean(ask).toLowerCase();
     if (seen.has(dedupeKey)) { duplicates += 1; continue; }
     seen.add(dedupeKey);
-    valid.push({ ask, why: truncate(clean(entry?.why), MAX_ASK_CHARS), contradicts: positiveInt(entry?.contradicts) });
+    valid.push({ ask, why: truncate(clean(entry?.why), MAX_ASK_CHARS), contradicts: positiveInt(entry?.contradicts), ...(entry?.kind === 'error' ? { kind: 'error' } : {}) });
   }
   const { max } = SIDES.tree;
-  return { asks: valid.slice(0, max), overCap: Math.max(valid.length - max, 0), invalid, duplicates };
+  // Errors and blockers are not discretionary asks: they never take one of the max slots.
+  const errors = valid.filter((v) => v.kind === 'error');
+  const discretionary = valid.filter((v) => v.kind !== 'error');
+  return { asks: [...errors, ...discretionary.slice(0, max)], overCap: Math.max(discretionary.length - max, 0), invalid, duplicates };
 }
 
 /** Marjorie's ask from the brief body's first `- For Tree:` line.
@@ -194,18 +187,23 @@ export function renderIssue(sideName, ask, { key, sourceUrl }) {
       : null,
     `From: ${sourceUrl}`,
     `**${side.to}:** if it's inside your charter, do it, comment what you did, and close this. If you can't or shouldn't, comment why in one sentence and leave it open — it keeps showing in both briefs until it closes.`,
+    ask.kind === 'error' ? ERROR_MARKER : null,
     renderMarker(key, ask.contradicts),
     side.trailer,
   ].filter(Boolean).join('\n\n');
   return { title: `${side.from} → ${side.to}: ${truncate(text, 90)}`, body, labels: [side.filedLabel, side.deskLabel] };
 }
 
-/** Files one ask, or returns the existing filing for the same key. */
-export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000 }) {
+/** Files one ask, or returns the existing filing for the same key.
+ * Claim-before-create (lib/ask-claim.mjs): only the caller that wins the atomic
+ * claim creates; a loser returns the winner's filing or throws (callers warn
+ * and carry on) - it never creates. A create that throws releases the claim. */
+export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000, claimWaitMs = 20_000, sleep, now = Date.now, staleClaimMs, settleMs }) {
   const side = SIDES[sideName];
   const key = askKey(sideName, sourceNumber, ask.ask);
+  const deps = { find: (rows) => findFiled(rows, key), verify: (i) => isLoopFiling(i) && parseMarker(i.body).key === key };
   // Both labels, 200-issue window, and the REST issues list rather than
-  // `gh issue list` — that reads the search index, which missed a 1 s-old
+  // `gh issue list` - that reads the search index, which missed a 1 s-old
   // filing live and let a duplicate through (#4253).
   const rows = await withTimeout(
     listIssuesByLabels(apiFor(gh), { repo, labels: [side.filedLabel, side.deskLabel], state: 'all' }),
@@ -214,13 +212,14 @@ export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = R
   const existing = findFiled(rows, key);
   if (existing) return { number: existing.number, url: existing.url, created: false, ask };
 
+  await sweepClaims(gh, repo, { nowMs: now(), timeoutMs });
+  const claim = await acquireClaim(gh, repo, key, side, deps, { timeoutMs, claimWaitMs, sleep, now, staleClaimMs, settleMs });
+  if (claim.existing) return { number: claim.existing.number, url: claim.existing.url, created: false, ask };
+
   const { title, body, labels } = renderIssue(sideName, ask, { key, sourceUrl });
   const args = ['issue', 'create', '--repo', repo, '--title', title, '--body', body];
   for (const label of labels) args.push('--label', label);
-  const created = await withTimeout(gh(args), timeoutMs, 'gh issue create');
-  const url = String(created.stdout ?? '').trim().split(/\s+/).pop() ?? '';
-  const number = Number(url.match(/\/issues\/(\d+)$/)?.[1]);
-  if (!number) throw new Error(`gh issue create printed no issue URL: ${created.stdout}`);
+  const { number, url } = await createFiling(gh, repo, key, args, { nowMs: now(), timeoutMs });
   return { number, url, created: true, ask };
 }
 

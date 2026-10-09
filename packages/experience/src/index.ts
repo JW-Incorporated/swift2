@@ -71,3 +71,5 @@ export {
   CLOWN_CSS_VAR_NAMES,
 } from './tokens';
 export type { Tokens, EraTokens, ClownTokens, StatusTokens } from './tokens';
+export * from './copy-desk/routing';
+export * from './copy-desk/personas';

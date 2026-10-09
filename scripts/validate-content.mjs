@@ -55,6 +55,7 @@ import {
   hasOfficialCitation,
   PROSE_REDLINE_LEGACY,
 } from './lib/rumor-redlines.mjs';
+import { trackConfirmTierFields } from './lib/track-confirm-tier.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import {
   VIDEO_PRESENTATION_EXCEPTIONS,
@@ -63,6 +64,8 @@ import {
 import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
+import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
+import { routeAuthor } from './copy-desk/routing.mjs';
 
 async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
@@ -486,6 +489,14 @@ for (const { file, data } of loaded) {
       err(
         `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
       );
+    }
+
+    // Persona byline (copy-desk spec §3): the category must be routable and an
+    // optional explicit `author` override must be a real persona slug.
+    try {
+      routeAuthor({ surface: 'month_item', category: it.category, override: it.author });
+    } catch (e) {
+      err(`${e.message} — extend packages/experience/src/copy-desk/routing.ts in the same PR`);
     }
 
     // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
@@ -915,6 +926,8 @@ for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
 // same strict shape the tracks generator accepts. The audio-curator flow does
 // the oEmbed author-channel verification that a static file check can't.
 const YOUTUBE_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+const CONFIRM_TIER_PRINT_PER_FILE = 3;
+const confirmTierHits = new Map();
 let trackFiles;
 try {
   trackFiles = readdirSync(join(seed, 'tracks'))
@@ -944,7 +957,21 @@ for (const file of trackFiles) {
     // gap rather than changing behavior: without it an over-long note passes
     // every local gate and then fails at insert against the live project.
     capped(err, 'note', row.note, DB_CAPS['track_note.note']);
+    // #5429 step 3: warn-only. The baseline is large, so print the first few
+    // per file and summarize the rest; every hit still counts as a warning.
+    for (const field of trackConfirmTierFields(row)) {
+      const msg = `tracks/${file} "${row.trackTitle ?? row.slug}" field ${field}: confirm-language with only wiki/fan sources (content-audit §5); add a press/primary source with Taylor's words or reword (#5429)`;
+      warnings += 1;
+      confirmTierHits.set(file, (confirmTierHits.get(file) ?? 0) + 1);
+      if (confirmTierHits.get(file) <= CONFIRM_TIER_PRINT_PER_FILE) console.warn(`WARN  ${msg}`);
+    }
   }
+}
+for (const [file, n] of confirmTierHits) {
+  if (n > CONFIRM_TIER_PRINT_PER_FILE)
+    console.warn(
+      `WARN  tracks/${file}: ${n - CONFIRM_TIER_PRINT_PER_FILE} more wiki/fan-only confirm-language warning(s) not shown (${n} total, #5429)`,
+    );
 }
 
 // -- song moods (Mood Chat catalogue scores) --
@@ -1103,6 +1130,7 @@ for (const file of trackFiles) {
       if (!img.url) err('image missing url');
       if (!img.credit) err('image missing credit');
     }
+    for (const m of runwaySourceErrors(l.sources)) err(m);
   }
 
   // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.

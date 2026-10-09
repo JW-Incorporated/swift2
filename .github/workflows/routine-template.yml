@@ -42,9 +42,14 @@ on:
         required: true
         type: string
       allowed_tools:
-        description: "Comma-separated claude_args --allowedTools list (narrowest that works — routine-invariants.md)"
+        description: "Comma-separated claude_args --allowedTools PREAPPROVAL list (tools that run without a prompt; it does NOT remove or restrict any tool — project .claude/settings.json allows still apply; use disallowed_tools to remove). Narrowest that works — routine-invariants.md"
         required: true
         type: string
+      disallowed_tools:
+        description: "Optional space-separated bare tool names passed as claude_args --disallowedTools (removes them from the model's context, overriding settings allows). Empty = no flag, no behaviour change"
+        required: false
+        type: string
+        default: ""
       timeout_minutes:
         description: "Job timeout — bound every routine so a hang cannot block the next scheduled run"
         required: false
@@ -239,11 +244,12 @@ jobs:
       - name: Run ${{ inputs.routine_name }}
         id: claude
         if: steps.guard.outputs.skip == 'false'
+        continue-on-error: true # outcome decided by "Decide routine outcome" below
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
-          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
+          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.disallowed_tools != '' && format(' --disallowedTools ''{0}''', inputs.disallowed_tools) || '' }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
         env:
           GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
@@ -251,6 +257,18 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      # claude-code-action fails a SUCCESSFUL session that used more turns than
+      # --max-turns. That is a false failure; this step passes it with a warning
+      # and keeps every genuine failure (error_max_turns, is_error, no result)
+      # red. Decision logic + tests: scripts/routines/session-outcome.mjs.
+      - name: Decide routine outcome
+        if: always() && steps.guard.outputs.skip == 'false' && steps.claude.outcome != 'skipped'
+        run: node scripts/routines/session-outcome.mjs
+        env:
+          STEP_OUTCOME: ${{ steps.claude.outcome }}
+          MAX_TURNS: ${{ inputs.max_turns }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file || format('{0}/claude-execution-output.json', runner.temp) }}
 
       - name: Upload post-run artifact from .scratch/out/
         if: always() && steps.guard.outputs.skip == 'false' && inputs.post_run_artifact != ''

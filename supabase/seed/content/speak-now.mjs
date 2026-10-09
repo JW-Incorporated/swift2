@@ -1963,6 +1963,20 @@ export default {
           },
         ],
         context: "Taylor has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour "Mean" number — banjo, red top
+        // and white skirt, red boots, staircase set). Wikimedia Commons, curl
+        // HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Taylor_Swift_-_RED_Tour_-_Singapore_-_Mean_%28night_1%29.jpg',
+            focalPoint: '42% 12%',
+            credit: 'Weslam123 / Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Taylor performs "Mean" on banjo during the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {

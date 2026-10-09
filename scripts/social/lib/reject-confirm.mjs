@@ -8,6 +8,7 @@
 // the missing piece. Idempotent across runs: an existing bot ❌ (`me`) or a
 // prior `rejected: <messageId>` fallback trailer means nothing more to do.
 import { angleUrl } from './approval-text.mjs';
+import { suppressPreviews } from '../../community/discord-delivery.mjs';
 
 const DISCORD_API = 'https://discord.com/api/v10';
 const CROSS_MARK_ENCODED = '%E2%9D%8C'; // ❌
@@ -47,7 +48,7 @@ export async function confirmRejection({ messageId, channelId, guildId, botToken
     const res = await fetchImpl(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: `${REJECTED_FALLBACK_TEXT}\n${link}rejected: ${messageId}`, flags: 4, allowed_mentions: { parse: [] } }),
+      body: JSON.stringify(suppressPreviews({ content: `${REJECTED_FALLBACK_TEXT}\n${link}rejected: ${messageId}`, allowed_mentions: { parse: [] } })),
     });
     if (res && res.ok === false) return 'retry';
   } catch {

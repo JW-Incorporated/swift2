@@ -33,6 +33,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { isMain } from '../lib/is-main.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 export const TRIAGE_LABEL = 'needs-triage';
@@ -393,7 +394,7 @@ async function main(argv) {
 
 if (
   process.argv[1] &&
-  import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, '/')}`).href
+  isMain(import.meta.url, process.argv[1])
 ) {
   runMain(() => main(process.argv.slice(2)), { name: 'unowned-sweep' });
 }

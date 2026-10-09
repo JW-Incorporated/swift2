@@ -13,13 +13,15 @@ export function gapVerdict({ runs, now, since }) {
   const end = now - 10 * 60_000;
   const missed = [];
   let checked = 0;
+  let tail = 0;
   const served = new Set(runs.filter((r) => r.head_branch === 'main' && ['schedule', 'workflow_dispatch'].includes(r.event))
     .map((r) => Math.floor(Date.parse(r.created_at) / SLOT_MS) * SLOT_MS));
   for (let slot = Math.ceil(start / SLOT_MS) * SLOT_MS; slot <= end; slot += SLOT_MS) {
     checked += 1;
-    if (!served.has(slot)) missed.push(new Date(slot).toISOString());
+    if (served.has(slot)) tail = 0;
+    else { missed.push(new Date(slot).toISOString()); tail += 1; }
   }
-  return { ok: true, alert: missed.length >= 2, checked, missed, validSince: validSince(since, now) };
+  return { ok: true, alert: tail >= 2, checked, missed, validSince: validSince(since, now) };
 }
 
 // No subprocess error/body is exposed: gh may include private data in errors.

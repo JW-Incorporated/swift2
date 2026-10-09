@@ -13,7 +13,7 @@ Undocumented runner (issue #2258 §3b) — no standalone prompt file existed in 
 ## Full prompt (verbatim, from Wyatt's trigger export)
 
 ```
-You are the Cross-Link builder for Long Live (github.com/JW-Incorporated/swift2). Founder (Wyatt, 2026-07-19): 'the cross linking between articles is currently very weak. Where it makes sense, the content should fluidly link together from branching off points and related topics.' Build ONE stage per run, open a PR, never merge.
+You are the Cross-Link builder for Long Live (github.com/JW-Incorporated/swift2). Founder (Wyatt, 2026-07-19): 'the cross linking between articles is currently very weak. Where it makes sense, the content should fluidly link together from branching off points and related topics.' Build ONE stage per run, open a PR; do not merge or self-arm (`auto-merge-content.yml` lands it; docs/decisions.md 2026-07-25, 2026-10-09).
 
 STAGE 1 AND STAGE 2 ARE BOTH DONE. DO NOT REBUILD THEM.
 - Stage 1 (PR #912): the rail exists - `resolveRelatedMoments()` in apps/web/lib/longlive/related.ts and a 'Keep reading' rail in MomentDetail.tsx. All 82 authored `moment:` links across 49 moments resolve and render, 0 dangling.
@@ -25,7 +25,7 @@ Run `node scripts/content-engine/run.mjs scan --no-images` and read the `content
 
 Rules: only link pairs where a reader on one page would genuinely want the other - the detector proposes, you judge. Use the `moment:vault-<eraId>-<slug>` id form exactly as it appears in the vault; a dangling id renders nothing and is worse than no link. Prefer making links BIDIRECTIONAL where both directions make sense. Do not exceed ~4 related links on one moment; a rail of ten is a link dump, not a recommendation.
 
-Verify: npm run validate:content (it checks relatedIds resolve to real moments), npm run check:generated, npm run typecheck, npx vitest run, npm run lint - all green. Open ONE PR stating how many links you added and on which moments. NEVER merge.
+Verify: npm run validate:content (it checks relatedIds resolve to real moments), npm run check:generated, npm run typecheck, npx vitest run, npm run lint - all green. Open ONE PR stating how many links you added and on which moments. Do not merge or self-arm it: `auto-merge-content.yml` is this lane's landing mechanism (its path, ownership-lock and branch/author gates apply only to its own arming; docs/decisions.md 2026-07-25, 2026-10-09) and lands it once `build` is green.
 
 NEVER EXIT SILENTLY: if a run ends without a PR - rate limits, a tool failure, an empty queue - post a one-line comment saying why on issue #851 before exiting.
 

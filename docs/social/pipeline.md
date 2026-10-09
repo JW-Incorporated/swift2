@@ -12,11 +12,17 @@ and what has broken before.
 ## The automated posting pipeline (built 2026-07-17, issue #738)
 
 `social/queue/**.json` → `.github/workflows/social-poster.yml` (runs every
-30 min) → `scripts/social/post-queue.mjs`, which posts to X and Instagram
+30 min; cadence is driven by the 5-minute clock, `scripts/ops/clock-dispatch.mjs`
++ `clock-table.json`, which dispatches it and `social-approval-poll.yml` when
+their newest run is older than 28 / 14 min — GitHub's own cron is only the
+backup, since it delivers a fraction of its fires) → `scripts/social/post-queue.mjs`, which posts to X and Instagram
 and files each item under `social/posted/` (success) or `social/failed/`
 (3 failed attempts). Full schema and the founder crisis-stop switch
 (`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
-in `social/README.md`. As of 2026-09-10, reaching `social/queue/` on `main`
+in `social/README.md`. Agents can engage the freeze themselves
+(`node scripts/ops/set-switch.mjs SOCIAL_FREEZE true --reason "..."`, logged
+in `docs/ops/switch-ledger.md`); the wrapper refuses any other value, so only
+the founder lifts it (founder decision 2026-10-06). As of 2026-09-10, reaching `social/queue/` on `main`
 at all requires a founder's PR merge (the approval gate above); from there,
 `isDue` still just checks `scheduledAt`, so an approved item posts when its
 `scheduledAt` arrives with no further per-item check. `approvedBy`/
@@ -239,3 +245,11 @@ nothing. Credentials are `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`,
   review; not requested. Only Instagram DMs are covered.
 - **Replying.** Guardrail 6: replies and DMs stay human. Nothing here drafts or
   sends one.
+
+## Media URLs and the photo library (2026-10-07)
+
+Library photos (`/social/library/photos/**`) are Git LFS objects, excluded from the Vercel deploy. `mediaUrlFor` (`scripts/social/lib/queue.mjs`) sends them to `https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public<path>`; every other `/social/**` image still comes from `MEDIA_BASE_URL` (longlivets.com). The X upload, Instagram and Facebook image URLs, the deploy-lag preflight and the approval-prompt embed all go through it. CI checkouts hold LFS pointers only (`.lfsconfig` `fetchexclude`), so `check-drafts` and `igUsablePhotos` read `width`/`height` from `social/photo-library.json`; `import-photo-library.mjs` records them (plus `bytes`) at import. Never set `lfs: true` in a workflow checkout. See `docs/decisions.md` 2026-10-07.
+
+## Photo vision QC stage (2026-10-07, founder decision "QC sonnet")
+
+Between download/normalize/dedupe and the file write, `import-photo-library.mjs --fetch` sends each new candidate to `qcPhoto` (`scripts/social/photo-qc.mjs`): one 768px JPEG plus caption, source host and kind go to `claude-sonnet-5-5` with a JSON-schema structured output (single prominent subject, consistent with caption, real photograph, no watermark or sponsor wall, sharp, subject fills the frame; `keep` only if all pass). The model never identifies anyone from a face; it judges composition and consistency with the caption. Rejected candidates are not written; their id and sha256 go into `social/photo-qc-rejected.json` (shipped in the same sourcing PR) so they are not re-paid. Fail-closed: a missing `ANTHROPIC_API_KEY`, API error, refusal or unparsable answer holds the photo out of the library (retried next run, not ledgered). `QC_MAX_CHECKS_PER_RUN` (default 200, about $24/month; see the cost model in `docs/decisions.md`) caps paid checks per run; the rest are deferred. QC runs 4 calls in parallel, covers the local-frames path (`photos:frames:local` then `--fetch` on its candidates), and is skipped only by `--no-qc` (tests and local maintenance). The pre-placed (non-`--fetch`) mode is not QC'd. The run prints one summary line: counts, tokens, estimated dollars, failing checks. Manual spot check: `node scripts/social/photo-qc.mjs <image> --caption "..."` (one paid call).

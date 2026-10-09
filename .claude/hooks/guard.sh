@@ -38,7 +38,12 @@ PATTERNS = [
     (r"\bgit\s+clean\b", "git clean"),
     (r"--no-verify\b", "verification bypass (--no-verify)"),
     (r"\bchmod\s+(-R\s+)?777\b", "chmod 777"),
-    (r"\bgh\s+(secret|variable)\s+(set|delete)\b", "gh secret/variable mutation"),
+    # `[^;&|\n]*` between `gh` and the subcommand catches flag-first forms
+    # (`gh -R o/r variable set`, `gh --repo x secret set`).
+    (r"\bgh\b[^;&|\n]*\bsecret\s+(set|delete|remove)\b", "gh secret mutation (founder-only)"),
+    (r"\bgh\b[^;&|\n]*\bvariable\s+(delete|remove)\b", "gh variable delete (a deleted SOCIAL_FREEZE reads as unfrozen)"),
+    (r"\bgh\b[^;&|\n]*\bvariable\s+set\b",
+     "raw gh variable set (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason \"...\"` for allowlisted switches)"),
     (r"\brepowise\s+init(?!.*--no-editor-setup)", "bare repowise init (edits ~/.claude/settings.json machine-wide — use the repowise-setup skill instead)"),
 
     # --- swift2-specific, below this line ---
@@ -89,7 +94,83 @@ ENV_PATTERN = (
 # real-delete shape as delete-media.mjs, just for X-site screenshots.
 SEND_SCRIPTS = {"post-queue.mjs", "delete-media.mjs", "delete-x-site-screens.mjs"}
 RUNNERS = {"node", "node.exe", "npx", "npx.cmd", "tsx", "ts-node", "bun",
-           "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs"}
+           "deno", "bash", "sh", "zsh", "env", "time", "nohup", "xargs",
+           "command", "exec", "builtin",
+           # issue #5474: wrappers and shell control keywords that hand the
+           # next token to a program ("then node x", "! node x", "nice node x")
+           "nice", "timeout", "stdbuf", "ionice", "sudo", "setsid", "watch",
+           "eval", "coproc", "then", "do", "else", "elif", "if", "while",
+           "until", "!"}
+# Runner flags that consume the NEXT token as their value (`node -r x`).
+VALUE_FLAGS = {
+    "node": {"-r", "--require", "--import", "--loader", "--experimental-loader"},
+    "node.exe": {"-r", "--require", "--import", "--loader"},
+    "exec": {"-a"}, "env": {"-u", "--unset", "-C", "--chdir"},
+    "nice": {"-n", "--adjustment"}, "ionice": {"-c", "-n", "-p", "-P", "-u"},
+    "timeout": {"-s", "--signal", "-k", "--kill-after"},
+    "stdbuf": {"-i", "-o", "-e"},
+    "sudo": {"-u", "-g", "-h", "-p", "-C", "-D", "-R", "-T", "-U"},
+    "xargs": {"-I", "-n", "-P", "-L", "-d", "-E", "-s"},
+    "watch": {"-n", "-d"},
+}
+_DURATION = re.compile(r"^\d+(\.\d+)?[smhd]?$")
+_ASSIGN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
+
+
+# Issue #4170: backticks inside a SINGLE-quoted argument of a data-only command
+# (gh / echo / printf / git commit) are inert prose, not command substitution.
+# Everything else keeps the strict behaviour: only single quotes are inert in
+# bash (double-quoted backticks execute, and `bash -c '...'` runs its single-
+# quoted text), so the demotion applies only when every segment OUTSIDE the
+# single-quoted spans starts with one of these programs.
+_PROSE_SAFE = {"gh", "echo", "printf"}
+
+
+def _demote_single_quoted_backticks(command):
+    # Demote only when quoting is unambiguous: one simple single-line command.
+    if any(s in command for s in ("\n", "\r", "#", "$'", "\\", "<(", ">(")):
+        return command
+    out, outside = [], []
+    i, n = 0, len(command)
+    in_dq = False
+    while i < n:
+        ch = command[i]
+        if ch == "\\" and i + 1 < n:
+            out.append(command[i:i + 2]); outside.append(command[i:i + 2]); i += 2
+            continue
+        if ch == '"':
+            in_dq = not in_dq
+        elif ch == "'" and not in_dq:
+            j = command.find("'", i + 1)
+            if j < 0:
+                return command       # unterminated: stay strict
+            out.append("'" + command[i + 1:j].replace("`", " ") + "'")
+            outside.append("X")
+            i = j + 1
+            continue
+        out.append(ch); outside.append(ch)
+        i += 1
+    if in_dq:
+        return command
+    flat = "".join(outside).replace("'", " ").replace('"', " ")
+    if re.search(r"[;&|()<>`${}]", flat):
+        return command
+    for seg in re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", flat):
+        toks = seg.split()
+        k = 0
+        while k < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[k]):
+            k += 1
+        if k >= len(toks):
+            continue
+        prog = toks[k]
+        if prog in _PROSE_SAFE:
+            if prog == "gh" and k + 1 < len(toks) and toks[k + 1] == "alias":
+                return command
+            continue
+        if prog == "git" and k + 1 < len(toks) and toks[k + 1] == "commit":
+            continue
+        return command
+    return "".join(out)
 
 
 def _segments(command):
@@ -99,8 +180,9 @@ def _segments(command):
     are treated as SEPARATORS (not whitespace) so a command substitution such
     as ``echo `node .../post-queue.mjs` `` is examined as its own segment.
     """
+    command = _demote_single_quoted_backticks(command)
     c = command.replace("'", " ").replace('"', " ")
-    return re.split(r"[;&|`\n]+|\$\(|\)|\{|\}", c)
+    return re.split(r"[;&|`\n]+|\$\(|\(|\)|\{|\}", c)
 
 
 def executes_send_script(command):
@@ -110,18 +192,74 @@ def executes_send_script(command):
         # Skip leading environment assignments: FOO=bar node x.mjs
         while i < len(toks) and re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", toks[i]):
             i += 1
+        cur = None
         while i < len(toks):
             tok = toks[i]
             base = tok.rsplit("/", 1)[-1].rsplit("\\", 1)[-1]
             if base in SEND_SCRIPTS:
                 return True          # reached in executable position
             if base in RUNNERS:
+                cur = base
                 i += 1               # a runner: whatever follows is the target
                 continue
-            if tok.startswith("-"):
+            if cur is not None and _ASSIGN.match(tok):
+                i += 1               # env VAR=x node ...
+                continue
+            if cur == "npm-exec" and tok == "--":
+                i += 1
+                continue
+            if cur is not None and tok.startswith("-"):
                 i += 1               # a flag on the current runner
+                if tok in VALUE_FLAGS.get(cur, ()) and i < len(toks):
+                    i += 1           # ...that takes a value (`node -r x`)
+                continue
+            if cur is not None and _DURATION.match(tok):
+                i += 1               # timeout 60 node ...
+                continue
+            if cur is None and base in ("npm", "pnpm") and i + 1 < len(toks) \
+                    and toks[i + 1] in ("exec", "x"):
+                cur = "npm-exec"
+                i += 2
+                continue
+            if cur is None and base == "find":
+                for j in range(i + 1, len(toks)):
+                    if toks[j] in ("-exec", "-execdir", "-ok", "-okdir"):
+                        i, cur = j + 1, "find-exec"
+                        break
+                else:
+                    break
                 continue
             break                    # a real program; the script would be its ARG
+    return False
+
+
+# REST route around the variable/secret CLI guards: a non-GET call to the
+# Actions variables/secrets API (via `gh api` or `curl`). Plain GET reads stay
+# allowed; `-f/-F/--input` (gh) and `-d/--data*/-F/--form/-T` (curl) imply a
+# write unless the method is explicitly GET.
+_VARS_API = re.compile(r"actions/(variables|secrets)|environments/\S*/(variables|secrets)")
+_WRITE_METHOD = re.compile(r"(?:^|\s)(?:-X|--method|--request)(?:=|\s+)['\"]?(PUT|PATCH|POST|DELETE)\b", re.I)
+_GET_METHOD = re.compile(r"(?:^|\s)(?:-X|--method|--request)(?:=|\s+)['\"]?GET\b", re.I)
+_GH_FIELDS = re.compile(r"(?:^|\s)(?:-f|-F|--field|--raw-field|--input)(?:=|\s|$)")
+_CURL_BODY = re.compile(r"(?:^|\s)(?:-d|-F|-T|--data\S*|--form|--upload-file|--json)(?:=|\s|$)")
+
+
+def mutates_actions_api(command):
+    for seg in re.split(r"[;&|\n]+", command):
+        if not _VARS_API.search(seg):
+            continue
+        is_gh = re.search(r"\bgh\b[^;&|\n]*\bapi\b", seg)
+        is_curl = re.search(r"\bcurl\b", seg) and "api.github.com" in seg
+        if not (is_gh or is_curl):
+            continue
+        if _WRITE_METHOD.search(seg):
+            return True
+        if _GET_METHOD.search(seg):
+            continue
+        if is_gh and _GH_FIELDS.search(seg):
+            return True
+        if is_curl and _CURL_BODY.search(seg):
+            return True
     return False
 
 
@@ -141,6 +279,10 @@ for pat, label in PATTERNS:
 
 if re.search(ENV_PATTERN[0], cmd_env):
     deny(ENV_PATTERN[1])
+
+if mutates_actions_api(cmd):
+    deny("REST write to the Actions variables/secrets API "
+         "(use scripts/ops/set-switch.mjs for allowlisted switches)")
 
 if executes_send_script(cmd):
     deny("running the social poster's real-send path "

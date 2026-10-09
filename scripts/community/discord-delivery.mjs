@@ -1,4 +1,5 @@
 import { runMain } from '../lib/cli.mjs';
+import { discordBotToken, routedPost } from '../lib/discord-route.mjs';
 
 export const DISCORD_MESSAGE_LIMIT = 2_000;
 
@@ -14,6 +15,57 @@ export const TREE_AVATAR_URL = 'https://www.longlivets.com/social/tree-avatar.pn
 /** Discord message flag SUPPRESS_EMBEDS (1 << 2) — C6 in docs/plans/bots-v2/PLAN.md:
  * every webhook post turns link previews off in code, not channel permissions. */
 export const DISCORD_SUPPRESS_EMBEDS = 4;
+
+// Code spans/fences are left verbatim: a URL inside them never unfurls, and
+// wrapping it would change text a founder is reading (e.g. a draft caption).
+const CODE_SEGMENT_RE = /(```[\s\S]*?(?:```|$)|`[^`\n]+`)/;
+const MARKDOWN_LINK_RE = /\]\((https?:\/\/[^\s()<>]+)\)/g;
+const BARE_URL_RE = /(^|[^<\w/])(https?:\/\/[^\s<>]+)/g;
+const TRAILING_PUNCT_RE = /[.,;:!?'"\])]+$/;
+
+function wrapUrl(url) {
+  let trail = url.match(TRAILING_PUNCT_RE)?.[0] ?? '';
+  // Keep a closing paren the URL itself opened (e.g. a Wikipedia path).
+  if (trail.startsWith(')') && url.slice(0, -trail.length).includes('(')) trail = trail.slice(1);
+  const core = url.slice(0, url.length - trail.length);
+  return core ? `<${core}>${trail}` : url;
+}
+
+/** Wraps every bare `http(s)://` URL (and plain markdown link target) outside
+ * code in `<…>`, which Discord never unfurls. Already-wrapped URLs are left. */
+export function angleWrapBareUrls(text) {
+  return String(text ?? '')
+    .split(CODE_SEGMENT_RE)
+    .map((part, i) =>
+      i % 2 === 1
+        ? part
+        : part
+            .replace(MARKDOWN_LINK_RE, '](<$1>)')
+            .replace(BARE_URL_RE, (_, lead, url) => `${lead}${wrapUrl(url)}`),
+    )
+    .join('');
+}
+
+/**
+ * The one place every Discord message payload this repo sends turns link
+ * previews off (owner 2026-10-05: "turn off link previews in all discord
+ * responses"). No deliberate `embeds` → OR in SUPPRESS_EMBEDS, keeping any
+ * other flag bits. With `embeds` the flag would hide them too, so it is
+ * cleared and bare URLs in `content` are angle-wrapped instead. Pure.
+ */
+export function suppressPreviews(payload) {
+  const flags = Number(payload?.flags) || 0;
+  const hasEmbeds = Array.isArray(payload?.embeds) && payload.embeds.length > 0;
+  if (!hasEmbeds) return { ...payload, flags: flags | DISCORD_SUPPRESS_EMBEDS };
+  const rest = { ...payload };
+  delete rest.flags;
+  const kept = flags & ~DISCORD_SUPPRESS_EMBEDS;
+  return {
+    ...rest,
+    ...(typeof payload.content === 'string' ? { content: angleWrapBareUrls(payload.content) } : {}),
+    ...(kept ? { flags: kept } : {}),
+  };
+}
 
 export function neutralizeMentions(text) {
   return String(text ?? '')
@@ -55,6 +107,27 @@ function balanceFences(chunks) {
     openFence = stateAfter;
   }
   return result;
+}
+
+const graphemes = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+/**
+ * Largest cut index `<= max` (UTF-16 units, so the budget stays conservative
+ * for however Discord counts) that does not split a grapheme cluster. A plain
+ * `slice(0, max)` can cut an emoji's surrogate pair or a ZWJ sequence in half;
+ * `JSON.stringify` then emits a lone `\uXXXX` escape, which RFC 8259 forbids.
+ * If the first cluster alone exceeds `max`, falls back to a code-point-safe cut.
+ */
+function graphemeSafeCut(str, max) {
+  let cut = 0;
+  for (const { index, segment } of graphemes.segment(str)) {
+    const end = index + segment.length;
+    if (end > max) break;
+    cut = end;
+  }
+  if (cut > 0) return cut;
+  const code = str.charCodeAt(max - 1);
+  return code >= 0xd800 && code <= 0xdbff ? max - 1 : max;
 }
 
 /**
@@ -102,7 +175,7 @@ export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
     let remaining = para;
     while (remaining.length > packLimit) {
       let cut = remaining.lastIndexOf(' ', packLimit);
-      if (cut <= 0) cut = packLimit;
+      if (cut <= 0) cut = graphemeSafeCut(remaining, packLimit);
       rawChunks.push(remaining.slice(0, cut));
       remaining = remaining.slice(cut).replace(/^ /, '');
     }
@@ -129,9 +202,12 @@ export async function postCommunityPrompts(
     fetchImpl = fetch,
     onDelivered = null,
     username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
   } = {},
 ) {
-  if (!webhook) return { status: 'unconfigured', delivered: [], failed: [] };
+  if (!webhook && !(route && discordBotToken(env)))
+    return { status: 'unconfigured', delivered: [], failed: [] };
   const delivered = [];
   const failed = [];
   for (const prompt of prompts) {
@@ -141,17 +217,21 @@ export async function postCommunityPrompts(
           `Community prompt ${prompt.id} exceeds Discord's ${DISCORD_MESSAGE_LIMIT}-character limit`,
         );
       }
-      const response = await fetchImpl(`${webhook}?wait=true`, {
+      const init = {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          content: prompt.content,
-          username,
-          avatar_url: TREE_AVATAR_URL,
-          allowed_mentions: { parse: [] },
-          flags: DISCORD_SUPPRESS_EMBEDS,
-        }),
-      });
+        body: JSON.stringify(
+          suppressPreviews({
+            content: prompt.content,
+            username,
+            avatar_url: TREE_AVATAR_URL,
+            allowed_mentions: { parse: [] },
+          }),
+        ),
+      };
+      const response = route
+        ? await routedPost(route, init, { env, webhook, fetchImpl })
+        : await fetchImpl(`${webhook}?wait=true`, init);
       if (!response.ok)
         throw new Error(`Discord social-channel delivery failed with HTTP ${response.status}`);
       const payload = await response.json();
@@ -169,21 +249,26 @@ export async function postCommunityPrompts(
 /** Best-effort one-line lead-in before a batch; never throws, never blocks the batch. */
 export async function postBatchHeader(
   content,
-  { webhook = process.env.DISCORD_SOCIAL_WEBHOOK, fetchImpl = fetch, username = TREE_WEBHOOK_USERNAME } = {},
+  {
+    webhook = process.env.DISCORD_SOCIAL_WEBHOOK,
+    fetchImpl = fetch,
+    username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
+  } = {},
 ) {
-  if (!webhook) return false;
+  if (!webhook && !(route && discordBotToken(env))) return false;
   try {
-    const response = await fetchImpl(webhook, {
+    const init = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        content,
-        username,
-        avatar_url: TREE_AVATAR_URL,
-        allowed_mentions: { parse: [] },
-        flags: DISCORD_SUPPRESS_EMBEDS,
-      }),
-    });
+      body: JSON.stringify(
+        suppressPreviews({ content, username, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
+      ),
+    };
+    const response = route
+      ? await routedPost(route, init, { env, webhook, fetchImpl })
+      : await fetchImpl(webhook, init);
     return response.ok;
   } catch {
     return false;

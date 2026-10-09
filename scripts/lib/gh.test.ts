@@ -1,9 +1,12 @@
 import http from 'node:http';
 import net from 'node:net';
 import type { AddressInfo } from 'node:net';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  applyPostFilters, fetchIsProxyAware, ghApi, httpsRequest, maxPagesFor, planRest,
+  applyPostFilters, defaultRepo, fetchIsProxyAware, ghApi, httpsRequest, maxPagesFor, planRest,
   proxyForHost, resetGhResolution, resetPageCapWarnings, rest, shapeHit,
 } from './gh.mjs';
 // These cover the REST fallback's argv→request translation, which is the part
@@ -169,10 +172,11 @@ describe('maxPagesFor — list pagination honours the caller\'s limit, bounded',
   });
   it('pages far enough to satisfy a large limit — Karen\'s fingerprint prefetch asks for 1000, and a sub-limit result is what proves the cie history COMPLETE (issues.mjs skips the forbidden /search on that proof)', () => {
     expect(maxPagesFor(1000)).toBe(10);
+    expect(maxPagesFor(10000)).toBe(100);
     expect(maxPagesFor(450)).toBe(5);
   });
   it('stays bounded no matter what the caller asks for', () => {
-    expect(maxPagesFor(1e9)).toBe(10);
+    expect(maxPagesFor(1e9)).toBe(100);
   });
 });
 
@@ -351,6 +355,16 @@ describe('a truncated list says so (#2034 finding 6)', () => {
     expect(warnings.join('\n')).toMatch(/TRUNCATED/);
   });
 
+  it('pages past the old 10-page cap and reports complete on the short page (#3888: 1266 cie issues)', async () => {
+    const plan = planRest(['issue', 'list', '--limit', '10000'], REPO);
+    let calls = 0;
+    const res = await rest(plan, 'tok', async () => { calls++; return ok(page(calls <= 12 ? 100 : 66)); });
+    expect(JSON.parse(res.stdout)).toHaveLength(1266);
+    expect(res.complete).toBe(true);
+    expect(res.capExhausted).toBe(false);
+    expect(res.pagesFetched).toBe(13);
+  });
+
   it('does not claim completeness merely because the caller\'s limit was satisfied', async () => {
     // Stopping early because we have enough rows is a cost optimisation, not
     // evidence about what lies past them.
@@ -485,5 +499,136 @@ describe('ghApiSoft — a credential failure is never "this metric is unavailabl
     } finally {
       process.env = saved;
     }
+  });
+});
+
+describe('gh() — REST fallback when the CLI is present but errors (#4119)', () => {
+  const saved = { ...process.env };
+  const cliError = new Error('invalid character \'{\' looking for beginning of object key string');
+
+  // execFile is mocked per-test: `--version` probes succeed, the real command fails.
+  async function load(failOn: (args: string[]) => boolean) {
+    vi.resetModules();
+    const calls: string[][] = [];
+    vi.doMock('node:child_process', () => ({
+      execFile: (_cmd: string, args: string[], _opts: unknown, cb: (e: Error | null, r?: unknown) => void) => {
+        calls.push(args);
+        if (args[0] !== '--version' && failOn(args)) cb(cliError);
+        else cb(null, { stdout: '[]', stderr: '' });
+      },
+    }));
+    const mod = await import('./gh.mjs');
+    return { gh: mod.gh, calls };
+  }
+
+  beforeEach(() => {
+    process.env.GH_TOKEN = 'test-token';
+    process.env.GITHUB_REPOSITORY = REPO;
+    for (const k of ['HTTPS_PROXY', 'https_proxy', 'ALL_PROXY', 'all_proxy']) delete process.env[k];
+  });
+  afterEach(() => {
+    process.env = { ...saved };
+    vi.doUnmock('node:child_process');
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+    vi.resetModules();
+  });
+
+  it('retries a failed READ through REST and returns the REST data', async () => {
+    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn(async () => new Response(
+      JSON.stringify([{ number: 7, title: 'T', state: 'open' }]), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    const out = await gh(['issue', 'list', '--label', 'founder-decision', '--json', 'number']);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(out.stdout)).toEqual([{ number: 7 }]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('#4119'));
+  });
+
+  it('rethrows a failed MUTATION without any REST call', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'create', '--title', 'T', '--body', 'B'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rethrows the ORIGINAL CLI error when REST cannot plan the command', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['release', 'view', 'v1'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ['a filtered list', ['issue', 'list', '--author', 'x', '--json', 'number']],
+    ['a --search list', ['issue', 'list', '--search', 'foo', '--json', 'number']],
+    ['gh api -X POST', ['api', '-X', 'POST', 'repos/o/r/issues']],
+    ['gh api -f', ['api', 'repos/o/r/issues', '-f', 'title=T']],
+  ])('rethrows %s without falling back', async (_n, args) => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(args)).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rethrows the original CLI error when the REST retry also fails', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn(async () => new Response('boom', { status: 500 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'list', '--json', 'number'])).rejects.toBe(cliError);
+    expect(fetchMock).toHaveBeenCalled();
+  });
+
+  it('rethrows when no token is available', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    delete process.env.GH_TOKEN;
+    delete process.env.GITHUB_TOKEN;
+    process.env.HOME = process.env.USERPROFILE = 'C:/nonexistent-home-4119';
+    const { gh } = await load(() => true);
+
+    await expect(gh(['issue', 'list', '--json', 'number'])).rejects.toBe(cliError);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
+
+describe('defaultRepo resolves through a linked-worktree .git file (#3888)', () => {
+  const origEnv = process.env.GITHUB_REPOSITORY;
+  const NL = String.fromCharCode(10);
+  const cfg = (url: string) => ['[remote "origin"]', `  url = ${url}`, ''].join(NL);
+  beforeEach(() => { delete process.env.GITHUB_REPOSITORY; });
+  afterEach(() => { if (origEnv !== undefined) process.env.GITHUB_REPOSITORY = origEnv; });
+
+  it('follows gitdir -> commondir to the main repo config', () => {
+    const root = mkdtempSync(join(tmpdir(), 'gh-wt-'));
+    const wtGitdir = join(root, 'main', '.git', 'worktrees', 'w');
+    mkdirSync(wtGitdir, { recursive: true });
+    writeFileSync(join(root, 'main', '.git', 'config'), cfg('https://github.com/Acme/widgets.git'));
+    writeFileSync(join(wtGitdir, 'commondir'), '../..' + NL);
+    mkdirSync(join(root, 'wt'), { recursive: true });
+    writeFileSync(join(root, 'wt', '.git'), `gitdir: ${wtGitdir}${NL}`);
+    expect(defaultRepo(join(root, 'wt'))).toBe('Acme/widgets');
+  });
+
+  it('still reads a normal checkout', () => {
+    const root = mkdtempSync(join(tmpdir(), 'gh-plain-'));
+    mkdirSync(join(root, '.git'));
+    writeFileSync(join(root, '.git', 'config'), cfg('git@github.com:Acme/plain.git'));
+    expect(defaultRepo(root)).toBe('Acme/plain');
   });
 });

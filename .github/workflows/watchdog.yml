@@ -39,7 +39,14 @@ on:
   schedule:
     - cron: "35 14 * * *"
     - cron: "5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      # Set by scripts/ops/clock-dispatch.mjs: run as the hourly trigger (smoke
+      # check only), not as a manual daily run (brief/mailer-retry/cadence jobs).
+      hourly:
+        description: "Clock-dispatched hourly run: skip the daily-only jobs"
+        type: boolean
+        default: false
 
 permissions:
   issues: write
@@ -52,6 +59,12 @@ jobs:
   watchdog:
     runs-on: ubuntu-latest
     environment: ops
+    # Serialises a cron + clock double-fire of the hourly smoke check (alert
+    # upserts are find-then-create); the daily run keeps its own lane so a
+    # queued hourly run can never replace it as the one pending run.
+    concurrency:
+      group: watchdog-${{ github.event.schedule == '35 14 * * *' && 'daily' || 'hourly' }}
+      cancel-in-progress: false
     steps:
       # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
       # and send-mail.py, which need the repo checked out -- this workflow
@@ -70,7 +83,7 @@ jobs:
       # still run on the daily cron and on a manual workflow_dispatch.
       - name: Check today's Founders' Brief exists
         id: brief
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -290,7 +303,7 @@ jobs:
       # see that script's header). A workflow with no `schedule:` trigger at
       # all is skipped, same as the old per-entry `gh workflow view` guard.
       - name: Scheduled workflows healthy (cadence view)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -352,30 +365,124 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           fi
 
-          # NEW (task A1): 2 consecutive scheduled-run failures for a watched
-          # workflow opens a DEDICATED per-workflow self-healing issue,
-          # distinct from the combined cadence alert above (which only fires
-          # once NOTHING has succeeded inside the whole maxage window). This
-          # catches a workflow that ran recently — so the combined check
-          # above stays quiet — but has failed its last two scheduled runs in
-          # a row. Resolves automatically: the next scheduled success makes
-          # this loop close it, same upsert-alert.sh mechanism as every other
-          # alert in this file.
-          for ENTRY in $WATCHED; do
-            WF="${ENTRY%%:*}"
-            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
-              --limit 2 --json conclusion --jq '[.[].conclusion]')
-            COUNT=$(echo "$LAST_TWO" | jq 'length')
-            FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
+      # Per-workflow "failed its last 2 scheduled runs" alert (task A1, widened
+      # 2026-10-06). Targets are EVERY workflow file with a `schedule:`
+      # trigger (scripts/watchdog/scheduled-failures.mjs, minus its EXCLUDE
+      # list) — link-sweep and merch-awin-sync were red every daily run
+      # 10-02..06 unnoticed under the old hand-kept list. Runs on EVERY
+      # trigger (incl. the hourly clock dispatch) so a recovered workflow's
+      # alert closes within the hour instead of waiting for the 14:35 daily
+      # pass; OPENING (which comments on an existing issue) stays daily-only
+      # so a standing alert is not re-commented hourly. The latest settled
+      # schedule/workflow_dispatch runs count, so a clock-dispatched success
+      # closes it too.
+      #
+      # Two failing shapes alert (issue #4475 item D): the last 2 settled runs
+      # both red, OR >=2 of the last 5 settled runs red with the newest among
+      # them — routine-vault-run.yml went fail 09-14 / success 09-15 / fail
+      # 09-16 and the consecutive-only rule never fired. Both rules require the
+      # newest run to be red, which is what keeps the alert self-closing on the
+      # first green run. The TITLE is unchanged on purpose: it is the alert's
+      # dedupe identity and a cross-script contract (alert-router.mjs's
+      # `workflow-failed-last-2-runs` key, issue-sweeper-rules, the marjorie-ops
+      # prompt). The body carries which rule actually fired.
+      - name: Scheduled workflows failing repeatedly (per-workflow view)
+        if: (!cancelled())
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
+        run: |
+          set -euo pipefail
+          . scripts/watchdog/gh-retry.sh
+          OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title')
+          # Disabled workflows are skipped (their last runs say nothing about
+          # health now). If the lookup itself fails, fall back to all.
+          ACTIVE=$(gh workflow list --repo "$REPO" --all --limit 500 --json path,state \
+            | node scripts/watchdog/scheduled-failures.mjs active) || ACTIVE=""
+          for WF in $(node scripts/watchdog/scheduled-failures.mjs list); do
+            if [ -n "$ACTIVE" ] && ! printf '%s\n' "$ACTIVE" | grep -qxF "$WF"; then
+              continue
+            fi
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
-            if [ "$COUNT" -ge 2 ] && [ "$FAILS" -eq "$COUNT" ]; then
-              echo "@sffan15-sys — \`${WF}\`'s last ${COUNT} scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
-              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-            else
-              echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            # Per-event lists: an unfiltered list lets push/PR runs crowd out
+            # the schedule/dispatch runs. Manual workflow_dispatch runs count
+            # too (the clock's dispatches need to) — accepted trade-off.
+            # An errored lookup must neither open nor close an alert.
+            RUNS=$({ gh run list --repo "$REPO" --workflow "$WF" --event schedule --limit 5 --json event,conclusion,createdAt \
+              && gh run list --repo "$REPO" --workflow "$WF" --event workflow_dispatch --limit 5 --json event,conclusion,createdAt; } \
+              | jq -s 'add') || { echo "::warning::run lookup failed for ${WF}; skipping"; continue; }
+            VERDICT=$(printf '%s' "$RUNS" | node scripts/watchdog/scheduled-failures.mjs verdict) \
+              || { echo "::warning::verdict failed for ${WF}; skipping"; continue; }
+            if [ "$VERDICT" = "alert" ]; then
+              if [ "$IS_DAILY" = "1" ]; then
+                REASON=$(printf '%s' "$RUNS" | node scripts/watchdog/scheduled-failures.mjs reason) \
+                  || REASON="its last 2 scheduled runs both failed"
+                echo "@sffan15-sys — \`${WF}\`: ${REASON}. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+                scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+              fi
+            elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
+              echo "\`${WF}\` no longer meets the repeated-failure rule (2 in a row, or 2 of its last 5 with the newest red) as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
               scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             fi
           done
+
+      # news-worker knowledge-extract degraded no-op (issue #4647 item 4).
+      # The extract stage silently did nothing for weeks (schema pending, then
+      # a missing ANTHROPIC_API_KEY -> every cluster deferred) while the run
+      # stayed green. The worker now emits a `::warning title=extract-degraded`
+      # annotation on such a cycle; this step reads the annotations of the last
+      # 6 scheduled runs (4h cadence = 24h) and opens a watchdog-alert when all
+      # are degraded. Runs on every trigger so recovery closes the alert within
+      # the hour; opening stays daily-only. A failed lookup neither opens nor
+      # closes.
+      - name: news-worker extract degraded for 24h
+        if: (!cancelled())
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          IS_DAILY: ${{ ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *') && '1' || '0' }}
+        run: |
+          set -uo pipefail
+          . scripts/watchdog/gh-retry.sh
+          ALERT_TITLE="Watchdog: news-worker knowledge-extract degraded for 24h"
+          RUNS=$(gh_retry gh run list --repo "$REPO" --workflow news-worker.yml --event schedule --status completed --limit 6 --json databaseId,createdAt) \
+            || { echo "::warning::news-worker run lookup failed; skipping"; exit 0; }
+          SUMMARY="[]"
+          for ID in $(printf '%s' "$RUNS" | jq -r '.[].databaseId'); do
+            JOBS=$(gh_retry gh api "repos/$REPO/actions/runs/$ID/jobs" --jq '.jobs[].id') \
+              || { echo "::warning::job lookup failed for run $ID; skipping"; exit 0; }
+            DEGRADED=false
+            for JOB in $JOBS; do
+              HIT=$(gh_retry gh api "repos/$REPO/check-runs/$JOB/annotations" --jq '[.[] | select(.message | contains("extract-degraded:"))] | length') \
+                || { echo "::warning::annotation lookup failed for job $JOB; skipping"; exit 0; }
+              [ "$HIT" -gt 0 ] && DEGRADED=true
+            done
+            CREATED=$(printf '%s' "$RUNS" | jq -r --argjson id "$ID" '.[] | select(.databaseId == $id) | .createdAt')
+            SUMMARY=$(printf '%s' "$SUMMARY" | jq -c --arg c "$CREATED" --argjson d "$DEGRADED" '. + [{createdAt: $c, degraded: $d}]')
+          done
+          VERDICT=$(printf '%s' "$SUMMARY" | node scripts/watchdog/extract-degraded-check.mjs) \
+            || { echo "::warning::verdict failed; skipping"; exit 0; }
+          OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title') || exit 0
+          if [ "$VERDICT" = "alert" ]; then
+            if [ "$IS_DAILY" = "1" ]; then
+              echo "@sffan15-sys — the last 6 news-worker runs (24h) all logged an \`extract-degraded\` annotation: knowledge extraction did nothing (schema pending, no ANTHROPIC_API_KEY, or the extraction cap). The runs stayed green. See the annotation on a recent run: https://github.com/${REPO}/actions/workflows/news-worker.yml. Issue #4647." > /tmp/alert-body.md
+              scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            fi
+          elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
+            echo "news-worker extract no longer degraded for 24h as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+          fi
 
       # ── Stalled PRs: red too long, or a check that will never come back ──
       # Added 2026-07-30 (PR #1629); rewritten 2026-08-11 after replaying the
@@ -467,7 +574,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
+          IS_DAILY_RUN: ${{ (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *' }}
         run: |
           set -euo pipefail
           RED_AFTER_H=6         # a PR may be open and unhealthy this long before we shout (was 24h; auto-merge-keepup.yml now prevents the staleness class that made 24h necessary)
@@ -637,7 +744,7 @@ jobs:
       # that hid a five-day Karen outage a second time. Same idiom as that
       # step already uses.
       - name: Karen filed what she found (CIE ticket-filing check)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -803,7 +910,7 @@ jobs:
       # come after Node is pinned. Same daily-only gate as those: cadence
       # questions don't need an hourly look.
       - name: Vault Run scheduled-cadence check
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -831,7 +938,7 @@ jobs:
       # Read-only against HUMAN-ACTIONS.md — never writes to it (that file's
       # entry-numbering/SKIP-is-final convention is a separate concern).
       - name: Aged [BLOCKING] human actions (RULINGS-SOCIAL A6)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -855,7 +962,7 @@ jobs:
           fi
 
       - name: Work-ownership check (zero AI)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -947,7 +1054,7 @@ jobs:
       # `!cancelled()` added 2026-08-15 (P0), same reasoning as the Karen and
       # work-ownership steps above.
       - name: Content lane liveness checks
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1027,7 +1134,7 @@ jobs:
       # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
       # so there is nothing yet for a real export to close.
       - name: Facebook export freshness
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1093,7 +1200,7 @@ jobs:
       # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no
       # new secret, no HUMAN-ACTIONS item.
       - name: Knowledge engine freshness (current tier < 24h)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1131,3 +1238,110 @@ jobs:
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "knowledge-freshness ALARM (stale)"
           fi
+
+      # The honesty valve behind the founder-facing gate (issue #4804).
+      #
+      # upsert-alert.sh holds the Discord line for a condition Marjorie's ops
+      # routine handles itself, and records that hold as a marker comment on
+      # the alert issue. That is only safe while Marjorie is actually running:
+      # if her routine goes dark, or her fix does not work, the alert would
+      # sit open with nobody told. So this step posts one line to the founders
+      # channel for any held alert still open 24h later -- once ever, enforced
+      # by a second marker, never an hourly re-post.
+      #
+      # Hourly (`if: always()`, no schedule gate -- same ungating and the same
+      # reason as the smoke check above: an earlier failed step must not skip
+      # it), so the worst case between a real failure and the founders hearing
+      # about it is 24h plus one hour. Deliberately NOT gated on the alert
+      # having a marker from this repo's own run: an alert whose line was
+      # never held has no marker and comes back `none`, so founder-facing
+      # alerts -- which already posted at open -- are never re-announced.
+      - name: Held alert still open 24h (founders-channel backstop)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          OPEN_ALERTS=$(gh issue list --repo "$REPO" --label watchdog-alert --state open \
+            --json number,title,url --limit 100) || OPEN_ALERTS=""
+          if [ -z "$OPEN_ALERTS" ]; then
+            echo "backstop: could not list open alerts; nothing done this run"
+            exit 0
+          fi
+          echo "$OPEN_ALERTS" | jq -r '.[] | [.number, .title, .url] | @tsv' \
+            > /tmp/open-alerts.tsv
+          # Loop input on fd 3, not stdin: `backstop-state` reads stdin by
+          # design, and any child inheriting the TSV as stdin would eat the
+          # remaining alerts.
+          while IFS=$'\t' read -r NUM TITLE URL <&3; do
+            [ -n "$NUM" ] || continue
+            COMMENTS=$(gh issue view "$NUM" --repo "$REPO" --json comments \
+              | jq -c '.comments // []') || COMMENTS=""
+            # A failed lookup yields empty, which alert-notify.mjs exits 3 on
+            # rather than reading as "no marker" -- that misreading would
+            # re-post the line every hour.
+            STATE=$(printf '%s' "$COMMENTS" \
+              | node scripts/marjorie/lib/alert-notify.mjs backstop-state) || STATE=lookup-failed
+            if [ "$STATE" != "pending" ]; then
+              echo "backstop: #$NUM $STATE"
+              continue
+            fi
+            {
+              echo "⏰ **Still broken 24h later — this one needs a founder.**"
+              echo ""
+              echo "\`$TITLE\` has been open for over 24 hours. Marjorie's ops routine"
+              echo "normally clears this condition itself, so its channel line was held"
+              echo "when it opened; it has not cleared."
+              echo ""
+              echo "$URL"
+            } > /tmp/backstop-body.md
+            # Marker only after a delivered post: post-or-mail.mjs exits 1
+            # when BOTH its Discord and mail legs fail, and in that case the
+            # alert must stay `pending` so the next hourly run tries again
+            # rather than being marked as announced.
+            POST_STATUS=0
+            node scripts/marjorie/post-or-mail.mjs \
+              --subject "Still open 24h — $TITLE" --body-file /tmp/backstop-body.md --url "$URL" \
+              --mention-founder || POST_STATUS=$?
+            if [ "$POST_STATUS" -ne 0 ]; then
+              echo "backstop: #$NUM delivery failed (status $POST_STATUS); retrying next run"
+              continue
+            fi
+            node scripts/marjorie/lib/alert-notify.mjs backstop-comment > /tmp/backstop-marker.md
+            gh issue comment "$NUM" --repo "$REPO" --body-file /tmp/backstop-marker.md
+            echo "backstop: #$NUM posted to the founders channel"
+          done 3< /tmp/open-alerts.tsv
+
+  # BACKUP dispatcher for the clock table (scripts/ops/clock-table.json,
+  # 2026-10-06). The primary clock is bot-chat-poll.yml (5-minute); GitHub drops
+  # most scheduled runs in this repo (this workflow's hourly cron was observed
+  # firing every 1-6h on 2026-10-05/06), so this only backs it up. Same script,
+  # per-entry throttle, never fails. Independent job (no needs), schedule events
+  # only: a clock-dispatched watchdog is a workflow_dispatch run, so this job
+  # never re-dispatches itself.
+  # workflow_dispatch with GITHUB_TOKEN is the documented exception that does
+  # start a run; the sweep's global concurrency group serialises any overlap.
+  triage-sweep-dispatch:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read # checkout only
+      actions: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Clock-dispatch the throttled workflow table
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/ops/clock-dispatch.mjs

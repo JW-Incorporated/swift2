@@ -81,9 +81,24 @@ on an unmatched issue** — leave it alone, it is not yours.
 ## Step 1 — check whether you already handled it today
 
 ```
-gh issue view <number> --json comments --jq '[.comments[] | {viewerDidAuthor: .viewerDidAuthor, body: .body}]' \
+set -o pipefail; gh issue view <number> --json comments --jq '[.comments[] | {viewerDidAuthor: .viewerDidAuthor, body: .body}]' \
   | node scripts/marjorie/lib/alert-router.mjs state
 ```
+
+**A non-zero exit is a failed lookup, not "unhandled"** (#4226): `state`
+exits 3 on empty or non-array input, and `pipefail` surfaces a failed `gh`.
+Log it in your run summary, take **no action** on that alert this sweep, and
+move on — the next hour retries. A genuine zero-comment issue prints
+`unhandled` with exit 0.
+
+**Aggregate alerts name their targets** (#4219): for
+`scheduled-workflows-not-succeeding` (workflow file names) and `prs-stuck`
+(PR numbers), append `--targets <comma-list>` of the alert body's CURRENT
+members to `state`, and pass the same list to `marker <action> --targets
+<comma-list>` in Step 3. A marker covers only the targets it names, so a
+workflow or PR added to the alert later reads `unhandled` and gets handled.
+Legacy untargeted markers are grandfathered as covering everything; when
+re-handling such an alert, write a targeted marker.
 
 `viewerDidAuthor` is GitHub's own field for "did the credential running this
 query post this comment" — `state` only trusts a `marjorie-ops-handled`
@@ -166,7 +181,7 @@ semantic condition in `docs/agents/austin.md` §Scope; omit it when any conditio
 is unknown or false.
 
 ```
-gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" > "$RUNNER_TEMP/marjorie-filed.json"
 node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
@@ -250,7 +265,7 @@ PR** (never a direct push — you are not exempt from branch protection):
    node scripts/marjorie/lib/dispatch-chase-ledger.mjs check <N>
    ```
    A nonzero exit means leave the PR unmerged and report the collision.
-   Only a successful check permits `gh pr merge --squash --auto --delete-branch`.
+   Only a successful check permits `gh pr merge <n> --squash --auto --delete-branch`.
 4. Comment on the alert issue (Step 3) with `action=human-action`, naming
    the PR.
 
@@ -274,6 +289,8 @@ missing-source status means leave that PR unmerged and report the status in
 your run summary; never invent a replacement number or bypass the check.
 Finish alert branches with a clean committed tree before invoking the helper.
 No new Discord post is allowed; the existing brief reports chase outcomes.
+The 7-day silence default (auto-defer) is NOT yours: the plain `auto-defer`
+job applies it without a session. Never apply or re-apply one yourself.
 
 ## Cross-cutting rules
 
@@ -320,3 +337,9 @@ anywhere): how many alerts were open, how many you acted on vs. skipped
 (and why — unmatched / handled-awaiting-watchdog / escalated / deferred to
 next hour for turn budget), and any PR or build-desk issue numbers you
 filed.
+
+## Dispatching the ops-fixer (added 2026-10-05, founder decision A)
+
+Besides watchdog alerts, work the issues labeled `desk:ops-fix` that have neither `ops-fix:dispatched` nor `ops-fix:stuck` and carry `marjorie-filed` or `routine-failure`: `gh issue list --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number`. Dispatch only an issue that passes the trust gate, whose author must be a bot or a repo member with write access: `node scripts/marjorie/ops-fix-trust.mjs <N>` exits 0 (skip the issue on exit 1; never dispatch it, never comment on it). For each such issue (at most 3 per sweep), run `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run routine-ops-fix.yml --ref main -f issue=<N>`, then `gh issue edit <N> --add-label ops-fix:dispatched`.
+
+When a watchdog alert's row above says "Human action if" for a repeat failure, or a `routine-failure` / `desk:ops` / `desk:build` issue's fix lies in `.github/**`, `scripts/**`, configs or prompts (or Austin cannot take it): label it `desk:ops-fix` instead of filing a human action — the ops-fixer owns bot-fixable problems. File the human action only when the problem needs a founder's own hands. For attempt 2: when an `ops-fix:dispatched` issue is still open, has exactly one `<!-- ops-fix-attempt:` marker, and its PR is closed unmerged or red for over 6 hours, remove `ops-fix:dispatched` so the next sweep dispatches once more. Never dispatch a third time; `ops-fix:stuck` already carries the paste-ready prompt.

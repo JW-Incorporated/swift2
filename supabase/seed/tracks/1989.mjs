@@ -139,7 +139,7 @@ export default {
       summary:
         'A parody self-portrait of the serial-dating psycho the media described: if that is the character they want, she will write it better than they can. The mansion-wrecking video sealed the bit.',
       inspiration:
-        'Confirmed intent: Swift said she built the song from the media’s jet-setting man-collector caricature of her, treating it as a comic character study.',
+        'Reported intent: Taylor is widely described as building the song from the media’s jet-setting man-collector caricature of her, treating it as a comic character study.',
       themes: ['satire of celebrity narrative', 'media caricature', 'control of the joke'],
       easterEggs:
         'The misheard Starbucks-lovers line became one of pop’s most famous mondegreens — acknowledged by Swift and even her mother.',
@@ -207,10 +207,10 @@ export default {
       summary:
         'Two people who keep crashing back together because the chemistry is timeless even when the relationship is not — desire as a classic silhouette that never goes out of fashion.',
       inspiration:
-        'The title’s wink at Harry Styles is the most widely reported reading (unconfirmed by Swift); she has described the song as being about relationships that circle back forever.',
+        'Taylor has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
       themes: ['cyclical attraction', 'timelessness', 'glamour with dread underneath'],
       fanLore:
-        'Fan reading (widely reported, unconfirmed): the titular pun on a certain One Directioner’s surname.',
+        'Fan reading (unconfirmed): the title as a wordplay on fashion and personal style.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
       sources: [
         wiki(
@@ -235,7 +235,7 @@ export default {
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
           reliability_score: 3,
-          notes: 'Swift never confirmed the Harry Styles reading; her own coy framing',
+          notes: 'Taylor never confirmed a subject; her own coy framing',
         },
       ],
       dossier: {
@@ -252,7 +252,7 @@ export default {
             "The Kyle Newman-directed video (premiered February 13, 2015, co-starring Dominic Sherwood, shot in Los Angeles over four days) drops any clear narrative for fragmented flashbacks glimpsed through broken glass and a rear-view mirror — widely read as a fractured, can't-quite-connect romance, though Newman never stated that intent on the record.",
           ],
           fanTheories: [
-            "The title is near-universally read as a pun on Harry Styles's surname, tying the song to their brief 2012-13 romance — but Swift has never confirmed it, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
+            "Fans read the title as a pun and connect the song to a specific past romance — but Taylor has not named the subject, this guide doesn't name anyone, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
             "A recurring fan claim that the chorus melody echoes another song (for instance 'Careless Whisper') is undocumented; the producers cite only Daft Punk and funky-electronic influences.",
           ],
         },
@@ -303,11 +303,11 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Max Martin'],
       isSingle: true,
-      note: 'The first Taylor–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
+      note: 'The first Taylor–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a reported snowmobile crash referenced in the bridge.',
       summary:
         'A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.',
       inspiration:
-        'Swift confirmed the bridge’s snowmobile accident really happened and had been kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
+        'Per the song’s Wikipedia article, the bridge’s snowmobile accident is described as a real event that was kept from the press — the song is about a relationship lived in constant fear of the next disaster.',
       themes: ['anxiety in love', 'fragility', 'surviving the crash'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods',
       sources: [
@@ -318,6 +318,104 @@ export default {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A synth-pop centerpiece of 1989, and a song whose build never lets up: Jack Antonoff told Billboard 'it doesn't really let up,' that it starts big and then 'explodes even larger' at the chorus. Per its Wikipedia entry it entered the Hot 100 at No. 18, its peak, topped Digital Songs, and was certified platinum; Swift also said while promoting 1989 that it 'best represents' the album.",
+          "It has one of the more durable afterlives in the catalog. It opened the 58th Grammy Awards on February 15, 2016, its vocals were sampled in 2022 for 'Question...?', and it resurfaced on the Eras Tour as a surprise song and in mashups. Its repeated refrain, 'Are we out of the woods yet?', is how the song voices its anxiety about whether the relationship will survive."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff. Rolling Stone reported that it became available for download soon after fans who pre-ordered 1989 received it, and that it immediately shot to No. 1 on the iTunes songs chart.",
+            "Rolling Stone reported that Taylor has said a real incident inspired the imagery of the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room.'",
+            "Antonoff told Billboard that 'there's a frantic feeling in the song,' that he was thinking about the band My Morning Jacket and how 'every sound is louder than the last,' and that the idea was 'to keep pushing' rather than drop into a quieter chorus.",
+            "Antonoff also told Billboard the two were 'talking about John Hughes movies' and the 'larger-than-life, anthemic' sound of that era's music while hanging out at her house in Rhode Island.",
+            "Rolling Stone reported that the video, which premiered on Dick Clark's Rockin' Eve with Ryan Seacrest, was shot on location in New Zealand, where a severe storm interrupted filming for a week, and ends on the title card 'She lost him, but she found herself. And somehow, that was everything.'"
+          ],
+          supported: [
+            "Swift has described the song, per Songfacts, as about 'the fragility and kind of breakable nature of some relationships,' one where 'you never feel like you're standing on solid ground,' and the track is built to sound like that anxious questioning. The song's Wikipedia entry reads the accident as also a metaphor for the relationship's fragility."
+          ],
+          fanTheories: [
+            "Fans have long attached the song to a specific, widely reported short relationship. Swift has never named the person, so this guide doesn't either; the claim is speculation, and the song's meaning stands without it."
+          ]
+        },
+        live: [
+          {
+            date: "October 27, 2014",
+            event: "1989 Secret Sessions",
+            note: "Performed in the iHeartRadio and Yahoo livestream on the day the album came out, per its Wikipedia entry."
+          },
+          {
+            date: "September 30, 2015",
+            event: "Grammy Museum, Los Angeles",
+            note: "A stripped-down piano version from an intimate gig, which Rolling Stone's Jon Blistein covered as a one-year-anniversary video for 1989; Rolling Stone's coverage called the performance chilling."
+          },
+          {
+            date: "February 15, 2016",
+            event: "58th Annual Grammy Awards",
+            note: "She opened the show with it, per Wikipedia."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "A surprise song at the Nashville stop, later folded into mashups, including with 'Is It Over Now?' in Buenos Aires and Paris, with 'Clean' in London, and with 'Us' in Toronto alongside Gracie Abrams, per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:question",
+            label: "Question...?",
+            why: "The 2022 Midnights track opens by sampling the vocals from this song; the sample won 'Favorite Use of a Sample' at the 2023 iHeartRadio Music Awards, per Wikipedia."
+          },
+          {
+            relatedId: "song:i-wish-you-would",
+            label: "I Wish You Would",
+            why: "The other song Antonoff produced for 1989's standard edition, alongside this one."
+          },
+          {
+            relatedId: "song:clean",
+            label: "Clean",
+            why: "Swift paired the two in a London mashup on the Eras Tour."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "Speaking to Billboard in 2014",
+            note: "He described the song as having a frantic feeling that doesn't let up: the chorus explodes larger, then the bridge gets 'even more huge.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "In a video explaining the song, as quoted by Songfacts",
+            note: "She said she wanted the songs on 1989 to sound 'exactly the way that the emotions felt when I felt them.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Unveils Synth-Heavy 'Out of the Woods' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-unveils-synth-heavy-new-track-out-of-the-woods-241292/"
+          },
+          {
+            name: "Taylor Swift's 'Out of the Woods': Jack Antonoff Talks New Song - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-out-of-the-woods-jack-antonoff-6281680/"
+          },
+          {
+            name: "Watch Taylor Swift Battle Nature in 'Out of the Woods' Video - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/watch-taylor-swift-battle-nature-in-out-of-the-woods-video-37464/"
+          },
+          {
+            name: "Taylor Swift Delivers Chilling Acoustic 'Out of the Woods' Performance - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-delivers-chilling-acoustic-out-of-the-woods-performance-67474/"
+          },
+          {
+            name: "Out of the Woods - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)"
+          },
+          {
+            name: "Out Of The Woods by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/out-of-the-woods"
+          }
+        ]
+      },
     },
     {
       slug: 'all-you-had-to-do-was-stay',
@@ -332,7 +430,7 @@ export default {
       summary:
         'An ex comes crawling back and the answer is the title: he had one job. The track-5 slot goes, for once, to exasperation instead of devastation.',
       inspiration:
-        'Confirmed: the pitched-up vocal hook came from a dream in which Swift could only squeak the word at a returning ex; she recreated it in the studio.',
+        'Reportedly, the pitched-up vocal hook came from a dream in which Taylor could only squeak the word at a returning ex; she recreated it in the studio.',
       themes: ['too little too late', 'self-worth', 'closing the door'],
       sourceUrl: 'https://en.wikipedia.org/wiki/All_You_Had_to_Do_Was_Stay',
       sources: [
@@ -483,7 +581,7 @@ export default {
       summary:
         'Two stubborn exes driving past each other’s lives, each wishing the other would make the first move neither will make.',
       inspiration:
-        'Confirmed studio story: Antonoff sent the instrumental sketch and Swift wrote the drive-by scenario over it almost immediately.',
+        'Studio story as reported: Antonoff sent the instrumental sketch and Taylor wrote the drive-by scenario over it almost immediately.',
       themes: ['pride', 'missed signals', 'late-night regret'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Wish_You_Would_(Taylor_Swift_song)',
       sources: [
@@ -509,10 +607,10 @@ export default {
       summary:
         'A friendship betrayed at the professional level: not a breakup, a backstab — with a chorus built for stadium-sized grudge-holding.',
       inspiration:
-        'Swift’s 2014 Rolling Stone interview confirmed the subject was another female artist who attempted to poach her tour dancers; the press universally read Katy Perry (unconfirmed then; the two publicly reconciled in 2019).',
+        'Taylor’s 2014 Rolling Stone interview described the subject only as another female artist who attempted to poach her tour dancers, without naming anyone; this guide doesn’t name anyone either.',
       themes: ['betrayed friendship', 'professional sabotage', 'grudges'],
       fanLore:
-        'Fan/press reading: the Perry feud — effectively closed by their documented burger-and-fries reconciliation in the You Need to Calm Down video.',
+        'Fans and press speculated about who the song is about; Taylor has not named her, and this guide doesn’t name anyone. The burger-and-fries moment in the You Need to Calm Down video is a documented public reconciliation.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
       sources: [
         wiki(
@@ -540,22 +638,13 @@ export default {
           notes: 'the Joseph Kahn video’s Billboard Music Awards premiere (May 17, 2015) and star cast',
         },
         {
-          source_url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/',
-          source_title: 'A Timeline of the Taylor Swift–Katy Perry Feud',
-          publisher: 'Time',
-          source_type: 'reputable_press',
-          accessed_at: '2026-07-24',
-          reliability_score: 4,
-          notes: 'the Perry press reading, "Swish Swish," and the 2019 reconciliation — all labeled inference/resolution, not Swift confirmation',
-        },
-        {
           source_url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/',
           source_title: "Watch Taylor Swift Reunite With Katy Perry in 'You Need to Calm Down' Video",
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',
           reliability_score: 4,
-          notes: 'the June 17, 2019 burger-and-fries reconciliation that publicly closed the feud',
+          notes: 'the June 17, 2019 burger-and-fries video moment, a public reconciliation',
         },
       ],
       // Depth ledger #1376 (2026-07-24): the Kendrick remix, production, the
@@ -573,8 +662,8 @@ export default {
             "The video cast carries code names — Swift as Catastrophe, Selena Gomez as Arsyn, Kendrick Lamar as Welvin da Great, Lena Dunham as Lucky Fiori, plus Cara Delevingne, Zendaya, Gigi Hadid, Hailee Steinfeld, Ellie Goulding, Hayley Williams, Karlie Kloss, Cindy Crawford and more.",
           ],
           supported: [
-            "The press near-universally read the unnamed subject as Katy Perry, whose team had reportedly poached backing dancers from Swift’s tour; Perry never confirmed being the target and answered in 2017 with ‘Swish Swish’ (featuring Nicki Minaj). That identification is media inference, not a Swift confirmation.",
-            "The feud resolved publicly in the June 17, 2019 ‘You Need to Calm Down’ video, which ends with Swift and Perry embracing dressed as fries and a hamburger (Perry reprising her 2019 Met Gala burger look).",
+            "Press and fans have speculated about the unnamed subject, but Taylor has not named her and this guide doesn't name anyone; any identification is media inference, not a Taylor confirmation.",
+            "The June 17, 2019 ‘You Need to Calm Down’ video ends with Taylor embracing another pop star, the two dressed as fries and a hamburger, a public moment of reconciliation.",
             "Critics were split: the 1989 album cut drew mixed-to-negative reviews as one of the record’s weaker tracks, while the Kendrick remix was received more warmly — the Guardian’s Alexis Petridis called it ‘a masterstroke.’",
           ],
           fanTheories: [
@@ -767,7 +856,7 @@ export default {
       summary:
         'Love as tide: something released that actually comes back — the quietest, most patient song on a maximalist record.',
       inspiration:
-        'Confirmed: Swift wrote it as a poem first, the only 1989 track she wrote alone; the 2022 early release of its re-record for a TV trailer was its second life.',
+        'Per wiki accounts, Taylor wrote it as a poem first, the only 1989 track she wrote alone; the 2022 early release of its re-record for a TV trailer was its second life.',
       themes: ['patience', 'return', 'stillness'],
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
       sources: [
@@ -792,7 +881,7 @@ export default {
       summary:
         'Two people planning a romance like a heist: the watchers are the hunters, the lovers are the foxes, and privacy is the getaway route.',
       inspiration:
-        'Swift said it was written about knowing in advance that any new relationship would be hunted for sport — the hiding plan drafted before the love existed.',
+        'Described as written about knowing in advance that any new relationship would be hunted for sport — the hiding plan drafted before the love existed.',
       themes: ['surveillance', 'protecting love', 'us versus the lens'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Know_Places',
       sources: [wiki('I Know Places', 'I_Know_Places', 'song article: background'), ALBUM],
@@ -810,10 +899,59 @@ export default {
       summary:
         'Healing framed as detox: the drought, the flood, and finally the morning you notice the wound stopped needing checking. Her tour-speech centerpiece for years.',
       inspiration:
-        'Confirmed: sparked by the realization that an old love had quietly evaporated; recorded with Heap in London using Heap’s own instrumental setup.',
+        'Reportedly sparked by the realization that an old love had quietly evaporated; recorded with Heap in London using Heap’s own instrumental setup.',
       themes: ['recovery', 'time as medicine', 'coming out the other side'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
       sources: [wiki('Clean (song)', 'Clean_(song)', 'song article: Heap collaboration'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The closer of 1989, and the one Swift tied most directly to where she ended up emotionally after the album. She told Elle in May 2015 that 'Shake It Off' and 'Clean' were the last two songs written for the record, 'so it shows you where I ended up mentally.'",
+          "Rolling Stone's Rob Sheffield framed it as a stark synth-folk ballad about detoxing from an infatuation, with a big assist from Imogen Heap, and an intense finale to the album's homestretch."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Elle she wrote 'Clean' as she was walking out of Liberty in London: it hit her that she had been in the same city as someone she used to date for two weeks without thinking about him, and her reaction was a hope that he was doing well, and nothing else. Her first thought, she said, was 'I'm finally clean.'",
+            "She described the way heartbreak slows a person's time, and how new habits slowly replace old ones, until one day you are in London and realize you have been fine for two weeks.",
+            "She said she wrote it while in a 'media hailstorm' of people having a misconstrued perception of who she was, with snarky headlines focusing on the wrong things.",
+            "Swift explained, as Billboard reported in October 2015, that the song's distinctive percussion and texture come from a couple of Imogen Heap's own instruments: a mbira, or thumb piano, and boomwhackers."
+          ],
+          supported: [
+            "The Elle interviewer, Tavi Gevinson, pointed out a message hidden in the album's printed liner notes for the song: 'She lost him but she found herself and somehow that was everything.'",
+            "Sheffield's reading of the song as detox from an infatuation is a critic's framing; Swift's own account, above, is about a quieter realization of having moved on."
+          ],
+          fanTheories: [
+            "Fans have attached the song to a specific relationship. Swift's own account in Elle names no one, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:shake-it-off",
+            label: "Shake It Off",
+            why: "Swift told Elle the two were the last songs written for 1989, and that together they show where she ended up mentally."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In an Elle interview with Tavi Gevinson, May 2015",
+            note: "She described heartbreak as a state where nothing distracts you and time moves at a different pace, and the moment of realizing she had stopped checking."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Has No Regrets - Elle",
+            url: "https://www.elle.com/fashion/a28210/taylor-swift-elle-june-cover-2015/"
+          },
+          {
+            name: "8 Things You Didn't Know About Taylor Swift's '1989' - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-1989-album-you-didnt-know-6730187/"
+          },
+          {
+            name: "All 286 of Taylor Swift's Songs, Ranked - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-lists/taylor-swift-songs-ranked-rob-sheffield-201800/clean-2014-205630/"
+          }
+        ]
+      },
     },
     {
       slug: 'wonderland',
@@ -848,14 +986,55 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived — inspired by watching Jack and Lena Dunham at home.',
+      note: 'Written over an Antonoff instrumental about a love she had only witnessed, not lived.',
       summary:
         'A definition of real love assembled from small, unglamorous proofs — burnt toast on a Sunday, a word whispered mid-dance — narrated by someone standing just outside it.',
       inspiration:
-        'Swift confirmed she wrote it after observing Antonoff’s relationship with then-partner Lena Dunham — the ordinary intimacy she had not yet had.',
+        'A song about the ordinary intimacy of a love observed from the outside.',
       themes: ['quiet love', 'witnessing intimacy', 'yearning for the ordinary'],
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Are_in_Love',
       sources: [wiki('You Are in Love', 'You_Are_in_Love', 'song article: inspiration'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A deluxe-edition song that became a surprise-song moment on the Eras Tour. Rolling Stone reported it was the surprise song on Aug. 4, 2023 at SoFi Stadium, paired with 'Our Song,' and that Swift later revealed it as the third surprise song added to the Disney+ version of the Eras Tour concert film.",
+          "Billboard reported the footage of her performing it on piano had been cut from the theatrical and on-demand releases, and was restored for the March 14, 2024 Disney+ release."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's February 2015 report said Swift announced the 1989 deluxe-edition bonus songs, which had been on the Target version since October, would reach iTunes one at a time, starting with 'Wonderland,' with 'You Are in Love' and 'New Romantics' to follow. That is release history, not a statement about the song's subject."
+          ]
+        },
+        live: [
+          {
+            date: "August 4, 2023",
+            event: "The Eras Tour, Inglewood (SoFi Stadium)",
+            note: "Billboard's surprise-song list and Rolling Stone both place it at SoFi Stadium on Aug. 4. Rolling Stone says it was paired with 'Our Song.'"
+          },
+          {
+            date: "March 14, 2024",
+            event: "The Eras Tour (Taylor's Version) on Disney+",
+            note: "Swift confirmed it on Good Morning America as the third of four added acoustic songs. Swift shared a sneak-peek clip of the SoFi performance, sitting at the flower-painted piano as fans waved light-up bracelets."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Reveals 'You Are in Love' as Third Surprise Song for 'Eras Tour' Disney+ Version - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-you-are-in-love-surprise-song-eras-tour-disney-1234987508/"
+          },
+          {
+            name: "Taylor Swift Confirms This '1989' Fan Favorite Is the Third Acoustic Song in Disney+ 'Eras Tour': Watch - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-you-are-in-love-eras-tour-film-disney-sneak-peek-1235632866/"
+          },
+          {
+            name: "Taylor Swift Releasing '1989' Bonus Songs to iTunes - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-1989-bonus-songs-itunes-6473113/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'new-romantics',
@@ -899,6 +1078,36 @@ export default {
         wiki('"Slut!" (song)', '%22Slut!%22', 'song article: vault context and reception'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift revealed the title on Instagram on Sept. 20, 2023, as one more 'From the Vault' track, alongside the full track list for 1989 (Taylor's Version).",
+          "On release it debuted at No. 3 on the Hot 100 dated Nov. 11, 2023, behind two other 1989 vault songs, per Billboard's chart report."
+        ],
+        meaning: {
+          supported: [
+            "Rolling Stone's review called it a hazy, shimmering ode to being unabashedly in love, even if you are shamed and sexualized for it, and noted it was written when the word was far more common than it is now. That is the reviewer's reading.",
+            "The Guardian's reviewer heard something different in the same song: a shimmering tale of inappropriate sexual adventure, as Swift channels Lana Del Rey cosplaying a moonlit ingenue. The two outlets read its tone differently; these are reviewers' readings."
+          ]
+        },
+        sources: [
+          {
+            name: "Taylor Swift's Full '1989 (Taylor's Version)' Track List Is Here With No Features & One More 'Vault' Track - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-1989-taylors-version-track-list-no-features-1235416961/"
+          },
+          {
+            name: "Taylor Swift Charts All 21 Songs From '1989 (Taylor's Version)' on the Hot 100 - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-all-songs-hot-100-1235464591/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          },
+          {
+            name: "Taylor Swift: 1989 (Taylor's Version) review – subtle bonus tracks add new depths to a classic - The Guardian",
+            url: "https://www.theguardian.com/music/2023/oct/27/taylor-swift-1989-taylors-version-review-republic"
+          }
+        ]
+      },
     },
     {
       slug: 'say-dont-go',
@@ -914,10 +1123,44 @@ export default {
       summary:
         'Loving someone who lets you twist: she keeps waiting for him to fight for it, and the silence is its own answer. A legendary songwriter pairing fans did not know existed until the vault opened.',
       inspiration:
-        'Confirmed: written with Warren during the 1989 sessions — Warren later said she had wondered for years if it would ever surface.',
+        'Written with Warren during the 1989 sessions, per Wikipedia — Warren later said she had wondered for years if it would ever surface.',
       themes: ['one-sided devotion', 'waiting to be chosen', 'lost collaborations'],
       sourceUrl: "https://en.wikipedia.org/wiki/Say_Don't_Go",
       sources: [wiki("Say Don't Go", "Say_Don't_Go", 'song article: Warren co-write'), TV],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift and Diane Warren co-wrote the song in 2013, and that on release it launched at No. 5 on the Hot 100 dated Nov. 11, 2023, giving Warren her 33rd career top 10 and her first since 2001.",
+          "Rolling Stone reported that Warren had wondered why the song did not make the original 1989 tracklist, and that she learned from her lawyer that Swift would finally release it nearly ten years later."
+        ],
+        meaning: {
+          supported: [
+            "Warren told Rolling Stone that she and Swift 'sat down and wrote the song' from scratch in the last few days of 2013, and that they demoed it on New Year's Day, with Swift playing it on acoustic guitar. She said Swift was 'very particular about how she said certain things.' This is the co-writer's account; the interview does not quote Swift on the song's subject.",
+            "Warren also told Rolling Stone the released version kept the lyrics they wrote nine years earlier: 'It still stands. It's timeless.'",
+            "Rolling Stone's album review called it a distant cousin of the album's 'I Wish You Would,' reimagined as a straight-up power ballad. That is the reviewer's comparison."
+          ]
+        },
+        voices: [
+          {
+            who: "Diane Warren",
+            context: "Speaking to Rolling Stone around the October 27, 2023 release",
+            note: "'Everything has its time, you know? It took a while to see the light of day, but I'm glad it finally did. It was worth the wait.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift and Diane Warren Wrote 'Say Don't Go' 9 Years Ago. She Still Thinks It's a 'F-cking Hit' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-diane-warren-writing-1989-vault-track-say-dont-go-1234864465/"
+          },
+          {
+            name: "Diane Warren Earns Her 33rd Hot 100 Top 10 as a Writer Thanks to Taylor Swift's 'Say Don't Go (Taylor's Version)' - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/diane-warren-hot-100-top-10-taylor-swift-say-dont-go-1235464596/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          }
+        ]
+      },
     },
     {
       slug: 'now-that-we-dont-talk',
@@ -1001,6 +1244,43 @@ export default {
         wiki('Suburban Legends (song)', 'Suburban_Legends_(song)', 'song article: vault release'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that Swift surprised the Rio de Janeiro crowd by playing it on piano on Nov. 17, 2023, in the acoustic set of the Eras Tour show at Estadio Olimpico Nilton Santos, and described it as the song's live debut.",
+          "On release it entered the Hot 100 at No. 10 on the chart dated Nov. 11, 2023, per Billboard's chart report."
+        ],
+        meaning: {
+          supported: [
+            "Rolling Stone's album review called it a euphoric, dizzying rush, with Jack Antonoff's production likened to the soundtrack to an addictive arcade game. That is the reviewer's description.",
+            "The Guardian's reviewer described it as a doomed schooldays romance full of perfect lines. That is the reviewer's reading; neither review quotes Swift on the song's meaning."
+          ]
+        },
+        live: [
+          {
+            date: "November 17, 2023",
+            event: "The Eras Tour, Rio de Janeiro (Estadio Olimpico Nilton Santos)",
+            note: "Billboard reported the piano performance as the song's live debut, and that the crowd screamed from the first line."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Performs 'Suburban Legends' Live for the First Time in Rio de Janeiro - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-suburban-legends-live-rio-de-janeiro-brazil-eras-tour-1235491862/"
+          },
+          {
+            name: "Taylor Swift Charts All 21 Songs From '1989 (Taylor's Version)' on the Hot 100 - Billboard",
+            url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-all-songs-hot-100-1235464591/"
+          },
+          {
+            name: "'1989 (Taylor's Version)' Is Our Deepest Look Yet Into the Record That Made Everyone a Swiftie - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/"
+          },
+          {
+            name: "Taylor Swift: 1989 (Taylor's Version) review – subtle bonus tracks add new depths to a classic - The Guardian",
+            url: "https://www.theguardian.com/music/2023/oct/27/taylor-swift-1989-taylors-version-review-republic"
+          }
+        ]
+      },
     },
     {
       slug: 'is-it-over-now',
@@ -1045,8 +1325,8 @@ export default {
             "Multiple outlets drew direct musical and narrative parallels between 'Is It Over Now?' and 'Out of the Woods,' framing the newer song as effectively answering the earlier song's central question about whether the relationship survived."
           ],
           fanTheories: [
-            "Widely repeated fan theory (not confirmed by Swift): the song is about her 2012–2013 relationship with Harry Styles, based on lyrical details fans connect to that era — including 'blue dress on a boat,' read as a reference to a paparazzi photo of Swift alone on a boat after their reported breakup, and 'red blood, white snow,' read as an allusion to a snowmobile incident Swift has said inspired similar imagery in 'Out of the Woods.'",
-            "Fans have also speculated that a lyric about a 'new girl' who resembles the narrator references women Styles reportedly dated after Swift who fans felt resembled her, though this reading is speculative and unconfirmed by either party."
+            "Widely repeated fan theory (not confirmed by Taylor): the song is about a past relationship, based on lyrical details fans connect to that era, including 'blue dress on a boat,' read as a reference to a paparazzi photo of Taylor alone on a boat. Taylor has not named the subject, and this guide doesn't name anyone.",
+            "Fans have also speculated about who a lyric about a 'new girl' who resembles the narrator refers to, though this reading is speculative and unconfirmed."
           ]
         },
         connections: [
@@ -1075,7 +1355,6 @@ export default {
           { name: "Is It Over Now? - Wikipedia", url: "https://en.wikipedia.org/wiki/Is_It_Over_Now%3F" },
           { name: "1989 (Taylor's Version) - Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" },
           { name: "How Taylor Swift's new song 'Is It Over Now?' answers her big relationship question from 'Out of the Woods' - Entertainment Weekly", url: "https://ew.com/music/taylor-swift-is-it-over-now-answers-out-of-the-woods-question-1989-taylors-version/" },
-          { name: "Are Taylor Swift's 'Is It Over Now?' Lyrics About Harry Styles? - TODAY.com", url: "https://www.today.com/popculture/music/taylor-swift-is-it-over-now-meaning-rcna122453" },
           { name: "Taylor Swift References Viral Boat Photo in New Vault Track 'Is It Over Now?' - People", url: "https://people.com/taylor-swift-references-viral-boat-photo-in-vault-track-is-it-over-now-8383895" }
         ]
       },

@@ -23,7 +23,15 @@ const IMG_PATH = /\/(?:thmb|wp-content\/uploads|api\/img)\//i;
 // Endpoints, XML namespaces, example hosts and our own API routes: real URLs,
 // but not links a visitor follows.
 const NON_LINK_HOST = /^(?:api\.|.+\.api\.|schema\.org$|(?:www\.)?w3\.org$|example\.(?:com|org)$|localhost|127\.|exp\.host$|u\.expo\.dev$|nextjs\.org$|vercel\.|va\.vercel|openapi\.vercel|challenges\.cloudflare|.+\.supabase\.co$|swift2-web|(?:www\.)?longlivets\.com$|lookaside\.instagram\.com$|www\.youtube-nocookie\.com$)/i;
-const NON_LINK_URL = /\/api\/|\/oembed\b|\/rss\/articles\/|\/feed(?:s)?\/|[?&]$|=$|\/(?:ID|XXXXXXXXXXX)$|\$\{|\{|…|\.\.\./;
+// RFC 2606 / 6761 reserved names: placeholder bases in code, never real links.
+const RESERVED_HOST = /(?:^|\.)(?:invalid|example|test|localhost)$|^(?:www\.)?example\.(?:com|net|org)$/i;
+// Known-pending links: real URLs that are expected to be dead for now. Every
+// entry needs a `reason`; remove it once the reason stops being true.
+export const PENDING_LINKS = [
+  { url: 'https://apps.apple.com/app/id6807657306', reason: 'iOS app not yet publicly listed (pre-launch); remove after store release' },
+];
+const PENDING_URLS = new Set(PENDING_LINKS.map((p) => p.url));
+const NON_LINK_URL =/\/api\/|\/oembed\b|\/rss\/articles\/|\/feed(?:s)?\/|[?&]$|=$|\/(?:ID|XXXXXXXXXXX)$|\$\{|\{|…|\.\.\./;
 const SCAN_ROOTS = { app: ['apps/web', 'apps/mobile', 'apps/worker', 'packages'] };
 const SKIP_DIRS = new Set(['node_modules', '.git', '.next', '.expo', 'dist', 'build', 'public', 'fixtures', 'generated']);
 
@@ -63,6 +71,7 @@ export function extractUrls(text) {
 export function isProbeable(url) {
   let parsed;
   try { parsed = new URL(url); } catch { return false; }
+  if (RESERVED_HOST.test(parsed.hostname) || PENDING_URLS.has(url)) return false;
   if (!/^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(parsed.hostname)) return false;
   if (IMG_EXT.test(url) || IMG_HOST.test(parsed.hostname) || IMG_PATH.test(parsed.pathname)) return false;
   if (NON_LINK_HOST.test(parsed.hostname) || NON_LINK_URL.test(url)) return false;

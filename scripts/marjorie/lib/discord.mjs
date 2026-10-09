@@ -8,12 +8,18 @@
 // `discord-delivery.mjs`/`weekly-brief.mjs`/`approval-prompt.mjs` — this
 // module adds only what was genuinely missing (retry, thread support, the
 // fallback-friendly return shape) instead of re-deriving chunking rules.
-import { neutralizeMentions, chunkForDiscord } from '../../community/discord-delivery.mjs';
+import {
+  neutralizeMentions,
+  chunkForDiscord,
+  suppressPreviews,
+  DISCORD_SUPPRESS_EMBEDS,
+} from '../../community/discord-delivery.mjs';
+import { routedPost } from '../../lib/discord-route.mjs';
 
 // Discord message flag 1 << 2: no link-preview embeds (Bots v2 C6). Set in code
 // on every Marjorie post rather than by channel permission, which would also
 // strip deliberate embeds elsewhere in the channel.
-export const SUPPRESS_EMBEDS = 4;
+export const SUPPRESS_EMBEDS = DISCORD_SUPPRESS_EMBEDS;
 const RETRY_WAIT_MS = 2000;
 const MAX_RETRY_WAIT_MS = 120_000;
 
@@ -57,17 +63,18 @@ function postUrl(webhook, thread) {
 // One attempt at posting a single chunk. A non-2xx HTTP response is a
 // normal returned Response, not a throw — only a network-level failure
 // (DNS, refused connection, etc.) rejects, which the caller catches.
-function postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions = { parse: [] } }) {
-  return fetchImpl(postUrl(webhook, thread), {
+function postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions = { parse: [] }, route = null, env }) {
+  const init = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      content: chunk,
-      username,
-      allowed_mentions: allowedMentions,
-      flags: SUPPRESS_EMBEDS,
-    }),
-  });
+    body: JSON.stringify(
+      suppressPreviews({ content: chunk, username, allowed_mentions: allowedMentions }),
+    ),
+  };
+  // `route` (scripts/lib/discord-route.mjs): post by channel id with the bot token,
+  // falling back to `webhook` when no token/channel is available.
+  if (route) return routedPost(route, init, { env, webhook, threadId: thread || '', fetchImpl });
+  return fetchImpl(postUrl(webhook, thread), init);
 }
 
 // Discord only returns the posted message body (including its `id`) when
@@ -112,7 +119,7 @@ async function messageIdOf(response) {
  * never notifies.
  */
 // `username` defaults to Marjorie; M5's Tree chat replies pass 'Tree'.
-export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait, mentionUserIds = [] } = {}) {
+export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait, mentionUserIds = [], route = null, env = process.env } = {}) {
   const chunks = chunkForDiscord(neutralizeMentions(text));
   const allowedMentions =
     mentionUserIds.length > 0 ? { parse: [], users: mentionUserIds } : { parse: [] };
@@ -122,7 +129,7 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
   for (const [index, chunk] of chunks.entries()) {
     let response;
     try {
-      response = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
+      response = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions, route, env });
     } catch {
       response = undefined;
     }
@@ -130,6 +137,19 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       delivered += 1;
       if (index === 0) messageId = await messageIdOf(response);
       continue;
+    }
+
+    // A thrown first attempt is ambiguous: Discord may have accepted the post
+    // and the response was lost. Never resend on that (a retry would double
+    // the reply); report failure and let the caller's fallback decide.
+    if (!response) {
+      return {
+        ok: false,
+        chunks: chunks.length,
+        delivered,
+        status: null,
+        error: 'Discord delivery threw a network error',
+      };
     }
 
     const waitMs = await retryWaitMs(response);
@@ -148,7 +168,7 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
     let retryResponse;
     let retryError;
     try {
-      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
+      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions, route, env });
     } catch (err) {
       retryError = err;
     }

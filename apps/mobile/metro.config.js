@@ -20,10 +20,13 @@ const workspaceRoot = path.resolve(projectRoot, '../..');
 // in-process while emitting JSON on stdout, and the generator's progress lines
 // corrupted it ("Failed to run eas build:internal"). Failures still surface —
 // execFileSync throws on a non-zero exit and stderr is passed through.
-execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
-  cwd: workspaceRoot,
-  stdio: ['ignore', 'ignore', 'inherit'],
-});
+// Parity CI freezes the lens data before building; regenerating here would overwrite the frozen copy.
+if (process.env.PARITY_FROZEN_LENSES !== '1') {
+  execFileSync(process.execPath, [path.join(workspaceRoot, 'scripts/sync-longlive-lenses.mjs')], {
+    cwd: workspaceRoot,
+    stdio: ['ignore', 'ignore', 'inherit'],
+  });
+}
 
 const config = getDefaultConfig(projectRoot);
 

@@ -54,6 +54,9 @@ jobs:
   mail:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    # DISCORD_BOT_TOKEN lives in the main-only `social` environment. Plain run: steps only (no agent);
+    # community tasks are posted to tree-main by channel id (scripts/lib/discord-route.mjs).
+    environment: social
     timeout-minutes: 15
     steps:
       - name: Pick the mode for this run
@@ -89,6 +92,12 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          DISCORD_TREE_IG_X_CHANNEL_ID: ${{ vars.DISCORD_TREE_IG_X_CHANNEL_ID }}
+          DISCORD_TREE_REDDIT_CHANNEL_ID: ${{ vars.DISCORD_TREE_REDDIT_CHANNEL_ID }}
+          DISCORD_TREE_FACEBOOK_CHANNEL_ID: ${{ vars.DISCORD_TREE_FACEBOOK_CHANNEL_ID }}
           COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           MAILER_MODE: ${{ steps.pick.outputs.mode }}
         run: node scripts/community/mailer.mjs --mode="$MAILER_MODE"

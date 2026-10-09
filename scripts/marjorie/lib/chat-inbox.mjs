@@ -4,6 +4,7 @@
 // agent reads. No network and no env — `chat-poll.mjs` does the I/O, and
 // `chat-poll.test.ts` covers both files.
 import { SOCIAL_APPROVERS } from '../../social/lib/approvers.mjs';
+import { ROUTES } from '../../lib/discord-route.mjs';
 import { authorName, hasOwnReaction, isRootOrWebhookMessage, snowflakeMs } from './discord-bot.mjs';
 
 export const CLAIM = '👀';
@@ -33,9 +34,11 @@ const MESSAGE_TEXT_CAP = 4000;
 // "started a thread" notices are system types and never answered.
 const HUMAN_TYPES = new Set([0, 19]);
 
+// Chat channels are found by id only (scripts/lib/discord-route.mjs ROUTES): the doorbell on the
+// Hermes VM has no env for them, and a by-name lookup broke when the channels were renamed.
 export const BOTS = {
-  marjorie: { name: 'Marjorie', channelName: 'longlive-marjorie', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },
-  tree: { name: 'Tree', channelName: 'longlive-tree', workflow: 'routine-tree-chat.yml', channelEnv: 'DISCORD_TREE_CHANNEL_ID' },
+  marjorie: { name: 'Marjorie', channelName: 'marjorie', channelId: ROUTES.marjorie.id, workflow: 'routine-marjorie-chat.yml', channelEnv: ROUTES.marjorie.env },
+  tree: { name: 'Tree', channelName: 'tree-main', channelId: ROUTES['tree-main'].id, workflow: 'routine-tree-chat.yml', channelEnv: ROUTES['tree-main'].env },
 };
 
 /** Each chat routine sets `run-name` to exactly this, so the poll can find a claimed message's run. */
@@ -124,10 +127,15 @@ export function isFailureNotice(m, messageId) {
 // is read by the poll, never by chat (W8, W2 review LOW).
 const APPROVAL_POST_REF = /^ref: (?:PR #\d+ · [0-9a-f]{40} · (?:\*|.+\.json)|reddit · .+)$/;
 
+// Reddit/Facebook cards are now posted by the bot (no webhook_id; scripts/lib/discord-route.mjs), so a
+// bot-authored card whose last line is a `ref: reddit ·` line counts too — never a bot PR-approval ref.
+const REDDIT_POST_REF = /^ref: reddit · .+$/;
+
 export function isApprovalPost(m) {
-  if (!m?.webhook_id) return false;
-  const lines = String(m.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
-  return APPROVAL_POST_REF.test(lines[lines.length - 1] ?? '');
+  const lines = String(m?.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const last = lines[lines.length - 1] ?? '';
+  if (m?.webhook_id) return APPROVAL_POST_REF.test(last);
+  return Boolean(m?.author?.bot) && REDDIT_POST_REF.test(last);
 }
 
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);

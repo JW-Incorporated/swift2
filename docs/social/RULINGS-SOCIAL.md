@@ -79,3 +79,5 @@ than 24h — the exact single point of failure behind the issue #56 near-miss
 (a filed-but-unexecuted freeze action sitting open looked identical to a
 handled one). `validate-queue.mjs` prints every unstamped draft as a
 warning, never a failure.
+
+2026-10-05 (Joey): CI freeze requirement removed — posting-path PRs get the same review + tests as every other PR; SOCIAL_FREEZE remains the founder's emergency stop; watchdog half of A6 unchanged.

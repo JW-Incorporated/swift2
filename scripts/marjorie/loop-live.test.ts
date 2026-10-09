@@ -228,3 +228,38 @@ describe('save-help', () => {
     expect(() => saveHelp({ side: 'nobody', ask: 'x' })).toThrow('--side');
   });
 });
+
+describe('error asks are not capped like discretionary asks', () => {
+  it('save-help --error keeps its own two slots and marks the file', () => {
+    const d = mkdtempSync(path.join(dir, 'e-'));
+    const log = quiet();
+    saveHelp({ side: 'tree', ask: 'one', dir: d });
+    saveHelp({ side: 'tree', ask: 'two', dir: d });
+    saveHelp({ side: 'tree', ask: 'broken link on the Friday pair', error: true, dir: d });
+    saveHelp({ side: 'tree', ask: 'tool failed', error: true, dir: d });
+    saveHelp({ side: 'tree', ask: 'one too many errors', error: true, dir: d });
+    log.mockRestore();
+    expect(JSON.parse(readFileSync(path.join(d, 'for-marjorie-3.json'), 'utf8')).kind).toBe('error');
+    expect(JSON.parse(readFileSync(path.join(d, 'for-marjorie-4.json'), 'utf8')).ask).toBe('tool failed');
+    expect(() => readFileSync(path.join(d, 'for-marjorie-5.json'), 'utf8')).toThrow();
+  });
+  it('files an error ask with the marker even when the discretionary cap is spent, and does not count it toward that cap', async () => {
+    const d = mkdtempSync(path.join(dir, 'f-'));
+    writeFileSync(path.join(d, 'for-marjorie-1.json'), JSON.stringify({ ask: 'nice-to-have extra photos' }));
+    writeFileSync(path.join(d, 'for-marjorie-2.json'), JSON.stringify({ ask: 'the photo CDN returns 403', kind: 'error' }));
+    const spent = fakeGh({ listing: [rest(51, 'tree', 'one'), rest(52, 'tree', 'two')] });
+    const log = quiet();
+    await fileHelp({ side: 'tree', dir: d, source: '1', 'source-url': 'u' }, { gh: spent.gh, now: NOW });
+    log.mockRestore();
+    const creates = spent.calls.filter((c) => c[1] === 'create');
+    expect(creates).toHaveLength(1);
+    expect(creates[0].join(' ')).toContain('loop-kind: error');
+    // an error filed today does not use up the discretionary cap
+    const errorOnly = { ...rest(53, 'tree', 'earlier error'), body: `b\n\n<!-- loop-kind: error -->\n${renderMarker(askKey('tree', 1, 'earlier error'), null)}` };
+    const afterError = fakeGh({ listing: [errorOnly, rest(51, 'tree', 'one')] });
+    const log2 = quiet();
+    await fileHelp({ side: 'tree', dir: d, source: '1', 'source-url': 'u' }, { gh: afterError.gh, now: NOW });
+    log2.mockRestore();
+    expect(afterError.calls.filter((c) => c[1] === 'create')).toHaveLength(2);
+  });
+});

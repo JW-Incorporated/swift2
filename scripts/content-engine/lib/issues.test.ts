@@ -12,7 +12,7 @@ import { join } from 'node:path';
 const ghMock = vi.hoisted(() => vi.fn());
 vi.mock('../../lib/gh.mjs', () => ({ gh: ghMock }));
 
-const { createIssues, ensureLabels, rollupFingerprint, errText } = await import('./issues.mjs');
+const { createIssues, ensureLabels, rollupFingerprint, errText, FP_PREFETCH_LIMIT } = await import('./issues.mjs');
 const { fingerprint, legacyFingerprint } = await import('./finding.mjs');
 const { CONFIG } = await import('../config.mjs');
 const PFX = CONFIG.output.issueLabelPrefix;
@@ -58,7 +58,7 @@ function route(handlers: Record<string, (args: string[]) => unknown>) {
  * completeness, and a miss then files without touching /search.)
  */
 const truncatedPrefetch = (bodies: string[] = []) =>
-  Array.from({ length: 1000 }, (_, i) => ({ number: i + 1, body: bodies[i] ?? '' }));
+  Array.from({ length: FP_PREFETCH_LIMIT }, (_, i) => ({ number: i + 1, body: bodies[i] ?? '' }));
 
 describe('rollup identity', () => {
   it('does not include the item count', () => {
@@ -182,6 +182,30 @@ describe('fingerprint prefetch', () => {
     expect(res.created).toHaveLength(1);
     expect(res.unfiled).toHaveLength(0);
     expect(ghMock.mock.calls.filter((c) => c[0].includes('--search'))).toHaveLength(0);
+  });
+
+  it('a prefetch that hit the page ceiling is truncated: logs loudly, and with /search 403 nothing is filed (fail closed)', async () => {
+    const logs: string[] = [];
+    ghMock.mockImplementation(async (args: string[]) => {
+      if (args.includes('--search')) throw new Error('GitHub REST GET /search/issues → 403');
+      if (args[1] === 'list') return { stdout: '[]', complete: false, capExhausted: true };
+      throw new Error('create must never be called');
+    });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath(), log: (m: string) => logs.push(m) });
+    expect(res.created).toHaveLength(0);
+    expect(res.unfiled).toHaveLength(1);
+    expect(logs.join(' ')).toMatch(/TRUNCATED/);
+  });
+
+  it('a prefetch past the old 1000-row cap that reaches a short page is complete — files without /search', async () => {
+    ghMock.mockImplementation(async (args: string[]) => {
+      if (args.includes('--search')) throw new Error('403');
+      if (args[1] === 'list') return { stdout: JSON.stringify(Array.from({ length: 1266 }, (_, i) => ({ number: i + 1, body: '' }))), complete: true, capExhausted: false };
+      return { stdout: 'https://github.com/x/y/issues/12' };
+    });
+    const res = await createIssues([finding({ severity: 'P1' })], { dryRun: false, fpCachePath: freshFpCachePath() });
+    expect(res.created).toHaveLength(1);
+    expect(res.unfiled).toHaveLength(0);
   });
 
   it('a failed prefetch degrades to per-finding lookups rather than filing blind', async () => {

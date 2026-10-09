@@ -39,7 +39,7 @@ const TRACKS = [
       summary:
         'A first date written as a leap of faith — dancing in a parking lot in the rain because the feeling is worth the risk.',
       inspiration:
-        'Swift said she wrote it on tour about the best first date she had not had yet — an idea of fearlessness in love rather than a specific person.',
+        'Written on tour about the best first date she had not had yet — an idea of fearlessness in love rather than a specific person.',
       themes: ['fearlessness', 'first dates', 'optimism in love'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_song)',
       sources: [
@@ -104,11 +104,11 @@ const TRACKS = [
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
       isSingle: true,
-      note: 'Freshman year in four minutes — starring her real best friend Abigail, whose heartbreak gets the most devastating line on the album.',
+      note: 'Freshman year in four minutes — starring her best friend, whose heartbreak gets the most devastating line on the album.',
       summary:
         'Advice from a slightly older self to a girl starting high school: the boy who says he loves you probably is not the whole story, and who you become matters more.',
       inspiration:
-        'Confirmed autobiography: Swift wrote it about meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them.',
+        'Autobiographical: Swift wrote it about meeting her best friend in ninth grade and the heartbreaks that followed both of them.',
       themes: ['growing up', 'friendship', 'hindsight'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
       sources: [
@@ -117,18 +117,18 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Swift's own freshman year alongside her real best friend Abigail Anderson, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Swift has said Anderson consented to the personal references before the song went on the album.",
-          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with Anderson herself."
+          "The most nakedly autobiographical song on Fearless and, for many fans, its emotional center. Written solo, it narrates Taylor's own freshman year alongside a close friend, using the vantage of a slightly older self to warn a girl starting high school that the boy who says he loves her is not yet the whole story. Taylor has said her friend consented to the personal references before the song went on the album.",
+          "Where the era's singles chase romance and crossover, \"Fifteen\" is the ballad that treats growing up itself as the subject — friendship, first heartbreak, and hindsight. Released as the album's fourth single in 2009, it became a template for the confessional, real-names-and-real-friends writing that fans would come to expect from her, and its Roman White-directed video restages those high-school memories with her friend."
         ],
         meaning: {
           confirmed: [
-            "Written solo by Swift and produced by Nathan Chapman and Swift; she has described it as a true account of meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them, and has said Anderson gave permission for the personal references.",
+            "Written solo by Taylor and produced by Nathan Chapman and Taylor; she has described it as a true account of meeting a close friend in ninth grade and the heartbreaks that followed both of them, and has said her friend gave permission for the personal references.",
             "It was released to US country radio on Aug. 31, 2009 as the fourth single from Fearless and peaked at No. 23 on the Billboard Hot 100.",
-            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring Anderson alongside Swift.",
-            "The lyric turns on Anderson's real heartbreak — a friend who gave everything to a boy who changed his mind — which Swift has repeatedly pointed to as the song's most personal and painful line."
+            "The music video was directed by Roman White and uses green-screen staging to revisit high-school scenes, featuring her friend alongside Taylor.",
+            "The lyric turns on her friend's real heartbreak — a friend who gave everything to a boy who changed his mind — which Taylor has repeatedly pointed to as the song's most personal and painful line."
           ],
           supported: [
-            "Critics have singled out \"Fifteen\" as evidence of Swift's early gift for specific, diaristic detail — naming a real friend and a real feeling rather than a generic teen archetype.",
+            "Critics have singled out \"Fifteen\" as evidence of Taylor's early gift for specific, diaristic detail — drawing on a real friend and a real feeling rather than a generic teen archetype.",
             "It became a recurring live centerpiece in her early tours, often framed as the song where she speaks directly to younger fans about the same lessons the lyric describes."
           ],
           fanTheories: [
@@ -180,7 +180,7 @@ const TRACKS = [
       summary:
         'A forbidden-romance fantasy sparked by a boy her family disapproved of, recast through Romeo and Juliet — with the tragedy swapped for a proposal.',
       inspiration:
-        'Swift confirmed it began with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
+        'Often read as beginning with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.',
       themes: ['forbidden love', 'fairy-tale rewrites', 'defiance'],
       easterEggs:
         "Love Story (Taylor's Version) was the first re-recorded song she ever released (February 2021) — the opening move of the whole Taylor's Version project.",
@@ -253,14 +253,26 @@ const TRACKS = [
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'The flirtiest track on Fearless, addressed by name to a real musician — Stephen Barker Liles of Love and Theft, who got a heads-up text from Taylor herself ("Hey, Track 4") while fans decoded the liner-note code.',
+      note: 'The flirtiest track on Fearless, addressed to a "Stephen" — fans decoded the liner-note code, and The Boot reports she later revealed the inspiration was a musician she toured with; his own account is that she told him about the song.',
       summary:
         'A confession disguised as a serenade: she lists all the girls who might like the boy, then makes her own case with a wink.',
       inspiration:
-        'Confirmed to be about Stephen Barker Liles of the band Love and Theft, who once opened for Swift; the hidden message in the booklet spelled out the giveaway.',
+        'The booklet\'s hidden message and The Boot reports she later revealed Stephen Barker Liles of Love and Theft, who opened for Swift, was the inspiration; Liles\'s own account is that she told him about the song.',
       themes: ['crushes', 'flirtation', 'shooting your shot'],
-      sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
-      sources: [wiki('Hey Stephen', 'Hey_Stephen', 'song article: subject confirmation'), ALBUM],
+      sourceUrl: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
+      sources: [
+        {
+          source_url: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
+          source_title: "Taylor Swift's 'Hey Stephen' Inspiration Returns the Favor",
+          publisher: 'The Boot',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 3,
+          notes: 'Liles\'s own account of being told about the song; reports Swift later revealed him as the inspiration',
+        },
+        wiki('Hey Stephen', 'Hey_Stephen', 'song article: background'),
+        ALBUM,
+      ],
     },
     {
       slug: 'white-horse',
@@ -375,7 +387,7 @@ const TRACKS = [
           ],
           supported: [
             "The single is generally cited as the clearest early proof of Swift's crossover pop instincts — a country-radio song built with the melodic and narrative shape of a mainstream hit.",
-            "The VMA interruption is widely treated as an origin point for the years-long Swift-West public narrative, later echoed in songs like \"Innocent\" and, more combatively, the reputation era."
+            "The VMA interruption is widely treated as an origin point for the years-long public narrative between them that carried into the reputation era."
           ],
           fanTheories: [
             "Fans have long read the girl-next-door narrator as a lightly fictionalized Swift-as-underdog persona rather than a literal account, part of the early-career self-image the Fearless songs build — the outsider watching the popular crowd from the bleachers."
@@ -436,6 +448,49 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Fearless duet with a guest writer. Rolling Stone's making-of feature reported that Colbie Caillat, whose 2007 hit 'Bubbly' was a sonic reference point for Swift and producer Nathan Chapman, ended up co-writing and guesting on 'Breathe.' Rolling Stone's October 2, 2008 album preview likewise noted Caillat sings on it.",
+          "Rolling Stone's review of the re-recording said Swift brought Caillat back to redo her backing vocals on 'Breathe' for Fearless (Taylor's Version)."
+        ],
+        meaning: {
+          confirmed: [
+            "In a Billboard Q&A published March 26, 2008, while Fearless was still being made, Swift said she had recorded six songs, 'including one that I wrote with Colbie Caillat, that she's going to throw some harmonies on, which I can't even wait to hear.' She did not name the song in that answer; Rolling Stone's later reporting identifies Caillat as co-writer and guest on 'Breathe.'"
+          ],
+          supported: [
+            "Rolling Stone's making-of feature quotes mixer Justin Niebank on why 'Bubbly' mattered to the sessions: a certain honesty and commitment to keeping the arrangements simple, an 'honest person sitting in a room surrounded by musicians.' That is a collaborator's account of the album's sound, not a statement about this song's subject."
+          ]
+        },
+        live: [
+          {
+            date: "June 10, 2023",
+            event: "The Eras Tour, Detroit (Ford Field)",
+            note: "Billboard's surprise-song list says Swift played it at the piano that night, jumping back to the Fearless era."
+          }
+        ],
+        sources: [
+          {
+            name: "The Billboard Q&A: Taylor Swift - Billboard",
+            url: "https://www.billboard.com/music/music-news/the-billboard-qa-taylor-swift-1046063/"
+          },
+          {
+            name: "Taylor Swift's 'Fearless': How She Made Her Pop Breakthrough - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-fearless-album-making-1126978/"
+          },
+          {
+            name: "Fall Music Preview: Taylor Swift's 'Fearless' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/fall-music-preview-taylor-swifts-fearless-242318/"
+          },
+          {
+            name: "Taylor Swift Carefully Reimagines Her Past on 'Fearless: Taylor's Version' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-fearless-taylors-version-1153454/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'tell-me-why',
@@ -479,7 +534,7 @@ const TRACKS = [
       summary:
         'She stops accepting the same apology on repeat; the piano ballad is the sound of someone finally hanging up.',
       inspiration:
-        'Swift said it was written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
+        'Often read as written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance.',
       themes: ['broken trust', 'boundaries', 'finality'],
       sourceUrl: "https://en.wikipedia.org/wiki/You're_Not_Sorry",
       sources: [
@@ -559,13 +614,76 @@ const TRACKS = [
       summary:
         'A perfect-on-paper relationship that feels like nothing, held against a chaotic past love that felt like everything: the album’s case that intensity beats comfort.',
       inspiration:
-        'Swift said she wanted to capture wanting the frustrating, passionate love while dating its calm opposite; Rich helped frame the two-boys contrast.',
+        'Written to capture wanting the frustrating, passionate love while dating its calm opposite; Rich helped frame the two-boys contrast.',
       themes: ['passion versus comfort', 'nostalgia', 'self-sabotage'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
       sources: [
         wiki('The Way I Loved You', 'The_Way_I_Loved_You', 'song article: co-writing background'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "A Fearless deep cut that fans never let go of. It debuted and peaked at No. 72 on the Hot 100 and went gold, and when Fearless (Taylor's Version) arrived in April 2021 the re-recording charted too, reaching No. 94 on the Hot 100 and No. 24 on Hot Country Songs (chart facts as summarized in its Wikipedia entry). It was part of the regular set on her first headlining tour.",
+          "What gives it staying power is its premise, which Swift supplied herself: a relationship with a perfectly nice, punctual, door-opening guy where you feel nothing, because the whole time you are thinking about the one who was complicated, messy and frustrating. She brought that idea to the writing session with John Rich."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 10 of Fearless (released November 11, 2008 on Big Machine Records), co-written by Swift and country songwriter John Rich, per Gigwise's retrospective.",
+            "Swift described the concept in her own words, as quoted by Gigwise: 'I got this idea for a song about being in a relationship with a nice guy who is punctual and opens up the door for you and brings you flowers... but you feel nothing. The whole time you're with him, you're thinking about the guy who was complicated and messy and frustrating.'",
+            "Gigwise reports that Swift sought Rich out for a co-writing session and that the song began as a concept she had before the session."
+          ],
+          supported: [
+            "Gigwise hears the song's structure as mirroring its idea: the verses, about the drama-free partner, are softer, while the chorus is full of tension and is 'dominating and addictive.'",
+            "Per its Wikipedia entry, the verses are led by a string quartet and a marching snare that, as Swift described, makes the new boyfriend seem stiff, while distorted electric guitars carry the rest of the song, including the chorus where she remembers the old relationship. Slant's Jonathan Keefe pointed to a nearly a cappella bridge.",
+            "Several critics hear a turning point in her storytelling: iHeartRadio's Emily Lee felt it was the first Swift song with a fictional narrative. Its details also anticipate later habits: cars, faked smiles and kissing in the rain all recur across her catalog, as the Wikipedia article notes."
+          ]
+        },
+        live: [
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "It was on the regular set list of her first headlining tour, per Wikipedia."
+          },
+          {
+            date: "May 24, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "She played it as part of a mashup with 'Come Back... Be Here' and 'The Other Side of the Door', per the song's Wikipedia article."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:come-back-be-here",
+            label: "Come Back... Be Here",
+            why: "Swift folded the two together with this song in a single Eras Tour mashup in Lisbon, pairing a Fearless song with one from Red."
+          },
+          {
+            relatedId: "song:the-other-side-of-the-door",
+            label: "The Other Side of the Door",
+            why: "The third piece of that same Lisbon mashup, and a Fearless sibling of this song."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Describing the song's idea, as quoted by Gigwise",
+            note: "She described a relationship with a punctual, flower-bringing nice guy where 'you feel nothing' because you are thinking about 'the guy who was complicated and messy and frustrating.'"
+          }
+        ],
+        sources: [
+          {
+            name: "The Story Of Us: 'The Way I Loved You' - Gigwise",
+            url: "https://www.gigwise.com/features/3399592/the-story-of-us-the-way-i-loved-you/"
+          },
+          {
+            name: "The Way I Loved You - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You"
+          },
+          {
+            name: "The Way I Loved You by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-way-i-loved-you"
+          }
+        ]
+      },
     },
     {
       slug: 'forever-and-always',
@@ -580,13 +698,54 @@ const TRACKS = [
       summary:
         'A promise of forever revoked in real time: she replays the moment someone’s feelings changed and demands to know where the person she knew went.',
       inspiration:
-        'Confirmed to be about Joe Jonas — Swift said she added it late in production after the breakup, and famously described the 27-second phone call on Ellen.',
+        'Reportedly added late in production after a breakup, with a very short phone call that ended it described as the trigger.',
       themes: ['broken promises', 'whiplash heartbreak', 'anger'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Forever_%26_Always',
       sources: [
         wiki('Forever & Always', 'Forever_%26_Always', 'song article: late addition and subject'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "One of the last songs added to Fearless. The Los Angeles Times reported in October 2008 that Swift had recorded it the day before she told a visiting reporter about it (\"You have to hear the song we just recorded yesterday!\"), and that she pleaded with her label head, Scott Borchetta, to let her add it a day before the final version of the album was due.",
+          "It is also an early example of a Swift song that changes temperature as it goes. She told the Times it begins with a pretty, easy-to-sing-along melody and ends with her 'basically screaming it because I'm so mad,' and added, 'I'm really proud of that.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told the Los Angeles Times the song is about watching somebody fade away in a relationship: they said they would be with you forever and that they loved you, then something changed and you can't tell what it is, and you watch them slowly drift.",
+            "She said that emotion of rejection usually starts out sad and then gets mad, and that the song is built to follow that arc from sad to angry.",
+            "The lyric sheet in the original Fearless booklet hides an acrostic message, which Rolling Stone's November 2008 review quoted as 'If you play these games, we're both going to lose.'"
+          ],
+          supported: [
+            "Rolling Stone's review offered the hidden message as an example of Fearless feeling ripped from a suburban girl's diary, and read it as aimed at a particular person. That is the reviewer's inference; Swift's own account to the Times names no one.",
+            "Billboard's chart report in November 2009 noted the song appears in a redone version on the Platinum Edition of Fearless, and that it re-entered the Hot 100 at No. 34 in the chart week it covered."
+          ],
+          fanTheories: [
+            "Fans and some outlets have long attached the song to a specific public relationship. Swift's own account in the Los Angeles Times names no one, and this guide does not either."
+          ]
+        },
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Speaking to the Los Angeles Times, October 2008",
+            note: "She said she cares more about getting the feeling across than about perfect phrasing: 'the writer in me' is 'a little more obsessed with the meaning of the song than the vocal technique.'"
+          }
+        ],
+        sources: [
+          {
+            name: "She's writing her future - Los Angeles Times",
+            url: "https://www.latimes.com/archives/la-xpm-2008-oct-26-ca-swift26-story.html"
+          },
+          {
+            name: "Taylor Swift \"Fearless\" Album Review - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/fearless-252671/"
+          },
+          {
+            name: "DeRulo Tops Hot 100, But Swift Swoops In With Record-Breaking Debut Sum - Billboard",
+            url: "https://www.billboard.com/music/music-news/derulo-tops-hot-100-but-swift-swoops-in-with-record-breaking-debut-sum-266815/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-best-day',
@@ -601,7 +760,7 @@ const TRACKS = [
       summary:
         'A thank-you letter to her mother (with a verse for her dad and brother): the parent who drove her away from the mean girls and never said anything but kind words.',
       inspiration:
-        'Confirmed: Swift wrote it for Andrea Swift and kept it secret until it was finished, premiering it with a home-video montage.',
+        'Written for Andrea Swift and kept secret until it was finished, premiering with a home-video montage.',
       themes: ['family', 'gratitude', 'childhood memory'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)',
       sources: [
@@ -715,7 +874,7 @@ const TRACKS = [
       summary:
         'A fight song about believing the scrappy operation you belong to will win someday — the closing promise that these walls will come down.',
       inspiration:
-        'Swift confirmed it was inspired by being on Big Machine, then a startup label competing against giants; its Olympics placement made it the album’s advance single.',
+        'Reportedly inspired by being on Big Machine, then a startup label competing against giants; its Olympics placement made it the album’s advance single.',
       themes: ['underdogs', 'perseverance', 'victory'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)',
       sources: [
@@ -888,6 +1047,37 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "Billboard's February 5, 2010 review called it a new song written for the film Valentine's Day, arriving on the heels of Fearless winning album of the year at the Grammys, and noted its lyrics lean on sweeping emotion rather than the specific, youth-focused imagery of singles like 'Fifteen' and 'You Belong With Me.'",
+          "Billboard's Eras Tour surprise-song list reports Swift played it at the piano on the second of three Houston shows in April 2023, with a dedication to the crowd."
+        ],
+        meaning: {
+          confirmed: [
+            "Before playing it at the second Houston Eras Tour show, Swift told the crowd, 'You make every day on this tour feel like a fairytale,' as quoted by Billboard. She also said, Billboard reported, that the tour had basically become her 'entire personality.'"
+          ],
+          supported: [
+            "Billboard's reviewer heard 'growing maturity' in her vocals and framed the song as one that could help her reach an even broader audience. That is the reviewer's assessment."
+          ]
+        },
+        live: [
+          {
+            date: "April 22, 2023",
+            event: "The Eras Tour, Houston (NRG Stadium)",
+            note: "Billboard lists it as a piano surprise song, noting it was originally on the soundtrack of the 2010 film Valentine's Day."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift, \"Today Was a Fairytale\" - Billboard",
+            url: "https://www.billboard.com/articles/review/1069774/taylor-swift-today-was-a-fairytale"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'you-all-over-me',
@@ -911,6 +1101,69 @@ const TRACKS = [
         wiki('You All Over Me', 'You_All_Over_Me', 'song article: vault release details'),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "The first previously unheard 'From the Vault' song Swift released, ahead of Fearless (Taylor's Version). Rolling Stone and Billboard both reported it arrived at midnight on March 26, 2021, with Maren Morris on backing vocals, following Swift's fully remade 'Love Story'. Swift announced it on Twitter the Wednesday before and teased a snippet on Good Morning America on Thursday morning.",
+          "It also set the template for the vault releases: new songs written in the original era, finished with a current-day collaborator. Billboard reported the song was dreamed up during sessions for the 2008 Fearless album and that it was one of six never-before-released songs on the re-recording."
+        ],
+        meaning: {
+          confirmed: [
+            "Announcing it, Swift tweeted (as quoted by Rolling Stone) that one thing she was loving about the From the Vault songs is that they have never been heard, so she can experiment, play, and even include some of her favorite artists, and that she was excited to have Maren Morris singing background vocals on this one."
+          ],
+          supported: [
+            "Rolling Stone and Billboard both report it was produced by Aaron Dessner and written by Swift with Scooter Carusoe.",
+            "Rolling Stone described it as a mid-tempo, melancholy song about the struggle to move on after a relationship ends, with Morris on the lower harmonies. That is the outlet's description of the song, not a statement from Swift about its subject.",
+            "Billboard noted it was the first recorded collaboration between Swift and Morris, though far from their first interaction."
+          ],
+          fanTheories: [
+            "Because the song dates from the original Fearless era, fans tend to read it against Swift's teenage relationships. None of the sources cited here has Swift naming anyone, and this guide does not either."
+          ]
+        },
+        live: [
+          {
+            date: "June 3, 2023",
+            event: "The Eras Tour, Chicago",
+            note: "Taste of Country reported that Morris joined Swift for a surprise live performance of the song, each playing an acoustic guitar. Swift told the crowd the two had not shared a stage since the Reputation Tour."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:mr-perfectly-fine",
+            label: "Mr. Perfectly Fine",
+            why: "The next From the Vault song Swift released ahead of the album, on April 7, 2021."
+          },
+          {
+            relatedId: "song:thats-when",
+            label: "That's When",
+            why: "The vault duet with Keith Urban; Rolling Stone's April 9 piece on that track notes the album's other vault collaboration is this one, with Morris."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Introducing Morris onstage in Chicago, June 2023, as reported by Taste of Country",
+            note: "She called Morris one of her favorite artists and said everything she does is 'so thoughtful, and so brilliant.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Hear Taylor Swift's 'You All Over Me' With Maren Morris - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-you-all-over-me-maren-morris-1146967/"
+          },
+          {
+            name: "Taylor Swift Releases 'You All Over Me (From the Vault)': Stream It Now - Billboard",
+            url: "https://www.billboard.com/music/country/taylor-swift-you-all-over-me-from-the-vault-stream-maren-morris-9546651/"
+          },
+          {
+            name: "A Timeline of Taylor Swift & Maren Morris' Friendship - Billboard",
+            url: "https://www.billboard.com/music/country/taylor-swift-maren-morris-timeline-9546540/"
+          },
+          {
+            name: "WATCH: Maren Morris Joins Taylor Swift For a Surprise Onstage Duet in Chicago - Taste of Country",
+            url: "https://tasteofcountry.com/maren-morris-taylor-swift-you-all-over-me-chicago/"
+          }
+        ]
+      },
     },
     {
       slug: 'mr-perfectly-fine',
@@ -927,10 +1180,10 @@ const TRACKS = [
       summary:
         'A catalog of a casually cruel ex’s personas, from charming to checked-out — teenage Swift already perfecting the receipts-song format.',
       inspiration:
-        'Written in the Fearless era and shelved until 2021; fans widely time-stamp it to the Joe Jonas breakup (unconfirmed), and Sophie Turner’s playful public endorsement of the song became part of its story.',
+        'Written in the Fearless era and shelved until 2021; Swift has not named the song’s subject.',
       themes: ['double standards in moving on', 'wit as armor', 'receipts'],
       fanLore:
-        'Fan reading (unconfirmed): the Jonas-era timing; Turner posting the song with a wink is the documented moment fans cite.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
       sources: [
         wiki(
@@ -940,6 +1193,62 @@ const TRACKS = [
         ),
         TV,
       ],
+      dossier: {
+        whyItMatters: [
+          "A vault song from the Fearless re-recording, and the second 'From the Vault' track released ahead of the album. CNN reported Swift surprise-released it on April 7, 2021, ahead of the Friday debut of Fearless (Taylor's Version); Billboard noted the only earlier vault release was 'You All Over Me' with Maren Morris.",
+          "The rollout was a game. Variety reported that Swift first teased the vault titles as scrambled anagrams, then posted the full track list after fans cracked the codes, writing 'You cracked the codes and guessed all the From The Vault titles.'"
+        ],
+        meaning: {
+          confirmed: [
+            "Announcing the song on Twitter, Swift joked about two eras at once: in 2020 she was writing songs based in fiction to avoid drama and feeling pretty grown up, while her '2008 music from the vault' was demanding to be released. That dates the song to the Fearless era in her own words.",
+            "Swift released it on Wednesday, April 7, 2021, per Billboard, with the full album due that Friday."
+          ],
+          supported: [
+            "Billboard heard it as a classic Fearless-era tale of romantic woe, coming after the character-driven folklore and evermore: the narrator runs through the epithets for a man who says the right things at the right time before changing his mind. That is the outlet's description, not an account of the song's subject."
+          ],
+          fanTheories: [
+            "Fans have long attached the song to a specific teenage-era relationship. Swift has not named anyone in the sources cited here, and this guide does not either."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:you-all-over-me",
+            label: "You All Over Me",
+            why: "Billboard noted this was the first 'From the Vault' song released, with Maren Morris on background vocals, before Swift surprise-released this one."
+          },
+          {
+            relatedId: "song:thats-when",
+            label: "That's When",
+            why: "Variety confirmed Keith Urban is a full duet partner on this vault track from the same release."
+          },
+          {
+            relatedId: "song:we-were-happy",
+            label: "We Were Happy",
+            why: "Variety confirmed Urban also contributes harmonies to this vault track."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Announcing the song on Twitter, April 7, 2021, as quoted by Billboard",
+            note: "She joked that her 2020 self was writing fiction to avoid drama while her 2008 vault music demanded release."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Kisses Off 'Mr. Perfectly Fine' in Latest 'From the Vault' Release: Listen - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-mr-perfectly-fine-9552574/"
+          },
+          {
+            name: "Taylor Swift surprise releases second 'From the Vault' song, 'Mr. Perfectly Fine' - CNN",
+            url: "https://www.cnn.com/2021/04/07/entertainment/taylor-swift-surprise-song/index.html"
+          },
+          {
+            name: "Taylor Swift Reveals Track List for 'Fearless (Taylor's Version)'; Keith Urban Delighted to 'Join the Band' - Variety",
+            url: "https://variety.com/2021/music/news/taylor-swift-fearless-bonus-track-titles-anagrams-1234943302/"
+          }
+        ]
+      },
     },
     {
       slug: 'we-were-happy',
@@ -973,10 +1282,58 @@ const TRACKS = [
       summary:
         'Two people who asked for space negotiate the way back: he asks when he can return, she answers with every when she has.',
       inspiration:
-        'Recorded with Keith Urban for the vault; Urban had been an opener on the Speak Now tour, closing an old loop.',
+        'Recorded with Keith Urban for the vault; Swift was Urban\'s opening act during the Fearless era, closing an old loop.',
       themes: ['reconciliation', 'forgiveness', 'timing'],
       sourceUrl: "https://en.wikipedia.org/wiki/That's_When",
       sources: [wiki("That's When", "That's_When", 'song article: Urban collaboration'), TV],
+      dossier: {
+        whyItMatters: [
+          "Variety called Keith Urban a full-on duet partner on this vault track, and Rolling Stone described the structure as a conversation: Swift sings the first verse and chorus, Urban arrives for the second verse, and they harmonize together on the chorus. Urban also sings harmonies on 'We Were Happy'.",
+          "Rolling Stone reported Swift wrote it early in her career with the sibling songwriting duo the Warren Brothers, and co-produced the new recording with Jack Antonoff."
+        ],
+        meaning: {
+          confirmed: [
+            "Revealing the track list on Twitter on April 3, 2021, Swift said she was honored that Urban was part of the project, duetting on 'That's When' and singing harmonies on 'We Were Happy.' She said she was his opening act during the Fearless album era and that his music has inspired her endlessly. Both Rolling Stone and Variety quote the post."
+          ],
+          supported: [
+            "Rolling Stone's April 3 report said the track was originally written during the sessions for the 2008 Fearless album.",
+            "Rolling Stone's April 9 review of the release called it an introspective retelling of a romance at the brink. That is the outlet's description of the song, not a statement from Swift about its subject."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:we-were-happy",
+            label: "We Were Happy",
+            why: "Urban's other appearance on the album: Rolling Stone and Variety both report he sings harmonies on that vault track."
+          },
+          {
+            relatedId: "song:you-all-over-me",
+            label: "You All Over Me",
+            why: "The other vault track built around a country guest, with Maren Morris on backing vocals; Rolling Stone's April 9 review mentions the two together."
+          }
+        ],
+        voices: [
+          {
+            who: "Keith Urban",
+            context: "Tweeting about the news, as quoted by Variety, April 2021",
+            note: "He wrote that Jack Antonoff and Aaron Dessner asked if he would join their band and he said 'hell yes,' and that he and Swift 'got to sing together and were so happy.'"
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/"
+          },
+          {
+            name: "Taylor Swift Duets With Keith Urban on 'From the Vault' Track 'That's When' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-country/taylor-swift-fearless-keith-urban-thats-when-1153656/"
+          },
+          {
+            name: "Taylor Swift Reveals Track List for 'Fearless (Taylor's Version)'; Keith Urban Delighted to 'Join the Band' - Variety",
+            url: "https://variety.com/2021/music/news/taylor-swift-fearless-bonus-track-titles-anagrams-1234943302/"
+          }
+        ]
+      },
     },
     {
       slug: 'dont-you',

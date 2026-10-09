@@ -9,6 +9,7 @@
 //   --apply               CI (build-web): copy the frozen baked modules and bundle over
 //                         apps/web, then verify. Run after `npm run sync:content`, then
 //                         `next build` directly (NOT `npm run build`: its prebuild re-syncs).
+//   --lenses              CI (build-dom): copy only the frozen lenses module over packages/experience.
 //   --regenerate          deliberate, manual or dispatch only: freeze the LIVE synced tree
 //                         (after `npm run sync:content`) into scripts/parity/fixture/, prune it
 //                         (below) and write fixture.json. CI never runs this.
@@ -17,7 +18,8 @@
 //                         current era and the fixed item's era), in BOTH the bundle and the baked
 //                         modules, and renames the hash-named content dir to `frozen`.
 //
-// fixture.json = { bundleVersion, hash, itemId }; itemId is the moment-detail route.
+// fixture.json = { bundleVersion, hash, lensesSha256, itemId }; itemId is the moment-detail route,
+// lensesSha256 is the sha256 (LF-normalised) of the frozen experience/lenses.generated.ts.
 import { createHash } from 'node:crypto';
 import {
   cpSync,
@@ -36,6 +38,9 @@ const fixtureDir = join(repo, 'scripts/parity/fixture');
 const published = join(repo, 'apps/web/public/content');
 const longlive = join(repo, 'apps/web/lib/longlive');
 const web = pathToFileURL(longlive) + '/';
+const experienceSrc = join(repo, 'packages/experience/src');
+/** Frozen lens data (packages/experience), copied by --apply and --lenses so supabase/seed/lenses/** cannot move baselines. */
+const LENSES = 'lenses.generated.ts';
 
 /** Baked modules the snapshot (and so both rendered sides) is built from. */
 const BAKED = [
@@ -63,9 +68,27 @@ const PER_ERA = { tracks: 'tracks', theories: 'theories', videos: 'videos', eraS
 const ALIAS = 'frozen';
 
 const mode = process.argv[2] ?? '--check';
-if (!['--check', '--apply', '--regenerate', '--prune'].includes(mode)) {
+if (
+  !['--check', '--apply', '--lenses', '--regenerate', '--prune', '--verify-lenses'].includes(mode)
+) {
   console.error(`parity fixture: unknown mode ${mode}`);
   process.exit(2);
+}
+
+if (mode === '--verify-lenses') {
+  const got = createHash('sha256')
+    .update(readFileSync(join(experienceSrc, LENSES), 'utf-8').replaceAll('\r\n', '\n'))
+    .digest('hex');
+  const want = JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8')).lensesSha256;
+  if (got !== want) {
+    console.error(
+      `parity fixture: packages/experience/src/${LENSES} (${got.slice(0, 12)}) != fixture.json lensesSha256 (${String(want).slice(0, 12)}); ` +
+        `a build step regenerated the lens data after the freeze`,
+    );
+    process.exit(1);
+  }
+  console.log('parity fixture: live lenses match the frozen snapshot');
+  process.exit(0);
 }
 
 const FIXED_ITEM_ID =
@@ -155,6 +178,11 @@ function pruneFixture() {
   }
 }
 
+if (mode === '--lenses') {
+  cpSync(join(fixtureDir, 'experience', LENSES), join(experienceSrc, LENSES));
+  console.log('parity fixture: lenses applied');
+  process.exit(0);
+}
 if (mode === '--regenerate') {
   rmSync(fixtureDir, { recursive: true, force: true });
   mkdirSync(join(fixtureDir, 'web'), { recursive: true });
@@ -164,10 +192,13 @@ if (mode === '--regenerate') {
   });
   cpSync(join(published, 'current.json'), join(fixtureDir, 'content', 'current.json'));
   for (const f of BAKED) cpSync(join(longlive, f), join(fixtureDir, 'web', f));
+  mkdirSync(join(fixtureDir, 'experience'), { recursive: true });
+  cpSync(join(experienceSrc, LENSES), join(fixtureDir, 'experience', LENSES));
 }
 if (writing) pruneFixture();
 if (mode === '--apply' || writing) {
   for (const f of BAKED) cpSync(join(fixtureDir, 'web', f), join(longlive, f));
+  cpSync(join(fixtureDir, 'experience', LENSES), join(experienceSrc, LENSES));
   rmSync(published, { recursive: true, force: true });
   cpSync(join(fixtureDir, 'content'), published, { recursive: true });
 }
@@ -234,16 +265,27 @@ if (
   process.exit(1);
 }
 
+const lensesSha256 = createHash('sha256')
+  .update(readFileSync(join(fixtureDir, 'experience', LENSES), 'utf-8').replaceAll('\r\n', '\n'))
+  .digest('hex');
+
 if (writing) {
   writeFileSync(
     join(fixtureDir, 'fixture.json'),
-    JSON.stringify({ bundleVersion, hash, itemId: FIXED_ITEM_ID }, null, 2) + '\n',
+    JSON.stringify({ bundleVersion, hash, lensesSha256, itemId: FIXED_ITEM_ID }, null, 2) + '\n',
   );
   console.log(
     `parity fixture: ${mode.slice(2).toUpperCase()} ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)} item ${FIXED_ITEM_ID}`,
   );
 } else {
   const committed = JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8'));
+  if (committed.lensesSha256 !== lensesSha256) {
+    console.error(
+      `parity fixture: frozen ${LENSES} (${lensesSha256.slice(0, 12)}) != fixture.json lensesSha256 (${String(committed.lensesSha256).slice(0, 12)}); ` +
+        `the frozen lens module was edited or is stale - regenerate deliberately (docs/one-ui/parity.md)`,
+    );
+    process.exit(1);
+  }
   if (committed.hash !== hash || committed.bundleVersion !== bundleVersion) {
     console.error(
       `parity fixture: committed fixture.json (${committed.hash.slice(0, 12)}) != computed ${hash.slice(0, 12)}; ` +

@@ -71,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (29 automatic + 10 manual)
+## Tier 1 — GitHub Actions (30 automatic + 10 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -89,6 +89,14 @@ counts are `automatic + manual`.
 `auto-merge-content.yml` is the single most load-bearing workflow here: it is
 why desk routines can open a PR and exit instead of babysitting it (which was
 ~69% of all agent token spend before 2026-07-25).
+
+### Routine failure triage (1)
+
+| Workflow | Trigger | LLM | Mutates | Docs |
+|---|---|---|---|---|
+| [`bot-failure-triage.yml`](../.github/workflows/bot-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
+
+Logic in `scripts/marjorie/routine-failure-triage.mjs`. Skipped, no issue: a cancelled run that is not a timeout, and a failed run in which EVERY failed job's annotation says the Claude plan usage limit is exhausted, and only while the parsed reset time is still ahead or within 15 minutes behind (a passed reset, no parseable reset, an unreadable annotation or any other failed job files as normal) (transient; the next scheduled run recovers; `reason: 'usage-limit'`, a `::warning::` names the run URL and reset time). The escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 
 ### Watchdogs and freshness (5)
 
@@ -208,7 +216,7 @@ workflow — see its row in the Tier 2 table below.
 | [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
 | [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
 | [`community-awareness-scan.yml`](../.github/workflows/community-awareness-scan.yml) | every 20 minutes (minutes 7, 27, 47; jittered) | no | awareness image-reply lane discovery: many tiny anonymous runs, 2 RSS requests each, rotating through per-sub hot+new and search feeds from `scripts/community/awareness-subs.json` (cursor + 429 cooldowns in `awareness_source_state`; never a Reddit API key) → filters → `engagement_lead(kind='awareness_reply', status='new')` with a validated share-card `image_ref`; kill switch repo variable `AWARENESS_LANE_ENABLED=false` | owner direction 2026-10-01 |
-| [`community-awareness-deliver.yml`](../.github/workflows/community-awareness-deliver.yml) | after each `routine-awareness-answerer` success (every 3 hours) | no | picks ≤5 drafted awareness leads (≤3 per sub/day, 4 for r/TaylorSwift and r/swifties, ≤15/day), posts one Discord message each with the share-card PNG attached (multipart), header "🎯 Awareness replies — N today", marks them `delivered`; the owner posts every reply | owner direction 2026-10-01 |
+| [`community-awareness-deliver.yml`](../.github/workflows/community-awareness-deliver.yml) | after each `routine-awareness-answerer` success (every 3 hours) | no | picks ≤5 drafted awareness leads (≤3 per sub/day, 4 for r/TaylorSwift and r/swifties, ≤15/day), posts two Discord messages each (the bare thread link + Posted/Skip, then the reply text alone; no batch header), marks them `delivered`; the owner posts every reply. Replies are **text-only by default** — the share-card PNG is attached to the first message only when the drafting step set an `image_ref` for that lead AND the sub allows image comments (#4767) | owner direction 2026-10-01; text-only default #4767 |
 | [`theory-miner.yml`](../.github/workflows/theory-miner.yml) | daily 08:20 UTC (after `community-crawl.yml`) | yes (Haiku 4.5 extract, `apps/worker/src/extract/theory-haiku-client.ts`'s forced `record_fan_theories` tool) | downloads the latest successful `community-crawl.yml` run's transient artifact (`gh run download`, since this is a separately scheduled workflow, not a `workflow_run` trigger); one Haiku call per post+comment bundle; every theory screened (`screenTopic()`) before `fan_theory_candidate` upsert, deduped by `theory_key`; a redline hit is never stored at all (no "written but unservable" state, unlike `current_item`/`fan_signal`); has nothing to mine while `COMMUNITY_CRAWL_ENABLED` stays off, which is a clean no-op, not a failure | P2-2 (landed) |
 | [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true, carries `track_slug` — added by P2-6, see below); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
 | [`theory-weaving-intake.yml`](../.github/workflows/theory-weaving-intake.yml) | weekly, Sunday 09:52 UTC (after `theory-promote.yml`) | no (deterministic — reads `live_theory`, no model call) | reads `live_theory` rows `origin='fan'`, `persistent=true`, `track_slug is not null`, not `debunked`, `mention_count >= 8` (a higher bar than P2-3's own `mention_count >= 3` promotion floor — see the script's header for why); files one `intake`-labeled GitHub issue per not-already-filed theory (fingerprint-deduped the same fail-closed way as `appearance-discovery`) pointing Content Shift at `docs/content-ops/theory-weaving.md`'s mainstream-coverage sourcing bar — a LEAD, never a song-page edit; degrades to a clean no-op when `SUPABASE_*` are unset | P2-6 (landed) |
@@ -229,6 +237,20 @@ Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
 run ledgers, private comment files, and the persistent Chrome profile
 all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
+
+Run guards (#4870, #4879): before collecting, the export runs `git rev-parse
+--abbrev-ref HEAD` and `git status --porcelain -- scripts/knowledge
+scripts/community` in the checkout it was launched from, and refuses (printing
+the reason as its summary, exit 1) unless that checkout is on `main` and clean
+there, because the unattended run must execute reviewed `main` code. The upload
+is retried once; a group whose upload still fails stays ledgered `ingested`
+with its kept file so the next run uploads it without re-ingesting. A GitHub
+lookup or comment failure is a warning appended to the summary, which always
+prints; `ok` is false whenever any warning occurs. A refusal is also posted as a
+best-effort comment on the weekly issue, and `fb-export-task.ps1` appends every
+scheduled run's output with a timestamp to `%LOCALAPPDATA%longlive-fbb-export.log`.
+The week ledger is read strictly: only a missing file is an empty ledger; any
+other read error or corrupt JSON aborts the run (exit 1) before any write.
 
 Facebook export runbook (extension collector, 2026-09-30). The run starts a
 local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
@@ -370,6 +392,7 @@ designed every-other-day cadence. See
 | Kevin — S3 eng triage | daily 15:43 | Sonnet 5 | [`kevin.md`](kevin.md) |
 | Kevin — S3 comment radar | 01:23 + 13:23 | Haiku 4.5 | [`kevin.md`](kevin.md) |
 | Austin — build runs | daily 21:00 | Opus 4.8 (2-week trial 2026-08-31→2026-09-14; was Fable 5) | [`agents/austin.md`](agents/austin.md) |
+| ops-fixer — fixes routed bot/automation problems and lands its own PR (dispatch-only, one run per routed issue, max 80 turns) | on dispatch by Marjorie | Opus 5 (`claude-opus-5`) | [`agents/ops-fixer.md`](agents/ops-fixer.md) |
 
 ### Founder-facing and social planning
 
@@ -412,6 +435,39 @@ It has **no watchdog** — top recommendation of the 2026-08-31 review
 ([REC-1](automation/review-2026-08-31.md#rec-1)).
 
 ---
+
+## Issue sweeper (backlog cleanup, Tier 1)
+
+[`issue-sweeper.yml`](../.github/workflows/issue-sweeper.yml) runs daily 09:17
+UTC (plus manual dispatch, `dry_run` defaults true) and runs
+`scripts/ops/issue-sweeper.mjs --apply`. It **closes, never deletes**,
+machine-filed issues that rules prove stale; no LLM. Founder-approved
+2026-10-08. Rules live in `scripts/ops/lib/issue-sweeper-rules.mjs`:
+
+1. **supersede-report**: genuine recurring reports only (label AND title
+   pattern): Kevin Review Radar, Kevin Daily Review, Kevin Eng Triage,
+   news-triage recall checks, Paul Blart security patrols. Keep the newest per
+   kind. Real findings labelled `routine-audit`/`automation-review` are never touched.
+2. **intake-ttl**: `intake` issues titled `intake:` with no activity for 14+
+   days; skipped if also `bug`, `desk:*` or `marjorie-filed`.
+3. **watchdog-recovered**: `watchdog-alert` whose workflow's latest completed
+   run is green and newer than the alert.
+4. **cie-duplicate**: `cie` + `cie:P1`/`cie:P2` duplicates by quoted page name;
+   newest kept.
+
+**Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
+`sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
+`founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
+`status-page`, `weekly-plan`; no open PR title/body mentions it as `#n` (any mention protects it).
+Newest-of-kind is chosen across ALL open issues before the guard; `--apply`
+only runs from `main`, and the sweeper aborts if a list hits its 1000 limit. Max 150
+closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
+writes `.scratch/issue-sweeper-plan.json`.
+
+**To reopen:** every close comment names its rule; reopen the issue
+(`gh issue reopen <n>`). The sweeper only looks at open issues, so a reopened
+issue is evaluated again by the rules on the next run; add a guard label such as
+`hold` if it should stay open.
 
 ## Adding a new routine — the checklist
 

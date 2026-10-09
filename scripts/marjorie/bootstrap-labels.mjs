@@ -47,6 +47,10 @@ export const LABELS = [
     description,
   ]),
 
+  ['desk:ops-fix', '5319E7', 'Routed to the ops-fixer routine (docs/agents/ops-fixer.md) — workflows, scripts, configs, prompts'],
+  ['ops-fix:dispatched', 'C5DEF5', 'The ops-fixer has been dispatched for this issue — the sweep will not dispatch it again'],
+  ['ops-fix:stuck', 'D93F0B', 'The ops-fixer failed twice or hit a rail — a paste-ready prompt is on the issue'],
+
   // Splits `needs-human-review`, which currently means two opposite things
   // (docs/decisions.md 2026-08-11). Austin applies it when Codex DISAGREED and
   // the disagreement stands; Content Shift applies it when Codex was merely
@@ -101,6 +105,7 @@ export const LABELS = [
   // Bots v2 W5 (docs/plans/bots-v2/PLAN.md): the weekly growth review's plan
   // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
   ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
+  ['routine-failure', 'B60205', 'A routine workflow run failed — auto-filed by bot-failure-triage.yml for Marjorie'],
   ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
   // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
   ...LOOP_LABELS,

@@ -23,6 +23,12 @@ import {
   writeSqlite,
 } from './sync-awin-feeds.mjs';
 
+const drainFeed = vi.fn(async (_path: string, _feedId: string, batches: AsyncIterable<unknown[]>) => {
+  let rows = 0;
+  for await (const batch of batches) rows += batch.length;
+  return rows;
+});
+
 const EMPTY_DIRECTORY = 'feed id,last imported,url,advertiser id\n';
 const CURRENT_DIRECTORY =
   'feed id,last imported,url,advertiser id\ncurrent,2026-08-30,https://feeds.example/current.csv,100';
@@ -258,6 +264,7 @@ describe('E0 Awin sync', () => {
             apiKey: 'test',
             fetchImpl,
             writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
           }),
         ).rejects.toThrow('download failed');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
@@ -270,6 +277,7 @@ describe('E0 Awin sync', () => {
           apiKey: 'test',
           fetchImpl,
           writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
         });
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
           feeds: { retained: '2026-08-29' },
@@ -287,12 +295,12 @@ describe('E0 Awin sync', () => {
         const writeSqliteImpl = vi.fn().mockRejectedValue(new Error('index write failed'));
 
         await expect(
-          syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl }),
+          syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl: drainFeed }),
         ).rejects.toThrow('index write failed');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
           feeds: { current: '2026-08-30', retained: '2026-08-29' },
         });
-        expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+        expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained'], { rebuildFts: true });
       },
     );
   });
@@ -312,6 +320,7 @@ describe('E0 Awin sync', () => {
             apiKey: 'test',
             fetchImpl,
             writeSqliteImpl: vi.fn(),
+            writeFeedImpl: drainFeed,
           }),
         ).rejects.toThrow('directory response is incomplete');
         expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
@@ -334,9 +343,122 @@ describe('E0 Awin sync', () => {
       });
 
       await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl });
-      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained']);
+      expect(writeSqliteImpl).toHaveBeenCalledWith(indexPath, [], ['retained'], { rebuildFts: true });
       expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
     });
+  });
+
+  it('bounds a run to the oldest changed feeds and carries stale cache entries forward', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-03,https://feeds.example/a.csv,1',
+      'b,2026-10-01,https://feeds.example/b.csv,2',
+      'c,2026-10-02,https://feeds.example/c.csv,3',
+      'd,2026-10-05,https://feeds.example/d.csv,4',
+    ].join('\n');
+    await withCache({ feeds: { a: '2026-09-01', gone: '2026-09-01' } }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x')),
+      );
+      const writeSqliteImpl = vi.fn();
+      const writeFeedImpl = vi.fn(drainFeed);
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl, maxFeeds: 2 });
+      expect(writeFeedImpl.mock.calls.map((call) => call[1])).toEqual(['b', 'c']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([['gone']]);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+        feeds: { a: '2026-09-01', b: '2026-10-01', c: '2026-10-02' },
+      });
+    });
+  });
+
+  it('keeps refreshing after one feed fails and leaves the old cache entry of the failed feed', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-01,https://feeds.example/a.csv,1',
+      'b,2026-10-02,https://feeds.example/b.csv,2',
+    ].join('\n');
+    await withCache({ feeds: { a: '2026-09-01' } }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) => {
+        if (url.includes('datafeed/list')) return Promise.resolve(new Response(directory));
+        if (url.includes('/a.csv')) return Promise.resolve(new Response('', { status: 500 }));
+        return Promise.resolve(new Response('aw_product_id,product_name\n1,x'));
+      });
+      const writeSqliteImpl = vi.fn();
+      const writeFeedImpl = vi.fn(drainFeed);
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl, writeFeedImpl });
+      expect(writeFeedImpl.mock.calls.map((call) => call[1])).toEqual(['b']);
+      expect(writeSqliteImpl.mock.calls.map((call) => call[2])).toEqual([[]]);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({
+        feeds: { a: '2026-09-01', b: '2026-10-02' },
+      });
+    });
+  });
+
+  it('writes each feed on its own, counts rows per feed, and leaves a feed whose write fails untouched', async () => {
+    const directory = [
+      'feed id,last imported,url,advertiser id',
+      'a,2026-10-01,https://feeds.example/a.csv,1',
+      'b,2026-10-02,https://feeds.example/b.csv,2',
+    ].join('\n');
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(
+          new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x\n2,y'),
+        ),
+      );
+      const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+      const okWrite = vi.fn();
+      await syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: okWrite, writeFeedImpl: drainFeed });
+      expect(JSON.parse(String(logSpy.mock.calls.at(-1)?.[0])).indexedProducts).toBe(4);
+      logSpy.mockRestore();
+    });
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(
+          new Response(url.includes('datafeed/list') ? directory : 'aw_product_id,product_name\n1,x\n2,y'),
+        ),
+      );
+      const written: string[] = [];
+      const failingWrite = vi.fn(async (path: string, feedId: string, batches: AsyncIterable<unknown[]>) => {
+        if (feedId === 'b') throw new Error('write b failed');
+        written.push(feedId);
+        return drainFeed(path, feedId, batches);
+      });
+      await expect(
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn(), writeFeedImpl: failingWrite }),
+      ).rejects.toThrow('write b failed');
+      expect(written).toEqual(['a']);
+      expect(JSON.parse(readFileSync(cachePath, 'utf8')).feeds.b).toBeUndefined();
+    });
+  });
+
+  it('exits non-zero when every attempted feed fails', async () => {
+    const directory = 'feed id,last imported,url,advertiser id\na,2026-10-01,https://feeds.example/a.csv,1';
+    await withCache({ feeds: {} }, async (cachePath, indexPath) => {
+      const fetchImpl = vi.fn((url: string) =>
+        Promise.resolve(url.includes('datafeed/list') ? new Response(directory) : new Response('', { status: 503 })),
+      );
+      await expect(
+        syncAwinFeeds({ cachePath, indexPath, apiKey: 'test', fetchImpl, writeSqliteImpl: vi.fn(), writeFeedImpl: drainFeed }),
+      ).rejects.toThrow('download failed');
+      expect(JSON.parse(readFileSync(cachePath, 'utf8'))).toEqual({ feeds: {} });
+    });
+  });
+
+  it('stops starting new downloads once the run budget is spent', async () => {
+    let clock = 0;
+    const fetchImpl = vi.fn(() => Promise.resolve(new Response('h\n')));
+    const feeds = ['a', 'b', 'c'].map((feedId) => ({ feedId, downloadUrl: `https://f/${feedId}`, updatedAt: '1' }));
+    const downloaded = await fetchChangedFeeds({
+      feeds,
+      fetchImpl,
+      sleep: async () => {
+        clock += 10;
+      },
+      deadlineMs: 5,
+      now: () => clock,
+    });
+    expect(downloaded.map((feed: { feedId: string }) => feed.feedId)).toEqual(['a', 'b']);
   });
 
   const sqliteSupported = Number(process.versions.node.split('.')[0]) >= 22;

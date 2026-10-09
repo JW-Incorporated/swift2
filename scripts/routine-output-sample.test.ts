@@ -57,6 +57,20 @@ describe('computeMetrics', () => {
     expect(m.issuesClosed).toBe(1);
   });
 
+  it('matches lowercase gh search states the same as uppercase', () => {
+    const prs = [
+      { number: 1, state: 'merged', createdAt: '2026-09-08T00:00:00.000Z', closedAt: '2026-09-09T00:00:00.000Z' },
+      { number: 2, state: 'closed', createdAt: '2026-09-08T00:00:00.000Z', closedAt: '2026-09-09T00:00:00.000Z' },
+      { number: 3, state: 'open', createdAt: '2026-09-05T00:00:00.000Z' },
+    ];
+    const issues = [{ number: 9, state: 'closed', createdAt: '2026-09-08T00:00:00.000Z' }];
+    const m = computeMetrics({ prs, issues }, now);
+    expect(m.prsMerged).toBe(1);
+    expect(m.prsClosedUnmerged).toBe(1);
+    expect(m.prsStale72h).toBe(1);
+    expect(m.issuesClosed).toBe(1);
+  });
+
   it('computes the closed-unmerged rate and flags it above the 40% threshold', () => {
     const prs = [
       { number: 1, state: 'CLOSED', createdAt: '2026-09-08T00:00:00.000Z', closedAt: '2026-09-08T00:00:00.000Z' },

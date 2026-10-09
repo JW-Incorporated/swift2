@@ -41,6 +41,11 @@
 # Her "post" for a handled alert is the issue comment itself (see the prompt
 # file) — `upsert-alert.sh`'s own open/close cycle is what reaches Discord.
 #
+# `max_turns: 90` (2026-10-06, was 60): run 37392659004 ended `success` at 63
+# turns and the action failed it for exceeding 60 — a real backlog needs more
+# than 60; 90 matches marjorie-weekly-review. The notes below explain the
+# original 60.
+#
 # `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
 # 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
 # ZERO durable progress against 2 simultaneously-open real alerts (#4009,
@@ -91,6 +96,7 @@ jobs:
       pull-requests: read
     outputs:
       work: ${{ steps.check.outputs.work }}
+      autodefer: ${{ steps.check.outputs.autodefer }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -102,6 +108,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
         run: |
           set -euo pipefail
           mkdir -p .scratch
@@ -116,7 +123,13 @@ jobs:
           set -euo pipefail
           COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
           CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
-          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ]; then
+          AUTODEFER=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.autoDefers?.length||0)')
+          if [ "$AUTODEFER" -gt 0 ]; then echo "autodefer=yes" >> "$GITHUB_OUTPUT"; else echo "autodefer=no" >> "$GITHUB_OUTPUT"; fi
+          FIXQ=0
+          for N in $(gh issue list --repo "$REPO" --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number --jq '.[].number'); do
+            if node scripts/marjorie/ops-fix-trust.mjs "$N" --repo "$REPO" > /dev/null; then FIXQ=$((FIXQ+1)); fi
+          done
+          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ] || [ "$FIXQ" -gt 0 ]; then
             echo "work=yes" >> "$GITHUB_OUTPUT"
           else
             echo "work=no" >> "$GITHUB_OUTPUT"
@@ -128,6 +141,37 @@ jobs:
           path: .scratch/dispatch-chase-plan.json
           retention-days: 1
 
+  # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
+  # auto-defer never starts the Sonnet `run` job. The PAT is needed so the
+  # auto-merge PR can trigger the required `build` check (GITHUB_TOKEN cannot).
+  auto-defer:
+    needs: gate
+    if: needs.gate.outputs.autodefer == 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Apply 7-day silence default to chase HAs
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          REPO: ${{ github.repository }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
+        run: |
+          git config user.name "marjorie-auto-defer"
+          git config user.email "noreply@github.com"
+          test "$(gh api user --jq .login)" = "$AUTO_DEFER_AUTHOR"
+          node scripts/marjorie/lib/chase-auto-defer-run.mjs "$REPO"
+
   run:
     needs: gate
     if: needs.gate.outputs.work == 'yes'
@@ -138,7 +182,7 @@ jobs:
       model: claude-sonnet-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 30
-      max_turns: 60
+      max_turns: 90
       pre_run_artifact: dispatch-chase-plan
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]

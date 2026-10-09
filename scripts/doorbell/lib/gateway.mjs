@@ -3,6 +3,7 @@
 // Node ≥22's global WebSocket; `WebSocketImpl` and `timers` are injected so
 // `doorbell.test.ts` drives it with no network. It never logs the token.
 import { printable } from './doorbell-core.mjs';
+import { CONNECT_TIMEOUT_MS } from './gateway-health.mjs';
 
 export const GATEWAY_URL = 'wss://gateway.discord.gg/?v=10&encoding=json';
 export const BACKOFF_CAP_MS = 60_000;
@@ -27,6 +28,7 @@ export function backoffMs(attempt) {
 export function connectGateway({
   token, intents, onDispatch, onFatal = () => {}, log = console.log,
   WebSocketImpl = globalThis.WebSocket, timers = globalThis, random = Math.random, url = GATEWAY_URL,
+  health = {}, connectTimeoutMs = CONNECT_TIMEOUT_MS,
 }) {
   let ws = null;
   let seq = null;
@@ -37,6 +39,7 @@ export function connectGateway({
   let acked = true;
   let attempt = 0;
   let stopped = false;
+  let connectTimer = null;
 
   const send = (payload) => {
     try {
@@ -44,6 +47,10 @@ export function connectGateway({
     } catch (err) {
       log(`gateway: send failed: ${err.message}`);
     }
+  };
+  const clearConnectTimer = () => {
+    if (connectTimer) timers.clearTimeout(connectTimer);
+    connectTimer = null;
   };
   const stopHeartbeat = () => {
     if (heartbeat) timers.clearTimeout(heartbeat);
@@ -75,6 +82,8 @@ export function connectGateway({
 
   function closed(code) {
     stopHeartbeat();
+    clearConnectTimer();
+    health.closed?.();
     if (stopped) return;
     if (FATAL_CLOSE.has(code)) {
       stopped = true;
@@ -112,12 +121,14 @@ export function connectGateway({
     if (p.op === 10) {
       const interval = Math.min(Math.max(Number(p.d?.heartbeat_interval) || 41_250, HEARTBEAT_MIN_MS), HEARTBEAT_MAX_MS);
       stopHeartbeat();
+      health.hello?.(interval);
       acked = true;
       beatAfter(interval, Math.floor(interval * random()));
       if (resuming) send({ op: 6, d: { token, session_id: sessionId, seq } });
       else send({ op: 2, d: { token, intents, properties: { os: 'linux', browser: 'longlive-doorbell', device: 'longlive-doorbell' } } });
     } else if (p.op === 11) {
       acked = true;
+      health.ack?.();
     } else if (p.op === 1) {
       send({ op: 1, d: seq });
     } else if (p.op === 7) {
@@ -136,9 +147,13 @@ export function connectGateway({
         const offered = String(p.d?.resume_gateway_url || '');
         resumeUrl = DISCORD_GATEWAY.test(offered) ? offered : null;
         attempt = 0;
+        clearConnectTimer();
+        health.ready?.();
       }
       if (p.t === 'RESUMED') {
         attempt = 0;
+        clearConnectTimer();
+        health.ready?.();
         log('gateway: resumed');
       }
       try {
@@ -163,6 +178,16 @@ export function connectGateway({
       return;
     }
     ws = socket;
+    clearConnectTimer();
+    // A connect or resume that never reaches READY/RESUMED is abandoned for a fresh IDENTIFY.
+    connectTimer = timers.setTimeout(() => {
+      connectTimer = null;
+      if (socket !== ws) return;
+      log(`gateway: ${resuming ? 'resume' : 'connect'} not ready after ${Math.round(connectTimeoutMs / 1000)}s — identifying afresh`);
+      sessionId = null;
+      seq = null;
+      drop(RECONNECT_CODE);
+    }, connectTimeoutMs);
     socket.addEventListener('message', (event) => {
       if (socket === ws) onFrame(event.data, resuming);
     });
@@ -179,6 +204,7 @@ export function connectGateway({
     stop() {
       stopped = true;
       stopHeartbeat();
+      clearConnectTimer();
       if (reconnect) timers.clearTimeout(reconnect);
       const socket = ws;
       ws = null;

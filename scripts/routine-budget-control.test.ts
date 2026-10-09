@@ -20,6 +20,19 @@ describe('optional routine budget control', () => {
   });
 });
 
+describe('optional routine disallowed_tools', () => {
+  it('defaults empty and appends --disallowedTools only when set', () => {
+    expect(template).toMatch(/disallowed_tools:\n[\s\S]*?type: string\n\s+default: ""/);
+    expect(template).toContain("${{ inputs.disallowed_tools != '' && format(' --disallowedTools ''{0}''', inputs.disallowed_tools) || '' }}");
+    expect(template.match(/--disallowedTools ''/g)).toHaveLength(1);
+  });
+
+  it.each(['fable-strategy-update', 'laura-a11y-walk', 'nils-walk'])('routine-%s removes the file-write tools', (name) => {
+    const caller = readFileSync(`.github/workflows/routine-${name}.yml`, 'utf8').replace(/\r\n/g, '\n');
+    expect(caller).toContain('disallowed_tools: "Write Edit NotebookEdit Task"');
+  });
+});
+
 it('allows a bounded real intake triage without changing its schedule', () => {
   const triage = readFileSync('.github/workflows/routine-marjorie-triage.yml', 'utf8').replace(/\r\n/g, '\n');
   expect(triage).toMatch(/workflow_dispatch:\n\s+inputs:\n\s+max_budget_usd:[\s\S]*?type: number\n\s+default: 0/);

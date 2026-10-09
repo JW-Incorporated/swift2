@@ -130,7 +130,8 @@ jobs:
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           set -euo pipefail
-          ISSUES_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founder-decision --state open --json number,url --limit 50)
+          # Fully paginated (no --limit): a bounded fetch would hide every issue past the cap on every sweep (#4239).
+          ISSUES_JSON=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues?labels=founder-decision&state=open&per_page=100" --jq '.[] | select(.pull_request == null) | {number: .number, url: .html_url}' | jq -s '.')
           PENDING_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker pending)
           POSTED_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker posted)
           NUMBERS=$(echo "$ISSUES_JSON" | jq -r '.[].number')

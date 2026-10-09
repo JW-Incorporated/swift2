@@ -21,8 +21,15 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Frozen fixture (`scripts/parity/fixture/`, committed): a content snapshot taken
   once: the published bundle (`content/`, side b reads it from disk at `/content`
   via `serve.mjs`) and the seven baked modules the web build imports
-  (`web/*.generated.ts`, side a). BOTH sides render from it, so baselines do NOT move
-  when live content (`supabase/seed/**`) changes. CI `build-web` runs
+  (`web/*.generated.ts`, side a), plus the lens data (`experience/lenses.generated.ts`,
+  overlaid onto `packages/experience/src/` by both builds: `--apply` in build-web, `--lenses` in
+  build-dom). BOTH sides render from it, so baselines do NOT move
+  when live content (`supabase/seed/**`, lenses included) changes. Lenses were once regenerated
+  from `supabase/seed/lenses/**` on every run, which moved `crossing` and `lens-fashion-scrubber`
+  on seed-only PRs that parity skipped (#5341); they are frozen now.
+  To refresh the lenses deliberately: `node scripts/sync-longlive-lenses.mjs`, then
+  `cp packages/experience/src/lenses.generated.ts scripts/parity/fixture/experience/`
+  (or a full `--regenerate`), commit, then re-baseline. CI `build-web` runs
   `npm run sync:content` (for the unrelated generated files), then
   `make-fixture.mjs --apply` (overlays the snapshot over `apps/web` and fails unless
   baked and bundle hash equal `fixture.json`), then `npx next build` directly
@@ -49,6 +56,12 @@ disagree with each other or with committed Linux baselines. Epic #4788.
   `serve.mjs` (b, 4173) and `next start` (a, 4174), both on 127.0.0.1.
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
   landscape (webkit); 2 workers locally, one CI job per project.
+
+Persona bylines (#5391): every frozen item carries the `author` the live sync derives (`routeAuthor`), in both the bundle
+and the baked `content-vault.generated.ts`, so moment bylines are covered. The frozen category is lost at sync time
+(tags are many-to-one), so the authors were injected into the existing snapshot by id rather than re-freezing all live
+content, which keeps the baseline diff to bylines. `fixture-authors.test.ts` fails if a frozen item lacks one. A later
+`--regenerate` carries authors natively.
 
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 

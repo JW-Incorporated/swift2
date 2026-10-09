@@ -2,7 +2,7 @@
 // install, update, stop and logs: docs/ops/doorbell.md). A systemd service on
 // the Hermes VM host, outside every Hermes container. Two tokens, read only
 // from /etc/longlive-doorbell.env:
-//   DOORBELL_DISCORD_TOKEN  the Long Live Doorbell bot: reads #longlive-marjorie
+//   DOORBELL_DISCORD_TOKEN  the Long Live Doorbell bot: reads #marjorie
 //                           and #longlive-tree and adds reactions there; it can
 //                           post nowhere (HA #73)
 //   DOORBELL_GITHUB_TOKEN   longlive-doorbell-dispatch: Actions read and write
@@ -27,22 +27,31 @@ import {
   chatDispatch, createChannelMap, createSeen, parseConfig, printable, readyLine, ringDecision, stuckDecision, stuckDispatch,
 } from './lib/doorbell-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
+import { createGatewayHealth } from './lib/gateway-health.mjs';
 import { githubRequest } from './lib/github-rest.mjs';
 import { checkLines, createClock } from './lib/clock.mjs';
 
 const HOUR_MS = 60 * 60 * 1000;
+const WATCHDOG_FEED_MS = 30_000;
 
 const systemdNotify = (state) => execFile('systemd-notify', [state], { timeout: 10_000 }, () => {});
 
 export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log,
-  now = Date.now, processStartMs = now(), notify = systemdNotify }) {
+  now = Date.now, processStartMs = now(), notify = systemdNotify, exit = (code) => process.exit(code) }) {
   const channels = createChannelMap({ guildId: config.guildId });
   const seen = createSeen();
   const pending = new Map();
   let gateway = null;
   let stoppedReminder = null;
   let announced = '';
-  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs, progress: () => notify('WATCHDOG=1') });
+  const health = createGatewayHealth({ now });
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs,
+    progress: () => health.tick(),
+    onFatal: () => {
+      log('clock: exiting so systemd restarts the unit');
+      exit(1);
+    } });
+  let feedTimer = null;
 
   const discord = async (method, url) => {
     try {
@@ -134,23 +143,28 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
     seen,
     pending,
     clock,
+    health,
     onDispatch,
     onMessage,
     start(WebSocketImpl) {
       gateway = connectGateway({
-        token: config.discordToken, intents: INTENTS, onDispatch, log, WebSocketImpl, timers,
+        token: config.discordToken, intents: INTENTS, onDispatch, log, WebSocketImpl, timers, health,
         onFatal: (code) => {
           stoppedReminder = timers.setInterval(() => log(`gateway still stopped since close ${code}; fix the bot, then restart the service`), HOUR_MS);
         },
       });
       clock.start();
       notify('READY=1');
+      feedTimer = timers.setInterval(() => {
+        if (health.shouldFeed()) notify('WATCHDOG=1');
+      }, WATCHDOG_FEED_MS);
     },
     stop() {
       gateway?.stop();
       for (const timer of pending.values()) timers.clearTimeout(timer);
       pending.clear();
       if (stoppedReminder) timers.clearInterval(stoppedReminder);
+      if (feedTimer) timers.clearInterval(feedTimer);
       clock.stop();
     },
   };
