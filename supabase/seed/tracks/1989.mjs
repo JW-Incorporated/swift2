@@ -320,19 +320,19 @@ export default {
       ],
       dossier: {
         whyItMatters: [
-          "The song Swift said, while promoting 1989, 'best represents' the album. It was the first time she wrote lyrics to an existing track: Jack Antonoff built the instrumental and sent it to her while she was on a plane, and a voice memo with the lyrics came back about thirty minutes later, and the result is a wall of synths that, Antonoff has said, doesn't really let up. It entered the Hot 100 at No. 18, its peak, and at No. 1 on Digital Songs, and was certified platinum.",
-          "It also has one of the most durable afterlives in the catalog. It opened the 58th Grammy Awards on February 15, 2016, its vocals were sampled in 2022 for 'Question...?', and it resurfaced on the Eras Tour as a surprise song and in mashups. Its repeated refrain, 'Are we out of the woods yet?', is how the song voices its anxiety about whether the relationship will survive."
+          "A synth-pop centerpiece of 1989, and a song whose build never lets up: Jack Antonoff told Billboard 'it doesn't really let up,' that it starts big and then 'explodes even larger' at the chorus. Per its Wikipedia entry it entered the Hot 100 at No. 18, its peak, topped Digital Songs, and was certified platinum; Swift also said while promoting 1989 that it 'best represents' the album.",
+          "It has one of the more durable afterlives in the catalog. It opened the 58th Grammy Awards on February 15, 2016, its vocals were sampled in 2022 for 'Question...?', and it resurfaced on the Eras Tour as a surprise song and in mashups. Its repeated refrain, 'Are we out of the woods yet?', is how the song voices its anxiety about whether the relationship will survive."
         ],
         meaning: {
           confirmed: [
-            "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff, with Max Martin producing Swift's vocals. It was made available for download on October 14, 2014 after a 15-second premiere on Good Morning America, and sent to US pop radio on January 19, 2016 as the album's sixth single.",
-            "Antonoff built the track around a Yamaha DX7 and a Minimoog Voyager, layering his own edited backing vocals over looping drums; he has said the aim was to keep pushing instead of dropping into a quiet chorus.",
-            "Joseph Kahn directed the video, shot in New Zealand, and it premiered on Dick Clark's New Year's Rockin' Eve on December 31, 2015. The closing caption, 'She lost him, but she found herself, and somehow that was everything,' is a hidden message from the 1989 booklet.",
-            "Swift told Rolling Stone about the snowmobile accident behind the bridge: her then-boyfriend lost control, they both went to the hospital, and she was less hurt than he was."
+            "Track 4 of 1989 (October 27, 2014), written and produced by Swift and Jack Antonoff. Rolling Stone reported that it became available for download soon after fans who pre-ordered 1989 received it, and that it immediately shot to No. 1 on the iTunes songs chart.",
+            "Rolling Stone reported that Swift hinted the lyric about hitting the brakes too soon and 'twenty stitches in a hospital room' was inspired by a real incident in which she and an ex were in a serious snowmobile accident that ended in a hospital visit, which never appeared in the tabloids.",
+            "Antonoff told Billboard that 'there's a frantic feeling in the song,' that he was thinking about the band My Morning Jacket and how 'every sound is louder than the last,' and that the idea was 'to keep pushing' rather than drop into a quieter chorus.",
+            "Antonoff also told Billboard the two were 'talking about John Hughes movies' and the 'larger-than-life, anthemic' sound of that era's music while hanging out at her house in Rhode Island.",
+            "Rolling Stone reported that the video, which premiered on Dick Clark's Rockin' Eve with Ryan Seacrest, was shot on location in New Zealand, where a severe storm interrupted filming for a week, and ends on the title card 'She lost him, but she found herself. And somehow, that was everything.'"
           ],
           supported: [
-            "Swift described the song as about 'the fragility and kind of breakable nature of some relationships,' one where 'you never feel like you're standing on solid ground,' and said the track is meant to sound like that anxious, frantic questioning. The repeated refrain does that work, and the song's Wikipedia entry reads the accident as also a metaphor for the relationship's fragility.",
-            "Antonoff has tied the sound to '80s film culture, specifically the John Hughes movies and the larger-than-life, anthemic music that came with them."
+            "Swift has described the song, per Songfacts, as about 'the fragility and kind of breakable nature of some relationships,' one where 'you never feel like you're standing on solid ground,' and the track is built to sound like that anxious questioning. The song's Wikipedia entry reads the accident as also a metaphor for the relationship's fragility."
           ],
           fanTheories: [
             "Fans have long attached the song to a specific, widely reported short relationship. Swift has never named the person, so this guide doesn't either; the claim is speculation, and the song's meaning stands without it."
@@ -342,29 +342,29 @@ export default {
           {
             date: "October 27, 2014",
             event: "1989 Secret Sessions",
-            note: "Performed in the iHeartRadio and Yahoo livestream on the day the album came out."
+            note: "Performed in the iHeartRadio and Yahoo livestream on the day the album came out, per its Wikipedia entry."
           },
           {
-            date: "2015",
-            event: "The 1989 World Tour",
-            note: "Penultimate number on the regular set list. On September 30, 2015 she played a stripped-down piano version at the Grammy Museum in Los Angeles; Rolling Stone's John Blistein preferred it as a better vehicle for the lyric."
+            date: "September 30, 2015",
+            event: "Grammy Museum, Los Angeles",
+            note: "A stripped-down piano version from an intimate gig, which Rolling Stone's Jon Blistein covered as a one-year-anniversary video for 1989; Rolling Stone's coverage called the performance chilling."
           },
           {
             date: "February 15, 2016",
             event: "58th Annual Grammy Awards",
-            note: "She opened the show with it."
+            note: "She opened the show with it, per Wikipedia."
           },
           {
             date: "2023-2024",
             event: "The Eras Tour",
-            note: "A surprise song at the Nashville stop, later folded into mashups, including with 'Is It Over Now?' in Buenos Aires and Paris, with 'Clean' in London, and with 'Us' in Toronto alongside Gracie Abrams."
+            note: "A surprise song at the Nashville stop, later folded into mashups, including with 'Is It Over Now?' in Buenos Aires and Paris, with 'Clean' in London, and with 'Us' in Toronto alongside Gracie Abrams, per Wikipedia."
           }
         ],
         connections: [
           {
             relatedId: "song:question",
             label: "Question...?",
-            why: "The 2022 Midnights track opens by sampling the vocals from this song; the sample won 'Favorite Use of a Sample' at the 2023 iHeartRadio Music Awards."
+            why: "The 2022 Midnights track opens by sampling the vocals from this song; the sample won 'Favorite Use of a Sample' at the 2023 iHeartRadio Music Awards, per Wikipedia."
           },
           {
             relatedId: "song:i-wish-you-would",
@@ -379,17 +379,33 @@ export default {
         ],
         voices: [
           {
-            who: "Taylor Swift",
-            context: "In a video explaining the song, as quoted by Songfacts",
-            note: "She said she wanted the songs on 1989 to sound 'exactly the way that the emotions felt when I felt them,' and that this one sounds like 'that frantic feeling of anxiety and questioning.'"
+            who: "Jack Antonoff",
+            context: "Speaking to Billboard in 2014",
+            note: "He described the song as having a frantic feeling that doesn't let up: the chorus explodes larger, then the bridge gets 'even more huge.'"
           },
           {
-            who: "Jack Antonoff",
-            context: "Speaking to Billboard, as quoted by Songfacts",
-            note: "He described the song as having a frantic feeling that doesn't let up: the chorus explodes larger, then the bridge gets 'even more huge.'"
+            who: "Taylor Swift",
+            context: "In a video explaining the song, as quoted by Songfacts",
+            note: "She said she wanted the songs on 1989 to sound 'exactly the way that the emotions felt when I felt them.'"
           }
         ],
         sources: [
+          {
+            name: "Taylor Swift Unveils Synth-Heavy 'Out of the Woods' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-unveils-synth-heavy-new-track-out-of-the-woods-241292/"
+          },
+          {
+            name: "Taylor Swift's 'Out of the Woods': Jack Antonoff Talks New Song - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-out-of-the-woods-jack-antonoff-6281680/"
+          },
+          {
+            name: "Watch Taylor Swift Battle Nature in 'Out of the Woods' Video - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/watch-taylor-swift-battle-nature-in-out-of-the-woods-video-37464/"
+          },
+          {
+            name: "Taylor Swift Delivers Chilling Acoustic 'Out of the Woods' Performance - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-delivers-chilling-acoustic-out-of-the-woods-performance-67474/"
+          },
           {
             name: "Out of the Woods - Wikipedia",
             url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)"

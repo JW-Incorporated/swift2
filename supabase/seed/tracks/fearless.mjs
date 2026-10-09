@@ -568,26 +568,26 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "A Fearless deep cut that fans never let go of. It debuted and peaked at No. 72 on the Hot 100 and went gold, and when Fearless (Taylor's Version) arrived in April 2021 the re-recording charted too, reaching No. 94 on the Hot 100 and No. 24 on Hot Country Songs. It also stayed in live rotation: it was part of the regular set on her first headlining tour.",
-          "What gives it staying power is its premise, which Swift supplied herself. She has said the idea was a relationship with a perfectly nice, punctual, flower-bringing guy where you feel nothing because you are thinking about the complicated, messy one. She brought the concept and title to the writing session with John Rich, and he understood it because, in her words, he was 'that complicated, frustrating messy guy.'"
+          "A Fearless deep cut that fans never let go of. It debuted and peaked at No. 72 on the Hot 100 and went gold, and when Fearless (Taylor's Version) arrived in April 2021 the re-recording charted too, reaching No. 94 on the Hot 100 and No. 24 on Hot Country Songs (chart facts as summarized in its Wikipedia entry). It was part of the regular set on her first headlining tour.",
+          "What gives it staying power is its premise, which Swift supplied herself: a relationship with a perfectly nice, punctual, door-opening guy where you feel nothing, because the whole time you are thinking about the one who was complicated, messy and frustrating. She brought that idea to the writing session with John Rich."
         ],
         meaning: {
           confirmed: [
-            "Track 10 of Fearless (released November 11, 2008 on Big Machine Records), written by Swift with John Rich and produced by Swift and Nathan Chapman. It runs 4:03 and was mixed by Justin Nieback at Blackbird Studio in Nashville.",
-            "Swift told That's Country that it was always a goal to write with Rich, and that she knew they were both opinionated writers, so the session could be 'the best thing in the world' or 'a complete train wreck.'",
-            "The re-recording, 'The Way I Loved You (Taylor's Version)', was produced by Swift and Christopher Rowe and came out in April 2021 as part of Fearless (Taylor's Version); Swift's vocals were recorded at Kitty Committee Studios in London."
+            "Track 10 of Fearless (released November 11, 2008 on Big Machine Records), co-written by Swift and country songwriter John Rich, per Gigwise's retrospective.",
+            "Swift described the concept in her own words, as quoted by Gigwise: 'I got this idea for a song about being in a relationship with a nice guy who is punctual and opens up the door for you and brings you flowers... but you feel nothing. The whole time you're with him, you're thinking about the guy who was complicated and messy and frustrating.'",
+            "Gigwise reports that Swift sought Rich out for a co-writing session and that the song began as a concept she had before the session."
           ],
           supported: [
-            "Per its Wikipedia entry, the song was inspired by meeting a guy who seemed ideal to date but who she felt would be less exciting than a more volatile partner, so the song is built on a contrast between a stable present relationship and a tumultuous past one.",
-            "Several critics hear it as a turning point in her storytelling: iHeartRadio's Emily Lee felt it was the first Swift song with a fictional narrative. Its details also anticipate her later habits: cars, a faked smile and kissing in the rain all recur across her catalog, as the article notes.",
-            "Musically, the verses are led by a string quartet and a marching snare that, as Swift described, makes the new boyfriend seem stiff, while the rest of the song, including the chorus where she remembers the old relationship, is driven by distorted electric guitars. Slant's Jonathan Keefe pointed to a nearly a cappella bridge."
+            "Gigwise hears the song's structure as mirroring its idea: the verses, about the drama-free partner, are softer, while the chorus is full of tension and is 'dominating and addictive.'",
+            "Per its Wikipedia entry, the verses are led by a string quartet and a marching snare that, as Swift described, makes the new boyfriend seem stiff, while distorted electric guitars carry the rest of the song, including the chorus where she remembers the old relationship. Slant's Jonathan Keefe pointed to a nearly a cappella bridge.",
+            "Several critics hear a turning point in her storytelling: iHeartRadio's Emily Lee felt it was the first Swift song with a fictional narrative. Its details also anticipate later habits: cars, faked smiles and kissing in the rain all recur across her catalog, as the Wikipedia article notes."
           ]
         },
         live: [
           {
             date: "2009-2010",
             event: "The Fearless Tour",
-            note: "It was on the regular set list of her first headlining tour; she wore a purple sparkling dress for it."
+            note: "It was on the regular set list of her first headlining tour, per Wikipedia."
           },
           {
             date: "May 24, 2024",
@@ -610,11 +610,15 @@ const TRACKS = [
         voices: [
           {
             who: "Taylor Swift",
-            context: "Telling That's Country how the song began, as quoted by Songfacts",
-            note: "She described bringing the idea, the title and 'where I thought the song should go' to John Rich, and said it was 'just so cool to get in a room and write with him because he really is an incredible writer.'"
+            context: "Describing the song's idea, as quoted by Gigwise",
+            note: "She described a relationship with a punctual, flower-bringing nice guy where 'you feel nothing' because you are thinking about 'the guy who was complicated and messy and frustrating.'"
           }
         ],
         sources: [
+          {
+            name: "The Story Of Us: 'The Way I Loved You' - Gigwise",
+            url: "https://www.gigwise.com/features/3399592/the-story-of-us-the-way-i-loved-you/"
+          },
           {
             name: "The Way I Loved You - Wikipedia",
             url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You"

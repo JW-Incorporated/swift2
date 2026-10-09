@@ -215,19 +215,20 @@ const TRACKS = [
       ],
       dossier: {
         whyItMatters: [
-          "The story-song that proved folklore could be funny, ornate and personal at once. Every track on the album debuted on the Hot 100 in the same week, and this one entered at No. 13, the fourth-highest of the album's debuts, behind 'cardigan', 'the 1' and 'exile'. It also made year-end best-of lists at American Songwriter, Billboard, Pitchfork and Uproxx.",
-          "Its power is the structure. Swift has described the country-songwriting trick it relies on: the first verse is about someone else, the second about someone even closer, and in the third you reveal 'Surprise! It was me.' That is exactly what happens when the narrator turns out to be the new owner of the house the heiress once lived in."
+          "The story-song that proved folklore could be funny, ornate and personal at once. Per its Wikipedia entry every track on the album debuted on the Hot 100 in the same week, and this one entered at No. 13, the fourth-highest of the album's debuts. It also made year-end best-of lists at American Songwriter, Billboard, Pitchfork and Uproxx.",
+          "Its power is the structure. Swift told Entertainment Weekly she wanted to use a standard country narrative device: the first verse you sing about someone else, the second about someone even closer, and in the third, 'Surprise! It was me.' That is what happens when the narrator turns out to be the new owner of the house the heiress once lived in."
         ],
         meaning: {
           confirmed: [
-            "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it; Dessner built the instrumental after the electric guitars on Radiohead's In Rainbows, and Swift wrote the lyrics in less time than it took him to go out for a run and return.",
-            "It is about Rebekah Harkness, a socialite who lived in Holiday House in Watch Hill, Rhode Island, which Swift bought in 2013. Swift told Entertainment Weekly she first heard of Harkness from the real estate agent showing her the house, then read everything she could find, and saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
-            "Per its Wikipedia entry, the biographical frame is factual: Rebekah West, a divorcee from St. Louis, married Standard Oil heir William Harkness in 1947, he died in 1954, and in 1964 she founded the Harkness Ballet. It runs in G major at 148 BPM.",
-            "Swift performed the song in the concert film folklore: the long pond studio sessions (2020) and on the Eras Tour."
+            "Track 3 of folklore (July 24, 2020), written by Swift and Aaron Dessner, who produced it.",
+            "It is about Rebekah Harkness, a divorcee who married the Standard Oil heir William Harkness and whose Rhode Island home, Holiday House, Swift bought. Entertainment Weekly reported that Swift's purchase came 31 years after Harkness's death.",
+            "Swift told Entertainment Weekly she learned of Harkness from the real estate agent walking her through the property: 'as soon as I found out about her, I wanted to know everything I could. So I started reading,' and then saw parallels in 'being the lady that lives in that house on the hill that everybody gets to gossip about.'",
+            "Entertainment Weekly's feature on the song's true story reports that Harkness married William Harkness in 1947, that he died of a heart attack in 1954, and that Swift fudged one detail: the neighbor's pet she dyed green was, per The New York Times, actually a cat.",
+            "In People, Swift said she is 'really proud' of the line about a marvelous time ruining everything 'because it's about what happens when women step out of their cages and run.'"
           ],
           supported: [
-            "Swift told People in 2021 that Harkness appealed to her because 'it can be a real pearl-clutching moment for society when a woman owns her desires and wildness,' and she loved the idea of a woman too joyful in her freedom to care about the talk.",
-            "The Wikipedia article notes the song's town legends are gossip-grade: the champagne in the pool and the dyed pet are retellings of what actually happened, which echoes folklore's recurring theme of rumor and half-truth. Critics have also tied the closing refrain to Swift's own press: Watch Hill residents' wariness of her Fourth of July parties and the 'Taylor Swift tax' nickname for Rhode Island's proposed second-home levy.",
+            "Swift told People that 'it can be a real pearl-clutching moment for society when a woman owns her desires and wildness,' and that she loved the idea of a woman too joyful in her freedom to care about the talk. Entertainment Weekly's Alex Suskind quotes her saying of Harkness, 'I don't think we often hear about women who did whatever the hell they wanted.'",
+            "The Wikipedia article notes that critics tied the closing refrain to Swift's own press: Watch Hill residents' wariness of attention, her Fourth of July parties, and the 'Taylor Swift tax' nickname for Rhode Island's proposed second-home levy.",
             "Pitchfork's Julian Mapes hailed it as 'the all-timer, the instant classic' that celebrates society-defying women, and the Wikipedia article calls it thematically feminist and a prequel to 'mad woman'."
           ]
         },
@@ -240,7 +241,7 @@ const TRACKS = [
           {
             date: "2023-2024",
             event: "The Eras Tour",
-            note: "She performed the song on the tour between March 2023 and March 2024."
+            note: "She performed the song on the tour between March 2023 and March 2024, per Wikipedia."
           }
         ],
         connections: [
@@ -263,16 +264,28 @@ const TRACKS = [
         voices: [
           {
             who: "Taylor Swift",
-            context: "Entertainment Weekly interview, as quoted by Songfacts",
+            context: "Entertainment Weekly, 2020",
             note: "On discovering Rebekah Harkness: 'As soon as I found out about her, I wanted to know everything I could.'"
           },
           {
             who: "Taylor Swift",
-            context: "People, 2021, as quoted in the song's Wikipedia article",
+            context: "People, 2021",
             note: "She described the pleasure of a woman who 'decided there were marvelous times to be had, and that was more important' than the criticism."
           }
         ],
         sources: [
+          {
+            name: "Taylor Swift broke all her rules with 'Folklore' - and gave herself a much-needed escape - Entertainment Weekly (archived)",
+            url: "https://web.archive.org/web/20211222041930/https://ew.com/music/taylor-swift-entertainers-of-the-year-2020/"
+          },
+          {
+            name: "The wild true story behind Taylor Swift's 'The Last Great American Dynasty' - Entertainment Weekly (archived)",
+            url: "https://web.archive.org/web/20211031102309/https://ew.com/music/taylor-swift-rebekah-harkness-last-great-american-dynasty-explained/"
+          },
+          {
+            name: "Taylor Swift Shares 'Folklore' Lyric She's 'Really Proud' Of - PEOPLE (archived)",
+            url: "https://web.archive.org/web/20220522204928/https://people.com/music/taylor-swift-folklore-lyric-really-proud-grammys/"
+          },
           {
             name: "The Last Great American Dynasty - Wikipedia",
             url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty"
