@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #118 🔴 [BLOCKING] Let the bot see #longlive-marjorie again (~2 min)
+<!-- ha filed=2026-10-09 -->
+
+**Why:** Since 12:25 UTC on 10-09 the bot can't find #longlive-marjorie, so every 5-minute chat poll fails. Marjorie can't read your replies. No code changed; the channel was renamed, deleted, or lost the bot's access in Discord.
+**Steps:**
+1. In Discord, open the Long Live server and check that a channel named exactly `longlive-marjorie` exists. If it was renamed, rename it back.
+2. Right-click it → Edit Channel → Permissions, and make sure the bot's role has View Channel and Read Message History.
+**Worked if:** the next `bot-chat-poll` run on GitHub Actions is green.
 
 ## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
 <!-- ha filed=2026-10-08 -->
