@@ -96,7 +96,7 @@ jobs:
           await mkdir('.artifacts/merch-matcher-authoring', { recursive: true });
           await writeFile('.artifacts/merch-matcher-authoring/plan.json', `${JSON.stringify(output, null, 2)}\n`, 'utf8');
           NODE
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         with:
           name: merch-matcher-authoring-plan
           path: .artifacts/merch-matcher-authoring/plan.json

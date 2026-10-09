@@ -79,7 +79,7 @@ jobs:
       # back-to-back — see routine-output-sample.mjs's RAW_OUTPUT_FILE
       # comment).
       - name: Upload raw PR data for quality-sample
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: routine-output-raw
           path: routine-output-raw.json

@@ -69,7 +69,7 @@ jobs:
           PR: ${{ inputs.direction_pr }}
           FOCUS: ${{ inputs.focus }}
         run: node scripts/marjorie/strategy-doc.mjs wait-merged --pr "$PR" --focus "$FOCUS" --out .scratch/strategy-update.json --minutes 20
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: steps.wait.outputs.skip != 'true'
         with:
           name: strategy-update-request

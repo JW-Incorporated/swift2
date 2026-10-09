@@ -68,7 +68,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ inputs.issue_number }}
         run: node scripts/marjorie/taste-ruling.mjs prepare --issue "$ISSUE" --out .scratch/taste-question.json
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: steps.question.outputs.skip != 'true'
         with:
           name: taste-ruling-question

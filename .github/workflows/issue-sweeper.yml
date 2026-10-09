@@ -55,7 +55,7 @@ jobs:
             head -c 60000 sweep.txt
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: issue-sweeper-plan

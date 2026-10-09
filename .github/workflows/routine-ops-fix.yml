@@ -84,7 +84,7 @@ jobs:
         run: |
           mkdir -p .scratch
           printf '{"issue":%s}\n' "$ISSUE" > .scratch/ops-fix-issue.json
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: steps.gate.outputs.state == 'trusted'
         with:
           name: ops-fix-issue

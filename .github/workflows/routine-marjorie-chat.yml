@@ -110,7 +110,7 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: node scripts/marjorie/chat-post.mjs thread --context .scratch/chat-context.json
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v6
         if: steps.thread.outputs.skip != 'true'
         with:
           name: chat-context

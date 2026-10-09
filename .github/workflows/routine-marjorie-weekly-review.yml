@@ -85,7 +85,7 @@ jobs:
             echo '{"error":"growth-data.mjs failed; see the collect job log"}' > .scratch/growth-data.json
           fi
       - name: Hand the evidence to the agent job
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: marjorie-growth-data
           path: .scratch/growth-data.json
