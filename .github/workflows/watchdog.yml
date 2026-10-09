@@ -376,7 +376,17 @@ jobs:
       # so a standing alert is not re-commented hourly. The latest settled
       # schedule/workflow_dispatch runs count, so a clock-dispatched success
       # closes it too.
-      - name: Scheduled workflows failing twice (per-workflow view)
+      #
+      # Two failing shapes alert (issue #4475 item D): the last 2 settled runs
+      # both red, OR >=2 of the last 5 settled runs red with the newest among
+      # them — routine-vault-run.yml went fail 09-14 / success 09-15 / fail
+      # 09-16 and the consecutive-only rule never fired. Both rules require the
+      # newest run to be red, which is what keeps the alert self-closing on the
+      # first green run. The TITLE is unchanged on purpose: it is the alert's
+      # dedupe identity and a cross-script contract (alert-router.mjs's
+      # `workflow-failed-last-2-runs` key, issue-sweeper-rules, the marjorie-ops
+      # prompt). The body carries which rule actually fired.
+      - name: Scheduled workflows failing repeatedly (per-workflow view)
         if: (!cancelled())
         timeout-minutes: 10
         env:
@@ -411,11 +421,13 @@ jobs:
               || { echo "::warning::verdict failed for ${WF}; skipping"; continue; }
             if [ "$VERDICT" = "alert" ]; then
               if [ "$IS_DAILY" = "1" ]; then
-                echo "@sffan15-sys — \`${WF}\`'s last 2 scheduled runs both failed. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
+                REASON=$(printf '%s' "$RUNS" | node scripts/watchdog/scheduled-failures.mjs reason) \
+                  || REASON="its last 2 scheduled runs both failed"
+                echo "@sffan15-sys — \`${WF}\`: ${REASON}. Check https://github.com/${REPO}/actions/workflows/${WF}" > /tmp/alert-body.md
                 scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
               fi
             elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
-              echo "\`${WF}\` not 2-consecutive-failing as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+              echo "\`${WF}\` no longer meets the repeated-failure rule (2 in a row, or 2 of its last 5 with the newest red) as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
               scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             fi
           done
