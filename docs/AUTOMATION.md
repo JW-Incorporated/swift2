@@ -444,9 +444,12 @@ UTC (plus manual dispatch, `dry_run` defaults true) and runs
 machine-filed issues that rules prove stale; no LLM. Founder-approved
 2026-10-08. Rules live in `scripts/ops/lib/issue-sweeper-rules.mjs`:
 
-1. **supersede-report**: for `kevin-radar`, `kevin-digest`, `kevin-triage`,
-   `routine-audit`, `automation-review`, keep the newest open issue, close older.
-2. **intake-ttl**: `intake` issues with no activity for 14+ days.
+1. **supersede-report**: genuine recurring reports only (label AND title
+   pattern): Kevin Review Radar, Kevin Daily Review, Kevin Eng Triage,
+   news-triage recall checks, Paul Blart security patrols. Keep the newest per
+   kind. Real findings labelled `routine-audit`/`automation-review` are never touched.
+2. **intake-ttl**: `intake` issues titled `intake:` with no activity for 14+
+   days; skipped if also `bug`, `desk:*` or `marjorie-filed`.
 3. **watchdog-recovered**: `watchdog-alert` whose workflow's latest completed
    run is green and newer than the alert.
 4. **cie-duplicate**: `cie` + `cie:P1`/`cie:P2` duplicates by quoted page name;
@@ -455,7 +458,8 @@ machine-filed issues that rules prove stale; no LLM. Founder-approved
 **Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
 `sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
 `founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
-`status-page`, `weekly-plan`; no open PR body/title references it. Max 150
+`status-page`, `weekly-plan`; no open PR closes or `Ref`s it (closing keywords / `Refs #n` only; bare
+`#n` mentions don't count). Max 150
 closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
 writes `.scratch/issue-sweeper-plan.json`.
 

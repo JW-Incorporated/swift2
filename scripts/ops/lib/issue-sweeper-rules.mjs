@@ -17,13 +17,17 @@ export const PROTECTED_LABELS = [
   'weekly-plan',
 ];
 
-export const REPORT_LABELS = [
-  'kevin-radar',
-  'kevin-digest',
-  'kevin-triage',
-  'routine-audit',
-  'automation-review',
+// Genuine recurring REPORTS only: label AND title pattern. Real findings that
+// share a label (routine-audit, automation-review) are never superseded.
+export const REPORT_KINDS = [
+  { name: 'kevin-radar', label: 'kevin-radar', title: /^Kevin Review Radar — \d{4}-\d{2}-\d{2}/ },
+  { name: 'kevin-digest', label: 'kevin-digest', title: /^Kevin Daily Review — / },
+  { name: 'kevin-triage', label: 'kevin-triage', title: /^Kevin Eng Triage — / },
+  { name: 'recall-check', label: 'automation-review', title: /^news-triage recall check: / },
+  { name: 'security-patrol', label: 'security', title: /^Paul Blart — Security Patrol — / },
 ];
+
+const INTAKE_SKIP_LABELS = ['bug', 'marjorie-filed'];
 
 export const INTAKE_TTL_DAYS = 14;
 
@@ -54,12 +58,16 @@ export function guardReason(issue, prRefs = new Set()) {
   return null;
 }
 
-/** Numbers referenced as #<n> in a list of PR bodies/titles. */
+// Only explicit references count: closing keywords or "Ref(s) #n". Bare "#n"
+// mentions inside long bot bodies must not block a close.
+const PR_REF_RE = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?|refs?)\b:?\s+#(\d+)/gi;
+
+/** Numbers explicitly referenced (closing keyword / Ref) in open PR titles/bodies. */
 export function collectPrRefs(prs) {
   const refs = new Set();
   for (const pr of prs) {
     const text = `${pr.title ?? ''}\n${pr.body ?? ''}`;
-    for (const m of text.matchAll(/#(\d+)/g)) refs.add(Number(m[1]));
+    for (const m of text.matchAll(PR_REF_RE)) refs.add(Number(m[1]));
   }
   return refs;
 }
@@ -68,8 +76,10 @@ const byCreatedDesc = (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt
 
 export function supersedeReport(issues) {
   const out = [];
-  for (const label of REPORT_LABELS) {
-    const group = issues.filter((i) => hasLabel(i, label)).sort(byCreatedDesc);
+  for (const kind of REPORT_KINDS) {
+    const group = issues
+      .filter((i) => hasLabel(i, kind.label) && kind.title.test(i.title ?? ''))
+      .sort(byCreatedDesc);
     if (group.length < 2) continue;
     const newest = group[0];
     for (const old of group.slice(1)) {
@@ -77,7 +87,7 @@ export function supersedeReport(issues) {
         number: old.number,
         rule: 'supersede-report',
         title: old.title,
-        reason: `${label}: newer report #${newest.number}`,
+        reason: `${kind.name}: newer report #${newest.number}`,
         comment: `Superseded by #${newest.number} (newer report of the same kind). Reopen if still needed.`,
       });
     }
@@ -89,6 +99,9 @@ export function intakeTtl(issues, now) {
   const out = [];
   for (const i of issues) {
     if (!hasLabel(i, 'intake')) continue;
+    if (!/^intake:/i.test(i.title ?? '')) continue;
+    if (INTAKE_SKIP_LABELS.some((l) => hasLabel(i, l))) continue;
+    if (labelNames(i).some((l) => l.startsWith('desk:'))) continue;
     const ageDays = (now.getTime() - Date.parse(i.updatedAt)) / 86_400_000;
     if (ageDays < INTAKE_TTL_DAYS) continue;
     out.push({
@@ -104,7 +117,7 @@ export function intakeTtl(issues, now) {
 }
 
 export function workflowFileFromTitle(title) {
-  const m = /([\w.-]+\.ya?ml)\b/.exec(title ?? '');
+  const m = /([\w.-]+\.ya?ml)/.exec(title ?? '');
   return m ? m[1] : null;
 }
 

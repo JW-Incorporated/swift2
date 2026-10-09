@@ -6,6 +6,7 @@ import {
   workflowFileFromTitle,
 } from './issue-sweeper-rules.mjs';
 
+const RADAR = (d: string) => `Kevin Review Radar — ${d}`;
 const NOW = new Date('2026-10-08T00:00:00Z');
 let n = 100;
 const issue = (over: Record<string, unknown> = {}) => ({
@@ -26,7 +27,7 @@ const plan = (issues: unknown[], extra: Record<string, unknown> = {}) =>
   };
 
 describe('hard guard', () => {
-  const stale = { labels: lbl('intake'), updatedAt: '2026-09-01T00:00:00Z' };
+  const stale = { title: 'intake: x', labels: lbl('intake'), updatedAt: '2026-09-01T00:00:00Z' };
 
   it('closes an eligible bot intake (control)', () => {
     expect(plan([issue(stale)]).plan).toHaveLength(1);
@@ -54,18 +55,29 @@ describe('hard guard', () => {
     const prRefs = collectPrRefs([{ title: 't', body: `Fixes #${i.number}` }]);
     expect(plan([i], { prRefs }).plan).toHaveLength(0);
   });
+  it('counts only keyword references in open PRs, not bare #n mentions', () => {
+    const refs = collectPrRefs([
+      { title: 'x', body: 'Closes #1, also fixes #2 and Refs #3. Resolved #4. Ref: #5. See #6 and #7 for context' },
+    ]);
+    expect([...refs].sort()).toEqual([1, 2, 3, 4, 5]);
+  });
+  it('a bare mention in a PR does not block a close', () => {
+    const i = issue(stale);
+    const prRefs = collectPrRefs([{ title: 't', body: `long bot body mentioning #${i.number}` }]);
+    expect(plan([i], { prRefs }).plan).toHaveLength(1);
+  });
   it('guard runs before supersede: a protected newest does not shield, a protected old is kept', () => {
-    const a = issue({ labels: lbl('kevin-radar'), createdAt: '2026-10-01T00:00:00Z' });
-    const b = issue({ labels: lbl('kevin-radar', 'hold'), createdAt: '2026-10-02T00:00:00Z' });
+    const a = issue({ labels: lbl('kevin-radar'), title: RADAR('2026-10-01'), createdAt: '2026-10-01T00:00:00Z' });
+    const b = issue({ labels: lbl('kevin-radar', 'hold'), title: RADAR('2026-10-02'), createdAt: '2026-10-02T00:00:00Z' });
     expect(plan([a, b]).plan).toHaveLength(0);
   });
 });
 
 describe('supersede-report', () => {
   it('keeps exactly the newest per label and closes the rest', () => {
-    const a = issue({ labels: lbl('kevin-digest'), createdAt: '2026-10-01T00:00:00Z' });
-    const b = issue({ labels: lbl('kevin-digest'), createdAt: '2026-10-03T00:00:00Z' });
-    const c = issue({ labels: lbl('kevin-digest'), createdAt: '2026-10-02T00:00:00Z' });
+    const a = issue({ labels: lbl('kevin-digest'), title: 'Kevin Daily Review — 2026-10-01', createdAt: '2026-10-01T00:00:00Z' });
+    const b = issue({ labels: lbl('kevin-digest'), title: 'Kevin Daily Review — 2026-10-03', createdAt: '2026-10-03T00:00:00Z' });
+    const c = issue({ labels: lbl('kevin-digest'), title: 'Kevin Daily Review — 2026-10-02', createdAt: '2026-10-02T00:00:00Z' });
     const r = plan([a, b, c]);
     expect(r.plan.map((p) => p.number).sort()).toEqual([a.number, c.number].sort());
     expect(r.plan.every((p) => p.rule === 'supersede-report')).toBe(true);
@@ -73,17 +85,39 @@ describe('supersede-report', () => {
       `Superseded by #${b.number} (newer report of the same kind). Reopen if still needed.`,
     );
   });
-  it('leaves a single report alone and keeps labels separate', () => {
-    const a = issue({ labels: lbl('kevin-radar') });
-    const b = issue({ labels: lbl('routine-audit') });
+  it('leaves a single report alone and keeps kinds separate', () => {
+    const a = issue({ labels: lbl('kevin-radar'), title: RADAR('2026-10-01') });
+    const b = issue({ labels: lbl('kevin-digest'), title: 'Kevin Daily Review — x' });
     expect(plan([a, b]).plan).toHaveLength(0);
+  });
+  it('never supersedes real findings that share routine-audit/automation-review', () => {
+    const a = issue({ labels: lbl('routine-audit'), title: 'Real finding A', createdAt: '2026-10-01T00:00:00Z' });
+    const b = issue({ labels: lbl('routine-audit'), title: 'Real finding B', createdAt: '2026-10-02T00:00:00Z' });
+    const c = issue({ labels: lbl('automation-review'), title: 'Real finding C', createdAt: '2026-10-01T00:00:00Z' });
+    const d = issue({ labels: lbl('automation-review'), title: 'Real finding D', createdAt: '2026-10-02T00:00:00Z' });
+    expect(plan([a, b, c, d]).plan).toHaveLength(0);
+  });
+  it('supersedes recall checks and security patrols by label AND title', () => {
+    const r1 = issue({ labels: lbl('automation-review'), title: 'news-triage recall check: week 1', createdAt: '2026-10-01T00:00:00Z' });
+    const r2 = issue({ labels: lbl('automation-review'), title: 'news-triage recall check: week 2', createdAt: '2026-10-02T00:00:00Z' });
+    const p1 = issue({ labels: lbl('security'), title: 'Paul Blart — Security Patrol — 2026-09-29', createdAt: '2026-10-01T00:00:00Z' });
+    const p2 = issue({ labels: lbl('security'), title: 'Paul Blart — Security Patrol — 2026-10-06', createdAt: '2026-10-02T00:00:00Z' });
+    expect(plan([r1, r2, p1, p2]).plan.map((p) => p.number).sort()).toEqual([r1.number, p1.number].sort());
   });
 });
 
 describe('intake-ttl', () => {
+  it('skips intake-labelled bugs and desk/marjorie-filed issues', () => {
+    const old = '2026-09-01T00:00:00Z';
+    const notIntakeTitle = issue({ labels: lbl('intake'), title: 'Real bug in intake worker', updatedAt: old });
+    const bug = issue({ labels: lbl('intake', 'bug'), title: 'intake: x', updatedAt: old });
+    const desk = issue({ labels: lbl('intake', 'desk:ops'), title: 'intake: x', updatedAt: old });
+    const mf = issue({ labels: lbl('intake', 'marjorie-filed'), title: 'Intake: x', updatedAt: old });
+    expect(plan([notIntakeTitle, bug, desk, mf]).plan).toHaveLength(0);
+  });
   it('expires at 14 days, not before', () => {
-    const old = issue({ labels: lbl('intake', 'tree-event-dispatched'), updatedAt: '2026-09-24T00:00:00Z' });
-    const fresh = issue({ labels: lbl('intake'), updatedAt: '2026-09-25T00:00:00Z' });
+    const old = issue({ title: 'Intake: old', labels: lbl('intake', 'tree-event-dispatched'), updatedAt: '2026-09-24T00:00:00Z' });
+    const fresh = issue({ title: 'intake: fresh', labels: lbl('intake'), updatedAt: '2026-09-25T00:00:00Z' });
     const r = plan([old, fresh]);
     expect(r.plan.map((p) => p.number)).toEqual([old.number]);
     expect(r.plan[0].rule).toBe('intake-ttl');
@@ -102,6 +136,7 @@ describe('watchdog-recovered', () => {
 
   it('parses the workflow file from the title', () => {
     expect(workflowFileFromTitle('Watchdog: link-sweep.yml failed 3x')).toBe('link-sweep.yml');
+    expect(workflowFileFromTitle('Watchdog: plan-recheck.yml failed its last 2 scheduled runs')).toBe('plan-recheck.yml');
     expect(workflowFileFromTitle('Watchdog: work is going unowned')).toBeNull();
   });
   it('closes when the latest completed run is green and newer than the issue', () => {
@@ -114,6 +149,10 @@ describe('watchdog-recovered', () => {
     expect(plan([i], { latestRun: () => run({ conclusion: 'failure' }) }).plan).toHaveLength(0);
     expect(plan([i], { latestRun: () => run({ createdAt: '2026-10-04T00:00:00Z' }) }).plan).toHaveLength(0);
     expect(plan([i], { latestRun: () => null }).plan).toHaveLength(0);
+  });
+  it('closes the real plan-recheck.yml title when green since', () => {
+    const r = plan([alert('Watchdog: plan-recheck.yml failed its last 2 scheduled runs')], { latestRun: () => run() });
+    expect(r.plan).toHaveLength(1);
   });
   it('skips titles with no workflow file', () => {
     const r = plan([alert('Watchdog: work is going unowned')], { latestRun: () => run() });
