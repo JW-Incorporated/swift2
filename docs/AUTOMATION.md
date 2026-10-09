@@ -436,6 +436,39 @@ It has **no watchdog** — top recommendation of the 2026-08-31 review
 
 ---
 
+## Issue sweeper (backlog cleanup, Tier 1)
+
+[`issue-sweeper.yml`](../.github/workflows/issue-sweeper.yml) runs daily 09:17
+UTC (plus manual dispatch, `dry_run` defaults true) and runs
+`scripts/ops/issue-sweeper.mjs --apply`. It **closes, never deletes**,
+machine-filed issues that rules prove stale; no LLM. Founder-approved
+2026-10-08. Rules live in `scripts/ops/lib/issue-sweeper-rules.mjs`:
+
+1. **supersede-report**: genuine recurring reports only (label AND title
+   pattern): Kevin Review Radar, Kevin Daily Review, Kevin Eng Triage,
+   news-triage recall checks, Paul Blart security patrols. Keep the newest per
+   kind. Real findings labelled `routine-audit`/`automation-review` are never touched.
+2. **intake-ttl**: `intake` issues titled `intake:` with no activity for 14+
+   days; skipped if also `bug`, `desk:*` or `marjorie-filed`.
+3. **watchdog-recovered**: `watchdog-alert` whose workflow's latest completed
+   run is green and newer than the alert.
+4. **cie-duplicate**: `cie` + `cie:P1`/`cie:P2` duplicates by quoted page name;
+   newest kept.
+
+**Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
+`sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
+`founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
+`status-page`, `weekly-plan`; no open PR title/body mentions it as `#n` (any mention protects it).
+Newest-of-kind is chosen across ALL open issues before the guard; `--apply`
+only runs from `main`, and the sweeper aborts if a list hits its 1000 limit. Max 150
+closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
+writes `.scratch/issue-sweeper-plan.json`.
+
+**To reopen:** every close comment names its rule; reopen the issue
+(`gh issue reopen <n>`). The sweeper only looks at open issues, so a reopened
+issue is evaluated again by the rules on the next run; add a guard label such as
+`hold` if it should stay open.
+
 ## Adding a new routine — the checklist
 
 1. **Which tier?** If it can be done deterministically it goes on Actions; put
