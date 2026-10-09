@@ -212,6 +212,103 @@ describe('fileAsk', () => {
   });
 });
 
+describe('fileAsk claim-before-create (#4260)', () => {
+  const ask = { ask: 'get the daily-draft run green', why: '', contradicts: null };
+  const wait = (ms = 3) => new Promise((r) => setTimeout(r, ms));
+
+  /** GitHub stand-in: labels are unique (422 on a repeat) and read back at once;
+   * the issues LIST never shows a new issue (worst-case index lag). */
+  function lagGh(opts: { dieAfterClaim?: boolean; failReceipt?: boolean } = {}) {
+    const labels = new Map<string, string>();
+    const issues = new Map<number, Record<string, unknown>>();
+    const creates: string[][] = [];
+    let next = 5000;
+    const gh = vi.fn(async (args: string[]) => {
+      await wait();
+      if (args[0] === 'issue' && args[1] === 'create') {
+        if (opts.dieAfterClaim) throw new Error('killed');
+        creates.push(args);
+        const number = next++;
+        issues.set(number, { number, html_url: `https://github.com/JW-Incorporated/swift2/issues/${number}`, title: args[args.indexOf('--title') + 1], body: args[args.indexOf('--body') + 1], user: { login: 'github-actions[bot]' }, state: 'open', labels: [] });
+        return { stdout: `https://github.com/JW-Incorporated/swift2/issues/${number}\n` };
+      }
+      if (args[0] === 'api' && args[2] === 'POST') {
+        const name = args.find((a) => a.startsWith('name='))!.slice(5);
+        if (labels.has(name)) throw Object.assign(new Error('gh: Validation Failed (HTTP 422)'), { stderr: 'already_exists' });
+        labels.set(name, '');
+        return { stdout: '{}' };
+      }
+      if (args[0] === 'api' && args[2] === 'PATCH') {
+        if (opts.failReceipt) throw new Error('boom');
+        labels.set(decodeURIComponent(args[3].split('/labels/')[1]), args[5].slice('description='.length));
+        return { stdout: '{}' };
+      }
+      const path = args[1];
+      if (path.includes('/labels/')) {
+        const name = decodeURIComponent(path.split('/labels/')[1]);
+        return { stdout: JSON.stringify({ name, description: labels.get(name) }) };
+      }
+      const one = path.match(/\/issues\/(\d+)$/);
+      if (one) return { stdout: JSON.stringify(issues.get(Number(one[1]))) };
+      return { stdout: '[]' };
+    });
+    return { gh, creates, labels };
+  }
+  const run = (gh: unknown, extra: Record<string, unknown> = {}) =>
+    fileAsk('tree', ask, { sourceNumber: 4300, sourceUrl: 'u', gh: gh as never, sleep: () => wait(), ...extra });
+
+  it('two simultaneous filers produce exactly one issue, and both report it', async () => {
+    const { gh, creates } = lagGh();
+    const [a, b] = await Promise.all([run(gh), run(gh)]);
+    expect(creates).toHaveLength(1);
+    expect(a.number).toBe(b.number);
+    expect([a.created, b.created].sort()).toEqual([false, true]);
+  });
+
+  it('staggered filers (inside the index-lag window) still produce one issue', async () => {
+    const { gh, creates } = lagGh();
+    const first = run(gh);
+    await wait(10);
+    const second = run(gh);
+    await Promise.all([first, second]);
+    expect(creates).toHaveLength(1);
+  });
+
+  it('five concurrent filers produce one issue', async () => {
+    const { gh, creates } = lagGh();
+    const results = await Promise.all([1, 2, 3, 4, 5].map(() => run(gh)));
+    expect(creates).toHaveLength(1);
+    expect(new Set(results.map((r) => r.number)).size).toBe(1);
+  });
+
+  it('a killed claimant never yields a second issue: the retry warns (throws) instead of creating', async () => {
+    const dead = lagGh({ dieAfterClaim: true });
+    await expect(run(dead.gh)).rejects.toThrow(/killed/);
+    const retry = await run(dead.gh, { claimWaitMs: 20 }).catch((e) => e);
+    expect(retry).toBeInstanceOf(Error);
+    expect(String(retry.message)).toMatch(/claim .* is held/);
+    expect(dead.creates).toHaveLength(0);
+  });
+
+  it('a lost receipt write (kill after create) never yields a second issue either', async () => {
+    const { gh, creates } = lagGh({ failReceipt: true });
+    const first = await run(gh);
+    expect(first.created).toBe(true);
+    const retry = await run(gh, { claimWaitMs: 20 }).catch((e) => e);
+    expect(retry).toBeInstanceOf(Error);
+    expect(creates).toHaveLength(1);
+  });
+
+  it('a claim error that is not a conflict propagates without creating', async () => {
+    const gh = vi.fn(async (args: string[]) => {
+      if (args[0] === 'api' && args[2] === 'POST') throw new Error('HTTP 500');
+      return { stdout: '[]' };
+    });
+    await expect(run(gh)).rejects.toThrow(/500/);
+    expect(gh.mock.calls.some((c) => c[0][1] === 'create')).toBe(false);
+  });
+});
+
 describe('fetchAsksFor', () => {
   it('lists by both the filed and desk labels on the REST issues list', async () => {
     const { gh, calls } = fakeGh([]);
