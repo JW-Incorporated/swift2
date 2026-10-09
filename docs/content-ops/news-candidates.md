@@ -25,7 +25,57 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 79
+
+## Mariska Hargitay Impressed by Cookies from Taylor Swift
+
+- first seen: 2026-10-09 16:08 UTC | category: fashion | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: During a secret shoot, Mariska Hargitay expressed her admiration for the cookies Taylor Swift brought. The encounter highlighted a friendly gesture between the two celebrities.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRENvYXBsTWlxalo1cWRBaERFRi1mWlZkdDg4V3A1emIxbHNQdDF2czRNWm9MS0gxVDlHXzQ4OElaLUR0ZEIza2E4ZVlPNEJiUHhSOURIOXdEQ0ZId2w3cFdyNmM4ZHlUd3hvVzBVU0tHNmtYVmhTcVk3WXRadVA3cnZIT2hRc2p3Q0w3RklPeXlrSUwxcnZ5VDhycVVhV2M?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Lorde Reflects on Final Shows, Quotes Taylor Swift Lyric
+
+- first seen: 2026-10-09 16:08 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Lorde quoted a lyric from Taylor Swift as she reflected on her final 'Virgin' shows, saying, 'It Was You & Me All the Way Through.' This highlights the connection she feels to Swift's work during this significant time in her career.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipwFBVV95cUxPZ3V1cnBaVl9ZS2hLLW9xdFhhcGwzRmlMS3B2aDY0VldzSXppSk9xWUdMQjVWeWd2cDZsZ0RBbEdqbS1mX0VOaVpJdUR5M2VXY0x3RG9hS3VITXozVlBNM1lRVzB3UW5GMmZKWkFiR2VGOFkzU3VOYUdSM1o1eEpYQy03QTBwRDBqU1VScDBuSkFHd1lpdDllMW9meVZLZE5VWlotVkN0UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Ohio Neighbor Criticizes Taylor Swift and Travis Kelce as Absentee Residents
+
+- first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A neighbor of Taylor Swift and Travis Kelce in Ohio has voiced concerns, calling the couple 'absentee' and claiming their presence is a 'tremendous blow' to the community. This criticism highlights the impact of celebrity residency on local neighborhoods.
+- sources:
+  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQN1FndXdOc3U2NW4xSnQtbUhZUkc1MjMwRm0way1wU0xBN3p1cC1zdllOUTMzRmFETHZNVHAwWnl1Y3pnT1hOVUNjODBSdkRtdXdaS3NoRXRGdmxILVFTcXNJcHFsWTdkM1RJRFdSR3JZWlA5UWUwUUhlYjAwY3NMQ3MzeDN1STktTVc5RTlhSVhLbDg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPc0x1dUstQXR3V0hJX1ZpbDVValU5bHlqSUgxMGtDZkI4dHA3WTlER2w1TEtZNUFZLXU1QUdINE1pZkJSazBNRXdDbzJVZHBRN0hMa0dDb3g4M2F1cUc1Zjdfc2FQYmJHTk5lUXE0X2lxQ3RKRmZ6Y3JLc0d2WU1CRHNfRHMzbWNfcWhHV0VRMzNxeUp3V3hNVXdYUTFPYWJNQm5qdW9fMXhfdmlIWVFTa1M4UlJ5Vy1SMFRUazF5aVhxdk01UXZObWFQeTZvRHNCWUVicQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Perform at Academy Museum Gala This Month
+
+- first seen: 2026-10-09 16:08 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is scheduled to perform at the upcoming Academy Museum annual gala. The event is set to take place this month, showcasing the artistic contributions of the museum.
+- sources:
+  - [unverified] Blooloop — https://news.google.com/rss/articles/CBMiakFVX3lxTE1JbXBQTm5xYXItaE40Z0RjVjNyUTR5MFZMV2ZlMTBEMXZ0S0wtc0p6czk4N01PM0x6UjV1Z2gxVXUycHpGRkNWeFFKLU5HRW1Fa1V3aFJ2V0Fjb291bUl1cEdzSkxhbWwzb3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Encounter Opposition on Ohio Home Plans
+
+- first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing backlash regarding their plans for a home in Ohio. The nature of the pushback is currently unspecified.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMivgFBVV95cUxOMHpmU2t1M2IzZlFJSXhVVzEtakJranpmMkZka0NESW9xeVRvVF92N0RYTndoZTRTM2xscDMzWUlNc0VjQnhRd0x3b0FHd0tweHZROHFKRG1CS19NYW5OLXNlMk5FM2U0SFp1TzlwYlloRW9UNkplTlBsWEp4VWtZelpScXZEX1g4dks5b0oyX3ZobEdBcWRNdThuS0pjQnBxbW53UHEyYjVBOU9hM3VNUVRqWnBCUVJZX2lMSVR3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Review of ‘The Life of a Showgirl: The Encore’ Raises Questions
+
+- first seen: 2026-10-09 16:08 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A review of Taylor Swift's performance in ‘The Life of a Showgirl: The Encore’ highlights unanswered questions about the show. The piece offers insights into aspects of the performance that may leave fans contemplating more about the experience.
+- sources:
+  - [unverified] Observer Online — https://news.google.com/rss/articles/CBMipgFBVV95cUxOY0s4cFpyOWVSSWVqal9ybWd1NjJBdkx1RlVmSzJqT1U3d3NVemgzYlpRTzdqMTFyMFQxMGp4cmVyczdYRFI2WkR6LTh5NE1tYnFuQW1lV0lNczFrWjVZWFY0LWh3ZnBFU1lULXFaaHJ2TnNIb09nVks3RmF5eEpYMUNiQ0x1aWhuVE5rUlB1b2RUMWtIZjc4dG54aF8zUDlMcllBejln?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] thestatetimes.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQM1dZdndPR1hHbENzUjZXSjRfbDlCNGhvN0NmZW5NV3hMSzR5M3BMWGdOUlk4bFU2TTY2OWk1Q3FaRFJkT3pDeS1FVXFmVmVKT3htZ194eWZvRld4bGlac21TbE5iVmRhLVRQanBRWEFvbWM4QWdNOWFUSkNzaUZnanhmSy0yd0VnaW1BOVJ1MHBaVnEwNlNFRmppN1I3UkdMOHFFU1J6cUdUMWNiMndR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Neighbors Oppose Fence Around Taylor Swift and Travis Kelce's Ohio Home
 
@@ -636,104 +686,3 @@ Stories: 85
   - [unverified] Facebook — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPYjB0YmtUandEQzVieUhqZ2hSV3VseWRTdVV1dXl0T01UT0JZZDhTNkpqdUpoQWxxb3ZRVWxGZ0dOTG9VT096MDR0bk5sRjBXaVdvckpWNDZRRWJfQ1lzNTRjVnlYbTlORU9CeUJwNVNqWEVFRU52T0t0NHBTQ04xNHN5a0RBYkhTTmJYNGpBUW1USTllRko3VjhmWG9Makc0dE5GZmp3X0t4clR3MFhKM0RKLTVmT3RkSWZoTTA0U2phOVd4SmR3WmQ3b0ZNWkxGbThhX2VCSUltUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7wFBVV95cUxPMG9IUnBCYkFiVUlFWVRKYk9VcnFBVUVPX0hDekFGSzBWU0ZMUzBielEzc2RxcnkyNTJENU52Wi1vNUFiUXpaNk43X0FwT0hmNG5XOGItb0hLalYtWjk2eDBhRFd0UnBRR3RXelpVeWVpbkJwS285aDUza3Z3Vm5EX3FwRzVQWDNGdGFpMEw1cHdFeGtUanNNTE5mdzRiVkgtWXlESHpxSEdzUHlBbVVRaEFoTTFESmx6c1lxSUxhNDBaR29DWjlmeVp3aGY4VmhDYTg4Y09PWmJJMjVFTjVKUWVBOHlIN2FKanpFY00xRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Showcase Coordinated Looks at Birthday Dinner
-
-- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift and Travis Kelce were spotted in coordinated outfits during a dinner date in New York City, celebrating his birthday. The couple's stylish appearance drew attention as they stepped out together.
-- sources:
-  - [unverified] Extra — https://news.google.com/rss/articles/CBMioAFBVV95cUxNazkxWERKVGVNRGRtVVhIV1ZOWVcxdXgtaUVwMk1uOURGWEgzOXlNeTFwZUtOUXRqVzBjbmhYTVJxYXBFaXJ3bzlPV2pPN2JKd2FNMEtiZ2xYSURMMEd6ZmtPUTZMMW1QQXFUa1V4OElfa2pVRnc0c3QwRjVlaWVYQTRzejFSZkU0ak5YNTZOQXhZbzRNNXlsaVFwN1RsbXIz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNeFdzTWZsRDluWGR6UWgtYlp1OFB5TVlxeVVkNE9VN0w0Sm81UmxtaXV2U3FTd2JCY0pKbjdyakl0MEJBTVRxc3RyV0lHdmpwcjNTYlNSWm05SGpaajd5WHZ5MzdhRWhZQVM1Tjk1b1BUdDBlb2lWQXVrdVlxOE85bmRGeFBTc1gtVlpRdEdqdXB0SzhmYUlyLTdMNUpBQTk5aWg3eWpka3dwRm9Eakw2bFZrNEpJMVh4RWl3REFBMy1SR0NybGhncQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNVE5VLW0yS2UzYUlKMUZHakFNaks0Ri1OYnpXdDlJSHpjcERsbk81WXh2Z2lkaUhNMUtFYlRPRF94SzNmM3ItSlVaMUJNZ3RDa28wUGxLVzROa2cwQ2FvenJRWU05UlBlaVNncHgzek9RZU10cmJWNERPY3BGR3NHMXoyUXBWVWZ6Q05LTzdjVWprd2tCdWpZVFVFQ0NIMndFOUpyRm11eW8xQXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Celebrate His Birthday Together
-
-- first seen: 2026-10-06 11:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen dining with her husband, Travis Kelce, to celebrate his 37th birthday. New photos from the event have emerged showing the couple enjoying their time together.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMixAFBVV95cUxNRDZMR3VnaHJGU2lxMFUwTHMyRGpOVDBIVmFxc0J3ODE4U0VwWm84cXhQLU9maU5mT2doVzFMN2k2bEhvUExNRmhob1VYNU1LSWF2bUNoUzZENDY2SkZmcVlvLTRfTkhBcXFocGFuZVg0Z0VTQkhJZjdhNUllX2ExTFhRcmFGMDdpbEhNRmlncEFpak45RDhYUFVYUzY4OUhQU1NYdUQxeVR3bnVHc0VRcW1zZUJpRUhwcjFKMEFaV2JXeDBE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Family Member Issues Apology to Kate Middleton
-
-- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A member of Taylor Swift's family has reportedly offered an unexpected apology to Kate Middleton. The details surrounding the reason for the apology were not disclosed in the article.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPWnpZTDFfMzg2QXdGRFBUdDZ3VC1NWmtNbllBX3I1N1V2bzRnQ1JBcXlkMjZPbW1tZ3FYRDFpTWNwTEhvOGZjUmRUYlFlU2tmUnlkT0xFbjNxd3RxQnNOSE80eWZjVWFlakpRM1ZrRVJJN0pLQVJFdUZ3V1VmNGEzUkFxeldnSVloSkVObm9EX1hVYXItWmRsN0x0Um5iSUtHdEMwUHdXaVJZZktheDFHS25n?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Songwriting Challenges Without Heartbreak
-
-- first seen: 2026-10-06 11:59 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent piece, Taylor Swift addresses the difficulties she faces in songwriting when not experiencing heartbreak. This highlights her creative process and the emotional influences behind her music.
-- sources:
-  - [unverified] The Diamondback — https://news.google.com/rss/articles/CBMijgFBVV95cUxPZU1UTEZhOTlhaUpORW80WmhvNmZRb2dwMXlUYmxFQmJ0NDhnWWhPVm5MOHRteTlfTVYwSXBhQk85eVVfQmlsbVJNaTA5OVdZZHJjNXBFX3BoY2I4QmI5S0M2S2g3dGJoQnlTYkNyemRtaG02bGl3LVdKNGZSeXd1MFZWMHFuRFk4Z0Zvdkh3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise TV Appearance to Praise Cleveland
-
-- first seen: 2026-10-06 11:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a surprise appearance on national television, Taylor Swift expressed her approval for Cleveland, capturing the attention of fans and viewers alike. The moment highlighted her connection with the city and delighted her audience.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNNWFKVmZsQlEwMXFQbUtDd00yRUdCMUk2NzdIMDJlMVdUZGZMODBXcW1QUEg1aDJyclRTVnlFdmFYbi1TRTBhRFM2cmJ4VHRrd0MxZUN3LWtzY0hJaEpyYXZvY2RxUnlIZlg1STRqTkJmbnZEa3B1NEpMM2hxdmRyR2s3R2JnR3FDel9udmJfSXRUX3NzUFZpVDJUOTlGOXIzZTh2WktR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts Music Video for 'Toy Story 5' Song
-
-- first seen: 2026-10-06 11:59 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released a music video for her original song featured in 'Toy Story 5'. This new addition showcases her involvement with the beloved franchise.
-- sources:
-  - [unverified] 6abc Philadelphia — https://news.google.com/rss/articles/CBMi8glBVV95cUxOdUN5NEtJTlVYa1llcExuQktzRjNEWFdpYkpnWkwtVXFoWnZYM012X1MxZ25DQ2FsNmdWUEh2OTZNX0FPeXBQUnpjbE5laU5TWE00NkdtYjRXUW5wWlNTN3NKaEJWNFRqbEZuOHEyRmI0U3NiUUNLWnp5MnN0anlEVThfbmpndXBWSkRqa1lHY2hjZV9HMF9DbGxERE1KT3VqRHoweEhYcGRwME9DdWtqUFFtZ0p4amYyZlhpSkNHMjdvVUZhQlZHazBCWUM0WElQOXRyVmVKRWJUMkQ0NDNWSndJcG5SdEE5LUhEVGFVZGhkTHhSV01DMFFYQmw1cDF3VXpOSVZnVmpxb3Y2bXN0djk2UkVwQ3ZiTlJ5Q2ZfT0x5dWdlNm1BOGJQUWgyWmw3Mkg5U1p5aUhkMVhxZ3BTWWcwYmN2SkhJWEUtZTZCSUFudmhtc3k1Ql81SUFVVG56X2xmcjNsNHN0RnNIX1dLUmZNdWdsUU9DaW52MU9kS1RDTUF4MlE4cW4weV9ENDlWNDJtRmhGLV8ySFRvT1JYcklqZUtuWWRqQTZJSXVYeG5HRUNsclhxVXh4WGhNbFhMN1hVeU9BUWtKaDBIRnVJS1FaaTNMYWVJd0M3N08xSEZ4YUlmZ3NaSjNsd085ZHEwSDA5RlhHNExaOTlzdGxwMTFHMkpLYi14SkhLdXFWT0ViVUtMV3lHckV6b1NJU1h1UFlfcEpWT09sMjI4QU9oTVR0eGl6MVJiSWdENkdCM1V0ODZqY3lSU25GZ1JtQ3E3UDgtVGZCZW9pMGdRY1RZemFlYzNEam5lNWt2VTZ6TC1MZ1FJcHhwWFNfbms3NFNKa1JYa2k5QmptbG9DZnBkMkRhM2lFeUVUUzFLWms1OUVBTmJQRnR1bk1tbkh2R2dHcDRrRUNXQkFRRlhUSTFUN0JLbUowblhiWTl4OWVTdjkwM214bk1lWnpaaXI5UWVVUlZjVkZiWHFmVV9YSTRDMW9VbnE3NzNaNUJSVE0tRFZDSEdYendEU0dHalR0and5alp0NC05VFVZLXFLS3BIeS04ZUs1bmpteEFkcElNcWhrMEdLVHQwRHRlbW1nMFFJUG8yNnVmZDBoai1jSExKekM2RlpkcXF6TWJ1OWRqdFFtYnNZWWZKdTlmczNUZmFIYVVfeDBwWWZKUzg4ZWd1TDUxaVp3V0RmV1RSR3pXYTZBMEFCWXU4YVFyTHY5TFVWY0FOMnpuYVdEcEgxYVZRY1BZQ2tuREhKQlRGYjd6a29WM3JEOWhVcEc1NjFiRUU2U3I4ejlYNjdnaEdMejJNMnUyaFAyMGVmbDM2ZW5hWFJDTXRjT3ZsNjJ0aEZkVzFPVm9HeDVXVTdDbHgyaWhqZ3BmdXdjYlh4QzE0ZS1QTWtHNnlydTBTR3hpN1Q1NzJjdzcyWlhSV1Y2VGRfUlRYdmo0LWFmeVVkdlY1c0xnODBHMHpJQkRvZ2tBRE04RVJkNWRNdDFFeEJSUnhZc1E0Wm9qaDJCZ2lrRjNBeFZaMTlDdENsZGh1cEh6OTByY3FTUUw4V01UeUpkXzVZN00zeEM0dlg3SXhKZFFBSTU1cjJQazg3UWt3c3FqQVNnMnpsTkluaWFlRUU4Q0E1SFpISVJOLUtwUkMzblBfdEdKMjlheVBUUzhEUkpHbGVScThHLWfSAZABQVVfeXFMUEVQWlFPOW00ODljUGhCb2t2dDVvR3B5X0g5eDZBQlFRTDlzVl9DWC14YmMxWjI3UlNBM211bDc1Uk93eUc2djFwWk02MTYwbWxHeThJS3hvRzltaFM4ajFNVTlPdXdlcDY3OEU0eXZnYV9uN1BpWDhqTWhEM2NnZzdQYWxIeU4zS0xYdGlhVVh6?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce reminds Taylor Swift about handling criticism
-
-- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
-- summary: Travis Kelce reportedly told Taylor Swift that it's impossible to please everyone amidst ongoing criticism. This reminder comes during a time when the couple faces public scrutiny over their relationship.
-- sources:
-  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMiswFBVV95cUxPWVFjOFk3Wm9sVDRPeWJRNFJxT1JsUmFiQ0pxdEFBaGRTNG9xVS1sMUNmeFdWb3dvT2w0c19LU0ZEdFYxelM1Ui0wVVFDSXp0STNVdkg2WVJXUHRVb1NRWVQ4RXV2ZVJFdTRhWm10RTgtOTRIanJxY29VRkRPQUZXbXhQMWg2RVZrdmRsYXJNaTlncHhDMG9Td0Z3bUgzRjNGbWR2UjVlcG1KY3V4LV9HUEh0RdIBxwFBVV95cUxQWkJkM1Z5RFZPWXRaVy1HSWlvLThHcVMzbmFLZHdBTGNxNG5laGpSaVMtUDEzMkczdWFpX0RFa1h5SnoycEE3MDlGNDZiRHRqdXdTaHBLeFBmYy13b2pRTnExWDRpdzE5cl93OVJzMkJkNnRqQnAwSEhRa2c3LW1uQmh0QXdaN08wSm8zRHAxYWM2WHhfR3JyclpvS2RsT1p6Q2UwQUV1ZDR1a1VFVjYwODVFdXlyeGpaWDdDNUVpaTRXVFRxSnNR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1I0NVFpSGo3Z2RVT19jRkFHTVl0YXc1emYxbEdudnNRWm5ickJtUm5xOGhyQVZOZ2dMcTNsb0oxUzdZNjBfcXVseHlQWHFQdHJvbkV5TURzSHpIaWpiZkJjLUNZOWt0eUNnUTNScWxOc05KNF8xOXJJMmNybFRiWTIzQ2hzcERROTVGcXE2NGNXcWNkR21JTXpRdm5IaEp2bElCcU9neUhJMXRaYjF0ZGVndDNLT3pxWjBHSw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNd0dYYnhHcFItZHlaRUxNYkFqNlZNMll4czN0b1Z4Y19SWGI1cmxLMWM3VzByLUZZRmhBV2R6WnNOUUlrejFNQ3Y5VzQzV01sbU54RUptV1FIaUVZLW9fdVhQUU5WUVlhNUlyZWREMHREZEZvWmhOZEZkNWVueTBLbXluTkVCczVCR0dYd3hkOU5TX2Q3VFNZUUtFX3U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## R.I. Property Owners Sue Over Controversial 'Taylor Swift Tax'
-
-- first seen: 2026-10-06 11:59 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Property owners in Rhode Island have filed a lawsuit concerning a tax reportedly associated with Taylor Swift. The legal action has garnered attention due to its connection to the singer's impact on local property values.
-- sources:
-  - [unverified] Brown Daily Herald — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOWRucUg2eWt3cTBtM0ZGOTZETXNnbXMyNmNNWEhRdGxxY3UzNGhLZWN0RU4tN2R2R1FmOGdWbVk1REphdWJDVG9BQkdpR1l3dDhwdGtIOV9uaEVySVVkWHlYZFlpNDNib200NVVocjJFTUJ1RTBvWTVIeXRJSWlRbDNza2t3YkZLakZkNk04emI1M0MwM29HdWEyZWg4MXZKUHB0Z3E3OF9RUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Blake Lively Reportedly Upset Over Taylor Swift's New Friendship
-
-- first seen: 2026-10-06 11:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively is said to be feeling 'devastated' after Taylor Swift has reportedly befriended another A-list actress, leading to feelings of betrayal. Sources indicate that Lively is struggling with this change in their friendship dynamic.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQZmJ3MFZzOWpIY3FzVzVFY1U2UTUycG8zVjFRUXZTblZSM05kdVhNTEtiZkpFOEtXcFJoOWFXSTVhaHNnd1o4dVlYM0pJc3JyZXBmZklham85cEFyTVl2Z2xST0F2RHRYcnB4dlc5bnd2OGFDdG91X2MxRkkzSmVEaFVHRHpvS3R2cXF5SWk4VklpQlo4QmhQSWRFZkFrZ3YyWlBGbndRRXY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Chrissie Hynde Expresses Appreciation for Taylor Swift's 'Cleveland!'
-
-- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chrissie Hynde has been noted as possibly the only supporter of Taylor Swift's song 'Cleveland!'.
-- sources:
-  - [unverified] pastemagazine.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQdjFQeWQzUW0xTWpmdzIwVTlGYmhsWlVtb3FNYllid3pTeGdxRlJhbWttVDNqWVRUMHRsdmoxMi1EZldBY1NCcUJqUzdMV0Q2bWRmVUd0bEhHc1hMYUxjdDZkTmkzOUFVWV9WNmQyOEZnc0NCOWcyakZkLWFzTGpaZWtyNEd2Wm9SUmttTy1XbGZsLUFyV015b3NxWi0xZmJXUDZ5T2VCMVNXSTZNR3lSakhNUlIwOTQwVUhCdEZB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of 'The Life of a Showgirl: The Encore' Released
-
-- first seen: 2026-10-06 11:59 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A review of 'The Life of a Showgirl: The Encore' explores the theme of authenticity in the showgirl performance. The piece reflects on whether the essence of the showgirl still exists in contemporary performances.
-- sources:
-  - [unverified] Atwood Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNm1KTnhCalNjZWJWRDRIZkFsTU5Tb19TdExORjM2Q0xHTDhjYnU5MFNMNjZPdTlrNHhyQTNVX3JQRl9SeENWMWxUYk5aT01qY0JIQjluQXRjWDU0U2xRRFhLR2pGUE1Yay1XckZIRzZEVmg4azBhRDJoN0d2YjJQc3AzZ1VMbThZQ0prQkUwWFFWQ2xUdlh2SUhxZ2FGUlF5RmV1SjlOYUt4UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Harvard Crimson — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMG1JZWR4cVEyOUQ4Ukl2bWFNVzRrOEpTaEVELUVEQzlZd0ZlS1VKQlJnVGx0SVV0UkJnUFNIclA5N0VheHljd0UxaXJqRkVJMEFkOEpHQkhESktmTmxyUnlmOTJGdlltb3dPNlpiWFlBQ2p3QnlFTjZ4OFVwbGRyOUYySlhyVkNqNFZZcGMzemRFdF9IRjZkbDduLUk1Zlg3ZzZ1ZHE5YTk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Showcases Bad Girl Style in Vogue Feature
-
-- first seen: 2026-10-06 11:59 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Vogue has introduced Taylor Swift's interpretation of bad girl style, highlighting her fashion choices. The piece focuses on Swift's unique approach to style and trends.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiekFVX3lxTE9GN1hXYmpfSlN6eVQ2QWxWUm5VRkFIV2RWZGRzXzRDejNhT3FWOFFGd0U3Y0c1blVJdk05MVF4TWFYQTNvNXBKOGc5bEIyVEpZWXlYTVlvZnRyRW1OUDZqQzl3RmZ1c21oM2FjVVRiM05Ob1BSWDFOREhn?oc=5&hl=en-US&gl=US&ceid=US:en
