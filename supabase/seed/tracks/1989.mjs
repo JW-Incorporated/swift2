@@ -207,10 +207,10 @@ export default {
       summary:
         'Two people who keep crashing back together because the chemistry is timeless even when the relationship is not — desire as a classic silhouette that never goes out of fashion.',
       inspiration:
-        'The title’s wink at Harry Styles is the most widely reported reading (unconfirmed by Swift); she has described the song as being about relationships that circle back forever.',
+        'Swift has not named the song’s subject; she has described the song as being about relationships that circle back forever.',
       themes: ['cyclical attraction', 'timelessness', 'glamour with dread underneath'],
       fanLore:
-        'Fan reading (widely reported, unconfirmed): the titular pun on a certain One Directioner’s surname.',
+        'Fan reading (unconfirmed): the title as a wordplay on fashion and personal style.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
       sources: [
         wiki(

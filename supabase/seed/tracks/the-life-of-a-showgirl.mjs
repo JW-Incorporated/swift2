@@ -276,7 +276,7 @@ const TRACKS = [
       summary:
         'A happiness the narrator built herself, named for a man-made stone — joy as something manufactured on purpose rather than found by luck.',
       inspiration:
-        'Swift has not named the song\'s subject; the widely repeated fan and critic reading ties opal to October (Travis Kelce\'s birth month) and frames the "opalite" of the title as synthetic, self-made contentment. That reading is fan/critic interpretation, not a confirmed statement from Swift.',
+        'Swift has not named the song\'s subject; the widely repeated fan and critic reading frames the "opalite" of the title as synthetic, self-made contentment. That reading is fan/critic interpretation, not a confirmed statement from Swift.',
       themes: ['self-made happiness', 'contentment', 'track-three optimism'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Opalite_(song)',
       sources: [
@@ -618,12 +618,12 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'A regret ballad about a high-school-era almost-romance, closing on a funeral verse that fans trace to a real classmate.',
+      note: 'A regret ballad about a high-school-era almost-romance and the chances not taken.',
       summary:
-        'The narrator looks back on a friendship she never risked turning into something more, wishing she\'d kissed her friend while there was still time.',
+        'The narrator looks back on a friendship she never risked turning into something more, wishing she\'d kissed her friend while she had the chance.',
       inspiration:
-        'Swift has not named the song\'s subject. Fans have connected it to a classmate, Jeff Lang, who died in 2010 — a reading built on public record (Swift sang at a friend\'s funeral in 2010 and thanked "Jeff Lang" from a 2010 BMI Country Awards stage), but not a statement Swift has confirmed.',
-      themes: ['regret', 'unspoken feelings', 'loss'],
+        'Swift has not named the song\'s subject.',
+      themes: ['regret', 'unspoken feelings', 'taking chances'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Ruin_the_Friendship',
       sources: [
         wiki('Ruin the Friendship', 'Ruin_the_Friendship', 'song article: fan-traced background, labeled as interpretation'),

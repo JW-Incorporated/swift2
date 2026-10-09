@@ -613,12 +613,12 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
       note: 'The country-sized rebellion aimed not at a father but at the fandom itself — the judgmental chorus gets called sanctimonious to its face, with one gleeful fake-out pregnancy line.',
       summary:
-        'She dates someone the internet hates and torches the moralizers who staged interventions over it: her life is not a group project. The wild-boy subject is read as the 2023 Healy controversy (unconfirmed); the scolds in the song are documented — they posted.',
+        'She dates someone the internet hates and torches the moralizers who staged interventions over it: her life is not a group project. The scolds in the song are documented — they posted.',
       inspiration:
-        'Widely read against the documented 2023 fan open-letter campaign about a brief relationship; Swift never names him, but the song’s target is clearly the pile-on, not the boy.',
+        'Widely read against the documented 2023 fan open-letter campaign about a brief relationship; Swift has not named the song’s subject, and the song’s target is clearly the pile-on.',
       themes: ['autonomy', 'fandom parasociality', 'choosing your own mistakes'],
       fanLore:
-        'Fan reading (unconfirmed): the Healy chapter; the anti-fan-jury message needed no decoding.',
+        'Fan reading (unconfirmed): the anti-fan-jury message needed no decoding.',
       sourceUrl: 'https://en.wikipedia.org/wiki/But_Daddy_I_Love_Him',
       sources: [
         wiki(
@@ -1271,10 +1271,10 @@ const TRACKS = [
       summary:
         'Someone vanished without explanation and she drafts the charges: coward, operative, hometown embarrassment. The fury is that she still does not know which betrayal it was.',
       inspiration:
-        'Fan attribution splits between the era’s two reported exes (unconfirmed either way) — the ambiguity is itself the fandom’s longest-running TTPD debate.',
+        'Swift has not named the song’s subject; fan attribution is unconfirmed and debated.',
       themes: ['contempt', 'unexplained abandonment', 'demanding an autopsy'],
       fanLore:
-        'Fan reading (contested, unconfirmed): the great Healy-versus-Alwyn attribution war of 2024.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived',
       sources: [
         wiki(
@@ -1358,13 +1358,13 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The one happy chemical reaction on the album — stacked with touchdown and trophy imagery that made the subject reading a national headline.',
       summary:
-        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction (unconfirmed in the lyric, extremely confirmed by the tour cameras).',
+        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction.',
       inspiration:
-        'The sports-imagery reading toward her documented 2023-onward relationship with Travis Kelce is universal; the relationship itself is public record even if the song’s address is not footnoted.',
+        'Swift has not named the song’s subject; the football and trophy imagery is the lyric’s own framing.',
       themes: ['new love as chemistry', 'winning', 'rare joy on a grief album'],
       easterEggs:
         'An Eras Tour surprise song twice — Paris (May 12, 2024) on guitar with “Treacherous,” and Wembley (Aug. 15, 2024) on piano with “King of My Heart.” It debuted and peaked at No. 13 on the Hot 100.',
-      fanLore: 'Fan reading (near-universal): the Kelce attribution via the end-zone metaphors — never confirmed by Swift in any interview, liner note or dedication.',
+      fanLore: 'Fan reading (unconfirmed): a subject attribution drawn from the end-zone metaphors — never confirmed by Swift in any interview, liner note or dedication.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Alchemy',
       sources: [
         wiki('The Alchemy', 'The_Alchemy', 'song article: composition, chart, live history, reception'),
@@ -1842,7 +1842,7 @@ const TRACKS = [
         'Aaron Dessner co-wrote and co-produced it, recording at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett’s home studio in Paris; the waltz-time arrangement builds from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames) that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
       fanLore:
-        'Fan/press reading (near-universal, unconfirmed): the close of the six-year Joe Alwyn relationship — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
       easterEggs:
         'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
@@ -1953,12 +1953,12 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and one very identifiable "marry, kiss, or kill" reference.',
       summary:
-        'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, read universally toward the same tight end as The Alchemy.',
+        'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, alongside The Alchemy.',
       inspiration:
-        'Fan attribution to the Kelce relationship is near-universal (the relationship is documented; the dedication is not footnoted). He has publicly vibed to it at shows, which fans file as confirmation-adjacent.',
+        'Swift has not named the song’s subject, and no dedication is footnoted.',
       themes: ['regression to giddiness', 'new love', 'being known simply'],
       fanLore:
-        'Fan reading (near-universal): the Kelce song — supported by his documented on-camera reactions at the Eras Tour.',
+        'Fan reading (unconfirmed): a subject attribution that Swift has never confirmed.',
       sourceUrl: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
       sources: [
         wiki('So High School', 'So_High_School', 'song article: readings'),

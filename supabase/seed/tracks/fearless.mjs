@@ -104,11 +104,11 @@ const TRACKS = [
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
       isSingle: true,
-      note: 'Freshman year in four minutes — starring her real best friend Abigail, whose heartbreak gets the most devastating line on the album.',
+      note: 'Freshman year in four minutes — starring her best friend, whose heartbreak gets the most devastating line on the album.',
       summary:
         'Advice from a slightly older self to a girl starting high school: the boy who says he loves you probably is not the whole story, and who you become matters more.',
       inspiration:
-        'Confirmed autobiography: Swift wrote it about meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them.',
+        'Autobiographical: Swift wrote it about meeting her best friend in ninth grade and the heartbreaks that followed both of them.',
       themes: ['growing up', 'friendship', 'hindsight'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
       sources: [
@@ -698,7 +698,7 @@ const TRACKS = [
       summary:
         'A promise of forever revoked in real time: she replays the moment someone’s feelings changed and demands to know where the person she knew went.',
       inspiration:
-        'Confirmed to be about Joe Jonas — Swift said she added it late in production after the breakup, and famously described the 27-second phone call on Ellen.',
+        'Swift said she added it late in production after a breakup, and has described the very short phone call that ended it.',
       themes: ['broken promises', 'whiplash heartbreak', 'anger'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Forever_%26_Always',
       sources: [
@@ -1180,10 +1180,10 @@ const TRACKS = [
       summary:
         'A catalog of a casually cruel ex’s personas, from charming to checked-out — teenage Swift already perfecting the receipts-song format.',
       inspiration:
-        'Written in the Fearless era and shelved until 2021; fans widely time-stamp it to the Joe Jonas breakup (unconfirmed), and Sophie Turner’s playful public endorsement of the song became part of its story.',
+        'Written in the Fearless era and shelved until 2021; Swift has not named the song’s subject.',
       themes: ['double standards in moving on', 'wit as armor', 'receipts'],
       fanLore:
-        'Fan reading (unconfirmed): the Jonas-era timing; Turner posting the song with a wink is the documented moment fans cite.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
       sources: [
         wiki(
