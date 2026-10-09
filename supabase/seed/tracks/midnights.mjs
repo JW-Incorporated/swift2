@@ -57,7 +57,7 @@ const ERA = {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
           source_title:
-            'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+            "Taylor Swift Makes History as First Artist With Entire Top 10 on Billboard Hot 100, Led by ‘Anti-Hero’ at No. 1",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -335,7 +335,7 @@ const ERA = {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
           source_title:
-            'Taylor Swift Makes Chart History as All Top 10 Hot 100 Songs Are Hers',
+            "Taylor Swift Makes History as First Artist With Entire Top 10 on Billboard Hot 100, Led by ‘Anti-Hero’ at No. 1",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -346,7 +346,7 @@ const ERA = {
           source_url:
             'https://www.rollingstone.com/music/music-news/taylor-swift-snow-on-the-beach-lana-del-rey-midnights-deluxe-1234742442/',
           source_title:
-            'Taylor Swift and Lana Del Rey Share ‘Snow on the Beach (feat. More Lana Del Rey)’',
+            "Hear Taylor Swift Update ‘Snow on the Beach’ With Extra Lana Del Rey",
           publisher: 'Rolling Stone',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -356,7 +356,7 @@ const ERA = {
         {
           source_url:
             'https://americansongwriter.com/meaning-behind-taylor-swift-snow-on-the-beach/',
-          source_title: 'The Meaning Behind Taylor Swift’s “Snow on the Beach”',
+          source_title: "The Warmer Meaning Behind Taylor Swift’s ‘Midnights’ Track “Snow on the Beach”",
           publisher: 'American Songwriter',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -540,7 +540,7 @@ const ERA = {
           source_url:
             'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
           source_title:
-            'Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: “The Oberheim OB-8 was the star of that album”',
+            "Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: \"The Oberheim OB-8 was the star of that album\"",
           publisher: 'MusicRadar',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -648,7 +648,7 @@ const ERA = {
         {
           source_url:
             'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
-          source_title: 'Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: “The Oberheim OB-8 was the star of that album”',
+          source_title: "Jack Antonoff on vintage gear, analogue synths and Taylor Swift’s Midnights: \"The Oberheim OB-8 was the star of that album\"",
           publisher: 'MusicRadar',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -659,7 +659,7 @@ const ERA = {
           source_url:
             'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
           source_title:
-            'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+            "Taylor Swift Makes History as First Artist With Entire Top 10 on Billboard Hot 100, Led by ‘Anti-Hero’ at No. 1",
           publisher: 'Billboard',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -765,7 +765,7 @@ const ERA = {
         },
         {
           source_url: 'https://www.nme.com/reviews/album/taylor-swift-midnights-review-3332805',
-          source_title: 'Taylor Swift – Midnights review (four stars)',
+          source_title: "Taylor Swift – ‘Midnights’ review: a shimmering return to pure pop",
           publisher: 'NME',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -775,7 +775,7 @@ const ERA = {
         {
           source_url:
             'https://www.setlist.fm/setlist/taylor-swift/2023/state-farm-stadium-glendale-az-bbb91ce.html',
-          source_title: 'Taylor Swift setlist, Eras Tour opening night, Glendale (Mar 17, 2023)',
+          source_title: "Taylor Swift Setlist at State Farm Stadium, Glendale, AZ, USA",
           publisher: 'setlist.fm',
           source_type: 'primary',
           accessed_at: ACCESSED_DEPTH,
@@ -1118,7 +1118,7 @@ const ERA = {
       sources: [
         {
           source_url: 'https://www.songfacts.com/facts/taylor-swift/the-great-war',
-          source_title: 'The Great War by Taylor Swift',
+          source_title: "The Great War by Taylor Swift - Songfacts",
           publisher: 'Songfacts',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1281,7 +1281,7 @@ const ERA = {
         },
         {
           source_url: 'https://www.popmatters.com/taylor-swift-midnights-review',
-          source_title: "Taylor Swift Mines Intrusive Thoughts For Pop Artistry on 'Midnights'",
+          source_title: "Taylor Swift Mines Intrusive Thoughts For Pop Artistry on ‘Midnights’",
           publisher: 'PopMatters',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1291,7 +1291,7 @@ const ERA = {
         {
           source_url:
             'https://www.setlist.fm/setlist/taylor-swift/2024/paris-la-defense-arena-nanterre-france-6baa46ba.html',
-          source_title: 'Taylor Swift Setlist, Paris La Défense Arena, May 9, 2024',
+          source_title: "Taylor Swift Setlist at Paris La Défense Arena, Nanterre, France",
           publisher: 'setlist.fm',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1402,7 +1402,7 @@ const ERA = {
         {
           source_url:
             'https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10',
-          source_title: "We are pleased to inform you that Taylor Swift’s 8 bonus tracks for ‘Midnights’ contain some of her best songwriting ever",
+          source_title: "We are pleased to inform you that Taylor Swift's 8 bonus tracks for 'Midnights' contain some of her best songwriting ever",
           publisher: 'Business Insider',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
@@ -1412,7 +1412,7 @@ const ERA = {
         {
           source_url:
             'https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/',
-          source_title: "Taylor Swift's Eras Tour: Every Surprise Song She's Played",
+          source_title: "Taylor Swift’s Eras Tour: Every Surprise Song She’s Played",
           publisher: 'Variety',
           source_type: 'reputable_press',
           accessed_at: ACCESSED_DEPTH,
