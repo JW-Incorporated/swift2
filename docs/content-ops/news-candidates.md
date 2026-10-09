@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 70
+
+## Tips for Dressing Like Pop Stars This Halloween
+
+- first seen: 2026-10-09 21:38 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Teen Vogue offers guidance on how to emulate the style of popular pop stars, including Taylor Swift, for Halloween. The article provides fashion advice for fans looking to recreate their favorite artist's looks.
+- sources:
+  - [unverified] Teen Vogue — https://news.google.com/rss/articles/CBMiggFBVV95cUxQNl9wenVmM0ZUZWU2bFY0aWt5M2d1MUhOZmJYUTk4RjJpejJpZ1BvN09fckdpUk9ZYzN0bDhQSHJ0eXBfVFp0UmdxUjJob2tsMUI2eHFpa1BkZGNQekh6enBiT2tiWkd4VkxoeW56RjNtNUNsLWN0Y1A5VlNlaklPZ1hn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Remains U.K. No. 1 for Second Week with ‘Patient Zero’
+
+- first seen: 2026-10-09 21:38 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift continues her success in the U.K. charts, holding the No. 1 position for a second consecutive week with her track 'Patient Zero'.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNUVVGN3NHZW43MEdHNDJrRE8zNkJ1NExCdGxjMUwzY3YyeV9Dd3NrbURRMjNhRUJqZDE2cjVXSlNrRHMtTTZ0dXFEYWhnQV9sanhlQmdkUW9XZVZTZVAyTHlrb21NQVFnYW9EZmFma2k3OU5OU2V6Mnlkc0VoMjFLZlh1c0tWOXdvQXNuWUE5SWNkbVNmZENWZ2FIUjRVQzdralBQcGFfYnktbUp4Z3dLeQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Fence Draws Criticism from Ohio Neighbors
+
+- first seen: 2026-10-09 21:38 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's newly installed fence in Ohio has sparked negative reactions from her neighbors who are not pleased with the changes it has brought to the area. Details about the specific concerns have not been disclosed.
+- sources:
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOaTNsbXMxTzBOUUVUZm0wamJuVnU0eEkzNnM5UnBsMHpGZjY2RmxJWTFRZTItS296LTllbm5PSGlpb05sVVBDTHR3Y1htOUhxQkx0bWRGS0ZRU0dDeEdHYnpTdDJ6OXVfVHo3a2M0OXVfWS1pcXNYbzRnLVk1a1RrMjBCVHZkVkU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Mariska Hargitay Impressed by Cookies from Taylor Swift
 
@@ -46,11 +70,13 @@ Stories: 79
 ## Ohio Neighbor Criticizes Taylor Swift and Travis Kelce as Absentee Residents
 
 - first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: A neighbor of Taylor Swift and Travis Kelce in Ohio has voiced concerns, calling the couple 'absentee' and claiming their presence is a 'tremendous blow' to the community. This criticism highlights the impact of celebrity residency on local neighborhoods.
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQN1FndXdOc3U2NW4xSnQtbUhZUkc1MjMwRm0way1wU0xBN3p1cC1zdllOUTMzRmFETHZNVHAwWnl1Y3pnT1hOVUNjODBSdkRtdXdaS3NoRXRGdmxILVFTcXNJcHFsWTdkM1RJRFdSR3JZWlA5UWUwUUhlYjAwY3NMQ3MzeDN1STktTVc5RTlhSVhLbDg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPc0x1dUstQXR3V0hJX1ZpbDVValU5bHlqSUgxMGtDZkI4dHA3WTlER2w1TEtZNUFZLXU1QUdINE1pZkJSazBNRXdDbzJVZHBRN0hMa0dDb3g4M2F1cUc1Zjdfc2FQYmJHTk5lUXE0X2lxQ3RKRmZ6Y3JLc0d2WU1CRHNfRHMzbWNfcWhHV0VRMzNxeUp3V3hNVXdYUTFPYWJNQm5qdW9fMXhfdmlIWVFTa1M4UlJ5Vy1SMFRUazF5aVhxdk01UXZObWFQeTZvRHNCWUVicQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMihgJBVV95cUxORWlUU3J0WG5DdnFGR1dHaWowV1hsUE5QaHczZ3lSWnlHS3RHdzRuQ3Rrdi1YWllDV01PeU1MaUdYRnpFOFZTT1BCOVdBU3VkZFZ2UGdyZkRWWFpiYkcwUkxZSGxPYTAtRkhIb2NyU0NCREVZTmJjWllZRFNmc3FzNGlRSG9XQWtRa0NhS0Z5WFdxV0N5ZnhEY1BrNVdPTmk1a0dwUkZraVJ0alBKbTJkWGl3c0J1dUtMWjdRUG1nMDZibVJaOUxIbXdlakY1blVSd2VtRGxQZC1IZ2FlRk9hcXozdE02VVg5Y0JaQkI1VWFDbjV2bHhsSDNPb1dmVUU3bXJVUzlB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMipwFBVV95cUxPQTU0SENuVVIzVVBDUk1JaHpNMjBQY2JRZWJBVXBObWdfRkpDLVZSREhOc01hb2dvTGtPc0pZRW5KZ2V6WU54QXR4RFpYZWw2YUJ6aDJ5UWJqbURwWkQyMVpjdDJ5eWZNTXBOTzBwTU5FVTRQZzNETnhaRlpaNTdSNGxFNWxlMWhfbGRrSkRrTi10c0VXYXVMOERIckpSMENrencxdHd5MA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Perform at Academy Museum Gala This Month
 
@@ -254,12 +280,13 @@ Stories: 79
 ## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
 
 - first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinAFBVV95cUxPVUpXX2c2b3cxYnd6Q0stSjlfWWxCQkJsRDZGRng0NFFsUFo0b1BfU195WnNTTlNMS2tlTXF3Y2F4WEFMUklZZnhLMTVsRnY0OUVVUDczaXFJVTNZQ1JYTk5GajBwUDZkRmNLTjVIRE5aWThabS13cTlpSF91ZzZwTUh5TFhHR3ExWnVaMld6Y2szdUhiV29NU2hfREbSAaIBQVVfeXFMT2xYbkdhTThJcHdBdU05ek8tTTMtVUdzbkE2LUxvcHdvREE3bG5Vb0VnUkxqS1VzeDlwS0JmaHlWMjBsYjlsZEhPYjRma1ZfZTdKOGF5Z05VTDNOU1hHU1J6cGEydy1fRUNCMDhZTnQ1V1dLdUVzaVlrdXRIejY2ZndqVUJIa0JPMmdfOWpPRjUwU3F6R1pPMWNEcVlqMVNua3pn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KTLA — https://news.google.com/rss/articles/CBMihAFBVV95cUxPanZTVXhVUWwwbG5YSWpaSDA0RGJ5NV81VGVQNkFOcmdVRVV0ajlTcWhhSkYwQUEwMmlpS18zRjBMZWJVZHRmWGlNYmpCUDFQRlNtREJvU0VqYVg3Z1p4aGF6M2pleGFQYUVzZ1VTSV9BRTVVRmpBeGlHNGthZUYyY1gzQUbSAYoBQVVfeXFMUERBenVmS1ZzQl9CeDQ5N0R5NVNYWVlKTTgzOW1PWUJNRjhTX3VZdXJOV3pUTXRWR2laNERuOE8xei0wNGZDcThxM3JzbUpYazUwNTZ1R0F4S0VnYVlyNnUwMURVUWNySk5uZ0JfU3M3NjEteUV2UXJhaUJrMFJFdk1PbGJnb0ExNGh3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOVjdvd1NtWF9sS2Vmc3NJNV9NeGtkQnFOTzkxNE85R0JkU2lseWVCV0lwVzhkS2dMaDlBeVl6SnZjRVVhRlNlQTFjMVhLX3lQUlVrN0dlLVc0Nnp4TV9Bam9RaTNmMXlSNW9zRHJsak05cDJSejhscGlHUGdFOWlkN1h6cGwzOWJGYTBEcE9CNzZKWGY4MDIxTU1rSnFCcHlCR0stZkNTcEtxcC1nRmtVOXVXb1NKc2szM2gzd0MwbGVickdnWXdObGI4TXU1UF9iTDBraWtYTDlzcEpfUWg2VnF3M1M4OVlG0gHoAUFVX3lxTE1lUTh0alhZSUtuS1FlWlZ5NDhpUXpheXFWY2E3Nm9KUGVyM1M4elB4YWVWcXh5NzdRZ3oxNzBGZTdyWkczaGhqckMtMk04dHV6OGJUU2NBRzlPeHQ2S2g5MXZTQTNmZWtFa1dNTU01ZEc3NXd6VDVYVDdFTXZvX196N0tDeHBodVJQYjItaG9uVTVLNFdMX1FqTFdnMnJDZ19XZmJnaFpVdlM3M3hTeGJxdjFaTC1JNmxnckhpdFVKLURBaU5hSTFtNENrTFFXUmFqNGVyM1A0MF9Ga2JQNzhXZnBFZ2xSeVg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -586,103 +613,3 @@ Stories: 79
 - summary: Taylor Swift has released a new music video that draws inspiration from the literary classic 'Rebecca' by Daphne du Maurier. The video showcases a ghostly theme reflecting the novel's atmosphere.
 - sources:
   - [unverified] The Conversation — https://news.google.com/rss/articles/CBMiswFBVV95cUxQTVRON2N6bnlHOWFlZS1URWtRYXdhSmVzYWQ4ZEhqUEJoa3dBMV9Rc1dsVzlFS0JtTGFDeWVYNHFmX1huRU1iNm4xZml2NnczRlhQSi15XzdHRmpiT3FSaTMyM1hwWFc0VkItWG5tQlpxa21iVWtOeG1DdVpYTkMwVjFoNi1nT084U0o0U1NNT2FtaWxjakY0OGhnVUpmSThIUFBLLVk1T3UzQzcxY1RhUWVLMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tops Billboard Hot 100, Displacing Ella Langley
-
-- first seen: 2026-10-06 18:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has taken the number one spot on the Billboard Hot 100, surpassing Ella Langley's hit 'Choosin' Texas.' This marks a significant achievement in the charts for Swift.
-- sources:
-  - [unverified] KSDK — https://news.google.com/rss/articles/CBMi_AFBVV95cUxNVmpDcDdjRndpd2EzU3JuRXg5RHBJOVpnTXNPYkNoMlo1ekFxREJiSDVoaDF1WFY2LXRHSmZsaFZ6X1BSX2NkQnJaOXBBd0RmOElCc2hqY08zeDBaV2JuVGhDQWttY0M5bnFNTWVZcW9FQ094cWx3aHR5RnU5RzBGb1czOHI2UWpQWkJWWmRIaGNvTU8ybXFtdnREd0VILWdvT3o5UzNNXzh2NHhyQVNRNTJSYVlaa1B1dHpaRUVVT24zdUtCQi1tcFJkMkdZMDhKcUVZYzhmT3FyLV9YUU44MzJxVHVoX2lxQy1Rcmo1Qy1iYWc5WUl6bkphaTM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Viral Sign Critiques Taylor Swift's Rating of Travis Kelce
-
-- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Raiders fan's sign featuring a critical rating of Taylor Swift in relation to Travis Kelce has gone viral. The moment has drawn attention on social media, highlighting the intersection of Swift's popularity and the NFL.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQTGNSc0pNT1JLMVVtOTlGMERFOHFjdVN5YzZ4WHFJN3VRZXNfeXU4WXhuejhyUkZlcWdfMFYyUUJUQU1wRGZYbmpndnZReV9OUi1jalY0ZHh4NXlJanJ6WjZXaVlKWmpYdTlsbE9JU1pFblVYQ0VKNkxCcGUzRTFMd2ZtZ1ZoTTd0SmU1NVBBVXdsbDJRdU9NWl8zV3VCX3VPblFN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Unveils New Date Night Shoe in Collaboration with Jimmy Choo
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has introduced a new go-to date night shoe, developed in partnership with Jimmy Choo. This launch highlights her influence in the fashion industry.
-- sources:
-  - [unverified] WWD — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNaWhxeG03Q1lkQzhubDhMeGM4eFdxcDdqQVRXd202LWdPZlFYd1JzUVJsck9LSlpkMHRlN3ZieXhhclVJVjJxZ0Y5c3ZUcVZRRjRobnRvQVVyN2dad2EzdUx1a0pDSXRCYl9kdUdKWmZHTV95dlZITHJUTzFqaTIwaE5rejJMcFNaLTc1TUNuYkN4S2RVYUxFZ0hOUlVhbVlQeW45TzFXSkY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL Fan Criticized for Sign Regarding Taylor Swift's Appearance
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A fan at an NFL game has faced backlash for displaying a sign that was deemed 'classless' concerning Taylor Swift's appearance. The incident has sparked discussions on the appropriateness of such comments in sports settings.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxOVGlZTWZpWTBVMm9HbExja3RIRnFOZUNGRE0wczNqOVUzcmQtY1czSTZaNnUxN0VjUDJQZXVUdlZjcDJpMUlhYmkwWVRDb3dIQzNxeVJVeXpVMXBYQk54cHV5d3JFWjFsNmpkZ25UaUFYdVVCLVMzU3l0MWhtQ1VzVjBvMXY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Billboard Milestone with Four Songs in Global Top 10
-
-- first seen: 2026-10-06 18:53 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has set a new record on the Billboard charts by placing four of her songs in the Global Top 10. This achievement highlights her significant impact on the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNY04tMU95S2xQbE12bUZnTnpFbU9vSmlYRFRGaU9udXQ0LXpFWVUxT0N4QzB0a3VfWXhPWkUzdWVCaV9vUWJPQXk4WTByUHFXQUNCUDhFMVphOElSdjhyM3dMeURKRHdMZzNzUm5rQUdmSzlNd0pqR1htNEdQTTY3bWlBSU5OV3dBU3oySHpTN3paQ0k1eXhJN1dpa1ZXTXBxUEl3Uw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Celebrate His Birthday in NYC
-
-- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce were spotted dining together in New York City to celebrate Kelce's 37th birthday.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxObUZYRWRnVlRWN3JaY0YyNWdkYkwzcG9KeUdzSnBGMWFFWlc4YWtsSWpjN3B5VWtCWWhyWWEwa1hxUjZFbmhhdzV4S3RkY0dweXhKd2pWWHlyNFdkbnBiR3ppSDlZN25wWnVBN3NaRm1Za3hDRFVGdE1jRzJwN3IxNFBYNXlPRXhzaUI2Xy04d0ZLbjFHN0NhdUF4a2U4dw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikgFBVV95cUxNLVlOQWZ1cy1DYS1HTjhDdFJBNC1ocjRqQkRIM2c2T2VJV0p1XzNPVHY2cW9DdHpqRG10NS1BTmtkelFvTjRKelEyM0dZVXEtRUFmVDdubUl0a0VEZXZGeFAyZUxoNGljcUc3QlZJN3ZFaDNmN3BNYmpLSnlWUkJyYUV2dnNrbHI2T3lTR0daMkUzZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Saint Laurent Jacket Over Lace Dress
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in a stylish ensemble featuring a Saint Laurent jacket paired with a plunging lace dress. The look highlights her fashion sense and choice of high-end brands.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAFBVV95cUxNdTZabFNVZ0Z1R0hPYTZsT2N5ZEhuQ05FQTJRcmY3YTFVT1ZadWpIcVprMkg1SzRpTjllRVhxei1aV2c2S3ZSMnNWck5TamdyS0VoejNkcWRnLUs2eG83UW8xRWxwTXZqMGdmZ3BCV1dpdzY0amE2XzF3dzVmVFJReEc5NVhpbm1ZY2t2czlRQXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kanye West Contacts Blake Lively Regarding Taylor Swift
-
-- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Kanye West is reportedly reaching out to Blake Lively for assistance in his ongoing situation with Taylor Swift. The details of their communication and the intended actions are not disclosed.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxNRVpZLTBKRk1iY01sbGtQVTNBWGtrcHY2Ynk0OGVXZEEtZDBBWkdfTTd2VVhaTmlFRjFyNlJKVFBrdmVtNkxoYmNIcko2RDNJSmk2VUt3c0tmbUpEWGgyLXZlZVV4bGpsRGt5d2hMd3lXMFdUMVRvOWdvX0hYN3JGbDYweVc1czFxVVg5OE9MTjVIYmRr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Frequently Wears This Fashion Brand, Date-Night Dress Highlights It
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift continues to showcase her affinity for a particular fashion brand, as demonstrated by her recent date-night dress. The choice reflects her ongoing style choices.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa2pOWGpNekZwX2hQaktfdmdrNjFRc2E4ODEtLThDcDg3MEMtNDMzXy16UXduQzZ6ZXo1b3IxeXVuTE02YmhRbWUyWkRpYTFMVWNaWEZZQk1fOUswYnRpcFZsNnhwMS1PQ04xUTRWS1FwdWsyekQwQ2ExcEJrb1h1QjMzd3ZydHd3R3JDMGFubHBXTVFsUVREdEJ1MFd5NWxHblFkOUtyNWxPdGFjRlpkWVZHTUxBMWNyVWhVeXlR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcFY1NXdITUlPODZRMTVBYy1sTDItZWk4NldxS2ZoZWs1blpiaEVUbFhNQWh2N2RnNl9EWHRpRmNRc2sxZmZZalpCdGJOSUtrYlJZVVZLWDFXUkhXR2FORXFYVEZzSkowY2dIM0s1UUxjanZBYWdLV0VNX211SjdDcEVoeDJ4ZmVZSXlMU0ZSeWJsWHhUbVRxc0l2dXVfX0xLcXJGdTB6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears $10,000 Outfit for Travis Kelce’s Birthday Celebration
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a statement at Travis Kelce's 37th birthday celebration, donning a plunging lace little black dress valued at over $10,000. The event highlighted her fashionable presence alongside the NFL star.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMinwFBVV95cUxPZUE0SWwxQjZpcWEyUWJwNldiWGtTQnloczN6aDV4LW9PVkVTQnYxXy1LcjdQNzlfMWkxQmJxS2N3YzBPYzVuVmhaSE43VU00ZGpfd0t1ZWtuazUxMXhEaVlPbEFDc1dNb21XYV9iUy1FdGRxbzhYU1l4MDhPWkh2Rm5BZXVadUpTUm41UUVURjAwNmIwTkVDb0MxYW5pa2M?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Paul McCartney Shares Wedding Idea for Taylor Swift
-
-- first seen: 2026-10-06 18:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Paul McCartney discusses a thoughtful wedding idea he envisioned for Taylor Swift. The details highlight a friendly connection between the musician and the pop star.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxOZEdhcXA2b2d6eU5hMHYyUU0tSWxPTi0wdTJISzQzY1R6QnpNRzR2LVdOOGlSZDJDYnVOQ1pCRUtyVDVUdjhESm45M3lTQVBFTGcyR3Q3ZEV2T3RCdncxNkhUTTBwZkxkVkc0eFpxQ3pkN3Q5Q3Npd0lZWmVHTlB3NWRxQXg5cTE0TkR4bmZKZjJFbFZHSmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Raiders Fan Critiques Taylor Swift's Looks at NFL Game
-
-- first seen: 2026-10-06 18:53 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: A Raiders fan displayed a sign targeting Taylor Swift's appearance during the Chiefs game, alongside other criticisms aimed at NFL referees and parental behavior. The incident highlights the ongoing intersection of sports and pop culture.
-- sources:
-  - [unverified] Facebook — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPYjB0YmtUandEQzVieUhqZ2hSV3VseWRTdVV1dXl0T01UT0JZZDhTNkpqdUpoQWxxb3ZRVWxGZ0dOTG9VT096MDR0bk5sRjBXaVdvckpWNDZRRWJfQ1lzNTRjVnlYbTlORU9CeUJwNVNqWEVFRU52T0t0NHBTQ04xNHN5a0RBYkhTTmJYNGpBUW1USTllRko3VjhmWG9Makc0dE5GZmp3X0t4clR3MFhKM0RKLTVmT3RkSWZoTTA0U2phOVd4SmR3WmQ3b0ZNWkxGbThhX2VCSUltUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMizwFBVV95cUxNWHd5NFFONFFnVklFT3Y0N2p5dDVCMkV5N3FDc0hDc1RobFdzX3dpYXVwYV9QbG41SUxnWU1nOGJ6Z0VYalVEc3pSZWdERV9VdEZ0akpyZEpxSkktU0ZscmthYW1EV2NMalk2cHJUWk00cmxSOFl3MTFZRVd2NU16NEtmRU8wSDQ0aHBvNThnOFcwSHZRcE1BTHNielpFeXA2dWFLT2JyWGFyVm9aY2xNaW1ZUnpXcTkzMXhYVndmY1hMbXRCZnVhc2ZsdW5BbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi7wFBVV95cUxPMG9IUnBCYkFiVUlFWVRKYk9VcnFBVUVPX0hDekFGSzBWU0ZMUzBielEzc2RxcnkyNTJENU52Wi1vNUFiUXpaNk43X0FwT0hmNG5XOGItb0hLalYtWjk2eDBhRFd0UnBRR3RXelpVeWVpbkJwS285aDUza3Z3Vm5EX3FwRzVQWDNGdGFpMEw1cHdFeGtUanNNTE5mdzRiVkgtWXlESHpxSEdzUHlBbVVRaEFoTTFESmx6c1lxSUxhNDBaR29DWjlmeVp3aGY4VmhDYTg4Y09PWmJJMjVFTjVKUWVBOHlIN2FKanpFY00xRQ?oc=5&hl=en-US&gl=US&ceid=US:en
