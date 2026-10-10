@@ -6,9 +6,9 @@
     "why": "2026-10-01 S2 baseline, equal to the prior hard-coded gate plus `card` (owner: Tree decides cards/pictures/other; a card is a committed PNG rendered from /api/share-card, credited \"Long Live\", never lyrics)."
   },
   "siteScreen": {
-    "allowedCampaignPrefixes": ["launch:", "mood:"],
+    "allowedCampaignPrefixes": ["launch:"],
     "requirePhotoGridTile": true,
-    "why": "2026-10-01 S2 baseline (launch-only) WIDENED to mood: 2026-10-09, Tree. Strategy §1(d)'s `mood:result` format - the one Mood format that proves the feature works - is defined as 'the real returned songs as slide 2', i.e. a site-screen; the launch-only allowlist made that format undraftable, and Mood has never shipped a post in this desk's existence (social/posted/ has zero mood: items; the 2026-09-23 pair died in unmerged #4544 and the 2026-10-03 pair in social/failed/). requirePhotoGridTile stays true, so the grid tile is still a Taylor photo and the screenshot still rides slide 2 - the 2026-08-31 audit finding (site-screen on 7 of 10 IG items) is addressed by that rule, not by the prefix list. Mood is also the one campaign with no deep link, so the screenshot is the only way to show what it returns."
+    "why": "2026-10-01 S2 baseline: the 2026-08-31 audit found site-screen on 7 of the last 10 posted IG items (social/posted/); kept as a launch-only carousel behind a Taylor photo until Tree has evidence to widen it."
   },
   "photoReuse": {
     "scope": "other-campaigns",
