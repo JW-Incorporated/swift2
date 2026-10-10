@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 64
+
+## Taylor Swift Reaches No. 1 on Music Charts Again
+
+- first seen: 2026-10-10 07:00 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has returned to the top position on the music charts, marking another achievement in her career.
+- sources:
+  - [unverified] NPR — https://news.google.com/rss/articles/CBMikAFBVV95cUxNTnU0eVowa1pYaDhleUotNXpqdVNuR2hlYkliSWVtUktGbjBtV1NnRlB4d19RR3ZRS1VfbW1DTERrZEY5Ty0yNjJ2OGYtdmwzUVBOU2V1MG03NDRvdXVQbzBaWmpwY3hKUTh2SUxJdHRON19MMzdYZ0l5VGhnVXd6b0ZtamtOdlZkREJ6Nk91UUg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Seen Leaving NYC Dinner Date
+
+- first seen: 2026-10-10 07:00 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted leaving a private members club in New York City after dining together on a Friday night.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQTDRPQVlFOU1vdjN5djNiUm9JTUhMcXY1NTk1bGhxX2hBRFhndnBzMElzWlZITmZzVWtzMlh1TlpsU2VFbU9NMmduek1ZSVNnRDFET0lYM2QyNFIzVEhicFJWLU9YT1Rsc0RJU1c1VjhOQjl1dkI2REZremdxZ0pLSFpZbGh6MjRBa252LVBQeDRkZktUU1Uyc0g2TmxNdmc5VXpGUkdUbjN1XzRQXzZLSEFyU2NXQVc5UjF3ZnJSTEhrMGtObm1ENG5ob3pOem5Rb0xGQVJuZkJ3VGxKelNZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Visits 'Law & Order: SVU' Cast with Cookies
+
+- first seen: 2026-10-10 07:00 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise visit to the cast of 'Law & Order: SVU' and brought homemade cookies for them. This delightful gesture highlights her friendly nature and connection with the show's cast.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNRkdlcDlMMWZQZEZzaXMzdTcwMDE3Y0hPR1dJRlUxSWZMbWdCMFVkRVcxcFBCQlJSRWhpN3V6ZXl1SEg5amlVR3hLeWZDV1c0dGd2OWctdTM3bXVRVmtsYnFlZHhmS19NdFVJcy1hdXFIQlBrSW4talB4cGFhS2xWMldNSjZIRkhBX1Z1ZXlpVEVITG0zenNqMGZadkU3eC1LQWVMQw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Schedules Surprise Performance Before Chiefs Game
+
+- first seen: 2026-10-10 07:00 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced a surprise gig ahead of Travis Kelce's return with the Chiefs. The performance has generated buzz among fans and media alike.
+- sources:
+  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS1pEWElrckRXMkxuSnh0VmRPVHJSX1B3VXB0R29GSzdqbkZra3Y2S01qLU1iYXp1Wm93NU1VWDY2YVFaSnpvN3d4STdrWDYxS3kyc0tzdEx4alppMnZWWVBCWUpQSEwzVFo3a3NFdDVlSXVnMVdsNklFMnZRTWRma2VpWGpwY0hTQUIxdFBuZlNOLXY3NndyM0NCWDFFbzdI?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Tips for Dressing Like Pop Stars This Halloween
 
@@ -70,13 +102,14 @@ Stories: 70
 ## Ohio Neighbor Criticizes Taylor Swift and Travis Kelce as Absentee Residents
 
 - first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: A neighbor of Taylor Swift and Travis Kelce in Ohio has voiced concerns, calling the couple 'absentee' and claiming their presence is a 'tremendous blow' to the community. This criticism highlights the impact of celebrity residency on local neighborhoods.
 - sources:
   - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQN1FndXdOc3U2NW4xSnQtbUhZUkc1MjMwRm0way1wU0xBN3p1cC1zdllOUTMzRmFETHZNVHAwWnl1Y3pnT1hOVUNjODBSdkRtdXdaS3NoRXRGdmxILVFTcXNJcHFsWTdkM1RJRFdSR3JZWlA5UWUwUUhlYjAwY3NMQ3MzeDN1STktTVc5RTlhSVhLbDg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPc0x1dUstQXR3V0hJX1ZpbDVValU5bHlqSUgxMGtDZkI4dHA3WTlER2w1TEtZNUFZLXU1QUdINE1pZkJSazBNRXdDbzJVZHBRN0hMa0dDb3g4M2F1cUc1Zjdfc2FQYmJHTk5lUXE0X2lxQ3RKRmZ6Y3JLc0d2WU1CRHNfRHMzbWNfcWhHV0VRMzNxeUp3V3hNVXdYUTFPYWJNQm5qdW9fMXhfdmlIWVFTa1M4UlJ5Vy1SMFRUazF5aVhxdk01UXZObWFQeTZvRHNCWUVicQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMihgJBVV95cUxORWlUU3J0WG5DdnFGR1dHaWowV1hsUE5QaHczZ3lSWnlHS3RHdzRuQ3Rrdi1YWllDV01PeU1MaUdYRnpFOFZTT1BCOVdBU3VkZFZ2UGdyZkRWWFpiYkcwUkxZSGxPYTAtRkhIb2NyU0NCREVZTmJjWllZRFNmc3FzNGlRSG9XQWtRa0NhS0Z5WFdxV0N5ZnhEY1BrNVdPTmk1a0dwUkZraVJ0alBKbTJkWGl3c0J1dUtMWjdRUG1nMDZibVJaOUxIbXdlakY1blVSd2VtRGxQZC1IZ2FlRk9hcXozdE02VVg5Y0JaQkI1VWFDbjV2bHhsSDNPb1dmVUU3bXJVUzlB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMipwFBVV95cUxPQTU0SENuVVIzVVBDUk1JaHpNMjBQY2JRZWJBVXBObWdfRkpDLVZSREhOc01hb2dvTGtPc0pZRW5KZ2V6WU54QXR4RFpYZWw2YUJ6aDJ5UWJqbURwWkQyMVpjdDJ5eWZNTXBOTzBwTU5FVTRQZzNETnhaRlpaNTdSNGxFNWxlMWhfbGRrSkRrTi10c0VXYXVMOERIckpSMENrencxdHd5MA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZTFKdUNNbUhBeE1rZXlWUFNPY1ZTeGFmWWtoMG52WUJoNFAzV0ZoX0xtZWZjalVhVl9SeC1fdE92LURza2duYTVXQ3duNFVndEZ5OW1qTWVGMkMtc0drd213ZGYwSTc1a3A1clZXNmF6dHhpLXFVNW9BX3VVbHJ1MDAzUFVEVnJNMUloWEt6Y3VwaknSAZgBQVVfeXFMTU9iWW5nRE1QR2lmZ0FJUDl2QXAwM0dqYmJQM0dVMm1lZWxtYjU5UXhCcWNEMWxWYjRWSlRjSGw5RzQ3Vkw5YnRMdUU0YWVVQXRxcE9jcTNSTVlzb3dsRmVILThBdW5kUUFIY3VSa3ZEU2Q2RFhGWEtVS3BmeVJnTlRyQnJpT2N5RXNLODR0LUFxV2pWa1dhX2w?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Perform at Academy Museum Gala This Month
 
@@ -211,6 +244,15 @@ Stories: 70
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQOUdZUWxrWWJiWktWcFowQWxvLTBoTFk5aWRJdkZhUzEtX21neGlGN1phb21IR2tmOTZ0bXVuTEl2Slp1aFJRd3ItSGVnU2Y5dWlQOVEzMnBFbDhQVGNsSGVQaW8xejdHS0pmQWtGc2hfaTdoQnpiQ2gtRUpXNVBFM1dPYlNHZWwxNTdsSVlpQmprREZpNGFJS05RMUd1cDV3aWhOZFBGYXpMWkNMVHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Travis Kelce Shares Birthday Joy with Taylor Swift
+
+- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMifEFVX3lxTFBFYXlEMzRnaGsxbFQ1OFdzU0NBTmxiYldrMDJCWlJzVzRHUFZlNVlIaDFDUmJEZF90OVN0emo0VElsQVNIWWVvMFRMbjZDN0F3ME5hay1kcXVxNllSaWFBRElVLWEwSlBjMzRyalBSUVF6eEp2WG92OUMwZ1U?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Ticket Alert for Taylor Swift Among Various Events
 
 - first seen: 2026-10-08 16:25 UTC | category: tour | importance: 5
@@ -327,14 +369,6 @@ Stories: 70
 - summary: An opinion piece in The News Record discusses the recent release of Taylor Swift's 'The Life of a Showgirl: The Encore' and argues against its necessity.
 - sources:
   - [unverified] The News Record — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZHpld3N1bWNhZUhFNk5WM3FXRV9FbUJFMExqNVhuT0hyWDhJS3RfdWdLeDdfNWZGNmRyNmo5RXF2WW8zMGRiTE1hMmdvYmRINzZfSEhpZXRndkdnTVdyOWtJUndzblRqMmxfZThoUVdtd0xmV1VYRk1ZUzFiTmJnbFpPTmozQ3FSWWNOV3lDWU5rUHlLN2luWHp5eE5QclNWNDJyc1RSZU55dlo5eWJEMkpTSjVqbEVFNlh4RHROVGRFcmRha2ZYUnRUZXhySFMzeGRCUTlzczYtLVZVb19UcWtVY1JxbWN1WGlxM2YzZC1CT3U1eGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Birthday Joy with Taylor Swift
-
-- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Confirmation of Release Date for Taylor Swift's Friendship Bracelet
 
@@ -533,83 +567,3 @@ Stories: 70
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxNbGRPbF9ZQUlSOUJBUDZLS19MRHcxMmExcURfQVFBd3N3bE8zRkZQQWlVUFg1MkFRb294NER4YmJxRFd0SG5rYWh3R2VRZU9EUnVFOERIVTA0SklheWRLWi1pUXVuZWk5dFVEbEw5bGVSeXpvOHVab0tBbE5rX19vT0pCbzlxRlE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxOa2VqUnVzZmtmejRxYUthQ0pFWVlJbHBNMHVOcmNvV1dHYXZEdTBHejhOMm51bzJ4WTl3WjYyYnNpSXMtSTFfR21JRUxyV055NGJFX2lLWWV4cm15ZXZBX0R4NS13WS12SGZ2TEhUVnJVODl5SmJQWHZudFc1SGJmV0NadlRmRWpoTTdZdjByRXc2cThEemtnb3M0RFpvQ2NLX21SWVJKT0NkU0dpNXlubjR4eE8ydHdoRnM5cTMxR18wUkdDVkVQRnp3RQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Patient Zero' Debuts at No. 1
-
-- first seen: 2026-10-07 00:38 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's latest release, 'Patient Zero', has debuted at number one according to ABC News. The song is making waves in the music industry, marking another success for the artist.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE1KYnVWRjBkRVc1VThBd0RlY2hvdXIyRUVMdHh2c0dWNVduWndfd2pXN2hpeUozWFk0cjltTmJJUGZadjFUeXdjLTJIby0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Chart Highlights Featuring Taylor Swift and Others
-
-- first seen: 2026-10-07 00:38 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The latest Billboard chart highlights include Taylor Swift alongside Tinashe and Kenny Chesney. This roundup focuses on their recent performances on music charts.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMilgFBVV95cUxOcUZhLTdNMkFqa1NNWUJSTmUyYWtCTDNvTF94eWxUaE90RkRnaEJMNVBMc3U3TzVpYWt2QjBTZTVQSTJtV0hwdG0ySWFpanZyMHVRRWZTUkdFWGFOVXlESjVzWFB3bGxINDBDZ2JnR1pFWTNRYUtocmRqcXhQVi1YMGdTM3RxdDdHcHRXTFQ5Qmg3RWdpM3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Book Explores Taylor Swift's Early Years in Nashville
-
-- first seen: 2026-10-07 00:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new book titled 'Taylor Swift: The Debut Years' discusses how Nashville influenced the superstar's career. An interview with the author provides insights into her formative years in the music industry.
-- sources:
-  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMigwFBVV95cUxQdkpFMkFSeW5Mb3I3bkM1c19XM2lWa3FZSFRmQTgyUUlTTG1rYlJEMVZGZThUbFJOMFpHUUx1aGt5MzhvVWNVRzROdjRTZFpLQmxMNGJsVzQwZnhXS21PeUJvUklfS0I0cm52OGNJckR2ZFRRQjJVNm95azhUS0l5VDdIOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## 'Choosin' Texas' Falls to No. 2 as Taylor Swift Achieves Chart Milestone
-
-- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: 'Choosin' Texas' has fallen to the No. 2 position on the charts as Taylor Swift interrupts with her continued success. The impact of Swift's presence in the music landscape is highlighted once again.
-- sources:
-  - [unverified] AL.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxOR3RhU0RQMDRHcUVUcDRHdmlTQkpzZk00QVU0VzZsdXJIVEwwbGJ5eVpIZ1c5R3Q1dkplQW1vMzFDX1Z6YlhCTXNodl8zOVpkYkhrMDFKQ012ZnpCS3E2d2JVa1hxS3h2N2I1TzZFdi0xdlRWdEFrbVJsRXg0ZTNWUGxYZTZUVTVtY0pVYlBNS21manBhbDFsRW1UenVQbFQxaWtOatIBuAFBVV95cUxPYldYbl9zbUh2a2JMS2s4dkRpWjlJRzdBY2lHblRVblU5YlNCWnZJWnVCX1R3UmVrYVgtM2FWZXdmeWhheFEtbUVVcDlGRVFUMDVvMm5IdWFvTGxsSWMtUTVYcEtNeWwwYU5aMk1Ec1F0eTZxWEZwWkhtMzZqN0drMTlCY1IwR3FlbVgxbjh5U3ZqRFRBRVFKOTF0MzZSZ2h5VVViYWxMSUxua1ZmcUt6SkQzVE1zdGh0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s LBD Features a Chic Detail for Fall Outfits
-
-- first seen: 2026-10-07 00:38 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased an elegant little black dress during a recent date night, which featured a delicate detail that enhances fall outfit styling. The design is noted for its ability to elevate casual looks this season.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxNUU40MjBLMGllMkc2VDFWMENGZjdiaWpCcGVLdDFfN2FzY3M1REJrNHhxOW1oNXBIaDh1a0ZsT1g4YXY1OGt0Nml6RlVLWjJwSlFkM3d5NF9NOWpDaTlFTEtTTjNNNllGT0E3a2V3QXAzaW5KY2c5SjdxYm0zRGx4VGpEM291QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Yankees' Playoff Loss Referenced in Taylor Swift Headline
-
-- first seen: 2026-10-07 00:38 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A newspaper headline referencing Taylor Swift was used to troll the Yankees following their errors in the recent MLB playoffs. The response highlights the intersection of sports and pop culture.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMizgFBVV95cUxPRkc4U2xCTW56blRTN2hYYWxkbWlHaTFFaTMweGwwWm5lRmZia0hCYWJSWFFJbDhqaFE1cVlqNm8zMkJJWng2ZWlKbXEwYVpEZWJxTXhudS1NWENpWEhiZ1p4MkFXa2J4Y2lLTDdYanVsZl9KTktRaGFiekVlNmRvUDVSVHU2TndlY0JhMjNqMUJJTTNlME5fd2xzZzdfU3BXb1g5eXVCWG0wcy14eWhHR0QzalFpWksxR1ZkVlZzM0pSQzhDTFJ1djV0T1BXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Updating Fall Wardrobe with Taylor Swift Inspired Styles
-
-- first seen: 2026-10-07 00:38 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses updating fall wardrobes with outfit inspirations from Taylor Swift. Various Swift-inspired fashion items are available, starting at just $13.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9YNF9HcEVVaUlpbnhLbjNabDNzMHhwYjZRbmJpVklKc0dtVXRKcmp6VmlpNkRtYTdFRXdKeE9uVkJBNXJIYXkwb0dfU1oxMFpUWGR0NVBiVXFjdTVuZjZraEFVQXlCZ3NfU3hMU1FqXzQ3ZjYx?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Potential to Surpass The Beatles' No. 1 Hits Discussed by Billboard
-
-- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Billboard explores the possibility of Taylor Swift exceeding The Beatles' record for the most Hot 100 No. 1 hits, highlighting her ongoing success in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipgFBVV95cUxOU2xCT0JncXVMbmt4WGYySWFQZVZ3N182VHEyVUIzTTNyUXFVd2pWZ2x5YmhnMGNLME1MU09hRWpkSjVtUXdBcnV4Z1ZwdjdxOGZiTTUwUU9JR1lmaW1WQVlkekd3ZFp6SmVObnpkcmVKOVRwWFRyQ1RRSF9ueUFKS0YwNjVScjFIUjRpNzJzSnhlN1RtTGZQeVJJdmpManFocEhESmFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Celebrate His Birthday Together in NYC
-
-- first seen: 2026-10-07 00:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen matching in black on his 37th birthday while enjoying a romantic evening in New York City. The couple put on a loving display during their date night.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNTkp0UjlGMU1ncWZQSmNpc2kwLXVEQ2VyaU4zV3RIaVA0NjRlbUx2MzVIOEFmU0J3STJoTXp6dzFMaEZaT0xGVVJiM1RoMG90QUZWOC11RTVzZEdVMGNYZk1IdU1rbHRmbnRJU3hLdkxYeVdBejBTcUJlYkVqbHRWWDdlcEtZdkQ0VkVZbUNaS3ZwZWV5SXhsQVE4TXNRUW5HTmxZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Releases New Video Inspired by Daphne du Maurier's Rebecca
-
-- first seen: 2026-10-07 00:38 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released a new music video that draws inspiration from the literary classic 'Rebecca' by Daphne du Maurier. The video showcases a ghostly theme reflecting the novel's atmosphere.
-- sources:
-  - [unverified] The Conversation — https://news.google.com/rss/articles/CBMiswFBVV95cUxQTVRON2N6bnlHOWFlZS1URWtRYXdhSmVzYWQ4ZEhqUEJoa3dBMV9Rc1dsVzlFS0JtTGFDeWVYNHFmX1huRU1iNm4xZml2NnczRlhQSi15XzdHRmpiT3FSaTMyM1hwWFc0VkItWG5tQlpxa21iVWtOeG1DdVpYTkMwVjFoNi1nT084U0o0U1NNT2FtaWxjakY0OGhnVUpmSThIUFBLLVk1T3UzQzcxY1RhUWVLMA?oc=5&hl=en-US&gl=US&ceid=US:en
