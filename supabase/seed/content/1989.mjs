@@ -3366,6 +3366,9 @@ export default {
         photos: [
           {
             url: 'https://s.abcnews.com/images/Entertainment/taylor-swift-2-ht-mem-171107_16x9_992.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — Taylor dancing table-side mid-frame, face center-right.
+            focalPoint: '52% 30%',
             credit: 'ABC News',
             caption: "Inside a reputation Secret Session, from the behind-the-scenes footage ABC aired on November 7, 2017.",
             kind: 'archival',

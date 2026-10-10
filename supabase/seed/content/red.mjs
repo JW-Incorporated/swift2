@@ -1516,6 +1516,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): single cover, her
+            // face upper-center above the title treatment.
+            focalPoint: '50% 28%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1652,6 +1655,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/AgFeZr5ptV8/hqdefault.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the "22" video
+            // frame, her hat-and-tee look centered, face upper-center.
+            focalPoint: '50% 26%',
             credit: 'Big Machine Records / YouTube',
             caption: 'Taylor in the "not a lot going on at the moment" tee — thumbnail from the official "22" music video.',
             kind: 'archival',
@@ -1706,6 +1712,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/500px-Holiday_House_on_Watch_Hill.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): shoreline view, the
+            // bluff-top houses sit in the upper-middle band above the water.
+            focalPoint: '45% 40%',
             credit: 'JJBers via Wikimedia Commons (CC BY 2.0)',
             caption: 'The Watch Hill, Rhode Island shoreline, with High Watch ("Holiday House") visible on the bluff among the neighboring homes.',
             kind: 'archival',
@@ -1742,6 +1751,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): laughing close-up,
+            // face centered, eyes high. Value matched to the same image's other
+            // seed occurrence so sync dedupe is stable.
+            focalPoint: '45% 28%',
             credit: 'Jana Zills / Wikimedia Commons',
           },
         ],
@@ -1789,6 +1802,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the illuminated
+            // "Taylor Swift Education Center" sign, text block centered.
+            focalPoint: '50% 42%',
             credit: 'Jeremy Thompson via Wikimedia Commons (CC BY 2.0)',
             caption: 'The Taylor Swift Education Center at the Country Music Hall of Fame in Nashville, photographed in 2019.',
             kind: 'archival',

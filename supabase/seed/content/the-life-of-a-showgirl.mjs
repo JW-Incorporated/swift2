@@ -12631,6 +12631,9 @@ export default {
         photos: [
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte509f5111225e38a/698a42f8096a9406626ae674/taylor-swift-person-of-the-year-3.jpg?branch=production&width=3840&quality=75&auto=webp&crop=16:9',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — a B&W Time POY portrait, her face in the upper-right.
+            focalPoint: '60% 22%',
             credit: 'TIME',
             caption: 'Taylor Swift\'s 2023 TIME Person of the Year cover look — one of two looks featured in the V&A DIVA exhibition\'s Denver run.',
             kind: 'primary',
