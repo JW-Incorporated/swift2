@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 69
+
+## Taylor Swift Embraces Fall Loafers Trend in New York
+
+- first seen: 2026-10-10 20:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted embracing the fall loafers trend while carrying a $3,900 Gucci Horsebit bag on a recent date night in New York. Her stylish look has garnered attention in the fashion community.
+- sources:
+  - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMisAFBVV95cUxOT1huV1ZYdkMwUWs3ZE5ldi1iZmpRWW1PN0h1RUM1N3k1RXZIWEN3dHR4MDF1NkFZLW9OSnRKNEVueHNzdzZSVjhHeHIyRHlUV0ZvM01UMUUta1hJRDZRdUM3clhRc0dURTFJU2pIMVRBQ2t4Z2RGLUI1VzBaT2E2RmZwWV95TFdNZjdTckRKZTNXbEVvUWxaU0NmUlhORXNLd0dpaGhuVVRTOHBVNEtvVA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotted on a Fall Date Night
+
+- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen together for a preppy fall date night, showcasing their synchronized style. The outing highlights their public relationship as it gains more attention.
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQeFlwbUVjRHRiRHNYaVBhZ3RSUUVISFZDcENwNVYtTFN3Sm5QcFBXcmE0U04zbWhsa2M2YUw2ajB6WnZDSWlDdTctUGk3N1BIby1nMXFKM2tuQ2puOXdybFdZOEZmUEFYSjFzZ1NFNUdEc3Fhdi1MdkxvMmxnekdWSkhYZmgxMGZUMW84MGI2SDVlVFJUZm9jdXRTTGJmVEQwV0ZwUk9PdWlJdTZxeHVUUWttYmUydlFzTF9KdDl1NlhUOWpVU2dlT0RhOEhuTnZ0TGViTE10MUhLZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives Positive Update on 'The Life of a Showgirl: The Encore' Reissue
+
+- first seen: 2026-10-10 20:33 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received good news regarding the reissue of 'The Life of a Showgirl: The Encore'. Details about the reissue's content or release date were not provided in the announcement.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPUFlCYzBxMmlYb1daT2dPYjRteWdIU1NHZWlLYTVaT2FjUm5PV3Fodlc3cWVvMURhZWlVQ0tmQ3JneWZtLTUtZXpXVDBaT0xBa0g0NWphcVlLQVREcUN0NVpMRDMySWxoWEsxa3YwU0c3akowMjhQdzh5b2I2MUJWejk4QThpY0FHTHpwcDdtbElWa2JHaDBKMw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Seen Together Again in NYC
+
+- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted holding hands during their second date night in New York City within the same week. This marks another appearance of the duo together in public.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNVXl6dk5CY2hJaDNISHRIRUdKMEsxaHpFRzR6VF9xU3M5dWVaOHVhYm5taDRLZDMxNTdTQmtlNnEyUkxNYmNNbVBQTWdTeHVDY1dnWTdwVXBGNC1XYUw4QjFfeU5xNW5NZHNjM3JPenVHNUNLYnhLZmZiVWk0d0JpYjFYdFhUMXhlSnVfYVpXU0NKb0J6by13YVRVQWtEYlZ4WHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce's Homes, Including Proposal Location to Taylor Swift
+
+- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new feature explores the three homes of Travis Kelce, highlighting the one where he proposed to Taylor Swift. The article discusses the characteristics and significance of each property.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMidkFVX3lxTE1mV3lyVXJhV1VUQkhZUXpZenVGY0I2dnpxbUdOcVJmZFhfTVdtNjVyZ1ZaTlFGQ2VtTEpZT1FKeUo3ejY4VzdEc3daaTdrbXIyVnM1WHhlcUJ3NzZGNDRFSzJOV19qcjczZXhudG9HdkZsc0JCckE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Sports Trendy Fall Color in New York with Travis Kelce
+
+- first seen: 2026-10-10 20:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted in New York wearing a popular fall color while out with Travis Kelce. This sighting highlights her fashion choices during the season.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPRWx2YnZ6M1Vqb2JwNmdPSE9nd2xEWEdXd2JtdkpQVEttMEhIaUFhYWNCOWE4SGhsVE5odTgtZFFJMkJTSHU1MXVaaHZBbHlFSzFnVmxBRHJGOHNETnpicDRyM2tETm9qS3QtaWhLY2todWktNmRBRnNJRFdsOGVyaExLZFE1MDVvT2JvWEdkVExCMnlWbDJab2FRck1nNjlXdW0taFhRcWxCUmJOS2c?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Have Date Night in New York City
 
@@ -556,60 +604,3 @@ Stories: 70
 - summary: Taylor Swift is reportedly very sensitive to criticism regarding her recent album, which has been described as a flop. Sources indicate that she takes such feedback very personally.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxNYTVtVnFDUjVFMHRRTklnV0U1Y0s4dl82MWd5ckF2QzVlcFVmbEZLM25DSUZKZ1k3Z1d0MzQwd0tpUmkxUHpLM0RfZlltRkJrZXBJNzZUd3NWVHNXT0diS2xzVElWQkxGakhqMF9RaXBjdl9yakdvZ2g1OTZFNGpvN1pCLTFmT1ZFZzZ5SEtfTHMwUlRoUTVBWm4xSUtRcl8wSTBXR1pESEt0VUdr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Insight into Birthday Dinner with Taylor Swift
-
-- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce offered a peek into his birthday dinner with Taylor Swift, highlighting their shared moments. This gathering adds to the public interest in their relationship.
-- sources:
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMilAFBVV95cUxNOVp5MFkzLVJVNTV4aUhsR011M1JXZ3lnMTYxank5a2VPalhtRmM2VFBCRnpjTFJrT2hOVGgxVTdvMnFWRnhYWWxuSXJxQnV4SnFZWnVyaXBRLTM0MEV4ektqbUl2dTJVYTBuLXNWQWU3NElCa3BKWmN4U21iZHFpTmYxTEdfeXk0N2YzMGRYSW55V080?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Victims Speak Out in Taylor Swift Ticket Fraud Case as Sentencing Postponed
-
-- first seen: 2026-10-07 16:23 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Victims of a ticket fraud scheme involving Taylor Swift have provided impact statements following a delay in sentencing. The case highlights the ongoing issues of ticketing fraud in the music industry.
-- sources:
-  - [unverified] The Globe and Mail — https://news.google.com/rss/articles/CBMiygFBVV95cUxPdlNKZlI1dFNuT0l5M1VZeG9vbjgzWjdsUTd0RThnR1dWaHpvV1hnRVNMU1VOVDEzLXpxVExLaFZQSnNQcFIwSHJlSjV5V19HTEpvQlZsR1pZeW5UT3pHbkFEUEFyQ0U3ZVlIQlBVRkRrZFBRREJmVEdmT21sWktkeVVtOE03VjV4RTYtdFhWRU00dk1RNTZWMElqcEl4T09Hb0VQVXgtTjNHVWIxb0JZSHRYSXhJUzY1UHJoZjV0X3N2OVpFR0xHVFdR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Embraces Bad Girl Style for Fall in Vogue
-
-- first seen: 2026-10-07 16:23 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases her interpretation of bad girl style in a recent Vogue feature. The appearance coincides with the fall season, highlighting her fashion choices.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMid0FVX3lxTE01ME4yZ25iS1VUNTNZVE1ocTdUMlZaNXJ2enRobm55Q0txSTZhOWMtYlpVZmE5anBrSVlkQ2R1YXZ2M3NtWktTbHhKMUN4ZUZmRVhVTFBQdWVTaUtBd2hZSTZlS21TY0xGeXFhMTZZVW02TVJjaFNZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Coordinated Looks Highlighted
-
-- first seen: 2026-10-07 16:23 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new article from People.com outlines nine instances where Taylor Swift and Travis Kelce coordinated their outfits, showcasing their style choices together.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE1WZkV2YURMeTNtWkhVbzFiOVFIdmhaN2c5WFZCM19rSVpYMzg5bm5hTkNSUm1lVnc0VGYtZ2NKREJ2Tk54YVAxOG1xd1FBX3Njd2VxbWo4QVNCRUFOVzBYQU9Xenh4dVFqNndjZ0N3bmZJei10MzlqbHZVWnRfZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses His 37th Birthday Celebration with Taylor Swift
-
-- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shares insights about celebrating his 37th birthday with his wife, Taylor Swift, highlighting special moments from the event. The couple's public relationship continues to garner attention.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxObVlXMGJkdEpyQVh6dHZlWE1ad1M1RXpOejVzNTRvWkpGWDJlN0R6YnhIb2FyeXVtU1pna2llNV9vZEtCSkZMcS1oNzZyczFDbWZlQjRiYVRiQVRsTnVPZzQybGhXZlJhRmNyTldQcElfSzdwUzhqdHRPMC1zUklVUno1NGdEZGxjTkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emily Yahr Publishes Book on Taylor Swift’s Country Music Era
-
-- first seen: 2026-10-07 16:23 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Emily Yahr has released a new book focusing on Taylor Swift's early years in country music, providing insights into that period of her career.
-- sources:
-  - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNTnVmbHBMYmk0RnpVZmE2U2dibWF1VnRaU0d2RW5PeUcwS3V6ZUpIeTVjbUlzOGRXM0hOQ1RWU1Q4c3psT3hJNVVCUmFraHVHeTZNN0c5RDBRMTFOaWFsY3ZxV25jTHp3Wlltdk1pVXh1S0VKVlBqc1d4YUlWemVfV28tMUI4MjFsX0NTYmNOSEJsTUNKMnlHbkRn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Trainer Indicates Taylor Swift's Impact on Travis Kelce's Fitness
-
-- first seen: 2026-10-07 16:23 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: A trainer has suggested that Taylor Swift may be influencing the fitness regimen of NFL player Travis Kelce. This statement draws attention to their relationship and its potential effects on Kelce's performance.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUk8tMEhfek9uaWgzLW5FY3ZsUktrTU43U2RQbmY4ZEhPOG1SN3IwQ3dlbFNrQWE4aWM0bTlmNThhU3JiX2xKZzlMYV9YS0RfdWhnNUd2a1pkdHFUeXJQcHlIYkh2WXNkc04yZWxkaldVSlFKTUNITDdsZjNNZUQ1QUNwRmoxWTl5Y3B2Ml84cFVWYV9wY243bkJBRjNOeDFweGtr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxNUjhMbGExajJwc3lLLV9FR2hMc3JCQ1hlU0RuVXNZZ05MS0VfRHE4endXcWFuZy02T3ZlOUpvSU1jdHV1eGFKSjd3XzBpTHdVVjA0SEhzcmE1U1M4TEloSE5sMUZLUnhqOFZWbUtXZFRDYk9Kc3JGcW1zZ0pabW9ieDJlUTZNdDFxOUVQRDRReURfMXc?oc=5&hl=en-US&gl=US&ceid=US:en
