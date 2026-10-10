@@ -105,7 +105,7 @@ To stop all autonomous activity **right now**:
 | `founder-decision` | Marjorie (bank) | Needs a founder answer; filed via the issue form. Body follows [`founder-comms.md`](founder-comms.md) |
 | `founder-task` | Any desk (Tree is the standing filer) | **A human founder must personally act**, and the body is written for a non-coder per [`founder-comms.md`](founder-comms.md). The body gets **emailed verbatim** by `tree-mail.yml`'s digest sweep — never apply this to agent-coordination work (that's `desk-coordination`). Misuse caused the 2026-08-11 four-email incident (#1955–#1958) |
 | `desk-coordination` | Any desk | Agent-to-agent coordination artifact (merge sequencing, file claims, fleet scheduling). Mails **no one**; a human never needs to read it to act |
-| `founder-mailed` | `tree-mail.yml` (machine-only) | Bookkeeping: the founder-task digest already emailed this issue. Never apply or remove by hand |
+| `founder-mailed` | `tree-mail.yml` (machine-only; workflow deleted 2026-10-09, label kept for old issues) | Bookkeeping: the founder-task digest already emailed this issue. Never apply or remove by hand |
 | `founders-brief` | Marjorie | The daily brief issues |
 | `watchdog-alert` | watchdog Action | A cadence failed loudly |
 | `intake` | Content desk | A real-world event dropped for authoring |

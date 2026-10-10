@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 
 const read = (file: string) => readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
 const status = read('.github/workflows/marjorie-status.yml');
-const brief = read('.github/workflows/routine-marjorie-brief.yml');
 const job = (text: string, name: string, next: string) => text.slice(text.indexOf(`\n  ${name}:`), next ? text.indexOf(`\n  ${next}:`) : undefined);
 
 describe('marjorie-status.yml', () => {
@@ -78,21 +77,6 @@ describe('marjorie-status.yml', () => {
     const act = reply.slice(reply.indexOf("name: Act on the owner's command"), reply.indexOf('name: Re-render'));
     expect(act).toContain('GH_TOKEN: ${{ github.token }}');
     expect(act).toContain('PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}');
-  });
-});
-
-describe('routine-marjorie-brief.yml delivery', () => {
-  const deliver = job(brief, 'deliver', '');
-  it('posts the shared change line (only when the page changed), not a brief issue', () => {
-    expect(deliver).toContain('node scripts/marjorie/status-page.mjs --apply --notify');
-    expect(deliver).not.toContain('post-or-mail.mjs');
-    expect(deliver).not.toContain('/tmp/ping.md');
-    expect(deliver).not.toContain('founders-brief');
-    expect(deliver).not.toContain('gh issue create');
-    expect(deliver).toContain('status-note.mjs stamp-ping');
-  });
-  it('can read pull requests so it can render the page', () => {
-    expect(deliver).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
   });
 });
 

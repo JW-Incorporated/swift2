@@ -20,10 +20,10 @@
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { BOTS, CLAIM, FAILED, REPLIED } from '../marjorie/lib/chat-inbox.mjs';
+import { CLAIM, FAILED, REPLIED } from '../marjorie/lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from '../marjorie/lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, INTENTS, STUCK, STUCK_MS,
+  ALARM_WORKFLOW, BOTS, INTENTS, STUCK, STUCK_MS,
   chatDispatch, createChannelMap, createSeen, parseConfig, printable, readyLine, ringDecision, stuckDecision, stuckDispatch,
 } from './lib/doorbell-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
@@ -36,9 +36,9 @@ const WATCHDOG_FEED_MS = 30_000;
 
 const systemdNotify = (state) => execFile('systemd-notify', [state], { timeout: 10_000 }, () => {});
 
-export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log,
+export function createDoorbell({ config, bots = BOTS, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log,
   now = Date.now, processStartMs = now(), notify = systemdNotify, exit = (code) => process.exit(code) }) {
-  const channels = createChannelMap({ guildId: config.guildId });
+  const channels = createChannelMap({ guildId: config.guildId, bots });
   const seen = createSeen();
   const pending = new Map();
   let gateway = null;
@@ -63,7 +63,7 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
   const github = (request) => githubRequest(request, config.githubToken, { fetchImpl });
 
   function announce() {
-    const line = readyLine(channels.ids(), config.founders);
+    const line = readyLine(channels.ids(), config.founders, bots);
     if (line !== announced) log(line);
     announced = line;
   }
@@ -87,8 +87,8 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
     const where = place.threadId || place.channelId;
     const claim = await discord('PUT', reactionUrl(where, messageId, CLAIM));
     if (!claim.ok) log(`${CLAIM} on ${messageId} refused (HTTP ${claim.status}); dispatching anyway`);
-    const { workflow } = BOTS[place.bot];
-    const sent = await github(chatDispatch(place, messageId));
+    const { workflow } = bots[place.bot];
+    const sent = await github(chatDispatch(place, messageId, bots));
     log(sent.ok ? `rang ${place.bot} ${messageId} → ${workflow}` : `${workflow} dispatch for ${messageId} failed (HTTP ${sent.status}); the poll picks it up`);
     const timer = timers.setTimeout(() => {
       checkStuck(place, messageId).catch((err) => log(`stuck check for ${messageId} failed: ${err.message}`));
@@ -177,6 +177,7 @@ function check(config, { log, major, hasWebSocket }) {
   log(`DOORBELL_GITHUB_TOKEN: ${config.githubToken ? 'set' : 'missing'}`);
   log(`guild: ${config.guildId || 'any guild the bot is in'}`);
   log(`founders: ${config.founders.size} Discord id(s)`);
+  if (!Object.keys(BOTS).length) log('chat channels: none (clock only)');
   for (const cfg of Object.values(BOTS)) log(`#${cfg.channelName} → ${cfg.workflow}`);
   log(`stuck alarm: ${STUCK_MS / 60_000} min → ${ALARM_WORKFLOW}`);
   log('clock: pinned schedule (next 10 UTC fires)');

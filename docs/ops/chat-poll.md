@@ -1,5 +1,7 @@
 # Chat poll — concurrency, stuck runs, and what a cut-short poll leaves behind
 
+> **2026-10-09:** the chat step is gone. Tree and Marjorie are Hermes agents with their own Discord bots, `routine-marjorie-chat.yml` / `routine-tree-chat.yml` are deleted, and `bot-chat-poll.yml` is the clock-only 5-minute workflow (it runs `clock-dispatch.mjs`, below). Everything about claiming, 👀 and the claimed-not-dispatched window is history; the concurrency lesson and the clock step still hold.
+
 `bot-chat-poll.yml` (and `marjorie-reply-poll.yml`, same group `bot-chat-poll`) claims
 founder messages in `#marjorie` and `#longlive-tree` with 👀 and dispatches the chat
 routines (`scripts/marjorie/chat-poll.mjs`). Channels resolve by id, so a Discord rename cannot break the poll: env

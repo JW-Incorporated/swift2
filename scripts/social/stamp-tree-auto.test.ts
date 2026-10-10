@@ -1,6 +1,6 @@
 // The issuer test for the v4 tree-auto stamp: it mints only after the trusted
 // check-drafts gate passes over ALL given files, signs a digest of the media
-// bytes, refuses a draft scheduled > 48h after the stamp, scrubs credentials
+// bytes, refuses a draft scheduled > 36h after the stamp, scrubs credentials
 // from the checker's env, and a refusal writes nothing.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -57,14 +57,14 @@ describe('stampTreeAuto', () => {
     expect(h.writeFileImpl).not.toHaveBeenCalled();
   });
 
-  it('M6: refuses a draft scheduled more than 48h after the stamp time, accepts exactly 48h', () => {
-    const far = harness({ ...ITEM, scheduledAt: '2026-10-11T12:00:01Z' });
+  it('M6: refuses a draft scheduled more than 36h after the stamp time, accepts exactly 36h', () => {
+    const far = harness({ ...ITEM, scheduledAt: '2026-10-11T00:00:01Z' });
     const r = stampTreeAuto(['a.json'], { pr: 12, at: AT, key: KEY, ...far });
     expect(r.ok).toBe(false);
-    expect(r.reason).toMatch(/more than 48h/);
+    expect(r.reason).toMatch(/more than 36h/);
     expect(far.checkDraftsImpl).not.toHaveBeenCalled();
     expect(far.writeFileImpl).not.toHaveBeenCalled();
-    const edge = harness({ ...ITEM, scheduledAt: '2026-10-11T12:00:00Z' });
+    const edge = harness({ ...ITEM, scheduledAt: '2026-10-11T00:00:00Z' });
     expect(stampTreeAuto(['a.json'], { pr: 12, at: AT, key: KEY, ...edge }).ok).toBe(true);
   });
 

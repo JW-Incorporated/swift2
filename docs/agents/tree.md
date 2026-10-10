@@ -200,7 +200,7 @@ duplicate the report.
    `social-tree-approve.yml` with the PR number. That main-only workflow
    requires the dispatcher and the PR author (and every commit author) to be a
    committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a
-   `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus
+   `scheduledAt` more than 36h ahead, allows only `social/queue/*.json` plus
    referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the trusted
    `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the
    stamp if a run fails). `social-poster.yml` (clock-dispatched, never by an
@@ -411,7 +411,7 @@ touching `social/queue/` never auto-merges, even when it ALSO touches
 `social/inbox/` or `social/calendar.md` in the same fast-lane-displacement
 change — `auto-merge-content.yml` declines it. **Since 2026-10-09 Tree clears
 it by dispatching `social-tree-approve.yml`** with the PR number (no founder
-✅ required; During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required.): the workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead,
+✅ required; During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required.): the workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 36h ahead,
 allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the
 trusted `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails).
 **Merging a queue-touching PR by hand does NOT approve it, it strands the
@@ -589,7 +589,7 @@ for IG/X; the PR carrying this amendment cites it.
 - **IG and X ship on Tree's own call, no ✅.** Tree drafts to `social/queue/`
   on a `tree/draft/*` PR, then dispatches
   `.github/workflows/social-tree-approve.yml` with the PR number. That
-  main-only workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs trusted
+  main-only workflow requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 36h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs trusted
   `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails).
   `social-poster.yml` (clock-dispatched, never by agents) posts it. Caps
   unchanged: 1 post per run, 1 per platform per day, 48h staleness;
@@ -608,6 +608,16 @@ for IG/X; the PR carrying this amendment cites it.
   in `tree-ig-x` (1544065811143196833); Reddit cards in `tree-reddit`
   (1558093079351787580); Facebook cards in `tree-facebook`
   (1558093113807999026).
+- **Routines retired (retirement PR, same date).** `routine-tree-daily-draft` (the
+  Hermes loop drafts), `routine-tree-chat` and `routine-tree-ask-response` (Tree
+  chats in `tree-main` and answers open `marjorie-filed` + `desk:tree` asks in its
+  daily loop) and `tree-mail.yml` are deleted. The Monday plan run
+  (`routine-tree-weekly-plan.yml`) stays for ONE job, rewriting `social/calendar.md`
+  (it lands by content auto-merge); its Discord brief, mail, `founder-comms.md`,
+  `founder-task` issue and `social/calendar.brief.json` are gone, so the daily digest
+  is the only owner-facing message. Stale-draft retirement moved to
+  `social-retire-stale-drafts.yml`. The `scheduledAt` limit in `social-tree-approve`
+  is 36h ahead (a 12h margin inside the poster's 48h staleness window).
 
 **What did not change.** Tree never calls a platform API, never runs
 `post-queue.mjs`, never dispatches `social-poster.yml`, never holds platform

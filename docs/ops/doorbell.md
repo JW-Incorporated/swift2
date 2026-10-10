@@ -3,13 +3,27 @@
 The doorbell is the one small program the Marjorie Overhaul runs off GitHub
 (M7; spec `docs/specs/marjorie-overhaul/m7-doorbell.md`).
 
-- A founder message in `#marjorie` or `#longlive-tree` gets 👀
-  within a second, and its chat routine starts at once.
-- Six minutes later, if no ✅ or ❌ has arrived, it adds ⚠️ and starts
+**Status since 2026-10-09: clock only.** Tree and Marjorie moved to always-on Hermes
+agents with their own Discord bots (owner decision), and `routine-tree-chat.yml`,
+`routine-marjorie-chat.yml` and the chat step of `bot-chat-poll.yml` are gone. The
+doorbell's chat roster (`BOTS` in `scripts/doorbell/lib/doorbell-core.mjs`) is now
+empty, so no founder message rings, no 👀 is added and no chat routine is dispatched;
+the stuck-alarm path is idle with it. What it still does, and why it stays up, is the
+backup clock below: it dispatches `bot-chat-poll.yml` (now the clock-only workflow that
+runs `scripts/ops/clock-dispatch.mjs`) every five minutes when GitHub's cron drops the
+slot. The noon-UTC `routine-marjorie-brief.yml` row left `schedule.json` with that
+routine. The sections below describe the original chat design and remain accurate for
+the clock, install, update and troubleshooting; "ring" and "stuck" are historical.
+
+Originally:
+
+- A founder message in `#marjorie` or `#longlive-tree` got 👀
+  within a second, and its chat routine started at once.
+- Six minutes later, if no ✅ or ❌ had arrived, it added ⚠️ and started
   `bot-chat-alarm.yml`.
 
 It never posts in Discord and never adds ✅ or ❌. While it is down, the
-5-minute poll still answers.
+5-minute GitHub cron and the watchdog backup job still serve the clock.
 
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
 was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v4` (#5014; installed tag is still `doorbell-v3` until the update below is run).
@@ -264,6 +278,23 @@ sudo git fetch --depth 1 origin tag doorbell-v2
 sudo git checkout -q doorbell-v2
 sudo systemctl restart longlive-doorbell
 ```
+
+**The 2026-10-09 retirement change (empty roster, one-row `schedule.json`) needs the next
+tag, `doorbell-v6`, cut from the merge commit of the retirement PR.** The pinned clock
+table lives in the tag, so until the VM runs it the old build still dispatches
+`routine-marjorie-brief.yml` at 12:00 UTC (a harmless 404 once that workflow is deleted)
+and still rings for `routine-*-chat.yml`. Redeploy, as a Hermes-session action
+(rule (l): never from a root session):
+
+```
+cd /opt/longlive-doorbell
+sudo git fetch --depth 1 origin tag doorbell-v6
+sudo git checkout -q doorbell-v6
+sudo systemctl restart longlive-doorbell
+journalctl -u longlive-doorbell -n 20 --no-pager   # expect: "ready: clock only, no chat channels"
+```
+
+The unit file is unchanged since `doorbell-v4`, so no `daemon-reload`.
 
 `doorbell-v4` changes the unit file (`StartLimitIntervalSec=0`), so that update
 also needs the new `longlive-doorbell.service` copied into `/etc/systemd/system/`

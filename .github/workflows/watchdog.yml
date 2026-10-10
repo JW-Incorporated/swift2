@@ -1,9 +1,11 @@
 # The watchdog — dumb code that watches the watchers (incl. Marjorie).
 # Operating model §4.2/§6: a non-LLM heartbeat, independent of every session
 # cron it monitors. Three jobs, deliberately zero AI:
-#   1. brief-heartbeat — if today's Founders' Brief hasn't appeared, open (or
-#      refresh) a loud watchdog-alert issue mentioning both founders.
-#   2. degraded-propagation — runs only when the brief is missing: founder
+#   1. brief-heartbeat — RETIRED 2026-10-09 with routine-marjorie-brief (the
+#      daily digest from Marjorie's Hermes loop replaces it); the job now only
+#      closes a lingering "no Founders' Brief" alert.
+#   2. decision-bank relay — formerly "degraded-propagation", only when the brief
+#      was missing; the brief is gone, so it runs on every daily pass: founder
 #      comments on raw bank issues still reach the tickets they unblock
 #      (operating model §5.2: answers propagate with zero LLM in the loop).
 #   3. mailer retry (added 2026-07-18) — the brief can exist but never get
@@ -81,72 +83,28 @@ jobs:
       # check below can run far more often, but the brief/propagation/cadence
       # jobs only make sense once a day. Skip them on the hourly trigger;
       # still run on the daily cron and on a manual workflow_dispatch.
-      - name: Check today's Founders' Brief exists
-        id: brief
+      # RETIRED 2026-10-09 (owner: ONE daily digest from Marjorie's Hermes loop,
+      # docs/agents/runner-prompts/marjorie-hermes-daily.md): routine-marjorie-brief
+      # no longer runs, so "no Founders' Brief today" is the normal state and must
+      # not alarm. The brief-missing check and its alert are removed. This step only
+      # closes an alert left open from before (upsert-alert.sh close is a no-op when
+      # none is open), then the degraded-mode relay below runs every daily pass.
+      - name: Close any lingering "no Founders' Brief" alert (brief retired)
         if: (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          TODAY=$(TZ=America/Los_Angeles date +%F)
-          TITLE="Founders' Brief — ${TODAY}"
-          # Bots v2 W4: the brief is now Marjorie's dated note on the status page.
-          FOUND=$(node scripts/marjorie/status-note.mjs today)
-          echo "today=$TODAY" >> "$GITHUB_OUTPUT"
-          if [ "$FOUND" -gt 0 ]; then
-            echo "missing=false" >> "$GITHUB_OUTPUT"
-            echo "OK: brief for $TODAY exists."
-          else
-            echo "missing=true" >> "$GITHUB_OUTPUT"
-            echo "MISSING: no brief titled '$TITLE'"
-          fi
-
-      - name: Alert founders (brief missing)
-        if: steps.brief.outputs.missing == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          TODAY: ${{ steps.brief.outputs.today }}
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          # Persistent title (no date) so a multi-day gap is one evolving
-          # issue, not a new disconnected one every day -- see
-          # scripts/watchdog/upsert-alert.sh header for why this changed.
-          ALERT_TITLE="Watchdog: no Founders' Brief"
-          cat > /tmp/alert-body.md <<EOF
-          @sffan15-sys — Marjorie's 6:00 AM brief for ${TODAY} has not been posted (as of $(date -u +'%H:%M UTC')).
-
-          Degraded mode (charter: docs/agents/marjorie.md): the decision bank still works —
-          read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
-          raw and answer by comment; your comments are authoritative on their own, and this
-          workflow's propagation job relays them to the tickets they unblock.
-
-          Likely cause: the Marjorie session/cron didn't run. Restart it, or run
-          \`node --use-env-proxy scripts/marjorie/assemble-brief.mjs\` for the skeleton.
-          EOF
-          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
-
-      - name: Founders' Brief recovered (self-close)
-        if: steps.brief.outputs.missing == 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          echo "Today's brief exists — closing any open alert." > /tmp/alert-body.md
+          echo "The Founders' Brief was retired 2026-10-09 (replaced by Marjorie's daily digest) - closing any open alert." > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh close "Watchdog: no Founders' Brief" /tmp/alert-body.md
 
-      - name: Degraded-mode propagation (founder answers → Affects tickets)
-        if: steps.brief.outputs.missing == 'true'
+      - name: Decision-bank relay (founder answers → Affects tickets)
+        if: (github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}

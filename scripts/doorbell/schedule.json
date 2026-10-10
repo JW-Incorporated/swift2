@@ -1,6 +1,5 @@
 {
   "rows": [
-    { "workflow": "bot-chat-poll.yml", "cron": "*/5 * * * *", "inputs": {} },
-    { "workflow": "routine-marjorie-brief.yml", "cron": "0 12 * * *", "inputs": {} }
+    { "workflow": "bot-chat-poll.yml", "cron": "*/5 * * * *", "inputs": {} }
   ]
 }

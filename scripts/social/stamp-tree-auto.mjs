@@ -6,7 +6,8 @@
 //
 // The stamp does not weaken any post-time guard: the poster still verifies the
 // HMAC (SOCIAL_APPROVAL_KEY, held only in the main-only `social` environment),
-// the content hash, the 48h staleness rule, MAX_POSTS_PER_RUN,
+// the content hash, the 48h staleness rule (a draft may be scheduled at most 36h ahead,
+// so the stamp still has hours of staleness margin at post time), MAX_POSTS_PER_RUN,
 // MAX_POSTS_PER_PLATFORM_PER_DAY and SOCIAL_FREEZE exactly as for a v3 stamp.
 // What changes is only WHO may sign: this function, and only after the trusted
 // draft-time gate (check-drafts.mjs, run over ALL the given files together so
@@ -25,7 +26,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..', '..');
 const SAFE_QUEUE_FILE_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/;
 
-const MAX_SCHEDULE_AHEAD_MS = 48 * 60 * 60 * 1000;
+const MAX_SCHEDULE_AHEAD_MS = 36 * 60 * 60 * 1000;
 const SECRETISH_ENV = /KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|^GH_|^GITHUB_PAT|PAT$/i;
 
 /** process.env minus every credential-looking variable: check-drafts runs checkers over PR-provided data and
@@ -86,11 +87,12 @@ export function stampTreeAuto(
       return refuse(`${relPath} already carries an approval (${prior.ok ? 'valid' : prior.reason}) — only unstamped drafts are tree-auto stamped`);
     }
     // M6: a stamp is good for 48h from NOW (the poster's staleness clock runs from the stamp time). A draft
-    // scheduled further out than that would be stamped, go stale-looking later, or sit signed for days.
+    // scheduled further out than 36h (a 12h margin, owner review 2026-10-09) would be stamped, go stale-looking
+    // later, or sit signed for days.
     const scheduled = Date.parse(item.scheduledAt);
     if (Number.isNaN(scheduled)) return refuse(`${relPath} has no valid scheduledAt`);
     if (scheduled - Date.parse(at) > MAX_SCHEDULE_AHEAD_MS) {
-      return refuse(`${relPath} is scheduled more than 48h after the stamp time (${item.scheduledAt}) — a tree-auto stamp must not outlive the 48h window`);
+      return refuse(`${relPath} is scheduled more than 36h after the stamp time (${item.scheduledAt}) — a tree-auto stamp must keep a margin inside the 48h window`);
     }
     items.push(item);
   }

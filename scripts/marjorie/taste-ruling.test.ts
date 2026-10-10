@@ -209,7 +209,7 @@ describe('routine-fable-taste-ruling.yml and its filer', () => {
     const filer = read('.github/workflows/taste-ruling-file.yml');
     expect(filer).toContain('taste-ruling.mjs file --dir .scratch/out');
     expect(filer).toContain('ref: main');
-    for (const f of ['routine-tree-daily-draft', 'routine-tree-weekly-plan', 'routine-tree-ask-response', 'routine-marjorie-weekly-review', 'routine-marjorie-ask-response', 'routine-marjorie-triage']) {
+    for (const f of ['routine-tree-weekly-plan', 'routine-marjorie-weekly-review', 'routine-marjorie-ask-response']) {
       const text = read(`.github/workflows/${f}.yml`);
       expect(text, f).toContain('uses: ./.github/workflows/taste-ruling-file.yml');
     }
