@@ -1,11 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { familyOf } from '../../../scripts/social/lib/scorecard-report.mjs';
-import { CAMPAIGN_FAMILIES, campaignVisitScope, recordCampaignVisit } from './campaign-visit';
+import { CAMPAIGN_FAMILIES, campaignVisitScope, recordCampaignVisit, resetCampaignVisitState } from './campaign-visit';
 
 const scope = (qs: string, headers: Record<string, string> = {}, method = 'GET', path = '/') =>
   campaignVisitScope(method, new URL(`https://longlivets.com${path}?${qs}`), new Headers(headers));
 
 afterEach(() => {
+  vi.useRealTimers();
+  resetCampaignVisitState();
   delete process.env.NEXT_PUBLIC_SUPABASE_URL;
   delete process.env.SUPABASE_SERVICE_ROLE_KEY;
 });
@@ -53,6 +55,30 @@ describe('recordCampaignVisit', () => {
     process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://example.supabase.co';
     process.env.SUPABASE_SERVICE_ROLE_KEY = 'k';
     expect(await recordCampaignVisit('s', (async () => ({ ok: false })) as never)).toBe(false);
-    expect(await recordCampaignVisit('s', (async () => { throw new Error('down'); }) as never)).toBe(false);
+    expect(await recordCampaignVisit('t', (async () => { throw new Error('down'); }) as never)).toBe(false);
+  });
+});
+
+describe('recordCampaignVisit abuse and config guards', () => {
+  it('sends at most one RPC per scope per second, then again after the window', async () => {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://example.supabase.co';
+    process.env.SUPABASE_SERVICE_ROLE_KEY = 'k';
+    vi.useFakeTimers();
+    const f = vi.fn(async () => ({ ok: true }));
+    expect(await recordCampaignVisit('utm-visit:thread', f as never)).toBe(true);
+    expect(await recordCampaignVisit('utm-visit:thread', f as never)).toBe(false);
+    expect(await recordCampaignVisit('utm-visit:mood', f as never)).toBe(true);
+    expect(f).toHaveBeenCalledTimes(2);
+    vi.advanceTimersByTime(1001);
+    expect(await recordCampaignVisit('utm-visit:thread', f as never)).toBe(true);
+    expect(f).toHaveBeenCalledTimes(3);
+  });
+
+  it('warns once per instance when the Supabase env is missing', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(await recordCampaignVisit('a', vi.fn() as never)).toBe(false);
+    expect(await recordCampaignVisit('b', vi.fn() as never)).toBe(false);
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
   });
 });

@@ -11,6 +11,10 @@
  * mint unbounded rows. Pageview-grain (a visit = one document load), not
  * unique visitors. Crawlers/link-unfurlers and prefetches are not counted.
  *
+ * Best-effort: at most one RPC per scope per second per server instance, so a
+ * hammered URL cannot amplify DB writes (counts are therefore pageviews,
+ * best-effort, spoofable, throttled per instance).
+ *
  * Reader: `scripts/marjorie/lib/growth-campaign-visits.mjs`. Fire-and-forget:
  * a failure of any kind is swallowed and never touches the page response.
  */
@@ -34,11 +38,31 @@ export function campaignVisitScope(method: string, url: URL, headers: Headers): 
   return `${CAMPAIGN_SCOPE_PREFIX}${family}`;
 }
 
+const THROTTLE_MS = 1000;
+const lastSent = new Map<string, number>();
+let warnedMissingEnv = false;
+
+/** Test hook: clears the per-instance throttle and warn-once state. */
+export function resetCampaignVisitState(): void {
+  lastSent.clear();
+  warnedMissingEnv = false;
+}
+
 /** Bumps today's counter for `scope`; resolves `false` (never throws) on any degraded state. */
 export async function recordCampaignVisit(scope: string, fetchImpl: typeof fetch = fetch): Promise<boolean> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceRoleKey) return false;
+  if (!supabaseUrl || !serviceRoleKey) {
+    if (!warnedMissingEnv) {
+      warnedMissingEnv = true;
+      console.warn('campaign-visit: NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing; utm visits are not being counted');
+    }
+    return false;
+  }
+  const now = Date.now();
+  const prev = lastSent.get(scope);
+  if (prev !== undefined && now - prev < THROTTLE_MS) return false;
+  lastSent.set(scope, now);
   try {
     const res = await fetchImpl(`${supabaseUrl}/rest/v1/rpc/increment_usage_daily`, {
       method: 'POST',

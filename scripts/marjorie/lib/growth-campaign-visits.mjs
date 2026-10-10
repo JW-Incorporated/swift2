@@ -8,7 +8,7 @@ import { isSchemaPending } from '../../lib/cli.mjs';
 export const SCOPE_PREFIX = 'utm-visit:';
 
 export const FIRST_PARTY_NOTE =
-  'Visits are first-party counts of arriving utm_medium=social page loads (usage_daily scope utm-visit:<family>, UTC days, crawlers/prefetch excluded), grouped by campaign family. Pageviews only; unique visitors are not collected. Counting began when the site first shipped the counter, so earlier weeks read 0.';
+  'Visits are first-party counts of arriving utm_medium=social page loads (usage_daily scope utm-visit:<family>, UTC days, crawlers/prefetch excluded), grouped by campaign family. Pageviews (best-effort, spoofable, throttled per instance); unique visitors are not collected. Counting began when the site first shipped the counter, so earlier weeks read 0.';
 
 const day = (ms) => new Date(ms).toISOString().slice(0, 10);
 
