@@ -2021,6 +2021,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — a sunlit close-up of her face, centered, eyes high.
+            focalPoint: '48% 38%',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
             kind: 'archival',

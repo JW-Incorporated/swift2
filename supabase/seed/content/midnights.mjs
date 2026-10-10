@@ -4769,6 +4769,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_-_You%27re_Losing_Me.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the single artwork
+            // sits in the right half of the frame; her bowed head is upper-right.
+            focalPoint: '72% 45%',
             credit: 'Republic Records',
             caption: 'Artwork for "You\'re Losing Me (From the Vault)," the Midnights bonus track that finally went wide in November 2023.',
             kind: 'primary',
@@ -5045,6 +5048,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the lighter-flame
+            // cover; her face sits upper-right of center. Value matched to the
+            // same image's other seed occurrence so sync dedupe is stable.
+            focalPoint: '54% 45%',
             credit: 'Republic Records',
             caption: 'The lighter-flame cover, shot on film by Beth Garrabrant — the album released Oct. 21, 2022.',
             kind: 'archival',

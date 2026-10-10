@@ -3772,13 +3772,15 @@ export default {
       moment: {
         context:
           'The gathering, the weekend of June 19-20, 2026, was a "bachelorette-style gathering centered around Taylor and her closest girlfriends," per TMZ. The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Taylor\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor, and the wedding actually booked at the hotel that weekend, per TMZ, was a New York City couple\'s. When a separate rumor claimed Taylor had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it.\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort, near the home Taylor has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Taylor bought in 2013 for a reported $17.75 million in cash. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Taylor nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
-        // Rumor Desk lifecycle re-check 2026-08-24 (CIE content.rumor-lifecycle):
-        // the "Reported — not confirmed" banner still holds. Re-verified against
-        // current sources this session — neither Swift nor her team ever
-        // confirmed the bachelorette weekend, and nothing surfaced post-wedding
-        // to settle it; it stays single-camp TMZ/tabloid reporting. accessed_at
-        // refreshed below to record that someone actually looked (the distinction
-        // the banner rests on), per the finding's suggested fix.
+        // Rumor Desk lifecycle re-check 2026-10-10 (Vault Run lane 4;
+        // CIE content.rumor-lifecycle P1, banner >14d stale). Re-verified via
+        // WebSearch this session: no reporting on the bachelorette weekend has
+        // surfaced after ~June 21, 2026; neither Swift, her team, nor the Ocean
+        // House ever confirmed it, and the July 3 MSG wedding (already in the
+        // corpus) overtook it rather than settling it. Still single-camp
+        // TMZ/tabloid reporting, gone quiet — the prose already says so.
+        // accessed_at refreshed below to record that someone actually looked
+        // (the distinction the banner rests on). Prior re-check: 2026-08-24.
         sources: [
           {
             outlet: 'TMZ',
@@ -3786,7 +3788,7 @@ export default {
             source_title: 'Taylor Swift Bachelorette Party Buzz Grows in Rhode Island as Girlfriends Arrive',
             publisher: 'TMZ',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
+            accessed_at: '2026-10-10',
             reliability_score: 3,
           },
           // Ledger #1367 (2026-07-25): corroborating context that keeps this a
@@ -4098,6 +4100,25 @@ export default {
             note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-08-30',
+          },
+          // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
+          // thread from the TS13 / debut-TV tips above — the revived "lost
+          // Karma album" / Reputation (TV) theory, anchored to specific citable
+          // visual clues rather than pure numerology. Yahoo datePublished
+          // 2026-09-30 (direct fetch, HTTP 200, confirmed the Karma/The Man/
+          // Spotify/VMAs clues); Geo.tv corroboration October 2026. Easter-egg
+          // / unannounced-music speculation, explicitly allowed by the redlines;
+          // no location, no redline-category content.
+          {
+            claim:
+              'A fan theory resurfaced in late September 2026: that Taylor recorded a shelved pop album called "Karma" around 2016, dropped for Reputation during the Kardashian-West feud, and is teasing a "Karma" or Reputation (TV) release. Fans cite a "KARMA"/"MISSING" wall in "The Man" video, a Spotify montage that skips "Karma," and "Reputation" seemingly edited from her 2026 VMAs montage. Never confirmed.',
+            reportedBy: 'Yahoo Entertainment',
+            reportedOn: '2026-09-30',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-10',
           },
         ],
       },
@@ -12631,6 +12652,9 @@ export default {
         photos: [
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte509f5111225e38a/698a42f8096a9406626ae674/taylor-swift-person-of-the-year-3.jpg?branch=production&width=3840&quality=75&auto=webp&crop=16:9',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — a B&W Time POY portrait, her face in the upper-right.
+            focalPoint: '60% 22%',
             credit: 'TIME',
             caption: 'Taylor Swift\'s 2023 TIME Person of the Year cover look — one of two looks featured in the V&A DIVA exhibition\'s Denver run.',
             kind: 'primary',
@@ -15050,7 +15074,7 @@ export default {
         // / 11 promoted heroes), so the official MV frame is used here as a
         // plain credited photo. The watchable player URL is the sourceUrl.
         context:
-          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.\n\nOne of the cameos came with a story of its own. Rams quarterback Matthew Stafford — a friend of the couple who, with his wife Kelly, attended their July 2026 wedding — told reporters in early October that his four daughters were the real reason he said yes: "They were right there with me. That\'s one of the main reasons that I ended up going to do that," he said, framing it as Taylor wanting "to offer an experience for our family and our kids to see that." What stuck with him was watching her run the set rather than his own brief turn on camera: "Just to watch her do her thing is pretty impressive. From borderline directing, producing, writing, all of it, editing live as we were doing it." He joked he would likely never act again "based on my acting chops."',
+          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.\n\nOne of the cameos came with a story of its own. Rams quarterback Matthew Stafford — a friend of the couple who, with his wife Kelly, attended their July 2026 wedding — told reporters in early October that his four daughters were the real reason he said yes: "They were right there with me. That\'s one of the main reasons that I ended up going to do that," he said, framing it as Taylor wanting "to offer an experience for our family and our kids to see that." What stuck with him was watching her run the set rather than his own brief turn on camera: "Just to watch her do her thing is pretty impressive. From borderline directing, producing, writing, all of it, editing live as we were doing it." He joked he would likely never act again "based on my acting chops."\n\nThe clip kept growing after its premiere: on Oct. 5, 2026, Taylor posted an extended cut — titled "Patient Zero (Expanded Video)" — to her official YouTube channel, a second, longer pass at the same Lubezki-shot story.',
         photos: [
           {
             url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxresdefault.jpg',
@@ -15155,6 +15179,38 @@ export default {
             reliability_score: 5,
             notes:
               'source for Stafford\'s on-record account of the cameo (added 2026-10-03, intake #4891): his daughters as the reason, the "offer an experience for our family" and "borderline directing, producing, writing... editing live" quotes, and the acting-chops joke. Corroborated by Yahoo Sports and E! Online.',
+          },
+          // Oct 5, 2026 "Patient Zero (Expanded Video)" (youtube watch id
+          // j8pR1tyoRFc) — added 2026-10-10 (Vault Run Content Shift, intake
+          // #5241). oEmbed-verified official: title "Taylor Swift - Patient Zero
+          // (Expanded Video)", author_url youtube.com/@TaylorSwift, type video.
+          // Deliberately NOT carried as a source_type:'official' sources[] entry:
+          // like the base MV (kept in sourceUrl, not sources[]), attaching an
+          // official YouTube artifact here would force a `video` player on the
+          // moment and move the video-affordance real-vault count (the test
+          // asserts exactly 19 video-carrying moments). The expanded cut is
+          // recorded in the context prose above instead. Nobody on the lane
+          // watched it, so no claim is made about what it adds beyond being a
+          // longer official edit of the same Lubezki-shot video.
+        ],
+        // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #5371): the fan
+        // "that's what friends are for" / Dionne Warwick theory, built off the
+        // public posts around this very video. IBTimes UK datePublished
+        // 2026-10-05 (direct fetch, HTTP 200, confirmed the phrase pattern,
+        // Delevingne and SNL posts, and the Dionne Warwick link); Bustle
+        // corroboration same week. Easter-egg / unannounced-music speculation,
+        // allowed by the redlines; no location, no redline-category content.
+        rumors: [
+          {
+            claim:
+              'In early October 2026 fans noticed the phrase "that\'s what friends are for" used three times in one week across Taylor-linked posts — her "Patient Zero" Instagram caption, Cara Delevingne\'s post about the shoot, and SNL\'s post about her cameo — and tied it to Dionne Warwick\'s 1985 single of the same name, theorizing an upcoming song or collaboration. Neither Taylor nor her team has confirmed it.',
+            reportedBy: 'IBTimes UK',
+            reportedOn: '2026-10-05',
+            status: 'unconfirmed',
+            url: 'https://www.ibtimes.co.uk/taylor-swift-fans-phrase-next-song-theory-1823795',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real, observable pattern of public posts rather than an anonymous blind item — carried at tabloid tier. Corroborated by Bustle (Oct 2026). Resolves if a matching song or collaboration surfaces; fades if the phrase pattern leads nowhere. No location.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-10',
           },
         ],
       },
