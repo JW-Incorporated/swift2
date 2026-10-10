@@ -266,8 +266,21 @@ function clip(text, cap) {
   return s.length > cap ? `${s.slice(0, cap)}…` : s;
 }
 
+/**
+ * The pictures and files on a message. `hasBody` already counts attachments,
+ * so an image-only ask is dispatched; without this it reached the agent as
+ * empty text (#5505). Discord's CDN urls are signed and expire, so they are
+ * only usable during the run that reads them.
+ */
+function attachments(m) {
+  return (Array.isArray(m?.attachments) ? m.attachments : []).map((a) => ({
+    filename: String(a?.filename ?? ''), url: String(a?.url ?? ''),
+    content_type: String(a?.content_type ?? ''), size: Number(a?.size ?? 0),
+  }));
+}
+
 function line(m) {
-  return { id: m.id, author: authorName(m.author), is_bot: Boolean(m.webhook_id || m.author?.bot), at: m.timestamp, text: clip(m.content, HISTORY_TEXT_CAP) };
+  return { id: m.id, author: authorName(m.author), is_bot: Boolean(m.webhook_id || m.author?.bot), at: m.timestamp, text: clip(m.content, HISTORY_TEXT_CAP), attachments: attachments(m) };
 }
 
 /**
@@ -289,6 +302,7 @@ export function buildContext({ bot, guildId, channelId, threadId, message, histo
     author: authorName(message.author),
     at: message.timestamp,
     text: clip(message.content, MESSAGE_TEXT_CAP),
+    attachments: attachments(message),
     replying_to: message.referenced_message ? line(message.referenced_message) : null,
     thread_root: threadRoot ? line(threadRoot) : null,
     history: history.map(line),
