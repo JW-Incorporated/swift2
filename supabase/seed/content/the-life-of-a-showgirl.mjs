@@ -4111,12 +4111,12 @@ export default {
           // no location, no redline-category content.
           {
             claim:
-              'A long-running fan theory resurfaced in late September 2026: that Taylor recorded a full pop album called "Karma" around 2016, shelved it for Reputation amid the Kardashian-West feud, and is now hinting at a "Karma" (or "Reputation (TV)") release. Fans cite a "KARMA" wall beside a "MISSING" sign in the "The Man" video, a Spotify montage of her videos that skips "Karma," and the word "Reputation" apparently edited out of the "Karma Wall" in her 2026 VMAs montage. Taylor has never confirmed or denied any of it.',
+              'A fan theory resurfaced in late September 2026: that Taylor recorded a shelved pop album called "Karma" around 2016, dropped for Reputation during the Kardashian-West feud, and is teasing a "Karma" or Reputation (TV) release. Fans cite a "KARMA"/"MISSING" wall in "The Man" video, a Spotify montage that skips "Karma," and "Reputation" seemingly edited from her 2026 VMAs montage. Never confirmed.',
             reportedBy: 'Yahoo Entertainment',
             reportedOn: '2026-09-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable visual clues rather than pure vibes. Carried by established entertainment outlets reporting on the fan theory, not a report of any plan — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or "Reputation (Taylor\'s Version)" is announced; fades if the clues go quiet. No location.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-10',
           },
@@ -15180,17 +15180,18 @@ export default {
             notes:
               'source for Stafford\'s on-record account of the cameo (added 2026-10-03, intake #4891): his daughters as the reason, the "offer an experience for our family" and "borderline directing, producing, writing... editing live" quotes, and the acting-chops joke. Corroborated by Yahoo Sports and E! Online.',
           },
-          {
-            outlet: 'Taylor Swift (official YouTube)',
-            url: 'https://www.youtube.com/watch?v=j8pR1tyoRFc',
-            source_title: 'Taylor Swift - Patient Zero (Expanded Video)',
-            publisher: 'Taylor Swift',
-            source_type: 'official',
-            accessed_at: '2026-10-10',
-            reliability_score: 5,
-            notes:
-              'The expanded cut of the video, posted to her own channel on Oct. 5, 2026 (added 2026-10-10, Vault Run Content Shift, intake #5241). YouTube oEmbed verified: title "Taylor Swift - Patient Zero (Expanded Video)", author_url youtube.com/@TaylorSwift, type video. Nobody on the lane watched the cut, so no claim is made here about what the expanded version adds beyond its existence as a longer official edit of the same Lubezki-shot video.',
-          },
+          // Oct 5, 2026 "Patient Zero (Expanded Video)" (youtube watch id
+          // j8pR1tyoRFc) — added 2026-10-10 (Vault Run Content Shift, intake
+          // #5241). oEmbed-verified official: title "Taylor Swift - Patient Zero
+          // (Expanded Video)", author_url youtube.com/@TaylorSwift, type video.
+          // Deliberately NOT carried as a source_type:'official' sources[] entry:
+          // like the base MV (kept in sourceUrl, not sources[]), attaching an
+          // official YouTube artifact here would force a `video` player on the
+          // moment and move the video-affordance real-vault count (the test
+          // asserts exactly 19 video-carrying moments). The expanded cut is
+          // recorded in the context prose above instead. Nobody on the lane
+          // watched it, so no claim is made about what it adds beyond being a
+          // longer official edit of the same Lubezki-shot video.
         ],
         // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #5371): the fan
         // "that's what friends are for" / Dionne Warwick theory, built off the
@@ -15202,7 +15203,7 @@ export default {
         rumors: [
           {
             claim:
-              'In early October 2026 fans noticed the phrase "that\'s what friends are for" appear three times in one week across Taylor-linked posts — her own Instagram caption about the "Patient Zero" video, Cara Delevingne\'s post about the same shoot, and SNL\'s post about Taylor\'s cameo — and tied it to Dionne Warwick\'s 1985 charity single of the same name, theorizing it hints at an upcoming Swift song or collaboration. Neither Taylor nor her team has confirmed any such song or a Dionne Warwick collaboration.',
+              'In early October 2026 fans noticed the phrase "that\'s what friends are for" used three times in one week across Taylor-linked posts — her "Patient Zero" Instagram caption, Cara Delevingne\'s post about the shoot, and SNL\'s post about her cameo — and tied it to Dionne Warwick\'s 1985 single of the same name, theorizing an upcoming song or collaboration. Neither Taylor nor her team has confirmed it.',
             reportedBy: 'IBTimes UK',
             reportedOn: '2026-10-05',
             status: 'unconfirmed',
