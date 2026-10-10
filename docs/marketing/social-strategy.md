@@ -57,7 +57,7 @@ queue item is never the bare family:
 | Campaign | Family | A real `campaign` value | Share of slots |
 |---|---|---|---|
 | Feature launch | `launch:<feature-slug>` | `launch:mood-chat:announce` | 0-6 slots per launch, bursty |
-| Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
+| Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | **1 paired beat per thread per month (6/mo)** |
 | Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
 | **News beat** | `news:<event-slug>` | `news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
@@ -135,11 +135,33 @@ rotation order (most visual first, so the strongest opens each cycle):
 | 4 | **Taylor's Version** | `/?lens=taylors-version` |
 | 5 | **End Game** | `/?lens=the-proposal` |
 
-**Each window gets 2 slots:** one IG (the hero) and one X (a structurally
-different post, never the IG caption truncated), placed anywhere in the
-window. The IG hero leads with a Taylor photo from the era the thread's best
-item belongs to; the thread page itself is a product surface, so a
-`/social/library/` screenshot of it earns slide 2.
+**Each window gets ONE paired beat** (changed 2026-10-09, Tree — see the
+capacity note below): the IG hero and a structurally different X post, never
+the IG caption truncated, placed anywhere in the window. The IG hero leads
+with a Taylor photo from the era the thread's best item belongs to; the thread
+page itself is a product surface, so a `/social/library/` screenshot of it
+earns slide 2.
+
+**Why one beat, not two (2026-10-09, Tree).** This rule used to read "2 slots:
+one IG (the hero) and one X (a structurally different post)" — two *slots*,
+because it was written under the two-beat-a-day grammar where an IG item and
+an X item each consumed their own slot. §2's 2026-10-05 correction made one
+beat a day the real grammar and **every beat an IG+X pair authored together**,
+so a single beat now delivers exactly what this rule asked for: an IG hero
+plus a structurally different X sibling. Keeping "2 slots" on top of that
+meant each thread asked for two *pairs* a month — four posts to teach one
+thread — which nobody decided and which the arithmetic cannot pay for:
+
+> 7 beats a week is the whole budget. The standing reservations are 1 news
+> reserve (§1(e2)) + 1 Blank Spaces timeline beat (§1(c)) + 12 thread slots a
+> month (~2.8/week) = ~4.8 of 7, before a single Mood beat, launch-arc day or
+> heartbeat. Planning the fortnight of 2026-10-09 against the old numbers came
+> out at 19 demands for 13 slots. At 6 thread beats a month (~1.4/week) the
+> reservations land at ~3.4 of 7 and the rest of the strategy fits.
+
+The six-threads-every-month promise (Joey's framing above) is unchanged and
+still the point — all six are still taught every month, each on a new angle.
+What changed is that teaching one takes one pair, not two.
 
 **The angle menu** — five angles, so a thread doesn't repeat itself for five
 months:
@@ -173,8 +195,8 @@ Clue Web → Runway → Blank Spaces and skips Taylor's Version + End Game.)
 
 **Permanent minimum:** reserve at least **one 23:00Z evening campaign beat in
 every calendar week** for this series. It is additional to, and never replaces,
-the six-thread monthly rotation; Blank Spaces still receives its two thread-cycle
-slots in its normal monthly window. If a launch arc or another campaign already
+the six-thread monthly rotation; Blank Spaces still receives its own
+thread-cycle beat in its normal monthly window. If a launch arc or another campaign already
 occupies the preferred evening beat, use the next available 23:00Z beat that
 week rather than double-booking a slot or adding a separate Facebook item.
 
@@ -324,11 +346,16 @@ run.
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
 
 1. a `heartbeat:` beat — always yields,
-2. a `mood:` beat,
-3. the **second** slot of a thread window (never the hero).
+2. a `mood:` beat.
 
-It never displaces the weekly Blank Spaces timeline minimum (§1(c)), a thread
-window's hero, or a launch arc's day 0 / +2 / +4 (§1(a)). The displaced beat
+**That is the whole list as of 2026-10-09.** It used to carry a third rung —
+"the **second** slot of a thread window (never the hero)" — which no longer
+exists: §1(b) now gives each thread window ONE paired beat, and that beat *is*
+the hero. So news never displaces a thread beat, and a thread window's single
+beat is never written as a news reserve's named fallback either; a reserve's
+fallback is a heartbeat (or mood) subject. News never displaces the weekly
+Blank Spaces timeline minimum (§1(c)), a thread window's beat, or a launch
+arc's day 0 / +2 / +4 (§1(a)). The displaced beat
 slides to the next free day where that is possible; a window-bound thread
 slot is dropped rather than slid, same as today. The news item records the
 displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
@@ -672,7 +699,7 @@ against that old curve is fiction. Reset below.
 | Failed posts | `social/failed/` new files | Should be **0**. Any X failure means the sibling rule leaked |
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
 | Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
-| Campaign mix | `campaign` prefixes | Roughly 1 launch arc, 12 thread slots, 2-3 mood, rest heartbeat, per month |
+| Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
 published**, weekly. Crude, but it moves when something lands and it needs no
