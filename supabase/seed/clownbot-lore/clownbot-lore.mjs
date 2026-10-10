@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-08',
+  updatedOn: '2026-10-10',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
