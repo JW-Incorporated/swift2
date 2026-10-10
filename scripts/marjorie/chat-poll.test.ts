@@ -321,6 +321,59 @@ describe('context', () => {
     expect(ctx.thread_root).toMatchObject({ text: "Founders' Brief" });
     expect(ctx.already).toBe('replied'); // a duplicate run's context job stops here
   });
+  describe('attachments (a picture the owner attaches, #5505)', () => {
+    const pic = (filename: string) => ({ filename, url: `https://cdn.discordapp.com/attachments/1/2/${filename}?ex=sig`, content_type: 'image/png', size: 2048 });
+    it('carries every attachment on the message, its reply target, the thread root and history', async () => {
+      const message = msg('1000000000000000009', {
+        type: 19, content: 'post this one', attachments: [pic('shot.png'), pic('alt.png')],
+        referenced_message: msg('1548716528432713729', { webhook_id: '9', content: 'the brief', attachments: [pic('brief.png')] }),
+      });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${THREAD}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${THREAD}/messages?before=${message.id}&limit=14`]: res(200, [msg('1000000000000000008', { content: 'earlier', attachments: [pic('old.png')] })]),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${THREAD}`]: res(200, msg(THREAD, { webhook_id: '9', content: 'root', attachments: [pic('root.png')] })),
+      });
+      const file = out();
+      expect(await context(parseFlags(['--bot', 'tree', '--channel-id', MARJ, '--message-id', message.id, '--thread-id', THREAD, '--out', file]), { env, fetchImpl, sleepImpl })).toBe(0);
+      const ctx = JSON.parse(readFileSync(file, 'utf8'));
+      expect(ctx.attachments).toEqual([
+        { filename: 'shot.png', url: pic('shot.png').url, content_type: 'image/png', size: 2048 },
+        { filename: 'alt.png', url: pic('alt.png').url, content_type: 'image/png', size: 2048 },
+      ]);
+      expect(ctx.replying_to.attachments.map((a: { filename: string }) => a.filename)).toEqual(['brief.png']);
+      expect(ctx.thread_root.attachments.map((a: { filename: string }) => a.filename)).toEqual(['root.png']);
+      expect(ctx.history.map((h: { attachments: Array<{ filename: string }> }) => h.attachments.map((a) => a.filename)))
+        .toEqual([['old.png'], ['shot.png', 'alt.png']]);
+    });
+    it('an image-only message has empty text but a non-empty attachments array', async () => {
+      const message = msg('1000000000000000009', { content: '', attachments: [pic('shot.png')] });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${message.id}&limit=14`]: res(200, []),
+      });
+      const file = out();
+      expect(await context(parseFlags(['--bot', 'tree', '--channel-id', MARJ, '--message-id', message.id, '--out', file]), { env, fetchImpl, sleepImpl })).toBe(0);
+      const ctx = JSON.parse(readFileSync(file, 'utf8'));
+      expect(ctx.text).toBe('');
+      expect(ctx.attachments).toHaveLength(1);
+      expect(ctx.attachments[0]).toMatchObject({ filename: 'shot.png', content_type: 'image/png' });
+    });
+    it('a message with no attachments gets an empty array, never a missing field', async () => {
+      const message = msg('1000000000000000009', { content: 'just words' });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${message.id}&limit=14`]: res(200, []),
+      });
+      const file = out();
+      expect(await context(parseFlags(['--bot', 'marjorie', '--channel-id', MARJ, '--message-id', message.id, '--out', file]), { env, fetchImpl, sleepImpl })).toBe(0);
+      const ctx = JSON.parse(readFileSync(file, 'utf8'));
+      expect(ctx.attachments).toEqual([]);
+      expect(ctx.history.every((h: { attachments: unknown[] }) => Array.isArray(h.attachments))).toBe(true);
+    });
+  });
   describe('owner verification (growth-strategy steering)', () => {
     const OTHER_FOUNDER = '1421545239650238555';
     const ownerOf = async (author: string, extraEnv: Record<string, string> = {}) => {
