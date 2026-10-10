@@ -36,10 +36,11 @@ describe('dispatchResponse', () => {
     expect(run(calls)).toEqual(['workflow', 'run', 'routine-marjorie-ask-response.yml', '--repo', 'o/r', '--ref', 'main', '-f', 'issue_number=4300']);
   });
 
-  it('each direction starts its own workflow', async () => {
+  it('to-tree starts nothing: Tree answers from its Hermes daily loop (routine retired 2026-10-09)', async () => {
     const { gh, calls } = fakeGh();
-    await dispatchResponse('to-tree', 4301, { repo: 'o/r', gh, now: NOW, log: log() });
-    expect(run(calls)?.[2]).toBe('routine-tree-ask-response.yml');
+    const res = await dispatchResponse('to-tree', 4301, { repo: 'o/r', gh, now: NOW, log: log() });
+    expect(res).toEqual({ dispatched: false, reason: "answered by Tree's Hermes daily loop" });
+    expect(calls).toEqual([]);
     expect(Object.keys(DIRECTIONS).sort()).toEqual(['to-marjorie', 'to-tree']);
   });
 
@@ -67,10 +68,10 @@ describe('dispatchResponse', () => {
 
   it('stops at the daily cap per direction, counted from today’s runs of that workflow', async () => {
     const full = fakeGh({ total: DAILY_CAP });
-    expect(await dispatchResponse('to-tree', 1, { repo: 'o/r', gh: full.gh, now: NOW, log: log() })).toEqual({ dispatched: false, reason: `daily cap ${DAILY_CAP}/${DAILY_CAP}` });
+    expect(await dispatchResponse('to-marjorie', 1, { repo: 'o/r', gh: full.gh, now: NOW, log: log() })).toEqual({ dispatched: false, reason: `daily cap ${DAILY_CAP}/${DAILY_CAP}` });
     expect(run(full.calls)).toBeUndefined();
     const one = fakeGh({ total: DAILY_CAP - 1 });
-    expect((await dispatchResponse('to-tree', 1, { repo: 'o/r', gh: one.gh, now: NOW, log: log() })).dispatched).toBe(true);
+    expect((await dispatchResponse('to-marjorie', 1, { repo: 'o/r', gh: one.gh, now: NOW, log: log() })).dispatched).toBe(true);
   });
 
   it('counts runs since UTC midnight of the dispatch moment', async () => {
@@ -100,7 +101,7 @@ describe('dispatchResponse', () => {
     expect(await childDepth('', { repo: 'o/r', gh: fakeGh().gh, failClosed: true })).toBe(MAX_DEPTH + 1);
     expect(await childDepth(undefined, { repo: 'o/r', gh: fakeGh().gh })).toBe(0);
     const { gh, calls } = fakeGh();
-    const res = await dispatchResponse('to-tree', 20, { repo: 'o/r', gh, now: NOW, parent: '', response: true, log: log() });
+    const res = await dispatchResponse('to-marjorie', 20, { repo: 'o/r', gh, now: NOW, parent: '', response: true, log: log() });
     expect(res.dispatched).toBe(false);
     expect(res.reason).toContain('chain depth');
     expect(run(calls)).toBeUndefined();
@@ -110,7 +111,7 @@ describe('dispatchResponse', () => {
 
   it('an ask held back by the daily cap still records its depth, so answering it later cannot reset the chain', async () => {
     const { gh, calls } = fakeGh({ total: DAILY_CAP, comments: { 10: [marker('to-marjorie', 0)] } });
-    const res = await dispatchResponse('to-tree', 21, { repo: 'o/r', gh, now: NOW, parent: 10, response: true, log: log() });
+    const res = await dispatchResponse('to-marjorie', 21, { repo: 'o/r', gh, now: NOW, parent: 10, response: true, log: log() });
     expect(res.reason).toContain('daily cap');
     expect(calls.find((c) => c[0] === 'issue')?.[6]).toContain('<!-- loop-depth: 1 -->');
     // a later response run answering #21 now counts from its recorded depth
@@ -133,7 +134,7 @@ describe('dispatchResponse', () => {
     expect(res).toEqual({ dispatched: false, reason: 'error' });
     expect(out.mock.calls.flat().join('\n')).toContain('::warning::loop-dispatch');
     const reads = vi.fn(async () => { throw new Error('HTTP 502'); });
-    expect((await dispatchResponse('to-tree', 1, { repo: 'o/r', gh: reads, now: NOW, log: log() })).reason).toBe('error');
+    expect((await dispatchResponse('to-marjorie', 1, { repo: 'o/r', gh: reads, now: NOW, log: log() })).reason).toBe('error');
   });
 
   it('rejects an unknown direction loudly (a code bug, not a runtime condition)', async () => {

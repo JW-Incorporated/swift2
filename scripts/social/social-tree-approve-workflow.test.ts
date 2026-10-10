@@ -64,7 +64,14 @@ describe('social-tree-approve.yml', () => {
   });
 
   it('mints with the key in ONE step only, before any push, and the stamp commit is verified to touch only the stamped queue files', () => {
-    expect(wf.match(/SOCIAL_APPROVAL_KEY: \$\{\{ secrets\.SOCIAL_APPROVAL_KEY \}\}/g)).toHaveLength(1);
+    // The key is in exactly two steps: the mint step, and the failure cleanup, which only VERIFIES an owner
+    // v3 stamp with main's owner-stamp-check.mjs (read-only, PR files as data) before deciding not to close.
+    expect(wf.match(/SOCIAL_APPROVAL_KEY: \$\{\{ secrets\.SOCIAL_APPROVAL_KEY \}\}/g)).toHaveLength(2);
+    const mint = wf.slice(at('Mint the tree-auto stamp'), at('Commit the stamp to the PR branch'));
+    expect(mint).toContain('SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}');
+    const cleanup = wf.slice(at('Remove the stamp if the run failed or was cancelled'));
+    expect(cleanup).toContain('SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}');
+    expect(cleanup).not.toMatch(/stamp-tree-auto|tree-approve-gate/);
     expect(at('stamp-tree-auto.mjs')).toBeLessThan(at('git push origin'));
     expect(at('tree-approve-gate.mjs stamp-diff')).toBeLessThan(at('git push origin'));
     expect(wf).toContain('git worktree add --detach "$RUNNER_TEMP/pr-branch" "$HEAD_SHA"');
@@ -83,9 +90,18 @@ describe('social-tree-approve.yml', () => {
   });
 
   it('M5: a failure after the stamp was pushed reverts the stamp commit (or closes the PR)', () => {
-    expect(wf).toContain("if: failure() && steps.commit.outputs.stamp_sha != '' && steps.merge.conclusion != 'success'");
+    expect(wf).toContain("if: (failure() || cancelled()) && steps.commit.outputs.stamp_sha != '' && steps.merge.conclusion != 'success'");
     expect(wf).toContain('git revert --no-edit "$STAMP_SHA"');
     expect(wf).toContain('gh pr close "$PR"');
+  });
+
+  it('a cancelled run is cleaned up too, and an owner v3 stamp on the new head keeps the PR open', () => {
+    const step = wf.slice(at('Remove the stamp if the run failed or was cancelled'));
+    expect(step).toContain('SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}');
+    const check = step.indexOf('node scripts/social/owner-stamp-check.mjs --sha "$NEW_HEAD" --list "$RUNNER_TEMP/gate/queue-files.txt"');
+    expect(check).toBeGreaterThan(-1);
+    expect(check).toBeLessThan(step.indexOf('gh pr close "$PR"'));
+    expect(step).toContain('exit 0');
   });
 
   it('does not dispatch, post or send anything, and never touches the caps', () => {

@@ -43,15 +43,6 @@ describe('brief delivery guard', () => {
     expect(writeImpl).toHaveBeenCalledWith('body.md', issue.body);
   });
 
-  it('keeps the mail fallback for the morning change line: the step that renders with --notify holds the mail credentials', () => {
-    const workflow = readFileSync('.github/workflows/routine-marjorie-brief.yml', 'utf8').replace(/\r\n/g, '\n');
-    const steps = workflow.split(/^ {6}- /m).filter((step) => step.includes('status-page.mjs --apply --notify'));
-    expect(steps).toHaveLength(1);
-    expect(steps[0]).toContain('          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}\n');
-    expect(steps[0]).toContain('          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}\n');
-    expect(steps[0]).toContain('          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}\n');
-  });
-
   it('keeps recovery manual, main-only, serialized, and free of an assembler or Claude step', () => {
     const workflow = readFileSync('.github/workflows/marjorie-brief-delivery-recovery.yml', 'utf8').replace(/\r\n/g, '\n');
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:\n\x20{4}inputs:\n\x20{6}issue_number:[\s\S]*?type: number/m);

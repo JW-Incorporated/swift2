@@ -92,7 +92,9 @@ other comment, and every bot comment, is ignored — the workflow's `if` and
 
 ## The daily brief
 
-`routine-marjorie-brief.yml` still runs at 12:00 UTC on Opus, but it no longer
+**Retired 2026-10-09:** `routine-marjorie-brief.yml` is deleted (Marjorie's Hermes daily digest replaces it; `watchdog.yml` no longer alarms on a missing note; the status page itself is still rendered hourly by `marjorie-status.yml`). The text below is the history of the routine.
+
+`routine-marjorie-brief.yml` ran at 12:00 UTC on Opus, but it no longer
 opens a `Founders' Brief` issue. The agent writes the note with
 `node scripts/marjorie/status-note.mjs write --body-file <path>` and the fan-view recap with
 `status-note.mjs write-recap --body-file <path>` (3-5 plain bullets, no jargon); the `deliver`
@@ -102,7 +104,7 @@ above if the page changed (the brief's new note counts). It no longer posts its 
 line. `<!-- marjorie-ping date=… -->` is still stamped (date only, no Discord message id):
 `brief-guard.mjs` reads it to keep a day from delivering twice, and the watchdog's
 "brief exists" check reads the note's date (`status-note.mjs today`). Replies in `#marjorie` — including replies to the change ping — are handled by Marjorie's chat routine
-(`bot-chat-poll` → `routine-marjorie-chat`), the owner's steering channel. The old `reply-poll.mjs` relay of
+(was `bot-chat-poll` → `routine-marjorie-chat`; since 2026-10-09 Marjorie's Hermes bot answers there), the owner's steering channel. The old `reply-poll.mjs` relay of
 ping-thread replies onto this issue is retired (docs/decisions.md, 2026-10-01); `chat-inbox` skips only
 approval/community `ref:` posts, so a reply to the ping is picked up as chat.
 Re-pointed at the status issue: `chat-post.mjs`'s turn log lands there; dispatch-chase reads held markers from the

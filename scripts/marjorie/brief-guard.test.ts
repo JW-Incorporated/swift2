@@ -96,19 +96,5 @@ describe('brief first-job guard', () => {
     expect(rerunLog).toHaveBeenCalledWith('brief guard: rerun');
     expect(execImpl).not.toHaveBeenCalled();
   });
-  it('workflow serializes guard through delivery, pins main and has an explicit false force default', () => {
-    const text = readFileSync('.github/workflows/routine-marjorie-brief.yml', 'utf8').replace(/\r\n/g, '\n');
-    expect(text).toMatch(/concurrency:\n {2}group: marjorie-brief-day\n {2}cancel-in-progress: false/);
-    expect(text).toMatch(/force:\n {8}description:.*\n {8}type: boolean\n {8}default: false/);
-    const guardJob = text.slice(text.indexOf('  guard:'), text.indexOf('\n  run:'));
-    expect(guardJob).toContain("if: github.ref == 'refs/heads/main'");
-    expect(guardJob).toContain('ref: main');
-    expect(guardJob).toContain('actions: read');
-    expect(guardJob).toContain('issues: read');
-    expect(guardJob).not.toContain('environment:');
-    expect(guardJob).not.toMatch(/secrets\.(?!GITHUB_TOKEN)/);
-    expect(text).toMatch(/ {2}run:\n {4}needs: guard\n {4}if: needs.guard.outputs.proceed == 'true'/);
-    expect(text).toContain('needs: run');
-    expect(text).toContain('cron: "0 12 * * *"');
-  });
+  // The workflow-shape test for routine-marjorie-brief.yml left with that workflow (deleted 2026-10-09).
 });

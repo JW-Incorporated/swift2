@@ -31,9 +31,12 @@ import { gh as ghRun } from '../../lib/gh.mjs';
 import { FILER_LOGINS, REPO } from './loop-asks.mjs';
 import { apiFor } from './issues-rest.mjs';
 
+// `to-tree` has no routine since 2026-10-09 (owner decision): Tree runs as an always-on Hermes agent and
+// answers open `marjorie-filed` + `desk:tree` asks in its daily loop (runner-prompts/tree-hermes-daily.md
+// step 4b). The ask is still filed; nothing is dispatched, so no comment marker is written either.
 export const DIRECTIONS = {
   'to-marjorie': { workflow: 'routine-marjorie-ask-response.yml', responder: 'Marjorie' },
-  'to-tree': { workflow: 'routine-tree-ask-response.yml', responder: 'Tree' },
+  'to-tree': { workflow: null, responder: 'Tree', retired: "answered by Tree's Hermes daily loop" },
 };
 export const DAILY_CAP = 6;
 export const MAX_DEPTH = 2;
@@ -116,6 +119,7 @@ export async function dispatchResponse(direction, number, { repo = REPO, gh = gh
     }
     return skip(reason);
   };
+  if (target.retired) return skip(target.retired);
   try {
     if (dispatchMarkers(await commentsOf(number, { repo, gh })).some((m) => m.direction === direction)) return skip('already dispatched');
     const depth = await childDepth(parent, { repo, gh, failClosed: response });

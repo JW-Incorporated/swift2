@@ -11,7 +11,7 @@
 // approves, stamps or touches a queue file.
 //
 //   node scripts/social/retire-stale-drafts.mjs            # dry run: prints what it would close
-//   node scripts/social/retire-stale-drafts.mjs --apply    # closes them (the daily-draft workflow only)
+//   node scripts/social/retire-stale-drafts.mjs --apply    # closes them (social-retire-stale-drafts.yml only)
 import { execFileSync } from 'node:child_process';
 import { runMain } from '../lib/cli.mjs';
 import { STALE_DRAFT_HOURS, listOpenDraftPrs, readDraftPr, readPrQueueItems, staleReason } from './lib/draft-prs.mjs';

@@ -1,0 +1,44 @@
+# Stale social-draft sweep, extracted from routine-tree-daily-draft.yml's `prepare`
+# job when that routine was retired (2026-10-09, Tree runs as a Hermes agent). The
+# sweep is the ONLY thing that closes an unmerged `social-draft` PR: the poster's
+# 48h rule retires items already in social/queue/ on main, the approval poll only
+# stamps and merges, so without this an unapproved draft PR (an owner-fallback
+# draft, or one whose social-tree-approve run failed) would sit open for days and
+# hold its photo and slot hostage. It closes with a `retired:` comment (housekeeping,
+# not a rejection) and never merges, approves, stamps or touches a queue file.
+#
+# Plain script, no agent, no secrets beyond the job token. Daily at 10:41 UTC (just
+# before Tree's 11:23 loop) by cron, and dispatched daily by the clock table
+# (scripts/ops/clock-table.json), because GitHub drops most scheduled runs here.
+name: social-retire-stale-drafts
+
+on:
+  schedule:
+    - cron: "41 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write # gh pr close --comment on a stale draft PR
+
+concurrency:
+  group: social-retire-stale-drafts
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Retire stale unapproved drafts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/social/retire-stale-drafts.mjs --apply

@@ -24,7 +24,7 @@ in `social/README.md`. Agents can engage the freeze themselves
 in `docs/ops/switch-ledger.md`); the wrapper refuses any other value, so only
 the founder lifts it (founder decision 2026-10-06). As of 2026-10-09 (owner decision), reaching `social/queue/` on `main`
 for IG/X goes through `social-tree-approve.yml`, which Tree dispatches with
-his draft PR number (it requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 48h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the trusted
+his draft PR number (it requires the dispatcher, the PR author and every commit author to be a committed Tree identity, refuses under `SOCIAL_FREEZE`, refuses a `scheduledAt` more than 36h ahead, allows only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` files of 1.5MB or less, runs the trusted
 `check-drafts`, mints a signed v4 `tree-auto` stamp and merges (removing the stamp if a run fails); before that
 date it required a founder's ✅ reaction, which now remains only as a transition fallback). `social-poster.yml` stays
 clock-dispatched and is never dispatched by an agent. From there,

@@ -1,6 +1,6 @@
 // Bots v2 W8: pin the shape of the workflows that bound Tree's daily/event
 // runs (plain-text assertions, the repo convention — no YAML parser).
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -10,39 +10,29 @@ const jobBlock = (text: string, job: string) => {
   return m ? m[1] : '';
 };
 
-describe('routine-tree-daily-draft.yml', () => {
-  const wf = read('.github/workflows/routine-tree-daily-draft.yml');
+// routine-tree-daily-draft.yml was deleted 2026-10-09: Tree drafts from its Hermes daily loop
+// (docs/agents/runner-prompts/tree-hermes-daily.md), which raced the routine on tree/draft/<date>.
+// The stale-draft sweep its `prepare` job ran lives on in social-retire-stale-drafts.yml.
+describe('social-retire-stale-drafts.yml (the retired daily routine stale-draft sweep)', () => {
+  const wf = read('.github/workflows/social-retire-stale-drafts.yml');
 
-  it('brackets the agent with prepare -> run -> receipt and hands it the pre-compute as an artifact', () => {
-    expect(wf).toMatch(/^ {2}prepare:$/m);
-    expect(wf).toMatch(/^ {2}run:\n {4}needs: prepare$/m);
-    expect(wf).toMatch(/pre_run_artifact: tree-inputs/);
-    expect(jobBlock(wf, 'prepare')).toMatch(/name: tree-inputs\n\s+path: \.scratch\/tree-inputs\.json/);
-    expect(wf).toMatch(/^ {2}receipt:$/m);
+  it('retires stale drafts with --apply on the workflow token (never the PAT), no agent, no secret', () => {
+    expect(wf).toMatch(/retire-stale-drafts\.mjs --apply/);
+    expect(wf).toMatch(/pull-requests: write/);
+    expect(wf).not.toMatch(/SOCIAL_POSTER_PAT|claude-code-action|SOCIAL_APPROVAL_KEY|DISCORD/);
+    expect(wf).toMatch(/ref: main/);
   });
 
-  it('keeps max_turns at 50 — the work is bounded, not the cap raised', () => {
-    expect(wf).toMatch(/max_turns: 50\b/);
+  it('is serialised and runs daily by cron and by workflow_dispatch', () => {
+    expect(wf).toMatch(/cron: "41 10 \* \* \*"/);
+    expect(wf).toMatch(/^ {2}workflow_dispatch:/m);
+    expect(wf).toContain('concurrency:');
+    expect(wf).toContain('group: social-retire-stale-drafts');
+    expect(wf).toContain('cancel-in-progress: false');
   });
 
-  it('retires stale drafts with --apply in the prepare job only, on the workflow token (never the PAT)', () => {
-    const prepare = jobBlock(wf, 'prepare');
-    expect(prepare).toMatch(/retire-stale-drafts\.mjs --apply/);
-    expect(prepare).toMatch(/pull-requests: write/);
-    expect(prepare).not.toMatch(/SOCIAL_POSTER_PAT/);
-    expect(jobBlock(wf, 'run')).not.toMatch(/retire-stale/);
-  });
-
-  it('degrades the pre-compute to an error stub instead of failing the run', () => {
-    expect(jobBlock(wf, 'prepare')).toMatch(/prepare-draft-inputs\.mjs --out \.scratch\/tree-inputs\.json \|\| true/);
-    expect(jobBlock(wf, 'prepare')).toMatch(/"error":"prepare-draft-inputs\.mjs failed/);
-  });
-
-  it('files the receipt only when the agent job failed or was cancelled', () => {
-    const receipt = jobBlock(wf, 'receipt');
-    expect(receipt).toMatch(/needs\.run\.result == 'failure' \|\| needs\.run\.result == 'cancelled'/);
-    expect(receipt).toMatch(/draft-receipt\.mjs --kind daily/);
-    expect(receipt).toMatch(/--file-issue/);
+  it('the retired daily routine is gone', () => {
+    expect(existsSync(resolve('.github/workflows/routine-tree-daily-draft.yml'))).toBe(false);
   });
 });
 
