@@ -1,5 +1,7 @@
 # T7 — The autonomy ladder
 
+> **2026-10-09 note — superseded for IG/X by the owner decision of that date.** Tree now clears his own IG/X drafts via `social-tree-approve.yml` (a signed v4 `tree-auto` stamp, no per-type grant, no proposal, no founder ✅, no 24h ❌ revocation window); this ladder's grant/proposal machinery is not the operating model. Kept as design history. See `docs/agents/tree.md` (2026-10-09 amendment) and `docs/social/guardrails.md` row 1.
+
 **Status:** spec, approved for build · **Epic:** #4117 (Tree Overhaul — Wave 1 design; Wave 4 builds the read-only half, Wave 5 the acting half)
 **Depends on:** S3 (the ledger is the only evidence), T4 (proposals are how a grant is made), T5 (a revocation becomes a lesson).
 **Open question RESOLVED 2026-09-11** — the founder accepted the irrevocable-Instagram risk and approved T7 **for build**. It ships split across Wave 4 (measurement) and a new **Wave 5** (acting), gated on checkpoint R4. See the end, and `PLAN.md` → "Why T7 is its own wave, gated on R4".
