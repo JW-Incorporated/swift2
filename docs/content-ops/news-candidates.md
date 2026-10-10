@@ -25,7 +25,81 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 70
+
+## Taylor Swift and Travis Kelce Have Date Night in New York City
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted enjoying a date night in New York City. The couple's outing attracted media attention as they spent time together in the city.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiigFBVV95cUxQWHRPSWFXOEk1c2pBV2k5NzF3TEd1T2tzNGtGZXN1R0luYXZ4a2RJRzNrazg2SnBWT1NTcV9LTDdIZEJWZWZVZEpRamxnUjN2MmF3U19kQVpGSUtfQkxZZlItcVBkM29VSHBPNkVDZi1paWdLd0VLVXhJUzZ4Q3ZOcTdkVHp0VmpzS0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Life of a Showgirl' Hits No. 1 on U.S. Album Chart
+
+- first seen: 2026-10-10 15:18 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's latest album, 'Life of a Showgirl,' has achieved the top position on the U.S. album chart, marking another milestone in her successful music career.
+- sources:
+  - [unverified] upi — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNDdBSmlhbE00QTdUUjQ5T2pSVnAtT1dhOGdqYzdhcS14MDhUNjBNQlM2eEx3Q1lESElVUDd2czVwemRaR3FBUTZfSjRJTWRMclMyZVpDLWhBNE5RRGw0eFZHSlU4SkJndUNwSTZfUkZRZGZZa3NlQ1VGYUpQR0Q5V3Bqbm9ycHpGQ3ZSNjJrWnZGTmhYTl9CeDU1ZUFRdUI5dzV2UkRSN185TlYwY3fSAbMBQVVfeXFMTU51d1RycXBEQ001cVVpWEh1akRRdWNxb0dKV21PNGljcm5vT3ZCNEFRQzRhbXVZUkhPdDJDU2NWV3NNbWx5YmFCTjVDWElVaFpSRTV5d21neHR2MHZqN0djWmxwOVR1WlJ3Z2ZKWF8tVUl6bGx0eTQ0THBOc3Vwcm8yaWl6YVJfbUIzMHRSdFJkeXlSdUJrckhYdExSRnd1WmVpckk3dHkyY0xVN3MyZU5VWUU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Enjoy Low-Key Date Night in NYC
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted in New York City enjoying a low-key date night amid the Chiefs' bye week. The couple's outing highlights their ongoing relationship.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxOa25WZ2ZuNHdGNWZmZVBWdmtRdEplbDBfVU10eDFCcDg1MnVWOTdkRmk3RzFVcEZJcm1WeEJscTQxbnd4YnZZWS1YM2VreE1lQmZwOFNEOTUzbjFhRWR4TDQ4SldnY3hBMVhMUzkwRE5OaXIxZUt3TXBlc0RMdThlaTE0TlJITTdJa0pOOV9DdXlaZmF1YjVJWjhGZFlrNF9lVkdSZU1UV2drVEQySEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Face Allegations Three Months After Marriage
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are currently facing serious allegations just three months after their marriage. The nature of these allegations has been described as 'catastrophic.'
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdEpPUThjbFR2ZkZPdVlyWVVSQ2ViOTdHdVU5LW9yZWZxWHRlUXJILUE5S2hia0lHSVlsY01MRUVHbG52Ym9LWFJRcV9IU3RCN2xnNVlnNzdEMVhVVmFKYl9vdkZ4UUhiMF9lZGtzdWdKYTZfeEhVQWJQWlNDYzcxNVVtV0phSTlqODlOOFo2a3VDbzlER3g4VXhMaXBRWjVS?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen holding hands during a date night in New York City. The couple's outing comes amid reports of a dispute with their neighbors.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVjM0X1lpMFpqc1hCQXphM2hBdF9PRFhYVXYteGlVTlFTLXVvZk8wUkozak5rbnNGb19sdjFTcmFZOVNUWHZ3a1RKWF9SU3BXNzRvTXhjZnRETlBWMXF6WGZIWG5DZWw4Nm1SbnYtLWo2UVZScVJMQnNZWnNSUTJGUVpEcy1UenR4c0FsWjRJWEh5M1JZR2wxNVNDSzQtQkhGZzN4RU5FcnpyMXdxX3VOa0pxVGcyVXAwcEcwcV9iTkZBQmt3bjdvdDBsX0I3WHlEY0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Deep Cut "Chloe or Sam or Sophia or Marcus" Trending Among Fans
+
+- first seen: 2026-10-10 15:18 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: The track "Chloe or Sam or Sophia or Marcus" from Taylor Swift's album The Tortured Poets Department is currently gaining popularity among fans, sparking interest and discussion.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisgFBVV95cUxQb05WN2FjOUR5NktIanVEaGs4Y3VwMUZReGR3T2JwaGFUdzh5V2ZLbXFNUS1qOEtnNmp0dXBMdVJlQ1RyWEhwUmtnc2ZpQUZ4U2lJLVBMZUhrb0VUMm1mQVZTdE0yRWlUZEJrLVJYRFRYb28wanIxWm9kYmVuT1VfOFY0YmF4dnZaMThqbmZ1UHRtWW9UclgyTUFRYTREZ3BmTGtVaWJ1alVFYkFHNnBZYmJ3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-deep-cut-chloe-sam-sophia-marcus-song-1235640023/
+
+## Taylor Swift and Travis Kelce Seen Together After Dinner in NYC
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted holding hands following a dinner date in New York City. The sighting has drawn attention to their relationship status.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxONnV3OXBUNElRb1hsd1RMNFh5RnBhYkVzYndwU0J3UEF0QVVIVFVtd1dqY0E5aVJFanRrbjY3MjZKQVdTcmR2V1RhNmc1ck1YTGZyYUk0WVNCcGRRWXI4M0FFMW1fQ1JmbFpzdDIycVV3TVZyLTJMR0Z2eEMwQXdvVURuQW8yS0dSbmtkZThOeHVoOVAwLVBWQ29NSzJvWHdkVXcwczBn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Seen Together During NYC Date Night
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce were seen holding hands while enjoying a date night in New York City, as reported by Us Weekly.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMikgFBVV95cUxOc2EtOHBlUFlkZFgwSHllanltWkFsU0N3dkM4WHdhMTktRFlOSkE3TUJkSlBfOWc4ckRHWUJGNVNVUEtpclJtakJQWWhGRFQwTDlPWHkxWWhwQmp2M1JDQWZmdkJyMk9pQ29YMWFhYTZMOUhVc0xGQTd5UTIzMnk3QllQWjRoZkdaUER1dnM5ZHhoUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMirAFBVV95cUxNYkVYaE9UNV9qck9KTWdNV3QxRzBuYVA4am5HUmNCbmlRR25LMjh6VlQ4SmlDTW50Tk1qejc2NkFfQTV1T2k1OUk2c0U0M2dPakROWkd1WGZoclZQZHNTdVlLY05QamlyVU9vWlBVOVJhU3MwZEw1bVl2aEJjM2RuX3BkU3Vpd2tuZ3N5Y2lSVncwbWE5d2UweDJ5QlBKV1g5TmlxcTNMWXNtZ3NY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Challenges in Getting Comments on Taylor Swift from Industry Insiders
+
+- first seen: 2026-10-10 15:18 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Washington Post discusses the difficulties in obtaining on-the-record comments about Taylor Swift from industry professionals. The article highlights the reluctance of sources to speak publicly about her.
+- sources:
+  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNmFGVnlRV0NGcDV6U2czLU9fSGhZWUpkeTZJVGtyel9yNzg1T0hlaDFDbkFHTW02Y2R2a2hqcmdTb3dNTUQ0dFdrSml3RnVuV296VVVKVnVDblp6S0ROZnJRaFpoYXZ5cVlLUXE1WnlzYWQxeTNCWTNnZWdoSFE5YUQ5aE1hMmkwMnlIcWFlNlg5UWdsbi1VX2Q1djFRR3FCNzQ1RFlZRGo?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reaches No. 1 on Music Charts Again
 
@@ -539,31 +613,3 @@ Stories: 64
 - sources:
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUk8tMEhfek9uaWgzLW5FY3ZsUktrTU43U2RQbmY4ZEhPOG1SN3IwQ3dlbFNrQWE4aWM0bTlmNThhU3JiX2xKZzlMYV9YS0RfdWhnNUd2a1pkdHFUeXJQcHlIYkh2WXNkc04yZWxkaldVSlFKTUNITDdsZjNNZUQ1QUNwRmoxWTl5Y3B2Ml84cFVWYV9wY243bkJBRjNOeDFweGtr?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikwFBVV95cUxNUjhMbGExajJwc3lLLV9FR2hMc3JCQ1hlU0RuVXNZZ05MS0VfRHE4endXcWFuZy02T3ZlOUpvSU1jdHV1eGFKSjd3XzBpTHdVVjA0SEhzcmE1U1M4TEloSE5sMUZLUnhqOFZWbUtXZFRDYk9Kc3JGcW1zZ0pabW9ieDJlUTZNdDFxOUVQRDRReURfMXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift approaches Beatles' record of 20 Hot 100 No. 1s
-
-- first seen: 2026-10-07 07:11 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is nearing the record of 20 Hot 100 No. 1 hits, previously held by The Beatles. This milestone highlights her significant impact on the music charts.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUE9XZWlMVVpkcTRWbUt3OHBIV1laV0JfSlp3ZmFVeExqc2E2WlNMTFZCVTNCVmRTcjU3SkVDanZvZHRKX3dBazQ1MTd1ajZpN0MwS0pzR3RUTjFJS21DSG5qYVE2a3Ayd0VyTjU5a1dBUjJveFpGS0NlNmRYOVpIeGZHQjZFMm1NLXlEYWszd19kTEJET1ZZVDhpbFFWaG9uWkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## The Butler Collegian Reviews Taylor Swift’s ‘The Encore’
-
-- first seen: 2026-10-07 07:11 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The Butler Collegian has published a review stating that Taylor Swift’s latest work, ‘The Encore,’ did not meet expectations and is considered a disappointment.
-- sources:
-  - [unverified] The Amherst Student — https://news.google.com/rss/articles/CBMijgFBVV95cUxNdjBXdnV0MVkzNFRMLTRiOVBCTG5idU9hc3c0RklEZ1JSZjVTYmRWTEZUT2JrYjRVMWUxSFZla3hLSGZrdXcwUkdjU3prUFdyOU9laGJZOVdrTGF2Q0dQQ1FLaldNZmxzajdSM0d1SE9VbGN4LTJVZVRSX2d2akVqQWxkMjdoUmJ0bm5MV1V3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Butler Collegian — https://news.google.com/rss/articles/CBMijAFBVV95cUxNZmpfd3pkb185YjZ6QXRPQ1JQWGZVRW9UZGJJZWpNTG5CWnMxeG0xd09vY0JIb2cxNU1Va29jWDNQaFNMYW9hYUlnT2VEeDZWcFdlSHJvcVJqYVk4M2lLamc0TENweno1aXV6MVdDY2lPcDMxN3F2R0c3ek9vMnZhazIzOV9KQ3Y1REpjYQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bratenahl Board Postpones Tree Plan for Swift and Kelce Property
-
-- first seen: 2026-10-07 07:11 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: The Bratenahl board has delayed a tree plan for the property owned by Taylor Swift and Travis Kelce due to a height dispute. The decision reflects ongoing local governance issues related to the couple's real estate.
-- sources:
-  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMixgFBVV95cUxPbW1hck5WaGlQZjEzbDdPX2NxUlhBbnZ1OWItS0g5S0NONkJyU2JOMjlwLU43U1lVNGoxWGNhcVdfMjc2TGg5OF9hZlJwdnhHNHptZ0lUT0VQWWF4SGdvQ3FUWXc0SkVjUTR0NkdycnA2dGVzcnhXQkZVRXNWX2pZNGlSQURRT1lYWGhGMHVHa3VwdXZxbzAwZlBXcEdFQ3c3RnlDUklGTldLaGlfSWNsX2RXTlpkb0MxNmloLVMydy1CdFRObFE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxNbGRPbF9ZQUlSOUJBUDZLS19MRHcxMmExcURfQVFBd3N3bE8zRkZQQWlVUFg1MkFRb294NER4YmJxRFd0SG5rYWh3R2VRZU9EUnVFOERIVTA0SklheWRLWi1pUXVuZWk5dFVEbEw5bGVSeXpvOHVab0tBbE5rX19vT0pCbzlxRlE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiywFBVV95cUxOa2VqUnVzZmtmejRxYUthQ0pFWVlJbHBNMHVOcmNvV1dHYXZEdTBHejhOMm51bzJ4WTl3WjYyYnNpSXMtSTFfR21JRUxyV055NGJFX2lLWWV4cm15ZXZBX0R4NS13WS12SGZ2TEhUVnJVODl5SmJQWHZudFc1SGJmV0NadlRmRWpoTTdZdjByRXc2cThEemtnb3M0RFpvQ2NLX21SWVJKT0NkU0dpNXlubjR4eE8ydHdoRnM5cTMxR18wUkdDVkVQRnp3RQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi_gFBVV95cUxObHktQ0t0VTlzNXVEd1BiY2JqZGppMkY5a0E5SjhIZmFqZGgxdThsXzlTM0ZUNHNTY2hLcDVDQ2Z0ODRmVE9lSUJWcDdtV0dEalg1MTNrZ2xQTjRlcVlGM2xveUpxZXBKOWhNaXJZSUcwUlhzcllVWnhENDR4NndXTXlmNFZycUZOX1BUUE5KdnR2RDJWYmYyNFQxUTJfVDVxVzlicGhnRmE1SkRTSkt2STJxRXFzZV9wYmU0ZnFZY1ItSHFvd21LR0dNUEVVTVFKbEl5NXNGdU9fNlJ5NW4xQVo1NVJiVFZscmZabldGMlNFMVVtNFV2QjhNZVdSQQ?oc=5&hl=en-US&gl=US&ceid=US:en
