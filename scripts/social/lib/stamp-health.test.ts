@@ -102,3 +102,50 @@ describe('stampHealth', () => {
     expect(stampHealth(makeGitState(git.impl, PR), REL, forged, HEAD, noKey).ok).toBe(true);
   });
 });
+
+describe('v4 tree-auto stamps (social-tree-approve.yml owns them)', () => {
+  function v4(item: Record<string, unknown>, overrides: Record<string, unknown> = {}) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00Z', pr: PR, message: 'run 1', contentHash: contentHash(item), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', ...overrides };
+    return { ...item, approval: { ...unsigned, sig: signApproval(unsigned, KEY) } };
+  }
+
+  it('stampHealth reports a tree-auto stamp as unstamped-with-no-problems and never ok, so the poll neither merges it nor raises a notice', () => {
+    const stamped = v4(BASE);
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(stamped) } } });
+    const health = stampHealth(makeGitState(git.impl, PR), REL, stamped, HEAD, { ...withKey, headRef: 'tree/draft/2026-10-09' });
+    expect(health).toMatchObject({ ok: false, stamped: false, problems: [], treeAuto: true });
+  });
+
+  it('L7: a valid v4 stamp on a NON tree/draft/* branch is a problem, not honoured', () => {
+    const stamped = v4(BASE);
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(stamped) } } });
+    for (const headRef of ['feature/x', undefined, 'tree/plan/2026-10-09', 'tree/draft/../x']) {
+      const health = stampHealth(makeGitState(git.impl, PR), REL, stamped, HEAD, { ...withKey, headRef });
+      expect(health.ok).toBe(false);
+      expect(health.stamped).toBe(true);
+      expect(health.problems[0].why).toMatch(/only honoured on tree\/draft/);
+    }
+  });
+
+  it('L7: an unknown v4 kind is reported as a problem (invalid approval), even on a tree/draft/* branch', () => {
+    const odd = v4(BASE, { kind: 'something-new' });
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(odd) } } });
+    const health = stampHealth(makeGitState(git.impl, PR), REL, odd, HEAD, { ...withKey, headRef: 'tree/draft/x' });
+    expect(health.ok).toBe(false);
+    expect(health.stamped).toBe(true);
+    expect(health.problems[0].why).toMatch(/tree-auto approval is invalid/);
+  });
+
+  it('the notifier drops a validly tree-auto-stamped draft (no founder brief), but still briefs a forged/invalid v4 one', () => {
+    const good = v4(BASE);
+    const bad = { ...v4(BASE), body: 'edited after the stamp' };
+    const git = makeFakeGit({ root, head: HEAD, trees: { [HEAD]: { [REL]: text(good), [REL_G]: text(bad) } } });
+    const kept = filterAlreadyStamped([{ file: REL, ...good }, { file: REL_G, ...bad }], { head: HEAD, gitState: makeGitState(git.impl, PR), approvers: SOCIAL_APPROVERS, headRef: 'tree/draft/2026-10-09' });
+    expect(kept.map((d) => d.file)).toEqual([REL_G]);
+    const keptNoGit = filterAlreadyStamped([{ file: REL, ...good }, { file: REL_G, ...bad }], { approvers: SOCIAL_APPROVERS, headRef: 'tree/draft/2026-10-09' });
+    expect(keptNoGit.map((d) => d.file)).toEqual([REL_G]);
+    // L7: the same valid stamp on any other branch is still briefed
+    const keptElsewhere = filterAlreadyStamped([{ file: REL, ...good }], { approvers: SOCIAL_APPROVERS, headRef: 'feature/x' });
+    expect(keptElsewhere.map((d) => d.file)).toEqual([REL]);
+  });
+});

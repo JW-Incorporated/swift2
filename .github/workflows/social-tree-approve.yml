@@ -1,0 +1,244 @@
+# social-tree-approve — Tree's autonomous approval path (P3, 2026-10): a
+# `tree/draft/*` draft PR is stamped (schema v4 `tree-auto`, HMAC-signed with
+# SOCIAL_APPROVAL_KEY), waits for the required `build` check, and is
+# squash-merged — without the owner's Discord ✅. Dispatched on demand
+# (workflow_dispatch, input `pr`); nothing schedules it.
+#
+# What it does NOT touch: the poster's caps (MAX_POSTS_PER_RUN,
+# MAX_POSTS_PER_PLATFORM_PER_DAY), the 48h staleness rule, and SOCIAL_FREEZE
+# all still apply at post time in social-poster.yml / post-queue.mjs. This
+# workflow also refuses to run while SOCIAL_FREEZE is set.
+#
+# Every decision is made by scripts/social/tree-approve-gate.mjs (unit-tested),
+# not by shell here. Trust model:
+#   - runs only from `main` in the main-only `social` environment, so
+#     SOCIAL_APPROVAL_KEY is never readable from a branch run;
+#   - the dispatcher (github.triggering_actor), the PR author and every commit
+#     author must be in the committed Tree-identity constants in the gate script;
+#   - the code that RUNS is main's. The PR is fetched as git objects and read
+#     as DATA at one pinned head SHA (never checked out into the workspace);
+#     the changed-file list is computed locally from those objects
+#     (`git diff --no-renames --name-status -z <merge-base> <head>`), so it
+#     cannot disagree with the bytes we read;
+#   - only added/modified regular files: social/queue/*.json, plus
+#     .png/.jpg/.jpeg (<= 1.5MB) under apps/web/public/social/ that a stamped
+#     draft actually references (and a card's own sidecar .json);
+#   - the stamp is minted only after the trusted check-drafts passes (with the
+#     credentials scrubbed from its env), and signs a digest of the media bytes;
+#   - the stamp commit may change nothing but the stamped queue files, and the
+#     whole gate is re-run on the stamp commit (fresh merge base, fresh authors)
+#     immediately before the merge, which pins --match-head-commit;
+#   - if anything fails after the stamp is pushed, the stamp commit is reverted
+#     (or the PR closed) so no valid stamp is left on an unmerged branch.
+# Content auto-merge (auto-merge-content.yml) still declines every queue PR;
+# this workflow is the only thing that merges a `tree/draft/*` one.
+name: social-tree-approve
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "Number of the tree/draft/* pull request to approve and merge (digits only)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      pr: ${{ steps.norm.outputs.pr }}
+    env:
+      PR_INPUT: ${{ inputs.pr }}
+    steps:
+      - name: Normalise the PR number (digits only, leading zeros stripped)
+        id: norm
+        run: |
+          set -euo pipefail
+          if ! [[ "$PR_INPUT" =~ ^[0-9]{1,8}$ ]]; then
+            echo "::error::input pr must be digits only" >&2
+            exit 1
+          fi
+          PR=$((10#$PR_INPUT))
+          [ "$PR" -gt 0 ] || { echo "::error::input pr must be positive" >&2; exit 1; }
+          echo "pr=$PR" >> "$GITHUB_OUTPUT"
+
+  approve:
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 60
+    concurrency:
+      group: social-tree-approve-${{ needs.prepare.outputs.pr }}
+      cancel-in-progress: false
+    env:
+      REPO: ${{ github.repository }}
+      PR: ${{ needs.prepare.outputs.pr }}
+      ACTOR: ${{ github.triggering_actor }}
+      GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+    steps:
+      - name: Honour SOCIAL_FREEZE
+        env:
+          FREEZE: ${{ vars.SOCIAL_FREEZE }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FREEZE:-}" ] && [ "$FREEZE" != "false" ] && [ "$FREEZE" != "0" ]; then
+            echo "::error::SOCIAL_FREEZE is set (\"$FREEZE\") — refusing to approve or merge anything" >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # One read of the PR's state/authors/merge base, then the gate runs over
+      # git objects pinned to that head SHA.
+      - name: Read the PR and fetch its objects at the pinned head
+        id: pin
+        run: |
+          set -euo pipefail
+          node scripts/social/tree-approve-gate.mjs meta --pr "$PR" --repo "$REPO" --out "$RUNNER_TEMP/meta.json"
+          HEAD_REF=$(jq -r .pr.headRef "$RUNNER_TEMP/meta.json")
+          HEAD_SHA=$(jq -r .pr.headSha "$RUNNER_TEMP/meta.json")
+          MERGE_BASE=$(jq -r .mergeBase "$RUNNER_TEMP/meta.json")
+          [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::bad head sha" >&2; exit 1; }
+          [[ "$MERGE_BASE" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::bad merge base" >&2; exit 1; }
+          git fetch --no-tags --depth=1 origin "refs/heads/$HEAD_REF"
+          [ "$(git rev-parse FETCH_HEAD)" = "$HEAD_SHA" ] || { echo "::error::PR head moved while reading it — re-dispatch" >&2; exit 1; }
+          git fetch --no-tags --depth=1 origin "$MERGE_BASE"
+          {
+            echo "head_ref=$HEAD_REF"
+            echo "head_sha=$HEAD_SHA"
+            echo "merge_base=$MERGE_BASE"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Gate (identities, tree/draft ref, local diff, path + media allowlist)
+        env:
+          HEAD_SHA: ${{ steps.pin.outputs.head_sha }}
+          MERGE_BASE: ${{ steps.pin.outputs.merge_base }}
+        run: |
+          set -euo pipefail
+          node scripts/social/tree-approve-gate.mjs gate --pr "$PR" --actor "$ACTOR" \
+            --meta "$RUNNER_TEMP/meta.json" --base "$MERGE_BASE" --head "$HEAD_SHA" --out "$RUNNER_TEMP/gate"
+
+      # Data only: blobs from the pinned head commit, written over main's checkout
+      # so the trusted check-drafts sees exactly what would merge.
+      - name: Materialise the PR's files as data
+        env:
+          HEAD_SHA: ${{ steps.pin.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            mkdir -p "$(dirname "$f")"
+            git show "$HEAD_SHA:$f" > "$f"
+          done < <(cat "$RUNNER_TEMP/gate/queue-files.txt" "$RUNNER_TEMP/gate/media-files.txt")
+
+      - name: Mint the tree-auto stamp (main's check-drafts first, credentials scrubbed; writes nothing if it fails)
+        env:
+          SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
+        run: |
+          set -euo pipefail
+          mapfile -t QUEUE < "$RUNNER_TEMP/gate/queue-files.txt"
+          node scripts/social/stamp-tree-auto.mjs --pr "$PR" --message "social-tree-approve run ${GITHUB_RUN_ID}" "${QUEUE[@]}"
+
+      # The stamp commit is built in a SEPARATE worktree of the pinned head, so
+      # nothing from the PR is on the path of anything we run; its diff against
+      # the head must be exactly the stamped queue files.
+      - name: Commit the stamp to the PR branch
+        id: commit
+        env:
+          HEAD_REF: ${{ steps.pin.outputs.head_ref }}
+          HEAD_SHA: ${{ steps.pin.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/pr-branch" "$HEAD_SHA"
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            cp -- "$f" "$RUNNER_TEMP/pr-branch/$f"
+          done < "$RUNNER_TEMP/gate/queue-files.txt"
+          cd "$RUNNER_TEMP/pr-branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- social/queue
+          git commit -m "social: tree-auto approval stamp (PR #$PR)"
+          STAMP_SHA=$(git rev-parse HEAD)
+          cd "$GITHUB_WORKSPACE"
+          node scripts/social/tree-approve-gate.mjs stamp-diff --from "$HEAD_SHA" --to "$STAMP_SHA" --queue-list "$RUNNER_TEMP/gate/queue-files.txt"
+          cd "$RUNNER_TEMP/pr-branch"
+          git push origin "HEAD:refs/heads/$HEAD_REF"
+          echo "stamp_sha=$STAMP_SHA" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with the real-user PAT start CI (a GITHUB_TOKEN push would
+      # not); wait for the required `build` check to appear, then to pass.
+      - name: Wait for the required build check
+        env:
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+        run: |
+          set -euo pipefail
+          N=0
+          for i in $(seq 1 40); do
+            N=$(gh api "repos/$REPO/commits/$STAMP_SHA/check-runs" --jq '[.check_runs[] | select(.name == "build")] | length')
+            [ "$N" -gt 0 ] && break
+            sleep 15
+          done
+          [ "$N" -gt 0 ] || { echo "::error::no build check appeared on $STAMP_SHA" >&2; exit 1; }
+          gh pr checks "$PR" --repo "$REPO" --required --watch --fail-fast
+
+      # Everything may have moved during the build wait: re-read the PR and
+      # re-run the whole gate on the stamp commit with a fresh merge base.
+      - name: Re-check the PR and base immediately before merging
+        id: recheck
+        env:
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+        run: |
+          set -euo pipefail
+          node scripts/social/tree-approve-gate.mjs meta --pr "$PR" --repo "$REPO" --out "$RUNNER_TEMP/meta2.json"
+          [ "$(jq -r .pr.headSha "$RUNNER_TEMP/meta2.json")" = "$STAMP_SHA" ] || { echo "::error::PR head is no longer the stamp commit" >&2; exit 1; }
+          MERGE_BASE=$(jq -r .mergeBase "$RUNNER_TEMP/meta2.json")
+          [[ "$MERGE_BASE" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::bad merge base" >&2; exit 1; }
+          git fetch --no-tags --depth=1 origin "refs/heads/$(jq -r .pr.headRef "$RUNNER_TEMP/meta2.json")"
+          [ "$(git rev-parse FETCH_HEAD)" = "$STAMP_SHA" ] || { echo "::error::fetched head differs from the stamp commit" >&2; exit 1; }
+          git fetch --no-tags --depth=1 origin "$MERGE_BASE"
+          node scripts/social/tree-approve-gate.mjs gate --pr "$PR" --actor "$ACTOR" \
+            --meta "$RUNNER_TEMP/meta2.json" --base "$MERGE_BASE" --head "$STAMP_SHA" --out "$RUNNER_TEMP/gate2"
+
+      - name: Squash-merge (pinned to the stamp commit)
+        id: merge
+        env:
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+        run: |
+          set -euo pipefail
+          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch --match-head-commit "$STAMP_SHA"
+
+      # A failed run must not leave a VALID stamp on an unmerged branch: revert the
+      # stamp commit if it is still the head, otherwise close the PR.
+      - name: Remove the stamp if the run failed after pushing it
+        if: failure() && steps.commit.outputs.stamp_sha != '' && steps.merge.conclusion != 'success'
+        env:
+          STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
+          HEAD_REF: ${{ steps.pin.outputs.head_ref }}
+        run: |
+          set -uo pipefail
+          if git fetch --no-tags --depth=2 origin "refs/heads/$HEAD_REF" && [ "$(git rev-parse FETCH_HEAD)" = "$STAMP_SHA" ]; then
+            rm -rf "$RUNNER_TEMP/revert-tree" 2>/dev/null || true
+            git worktree add --detach "$RUNNER_TEMP/revert-tree" "$STAMP_SHA" \
+              && cd "$RUNNER_TEMP/revert-tree" \
+              && git config user.name "github-actions[bot]" \
+              && git config user.email "41898282+github-actions[bot]@users.noreply.github.com" \
+              && git revert --no-edit "$STAMP_SHA" \
+              && git push origin "HEAD:refs/heads/$HEAD_REF" \
+              && { echo "reverted the stamp commit $STAMP_SHA"; exit 0; }
+          fi
+          cd "$GITHUB_WORKSPACE"
+          gh pr close "$PR" --repo "$REPO" --comment "social-tree-approve failed after stamping; closing so no valid tree-auto stamp is left on this branch." || true

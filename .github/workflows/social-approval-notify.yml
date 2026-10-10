@@ -123,7 +123,7 @@ jobs:
           # suppress the whole prompt (PR #4139 round 4). The filter reads
           # git only (fetch of this PR's head ref, show, diff) — data,
           # never PR code.
-          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json --pr "$PR" --head "$SHA")
+          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json --pr "$PR" --head "$SHA" --head-ref "$HEAD_REF")
           echo "$FILTER_OUT"
           if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
             echo "has_drafts=false" >> "$GITHUB_OUTPUT"

@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { contentHash } from './lib/queue.mjs';
 import { readActiveLessonIds, validateDir, validatePhotoLibrary } from './validate-queue.mjs';
 
 const validCritique = {
@@ -111,5 +112,26 @@ describe('validatePhotoLibrary', () => {
     const bad = validatePhotoLibrary([{ ...photos[0], source: 'not-a-url' }]);
     expect(bad).toEqual([`${photos[0].id}: source must be an http(s) URL`]);
     expect(validatePhotoLibrary({} as never)).not.toEqual([]);
+  });
+});
+
+describe('validateDir — v4 tree-auto stamps', () => {
+  it('a well-formed v4 stamp on a critiqued draft validates with no failure and no unstamped warning; a v4 stamp with a different kind fails', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'validate-queue-test-'));
+    try {
+      const base = validItem();
+      const approval = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', sig: 'hmac-sha256:' + '0'.repeat(64) };
+      await writeFile(join(dir, 'a.json'), JSON.stringify({ ...base, approval }));
+      const ok = await validateDir(dir, []);
+      expect(ok.failures).toEqual([]);
+      expect(ok.warnings).toEqual([]);
+
+      await writeFile(join(dir, 'a.json'), JSON.stringify({ ...base, approval: { ...approval, kind: 'other' } }));
+      const bad = await validateDir(dir, []);
+      expect(bad.failures).toHaveLength(1);
+      expect(bad.failures[0].findings.join(' ')).toContain('malformed approval record');
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

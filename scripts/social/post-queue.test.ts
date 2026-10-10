@@ -1224,3 +1224,66 @@ describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)'
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-x.json']);
   });
 });
+
+// ── P3: the v4 tree-auto stamp is accepted by the poster ONLY with a valid
+// signature, and every other poster guard (SOCIAL_FREEZE, the 48h staleness
+// rule) applies to it exactly as to an owner-approved item. ──────────────────
+describe('post-queue: v4 tree-auto stamps', () => {
+  function treeAuto(item: Record<string, unknown>, at: string = new Date().toISOString(), key: string = TEST_SIGNING_KEY) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at, pr: 1, message: 'run 1', contentHash: contentHash(item), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('posts a due item carrying a correctly signed tree-auto stamp', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '2086959658460230140' } } });
+    const item = xItem();
+    item.approval = treeAuto(item);
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+  });
+
+  it('refuses a tree-auto stamp signed with a different key, and one whose kind was edited after signing', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const forged = xItem();
+    forged.approval = treeAuto(forged, new Date().toISOString(), 'not-the-real-key');
+    await seedQueueItem('a-x.json', forged);
+    const edited = xItem({ body: 'second post body' });
+    edited.approval = { ...treeAuto(edited), kind: 'tree-auto-2' };
+    await seedQueueItem('b-x.json', edited);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes.every((o: { kind: string }) => o.kind === 'unapproved')).toBe(true);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('SOCIAL_FREEZE still halts a tree-auto-stamped item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    process.env.SOCIAL_FREEZE = 'true';
+    const item = xItem();
+    item.approval = treeAuto(item);
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes).toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('the 48h staleness rule runs from the stamp time, same as any approved item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    item.approval = treeAuto(item, new Date(Date.now() - 49 * 3600 * 1000).toISOString());
+    await seedQueueItem('a-x.json', item);
+
+    await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+});
