@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain mjs
 import { briefDecision, guard } from './lib/brief-guard.mjs';
