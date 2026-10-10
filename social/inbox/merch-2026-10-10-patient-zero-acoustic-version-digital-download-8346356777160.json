@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-10-10-patient-zero-acoustic-version-digital-download-8346356777160",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-10-10T00:06:42.780Z",
+  "deadline": "2026-10-13T00:06:42.780Z",
+  "status": "open",
+  "facts": {
+    "name": "'Patient Zero' Acoustic Version Digital Download",
+    "price": "0.69",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/patient-zero-acoustic-version-digital-download",
+    "firstSeenAt": "2026-10-10T00:05:55.086Z"
+  },
+  "media": [
+    "/social/library/merch-drop-38007370553.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/patient-zero-acoustic-version-digital-download",
+  "altTextHint": "A Long Live store-drop card for 2 items newly available on the official store, led by \"'Patient Zero' Piano Version Digital Download\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

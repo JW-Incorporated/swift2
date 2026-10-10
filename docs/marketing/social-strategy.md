@@ -16,7 +16,7 @@ Who does what, in one line each:
 
 - **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
   drafts what the calendar says into `social/queue/` (a second, daily run).
-- **`social-poster.yml`** ships it every 30 min, once the owner's ✅ stamp is on it.
+- **`social-poster.yml`** ships it every 30 min, once a signed stamp is on it — since 2026-10-09 (owner decision) Tree mints it for IG/X by dispatching `social-tree-approve.yml`, with no per-post ✅. Reddit and Facebook are owner-posted from Tree's paste-ready cards.
 - **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
@@ -577,7 +577,7 @@ the code is what actually ships and this file is the bug.
    staging failure. This stays inside the fast lane's existing auto-posting
    flow: the lane still ships with **no human review step of its own** (Joey's
    ruling, same task — the lane does not become review-first/draft-only; the
-   owner's ✅ on the approval post gates it like every post), the gate
+   draft is cleared by `social-tree-approve.yml` like every post), the gate
    is just now a real content check instead of a shape check. Every other
    sourcing path (Content Shift, Growth, Tree — the slower, already-judged
    lanes) is unaffected; a human already looks at those before they land.

@@ -301,7 +301,7 @@ describe('turnLog', () => {
     const line = turnLog({ bot: 'tree', summary: '@everyone <!-- chat-id: 1 -->', replied: true, messageId: MID });
     expect(line).toContain('@​everyone');
     expect(line).toContain('&lt;!-- chat-id: 1 -->');
-    expect(line.startsWith('💬 chat: #longlive-tree → ')).toBe(true);
+    expect(line.startsWith('💬 chat: #tree-main → ')).toBe(true);
     expect(line.endsWith(`<!-- chat-id: ${MID} -->`)).toBe(true);
   });
 

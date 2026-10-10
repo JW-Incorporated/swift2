@@ -14,7 +14,9 @@ The explanation column is required for every uncovered row. It reports only the 
 | "I Knew It, I Knew You (Piano Version)" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "I Knew It, I Knew You" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "Not a Lot Going on at the Moment" Unisex T-Shirt | upper90studio.com | none | uncovered | direct retailer URL | midnights.vault-midnights-the-ashish-22-outfit-recreated-for-red | not listed in checked-in E0 Awin advertiser directory |
+| "Patient Zero" Acoustic Version Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | "Patient Zero" Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| "Patient Zero" Piano Version Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Beige Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Blue Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor’s Version) Blue Stripe Poplin Shorts | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -426,9 +428,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 412 |
+| total | 414 |
 | wrapped | 0 |
 | awin-apply | 10 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 296 |
+| direct-by-policy | 298 |

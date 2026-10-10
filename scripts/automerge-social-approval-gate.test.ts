@@ -113,3 +113,16 @@ describe('the auto-merge workflow mirrors this gate', () => {
     expect(wf).toContain('social-poster/state-*) continue ;;');
   });
 });
+
+describe('tree/draft/* PRs (P3, Tree-auto approval) — content auto-merge still never merges a queue PR', () => {
+  it('declines a tree/draft/* PR that adds a draft, and one that carries the tree-auto stamp commit (a modify) — only social-tree-approve.yml merges these', () => {
+    const headRef = 'tree/draft/2026-10-09';
+    expect(evaluateSocialApprovalGate([{ status: 'added', filename: 'social/queue/2026-10-10-a-x.json' }], headRef).blocked).toBe(true);
+    expect(evaluateSocialApprovalGate([{ status: 'modified', filename: 'social/queue/2026-10-10-a-x.json' }], headRef).blocked).toBe(true);
+  });
+
+  it('the only branch exempt for a modify is still social-poster/state-*, not tree/draft/*', () => {
+    expect(evaluateSocialApprovalGate([{ status: 'modified', filename: 'social/queue/a.json' }], 'social-poster/state-1').blocked).toBe(false);
+    expect(evaluateSocialApprovalGate([{ status: 'modified', filename: 'social/queue/a.json' }], 'tree/draft/x').blocked).toBe(true);
+  });
+});

@@ -83,7 +83,7 @@ const addTo = (o, k, v) => { if (typeof v === 'number') o[k] = (o[k] ?? 0) + v; 
  * collected (see `visitsNote`); reach/saves/shares are `null` until a post
  * in that family has Instagram insights on file.
  */
-export function socialSummary(posted, postMetrics, trafficResult, win) {
+export function socialSummary(posted, postMetrics, trafficResult, win, campaignVisits = null) {
   const rows = Object.create(null);
   const at = (k) => (rows[k] ??= { posts: 0, measuredPosts: 0, reach: null, saved: null, shares: null, likes: 0, comments: 0, visitors: null, pageviews: null });
   for (const p of posted || []) if (inWindow(p.postedAt, win)) at(familyOf(p.campaign)).posts += 1;
@@ -98,14 +98,16 @@ export function socialSummary(posted, postMetrics, trafficResult, win) {
     addTo(r, 'shares', m.shares);
   }
   const traffic = trafficResult?.traffic;
-  const visits = Array.isArray(traffic?.topCampaigns) ? traffic.topCampaigns : null;
+  const firstParty = Array.isArray(campaignVisits?.rows) ? campaignVisits.rows : null;
+  const visits = firstParty ?? (Array.isArray(traffic?.topCampaigns) ? traffic.topCampaigns : null);
   for (const v of visits || []) {
     const r = at(v.campaign);
-    r.visitors = (r.visitors ?? 0) + v.visitors;
+    if (typeof v.visitors === 'number') r.visitors = (r.visitors ?? 0) + v.visitors;
     r.pageviews = (r.pageviews ?? 0) + v.pageviews;
   }
-  if (visits) for (const r of Object.values(rows)) { r.visitors ??= 0; r.pageviews ??= 0; }
-  const visitsNote = visits ? 'Visits are Vercel Web Analytics rows with utmMedium=social, grouped by utmCampaign (unique visitors per row, not additive).' : (traffic?.campaignNote ?? trafficResult?.trafficNote ?? 'Campaign visits were not collected in this run.');
+  const unique = visits?.some((v) => typeof v.visitors === 'number');
+  if (visits) for (const r of Object.values(rows)) { if (unique) r.visitors ??= 0; r.pageviews ??= 0; }
+  const visitsNote = firstParty ? campaignVisits.note : visits ? 'Visits are Vercel Web Analytics rows with utmMedium=social, grouped by utmCampaign (unique visitors per row, not additive).' : (campaignVisits?.note ?? traffic?.campaignNote ?? trafficResult?.trafficNote ?? 'Campaign visits were not collected in this run.');
   return { byCampaign: { ...rows }, visitsNote };
 }
 
@@ -126,13 +128,13 @@ export function trafficSection(result) {
   return result ?? { traffic: null, trafficNote: 'Traffic was not collected in this run.' };
 }
 
-export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, trafficResult, awareness = null, warnings = [] }) {
+export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, trafficResult, awareness = null, campaignVisits = null, warnings = [] }) {
   return {
     generatedFor: { start: win.start, end: win.end, days: 7 },
     followers: followerDeltas(series, win),
     followersPreviousWeek: followerDeltas(series, shift(win, WEEK_MS)),
     posts: postsSummary(posted, postMetrics, win),
-    social: socialSummary(posted, postMetrics, trafficResult, win),
+    social: socialSummary(posted, postMetrics, trafficResult, win, campaignVisits),
     contentShipped: content,
     timeSensitive: coverage,
     treeAsks,

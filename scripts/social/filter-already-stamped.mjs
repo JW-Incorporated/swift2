@@ -27,10 +27,12 @@ import { filterAlreadyStamped, makeGitState } from './lib/stamp-health.mjs';
 let manifestPath;
 let pr;
 let head;
+let headRef;
 const args = process.argv.slice(2);
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--pr') pr = Number(args[++i]);
   else if (args[i] === '--head') head = args[++i];
+  else if (args[i] === '--head-ref') headRef = args[++i];
   else if (!manifestPath) manifestPath = args[i];
 }
 if (!manifestPath) {
@@ -45,7 +47,7 @@ if (Number.isInteger(pr) && pr > 0 && typeof head === 'string' && /^[0-9a-f]{40}
 } else {
   console.error('::warning::filter-already-stamped: no --pr/--head given — content-only check; a stamp that no longer covers the branch cannot be detected this way');
 }
-const pending = filterAlreadyStamped(drafts, { head: gitState ? head : null, gitState, approvers: SOCIAL_APPROVERS });
+const pending = filterAlreadyStamped(drafts, { head: gitState ? head : null, gitState, approvers: SOCIAL_APPROVERS, headRef });
 writeFileSync(manifestPath, JSON.stringify(pending));
 console.log(`social-approval-notify: ${drafts.length - pending.length} already-stamped file(s) filtered out of the brief (${pending.length} remain).`);
 if (pending.length === 0) {
