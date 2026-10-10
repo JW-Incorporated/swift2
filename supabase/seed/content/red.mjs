@@ -46,6 +46,17 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-sells-12-million-copies-of-red/',
+            source_title: 'Taylor Swift sells 1.2 million copies of "Red"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-10',
+            reliability_score: 4,
+            notes:
+              'Third independent report of the 1.208-million first-week SoundScan figure (added 2026-10-10, Vault Run Answerer, depth-deficit #1719, sources axis 2/3→3). cbsnews.com returned HTTP 406 (bot-gated) in this run environment, so the figure was re-confirmed against the loadable Wikipedia "Red (Taylor Swift album)" article ("1.208"/"1.21 million" first week); same URL was corpus-verified for this exact fact when first added (2026-08-11).',
+          },
         ],
         // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): this item
         // stands in for the whole era's arrival (no dedicated release-day
