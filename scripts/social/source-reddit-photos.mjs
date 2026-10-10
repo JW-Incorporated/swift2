@@ -89,7 +89,7 @@ export const RELAY_PROBE_TIMEOUT_MS = 5_000;
 // concert-photo-first subreddit's top feed. Conservative: erring toward
 // skipping an ambiguous post costs volume, not correctness.
 const NON_CONCERT_TITLE_RE =
-  /\b(merch|merchandise|poster|album cover|vinyl|cd|photoshoot|magazine|billboard|red carpet|premiere)\b/i;
+  /\b(merch|merchandise|poster|album cover|vinyl|cd|photoshoot|magazine|billboard|red carpet|premiere|perfumes?|bracelets?|lipsticks?|candles?|nail polish|ticket stubs?)\b/i;
 
 // A post whose title plainly signals a live show. Not required for
 // inclusion (concert-photo-first subreddits are the real filter) — used only
