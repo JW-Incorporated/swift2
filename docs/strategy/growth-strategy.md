@@ -72,6 +72,7 @@ Not a growth bet yet: **fashion monetisation.** There is nothing to monetise at 
 - **2026-10-01** — "I still have no idea what Marjorie's strategy is to grow the site, and get more users. It's just not clear. We now ask weekly with Fable how we're going to manage the site and grow it, but I don't get to see that strategy, nor do I know where I can challenge the strategy. I assume I can just talk in Marjorie's channel in order to challenge the strategy, ask questions, and steer it?"
 - **2026-10-01** — Uncredited photos are fine; credit the photographer whenever known; growing the photo library is a priority.
 - **2026-10-01** — (relayed from chat by Claude) Awareness image replies: find 10+ Reddit/Facebook threads a day where a picture of our site (no link) invites 'what is that?!'; the owner posts and follows up.
+- **2026-10-11** (Fourtys) — Makes no sense. Any Taylor video should be top of feed.
 
 
 ## Changelog
@@ -82,3 +83,4 @@ Not a growth bet yet: **fashion monetisation.** There is nothing to monetise at 
 - 2026-10-01 — Photo work redirected from credits to volume, and "chasing real names for uncredited photos" added to What we stopped — why: the owner's 2026-10-01 ruling (guardrails row 2) made the credit chase obsolete.
 - 2026-10-01 — Bet 2 reshaped around the awareness image-reply lane (10+ Reddit/Facebook threads a day with a site picture, no link) and its three metrics added — why: the owner's 2026-10-01 direction (a direct instruction, recorded here by Claude, not through Marjorie's chat path).
 - 2026-10-01 — Instagram target kept at 150 by 2026-10-31 but flagged as a stretch from a base of 4, with a named decision point next Sunday — why: the prior 50-by-09-30 milestone was missed with the posting engine down; one week of the rebuilt engine decides whether the date moves.
+- 2026-10-11 — Owner direction added; the sections it touches are rewritten by Fable the same day or at the next weekly review, and every later rewrite must honour it.
