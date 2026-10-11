@@ -5,7 +5,7 @@
   "lane": "merch",
   "createdAt": "2026-10-10T00:06:42.780Z",
   "deadline": "2026-10-13T00:06:42.780Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "name": "'Patient Zero' Acoustic Version Digital Download",
     "price": "0.69",
@@ -23,5 +23,6 @@
   "links": {
     "pr": null,
     "issue": null
-  }
+  },
+  "declinedReason": "notEmbarrassed scores 3, below the rubric floor of 4: a bare $0.69 \"Patient Zero\" variant digital download reads as shilling for a fan account and has no claim on a planned heartbeat slot."
 }
