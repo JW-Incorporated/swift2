@@ -1052,6 +1052,7 @@ export default {
         photos: [
           {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
+            focalPoint: '38% 24%',
             credit: 'CNN',
             caption: 'Taylor watches from the Arrowhead suite in the white Dôen tank from her first Chiefs game, with the New Era windbreaker draped over her arm.',
             focalPoint: '36% 16%',
