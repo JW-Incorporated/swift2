@@ -2,7 +2,7 @@
 
 **Standing standard, 2026-08-11.** Applies to EVERY email, `founder-task`
 issue body, and `founder-decision` issue body any agent writes. These bodies
-get emailed to the founders **verbatim** (`tree-mail.yml` digest,
+get emailed to the founders **verbatim** (`tree-mail.yml` digest, deleted 2026-10-09 — nothing mails these bodies now; the convention stays for any human-facing issue,
 `brief-mailer.yml`) — the issue body *is* the email.
 
 ## Why this exists

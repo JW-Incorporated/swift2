@@ -7,7 +7,6 @@ const read = (p: string) => readFileSync(p, 'utf8').replace(/\r\n/g, '\n');
 const prWorkflow = read('.github/workflows/strategy-pr.yml');
 const update = read('.github/workflows/routine-fable-strategy-update.yml');
 const review = read('.github/workflows/routine-marjorie-weekly-review.yml');
-const chat = read('.github/workflows/routine-marjorie-chat.yml');
 const updatePrompt = read('docs/agents/runner-prompts/fable-strategy-update.md');
 const reviewPrompt = read('docs/agents/runner-prompts/marjorie-weekly-review.md');
 const chatPrompt = read('docs/agents/runner-prompts/marjorie-chat.md');
@@ -65,15 +64,8 @@ describe('routine-fable-strategy-update.yml', () => {
   });
 });
 
+// routine-marjorie-chat.yml was deleted 2026-10-09 (Marjorie chats as a Hermes agent); only the reference prompt remains pinned.
 describe('chat steering', () => {
-  it('starts the update from the plain finish job, soft-failing, before the artifacts are deleted', () => {
-    const step = chat.slice(chat.indexOf("- name: Start Fable's strategy update"), chat.indexOf('# This repo is public'));
-    expect(step).toContain('continue-on-error: true');
-    expect(step).toContain('strategy-doc.mjs dispatch --dir .scratch/out');
-    expect(step).toContain('secrets.GITHUB_TOKEN');
-    expect(chat.indexOf("Start Fable's strategy update")).toBeLessThan(chat.indexOf('Delete this run'));
-    expect(checkRoutineWorkflows({ '.github/workflows/routine-marjorie-chat.yml': chat }).problems).toEqual([]);
-  });
   it('the prompt answers from the strategy, records steers verbatim by PR, asks Fable for a rewrite, and defers to the guardrails', () => {
     expect(chatPrompt).toContain('**h) The growth strategy');
     expect(chatPrompt).toContain('docs/strategy/growth-strategy.md');
@@ -84,9 +76,7 @@ describe('chat steering', () => {
     expect(chatPrompt).toMatch(/ONLY way an owner line is written/);
     expect(chatPrompt).not.toContain('--text-file');
     expect(chatPrompt).not.toMatch(/add-direction --text/);
-    expect(chat).toContain('OWNER_DISCORD_ID: ${{ vars.OWNER_DISCORD_ID }}');
     expect(chatPrompt).toContain('You have 35 turns');
-    expect(chat).toMatch(/max_turns: 35/);
   });
 });
 

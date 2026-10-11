@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { dispatchArgs } from '../../marjorie/lib/chat-inbox.mjs';
 import {
-  INTENTS, STUCK_MS, chatDispatch, createChannelMap, createSeen, parseConfig, readyLine, ringDecision, stuckDecision, stuckDispatch,
+  BOTS as LIVE_BOTS, INTENTS, STUCK_MS, chatDispatch, createChannelMap, createSeen, parseConfig, readyLine, ringDecision, stuckDecision, stuckDispatch,
   // @ts-expect-error — plain .mjs module, no type declarations
 } from './doorbell-core.mjs';
 
@@ -17,9 +17,14 @@ const GENERAL = '900000000000000040';
 const GENERAL_THREAD = '900000000000000050';
 const ID = '1000000000000000001';
 const founders = new Set([JOEY]);
+// The roster the chat routines retired from on 2026-10-09; the ringing code still takes one.
+const BOTS = {
+  marjorie: { name: 'Marjorie', channelName: 'marjorie', channelId: MARJ, workflow: 'routine-marjorie-chat.yml' },
+  tree: { name: 'Tree', channelName: 'tree-main', channelId: TREE, workflow: 'routine-tree-chat.yml' },
+};
 
 function places() {
-  const map = createChannelMap();
+  const map = createChannelMap({ bots: BOTS });
   map.guild({
     id: GUILD,
     channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }, { id: GENERAL, name: 'general', type: 0 }],
@@ -69,6 +74,17 @@ describe('ringDecision', () => {
   });
 });
 
+describe('the live roster', () => {
+  it('has no chat channel since the Hermes agents took over (2026-10-09): nothing rings', () => {
+    expect(LIVE_BOTS).toEqual({});
+    const map = createChannelMap();
+    map.guild({ id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }] });
+    expect(map.resolve(MARJ)).toBeNull();
+    expect(map.resolve(TREE)).toBeNull();
+    expect(readyLine(map.ids(), founders)).toBe('ready: clock only, no chat channels; 1 founder id(s)');
+  });
+});
+
 describe('createChannelMap', () => {
   it('a renamed channel still maps to its bot by BOTS channelId', () => {
     const map = places();
@@ -86,15 +102,15 @@ describe('createChannelMap', () => {
     map.channel({ id: TREE, name: 'tree-archive', type: 0, guild_id: GUILD });
     expect(map.resolve(TREE)?.bot).toBe('tree');
     map.forget(TREE);
-    expect(readyLine(map.ids(), founders)).toBe('not ready: #tree-main not found in the guild');
+    expect(readyLine(map.ids(), founders, BOTS)).toBe('not ready: #tree-main not found in the guild');
   });
 
   it('names both channels in the ready line', () => {
-    expect(readyLine(places().ids(), founders)).toBe(`ready: #marjorie (${MARJ}) and #tree-main (${TREE}); 1 founder id(s)`);
+    expect(readyLine(places().ids(), founders, BOTS)).toBe(`ready: #marjorie (${MARJ}) and #tree-main (${TREE}); 1 founder id(s)`);
   });
 
   it('ignores another guild when one is pinned', () => {
-    const map = createChannelMap({ guildId: '900000000000000999' });
+    const map = createChannelMap({ guildId: '900000000000000999', bots: BOTS });
     map.guild({ id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }] });
     expect(map.resolve(MARJ)).toBeUndefined();
   });
@@ -105,7 +121,7 @@ describe('dispatch bodies', () => {
     const args: string[] = dispatchArgs('JW-Incorporated/swift2', 'routine-marjorie-chat.yml', { messageId: ID, channelId: MARJ, threadId: THREAD });
     const fromPoll = Object.fromEntries(args.flatMap((arg, i) => (args[i - 1] === '-f' ? [arg.split(/=(.*)/s).slice(0, 2)] : [])));
     expect(args.slice(args.indexOf('--ref'), args.indexOf('--ref') + 2)).toEqual(['--ref', 'main']);
-    expect(chatDispatch({ bot: 'marjorie', channelId: MARJ, threadId: THREAD }, ID)).toEqual({
+    expect(chatDispatch({ bot: 'marjorie', channelId: MARJ, threadId: THREAD }, ID, BOTS)).toEqual({
       method: 'POST',
       url: 'https://api.github.com/repos/JW-Incorporated/swift2/actions/workflows/routine-marjorie-chat.yml/dispatches',
       body: { ref: 'main', inputs: fromPoll },

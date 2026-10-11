@@ -1,5 +1,5 @@
-// Static checks on the W7 live loop: the two response routines, the shared
-// filer workflow, who may dispatch, and the prompts' Disposition vocabulary.
+// Static checks on the W7 live loop: the response routine (Marjorie's; Tree's was retired 2026-10-09 for
+// its Hermes daily loop), the shared filer workflow, who may dispatch, and the prompts' Disposition vocabulary.
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -20,7 +20,6 @@ const job = (text: string, name: string) => {
 
 const RESPONSES = [
   { file: 'routine-marjorie-ask-response.yml', prompt: 'marjorie-ask-response.md', trailer: 'Tier-2: Marjorie — ask response', kind: 'marjorie', queue: '--for marjorie' },
-  { file: 'routine-tree-ask-response.yml', prompt: 'tree-ask-response.md', trailer: 'Tier-2: Tree — ask response', kind: 'tree', queue: '--for tree' },
 ] as const;
 
 describe.each(RESPONSES)('$file', ({ file, prompt, trailer, queue }) => {
@@ -100,8 +99,6 @@ describe('the shared filer workflow', () => {
 describe('who may start the response routines', () => {
   const dispatchers = [
     ['routine-marjorie-weekly-review.yml', 'file-tree-feedback'],
-    ['routine-marjorie-brief.yml', 'deliver'],
-    ['routine-tree-weekly-plan.yml', 'send-brief'],
   ] as const;
   it.each(dispatchers)('%s files with --dispatch from a plain job that holds actions: write', (file, name) => {
     const text = wf(file);
@@ -114,10 +111,7 @@ describe('who may start the response routines', () => {
   });
 
   it.each([
-    ['routine-tree-daily-draft.yml', 'tree-daily-draft-out', 'tree'],
-    ['routine-marjorie-triage.yml', 'marjorie-triage-out', 'marjorie'],
     ['routine-marjorie-ask-response.yml', 'marjorie-ask-response-out', 'marjorie'],
-    ['routine-tree-ask-response.yml', 'tree-ask-response-out', 'tree'],
   ] as const)('%s files its saved asks through loop-file-asks.yml', (file, artifact, side) => {
     const text = wf(file);
     const j = text.includes('\n  help:') ? job(text, 'help') : job(text, 'asks');
@@ -128,27 +122,14 @@ describe('who may start the response routines', () => {
     expect(j).toContain('actions: write');
     expect(text).toContain(`post_run_artifact: ${artifact}`);
   });
-
-  it.each([
-    ['routine-tree-chat.yml', 'tree'],
-    ['routine-marjorie-chat.yml', 'marjorie'],
-  ] as const)('%s files a saved ask from its plain finishing job, never from the agent job', (file, side) => {
-    const text = wf(file);
-    const step = text.slice(text.indexOf('# Bots v2 W7'));
-    expect(step).toContain(`file-help --side ${side}`);
-    expect(step).toContain('--dispatch');
-    expect(step).toContain('GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}');
-    expect(job(text, 'run')).not.toContain('--dispatch');
-    // Marjorie's chat agent already holds GH_DISPATCH_TOKEN for routine runs (#4223); Tree's never does.
-    if (side === 'tree') expect(job(text, 'run')).not.toContain('expose_dispatch_token');
-  });
 });
 
 describe('the loop guards are what the docs say', () => {
   it('has one workflow per direction, a daily cap and a depth cap', () => {
-    expect(Object.fromEntries(Object.entries(DIRECTIONS).map(([k, v]: [string, { workflow: string }]) => [k, v.workflow]))).toEqual({
+    // 'to-tree' has no routine since 2026-10-09: Tree answers from its Hermes daily loop (dispatch is skipped).
+    expect(Object.fromEntries(Object.entries(DIRECTIONS).map(([k, v]: [string, { workflow: string | null }]) => [k, v.workflow]))).toEqual({
       'to-marjorie': 'routine-marjorie-ask-response.yml',
-      'to-tree': 'routine-tree-ask-response.yml',
+      'to-tree': null,
     });
     expect(DAILY_CAP).toBe(6);
     expect(MAX_DEPTH).toBe(2);

@@ -13,7 +13,6 @@ const austin = read('.github/workflows/routine-austin-build.yml');
 const prompt = read('docs/agents/runner-prompts/marjorie-weekly-review.md');
 const charter = read('docs/agents/marjorie.md');
 const skill = read('.claude/skills/prompting-bot1/SKILL.md');
-const triage = read('.github/workflows/routine-marjorie-triage.yml');
 const cadence = JSON.parse(read('scripts/marjorie/runner-cadence.json'));
 const TRAILER = 'Tier-2: Marjorie — weekly growth review';
 
@@ -207,16 +206,8 @@ describe('charter, decision log and skill', () => {
   });
 });
 
-describe('triage bot1 sender, cadence entries and the human action', () => {
-  it('triage saves its bot1 prompts as an artifact and a plain job sends them through the bridge', () => {
-    expect(job(triage, 'run')).toContain('post_run_artifact: marjorie-triage-out');
-    const bot1 = job(triage, 'bot1');
-    expect(bot1).toContain('uses: ./.github/workflows/marjorie-bot1-bridge.yml');
-    expect(bot1).toContain('artifact: marjorie-triage-out');
-    expect(bot1).toContain("needs.run.result == 'success'");
-    expect(job(triage, 'run')).not.toMatch(/DISCORD_|webhook/i);
-    expect(read('docs/agents/runner-prompts/marjorie-triage.md')).toContain('.scratch/out/bot1-prompt-1.md');
-  });
+// routine-marjorie-triage.yml (and its bot1 sender job) was deleted 2026-10-09; the reference prompt checks above remain.
+describe('cadence entries and the human action', () => {
   it('registers the weekly review and Tree plan in the standing cadence check', () => {
     const find = (name: string) => cadence.runners.find((r: { name: string }) => r.name === name);
     expect(find('Marjorie — weekly growth review')).toEqual({ name: 'Marjorie — weekly growth review', perDay: 0.14, maxAgeHours: 216, match: { kind: 'issue-label', value: 'weekly-plan' } });

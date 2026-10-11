@@ -51,7 +51,7 @@ describe('file-help', () => {
     expect(calls.find((c) => c[0] === 'workflow')).toEqual(['workflow', 'run', 'routine-marjorie-ask-response.yml', '--repo', 'JW-Incorporated/swift2', '--ref', 'main', '-f', 'issue_number=4400']);
   });
 
-  it('Marjorie’s side files desk:tree and starts Tree’s routine, passing the parent for the depth guard', async () => {
+  it('Marjorie’s side files desk:tree and dispatches nothing (Tree answers from its Hermes loop), passing the parent for the depth guard', async () => {
     const d = mkdtempSync(path.join(dir, 'b-'));
     writeFileSync(path.join(d, 'for-tree-1.json'), JSON.stringify([{ ask: 'Shift the Friday pair to Thursday' }]));
     const { gh, calls } = fakeGh({ comments: { 77: [{ user: BOT, body: '<!-- loop-dispatched: to-marjorie depth=0 -->' }] } });
@@ -59,22 +59,22 @@ describe('file-help', () => {
     await fileHelp({ side: 'marjorie', dir: d, source: '9', 'source-url': 'u', dispatch: true, parent: '77' }, { gh, now: NOW });
     log.mockRestore();
     expect(calls.find((c) => c[1] === 'create')).toContain('desk:tree');
-    expect(calls.find((c) => c[0] === 'workflow')?.[2]).toBe('routine-tree-ask-response.yml');
-    expect(calls.find((c) => c[0] === 'issue' && c[1] === 'comment')?.[6]).toContain('depth=1');
+    // routine-tree-ask-response.yml is retired (2026-10-09): the ask is filed, nothing is dispatched.
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
   });
 
   it('response mode: each ask carries its own parent for the depth; one with none is filed but never dispatched', async () => {
     const d = mkdtempSync(path.join(dir, 'r-'));
-    writeFileSync(path.join(d, 'for-tree-1.json'), JSON.stringify({ ask: 'answers item 77', parent: 77 }));
-    writeFileSync(path.join(d, 'for-tree-2.json'), JSON.stringify({ ask: 'answers nothing in particular' }));
+    writeFileSync(path.join(d, 'for-marjorie-1.json'), JSON.stringify({ ask: 'answers item 77', parent: 77 }));
+    writeFileSync(path.join(d, 'for-marjorie-2.json'), JSON.stringify({ ask: 'answers nothing in particular' }));
     const { gh, calls } = fakeGh({ comments: { 77: [{ user: BOT, body: '<!-- loop-dispatched: to-marjorie depth=0 -->' }] }, newNumber: 4500 });
     const log = quiet();
-    await fileHelp({ side: 'marjorie', dir: d, source: '9', 'source-url': 'u', dispatch: true, response: true, parent: '12' }, { gh, now: NOW });
+    await fileHelp({ side: 'tree', dir: d, source: '9', 'source-url': 'u', dispatch: true, response: true, parent: '12' }, { gh, now: NOW });
     log.mockRestore();
     expect(calls.filter((c) => c[1] === 'create')).toHaveLength(2);
     expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
     const bodies = calls.filter((c) => c[0] === 'issue' && c[1] === 'comment').map((c) => c[6]);
-    expect(bodies.some((b) => b.includes('loop-dispatched: to-tree depth=1'))).toBe(true);
+    expect(bodies.some((b) => b.includes('loop-dispatched: to-marjorie depth=1'))).toBe(true);
     expect(bodies.some((b) => b.includes('<!-- loop-depth: 3 -->'))).toBe(true);
   });
 
@@ -143,7 +143,7 @@ describe('--dispatch on the existing filers: creation only', () => {
     const created = fakeGh();
     const f1 = bodyFile();
     await fileMarjorie({ issue: '4280', 'issue-url': 'u', 'body-file': f1, out: f1, 'no-edit': true, dispatch: true }, { gh: created.gh });
-    expect(created.calls.find((c) => c[0] === 'workflow')?.[2]).toBe('routine-tree-ask-response.yml');
+    expect(created.calls.find((c) => c[0] === 'workflow')).toBeUndefined(); // routine-tree-ask-response.yml retired 2026-10-09
 
     const plain = fakeGh();
     const f2 = bodyFile();

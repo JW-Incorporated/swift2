@@ -28,7 +28,7 @@
     "is exactly the given HTML anchor — how Kevin's daily desk reports since T-10."
   ],
   "runners": [
-    { "name": "Marjorie — morning brief", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "issue-label", "value": "founders-brief" } },
+    { "name": "Marjorie — morning brief", "perDay": 1, "maxAgeHours": 30, "disabled": true, "why": "retired 2026-10-09 - routine-marjorie-brief deleted; Marjorie's Hermes daily digest replaces it", "match": { "kind": "issue-label", "value": "founders-brief" } },
     { "name": "Tree — daily social draft", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "pr-branch", "value": "tree/draft/" } },
     { "name": "Austin — build runs", "perDay": 1, "maxAgeHours": 30, "match": { "kind": "workflow-name", "value": "routine-austin-build" } },
     { "name": "Content Shift", "perDay": 2, "maxAgeHours": 30, "disabled": true, "why": "disabled 2026-09-01 (T-1 Vault Phase 4) — superseded by The Vault Run lane 1", "match": { "kind": "pr-branch", "value": "content-shift/" } },

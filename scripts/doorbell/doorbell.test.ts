@@ -11,6 +11,11 @@ const MARJ = '1548350324891328562';
 const TREE = '1558093607393562644';
 const NEW_THREAD = '900000000000000070';
 const ID = '1000000000000000001';
+// The roster the chat routines retired from on 2026-10-09; the ringing code still takes one.
+const BOTS = {
+  marjorie: { name: 'Marjorie', channelName: 'marjorie', channelId: MARJ, workflow: 'routine-marjorie-chat.yml' },
+  tree: { name: 'Tree', channelName: 'tree-main', channelId: TREE, workflow: 'routine-tree-chat.yml' },
+};
 const NOW = Date.parse('2026-09-14T18:00:00.000Z');
 const API = 'https://discord.com/api/v10';
 const WORKFLOWS = 'https://api.github.com/repos/JW-Incorporated/swift2/actions/workflows';
@@ -33,7 +38,7 @@ function bell(routes: Record<string, unknown> = {}) {
   });
   const lines: string[] = [];
   const config = { ok: true, problems: [], discordToken: 'discord-secret', githubToken: 'github-secret', guildId: '', founders: new Set([JOEY]) };
-  const doorbell = createDoorbell({ config, fetchImpl, sleepImpl: vi.fn().mockResolvedValue(undefined), log: (l: string) => lines.push(l), now: () => NOW });
+  const doorbell = createDoorbell({ config, bots: BOTS, fetchImpl, sleepImpl: vi.fn().mockResolvedValue(undefined), log: (l: string) => lines.push(l), now: () => NOW });
   doorbell.onDispatch('GUILD_CREATE', { id: GUILD, channels: [{ id: MARJ, name: 'marjorie', type: 0 }, { id: TREE, name: 'tree-main', type: 0 }], threads: [] });
   return { doorbell, calls, lines, keys: () => calls.map((c) => c.key) };
 }

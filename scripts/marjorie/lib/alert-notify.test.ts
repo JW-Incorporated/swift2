@@ -236,7 +236,8 @@ describe('wiring', () => {
         .replace('${LANE}', 'content')
         .replace('${WINDOW}', '48'),
     );
-    expect(titles.length).toBeGreaterThanOrEqual(14);
+    // 13 since 2026-10-09: the brief-missing alert ("no Founders' Brief") was retired with the brief; its title only closes now.
+    expect(titles.length).toBeGreaterThanOrEqual(13);
     const loud = titles.filter((t) => isFounderFacing(t));
     expect(loud.sort()).toEqual(
       [

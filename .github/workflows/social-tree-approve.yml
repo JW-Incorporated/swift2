@@ -221,13 +221,18 @@ jobs:
           set -euo pipefail
           gh pr merge "$PR" --repo "$REPO" --squash --delete-branch --match-head-commit "$STAMP_SHA"
 
-      # A failed run must not leave a VALID stamp on an unmerged branch: revert the
-      # stamp commit if it is still the head, otherwise close the PR.
-      - name: Remove the stamp if the run failed after pushing it
-        if: failure() && steps.commit.outputs.stamp_sha != '' && steps.merge.conclusion != 'success'
+      # A failed OR CANCELLED run must not leave a VALID stamp on an unmerged branch:
+      # revert the stamp commit if it is still the head, otherwise close the PR -
+      # unless the new head already carries the owner's own valid v3 stamp (an owner
+      # ✅ arrived during the build wait; the poll job merges that PR), in which case
+      # the PR is left open. A cancel (a re-dispatch, a manual stop) used to skip this
+      # step entirely and strand the tree-auto stamp.
+      - name: Remove the stamp if the run failed or was cancelled after pushing it
+        if: (failure() || cancelled()) && steps.commit.outputs.stamp_sha != '' && steps.merge.conclusion != 'success'
         env:
           STAMP_SHA: ${{ steps.commit.outputs.stamp_sha }}
           HEAD_REF: ${{ steps.pin.outputs.head_ref }}
+          SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
         run: |
           set -uo pipefail
           if git fetch --no-tags --depth=2 origin "refs/heads/$HEAD_REF" && [ "$(git rev-parse FETCH_HEAD)" = "$STAMP_SHA" ]; then
@@ -241,4 +246,12 @@ jobs:
               && { echo "reverted the stamp commit $STAMP_SHA"; exit 0; }
           fi
           cd "$GITHUB_WORKSPACE"
+          if git fetch --no-tags --depth=1 origin "refs/heads/$HEAD_REF"; then
+            NEW_HEAD=$(git rev-parse FETCH_HEAD)
+            if [ "$NEW_HEAD" != "$STAMP_SHA" ] && [ -s "$RUNNER_TEMP/gate/queue-files.txt" ] \
+              && node scripts/social/owner-stamp-check.mjs --sha "$NEW_HEAD" --list "$RUNNER_TEMP/gate/queue-files.txt"; then
+              echo "the PR head $NEW_HEAD carries the owner's valid v3 stamp; leaving PR #$PR open for the poll job"
+              exit 0
+            fi
+          fi
           gh pr close "$PR" --repo "$REPO" --comment "social-tree-approve failed after stamping; closing so no valid tree-auto stamp is left on this branch." || true

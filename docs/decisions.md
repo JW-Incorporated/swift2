@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-09 — Tree and Marjorie run as Hermes agents; the GitHub routines they replace are retired
+
+**Decision.** Owner decision, 2026-10-09: Tree and Marjorie are always-on Hermes agents with their own Discord bots (Tree in `tree-main`, Marjorie in her channel), each running one daily cron loop (`runner-prompts/tree-hermes-daily.md` 11:23 UTC, `marjorie-hermes-daily.md` 13:41 UTC, #5481) whose single digest is the ONE owner-facing message. This PR deletes the GitHub routines those loops replace: `routine-tree-daily-draft` (raced Tree's loop on `tree/draft/<date>`; nothing else dispatched it), `routine-tree-chat`, `routine-tree-ask-response`, `routine-marjorie-chat`, `routine-marjorie-triage`, `routine-marjorie-brief` and `tree-mail`; strips `routine-tree-weekly-plan` to its plan run; and strips the chat step from `bot-chat-poll`.
+
+**Kept, and why.** `routine-tree-weekly-plan` run + `taste` jobs and the `mode=replan` dispatch: nothing else writes `social/calendar.md` (Tree's loop reads it) and `social-event-status` / `check-event-transition` dispatch it on an event transition; only the `send-brief` job (Discord brief, replan message, mail dispatch) and the prompt's founder-comms / `founder-task` / `calendar.brief.json` steps are gone. `bot-chat-poll.yml` stays as the clock-only 5-minute workflow: `clock-dispatch.mjs` there is the primary clock for `social-poster`, `social-approval-poll`, `routine-marjorie-ops`, `watchdog` and `bot-failure-triage`. The doorbell stays up as the backup clock (empty chat roster, one-row `schedule.json`); redeploy is the next tag. `routine-marjorie-ops`, `-weekly-review`, `-ask-response`, the status / bot1-bridge / delivery-recovery / smoketest workflows are untouched. The daily draft's stale-draft sweep (nothing else closes an unmerged draft) moves to `social-retire-stale-drafts.yml`.
+
+**Gaps closed in the same PR.** `to-tree` asks are still filed but dispatch nothing (`loop-dispatch.mjs`); Tree's loop answers open `marjorie-filed` + `desk:tree` asks with the routine's Disposition/label convention (step 4b). `watchdog.yml` no longer alarms on a missing brief and keeps its decision-bank relay on every daily pass; Marjorie's loop reads the bank from `assemble-brief.mjs --json` (`HUMAN-ACTIONS.md`) and the open `founder-decision` issues instead of the newest `founders-brief` issue. `runner-cadence.json` marks the morning brief disabled.
+
+**Also (the #5479 security review, non-blocking there).** `social-tree-approve.yml`'s stamp cleanup now runs on `failure() || cancelled()` and leaves the PR open when its new head carries the owner's valid v3 stamp (`owner-stamp-check.mjs`); `stamp-tree-auto.mjs` refuses `scheduledAt` more than 36h ahead (was 48h) so a stamp keeps a 12h margin inside the poster's 48h staleness window.
+
+**Not carried over (owner to confirm, no action taken).** Strategy steering through Marjorie's chat (`strategy-doc.mjs add-direction --from-context` needs the chat context the routine built); the morning "Status updated" change line and the dated status-page note the brief wrote (`marjorie-status.yml` still renders the page hourly); the dead chat scripts (`chat-poll.mjs`, `chat-post.mjs`, `chat-typing.mjs`, `chat-context.mjs`, `chat-delivery.mjs`) and the weekly-brief script remain in the tree for a follow-up cleanup. Git history restores any deleted workflow.
+
+**Approved by.** The owner (2026-10-09).
+
 ## 2026-10-09 — Routine `disallowed_tools` input: `allowed_tools` only preapproves, so file-write tools are removed explicitly on read-only routines (#4218)
 
 **Decision.** `routine-template.yml` gains an optional `disallowed_tools` input

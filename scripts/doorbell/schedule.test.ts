@@ -7,10 +7,9 @@ const rows = parseSchedule(readFileSync('scripts/doorbell/schedule.json', 'utf8'
 const workflow = (name: string) => readFileSync(`.github/workflows/${name}`, 'utf8').replace(/\r\n/g, '\n');
 
 describe('pinned clock table', () => {
-  it('contains exactly the two approved rows with empty inputs', () => {
+  it('contains exactly the one approved row with empty inputs (the 12:00Z Marjorie brief row left 2026-10-09)', () => {
     expect(rows.map((row: { workflow: string; cron: string; inputs: object }) => ({ workflow: row.workflow, cron: row.cron, inputs: row.inputs }))).toEqual([
       { workflow: 'bot-chat-poll.yml', cron: '*/5 * * * *', inputs: {} },
-      { workflow: 'routine-marjorie-brief.yml', cron: '0 12 * * *', inputs: {} },
     ]);
     expect(scheduleProblems(rows)).toEqual([]);
   });

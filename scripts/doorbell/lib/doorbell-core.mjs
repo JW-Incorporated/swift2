@@ -4,7 +4,18 @@
 // (the poll's own `isFounderMessage`, so the two selections cannot drift),
 // where each channel and thread lives, what a dispatch says, and whether a
 // rung message is stuck. Tests: `doorbell-core.test.ts`.
-import { BOTS, SNOWFLAKE, founderIds, isFounderMessage } from '../../marjorie/lib/chat-inbox.mjs';
+import { SNOWFLAKE, founderIds, isFounderMessage } from '../../marjorie/lib/chat-inbox.mjs';
+
+/**
+ * Chat channels the bell rings for. EMPTY since 2026-10-09: Tree and Marjorie
+ * moved to always-on Hermes agents with their own Discord bots, and the chat
+ * routines (routine-tree-chat.yml, routine-marjorie-chat.yml) are retired. The
+ * doorbell stays up as the backup clock for bot-chat-poll.yml (clock.mjs); with
+ * no entry here no founder message rings, and nothing dispatches a chat run.
+ * Same shape the roster had: `{ <bot>: { name, channelName, channelId, workflow } }`.
+ * The ringing code still takes a roster (`bots`), so tests pass a fixture.
+ */
+export const BOTS = {};
 
 export const REPO = 'JW-Incorporated/swift2';
 export const GITHUB_API = 'https://api.github.com';
@@ -63,8 +74,8 @@ export function createSeen(cap = SEEN_CAP) {
  * place for one of ours, `null` for a channel or thread known to be elsewhere,
  * and `undefined` for an id never seen.
  */
-export function createChannelMap({ guildId = '' } = {}) {
-  const byId = new Map(Object.entries(BOTS).filter(([, cfg]) => cfg.channelId).map(([bot, cfg]) => [cfg.channelId, bot]));
+export function createChannelMap({ guildId = '', bots = BOTS } = {}) {
+  const byId = new Map(Object.entries(bots).filter(([, cfg]) => cfg.channelId).map(([bot, cfg]) => [cfg.channelId, bot]));
   const channels = new Map(); // channel id → bot, or null for any other channel
   const threads = new Map(); // thread id → parent channel id
   const inGuild = (item) => !guildId || !item?.guild_id || String(item.guild_id) === guildId;
@@ -108,7 +119,7 @@ export function createChannelMap({ guildId = '' } = {}) {
     },
     /** `{ marjorie: id|null, tree: id|null }` */
     ids() {
-      const out = Object.fromEntries(Object.keys(BOTS).map((bot) => [bot, null]));
+      const out = Object.fromEntries(Object.keys(bots).map((bot) => [bot, null]));
       for (const [id, bot] of channels) if (bot) out[bot] = id;
       return out;
     },
@@ -140,10 +151,11 @@ export function ringDecision(message, { channels, founders, seen, now, guildId =
   return { ring: place };
 }
 
-export function readyLine(ids, founders) {
-  const missing = Object.entries(BOTS).filter(([bot]) => !ids[bot]).map(([, cfg]) => `#${cfg.channelName}`);
+export function readyLine(ids, founders, bots = BOTS) {
+  if (!Object.keys(bots).length) return `ready: clock only, no chat channels; ${founders.size} founder id(s)`;
+  const missing = Object.entries(bots).filter(([bot]) => !ids[bot]).map(([, cfg]) => `#${cfg.channelName}`);
   if (missing.length) return `not ready: ${missing.join(' and ')} not found in the guild`;
-  const names = Object.entries(BOTS).map(([bot, cfg]) => `#${cfg.channelName} (${ids[bot]})`);
+  const names = Object.entries(bots).map(([bot, cfg]) => `#${cfg.channelName} (${ids[bot]})`);
   return `ready: ${names.join(' and ')}; ${founders.size} founder id(s)`;
 }
 
@@ -158,8 +170,8 @@ export function workflowDispatch(workflow, inputs = {}, repo = REPO) {
 }
 
 /** The same inputs the poll sends (`dispatchArgs`), so doorbell- and poll-started runs are alike. */
-export function chatDispatch({ bot, channelId, threadId }, messageId) {
-  return workflowDispatch(BOTS[bot].workflow, { message_id: messageId, channel_id: channelId, thread_id: threadId || '' });
+export function chatDispatch({ bot, channelId, threadId }, messageId, bots = BOTS) {
+  return workflowDispatch(bots[bot].workflow, { message_id: messageId, channel_id: channelId, thread_id: threadId || '' });
 }
 
 export function stuckDispatch({ bot, channelId, threadId }, messageId) {

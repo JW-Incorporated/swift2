@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const triage = readFileSync('docs/agents/runner-prompts/marjorie-triage.md', 'utf8');
-const workflow = readFileSync('.github/workflows/routine-marjorie-triage.yml', 'utf8');
+// routine-marjorie-triage.yml was deleted 2026-10-09 (Hermes loop step 1); the reference prompt stays guarded.
 
 describe('marjorie triage truncation guards (#4230, #4232, #4239)', () => {
   it('never requests comments in a bulk gh issue list (indented or reworded too)', () => {
@@ -21,10 +21,5 @@ describe('marjorie triage truncation guards (#4230, #4232, #4239)', () => {
     expect(triage.match(/node scripts\/marjorie\/lib\/fetch-issue-comments\.mjs/g)?.length).toBe(2);
     expect(triage).not.toMatch(/gh\s+issue\s+view\s+<n>[^\n]*comments/i);
     expect(triage.match(/hit exactly 200/g)?.length).toBe(2);
-  });
-
-  it('paginates the deliver candidate fetch without a --limit cap', () => {
-    expect(workflow).toContain('gh api --paginate "repos/$GITHUB_REPOSITORY/issues?labels=founder-decision');
-    expect(workflow).not.toMatch(/--label founder-decision --state open --json number,url --limit/);
   });
 });
