@@ -25,7 +25,67 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 57
+
+## Taylor Swift and Jessica Biel Promote Fall Fashion Trend with Leather Jackets
+
+- first seen: 2026-10-11 20:57 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Jessica Biel emphasize that an oversized leather jacket is essential for a complete fall wardrobe. Their influence on fashion trends continues to inspire many this season.
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPTWY2MFBuZnVZQVVJMGJ6TmtUeEdWc3ZrVjRWak9IYlhEZ0N2WkV6OW93YmFPdXhxZlRFajh4eVBJcXZvRDhrM0dhTDF4cU9WM3JOajViWnRyWm0yOHBPeE9ZbllpZTU3VjFOOVR0TnVHYy1DWXZSRnFLYkMxbDJMc21fVUR4MTZVc3A0cmNRU2lILVZXV0hEYnVaRFZ4MnVCUnlnRERoMEEzamc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Bronze Mahomes Has Adorable Moment with Taylor Swift
+
+- first seen: 2026-10-11 20:57 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a recent event, Patrick Mahomes' son, Bronze, drew attention with a charming interaction involving Taylor Swift. The moment captured fans' hearts and showcased a sweet connection between the young child and the pop star.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxQWUJCZGlGNzV1S214QzROcUoyckN3TzV5UTBBRmtucEc1MDc0NkdqazZZbkhpa1VOem1ZQlBJajVMVXFoVW00WjNMOXJpZUh4YlAwMnNsWm0wX0dpYXpSNWFJZDFYdFhTdUxKWVV6UzZmRDRLQVIzUU5lbWZWUzZkZXozLVZ5bTlldy1LZVlnWExXUjZzRmZPdEFtZkc0VUkzRkh2ODd2c2lEV2VIR1BpNWdSUWwwZDd0MXdWUm9Qd1h4ME5obXg5ZE9NRTM3cWR3MWxrN0xOczRjYWY0WlJXa0VZallsZ9IB5gFBVV95cUxOVm9MbDFiR1JESU1aRUpTay16MUhzYVFFMDVzbVJiNzBzV093WF9GWjZ6eGt1SVcwQmZWcFQwY0trU2tnN0k4TmVOVlppWU55d2FkUEN2LTZIcmhwbkJkRzhaUEtmUXA0LXRFek1IMXp0QkE5Zm1XZ0EyYjlQVG1POV9ZdWFwT004ODh3aU5QaktrdnpXMHBQdzdvbFQ3emltbXAySU1qWkVEQ2ZTcVAwa2ZqSk1UVTdoMmZiTmhuMnJvTXVlbUhUTEFZVTJXX2pGcnpCcmt4RGJhOWttOG1JWkZTcUUydw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves 100 Weeks at No. 1 on Billboard 200 Albums Chart
+
+- first seen: 2026-10-11 20:57 UTC | category: music | importance: 9
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift joins The Beatles as the only acts to reach 100 weeks at No. 1 on the Billboard 200 Albums Chart. This milestone underscores her significant impact on the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOR3l6aTREWmR6b3VIUXdmVWhOWnY0SDJVUWR0RWZoNTJSd3NVbFVpZTJrWEhTOWp2TXREdnRpMEhZVlFDMnk4UDlXQ0duWnBwZ0FuOHdJMnhzUHJSakJNaUZUMmNfLXpsdmJSRGxCWWpUM1Jlc2hsZk13VE14ZVpXYzZWb1ZlNnFKOGxVV3BoN1Y0NjBvTnBHSlpiZF85WXd5RXJ6UzRlMGxuOTNDbUJV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'The Life of a Showgirl' Ranks No. 1 on Billboard 200 for 14 Weeks
+
+- first seen: 2026-10-11 20:57 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift's album 'The Life of a Showgirl' has maintained its position at the top of the Billboard 200 chart for a remarkable 14 weeks, showcasing its continued popularity.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNWV9HS0RIaVNkYlE5N0ZsSTk3LWFTcjBqR3N3a0YyN2RST1A5MU5yYXRfajNiUmF3aFpiZmVmSDJBaWwxNVlWVHJ5cjZjYUZQQjUtbnVlN0l0cUk0UW9TekZHVkpSVFZRQ1hBOXhyQ2kwVnJVTnUyUTRjelJkaTE4OGRFSDhSc0d5LXA2cTlHMmFIZGdXdEhyazFXLU8xaW9iX1pNZkQzU0dpUHZ0Smw4RA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Ratings Game Music — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeFVxS3czd2M2cnZfYWlSLVZiNFJtcklhb1NSVHhmeHVrRkowZ2d5VEJaSmxJRjktT25CM0h6N25DaHVOOU1DMUJ4ZlhSeUFuS3BtQkFfbWFMM3N6d2V4REpWdlN6b21jNmZ6RmVENFlSVHFIalFsUll4ZzRwem5od3luZVpER2o1cnhSY2RIWWFZbXhzeWZIY2laR2Zab0szZUZBdFJyVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxQTVEtT0dBMTlnVl9jdm5ySU5oWUU4Q2R5clBxcGNkWlBIWEhXRHZGRkZ4UVRRUDh6VkJxTVB3TVc1cll0elZoeTJRT2tBdFRkQVo4blJNNlFXbGhLdFJmTFVEYXlGeFRsRFRDcHJ1Z0VjVGRfbTQ5dTd0UWNLUUxKS3p2M1l0dUNYLUROTUFKRjc3bjJ0WVpzaTROV1o4d3E2cnhFTEQtNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-100th-week-billboard-200-number-one-beatles-1236908356/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNcUZ3NlhyTGJRdDBQc0tVTVRhTF9BWXAwVzdsT1VSOFM0Tml4TnlfMGl6emJHaFNlQWtfZkV3Y0hTVElLU0hrdjUzTVdEQjJ3SzFaaWVnYmtXM0l6alVfY1o0RklaM1VRZy1uUnFEbzNHekxZN25kd2F3Q3NLMlNaS0E5NDhJZFhFR181ckdEWUoxQmMwWDM2NUx1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Chase & Status Aim for High Chart Entry with New Track
+
+- first seen: 2026-10-11 20:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chase & Status are targeting a high new entry on the Official Charts with their latest track featuring Little Simz, titled 'Carnage.' The song is generating attention in the music industry.
+- sources:
+  - [unverified] Official Charts — https://news.google.com/rss/articles/CBMixwFBVV95cUxPWjhnTG9DTHFYQnJuNDdCSFo3YjFLSlNNbE5vNU5GNHNsTExwS0piRTZ0WkJZdXNSTFhuUUZ4UzFFMEVmSDNUakhHWEhWMUdMSEtKZHNIdWVOWGR0aHZOdTlFSEJJdTN2ZFAtUEwxb1k2c1h4WGVYMF84c2ZOLXV2ZEF6bmYyTDhOUDdGOUxCM1R1WkFkYll2UTVYb3NCSjFIbk1QSlB4VklJT3owTUhYYnhFMGgzeTNXNVBpLVRlSW5tSi14VG9N?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Reportedly Facing Marriage Issues
+
+- first seen: 2026-10-11 20:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report suggests that Taylor Swift is feeling frustrated in her marriage to Travis Kelce, indicating potential conflict between the couple. This development has sparked discussions about their relationship status.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdXlQcjhDVmhXdndqcU0zUjF4QV9hNFJ1SzJsdTh5ZDM3cGYtUURscUlaTkZrT0JVRFhQdDJXdVFaQldvZ3hudDlFREZIdVRfNFBBNXp0RWdIMGxEWFVuYmd5Xzh4SGtzVFZnMEVfRDczdzg1WG1qVVFWY01TcHlWVzhMd2VmRlBfelFTLUUxWG8wRmxZNV95aXJ3N3VSa1hadjM4QVN2RGhCQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Joins The Beatles and Drake in Billboard 200 Top 10
+
+- first seen: 2026-10-11 20:57 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: For the first time, Taylor Swift alongside The Beatles and Drake has made it to the Top 10 on the Billboard 200 chart, marking a significant moment in music history.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxPRXFhbzRNZjJPbXRNQWg2MlpaNU12eXVGTWxoUTJqaGI1RkxYbkhmOFVKdWxYZF9uNFAwNUJyN1JMVy05MWlmQnF2a001NzlQaUstSmhibTUxOGNpWFNzOTFSaDNyZWozYjZPckhtdDM0WUZaU01nZXN0Q1VpeGREOUxZdkphNVdJQndCbTJEcEVSNTMtZGUyNDA1LXhjV1owMG9tVlo4NmRqQ051QzJDcXZLWGo?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Swiftie Defends Misunderstood 'Cats' Movie
 
@@ -441,137 +501,3 @@ Stories: 65
 - summary: Tate McRae expressed surprise regarding Taylor Swift's enjoyment of the song 'Tit for Tat', indicating she didn't initially believe it to be genuine. The conversation highlights interactions within the music industry and reactions to popular work.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQOUdZUWxrWWJiWktWcFowQWxvLTBoTFk5aWRJdkZhUzEtX21neGlGN1phb21IR2tmOTZ0bXVuTEl2Slp1aFJRd3ItSGVnU2Y5dWlQOVEzMnBFbDhQVGNsSGVQaW8xejdHS0pmQWtGc2hfaTdoQnpiQ2gtRUpXNVBFM1dPYlNHZWwxNTdsSVlpQmprREZpNGFJS05RMUd1cDV3aWhOZFBGYXpMWkNMVHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Birthday Joy with Taylor Swift
-
-- first seen: 2026-10-08 16:25 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce celebrated his birthday with Taylor Swift and shared the 'best news' amidst their romantic day. He mentioned that a Kansas City Chiefs loss would have negatively impacted his birthday celebration.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMifEFVX3lxTFBFYXlEMzRnaGsxbFQ1OFdzU0NBTmxiYldrMDJCWlJzVzRHUFZlNVlIaDFDUmJEZF90OVN0emo0VElsQVNIWWVvMFRMbjZDN0F3ME5hay1kcXVxNllSaWFBRElVLWEwSlBjMzRyalBSUVF6eEp2WG92OUMwZ1U?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinAFBVV95cUxPVUpXX2c2b3cxYnd6Q0stSjlfWWxCQkJsRDZGRng0NFFsUFo0b1BfU195WnNTTlNMS2tlTXF3Y2F4WEFMUklZZnhLMTVsRnY0OUVVUDczaXFJVTNZQ1JYTk5GajBwUDZkRmNLTjVIRE5aWThabS13cTlpSF91ZzZwTUh5TFhHR3ExWnVaMld6Y2szdUhiV29NU2hfREbSAaIBQVVfeXFMT2xYbkdhTThJcHdBdU05ek8tTTMtVUdzbkE2LUxvcHdvREE3bG5Vb0VnUkxqS1VzeDlwS0JmaHlWMjBsYjlsZEhPYjRma1ZfZTdKOGF5Z05VTDNOU1hHU1J6cGEydy1fRUNCMDhZTnQ1V1dLdUVzaVlrdXRIejY2ZndqVUJIa0JPMmdfOWpPRjUwU3F6R1pPMWNEcVlqMVNua3pn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KTLA — https://news.google.com/rss/articles/CBMihAFBVV95cUxPanZTVXhVUWwwbG5YSWpaSDA0RGJ5NV81VGVQNkFOcmdVRVV0ajlTcWhhSkYwQUEwMmlpS18zRjBMZWJVZHRmWGlNYmpCUDFQRlNtREJvU0VqYVg3Z1p4aGF6M2pleGFQYUVzZ1VTSV9BRTVVRmpBeGlHNGthZUYyY1gzQUbSAYoBQVVfeXFMUERBenVmS1ZzQl9CeDQ5N0R5NVNYWVlKTTgzOW1PWUJNRjhTX3VZdXJOV3pUTXRWR2laNERuOE8xei0wNGZDcThxM3JzbUpYazUwNTZ1R0F4S0VnYVlyNnUwMURVUWNySk5uZ0JfU3M3NjEteUV2UXJhaUJrMFJFdk1PbGJnb0ExNGh3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOVjdvd1NtWF9sS2Vmc3NJNV9NeGtkQnFOTzkxNE85R0JkU2lseWVCV0lwVzhkS2dMaDlBeVl6SnZjRVVhRlNlQTFjMVhLX3lQUlVrN0dlLVc0Nnp4TV9Bam9RaTNmMXlSNW9zRHJsak05cDJSejhscGlHUGdFOWlkN1h6cGwzOWJGYTBEcE9CNzZKWGY4MDIxTU1rSnFCcHlCR0stZkNTcEtxcC1nRmtVOXVXb1NKc2szM2gzd0MwbGVickdnWXdObGI4TXU1UF9iTDBraWtYTDlzcEpfUWg2VnF3M1M4OVlG0gHoAUFVX3lxTE1lUTh0alhZSUtuS1FlWlZ5NDhpUXpheXFWY2E3Nm9KUGVyM1M4elB4YWVWcXh5NzdRZ3oxNzBGZTdyWkczaGhqckMtMk04dHV6OGJUU2NBRzlPeHQ2S2g5MXZTQTNmZWtFa1dNTU01ZEc3NXd6VDVYVDdFTXZvX196N0tDeHBodVJQYjItaG9uVTVLNFdMX1FqTFdnMnJDZ19XZmJnaFpVdlM3M3hTeGJxdjFaTC1JNmxnckhpdFVKLURBaU5hSTFtNENrTFFXUmFqNGVyM1A0MF9Ga2JQNzhXZnBFZ2xSeVg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxQSHJMUHhOUkR1Wmg4bVpIMFpVUTFzQnVhcXZZZG1pSnA1VUNFUHo0aTlUSVJMdUlzaFZOU1p2SF95ZXFueEZaQU04MUJiMXZyTkJCYzBrdjY2Z0loSXk0MTdHUTk5Z0FEUkpSMXZYaXhCc05fQkVDMnhEUVRic3ktQ3hhWVNTVjVpZDZGdHNpZzFYVTVB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ticket Alert for Taylor Swift Among Various Events
-
-- first seen: 2026-10-08 16:25 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A ticket alert has been issued that includes Taylor Swift alongside events like 'Hobbit', Globetrotters, and Cirque shows. Fans can look forward to multiple entertainment options in the upcoming schedule.
-- sources:
-  - [unverified] Orlando Sentinel — https://news.google.com/rss/articles/CBMipwFBVV95cUxPT3o0bnBKZnh3OVRNVlFNeW1uY3FldEhMQXloSDRpamFjUTJZSHBhYjBFM0VudVdfeDRIZnhUczZpM1dmMHZ1WEgzVWNIVS11WjF0blAwcVNCd3NHSVh5aWNNbzdUOWNvdFZ1MFhqVHFkSmI0aG1la1NRTVBPX05Vd1pCM0VQd1oyZ3BLajg0N1E3LXBQRndCNDhNY3g5Z2dIR2V4QWpkQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Planning 2027 Tour
-
-- first seen: 2026-10-08 16:25 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: According to a report from Yahoo, Taylor Swift is in the early planning stages for a tour set for 2027. Further details on the tour have not yet been revealed.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOVm1ZUjZlVGZneW13X0ZsY3BGTGh3YnRieEc1djNUMThCVFJwb0p3ZzUzd3E2MHFSeTZVTWYybzNQX0k1d1JTWmQ0NzR5VDRXYXRzeEZtbU1OZ2lSM0NGRUZOb1FZU1dwNkxoV0t5YlVpUlpMUkN1cVBlVGF0RHhTa1hNS1VFSVFRc0VXOXMydVdIOG9OYkxfcmU1X0N5aTd5cUdydzJB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Files for Personal Top Level Domain
-
-- first seen: 2026-10-08 16:25 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has submitted an application for her own top level domain, according to Domain Name Wire. This move indicates her interest in establishing a personal online presence.
-- sources:
-  - [unverified] Domain Name Wire — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcVNoamNpRDdYTXRGNnFqcDRqekNrZmtjTG1nRUFpRkF4bVBtdWtQRzhQbVE0OHUyT2lLeVBYQlEtY3Z4aF9UQlpMY19tRmQzSE5JWElEQmd1QmZvZ3FsdUU3SkJ1cjl6elZMMUVoVmtxR3FlMEhmT1U1emlqV29jd3VoMkdkcF9RS25WbU5LNEFpdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## AI Songs Surpass Taylor Swift in Streaming Numbers
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A report by Newsweek highlights that AI-generated songs have outstreamed Taylor Swift, although the actual listener engagement appears to be minimal.
-- sources:
-  - [unverified] Newsweek — https://news.google.com/rss/articles/CBMijAFBVV95cUxOV1ltRVQxMFB1NDQ0OER4TUZ5Wm15SS1mNmRaVHRxQzEwa1dPNWFKdFVMS2RfXzVIeHhMakFPYnNpeTVWcFA5R2pRSW9wcElmVnRDdG9KRHhhOFpHT0hGNnRLTXM2NHNQNExWVGJIOEp2Qk13S2dWTTcydFlvaFBod2lBVW9QaEk3YjVzeA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAFBVV95cUxQeEJsWUtxWWVEV2RfbVRhOHBRa2xmM3Vfbldrdms1TXZsd25PSVQwWDdwSnN4a1ZTbWV3ekZNMTRpeEU3Zm93UlpfTHVPeHpsU1BkY2NXaFZodER4Ni1ObHh5dWhTY2I0VGNqeWhnT0EtLWJra3J3LVY5YnBCNll4Z2pEMlNVYVlzT2xfNzhERV8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## US Man Sentenced for $8 Million Streaming Fraud Involving AI Songs
-
-- first seen: 2026-10-08 16:25 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A man in the U.S. has been sentenced to prison for orchestrating an $8 million fraud scheme that involved the use of 10,000 bot accounts and AI-generated songs. This case highlights the ongoing issues of streaming fraud in the music industry.
-- sources:
-  - [unverified] NDTV — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRHU5V2xSRjU0VFBOZlloSzBWZzFqSzY0eXRMSFVkTzFZUDVTZGxMb1F6ZkxvdVdqUkVrQUhRT3pzT1pNN0psZXNYR1k5MnV0UVVGei0zYUhNRkxCUU5WUGp2VEpvanh1NG9yYThPbThhTVVELWpWRkNaNHVueDRoYXdfek9YRllMbFA0aUhoalJLMW9Db2hleGZ2QWw1bTcwWHB1aEFtN0UzcDAxMTVONlpYWFFzTmxhYlJOM01oTVRsTUU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seeks Top Level Domain .Taylorswift
-
-- first seen: 2026-10-08 16:25 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has submitted an application for the top level domain name .Taylorswift, as reported by Futurism. This move could enhance her online presence and brand identity.
-- sources:
-  - [unverified] Futurism — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNZTY2ci1kTTVhUjduYTNXUFhjWWk2M25oNnN5M0JyZGxoRHUwUEZ2Y3VWR0R2MDAwV0NvakhfOXk2SkN2cDRFbzI2R0J1NTNwaGEtajYzS0hyRldGMEpWOUh3Qlg3SU84Z05PYWpqTzdRV2JkZ2NueDBKa0t6MEhScmlIYkZZQ1NaelJPUzBFclR4ZUJIZ3VSQjRwSEJDSUdWa29JNDFiMzI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tops Billboard Hot 100, Surpassing Ella Langley
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has claimed the top spot on the Billboard Hot 100, overtaking Ella Langley following Langley's successful run with "Choosin' Texas." This change reflects Swift's continued dominance in the music charts.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMizAFBVV95cUxNTXlQc0dHUkV3ck84NVVqbFZnTXU1N1lXanFaOHpxbzhYckxOamdCbVFxMkxHbU9UcVRvMUlSR0xmUDRjOWVhLS1iWnFlWC1KSGVzNmZCS0tCNlNwNGRSOGU3bWZkb3hkdFU0QUpOX202SU9vd2w5aUtiY0ZPUjdVWVQyelJ6d2xOVEdORk1xZURxcmoxQ3U2SUg5Sk1mWEFUUmJ2MTZvNms1MnpxMms4Tm5Ualh3UzNaQ28xSFQ3WV9vLWpJWG52VXBrVWw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Leads 2026 Kids' Choice Nominations
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift, along with Ariana Grande and Sabrina Carpenter, has been nominated for the 2026 Kids’ Choice Awards. This recognition highlights their popularity and contributions to music. 
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijwFBVV95cUxOMXN2SV9PcjNnTTg4M05KNDUzeFNWWkhMN1ZtamtlZDlScnJwM2NWR09ta3gyb2h6TGF2Z0JjMWE4eFpkLXpXSXhWQ2psSk1Vc1kxaU5TV2RLd2lrMnBrZ2FpZFVyNDZFU05MN3FGNlF5QS1MSnRvSk54ZkFvcVlUWGhSaFZ6MW5MNU9WeHQyNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZTFsNjEzaGVuTWd2dUpIT3Rac0dLTVlVRXgybHNFbGhpR1hkYWxyUmpRdEYtbTZNUEs4X0V3VHNiYXB6VFBzRmNfT1ZMcW5aTDF1VUttOGpzV1RWRU4yODJkMjU2U0RrUVJqbzhDVVR2TWZBYmJRc1h6NWNiWW9mSGUxZVdTTF9oMm1xWlZYcHNnc0dTV3NpRUpidw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Cleveland!' Explored in Northeast Ohio News Quiz
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cleveland.com features a quiz discussing the reasons behind Taylor Swift's song 'Cleveland!'. The piece engages readers with questions related to the song's themes and relevance.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQN3gtSzVOZUtoVTdpZ1ItYWlRSUtuUWYyNlAtTjI2Q3pVRGJJSWZyNzVWbmVxRnBqOGxTdjBlMHpBUl9ldUxzVmF2Yk1YWkUwaUR4U3cyQ1lYRHdIUnpJLUczOE9MZld4VXR3cGRoeTZDWkhRMFVELWdYcnFMV1NOaGtXTy1GZHp3TDBmN1pmbFZFVXhGTjM0cFhkMnR5Nk81cDYwZVZjaFJDVDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mariska Hargitay Calls Taylor Swift's Baking 'Extraordinary'
-
-- first seen: 2026-10-08 16:25 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Mariska Hargitay has praised Taylor Swift's baking skills, describing them as 'extraordinary' and claiming they produced the 'best cookies' she has ever tasted. This accolade highlights Swift's culinary talent. 
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSE5KamVDSnJSQWEtYU9OS0F4WGVhS0JTbk9zOWdLZ0U1Y0F4YXpHdUlPbHBDZWY4Rkw5UUwyWEdZa0VLdmlqaS1qOTRRQVhBcWVpS3lCTEtCYzkzZ0ZhWC1xVEd1RW9QZmN6NUN0eGhwVUNXNy1LOVRZdGpPaVBQRHFvLUVsTmcycERGNFBhRGhUbm9jdkdEVzV2eWV4TjRmQlJxR2RmVjZLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTkk5cGo4VExrenNzUUZDWDl0bnJUbU1FMEtTT0psNFJKWFFBX2Y1RklzSXlCY0dxN013NGlTZ25MMWZ6LXplcEJtWWVIMm9QcDVMZlZFaG0wME1ldnFidlhxZXJQbUlkeDB3N0FQZ2M1b0tINzRScHpNVmxPdUFUQ3dxbEVmeEg3S2NzRzF5aGtHYWpVc0JzX2N4RFdtTG8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOWXRGX19pSW5GVkppcmhHX056Vk1GdXAzV2JLbnIwaEpiOWctQk5aWUh5Wm9qRGt4NjBvVWZRdVJQRGNTRkRaRzVFLUUxSnczS2hIemE1REdKcFZ5Y2YzSUhXSkFqM0p0Z0w1cmtZYkstWGpOR0J6ZXp4MHdGYjlpdGRtU2VlV05DZGlZTld3SnMwVmx1OEdqNHVmQUZJaTk5UHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kelli Giddish discusses Taylor Swift's 'SVU' skit contributions
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Kelli Giddish shares details about Taylor Swift's secret skit on 'SVU' and discusses what Swift brought to the set during filming.
-- sources:
-  - [unverified] azcentral.com and The Arizona Republic — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOT3RVMXVUZFd0N1Zmc1ZDR1ktWm14UU5aNHpiWFctREswVlJGdU16WFcyNlRfS0RvbzFNNU1zby1HakFwU3M2OVAwcmZzMUQ4VGdJMXA1Q3hZSUZRbUoxRkJtZFdjdTlYV0RjTHZobWRLZW54TVU3dGQ5SnNyRUpBRFdTQnltMHJQUWJDNHJ3Zld3aXg5WnlQdF9mWFliRHpibmNlTEpnUGVDaWRvNlhCMC1EMlNEX09ESWdEY1hqNHJQTEhyd1doQWNUdUlaVUVIQzBYcA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Detroit Free Press — https://news.google.com/rss/articles/CBMivAFBVV95cUxOaDJMejJzMWNsdldIb25ERlc3OW9xeEVleFhudHl4dFdmNTV4LURKOTNKTXZMNFNwc25qdTBhd0tNZnBlWlV4Y01ObndLam1vX1Y5ZmN3VnU0WEU5RkFzeThRQ3g1Y0FWWG9HdHZ3cDFHUUZ1ZVBQeDVUQk5ScGJWLXFpeTAyMmdCQXZ2dF93YmV5cWItNEZsTEVfdlVpWnJVd3k5ZUdtR080ZFNpRVBLWk1STV9sWjF4RXRPYQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Debate Arises Over Taylor Swift's Release of 'The Life of a Showgirl: The Encore'
-
-- first seen: 2026-10-08 16:25 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An opinion piece in The News Record discusses the recent release of Taylor Swift's 'The Life of a Showgirl: The Encore' and argues against its necessity.
-- sources:
-  - [unverified] The News Record — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZHpld3N1bWNhZUhFNk5WM3FXRV9FbUJFMExqNVhuT0hyWDhJS3RfdWdLeDdfNWZGNmRyNmo5RXF2WW8zMGRiTE1hMmdvYmRINzZfSEhpZXRndkdnTVdyOWtJUndzblRqMmxfZThoUVdtd0xmV1VYRk1ZUzFiTmJnbFpPTmozQ3FSWWNOV3lDWU5rUHlLN2luWHp5eE5QclNWNDJyc1RSZU55dlo5eWJEMkpTSjVqbEVFNlh4RHROVGRFcmRha2ZYUnRUZXhySFMzeGRCUTlzczYtLVZVb19UcWtVY1JxbWN1WGlxM2YzZC1CT3U1eGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Confirmation of Release Date for Taylor Swift's Friendship Bracelet
-
-- first seen: 2026-10-08 16:25 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The release date for the friendship bracelet featuring Taylor Swift and Caitlin Clark has been confirmed, according to Yahoo Sports.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxQem1Bb1JsbDBUaWYtRGpwU2dRVjhLTFBYbUhMeU9zS2M3NTdWQnFxNWtUZWxodWxmdDN0WlFaeEdZOGJPVkI1VmRiVTdFcFZBRFlMQ21IVXk0dWI1NnV4YzE5RVRSTVFPSDJSRkNSU0U5Q01FNWlzRnd1RXlMdGJPY3pKMHVyY0dUQlVmMENn?oc=5&hl=en-US&gl=US&ceid=US:en
