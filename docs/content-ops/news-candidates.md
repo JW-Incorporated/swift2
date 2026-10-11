@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 62
+
+## Taylor Swift's $4 Million Pledge for Nashville Education Centre Remembered
+
+- first seen: 2026-10-11 00:13 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's commitment of $4 million towards a Nashville education centre in 2012 is highlighted 14 years later, reflecting on the impact of her donation.
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi8wJBVV95cUxQTTlyNTByUDYtU1NNNTNPd2R0MnFjQnVHcGozX1QtMHQxYjBIRlF3WnFEZ2VjbW5sbFRySUFyYVdpM05xTzE3b0U5Z0UxTkd6OHlZUU1BVks4ZVRLVzlLSWV0aEQ4QlBkR1o3OUxyalllbEVreUVxUFY2eC15SV9lM2tUSDVrWU5fTWZrREpnemRNM29Ra09TamRpV1B0STRZX3VpOXRpTWRvWGpyVDFJODVVcTUtOFMtYVNrMzhBSXNScXR3ZHpfaUxUdDFrWkd2YTJPcjUwWUxTYWhrZFEwb09Jcl9YR3Z1bmNLVnQzSWNtOXp4VEItaXdaUEdBZUtiUHRnNFpXM2ozTk1pUkJFU05lTXNfUHJiTFloMHc3MzZtMVljZ01KMUZTTDlHeU5vVHpWZ1pJYm5DbEktWUVQbUEwekl4X0NvWU42b1ozZmNvaEkzVWV6R2U0OVVYTTh5Y3dYTm9qbDNTZU1kOFBWZFpXUdIB-AJBVV95cUxOckNQVFdrZGV4UUNHdnlCczRCRUhaWDhENTNJTTBhZ0hpT2RLNmpXdm9WR19XYnFiRUZIODRpOGNoVHhmNGg5XzZRTTVsQ0lua3U2NFZWSXhQNmNWZlRUZnFjUm1HcWMzUEZaLTV2SXFCcERvU3lPTTFUaXVZODhUMU53bjJEX0xobXdGS1RMZjJGNlBfSnRWTC13TEM2Y3lxS3dINHA0dk9QS1N6QmhILUlRWUJ5UVpETllRVWFBbWVoeGM4SXhpUk9wNVVBd0JJTjRRWWV4dktmUzlRNC1lNEFsUFk3Z0JMRy0yWnlEdVpzX2k3bjZXVm9yQmxQd3VkeXVjaTZVblgzbzBnT0F5X2VVOUlXbVlxeVg1QkNNT01CYWktdkZkSnREcHF1UEh4VElrYkRUd1JoS0JxWlppNDJacDVHQjNCN0w3bUQ4NFlNMWxRbDZ0V0NzOUxiaFp4QzdIb3BJMUR6cjhNYVFuS3hxMF9KWWFu?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mike Gesicki Discusses Swift/Kelce Wedding Invitation
+
+- first seen: 2026-10-11 00:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mike Gesicki shared his thoughts on receiving an invitation to the wedding of Taylor Swift and Travis Kelce, initially believing it to be a prank. The news highlights the intersection of celebrity culture and sports.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNElrTXQ2QjluNTBGbk9zMGZ6SnNOQzhYZmJlTDlsS0RqVVg3bmgwcld3NGhxU3NteHFaVDZqNjlCbDU4dlp3dHlWU0Nkb05lY25oSHp5SG5VMy15VnlqVlBoSWFsQkN0ZUNXcGZwcmZNMkVZQTEzNFlod1BQNnllTkV5WTl2SDdS?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Spotted on Date Night in NYC
+
+- first seen: 2026-10-11 00:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen enjoying a date night in New York City, coinciding with local opposition in Ohio regarding plans from a new neighbor.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPOEZhS0h2OURrdlM3QmhaX3R0RjVibFZhRVZ4aWg1M1FreGZHWTlHSkw1TmFuRHpibmFBazlrQzlLWDQ0ZWNpYjhQc0F1b1R4cm1mQkhKcVdVYlJ1Smlram9fUExGNG5vRDVnWDh2aVRBRlZ1d0xtMFpwRkNYa0VtbjFFZlRwWTAwZEdvaF9TU3dURUt4cWNDbDZpbW5DSFNEUmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Embraces Fall Loafers Trend in New York
 
@@ -75,6 +99,15 @@ Stories: 69
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPRWx2YnZ6M1Vqb2JwNmdPSE9nd2xEWEdXd2JtdkpQVEttMEhIaUFhYWNCOWE4SGhsVE5odTgtZFFJMkJTSHU1MXVaaHZBbHlFSzFnVmxBRHJGOHNETnpicDRyM2tETm9qS3QtaWhLY2todWktNmRBRnNJRFdsOGVyaExLZFE1MDVvT2JvWEdkVExCMnlWbDJab2FRck1nNjlXdW0taFhRcWxCUmJOS2c?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
+
+- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce were seen holding hands during a date night in New York City. The couple's outing comes amid reports of a dispute with their neighbors.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVjM0X1lpMFpqc1hCQXphM2hBdF9PRFhYVXYteGlVTlFTLXVvZk8wUkozak5rbnNGb19sdjFTcmFZOVNUWHZ3a1RKWF9SU3BXNzRvTXhjZnRETlBWMXF6WGZIWG5DZWw4Nm1SbnYtLWo2UVZScVJMQnNZWnNSUTJGUVpEcy1UenR4c0FsWjRJWEh5M1JZR2wxNVNDSzQtQkhGZzN4RU5FcnpyMXdxX3VOa0pxVGcyVXAwcEcwcV9iTkZBQmt3bjdvdDBsX0I3WHlEY0E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYS00Z3pwclFHa0ZBemlReFp2RS1SZXJRdmlIYkY1dFhtdW1kQzg3SHRneXBBNnhMUVRuRkdiZ05UVUxTX1pfNy1MdXZHd0lLQW4zejFJOW1uZ3RYU1cxeXVucUZ3UTJPRVFXd3Q5T1o2TXlieFp5S2l5ODVyX2ZYT0NTRUZzbUxQS1hrUWdzbHUtdmFXVVotRTZqUW0wOXhnUzBMY2hJRFRVNFlTNTBwOVc3bVpjUdIBtAFBVV95cUxNMDhZMnBtMEpzTEJqSy1ZZHhmTS1SMm5VdW9xMDRhYkN1LWktWmNWeldyVWNhbTN2dENaZnhtNktKdXFvYk1UZTVKSDJzUmlneGF5emNOZDhnSTk1WnlfWURLMGJ1Y1c0aC12UnA0QlMzSFFXUEJZYUNldUFfYW10RnVldnpodW9SSE9VNGp0TmtyaDk4Snp3SDZMV25IT1N2ZmJILWYwamUtREJkOU84ZDBma0I?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce Have Date Night in New York City
 
 - first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
@@ -106,14 +139,6 @@ Stories: 69
 - summary: Taylor Swift and Travis Kelce are currently facing serious allegations just three months after their marriage. The nature of these allegations has been described as 'catastrophic.'
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdEpPUThjbFR2ZkZPdVlyWVVSQ2ViOTdHdVU5LW9yZWZxWHRlUXJILUE5S2hia0lHSVlsY01MRUVHbG52Ym9LWFJRcV9IU3RCN2xnNVlnNzdEMVhVVmFKYl9vdkZ4UUhiMF9lZGtzdWdKYTZfeEhVQWJQWlNDYzcxNVVtV0phSTlqODlOOFo2a3VDbzlER3g4VXhMaXBRWjVS?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen holding hands during a date night in New York City. The couple's outing comes amid reports of a dispute with their neighbors.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVjM0X1lpMFpqc1hCQXphM2hBdF9PRFhYVXYteGlVTlFTLXVvZk8wUkozak5rbnNGb19sdjFTcmFZOVNUWHZ3a1RKWF9SU3BXNzRvTXhjZnRETlBWMXF6WGZIWG5DZWw4Nm1SbnYtLWo2UVZScVJMQnNZWnNSUTJGUVpEcy1UenR4c0FsWjRJWEh5M1JZR2wxNVNDSzQtQkhGZzN4RU5FcnpyMXdxX3VOa0pxVGcyVXAwcEcwcV9iTkZBQmt3bjdvdDBsX0I3WHlEY0E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Deep Cut "Chloe or Sam or Sophia or Marcus" Trending Among Fans
 
@@ -524,83 +549,3 @@ Stories: 69
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeHF0LXVYMVdBTFl6Sm13RXJ4Ulo1N2ppTVZ0SzlFNGFBaVZCU005Wkg3Q3U3Sk1oNmk4VlhOTjQwajl1WEZIWWNfQW01Y3lBdXBteGNkZngzOUVIblVLTVdsV1BYa0NYMzdDYVpsem9pWEExbmRTMnJGbkV5bGxiVWtsUVNGUmxMSFVFeFJtTlNpMk9mOHRWQ2lRdDM?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkJxOEJVVm9ZdFdUNERMbWdoUmdDbTZvQWk1YkZzNlBfekprOFVUaE5SbjJXMEk0eWQ1NHA3UjhYZzJtWEQxWno5SWIzc0tjSmNSMVBNWENMZHhpbVd4Qy1aVVF6Q1h4RGpVMDhzMEFOdzlaVi04LWpkaXNDZ3NtSWhIWVlBb0xKTGNTcjZTYWFLRFVoaGRlWHFKWmRRSTRHb1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Celebrates 37th Birthday with Taylor Swift
-
-- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expressed his excitement about spending his 37th birthday with Taylor Swift, stating that it was a great day for him.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxQTHAyOG9DRjRIc0pqdDRVaFgzNGFPbk1LT0FVd0RRNVRGWGxmYVNoNS00ZU05bTNWN0RienNBMksxOWV5LWJvTm1Pd3FIb3NVaTd4N3BzRGdmdTRBUVExMExLYXZtb2taQm14TEUxeVEwR0Qzby1RaDFXaVZOXy1vMGdOOXdLYWFtZk5nNVl2S3gwNEs0YkpZd2pYaC1ZRFNkVldGVnNQdG00VDZqdm82cQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fraudster Sentenced for Using Bots to Manipulate Streaming Numbers Against Taylor Swift
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A fraudster has been imprisoned for employing 10,000 bots and AI-generated songs to artificially boost streaming figures to surpass those of Taylor Swift. This case highlights ongoing issues in music streaming integrity.
-- sources:
-  - [unverified] Ars Technica — https://news.google.com/rss/articles/CBMivwFBVV95cUxOcDBDS1ljWVgyZ1NScFpfVzZWcUJJV3E4MUhodnJBSTI2Y2hObzhDOTJuUFRMZk9OdElCbVYxVDJISGFBVzltLVFnbTdoOHVIWHc4RTg4aWJCUmNaU3VOWVdIa0N3bUJuUzRtZktLMHA4U3hPekhTODAybldHR2FxQU94MnVzZXBFaGFWcE5TRFBETXEwcC1WZkFsbk5mdXR0aTJYYlZnOVlxTW1TY0hWQUp1VTlWamVsTzlLWDRtWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Responds to Halloween Display Featuring Taylor Swift
-
-- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has shared his reaction to a Halloween display depicting a 'cross-eyed' version of Taylor Swift. The display has drawn attention for its whimsical portrayal of the pop star.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOSGpmSDBUVTdjSFJMT2dxXzFubVBRRXprS3ZxdnhFN0ZNakQ3ZndRU0hILWtwQ2k3MU4zcFhiemc4czkteThlN1FXQkN4bVVycVJoM0lISDFZamRnZnZHOWtXd01iazZGZ0c0Ym52ZnZFRkpXM0RrVHVuUFZBanNzQWk1TmRXWFBRT25xX1Q3X2d6bHVTdUlTUk5DMFI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Paul McCartney Revive Old Albums with Similar Strategies
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Forbes discusses how both Taylor Swift and Paul McCartney are employing similar methods to refresh their older albums, making them relevant to new audiences. This approach highlights innovative marketing tactics in the music industry.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPMTc2Q055ZFg2a1FIbUVFT090b1BaYmpoaFlMYi1xZ3VUUFYtRFNkQ29hNDl3UVhhYmZLYl95OXcxU1JPM0pRRWV2Nm1YUzZhRDB5ZGR0UjU4MU1OVzNzN3hNay1acUxPTEdQcFlPY0RwMV9BYmNNS19sTms3RG5mVlB2aUZxeXlCZHMzYzJXQTNyeko3eXFZZ2hVSzUtcTJrT2FscHRWVkN1dVFEcmZQYmZYU0RkdXItQ1ZQY2N0Q2N6NmtCUzQ1SFg3VDZpTmI5bHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves 12th No. 1 on Streaming Songs with 'Patient Zero'
-
-- first seen: 2026-10-07 21:57 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached her 12th No. 1 spot on the Streaming Songs chart with her latest track 'Patient Zero,' according to Billboard. This milestone underscores her continued success in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikAFBVV95cUxNVjlneWgtSlZIZWNsYmk5LVJCZEhkVC1uRHFFWWktM2FuR0FLa0xCYkVtLVJOanFDTFhPR1c1akJLRWpvLUlNd1JFaDVLS1lpMUJNRm1aajgxbFRReDJXcVkwVC1wcEJ4a1JTZXZCbkFiUWhNaU9FOGlkUlVEV1IwLUtzc3ZmbTUxVjYtYXo1Q1k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Predicting 2027 Grammys Album of the Year Contenders Featuring Olivia
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A discussion on potential contenders for the 2027 Grammys' Album of the Year, focusing on artists named Olivia, particularly Olivia Rodrigo and another Olivia. The article suggests that their competition may dominate the awards
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-album-of-year-2027-nominations-predictions-olivia-1236904555/
-
-## Taylor Swift Approaches Long-Standing Beatles Record
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is on the verge of breaking a record held by The Beatles for 56 years, highlighting her significant impact on the music industry.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPNVg0bDdjNkNGUHZneWJfWHBaWURaOUQ4MHNaa0hJVFhyb1BLcXhxUVlFVWc4aXdIdkdpWDZlZWlJWUhtTkZ1MUEzSkFUbFN4eUcxSWVFX0tpLTBCX3RGcTU0M3ItNGJKQVlhYzlmUDlDOUZVNlZ3VTlxRGpQb0d1bnRPOFVsRDlBV3pnYVZHeHF4blNUSDdXc3p4TjB6UEdXWFc2NWQzakR6UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Billboard Hit Inspired by Travis Kelce's Cleveland Roots
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new Billboard top 5 hit from Taylor Swift has been inspired by Travis Kelce's Cleveland roots, highlighting the connection between the artist and the NFL star.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQVk41bXlybm9UV1hqbzVGbVJtdmpqQVRkb0Rjb3NyNkk4d2prbmRCcmU1cVJZR3JmY0Q1ZE9aNFdWc1AxRGZsZkVTWjN0UUtpUTVLRnFMV1pEakE4RUV2ckN5Mnlrc3FSSGxXNGxqX1pQV01nUjJ4aGJIQWJob29BQzRyZnBoUU1xaXcwRElqVVdscTRQTHpleUlPVXFsUHRzclVNQ09jcWUyZDA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Celebrates Birthday with Taylor Swift in NYC
-
-- first seen: 2026-10-07 21:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce celebrated his 37th birthday with a dinner date in New York City alongside Taylor Swift. The couple also shared significant news during their celebration.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPVTZ2X2UxaHUzZGJHa1lVMy1uY0hTNmJsZV91a2tNZjBWVHp6eUZOV2cyVWcyZ2s1STVpelktWjBVN2xraDh3U2ZNZDV2clIzYXdkeDlicGFKUi0yYXNTOUNvWUpZNDZtSEFQWmQ1MHU0R2NOQ0xzeTE4a0hJTmdrZHJTNFh4VXc0Qi1ZVi1rekN6b1czNWdIeno0UUhvYlJDSkhIT0l1RmVLOVBiTjR3TUxFbE1kcFpv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Takes Recent Album Criticism Personally
-
-- first seen: 2026-10-07 21:57 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly very sensitive to criticism regarding her recent album, which has been described as a flop. Sources indicate that she takes such feedback very personally.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxNYTVtVnFDUjVFMHRRTklnV0U1Y0s4dl82MWd5ckF2QzVlcFVmbEZLM25DSUZKZ1k3Z1d0MzQwd0tpUmkxUHpLM0RfZlltRkJrZXBJNzZUd3NWVHNXT0diS2xzVElWQkxGakhqMF9RaXBjdl9yakdvZ2g1OTZFNGpvN1pCLTFmT1ZFZzZ5SEtfTHMwUlRoUTVBWm4xSUtRcl8wSTBXR1pESEt0VUdr?oc=5&hl=en-US&gl=US&ceid=US:en
