@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #121 🔴 [BLOCKING] Fix routine-tree-weekly-plan's turn-ceiling failure (~10 min)
+<!-- ha filed=2026-10-11 -->
+<!-- ha verify: issue-closed 5470 -->
+
+**Why:** The weekly social plan routine keeps dying on its turn ceiling (error_max_turns) — no plan has shipped since the defect recurred (watchdog alert #5523, tracking issue #5470). The ops-fixer's attempt was rejected by its own guard rails (PR #5479 touched social-approval/signing files outside them), so this needs a human-directed session instead.
+**Steps:**
+1. Open Claude Code in `Documents\Claude\Projects\Swift2`.
+2. Paste the prompt from issue #5470 (copy button on the code block).
+**Worked if:** issue #5470 is closed by a merged PR.
 
 ## #120 🔴 [BLOCKING] social poster exit path: items A, B and C (ops-fixer is rail-blocked on all three files) (~5 min)
 <!-- ha filed=2026-10-09 -->
