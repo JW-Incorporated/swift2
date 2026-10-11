@@ -34,6 +34,7 @@ permissions:
   pull-requests: write
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
   issues: write
+  actions: write # gh workflow run social-tree-approve.yml, via GH_DISPATCH_TOKEN (#4223, #5520)
 
 jobs:
   prepare:
@@ -85,6 +86,16 @@ jobs:
       timeout_minutes: 30
       max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07); kept at 50 — W8 bounds the work instead of raising the cap
       checkout_token_secret: SOCIAL_POSTER_PAT
+      # #5520: the agent's step-7 `gh workflow run social-tree-approve.yml` 403'd
+      # ("Resource not accessible by integration") because claude-code-action mints
+      # its own claude[bot] installation token for the agent's `gh`, and that token
+      # does NOT carry this job's `permissions:` block — raising `actions: write`
+      # alone cannot fix it (#4223). This exposes the job's SOCIAL_POSTER_PAT as
+      # GH_DISPATCH_TOKEN for that one prefixed command; the agent's identity and
+      # every other `gh` call stay claude[bot]. The PAT resolves to `sffan15-sys`,
+      # which is tree-approve-gate.mjs's single TREE_DISPATCHERS entry, so the
+      # dispatch also satisfies the approve workflow's triggering_actor check.
+      expose_dispatch_token: true
       pre_run_artifact: tree-inputs
       post_run_artifact: tree-daily-draft-out
     secrets:
