@@ -5,7 +5,7 @@
   "lane": "appearance",
   "createdAt": "2026-10-08T19:25:09.942Z",
   "deadline": "2026-10-10T19:25:09.942Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "channelName": "The Tonight Show Starring Jimmy Fallon",
     "videoTitle": "Tate McRae Couldn't Believe Taylor Swift Liked \"TIT FOR TAT,\" Talks New Song \"Housewife\" Easter Eggs",
@@ -17,5 +17,6 @@
   "links": {
     "pr": null,
     "issue": 5357
-  }
+  },
+  "declinedReason": "Another artist's late-night interview that only namedrops Taylor (Tate McRae on Fallon re: Taylor liking 'TIT FOR TAT') — not a Taylor appearance, no deep link into our Vault, and the only Taylor claim is an unverified secondhand line from the clip title; a Taylor photo would be pure decoration. Fails onStrategy and mediaEarnsItsPlace."
 }
