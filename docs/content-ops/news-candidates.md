@@ -27,6 +27,30 @@ so far".
 
 Stories: 65
 
+## Swiftie Defends Misunderstood 'Cats' Movie
+
+- first seen: 2026-10-11 15:36 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A fan of both Taylor Swift and Andrew Lloyd Webber shares their perspective on the misunderstood 'Cats' movie, expressing admiration for its artistic elements.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxQb2pidnl4SU1fMGY1Z0p3aU1Fd0JDdmc3X3NhbVhwNURNWjZ6UjBNVTJtS2xmeW9lVHR2MVJoSDFYTkFtNzF1RE5iaGtOek9nUVp4MU1xZnF6c3NFcDh3akdveFFKR3IwWnZpVnVUOFlzV1l2LUxqemg4N01LTFp0TUU1Rk9UZ3hUdTNiblU2R0ZKTzd2QkN3dm9wUnhBdDVUVzZKenpRS1NUYlBIdnVRcTl3MC1OZTFXMzAtaDFxZWZiejhUcUp3aXE5T09CYV80QlVWdXF4bTVHcmVOemQxeWVLaw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## SVU Cast Admires Taylor Swift's Cookies
+
+- first seen: 2026-10-11 15:36 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The cast of SVU expressed their enthusiasm for Taylor Swift's cookies, with one star even devising a plan regarding them. The cookies have garnered attention among the cast members, reflecting Swift's influence beyond music.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNYnFKS0huTjhaMVpXSnN6NGkxOE5oQV9EQUtXNzllWGd3SlVJSng2aktucmExZllHUW9OTTcxcFM4akxUUFBsekUxWjZzazhNbFI5XzVyMU41MVZKSzBCV1hGZnhpZzlqOFVMOTcyLVhNTGJ1aXVpOXNOd1NnSExPNVI3YzRRcE9LUXg4RkpFODQ5YnVqTzJGRllkMHRwcTA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Analysis of Albums with 3 or More No. 1 Songs
+
+- first seen: 2026-10-11 15:36 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report highlights that only 33 albums have achieved the milestone of producing three or more No. 1 songs. The article from Business Insider discusses these notable albums.
+- sources:
+  - [unverified] Business Insider — https://news.google.com/rss/articles/CBMif0FVX3lxTE9ESmpERkFhbEtiWDFCMFdZTGYtSlVGeU9pR1ZCQkVBRllZck5SU1M2eGIxQ3ZlUXhVYk9nNDNTb3pLWS1GU3NGdHlYaEJiVElZVExKNldja0pVTHJ1ZUhDSFRDc0puaWFNMW5wa2N2SGtNREJET0NtZlV4Q2RpcFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Travis Kelce's Ohio Fence Receives Approval
 
 - first seen: 2026-10-11 07:07 UTC | category: relationship | importance: 6
@@ -35,15 +59,6 @@ Stories: 65
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNSjZyemxualZ0SGZwOHNfUUJ2ekg1OUxBanBDem1rdDZmdTE0bWRBeGh3V215S3RhdnI3OTZTQzVKeG9QV0liTUVweTBSdm1xQjNmdTVnUlQwVlp3YUt0dnpPa2trN1hvak1ObFdKYkttX083OTRxUW4zaURvVHVWek40OVliWE44Z1c1eE9KeHRKbUtmOWcxc0MyR09fMUp3?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce Seen at Guardians Game
-
-- first seen: 2026-10-11 07:07 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce was photographed attending a significant game featuring the Guardians, as reported by FOX 8 News. The appearance drew attention but did not include further details about his presence or activities at the event.
-- sources:
-  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOc245NHhUZ19mM2UwNndjYl9jV1N4MVFTTXd1SHF0VU5BeXRaRFFlTnNibVd1SE1LTHo0VnE0cjdUNHRya3pOcmFRVUJydEI2aTFHZjRrTTdFQy1wcndEcHZ6X0w5cmFKYWNHQkVfaXE4UzRZd0ItSHY1SWQzenFlQ3FJN2RHczZkTFVDUXpNWHBxZEo1X1FwYWNZTVFfUFFsODlmWWJNRWh3UnB4YmVyUFgwOEQ0cFFKaFRFQ0dZbGVnbjNISC1SZklkNHA5M3c2bENxVVRuVU5mdGQz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWEVrSHNDTnNkYUhUcUZVRmFyNjVHaUdZQ1pxNGI0SEVFazFvNWFhYjgyTUdELThnVy03Z2ozUkFLTU1HaV9jWE1EbnNCZkpPRkE1LTJWSno0dXFVSUdYcDg4T1h0N3I3eWxxaDNsMWUtQkMwQWpSS3JHdFJ2M0VRa1E3NzJxRkt1QWfSAY8BQVVfeXFMT2xDcDZyV0p6ODFhX3B1SE1Pc3FRNktnQ1BCTE9TT1RDd0JmZWJVMTN3UmlLNFRvOWxPR202WDJkcE5SOGM5RXVfN2ZxZW5ndmF2NFZJQ3NCUEhsT0gyV0tBdjVCLVdneDhEc1Z3cTRCT0dRMUhSRnQxeTNnRFlSYUM5NHl3eXFmOEt6alZqODA?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Seeks Trademark for Four Common Words
 
 - first seen: 2026-10-11 07:07 UTC | category: business | importance: 6
@@ -51,6 +66,17 @@ Stories: 65
 - summary: Taylor Swift is pursuing the trademark of four familiar words, with intentions linked to her brand. The move has raised questions and discussions around trademarking common phrases in the industry.
 - sources:
   - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMirgFBVV95cUxPTDk0dVU2ZmUwZ0xMMzhwNjIwMmJwTC1qbTZpVVdzU09aQ3gtajFOczZObm1RVVFPTTluNk5YeE5HM1ZybF9vUFlGSHVHRkwxSFV0aDNqLUFka2o4d2RhQXNYbHFpN1RXWWNWdmQ2bGJJb1dIWHVNa0ZSOTFvWEhSR1AxMnNwQkdvWTFxbkJza0ZvSDNkLTdUc2RZYVJ6ckVTV0g2NWtzdGhGVTEtSlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Seen at Guardians Game
+
+- first seen: 2026-10-11 07:07 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Travis Kelce was photographed attending a significant game featuring the Guardians, as reported by FOX 8 News. The appearance drew attention but did not include further details about his presence or activities at the event.
+- sources:
+  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOc245NHhUZ19mM2UwNndjYl9jV1N4MVFTTXd1SHF0VU5BeXRaRFFlTnNibVd1SE1LTHo0VnE0cjdUNHRya3pOcmFRVUJydEI2aTFHZjRrTTdFQy1wcndEcHZ6X0w5cmFKYWNHQkVfaXE4UzRZd0ItSHY1SWQzenFlQ3FJN2RHczZkTFVDUXpNWHBxZEo1X1FwYWNZTVFfUFFsODlmWWJNRWh3UnB4YmVyUFgwOEQ0cFFKaFRFQ0dZbGVnbjNISC1SZklkNHA5M3c2bENxVVRuVU5mdGQz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWEVrSHNDTnNkYUhUcUZVRmFyNjVHaUdZQ1pxNGI0SEVFazFvNWFhYjgyTUdELThnVy03Z2ozUkFLTU1HaV9jWE1EbnNCZkpPRkE1LTJWSno0dXFVSUdYcDg4T1h0N3I3eWxxaDNsMWUtQkMwQWpSS3JHdFJ2M0VRa1E3NzJxRkt1QWfSAY8BQVVfeXFMT2xDcDZyV0p6ODFhX3B1SE1Pc3FRNktnQ1BCTE9TT1RDd0JmZWJVMTN3UmlLNFRvOWxPR202WDJkcE5SOGM5RXVfN2ZxZW5ndmF2NFZJQ3NCUEhsT0gyV0tBdjVCLVdneDhEc1Z3cTRCT0dRMUhSRnQxeTNnRFlSYUM5NHl3eXFmOEt6alZqODA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxOTDFELVBhUkpUOW9Ick4xQmRxUWJlY3lsSUk5bDVIbTY5U3Ita09qMUxxVndDZTNsejRRTDNBNEVCZDRXdVBxYWplckhZSU5ybnBLU0xsSnRnN1BKeHF4V0ZTWGtndzdXcGNlZnZJVl94NExocnVZcGZpYlFIek1aOHlxbTBFa3hSU09vcGFud21BYmNDTmdBdVJUSzh6aWZwdEdTeGt3QTk2TkFWT3h4WDRXd2FYbUk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxOU1VzVlZQSmxZU1pSSWtPYVplVG9vdzRyRVg1WmZabllxRjk0cHFTYVZ0NkxrQ09QTmo3T25MTjgyekdvc3V3RlNCOWpoYXdRQlVJakVUZTBLekpqSFhnLXNCcjFXd0ZvMUlzR3hsbEFfcHY4dG92TmgtRXlyYk1LbXJjVjRrZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's $4 Million Pledge for Nashville Education Centre Remembered
 
@@ -425,6 +451,22 @@ Stories: 65
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMifEFVX3lxTFBFYXlEMzRnaGsxbFQ1OFdzU0NBTmxiYldrMDJCWlJzVzRHUFZlNVlIaDFDUmJEZF90OVN0emo0VElsQVNIWWVvMFRMbjZDN0F3ME5hay1kcXVxNllSaWFBRElVLWEwSlBjMzRyalBSUVF6eEp2WG92OUMwZ1U?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQLTk3VFlKNEZqMHl2Ylk5RW5hX0NUaXN5b1BRaWZ6N3Jka25iS2VqbnJ2OVNEejBzVUNWaGNrSVVXcUJQVEJoY1F4YlV4OVRVWjhGQkExY212TFA3UVdIckxJek5PNGJvd0g1NFdzWTF5VVlTMnRUbmRmZGNnbWNqa2hDeS1ZVnhaV3VVVTRKaXFqYS10UXJQRV9salV5aDRFVW41ZDczVWNaempJZ3d4TG45V21aQ1k?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
+
+- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 9
+- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinAFBVV95cUxPVUpXX2c2b3cxYnd6Q0stSjlfWWxCQkJsRDZGRng0NFFsUFo0b1BfU195WnNTTlNMS2tlTXF3Y2F4WEFMUklZZnhLMTVsRnY0OUVVUDczaXFJVTNZQ1JYTk5GajBwUDZkRmNLTjVIRE5aWThabS13cTlpSF91ZzZwTUh5TFhHR3ExWnVaMld6Y2szdUhiV29NU2hfREbSAaIBQVVfeXFMT2xYbkdhTThJcHdBdU05ek8tTTMtVUdzbkE2LUxvcHdvREE3bG5Vb0VnUkxqS1VzeDlwS0JmaHlWMjBsYjlsZEhPYjRma1ZfZTdKOGF5Z05VTDNOU1hHU1J6cGEydy1fRUNCMDhZTnQ1V1dLdUVzaVlrdXRIejY2ZndqVUJIa0JPMmdfOWpPRjUwU3F6R1pPMWNEcVlqMVNua3pn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KTLA — https://news.google.com/rss/articles/CBMihAFBVV95cUxPanZTVXhVUWwwbG5YSWpaSDA0RGJ5NV81VGVQNkFOcmdVRVV0ajlTcWhhSkYwQUEwMmlpS18zRjBMZWJVZHRmWGlNYmpCUDFQRlNtREJvU0VqYVg3Z1p4aGF6M2pleGFQYUVzZ1VTSV9BRTVVRmpBeGlHNGthZUYyY1gzQUbSAYoBQVVfeXFMUERBenVmS1ZzQl9CeDQ5N0R5NVNYWVlKTTgzOW1PWUJNRjhTX3VZdXJOV3pUTXRWR2laNERuOE8xei0wNGZDcThxM3JzbUpYazUwNTZ1R0F4S0VnYVlyNnUwMURVUWNySk5uZ0JfU3M3NjEteUV2UXJhaUJrMFJFdk1PbGJnb0ExNGh3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOVjdvd1NtWF9sS2Vmc3NJNV9NeGtkQnFOTzkxNE85R0JkU2lseWVCV0lwVzhkS2dMaDlBeVl6SnZjRVVhRlNlQTFjMVhLX3lQUlVrN0dlLVc0Nnp4TV9Bam9RaTNmMXlSNW9zRHJsak05cDJSejhscGlHUGdFOWlkN1h6cGwzOWJGYTBEcE9CNzZKWGY4MDIxTU1rSnFCcHlCR0stZkNTcEtxcC1nRmtVOXVXb1NKc2szM2gzd0MwbGVickdnWXdObGI4TXU1UF9iTDBraWtYTDlzcEpfUWg2VnF3M1M4OVlG0gHoAUFVX3lxTE1lUTh0alhZSUtuS1FlWlZ5NDhpUXpheXFWY2E3Nm9KUGVyM1M4elB4YWVWcXh5NzdRZ3oxNzBGZTdyWkczaGhqckMtMk04dHV6OGJUU2NBRzlPeHQ2S2g5MXZTQTNmZWtFa1dNTU01ZEc3NXd6VDVYVDdFTXZvX196N0tDeHBodVJQYjItaG9uVTVLNFdMX1FqTFdnMnJDZ19XZmJnaFpVdlM3M3hTeGJxdjFaTC1JNmxnckhpdFVKLURBaU5hSTFtNENrTFFXUmFqNGVyM1A0MF9Ga2JQNzhXZnBFZ2xSeVg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxQSHJMUHhOUkR1Wmg4bVpIMFpVUTFzQnVhcXZZZG1pSnA1VUNFUHo0aTlUSVJMdUlzaFZOU1p2SF95ZXFueEZaQU04MUJiMXZyTkJCYzBrdjY2Z0loSXk0MTdHUTk5Z0FEUkpSMXZYaXhCc05fQkVDMnhEUVRic3ktQ3hhWVNTVjVpZDZGdHNpZzFYVTVB?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Ticket Alert for Taylor Swift Among Various Events
 
 - first seen: 2026-10-08 16:25 UTC | category: tour | importance: 5
@@ -491,22 +533,6 @@ Stories: 65
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMijwFBVV95cUxOMXN2SV9PcjNnTTg4M05KNDUzeFNWWkhMN1ZtamtlZDlScnJwM2NWR09ta3gyb2h6TGF2Z0JjMWE4eFpkLXpXSXhWQ2psSk1Vc1kxaU5TV2RLd2lrMnBrZ2FpZFVyNDZFU05MN3FGNlF5QS1MSnRvSk54ZkFvcVlUWGhSaFZ6MW5MNU9WeHQyNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZTFsNjEzaGVuTWd2dUpIT3Rac0dLTVlVRXgybHNFbGhpR1hkYWxyUmpRdEYtbTZNUEs4X0V3VHNiYXB6VFBzRmNfT1ZMcW5aTDF1VUttOGpzV1RWRU4yODJkMjU2U0RrUVJqbzhDVVR2TWZBYmJRc1h6NWNiWW9mSGUxZVdTTF9oMm1xWlZYcHNnc0dTV3NpRUpidw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Nominated at Kids’ Choice Awards Hosted by Alex Warren
-
-- first seen: 2026-10-08 16:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift leads the nominations at the upcoming Kids’ Choice Awards, which will be hosted by Alex Warren and air on CBS for the first time. The event highlights notable achievements in children's entertainment.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMinAFBVV95cUxPVUpXX2c2b3cxYnd6Q0stSjlfWWxCQkJsRDZGRng0NFFsUFo0b1BfU195WnNTTlNMS2tlTXF3Y2F4WEFMUklZZnhLMTVsRnY0OUVVUDczaXFJVTNZQ1JYTk5GajBwUDZkRmNLTjVIRE5aWThabS13cTlpSF91ZzZwTUh5TFhHR3ExWnVaMld6Y2szdUhiV29NU2hfREbSAaIBQVVfeXFMT2xYbkdhTThJcHdBdU05ek8tTTMtVUdzbkE2LUxvcHdvREE3bG5Vb0VnUkxqS1VzeDlwS0JmaHlWMjBsYjlsZEhPYjRma1ZfZTdKOGF5Z05VTDNOU1hHU1J6cGEydy1fRUNCMDhZTnQ1V1dLdUVzaVlrdXRIejY2ZndqVUJIa0JPMmdfOWpPRjUwU3F6R1pPMWNEcVlqMVNua3pn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMilwFBVV95cUxOUmc2QXBldGp0U1BxM2x3MEo5T240dDE4RGZfV0h3VEhhRVFRQnZ5NnJ5YjNuWU1GcDJuNC1KOEV5RzBGcHc0WUIwUEoyanphNjB6S3RVdmVjZGRDbUx0VkRMUWR6RkxySlVMbXRoLTcwejZtcVFCazdVc3FaSXhacTVrS3lZZHhyM0xnM1VYSm1pRWZJdUNJ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMipwFBVV95cUxQVE44Y2NTSmxZVDBXT05yQlEyanFOOUxSUkctcFZ4T3dEUmo1SnJKVHpKdkFYS2t6d0hmR1dod3Y3YW12MmhzaWt1Sm13YU81WDJSNG9HV2hIMWZqclIxU1FPbDhfLXpiNUluWlBzLVZmY3pyaXB6V3lYWEw2LWt4WXJWSzIxVi1FTVFsWnBnRkxTSkprLU4waVRFa1BIcGRtMDlPNy1pTdIBrAFBVV95cUxPRFZlZlFzODlPOFU0aFI5dS0wbnZHWWlHTkpGbF9SUU05aktCQlVYTFozSks2NGxKdExzdGR1ZWV0dmdlSEZZUmRYM09ESjR1T1VEWUcyX3BEVEp4ZUlPN3hvMWpjTWVpcWx3WlJRSEpmbnZ3RUo3dS04cU1fZU1yMzBIcU9mbktNWWdGbEs3RnVZc0tWcXBfaTFQSGFObUxQenhYUUZHdGprQjVv?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KTLA — https://news.google.com/rss/articles/CBMihAFBVV95cUxPanZTVXhVUWwwbG5YSWpaSDA0RGJ5NV81VGVQNkFOcmdVRVV0ajlTcWhhSkYwQUEwMmlpS18zRjBMZWJVZHRmWGlNYmpCUDFQRlNtREJvU0VqYVg3Z1p4aGF6M2pleGFQYUVzZ1VTSV9BRTVVRmpBeGlHNGthZUYyY1gzQUbSAYoBQVVfeXFMUERBenVmS1ZzQl9CeDQ5N0R5NVNYWVlKTTgzOW1PWUJNRjhTX3VZdXJOV3pUTXRWR2laNERuOE8xei0wNGZDcThxM3JzbUpYazUwNTZ1R0F4S0VnYVlyNnUwMURVUWNySk5uZ0JfU3M3NjEteUV2UXJhaUJrMFJFdk1PbGJnb0ExNGh3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOVjdvd1NtWF9sS2Vmc3NJNV9NeGtkQnFOTzkxNE85R0JkU2lseWVCV0lwVzhkS2dMaDlBeVl6SnZjRVVhRlNlQTFjMVhLX3lQUlVrN0dlLVc0Nnp4TV9Bam9RaTNmMXlSNW9zRHJsak05cDJSejhscGlHUGdFOWlkN1h6cGwzOWJGYTBEcE9CNzZKWGY4MDIxTU1rSnFCcHlCR0stZkNTcEtxcC1nRmtVOXVXb1NKc2szM2gzd0MwbGVickdnWXdObGI4TXU1UF9iTDBraWtYTDlzcEpfUWg2VnF3M1M4OVlG0gHoAUFVX3lxTE1lUTh0alhZSUtuS1FlWlZ5NDhpUXpheXFWY2E3Nm9KUGVyM1M4elB4YWVWcXh5NzdRZ3oxNzBGZTdyWkczaGhqckMtMk04dHV6OGJUU2NBRzlPeHQ2S2g5MXZTQTNmZWtFa1dNTU01ZEc3NXd6VDVYVDdFTXZvX196N0tDeHBodVJQYjItaG9uVTVLNFdMX1FqTFdnMnJDZ19XZmJnaFpVdlM3M3hTeGJxdjFaTC1JNmxnckhpdFVKLURBaU5hSTFtNENrTFFXUmFqNGVyM1A0MF9Ga2JQNzhXZnBFZ2xSeVg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5BYVZudmdFZU50WmdSYkYyY0pCMWZja3JLUWRLdW9hRlBoaDVhTTFmYVlYdXV0b3hqUk1NYnlnb1d6TE4xT21Rb2ota2U0U2JYOVFpY0dhalRtZzdKWV8tZUZ6NDB5NkI2b0lySlNicWZveUEwcEU4OWhhckI2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkRQeVAxTHBOc1g1TVdwelRtMkd0QXctNXNlN3RMNXBfQTJ4NlZ0dmxsNDVBVFV6eTFtWTRpTEIzOEFaSkhqNzYxS0RxcVB1V1FLODFuU1hpYzVFSmxWRFl1OXVYdXBOQU5ybUl0UXFNR3ZWSjFFaFpGS0ZIZHpVRV9MRURtNkhra0xTWUY3RXVYZWVkZzQ2bG5vdEFBcGNOenJUakZNRm91SUFQM2lqcg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/2026-kids-choice-awards-host-nominees-where-its-airing-1236724873/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMilAFBVV95cUxQSHJMUHhOUkR1Wmg4bVpIMFpVUTFzQnVhcXZZZG1pSnA1VUNFUHo0aTlUSVJMdUlzaFZOU1p2SF95ZXFueEZaQU04MUJiMXZyTkJCYzBrdjY2Z0loSXk0MTdHUTk5Z0FEUkpSMXZYaXhCc05fQkVDMnhEUVRic3ktQ3hhWVNTVjVpZDZGdHNpZzFYVTVB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's 'Cleveland!' Explored in Northeast Ohio News Quiz
 
 - first seen: 2026-10-08 16:25 UTC | category: music | importance: 5
@@ -549,28 +575,3 @@ Stories: 65
 - summary: The release date for the friendship bracelet featuring Taylor Swift and Caitlin Clark has been confirmed, according to Yahoo Sports.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxQem1Bb1JsbDBUaWYtRGpwU2dRVjhLTFBYbUhMeU9zS2M3NTdWQnFxNWtUZWxodWxmdDN0WlFaeEdZOGJPVkI1VmRiVTdFcFZBRFlMQ21IVXk0dWI1NnV4YzE5RVRSTVFPSDJSRkNSU0U5Q01FNWlzRnd1RXlMdGJPY3pKMHVyY0dUQlVmMENn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Displays Swimming Skills in "Patient Zero" Music Video
-
-- first seen: 2026-10-08 07:17 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases her swimming abilities in the new music video for "Patient Zero." The video highlights her athleticism while featuring her latest musical work.
-- sources:
-  - [unverified] SwimSwam — https://news.google.com/rss/articles/CBMinwFBVV95cUxQVGVSZkpQcnMyaDZscGJVeVhCQ19rNUY0ZW5CdzZ1RVZqYk5yU3IyNkxpR3RucXlIMFpKQ2J2WTFFbTAwOU1wZGgzLWxESGszZ0RyN1RfZ08wX3R2TzBoTlRVYzBFYmxGNThKanRpaXFXVk1xTXJFVjRQQm1xeFdRTTFuaVVxQzdYaC1JNC1LUHJoSGlzdURUUDhJVHdneVk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Celebrate Birthday with Coordinated Looks
-
-- first seen: 2026-10-08 07:17 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's birthday celebration featured Taylor Swift, highlighting their coordinated outfits during the event. The occasion showcased their style and camaraderie.
-- sources:
-  - [unverified] NBC 4 New York — https://news.google.com/rss/articles/CBMizgFBVV95cUxOUXBHTEdsdFhlXzVUb2lBUm94b0JKMFdFNXp3WEFwc1pDdmJNQy13OUpBaEhzbXhPSjd0Yk1BNlFjRVpyUkVncWZFREZaSDFXWFVMbUM3enMxT0oyZVh1LWl3S0Frcko1YTh2VEppRTI0TDRCY19hVkd1LUJYZ2tLd2d3VGs5RUQzTjh6d1N4Qk84VG1uZV9PeEdtdWdxZmhDbHZVZXpqWk9zTFg5SllxVWI1T21WVmtpN0JRZkh2V2NuWTBfY1hfNk9yWlAwd9IB1gFBVV95cUxOMlJLT0V0MGZTYXBQdm5PTkRjamZpWnJyYUZmazlmZThKNHBJdENaSTJnaGZuNTNsYWxpVWlzaUhrQXMtZm0tZDNmRW1XdUJXMGxWLW5WVUdYUXFXbnZRY01TWWtTYlJjVjZTSElEal9TQnFLYUowTlZWMXc0VDVuUW5fSFNoODNfMWY1Y2lqLXEwbUdyYURSdXhodjlrME5oYU5WeUpBOTdfU3Z6V1VDOV9DSmRNVFVEM2p6dklkUk1jVmVvVEdxR2ptVmd2MmVNbmZrbzlB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Highlights from Birthday Dinner with Taylor Swift
-
-- first seen: 2026-10-08 07:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce discusses the most enjoyable aspects of his birthday dinner with Taylor Swift. The event details his appreciation for the time spent together during the celebration.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeHF0LXVYMVdBTFl6Sm13RXJ4Ulo1N2ppTVZ0SzlFNGFBaVZCU005Wkg3Q3U3Sk1oNmk4VlhOTjQwajl1WEZIWWNfQW01Y3lBdXBteGNkZngzOUVIblVLTVdsV1BYa0NYMzdDYVpsem9pWEExbmRTMnJGbkV5bGxiVWtsUVNGUmxMSFVFeFJtTlNpMk9mOHRWQ2lRdDM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkJxOEJVVm9ZdFdUNERMbWdoUmdDbTZvQWk1YkZzNlBfekprOFVUaE5SbjJXMEk0eWQ1NHA3UjhYZzJtWEQxWno5SWIzc0tjSmNSMVBNWENMZHhpbVd4Qy1aVVF6Q1h4RGpVMDhzMEFOdzlaVi04LWpkaXNDZ3NtSWhIWVlBb0xKTGNTcjZTYWFLRFVoaGRlWHFKWmRRSTRHb1E?oc=5&hl=en-US&gl=US&ceid=US:en
