@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 65
+
+## Taylor Swift and Travis Kelce's Ohio Fence Receives Approval
+
+- first seen: 2026-10-11 07:07 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have received approval for their fence in Ohio, but a neighboring resident is concerned about a potential $75,000 sewer bill.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNSjZyemxualZ0SGZwOHNfUUJ2ekg1OUxBanBDem1rdDZmdTE0bWRBeGh3V215S3RhdnI3OTZTQzVKeG9QV0liTUVweTBSdm1xQjNmdTVnUlQwVlp3YUt0dnpPa2trN1hvak1ObFdKYkttX083OTRxUW4zaURvVHVWek40OVliWE44Z1c1eE9KeHRKbUtmOWcxc0MyR09fMUp3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Seen at Guardians Game
+
+- first seen: 2026-10-11 07:07 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce was photographed attending a significant game featuring the Guardians, as reported by FOX 8 News. The appearance drew attention but did not include further details about his presence or activities at the event.
+- sources:
+  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOc245NHhUZ19mM2UwNndjYl9jV1N4MVFTTXd1SHF0VU5BeXRaRFFlTnNibVd1SE1LTHo0VnE0cjdUNHRya3pOcmFRVUJydEI2aTFHZjRrTTdFQy1wcndEcHZ6X0w5cmFKYWNHQkVfaXE4UzRZd0ItSHY1SWQzenFlQ3FJN2RHczZkTFVDUXpNWHBxZEo1X1FwYWNZTVFfUFFsODlmWWJNRWh3UnB4YmVyUFgwOEQ0cFFKaFRFQ0dZbGVnbjNISC1SZklkNHA5M3c2bENxVVRuVU5mdGQz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWEVrSHNDTnNkYUhUcUZVRmFyNjVHaUdZQ1pxNGI0SEVFazFvNWFhYjgyTUdELThnVy03Z2ozUkFLTU1HaV9jWE1EbnNCZkpPRkE1LTJWSno0dXFVSUdYcDg4T1h0N3I3eWxxaDNsMWUtQkMwQWpSS3JHdFJ2M0VRa1E3NzJxRkt1QWfSAY8BQVVfeXFMT2xDcDZyV0p6ODFhX3B1SE1Pc3FRNktnQ1BCTE9TT1RDd0JmZWJVMTN3UmlLNFRvOWxPR202WDJkcE5SOGM5RXVfN2ZxZW5ndmF2NFZJQ3NCUEhsT0gyV0tBdjVCLVdneDhEc1Z3cTRCT0dRMUhSRnQxeTNnRFlSYUM5NHl3eXFmOEt6alZqODA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seeks Trademark for Four Common Words
+
+- first seen: 2026-10-11 07:07 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is pursuing the trademark of four familiar words, with intentions linked to her brand. The move has raised questions and discussions around trademarking common phrases in the industry.
+- sources:
+  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMirgFBVV95cUxPTDk0dVU2ZmUwZ0xMMzhwNjIwMmJwTC1qbTZpVVdzU09aQ3gtajFOczZObm1RVVFPTTluNk5YeE5HM1ZybF9vUFlGSHVHRkwxSFV0aDNqLUFka2o4d2RhQXNYbHFpN1RXWWNWdmQ2bGJJb1dIWHVNa0ZSOTFvWEhSR1AxMnNwQkdvWTFxbkJza0ZvSDNkLTdUc2RZYVJ6ckVTV0g2NWtzdGhGVTEtSlE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's $4 Million Pledge for Nashville Education Centre Remembered
 
