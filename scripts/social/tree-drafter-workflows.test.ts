@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { TREE_DISPATCHERS } from './tree-approve-gate.mjs';
 
 const read = (p: string) => readFileSync(resolve(p), 'utf8').replace(/\r\n/g, '\n');
 const jobBlock = (text: string, job: string) => {
@@ -43,6 +44,44 @@ describe('routine-tree-daily-draft.yml', () => {
     expect(receipt).toMatch(/needs\.run\.result == 'failure' \|\| needs\.run\.result == 'cancelled'/);
     expect(receipt).toMatch(/draft-receipt\.mjs --kind daily/);
     expect(receipt).toMatch(/--file-issue/);
+  });
+
+  // #5520: the agent's social-tree-approve dispatch 403'd on claude-code-action's
+  // own installation token. Both halves are load-bearing — the workflow must hand
+  // the PAT over as GH_DISPATCH_TOKEN, and the prompt must actually prefix the one
+  // command with it (routine-template.yml does not change the agent's default gh).
+  it('hands the agent GH_DISPATCH_TOKEN, paired with the PAT it exposes', () => {
+    const run = jobBlock(wf, 'run');
+    expect(run).toMatch(/expose_dispatch_token: true/);
+    expect(run).toMatch(/checkout_token_secret: SOCIAL_POSTER_PAT/);
+    expect(run).toMatch(/SOCIAL_POSTER_PAT: \$\{\{ secrets\.SOCIAL_POSTER_PAT \}\}/);
+  });
+});
+
+describe('Tree clears its own drafts (#5520)', () => {
+  const wf = read('.github/workflows/routine-tree-daily-draft.yml');
+  const prompt = read('docs/agents/runner-prompts/tree-daily-draft.md');
+
+  it('step 7 dispatches social-tree-approve with the GH_DISPATCH_TOKEN prefix the template documents', () => {
+    expect(prompt).toMatch(/GH_TOKEN="\$GH_DISPATCH_TOKEN" gh workflow run social-tree-approve\.yml --ref main -f pr=/);
+  });
+
+  it('keeps the prefix scoped to that one command, so comments stay claude[bot]', () => {
+    // Exactly one prefixed command in the prompt, and it is the approve dispatch.
+    const prefixed = prompt.match(/GH_TOKEN="\$GH_DISPATCH_TOKEN"[^`\n]*/g) ?? [];
+    expect(prefixed).toHaveLength(1);
+    expect(prefixed[0]).toContain('social-tree-approve.yml');
+  });
+
+  it('the exposed PAT resolves to a dispatcher tree-approve-gate.mjs actually accepts', () => {
+    // GH_DISPATCH_TOKEN is the job's SOCIAL_POSTER_PAT, whose login is
+    // `sffan15-sys` (docs/social/RULINGS-SOCIAL-2.md; confirmed live on ops-fix
+    // run 38162236364, triggering_actor=sffan15-sys for a GH_DISPATCH_TOKEN
+    // dispatch). social-tree-approve.yml gates on github.triggering_actor, so
+    // getting past the 403 is only a fix while that login stays a TREE_DISPATCHER.
+    expect(TREE_DISPATCHERS).toContain('sffan15-sys');
+    expect(jobBlock(wf, 'run')).toMatch(/checkout_token_secret: SOCIAL_POSTER_PAT/);
+    expect(read('.github/workflows/social-tree-approve.yml')).toMatch(/ACTOR: \$\{\{ github\.triggering_actor \}\}/);
   });
 });
 
