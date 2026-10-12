@@ -9,6 +9,13 @@ replaces.
 Strategy: `docs/marketing/social-strategy.md`. **Covers 2026-09-28 → 2026-10-11.**
 Written by Tree's run of Monday 2026-09-28.
 
+**Carry the RE-DRAFT line below forward into any rewrite of this file until the
+daily run has drafted it** (it is read from anywhere in the file by
+`scripts/social/lib/draft-inputs.mjs`, and it is a promise already made to
+Marjorie on an open ask).
+
+RE-DRAFT ask #5541 by 2026-10-14: re-book the stranded 10-09/10-10 drafts as a fresh same-day beat — the Community Engine day 0 announce, minting a NEW story-unique `launch:community-engine:*` value, gated on seeing the live surfaces first (invariant 6). Do NOT re-draft the 10-09 easter-eggs/Karma subject: it shipped 2026-10-09. Fresh photo, fresh opener; never re-file a stranded item.
+
 ---
 
 ## 🟢 THE CHANGE THIS FORTNIGHT — the photo drought is over
