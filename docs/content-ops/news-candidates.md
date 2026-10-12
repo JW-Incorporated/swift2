@@ -25,7 +25,90 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 52
+Stories: 51
+
+## Pop Star Criticized for On-Stage Actions, Taylor Swift Mentioned
+
+- first seen: 2026-10-12 18:57 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A pop star has faced backlash for what some fans deem an "unhygienic" move during a performance, prompting discussions that include Taylor Swift among fans. The situation has sparked debate online about concert etiquette.
+- sources:
+  - [unverified] Bored Panda — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSkJvaUVWMDNkUTMzeTU5dWxXbmd5UURXRy11Z0xBS3hOMWNtRDlFLXhWSkdFVkJJQkROeEZYMzlZMzBnSkpxUlpVcTIwYWJ6VF9HaTJvYmNFZHEtc3ExR1V2SGZETHZMdGVaYWhOdk11ZUlhNFVMNXFGWVExTnNQUV9vVUlFSUpNcFBkd3Jlbkt5M2JEQko0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives News Following Date with Travis Kelce
+
+- first seen: 2026-10-12 18:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received noteworthy news in the aftermath of her recent date night with Travis Kelce. The details of the news and its implications remain unspecified in the report.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Grammys 2027: Swift and Others Expected to be Nominated for Record of the Year
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: The 2027 Grammys race for Record of the Year is shaping up to be highly competitive, with Taylor Swift, Ella Langley, Raye, Olivia Rodrigo, and Olivia Dean all expected to receive nominations.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-record-of-the-year-predictions-nominees-1235640528/
+
+## Taylor Swift Achieves Significant Career Milestone
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Over the weekend, Taylor Swift reached a notable milestone in her music career, as reported by Complex. This achievement highlights her continued success and influence in the music industry.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOUJNSHg3TTFfY05iM2Zhc3ZDdVlWM2RXQnZoTUFBTXVoTVFfWVVkbHZWZHFORjd0MG5BNXhtMlNOMmJoTWJIV0t0Sk5wRzE3VjZxc1BXVTZ3bWJsbXFmRm9UdE9WbTUxcDJsVVM4ZGl4Y0Vma2kxemJmUktPdlJONFM1U3RrQ0ZnTlVveFB1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Eras Tour Dancers Share Their Looks from Taylor Swift's Wedding
+
+- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Dancers from the Eras Tour, including Jan Ravnik and Kam Saunders, have shared their outfits from Taylor Swift's wedding. The shared looks highlight the fashion choices of those close to the pop star during the event.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMiggJBVV95cUxPMVJUMjh3YWRkbzFDc0NQOVdnV2xYLUdHaF94NjI3Ti03M3BWQXhmZGJ5eFVtVlpuNmRQU0JkY1RBY1plc2VsSVRKR19CSVFBeFdoUGdhX2NuN3Njbng2eUdQVWRCQmVfMmN5YVltbXZrM2E0T2owdENKNk9DRFNpd2dTX19tQ252S0Iyd3FrUEdicUQ1V0hNSWU1djBEaWFmd2VubllOOFo3cnk2MlRhczFaeFIxQWlmY1BlR09HQ1hHc0stR0ppS0RvdWR0TGp1STFCYXU1X0dCMy1GMTI5ZlNBalptYUQwbVZ3QWdQTklQQ0VVdXRPOVQ1anVsZG91Rmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce's Aunt Creates Unique Jewelry for Taylor Swift
+
+- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's aunt has commissioned a special piece of jewelry for Taylor Swift, incorporating unique family touches. This one-of-a-kind item highlights the connection between the celebrity and the athlete's family.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxNNUtlWk9fT0dXT3FPdVltZlV6YWpvQ0hOZm9MRkhZeV9lcVJiNEhwVG1QUHNUTnNWaHZRVXFOSHZrcm4wU0ZMUXpTdTRWcnpSNjdfTU1kanBOaVZCd3ZvSGVkTTQya1lNU1p4ZGlJY1V1cV82UVhmTTdpWXdxdTRsYmZFTHRIQTZ2SXVTY19wM3k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reaches No. 1 on Billboard 200
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved the top position on the Billboard 200 chart, marking another milestone in her music career. This accomplishment highlights her continued popularity and success in the music industry.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE9uRTNBLUdRMFdBZ212UW5wNUtVZS14U0wtR01Yb1V1VzFydUdQQkczd2FJa2NkYWV1NTVJa2tjaWZXSTJPUGZDZHhvUDU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Competes for No. 1 on UK Singles Chart
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is currently in a competitive race with Sienna Spiro for the No. 1 spot on the UK Singles Chart, according to CelebrityAccess.
+- sources:
+  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaV80UUNHUXBINy1ibzY2dDhsWXhUVlkxZDZyVnc5V1ZsSkQ0dXFkbWx5cjZxYmtTU0FkY2xQTUlDZlR4Wm5qMEItYXBZWXhXQy1MY1A3a0xLQXlqZ090TlQ5ZmRGdjYwcjNEcEFJOGc5dE8xV3NnWWRlb3BTUGxYcHE2bm9OME12dnNyZzJ2ZlZyeDNMWi01SnhPNG81bG9wcHY1UW5FT28?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring Taylor Swift's Favorite Perfumes
+
+- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article from Prestige Online delves into the fragrances that Taylor Swift loves, providing insights into her personal scent preferences. It highlights how her choices reflect her unique style and persona.
+- sources:
+  - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxOQUlDUGwyWDhncjhJYkRTR3hWODZpbEVBV2NNdkhRTEdFM01Cb2ZKRW5GSVM4Si1jdE9zOFlyZC1fbERETDZzMkFESkcyb212a1hsTlN0TlFvY3owNWpJWnplNWZob2NyVjFYbVVpMWZ2Rm04VzhRUEFvNk1HU1ZiWDNBM0pnWnprZWVwcjBFb2xtR2Q4UldFTTI3a1c4enE5MUJn0gGoAUFVX3lxTE1FQ2p3Zlp3ZV9xOGpBRTd6RGZwZFZKTlJ4ajgxRmVSVUxfVVpSTW43aVZwLXFJdmdGX2ZHc3F6WjhoSjdIaVl2TzhIU3IxZFI1YVo4OEt1bHJLTW4yNEkzRVZhMTRWUjZScWFyLVFEUjBNaVk1enV3ZFlKenVKeFJSVy1fS3A1NFB0VmtMdTdtZGV1NUJTaHhuUW05bi12ZFRxZ1RJMXk2eQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves 100 Weeks Atop Billboard 200
 
@@ -364,96 +447,3 @@ Stories: 52
 - summary: Taylor Swift's newly installed fence in Ohio has sparked negative reactions from her neighbors who are not pleased with the changes it has brought to the area. Details about the specific concerns have not been disclosed.
 - sources:
   - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOaTNsbXMxTzBOUUVUZm0wamJuVnU0eEkzNnM5UnBsMHpGZjY2RmxJWTFRZTItS296LTllbm5PSGlpb05sVVBDTHR3Y1htOUhxQkx0bWRGS0ZRU0dDeEdHYnpTdDJ6OXVfVHo3a2M0OXVfWS1pcXNYbzRnLVk1a1RrMjBCVHZkVkU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mariska Hargitay Impressed by Cookies from Taylor Swift
-
-- first seen: 2026-10-09 16:08 UTC | category: fashion | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: During a secret shoot, Mariska Hargitay expressed her admiration for the cookies Taylor Swift brought. The encounter highlighted a friendly gesture between the two celebrities.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRENvYXBsTWlxalo1cWRBaERFRi1mWlZkdDg4V3A1emIxbHNQdDF2czRNWm9MS0gxVDlHXzQ4OElaLUR0ZEIza2E4ZVlPNEJiUHhSOURIOXdEQ0ZId2w3cFdyNmM4ZHlUd3hvVzBVU0tHNmtYVmhTcVk3WXRadVA3cnZIT2hRc2p3Q0w3RklPeXlrSUwxcnZ5VDhycVVhV2M?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Lorde Reflects on Final Shows, Quotes Taylor Swift Lyric
-
-- first seen: 2026-10-09 16:08 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Lorde quoted a lyric from Taylor Swift as she reflected on her final 'Virgin' shows, saying, 'It Was You & Me All the Way Through.' This highlights the connection she feels to Swift's work during this significant time in her career.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipwFBVV95cUxPZ3V1cnBaVl9ZS2hLLW9xdFhhcGwzRmlMS3B2aDY0VldzSXppSk9xWUdMQjVWeWd2cDZsZ0RBbEdqbS1mX0VOaVpJdUR5M2VXY0x3RG9hS3VITXozVlBNM1lRVzB3UW5GMmZKWkFiR2VGOFkzU3VOYUdSM1o1eEpYQy03QTBwRDBqU1VScDBuSkFHd1lpdDllMW9meVZLZE5VWlotVkN0UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ohio Neighbor Criticizes Taylor Swift and Travis Kelce as Absentee Residents
-
-- first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: A neighbor of Taylor Swift and Travis Kelce in Ohio has voiced concerns, calling the couple 'absentee' and claiming their presence is a 'tremendous blow' to the community. This criticism highlights the impact of celebrity residency on local neighborhoods.
-- sources:
-  - [unverified] New York Daily News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQN1FndXdOc3U2NW4xSnQtbUhZUkc1MjMwRm0way1wU0xBN3p1cC1zdllOUTMzRmFETHZNVHAwWnl1Y3pnT1hOVUNjODBSdkRtdXdaS3NoRXRGdmxILVFTcXNJcHFsWTdkM1RJRFdSR3JZWlA5UWUwUUhlYjAwY3NMQ3MzeDN1STktTVc5RTlhSVhLbDg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPc0x1dUstQXR3V0hJX1ZpbDVValU5bHlqSUgxMGtDZkI4dHA3WTlER2w1TEtZNUFZLXU1QUdINE1pZkJSazBNRXdDbzJVZHBRN0hMa0dDb3g4M2F1cUc1Zjdfc2FQYmJHTk5lUXE0X2lxQ3RKRmZ6Y3JLc0d2WU1CRHNfRHMzbWNfcWhHV0VRMzNxeUp3V3hNVXdYUTFPYWJNQm5qdW9fMXhfdmlIWVFTa1M4UlJ5Vy1SMFRUazF5aVhxdk01UXZObWFQeTZvRHNCWUVicQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Porterville Recorder — https://news.google.com/rss/articles/CBMihgJBVV95cUxORWlUU3J0WG5DdnFGR1dHaWowV1hsUE5QaHczZ3lSWnlHS3RHdzRuQ3Rrdi1YWllDV01PeU1MaUdYRnpFOFZTT1BCOVdBU3VkZFZ2UGdyZkRWWFpiYkcwUkxZSGxPYTAtRkhIb2NyU0NCREVZTmJjWllZRFNmc3FzNGlRSG9XQWtRa0NhS0Z5WFdxV0N5ZnhEY1BrNVdPTmk1a0dwUkZraVJ0alBKbTJkWGl3c0J1dUtMWjdRUG1nMDZibVJaOUxIbXdlakY1blVSd2VtRGxQZC1IZ2FlRk9hcXozdE02VVg5Y0JaQkI1VWFDbjV2bHhsSDNPb1dmVUU3bXJVUzlB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMipwFBVV95cUxPQTU0SENuVVIzVVBDUk1JaHpNMjBQY2JRZWJBVXBObWdfRkpDLVZSREhOc01hb2dvTGtPc0pZRW5KZ2V6WU54QXR4RFpYZWw2YUJ6aDJ5UWJqbURwWkQyMVpjdDJ5eWZNTXBOTzBwTU5FVTRQZzNETnhaRlpaNTdSNGxFNWxlMWhfbGRrSkRrTi10c0VXYXVMOERIckpSMENrencxdHd5MA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Mercury News — https://news.google.com/rss/articles/CBMikwFBVV95cUxQZTFKdUNNbUhBeE1rZXlWUFNPY1ZTeGFmWWtoMG52WUJoNFAzV0ZoX0xtZWZjalVhVl9SeC1fdE92LURza2duYTVXQ3duNFVndEZ5OW1qTWVGMkMtc0drd213ZGYwSTc1a3A1clZXNmF6dHhpLXFVNW9BX3VVbHJ1MDAzUFVEVnJNMUloWEt6Y3VwaknSAZgBQVVfeXFMTU9iWW5nRE1QR2lmZ0FJUDl2QXAwM0dqYmJQM0dVMm1lZWxtYjU5UXhCcWNEMWxWYjRWSlRjSGw5RzQ3Vkw5YnRMdUU0YWVVQXRxcE9jcTNSTVlzb3dsRmVILThBdW5kUUFIY3VSa3ZEU2Q2RFhGWEtVS3BmeVJnTlRyQnJpT2N5RXNLODR0LUFxV2pWa1dhX2w?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Perform at Academy Museum Gala This Month
-
-- first seen: 2026-10-09 16:08 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is scheduled to perform at the upcoming Academy Museum annual gala. The event is set to take place this month, showcasing the artistic contributions of the museum.
-- sources:
-  - [unverified] Blooloop — https://news.google.com/rss/articles/CBMiakFVX3lxTE1JbXBQTm5xYXItaE40Z0RjVjNyUTR5MFZMV2ZlMTBEMXZ0S0wtc0p6czk4N01PM0x6UjV1Z2gxVXUycHpGRkNWeFFKLU5HRW1Fa1V3aFJ2V0Fjb291bUl1cEdzSkxhbWwzb3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Encounter Opposition on Ohio Home Plans
-
-- first seen: 2026-10-09 16:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing backlash regarding their plans for a home in Ohio. The nature of the pushback is currently unspecified.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMivgFBVV95cUxOMHpmU2t1M2IzZlFJSXhVVzEtakJranpmMkZka0NESW9xeVRvVF92N0RYTndoZTRTM2xscDMzWUlNc0VjQnhRd0x3b0FHd0tweHZROHFKRG1CS19NYW5OLXNlMk5FM2U0SFp1TzlwYlloRW9UNkplTlBsWEp4VWtZelpScXZEX1g4dks5b0oyX3ZobEdBcWRNdThuS0pjQnBxbW53UHEyYjVBOU9hM3VNUVRqWnBCUVJZX2lMSVR3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of ‘The Life of a Showgirl: The Encore’ Raises Questions
-
-- first seen: 2026-10-09 16:08 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A review of Taylor Swift's performance in ‘The Life of a Showgirl: The Encore’ highlights unanswered questions about the show. The piece offers insights into aspects of the performance that may leave fans contemplating more about the experience.
-- sources:
-  - [unverified] Observer Online — https://news.google.com/rss/articles/CBMipgFBVV95cUxOY0s4cFpyOWVSSWVqal9ybWd1NjJBdkx1RlVmSzJqT1U3d3NVemgzYlpRTzdqMTFyMFQxMGp4cmVyczdYRFI2WkR6LTh5NE1tYnFuQW1lV0lNczFrWjVZWFY0LWh3ZnBFU1lULXFaaHJ2TnNIb09nVks3RmF5eEpYMUNiQ0x1aWhuVE5rUlB1b2RUMWtIZjc4dG54aF8zUDlMcllBejln?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] thestatetimes.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxQM1dZdndPR1hHbENzUjZXSjRfbDlCNGhvN0NmZW5NV3hMSzR5M3BMWGdOUlk4bFU2TTY2OWk1Q3FaRFJkT3pDeS1FVXFmVmVKT3htZ194eWZvRld4bGlac21TbE5iVmRhLVRQanBRWEFvbWM4QWdNOWFUSkNzaUZnanhmSy0yd0VnaW1BOVJ1MHBaVnEwNlNFRmppN1I3UkdMOHFFU1J6cUdUMWNiMndR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Neighbors Oppose Fence Around Taylor Swift and Travis Kelce's Ohio Home
-
-- first seen: 2026-10-09 07:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Neighbors of Taylor Swift and Travis Kelce in Ohio have voiced their opposition to a fence that the couple plans to build around their home. The decision has garnered attention as the couple settles into their new environment.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikAFBVV95cUxOVExQN2VmU0xJSGgxcVItZVJsR3doQnFhU2pqVEVIS25MTG45bGpKcktEZi1qbDBnQWR3ejZwVGwybEJWeFpuWTBoU3F1UzJXUWZ6cHVxRFJQMFhIYVhtSnh6TUlfUkR3b1hRT2k5eGVWNWNfRFlrMWJvUnczd0pWN1RScXRPbTc4MWpEbWxwdks?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mariska Hargitay Unfamiliar with Taylor Swift's 'Saccharide, Aries' Easter Egg
-
-- first seen: 2026-10-09 07:20 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mariska Hargitay expressed uncertainty regarding the meaning of Taylor Swift's 'Saccharide, Aries' Easter egg, as reported by Entertainment Weekly.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiogFBVV95cUxQbW1RRzVsTE9nUVROeF9LOEFIWkt2VUpMM3hPaTRaQ2NvX3JYX3NIS3o3d0JHSjNKNEJNQ3pmU0F4RE1ObE10WEsxRm54QVdBQ0l3Sjh0dVZySVhfaC05T3hYaEVfLXRkSVd4LXNTLW50QUhHT1hnY2tXdlNQNTdTWjdIU3o4ZzE2MDdkRHhLWnhSeFBKMTdiRnIyeDA0b3U0aGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Fall Fashion Inspires Dressing Trends
-
-- first seen: 2026-10-09 07:20 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift's recent plaid dress and tall boots, highlighting their influence on fall fashion choices and providing similar style options starting at $7.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE03bEpMdHZZV2tDZWw0N3RHZ0dvSW5lU3hWMldSeHBqcVVaelZ0eS1lOUp3S1hvNElhNU1fRmRyUWhfRmJQbTZueGpGLS1vbFJISUZUcWx6c1ZiYVdTVTlOeXVyanRhZzdHMXkwY2hOWXBaRzU5SWl6R0R2ZWU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Embraces Fall 2026 Fashion Trend
-
-- first seen: 2026-10-09 07:20 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases a bold and edgy look in line with the Fall 2026 fashion trends that are gaining popularity among style enthusiasts. Her new appearance has caught the attention of fans and fashion followers alike.
-- sources:
-  - [unverified] www.instyle.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE5UNG03a0JZRnZwMmVMcU13dHUzMGQ3OENZbGsxcjFXaDN4VTNTd1hjZHpXMUZldUVia3poVDZhc2Fyd2Y1bGxkQzNRbVFEQkJGNklMVEUtWEhIb2x3QWdsYWU5N1MxNExZWnVaUml6c2pKd0lL?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Vulture Reviews Taylor Swift's 'This Is Her Trying'
-
-- first seen: 2026-10-09 07:20 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Vulture has published a review of Taylor Swift's song 'This Is Her Trying.' The article discusses the themes and musical elements of the track, offering insights into Swift's artistry.
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMikwFBVV95cUxPTmNmRGhpc21aVEF6S29qOW1PYTBYWHpfV1V3dWVMVzRiRU9YR25SOGI1VTd4LTlCX0dINU5NYnV5QkNTT1cyaFFxOHFCWXZnOVhVMlhwanVFeV9xTzRhUUZwdGZLM3NUREFqUjFfLUJpR0VPZGdyREN3Z0V6MWZYSTZ2djFVWWoyOE5jQjVUbHFqY00?oc=5&hl=en-US&gl=US&ceid=US:en
