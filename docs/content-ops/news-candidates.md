@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 51
+Stories: 52
+
+## Taylor Swift Achieves 100 Weeks Atop Billboard 200
+
+- first seen: 2026-10-12 07:18 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached a milestone of 100 weeks at the top of the Billboard 200 chart, as reported by Country Insider. This achievement highlights her continued success in the music industry.
+- sources:
+  - [unverified] Country Insider — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQLTBpLXdHZ0kyOFE2X1JtRGlqUnVhX251MGFnNEt3X2ZaUFVyNlNvUHV4Szk2N2NDZ19jby1kNzFuZm5MM3hfUWZHUjBpcmNueXFrbTVQZk5WMXY3d1lWLUsxOVh0WmlzWHg1NUJDVWkzS1pnNXdfRDhwVmh2ekxNQTZGVTlwSkp3X0J3Uk1hZ0ZPSDF2U29IWTdkVERqUnY4VTAwc1VKWFFUOGc4NTZSRUhUR28xUS0tallFN2p2WWFzcXh5NTQxWnRJYlE0ZnlC?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Celebrate Birthday with Date Night
 
