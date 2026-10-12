@@ -734,6 +734,53 @@ schedule one — what a plan can do is buy a ticket every day.
 
 **Standing blocker, not a new ask:** monthly IG Insights (top 3 posts by reach/saves) has been requested every month since 2026-08 and has never arrived. Without it, Tree cannot tell which content/format actually earns shares — the single most important number for tuning this plan — and every "double down / drop" call in the monthly review is a guess instead of a measurement.
 
+### Experiments — the live one and how its arms are assigned
+
+**Experiment 01 — hashtags on Instagram — is live, under-powered, and extended
+to 2026-10-18** (answers Marjorie's ask
+[#5542](https://github.com/JW-Incorporated/swift2/issues/5542), 2026-10-11; the
+experiment's own origin is ask #4722 and its full protocol is written out in
+`social/calendar.md`'s Experiment 01 section).
+
+**Why it is extended.** It has shipped exactly **one** tagged pair — 2026-10-09,
+`thread:easter-eggs:behind-the-data:2026-10-second`, IG reach 1 — against one
+untagged control from 2026-10-02 at reach ~1. One-versus-one at reach 1 cannot
+tell a working lever from an account nobody has seen yet; it is a coin flip
+with a label on it. The shortfall is not the design, it is supply: the posting
+engine ran 2 of 7 days last week.
+
+**Binding on every calendar written before the readout:** every Instagram beat
+planned from 2026-10-12 carries an Experiment 01 arm — **alternating, starting
+TAGGED** — until at least **five pairs exist in total** (the 10-09 tagged pair
+plus four more: two tagged, two control). Counterbalance the arms inside a
+campaign family where the window allows, so hero-versus-second slot position
+cannot explain the result. A news-reserve beat is never tagged and never counts
+as an arm.
+
+- **TAGGED.** Both halves of the pair carry the `experiment` object verbatim;
+  the Instagram caption's last line is 8-12 **mid-tail** tags — the era or
+  album, the post's actual subject, the fan-practice tag a Swiftie would really
+  search. Never mega-tags (`#taylorswift`, `#swifties`, a bare `#erastour`),
+  never a tag implying official status, never one naming a real person or
+  touching the #36 blocklist. The X half is unchanged and untagged.
+- **CONTROL.** No tags, no `experiment` object; `why` says
+  "Experiment 01 control".
+
+**Readout: Tree's weekly plan of 2026-10-18**, from `social/metrics/posts/` at
+48h per post — IG reach first, then `like_count + comments_count` — reported as
+tagged mean vs control mean *with the number of pairs it rests on*. Fewer than
+five pairs by then is reported as "still unreadable, n = X" and the tag block
+stays on by default rather than being judged on noise; five or more decides keep
+or drop, and dropping it means deleting this section rather than letting it rot
+in place.
+
+**The dependency, stated plainly:** four more pairs by 2026-10-18 needs four
+more days of the engine actually drafting Instagram beats, which needs Tree's
+weekly calendar routine fixed
+([#5470](https://github.com/JW-Incorporated/swift2/issues/5470)). If the week is
+short, the experiment is short with it; the arms above apply to whatever beats
+do exist, in order.
+
 ### The monthly self-review
 
 Last Tree run of each month, appended to `social/calendar.md` under
