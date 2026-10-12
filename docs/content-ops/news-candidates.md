@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 57
+Stories: 51
+
+## Taylor Swift and Travis Kelce Celebrate Birthday with Date Night
+
+- first seen: 2026-10-12 00:29 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen together for a birthday date night, as captured in new photos. The couple's outing has garnered attention from fans and media alike.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeHZtRGlON3Q4bk1Fektmb0I1V0IzbTg4MGFhaDVkVnZ1b2FnSms1NmhYcjJ1NTgzS2FhMUhGSnZDaEJkV2JzaUxWVDhIZ1BxenJRX2xzU2d1V1ZKYkQ2MGtDVXVVRnF5NGI5T2lRci1NQU1CSzZ5Q2psWG5oSnJINzFIbTQ2enMxYkRyczBRYTdXazZQRjlFaFEwWmZOX3hmRWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Details on Taylor Swift and Travis Kelce’s Pennsylvania Property Emerged
+
+- first seen: 2026-10-12 00:29 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: New information reveals that Taylor Swift and Travis Kelce are working on a larger project for their Pennsylvania property.
+- sources:
+  - [unverified] DeuxMoi.world — https://news.google.com/rss/articles/CBMiogFBVV95cUxOT1NPVWNQdndJR051WGZLYXBWMmRLTlNWb04xSS1ya3pGTjF5c0dieDVkaXVqdnM0OXljTkJtQW9LZWlraHM1Qy02R1I0aEs0Y21MbVktLXlqUmpNWUVDUmdMUWNOY2lUX1BJdmhsOWFZcF81aWluRXV0aW5nQTZOODlIMUNuTFVqZ1N3U1NfUXhmWHh0dzZJWTdWczJ4LUI2cUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Jessica Biel Promote Fall Fashion Trend with Leather Jackets
 
@@ -34,6 +50,18 @@ Stories: 57
 - summary: Taylor Swift and Jessica Biel emphasize that an oversized leather jacket is essential for a complete fall wardrobe. Their influence on fashion trends continues to inspire many this season.
 - sources:
   - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPTWY2MFBuZnVZQVVJMGJ6TmtUeEdWc3ZrVjRWak9IYlhEZ0N2WkV6OW93YmFPdXhxZlRFajh4eVBJcXZvRDhrM0dhTDF4cU9WM3JOajViWnRyWm0yOHBPeE9ZbllpZTU3VjFOOVR0TnVHYy1DWXZSRnFLYkMxbDJMc21fVUR4MTZVc3A0cmNRU2lILVZXV0hEYnVaRFZ4MnVCUnlnRERoMEEzamc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'The Life of a Showgirl' Ranks No. 1 on Billboard 200 for 14 Weeks
+
+- first seen: 2026-10-11 20:57 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift's album 'The Life of a Showgirl' has maintained its position at the top of the Billboard 200 chart for a remarkable 14 weeks, showcasing its continued popularity.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNWV9HS0RIaVNkYlE5N0ZsSTk3LWFTcjBqR3N3a0YyN2RST1A5MU5yYXRfajNiUmF3aFpiZmVmSDJBaWwxNVlWVHJ5cjZjYUZQQjUtbnVlN0l0cUk0UW9TekZHVkpSVFZRQ1hBOXhyQ2kwVnJVTnUyUTRjelJkaTE4OGRFSDhSc0d5LXA2cTlHMmFIZGdXdEhyazFXLU8xaW9iX1pNZkQzU0dpUHZ0Smw4RA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Ratings Game Music — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeFVxS3czd2M2cnZfYWlSLVZiNFJtcklhb1NSVHhmeHVrRkowZ2d5VEJaSmxJRjktT25CM0h6N25DaHVOOU1DMUJ4ZlhSeUFuS3BtQkFfbWFMM3N6d2V4REpWdlN6b21jNmZ6RmVENFlSVHFIalFsUll4ZzRwem5od3luZVpER2o1cnhSY2RIWWFZbXhzeWZIY2laR2Zab0szZUZBdFJyVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxQTVEtT0dBMTlnVl9jdm5ySU5oWUU4Q2R5clBxcGNkWlBIWEhXRHZGRkZ4UVRRUDh6VkJxTVB3TVc1cll0elZoeTJRT2tBdFRkQVo4blJNNlFXbGhLdFJmTFVEYXlGeFRsRFRDcHJ1Z0VjVGRfbTQ5dTd0UWNLUUxKS3p2M1l0dUNYLUROTUFKRjc3bjJ0WVpzaTROV1o4d3E2cnhFTEQtNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-100th-week-billboard-200-number-one-beatles-1236908356/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNcUZ3NlhyTGJRdDBQc0tVTVRhTF9BWXAwVzdsT1VSOFM0Tml4TnlfMGl6emJHaFNlQWtfZkV3Y0hTVElLU0hrdjUzTVdEQjJ3SzFaaWVnYmtXM0l6alVfY1o0RklaM1VRZy1uUnFEbzNHekxZN25kd2F3Q3NLMlNaS0E5NDhJZFhFR181ckdEWUoxQmMwWDM2NUx1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Bronze Mahomes Has Adorable Moment with Taylor Swift
 
@@ -50,18 +78,6 @@ Stories: 57
 - summary: Taylor Swift joins The Beatles as the only acts to reach 100 weeks at No. 1 on the Billboard 200 Albums Chart. This milestone underscores her significant impact on the music industry.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOR3l6aTREWmR6b3VIUXdmVWhOWnY0SDJVUWR0RWZoNTJSd3NVbFVpZTJrWEhTOWp2TXREdnRpMEhZVlFDMnk4UDlXQ0duWnBwZ0FuOHdJMnhzUHJSakJNaUZUMmNfLXpsdmJSRGxCWWpUM1Jlc2hsZk13VE14ZVpXYzZWb1ZlNnFKOGxVV3BoN1Y0NjBvTnBHSlpiZF85WXd5RXJ6UzRlMGxuOTNDbUJV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'The Life of a Showgirl' Ranks No. 1 on Billboard 200 for 14 Weeks
-
-- first seen: 2026-10-11 20:57 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift's album 'The Life of a Showgirl' has maintained its position at the top of the Billboard 200 chart for a remarkable 14 weeks, showcasing its continued popularity.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNWV9HS0RIaVNkYlE5N0ZsSTk3LWFTcjBqR3N3a0YyN2RST1A5MU5yYXRfajNiUmF3aFpiZmVmSDJBaWwxNVlWVHJ5cjZjYUZQQjUtbnVlN0l0cUk0UW9TekZHVkpSVFZRQ1hBOXhyQ2kwVnJVTnUyUTRjelJkaTE4OGRFSDhSc0d5LXA2cTlHMmFIZGdXdEhyazFXLU8xaW9iX1pNZkQzU0dpUHZ0Smw4RA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Ratings Game Music — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeFVxS3czd2M2cnZfYWlSLVZiNFJtcklhb1NSVHhmeHVrRkowZ2d5VEJaSmxJRjktT25CM0h6N25DaHVOOU1DMUJ4ZlhSeUFuS3BtQkFfbWFMM3N6d2V4REpWdlN6b21jNmZ6RmVENFlSVHFIalFsUll4ZzRwem5od3luZVpER2o1cnhSY2RIWWFZbXhzeWZIY2laR2Zab0szZUZBdFJyVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxQTVEtT0dBMTlnVl9jdm5ySU5oWUU4Q2R5clBxcGNkWlBIWEhXRHZGRkZ4UVRRUDh6VkJxTVB3TVc1cll0elZoeTJRT2tBdFRkQVo4blJNNlFXbGhLdFJmTFVEYXlGeFRsRFRDcHJ1Z0VjVGRfbTQ5dTd0UWNLUUxKS3p2M1l0dUNYLUROTUFKRjc3bjJ0WVpzaTROV1o4d3E2cnhFTEQtNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-100th-week-billboard-200-number-one-beatles-1236908356/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNcUZ3NlhyTGJRdDBQc0tVTVRhTF9BWXAwVzdsT1VSOFM0Tml4TnlfMGl6emJHaFNlQWtfZkV3Y0hTVElLU0hrdjUzTVdEQjJ3SzFaaWVnYmtXM0l6alVfY1o0RklaM1VRZy1uUnFEbzNHekxZN25kd2F3Q3NLMlNaS0E5NDhJZFhFR181ckdEWUoxQmMwWDM2NUx1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Chase & Status Aim for High Chart Entry with New Track
 
@@ -433,71 +449,3 @@ Stories: 57
 - summary: Vulture has published a review of Taylor Swift's song 'This Is Her Trying.' The article discusses the themes and musical elements of the track, offering insights into Swift's artistry.
 - sources:
   - [unverified] Vulture — https://news.google.com/rss/articles/CBMikwFBVV95cUxPTmNmRGhpc21aVEF6S29qOW1PYTBYWHpfV1V3dWVMVzRiRU9YR25SOGI1VTd4LTlCX0dINU5NYnV5QkNTT1cyaFFxOHFCWXZnOVhVMlhwanVFeV9xTzRhUUZwdGZLM3NUREFqUjFfLUJpR0VPZGdyREN3Z0V6MWZYSTZ2djFVWWoyOE5jQjVUbHFqY00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Milestone with 'Patient Zero'
-
-- first seen: 2026-10-08 22:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached a significant milestone with her song 'Patient Zero', as reported by Complex. This achievement showcases her continued impact in the music industry.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMihgFBVV95cUxQa3AwV19kTUVyR0Q4WjIySlkzc1VWY0dRRml5S2IybGFMdkFMNnJxQktEOGMxU184b2ZQVkUzQ0Y4ZHVRdlJyLUt2VmF5U2w5V0FteXdmaHRHR1Y4T3E1WkQ1eUZBZ3dFSno5RTdnMmwyT0FOeEhMR0tPMnhody1rOGlYelRnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Scheduled to Perform at Academy Museum Gala
-
-- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is set to perform at the Academy Museum's Annual Gala, as reported by Rolling Stone. The event is anticipated to attract significant attention due to Swift's participation.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipgFBVV95cUxQMEx1VzJWd29BbFQ1SXA2SUF1MVA2VExRdk5WcjR6QXBNTkx0OV9iVkFYX25lSVQxeGlkdTNIQlV0US1keXVIejBQYTE2UlBOeDZrT0llU1VPNHJXdkowUmVRbXVLSlQ4UHdSZVlkVzJXaE85RU1DRURwYTNTZnFFOERVNnc3cHNSV0JIOGY2aElPWER1Y0J1aFZoajhINTgweHdYQ1pn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-perform-academy-museum-2027-gala-1235639847/
-
-## Taylor Swift to Perform at 2026 Academy Museum Gala
-
-- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the 2026 Academy Museum Gala, which will honor Charlize Theron and Colman Domingo. The event promises to be a significant highlight in the upcoming gala calendar.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY2loRGVfeWRLaVc2ankwbURUT1M5UTcwZEpqMkY1ektUX2M0SlFyeTAydWd2UUprdGdxLWZJSEZ2WmFFVmFsc3FmRFoxRXM1em9JeFVMWEo4dXRzcnFHVjNFUTEweDNOUVYzYy1tb1FsaGFPYWw3NF9RQXVpZzZxcXJQWW9vU3d6VzN3Yl9LQktSVU9TRmpaM0ZJcEg0dFpWY1A3N1BUSVlqTms?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Impresses Mariska Hargitay with Unique Skill in Collaboration
-
-- first seen: 2026-10-08 22:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Mariska Hargitay shared her admiration for Taylor Swift after their recent collaboration, praising Swift's extraordinary skill. The collaboration highlights the talents of both artists in a noteworthy context.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMimAFBVV95cUxPeC1BSzRCWWJSNnVtUUNkcm1LTkdYaGR6OVFYMjBHbjdXSjVqLXJLSUJTekotR21JNlpfSldGTjFEUzV6cThUQ2lvb2pEeS1KSHp2Wlpia19vaTJUdEtEWVdwUDBBM1NGOXlBQkNoTnZhV09uNXJoTkMtSlVRTXFQdXF6UkEySzlHaVF3dkFYVnp3OHhuTUhwcA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Close Academy Museum Gala on October 17
-
-- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift is set to perform at the Academy Museum Gala on October 17, where she will be closing the event. The gala will honor notable figures including Charlize Theron, Colman Domingo, and John Carpenter.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-academy-museum-gala-1236725475/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/columns/taylor-swift-perform-academy-museum-gala-1236905184/
-  - [established] WWD — Taylor Swift tag — https://wwd.com/eye/scoops/taylor-swift-2026-academy-museum-gala-performance-1239333450/
-
-## Producer Jailed for $14 Million Scheme Involving AI Bots and Taylor Swift's Streams
-
-- first seen: 2026-10-08 22:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Producer Michael Smith has been jailed after allegedly profiting $14 million through AI bots streaming Taylor Swift's music. The case raises concerns about music streaming integrity.
-- sources:
-  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMinAFBVV95cUxPT2dPTDRzWHJ5WE5xR2MyNEp4MmZoTTJCNjFIMk5fYThPQ25NV1JIbUIta0Z4YXpjenpscm1LREt4WXBKUHVWODUyZmczLVRZU1dfc0lacF92R1B1ZXFLT3ptQUZXR282MGdFb3hWSUN4UHlWbllHTFBYQlFKTkFPWjZteWpkMzJDZnlJLW1DU0pjaHNtZkd6OTBZRHU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Perform at Academy Museum Gala on October 17
-
-- first seen: 2026-10-08 22:01 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is set to perform at the Academy Museum's sixth annual gala in L.A. on October 17. This event serves as a major fundraiser for the museum and is a highlight on the Hollywood social calendar.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYVc5amNGU2JQZ3o4bnBOUFFBZGpTNW1IVVctUjNxLTY4QTR6Ulp5YnI5aE8yZVJCcHlhSWxaZmFLLVNlLUF2dHlhNU5jSHJYeFp4UHgwRXE2dC1PajJsOXNBSnRGc0JPZHFqemVaLXZEMi1qMHppYllzZG1wamx0TVNoM1BMbHFY?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-academy-museum-gala-perform-1237150157/
-
-## Tate McRae Discusses Taylor Swift's Enjoyment of 'Tit for Tat'
-
-- first seen: 2026-10-08 22:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tate McRae expressed surprise regarding Taylor Swift's enjoyment of the song 'Tit for Tat', indicating she didn't initially believe it to be genuine. The conversation highlights interactions within the music industry and reactions to popular work.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQOUdZUWxrWWJiWktWcFowQWxvLTBoTFk5aWRJdkZhUzEtX21neGlGN1phb21IR2tmOTZ0bXVuTEl2Slp1aFJRd3ItSGVnU2Y5dWlQOVEzMnBFbDhQVGNsSGVQaW8xejdHS0pmQWtGc2hfaTdoQnpiQ2gtRUpXNVBFM1dPYlNHZWwxNTdsSVlpQmprREZpNGFJS05RMUd1cDV3aWhOZFBGYXpMWkNMVHc?oc=5&hl=en-US&gl=US&ceid=US:en
