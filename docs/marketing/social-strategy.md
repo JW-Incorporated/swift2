@@ -228,8 +228,16 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 
 **Hard constraints:**
 
-- **No deep link exists.** Every Mood post says **"tap Mood on
-  longlivets.com"** — never a fake `/?mood=` URL.
+- **The deep link is `/?mode=mood`** (corrected 2026-10-12, Tree — this bullet
+  used to read "no deep link exists"). It is real and shipped:
+  `packages/experience/src/deepLink.ts`'s `MODE_VALUES` has carried `mood`
+  since #2105, which made each whole mode surface its own shareable target,
+  and a `/?mode=mood` caption was founder-approved on 2026-09-23. What does
+  **not** exist is `/?mood=` — a different, invented parameter, and the thing
+  the old wording was really warning about. So: every Mood post lands on
+  `/?mode=mood` with the standard UTM tags, like every other lane; "tap Mood
+  on longlivets.com" is prose a caption may still use, never a substitute for
+  the link.
 - **Coverage gap:** evermore, Midnights, TTPD and TLOAS songs are not scored
   yet. Never promise "every song" or name those eras as Mood results. Pick
   chips whose real results come from scored eras, and verify against the actual
@@ -298,8 +306,9 @@ days running on the same platform:
 
 **Rule 6 — always land somewhere.** Every post in every lane carries a deep link
 (era / item / lens) with the UTM tags from growth-plan §8 — widened from
-heartbeat-only to all lanes on 2026-10-05, see §2's three criteria.
-"longlivets.com" bare is only for Mood posts, which have no deep link.
+heartbeat-only to all lanes on 2026-10-05, see §2's three criteria. There is no
+bare-domain carve-out: Mood lands on `/?mode=mood` (§1(d), corrected
+2026-10-12), so every lane has a link and a bare "longlivets.com" is never one.
 
 **Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
 X counts any autolinked URL (including a bare domain like
@@ -433,11 +442,11 @@ of the other four scores.
    rewrite, not a ship.)*
 2. **Text specific enough that it could not sit above another post.** Rule 4's
    specificity test, applied to every lane and not just heartbeat.
-3. **A deep link into actual site content.** Rule 6 now covers **every** lane —
+3. **A deep link into actual site content.** Rule 6 covers **every** lane —
    timeline, thread, launch, mood, merch, appearance, news — not heartbeat
-   alone. Mood is the single named exception, because no Mood deep link exists
-   yet; it says "tap Mood on longlivets.com". The bare homepage is never a
-   landing place.
+   alone, and as of 2026-10-12 it has **no exceptions**: Mood lands on
+   `/?mode=mood`, which §1(d) now records as a real shipped deep link. The
+   bare homepage is never a landing place.
 
 ### Slots — ONE paired campaign beat per day, at `23:00Z`
 
