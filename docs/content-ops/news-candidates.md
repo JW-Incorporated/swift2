@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 63
+
+## Taylor Swift Remains Number One on Hot 100 Chart
+
+- first seen: 2026-10-13 12:40 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: In the latest Hollywood Minute report, Taylor Swift maintains her position at the top of the Hot 100 chart. Her continued success highlights her enduring popularity in the music industry.
+- sources:
+  - [unverified] Local 3 News — https://news.google.com/rss/articles/CBMi2AFBVV95cUxNekp5Uk1RajYyM2RiUHBlaEtxYU93T1Fwa3FiYUxjTk5laGh6eGNkMkdpOXRYMzlPd0JETjk3VUROZjZ1MXlheENYWVBfWEF3dTJfR01nVEdMM2xvZnQ4Wkg5Z2l6Q2ZyYkxSODQtVE1MaTNfR1ZSMk5PSUl0LWxWWGxGQXZvZjFVVWx4ZF9qVGU0Wm0wODdicWoxTzhWRm9XalNQYW9LRnIwWGtOZ1p1MDdmdzdweW9GaFR2UW1kVDNYMkk5X1JXcGVHQ3JQcWdXVWZrd280NUo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Considering Ending Relationship with Travis Kelce
+
+- first seen: 2026-10-13 12:40 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: A report suggests that Taylor Swift may be considering leaving Travis Kelce for a justifiable reason. Further details have not been provided in the source.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSUgtUnpOSFZfdUU1dEV3R2FEVkYyQzRCN28wMlhyU3VpRVJlUllRaDFYeU1zSWJQMDhabmFMQWtfN3lObjB6cVZZWTRKS0ZkdV9TMjczcDRDVnYwTlU3SERGTFBQRzBlck9ERU1WWF9acWU2aDhBaEJHY21TU3Q3eUExMWQ4TG1KSDg3ZWJfOWUzNmd3UGJhTXpWTnJrbUhBQ29zaWhIdXpkb3hHeW02NmNOUXROeldRYnh3VE9RT0MxZkwwX2xGNU9RQzBrVGhiZXEzctIB1AFBVV95cUxOMG5IY3pSZkFlU0xTMWpHdjEtandTVVluTFlrRkstY0VWUF9TUERvcktkMFRaZjloNERtYjQwZzhISWxoYkNKRDRZR1FxZTd0dTJoWnpHU0Z0ZlFYdUNsdkdSMVp3R0h2SjFDdnhNOENhbXdabmlLUXllNVhLYzZ4NUZLdVV4VTQtQWhTTURyd3NxdmNLR3R1cUtVQUxfWlB3VGk5eWtSM3FjOWh3enlORHZuRktQbjBOR2diTlZNUVhCV1J1YXAxVXpaQkZvUXVURDdCaw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Yorker Highlights Unusual Taylor Swift Fan in 'Daylight'
+
+- first seen: 2026-10-13 12:40 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New Yorker features a story about an unexpected Taylor Swift fan who has recently been released from prison, relating to her song 'Daylight'. The article explores the connection between the fan's experience and Swift's music.
+- sources:
+  - [unverified] The New Yorker — https://news.google.com/rss/articles/CBMivAFBVV95cUxQeGh1Ym9uRjJBQlV0Z2hROUtHS3ZFOHlIcF9pbEVBRk1WYnd4NVI0MHBoX3F0VDJMd1p1TkdxZWZvemtoN2lGczc1UlE5SC1LWERZdlZnbExfNzJmY1lnRW00TXJfSGJtbVhnMUxhclFlRkJYem9pRHU3YVpXSFJoYWZUUEpzZ1FNNW1DSUZDZmE2SG5qTjZsVDc0M3dfZm5FajVmNkxfNGNBdmJUaTAtNlV0d0FsdE9QWXQ4dg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Review of Taylor Swift's ‘The Life of a Showgirl: Encore’ Released
+
+- first seen: 2026-10-13 12:40 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A review of Taylor Swift's latest work, 'The Life of a Showgirl: Encore,' highlights its uplifting themes about finding joy in life.
+- sources:
+  - [unverified] The Daily Collegian — https://news.google.com/rss/articles/CBMiigJBVV95cUxQQzg3cDVaOWNqNFFXU29qVWUyekNEYTV0dTZ2QndNc1VrWHRVcFJIcklsUF9PdlFrSUphZ0pXeGVuQlNFWGRhd3NpM0JiZ1JNSi1nS2EtV0hjRWVYRXBNTUNBSXZ3bTZPWlpReU4waEJFNzZFUXFCRWstWmNIMVAyS29XUUZqVC1qYXcxX3p3Q2s2WWxHei1RMy1CaVhuXzVrdVVLeUpxTFdYV1RZTHZXMnZoUk9EaDNBNlNFOVdPMEJZd2pSQlNNTjJTcXdfVE10a0x6OFlsdFRyVmppRDhHVjlxbG5KcHZva2xScExCRHJ5MVpoU0E0cGtqSVJlaElISW0zRmVXWjk4Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves Historic Top Five Chart Milestone
+
+- first seen: 2026-10-13 12:40 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares a historic Top Five chart milestone with The Beatles and Drake, marking a significant achievement in music history.
+- sources:
+  - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNU18zdnFVdHNuU1drdGF3dEtPaFhrMV8tZWQ1N0FmelpoWmZObDY2NjU2a1M2b1Y0QWZjbWduekpydWF0YmFHV2E3ZHhpdnQyX1AtWWdrbEJwSmczZU9kaFZGQldEVlVtR0ZfMy1wbk5xZTRsTUJhRGZmTE5BMXRiTVZjcXpsb3RQZFdjcnMzcFBGemRGdlpuQ3hVSngxenRoaUdLaURrYU1IWGpiYzBXektVVWZmQmlKOExj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Tops Chart, Dethroning Ella Langley's 'Choosin Texas'
+
+- first seen: 2026-10-13 12:40 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent release has achieved a position at the top of the charts, surpassing Ella Langley's 'Choosin Texas'. This notable change reflects Swift's continued influence in the music industry.
+- sources:
+  - [unverified] KING5.com — https://news.google.com/rss/articles/CBMi_wFBVV95cUxQYmZYRW1Oa3l1UzlTMmpzajBXWHBSUWFGS0NxQzUtSHd4M3NfaWt5cW9UdC1KVmJXRWx2YnRSVEE0T25NUWdmZkhVQ013YTN2RmdJWC1jSlpSbWdxUnZ4XzFyRTZ0cjFPcC1aVU5hcURQMVBCbVA2WjNfbUFCRV91eXJXVFdtNHNsTVc3Z296WHlrT3FQLWhPS0VGRWZiTTB5QVQwMWtzUS1MM0lDVkgtcVJKSzhOazlCT1BqX1FRZXFCdXFsR2ZYazF0UGc3aHR6bkUzd0lQWnRPZ2hxeEp6eE1vS1gydHJnWElqQmMtRkV5VTd6Z2dyTzZPS1NIVDA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Possible New Music Release on October 13
+
+- first seen: 2026-10-13 12:40 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An article discusses whether Taylor Swift dropped new music on October 13 at 8 AM, referring to hints and 'Easter eggs' related to this potential release.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMikwFBVV95cUxNQko1WGVMNksxQy1md1l3cEFKeE5xYndPenNMOW1fV0podXJKZzQycm1YQjdMcTA2TkxrX3VDRlVyT2ZyNEhUUFFCdDBZWEdKc3k3bDBtMFVKWVFfWHNfX2x4ekN1cU5XMFFnV1ZQSC1FQlo3dC1ZYWc0ZzRtSkEyblFMaHJ5RTIyRG1WQXBick5ad1k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Tackles the Term 'Patient Zero' in New Discussion
+
+- first seen: 2026-10-13 12:40 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article explores how Taylor Swift is influencing the perception of the term 'Patient Zero', which has often held negative connotations. It examines her role in reshaping discussions around this label.
+- sources:
+  - [unverified] Medical Xpress — https://news.google.com/rss/articles/CBMiggFBVV95cUxOUy1QN3VHcFR1RWJLU1JMU1NUdFRtUnIyYXFadExJcjJXdmdjN0F2eDZZdlBCQ0lNdUE2MUtmQlRIb0JISDZZclNmdEVYb2wybi01cmtmaHVWam1ab2VhQ2V6TFByeXFtaGcxNlp4dVlfVE5JRGQ5YnFDRE85RF9ucTB3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce's Neighbors Share Their Thoughts
 
@@ -483,35 +548,3 @@ Stories: 59
 - summary: The Washington Post discusses the difficulties in obtaining on-the-record comments about Taylor Swift from industry professionals. The article highlights the reluctance of sources to speak publicly about her.
 - sources:
   - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNmFGVnlRV0NGcDV6U2czLU9fSGhZWUpkeTZJVGtyel9yNzg1T0hlaDFDbkFHTW02Y2R2a2hqcmdTb3dNTUQ0dFdrSml3RnVuV296VVVKVnVDblp6S0ROZnJRaFpoYXZ5cVlLUXE1WnlzYWQxeTNCWTNnZWdoSFE5YUQ5aE1hMmkwMnlIcWFlNlg5UWdsbi1VX2Q1djFRR3FCNzQ1RFlZRGo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reaches No. 1 on Music Charts Again
-
-- first seen: 2026-10-10 07:00 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has returned to the top position on the music charts, marking another achievement in her career.
-- sources:
-  - [unverified] NPR — https://news.google.com/rss/articles/CBMikAFBVV95cUxNTnU0eVowa1pYaDhleUotNXpqdVNuR2hlYkliSWVtUktGbjBtV1NnRlB4d19RR3ZRS1VfbW1DTERrZEY5Ty0yNjJ2OGYtdmwzUVBOU2V1MG03NDRvdXVQbzBaWmpwY3hKUTh2SUxJdHRON19MMzdYZ0l5VGhnVXd6b0ZtamtOdlZkREJ6Nk91UUg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Seen Leaving NYC Dinner Date
-
-- first seen: 2026-10-10 07:00 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted leaving a private members club in New York City after dining together on a Friday night.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQTDRPQVlFOU1vdjN5djNiUm9JTUhMcXY1NTk1bGhxX2hBRFhndnBzMElzWlZITmZzVWtzMlh1TlpsU2VFbU9NMmduek1ZSVNnRDFET0lYM2QyNFIzVEhicFJWLU9YT1Rsc0RJU1c1VjhOQjl1dkI2REZremdxZ0pLSFpZbGh6MjRBa252LVBQeDRkZktUU1Uyc0g2TmxNdmc5VXpGUkdUbjN1XzRQXzZLSEFyU2NXQVc5UjF3ZnJSTEhrMGtObm1ENG5ob3pOem5Rb0xGQVJuZkJ3VGxKelNZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Visits 'Law & Order: SVU' Cast with Cookies
-
-- first seen: 2026-10-10 07:00 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise visit to the cast of 'Law & Order: SVU' and brought homemade cookies for them. This delightful gesture highlights her friendly nature and connection with the show's cast.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNRkdlcDlMMWZQZEZzaXMzdTcwMDE3Y0hPR1dJRlUxSWZMbWdCMFVkRVcxcFBCQlJSRWhpN3V6ZXl1SEg5amlVR3hLeWZDV1c0dGd2OWctdTM3bXVRVmtsYnFlZHhmS19NdFVJcy1hdXFIQlBrSW4talB4cGFhS2xWMldNSjZIRkhBX1Z1ZXlpVEVITG0zenNqMGZadkU3eC1LQWVMQw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Schedules Surprise Performance Before Chiefs Game
-
-- first seen: 2026-10-10 07:00 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced a surprise gig ahead of Travis Kelce's return with the Chiefs. The performance has generated buzz among fans and media alike.
-- sources:
-  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS1pEWElrckRXMkxuSnh0VmRPVHJSX1B3VXB0R29GSzdqbkZra3Y2S01qLU1iYXp1Wm93NU1VWDY2YVFaSnpvN3d4STdrWDYxS3kyc0tzdEx4alppMnZWWVBCWUpQSEwzVFo3a3NFdDVlSXVnMVdsNklFMnZRTWRma2VpWGpwY0hTQUIxdFBuZlNOLXY3NndyM0NCWDFFbzdI?oc=5&hl=en-US&gl=US&ceid=US:en
