@@ -161,6 +161,7 @@ export async function writeCurrentItem(
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
   countdownTargetAt?: string,
+  imageUrl?: string,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -184,6 +185,11 @@ export async function writeCurrentItem(
     source_tier: bestSourceTier(sources.map((s) => s.tier)),
     sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
     location_level: item.locationLevel ?? null,
+    // Content fix 1/6: carries news_story.top_image_url (or the og:image/
+    // twitter:image fallback resolved in image-resolve.ts) through to the
+    // row the feed actually renders from — this is the exact write that was
+    // previously missing, leaving every current_item imageless.
+    image_url: imageUrl ?? null,
     symbols: item.symbols,
     entities: item.entities,
     heat: sources.length,

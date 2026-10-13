@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-12-FqbcAAKQjes",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-12T21:51:30.524Z",
+  "deadline": "2026-10-14T21:51:30.524Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Good Morning America",
+    "videoTitle": "Taylor Swift tops Billboard 200",
+    "publishedAt": "2026-10-12T19:15:43+00:00",
+    "videoId": "FqbcAAKQjes",
+    "url": "https://www.youtube.com/watch?v=FqbcAAKQjes"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 5607
+  }
+}
