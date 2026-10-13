@@ -9,7 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { frontDoorLink, theoriesBoardLink } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -152,6 +152,12 @@ export interface WriteCurrentItemResult {
   id: string;
   redlineOk: boolean;
   expiresAt: string;
+  /** Content fix 3/6: the publish-gate's held reason, undefined when the
+   * row passed and is servable. Distinct from `redlineOk`, which here
+   * reflects the COMBINED verdict (topic screen AND the quality gate) —
+   * see `evaluateCurrentItemQuality`'s header for why the two are folded
+   * into one `redline_ok` column rather than a second gating column. */
+  holdReason?: QualityHoldReason;
 }
 
 export async function writeCurrentItem(
@@ -169,6 +175,21 @@ export async function writeCurrentItem(
     ...item.tags,
     ...item.entities,
   ]);
+  // Content fix 3/6 hard publish gate (packages/shared/src/current-item-
+  // quality.ts): a row is only ever servable once it clears the SAME shared
+  // validator the read-time paths (getCurrentItems/getRecentItems/
+  // currentFeedEntries) check — image present + allowlisted, summary/detail
+  // length floors, AND the existing redline screen above. `imageUrl` isn't
+  // on `ExtractedCurrentItem` yet (Card 1's scope adds it); read it
+  // defensively off the extracted item so this hook stays a one-line diff
+  // once that field lands, rather than widening the type here.
+  const quality = evaluateCurrentItemQuality({
+    headline: item.headline,
+    summary: item.summary,
+    detail: item.detail,
+    imageUrl: (item as ExtractedCurrentItem & { imageUrl?: string }).imageUrl,
+    redlineOk: screen.ok,
+  });
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -189,14 +210,15 @@ export async function writeCurrentItem(
     heat: sources.length,
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
-    redline_ok: screen.ok,
+    redline_ok: quality.ok,
+    quality_hold_reason: quality.ok ? null : quality.reason,
     countdown_target_at: countdownTargetAt ?? null,
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
   const id = data.id as string;
   await emitLaunchCategoryEvent(db, id, item);
-  return { id, redlineOk: screen.ok, expiresAt: itemExpiresAt };
+  return { id, redlineOk: quality.ok, expiresAt: itemExpiresAt, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }
 
 export interface WriteFanSignalResult {
