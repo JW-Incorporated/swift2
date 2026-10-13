@@ -90,13 +90,16 @@ export function stripHtml(html: string): string {
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|noscript|svg|head)[\s\S]*?<\/\1>/gi, ' ');
   const withoutTags = withoutBlocks.replace(/<[^>]+>/g, ' ');
+  // `&amp;` is decoded LAST so an escaped entity like `&amp;lt;` stays the
+  // literal text `&lt;` instead of being double-unescaped to `<` (CodeQL
+  // js/double-escaping).
   const decoded = withoutTags
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;|&apos;/g, "'")
     .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>');
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
   return decoded.replace(/\s+/g, ' ').trim();
 }
 
