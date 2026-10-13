@@ -1,4 +1,5 @@
 import type { CurrentItem, CurrentItemStatus, LiveTheory } from '@swift2/shared';
+import { passesCurrentItemQualityGate } from '@swift2/shared';
 import { resolveAnchor } from './anchor-date';
 import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
@@ -18,11 +19,18 @@ export function currentFeedEntries<V extends VideoNote>(
   eraStart: string,
   eraEnd: string,
 ): EraFeedEntry<V>[] {
-  return items.map((item) => ({
-    kind: 'current' as const,
-    item,
-    anchor: resolveAnchor({ exactDate: item.observedOn, eraStart, eraEnd, id: item.id }),
-  }));
+  // Content fix 3/6 hard publish gate: defense-in-depth filter (the write
+  // path and packages/core's getCurrentItems/getRecentItems already hold/
+  // exclude a failing row — see current-item-quality.ts's header) so this
+  // feed-building step can never surface one either, even if a caller ever
+  // passes in unfiltered rows directly.
+  return items
+    .filter((item) => passesCurrentItemQualityGate(item))
+    .map((item) => ({
+      kind: 'current' as const,
+      item,
+      anchor: resolveAnchor({ exactDate: item.observedOn, eraStart, eraEnd, id: item.id }),
+    }));
 }
 
 /** First reported source's outlet name, for the "Live · reported by X" chip
