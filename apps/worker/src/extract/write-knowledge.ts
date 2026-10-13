@@ -9,7 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { frontDoorLink, theoriesBoardLink } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -170,6 +170,12 @@ export interface WriteCurrentItemResult {
   id: string;
   redlineOk: boolean;
   expiresAt: string;
+  /** Content fix 3/6: the publish-gate's held reason, undefined when the
+   * row passed and is servable. Distinct from `redlineOk`, which here
+   * reflects the COMBINED verdict (topic screen AND the quality gate) —
+   * see `evaluateCurrentItemQuality`'s header for why the two are folded
+   * into one `redline_ok` column rather than a second gating column. */
+  holdReason?: QualityHoldReason;
 }
 
 export async function writeCurrentItem(
@@ -188,6 +194,21 @@ export async function writeCurrentItem(
     ...item.tags,
     ...item.entities,
   ]);
+  // Content fix 3/6 hard publish gate (packages/shared/src/current-item-
+  // quality.ts): a row is only ever servable once it clears the SAME shared
+  // validator the read-time paths (getCurrentItems/getRecentItems/
+  // currentFeedEntries) check — image present + allowlisted, summary/detail
+  // length floors, AND the existing redline screen above. The image is the
+  // resolved `imageUrl` PARAMETER (Card 1 / #5628 threads it positionally,
+  // and it is exactly what lands in the `image_url` column below) — never
+  // read off `item`, or every row would be held as `missing_image`.
+  const quality = evaluateCurrentItemQuality({
+    headline: item.headline,
+    summary: item.summary,
+    detail: item.detail,
+    imageUrl,
+    redlineOk: screen.ok,
+  });
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -213,14 +234,15 @@ export async function writeCurrentItem(
     heat: sources.length,
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
-    redline_ok: screen.ok,
+    redline_ok: quality.ok,
+    quality_hold_reason: quality.ok ? null : quality.reason,
     countdown_target_at: countdownTargetAt ?? null,
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
   const id = data.id as string;
   await emitLaunchCategoryEvent(db, id, item);
-  return { id, redlineOk: screen.ok, expiresAt: itemExpiresAt };
+  return { id, redlineOk: quality.ok, expiresAt: itemExpiresAt, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }
 
 export interface MergeIntoOriginalInput {
@@ -251,13 +273,54 @@ export async function mergeNewFactsIntoOriginal(
   originalId: string,
   original: { summary: string; detail: string; headline: string; sources: readonly ClusterSource[]; imageUrl?: string | null },
   input: MergeIntoOriginalInput,
-): Promise<{ redlineOk: boolean; holdReason?: string }> {
-  const summary = input.mergedSummary ?? original.summary;
-  const detail = input.mergedDetail ?? original.detail;
+): Promise<{ redlineOk: boolean; holdReason?: QualityHoldReason }> {
   const sources = unionSources(original.sources, input.duplicateSources);
   const imageUrl = original.imageUrl ?? (input.duplicateImageUrl || null);
 
-  const screen = screenAll([original.headline, summary, detail]);
+  const hasRewrite = input.mergedSummary !== undefined || input.mergedDetail !== undefined;
+  const rewriteSummary = input.mergedSummary ?? original.summary;
+  const rewriteDetail = input.mergedDetail ?? original.detail;
+
+  // Content fix 7 must-fix: a merge rewrite goes through the SAME publish
+  // gate a fresh write does (evaluateCurrentItemQuality) — never let a
+  // rewrite that would have failed writeCurrentItem's own gate slip
+  // through this side door. headline/summary/detail here are the rewrite's
+  // own text (or, on the discard-only path with no rewrite at all, the
+  // original's own text, which this still re-checks because the image may
+  // have just changed). imageUrl is whatever this update is about to set
+  // on the row — the original's existing image, or the duplicate's when
+  // the original had none.
+  const rewriteScreen = screenAll([original.headline, rewriteSummary, rewriteDetail]);
+  const rewriteQuality = evaluateCurrentItemQuality({
+    headline: original.headline,
+    summary: rewriteSummary,
+    detail: rewriteDetail,
+    imageUrl: imageUrl ?? undefined,
+    redlineOk: rewriteScreen.ok,
+  });
+
+  // A failing rewrite must never overwrite the original's good copy: fall
+  // back to the original's own summary/detail, but the sources union and
+  // the duplicate's discard (markDuplicateMerged, called by the caller)
+  // still happen regardless — only the TEXT is protected.
+  const useRewrite = !hasRewrite || rewriteQuality.ok;
+  const summary = useRewrite ? rewriteSummary : original.summary;
+  const detail = useRewrite ? rewriteDetail : original.detail;
+
+  // When falling back to the original's text, it still needs its own
+  // fresh verdict (the image/sources just changed even though the text
+  // didn't) rather than reusing the rewrite's failing one.
+  const screen = useRewrite ? rewriteScreen : screenAll([original.headline, summary, detail]);
+  const quality = useRewrite
+    ? rewriteQuality
+    : evaluateCurrentItemQuality({
+        headline: original.headline,
+        summary,
+        detail,
+        imageUrl: imageUrl ?? undefined,
+        redlineOk: screen.ok,
+      });
+
   const row: Record<string, unknown> = {
     summary,
     detail,
@@ -267,11 +330,12 @@ export async function mergeNewFactsIntoOriginal(
     image_url: imageUrl,
     last_checked_on: new Date().toISOString().slice(0, 10),
     updated_at: new Date().toISOString(),
-    redline_ok: screen.ok,
+    redline_ok: quality.ok,
+    quality_hold_reason: quality.ok ? null : quality.reason,
   };
   const { error } = await db.from('current_item').update(row).eq('id', originalId);
   if (error) throw new Error(`mergeNewFactsIntoOriginal update failed: ${error.message}`);
-  return { redlineOk: screen.ok, ...(screen.ok ? {} : { holdReason: 'redline' }) };
+  return { redlineOk: quality.ok, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }
 
 /** Content fix 7 (§A/§C): hides a duplicate current_item behind the

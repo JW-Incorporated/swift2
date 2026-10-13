@@ -8,6 +8,7 @@ import {
   abandonQuietTheories,
   projectKnowledgeDoc,
   refreshSymbolActivity,
+  mergeNewFactsIntoOriginal,
 } from './write-knowledge';
 
 /** A minimal thenable query-builder stub — every chain method returns
@@ -31,7 +32,7 @@ function fakeDb(fromImpl: (table: string) => unknown, rpcImpl?: (fn: string, arg
 }
 
 describe('writeCurrentItem', () => {
-  it('writes redline_ok=true when nothing trips the redline screen', async () => {
+  it('writes redline_ok=true when nothing trips the redline screen AND the item clears the Content fix 3/6 publish-quality gate', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-1' }, error: null }));
     const result = await writeCurrentItem(
       db,
@@ -42,17 +43,121 @@ describe('writeCurrentItem', () => {
         category: 'release',
         tags: ['music'],
         headline: 'New single announced',
-        summary: 'Taylor announced a new single today.',
-        detail: 'The announcement came via her official Instagram.',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
         symbols: ['13'],
+        entities: [],
+        statusHint: 'reported',
+      } as never,
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
+    );
+    expect(result.id).toBe('item-1');
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+  });
+
+  it('holds the row (redlineOk=false, holdReason set) — but still writes it — when the item has no image', async () => {
+    const db = fakeDb(() => chain({ data: { id: 'item-held' }, error: null }));
+    let insertedRow: Record<string, unknown> | undefined;
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      const c = chain({ data: { id: 'item-held' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        insertedRow = row;
+        return c;
+      };
+      return c;
+    });
+    const result = await writeCurrentItem(
+      db,
+      'story-1',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'release',
+        tags: ['music'],
+        headline: 'New single announced',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+        symbols: ['13'],
+        entities: [],
+        statusHint: 'reported',
+        // no imageUrl
+      } as never,
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+    );
+    expect(result.id).toBe('item-held');
+    expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('missing_image');
+    expect(insertedRow?.redline_ok).toBe(false);
+    expect(insertedRow?.quality_hold_reason).toBe('missing_image');
+  });
+
+  it('holds the row when the summary/detail are too thin, even with an image and a clean redline', async () => {
+    const db = fakeDb(() => chain({ data: { id: 'item-thin' }, error: null }));
+    const result = await writeCurrentItem(
+      db,
+      'story-1',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'sighting',
+        tags: [],
+        headline: 'Seen out',
+        summary: 'Taylor was seen.',
+        detail: 'Short.',
+        symbols: [],
+        entities: [],
+        statusHint: 'reported',
+      } as never,
+      [],
+      undefined,
+      'https://www.people.com/photo.jpg',
+    );
+    expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('summary_too_short');
+  });
+
+  it('regression: reads the image from the positional imageUrl param (the real run-extract-stage call shape), not off the item', async () => {
+    const inserted: Record<string, unknown>[] = [];
+    const db = fakeDb(() => {
+      const c = chain({ data: { id: 'item-r' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        inserted.push(row);
+        return c;
+      };
+      return c;
+    });
+    const result = await writeCurrentItem(
+      db,
+      'story-r',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'release',
+        tags: ['music'],
+        headline: 'New single announced',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+        symbols: [],
         entities: [],
         statusHint: 'reported',
       },
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
-    expect(result.id).toBe('item-1');
+    expect(result.holdReason).toBeUndefined();
     expect(result.redlineOk).toBe(true);
-    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+    expect(inserted[0]?.image_url).toBe('https://www.people.com/photo.jpg');
   });
 
   it('writes redline_ok=false — but still writes the row — when a string trips the redline screen', async () => {
@@ -75,6 +180,7 @@ describe('writeCurrentItem', () => {
       [],
     );
     expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('missing_image'); // the quality gate's headline-then-image precedence catches this first
     expect(result.id).toBe('item-2'); // still written for audit
   });
 
@@ -99,6 +205,72 @@ describe('writeCurrentItem', () => {
         [],
       ),
     ).rejects.toThrow('current_item insert failed');
+  });
+});
+
+describe('mergeNewFactsIntoOriginal', () => {
+  const GOOD_ORIGINAL = {
+    headline: 'New single announced',
+    summary:
+      'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+    detail:
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+    sources: [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' as const }],
+    imageUrl: 'https://www.people.com/photo.jpg',
+  };
+
+  function fakeMergeDb(): { db: SupabaseClient; updatedRow: () => Record<string, unknown> | undefined } {
+    let updatedRow: Record<string, unknown> | undefined;
+    const db = fakeDb(() => {
+      const c = chain({ data: null, error: null }) as Record<string, unknown>;
+      c.update = (row: Record<string, unknown>) => {
+        updatedRow = row;
+        return c;
+      };
+      return c;
+    });
+    return { db, updatedRow: () => updatedRow };
+  }
+
+  it('keeps the original copy and redline_ok=true when the merge rewrite FAILS the quality gate (too thin)', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary: 'Short.',
+      mergedDetail: 'Too thin.',
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    // The original's good copy survives — the failing rewrite is discarded.
+    expect(row?.summary).toBe(GOOD_ORIGINAL.summary);
+    expect(row?.detail).toBe(GOOD_ORIGINAL.detail);
+    expect(row?.redline_ok).toBe(true);
+    expect(row?.quality_hold_reason).toBeNull();
+    // Sources are still unioned and the duplicate is still folded in even
+    // though its rewrite was rejected.
+    expect((row?.sources as unknown[]).length).toBe(2);
+  });
+
+  it('sets quality_hold_reason to null and uses the rewrite when the merge passes the quality gate', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const mergedSummary =
+      'Taylor announced a new single AND a surprise music video today during a livestream watched by millions worldwide. Fans immediately began speculating about which upcoming album the single belongs to.';
+    const mergedDetail =
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques, and a companion outlet also confirmed a surprise music video would drop alongside the single within the next 24 hours, extending the rollout across multiple platforms at once.';
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary,
+      mergedDetail,
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    expect(row?.summary).toBe(mergedSummary);
+    expect(row?.detail).toBe(mergedDetail);
+    expect(row?.quality_hold_reason).toBeNull();
   });
 });
 

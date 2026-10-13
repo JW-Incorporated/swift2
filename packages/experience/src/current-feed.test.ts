@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { CurrentItem, LiveTheory } from '@swift2/shared';
+import { passesCurrentItemQualityGate } from '@swift2/shared';
 import {
   currentFeedEntries,
   collapseMergedDuplicates,
@@ -19,8 +20,10 @@ const currentItem = (overrides: Partial<CurrentItem> & { id: string; observedOn:
   category: 'sighting',
   tags: ['Lore'],
   headline: 'Something happened',
-  summary: 'A short summary.',
-  detail: 'A little more detail.',
+  summary: 'A notable thing happened today in the fandom, according to multiple reports. Fans reacted quickly across social media and began sharing their reactions widely online.',
+  detail:
+    'This is a longer, our-words paragraph describing the event in enough detail to clear the current-item-quality detail floor for test fixtures across this whole file every single time word count matters here today in testing, with extra context about the era, the timing, and why fans would care, written out at length so the word count comfortably clears the sixty-word floor every single run without being anywhere near borderline.',
+  imageUrl: 'https://www.people.com/photo.jpg',
   status: 'reported',
   confidence: 'reputable_reporting',
   sourceTier: 'established',
@@ -41,6 +44,47 @@ describe('currentFeedEntries', () => {
     const [entry] = currentFeedEntries(items, ERA_START, ERA_END);
     expect(entry!.kind).toBe('current');
     expect(entry!.anchor).toEqual({ sortDate: '2026-08-20', displayDate: '2026-08-20', via: 'exact' });
+  });
+
+  it('excludes an item that fails the Content fix 3/6 publish gate (no image)', () => {
+    const items = [currentItem({ id: 'ci1', observedOn: '2026-08-20', imageUrl: undefined })];
+    expect(currentFeedEntries(items, ERA_START, ERA_END)).toEqual([]);
+  });
+
+  describe('the permanent guarantee: a mixed fixture feed never surfaces a violating item', () => {
+    // Content fix 3/6's CI requirement: "a test that builds the feed from
+    // fixtures and fails if any visible item violates the rule." One
+    // qualifying item alongside one fixture per QUALITY_HOLD_REASONS value
+    // (missing image, non-allowlisted host, thin summary, thin detail,
+    // failed redline) — every visible EraFeedEntry's `item` must pass the
+    // SAME shared gate `writeCurrentItem` enforces at write time.
+    const fixtures: CurrentItem[] = [
+      currentItem({ id: 'ok-1', observedOn: '2026-08-20' }),
+      currentItem({ id: 'bad-no-image', observedOn: '2026-08-19', imageUrl: undefined }),
+      currentItem({
+        id: 'bad-unallowlisted-host',
+        observedOn: '2026-08-18',
+        imageUrl: 'https://random-blog.example.com/photo.jpg',
+      }),
+      currentItem({ id: 'bad-thin-summary', observedOn: '2026-08-17', summary: 'Taylor was seen.' }),
+      currentItem({ id: 'bad-thin-detail', observedOn: '2026-08-16', detail: 'Short.' }),
+      currentItem({ id: 'bad-redline', observedOn: '2026-08-15', redlineOk: false }),
+      currentItem({ id: 'ok-2', observedOn: '2026-08-14' }),
+    ];
+
+    it('visible entries are exactly the two qualifying fixtures, never any violator', () => {
+      const entries = currentFeedEntries(fixtures, ERA_START, ERA_END);
+      const visibleIds = entries.map((e) => (e.kind === 'current' ? e.item.id : null));
+      expect(visibleIds.sort()).toEqual(['ok-1', 'ok-2']);
+    });
+
+    it('every visible item independently re-passes the shared quality gate', () => {
+      const entries = currentFeedEntries(fixtures, ERA_START, ERA_END);
+      for (const entry of entries) {
+        if (entry.kind !== 'current') continue;
+        expect(passesCurrentItemQualityGate(entry.item)).toBe(true);
+      }
+    });
   });
 
   it('carries the item through unmodified', () => {

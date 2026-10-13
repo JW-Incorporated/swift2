@@ -6,6 +6,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
+import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { resolveVanishedCountdowns } from '../sources/site-diff';
 import { extractWithLLM } from './haiku-client';
 import type { ExtractCommentThread } from './types';
@@ -254,10 +255,22 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       const commentThreads = process.env.ANTHROPIC_API_KEY
         ? await loadCommentThreads(db, items, story.id, commentFetchState)
         : [];
+      // Card 2: fetch the readable body text of this cluster's top 1-3
+      // publisher sources, bounded/fail-soft (fetch-article-text.ts), so the
+      // extraction model sees real article text instead of only the
+      // classify stage's squashed summary. Same "no key, no spend" gating as
+      // the Reddit comment fetch above — a cluster that will immediately
+      // defer has nothing to do with the fetched text either.
+      const articleTexts = process.env.ANTHROPIC_API_KEY
+        ? await fetchTopArticleTexts(
+            sources.map((s) => ({ url: s.url, tier: s.tier, outletName: s.outletName })),
+          )
+        : [];
 
       const extracted = await extractWithLLM(usage, {
         items: clusterItems,
         ...(commentThreads.length > 0 ? { commentThreads } : {}),
+        ...(articleTexts.length > 0 ? { articleTexts } : {}),
         symbolLexiconKeys,
         eraId: CURRENT_ERA_ID,
         today,
@@ -327,10 +340,16 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                 },
               );
               // The duplicate's own current_item row is never written at
-              // all (no insert happens on this path) — only its source
-              // story needs a pointer so future gate runs and the read-time
-              // collapse have something to key on if a row somehow exists
-              // for it already (defensive; normally there is none yet).
+              // all (no insert happens on this path) — there is no
+              // merged_into pointer to set because there is no duplicate
+              // row to point from. The linkage back to this duplicate's
+              // news_story lives entirely in the ORIGINAL's unioned
+              // `sources` (mergeNewFactsIntoOriginal's unionSources call
+              // folds this story's source URLs in above) plus the
+              // duplicate's own news_story.extracted_at getting stamped
+              // below like every other processed story in this loop — that
+              // stamp is what stops this same story from being
+              // re-extracted and re-gated next cycle, not a pointer column.
             } catch (err) {
               errors.push(`dedupe merge/discard failed for story ${story.id}: ${(err as Error).message}`);
             }
