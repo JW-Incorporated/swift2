@@ -49,9 +49,10 @@ describe('writeCurrentItem', () => {
         symbols: ['13'],
         entities: [],
         statusHint: 'reported',
-        imageUrl: 'https://www.people.com/photo.jpg',
       } as never,
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
     expect(result.id).toBe('item-1');
     expect(result.redlineOk).toBe(true);
@@ -113,12 +114,49 @@ describe('writeCurrentItem', () => {
         symbols: [],
         entities: [],
         statusHint: 'reported',
-        imageUrl: 'https://www.people.com/photo.jpg',
       } as never,
       [],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
     expect(result.redlineOk).toBe(false);
     expect(result.holdReason).toBe('summary_too_short');
+  });
+
+  it('regression: reads the image from the positional imageUrl param (the real run-extract-stage call shape), not off the item', async () => {
+    const inserted: Record<string, unknown>[] = [];
+    const db = fakeDb(() => {
+      const c = chain({ data: { id: 'item-r' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        inserted.push(row);
+        return c;
+      };
+      return c;
+    });
+    const result = await writeCurrentItem(
+      db,
+      'story-r',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'release',
+        tags: ['music'],
+        headline: 'New single announced',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+        symbols: [],
+        entities: [],
+        statusHint: 'reported',
+      },
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
+    );
+    expect(result.holdReason).toBeUndefined();
+    expect(result.redlineOk).toBe(true);
+    expect(inserted[0]?.image_url).toBe('https://www.people.com/photo.jpg');
   });
 
   it('writes redline_ok=false — but still writes the row — when a string trips the redline screen', async () => {
