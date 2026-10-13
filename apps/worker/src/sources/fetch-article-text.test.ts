@@ -41,6 +41,10 @@ describe('stripHtml', () => {
   it('strips html comments', () => {
     expect(stripHtml('<p>Real text<!-- hidden note --></p>')).toBe('Real text');
   });
+
+  it('does not double-unescape: &amp;lt; stays the literal text &lt;', () => {
+    expect(stripHtml('<p>Use &amp;lt;b&amp;gt; for bold</p>')).toBe('Use &lt;b&gt; for bold');
+  });
 });
 
 describe('fetchArticleText', () => {
