@@ -176,11 +176,11 @@ export function sentenceCount(text: string): number {
   let hasContent = false;
   let i = 0;
   while (i < s.length) {
-    const ch = s[i];
+    const ch = s.charAt(i);
     if (ch === '.' || ch === '!' || ch === '?') {
       let j = i;
-      while (j < s.length && (s[j] === '.' || s[j] === '!' || s[j] === '?')) j++;
-      if (j === s.length || /\s/.test(s[j])) {
+      while (j < s.length && (s.charAt(j) === '.' || s.charAt(j) === '!' || s.charAt(j) === '?')) j++;
+      if (j === s.length || /\s/.test(s.charAt(j))) {
         if (hasContent) count++;
         hasContent = false;
       }
