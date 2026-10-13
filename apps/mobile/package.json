@@ -22,7 +22,7 @@
     "@swift2/shared": "*",
     "@swift2/ui": "*",
     "@tailwindcss/postcss": "^4.3.3",
-    "expo": "~57.0.19",
+    "expo": "~58.0.7",
     "expo-application": "~57.0.2",
     "expo-build-properties": "~57.0.16",
     "expo-clipboard": "~57.0.1",
