@@ -167,10 +167,31 @@ export interface CurrentItemQualityResult {
  * just holds a row for one more enrichment cycle, never publishes a bad
  * one (fails closed either way). */
 export function sentenceCount(text: string): number {
-  const trimmed = text.trim();
-  if (!trimmed) return 0;
-  const sentences = trimmed.split(/[.!?]+(?:\s+|$)/).filter((s) => s.trim().length > 0);
-  return sentences.length;
+  // Linear single pass (no backtracking regex — CodeQL js/polynomial-redos
+  // flagged `/[.!?]+(?:\s+|$)/` on long runs of '!'). A sentence ends at a
+  // run of terminators that is followed by whitespace or end-of-string.
+  const s = text.trim();
+  if (!s) return 0;
+  let count = 0;
+  let hasContent = false;
+  let i = 0;
+  while (i < s.length) {
+    const ch = s[i];
+    if (ch === '.' || ch === '!' || ch === '?') {
+      let j = i;
+      while (j < s.length && (s[j] === '.' || s[j] === '!' || s[j] === '?')) j++;
+      if (j === s.length || /\s/.test(s[j])) {
+        if (hasContent) count++;
+        hasContent = false;
+      }
+      i = j;
+      continue;
+    }
+    if (!/\s/.test(ch)) hasContent = true;
+    i++;
+  }
+  if (hasContent) count++;
+  return count;
 }
 
 /** Word count: splits on whitespace, drops empty fragments. */
