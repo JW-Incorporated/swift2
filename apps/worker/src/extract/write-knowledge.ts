@@ -120,6 +120,24 @@ export interface ClusterSource {
   tier: SourceTier;
 }
 
+/** Content fix 7: unions two source lists, deduped by URL — the original's
+ * sources win on a collision (kept as-is) with the duplicate's novel sources
+ * appended, same "union the sources" instruction the spec gives for both the
+ * merge and the discard-only (no new info) paths. */
+export function unionSources(
+  original: readonly ClusterSource[],
+  duplicate: readonly ClusterSource[],
+): ClusterSource[] {
+  const seen = new Set(original.map((s) => s.url));
+  const merged = [...original];
+  for (const s of duplicate) {
+    if (seen.has(s.url)) continue;
+    seen.add(s.url);
+    merged.push(s);
+  }
+  return merged;
+}
+
 function bestSourceTier(tiers: readonly SourceTier[]): SourceTier {
   for (const tier of SOURCE_TIERS) if (tiers.includes(tier)) return tier;
   return 'unverified';
@@ -203,6 +221,71 @@ export async function writeCurrentItem(
   const id = data.id as string;
   await emitLaunchCategoryEvent(db, id, item);
   return { id, redlineOk: screen.ok, expiresAt: itemExpiresAt };
+}
+
+export interface MergeIntoOriginalInput {
+  /** New facts already folded into a rewritten summary/detail by the dedupe
+   * gate's merge call, or undefined when there's nothing new to fold in
+   * (discard-only path — spec §A "same_event + nothing new"). */
+  mergedSummary?: string;
+  mergedDetail?: string;
+  /** The duplicate news_story's sources, unioned into the original's. */
+  duplicateSources: readonly ClusterSource[];
+  /** The duplicate's resolved image_url, used to fill the original's image
+   * only when the original had none (spec: "fill image_url if the original
+   * had none"). */
+  duplicateImageUrl?: string | null;
+}
+
+/** Content fix 7 (§A): the ORIGINAL current_item absorbs a confirmed
+ * same-event duplicate. Rewrites summary/detail when the gate found new
+ * facts (still re-screened and re-gated through evaluateCurrentItemQuality
+ * exactly like a fresh write — a merge must never let a redline/quality
+ * violation slip through a side door), unions sources (deduped by URL),
+ * bumps heat by the duplicate's own source count, and refreshes
+ * last_checked_on/updatedAt. Never touches `merged_into` on the ORIGINAL —
+ * that column exists on the duplicate's row, pointing back at this one (see
+ * `markDuplicateMerged` below). */
+export async function mergeNewFactsIntoOriginal(
+  db: SupabaseClient,
+  originalId: string,
+  original: { summary: string; detail: string; headline: string; sources: readonly ClusterSource[]; imageUrl?: string | null },
+  input: MergeIntoOriginalInput,
+): Promise<{ redlineOk: boolean; holdReason?: string }> {
+  const summary = input.mergedSummary ?? original.summary;
+  const detail = input.mergedDetail ?? original.detail;
+  const sources = unionSources(original.sources, input.duplicateSources);
+  const imageUrl = original.imageUrl ?? (input.duplicateImageUrl || null);
+
+  const screen = screenAll([original.headline, summary, detail]);
+  const row: Record<string, unknown> = {
+    summary,
+    detail,
+    sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+    source_tier: bestSourceTier(sources.map((s) => s.tier)),
+    heat: sources.length,
+    image_url: imageUrl,
+    last_checked_on: new Date().toISOString().slice(0, 10),
+    updated_at: new Date().toISOString(),
+    redline_ok: screen.ok,
+  };
+  const { error } = await db.from('current_item').update(row).eq('id', originalId);
+  if (error) throw new Error(`mergeNewFactsIntoOriginal update failed: ${error.message}`);
+  return { redlineOk: screen.ok, ...(screen.ok ? {} : { holdReason: 'redline' }) };
+}
+
+/** Content fix 7 (§A/§C): hides a duplicate current_item behind the
+ * `merged_into` pointer instead of writing it as a new row (or, for the
+ * live-cleanup script, instead of ever un-hiding an existing one) — never a
+ * hard delete (spec §C: "HIDES the duplicates... never hard-delete"). The
+ * read-time collapse (packages/experience/src/current-feed.ts) also filters
+ * on this column as a second line of defense. */
+export async function markDuplicateMerged(db: SupabaseClient, duplicateId: string, originalId: string): Promise<void> {
+  const { error } = await db
+    .from('current_item')
+    .update({ merged_into: originalId, expires_at: new Date().toISOString() })
+    .eq('id', duplicateId);
+  if (error) throw new Error(`markDuplicateMerged failed: ${error.message}`);
 }
 
 export interface WriteFanSignalResult {

@@ -12,17 +12,47 @@ import type { VideoNote } from './types';
  * observed_on"). Rows with `promoted_to` set never reach here — the
  * knowledge client's query already excludes them (packages/core/src/
  * knowledge/client.ts).
+ *
+ * Content fix 7 read-time safety net: `items` is passed through
+ * `collapseMergedDuplicates` first so a row that somehow still carries
+ * `mergedInto` (the write-time gate's own normal path never inserts one, but
+ * this is defense in depth — a pre-gate row backfilled by the live-cleanup
+ * script, a future writer that forgets the filter, a stale cache) can never
+ * render twice, or at all, in the feed even if it slipped past every read
+ * query's own `.is('merged_into', null)` filter.
  */
 export function currentFeedEntries<V extends VideoNote>(
   items: readonly CurrentItem[],
   eraStart: string,
   eraEnd: string,
 ): EraFeedEntry<V>[] {
-  return items.map((item) => ({
+  return collapseMergedDuplicates(items).map((item) => ({
     kind: 'current' as const,
     item,
     anchor: resolveAnchor({ exactDate: item.observedOn, eraStart, eraEnd, id: item.id }),
   }));
+}
+
+/**
+ * Content fix 7 read-time collapse: drops any item whose `mergedInto` is
+ * set (it was folded into another item — never shown on its own), and, as a
+ * second belt-and-braces check, dedupes by `mergedInto` TARGET too — if two
+ * rows somehow both point at the same original (or an original and a stale
+ * un-collapsed duplicate both ended up in the same `items` array), only the
+ * first (by array order, which callers feed in `observed_on desc`) survives.
+ * A duplicate can never render twice even if the write-time gate's own
+ * dedupe step was bypassed or ran against stale data.
+ */
+export function collapseMergedDuplicates(items: readonly CurrentItem[]): CurrentItem[] {
+  const seenOriginals = new Set<string>();
+  const result: CurrentItem[] = [];
+  for (const item of items) {
+    if (item.mergedInto) continue; // hidden — folded into another item
+    if (seenOriginals.has(item.id)) continue;
+    seenOriginals.add(item.id);
+    result.push(item);
+  }
+  return result;
 }
 
 /** First reported source's outlet name, for the "Live · reported by X" chip
