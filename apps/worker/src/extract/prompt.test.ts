@@ -42,6 +42,9 @@ describe('RECORD_KNOWLEDGE_TOOL — Card 2 schema descriptions', () => {
   it('describes summary as 2-3 sentences, not a <=400 char single line', () => {
     const summaryDesc = RECORD_KNOWLEDGE_TOOL.input_schema.properties.current_item.properties.summary.description;
     expect(summaryDesc).toMatch(/2-3 full sentences/);
+    // Must stay within the DB check (char_length(summary) <= 400) and the
+    // sanitizer's 400-char clamp, or the model's tail gets silently cut.
+    expect(summaryDesc).toMatch(/160-400 characters/);
   });
 
   it('describes detail as a real paragraph grounded in given material', () => {
