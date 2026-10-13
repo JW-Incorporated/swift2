@@ -180,15 +180,15 @@ export async function writeCurrentItem(
   // quality.ts): a row is only ever servable once it clears the SAME shared
   // validator the read-time paths (getCurrentItems/getRecentItems/
   // currentFeedEntries) check — image present + allowlisted, summary/detail
-  // length floors, AND the existing redline screen above. `imageUrl` isn't
-  // on `ExtractedCurrentItem` yet (Card 1's scope adds it); read it
-  // defensively off the extracted item so this hook stays a one-line diff
-  // once that field lands, rather than widening the type here.
+  // length floors, AND the existing redline screen above. The image is the
+  // resolved `imageUrl` PARAMETER (Card 1 / #5628 threads it positionally,
+  // and it is exactly what lands in the `image_url` column below) — never
+  // read off `item`, or every row would be held as `missing_image`.
   const quality = evaluateCurrentItemQuality({
     headline: item.headline,
     summary: item.summary,
     detail: item.detail,
-    imageUrl: (item as ExtractedCurrentItem & { imageUrl?: string }).imageUrl,
+    imageUrl,
     redlineOk: screen.ok,
   });
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
