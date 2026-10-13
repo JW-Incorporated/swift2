@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 62
+
+## Analysis Examines Critique of Taylor Swift
+
+- first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from The Denver Clarion explores the extent and impact of critiques directed at Taylor Swift. It provides an analysis on the reception of her work and public persona.
+- sources:
+  - [unverified] The Denver Clarion — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVkIyZUw5X0U5UmpneTFscXJsQWtQbXRtbmo3RzBscHMyYmpVN243bWNuY1RHVGs1TFVTTlc0SXEtQWlUcGs3ckxOeFplbThPWGU5ZXN1ZzgwOWFMQm9yMXotMThCSm01VWRqSUw4SFJyWGhpd3V6clJET3BUMXk5aUV5aUZUQ3dfNGtJXzF3ZjBodw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Patrick Mahomes Shares Personal News at Swift-Kelce Wedding
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Patrick Mahomes revealed personal news during the extravagant Taylor Swift and Travis Kelce wedding, which reportedly cost $362,000.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWdFQ2R1ODl1a0dZVzloZWVxNU1mRFRJTThPQVF0QVNJWXlzVVo1NGRhSk5tSXpzeU5RYW1tM2w0VGY2czlTaVQ1TXNGYW5GQVV3Um1mTVI0aTM2VlJBMjBPbENUcHVITzF3WEh1REtvOWtsdVlReERlcENGVlRXUmRDV002WGZSVTFRUXFfaExWSy1TcmV0SVhoVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxONmVkckhLaVhSaXVlaFU1MDQzc1Z1am5BOGRkT2d3UnpQbkM1ZnEtQktPLUJZdWozelcwS09MY1U5NjRXYzlCeWswbUNzcm9nQ3lpMURDOEJoOTk2cW5FT3Y5SWo2T1VGLWY5aUhqRUdwTWJQTFRQUWRYOVhHSWtTSFlPVHFMNXdoRlZLcUkzb2IyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Faces Backlash from Taylor Swift Fans Over Social Media Comments
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has reportedly drawn criticism from Taylor Swift fans due to his questionable activity on social media. This incident highlights the ongoing public interest in his relationship with the artist.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMimgFBVV95cUxNVUdmcnpvQXczUzdqeVhudThjaThKblREeE9KWWpUajNzUGx3SHk1aE9kdHVGU2tIcVNkZm13UjFGbk1EVEd2X0NiaENoM0ZqZWhET1hNMElFc2l0ZkdBemVndnJLWXpsRGkyWnhwaHowbE5iMGNxZFRPSTZhT1pUY0tZbEhtMGNNdnJBaGhkRy1ydnk5bVFhckVn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Olivia Rodrigo Competes for Album of the Year at 2027 Grammys
+
+- first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Olivia Rodrigo is expected to be a strong contender for the Album of the Year award at the 2027 Grammys, facing competition from artists like Olivia Dean and Rosalía. The event highlights the excitement around the nominations and potential winners.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/
+
+## Taylor Swift and 'Patient Zero' Achieve Historic Milestone Together
+
+- first seen: 2026-10-13 19:51 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and 'Patient Zero' have reached a significant milestone in their collaboration. This achievement highlights a noteworthy moment in their musical journey.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOLXp1ZHdham5nTlRab01vWnhMalN1UnhJcUJOVWxMUnBjUGthRDVWNHowV1JXaEdKd3lMYl8tNUU2SUFObWpkSW9zc0RDSDMyazdWb1V4azJGQmNHb2J1TnZ6NkFkQW03RjYwS3hVeURBekRsaW1CcEpUSENSSXNWZzFVWWdwZ2JvSDhnbWIzaVBIa1dndkxYN29rOE4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seeks First Oscar Nomination with Spielberg's Support
+
+- first seen: 2026-10-13 19:51 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly aiming for her first Oscar nomination, with assistance from director Steven Spielberg, at an upcoming gala event.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxPSFhZNnQzTy1oTkp2N1VkRWRNbXVqUmIwZHpGeGFjT2lSbFZBVHNmR2xiaFNSdlVyTGgzMnRsWk80MTlWSko3dDNIeGJNZFIwa3p1azZIMWRNY1o3Q2IyeGRyaWVsak00WlIzRVNGVTUtcTBVQ0tiQTh1WjgtRE12NzFwcnpYejdyV1U1SW5xSE9MOGMz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Appear Together in 'Patient Zero' Filming Footage
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: New footage from the filming of ‘Patient Zero’ shows Taylor Swift and her husband Travis Kelce together, highlighting their relationship. The clip features the couple cozying up during the shoot.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNkRHRDBLZjhGLWpCa21wb3dQU3U2Smg4djlxcjhCYlphR3p5NlVkTURyTGMyT21PclcyZnhuNmRuNzZyb3M1S2FwZlRObmdleHI3UUdNM2NLc2kzbEFXVjA0OVEtZmxPeDRoWEpoVWhMS0FibTI1T3U4aWhkcUJZbUt6cDBpOW1xWjRyTmllWTk5a1lxQUF6bVk5dWZEUzl4bnFyU0ctUkVxdjhITkY1M2FFN1d5THZqM0toazUzTVc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce appear in new intimate clip
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Remains Number One on Hot 100 Chart
 
@@ -38,10 +103,11 @@ Stories: 63
 ## Taylor Swift Considering Ending Relationship with Travis Kelce
 
 - first seen: 2026-10-13 12:40 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: A report suggests that Taylor Swift may be considering leaving Travis Kelce for a justifiable reason. Further details have not been provided in the source.
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSUgtUnpOSFZfdUU1dEV3R2FEVkYyQzRCN28wMlhyU3VpRVJlUllRaDFYeU1zSWJQMDhabmFMQWtfN3lObjB6cVZZWTRKS0ZkdV9TMjczcDRDVnYwTlU3SERGTFBQRzBlck9ERU1WWF9acWU2aDhBaEJHY21TU3Q3eUExMWQ4TG1KSDg3ZWJfOWUzNmd3UGJhTXpWTnJrbUhBQ29zaWhIdXpkb3hHeW02NmNOUXROeldRYnh3VE9RT0MxZkwwX2xGNU9RQzBrVGhiZXEzctIB1AFBVV95cUxOMG5IY3pSZkFlU0xTMWpHdjEtandTVVluTFlrRkstY0VWUF9TUERvcktkMFRaZjloNERtYjQwZzhISWxoYkNKRDRZR1FxZTd0dTJoWnpHU0Z0ZlFYdUNsdkdSMVp3R0h2SjFDdnhNOENhbXdabmlLUXllNVhLYzZ4NUZLdVV4VTQtQWhTTURyd3NxdmNLR3R1cUtVQUxfWlB3VGk5eWtSM3FjOWh3enlORHZuRktQbjBOR2diTlZNUVhCV1J1YXAxVXpaQkZvUXVURDdCaw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMisgFBVV95cUxNN1J1Sm1SRXpuaWcwR29vTU52b1VDMkhXR0NhSHZaeE03RmZUTkxCaFdxdFhSMGtlejZ2SzBBT29tMEVXeng5bFNacWViTE1GTjlvLUZQVXBGY1AyZjhlYWhKcER0R3FCOEtobloxcDRhRzhaNnBOS3lBYnU0VGJmMm4wVzNwM2JrVDUtYmFBRTd4ZWJkczQtT0Y2WkhQcFdIVVRyNmlwNlE0dWhsVjM1TXB3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## New Yorker Highlights Unusual Taylor Swift Fan in 'Daylight'
@@ -63,9 +129,10 @@ Stories: 63
 ## Taylor Swift Achieves Historic Top Five Chart Milestone
 
 - first seen: 2026-10-13 12:40 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift shares a historic Top Five chart milestone with The Beatles and Drake, marking a significant achievement in music history.
 - sources:
+  - [unverified] UNCUT — https://news.google.com/rss/articles/CBMiywFBVV95cUxPX3VfSWo5Q3p5cFhBZHJSMUZMZ25xdmV2Ql92U2NIc0ZVbU1UOEZQajNrZkRRWHRnamVYQXljREFhX04walZlamJ0SVhzdkdDejlnanRFQkJjODY2LTIzOENWZGdYQVZYRVZhbHAxV3NLMGxLTzVkLXFZRzVlM1plR2hCQmZmMndQcC16RG00SjFSODFyREs0UE1XcUZtaFJmcjdhaHFVVjQxLVBZMm41M1ZQejV2TEx6cVl0TUpDWGFaYUdub3Y4OHZKVQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Vermilion County First — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNU18zdnFVdHNuU1drdGF3dEtPaFhrMV8tZWQ1N0FmelpoWmZObDY2NjU2a1M2b1Y0QWZjbWduekpydWF0YmFHV2E3ZHhpdnQyX1AtWWdrbEJwSmczZU9kaFZGQldEVlVtR0ZfMy1wbk5xZTRsTUJhRGZmTE5BMXRiTVZjcXpsb3RQZFdjcnMzcFBGemRGdlpuQ3hVSngxenRoaUdLaURrYU1IWGpiYzBXektVVWZmQmlKOExj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Tops Chart, Dethroning Ella Langley's 'Choosin Texas'
@@ -182,6 +249,19 @@ Stories: 63
 - sources:
   - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiZEFVX3lxTE13SXV5c0FkZkhpOWRDN3FEOWZHZW9Gd2F3YWtVOFgyZE15STdKQlhlenBhbHRKMzBPbkh1YUlPQ0gyXzVTMVlUeDVJeFVnN29sS1lXMU1sY2htMURPUzI5bXM4bnQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] CNN — https://news.google.com/rss/articles/CBMi9wFBVV95cUxPdGZlRDhBbmplanJPTG1qSnVtSzBObUFoMXBMc0ZiVHdyZ3V6cmpMbzFyTFQ2Ykg1alI5VHlNWm5makYwX1kxdUs0VUYzYWpMNTBfV1ZpcGljLW00U0JOVXdOckNkVDZaNUNwLTdSYTNwYmRzeVU4aE00dkJCdWJrbGg3aUJmSFR3TXZhaDhLeUlVbXVxZ19lOThmbnIxaVZVSzloQ3JxRFNfbC1oRlYzOElfUVh4bmpkR3YxNUJoREk2LVkwR185cTEwMDRGbGtmb0g5Y19Ob0tFQTJSUHdSSnFQQmlwZXZxODlaMDhQSVh3bGlSaDhR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Duke Today — https://news.google.com/rss/articles/CBMikgFBVV95cUxNUFJpcGJwLVczRXpSTUx6M1RVYURoYVB3YXdDelkxd2dpUzRfNWdPcEhOeUhhS0RvZ1MtaUFDZWdCd0xCLWpYQXQ0bG9HQjg3eWVhVHlCSXB3V04yS3dPcWRTM0dQcmN4QVRiTXMyNUlTMFlMdGlQUzNQZE90MGw3QW15RWdvUE9uUlFwUzB5aG1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Pop Star Criticized for On-Stage Actions, Taylor Swift Mentioned
 
 - first seen: 2026-10-12 18:57 UTC | category: tour | importance: 5
@@ -254,18 +334,6 @@ Stories: 63
 - sources:
   - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPQUtUQjdUMWtGUllkd0RBVjVBY2xfUDRmcVY0VmM1SnY0ZUVJQldvN3c2NWtLM2dDZHdhX2NTdWFTOGl3dlVITWRLVFJQRkUxT05xaUlaeU40cjgtTW5LWkdTMkR3RWU2ZGduRXJsTkdHb0xUX0hGVEh4eWw5YXFVZlN3VXU1ZDlsSUJoeGM1d0Z1YXFfb29xc203NWU1U3c4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Duke Today — https://news.google.com/rss/articles/CBMikgFBVV95cUxNUFJpcGJwLVczRXpSTUx6M1RVYURoYVB3YXdDelkxd2dpUzRfNWdPcEhOeUhhS0RvZ1MtaUFDZWdCd0xCLWpYQXQ0bG9HQjg3eWVhVHlCSXB3V04yS3dPcWRTM0dQcmN4QVRiTXMyNUlTMFlMdGlQUzNQZE90MGw3QW15RWdvUE9uUlFwUzB5aG1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves 100 Weeks Atop Billboard 200
 
@@ -473,78 +541,3 @@ Stories: 63
 - summary: Taylor Swift was spotted in New York wearing a popular fall color while out with Travis Kelce. This sighting highlights her fashion choices during the season.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPRWx2YnZ6M1Vqb2JwNmdPSE9nd2xEWEdXd2JtdkpQVEttMEhIaUFhYWNCOWE4SGhsVE5odTgtZFFJMkJTSHU1MXVaaHZBbHlFSzFnVmxBRHJGOHNETnpicDRyM2tETm9qS3QtaWhLY2todWktNmRBRnNJRFdsOGVyaExLZFE1MDVvT2JvWEdkVExCMnlWbDJab2FRck1nNjlXdW0taFhRcWxCUmJOS2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on Date Night in NYC
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce were seen holding hands during a date night in New York City. The couple's outing comes amid reports of a dispute with their neighbors.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVjM0X1lpMFpqc1hCQXphM2hBdF9PRFhYVXYteGlVTlFTLXVvZk8wUkozak5rbnNGb19sdjFTcmFZOVNUWHZ3a1RKWF9SU3BXNzRvTXhjZnRETlBWMXF6WGZIWG5DZWw4Nm1SbnYtLWo2UVZScVJMQnNZWnNSUTJGUVpEcy1UenR4c0FsWjRJWEh5M1JZR2wxNVNDSzQtQkhGZzN4RU5FcnpyMXdxX3VOa0pxVGcyVXAwcEcwcV9iTkZBQmt3bjdvdDBsX0I3WHlEY0E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYS00Z3pwclFHa0ZBemlReFp2RS1SZXJRdmlIYkY1dFhtdW1kQzg3SHRneXBBNnhMUVRuRkdiZ05UVUxTX1pfNy1MdXZHd0lLQW4zejFJOW1uZ3RYU1cxeXVucUZ3UTJPRVFXd3Q5T1o2TXlieFp5S2l5ODVyX2ZYT0NTRUZzbUxQS1hrUWdzbHUtdmFXVVotRTZqUW0wOXhnUzBMY2hJRFRVNFlTNTBwOVc3bVpjUdIBtAFBVV95cUxNMDhZMnBtMEpzTEJqSy1ZZHhmTS1SMm5VdW9xMDRhYkN1LWktWmNWeldyVWNhbTN2dENaZnhtNktKdXFvYk1UZTVKSDJzUmlneGF5emNOZDhnSTk1WnlfWURLMGJ1Y1c0aC12UnA0QlMzSFFXUEJZYUNldUFfYW10RnVldnpodW9SSE9VNGp0TmtyaDk4Snp3SDZMV25IT1N2ZmJILWYwamUtREJkOU84ZDBma0I?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Have Date Night in New York City
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted enjoying a date night in New York City. The couple's outing attracted media attention as they spent time together in the city.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiigFBVV95cUxQWHRPSWFXOEk1c2pBV2k5NzF3TEd1T2tzNGtGZXN1R0luYXZ4a2RJRzNrazg2SnBWT1NTcV9LTDdIZEJWZWZVZEpRamxnUjN2MmF3U19kQVpGSUtfQkxZZlItcVBkM29VSHBPNkVDZi1paWdLd0VLVXhJUzZ4Q3ZOcTdkVHp0VmpzS0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Life of a Showgirl' Hits No. 1 on U.S. Album Chart
-
-- first seen: 2026-10-10 15:18 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's latest album, 'Life of a Showgirl,' has achieved the top position on the U.S. album chart, marking another milestone in her successful music career.
-- sources:
-  - [unverified] upi — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNDdBSmlhbE00QTdUUjQ5T2pSVnAtT1dhOGdqYzdhcS14MDhUNjBNQlM2eEx3Q1lESElVUDd2czVwemRaR3FBUTZfSjRJTWRMclMyZVpDLWhBNE5RRGw0eFZHSlU4SkJndUNwSTZfUkZRZGZZa3NlQ1VGYUpQR0Q5V3Bqbm9ycHpGQ3ZSNjJrWnZGTmhYTl9CeDU1ZUFRdUI5dzV2UkRSN185TlYwY3fSAbMBQVVfeXFMTU51d1RycXBEQ001cVVpWEh1akRRdWNxb0dKV21PNGljcm5vT3ZCNEFRQzRhbXVZUkhPdDJDU2NWV3NNbWx5YmFCTjVDWElVaFpSRTV5d21neHR2MHZqN0djWmxwOVR1WlJ3Z2ZKWF8tVUl6bGx0eTQ0THBOc3Vwcm8yaWl6YVJfbUIzMHRSdFJkeXlSdUJrckhYdExSRnd1WmVpckk3dHkyY0xVN3MyZU5VWUU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Enjoy Low-Key Date Night in NYC
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted in New York City enjoying a low-key date night amid the Chiefs' bye week. The couple's outing highlights their ongoing relationship.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxOa25WZ2ZuNHdGNWZmZVBWdmtRdEplbDBfVU10eDFCcDg1MnVWOTdkRmk3RzFVcEZJcm1WeEJscTQxbnd4YnZZWS1YM2VreE1lQmZwOFNEOTUzbjFhRWR4TDQ4SldnY3hBMVhMUzkwRE5OaXIxZUt3TXBlc0RMdThlaTE0TlJITTdJa0pOOV9DdXlaZmF1YjVJWjhGZFlrNF9lVkdSZU1UV2drVEQySEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Face Allegations Three Months After Marriage
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are currently facing serious allegations just three months after their marriage. The nature of these allegations has been described as 'catastrophic.'
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdEpPUThjbFR2ZkZPdVlyWVVSQ2ViOTdHdVU5LW9yZWZxWHRlUXJILUE5S2hia0lHSVlsY01MRUVHbG52Ym9LWFJRcV9IU3RCN2xnNVlnNzdEMVhVVmFKYl9vdkZ4UUhiMF9lZGtzdWdKYTZfeEhVQWJQWlNDYzcxNVVtV0phSTlqODlOOFo2a3VDbzlER3g4VXhMaXBRWjVS?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Deep Cut "Chloe or Sam or Sophia or Marcus" Trending Among Fans
-
-- first seen: 2026-10-10 15:18 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: The track "Chloe or Sam or Sophia or Marcus" from Taylor Swift's album The Tortured Poets Department is currently gaining popularity among fans, sparking interest and discussion.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisgFBVV95cUxQb05WN2FjOUR5NktIanVEaGs4Y3VwMUZReGR3T2JwaGFUdzh5V2ZLbXFNUS1qOEtnNmp0dXBMdVJlQ1RyWEhwUmtnc2ZpQUZ4U2lJLVBMZUhrb0VUMm1mQVZTdE0yRWlUZEJrLVJYRFRYb28wanIxWm9kYmVuT1VfOFY0YmF4dnZaMThqbmZ1UHRtWW9UclgyTUFRYTREZ3BmTGtVaWJ1alVFYkFHNnBZYmJ3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-deep-cut-chloe-sam-sophia-marcus-song-1235640023/
-
-## Taylor Swift and Travis Kelce Seen Together After Dinner in NYC
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted holding hands following a dinner date in New York City. The sighting has drawn attention to their relationship status.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxONnV3OXBUNElRb1hsd1RMNFh5RnBhYkVzYndwU0J3UEF0QVVIVFVtd1dqY0E5aVJFanRrbjY3MjZKQVdTcmR2V1RhNmc1ck1YTGZyYUk0WVNCcGRRWXI4M0FFMW1fQ1JmbFpzdDIycVV3TVZyLTJMR0Z2eEMwQXdvVURuQW8yS0dSbmtkZThOeHVoOVAwLVBWQ29NSzJvWHdkVXcwczBn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Seen Together During NYC Date Night
-
-- first seen: 2026-10-10 15:18 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce were seen holding hands while enjoying a date night in New York City, as reported by Us Weekly.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMikgFBVV95cUxOc2EtOHBlUFlkZFgwSHllanltWkFsU0N3dkM4WHdhMTktRFlOSkE3TUJkSlBfOWc4ckRHWUJGNVNVUEtpclJtakJQWWhGRFQwTDlPWHkxWWhwQmp2M1JDQWZmdkJyMk9pQ29YMWFhYTZMOUhVc0xGQTd5UTIzMnk3QllQWjRoZkdaUER1dnM5ZHhoUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMirAFBVV95cUxNYkVYaE9UNV9qck9KTWdNV3QxRzBuYVA4am5HUmNCbmlRR25LMjh6VlQ4SmlDTW50Tk1qejc2NkFfQTV1T2k1OUk2c0U0M2dPakROWkd1WGZoclZQZHNTdVlLY05QamlyVU9vWlBVOVJhU3MwZEw1bVl2aEJjM2RuX3BkU3Vpd2tuZ3N5Y2lSVncwbWE5d2UweDJ5QlBKV1g5TmlxcTNMWXNtZ3NY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Challenges in Getting Comments on Taylor Swift from Industry Insiders
-
-- first seen: 2026-10-10 15:18 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Washington Post discusses the difficulties in obtaining on-the-record comments about Taylor Swift from industry professionals. The article highlights the reluctance of sources to speak publicly about her.
-- sources:
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNmFGVnlRV0NGcDV6U2czLU9fSGhZWUpkeTZJVGtyel9yNzg1T0hlaDFDbkFHTW02Y2R2a2hqcmdTb3dNTUQ0dFdrSml3RnVuV296VVVKVnVDblp6S0ROZnJRaFpoYXZ5cVlLUXE1WnlzYWQxeTNCWTNnZWdoSFE5YUQ5aE1hMmkwMnlIcWFlNlg5UWdsbi1VX2Q1djFRR3FCNzQ1RFlZRGo?oc=5&hl=en-US&gl=US&ceid=US:en
