@@ -27,6 +27,16 @@ function baseItem(overrides: Partial<CurrentItemQualityInput> = {}): CurrentItem
 }
 
 describe('sentenceCount', () => {
+  it('is linear on adversarial input (CodeQL polynomial-redos regression)', () => {
+    const evil = 'a' + '!'.repeat(50_000) + 'b';
+    const t0 = Date.now();
+    expect(sentenceCount(evil)).toBe(1);
+    expect(Date.now() - t0).toBeLessThan(200);
+  });
+
+  it('counts a run of terminators as one sentence end', () => {
+    expect(sentenceCount('Wow!!! Really?! Yes.')).toBe(3);
+  });
   it('counts simple sentences', () => {
     expect(sentenceCount('One. Two. Three.')).toBe(3);
   });
