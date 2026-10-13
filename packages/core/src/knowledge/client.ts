@@ -15,6 +15,7 @@
 // describes as the eventual shape.
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { CurrentItem, EggLedgerEntry, FanSignal, KnowledgeDoc, KnowledgeDocTier, SymbolActivity } from '@swift2/shared';
+import { passesCurrentItemQualityGate } from '@swift2/shared';
 import {
   mapCurrentItem,
   mapEggLedgerEntry,
@@ -100,7 +101,14 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
     .limit(CURRENT_ITEM_MAX_ROWS);
 
   if (error) throw new Error(`getCurrentItems: ${error.message}`);
-  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem);
+  // Content fix 3/6 hard publish gate: RLS already scopes anon reads to
+  // `redline_ok = true` (which `writeCurrentItem` now only ever sets once a
+  // row has cleared the SAME shared validator — see current-item-quality.ts),
+  // but this filter is a second, defense-in-depth check at the read path
+  // itself, so a failing item is never visible through any caller even if a
+  // future write path (or a service-role query that bypasses RLS) ever
+  // forgets the write-time gate.
+  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem).filter((item) => passesCurrentItemQualityGate(item));
 }
 
 /** `recent(days)` — same `promoted_to` exclusion as `getCurrentItems`, plus an
@@ -121,7 +129,8 @@ export async function getRecentItems(db: SupabaseClient, days: number, signal?: 
   const { data, error } = await query_;
 
   if (error) throw new Error(`recent: ${error.message}`);
-  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem);
+  // Content fix 3/6: same defense-in-depth quality-gate filter as getCurrentItems above.
+  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem).filter((item) => passesCurrentItemQualityGate(item));
 }
 
 const KNOWLEDGE_DOC_COLS =
