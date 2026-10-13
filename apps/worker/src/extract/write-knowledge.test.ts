@@ -258,7 +258,7 @@ describe('mergeNewFactsIntoOriginal', () => {
     const mergedSummary =
       'Taylor announced a new single AND a surprise music video today during a livestream watched by millions worldwide. Fans immediately began speculating about which upcoming album the single belongs to.';
     const mergedDetail =
-      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques, and a companion outlet also confirmed a surprise music video would drop alongside the single within the next 24 hours, extending the rollout across multiple platforms at once.';
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques, and a companion outlet also confirmed a surprise music video would drop alongside the single within the next 24 hours, extending the rollout across multiple platforms at once and drawing comparisons to past surprise-release eras that fans had already been tracking closely.';
     const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
       mergedSummary,
       mergedDetail,
