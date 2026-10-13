@@ -282,15 +282,17 @@ describe('getRecentItems', () => {
       era_id: 'tloas',
       category: 'sighting',
       tags: [],
-      headline: 'H',
-      summary: 'S',
-      detail: 'D',
+      headline: 'Headline',
+      summary:
+        'A qualifying summary with two full sentences and plenty of characters to clear the publish-gate floor. It easily passes both the sentence-count and char-count checks.',
+      detail:
+        'A qualifying detail paragraph with enough words to clear the sixty-word publish-gate floor for every fixture row in this describe block across every single test case that reuses this exact same helper function without any further changes needed at all today, with some extra words about the context and timing of the event added here solely to push the total word count safely past the sixty-word floor for every single test in this file.',
       status: 'reported',
       confidence: 'reputable_reporting',
       source_tier: 'established',
       sources: [],
       location_level: null,
-      image_url: null,
+      image_url: 'https://www.people.com/photo.jpg',
       social_post: null,
       symbols: [],
       entities: [],
@@ -317,6 +319,16 @@ describe('getRecentItems', () => {
     const db = fakeDb({ current_item: items });
     const result = await getRecentItems(db, 7);
     expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:2']);
+  });
+
+  it('excludes a row that is redline_ok=true in the DB but fails the Content fix 3/6 quality gate (defense in depth)', async () => {
+    const qualityFailingItems = [
+      ...items,
+      itemRow({ id: 'ci:unqualified', observed_on: dm.daysAgo(1), image_url: null }),
+    ];
+    const db = fakeDb({ current_item: qualityFailingItems });
+    const result = await getRecentItems(db, 7);
+    expect(result.map((r) => r.id)).not.toContain('ci:unqualified');
   });
 });
 
