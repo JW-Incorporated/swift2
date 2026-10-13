@@ -10,6 +10,7 @@ import { resolveVanishedCountdowns } from '../sources/site-diff';
 import { extractWithLLM } from './haiku-client';
 import type { ExtractCommentThread } from './types';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
+import { resolveImageUrl } from './image-resolve';
 import {
   writeCurrentItem,
   writeFanSignal,
@@ -52,6 +53,7 @@ interface PendingStory {
   id: string;
   canonical_title: string;
   summary: string | null;
+  top_image_url: string | null;
 }
 
 interface RawItem {
@@ -203,7 +205,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
 
   const { data: pending, error: pendingError } = await db
     .from('news_story')
-    .select('id, canonical_title, summary')
+    .select('id, canonical_title, summary, top_image_url')
     .not('classified_at', 'is', null)
     .is('extracted_at', null)
     .limit(MAX_CLUSTERS_PER_CYCLE);
@@ -262,6 +264,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         result.skipped++;
       } else {
         if (extracted.currentItem) {
+          const imageUrl = await resolveImageUrl(story.top_image_url, sources);
           const written = await writeCurrentItem(
             db,
             story.id,
@@ -269,6 +272,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             extracted.currentItem,
             sources,
             countdownTargetAt,
+            imageUrl,
           );
           if (!written.redlineOk) result.screenedOut++;
           else {
