@@ -7,6 +7,7 @@ export * from './vault-budget';
 export * from './moment-load';
 export * from './youtube';
 export * from './current-types';
+export * from './current-item-quality';
 export * from './notifications-types';
 export * from './device-registration';
 export * from './notification-deep-links';
