@@ -6,6 +6,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
+import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { resolveVanishedCountdowns } from '../sources/site-diff';
 import { extractWithLLM } from './haiku-client';
 import type { ExtractCommentThread } from './types';
@@ -243,10 +244,22 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       const commentThreads = process.env.ANTHROPIC_API_KEY
         ? await loadCommentThreads(db, items, story.id, commentFetchState)
         : [];
+      // Card 2: fetch the readable body text of this cluster's top 1-3
+      // publisher sources, bounded/fail-soft (fetch-article-text.ts), so the
+      // extraction model sees real article text instead of only the
+      // classify stage's squashed summary. Same "no key, no spend" gating as
+      // the Reddit comment fetch above — a cluster that will immediately
+      // defer has nothing to do with the fetched text either.
+      const articleTexts = process.env.ANTHROPIC_API_KEY
+        ? await fetchTopArticleTexts(
+            sources.map((s) => ({ url: s.url, tier: s.tier, outletName: s.outletName })),
+          )
+        : [];
 
       const extracted = await extractWithLLM(usage, {
         items: clusterItems,
         ...(commentThreads.length > 0 ? { commentThreads } : {}),
+        ...(articleTexts.length > 0 ? { articleTexts } : {}),
         symbolLexiconKeys,
         eraId: CURRENT_ERA_ID,
         today,
