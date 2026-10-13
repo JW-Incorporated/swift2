@@ -50,6 +50,15 @@ export interface ExtractCommentThread {
   comments: readonly string[];
 }
 
+/** Card 2: one fetched article's readable body text, as handed to the
+ * extraction model (sources/fetch-article-text.ts does the fetching; this is
+ * just the input shape haiku-client.ts's prompt builder consumes). */
+export interface FetchedArticleTextInput {
+  url: string;
+  outletName?: string;
+  text: string;
+}
+
 /** The exact `record_knowledge` tool output shape (proposal §4.5). */
 export interface RecordKnowledgeResult {
   kind: RecordKnowledgeKind;
