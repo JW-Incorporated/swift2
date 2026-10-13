@@ -25,7 +25,97 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 51
+Stories: 59
+
+## Taylor Swift and Travis Kelce's Neighbors Share Their Thoughts
+
+- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce are voicing their opinions as the couple continues to be spotted together in Cleveland and New York City. The couple was recently seen enjoying dinner and sharing a romantic moment.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPWVNhSW9OQ044dVZmbVlYYzZOSWY0VHZIanh3bEFQUXBJeG1vaXYtX1o4NGo1R3N4Vkh6RkoybmQ2a3lXNmlJWVVTXzdzYmNBM1ltTS1MdzJTNUFWNk4tN3Z5VkwyYVVFQzYySkJSR2VTeVIyM1hMWVFnbjItQzV6a3gxd2JPS2lydG9HNDFLeTNNR0F3MW1uSEVwVDNrUVhJYkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Miss Travis Kelce's Game Amid Marriage Reports
+
+- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift will not attend Travis Kelce's upcoming game as reports suggest she may be feeling frustrated in their relationship. Sources indicate she has a strong desire for something important to her.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQN3lpQW5CSjAwYUxKU29xb0Zjd1ZQU2VLZENMc1JNQkZQMnNyU0RiWTctaUZuQ0ktTnNpWmpXTGI5R09PSE5Sa3dpUmNmcGw2QjhoRFlja2gybDc5Ml8yX2MtX1pST1d6VlBDcWtZRXlESXhYOTdDLVBkem56eXhEbElWem1ZLVVzY1Q0RkxXTDhsRi1YWTEzMWo1cHJHUVNQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Showcases Fall Color Trends
+
+- first seen: 2026-10-13 02:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been spotted wearing a fashionable fall color combination, inspiring fans to adopt similar styles. The article highlights the colors she wore and their potential impact on seasonal fashion choices.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMingFBVV95cUxPVTAtbEgxTlZyYThkN1lqRFZtYTkwcThsREdFT2pKZVlmaUhtOXRZLWxiVnI0c1dCaVJTZC15bzUweWVXcDJjbEFnckZwbVlQbzlfNWhZRW1oY1dEY3hwQXNqczFaYXNQaHFDdnZKN2NRZjJGTDBOMHB0NkJLUFZWT3lGeDVjeHF4TzRhS1JnbGJhUmJUQTRBbzdSUmZRdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Shows Inspired by Taylor Swift's Song Lyrics
+
+- first seen: 2026-10-13 02:33 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Several shows have drawn inspiration from the lyrics of Taylor Swift's song 'The Life of a Showgirl,' including titles like 'Opalite' and 'Father Figure,' according to IMDb.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTFB2Y2s3c0lqdS1lSURxdDJJYWZDeXBhTU9EWjd2RzZiWFM1WENMLS1lYTQyRWRzTFREM25ra2lPVl9vaWpxWmlMTHg0azJRVUJPRFljVlNybHBhTUNwbWZTYWpqQWlZUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Patient Zero' Video Explores Toxic Relationships
+
+- first seen: 2026-10-13 02:33 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: ABC10 discusses the themes of toxic relationship dynamics portrayed in Taylor Swift's 'Patient Zero' music video. The video sheds light on complex romantic themes present in her work.
+- sources:
+  - [unverified] ABC10 — https://news.google.com/rss/articles/CBMilwJBVV95cUxPeGhfNDJuMXhHUldhMlJtNFJ0N1Y1RGNyRkNQOFZ3SEZzTFFoWHBqd3BTc09EekZYNlBwdmtkUGtYNUxKbUFtS3JuMGlnOWlzMlNuRUZHYVU2azhvaEl6SGRCWHh0YlNNOUJFellNdDlxYWFkaG9UcTUxTE51aUN5djF5cEpoMjFteWJKNDlsSjY4TmN4c05rQlduU1N0SU14MHZraGtDcm5fX0xTMUNpaUtaanNLN3VQbV8wd000QjVmcE1oZnNfSldhTV8yeWhYcFRhWUxBd0JaQkctajd1eFdWd1dKN1l2OFRITzBVdF9ENXhRUzVNWE82QUM3bDlyTW1LWWRlV1JJLUtWcTJCZGZ6SHFpbXM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Miss Kelce's Next Game for Personal Reasons
+
+- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has decided to skip Travis Kelce's upcoming game, indicating that the weekend will focus on her own plans. This decision highlights the singer's priority on personal time.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxQdTAyMElZaWRmOWtib2RaUWZtZU1YazRYM0s5aXhFdXJEUmctZzJZak5YNHJ3MTVRSy1Ncm9OMUJ0YzBqTkx6WEVDQUo1cVZnRkVqYzFUTEFsdllqb2FEd1dVdFBQSVBXb2ZuZm81ZmpiMzVtYTdWaXZsTUYyMmlnYWprMFpiOW1kNGRyT2RKUzlFa0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Seen Together on Bye Week
+
+- first seen: 2026-10-13 02:33 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted together during the Kansas City Chiefs' bye week, drawing attention from fans and media alike. The sighting adds to the public interest in their connection.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxONlpnMndKLWJFLXpJbkdQV2RpUjZnNHdxZ242LWUxZWN6WTJHaDJWbkthdzlLMEdibjh3SGlpUFdJR3NXTjhEOUpUelEteUkyUjdvRG9GZ1dCRTZtcTM2WkI0QTFCcTcyVHJmUS1jZExfYUJscVl3VVNyam5KZm50V0I2azRwUXFvUWhucGxPdm4wTUFpc2VxVkF4Wk16bUdBVTBOMERYSElrOTlkOVdPdA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and The Beatles Chart Success Analyzed
+
+- first seen: 2026-10-13 02:33 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: An analysis of Taylor Swift and The Beatles' impact on the Billboard charts discusses how their music reflects contemporary themes. The article explores their dynamic presence in the current music scene.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipwFBVV95cUxObHRYYzZHQ3NKeER6emNuRVRtZW9IcU1KS19JMVhxdVRvcUtHOEZBR1pSVHVaV3VSQ0xyWHQtOXpadWtFUE04eHJCdTA4dTUyTjkwc2RBUVhEWmZyZVRkQXJ5RUhYTzdBT0pEeUxWMEhhbEVFYjYyMllPUl8xQVRlVXJSaVBtZTY4U2lfd2ZmOE0xLUJxbDRKY25EUEN5QzhPMkh1dUdyZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQT2xGME1pQ0h6REtKY0JkcVBGRldIUl9FUlVNX0w3dmlpMW9FWkhEUDhhOXB5YnBTdGJHVi0xNS1xMXZoN1B3aTBhMVY5M0lnWWtEbXg1U3hoUk5RWGtvVTFpVGVCNDdybV9wcTQtZnZSb0VOZDR4VzJUbWZNNzFOcFJBQW9VWGN3eUZQUmtFSnE3TmZaZ1Rsd1Z0V2RpQ1l5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Grammy Predictions for Record of the Year Include Taylor Swift
+
+- first seen: 2026-10-13 02:33 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Variety discusses predictions for the Record of the Year Grammy, featuring Taylor Swift among other nominees. The article highlights the competition which includes artists like Ella and two Olivias.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPT1lTaUpMemhldXBBbEwxT21UZ3lWaHNVaGtVWUttMkcwUUFjYTg5RUxVU0ItNGRTQnZuWkI0Q3dzNk81WXFDbWR0WVBsVXZfc1Y1VHpBUl9YLVdMeWE2YXpDNXdUb2xseVdnd3JMMWxVTXVDQUl3NGdPdjlEM0Q2R2RRcFh6UFBWTlBXTW1LRlg5cmVQMkVFeHF3c25uSm83cE5rQnFSUW8?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/
+
+## Kelce and Swift Approved for Fence at Ohio Estate
+
+- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift have received approval for a fence at their $5.35 million estate in Ohio. The news highlights their ongoing relationship and shared investments in property.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPYjlfSFA4YUhHRDlTdDJCYUVDVXM5R3A1M2lqd1NHMXlsa0t5YkE0YmlIOXpzNjBCZk9WZkllRXJUZlRPZ05KQ3kzNmFUeEJuMUhxVkM4N0xwdmFRZlNNV1p3clRSSU94SXJRRGh0NHR2RG9MRTFiaUZpQzJqX0RBczFfTjNmSUxrLW9N?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Offers Signed Guitar for Sale
+
+- first seen: 2026-10-13 02:33 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A guitar signed by Taylor Swift is currently available for purchase. The item is being highlighted by Taste of Country, presenting an opportunity for fans to own a piece of memorabilia.
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiZEFVX3lxTE13SXV5c0FkZkhpOWRDN3FEOWZHZW9Gd2F3YWtVOFgyZE15STdKQlhlenBhbHRKMzBPbkh1YUlPQ0gyXzVTMVlUeDVJeFVnN29sS1lXMU1sY2htMURPUzI5bXM4bnQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Pop Star Criticized for On-Stage Actions, Taylor Swift Mentioned
 
@@ -34,14 +124,6 @@ Stories: 51
 - summary: A pop star has faced backlash for what some fans deem an "unhygienic" move during a performance, prompting discussions that include Taylor Swift among fans. The situation has sparked debate online about concert etiquette.
 - sources:
   - [unverified] Bored Panda — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSkJvaUVWMDNkUTMzeTU5dWxXbmd5UURXRy11Z0xBS3hOMWNtRDlFLXhWSkdFVkJJQkROeEZYMzlZMzBnSkpxUlpVcTIwYWJ6VF9HaTJvYmNFZHEtc3ExR1V2SGZETHZMdGVaYWhOdk11ZUlhNFVMNXFGWVExTnNQUV9vVUlFSUpNcFBkd3Jlbkt5M2JEQko0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives News Following Date with Travis Kelce
-
-- first seen: 2026-10-12 18:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has received noteworthy news in the aftermath of her recent date night with Travis Kelce. The details of the news and its implications remain unspecified in the report.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Grammys 2027: Swift and Others Expected to be Nominated for Record of the Year
 
@@ -58,17 +140,6 @@ Stories: 51
 - summary: Over the weekend, Taylor Swift reached a notable milestone in her music career, as reported by Complex. This achievement highlights her continued success and influence in the music industry.
 - sources:
   - [unverified] Complex — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOUJNSHg3TTFfY05iM2Zhc3ZDdVlWM2RXQnZoTUFBTXVoTVFfWVVkbHZWZHFORjd0MG5BNXhtMlNOMmJoTWJIV0t0Sk5wRzE3VjZxc1BXVTZ3bWJsbXFmRm9UdE9WbTUxcDJsVVM4ZGl4Y0Vma2kxemJmUktPdlJONFM1U3RrQ0ZnTlVveFB1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Eras Tour Dancers Share Their Looks from Taylor Swift's Wedding
 
@@ -109,6 +180,27 @@ Stories: 51
 - summary: The article from Prestige Online delves into the fragrances that Taylor Swift loves, providing insights into her personal scent preferences. It highlights how her choices reflect her unique style and persona.
 - sources:
   - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxOQUlDUGwyWDhncjhJYkRTR3hWODZpbEVBV2NNdkhRTEdFM01Cb2ZKRW5GSVM4Si1jdE9zOFlyZC1fbERETDZzMkFESkcyb212a1hsTlN0TlFvY3owNWpJWnplNWZob2NyVjFYbVVpMWZ2Rm04VzhRUEFvNk1HU1ZiWDNBM0pnWnprZWVwcjBFb2xtR2Q4UldFTTI3a1c4enE5MUJn0gGoAUFVX3lxTE1FQ2p3Zlp3ZV9xOGpBRTd6RGZwZFZKTlJ4ajgxRmVSVUxfVVpSTW43aVZwLXFJdmdGX2ZHc3F6WjhoSjdIaVl2TzhIU3IxZFI1YVo4OEt1bHJLTW4yNEkzRVZhMTRWUjZScWFyLVFEUjBNaVk1enV3ZFlKenVKeFJSVy1fS3A1NFB0VmtMdTdtZGV1NUJTaHhuUW05bi12ZFRxZ1RJMXk2eQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives News Following Date with Travis Kelce
+
+- first seen: 2026-10-12 18:57 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has received noteworthy news in the aftermath of her recent date night with Travis Kelce. The details of the news and its implications remain unspecified in the report.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPQUtUQjdUMWtGUllkd0RBVjVBY2xfUDRmcVY0VmM1SnY0ZUVJQldvN3c2NWtLM2dDZHdhX2NTdWFTOGl3dlVITWRLVFJQRkUxT05xaUlaeU40cjgtTW5LWkdTMkR3RWU2ZGduRXJsTkdHb0xUX0hGVEh4eWw5YXFVZlN3VXU1ZDlsSUJoeGM1d0Z1YXFfb29xc203NWU1U3c4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
+
+- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Duke Today — https://news.google.com/rss/articles/CBMikgFBVV95cUxNUFJpcGJwLVczRXpSTUx6M1RVYURoYVB3YXdDelkxd2dpUzRfNWdPcEhOeUhhS0RvZ1MtaUFDZWdCd0xCLWpYQXQ0bG9HQjg3eWVhVHlCSXB3V04yS3dPcWRTM0dQcmN4QVRiTXMyNUlTMFlMdGlQUzNQZE90MGw3QW15RWdvUE9uUlFwUzB5aG1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves 100 Weeks Atop Billboard 200
 
@@ -423,27 +515,3 @@ Stories: 51
 - summary: Taylor Swift has announced a surprise gig ahead of Travis Kelce's return with the Chiefs. The performance has generated buzz among fans and media alike.
 - sources:
   - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS1pEWElrckRXMkxuSnh0VmRPVHJSX1B3VXB0R29GSzdqbkZra3Y2S01qLU1iYXp1Wm93NU1VWDY2YVFaSnpvN3d4STdrWDYxS3kyc0tzdEx4alppMnZWWVBCWUpQSEwzVFo3a3NFdDVlSXVnMVdsNklFMnZRTWRma2VpWGpwY0hTQUIxdFBuZlNOLXY3NndyM0NCWDFFbzdI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tips for Dressing Like Pop Stars This Halloween
-
-- first seen: 2026-10-09 21:38 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Teen Vogue offers guidance on how to emulate the style of popular pop stars, including Taylor Swift, for Halloween. The article provides fashion advice for fans looking to recreate their favorite artist's looks.
-- sources:
-  - [unverified] Teen Vogue — https://news.google.com/rss/articles/CBMiggFBVV95cUxQNl9wenVmM0ZUZWU2bFY0aWt5M2d1MUhOZmJYUTk4RjJpejJpZ1BvN09fckdpUk9ZYzN0bDhQSHJ0eXBfVFp0UmdxUjJob2tsMUI2eHFpa1BkZGNQekh6enBiT2tiWkd4VkxoeW56RjNtNUNsLWN0Y1A5VlNlaklPZ1hn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Remains U.K. No. 1 for Second Week with ‘Patient Zero’
-
-- first seen: 2026-10-09 21:38 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift continues her success in the U.K. charts, holding the No. 1 position for a second consecutive week with her track 'Patient Zero'.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNUVVGN3NHZW43MEdHNDJrRE8zNkJ1NExCdGxjMUwzY3YyeV9Dd3NrbURRMjNhRUJqZDE2cjVXSlNrRHMtTTZ0dXFEYWhnQV9sanhlQmdkUW9XZVZTZVAyTHlrb21NQVFnYW9EZmFma2k3OU5OU2V6Mnlkc0VoMjFLZlh1c0tWOXdvQXNuWUE5SWNkbVNmZENWZ2FIUjRVQzdralBQcGFfYnktbUp4Z3dLeQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Fence Draws Criticism from Ohio Neighbors
-
-- first seen: 2026-10-09 21:38 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's newly installed fence in Ohio has sparked negative reactions from her neighbors who are not pleased with the changes it has brought to the area. Details about the specific concerns have not been disclosed.
-- sources:
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOaTNsbXMxTzBOUUVUZm0wamJuVnU0eEkzNnM5UnBsMHpGZjY2RmxJWTFRZTItS296LTllbm5PSGlpb05sVVBDTHR3Y1htOUhxQkx0bWRGS0ZRU0dDeEdHYnpTdDJ6OXVfVHo3a2M0OXVfWS1pcXNYbzRnLVk1a1RrMjBCVHZkVkU?oc=5&hl=en-US&gl=US&ceid=US:en
