@@ -1,0 +1,58 @@
+# Content fix 5/6 (content-fix-cards.md Card 5): one-off backfill that
+# re-enriches every existing, live `current_item` — resolves a missing
+# image (Card 1/#5628), rewrites thin copy from the full article
+# (Card 2/#5627), re-runs the shared publish gate (Card 3/#5629) — by
+# calling scripts/news/backfill-current-items.mjs, which reuses the SAME
+# pipeline code (resolveImageUrl, fetch-article-text + extractWithLLM,
+# evaluateCurrentItemQuality) the ordinary news-worker.yml cycle calls, via
+# apps/worker/src/extract/backfill.ts. Gated by Cards 1-3, all merged to
+# main before this workflow exists.
+#
+# workflow_dispatch only — this is a one-off, not a recurring cadence (no
+# `schedule:` trigger, unlike news-worker.yml/theory-promote.yml). dry_run
+# defaults true: a dry run resolves/rewrites/re-screens every row for real
+# (so the printed per-item report reflects the actual would-be outcome,
+# not a guess) but never writes `current_item` — see backfill.ts's
+# `RunBackfillOptions.dryRun` doc comment. A human flips dry_run to false
+# only after reviewing a dry-run's report.
+#
+# Scope note: no DUPLICATE-story merging happens here — that is
+# content-fix/7-llm-dedupe's separate concern. This workflow only ever
+# touches one row's own image/copy/quality fields and never deletes a row;
+# an item still failing after rewriting stays held (`redline_ok=false`,
+# `quality_hold_reason` set), never removed.
+name: content-backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Resolve/rewrite/re-screen every item but do not write current_item'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: content-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Run the current_item backfill
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BACKFILL_DRY_RUN: ${{ inputs.dry_run }}
+        run: npx --no-install tsx scripts/news/backfill-current-items.mjs
