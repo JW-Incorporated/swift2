@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 61
+
+## Taylor Swift Releases 4 Bonus Tracks with 'The Encore'
+
+- first seen: 2026-10-14 00:16 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has unveiled four bonus tracks as part of her latest release, 'The Encore'. This addition offers fans more music to enjoy from the artist.
+- sources:
+  - [unverified] The Ticker — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdtSWpVQ0lrTjU2ZWtQOUthNEhUdC1pcTdBVHBDLTRnVXkyMWlsWjdzOV9fdlAwVXZZMnVEbkdHcHZtVmIxVENxOXd0VGVXY05RM002RTM4X3NQdUZnbnhTNzgzWHNha082QnZRb3lKTGxNUW5zM3ZBYnpfNE0zZ0dUb2I4T0tSVEdqeEJ4dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'The Life of a Showgirl' and Grammy Nominations
+
+- first seen: 2026-10-14 00:16 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Discussion surrounding the potential nominations for Taylor Swift's 'The Life of a Showgirl' at the upcoming Grammys. Speculation about its chances arises as the announcement date approaches.
+- sources:
+  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMiygFBVV95cUxPbUxVMlFNRXFJc05wcjdrblkxb2xFTnhsUDlpeVltR2M1alBWY1BXNHJiclhGbktERnB1NVZvT19vRm9XSHk4S0x2U2RTNzBVdWJlX29OSWIwcVpOSkhWV1p6UVZuQUJ3T0I5dmFIN0JibGw0bUZpNnp1YXNwQUEzSXJoa2NUOUtnODFhc0JDa1Nhek56ZDNBQTg2RUtkX2E4T0VVQ3ZqbDZRZmRwX0ptd3RwbWxlbmZ0SEZXT1NyTG9CS0pKZUgxeDNn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Rare Footage of Travis Kelce on 'Patient Zero' Set
+
+- first seen: 2026-10-14 00:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has shared a rare video featuring Travis Kelce while on the set of her project 'Patient Zero'. The footage highlights Kelce's support for Swift during her work.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUHAxOE5UOXN0Zl9DODREaVFSTXp0LTZQYzJjbjVBTVdmODhBMC1JRTYtZ2tQekxqb2FVanI1OFFmal8zbXNHM2c5dFF4WGhETS0wMGlpenJoSThvWnNubmhQOWJXZTVaYWlPLVFIdWZjUTAyV0xNWlZ6X0NOcnVxRjEzZFdOZE02a1FnRXlIbFFaTHBPZ3RlSTNLX09pVWY1Y0d3M1F1bDY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Appreciation for Historic Home Features
+
+- first seen: 2026-10-14 00:16 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is highlighted as a fan of historic home features, which are currently trending. The article discusses the increasing popularity of these features in home design, as illustrated by Swift's tastes.
+- sources:
+  - [unverified] House Beautiful — https://news.google.com/rss/articles/CBMikgFBVV95cUxOamgxZjdZeTlEVjBoQnFWNTlVTDlyRDdLeS0xbzRSOTdtNXZuaGN5UWwxajB2a25wOUs1X2dRYm1HOEptX3hDVkhmYjBzOFhHaWoyUVYzZllWU3RocGt0Yl9HcE8xdWNjWGpRUzQwRXFMNm1fbEYyQ3ZoZG5KbXE3N2w3WUJvWEhJRUI0OXZQNExUUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans Question Travis Kelce Following SNL Appearance
+
+- first seen: 2026-10-14 00:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans have raised questions regarding Travis Kelce after his appearance on a controversial SNL. The reaction highlights the ongoing curiosity surrounding their relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOQ1pTMkdCRFpQTzNrU256UVdVZTY1dUlHVWRMd1NpTzNsOE5RMWtoNDZBVW1jVWI3OEZtdzBLMjlkQUMzS29NMDBMcHNzNlQyWUdJSEljWmNmXzZ5V0ZtYjAtb0pGVnJ2dG8zN1NkalVSaUZUblZCZFdTTl9vQXB4bWJvTGdIUDhoTDZkV0JTNEdoZms5aEJRZXhUZzRKM0g0X1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Date Night Pants Style Inspires Fall Wardrobe
+
+- first seen: 2026-10-14 00:16 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article discusses how Taylor Swift's date night pants style is influencing fashion choices for the fall season, suitable for various occasions including office wear and outings.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQRDhKcWRUTXBtMVB4bnYzOFM1WHFXaTlFSmtCVWRLTFV0akc0NDlzTGoyV0E2eDdDeEJjZ3R3T2VSaHY0cW11c2RROGlPZnJoRjljbHFaekYzTHVjekxQdDFucGVMdVkycmg3aC1KVXRLdVBWN3N1Nng2VGRSZU5HSHNYVlIzX29tczlRUHBOeDJVM0d3U2EyekV4NDc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Police Department Uses Taylor Swift Songs as Punishment
+
+- first seen: 2026-10-14 00:16 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A police department has reportedly utilized Taylor Swift's songs as a form of punishment. The decision has garnered attention for its unconventional approach.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQYkFfYjV4NXdXOGdXNkhFaGVYWVRiSjZMVGRTR2wtNmlVVWdGOEpxMjUteldxUnozc3J5V0owTGZObEl0MVpwcFIybjBiOGYxUnRQbS10azJWUTl2TXdyaThkNG54c2xmVm1ncVZ5WGpDVHRvdUdNU05KMHlCcE5XVk1YeEVhdFNkTnBkcHBYUTlNbFhtSV82LVZhWFI3WEVud3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Releases Piano Version of 'Patient Zero'
+
+- first seen: 2026-10-14 00:16 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a piano version of her song 'Patient Zero,' which is currently holding the No. 1 spot on the Hot 100 chart. This release comes while the song is enjoying significant chart success.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5GeDI2MmVpN2VRYXNBU2VQWDFSckd0bXRTWkFpNC04emxwNzRzUWtnd0FwSlVxXzF1S3AzOEtKN1ZUa3VHZ2xLVTlZdHlfaEZGODN4eG8xekFsQ29BZTJHNjBlTDM1TnM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Analysis Examines Critique of Taylor Swift
 
@@ -34,15 +98,6 @@ Stories: 62
 - summary: An article from The Denver Clarion explores the extent and impact of critiques directed at Taylor Swift. It provides an analysis on the reception of her work and public persona.
 - sources:
   - [unverified] The Denver Clarion — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVkIyZUw5X0U5UmpneTFscXJsQWtQbXRtbmo3RzBscHMyYmpVN243bWNuY1RHVGs1TFVTTlc0SXEtQWlUcGs3ckxOeFplbThPWGU5ZXN1ZzgwOWFMQm9yMXotMThCSm01VWRqSUw4SFJyWGhpd3V6clJET3BUMXk5aUV5aUZUQ3dfNGtJXzF3ZjBodw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Patrick Mahomes Shares Personal News at Swift-Kelce Wedding
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Patrick Mahomes revealed personal news during the extravagant Taylor Swift and Travis Kelce wedding, which reportedly cost $362,000.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWdFQ2R1ODl1a0dZVzloZWVxNU1mRFRJTThPQVF0QVNJWXlzVVo1NGRhSk5tSXpzeU5RYW1tM2w0VGY2czlTaVQ1TXNGYW5GQVV3Um1mTVI0aTM2VlJBMjBPbENUcHVITzF3WEh1REtvOWtsdVlReERlcENGVlRXUmRDV002WGZSVTFRUXFfaExWSy1TcmV0SVhoVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxONmVkckhLaVhSaXVlaFU1MDQzc1Z1am5BOGRkT2d3UnpQbkM1ZnEtQktPLUJZdWozelcwS09MY1U5NjRXYzlCeWswbUNzcm9nQ3lpMURDOEJoOTk2cW5FT3Y5SWo2T1VGLWY5aUhqRUdwTWJQTFRQUWRYOVhHSWtTSFlPVHFMNXdoRlZLcUkzb2IyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Faces Backlash from Taylor Swift Fans Over Social Media Comments
 
@@ -76,14 +131,6 @@ Stories: 62
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxPSFhZNnQzTy1oTkp2N1VkRWRNbXVqUmIwZHpGeGFjT2lSbFZBVHNmR2xiaFNSdlVyTGgzMnRsWk80MTlWSko3dDNIeGJNZFIwa3p1azZIMWRNY1o3Q2IyeGRyaWVsak00WlIzRVNGVTUtcTBVQ0tiQTh1WjgtRE12NzFwcnpYejdyV1U1SW5xSE9MOGMz?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Appear Together in 'Patient Zero' Filming Footage
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: New footage from the filming of ‘Patient Zero’ shows Taylor Swift and her husband Travis Kelce together, highlighting their relationship. The clip features the couple cozying up during the shoot.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNkRHRDBLZjhGLWpCa21wb3dQU3U2Smg4djlxcjhCYlphR3p5NlVkTURyTGMyT21PclcyZnhuNmRuNzZyb3M1S2FwZlRObmdleHI3UUdNM2NLc2kzbEFXVjA0OVEtZmxPeDRoWEpoVWhMS0FibTI1T3U4aWhkcUJZbUt6cDBpOW1xWjRyTmllWTk5a1lxQUF6bVk5dWZEUzl4bnFyU0ctUkVxdjhITkY1M2FFN1d5THZqM0toazUzTVc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce appear in new intimate clip
 
 - first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
@@ -91,6 +138,26 @@ Stories: 62
 - summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
 - sources:
   - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Patrick Mahomes Shares Personal News at Swift-Kelce Wedding
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Patrick Mahomes revealed personal news during the extravagant Taylor Swift and Travis Kelce wedding, which reportedly cost $362,000.
+- sources:
+  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWdFQ2R1ODl1a0dZVzloZWVxNU1mRFRJTThPQVF0QVNJWXlzVVo1NGRhSk5tSXpzeU5RYW1tM2w0VGY2czlTaVQ1TXNGYW5GQVV3Um1mTVI0aTM2VlJBMjBPbENUcHVITzF3WEh1REtvOWtsdVlReERlcENGVlRXUmRDV002WGZSVTFRUXFfaExWSy1TcmV0SVhoVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxONmVkckhLaVhSaXVlaFU1MDQzc1Z1am5BOGRkT2d3UnpQbkM1ZnEtQktPLUJZdWozelcwS09MY1U5NjRXYzlCeWswbUNzcm9nQ3lpMURDOEJoOTk2cW5FT3Y5SWo2T1VGLWY5aUhqRUdwTWJQTFRQUWRYOVhHSWtTSFlPVHFMNXdoRlZLcUkzb2IyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Appear Together in 'Patient Zero' Filming Footage
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 4
+- summary: New footage from the filming of ‘Patient Zero’ shows Taylor Swift and her husband Travis Kelce together, highlighting their relationship. The clip features the couple cozying up during the shoot.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijAFBVV95cUxOYWk5azN3SzZreF9FN1ZhMDdXckgtOXY2dzJNWlFlV0w0UkZWSEIxLVlkc0l2Qy1yRF9lN2taS0lEMkkwTlI5d1p6UGxPaTkxU1R4OUdEMndEZExmZHUyZ3JGaHg3Z3BYeldZNTF2M2M1RWlIUGJxQnc4dmNESXhBcWtiOTFyVHhUWDdNcQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxOZmNMdFRiMUhJTG4xNHdGNFBYdDRSWVpYWDJIcTN2dDVUM0JMbEdlYWdPOUpiMloyVWRTdDNFMElyclNNeW1lMVd6a3VSSGZDVThQQU1JNjllOTQ0cWtXTmliNjVsaGExMmJjYnBJQkR6THpsSEtuUThOQ2ZJby1tb1BTZFdEYmIxSzNSamVjWWRfYk1LVFZqSmdFMXpCdWdBWEVidFAtU3BvdzN2bnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNkRHRDBLZjhGLWpCa21wb3dQU3U2Smg4djlxcjhCYlphR3p5NlVkTURyTGMyT21PclcyZnhuNmRuNzZyb3M1S2FwZlRObmdleHI3UUdNM2NLc2kzbEFXVjA0OVEtZmxPeDRoWEpoVWhMS0FibTI1T3U4aWhkcUJZbUt6cDBpOW1xWjRyTmllWTk5a1lxQUF6bVk5dWZEUzl4bnFyU0ctUkVxdjhITkY1M2FFN1d5THZqM0toazUzTVc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPSElMZklJT0FRVnkxRWltUVk0SkhOelhBVU1OUTlwNVYyVnJkbzZ3V21NX2VkMkVmeGxaZS1kR0tvUHUtbnFqc2owbHdwXzdlMFRoSnl6aHdxSmo1OUlqbDJDVXFLTDlGZXJiUTdhMXZET2c2ZjNtaUkwZkg4UUpMbnRrSkdNUWs0ZEVLLVdjZnM0eTVsTHM4Q21IMXAtdzJDMXc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Remains Number One on Hot 100 Chart
 
@@ -469,75 +536,3 @@ Stories: 62
   - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMiigFBVV95cUxOWEVrSHNDTnNkYUhUcUZVRmFyNjVHaUdZQ1pxNGI0SEVFazFvNWFhYjgyTUdELThnVy03Z2ozUkFLTU1HaV9jWE1EbnNCZkpPRkE1LTJWSno0dXFVSUdYcDg4T1h0N3I3eWxxaDNsMWUtQkMwQWpSS3JHdFJ2M0VRa1E3NzJxRkt1QWfSAY8BQVVfeXFMT2xDcDZyV0p6ODFhX3B1SE1Pc3FRNktnQ1BCTE9TT1RDd0JmZWJVMTN3UmlLNFRvOWxPR202WDJkcE5SOGM5RXVfN2ZxZW5ndmF2NFZJQ3NCUEhsT0gyV0tBdjVCLVdneDhEc1Z3cTRCT0dRMUhSRnQxeTNnRFlSYUM5NHl3eXFmOEt6alZqODA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitwFBVV95cUxOTDFELVBhUkpUOW9Ick4xQmRxUWJlY3lsSUk5bDVIbTY5U3Ita09qMUxxVndDZTNsejRRTDNBNEVCZDRXdVBxYWplckhZSU5ybnBLU0xsSnRnN1BKeHF4V0ZTWGtndzdXcGNlZnZJVl94NExocnVZcGZpYlFIek1aOHlxbTBFa3hSU09vcGFud21BYmNDTmdBdVJUSzh6aWZwdEdTeGt3QTk2TkFWT3h4WDRXd2FYbUk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxOU1VzVlZQSmxZU1pSSWtPYVplVG9vdzRyRVg1WmZabllxRjk0cHFTYVZ0NkxrQ09QTmo3T25MTjgyekdvc3V3RlNCOWpoYXdRQlVJakVUZTBLekpqSFhnLXNCcjFXd0ZvMUlzR3hsbEFfcHY4dG92TmgtRXlyYk1LbXJjVjRrZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's $4 Million Pledge for Nashville Education Centre Remembered
-
-- first seen: 2026-10-11 00:13 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's commitment of $4 million towards a Nashville education centre in 2012 is highlighted 14 years later, reflecting on the impact of her donation.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi8wJBVV95cUxQTTlyNTByUDYtU1NNNTNPd2R0MnFjQnVHcGozX1QtMHQxYjBIRlF3WnFEZ2VjbW5sbFRySUFyYVdpM05xTzE3b0U5Z0UxTkd6OHlZUU1BVks4ZVRLVzlLSWV0aEQ4QlBkR1o3OUxyalllbEVreUVxUFY2eC15SV9lM2tUSDVrWU5fTWZrREpnemRNM29Ra09TamRpV1B0STRZX3VpOXRpTWRvWGpyVDFJODVVcTUtOFMtYVNrMzhBSXNScXR3ZHpfaUxUdDFrWkd2YTJPcjUwWUxTYWhrZFEwb09Jcl9YR3Z1bmNLVnQzSWNtOXp4VEItaXdaUEdBZUtiUHRnNFpXM2ozTk1pUkJFU05lTXNfUHJiTFloMHc3MzZtMVljZ01KMUZTTDlHeU5vVHpWZ1pJYm5DbEktWUVQbUEwekl4X0NvWU42b1ozZmNvaEkzVWV6R2U0OVVYTTh5Y3dYTm9qbDNTZU1kOFBWZFpXUdIB-AJBVV95cUxOckNQVFdrZGV4UUNHdnlCczRCRUhaWDhENTNJTTBhZ0hpT2RLNmpXdm9WR19XYnFiRUZIODRpOGNoVHhmNGg5XzZRTTVsQ0lua3U2NFZWSXhQNmNWZlRUZnFjUm1HcWMzUEZaLTV2SXFCcERvU3lPTTFUaXVZODhUMU53bjJEX0xobXdGS1RMZjJGNlBfSnRWTC13TEM2Y3lxS3dINHA0dk9QS1N6QmhILUlRWUJ5UVpETllRVWFBbWVoeGM4SXhpUk9wNVVBd0JJTjRRWWV4dktmUzlRNC1lNEFsUFk3Z0JMRy0yWnlEdVpzX2k3bjZXVm9yQmxQd3VkeXVjaTZVblgzbzBnT0F5X2VVOUlXbVlxeVg1QkNNT01CYWktdkZkSnREcHF1UEh4VElrYkRUd1JoS0JxWlppNDJacDVHQjNCN0w3bUQ4NFlNMWxRbDZ0V0NzOUxiaFp4QzdIb3BJMUR6cjhNYVFuS3hxMF9KWWFu?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mike Gesicki Discusses Swift/Kelce Wedding Invitation
-
-- first seen: 2026-10-11 00:13 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mike Gesicki shared his thoughts on receiving an invitation to the wedding of Taylor Swift and Travis Kelce, initially believing it to be a prank. The news highlights the intersection of celebrity culture and sports.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNElrTXQ2QjluNTBGbk9zMGZ6SnNOQzhYZmJlTDlsS0RqVVg3bmgwcld3NGhxU3NteHFaVDZqNjlCbDU4dlp3dHlWU0Nkb05lY25oSHp5SG5VMy15VnlqVlBoSWFsQkN0ZUNXcGZwcmZNMkVZQTEzNFlod1BQNnllTkV5WTl2SDdS?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Spotted on Date Night in NYC
-
-- first seen: 2026-10-11 00:13 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen enjoying a date night in New York City, coinciding with local opposition in Ohio regarding plans from a new neighbor.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPOEZhS0h2OURrdlM3QmhaX3R0RjVibFZhRVZ4aWg1M1FreGZHWTlHSkw1TmFuRHpibmFBazlrQzlLWDQ0ZWNpYjhQc0F1b1R4cm1mQkhKcVdVYlJ1Smlram9fUExGNG5vRDVnWDh2aVRBRlZ1d0xtMFpwRkNYa0VtbjFFZlRwWTAwZEdvaF9TU3dURUt4cWNDbDZpbW5DSFNEUmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Embraces Fall Loafers Trend in New York
-
-- first seen: 2026-10-10 20:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted embracing the fall loafers trend while carrying a $3,900 Gucci Horsebit bag on a recent date night in New York. Her stylish look has garnered attention in the fashion community.
-- sources:
-  - [unverified] Marie Claire — https://news.google.com/rss/articles/CBMisAFBVV95cUxOT1huV1ZYdkMwUWs3ZE5ldi1iZmpRWW1PN0h1RUM1N3k1RXZIWEN3dHR4MDF1NkFZLW9OSnRKNEVueHNzdzZSVjhHeHIyRHlUV0ZvM01UMUUta1hJRDZRdUM3clhRc0dURTFJU2pIMVRBQ2t4Z2RGLUI1VzBaT2E2RmZwWV95TFdNZjdTckRKZTNXbEVvUWxaU0NmUlhORXNLd0dpaGhuVVRTOHBVNEtvVA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on a Fall Date Night
-
-- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen together for a preppy fall date night, showcasing their synchronized style. The outing highlights their public relationship as it gains more attention.
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQeFlwbUVjRHRiRHNYaVBhZ3RSUUVISFZDcENwNVYtTFN3Sm5QcFBXcmE0U04zbWhsa2M2YUw2ajB6WnZDSWlDdTctUGk3N1BIby1nMXFKM2tuQ2puOXdybFdZOEZmUEFYSjFzZ1NFNUdEc3Fhdi1MdkxvMmxnekdWSkhYZmgxMGZUMW84MGI2SDVlVFJUZm9jdXRTTGJmVEQwV0ZwUk9PdWlJdTZxeHVUUWttYmUydlFzTF9KdDl1NlhUOWpVU2dlT0RhOEhuTnZ0TGViTE10MUhLZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Positive Update on 'The Life of a Showgirl: The Encore' Reissue
-
-- first seen: 2026-10-10 20:33 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has received good news regarding the reissue of 'The Life of a Showgirl: The Encore'. Details about the reissue's content or release date were not provided in the announcement.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPUFlCYzBxMmlYb1daT2dPYjRteWdIU1NHZWlLYTVaT2FjUm5PV3Fodlc3cWVvMURhZWlVQ0tmQ3JneWZtLTUtZXpXVDBaT0xBa0g0NWphcVlLQVREcUN0NVpMRDMySWxoWEsxa3YwU0c3akowMjhQdzh5b2I2MUJWejk4QThpY0FHTHpwcDdtbElWa2JHaDBKMw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Seen Together Again in NYC
-
-- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted holding hands during their second date night in New York City within the same week. This marks another appearance of the duo together in public.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNVXl6dk5CY2hJaDNISHRIRUdKMEsxaHpFRzR6VF9xU3M5dWVaOHVhYm5taDRLZDMxNTdTQmtlNnEyUkxNYmNNbVBQTWdTeHVDY1dnWTdwVXBGNC1XYUw4QjFfeU5xNW5NZHNjM3JPenVHNUNLYnhLZmZiVWk0d0JpYjFYdFhUMXhlSnVfYVpXU0NKb0J6by13YVRVQWtEYlZ4WHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce's Homes, Including Proposal Location to Taylor Swift
-
-- first seen: 2026-10-10 20:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new feature explores the three homes of Travis Kelce, highlighting the one where he proposed to Taylor Swift. The article discusses the characteristics and significance of each property.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMidkFVX3lxTE1mV3lyVXJhV1VUQkhZUXpZenVGY0I2dnpxbUdOcVJmZFhfTVdtNjVyZ1ZaTlFGQ2VtTEpZT1FKeUo3ejY4VzdEc3daaTdrbXIyVnM1WHhlcUJ3NzZGNDRFSzJOV19qcjczZXhudG9HdkZsc0JCckE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Sports Trendy Fall Color in New York with Travis Kelce
-
-- first seen: 2026-10-10 20:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in New York wearing a popular fall color while out with Travis Kelce. This sighting highlights her fashion choices during the season.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPRWx2YnZ6M1Vqb2JwNmdPSE9nd2xEWEdXd2JtdkpQVEttMEhIaUFhYWNCOWE4SGhsVE5odTgtZFFJMkJTSHU1MXVaaHZBbHlFSzFnVmxBRHJGOHNETnpicDRyM2tETm9qS3QtaWhLY2todWktNmRBRnNJRFdsOGVyaExLZFE1MDVvT2JvWEdkVExCMnlWbDJab2FRck1nNjlXdW0taFhRcWxCUmJOS2c?oc=5&hl=en-US&gl=US&ceid=US:en
