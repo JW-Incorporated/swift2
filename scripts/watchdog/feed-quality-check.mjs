@@ -67,7 +67,10 @@ export function evaluateVisibleItems(items) {
       summary: item?.summary ?? '',
       detail: item?.detail ?? '',
       imageUrl: item?.imageUrl ?? undefined,
-      // The read path only serves redline_ok rows; a missing flag counts as a fail.
+      // mapCurrentItem (packages/core/src/current-map.ts) always emits
+      // `redlineOk: true` on rows it serves (getCurrentItems filters on it),
+      // so `false`/`undefined` can only mean a read path bypassed the
+      // gate — attribute it to that, not to the gate's own reasons.
       redlineOk: item?.redlineOk === true,
     });
     if (!verdict.ok) {
@@ -124,6 +127,12 @@ export function renderVisibleBody(result, { url, now = new Date() } = {}) {
   return lines.join('\n') + '\n';
 }
 
+// NOTE (hold-rate check): current_item.created_at is a real column —
+// 20260901000000_knowledge_engine.sql declares `created_at timestamptz
+// default now()`. It is NOT part of CURRENT_ITEM_COLS (knowledge/client.ts),
+// but this check talks to PostgREST directly, so the full table schema
+// applies. If a migration ever drops/renames it, this check exits 2 (state
+// unchanged) rather than silently passing.
 export function renderHoldBody(result, { now = new Date() } = {}) {
   const stamp = now.toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
   const reasons = Object.entries(result.byReason)
