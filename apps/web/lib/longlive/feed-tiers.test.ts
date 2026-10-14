@@ -131,6 +131,21 @@ describe('baseTierFor — the pure, per-item tier', () => {
     expect(baseTierFor(noPhoto)).toBe('text');
   });
 
+  // 2026-10-14 gate split: a photo editorially classified 'archival' (e.g. the
+  // KCA-nominations post's red-carpet portrait) fronts the card just like a
+  // 'primary' one — it must NOT fall through to the photo-less text tier.
+  it('gives an archival-photo item a photo tier, not text (KCA gate split)', () => {
+    const archivalOnly = item({
+      id: 'a',
+      images: [{ url: 'https://upload.wikimedia.org/x.jpg', kind: 'archival' as const }],
+      body: meatyBody,
+      sources,
+      tags: ['Music'],
+    });
+    expect(substanceScore(archivalOnly)).toBeGreaterThanOrEqual(HERO_SCORE_THRESHOLD);
+    expect(baseTierFor(archivalOnly)).toBe('hero');
+  });
+
   it('never depends on position — the same item scores the same tier in isolation', () => {
     const it = substantial('a');
     expect(baseTierFor(it)).toBe(baseTierFor(it));
@@ -395,20 +410,51 @@ describe('assignFeedTiers over REAL vault content', () => {
     // good the corpus's floor is" — is tracked separately as the real fix.
     // 20% still catches genuine regressions (a bug that made everything
     // hero) without breaking on ordinary content growth.
+    //
+    // Upper bound widened 20 -> 25 (2026-10-14 photo-gate split): the feed
+    // card's photo predicate changed from `hasRealPrimaryImage` (a
+    // 'primary'-kind photo only) to `hasDisplayablePhoto` (ANY real photo —
+    // 'primary' | 'reference' | 'archival'). The base tier gained hero
+    // candidates (28.5% -> 37.5% base hero), but the hero->media spacing rule
+    // absorbs most of that, so the FINAL hero share moves only ~1pt (12.7% ->
+    // 13.7%). Kept at ~2x the measured value (13.7%) rather than far above
+    // it, so the bound still catches a "hero ate the feed" regression while
+    // allowing room for further photo enrichment. Same rationale as #1628.
     expect(pct('hero')).toBeGreaterThanOrEqual(8);
-    expect(pct('hero')).toBeLessThanOrEqual(20);
+    expect(pct('hero')).toBeLessThanOrEqual(25);
+    // Media widened 45 -> 80 (2026-10-14 photo-gate split): the ~169 items
+    // that carry a real photo of non-primary kind but no primary one left
+    // text tier (where the era-art stand-in had kept them) and settled at
+    // media/chip, pushing media from 44.4% to 58.3% in the post-pacing
+    // distribution. That is the intended composition shift — a card fronts
+    // the photo its detail page already shows — not drift to suppress. The
+    // loop below still caps any single silhouette at <50% except via this
+    // explicit, documented widening.
     expect(pct('media')).toBeGreaterThan(30);
-    expect(pct('media')).toBeLessThan(45);
+    expect(pct('media')).toBeLessThan(80);
     // Chip must be a real tier now, not a rounding error. Lowered 20 -> 18
     // (issue #722, 2026-08-24): removing ~29 thin, single-source
     // fashion/wardrobe "chip"-tier cards from the founding eras (routed to
     // the Runway thread instead) nudged the population share down from
     // ~19.7% — a real, intended composition shift, not a tiering bug.
     expect(pct('chip')).toBeGreaterThan(18);
-    expect(pct('text')).toBeGreaterThan(15);
-    // No single silhouette may own the majority of the feed.
+    // Text tier no longer means "thin" — it means PHOTOLESS. Before the
+    // photo-gate split (2026-10-14) a moment whose only photo was
+    // 'archival'/'reference' (era-art stand-in in the primary slot) sat in
+    // text tier (was ~21.6% at the last snapshot) while its detail page
+    // showed the photo; now it fronts that photo. Only genuinely photoless
+    // items remain (~0.6%), so the meaningful assertion is "text is a
+    // real, non-dominant tier" — not a floor that prescribes a photoless
+    // share.
+    expect(pct('text')).toBeLessThan(50);
+    // No single silhouette may own the feed. A catastrophic-regression guard:
+    // the per-tier bounds above are the documented, intended checks; this loop
+    // only catches a "one tier ate the feed" bug. Kept at 75% (not 50%) because
+    // the 2026-10-14 photo-gate split legitimately moves the feed photo-heavy
+    // (media settles ~58% — the ~169 non-primary-photo items leave text tier);
+    // a hard 50% cap would have fought that intended shift.
     for (const t of ['hero', 'media', 'chip', 'text'] as CardTier[]) {
-      expect(pct(t)).toBeLessThan(50);
+      expect(pct(t)).toBeLessThan(75);
     }
   });
 
