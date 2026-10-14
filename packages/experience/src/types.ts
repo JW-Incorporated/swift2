@@ -557,9 +557,32 @@ export function isEraArtFallback(url: string): boolean {
  * that is not the era-art fallback. This is the predicate depth/coverage
  * gates should use now that the single `image` field is gone: every item has
  * a non-empty `images`, so "has images" alone proves nothing.
+ *
+ * FEED-CARD GATE (2026-10-14): for deciding whether a card may RENDER a
+ * photo, use `hasDisplayablePhoto` below instead — an editorially-classified
+ * 'reference'/'archival' photo still leads the card when no primary photo
+ * exists, matching what the detail page already shows via
+ * `primaryImageRef`'s `images[0]` fallback. (Before this split, a moment
+ * whose only photo was 'archival'/'reference' rendered no card photo while
+ * its detail page showed one — the KCA-nominations post was the reported
+ * case, 42 moments in tloas were affected.)
  */
 export function hasRealPrimaryImage(item: ContentItem): boolean {
   return item.images.some((i) => i.kind === 'primary' && !isEraArtFallback(i.url));
+}
+
+/**
+ * True when the moment has at least one REAL, displayable photo — a gallery
+ * entry that is not the era-art stand-in, of ANY kind ('primary' |
+ * 'reference' | 'archival'). The feed-card gate for photo rendering (see
+ * `hasRealPrimaryImage`'s note): `primaryImageRef` already prefers the
+ * primary entry and falls back to `images[0]`, so this predicate only has to
+ * answer "is there a real photo at all?" — the era-art fallback is the sole
+ * thing that must keep a card photo-less (it's era branding, not a photo of
+ * the moment).
+ */
+export function hasDisplayablePhoto(item: ContentItem): boolean {
+  return item.images.some((i) => !isEraArtFallback(i.url));
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
