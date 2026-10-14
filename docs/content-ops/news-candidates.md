@@ -25,7 +25,74 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 70
+
+## Kim Kardashian Responds to Taylor Swift and Travis Kelce Amid Kanye's Remarks
+
+- first seen: 2026-10-14 20:39 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Kim Kardashian has addressed the situation involving Taylor Swift and Travis Kelce, following reports about Kanye West's feelings towards Swift. The dynamics among these celebrities are highlighted amid claims of Kanye wanting 'revenge' on the singer.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQjdibl9lSTZWN2VTbVRYZGprUTZ0Y2RnYkNFdXZOZGlfcGVuT3pyS0xzT2x4cDhXbnFvMmdJbTAtOUtnNEFnMDM5WDUxek5Fc1ZlTjkzZTFScWdyQWR6SVc2amlPWVVzNnp5NzJlRDFUQm01V3F3Ry1EdXIwZnlSU2hRRGtsdVdneTdFNWpjVXF6YWFZQTI2VldpNXRIT1dCRnVQcVhPM24?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQRDByWUU4OURPWVpBTlRQZ1k2dDdmVWZpaWxpZnp1RDZfa09FNExtZ1ZVdF8xTW9yYnJzWVZob0JzZFBXY2tYTU5tYkF5aVNCcVpwRERjeE5uTmNvZjJDVGlVLTl1YWR5STJDMHBaOXhCLUhuMUU2TjRuVnpNTnJpSXEzMm1BSEREX1RPZFZldUNpa1JxLXBsQkY1VGdxaW85OWFWTg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Drake and Taylor Swift Explore Four-Song Bonuses for Deluxe Editions
+
+- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Billboard discusses the recent trend of pop stars, including Drake and Taylor Swift, adding four-song bonuses to their deluxe editions. This shift may influence future releases in the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQZmRwQ3ktbnJPcFI1TTc5R0F4djV6SHpKTExHelc5RHV5TFpTVWtvZkxydVpIZTFBOFR3RzJYaS1SZUdWSVg2Z3ZmNHhVQlRxS0prQW5aNTJQaXZfMXVTdTVIRnA5RDBkVUJxS2pXbWtOemRsdkJjZW0tVWo3VUZQeFlPYzFRNjlkd2t5c3V1a0pmOS1UNm1ObXBwbFduNjRheW1Yd1ZDQmYtRXNteVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Top 13 Autumn Songs Highlighted by 'All Too Well'
+
+- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Billboard lists Taylor Swift's 13 songs that capture the essence of autumn, with 'All Too Well' leading the compilation.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMic0FVX3lxTE5DVGozRG0yUXlob1pjZVVvdk5YMFZVcU5zdmlrQ2djcFBlTXRGLU9OYTIxUkxOblEyX3Jab01aSVBUQ2hYZnZCbHhXb0VUM3g0THNNSGxxek9EeXh5M3R4ZmdUSnZYWUFVenVGZnRCSHVQNVU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Coordinate Date Night Shoes
+
+- first seen: 2026-10-14 20:39 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift showcased a new date night shoe from Jimmy Choo, coordinating her look with husband Travis Kelce in SoHo for his 37th birthday celebration.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-travis-kelce-birthday-1239315267/
+
+## Kelce Brothers Talk Taylor Swift's Halloween Music
+
+- first seen: 2026-10-14 20:39 UTC | category: music | importance: 4
+- verification_status: corroborated | source_count: 2
+- summary: Jason and Travis Kelce explore the topic of whether Taylor Swift has ever created a Halloween song in a recent discussion. The conversation was featured in Billboard.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxPY2cta3dhZHhBem9uRzRybjNGSndsbTF2UzN4Rm56YlpzQ2t5R0ZpUG9IZ1lJNGpLYWE4Nm5VNl9xYjdTNFVIS1hmSkE1TTdfZXpaNFJueE1TeGpwNzhwaGRSaXRMMnpCWkx0N25vVUEzRXJSV3VpMjFFR1FTV2tMLWowbDBaMjVtMlRfYms3YkhST0RyS2hQcWZmVE9haHdTUmpIM184S2V4YmtPTG8wc0pxSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOeXJnRUNBVWk4WkFWVWhNcjlvbWowRFJZZ1VNVllBUHh3NDZQX0pOMUZNTmdpbURuRFJmU08tUXZvQ25LWVc2eWFMWVVyMVA2SFZTMUQyREJreW5VakNPV2VQOGRuY3d4a29RdmRPSE9WU1pxTjFLdXh5SmZWUFRfQVZVbkFMT1hhc1JOVVZNeGc4Z196OHlQSEc0R2ZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Emmitt Smith Discusses Taylor Swift's Influence on the NFL and Cowboys' Status
+
+- first seen: 2026-10-14 20:39 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Emmitt Smith shares insights on Taylor Swift's impact on the NFL during his interview, linking it to the Dallas Cowboys and quarterback Dak Prescott. His comments highlight the intersection of sports and pop culture.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMizgFBVV95cUxOckpYVWNWNUlJUmo1OTh1Y3FnbTRZZG5pN0JTRElRNUhTNkhrcUtRNU5SUWJtY0dJRGFmbkhVMXR2amF6TFljQloxY01qNDdkbVJCdERnYlFBOXlxcEQydjdnX3daYV9Gb2R2QWljdVd4eXRGQ2Z4NU9DMG9vOUVPVl9wLWFxSkhnNi1xd1VwMjV1cWRsWGxRaE50dXZ2XzdqdFE1LWswZk5aWXNZMTFSbjFPS3RJWE1SV21ndjVGYjRWaW80VXFpRU1KWXFMZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/
+
+## Jason Kelce Shares Spooky Taylor Swift Album for Halloween Listening
+
+- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce recommends a specific Taylor Swift album as the spookiest option for Halloween listening. The discussion highlights the album's eerie qualities in the context of the Halloween season.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNFBiYzhKSXhmWmNjSmw4NVlBWnpsWFZkdk9RSHBqdnBUOGNmNlhaQnhOWnJHQWxYS0xYZGlqWldwNVVXeTNoYXhJVy1YZHZvdnE5M2gtQUp1b2NtSFExRlA0OWhCVWlHaC1KampmbHdJaDh5NlpScFZMeG80OWdFM2pzY0pSc1pJSzFocWw1Z3RmOEJ1Q3VacUJOM2U?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Expresses Concern Over Friction While Moving In with Taylor Swift
+
+- first seen: 2026-10-14 20:39 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce is reportedly 'genuinely upset' due to some 'friction' as he and Taylor Swift move into their first home together. The relationship dynamics appear to be a topic of discussion.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXhvM09PR1ZjTTBGZWF6U1dtZHR0TG0zeXpqZzhPbWNQd1R1bE9fYVVoUEpVd0RKcWd4NGhZUkxKZlF6RlgtSEhsa1d0UEhtZFRkUjFiM01TdjQ1a2g0YVpTS29jbEZYMlk3XzJvMGt2cnJaMWNOZUhPdWNQam5ZMTE1bXloRVRoTGwtT2ZfbThfZ2h6d2pxUkxLMUJmX0pKVzhsbEtmTmpoU2NielE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Anita Baker Commends Taylor Swift's Artistic Talent
 
@@ -62,10 +129,11 @@ Stories: 65
 ## Travis Kelce Seen Supporting Taylor Swift During 'Patient Zero' Music Video Shoot
 
 - first seen: 2026-10-14 14:29 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce was spotted providing support to Taylor Swift while she directed her music video for 'Patient Zero'. The behind-the-scenes glimpse highlights their collaborative moment during the filming process.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirAFBVV95cUxPa183bmhCSDF1QkxWeG0wUGl6Y21ZVTNLc2hhclJQemY1b3JIUFl4SGtxR2JNM1ZRNkZ3WkJnNUJiUGxsdDM1eC1ZV3B4UEpnSmJhcHJtVDNnNTNnbWFqMFRqc2o2d242b05QZU5fdkdrbjFUOXFxT3hWOGFwLUhXaDVpeDdIeWhZel81N3dJa0FVa21aVi12YmZfX1hQVC1BMmRYMEtBZnB3NmZP?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNMnNwMEFHYVpZNlB2cDFkZXVIZTNENDRnYTZCNHU1OTBOM0Ewc3NsYjBxVjR5aFZDWE9ZWGFOMGF3LXdiXzM5c0hVdktLR081bkE3dW14TWprSkI0TnA4Xzhldy0tYmdPZVJ0aU42R3VXVG5ybTZScEJSTTgwLUZBTjBJSlJXVVRRd1VyblRjTTA2d9IBkgFBVV95cUxPbVFkZE1RcjBLX0s2X2Z5MkZ5VzFQVE15ZXFZbWpBZktLZHBKbDJybTRpc2szYzJkLWJGUUxSX2FPWUViU09vbHN5QjVQeWZCbl9WMVYydmRGUVJqWTgySDBoWGxHcWJXT0JZVXVjT3BGc0ctX2VCVUN3OFVqV1htREQ3WU1wMDM0ZkhqcExzSkp2dw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxPclA1UTNQNVY1aFBGYVNVaW0tbENHZ1V6Tm40N2g5dEtuaV9IU0VxeURjLWNGYUM2UFVzdnlqRTg4RGxYNEJoUnp4WW1nVERJUVlQcF9nazYyT0M0MmRvN1h0Nkc1VnRISEF6elZZTXZ6UE03ZUpkenUwU3VaS1RXTE9wbmxzdUhKUDZOVmpDQzJELXVsVVNrRkEtMUUyMEVKNHZLSlRfRnJPMU12M3BFMWRYOFNGX0VmS2FRbEF4TG1HREh0ME1vSkhDZTByOVhOUEJfRlNTUDVsRnRDVElEeUR6N05NUXQ1eFBoMXdWcHN0UWfSAfMBQVVfeXFMTUVrVXhTaFlRQ2tKTks2X3BFX0tKeWVaS1UyNy1ycGl5bVdwS2FzLVNmSzlxMFhZQU5wMjRCSm5rY3VFM0JEM3ZxNmdXS2VOWWNjdzJiRmxiRkxpZ0VtTkc4ekt4elhVTnNjUUtid2lMYnlPVGpYMExwc3lUUHlLRmMyamk2U19NdnNrd0R2ZmM5QThJZ1lnaDVNcFl3X254b0xqZko1bklfSlRiYjVHZDBtbzJfY0pxaDRJRldhREUwVGVPdW9OV2c2Smhfdk1NYVlLZ1h3WWJma1FkZmFVaXhQWUlhdlpaMklXWm9TNmg4a1pB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVTF0WFg4ek9oY3RYUnN2ZHNTc2NLZWZ6R3ZmVTU0WTJScURucVZEazJkdjF2Qy1ZbnhjWm43cWRqeElTUVJyd3RKSWFVUEJKa0NCbW5tRHdiSUdOTzQ3Uk8xYktfRFhFMDhkaV9IcWNXaHZ4WlQtQThpVXREM01SaGdRVF93N3lPb05VSmc2T1RfaEJwY21XbG52aDd0azFlQnRXT0VTN1d6YVpDYTI5U083MHFqNU0yeERDQQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0FlTTBrS1NJVTN1S1RmdlhtLWU4MnNLcmRWdHVVaFVBUTNjcE5SY2F6d0hMRUdPV2NPdEVsUUxIak5tbllVQUdZZ3FTYkw3Vk00d3ViRnRRbk1wVzFmWXRKajNvSUc4dC1BdWJzLU5SUi1QMTJHM08wRnViVWRpSFVWUDk1M25KZW12UFdKUWhtTU9mcXlMcTNfZnN5RDRQeVhhbDlCVjk?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -226,18 +294,6 @@ Stories: 65
 - sources:
   - [unverified] Local 3 News — https://news.google.com/rss/articles/CBMi2AFBVV95cUxNekp5Uk1RajYyM2RiUHBlaEtxYU93T1Fwa3FiYUxjTk5laGh6eGNkMkdpOXRYMzlPd0JETjk3VUROZjZ1MXlheENYWVBfWEF3dTJfR01nVEdMM2xvZnQ4Wkg5Z2l6Q2ZyYkxSODQtVE1MaTNfR1ZSMk5PSUl0LWxWWGxGQXZvZjFVVWx4ZF9qVGU0Wm0wODdicWoxTzhWRm9XalNQYW9LRnIwWGtOZ1p1MDdmdzdweW9GaFR2UW1kVDNYMkk5X1JXcGVHQ3JQcWdXVWZrd280NUo?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Considering Ending Relationship with Travis Kelce
-
-- first seen: 2026-10-13 12:40 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 5
-- summary: A report suggests that Taylor Swift may be considering leaving Travis Kelce for a justifiable reason. Further details have not been provided in the source.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMivwFBVV95cUxPU3FaTVV5TE1BYWZXQjJKQ2J4dzJtNmZxY2tDNF92T1U4SkhkOXMtdDNxZlZmVXV1eTBnWGdQaWIxZDdIV1ZEbjJzUy1aa3ptMnlNdW5wMFJyakVmVEc4YlhjdkZhUTdDS0JvU1U1dnA2cWFVU3d4cW43cndwdWk1V2l6WFY1ZXo2ZjJWbUZQZ1lwUHBkU0liN1hTeldHbVV2V3IweGNWbzVkOEQ1TGh0OG9FblZwSVpTYmxXTUhjNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSUgtUnpOSFZfdUU1dEV3R2FEVkYyQzRCN28wMlhyU3VpRVJlUllRaDFYeU1zSWJQMDhabmFMQWtfN3lObjB6cVZZWTRKS0ZkdV9TMjczcDRDVnYwTlU3SERGTFBQRzBlck9ERU1WWF9acWU2aDhBaEJHY21TU3Q3eUExMWQ4TG1KSDg3ZWJfOWUzNmd3UGJhTXpWTnJrbUhBQ29zaWhIdXpkb3hHeW02NmNOUXROeldRYnh3VE9RT0MxZkwwX2xGNU9RQzBrVGhiZXEzctIB1AFBVV95cUxOMG5IY3pSZkFlU0xTMWpHdjEtandTVVluTFlrRkstY0VWUF9TUERvcktkMFRaZjloNERtYjQwZzhISWxoYkNKRDRZR1FxZTd0dTJoWnpHU0Z0ZlFYdUNsdkdSMVp3R0h2SjFDdnhNOENhbXdabmlLUXllNVhLYzZ4NUZLdVV4VTQtQWhTTURyd3NxdmNLR3R1cUtVQUxfWlB3VGk5eWtSM3FjOWh3enlORHZuRktQbjBOR2diTlZNUVhCV1J1YXAxVXpaQkZvUXVURDdCaw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMisgFBVV95cUxNN1J1Sm1SRXpuaWcwR29vTU52b1VDMkhXR0NhSHZaeE03RmZUTkxCaFdxdFhSMGtlejZ2SzBBT29tMEVXeng5bFNacWViTE1GTjlvLUZQVXBGY1AyZjhlYWhKcER0R3FCOEtobloxcDRhRzhaNnBOS3lBYnU0VGJmMm4wVzNwM2JrVDUtYmFBRTd4ZWJkczQtT0Y2WkhQcFdIVVRyNmlwNlE0dWhsVjM1TXB3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYzkzTW9YZ18zNl84V0ZtUmZkWF9yTW5jeHk3WFliVVh6S3lEb0VYUFhSaG9yc3BMUjBEX3QyWFZoYnpxblpIbHhiMng4c0RqWlhRMllqT1NTMkozb0pzQUEyTWlBTUhjcmM3WXk1aXVDaExJLWJBUnVzbl9QbzUxQVFidm9hUnpud1Z5Yzc2NXc5cU9Z?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## New Yorker Highlights Unusual Taylor Swift Fan in 'Daylight'
 
 - first seen: 2026-10-13 12:40 UTC | category: music | importance: 5
@@ -286,6 +342,18 @@ Stories: 65
 - summary: The article explores how Taylor Swift is influencing the perception of the term 'Patient Zero', which has often held negative connotations. It examines her role in reshaping discussions around this label.
 - sources:
   - [unverified] Medical Xpress — https://news.google.com/rss/articles/CBMiggFBVV95cUxOUy1QN3VHcFR1RWJLU1JMU1NUdFRtUnIyYXFadExJcjJXdmdjN0F2eDZZdlBCQ0lNdUE2MUtmQlRIb0JISDZZclNmdEVYb2wybi01cmtmaHVWam1ab2VhQ2V6TFByeXFtaGcxNlp4dVlfVE5JRGQ5YnFDRE85RF9ucTB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Considering Ending Relationship with Travis Kelce
+
+- first seen: 2026-10-13 12:40 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 5
+- summary: A report suggests that Taylor Swift may be considering leaving Travis Kelce for a justifiable reason. Further details have not been provided in the source.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMivwFBVV95cUxPU3FaTVV5TE1BYWZXQjJKQ2J4dzJtNmZxY2tDNF92T1U4SkhkOXMtdDNxZlZmVXV1eTBnWGdQaWIxZDdIV1ZEbjJzUy1aa3ptMnlNdW5wMFJyakVmVEc4YlhjdkZhUTdDS0JvU1U1dnA2cWFVU3d4cW43cndwdWk1V2l6WFY1ZXo2ZjJWbUZQZ1lwUHBkU0liN1hTeldHbVV2V3IweGNWbzVkOEQ1TGh0OG9FblZwSVpTYmxXTUhjNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSUgtUnpOSFZfdUU1dEV3R2FEVkYyQzRCN28wMlhyU3VpRVJlUllRaDFYeU1zSWJQMDhabmFMQWtfN3lObjB6cVZZWTRKS0ZkdV9TMjczcDRDVnYwTlU3SERGTFBQRzBlck9ERU1WWF9acWU2aDhBaEJHY21TU3Q3eUExMWQ4TG1KSDg3ZWJfOWUzNmd3UGJhTXpWTnJrbUhBQ29zaWhIdXpkb3hHeW02NmNOUXROeldRYnh3VE9RT0MxZkwwX2xGNU9RQzBrVGhiZXEzctIB1AFBVV95cUxOMG5IY3pSZkFlU0xTMWpHdjEtandTVVluTFlrRkstY0VWUF9TUERvcktkMFRaZjloNERtYjQwZzhISWxoYkNKRDRZR1FxZTd0dTJoWnpHU0Z0ZlFYdUNsdkdSMVp3R0h2SjFDdnhNOENhbXdabmlLUXllNVhLYzZ4NUZLdVV4VTQtQWhTTURyd3NxdmNLR3R1cUtVQUxfWlB3VGk5eWtSM3FjOWh3enlORHZuRktQbjBOR2diTlZNUVhCV1J1YXAxVXpaQkZvUXVURDdCaw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMisgFBVV95cUxNN1J1Sm1SRXpuaWcwR29vTU52b1VDMkhXR0NhSHZaeE03RmZUTkxCaFdxdFhSMGtlejZ2SzBBT29tMEVXeng5bFNacWViTE1GTjlvLUZQVXBGY1AyZjhlYWhKcER0R3FCOEtobloxcDRhRzhaNnBOS3lBYnU0VGJmMm4wVzNwM2JrVDUtYmFBRTd4ZWJkczQtT0Y2WkhQcFdIVVRyNmlwNlE0dWhsVjM1TXB3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYzkzTW9YZ18zNl84V0ZtUmZkWF9yTW5jeHk3WFliVVh6S3lEb0VYUFhSaG9yc3BMUjBEX3QyWFZoYnpxblpIbHhiMng4c0RqWlhRMllqT1NTMkozb0pzQUEyTWlBTUhjcmM3WXk1aXVDaExJLWJBUnVzbl9QbzUxQVFidm9hUnpud1Z5Yzc2NXc5cU9Z?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce's Neighbors Share Their Thoughts
 
@@ -546,27 +614,3 @@ Stories: 65
 - summary: For the first time, Taylor Swift alongside The Beatles and Drake has made it to the Top 10 on the Billboard 200 chart, marking a significant moment in music history.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxPRXFhbzRNZjJPbXRNQWg2MlpaNU12eXVGTWxoUTJqaGI1RkxYbkhmOFVKdWxYZF9uNFAwNUJyN1JMVy05MWlmQnF2a001NzlQaUstSmhibTUxOGNpWFNzOTFSaDNyZWozYjZPckhtdDM0WUZaU01nZXN0Q1VpeGREOUxZdkphNVdJQndCbTJEcEVSNTMtZGUyNDA1LXhjV1owMG9tVlo4NmRqQ051QzJDcXZLWGo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Swiftie Defends Misunderstood 'Cats' Movie
-
-- first seen: 2026-10-11 15:36 UTC | category: music | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: A fan of both Taylor Swift and Andrew Lloyd Webber shares their perspective on the misunderstood 'Cats' movie, expressing admiration for its artistic elements.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxQb2pidnl4SU1fMGY1Z0p3aU1Fd0JDdmc3X3NhbVhwNURNWjZ6UjBNVTJtS2xmeW9lVHR2MVJoSDFYTkFtNzF1RE5iaGtOek9nUVp4MU1xZnF6c3NFcDh3akdveFFKR3IwWnZpVnVUOFlzV1l2LUxqemg4N01LTFp0TUU1Rk9UZ3hUdTNiblU2R0ZKTzd2QkN3dm9wUnhBdDVUVzZKenpRS1NUYlBIdnVRcTl3MC1OZTFXMzAtaDFxZWZiejhUcUp3aXE5T09CYV80QlVWdXF4bTVHcmVOemQxeWVLaw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## SVU Cast Admires Taylor Swift's Cookies
-
-- first seen: 2026-10-11 15:36 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The cast of SVU expressed their enthusiasm for Taylor Swift's cookies, with one star even devising a plan regarding them. The cookies have garnered attention among the cast members, reflecting Swift's influence beyond music.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNYnFKS0huTjhaMVpXSnN6NGkxOE5oQV9EQUtXNzllWGd3SlVJSng2aktucmExZllHUW9OTTcxcFM4akxUUFBsekUxWjZzazhNbFI5XzVyMU41MVZKSzBCV1hGZnhpZzlqOFVMOTcyLVhNTGJ1aXVpOXNOd1NnSExPNVI3YzRRcE9LUXg4RkpFODQ5YnVqTzJGRllkMHRwcTA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Analysis of Albums with 3 or More No. 1 Songs
-
-- first seen: 2026-10-11 15:36 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report highlights that only 33 albums have achieved the milestone of producing three or more No. 1 songs. The article from Business Insider discusses these notable albums.
-- sources:
-  - [unverified] Business Insider — https://news.google.com/rss/articles/CBMif0FVX3lxTE9ESmpERkFhbEtiWDFCMFdZTGYtSlVGeU9pR1ZCQkVBRllZck5SU1M2eGIxQ3ZlUXhVYk9nNDNTb3pLWS1GU3NGdHlYaEJiVElZVExKNldja0pVTHJ1ZUhDSFRDc0puaWFNMW5wa2N2SGtNREJET0NtZlV4Q2RpcFE?oc=5&hl=en-US&gl=US&ceid=US:en
