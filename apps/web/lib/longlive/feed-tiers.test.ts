@@ -411,16 +411,17 @@ describe('assignFeedTiers over REAL vault content', () => {
     // 20% still catches genuine regressions (a bug that made everything
     // hero) without breaking on ordinary content growth.
     //
-    // Upper bound widened 20 -> 42 (2026-10-14 photo-gate split): the feed
+    // Upper bound widened 20 -> 25 (2026-10-14 photo-gate split): the feed
     // card's photo predicate changed from `hasRealPrimaryImage` (a
     // 'primary'-kind photo only) to `hasDisplayablePhoto` (ANY real photo —
     // 'primary' | 'reference' | 'archival'). The base tier gained hero
     // candidates (28.5% -> 37.5% base hero), but the hero->media spacing rule
     // absorbs most of that, so the FINAL hero share moves only ~1pt (12.7% ->
-    // 13.7%). The bound is widened for headroom on further photo enrichment;
-    // the final share itself is pacing-capped. Same rationale as #1628.
+    // 13.7%). Kept at ~2x the measured value (13.7%) rather than far above
+    // it, so the bound still catches a "hero ate the feed" regression while
+    // allowing room for further photo enrichment. Same rationale as #1628.
     expect(pct('hero')).toBeGreaterThanOrEqual(8);
-    expect(pct('hero')).toBeLessThanOrEqual(42);
+    expect(pct('hero')).toBeLessThanOrEqual(25);
     // Media widened 45 -> 80 (2026-10-14 photo-gate split): the ~169 items
     // that carry a real photo of non-primary kind but no primary one left
     // text tier (where the era-art stand-in had kept them) and settled at

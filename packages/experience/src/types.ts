@@ -580,6 +580,15 @@ export function hasRealPrimaryImage(item: ContentItem): boolean {
  * answer "is there a real photo at all?" — the era-art fallback is the sole
  * thing that must keep a card photo-less (it's era branding, not a photo of
  * the moment).
+ *
+ * RELIES ON: era-art entries never coexist with real photos in one item's
+ * `images` array — `buildContent()` (packages/content-enrichment/src/
+ * content.ts) plants the `/eras/<id>.png` stand-in ONLY when the moment has
+ * no real image URL. If that ever
+ * changes, `primaryImageRef` could hand back an era-art entry for an item
+ * this gate says "has a photo", so the assumption must be revisited (and,
+ * ideally, made a hard guarantee in the builder) before the gate is trusted
+ * again.
  */
 export function hasDisplayablePhoto(item: ContentItem): boolean {
   return item.images.some((i) => !isEraArtFallback(i.url));
