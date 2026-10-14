@@ -3,6 +3,7 @@ import type { CurrentItem, LiveTheory } from '@swift2/shared';
 import { passesCurrentItemQualityGate } from '@swift2/shared';
 import {
   currentFeedEntries,
+  collapseMergedDuplicates,
   isBigTheory,
   isLiveCountdown,
   outletFor,
@@ -94,6 +95,42 @@ describe('currentFeedEntries', () => {
 
   it('is empty for an empty input', () => {
     expect(currentFeedEntries([], ERA_START, ERA_END)).toEqual([]);
+  });
+
+  it('Content fix 7: never renders a merged-away duplicate', () => {
+    const items = [
+      currentItem({ id: 'ci-original', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci-duplicate', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+    ];
+    const entries = currentFeedEntries(items, ERA_START, ERA_END);
+    expect(entries).toHaveLength(1);
+    expect(entries[0]!.kind === 'current' ? entries[0]!.item.id : null).toBe('ci-original');
+  });
+});
+
+describe('collapseMergedDuplicates', () => {
+  it('drops any item with mergedInto set', () => {
+    const items = [
+      currentItem({ id: 'ci-original', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci-dup1', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+      currentItem({ id: 'ci-dup2', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+    ];
+    const result = collapseMergedDuplicates(items);
+    expect(result.map((i) => i.id)).toEqual(['ci-original']);
+  });
+
+  it('is a no-op when nothing is merged', () => {
+    const items = [
+      currentItem({ id: 'ci1', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci2', observedOn: '2026-10-11' }),
+    ];
+    expect(collapseMergedDuplicates(items)).toEqual(items);
+  });
+
+  it('never renders the SAME original twice even if it appears twice in the input (belt-and-braces)', () => {
+    const original = currentItem({ id: 'ci-original', observedOn: '2026-10-12' });
+    const result = collapseMergedDuplicates([original, original]);
+    expect(result).toHaveLength(1);
   });
 });
 
