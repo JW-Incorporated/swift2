@@ -1,5 +1,5 @@
 import { substanceScore } from './substance';
-import { hasRealPrimaryImage, type ContentItem } from './types';
+import { hasDisplayablePhoto, type ContentItem } from './types';
 
 /**
  * Card silhouette for one feed item.
@@ -108,7 +108,7 @@ export function baseTierFor(item: ContentItem, imageSuppressed = false): CardTie
   if (item.significance === 'defining') return 'hero';
 
   const score = substanceScore(item);
-  const hasImage = hasRealPrimaryImage(item) && !imageSuppressed;
+  const hasImage = hasDisplayablePhoto(item) && !imageSuppressed;
 
   if (hasImage && score >= HERO_SCORE_THRESHOLD) return 'hero';
   if (item.significance === 'notable') return 'media';
