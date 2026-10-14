@@ -282,7 +282,7 @@ describe('runBackfill', () => {
       from: vi.fn(() => ({
         ...selectChain,
         update: (row: unknown) => ({
-          eq: (..._args: unknown[]) => {
+          eq: () => {
             writes.push(row);
             return Promise.resolve({ error: null });
           },
