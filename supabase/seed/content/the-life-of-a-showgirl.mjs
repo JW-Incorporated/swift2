@@ -187,6 +187,17 @@ export default {
             notes:
               'Additional established-trade report of the Hot 100 debut (paywalled/bot-gated in this run; listed for provenance alongside the accessible reprints above).',
           },
+          {
+            outlet: 'Good Morning America (ABC)',
+            url: 'https://www.youtube.com/watch?v=FqbcAAKQjes',
+            source_title: 'Taylor Swift tops Billboard 200',
+            publisher: 'Good Morning America',
+            source_type: 'video',
+            accessed_at: '2026-10-14',
+            reliability_score: 4,
+            notes:
+              'ABC\'s "Good Morning America" segment (official @GMA YouTube channel, video id FqbcAAKQjes, published Oct. 12, 2026) reporting "The Life of a Showgirl" at No. 1 on the Billboard 200 — broadcast corroboration of this moment\'s album-chart result. Surfaced by appearance-discovery (intake #5607); verified via YouTube oEmbed (HTTP 200, title "Taylor Swift tops Billboard 200", author_name "Good Morning America"). A morning-show news segment, so a moment source, not a videos row.',
+          },
         ],
       },
     },
