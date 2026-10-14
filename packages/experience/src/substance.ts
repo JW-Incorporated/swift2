@@ -92,8 +92,11 @@ export function bodyChars(item: ContentItem): number {
 /**
  * Real photos attached to the moment — every gallery entry that is not the
  * `/eras/<id>.png` stand-in. Counts 'reference'/'archival' entries too: they
- * are genuine images that make the page bigger, even though only a 'primary'
- * one can front a hero card (`hasRealPrimaryImage`).
+ * are genuine images that make the page bigger. (Equivalent to
+ * `hasDisplayablePhoto(item)` — types.ts's feed-card gate — which is the
+ * boolean form of this count: a card fronts its photo when this is > 0, of
+ * ANY kind; see types.ts's `hasDisplayablePhoto` for the 2026-10-14 gate
+ * split from `hasRealPrimaryImage`.)
  */
 export function realPhotoCount(item: ContentItem): number {
   return item.images.filter((i) => !isEraArtFallback(i.url)).length;
