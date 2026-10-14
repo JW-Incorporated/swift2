@@ -20,8 +20,10 @@ import {
   projectKnowledgeDoc,
   refreshSymbolActivity,
   abandonQuietTheories,
+  mergeNewFactsIntoOriginal,
   type ClusterSource,
 } from './write-knowledge';
+import { evaluateSameEventGate, loadDedupeCandidates } from './dedupe-gate';
 
 // Same era-id convention as apps/web/lib/longlive/eras.ts's CURRENT_ERA_ID
 // ('tloas'). MIRROR, NOT IMPORT (redline.ts's precedent, see its header):
@@ -47,6 +49,12 @@ export interface ExtractStageResult {
   theoriesUpserted: number;
   abandonedTheories: number;
   countdownsResolved: number;
+  // Content fix 7: the dedupe gate's own outcome tally, auditable alongside
+  // the pre-existing counters above (spec §A: "Record every decision
+  // (kept-new / merged / discarded / held)").
+  dedupeMerged: number;
+  dedupeDiscarded: number;
+  dedupeHeld: number;
   errors: string[];
 }
 
@@ -197,6 +205,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
     theoriesUpserted: 0,
     abandonedTheories: 0,
     countdownsResolved: 0,
+    dedupeMerged: 0,
+    dedupeDiscarded: 0,
+    dedupeHeld: 0,
     errors,
   };
 
@@ -278,35 +289,101 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       } else {
         if (extracted.currentItem) {
           const imageUrl = await resolveImageUrl(story.top_image_url, sources);
-          const written = await writeCurrentItem(
-            db,
-            story.id,
-            CURRENT_ERA_ID,
-            extracted.currentItem,
-            sources,
-            countdownTargetAt,
-            imageUrl,
-          );
-          if (!written.redlineOk) result.screenedOut++;
-          else {
-            result.extracted++;
-            await projectKnowledgeDoc(db, {
-              id: `current:${written.id}`,
-              kind: 'current_item',
-              title: extracted.currentItem.headline,
-              text: `${extracted.currentItem.summary} ${extracted.currentItem.detail}`.trim(),
-              date: extracted.currentItem.observedOn,
-              recencyDate: extracted.currentItem.observedOn,
-              open: extracted.currentItem.statusHint === 'rumor' || extracted.currentItem.statusHint === 'reported',
-              status: extracted.currentItem.statusHint,
-              sourceTier: sources[0]?.tier ?? 'unverified',
-              sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.currentItem.symbols,
-              entities: extracted.currentItem.entities,
-              expiresAt: written.expiresAt,
-              redlineOk: written.redlineOk,
-            });
+          // Content fix 7: semantic same-event gate BEFORE this item is ever
+          // written as a new row — candidates are the live, non-expired,
+          // non-promoted, non-already-merged current_items from the last 7
+          // days (dedupe-gate.ts's own window constant). Fails CLOSED to
+          // 'hold' on any LLM unavailability/error: this cycle simply does
+          // not write the row, and the cluster is retried whole next cycle
+          // (news_story.extracted_at stays unset below, same "deferred, not
+          // dropped" discipline the rest of this stage already follows).
+          let gateDecision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
+          try {
+            const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
+            gateDecision = await evaluateSameEventGate(usage, candidates, extracted.currentItem);
+          } catch (err) {
+            gateDecision = { action: 'hold', reason: (err as Error).message };
+          }
+
+          if (gateDecision.action === 'hold') {
+            result.dedupeHeld++;
+            errors.push(`dedupe gate held story ${story.id}: ${gateDecision.reason}`);
+            // Do not mark extracted_at — retried next cycle, same as a
+            // deferred LLM-unavailable cluster above.
+            continue;
+          } else if (gateDecision.action === 'discard' || gateDecision.action === 'merge') {
+            result.dedupeDiscarded += gateDecision.action === 'discard' ? 1 : 0;
+            result.dedupeMerged += gateDecision.action === 'merge' ? 1 : 0;
+            try {
+              const { data: originalRow, error: originalError } = await db
+                .from('current_item')
+                .select('headline, summary, detail, sources, image_url')
+                .eq('id', gateDecision.candidateId)
+                .single();
+              if (originalError) throw new Error(originalError.message);
+              await mergeNewFactsIntoOriginal(
+                db,
+                gateDecision.candidateId,
+                {
+                  headline: originalRow.headline as string,
+                  summary: originalRow.summary as string,
+                  detail: originalRow.detail as string,
+                  sources: ((originalRow.sources as unknown[]) ?? []) as ClusterSource[],
+                  imageUrl: (originalRow.image_url as string | null) ?? null,
+                },
+                {
+                  ...(gateDecision.action === 'merge'
+                    ? { mergedSummary: gateDecision.mergedSummary, mergedDetail: gateDecision.mergedDetail }
+                    : {}),
+                  duplicateSources: sources,
+                  duplicateImageUrl: imageUrl ?? null,
+                },
+              );
+              // The duplicate's own current_item row is never written at
+              // all (no insert happens on this path) — there is no
+              // merged_into pointer to set because there is no duplicate
+              // row to point from. The linkage back to this duplicate's
+              // news_story lives entirely in the ORIGINAL's unioned
+              // `sources` (mergeNewFactsIntoOriginal's unionSources call
+              // folds this story's source URLs in above) plus the
+              // duplicate's own news_story.extracted_at getting stamped
+              // below like every other processed story in this loop — that
+              // stamp is what stops this same story from being
+              // re-extracted and re-gated next cycle, not a pointer column.
+            } catch (err) {
+              errors.push(`dedupe merge/discard failed for story ${story.id}: ${(err as Error).message}`);
+            }
+          } else {
+            const written = await writeCurrentItem(
+              db,
+              story.id,
+              CURRENT_ERA_ID,
+              extracted.currentItem,
+              sources,
+              countdownTargetAt,
+              imageUrl,
+            );
+            if (!written.redlineOk) result.screenedOut++;
+            else {
+              result.extracted++;
+              await projectKnowledgeDoc(db, {
+                id: `current:${written.id}`,
+                kind: 'current_item',
+                title: extracted.currentItem.headline,
+                text: `${extracted.currentItem.summary} ${extracted.currentItem.detail}`.trim(),
+                date: extracted.currentItem.observedOn,
+                recencyDate: extracted.currentItem.observedOn,
+                open: extracted.currentItem.statusHint === 'rumor' || extracted.currentItem.statusHint === 'reported',
+                status: extracted.currentItem.statusHint,
+                sourceTier: sources[0]?.tier ?? 'unverified',
+                sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+                eraId: CURRENT_ERA_ID,
+                symbols: extracted.currentItem.symbols,
+                entities: extracted.currentItem.entities,
+                expiresAt: written.expiresAt,
+                redlineOk: written.redlineOk,
+              });
+            }
           }
         }
         if (extracted.fanSignal) {
