@@ -1,0 +1,58 @@
+# Content fix 7 — live cleanup of existing duplicate current_items (owner
+# report 2026-10-13). REUSES the exact same gate/merge code the extract stage
+# runs at write time (scripts/news/dedupe-current-items.mjs imports
+# apps/worker/src/extract/dedupe-gate.ts and write-knowledge.ts directly —
+# no reimplementation). Dry-run by default per the card's acceptance
+# criteria: post the dry-run output on the PR, then run for real only after
+# merge+review.
+name: dedupe-current-items
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print each duplicate group without writing to the DB'
+        required: false
+        default: true
+        type: boolean
+      era:
+        description: 'Limit to one era id (optional — leave blank for every era)'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dedupe-current-items
+  cancel-in-progress: false
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Run dedupe (dry-run by default)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          ERA: ${{ inputs.era }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          if [ "${DRY_RUN:-true}" != "true" ]; then
+            ARGS+=(--live)
+          fi
+          if [ -n "${ERA:-}" ]; then
+            ARGS+=(--era "$ERA")
+          fi
+          npm run news:dedupe -- "${ARGS[@]}"
