@@ -91,6 +91,13 @@ export interface CurrentItem {
   heat: number;
   /** Vault moment id once promoted; row is then hidden from the feed. */
   promotedTo?: string;
+  /** Content fix 7: set when this row was collapsed into another
+   * current_item by the LLM same-event dedupe gate (or the live-cleanup
+   * script reusing the same gate) — the id of the ORIGINAL item this row's
+   * facts were merged into. A row with this set is never shown; read-time
+   * callers filter it out as defense in depth alongside the write-time gate
+   * that (in the normal path) never even inserts a confirmed duplicate. */
+  mergedInto?: string;
   /** ISO date (YYYY-MM-DD). */
   lastCheckedOn: string;
   /** ISO 8601 timestamp. */
