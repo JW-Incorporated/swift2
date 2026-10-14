@@ -60,6 +60,7 @@ export interface CurrentItemRow {
   entities: unknown;
   heat: number;
   promoted_to: string | null;
+  merged_into?: string | null;
   last_checked_on: string;
   expires_at: string;
   updated_at: string;
@@ -100,6 +101,7 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     entities: asStringArray(row.entities),
     heat: row.heat,
     ...(row.promoted_to ? { promotedTo: row.promoted_to } : {}),
+    ...(row.merged_into ? { mergedInto: row.merged_into } : {}),
     lastCheckedOn: row.last_checked_on,
     expiresAt: row.expires_at,
     updatedAt: row.updated_at,
