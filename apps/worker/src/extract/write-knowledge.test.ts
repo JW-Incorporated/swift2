@@ -8,6 +8,7 @@ import {
   abandonQuietTheories,
   projectKnowledgeDoc,
   refreshSymbolActivity,
+  mergeNewFactsIntoOriginal,
 } from './write-knowledge';
 
 /** A minimal thenable query-builder stub — every chain method returns
@@ -204,6 +205,72 @@ describe('writeCurrentItem', () => {
         [],
       ),
     ).rejects.toThrow('current_item insert failed');
+  });
+});
+
+describe('mergeNewFactsIntoOriginal', () => {
+  const GOOD_ORIGINAL = {
+    headline: 'New single announced',
+    summary:
+      'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+    detail:
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+    sources: [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' as const }],
+    imageUrl: 'https://www.people.com/photo.jpg',
+  };
+
+  function fakeMergeDb(): { db: SupabaseClient; updatedRow: () => Record<string, unknown> | undefined } {
+    let updatedRow: Record<string, unknown> | undefined;
+    const db = fakeDb(() => {
+      const c = chain({ data: null, error: null }) as Record<string, unknown>;
+      c.update = (row: Record<string, unknown>) => {
+        updatedRow = row;
+        return c;
+      };
+      return c;
+    });
+    return { db, updatedRow: () => updatedRow };
+  }
+
+  it('keeps the original copy and redline_ok=true when the merge rewrite FAILS the quality gate (too thin)', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary: 'Short.',
+      mergedDetail: 'Too thin.',
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    // The original's good copy survives — the failing rewrite is discarded.
+    expect(row?.summary).toBe(GOOD_ORIGINAL.summary);
+    expect(row?.detail).toBe(GOOD_ORIGINAL.detail);
+    expect(row?.redline_ok).toBe(true);
+    expect(row?.quality_hold_reason).toBeNull();
+    // Sources are still unioned and the duplicate is still folded in even
+    // though its rewrite was rejected.
+    expect((row?.sources as unknown[]).length).toBe(2);
+  });
+
+  it('sets quality_hold_reason to null and uses the rewrite when the merge passes the quality gate', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const mergedSummary =
+      'Taylor announced a new single AND a surprise music video today during a livestream watched by millions worldwide. Fans immediately began speculating about which upcoming album the single belongs to.';
+    const mergedDetail =
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques, and a companion outlet also confirmed a surprise music video would drop alongside the single within the next 24 hours, extending the rollout across multiple platforms at once and drawing comparisons to past surprise-release eras that fans had already been tracking closely.';
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary,
+      mergedDetail,
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    expect(row?.summary).toBe(mergedSummary);
+    expect(row?.detail).toBe(mergedDetail);
+    expect(row?.quality_hold_reason).toBeNull();
   });
 });
 
