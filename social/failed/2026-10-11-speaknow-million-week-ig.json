@@ -43,5 +43,5 @@
     "sig": "hmac-sha256:b40366e798ec8ad6ee1a573a6e695222fb33d611a4bafc07a3135a6a060e244f"
   },
   "failureReason": "Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).",
-  "lastAttemptAt": "2026-10-14T17:43:00.101Z"
+  "lastAttemptAt": "2026-10-14T17:48:52.485Z"
 }
