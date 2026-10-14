@@ -892,6 +892,48 @@ jobs:
         with:
           node-version: '24'
 
+      # Live feed quality check (Content fix 6/6). Two zero-AI checks on top
+      # of the Content fix 3/6 publish gate, both through upsert-alert.sh with
+      # a founder @-mention (one ping per incident, auto-close on recovery):
+      #   visible   — loads what longlivets.com actually serves
+      #               (/vault/live/<current era>) and alarms if ANY visible
+      #               item lacks an image or fails evaluateCurrentItemQuality.
+      #   hold-rate — alarms if 100% of the last 24h's new current_items
+      #               (min sample 5) were held (missing_image or any reason):
+      #               the gate keeps the site clean, so a broken image/
+      #               enrichment stage otherwise just makes the feed go quiet.
+      # Hourly (ungated, like the smoke/Vercel checks): both are cheap single
+      # GETs. Exit 2 = could not check (site down, no creds, column not yet
+      # migrated) -> alert state left unchanged; the smoke check owns outages.
+      # After setup-node: the script needs Node 24 (native TS type stripping
+      # to import the shared gate unchanged, no npm ci).
+      - name: Live feed quality check (publish gate regression, @-mentions)
+        if: "!cancelled()"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          set -uo pipefail
+          run_check () {
+            local CHECK="$1" TITLE="$2" STATUS=0
+            node scripts/watchdog/feed-quality-check.mjs --check "$CHECK" --alert-body /tmp/alert-body.md || STATUS=$?
+            if [ "$STATUS" -eq 0 ]; then
+              scripts/watchdog/upsert-alert.sh close "$TITLE" /tmp/alert-body.md
+            elif [ "$STATUS" -eq 1 ]; then
+              ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$TITLE" /tmp/alert-body.md
+            else
+              echo "feed-quality-check $CHECK could not run (exit $STATUS) — alert state unchanged."
+            fi
+          }
+          run_check visible "Watchdog: live feed item fails publish gate"
+          run_check hold-rate "Watchdog: news pipeline holding every new item"
+
       # Vault Run scheduled-cadence check (2026-09-12, swift2#58). Replaces
       # the one-off founder ask "confirm vault-run holds up under daily
       # scheduling" with a standing, self-reporting watchdog: routine-vault-
