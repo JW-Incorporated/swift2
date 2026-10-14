@@ -256,13 +256,16 @@ describe('feedCardImageHidden over the real vault', () => {
   });
 
   it('still suppresses the #2080 owner frames, unchanged', () => {
-    // 9 moments hold a frame of their own video in the hero slot; 7 of them own
-    // their embed AND hold it as a real `primary` image, which is what this rule
-    // suppresses. The other 2 (the deferring pair) are counted above. The two
-    // that hold their frame as a non-primary stand-in never rendered a photo in
-    // the feed anyway — MomentCardButton gates its image block on
-    // `hasRealPrimaryImage` — so there was nothing there to suppress.
-    expect(suppressed.filter((s) => s.owns)).toHaveLength(7);
+    // 9 moments hold a frame of their own video in the hero slot and own the
+    // embed; this rule suppresses the photo on all of them. (Measured
+    // 2026-08-13 the count was 7 — at the time MomentCardButton gated its
+    // image block on `hasRealPrimaryImage`, so the two owners holding their
+    // frame as a non-primary stand-in never rendered a feed photo at all.
+    // The 2026-10-14 gate split to `hasDisplayablePhoto` made those two
+    // frames render, so the #2080 rule now suppresses them too: the card would
+    // otherwise print the same frame twice — as the photo AND the video poster
+    // it owns. The 2 deferring (non-owning) frames are counted above.)
+    expect(suppressed.filter((s) => s.owns)).toHaveLength(9);
   });
 
   it('leaves every suppressed deferring card with a video it does not own', () => {
