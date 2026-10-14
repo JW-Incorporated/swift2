@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 69
+
+## Backstreet Boys Break Rogers Centre Record Previously Held by Taylor Swift
+
+- first seen: 2026-10-14 23:54 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The Backstreet Boys have set a new record at the Rogers Centre, surpassing the attendance previously established by Taylor Swift. This marks a notable achievement for the iconic boy band during their current tour.
+- sources:
+  - [unverified] Toronto Life — https://news.google.com/rss/articles/CBMiogFBVV95cUxNNzFMOXRsZVBGdG5la2VHQTV4MURBUmFyZl9QZTlsb2NvWXdfQkxQN1pxS3JlT1BvX3lBUmpxclAxMkptbXBtTTdpbnNpdWh4UTRYaDFEd2Vsd0xINzBtMFBfOG11WXNra1dFZk5kUlVqSnhiZm9IUUdYTWxTbENMb3JZZXEtU0JiSW5ad2UwQ19wRGNxVHFWTGlsX2pXdHJUZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kylie Kelce Describes Swift and Kelce's Wedding as 'Absolutely Magical'
+
+- first seen: 2026-10-14 23:54 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce shared her thoughts on Taylor Swift and Travis Kelce's wedding in New York City, describing it as 'absolutely magical.'
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOcEhJUHRIdE44bjBPN1Y2S3pLMmdKMGlseWQtTmZVdktWYjNkQk55aWEzcldRV0FjT05uSGVRT1lWOWwtdlJmaDZxTVBxLTNpZUZsdnZZZ1VYX2hPTkVuczlycnphdGNPZ2xndjJqZ2RYdHdycDRaNlJ3emdWTFN6LUpETkdubVNrTFZ0bmlaUnFsQ01keGFnbk5BeVA4dGtkaFRjTHNrcmV5QTZqdmMwNTlaaFVCcHZjdE1WNEhxTTZib2t6bXozSzFXR0VnazlPVW55b0JwQVhQUGxzVENRVWZ5MU1WWXVn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Business Ventures
+
+- first seen: 2026-10-14 23:54 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares insights regarding her current and future business initiatives. The focus is on her entrepreneurial spirit and projects she's involved in.
+- sources:
+  - [unverified] Open for Business — https://news.google.com/rss/articles/CBMiUkFVX3lxTFB0dVNIM3NwZ082ajllSkFUY0dXcVEtZUxIYVY2V2FPSTdudk53a082anNXaV84eDBHZXozUl81cHhiS2pPcTVhU0taUlNzVW0wakE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Impact on LA Hotels Compared to World Cup
+
+- first seen: 2026-10-14 23:54 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A report discusses how Taylor Swift's influence on LA hotels has surpassed that of the World Cup, highlighting potential benefits for AirBnB as a significant winner in this scenario.
+- sources:
+  - [unverified] Santa Monica Daily Press — https://news.google.com/rss/articles/CBMirgFBVV95cUxQbmtFazRvbjM2NkFqakV3VDl4WmJaejZ0cTNIYjdpd1prZnhqWXdqQURxdUxiZWl1aktpU3hJZ3RQSllGUUQ3d3pfdzRzbjdsdmxMdm5wbUZScFBqY0xYTjFBZ19qM3dvTUM3N05KZFp4TUplN0ZHMk5HOFhGdnE0blhaWmRVUFdkYms5TXZ3RlpCYUNwbC01Rk40c29weWFUWWxDT2dSMUluVlBQYXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Experiences Inside the Taylor Swift Fan Community Explored
+
+- first seen: 2026-10-14 23:54 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article by The Georgetown Voice details the author's experiences after joining the Taylor Swift fan community, offering insights and reflections on fan culture.
+- sources:
+  - [unverified] The Georgetown Voice — https://news.google.com/rss/articles/CBMilgFBVV95cUxNTGhUbUc3QmJVSjliVXZJdnY0UWY5VXpScFlfYzlSNkowZTBKOWZUcTJuQ3pOUWI0OWNMN3NzMlhzbnVRSXRGakRPY1hVZmxiRW5iNTR4UmlYeGVXUDkzUjgwcUVYd2FlaENEdnZNNVhVRThoQzJwNklSSEppOEN3OGVBdlRIWTl4bm1OS0JYTjdxd2VoV2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Former NFL Player Comments on Taylor Swift's Chiefs Appearances
+
+- first seen: 2026-10-14 23:54 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A former NFL player has shared his thoughts on Taylor Swift's recent appearances at Chiefs games, which have sparked controversy. The discussions highlight the reactions to her public presence at these sporting events.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMzZUYzR5LUZ2aGh5eFNmbGdzcGJqbDdRTFA3RW9HX3U3Z05vRnZ0TXFsY2Z4c1RkRzJTS2ZlUnZZdTBSRC1fb3BvaTd3LTBKN1A1M0RCN3JKLXRMLWIycnZHZldvWFNMYVc1Vy01OEZWSThIWjVsdlZMdEFfclhHVENOR25EV1JoUk1uMVhaUHVpWFp4X2twTzdBQWJjaDNGZmhybmg3MURrRmJrd3lMdnRSN3MzMDQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Kim Kardashian Responds to Taylor Swift and Travis Kelce Amid Kanye's Remarks
 
@@ -554,63 +602,3 @@ Stories: 70
 - summary: New information reveals that Taylor Swift and Travis Kelce are working on a larger project for their Pennsylvania property.
 - sources:
   - [unverified] DeuxMoi.world — https://news.google.com/rss/articles/CBMiogFBVV95cUxOT1NPVWNQdndJR051WGZLYXBWMmRLTlNWb04xSS1ya3pGTjF5c0dieDVkaXVqdnM0OXljTkJtQW9LZWlraHM1Qy02R1I0aEs0Y21MbVktLXlqUmpNWUVDUmdMUWNOY2lUX1BJdmhsOWFZcF81aWluRXV0aW5nQTZOODlIMUNuTFVqZ1N3U1NfUXhmWHh0dzZJWTdWczJ4LUI2cUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Jessica Biel Promote Fall Fashion Trend with Leather Jackets
-
-- first seen: 2026-10-11 20:57 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Jessica Biel emphasize that an oversized leather jacket is essential for a complete fall wardrobe. Their influence on fashion trends continues to inspire many this season.
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPTWY2MFBuZnVZQVVJMGJ6TmtUeEdWc3ZrVjRWak9IYlhEZ0N2WkV6OW93YmFPdXhxZlRFajh4eVBJcXZvRDhrM0dhTDF4cU9WM3JOajViWnRyWm0yOHBPeE9ZbllpZTU3VjFOOVR0TnVHYy1DWXZSRnFLYkMxbDJMc21fVUR4MTZVc3A0cmNRU2lILVZXV0hEYnVaRFZ4MnVCUnlnRERoMEEzamc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'The Life of a Showgirl' Ranks No. 1 on Billboard 200 for 14 Weeks
-
-- first seen: 2026-10-11 20:57 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift's album 'The Life of a Showgirl' has maintained its position at the top of the Billboard 200 chart for a remarkable 14 weeks, showcasing its continued popularity.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxNWV9HS0RIaVNkYlE5N0ZsSTk3LWFTcjBqR3N3a0YyN2RST1A5MU5yYXRfajNiUmF3aFpiZmVmSDJBaWwxNVlWVHJ5cjZjYUZQQjUtbnVlN0l0cUk0UW9TekZHVkpSVFZRQ1hBOXhyQ2kwVnJVTnUyUTRjelJkaTE4OGRFSDhSc0d5LXA2cTlHMmFIZGdXdEhyazFXLU8xaW9iX1pNZkQzU0dpUHZ0Smw4RA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Ratings Game Music — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeFVxS3czd2M2cnZfYWlSLVZiNFJtcklhb1NSVHhmeHVrRkowZ2d5VEJaSmxJRjktT25CM0h6N25DaHVOOU1DMUJ4ZlhSeUFuS3BtQkFfbWFMM3N6d2V4REpWdlN6b21jNmZ6RmVENFlSVHFIalFsUll4ZzRwem5od3luZVpER2o1cnhSY2RIWWFZbXhzeWZIY2laR2Zab0szZUZBdFJyVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxQTVEtT0dBMTlnVl9jdm5ySU5oWUU4Q2R5clBxcGNkWlBIWEhXRHZGRkZ4UVRRUDh6VkJxTVB3TVc1cll0elZoeTJRT2tBdFRkQVo4blJNNlFXbGhLdFJmTFVEYXlGeFRsRFRDcHJ1Z0VjVGRfbTQ5dTd0UWNLUUxKS3p2M1l0dUNYLUROTUFKRjc3bjJ0WVpzaTROV1o4d3E2cnhFTEQtNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-100th-week-billboard-200-number-one-beatles-1236908356/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNcUZ3NlhyTGJRdDBQc0tVTVRhTF9BWXAwVzdsT1VSOFM0Tml4TnlfMGl6emJHaFNlQWtfZkV3Y0hTVElLU0hrdjUzTVdEQjJ3SzFaaWVnYmtXM0l6alVfY1o0RklaM1VRZy1uUnFEbzNHekxZN25kd2F3Q3NLMlNaS0E5NDhJZFhFR181ckdEWUoxQmMwWDM2NUx1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bronze Mahomes Has Adorable Moment with Taylor Swift
-
-- first seen: 2026-10-11 20:57 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a recent event, Patrick Mahomes' son, Bronze, drew attention with a charming interaction involving Taylor Swift. The moment captured fans' hearts and showcased a sweet connection between the young child and the pop star.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi5gFBVV95cUxQWUJCZGlGNzV1S214QzROcUoyckN3TzV5UTBBRmtucEc1MDc0NkdqazZZbkhpa1VOem1ZQlBJajVMVXFoVW00WjNMOXJpZUh4YlAwMnNsWm0wX0dpYXpSNWFJZDFYdFhTdUxKWVV6UzZmRDRLQVIzUU5lbWZWUzZkZXozLVZ5bTlldy1LZVlnWExXUjZzRmZPdEFtZkc0VUkzRkh2ODd2c2lEV2VIR1BpNWdSUWwwZDd0MXdWUm9Qd1h4ME5obXg5ZE9NRTM3cWR3MWxrN0xOczRjYWY0WlJXa0VZallsZ9IB5gFBVV95cUxOVm9MbDFiR1JESU1aRUpTay16MUhzYVFFMDVzbVJiNzBzV093WF9GWjZ6eGt1SVcwQmZWcFQwY0trU2tnN0k4TmVOVlppWU55d2FkUEN2LTZIcmhwbkJkRzhaUEtmUXA0LXRFek1IMXp0QkE5Zm1XZ0EyYjlQVG1POV9ZdWFwT004ODh3aU5QaktrdnpXMHBQdzdvbFQ3emltbXAySU1qWkVEQ2ZTcVAwa2ZqSk1UVTdoMmZiTmhuMnJvTXVlbUhUTEFZVTJXX2pGcnpCcmt4RGJhOWttOG1JWkZTcUUydw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves 100 Weeks at No. 1 on Billboard 200 Albums Chart
-
-- first seen: 2026-10-11 20:57 UTC | category: music | importance: 9
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift joins The Beatles as the only acts to reach 100 weeks at No. 1 on the Billboard 200 Albums Chart. This milestone underscores her significant impact on the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxOR3l6aTREWmR6b3VIUXdmVWhOWnY0SDJVUWR0RWZoNTJSd3NVbFVpZTJrWEhTOWp2TXREdnRpMEhZVlFDMnk4UDlXQ0duWnBwZ0FuOHdJMnhzUHJSakJNaUZUMmNfLXpsdmJSRGxCWWpUM1Jlc2hsZk13VE14ZVpXYzZWb1ZlNnFKOGxVV3BoN1Y0NjBvTnBHSlpiZF85WXd5RXJ6UzRlMGxuOTNDbUJV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Chase & Status Aim for High Chart Entry with New Track
-
-- first seen: 2026-10-11 20:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chase & Status are targeting a high new entry on the Official Charts with their latest track featuring Little Simz, titled 'Carnage.' The song is generating attention in the music industry.
-- sources:
-  - [unverified] Official Charts — https://news.google.com/rss/articles/CBMixwFBVV95cUxPWjhnTG9DTHFYQnJuNDdCSFo3YjFLSlNNbE5vNU5GNHNsTExwS0piRTZ0WkJZdXNSTFhuUUZ4UzFFMEVmSDNUakhHWEhWMUdMSEtKZHNIdWVOWGR0aHZOdTlFSEJJdTN2ZFAtUEwxb1k2c1h4WGVYMF84c2ZOLXV2ZEF6bmYyTDhOUDdGOUxCM1R1WkFkYll2UTVYb3NCSjFIbk1QSlB4VklJT3owTUhYYnhFMGgzeTNXNVBpLVRlSW5tSi14VG9N?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Reportedly Facing Marriage Issues
-
-- first seen: 2026-10-11 20:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report suggests that Taylor Swift is feeling frustrated in her marriage to Travis Kelce, indicating potential conflict between the couple. This development has sparked discussions about their relationship status.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdXlQcjhDVmhXdndqcU0zUjF4QV9hNFJ1SzJsdTh5ZDM3cGYtUURscUlaTkZrT0JVRFhQdDJXdVFaQldvZ3hudDlFREZIdVRfNFBBNXp0RWdIMGxEWFVuYmd5Xzh4SGtzVFZnMEVfRDczdzg1WG1qVVFWY01TcHlWVzhMd2VmRlBfelFTLUUxWG8wRmxZNV95aXJ3N3VSa1hadjM4QVN2RGhCQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Joins The Beatles and Drake in Billboard 200 Top 10
-
-- first seen: 2026-10-11 20:57 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: For the first time, Taylor Swift alongside The Beatles and Drake has made it to the Top 10 on the Billboard 200 chart, marking a significant moment in music history.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxPRXFhbzRNZjJPbXRNQWg2MlpaNU12eXVGTWxoUTJqaGI1RkxYbkhmOFVKdWxYZF9uNFAwNUJyN1JMVy05MWlmQnF2a001NzlQaUstSmhibTUxOGNpWFNzOTFSaDNyZWozYjZPckhtdDM0WUZaU01nZXN0Q1VpeGREOUxZdkphNVdJQndCbTJEcEVSNTMtZGUyNDA1LXhjV1owMG9tVlo4NmRqQ051QzJDcXZLWGo?oc=5&hl=en-US&gl=US&ceid=US:en
