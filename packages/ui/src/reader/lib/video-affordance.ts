@@ -1,5 +1,5 @@
 import { extractYouTubeId } from '@swift2/shared';
-import { hasRealPrimaryImage, isSubConfirmed, primaryImageRef } from '@swift2/experience';
+import { hasDisplayablePhoto, isSubConfirmed, primaryImageRef } from '@swift2/experience';
 import type { ContentItem, MomentVideo } from '@swift2/experience';
 
 /**
@@ -150,7 +150,7 @@ export function feedCardImageHidden(
 ): boolean {
   const video = item.video;
   if (!video) return false;
-  if (!hasRealPrimaryImage(item)) return false;
+  if (!hasDisplayablePhoto(item)) return false;
   const frame = youtubeFrameId(primaryImageRef(item)?.url);
   if (!frame) return false;
   return frame === video.youtubeId || knownVideoIds.has(frame);
@@ -174,10 +174,10 @@ export function feedCardImageHidden(
  * photo, the video stays in the body, and nothing was duplicated there anyway.
  *
  * Compared against `primaryImageRef` — what the hero actually renders — rather
- * than through the feed's `hasRealPrimaryImage` gate, which is a feed-card
+ * than through the feed's `hasDisplayablePhoto` gate, which is a feed-card
  * question. Two of the ten ("Tim McGraw" arrives, "willow" leads the era) hold
- * their frame as a non-`primary` stand-in, so that gate would answer "no real
- * photo" about an image the reader is looking at.
+ * their frame as a non-`primary` stand-in, so a primary-kind gate would answer
+ * "no real photo" about an image the reader is looking at.
  *
  * ONE thing outranks this: a sub-confirmed `confidence`. #2051 made it
  * non-negotiable that a reader meets "Rumor — unconfirmed" BEFORE the media,
