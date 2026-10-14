@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 63
+
+## Taylor Swift's Date-Night Outfits with Travis Kelce Reviewed
+
+- first seen: 2026-10-14 06:05 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A compilation of Taylor Swift's best and worst date-night outfits while dating Travis Kelce is featured. The article showcases her fashion choices during their outings together.
+- sources:
+  - [unverified] Glam — https://news.google.com/rss/articles/CBMikwFBVV95cUxOUWpvTXdhTlIwaTM5NDBwZXdJa0owdm4zYmktQThWWDVaQ251NGFmdGpJMUl4eFp0QXZ0bDkxaU8xb0VveWhUTlpvSHBHc1VteHcxZ3Z2dkxnUGlZcUFqZWc0Zlk0bS1SbzVLaDN0ZGNEajEydlhuUGRiV3RZdm9UZXlPWUVxMEN0eVZocTRhRU5Zcmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Share PDA Video
+
+- first seen: 2026-10-14 06:05 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new video featuring Taylor Swift and Travis Kelce displaying affection has been released, highlighting their relationship. The video has captured the attention of fans and media alike.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxPazMzVE9QdUVmeDU2dThjTjA4c0c2bGdScGR6a3dYeFpYaWdJMFNqUWJFRXhpVGFYZTQ0VVdZNFVNY0ZVX25oYllKSGp5bVZyZm5sMHRMRjhqX2V1eHNnaXE5bEFHQzhDWEZOa09tWTB4V2J1a29GamhrZkJQNUd3OFJrRUdLWUVXdTkzNkI2QVRLaWczV0RkTkFvcW5Pc3NM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Releases 4 Bonus Tracks with 'The Encore'
 
@@ -170,11 +186,13 @@ Stories: 61
 ## Taylor Swift Considering Ending Relationship with Travis Kelce
 
 - first seen: 2026-10-13 12:40 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 5
 - summary: A report suggests that Taylor Swift may be considering leaving Travis Kelce for a justifiable reason. Further details have not been provided in the source.
 - sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMivwFBVV95cUxPU3FaTVV5TE1BYWZXQjJKQ2J4dzJtNmZxY2tDNF92T1U4SkhkOXMtdDNxZlZmVXV1eTBnWGdQaWIxZDdIV1ZEbjJzUy1aa3ptMnlNdW5wMFJyakVmVEc4YlhjdkZhUTdDS0JvU1U1dnA2cWFVU3d4cW43cndwdWk1V2l6WFY1ZXo2ZjJWbUZQZ1lwUHBkU0liN1hTeldHbVV2V3IweGNWbzVkOEQ1TGh0OG9FblZwSVpTYmxXTUhjNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSUgtUnpOSFZfdUU1dEV3R2FEVkYyQzRCN28wMlhyU3VpRVJlUllRaDFYeU1zSWJQMDhabmFMQWtfN3lObjB6cVZZWTRKS0ZkdV9TMjczcDRDVnYwTlU3SERGTFBQRzBlck9ERU1WWF9acWU2aDhBaEJHY21TU3Q3eUExMWQ4TG1KSDg3ZWJfOWUzNmd3UGJhTXpWTnJrbUhBQ29zaWhIdXpkb3hHeW02NmNOUXROeldRYnh3VE9RT0MxZkwwX2xGNU9RQzBrVGhiZXEzctIB1AFBVV95cUxOMG5IY3pSZkFlU0xTMWpHdjEtandTVVluTFlrRkstY0VWUF9TUERvcktkMFRaZjloNERtYjQwZzhISWxoYkNKRDRZR1FxZTd0dTJoWnpHU0Z0ZlFYdUNsdkdSMVp3R0h2SjFDdnhNOENhbXdabmlLUXllNVhLYzZ4NUZLdVV4VTQtQWhTTURyd3NxdmNLR3R1cUtVQUxfWlB3VGk5eWtSM3FjOWh3enlORHZuRktQbjBOR2diTlZNUVhCV1J1YXAxVXpaQkZvUXVURDdCaw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMisgFBVV95cUxNN1J1Sm1SRXpuaWcwR29vTU52b1VDMkhXR0NhSHZaeE03RmZUTkxCaFdxdFhSMGtlejZ2SzBBT29tMEVXeng5bFNacWViTE1GTjlvLUZQVXBGY1AyZjhlYWhKcER0R3FCOEtobloxcDRhRzhaNnBOS3lBYnU0VGJmMm4wVzNwM2JrVDUtYmFBRTd4ZWJkczQtT0Y2WkhQcFdIVVRyNmlwNlE0dWhsVjM1TXB3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYzkzTW9YZ18zNl84V0ZtUmZkWF9yTW5jeHk3WFliVVh6S3lEb0VYUFhSaG9yc3BMUjBEX3QyWFZoYnpxblpIbHhiMng4c0RqWlhRMllqT1NTMkozb0pzQUEyTWlBTUhjcmM3WXk1aXVDaExJLWJBUnVzbl9QbzUxQVFidm9hUnpud1Z5Yzc2NXc5cU9Z?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## New Yorker Highlights Unusual Taylor Swift Fan in 'Daylight'
