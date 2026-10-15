@@ -69,6 +69,7 @@ docs `CLAUDE.md` points at:
 |------|----------------|
 | `supabase/migrations/20261014010000_tidewatch.sql` | Service-role-only seen items, decisions, source cursors, story SLA timestamps, and provider-neutral LLM usage |
 | `packages/shared/src/tidewatch/types.ts` | Portable row types for the five Tidewatch tables; exported as `@swift2/shared/tidewatch/types` |
+| `supabase/migrations/20261014020000_community_outcomes.sql`, `packages/shared/src/community/types.ts` | Service-role-only community engagement metrics and owner-posted comment outcomes at 1h/24h/7d; portable row types for the new fields |
 | `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
 | `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
 
