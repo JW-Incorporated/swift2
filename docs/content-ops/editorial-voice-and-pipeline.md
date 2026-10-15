@@ -107,6 +107,24 @@ string) are now matched by `content.voice.ai-tell` in the same checker.
 > a room jammin'.' Taylor's own pitch: 'a desperate summer love that might
 > be doomed from the start.'"
 
+### Voice critic and exemplar corpus (P1-24)
+
+`scripts/voice/critic.mjs` scores a draft 1 to 5 on five dimensions: love,
+insight, opinion, clowning fit and AI tells (5 = no tells). Haiku scores,
+about ten items per call; if any dimension is below 3, Sonnet rewrites the
+draft once and the rewrite is re-scored once. The rewrite is kept only if its
+lowest score is strictly higher; otherwise the original stands. It never
+loops. When the Claude wrapper is unavailable or at a limit the critic returns
+"not scored" and the caller keeps the original draft (fail-open, logged).
+
+The reference set lives in `docs/content-ops/voice-exemplars/` (selection rule
+in its README). The critic is a module only for now; wiring it into
+draft-replies, breaking drafts and Vault lane prompts is P1-24b. It sits on
+top of, not in place of, the deterministic `check:voice` gate. Check
+separation with `node scripts/voice/eval-critic.mjs` (real wrapper calls,
+capped at 15; passes when the exemplar mean beats the counter-example mean by
+1.0 or more).
+
 ## Sourcing bar
 
 **Both rules below are enforced by `npm run validate:content` as of
