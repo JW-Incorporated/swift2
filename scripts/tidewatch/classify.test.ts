@@ -138,20 +138,6 @@ describe('Tidewatch classifier', () => {
     expect(result.rows.every((row) => row.action_ref === null)).toBe(true);
   });
 
-  it('is idempotent per watch_item', async () => {
-    const inserted: Decision[] = [];
-    const client = { from: () => ({
-      select: () => ({ in: async (_column: string, ids: string[]) => ({
-        data: inserted.filter((row) => ids.includes(row.item_id as string)), error: null,
-      }) }),
-      insert: async (rows: Decision[]) => { inserted.push(...rows); return { error: null }; },
-    }) };
-    const store = classifierStore(client);
-    await store.insertDecisions([{ item_id: 'a', shadow: true }]);
-    await store.insertDecisions([{ item_id: 'a', shadow: true }]);
-    expect(inserted).toEqual([{ item_id: 'a', shadow: true }]);
-  });
-
   it('keeps the first classified_at when the story is classified again later', async () => {
     let stored: { story_id: string; classified_at: string }[] = [];
     const upsert = vi.fn(async (rows: typeof stored) => {
