@@ -791,6 +791,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | `packages/ui/src/reader/moment/resolve-url.test.ts` | One UI W3-img: MomentDetail hero / lightbox / `RelatedMomentsRail` (now exported) pass era-art + `/placeholder.svg` paths through `useResolveUrl()`; app host → canonical origin, web identity, absolute untouched |
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 | `scripts/merch-engine/awin-feed-stream.mjs` (+ `.test.ts`) | Split out of `sync-awin-feeds.mjs`: streaming Awin feed ingestion (incremental quote-aware CSV splitter, row mapper, gzip sniff, byte/row caps, one-transaction-per-feed `writeFeedStream`). Memory is bounded regardless of feed size; a feed over `AWIN_FEED_MAX_BYTES` (default 1.5 GB) or 3M rows is rolled back and skipped with a `::warning::` |
+| `scripts/merch-engine/merch-claude.mjs` | P1-28b merch subscription adapter: fetches bounded image buffers, calls the public Claude wrapper at P3, maps the former $3 budget to 88 calls, and holds/logs on unavailable or capped results |
 
 ### WP2.6 threads
 | Path | Purpose | Notes |

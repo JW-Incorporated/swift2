@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
 import { verifyImage } from './verify-images.mjs';
-import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
+import { callMerchClaude, MERCH_LIGHT_MODEL, MERCH_VISION_MODEL } from './merch-claude.mjs';
 
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
 
@@ -184,31 +184,16 @@ export async function runMatcherAuthoring({
   return { ...match, ticket, descriptors };
 }
 
-async function judgeWithClaude({ candidate, momentImageUrl }, { apiKey, fetchImpl = fetch }) {
-  const { raw } = await callAnthropicMessages(
-    apiKey,
-    {
-      model: 'claude-sonnet-5',
-      max_tokens: 256,
-      thinking: { type: 'disabled' },
-      tools: [{
-        name: 'record_match_score',
-        description: 'Record the visual match score of a retailer candidate against the moment photo.',
-        input_schema: { type: 'object', additionalProperties: false, properties: { score: { type: 'number', minimum: 0, maximum: 100 } }, required: ['score'] },
-      }],
-      tool_choice: { type: 'tool', name: 'record_match_score' },
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'text', text: `Candidate image: ${candidate.imageUrl}` },
-          { type: 'text', text: `Moment image: ${momentImageUrl}` },
-          { type: 'text', text: 'Score visual match from 0 to 100 using silhouette, color/pattern, garment type, and notable details.' },
-        ],
-      }],
-    },
-    { fetchImpl, errorLabel: 'anthropic vision request' },
-  );
-  return extractToolUseInput(raw, { toolName: 'record_match_score' });
+export async function judgeWithClaude({ candidate, momentImageUrl }, options = {}) {
+  return callMerchClaude({
+    caller: 'merch-matcher-authoring',
+    model: MERCH_VISION_MODEL,
+    system: 'Judge visual product matches from only the supplied images.',
+    user: 'Compare the candidate image first with the moment image second. Score visual match from 0 to 100 using silhouette, color or pattern, garment type, and notable details.',
+    schema: { type: 'object', additionalProperties: false, properties: { score: { type: 'number', minimum: 0, maximum: 100 } }, required: ['score'] },
+    imageUrls: [candidate.imageUrl, momentImageUrl],
+    ...options,
+  });
 }
 
 async function readJson(path) {
@@ -233,8 +218,6 @@ async function main() {
   }
   const input = await readJson(inputPath);
   if (!Array.isArray(input.moments)) throw new Error('input must contain a moments array');
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  if (!anthropicKey) throw new Error('ANTHROPIC_API_KEY is required for E6 vision scoring');
   const searchApiKey = process.env.SEARCH_API_KEY;
   const cap = Number.isInteger(input.paidSearch?.cap) ? input.paidSearch.cap : 0;
 
@@ -244,10 +227,10 @@ async function main() {
     const result = await runMatcherAuthoring({
       moment: entry.moment,
       momentImageUrl: entry.momentImageUrl,
-      extractImpl: (payload) => extractDescriptorsWithClaude(payload, { apiKey: anthropicKey }),
+      extractImpl: (payload) => extractDescriptorsWithClaude(payload),
       indexPath,
       searchApiKey,
-      judge: (payload) => judgeWithClaude(payload, { apiKey: anthropicKey }),
+      judge: (payload) => judgeWithClaude(payload),
       callsUsed,
       cap,
     });
@@ -261,41 +244,23 @@ async function main() {
   console.log(JSON.stringify({ moments: results.length, products: results.reduce((total, result) => total + result.products.length, 0), tickets: tickets.length }));
 }
 
-async function extractDescriptorsWithClaude({ moment, momentImageUrl }, { apiKey, fetchImpl = fetch }) {
-  const { raw } = await callAnthropicMessages(
-    apiKey,
-    {
-      model: 'claude-sonnet-5',
-      max_tokens: 256,
-      thinking: { type: 'disabled' },
-      tools: [{
-        name: 'record_descriptors',
-        description: 'Record per-garment descriptors extracted from a fashion moment.',
-        input_schema: {
-          type: 'object',
-          additionalProperties: false,
-          properties: {
-            kind: { type: 'string' },
-            color: { type: 'string' },
-            pattern: { type: 'string' },
-            silhouette: { type: 'string' },
-            brand: { type: 'string' },
-          },
-        },
-      }],
-      tool_choice: { type: 'tool', name: 'record_descriptors' },
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'text', text: `Moment: ${moment?.title ?? moment?.id}` },
-          { type: 'text', text: `Photo: ${momentImageUrl}` },
-          { type: 'text', text: 'Extract kind, color, pattern, silhouette, and named brand/designer if stated. Do not infer a brand that is not named.' },
-        ],
-      }],
+export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, options = {}) {
+  return (await callMerchClaude({
+    caller: 'merch-matcher-authoring',
+    model: MERCH_LIGHT_MODEL,
+    system: 'Extract concise garment descriptors from the supplied image and trusted moment title.',
+    user: `Moment: ${moment?.title ?? moment?.id}\nExtract kind, color, pattern, silhouette, and named brand or designer if stated. Do not infer a brand that is not named.`,
+    schema: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        kind: { type: 'string' }, color: { type: 'string' }, pattern: { type: 'string' },
+        silhouette: { type: 'string' }, brand: { type: 'string' },
+      },
     },
-    { fetchImpl, errorLabel: 'anthropic descriptor request' },
-  );
-  return extractToolUseInput(raw, { toolName: 'record_descriptors', fallback: {} });
+    imageUrls: [momentImageUrl],
+    ...options,
+  })) ?? {};
 }
 
 const self = fileURLToPath(import.meta.url);
