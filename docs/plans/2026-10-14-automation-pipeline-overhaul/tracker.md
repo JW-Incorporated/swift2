@@ -16,7 +16,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
-| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | review | #5829 |  |
+| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
@@ -42,7 +42,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | review | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | todo |  |  |
-| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | review | #5830 |  |
+| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
@@ -157,6 +157,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 23:14 PM: P0-02 review round 1 REJECT: the plan's max_turns 40 for marjorie-ops would break it (real successful runs used 62, 64, 65 and 99 turns). PM call, overriding the plan: KEEP max_turns 90; the saving comes from the 3-hourly cadence (about 67 percent fewer runs). The watchdog staleness threshold derives from the cron (8 h), so it's fine. The 5-5 model ids are unproven on main → round 2 = revert the cap plus a live kevin-radar dispatch on the branch (claude-haiku-5-5) to prove the id.
 - 2026-10-14 23:20 PM: P0-11 final review REJECT on ONE defect: the generalized kill script used a PostgREST subquery (`.not('id','in','(select ...)')`), which fails on the uuid column, a regression against main's working kill-t1. Fixes 1 and 3-7 were confirmed (freeze gates all 7 passes, 503 on unreadable, per-batch re-check, revoke, applied migration untouched; a 503 can't double-send because Vercel cron doesn't retry). PM call (same as P1-02: a known narrow fix, not a stuck bug, so no debug ladder): SPLIT. P0-11 lands with main's kill-t1 script restored unchanged; new item P0-11b = an all-tier kill script with a real anti-join (or a two-step fetch on kind='instant' deliveries), a test fake that checks the filters it receives, and a --dry-run flag. P1-02 split done → PM verified the --stat (migration, types, migration test, decisions entry, MAP, package.json only) → #5831 opened and armed. P0-02 round 2 pushed 4c4dbd106 (max_turns kept at 90); kevin-radar on the branch concluded success with `--model claude-haiku-5-5` passed (weak evidence: 10 s, no model output; risk accepted, these are the documented current ids, and failures are visible and revertible) → final Haiku check opens the PR. P0-09 follow-up pushed 1c18714c7 (suite 12,229) → reviewer.
 - 2026-10-14 23:24 PM: P0-02 round 2 APPROVE → #5832 armed. No new dispatches past the handoff point (context budget). Remaining in flight: P1-23 (Codex), the P0-11 split (Codex), the P0-09 follow-up reviewer. P1-08 deliberately left for the fresh session: it needs P1-02's story_timeline table (#5831) and a judgment call on which domains count as official, which widens the rumor gate, so it needs a decisions.md entry in the same PR.
+- 2026-10-14 23:29 HB: MERGED #5829 (P0-07) and #5830 (P1-03) → done; worktrees removed. The P0-09 follow-up review was APPROVE → #5833 armed (nit: about 20 blank lines of whitespace churn in sync-awin-feeds.mjs). Still in flight: P1-23 and the P0-11 split (Codex). Armed: #5815, #5824, #5827, #5831, #5832, #5833.
 
 ## Next actions
 
