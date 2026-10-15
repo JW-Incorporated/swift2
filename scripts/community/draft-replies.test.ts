@@ -175,14 +175,32 @@ describe('thread context', () => {
 
   it('fetches anonymously and never throws', async () => {
     const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => body }));
-    const ctx = await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl });
+    const ctx = await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl, env: { REDDIT_THREAD_JSON: '1' } });
     expect(ctx.comments).toEqual(['first take']);
     expect(fetchImpl.mock.calls[0][0]).toContain('.json?raw_json=1&limit=8');
-    expect(await fetchThreadContext('https://example.com/x', { fetchImpl })).toEqual({ error: 'not a reddit thread' });
+    expect(await fetchThreadContext('https://example.com/x', { fetchImpl, env: { REDDIT_THREAD_JSON: '1' } })).toEqual({ error: 'not a reddit thread' });
     const blocked = vi.fn(async () => ({ ok: false, status: 403 }));
-    expect(await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl: blocked })).toEqual({ error: 'HTTP 403' });
+    expect(await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl: blocked, env: { REDDIT_THREAD_JSON: '1' } })).toEqual({ error: 'HTTP 403' });
     const boom = vi.fn(async () => { throw new Error('net'); });
-    expect((await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl: boom })).error).toBe('net');
+    expect((await fetchThreadContext('https://www.reddit.com/r/x/comments/1/t/', { fetchImpl: boom, env: { REDDIT_THREAD_JSON: '1' } })).error).toBe('net');
+  });
+
+  it('makes no Reddit request at all with REDDIT_THREAD_JSON off', async () => {
+    const fetchImpl = vi.fn();
+    const globalFetch = vi.spyOn(globalThis, 'fetch');
+    const url = 'https://www.reddit.com/r/x/comments/1/t/';
+    expect(await fetchThreadContext(url, { fetchImpl, env: {} })).toEqual({ error: 'thread json disabled' });
+    expect(await fetchThreadContext(url, { fetchImpl, env: { REDDIT_THREAD_JSON: '0' } })).toEqual({ error: 'thread json disabled' });
+    expect(await fetchThreadContext(url, { env: {} })).toEqual({ error: 'thread json disabled' });
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(globalFetch).not.toHaveBeenCalled();
+    globalFetch.mockRestore();
+  });
+
+  it('falls back to the stored snippet when there is no thread text', async () => {
+    const call = vi.fn(async () => okDraft('folklore for me, no contest'));
+    await draftLeads(exported(lead('a')), { ...base, call, snippets: new Map([['a', 'stored  snippet']]) });
+    expect((call.mock.calls[0][0] as { user: string }).user).toContain('stored snippet');
   });
 
   it('stops fetching threads after a throttle but still drafts from the title', async () => {

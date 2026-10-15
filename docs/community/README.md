@@ -117,8 +117,13 @@ How it works, in three workflows (kill switch: repo variable
    nothing when no lead is waiting. The weekly-limit gate pauses it; a limit or
    an unavailable wrapper leaves the lead `new` (no draft beats a bad draft).
    The model has no tools, shell or database access. For Reddit leads it gets
-   the post text and a few top comments (no author names), fetched anonymously
-   from the public thread JSON; that text is transient and never stored or
+   the title and the stored snippet. Fetching the post text and a few top
+   comments (no author names) from the public thread JSON is **off by default**:
+   it needs the repo-level env flag `REDDIT_THREAD_JSON=1`, which
+   `community-draft-replies.yml` deliberately does not set, because the old
+   answerer never fetched thread JSON and whether anonymous `.json` is allowed is
+   an open owner decision (HA #130). With the flag off, no Reddit request is
+   made at all. Any fetched text is transient and never stored or
    logged (Facebook leads are lead-only: title, no fetch). The system prompt is
    `docs/agents/runner-prompts/awareness-answerer.md`. Replies are validated by
    the same code as before (`awareness-draft.mjs applyDrafts`): a reply with a link,

@@ -7,7 +7,8 @@
 // community-awareness-deliver consumes the same rows as before.
 //
 // Thread text (selftext + a few top comments, no author names) is fetched
-// anonymously from the public thread JSON, passed to the model transiently and
+// anonymously from the public thread JSON ONLY when REDDIT_THREAD_JSON=1 (off
+// by default, HA #130); otherwise the title plus the stored snippet is used. It is passed to the model transiently and
 // never stored or logged. Facebook leads are lead-only: no fetch, title only.
 // Nothing here posts, votes or messages; the owner pastes every reply by hand.
 // When the wrapper is unavailable, limited, invalid or capped, the lead stays
@@ -63,8 +64,12 @@ export function parseThreadContext(body) {
   return { selftext: squash(post?.selftext, SELFTEXT_CHARS), comments };
 }
 
-/** One polite anonymous GET of the thread JSON. Never throws; failure = `{ error }`. */
-export async function fetchThreadContext(url, { fetchImpl = fetch } = {}) {
+/**
+ * One polite anonymous GET of the thread JSON, OFF unless REDDIT_THREAD_JSON=1
+ * (owner decision HA #130 pending). Off = no request at all. Never throws.
+ */
+export async function fetchThreadContext(url, { fetchImpl = fetch, env = process.env } = {}) {
+  if (env.REDDIT_THREAD_JSON !== '1') return { error: 'thread json disabled' };
   const target = threadJsonUrl(url);
   if (!target) return { error: 'not a reddit thread' };
   try {
@@ -126,7 +131,7 @@ export function interpret(lead, outcome) {
 
 export async function draftLeads(
   { leads, eras },
-  { system, call = callClaude, fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), log = console.log, pacingMs = PACING_MS },
+  { system, call = callClaude, fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), snippets = new Map(), log = console.log, pacingMs = PACING_MS },
 ) {
   const entries = [];
   let failures = 0;
@@ -139,6 +144,9 @@ export async function draftLeads(
       if (fetched++ > 0) await sleep(pacingMs);
       thread = await fetchThread(url);
       if (/^HTTP (403|429)$/.test(thread.error ?? '')) throttled = true;
+    }
+    if (!thread?.selftext && !thread?.comments?.length && snippets.get(lead.id)) {
+      thread = { selftext: squash(snippets.get(lead.id), SELFTEXT_CHARS), comments: [] };
     }
     const outcome = await call({
       caller: CALLER,
@@ -211,10 +219,13 @@ async function main() {
   if (exported.leads.length === 0) return 0;
   const { data } = await supabase
     .from('engagement_lead')
-    .select('id, platform, url')
+    .select('id, platform, url, context')
     .in('id', exported.leads.map((lead) => lead.id));
-  const urls = new Map((data ?? []).filter((r) => r.platform === 'reddit').map((r) => [r.id, r.url]));
-  const entries = await draftLeads(exported, { system, urls });
+  const reddit = (data ?? []).filter((r) => r.platform === 'reddit');
+  const threadOn = process.env.REDDIT_THREAD_JSON === '1';
+  const urls = new Map(threadOn ? reddit.map((r) => [r.id, r.url]) : []);
+  const snippets = new Map(reddit.map((r) => [r.id, r.context]));
+  const entries = await draftLeads(exported, { system, urls, snippets });
   const result = await applyDrafts(supabase, entries, catalog);
   console.log(`draft-replies: drafted ${result.drafted}, skipped ${result.skipped}, rejected ${result.rejected.length}.`);
   for (const r of result.rejected) console.log(`  ${r.id}: ${r.problems.join('; ')}`);
