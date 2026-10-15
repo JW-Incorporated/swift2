@@ -6,6 +6,7 @@ import {
   extractCron,
   extractHeaderComment,
   extractName,
+  extractPermission,
   listRoutineWorkflowFiles,
   runsPerWeek,
   taskJustification,
@@ -57,6 +58,11 @@ jobs:
     expect(extractAllowedTools('name: x\n')).toEqual([]);
   });
 
+  it('extractPermission reads only the top-level permissions block', () => {
+    expect(extractPermission('permissions:\n  issues: write # tracker\njobs:\n  x:\n    permissions:\n      issues: read\n', 'issues')).toBe('write');
+    expect(extractPermission('name: x\n', 'issues')).toBe('none');
+  });
+
   it('extractHeaderComment stops at the first non-comment line', () => {
     expect(extractHeaderComment(sample)).toBe(
       '# header line 1\n# mentions cron 17 11 * * 0 for context',
@@ -104,7 +110,7 @@ describe('runsPerWeek', () => {
 });
 
 describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
-  const good = (name: string, cron: string, tools = 'Bash,Read') => `# ${name}, cron ${cron}\nname: ${name}\non:\n  schedule:\n    - cron: "${cron}"\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
+  const good = (name: string, cron: string, tools = 'Bash,Read') => `# ${name}, cron ${cron}\nname: ${name}\non:\n  schedule:\n    - cron: "${cron}"\npermissions:\n  issues: write\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
 
   it('passes a well-formed fleet and reports a cadence sum', () => {
     const files = {
@@ -122,6 +128,15 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
     };
     const { problems } = checkRoutineWorkflows(files);
     expect(problems.some((p: string) => p.includes('Task'))).toBe(true);
+  });
+
+  it('flags a caller that grants less than the template requires', () => {
+    const { problems } = checkRoutineWorkflows({
+      '.github/workflows/routine-a.yml': good('routine-a', '0 12 * * *').replace('issues: write', 'issues: read'),
+    });
+    expect(problems).toContain(
+      '.github/workflows/routine-a.yml: caller grants `issues: read`, but routine-template.yml requires `issues: write`.',
+    );
   });
 
   it('allows a Task grant with a justifying comment', () => {
@@ -152,7 +167,7 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
   });
 
   it('accepts a workflow_dispatch-only routine whose header says dispatch-only', () => {
-    const text = '# routine-chat — dispatch-only: fired once per message by bot-chat-poll.yml\nname: routine-chat\non:\n  workflow_dispatch:\n    inputs:\n      message_id:\n        type: string\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "Bash"\n';
+    const text = '# routine-chat — dispatch-only: fired once per message by bot-chat-poll.yml\nname: routine-chat\non:\n  workflow_dispatch:\n    inputs:\n      message_id:\n        type: string\npermissions:\n  issues: write\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "Bash"\n';
     const { problems, report } = checkRoutineWorkflows({ '.github/workflows/routine-chat.yml': text });
     expect(problems).toEqual([]);
     expect(report.some((l: string) => l.includes('dispatch-only → 0'))).toBe(true);
@@ -168,7 +183,7 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
 
 describe('allowed_tools entries must be space-free (the template passes them unquoted to claude_args)', () => {
   const withTools = (tools: string) =>
-    `# routine-a, cron 0 12 * * *\nname: routine-a\non:\n  schedule:\n    - cron: "0 12 * * *"\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
+    `# routine-a, cron 0 12 * * *\nname: routine-a\non:\n  schedule:\n    - cron: "0 12 * * *"\npermissions:\n  issues: write\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
 
   it('flags a scoped rule with a space, naming the file and the entry', () => {
     const { problems } = checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh issue comment:*),Read') });

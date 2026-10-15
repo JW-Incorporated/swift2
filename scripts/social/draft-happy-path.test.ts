@@ -12,7 +12,8 @@ import { checkDraft, checkMedia, isWarningFinding } from './check-drafts.mjs';
 import { buildDraftInputs } from './lib/draft-inputs.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -20,8 +21,12 @@ const library = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library
 const CALENDAR = '## 2026-10-01 (Thu) — a Speak Now beat\n\n- **`23:00Z` · `heartbeat:era-deep-cut:speak-now-record`** — direction only.\n';
 const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale: 'Executes the calendar slot with the record as the hook; the photo is the era it is about. A dated, checkable number carries it.', rulesChecked: ['L001'], revision: 1 };
 
-async function pairFromPrecompute(extraPosted: Array<{ ref: string; data: Record<string, unknown> }> = []) {
-  const posted = [...(await readJsonDir(path.join(ROOT, 'social', 'posted'))), ...extraPosted];
+// Hermetic posted history: the live social/posted ledger changes with every
+// state PR, so tests read this fixture (or a dir they pass) and never it.
+const FIXTURE_POSTED = [{ ref: 'posted/fixture-old.json', data: { platform: 'x', campaign: 'thread:fixture:old', postedAt: '2026-09-01T00:00:00Z', body: 'fixture', photoId: 'fixture-never-in-library' } }];
+
+async function pairFromPrecompute(extraPosted: Array<{ ref: string; data: Record<string, unknown> }> = [], postedDir?: string) {
+  const posted = [...(postedDir ? await readJsonDir(postedDir) : FIXTURE_POSTED), ...extraPosted];
   const { usable: igUsable } = await igUsablePhotos(library, path.join(ROOT, 'apps', 'web', 'public'));
   const inputs = buildDraftInputs({ now: '2026-10-01T11:00:00Z', library, igUsable, calendarMd: CALENDAR, lessonsMd: readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8'), posted, queue: [], openDrafts: [], closedPrs: [], intents: [], intakeIssues: [] });
   const beat = inputs.beats[0];
@@ -48,6 +53,23 @@ describe('the drafter happy path passes check-drafts', () => {
   it('the pick is genuinely never-used: absent from every posted item', async () => {
     const { photo, posted } = await pairFromPrecompute();
     expect(posted.some((p) => p.data.photoId === photo.photoId)).toBe(false);
+  });
+
+  it('stays green when the posted ledger already holds the Speak Now Inglewood photo (state PRs record it)', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'posted-'));
+    try {
+      writeFileSync(path.join(dir, 'speaknow.json'), JSON.stringify({ platform: 'instagram', campaign: 'thread:speak-now:synthetic', postedAt: '2026-09-02T00:00:00Z', photoId: 'speaknow-inglewood-2023-2', media: ['/photos/speaknow-inglewood-2023-2.jpg'] }));
+      const { ig, x, posted, photo } = await pairFromPrecompute([], dir);
+      expect(posted.some((p) => p.data.photoId === 'speaknow-inglewood-2023-2')).toBe(true);
+      expect(photo.photoId).not.toBe('speaknow-inglewood-2023-2');
+      const allQueue = [{ file: 'a-ig.json', data: ig }, { file: 'a-x.json', data: x }];
+      for (const target of allQueue) {
+        const findings = await checkDraft(target, { allQueue, allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+        expect(hard(findings), target.file).toEqual([]);
+      }
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it('a sibling already posted under the SAME campaign is not reuse (IG posts first, X follows)', async () => {
