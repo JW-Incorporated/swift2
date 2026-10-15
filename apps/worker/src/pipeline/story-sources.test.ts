@@ -56,7 +56,7 @@ describe('story source invariant', () => {
         rawItemId: 'raw-2',
         externalId: 'reuters-b',
         title: 'Another headline for the same wire report',
-        snippet: 'Reporting by Reuters',
+        snippet: 'LONDON (Reuters) - The report continued.',
         outletName: 'Outlet B',
         publisherUrl: 'https://outlet-b.example',
         articleUrl: 'https://outlet-b.example/news/b',
@@ -75,7 +75,7 @@ describe('story source invariant', () => {
         rawItemId: 'raw-2',
         externalId: 'afp-b',
         title: 'Second AFP headline',
-        snippet: 'Filed by AFP',
+        snippet: 'PARIS (AFP) — The report continued.',
         outletName: 'Outlet B',
         publisherUrl: 'https://outlet-b.example',
         articleUrl: 'https://outlet-b.example/afp/b',
@@ -195,6 +195,29 @@ describe('story source invariant', () => {
         outletName: 'Outlet B',
         publisherUrl: 'https://outlet-b.example',
         articleUrl: 'https://outlet-b.example/b',
+        tier: 'established',
+      }),
+    ];
+
+    expect(storyVerification(candidates)).toEqual({ status: 'corroborated', sourceCount: 2 });
+  });
+
+  it('does not treat a wire service quoted in body text as a shared wire credit', () => {
+    const candidates = [
+      source({
+        externalId: 'billboard-report',
+        title: 'Billboard reports on the announcement',
+        snippet: 'The statement was also shared with the Associated Press.',
+      }),
+      source({
+        rawItemId: 'raw-2',
+        externalId: 'variety-report',
+        title: 'Variety independently confirms the announcement',
+        snippet: 'A representative later told the Associated Press the same detail.',
+        outletName: 'Variety',
+        publisherUrl: 'https://variety.com',
+        articleUrl: 'https://variety.com/news/announcement',
+        url: 'https://variety.com/news/announcement',
         tier: 'established',
       }),
     ];

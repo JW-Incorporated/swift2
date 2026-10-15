@@ -87,17 +87,26 @@ function pgliteStore(database: PGlite): StorySourceStore {
       return result.rows.filter((row) => wanted.has(row.story_id));
     },
     async upsertSources(rows) {
-      for (const row of rows) {
-        await database.query(`
-          insert into public.news_story_source
-            (story_id, raw_item_id, outlet_name, url, tier)
-          values ($1, $2, $3, $4, $5)
-          on conflict (story_id, outlet_name) do update set
-            raw_item_id = excluded.raw_item_id,
-            url = excluded.url,
-            tier = excluded.tier
-        `, [row.story_id, row.raw_item_id, row.outlet_name, row.url, row.tier]);
-      }
+      const values = rows.flatMap((row) => [
+        row.story_id,
+        row.raw_item_id,
+        row.outlet_name,
+        row.url,
+        row.tier,
+      ]);
+      const placeholders = rows.map((_, index) => {
+        const offset = index * 5;
+        return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5})`;
+      }).join(', ');
+      await database.query(`
+        insert into public.news_story_source
+          (story_id, raw_item_id, outlet_name, url, tier)
+        values ${placeholders}
+        on conflict (story_id, outlet_name) do update set
+          raw_item_id = excluded.raw_item_id,
+          url = excluded.url,
+          tier = excluded.tier
+      `, values);
     },
     async deleteSources(ids) {
       for (const id of ids) {

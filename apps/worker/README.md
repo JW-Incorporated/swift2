@@ -77,7 +77,8 @@ Before writing, planned rows collapse again by the database conflict key
 `(story_id, outlet_name)`. The worker upserts those winners, then deletes only
 superseded ids whose stored conflict key is neither kept nor present among the
 upserted keys. This ordering prevents an upserted row from being deleted by its
-old id (#5938).
+old id (#5938). It is safe only under the workflow's single-concurrency group;
+concurrent cycles could delete a row that another cycle just updated.
 
 Finally, verification rereads the rows actually stored. Corroboration requires
 at least two distinct articles from at least two distinct normalised hosts; one

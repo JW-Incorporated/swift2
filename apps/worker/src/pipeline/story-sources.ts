@@ -131,7 +131,11 @@ function normalizedTitle(raw?: string | null): string | undefined {
 function wireService(candidate: StorySourceCandidate): string | undefined {
   const prefix = candidate.title?.match(/^\s*(AP|Reuters|AFP)\s*:/i)?.[1];
   if (prefix) return prefix.toLocaleLowerCase('en-US');
-  const credit = [candidate.author, candidate.snippet].filter(Boolean).join(' ');
+  const author = candidate.author ?? '';
+  const dateline = candidate.snippet?.match(
+    /^\s*[A-Z][A-Z .,'’-]{1,80}\s+\((AP|Reuters|AFP)\)\s*(?:—|–|-)/,
+  )?.[1];
+  const credit = dateline ?? author;
   if (/\bReuters\b/i.test(credit)) return 'reuters';
   if (/\b(?:AFP|Agence France-Presse)\b/i.test(credit)) return 'afp';
   if (/\b(?:Associated Press|AP News)\b/i.test(credit) || /(?:^|[\s,(])AP(?:$|[\s,)])/i.test(credit)) {
