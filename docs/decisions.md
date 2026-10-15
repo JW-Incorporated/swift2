@@ -9128,6 +9128,10 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 
 Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.
 
+## 2026-10-15 — P1-28c tooling transport boundary
+
+**Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.
+
 ## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
 
 **Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` denies the source path and other project or host directories. The CLI's own internal session paths remain readable, including its plan, scratchpad and tool-result files, its temporary directory and bundled skills. This confinement guarantee relies on the 2.1.300 pin and must be re-verified before any version bump. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
@@ -9135,3 +9139,9 @@ Measured cost floor: each call uses about 6.6K cache-creation input tokens with 
 The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
 
 **Why.** P1-19 and P1-20 need listing pixels, but enabling a general tool set or exposing an original filesystem path would turn untrusted listing content into a host-read capability. A staged copy plus Claude Code's working-directory confinement provides the minimum image capability without Bash, Write, Edit, WebFetch, MCP or access outside the per-call directory.
+
+## 2026-10-15 â€” Merch authoring moves to the subscription wrapper (P1-28b)
+
+**Decision.** The E3 audit and E6 matcher use the public subscription wrapper at P3, so neither can consume the backup token. Visual judgments use `claude-sonnet-5-5`; the lighter garment-descriptor extraction uses `claude-haiku-5-5`. Images are fetched into bounded buffers and passed through the wrapper's `images` input. An unavailable, limited or capped call logs and holds the candidate instead of authoring it.
+
+**Cap mapping.** D8's former $3 per-run model budget maps to 88 wrapper calls: `floor($3 / $0.03408)`, using the existing conservative per-request reservation. The legacy audit artifact keeps its `capUsd` and `reservedCostUsd` fields for consumers, while the wrapper's per-caller `maxCalls: 88` is the enforcement boundary. SerpAPI remains independently capped at five paid searches per run.

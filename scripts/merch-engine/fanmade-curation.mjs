@@ -3,9 +3,9 @@ import { readFile } from 'node:fs/promises';
 import { choiceQuestion, noulQuestion } from '../lib/jev.mjs';
 import { callClaude } from '../lib/claude-call.mjs';
 import { canonicalUrl, curateCandidate } from './fanmade-discovery.mjs';
-import { verifyProductUrl } from './match-moments-authoring.mjs';
+import { defaultVerifyUrl } from './match-moments-authoring.mjs';
 import { verifyImage } from './verify-images.mjs';
-import { fetchMerchImage } from './audit-matches-authoring.mjs';
+import { fetchClaudeImage } from './merch-claude.mjs';
 
 export const D3_MODEL = 'claude-haiku-5-5';
 const CONFIG = JSON.parse(await readFile(new URL('../../config/tidewatch.json', import.meta.url)));
@@ -99,9 +99,9 @@ export async function curateFanmadeIssues({
   now = new Date().toISOString(),
   jevClient,
   callClaudeImpl = callClaude,
-  verifyProductUrlImpl = verifyProductUrl,
+  verifyProductUrlImpl = defaultVerifyUrl,
   verifyImageImpl = verifyImage,
-  fetchImageImpl = fetchMerchImage,
+  fetchImageImpl = fetchClaudeImage,
   log = console.log,
 } = {}) {
   const accepted = [];

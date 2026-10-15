@@ -26,20 +26,20 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gh } from './lib/gh.mjs';
 import { runMain } from './lib/cli.mjs';
-import { callAnthropicMessages, extractToolUseInput } from './lib/anthropic.mjs';
+import { callClaude } from './lib/claude-call.mjs';
 import { discoverRoutines, fetchForRoutine, WINDOW_DAYS } from './routine-output-sample.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'routine-output-sampling');
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
 
-export const MODEL = 'claude-sonnet-5';
+export const MODEL = 'claude-sonnet-5-5';
+export const PRIORITY = 'P3';
 export const MAX_PRS_PER_ROUTINE = 2;
 export const MAX_PRS_PER_WEEK = 30;
 export const MAX_DIFF_CHARS = 20_000;
 export const RUBRIC_HEADING = '## Sampling rubric';
 
-const THINKING = { type: 'disabled' };
 const SCORE_TOOL = {
   name: 'record_quality_score',
   description:
@@ -164,12 +164,11 @@ export function normalizeScore(response) {
 
 /** One Sonnet call, forced-tool response, thinking disabled — cheap by design (T5's "keep it cheap"). */
 export async function scorePrWithClaude({
-  apiKey,
   routineName,
   rubric,
   pr,
   diffText,
-  fetchImpl = fetch,
+  callClaudeImpl = callClaude,
 }) {
   const diff =
     diffText.length > MAX_DIFF_CHARS
@@ -194,19 +193,20 @@ export async function scorePrWithClaude({
     'something concrete from the diff or description (a file, a check, a specific',
     'behavior) — never a vibe or a restatement of the rubric.',
   ].join('\n');
-  const { raw } = await callAnthropicMessages(
-    apiKey,
-    {
-      model: MODEL,
-      max_tokens: 300,
-      thinking: THINKING,
-      tools: [SCORE_TOOL],
-      tool_choice: { type: 'tool', name: SCORE_TOOL.name },
-      messages: [{ role: 'user', content: [{ type: 'text', text: promptText }] }],
-    },
-    { fetchImpl, errorLabel: `anthropic quality-sample request for PR #${pr.number}` },
-  );
-  return extractToolUseInput(raw, { toolName: SCORE_TOOL.name });
+  const outcome = await callClaudeImpl({
+    caller: 'routine-quality-sample',
+    priority: PRIORITY,
+    model: MODEL,
+    system: SCORE_TOOL.description,
+    user: promptText,
+    schema: SCORE_TOOL.input_schema,
+    maxInputTokens: 8_000,
+    maxCalls: MAX_PRS_PER_WEEK,
+  });
+  if (outcome.status !== 'ok') {
+    throw new Error(`Claude quality-sample unavailable: ${outcome.reason ?? outcome.status}`);
+  }
+  return outcome.data;
 }
 
 /**
@@ -303,7 +303,6 @@ async function loadPrDetails(number) {
 async function main() {
   const date = process.env.REPORT_DATE || new Date().toISOString().slice(0, 10);
   const outFile = path.join(OUT_DIR, `${date}.md`);
-  const apiKey = process.env.ANTHROPIC_API_KEY;
   const now = new Date();
 
   const discovered = discoverRoutines();
@@ -343,9 +342,7 @@ async function main() {
       const fallbackUrl = `https://github.com/${REPO}/pull/${pr.number}`;
       try {
         const details = await loadPrDetails(pr.number);
-        if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set');
         const response = await scorePrWithClaude({
-          apiKey,
           routineName: selection.name,
           rubric,
           pr: details,
