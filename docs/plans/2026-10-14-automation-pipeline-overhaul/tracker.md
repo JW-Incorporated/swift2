@@ -20,7 +20,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | todo |  |  |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | doing |  |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | todo |  |  |
-| P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | todo |  |  |
+| P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | doing |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | doing |  |  |
@@ -129,6 +129,8 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 21:15 PM: D1 to D9 recorded above. HA #124 to #127 filed. Reversible calls: P0-12 folded into new P1-28 (the worker leaves the API key, so the model swap rides the migration); P1-08 no longer waits on P0-12; new P0-19 backup-token switch after P0-01; P1-09 rescoped to a subscription wrapper, with a Fable consult before it is briefed (§4, a change to the funding and verifier path); P0-18 and P1-13 dropped; no `docs/projects/tidewatch/` copy (the plan already lives in this folder). This branch is based on the plan branch while #5813 auto-merges.
 
 - 2026-10-14 21:25 PM: wave 1 dispatched, 5 in flight. Codex (sol high, worktrees under %LOCALAPPDATA%\longlive-wt): P0-01, P0-09. Claude: P0-14 (executor, Opus), P0-03 (executor, Sonnet), and a grunt fixing the failing checks on plan-docs PR #5813 (build-full, CodeQL), which also blocks this branch's PR #5815. Flow for every item: worker pushes its branch, a Claude reviewer reviews the branch, then the reviewer opens the PR and arms auto-merge. Heartbeat cron armed at :13 and :43 (session-only).
+
+- 2026-10-14 21:24 PM: #5813 red fixed by grunt (eslint ignore for `docs/plans/**/dashboard/**`, a7e97fc6f; CodeQL regex `i` flag in dashboard/build.mjs, e4cdb2358); CI rerun pending. P0-11 dispatched (Codex sol xhigh). Call: P0-11's second opinion is an adversarial Claude reviewer, not `codex:rescue`, because Codex wrote it (a Codex second opinion would be self-review).
 
 ## Next actions
 
