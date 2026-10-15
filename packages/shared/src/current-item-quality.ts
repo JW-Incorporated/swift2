@@ -18,13 +18,15 @@
  * `redline.ts`'s header: "packages/shared cannot import from scripts/
  * without breaking the portability contract" — this module must stay
  * zero-I/O and loadable by web/mobile/worker alike, which rules out
- * depending on a `scripts/` Node CLI config). This is a byte-for-byte copy
- * of `scripts/content-engine/config.mjs`'s `CONFIG.image.hostAllowlist` /
- * `CONFIG.image.scopedHostAllowlist` — the existing, already-reviewed
- * reputation allowlist for this hotlink-based app (standing rule: reuse the
- * existing allowlist, never invent a new one). Keep both in sync by hand.
+ * depending on a `scripts/` Node CLI config). This starts with the existing,
+ * reviewed reputation allowlist from `scripts/content-engine/config.mjs`
+ * and carries reviewed official/established source and image-CDN additions
+ * used by the live-feed fallback; image-resolve.ts consumes the same predicate so image
+ * resolution and publication cannot drift.
  */
 export const IMAGE_HOST_ALLOWLIST: readonly string[] = [
+  'taylorswift.com', 'www.taylorswift.com', 'store.taylorswift.com',
+  'cdn.shopify.com',
   'upload.wikimedia.org', 'commons.wikimedia.org',
   'i.ytimg.com', 'img.youtube.com',
   'billboard.com', 'www.billboard.com',
@@ -97,6 +99,19 @@ export const IMAGE_HOST_ALLOWLIST: readonly string[] = [
   'stealherstyle.net',
   'fashionsizzle.com',
   'bostonglobe-prod.cdn.arcpublishing.com',
+  'stereogum.com', 'www.stereogum.com',
+  'theguardian.com', 'www.theguardian.com',
+  'bbc.co.uk', 'www.bbc.co.uk', 'bbc.com', 'www.bbc.com',
+  'nytimes.com', 'www.nytimes.com', 'static01.nyt.com',
+  'etonline.com',
+  'elle.com', 'www.elle.com', 'harpersbazaar.com', 'www.harpersbazaar.com',
+  'hips.hearstapps.com',
+  'tennessean.com', 'www.tennessean.com',
+  'kansascity.com', 'www.kansascity.com',
+  'pitchfork.com', 'www.pitchfork.com', 'media.pitchfork.com',
+  'nbcnews.com', 'www.nbcnews.com',
+  'reuters.com', 'www.reuters.com',
+  'snopes.com', 'www.snopes.com',
 ];
 
 /** Scoped multi-tenant CDN allowlist — host + required path prefix, for
