@@ -20,7 +20,7 @@ name: routine-austin-build
 
 on:
   schedule:
-    - cron: "0 21 * * *" # same cadence as the claude.ai trigger (UTC)
+    - cron: "0 21 * * 1,3,5" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
 
 permissions:
@@ -35,7 +35,7 @@ jobs:
     with:
       routine_name: "Austin — build runs"
       prompt_file: docs/agents/runner-prompts/austin-run.md
-      model: claude-fable-5
+      model: claude-opus-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 45
       max_turns: 80 # was the template default 40; the BOTS-LOOP triage (docs/decisions.md 2026-10-05) saw error_max_turns failures. A ceiling, not a spend: only consumed when needed

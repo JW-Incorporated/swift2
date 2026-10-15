@@ -35,6 +35,21 @@ function lead(overrides: Record<string, unknown> = {}) {
 }
 
 describe('buildReplyOpportunity', () => {
+  it('uses the facebook group search fallback and preserves a real post url', () => {
+    const facebookLead = lead({
+      platform: 'facebook',
+      community: 'facebook:taylor-swifts-vault',
+      locator: "Taylor Swift's Vault — The first photos from a surprise performance",
+      url: null,
+    });
+    expect(buildReplyOpportunity(facebookLead)).toContain(
+      '<https://www.facebook.com/groups/2254218764714763/search/?q=first%20photos%20surprise%20performance>',
+    );
+
+    const url = 'https://www.facebook.com/groups/2254218764714763/posts/987654/';
+    expect(buildReplyOpportunity({ ...facebookLead, url })).toContain(`<${url}>`);
+  });
+
   it('renders the scan-friendly layout: sub, title, angle-wrapped link, why, code-block reply, footer', () => {
     const msg = buildReplyOpportunity(lead(), { postedUrl: POSTED, skipUrl: SKIP });
     const lines = msg.split('\n');

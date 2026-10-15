@@ -1,0 +1,474 @@
+<title>Pipeline Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky tab bar over one scrolling column; summary first, detail behind tabs. */
+:root{
+  --bg:#f1f3f6; --surface:#ffffff; --surface2:#f6f8fa; --ink:#10161d; --ink2:#46515d; --muted:#76818d;
+  --line:#dde2e8; --line2:#c9d0d8;
+  --content:#2a78d6; --content-soft:#e4effb; --social:#d9531c; --social-soft:#fbebe3; --ops:#6b7886; --ops-soft:#e9edf1;
+  --good:#0a8a0a; --warn:#b87900; --bad:#d03b3b; --good-soft:#e3f4e3; --warn-soft:#fdf1d3; --bad-soft:#fbe5e5;
+  --f-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1014; --surface:#151a20; --surface2:#1b222a; --ink:#e8edf2; --ink2:#aab5c0; --muted:#7f8b97;
+  --line:#262e37; --line2:#36414c;
+  --content:#3987e5; --content-soft:#14263b; --social:#e8703a; --social-soft:#3a2216; --ops:#8a98a6; --ops-soft:#222a33;
+  --good:#2fbf2f; --warn:#f0b429; --bad:#ee6a6a; --good-soft:#14301a; --warn-soft:#352b10; --bad-soft:#3a1a1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1014; --surface:#151a20; --surface2:#1b222a; --ink:#e8edf2; --ink2:#aab5c0; --muted:#7f8b97;
+  --line:#262e37; --line2:#36414c;
+  --content:#3987e5; --content-soft:#14263b; --social:#e8703a; --social-soft:#3a2216; --ops:#8a98a6; --ops-soft:#222a33;
+  --good:#2fbf2f; --warn:#f0b429; --bad:#ee6a6a; --good-soft:#14301a; --warn-soft:#352b10; --bad-soft:#3a1a1a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 var(--f-sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{margin:0;font-weight:600;text-wrap:balance}
+header.top{padding:22px 0 14px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between}
+h1{font-size:24px;letter-spacing:-.01em}
+.sub{color:var(--ink2);max-width:62ch;margin:4px 0 0}
+.stamp{font:12px var(--f-mono);color:var(--muted);text-align:right}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);padding:6px 0 0;margin-bottom:18px}
+nav.tabs button{font:500 13px var(--f-sans);color:var(--ink2);background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--content)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--content);outline-offset:2px}
+section.pane{display:flex;flex-direction:column;gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;min-width:0}
+.card h2{font-size:15px;margin-bottom:4px}
+.card .hint{color:var(--muted);font-size:12.5px;margin:0 0 12px;max-width:80ch}
+.grid{display:grid;gap:12px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0}
+.kpi .l{font-size:12px;color:var(--ink2)}
+.kpi .v{font:500 28px/1.15 var(--f-mono);margin:4px 0 2px;letter-spacing:-.02em}
+.kpi .d{font-size:12px;color:var(--muted)}
+.kpi.bad{border-top:3px solid var(--bad)} .kpi.warn{border-top:3px solid var(--warn)} .kpi.good{border-top:3px solid var(--good)}
+.pill{display:inline-flex;align-items:center;gap:5px;font:500 11.5px var(--f-sans);padding:1px 8px;border-radius:99px;white-space:nowrap}
+.p-content{background:var(--content-soft);color:var(--content)} .p-social{background:var(--social-soft);color:var(--social)} .p-ops{background:var(--ops-soft);color:var(--ink2)}
+.p-good{background:var(--good-soft);color:var(--good)} .p-warn{background:var(--warn-soft);color:var(--warn)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-none{background:var(--ops-soft);color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{font:500 11.5px var(--f-sans);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line2);white-space:nowrap}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono)}
+th[data-sort]{cursor:pointer}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.row{cursor:pointer} tr.row:hover td{background:var(--surface2)}
+.scroll{overflow-x:auto}
+.bar{height:8px;background:var(--line);border-radius:2px;position:relative;min-width:60px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;display:block}
+.bars{display:grid;gap:8px}
+.bars .r{display:grid;grid-template-columns:minmax(120px,210px) 1fr 100px;gap:10px;align-items:center;font-size:13px}
+.bars .r .t{min-width:0}
+.bars .r .n{text-align:right;font:12px var(--f-mono);color:var(--ink2)}
+.bars .bar{height:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.filters input,.filters select{font:13px var(--f-sans);background:var(--surface);color:var(--ink);border:1px solid var(--line2);border-radius:4px;padding:6px 8px;min-width:0}
+.chip{font:500 12px var(--f-sans);border:1px solid var(--line2);background:var(--surface);color:var(--ink2);border-radius:99px;padding:4px 11px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.detail td{background:var(--surface2);color:var(--ink2);font-size:12.5px}
+.detail dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:4px 12px}
+.detail dt{color:var(--muted)} .detail dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.flowbox{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.flowbox svg{display:block;min-width:1040px;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink2);margin:0 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+.node{cursor:pointer}
+.node rect.box{fill:var(--surface);stroke-width:1.5}
+.node:hover rect.box,.node.sel rect.box{fill:var(--surface2);stroke-width:2.5}
+.node text{fill:var(--ink);font:500 12px var(--f-sans)}
+.node text.s{fill:var(--muted);font:11px var(--f-mono)}
+.node text.fl{fill:var(--bad);font:600 10.5px var(--f-sans)}
+.lane text{fill:var(--muted);font:600 11px var(--f-sans);letter-spacing:.06em;text-transform:uppercase}
+.edge{fill:none;stroke:var(--line2);stroke-width:1.5}
+.edge.dash{stroke-dasharray:4 4}
+.edge.newe{stroke:var(--content);stroke-width:2}
+.node text.tagn{fill:var(--content);font:600 9.5px var(--f-sans);letter-spacing:.06em}
+.node text.tagc{fill:var(--warn);font:600 9.5px var(--f-sans);letter-spacing:.06em}
+.rm{display:grid;grid-template-columns:1fr;gap:6px}
+.rm .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.colh{fill:var(--muted);font:11px var(--f-mono)}
+.panel{margin-top:12px;display:grid;gap:10px}
+.panel .head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.panel h3{font-size:15px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.mgrid div{background:var(--surface2);border-radius:4px;padding:8px 10px}
+.mgrid b{display:block;font:500 17px var(--f-mono)} .mgrid span{font-size:11.5px;color:var(--muted)}
+.find{display:grid;gap:8px}
+.find .hd{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.find h3{font-size:15px;flex:1 1 280px}
+.find ul{margin:0;padding-left:18px;color:var(--ink2)} .find li{margin:2px 0}
+.find .fix{background:var(--surface2);border-radius:4px;padding:8px 10px;color:var(--ink)}
+.find .fix b{font-weight:600}
+.charts{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.ch svg{width:100%;height:auto;display:block}
+.ch text{fill:var(--muted);font:11px var(--f-mono)}
+.ch text.v{fill:var(--ink2)}
+.tl{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.tl li{display:grid;grid-template-columns:92px 1fr;gap:10px}
+.tl time{font:12px var(--f-mono);color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);max-width:90ch}
+.dbstate{font:12px var(--f-mono);color:var(--muted)}
+@media (max-width:560px){.bars .r{grid-template-columns:1fr 70px}.bars .r .bar{grid-column:1/-1;order:3}.kpi .v{font-size:24px}.detail dl{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1>Pipeline Atlas</h1>
+    <p class="sub">Every automation behind Long Live: what it does, whether it feeds the app, how reliably it runs, and how much it costs to keep running.</p>
+  </div>
+  <div class="stamp" id="stamp"></div>
+</header>
+<nav class="tabs" role="tablist" id="tabs"></nav>
+
+<!-- OVERVIEW -->
+<section class="pane" id="p-overview" role="tabpanel">
+  <div class="grid kpis" id="kpis"></div>
+  <div class="grid two">
+    <div class="card">
+      <h2>Where runner time goes</h2>
+      <p class="hint">Share of wall-clock workflow minutes over 30 days, by what the automation is for. The repo is public, so this is not billed: it shows noise and effort, not cost. Claude plan usage is a separate budget, covered in Diagnosis.</p>
+      <div class="bars" id="computeBars"></div>
+    </div>
+    <div class="card">
+      <h2>Who produces merged work</h2>
+      <p class="hint">Pull requests merged by producer in the 30 days to Oct 15. Only the blue rows change what users see in the app.</p>
+      <div class="scroll"><table id="yieldTable"></table></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>What matters most right now</h2>
+    <p class="hint">The ranked read of why content generation underperforms. Full evidence is in the Diagnosis tab.</p>
+    <ol id="topFindings" style="margin:0;padding-left:20px;display:grid;gap:6px"></ol>
+  </div>
+  <div class="card">
+    <h2>How to read these numbers</h2>
+    <p class="note" id="readme"></p>
+  </div>
+</section>
+
+<!-- TRUE NORTH -->
+<section class="pane" id="p-goals" role="tabpanel" hidden>
+  <div class="card">
+    <h2>True north</h2>
+    <p class="hint">The eleven outcomes this effort exists to deliver. Every automation, fix and metric on this page should move one of them. Status and numbers are edited in the shared store, so they change here without a republish.</p>
+    <div class="legend" id="goalSummary"></div>
+  </div>
+  <div id="goalList" style="display:flex;flex-direction:column;gap:12px"></div>
+</section>
+
+<!-- FLOW -->
+<section class="pane" id="p-flow" role="tabpanel" hidden>
+  <div class="card">
+    <h2>How content and posts move</h2>
+    <p class="hint">Switch between what runs today and the target flow that would meet the eleven goals. Select a box for its numbers and, in the target view, what changes. Red outline means reliability under 80%, amber under 95%. Dashed lines are indirect links. Blue lines and dashed boxes are new.</p>
+    <div class="filters">
+      <button class="chip" data-flow="current" aria-pressed="false">Today</button>
+      <button class="chip" data-flow="target" aria-pressed="true">Target</button>
+      <span class="note" id="flowCount"></span>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--content)"></i>Feeds the app</span>
+      <span><i class="sw" style="background:var(--social)"></i>Social only</span>
+      <span><i class="sw" style="background:var(--ops)"></i>Bots and ops</span>
+      <span><i class="sw" style="background:var(--bad)"></i>Known problem</span>
+    </div>
+    <div class="flowbox"><svg id="flow" viewBox="0 0 1100 520" role="img" aria-label="Flow diagram of the content, social and bot automations"></svg></div>
+    <div class="panel" id="nodePanel"></div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="pane" id="p-plan" role="tabpanel" hidden>
+  <div class="card">
+    <h2>Roadmap to the eleven goals</h2>
+    <p class="hint">Sequenced by effect on the goals and by what blocks what. "Owner" says who acts: an executor agent, a decision only Joey can make, or a human action. Each item names the goal it moves, the flow box it touches, and the test that proves it worked.</p>
+    <div class="filters" id="planFilters"></div>
+  </div>
+  <div id="planList" style="display:flex;flex-direction:column;gap:10px"></div>
+  <div class="card">
+    <h2>Decisions only Joey can make</h2>
+    <p class="hint">These change what the plan can do. Everything else the fleet can decide.</p>
+    <ol id="decisions" style="margin:0;padding-left:20px;display:grid;gap:8px"></ol>
+  </div>
+  <div class="card">
+    <h2>What not to do</h2>
+    <ul id="avoid" style="margin:0;padding-left:18px;color:var(--ink2);display:grid;gap:4px"></ul>
+  </div>
+</section>
+
+<!-- AUTOMATIONS -->
+<section class="pane" id="p-auto" role="tabpanel" hidden>
+  <div class="card">
+    <h2>Every automation</h2>
+    <p class="hint" id="autoHint"></p>
+    <div class="filters" id="autoFilters"></div>
+    <div class="scroll"><table id="autoTable"></table></div>
+  </div>
+</section>
+
+<!-- DIAGNOSIS -->
+<section class="pane" id="p-diag" role="tabpanel" hidden>
+  <div class="card">
+    <h2>Why content generation is not working well</h2>
+    <p class="hint">Ordered by how much app content each problem costs. Confidence says how well the evidence supports the cause, not the numbers.</p>
+  </div>
+  <div id="findings" style="display:flex;flex-direction:column;gap:14px"></div>
+  <div class="card">
+    <h2>Fix order</h2>
+    <p class="hint">Cheapest changes with the biggest effect on shipped content first.</p>
+    <ol id="fixes" style="margin:0;padding-left:20px;display:grid;gap:6px"></ol>
+  </div>
+  <div class="card">
+    <h2>What we cannot measure yet</h2>
+    <ul id="gaps" style="margin:0;padding-left:18px;color:var(--ink2);display:grid;gap:4px"></ul>
+  </div>
+</section>
+
+<!-- TRENDS -->
+<section class="pane" id="p-trends" role="tabpanel" hidden>
+  <div class="card">
+    <h2>Week by week</h2>
+    <p class="hint">Weeks start Monday (UTC). The latest week is partial. New weeks are added to the shared store, so this page updates without being republished.</p>
+    <div class="grid charts" id="weekCharts"></div>
+    <div class="dbstate" id="dbstate"></div>
+  </div>
+  <div class="card">
+    <h2>Snapshots</h2>
+    <p class="hint">Headline numbers each time we measure. Change = newest against the one before. Green means moving the right way.</p>
+    <div class="scroll"><table id="snapTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>What we changed</h2>
+    <p class="hint">Log of fixes and experiments, so a move in the numbers can be tied to a cause.</p>
+    <ul class="tl" id="annots"></ul>
+  </div>
+</section>
+</div>
+
+<script>
+const INV = __INV__;
+const BASE = __BASE__;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n == null ? '—' : Number(n).toLocaleString('en-US');
+const rel = x => (x.runs && (x.ok + x.fail) > 0) ? x.ok / (x.ok + x.fail) : null;
+const pct = v => v == null ? '—' : Math.round(v * 100) + '%';
+const health = v => v == null ? ['none','No data','○'] : v >= .95 ? ['good','Healthy','●'] : v >= .8 ? ['warn','Watch','▲'] : ['bad','Failing','✕'];
+const CAT = {'content-generation':'Content generation','content-validation':'Content validation','content-delivery':'Content delivery','social':'Social','discord-bot':'Discord bots','monitoring':'Monitoring','ci-quality':'CI and quality','repo-hygiene':'Repo hygiene','deploy':'Deploy','other':'Other'};
+
+/* ---------- tabs ---------- */
+const TABS = [['overview','Overview'],['goals','True north'],['flow','Flow'],['plan','Plan'],['track','Tracking'],['auto','Automations'],['diag','Diagnosis'],['trends','Trends']];
+const tabsEl = $('#tabs');
+TABS.forEach(([id,label]) => { const b = document.createElement('button'); b.role='tab'; b.textContent=label; b.dataset.id=id; b.onclick=()=>show(id); tabsEl.appendChild(b); });
+function show(id){
+  TABS.forEach(([t]) => { $('#p-'+t).hidden = t!==id; });
+  tabsEl.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', b.dataset.id===id));
+  try{ history.replaceState(null,'','#'+id); }catch(e){}
+}
+show(TABS.some(t=>t[0]===location.hash.slice(1)) ? location.hash.slice(1) : 'overview');
+
+/* ---------- stamp / readme ---------- */
+$('#stamp').innerHTML = `Window ${esc(BASE.window)}<br>Snapshot ${esc(BASE.snapshot)} · ${INV.length} automations`;
+$('#readme').innerHTML = `Reliability is successes divided by successes plus failures; cancelled and skipped runs are left out. Minutes are wall-clock from start to last update, so they overstate billed time. The inventory was built by reading each workflow's header, so "feeds the app" is a judgment for the routines whose prompts were not read (Karen, Kevin, Austin, Marjorie triage). The repo is public, so Actions minutes are not billed; runner time is a measure of noise, not cost. Claude plan usage is a separate budget with no per-routine number yet. Two Discord bots are shown as Tree (social) and Marjorie (site ops); bot1 (Hermes1) is a third bot that lives on the Hermes server.`;
+
+/* ---------- overview ---------- */
+const K = BASE.kpis;
+const kpiDefs = [
+  ['Vault days with new content', `${K.vaultDays} of ${K.windowDays}`, `Days with a merged Vault Run PR, ${pct(K.vaultDays/K.windowDays)}`, K.vaultDays/K.windowDays<.8?'bad':'good'],
+  ['Content added by Vault Run', fmt(K.vaultLines)+' lines', `${K.vaultPRs} PRs, median ${K.vaultMedian} lines`, 'warn'],
+  ['Vault Run reliability', pct(K.vaultOk/(K.vaultOk+K.vaultFail)), `${K.vaultFail} of ${K.vaultOk+K.vaultFail} runs failed; last 3 scheduled hit the weekly limit`, 'bad'],
+  ['Feeder automations failing', '3 of 4', '30-day: Appearance 21%, Awin 24%, official sync 60%. Patched Oct 6, so check the 7-day rate', 'bad'],
+  ['Social PRs stuck open', fmt(K.socialStateOpen), `${pct(K.ciSocialShare)} of all CI failures come from them`, 'bad'],
+  ['Runner time that feeds content', pct(K.contentComputeShare), 'Generation, validation and delivery combined; the bot clock alone is 34%', 'warn'],
+];
+$('#kpis').innerHTML = kpiDefs.map(([l,v,d,s]) => `<div class="kpi ${s}"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div><div class="d">${esc(d)}</div></div>`).join('');
+
+const totalMin = INV.reduce((s,x)=>s+(x.min||0),0);
+const grp = [
+  ['Content generation', x=>x.c==='content-generation','content'],
+  ['Content validation', x=>x.c==='content-validation','content'],
+  ['Content delivery and deploy', x=>x.c==='content-delivery'||x.c==='deploy','content'],
+  ['Shared CI and tests', x=>x.c==='ci-quality','ops'],
+  ['Bot clock and monitoring', x=>x.c==='discord-bot'||x.c==='monitoring','ops'],
+  ['Social posting', x=>x.c==='social','social'],
+  ['Hygiene and other', x=>x.c==='repo-hygiene'||x.c==='other','ops'],
+].map(([n,f,t]) => { const m = INV.filter(f).reduce((s,x)=>s+(x.min||0),0); return {n,m,t}; });
+const maxg = Math.max(...grp.map(g=>g.m));
+$('#computeBars').innerHTML = grp.map(g => `<div class="r"><div class="t">${esc(g.n)}</div><div class="bar"><i style="width:${(g.m/maxg*100).toFixed(1)}%;background:var(--${g.t==='content'?'content':g.t==='social'?'social':'ops'})"></i></div><div class="n">${fmt(g.m)} min · ${pct(g.m/totalMin)}</div></div>`).join('');
+
+$('#yieldTable').innerHTML = `<thead><tr><th>Producer</th><th>Feeds app</th><th class="num">Merged</th><th class="num">Open</th><th class="num">Median to merge</th></tr></thead><tbody>` +
+  BASE.producers.map(p => `<tr><td>${esc(p.n)}<div class="note">${esc(p.d)}</div></td><td><span class="pill p-${p.app?'content':'ops'}">${p.app?'Yes':'No'}</span></td><td class="num">${p.m}</td><td class="num">${p.o}</td><td class="num">${p.h<1?Math.round(p.h*60)+' min':p.h.toFixed(1)+' h'}</td></tr>`).join('') + `</tbody>`;
+
+$('#topFindings').innerHTML = BASE.findings.slice(0,4).map(f => `<li><b>${esc(f.title)}.</b> <span style="color:var(--ink2)">${esc(f.one)}</span></li>`).join('');
+
+/* ---------- flow ---------- */
+const COLX = [30,205,380,555,730,905], BW = 150, BH = 54;
+const ROWY = [52,142,232,332,432];
+const LANES = [['App content: Vault',0,'content'],['App content: live feed',1,'content'],['App content: feeders',2,'content'],['Social',3,'social'],['Bots and ops',4,'ops']];
+const N = {
+ detect:{c:0,r:0,t:'content',n:'Detectors',s:'scan · no LLM',ids:['appearance-discovery.yml','cie-scan.yml','community-crawl.yml','theory-miner.yml'],d:'Daily scanners that file intake and CIE tickets and stage drafts. Appearance discovery runs twice a day and fails most runs.',flag:'Appearance 21% ok'},
+ vault:{c:1,r:0,t:'content',n:'Vault Run',s:'Opus · 6 lanes · daily',ids:['routine-vault-run.yml'],d:'The one LLM producer of seed content. A single Claude session runs up to six lanes (Content Shift, Answerer, Photo Enrichment, Rumor Desk, Cross-Link, Stylist) and opens one PR a day.',flag:'Weekly limit stops it'},
+ gate:{c:2,r:0,t:'content',n:'CI build gate',s:'validate · tests · voice',ids:['ci.yml'],d:'The required check. Schema, sourcing, voice, privacy, generated vault and the full test suite. Shared by content, social and code PRs.',flag:'1,422 failures'},
+ merge:{c:3,r:0,t:'content',n:'Auto-merge',s:'allowlist · keepup',ids:['auto-merge-content.yml','auto-merge-keepup.yml'],d:'Arms native auto-merge when every changed path is on the content allowlist and no hold label is set. Keepup re-syncs stale branches.'},
+ ship:{c:4,r:0,t:'content',n:'Publish bundle',s:'Supabase · Vercel · OTA',ids:['content-publish.yml'],d:'Builds the content bundle on every push to main, mirrors it to Supabase Storage, and the web build and the mobile OTA update pick it up.'},
+ app:{c:5,r:0,t:'content',n:'Long Live app',s:'web + iOS + Android',ids:[],d:'What users see. Reads the seed bundle and the live feed tables.'},
+ news:{c:1,r:1,t:'content',n:'News worker',s:'Haiku classify · 4-hourly',ids:['news-worker.yml'],d:'Pulls sources, classifies and extracts items with Haiku, and writes them to the news tables. A publish gate hides items with no image or thin copy.'},
+ triage:{c:2,r:1,t:'content',n:'News triage',s:'Claude routine · daily',ids:['routine-news-triage.yml'],d:'Judgment layer over the feed. Failed on the weekly Claude limit on Oct 14.',flag:'Weekly limit'},
+ db:{c:4,r:1,t:'content',n:'Live feed tables',s:'current_item · fan_signal',ids:[],d:'Database tables the app reads for the live feed. Not part of the Vault bundle.'},
+ merch:{c:1,r:2,t:'content',n:'Merch syncs',s:'official + Awin',ids:['merch-official-sync.yml','merch-awin-sync.yml'],d:'Pulls official store and affiliate catalogs into the seed. Awin sync has 8 successes against 25 failures and 29 cancellations.',flag:'Awin 24% ok'},
+ cie:{c:2,r:2,t:'content',n:'CIE scan',s:'tickets · daily',ids:['cie-scan.yml','routine-karen-nightly.yml','routine-kevin-s1-karen-solver.yml'],d:'The knowledge-engine scan files fact and image tickets; Karen and Kevin routines judge and solve them. Report PRs wait about 20 hours to merge.'},
+ austin:{c:3,r:2,t:'content',n:'Austin build',s:'Claude routine',ids:['routine-austin-build.yml'],d:'Builds approved tickets into PRs. Parks PRs for human review when the Codex companion is missing on the runner.'},
+ inbox:{c:0,r:3,t:'social',n:'Inbox',s:'intake · fact sheets',ids:['social-event-dispatch.yml'],d:'Intake issues and fact sheets from merch and appearance sync, plus the weekly calendar. Event dispatch runs every two hours and starts event drafts.'},
+ tree:{c:1,r:3,t:'social',n:'Tree',s:'bot · daily draft',ids:['routine-tree-daily-draft.yml','routine-tree-weekly-plan.yml'],d:'Discord bot and social manager. Writes an Instagram and X pair into the queue each day. Moving from Actions routines to a Hermes daily loop. Never edits app content.',flag:'10 of 32 drafts failed'},
+ sgate:{c:2,r:3,t:'social',n:'Queue PR + CI',s:'check-drafts · tests',ids:[],d:'Every queue change is a PR that runs the same full build. The poster files a state PR after each post; 154 of them are open with a failing test.',flag:'154 PRs stuck'},
+ approve:{c:3,r:3,t:'social',n:'Approval',s:'tree-auto or owner ✅',ids:['social-approval-poll.yml','social-approval-notify.yml'],d:'Used to need the owner reaction in #longlive-tree. Since #5479 Tree can stamp his own IG and X drafts. The newer workflow is not in the inventory yet.'},
+ poster:{c:4,r:3,t:'social',n:'Social poster',s:'every 30 min · clock',ids:['social-poster.yml'],d:'Posts to X, Instagram and the Facebook Page, then moves items to posted or failed. 113 failed runs in 30 days; one Instagram post and an X 403 fail every run.',flag:'Last run failed'},
+ out:{c:5,r:3,t:'social',n:'X · IG · Facebook',s:'live accounts',ids:['social-reply-notifier.yml'],d:'Live accounts. The reply notifier only pings #longlive-tree; replies stay human.'},
+ clock:{c:0,r:4,t:'ops',n:'Clock',s:'bot-chat-poll · */5',ids:['bot-chat-poll.yml'],d:'GitHub cron drops most fast schedules, so this workflow polls chat and dispatches other jobs on a clock. Largest compute spender, 47% of runs cancelled.',flag:'34% of minutes'},
+ marj:{c:1,r:4,t:'ops',n:'Marjorie',s:'bot · site ops',ids:['routine-marjorie-ops.yml','routine-marjorie-triage.yml','routine-marjorie-brief.yml'],d:'Discord bot for Long Live site operations. Hourly ops, daily brief, triage. Files issues for the desks that feed Vault Run. Ops hit its turn limit and the weekly limit.',flag:'Ops 76% ok'},
+ chan:{c:2,r:4,t:'ops',n:'Discord channels',s:'#longlive-tree · -marjorie',ids:['marjorie-status.yml'],d:'Founder-facing surface for both bots. Marjorie posts nothing in #longlive-tree.'},
+ bot1:{c:3,r:4,t:'ops',n:'bot1 (Hermes1)',s:'Hermes server · #longlive',ids:['marjorie-bot1-bridge.yml'],d:'The third bot. Runs on the Hermes home server, not in this repo. Marjorie can hand it up to three items a day.'},
+ watch:{c:4,r:4,t:'ops',n:'Watchdog',s:'alerts · triage sweep',ids:['watchdog.yml'],d:'Files watchdog alerts and routine-failure issues. 21 watchdog alerts are open.'},
+};
+const E = [
+ ['detect','vault'],['vault','gate'],['gate','merge'],['merge','ship'],['ship','app'],
+ ['news','triage'],['triage','db'],['db','app'],
+ ['merch','gate'],['cie','austin'],['austin','gate'],
+ ['inbox','tree'],['tree','sgate'],['sgate','approve'],['approve','poster'],['poster','out'],
+ ['vault','tree','dash'],['detect','inbox','dash'],
+ ['clock','marj','dash'],['clock','poster','dash'],['marj','chan'],['marj','bot1','dash'],['marj','vault','dash'],['tree','chan','dash'],['poster','watch','dash'],
+];
+function agg(ids){ const rows = ids.map(i=>INV.find(x=>x.id===i)).filter(Boolean); const r = rows.filter(x=>x.runs!=null);
+  return {rows, runs:r.reduce((s,x)=>s+x.runs,0), ok:r.reduce((s,x)=>s+x.ok,0), fail:r.reduce((s,x)=>s+x.fail,0), can:r.reduce((s,x)=>s+x.can,0), min:r.reduce((s,x)=>s+x.min,0)}; }
+const nx = n => COLX[n.c], ny = n => ROWY[n.r];
+let svg = '';
+LANES.forEach(([l,r,t]) => { svg += `<g class="lane"><rect x="0" y="${ROWY[r]-16}" width="1100" height="${BH+32}" fill="var(--${t==='content'?'content':t==='social'?'social':'ops'})" opacity=".06"/><text x="8" y="${ROWY[r]-4}">${esc(l)}</text></g>`; });
+['Detect','Produce','Check','Merge','Ship','Reach'].forEach((h,i) => { svg += `<text class="colh" x="${COLX[i]}" y="14">${h}</text>`; });
+E.forEach(([a,b,k]) => { const A=N[a], B=N[b]; const x1=nx(A)+BW, y1=ny(A)+BH/2, x2=nx(B), y2=ny(B)+BH/2;
+  let d; if (x2 > x1) { const m=(x1+x2)/2; d=`M${x1} ${y1} C${m} ${y1} ${m} ${y2} ${x2} ${y2}`; }
+  else if (A.c===B.c) { const xm=nx(A)+BW/2; d = ny(A)<ny(B) ? `M${xm} ${ny(A)+BH} L${xm} ${ny(B)}` : `M${xm} ${ny(A)} L${xm} ${ny(B)+BH}`; }
+  else { const ya=ny(A)+BH, yb=ny(B); const xa=nx(A)+BW/2, xb=nx(B)+BW/2; d=`M${xa} ${ya} C${xa} ${(ya+yb)/2} ${xb} ${(ya+yb)/2} ${xb} ${yb}`; }
+  svg += `<path class="edge ${k||''}" d="${d}"/>`; });
+Object.entries(N).forEach(([id,n]) => { const a = agg(n.ids); const h = health(a.runs? a.ok/Math.max(1,a.ok+a.fail):null);
+  const col = n.t==='content'?'var(--content)':n.t==='social'?'var(--social)':'var(--ops)';
+  const stroke = h[0]==='bad'?'var(--bad)':h[0]==='warn'?'var(--warn)':col;
+  const sub = a.runs ? `${fmt(a.runs)} runs · ${pct(a.ok/Math.max(1,a.ok+a.fail))}` : n.s;
+  svg += `<g class="node" tabindex="0" role="button" data-id="${id}" aria-label="${esc(n.n)}"><rect class="box" x="${nx(n)}" y="${ny(n)}" width="${BW}" height="${BH}" rx="4" stroke="${stroke}"/><rect x="${nx(n)}" y="${ny(n)}" width="5" height="${BH}" rx="2" fill="${col}"/><text x="${nx(n)+14}" y="${ny(n)+21}">${esc(n.n)}</text><text class="s" x="${nx(n)+14}" y="${ny(n)+37}">${esc(sub)}</text>${n.flag?`<text class="fl" x="${nx(n)+14}" y="${ny(n)+BH+11}">${esc(n.flag)}</text>`:''}</g>`; });
+$('#flow').innerHTML = svg;
+function pick(id){
+  const n = N[id], a = agg(n.ids), v = a.runs ? a.ok/Math.max(1,a.ok+a.fail) : null, h = health(v);
+  document.querySelectorAll('.node').forEach(g => g.classList.toggle('sel', g.dataset.id===id));
+  const feeds = n.t==='content';
+  $('#nodePanel').innerHTML = `<div class="head"><h3>${esc(n.n)}</h3><span class="pill p-${n.t==='content'?'content':n.t}">${feeds?'Feeds the app':n.t==='social'?'Social only':'Bots and ops'}</span><span class="pill p-${h[0]}">${h[2]} ${h[1]}</span></div>
+  <div class="note" style="max-width:80ch;color:var(--ink2)">${esc(n.d)}</div>
+  ${a.runs?`<div class="mgrid"><div><b>${fmt(a.runs)}</b><span>runs in 30 days</span></div><div><b>${pct(v)}</b><span>reliability</span></div><div><b>${fmt(a.fail)}</b><span>failed</span></div><div><b>${fmt(a.can)}</b><span>cancelled</span></div><div><b>${fmt(a.min)}</b><span>wall-clock min</span></div></div>`:'<div class="note">No workflow runs of its own in the window (data store, external service or not yet inventoried).</div>'}
+  ${a.rows.length?`<div class="note">Workflows: ${a.rows.map(r=>`<span class="mono">${esc(r.id)}</span>`).join(', ')}</div>`:''}`;
+}
+document.querySelectorAll('.node').forEach(g => { g.onclick = () => pick(g.dataset.id); g.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(g.dataset.id);} }; });
+pick('vault');
+
+/* ---------- automations table ---------- */
+const st = {q:'', cat:'', app:'all', sort:'min', dir:-1, open:null};
+$('#autoHint').textContent = `${INV.length} entries: ${INV.filter(x=>x.k==='workflow').length} workflows plus scripts, hooks and crons. ${INV.filter(x=>x.f).length} feed the app, ${INV.filter(x=>!x.f).length} do not. Click a row for its trigger and why it was classified that way.`;
+$('#autoFilters').innerHTML = `<input id="q" type="search" placeholder="Search name or file" aria-label="Search automations"><select id="cat" aria-label="Category"><option value="">All categories</option>${Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select>
+ <button class="chip" data-app="all" aria-pressed="true">All</button><button class="chip" data-app="1" aria-pressed="false">Feeds app</button><button class="chip" data-app="0" aria-pressed="false">Does not</button>`;
+$('#q').oninput = e => { st.q = e.target.value.toLowerCase(); drawAuto(); };
+$('#cat').onchange = e => { st.cat = e.target.value; drawAuto(); };
+document.querySelectorAll('[data-app]').forEach(b => b.onclick = () => { st.app = b.dataset.app; document.querySelectorAll('[data-app]').forEach(x=>x.setAttribute('aria-pressed', x===b)); drawAuto(); });
+const COLS = [['n','Automation'],['c','Category'],['f','Feeds app'],['runs','Runs','num'],['rel','Reliability'],['min','Minutes','num'],['last','Last run']];
+function val(x,k){ return k==='rel' ? rel(x) : k==='n' ? x.n.toLowerCase() : k==='c' ? x.c : x[k]; }
+function drawAuto(){
+  let rows = INV.filter(x => (!st.q || (x.n+x.id).toLowerCase().includes(st.q)) && (!st.cat || x.c===st.cat) && (st.app==='all' || String(x.f)===st.app));
+  rows.sort((a,b) => { const va=val(a,st.sort), vb=val(b,st.sort); if(va==null&&vb==null) return 0; if(va==null) return 1; if(vb==null) return -1; return (va>vb?1:va<vb?-1:0)*st.dir; });
+  let h = `<thead><tr>${COLS.map(([k,l,c])=>`<th data-sort="${k}" class="${c||''}" aria-sort="${st.sort===k?(st.dir>0?'ascending':'descending'):'none'}">${l}${st.sort===k?(st.dir>0?' ↑':' ↓'):''}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(x => { const r = rel(x), hh = health(r), t = x.f?'content':(x.c==='social'?'social':'ops');
+    h += `<tr class="row" data-id="${esc(x.id)}"><td>${esc(x.n)}<div class="note mono">${esc(x.id)}</div></td><td>${esc(CAT[x.c]||x.c)}</td><td><span class="pill p-${x.f?'content':'ops'}">${x.f?'Yes':'No'}</span></td><td class="num">${x.runs!=null?fmt(x.runs):'—'}</td><td><span class="pill p-${hh[0]}">${hh[2]} ${pct(r)}</span></td><td class="num">${x.min!=null?fmt(x.min):'—'}</td><td>${x.last?esc(x.last):'—'}</td></tr>`;
+    if (st.open===x.id) h += `<tr class="detail"><td colspan="7"><dl><dt>Purpose</dt><dd>${esc(x.p)}</dd><dt>Trigger</dt><dd>${esc(x.t)}</dd><dt>Why this class</dt><dd>${esc(x.fr)}</dd>${x.runs!=null?`<dt>30-day runs</dt><dd>${fmt(x.ok)} ok · ${fmt(x.fail)} failed · ${fmt(x.can)} cancelled · ${fmt(x.sk)} skipped · median ${x.med}s</dd>`:''}</dl></td></tr>`; });
+  $('#autoTable').innerHTML = h + (rows.length?'':'<tr><td colspan="7" class="note">No automations match.</td></tr>') + '</tbody>';
+  $('#autoTable').querySelectorAll('th[data-sort]').forEach(th => th.onclick = () => { const k = th.dataset.sort; st.dir = st.sort===k ? -st.dir : (k==='n'||k==='c'?1:-1); st.sort = k; drawAuto(); });
+  $('#autoTable').querySelectorAll('tr.row').forEach(tr => tr.onclick = () => { st.open = st.open===tr.dataset.id ? null : tr.dataset.id; drawAuto(); });
+}
+drawAuto();
+
+/* ---------- diagnosis ---------- */
+$('#findings').innerHTML = BASE.findings.map((f,i) => `<div class="card find"><div class="hd"><h3>${i+1}. ${esc(f.title)}</h3><span class="pill p-${f.sev}">${f.sev==='bad'?'✕ High impact':f.sev==='warn'?'▲ Medium impact':'○ Low impact'}</span><span class="pill p-none">Confidence: ${esc(f.conf)}</span></div><ul>${f.ev.map(e=>`<li>${esc(e)}</li>`).join('')}</ul><div class="fix"><b>Fix.</b> ${esc(f.fix)}</div></div>`).join('');
+$('#fixes').innerHTML = BASE.fixes.map(x => `<li>${esc(x)}</li>`).join('');
+$('#gaps').innerHTML = BASE.gaps.map(x => `<li>${esc(x)}</li>`).join('');
+
+/* ---------- roadmap ---------- */
+const PLAN = {h:'all'};
+const HZ = {1:'This week',2:'Next 2 weeks',3:'Next 6 weeks'};
+const OWN = {E:['content','Executor agent'],J:['warn','Joey decides'],H:['social','Human action']};
+function drawPlan(){
+  const hs = [['all','All'],[1,'This week'],[2,'Next 2 weeks'],[3,'Next 6 weeks']];
+  $('#planFilters').innerHTML = hs.map(([k,l]) => `<button class="chip" data-h="${k}" aria-pressed="${PLAN.h==k}">${l}</button>`).join('');
+  $('#planFilters').querySelectorAll('button').forEach(b => b.onclick = () => { PLAN.h = b.dataset.h==='all'?'all':+b.dataset.h; drawPlan(); });
+  $('#planList').innerHTML = BASE.roadmap.filter(r => PLAN.h==='all' || r.h===PLAN.h).map(r => `<div class="card find"><div class="hd"><h3>${r.n}. ${esc(r.t)}</h3><span class="pill p-none">${HZ[r.h]}</span><span class="pill p-${OWN[r.o][0]}">${OWN[r.o][1]}</span><span class="pill p-none">Effort ${r.e}</span></div>
+   <div>${esc(r.d)}</div>
+   <div class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="note">Goals</span>${r.g.map(g=>`<span class="pill p-content">${g}</span>`).join('')}<span class="note" style="margin-left:8px">Flow</span>${r.f.map(f=>`<span class="pill p-ops">${esc(f)}</span>`).join('')}</div>
+   <div class="fix"><b>Proof.</b> ${esc(r.v)}</div></div>`).join('');
+}
+drawPlan();
+$('#decisions').innerHTML = BASE.decisions.map(x => `<li><b>${esc(x.q)}</b> <span style="color:var(--ink2)">${esc(x.why)}</span></li>`).join('');
+$('#avoid').innerHTML = BASE.avoid.map(x => `<li>${esc(x)}</li>`).join('');
+
+/* ---------- true north goals ---------- */
+let GOALS = BASE.goals.slice();
+const GST = {off:['bad','✕ Off track'], part:['warn','▲ Partly there'], none:['none','○ Not measured'], on:['good','● On track']};
+const sc = n => { const s = (BASE.plan && BASE.plan.scorecard || []).find(x => x.goal === n); return s ? `<div class="grid two" style="gap:8px"><div class="note"><b>In 2 weeks:</b> ${esc(s.target2w)}</div><div class="note"><b>In 6 weeks:</b> ${esc(s.target6w)}</div></div><div class="note"><b>Written by:</b> ${esc(s.writer)}</div>` : ''; };
+function drawGoals(){
+  GOALS.sort((a,b)=>a.n-b.n);
+  const cnt = {}; GOALS.forEach(g => cnt[g.status] = (cnt[g.status]||0)+1);
+  $('#goalSummary').innerHTML = Object.entries(GST).map(([k,[c,l]]) => `<span><span class="pill p-${c}">${l}</span> ${cnt[k]||0}</span>`).join('');
+  $('#goalList').innerHTML = GOALS.map(g => { const s = GST[g.status] || GST.none;
+    return `<div class="card find"><div class="hd"><h3>${g.n}. ${esc(g.title)}</h3><span class="pill p-${s[0]}">${s[1]}</span></div>
+    <div class="grid two" style="gap:10px">
+      <div><div class="note"><b>Target</b></div><div>${esc(g.target)}</div></div>
+      <div><div class="note"><b>Where we are</b></div><div style="color:var(--ink2)">${esc(g.now)}</div></div>
+    </div>
+    <div class="fix"><b>How we will measure it.</b> ${esc(g.measure)}</div>${sc(g.n)}</div>`; }).join('');
+}
+drawGoals();
+
+/* ---------- trends (live from the shared store, baseline as fallback) ---------- */
+let WEEKS = BASE.weeks.slice(), SNAPS = [BASE.snap], ANN = BASE.annotations.slice();
+function bars(el, title, key, color, unit){
+  const data = WEEKS.filter(w => w[key] != null); const W=320,H=170,L=34,B=24,T=22; const mx = Math.max(1,...data.map(d=>d[key])); const bw = (W-L-8)/Math.max(1,data.length);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)} by week"><text x="0" y="12" class="v" style="font-weight:600">${esc(title)}</text>`;
+  [0,.5,1].forEach(t => { const y = H-B-(H-B-T)*t; s += `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-4}" y="${y+3}" text-anchor="end">${fmt(Math.round(mx*t))}</text>`; });
+  data.forEach((d,i) => { const h = (H-B-T)*d[key]/mx, x = L+i*bw+6, y = H-B-h, last = i===data.length-1;
+    s += `<rect x="${x}" y="${y}" width="${bw-12}" height="${Math.max(h,1)}" rx="2" fill="var(--${color})" opacity="${last?1:.75}"><title>${esc(d.id)}: ${fmt(d[key])} ${unit}</title></rect><text x="${x+(bw-12)/2}" y="${y-4}" text-anchor="middle" class="v">${fmt(d[key])}</text><text x="${x+(bw-12)/2}" y="${H-8}" text-anchor="middle">${d.id.slice(5)}</text>`; });
+  el.innerHTML = s + '</svg>';
+}
+function drawTrends(){
+  WEEKS.sort((a,b)=>a.id<b.id?-1:1);
+  const defs = [['Vault PRs merged','vaultPRs','content','PRs'],['Vault lines added','vaultLines','content','lines'],['Content PRs merged','contentPRs','content','PRs'],['Social PRs merged','socialPRs','social','PRs'],['Failed workflow runs','failures','ops','runs'],['Workflow runs','runs','ops','runs']];
+  $('#weekCharts').innerHTML = defs.map((_,i)=>`<div class="ch" id="wc${i}"></div>`).join('');
+  defs.forEach(([t,k,c,u],i) => bars($('#wc'+i), t, k, c, u));
+  SNAPS.sort((a,b)=>a.date<b.date?-1:1);
+  const last = SNAPS.slice(-6).reverse();
+  const defsK = BASE.kpiDefs;
+  $('#snapTable').innerHTML = `<thead><tr><th>Measure</th>${last.map(s=>`<th class="num">${esc(s.date.slice(5))}</th>`).join('')}<th class="num">Change</th></tr></thead><tbody>` +
+   defsK.map(d => { const vals = last.map(s => s.v?.[d.k]); const cur = vals[0], prev = vals[1]; let ch = '—', cls = '';
+     if (cur != null && prev != null && prev !== cur) { const up = cur > prev; const good = d.better==='up' ? up : !up; ch = (up?'↑ ':'↓ ') + fmt(Math.abs(Math.round((cur-prev)*100)/100)); cls = good?'p-good':'p-bad'; }
+     return `<tr><td>${esc(d.l)}</td>${vals.map(v=>`<td class="num">${v==null?'—':fmt(v)+(d.u||'')}</td>`).join('')}<td class="num"><span class="pill ${cls||'p-none'}">${ch}</span></td></tr>`; }).join('') + '</tbody>';
+  ANN.sort((a,b)=>a.date<b.date?1:-1);
+  $('#annots').innerHTML = ANN.map(a => `<li><time>${esc(a.date)}</time><span>${esc(a.text)}</span></li>`).join('');
+}
+drawTrends();
+(async () => {
+  const set = t => { $('#dbstate').textContent = t; };
+  let db = null; try { db = await window.claude?.use('db'); } catch(e) {}
+  if (!db) { set('Showing the baseline captured on ' + BASE.snapshot + '. Live updates are unavailable in this view.'); return; }
+  const watch = (name, fn) => { try { db.collection(name).onSnapshot(q => { fn(q.docs.map(d => ({id:d.id, ...d.data()}))); drawTrends(); set('Live. Last update ' + new Date().toLocaleString()); }, () => set('Showing the baseline; the shared store could not be read.')); } catch(e) { set('Showing the baseline; the shared store could not be read.'); } };
+  watch('weeks', rows => { if (rows.length) WEEKS = rows; });
+  watch('snapshots', rows => { if (rows.length) SNAPS = rows; });
+  watch('annotations', rows => { if (rows.length) ANN = rows; });
+  try { db.collection('tracker').onSnapshot(q => { TRACK = Object.fromEntries(q.docs.map(d => [d.id, d.data()])); drawTrack(); drawPlanItems(); $('#trackState').textContent = 'Live. Last update ' + new Date().toLocaleString(); }, () => { $('#trackState').textContent = 'Showing every item as not started; the shared store could not be read.'; }); } catch(e) {}
+  try { db.collection('goals').onSnapshot(q => { const m = Object.fromEntries(GOALS.map(g=>[g.n,g])); q.docs.forEach(d => { const x = d.data(); if (x && x.n != null) m[x.n] = {...m[x.n], ...x}; }); GOALS = Object.values(m); drawGoals(); }, () => {}); } catch(e) {}
+})();
+</script>

@@ -63,6 +63,16 @@ describe('isAllowlistedImageHost', () => {
     expect(isAllowlistedImageHost('https://www.people.com/photo.jpg')).toBe(true);
   });
 
+  it.each([
+    'https://www.taylorswift.com/wp-content/photo.jpg',
+    'https://cdn.shopify.com/s/files/photo.jpg',
+    'https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg',
+    'https://static01.nyt.com/images/photo.jpg',
+    'https://media.pitchfork.com/photos/photo.jpg',
+  ])('passes official and established image host %s', (url) => {
+    expect(isAllowlistedImageHost(url)).toBe(true);
+  });
+
   it('rejects a non-allowlisted host', () => {
     expect(isAllowlistedImageHost('https://random-blog.example.com/x.jpg')).toBe(false);
   });
