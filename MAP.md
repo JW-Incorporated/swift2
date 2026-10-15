@@ -72,6 +72,7 @@ docs `CLAUDE.md` points at:
 | `supabase/migrations/20261014020000_community_outcomes.sql`, `packages/shared/src/community/types.ts` | Service-role-only community engagement metrics and owner-posted comment outcomes at 1h/24h/7d; portable row types for the new fields |
 | `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
 | `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
+| `scripts/tidewatch/collect.mjs`, `adapters/*.mjs`, `fingerprint.mjs` | Zero-LLM pull collector over news, intake, community, merch, social/reply ledgers, and merged moments; per-store cursors advance only after watch-item and story-timeline upserts. `--dry-run --fixtures` provides the credential-free full-pipeline smoke path |
 
 ## Session infrastructure (`.claude/` and the standing files)
 
