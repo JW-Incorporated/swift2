@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Awareness image-reply lane — the answerer routine's deterministic hands
+// Awareness image-reply lane — the drafter's deterministic hands (eligibility, validator, storage; draft-replies.mjs calls them)
 // (docs/agents/runner-prompts/awareness-answerer.md). The routine LLM holds NO
 // database secret and has no shell: it only reads an export file and writes a
 // drafts file. This script does every read and write around it, in plain

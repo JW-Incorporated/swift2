@@ -170,15 +170,13 @@ function redactNames(text: string, names: string[]): string {
 
 const FB_ORIGIN = 'https://www.facebook.com';
 const PERMALINK_HREF_RE =
-  /href="([^"]*(?:\/posts\/[\w.-]+|\/permalink\/[\w.-]+|story_fbid=)[^"]*)"/i;
-const KEEP_PERMALINK_PARAMS = new Set(['story_fbid', 'id']);
+  /href="([^"]*(?:\/posts\/[\w.-]+|\/permalink\/[\w.-]+|story_fbid=|set=gm\.)[^"]*)"/i;
 
 /**
  * The post's own permalink from a block's raw markup (read BEFORE profile
  * anchors are dropped), or null. Only facebook.com hosts; a /posts/ or
- * /permalink/ path keeps no query at all (comment_id and tracking go), a
- * story_fbid link keeps just story_fbid + id. It is a URL, never a member's
- * name, and profile links (/user/, /people/) never match.
+ * name, and profile links (/user/, /people/) never match. All supported
+ * legacy shapes are reduced to the one canonical group-post form.
  */
 export function extractPermalink(block: string): string | null {
   const match = PERMALINK_HREF_RE.exec(block);
@@ -190,16 +188,13 @@ export function extractPermalink(block: string): string | null {
     return null;
   }
   if (!/^(?:[a-z0-9-]+\.)*facebook\.com$/i.test(url.hostname)) return null;
-  if (!/\/(?:posts|permalink)\/[\w.-]+/.test(url.pathname)) {
-    if (!url.searchParams.get('story_fbid')) return null;
-    for (const key of [...url.searchParams.keys()])
-      if (!KEEP_PERMALINK_PARAMS.has(key)) url.searchParams.delete(key);
-  } else {
-    url.search = '';
-  }
-  url.hash = '';
-  url.protocol = 'https:';
-  return url.toString();
+  const groupId = /\/groups\/([^/?#]+)/i.exec(url.pathname)?.[1] ?? url.searchParams.get('id');
+  const postId =
+    /\/(?:posts|permalink)\/([\w.-]+)/i.exec(url.pathname)?.[1] ??
+    url.searchParams.get('story_fbid') ??
+    /(?:^|[.,])gm\.([\w.-]+)/i.exec(url.searchParams.get('set') ?? '')?.[1];
+  if (!groupId || !postId) return null;
+  return `${FB_ORIGIN}/groups/${encodeURIComponent(groupId)}/posts/${encodeURIComponent(postId)}/`;
 }
 
 function parseCount(match: RegExpMatchArray | null): number {

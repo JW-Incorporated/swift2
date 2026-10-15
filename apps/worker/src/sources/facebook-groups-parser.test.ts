@@ -216,14 +216,14 @@ describe('post permalink capture', () => {
   it('captures root-relative /permalink/ and story_fbid links', () => {
     expect(
       extractPostsFromHtml(post('<a href="/groups/1/permalink/77/?ref=x">1h</a>'))[0]!.permalink,
-    ).toBe('https://www.facebook.com/groups/1/permalink/77/');
+    ).toBe('https://www.facebook.com/groups/1/posts/77/');
     expect(
       extractPostsFromHtml(
         post(
           '<a href="https://m.facebook.com/permalink.php?story_fbid=55&amp;id=1&amp;fbclid=z">t</a>',
         ),
       )[0]!.permalink,
-    ).toBe('https://m.facebook.com/permalink.php?story_fbid=55&id=1');
+    ).toBe('https://www.facebook.com/groups/1/posts/55/');
   });
 
   it('is null with no permalink, for profile links, and for off-Facebook hosts', () => {

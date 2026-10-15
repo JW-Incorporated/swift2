@@ -1006,6 +1006,68 @@ jobs:
             echo "vault-run cadence ALARM"
           fi
 
+      # Social posting-gap alarm (#5881). Everything the watchdog already
+      # watches on the social lane is an INPUT — a failed daily-draft run
+      # (#5697), a poster that errored. Nothing watched the OUTCOME: a lane
+      # that drafts, approves and dispatches perfectly while every send
+      # silently no-ops looks green all the way down, and detection waited for
+      # the weekly Monday scorecard (which has itself died). Logic, the 48h
+      # threshold, the SOCIAL_FREEZE carve-out and the #longlive-tree line all
+      # live in scripts/watchdog/check-posting-gap.mjs (unit-tested,
+      # deterministic, zero AI) — same shape as the vault-run and
+      # push-heartbeat checks. Daily-only: a 48-hour question does not need an
+      # hourly look. Two titles, mutually exclusive, so "no posts" and "the
+      # check itself broke" can never both stand — the push-heartbeat pattern.
+      #
+      # The #longlive-tree line is sent by this plain job, never by an agent,
+      # and only when upsert-alert.sh reported an actual state change — the
+      # same "never re-ping a standing alert" rule it applies to #marjorie,
+      # read off its own stdout rather than by changing a shared script with
+      # ~25 other call sites.
+      #
+      # Both titles are unknown to alert-notify.mjs's HANDLER_CLASS, so they
+      # take the unknown-title default and stay loud in #marjorie
+      # (docs/ops/watchdog-notifications.md — that default is why a new
+      # condition needs no edit there). Classify them only if Marjorie starts
+      # handling this one herself.
+      - name: Social posting-gap alarm
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          GAP_TITLE="Watchdog: nothing posted to social in over 48h"
+          BROKEN_TITLE="Watchdog: social posting-gap check could not run"
+          UPSERT_LOG=/tmp/posting-gap-upsert.log
+          STATUS=0
+          node scripts/watchdog/check-posting-gap.mjs --alert-body /tmp/posting-gap.md || STATUS=$?
+          if [ "$STATUS" -eq 1 ]; then
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$GAP_TITLE" /tmp/posting-gap.md \
+              | tee "$UPSERT_LOG"
+            scripts/watchdog/upsert-alert.sh close "$BROKEN_TITLE" /tmp/posting-gap.md
+            if grep -q '^opened new watchdog-alert: ' "$UPSERT_LOG"; then
+              ALERT_URL=$(grep -m1 '^opened new watchdog-alert: ' "$UPSERT_LOG" | cut -d' ' -f4)
+              node scripts/watchdog/check-posting-gap.mjs --tree-ping open --alert-url "$ALERT_URL"
+            fi
+          elif [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$GAP_TITLE" /tmp/posting-gap.md | tee "$UPSERT_LOG"
+            scripts/watchdog/upsert-alert.sh close "$BROKEN_TITLE" /tmp/posting-gap.md
+            if grep -q '^closed watchdog-alert ' "$UPSERT_LOG"; then
+              node scripts/watchdog/check-posting-gap.mjs --tree-ping recovered
+            fi
+          else
+            echo "::warning::check-posting-gap.mjs exited $STATUS — posting liveness is unverified, not clear."
+            scripts/watchdog/upsert-alert.sh close "$GAP_TITLE" /tmp/posting-gap.md
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$BROKEN_TITLE" /tmp/posting-gap.md
+          fi
+
       # docs/social/RULINGS-SOCIAL.md A6 — "a watchdog that reddens and emails when an
       # OPEN [BLOCKING] human action is older than 24h." Tonight's near-miss
       # (#56, the freeze, filed but not executed until a session caught it

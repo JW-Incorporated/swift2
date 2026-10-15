@@ -9,7 +9,7 @@
 # anonymous only: the owner ruled 2026-10-01 there is NEVER a Reddit API key
 # (docs/decisions.md). Filters, caps and a share-card pick are in the scripts;
 # rows land as `engagement_lead(kind='awareness_reply', status='new')`.
-# routine-awareness-answerer drafts the words every 3 hours (skipped by a gate
+# community-draft-replies drafts the words every 3 hours (exits at once
 # when nothing is waiting) and community-awareness-deliver posts each batch to
 # Discord.
 #

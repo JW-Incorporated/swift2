@@ -588,6 +588,7 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 - **Acceptance:** Replay file with >= 600 labeled items; per-class counts printed; >= 15 critical and >= 5 personal examples (synthetic ones marked) present.
 - **Token impact:** One-off metered batch, small. · **Risks:** Too few real critical events: add synthetic, clearly flagged cases.
 - **Needs decision entry:** no · **Needs human action:** no · **Branch/PR:** own branch (feature/tidewatch-p1-04) in a worktree outside Projects; PR with TL;DR; auto-merge on green
+- **Execution note (P1-04):** the 21 growth-strategy time-sensitive events were not found as a separate list under `docs/`; the 90-day news pool covers them. The label run executes in the `tidewatch-replay-label` workflow (subscription token lives in Actions).
 
 #### P1-05. Tidewatch collector (pull adapters over existing stores)
 - **What:** scripts/tidewatch/collect.mjs reads, on per-source cursors, news_raw_item and news_story, intake issues (gh api), appearance issues, engagement_lead, fan_theory_candidate, merch seed diffs, social ledgers, reply ledger and merged seed moments; builds item_key, url_norm_hash and title_simhash; upserts watch_item and story_timeline.detected_at. Zero LLM, never edits other pipelines.
