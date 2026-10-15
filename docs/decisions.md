@@ -9131,3 +9131,11 @@ Measured cost floor: each call uses about 6.6K cache-creation input tokens with 
 ## 2026-10-15 — P1-28c tooling transport boundary
 
 **Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.
+
+## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
+
+**Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` cannot reach the source path or any other directory. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
+
+The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
+
+**Why.** P1-19 and P1-20 need listing pixels, but enabling a general tool set or exposing an original filesystem path would turn untrusted listing content into a host-read capability. A staged copy plus Claude Code's working-directory confinement provides the minimum image capability without Bash, Write, Edit, WebFetch, MCP or access outside the per-call directory.
