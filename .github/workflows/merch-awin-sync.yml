@@ -63,6 +63,7 @@ jobs:
             awin-product-index.sqlite
           key: merch-awin-sync-${{ github.run_id }}
       - name: Open gated advertiser-map update
+        if: ${{ !cancelled() }}
         uses: peter-evans/create-pull-request@v8
         with:
           add-paths: |

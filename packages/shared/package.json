@@ -12,7 +12,9 @@
     "./community": "./src/community.ts",
     "./redline": "./src/redline.ts",
     "./tidewatch/types": "./src/tidewatch/types.ts",
-    "./llm/anthropic-messages": "./src/llm/anthropic-messages.ts"
+    "./llm/anthropic-messages": "./src/llm/anthropic-messages.ts",
+    "./jev/client": "./src/jev/client.ts",
+    "./jev/questions": "./src/jev/questions.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
