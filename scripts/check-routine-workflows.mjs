@@ -95,8 +95,8 @@ export function extractAllowedTools(text) {
 
 /** Extracts a top-level workflow permission, or `none` when it is absent. */
 export function extractPermission(text, permission) {
-  const permissions = /^permissions:\s*\n((?:  [^\n]*\n?)*)/m.exec(text)?.[1] ?? '';
-  return new RegExp(`^  ${permission}:\\s*(\\w+)\\b`, 'm').exec(permissions)?.[1] ?? 'none';
+  const permissions = /^permissions:\s*\n((?: {2}[^\n]*\n?)*)/m.exec(text)?.[1] ?? '';
+  return new RegExp(`^ {2}${permission}:\\s*(\\w+)\\b`, 'm').exec(permissions)?.[1] ?? 'none';
 }
 
 /**
