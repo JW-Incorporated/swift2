@@ -86,15 +86,15 @@ no PR, no required check, nothing that can silently strand it. Dedupe reads
 the union of `main` and `social-ledger` before every run, so the ledger
 this repo's duplicate-post defense actually depends on can't go stale just
 because a PR failed to land. A single rolling `social-poster/state-rolling` PR into
-`main` still runs afterward — every run force-updates that one fixed branch and
-edits the open PR in place (a new PR opens only when none is open), so state
-changes never pile up as one PR per run. Records written to `social/failed/` carry
-`failedAt`, `attempts` and a short, credential-free `lastError` (`withFailureMetadata`
-in `scripts/social/lib/queue.mjs`) (same allowlist mechanics as before — `.github/
+`main` still runs afterward (same allowlist mechanics as before — `.github/
 content-automerge-allowlist.txt` covers `social/posted/`/`social/failed/`
 as machine bookkeeping — `queue/` auto-merges too, per the no-human-review
-note above), but it's
-VISIBILITY-only now: it keeps `main`'s own copy current for humans and for
+note above). Every run fast-forwards that one fixed branch with a commit that
+merges the branch tip and current `main` (never a force push) and edits the open
+PR in place, so state changes never pile up as one PR per run. Records written
+to `social/failed/` carry `failedAt`, `attempts` and a credential-free
+`lastError` (`withFailureMetadata` in `scripts/social/lib/queue.mjs`). The PR's
+role is VISIBILITY-only now: it keeps `main`'s own copy current for humans and for
 `check-drafts.mjs`'s recent-history heuristics, and a stuck one is a
 staleness-on-`main` problem, not a live-duplicate risk. Full mechanics:
 `.github/workflows/social-poster.yml`'s header comment and `docs/

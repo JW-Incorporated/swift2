@@ -323,3 +323,131 @@ describe('social-poster.yml — ledger push step, executed', () => {
     30_000,
   );
 });
+
+// The fold-back step's git half executed for real (bash + git, throwaway repos):
+// one rolling branch, each commit a merge of the branch tip and current main.
+describe('social-poster.yml — rolling state branch, executed', () => {
+  const wf = read('.github/workflows/social-poster.yml');
+  const hasBash = (() => {
+    try {
+      execFileSync('bash', ['-c', 'true'], { stdio: 'ignore' });
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+  const BRANCH = 'social-poster/state-rolling';
+
+  /** The fold-back `run: |` body up to (not including) the gh calls. */
+  function foldBackGitScript(): string {
+    const lines = wf.split('\n');
+    const start = lines.findIndex((l) => l.includes('- name: Fold ledger back into main'));
+    expect(start).toBeGreaterThan(-1);
+    const runAt = lines.findIndex((l, i) => i > start && /^\s+run: \|\s*$/.test(l));
+    const indent = lines[runAt + 1].match(/^(\s*)/)![1].length;
+    const body: string[] = [];
+    for (let i = runAt + 1; i < lines.length; i++) {
+      const l = lines[i];
+      if (l.trim() === '') {
+        body.push('');
+        continue;
+      }
+      if (l.match(/^(\s*)/)![1].length < indent) break;
+      body.push(l.slice(indent));
+    }
+    const script = body.join('\n');
+    return script.slice(0, script.indexOf('EXISTING=$('));
+  }
+
+  const git = (cwd: string, args: string[]) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+
+  function setup() {
+    const sandbox = mkdtempSync(join(tmpdir(), 'social-poster-state-'));
+    const origin = join(sandbox, 'origin.git');
+    const work = join(sandbox, 'work');
+    git(sandbox, ['init', '--bare', '-q', origin]);
+    git(sandbox, ['init', '-q', '-b', 'main', work]);
+    git(work, ['config', 'user.name', 'test']);
+    git(work, ['config', 'user.email', 'test@example.com']);
+    for (const d of ['social/queue', 'social/posted', 'social/failed']) {
+      mkdirSync(join(work, d), { recursive: true });
+      writeFileSync(join(work, d, '.gitkeep'), '');
+    }
+    writeFileSync(join(work, 'social/queue/item.json'), '{"body":"due"}\n');
+    writeFileSync(join(work, 'README.md'), 'one\n');
+    git(work, ['add', '-A']);
+    git(work, ['commit', '-q', '-m', 'main']);
+    git(work, ['remote', 'add', 'origin', origin]);
+    git(work, ['push', '-q', 'origin', 'HEAD:main']);
+    const run = () =>
+      execFileSync('bash', ['-c', foldBackGitScript()], {
+        cwd: work,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe'],
+        env: { ...process.env, branch: BRANCH, commit_message: 'state run' },
+      });
+    const record = (name: string) => {
+      writeFileSync(join(work, 'social/posted', name), '{"ok":true}\n');
+    };
+    const tip = () => {
+      git(work, ['fetch', '-q', 'origin', '+refs/heads/*:refs/remotes/origin/*']);
+      return git(work, ['rev-parse', `refs/remotes/origin/${BRANCH}`]);
+    };
+    return { sandbox, origin, work, run, record, tip };
+  }
+
+  it.skipIf(!hasBash)('branch missing: created from current main', () => {
+    const s = setup();
+    try {
+      s.record('a.json');
+      s.run();
+      const tip = s.tip();
+      const parents = git(s.work, ['rev-list', '--parents', '-n', '1', tip]).split(' ').slice(1);
+      expect(parents).toEqual([git(s.work, ['rev-parse', 'refs/remotes/origin/main'])]);
+      expect(git(s.work, ['diff', '--name-only', `origin/main...origin/${BRANCH}`])).toBe('social/posted/a.json');
+    } finally {
+      rmSync(s.sandbox, { recursive: true, force: true });
+    }
+  });
+
+  it.skipIf(!hasBash)('branch exists: fast-forward update whose parents are the old tip and main', () => {
+    const s = setup();
+    try {
+      s.record('a.json');
+      s.run();
+      const first = s.tip();
+      s.record('b.json');
+      s.run();
+      const second = s.tip();
+      const parents = git(s.work, ['rev-list', '--parents', '-n', '1', second]).split(' ').slice(1);
+      expect(parents).toEqual([first, git(s.work, ['rev-parse', 'refs/remotes/origin/main'])]);
+      expect(git(s.work, ['merge-base', '--is-ancestor', first, second])).toBe('');
+    } finally {
+      rmSync(s.sandbox, { recursive: true, force: true });
+    }
+  });
+
+  it.skipIf(!hasBash)('main moved on: the PR diff contains only social state files', () => {
+    const s = setup();
+    try {
+      s.record('a.json');
+      s.run();
+      // main advances (non-social change + a deleted queue draft) from another clone.
+      const other = join(s.sandbox, 'other');
+      git(s.sandbox, ['clone', '-q', '-b', 'main', s.origin, other]);
+      git(other, ['config', 'user.name', 'test']);
+      git(other, ['config', 'user.email', 'test@example.com']);
+      writeFileSync(join(other, 'README.md'), 'two\n');
+      git(other, ['rm', '-q', 'social/queue/item.json']);
+      git(other, ['commit', '-qam', 'main moves']);
+      git(other, ['push', '-q', 'origin', 'HEAD:main']);
+      s.record('b.json');
+      s.run();
+      s.tip();
+      const names = git(s.work, ['diff', '--name-only', `origin/main...origin/${BRANCH}`]).split('\n').sort();
+      expect(names).toEqual(['social/posted/a.json', 'social/posted/b.json']);
+    } finally {
+      rmSync(s.sandbox, { recursive: true, force: true });
+    }
+  });
+});

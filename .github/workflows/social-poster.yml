@@ -477,19 +477,28 @@ jobs:
             echo "No queue changes to fold back into main."
             exit 0
           fi
-          # ONE rolling PR: the branch name is fixed, so every run commits the
-          # full current state (this checkout is main + the ledger overlay, so
-          # its tree is cumulative) as a NEW commit on top of the branch's
-          # existing tip — a plain fast-forward push, never a force push. The
+          # ONE rolling PR on a fixed branch, never force-pushed. Each run
+          # commits a MERGE of the branch's current tip and current main, so the
+          # push is a plain fast-forward and main is always the merge base (the
+          # PR diff can never pick up main's newer changes, and auto-merge is not
+          # disarmed). The tree is current main plus ONLY this run's social
+          # state diff, so a squash cannot resurrect anything deleted on main.
+          # Refs are fetched explicitly; a stale FETCH_HEAD is never used. When
+          # the branch is missing it is created from current main alone. The
           # open PR for that head is updated in place; a new one is opened only
-          # when none is open (first run, or after the previous one merged and
-          # deleted the branch).
-          NEW_TREE=$(git write-tree)
-          git fetch origin "$branch" || true
-          if git rev-parse --verify --quiet FETCH_HEAD >/dev/null 2>&1 && git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p FETCH_HEAD -m "$commit_message")
+          # when none is open.
+          git fetch origin "+refs/heads/main:refs/remotes/origin/main"
+          MAIN_SHA=$(git rev-parse --verify "refs/remotes/origin/main^{commit}")
+          SCRATCH_INDEX_DIR=$(mktemp -d)
+          GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git read-tree "$MAIN_SHA"
+          git diff --cached --binary HEAD -- social/queue social/posted social/failed | GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git apply --cached
+          NEW_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git write-tree)
+          git update-ref -d "refs/remotes/origin/$branch" || true
+          git fetch origin "+refs/heads/$branch:refs/remotes/origin/$branch" || true
+          if TIP_SHA=$(git rev-parse --verify --quiet "refs/remotes/origin/$branch^{commit}"); then
+            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$TIP_SHA" -p "$MAIN_SHA" -m "$commit_message")
           else
-            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p HEAD -m "$commit_message")
+            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$MAIN_SHA" -m "$commit_message")
           fi
           git push origin "$NEW_COMMIT:refs/heads/$branch"
           EXISTING=$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')

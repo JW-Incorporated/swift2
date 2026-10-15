@@ -444,14 +444,14 @@ export const LAST_ERROR_MAX_LENGTH = 200;
  * (which can carry tokens in query strings), Bearer/token-looking values and
  * `key=value` secrets are redacted, whitespace collapsed, length capped.
  */
-export function sanitizeLastError(error) {
+export function sanitizeLastError(error, maxLength = LAST_ERROR_MAX_LENGTH) {
   const text = String(error?.message ?? error ?? '')
     .replace(/\bhttps?:\/\/\S+/gi, '[url]')
     .replace(/\bBearer\s+\S+/gi, 'Bearer [redacted]')
     .replace(/\b(access_token|token|api[_-]?key|secret|password|signature|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
     .replace(/\s+/g, ' ')
     .trim();
-  return text.length > LAST_ERROR_MAX_LENGTH ? `${text.slice(0, LAST_ERROR_MAX_LENGTH - 1)}…` : text;
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
 }
 
 /**
@@ -460,12 +460,14 @@ export function sanitizeLastError(error) {
  * e.g. stale or invalid scheduledAt) and a sanitized `lastError`.
  */
 export function withFailureMetadata(item, { now = new Date(), error } = {}) {
-  return {
+  const out = {
     ...item,
     failedAt: now.toISOString(),
     attempts: item.attempts ?? 0,
     lastError: sanitizeLastError(error ?? item.lastError ?? item.failureReason ?? 'unknown'),
   };
+  if (typeof item.failureReason === 'string') out.failureReason = sanitizeLastError(item.failureReason, Infinity);
+  return out;
 }
 
 /**

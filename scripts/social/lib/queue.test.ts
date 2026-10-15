@@ -699,3 +699,12 @@ describe('failure metadata for social/failed/ records', () => {
     expect(sanitizeLastError('x'.repeat(500)).length).toBeLessThanOrEqual(200);
   });
 });
+
+describe('failureReason redaction', () => {
+  it('redacts failureReason too, without the length cap', () => {
+    const reason = `Transport failure https://api.x.com/2/tweets?access_token=abc123 ${'y'.repeat(400)}`;
+    const out = withFailureMetadata({ attempts: 1, failureReason: reason }, { now: new Date() });
+    expect(out.failureReason).not.toMatch(/https?:|abc123/);
+    expect(out.failureReason.length).toBeGreaterThan(300);
+  });
+});
