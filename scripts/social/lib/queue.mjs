@@ -437,6 +437,44 @@ export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}
   return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval };
 }
 
+export const LAST_ERROR_MAX_LENGTH = 200;
+
+/**
+ * Short, credential-free form of an error text for a social/failed/ record:
+ * URLs (query strings can carry tokens), Bearer values and `key=value` /
+ * `"key": "value"` secrets (any `oauth_*` parameter, e.g. the
+ * oauth_consumer_key of an X OAuth header, and any key ending in
+ * token/secret/password/signature/key, e.g. access_token or a bare token=)
+ * are redacted, whitespace collapsed, length capped at `maxLength`.
+ */
+export function sanitizeLastError(error, maxLength = LAST_ERROR_MAX_LENGTH) {
+  const text = String(error?.message ?? error ?? '')
+    .replace(/\bhttps?:\/\/[^\s"'<>]+/gi, '[url]')
+    .replace(/\bBearer\s+\S+/gi, 'Bearer [redacted]')
+    .replace(/\b(oauth_\w+|[\w-]*(?:token|secret|password|signature|key)|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+/**
+ * The record post-queue.mjs writes to social/failed/: the item plus
+ * `failedAt` (ISO time of the move), `attempts` (kept from the item, 0 when
+ * it never reached a platform, e.g. stale or invalid scheduledAt) and a
+ * short, redacted `lastError`. `failureReason` keeps its full length but is
+ * redacted the same way, because it can embed the raw error text.
+ */
+export function withFailureMetadata(item, { now = new Date(), error } = {}) {
+  const out = {
+    ...item,
+    failedAt: now.toISOString(),
+    attempts: item.attempts ?? 0,
+    lastError: sanitizeLastError(error ?? item.lastError ?? item.failureReason ?? 'unknown'),
+  };
+  if (typeof item.failureReason === 'string') out.failureReason = sanitizeLastError(item.failureReason, Infinity);
+  return out;
+}
+
 /**
  * The exact content-bound payload an `approval.contentHash` covers
  * (docs/social/RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes

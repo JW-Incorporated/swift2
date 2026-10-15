@@ -48,6 +48,7 @@ jobs:
       - uses: dorny/paths-filter@v4
         id: filter
         with:
+          predicate-quantifier: 'every'
           filters: |
             non_content:
               - '**'
@@ -202,12 +203,18 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # *.generated.ts are gitignored and absent on a fresh checkout; generate
+      # them first, as build-full does, or check:generated hits ENOENT.
+      - run: npm run sync:content
       - run: npm run validate:content
       # Content-only PRs are exactly the ones that change the mobile bundle,
       # so they must build it too (build-full gets this after sync:content).
       - run: npm run check:content-bundle
       - run: npm run validate:social
       - run: npm run check:generated
+      # docs/** PRs route here; build-full's check on docs/launch-readiness.md
+      # claims is offline and cheap, so docs-only PRs keep it.
+      - run: npm run check:launch-gates
       - name: Voice gate on changed content
         run: |
           git fetch --no-tags --depth=1 origin main
@@ -215,7 +222,6 @@ jobs:
       - run: npm run content:coverage
       # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
       # content-only PRs get the OTA size budget too (see build-full).
-      - run: npm run sync:content
       - name: Expo export (iOS, size budget)
         working-directory: apps/mobile
         run: npx expo export --platform ios --output-dir dist-ios

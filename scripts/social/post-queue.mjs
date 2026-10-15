@@ -94,6 +94,8 @@ import {
   mediaUrlsFor,
   approvalStatus,
   MEDIA_BASE_URL,
+  sanitizeLastError,
+  withFailureMetadata,
 } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
@@ -158,7 +160,7 @@ async function readJsonDir(dir, { required = false } = {}) {
 }
 
 async function moveToFailed(failedDir, entry, failed) {
-  await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
+  await writeFile(path.join(failedDir, entry.file), JSON.stringify(withFailureMetadata(failed), null, 2) + '\n');
   await rm(entry.full);
 }
 
@@ -466,10 +468,12 @@ export async function main() {
 
     // 1. Stale check FIRST — regardless of what else is true about this
     // item, with ONE exception: a posted record with this exact file name
-    // means it already went live and only its queue fold-back is stuck, so
-    // it is never stale and falls through to the duplicate skip below. An
-    // unposted item that merely shares a campaign/body with some other
-    // posted record is still stale. A 3-day-stale item must not quietly post just
+    // that is ALSO a duplicate of it means it already went live and only its
+    // queue fold-back is stuck, so it is never stale and falls through to the
+    // duplicate skip below. An unposted item that merely shares a
+    // campaign/body with some other posted record is still stale, and so is
+    // a same-named file edited and re-approved since it posted (no longer a
+    // duplicate, so it would otherwise post). A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
     // `due` only ever contains items that already passed the approval gate
     // above (validQueued), so every item reaching this point has a valid
@@ -478,7 +482,7 @@ export async function main() {
     // isStaleApproved).
     const dup = findPostedDuplicate(item, allPostedData);
     const alreadyPostedHere = allPosted.some((p) => p.file === entry.file);
-    if (!alreadyPostedHere && isStaleApproved(item, now)) {
+    if (!(alreadyPostedHere && dup) && isStaleApproved(item, now)) {
       const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
@@ -639,7 +643,7 @@ export async function main() {
       }
 
       const attempts = (item.attempts ?? 0) + 1;
-      const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
+      const failed = { ...item, attempts, lastError: sanitizeLastError(lastError), lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
         failed.failureReason = `Failed ${attempts} time(s): ${lastError}`;
         await moveToFailed(failedDir, entry, failed);

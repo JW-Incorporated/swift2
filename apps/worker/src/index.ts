@@ -8,10 +8,22 @@
 import { createWorkerDbClient } from './db/client';
 import { detectExtractDegraded } from './extract/degraded';
 import { runCycle } from './pipeline/run-cycle';
+import { PRIMARY_SOURCES } from './sources/registry';
 
 async function main() {
+  const primary = process.argv.includes('--primary');
+  const dryRun = process.argv.includes('--dry-run');
+  if (dryRun) {
+    if (!primary) throw new Error('--dry-run currently requires --primary');
+    console.log('news-worker: primary dry run (no DB or network reads/writes)');
+    for (const source of PRIMARY_SOURCES) {
+      console.log(`- ${source.name} [${source.sourceType}] ${source.url}`);
+    }
+    return;
+  }
+
   const db = createWorkerDbClient();
-  const result = await runCycle(db);
+  const result = await runCycle(db, { primary });
 
   // A "schema not yet migrated" error is a KNOWN, TRACKED infra-pending state,
   // not a worker fault: the knowledge-engine Stage 1/2 migrations
@@ -45,6 +57,7 @@ async function main() {
     errorCount: result.errors.length,
     schemaPending: pendingErrors.length,
     realErrors: realErrors.length,
+    mode: primary ? 'primary' : 'all',
   });
   for (const err of realErrors) console.error(`news-worker: ${err}`);
   if (pendingErrors.length > 0) {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { selectClaudeToken } from './claude-token.mjs';
+import { selectClaudeCallToken, selectClaudeToken } from './claude-token.mjs';
 
 const limitState = { resetAt: '2026-10-15T03:00:00.000Z' };
 const backupLimitedState = {
@@ -44,5 +44,30 @@ describe('selectClaudeToken', () => {
     expect(selectClaudeToken({ limitState, priority: 'routine', hasBackup: true })).toEqual({
       token: 'none', reason: 'skipped: weekly limit until 2026-10-15T03:00:00.000Z',
     });
+  });
+});
+
+describe('selectClaudeCallToken', () => {
+  it('uses the backup when its recorded reset has expired', () => {
+    expect(selectClaudeCallToken({
+      limitState: {
+        resetAt: '2026-10-15T03:00:00.000Z',
+        backupResetAt: '2026-10-15T00:30:00.000Z',
+      },
+      priority: 'P0',
+      hasBackup: true,
+      now: new Date('2026-10-15T01:00:00.000Z'),
+    })).toEqual({
+      token: 'backup', reason: 'using backup token until 2026-10-15T03:00:00.000Z',
+    });
+  });
+
+  it('does not run P0 on a limited primary without a backup', () => {
+    expect(selectClaudeCallToken({
+      limitState,
+      priority: 'P0',
+      hasBackup: false,
+      now: new Date('2026-10-15T01:00:00.000Z'),
+    }).token).toBe('none');
   });
 });

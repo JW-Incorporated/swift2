@@ -18,6 +18,8 @@ import { classifyWithLLM } from '../classify/openai-client';
 import { UsageStore, supabaseUsageDb } from '../classify/usage-store';
 import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
 import { runExtractStage, type ExtractStageResult } from '../extract/run-extract-stage';
+import type { SourceAdapter } from '../sources/types';
+import { filterRelevantItems } from '../sources/relevance';
 
 const SUBJECT_TERMS = ['taylor swift', 'taylor', 'swift'];
 // CrossOutletSimilarityProvider.similarity() is binary (1/0, see its module
@@ -39,7 +41,15 @@ export interface CycleResult {
   errors: string[];
 }
 
-export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
+export interface CycleOptions {
+  primary?: boolean;
+  adapterFor?: (sourceType: string) => SourceAdapter | undefined;
+}
+
+export async function runCycle(
+  db: SupabaseClient,
+  options: CycleOptions = {},
+): Promise<CycleResult> {
   const errors: string[] = [];
   const result: CycleResult = {
     sourcesPolled: 0,
@@ -65,17 +75,22 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
   };
 
   // ---- 1. INGEST -----------------------------------------------------------
-  const { data: sources, error: sourcesError } = await db
-    .from('news_source')
-    .select('id, name, source_type, config')
-    .eq('is_enabled', true);
+  let sourcesQuery = db.from('news_source').select('id, name, source_type, config');
+  if (!options.primary) sourcesQuery = sourcesQuery.eq('is_enabled', true);
+  const { data: sources, error: sourcesError } = await sourcesQuery;
   if (sourcesError) {
     errors.push(`could not load news_source rows: ${sourcesError.message}`);
     return result; // nothing else can run without sources
   }
 
-  for (const source of sources ?? []) {
-    const adapter = getAdapter(source.source_type);
+  const selectedSources = options.primary
+    ? (sources ?? []).filter((source) => source.config?.primary === true)
+    : (sources ?? []);
+  const primarySourceIds = selectedSources.map((source) => source.id);
+  const adapterFor = options.adapterFor ?? getAdapter;
+
+  for (const source of selectedSources) {
+    const adapter = adapterFor(source.source_type);
     if (!adapter) {
       errors.push(
         `no adapter registered for source_type "${source.source_type}" (source "${source.name}")`,
@@ -83,12 +98,13 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
       continue;
     }
     try {
-      const items = await adapter.fetch({
+      const fetchedItems = await adapter.fetch({
         id: source.id,
         name: source.name,
         sourceType: source.source_type,
         config: source.config ?? {},
       });
+      const items = filterRelevantItems(source.config ?? {}, fetchedItems);
       if (items.length > 0) {
         // Aggregator items carry an opaque redirect URL and no per-item
         // outlet identity — resolve to the real publisher before storing so
@@ -97,7 +113,7 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
         // item, so resolution failures fall back to the item unresolved
         // (resolveGoogleNewsItem never throws).
         const resolvedItems =
-          source.source_type === 'google_news'
+          source.source_type === 'google_news' && !options.primary
             ? await Promise.all(items.map((item) => resolveGoogleNewsItem(item)))
             : items;
         const rows = resolvedItems.map((item) => ({
@@ -134,11 +150,14 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
   // Separate query rather than chaining off the upsert above: catches
   // anything left unclustered by a prior cycle that crashed mid-run too, not
   // just this cycle's fresh inserts — the pipeline stays self-healing.
-  const { data: unclustered, error: unclusteredError } = await db
+  let unclusteredQuery = db
     .from('news_raw_item')
     .select('id, title, url, snippet, image_url, published_at')
-    .is('story_id', null)
-    .limit(MAX_UNCLUSTERED_PER_CYCLE);
+    .is('story_id', null);
+  if (options.primary) unclusteredQuery = unclusteredQuery.in('source_id', primarySourceIds);
+  const { data: unclustered, error: unclusteredError } = await unclusteredQuery.limit(
+    MAX_UNCLUSTERED_PER_CYCLE,
+  );
   if (unclusteredError) {
     errors.push(`could not load unclustered items: ${unclusteredError.message}`);
   } else if (unclustered && unclustered.length > 0) {
@@ -257,6 +276,16 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
             })),
             errors,
           );
+          if (options.primary) {
+            await recordFirstPublicAt(
+              db,
+              attachRows.map((r) => ({
+                storyId: r.storyId,
+                publishedAt: r.item.publishedAt,
+              })),
+              errors,
+            );
+          }
         }
       }
 
@@ -275,6 +304,10 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
       errors.push(`cluster stage failed: ${(err as Error).message}`);
     }
   }
+
+  // Fast mode only detects primary-source stories. Classification and
+  // extraction stay on the normal cycle so this path makes no LLM calls.
+  if (options.primary) return result;
 
   // ---- 3. CLASSIFY / RANK ----------------------------------------------------
   const { data: unclassified, error: unclassifiedError } = await db
@@ -327,6 +360,51 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
   }
 
   return result;
+}
+
+/** Keep the earliest source-published timestamp ever observed for each story. */
+export async function recordFirstPublicAt(
+  db: SupabaseClient,
+  items: { storyId: string; publishedAt?: string }[],
+  errors: string[],
+): Promise<void> {
+  const earliestByStory = new Map<string, string>();
+  for (const item of items) {
+    if (!item.publishedAt || Number.isNaN(Date.parse(item.publishedAt))) continue;
+    const previous = earliestByStory.get(item.storyId);
+    if (!previous || Date.parse(item.publishedAt) < Date.parse(previous)) {
+      earliestByStory.set(item.storyId, new Date(item.publishedAt).toISOString());
+    }
+  }
+  if (earliestByStory.size === 0) return;
+
+  try {
+    const storyIds = [...earliestByStory.keys()];
+    const { data: existing, error: selectError } = await db
+      .from('story_timeline')
+      .select('story_id, first_public_at')
+      .in('story_id', storyIds);
+    if (selectError) throw new Error(selectError.message);
+
+    for (const row of existing ?? []) {
+      if (!row.first_public_at || Number.isNaN(Date.parse(row.first_public_at))) continue;
+      const candidate = earliestByStory.get(row.story_id);
+      if (candidate && Date.parse(row.first_public_at) < Date.parse(candidate)) {
+        earliestByStory.set(row.story_id, row.first_public_at);
+      }
+    }
+
+    const rows = [...earliestByStory].map(([story_id, first_public_at]) => ({
+      story_id,
+      first_public_at,
+    }));
+    const { error: upsertError } = await db
+      .from('story_timeline')
+      .upsert(rows, { onConflict: 'story_id' });
+    if (upsertError) throw new Error(upsertError.message);
+  } catch (err) {
+    errors.push(`story_timeline first_public_at failed: ${(err as Error).message}`);
+  }
 }
 
 /**

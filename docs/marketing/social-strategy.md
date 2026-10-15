@@ -545,6 +545,32 @@ Swift fan site whose social media has no pictures of Taylor Swift."* That ends
 the screenshot-first ladder. The grid's job is to show Taylor; the product is
 the byline.
 
+**Library scale is a standing target, and the engine behind it is reported
+weekly (added 2026-10-15, Tree).** Joey asked in `#longlive-tree` on 2026-10-05
+for photo-library scale to be an explicit target of the right order — tens of
+thousands, not dozens — and for the sourcing pipeline being green to be a
+reported gate rather than background plumbing. Both are now written down:
+
+- **Intake floor: ≥50 new never-used entries per calendar week**, while the
+  library is under 3,000 (the figure `concert-photo-sourcing.yml`'s own cron
+  comment already names). It is a floor on the *engine*, not on Tree: a week
+  below it is a reported blocker with a named cause, not a style note.
+- **An era or beat with no never-used photo left is a planning blocker** — the
+  2026-10-01 amendment's standing priority, now a number rather than a
+  sentiment. Name it in the weekly plan so the library gets fed.
+- **Three lines in every weekly plan**, as-is: library total, never-used count,
+  and the conclusion of the last `concert-photo-sourcing` run. See §3.
+
+**Evidence for the floor.** The engine failed its 10-01 and 10-05 scheduled
+runs (`HOME_RELAY_URL` empty → `source-reddit-photos.mjs` falls back to a
+direct fetch → Reddit 403s r/erastour → the first sourcing step exits 1, so
+Wikimedia, dedupe, import and coverage never run at all) and **zero photos
+landed on either**. Since those runs started passing again it has gone green
+five times in a row (10-12 ×2, 10-13, 10-14, 10-15) and the library went
+**88 → 201 entries, 186 of them never used**, inside ten days. The throughput
+is real when the engine runs and exactly zero when it does not, which is why
+its conclusion is a reported line and not a footnote.
+
 **Enforced in code since #2043** (2026-08-12):
 `scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
 values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
@@ -709,6 +735,7 @@ against that old curve is fiction. Reset below.
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
 | Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
+| **Photo supply** (added 2026-10-15, Tree) | `social/photo-library.json` vs `social/posted/` + `gh run list --workflow=concert-photo-sourcing.yml` | Three lines, reported as-is: **library total**, **never-used count**, and **the last `concert-photo-sourcing` run's conclusion**. A red engine is a headline, not a footnote — it lands zero photos, and the §2 intake floor (≥50 never-used entries/week under 3,000) is unreachable while one subreddit 403 is a total stop |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
 published**, weekly. Crude, but it moves when something lands and it needs no
