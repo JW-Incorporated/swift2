@@ -21,9 +21,13 @@ describe('isAllowedImageHost', () => {
 
   it.each([
     'https://www.taylorswift.com/wp-content/photo.jpg',
-    'https://cdn.shopify.com/s/files/photo.jpg',
+    'https://cdn.shopify.com/s/files/1/0011/4651/9637/files/photo.jpg',
   ])('accepts a reviewed official image host: %s', (url) => {
     expect(isAllowedImageHost(url)).toBe(true);
+  });
+
+  it("rejects another store's Shopify image", () => {
+    expect(isAllowedImageHost('https://cdn.shopify.com/s/files/1/9999/9999/9999/files/photo.jpg')).toBe(false);
   });
 
   it('rejects a host on neither list', () => {
