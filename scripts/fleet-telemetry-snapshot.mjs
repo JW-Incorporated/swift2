@@ -48,6 +48,11 @@ import { runMain } from './lib/cli.mjs';
 // (`.github/workflows/routine-template.yml`'s upload-artifact step).
 const ROUTINE_ARTIFACT_NAME = 'routine-usage';
 
+/** The legacy name, or a suffixed one (`routine-usage-<suffix>`) from a routine that runs several agent jobs in one run. Exported and pure for tests. */
+export function isUsageArtifactName(name) {
+  return name === ROUTINE_ARTIFACT_NAME || (typeof name === 'string' && name.startsWith(`${ROUTINE_ARTIFACT_NAME}-`));
+}
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'fleet-telemetry');
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
@@ -181,7 +186,7 @@ async function fetchRunArtifactNames(runId) {
 /**
  * Downloads and parses one run's `routine-usage` artifact.
  *
- * Returns `null` when the run genuinely has none (a skipped/guarded-off
+ * Returns `[]` when the run genuinely has none (a skipped/guarded-off
  * routine run never produces one — not a coverage gap, just nothing to
  * report). Returns an INCOMPLETE placeholder record (routineName known,
  * every metric `null`, `incomplete: true`) when the artifact SHOULD exist
@@ -190,6 +195,8 @@ async function fetchRunArtifactNames(runId) {
  * finding 3). A single bad run must never abort the whole snapshot.
  */
 async function fetchRoutineUsageRecord(runId, routineName) {
+  // A run can carry several usage artifacts (routine-usage, routine-usage-<suffix>):
+  // one record per artifact, never merged and never counted twice.
   const incomplete = (reason) => ({
     routineName,
     numTurns: null,
@@ -204,13 +211,19 @@ async function fetchRoutineUsageRecord(runId, routineName) {
     names = await fetchRunArtifactNames(runId);
   } catch (err) {
     console.error(`fleet-telemetry-snapshot: artifact lookup failed for run ${runId}: ${err?.message ?? err}`);
-    return incomplete('lookup-failed');
+    return [incomplete('lookup-failed')];
   }
-  if (!names.includes(ROUTINE_ARTIFACT_NAME)) return null;
+  const usageNames = [...new Set(names.filter(isUsageArtifactName))];
+  if (usageNames.length === 0) return [];
+  const records = [];
+  for (const artifactName of usageNames) records.push(await readUsageArtifact(runId, artifactName, incomplete));
+  return records;
+}
 
+async function readUsageArtifact(runId, artifactName, incomplete) {
   const dir = await mkdtemp(path.join(tmpdir(), 'routine-usage-'));
   try {
-    await gh(['run', 'download', String(runId), '--name', ROUTINE_ARTIFACT_NAME, '--dir', dir, '--repo', REPO]);
+    await gh(['run', 'download', String(runId), '--name', artifactName, '--dir', dir, '--repo', REPO]);
     const raw = await readFile(path.join(dir, 'routine-usage.json'), 'utf8');
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object' || typeof parsed.routineName !== 'string') {
@@ -233,8 +246,7 @@ async function fetchRoutineUsageRecords(sinceIso) {
   for (const wf of workflows) {
     const runIds = await fetchRoutineRunIds(wf.id, sinceIso);
     for (const runId of runIds) {
-      const record = await fetchRoutineUsageRecord(runId, wf.name);
-      if (record) records.push(record);
+      records.push(...(await fetchRoutineUsageRecord(runId, wf.name)));
     }
   }
   return records;
