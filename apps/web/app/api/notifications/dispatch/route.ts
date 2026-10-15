@@ -46,6 +46,56 @@ const PUSH_SENDING_PASSES = [
   'cooldown',
 ] as const;
 
+// Native clients do not report notification opens yet. Enabling cooldown
+// would therefore downgrade every long-lived Instant device and send its
+// notice at any hour, so this stays off until native open tracking ships.
+const COOLDOWN_PASS_ENABLED = false;
+
+type PassSummary = {
+  considered: number; sent: number; skipped: Record<string, number>; errors: number;
+};
+type DispatchSummary = {
+  event: 'notification_dispatch_summary'; frozen: boolean; routeErrors: number;
+  passes: Record<(typeof PUSH_SENDING_PASSES)[number], PassSummary>;
+};
+
+function passSummary(
+  considered = 0,
+  sent = 0,
+  skipped: Record<string, number> = {},
+  errors: readonly unknown[] = [],
+): PassSummary {
+  return { considered, sent, skipped, errors: errors.length };
+}
+
+function emptySummary(frozen: boolean, routeErrors = 0): DispatchSummary {
+  return {
+    event: 'notification_dispatch_summary',
+    frozen,
+    routeErrors,
+    passes: Object.fromEntries(
+      PUSH_SENDING_PASSES.map((name) => [name, passSummary()]),
+    ) as DispatchSummary['passes'],
+  };
+}
+
+function logSummary(summary: DispatchSummary): void {
+  console.info(JSON.stringify(summary));
+}
+
+function freezeResponse(
+  summary: DispatchSummary,
+  completed: Record<string, unknown>,
+  nextPass: number,
+): Response {
+  summary.frozen = true;
+  logSummary(summary);
+  return NextResponse.json(
+    { frozen: true, ...completed, skippedPasses: PUSH_SENDING_PASSES.slice(nextPass) },
+    { status: 503 },
+  );
+}
+
 function authorized(req: Request): boolean {
   const expected = process.env.CRON_SECRET;
   // Unset secret = route disabled (fails closed), matching every other
@@ -86,6 +136,7 @@ export async function GET(req: Request): Promise<Response> {
   if (pushFreeze.state === 'unreadable') {
     const reason = pushFreeze.reason ?? 'switch row is missing';
     console.warn(`notifications/dispatch: PUSH_FREEZE unreadable; all passes skipped: ${reason}`);
+    logSummary(emptySummary(false, 1));
     return NextResponse.json(
       { error: `PUSH_FREEZE could not be read: ${reason}` },
       { status: 503 },
@@ -95,25 +146,122 @@ export async function GET(req: Request): Promise<Response> {
     console.warn(
       `notifications/dispatch: PUSH_FREEZE is on; skipped passes: ${PUSH_SENDING_PASSES.join(', ')}`,
     );
+    logSummary(emptySummary(true));
     return NextResponse.json(
       { frozen: true, skippedPasses: PUSH_SENDING_PASSES },
       { status: 200 },
     );
   }
 
+  const summary = emptySummary(false);
   try {
     const result = await dispatchPendingEvents(db);
+    summary.passes.router = passSummary(
+      result.eventsConsidered,
+      result.sent,
+      {
+        notReady: result.eventsSkippedNotReady,
+        killed: result.eventsSkippedKilled,
+        expired: result.eventsSkippedExpired,
+        alreadyDelivered: result.skippedAlreadyDelivered,
+        stale: result.skippedStale,
+        quietHours: result.held,
+        masterOff: result.skippedMasterOff,
+        snoozed: result.skippedSnoozed,
+        coalesced: result.skippedCoalesced,
+        dailyCap: result.skippedDailyCap,
+        hardCeiling: result.skippedHardCeiling,
+        sendFailure: result.sendFailures,
+      },
+      result.errors,
+    );
+    if (result.freezeEngaged) {
+      return freezeResponse(summary, { router: result }, 1);
+    }
+
     const digestResult = await dispatchDueDigests(db);
+    summary.passes.digests = passSummary(
+      digestResult.devicesConsidered,
+      digestResult.digestsSent,
+      {
+        outsideSendWindow: digestResult.digestsHeldOutsideSendWindow,
+        masterOff: digestResult.digestsSkippedMasterOff,
+        hardCeiling: digestResult.digestsSkippedHardCeiling,
+        sendFailure: digestResult.sendFailures,
+      },
+      digestResult.errors,
+    );
+    if (digestResult.freezeEngaged) {
+      return freezeResponse(summary, { router: result, digests: digestResult }, 2);
+    }
+
     const clownResult = await dispatchClownReports(db);
+    summary.passes.clownReports = passSummary(
+      clownResult.devicesConsidered,
+      clownResult.clownReportsSent,
+      {},
+      clownResult.errors,
+    );
+    if (clownResult.freezeEngaged) {
+      return freezeResponse(
+        summary,
+        { router: result, digests: digestResult, clownReports: clownResult },
+        3,
+      );
+    }
+
     const funResult = await dispatchFunNotifications(db, new Date(), { trackKeyForSlug: trackKeyForLyricSlug });
+    summary.passes.fun = passSummary(
+      funResult.devicesConsidered,
+      funResult.lyricsSent + funResult.onThisDaySent,
+      {
+        noEntry: funResult.onThisDaySkippedNoEntry,
+        hardCeiling: funResult.skippedHardCeiling,
+        sendFailure: funResult.sendFailures,
+      },
+      funResult.errors,
+    );
     const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
+    summary.passes.countdownSchedule = passSummary(
+      countdownScheduleResult.scheduled,
+      0,
+      {},
+      countdownScheduleResult.errors,
+    );
     const countdownDispatchResult = await dispatchDueCountdowns(db);
-    // Phase 5: cooldown is a once-a-day-effective check (isCooldownEligible
-    // only fires once a device's instant prefs are already gone), run every
-    // tick alongside the other passes — cheap no-op for already-downgraded
-    // devices, same "run on every 15-min tick" cadence as everything else
-    // in this route.
-    const cooldownResult = await runCooldownPass(db);
+    summary.passes.countdownDispatch = passSummary(
+      countdownDispatchResult.sent +
+        countdownDispatchResult.sendFailures +
+        countdownDispatchResult.skippedHardCeiling,
+      countdownDispatchResult.sent,
+      {
+        hardCeiling: countdownDispatchResult.skippedHardCeiling,
+        sendFailure: countdownDispatchResult.sendFailures,
+      },
+      countdownDispatchResult.errors,
+    );
+    const cooldownResult = COOLDOWN_PASS_ENABLED
+      ? await runCooldownPass(db)
+      : {
+          disabled: true,
+          devicesConsidered: 0,
+          devicesDowngraded: 0,
+          noticesSent: 0,
+          sendFailures: 0,
+          freezeEngaged: false,
+          errors: [] as string[],
+        };
+    summary.passes.cooldown = passSummary(
+      cooldownResult.devicesConsidered,
+      cooldownResult.noticesSent,
+      {
+        disabled: 'disabled' in cooldownResult ? 1 : 0,
+        notDowngraded: cooldownResult.devicesConsidered - cooldownResult.devicesDowngraded,
+        sendFailure: cooldownResult.sendFailures,
+      },
+      cooldownResult.errors,
+    );
+    logSummary(summary);
     return NextResponse.json(
       {
         router: result,
@@ -128,6 +276,8 @@ export async function GET(req: Request): Promise<Response> {
     );
   } catch (err) {
     console.error('notifications/dispatch: unexpected error', (err as Error).message);
+    summary.routeErrors++;
+    logSummary(summary);
     return NextResponse.json({ error: 'Dispatch failed unexpectedly.' }, { status: 500 });
   }
 }

@@ -447,6 +447,9 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | Path | What |
 |---|---|
 | `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
+| `packages/core/src/notification-router.ts`, `notification-sender.ts` | Per-device Instant completion, six-hour creation-age guard with quiet-hours release exemption, and fail-closed `PUSH_FREEZE` engagement when a provider-accepted send cannot be recorded |
+| `packages/core/src/notification-digest.ts`, `notification-cooldown.ts` | Scheduled-send delivery-log failures also engage `PUSH_FREEZE`; cooldown logic remains available but is not dispatched until native opens exist |
+| `apps/web/app/api/notifications/dispatch/route.ts` | Sequential dispatch orchestration, cooldown default-off gate, circuit-breaker stop, and one aggregate non-identifying JSON summary per authorized run |
 
 
 

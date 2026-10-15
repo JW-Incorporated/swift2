@@ -21,7 +21,7 @@
 // fixture) and does the right thing the moment Phase 6 starts populating
 // the column.
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { sendPushBatch } from './notification-sender';
+import { engagePushFreeze, sendPushBatch } from './notification-sender';
 
 const COOLDOWN_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -38,6 +38,7 @@ export interface CooldownResult {
   devicesDowngraded: number;
   noticesSent: number;
   sendFailures: number;
+  freezeEngaged: boolean;
   errors: string[];
 }
 
@@ -101,6 +102,7 @@ export async function runCooldownPass(
     devicesDowngraded: 0,
     noticesSent: 0,
     sendFailures: 0,
+    freezeEngaged: false,
     errors: [],
   };
 
@@ -200,6 +202,15 @@ export async function runCooldownPass(
         result.errors.push(
           `cooldown notice log failed for ${deviceId}: ${deliveryLogError.message}`,
         );
+        const freeze = await engagePushFreeze(db, now);
+        result.freezeEngaged = freeze.engaged;
+        if (!freeze.engaged) {
+          result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+        }
+        console.error(
+          `notification-cooldown: delivery log insert failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+        );
+        return result;
       }
     } else {
       result.sendFailures++;

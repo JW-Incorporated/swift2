@@ -4,7 +4,7 @@ import { dispatchPendingEvents } from './notification-router';
 import * as sender from './notification-sender';
 
 const EVENT_COLUMNS =
-  'id,category,tier,title,body,deep_link,available_at,expires_at,killed_at';
+  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -22,11 +22,14 @@ function makeFakeDb(fixture: {
   deliveries: Array<Record<string, unknown> & { kind: string }>;
   opsSwitches?: Array<{ name: string; enabled: boolean }>;
   opsSwitchError?: { message: string };
+  deliveryInsertError?: { message: string };
+  opsSwitchWriteError?: { message: string };
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
   const clearedTokenDeviceIds: string[] = [];
   const deliveryPageIds: string[][] = [];
   const prefCategories: string[] = [];
+  const opsSwitchWrites: Array<Record<string, unknown>> = [];
 
   function queryBuilder(table: string) {
     const state: {
@@ -180,7 +183,23 @@ function makeFakeDb(fixture: {
     // insert/update are terminal actions, not filtered reads.
     api.insert = ((rows: Array<Record<string, unknown>> | Record<string, unknown>) => {
       const arr = Array.isArray(rows) ? rows : [rows];
-      if (table === 'deliveries') insertedDeliveries.push(...arr);
+      if (table === 'deliveries') {
+        if (fixture.deliveryInsertError) {
+          return Promise.resolve({ data: null, error: fixture.deliveryInsertError });
+        }
+        insertedDeliveries.push(...arr);
+        fixture.deliveries.push(
+          ...(arr as Array<Record<string, unknown> & { kind: string }>),
+        );
+      }
+      return Promise.resolve({ data: null, error: null });
+    }) as (...args: unknown[]) => unknown;
+    api.upsert = ((rows: Array<Record<string, unknown>> | Record<string, unknown>) => {
+      const arr = Array.isArray(rows) ? rows : [rows];
+      if (table === 'ops_switches') {
+        opsSwitchWrites.push(...arr);
+        return Promise.resolve({ data: null, error: fixture.opsSwitchWriteError ?? null });
+      }
       return Promise.resolve({ data: null, error: null });
     }) as (...args: unknown[]) => unknown;
     api.update = ((patch: Record<string, unknown>) => ({
@@ -199,11 +218,13 @@ function makeFakeDb(fixture: {
     _clearedTokenDeviceIds: clearedTokenDeviceIds,
     _deliveryPageIds: deliveryPageIds,
     _prefCategories: prefCategories,
+    _opsSwitchWrites: opsSwitchWrites,
   } as unknown as SupabaseClient & {
     _insertedDeliveries: Array<Record<string, unknown>>;
     _clearedTokenDeviceIds: string[];
     _deliveryPageIds: string[][];
     _prefCategories: string[];
+    _opsSwitchWrites: Array<Record<string, unknown>>;
   };
 }
 
@@ -293,12 +314,9 @@ describe('dispatchPendingEvents', () => {
     const result = await dispatchPendingEvents(db, now);
 
     expect(result.eventsConsidered).toBe(50);
-    expect(db._deliveryPageIds).toHaveLength(1);
-    expect(db._deliveryPageIds[0]).toHaveLength(50);
-    expect(db._deliveryPageIds[0]?.every((id) => id.startsWith('fresh-'))).toBe(true);
   });
 
-  it('caps eligible events newest-first and only reads deliveries for each candidate page', async () => {
+  it('caps eligible events newest-first without treating another device delivery as event completion', async () => {
     const now = new Date('2026-01-15T20:00:00Z');
     const events = Array.from({ length: 250 }, (_, index) => {
       const id = `fresh-${String(index).padStart(3, '0')}`;
@@ -331,15 +349,8 @@ describe('dispatchPendingEvents', () => {
 
     expect(result.eventsConsidered).toBe(200);
     expect(db._prefCategories).toHaveLength(200);
-    expect(db._prefCategories[0]).toBe('fresh-239');
-    expect(db._prefCategories[189]).toBe('fresh-050');
-    expect(db._prefCategories[190]).toBe('fresh-049');
-    expect(db._prefCategories[199]).toBe('fresh-040');
-    expect(db._deliveryPageIds).toHaveLength(2);
-    expect(db._deliveryPageIds[0]?.[0]).toBe('fresh-249');
-    expect(db._deliveryPageIds[0]?.[199]).toBe('fresh-050');
-    expect(db._deliveryPageIds[1]?.[0]).toBe('fresh-049');
-    expect(db._deliveryPageIds[1]?.[49]).toBe('fresh-000');
+    expect(db._prefCategories[0]).toBe('fresh-249');
+    expect(db._prefCategories[199]).toBe('fresh-050');
   });
 
   it('ACCEPTANCE: a song_drop event delivers to an opted-in device once', async () => {
@@ -518,6 +529,125 @@ describe('dispatchPendingEvents', () => {
     ]);
     const delivered = await dispatchPendingEvents(db, afterQuietHours);
     expect(delivered.sent).toBe(1);
+  });
+
+  it('keeps a quiet-hours hold deliverable after another device received the event', async () => {
+    const createdAt = '2026-10-15T06:45:00.000Z';
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-quiet',
+          category: 'song_drop',
+          tier: 1,
+          title: 'New song',
+          body: 'Out now',
+          deep_link: 'https://x',
+          created_at: createdAt,
+          available_at: '2026-10-15T06:50:00.000Z',
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [
+        { device_id: 'device-la', category: 'song_drop', cadence: 'instant' },
+        { device_id: 'device-london', category: 'song_drop', cadence: 'instant' },
+      ],
+      devices: [
+        device({ id: 'device-la', tz: 'America/Los_Angeles' }),
+        device({ id: 'device-london', tz: 'Europe/London' }),
+      ],
+      deliveries: [],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockImplementation(async (inputs) =>
+      inputs.map((input) => ({
+        ok: true as const,
+        deviceId: input.deviceId,
+        deliveryToken: `token-${input.deviceId}`,
+      })),
+    );
+
+    const duringQuietHours = await dispatchPendingEvents(
+      db,
+      new Date('2026-10-15T07:00:00.000Z'),
+    );
+    const afterQuietHours = await dispatchPendingEvents(
+      db,
+      new Date('2026-10-15T16:00:00.000Z'),
+    );
+
+    expect(duringQuietHours).toMatchObject({ sent: 1, held: 1 });
+    expect(afterQuietHours).toMatchObject({ sent: 1, skippedAlreadyDelivered: 1 });
+    expect(sendSpy.mock.calls[0]?.[0]).toEqual([
+      expect.objectContaining({ deviceId: 'device-london' }),
+    ]);
+    expect(sendSpy.mock.calls[1]?.[0]).toEqual([
+      expect.objectContaining({ deviceId: 'device-la' }),
+    ]);
+  });
+
+  it('never sends a 25-day-old event instantly and leaves the event untouched', async () => {
+    const now = new Date('2026-10-15T20:00:00.000Z');
+    const staleEvent = {
+      id: 'evt-old',
+      category: 'song_drop',
+      tier: 1,
+      title: 'Old song',
+      body: 'Long past',
+      deep_link: 'https://x',
+      created_at: new Date(now.getTime() - 25 * 24 * 60 * 60 * 1000).toISOString(),
+      available_at: new Date(now.getTime() - 25 * 24 * 60 * 60 * 1000 + 5 * 60 * 1000).toISOString(),
+      expires_at: null,
+      killed_at: null,
+    };
+    const db = makeFakeDb({
+      events: [staleEvent],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result).toMatchObject({ sent: 0, skippedStale: 1 });
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(staleEvent).toMatchObject({ id: 'evt-old', killed_at: null });
+  });
+
+  it('engages PUSH_FREEZE and stops after a provider-accepted send cannot be logged', async () => {
+    const now = new Date('2026-10-15T20:00:00.000Z');
+    const event = (id: string, ageMinutes: number) => ({
+      id,
+      category: 'song_drop',
+      tier: 1,
+      title: id,
+      body: 'Body',
+      deep_link: 'https://x',
+      created_at: new Date(now.getTime() - ageMinutes * 60 * 1000).toISOString(),
+      available_at: new Date(now.getTime() - (ageMinutes - 5) * 60 * 1000).toISOString(),
+      expires_at: null,
+      killed_at: null,
+    });
+    const db = makeFakeDb({
+      events: [event('newer', 10), event('older', 20)],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+      deliveryInsertError: { message: 'simulated write failure' },
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'provider-accepted' },
+    ]);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result).toMatchObject({ eventsConsidered: 1, sent: 1, freezeEngaged: true });
+    expect(result.errors).toContain('delivery log insert failed: simulated write failure');
+    expect(sendSpy).toHaveBeenCalledTimes(1);
+    expect(db._opsSwitchWrites).toEqual([
+      expect.objectContaining({ name: 'PUSH_FREEZE', enabled: true }),
+    ]);
   });
 
   it('prunes a device push_token on an FCM invalid-token response', async () => {

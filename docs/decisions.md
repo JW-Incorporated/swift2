@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Push go-live safety uses a six-hour Instant horizon and a fail-closed delivery ledger
+
+**Decision.** Instant notification sends are limited to events created within the previous six hours, except for the first active window after a device held the event in quiet hours. Delivery completion is tracked per device, so another device receiving an event cannot consume that hold. If the provider accepts a push but its delivery row cannot be written, dispatch engages `PUSH_FREEZE` and stops; only the owner may lift the freeze. The auto-cooldown pass stays disabled until native notification-open tracking exists. Every authorized dispatch logs one aggregate, non-identifying per-pass summary.
+
+**Why.** The P0-21 audit reproduced stale 25-day sends, quiet-hours holds lost after another device received the event, repeated sends every 15 minutes after a ledger failure, native cooldown downgrades based on permanently missing open signals, and invisible pass errors. These controls make the initial internal push audience fail closed without deleting stale events from the inbox.
+
+**Alternative rejected.** Expiring old event rows or globally marking an event complete after its first delivery. Both erase valid inbox/quiet-hours behavior. Claim-before-send with a unique per-device ledger remains the redesign target, but it requires a schema change beyond this must-fix bundle.
+
+**Approved by.** P0-21a brief and PM touch-set correction, 2026-10-15.
+
+---
+
 ## 2026-10-14 — Tidewatch data model (P1-02)
 
 **Decision.** Tidewatch owns five service-role-only tables: `watch_item` for seen-content fingerprints and counts, `watch_decision` for the complete classification/action audit trail, `watch_cursor` for per-source collection progress, `story_timeline` for the timestamps used to measure detection and publishing SLAs, and `llm_usage` for per-caller provider/model/token usage and estimated cost. Noise items expire after 30 days, other seen items after 180 days, and shadow decisions after 365 days; timelines and usage rows are retained (implemented in a follow-up; not in this PR).

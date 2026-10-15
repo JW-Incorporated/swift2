@@ -42,7 +42,7 @@ import {
   startOfLocalDay,
   totalDeliveriesToday,
 } from './notification-governor';
-import { sendPushBatch } from './notification-sender';
+import { engagePushFreeze, sendPushBatch } from './notification-sender';
 
 export interface DigestDeviceRow {
   id: string;
@@ -96,6 +96,7 @@ export interface DigestDispatchResult {
   digestsSkippedHardCeiling: number;
   sendFailures: number;
   clownReportsSent: number;
+  freezeEngaged: boolean;
   errors: string[];
 }
 
@@ -138,6 +139,7 @@ export async function dispatchDueDigests(
     digestsSkippedHardCeiling: 0,
     sendFailures: 0,
     clownReportsSent: 0,
+    freezeEngaged: false,
     errors: [],
   };
 
@@ -265,7 +267,18 @@ export async function dispatchDueDigests(
         sent_at: now.toISOString(),
         delivery_token: sendResult.deliveryToken,
       });
-      if (deliveryError) result.errors.push(`delivery log insert failed: ${deliveryError.message}`);
+      if (deliveryError) {
+        result.errors.push(`delivery log insert failed: ${deliveryError.message}`);
+        const freeze = await engagePushFreeze(db, now);
+        result.freezeEngaged = freeze.engaged;
+        if (!freeze.engaged) {
+          result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+        }
+        console.error(
+          `notification-digest: delivery log insert failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+        );
+        return result;
+      }
 
       // Keep one row per (device, event) as a durable sent marker. Moving
       // it to the event's expiry keeps it out of due queries while the
@@ -302,8 +315,15 @@ export async function dispatchDueDigests(
 export async function dispatchClownReports(
   db: SupabaseClient,
   now: Date = new Date(),
-): Promise<Pick<DigestDispatchResult, 'clownReportsSent' | 'errors'>> {
-  const out = { clownReportsSent: 0, errors: [] as string[] };
+): Promise<
+  Pick<DigestDispatchResult, 'devicesConsidered' | 'clownReportsSent' | 'freezeEngaged' | 'errors'>
+> {
+  const out = {
+    devicesConsidered: 0,
+    clownReportsSent: 0,
+    freezeEngaged: false,
+    errors: [] as string[],
+  };
 
   const { data: prefRows, error: prefError } = await db
     .from('notification_prefs')
@@ -330,6 +350,7 @@ export async function dispatchClownReports(
   let theories: Awaited<ReturnType<typeof getTopTheories>> | null = null;
 
   for (const device of (deviceRows ?? []) as DigestDeviceRow[]) {
+    out.devicesConsidered++;
     if (!device.master_enabled || !device.push_token) continue;
 
     const weekday = new Date(
@@ -382,8 +403,18 @@ export async function dispatchClownReports(
         sent_at: now.toISOString(),
         delivery_token: sendResult.deliveryToken,
       });
-      if (deliveryError)
+      if (deliveryError) {
         out.errors.push(`clown report delivery log failed: ${deliveryError.message}`);
+        const freeze = await engagePushFreeze(db, now);
+        out.freezeEngaged = freeze.engaged;
+        if (!freeze.engaged) {
+          out.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+        }
+        console.error(
+          `notification-digest: clown report delivery log failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+        );
+        return out;
+      }
     } else {
       out.errors.push(
         `clown report send failed for device ${device.id}: ${sendResult && !sendResult.ok ? sendResult.error : 'no result'}`,

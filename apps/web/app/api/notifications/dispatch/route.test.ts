@@ -42,7 +42,7 @@ describe('GET /api/notifications/dispatch', () => {
     expect(res.status).toBe(503);
   });
 
-  it('runs the router + digest + clown report passes and returns their results on success', async () => {
+  it('runs enabled passes, leaves cooldown disabled, and logs one aggregate summary', async () => {
     vi.stubEnv('CRON_SECRET', 'real-secret');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
@@ -50,21 +50,62 @@ describe('GET /api/notifications/dispatch', () => {
     vi.doMock('@supabase/supabase-js', () => ({
       createClient: () => ({}),
     }));
+    const runCooldownPass = vi.fn();
     vi.doMock('@swift2/core/notifications-server', () => ({
-      dispatchPendingEvents: vi.fn().mockResolvedValue({ sent: 3, held: 1, errors: [] }),
-      dispatchDueDigests: vi.fn().mockResolvedValue({ digestsSent: 2, errors: [] }),
-      dispatchClownReports: vi.fn().mockResolvedValue({ clownReportsSent: 1, errors: [] }),
+      dispatchPendingEvents: vi.fn().mockResolvedValue({
+        eventsConsidered: 4,
+        eventsSkippedNotReady: 0,
+        eventsSkippedKilled: 0,
+        eventsSkippedExpired: 0,
+        sent: 3,
+        held: 1,
+        skippedMasterOff: 0,
+        skippedSnoozed: 0,
+        skippedCoalesced: 0,
+        skippedDailyCap: 0,
+        skippedAlreadyDelivered: 0,
+        skippedStale: 0,
+        skippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: false,
+        errors: ['device-secret title-secret token-secret'],
+      }),
+      dispatchDueDigests: vi.fn().mockResolvedValue({
+        devicesConsidered: 2,
+        digestsSent: 2,
+        digestsHeldOutsideSendWindow: 0,
+        digestsSkippedMasterOff: 0,
+        digestsSkippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: false,
+        errors: [],
+      }),
+      dispatchClownReports: vi.fn().mockResolvedValue({
+        devicesConsidered: 1,
+        clownReportsSent: 1,
+        freezeEngaged: false,
+        errors: [],
+      }),
       dispatchFunNotifications: vi
         .fn()
-        .mockResolvedValue({ lyricsSent: 1, onThisDaySent: 1, errors: [] }),
+        .mockResolvedValue({
+          devicesConsidered: 2,
+          lyricsSent: 1,
+          onThisDaySent: 1,
+          onThisDaySkippedNoEntry: 0,
+          skippedHardCeiling: 0,
+          sendFailures: 0,
+          errors: [],
+        }),
       scheduleCountdownsForPendingEvents: vi.fn().mockResolvedValue({ scheduled: 2, errors: [] }),
-      dispatchDueCountdowns: vi.fn().mockResolvedValue({ sent: 1, sendFailures: 0, errors: [] }),
-      runCooldownPass: vi
+      dispatchDueCountdowns: vi
         .fn()
-        .mockResolvedValue({ devicesDowngraded: 1, noticesSent: 1, errors: [] }),
+        .mockResolvedValue({ sent: 1, sendFailures: 0, skippedHardCeiling: 0, errors: [] }),
+      runCooldownPass,
       readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
     }));
     vi.resetModules();
+    const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
 
     const { GET } = await import('./route');
     const res = await GET(
@@ -75,13 +116,103 @@ describe('GET /api/notifications/dispatch', () => {
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json).toEqual({
-      router: { sent: 3, held: 1, errors: [] },
-      digests: { digestsSent: 2, errors: [] },
-      clownReports: { clownReportsSent: 1, errors: [] },
-      fun: { lyricsSent: 1, onThisDaySent: 1, errors: [] },
+      router: expect.objectContaining({ sent: 3, held: 1, errors: [expect.any(String)] }),
+      digests: expect.objectContaining({ digestsSent: 2, errors: [] }),
+      clownReports: expect.objectContaining({ clownReportsSent: 1, errors: [] }),
+      fun: expect.objectContaining({ lyricsSent: 1, onThisDaySent: 1, errors: [] }),
       countdownSchedule: { scheduled: 2, errors: [] },
-      countdownDispatch: { sent: 1, sendFailures: 0, errors: [] },
-      cooldown: { devicesDowngraded: 1, noticesSent: 1, errors: [] },
+      countdownDispatch: { sent: 1, sendFailures: 0, skippedHardCeiling: 0, errors: [] },
+      cooldown: {
+        disabled: true,
+        devicesConsidered: 0,
+        devicesDowngraded: 0,
+        noticesSent: 0,
+        sendFailures: 0,
+        freezeEngaged: false,
+        errors: [],
+      },
+    });
+    expect(runCooldownPass).not.toHaveBeenCalled();
+    expect(summarySpy).toHaveBeenCalledTimes(1);
+    const summaryLine = summarySpy.mock.calls[0]?.[0] as string;
+    const summary = JSON.parse(summaryLine) as Record<string, unknown>;
+    expect(summary).toMatchObject({
+      event: 'notification_dispatch_summary',
+      frozen: false,
+      passes: {
+        router: { considered: 4, sent: 3, skipped: { quietHours: 1 }, errors: 1 },
+        digests: { considered: 2, sent: 2, errors: 0 },
+        cooldown: { considered: 0, sent: 0, skipped: { disabled: 1 }, errors: 0 },
+      },
+    });
+    expect(summaryLine).not.toContain('device-secret');
+    expect(summaryLine).not.toContain('title-secret');
+    expect(summaryLine).not.toContain('token-secret');
+  });
+
+  it('stops later passes when the router engages PUSH_FREEZE', async () => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const laterPasses = {
+      dispatchDueDigests: vi.fn(),
+      dispatchClownReports: vi.fn(),
+      dispatchFunNotifications: vi.fn(),
+      scheduleCountdownsForPendingEvents: vi.fn(),
+      dispatchDueCountdowns: vi.fn(),
+      runCooldownPass: vi.fn(),
+    };
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      ...laterPasses,
+      dispatchPendingEvents: vi.fn().mockResolvedValue({
+        eventsConsidered: 1,
+        eventsSkippedNotReady: 0,
+        eventsSkippedKilled: 0,
+        eventsSkippedExpired: 0,
+        sent: 1,
+        held: 0,
+        skippedMasterOff: 0,
+        skippedSnoozed: 0,
+        skippedCoalesced: 0,
+        skippedDailyCap: 0,
+        skippedAlreadyDelivered: 0,
+        skippedStale: 0,
+        skippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: true,
+        errors: ['delivery log insert failed'],
+      }),
+      readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
+    }));
+    vi.resetModules();
+    const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+
+    const { GET } = await import('./route');
+    const res = await GET(
+      new Request('http://localhost/api/notifications/dispatch', {
+        headers: { authorization: 'Bearer real-secret' },
+      }),
+    );
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toMatchObject({
+      frozen: true,
+      router: { freezeEngaged: true },
+      skippedPasses: [
+        'digests',
+        'clownReports',
+        'fun',
+        'countdownSchedule',
+        'countdownDispatch',
+        'cooldown',
+      ],
+    });
+    for (const pass of Object.values(laterPasses)) expect(pass).not.toHaveBeenCalled();
+    expect(summarySpy).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(summarySpy.mock.calls[0]?.[0] as string)).toMatchObject({
+      frozen: true,
+      passes: { router: { considered: 1, sent: 1, errors: 1 } },
     });
   });
 

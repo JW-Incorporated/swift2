@@ -61,6 +61,30 @@ export async function readPushFreeze(db: SupabaseClient): Promise<PushFreezeRead
   }
 }
 
+/** Engage the service-role-only runtime brake after an unsafe partial write.
+ * This is intentionally one-way: only the owner may lift PUSH_FREEZE. */
+export async function engagePushFreeze(
+  db: SupabaseClient,
+  now: Date = new Date(),
+): Promise<{ engaged: boolean; reason?: string }> {
+  try {
+    const { error } = await db.from('ops_switches').upsert(
+      {
+        name: PUSH_FREEZE_SWITCH,
+        enabled: true,
+        updated_at: now.toISOString(),
+      },
+      { onConflict: 'name' },
+    );
+    return error ? { engaged: false, reason: error.message } : { engaged: true };
+  } catch (err) {
+    return {
+      engaged: false,
+      reason: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
 export interface PushSendInput {
   deviceId: string;
   pushToken: string;
