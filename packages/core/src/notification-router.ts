@@ -72,6 +72,51 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
+const DELIVERY_PAGE_SIZE = 1_000;
+const EVENT_COLUMNS =
+  'id,category,tier,title,body,deep_link,available_at,expires_at,killed_at';
+
+async function deliveredInstantEventIds(db: SupabaseClient): Promise<Set<string>> {
+  const delivered = new Set<string>();
+  for (let offset = 0; ; ) {
+    const { data, error } = await db
+      .from('deliveries')
+      .select('event_id')
+      .eq('kind', 'instant')
+      .order('id', { ascending: true })
+      .range(offset, offset + DELIVERY_PAGE_SIZE - 1);
+    if (error) throw new Error(`could not load delivered event ids: ${error.message}`);
+    const rows = (data ?? []) as { event_id: string | null }[];
+    for (const row of rows) {
+      if (row.event_id) delivered.add(row.event_id);
+    }
+    if (rows.length === 0) return delivered;
+    offset += rows.length;
+  }
+}
+
+async function pendingEvents(
+  db: SupabaseClient,
+  delivered: Set<string>,
+  now: Date,
+): Promise<RouterEventRow[]> {
+  const pending: RouterEventRow[] = [];
+  for (let offset = 0; pending.length < PENDING_EVENT_LIMIT; ) {
+    const { data, error } = await db
+      .from('events')
+      .select(EVENT_COLUMNS)
+      .lte('available_at', now.toISOString())
+      .is('killed_at', null)
+      .range(offset, offset + PENDING_EVENT_LIMIT - 1);
+    if (error) throw new Error(`could not load pending events: ${error.message}`);
+    const rows = (data ?? []) as RouterEventRow[];
+    const remaining = PENDING_EVENT_LIMIT - pending.length;
+    pending.push(...rows.filter((event) => !delivered.has(event.id)).slice(0, remaining));
+    if (rows.length === 0) return pending;
+    offset += rows.length;
+  }
+  return pending;
+}
 
 /**
  * One dispatch pass: loads events whose `available_at` has arrived (every
@@ -115,20 +160,16 @@ export async function dispatchPendingEvents(
     return result;
   }
 
-  const { data: events, error: eventsError } = await db
-    .from('events')
-    .select('id,category,tier,title,body,deep_link,available_at,expires_at,killed_at')
-    .lte('available_at', now.toISOString())
-    .is('killed_at', null)
-    .not('id', 'in', `(select event_id from deliveries where event_id is not null)`)
-    .limit(PENDING_EVENT_LIMIT);
-
-  if (eventsError) {
-    result.errors.push(`could not load pending events: ${eventsError.message}`);
+  let events: RouterEventRow[];
+  try {
+    const delivered = await deliveredInstantEventIds(db);
+    events = await pendingEvents(db, delivered, now);
+  } catch (err) {
+    result.errors.push((err as Error).message);
     return result;
   }
 
-  for (const event of (events ?? []) as RouterEventRow[]) {
+  for (const event of events) {
     result.eventsConsidered++;
     if (event.expires_at && new Date(event.expires_at).getTime() < now.getTime()) {
       result.eventsSkippedExpired++;
