@@ -36,7 +36,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | doing |  |  |
 | P0-21a | Push must-fixes in code: instant-age cutoff that keeps quiet-hours holds; freeze on a failed delivery-log write; cooldown pass off by default; per-run summary log | codex | M | L-NOTIFY | P0-21 | done | #5891 | 2026-10-15 |
 | P0-21b | Sanctioned backlog-kill workflow (workflow_dispatch; list by default, apply only with an explicit input) | executor-claude-sonnet | S | L-NOTIFY-OPS | P0-21 | done | #5869 | 2026-10-15 |
-| P0-21d | Heartbeat check LOWs: an empty heartbeat also checks the seeded PUSH_FREEZE row (wrong-project guard); error-path tests | codex | S | L-NOTIFY | P0-21c | review |  |  |
+| P0-21d | Heartbeat check LOWs: an empty heartbeat also checks the seeded PUSH_FREEZE row (wrong-project guard); error-path tests | codex | S | L-NOTIFY | P0-21c | review | #5923 |  |
 | P0-21c | Dispatch heartbeat (the route records each authorized tick) plus a watchdog check on it (split from P0-21b: the watchdog can't see dispatch runs today) | codex | S | L-NOTIFY | P0-21a | done | #5916 | 2026-10-15 |
 
 ## P1 Foundations and re-homing
@@ -82,7 +82,8 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | doing |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
 | P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | done | #5846 | 2026-10-15 |
-| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
+| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | doing |  |  |
+| P1-24b | Wire the voice critic into draft-replies, breaking drafts and Vault lane prompts (split from P1-24 while P1-10's PR was open) | executor-claude-sonnet | S | L-VOICE | P1-24, P1-10 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
 | P1-27 | Owner affiliate accounts (whenever ready, blocks nothing) | OWNER ACTION | S | L-OWNER | - | todo |  |  |
