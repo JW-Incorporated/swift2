@@ -54,7 +54,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
 | P1-02c | llm_usage gains cache-creation and cache-read token columns AND its provider CHECK admits 'claude-subscription' (P1-09 review; otherwise runner usage inserts fail). MUST land before P1-28, the first caller | codex | S | L-DB | P1-14 | done | #5893 | 2026-10-15 |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
-| P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | doing |  |  |
+| P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | review |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | done | #5868 | 2026-10-15 |
 | P1-05b | Collector follow-up (architect #3): page the existing-key update loop at LOOKUP_PAGE with a >1,000-key cap test; first-run baseline (a source with zero stored items inserts historical, no events). HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-05 | done | #5883 | 2026-10-15 |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
