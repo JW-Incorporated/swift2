@@ -49,6 +49,45 @@ describe('callClaude runner', () => {
     expect(removeTempDir).toHaveBeenCalledWith('test-temp');
   });
 
+  it('opens the breaker after three timeouts and does not spawn the fourth call', async () => {
+    const spawnImpl = spawnReturning({ hang: true });
+    const logBreaker = vi.fn();
+    const callClaude = createClaudeCaller({ spawnImpl, timeoutMs: 1, logBreaker });
+    const breakerInput = { ...baseInput, maxCalls: 10 };
+
+    for (let call = 0; call < 3; call += 1) {
+      await expect(callClaude(breakerInput)).resolves.toMatchObject({
+        status: 'unavailable',
+        reason: 'Claude CLI timed out',
+      });
+    }
+    await expect(callClaude(breakerInput)).resolves.toMatchObject({
+      status: 'unavailable',
+      reason: 'Claude call circuit breaker open',
+    });
+    expect(spawnImpl).toHaveBeenCalledTimes(3);
+    expect(logBreaker).toHaveBeenCalledOnce();
+  });
+
+  it('resets consecutive breaker failures after a successful call', async () => {
+    const spawnImpl = spawnReturning([
+      { hang: true },
+      { hang: true },
+      { stdout: successResult() },
+      { hang: true },
+      { hang: true },
+      { stdout: successResult() },
+    ]);
+    const logBreaker = vi.fn();
+    const callClaude = createClaudeCaller({ spawnImpl, timeoutMs: 1, logBreaker });
+    const breakerInput = { ...baseInput, maxCalls: 10 };
+
+    for (let call = 0; call < 6; call += 1) await callClaude(breakerInput);
+
+    expect(spawnImpl).toHaveBeenCalledTimes(6);
+    expect(logBreaker).not.toHaveBeenCalled();
+  });
+
   it('handles an immediate stdin EPIPE while writing a large prompt', async () => {
     const spawnImpl = vi.fn(() => {
       const child = Object.assign(new EventEmitter(), {

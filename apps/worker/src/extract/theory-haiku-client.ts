@@ -1,8 +1,8 @@
 // One Haiku call per crawled post bundle (Community Engine plan §3.3, Phase
 // 2 card P2-2). Sibling of ./haiku-client.ts — same transport/error-handling
-// contract: raw callAnthropicMessages() (no @anthropic-ai/sdk dependency),
-// returns null (never throws) for the expected "no key" / "cap hit" states,
-// throws on a genuine API failure so the caller defers the bundle to next
+// contract: the shared Claude subscription wrapper (no SDK dependency),
+// returns null (never throws) for expected unavailable / cap-hit states,
+// throws on an invalid model result so the caller defers the bundle to next
 // run rather than silently losing it. Cache the system prompt since it is
 // identical on every call (same as haiku-client.ts / clown-client.ts).
 //

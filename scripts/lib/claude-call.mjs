@@ -16,6 +16,7 @@ import { limitFailure, schemaMatches, usageRow } from './claude-call-result.mjs'
 const PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
 const BACKUP_PRIORITIES = new Set(['P0', 'P1']);
 const DEFAULT_TIMEOUT_MS = 120_000;
+const BREAKER_THRESHOLD = 3;
 
 export function createClaudeCaller(options = {}) {
   const spawnImpl = options.spawnImpl ?? nodeSpawn;
@@ -24,14 +25,36 @@ export function createClaudeCaller(options = {}) {
   const callCounts = options.callCounts ?? new Map();
   const estimateTokens = options.estimateTokens ?? inputTokenEstimate;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const logBreaker = options.logBreaker ?? console.warn;
+  let consecutiveUnavailable = 0;
+  let breakerOpen = false;
   const createTempDir = options.createTempDir
     ?? (() => mkdtemp(join(tmpdir(), 'claude-call-')));
   const removeTempDir = options.removeTempDir
     ?? ((directory) => rm(directory, { recursive: true, force: true }));
   return async function callClaude(input = {}) {
+    if (breakerOpen) {
+      return { status: 'unavailable', reason: 'Claude call circuit breaker open' };
+    }
     let tempDir;
     let outcome;
-    const complete = (value) => (outcome = value);
+    const complete = (value) => {
+      outcome = value;
+      if (value.status === 'ok') {
+        consecutiveUnavailable = 0;
+      } else if (value.status === 'unavailable' && value.reason !== 'limit') {
+        consecutiveUnavailable += 1;
+        if (consecutiveUnavailable >= BREAKER_THRESHOLD) {
+          breakerOpen = true;
+          try {
+            logBreaker('[claude-call] circuit breaker opened after 3 consecutive unavailable calls');
+          } catch {
+            // Breaker logging cannot violate the never-throw contract.
+          }
+        }
+      }
+      return value;
+    };
     const attempts = [];
     try {
       const {

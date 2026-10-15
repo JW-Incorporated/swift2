@@ -41,6 +41,7 @@ jobs:
           npm-ci: 'true'
 
       - name: Install Claude Code
+        continue-on-error: true
         run: |
           CLAUDE_CODE_VERSION="2.1.300"
           for attempt in 1 2 3; do

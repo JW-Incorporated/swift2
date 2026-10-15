@@ -106,6 +106,26 @@ describe('callClaude limits', () => {
     expect(spawnImpl).toHaveBeenCalledOnce();
   });
 
+  it('does not count subscription limits toward the unavailable breaker', async () => {
+    const spawnImpl = spawnReturning([
+      { code: 1, stdout: limitResult() },
+      { code: 1, stdout: limitResult() },
+      { code: 1, stdout: limitResult() },
+      { stdout: successResult() },
+    ]);
+    const callClaude = createClaudeCaller({ spawnImpl, logBreaker: vi.fn() });
+    const input = { ...baseInput, priority: 'P2' as const, maxCalls: 10 };
+
+    for (let call = 0; call < 3; call += 1) {
+      await expect(callClaude(input)).resolves.toMatchObject({
+        status: 'unavailable',
+        reason: 'limit',
+      });
+    }
+    await expect(callClaude(input)).resolves.toMatchObject({ status: 'ok' });
+    expect(spawnImpl).toHaveBeenCalledTimes(4);
+  });
+
   it('re-spawns a P0 five-hour session limit with the backup and returns ok', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN_BACKUP', 'test-backup-token');
     const spawnImpl = spawnReturning([

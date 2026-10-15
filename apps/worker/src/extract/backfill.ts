@@ -109,11 +109,12 @@ export interface BackfillItemReport {
   summaryLenBefore: number;
   summaryLenAfter: number;
   rewroteCopy: boolean;
-  /** True when a rewrite was attempted but deferred — no ANTHROPIC_API_KEY,
-   * or the shared extract-stage Haiku budget (usage-store.ts's per-run/
-   * daily caps) was already reserved out this run. Same "defer, not drop"
-   * contract as the live extract stage: an item deferred this run is
-   * simply picked up again on the next backfill run. */
+  /** True when a rewrite was attempted but deferred — the Claude
+   * subscription wrapper was unavailable, or the shared extract-stage
+   * budget (usage-store.ts's per-run/daily caps) was already reserved out
+   * this run. Same "defer, not drop" contract as the live extract stage: an
+   * item deferred this run is simply picked up again on the next backfill
+   * run. */
   deferred: boolean;
   finalOk: boolean;
   holdReason?: QualityHoldReason;
@@ -185,8 +186,8 @@ export async function backfillOneItem(
       today,
     });
     if (extracted === null) {
-      // No ANTHROPIC_API_KEY, or the shared extract-stage Haiku budget
-      // (usage-store.ts) is reserved out this run — expected, not an
+      // The Claude subscription wrapper is unavailable, or the shared
+      // extract-stage budget is reserved out this run — expected, not an
       // error; same "defer, don't drop" contract as run-extract-stage.ts.
       deferred = true;
     } else if ((extracted.kind === 'current_item' || extracted.kind === 'both') && extracted.currentItem) {

@@ -1,6 +1,6 @@
 // Detects a "degraded no-op" knowledge-extract cycle: the job stays green
 // (ingestion works) but extraction did nothing. Issue #4647 item 4 — a silent
-// no-op ran for weeks (schema pending, then a missing ANTHROPIC_API_KEY).
+// no-op ran for weeks (schema pending, then unavailable model transport).
 // The annotation this feeds is read back by watchdog.yml via
 // scripts/watchdog/extract-degraded-check.mjs, so MARKER must stay in sync.
 

@@ -62,6 +62,7 @@ jobs:
       # Same native installer/retry pattern used by claude-code-action in
       # routine-template; version pinned to the wrapper's verified 2.1.300.
       - name: Install Claude Code
+        continue-on-error: true
         run: |
           CLAUDE_CODE_VERSION="2.1.300"
           for attempt in 1 2 3; do
