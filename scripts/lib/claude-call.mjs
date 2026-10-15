@@ -34,7 +34,16 @@ export function createClaudeCaller(options = {}) {
     const complete = (value) => (outcome = value);
     const attempts = [];
     try {
-      const { caller, priority, model, system, user, schema, maxInputTokens, maxCalls } = input;
+      const {
+        caller,
+        priority,
+        model,
+        system,
+        user,
+        schema,
+        maxInputTokens,
+        maxCalls,
+      } = input;
       if (!caller || !model || typeof system !== 'string' || typeof user !== 'string'
         || !PRIORITIES.has(priority)) {
         return complete({ status: 'invalid', reason: 'invalid Claude call arguments' });

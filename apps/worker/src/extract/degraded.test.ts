@@ -1,11 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import { detectExtractDegraded } from './degraded';
 
-const base = { clustersConsidered: 0, extracted: 0, deferred: 0, schemaPending: 0, hasApiKey: true };
+const base = {
+  clustersConsidered: 0,
+  extracted: 0,
+  deferred: 0,
+  schemaPending: 0,
+  hasSubscriptionToken: true,
+};
 
 describe('detectExtractDegraded', () => {
   it('flags all-deferred with no key', () => {
-    const r = detectExtractDegraded({ ...base, clustersConsidered: 50, deferred: 50, hasApiKey: false });
+    const r = detectExtractDegraded({
+      ...base,
+      clustersConsidered: 50,
+      deferred: 50,
+      hasSubscriptionToken: false,
+    });
     expect(r?.cause).toBe('deferred-no-key');
     expect(r?.message).toContain('extract-degraded');
   });

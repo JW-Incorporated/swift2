@@ -11,7 +11,7 @@ export interface ExtractDegradedInput {
   extracted: number;
   deferred: number;
   schemaPending: number;
-  hasApiKey: boolean;
+  hasSubscriptionToken: boolean;
 }
 
 export type ExtractDegradedCause = 'schema-pending' | 'deferred-no-key' | 'deferred-at-cap';
@@ -19,7 +19,7 @@ export type ExtractDegradedCause = 'schema-pending' | 'deferred-no-key' | 'defer
 export function detectExtractDegraded(
   input: ExtractDegradedInput,
 ): { cause: ExtractDegradedCause; message: string } | null {
-  const { clustersConsidered, extracted, deferred, schemaPending, hasApiKey } = input;
+  const { clustersConsidered, extracted, deferred, schemaPending, hasSubscriptionToken } = input;
   if (extracted > 0) return null;
   if (schemaPending > 0) {
     return {
@@ -30,10 +30,10 @@ export function detectExtractDegraded(
     };
   }
   if (clustersConsidered > 0 && deferred === clustersConsidered) {
-    const cause = hasApiKey ? 'deferred-at-cap' : 'deferred-no-key';
-    const why = hasApiKey
+    const cause = hasSubscriptionToken ? 'deferred-at-cap' : 'deferred-no-key';
+    const why = hasSubscriptionToken
       ? 'the per-run/daily extraction cap is reserved out'
-      : 'ANTHROPIC_API_KEY is not set for the extract stage';
+      : 'the Claude subscription token is unavailable for the extract stage';
     return {
       cause,
       message:
