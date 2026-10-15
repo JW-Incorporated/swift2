@@ -200,7 +200,7 @@ export async function scorePrWithClaude({
     system: SCORE_TOOL.description,
     user: promptText,
     schema: SCORE_TOOL.input_schema,
-    maxInputTokens: 8_000,
+    maxInputTokens: 10_000,
     maxCalls: MAX_PRS_PER_WEEK,
   });
   if (outcome.status !== 'ok') {
