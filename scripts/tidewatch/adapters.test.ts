@@ -3,6 +3,8 @@ import { mapLead, mapTheory } from './adapters/community.mjs';
 import { mapMerch, mapMoment, mapReply, mapSocialPost } from './adapters/files.mjs';
 import { mapIssue } from './adapters/issues.mjs';
 import { mapNews } from './adapters/news.mjs';
+import debut from '../../supabase/seed/content/debut.mjs';
+import { slugify } from '../lib/longlive-sync-shared.mjs';
 
 const at = '2026-10-15T18:00:00.000Z';
 
@@ -39,10 +41,20 @@ describe('Tidewatch adapters', () => {
     expect(row.item).toMatchObject({ item_key: 'theory:orange-door', source: 'theory' });
   });
 
-  it('maps merch, social posts, replies, and merged moments', () => {
-    expect(mapMerch({ sourceId: '99', item: 'Cardigan', brand: 'Official', retailer: 'store.test', url: 'https://store.test/P/1?utm_source=x' }, 'official', at).item.item_key).toBe('merch:official:https://store.test/p/1');
+  it('maps merch and social posts', () => {
+    expect(mapMerch({ sourceId: '99', item: 'Cardigan', brand: 'Official', retailer: 'store.test', url: 'https://store.test/P/1?utm_source=x' }, 'official', at).item.item_key).toBe('merch:official:https://store.test/P/1');
     expect(mapSocialPost({ platform: 'x', platformPostId: '42', body: 'Hello', postedAt: at, url: 'https://x.test/42' }, 'post.json').item.item_key).toBe('post:x:42');
-    expect(mapReply(['ig-comment:77', at]).item.item_key).toBe('reply:instagram:77');
-    expect(mapMoment({ slug: 'award-night', title: 'Award night', snippet: 'A moment.', sourceUrl: 'https://news.test/award' }, 'midnights', at).item.item_key).toBe('moment:award-night');
+  });
+
+  it('keeps the reply kind in otherwise-identical reply keys', () => {
+    expect(mapReply(['ig-comment:77', at]).item.item_key).toBe('reply:instagram:ig-comment:77');
+    expect(mapReply(['ig-mention:77', at]).item.item_key).toBe('reply:instagram:ig-mention:77');
+  });
+
+  it('keys real-shaped slugless moments by era and the shared title slug', () => {
+    const rows = debut.items.filter((row) => !('slug' in row)).slice(0, 2);
+    const keys = rows.map((row) => mapMoment(row, debut.eraSlug, at).item.item_key);
+    expect(keys).toEqual(rows.map((row) => `moment:${debut.eraSlug}:${slugify(row.title)}`));
+    expect(new Set(keys).size).toBe(2);
   });
 });

@@ -1,19 +1,45 @@
 import { createHash } from 'node:crypto';
 
-const TRACKING = /^(utm_.+|fbclid|gclid|dclid|mc_cid|mc_eid|_hsenc|_hsmi)$/i;
+const TRACKING = /^(utm_.+|fbclid|gclid|dclid|mc_cid|mc_eid|_hsenc|_hsmi|si|igsh)$/i;
+const HOST_PREFIX = /^(?:www|m|mobile|amp)\./i;
+const PUBLISHER_SUFFIXES = [
+  'Associated Press',
+  'Billboard',
+  'CNN',
+  'Entertainment Weekly',
+  'People',
+  'Reuters',
+  'Rolling Stone',
+  'The Guardian',
+  'The New York Times',
+  'Variety',
+];
+
+// Measured fixtures put a same-story paraphrase at 14 bits and unrelated
+// stories at 17-18 bits. At the boundary, prefer a missed duplicate over an
+// incorrect merge, so only distances through 14 are duplicate candidates.
+export const TITLE_SIMHASH_DUPLICATE_THRESHOLD = 14;
 
 export function normalizeUrl(value) {
   if (!value) return null;
   try {
     const url = new URL(String(value).trim());
     if (!['http:', 'https:'].includes(url.protocol)) return null;
+    url.protocol = 'https:';
     url.hash = '';
     url.hostname = url.hostname.toLowerCase();
-    url.pathname = url.pathname.toLowerCase().replace(/\/{2,}/g, '/');
+    while (HOST_PREFIX.test(url.hostname)) url.hostname = url.hostname.replace(HOST_PREFIX, '');
+    url.pathname = url.pathname.replace(/\/{2,}/g, '/').replace(/\/amp\/?$/i, '') || '/';
     if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/$/, '');
+    if (url.hostname === 'youtu.be') {
+      const videoId = url.pathname.slice(1);
+      url.hostname = 'youtube.com';
+      url.pathname = '/watch';
+      url.searchParams.set('v', videoId);
+    }
     const kept = [...url.searchParams]
-      .filter(([key]) => !TRACKING.test(key))
-      .sort(([ak, av], [bk, bv]) => ak.localeCompare(bk) || av.localeCompare(bv));
+      .filter(([key]) => key.toLowerCase() !== 'amp' && !TRACKING.test(key))
+      .sort(([ak, av], [bk, bv]) => (ak < bk ? -1 : ak > bk ? 1 : av < bv ? -1 : av > bv ? 1 : 0));
     url.search = '';
     for (const [key, val] of kept) url.searchParams.append(key, val);
     return url.toString();
@@ -28,19 +54,25 @@ export function urlNormHash(value) {
 }
 
 function titleTokens(title) {
-  return String(title ?? '')
-    .normalize('NFKD')
+  const publishers = PUBLISHER_SUFFIXES.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const withoutPublisher = String(title ?? '').replace(
+    new RegExp(`\\s*(?:\\||[-\u2013\u2014])\\s*(?:${publishers})\\s*$`, 'iu'),
+    '',
+  );
+  return withoutPublisher.normalize('NFKD')
     .toLowerCase()
-    .replace(/[|–—-]\s+[^|–—-]{2,40}$/, '')
     .match(/[\p{L}\p{N}]+/gu) ?? [];
 }
 
 export function titleSimhash(title) {
   const tokens = titleTokens(title);
   if (!tokens.length) return null;
+  const normalized = `  ${tokens.join(' ')}  `;
+  const features = [];
+  for (let i = 0; i <= normalized.length - 4; i += 1) features.push(normalized.slice(i, i + 4));
   const weights = Array(64).fill(0);
-  for (const token of tokens) {
-    const digest = createHash('sha256').update(token).digest();
+  for (const feature of features) {
+    const digest = createHash('sha256').update(feature).digest();
     for (let bit = 0; bit < 64; bit += 1) {
       weights[bit] += digest[Math.floor(bit / 8)] & (1 << (7 - (bit % 8))) ? 1 : -1;
     }

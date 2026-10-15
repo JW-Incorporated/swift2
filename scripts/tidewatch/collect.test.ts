@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { runCollector } from './collect.mjs';
+import { liveSources, runCollector, supabaseStore } from './collect.mjs';
 import { watchCandidate } from './fingerprint.mjs';
 
 const candidate = watchCandidate({
@@ -70,5 +70,120 @@ describe('Tidewatch collector', () => {
     });
     expect(store.keys.size).toBe(1);
     expect(store.cursors.get('intake')).toEqual({ at: later.cursorAt, key: 'event-b' });
+  });
+
+  it('ignores the since floor when a saved cursor is older than 24 hours', async () => {
+    const store = fakeStore();
+    store.cursors.set('news', { at: '2026-10-12T00:00:00.000Z', key: 'news:0' });
+    const oldItem = watchCandidate({
+      itemKey: 'news:old-but-unread',
+      source: 'news',
+      title: 'Missed during outage',
+      detectedAt: '2026-10-13T00:00:00.000Z',
+    });
+    let loadSince = '';
+    const result = await runCollector([{
+      name: 'news',
+      cursorMode: 'overlap',
+      load: async (since: string) => { loadSince = since; return [oldItem]; },
+    }], store, {
+      since: '2026-10-14T00:00:00.000Z',
+      log: () => {},
+    });
+    expect(loadSince).toBe('2026-10-11T23:45:00.000Z');
+    expect(result[0]).toMatchObject({ read: 1, inserted: 1, errors: 0 });
+  });
+
+  it('replays a 15-minute overlap for late database rows without regressing the cursor', async () => {
+    const store = fakeStore();
+    store.cursors.set('theory', { at: '2026-10-15T18:00:00.000Z', key: 'theory:z' });
+    const late = watchCandidate({
+      itemKey: 'theory:late',
+      source: 'theory',
+      title: 'Late landed theory',
+      detectedAt: '2026-10-15T17:55:00.000Z',
+    });
+    const result = await runCollector([{
+      name: 'theory',
+      cursorMode: 'overlap',
+      load: async () => [late],
+    }], store, { since: '2026-10-15T00:00:00.000Z', log: () => {} });
+    expect(result[0].inserted).toBe(1);
+    expect(store.cursors.get('theory')).toEqual({ at: '2026-10-15T18:00:00.000Z', key: 'theory:z' });
+  });
+
+  it('uses no cursor or time floor for file and GitHub full reloads', async () => {
+    const store = fakeStore();
+    store.cursors.set('moments', { at: '2026-10-15T00:00:00.000Z', key: 'stale' });
+    store.cursors.set('intake', { at: '2026-10-15T00:00:00.000Z', key: 'stale' });
+    const fileItem = watchCandidate({ itemKey: 'moment:debut:old', source: 'moment', title: 'Old moment', detectedAt: '2020-01-01T00:00:00.000Z' });
+    const issueItem = watchCandidate({ itemKey: 'issue:old', source: 'intake', title: 'Old issue labelled today', detectedAt: '2020-01-01T00:00:00.000Z' });
+    const results = await runCollector([
+      { name: 'moments', cursorMode: 'none', load: async () => [fileItem] },
+      { name: 'intake', cursorMode: 'none', load: async () => [issueItem] },
+    ], store, { since: '2026-10-15T00:00:00.000Z', log: () => {} });
+    expect(results.map((result) => result.inserted)).toEqual([1, 1]);
+    expect(store.cursors.get('moments')?.key).toBe('stale');
+    expect(store.cursors.get('intake')?.key).toBe('stale');
+  });
+
+  it('orders tied cursor keys by code units', async () => {
+    const store = fakeStore();
+    const rows = ['Z', 'a'].map((cursorKey) => watchCandidate({
+      itemKey: `issue:${cursorKey}`,
+      cursorKey,
+      source: 'intake',
+      title: cursorKey,
+      detectedAt: '2026-10-15T18:00:00.000Z',
+    }));
+    await runCollector([{ name: 'db', cursorMode: 'overlap', load: async () => rows }], store, {
+      since: '2026-10-15T00:00:00.000Z',
+      log: () => {},
+    });
+    expect(store.cursors.get('db')?.key).toBe('a');
+  });
+
+  it('updates only last_seen_at when an existing item key conflicts', async () => {
+    const calls: Array<Record<string, unknown>> = [];
+    const client = {
+      from: () => ({
+        upsert: async (rows: Array<Record<string, string>>, options: Record<string, unknown>) => {
+          calls.push({ action: 'upsert', rows, options });
+          return { error: null };
+        },
+        update: (values: Record<string, string>) => ({
+          in: async (column: string, keys: string[]) => {
+            calls.push({ action: 'update', values, column, keys });
+            return { error: null };
+          },
+        }),
+      }),
+    };
+    await supabaseStore(client).upsertItems([
+      { item_key: 'issue:new', source: 'intake', last_seen_at: '2026-10-15T19:00:00.000Z' },
+      { item_key: 'issue:existing', source: 'intake', last_seen_at: '2026-10-15T19:00:00.000Z' },
+    ], new Set(['issue:existing']));
+    expect(calls[0]).toMatchObject({ action: 'upsert', options: { ignoreDuplicates: true }, rows: [{ item_key: 'issue:new' }] });
+    expect(calls[1]).toEqual({
+      action: 'update',
+      values: { last_seen_at: '2026-10-15T19:00:00.000Z' },
+      column: 'item_key',
+      keys: ['issue:existing'],
+    });
+  });
+
+  it('fails git-timestamped sources clearly in a shallow clone and continues', async () => {
+    const sources = await liveSources({}, { repositoryIsShallow: async () => true });
+    const selected = sources.filter((source) => ['merch-official', 'moments'].includes(source.name));
+    const store = fakeStore();
+    const results = await runCollector([
+      ...selected,
+      { name: 'fallback', cursorMode: 'none', load: async () => [candidate] },
+    ], store, { since: '2026-10-15T00:00:00.000Z', log: () => {} });
+    expect(results.slice(0, 2).map((result) => result.error)).toEqual([
+      'merch requires full git history; check out with fetch-depth: 0',
+      'moments requires full git history; check out with fetch-depth: 0',
+    ]);
+    expect(results[2]).toMatchObject({ inserted: 1, errors: 0 });
   });
 });

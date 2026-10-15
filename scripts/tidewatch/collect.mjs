@@ -17,6 +17,7 @@ const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PAGE = 1000;
 const LOOKUP_PAGE = 100;
+const CURSOR_OVERLAP_MS = 15 * 60_000;
 const VALID_SOURCES = new Set(['official', 'news', 'youtube', 'intake', 'merch', 'reddit', 'facebook', 'theory', 'social', 'moment']);
 
 function parseArgs(argv, now = Date.now()) {
@@ -57,10 +58,22 @@ async function lastCommit(file) {
   return stamp;
 }
 
-async function liveSources(client) {
+async function repositoryIsShallow() {
+  const { stdout } = await execFileAsync('git', ['rev-parse', '--is-shallow-repository'], { cwd: ROOT });
+  return stdout.trim() === 'true';
+}
+
+export async function liveSources(client, deps = {}) {
   const merchDir = path.join(ROOT, 'supabase', 'seed', 'merch');
   const contentDir = path.join(ROOT, 'supabase', 'seed', 'content');
   const postedDir = path.join(ROOT, 'social', 'posted');
+  let shallowPromise;
+  const requireFullHistory = async (source) => {
+    shallowPromise ??= (deps.repositoryIsShallow ?? repositoryIsShallow)();
+    if (await shallowPromise) {
+      throw new Error(`${source} requires full git history; check out with fetch-depth: 0`);
+    }
+  };
   let issuesPromise;
   const issues = async () => {
     issuesPromise ??= gh(['issue', 'list', '--label', 'intake', '--state', 'all', '--limit', '10000', '--json', 'number,title,body,url,createdAt'])
@@ -71,33 +84,37 @@ async function liveSources(client) {
     return issuesPromise;
   };
   return [
-    { name: 'news', load: async (since) => mapNews({
+    { name: 'news', cursorMode: 'overlap', load: async (since) => mapNews({
       stories: await fetchRows(client, 'news_story', 'id,canonical_title,summary,first_seen_at', 'first_seen_at', since),
       rawItems: await fetchRows(client, 'news_raw_item', 'id,source_id,external_id,url,title,snippet,story_id,created_at', 'created_at', since),
     }) },
-    { name: 'appearance', load: async () => (await issues()).filter((row) => row.item.source === 'youtube') },
-    { name: 'intake', load: async () => (await issues()).filter((row) => row.item.source === 'intake') },
-    ...['reddit', 'facebook'].map((platform) => ({ name: platform, load: async (since) => (await fetchRows(client, 'engagement_lead', 'id,platform,community,kind,thread_id,url,locator,title,context,created_at', 'created_at', since)).filter((row) => row.platform === platform).map(mapLead) })),
-    { name: 'theory', load: async (since) => (await fetchRows(client, 'fan_theory_candidate', 'id,theory_key,claim,evidence_summary,sample_urls,created_at', 'created_at', since)).map(mapTheory) },
-    ...['official', 'fanmade'].map((kind) => ({ name: `merch-${kind === 'fanmade' ? 'fan' : kind}`, load: async () => {
+    { name: 'appearance', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'youtube') },
+    { name: 'intake', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'intake') },
+    ...['reddit', 'facebook'].map((platform) => ({ name: platform, cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'engagement_lead', 'id,platform,community,kind,thread_id,url,locator,title,context,created_at', 'created_at', since)).filter((row) => row.platform === platform).map(mapLead) })),
+    { name: 'theory', cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'fan_theory_candidate', 'id,theory_key,claim,evidence_summary,sample_urls,created_at', 'created_at', since)).map(mapTheory) },
+    ...['official', 'fanmade'].map((kind) => ({ name: `merch-${kind === 'fanmade' ? 'fan' : kind}`, cursorMode: 'none', load: async () => {
+      await requireFullHistory('merch');
       const file = path.join(merchDir, `${kind}.mjs`);
       const mod = await import(pathToFileURL(file).href);
       const rows = kind === 'official' ? mod.OFFICIAL : mod.FAN_MADE;
       const changedAt = await lastCommit(path.relative(ROOT, file));
       return rows.map((row) => mapMerch(row, kind === 'fanmade' ? 'fan' : kind, changedAt));
     } })),
-    { name: 'social-posted', load: async () => Promise.all((await readdir(postedDir)).filter((file) => file.endsWith('.json')).map(async (file) => mapSocialPost(JSON.parse(await readFile(path.join(postedDir, file), 'utf8')), file))) },
-    { name: 'social-replies', load: async () => {
+    { name: 'social-posted', cursorMode: 'none', load: async () => Promise.all((await readdir(postedDir)).filter((file) => file.endsWith('.json')).map(async (file) => mapSocialPost(JSON.parse(await readFile(path.join(postedDir, file), 'utf8')), file))) },
+    { name: 'social-replies', cursorMode: 'none', load: async () => {
       const response = await fetch('https://raw.githubusercontent.com/JW-Incorporated/swift2/social-reply-ledger/reply-ledger.json');
       if (!response.ok) throw new Error(`reply ledger read failed: HTTP ${response.status}`);
       return Object.entries((await response.json()).seen ?? {}).map(mapReply);
     } },
-    { name: 'moments', load: async () => (await Promise.all((await readdir(contentDir)).filter((file) => file.endsWith('.mjs') && !file.startsWith('_')).map(async (file) => {
+    { name: 'moments', cursorMode: 'none', load: async () => {
+      await requireFullHistory('moments');
+      return (await Promise.all((await readdir(contentDir)).filter((file) => file.endsWith('.mjs') && !file.startsWith('_')).map(async (file) => {
       const full = path.join(contentDir, file);
       const data = (await import(pathToFileURL(full).href)).default;
       const changedAt = await lastCommit(path.relative(ROOT, full));
       return data.items.map((row) => mapMoment(row, data.eraSlug, changedAt));
-    }))).flat() },
+      }))).flat();
+    } },
   ];
 }
 
@@ -115,27 +132,44 @@ function fixtureSources(data) {
     { name: 'social-posted', rows: data.socialPosts.map((row) => mapSocialPost(row, row.filename)) },
     { name: 'social-replies', rows: Object.entries(data.replies).map(mapReply) },
     { name: 'moments', rows: data.moments.map((row) => mapMoment(row, row.eraSlug, row.changedAt)) },
-  ].map((source) => ({ name: source.name, load: async () => source.rows }));
+  ].map((source) => ({
+    name: source.name,
+    cursorMode: ['news', 'reddit', 'facebook', 'theory'].includes(source.name) ? 'overlap' : 'none',
+    load: async () => source.rows,
+  }));
 }
 
-function afterCursor(candidate, cursor, since) {
-  if (candidate.cursorAt < since) return false;
-  if (!cursor) return true;
-  return candidate.cursorAt > cursor.at || (candidate.cursorAt === cursor.at && candidate.cursorKey > cursor.key);
+function compareCodeUnits(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
 }
 
-function nextCursor(candidates) {
-  const last = [...candidates].sort((a, b) => a.cursorAt.localeCompare(b.cursorAt) || a.cursorKey.localeCompare(b.cursorKey)).at(-1);
+function afterCursor(candidate, cursor, since, usesCursor) {
+  if (!usesCursor) return true;
+  const floor = cursor
+    ? new Date(Date.parse(cursor.at) - CURSOR_OVERLAP_MS).toISOString()
+    : since;
+  return compareCodeUnits(candidate.cursorAt, floor) >= 0;
+}
+
+function nextCursor(candidates, current) {
+  const values = current ? [...candidates, { cursorAt: current.at, cursorKey: current.key }] : candidates;
+  const last = [...values].sort((a, b) => compareCodeUnits(a.cursorAt, b.cursorAt) || compareCodeUnits(a.cursorKey, b.cursorKey)).at(-1);
   return last ? { at: last.cursorAt, key: last.cursorKey } : null;
 }
 
-export async function runCollector(sources, store, { dryRun = false, since, log = console.log } = {}) {
+export async function runCollector(sources, store, { dryRun = false, since, log = console.log, now = Date.now() } = {}) {
   const results = [];
   for (const source of sources) {
     try {
-      const cursor = await store.getCursor(source.name);
-      const loaded = await source.load(cursor?.at ?? since);
-      const eligible = loaded.filter((row) => afterCursor(row, cursor, since));
+      const usesCursor = source.cursorMode !== 'none';
+      const cursor = usesCursor ? await store.getCursor(source.name) : null;
+      const loadSince = usesCursor
+        ? cursor
+          ? new Date(Date.parse(cursor.at) - CURSOR_OVERLAP_MS).toISOString()
+          : since
+        : undefined;
+      const loaded = await source.load(loadSince);
+      const eligible = loaded.filter((row) => afterCursor(row, cursor, since, usesCursor));
       const byKey = new Map();
       for (const row of eligible) {
         const prior = byKey.get(row.item.item_key);
@@ -149,9 +183,15 @@ export async function runCollector(sources, store, { dryRun = false, since, log 
       const existing = await store.existingKeys(rows.map((row) => row.item.item_key));
       const fresh = rows.filter((row) => !existing.has(row.item.item_key));
       if (!dryRun && rows.length) {
-        await store.upsertItems(rows.map((row) => row.item));
+        const observedAt = new Date(now).toISOString();
+        await store.upsertItems(rows.map((row) => ({
+          ...row.item,
+          last_seen_at: compareCodeUnits(observedAt, row.item.first_seen_at) >= 0
+            ? observedAt
+            : row.item.first_seen_at,
+        })), existing);
         await store.upsertTimelines(rows.map((row) => ({ story_id: row.item.story_id, detected_at: row.item.first_seen_at })));
-        await store.setCursor(source.name, nextCursor(eligible));
+        if (usesCursor) await store.setCursor(source.name, nextCursor(eligible, cursor));
       }
       const result = { source: source.name, read: rows.length, inserted: fresh.length, errors: 0 };
       results.push(result);
@@ -180,9 +220,21 @@ export function supabaseStore(client) {
       }
       return found;
     },
-    async upsertItems(rows) {
-      for (let i = 0; i < rows.length; i += PAGE) {
-        const { error } = await client.from('watch_item').upsert(rows.slice(i, i + PAGE), { onConflict: 'item_key', ignoreDuplicates: true });
+    async upsertItems(rows, existingKeys = new Set()) {
+      const fresh = rows.filter((row) => !existingKeys.has(row.item_key));
+      const existing = rows.filter((row) => existingKeys.has(row.item_key))
+        .map(({ item_key, last_seen_at }) => ({ item_key, last_seen_at }));
+      for (let i = 0; i < fresh.length; i += PAGE) {
+        const { error } = await client.from('watch_item').upsert(fresh.slice(i, i + PAGE), { onConflict: 'item_key', ignoreDuplicates: true });
+        if (error) throw error;
+      }
+      for (let i = 0; i < existing.length; i += PAGE) {
+        const batch = existing.slice(i, i + PAGE);
+        const stamps = new Set(batch.map((row) => row.last_seen_at));
+        if (stamps.size !== 1) throw new Error('existing item batch has inconsistent last_seen_at values');
+        const { error } = await client.from('watch_item')
+          .update({ last_seen_at: batch[0].last_seen_at })
+          .in('item_key', batch.map((row) => row.item_key));
         if (error) throw error;
       }
     },

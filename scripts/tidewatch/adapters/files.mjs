@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { slugify } from '../../lib/longlive-sync-shared.mjs';
 import { normalizeUrl, watchCandidate } from '../fingerprint.mjs';
 
 function stableId(value) {
@@ -37,7 +38,7 @@ export function mapReply([id, detectedAt]) {
   const [prefix, ...rest] = id.split(':');
   const platform = prefix.startsWith('fb-') ? 'facebook' : 'instagram';
   return watchCandidate({
-    itemKey: `reply:${platform}:${rest.join(':')}`,
+    itemKey: `reply:${platform}:${prefix}:${rest.join(':')}`,
     source: 'social',
     sourceRef: id,
     title: `${platform} ${prefix.replace('-', ' ')}`,
@@ -46,10 +47,11 @@ export function mapReply([id, detectedAt]) {
 }
 
 export function mapMoment(row, eraSlug, changedAt) {
+  const slug = row.slug ?? slugify(row.title);
   return watchCandidate({
-    itemKey: `moment:${row.slug}`,
+    itemKey: `moment:${eraSlug}:${slug}`,
     source: 'moment',
-    sourceRef: `${eraSlug}:${row.slug}`,
+    sourceRef: `${eraSlug}:${slug}`,
     url: row.sourceUrl,
     title: row.title,
     excerpt: row.snippet,
