@@ -24,6 +24,7 @@ const PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
 const BACKUP_PRIORITIES = new Set(['P0', 'P1']);
 const DEFAULT_TIMEOUT_MS = 120_000;
 const BREAKER_THRESHOLD = 3;
+export const IMAGE_INPUT_TOKEN_ALLOWANCE = 1_600;
 
 export function createClaudeCaller(options = {}) {
   const spawnImpl = options.spawnImpl ?? nodeSpawn;
@@ -119,7 +120,8 @@ export function createClaudeCaller(options = {}) {
         return complete({ status: 'capped', reason: 'per-run call cap reached' });
       }
       if (maxInputTokens !== undefined
-        && estimateTokens(systemPrompt, userPrompt) > maxInputTokens) {
+        && estimateTokens(systemPrompt, userPrompt)
+          + checkedImages.length * IMAGE_INPUT_TOKEN_ALLOWANCE > maxInputTokens) {
         return complete({ status: 'capped', reason: 'input token cap exceeded' });
       }
       if (checkedImages.length > 0) {

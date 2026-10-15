@@ -7,6 +7,7 @@ import {
   searchBrandDirect,
   searchPaidSearch,
   verifyAndScoreCandidates,
+  verifyProductUrl,
 } from './match-moments-authoring.mjs';
 
 const moment = { id: 'grammys-look', title: 'Grammys look' };
@@ -140,6 +141,23 @@ describe('E6 authoring: strict cost-order search (SPEC §8 step 2)', () => {
 });
 
 describe('E6 authoring: verification gate (R2/E1/E2)', () => {
+  it.each([
+    [403, 'unavailable'], [429, 'unavailable'], [503, 'unavailable'],
+    [404, 'invalid'], [410, 'invalid'], [200, 'ok'],
+  ])('classifies listing HTTP %s as %s', async (status, verdict) => {
+    const result = await verifyProductUrl('https://shop.example/item', {
+      fetchImpl: vi.fn(async () => ({ ok: status === 200, status })),
+    });
+    expect(result).toEqual({ verdict, status });
+  });
+
+  it('classifies a listing network throw as unavailable', async () => {
+    const result = await verifyProductUrl('https://shop.example/item', {
+      fetchImpl: vi.fn(async () => { throw new Error('network down'); }),
+    });
+    expect(result).toMatchObject({ verdict: 'unavailable', status: null, reason: 'network down' });
+  });
+
   it('drops a candidate that fails URL or image verification before scoring', async () => {
     const judge = vi.fn(async () => ({ score: 95 }));
     const verifyUrlImpl = vi.fn(async (url) => url === 'https://ok/p');

@@ -123,14 +123,22 @@ export async function gatherCandidates({
   return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket, paidSearchCalls };
 }
 
-async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
-  if (!url) return false;
+export async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
+  if (!url) return { verdict: 'invalid', status: null };
   try {
     const response = await fetchImpl(url, { method: 'HEAD', redirect: 'follow' });
-    return response.ok;
-  } catch {
-    return false;
+    if (response.ok) return { verdict: 'ok', status: response.status };
+    if ([404, 410].includes(response.status)) return { verdict: 'invalid', status: response.status };
+    return { verdict: 'unavailable', status: response.status };
+  } catch (error) {
+    return { verdict: 'unavailable', status: null, reason: error?.message || String(error) };
   }
+}
+
+export { defaultVerifyUrl as verifyProductUrl };
+
+function verificationPassed(result) {
+  return result === true || result?.verdict === 'ok';
 }
 
 /**
@@ -140,14 +148,14 @@ async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
 export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = defaultVerifyUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
   const scored = [];
   for (const candidate of candidates) {
-    const urlVerified = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
+    const urlVerification = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
     const imageVerified = candidate.imageUrl
       ? (await verifyImageImpl(candidate.imageUrl, { fetchImpl })).verdict === 'ok'
       : false;
-    if (!urlVerified || !imageVerified) continue; // R2: an unverified candidate is never authored
+    if (!verificationPassed(urlVerification) || !imageVerified) continue; // R2: an unverified candidate is never authored
     const judgment = await judge({ candidate, momentImageUrl });
     if (!Number.isFinite(judgment?.score)) continue;
-    scored.push({ ...candidate, urlVerified, imageVerified, score: judgment.score });
+    scored.push({ ...candidate, urlVerified: true, imageVerified, score: judgment.score });
   }
   return scored;
 }
