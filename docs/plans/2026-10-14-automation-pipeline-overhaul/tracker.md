@@ -51,17 +51,17 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-01c | Jev wire-shape fix: live selftest got HTTP 422 (choice/score `criteria` sent as an array, the API wants a dictionary); fix toRequest per the TypeSafe spec, surface the error body, verify fromResponse live | executor-claude-sonnet | S | L-JEV | P1-01 | done | #5860 | 2026-10-15 |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
-| P1-02c | llm_usage gains cache-creation and cache-read token columns AND its provider CHECK admits 'claude-subscription' (P1-09 review; otherwise runner usage inserts fail). MUST land before P1-28, the first caller | codex | S | L-DB | P1-14 | todo |  |  |
+| P1-02c | llm_usage gains cache-creation and cache-read token columns AND its provider CHECK admits 'claude-subscription' (P1-09 review; otherwise runner usage inserts fail). MUST land before P1-28, the first caller | codex | S | L-DB | P1-14 | done | #5893 | 2026-10-15 |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | done | #5868 | 2026-10-15 |
 | P1-05b | Collector follow-up (architect #3): page the existing-key update loop at LOOKUP_PAGE with a >1,000-key cap test; first-run baseline (a source with zero stored items inserts historical, no events). HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-05 | done | #5883 | 2026-10-15 |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
 | P1-07 | tidewatch.yml on the home clock with a freeze switch | codex | S | L-OPS | P1-06, P0-02, P0-07 | todo |  |  |
-| P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-14 | review | #5884 |  |
+| P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-14 | done | #5884 | 2026-10-15 |
 | P1-08b | Story-level source fix (architect #6): one article → one source row, best tier and URL win, outlet names normalised; a single article can never be 'corroborated'. HARD BLOCKER for any --primary schedule | codex | S | L-WORKER | P1-08 | todo |  |  |
 | P1-09 | Shared Claude wrapper on subscription tokens (Claude Code headless): priority, caps, backup-token fallback (rescoped by D1 revised; Fable consult before brief) | codex | M | L-LLM | P1-01, P0-19 | done | #5870 | 2026-10-15 |
-| P1-09b | Runner follow-up (architect #4): detect the five-hour "hit your session limit" message, with an end-to-end test that the backup is actually invoked for P0/P1; a loggerError field in the result. HARD BLOCKER for P1-28 | codex | S | L-LLM | P1-09 | review | #5887 |  |
+| P1-09b | Runner follow-up (architect #4): detect the five-hour "hit your session limit" message, with an end-to-end test that the backup is actually invoked for P0/P1; a loggerError field in the result. HARD BLOCKER for P1-28 | codex | S | L-LLM | P1-09 | done | #5887 | 2026-10-15 |
 | P1-10 | Answerers become scripted drafters with thread context | executor-claude-sonnet | M | L-COMMUNITY | P1-09, P1-01 | todo |  |  |
 | P1-11 | marjorie-ops becomes code plus a Jev gate | codex | M | L-ROUTINES | P1-01, P0-02 | review | #5897 |  |
 | P1-11b | marjorie-ops precheck trusts handled/escalated markers authored by the claude Bot (mirror chase-auto-defer.mjs:30's author set exactly; test that a claude-Bot handled marker yields `handled`). One review round. BLOCKS P1-11's 72 h savings measurement; wrong signal = live must-run count still above 3 | codex | S | L-ROUTINES | P1-11 | todo |  |  |
@@ -274,7 +274,20 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
-1. IN FLIGHT at 08:12 (5 of 5). Background agents and Codex jobs keep running after a /clear; check each branch head and its out.md:
+0. CURRENT at 10:15 (supersedes items 1-3 below, which are kept for history):
+   - IN FLIGHT: only a grunt resolving the #5891 docs conflict. Nothing else.
+   - ARMED (auto-merge): #5865 tracker plus HA; #5882 P1-12 status-reply; #5891 P0-21a push must-fixes; #5897 P1-11 marjorie-ops gate. Check each with `gh pr view <n> --json state,mergeStateStatus`; DIRTY is almost always a docs/decisions.md conflict → merge main in a FRESH worktree on the remote branch (never `git pull` in a worktree created from origin/main; it tracks main).
+   - DONE today (merged): P0-03b, P0-05, P0-05a, P0-20, P0-21b, P1-01c, P1-02c, P1-05, P1-05b, P1-08, P1-09, P1-09b, P1-12b, P1-14, P2-14.
+   - FIRST next session, in order:
+     (a) P1-12c (kevin-radar "needs Wyatt" text → "a founder"; strip @mentions); must land before TYPESAFE_API_KEY reaches Actions.
+     (b) P1-11b (marjorie-ops trusts claude-Bot markers, mirroring chase-auto-defer.mjs:30; test); blocks the 72 h savings measurement.
+     (c) P0-21c (watchdog check on the `dispatch_heartbeat` key that P0-21a writes) once #5891 merges; then update HA #129 with the go-live steps (CRON_SECRET with the freeze ON, redeploy, confirm 200 "frozen", kill workflow list then apply with confirm KILL-STALE-BACKLOG (56 pending at 14:51Z), Joey lifts the freeze in Supabase, one real test push to Joey's phone) and tell Joey "push ready".
+     (d) P1-28 (move the ANTHROPIC_API_KEY callers onto scripts/lib/claude-call.mjs; SPLIT claude-call.mjs and its test first, both at 299 lines; cache reads → cache_read_tokens, cache creation → cache_creation_input_tokens).
+     (e) P1-08b (story-level source dedupe; blocks any --primary schedule; enable the fast-lane row only with it).
+     (f) Then P1-04, P1-06 (after P1-28), P1-07 (after P1-06; quote the P1-05b merge sha 1fbd7d5e3; fetch-depth 0), P1-15 and P1-16, P1-18, P1-10, P1-22, P1-24.
+   - POST-MERGE CHECKS: P0-05 = after 2 state-changing poster runs exactly ONE open social-poster/state-rolling PR; P1-08 = its db-migrate run succeeded; P1-02c = its db-migrate run succeeded.
+   - WAITING ON JOEY: one command for #124 and #127 (`gh secret set -f .env` from the Swift2 folder); #5484 park/close/build; "close 125"; "done 117"; #126 affiliate IDs.
+1. [SUPERSEDED] IN FLIGHT at 08:12 (5 of 5). Background agents and Codex jobs keep running after a /clear; check each branch head and its out.md:
    - P0-05 v2 round 2 (FINAL): Claude executor, worktree p0-05-v2, branch feature/tidewatch-p0-05-v2. Conflict rule: queue deletions win unless main re-queued the file; drop --delete-branch; README claim narrowed; redaction on the retry path. Then the FINAL adversarial review (Opus): APPROVE → PR plus auto-merge; REJECT → DEBUG.md and the debug ladder (architect mandatory). Social lane: Claude only.
    - P1-08 round 2 (FINAL): Codex, worktree p1-08 → codex/p1-08-r2.out.md → final review (same checks: label feeds established plus a Taylor filter, separate fast-lane source row, Taylor path marker, scoring=n, Ticketmaster paths, parity of 3 sets, migration guard). A reject means architect mandatory.
    - P0-21a: Codex xhigh, worktree p0-21a → codex/p0-21a.out.md → adversarial review (stale-instant cutoff that keeps quiet-hours holds; freeze on a failed delivery log; cooldown off; summary log). Then P0-21c (dispatch heartbeat plus watchdog check).
