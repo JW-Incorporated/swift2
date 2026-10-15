@@ -25,7 +25,40 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 81
+
+## New Song 'I Knew It, I Knew You' from Toy Story 5 Released
+
+- first seen: 2026-10-15 16:06 UTC | category: release | importance: 5
+- verification_status: official | source_count: 1
+- summary: The new song titled 'I Knew It, I Knew You' from Toy Story 5 has been officially released and is available everywhere. Fans can now listen to it across all platforms.
+- sources:
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/shorts/o9LcBozLplo
+
+## Taylor Swift Releases Visualizer for BUNT. Remix of 'Opalite'
+
+- first seen: 2026-10-15 16:06 UTC | category: release | importance: 5
+- verification_status: official | source_count: 1
+- summary: Taylor Swift has released a visualizer for the BUNT. remix of her song 'Opalite'. Fans can now enjoy a new interpretation of the track alongside the visual elements.
+- sources:
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=vZJXqv48lIc
+
+## New Encore Album Featuring Four Songs Available for Pre-Order
+
+- first seen: 2026-10-15 16:06 UTC | category: release | importance: 7
+- verification_status: official | source_count: 1
+- summary: Taylor Swift announces that her new project, 'The Life of a Showgirl: The Encore', which includes four new songs, is now available for pre-order. Fans can save their copies ahead of the release.
+- sources:
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/shorts/_voc5oQkvZw
+
+## Selena Gomez Suggests Taylor Swift's Marriage Advice is Valuable
+
+- first seen: 2026-10-15 16:06 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: In a recent statement, Selena Gomez mentioned that she believes Taylor Swift is likely more adept at giving marriage advice than herself. The remark highlights their friendship and mutual respect.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxOai1yUlo4ZVJLUXI0Qk13WWNfYXZfZ1VBTkxDZWVPb1o1dm9RdHNMSUtTODM4ZlNEVE8wQTJzYUlmRENTTEhYR3lYeld5LXVrOGVtdTdSWjdnTzNrUWRNeUhYTWtycDIxdmdsRjRUbnVIekhOMm01TXZzM0Y4a3VkQWwya2pDOG42dXNEdEFmM09wajBLMUZhcV9n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQTHlwYUMxa1FhU1FZMXhPM3FrZm5xcWtXSDg3SDBZdWNOdkVlWGhoWlZWVkhtTW1RUWZVcmUzZUJaRkhmc2cwODczTHd6TVJmWFVNSmZHVzZ4OXRtWnVhZ3A3S0toeXVFVzZCQUhHRWlaNjMyb240Qk55TVhDNXdpYzE5QzlZbGpoM0R5bjJqM2dtUy1oODV6WGJnQzdfeHlMQUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Exploring Taylor Swift's Car Collection and Rumors
 
