@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import {
   decideOutcome,
+  dedupeWeeklyLimitIssues,
   failureHint,
   resultDetail,
   weeklyLimitInfo,
@@ -176,6 +177,16 @@ describe('weekly limit outcome', () => {
     expect(failureHint({ result: realLimitText }, { now: new Date('2026-10-14T20:10:43.000Z') })).toContain('plan usage for this account is exhausted');
   });
 
+  it('does not treat a successful result that quotes the text as a limit hit', () => {
+    const r = decideOutcome(
+      log({ subtype: 'success', is_error: false, num_turns: 42, result: realLimitText }),
+      { maxTurns: 40, stepOutcome: 'failure' },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.weeklyLimit).toBeUndefined();
+    expect(r.message).toContain('42 turns');
+  });
+
   it('bounds an unparseable reset to six hours', () => {
     expect(
       weeklyLimitInfo(
@@ -198,6 +209,17 @@ describe('weekly limit outcome', () => {
       }),
     ).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
   });
+
+  it('keeps the oldest issue and closes later duplicate issue races', () => {
+    const { keeper, duplicates } = dedupeWeeklyLimitIssues([
+      { number: 102 },
+      { number: 101 },
+      { number: 102 },
+      { number: 99, pull_request: {} },
+    ]);
+    expect(keeper.number).toBe(101);
+    expect(duplicates.map((issue) => issue.number)).toEqual([102]);
+  });
 });
 
 describe('routine-template.yml', () => {
@@ -211,5 +233,10 @@ describe('routine-template.yml', () => {
     );
     expect(yml).toContain('node scripts/routines/session-outcome.mjs');
     expect(yml).toContain('steps.claude.outcome');
+  });
+
+  it('selects the Claude OAuth token once for future fallback handling', () => {
+    expect(yml.match(/secrets\.CLAUDE_CODE_OAUTH_TOKEN/g)).toHaveLength(1);
+    expect(yml).toContain('claude_code_oauth_token: ${{ env.ROUTINE_CLAUDE_TOKEN }}');
   });
 });

@@ -133,7 +133,7 @@ export function decideOutcome(rawLog, { maxTurns, now, stepOutcome } = {}) {
       pass: false,
       message: 'no terminal result message — treating the routine step as failed',
     };
-  const weeklyLimit = weeklyLimitInfo(result, { now });
+  const weeklyLimit = result.is_error === true ? weeklyLimitInfo(result, { now }) : null;
   if (weeklyLimit) {
     return {
       pass: true,
@@ -172,6 +172,15 @@ export function weeklyLimitIssueBody({ detectedAt, parsed, resetAt }) {
     '',
     'Claude routines reached the shared weekly plan limit. This issue is updated in place.',
   ].join('\n');
+}
+
+export function dedupeWeeklyLimitIssues(issues) {
+  const unique = new Map();
+  for (const issue of issues) {
+    if (!issue.pull_request) unique.set(issue.number, issue);
+  }
+  const [keeper, ...duplicates] = [...unique.values()].sort((a, b) => a.number - b.number);
+  return { keeper, duplicates };
 }
 
 async function githubRequest(pathname, { body, method = 'GET', token } = {}) {
@@ -218,19 +227,19 @@ async function syncWeeklyLimitIssue(limit) {
       `${base}/issues?state=open&labels=${encodeURIComponent(WEEKLY_LIMIT_LABEL)}&per_page=100`,
       { token },
     );
-  let issues = (await listOpen()).filter((issue) => !issue.pull_request);
+  let issues = await listOpen();
   const title = `Claude weekly limit — resets ${limit.resetAt}`;
   const body = weeklyLimitIssueBody(limit);
   if (issues.length === 0) {
-    await githubRequest(`${base}/issues`, {
+    const created = await githubRequest(`${base}/issues`, {
       method: 'POST',
       token,
       body: { title, body, labels: [WEEKLY_LIMIT_LABEL] },
     });
-    issues = (await listOpen()).filter((issue) => !issue.pull_request);
+    issues = [...(await listOpen()), created];
   }
-  issues.sort((a, b) => a.number - b.number);
-  const [keeper, ...duplicates] = issues;
+  const { keeper, duplicates } = dedupeWeeklyLimitIssues(issues);
+  if (!keeper) throw new Error('weekly-limit issue was not returned after creation');
   await githubRequest(`${base}/issues/${keeper.number}`, {
     method: 'PATCH',
     token,

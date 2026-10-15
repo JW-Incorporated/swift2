@@ -55,6 +55,13 @@ export function decideLimitGate({ issues = [], now = new Date(), priority, routi
   };
 }
 
+export function failOpenGate() {
+  return {
+    skip: false,
+    message: '::warning::weekly-limit gate unavailable; running routine without a limit check',
+  };
+}
+
 async function githubRequest(pathname, { body, method = 'GET', token } = {}) {
   const response = await fetch(`${process.env.GITHUB_API_URL ?? 'https://api.github.com'}${pathname}`, {
     method,
@@ -82,33 +89,36 @@ async function main() {
     return;
   }
 
-  const token = process.env.GH_TOKEN;
-  const repository = process.env.GITHUB_REPOSITORY;
-  if (!token || !repository) throw new Error('missing GitHub issue context');
-  const base = `/repos/${repository}`;
-  const issues = (await githubRequest(
-    `${base}/issues?state=open&labels=${encodeURIComponent(LABEL)}&per_page=100`,
-    { token },
-  )).filter((issue) => !issue.pull_request);
-  const decision = decideLimitGate({
-    issues,
-    priority: process.env.ROUTINE_PRIORITY,
-    routinesPaused: process.env.ROUTINES_PAUSED,
-  });
-  if (decision.closeIssueNumber) {
-    await githubRequest(`${base}/issues/${decision.closeIssueNumber}`, {
-      method: 'PATCH',
-      token,
-      body: { state: 'closed', state_reason: 'completed' },
+  try {
+    const token = process.env.GH_TOKEN;
+    const repository = process.env.GITHUB_REPOSITORY;
+    if (!token || !repository) throw new Error('missing GitHub issue context');
+    const base = `/repos/${repository}`;
+    const issues = (await githubRequest(
+      `${base}/issues?state=open&labels=${encodeURIComponent(LABEL)}&per_page=100`,
+      { token },
+    )).filter((issue) => !issue.pull_request);
+    const decision = decideLimitGate({
+      issues,
+      priority: process.env.ROUTINE_PRIORITY,
+      routinesPaused: process.env.ROUTINES_PAUSED,
     });
+    if (decision.closeIssueNumber) {
+      await githubRequest(`${base}/issues/${decision.closeIssueNumber}`, {
+        method: 'PATCH',
+        token,
+        body: { state: 'closed', state_reason: 'completed' },
+      });
+    }
+    if (decision.message) console.log(decision.message);
+    await writeSkip(decision.skip);
+  } catch {
+    const decision = failOpenGate();
+    console.log(decision.message);
+    await writeSkip(decision.skip);
   }
-  if (decision.message) console.log(decision.message);
-  await writeSkip(decision.skip);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
-  main().catch((error) => {
-    console.error(`::error::weekly-limit gate failed: ${error.message}`);
-    process.exitCode = 1;
-  });
+  main();
 }

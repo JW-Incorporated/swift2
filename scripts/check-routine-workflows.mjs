@@ -59,6 +59,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const WORKFLOWS_DIR = '.github/workflows';
 export const ROUTINE_GLOB_PREFIX = 'routine-';
 export const TEMPLATE_FILE = 'routine-template.yml';
+export const REQUIRED_CALLER_PERMISSIONS = { issues: 'write' };
 
 /** Repo-relative paths of every `routine-*.yml` file, excluding the template. */
 export function listRoutineWorkflowFiles(dirents) {
@@ -90,6 +91,12 @@ export function extractAllowedTools(text) {
     .split(',')
     .map((t) => t.trim())
     .filter(Boolean);
+}
+
+/** Extracts a top-level workflow permission, or `none` when it is absent. */
+export function extractPermission(text, permission) {
+  const permissions = /^permissions:\s*\n((?:  [^\n]*\n?)*)/m.exec(text)?.[1] ?? '';
+  return new RegExp(`^  ${permission}:\\s*(\\w+)\\b`, 'm').exec(permissions)?.[1] ?? 'none';
 }
 
 /**
@@ -207,6 +214,16 @@ export function checkRoutineWorkflows(files) {
     const header = extractHeaderComment(text);
 
     if (!name) problems.push(`${path}: no top-level \`name:\` found.`);
+    if (text.includes(`uses: ./.github/workflows/${TEMPLATE_FILE}`)) {
+      for (const [permission, required] of Object.entries(REQUIRED_CALLER_PERMISSIONS)) {
+        const actual = extractPermission(text, permission);
+        if (actual !== required) {
+          problems.push(
+            `${path}: caller grants \`${permission}: ${actual}\`, but ${TEMPLATE_FILE} requires \`${permission}: ${required}\`.`,
+          );
+        }
+      }
+    }
     const dispatchOnly = !cron && isDispatchOnly(text);
     if (!cron && !dispatchOnly) {
       problems.push(

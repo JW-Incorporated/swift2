@@ -1,5 +1,6 @@
+import { execFileSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
-import { decideLimitGate, issueReset } from './limit-gate.mjs';
+import { decideLimitGate, failOpenGate, issueReset } from './limit-gate.mjs';
 
 const futureIssue = {
   number: 42,
@@ -9,6 +10,22 @@ const futureIssue = {
 const now = new Date('2026-10-14T21:00:00.000Z');
 
 describe('decideLimitGate', () => {
+  it('fails open when the GitHub API is unavailable', () => {
+    expect(failOpenGate()).toEqual({
+      skip: false,
+      message: '::warning::weekly-limit gate unavailable; running routine without a limit check',
+    });
+  });
+
+  it('makes the workflow entry point warn and continue when GitHub context is unavailable', () => {
+    const output = execFileSync(process.execPath, ['scripts/routines/limit-gate.mjs'], {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+      env: { ...process.env, GH_TOKEN: '', GITHUB_REPOSITORY: '', ROUTINES_PAUSED: 'false' },
+    });
+    expect(output).toContain('::warning::weekly-limit gate unavailable');
+  });
+
   it('runs when there is no issue', () => {
     expect(decideLimitGate({ issues: [], now, priority: 'routine' })).toEqual({ skip: false, message: null });
   });

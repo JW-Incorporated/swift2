@@ -195,6 +195,8 @@ permissions:
 jobs:
   run-routine:
     runs-on: ubuntu-latest
+    env:
+      ROUTINE_CLAUDE_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
     timeout-minutes: ${{ inputs.timeout_minutes }}
     environment: ${{ inputs.environment || null }}
     concurrency:
@@ -206,7 +208,7 @@ jobs:
       - name: Guard — CLAUDE_CODE_OAUTH_TOKEN not set yet
         id: auth
         run: |
-          if [ -z "${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}" ]; then
+          if [ -z "$ROUTINE_CLAUDE_TOKEN" ]; then
             echo "::warning::CLAUDE_CODE_OAUTH_TOKEN is not set — this routine (${{ inputs.routine_name }}) is inert until Joey runs 'claude setup-token' and the secret is stored (see HUMAN-ACTIONS.md). Skipping run, not failing."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
@@ -262,7 +264,7 @@ jobs:
         continue-on-error: true # outcome decided by "Decide routine outcome" below
         uses: anthropics/claude-code-action@v1
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_code_oauth_token: ${{ env.ROUTINE_CLAUDE_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.disallowed_tools != '' && format(' --disallowedTools ''{0}''', inputs.disallowed_tools) || '' }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
