@@ -3,13 +3,11 @@
 # `watchdog-alert` issue gets a reply within the hour: what she checked,
 # what she did, and whether it needs a founder — never a silent alert.
 #
-# Zero-cost `gate` job first (spec: "A zero-cost gate job runs first"): a
-# plain `gh issue list` step, no agent, ~5s. Most hours there are no open
-# alerts, so the Sonnet `run` job is skipped entirely via `needs`/`if` and
-# the hourly cadence costs almost nothing. A SKIPPED job does not fail the
-# workflow run as long as nothing else failed, so `conclusion: success` is
-# still reported — confirmed on the first real run per the spec's AC2, not
-# assumed here.
+# The `gate` job deterministically gathers every mechanical signal this routine
+# used to discover, then asks Jev one Noul per signal. Sonnet receives only
+# items at or above 0.7. A missing key, failed read, Jev error/timeout, or gate
+# crash fails open to the full prompt; `handled` plus `if: always()` makes a
+# broken optimization no worse than the pre-P1-11 routine.
 #
 # No per-alert dispatch from watchdog.yml (architect's call, spec's
 # Mechanics section): watchdog runs at :05 and this sweep follows 13
@@ -97,9 +95,10 @@ jobs:
       contents: read
       issues: read
       pull-requests: read
+      actions: read
     outputs:
-      work: ${{ steps.check.outputs.work }}
-      autodefer: ${{ steps.check.outputs.autodefer }}
+      handled: ${{ steps.precheck.outputs.handled }}
+      autodefer: ${{ steps.precheck.outputs.autodefer }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -107,41 +106,32 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Collect complete dispatch chase snapshot and plan
+      - name: Install Jev client dependencies
+        continue-on-error: true
+        run: npm ci --silent
+      - name: Deterministic signal collection and Jev action gate
+        id: precheck
+        if: always()
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          AUTO_DEFER_AUTHOR: sffan15-sys
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: node scripts/ops/marjorie-ops-precheck.mjs .scratch/marjorie-ops-precheck.json
+      - name: Record a precheck crash as fail-open
+        if: always() && steps.precheck.outcome != 'success'
+        env:
+          PRECHECK_OUTCOME: ${{ steps.precheck.outcome }}
         run: |
           set -euo pipefail
           mkdir -p .scratch
-          node scripts/marjorie/lib/dispatch-chase-state.mjs "$REPO" > .scratch/dispatch-chase-snapshot.json
-          node scripts/marjorie/lib/dispatch-chase.mjs plan < .scratch/dispatch-chase-snapshot.json > .scratch/dispatch-chase-plan.json
-      - name: Any open watchdog alert or pending chase action?
-        id: check
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
-          CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
-          AUTODEFER=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.autoDefers?.length||0)')
-          if [ "$AUTODEFER" -gt 0 ]; then echo "autodefer=yes" >> "$GITHUB_OUTPUT"; else echo "autodefer=no" >> "$GITHUB_OUTPUT"; fi
-          FIXQ=0
-          for N in $(gh issue list --repo "$REPO" --state open --search 'label:"desk:ops-fix" -label:"ops-fix:dispatched" -label:"ops-fix:stuck" label:marjorie-filed,routine-failure' --json number --jq '.[].number'); do
-            if node scripts/marjorie/ops-fix-trust.mjs "$N" --repo "$REPO" > /dev/null; then FIXQ=$((FIXQ+1)); fi
-          done
-          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ] || [ "$FIXQ" -gt 0 ]; then
-            echo "work=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "work=no" >> "$GITHUB_OUTPUT"
-          fi
+          node -e 'require("node:fs").writeFileSync(".scratch/marjorie-ops-precheck.json", JSON.stringify({mode:"fail-open",reason:"precheck crash",signals:[],flagged:[]},null,2)+"\n")'
+          echo "- agent: ran(fail-open: precheck crash)" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
-        if: steps.check.outputs.work == 'yes'
+        if: always() && steps.precheck.outputs.handled != 'true'
         with:
-          name: dispatch-chase-plan
-          path: .scratch/dispatch-chase-plan.json
+          name: marjorie-ops-precheck
+          path: .scratch/*.json
           retention-days: 1
 
   # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
@@ -177,7 +167,7 @@ jobs:
 
   run:
     needs: gate
-    if: needs.gate.outputs.work == 'yes'
+    if: always() && github.ref == 'refs/heads/main' && needs.gate.outputs.handled != 'true'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — site ops"
@@ -186,7 +176,7 @@ jobs:
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 30
       max_turns: 90
-      pre_run_artifact: dispatch-chase-plan
+      pre_run_artifact: marjorie-ops-precheck
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]
       allowed_bots: github-actions # M7: bot-chat-alarm.yml starts this run on GITHUB_TOKEN; claude-code-action refuses a bot-started run otherwise

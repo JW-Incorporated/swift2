@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Marjorie ops uses deterministic signals plus a fail-open Jev gate (P1-11)
+
+**Decision.** The three-hourly ops routine collects watchdog alerts, current red workflows, stuck PRs, held content, chase work, and ops-fix candidates in deterministic code. Jev answers one Noul per signal; raw probability `>= 0.7` sends only flagged items to Sonnet, while no flagged items skips it. A missing key, unreadable source, Jev error/timeout, or precheck crash runs the full pre-P1-11 prompt. The summary records `agent: skipped|ran(n flagged)|ran(fail-open: reason)` plus every probability. The existing deterministic auto-defer stays separate.
+
+**Why/cost.** This removes the programme's largest routine-token source without letting the optimization reduce ops coverage. Jev input is compact (at most 500 characters per signal) at the shared client's $0.042/million input-token rate; Sonnet remains the fallback and the watchdog's 24-hour alert remains the backstop. Approved by programme item P1-11; reversible by reverting the gate.
+
+---
+
 ## 2026-10-15 — Scripted Claude calls use one capped headless runner (P1-09)
 
 **Decision.** Scripted callers use `scripts/lib/claude-call.mjs` for one never-throwing Claude Code print-mode call on subscription tokens. With Claude Code **2.1.300**, the verified invocation is `-p --output-format json --safe-mode --setting-sources "" --strict-mcp-config --mcp-config '{"mcpServers":{}}' --tools "" --no-session-persistence --model ... --system-prompt ...`, plus `--json-schema` when requested. It runs from a fresh empty temporary directory and removes it afterward. `--system-prompt` replaces rather than appends; safe mode and the explicit empty settings, MCP, tools, and cwd controls prevent project/user customization from entering the call. The child receives only the OS bootstrap allowlist plus the selected `CLAUDE_CODE_OAUTH_TOKEN`; API/auth keys and the unselected backup token are excluded. Per-run call and estimated-input caps still apply before spawn. The routine limit gate's existing issue reset reader supplies current primary/backup resets; a newly detected weekly primary limit retries once on the backup for P0/P1, while P2/P3 stop as unavailable. Weekly-limit detection and backup fallback are implemented; five-hour session-limit detection ("hit your session limit") is NOT yet implemented and follows in item P1-09b, which must land before the first caller (P1-28). The runner returns the reset but never writes the tracking issue.
