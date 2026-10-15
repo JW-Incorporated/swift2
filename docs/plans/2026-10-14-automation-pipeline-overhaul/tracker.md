@@ -88,7 +88,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | todo |  |  |
 | P2-12 | Breaking and retraction drill | claude-opus | M | L-TIDE-SPEC | P2-03, P2-04, P2-05, P2-06, P2-07 | todo |  |  |
 | P2-13 | Staged go-live by class | claude-opus | M | L-TIDE-SPEC | P2-01, P2-02, P2-12 | todo |  |  |
-| P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | todo |  |  |
+| P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | todo | #5817 |  |
 
 ## P3 Measure, tune and grow
 
@@ -133,6 +133,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 21:24 PM: #5813 red fixed by grunt (eslint ignore for `docs/plans/**/dashboard/**`, a7e97fc6f; CodeQL regex `i` flag in dashboard/build.mjs, e4cdb2358); CI rerun pending. P0-11 dispatched (Codex sol xhigh). Call: P0-11's second opinion is an adversarial Claude reviewer, not `codex:rescue`, because Codex wrote it (a Codex second opinion would be self-review).
 - 2026-10-14 21:27 PM: P0-03 reviewer APPROVE → PR #5816, auto-merge armed (verified). Post-merge: confirm a social-only PR runs build-content, then `gh pr update-branch` armed PRs (ci.yml change). P0-07 dispatched (Codex sol medium). P0-17 marked done: the planning session already published Artifact v4 with the Plan and Tracking tabs, target flow and corrections (jsdom smoke, per STATE.md 21:40); the store write path is proven by this session's ArtifactData writes. Follow-up only: the Decisions tab does not show Joey's answers yet.
 - 2026-10-14 21:30 PM rulings on Codex stops (all resumed in-session): (a) tests use the repo's `scripts/**/*.test.ts` convention, never edit vitest.config.ts (P0-01, P0-07); (b) the `sync:content` side effect on docs/audits/theory-resolutions.md is never committed and is not a tripwire; stage by explicit path; (c) P0-07: the ops-ledger workflow uploads budget.json as an artifact plus a step summary instead of opening a PR, because the content auto-merge gate (branch prefix + author allowlist) is not worth widening for a weekly report; P3-04 decides how reports land. P0-14 pushed both branches → reviewer running. P0-14 follow-ups logged for later items: P2-06 must run as the committed Tree identity for the tree-auto stamp (guardrail 1); P1-16 must respect the existing 80-char Facebook excerpt rule; P2-04/P2-05: with the 15-minute Vercel push cron the 5-minute kill window is a minimum (worst case about 20 minutes); P1-02's PR writes the Tidewatch data-model decisions.md entry and P1-08's writes the widened OFFICIAL_DOMAINS entry.
+- 2026-10-14 21:33 PM: P0-14 review: rulings branch APPROVE → PR #5817 (label founder-decision, no auto-merge; HA #128 filed for the owner). Decisions branch REQUEST CHANGES (D7 wording must keep the 2026-10-04 80-char excerpt and 2026-08-25 hashed-authors rules) → exact reviewer text sent back to the executor, who lands it (round 2 = verbatim application of the reviewer's text). Call: the spec's "agents may switch PUSH_FREEZE on; only the owner lifts it" stays, because it matches the existing SOCIAL_FREEZE on-only convention. Merged the plan-branch CI fixes into this branch so #5815 can go green.
 
 ## Next actions
 

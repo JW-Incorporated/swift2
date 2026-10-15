@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #128 🟡 [DECIDE] Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) (~5 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** The guardrails are founder-owned, so agents never merge them. Breaking news can't go live on site, push or social until this lands, and confirmed personal-life news (Baby Watch) also waits on it. It writes down what you decided as D4 to D6 tonight.
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/pull/5817 and read the TL;DR at the top.
+2. Decide: `approve` — merge it (or say "approved" in the Swift2 pipeline PM chat); `change` — say what to change.
+**Worked if:** PR #5817 shows Merged.
 
 ## #127 🟢 [UPGRADE] Add a backup Claude token so routines keep running past your weekly limit (~5 min)
 <!-- ha filed=2026-10-14 -->
