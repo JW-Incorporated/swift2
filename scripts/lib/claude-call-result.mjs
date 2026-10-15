@@ -20,6 +20,7 @@ export function usageRow(input, token, usage) {
     input_tokens: usage.inputTokens,
     output_tokens: usage.outputTokens,
     cache_read_tokens: usage.cacheReadInputTokens,
+    cache_creation_input_tokens: usage.cacheCreationInputTokens,
     calls: 1,
   };
 }

@@ -168,6 +168,7 @@ describe('callClaude runner', () => {
       input_tokens: 10,
       output_tokens: 4,
       cache_read_tokens: 3,
+      cache_creation_input_tokens: 12,
       calls: 1,
     }]);
   });
