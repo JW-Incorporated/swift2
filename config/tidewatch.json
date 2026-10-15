@@ -14,6 +14,7 @@
     "P2": "other classification",
     "P3": "batch work"
   },
+  "_capsNote": "placeholder until the P0-07 ledger and P1-06 shadow measure real volume",
   "dailyCaps": {
     "tidewatch-classifier": { "model": "jev-1.13.0", "priority": "P2", "calls": 2000, "tokens": 4000000 },
     "tidewatch-fallback": { "model": "claude-haiku-5-5", "priority": "P2", "calls": 60, "tokens": 1300000 },
@@ -45,7 +46,7 @@
         "precisionTarget": 1.0
       },
       "priority": "P0",
-      "questions": ["q_class", "q_official", "q_settled", "q_urgency", "q_same_story", "q_injection"],
+      "questions": ["q_class", "q_official", "q_settled", "q_urgency", "q_same_story", "q_injection", "q_settled_fact"],
       "action": {
         "route": "critical_fast_path",
         "push": ["song_drop", "album_news", "tour_news"],
@@ -55,9 +56,9 @@
         "onVerifierUnavailable": "hold_owner_queue",
         "onFactCheckFail": "normal_news_or_rumor",
         "breakingSocial": true,
-        "stagedGoLive": ["site", "push", "social"]
+        "stagedGoLive": { "site": 10, "push": 12, "social": 13 }
       },
-      "goLiveOrder": 9
+      "goLiveOrder": 10
     },
     "critical_personal": {
       "enabled": false,
@@ -71,7 +72,7 @@
         "precisionTarget": 1.0
       },
       "priority": "P0",
-      "questions": ["q_class", "q_personal", "q_speculation", "q_settled", "q_supports"],
+      "questions": ["q_class", "q_personal", "q_speculation", "q_settled", "q_supports", "q_settled_fact"],
       "action": {
         "route": "critical_personal_path",
         "push": ["baby_watch", "relationship_news"],
@@ -83,7 +84,7 @@
         "onVerifierUnavailable": "hold",
         "breakingSocial": true
       },
-      "goLiveOrder": 10
+      "goLiveOrder": 14
     },
     "official_drop": {
       "enabled": false,
@@ -101,7 +102,7 @@
         "breakingSocial": false,
         "alsoCriticalWhen": "new_song_or_album"
       },
-      "goLiveOrder": 7
+      "goLiveOrder": 8
     },
     "tour_ticket": {
       "enabled": false,
@@ -121,7 +122,7 @@
         "criticalPathAs": "critical_breaking",
         "otherwiseAs": "normal_news"
       },
-      "goLiveOrder": 8
+      "goLiveOrder": 9
     },
     "normal_news": {
       "enabled": false,
@@ -139,7 +140,7 @@
         "breakingSocial": false,
         "alsoEnqueue": { "class": "merch_outfit", "when": "q_outfit" }
       },
-      "goLiveOrder": 6
+      "goLiveOrder": 7
     },
     "merch_official": {
       "enabled": false,
@@ -157,7 +158,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": 5
+      "goLiveOrder": 6
     },
     "merch_fan": {
       "enabled": false,
@@ -174,7 +175,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": 5
+      "goLiveOrder": 6
     },
     "merch_outfit": {
       "enabled": false,
@@ -191,7 +192,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": 5
+      "goLiveOrder": 6
     },
     "theory_material": {
       "enabled": false,
@@ -208,7 +209,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": 3
+      "goLiveOrder": 4
     },
     "fan_discussion": {
       "enabled": false,
@@ -231,7 +232,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": 4
+      "goLiveOrder": 5
     },
     "rumor": {
       "enabled": false,
@@ -248,7 +249,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": null
+      "goLiveOrder": 3
     },
     "correction_debunk": {
       "enabled": false,
@@ -266,7 +267,7 @@
         "onVerifierUnavailable": "hold",
         "breakingSocial": false
       },
-      "goLiveOrder": null
+      "goLiveOrder": 11
     },
     "duplicate": {
       "enabled": false,
@@ -324,7 +325,7 @@
         "onVerifierUnavailable": null,
         "breakingSocial": false
       },
-      "goLiveOrder": null
+      "goLiveOrder": 0
     }
   }
 }
