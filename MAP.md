@@ -450,6 +450,14 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `.github/workflows/plan-recheck-marjorie.yml` | Fork of `plan-recheck.yml` for the Marjorie plan (path hard-coded there); daily gate, Opus only when due |
 | `docs/agents/runner-prompts/plan-recheck-marjorie.md` | Prompt for the Marjorie recheck routine, reports on #4180 |
 | `docs/plans/tree-overhaul/WAVE-1-REVIEW-BRIEF.md` | Handoff for a later review session: what Wave 1 decided, what was already reviewed, and the five places worth pushing hardest |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/README.md` | Automation pipeline overhaul (2026-10-14): index, goals, reading order; the effort to meet the eleven "true north" goals and cut Claude token burn |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/OPERATING-MODE.md` | How the PM session runs it: roles, Codex and Claude split, tracker and dashboard mirror, repo rules, kickoff prompt (§8) |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/plan.md` | Plan of record: phases P0-P3, 68 items, classification taxonomy, token model, decisions D1-D9, owner actions |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/plan-items.json` | The plan as data (the dashboard reads it) |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/tracker.md` | One row per item: status, PR, done date; kept current by the PM session (live copy on `pm/pipeline-overhaul-progress`) |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/research/` | Ten read-only research reports with file:line citations |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/inputs/` | Briefs, owner instructions, Fable's full audit and the metrics data |
+| `docs/plans/2026-10-14-automation-pipeline-overhaul/dashboard/` | Source for the Pipeline Atlas dashboard Artifact |
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
 | `docs/specs/marjorie-overhaul/c1-delivery.md` | M0 design: `scripts/marjorie/lib/discord.mjs`, webhook-not-bot-token and why, the `ops` environment, the mechanical `[discord failed]` mail fallback, and what M4 needs to read thread replies |

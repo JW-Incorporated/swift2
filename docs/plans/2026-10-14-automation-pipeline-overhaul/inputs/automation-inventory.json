@@ -1,0 +1,3234 @@
+[
+ {
+  "id": "a11y.yml",
+  "name": "Accessibility scan (axe/pa11y)",
+  "kind": "workflow",
+  "trigger": "cron 10 16 * * * daily + manual",
+  "purpose": "Non-blocking axe and pa11y scan of live site for Laura a11y routine",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reports only; no content written",
+  "inputs": [
+   "live site longlivets.com"
+  ],
+  "outputs": [
+   "axe/pa11y report artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "a11y"
+ },
+ {
+  "id": "appearance-discovery.yml",
+  "name": "Appearance discovery",
+  "kind": "workflow",
+  "trigger": "cron 40 13,21 * * * + manual (dry_run)",
+  "purpose": "Zero-LLM poll of YouTube channel RSS feeds; files intake issues for new Taylor appearances",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "files intake issues that the Content Shift lane turns into appearance/video content",
+  "inputs": [
+   "channel RSS feeds (scripts/appearance-discovery/channels.mjs)"
+  ],
+  "outputs": [
+   "GitHub intake issues"
+  ],
+  "dependsOn": [],
+  "workflowName": "appearance-discovery"
+ },
+ {
+  "id": "auto-merge-content.yml",
+  "name": "Auto-merge content PRs",
+  "kind": "workflow",
+  "trigger": "pull_request_target on content paths (seed, social queue, etc.)",
+  "purpose": "Enables native auto-merge for bot PRs that only touch allowlisted content paths",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "lands content PRs on main so they reach the app",
+  "inputs": [
+   "PR file list",
+   "automerge-content-guard.mjs",
+   "automerge-branch-author-gate.mjs"
+  ],
+  "outputs": [
+   "auto-merge armed on PRs"
+  ],
+  "dependsOn": [
+   "ci.yml",
+   "routine-vault-run.yml"
+  ],
+  "workflowName": "auto-merge-content"
+ },
+ {
+  "id": "auto-merge-keepup.yml",
+  "name": "Auto-merge keepup",
+  "kind": "workflow",
+  "trigger": "cron */15 * * * * + manual",
+  "purpose": "Rescues stranded bot PRs (behind main / unarmed) so they auto-merge",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "unsticks content PRs so they land",
+  "inputs": [
+   "open PR list"
+  ],
+  "outputs": [
+   "update-branch + re-arm auto-merge"
+  ],
+  "dependsOn": [
+   "auto-merge-content.yml"
+  ],
+  "workflowName": "auto-merge-keepup"
+ },
+ {
+  "id": "backup-restore-drill.yml",
+  "name": "Backup restore drill (monthly)",
+  "kind": "workflow",
+  "trigger": "cron 20 6 1 * * + PR on migrations/backup script + manual",
+  "purpose": "Proves documented restore procedure works against repo-seed fixture (launch gate BACKUPS)",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "verification of backups only",
+  "inputs": [
+   "supabase/migrations",
+   "seed fixture"
+  ],
+  "outputs": [
+   "drill result",
+   "alert issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "backup-restore-drill"
+ },
+ {
+  "id": "bot-chat-alarm.yml",
+  "name": "Bot chat no-reply alarm",
+  "kind": "workflow",
+  "trigger": "manual dispatch only (doorbell/poll stage inputs)",
+  "purpose": "Raises alert when a founder chat message got no reply (stuck / doorbell missed)",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ops alerting",
+  "inputs": [
+   "Discord channel state",
+   "stage input"
+  ],
+  "outputs": [
+   "Discord/issue alert",
+   "re-dispatch of chat routines"
+  ],
+  "dependsOn": [
+   "bot-chat-poll.yml",
+   "scripts/doorbell/doorbell.mjs"
+  ],
+  "workflowName": "bot-chat-alarm"
+ },
+ {
+  "id": "bot-chat-poll.yml",
+  "name": "Bot chat poll",
+  "kind": "workflow",
+  "trigger": "cron */5 * * * * + manual (dry_run)",
+  "purpose": "Polls Discord for founder messages to Marjorie/Tree, claims them with a reaction, dispatches chat routines",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "founder chat plumbing",
+  "inputs": [
+   "Discord channels longlive-marjorie / longlive-tree"
+  ],
+  "outputs": [
+   "dispatches routine-marjorie-chat / routine-tree-chat"
+  ],
+  "dependsOn": [],
+  "workflowName": "bot-chat-poll"
+ },
+ {
+  "id": "ci.yml",
+  "name": "CI build gate",
+  "kind": "workflow",
+  "trigger": "pull_request + push to main",
+  "purpose": "Main build/test gate: sync content, content bundle check, typecheck, tests, lint, check:* gates",
+  "category": "ci-quality",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "gates every content PR; required check build",
+  "inputs": [
+   "repo checkout"
+  ],
+  "outputs": [
+   "build status checks"
+  ],
+  "dependsOn": [],
+  "workflowName": "CI"
+ },
+ {
+  "id": "cie-scan.yml",
+  "name": "Content Integrity Engine scan (Karen deterministic)",
+  "kind": "workflow",
+  "trigger": "cron 9 9 * * * + manual",
+  "purpose": "Deterministic content integrity scan that files tickets (replaces dark Karen cloud routine)",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "finds defects in app content and files fix tickets",
+  "inputs": [
+   "supabase/seed content",
+   "web link probes"
+  ],
+  "outputs": [
+   "GitHub issues labeled cie",
+   "report"
+  ],
+  "dependsOn": [],
+  "workflowName": "cie-scan"
+ },
+ {
+  "id": "claude-auth-probe.yml",
+  "name": "Claude OAuth probe",
+  "kind": "workflow",
+  "trigger": "manual",
+  "purpose": "Checks the Claude OAuth token used by routines still authenticates",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "auth health probe",
+  "inputs": [
+   "CLAUDE_CODE_OAUTH_TOKEN secret"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [],
+  "workflowName": "Claude OAuth probe"
+ },
+ {
+  "id": "codeql.yml",
+  "name": "CodeQL",
+  "kind": "workflow",
+  "trigger": "push/PR to main + cron 27 12 * * 1",
+  "purpose": "Code scanning for security (Paul Blart detection layer)",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "security scan",
+  "inputs": [
+   "source code"
+  ],
+  "outputs": [
+   "code scanning alerts"
+  ],
+  "dependsOn": [],
+  "workflowName": "CodeQL"
+ },
+ {
+  "id": "community-awareness-deliver.yml",
+  "name": "Awareness deliver (step 3/3)",
+  "kind": "workflow",
+  "trigger": "workflow_run after routine-awareness-answerer + manual",
+  "purpose": "Delivers drafted awareness image-reply leads to Discord within caps",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "community outreach, not app content",
+  "inputs": [
+   "drafted engagement_lead rows"
+  ],
+  "outputs": [
+   "Discord messages",
+   "lead status updates"
+  ],
+  "dependsOn": [
+   "routine-awareness-answerer.yml"
+  ],
+  "workflowName": "community-awareness-deliver"
+ },
+ {
+  "id": "community-awareness-scan.yml",
+  "name": "Awareness scan (step 1/3)",
+  "kind": "workflow",
+  "trigger": "cron 7,27,47 * * * * + manual",
+  "purpose": "Zero-LLM jittered Reddit RSS discovery of threads for image replies",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "community discovery",
+  "inputs": [
+   "Reddit RSS",
+   "awareness-subs.json"
+  ],
+  "outputs": [
+   "engagement_lead rows in DB"
+  ],
+  "dependsOn": [],
+  "workflowName": "community-awareness-scan"
+ },
+ {
+  "id": "community-crawl.yml",
+  "name": "Community crawl (year-deep)",
+  "kind": "workflow",
+  "trigger": "cron 13 7 * * * + manual (budget); kill switch default OFF",
+  "purpose": "Crawls top Reddit posts for theory mining (kill-switched)",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "raw material for theory miner / fan theories content",
+  "inputs": [
+   "Reddit via home relay"
+  ],
+  "outputs": [
+   "crawl artifact / DB rows"
+  ],
+  "dependsOn": [],
+  "workflowName": "community-crawl"
+ },
+ {
+  "id": "community-inbox.yml",
+  "name": "Community inbox (Reddit email reader)",
+  "kind": "workflow",
+  "trigger": "cron 5,35 * * * * + manual",
+  "purpose": "IMAP reader that classifies Reddit alert/reply emails into leads",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "lead intake",
+  "inputs": [
+   "IMAP mailbox"
+  ],
+  "outputs": [
+   "engagement_lead rows"
+  ],
+  "dependsOn": [],
+  "workflowName": "community-inbox"
+ },
+ {
+  "id": "community-mailer.yml",
+  "name": "Community tasks mailer",
+  "kind": "workflow",
+  "trigger": "cron 36 15 * * * and 12 21 * * * + manual",
+  "purpose": "Sends daily Community Tasks prompts to Discord social channel",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "founder prompts",
+  "inputs": [
+   "engagement_lead rows"
+  ],
+  "outputs": [
+   "Discord post"
+  ],
+  "dependsOn": [
+   "routine-community-answerer.yml"
+  ],
+  "workflowName": "community-mailer"
+ },
+ {
+  "id": "community-scan.yml",
+  "name": "Community hot-thread scan",
+  "kind": "workflow",
+  "trigger": "cron 17 8 * * * + manual",
+  "purpose": "Daily zero-LLM RSS scan of watchlist subreddits for leads",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "lead discovery",
+  "inputs": [
+   "community_watchlist",
+   "Reddit RSS"
+  ],
+  "outputs": [
+   "engagement_lead rows"
+  ],
+  "dependsOn": [],
+  "workflowName": "community-scan"
+ },
+ {
+  "id": "concert-photo-sourcing.yml",
+  "name": "Concert photo sourcing",
+  "kind": "workflow",
+  "trigger": "cron 40 8 * * 1,4 + manual; kill switch",
+  "purpose": "Sources concert photos from Reddit/Wikimedia into photo library",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "grows photo library used by moments/social",
+  "inputs": [
+   "Reddit, Wikimedia"
+  ],
+  "outputs": [
+   "photo library imports",
+   "coverage report"
+  ],
+  "dependsOn": [],
+  "workflowName": "concert-photo-sourcing"
+ },
+ {
+  "id": "content-publish.yml",
+  "name": "Content publish to Storage",
+  "kind": "workflow",
+  "trigger": "push to main",
+  "purpose": "Mirrors the content bundle to Supabase Storage on every merge",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "publishes the bundle the mobile app reads",
+  "inputs": [
+   "content bundle"
+  ],
+  "outputs": [
+   "Supabase Storage objects"
+  ],
+  "dependsOn": [
+   "ci.yml"
+  ],
+  "workflowName": "content-publish"
+ },
+ {
+  "id": "db-connectivity-check.yml",
+  "name": "DB connectivity check",
+  "kind": "workflow",
+  "trigger": "manual + PR touching itself",
+  "purpose": "Read-only SELECT 1 against production DB with secret",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "secret health check",
+  "inputs": [
+   "SUPABASE_DB_URL"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [],
+  "workflowName": "db-connectivity-check"
+ },
+ {
+  "id": "db-migrate.yml",
+  "name": "DB migrate",
+  "kind": "workflow",
+  "trigger": "push to main on supabase/migrations + manual",
+  "purpose": "Applies migrations to production DB, second run asserts idempotent",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "schema changes the app depends on",
+  "inputs": [
+   "supabase/migrations"
+  ],
+  "outputs": [
+   "prod DB schema"
+  ],
+  "dependsOn": [],
+  "workflowName": "db-migrate"
+ },
+ {
+  "id": "db-seed.yml",
+  "name": "DB seed runner",
+  "kind": "workflow",
+  "trigger": "manual (lyrics or on-this-day)",
+  "purpose": "Runs production DB seed for lyrics / on-this-day",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "seeds lyrics and on-this-day rows the app reads",
+  "inputs": [
+   "scripts/seed-lyrics.mjs",
+   "seed-on-this-day.mjs"
+  ],
+  "outputs": [
+   "prod DB rows"
+  ],
+  "dependsOn": [],
+  "workflowName": "db-seed"
+ },
+ {
+  "id": "dependabot-alerts-snapshot.yml",
+  "name": "Dependabot alerts snapshot",
+  "kind": "workflow",
+  "trigger": "cron 0 21 * * 1 + manual",
+  "purpose": "Publishes Dependabot alerts to one tracking issue for Paul Blart",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "security reporting",
+  "inputs": [
+   "Dependabot API"
+  ],
+  "outputs": [
+   "tracking issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "dependabot-alerts-snapshot"
+ },
+ {
+  "id": "e2e.yml",
+  "name": "E2E synthetic monitor",
+  "kind": "workflow",
+  "trigger": "cron 5 13 * * * + manual",
+  "purpose": "Playwright smoke tests against live site",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "tests only",
+  "inputs": [
+   "live site"
+  ],
+  "outputs": [
+   "test report"
+  ],
+  "dependsOn": [],
+  "workflowName": "E2E (synthetic monitor)"
+ },
+ {
+  "id": "fb-export-reminder.yml",
+  "name": "FB export reminder",
+  "kind": "workflow",
+  "trigger": "cron 0 16 * * 0 + manual",
+  "purpose": "Weekly issue reminding a human to export FB group data",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "human reminder",
+  "inputs": [
+   "none"
+  ],
+  "outputs": [
+   "GitHub issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "fb-export-reminder"
+ },
+ {
+  "id": "fb-lead-scrub.yml",
+  "name": "FB lead scrub (one-time)",
+  "kind": "workflow",
+  "trigger": "manual (apply/reingest)",
+  "purpose": "One-time repair of contaminated Facebook engagement_lead rows",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "data repair of community leads",
+  "inputs": [
+   "DB rows",
+   "stored exports"
+  ],
+  "outputs": [
+   "cleaned rows"
+  ],
+  "dependsOn": [],
+  "workflowName": "fb-lead-scrub"
+ },
+ {
+  "id": "fleet-telemetry-snapshot.yml",
+  "name": "Fleet telemetry snapshot",
+  "kind": "workflow",
+  "trigger": "cron 17 8 1 * * + manual",
+  "purpose": "Monthly tokens-per-account telemetry report committed to repo",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "cost reporting",
+  "inputs": [
+   "Actions/usage data"
+  ],
+  "outputs": [
+   "report file in docs"
+  ],
+  "dependsOn": [],
+  "workflowName": "fleet-telemetry-snapshot"
+ },
+ {
+  "id": "growth-snapshot.yml",
+  "name": "Growth snapshot",
+  "kind": "workflow",
+  "trigger": "cron 5 11 * * * + manual",
+  "purpose": "Daily follower counts and posts published for the Founders Brief",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "metrics for brief",
+  "inputs": [
+   "IG/X APIs"
+  ],
+  "outputs": [
+   "social/metrics json files"
+  ],
+  "dependsOn": [],
+  "workflowName": "growth-snapshot"
+ },
+ {
+  "id": "ig-token-scopes.yml",
+  "name": "IG token scopes check",
+  "kind": "workflow",
+  "trigger": "cron 23 9 * * 1 + manual",
+  "purpose": "Read-only check that IG token still has required permissions",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "credential health",
+  "inputs": [
+   "Meta permissions endpoint"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [],
+  "workflowName": "IG token scopes"
+ },
+ {
+  "id": "link-sweep.yml",
+  "name": "Nightly link sweep",
+  "kind": "workflow",
+  "trigger": "cron 57 6 * * * + manual",
+  "purpose": "Probes every outbound link class and goes red on dead links",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "detects dead links in app content",
+  "inputs": [
+   "scripts/lib/link-targets.mjs"
+  ],
+  "outputs": [
+   "link report",
+   "failing run"
+  ],
+  "dependsOn": [
+   "scripts/check-link-liveness.mjs"
+  ],
+  "workflowName": "link-sweep"
+ },
+ {
+  "id": "loop-file-asks.yml",
+  "name": "Loop file asks (reusable)",
+  "kind": "workflow",
+  "trigger": "workflow_call",
+  "purpose": "Files help asks saved by Tree/Marjorie runs and starts the other bot response routine",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "bot coordination",
+  "inputs": [
+   "artifact of ask files"
+  ],
+  "outputs": [
+   "GitHub issues",
+   "dispatch of ask-response routines"
+  ],
+  "dependsOn": [],
+  "workflowName": "loop-file-asks"
+ },
+ {
+  "id": "marjorie-bot1-bridge.yml",
+  "name": "Marjorie to bot1 bridge",
+  "kind": "workflow",
+  "trigger": "workflow_call + manual (default off)",
+  "purpose": "Posts agent-saved prompts to longlive channel via webhook for bot1",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "bot messaging",
+  "inputs": [
+   "bot1-prompt artifacts"
+  ],
+  "outputs": [
+   "Discord webhook post"
+  ],
+  "dependsOn": [],
+  "workflowName": "marjorie-bot1-bridge"
+ },
+ {
+  "id": "marjorie-brief-delivery-recovery.yml",
+  "name": "Brief delivery recovery",
+  "kind": "workflow",
+  "trigger": "manual (issue_number)",
+  "purpose": "Re-delivers an existing assembled founders brief",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "brief delivery",
+  "inputs": [
+   "founders-brief issue"
+  ],
+  "outputs": [
+   "Discord/mail post"
+  ],
+  "dependsOn": [
+   "routine-marjorie-brief.yml"
+  ],
+  "workflowName": "Marjorie Brief Delivery Recovery"
+ },
+ {
+  "id": "marjorie-discord-smoketest.yml",
+  "name": "Marjorie Discord smoketest",
+  "kind": "workflow",
+  "trigger": "manual (post, upsert-alert, loop)",
+  "purpose": "Smoke-tests the Discord delivery path",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "test tool",
+  "inputs": [
+   "Discord webhook"
+  ],
+  "outputs": [
+   "test posts"
+  ],
+  "dependsOn": [],
+  "workflowName": "marjorie-discord-smoketest"
+ },
+ {
+  "id": "marjorie-status.yml",
+  "name": "Long Live status page",
+  "kind": "workflow",
+  "trigger": "cron 7 * * * * + push (HUMAN-ACTIONS, social) + issue_comment",
+  "purpose": "Deterministically renders pinned status-page issue; handles owner done/decide commands",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ops dashboard",
+  "inputs": [
+   "issues, PRs, runs"
+  ],
+  "outputs": [
+   "status issue body",
+   "Discord notify"
+  ],
+  "dependsOn": [],
+  "workflowName": "marjorie-status"
+ },
+ {
+  "id": "merch-audit-authoring.yml",
+  "name": "Merch audit authoring",
+  "kind": "workflow",
+  "trigger": "manual (confirm RUN_AUTHORED_VISION_AUDIT)",
+  "purpose": "Capped vision audit of product matches; applies demotions via PR",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "demotes bad product matches in merch seed",
+  "inputs": [
+   "audit queue artifact"
+  ],
+  "outputs": [
+   "demotion PR on supabase/seed"
+  ],
+  "dependsOn": [
+   "merch-audit-detect.yml"
+  ],
+  "workflowName": "merch-audit-authoring"
+ },
+ {
+  "id": "merch-audit-detect.yml",
+  "name": "Merch audit detect",
+  "kind": "workflow",
+  "trigger": "push to content paths + cron 24 15 * * 1 + manual",
+  "purpose": "Zero-LLM scoring-queue creation for the match auditor",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "detects bad merch matches in content",
+  "inputs": [
+   "content.ts",
+   "seed content"
+  ],
+  "outputs": [
+   "scoring queue artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-audit-detect"
+ },
+ {
+  "id": "merch-awin-directory-recommendations.yml",
+  "name": "Awin directory recommendations",
+  "kind": "workflow",
+  "trigger": "manual (confirm)",
+  "purpose": "Read-only artifact of US Awin join recommendations",
+  "category": "content-generation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "artifact only; affiliate planning",
+  "inputs": [
+   "Awin API"
+  ],
+  "outputs": [
+   "artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-awin-directory-recommendations"
+ },
+ {
+  "id": "merch-awin-directory-shortlist.yml",
+  "name": "Awin directory shortlist",
+  "kind": "workflow",
+  "trigger": "manual (confirm)",
+  "purpose": "Read-only artifact of US Awin directory shortlist",
+  "category": "content-generation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "artifact only",
+  "inputs": [
+   "Awin API"
+  ],
+  "outputs": [
+   "artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-awin-directory-shortlist"
+ },
+ {
+  "id": "merch-awin-sync.yml",
+  "name": "Awin programmes and feed sync",
+  "kind": "workflow",
+  "trigger": "cron 53 7 * * * + manual",
+  "purpose": "Zero-LLM sync of Awin programme status, affiliate coverage, product feeds",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "affiliate coverage/product index feeds shop links",
+  "inputs": [
+   "Awin API"
+  ],
+  "outputs": [
+   "coverage data, feed cache"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-awin-sync"
+ },
+ {
+  "id": "merch-e5-evidence.yml",
+  "name": "Merch E5 Etsy evidence",
+  "kind": "workflow",
+  "trigger": "manual (confirm)",
+  "purpose": "Collects raw Etsy evidence for manual curation",
+  "category": "content-generation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "artifact only",
+  "inputs": [
+   "Etsy API"
+  ],
+  "outputs": [
+   "artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-e5-evidence"
+ },
+ {
+  "id": "merch-fanmade.yml",
+  "name": "Fan-made merch discovery",
+  "kind": "workflow",
+  "trigger": "cron 47 9 * * * + manual (dry_run)",
+  "purpose": "Zero-LLM discovery of fan-made merch candidates, files candidate issues",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "candidates feed fanmade merch seed curation",
+  "inputs": [
+   "Etsy, Reddit, submissions"
+  ],
+  "outputs": [
+   "candidate issues"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-fanmade"
+ },
+ {
+  "id": "merch-matcher-authoring.yml",
+  "name": "Merch matcher authoring",
+  "kind": "workflow",
+  "trigger": "manual (confirm)",
+  "purpose": "Capped E6 search+vision authoring for moment-to-product matches",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "produces moment-product match artifacts for merch content",
+  "inputs": [
+   "checked-in candidate JSON"
+  ],
+  "outputs": [
+   "artifact"
+  ],
+  "dependsOn": [
+   "merch-matcher.yml"
+  ],
+  "workflowName": "merch-matcher-authoring"
+ },
+ {
+  "id": "merch-matcher.yml",
+  "name": "Merch moment matcher",
+  "kind": "workflow",
+  "trigger": "manual (candidate_file)",
+  "purpose": "Zero-LLM handoff building moment-to-product plan",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "plan for merch moment matches",
+  "inputs": [
+   "candidate JSON"
+  ],
+  "outputs": [
+   "plan artifact"
+  ],
+  "dependsOn": [
+   "merch-awin-sync.yml"
+  ],
+  "workflowName": "merch-matcher"
+ },
+ {
+  "id": "merch-official-sync.yml",
+  "name": "Merch official-store sync",
+  "kind": "workflow",
+  "trigger": "cron 17 8,20 * * * + manual",
+  "purpose": "Detects official store changes; author job writes catalogs and opens PR plus social draft",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "updates official merch catalog content",
+  "inputs": [
+   "official store pages"
+  ],
+  "outputs": [
+   "merch seed PR",
+   "social drop draft"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-official-sync"
+ },
+ {
+  "id": "merch-revenue.yml",
+  "name": "Merch revenue report",
+  "kind": "workflow",
+  "trigger": "cron 23 15 * * 1 + manual",
+  "purpose": "Weekly deterministic revenue report PR",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reporting only",
+  "inputs": [
+   "revenue inputs JSON"
+  ],
+  "outputs": [
+   "report PR"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-revenue"
+ },
+ {
+  "id": "merch-terms-recheck.yml",
+  "name": "Merch terms recheck",
+  "kind": "workflow",
+  "trigger": "cron 17 15 1 1,4,7,10 *",
+  "purpose": "Quarterly reminder issue to re-check affiliate terms",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reminder",
+  "inputs": [
+   "docs/ops/AFFILIATE-COVERAGE.md"
+  ],
+  "outputs": [
+   "GitHub issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "merch-terms-recheck"
+ },
+ {
+  "id": "merch-verify.yml",
+  "name": "Merch verify",
+  "kind": "workflow",
+  "trigger": "cron 46 9 * * * + manual",
+  "purpose": "Deterministic product link and image liveness detection",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "detects dead merch links/images",
+  "inputs": [
+   "product list"
+  ],
+  "outputs": [
+   "artifacts for mender"
+  ],
+  "dependsOn": [
+   "scripts/check-link-liveness.mjs"
+  ],
+  "workflowName": "merch-verify"
+ },
+ {
+  "id": "mobile-parity.yml",
+  "name": "Mobile parity check",
+  "kind": "workflow",
+  "trigger": "cron 17 */6 * * * + workflow_run after release train + manual",
+  "purpose": "Verifies iOS and Android carry same release; one alert issue",
+  "category": "monitoring",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "checks mobile release consistency",
+  "inputs": [
+   "EAS state"
+  ],
+  "outputs": [
+   "alert issue"
+  ],
+  "dependsOn": [
+   "mobile-release.yml"
+  ],
+  "workflowName": "Mobile parity check"
+ },
+ {
+  "id": "mobile-release.yml",
+  "name": "Mobile release train",
+  "kind": "workflow",
+  "trigger": "push to main on apps/mobile, packages + manual",
+  "purpose": "Runs EAS build/submit/OTA for mobile app",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "ships mobile app and OTA content",
+  "inputs": [
+   "apps/mobile, packages"
+  ],
+  "outputs": [
+   "EAS builds, OTA updates"
+  ],
+  "dependsOn": [],
+  "workflowName": "Mobile release train"
+ },
+ {
+  "id": "mobile-rollback.yml",
+  "name": "Mobile OTA rollback",
+  "kind": "workflow",
+  "trigger": "manual (list or republish)",
+  "purpose": "One-click OTA rollback of production update groups",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "reverts mobile OTA",
+  "inputs": [
+   "EAS update groups"
+  ],
+  "outputs": [
+   "republished update"
+  ],
+  "dependsOn": [
+   "mobile-release.yml"
+  ],
+  "workflowName": "Mobile OTA rollback"
+ },
+ {
+  "id": "news-worker.yml",
+  "name": "News worker",
+  "kind": "workflow",
+  "trigger": "cron 10 1,5,9,13,17,21 * * * + manual",
+  "purpose": "Runs news pipeline (sources, classify, extract) and emits candidate digest",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "writes news_story rows the app shows",
+  "inputs": [
+   "news_source rows",
+   "feeds"
+  ],
+  "outputs": [
+   "DB news rows",
+   "candidate digest"
+  ],
+  "dependsOn": [],
+  "workflowName": "news-worker"
+ },
+ {
+  "id": "output-sampling.yml",
+  "name": "Routine output sampling",
+  "kind": "workflow",
+  "trigger": "cron 12 9 * * 1 + manual",
+  "purpose": "Weekly sampling report of routine output quality",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "quality reporting",
+  "inputs": [
+   "routine run history"
+  ],
+  "outputs": [
+   "report committed"
+  ],
+  "dependsOn": [],
+  "workflowName": "routine-output-sampling-report"
+ },
+ {
+  "id": "parity.yml",
+  "name": "Parity DOM visual",
+  "kind": "workflow",
+  "trigger": "pull_request + manual (update-baselines)",
+  "purpose": "Renders Next vs Expo-web DOM at four viewports and diffs",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "visual regression",
+  "inputs": [
+   "apps/web, apps/mobile"
+  ],
+  "outputs": [
+   "screenshots/diff"
+  ],
+  "dependsOn": [],
+  "workflowName": "Parity (DOM visual)"
+ },
+ {
+  "id": "pat-dispatch-health.yml",
+  "name": "PAT dispatch health",
+  "kind": "workflow",
+  "trigger": "cron 37 9 * * 1 + manual",
+  "purpose": "Proves SOCIAL_POSTER_PAT can dispatch workflows",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "credential health",
+  "inputs": [
+   "SOCIAL_POSTER_PAT"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [],
+  "workflowName": "PAT dispatch health"
+ },
+ {
+  "id": "perf-snapshot.yml",
+  "name": "Perf snapshot",
+  "kind": "workflow",
+  "trigger": "manual",
+  "purpose": "Report-only perf gate for reader snapshot",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "report only",
+  "inputs": [
+   "reader snapshot"
+  ],
+  "outputs": [
+   "perf report"
+  ],
+  "dependsOn": [],
+  "workflowName": "Perf (reader snapshot, report-only)"
+ },
+ {
+  "id": "plan-recheck-marjorie.yml",
+  "name": "Plan recheck (Marjorie overhaul)",
+  "kind": "workflow",
+  "trigger": "cron 48 15 * * * + manual",
+  "purpose": "Daily gate that calls routine template only when a checkpoint is due",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "plan checkpoints",
+  "inputs": [
+   "docs/plans/marjorie-overhaul/checkpoints.json"
+  ],
+  "outputs": [
+   "routine run"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "plan-recheck-marjorie"
+ },
+ {
+  "id": "plan-recheck.yml",
+  "name": "Plan recheck (Tree overhaul)",
+  "kind": "workflow",
+  "trigger": "cron 33 15 * * * + manual",
+  "purpose": "Daily gate that calls routine template only when a checkpoint is due",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "plan checkpoints",
+  "inputs": [
+   "docs/plans/tree-overhaul/checkpoints.json"
+  ],
+  "outputs": [
+   "routine run"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "plan-recheck"
+ },
+ {
+  "id": "production-backup-drill.yml",
+  "name": "Production backup drill",
+  "kind": "workflow",
+  "trigger": "manual",
+  "purpose": "Restores a real production backup to scratch cluster to verify",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "verification only",
+  "inputs": [
+   "production backup artifact"
+  ],
+  "outputs": [
+   "drill result"
+  ],
+  "dependsOn": [
+   "production-backup.yml"
+  ],
+  "workflowName": "production-backup-drill"
+ },
+ {
+  "id": "production-backup.yml",
+  "name": "Production backup",
+  "kind": "workflow",
+  "trigger": "cron 40 3 * * * + manual",
+  "purpose": "Daily logical backup of production DB as artifact",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "backup only",
+  "inputs": [
+   "SUPABASE_DB_URL"
+  ],
+  "outputs": [
+   "backup artifact"
+  ],
+  "dependsOn": [],
+  "workflowName": "production-backup"
+ },
+ {
+  "id": "remove-x-site-screens.yml",
+  "name": "Remove X site screens (one-time)",
+  "kind": "workflow",
+  "trigger": "manual",
+  "purpose": "Owner-authorized one-time deletion of two X posts",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "cleanup",
+  "inputs": [
+   "X API"
+  ],
+  "outputs": [
+   "deleted posts"
+  ],
+  "dependsOn": [],
+  "workflowName": "remove-x-site-screens"
+ },
+ {
+  "id": "routine-austin-build.yml",
+  "name": "Routine - Austin build",
+  "kind": "workflow",
+  "trigger": "cron 0 21 * * * + manual",
+  "purpose": "Claude agent that builds fixes from tickets and opens PRs",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "opens fix PRs against app/content",
+  "inputs": [
+   "GitHub issues/tickets"
+  ],
+  "outputs": [
+   "PRs"
+  ],
+  "dependsOn": [
+   "routine-template.yml",
+   "cie-scan.yml"
+  ],
+  "workflowName": "routine-austin-build"
+ },
+ {
+  "id": "routine-awareness-answerer.yml",
+  "name": "Routine - awareness answerer",
+  "kind": "workflow",
+  "trigger": "cron 41 */3 * * * + manual",
+  "purpose": "Claude drafts image replies for awareness leads",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "community drafts",
+  "inputs": [
+   "awareness leads"
+  ],
+  "outputs": [
+   "drafted replies in DB"
+  ],
+  "dependsOn": [
+   "community-awareness-scan.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-awareness-answerer"
+ },
+ {
+  "id": "routine-community-answerer.yml",
+  "name": "Routine - community answerer",
+  "kind": "workflow",
+  "trigger": "cron 46 14 * * * + manual",
+  "purpose": "Claude drafts engagement replies from engagement_lead rows",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "community drafts",
+  "inputs": [
+   "engagement_lead rows"
+  ],
+  "outputs": [
+   "drafts in DB"
+  ],
+  "dependsOn": [
+   "community-scan.yml",
+   "community-inbox.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-community-answerer"
+ },
+ {
+  "id": "routine-fable-strategy-update.yml",
+  "name": "Routine - Fable strategy update",
+  "kind": "workflow",
+  "trigger": "manual (direction_pr)",
+  "purpose": "Same-day growth strategy rewrite after owner steer",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "strategy doc",
+  "inputs": [
+   "docs/strategy/growth-strategy.md"
+  ],
+  "outputs": [
+   "strategy PR"
+  ],
+  "dependsOn": [
+   "strategy-pr.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-fable-strategy-update"
+ },
+ {
+  "id": "routine-fable-taste-ruling.yml",
+  "name": "Routine - Fable taste ruling",
+  "kind": "workflow",
+  "trigger": "manual (issue_number)",
+  "purpose": "Rules on Tree vs Marjorie taste disputes",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "governance",
+  "inputs": [
+   "taste-ruling issue"
+  ],
+  "outputs": [
+   "ruling comment"
+  ],
+  "dependsOn": [
+   "taste-ruling-file.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-fable-taste-ruling"
+ },
+ {
+  "id": "routine-karen-nightly.yml",
+  "name": "Routine - Karen weekly judgment",
+  "kind": "workflow",
+  "trigger": "cron 0 9 * * 0 + manual",
+  "purpose": "Weekly Claude judgment slice over content integrity findings",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "reviews app content for defects",
+  "inputs": [
+   "CIE reports"
+  ],
+  "outputs": [
+   "tickets/PRs"
+  ],
+  "dependsOn": [
+   "cie-scan.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-karen-nightly"
+ },
+ {
+  "id": "routine-kevin-daily-desk.yml",
+  "name": "Routine - Kevin daily desk",
+  "kind": "workflow",
+  "trigger": "cron 13 15 * * * + manual",
+  "purpose": "Consolidated triage desk (streams 1 to 3)",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ticket triage",
+  "inputs": [
+   "issues, PRs"
+  ],
+  "outputs": [
+   "labels, comments, digests"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-kevin-daily-desk"
+ },
+ {
+  "id": "routine-kevin-radar.yml",
+  "name": "Routine - Kevin comment radar",
+  "kind": "workflow",
+  "trigger": "cron 23 1,13 * * * + manual",
+  "purpose": "Cheap lazy poll for new comments needing response",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ticket triage",
+  "inputs": [
+   "GitHub comments"
+  ],
+  "outputs": [
+   "replies/labels"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-kevin-radar"
+ },
+ {
+  "id": "routine-kevin-s1-karen-solver.yml",
+  "name": "Routine - Kevin S1 Karen solver",
+  "kind": "workflow",
+  "trigger": "cron 17 11 * * 0 + manual",
+  "purpose": "Solves Karen (cie) tickets",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "fixes content defects via PRs",
+  "inputs": [
+   "cie issues"
+  ],
+  "outputs": [
+   "fix PRs"
+  ],
+  "dependsOn": [
+   "cie-scan.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-kevin-s1-karen-solver"
+ },
+ {
+  "id": "routine-laura-a11y-walk.yml",
+  "name": "Routine - Laura a11y walk",
+  "kind": "workflow",
+  "trigger": "cron 20 18 * * 2,5 + manual",
+  "purpose": "Read-only a11y walk filing tickets",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "files tickets only",
+  "inputs": [
+   "live site",
+   "a11y.yml artifact"
+  ],
+  "outputs": [
+   "issues"
+  ],
+  "dependsOn": [
+   "a11y.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-laura-a11y-walk"
+ },
+ {
+  "id": "routine-marjorie-ask-response.yml",
+  "name": "Routine - Marjorie ask response",
+  "kind": "workflow",
+  "trigger": "dispatch only (issue_number)",
+  "purpose": "Marjorie answers Tree filed asks",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "bot loop",
+  "inputs": [
+   "tree-filed asks"
+  ],
+  "outputs": [
+   "issue replies"
+  ],
+  "dependsOn": [
+   "loop-file-asks.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-ask-response"
+ },
+ {
+  "id": "routine-marjorie-brief.yml",
+  "name": "Routine - Marjorie founders brief",
+  "kind": "workflow",
+  "trigger": "cron 0 12 * * * + manual",
+  "purpose": "Assembles and delivers daily Founders Brief",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "founder reporting",
+  "inputs": [
+   "growth metrics, issues, status"
+  ],
+  "outputs": [
+   "brief issue",
+   "Discord/mail"
+  ],
+  "dependsOn": [
+   "growth-snapshot.yml",
+   "watchdog.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-brief"
+ },
+ {
+  "id": "routine-marjorie-chat.yml",
+  "name": "Routine - Marjorie chat",
+  "kind": "workflow",
+  "trigger": "dispatch from bot-chat-poll",
+  "purpose": "Answers founder messages in longlive-marjorie",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "chat",
+  "inputs": [
+   "Discord message"
+  ],
+  "outputs": [
+   "Discord reply",
+   "may open PRs"
+  ],
+  "dependsOn": [
+   "bot-chat-poll.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-chat"
+ },
+ {
+  "id": "routine-marjorie-ops.yml",
+  "name": "Routine - Marjorie ops sweep",
+  "kind": "workflow",
+  "trigger": "cron 18 * * * * + manual",
+  "purpose": "Hourly handling of open watchdog-alert issues",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ops",
+  "inputs": [
+   "watchdog-alert issues"
+  ],
+  "outputs": [
+   "replies/re-dispatches"
+  ],
+  "dependsOn": [
+   "watchdog.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-ops"
+ },
+ {
+  "id": "routine-marjorie-status-reply.yml",
+  "name": "Routine - Marjorie status reply",
+  "kind": "workflow",
+  "trigger": "dispatch from marjorie-status (comment_id)",
+  "purpose": "Answers owner free-text comments on status page",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "chat",
+  "inputs": [
+   "status issue comment"
+  ],
+  "outputs": [
+   "issue reply"
+  ],
+  "dependsOn": [
+   "marjorie-status.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-status-reply"
+ },
+ {
+  "id": "routine-marjorie-triage.yml",
+  "name": "Routine - Marjorie triage",
+  "kind": "workflow",
+  "trigger": "cron 27 16 * * * + manual",
+  "purpose": "Sorts feedback/intake/link-submission issues into five classes",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "triages user feedback and link submissions that become content work",
+  "inputs": [
+   "Feedback/Intake/Link submission issues"
+  ],
+  "outputs": [
+   "labels, comments, ask issues"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-marjorie-triage"
+ },
+ {
+  "id": "routine-marjorie-weekly-review.yml",
+  "name": "Routine - Marjorie weekly review",
+  "kind": "workflow",
+  "trigger": "cron 13 20 * * 0 + manual",
+  "purpose": "Weekly growth review; rewrites growth strategy doc",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "strategy",
+  "inputs": [
+   "growth-data.json"
+  ],
+  "outputs": [
+   "strategy PR",
+   "asks"
+  ],
+  "dependsOn": [
+   "strategy-pr.yml",
+   "routine-template.yml",
+   "growth-snapshot.yml"
+  ],
+  "workflowName": "routine-marjorie-weekly-review"
+ },
+ {
+  "id": "routine-news-triage.yml",
+  "name": "Routine - news triage",
+  "kind": "workflow",
+  "trigger": "cron 40 15 * * * + manual",
+  "purpose": "Claude triages news_story rows into intake issues",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "turns news into intake issues for content",
+  "inputs": [
+   "news_story rows"
+  ],
+  "outputs": [
+   "intake issues",
+   "dispatches social-event-dispatch"
+  ],
+  "dependsOn": [
+   "news-worker.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-news-triage"
+ },
+ {
+  "id": "routine-nils-walk.yml",
+  "name": "Routine - Nils site walk",
+  "kind": "workflow",
+  "trigger": "cron 0 14 * * 1,5 + manual",
+  "purpose": "Read-only site critic walk filing tickets",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "files tickets only",
+  "inputs": [
+   "live site"
+  ],
+  "outputs": [
+   "issues"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-nils-walk"
+ },
+ {
+  "id": "routine-paul-blart.yml",
+  "name": "Routine - Paul Blart security patrol",
+  "kind": "workflow",
+  "trigger": "cron 20 22 * * 1 + manual",
+  "purpose": "Weekly dependency and supply-chain patrol",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "security",
+  "inputs": [
+   "Dependabot snapshot issue"
+  ],
+  "outputs": [
+   "issues/PRs"
+  ],
+  "dependsOn": [
+   "dependabot-alerts-snapshot.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-paul-blart"
+ },
+ {
+  "id": "routine-template.yml",
+  "name": "Routine template (reusable)",
+  "kind": "workflow",
+  "trigger": "workflow_call",
+  "purpose": "Reusable wrapper that runs a Claude agent with a prompt file, budgets, artifacts",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "shared infrastructure",
+  "inputs": [
+   "prompt_file",
+   "routine_name"
+  ],
+  "outputs": [
+   "agent run",
+   "usage report"
+  ],
+  "dependsOn": [],
+  "workflowName": "routine-template"
+ },
+ {
+  "id": "routine-tree-ask-response.yml",
+  "name": "Routine - Tree ask response",
+  "kind": "workflow",
+  "trigger": "dispatch only (issue_number)",
+  "purpose": "Tree answers Marjorie filed feedback",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "bot loop",
+  "inputs": [
+   "marjorie-filed asks"
+  ],
+  "outputs": [
+   "replies",
+   "lessons.md"
+  ],
+  "dependsOn": [
+   "loop-file-asks.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-tree-ask-response"
+ },
+ {
+  "id": "routine-tree-chat.yml",
+  "name": "Routine - Tree chat",
+  "kind": "workflow",
+  "trigger": "dispatch from bot-chat-poll",
+  "purpose": "Answers founder messages in longlive-tree",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "chat",
+  "inputs": [
+   "Discord message"
+  ],
+  "outputs": [
+   "Discord reply"
+  ],
+  "dependsOn": [
+   "bot-chat-poll.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-tree-chat"
+ },
+ {
+  "id": "routine-tree-daily-draft.yml",
+  "name": "Routine - Tree daily draft",
+  "kind": "workflow",
+  "trigger": "cron 0 11 * * * + manual",
+  "purpose": "Drafts daily social post PRs into social/queue",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social drafts",
+  "inputs": [
+   "prepare-draft-inputs",
+   "social/calendar.md"
+  ],
+  "outputs": [
+   "social-draft PRs"
+  ],
+  "dependsOn": [
+   "routine-template.yml",
+   "routine-tree-weekly-plan.yml"
+  ],
+  "workflowName": "routine-tree-daily-draft"
+ },
+ {
+  "id": "routine-tree-event-draft.yml",
+  "name": "Routine - Tree event draft",
+  "kind": "workflow",
+  "trigger": "dispatch only (issue)",
+  "purpose": "Same-day draft for a time-sensitive intake event",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social drafts",
+  "inputs": [
+   "intake issue"
+  ],
+  "outputs": [
+   "social-draft PR"
+  ],
+  "dependsOn": [
+   "social-event-dispatch.yml",
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-tree-event-draft"
+ },
+ {
+  "id": "routine-tree-weekly-plan.yml",
+  "name": "Routine - Tree weekly plan",
+  "kind": "workflow",
+  "trigger": "cron 0 10 * * 1 + manual (plan or replan)",
+  "purpose": "Weekly social plan; writes social/calendar.md and opens plan PR",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social planning",
+  "inputs": [
+   "growth strategy",
+   "metrics"
+  ],
+  "outputs": [
+   "plan PR",
+   "founder-task issue"
+  ],
+  "dependsOn": [
+   "routine-template.yml"
+  ],
+  "workflowName": "routine-tree-weekly-plan"
+ },
+ {
+  "id": "routine-vault-run.yml",
+  "name": "Routine - The Vault Run",
+  "kind": "workflow",
+  "trigger": "cron 7 16 * * * + manual",
+  "purpose": "Consolidated 6-lane content orchestrator that opens content PR",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "authors the app content (eras, moments, songs, etc.)",
+  "inputs": [
+   "vault-lanes prompts",
+   "intake issues"
+  ],
+  "outputs": [
+   "content PR to supabase/seed"
+  ],
+  "dependsOn": [
+   "routine-template.yml",
+   "appearance-discovery.yml",
+   "routine-news-triage.yml",
+   "theory-weaving-intake.yml"
+  ],
+  "workflowName": "routine-vault-run"
+ },
+ {
+  "id": "social-approval-notify.yml",
+  "name": "Social approval notify",
+  "kind": "workflow",
+  "trigger": "pull_request_target on social/queue + cron 7 18 * * *",
+  "purpose": "Prompts founder in Discord to approve pending social draft PRs",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "approval flow",
+  "inputs": [
+   "social-draft PRs"
+  ],
+  "outputs": [
+   "Discord prompts"
+  ],
+  "dependsOn": [],
+  "workflowName": "social-approval-notify"
+ },
+ {
+  "id": "social-approval-poll.yml",
+  "name": "Social approval poll",
+  "kind": "workflow",
+  "trigger": "cron 7,22,37,52 * * * * + workflow_run + manual",
+  "purpose": "Reads founder Discord reaction, stamps signed approval and merges draft PR",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "approval flow",
+  "inputs": [
+   "Discord reactions"
+  ],
+  "outputs": [
+   "signed approval",
+   "merge"
+  ],
+  "dependsOn": [
+   "social-approval-notify.yml"
+  ],
+  "workflowName": "social-approval-poll"
+ },
+ {
+  "id": "social-audit.yml",
+  "name": "Social IG media audit",
+  "kind": "workflow",
+  "trigger": "manual",
+  "purpose": "Lists live IG media and flags duplicates via issue",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "audit",
+  "inputs": [
+   "IG Graph API"
+  ],
+  "outputs": [
+   "issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "social-audit"
+ },
+ {
+  "id": "social-delete-media.yml",
+  "name": "Social delete media",
+  "kind": "workflow",
+  "trigger": "manual (media_ids)",
+  "purpose": "Emergency deletion of live IG/FB posts",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "cleanup",
+  "inputs": [
+   "media IDs"
+  ],
+  "outputs": [
+   "deleted posts"
+  ],
+  "dependsOn": [],
+  "workflowName": "social-delete-media"
+ },
+ {
+  "id": "social-event-dispatch.yml",
+  "name": "Social event dispatch",
+  "kind": "workflow",
+  "trigger": "cron 53 */2 * * * + manual + dispatched by news triage",
+  "purpose": "Dispatches Tree event-draft runs for uncovered time-sensitive intake issues",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social drafting",
+  "inputs": [
+   "intake issues"
+  ],
+  "outputs": [
+   "routine-tree-event-draft dispatches"
+  ],
+  "dependsOn": [
+   "routine-news-triage.yml"
+  ],
+  "workflowName": "social-event-dispatch"
+ },
+ {
+  "id": "social-event-status.yml",
+  "name": "Social event status",
+  "kind": "workflow",
+  "trigger": "cron 20 1,5,9,13,17,21 * * * + manual",
+  "purpose": "Checks event-mode transition (countdown signal)",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social cadence",
+  "inputs": [
+   "site-diff data"
+  ],
+  "outputs": [
+   "event-mode state"
+  ],
+  "dependsOn": [
+   "news-worker.yml"
+  ],
+  "workflowName": "social-event-status"
+ },
+ {
+  "id": "social-poster.yml",
+  "name": "Social poster",
+  "kind": "workflow",
+  "trigger": "cron */30 * * * * + manual",
+  "purpose": "Posts approved queue items to X and Instagram (LIVE)",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "external posting",
+  "inputs": [
+   "social/queue JSON files"
+  ],
+  "outputs": [
+   "live posts",
+   "fold-back PRs"
+  ],
+  "dependsOn": [
+   "social-approval-poll.yml"
+  ],
+  "workflowName": "social-poster"
+ },
+ {
+  "id": "social-reply-notifier.yml",
+  "name": "Social reply notifier",
+  "kind": "workflow",
+  "trigger": "cron 13,43 * * * * + manual (dry_run)",
+  "purpose": "Pings Discord on IG/FB comments, replies, DMs",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "notification only",
+  "inputs": [
+   "Meta Graph API"
+  ],
+  "outputs": [
+   "Discord pings"
+  ],
+  "dependsOn": [],
+  "workflowName": "social-reply-notifier"
+ },
+ {
+  "id": "strategy-pr.yml",
+  "name": "Strategy PR (reusable)",
+  "kind": "workflow",
+  "trigger": "workflow_call",
+  "purpose": "Opens PR for rewrite of docs/strategy/growth-strategy.md",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "strategy doc",
+  "inputs": [
+   "growth-strategy.md artifact"
+  ],
+  "outputs": [
+   "PR"
+  ],
+  "dependsOn": [],
+  "workflowName": "strategy-pr"
+ },
+ {
+  "id": "taste-ruling-file.yml",
+  "name": "Taste ruling file (reusable)",
+  "kind": "workflow",
+  "trigger": "workflow_call",
+  "purpose": "Files taste question and starts Fable ruling routine",
+  "category": "other",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "governance",
+  "inputs": [
+   "taste-ruling JSON"
+  ],
+  "outputs": [
+   "issue",
+   "dispatch"
+  ],
+  "dependsOn": [],
+  "workflowName": "taste-ruling-file"
+ },
+ {
+  "id": "theory-miner.yml",
+  "name": "Theory miner",
+  "kind": "workflow",
+  "trigger": "cron 20 8 * * * + manual",
+  "purpose": "Extracts fan theories from community crawl output",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "mines theories feeding theory content",
+  "inputs": [
+   "community-crawl artifact"
+  ],
+  "outputs": [
+   "theory rows in DB"
+  ],
+  "dependsOn": [
+   "community-crawl.yml"
+  ],
+  "workflowName": "theory-miner"
+ },
+ {
+  "id": "theory-promote.yml",
+  "name": "Theory promote",
+  "kind": "workflow",
+  "trigger": "cron 45 9 * * 0 + manual",
+  "purpose": "Merges and promotes mined theories",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "promotes theories toward app content",
+  "inputs": [
+   "mined theories"
+  ],
+  "outputs": [
+   "promoted theory rows"
+  ],
+  "dependsOn": [
+   "theory-miner.yml"
+  ],
+  "workflowName": "theory-promote"
+ },
+ {
+  "id": "theory-weaving-intake.yml",
+  "name": "Theory weaving intake",
+  "kind": "workflow",
+  "trigger": "cron 52 9 * * 0 + manual",
+  "purpose": "Files song-page weaving intake issues for the Content Shift lane",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "input for content lane",
+  "inputs": [
+   "promoted theories"
+  ],
+  "outputs": [
+   "intake issues"
+  ],
+  "dependsOn": [
+   "theory-promote.yml"
+  ],
+  "workflowName": "theory-weaving-intake"
+ },
+ {
+  "id": "tree-mail.yml",
+  "name": "Tree mail",
+  "kind": "workflow",
+  "trigger": "manual (pr) + dispatched by weekly plan",
+  "purpose": "Emails founders plan PR or founder-task digest",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "founder email",
+  "inputs": [
+   "plan PR",
+   "founder-task issues"
+  ],
+  "outputs": [
+   "email"
+  ],
+  "dependsOn": [
+   "routine-tree-weekly-plan.yml"
+  ],
+  "workflowName": "tree-mail"
+ },
+ {
+  "id": "unowned-sweep.yml",
+  "name": "Unowned work sweep",
+  "kind": "workflow",
+  "trigger": "issues events + cron 20 15 * * * + manual",
+  "purpose": "Labels or files issues for work no queue owns",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ticket hygiene",
+  "inputs": [
+   "issues"
+  ],
+  "outputs": [
+   "labels",
+   "issue"
+  ],
+  "dependsOn": [],
+  "workflowName": "unowned-sweep"
+ },
+ {
+  "id": "watchdog.yml",
+  "name": "Watchdog",
+  "kind": "workflow",
+  "trigger": "cron 35 14 * * * and 5 * * * * + manual",
+  "purpose": "Zero-AI heartbeat checks brief, routines, deploys; opens alert issues",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ops alerting",
+  "inputs": [
+   "runs, issues, Vercel"
+  ],
+  "outputs": [
+   "watchdog-alert issues",
+   "mail"
+  ],
+  "dependsOn": [],
+  "workflowName": "watchdog"
+ },
+ {
+  "id": "scripts/doorbell/doorbell.mjs",
+  "name": "Long Live Doorbell (systemd)",
+  "kind": "script",
+  "trigger": "systemd service on Hermes VM host; runs continuously",
+  "purpose": "Gateway listener that picks up founder Discord messages and runs routine clock",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "chat infra",
+  "inputs": [
+   "Discord gateway"
+  ],
+  "outputs": [
+   "workflow dispatches (bot-chat-poll, routines)"
+  ],
+  "dependsOn": [
+   "bot-chat-poll.yml"
+  ]
+ },
+ {
+  "id": "apps/web/vercel.json crons",
+  "name": "Vercel cron - notifications dispatch",
+  "kind": "cron",
+  "trigger": "Vercel cron every 15 min on api/notifications/dispatch",
+  "purpose": "Dispatches due push notifications",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "delivers notifications to app users",
+  "inputs": [
+   "notification inbox DB"
+  ],
+  "outputs": [
+   "push notifications"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "apps/worker",
+  "name": "News worker code (apps/worker)",
+  "kind": "script",
+  "trigger": "run via news-worker.yml (npm run news)",
+  "purpose": "Pipeline sources/extract/classify code for news",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "produces news rows",
+  "inputs": [
+   "news sources"
+  ],
+  "outputs": [
+   "DB rows"
+  ],
+  "dependsOn": [
+   "news-worker.yml"
+  ]
+ },
+ {
+  "id": "scripts/apps-script/submissions-doPost.gs",
+  "name": "Submissions Apps Script",
+  "kind": "script",
+  "trigger": "Google Apps Script web endpoint (external)",
+  "purpose": "Receives form submissions from the app",
+  "category": "other",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "collects user submissions",
+  "inputs": [
+   "app form POSTs"
+  ],
+  "outputs": [
+   "sheet rows"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/knowledge/fb-export-task.ps1",
+  "name": "FB export scheduled task",
+  "kind": "script",
+  "trigger": "Windows Task Scheduler (knowledge:fb-schedule)",
+  "purpose": "Local human-machine Facebook group export capture",
+  "category": "content-generation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "fan-signal intake",
+  "inputs": [
+   "FB groups"
+  ],
+  "outputs": [
+   "export files"
+  ],
+  "dependsOn": [
+   "fb-export-reminder.yml"
+  ]
+ },
+ {
+  "id": ".claude/hooks/guard.sh",
+  "name": "Claude PreToolUse guard",
+  "kind": "hook",
+  "trigger": "PreToolUse Bash",
+  "purpose": "Denies destructive/irreversible commands and live social poster paths",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "agent safety",
+  "inputs": [
+   "tool command"
+  ],
+  "outputs": [
+   "allow/deny"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": ".claude/hooks/triage.sh",
+  "name": "Claude triage hook",
+  "kind": "hook",
+  "trigger": "UserPromptSubmit",
+  "purpose": "Re-asserts triage per message",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "agent workflow",
+  "inputs": [
+   "prompt"
+  ],
+  "outputs": [
+   "reminder text"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": ".claude/hooks/checkpoint-gate.sh",
+  "name": "Claude checkpoint gate",
+  "kind": "hook",
+  "trigger": "Stop",
+  "purpose": "Blocks stop if work changed and STATE.md stale",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "agent workflow",
+  "inputs": [
+   "git status"
+  ],
+  "outputs": [
+   "block/allow"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": ".claude/hooks/post-edit.sh",
+  "name": "Claude post-edit hook",
+  "kind": "hook",
+  "trigger": "PostToolUse Edit/Write",
+  "purpose": "Post-edit checks on edited files",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "agent workflow",
+  "inputs": [
+   "edited file"
+  ],
+  "outputs": [
+   "checks"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": ".claude/settings.json SessionStart",
+  "name": "Claude SessionStart fetch",
+  "kind": "hook",
+  "trigger": "SessionStart",
+  "purpose": "git fetch origin quietly",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "agent workflow",
+  "inputs": [
+   "none"
+  ],
+  "outputs": [
+   "updated refs"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": ".claude/hooks/guard.test.sh",
+  "name": "Guard test",
+  "kind": "script",
+  "trigger": "manual",
+  "purpose": "Tests for guard.sh",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "test",
+  "inputs": [
+   "guard.sh"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [
+   ".claude/hooks/guard.sh"
+  ]
+ },
+ {
+  "id": "scripts/sync-longlive-content.mjs",
+  "name": "npm run sync:content",
+  "kind": "script",
+  "trigger": "npm run sync:content (CI, prebuild, parity)",
+  "purpose": "Syncs seed content into generated app modules (ids, theories, tracks, videos, merch, lenses, etc.)",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "generates app content modules from seed",
+  "inputs": [
+   "supabase/seed"
+  ],
+  "outputs": [
+   "apps/web generated modules"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/build-content-bundle.mjs",
+  "name": "npm run content:bundle",
+  "kind": "script",
+  "trigger": "npm run content:bundle",
+  "purpose": "Builds deterministic content bundle",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "bundle consumed by apps",
+  "inputs": [
+   "seed content"
+  ],
+  "outputs": [
+   "bundle"
+  ],
+  "dependsOn": [
+   "scripts/sync-longlive-content.mjs"
+  ]
+ },
+ {
+  "id": "scripts/check-content-bundle-determinism.mjs",
+  "name": "check:content-bundle",
+  "kind": "script",
+  "trigger": "CI + npm run",
+  "purpose": "Verifies content bundle builds deterministically",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "guards bundle",
+  "inputs": [
+   "bundle"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": [
+   "scripts/build-content-bundle.mjs"
+  ]
+ },
+ {
+  "id": "scripts/publish-content-bundle.mjs",
+  "name": "content:publish",
+  "kind": "script",
+  "trigger": "apps/web prebuild; npm run content:publish",
+  "purpose": "Publishes bundle into web build",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "ships bundle to web",
+  "inputs": [
+   "bundle"
+  ],
+  "outputs": [
+   "public asset"
+  ],
+  "dependsOn": [
+   "scripts/build-content-bundle.mjs"
+  ]
+ },
+ {
+  "id": "scripts/publish-content-bundle-to-storage.mjs",
+  "name": "content:publish-storage",
+  "kind": "script",
+  "trigger": "content-publish.yml",
+  "purpose": "Uploads bundle to Supabase Storage",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "mobile reads bundle",
+  "inputs": [
+   "bundle"
+  ],
+  "outputs": [
+   "Storage objects"
+  ],
+  "dependsOn": [
+   "scripts/build-content-bundle.mjs"
+  ]
+ },
+ {
+  "id": "scripts/validate-content.mjs",
+  "name": "validate:content",
+  "kind": "script",
+  "trigger": "npm run validate:content (CI)",
+  "purpose": "Validates seed content structure and rules",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "gates content",
+  "inputs": [
+   "supabase seed"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/validate-queue.mjs",
+  "name": "validate:social",
+  "kind": "script",
+  "trigger": "npm run validate:social (CI)",
+  "purpose": "Validates social queue files",
+  "category": "content-validation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social queue gate",
+  "inputs": [
+   "social/queue"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-generated-in-sync.mjs",
+  "name": "check:generated",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Ensures generated files match sources",
+  "category": "ci-quality",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "guards generated content modules",
+  "inputs": [
+   "generated files"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-affiliate-coverage-in-sync.mjs",
+  "name": "check:affiliate-coverage",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Checks affiliate coverage doc in sync",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "merch coverage",
+  "inputs": [
+   "AFFILIATE-COVERAGE doc"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-automerge-allowlist.mjs",
+  "name": "check:automerge-allowlist",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Keeps auto-merge allowlist honest",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "automerge guard",
+  "inputs": [
+   "auto-merge-content.yml"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-launch-gates.mjs",
+  "name": "check:launch-gates",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Checks launch gate status",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "launch readiness",
+  "inputs": [
+   "gh issues"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-tier0-budget.mjs",
+  "name": "check:budget",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Tier-0 payload budget gate",
+  "category": "ci-quality",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "app payload size",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-budget-from-seed.mjs",
+  "name": "check:budget:seed",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Budget check computed from seed",
+  "category": "ci-quality",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content size",
+  "inputs": [
+   "seed"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-bundle-size.mjs",
+  "name": "check:budget:bundle",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Bundle size gate",
+  "category": "ci-quality",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "app size",
+  "inputs": [
+   "build"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-client-corpus.mjs",
+  "name": "check:client-corpus",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Client search corpus check",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "app search corpus",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-content-ownership.mjs",
+  "name": "check:content-ownership",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Content ownership check",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content governance",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-filter-coverage.mjs",
+  "name": "check:filter-coverage",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Filter coverage check",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "app filters",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-work-ownership.mjs",
+  "name": "check:work-ownership",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Work ownership check of agents and workflows",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "governance",
+  "inputs": [
+   "workflows"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-no-downgrade.mjs",
+  "name": "check:no-downgrade",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Blocks dependency downgrades",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "dep safety",
+  "inputs": [
+   "package-lock"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-content-inert.mjs",
+  "name": "check:content-inert",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Checks content has no executable payloads",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content safety",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-routine-workflows.mjs",
+  "name": "check:routines",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Validates routine workflow conventions",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "workflow lint",
+  "inputs": [
+   "workflows"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-voice.mjs",
+  "name": "check:voice",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Voice/style rule check",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content tone",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-privacy-inventory-in-sync.mjs",
+  "name": "check:privacy-inventory",
+  "kind": "script",
+  "trigger": "CI",
+  "purpose": "Privacy inventory sync check",
+  "category": "ci-quality",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "privacy doc",
+  "inputs": [
+   "docs"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-link-liveness.mjs",
+  "name": "Link liveness checker",
+  "kind": "script",
+  "trigger": "link-sweep.yml, merch-verify.yml",
+  "purpose": "Probes outbound link liveness",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content links",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "reports"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/content-engine/run.mjs",
+  "name": "karen / cie / check:content-safety-nightly",
+  "kind": "script",
+  "trigger": "cie-scan.yml; npm run karen or cie",
+  "purpose": "Content Integrity Engine checkers",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "app content defects",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "issues"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/content-coverage.mjs",
+  "name": "content:coverage",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Content coverage report",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "coverage reporting",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/content/depth-audit.mjs",
+  "name": "content:depth-audit",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Audit of content depth per era",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "content depth",
+  "inputs": [
+   "content"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/knowledge-coverage.mjs",
+  "name": "knowledge:coverage",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Knowledge coverage report",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown knowledge",
+  "inputs": [
+   "knowledge rows"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/knowledge-freshness.mjs",
+  "name": "knowledge:freshness",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Knowledge freshness report",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown knowledge",
+  "inputs": [
+   "knowledge rows"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/check-clown-battery.mjs",
+  "name": "clown:battery",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Offline clown bot answer battery",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown bot quality",
+  "inputs": [
+   "knowledge"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/clown-live-battery.mjs",
+  "name": "clown:battery:live",
+  "kind": "script",
+  "trigger": "npm run (manual)",
+  "purpose": "Live clown battery against API",
+  "category": "monitoring",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown quality",
+  "inputs": [
+   "API"
+  ],
+  "outputs": [
+   "results"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/knowledge-engine/clown-eval.mjs",
+  "name": "clown:eval",
+  "kind": "script",
+  "trigger": "npm run",
+  "purpose": "Clown bot evaluation",
+  "category": "content-validation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown quality",
+  "inputs": [
+   "eval set"
+  ],
+  "outputs": [
+   "score"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/sync-clown-knowledge.mjs",
+  "name": "sync clown knowledge",
+  "kind": "script",
+  "trigger": "called by sync:content",
+  "purpose": "Syncs clown knowledge into app",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "clown knowledge data",
+  "inputs": [
+   "knowledge"
+  ],
+  "outputs": [
+   "generated files"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/knowledge-fb-upload.mjs",
+  "name": "knowledge:fb-upload",
+  "kind": "script",
+  "trigger": "npm run (manual)",
+  "purpose": "Uploads FB exports to storage",
+  "category": "content-generation",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "fan signal",
+  "inputs": [
+   "FB exports"
+  ],
+  "outputs": [
+   "private storage"
+  ],
+  "dependsOn": [
+   "scripts/knowledge/fb-export-task.ps1"
+  ]
+ },
+ {
+  "id": "scripts/community/theory-resolve.mjs",
+  "name": "theory:resolve",
+  "kind": "script",
+  "trigger": "npm run (manual)",
+  "purpose": "Resolves theory status",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "theory content",
+  "inputs": [
+   "theories"
+  ],
+  "outputs": [
+   "updated rows"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/seed-content.mjs",
+  "name": "DB seed scripts (eras, tracks, releases, tours, theories, videos, lyrics, on-this-day)",
+  "kind": "script",
+  "trigger": "npm run db:seed (manual / db-seed.yml)",
+  "purpose": "DB seed scripts",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "writes DB rows",
+  "inputs": [
+   "seed files"
+  ],
+  "outputs": [
+   "DB"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/migrate.mjs",
+  "name": "db:migrate",
+  "kind": "script",
+  "trigger": "npm run db:migrate / db-migrate.yml",
+  "purpose": "Applies SQL migrations",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "schema",
+  "inputs": [
+   "migrations"
+  ],
+  "outputs": [
+   "DB"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/backup-restore-test.mjs",
+  "name": "test:backup-restore",
+  "kind": "script",
+  "trigger": "backup workflows",
+  "purpose": "Logical backup and restore verification",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "backups",
+  "inputs": [
+   "DB"
+  ],
+  "outputs": [
+   "backup/drill"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/merch-engine/revenue-report.mjs",
+  "name": "merch:revenue",
+  "kind": "script",
+  "trigger": "merch-revenue.yml",
+  "purpose": "Revenue report",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reporting",
+  "inputs": [
+   "inputs"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/merch-engine/affiliate-coverage.mjs",
+  "name": "merch:coverage",
+  "kind": "script",
+  "trigger": "merch-awin-sync.yml",
+  "purpose": "Affiliate coverage doc generator",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "merch coverage",
+  "inputs": [
+   "Awin data"
+  ],
+  "outputs": [
+   "coverage doc"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/render-card.mjs",
+  "name": "social:card",
+  "kind": "script",
+  "trigger": "manual / merch-official-sync",
+  "purpose": "Renders share cards/images",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social images",
+  "inputs": [
+   "templates"
+  ],
+  "outputs": [
+   "PNG"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/capture-screens.mjs",
+  "name": "social:capture",
+  "kind": "script",
+  "trigger": "manual",
+  "purpose": "Captures app screens for social",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social assets",
+  "inputs": [
+   "live site"
+  ],
+  "outputs": [
+   "images"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/seed-library.mjs",
+  "name": "social:seed-library",
+  "kind": "script",
+  "trigger": "manual",
+  "purpose": "Seeds social photo library",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "photo library",
+  "inputs": [
+   "photos"
+  ],
+  "outputs": [
+   "library"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/select-photo.mjs",
+  "name": "social:select-photo",
+  "kind": "script",
+  "trigger": "manual / routines",
+  "purpose": "Selects photo for post",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "social drafting",
+  "inputs": [
+   "library"
+  ],
+  "outputs": [
+   "choice"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/import-photo-library.mjs",
+  "name": "social:import-photo-library",
+  "kind": "script",
+  "trigger": "manual / concert-photo-sourcing",
+  "purpose": "Imports sourced photos",
+  "category": "social",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "photo library",
+  "inputs": [
+   "sourced photos"
+  ],
+  "outputs": [
+   "library"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/photo-coverage.mjs",
+  "name": "social:photo-coverage",
+  "kind": "script",
+  "trigger": "manual / concert-photo-sourcing",
+  "purpose": "Reports photo coverage",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reporting",
+  "inputs": [
+   "library"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/weekly-brief.mjs",
+  "name": "weekly brief",
+  "kind": "script",
+  "trigger": "called by routines",
+  "purpose": "Weekly social brief builder",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reporting",
+  "inputs": [
+   "metrics"
+  ],
+  "outputs": [
+   "brief"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/social/weekly-scorecard.mjs",
+  "name": "weekly scorecard",
+  "kind": "script",
+  "trigger": "called by routines",
+  "purpose": "Weekly social scorecard",
+  "category": "social",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "reporting",
+  "inputs": [
+   "metrics"
+  ],
+  "outputs": [
+   "scorecard"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/release/train-plan.mjs",
+  "name": "Release train planner",
+  "kind": "script",
+  "trigger": "called by mobile-release.yml",
+  "purpose": "Plans which platforms to build",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "mobile release",
+  "inputs": [
+   "git diff"
+  ],
+  "outputs": [
+   "plan"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/mobile/check-parity.mjs",
+  "name": "Mobile parity checker",
+  "kind": "script",
+  "trigger": "mobile-parity.yml",
+  "purpose": "Compares iOS/Android EAS state",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "release consistency",
+  "inputs": [
+   "EAS"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/vercel-ignore-build.mjs",
+  "name": "Vercel ignoreCommand",
+  "kind": "script",
+  "trigger": "Vercel build ignoreCommand",
+  "purpose": "Skips Vercel builds for irrelevant changes",
+  "category": "deploy",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "controls web deploy",
+  "inputs": [
+   "git diff"
+  ],
+  "outputs": [
+   "skip/build"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/watchdog directory",
+  "name": "Watchdog helper scripts",
+  "kind": "script",
+  "trigger": "called by watchdog.yml",
+  "purpose": "Mail/alert/check helpers (vercel deploy check, vault run check, karen repair, HA check)",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ops",
+  "inputs": [
+   "runs"
+  ],
+  "outputs": [
+   "alerts"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/marjorie directory",
+  "name": "Marjorie/Tree helper scripts",
+  "kind": "script",
+  "trigger": "called by routine and bot workflows",
+  "purpose": "Chat poll/post, status page, brief assembly, loop asks, taste ruling, strategy doc",
+  "category": "discord-bot",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "bot plumbing",
+  "inputs": [
+   "GitHub, Discord"
+  ],
+  "outputs": [
+   "posts, issues"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/news/emit-candidate-digest.mjs",
+  "name": "News candidate digest",
+  "kind": "script",
+  "trigger": "news-worker.yml",
+  "purpose": "Emits news candidate digest",
+  "category": "content-generation",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "news candidates",
+  "inputs": [
+   "news rows"
+  ],
+  "outputs": [
+   "digest"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/news/check-triage-receipt.mjs",
+  "name": "News triage receipt check",
+  "kind": "script",
+  "trigger": "routine-news-triage.yml",
+  "purpose": "Verifies triage run produced receipt",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "verification",
+  "inputs": [
+   "receipt"
+  ],
+  "outputs": [
+   "pass/fail"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/routine-usage-report.mjs",
+  "name": "Routine usage report",
+  "kind": "script",
+  "trigger": "routine-template.yml",
+  "purpose": "Reports Claude usage per routine run",
+  "category": "monitoring",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "cost reporting",
+  "inputs": [
+   "run usage"
+  ],
+  "outputs": [
+   "report"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/ops/unowned-sweep.mjs",
+  "name": "Unowned sweep script",
+  "kind": "script",
+  "trigger": "unowned-sweep.yml",
+  "purpose": "Implements sweep",
+  "category": "repo-hygiene",
+  "feedsAppContent": false,
+  "feedsAppContentReason": "ticket hygiene",
+  "inputs": [
+   "issues"
+  ],
+  "outputs": [
+   "labels"
+  ],
+  "dependsOn": []
+ },
+ {
+  "id": "scripts/automerge scripts",
+  "name": "Auto-merge gate scripts",
+  "kind": "script",
+  "trigger": "called by auto-merge workflows",
+  "purpose": "Content guard, branch-author gate, keepup, social approval gate",
+  "category": "content-delivery",
+  "feedsAppContent": true,
+  "feedsAppContentReason": "decide what auto-merges",
+  "inputs": [
+   "PR data"
+  ],
+  "outputs": [
+   "candidates/decisions"
+  ],
+  "dependsOn": []
+ }
+]
