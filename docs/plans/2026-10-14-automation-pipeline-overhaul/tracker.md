@@ -1,6 +1,6 @@
 # Tracker
 
-One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: todo, doing, review, done, blocked.
+One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: todo, doing, review, done, blocked, dropped (reason in the Log; mirrored to the dashboard as done with a note).
 
 ## P0 Stop the bleeding and measure
 
@@ -21,13 +21,14 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | todo |  |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | todo |  |  |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | todo |  |  |
-| P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | todo |  |  |
-| P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | todo |  |  |
+| P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
+| P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | todo |  |  |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | todo |  |  |
-| P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | todo |  |  |
+| P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
+| P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | todo |  |  |
 
 ## P1 Foundations and re-homing
 
@@ -44,12 +45,12 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
 | P1-07 | tidewatch.yml on the home clock with a freeze switch | codex | S | L-OPS | P1-06, P0-02, P0-07 | todo |  |  |
-| P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-12, P0-14 | todo |  |  |
-| P1-09 | Shared direct-call Claude wrapper with caps and caching | codex | M | L-LLM | P1-01 | todo |  |  |
+| P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-14 | todo |  |  |
+| P1-09 | Shared Claude wrapper on subscription tokens (Claude Code headless): priority, caps, backup-token fallback (rescoped by D1 revised; Fable consult before brief) | codex | M | L-LLM | P1-01, P0-19 | todo |  |  |
 | P1-10 | Answerers become scripted drafters with thread context | executor-claude-sonnet | M | L-COMMUNITY | P1-09, P1-01 | todo |  |  |
 | P1-11 | marjorie-ops becomes code plus a Jev gate | codex | M | L-ROUTINES | P1-01, P0-02 | todo |  |  |
 | P1-12 | marjorie-status-reply and kevin-radar to Jev plus code | codex | M | L-ROUTINES-B | P1-01 | todo |  |  |
-| P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | todo |  |  |
+| P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  |  |
 | P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | todo |  |  |
 | P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | todo |  |  |
 | P1-16 | Facebook export: permalinks, engagement counts, activity log, daily cadence | codex | L | L-FBEXT | P0-14, P1-14 | todo |  |  |
@@ -64,6 +65,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
 | P1-27 | Owner affiliate accounts (whenever ready, blocks nothing) | OWNER ACTION | S | L-OWNER | - | todo |  |  |
+| P1-28 | Move the existing ANTHROPIC_API_KEY callers (news-worker extract/theory/dedupe, theory-miner, merch audit) onto the P1-09 wrapper on Haiku 5.5 (absorbs P0-12) | codex | M | L-WORKER | P1-09 | todo |  |  |
 
 ## P2 Tidewatch live
 
@@ -105,4 +107,28 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 | P3-07 | Raise caps where quality holds | claude-opus | S | L-VAULT | P3-04 | todo |  |  |
 | P3-08 | GitHub Reddit scan to automatic fallback only | codex | S | L-COMMUNITY | P1-15 | todo |  |  |
 | P3-09 | Funding pool review | claude-opus | S | L-DOCS | P3-04 | todo |  |  |
+
+## Decisions (P0-13: Joey in chat, 2026-10-14 21:05 to 21:13 PDT)
+
+| Id | Answer |
+|---|---|
+| D1 | REVISED by Joey: no Anthropic API at all. Every model call runs on Joey's Claude subscription (OAuth) through Claude Code; news worker and breaking checks get first claim; automatic switch to a backup subscription token `CLAUDE_CODE_OAUTH_TOKEN_BACKUP` (HA #127) when the primary hits its weekly limit. Jev prepaid for routing and Codex for building are unchanged. Existing API-key callers migrate (P1-28). P0-18 and the spend-cap answer are moot. |
+| D2 | Codex for this build only. Austin stays a Claude routine (P0-02 still moves it to Opus 5.5 M/W/F); P1-13 dropped; no root rule-j amendment needed (OPERATING-MODE already makes Codex the programme's builder). |
+| D3 | As recommended: home Reddit reader on joey2023 (anonymous, read-only, slow), GitHub RSS as automatic fallback. |
+| D4 | As recommended: confirmed critical work news auto-publishes after the code fact-check and the Sonnet verifier agree; kill window and freezes; staged go-live after a drill Joey sees. |
+| D5 | As recommended: confirmed-only personal life on the site and an opt-in "Baby Watch: official announcements only" push; no rumor, countdown or clue content; theory ban stays; owner merges the rules PR; goes live last. |
+| D6 | As recommended: breaking campaign type, up to 2 extra posts per platform per day, one Sonnet draft, tree-auto stamp, immediate dispatch, IG and X paired. |
+| D7 | As recommended: store post permalinks and read the owner's activity log (no names or quotes); daily for the top 3 groups, weekly for the rest. |
+| D8 | As recommended: E6 twice weekly, $3 per run cap, 5 paid searches; weekly fan-made auto-curation; no typed confirmation on schedule. Model calls in E6 now run on the subscription (D1 revised). |
+| D9 | Merge #5484 once a Hermes session confirms both loops (HA #125). |
+| Open Q2 | joey2023 may run home tasks 24/7. |
+| Open Q3 | $50 a month metered ceiling chosen, then made moot by D1 revised. |
+
+## Log
+
+- 2026-10-14 21:15 PM: D1 to D9 recorded above. HA #124 to #127 filed. Reversible calls: P0-12 folded into new P1-28 (the worker leaves the API key, so the model swap rides the migration); P1-08 no longer waits on P0-12; new P0-19 backup-token switch after P0-01; P1-09 rescoped to a subscription wrapper, with a Fable consult before it is briefed (§4, a change to the funding and verifier path); P0-18 and P1-13 dropped; no `docs/projects/tidewatch/` copy (the plan already lives in this folder). This branch is based on the plan branch while #5813 auto-merges.
+
+## Next actions
+
+- Dispatch wave 1 (see Log for what is in flight).
 
