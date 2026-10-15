@@ -17,14 +17,14 @@ import {
   text,
   writeFeedStream,
 } from './awin-feed-stream.mjs';
-
+import { readJoinedAdvertiserIds } from './sync-awin-programmes.mjs';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const ADVERTISERS = 'packages/ui/src/reader/moment/lib/awin-advertisers.json';
 const MIN_REQUEST_INTERVAL_MS = 12_000;
 const MAX_FEEDS_PER_RUN = 60;
-const RUN_BUDGET_MS = 25 * 60_000;
-// Applies to stalls (no response or no chunk), not to total feed time: a large healthy stream is never cut off.
+const RUN_BUDGET_MS = 20 * 60_000;
+// Applies to stalls (no response or no chunk); the run budget independently bounds total feed time.
 const FEED_IDLE_TIMEOUT_MS = 120_000;
-
 function parseCsvRecords(csv) {
   const records = [];
   let start = 0;
@@ -42,7 +42,6 @@ function parseCsvRecords(csv) {
   if (start < csv.length) records.push(csv.slice(start).replace(/\r$/, ''));
   return records;
 }
-
 export function parseFeedDirectory(csv) {
   const [header, ...lines] = parseCsvRecords(String(csv).trim());
   const names = parseCsvRow(header).map((name) => name.trim().toLowerCase());
@@ -68,23 +67,22 @@ export function parseFeedDirectory(csv) {
     feeds,
   };
 }
-
 export function parseFeedList(csv) {
   return parseFeedDirectory(csv).feeds;
 }
-
 export function buildFeedSyncPlan({ feeds = [], cache = {} }) {
   const previous = cache.feeds ?? {};
   return feeds.filter((feed) => previous[feed.feedId] !== feed.updatedAt);
 }
-
 export function removedFeedIds({ feeds = [], cache = {} }) {
   const current = new Set(feeds.map((feed) => feed.feedId));
   return Object.keys(cache.feeds ?? {}).filter((feedId) => !current.has(feedId));
 }
-
-export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
-  const { complete, feeds } = parseFeedDirectory(csv);
+export function buildFeedDirectorySyncPlan({ csv, cache = {}, advertiserMids = null }) {
+  const parsed = parseFeedDirectory(csv);
+  const allowed = advertiserMids === null ? null : new Set([...advertiserMids].map(String));
+  const feeds = allowed === null ? parsed.feeds : parsed.feeds.filter((feed) => allowed.has(feed.advertiserMid));
+  const { complete } = parsed;
   if (!complete) {
     return { complete: false, feeds, changed: [], removed: [] };
   }
@@ -98,7 +96,6 @@ export function buildFeedDirectorySyncPlan({ csv, cache = {} }) {
     removed: removedFeedIds({ feeds, cache }),
   };
 }
-
 export function boundChangedFeeds(changed, maxFeeds = MAX_FEEDS_PER_RUN) {
   const byDate = (a, b) => {
     const left = Date.parse(a.updatedAt);
@@ -108,7 +105,6 @@ export function boundChangedFeeds(changed, maxFeeds = MAX_FEEDS_PER_RUN) {
   const ordered = [...changed].sort((a, b) => byDate(a, b) || String(a.feedId).localeCompare(String(b.feedId)));
   return Number.isFinite(maxFeeds) && maxFeeds > 0 ? ordered.slice(0, maxFeeds) : ordered;
 }
-
 export function nextFeedCache({ feeds, cache = {}, refreshed }) {
   const previous = cache.feeds ?? {};
   const done = new Set(refreshed.map((feed) => feed.feedId));
@@ -119,14 +115,12 @@ export function nextFeedCache({ feeds, cache = {}, refreshed }) {
   }
   return { feeds: next };
 }
-
 async function* idleWatched(stream, arm) {
   for await (const chunk of stream) {
     arm();
     yield chunk;
   }
 }
-
 export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), requestIntervalMs = MIN_REQUEST_INTERVAL_MS, deadlineMs = null, now = Date.now, failures = [], onFeed = null, idleTimeoutMs = FEED_IDLE_TIMEOUT_MS }) {
   const downloaded = [];
   const startedAt = now();
@@ -146,9 +140,10 @@ export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms)
       const response = await fetchImpl(feed.downloadUrl, { signal: controller.signal });
       if (!response.ok) throw new Error(`Awin feed ${feed.feedId} download failed (${response.status})`);
       stream = response.body ? Readable.fromWeb(response.body) : Readable.from([]);
-      if (onFeed) await onFeed({ ...feed, body: idleWatched(stream, arm), contentLength: response.headers?.get('content-length') ?? null });
+      if (onFeed) await onFeed({ ...feed, body: idleWatched(stream, arm), contentLength: response.headers?.get('content-length') ?? null }, () => deadlineMs !== null && now() - startedAt >= deadlineMs);
       downloaded.push(feed);
     } catch (error) {
+      if (error?.runBudgetExceeded) break;
       if (stream && !error?.feedSource) throw error;
       const message = controller.signal.aborted ? `stalled, no data for ${idleTimeoutMs / 1000}s` : error instanceof Error ? error.message : String(error);
       failures.push({ feedId: feed.feedId, message });
@@ -160,7 +155,6 @@ export async function fetchChangedFeeds({ feeds, fetchImpl = fetch, sleep = (ms)
   }
   return downloaded;
 }
-
 export function rowsFromCsv(feed, csv) {
   const records = parseCsvRecords(String(csv).trim());
   if (records.length === 0) return [];
@@ -168,7 +162,14 @@ export function rowsFromCsv(feed, csv) {
   const mapRow = feedRowMapper(feed, header);
   return lines.filter(Boolean).map(mapRow).filter((row) => row.productId && row.title);
 }
-
+async function* withinRunBudget(batches, budgetExpired) {
+  for await (const batch of batches) {
+    if (!budgetExpired()) { yield batch; continue; }
+    const error = new Error('Awin run budget exhausted during feed; current feed rolled back');
+    Object.assign(error, { feedSource: true, runBudgetExceeded: true });
+    throw error;
+  }
+}
 async function jsonFrom(path, fallback) {
   try {
     return JSON.parse(await readFile(path, 'utf8'));
@@ -177,7 +178,6 @@ async function jsonFrom(path, fallback) {
     throw error;
   }
 }
-
 export async function writeSqlite(path, rows, replacedFeedIds, { rebuildFts = true } = {}) {
   const database = await openIndex(path);
   const removeFeed = database.prepare('DELETE FROM products WHERE feed_id = ?');
@@ -198,14 +198,30 @@ export async function writeSqlite(path, rows, replacedFeedIds, { rebuildFts = tr
     database.close();
     return;
   }
-  database.exec('DROP TABLE IF EXISTS products_fts; CREATE VIRTUAL TABLE products_fts USING fts5(product_key UNINDEXED, title, description, brand);');
-  const insertFts = database.prepare('INSERT INTO products_fts (product_key, title, description, brand) VALUES (?, ?, ?, ?)');
-  for (const row of database.prepare('SELECT feed_id, product_id, title, description, brand FROM products').iterate()) {
-    insertFts.run(`${row.feed_id}:${row.product_id}`, row.title, row.description, row.brand);
-  }
-  database.close();
+  try { rebuildFtsIndex(database); } finally { database.close(); }
 }
-
+export function rebuildFtsIndex(database, afterInsert = null) {
+  try {
+    database.exec("BEGIN; DROP TABLE IF EXISTS products_fts; CREATE VIRTUAL TABLE products_fts USING fts5(product_key UNINDEXED, title, description, brand); INSERT INTO products_fts (product_key, title, description, brand) SELECT feed_id || ':' || product_id, title, description, brand FROM products;");
+    afterInsert?.(database);
+    const counts = database.prepare('SELECT (SELECT count(*) FROM products) AS products, (SELECT count(*) FROM products_fts) AS fts').get();
+    if (counts.products > 0 && counts.fts === 0)
+      throw new Error(`FTS rebuild produced 0 rows for ${counts.products} products; old index preserved`);
+    database.exec('COMMIT');
+  } catch (error) {
+    try { database.exec('ROLLBACK'); } catch { /* keep the original error */ }
+    throw error;
+  }
+}
+async function writeFeedCache(cacheTarget, value) {
+  await mkdir(dirname(cacheTarget), { recursive: true });
+  await writeFile(cacheTarget, `${JSON.stringify(value, null, 2)}\n`);
+}
+function partialFeedCache({ cache, refreshed }) {
+  const next = { ...cache, feeds: { ...(cache.feeds ?? {}) }, ftsDirty: true };
+  delete next.emptyDirectoryStreak; for (const feed of refreshed) next.feeds[feed.feedId] = feed.updatedAt;
+  return next;
+}
 export async function syncAwinFeeds({
   cachePath = 'awin-feed-cache.json',
   indexPath = 'awin-product-index.sqlite',
@@ -217,58 +233,66 @@ export async function syncAwinFeeds({
   maxFeedRows = DEFAULT_FEED_MAX_ROWS,
   maxFeeds = MAX_FEEDS_PER_RUN,
   deadlineMs = RUN_BUDGET_MS,
+  joinedAdvertiserIds = null,
+  requestIntervalMs = MIN_REQUEST_INTERVAL_MS,
+  now = Date.now,
 } = {}) {
+  if (joinedAdvertiserIds !== null && joinedAdvertiserIds.size === 0)
+    return console.log('no joined advertisers, skipping feeds');
   if (!apiKey) throw new Error('AWIN_FEED_API_KEY is required');
   const cache = await jsonFrom(resolve(ROOT, cachePath), { feeds: {} });
   const cacheTarget = resolve(ROOT, cachePath);
   const list = await fetchImpl(`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(apiKey)}`);
   if (!list.ok) throw new Error(`Awin feed list request failed (${list.status})`);
-  const { complete, feeds, changed, removed, deferredRemoval } = buildFeedDirectorySyncPlan({ csv: await list.text(), cache });
+  const { complete, feeds, changed, removed, deferredRemoval } = buildFeedDirectorySyncPlan({
+    csv: await list.text(),
+    cache,
+    advertiserMids: joinedAdvertiserIds,
+  });
   if (!complete) throw new Error('Awin feed directory response is incomplete; leaving local index untouched');
   if (deferredRemoval) {
-    await mkdir(dirname(cacheTarget), { recursive: true });
-    await writeFile(cacheTarget, `${JSON.stringify({ ...cache, feeds: cache.feeds ?? {}, emptyDirectoryStreak: 1 }, null, 2)}\n`);
+    await writeFeedCache(cacheTarget, { ...cache, feeds: cache.feeds ?? {}, emptyDirectoryStreak: 1 });
     console.warn('Awin feed directory is empty; deferring all-feed removal until the next consecutive response');
     return;
   }
   if (feeds.length > 0 && cache.emptyDirectoryStreak) {
     const cacheWithoutEmptyDirectoryStreak = { ...cache };
     delete cacheWithoutEmptyDirectoryStreak.emptyDirectoryStreak;
-    await mkdir(dirname(cacheTarget), { recursive: true });
-    await writeFile(cacheTarget, `${JSON.stringify(cacheWithoutEmptyDirectoryStreak, null, 2)}\n`);
+    await writeFeedCache(cacheTarget, cacheWithoutEmptyDirectoryStreak);
   }
   if (changed.some((feed) => !feed.advertiserMid)) throw new Error('Awin feed list must identify each changed advertiser');
   const failures = [];
   const attempted = boundChangedFeeds(changed, maxFeeds);
   const indexTarget = resolve(ROOT, indexPath);
   let indexedProducts = 0;
+  const persisted = [];
   const downloaded = await fetchChangedFeeds({
     feeds: attempted,
     fetchImpl,
     deadlineMs,
+    now,
+    requestIntervalMs,
     failures,
-    onFeed: async (feed) => {
+    onFeed: async (feed, budgetExpired) => {
       const feedStartedAt = Date.now();
-      const rows = await writeFeedImpl(indexTarget, feed.feedId, feedRowBatches(feed, feed.body, { maxBytes: maxFeedBytes, maxRows: maxFeedRows }));
+      const batches = feedRowBatches(feed, feed.body, { maxBytes: maxFeedBytes, maxRows: maxFeedRows });
+      const rows = await writeFeedImpl(indexTarget, feed.feedId, withinRunBudget(batches, budgetExpired));
       indexedProducts += rows;
+      await writeFeedCache(cacheTarget, partialFeedCache({ cache, refreshed: [...persisted, feed] }));
+      persisted.push(feed);
       console.log(`Awin feed ${feed.feedId} (advertiser ${feed.advertiserMid}): content-length ${feed.contentLength ?? 'n/a'}, ${rows} rows, ${Date.now() - feedStartedAt}ms`);
     },
   });
   if (downloaded.length === 0 && failures.length > 0) throw new Error(`All ${failures.length} attempted Awin feed downloads failed; first: ${failures[0].message}`);
-  await mkdir(dirname(cacheTarget), { recursive: true });
-  if (downloaded.length > 0 || removed.length > 0) await writeSqliteImpl(indexTarget, [], removed, { rebuildFts: true });
-  await writeFile(cacheTarget, `${JSON.stringify(nextFeedCache({ feeds, cache, refreshed: downloaded }), null, 2)}\n`);
+  if (downloaded.length > 0 || removed.length > 0 || cache.ftsDirty)
+    await writeSqliteImpl(indexTarget, [], removed, { rebuildFts: true });
+  await writeFeedCache(cacheTarget, nextFeedCache({ feeds, cache, refreshed: downloaded }));
   console.log(JSON.stringify({ changedFeeds: downloaded.length, failedFeeds: failures.length, pendingFeeds: changed.length - downloaded.length, removedFeeds: removed.length, indexedProducts }));
 }
-
 async function main() {
   const args = process.argv.slice(2);
   const option = (name) => args.includes(name) ? args[args.indexOf(name) + 1] : null;
-  await syncAwinFeeds({
-    cachePath: option('--cache') || 'awin-feed-cache.json',
-    indexPath: option('--index') || 'awin-product-index.sqlite',
-    apiKey: process.env.AWIN_FEED_API_KEY,
-  });
+  const joinedAdvertiserIds = await readJoinedAdvertiserIds(resolve(ROOT, option('--advertisers') || ADVERTISERS));
+  await syncAwinFeeds({ cachePath: option('--cache') || 'awin-feed-cache.json', indexPath: option('--index') || 'awin-product-index.sqlite', apiKey: process.env.AWIN_FEED_API_KEY, joinedAdvertiserIds });
 }
-
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) runMain(main, { name: 'sync-awin-feeds' });

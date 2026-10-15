@@ -2,9 +2,61 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #128 🟡 [DECIDE] Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) (~5 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** The guardrails are founder-owned, so agents never merge them. Breaking news can't go live on site, push or social until this lands, and confirmed personal-life news (Baby Watch) also waits on it. It writes down what you decided as D4 to D6 tonight.
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/pull/5817 and read the TL;DR at the top.
+2. Decide: `approve` — merge it (or say "approved" in the Swift2 pipeline PM chat); `change` — say what to change.
+**Worked if:** PR #5817 shows Merged.
+
+## #127 🟢 [UPGRADE] Add a backup Claude token so routines keep running past your weekly limit (~5 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** Under the revised D1 every model call runs on your Claude subscription. When your weekly limit hits, routines pause until the reset. A second subscription token lets them switch over automatically. Whose plan backs you up is your call.
+**Steps:**
+1. Pick the backup plan (your co-founder's subscription or a Team seat).
+2. On a machine logged into that plan, run `claude setup-token` in a terminal and copy the token it prints.
+3. In your own terminal run `gh secret set CLAUDE_CODE_OAUTH_TOKEN_BACKUP --repo JW-Incorporated/swift2` and paste the token at the prompt.
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP.
+
+## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** Merch cards can't carry affiliate links until the Awin publisher ID and the Amazon store ID are set in Vercel. Nothing else waits on this.
+**Steps:**
+1. Go to https://ui.awin.com and note your Publisher ID.
+2. Join these advertisers: agolde.com, alamourthelabel.com, clubllondon.us, jenniferbehr.com, meshki.us.
+3. Also join: patmcgrath.com, popflexactive.com, unique-vintage.com, Etsy (6220).
+4. Go to https://affiliate-program.amazon.com and note your Store ID (ends in -20) and its approval status.
+5. Paste both IDs in the Swift2 pipeline PM chat.
+**Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
+
+## #125 🔴 [BLOCKING] Confirm the Hermes Tree and Marjorie loops so #5484 can merge (~5 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** #5484 retires six Swift2 routines that Hermes replaces, freeing about 1,950 units a week of your Claude limit. You approved merging it (D9) once a Hermes session confirms both loops are live.
+**Steps:**
+1. Open a Claude Code session in Projects\Hermes.
+2. Paste: "Did the Hermes Tree and Hermes Marjorie daily loops both run successfully in the last 3 days, and which model or token pool do they use? Answer yes or no per loop."
+3. Tell the Swift2 pipeline PM the answer in chat.
+**Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
+
+## #124 🔴 [BLOCKING] Put the Jev key into Swift2 as TYPESAFE_API_KEY (~5 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. Agent guards can't write secrets, so this one is yours.
+**Steps:**
+1. Open a Claude Code session in Projects\Hermes.
+2. Paste: "Set the Jev key as GitHub Actions secret TYPESAFE_API_KEY on JW-Incorporated/swift2 without printing or reading the value. If your guard blocks it, give me the one-line command to run."
+3. If it hands you a command, run it in your own terminal.
+4. Tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows TYPESAFE_API_KEY.
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->

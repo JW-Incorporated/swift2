@@ -28,7 +28,7 @@ jobs:
     with:
       routine_name: "Nils — daily site walk"
       prompt_file: docs/agents/runner-prompts/nils-walk.md
-      model: claude-opus-4-8
+      model: claude-sonnet-5-5
       allowed_tools: "Bash,Read,Grep,Glob,WebFetch"
       disallowed_tools: "Write Edit NotebookEdit Task"
       timeout_minutes: 35
