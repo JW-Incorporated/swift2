@@ -94,6 +94,7 @@ import {
   mediaUrlsFor,
   approvalStatus,
   MEDIA_BASE_URL,
+  withFailureMetadata,
 } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
@@ -158,7 +159,7 @@ async function readJsonDir(dir, { required = false } = {}) {
 }
 
 async function moveToFailed(failedDir, entry, failed) {
-  await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
+  await writeFile(path.join(failedDir, entry.file), JSON.stringify(withFailureMetadata(failed), null, 2) + '\n');
   await rm(entry.full);
 }
 

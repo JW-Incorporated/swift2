@@ -296,6 +296,23 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(dead.lastError).toContain('403');
   });
 
+  it('stamps failedAt, attempts and lastError on the failed record, and leaves posted/ untouched', async () => {
+    stubFetch({ ok: false, status: 403, body: { detail: 'Forbidden' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    const dead = JSON.parse(
+      await readFile(path.join(root, 'social', 'failed', 'a-x.json'), 'utf-8'),
+    );
+    expect(Number.isNaN(Date.parse(dead.failedAt))).toBe(false);
+    expect(dead.attempts).toBe(3);
+    expect(typeof dead.lastError).toBe('string');
+    expect(dead.lastError.length).toBeLessThanOrEqual(200);
+    expect(dead.lastError).not.toMatch(/https?:/);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
   it('stays green while an X post still has retries left, but reports the attempt', async () => {
     stubFetch({ ok: false, status: 429, body: { detail: 'Too Many Requests' } });
     await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
