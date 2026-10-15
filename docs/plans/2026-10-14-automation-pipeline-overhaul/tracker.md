@@ -42,7 +42,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
-| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | doing |  |  |
+| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | review | #5844 |  |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
@@ -171,6 +171,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 01:27 HB: the main parity run 38695484037 FAILED on the same snapshot (a-era-track-guide-bar.png, 22 px), so the iphone-15 drift is PRE-EXISTING on main, not caused by P0-11. Filed #5843 (visual check plus baseline regeneration in its own PR, then update-branch #5835). #5835 stays armed; it lands once #5843 is fixed. #5842 (tracker) merged. FIRST next session: #5843 (a Claude executor with a Playwright 390 px screenshot check, because this is a UI baseline), then P1-23b, P0-11b, P1-02b, P0-03b, P0-05.
 - 2026-10-15 01:30 PM: lesson: `git merge origin/main 2>&1 | tail -1 && …` hides a failed merge (the pipe drops the exit code), and conflict markers got committed into this file (fixed in de3a537df, verified that no markers remain). Run `git merge` as its own call and check for conflicts before committing. No open PR for this branch now (#5842 merged); the next session opens one with its first tracker update.
 - 2026-10-15 01:35 PM: idle slots overnight conflicted with "do as much as you can", so the PM kept working past the handoff note (the tracker is the durable state). Dispatched: P1-23b, P0-11b, P1-02b (Codex), and #5843 parity baseline (Claude executor, visual check first). Codex briefs now share scratchpad codex/rules.md (item brief plus rules piped to codex exec).
+- 2026-10-15 01:38 PM: P1-02b APPROVE → #5844 armed (watch_decision.item_id is ON DELETE SET NULL, so non-shadow decisions survive item deletion; the NULL-safe noise rule keeps items with no decisions). P0-11b and P1-23b resumed with narrow touch-set approvals (one reference line in notification-events.ts; the stale Shopify fixture in image-resolve.test.ts).
 
 ## Next actions
 
