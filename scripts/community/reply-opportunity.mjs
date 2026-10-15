@@ -3,6 +3,7 @@
 // Pure builders + a metadata-only webhook probe; no Supabase, no posting here
 // (discord-delivery.mjs#postCommunityPrompts sends, mailer.mjs orchestrates).
 import { DISCORD_MESSAGE_LIMIT, neutralizeMentions } from './discord-delivery.mjs';
+import { facebookLeadUrl } from './awareness-fb-link.mjs';
 import { replyAsLine, withReplyAccount } from './reddit-account.mjs';
 
 /** Header + per-lead messages post under this display name so a reply
@@ -122,7 +123,7 @@ export function buildReplyOpportunity(lead, { postedUrl = null, skipUrl = null }
     head: [
       heading,
       titleText(200),
-      threadLinkLine(lead.url),
+      threadLinkLine(isReddit ? lead.url : facebookLeadUrl(lead)),
       isReddit ? replyAsLine() : null,
       `Why: ${whyLine(lead)}`,
     ],
