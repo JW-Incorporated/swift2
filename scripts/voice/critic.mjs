@@ -39,6 +39,7 @@ function validRow(row, wanted) {
 function call(opts, model, system, user, schema) {
   return (opts.call ?? callClaude)({
     caller: CALLER, priority: PRIORITY, model, system, user, schema,
+    ...(opts.maxCalls ? { maxCalls: opts.maxCalls } : {}),
   });
 }
 
@@ -65,7 +66,8 @@ export async function scoreItems(items, opts = {}) {
       continue;
     }
     const wanted = new Set(batch.map((i) => i.id));
-    for (const row of res.data?.results ?? []) {
+    const rows = Array.isArray(res.data?.results) ? res.data.results : [];
+    for (const row of rows) {
       if (validRow(row, wanted) && !results.has(row.id)) {
         results.set(row.id, { id: row.id, status: 'scored', ...pick(row) });
       }
@@ -91,7 +93,7 @@ async function rewriteOnce(weak, opts) {
       continue;
     }
     const wanted = new Map(batch.map((i) => [i.id, i.text]));
-    for (const row of res.data?.rewrites ?? []) {
+    for (const row of Array.isArray(res.data?.rewrites) ? res.data.rewrites : []) {
       const text = typeof row?.text === 'string' ? row.text.trim() : '';
       if (wanted.has(row?.id) && text && text !== wanted.get(row.id) && !rewrites.has(row.id)) {
         rewrites.set(row.id, text);
@@ -128,4 +130,30 @@ export async function reviewDrafts(items, opts = {}) {
       ...(b.status === 'not_scored' ? { reason: b.reason } : {}),
     };
   });
+}
+
+export function formatReview(results) {
+  const scored = results.filter((r) => r.status === 'scored' || r.before);
+  const weak = results.filter((r) => r.before && r.before.min < THRESHOLD);
+  const lines = [`voice-critic: items=${results.length} scored=${scored.length} `
+    + `not_scored=${results.length - scored.length} weak=${weak.length} `
+    + `rewritten=${results.filter((r) => r.rewritten).length}`];
+  for (const r of weak) {
+    lines.push(`item ${r.id}: min=${r.before.min} note: ${r.before.note}`);
+    if (r.rewritten) lines.push(`  suggested: ${r.text}`);
+  }
+  return lines.join('\n');
+}
+
+if (process.argv[1]?.split(/[\\/]/).pop() === 'critic.mjs' && process.argv[2] === '--review') {
+  const { readFileSync } = await import('node:fs');
+  const file = process.argv[3];
+  if (!file) {
+    process.stderr.write('usage: node scripts/voice/critic.mjs --review <file> (items separated by blank lines)\n');
+    process.exitCode = 1;
+  } else {
+    const items = readFileSync(file, 'utf8').split(/\r?\n\s*\r?\n/).map((t) => t.trim()).filter(Boolean)
+      .map((text, i) => ({ id: `${i + 1}`, text }));
+    process.stdout.write(`${formatReview(await reviewDrafts(items))}\n`);
+  }
 }
