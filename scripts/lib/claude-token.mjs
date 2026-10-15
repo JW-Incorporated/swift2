@@ -10,7 +10,9 @@ export function selectClaudeToken({ limitState = null, hasBackup = false, priori
     return { token: 'none', reason: `skipped: weekly limit until ${limitState.resetAt}` };
   }
   if (hasBackup && limitState.backupResetAt) {
-    return { token: 'none', reason: `both tokens are limited until ${limitState.backupResetAt}` };
+    const firstReset = new Date(limitState.resetAt) < new Date(limitState.backupResetAt)
+      ? limitState.resetAt : limitState.backupResetAt;
+    return { token: 'none', reason: `both tokens are limited until ${firstReset}` };
   }
   if (hasBackup) {
     return { token: 'backup', reason: `using backup token until ${limitState.resetAt}` };

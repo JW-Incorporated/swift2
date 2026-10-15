@@ -54,7 +54,7 @@ describe('decideLimitGate', () => {
   it('skips content when the backup is also limited', () => {
     expect(decideLimitGate({ issues: [backupLimitedIssue], now, priority: 'content', hasBackup: true })).toEqual({
       skip: true,
-      message: 'both tokens are limited until 2026-10-15T05:00:00.000Z',
+      message: 'both tokens are limited until 2026-10-15T03:00:00.000Z',
     });
   });
 

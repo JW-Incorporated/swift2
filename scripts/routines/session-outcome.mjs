@@ -168,15 +168,8 @@ export function weeklyLimitIssueBody({ detectedAt, parsed, resetAt, backupResetA
     return String(existingBody).replace(/^claude-weekly-limit-reset-backup:.*\r?\n?/im, '')
       .replace(/^claude-weekly-limit-reset:.*$/im, `$&\nclaude-weekly-limit-reset-backup: ${backupResetAt}`);
   }
-  return [
-    '<!-- claude-weekly-limit -->',
-    `claude-weekly-limit-reset: ${resetAt}`,
-    ...(backupResetAt ? [`claude-weekly-limit-reset-backup: ${backupResetAt}`] : []),
-    `claude-weekly-limit-detected: ${detectedAt}`,
-    `claude-weekly-limit-parse: ${parsed ? 'exact' : 'fallback-6h'}`,
-    '',
-    'Claude routines reached the shared weekly plan limit. This issue is updated in place.',
-  ].join('\n');
+  const priorBackupReset = String(existingBody ?? '').match(/^claude-weekly-limit-reset-backup:\s*(.+)$/im)?.[1];
+  return ['<!-- claude-weekly-limit -->', `claude-weekly-limit-reset: ${resetAt}`, ...(backupResetAt || priorBackupReset ? [`claude-weekly-limit-reset-backup: ${backupResetAt ?? priorBackupReset}`] : []), `claude-weekly-limit-detected: ${detectedAt}`, `claude-weekly-limit-parse: ${parsed ? 'exact' : 'fallback-6h'}`, '', 'Claude routines reached the shared weekly plan limit. This issue is updated in place.'].join('\n');
 }
 
 export function dedupeWeeklyLimitIssues(issues) {
@@ -186,6 +179,13 @@ export function dedupeWeeklyLimitIssues(issues) {
   }
   const [keeper, ...duplicates] = [...unique.values()].sort((a, b) => a.number - b.number);
   return { keeper, duplicates };
+}
+
+export function weeklyLimitIssueUpdate(limit, issues, tokenSource) {
+  const { keeper, duplicates } = dedupeWeeklyLimitIssues(issues);
+  if (tokenSource === 'backup' && !keeper?.body) return { warning: 'backup token limited without a primary weekly-limit issue; leaving issue state unchanged' };
+  const backupResetAt = tokenSource === 'backup' ? limit.resetAt : null;
+  return { keeper, duplicates, create: !keeper, title: tokenSource === 'backup' ? keeper.title : `Claude weekly limit — resets ${limit.resetAt}`, body: weeklyLimitIssueBody({ ...limit, backupResetAt, existingBody: keeper?.body }) };
 }
 
 async function githubRequest(pathname, { body, method = 'GET', token } = {}) {
@@ -233,8 +233,10 @@ async function syncWeeklyLimitIssue(limit, tokenSource) {
       { token },
     );
   let issues = await listOpen();
+  let update = weeklyLimitIssueUpdate(limit, issues, tokenSource);
+  if (update.warning) return console.log(`::warning::${update.warning}`);
   const title = `Claude weekly limit — resets ${limit.resetAt}`;
-  let body = weeklyLimitIssueBody({ ...limit, backupResetAt: tokenSource === 'backup' ? limit.resetAt : null });
+  let body = update.body;
   if (issues.length === 0) {
     const created = await githubRequest(`${base}/issues`, {
       method: 'POST',
@@ -242,16 +244,14 @@ async function syncWeeklyLimitIssue(limit, tokenSource) {
       body: { title, body, labels: [WEEKLY_LIMIT_LABEL] },
     });
     issues = [...(await listOpen()), created];
+    update = weeklyLimitIssueUpdate(limit, issues, tokenSource); body = update.body;
   }
   const { keeper, duplicates } = dedupeWeeklyLimitIssues(issues);
   if (!keeper) throw new Error('weekly-limit issue was not returned after creation');
-  body = weeklyLimitIssueBody({
-    ...limit, backupResetAt: tokenSource === 'backup' ? limit.resetAt : null, existingBody: keeper.body,
-  });
   await githubRequest(`${base}/issues/${keeper.number}`, {
     method: 'PATCH',
     token,
-    body: { title, body },
+    body: { title: update.title, body },
   });
   for (const duplicate of duplicates) {
     await githubRequest(`${base}/issues/${duplicate.number}`, {

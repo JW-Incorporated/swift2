@@ -28,7 +28,7 @@ describe('selectClaudeToken', () => {
 
   it('skips content when both tokens are limited', () => {
     expect(selectClaudeToken({ limitState: backupLimitedState, priority: 'content', hasBackup: true })).toEqual({
-      token: 'none', reason: 'both tokens are limited until 2026-10-15T05:00:00.000Z',
+      token: 'none', reason: 'both tokens are limited until 2026-10-15T03:00:00.000Z',
     });
   });
 
