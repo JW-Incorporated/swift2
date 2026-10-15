@@ -424,7 +424,10 @@ and E3 judgments share the P3 subscription-wrapper caller and its 88-call
 ceiling (D8's former $3 reservation mapped in P1-28b); wrapper unavailability
 or transient E1/E2 evidence holds the look and writes nothing. Cached run
 timestamps enforce at most two scheduled runs per ISO week; a manual third run
-or a manual per-run cap increase requires `RUN_MATCHER_AUTHORING`.
+or a manual per-run cap increase requires `RUN_MATCHER_AUTHORING`. That weekly
+cap is enforceable only on `main`, because GitHub Actions does not share main's
+matcher-state cache with a dispatch from another ref. Non-main manual
+dispatches are refused unless they carry the same typed confirmation.
 
 ## 9. Issue-#9 additions (spec'd, small)
 

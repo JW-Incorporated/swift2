@@ -5,8 +5,8 @@ export const MERCH_LIGHT_MODEL = 'claude-haiku-5-5';
 export const MERCH_PRIORITY = 'P3';
 // The former $3 cap allowed floor($3 / $0.03408) = 88 reserved calls.
 export const MERCH_CALLER_CAP = 88;
-const IMAGE_FETCH_TIMEOUT_MS = 10_000;
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
+export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 
 function imageFailure(message, status = null) {

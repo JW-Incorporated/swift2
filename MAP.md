@@ -798,6 +798,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | `scripts/merch-engine/awin-feed-stream.mjs` (+ `.test.ts`) | Split out of `sync-awin-feeds.mjs`: streaming Awin feed ingestion (incremental quote-aware CSV splitter, row mapper, gzip sniff, byte/row caps, one-transaction-per-feed `writeFeedStream`). Memory is bounded regardless of feed size; a feed over `AWIN_FEED_MAX_BYTES` (default 1.5 GB) or 3M rows is rolled back and skipped with a `::warning::` |
 | `scripts/merch-engine/merch-claude.mjs` | P1-28b merch subscription adapter: fetches bounded image buffers, calls the public Claude wrapper at P3, maps the former $3 budget to 88 calls, and holds/logs on unavailable or capped results |
 | `scripts/merch-engine/{build-matcher-input,write-moment-products,matcher-open-pr-guard,matcher-state}.mjs` | P1-19 E6 scheduled authoring: select up to three empty looks only (Tidewatch only when live), hold unavailable judgments, apply the E3 + E1/E2 fail-closed writer, enforce a 14-day no-match cooldown/two-run ISO-week ceiling, and skip while a recent matcher PR is open |
+| `scripts/merch-engine/audit-matches-authoring-{config,issues,run,vision}.mjs` | Cohesive internals split from the E3 authoring CLI: constants/schema, GitHub follow-up issues, capped judgment orchestration, and retailer/vision image handling. `audit-matches-authoring.mjs` remains the public export and CLI facade; vision image fetching reuses `merch-claude.mjs` |
 
 ### WP2.6 threads
 | Path | Purpose | Notes |
