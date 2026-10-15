@@ -3,7 +3,7 @@
  *
  * Ten cases, codified once instead of hand-run a third time (Workflow rule 8).
  * `expectedKind` is the PRODUCTION expectation — the model path, with a real
- * ANTHROPIC_API_KEY, via `scripts/check-mood-battery.mjs`. The key-free
+ * Claude subscription token, via `scripts/check-mood-battery.mjs`. The wrapper-free
  * (keyword-fallback) test suite in `route.test.ts` asserts a narrower subset
  * of this same list, because only the model sets `out_of_scope` — see the
  * comment there for cases 8 and 9.

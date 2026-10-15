@@ -55,7 +55,7 @@ import {
   MAX_TRANSCRIPT_TURNS,
   REQUEST_TIMEOUT_MS,
   callAnthropicMessages,
-  clownModelKey,
+  clownModelEnabled,
   sanitizeTake,
   type ClownTake,
   type ClownTurn,
@@ -166,8 +166,7 @@ export async function runClownAgent(
   const investigation: InvestigationStep[] = [seedStep];
   onStep?.(seedStep);
 
-  const apiKey = clownModelKey();
-  if (!apiKey) return degraded(investigation, pool);
+  if (!clownModelEnabled()) return degraded(investigation, pool);
 
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return degraded(investigation, pool);
@@ -250,7 +249,6 @@ export async function runClownAgent(
     let response;
     try {
       response = await callAnthropicMessages(
-        apiKey,
         {
           model: CLOWN_MODEL,
           max_tokens: MAX_TOKENS,

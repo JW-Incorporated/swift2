@@ -6,16 +6,7 @@ import { MoodUsage } from './mood-usage';
 const alwaysNow = () => Date.parse('2026-07-25T10:00:00Z');
 const freshUsage = () => new MoodUsage(100, alwaysNow);
 
-/** A Messages API body carrying a record_mood tool_use block. */
-function toolBody(input: unknown) {
-  return {
-    ok: true,
-    json: async () => ({ content: [{ type: 'tool_use', name: 'record_mood', input }] }),
-  } as unknown as Response;
-}
-
 afterEach(() => {
-  vi.unstubAllGlobals();
   vi.unstubAllEnvs();
 });
 
@@ -46,62 +37,54 @@ describe('sanitizeClassification', () => {
 });
 
 describe('classifyMood', () => {
-  it('returns null (fall back) when no API key is configured', async () => {
-    vi.unstubAllEnvs();
-    vi.stubEnv('ANTHROPIC_API_KEY', '');
-    const usage = freshUsage();
-    expect(await classifyMood(usage, 'heartbroken')).toBeNull();
+  it('falls back when the subscription wrapper is unavailable', async () => {
+    const call = vi.fn().mockResolvedValue({ status: 'unavailable', reason: 'no token' });
+    expect(await classifyMood(freshUsage(), 'heartbroken', call)).toBeNull();
+    expect(call).toHaveBeenCalledTimes(2);
   });
 
-  it('kill switch: MOOD_MODEL_DISABLED=1 stays inert, without spending', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
+  it('keeps the kill switch inert without reserving usage', async () => {
     vi.stubEnv('MOOD_MODEL_DISABLED', '1');
-    const fetchSpy = vi.fn();
-    vi.stubGlobal('fetch', fetchSpy);
+    const call = vi.fn();
     const usage = freshUsage();
-    expect(await classifyMood(usage, 'heartbroken')).toBeNull();
-    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(await classifyMood(usage, 'heartbroken', call)).toBeNull();
+    expect(call).not.toHaveBeenCalled();
     expect(usage.used()).toBe(0);
   });
 
-  it('returns null when the daily cap is reached — without calling the network', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
-    const fetchSpy = vi.fn();
-    vi.stubGlobal('fetch', fetchSpy);
-    const usage = new MoodUsage(0, alwaysNow); // cap already exhausted
-    expect(await classifyMood(usage, 'heartbroken')).toBeNull();
-    expect(fetchSpy).not.toHaveBeenCalled();
+  it('does not call the wrapper when the daily cap is reached', async () => {
+    const call = vi.fn();
+    const usage = new MoodUsage(0, alwaysNow);
+    expect(await classifyMood(usage, 'heartbroken', call)).toBeNull();
+    expect(call).not.toHaveBeenCalled();
   });
 
-  it('parses a structured tool response into a MoodQuery', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
-    vi.stubGlobal('fetch', vi.fn(async () => toolBody({ moods: { heartbreak: 0.9 }, crisis: false })));
-    const c = await classifyMood(freshUsage(), 'devastated');
+  it('parses a structured wrapper response into a MoodQuery', async () => {
+    const call = vi.fn().mockResolvedValue({
+      status: 'ok',
+      data: { moods: { heartbreak: 0.9 }, crisis: false },
+    });
+    const c = await classifyMood(freshUsage(), 'devastated', call);
     expect(c?.query.moods.heartbreak).toBe(0.9);
     expect(c?.crisis).toBe(false);
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
+      caller: 'mood-client',
+      priority: 'P2',
+      model: 'claude-haiku-5-5',
+    }));
   });
 
   it('retries once then falls back to null on repeated failure', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
-    const fetchSpy = vi.fn(async () => ({ ok: false, status: 500, text: async () => 'boom' }) as unknown as Response);
-    vi.stubGlobal('fetch', fetchSpy);
-    const c = await classifyMood(freshUsage(), 'devastated');
-    expect(c).toBeNull();
-    expect(fetchSpy).toHaveBeenCalledTimes(2); // one attempt + one retry
+    const call = vi.fn().mockResolvedValue({ status: 'unavailable', reason: 'boom' });
+    expect(await classifyMood(freshUsage(), 'devastated', call)).toBeNull();
+    expect(call).toHaveBeenCalledTimes(2);
   });
 
   it('recovers on the second attempt', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-test');
-    let call = 0;
-    vi.stubGlobal(
-      'fetch',
-      vi.fn(async () => {
-        call += 1;
-        if (call === 1) throw new Error('transient');
-        return toolBody({ moods: { joy: 0.7 } });
-      }),
-    );
-    const c = await classifyMood(freshUsage(), 'great day');
+    const call = vi.fn()
+      .mockResolvedValueOnce({ status: 'unavailable', reason: 'transient' })
+      .mockResolvedValueOnce({ status: 'ok', data: { moods: { joy: 0.7 } } });
+    const c = await classifyMood(freshUsage(), 'great day', call);
     expect(c?.query.moods.joy).toBe(0.7);
   });
 });

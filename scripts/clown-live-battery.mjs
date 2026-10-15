@@ -268,14 +268,15 @@ async function mapPool(items, limit, fn) {
 /* ── run ────────────────────────────────────────────────────────────────── */
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
     console.error(
       'REFUSING TO RUN. This battery calls the live Anthropic API and requires\n' +
-        'ANTHROPIC_API_KEY to be set in the environment. Nothing was called, nothing was spent.\n' +
-        '  ANTHROPIC_API_KEY=sk-... npm run clown:battery:live',
+        'CLAUDE_CODE_OAUTH_TOKEN to be set in the environment. Nothing was called.\n' +
+        '  npm run clown:battery:live',
     );
     return 2;
   }
+  process.env.CLOWN_CALL_PRIORITY = 'P3';
 
   const attacks = LIMIT ? ATTACKS.slice(0, LIMIT) : ATTACKS;
   const legit = LIMIT ? LEGIT.slice(0, LIMIT) : LEGIT;

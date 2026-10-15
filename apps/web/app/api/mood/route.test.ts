@@ -22,7 +22,7 @@ function post(body: unknown, ip = '10.0.0.1'): Promise<Response> {
 beforeEach(() => {
   // No key → the route uses the deterministic keyword fallback, so these tests
   // never touch the network and stay fully deterministic.
-  vi.stubEnv('ANTHROPIC_API_KEY', '');
+  vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', '');
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
 
@@ -133,7 +133,7 @@ describe('POST /api/mood', () => {
   });
 
   it('ordinary negative feeling reaches songs on the degraded path', async () => {
-    // The founder's sentence, end to end, with no ANTHROPIC_API_KEY set.
+    // The founder's sentence, end to end, with no subscription token set.
     const res = await post(
       { text: "I'm grumpy and everything is pissing me off" },
       '10.1.0.11',

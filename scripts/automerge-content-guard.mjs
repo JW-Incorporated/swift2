@@ -16,8 +16,8 @@
 //      (`"use server"`), a `server-only` module, or anything reading a secret
 //      env var. In the App Router `page.tsx`/`layout.tsx` are Server Components
 //      by default, and a Server Action can live in ANY `app/` or `lib/` file.
-//      `apps/web/lib/longlive/mood-client.ts` already reads `ANTHROPIC_API_KEY`
-//      while sitting among pure display modules — allowlisted by path today.
+//      model clients and feedback handlers can sit among pure display modules
+//      while still reading server-only credentials.
 //
 // A path prefix cannot see any of that. This guard inspects the BASENAME and
 // CONTENT of each changed code file and reports the ones that must NOT
@@ -60,7 +60,6 @@ export const isCodeFile = (p) => CODE_EXTENSIONS.includes(path.posix.extname(p.s
  * is kept human by PATH, not by this content guard).
  */
 export const SECRET_ENV_VARS = [
-  'ANTHROPIC_API_KEY',
   'OPENAI_API_KEY',
   'GITHUB_FEEDBACK_TOKEN',
   'SOCIAL_POSTER_PAT',

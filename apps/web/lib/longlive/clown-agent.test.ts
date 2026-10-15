@@ -1,5 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+vi.mock('../../../../scripts/lib/claude-call.mjs', async () => ({
+  callClaude: (await import('./clown-call-test-helper')).fakeClownWrapper,
+}));
+
 import { ClownUsage } from './clown-usage';
 import type { ClownTurn } from './clown-client';
 import type { InvestigationStep } from './clown-answer';
@@ -55,8 +59,8 @@ beforeEach(() => {
 });
 
 describe('degradation: returns a null take, never throws', () => {
-  it('no API key: degrades immediately, seed step still recorded', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', '');
+  it('model kill switch: degrades immediately, seed step still recorded', async () => {
+    vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null);
@@ -66,7 +70,7 @@ describe('degradation: returns a null take, never throws', () => {
   });
 
   it('kill switch: CLOWN_MODEL_DISABLED=1 stays inert, without spending', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
@@ -78,7 +82,7 @@ describe('degradation: returns a null take, never throws', () => {
   });
 
   it('malformed transcript (empty): degrades without spending', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     const result = await runClownAgent(usage(), [], EMPTY_SEED, { query: 'x' }, null);
@@ -87,7 +91,7 @@ describe('degradation: returns a null take, never throws', () => {
   });
 
   it('over the daily cap: degrades without spending', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     const u = usage(0);
@@ -97,7 +101,7 @@ describe('degradation: returns a null take, never throws', () => {
   });
 
   it('every attempt fails: retries once then degrades', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const fetchSpy = vi.fn(async () => {
       throw new Error('boom');
     });
@@ -110,7 +114,7 @@ describe('degradation: returns a null take, never throws', () => {
 
 describe('the model commits immediately', () => {
   it('record_take on the very first call: no read tools dispatched', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock({ stance: 'quick take' })])));
     const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null);
     expect(result.take?.stance).toBe('quick take');
@@ -121,7 +125,7 @@ describe('the model commits immediately', () => {
 
 describe('read tools dispatch and feed the investigation trail + pool', () => {
   it('one precedents call, then record_take: pool and trail both reflect it', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const item = { id: 'egg:1', headline: 'h', detail: 'd', status: 'confirmed' as const, date: '2026-01-01', sources: [] };
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [item], summary: '1 precedent for "track-five"' });
 
@@ -144,7 +148,7 @@ describe('read tools dispatch and feed the investigation trail + pool', () => {
   });
 
   it('multiple tool_use blocks in one turn are all dispatched and each counts toward the budget', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     let call = 0;
@@ -170,7 +174,7 @@ describe('read tools dispatch and feed the investigation trail + pool', () => {
   });
 
   it('an unrecognised tool name is reported honestly and still counts toward the budget', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     let call = 0;
     vi.stubGlobal('fetch', vi.fn(async () => {
       call += 1;
@@ -184,7 +188,7 @@ describe('read tools dispatch and feed the investigation trail + pool', () => {
 
 describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
   it(`tool-call cap: total model calls never exceed ${AGENT_MAX_TOOL_CALLS} (record_take included, not an extra call on top)`, async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     let call = 0;
@@ -211,7 +215,7 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
   });
 
   it('token budget cap: no further call is made once cumulative usage already exceeds the budget outright', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     // Single call already exceeds the whole budget outright, not merely
@@ -232,7 +236,7 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
   });
 
   it('wall-clock cap: an injected clock past the ceiling forces the next call to record_take', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     let call = 0;
@@ -251,11 +255,11 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
       return t;
     };
     await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null, undefined, clock);
-    expect(captured[1].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
+    expect(captured[0].tool_choice).toEqual({ type: 'tool', name: 'record_take' });
   });
 
   it('an already-aborted signal degrades immediately, before any network call (Codex review BLOCKER 2)', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     const controller = new AbortController();
@@ -275,7 +279,7 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
   });
 
   it('a single response with MORE tool_use blocks than the remaining budget only dispatches up to the cap, in-round (Codex review BLOCKER 1)', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     let call = 0;
@@ -302,7 +306,7 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
   });
 
   it('token headroom: insufficient budget for another full round forces the NEXT call, before the cap is technically exceeded (Codex review BLOCKER 3)', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.mocked(toolPrecedents).mockResolvedValue({ items: [], summary: 'no precedents' });
 
     let call = 0;
@@ -330,7 +334,7 @@ describe('HARD CAPS — enforced in control flow, not prompt-only', () => {
 
 describe('onStep fires progressively, including the seed', () => {
   it('emits the seed step synchronously, before any network call', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', '');
+    vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
     const steps: InvestigationStep[] = [];
     await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null, (s) => steps.push(s));
     expect(steps).toEqual([{ tool: 'search', input: { query: 'x' }, summary: EMPTY_SEED.summary }]);
@@ -343,8 +347,8 @@ describe('onStep fires progressively, including the seed', () => {
 // going to degrade on one of those never consumes the caller's per-user
 // daily allowance.
 describe('reserveUserBudget — only reserved once a model call is actually about to happen', () => {
-  it('no API key: the callback is never invoked', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', '');
+  it('model kill switch: the callback is never invoked', async () => {
+    vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
     const reserveUserBudget = vi.fn(async () => true);
     const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null, undefined, undefined, undefined, undefined, reserveUserBudget);
     expect(result.take).toBeNull();
@@ -353,7 +357,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   });
 
   it('kill switch on: the callback is never invoked', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubEnv('CLOWN_MODEL_DISABLED', '1');
     const reserveUserBudget = vi.fn(async () => true);
     await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null, undefined, undefined, undefined, undefined, reserveUserBudget);
@@ -361,21 +365,21 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   });
 
   it('over the global daily cap: the callback is never invoked', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const reserveUserBudget = vi.fn(async () => true);
     await runClownAgent(usage(0), turns('hi'), EMPTY_SEED, { query: 'x' }, null, undefined, undefined, undefined, undefined, reserveUserBudget);
     expect(reserveUserBudget).not.toHaveBeenCalled();
   });
 
   it('malformed transcript: the callback is never invoked', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const reserveUserBudget = vi.fn(async () => true);
     await runClownAgent(usage(), [], EMPTY_SEED, { query: 'x' }, null, undefined, undefined, undefined, undefined, reserveUserBudget);
     expect(reserveUserBudget).not.toHaveBeenCalled();
   });
 
   it('key present, under cap: the callback IS invoked exactly once, before the model is called', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const order: string[] = [];
     const reserveUserBudget = vi.fn(async () => {
       order.push('reserve');
@@ -391,7 +395,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   });
 
   it('over the caller\'s own cap: degrades with overUserCap:true, no model call, no retry', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const fetchSpy = vi.fn();
     vi.stubGlobal('fetch', fetchSpy);
     const reserveUserBudget = vi.fn(async () => false);
@@ -408,7 +412,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   // to consume one slot of shared budget for a model call that never
   // actually happened. The reservation must be given back on that denial.
   it("over the caller's own cap: gives back the shared global reservation it already took", async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubGlobal('fetch', vi.fn());
     const clownUsage = usage();
     const reserveUserBudget = vi.fn(async () => false);
@@ -418,7 +422,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   });
 
   it('key present, under cap: the global reservation IS kept when a model call actually proceeds', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock()])));
     const clownUsage = usage();
     const reserveUserBudget = vi.fn(async () => true);
@@ -427,7 +431,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
   });
 
   it('no callback given at all (no session resolved): behaves exactly as before this fix, no overUserCap', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     vi.stubGlobal('fetch', vi.fn(async () => toolUseResponse([takeBlock()])));
     const result = await runClownAgent(usage(), turns('hi'), EMPTY_SEED, { query: 'x' }, null);
     expect(result.take).not.toBeNull();
@@ -442,7 +446,7 @@ describe('reserveUserBudget — only reserved once a model call is actually abou
 // content, clearly tagged as a record of an earlier conversation, does not.
 describe('priorSummary — demoted into the first user message, never a system block', () => {
   it('no priorSummary: the system prompt is the single cached block, unchanged', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));
@@ -454,7 +458,7 @@ describe('priorSummary — demoted into the first user message, never a system b
   });
 
   it('a priorSummary never adds a second system block', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));
@@ -465,7 +469,7 @@ describe('priorSummary — demoted into the first user message, never a system b
   });
 
   it('a priorSummary is prepended, wrapped in <conversation_memory> tags, into the first (and here, only) user message', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));
@@ -482,7 +486,7 @@ describe('priorSummary — demoted into the first user message, never a system b
   });
 
   it('a priorSummary containing a literal </conversation_memory> cannot break out of its own tag', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     let captured: Record<string, unknown> = {};
     vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
       captured = JSON.parse(String(init.body));

@@ -124,6 +124,13 @@ export function createClaudeCaller(options = {}) {
         '--model', model, '--system-prompt', system];
       if (schemaJson !== undefined) args.push('--json-schema', schemaJson);
       tempDir = await createTempDir();
+      // Another in-flight call may have opened the process breaker while
+      // this one awaited limit state or its isolated directory. Re-check at
+      // the reservation boundary so a call we will not spawn cannot consume
+      // one of this caller's capped slots.
+      if (breakerOpen) {
+        return complete({ status: 'unavailable', reason: 'Claude call circuit breaker open' });
+      }
       callCounts.set(caller, calls + 1);
       let token = tokenChoice.token;
       for (let attempt = 0; attempt < 2; attempt += 1) {

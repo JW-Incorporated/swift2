@@ -1,4 +1,4 @@
-import { describe, expect, it, afterEach, beforeEach } from 'vitest';
+import { describe, expect, it, afterEach, beforeEach, vi } from 'vitest';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -292,12 +292,12 @@ describe('buildQualitySection', () => {
           prUrl: 'https://github.com/JW-Incorporated/swift2/pull/10',
           score: null,
           evidence: null,
-          error: 'ANTHROPIC_API_KEY is not set',
+          error: 'Claude subscription token unavailable',
         },
       ],
       noRubric: [],
     });
-    expect(section).toContain('not scored (ANTHROPIC_API_KEY is not set)');
+    expect(section).toContain('not scored (Claude subscription token unavailable)');
   });
 
   it('escapes pipes and newlines in LLM-authored evidence so the table cannot break', () => {
@@ -384,71 +384,55 @@ describe('scorePrWithClaude', () => {
     body: 'Closes #41.',
   };
 
-  it('sends a single forced-tool request with thinking disabled on the cheap model', async () => {
-    let request: Request | undefined;
+  it('sends one lowest-priority structured request through the subscription wrapper', async () => {
+    const callClaudeImpl = vi.fn().mockResolvedValue({
+      status: 'ok',
+      data: { score: 3, evidence: 'Added a test.' },
+    });
     const response = await scorePrWithClaude({
-      apiKey: 'test-key',
       routineName: 'routine-austin-build',
       rubric,
       pr,
       diffText: '+ added a test',
-      fetchImpl: async (url: string, init: RequestInit) => {
-        request = new Request(url, init);
-        return new Response(
-          JSON.stringify({
-            content: [
-              {
-                type: 'tool_use',
-                name: 'record_quality_score',
-                input: { score: 3, evidence: 'Added a test.' },
-              },
-            ],
-          }),
-          { status: 200 },
-        );
-      },
+      callClaudeImpl,
     });
 
-    const payload = (await request?.json()) as Record<string, unknown>;
-    expect(payload).toMatchObject({
-      model: 'claude-sonnet-5',
-      max_tokens: 300,
-      thinking: { type: 'disabled' },
-    });
-    expect(payload.tool_choice).toEqual({ type: 'tool', name: 'record_quality_score' });
+    expect(callClaudeImpl).toHaveBeenCalledWith(expect.objectContaining({
+      caller: 'routine-quality-sample',
+      priority: 'P3',
+      model: 'claude-sonnet-5-5',
+      maxCalls: 30,
+      schema: expect.objectContaining({ required: ['score', 'evidence'] }),
+      user: expect.stringContaining('+ added a test'),
+    }));
     expect(response).toEqual({ score: 3, evidence: 'Added a test.' });
   });
 
+  it('reports wrapper unavailability to the existing unscored fallback', async () => {
+    await expect(scorePrWithClaude({
+      routineName: 'routine-austin-build',
+      rubric,
+      pr,
+      diffText: '+ added a test',
+      callClaudeImpl: vi.fn().mockResolvedValue({ status: 'unavailable', reason: 'limit' }),
+    })).rejects.toThrow('Claude quality-sample unavailable: limit');
+  });
+
   it('truncates an oversized diff instead of sending it whole', async () => {
-    let request: Request | undefined;
+    const callClaudeImpl = vi.fn().mockResolvedValue({
+      status: 'ok',
+      data: { score: 2, evidence: 'x' },
+    });
     const hugeDiff = '+'.repeat(30_000);
     await scorePrWithClaude({
-      apiKey: 'test-key',
       routineName: 'routine-austin-build',
       rubric,
       pr,
       diffText: hugeDiff,
-      fetchImpl: async (url: string, init: RequestInit) => {
-        request = new Request(url, init);
-        return new Response(
-          JSON.stringify({
-            content: [
-              {
-                type: 'tool_use',
-                name: 'record_quality_score',
-                input: { score: 2, evidence: 'x' },
-              },
-            ],
-          }),
-          { status: 200 },
-        );
-      },
+      callClaudeImpl,
     });
 
-    const payload = (await request?.json()) as {
-      messages: Array<{ content: Array<{ text: string }> }>;
-    };
-    const text = payload.messages[0].content[0].text;
+    const text = callClaudeImpl.mock.calls[0][0].user;
     expect(text.length).toBeLessThan(hugeDiff.length);
     expect(text).toContain('diff truncated at 20000 characters');
   });

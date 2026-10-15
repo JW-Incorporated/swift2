@@ -32,7 +32,7 @@ fan_signal / live_theory → (maybe) promotes into the Vault → egg_ledger
 2. **Extract.** A new cluster gets one Haiku call
    (`apps/worker/src/extract/haiku-client.ts`) that writes structured,
    our-words copy — never a paste-through of the source article — using the
-   forced `record_knowledge` tool shape. No `ANTHROPIC_API_KEY` set → this
+   forced `record_knowledge` tool shape. Subscription wrapper unavailable → this
    stage no-ops, same degraded-but-functional posture as the rest of the
    worker.
 3. **Screen.** Every extracted item is checked against the same redline
@@ -130,7 +130,7 @@ without stopping the others:
    work lost (state is all in Supabase/GitHub, not in the runner).
 2. **Stop the chat model / agent loop:** set `CLOWN_MODEL_DISABLED=1` in the
    deploy environment (Vercel, Production scope, same place
-   `ANTHROPIC_API_KEY` lives — full mechanics in `docs/ops/clown-kill-
+   Claude subscription token lives — full mechanics in `docs/ops/clown-kill-
    switch.md`). This is the one switch for both the single model call and
    the bounded tool-using agent loop (`clown-agent.ts`'s `runClownAgent`) —
    there is no separate flag for "loop but not model." Readers still get an

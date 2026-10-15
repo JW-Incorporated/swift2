@@ -1,7 +1,7 @@
 /**
  * Mood Chat — Stage 4: the keyword fallback matcher.
  *
- * The degraded path. Whenever the classifier can't run — no ANTHROPIC_API_KEY,
+ * The degraded path. Whenever the subscription classifier can't run,
  * the daily cap is hit, or the model call fails twice — the route routes the
  * reader's words through HERE instead, deriving a {@link MoodQuery} from a
  * hand-built lexicon. It is pure, synchronous, free, and always available, so

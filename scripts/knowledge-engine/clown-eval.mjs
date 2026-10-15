@@ -43,7 +43,7 @@
 // every cited id from every take this eval produces — a hallucinated or
 // screened-out citation is reported as a failure alongside the hit rate.
 //
-//   ANTHROPIC_API_KEY=sk-... npm run clown:eval
+//   npm run clown:eval
 //   npm run clown:eval -- --limit 10
 //
 // Exit codes: 0 = ran, hit rate >= target AND zero grounding failures;
@@ -131,7 +131,7 @@ async function main() {
   await loadWorkerEnvLocal();
 
   const missing = [];
-  if (!process.env.ANTHROPIC_API_KEY) missing.push('ANTHROPIC_API_KEY');
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) missing.push('CLAUDE_CODE_OAUTH_TOKEN');
   if (!process.env.SUPABASE_DB_URL) missing.push('SUPABASE_DB_URL');
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey =
@@ -147,6 +147,7 @@ async function main() {
     );
     return 2;
   }
+  process.env.CLOWN_CALL_PRIORITY = 'P3';
 
   const { knowledgeDocs, eggLedgerRows } = await buildAll();
   const docTitleById = new Map(knowledgeDocs.map((d) => [d.id, d.title]));

@@ -2,7 +2,7 @@
 /**
  * Live acceptance battery for Mood Chat — the ten cases from the 2026-08-16
  * over-refusal brief, run against a REAL `POST /api/mood` with a real
- * ANTHROPIC_API_KEY, so it exercises the model path that unit tests cannot.
+ * Claude subscription token, so it exercises the model path that unit tests cannot.
  *
  * WHY THIS EXISTS AS A FILE (Workflow rule 8): this is the third time this repo
  * has hand-run a refusal check by pasting strings into a box. The bug it guards
