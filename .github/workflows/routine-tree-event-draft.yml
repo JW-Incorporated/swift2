@@ -89,6 +89,7 @@ jobs:
       allowed_bots: github-actions # social-event-dispatch dispatches on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
 
   receipt:
