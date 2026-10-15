@@ -17,7 +17,7 @@ const newsRow = {
   sources: [{ outlet: 'Outlet A', tier: 'official', url: 'https://www.example.com/a' }],
 };
 const leadRow = (platform: string) => ({
-  id: 'l1', platform, community: 'r/swifties', kind: 'hot_thread', thread_id: 't3_abc', url: 'https://reddit.com/r/x/abc',
+  id: 'l1', platform, community: 'r/swifties', kind: 'hot_thread', thread_id: 't3_abc', url: 'https://reddit.com/r/x/comments/abc/slug_here/',
   title: 'VERBATIM MEMBER TITLE', context: 'OUR WORDS CONTEXT', locator: 'GROUP: VERBATIM FB TEXT',
   relevance: 0.7, status: 'new', created_at: '2026-10-02T00:00:00Z', draft: 'DRAFT TEXT',
 });
@@ -38,8 +38,16 @@ describe('export shaping and privacy', () => {
 
   it('Reddit leads commit the url and id but not the title', () => {
     const shaped = commitShape(shapeLead(leadRow('reddit')));
-    expect(shaped.meta.url).toBe('https://reddit.com/r/x/abc');
+    expect(shaped.meta.url).toBe('/r/x/comments/abc/');
     expect(shaped).not.toHaveProperty('title');
+  });
+
+  it('strips the Reddit title slug from committed permalinks', () => {
+    const row = { ...leadRow('reddit'), url: 'https://www.reddit.com/r/swifties/comments/abc123/my_private_member_title_slug/?utm=x' };
+    const shaped = commitShape(shapeLead(row));
+    expect(shaped.meta.url).toBe('/r/swifties/comments/abc123/');
+    expect(JSON.stringify(shaped)).not.toContain('member_title_slug');
+    expect(commitShape(shapeLead({ ...row, url: 'https://example.com/other' })).meta.url).toBeNull();
   });
 
   it('news keeps its public title and only outlet and tier per source', () => {
@@ -201,7 +209,7 @@ describe('end to end with a fake wrapper', () => {
     const text = readFileSync(join(outDir, 'replay.json'), 'utf8');
     for (const secret of ['VERBATIM', 'OUR WORDS', 'DRAFT TEXT']) expect(text).not.toContain(secret);
     expect(existsSync(join(outDir, 'spot-check.json'))).toBe(true);
-    expect(lines.at(-1)).toMatch(/^tidewatch label: items=\d+ labelled=\d+ remaining=0 calls=\d+\/40 critical=\d+ personal=\d+/);
+    expect(lines.at(-1)).toMatch(/^tidewatch label: pool=\d+ belowFloor=(true|false) labelled=\d+ remaining=0 calls=\d+\/40 critical=\d+ personal=\d+/);
   });
 
   it('spot-check prefers critical and personal entries and excludes synthetics', () => {

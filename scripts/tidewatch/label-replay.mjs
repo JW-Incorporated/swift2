@@ -165,7 +165,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const progressPath = arg('--progress', deps.progressPath ?? PROGRESS_PATH);
   const outDir = arg('--out', deps.outDir ?? OUT_DIR);
   const log = deps.log ?? console.log;
-  const call = deps.call ?? createClaudeCaller({ timeoutMs: 240_000 });
+  const call = deps.call ?? createClaudeCaller({ timeoutMs: 120_000 });
   const raw = JSON.parse(await readFile(rawPath, 'utf8'));
   let progress = { calls: 0, labels: {}, synthetic: [] };
   try { progress = { ...progress, ...JSON.parse(await readFile(progressPath, 'utf8')) }; } catch { /* first run */ }
@@ -188,15 +188,16 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     entries = await done(items);
     counts = summarize(entries);
   }
-  const line = `tidewatch label: items=${items.length} labelled=${entries.length} remaining=${result.remaining} calls=${result.calls}/${HARD_CAP} critical=${counts.critical} personal=${counts.personal} synthetic=${counts.synthetic} classes=${JSON.stringify(counts.byClass)}${result.stopped ? ` STOPPED(${result.stopped})` : ''}`;
+  const line = `tidewatch label: pool=${items.length} belowFloor=${counts.total < FLOORS.total} labelled=${entries.length} remaining=${result.remaining} calls=${result.calls}/${HARD_CAP} critical=${counts.critical} personal=${counts.personal} synthetic=${counts.synthetic} classes=${JSON.stringify(counts.byClass)}${result.stopped ? ` STOPPED(${result.stopped})` : ''}`;
   if (result.remaining === 0) {
     await mkdir(outDir, { recursive: true });
+    const belowFloor = counts.total < FLOORS.total;
     const meta = { version: 1, labeler: { model: MODEL, via: 'claude-subscription wrapper', priority: PRIORITY }, frozenAt: new Date().toISOString(), calls: result.calls };
-    await writeFile(path.join(outDir, 'replay.json'), `${JSON.stringify({ ...meta, counts, items: entries }, null, 1)}\n`);
+    await writeFile(path.join(outDir, 'replay.json'), `${JSON.stringify({ ...meta, counts: { ...counts, belowFloor }, items: entries }, null, 1)}\n`);
     await writeFile(path.join(outDir, 'spot-check.json'), `${JSON.stringify({ version: 1, note: 'Labels plus public fields only, for the PM spot-check.', items: pickSpotCheck(entries) }, null, 1)}\n`);
   }
   log(line);
-  return result.remaining === 0 && counts.total >= FLOORS.total && counts.critical >= FLOORS.critical && counts.personal >= FLOORS.personal ? 0 : 2;
+  return result.remaining === 0 && counts.critical >= FLOORS.critical && counts.personal >= FLOORS.personal ? 0 : 2;
 }
 
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;

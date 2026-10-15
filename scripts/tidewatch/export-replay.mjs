@@ -91,10 +91,18 @@ export function pickMerch(official, fanMade, count) {
   return [...take(official, 'official', count - fan.length), ...fan];
 }
 
+const REDDIT_PERMALINK = /^(?:https?:\/\/[^/]+)?(\/r\/[^/]+\/comments\/[^/?#]+\/)/;
+/** Cut a Reddit permalink to /r/<sub>/comments/<id>/ so the title slug never ships. */
+export function stripPermalinkSlug(url) {
+  const match = typeof url === 'string' ? REDDIT_PERMALINK.exec(url) : null;
+  return match ? match[1] : null;
+}
+
 /** Committed shape: no member text. News and merch keep their public title. */
 export function commitShape(item) {
   const publicTitle = ['news_story', 'merch', 'theory_bundle'].includes(item.kind);
   const { sources, ...rest } = item.meta;
+  if (item.kind === 'reddit_lead') rest.url = stripPermalinkSlug(rest.url);
   return {
     id: item.id,
     kind: item.kind,
