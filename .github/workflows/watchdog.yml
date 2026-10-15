@@ -434,7 +434,7 @@ jobs:
 
       # news-worker knowledge-extract degraded no-op (issue #4647 item 4).
       # The extract stage silently did nothing for weeks (schema pending, then
-      # a missing ANTHROPIC_API_KEY -> every cluster deferred) while the run
+      # an unavailable subscription wrapper -> every cluster deferred) while the run
       # stayed green. The worker now emits a `::warning title=extract-degraded`
       # annotation on such a cycle; this step reads the annotations of the last
       # 6 scheduled runs (4h cadence = 24h) and opens a watchdog-alert when all
@@ -476,7 +476,7 @@ jobs:
           OPEN_TITLES=$(gh_retry gh issue list --repo "$REPO" --label watchdog-alert --state open --limit 200 --json title --jq '.[].title') || exit 0
           if [ "$VERDICT" = "alert" ]; then
             if [ "$IS_DAILY" = "1" ]; then
-              echo "@sffan15-sys — the last 6 news-worker runs (24h) all logged an \`extract-degraded\` annotation: knowledge extraction did nothing (schema pending, no ANTHROPIC_API_KEY, or the extraction cap). The runs stayed green. See the annotation on a recent run: https://github.com/${REPO}/actions/workflows/news-worker.yml. Issue #4647." > /tmp/alert-body.md
+              echo "@sffan15-sys — the last 6 news-worker runs (24h) all logged an \`extract-degraded\` annotation: knowledge extraction did nothing (schema pending, subscription wrapper unavailable, or the extraction cap). The runs stayed green. See the annotation on a recent run: https://github.com/${REPO}/actions/workflows/news-worker.yml. Issue #4647." > /tmp/alert-body.md
               scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             fi
           elif printf '%s\n' "$OPEN_TITLES" | grep -qxF "$ALERT_TITLE"; then
@@ -1332,7 +1332,7 @@ jobs:
       # watchdog alert (self-healing, non-blocking) rather than a `build`
       # gate: a real ingestion cadence takes hours to prove itself, and the
       # Current tier has zero rows until Stage 3's extract stage has a live
-      # ANTHROPIC_API_KEY (HUMAN-ACTIONS.md #13) — that pre-ingestion state
+      # the Claude subscription wrapper — that pre-ingestion state
       # is expected, not itself an alarm (exit code 2 below, treated the same
       # as a healthy close, not an open). Reuses the SAME SUPABASE_URL/
       # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no

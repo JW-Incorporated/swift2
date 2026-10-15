@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error The executable authoring runner is intentionally plain ESM.
 import {
   CAP_STOP_REASON,
@@ -235,7 +235,7 @@ describe('E3 authoring runner cost reservation', () => {
 
     expect(result).toMatchObject({
       schemaVersion: 1,
-      providerModel: 'claude-sonnet-5',
+      providerModel: 'claude-sonnet-5-5',
       thinking: 'disabled',
       detectorReceipt: { records: 133, queued: 125, reused: 0, unscored: 8 },
     });
@@ -469,85 +469,40 @@ describe('E3 authoring runner cost reservation', () => {
     expect(requests).toEqual(['pair-1']);
   });
 
-  it('uses a one-pair Claude request with thinking explicitly disabled', async () => {
-    let request: Request | undefined;
+  it('passes both image buffers to the capped Sonnet 5.5 subscription call', async () => {
+    let input: Record<string, unknown> | undefined;
+    const imageBytes = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
     const response = await judgePairWithClaude(source, {
-      apiKey: 'test-key',
-      fetchImpl: async (url: string, init: RequestInit) => {
-        if (url === source.productImageUrl || url === source.momentImageUrl) {
-          return new Response(Uint8Array.from([137, 80, 78, 71]), {
-            headers: { 'content-type': 'image/png' },
-          });
-        }
-        request = new Request('https://api.anthropic.com/v1/messages', init);
-        return new Response(
-          JSON.stringify({
-            content: [{ type: 'tool_use', name: 'record_match_judgment', input: validJudgment }],
-          }),
-          { status: 200 },
-        );
+      fetchImpl: async () => new Response(imageBytes, { headers: { 'content-type': 'image/png' } }),
+      call: async (value: Record<string, unknown>) => {
+        input = value;
+        return { status: 'ok', data: validJudgment };
       },
     });
 
-    const payload = (await request?.json()) as Record<string, unknown>;
-    expect(payload).toMatchObject({
-      model: 'claude-sonnet-5',
-      max_tokens: 256,
-      thinking: { type: 'disabled' },
+    expect(input).toMatchObject({
+      caller: 'merch-audit-authoring',
+      model: 'claude-sonnet-5-5',
+      priority: 'P3',
+      maxCalls: 88,
     });
-    expect((payload.messages as Array<{ content: unknown[] }>)[0].content).toHaveLength(3);
+    const images = input?.images as Array<{ buffer: Buffer; mimeType: string }>;
+    expect(images.map((image) => image.mimeType)).toEqual(['image/png', 'image/png']);
+    expect(images.every((image) => Buffer.isBuffer(image.buffer))).toBe(true);
     expect(response).toEqual(validJudgment);
   });
 
-  it('encodes supported source images before sending a Claude judgment request', async () => {
-    let request: Request | undefined;
-    const imageBytes = Uint8Array.from([137, 80, 78, 71]);
-    const calls: string[] = [];
-    const response = await judgePairWithClaude(source, {
-      apiKey: 'test-key',
-      fetchImpl: async (url: string, init: RequestInit) => {
-        calls.push(url);
-        if (url === source.productImageUrl || url === source.momentImageUrl) {
-          expect(init).toMatchObject({ method: 'GET', redirect: 'follow' });
-          return new Response(imageBytes, { headers: { 'content-type': 'image/png' } });
-        }
-        request = new Request('https://api.anthropic.com/v1/messages', init);
-        return new Response(
-          JSON.stringify({
-            content: [{ type: 'tool_use', name: 'record_match_judgment', input: validJudgment }],
-          }),
-          { status: 200 },
-        );
-      },
+  it('holds an eligible pair and logs when the subscription is unavailable', async () => {
+    const log = vi.fn();
+    const imageBytes = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    const result = await judgePairWithClaude(source, {
+      fetchImpl: async () => new Response(imageBytes, { headers: { 'content-type': 'image/png' } }),
+      call: async () => ({ status: 'unavailable', reason: 'limit' }),
+      log,
     });
 
-    const payload = (await request?.json()) as {
-      messages: Array<{ content: Array<{ source?: Record<string, string> }> }>;
-    };
-    expect(calls).toEqual([
-      source.productImageUrl,
-      source.momentImageUrl,
-      'https://api.anthropic.com/v1/messages',
-    ]);
-    expect(payload.messages[0].content.slice(0, 2)).toEqual([
-      {
-        type: 'image',
-        source: {
-          type: 'base64',
-          media_type: 'image/png',
-          data: 'iVBORw==',
-        },
-      },
-      {
-        type: 'image',
-        source: {
-          type: 'base64',
-          media_type: 'image/png',
-          data: 'iVBORw==',
-        },
-      },
-    ]);
-    expect(response).toEqual(validJudgment);
+    expect(log).toHaveBeenCalledWith('merch-audit-authoring: holding candidate (unavailable: limit)');
+    expect(result).toBeNull();
   });
 
   it('preserves an unsupported image as unresolved evidence without submitting a provider request', async () => {
@@ -557,7 +512,10 @@ describe('E3 authoring runner cost reservation', () => {
       queue,
       judge: (pair: Record<string, unknown>) =>
         judgePairWithClaude(pair, {
-          apiKey: 'test-key',
+          call: async () => {
+            providerRequests += 1;
+            return { status: 'ok', data: validJudgment };
+          },
           fetchImpl: async (url: string) => {
             if (url === source.productImageUrl) {
               return new Response(Uint8Array.from([0]), {
@@ -569,8 +527,7 @@ describe('E3 authoring runner cost reservation', () => {
                 headers: { 'content-type': 'image/png' },
               });
             }
-            providerRequests += 1;
-            return new Response(JSON.stringify({ content: [] }), { status: 200 });
+            return new Response(null, { status: 404 });
           },
         }),
     });

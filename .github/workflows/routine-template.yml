@@ -13,7 +13,7 @@
 #
 # Auth (2026-09-05 revision): uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude
 # Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT
-# ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as
+# metered API credentials. This draws from the SAME shared plan-usage pool as
 # Joey's own interactive Claude Code sessions, not metered per-token
 # billing — see the revision doc's "honest remaining catch" before adding
 # more routines than the plan can absorb.
@@ -184,8 +184,6 @@ on:
       CLAUDE_CODE_OAUTH_TOKEN_BACKUP:
         required: false
       SOCIAL_POSTER_PAT:
-        required: false
-      ANTHROPIC_API_KEY:
         required: false
       SUPABASE_URL:
         required: false
