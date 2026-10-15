@@ -2,19 +2,27 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** Reddit blocks the home reader's browser (HTTP 403), so Reddit cards can't get score, comment counts or threads. Reddit's public .json pages need no key, login or account, but they touch the spirit of your no-Reddit-API-key rule, so it's your call.
+**Steps:**
+1. Decide: `yes` — RSS to find threads, plus anonymous .json for at most 20 top threads per run, slow and with an honest name; `no` — park the reader and keep the GitHub RSS scan (cards stay without counts).
+**Worked if:** docs/decisions.md records your answer and the P1-15 tracker row moves out of blocked.
 
 ## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
 
-**Why:** Push is off in production because CRON_SECRET is missing. On 2026-10-15 you said go, with a full notification design review first. The PM runs the review, lands its must-fix items, clears the stale backlog, then says ready.
+**Why:** Push is off in production because CRON_SECRET is missing. PUSH READY (2026-10-15): the review's must-fixes merged (#5891, #5916), the stale backlog is cleared (56 killed, 0 left), and a watchdog alerts if dispatch stops.
 **Steps:**
-1. Wait for the PM's "push ready" message in the Swift2 pipeline PM chat.
-2. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
+1. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
+2. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
+3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
+**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
 ## #127 🟢 [UPGRADE] Make the backup Claude token a GitHub secret (~2 min)
 <!-- ha filed=2026-10-14 -->
