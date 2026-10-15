@@ -99,7 +99,7 @@ export function staleFeedFiles(names, date) {
   return names.filter((n) => FILE_RE.test(n) && FILE_RE.exec(n)[1] < cutoff);
 }
 
-const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
+const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: { ...process.env, LC_ALL: 'C' }, maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
 const importSource = async (source) => (await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`)).default;
 
 /** True only when `git show` failed because the path did not exist at that commit (a new era file). */
