@@ -1,6 +1,6 @@
 # Tracker
 
-One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: todo, doing, review, done, blocked, dropped (reason in the Log; mirrored to the dashboard as done with a note).
+One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: doing, doing, review, done, blocked, dropped (reason in the Log; mirrored to the dashboard as done with a note).
 
 ## P0 Stop the bleeding and measure
 
@@ -10,20 +10,20 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | todo |  |  |
-| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | todo |  |  |
-| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | todo |  |  |
+| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | doing |  |  |
+| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
+| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | doing |  |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | todo |  |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | todo |  |  |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | todo |  |  |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | todo |  |  |
-| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | todo |  |  |
+| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | doing |  |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | todo |  |  |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | todo |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
-| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | todo |  |  |
+| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | doing |  |  |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | todo |  |  |
@@ -128,7 +128,13 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 - 2026-10-14 21:15 PM: D1 to D9 recorded above. HA #124 to #127 filed. Reversible calls: P0-12 folded into new P1-28 (the worker leaves the API key, so the model swap rides the migration); P1-08 no longer waits on P0-12; new P0-19 backup-token switch after P0-01; P1-09 rescoped to a subscription wrapper, with a Fable consult before it is briefed (§4, a change to the funding and verifier path); P0-18 and P1-13 dropped; no `docs/projects/tidewatch/` copy (the plan already lives in this folder). This branch is based on the plan branch while #5813 auto-merges.
 
+- 2026-10-14 21:25 PM: wave 1 dispatched, 5 in flight. Codex (sol high, worktrees under %LOCALAPPDATA%\longlive-wt): P0-01, P0-09. Claude: P0-14 (executor, Opus), P0-03 (executor, Sonnet), and a grunt fixing the failing checks on plan-docs PR #5813 (build-full, CodeQL), which also blocks this branch's PR #5815. Flow for every item: worker pushes its branch, a Claude reviewer reviews the branch, then the reviewer opens the PR and arms auto-merge. Heartbeat cron armed at :13 and :43 (session-only).
+
 ## Next actions
 
-- Dispatch wave 1 (see Log for what is in flight).
+1. On each completion: dispatch a `reviewer` on the pushed branch (it opens the PR with TL;DR and arms auto-merge if clean; P0-14's rulings PR gets label `founder-decision`, no auto-merge, then file HA for OA-7).
+2. When #5813 is green and merged: `git merge origin/main` here; check #5815 lands.
+3. Next to dispatch as slots free (lanes free): P0-11 (Codex sol xhigh, plus `codex:rescue --background` second opinion), P0-17 (dashboard: build HTML with an agent, PM publishes), P0-06 (researcher, read-only), P0-07 (Codex sol medium), P0-08 (Codex spark low), P0-10 (Codex spark low); after P0-01 merges: P0-02 (executor Sonnet) then P0-19 (Codex). After any ci.yml or routine-template change merges: `gh pr update-branch` the armed PRs.
+4. Post-merge live acceptance (step 6): P0-01 (kevin-radar dispatch with a test limit issue), P0-09 (awin dispatch under 30 min, cache entry, no-change rerun opens no PR), P0-03 (next social state PR runs build-content).
+5. Before briefing P1-09: Fable (`architect`) consult on the D1-revised wrapper (subscription headless calls, priority, fallback token, verifier availability at the limit); log it here and in STATE.md.
 
