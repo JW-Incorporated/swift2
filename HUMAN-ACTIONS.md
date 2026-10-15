@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **19 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #129 🟡 [DECIDE] Push notifications are switched off in production: CRON_SECRET is missing (~10 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** For 2 days, every 15-minute push run has logged "CRON_SECRET not set; dispatch disabled", so no push reached any fan. Turning it on blindly could send a backlog of old pushes at once. The PM clears the backlog and fixes a router bug (#5850) first.
+**Steps:**
+1. Decide: `go` — the PM prepares (backlog cleared, #5850 fixed), then you add the secret; `wait` — push stays off for now.
+2. On `go`, once the PM says ready: Vercel → project swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
+3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
+**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
 
 ## #128 🟡 [DECIDE] Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) (~5 min)
 <!-- ha filed=2026-10-14 -->
