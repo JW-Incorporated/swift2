@@ -77,6 +77,8 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
      comment and, for a new ask, set `contradicts`. You never settle a
      contradiction — a founder does.
 
+0.8. **Read what is new on the site, before planning.** The newest `social/inbox/new-on-site-<date>.json` (written daily by `social-new-on-site.yml`, zero LLM) lists the moments added to the site in the last 7 days that carry media, each with `id`, `significance` and `deepLink`. Plan new-on-site moments into the calendar first (`defining` and `notable` before `routine`), and cite at least 3 of its moment `id`s in the PR body's "This fortnight" section — fewer only if the file lists fewer, and say so. No such file or `count: 0` = nothing new; plan as usual.
+
 1. **Read, in this order:** `docs/agents/tree.md` (your contract, including the six hard rails), `docs/marketing/social-strategy.md` (the strategy you apply — campaign definitions, slot grammar, hook rules, metrics), and the current `social/calendar.md` (last week's plan + the ledger). Skim `docs/decisions.md` for anything social dated since your last run.
 
 2. **Crisis-stop check, before anything else.** If a founder has said "stop posting" anywhere you can see (brief comments, issues, PR comments), or the repo variable `SOCIAL_FREEZE` is set: do the audit, plan NOTHING new, write the halt at the top of `social/calendar.md`, and say so in the PR body. Do not resume on your own judgment — a founder lifts it.
