@@ -42,6 +42,7 @@ async function upgradeLegacyLead(supabase, lead) {
       null,
     );
     const { data, error } = await query.select('locator');
+    if (error?.code === '23505') return false;
     if (error) throw new Error(`engagement_lead legacy upgrade failed: ${error.message}`);
     if (data?.length) return true;
   }

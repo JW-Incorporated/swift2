@@ -40,6 +40,20 @@ function memorySupabase(initial: Row[] = []) {
             },
             then(resolve: (value: unknown) => unknown) {
               const matched = rows.filter((row) => filters.every((filter) => filter(row)));
+              const conflicts = matched.some((matchedRow) =>
+                rows.some(
+                  (row) =>
+                    row !== matchedRow &&
+                    row.platform === matchedRow.platform &&
+                    (row.thread_id ?? row.locator) ===
+                      (matchedRow.thread_id ?? values.locator ?? matchedRow.locator) &&
+                    row.kind === matchedRow.kind,
+                ),
+              );
+              if (conflicts)
+                return Promise.resolve(
+                  resolve({ data: null, error: { code: '23505', message: 'duplicate' } }),
+                );
               for (const row of matched) Object.assign(row, values);
               return Promise.resolve(
                 resolve({
@@ -107,6 +121,23 @@ describe('Facebook lead identity and persistence', () => {
     expect(result).toEqual({ inserted: 0, deduped: 1 });
     expect(db.rows).toHaveLength(1);
     expect(db.rows[0].locator).toBe(newLocator);
+  });
+
+  it('dedupes on the new locator when an in-place legacy upgrade collides', async () => {
+    const source = post('same private post', { reactionCount: 9, commentCount: 5 });
+    const oldLocator = unsaltedLegacyLeadLocator(source, options.groupSlug);
+    const newLocator = legacyLeadLocator(source, options.groupSlug);
+    const db = memorySupabase([
+      { platform: 'facebook', kind: 'hot_thread', thread_id: null, locator: oldLocator, url: null, reactions: 1, num_comments: 1 },
+      { platform: 'facebook', kind: 'hot_thread', thread_id: null, locator: newLocator, url: null, reactions: 2, num_comments: 2 },
+    ]);
+
+    const result = await writeEngagementLeads(db, engagementLeadsFromPosts([source], options));
+
+    expect(result).toEqual({ inserted: 0, deduped: 1 });
+    expect(db.rows).toHaveLength(2);
+    expect(db.rows.find((row) => row.locator === oldLocator)).toMatchObject({ reactions: 1, num_comments: 1 });
+    expect(db.rows.find((row) => row.locator === newLocator)).toMatchObject({ reactions: 9, num_comments: 5 });
   });
 
   it('uses a stable DOM post id to distinguish same-text posts without timestamps', () => {
