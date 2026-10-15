@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { decideOutcome, failureHint, resultDetail } from './session-outcome.mjs';
+import {
+  decideOutcome,
+  failureHint,
+  resultDetail,
+  weeklyLimitInfo,
+  weeklyLimitIssueBody,
+} from './session-outcome.mjs';
 
 const log = (result: object) => JSON.stringify([{ type: 'system' }, { type: 'result', ...result }]);
 
@@ -150,6 +156,47 @@ describe('failureHint', () => {
     expect(failureHint({ result: 'Claude AI usage limit reached|1760000400000' })).toContain(
       'resets 2025-10-09T09:00:00.000Z',
     );
+  });
+});
+
+describe('weekly limit outcome', () => {
+  const realLimitText = "You've hit your weekly limit · resets 11pm (UTC)";
+
+  it('passes with a warning for the exact production log text and extracts its reset', () => {
+    const r = decideOutcome(
+      log({ subtype: 'success', is_error: true, result: realLimitText }),
+      { stepOutcome: 'failure', now: new Date('2026-10-14T20:10:43.000Z') },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.message).toContain('resets 2026-10-14T23:00:00.000Z');
+    expect(r.weeklyLimit).toEqual({ detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true });
+  });
+
+  it('recognises the production wording in failureHint', () => {
+    expect(failureHint({ result: realLimitText }, { now: new Date('2026-10-14T20:10:43.000Z') })).toContain('plan usage for this account is exhausted');
+  });
+
+  it('bounds an unparseable reset to six hours', () => {
+    expect(
+      weeklyLimitInfo(
+        { result: "You've hit your weekly limit - resets sometime later" },
+        { now: new Date('2026-10-14T20:00:00.000Z') },
+      ),
+    ).toEqual({
+      detectedAt: '2026-10-14T20:00:00.000Z',
+      resetAt: '2026-10-15T02:00:00.000Z',
+      parsed: false,
+    });
+  });
+
+  it('writes the reset in a machine-readable issue line', () => {
+    expect(
+      weeklyLimitIssueBody({
+        detectedAt: '2026-10-14T20:10:43.000Z',
+        resetAt: '2026-10-14T23:00:00.000Z',
+        parsed: true,
+      }),
+    ).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
   });
 });
 
