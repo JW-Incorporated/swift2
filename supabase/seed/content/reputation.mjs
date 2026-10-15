@@ -289,6 +289,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
+            focalPoint: '36% 33%',
             credit: 'Julio Enriquez / Wikimedia Commons',
           },
         ],
@@ -1902,6 +1903,7 @@ export default {
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
+            focalPoint: '50% 38%',
             credit: 'Big Machine Records',
           },
         ],
