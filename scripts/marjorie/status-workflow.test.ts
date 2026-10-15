@@ -112,4 +112,12 @@ describe('routine-marjorie-status-reply.yml', () => {
     expect(relay).not.toMatch(/DISCORD/);
     expect(relay).not.toMatch(/Write|Edit/);
   });
+  it('answers common intents first and always fails open to the unchanged agent path', () => {
+    expect(relay).toContain('node scripts/marjorie/status-intents.mjs .scratch/status-comment.json');
+    expect(relay).toContain('TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}');
+    expect(relay).toContain("if: always() && needs.context.outputs.skip != 'true' && needs.template.outputs.handled != 'true'");
+    expect(relay).toContain('model: claude-sonnet-5-5');
+    expect(relay).toContain('prompt_file: docs/agents/runner-prompts/marjorie-status-reply.md');
+    expect(relay.match(/pre_run_artifact: status-reply-context/g)).toHaveLength(1);
+  });
 });

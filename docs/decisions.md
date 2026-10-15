@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
+
+**Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
+
+**Why.** Common read-only questions do not need an agent turn, while the fail-open boundary preserves today's behavior for every uncertain or action-taking request. Jev usage is written to the Actions step summary; the key is never logged.
+
+**Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
+
+---
+
 ## 2026-10-14 — Tidewatch data model (P1-02)
 
 **Decision.** Tidewatch owns five service-role-only tables: `watch_item` for seen-content fingerprints and counts, `watch_decision` for the complete classification/action audit trail, `watch_cursor` for per-source collection progress, `story_timeline` for the timestamps used to measure detection and publishing SLAs, and `llm_usage` for per-caller provider/model/token usage and estimated cost. Noise items expire after 30 days, other seen items after 180 days, and shadow decisions after 365 days; timelines and usage rows are retained (implemented in a follow-up; not in this PR).
