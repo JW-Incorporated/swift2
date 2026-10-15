@@ -25,6 +25,7 @@
 // Usage: tsx scripts/capture-clown-seed.mjs "question text"
 
 import { POST } from '../apps/web/app/api/clown/route.ts';
+import { installClaudeCliFetch } from './lib/claude-cli-fetch.mjs';
 import { runMain } from './lib/cli.mjs';
 
 async function main() {
@@ -37,7 +38,7 @@ async function main() {
     console.error('capture-clown-seed: CLAUDE_CODE_OAUTH_TOKEN is not set in the environment.');
     return 2;
   }
-  process.env.CLOWN_CALL_PRIORITY = 'P3';
+  installClaudeCliFetch({ caller: 'capture-clown-seed' });
 
   const req = new Request('http://localhost/api/clown', {
     method: 'POST',

@@ -8,9 +8,11 @@
  * so the caller falls back to `clown-fallback.ts`'s zero-model composer and
  * the route never 500s.
  *
- * MODEL: Sonnet 5.5. Clownbot's multi-round evidence synthesis and authored
- * voice need more than Mood's bounded Haiku classifier; the named constant
- * remains in `clown-call.ts`.
+ * MODEL: see `CLOWN_MODEL` below — PENDING WYATT'S RATIFICATION (PLAN.md
+ * § Rulings — Wyatt: "model tier (spec offers Sonnet-class like Mood, or
+ * Haiku)... Build against Mood's tier"). Built against Mood Chat's tier
+ * (`mood-client.ts`'s `claude-sonnet-5`) as the placeholder, kept as a single
+ * named constant so changing it is a one-line diff.
  *
  * THE MODEL NEVER SEARCHES THE CORPUS. It receives a small, fixed set of
  * `ClownDoc`s retrieved deterministically upstream (`clown-retrieve.ts`) and
@@ -37,22 +39,25 @@ import { CLOWN_DAILY_CAP, CLOWN_GLOBAL_SCOPE, type ClownUsage } from './clown-us
 import { reserveGlobalUsage } from './usage-db-gate';
 import { CLOWN_SYSTEM_PROMPT, CLOWN_TAKE_TOOL } from './clown-client-prompt';
 import {
+  callAnthropicMessages as sharedCallAnthropicMessages,
   extractToolUseInput,
   ANTHROPIC_VERSION as SHARED_ANTHROPIC_VERSION,
 } from '@swift2/shared/llm/anthropic-messages';
-import { callClownModel, CLOWN_MODEL } from './clown-call';
 
-/** Sonnet 5.5 is retained for the agent's multi-round synthesis and voice. */
-export { CLOWN_MODEL } from './clown-call';
+/**
+ * PENDING WYATT'S RATIFICATION — see header. Matches `mood-client.ts`'s
+ * `MODEL` constant as the placeholder tier.
+ */
+export const CLOWN_MODEL = 'claude-sonnet-5';
 
 /**
  * Kill switch, an env flag. Neither Mood Chat nor build A's rebuilt safety
- * module defines a dedicated kill-switch env var (Mood degrades on wrapper
- * unavailability or an exhausted cap; build A's V1 client gated on
+ * module defines a dedicated kill-switch env var (Mood degrades purely on a
+ * missing key or an exhausted cap; build A's V1 client gated on
  * `CLOWNBOT_SAFETY_V2`, a one-time migration flag, not a standing switch).
  * This is a fresh, narrowly-scoped flag for the same purpose build A's
  * flag served: an operator can force the degraded path without touching the
- * subscription token or the cap. Checked BEFORE `usage.reserve()` so flipping it costs
+ * key or the cap. Checked BEFORE `usage.reserve()` so flipping it costs
  * nothing.
  */
 const CLOWN_MODEL_DISABLED_ENV = 'CLOWN_MODEL_DISABLED';
@@ -193,22 +198,42 @@ function buildMessages(transcript: readonly ClownTurn[], docs: readonly ClownDoc
 export type { AnthropicCallUsage, AnthropicCallResult } from '@swift2/shared/llm/anthropic-messages';
 
 /**
- * The legacy function name/signature is retained for Clownbot's agent loop,
- * but `clown-call.ts` converts logical tool choices to JSON-schema output and
- * invokes the shared subscription wrapper. The wrapper owns its process
- * timeout; an already-aborted request is rejected before a process starts.
+ * THE shared wire primitive — one POST to the Messages API, timeout +
+ * abort, no retry (callers own their own retry policy; `attempt` below
+ * keeps `askClown`'s existing one-retry behaviour). Delegates to
+ * `@swift2/shared`'s `callAnthropicMessages` (R3 migration) so every
+ * Anthropic Messages caller in the repo shares one transport (headers,
+ * endpoint, timeout/abort wiring, usage parsing) rather than each hand-
+ * rolling its own `fetch()` — including `clown-agent.ts`'s multi-turn tool
+ * loop, per PLAN.md Stage 10's "don't add a new model client." Re-exported
+ * under this module's original name/signature so existing callers and
+ * tests are unaffected by the migration.
+ */
+/**
+ * `signal` (Codex review BLOCKER 2, Clownbot agent loop) lets a caller with
+ * its own wall-clock deadline (`clown-agent.ts`'s loop, via the route's
+ * single request-wide `AbortController`) actually cancel an in-flight
+ * request rather than just abandoning the promise and letting it keep
+ * running server-side — this local controller's own `timeoutMs` timer and
+ * the external `signal` both feed the SAME `fetch` abort, whichever fires
+ * first. `askClown` (below) never passes one, so its own behaviour is
+ * unchanged.
  */
 export async function callAnthropicMessages(
+  apiKey: string,
   body: Record<string, unknown>,
   timeoutMs: number = REQUEST_TIMEOUT_MS,
   signal?: AbortSignal,
 ): Promise<import('@swift2/shared/llm/anthropic-messages').AnthropicCallResult> {
-  void timeoutMs;
-  return callClownModel(body, signal);
+  return sharedCallAnthropicMessages(apiKey, body, {
+    timeoutMs,
+    signal,
+    errorLabel: 'anthropic call',
+  });
 }
 
-async function attempt(messages: readonly WireMessage[]): Promise<ClownTake> {
-  const { raw } = await callAnthropicMessages({
+async function attempt(apiKey: string, messages: readonly WireMessage[]): Promise<ClownTake> {
+  const { raw } = await callAnthropicMessages(apiKey, {
     model: CLOWN_MODEL,
     max_tokens: MAX_TOKENS,
     thinking: THINKING,
@@ -234,12 +259,17 @@ async function attempt(messages: readonly WireMessage[]): Promise<ClownTake> {
  * text; this module receives it and forgets it.
  */
 /**
- * The one place that reads the kill switch. Authentication and availability
- * stay inside the shared wrapper. Exported so `clown-agent.ts` applies the
- * same gate rather than re-deriving it.
+ * The one place that reads the API key and the kill switch. Returns the key
+ * when the model is allowed to spend, `null` when it is not (no key, or the
+ * kill switch is on) — never throws. Exported so `clown-agent.ts` gates the
+ * SAME two checks, in the SAME order, rather than re-deriving them; the
+ * env-var name itself stays private to this module either way.
  */
-export function clownModelEnabled(): boolean {
-  return process.env[CLOWN_MODEL_DISABLED_ENV] !== '1';
+export function clownModelKey(): string | null {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+  if (process.env[CLOWN_MODEL_DISABLED_ENV] === '1') return null;
+  return apiKey;
 }
 
 export async function askClown(
@@ -247,7 +277,8 @@ export async function askClown(
   transcript: readonly ClownTurn[],
   docs: readonly ClownDoc[],
 ): Promise<ClownTake | null> {
-  if (!clownModelEnabled()) return null;
+  const apiKey = clownModelKey();
+  if (!apiKey) return null;
 
   const capped = transcript.slice(-MAX_TRANSCRIPT_TURNS);
   if (capped.length === 0 || capped[capped.length - 1].role !== 'user') return null;
@@ -257,10 +288,10 @@ export async function askClown(
   const messages = buildMessages(capped, docs);
 
   try {
-    return await attempt(messages);
+    return await attempt(apiKey, messages);
   } catch {
     try {
-      return await attempt(messages);
+      return await attempt(apiKey, messages);
     } catch {
       return null;
     }

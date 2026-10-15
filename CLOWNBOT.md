@@ -130,7 +130,7 @@ without stopping the others:
    work lost (state is all in Supabase/GitHub, not in the runner).
 2. **Stop the chat model / agent loop:** set `CLOWN_MODEL_DISABLED=1` in the
    deploy environment (Vercel, Production scope, same place
-   Claude subscription token lives — full mechanics in `docs/ops/clown-kill-
+   `ANTHROPIC_API_KEY` lives — full mechanics in `docs/ops/clown-kill-
    switch.md`). This is the one switch for both the single model call and
    the bounded tool-using agent loop (`clown-agent.ts`'s `runClownAgent`) —
    there is no separate flag for "loop but not model." Readers still get an

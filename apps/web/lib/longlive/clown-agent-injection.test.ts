@@ -15,10 +15,6 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('../../../../scripts/lib/claude-call.mjs', async () => ({
-  callClaude: (await import('./clown-call-test-helper')).fakeClownWrapper,
-}));
-
 import { ClownUsage } from './clown-usage';
 import type { ClownTurn } from './clown-client';
 import { CLOWN_SYSTEM_PROMPT } from './clown-client-prompt';
@@ -84,7 +80,7 @@ const INJECTION_PAYLOAD =
 
 describe('tool-result injection surface (Stage 10, PLAN.md Stage 12)', () => {
   it('malicious retrieved content reaches the model strictly as tool_result DATA, never as new instructions or a system-prompt mutation', async () => {
-    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
     vi.mocked(toolPrecedents).mockResolvedValue({
       items: [
         {
@@ -143,7 +139,7 @@ describe('tool-result injection surface (Stage 10, PLAN.md Stage 12)', () => {
   });
 
   it('a take that cites an id the loop never actually retrieved (as if the model complied with an injected "cite this" instruction) is caught as a fabrication', async () => {
-    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    vi.stubEnv('ANTHROPIC_API_KEY', 'k');
     vi.mocked(toolPrecedents).mockResolvedValue({
       items: [
         {

@@ -32,12 +32,12 @@
 // This is the harness proving Stage 10's methodology-first design actually
 // works: precedent reasoning, not literal recall.
 //
-// Requires a live model key AND a live, writable Supabase project (the hide/
+// Requires a Claude subscription token AND a live, writable Supabase project (the hide/
 // restore needs `SUPABASE_DB_URL` write access — a read-only anon key cannot
 // flip `redline_ok`). Degrades to a clear skip, never a crash, when either
 // is missing — same pattern as `sync-clown-knowledge.mjs`/`knowledge-
-// coverage.mjs` tonight. NOT wired into CI (spends real money against the
-// real Anthropic API and mutates a live table, even if only transiently).
+// coverage.mjs` tonight. NOT wired into CI (consumes subscription allowance
+// and mutates a live table, even if only transiently).
 //
 // Also runs the grounding check (Stage 12 item 4, `clown-grounding.ts`) on
 // every cited id from every take this eval produces — a hallucinated or
@@ -47,10 +47,11 @@
 //   npm run clown:eval -- --limit 10
 //
 // Exit codes: 0 = ran, hit rate >= target AND zero grounding failures;
-// 1 = ran, below target or a grounding failure found; 2 = skipped (no key/DB
+// 1 = ran, below target or a grounding failure found; 2 = skipped (no token/DB
 // reachable, or zero eligible eggs in the seed data).
 
 import { makeClient } from '../lib/pg.mjs';
+import { installClaudeCliFetch } from '../lib/claude-cli-fetch.mjs';
 import { buildAll, loadWorkerEnvLocal } from '../sync-clown-knowledge.mjs';
 import { runClownAgent } from '../../apps/web/lib/longlive/clown-agent.ts';
 import { toolSearch } from '../../apps/web/lib/longlive/clown-agent-tools.ts';
@@ -147,7 +148,7 @@ async function main() {
     );
     return 2;
   }
-  process.env.CLOWN_CALL_PRIORITY = 'P3';
+  installClaudeCliFetch({ caller: 'clown-eval' });
 
   const { knowledgeDocs, eggLedgerRows } = await buildAll();
   const docTitleById = new Map(knowledgeDocs.map((d) => [d.id, d.title]));
@@ -184,7 +185,7 @@ async function main() {
   for (const r of results) {
     console.log(
       `[${r.hit ? 'HIT ' : 'miss'}] ${r.eggId} — "${r.query}" — top3: ${r.top3.join(', ') || '(none)'}` +
-        `${r.degraded ? ' (degraded run — no key/cap/timeout)' : ''}${r.grounding.ok ? '' : ' — GROUNDING FAILURE'}`,
+        `${r.degraded ? ' (degraded run — wrapper unavailable/cap/timeout)' : ''}${r.grounding.ok ? '' : ' — GROUNDING FAILURE'}`,
     );
     for (const p of r.grounding.problems) {
       console.log(`         cited ${p.id}: ${p.reason}`);

@@ -45,7 +45,7 @@
 #   - The top-level `apps/web/lib/*` files — the server data layer
 #     (`vault.ts`), the CSP module (`security-headers.mjs`), and the top-level
 #     hooks/utils. Only the `apps/web/lib/longlive/` display subtree auto-merges.
-#   - `apps/web/lib/longlive/mood-client.ts` — invokes the server-only subscription wrapper
+#   - `apps/web/lib/longlive/mood-client.ts` — reads `ANTHROPIC_API_KEY`
 #     (denied by path, and by the content guard).
 #   - `apps/web/next.config.*`, any `apps/web/middleware.*` — deploy/security
 #     config (barred in NEVER_ALLOWLIST; also caught by the content guard).
@@ -224,7 +224,7 @@ packages/
 !apps/web/app/privacy/
 !apps/web/app/terms/
 # The ONE server module inside the client/display subtree: mood-client.ts is
-# "the one model module" — it invokes the server-only subscription wrapper. It lives
+# "the one module that spends money" — it reads ANTHROPIC_API_KEY. It lives
 # among pure display modules, so `apps/web/lib/longlive/` would otherwise sweep
 # it in. Denied here by path, AND caught at runtime by the content guard below.
 !apps/web/lib/longlive/mood-client.ts

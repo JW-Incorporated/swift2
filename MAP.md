@@ -209,7 +209,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-starters.ts` (+ `.test.ts`) | Column item → composer prefill string |
 | `apps/web/lib/longlive/clown-names.ts` (+ `.test.ts`) | Ported name registry |
 | `apps/web/lib/longlive/clown-explain.ts` (+ `.test.ts`) | Plain-language clowning/delulu/Easter-egg definitions; deterministic meta-question intercept before retrieval/model |
-| `apps/web/lib/longlive/clown-client.ts`, `clown-call.ts` (+ `-prompt.ts`, tests) | Clownbot's Sonnet 5.5 P2 subscription-wrapper adapter; logical tools are schema-constrained with CLI tools disabled; `CLOWN_MODEL_DISABLED` kill switch |
+| `apps/web/lib/longlive/clown-client.ts` (+ `-prompt.ts`, `.test.ts`) | Clownbot's runtime model call on Vercel; tier as a named constant; `CLOWN_MODEL_DISABLED` kill switch. API-key transport stays pending owner decision HA #132 |
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` — the one client-facing shape |
 | `apps/web/lib/longlive/clown-gate.ts` (+ `.test.ts`) | Output re-screen |
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
@@ -266,7 +266,7 @@ changing any existing call site's behaviour.
 | `apps/web/lib/longlive/clown-stream.ts` (+ `.test.ts`) | Client-side NDJSON stream reader, shared by `ClownChat.tsx` |
 | `apps/web/lib/longlive/clown-route-helpers.ts` | `route.ts` plumbing split out (300-line cap): rate limiting, transcript sanitisation, the fixed-copy answer shape, the NDJSON stream producer (server side of `clown-stream.ts`) |
 | `apps/web/lib/longlive/clown-chat-helpers.ts` | Pure helpers split out of `ClownChat.tsx` (300-line cap) |
-| `apps/web/lib/longlive/clown-client.ts` | Exports the wrapper-backed compatibility surface and model-enabled gate reused by `clown-agent.ts` (no second model client) |
+| `apps/web/lib/longlive/clown-client.ts` | Exports the shared runtime wire primitive and model-key gate reused by `clown-agent.ts` (no second model client); the Vercel request path stays on `ANTHROPIC_API_KEY` pending HA #132 |
 | `apps/web/lib/longlive/clown-client-prompt.ts` | Gains the method block + `CLOWN_READ_TOOLS` schemas; `CLOWN_TAKE_TOOL` unchanged |
 | `apps/web/lib/longlive/clown-answer.ts` | `ClownAnswer` widened with `investigation: InvestigationStep[]` (`[]` for every non-loop producer) |
 
@@ -307,7 +307,7 @@ file by mistake — the names are easy to confuse.
 | `apps/web/lib/longlive/mood-prompt.ts` | **The classifier prompt, extracted from code so wording is editable without touching request logic.** Carries the permissiveness rules and the "always score at least one axis" guarantee |
 | `apps/web/lib/longlive/mood-client.ts` | The ONE model call (`claude-sonnet-5`, forced `record_mood` tool, thinking disabled). `cache_control` present but a no-op below the 1024-token minimum |
 | `apps/web/lib/longlive/mood-match.ts` | Deterministic matcher over precomputed vectors + era diversity. **Bereavement gate at :40-48 is issue #1984 — never weaken** |
-| `apps/web/lib/longlive/mood-keywords.ts` | Degraded-path lexicon, used whenever the subscription wrapper is unavailable. **~440 lines — over the 300 cap BEFORE this workstream touched it.** Splitting it is its own task; do not bundle that into a feature PR |
+| `apps/web/lib/longlive/mood-keywords.ts` | Degraded-path lexicon, used when no `ANTHROPIC_API_KEY` (the normal local state). **~440 lines — over the 300 cap BEFORE this workstream touched it.** Splitting it is its own task; do not bundle that into a feature PR |
 | `apps/web/lib/longlive/mood-safety.ts` | Crisis detection + all user-facing copy. **Copy is founder-gated** (`docs/content-ops/mood-chat-safety-language.md`) |
 | `apps/web/lib/longlive/mood-usage.ts` | 200/day cap, per cold start. No kill switch exists (unlike Clownbot's) |
 | `supabase/seed/song-moods/*.mjs` | **HAND-AUTHORED SOURCE**, one file per era. `_example.mjs` is the template, `README.md` the rules. All 8 axes required per song, `useCase` ≤60 chars each, `oneLiner` ≤160. **NO LYRICS EVER** — the generator rejects any line break and it is a P0 redline |
@@ -656,6 +656,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `scripts/social/dispatch-event-drafts.mjs` + `lib/event-dispatch.mjs`, `.github/workflows/social-event-dispatch.yml`, `routine-tree-event-draft.yml`, `docs/agents/runner-prompts/tree-event-draft.md` | Bots v2 W8: same-day drafts for time-sensitive `intake:` issues no post covers — scan every 2h and after `routine-news-triage`, ≤2/day, deduped by the `tree-event-dispatched` label; the event run is a 30-turn one-pair job that opens an ordinary draft PR awaiting the owner's ✅ |
 | `scripts/social/draft-receipt.mjs` | Bots v2 W8: the failure receipt for the daily/event draft runs — run summary + one deduped `desk:tree` issue per day naming why it stopped (e.g. the turn cap) and what the pre-compute had decided |
 | `scripts/routine-quality-sample.mjs` | Wave 4 A4: `output-sampling.yml`'s second job — picks ≤2 merged PRs/routine (≤30/week), scores each 1-3 through the P3 Sonnet 5.5 subscription wrapper against its charter rubric (skipped and logged when unavailable), and appends the weekly quality section; tests in `routine-quality-sample.test.ts` |
+| `scripts/lib/claude-cli-fetch.mjs` | P1-28c tooling-only bridge: Clown seed/battery/eval runners reuse the production control flow but intercept its Messages request and fulfill it through the public P3 subscription wrapper; never used by Vercel runtime. Tests in `claude-cli-fetch.test.ts` |
 | `scripts/lib/claude-call.mjs`, `claude-call-process.mjs`, `claude-call-result.mjs`, `claude-token.mjs` | P1-09's never-throwing, one-response `claude -p` runner: pre-spawn caps, JSON-schema validation, allowlisted child environment with exactly one subscription token, isolated temporary cwd, `llm_usage`-shaped per-attempt telemetry, and no tools/settings/MCP/customizations/session persistence. Process isolation and result/schema handling are split into cohesive modules. It reuses the routine issue-reset and limit-detection helpers; the one shared selector routes active weekly and five-hour limits, and a newly detected primary limit retries once on backup only for P0/P1. Tests: `claude-call.test.ts`, `claude-call-runner.test.ts`, `claude-token.test.ts` |
 | `apps/worker/src/claude-call.ts` | Thin typed worker adapter over the shared subscription runner; it adds no transport or fallback mechanism. |
 | `apps/worker/src/extract/dedupe-gate-llm.ts` | Subscription-backed structured calls for the news same-event gate and grounded merge rewrite; `dedupe-gate.ts` retains candidate loading, lexical shortlisting, and fail-closed orchestration. |

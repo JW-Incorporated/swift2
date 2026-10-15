@@ -66,6 +66,6 @@ through a forced tool call; it never names or searches for a song. Song
 selection is deterministic TypeScript (`mood-match.ts`) over the precomputed
 `song-moods.generated.ts` vectors, so the model cannot hallucinate a track.
 
-When the subscription wrapper is unavailable (the normal local/preview state), the
+When there is no `ANTHROPIC_API_KEY` (the normal local/preview state), the
 route falls back to the free keyword matcher in `mood-keywords.ts` instead —
 same eight axes, derived from a hand-built lexicon rather than the model.

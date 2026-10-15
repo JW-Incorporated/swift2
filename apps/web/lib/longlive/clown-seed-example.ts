@@ -4,7 +4,7 @@
  * Captured 2026-08-13 by POSTing the real question below to the real route
  * handler (`apps/web/app/api/clown/route.ts`'s exported `POST`, invoked
  * directly with a constructed `Request` — same pattern `route.test.ts`
- * uses) with a live Claude subscription token. Nothing below is hand-written: the
+ * uses) with a live `ANTHROPIC_API_KEY`. Nothing below is hand-written: the
  * `answer` is the route's actual JSON response body, pasted verbatim —
  * every segment, every cited source id, and the delulu value exactly as the
  * live pipeline produced them. `theoryName` is likewise the route's real

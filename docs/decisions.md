@@ -9127,3 +9127,7 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **2026-10-15 — P1-28.** P1-28 moved news extract/dedupe, worker theory, theory miner and content backfill to the subscription wrapper on `claude-haiku-5-5`; remaining API-key callers—merch audit/moment matching, Mood/Clownbot, social photo QC, routine-quality sampling and their offline batteries/evals—are deferred to P1-28b/P1-28c.
 
 Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.
+
+## 2026-10-15 — P1-28c tooling transport boundary
+
+**Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.

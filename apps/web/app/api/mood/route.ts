@@ -225,7 +225,7 @@ export async function POST(req: Request): Promise<Response> {
   //
   // The old code was `if (classified?.outOfScope || picks.length === 0)`, and
   // that `||` is the bug the founder hit. On the degraded path (no
-  // subscription wrapper unavailable — the documented local/preview state) every
+  // ANTHROPIC_API_KEY — the documented normal local/preview state) every
   // message the hand-built keyword lexicon didn't recognise came back as
   // "that's outside what I can help with". "I'm grumpy and everything is
   // pissing me off" produced an empty vector, so did "I'm sad", and both got

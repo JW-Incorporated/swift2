@@ -82,7 +82,7 @@ describe('scanContent — server execution markers', () => {
   });
 
   it('flags reading a known secret env var (dot and bracket forms)', () => {
-    expect(scanContent('const k = process.env.OPENAI_API_KEY;').length).toBeGreaterThan(0);
+    expect(scanContent('const k = process.env.ANTHROPIC_API_KEY;').length).toBeGreaterThan(0);
     expect(scanContent("const k = process.env['SUPABASE_SERVICE_ROLE_KEY'];").length).toBeGreaterThan(0);
     expect(scanContent('const k = process.env.GITHUB_FEEDBACK_TOKEN;').length).toBeGreaterThan(0);
   });
@@ -110,7 +110,7 @@ describe('scanContent — server execution markers', () => {
 
 describe('scanContent — destructured process.env reads (#3180)', () => {
   it('flags a destructure of a secret-shaped name', () => {
-    expect(scanContent('const { PRIVATE_KEY } = process.env;').length).toBeGreaterThan(0);
+    expect(scanContent('const { ANTHROPIC_API_KEY } = process.env;').length).toBeGreaterThan(0);
   });
 
   it('flags a destructure UNCONDITIONALLY, even a non-secret-shaped name', () => {
@@ -132,7 +132,7 @@ describe('scanContent — destructured process.env reads (#3180)', () => {
 
 describe('scanContent — process.env read via an import alias (#3180)', () => {
   it('flags a secret-shaped name read through an aliased `env` import', () => {
-    const content = "import { env } from 'node:process';\nconst k = env.X_API_KEY;";
+    const content = "import { env } from 'node:process';\nconst k = env.ANTHROPIC_API_KEY;";
     expect(scanContent(content).length).toBeGreaterThan(0);
   });
 
@@ -157,7 +157,7 @@ describe('scanContent — process.env read via an import alias (#3180)', () => {
   });
 
   it('does NOT flag an unrelated `env` identifier that was never imported from process', () => {
-    expect(scanContent('const env = getSomeConfig();\nconst k = env.X_API_KEY;')).toEqual([]);
+    expect(scanContent('const env = getSomeConfig();\nconst k = env.ANTHROPIC_API_KEY;')).toEqual([]);
   });
 });
 
@@ -171,7 +171,7 @@ describe('scanFile / scanFiles', () => {
     const offenders = scanFiles([
       { path: 'apps/web/components/longlive/Foo.tsx', content: 'export const Foo = () => null;' },
       { path: 'apps/web/app/vault/tier0/route.ts', content: 'export function GET() {}' },
-      { path: 'apps/web/lib/longlive/mood-client.ts', content: 'const k = process.env.OPENAI_API_KEY;' },
+      { path: 'apps/web/lib/longlive/mood-client.ts', content: 'const k = process.env.ANTHROPIC_API_KEY;' },
     ]);
     expect(offenders.map((o) => o.path).sort()).toEqual([
       'apps/web/app/vault/tier0/route.ts',
@@ -193,9 +193,9 @@ describe('against the committed tree', () => {
   // general server-secret-scanning behavior is still covered by the other
   // cases below and the synthetic cases above.
 
-  it('allows mood-client.ts now that it delegates to the subscription wrapper', () => {
+  it('catches mood-client.ts reading ANTHROPIC_API_KEY inside the display subtree', () => {
     const p = 'apps/web/lib/longlive/mood-client.ts';
-    expect(scanFile({ path: p, content: read(p) })).toEqual([]);
+    expect(scanFile({ path: p, content: read(p) }).length).toBeGreaterThan(0);
   });
 
   it('catches the security-headers module and next.config', () => {
