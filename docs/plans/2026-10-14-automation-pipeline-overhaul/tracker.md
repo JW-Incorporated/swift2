@@ -15,7 +15,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | todo |  |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | done | #5824 | 2026-10-15 |
-| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
+| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | doing |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
@@ -40,7 +40,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | review | #5856 |  |
+| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | done | #5856 | 2026-10-15 |
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
@@ -186,6 +186,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 04:46 PM: P0-19 APPROVE (Opus; secret handling clean, no-op without the secret, 27 non-passing callers fine) → #5855 armed. Follow-ups → new P0-19b (must land BEFORE HA #127 adds the backup).
 - 2026-10-15 04:57 HB: #5855 (P0-19) MERGED. No armed PRs of ours to update-branch. P0-19b dispatched (Codex).
 - 2026-10-15 05:25 PM: P0-19b round 2 APPROVE → #5856 armed (a backup-only limit never touches the primary reset or the title; the earlier reset is reported; the backup line is preserved; the secret is scoped to the claude step). With it merged, HA #127 (the backup token) is safe to do.
+- 2026-10-15 05:58 HB: #5856 (P0-19b) MERGED: the backup-token path is complete, so HA #127 is safe. Open social-poster state PRs: 0. P0-05 dispatched (Claude executor, social lane).
 
 ## Next actions
 
