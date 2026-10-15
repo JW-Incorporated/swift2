@@ -22,7 +22,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review | #5835 |  |
-| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | review | #5848 |  |
+| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | done | #5848 | 2026-10-15 |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
@@ -42,7 +42,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
-| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | review | #5844 |  |
+| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
@@ -64,7 +64,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
-| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | review | #5846 |  |
+| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | done | #5846 | 2026-10-15 |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
@@ -175,6 +175,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 01:40 PM: P1-23b APPROVE → #5846 armed (keys are file#slug; Shopify scoped to the official tenant prefix /s/files/1/0011/4651/9637/, exact host). Minor follow-up: validate-content.mjs:1274 no longer flags a stale grandfathered key once its row gains media; reword the "exact snapshot" message.
 - 2026-10-15 01:52 PM: P0-11b APPROVE (Opus) → #5848, but auto-merge PAUSED for two fixes (round 2 in Codex): --all-pending must skip expired events (inbox items), and paging must run until an empty page. RE-ARM #5848 after a quick round-2 check. NEW HIGH-PRIORITY ISSUE #5850: main's notification-router.ts:110 uses the same `.not('id','in','(select ...)')` literal subquery that fails on uuid, so instant push dispatch may be BROKEN in production. Confirm via Vercel runtime errors for /api/notifications/dispatch; fix (two-step fetch, as in #5848) after #5835 lands. #5843 → PR #5849 armed (one iPhone 15 baseline, visually benign antialiasing); after it merges, update-branch #5835.
 - 2026-10-15 01:57 PM: P0-11b round 2 APPROVE (expired events skipped, while a null expires_at is still listed; paging runs to an empty page; the existing tests were extended) → #5848 auto-merge RE-ARMED (verified true). Nothing else in flight. Armed: #5835 (waits for #5849), #5844, #5846, #5848, #5849. FIRST next session: confirm #5850 from the Vercel runtime logs for /api/notifications/dispatch, and if it's real, fix it after #5835 merges; then update-branch #5835 once #5849 lands; then P0-03b, P0-05, P0-19, P1-14, P1-05, P1-08.
+- 2026-10-15 02:27 HB: MERGED #5844 (P1-02b), #5846 (P1-23b), #5848 (P0-11b), #5849 (parity baseline, closes #5843). update-branch on #5835 so parity reruns against the new baseline; it should now land. Worktrees removed. Open programme PRs: #5835 only.
 
 ## Next actions
 
