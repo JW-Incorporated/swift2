@@ -14,7 +14,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | done | #5832 |  |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | todo |  |  |
-| P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
+| P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | done | #5824 | 2026-10-15 |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
@@ -167,6 +167,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 00:05 PM: revert PR #5839 armed (verified). Blast radius was small: only #5824 and three social-poster state PRs (#5834, #5826, #5819) were failing build-content; no content-lane PRs were open. AFTER #5839 MERGES: `gh pr update-branch 5824` and `gh pr update-branch 5837` (both run build-content now and would fail), then let them land; the state PRs get closed by the P0-04 cleanup.
 - 2026-10-15 00:27 HB: MERGED #5831 (P1-02; db-migrate run at 06:05Z succeeded, so the Tidewatch tables are live), #5832 (P0-02; acceptance pending: over 48 h marjorie-ops should run at most 9 times a day and news-worker at least 16, and the first kevin-radar and vault-run runs on 5-5 ids should be green), #5839 (CI revert). update-branch done on #5824 and #5837. Worktrees removed: p1-02, p0-02, ci-revert. Still open: #5824, #5835, #5837.
 - 2026-10-15 00:58 PM: MERGED #5824 (P0-04 queue fix) and #5837 (tracker). P0-04 cleanup executor is closing about 160 state PRs. #5835 (P0-11) parity iphone-15 failed twice with the SAME 23-pixel diff on `a-era-track-guide-bar.png` (runs 38687265860, 38689763607) at two different heads; the PR has no UI changes and nothing UI-related merged since 10-14, so this is likely runner/image drift, not this PR. Dispatched a parity run on main: 38695484037. NEXT: if main fails the same way, open a separate baseline-regeneration PR (note: update-baselines bot pushes don't trigger PR CI, so push a real commit), then update-branch #5835; if main passes, look harder at #5835.
+- 2026-10-15 01:08 PM: P0-04 DONE. 158 stale social-poster/state PRs closed (branches kept); open state PRs = 0 (PM verified); the first social-poster run after the fix succeeded (07:00Z) after a failure streak. Acceptance remainder: the next 2 poster runs succeed (check next session). P0-05 (one rolling state PR) is now unblocked.
 
 ## Next actions
 
