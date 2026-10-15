@@ -19,10 +19,10 @@ Marjorie owns growth goals; **Fable rules** on any taste dispute between them
 
 | # | Guardrail | Where it is enforced |
 |---|---|---|
-| 1 | **Nothing posts without a signed stamp** (HMAC). **Amended by the owner, 2026-10-09 (final): the per-post founder ✅ is retired for IG/X** — Tree clears his own drafts via `social-tree-approve.yml`, which mints a signed v4 `tree-auto` stamp (the dispatcher and the PR author must be a committed Tree identity; only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` ≤1.5MB; refuses `scheduledAt` more than 48h ahead; refuses under `SOCIAL_FREEZE`; trusted `check-drafts`; stamp removed if a run fails). During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required. Unchanged: `SOCIAL_FREEZE`, the poster's per-run caps (1 per run, 1 per platform per day, 48h staleness). Reddit and Facebook are posted by the owner from Tree's paste-ready cards | `.github/workflows/social-tree-approve.yml`, `scripts/social/lib/approvers.mjs`, `stamp-approval.mjs`, `social-approval-poll.mjs`, `scripts/automerge-social-approval-gate.mjs`, `lib/queue.mjs`, `post-queue.mjs` |
+| 1 | **Nothing posts without a signed stamp** (HMAC). **Amended by the owner, 2026-10-09 (final): the per-post founder ✅ is retired for IG/X** — Tree clears his own drafts via `social-tree-approve.yml`, which mints a signed v4 `tree-auto` stamp (the dispatcher and the PR author must be a committed Tree identity; only `social/queue/*.json` plus referenced `.png/.jpg/.jpeg` ≤1.5MB; refuses `scheduledAt` more than 48h ahead; refuses under `SOCIAL_FREEZE`; trusted `check-drafts`; stamp removed if a run fails). During the transition the owner's ✅ prompt still appears for `tree/draft/*` PRs as a fallback; it is not required. Unchanged: `SOCIAL_FREEZE`, the poster's per-run caps (1 per run, 1 per platform per day, 48h staleness). **Amended by the owner, 2026-10-14 (Tidewatch D6): a breaking campaign may post up to 2 extra per platform per day** above that cap, through the fast path in the normative text below. Reddit and Facebook are posted by the owner from Tree's paste-ready cards | `.github/workflows/social-tree-approve.yml`, `scripts/social/lib/approvers.mjs`, `stamp-approval.mjs`, `social-approval-poll.mjs`, `scripts/automerge-social-approval-gate.mjs`, `lib/queue.mjs`, `post-queue.mjs`; breaking cap: `lib/queue.mjs` (not built yet, Tidewatch P2-06) |
 | 2 | **Rights.** Credit the photographer whenever we know who they are; when we don't, the photo may post with no credit line; takedown on request, no argument; no watermarked images and no fan edits without the creator's permission; no lyrics in cards | known credit bound to the library entry, `mediaSource` required: `check-drafts.mjs` `checkMedia` + `lib/queue-schema.mjs` (hard-coded, not in `strategy-params.json`); no-lyrics: Tree's rubric gate (`notEmbarrassed` ≥4) and takedown on request (not machine-checkable) |
 | 3 | **No AI-generated images of Taylor** | `check-drafts.mjs` media-kind/inventory gate (`era-art`/uncleared images rejected); Tree's rubric gate |
-| 4 | **Sensitive personal-life topics are confirmed-only**; no fabricated facts; never speak as Taylor; always labelled fan-made | the normative text below (moved here from the strategy doc, which Tree can edit); `check-drafts.mjs` voice rules; Tree's rubric gate |
+| 4 | **Sensitive personal-life topics are confirmed-only**; no fabricated facts; never speak as Taylor; always labelled fan-made. **Extended by the owner, 2026-10-14 (Tidewatch D5): confirmed-only also governs the site's live feed and push**, under a stricter bar | the normative text below (moved here from the strategy doc, which Tree can edit); `check-drafts.mjs` voice rules; Tree's rubric gate; live feed and push: the Tidewatch fact-check's personal-life bar (not built yet, P2-03) |
 | 5 | **Platform limits.** X 280 weighted characters; Instagram needs an image in its aspect window; a story-unique `campaign` on every item; no Reels/video (not automatable) | `check-drafts.mjs` `checkLength`/`checkMedia`/`checkCampaignPair`, `lib/queue-schema.mjs`, `lib/platforms.mjs` |
 | 6 | **Replies and DMs are human — for now.** The owner answers every reply and DM himself and must be notified of each one. Automated replies to real people are expected once the account is big enough; switching them on is an owner decision, not a ban. No new channel, account, payment or spend without the owner (paid X API metrics declined 2026-10-01). Never tease an unshipped feature | `docs/agents/tree.md` rails; `scripts/check-routine-workflows.mjs`; owner ✅ |
 
@@ -37,6 +37,22 @@ file**. Anything else is a Fable ruling, never an owner question.
 The strategy doc is Tree's and lands without a founder merge, so the guardrail wording
 itself lives here, where Tree cannot edit it. The strategy doc, `docs/agents/tree.md` and
 Tree's prompts point to this section.
+
+### Guardrail 1 — Breaking-news fast path (Joey, 2026-10-14, Tidewatch D6)
+
+Confirmed critical work news may reach social without waiting for the normal
+draft cycle, once the code fact-check and a Sonnet 5.5 verifier agree it is
+confirmed (`docs/decisions.md` 2026-10-14, D4). The breaking campaign type:
+
+- **Cap:** up to 2 extra posts per platform per day, on top of the normal
+  1 per platform per day.
+- **Draft:** one Sonnet 5.5 draft from the verified facts.
+- **Stamp:** the same signed `tree-auto` stamp row 1 describes, with its
+  checks; nobody writes an approval key by hand.
+- **Dispatch:** immediate.
+- **Pairing:** Instagram and X still post as a pair.
+- **Unchanged:** `SOCIAL_FREEZE` stops it like any other post; the 48h
+  staleness rule and every other row on this list still apply.
 
 ### Guardrail 2 — Rights posture and the no-lyrics redline
 
@@ -81,9 +97,22 @@ event (the same treatment a Grammy win or a tour date gets): warm, factual,
 sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
 treatment the way an album rollout does — that framing is reserved for
 product launches and creative rollouts, not a person's private life. Until
-confirmation, silence; the moment it's confirmed, normal coverage. This
+confirmation, silence; the moment it's confirmed, normal coverage. Apart
+from the live-feed and push extension below (2026-10-14), this
 carve-out is social-caption policy only (this file, `docs/agents/tree.md`,
 `docs/agents/runner-prompts/tree-daily-draft.md`) — it does not touch the
 site's Vault/editorial pipeline or the Clownbot safety gate, which remain
 governed by their own docs and are outside Tree's mutation
 rights.
+
+**Extended to the site's live feed and push (Joey, 2026-10-14, Tidewatch
+D5).** The same confirmed-only carve-out now also covers the site's live feed
+and push notifications, under a stricter bar checked in code: an official
+post, or a rep statement quoted by a tier-1 outlet, or two tier-1 outlets
+stating it as fact, plus a 10-minute re-check that the sources still say it
+before anything publishes. One opt-in push, "Baby Watch: official
+announcements only", fires only on a confirmed pregnancy or birth
+announcement (`NOTIFICATIONS_SPEC.md` §4). No rumor, countdown or clue
+content on any surface. The private-life theory ban stays
+(`docs/content-ops/theory-weaving.md`). This extension goes live last in the
+Tidewatch rollout, and only after this text is merged.
