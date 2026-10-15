@@ -15,6 +15,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | todo |  |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | done | #5824 | 2026-10-15 |
+| P0-05a | Social poster: an already-posted item never counts as stale (dup check before the stale check), the root cause of false failed records and alerts | executor-claude-sonnet | S | L-SOCIAL | - | doing |  |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | doing |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
@@ -187,6 +188,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 04:57 HB: #5855 (P0-19) MERGED. No armed PRs of ours to update-branch. P0-19b dispatched (Codex).
 - 2026-10-15 05:25 PM: P0-19b round 2 APPROVE → #5856 armed (a backup-only limit never touches the primary reset or the title; the earlier reset is reported; the backup line is preserved; the secret is scoped to the claude step). With it merged, HA #127 (the backup token) is safe to do.
 - 2026-10-15 05:58 HB: #5856 (P0-19b) MERGED: the backup-token path is complete, so HA #127 is safe. Open social-poster state PRs: 0. P0-05 dispatched (Claude executor, social lane).
+- 2026-10-15 06:15 ARCHITECT INVOCATION #2 (mandatory: two consecutive failed reviews on P0-05). Ruling: Option A via `git merge-tree --write-tree` of the rolling-branch tip with this run's commit (built on the run-start main HEAD), giving a two-parent commit (tip, HEAD) and an always-fast-forward push. On merge-tree conflict, fall back to today's timestamped commit-and-pr path with a ::warning:: (at most two open PRs, nothing lost). Rejected: closing superseded per-run PRs, because queue deletions are NOT recomputed each run (an already-posted item is skipped as a duplicate and left in the queue, post-queue.mjs:480/500), and shelving. ROOT-CAUSE FINDING: the stale check (:466) runs before the duplicate check (:480), so any fold-back stuck over 48 h turns a live post into a false failed record plus alert. That is what happened to the 10-11 IG post. → new item P0-05a (one-line reorder; dispatched first, Claude executor). Then P0-05 v2: a FRESH branch from main implementing the ruling's steps 1-5 with the extended repro tests (two runs unmerged, main moving mid-run, the conflict fallback). The failed branch feature/tidewatch-p0-05 is abandoned, not merged. PM agrees with the ruling, so there's nothing to surface.
 
 ## Next actions
 
