@@ -4,9 +4,8 @@ import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
 import { callFallback, codePrefilter } from './cascade.mjs';
-import {
-  classifierStore, classifyItems, evaluateReplay, main, openJevFallbackAlert,
-} from './classify.mjs';
+import { classifyItems, evaluateReplay, main } from './classify.mjs';
+import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
@@ -153,31 +152,42 @@ describe('Tidewatch classifier', () => {
     expect(inserted).toEqual([{ item_id: 'a', shadow: true }]);
   });
 
-  it('upserts classified_at for decided stories', async () => {
-    const upsert = vi.fn(async () => ({ error: null }));
-    const store = classifierStore({ from: () => ({ upsert }) });
+  it('keeps the first classified_at when the story is classified again later', async () => {
+    let stored: { story_id: string; classified_at: string }[] = [];
+    const upsert = vi.fn(async (rows: typeof stored) => {
+      stored = rows;
+      return { error: null };
+    });
+    const store = classifierStore({ from: () => ({
+      select: () => ({ in: async () => ({ data: stored, error: null }) }),
+      upsert,
+    }) });
     await store.markClassified([{ ...item('a'), story_id: 'story-a' }],
       [{ item_id: 'a' }], '2026-10-15T00:00:00.000Z');
+    await store.markClassified([{ ...item('a'), story_id: 'story-a' }],
+      [{ item_id: 'a' }], '2026-10-15T01:00:00.000Z');
     expect(upsert).toHaveBeenCalledWith(
       [{ story_id: 'story-a', classified_at: '2026-10-15T00:00:00.000Z' }],
       { onConflict: 'story_id' },
     );
+    expect(upsert).toHaveBeenCalledTimes(1);
+    expect(stored[0].classified_at).toBe('2026-10-15T00:00:00.000Z');
   });
 
-  it('selects a new item even after more than 500 decided rows', async () => {
+  it('uses the PostgREST left anti-join contract when loading items', async () => {
     const decided = new Set(Array.from({ length: 501 }, (_, index) => `old-${index}`));
     const all = [...decided].map((id) => ({ ...item(id), watch_decision: [{ item_id: id }] }));
     all.push({ ...item('new'), watch_decision: [] });
-    const filters: string[] = [];
+    const filters: unknown[] = [];
     const query = {
       select: (value: string) => { filters.push(value); return query; }, in: () => query,
-      is: (column: string) => { filters.push(column); return query; }, order: () => query,
+      is: (column: string, value: unknown) => { filters.push([column, value]); return query; }, order: () => query,
       limit: async (limit: number) => ({ data: all.filter((row) => !decided.has(row.id)).slice(0, limit), error: null }),
     };
     const loaded = await classifierStore({ from: () => query }).loadItems(100);
     const result = await classifyItems({ items: loaded, candidates: [], store: memoryStore(), config,
       jev: jevFor({ new: { class: 'noise', confidence: 0.9 } }), callClaude: vi.fn(), random: () => 1 });
-    expect(filters).toContain('watch_decision');
+    expect(filters).toEqual(['*, watch_decision!left(item_id)', ['watch_decision', null]]);
     expect(result.rows.map((row) => row.item_id)).toEqual(['new']);
   });
 
@@ -206,6 +216,19 @@ describe('Tidewatch classifier', () => {
     expect(jev.ask).toHaveBeenCalledTimes(1);
     expect(alert).toHaveBeenCalledOnce();
     expect(alert).toHaveBeenCalledWith(reason);
+  });
+
+  it('uses Haiku-only and alerts once per run when no Jev client exists', async () => {
+    const rows = ['a', 'b', 'c'].map((id) => item(id));
+    const alert = vi.fn();
+    const callClaude = vi.fn(async () => ({ status: 'ok', data: { labels: rows.map(({ id }) =>
+      ({ id, class: 'noise', injection: 'no' })) } }));
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: null, callClaude, alert, random: () => 1 });
+    expect(result.rows).toHaveLength(3);
+    expect(result.rows.every((row) => row.decider === 'haiku')).toBe(true);
+    expect(alert).toHaveBeenCalledOnce();
+    expect(alert).toHaveBeenCalledWith('jev_unavailable');
   });
 
   it('raises Jev outage alerts through the watchdog upsert helper', async () => {
