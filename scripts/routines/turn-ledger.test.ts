@@ -7,11 +7,12 @@ describe('turn ledger', () => {
       aggregateUsage([
         { routineName: 'Ops', model: 'sonnet', numTurns: 10, usage: { token_pool: 'weekly' } },
         { routineName: 'Ops', model: 'sonnet', numTurns: 20, diagnostic: { assistantError: 'rate_limit' } },
+        { routineName: 'Ops', model: 'sonnet', numTurns: 5, result: 'Claude weekly limit reached' },
         { routineName: 'Desk', model: 'haiku', numTurns: null },
       ]),
     ).toEqual([
       { routine: 'Desk', runs: 1, totalTurns: 0, meanTurns: null, model: 'haiku', limitFailures: 0, tokenPools: [] },
-      { routine: 'Ops', runs: 2, totalTurns: 30, meanTurns: 15, model: 'sonnet', limitFailures: 1, tokenPools: ['weekly'] },
+      { routine: 'Ops', runs: 3, totalTurns: 35, meanTurns: 35 / 3, model: 'sonnet', limitFailures: 2, tokenPools: ['weekly'] },
     ]);
   });
 

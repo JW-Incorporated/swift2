@@ -27,10 +27,8 @@ export function parseArgs(argv) {
 }
 
 export function isLimitFailure(record) {
-  // session-outcome.mjs does not export its usage-limit predicate. Its
-  // redacted detail is deliberately not persisted, so this fixed diagnostic is
-  // the only artifact-safe equivalent of its plan-limit detection.
-  return record?.diagnostic?.assistantError === 'rate_limit';
+  // Unify this with session-outcome.mjs after #5825 merges.
+  return record?.diagnostic?.assistantError === 'rate_limit' || /weekly limit|usage limit/i.test(JSON.stringify(record));
 }
 
 export function tokenPool(record) {

@@ -6,7 +6,7 @@ describe('clock fire rate', () => {
     const table = [{ workflow: 'worker.yml', minGapMinutes: 25 }];
     const rows = buildFireRates({
       hours: 48,
-      pollRuns: [{ event: 'schedule' }, { event: 'workflow_dispatch' }],
+      pollRuns: [{ event: 'schedule' }, { event: 'workflow_dispatch' }, { event: 'workflow_dispatch' }],
       tableRuns: new Map([
         [
           'worker.yml',
@@ -20,13 +20,18 @@ describe('clock fire rate', () => {
       table,
     });
     expect(rows).toEqual([
-      expect.objectContaining({ workflow: 'bot-chat-poll.yml', expected: 576, actual: 1, method: 'schedule events' }),
-      expect.objectContaining({ workflow: 'worker.yml', expected: 115.2, actual: 1, method: 'workflow_dispatch by github-actions[bot]' }),
+      expect.objectContaining({ workflow: 'bot-chat-poll.yml', expected: 576, actual: 3, breakdown: 'schedule=1, workflow_dispatch=2' }),
+      expect.objectContaining({ workflow: 'worker.yml', expected: 115.2, actual: 1, method: 'workflow_dispatch by github-actions[bot]', breakdown: 'workflow_dispatch=1' }),
     ]);
   });
 
   it('falls back to all runs when fixture data cannot distinguish actor or event', () => {
-    expect(measureActual([{ id: 1 }, { id: 2 }], 'clock')).toEqual({ actual: 2, method: 'all runs (actor/event unavailable)' });
+    expect(measureActual([{ id: 1 }, { id: 2 }], 'clock')).toEqual({ actual: 2, method: 'all runs (actor/event unavailable)', breakdown: 'unknown=2' });
+  });
+
+  it('counts a mostly redispatched poll as real clock fires', () => {
+    const runs = [{ event: 'schedule' }, ...Array.from({ length: 574 }, () => ({ event: 'workflow_dispatch' }))];
+    expect(measureActual(runs, 'poll')).toMatchObject({ actual: 575, breakdown: 'schedule=1, workflow_dispatch=574' });
   });
 
   it('reads paginated fixture API responses without network access', async () => {
@@ -46,8 +51,8 @@ describe('clock fire rate', () => {
       table: [{ workflow: 'worker.yml', minGapMinutes: 30 }],
     });
     log.mockRestore();
-    expect(rows[0]).toMatchObject({ expected: 12, actual: 2 });
-    expect(rows[1]).toMatchObject({ expected: 2, actual: 2, method: 'all runs (actor/event unavailable)' });
+    expect(rows[0]).toMatchObject({ expected: 12, actual: 2, breakdown: 'schedule=2' });
+    expect(rows[1]).toMatchObject({ expected: 2, actual: 2, method: 'all runs (actor/event unavailable)', breakdown: 'unknown=2' });
     expect(ghImpl).toHaveBeenCalledTimes(2);
   });
 

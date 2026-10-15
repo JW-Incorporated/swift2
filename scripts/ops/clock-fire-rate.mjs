@@ -30,18 +30,25 @@ function actorLogin(run) {
   return run?.triggering_actor?.login ?? run?.actor?.login ?? null;
 }
 
+function eventBreakdown(runs) {
+  const counts = new Map();
+  for (const run of runs) {
+    const event = typeof run?.event === 'string' ? run.event : 'unknown';
+    counts.set(event, (counts.get(event) ?? 0) + 1);
+  }
+  return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([event, count]) => `${event}=${count}`).join(', ') || 'none';
+}
+
 /** Chooses the narrow clock signal when GitHub supplies it, else reports all runs. */
 export function measureActual(runs, kind) {
   if (kind === 'poll') {
-    const scheduled = runs.filter((run) => run?.event === 'schedule');
-    return { actual: scheduled.length, method: 'schedule events' };
+    const fires = runs.filter((run) => run?.event === 'schedule' || run?.event === 'workflow_dispatch');
+    return { actual: fires.length, method: 'schedule + workflow_dispatch fires', breakdown: eventBreakdown(fires) };
   }
   const hasActorAndEvent = runs.some((run) => typeof run?.event === 'string' && typeof actorLogin(run) === 'string');
-  if (!hasActorAndEvent) return { actual: runs.length, method: 'all runs (actor/event unavailable)' };
-  return {
-    actual: runs.filter((run) => run?.event === 'workflow_dispatch' && actorLogin(run) === 'github-actions[bot]').length,
-    method: 'workflow_dispatch by github-actions[bot]',
-  };
+  if (!hasActorAndEvent) return { actual: runs.length, method: 'all runs (actor/event unavailable)', breakdown: eventBreakdown(runs) };
+  const fires = runs.filter((run) => run?.event === 'workflow_dispatch' && actorLogin(run) === 'github-actions[bot]');
+  return { actual: fires.length, method: 'workflow_dispatch by github-actions[bot]', breakdown: eventBreakdown(fires) };
 }
 
 export function buildFireRates({ hours, pollRuns, tableRuns, table = CLOCK_TABLE }) {
@@ -64,10 +71,10 @@ export function buildFireRates({ hours, pollRuns, tableRuns, table = CLOCK_TABLE
 
 export function renderTable(rows, hours) {
   return [
-    `Clock fire rate, last ${hours} hours`,
-    '| Workflow | Expected | Actual | Counted as |',
-    '| --- | ---: | ---: | --- |',
-    ...rows.map((row) => `| ${row.workflow} | ${row.expected.toFixed(1)} | ${row.actual} | ${row.method} |`),
+    `Clock fire rate, last ${hours} hours (poll: schedule + workflow_dispatch; table: clock bot dispatches, else all runs)`,
+    '| Workflow | Expected | Actual | Counted as | Event breakdown |',
+    '| --- | ---: | ---: | --- | --- |',
+    ...rows.map((row) => `| ${row.workflow} | ${row.expected.toFixed(1)} | ${row.actual} | ${row.method} | ${row.breakdown} |`),
   ].join('\n');
 }
 
