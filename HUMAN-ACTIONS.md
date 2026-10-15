@@ -2,9 +2,17 @@
 
 <!-- ha-format: 2 -->
 
-> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** You chose "no Anthropic API at all" (D1). But Mood Chat and Clownbot answer readers live from the website, and the website can't run your Claude subscription, so they still use the paid key, one model call per reader message.
+**Steps:**
+1. Decide: `keep` — these two stay on the paid key (small exception to D1, with a daily cap); `queue` — they answer later from the worker on your subscription (slower replies); `simple` — rule-based answers only, no model; `off` — turn both features off.
+**Worked if:** docs/decisions.md records your answer and the PM schedules the matching change.
 
 ## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
 <!-- ha filed=2026-10-15 -->
