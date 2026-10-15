@@ -7,19 +7,22 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   clusterBatch,
-  computeVerificationStatus,
   CrossOutletSimilarityProvider,
   type ClusterableItem,
   type ExistingStory,
 } from '@swift2/shared/news';
-import { getAdapter } from '../sources/registry';
 import { classifyByKeywords, type ClassifyResult } from '../classify/rule-based';
 import { classifyWithLLM } from '../classify/openai-client';
 import { UsageStore, supabaseUsageDb } from '../classify/usage-store';
-import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
 import { runExtractStage, type ExtractStageResult } from '../extract/run-extract-stage';
-import type { SourceAdapter } from '../sources/types';
-import { filterRelevantItems } from '../sources/relevance';
+import { runIngestStage, type CycleOptions } from './ingest-stage';
+import {
+  recomputeVerification,
+  recordFirstPublicAt,
+  recordStorySources,
+} from './story-source-store';
+
+export { recordFirstPublicAt } from './story-source-store';
 
 const SUBJECT_TERMS = ['taylor swift', 'taylor', 'swift'];
 // CrossOutletSimilarityProvider.similarity() is binary (1/0, see its module
@@ -41,10 +44,7 @@ export interface CycleResult {
   errors: string[];
 }
 
-export interface CycleOptions {
-  primary?: boolean;
-  adapterFor?: (sourceType: string) => SourceAdapter | undefined;
-}
+export type { CycleOptions } from './ingest-stage';
 
 export async function runCycle(
   db: SupabaseClient,
@@ -75,76 +75,8 @@ export async function runCycle(
   };
 
   // ---- 1. INGEST -----------------------------------------------------------
-  let sourcesQuery = db.from('news_source').select('id, name, source_type, config');
-  if (!options.primary) sourcesQuery = sourcesQuery.eq('is_enabled', true);
-  const { data: sources, error: sourcesError } = await sourcesQuery;
-  if (sourcesError) {
-    errors.push(`could not load news_source rows: ${sourcesError.message}`);
-    return result; // nothing else can run without sources
-  }
-
-  const selectedSources = options.primary
-    ? (sources ?? []).filter((source) => source.config?.primary === true)
-    : (sources ?? []);
-  const primarySourceIds = selectedSources.map((source) => source.id);
-  const adapterFor = options.adapterFor ?? getAdapter;
-
-  for (const source of selectedSources) {
-    const adapter = adapterFor(source.source_type);
-    if (!adapter) {
-      errors.push(
-        `no adapter registered for source_type "${source.source_type}" (source "${source.name}")`,
-      );
-      continue;
-    }
-    try {
-      const fetchedItems = await adapter.fetch({
-        id: source.id,
-        name: source.name,
-        sourceType: source.source_type,
-        config: source.config ?? {},
-      });
-      const items = filterRelevantItems(source.config ?? {}, fetchedItems);
-      if (items.length > 0) {
-        // Aggregator items carry an opaque redirect URL and no per-item
-        // outlet identity — resolve to the real publisher before storing so
-        // the item can be attributed/re-tiered instead of staying uncitable
-        // forever (proposal §4.1.2). One bad redirect must not drop the
-        // item, so resolution failures fall back to the item unresolved
-        // (resolveGoogleNewsItem never throws).
-        const resolvedItems =
-          source.source_type === 'google_news' && !options.primary
-            ? await Promise.all(items.map((item) => resolveGoogleNewsItem(item)))
-            : items;
-        const rows = resolvedItems.map((item) => ({
-          source_id: source.id,
-          external_id: item.externalId,
-          url: item.url,
-          title: item.title,
-          snippet: item.snippet ?? '',
-          author: item.author ?? null,
-          published_at: item.publishedAt ?? null,
-          image_url: item.imageUrl ?? null,
-          publisher: item.publisher ?? null,
-          publisher_url: item.publisherUrl ?? null,
-          resolved_tier: 'resolvedTier' in item ? item.resolvedTier : null,
-        }));
-        const { error: upsertError } = await db
-          .from('news_raw_item')
-          .upsert(rows, { onConflict: 'source_id,external_id', ignoreDuplicates: true });
-        if (upsertError)
-          errors.push(`raw_item upsert failed for "${source.name}": ${upsertError.message}`);
-        else result.itemsIngested += rows.length;
-      }
-      result.sourcesPolled++;
-      await db
-        .from('news_source')
-        .update({ last_polled_at: new Date().toISOString() })
-        .eq('id', source.id);
-    } catch (err) {
-      errors.push(`ingest failed for "${source.name}": ${(err as Error).message}`);
-    }
-  }
+  const primarySourceIds = await runIngestStage(db, options, result);
+  if (!primarySourceIds) return result;
 
   // ---- 2. CLUSTER / DEDUPE --------------------------------------------------
   // Separate query rather than chaining off the upsert above: catches
@@ -360,210 +292,4 @@ export async function runCycle(
   }
 
   return result;
-}
-
-/** Keep the earliest source-published timestamp ever observed for each story. */
-export async function recordFirstPublicAt(
-  db: SupabaseClient,
-  items: { storyId: string; publishedAt?: string }[],
-  errors: string[],
-): Promise<void> {
-  const earliestByStory = new Map<string, string>();
-  for (const item of items) {
-    if (!item.publishedAt || Number.isNaN(Date.parse(item.publishedAt))) continue;
-    const previous = earliestByStory.get(item.storyId);
-    if (!previous || Date.parse(item.publishedAt) < Date.parse(previous)) {
-      earliestByStory.set(item.storyId, new Date(item.publishedAt).toISOString());
-    }
-  }
-  if (earliestByStory.size === 0) return;
-
-  try {
-    const storyIds = [...earliestByStory.keys()];
-    const { data: existing, error: selectError } = await db
-      .from('story_timeline')
-      .select('story_id, first_public_at')
-      .in('story_id', storyIds);
-    if (selectError) throw new Error(selectError.message);
-
-    for (const row of existing ?? []) {
-      if (!row.first_public_at || Number.isNaN(Date.parse(row.first_public_at))) continue;
-      const candidate = earliestByStory.get(row.story_id);
-      if (candidate && Date.parse(row.first_public_at) < Date.parse(candidate)) {
-        earliestByStory.set(row.story_id, row.first_public_at);
-      }
-    }
-
-    const rows = [...earliestByStory].map(([story_id, first_public_at]) => ({
-      story_id,
-      first_public_at,
-    }));
-    const { error: upsertError } = await db
-      .from('story_timeline')
-      .upsert(rows, { onConflict: 'story_id' });
-    if (upsertError) throw new Error(upsertError.message);
-  } catch (err) {
-    errors.push(`story_timeline first_public_at failed: ${(err as Error).message}`);
-  }
-}
-
-/**
- * Inserts a news_story_source row for every (story, raw item) pair that isn't
- * already recorded for that outlet, in a single batched
- * `insert ... on conflict (story_id, outlet_name) do nothing` — replaces the
- * old per-row "select existing, then insert" round trip.
- */
-async function recordStorySources(
-  db: SupabaseClient,
-  attachments: { storyId: string; rawItem: { id: string; url: string } }[],
-  errors: string[],
-): Promise<void> {
-  if (attachments.length === 0) return;
-  try {
-    const rawItemIds = attachments.map((a) => a.rawItem.id);
-    const { data: fullItems, error: itemsError } = await db
-      .from('news_raw_item')
-      .select('id, source_id, url, publisher, resolved_tier, news_source(name, tier)')
-      .in('id', rawItemIds);
-    if (itemsError) throw new Error(itemsError.message);
-
-    const itemById = new Map(
-      (fullItems ?? []).map((item) => [
-        (item as unknown as { id: string }).id,
-        item as unknown as {
-          id: string;
-          url: string;
-          publisher: string | null;
-          resolved_tier: string | null;
-          news_source: { name: string; tier: string };
-        },
-      ]),
-    );
-
-    const rows: {
-      story_id: string;
-      raw_item_id: string;
-      outlet_name: string;
-      url: string;
-      tier: string;
-    }[] = [];
-    for (const { storyId, rawItem } of attachments) {
-      const fullItem = itemById.get(rawItem.id);
-      if (!fullItem) {
-        errors.push(`recordStorySources: raw item ${rawItem.id} not found`);
-        continue;
-      }
-      // Attribute to the PUBLISHER the feed named, falling back to the feed
-      // itself only when it does not say. Aggregator feeds (Google News) carry
-      // many outlets, so using the feed name here both misattributed the story
-      // and — because the unique index below is keyed on outlet_name — capped
-      // every story at a single source row, pinning source_count at 1 and
-      // making `corroborated` unreachable across the whole table.
-      const outletName = fullItem.publisher?.trim() || fullItem.news_source.name;
-      // resolved_tier overrides the source's static tier for items an
-      // aggregator feed (Google News) resolved to a real publisher domain
-      // (proposal §4.1.2). Unresolved items get resolved_tier='unverified'
-      // by resolveGoogleNewsItem, so they stay uncitable-looking rather than
-      // inheriting whatever the feed's own tier happens to be.
-      const tier = fullItem.resolved_tier ?? fullItem.news_source.tier;
-      rows.push({
-        story_id: storyId,
-        raw_item_id: rawItem.id,
-        outlet_name: outletName,
-        url: fullItem.url,
-        tier,
-      });
-    }
-    if (rows.length === 0) return;
-
-    // Dedupe within this batch too — two raw items in the same cycle can
-    // resolve to the same (story, outlet); the DB constraint would reject a
-    // duplicate pair within one insert statement even with do-nothing.
-    const seen = new Set<string>();
-    const dedupedRows = rows.filter((r) => {
-      const key = `${r.story_id}::${r.outlet_name}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-
-    const { error: insertError } = await db
-      .from('news_story_source')
-      .upsert(dedupedRows, { onConflict: 'story_id,outlet_name', ignoreDuplicates: true });
-    if (insertError) throw new Error(insertError.message);
-    // source_count itself is set by recomputeVerification's full recount
-    // from news_story_source, called for every touched story right after
-    // this — no separate counter/RPC needed here.
-  } catch (err) {
-    errors.push(`recordStorySources failed: ${(err as Error).message}`);
-  }
-}
-
-/** Recomputes verification_status for the given stories from their current corroboration breakdown. */
-async function recomputeVerification(
-  db: SupabaseClient,
-  storyIds: string[],
-  errors: string[],
-): Promise<void> {
-  if (storyIds.length === 0) return;
-  try {
-    // Batched select-in for all touched stories' sources, instead of one
-    // per-story SELECT — grouped in memory below.
-    const { data: allSources, error } = await db
-      .from('news_story_source')
-      .select('story_id, tier')
-      .in('story_id', storyIds);
-    if (error) throw new Error(error.message);
-
-    const sourcesByStory = new Map<string, { tier: string }[]>();
-    for (const id of storyIds) sourcesByStory.set(id, []);
-    for (const row of allSources ?? []) {
-      const list = sourcesByStory.get(row.story_id) ?? [];
-      list.push({ tier: row.tier });
-      sourcesByStory.set(row.story_id, list);
-    }
-
-    const now = new Date().toISOString();
-    const updateRows = storyIds.map((storyId) => {
-      const sources = sourcesByStory.get(storyId) ?? [];
-      const status = computeVerificationStatus(
-        sources.map((s) => ({
-          tier: s.tier as 'official' | 'established' | 'fan' | 'unverified',
-        })),
-      );
-      return {
-        id: storyId,
-        verification_status: status,
-        verified_at: now,
-        source_count: sources.length,
-      };
-    });
-
-    // Per-row UPDATE, not upsert: every id here already exists (touchedStoryIds
-    // always comes from stories just attached/created above). A blanket
-    // .upsert() issues INSERT ... ON CONFLICT DO UPDATE under the hood, and
-    // Postgres validates the INSERT branch's NOT NULL columns (canonical_title,
-    // ...) even though the row always resolves to the UPDATE branch — that
-    // mismatch is what broke every scheduled run (#3746): "null value in
-    // column canonical_title ... violates not-null constraint". An explicit
-    // .update() only ever touches the columns named here.
-    const updateResults = await Promise.all(
-      updateRows.map((row) =>
-        db
-          .from('news_story')
-          .update({
-            verification_status: row.verification_status,
-            verified_at: row.verified_at,
-            source_count: row.source_count,
-          })
-          .eq('id', row.id),
-      ),
-    );
-    const updateError = updateResults.find((res) => res.error)?.error;
-    if (updateError) throw new Error(updateError.message);
-  } catch (err) {
-    errors.push(
-      `batch verify failed for stories [${storyIds.join(', ')}]: ${(err as Error).message}`,
-    );
-  }
 }
