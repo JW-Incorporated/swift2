@@ -64,7 +64,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
-| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | doing |  |  |
+| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | review | #5846 |  |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
@@ -172,6 +172,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 01:30 PM: lesson: `git merge origin/main 2>&1 | tail -1 && …` hides a failed merge (the pipe drops the exit code), and conflict markers got committed into this file (fixed in de3a537df, verified that no markers remain). Run `git merge` as its own call and check for conflicts before committing. No open PR for this branch now (#5842 merged); the next session opens one with its first tracker update.
 - 2026-10-15 01:35 PM: idle slots overnight conflicted with "do as much as you can", so the PM kept working past the handoff note (the tracker is the durable state). Dispatched: P1-23b, P0-11b, P1-02b (Codex), and #5843 parity baseline (Claude executor, visual check first). Codex briefs now share scratchpad codex/rules.md (item brief plus rules piped to codex exec).
 - 2026-10-15 01:38 PM: P1-02b APPROVE → #5844 armed (watch_decision.item_id is ON DELETE SET NULL, so non-shadow decisions survive item deletion; the NULL-safe noise rule keeps items with no decisions). P0-11b and P1-23b resumed with narrow touch-set approvals (one reference line in notification-events.ts; the stale Shopify fixture in image-resolve.test.ts).
+- 2026-10-15 01:40 PM: P1-23b APPROVE → #5846 armed (keys are file#slug; Shopify scoped to the official tenant prefix /s/files/1/0011/4651/9637/, exact host). Minor follow-up: validate-content.mjs:1274 no longer flags a stale grandfathered key once its row gains media; reword the "exact snapshot" message.
 
 ## Next actions
 
