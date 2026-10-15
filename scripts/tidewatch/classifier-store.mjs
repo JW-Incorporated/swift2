@@ -44,9 +44,11 @@ export function classifierStore(client) {
       const existing = await existingDecisionIds(unique.map((row) => row.item_id));
       const fresh = unique.filter((row) => !existing.has(row.item_id));
       if (fresh.length === 0) return fresh;
-      const { error } = await client.from('watch_decision').insert(fresh);
+      const { data, error } = await client.rpc('insert_shadow_watch_decisions', {
+        decision_rows: fresh,
+      });
       if (error) throw error;
-      return fresh;
+      return data ?? [];
     },
     async markClassified(items, rows, classifiedAt) {
       const decided = new Set(rows.map((row) => row.item_id));
