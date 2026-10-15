@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 75
+
+## Donald Trump Mentions Taylor Swift at Rally About TikTok Ranking
+
+- first seen: 2026-10-15 13:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At a recent rally, Donald Trump referenced Taylor Swift while discussing his TikTok ranking, highlighting her influence in pop culture. The mention occurs amidst broader commentary on social media and its impact.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxQTlAtbHFYMkQ0RkI5dHJqRUZ0NS1yWDhVRmpTVFZ4YmRIUENlR2NOcEJnYk5KLXR6bFZGSklxQzZpcXh5cU8xMzNfejNiSGE5WXBZSGxNaXVUdktCWmJHRkxmV0RzcndhaGZvVnRNRjBORGtNYVlHT1BVdXFjOTc0NmxCZng2RUhac0p1VmpjdE4wMlhGWTY0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kim Kardashian comments on her life compared to Taylor Swift's
+
+- first seen: 2026-10-15 13:46 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kim Kardashian has reportedly stated that her lifestyle as a WAG is ‘harder’ than that of Taylor Swift, according to a source. This comparison highlights the challenges both women face in their respective public lives.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQRlBpcXpzSVF0eWlheW96RzZyQlB2X1EySF9qUHB3X1hsSFBURnFSZ0Z2cFpUdXBmcFg1MXV5YkF5OUQ4OFc4NTBock50VUtXaFVUZFJTcjZxNmV3RzZ5UWlpSEJwLXVtVjRMRWF4ZXNVVXZIWmRWVnRpWS1UUUtwdGZ5QTZwS1hUSVVHTkpFU1BfZ2RTWE04WFQxTGQtUjcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Institute for Family Studies Discusses Taylor Swift's Appeal to Conservatives
 
@@ -62,11 +78,12 @@ Stories: 73
 ## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
 
 - first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
 - sources:
   - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxQV2ZMMzhaVUpZeGUyYUM3WER0MjRxZFN2X0QzWGFGb2VFYkVlZTBoWEtBOHRvQTdGODNTTS05MUFRZ2xGdXZOZXdoU2ppa2JWaXh3dTRQWkxJSm1CY1B4U1I5NEVYZDd1T2RnRTR4NTl5VkliVFNPTE9aVlFaNFlmV1UyWU0zS3BNNkRJNg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Al Michaels Comments on Taylor Swift's NFL Game Appearances
 
