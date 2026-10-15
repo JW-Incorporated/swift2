@@ -1,0 +1,330 @@
+{
+  "version": 1,
+  "jevModel": "jev-1.13.0",
+  "fallbackModel": "claude-haiku-5-5",
+  "verifierModel": "claude-sonnet-5-5",
+  "modelAccess": "claude-code-subscription",
+  "fallbackBatchSize": 10,
+  "maxEscalationRate": 0.25,
+  "onJevFailure": "fallback_only_and_alert",
+  "onFallbackCapReached": "code_rules_and_hold",
+  "priorities": {
+    "P0": "critical_breaking and critical_personal verification",
+    "P1": "official_drop and tour_ticket",
+    "P2": "other classification",
+    "P3": "batch work"
+  },
+  "dailyCaps": {
+    "tidewatch-classifier": { "model": "jev-1.13.0", "priority": "P2", "calls": 2000, "tokens": 4000000 },
+    "tidewatch-fallback": { "model": "claude-haiku-5-5", "priority": "P2", "calls": 60, "tokens": 1300000 },
+    "tidewatch-verifier": { "model": "claude-sonnet-5-5", "priority": "P0", "calls": 20, "tokens": 250000 },
+    "tidewatch-drift": { "model": "claude-haiku-5-5", "priority": "P3", "calls": 10, "tokens": 250000 }
+  },
+  "calibration": {
+    "shadowMinDays": 7,
+    "shadowMinDecisions": 500,
+    "hoursBetweenFlips": 48,
+    "criticalCandidateRecall": 1.0,
+    "criticalActPrecision": 1.0,
+    "driftSampleRate": 0.05,
+    "driftAlertPoints": 5
+  },
+  "redline": { "class": "privacy_redline", "alwaysWins": true },
+  "breakingSocial": { "extraPostsPerPlatformPerDay": 2, "pairedPlatforms": ["instagram", "x"] },
+  "facebook": { "storeExcerpt": false, "storeMemberNames": false, "storeQuotes": false },
+  "classes": {
+    "critical_breaking": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": {
+        "candidate": 0.3,
+        "candidateUrgency": 4,
+        "candidateOfficial": 0.5,
+        "act": 0.9,
+        "fallbackBelow": 0.9,
+        "precisionTarget": 1.0
+      },
+      "priority": "P0",
+      "questions": ["q_class", "q_official", "q_settled", "q_urgency", "q_same_story", "q_injection"],
+      "action": {
+        "route": "critical_fast_path",
+        "push": ["song_drop", "album_news", "tour_news"],
+        "requiresFactCheck": true,
+        "requiresVerifier": true,
+        "fallbackActsAlone": false,
+        "onVerifierUnavailable": "hold_owner_queue",
+        "onFactCheckFail": "normal_news_or_rumor",
+        "breakingSocial": true,
+        "stagedGoLive": ["site", "push", "social"]
+      },
+      "goLiveOrder": 9
+    },
+    "critical_personal": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": {
+        "speculationDrop": 0.35,
+        "act": 0.95,
+        "fallbackBelow": 0.95,
+        "citation": 0.8,
+        "recheckMinutes": 10,
+        "precisionTarget": 1.0
+      },
+      "priority": "P0",
+      "questions": ["q_class", "q_personal", "q_speculation", "q_settled", "q_supports"],
+      "action": {
+        "route": "critical_personal_path",
+        "push": ["baby_watch", "relationship_news"],
+        "babyWatchOnly": ["pregnancy", "birth"],
+        "confirmedOnly": true,
+        "requiresFactCheck": true,
+        "requiresVerifier": true,
+        "fallbackActsAlone": false,
+        "onVerifierUnavailable": "hold",
+        "breakingSocial": true
+      },
+      "goLiveOrder": 10
+    },
+    "official_drop": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.85, "fallbackBelow": 0.85, "precisionTarget": null },
+      "priority": "P1",
+      "questions": ["q_class", "q_urgency"],
+      "action": {
+        "route": "official_drop_card",
+        "push": ["song_drop", "official_youtube"],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false,
+        "alsoCriticalWhen": "new_song_or_album"
+      },
+      "goLiveOrder": 7
+    },
+    "tour_ticket": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.85, "fallbackBelow": 0.85, "precisionTarget": null },
+      "priority": "P1",
+      "questions": ["q_class", "q_official"],
+      "action": {
+        "route": "tour_update",
+        "push": ["tour_news"],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false,
+        "criticalPathWhen": "new_dates_or_sale",
+        "criticalPathAs": "critical_breaking",
+        "otherwiseAs": "normal_news"
+      },
+      "goLiveOrder": 8
+    },
+    "normal_news": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.8, "fallbackBelow": 0.8, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_class", "q_settled", "q_outfit"],
+      "action": {
+        "route": "normal_flow",
+        "push": ["public_appearance", "award_news"],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false,
+        "alsoEnqueue": { "class": "merch_outfit", "when": "q_outfit" }
+      },
+      "goLiveOrder": 6
+    },
+    "merch_official": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.85, "fallbackBelow": 0.85, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_merch_kind"],
+      "action": {
+        "route": "store_drop_draft",
+        "push": ["official_merch"],
+        "decider": "code",
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 5
+    },
+    "merch_fan": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.8, "fallbackBelow": 0.8, "bootlegReject": 0.3, "weeklyCap": 5, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_merch_kind", "q_bootleg"],
+      "action": {
+        "route": "fan_merch_curation",
+        "push": ["fan_merch"],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 5
+    },
+    "merch_outfit": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.75, "fallbackBelow": 0.75, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_outfit"],
+      "action": {
+        "route": "outfit_matcher_queue",
+        "push": [],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 5
+    },
+    "theory_material": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.7, "fallbackBelow": 0.7, "promoteAtMentions": 2, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_theory", "q_speculation"],
+      "action": {
+        "route": "theory_candidate",
+        "push": ["easter_egg"],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 3
+    },
+    "fan_discussion": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": {
+        "act": 0.7,
+        "fallbackBelow": 0.7,
+        "discussionScoreMin": 4,
+        "threadMaxAgeHours": 6,
+        "precisionTarget": null
+      },
+      "priority": "P2",
+      "questions": ["q_discussion", "q_injection"],
+      "action": {
+        "route": "discussion_card",
+        "push": [],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 4
+    },
+    "rumor": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.8, "fallbackBelow": 0.8, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_settled"],
+      "action": {
+        "route": "rumor_desk",
+        "push": [],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": null
+    },
+    "correction_debunk": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.8, "fallbackBelow": 0.8, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_contradicts"],
+      "action": {
+        "route": "retraction_path",
+        "push": ["correction"],
+        "requiresFallbackConfirm": true,
+        "requiresFactCheck": false,
+        "requiresVerifier": true,
+        "fallbackActsAlone": false,
+        "onVerifierUnavailable": "hold",
+        "breakingSocial": false
+      },
+      "goLiveOrder": null
+    },
+    "duplicate": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": {
+        "act": 0.85,
+        "fallbackBelow": 0.85,
+        "titleSimhashMaxHamming": 3,
+        "windowHours": 72,
+        "precisionTarget": null
+      },
+      "priority": "P2",
+      "questions": ["q_same_story"],
+      "action": {
+        "route": "harvest_then_discard",
+        "push": [],
+        "harvestPriority": "P3",
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 2
+    },
+    "noise": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.8, "fallbackBelow": 0.8, "retainDays": 30, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_class"],
+      "action": {
+        "route": "discard",
+        "push": [],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": 1
+    },
+    "privacy_redline": {
+      "enabled": false,
+      "shadow": true,
+      "thresholds": { "act": 0.35, "fallbackBelow": 0.35, "precisionTarget": null },
+      "priority": "P2",
+      "questions": ["q_speculation"],
+      "action": {
+        "route": "drop_hash_only",
+        "push": [],
+        "requiresFactCheck": false,
+        "requiresVerifier": false,
+        "fallbackActsAlone": true,
+        "onVerifierUnavailable": null,
+        "breakingSocial": false
+      },
+      "goLiveOrder": null
+    }
+  }
+}
