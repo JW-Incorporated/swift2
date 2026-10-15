@@ -15,6 +15,7 @@ import {
   runCapture,
   runExport as runExportReal,
   runSummary,
+  selectCadenceGroups,
   uploadOne,
   uploadSucceeded,
 } from './fb-export-run.mjs';
@@ -24,6 +25,17 @@ const runExport = (options: Record<string, unknown> = {}) =>
   runExportReal({ checkEnv: async () => ({ ok: true }), ...options });
 
 const group = { slug: 'group-a', label: 'Group A', groupId: '123' };
+
+describe('Facebook cadence selection', () => {
+  const groups = ['a', 'b', 'c', 'd', 'e'].map((slug) => ({ slug }));
+  it('runs the configured top three daily and every other group weekly', () => {
+    expect(selectCadenceGroups(groups, 'daily', ['a', 'c', 'e']).map((g) => g.slug)).toEqual(['a', 'c', 'e']);
+    expect(selectCadenceGroups(groups, 'weekly', ['a', 'c', 'e']).map((g) => g.slug)).toEqual(['b', 'd']);
+  });
+  it('refuses anything but exactly three configured slugs', () => {
+    expect(() => selectCadenceGroups(groups, 'daily', ['a', 'b'])).toThrow(/exactly three/);
+  });
+});
 
 describe('failure reasons and env preflight', () => {
   it('uses the last non-empty stderr line, trimmed to 200 chars', async () => {
