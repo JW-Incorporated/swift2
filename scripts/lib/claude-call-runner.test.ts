@@ -185,7 +185,7 @@ describe('callClaude runner', () => {
 
   it('uses the verified headless flags and writes one usage row per real call', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN_BACKUP', 'test-backup-token');
-    vi.stubEnv('ANTHROPIC_FAKE_TOKEN', 'test-api-key');
+    vi.stubEnv('ANTHROPIC_API_KEY', 'test-api-key');
     vi.stubEnv('ANTHROPIC_AUTH_TOKEN', 'test-auth-token');
     const rows: unknown[] = [];
     const spawnImpl = spawnReturning({
