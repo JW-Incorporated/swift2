@@ -535,6 +535,12 @@ function issueBody(candidate) {
 
 const FANMADE_REVERIFICATION_LABEL = 'fanmade-reverification';
 const FANMADE_REVERIFICATION_PREFIX = 'fanmade-reverification:';
+export const FANMADE_MAX_ISSUES_PER_RUN = 10;
+
+function candidateIssueCap(value = process.env.FANMADE_MAX_ISSUES_PER_RUN) {
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : FANMADE_MAX_ISSUES_PER_RUN;
+}
 
 function revalidationTitle(result) {
   return `${FANMADE_REVERIFICATION_PREFIX}${result.url}`;
@@ -576,8 +582,8 @@ export async function fileReverificationIssues({ repository, token, reverified, 
   return { filed, skipped: actionable.filter((result) => titles.has(revalidationTitle(result))).map((result) => result.url) };
 }
 
-export async function fileCandidateIssues({ repository, token, candidates, fetchImpl, dryRun }) {
-  if (!repository || !token || dryRun) return { filed: [], skipped: candidates.map((candidate) => candidate.url), deduped: 0 };
+export async function fileCandidateIssues({ repository, token, candidates, fetchImpl, dryRun, maxIssuesPerRun = candidateIssueCap() }) {
+  if (!repository || !token || dryRun) return { filed: [], skipped: candidates.map((candidate) => candidate.url), deduped: 0, capped: [] };
   const label = await fetchImpl(`https://api.github.com/repos/${repository}/labels`, {
     method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
     body: JSON.stringify({ name: FANMADE_CANDIDATE_LABEL, color: '7057ff' }),
@@ -586,8 +592,13 @@ export async function fileCandidateIssues({ repository, token, candidates, fetch
   const existing = await githubIssues({ repository, token, label: FANMADE_CANDIDATE_LABEL, fetchImpl });
   const titles = new Set(existing.map((issue) => issue.title));
   const filed = [];
+  const capped = [];
   for (const candidate of candidates) {
     if (titles.has(issueTitle(candidate))) continue;
+    if (filed.length >= maxIssuesPerRun) {
+      capped.push(candidate.url);
+      continue;
+    }
     const response = await fetchImpl(`https://api.github.com/repos/${repository}/issues`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
@@ -597,7 +608,7 @@ export async function fileCandidateIssues({ repository, token, candidates, fetch
     filed.push(candidate.url);
   }
   const skipped = candidates.filter((candidate) => titles.has(issueTitle(candidate))).map((candidate) => candidate.url);
-  return { filed, skipped, deduped: skipped.length };
+  return { filed, skipped, deduped: skipped.length, capped };
 }
 
 export function summarizeDiscoveryCounts(discoveryCounts, filing) {
@@ -607,8 +618,9 @@ export function summarizeDiscoveryCounts(discoveryCounts, filing) {
     rejected: discoveryCounts.rejected,
     dedupedWithinRun: discoveryCounts.dedupedWithinRun,
     dedupedAgainstExistingIssues: filing.deduped,
+    capped: filing.capped.length,
     filed: filing.filed.length,
-    accounted: rejected + discoveryCounts.dedupedWithinRun + filing.deduped + filing.filed.length,
+    accounted: rejected + discoveryCounts.dedupedWithinRun + filing.deduped + filing.capped.length + filing.filed.length,
   };
 }
 
