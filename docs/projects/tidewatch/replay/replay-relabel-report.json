@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "countsByRule": {
+    "property_privacy_redline": 13,
+    "critical_new_official_work_only": 11
+  },
+  "changes": [
+    {
+      "id": "news_story:ec2816f8-c490-4ac8-b5aa-7cf5a779ea6d",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "news_story:1418a8d5-6ca4-439d-b076-4bf2182c5d85",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "news_story:832cf014-5a30-4b41-a04b-5a022974a088",
+      "oldLabel": "noise",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:eccc876c-37d0-4c3c-a543-faea0714a086",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:c481b5ad-76c2-4253-99e6-9d2bab98f940",
+      "oldLabel": "rumor",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:ddb3ae5a-6c2d-4ef0-b9af-cb3cccc9e3dd",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:bab43af3-e0ee-4cd9-8437-06c1eca69de7",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:57563c2b-46dc-4fb9-ae3e-adfbd9129270",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:53b44e01-d933-4b67-9d0c-84596ed4b142",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:2ad91adf-19ad-4a5d-9869-5b30996d53f2",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:5f4e5916-59f6-401a-8862-21da9edc19ac",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:1393e30a-607d-40b2-825e-777b933c3828",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:d88c55fc-fba1-428f-bc3c-2ee7857bda76",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:86f7ad60-db2e-475e-816c-74390b68a850",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:4d8fb629-cd9d-40a9-a7c8-b0a63410dec4",
+      "oldLabel": "normal_news",
+      "newLabel": "privacy_redline",
+      "rule": "property_privacy_redline"
+    },
+    {
+      "id": "news_story:739ae2ff-1fe6-4f81-b64f-95e22c8b48c3",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "news_story:5ec231aa-8fe7-4531-8bf2-47491ad2f78d",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "reddit_lead:23ab78cc-80a0-4034-a4f4-4b3bbb64370e",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "reddit_lead:c680471c-917f-4257-b7a8-b71c4543c331",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:6",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:7",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:8",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:12",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:15",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    }
+  ]
+}

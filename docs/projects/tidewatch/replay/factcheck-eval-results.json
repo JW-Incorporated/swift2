@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "verifier": "fake",
+  "network": false,
+  "original": {
+    "total": 771,
+    "critical": {
+      "confirmed": 18,
+      "total": 21
+    },
+    "criticalWork": {
+      "confirmed": 12,
+      "total": 15
+    },
+    "criticalPersonal": {
+      "confirmed": 6,
+      "total": 6
+    },
+    "rumor": {
+      "confirmed": 0,
+      "total": 35
+    },
+    "singleSource": {
+      "confirmed": 0,
+      "total": 371
+    }
+  },
+  "relabelled": {
+    "total": 771,
+    "critical": {
+      "confirmed": 10,
+      "total": 10
+    },
+    "criticalWork": {
+      "confirmed": 4,
+      "total": 4
+    },
+    "criticalPersonal": {
+      "confirmed": 6,
+      "total": 6
+    },
+    "rumor": {
+      "confirmed": 0,
+      "total": 34
+    },
+    "singleSource": {
+      "confirmed": 0,
+      "total": 371
+    }
+  }
+}

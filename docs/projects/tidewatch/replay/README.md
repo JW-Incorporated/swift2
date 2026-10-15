@@ -18,3 +18,30 @@ Each item gets the single-item questions: `q_class`, `q_official`, `q_settled`, 
 Reddit permalinks are committed as `/r/<sub>/comments/<id>/` only; the title slug is dropped. Progress between dispatches is kept in an `actions/cache` entry holding only ids and labels, so the 40-call cap is total across runs. Usage logging: the wrapper's `logUsage` hook has no shared public logger yet (each caller keeps a private one), so this run does not log to `llm_usage`; wire one in when P1-28 exports it. The run summary prints `pool=` and `belowFloor=`; under 600 labelled items the files are still written with `belowFloor: true`.
 
 The 21 growth-strategy time-sensitive events are not listed anywhere in `docs/`, so they are covered by the 90-day news pool rather than a separate set.
+
+## P2-03 fact-check relabel and offline evaluation
+
+Run `node scripts/tidewatch/relabel-replay.mjs` before evaluating. It applies
+two explicit, deterministic rules: homes/property/real-estate/residence news
+becomes `privacy_redline`; and `critical_breaking` is kept only for an
+officially confirmed announcement or release of new music, an album or a tour.
+Premiere times, pre-orders, schedules, track lists and other detail-only items
+become `official_drop`. The generated `replay-relabelled.json` contains only
+ids and labels. `replay-relabel-report.json` lists every old-to-new label; on
+this frozen set, the property rule changes 13 and the critical-work rule 11.
+
+Run `npx tsx scripts/tidewatch/factcheck-eval.mjs` for the network-free replay.
+It reads recorded source-page fixtures and uses fake Jev and Sonnet judgments;
+it makes no model or outlet calls. Aggregate results are written to
+`factcheck-eval-results.json`:
+
+| Labels | Critical | Critical work | Critical personal | Rumor confirmed | Single-source confirmed |
+|---|---:|---:|---:|---:|---:|
+| Original | 18/21 | 12/15 | 6/6 | 0/35 | 0/371 |
+| Relabelled | 10/10 | 4/4 | 6/6 | 0/34 | 0/371 |
+
+The public inert checker is `scripts/tidewatch/factcheck.mjs`; invoke it with
+`npx tsx scripts/tidewatch/factcheck.mjs --input <story.json>`. Live article
+reads are sequential and human-paced, require an exact headline or dek anchor,
+and treat paywalls as not confirmed. The CLI returns a verdict only and has no
+publishing or routing capability.
