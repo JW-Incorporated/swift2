@@ -9135,3 +9135,9 @@ Measured cost floor: each call uses about 6.6K cache-creation input tokens with 
 The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
 
 **Why.** P1-19 and P1-20 need listing pixels, but enabling a general tool set or exposing an original filesystem path would turn untrusted listing content into a host-read capability. A staged copy plus Claude Code's working-directory confinement provides the minimum image capability without Bash, Write, Edit, WebFetch, MCP or access outside the per-call directory.
+
+## 2026-10-15 â€” Merch authoring moves to the subscription wrapper (P1-28b)
+
+**Decision.** The E3 audit and E6 matcher use the public subscription wrapper at P3, so neither can consume the backup token. Visual judgments use `claude-sonnet-5-5`; the lighter garment-descriptor extraction uses `claude-haiku-5-5`. Images are fetched into bounded buffers and passed through the wrapper's `images` input. An unavailable, limited or capped call logs and holds the candidate instead of authoring it.
+
+**Cap mapping.** D8's former $3 per-run model budget maps to 88 wrapper calls: `floor($3 / $0.03408)`, using the existing conservative per-request reservation. The legacy audit artifact keeps its `capUsd` and `reservedCostUsd` fields for consumers, while the wrapper's per-caller `maxCalls: 88` is the enforcement boundary. SerpAPI remains independently capped at five paid searches per run.
