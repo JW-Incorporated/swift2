@@ -484,3 +484,5 @@ issue is evaluated again by the rules on the next run; add a guard label such as
 5. **New recurring spend is a founder decision**, not an agent one.
 6. **Give it a retirement condition** — every undocumented routine the audit
    found outlived its reason because nobody wrote it down.
+
+<!-- ci routing test, throwaway -->
