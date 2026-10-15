@@ -13,9 +13,15 @@ import {
   evaluateGovernor,
   startOfLocalDay,
   totalDeliveriesToday,
+  tzOffsetMinutes,
   type GovernorDeviceSettings,
 } from './notification-governor';
-import { readPushFreeze, sendPushBatch, type PushSendResult } from './notification-sender';
+import {
+  engagePushFreeze,
+  readPushFreeze,
+  sendPushBatch,
+  type PushSendResult,
+} from './notification-sender';
 import { enqueueForDigest } from './notification-digest';
 
 export interface RouterEventRow {
@@ -25,6 +31,7 @@ export interface RouterEventRow {
   title: string;
   body: string;
   deep_link: string;
+  created_at?: string;
   available_at: string;
   expires_at: string | null;
   killed_at: string | null;
@@ -42,6 +49,8 @@ export interface RouterDispatchResult {
   skippedSnoozed: number;
   skippedCoalesced: number;
   skippedDailyCap: number;
+  skippedAlreadyDelivered: number;
+  skippedStale: number;
   /** spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
    * blocked outright once the device's device-wide 6/day floor is hit —
    * unlike daily_cap overflow, never rolled into a digest (see gate 6's
@@ -52,6 +61,8 @@ export interface RouterDispatchResult {
    * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
    * "overflow rolls into the next digest"). */
   enqueuedToDigest: number;
+  freezeEngaged: boolean;
+  halted: boolean;
   errors: string[];
 }
 
@@ -72,8 +83,11 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
+export const INSTANT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
+const EVENT_QUERY_LOOKBACK_MS = 30 * 60 * 60 * 1000;
+const DISPATCH_INTERVAL_MS = 15 * 60 * 1000;
 const EVENT_COLUMNS =
-  'id,category,tier,title,body,deep_link,available_at,expires_at,killed_at';
+  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
 
 async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEventRow[]> {
   const pending: RouterEventRow[] = [];
@@ -86,6 +100,7 @@ async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEvent
       .from('events')
       .select(EVENT_COLUMNS)
       .lte('available_at', nowIso)
+      .gte('created_at', new Date(now.getTime() - EVENT_QUERY_LOOKBACK_MS).toISOString())
       .is('killed_at', null)
       .or(`expires_at.is.null,expires_at.gt.${nowIso}`)
       .order('available_at', { ascending: false })
@@ -104,25 +119,8 @@ async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEvent
     lastEvent = rows[rows.length - 1] ?? null;
     const candidates = rows.filter((event) => !seen.has(event.id));
     for (const event of candidates) seen.add(event.id);
-
-    const { data: deliveryRows, error: deliveriesError } = await db
-      .from('deliveries')
-      .select('event_id')
-      .eq('kind', 'instant')
-      .in(
-        'event_id',
-        candidates.map((event) => event.id),
-      );
-    if (deliveriesError) {
-      throw new Error(`could not load delivered event ids: ${deliveriesError.message}`);
-    }
-    const delivered = new Set(
-      ((deliveryRows ?? []) as { event_id: string | null }[])
-        .map((row) => row.event_id)
-        .filter((id): id is string => id !== null),
-    );
     const remaining = PENDING_EVENT_LIMIT - pending.length;
-    pending.push(...candidates.filter((event) => !delivered.has(event.id)).slice(0, remaining));
+    pending.push(...candidates.slice(0, remaining));
     if (rows.length < PENDING_EVENT_LIMIT) return pending;
   }
   return pending;
@@ -151,9 +149,13 @@ export async function dispatchPendingEvents(
     skippedSnoozed: 0,
     skippedCoalesced: 0,
     skippedDailyCap: 0,
+    skippedAlreadyDelivered: 0,
+    skippedStale: 0,
     skippedHardCeiling: 0,
     sendFailures: 0,
     enqueuedToDigest: 0,
+    freezeEngaged: false,
+    halted: false,
     errors: [],
   };
 
@@ -185,7 +187,8 @@ export async function dispatchPendingEvents(
       continue;
     }
     try {
-      await dispatchOneEvent(db, event, now, result);
+      const safeToContinue = await dispatchOneEvent(db, event, now, result);
+      if (!safeToContinue) break;
     } catch (err) {
       result.errors.push(`dispatch failed for event ${event.id}: ${(err as Error).message}`);
     }
@@ -199,7 +202,7 @@ async function dispatchOneEvent(
   event: RouterEventRow,
   now: Date,
   result: RouterDispatchResult,
-): Promise<void> {
+): Promise<boolean> {
   // Phase 3: fan out to BOTH instant-tier devices (governed, sent below)
   // AND daily/weekly devices (enqueued into digest_queue — NOTIFICATIONS_
   // PLAN.md Phase 3: "router update so daily/weekly prefs enqueue instead
@@ -219,7 +222,7 @@ async function dispatchOneEvent(
     .map((r) => r.device_id);
   const digestDeviceIds = prefRowsArr.filter((r) => r.cadence !== 'instant');
   const allDeviceIds = [...new Set(prefRowsArr.map((r) => r.device_id))];
-  if (allDeviceIds.length === 0) return;
+  if (allDeviceIds.length === 0) return true;
 
   const { data: devices, error: devicesError } = await db
     .from('devices')
@@ -231,6 +234,16 @@ async function dispatchOneEvent(
 
   const devicesById = new Map(
     ((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]),
+  );
+
+  const { data: deliveredRows, error: deliveredError } = await db
+    .from('deliveries')
+    .select('device_id')
+    .eq('event_id', event.id)
+    .eq('kind', 'instant');
+  if (deliveredError) throw new Error(`delivered-device lookup: ${deliveredError.message}`);
+  const deliveredDeviceIds = new Set(
+    ((deliveredRows ?? []) as { device_id: string }[]).map((row) => row.device_id),
   );
 
   // --- Daily/weekly devices: enqueue, never send from this path. ---
@@ -264,6 +277,14 @@ async function dispatchOneEvent(
     if (!device) continue;
     result.candidateDevices++;
     if (!device.push_token) continue; // never granted permission / no token yet
+    if (deliveredDeviceIds.has(device.id)) {
+      result.skippedAlreadyDelivered++;
+      continue;
+    }
+    if (isInstantStale(event, now) && !quietHoursHoldIsFresh(event, device, now)) {
+      result.skippedStale++;
+      continue;
+    }
 
     const settings: GovernorDeviceSettings = {
       masterEnabled: device.master_enabled,
@@ -331,7 +352,7 @@ async function dispatchOneEvent(
     }
   }
 
-  if (toSend.length === 0) return;
+  if (toSend.length === 0) return true;
 
   const sendResults = await sendPushBatch(
     toSend.map(({ device }) => ({
@@ -345,7 +366,82 @@ async function dispatchOneEvent(
     db,
   );
 
-  await logDeliveriesAndPrune(db, event, sendResults, result);
+  return logDeliveriesAndPrune(db, event, sendResults, result, now);
+}
+
+function isInstantStale(event: RouterEventRow, now: Date): boolean {
+  const createdAt = new Date(event.created_at ?? event.available_at).getTime();
+  return Number.isFinite(createdAt) && now.getTime() - createdAt > INSTANT_MAX_AGE_MS;
+}
+
+function localDateHour(
+  tz: string,
+  at: Date,
+): { year: number; month: number; day: number; hour: number } {
+  try {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: tz,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      hour12: false,
+    }).formatToParts(at);
+    const get = (type: string) => parts.find((part) => part.type === type)?.value ?? '';
+    return {
+      year: Number(get('year')),
+      month: Number(get('month')),
+      day: Number(get('day')),
+      hour: Number(get('hour')) % 24,
+    };
+  } catch {
+    return {
+      year: at.getUTCFullYear(),
+      month: at.getUTCMonth() + 1,
+      day: at.getUTCDate(),
+      hour: at.getUTCHours(),
+    };
+  }
+}
+
+function localDateHourToUtc(
+  tz: string,
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+): Date {
+  const naiveUtc = new Date(Date.UTC(year, month - 1, day, hour));
+  try {
+    const first = new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, naiveUtc) * 60_000);
+    return new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, first) * 60_000);
+  } catch {
+    return naiveUtc;
+  }
+}
+
+function quietHoursHoldIsFresh(event: RouterEventRow, device: DeviceRow, now: Date): boolean {
+  const { quiet_start: start, quiet_end: end } = device;
+  if (start === end) return false;
+  const firstDispatch = new Date(new Date(event.available_at).getTime() + DISPATCH_INTERVAL_MS);
+  const due = localDateHour(device.tz, firstDispatch);
+  const wrapsMidnight = start > end;
+  const dueDuringQuiet = wrapsMidnight
+    ? due.hour >= start || due.hour < end
+    : due.hour >= start && due.hour < end;
+  if (!dueDuringQuiet) return false;
+
+  const releaseDayOffset = wrapsMidnight && due.hour >= start ? 1 : 0;
+  const releaseDate = new Date(Date.UTC(due.year, due.month - 1, due.day + releaseDayOffset));
+  const releasedAt = localDateHourToUtc(
+    device.tz,
+    releaseDate.getUTCFullYear(),
+    releaseDate.getUTCMonth() + 1,
+    releaseDate.getUTCDate(),
+    end,
+  );
+  const sinceRelease = now.getTime() - releasedAt.getTime();
+  return sinceRelease >= 0 && sinceRelease <= INSTANT_MAX_AGE_MS;
 }
 
 async function recentSameCategoryDeliveries(
@@ -400,7 +496,8 @@ async function logDeliveriesAndPrune(
   event: RouterEventRow,
   sendResults: readonly PushSendResult[],
   result: RouterDispatchResult,
-): Promise<void> {
+  now: Date,
+): Promise<boolean> {
   const deliveryRows: {
     device_id: string;
     event_id: string;
@@ -428,11 +525,24 @@ async function logDeliveriesAndPrune(
 
   if (deliveryRows.length > 0) {
     const { error } = await db.from('deliveries').insert(deliveryRows);
-    if (error) result.errors.push(`delivery log insert failed: ${error.message}`);
+    if (error) {
+      result.errors.push(`delivery log insert failed: ${error.message}`);
+      result.halted = true;
+      const freeze = await engagePushFreeze(db, now);
+      result.freezeEngaged = freeze.engaged;
+      if (!freeze.engaged) {
+        result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+      }
+      console.error(
+        `notification-router: delivery log insert failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+      );
+      return false;
+    }
   }
 
   if (tokensToClear.length > 0) {
     const { error } = await db.from('devices').update({ push_token: null }).in('id', tokensToClear);
     if (error) result.errors.push(`invalid-token prune failed: ${error.message}`);
   }
+  return true;
 }

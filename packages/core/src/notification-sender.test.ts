@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { isExpoPushToken, sendPushBatch, type PushSendInput } from './notification-sender';
+import {
+  isExpoPushToken,
+  sendPushBatch,
+  writeDispatchHeartbeat,
+  type PushSendInput,
+} from './notification-sender';
 
 function input(overrides: Partial<PushSendInput> = {}): PushSendInput {
   return {
@@ -33,6 +38,33 @@ describe('isExpoPushToken', () => {
     expect(isExpoPushToken('ExpoPushToken[xxxx]')).toBe(true);
     expect(isExpoPushToken('fcm-raw-registration-token')).toBe(false);
     expect(isExpoPushToken('a'.repeat(64))).toBe(false);
+  });
+});
+
+describe('writeDispatchHeartbeat', () => {
+  it('upserts the watchdog key with the run timestamp', async () => {
+    const upsert = vi.fn().mockResolvedValue({ error: null });
+    const db = { from: vi.fn(() => ({ upsert })) } as unknown as SupabaseClient;
+    const now = new Date('2026-10-15T18:00:00.000Z');
+
+    await expect(writeDispatchHeartbeat(db, now)).resolves.toEqual({ written: true });
+    expect(upsert).toHaveBeenCalledWith(
+      { name: 'dispatch_heartbeat', enabled: true, updated_at: now.toISOString() },
+      { onConflict: 'name' },
+    );
+  });
+
+  it('reports a failed heartbeat write without throwing', async () => {
+    const db = {
+      from: vi.fn(() => ({
+        upsert: vi.fn().mockResolvedValue({ error: { message: 'read only' } }),
+      })),
+    } as unknown as SupabaseClient;
+
+    await expect(writeDispatchHeartbeat(db)).resolves.toEqual({
+      written: false,
+      reason: 'read only',
+    });
   });
 });
 

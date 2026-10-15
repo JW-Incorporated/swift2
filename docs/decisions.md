@@ -7,18 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Push go-live safety uses a six-hour Instant horizon and a fail-closed delivery ledger
+
+**Decision.** Instant notification sends are limited to events created within the previous six hours, except that a quiet-hours-held device gets six hours from the hold's end; the router query is bounded to the preceding 30 hours. Delivery completion is tracked per device, so another device receiving an event cannot consume that hold. Every provider-accepted push path halts after a failed delivery-log or required sent-marker write and attempts to engage `PUSH_FREEZE`; halting does not depend on that freeze write succeeding. Every authorized run first writes the `dispatch_heartbeat` ops-switch row and sends nothing if the write fails. Only the owner may lift the freeze. The auto-cooldown pass stays disabled until native notification-open tracking exists. Every authorized dispatch logs one aggregate, non-identifying per-pass summary, including configured 503 exits.
+
+**Why.** The P0-21 audit reproduced stale 25-day sends, quiet-hours holds lost after another device received the event, repeated sends every 15 minutes after ledger/marker failures, a failed freeze write allowing later passes and the next tick to resend, native cooldown downgrades based on permanently missing open signals, and invisible pass errors. The heartbeat also gives P0-21c a durable liveness signal. These controls make the initial internal push audience fail closed without deleting stale events from the inbox.
+
+**Alternative rejected.** Expiring old event rows or globally marking an event complete after its first delivery. Both erase valid inbox/quiet-hours behavior. Claim-before-send with a unique per-device ledger remains the redesign target, but it requires a schema change beyond this must-fix bundle.
+
+**Approved by.** P0-21a brief and PM touch-set correction, 2026-10-15.
+
+Known residual: if the provider accepts a push and the process dies before any database response, that push can be sent again on the next tick. Exactly-once delivery needs a claim-before-send schema (deferred to the notifications redesign project).
+
+---
+
 ## 2026-10-15 — Marjorie ops uses deterministic signals plus a fail-open Jev gate (P1-11)
 
 **Decision.** The three-hourly ops routine collects watchdog alerts, main-branch red workflows, stuck PRs, held content, chase work, and trusted ops-fix candidates in deterministic code. It must run for an unhandled watchdog alert open over 12 hours, a red main run of a `routine-*` or deploy workflow, prod-smoke or founder-facing alerts, chase work, and trusted ops-fix work. Jev answers one Noul only for signals not covered by those rules; raw probability `>= 0.7` sends those items to Sonnet, while no flagged items skips it. A missing key, unreadable source, Jev error/timeout, or precheck crash runs the full pre-P1-11 prompt. The step summary labels deterministic items `must-run`. The gate uploads a default fail-open artifact before checkout and overwrites it after a successful precheck, so an early gate failure cannot strand the reusable job without its input. The existing deterministic auto-defer stays separate and trusts markers from `AUTO_DEFER_AUTHOR=sffan15-sys`.
 
 **Why/cost.** This removes the programme's largest routine-token source without letting the optimization reduce ops coverage. Jev input is compact (at most 500 characters per signal) at the shared client's $0.042/million input-token rate; Sonnet remains the fallback and the watchdog's 24-hour alert remains the backstop. Approved by programme item P1-11; reversible by reverting the gate.
 
+---
+
 ## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
 
 **Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
 
 **Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
-
+>
 ## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
 
 **Decision.** `taylorswift.com` and its subdomains are official. Label and press
