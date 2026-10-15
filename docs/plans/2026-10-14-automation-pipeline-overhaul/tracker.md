@@ -17,9 +17,9 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | doing |  |  |
-| P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | doing |  |  |
+| P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | review |  |  |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | review | #5821 |  |
-| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | doing |  |  |
+| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | review |  |  |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | doing |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
