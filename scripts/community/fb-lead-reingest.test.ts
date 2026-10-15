@@ -85,6 +85,7 @@ describe('leadsFromExportHtml', () => {
       expect(lead.locator).not.toMatch(/Jane Fan|Another Fan/i);
       expect(lead.context).not.toMatch(/Jane Fan|Another Fan/i);
       expect(lead.context).not.toMatch(/role=|data-posinset|[<>]/);
+      expect(JSON.stringify(lead)).not.toMatch(/vault door|color palette/i);
     }
   });
 
@@ -99,7 +100,7 @@ describe('leadsFromExportHtml', () => {
       maxLeadsPerGroup: 1,
     });
     expect(leads).toHaveLength(1);
-    expect(leads[0]!.context).toContain('vault door theory');
+    expect(leads[0]).toMatchObject({ reactions: 42, num_comments: 7 });
   });
 
   it('drops a redline-flagged post from the leads entirely', () => {

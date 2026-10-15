@@ -390,11 +390,13 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 
 | Path | What |
 |---|---|
-| `scripts/knowledge/fb-export-harvest.mjs` | Captures and merges virtualized Facebook feed units during scrolling, neutralizes nested article roles, and builds parser-safe HTML exports |
+| `scripts/knowledge/fb-export-harvest.mjs` | Builds parser-safe HTML from schema-v2 units, including canonical permalinks and engagement counts |
 | `scripts/knowledge/fb-export-launch.mjs` | Starts plain Chrome (no CDP/debugging port) on the local receiver URL and runs `extensionCollect`: receiver + Chrome, total wall budget, always closes both |
 | `scripts/knowledge/fb-export-helpers.mjs` | Pure filename/date, relative-age, stopping, and page-classification rules |
-| `scripts/knowledge/fb-export-run.mjs` | Weekly idempotent orchestration: collect → real-parser copy gate → confirmed upload → reminder issue comment/close; `--dry-run` stops before upload/GitHub |
-| `scripts/knowledge/fb-export-task.ps1` | Registers the Sunday 18:00 local Windows task with start-after-miss and wake enabled |
+| `scripts/knowledge/fb-export-run.mjs` | Daily/weekly idempotent orchestration: collect → parser gate → upload, plus a counts-only owner-activity pass into `community_outcome`; schema-v1 exports remain accepted |
+| `scripts/knowledge/fb-export-task.ps1` | Owner-run installer for daily top-three and weekly-rest Windows tasks; top slugs are an explicit parameter |
+| `scripts/knowledge/fixtures/fb-lazy-permalinks.html` | Synthetic five-post lazy-href fixture; four nested anchors provide canonical post-id fallbacks (80% coverage) |
+| `scripts/community/fb-activity-outcomes.mjs` (+ test) | Matches counts-only owner activity to Facebook leads by canonical permalink (comment URL fallback) and upserts P1-14 `community_outcome` rows without member text |
 | `%LOCALAPPDATA%\longlive-fb` | **Outside repo:** DPAPI credential, Chrome profile, dated raw exports/diagnostics, and weekly completion ledgers |
 | `scripts/community/fb-lead-scrub.mjs` (+ test) | One-off repair for issue #4885 / HA #98: finds and DELETES the contaminated `engagement_lead` rows (leaked tag fragment + an unhashed group member's name in `locator`/`context`) written by the pre-fix parser. Dry run by DEFAULT; `--apply` deletes; `--json-out` dumps the pre-delete rows for audit. Matches only facebook + `status='new'` + a known checklist group + the leak signature at the head of the excerpt |
 | `scripts/community/fb-lead-reingest.mjs` (+ test) | The repair half: re-derives clean leads from the exports already stored in the private `facebook-exports` bucket with the fixed parser, LEADS ONLY (`fan_signal` holds aggregates only, was never contaminated, and has no unique constraint — re-inserting would duplicate). Dry run by DEFAULT; `--apply` writes; idempotent via `engagement_lead`'s dedupe index |

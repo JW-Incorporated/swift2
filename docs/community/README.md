@@ -285,13 +285,16 @@ freeze here.
 These are not switches because they are not meant to be turned on:
 - **Never posts, comments, votes, follows, or DMs** on Reddit or Facebook.
   A human always does the actual posting.
-- **Never crawls Facebook.** The only Facebook input is a weekly export
-  file *you* save from the browser ("Webpage, Complete") and hand to the
-  system — there is no Facebook bot, relay, or API call, ever
+- **Never crawls Facebook.** The only Facebook input is the owner-run browser
+  extension export: the explicitly configured top three groups run daily and
+  the rest weekly. The same read-only pass reads only the owner's own activity
+  entries and their reply/reaction counts. There is no Facebook bot, relay,
+  API call, posting, reacting, or commenting
   (`docs/decisions.md`, 2026-08-11).
-- **Never stores a comment body or a real Reddit/Facebook username** —
-  authors are hashed before anything is written, and only our own
-  aggregate summary of a post/thread is kept.
+- **Never stores a Facebook member name, post quote, or comment body.** Lead
+  rows contain a canonical post URL, counts, and a non-text locator; authors
+  remain hashed only inside the parser. Owner-activity rows contain URLs,
+  opaque ids, and counts only.
 - **Never stores a relationship, identity, or private-life theory**, even
   as a "rejected" row — the same content filter used everywhere else on
   the site runs on every fan-theory candidate before it's written.

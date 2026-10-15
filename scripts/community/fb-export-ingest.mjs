@@ -10,11 +10,8 @@
 //      `parseFacebookExport` verbatim — same aggregate-only, redline-screened,
 //      hashed-author draft the plan already specced for E4's fan_signal half);
 //   2. `engagement_lead` rows, `platform='facebook'`, `kind='hot_thread'`,
-//      `url` = the post permalink when the saved export carries one, else null, one per surviving post, ranked by reactions+comments (§2.4
-//      step 2) — `locator` is "<group name> — <first 80 chars of post text>"
-//      so Joey can find the post again by scrolling the group himself when
-//      the export has no permalink (the awareness card then falls back to a
-//      group link / group search, awareness-message.mjs);
+//      `url` = the canonical post permalink when available, with engagement
+//      in P1-14's columns. Locator/context contain no member text;
 //   3. a shop-link side-output file (JSON) for E5's fan-merch widen (§3.5,
 //      card P2-7) — any Etsy/Shopify/allowed-domain URL found in post text,
 //      same `SHOP_DOMAIN_ALLOWLIST`/`SHOP_DOMAIN_SUFFIX_ALLOWLIST` E5 already
@@ -32,9 +29,7 @@
 //   script re-screens per-post before building an engagement_lead or a
 //   shop-link candidate, so a screened-out post contributes to NEITHER).
 // - Hashed authors only; no raw post bodies ever reach an `engagement_lead`
-//   row — `context` is our own truncated/summarized slice, `locator` is a
-//   short excerpt already meant to be human-readable for Joey's own recall,
-//   not a comment body being fed to an LLM downstream unscreened.
+//   row. Locator/context are counts-only metadata, never a quote.
 // - A Facebook engagement_lead never quotes or names a group member (§2.4
 //   step 3) — the excerpt used for `locator`/`context` strips the author
 //   entirely (parseFacebookExport's own `extractPostsFromHtml` already does
@@ -171,23 +166,10 @@ export function shopLinksFromPosts(posts, { groupSlug }) {
   return [...byUrl.values()];
 }
 
-/** First `MAX_LOCATOR_EXCERPT` chars of screened post text, used for both
- * `locator` (how Joey finds the post again) and `context` (our-words
- * summary, never a raw quote used downstream — see header).
- *
- * Sliced by CODE POINT, not by UTF-16 code unit. These posts are full of
- * emoji, and a plain `slice(0, 80)` can cut an emoji's surrogate pair in
- * half. `JSON.stringify` then emits the unpaired half as a lone `\uXXXX`
- * escape, which RFC 8259 forbids, so PostgREST's JSON decoder rejects the
- * entire insert with "Empty or invalid json". `[...text]` iterates code
- * points, so a slice never splits a character. (Latent until the parser fix
- * put real post text in the first 80 chars — before it, they were ASCII
- * markup.) */
-function excerpt(text) {
+/** Privacy-safe locator, capped by code point at the standing 80-character limit. */
+function cappedLocator(text) {
   const points = [...text];
-  return points.length > MAX_LOCATOR_EXCERPT
-    ? `${points.slice(0, MAX_LOCATOR_EXCERPT).join('')}…`
-    : text;
+  return points.slice(0, MAX_LOCATOR_EXCERPT).join('');
 }
 
 /**
@@ -200,17 +182,20 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
   const ranked = [...posts].sort(
     (a, b) => b.reactionCount + b.commentCount * 2 - (a.reactionCount + a.commentCount * 2),
   );
-  return ranked.slice(0, maxLeadsPerGroup).map((post) => {
-    const short = excerpt(post.text);
+  return ranked.slice(0, maxLeadsPerGroup).map((post, index) => {
+    const postId = /\/posts\/([^/]+)/.exec(post.permalink ?? '')?.[1];
+    const safeKey = postId ?? post.authorHash?.slice(0, 8) ?? `unlinked-${index + 1}`;
     return {
       platform: 'facebook',
       community: `facebook:${groupSlug}`,
       kind: 'hot_thread',
       thread_id: null,
       url: post.permalink ?? null,
-      locator: `${groupName} — ${short}`,
+      locator: cappedLocator(`${groupName} — Facebook post ${safeKey}`),
       title: null,
-      context: short,
+      context: `Facebook lead: ${post.reactionCount} reactions, ${post.commentCount} comments.`,
+      reactions: post.reactionCount,
+      num_comments: post.commentCount,
       relevance: null,
       matched_doc_ids: [],
       target_url: null,
@@ -250,21 +235,25 @@ export function buildIngestResult(html, { groupSlug, groupName, exportedAt, maxL
 }
 
 /**
- * A lead the dedupe index already holds keeps its row; when the fresh lead
- * carries a permalink and the stored row has none, only that url is filled in
- * (same platform/locator/kind key as the index, thread_id null) — no new row.
+ * A lead the dedupe index already holds keeps its row; refresh its URL and
+ * P1-14 engagement columns without inserting another row.
  */
-export async function backfillLeadUrl(supabase, lead) {
-  if (!lead.url || lead.thread_id) return;
+export async function backfillLeadMetrics(supabase, lead) {
+  if (lead.thread_id) return;
   const { error } = await supabase
     .from('engagement_lead')
-    .update({ url: lead.url })
+    .update({
+      ...(lead.url ? { url: lead.url } : {}),
+      reactions: lead.reactions,
+      num_comments: lead.num_comments,
+    })
     .eq('platform', lead.platform)
     .eq('locator', lead.locator)
-    .eq('kind', lead.kind)
-    .is('url', null);
-  if (error) console.warn(`fb-export-ingest: url backfill skipped for one lead: ${error.message}`);
+    .eq('kind', lead.kind);
+  if (error) console.warn(`fb-export-ingest: metrics backfill skipped for one lead: ${error.message}`);
 }
+
+export const backfillLeadUrl = backfillLeadMetrics;
 
 async function writeResult(supabase, result) {
   const { error: fanSignalError } = await supabase.from('fan_signal').insert(result.fanSignal);
@@ -283,7 +272,7 @@ async function writeResult(supabase, result) {
   for (const lead of result.engagementLeads) {
     const { error } = await supabase.from('engagement_lead').insert(lead);
     if (error?.code === '23505') {
-      await backfillLeadUrl(supabase, lead);
+      await backfillLeadMetrics(supabase, lead);
       deduped += 1;
       continue;
     }

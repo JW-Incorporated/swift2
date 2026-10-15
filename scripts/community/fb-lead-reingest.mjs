@@ -21,8 +21,8 @@
 // fresh leads, this deletes that group's existing status='new' facebook leads.
 // Relying on `engagement_lead`'s dedupe index alone is NOT enough: the index
 // is on (platform, coalesce(thread_id, locator), kind), facebook leads have no
-// thread_id, so the key is the 80-char excerpt itself — any change to how the
-// excerpt is built (the code-point slice fix, a parser change, a different
+// thread_id, so the key is the privacy-safe locator — any change to how the
+// locator is built (a parser change, a different
 // --max-leads) produces a different key for the same post and the 23505
 // dedupe silently stops matching, duplicating rows on a re-run. Only
 // status='new' rows are cleared, so a lead a human already triaged, replied
@@ -44,7 +44,7 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { BUCKET } from '../knowledge-fb-upload.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
-import { backfillLeadUrl, engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
+import { backfillLeadMetrics, engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
 import { extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
 
@@ -110,7 +110,7 @@ async function insertLeads(supabase, leads) {
     const { error } = await supabase.from('engagement_lead').insert(lead);
     // 23505 = the dedupe index already holds this lead (see header).
     if (error?.code === '23505') {
-      await backfillLeadUrl(supabase, lead);
+      await backfillLeadMetrics(supabase, lead);
       deduped += 1;
       continue;
     }
@@ -142,8 +142,8 @@ async function listAllExports(supabase) {
  * set, so the whole script is idempotent and safe to re-run.
  *
  * Needed because the dedupe index is on `coalesce(thread_id, locator)` and
- * facebook leads have no thread_id, so the key IS the excerpt. Any change to
- * how the excerpt is built (the code-point slice fix, a parser change, a
+ * facebook leads have no thread_id, so the key IS the locator. Any change to
+ * how the locator is built (a parser change, a
  * different maxLeadsPerGroup) yields a different key for the same post, and
  * the 23505 dedupe silently stops protecting us — a re-run would insert a
  * SECOND row for a post already present. Scoped to status='new' so a lead a
