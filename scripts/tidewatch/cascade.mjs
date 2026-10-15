@@ -89,7 +89,7 @@ export function stateFor(item, candidates = [], now = Date.now()) {
 const answerConfidence = (answer) => answer?.probabilities?.[answer.optionId]
   ?? answer?.confidence ?? answer?.probability ?? 0;
 
-function classFromAnswers(answers, config) {
+export function classFromAnswers(answers, config) {
   const speculation = answers.q_speculation;
   if (speculation?.type === 'noul'
     && speculation.probability >= config.classes.privacy_redline.thresholds.act) {
