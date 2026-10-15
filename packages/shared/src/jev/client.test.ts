@@ -26,12 +26,18 @@ const SUCCESS_FIXTURE = {
   answers: {
     pick: {
       type: 'choice',
-      answer: 'Beta',
+      choice: 'Beta',
       confidence: 0.82,
       probabilities: { Alpha: 0.1, Beta: 0.82, Gamma: 0.08 },
     },
-    score: { type: 'score', answer: 4, confidence: 0.73 },
-    safe: { type: 'noul', answer: null, confidence: 0.4 },
+    score: {
+      type: 'score',
+      score: 3,
+      confidence: 0.73,
+      legend: { '0': '1', '1': '2', '2': '3', '3': '4', '4': '5' },
+      probabilities: { '0': 0, '1': 0.05, '2': 0.1, '3': 0.73, '4': 0.12 },
+    },
+    safe: { type: 'noul', noul: 0.55 },
   },
   usage: { input_tokens: 1_000, output_tokens: 9 },
 };
@@ -71,7 +77,7 @@ describe('Jev client', () => {
         probabilities: { 'alpha-id': 0.1, 'beta-id': 0.82, 'gamma-id': 0.08 },
       },
       score: { type: 'score', value: 4, confidence: 0.73 },
-      safe: { type: 'noul', value: 'unsure', confidence: 0.4 },
+      safe: { type: 'noul', value: 'unsure', probability: 0.55, confidence: 0.55 },
     });
     expect(result.usage).toEqual({
       caller: 'unit-test',
@@ -99,9 +105,18 @@ describe('Jev client', () => {
       state: 'text',
       questions: QUESTIONS,
     });
-    const request = JSON.parse(sentBody) as { questions: { pick: { criteria: string[] } } };
+    const request = JSON.parse(sentBody) as {
+      questions: Record<string, { type: string; criteria?: unknown }>;
+    };
 
-    expect(request.questions.pick.criteria).toEqual(['Beta', 'Gamma', 'Alpha']);
+    expect(request.questions.pick!.criteria).toEqual({ Beta: null, Gamma: null, Alpha: null });
+    expect(Object.keys(request.questions.pick!.criteria as object)).toEqual([
+      'Beta',
+      'Gamma',
+      'Alpha',
+    ]);
+    expect(request.questions.score!.criteria).toEqual(['1', '2', '3', '4', '5']);
+    expect(request.questions.safe).toEqual({ type: 'noul', instructions: 'Is it safe?' });
     expect(QUESTIONS[0].options.map((option) => option.label)).toEqual(['Alpha', 'Beta', 'Gamma']);
     expect(result.answers.pick).toMatchObject({ optionId: 'beta-id' });
   });
@@ -145,6 +160,38 @@ describe('Jev client', () => {
       constructor: JevHttpError,
       status: 529,
     });
+  });
+
+  it('keeps a truncated response body on HTTP errors and never the request headers', async () => {
+    const client = createJevClient({
+      apiKey: 'fixture-key',
+      fetchImpl: async () => new Response('x'.repeat(900), { status: 422 }),
+    });
+
+    const error = await client.ask({ caller: 'test', state: 'text', questions: QUESTIONS }).then(
+      () => undefined,
+      (caught: unknown) => caught,
+    );
+    expect(error).toBeInstanceOf(JevHttpError);
+    expect((error as JevHttpError).body).toHaveLength(500);
+    expect(JSON.stringify(error)).not.toContain('fixture-key');
+  });
+
+  it('maps confident Noul answers to yes and no', async () => {
+    const body = {
+      ...SUCCESS_FIXTURE,
+      answers: { ...SUCCESS_FIXTURE.answers, safe: { type: 'noul', noul: 0.98 } },
+    };
+    const client = createJevClient({
+      apiKey: 'fixture-key',
+      fetchImpl: async () => jsonResponse(body),
+    });
+    const yes = await client.ask({ caller: 't', state: 'text', questions: QUESTIONS });
+    expect(yes.answers.safe).toMatchObject({ value: 'yes', probability: 0.98 });
+
+    body.answers.safe = { type: 'noul', noul: 0.02 };
+    const no = await client.ask({ caller: 't', state: 'text', questions: QUESTIONS });
+    expect(no.answers.safe).toMatchObject({ value: 'no', probability: 0.02 });
   });
 
   it('aborts at the timeout and returns a typed timeout error', async () => {

@@ -4,6 +4,8 @@ export const JEV_MODEL = 'jev-1.13.0';
 export const JEV_ENDPOINT = 'https://api.typesafe.ai/v1/systemone';
 export const JEV_INPUT_USD_PER_MILLION_TOKENS = 0.042;
 export const JEV_UNTRUSTED_TEXT_LIMIT = 2_000;
+const NOUL_DECISION_THRESHOLD = 0.6;
+const JEV_ERROR_BODY_LIMIT = 500;
 
 export interface JevUsage {
   caller: string;
@@ -16,7 +18,12 @@ export interface JevUsage {
 export type JevAnswer =
   | { type: 'choice'; optionId: string; probabilities: Record<string, number>; confidence: number }
   | { type: 'score'; value: number; confidence: number }
-  | { type: 'noul'; value: 'yes' | 'no' | 'unsure'; confidence: number };
+  | {
+      type: 'noul';
+      value: 'yes' | 'no' | 'unsure';
+      probability: number;
+      confidence: number;
+    };
 
 export interface JevResult {
   model: typeof JEV_MODEL;
@@ -43,8 +50,11 @@ export class JevCreditsExhausted extends JevError {
 }
 
 export class JevHttpError extends JevError {
-  constructor(status: number) {
+  readonly body: string;
+
+  constructor(status: number, body = '') {
     super(`Jev request failed with HTTP ${status}`, 'http_error', status);
+    this.body = body.slice(0, JEV_ERROR_BODY_LIMIT);
   }
 }
 
@@ -110,9 +120,12 @@ export function wrapUntrustedText(input: string): string {
 }
 
 /**
- * The repo documents only the top-level wire schema. This adapter assumes each
- * question uses {type,instructions,criteria}, and each answer uses
- * {type,answer,confidence,probabilities?}; keep wire changes isolated here.
+ * Wire shape per https://api.typesafe.ai/openapi.json. Questions: choice
+ * criteria is {label: description|null}; score criteria is an ordered array
+ * (position = 0-based score); noul has no required criteria. Answers: choice
+ * {choice,confidence,probabilities}, score {score,confidence,legend,probabilities}
+ * (score is the 0-based expected value, may be fractional), noul {noul} (P(yes)
+ * only, no confidence). Keep wire changes isolated here.
  */
 export function toRequest(state: string, questions: readonly JevQuestion[], random: () => number) {
   const choiceMaps: ChoiceMaps = new Map();
@@ -127,7 +140,7 @@ export function toRequest(state: string, questions: readonly JevQuestion[], rand
       wireQuestions[question.id] = {
         type: question.type,
         instructions: question.instructions,
-        criteria: options.map((option) => option.label),
+        criteria: Object.fromEntries(options.map((option) => [option.label, null])),
       };
     } else if (question.type === 'score') {
       wireQuestions[question.id] = {
@@ -174,11 +187,24 @@ export function fromResponse(
   const answers: Record<string, JevAnswer> = {};
   for (const question of questions) {
     const answer = record(wireAnswers[question.id]);
+    if (answer.type !== question.type) throw new JevResponseError();
+    if (question.type === 'noul') {
+      const p = probability(answer.noul);
+      const value =
+        p >= NOUL_DECISION_THRESHOLD ? 'yes' : p <= 1 - NOUL_DECISION_THRESHOLD ? 'no' : 'unsure';
+      answers[question.id] = {
+        type: 'noul',
+        value,
+        probability: p,
+        confidence: Math.max(p, 1 - p),
+      };
+      continue;
+    }
     const confidence = probability(answer.confidence);
     if (question.type === 'choice') {
-      if (typeof answer.answer !== 'string') throw new JevResponseError();
+      if (typeof answer.choice !== 'string') throw new JevResponseError();
       const mapping = choiceMaps.get(question.id);
-      const optionId = mapping?.get(answer.answer);
+      const optionId = mapping?.get(answer.choice);
       if (!mapping || !optionId) throw new JevResponseError();
       const probabilities: Record<string, number> = {};
       for (const [label, probabilityValue] of Object.entries(record(answer.probabilities))) {
@@ -186,17 +212,10 @@ export function fromResponse(
         if (id) probabilities[id] = probability(probabilityValue);
       }
       answers[question.id] = { type: 'choice', optionId, probabilities, confidence };
-    } else if (question.type === 'score') {
-      const value = finite(answer.answer);
+    } else {
+      const value = question.min + finite(answer.score);
       if (value < question.min || value > question.max) throw new JevResponseError();
       answers[question.id] = { type: 'score', value, confidence };
-    } else {
-      let value: 'yes' | 'no' | 'unsure';
-      if (answer.answer === true || answer.answer === 'yes') value = 'yes';
-      else if (answer.answer === false || answer.answer === 'no') value = 'no';
-      else if (answer.answer === null || answer.answer === 'unsure') value = 'unsure';
-      else throw new JevResponseError();
-      answers[question.id] = { type: 'noul', value, confidence };
     }
   }
   const inputTokens = finite(usage.input_tokens);
@@ -257,7 +276,10 @@ export function createJevClient(options: JevClientOptions = {}) {
       }
       if (!response) throw new JevNetworkError();
       if (response.status === 402) throw new JevCreditsExhausted();
-      if (!response.ok) throw new JevHttpError(response.status);
+      if (!response.ok) {
+        const body = await response.text().catch(() => '');
+        throw new JevHttpError(response.status, body);
+      }
       let raw: unknown;
       try {
         raw = await response.json();

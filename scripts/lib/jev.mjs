@@ -32,6 +32,7 @@ async function selftest() {
   } catch (error) {
     console.error(
       `Jev selftest failed: ${error instanceof Error ? error.message : 'unknown error'}`,
+      error?.body ?? '',
     );
     process.exitCode = 1;
   }
