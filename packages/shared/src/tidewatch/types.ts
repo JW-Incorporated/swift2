@@ -2,10 +2,24 @@
 export type TidewatchJson =
   null | boolean | number | string | TidewatchJson[] | { [key: string]: TidewatchJson };
 
+export const WATCH_SOURCES = [
+  'official',
+  'news',
+  'youtube',
+  'intake',
+  'merch',
+  'reddit',
+  'facebook',
+  'theory',
+  'social',
+  'moment',
+] as const;
+export type WatchSource = (typeof WATCH_SOURCES)[number];
+
 export interface WatchItemRow {
   id: string;
   item_key: string;
-  source: string;
+  source: WatchSource;
   source_ref: string | null;
   url_norm_hash: string | null;
   /** PostgreSQL bit(64), serialized as a 64-character bit string. */

@@ -6,7 +6,10 @@
 create table if not exists public.watch_item (
   id               uuid primary key default gen_random_uuid(),
   item_key         text not null unique,
-  source           text not null,
+  source           text not null check (source in (
+                     'official', 'news', 'youtube', 'intake', 'merch',
+                     'reddit', 'facebook', 'theory', 'social', 'moment'
+                   )),
   source_ref       text,
   url_norm_hash    text,
   title_simhash    bit(64),
@@ -21,7 +24,7 @@ create table if not exists public.watch_item (
   constraint watch_item_excerpt_length_check
     check (excerpt is null or char_length(excerpt) <= 2000),
   constraint watch_item_facebook_excerpt_check
-    check (excerpt is null or lower(source) !~ '^(facebook|fb)([:_-]|$)')
+    check (source <> 'facebook' or excerpt is null)
 );
 
 create index if not exists watch_item_last_seen_idx
@@ -99,6 +102,9 @@ alter table public.watch_decision enable row level security;
 alter table public.watch_cursor   enable row level security;
 alter table public.story_timeline enable row level security;
 alter table public.llm_usage      enable row level security;
+
+revoke all on table public.watch_item, public.watch_decision, public.watch_cursor, public.story_timeline, public.llm_usage from public, anon, authenticated;
+grant all on table public.watch_item, public.watch_decision, public.watch_cursor, public.story_timeline, public.llm_usage to service_role;
 
 -- Deliberately no policies: anon and authenticated receive no rows through
 -- RLS; service_role bypasses RLS for Tidewatch's collectors and jobs.

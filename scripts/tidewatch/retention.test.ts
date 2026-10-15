@@ -2,113 +2,98 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import {
+  NOISE_ITEM_RETENTION_DAYS,
   parseArgs,
   runRetention,
   SHADOW_DECISION_RETENTION_DAYS,
   WATCH_ITEM_RETENTION_DAYS,
 } from './retention.mjs';
 
-interface Operation {
-  table: string;
-  kind: 'select' | 'delete' | null;
-  options: Record<string, unknown> | undefined;
-  filters: [string, string, unknown][];
+interface Query {
+  sql: string;
+  values: unknown[];
 }
 
-class FakeQuery {
-  constructor(
-    private readonly operation: Operation,
-    private readonly counts: Record<string, number>,
-  ) {}
-
-  select(_columns: string, options?: Record<string, unknown>) {
-    this.operation.kind = 'select';
-    this.operation.options = options;
-    return this;
-  }
-
-  delete(options?: Record<string, unknown>) {
-    this.operation.kind = 'delete';
-    this.operation.options = options;
-    return this;
-  }
-
-  eq(column: string, value: unknown) {
-    this.operation.filters.push(['eq', column, value]);
-    return this;
-  }
-
-  lt(column: string, value: unknown) {
-    this.operation.filters.push(['lt', column, value]);
-    return this;
-  }
-
-  then(resolve: (value: { count: number; error: null }) => unknown) {
-    const key = `${this.operation.kind}:${this.operation.table}`;
-    return Promise.resolve(resolve({ count: this.counts[key] ?? 0, error: null }));
-  }
+interface QueryResult {
+  rows?: { count: number }[];
+  rowCount?: number;
 }
 
 class FakeClient {
-  readonly operations: Operation[] = [];
+  readonly queries: Query[] = [];
+  private resultIndex = 0;
 
-  constructor(private readonly counts: Record<string, number>) {}
+  constructor(private readonly results: QueryResult[]) {}
 
-  from(table: string) {
-    const operation: Operation = { table, kind: null, options: undefined, filters: [] };
-    this.operations.push(operation);
-    return new FakeQuery(operation, this.counts);
+  async query(sql: string, values: unknown[]) {
+    this.queries.push({ sql, values });
+    const result = this.results[this.resultIndex];
+    this.resultIndex += 1;
+    if (!result) throw new Error('unexpected query');
+    return { rows: [], rowCount: null, ...result };
   }
 }
 
 const NOW = new Date('2026-10-14T12:00:00.000Z');
 
 describe('Tidewatch retention', () => {
-  it('is a count-only dry run by default', async () => {
-    const client = new FakeClient({ 'select:watch_item': 12, 'select:watch_decision': 7 });
+  it('is a count-only dry run by default, including 30-day noise items', async () => {
+    const client = new FakeClient([
+      { rows: [{ count: 4 }] },
+      { rows: [{ count: 12 }] },
+      { rows: [{ count: 7 }] },
+    ]);
     const log = vi.fn();
 
     const result = await runRetention(client, { now: NOW, log });
 
-    expect(result).toMatchObject({ watchItems: 12, shadowDecisions: 7, dryRun: true });
+    expect(result).toMatchObject({
+      noiseItems: 4,
+      watchItems: 12,
+      shadowDecisions: 7,
+      dryRun: true,
+    });
+    expect(result.noiseItemCutoff).toBe('2026-09-14T12:00:00.000Z');
     expect(result.itemCutoff).toBe('2026-04-17T12:00:00.000Z');
     expect(result.decisionCutoff).toBe('2025-10-14T12:00:00.000Z');
-    expect(client.operations).toEqual([
-      {
-        table: 'watch_item',
-        kind: 'select',
-        options: { count: 'exact', head: true },
-        filters: [['lt', 'last_seen_at', result.itemCutoff]],
-      },
-      {
-        table: 'watch_decision',
-        kind: 'select',
-        options: { count: 'exact', head: true },
-        filters: [
-          ['eq', 'shadow', true],
-          ['lt', 'decided_at', result.decisionCutoff],
-        ],
-      },
+    expect(client.queries.map(({ values }) => values)).toEqual([
+      [result.noiseItemCutoff],
+      [result.itemCutoff, result.noiseItemCutoff],
+      [result.decisionCutoff],
     ]);
+    expect(client.queries[0].sql).toContain('where wd.item_id = item.id');
+    expect(client.queries[0].sql).toContain('order by wd.decided_at desc, wd.id desc');
+    expect(client.queries[1].sql).toContain('not (item.last_seen_at < $2 and');
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('dry-run would delete 4 noise'));
     expect(log).toHaveBeenCalledWith(expect.stringContaining('dry-run would delete 12'));
     expect(log).toHaveBeenCalledWith(expect.stringContaining('dry-run would delete 7'));
   });
 
-  it('deletes only expired items and expired shadow decisions with --apply', async () => {
-    const client = new FakeClient({ 'delete:watch_item': 3, 'delete:watch_decision': 2 });
+  it('deletes noise items before the 180-day and shadow-decision windows with --apply', async () => {
+    const client = new FakeClient([{ rowCount: 2 }, { rowCount: 3 }, { rowCount: 4 }]);
 
     const result = await runRetention(client, { apply: true, now: NOW, log: vi.fn() });
 
-    expect(result).toMatchObject({ watchItems: 3, shadowDecisions: 2, dryRun: false });
-    expect(client.operations.map(({ table, kind }) => [table, kind])).toEqual([
-      ['watch_decision', 'delete'],
-      ['watch_item', 'delete'],
+    expect(result).toMatchObject({
+      noiseItems: 2,
+      watchItems: 3,
+      shadowDecisions: 4,
+      dryRun: false,
+    });
+    expect(client.queries.map(({ values }) => values)).toEqual([
+      [result.noiseItemCutoff],
+      [result.itemCutoff],
+      [result.decisionCutoff],
     ]);
-    expect(client.operations[0].filters).toContainEqual(['eq', 'shadow', true]);
-    expect(client.operations[1].filters).toEqual([['lt', 'last_seen_at', result.itemCutoff]]);
+    expect(client.queries.map(({ sql }) => sql)).toEqual([
+      expect.stringContaining('delete from public.watch_item item'),
+      expect.stringContaining('delete from public.watch_item where last_seen_at < $1'),
+      expect.stringContaining('delete from public.watch_decision where shadow = true'),
+    ]);
   });
 
   it('exposes the configured retention periods and requires an explicit apply flag', () => {
+    expect(NOISE_ITEM_RETENTION_DAYS).toBe(30);
     expect(WATCH_ITEM_RETENTION_DAYS).toBe(180);
     expect(SHADOW_DECISION_RETENTION_DAYS).toBe(365);
     expect(parseArgs([])).toEqual({ apply: false });
@@ -128,12 +113,15 @@ describe('Tidewatch migration contract', () => {
     expect(sql).toMatch(/item_key\s+text\s+not null\s+unique/i);
   });
 
-  it('declares overlong and Facebook excerpts invalid', () => {
+  it('uses the closed source vocabulary and rejects Facebook or overlong excerpts', () => {
+    expect(sql).toMatch(
+      /source\s+text\s+not null\s+check\s*\(source in \(\s*'official',\s*'news',\s*'youtube',\s*'intake',\s*'merch',\s*'reddit',\s*'facebook',\s*'theory',\s*'social',\s*'moment'\s*\)\)/i,
+    );
     expect(sql).toMatch(/char_length\(excerpt\)\s*<=\s*2000/i);
-    expect(sql).toMatch(/lower\(source\)\s*!~\s*'\^\(facebook\|fb\)/i);
+    expect(sql).toMatch(/check\s*\(source\s*<>\s*'facebook'\s+or\s+excerpt\s+is\s+null\)/i);
   });
 
-  it('enables RLS on all five tables without anon or authenticated policies', () => {
+  it('enables RLS and limits table privileges to service_role', () => {
     for (const table of [
       'watch_item',
       'watch_decision',
@@ -146,5 +134,11 @@ describe('Tidewatch migration contract', () => {
       );
     }
     expect(sql).not.toMatch(/create\s+policy/i);
+    expect(sql).toMatch(
+      /revoke all on table public\.watch_item, public\.watch_decision, public\.watch_cursor, public\.story_timeline, public\.llm_usage from public, anon, authenticated;/i,
+    );
+    expect(sql).toMatch(
+      /grant all on table public\.watch_item, public\.watch_decision, public\.watch_cursor, public\.story_timeline, public\.llm_usage to service_role;/i,
+    );
   });
 });
