@@ -35,7 +35,9 @@ const okDraft = (draft: string, extra: object = {}) => ({
   status: 'ok',
   data: { action: 'draft', draft, why: 'on topic for the ranking thread', ...extra },
 });
-const base = { system: 'sys', sleep: async () => undefined, log: () => undefined };
+const unscored = async (items: { id: string; text: string }[]) =>
+  items.map((i) => ({ id: i.id, text: i.text, status: 'not_scored' }));
+const base = { system: 'sys', sleep: async () => undefined, log: () => undefined, review: unscored };
 
 function fakeSupabase(ids: string[]) {
   const updates: { patch: Record<string, unknown>; id?: string }[] = [];
@@ -117,6 +119,49 @@ describe('draftLeads', () => {
     const call = vi.fn(async () => ({ status: 'capped', reason: 'per-run call cap reached' }));
     await draftLeads(exported(lead('a'), lead('b')), { ...base, call });
     expect(call).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('voice critic integration', () => {
+  const run = async (review: (items: { id: string; text: string }[]) => Promise<unknown[]>) => {
+    const call = vi.fn(async () => okDraft('folklore for me, no contest'));
+    const log = vi.fn();
+    const entries = await draftLeads(exported(lead('a')), { ...base, call, review, log });
+    return { entries, log };
+  };
+  const scored = (text: string, rewritten: boolean) => async () => [
+    { id: 'a', status: 'scored', text, rewritten, rewriteAttempted: true },
+  ];
+
+  it('accepts a rewrite that passes the reply validator', async () => {
+    const { entries, log } = await run(scored('folklore, easily. the bridge alone wins it', true));
+    expect(entries[0]).toMatchObject({ draft: 'folklore, easily. the bridge alone wins it' });
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('"rewritten":1'));
+  });
+
+  it('keeps the original when the rewrite fails the validator', async () => {
+    const { entries, log } = await run(scored('check out longlivets.com for folklore', true));
+    expect(entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('"rewrite_invalid":1'));
+  });
+
+  it('rejects a rewrite that adds an @mention', async () => {
+    const { entries } = await run(scored('folklore, easily. ask @someone', true));
+    expect(entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
+  });
+
+  it('passes the 18-call per-run cap to the critic', async () => {
+    const review = vi.fn(unscored);
+    await run(review);
+    expect(review.mock.calls[0][1]).toMatchObject({ maxCalls: 18 });
+  });
+
+  it('keeps the original when the critic did not score or throws', async () => {
+    expect((await run(unscored)).entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
+    const boom = async () => {
+      throw new Error('boom');
+    };
+    expect((await run(boom)).entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
   });
 });
 

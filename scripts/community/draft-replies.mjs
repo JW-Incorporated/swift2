@@ -23,13 +23,15 @@ import { runMain } from '../lib/cli.mjs';
 import { callClaude } from '../lib/claude-call.mjs';
 import { loadCatalog } from './awareness-image.mjs';
 import { threadJsonUrl } from './awareness-eligibility.mjs';
-import { DEFAULT_LIST_LIMIT, applyDrafts, exportLeads } from './awareness-draft.mjs';
+import { DEFAULT_LIST_LIMIT, applyDrafts, exportLeads, lintReply } from './awareness-draft.mjs';
+import { reviewDrafts } from '../voice/critic.mjs';
 
 export const CALLER = 'community-draft-replies';
 export const MODEL = 'claude-sonnet-5-5';
 export const PRIORITY = 'P3'; // community work: below news and breaking, no backup token
 export const MAX_INPUT_TOKENS = 6000;
 export const SYSTEM_PROMPT_FILE = 'docs/agents/runner-prompts/awareness-answerer.md';
+export const VOICE_MAX_CALLS = 18; // 6 leads x (score, rewrite, re-score)
 const PACING_MS = 4000;
 const MAX_CONSECUTIVE_FAILURES = 2;
 const SELFTEXT_CHARS = 700;
@@ -129,14 +131,33 @@ export function interpret(lead, outcome) {
   return { reason, failed: outcome?.status === 'unavailable' };
 }
 
+/**
+ * One critic pass over a validated draft: score, at most one rewrite, kept only
+ * when it scores better AND still passes the reply validator. Fail-open: any
+ * non-scored or thrown outcome keeps the original. Returns { text, outcome }.
+ */
+export async function polishDraft(entry, review) {
+  try {
+    const [r] = await review([{ id: entry.id, text: entry.draft }], { log: () => undefined, maxCalls: VOICE_MAX_CALLS });
+    if (r?.status !== 'scored') return { text: entry.draft, outcome: 'not_scored' };
+    if (!r.rewritten) return { text: entry.draft, outcome: r.rewriteAttempted ? 'rewrite_not_better' : 'kept' };
+    if (/@\w/.test(r.text) && !/@\w/.test(entry.draft)) return { text: entry.draft, outcome: 'rewrite_invalid' };
+    if (lintReply(r.text).length > 0) return { text: entry.draft, outcome: 'rewrite_invalid' };
+    return { text: r.text, outcome: 'rewritten' };
+  } catch {
+    return { text: entry.draft, outcome: 'not_scored' };
+  }
+}
+
 export async function draftLeads(
   { leads, eras },
-  { system, call = callClaude, fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), snippets = new Map(), log = console.log, pacingMs = PACING_MS },
+  { system, call = callClaude, review = reviewDrafts, fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), snippets = new Map(), log = console.log, pacingMs = PACING_MS },
 ) {
   const entries = [];
   let failures = 0;
   let throttled = false;
   let fetched = 0;
+  const voice = {};
   for (const lead of leads) {
     let thread = null;
     const url = urls.get(lead.id);
@@ -160,6 +181,11 @@ export async function draftLeads(
     });
     const result = interpret(lead, outcome);
     if (result.entry) {
+      if (result.entry.action === 'draft' && lintReply(result.entry.draft).length === 0) {
+        const polished = await polishDraft(result.entry, review);
+        result.entry.draft = polished.text;
+        voice[polished.outcome] = (voice[polished.outcome] ?? 0) + 1;
+      }
       entries.push(result.entry);
       failures = 0;
       continue;
@@ -172,6 +198,7 @@ export async function draftLeads(
       break;
     }
   }
+  if (Object.keys(voice).length > 0) log(`draft-replies: voice critic ${JSON.stringify(voice)}`);
   return entries;
 }
 
