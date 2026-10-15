@@ -6,8 +6,8 @@
   "modelAccess": "claude-code-subscription",
   "fallbackBatchSize": 10,
   "maxEscalationRate": 0.25,
-  "onJevFailure": "hold_pending_and_log",
-  "onFallbackCapReached": "hold_pending_and_log",
+  "onJevFailure": "fallback_only_and_alert",
+  "onFallbackCapReached": "code_rules_and_hold",
   "priorities": {
     "P0": "critical_breaking and critical_personal verification",
     "P1": "official_drop and tour_ticket",

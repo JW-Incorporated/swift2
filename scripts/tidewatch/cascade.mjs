@@ -110,10 +110,13 @@ function classFromAnswers(answers, config) {
   return mapped ? { class: mapped, confidence: answerConfidence(primary) } : null;
 }
 
-export async function inspectWithJev(item, candidates, { config, jev, now, random = Math.random }) {
+export async function inspectWithJev(item, candidates, {
+  config, jev, now, random = Math.random, fallbackOnly = false,
+}) {
   const prefilter = codePrefilter(item, candidates, config);
   if (prefilter) return { kind: 'decision', result: prefilter, decider: 'code', answers: { prefilter: prefilter.reason } };
-  if (!jev) return { kind: 'pending', reason: 'Jev unavailable' };
+  if (fallbackOnly) return { kind: 'fallback', reason: 'jev_run_fallback' };
+  if (!jev) return { kind: 'fallback', reason: 'jev_unavailable' };
   const storyCandidates = candidates.filter((candidate) => candidate.id !== item.id
     && (candidate.story_id || candidate.source === 'news')).slice(0, 8);
   let response;
@@ -123,11 +126,19 @@ export async function inspectWithJev(item, candidates, { config, jev, now, rando
       state: stateFor(item, storyCandidates, now),
       questions: questionsFor(item.source, storyCandidates),
     });
-  } catch {
-    return { kind: 'pending', reason: 'Jev unavailable' };
+  } catch (error) {
+    const code = error?.code;
+    const status = error?.status;
+    if (status === 402 || code === 'credits_exhausted') {
+      return { kind: 'fallback', reason: 'jev_credits_exhausted', switchToFallbackOnly: true };
+    }
+    if (code === 'timeout' || error?.name === 'JevTimeoutError') {
+      return { kind: 'fallback', reason: 'jev_timeout', switchToFallbackOnly: true };
+    }
+    return { kind: 'fallback', reason: 'jev_error' };
   }
   const result = classFromAnswers(response.answers, config);
-  if (!result) return { kind: 'pending', reason: 'Jev returned no class' };
+  if (!result) return { kind: 'fallback', reason: 'jev_invalid_response' };
   const injectionProbability = response.answers.q_injection?.probability ?? 0;
   const answers = { jev: response.answers, injection: injectionProbability >= 0.5 };
   const fallbackBelow = config.classes[result.class].thresholds.fallbackBelow;
@@ -162,7 +173,11 @@ export async function callFallback(entries, { callClaude, config, maxCalls }) {
   } catch {
     return { ok: false, reason: 'Claude wrapper unavailable' };
   }
-  if (response.status !== 'ok') return { ok: false, reason: `Claude wrapper ${response.status}` };
+  if (response.status !== 'ok') return {
+    ok: false,
+    reason: `Claude wrapper ${response.status}`,
+    capped: response.status === 'capped',
+  };
   const expected = new Set(entries.map(({ item }) => item.id));
   const labels = new Map();
   for (const label of response.data?.labels ?? []) {
