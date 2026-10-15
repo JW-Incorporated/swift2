@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { engagementLeadsFromPosts } from './fb-export-ingest.mjs';
+import { legacyLeadLocator, unsaltedLegacyLeadLocator } from './fb-lead-identity.mjs';
 import { backfillLeadMetrics, writeEngagementLeads } from './fb-lead-store.mjs';
 
 type Row = Record<string, unknown>;
@@ -84,6 +85,40 @@ describe('Facebook lead identity and persistence', () => {
     const result = await writeEngagementLeads(db, second);
     expect(result).toEqual({ inserted: 0, deduped: 1 });
     expect(db.rows).toHaveLength(1);
+  });
+
+  it('salts new locators and upgrades an existing unsalted row in place', async () => {
+    const source = post('same private post');
+    const oldLocator = unsaltedLegacyLeadLocator(source, options.groupSlug);
+    const newLocator = legacyLeadLocator(source, options.groupSlug);
+    expect(newLocator).not.toBe(oldLocator);
+    const db = memorySupabase([
+      {
+        platform: 'facebook',
+        kind: 'hot_thread',
+        thread_id: null,
+        locator: oldLocator,
+        url: null,
+      },
+    ]);
+
+    const result = await writeEngagementLeads(db, engagementLeadsFromPosts([source], options));
+
+    expect(result).toEqual({ inserted: 0, deduped: 1 });
+    expect(db.rows).toHaveLength(1);
+    expect(db.rows[0].locator).toBe(newLocator);
+  });
+
+  it('uses a stable DOM post id to distinguish same-text posts without timestamps', () => {
+    const leads = engagementLeadsFromPosts(
+      [
+        post('same text', { timestamp: undefined, domPostId: 'post-111' }),
+        post('same text', { timestamp: undefined, domPostId: 'post-222' }),
+      ],
+      options,
+    );
+    expect(new Set(leads.map((lead) => lead.locator)).size).toBe(2);
+    expect(JSON.stringify(leads)).not.toContain('post-111');
   });
 
   it('upgrades a v1 lead in place when v2 later supplies a permalink', async () => {

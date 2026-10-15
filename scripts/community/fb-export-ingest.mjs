@@ -75,6 +75,7 @@ import {
   attachLegacyLocator,
   legacyLeadLocator,
   permalinkLeadLocator,
+  unsaltedLegacyLeadLocator,
 } from './fb-lead-identity.mjs';
 import { backfillLeadMetrics, writeEngagementLeads } from './fb-lead-store.mjs';
 
@@ -185,6 +186,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
   );
   return ranked.slice(0, maxLeadsPerGroup).map((post) => {
     const legacyLocator = legacyLeadLocator(post, groupSlug);
+    const unsaltedLegacyLocator = unsaltedLegacyLeadLocator(post, groupSlug);
     const locator = post.permalink ? permalinkLeadLocator(post.permalink, groupName) : legacyLocator;
     return attachLegacyLocator({
       platform: 'facebook',
@@ -205,7 +207,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
       link_included: null,
       status: 'new',
       redline_ok: true, // every post here already survived screenTopic (see ingestExport)
-    }, legacyLocator);
+    }, legacyLocator, unsaltedLegacyLocator);
   });
 }
 

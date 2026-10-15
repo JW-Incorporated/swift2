@@ -1,4 +1,4 @@
-import { legacyLocatorOf } from './fb-lead-identity.mjs';
+import { legacyLocatorsOf } from './fb-lead-identity.mjs';
 
 function exactLeadQuery(query, lead, locator = lead.locator) {
   return query
@@ -29,21 +29,23 @@ export async function backfillLeadMetrics(supabase, lead) {
 }
 
 async function upgradeLegacyLead(supabase, lead) {
-  const legacyLocator = legacyLocatorOf(lead);
-  if (!lead.url || legacyLocator === lead.locator) return false;
-  const update = {
-    url: lead.url,
-    locator: lead.locator,
-    reactions: lead.reactions,
-    num_comments: lead.num_comments,
-  };
-  const query = guardUrl(
-    exactLeadQuery(supabase.from('engagement_lead').update(update), lead, legacyLocator),
-    null,
-  );
-  const { data, error } = await query.select('locator');
-  if (error) throw new Error(`engagement_lead legacy upgrade failed: ${error.message}`);
-  return Boolean(data?.length);
+  for (const legacyLocator of legacyLocatorsOf(lead)) {
+    if (legacyLocator === lead.locator) continue;
+    const update = {
+      ...(lead.url ? { url: lead.url } : {}),
+      locator: lead.locator,
+      reactions: lead.reactions,
+      num_comments: lead.num_comments,
+    };
+    const query = guardUrl(
+      exactLeadQuery(supabase.from('engagement_lead').update(update), lead, legacyLocator),
+      null,
+    );
+    const { data, error } = await query.select('locator');
+    if (error) throw new Error(`engagement_lead legacy upgrade failed: ${error.message}`);
+    if (data?.length) return true;
+  }
+  return false;
 }
 
 export async function writeEngagementLeads(supabase, leads) {
