@@ -9128,6 +9128,10 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 
 Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.
 
+## 2026-10-15 — P1-28c tooling transport boundary
+
+**Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.
+
 ## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
 
 **Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` cannot reach the source path or any other directory. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.

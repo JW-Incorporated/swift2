@@ -36,14 +36,9 @@ import type { SourceTier } from '@swift2/shared/news';
 import { resolveImageUrl } from './image-resolve';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
-import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
+import { ExtractUsageStore } from './usage-store';
 import type { ClusterSource } from './write-knowledge';
 
-/** The columns this backfill needs off `current_item` — a subset of
- * `packages/core/src/knowledge/client.ts`'s `CURRENT_ITEM_COLS`, read
- * directly (not through `getCurrentItems`/`getRecentItems`) because those
- * already FILTER OUT failing rows — exactly the rows this backfill exists
- * to find and fix. */
 export interface BackfillCandidateRow {
   id: string;
   headline: string;
@@ -54,6 +49,11 @@ export interface BackfillCandidateRow {
   era_id: string;
 }
 
+/** The columns this backfill needs off `current_item` — a subset of
+ * `packages/core/src/knowledge/client.ts`'s `CURRENT_ITEM_COLS`, read
+ * directly (not through `getCurrentItems`/`getRecentItems`) because those
+ * already FILTER OUT failing rows — exactly the rows this backfill exists
+ * to find and fix. */
 const CANDIDATE_COLS = 'id,headline,summary,detail,image_url,sources,era_id,expires_at,promoted_to';
 
 /** Every non-expired, non-promoted current_item — Card 5's exact scope
@@ -237,88 +237,4 @@ export async function backfillOneItem(
       quality_hold_reason: quality.ok ? null : (quality.reason ?? null),
     },
   };
-}
-
-export interface BackfillRunResult {
-  considered: number;
-  rewritten: number;
-  imagesResolved: number;
-  nowPassing: number;
-  stillHeld: number;
-  deferred: number;
-  /** 0 in a dry run — writes are never attempted, only reported. */
-  wroteBack: number;
-  reports: BackfillItemReport[];
-  errors: string[];
-}
-
-export interface RunBackfillOptions {
-  /** Dry run NEVER writes to `current_item` — every row is resolved/
-   * rewritten/re-screened the same as a live run (so the printed report is
-   * the real would-be outcome, not a guess), the result is just never
-   * persisted. */
-  dryRun: boolean;
-  limit?: number;
-  fetchImpl?: typeof fetch;
-}
-
-/**
- * Walks every live (non-expired, non-promoted) current_item and
- * re-enriches it via `backfillOneItem`, sharing ONE `ExtractUsageStore`
- * (usage-store.ts) across the whole run — the same durable per-run/daily
- * Haiku budget accounting the live extract stage uses, so a backfill run
- * can never blow past the existing cost ceiling just because it is a
- * different caller.
- */
-export async function runBackfill(
-  db: SupabaseClient,
-  options: RunBackfillOptions,
-): Promise<BackfillRunResult> {
-  const { dryRun, limit, fetchImpl = fetch } = options;
-  const errors: string[] = [];
-  const reports: BackfillItemReport[] = [];
-  const result: BackfillRunResult = {
-    considered: 0,
-    rewritten: 0,
-    imagesResolved: 0,
-    nowPassing: 0,
-    stillHeld: 0,
-    deferred: 0,
-    wroteBack: 0,
-    reports,
-    errors,
-  };
-
-  const candidates = await loadBackfillCandidates(db, limit);
-  const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
-  const today = new Date().toISOString().slice(0, 10);
-
-  for (const item of candidates) {
-    result.considered++;
-    try {
-      const { report, update } = await backfillOneItem(item, usage, today, fetchImpl);
-      reports.push(report);
-      if (report.rewroteCopy) result.rewritten++;
-      if (report.deferred) result.deferred++;
-      if (!report.imageBefore && report.imageAfter) result.imagesResolved++;
-      if (report.finalOk) result.nowPassing++;
-      else result.stillHeld++;
-
-      if (!dryRun) {
-        const { error } = await db.from('current_item').update(update).eq('id', item.id);
-        if (error) {
-          errors.push(`write-back failed for ${item.id}: ${error.message}`);
-        } else {
-          result.wroteBack++;
-        }
-      }
-    } catch (err) {
-      // Stage-isolation discipline (same as run-extract-stage.ts's
-      // per-cluster try/catch): one item's failure logs and continues,
-      // never aborts the whole backfill run.
-      errors.push(`backfill failed for ${item.id}: ${(err as Error).message}`);
-    }
-  }
-
-  return result;
 }
