@@ -71,8 +71,15 @@ import { serviceClient, normalizeSupabaseUrl } from '../lib/supabase.mjs';
 export { normalizeSupabaseUrl };
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
+import {
+  attachLegacyLocator,
+  legacyLeadLocator,
+  permalinkLeadLocator,
+} from './fb-lead-identity.mjs';
+import { backfillLeadMetrics, writeEngagementLeads } from './fb-lead-store.mjs';
 
-const MAX_LOCATOR_EXCERPT = 80;
+export { backfillLeadMetrics };
+
 const DEFAULT_MAX_LEADS_PER_GROUP = 10;
 
 /** Resolves the human-readable group name for `locator`: explicit override,
@@ -166,12 +173,6 @@ export function shopLinksFromPosts(posts, { groupSlug }) {
   return [...byUrl.values()];
 }
 
-/** Privacy-safe locator, capped by code point at the standing 80-character limit. */
-function cappedLocator(text) {
-  const points = [...text];
-  return points.slice(0, MAX_LOCATOR_EXCERPT).join('');
-}
-
 /**
  * Builds the `engagement_lead` rows for one group's screened posts, ranked
  * by reactions+comments*2 descending (§2.4 step 2 weighting, matches
@@ -182,16 +183,16 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
   const ranked = [...posts].sort(
     (a, b) => b.reactionCount + b.commentCount * 2 - (a.reactionCount + a.commentCount * 2),
   );
-  return ranked.slice(0, maxLeadsPerGroup).map((post, index) => {
-    const postId = /\/posts\/([^/]+)/.exec(post.permalink ?? '')?.[1];
-    const safeKey = postId ?? post.authorHash?.slice(0, 8) ?? `unlinked-${index + 1}`;
-    return {
+  return ranked.slice(0, maxLeadsPerGroup).map((post) => {
+    const legacyLocator = legacyLeadLocator(post, groupSlug);
+    const locator = post.permalink ? permalinkLeadLocator(post.permalink, groupName) : legacyLocator;
+    return attachLegacyLocator({
       platform: 'facebook',
       community: `facebook:${groupSlug}`,
       kind: 'hot_thread',
       thread_id: null,
       url: post.permalink ?? null,
-      locator: cappedLocator(`${groupName} — Facebook post ${safeKey}`),
+      locator,
       title: null,
       context: `Facebook lead: ${post.reactionCount} reactions, ${post.commentCount} comments.`,
       reactions: post.reactionCount,
@@ -204,7 +205,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
       link_included: null,
       status: 'new',
       redline_ok: true, // every post here already survived screenTopic (see ingestExport)
-    };
+    }, legacyLocator);
   });
 }
 
@@ -238,21 +239,6 @@ export function buildIngestResult(html, { groupSlug, groupName, exportedAt, maxL
  * A lead the dedupe index already holds keeps its row; refresh its URL and
  * P1-14 engagement columns without inserting another row.
  */
-export async function backfillLeadMetrics(supabase, lead) {
-  if (lead.thread_id) return;
-  const { error } = await supabase
-    .from('engagement_lead')
-    .update({
-      ...(lead.url ? { url: lead.url } : {}),
-      reactions: lead.reactions,
-      num_comments: lead.num_comments,
-    })
-    .eq('platform', lead.platform)
-    .eq('locator', lead.locator)
-    .eq('kind', lead.kind);
-  if (error) console.warn(`fb-export-ingest: metrics backfill skipped for one lead: ${error.message}`);
-}
-
 export const backfillLeadUrl = backfillLeadMetrics;
 
 async function writeResult(supabase, result) {
@@ -267,18 +253,7 @@ async function writeResult(supabase, result) {
   // `.insert()` + catching the resulting 23505 is the correct dedupe path
   // here (same pattern emit-official-youtube-event.mjs's insertEvent()
   // uses for its own dedupe_key unique constraint).
-  let inserted = 0;
-  let deduped = 0;
-  for (const lead of result.engagementLeads) {
-    const { error } = await supabase.from('engagement_lead').insert(lead);
-    if (error?.code === '23505') {
-      await backfillLeadMetrics(supabase, lead);
-      deduped += 1;
-      continue;
-    }
-    if (error) throw new Error(`engagement_lead insert failed: ${error.message}`);
-    inserted += 1;
-  }
+  const { inserted, deduped } = await writeEngagementLeads(supabase, result.engagementLeads);
   return { fanSignalInserted: true, leadsInserted: inserted, leadsDeduped: deduped };
 }
 

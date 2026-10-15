@@ -753,8 +753,8 @@
       let replyCount = 0;
       for (const el of block.querySelectorAll('[aria-label], span, [role="button"]')) {
         const value = `${el.getAttribute('aria-label') ?? ''} ${el.textContent ?? ''}`;
-        const reactions = /([\d,]+)\s*(?:reactions?|likes?)\b/i.exec(value);
-        const replies = /([\d,]+)\s*repl(?:y|ies)\b/i.exec(value);
+        const reactions = new RegExp(`${COUNT}\\s*(?:reactions?|likes?)\\b`, 'i').exec(value);
+        const replies = new RegExp(`${COUNT}\\s*repl(?:y|ies)\\b`, 'i').exec(value);
         if (reactions) reactionCount = Math.max(reactionCount, parseCount(reactions[1]));
         if (replies) replyCount = Math.max(replyCount, parseCount(replies[1]));
       }

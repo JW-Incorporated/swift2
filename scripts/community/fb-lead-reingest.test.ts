@@ -89,9 +89,9 @@ describe('leadsFromExportHtml', () => {
     }
   });
 
-  it('uses the checklist group label in the locator prefix', () => {
+  it('uses a text-free stable hash for a no-permalink locator', () => {
     const { leads } = leadsFromExportHtml(SYNTHETIC_EXPORT_HTML, { slug: 'taylor-swifts-vault' });
-    expect(leads[0]!.locator.startsWith("Taylor Swift's Vault — ")).toBe(true);
+    expect(leads[0]!.locator).toMatch(/^Facebook post h-[a-f0-9]{20}$/);
   });
 
   it('ranks by reactions+comments*2 and honors a lead cap', () => {

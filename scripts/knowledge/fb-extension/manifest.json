@@ -11,7 +11,7 @@
   "host_permissions": ["http://127.0.0.1/*"],
   "content_scripts": [
     {
-      "matches": ["https://www.facebook.com/*"],
+      "matches": ["https://www.facebook.com/groups/*", "https://www.facebook.com/*/allactivity*"],
       "js": ["harvest-core.js", "comments.js", "skeleton.js", "content.js"],
       "run_at": "document_idle"
     },

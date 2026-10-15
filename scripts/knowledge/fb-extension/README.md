@@ -46,9 +46,9 @@ restarts.
   lazy `href="/"` values. Nested post anchors are the fallback. Every resulting URL is canonical
   `https://www.facebook.com/groups/<group>/posts/<post>/` with tracking removed; reaction and
   comment counts ride in schema-v2 units and into `engagement_lead`.
-- A second read-only job opens the owner's activity log. It keeps only entries identified in-page
-  as the owner's own comments and sends only post/comment URLs, opaque comment ids, timestamps,
-  and reply/reaction counts. No activity text or member identity leaves the page.
+- The manifest injects only on `/groups/*` for feeds and the redirect-safe `/*/allactivity*` path
+  for the read-only owner-activity job; no other Facebook page receives it. That pass sends only
+  the owner's post/comment URLs, opaque comment ids, timestamps, and counts—never text or identity.
 - **Scroll cap.** The receiver hands each job `maxScrolls`: default **400** (`DEFAULT_MAX_SCROLLS`
   in `fb-export-receiver.mjs`), overridable per group with `maxScrolls: <n>` in
   `fb-groups-checklist.mjs` (clamped to 1–2000). 250 finished the Vault in ~16 min; 2000 froze its

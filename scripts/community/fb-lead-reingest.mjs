@@ -44,7 +44,8 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { BUCKET } from '../knowledge-fb-upload.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
-import { backfillLeadMetrics, engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
+import { engagementLeadsFromPosts, resolveGroupName } from './fb-export-ingest.mjs';
+import { writeEngagementLeads } from './fb-lead-store.mjs';
 import { extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
 
@@ -101,23 +102,6 @@ export function leadsFromExportHtml(html, { slug, maxLeadsPerGroup }) {
     ...(maxLeadsPerGroup ? { maxLeadsPerGroup } : {}),
   });
   return { leads, postCount: allPosts.length, screenedOut: allPosts.length - screened.length };
-}
-
-async function insertLeads(supabase, leads) {
-  let inserted = 0;
-  let deduped = 0;
-  for (const lead of leads) {
-    const { error } = await supabase.from('engagement_lead').insert(lead);
-    // 23505 = the dedupe index already holds this lead (see header).
-    if (error?.code === '23505') {
-      await backfillLeadMetrics(supabase, lead);
-      deduped += 1;
-      continue;
-    }
-    if (error) throw new Error(`engagement_lead insert failed: ${error.message}`);
-    inserted += 1;
-  }
-  return { inserted, deduped };
 }
 
 /** Storage `list()` page size. The API caps a single page, so pages are walked. */
@@ -198,7 +182,7 @@ async function main() {
     );
     if (!flags.apply) continue;
     const cleared = await clearGroupLeads(supabase, item.slug);
-    const { inserted, deduped } = await insertLeads(supabase, leads);
+    const { inserted, deduped } = await writeEngagementLeads(supabase, leads);
     totalCleared += cleared;
     totalInserted += inserted;
     totalDeduped += deduped;

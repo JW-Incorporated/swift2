@@ -17,10 +17,9 @@ import { pathToFileURL } from 'node:url';
 import { buildIngestResult } from '../community/fb-export-ingest.mjs';
 import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { serviceClient } from '../lib/supabase.mjs';
-import { ingestFacebookActivity } from '../community/fb-activity-outcomes.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
+import { runActivityIfDue, runActivityPass } from './fb-activity-pass.mjs';
 import {
   checkCheckout,
   gitProbe,
@@ -30,6 +29,8 @@ import {
 } from './fb-export-resilience.mjs';
 import { CAPTURE_WALL_BUDGET_MS, startReceiver } from './fb-export-receiver.mjs';
 import { commentErrorCode, localDate, weekOf } from './fb-export-helpers.mjs';
+
+export { OWNER_ACTIVITY_JOB, runActivityPass } from './fb-activity-pass.mjs';
 
 const execFileAsync = promisify(execFile);
 // Statuses that stop the whole run (Facebook is blocking or limiting this browser).
@@ -44,14 +45,6 @@ const STOP_STATUSES = [
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
 // How the ingest child loads the worker env file; the preflight reuses the exact same arg.
 const INGEST_ENV_ARG = '--env-file-if-exists=apps/worker/.env';
-export const OWNER_ACTIVITY_JOB = {
-  slug: 'owner-activity',
-  label: 'Owner Facebook activity log',
-  kind: 'activity',
-  url: 'https://www.facebook.com/me/allactivity?category_key=GROUPPOSTS',
-  wallBudgetMs: 5 * 60_000,
-};
-
 export function selectCadenceGroups(groups, cadence, topGroupSlugs) {
   const top = new Set(topGroupSlugs);
   if (top.size !== 3 || [...top].some((slug) => !groups.some((group) => group.slug === slug)))
@@ -381,31 +374,6 @@ async function reportIssue(issue, body, { close = false, ghImpl = gh } = {}) {
   return true;
 }
 
-export async function runActivityPass({
-  collect = extensionCollect,
-  ingest = ingestFacebookActivity,
-  supabase,
-  groups,
-  root,
-  outputDir,
-  now,
-  dryRun = false,
-}) {
-  const job = {
-    ...OWNER_ACTIVITY_JOB,
-    groupIds: groups.flatMap((group) => [group.groupId, ...(group.aliases ?? [])]),
-  };
-  const collection = await collect({ groups: [job], root, outputDir, now, week: weekOf(now) });
-  const item = (Array.isArray(collection) ? collection : collection.results)?.[0];
-  if (item?.status !== 'activity-collected')
-    return { ok: false, count: 0, reason: item?.reason ?? item?.status ?? 'activity missing' };
-  if (dryRun) return { ok: true, count: item.activities.length, written: 0 };
-  const client = supabase ?? serviceClient();
-  if (!client) return { ok: false, count: item.activities.length, reason: 'worker env missing' };
-  const result = await ingest(client, item.activities, { checkedAt: now });
-  return { ok: true, count: item.activities.length, written: result.written };
-}
-
 export async function runExport(options = {}) {
   const dryRun = options.dryRun ?? false;
   const now = options.now ?? new Date();
@@ -692,22 +660,31 @@ export async function runExport(options = {}) {
   let activity = null;
   if (options.activity && !globalAbort) {
     try {
-      activity = await (options.runActivity ?? runActivityPass)({
-        collect: options.collectActivity ?? extensionCollect,
-        ingest: options.ingestActivity ?? ingestFacebookActivity,
-        supabase: options.supabase,
-        groups: options.activityGroups ?? FB_GROUPS_CHECKLIST,
-        root,
-        outputDir,
+      const activityStatePath = join(root, 'ledger', 'activity.json');
+      activity = await runActivityIfDue({
         now,
         dryRun,
+        readState: () => (options.readActivityState ?? readLedger)(activityStatePath),
+        writeState: (state) =>
+          (options.writeActivityState ?? writeLedger)(activityStatePath, state),
+        run: () =>
+          (options.runActivity ?? runActivityPass)({
+            collect: options.collectActivity ?? extensionCollect,
+            ingest: options.ingestActivity,
+            supabase: options.supabase,
+            groups: options.activityGroups ?? FB_GROUPS_CHECKLIST,
+            root,
+            outputDir,
+            now,
+            dryRun,
+          }),
       });
     } catch (error) {
       activity = { ok: false, count: 0, reason: failureReason(error, 'activity') };
     }
   }
   const activityLine = activity
-    ? `Owner activity: ${activity.ok ? `${activity.count} comment(s) read, ${activity.written ?? 0} outcome row(s) written` : `failed (${activity.reason})`}.`
+    ? `Owner activity: ${activity.skipped ? 'skipped (last pass was less than 20 hours ago)' : activity.ok ? `${activity.count} comment(s) read, ${activity.written ?? 0} outcome row(s) written` : `failed (${activity.reason})`}.`
     : null;
 
   if (dryRun)

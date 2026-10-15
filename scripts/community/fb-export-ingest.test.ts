@@ -75,12 +75,7 @@ describe('engagementLeadsFromPosts', () => {
     expect(leads.map((lead) => lead.num_comments)).toEqual([7, 3]);
   });
 
-  // Regression: the 80-char excerpt used to be a raw UTF-16 slice, so an
-  // emoji straddling the boundary was cut in half. The resulting lone
-  // surrogate is valid JS but cannot be UTF-8 encoded, and PostgREST
-  // rejected the whole insert with "Empty or invalid json" — which is
-  // exactly what killed a live re-ingest run. Every string on the row must
-  // survive a UTF-8 round trip.
+  // Regression: a raw UTF-16 slice once left a lone surrogate that PostgREST rejected.
   it('never splits an emoji across the excerpt boundary', () => {
     const text = `${'a'.repeat(79)}\u{1f3a4} the vault door in the new video`;
     const leads = engagementLeadsFromPosts([{ text, reactionCount: 9, commentCount: 2 }], {
@@ -114,13 +109,13 @@ describe('engagementLeadsFromPosts', () => {
     expect(leads[0]).toMatchObject({ reactions: 5, num_comments: 1 });
   });
 
-  it('truncates the locator excerpt to 80 chars with an ellipsis', () => {
+  it('stores only the bounded post identity hash in the locator', () => {
     const longText = 'x'.repeat(200);
     const leads = engagementLeadsFromPosts([{ text: longText, reactionCount: 0, commentCount: 0 }], {
       groupName: 'G'.repeat(100),
       groupSlug: 'g',
     });
-    expect([...leads[0].locator]).toHaveLength(80);
+    expect([...leads[0].locator].length).toBeLessThanOrEqual(80);
     expect(leads[0].locator).not.toContain(longText);
   });
 
@@ -274,7 +269,8 @@ describe('permalink on the engagement lead', () => {
     const builder: Record<string, unknown> = {
       update: (v: unknown) => (calls.push(`update ${JSON.stringify(v)}`), builder),
       eq: (k: string, v: string) => (calls.push(`eq ${k}=${v}`), builder),
-      is: (k: string, v: null) => (calls.push(`is ${k}=${v}`), Promise.resolve({ error: null })),
+      is: (k: string, v: null) => (calls.push(`is ${k}=${v}`), builder),
+      then: (resolve: (v: unknown) => unknown) => Promise.resolve(resolve({ error: null })),
     };
     const supabase = { from: vi.fn(() => builder) };
     const lead = {
@@ -292,6 +288,8 @@ describe('permalink on the engagement lead', () => {
       'eq platform=facebook',
       'eq locator=G — x',
       'eq kind=hot_thread',
+      'is thread_id=null',
+      'eq url=https://www.facebook.com/groups/1/posts/9/',
     ]);
     await backfillLeadUrl(supabase, { ...lead, url: null });
     expect(supabase.from).toHaveBeenCalledTimes(2);
@@ -300,7 +298,9 @@ describe('permalink on the engagement lead', () => {
   it('warns instead of throwing when the backfill fails, so the ingest loop continues', async () => {
     const builder: Record<string, unknown> = {
       update: () => builder,
-      eq: (key: string) => key === 'kind' ? Promise.resolve({ error: { message: 'boom' } }) : builder,
+      eq: () => builder,
+      is: () => builder,
+      then: (resolve: (v: unknown) => unknown) => Promise.resolve(resolve({ error: { message: 'boom' } })),
     };
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     await expect(
