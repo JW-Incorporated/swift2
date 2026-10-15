@@ -46,15 +46,21 @@
 
 import {
   OFFICIAL_DOMAINS,
+  OFFICIAL_YOUTUBE_CHANNEL_IDS,
+  OFFICIAL_TICKETING_IDS,
   ESTABLISHED_DOMAINS,
   ESTABLISHED_SOURCE_NAMES,
 } from './source-tiers.generated.mjs';
 
-export { OFFICIAL_DOMAINS, ESTABLISHED_DOMAINS, ESTABLISHED_SOURCE_NAMES };
+export {
+  OFFICIAL_DOMAINS,
+  OFFICIAL_YOUTUBE_CHANNEL_IDS,
+  OFFICIAL_TICKETING_IDS,
+  ESTABLISHED_DOMAINS,
+  ESTABLISHED_SOURCE_NAMES,
+};
 
-export const OFFICIAL_YOUTUBE_CHANNEL_IDS = new Set(['UCqECaJ8Gagnn7YCbPEzWH6g']);
 export const OFFICIAL_TICKETING_DOMAINS = new Set(['ticketmaster.com']);
-export const OFFICIAL_TICKETING_IDS = new Set(['1094215', 'K8vZ9175dV7']);
 
 /** Case-insensitive `www.`-stripped hostname, or null for an unparsable url. */
 export function hostOf(url) {
@@ -81,25 +87,26 @@ function officialYouTubeUrl(url) {
   return OFFICIAL_YOUTUBE_CHANNEL_IDS.has(pathChannelId ?? feedChannelId ?? '');
 }
 
+function officialFirstPartyUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host === 'taylorswift.com' || host.endsWith('.taylorswift.com')) return true;
+  if (!domainOrSubdomainOf(host, OFFICIAL_DOMAINS)) return false;
+  return /\/(?:taylor-swift|taylorswift)(?:\/|$)/i.test(url.pathname);
+}
+
 function officialTicketingUrl(url) {
   const host = url.hostname.toLowerCase().replace(/^www\./, '');
   if (!domainOrSubdomainOf(host, OFFICIAL_TICKETING_DOMAINS)) return false;
-  const urlIds = [
-    ...url.pathname
-      .split('/')
-      .filter(Boolean)
-      .map((segment) => segment.replace(/\.json$/, '')),
-    ...['attractionId', 'eventId'].map((key) => url.searchParams.get(key) ?? ''),
-  ];
+  const pathId = /\/(?:artist|attractions)\/([^/]+?)(?:\.json)?\/?$/i.exec(url.pathname)?.[1];
+  const urlIds = [pathId ?? '', url.searchParams.get('attractionId') ?? ''];
   return urlIds.some((id) => OFFICIAL_TICKETING_IDS.has(id));
 }
 
 /** True for a verified artist/label URL or an exact channel/ticketing id rule. */
 export function isOfficialDomain(url) {
-  if (domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS)) return true;
   try {
     const parsed = new URL(String(url));
-    return officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
+    return officialFirstPartyUrl(parsed) || officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
   } catch {
     return false;
   }

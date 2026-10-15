@@ -144,6 +144,76 @@ describe('primary fast cycle', () => {
     expect(result.extract.clustersConsidered).toBe(0);
   });
 
+  it('stores a fast-lane Google News copy under its own source identity', async () => {
+    const stored = new Map<string, { source_id: string; external_id: string; url: string }>([
+      [
+        'normal::article-1',
+        {
+          source_id: 'normal',
+          external_id: 'article-1',
+          url: 'https://publisher.example/resolved-story',
+        },
+      ],
+    ]);
+    const sources = [
+      {
+        id: 'normal',
+        name: 'Google News — "Taylor Swift" search',
+        source_type: 'google_news',
+        config: {},
+      },
+      {
+        id: 'fast',
+        name: 'Google News — "Taylor Swift" fast lane',
+        source_type: 'google_news',
+        config: { primary: true },
+      },
+    ];
+    const db = {
+      from: vi.fn((table: string) => {
+        if (table === 'news_source') {
+          return {
+            select: () => chain({ data: sources, error: null }),
+            update: () => ({ eq: () => Promise.resolve({ error: null }) }),
+          };
+        }
+        if (table === 'news_raw_item') {
+          return {
+            upsert: (rows: { source_id: string; external_id: string; url: string }[]) => {
+              for (const row of rows) {
+                const key = `${row.source_id}::${row.external_id}`;
+                if (!stored.has(key)) stored.set(key, row);
+              }
+              return Promise.resolve({ error: null });
+            },
+            select: () => chain({ data: [], error: null }),
+          };
+        }
+        throw new Error(`primary mode reached unexpected table ${table}`);
+      }),
+    } as unknown as SupabaseClient;
+
+    await runCycle(db, {
+      primary: true,
+      adapterFor: () => ({
+        fetch: async () => [
+          {
+            externalId: 'article-1',
+            url: 'https://news.google.com/rss/articles/opaque',
+            title: 'Taylor Swift announces a project',
+          },
+        ],
+      }),
+    });
+
+    expect(stored.get('normal::article-1')?.url).toBe(
+      'https://publisher.example/resolved-story',
+    );
+    expect(stored.get('fast::article-1')?.url).toBe(
+      'https://news.google.com/rss/articles/opaque',
+    );
+  });
+
   it('records each story\'s earliest item timestamp without moving it later', async () => {
     const upserts: unknown[] = [];
     const db = {

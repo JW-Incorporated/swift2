@@ -19,6 +19,7 @@ import { UsageStore, supabaseUsageDb } from '../classify/usage-store';
 import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
 import { runExtractStage, type ExtractStageResult } from '../extract/run-extract-stage';
 import type { SourceAdapter } from '../sources/types';
+import { filterRelevantItems } from '../sources/relevance';
 
 const SUBJECT_TERMS = ['taylor swift', 'taylor', 'swift'];
 // CrossOutletSimilarityProvider.similarity() is binary (1/0, see its module
@@ -98,12 +99,13 @@ export async function runCycle(
       continue;
     }
     try {
-      const items = await adapter.fetch({
+      const fetchedItems = await adapter.fetch({
         id: source.id,
         name: source.name,
         sourceType: source.source_type,
         config: source.config ?? {},
       });
+      const items = filterRelevantItems(source.config ?? {}, fetchedItems);
       if (items.length > 0) {
         // Aggregator items carry an opaque redirect URL and no per-item
         // outlet identity — resolve to the real publisher before storing so
@@ -114,11 +116,7 @@ export async function runCycle(
         const resolvedItems =
           source.source_type === 'google_news' && !options.primary
             ? await Promise.all(items.map((item) => resolveGoogleNewsItem(item)))
-            : options.primary && source.source_type === 'google_news'
-              ? [...items].sort(
-                  (a, b) => Date.parse(b.publishedAt ?? '') - Date.parse(a.publishedAt ?? ''),
-                )
-              : items;
+            : items;
         const rows = resolvedItems.map((item) => ({
           source_id: source.id,
           external_id: item.externalId,

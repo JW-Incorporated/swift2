@@ -9,8 +9,9 @@ import { siteDiffAdapter } from './site-diff';
 export interface PrimarySourceDefinition {
   name: string;
   sourceType: 'rss' | 'google_news' | 'site_diff';
-  tier: 'official' | 'unverified';
+  tier: 'official' | 'established' | 'unverified';
   url: string;
+  requiredMention?: string;
 }
 
 /** One network request per entry per fast cycle; mirrored by the source seed migration. */
@@ -34,22 +35,24 @@ export const PRIMARY_SOURCES: readonly PrimarySourceDefinition[] = [
     url: 'https://store.taylorswift.com/',
   },
   {
-    name: 'Google News — "Taylor Swift" search',
+    name: 'Google News — "Taylor Swift" fast lane',
     sourceType: 'google_news',
     tier: 'unverified',
-    url: 'https://news.google.com/rss/search?q=%22Taylor+Swift%22&hl=en-US&gl=US&ceid=US:en',
+    url: 'https://news.google.com/rss/search?q=%22Taylor+Swift%22&hl=en-US&gl=US&ceid=US:en&scoring=n',
   },
   {
     name: 'Republic Records — press feed',
     sourceType: 'rss',
-    tier: 'official',
+    tier: 'established',
     url: 'https://www.republicrecords.com/blogs/news.atom',
+    requiredMention: 'Taylor Swift',
   },
   {
     name: 'Universal Music Group — press feed',
     sourceType: 'rss',
-    tier: 'official',
+    tier: 'established',
     url: 'https://www.universalmusic.com/feed/',
+    requiredMention: 'Taylor Swift',
   },
 ];
 

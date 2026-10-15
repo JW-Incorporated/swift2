@@ -65,12 +65,15 @@ describe('lookupOutletTier / OUTLET_TIER_MAP', () => {
 });
 
 describe('reputable-source allowlist (official/established domains + names)', () => {
-  it('official tier is earned by each verified artist, label, and press domain', () => {
+  it('label and press domains require a Taylor Swift path marker', () => {
     expect(isOfficialDomain('https://www.taylorswift.com/news')).toBe(true);
     expect(isOfficialDomain('https://store.taylorswift.com/products/vinyl')).toBe(true);
-    expect(isOfficialDomain('https://www.republicrecords.com/blogs/news')).toBe(true);
-    expect(isOfficialDomain('https://umusic.com/press')).toBe(true);
-    expect(isOfficialDomain('https://www.universalmusic.com/news')).toBe(true);
+    expect(isOfficialDomain('https://www.republicrecords.com/collections/ariana-grande')).toBe(
+      false,
+    );
+    expect(isOfficialDomain('https://www.universalmusic.com/drake-announces-tour')).toBe(false);
+    expect(isOfficialDomain('https://www.republicrecords.com/artists/TAYLOR-SWIFT')).toBe(true);
+    expect(isOfficialDomain('https://umusic.com/taylorswift')).toBe(true);
     expect(isOfficialDomain('https://people.com/article')).toBe(false);
   });
 
@@ -100,6 +103,10 @@ describe('reputable-source allowlist (official/established domains + names)', ()
     expect(
       isOfficialDomain('https://www.ticketmaster.com/someone-else-tickets/artist/12345'),
     ).toBe(false);
+    expect(isOfficialDomain('https://www.ticketmaster.com/venue/1094215')).toBe(false);
+    expect(isOfficialDomain('https://www.ticketmaster.com/?eventId=1094215')).toBe(false);
+    expect(isOfficialDomain('https://ticketmaster.com.evil.example/artist/1094215')).toBe(false);
+    expect(isOfficialDomain('https://evil-ticketmaster.com/artist/1094215')).toBe(false);
     expect(isOfficialDomain('https://evil.example/artist/1094215')).toBe(false);
   });
 

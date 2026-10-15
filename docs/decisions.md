@@ -9,15 +9,23 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
 
-**Decision.** Official bare domains are `taylorswift.com`, `republicrecords.com`,
-`umusic.com`, and `universalmusic.com` (subdomains included). YouTube qualifies only
-for channel id `UCqECaJ8Gagnn7YCbPEzWH6g` on a `/channel/` or channel-RSS URL; bare
-`youtube.com` and watch URLs do not. Ticketmaster qualifies only when the host is
-`ticketmaster.com` and a path/query id is Taylor's `1094215` or `K8vZ9175dV7`;
-bare Ticketmaster and other attraction ids do not. Widening `OFFICIAL_DOMAINS` also
-widens the rumor `sourceTier` gate: a citation from these domains counts as official.
-GDELT stays out of the registry: the 2026-10-15 recall probe returned HTTP 429 and
-therefore zero usable items while the same Google News RSS returned 101.
+**Decision.** `taylorswift.com` and its subdomains are official. Label and press
+hosts (`republicrecords.com`, `umusic.com`, and `universalmusic.com`, including
+subdomains) count as official only when the URL path carries a case-insensitive
+Taylor marker: `/taylor-swift`, `/artists/taylor-swift`, or `/taylorswift`.
+YouTube qualifies only for channel id `UCqECaJ8Gagnn7YCbPEzWH6g` on a `/channel/`
+or channel-RSS URL; bare `youtube.com` and watch URLs do not. Ticketmaster qualifies
+only for Taylor's `1094215` or `K8vZ9175dV7` in `/artist/<id>`,
+`/attractions/<id>`, or the `attractionId=<id>` query parameter. Bare Ticketmaster,
+other paths/query parameters, and other attraction ids do not. A story with an
+official source becomes tier `official` under the corroboration rule.
+
+**Alternatives considered.** A domain-only label/press rule was rejected as too
+broad because unrelated artists share those hosts. GDELT was excluded on recall:
+the 2026-10-15 probe returned HTTP 429 and zero usable items while Google News RSS
+returned 101.
+
+**Decided by:** PM (reversible), 2026-10-15.
 
 ---
 

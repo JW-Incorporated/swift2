@@ -206,25 +206,28 @@ function officialYouTubeUrl(url: URL): boolean {
   return OFFICIAL_YOUTUBE_CHANNEL_IDS.has(pathChannelId ?? feedChannelId ?? '');
 }
 
+function officialFirstPartyUrl(url: URL): boolean {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host === 'taylorswift.com' || host.endsWith('.taylorswift.com')) return true;
+  if (!domainOrSubdomainOf(host, OFFICIAL_DOMAINS)) return false;
+  return /\/(?:taylor-swift|taylorswift)(?:\/|$)/i.test(url.pathname);
+}
+
 function officialTicketingUrl(url: URL): boolean {
   const host = url.hostname.toLowerCase().replace(/^www\./, '');
   if (!domainOrSubdomainOf(host, OFFICIAL_TICKETING_DOMAINS)) return false;
-  const urlIds = [
-    ...url.pathname
-      .split('/')
-      .filter(Boolean)
-      .map((segment) => segment.replace(/\.json$/, '')),
-    ...['attractionId', 'eventId'].map((key) => url.searchParams.get(key) ?? ''),
-  ];
+  const pathId = /\/(?:artist|attractions)\/([^/]+?)(?:\.json)?\/?$/i.exec(url.pathname)?.[1];
+  const urlIds = [pathId ?? '', url.searchParams.get('attractionId') ?? ''];
   return urlIds.some((id) => OFFICIAL_TICKETING_IDS.has(id));
 }
 
 /** True for a verified artist/label URL or an exact channel/ticketing id rule. */
 export function isOfficialDomain(url: unknown): boolean {
-  if (domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS)) return true;
   try {
     const parsed = new URL(String(url));
-    return officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
+    return (
+      officialFirstPartyUrl(parsed) || officialYouTubeUrl(parsed) || officialTicketingUrl(parsed)
+    );
   } catch {
     return false;
   }
