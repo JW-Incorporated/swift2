@@ -33,6 +33,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
 | P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | done | #5855 | 2026-10-15 |
 | P0-20 | routine-tree-weekly-plan dies on its turn ceiling (#5470, HA #121): first a read-only check of whether the Hermes 1 weekly social report makes it redundant, then fix it or propose retiring it | executor-claude-sonnet | S | L-ROUTINES | - | todo |  |  |
+| P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | doing |  |  |
 
 ## P1 Foundations and re-homing
 
@@ -58,7 +59,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-11 | marjorie-ops becomes code plus a Jev gate | codex | M | L-ROUTINES | P1-01, P0-02 | todo |  |  |
 | P1-12 | marjorie-status-reply and kevin-radar to Jev plus code | codex | M | L-ROUTINES-B | P1-01 | todo |  |  |
 | P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  |  |
-| P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | review |  |  |
+| P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | review | #5864 |  |
 | P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | todo |  |  |
 | P1-16 | Facebook export: permalinks, engagement counts, activity log, daily cadence | codex | L | L-FBEXT | P0-14, P1-14 | todo |  |  |
 | P1-17 | Better Reddit and Facebook cards | executor-claude-sonnet | S | L-COMMUNITY | P1-10, P1-15 | todo |  |  |
@@ -96,7 +97,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | todo |  |  |
 | P2-12 | Breaking and retraction drill | claude-opus | M | L-TIDE-SPEC | P2-03, P2-04, P2-05, P2-06, P2-07 | todo |  |  |
 | P2-13 | Staged go-live by class | claude-opus | M | L-TIDE-SPEC | P2-01, P2-02, P2-12 | todo |  |  |
-| P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | todo | #5817 |  |
+| P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | done | #5817 | 2026-10-15 |
 
 ## P3 Measure, tune and grow
 
@@ -131,6 +132,10 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 | D9 | Merge #5484 once a Hermes session confirms both loops (HA #125). |
 | Open Q2 | joey2023 may run home tasks 24/7. |
 | Open Q3 | $50 a month metered ceiling chosen, then made moot by D1 revised. |
+| HA #128 (10-15) | Approved: the PM merged the rules PR #5817 (14:05Z) and closed the card. |
+| HA #129 (10-15) | Go, but first a full design review of the notification system ("as it is today, it's not good enough"; it seeds the next project). New item P0-21. The CRON_SECRET flip waits for the review's must-fix list and the backlog clear-out. |
+| HA #127 (10-15) | Do it, on the co-founder's plan. A Hermes session copied that token into Swift2's local env file (no value in any transcript); Joey sets the GitHub secrets for #127 and #124 with one `gh secret set -f .env` command. The backup is used only by P0/P1 priorities after the primary hits its limit, and it competes with Hermes 2 for that plan's usage. |
+| HA #120 (10-15) | Closed (issue #4475 closed 10-11; the auto-closer never fired, so that bug gets filed). |
 
 ## Log
 
@@ -199,6 +204,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 07:00 PM: P1-14 Codex pushed feature/tidewatch-p1-14 7d7f275ae (FK ON DELETE CASCADE, RLS plus service-role grants, migration and privacy tests). Its typecheck and suite were red only because the fresh worktree never ran `npm run sync:content` (missing lenses.generated). LESSON for every Codex brief: run `npm ci --silent` then `npm run sync:content` before any gate. P1-09 and P1-05 were briefed without it, so their reviewers run the gates. P1-14 → Opus SQL reviewer (production on merge).
 - 2026-10-15 07:04 PM: P1-09 Codex pushed feature/tidewatch-p1-09 bc8c6f167 (never-throwing `claude -p` runner, caps, schema check, usage logger, P0/P1 backup fallback; flags verified against Claude Code 2.1.300; unit 10/10; gates red only for the sync:content reason). ARCHITECT RISK #1 FIRED: the live smoke on a ~1.9K-token prompt consumed 19,116 input tokens (10.7 s), about 4 times Fable's 5K alarm. PM call (tuning within the approved design, not a design change, so no Fable): before review, Codex cuts the overhead (replace the system prompt, no settings sources or memory, no MCP, no tools, cwd in an empty temp dir; at most 4 live Haiku calls), and the usage logger records input, cache-creation, cache-read and output tokens separately. If the floor stays far above 5K, that is a Fable consult on the funding path (P1-06 batching, P1-28 scope).
 - 2026-10-15 07:06 PM: HA #125 ANSWERED. Joey's question was put to a Hermes session, which checked the Hermes VM read-only at 14:00Z. Hermes Tree daily loop: NO. Hermes Marjorie daily loop: NO. Neither gateway has any scheduled job and their executions tables are empty; the Hermes tracker lists both loops as TODO. Both gateways run claude-opus-5-5 on the SAME OAuth pool as Hermes 1 (the owner's own subscription). The weekly social report is a Hermes 1 cron (tree-weekly-social-report, Mondays 16:00Z, last ok 10-12), not Tree. Consequences: (1) D9's condition is unmet, so #5484 WAITS (not merged; it would retire 13 working GitHub routines in favour of loops that don't run). (2) The "frees about 1,950 units a week" premise in HA #125 is wrong: the Hermes loops draw on the same subscription, on Opus, so the programme no longer counts on #5484 for savings; the levers are P0-02 (done), P1-11, P1-12 and P1-28. Raised to Joey as a decision. (3) HA #121 is NOT moot after all → new item P0-20 (queued). P0-16 → blocked until a Hermes session schedules the loops.
+- 2026-10-15 07:12 PM: Joey's chat answers recorded in the Decisions table (#128 approve, #129 go plus a design review, #127 co-founder's plan, #120 close). MERGED #5817 (P2-14 done). HUMAN-ACTIONS: closed #120 and #128 to the ledger; removed a stale open copy of #119 (already closed in the ledger on 10-09, a duplicate-number lint error); #124 and #127 rewritten to one owner command (`gh secret set -f .env`; env-sync list confirms the file holds exactly TYPESAFE_API_KEY and CLAUDE_CODE_OAUTH_TOKEN_BACKUP) with `secret-exists` verify lines so they auto-close; #129 → BLOCKING, waiting on the PM's "push ready". A Hermes session was told never to send secret values by message. P1-14 APPROVE (Opus; SQL run on PGlite 3 times, re-apply-identical; suite 12,331) → #5864 armed (PM verified). Low follow-ups: add a primary key to community_outcome; export community/types from packages/shared when first consumed. P0-21 audit dispatched (researcher on Opus; full report to the scratchpad notifications-audit.md). Merged origin/main into this branch (tracker.md conflict against an older squash snapshot of this same branch, #5851; kept ours, 0 markers).
 
 ## Next actions
 

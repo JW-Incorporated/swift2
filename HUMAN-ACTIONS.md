@@ -2,37 +2,27 @@
 
 <!-- ha-format: 2 -->
 
-> **19 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #129 🟡 [DECIDE] Push notifications are switched off in production: CRON_SECRET is missing (~10 min)
+## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
 
-**Why:** For 2 days, every 15-minute push run has logged "CRON_SECRET not set; dispatch disabled", so no push reached any fan. Turning it on blindly could send a backlog of old pushes at once. The PM clears the backlog and fixes a router bug (#5850) first.
+**Why:** Push is off in production because CRON_SECRET is missing. On 2026-10-15 you said go, with a full notification design review first. The PM runs the review, lands its must-fix items, clears the stale backlog, then says ready.
 **Steps:**
-1. Decide: `go` — the PM prepares (backlog cleared, #5850 fixed), then you add the secret; `wait` — push stays off for now.
-2. On `go`, once the PM says ready: Vercel → project swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
+1. Wait for the PM's "push ready" message in the Swift2 pipeline PM chat.
+2. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
 3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
 **Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
 
-## #128 🟡 [DECIDE] Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) (~5 min)
+## #127 🟢 [UPGRADE] Make the backup Claude token a GitHub secret (~2 min)
 <!-- ha filed=2026-10-14 -->
+<!-- ha verify: secret-exists CLAUDE_CODE_OAUTH_TOKEN_BACKUP -->
 
-**Why:** The guardrails are founder-owned, so agents never merge them. Breaking news can't go live on site, push or social until this lands, and confirmed personal-life news (Baby Watch) also waits on it. It writes down what you decided as D4 to D6 tonight.
+**Why:** You chose your co-founder's plan as the backup (2026-10-15). A Hermes session put its token in Swift2's local env file, but routines run in GitHub Actions, so it must also be a GitHub secret. The same command covers #124.
 **Steps:**
-1. Open https://github.com/JW-Incorporated/swift2/pull/5817 and read the TL;DR at the top.
-2. Decide: `approve` — merge it (or say "approved" in the Swift2 pipeline PM chat); `change` — say what to change.
-**Worked if:** PR #5817 shows Merged.
-
-## #127 🟢 [UPGRADE] Add a backup Claude token so routines keep running past your weekly limit (~5 min)
-<!-- ha filed=2026-10-14 -->
-
-**Why:** Under the revised D1 every model call runs on your Claude subscription. When your weekly limit hits, routines pause until the reset. A second subscription token lets them switch over automatically. Whose plan backs you up is your call.
-**Steps:**
-1. Pick the backup plan (your co-founder's subscription or a Team seat).
-2. On a machine logged into that plan, run `claude setup-token` in a terminal and copy the token it prints.
-3. In your own terminal run `gh secret set CLAUDE_CODE_OAUTH_TOKEN_BACKUP --repo JW-Incorporated/swift2` and paste the token at the prompt.
+1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (sets every key in that file; prints names, never values).
 **Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP.
 
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
@@ -57,15 +47,14 @@
 3. Tell the Swift2 pipeline PM the answer in chat.
 **Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
 
-## #124 🔴 [BLOCKING] Put the Jev key into Swift2 as TYPESAFE_API_KEY (~5 min)
+## #124 🔴 [BLOCKING] Make the Jev key a GitHub secret: TYPESAFE_API_KEY (~2 min)
 <!-- ha filed=2026-10-14 -->
+<!-- ha verify: secret-exists TYPESAFE_API_KEY -->
 
-**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. Agent guards can't write secrets, so this one is yours.
+**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. The key is in Swift2's local env file and passed a live test on 2026-10-15; scheduled jobs need it as a GitHub secret.
 **Steps:**
-1. Open a Claude Code session in Projects\Hermes.
-2. Paste: "Set the Jev key as GitHub Actions secret TYPESAFE_API_KEY on JW-Incorporated/swift2 without printing or reading the value. If your guard blocks it, give me the one-line command to run."
-3. If it hands you a command, run it in your own terminal.
-4. Tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
+1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (also covers #127; prints names, never values).
+2. Optional: tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
 **Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows TYPESAFE_API_KEY.
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
@@ -89,24 +78,6 @@
 2. Paste the prompt from issue #5470 (copy button on the code block).
 **Worked if:** issue #5470 is closed by a merged PR.
 
-## #120 🔴 [BLOCKING] social poster exit path: items A, B and C (ops-fixer is rail-blocked on all three files) (~5 min)
-<!-- ha filed=2026-10-09 -->
-<!-- ha verify: issue-closed 4475 -->
-
-**Why:** Founder-approved social posts are still being killed or stranded on the exit path. The ops-fixer fixed the watchdog blind spot (item D) but rail 3 forbids it from touching the three social files where A, B and C live. A human session has the reach; the diagnosis is already done.
-**Steps:**
-1. Open Claude Code in `Projects\Swift2`.
-2. Paste the prompt from issue #4475 (copy button on the code block).
-**Worked if:** issue #4475 is closed by a merged PR.
-
-## #119 🟢 [UPGRADE] Update the doorbell to doorbell-v4 (~5 min)
-<!-- ha filed=2026-10-09 -->
-
-**Why:** The doorbell still runs v3. It looks for the old channel name, so it can't ring for #marjorie (the 5-min poll still covers it, only slower), and it can sit dead for hours like it did on 10-04. v4 fixes both (#5421, #5426).
-**Steps:**
-1. Open Claude Code in `Projects\Hermes` (a Hermes session; Swift2 sessions can't reach the VM).
-2. Paste: `Update the Swift2 doorbell on the Hermes VM to tag doorbell-v4 per docs/ops/doorbell.md "Update to a new tag" in JW-Incorporated/swift2: fetch+checkout the tag in /opt/longlive-doorbell, copy scripts/doorbell/longlive-doorbell.service to /etc/systemd/system/, daemon-reload, restart longlive-doorbell, then show the last 20 journal lines.`
-**Worked if:** the journal shows `gateway: connected` and a 👀 lands on your next message in #marjorie within seconds.
 ## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
 <!-- ha filed=2026-10-08 -->
 

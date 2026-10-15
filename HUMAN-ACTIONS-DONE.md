@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #128 · 2026-10-15 · done · Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) — "Joey approved in chat 07:04 PDT; the PM merged #5817 at 14:05Z and closed the card on his instruction." · by chat
+- #120 · 2026-10-15 · done · social poster exit path: items A, B and C — "Joey said close in chat 07:04 PDT; issue #4475 was already closed 2026-10-11 (the auto-closer had not fired)." · by chat
 - #122 · 2026-10-15 · done · Fix routine-template.yml's echoed `::error::` that makes every red routine look like prompt_file-missing — "auto-closed: issue-closed 5799 passed 2026-10-15" · by auto-close
 - #119 · 2026-10-09 · done · Update the doorbell to doorbell-v4 — "Joey said done in chat 12:25 PDT after running the Hermes-session update." · by chat
 - #118 · 2026-10-09 · done · Let the bot see #longlive-marjorie again — "Joey answered in chat 08:29 PDT: channel renamed to #marjorie, same id. Fixed in code (#5426, resolve by id); bot-chat-poll green 15:45Z." · by chat
