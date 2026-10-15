@@ -23,7 +23,7 @@ Notifications are the engagement and retention backbone for the app launch. Thre
 
 ## 3. Channels & Provider
 
-- **iOS + Android:** Firebase Cloud Messaging (FCM HTTP v1). FCM fronts APNs, so one send path covers both platforms. Free at any scale, no vendor lock beyond Google.
+- **iOS + Android:** Firebase Cloud Messaging (FCM HTTP v1). FCM fronts APNs, so one send path covers both platforms. Free at any scale, no vendor lock beyond Google. *Today the native sender is the Expo Push API, not FCM directly — see §10, "How push actually runs today".*
 - **Web push:** Phase 6 (post-launch). Same event pipeline, Web Push API + service worker on longlivets.com.
 - **Android notification channels** map 1:1 to our categories, so the OS-level settings screen mirrors the in-app one. iOS has no per-channel OS toggle; our in-app settings are the source of truth there.
 - *Alternative considered:* OneSignal (buys digests/caps/quiet-hours out of the box, costs money at scale, vendor lock). Rejected because the governor + digest logic is the differentiating part of this system and fits the existing Supabase/automation stack.
@@ -48,6 +48,14 @@ Priority tiers drive governor behavior (§6). **T1 = rare + huge**, T2 = notable
 *Defaults apply only after explicit opt-in during onboarding (§7). Nothing is on before permission + preset selection.
 
 `public_appearance` intentionally absorbs TV/interview appearances — splitting them doubles settings rows for the same mental category.
+
+### Opt-in announcement category (added 2026-10-14, Tidewatch D5)
+
+| ID | Name | Cadences | Default | Firing rule |
+|---|---|---|---|---|
+| `baby_watch` | Baby Watch: official announcements only | On · Off | Off (opt-in only) | Fires **only** on a confirmed pregnancy or birth announcement: an official post, or a rep statement quoted by a tier-1 outlet, or two tier-1 outlets stating it as fact, plus a 10-minute re-check that the sources still say it. Never a rumor, countdown, clue or "watch" update; until confirmation, silence. The governor (§6) applies unchanged |
+
+**Personal-life news in any category** (pregnancy, engagement, marriage and comparable milestones) is confirmed-only under the same bar and 10-minute re-check before any push; no rumor, countdown or clue content (`docs/social/guardrails.md`, guardrail 4). Not built yet (Tidewatch P2-05); it goes live last, after this spec change is merged.
 
 ### Fun categories (all OFF by default, opt-in only)
 
@@ -79,6 +87,11 @@ Every push passes these gates, in order:
 3. **Coalescing** — multiple events, same category, within 30 min → one push ("3 new songs just dropped →"). Uses `dedupe_key` to also kill duplicate detections from the scraper pipeline.
 4. **Daily cap** — default **max 3 instant pushes/day** per device (user adjustable 1–5 in settings as "Daily limit"). Overflow rolls into the next digest. Scheduled digests and fun notifications the user explicitly chose count separately (they asked for exactly those), but combined instant+scheduled can never exceed 6/day, hard ceiling.
 5. **Send-time sanity** — digests and fun notifications only fire between 8 AM–9 PM local.
+
+**Kill window and freeze (owner, 2026-10-14, Tidewatch D4).** The gates above are unchanged; automatic breaking news gets no exception.
+- **5-minute kill window on every tier.** Every event, whatever its tier, waits 5 minutes (`available_at`) before it can send, so a false positive can be killed (`killed_at`) first. Today only T1 has the delay (`T1_SEND_DELAY_MS`, `packages/core/src/notification-events.ts`) and the kill script covers T1 only (`scripts/notifications-kill-t1.mjs`).
+- **`PUSH_FREEZE`.** A global brake the router checks before any send: while it is on, nothing sends. Agents may switch it on; only the owner lifts it (the same posture as `SOCIAL_FREEZE`).
+- Both are built by Tidewatch P0-11, before any automatic push.
 
 **Auto-cooldown (proposed):** if a device hasn't opened any notification in 30 days, downgrade its Instant categories to Daily and send one final "We've quieted things down — tap to adjust" push. Prevents the silent-annoyance → uninstall path.
 
@@ -188,6 +201,11 @@ Cron (every 15 min, pg_cron + Supabase Edge Function):
 - The existing automation pipelines (Clownbot ingestion, merch discovery, moment→product matching) become event *producers* — they just insert rows into `events`. Clean seam, no coupling.
 - Batched FCM sends (500 tokens/request); retries with backoff; invalid tokens pruned on response.
 
+**How push actually runs today (checked against the code, 2026-10-14).** The pipeline above is the design; the deployed reality differs in three places:
+- **Trigger: Vercel Cron, not pg_cron.** Vercel Cron calls `GET /api/notifications/dispatch` every 15 minutes (`apps/web/vercel.json`). That one route runs the router and governor, digests, Clown Reports, fun notifications, countdowns and the cooldown pass (`apps/web/app/api/notifications/dispatch/route.ts`, `packages/core/src/notification-router.ts`). There are no Supabase Edge Functions or pg_cron jobs for push in this repo. A due event waits for the next 15-minute pass, so the 5-minute kill window (§6) is a floor: with it, an instant push can land up to about 20 minutes after its event is written.
+- **Native sender: Expo Push API, not FCM HTTP v1** (OS-004, 2026-09-12, `packages/core/src/notification-sender.ts`). Expo fronts FCM (Android) and APNs (iOS), takes up to 100 messages per request, and retries on 5xx/429; a `DeviceNotRegistered` ticket marks the token for pruning. Tickets mean "accepted"; delivery receipts are not polled yet.
+- **Web push** is wired into the same dispatch (Web Push/VAPID, `packages/core/src/notification-web-push.ts`), not a later phase.
+
 ## 11. Metrics
 
 **Success:** permission opt-in rate (target >60% of pre-permission screen viewers), notification open rate by category, D7/D30 retention of notification-enabled vs. disabled devices.
@@ -196,5 +214,5 @@ Cron (every 15 min, pg_cron + Supabase Edge Function):
 ## 12. Open Questions
 
 1. What framework are the native apps built with (Swift/Kotlin vs. React Native/Expo vs. Capacitor)? Changes the client SDK work in Phase 0, nothing else.
-2. Who/what approves T1 events before send — fully automated, or a 1-tap human confirm for the highest-blast notifications? (Recommend: automated with a 5-min delay + Slack/phone alert for song/album/tour, so a false positive can be killed.)
+2. Who/what approves T1 events before send — fully automated, or a 1-tap human confirm for the highest-blast notifications? (Recommend: automated with a 5-min delay + Slack/phone alert for song/album/tour, so a false positive can be killed.) **Resolved:** fully automated with a 5-minute delay and a kill hook; widened 2026-10-14 to a 5-minute kill window on every tier plus `PUSH_FREEZE` (§6).
 3. Lyric licensing comfort level: single-line lyric excerpts in pushes are common practice but technically reproduce copyrighted text — worth a quick position before launch.
