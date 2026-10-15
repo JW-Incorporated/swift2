@@ -1,0 +1,47 @@
+{
+ "2026-09-14": {
+  "runs": 3335,
+  "failures": 168,
+  "cancelled": 1050,
+  "contentPRsMerged": 33,
+  "socialPRsMerged": 24,
+  "prsMerged": 133,
+  "prsClosedUnmerged": 1
+ },
+ "2026-09-21": {
+  "runs": 3065,
+  "failures": 131,
+  "cancelled": 2034,
+  "contentPRsMerged": 24,
+  "socialPRsMerged": 12,
+  "prsMerged": 53,
+  "prsClosedUnmerged": 1
+ },
+ "2026-09-28": {
+  "runs": 6998,
+  "failures": 420,
+  "cancelled": 1229,
+  "contentPRsMerged": 27,
+  "socialPRsMerged": 20,
+  "prsMerged": 299,
+  "prsClosedUnmerged": 19
+ },
+ "2026-10-05": {
+  "runs": 9978,
+  "failures": 486,
+  "cancelled": 526,
+  "contentPRsMerged": 82,
+  "socialPRsMerged": 10,
+  "prsMerged": 343,
+  "prsClosedUnmerged": 22
+ },
+ "2026-10-12": {
+  "runs": 7700,
+  "failures": 1432,
+  "cancelled": 197,
+  "contentPRsMerged": 37,
+  "socialPRsMerged": 0,
+  "prsMerged": 40,
+  "prsClosedUnmerged": 0
+ }
+}
