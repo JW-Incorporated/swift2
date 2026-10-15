@@ -20,7 +20,12 @@ Format: date, decision, why, alternatives considered, who approved.
 Known residual: if the provider accepts a push and the process dies before any database response, that push can be sent again on the next tick. Exactly-once delivery needs a claim-before-send schema (deferred to the notifications redesign project).
 
 ---
+## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
 
+**Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
+
+**Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
+>
 ## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
 
 **Decision.** `taylorswift.com` and its subdomains are official. Label and press
