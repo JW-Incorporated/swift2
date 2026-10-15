@@ -72,6 +72,7 @@ docs `CLAUDE.md` points at:
 | `supabase/migrations/20261014020000_community_outcomes.sql`, `packages/shared/src/community/types.ts` | Service-role-only community engagement metrics and owner-posted comment outcomes at 1h/24h/7d; portable row types for the new fields |
 | `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
 | `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
+| `scripts/tidewatch/collect.mjs`, `adapters/*.mjs`, `fingerprint.mjs` | Zero-LLM pull collector over news, intake, community, merch, social/reply ledgers, and merged moments; each watch source stays in historical/no-event baseline mode until every source in its group succeeds and records a cursor-store completion marker, then per-source cursors advance only after required upserts. `--dry-run --fixtures` provides the credential-free full-pipeline smoke path |
 
 ## Session infrastructure (`.claude/` and the standing files)
 
@@ -355,6 +356,7 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
 | `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
 | `scripts/notifications-kill.mjs` (+ test) | Owner kill switch for freeze-held events at every tier: paginates events and instant deliveries, lists only undelivered/un-killed rows, defaults kills to dry-run, and requires `--apply` to write |
+| `.github/workflows/notifications-kill.yml` (+ `scripts/notifications-kill-workflow.test.ts`, `docs/ops/notifications-kill.md`) | P0-21b: manual-only, main-only workflow running `notifications-kill.mjs` in prod (`--list`, or `--kill --all-pending --apply` gated on confirm=KILL-STALE-BACKLOG); prints ids/tiers/titles, no tokens |
 
 `apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
 alone satisfies Phase 0's "fresh install registers a devices row"
@@ -451,6 +453,16 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `packages/core/src/notification-digest.ts`, `notification-fun.ts`, `notification-cooldown.ts` | Digest/Clown/fun/countdown/cooldown post-send writes halt and attempt `PUSH_FREEZE`; cooldown remains disabled until native opens exist |
 | `packages/core/src/notification-router.test.ts`, `notification-digest-failures.test.ts`, `notification-fun-failures.test.ts`, `notification-router-repro-db.test-helper.ts` | Fake-DB no-network regressions for repeated sends, freeze failures, stale backlog query bounds, and post-send write failures |
 | `apps/web/app/api/notifications/dispatch/route.ts` | 60-second sequential orchestration; write heartbeat before sends; halt independent of freeze persistence; aggregate summary on every authorized exit |
+
+## Tidewatch primary-source fast lane (P1-08)
+
+| Path | What |
+|---|---|
+| `apps/worker/src/sources/registry.test.ts` | Primary source inventory/adapter coverage and deliberate GDELT exclusion |
+| `apps/worker/src/sources/relevance.ts` | Per-source required-mention filter; keeps shared label feeds Taylor-only in fast and normal cycles |
+| `apps/worker/src/sources/relevance.test.ts` | Label-feed Taylor mention and unfiltered official-channel coverage |
+| `scripts/lib/reputable-sources.test.ts` | Shared/script official-source parity, including channel-id and ticketing-id URL rules |
+| `supabase/migrations/20261015000000_news_sources_primary.sql` | Seeds five first-party rows plus a distinct newest-first Google News fast-lane row; label feeds are established and Taylor-filtered |
 
 
 
@@ -615,6 +627,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `scripts/social/lib/stamp-health.mjs` | Wave 3 S3: v3 SHA-signed stamp predicates (`cleanSince`/`selfClean`/`mintable`) — the safety axis from the architect ruling that closed #4127; the poll may merge an honoured stale stamp but never mints one |
 | `scripts/social/stamp-tree-auto.mjs`, `scripts/social/tree-approve-gate.mjs`, `.github/workflows/social-tree-approve.yml` | P3: Tree-auto approval — the CLI mints the schema-v4 `tree-auto` stamp (kind inside the HMAC payload) only after trusted check-drafts passes; the gate script holds every decision (Tree-identity constants, tree/draft ref, local git diff pinned to the head SHA, queue json + referenced .png/.jpg <=1.5MB regular blobs only); the workflow (dispatch `pr`, `social` env) stamps (signing a media-bytes digest), waits for `build`, squash-merges. Caps, 48h rule and SOCIAL_FREEZE are untouched; tree-auto never counts as an owner approval (critique exemption, ledger rows) |
 | `social/feedback/<ISO-week>.jsonl` | Wave 3 S3: the founder-feedback ledger, authoritative on the `social-ledger` branch, folded back to `main` by `social-approval-poll.yml` for visibility only (`social/README.md` → Feedback ledger) |
+| `scripts/social/social-poster-rolling-state.test.ts`, `social-poster-rolling-recovery.test.ts` + `lib/rolling-sandbox.ts` (test-only) | P0-05: run `social-poster.yml`'s rolling fold-back steps for real (bash + git, shallow throwaway clones, a logging `gh` stub). State: two unmerged runs → one `social-poster/state-rolling` PR, main moving mid-run still fast-forwards, an unresolvable conflict falls back to the timestamped PR. Recovery: after a squash merge or a close the next run builds on its own tree; a retry while the PR is unmerged resolves in place |
 | `scripts/social/weekly-brief.mjs` | Wave 3 T4: `buildWeeklyBrief` — the Monday `#longlive-tree` post (5-line scorecard, what changed, 14-day calendar, ≤3 numbered proposals, ≤2 questions); tests in `weekly-brief-workflows.test.ts`, thread ingestion in `social-approval-poll-plan-brief.test.ts` |
 | `social/lessons.md` | Wave 3 T5: the founder-feedback ledger, created empty with its format documented in a leading comment — distilled every Monday by Tree, read every morning by the daily drafter |
 | `scripts/social/lib/lessons.mjs` | Wave 3 T5: `parseLessons`/`renderLessons`/`nextId` — pure round-trip parser/renderer for `social/lessons.md`; `validate-queue.mjs` and `check-drafts.mjs` (`checkCritique`) both read the file from disk and thread `activeLessonIds` into `queue-schema.mjs`'s `validateQueueItem`; `social-approval-poll.mjs`'s ✏️ re-check does not yet (issue #4150) |
@@ -634,7 +647,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `scripts/social/dispatch-event-drafts.mjs` + `lib/event-dispatch.mjs`, `.github/workflows/social-event-dispatch.yml`, `routine-tree-event-draft.yml`, `docs/agents/runner-prompts/tree-event-draft.md` | Bots v2 W8: same-day drafts for time-sensitive `intake:` issues no post covers — scan every 2h and after `routine-news-triage`, ≤2/day, deduped by the `tree-event-dispatched` label; the event run is a 30-turn one-pair job that opens an ordinary draft PR awaiting the owner's ✅ |
 | `scripts/social/draft-receipt.mjs` | Bots v2 W8: the failure receipt for the daily/event draft runs — run summary + one deduped `desk:tree` issue per day naming why it stopped (e.g. the turn cap) and what the pre-compute had decided |
 | `scripts/routine-quality-sample.mjs` | Wave 4 A4: `output-sampling.yml`'s second job — picks ≤2 merged PRs/routine (≤30/week) from `routine-output-sample.mjs`'s own discovery/attribution-matching, scores each 1-3 via one Sonnet call against its routine's charter `## Sampling rubric` heading (skipped, logged by name, never guessed, when no rubric is available), appends a "## Quality sampling" section to the same weekly report file; tests in `routine-quality-sample.test.ts` |
-| `scripts/lib/claude-token.mjs` | Pure token-class selector: primary normally, optional backup only for content/P0/P1 priority while the primary limit is active, and none for lower priority. It handles classes only, never secret values. Tests: `claude-token.test.ts` |
+| `scripts/lib/claude-call.mjs`, `claude-token.mjs` | P1-09's never-throwing, one-response `claude -p` runner: pre-spawn caps, JSON-schema validation, allowlisted child environment with exactly one subscription token, isolated temporary cwd, `llm_usage`-shaped per-attempt telemetry, and no tools/settings/MCP/customizations/session persistence. It reuses the routine issue-reset and limit-detection helpers; the one shared selector routes active weekly and five-hour limits, and a newly detected primary limit retries once on backup only for P0/P1. Five-hour detection is end-to-end covered by `re-spawns a P0 five-hour session limit with the backup and returns ok` and `returns unavailable for a P2 five-hour session limit without the backup`. Tests: `claude-call.test.ts`, `claude-token.test.ts` |
 | `scripts/routine-usage-report.mjs` | Routine telemetry: turns/duration/cost/token pool plus error-only redacted diagnostics; assistant errors, token pools, and result subtypes are fixed allowlists with unknown fallback. Spec: `docs/specs/2026-09-15-routine-error-metadata.md`; tests in `routine-usage-report.test.ts` |
 | `scripts/routines/limit-gate.mjs` | Shared routine gate for the global pause switch and the one `claude-weekly-limit` issue; content-priority work switches to the optional backup token during the weekly-limit pause, or retains P0-01 primary-token behavior if it is absent. Tests: `scripts/routines/limit-gate.test.ts` |
 | `scripts/news/check-triage-receipt.mjs` | News Triage completion gate: reads the current run attempt and its trusted-bot receipt on #502; missing, blocked and stale receipts fail. Tests: `check-triage-receipt.test.ts`; recovery spec: `docs/specs/2026-09-15-news-triage-recovery.md` |
