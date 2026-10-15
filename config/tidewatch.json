@@ -43,6 +43,7 @@
         "candidateOfficial": 0.5,
         "act": 0.9,
         "fallbackBelow": 0.9,
+        "minIndependentOutlets": 2,
         "precisionTarget": 1.0
       },
       "priority": "P0",
@@ -69,6 +70,7 @@
         "fallbackBelow": 0.95,
         "citation": 0.8,
         "recheckMinutes": 10,
+        "minIndependentTier1Outlets": 2,
         "precisionTarget": 1.0
       },
       "priority": "P0",
@@ -81,7 +83,7 @@
         "requiresFactCheck": true,
         "requiresVerifier": true,
         "fallbackActsAlone": false,
-        "onVerifierUnavailable": "hold",
+        "onVerifierUnavailable": "hold_owner_queue",
         "breakingSocial": true
       },
       "goLiveOrder": 14
@@ -94,7 +96,8 @@
       "questions": ["q_class", "q_urgency"],
       "action": {
         "route": "official_drop_card",
-        "push": ["song_drop", "official_youtube"],
+        "push": ["official_youtube"],
+        "t1PushOnlyVia": "critical_breaking",
         "requiresFactCheck": false,
         "requiresVerifier": false,
         "fallbackActsAlone": true,
@@ -112,7 +115,8 @@
       "questions": ["q_class", "q_official"],
       "action": {
         "route": "tour_update",
-        "push": ["tour_news"],
+        "push": [],
+        "t1PushOnlyVia": "critical_breaking",
         "requiresFactCheck": false,
         "requiresVerifier": false,
         "fallbackActsAlone": true,
@@ -264,7 +268,7 @@
         "requiresFactCheck": false,
         "requiresVerifier": true,
         "fallbackActsAlone": false,
-        "onVerifierUnavailable": "hold",
+        "onVerifierUnavailable": "hold_owner_queue",
         "breakingSocial": false
       },
       "goLiveOrder": 11

@@ -14,7 +14,7 @@ Derived from the plan of record (`docs/plans/2026-10-14-automation-pipeline-over
 - **Failure modes.** Jev HTTP 402 or a timeout switches the run to fallback-only and opens one alert. A fallback cap reached switches to code rules, and anything that would act holds. Nothing fails silently.
 - **Model-call priority.** P0: critical_breaking and critical_personal verification. P1: official_drop and tour_ticket. P2: all other classification. P3: batch work (for example the duplicate comment harvest and the drift sample).
 - **Owner's rule.** Jev confident means route now. Jev unsure or erroring means Haiku answers from a fixed enum, and its answer is trusted. The exceptions are critical_breaking, critical_personal and correction_debunk, where a model answer never acts alone.
-- **No human on the path, one exception (D4).** Critical work news auto-publishes only when the code fact-check AND the Sonnet verifier agree. If the verifier is unavailable, the item HOLDS and goes to the owner queue. It never publishes on the code check alone.
+- **No human on the path, one exception (D4).** Critical work news auto-publishes only when the code fact-check AND the Sonnet verifier agree. If the verifier is unavailable, the item HOLDS and goes to the owner queue. It never publishes on the code check alone. The same hold applies to critical_personal and correction_debunk.
 - **privacy_redline always wins.** Privacy redlines and the private-life theory ban are absolute. Code phrase gates run first, and any class's item that trips them is dropped.
 - **Personal life (D5).** Confirmed only, with a 10-minute re-check. Baby Watch fires only on a confirmed pregnancy or birth announcement. No rumor, countdown or clue content.
 - **Breaking social (D6).** Up to 2 extra posts per platform per day, with Instagram and X always paired.
@@ -61,7 +61,7 @@ All thresholds are probabilities unless stated otherwise. "Act" is the Jev confi
 - **Positive:** the official site announces a new album and its date, and three outlets carry it within 30 minutes. An official ticketing page opens a presale for newly added dates.
 - **Negative:** a fan account says an album is "coming soon", citing a friend at the label (rumor). A retrospective on an album from years ago (normal_news).
 - **Questions:** `q_class`, `q_official`, `q_settled`, `q_urgency`, `q_same_story`, `q_injection`, `q_settled_fact`.
-- **Thresholds:** candidate at P >= 0.30, or urgency >= 4 with `q_official` >= 0.5 (deliberately low, so nothing is missed). Act at P >= 0.90 or Haiku agreement, AND the code fact-check passes, AND the Sonnet verifier agrees. Act precision target 100 percent.
+- **Thresholds:** candidate at P >= 0.30, or urgency >= 4 with `q_official` >= 0.5 (deliberately low, so nothing is missed). Act at P >= 0.90 or Haiku agreement, AND the code fact-check passes (an official source, or at least 2 independent reputable outlets with different owners stating it as settled fact: `minIndependentOutlets`), AND the Sonnet verifier agrees. Act precision target 100 percent.
 - **Action:** write current_item as confirmed with an image, revalidate on demand, emit a T1 event (song_drop, album_news or tour_news, through the governor), draft a breaking IG+X pair, and file a Vault intake issue. If the fact-check fails, the item falls to normal_news or rumor. If the verifier is unavailable, it holds and goes to the owner queue.
 - **Redlines:** never publishes on the code check alone. No governor exemption. A `q_injection` yes never reaches the drafter.
 - **Go-live:** 10 for the site stage. The push stage (12) and the social stage (13) follow correction_debunk (11).
@@ -72,7 +72,7 @@ All thresholds are probabilities unless stated otherwise. "Act" is the Jev confi
 - **Negative:** a "is she expecting?" piece built on a photo (privacy_redline). A lyric thread hunting for relationship clues (privacy_redline, theory ban).
 - **Questions:** `q_class`, `q_personal`, `q_speculation`, `q_settled`, `q_supports`, `q_settled_fact`.
 - **Thresholds:** `q_speculation` >= 0.35 drops the item before anything else. Act at P >= 0.95. The citation check is >= 0.8 per source, and a 10-minute re-check must confirm the sources still say it. Act precision target 100 percent.
-- **Action:** requires an official source or rep statement, or two tier-1 outlets (distinct owners, not syndicated copies) stating it as fact. The Sonnet verifier must agree, and the item holds when the verifier is unavailable. Then site, push and social as for critical_breaking, with warm, factual copy. Push: baby_watch (pregnancy or birth only) or T2 relationship_news (engagement or marriage).
+- **Action:** requires an official source or rep statement, or two tier-1 outlets (distinct owners, not syndicated copies: `minIndependentTier1Outlets`) stating it as fact. The Sonnet verifier must agree. If the verifier is unavailable, the item holds and goes to the owner queue (D4). Then site, push and social as for critical_breaking, with warm, factual copy. Push: baby_watch (pregnancy or birth only) or T2 relationship_news (engagement or marriage).
 - **Redlines:** confirmed-only. No rumor, countdown or clue content, and no theory or weaving. The location, health-detail and minors gates stay.
 - **Go-live:** 14, last, and only after the owner merges the guardrails PR.
 
@@ -82,7 +82,7 @@ All thresholds are probabilities unless stated otherwise. "Act" is the Jev confi
 - **Negative:** a fan-made lyric video on a personal channel (noise). An unofficial reupload of the official video (duplicate).
 - **Questions:** `q_class`, `q_urgency`.
 - **Thresholds:** act at P >= 0.85.
-- **Action:** a live card using the YouTube thumbnail, a Vault intake issue labeled video-drop (embedded within 24 h), and a priority same-day social slot under the normal cap. Push: T1 song_drop for new music, T2 official_youtube for videos. A brand-new song or album is also critical_breaking.
+- **Action:** a live card using the YouTube thumbnail, a Vault intake issue labeled video-drop (embedded within 24 h), and a priority same-day social slot under the normal cap. Push: T2 official_youtube for videos from a verified official channel id. A brand-new song or album is also critical_breaking. A T1 push (song_drop) happens only through critical_breaking's code fact-check plus Sonnet verifier (D4), never from this class directly.
 - **Redlines:** the global ones only.
 - **Go-live:** 8.
 
@@ -92,7 +92,7 @@ All thresholds are probabilities unless stated otherwise. "Act" is the Jev confi
 - **Negative:** a resale-price listicle (noise). A fan's "I heard more dates are coming" post (rumor).
 - **Questions:** `q_class`, `q_official`.
 - **Thresholds:** act at P >= 0.85.
-- **Action:** new dates or a sale opening are handled as critical_breaking (fact-check, verifier, fast path, the D4 hold). Anything else is normal_news with the tour category. Push: T1 tour_news when confirmed. countdown_target_at is set when there is a sale time.
+- **Action:** new dates or a sale opening are handled as critical_breaking (fact-check, verifier, fast path, the D4 hold). Anything else is normal_news with the tour category. A T1 push (tour_news) happens only through critical_breaking's code fact-check plus Sonnet verifier (D4), never from this class directly. countdown_target_at is set when there is a sale time.
 - **Redlines:** the global ones. The critical path inherits critical_breaking's redlines.
 - **Go-live:** 9. The critical path waits for critical_breaking's stages.
 
@@ -171,7 +171,7 @@ All thresholds are probabilities unless stated otherwise. "Act" is the Jev confi
 - **Positive:** an outlet corrects a date we showed on a live card. An official denial of a date we reported.
 - **Negative:** a new report that supports our item (corroboration). An unrelated story about the same album.
 - **Questions:** `q_contradicts`.
-- **Thresholds:** act at P >= 0.80. Haiku always confirms, and then the Sonnet verifier must agree.
+- **Thresholds:** act at P >= 0.80. Haiku always confirms, and then the Sonnet verifier must agree. If the verifier is unavailable, the item holds and goes to the owner queue (D4).
 - **Action:** the retraction path: hide the card (status debunked), kill pending pushes, send a correction push only to devices that got the original, delete or correct the social posts, and log it.
 - **Redlines:** a model answer never acts alone.
 - **Go-live:** 11, after critical_breaking's site stage (10), because it needs the retraction path (items P2-07 and P2-08). The critical push and social stages come after it.
