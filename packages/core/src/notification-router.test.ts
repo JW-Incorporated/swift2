@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { dispatchPendingEvents } from './notification-router';
+import { STALE_AFTER_MS, dispatchPendingEvents, staleAfterMs } from './notification-router';
 import * as sender from './notification-sender';
 
 afterEach(() => {
@@ -22,6 +22,7 @@ function makeFakeDb(fixture: {
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
   const clearedTokenDeviceIds: string[] = [];
+  const expiredEventIds: string[] = [];
 
   function queryBuilder(table: string) {
     const state: { filters: Array<(row: Record<string, unknown>) => boolean>; countOnly: boolean } =
@@ -107,6 +108,14 @@ function makeFakeDb(fixture: {
         if (table === 'devices' && 'push_token' in patch) clearedTokenDeviceIds.push(...vals);
         return Promise.resolve({ data: null, error: null });
       },
+      eq: (_col: string, value: string) => {
+        if (table === 'events' && 'expires_at' in patch) {
+          const event = fixture.events.find((row) => row.id === value);
+          if (event) Object.assign(event, patch);
+          expiredEventIds.push(value);
+        }
+        return Promise.resolve({ data: null, error: null });
+      },
     })) as (...args: unknown[]) => unknown;
 
     return api;
@@ -116,9 +125,11 @@ function makeFakeDb(fixture: {
     from: vi.fn((table: string) => queryBuilder(table)),
     _insertedDeliveries: insertedDeliveries,
     _clearedTokenDeviceIds: clearedTokenDeviceIds,
+    _expiredEventIds: expiredEventIds,
   } as unknown as SupabaseClient & {
     _insertedDeliveries: Array<Record<string, unknown>>;
     _clearedTokenDeviceIds: string[];
+    _expiredEventIds: string[];
   };
 }
 
@@ -177,6 +188,76 @@ describe('dispatchPendingEvents', () => {
     expect(sendSpy).not.toHaveBeenCalled();
     expect(logSpy).toHaveBeenCalledWith(
       'notification-router: PUSH_FREEZE could not be read; dispatch skipped: unavailable',
+    );
+  });
+
+  it('expires an event that is four hours past available_at after PUSH_FREEZE lifts', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-stale',
+          category: 'song_drop',
+          tier: 1,
+          title: 'Old news',
+          body: 'Do not send',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 4 * 60 * 60 * 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+      opsSwitches: [{ name: 'PUSH_FREEZE', enabled: false }],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+    const logSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.sent).toBe(0);
+    expect(result.eventsSkippedExpired).toBe(1);
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(db._expiredEventIds).toEqual(['evt-stale']);
+    expect(logSpy).toHaveBeenCalledWith(
+      'notification-router: expired 1 stale events older than 3h',
+    );
+  });
+
+  it('sends an event that is ten minutes past available_at', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-recent',
+          category: 'song_drop',
+          tier: 1,
+          title: 'New song',
+          body: 'Out now',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 10 * 60 * 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+    });
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
+    ]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.sent).toBe(1);
+  });
+
+  it('falls back to the three-hour staleness cutoff for an invalid environment value', () => {
+    expect(staleAfterMs({ NOTIFICATION_STALE_AFTER_MS: 'not-a-duration' })).toBe(
+      STALE_AFTER_MS,
     );
   });
 
@@ -321,7 +402,7 @@ describe('dispatchPendingEvents', () => {
   });
 
   it('ACCEPTANCE: a quiet-hours event is held (queues), not sent or dropped', async () => {
-    const now = new Date('2026-01-15T07:00:00Z'); // 23:00 PST prior day -> inside 22-8 quiet hours
+    const now = new Date('2026-01-15T15:50:00Z'); // 07:50 PST -> inside 22-8 quiet hours
     const db = makeFakeDb({
       events: [
         {
@@ -350,7 +431,7 @@ describe('dispatchPendingEvents', () => {
     // Re-running the dispatch after quiet hours end (same event, still no
     // delivery row logged) delivers it — "queue and deliver at quiet-hours
     // end" without a separate digest_queue table (Phase 3 scope).
-    const afterQuietHours = new Date('2026-01-15T20:00:00Z'); // noon PST
+    const afterQuietHours = new Date('2026-01-15T16:00:00Z'); // 08:00 PST
     vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
       { ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' },
     ]);

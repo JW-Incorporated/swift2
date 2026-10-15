@@ -73,6 +73,18 @@ interface DeviceRow {
 
 const PENDING_EVENT_LIMIT = 200;
 const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
+export const STALE_AFTER_MS = 3 * 60 * 60 * 1000;
+const STALE_AFTER_ENV = 'NOTIFICATION_STALE_AFTER_MS';
+
+export function staleAfterMs(
+  env: Record<string, string | undefined> = process.env,
+): number {
+  const configured = env[STALE_AFTER_ENV];
+  if (!configured) return STALE_AFTER_MS;
+
+  const parsed = Number(configured);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : STALE_AFTER_MS;
+}
 
 /**
  * One dispatch pass: loads events whose `available_at` has arrived (every
@@ -133,10 +145,24 @@ export async function dispatchPendingEvents(
     return result;
   }
 
+  const staleAfter = staleAfterMs();
+  let staleExpired = 0;
   for (const event of (events ?? []) as RouterEventRow[]) {
     result.eventsConsidered++;
     if (event.expires_at && new Date(event.expires_at).getTime() < now.getTime()) {
       result.eventsSkippedExpired++;
+      continue;
+    }
+    if (now.getTime() - new Date(event.available_at).getTime() > staleAfter) {
+      const { error: expireError } = await db
+        .from('events')
+        .update({ expires_at: now.toISOString() })
+        .eq('id', event.id);
+      if (expireError) {
+        result.errors.push(`could not expire stale event ${event.id}: ${expireError.message}`);
+      }
+      result.eventsSkippedExpired++;
+      staleExpired++;
       continue;
     }
     try {
@@ -144,6 +170,12 @@ export async function dispatchPendingEvents(
     } catch (err) {
       result.errors.push(`dispatch failed for event ${event.id}: ${(err as Error).message}`);
     }
+  }
+
+  if (staleExpired > 0) {
+    console.warn(
+      `notification-router: expired ${staleExpired} stale events older than ${staleAfter / (60 * 60 * 1000)}h`,
+    );
   }
 
   return result;
