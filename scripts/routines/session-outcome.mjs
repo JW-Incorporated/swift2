@@ -163,10 +163,15 @@ export function decideOutcome(rawLog, { maxTurns, now, stepOutcome } = {}) {
   return { pass: false, message: parts.join(' · ') };
 }
 
-export function weeklyLimitIssueBody({ detectedAt, parsed, resetAt }) {
+export function weeklyLimitIssueBody({ detectedAt, parsed, resetAt, backupResetAt, existingBody }) {
+  if (backupResetAt && existingBody) {
+    return String(existingBody).replace(/^claude-weekly-limit-reset-backup:.*\r?\n?/im, '')
+      .replace(/^claude-weekly-limit-reset:.*$/im, `$&\nclaude-weekly-limit-reset-backup: ${backupResetAt}`);
+  }
   return [
     '<!-- claude-weekly-limit -->',
     `claude-weekly-limit-reset: ${resetAt}`,
+    ...(backupResetAt ? [`claude-weekly-limit-reset-backup: ${backupResetAt}`] : []),
     `claude-weekly-limit-detected: ${detectedAt}`,
     `claude-weekly-limit-parse: ${parsed ? 'exact' : 'fallback-6h'}`,
     '',
@@ -198,7 +203,7 @@ async function githubRequest(pathname, { body, method = 'GET', token } = {}) {
   return response.json();
 }
 
-async function syncWeeklyLimitIssue(limit) {
+async function syncWeeklyLimitIssue(limit, tokenSource) {
   const token = process.env.GH_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY;
   if (!token || !repository) throw new Error('missing GitHub issue context');
@@ -229,7 +234,7 @@ async function syncWeeklyLimitIssue(limit) {
     );
   let issues = await listOpen();
   const title = `Claude weekly limit — resets ${limit.resetAt}`;
-  const body = weeklyLimitIssueBody(limit);
+  let body = weeklyLimitIssueBody({ ...limit, backupResetAt: tokenSource === 'backup' ? limit.resetAt : null });
   if (issues.length === 0) {
     const created = await githubRequest(`${base}/issues`, {
       method: 'POST',
@@ -240,6 +245,9 @@ async function syncWeeklyLimitIssue(limit) {
   }
   const { keeper, duplicates } = dedupeWeeklyLimitIssues(issues);
   if (!keeper) throw new Error('weekly-limit issue was not returned after creation');
+  body = weeklyLimitIssueBody({
+    ...limit, backupResetAt: tokenSource === 'backup' ? limit.resetAt : null, existingBody: keeper.body,
+  });
   await githubRequest(`${base}/issues/${keeper.number}`, {
     method: 'PATCH',
     token,
@@ -272,7 +280,7 @@ async function main() {
   if (pass) {
     if (weeklyLimit) {
       try {
-        await syncWeeklyLimitIssue(weeklyLimit);
+        await syncWeeklyLimitIssue(weeklyLimit, process.env.TOKEN_SOURCE);
       } catch {
         console.log('::warning::weekly limit detected, but its tracking issue could not be updated');
       }
