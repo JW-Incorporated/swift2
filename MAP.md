@@ -352,6 +352,7 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
 | `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
+| `scripts/notifications-kill.mjs` (+ test) | Owner kill switch for freeze-held events at every tier: paginates events and instant deliveries, lists only undelivered/un-killed rows, defaults kills to dry-run, and requires `--apply` to write |
 
 `apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
 alone satisfies Phase 0's "fresh install registers a devices row"
