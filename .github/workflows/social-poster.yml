@@ -441,17 +441,29 @@ jobs:
       # generic stuck-PR check already surfaces a PR wedged on a failing or
       # missing check.
       #
-      # ONE rolling PR (P0-05, architect ruling 2026-10-15), not one PR per
-      # run: this run's state commit is built on the run-start main HEAD, then
-      # `git merge-tree --write-tree` merges it with the rolling branch's tip
-      # into a two-parent commit (tip, HEAD). Every push is therefore a plain
-      # fast-forward, the open PR is edited in place, and an earlier run's
-      # still-unmerged changes (queue deletions included) are carried, never
-      # dropped. Closing superseded per-run PRs was rejected: an already-posted
-      # item is skipped as a duplicate and left in the queue, so no later run
-      # recomputes an earlier run's queue deletion. A merge-tree conflict (or
-      # no common history, or a rejected push) falls back to the old
-      # timestamped PR for this run with a ::warning:: — nothing is lost.
+      # ONE rolling PR (P0-05, architect ruling 2026-10-15 + PM ruling), not
+      # one PR per run. This run's state commit is built on the run-start main
+      # HEAD; every push to the rolling branch is a plain fast-forward commit
+      # with parents (tip, HEAD) — never a force push, never a branch delete
+      # (merged state branches are not deleted on this repo):
+      #   - no branch yet: this run's state commit seeds it;
+      #   - an OPEN rolling PR: `git merge-tree` merges the tip with this run's
+      #     commit, so an earlier run's still-unmerged changes (queue
+      #     deletions included) are carried, never dropped. Closing superseded
+      #     per-run PRs was rejected: an already-posted item is skipped as a
+      #     duplicate and left in the queue, so no later run recomputes an
+      #     earlier run's queue deletion. Where both changed the same
+      #     queue/posted/failed file (a retry while the PR is unmerged), this
+      #     run's newer version wins with a ::warning:: — a second PR for that
+      #     run would change the same lines, so whichever merged second would
+      #     be stuck forever;
+      #   - NO open PR (merged — squash, so the tip never becomes an ancestor
+      #     of main — or closed unmerged): the tip's history is spent and the
+      #     tree is this run's own. A closed PR's unmerged changes are dropped
+      #     (social/README.md says why that is safe and what it costs).
+      # Anything else (no common history, a conflict outside the state dirs, a
+      # failed fetch/list/push) falls back to the old timestamped PR for this
+      # run with a ::warning::.
       - name: Prepare fold-back PR metadata
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
@@ -481,12 +493,15 @@ jobs:
       # git half of the rolling fold-back; touches neither HEAD, the branch nor
       # the real index (scratch index + commit-tree), so the fallback step can
       # still commit this checkout's diff exactly as before. The state commit
-      # holds ONLY queue/posted/failed: social/feedback is folded back by
-      # social-approval-poll.yml, and its append-only rows would make every
-      # merge-tree conflict while a rolling PR is open.
+      # holds ONLY queue/posted/failed: social-approval-poll.yml folds the
+      # full social-ledger copy of social/feedback into main on every poll
+      # run, so this step carrying it too was a duplicate path, and its
+      # append-only rows conflict under merge-tree.
       - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
         id: rolling
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -514,18 +529,41 @@ jobs:
           elif [ "$LS_STATUS" -ne 0 ]; then
             fallback "could not read $rolling_branch from origin"
           else
+            OPEN_PR=$(gh pr list --head "$rolling_branch" --base main --state open --json number --jq '.[0].number // empty') || fallback "could not list open PRs for $rolling_branch"
             git fetch --quiet --depth=20 origin "+refs/heads/$rolling_branch:refs/remotes/origin/$rolling_branch" || fallback "could not fetch $rolling_branch"
             TIP=$(git rev-parse --verify "refs/remotes/origin/$rolling_branch^{commit}")
-            # merge-tree needs the common ancestor (the main commit the tip was
-            # last built on). The checkout is shallow, so deepen main, bounded,
-            # until its history meets the tip's.
-            for DEEPEN in 50 200 1000; do
-              git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 && break
-              git fetch --quiet --deepen="$DEEPEN" origin main || break
-            done
-            git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 || fallback "no common history with $rolling_branch"
-            MERGED_TREE=$(git merge-tree --write-tree "$TIP" "$STATE_COMMIT") || fallback "merge-tree conflict between this run's state and $rolling_branch"
-            NEW_COMMIT=$(git commit-tree "$MERGED_TREE" -p "$TIP" -p HEAD -m "$commit_message")
+            NEW_TREE="$STATE_TREE"
+            if [ -n "$OPEN_PR" ]; then
+              # merge-tree needs the common ancestor (the main commit the tip
+              # was last built on). The checkout is shallow, so deepen main,
+              # bounded, until its history meets the tip's.
+              for DEEPEN in 50 200 1000; do
+                git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 && break
+                git fetch --quiet --deepen="$DEEPEN" origin main || break
+              done
+              git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 || fallback "no common history with $rolling_branch"
+              # Path-by-path (no rename detection: a queue item and its posted
+              # record must never be paired up and merged into each other).
+              MERGE_STATUS=0
+              git merge-tree --write-tree --no-messages --name-only -z -X no-renames "$TIP" "$STATE_COMMIT" > "$SCRATCH_INDEX_DIR/merge" || MERGE_STATUS=$?
+              [ "$MERGE_STATUS" -le 1 ] || fallback "merge-tree failed against $rolling_branch"
+              CONFLICTED=()
+              { IFS= read -r -d '' NEW_TREE; while IFS= read -r -d '' P; do CONFLICTED+=("$P"); done; } < "$SCRATCH_INDEX_DIR/merge"
+              if [ "${#CONFLICTED[@]}" -gt 0 ]; then
+                for P in "${CONFLICTED[@]}"; do
+                  case "$P" in
+                    social/queue/*|social/posted/*|social/failed/*) ;;
+                    *) fallback "merge-tree conflict outside the social state dirs ($P) against $rolling_branch" ;;
+                  esac
+                done
+                GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git read-tree "$NEW_TREE"
+                GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --force-remove -- "${CONFLICTED[@]}"
+                git ls-tree -r "$STATE_TREE" -- "${CONFLICTED[@]}" | GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --index-info
+                NEW_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git write-tree)
+                echo "::warning::social-poster: this run and the open rolling PR both changed ${CONFLICTED[*]} — kept this run's newer version so the one PR stays mergeable."
+              fi
+            fi
+            NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$TIP" -p HEAD -m "$commit_message")
           fi
           git push --quiet origin "$NEW_COMMIT:refs/heads/$rolling_branch" || fallback "push to $rolling_branch was rejected"
           echo "mode=rolling" >> "$GITHUB_OUTPUT"

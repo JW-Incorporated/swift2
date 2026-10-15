@@ -89,11 +89,23 @@ because a PR failed to land. One rolling `social-poster/state-rolling` PR into
 `main` still runs afterward (same allowlist mechanics as before — `.github/
 content-automerge-allowlist.txt` covers `social/posted/`/`social/failed/`
 as machine bookkeeping — `queue/` auto-merges too, per the no-human-review
-note above) and is edited in place, not reopened per run (P0-05): each run's
-state commit is built on the run-start `main`, merged with the branch tip by
-`git merge-tree` and pushed as a fast-forward, so an earlier unmerged run's
-changes (queue deletions included) ride along. A merge conflict falls back to
-a timestamped `social-poster/state-*` PR for that one run, with a
+note above) and is edited in place, not reopened per run (P0-05). Each run's
+state commit is built on the run-start `main` and pushed as a fast-forward
+with parents (branch tip, `main`): never forced, and the branch is never
+deleted. While the PR is open, `git merge-tree` merges the tip in, so an
+earlier unmerged run's changes (queue deletions included) ride along; a file
+both changed (a retry while the PR is unmerged) keeps this run's newer
+version, with a `::warning::`, because a second PR changing the same lines
+would leave whichever merged second stuck forever. With no open PR (merged,
+or closed unmerged) the tree is this run's own and a fresh PR opens. **A PR
+closed unmerged drops its state changes.** Nothing can post twice: its
+posted/failed records live on `social-ledger` and return with the next run's
+overlay, and an already-posted queue item is skipped as a duplicate (#5857).
+But its queue deletions are lost: that item stays queued on `main`, and once
+24h overdue its skip turns every run red until the file is removed by hand.
+So merge, never close. Anything else the poster can't fold (no common
+history, a conflict outside the state dirs, a failed fetch or push) falls
+back to a timestamped `social-poster/state-*` PR for that run, with a
 `::warning::`. Either way it's
 VISIBILITY-only now: it keeps `main`'s own copy current for humans and for
 `check-drafts.mjs`'s recent-history heuristics, and a stuck one is a
