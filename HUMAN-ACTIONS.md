@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-15 -->
+<!-- marjorie-chase: 96h issue=5508 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (Official "Patient Zero" video is missing from the Showgirl videos rail — intake closed as…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5508 under stalled.
 
 ## #121 🔴 [BLOCKING] Fix routine-tree-weekly-plan's turn-ceiling failure (~10 min)
 <!-- ha filed=2026-10-11 -->
