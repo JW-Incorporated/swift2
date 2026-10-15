@@ -94,8 +94,8 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P2-01 | Shadow calibration review and per-class go/no-go | claude-opus | S | L-TIDE-SPEC | P1-06, P1-04, P1-07 | todo |  |  |
-| P2-02 | Action router | codex | L | L-TIDE | P1-06 | todo |  |  |
-| P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | todo |  |  |
+doing  |  |
+doing  |  |
 | P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
 | P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | todo |  |  |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
@@ -342,6 +342,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+000y. 18:37: ARCHITECT #11 RESULT (Fable; the PM agrees): CONDITIONAL GO for P2 BUILD-ONLY inert items: P2-02 (router, shadow-write only), P2-03 (fact-check), P2-05 and P2-07 code (push stays off, HA #129). NOT P2-04/06/08/09/10/11/12/13. Conditions: P2-03 imports P1-08c corroboration, no change to the bar; relabel the critical/official_drop boundary and property→privacy_redline BEFORE measuring, reporting both sets; every new path behind a default-off switch with a CI no-side-effect test. Before ANY P2 item goes live: P1 Done-when met (HA #124, #131, 7 days, 500 decisions), the P2-12 drill passed, HA #129 push on, D4 staged order. Wrong-signal: router vs classifier disagreement > 10% → stop and re-examine labels. Dispatched P2-02 (Codex high; owner-only live switch) and P2-03 (Codex xhigh; a rule-based relabel script plus both-set eval). Next: P2-05, P2-07 (L-NOTIFY / L-FACT after P2-03).
 000x. 18:35: #5945 (P1-08c) MERGED → done (fixes #5938). ARCHITECT #11 (mandatory: the P1→P2 gate): may P2 build-only (inert) work start before P1 acceptance (which waits on HA #124/#131 plus days)? P2-03 is held until the ruling.
 000w. 18:34: P1-28d APPROVE → #5947 armed (held photos are skipped by the importer, never written; no workflow uses ANTHROPIC_API_KEY; P3 with no backup). LOWs: the importer warning wording "API error or no key"; an orphaned warn option. AFTER #5947: the API key is used only by the Mood/Clown runtime (HA #132).
 000v. 18:31: P1-28d pushed cc051d4c6 by a Claude executor (photo-qc at sonnet P3, buffers, failed checks HOLD; the workflow is on the OAuth token; the P1-28c LOWs fixed; no workflow references ANTHROPIC_API_KEY anymore; the remaining refs are the Mood/Clown runtime (HA #132), guards, tests, docs; suite 12,691) → Sonnet review.
