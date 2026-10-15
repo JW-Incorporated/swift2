@@ -28,6 +28,33 @@ interface ExistingSourceRow {
   tier: SourceTier;
 }
 
+type StorySourceRow = ReturnType<typeof planStorySources>['rows'][number];
+
+const TIER_RANK: Record<SourceTier, number> = {
+  unverified: 0,
+  fan: 1,
+  established: 2,
+  official: 3,
+};
+
+function collapseConflictRows(rows: StorySourceRow[]): StorySourceRow[] {
+  const winners = new Map<string, StorySourceRow>();
+  for (const row of rows) {
+    const key = `${row.story_id}\u0000${row.outlet_name}`;
+    const current = winners.get(key);
+    const preferred = !current ||
+      TIER_RANK[row.tier] > TIER_RANK[current.tier] ||
+      (row.tier === current.tier && (
+        row.url.localeCompare(current.url) < 0 ||
+        (row.url === current.url && (row.raw_item_id ?? '').localeCompare(current.raw_item_id ?? '') < 0)
+      ));
+    if (preferred) winners.set(key, row);
+  }
+  return [...winners.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, row]) => row);
+}
+
 function candidateFromRaw(storyId: string, raw: RawItemRow): StorySourceCandidate {
   return {
     storyId,
@@ -110,10 +137,11 @@ export async function recordStorySources(
     });
     candidates.push(...existing.map((row) => existingCandidate(row, rawById)));
     const plan = planStorySources(candidates);
-    if (plan.rows.length > 0) {
+    const rows = collapseConflictRows(plan.rows);
+    if (rows.length > 0) {
       const { error } = await db
         .from('news_story_source')
-        .upsert(plan.rows, { onConflict: 'story_id,outlet_name' });
+        .upsert(rows, { onConflict: 'story_id,outlet_name' });
       if (error) throw new Error(error.message);
     }
     if (plan.deleteIds.length > 0) {
