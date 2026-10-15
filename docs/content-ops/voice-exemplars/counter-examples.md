@@ -38,3 +38,9 @@ Format: `- <id> | <source> | <text>`, one entry per line. See README.md for the 
 - CX-32 | written counter-example (subtle) | Lover is a colorful and optimistic album that explores themes of love and commitment. Its title track is a slow, romantic waltz that has become a fan favorite.
 - CX-33 | written counter-example (subtle) | Taylor has re-recorded several of her albums. This is significant because it gives her ownership of her music, and many fans have shown support by streaming the new versions.
 - CX-34 | written counter-example (subtle) | Easter eggs are a big part of the fan experience. From colors to numbers, there is often more than meets the eye, and fans enjoy discovering these hidden details together.
+- CX-35 | written counter-example (subtle) | did you know: folklore has 16 tracks on the standard edition. it came out in 2020 and a lot of people really liked it. pretty cool how that happened
+- CX-36 | written counter-example (subtle) | did you know: Taylor's Eras Tour ran for 149 shows across 5 continents. that is a lot of shows and a lot of travel. fans had a great time
+- CX-37 | written counter-example (subtle) | honestly 1989 came out in 2014 and sold 1.28 million copies in its first week. that is a big number. lots of fans bought it
+- CX-38 | written counter-example (subtle) | fun fact: Red has 22 tracks on the deluxe edition. there are a lot of songs on it and each one is different. worth a listen
+- CX-39 | written counter-example (subtle) | did you know: Midnights has 13 songs and came out in 2022. it was a popular album and many people streamed it. nice to see
+- CX-40 | written counter-example (subtle) | so reputation dropped in 2017 with 15 songs on it. it was a big moment for fans and people talked about it a lot. pretty interesting

@@ -45,6 +45,14 @@ function fake(scoreFor: (id: string, text: string, call: number) => number | Sco
 const quiet = { log: () => undefined };
 const item = (id: string) => ({ id, text: `text ${id}` });
 
+describe('scoreItems non-array results', () => {
+  it('treats a non-iterable results field as missing ids without throwing', async () => {
+    const call = vi.fn(async () => ({ status: 'ok', data: { results: { not: 'a list' } } }));
+    const out = await scoreItems([item('a')], { call, ...quiet });
+    expect(out[0]).toMatchObject({ id: 'a', status: 'not_scored' });
+  });
+});
+
 describe('scoreItems', () => {
   it('sends the strict schema, the Haiku model and a non-backup priority', async () => {
     const call = fake(() => 4);
