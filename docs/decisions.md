@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Scripted Claude calls use one capped headless runner (P1-09)
+
+**Decision.** Scripted callers use `scripts/lib/claude-call.mjs` for one never-throwing Claude Code print-mode call on subscription tokens. The installed Claude Code version was verified as **2.1.300**; its help confirms the runner's flags: `-p`, `--max-turns 1`, `--output-format json`, `--tools ""`, `--no-session-persistence`, `--model`, `--system-prompt`, and `--json-schema`. Per-run call and estimated-input caps apply before spawn; P0/P1 alone may use the backup when the shared selector reports either the primary weekly or five-hour limit active. Usage records tokens per model plus one call, never dollars.
+
+**Why.** This implements the owner's revised D1 without the Anthropic API, cache controls, Batch API, or dollar caps. The one-call Haiku 5.5 smoke used 19,116 input and 162 output tokens for a roughly 1,900-token prompt, confirming that headless harness overhead is material and must be watched in the usage ledger.
+
+---
+
 ## 2026-10-14 — Tidewatch data model (P1-02)
 
 **Decision.** Tidewatch owns five service-role-only tables: `watch_item` for seen-content fingerprints and counts, `watch_decision` for the complete classification/action audit trail, `watch_cursor` for per-source collection progress, `story_timeline` for the timestamps used to measure detection and publishing SLAs, and `llm_usage` for per-caller provider/model/token usage and estimated cost. Noise items expire after 30 days, other seen items after 180 days, and shadow decisions after 365 days; timelines and usage rows are retained (implemented in a follow-up; not in this PR).
