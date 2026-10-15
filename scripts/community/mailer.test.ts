@@ -130,6 +130,28 @@ describe('destinationLine', () => {
 });
 
 describe('renderLeadCard', () => {
+  it('links facebook fallbacks to a group search and preserves a real post url', () => {
+    const fallback = renderLeadCard(
+      lead({
+        platform: 'facebook',
+        community: 'facebook:taylor-swifts-vault',
+        locator: "Taylor Swift's Vault — The first photos from a surprise performance",
+        url: null,
+      }),
+      { ackSecret: null },
+    );
+    expect(fallback).toContain(
+      'href="https://www.facebook.com/groups/2254218764714763/search/?q=first%20photos%20surprise%20performance"',
+    );
+
+    const url = 'https://www.facebook.com/groups/2254218764714763/posts/987654/';
+    const permalink = renderLeadCard(
+      lead({ platform: 'facebook', community: 'facebook:taylor-swifts-vault', url }),
+      { ackSecret: null },
+    );
+    expect(permalink).toContain(`href="${url}"`);
+  });
+
   it('includes the draft text and both ack links when a secret is given', () => {
     const html = renderLeadCard(lead(), { ackSecret: 'secret' });
     expect(html).toContain('A paste-ready reply.');

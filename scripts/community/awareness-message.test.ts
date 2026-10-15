@@ -198,7 +198,7 @@ describe('Facebook leads without a post url', () => {
   it('links the communities.json group and a group search built from the excerpt', () => {
     const first = firstLine(fb());
     expect(first).toBe(
-      "Find it in: [Taylor Swift's Vault](<https://www.facebook.com/groups/2254218764714763/>) — which era has the best bridge · [search](<https://www.facebook.com/groups/2254218764714763/search/?q=which%20era%20has%20the%20best%20bridge>)",
+      "Find it in: [Taylor Swift's Vault](<https://www.facebook.com/groups/2254218764714763/>) — which era has the best bridge · [search](<https://www.facebook.com/groups/2254218764714763/search/?q=which%20era%20best%20bridge>)",
     );
   });
 
