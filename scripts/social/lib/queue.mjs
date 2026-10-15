@@ -437,6 +437,37 @@ export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}
   return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval };
 }
 
+export const LAST_ERROR_MAX_LENGTH = 200;
+
+/**
+ * Short, credential-free form of an error message for `lastError`: URLs
+ * (which can carry tokens in query strings), Bearer/token-looking values and
+ * `key=value` secrets are redacted, whitespace collapsed, length capped.
+ */
+export function sanitizeLastError(error) {
+  const text = String(error?.message ?? error ?? '')
+    .replace(/\bhttps?:\/\/\S+/gi, '[url]')
+    .replace(/\bBearer\s+\S+/gi, 'Bearer [redacted]')
+    .replace(/\b(access_token|token|api[_-]?key|secret|password|signature|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length > LAST_ERROR_MAX_LENGTH ? `${text.slice(0, LAST_ERROR_MAX_LENGTH - 1)}…` : text;
+}
+
+/**
+ * The record written to social/failed/: the item plus `failedAt` (ISO time of
+ * the move), `attempts` (kept from the item, 0 if it never attempted a post —
+ * e.g. stale or invalid scheduledAt) and a sanitized `lastError`.
+ */
+export function withFailureMetadata(item, { now = new Date(), error } = {}) {
+  return {
+    ...item,
+    failedAt: now.toISOString(),
+    attempts: item.attempts ?? 0,
+    lastError: sanitizeLastError(error ?? item.lastError ?? item.failureReason ?? 'unknown'),
+  };
+}
+
 /**
  * The exact content-bound payload an `approval.contentHash` covers
  * (docs/social/RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes

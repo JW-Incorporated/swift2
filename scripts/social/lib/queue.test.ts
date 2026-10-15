@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   isDue,
+  sanitizeLastError,
+  withFailureMetadata,
   isValidScheduledAt,
   selectDuePosts,
   summarizeQueueStatus,
@@ -673,5 +675,27 @@ describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec
     // indifferent to it either way, the strongest form of "not hashed."
     const drifted = { ...stamped, critique: critiqueB };
     expect(approvalStatus(drifted, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+});
+
+describe('failure metadata for social/failed/ records', () => {
+  const now = new Date('2026-10-15T12:00:00Z');
+
+  it('adds failedAt, attempts and a short lastError', () => {
+    const out = withFailureMetadata({ platform: 'x', attempts: 2 }, { now, error: new Error('HTTP 403 forbidden') });
+    expect(out).toMatchObject({ failedAt: '2026-10-15T12:00:00.000Z', attempts: 2, lastError: 'HTTP 403 forbidden' });
+  });
+
+  it('defaults attempts to 0 and falls back to the item lastError', () => {
+    const out = withFailureMetadata({ platform: 'x', lastError: 'earlier' }, { now });
+    expect(out.attempts).toBe(0);
+    expect(out.lastError).toBe('earlier');
+  });
+
+  it('redacts URLs and credentials and caps the length', () => {
+    const msg = 'POST https://api.x.com/2/tweets?access_token=abc123 failed; Bearer sk-live-999 token=zzz';
+    const clean = sanitizeLastError(msg);
+    expect(clean).not.toMatch(/https?:|abc123|sk-live-999|zzz/);
+    expect(sanitizeLastError('x'.repeat(500)).length).toBeLessThanOrEqual(200);
   });
 });

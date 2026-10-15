@@ -15,14 +15,24 @@ const read = (rel: string) => readFileSync(join(ROOT, ...rel.split('/')), 'utf8'
 describe('social-poster.yml — social-ledger direct-push dedupe (issue #2040)', () => {
   const wf = read('.github/workflows/social-poster.yml');
 
-  it('defines LEDGER_BRANCH and STATE_BRANCH_PREFIX exactly once each, as shared env vars', () => {
+  it('folds back onto ONE fixed branch that still matches the auto-merge state-branch gate', async () => {
+    const { STATE_BRANCH_PREFIX } = await import('../automerge-social-approval-gate.mjs');
+    expect(wf).toContain('STATE_BRANCH: social-poster/state-rolling');
+    expect('social-poster/state-rolling'.startsWith(STATE_BRANCH_PREFIX)).toBe(true);
+    expect(wf).not.toContain('date -u +%Y%m%d%H%M%S');
+    expect(wf).not.toContain('uses: ./.github/actions/commit-and-pr');
+    expect(wf).toContain('gh pr list --head "$branch"');
+    expect(wf).toContain('gh pr edit "$EXISTING"');
+  });
+
+  it('defines LEDGER_BRANCH and STATE_BRANCH exactly once each, as shared env vars', () => {
     // Two independent branch-naming schemes now share this file — the ledger
     // branch dedupe correctness reads from/writes to, and the throwaway
     // state-PR branches behind the now-visibility-only fold-back PR. Each
     // must be defined in exactly one place so a rename can't silently
     // desync a reader from a writer.
     expect(wf).toContain('LEDGER_BRANCH: social-ledger');
-    expect(wf).toContain('STATE_BRANCH_PREFIX: social-poster/state-');
+    expect(wf).toContain('STATE_BRANCH: social-poster/state-rolling');
     const stateLiteralCount = wf.split('social-poster/state-').length - 1;
     expect(stateLiteralCount, 'the raw state-PR prefix literal must appear ONLY in the env definition').toBe(1);
   });
