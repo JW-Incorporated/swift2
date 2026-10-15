@@ -46,6 +46,9 @@
 # than 60; 90 matches marjorie-weekly-review. The notes below explain the
 # original 60.
 #
+# `max_turns: 40` and cron every 3 h (2026-10-14, P0-02, was 90 and hourly):
+# measured as the biggest consumer, ~3,300 turns/week with 58 limit failures.
+#
 # `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
 # 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
 # ZERO durable progress against 2 simultaneously-open real alerts (#4009,
@@ -70,7 +73,7 @@ name: routine-marjorie-ops
 
 on:
   schedule:
-    - cron: "18 * * * *" # 13 min after watchdog.yml's :05 sweep
+    - cron: "18 */3 * * *" # 13 min after watchdog.yml's :05 sweep
   workflow_dispatch:
 
 permissions:
@@ -182,7 +185,7 @@ jobs:
       model: claude-sonnet-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 30
-      max_turns: 90
+      max_turns: 40
       pre_run_artifact: dispatch-chase-plan
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]

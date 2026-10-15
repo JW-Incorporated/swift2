@@ -38,7 +38,7 @@ jobs:
       routine_name: "The Vault Run"
       priority: content
       prompt_file: docs/agents/runner-prompts/vault-run.md
-      model: claude-opus-4-8
+      model: claude-opus-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,WebSearch,WebFetch,Task"
       timeout_minutes: 90
       # 4 consecutive turn-exhaustion failures Sep 7-10 (run IDs 34518339881,

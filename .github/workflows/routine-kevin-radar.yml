@@ -26,7 +26,7 @@ jobs:
     with:
       routine_name: "Kevin — S3 comment radar"
       prompt_file: docs/agents/runner-prompts/kevin-stream3-radar.md
-      model: claude-haiku-4-5-20251001
+      model: claude-haiku-5-5
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 15
       checkout_token_secret: GITHUB_TOKEN
