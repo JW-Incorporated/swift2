@@ -31,7 +31,7 @@ describe('set-switch', () => {
   });
 
   it('allows repo-backed on-only switches set to true', async () => {
-    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']) {
+    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'TIDEWATCH_FREEZE', 'CODE_SCANNING_ENABLED']) {
       const f = fakes('');
       expect((await setSwitch({ name: n, value: 'true', reason: 'brake' }, f.deps)).ok).toBe(true);
     }
@@ -57,7 +57,7 @@ describe('set-switch', () => {
   });
 
   it('refuses agents turning PUSH_FREEZE or any on-only switch off', async () => {
-    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'PUSH_FREEZE', 'CODE_SCANNING_ENABLED']) {
+    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'TIDEWATCH_FREEZE', 'PUSH_FREEZE', 'CODE_SCANNING_ENABLED']) {
       for (const v of ['false', '0', '', 'yes']) {
         const f = fakes();
         expect((await setSwitch({ name: n, value: v, reason: 'x' }, f.deps)).ok).toBe(false);

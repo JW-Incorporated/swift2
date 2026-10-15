@@ -27,6 +27,7 @@ export const INT_SWITCHES = new Set(['COMMUNITY_CRAWL_BUDGET']);
 export const FREEZE_ON_ONLY = new Set([
   'SOCIAL_FREEZE',
   'CONTENT_AUTOMERGE_FREEZE',
+  'TIDEWATCH_FREEZE',
   'PUSH_FREEZE',
   'CODE_SCANNING_ENABLED',
 ]);
@@ -47,8 +48,8 @@ export const LEDGER_PATH = resolve(
 export function validate(name, value, reason) {
   if (!/^[A-Z][A-Z0-9_]*$/.test(name ?? '')) return `invalid variable name "${name}"`;
   if (name in DENYLIST) return `${name} is founder-only: ${DENYLIST[name]}`;
-  if (DENY_FRAGMENT.test(name)) return `${name} looks like a secret/identity variable (founder-only)`;
   const known = BOOL_SWITCHES.has(name) || INT_SWITCHES.has(name) || FREEZE_ON_ONLY.has(name);
+  if (DENY_FRAGMENT.test(name) && !known) return `${name} looks like a secret/identity variable (founder-only)`;
   if (!known) return `${name} is not on the agent allowlist (founder-only)`;
   if (FREEZE_ON_ONLY.has(name)) {
     if (value !== 'true') return `${name} may only be set to "true" by agents; only the founder lifts it`;

@@ -1,11 +1,29 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { PGlite } from '@electric-sql/pglite';
+import { afterEach, describe, expect, it } from 'vitest';
 
 const sql = readFileSync(
   join(__dirname, '..', '..', 'supabase', 'migrations', '20261014010000_tidewatch.sql'),
   'utf8',
 );
+const uniquenessSql = readFileSync(
+  join(__dirname, '..', '..', 'supabase', 'migrations', '20261015030000_watch_decision_shadow_unique.sql'),
+  'utf8',
+);
+let db: PGlite | undefined;
+
+async function createDatabase() {
+  db = new PGlite();
+  await db.exec('create role anon; create role authenticated; create role service_role;');
+  await db.exec(sql);
+  return db;
+}
+
+afterEach(async () => {
+  await db?.close();
+  db = undefined;
+});
 
 describe('Tidewatch migration contract', () => {
   it('declares duplicate item_key values invalid', () => {
@@ -39,5 +57,52 @@ describe('Tidewatch migration contract', () => {
     expect(sql).toMatch(
       /grant all on table public\.watch_item, public\.watch_decision, public\.watch_cursor, public\.story_timeline, public\.llm_usage to service_role;/i,
     );
+  });
+
+  it('conditionally enforces shadow idempotency without modifying data', () => {
+    expect(uniquenessSql).not.toMatch(/\b(update|delete)\s+public\.watch_decision\b/i);
+    expect(uniquenessSql).toMatch(/if exists[\s\S]*having count\(\*\) > 1[\s\S]*raise notice/i);
+    expect(uniquenessSql).toMatch(/create unique index if not exists watch_decision_shadow_item_unique_idx[\s\S]*where shadow is true and item_id is not null/i);
+    expect(uniquenessSql).toMatch(/on conflict \(item_id\) where shadow is true and item_id is not null[\s\S]*do nothing/i);
+    expect(uniquenessSql).toMatch(/grant execute on function public\.insert_shadow_watch_decisions\(jsonb\)[\s\S]*to service_role/i);
+  });
+
+  it('creates the unique index when no duplicate shadow item links exist', async () => {
+    const database = await createDatabase();
+
+    await database.exec(uniquenessSql);
+    await database.exec(uniquenessSql);
+
+    const result = await database.query<{ indexname: string }>(`
+      select indexname from pg_indexes
+      where schemaname = 'public'
+        and indexname = 'watch_decision_shadow_item_unique_idx'
+    `);
+    expect(result.rows).toEqual([{ indexname: 'watch_decision_shadow_item_unique_idx' }]);
+  });
+
+  it('keeps duplicate rows unchanged and skips the unique index', async () => {
+    const database = await createDatabase();
+    await database.exec(`
+      insert into public.watch_item (id, item_key, source, status)
+      values ('10000000-0000-4000-8000-000000000000', 'duplicate', 'news', 'new');
+      insert into public.watch_decision
+        (id, item_id, class, confidence, decider, answers, action)
+      values
+        ('20000000-0000-4000-8000-000000000000', '10000000-0000-4000-8000-000000000000', 'noise', 1, 'code', '{"kept": 1}', 'shadow_only'),
+        ('30000000-0000-4000-8000-000000000000', '10000000-0000-4000-8000-000000000000', 'noise', 1, 'code', '{"kept": 2}', 'shadow_only');
+    `);
+
+    const before = await database.query('select id, item_id, answers from public.watch_decision order by id');
+    await database.exec(uniquenessSql);
+    const after = await database.query('select id, item_id, answers from public.watch_decision order by id');
+    const indexes = await database.query<{ indexname: string }>(`
+      select indexname from pg_indexes
+      where schemaname = 'public'
+        and indexname = 'watch_decision_shadow_item_unique_idx'
+    `);
+
+    expect(after.rows).toEqual(before.rows);
+    expect(indexes.rows).toEqual([]);
   });
 });
