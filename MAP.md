@@ -450,6 +450,16 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 |---|---|
 | `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
 
+## Tidewatch primary-source fast lane (P1-08)
+
+| Path | What |
+|---|---|
+| `apps/worker/src/sources/registry.test.ts` | Primary source inventory/adapter coverage and deliberate GDELT exclusion |
+| `apps/worker/src/sources/relevance.ts` | Per-source required-mention filter; keeps shared label feeds Taylor-only in fast and normal cycles |
+| `apps/worker/src/sources/relevance.test.ts` | Label-feed Taylor mention and unfiltered official-channel coverage |
+| `scripts/lib/reputable-sources.test.ts` | Shared/script official-source parity, including channel-id and ticketing-id URL rules |
+| `supabase/migrations/20261015000000_news_sources_primary.sql` | Seeds five first-party rows plus a distinct newest-first Google News fast-lane row; label feeds are established and Taylor-filtered |
+
 
 
 
