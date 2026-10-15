@@ -28,8 +28,9 @@ const SEVERITY = choiceQuestion('severity', 'Classify whether the comment requir
 
 const issueNumber = (url) => Number(String(url || '').match(/\/issues\/(\d+)(?:$|[/?#])/)?.[1]);
 const labelsOf = (thread) => (thread.labels || []).map((label) => typeof label === 'string' ? label : label.name);
+const ZERO_WIDTH_SPACE = String.fromCharCode(0x200b);
 const clean = (value, cap = 220) => {
-  const flat = String(value || '').replace(/[[\]`<>|*_~#]/g, '').replace(/\s+/g, ' ').trim();
+  const flat = String(value || '').replace(/[[\]`<>|*_~#]/g, '').replace(/@/g, `@${ZERO_WIDTH_SPACE}`).replace(/\s+/g, ' ').trim();
   return flat.length > cap ? `${flat.slice(0, cap - 1).trimEnd()}…` : flat;
 };
 const authorName = (login) => login === 'sffan15-sys' ? 'Joey' : clean(login, 50);
@@ -95,7 +96,7 @@ export function renderRadarBody(existingBody, findings, seen, now = new Date()) 
     const type = isPullRequest(comment.thread) ? 'PR' : 'Issue';
     const kind = classification.kind === 'review_finding' ? 'PR review finding' : 'other Stream 3 activity';
     const action = classification.severity === 'actionable'
-      ? ' · **needs Wyatt / in-session dev pass**'
+      ? ' · **needs a founder / in-session dev pass**'
       : '';
     return `**${type} #${comment.number}** — ${authorName(comment.user.login)}: ${clean(comment.body)}\n- [Comment](${comment.html_url})\n- Kind: ${kind} · Severity: ${classification.severity}${action}`;
   }).join('\n\n');
