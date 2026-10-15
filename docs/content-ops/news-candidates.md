@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 72
+
+## Taylor Swift Makes Return for 'The Encore'
+
+- first seen: 2026-10-15 09:51 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to return for her show titled 'The Encore', as reported by Old Gold & Black.
+- sources:
+  - [unverified] Old Gold & Black — https://news.google.com/rss/articles/CBMihAFBVV95cUxOUmFkSWg3dmpFaW12d09hcFkwdC1SVUtSNFhwbHBJamJvczZfZE5FbWl5VkR3ZU5uU2NEZGRBWFh4QVNGSUl0Vm5qQlVWbE9IaWc1cTRBZldQTnc1RnBzNFd0UEU5VU4tREpfaXVnaFpyWERMTFJqT2NZejczMHF5cm5FZmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jack Antonoff Discusses Taylor Swift's Midnights and Music Production
 
@@ -43,6 +51,15 @@ Stories: 71
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSVhocDJlYkZqeUZWeUtyR0hrSlFrRnlaYXF6UTZIU3ZLMmgxT1pmOUdGSG9yNTlNLTBITnI1ZWpwY2Z4N2xtUUZEd1RyaTd0dk9nMjFTN2hkNm9qYlNiTFlmaVJyNlYzdEY5VDVQUXZmZmRXeGZ4eDZPeGE4WmFsamRSTjZmNUpFRG9kdnRyNFF2SUhHV0o3dVNKUUNuSW5Sa1hnMw?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
+
+- first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
+- sources:
+  - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Al Michaels Comments on Taylor Swift's NFL Game Appearances
 
 - first seen: 2026-10-15 05:52 UTC | category: business | importance: 5
@@ -50,14 +67,6 @@ Stories: 71
 - summary: Al Michaels has voiced his concerns regarding networks excessively featuring Taylor Swift during NFL broadcasts. His remarks highlight a broader discussion on celebrity appearances in sports media.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYXJpbFhMR0ctRnJ1ZWtZX3JqVkRaX09zamhveFRKWndJenlSNHFjQnVVN081b3Fhak0yUlptRWE1OXliem5RWmpTWkswa2toNEVpVzBaSTg2d3RJYXlCcUN0VGhGRENlZzcyZ0xvQ2xHeVUzXzhvaVVldlRUZUtreE9SdllPWVE0Yy00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
-
-- first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
-- sources:
-  - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Expands Voice Trademark Filings Globally
 
@@ -115,6 +124,15 @@ Stories: 71
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMzZUYzR5LUZ2aGh5eFNmbGdzcGJqbDdRTFA3RW9HX3U3Z05vRnZ0TXFsY2Z4c1RkRzJTS2ZlUnZZdTBSRC1fb3BvaTd3LTBKN1A1M0RCN3JKLXRMLWIycnZHZldvWFNMYVc1Vy01OEZWSThIWjVsdlZMdEFfclhHVENOR25EV1JoUk1uMVhaUHVpWFp4X2twTzdBQWJjaDNGZmhybmg3MURrRmJrd3lMdnRSN3MzMDQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Kelce Brothers Talk Taylor Swift's Halloween Music
+
+- first seen: 2026-10-14 20:39 UTC | category: music | importance: 4
+- verification_status: corroborated | source_count: 2
+- summary: Jason and Travis Kelce explore the topic of whether Taylor Swift has ever created a Halloween song in a recent discussion. The conversation was featured in Billboard.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxPY2cta3dhZHhBem9uRzRybjNGSndsbTF2UzN4Rm56YlpzQ2t5R0ZpUG9IZ1lJNGpLYWE4Nm5VNl9xYjdTNFVIS1hmSkE1TTdfZXpaNFJueE1TeGpwNzhwaGRSaXRMMnpCWkx0N25vVUEzRXJSV3VpMjFFR1FTV2tMLWowbDBaMjVtMlRfYms3YkhST0RyS2hQcWZmVE9haHdTUmpIM184S2V4YmtPTG8wc0pxSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOeXJnRUNBVWk4WkFWVWhNcjlvbWowRFJZZ1VNVllBUHh3NDZQX0pOMUZNTmdpbURuRFJmU08tUXZvQ25LWVc2eWFMWVVyMVA2SFZTMUQyREJreW5VakNPV2VQOGRuY3d4a29RdmRPSE9WU1pxTjFLdXh5SmZWUFRfQVZVbkFMT1hhc1JOVVZNeGc4Z196OHlQSEc0R2ZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Kim Kardashian Responds to Taylor Swift and Travis Kelce Amid Kanye's Remarks
 
 - first seen: 2026-10-14 20:39 UTC | category: relationship | importance: 6
@@ -147,15 +165,6 @@ Stories: 71
 - summary: Taylor Swift showcased a new date night shoe from Jimmy Choo, coordinating her look with husband Travis Kelce in SoHo for his 37th birthday celebration.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-travis-kelce-birthday-1239315267/
-
-## Kelce Brothers Talk Taylor Swift's Halloween Music
-
-- first seen: 2026-10-14 20:39 UTC | category: music | importance: 4
-- verification_status: corroborated | source_count: 2
-- summary: Jason and Travis Kelce explore the topic of whether Taylor Swift has ever created a Halloween song in a recent discussion. The conversation was featured in Billboard.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxPY2cta3dhZHhBem9uRzRybjNGSndsbTF2UzN4Rm56YlpzQ2t5R0ZpUG9IZ1lJNGpLYWE4Nm5VNl9xYjdTNFVIS1hmSkE1TTdfZXpaNFJueE1TeGpwNzhwaGRSaXRMMnpCWkx0N25vVUEzRXJSV3VpMjFFR1FTV2tMLWowbDBaMjVtMlRfYms3YkhST0RyS2hQcWZmVE9haHdTUmpIM184S2V4YmtPTG8wc0pxSQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOeXJnRUNBVWk4WkFWVWhNcjlvbWowRFJZZ1VNVllBUHh3NDZQX0pOMUZNTmdpbURuRFJmU08tUXZvQ25LWVc2eWFMWVVyMVA2SFZTMUQyREJreW5VakNPV2VQOGRuY3d4a29RdmRPSE9WU1pxTjFLdXh5SmZWUFRfQVZVbkFMT1hhc1JOVVZNeGc4Z196OHlQSEc0R2ZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Emmitt Smith Discusses Taylor Swift's Influence on the NFL and Cowboys' Status
 
