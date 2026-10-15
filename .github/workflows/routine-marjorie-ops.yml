@@ -46,8 +46,8 @@
 # than 60; 90 matches marjorie-weekly-review. The notes below explain the
 # original 60.
 #
-# `max_turns: 40` and cron every 3 h (2026-10-14, P0-02, was 90 and hourly):
-# measured as the biggest consumer, ~3,300 turns/week with 58 limit failures.
+# Cadence cut to every 3 h (2026-10-14, P0-02, was hourly; measured ~3,285
+# turns/week); max_turns kept at 90 because successful runs need 60-99.
 #
 # `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
 # 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
@@ -185,7 +185,7 @@ jobs:
       model: claude-sonnet-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 30
-      max_turns: 40
+      max_turns: 90
       pre_run_artifact: dispatch-chase-plan
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]
