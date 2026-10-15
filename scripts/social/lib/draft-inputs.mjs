@@ -117,6 +117,25 @@ export function inboxSummary(intents, nowMs) {
     .map(({ file, data }) => ({ file, id: data.id, lane: data.lane, deadline: data.deadline, expired: Date.parse(data.deadline) < nowMs }));
 }
 
+const NEW_ON_SITE_RE = /^new-on-site-(\d{4}-\d{2}-\d{2})\.json$/;
+const NEW_ON_SITE_MAX = 20;
+
+/** Latest `social/inbox/new-on-site-<date>.json` (scripts/social/new-on-site.mjs): moments new on the site in the last 7 days, with media — the first thing a draft reaches for. */
+export function newOnSiteFeed(intents) {
+  const latest = (intents ?? [])
+    .filter(({ file, data }) => NEW_ON_SITE_RE.test(file ?? '') && Array.isArray(data?.moments))
+    .sort((a, b) => a.file.localeCompare(b.file))
+    .at(-1);
+  if (!latest) return null;
+  const { moments } = latest.data;
+  return {
+    file: latest.file,
+    date: NEW_ON_SITE_RE.exec(latest.file)[1],
+    count: moments.length,
+    moments: moments.slice(0, NEW_ON_SITE_MAX).map(({ id, title, significance, deepLink, mediaKind }) => ({ id, title, significance, deepLink, mediaKind })),
+  };
+}
+
 /**
  * Assembles the model's inputs. `data`: `{ now, library, calendarMd, lessonsMd,
  * posted, queue, openDrafts, closedPrs, intents, intakeIssues, eventStatus,
@@ -149,6 +168,7 @@ export function buildDraftInputs(d) {
     today,
     budget: { maxToolCalls: 30, maxNewItems: 4, note: 'Every fact below was computed before you started — do not re-derive it. Open the PR as soon as the checker passes; the listening scan comes AFTER the PR.' },
     backlog: { heldItems: backlog, skipCalendarDrafting: backlog >= BACKLOG_SKIP_AT, skipAt: BACKLOG_SKIP_AT },
+    newOnSite: newOnSiteFeed(d.intents),
     beats: outBeats,
     redrafts: parseRedraftNotes(d.calendarMd, today, social),
     eventPhoto,
@@ -173,6 +193,7 @@ export function summarizeInputs(inputs) {
   const exhausted = Object.entries(inputs.photos.eras).filter(([, e]) => e.exhausted).map(([era]) => era);
   return [
     `tree-inputs ${inputs.today}: held ${inputs.backlog.heldItems}/${inputs.backlog.skipAt}${inputs.backlog.skipCalendarDrafting ? ' (calendar drafting skipped)' : ''}`,
+    ...(inputs.newOnSite ? [`  new on site (${inputs.newOnSite.date}): ${inputs.newOnSite.count} moment(s) with media — use these first`] : []),
     ...inputs.beats.map((b) => `  ${beatLine(b)}`),
     ...inputs.redrafts.map((r) => `  re-draft ask #${r.ask} by ${r.by}: ${r.alreadyDrafted ? 'already drafted' : r.items.slice(0, 80)}`),
     `  photos: ${inputs.photos.neverUsed}/${inputs.photos.library} drawable (never used AND Instagram-sized; ${inputs.photos.neverUsedButNotInstagramSized} more never-used are outside IG's 0.8-1.91 aspect window); held by open PRs: ${inputs.photos.heldInOpenPrs.join(', ') || 'none'}; era-exhausted: ${exhausted.join(', ') || 'none'}`,

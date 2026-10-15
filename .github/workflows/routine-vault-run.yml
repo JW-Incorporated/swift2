@@ -3,9 +3,21 @@
 # per docs/audits/2026-09-05-claude-routines-relocation-assessment.md + the
 # 2026-09-05 OAuth-token revision (kanban t_876f9697, Joey D1=B).
 #
-# Full lane list and rationale: docs/agents/vault-run-plan.md. Opens ONE
-# `vault/<date>` PR per run (never merges it — auto-merge-content.yml lands
-# it once `build` is green), so needs `contents: write`/`pull-requests:
+# Full lane list and rationale: docs/agents/vault-run-plan.md. P1-18
+# (docs/plans/2026-10-14-automation-pipeline-overhaul) split the one 200-turn
+# session, where early lanes starved late ones, into three sequential jobs on
+# ONE `vault/<date>` branch:
+#   judgment  Content Shift + Rumor Desk, claude-opus-5-5, max_turns 100
+#   craft     Answerer + Photo Enrichment + Cross-Link + Stylist,
+#             claude-sonnet-5-5, max_turns 100 (fetches judgment's push first)
+#   publish   no agent: sync:content, the full gate, opens or updates the PR
+# Both agent jobs call routine-template.yml, so weekly-limit/pause gating, the
+# backup-token fallback (claude step only, content priority) and the
+# session-outcome/turn-ledger/usage telemetry apply to each unchanged. Every
+# lane appends a yield record to the PR body (scripts/vault/yield-record.mjs).
+#
+# Opens ONE `vault/<date>` PR per run (never merges it — auto-merge-content.yml
+# lands it once `build` is green), so needs `contents: write`/`pull-requests:
 # write` via SOCIAL_POSTER_PAT (main is branch-protected; the built-in
 # GITHUB_TOKEN cannot trigger this repo's required `build` check on its own
 # PRs — same reason growth-snapshot.yml / appearance-discovery.yml use the
@@ -13,17 +25,26 @@
 #
 # `Task` is in allowed_tools deliberately: routine-invariants.md invariant #4
 # allows `Task` when the routine's own charter explains why. vault-run-plan.md
-# does — six lanes run sequentially in one session, and Content Shift /
-# Answerer / Photo Enrichment / Rumor Desk / Cross-Link / Stylist each do
-# independent research legwork (WebSearch/WebFetch/curl) that benefits from
-# subagent fan-out within a lane, per the plan's own "Session length is the
-# real constraint" risk note.
+# does — the lanes run sequentially within a job and Content Shift / Answerer /
+# Photo Enrichment / Rumor Desk / Cross-Link / Stylist each do independent
+# research legwork (WebSearch/WebFetch/curl) that benefits from subagent
+# fan-out within a lane, per the plan's own "Session length is the real
+# constraint" risk note.
 name: routine-vault-run
 
 on:
   schedule:
     - cron: "7 16 * * *" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
+
+# One run at a time: a dispatch during the scheduled run (or the reverse) would
+# otherwise interleave on the same vault/<date> branch. This workflow-level
+# group (routine-vault-run) cannot collide with the per-job groups the
+# template sets (routine-<routine_name>: "routine-The Vault Run (judgment)",
+# "... (craft)", and publish below), so there is no deadlock.
+concurrency:
+  group: routine-vault-run
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -32,22 +53,180 @@ permissions:
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
 
 jobs:
-  run:
+  judgment:
     uses: ./.github/workflows/routine-template.yml
     with:
-      routine_name: "The Vault Run"
+      routine_name: "The Vault Run (judgment)"
       priority: content
-      prompt_file: docs/agents/runner-prompts/vault-run.md
+      prompt_file: docs/agents/runner-prompts/vault-run-judgment.md
       model: claude-opus-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,WebSearch,WebFetch,Task"
-      timeout_minutes: 90
-      # 4 consecutive turn-exhaustion failures Sep 7-10 (run IDs 34518339881,
-      # 34268757108, 34157283117, 34393860376), each dying at ~18min of the
-      # 90min timeout_minutes budget — max_turns, not the time budget, was
-      # the binding constraint. Raised 80 -> 200.
-      max_turns: 200
+      timeout_minutes: 60
+      max_turns: 100
       checkout_token_secret: SOCIAL_POSTER_PAT
+      usage_artifact_suffix: judgment
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  craft:
+    needs: judgment
+    # A failed judgment job must not starve the craft lanes: run unless cancelled.
+    if: ${{ !cancelled() }}
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "The Vault Run (craft)"
+      priority: content
+      prompt_file: docs/agents/runner-prompts/vault-run-craft.md
+      model: claude-sonnet-5-5
+      allowed_tools: "Bash,Read,Grep,Glob,Write,Edit,WebSearch,WebFetch,Task"
+      timeout_minutes: 60
+      max_turns: 100
+      checkout_token_secret: SOCIAL_POSTER_PAT
+      usage_artifact_suffix: craft
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  publish:
+    needs: [judgment, craft]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: routine-The Vault Run (publish)
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+      AGENT_JOB_RESULTS: ${{ needs.judgment.result }} ${{ needs.craft.result }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Find today's vault branch
+        id: branch
+        run: |
+          D=$(date -u +%F)
+          echo "date=$D" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --heads origin "vault/$D" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No vault/$D branch on origin — the agent jobs pushed nothing (job results: $AGENT_JOB_RESULTS)."
+            case "$AGENT_JOB_RESULTS" in *failure*) exit 1 ;; esac
+          fi
+
+      - name: Check out the branch and install
+        if: steps.branch.outputs.exists == 'true'
+        env:
+          D: ${{ steps.branch.outputs.date }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "vault/$D"
+          git checkout -B "vault/$D" "origin/vault/$D"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm ci --silent
+
+      - name: Sync content and commit regenerated files
+        if: steps.branch.outputs.exists == 'true'
+        env:
+          D: ${{ steps.branch.outputs.date }}
+        run: |
+          set -euo pipefail
+          npm run sync:content
+          # theory-resolutions.md is a report sync:content rewrites every run, and
+          # tokens.generated.css is design-owned: never part of the vault commit.
+          git add -u -- . ':!docs/audits/theory-resolutions.md' ':!apps/web/app/tokens.generated.css'
+          if git diff --cached --quiet; then
+            echo "sync:content produced no committable changes."
+          else
+            git diff --cached --stat
+            git commit -m "vault: regenerate" -m "Tier-2: Vault Run"
+            git push origin "vault/$D"
+          fi
+
+      - name: Full gate
+        id: gate
+        if: steps.branch.outputs.exists == 'true'
+        run: |
+          failed=""
+          run_gate() {
+            name="$1"; shift
+            if "$@" > ".gate-$name.log" 2>&1; then
+              echo "gate ok: $name"
+            else
+              echo "::error::gate FAILED: $name"
+              tail -n 30 ".gate-$name.log"
+              failed="$failed $name"
+            fi
+          }
+          git fetch --no-tags origin main
+          run_gate validate-content npm run validate:content
+          run_gate check-generated npm run check:generated
+          run_gate typecheck npm run typecheck
+          run_gate vitest npx vitest run
+          run_gate lint npm run lint
+          run_gate check-voice npm run check:voice -- --base-ref FETCH_HEAD
+          run_gate content-coverage npm run content:coverage
+          echo "failed=${failed# }" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the PR
+        id: pr
+        if: steps.branch.outputs.exists == 'true'
+        env:
+          D: ${{ steps.branch.outputs.date }}
+          GATE_FAILED: ${{ steps.gate.outputs.failed }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet origin/main...HEAD; then
+            echo "::warning::vault/$D has no diff against main — nothing to open a PR for."
+            exit 0
+          fi
+          LANES=$(git log --format=%s origin/main..HEAD | grep -o '^lane([a-z-]*)' | sort -u | wc -l | tr -d ' ')
+          TITLE="vault: $D — $LANES lanes"
+          PR=$(gh pr list --head "vault/$D" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$PR" ]; then
+            printf 'TL;DR: Daily Vault Run content for %s (%s lanes with commits). Lane yield records are in the JSON blocks below, when the lanes wrote them.\n\n---\n\nOpened by the publish job (no agent opened it earlier).\n\nTier-2: Vault Run\n' "$D" "$LANES" > .pr-body.md
+            gh pr create --head "vault/$D" --base main --title "$TITLE" --body-file .pr-body.md --label content-shift
+            PR=$(gh pr list --head "vault/$D" --state open --json number --jq '.[0].number')
+          else
+            gh pr edit "$PR" --title "$TITLE"
+            BODY=$(gh pr view "$PR" --json body --jq .body)
+            case "$BODY" in
+              *"Tier-2: Vault Run"*) ;;
+              *) printf '%s\n\nTier-2: Vault Run\n' "$BODY" > .pr-body.md; gh pr edit "$PR" --body-file .pr-body.md ;;
+            esac
+          fi
+          echo "number=$PR" >> "$GITHUB_OUTPUT"
+          if [ -n "$GATE_FAILED" ]; then
+            gh pr comment "$PR" --body "Publish-job gate failed: $GATE_FAILED. CI's build job is the merge authority; tomorrow's run adopts this PR under STEP 0."
+          fi
+
+      - name: Yield records per lane
+        if: steps.pr.outputs.number != ''
+        env:
+          PR: ${{ steps.pr.outputs.number }}
+        run: |
+          {
+            echo "### Vault Run yield records (PR #$PR)"
+            echo '```'
+            node scripts/vault/yield-record.mjs --parse "$PR" || true
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail the job if the gate failed
+        if: steps.gate.outputs.failed != ''
+        env:
+          GATE_FAILED: ${{ steps.gate.outputs.failed }}
+        run: |
+          echo "::error::Vault Run gate failed: $GATE_FAILED"
+          exit 1
