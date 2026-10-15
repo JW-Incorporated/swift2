@@ -11,9 +11,11 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { NotificationCategory } from '@swift2/shared';
 
-/** T1 categories retain their tier semantics; the safety delay below now
- * applies to every tier so any false positive can be withdrawn via
- * scripts/notifications-kill.mjs before `available_at` arrives. */
+/** T1 categories per founder decision (NOTIFICATIONS_PLAN.md §12 Q2,
+ * founder decision recorded on the Phase 2 kanban card): "T1 events send
+ * fully automated with a 5-minute send delay + an alert/kill hook — NOT a
+ * human-confirm gate." A false positive can be withdrawn via
+ * scripts/notifications-kill-t1.mjs before `available_at` arrives. */
 export const T1_CATEGORIES: readonly NotificationCategory[] = [
   'song_drop',
   'album_news',

@@ -140,7 +140,7 @@ it. It is the single highest-blast-radius file in `scripts/`.
 |---|---|
 | `@supabase/supabase-js` `createClient` inlined per route (copy-pasted `supabaseAdmin()` with identical 6 lines) | `app/api/devices/register`, `devices/[id]/prefs`, `notifications/{dispatch,inbox,metrics,open}`, `app/internal/notifications/page.tsx` — **7 copies** |
 | `createClient` behind a factory in `packages/core` | `packages/core/src/vault.ts`, `packages/core/src/knowledge/client.ts` |
-| `createClient` inlined in scripts (identical `{ auth: { persistSession:false, autoRefreshToken:false } }`) | `scripts/appearance-discovery/discover.mjs`, `knowledge-fb-upload.mjs`, `merch-engine/{author-catalogs,emit-fanmade-event,emit-official-merch-event}.mjs`, `notifications-kill.mjs` — **6 copies** |
+| `createClient` inlined in scripts (identical `{ auth: { persistSession:false, autoRefreshToken:false } }`) | `scripts/appearance-discovery/discover.mjs`, `knowledge-fb-upload.mjs`, `merch-engine/{author-catalogs,emit-fanmade-event,emit-official-merch-event}.mjs`, `notifications-kill-t1.mjs` — **6 copies** |
 | Raw `fetch()` against PostgREST `/rest/v1/...` with hand-built query strings | `apps/web/lib/live-theories-data.ts`, `lib/longlive/clown-memory.ts` (7 endpoints), `clown-pins.ts`, `clown-predictions.ts`, `clown-session.ts`, `scripts/knowledge-freshness.mjs`, `scripts/news/emit-candidate-digest.mjs` |
 | Direct Postgres via `pg` (`scripts/lib/pg.mjs`) | all `seed-*.mjs`, `migrate.mjs`, `sync-clown-knowledge.mjs`, `clown-eval.mjs`, `backup-restore-test.mjs` |
 | Inline `new Client({...})` in YAML | `.github/workflows/db-connectivity-check.yml` |
@@ -298,7 +298,7 @@ fail" from exit code + grep of the log.
 |---|---|
 | `supabaseAdmin()` service-role client factory (identical body) | `app/api/devices/register/route.ts`, `app/api/devices/[id]/prefs/route.ts`, `app/api/notifications/dispatch/route.ts`, `…/inbox/route.ts`, `…/metrics/route.ts`, `…/open/route.ts`, `app/internal/notifications/page.tsx` (7) |
 | `supabaseEnv()` public-key env detection with the PUBLISHABLE/ANON fallback | `apps/web/lib/vault.ts`, `apps/web/lib/current.ts`, `apps/web/lib/live-theories-data.ts`, `scripts/lib/longlive-sync-shared.mjs`, `apps/mobile/lib/vault.ts` (5) |
-| Script-side `createClient(url, key, { auth: {persistSession:false, autoRefreshToken:false} })` | `scripts/appearance-discovery/discover.mjs`, `scripts/knowledge-fb-upload.mjs`, `scripts/merch-engine/author-catalogs.mjs`, `scripts/merch-engine/emit-fanmade-event.mjs`, `scripts/merch-engine/emit-official-merch-event.mjs`, `scripts/notifications-kill.mjs` (6) |
+| Script-side `createClient(url, key, { auth: {persistSession:false, autoRefreshToken:false} })` | `scripts/appearance-discovery/discover.mjs`, `scripts/knowledge-fb-upload.mjs`, `scripts/merch-engine/author-catalogs.mjs`, `scripts/merch-engine/emit-fanmade-event.mjs`, `scripts/merch-engine/emit-official-merch-event.mjs`, `scripts/notifications-kill-t1.mjs` (6) |
 | Sliding-window per-IP rate limiter (`HITS` map + `rateLimited`) | 11 files (§2.4) |
 | Honeypot field check | `app/api/feedback`, `app/api/mood`, `app/api/submit-link` (3) |
 | Anthropic Messages API `fetch` + headers + `anthropic-version` | 6 files, 7 call sites (§2.3) |
