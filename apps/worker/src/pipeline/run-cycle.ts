@@ -75,10 +75,9 @@ export async function runCycle(
   };
 
   // ---- 1. INGEST -----------------------------------------------------------
-  const { data: sources, error: sourcesError } = await db
-    .from('news_source')
-    .select('id, name, source_type, config')
-    .eq('is_enabled', true);
+  let sourcesQuery = db.from('news_source').select('id, name, source_type, config');
+  if (!options.primary) sourcesQuery = sourcesQuery.eq('is_enabled', true);
+  const { data: sources, error: sourcesError } = await sourcesQuery;
   if (sourcesError) {
     errors.push(`could not load news_source rows: ${sourcesError.message}`);
     return result; // nothing else can run without sources

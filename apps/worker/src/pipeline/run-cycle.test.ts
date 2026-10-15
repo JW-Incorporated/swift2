@@ -107,17 +107,109 @@ describe('runCycle cluster/verify stages (#3746 regression)', () => {
 });
 
 describe('primary fast cycle', () => {
-  it('polls only primary rows and stops before classification/extraction', async () => {
+  it("never polls the migration's disabled fast-lane row in the normal cycle", async () => {
     const fetched: string[] = [];
-    const sources = [
-      { id: 'primary', name: 'Official feed', source_type: 'rss', config: { primary: true } },
-      { id: 'normal', name: 'Normal feed', source_type: 'rss', config: {} },
+    const migratedSources = [
+      {
+        id: 'youtube',
+        name: 'Taylor Swift — official YouTube channel',
+        source_type: 'rss',
+        config: { primary: true },
+        is_enabled: true,
+      },
+      {
+        id: 'site',
+        name: 'Taylor Swift — official site',
+        source_type: 'site_diff',
+        config: { primary: true },
+        is_enabled: true,
+      },
+      {
+        id: 'store',
+        name: 'Taylor Swift — official store',
+        source_type: 'site_diff',
+        config: { primary: true },
+        is_enabled: true,
+      },
+      {
+        id: 'fast',
+        name: 'Google News — "Taylor Swift" fast lane',
+        source_type: 'google_news',
+        config: { primary: true, newestFirst: true },
+        is_enabled: false,
+      },
+      {
+        id: 'republic',
+        name: 'Republic Records — press feed',
+        source_type: 'rss',
+        config: { primary: true, requiredMention: 'Taylor Swift' },
+        is_enabled: true,
+      },
+      {
+        id: 'umg',
+        name: 'Universal Music Group — press feed',
+        source_type: 'rss',
+        config: { primary: true, requiredMention: 'Taylor Swift' },
+        is_enabled: true,
+      },
     ];
+    const sourceQuery = chain({ data: migratedSources, error: null });
+    sourceQuery.eq = (column: string, value: unknown) =>
+      chain({
+        data: migratedSources.filter((source) => source[column as 'is_enabled'] === value),
+        error: null,
+      });
     const db = {
       from: vi.fn((table: string) => {
         if (table === 'news_source') {
           return {
-            select: () => chain({ data: sources, error: null }),
+            select: () => sourceQuery,
+            update: () => ({ eq: () => Promise.resolve({ error: null }) }),
+          };
+        }
+        if (table === 'news_raw_item' || table === 'news_story') {
+          return { select: () => chain({ data: [], error: null }) };
+        }
+        throw new Error(`normal mode reached unexpected table ${table}`);
+      }),
+    } as unknown as SupabaseClient;
+
+    await runCycle(db, {
+      adapterFor: () => ({
+        fetch: async (source) => {
+          fetched.push(source.id);
+          return [];
+        },
+      }),
+    });
+
+    expect(fetched).toEqual(['youtube', 'site', 'store', 'republic', 'umg']);
+    expect(fetched).not.toContain('fast');
+  });
+
+  it('polls only primary rows and stops before classification/extraction', async () => {
+    const fetched: string[] = [];
+    const sources = [
+      {
+        id: 'primary',
+        name: 'Official feed',
+        source_type: 'rss',
+        config: { primary: true },
+        is_enabled: false,
+      },
+      { id: 'normal', name: 'Normal feed', source_type: 'rss', config: {}, is_enabled: true },
+    ];
+    const sourceQuery = chain({ data: sources, error: null });
+    sourceQuery.eq = (column: string, value: unknown) =>
+      chain({
+        data: sources.filter((source) => source[column as 'is_enabled'] === value),
+        error: null,
+      });
+    const db = {
+      from: vi.fn((table: string) => {
+        if (table === 'news_source') {
+          return {
+            select: () => sourceQuery,
             update: () => ({ eq: () => Promise.resolve({ error: null }) }),
           };
         }

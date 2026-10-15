@@ -15,24 +15,31 @@ where name = 'Google News — "Taylor Swift" search'
   );
 
 insert into public.news_source (name, source_type, tier, config, is_enabled)
-select v.name, v.source_type, v.tier, v.config::jsonb, true
+select v.name, v.source_type, v.tier, v.config::jsonb, v.is_enabled
 from (values
   ('Taylor Swift — official YouTube channel', 'rss', 'official',
-   '{"url":"https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g","primary":true}'),
+   '{"url":"https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g","primary":true}', true),
   ('Taylor Swift — official site', 'site_diff', 'official',
-   '{"url":"https://www.taylorswift.com/","primary":true}'),
+   '{"url":"https://www.taylorswift.com/","primary":true}', true),
   ('Taylor Swift — official store', 'site_diff', 'official',
-   '{"url":"https://store.taylorswift.com/","primary":true}'),
+   '{"url":"https://store.taylorswift.com/","primary":true}', true),
   ('Google News — "Taylor Swift" fast lane', 'google_news', 'unverified',
-   '{"url":"https://news.google.com/rss/search?q=%22Taylor+Swift%22&hl=en-US&gl=US&ceid=US:en&scoring=n","primary":true,"newestFirst":true}'),
+   '{"url":"https://news.google.com/rss/search?q=%22Taylor+Swift%22&hl=en-US&gl=US&ceid=US:en&scoring=n","primary":true,"newestFirst":true}', false),
   ('Republic Records — press feed', 'rss', 'established',
-   '{"url":"https://www.republicrecords.com/blogs/news.atom","primary":true,"requiredMention":"Taylor Swift"}'),
+   '{"url":"https://www.republicrecords.com/blogs/news.atom","primary":true,"requiredMention":"Taylor Swift"}', true),
   ('Universal Music Group — press feed', 'rss', 'established',
-   '{"url":"https://www.universalmusic.com/feed/","primary":true,"requiredMention":"Taylor Swift"}')
-) as v(name, source_type, tier, config)
+   '{"url":"https://www.universalmusic.com/feed/","primary":true,"requiredMention":"Taylor Swift"}', true)
+) as v(name, source_type, tier, config, is_enabled)
 where not exists (
   select 1 from public.news_source s where s.name = v.name
 );
+
+-- Correct a row created by the pre-review migration. Primary mode selects
+-- config.primary explicitly and intentionally bypasses the enabled filter.
+update public.news_source
+set is_enabled = false
+where name = 'Google News — "Taylor Swift" fast lane'
+  and is_enabled = true;
 
 -- Add primary defaults only when the key is absent. In particular, never
 -- reset an operator's explicit {"primary":false} on a later db:migrate run.

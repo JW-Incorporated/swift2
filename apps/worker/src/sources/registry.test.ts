@@ -39,6 +39,9 @@ describe('primary source registry', () => {
   it('seeds a distinct fast source and never resets an explicit primary setting', () => {
     expect(MIGRATION).toContain('Google News — "Taylor Swift" fast lane');
     expect(MIGRATION).toContain('&scoring=n');
+    expect(MIGRATION).toMatch(
+      /Google News — "Taylor Swift" fast lane'[\s\S]*?"newestFirst":true}', false\)/,
+    );
     expect(MIGRATION).toContain("and not (config ? 'primary')");
     expect(MIGRATION).toMatch(/Republic Records[^\n]+rss[^\n]+established/);
     expect(MIGRATION).toMatch(/Universal Music Group[^\n]+rss[^\n]+established/);
