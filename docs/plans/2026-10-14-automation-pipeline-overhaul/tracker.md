@@ -79,7 +79,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09 | todo |  |  |
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | done | #5917 | 2026-10-15 |
-| P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | doing |  |  |
+| P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | review |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
 | P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | done | #5846 | 2026-10-15 |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | doing |  |  |
