@@ -190,34 +190,34 @@ async function etsyJson(fetchImpl, url, options, sleep) {
   throw new Error(`Request retry limit reached for ${requestUrl}`);
 }
 
-function isEligibleEtsyListing(listing, query, now) {
+function classifyEtsyListing(listing, query, now) {
   const candidate = normalizeEtsyListing(listing, query, now);
   const amount = Number(listing?.price?.amount);
   const divisor = Number(listing?.price?.divisor);
   const dollars = divisor > 0 ? amount / divisor : NaN;
   const reviewSignal = Number(listing?.shop?.review_count ?? listing?.shop?.transaction_count);
-  return candidate.url &&
-    candidate.item &&
-    candidate.brand &&
-    candidate.price &&
-    candidate.imageUrl &&
-    listing?.shop?.is_vacation === false &&
-    Number.isFinite(reviewSignal) && reviewSignal > 0 &&
-    Number.isFinite(dollars) && dollars >= 2 && dollars <= 500
-    ? candidate
-    : null;
+  if (!candidate.url) return { candidate: null, reason: 'etsy-invalid-url' };
+  if (!candidate.item) return { candidate: null, reason: 'etsy-missing-title' };
+  if (!candidate.brand) return { candidate: null, reason: 'etsy-missing-shop' };
+  if (!candidate.price || !Number.isFinite(dollars) || dollars < 2 || dollars > 500) return { candidate: null, reason: 'etsy-invalid-price' };
+  if (!candidate.imageUrl) return { candidate: null, reason: 'etsy-missing-image' };
+  if (listing?.shop?.is_vacation !== false) return { candidate: null, reason: 'etsy-inactive-shop' };
+  if (!Number.isFinite(reviewSignal) || reviewSignal <= 0) return { candidate: null, reason: 'etsy-no-review-signal' };
+  return { candidate, reason: null };
 }
 
 export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now = new Date().toISOString(), queries = ETSY_QUERIES, requireCredentials = false, sleep = wait } = {}) {
   if (!etsyApiKey) {
     if (requireCredentials) throw new Error('Etsy API credentials are required');
-    return { rawQueries: [], candidates: [], queryErrors: [] };
+    return { rawQueries: [], candidates: [], queryErrors: [], counts: { fetched: 0, rejected: {}, dedupedWithinSource: 0 } };
   }
   const candidates = [];
   const rawQueries = [];
   const queryErrors = [];
   const listingDetailsById = new Map();
   const missingListingIds = new Set();
+  const counts = { fetched: 0, rejected: {} };
+  const reject = (reason) => { counts.rejected[reason] = (counts.rejected[reason] || 0) + 1; };
   for (const query of queries) {
     const url = new URL('https://openapi.etsy.com/v3/application/listings/active');
     url.searchParams.set('keywords', query);
@@ -235,9 +235,10 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
     }
     rawQueries.push({ query, payload });
     for (const searchResult of (payload.results || []).slice(0, 10)) {
-      if (!searchResult?.listing_id) continue;
+      counts.fetched += 1;
+      if (!searchResult?.listing_id) { reject('etsy-missing-listing-id'); continue; }
       const listingId = String(searchResult.listing_id);
-      if (missingListingIds.has(listingId)) continue;
+      if (missingListingIds.has(listingId)) { reject('etsy-detail-not-found'); continue; }
       let listing = listingDetailsById.get(listingId);
       if (!listing) {
         const detailUrl = new URL(`https://openapi.etsy.com/v3/application/listings/${listingId}`);
@@ -247,25 +248,30 @@ export async function collectEtsyEvidence({ etsyApiKey, fetchImpl = fetch, now =
         } catch (error) {
           if (error?.status === 404) {
             missingListingIds.add(listingId);
+            reject('etsy-detail-not-found');
             continue;
           }
           // Non-fatal: a single listing detail failure (403, 5xx) must not
           // abort this query's remaining listings or the rest of the run.
           queryErrors.push({ query, listingId, status: error?.status ?? null, message: error?.message || String(error) });
+          reject('etsy-detail-error');
           continue;
         }
         listingDetailsById.set(listingId, listing);
       }
-      const candidate = isEligibleEtsyListing(listing, query, now);
-      if (!candidate) continue;
+      const { candidate, reason } = classifyEtsyListing(listing, query, now);
+      if (!candidate) { reject(reason); continue; }
       candidates.push(candidate);
     }
   }
+  const mergedCandidates = mergeCandidates(candidates);
+  counts.dedupedWithinSource = candidates.length - mergedCandidates.length;
   return {
     rawQueries,
     listingDetails: [...listingDetailsById].map(([listingId, detail]) => ({ listingId, detail })),
-    candidates: mergeCandidates(candidates),
+    candidates: mergedCandidates,
     queryErrors,
+    counts,
   };
 }
 
@@ -276,11 +282,12 @@ async function discoverEtsy({ etsyApiKey, fetchImpl, now, queries = ETSY_QUERIES
   // failed that way, Etsy is down or credentials are bad for this whole run.
   const searchLevelFailures = evidence.queryErrors.filter((error) => !error.listingId);
   const totalFailure = Boolean(etsyApiKey) && queries.length > 0 && searchLevelFailures.length >= queries.length;
-  return { candidates: evidence.candidates, queryErrors: evidence.queryErrors, totalFailure };
+  return { candidates: evidence.candidates, queryErrors: evidence.queryErrors, totalFailure, counts: evidence.counts };
 }
 
 async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn = console.warn }) {
   const candidates = [];
+  const counts = { fetched: 0, rejected: {} };
   let forbiddenCount = 0;
   for (const subreddit of subreddits) {
     let result;
@@ -294,14 +301,16 @@ async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn 
       throw error;
     }
     for (const post of result.posts) {
+      counts.fetched += 1;
       const candidate = normalizeRedditPost(post);
       if (candidate) candidates.push(candidate);
+      else counts.rejected['reddit-disallowed-shop-url'] = (counts.rejected['reddit-disallowed-shop-url'] || 0) + 1;
     }
   }
   if (forbiddenCount > 0) {
     warn(`fanmade-discovery: Reddit RSS returned 403 for ${forbiddenCount}/${subreddits.length} subreddit(s) this run`);
   }
-  return candidates;
+  return { candidates, counts };
 }
 
 // P2-7 (§3.5): "REDDIT_SUBREDDITS -> add TaylorSwiftMerch-adjacent subs from
@@ -335,7 +344,7 @@ export async function loadWatchlistSubreddits({ client = serviceClient(), fallba
 // this reads that file if present. Leads only — no poster identity is ever
 // read from that file into a candidate (matches "the merch section shows
 // the shop, never the poster").
-export async function loadFbShopLinkCandidates({ filePath = process.env.FB_SHOP_LINKS_FILE, readFileImpl = readFile, now = new Date().toISOString(), warn = console.warn } = {}) {
+export async function loadFbShopLinkCandidates({ filePath = process.env.FB_SHOP_LINKS_FILE, readFileImpl = readFile, now = new Date().toISOString(), warn = console.warn, counts } = {}) {
   if (!filePath) return [];
   let raw;
   try {
@@ -353,9 +362,12 @@ export async function loadFbShopLinkCandidates({ filePath = process.env.FB_SHOP_
     return [];
   }
   const entries = Array.isArray(parsed?.shopLinks) ? parsed.shopLinks : [];
-  return entries
-    .map((entry) => normalizeFbShopLink(entry, now))
-    .filter((candidate) => candidate !== null);
+  const candidates = entries.map((entry) => normalizeFbShopLink(entry, now));
+  if (counts) {
+    counts.fetched = entries.length;
+    counts.rejected = { 'facebook-disallowed-shop-url': candidates.filter((candidate) => candidate === null).length };
+  }
+  return candidates.filter((candidate) => candidate !== null);
 }
 
 export function normalizeFbShopLink(entry, discoveredAt = new Date().toISOString()) {
@@ -373,15 +385,29 @@ export function normalizeFbShopLink(entry, discoveredAt = new Date().toISOString
 }
 
 export async function discoverCandidates({ etsyApiKey, fetchImpl = fetch, submissions = [], now = new Date().toISOString(), queries = ETSY_QUERIES, subreddits, fbShopLinkFile } = {}) {
+  const fbCounts = { fetched: 0, rejected: {} };
   const [etsy, reddit, fbShopLinks] = await Promise.all([
     discoverEtsy({ etsyApiKey, fetchImpl, now, queries }),
     discoverReddit({ fetchImpl, subreddits: subreddits ?? (await loadWatchlistSubreddits()) }),
-    loadFbShopLinkCandidates({ filePath: fbShopLinkFile, now }),
+    loadFbShopLinkCandidates({ filePath: fbShopLinkFile, now, counts: fbCounts }),
   ]);
+  const rejectedSubmissions = submissions.filter((issue) => !isMerchSubmission(issue)).length;
+  const normalizedSubmissions = submissions.filter(isMerchSubmission).map(normalizeSubmission);
+  const accepted = [...etsy.candidates, ...reddit.candidates, ...fbShopLinks, ...normalizedSubmissions];
+  const candidates = mergeCandidates(accepted);
+  const rejected = { ...etsy.counts.rejected, ...reddit.counts.rejected, ...fbCounts.rejected };
+  if (rejectedSubmissions) rejected['submission-not-merch'] = rejectedSubmissions;
+  const invalidAccepted = accepted.filter((candidate) => !candidate?.url).length;
+  if (invalidAccepted) rejected['invalid-candidate-url'] = invalidAccepted;
   return {
-    candidates: mergeCandidates([...etsy.candidates, ...reddit, ...fbShopLinks, ...submissions.filter(isMerchSubmission).map(normalizeSubmission)]),
+    candidates,
     etsyQueryErrors: etsy.queryErrors,
     etsyTotalFailure: etsy.totalFailure,
+    counts: {
+      fetched: etsy.counts.fetched + reddit.counts.fetched + submissions.length + fbCounts.fetched,
+      rejected,
+      dedupedWithinRun: etsy.counts.dedupedWithinSource + accepted.length - invalidAccepted - candidates.length,
+    },
   };
 }
 
@@ -509,6 +535,12 @@ function issueBody(candidate) {
 
 const FANMADE_REVERIFICATION_LABEL = 'fanmade-reverification';
 const FANMADE_REVERIFICATION_PREFIX = 'fanmade-reverification:';
+export const FANMADE_MAX_ISSUES_PER_RUN = 10;
+
+function candidateIssueCap(value = process.env.FANMADE_MAX_ISSUES_PER_RUN) {
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : FANMADE_MAX_ISSUES_PER_RUN;
+}
 
 function revalidationTitle(result) {
   return `${FANMADE_REVERIFICATION_PREFIX}${result.url}`;
@@ -550,8 +582,8 @@ export async function fileReverificationIssues({ repository, token, reverified, 
   return { filed, skipped: actionable.filter((result) => titles.has(revalidationTitle(result))).map((result) => result.url) };
 }
 
-async function fileCandidateIssues({ repository, token, candidates, fetchImpl, dryRun }) {
-  if (!repository || !token || dryRun) return { filed: [], skipped: candidates.map((candidate) => candidate.url) };
+export async function fileCandidateIssues({ repository, token, candidates, fetchImpl, dryRun, maxIssuesPerRun = candidateIssueCap() }) {
+  if (!repository || !token || dryRun) return { filed: [], skipped: candidates.map((candidate) => candidate.url), deduped: 0, capped: [] };
   const label = await fetchImpl(`https://api.github.com/repos/${repository}/labels`, {
     method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
     body: JSON.stringify({ name: FANMADE_CANDIDATE_LABEL, color: '7057ff' }),
@@ -560,8 +592,13 @@ async function fileCandidateIssues({ repository, token, candidates, fetchImpl, d
   const existing = await githubIssues({ repository, token, label: FANMADE_CANDIDATE_LABEL, fetchImpl });
   const titles = new Set(existing.map((issue) => issue.title));
   const filed = [];
+  const capped = [];
   for (const candidate of candidates) {
     if (titles.has(issueTitle(candidate))) continue;
+    if (filed.length >= maxIssuesPerRun) {
+      capped.push(candidate.url);
+      continue;
+    }
     const response = await fetchImpl(`https://api.github.com/repos/${repository}/issues`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'content-type': 'application/json' },
@@ -570,7 +607,21 @@ async function fileCandidateIssues({ repository, token, candidates, fetchImpl, d
     if (!response.ok) throw new Error(`Could not file candidate issue for ${candidate.url} (${response.status})`);
     filed.push(candidate.url);
   }
-  return { filed, skipped: candidates.filter((candidate) => titles.has(issueTitle(candidate))).map((candidate) => candidate.url) };
+  const skipped = candidates.filter((candidate) => titles.has(issueTitle(candidate))).map((candidate) => candidate.url);
+  return { filed, skipped, deduped: skipped.length, capped };
+}
+
+export function summarizeDiscoveryCounts(discoveryCounts, filing) {
+  const rejected = Object.values(discoveryCounts.rejected).reduce((sum, count) => sum + count, 0);
+  return {
+    fetched: discoveryCounts.fetched,
+    rejected: discoveryCounts.rejected,
+    dedupedWithinRun: discoveryCounts.dedupedWithinRun,
+    dedupedAgainstExistingIssues: filing.deduped,
+    capped: filing.capped.length,
+    filed: filing.filed.length,
+    accounted: rejected + discoveryCounts.dedupedWithinRun + filing.deduped + filing.capped.length + filing.filed.length,
+  };
 }
 
 function etsyOutageTitle(now) {
@@ -647,7 +698,8 @@ async function main() {
   const etsyOutageFiling = discovery.etsyTotalFailure
     ? await fileEtsyOutageIssue({ repository, token, queryErrors: discovery.etsyQueryErrors, fetchImpl: githubFetch, dryRun })
     : { filed: false, skipped: false };
-  console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, etsyOutageFiling, dryRun }, null, 2));
+  const counts = summarizeDiscoveryCounts(discovery.counts, filing);
+  console.log(JSON.stringify({ ...discovery, ...revalidation, revalidationFiling, ...filing, etsyOutageFiling, counts, dryRun }, null, 2));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
