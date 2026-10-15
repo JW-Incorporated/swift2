@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #122 🔴 [BLOCKING] Fix routine-template.yml's echoed `::error::` that makes every red routine look like prompt_file-missing (~5 min)
-<!-- ha filed=2026-10-15 -->
-<!-- ha verify: issue-closed 5799 -->
-
-**Why:** The ops-fixer fully diagnosed #5799 — the 14 "prompt_file missing" failures are a log-reading artefact, not a bug (the real cause was the weekly plan limit). The one-file fix lands in `.github/workflows/routine-template.yml`, which the ops-fixer's own guard forbids it from editing, so a human-directed session has to apply it. The diagnosis is done; the prompt carries it.
-**Steps:**
-1. Open Claude Code in `Documents\Claude\Projects\Swift2`.
-2. Paste the prompt from issue #5799 (copy button on the code block).
-**Worked if:** issue #5799 is closed by a merged PR.
 
 ## #121 🔴 [BLOCKING] Fix routine-tree-weekly-plan's turn-ceiling failure (~10 min)
 <!-- ha filed=2026-10-11 -->
