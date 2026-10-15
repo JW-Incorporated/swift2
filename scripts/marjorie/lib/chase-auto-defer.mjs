@@ -18,6 +18,7 @@ export const AUTO_DEFER_EXCEPTIONS = {
 
 const HA_BLOCK = /(?=^## #\d+\s)/m;
 const BOT_LOGINS = ['app/claude', 'claude[bot]', 'claude'];
+export const isTrustedBotAuthor = (who) => (who?.type === 'Bot' || who?.__typename === 'Bot') && BOT_LOGINS.includes(who.login);
 const MARKER = /^<!-- marjorie-chase-action: HA=(\d+) issue=(\d+) action=(\w+) message=(\S+) -->$/;
 const labelsOf = (issue) => (issue?.labels || []).map((x) => (typeof x === 'string' ? x : x?.name)).filter(Boolean);
 
@@ -27,7 +28,7 @@ function actionMarkers(issue, author) {
   return (issue?.comments || []).flatMap((c) => {
     const m = MARKER.exec(String(c.body || '').trimEnd().split(/\r?\n/).at(-1).trim());
     const who = c?.author || c?.user;
-    const bot = (who?.type === 'Bot' || who?.__typename === 'Bot') && BOT_LOGINS.includes(who.login);
+    const bot = isTrustedBotAuthor(who);
     return m && (bot || (m[4] === AUTO_DEFER_MESSAGE && Boolean(author) && (c?.author || c?.user)?.login === author)) ? [{ ha: Number(m[1]), issue: Number(m[2]), action: m[3], message: m[4] }] : [];
   });
 }
