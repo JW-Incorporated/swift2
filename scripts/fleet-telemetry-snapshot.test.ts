@@ -4,6 +4,7 @@ import {
   buildRunCounts,
   buildReport,
   isRoutineWorkflow,
+  incompleteUsageRecord,
   isUsageArtifactName,
   median,
   aggregateRoutineUsage,
@@ -11,13 +12,27 @@ import {
 } from './fleet-telemetry-snapshot.mjs';
 
 describe('isUsageArtifactName', () => {
-  it('accepts the legacy name and routine-usage-<suffix>, nothing else', () => {
+  it('accepts the three known artifact names, nothing else', () => {
     expect(isUsageArtifactName('routine-usage')).toBe(true);
     expect(isUsageArtifactName('routine-usage-judgment')).toBe(true);
     expect(isUsageArtifactName('routine-usage-craft')).toBe(true);
     expect(isUsageArtifactName('routine-usages')).toBe(false);
+    expect(isUsageArtifactName('routine-usage-unknown')).toBe(false);
     expect(isUsageArtifactName('other')).toBe(false);
     expect(isUsageArtifactName(undefined)).toBe(false);
+  });
+
+  it('files failed suffixed artifacts under their routine suffix', () => {
+    expect(incompleteUsageRecord('routine-vault-run', 'download-failed', 'routine-usage-judgment')).toMatchObject({
+      routineName: 'judgment',
+      incomplete: true,
+      reason: 'download-failed',
+    });
+    expect(incompleteUsageRecord('routine-vault-run', 'download-failed', 'routine-usage-craft')).toMatchObject({
+      routineName: 'craft',
+      incomplete: true,
+      reason: 'download-failed',
+    });
   });
 
   it('keeps two same-run artifacts as separate routine rows with no double count', () => {
