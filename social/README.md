@@ -305,3 +305,5 @@ Manual-only (`workflow_dispatch`), never scheduled. Lists every post actually li
 ## The crisis stop
 
 Set the repo variable `SOCIAL_FREEZE` to `true` (Settings → Secrets and variables → Actions → Variables) and the very next run — at most 30 minutes — does nothing at all, queue untouched. Unset it (or set to empty) to resume.
+
+<!-- ci routing test, throwaway -->
