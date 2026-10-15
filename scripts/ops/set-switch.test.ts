@@ -16,41 +16,60 @@ function fakes(old = 'false') {
 }
 
 describe('set-switch', () => {
-  it('sets an allowlisted *_ENABLED switch and logs old -> new', () => {
+  it('sets an allowlisted *_ENABLED switch and logs old -> new', async () => {
     const f = fakes('false');
-    const r = setSwitch({ name: 'COMMUNITY_SCAN_ENABLED', value: 'true', reason: 'launch' }, f.deps);
+    const r = await setSwitch({ name: 'COMMUNITY_SCAN_ENABLED', value: 'true', reason: 'launch' }, f.deps);
     expect(r.ok).toBe(true);
     expect(f.calls).toContainEqual(['variable', 'set', 'COMMUNITY_SCAN_ENABLED', '--repo', 'JW-Incorporated/swift2', '--body', 'true']);
     expect(f.ledger[0]).toContain('| COMMUNITY_SCAN_ENABLED | false -> true | launch |');
   });
 
-  it('records (unset) when the variable did not exist', () => {
+  it('records (unset) when the variable did not exist', async () => {
     const f = fakes('');
-    setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: 'x' }, f.deps);
+    await setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: 'x' }, f.deps);
     expect(f.ledger[0]).toContain('(unset) -> true');
   });
 
-  it('allows on-only switches (freezes, code scanning) set to true', () => {
+  it('allows repo-backed on-only switches set to true', async () => {
     for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']) {
       const f = fakes('');
-      expect(setSwitch({ name: n, value: 'true', reason: 'brake' }, f.deps).ok).toBe(true);
+      expect((await setSwitch({ name: n, value: 'true', reason: 'brake' }, f.deps)).ok).toBe(true);
     }
   });
 
-  it('refuses lifting any on-only switch (false/0/empty/other) without calling gh', () => {
-    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']) {
+  it('sets PUSH_FREEZE on in the database and logs the change', async () => {
+    const f = fakes();
+    const dbCalls: unknown[][] = [];
+    const r = await setSwitch(
+      { name: 'PUSH_FREEZE', value: 'true', reason: 'unsafe event' },
+      {
+        ...f.deps,
+        setDbSwitch: async (...args: unknown[]) => {
+          dbCalls.push(args);
+          return 'false';
+        },
+      },
+    );
+    expect(r.ok).toBe(true);
+    expect(f.calls).toEqual([]);
+    expect(dbCalls[0]?.slice(0, 2)).toEqual(['PUSH_FREEZE', true]);
+    expect(f.ledger[0]).toContain('| PUSH_FREEZE | false -> true | unsafe event |');
+  });
+
+  it('refuses agents turning PUSH_FREEZE or any on-only switch off', async () => {
+    for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'PUSH_FREEZE', 'CODE_SCANNING_ENABLED']) {
       for (const v of ['false', '0', '', 'yes']) {
         const f = fakes();
-        expect(setSwitch({ name: n, value: v, reason: 'x' }, f.deps).ok).toBe(false);
+        expect((await setSwitch({ name: n, value: v, reason: 'x' }, f.deps)).ok).toBe(false);
         expect(f.calls).toEqual([]);
       }
     }
   });
 
-  it('refuses denylisted and secret-looking names', () => {
+  it('refuses denylisted and secret-looking names', async () => {
     for (const n of ['MARJORIE_EMAIL', 'DISCORD_FOUNDER_IDS', 'OWNER_DISCORD_ID', 'HOME_RELAY_URL', 'X_API_KEY', 'DISCORD_WEBHOOK_URL', 'GH_TOKEN', 'FB_SHOP_LINKS_FILE']) {
       const f = fakes();
-      expect(setSwitch({ name: n, value: 'true', reason: 'x' }, f.deps).ok).toBe(false);
+      expect((await setSwitch({ name: n, value: 'true', reason: 'x' }, f.deps)).ok).toBe(false);
       expect(f.calls).toEqual([]);
     }
   });
@@ -62,10 +81,10 @@ describe('set-switch', () => {
     expect(validate('COMMUNITY_CRAWL_BUDGET', '12', 'x')).toBeNull();
   });
 
-  it('refuses a missing or blank reason', () => {
+  it('refuses a missing or blank reason', async () => {
     const f = fakes();
-    expect(setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: undefined }, f.deps).ok).toBe(false);
-    expect(setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: '  ' }, f.deps).ok).toBe(false);
+    expect((await setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: undefined }, f.deps)).ok).toBe(false);
+    expect((await setSwitch({ name: 'BOT_CHAT_ENABLED', value: 'true', reason: '  ' }, f.deps)).ok).toBe(false);
     expect(f.calls).toEqual([]);
   });
 });

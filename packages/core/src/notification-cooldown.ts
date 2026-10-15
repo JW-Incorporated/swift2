@@ -184,7 +184,7 @@ export async function runCooldownPass(
         deepLink: 'https://www.longlivets.com/?screen=settings',
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
-    ]);
+    ], db);
     const sendResult = sendResults[0];
     if (sendResult?.ok) {
       result.noticesSent++;

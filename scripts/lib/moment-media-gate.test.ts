@@ -84,7 +84,7 @@ describe('moment media publication gate', () => {
 });
 
 describe('P1-23 surface media gates', () => {
-  const errorsFor = (key: string, item: object, errors: string[], legacy = new Map()) =>
+  const errorsFor = (key: string, item: object, errors: string[], legacy = new Set<string>()) =>
     surfaceMediaPublicationVerdict(key, item, errors, legacy).errors;
 
   it.each(['release', 'tour', 'theory', 'video'])('rejects a new %s row without media', (type) => {
@@ -102,10 +102,21 @@ describe('P1-23 surface media gates', () => {
     expect(errorsFor('merch/official.mjs#new-product', row, merchMediaErrors(row))).not.toEqual([]);
   });
 
-  it('grandfathers only an exact surface snapshot', () => {
+  it('keeps an edited grandfathered row exempt by stable key', () => {
     const old = { slug: 'old-row' };
-    const legacy = new Map([['releases/x.mjs#old-row', momentFingerprint(old)]]);
+    const legacy = new Set(['releases/x.mjs#old-row']);
     expect(errorsFor('releases/x.mjs#old-row', old, nonMomentMediaErrors(old), legacy)).toEqual([]);
-    expect(errorsFor('releases/x.mjs#old-row', { ...old, title: 'changed' }, nonMomentMediaErrors(old), legacy)).not.toEqual([]);
+    const edited = { ...old, title: 'Corrected title' };
+    expect(errorsFor('releases/x.mjs#old-row', edited, nonMomentMediaErrors(edited), legacy)).toEqual([]);
+  });
+
+  it('keeps a grandfathered row valid when it gains media', () => {
+    const key = 'releases/x.mjs#old-row';
+    const row = {
+      slug: 'old-row',
+      media: [{ kind: 'hotlink_legacy', url: 'https://images.example/new.jpg' }],
+    };
+    expect(surfaceMediaPublicationVerdict(key, row, nonMomentMediaErrors(row), new Set([key])))
+      .toEqual({ errors: [], legacyGap: true });
   });
 });

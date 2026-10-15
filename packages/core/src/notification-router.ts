@@ -15,7 +15,7 @@ import {
   totalDeliveriesToday,
   type GovernorDeviceSettings,
 } from './notification-governor';
-import { sendPushBatch, type PushSendResult } from './notification-sender';
+import { readPushFreeze, sendPushBatch, type PushSendResult } from './notification-sender';
 import { enqueueForDigest } from './notification-digest';
 
 export interface RouterEventRow {
@@ -74,9 +74,9 @@ interface DeviceRow {
 const PENDING_EVENT_LIMIT = 200;
 
 /**
- * One dispatch pass: loads events whose `available_at` has arrived (T1's
- * 5-min delay applies here — an event isn't even a candidate until its
- * delay elapses, which is what makes the kill hook effective) and haven't
+ * One dispatch pass: loads events whose `available_at` has arrived (every
+ * tier's 5-minute kill window applies here, so an event isn't a candidate
+ * until the delay elapses) and haven't
  * been killed or expired, fans each out to opted-in instant devices, runs
  * the governor, sends via FCM, and logs `deliveries`.
  */
@@ -101,6 +101,19 @@ export async function dispatchPendingEvents(
     enqueuedToDigest: 0,
     errors: [],
   };
+
+  const pushFreeze = await readPushFreeze(db);
+  if (pushFreeze.state === 'unreadable') {
+    const reason = pushFreeze.reason ?? 'switch row is missing';
+    const message = `PUSH_FREEZE could not be read; dispatch skipped: ${reason}`;
+    console.warn(`notification-router: ${message}`);
+    result.errors.push(message);
+    return result;
+  }
+  if (pushFreeze.state === 'frozen') {
+    console.warn('notification-router: PUSH_FREEZE is on; dispatch skipped');
+    return result;
+  }
 
   const { data: events, error: eventsError } = await db
     .from('events')
@@ -279,6 +292,7 @@ async function dispatchOneEvent(
       deepLink: event.deep_link,
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     })),
+    db,
   );
 
   await logDeliveriesAndPrune(db, event, sendResults, result);

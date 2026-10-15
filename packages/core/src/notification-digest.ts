@@ -228,7 +228,7 @@ export async function dispatchDueDigests(
         deepLink: 'https://www.longlivets.com/?current=inbox',
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
-    ]);
+    ], db);
 
     const sendResult = sendResults[0];
     if (sendResult?.ok) {
@@ -341,7 +341,7 @@ export async function dispatchClownReports(
         deepLink: theoriesBoardLink(),
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
-    ]);
+    ], db);
     const sendResult = sendResults[0];
     if (sendResult?.ok) {
       out.clownReportsSent++;

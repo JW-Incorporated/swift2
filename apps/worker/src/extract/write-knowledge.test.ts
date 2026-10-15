@@ -32,7 +32,7 @@ function fakeDb(fromImpl: (table: string) => unknown, rpcImpl?: (fn: string, arg
 }
 
 describe('writeCurrentItem', () => {
-  it('writes redline_ok=true when nothing trips the redline screen AND the item clears the Content fix 3/6 publish-quality gate', async () => {
+  it('emits an event only when redline and publish-quality gates both pass', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-1' }, error: null }));
     const result = await writeCurrentItem(
       db,
@@ -49,7 +49,7 @@ describe('writeCurrentItem', () => {
           'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
         symbols: ['13'],
         entities: [],
-        statusHint: 'reported',
+        statusHint: 'confirmed',
       } as never,
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
       undefined,
@@ -59,9 +59,11 @@ describe('writeCurrentItem', () => {
     expect(result.redlineOk).toBe(true);
     expect(result.holdReason).toBeUndefined();
     expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+    expect(db.from).toHaveBeenNthCalledWith(1, 'current_item');
+    expect(db.from).toHaveBeenNthCalledWith(2, 'events');
   });
 
-  it('holds the row (redlineOk=false, holdReason set) — but still writes it — when the item has no image', async () => {
+  it('holds a quality-failing row without inserting an events row', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-held' }, error: null }));
     let insertedRow: Record<string, unknown> | undefined;
     (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
@@ -87,7 +89,7 @@ describe('writeCurrentItem', () => {
           'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
         symbols: ['13'],
         entities: [],
-        statusHint: 'reported',
+        statusHint: 'confirmed',
         // no imageUrl
       } as never,
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
@@ -97,6 +99,8 @@ describe('writeCurrentItem', () => {
     expect(result.holdReason).toBe('missing_image');
     expect(insertedRow?.redline_ok).toBe(false);
     expect(insertedRow?.quality_hold_reason).toBe('missing_image');
+    expect(db.from).toHaveBeenCalledTimes(1);
+    expect(db.from).toHaveBeenCalledWith('current_item');
   });
 
   it('holds the row when the summary/detail are too thin, even with an image and a clean redline', async () => {
@@ -160,7 +164,7 @@ describe('writeCurrentItem', () => {
     expect(inserted[0]?.image_url).toBe('https://www.people.com/photo.jpg');
   });
 
-  it('writes redline_ok=false — but still writes the row — when a string trips the redline screen', async () => {
+  it('holds a redline-failing row without inserting an events row', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-2' }, error: null }));
     const result = await writeCurrentItem(
       db,
@@ -171,17 +175,23 @@ describe('writeCurrentItem', () => {
         category: 'relationship',
         tags: [],
         headline: 'Is she pregnant? fans speculate',
-        summary: 'Fans speculate she is pregnant based on a photo.',
-        detail: 'No official confirmation exists.',
+        summary:
+          'Fans began discussing a photograph after it circulated widely online. No official source supported the speculation, and reputable coverage emphasized that the claim remained entirely unverified.',
+        detail:
+          'The discussion began after an ordinary public photograph was reposted without context across several fan accounts. No representative, official channel, or reputable outlet confirmed the claim, and the available reporting offered no factual basis for it. The item is retained only for audit review because the subject matter crosses the privacy redline and must never be served or used to trigger a notification event.',
         symbols: [],
         entities: [],
-        statusHint: 'rumor',
+        statusHint: 'confirmed',
       },
       [],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
     expect(result.redlineOk).toBe(false);
-    expect(result.holdReason).toBe('missing_image'); // the quality gate's headline-then-image precedence catches this first
+    expect(result.holdReason).toBe('redline_failed');
     expect(result.id).toBe('item-2'); // still written for audit
+    expect(db.from).toHaveBeenCalledTimes(1);
+    expect(db.from).toHaveBeenCalledWith('current_item');
   });
 
   it('throws on an insert failure', async () => {

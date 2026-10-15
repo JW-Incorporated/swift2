@@ -142,19 +142,21 @@ manually insert one via Supabase's SQL editor with a 5-min-past
 Vercel Cron or manually `curl -H "Authorization: Bearer $CRON_SECRET"
 https://<your-vercel-domain>/api/notifications/dispatch`.
 
-## 9. T1 kill switch (founder safety net)
+## 9. Notification kill switch (founder safety net)
 
-If a `song_drop`/`album_news`/`tour_news` event looks like a false
-positive, you have up to 5 minutes to stop it:
+When `PUSH_FREEZE` is on, review every un-killed event that has no instant
+delivery before lifting it. This includes every tier and does not depend on
+`available_at`:
 
 ```
-node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --list
-node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --kill <event-id>
+npm run notifications:kill -- --list
+npm run notifications:kill -- --kill <event-id>
+npm run notifications:kill -- --kill --all-pending --apply
 ```
 
-`--list` shows every pending T1 event and a countdown to when it sends;
-`--kill` withdraws one permanently (the router will never send it, even if
-the 5-minute window has nearly elapsed).
+Kill commands default to a dry run. Add `--apply` only after reviewing the
+listed id, tier, title, `available_at`, and `created_at`; the router never
+sends an event after it is killed.
 
 ## What's still open after this (out of Phase 2 scope)
 
@@ -327,5 +329,3 @@ Once VAPID + the dashboard secret are set:
 #    real numbers once there's delivery history (seeded/test data is
 #    clearly labeled "no data yet" before that).
 ```
-
-

@@ -30,7 +30,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { gh } from './lib/gh.mjs';
+import { gh, ghApiSoft } from './lib/gh.mjs';
 import { runMain } from './lib/cli.mjs';
 import { WORKFLOWS_DIR, listRoutineWorkflowFiles } from './check-routine-workflows.mjs';
 
@@ -191,13 +191,117 @@ export function discoverRoutines() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// GitHub Search API pacing (#5845)
+// ---------------------------------------------------------------------------
+//
+// THE BUG: the Search API allows 30 requests/minute, and that bucket belongs
+// to the INSTALLATION token — every other fleet job searching in the same
+// minute draws it down too. This script's loop issues 2 searches per routine
+// for ~15 routines, and the old shape fired both of a routine's searches with
+// `Promise.all` and then moved straight to the next routine, so all ~30 went
+// out in well under a minute with zero margin. Three consecutive scheduled
+// runs died on the first `403 API rate limit exceeded` (runs 37355399932,
+// 38294479288, 38660475179) — a single 403 took the whole report down.
+//
+// Two mitigations, both needed:
+//   1. SPACING. Searches are serialised and paced, so this script consumes at
+//      ~20/min rather than bursting, leaving the rest of the fleet a third of
+//      the window instead of racing it to zero.
+//   2. RETRY. Pacing cannot prevent a collision when another job has already
+//      spent the window, so a rate-limited search is retried — waiting until
+//      the window's own reset time (read from `/rate_limit`, the authoritative
+//      shared-quota answer) when GitHub will tell us, and a fixed backoff when
+//      it won't.
+/** Minimum gap between two Search API calls: 3s ≈ 20/min against a 30/min cap. */
+export const SEARCH_MIN_INTERVAL_MS = Number(process.env.SEARCH_MIN_INTERVAL_MS) || 3_000;
+/** Retries after a rate-limited search before the error propagates. */
+export const SEARCH_MAX_RETRIES = 2;
+/** Ceiling on any single wait, so a bogus reset time can't outlive the job timeout. */
+export const SEARCH_MAX_BACKOFF_MS = 75_000;
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** True for the `403 ... API rate limit exceeded` shape `gh search` reports. */
+export function isRateLimitError(err) {
+  const text = `${err?.message ?? err} ${err?.stderr ?? ''}`;
+  return /rate limit exceeded/i.test(text) || (/\b403\b/.test(text) && /rate limit/i.test(text));
+}
+
+/** Milliseconds to hold off, given when the previous search went out (null = none yet). */
+export function waitBeforeNextSearch(lastAt, nowMs, interval = SEARCH_MIN_INTERVAL_MS) {
+  if (lastAt === null || lastAt === undefined) return 0;
+  return Math.min(Math.max(0, interval - (nowMs - lastAt)), interval);
+}
+
+/**
+ * Milliseconds to wait for the Search window to reset, from a `/rate_limit`
+ * payload, or null when the payload doesn't say. One second of slack: the
+ * reset second itself is still inside the exhausted window.
+ */
+export function waitForSearchReset(payload, nowMs) {
+  const reset = payload?.resources?.search?.reset;
+  if (typeof reset !== 'number' || !Number.isFinite(reset)) return null;
+  return Math.min(Math.max(0, reset * 1000 - nowMs) + 1_000, SEARCH_MAX_BACKOFF_MS);
+}
+
+/** Fixed fallback backoff for retry `attempt` (1-based), when `/rate_limit` is unreadable. */
+export function retryBackoffMs(attempt) {
+  return Math.min(attempt * 30_000, SEARCH_MAX_BACKOFF_MS);
+}
+
+let lastSearchAt = null;
+
+/** For tests: forget when the last search went out. */
+export function resetSearchPacing() {
+  lastSearchAt = null;
+}
+
+/**
+ * One paced, rate-limit-retrying `gh search`. Dependencies are injectable so
+ * the pacing and the retry are testable without a network or a real clock.
+ */
+export async function pacedSearch(args, {
+  run = gh,
+  sleep = delay,
+  now = Date.now,
+  quota = () => ghApiSoft('/rate_limit'),
+  retries = SEARCH_MAX_RETRIES,
+} = {}) {
+  for (let attempt = 0; ; attempt++) {
+    const gap = waitBeforeNextSearch(lastSearchAt, now());
+    if (gap > 0) await sleep(gap);
+    lastSearchAt = now();
+    try {
+      return await run(args);
+    } catch (err) {
+      if (attempt >= retries || !isRateLimitError(err)) throw err;
+      const q = await quota();
+      const wait = (q?.ok ? waitForSearchReset(q.data, now()) : null) ?? retryBackoffMs(attempt + 1);
+      console.error(
+        `⚠ routine-output-sample: GitHub Search rate limit hit on \`gh ${args.slice(0, 2).join(' ')}\`; ` +
+        `waiting ${Math.round(wait / 1000)}s for the shared 30/min window ` +
+        `(retry ${attempt + 1}/${retries}).`,
+      );
+      await sleep(wait);
+      lastSearchAt = null; // the wait already covers the inter-call gap
+    }
+  }
+}
+
 /** Exported for reuse by routine-quality-sample.mjs — same PR/issue fetch, same query shape. */
-export async function fetchForRoutine(identifier) {
+export async function fetchForRoutine(identifier, deps = {}) {
   const query = `Tier-2: ${identifier}`;
-  const [prsOut, issuesOut] = await Promise.all([
-    gh(['search', 'prs', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt,closedAt']),
-    gh(['search', 'issues', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt']),
-  ]);
+  // Serial, not Promise.all: two concurrent searches are two against the same
+  // 30/min window in the same instant, which is exactly what pacing is for.
+  const prsOut = await pacedSearch(
+    ['search', 'prs', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt,closedAt'],
+    deps,
+  );
+  const issuesOut = await pacedSearch(
+    ['search', 'issues', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt'],
+    deps,
+  );
   return {
     prs: JSON.parse(prsOut.stdout || '[]'),
     issues: JSON.parse(issuesOut.stdout || '[]'),
@@ -213,7 +317,10 @@ async function main() {
 
   const routines = [];
   // Sequential, not Promise.all: shares one rate limit across 15 routines'
-  // worth of queries (same reasoning as fleet-telemetry-snapshot.mjs).
+  // worth of queries (same reasoning as fleet-telemetry-snapshot.mjs). Each
+  // query inside is additionally paced and rate-limit-retried — see the
+  // pacing block above (#5845); at SEARCH_MIN_INTERVAL_MS this loop takes
+  // ~90s of wall clock for ~30 searches by design, not by accident.
   for (const r of discovered) {
     if (!r.identifier) {
       routines.push({ name: r.name, identifier: null, metrics: null, prs: [] });

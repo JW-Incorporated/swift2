@@ -65,7 +65,7 @@ describe('isAllowlistedImageHost', () => {
 
   it.each([
     'https://www.taylorswift.com/wp-content/photo.jpg',
-    'https://cdn.shopify.com/s/files/photo.jpg',
+    'https://cdn.shopify.com/s/files/1/0011/4651/9637/files/photo.jpg',
     'https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg',
     'https://static01.nyt.com/images/photo.jpg',
     'https://media.pitchfork.com/photos/photo.jpg',
@@ -75,6 +75,10 @@ describe('isAllowlistedImageHost', () => {
 
   it('rejects a non-allowlisted host', () => {
     expect(isAllowlistedImageHost('https://random-blog.example.com/x.jpg')).toBe(false);
+  });
+
+  it("rejects another store's Shopify image", () => {
+    expect(isAllowlistedImageHost('https://cdn.shopify.com/s/files/1/9999/9999/9999/files/photo.jpg')).toBe(false);
   });
 
   it('rejects an unparseable URL instead of throwing', () => {

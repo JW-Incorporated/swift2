@@ -54,7 +54,10 @@ concurrency:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # 20, not 10: routine-output-sample.mjs now PACES its ~30 Search API calls
+    # (~90s) and waits out the shared 30/min window on a 403 rather than dying
+    # on it (#5845), so the step is deliberately minutes long, not seconds.
+    timeout-minutes: 20
     outputs:
       branch: ${{ steps.meta.outputs.branch }}
       date: ${{ steps.meta.outputs.date }}

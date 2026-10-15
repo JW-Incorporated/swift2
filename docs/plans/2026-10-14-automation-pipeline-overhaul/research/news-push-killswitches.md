@@ -22,7 +22,7 @@ No "breaking" lane exists. The shortest path from a Taylor story to a live feed 
 - Governor (spec §6, packages/core/src/notification-governor.ts): master/snooze, quiet hours (default 22-08 local; "nothing bypasses quiet hours" spec line 78), 30-minute coalescing, daily cap 3 instant pushes per device (1-5 adjustable), 6/day hard ceiling. Spec line 12: no push, including "breaking", bypasses the governor.
 - Trigger: insertEvent() into events with a dedupe_key. Only news producer wired is emitLaunchCategoryEvent (write-knowledge.ts ~75), fired only when statusHint === 'confirmed' and the category maps (release, music, tour, relationship, sighting, statement, award). It is called right after the current_item insert, even when that row is redline-held (sub-agent's reading, untested).
 - Dispatch apps/web/app/api/notifications/dispatch/route.ts, Vercel cron */15 (apps/web/vercel.json), guarded by CRON_SECRET. Delivery packages/core/src/notification-sender.ts: native via Expo Push API (exp.host/--/api/v2/push/send, batches of 100, fronting FCM/APNs), web via VAPID.
-- Kill: T1_SEND_DELAY_MS = 5 min (notification-events.ts:24) so available_at = now+5m; scripts/notifications-kill-t1.mjs --list / --kill <id> sets events.killed_at, checked by notification-router.ts:107-109. T1 categories only; no global push freeze variable found.
+- Kill: T1_SEND_DELAY_MS = 5 min (notification-events.ts:24) so available_at = now+5m; scripts/notifications-kill.mjs --list / --kill <id> sets events.killed_at, checked by notification-router.ts:107-109. T1 categories only; no global push freeze variable found.
 - T2/T3 (relationship, appearance, award...) send without a delay window.
 
 ## Kill switches and privacy

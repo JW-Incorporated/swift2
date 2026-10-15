@@ -70,6 +70,7 @@ docs `CLAUDE.md` points at:
 | `supabase/migrations/20261014010000_tidewatch.sql` | Service-role-only seen items, decisions, source cursors, story SLA timestamps, and provider-neutral LLM usage |
 | `packages/shared/src/tidewatch/types.ts` | Portable row types for the five Tidewatch tables; exported as `@swift2/shared/tidewatch/types` |
 | `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
+| `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
 
 ## Session infrastructure (`.claude/` and the standing files)
 
@@ -352,6 +353,7 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
 | `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
+| `scripts/notifications-kill.mjs` (+ test) | Owner kill switch for freeze-held events at every tier: paginates events and instant deliveries, lists only undelivered/un-killed rows, defaults kills to dry-run, and requires `--apply` to write |
 
 `apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
 alone satisfies Phase 0's "fresh install registers a devices row"
@@ -438,6 +440,12 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `apps/web/app/api/notifications/metrics/route.ts` (+ `.test.ts`) | `GET /api/notifications/metrics` — `?secret=`-gated (`NOTIFICATIONS_DASHBOARD_SECRET`), backs the dashboard page |
 | `apps/web/app/internal/notifications/page.tsx` | The internal metrics dashboard — server-rendered, same `?secret=` gate, shows an honest "no data yet" state before real traffic |
 | `scripts/generate-vapid-keys.mjs` | `node scripts/generate-vapid-keys.mjs` — thin wrapper around `web-push`'s own VAPID keypair generator |
+
+## Notification push safety (P0-11)
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
 
 
 

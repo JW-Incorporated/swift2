@@ -13,6 +13,18 @@ const emitOfficial = emitOfficialMerchEvent as unknown as Emit;
 const emitFanmade = emitFanmadeRaw as unknown as Emit;
 
 type Row = Record<string, unknown>;
+const SERVABLE_CURRENT_ITEM = {
+  tags: [],
+  headline: 'A confirmed announcement reaches fans',
+  summary:
+    'A confirmed announcement was shared through an official channel after several days of public anticipation. Reputable outlets independently reported the details, giving fans clear context about what happened and what comes next.',
+  detail:
+    'The announcement was published through an official channel and then confirmed by multiple reputable outlets. It provides the relevant date, the public context, and a clear description of the news without speculation. Fans can read the announcement itself, review the supporting coverage, and understand why the update matters for the current era and its upcoming plans in the weeks ahead.',
+  symbols: [],
+  entities: [],
+  statusHint: 'confirmed' as const,
+};
+const SERVABLE_IMAGE_URL = 'https://www.people.com/photo.jpg';
 
 /** Records every row inserted into `events` (the production insertEvent shape) and answers the other tables generically. */
 function recordingDb() {
@@ -77,8 +89,10 @@ describe('news producers (real writeCurrentItem events) never emit a dead vocabu
       db,
       'story-1',
       'tloas',
-      { observedOn: '2026-10-04', category, tags: [], headline: 'h', summary: 's', detail: 'd', symbols: [], entities: [], statusHint: 'confirmed' },
+      { observedOn: '2026-10-04', category, ...SERVABLE_CURRENT_ITEM },
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      SERVABLE_IMAGE_URL,
     );
     expect(events).toHaveLength(1);
     const link = events[0]!.deep_link as string;
@@ -87,6 +101,18 @@ describe('news producers (real writeCurrentItem events) never emit a dead vocabu
     expect(target).toBeNull();
     expect(dest).toEqual({ kind: 'dom', path: '/' });
     expect(ok).toBe(true);
+  });
+
+  it('does not emit an event for a held current_item', async () => {
+    const { db, events } = recordingDb();
+    await writeCurrentItem(
+      db,
+      'story-held',
+      'tloas',
+      { observedOn: '2026-10-04', category: 'release', ...SERVABLE_CURRENT_ITEM },
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+    );
+    expect(events).toHaveLength(0);
   });
 
   it('a new live theory event opens the Threads board', async () => {
