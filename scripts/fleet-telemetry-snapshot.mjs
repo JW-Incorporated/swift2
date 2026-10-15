@@ -43,15 +43,9 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gh } from './lib/gh.mjs';
 import { runMain } from './lib/cli.mjs';
+import { ARTIFACT_NAME, isUsageArtifactName } from './routines/turn-ledger.mjs';
 
-// `routine-usage` artifact name written by `scripts/routine-usage-report.mjs`
-// (`.github/workflows/routine-template.yml`'s upload-artifact step).
-const ROUTINE_ARTIFACT_NAME = 'routine-usage';
-
-/** The legacy name, or a suffixed one (`routine-usage-<suffix>`) from a routine that runs several agent jobs in one run. Exported and pure for tests. */
-export function isUsageArtifactName(name) {
-  return name === ROUTINE_ARTIFACT_NAME || (typeof name === 'string' && name.startsWith(`${ROUTINE_ARTIFACT_NAME}-`));
-}
+export { isUsageArtifactName };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'fleet-telemetry');
@@ -197,14 +191,7 @@ async function fetchRunArtifactNames(runId) {
 async function fetchRoutineUsageRecord(runId, routineName) {
   // A run can carry several usage artifacts (routine-usage, routine-usage-<suffix>):
   // one record per artifact, never merged and never counted twice.
-  const incomplete = (reason) => ({
-    routineName,
-    numTurns: null,
-    durationMs: null,
-    totalCostUsd: null,
-    incomplete: true,
-    reason,
-  });
+  const incomplete = (reason, artifactName) => incompleteUsageRecord(routineName, reason, artifactName);
 
   let names;
   try {
@@ -220,6 +207,18 @@ async function fetchRoutineUsageRecord(runId, routineName) {
   return records;
 }
 
+export function incompleteUsageRecord(workflowName, reason, artifactName) {
+  const suffix = artifactName?.startsWith(`${ARTIFACT_NAME}-`) ? artifactName.slice(ARTIFACT_NAME.length + 1) : null;
+  return {
+    routineName: suffix || workflowName,
+    numTurns: null,
+    durationMs: null,
+    totalCostUsd: null,
+    incomplete: true,
+    reason,
+  };
+}
+
 async function readUsageArtifact(runId, artifactName, incomplete) {
   const dir = await mkdtemp(path.join(tmpdir(), 'routine-usage-'));
   try {
@@ -228,12 +227,12 @@ async function readUsageArtifact(runId, artifactName, incomplete) {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object' || typeof parsed.routineName !== 'string') {
       console.error(`fleet-telemetry-snapshot: routine-usage artifact for run ${runId} failed schema validation.`);
-      return incomplete('invalid-schema');
+      return incomplete('invalid-schema', artifactName);
     }
     return parsed;
   } catch (err) {
     console.error(`fleet-telemetry-snapshot: could not read routine-usage artifact for run ${runId}: ${err?.message ?? err}`);
-    return incomplete('download-failed');
+    return incomplete('download-failed', artifactName);
   } finally {
     await rm(dir, { recursive: true, force: true }).catch(() => {});
   }

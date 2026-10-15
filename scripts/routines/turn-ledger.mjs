@@ -10,10 +10,12 @@ import { pathToFileURL } from 'node:url';
 
 export const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
 export const ARTIFACT_NAME = 'routine-usage';
+export const ARTIFACT_SUFFIXES = ['', 'judgment', 'craft'];
+export const ARTIFACT_NAMES = ARTIFACT_SUFFIXES.map((suffix) => (suffix ? `${ARTIFACT_NAME}-${suffix}` : ARTIFACT_NAME));
 
-/** The legacy name, or a suffixed one (`routine-usage-<suffix>`) from a routine that runs several agent jobs in one run. */
+/** One of the known usage artifact names produced by routine workflows. */
 export function isUsageArtifactName(name) {
-  return typeof name === 'string' && (name === ARTIFACT_NAME || name.startsWith(`${ARTIFACT_NAME}-`));
+  return ARTIFACT_NAMES.includes(name);
 }
 const OUTPUT = path.resolve('docs/ops/dashboard/budget.json');
 const execFileAsync = promisify(execFile);
@@ -123,12 +125,14 @@ async function downloadRecord(runId, artifact, { ghImpl, repo }) {
   }
 }
 
-/** Fetches all recent routine-usage artifacts from GitHub's paginated artifact index. */
+/** Fetches all recent routine-usage artifacts with exact-name API queries. */
 export async function fetchUsageRecords({ since, ghImpl = directGh, repo = REPO, readArtifact = downloadRecord }) {
-  const artifacts = parsePages(
-    await apiPages(`repos/${repo}/actions/artifacts`, ghImpl),
-    'artifacts',
-  ).filter((artifact) => isUsageArtifactName(artifact.name) && artifact.expired !== true && artifact.created_at >= since);
+  const pages = await Promise.all(
+    ARTIFACT_NAMES.map((name) => apiPages(`repos/${repo}/actions/artifacts?name=${encodeURIComponent(name)}`, ghImpl)),
+  );
+  const artifacts = pages
+    .flatMap((stdout) => parsePages(stdout, 'artifacts'))
+    .filter((artifact) => isUsageArtifactName(artifact.name) && artifact.expired !== true && artifact.created_at >= since);
   const records = [];
   // A single download is slow enough that serial traversal can outlive an
   // Actions job. Four is small relative to GitHub's artifact service and keeps
