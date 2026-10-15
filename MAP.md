@@ -76,6 +76,7 @@ docs `CLAUDE.md` points at:
 | `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
 | `scripts/tidewatch/collect.mjs`, `adapters/*.mjs`, `fingerprint.mjs` | Zero-LLM pull collector over news, intake, community, merch, social/reply ledgers, and merged moments; each watch source stays in historical/no-event baseline mode until every source in its group succeeds and records a cursor-store completion marker, then per-source cursors advance only after required upserts. `--dry-run --fixtures` provides the credential-free full-pipeline smoke path |
 | `scripts/tidewatch/export-replay.mjs`, `label-replay.mjs`, `replay.test.ts`, `docs/projects/tidewatch/replay/` | P1-04 calibration replay: read-only export (raw to gitignored `.scratch/tidewatch/`), then batched labelling through the subscription wrapper (P3, 40-call hard cap, resumable); committed `replay.json` and `spot-check.json` hold labels and public fields only |
+| `scripts/tidewatch/classify.mjs`, `cascade.mjs`, `questions.mjs`, `.github/workflows/tidewatch-classify-eval.yml` | P1-06 shadow-only classifier: code redline/duplicate prefilters, source-family Jev questions, capped P2 Haiku escalation through `claude-call.mjs`, and `watch_decision`-only writes. `--eval` is DB-free; the dispatch-only workflow supplies live model credentials and exposes aggregate metrics only |
 
 ## Session infrastructure (`.claude/` and the standing files)
 

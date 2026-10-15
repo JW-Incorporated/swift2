@@ -1,0 +1,241 @@
+#!/usr/bin/env node
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createJevClient } from '../lib/jev.mjs';
+import { runMain } from '../lib/cli.mjs';
+import { createClaudeCaller } from '../lib/claude-call.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
+import { callFallback, decisionRow, inspectWithJev } from './cascade.mjs';
+import { CLASS_BY_OPTION, CLASS_IDS } from './questions.mjs';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
+export const DEFAULT_ITEM_CAP = 100;
+const PAGE = 500;
+
+function parseArgs(argv) {
+  const options = { evalPath: null, limit: DEFAULT_ITEM_CAP };
+  for (let index = 0; index < argv.length; index += 1) {
+    if (argv[index] === '--eval') options.evalPath = path.resolve(argv[++index] ?? '');
+    else if (argv[index] === '--limit') options.limit = Number(argv[++index]);
+    else throw new Error('usage: classify.mjs [--limit N] [--eval <replay.json>]');
+  }
+  if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 1000) {
+    throw new Error('--limit must be an integer from 1 to 1000');
+  }
+  return options;
+}
+
+export function classifierStore(client) {
+  return {
+    async loadItems(limit) {
+      const { data, error } = await client.from('watch_item').select('*')
+        .in('status', ['new', 'pending']).order('first_seen_at').limit(Math.min(limit * 5, 1000));
+      if (error) throw error;
+      return data;
+    },
+    async existingDecisionIds(ids) {
+      const found = new Set();
+      for (let offset = 0; offset < ids.length; offset += PAGE) {
+        const { data, error } = await client.from('watch_decision').select('item_id')
+          .in('item_id', ids.slice(offset, offset + PAGE));
+        if (error) throw error;
+        for (const row of data) if (row.item_id) found.add(row.item_id);
+      }
+      return found;
+    },
+    async loadCandidates(since) {
+      const { data, error } = await client.from('watch_item').select('*')
+        .gte('last_seen_at', since).order('last_seen_at', { ascending: false }).limit(1000);
+      if (error) throw error;
+      return data;
+    },
+    async insertDecisions(rows) {
+      if (rows.length === 0) return;
+      const { error } = await client.from('watch_decision').insert(rows);
+      if (error) throw error;
+    },
+  };
+}
+
+const chunks = (rows, size) => Array.from({ length: Math.ceil(rows.length / size) },
+  (_, index) => rows.slice(index * size, (index + 1) * size));
+
+export async function classifyItems({ items, candidates, store, config, jev, callClaude,
+  random = Math.random, now = Date.now(), log = () => {} }) {
+  const existing = await store.existingDecisionIds(items.map((item) => item.id));
+  const pending = items.filter((item) => !existing.has(item.id));
+  const inspected = [];
+  for (const item of pending) {
+    const result = await inspectWithJev(item, candidates, { config, jev, random, now });
+    inspected.push({ item, candidates, inspected: result });
+  }
+  const direct = inspected.filter((entry) => entry.inspected.kind === 'decision');
+  const uncertain = inspected.filter((entry) => entry.inspected.kind === 'fallback'
+    && entry.inspected.reason === 'below_threshold');
+  const drift = inspected.filter((entry) => entry.inspected.kind === 'fallback'
+    && entry.inspected.reason === 'drift_sample');
+  const failed = inspected.filter((entry) => entry.inspected.kind === 'pending');
+  const jevAttempts = inspected.filter((entry) => entry.inspected.decider !== 'code'
+    && !entry.inspected.answers?.prefilter).length;
+  const maxEscalations = Math.floor(pending.length * config.maxEscalationRate);
+  const selectedUncertain = uncertain.slice(0, maxEscalations);
+  const driftSlots = Math.max(0, maxEscalations - selectedUncertain.length);
+  const selectedDrift = drift.slice(0, driftSlots);
+  const fallbackEntries = [...selectedUncertain, ...selectedDrift];
+  const rows = direct.map(({ item, inspected: result }) => decisionRow(item, result, null, config));
+  for (const entry of drift.slice(driftSlots)) {
+    rows.push(decisionRow(entry.item, entry.inspected, null, config));
+  }
+  const batchSize = config.fallbackBatchSize;
+  const maxFallbackCalls = Math.min(
+    config.dailyCaps['tidewatch-fallback'].calls,
+    Math.ceil(maxEscalations / batchSize),
+  );
+  let fallbackAttempted = 0;
+  let wrapperFailures = 0;
+  for (const batch of chunks(fallbackEntries, batchSize)) {
+    fallbackAttempted += batch.length;
+    const response = await callFallback(batch, { callClaude, config, maxCalls: maxFallbackCalls });
+    if (!response.ok) {
+      wrapperFailures += batch.length;
+      continue;
+    }
+    for (const entry of batch) {
+      rows.push(decisionRow(entry.item, entry.inspected, response.labels.get(entry.item.id), config));
+    }
+  }
+  await store.insertDecisions(rows);
+  const heldForCap = uncertain.length - selectedUncertain.length;
+  const summary = {
+    read: items.length, skipped: existing.size, written: rows.length,
+    pending: failed.length + heldForCap + wrapperFailures,
+    jevAttempts, jevUnavailable: failed.length, fallbackAttempted, wrapperFailures, heldForCap,
+  };
+  log(`tidewatch classify: read=${summary.read} skipped=${summary.skipped} written=${summary.written} pending=${summary.pending} jev=${jevAttempts} jevUnavailable=${failed.length} fallback=${fallbackAttempted} capHeld=${heldForCap} wrapperUnavailable=${wrapperFailures}`);
+  return { rows, summary };
+}
+
+function evalSource(kind) {
+  if (kind === 'reddit_lead') return 'reddit';
+  if (kind === 'facebook_lead') return 'facebook';
+  if (kind === 'merch') return 'merch';
+  if (kind === 'theory_bundle') return 'theory';
+  return 'news';
+}
+
+function replayItem(entry, index) {
+  const stamp = entry.meta?.firstSeenAt ?? entry.meta?.createdAt ?? '2026-01-01T00:00:00.000Z';
+  return {
+    id: String(entry.id ?? `replay-${index}`), item_key: `replay:${entry.id ?? index}`,
+    source: evalSource(entry.kind), source_ref: String(entry.id ?? index),
+    url_norm_hash: null, title_simhash: null, story_id: null,
+    first_seen_at: stamp, last_seen_at: stamp, seen_count: 1,
+    excerpt: entry.title ?? entry.text?.title ?? entry.text?.summary ?? null, status: 'pending',
+  };
+}
+
+const OPTION_BY_CLASS = Object.fromEntries(Object.entries(CLASS_BY_OPTION).map(([option, classId]) => [classId, option]));
+
+function recordedAnswer(question, output) {
+  const confidence = output.confidence;
+  if (question.type === 'score') return { type: 'score', value: 3, confidence };
+  if (question.type === 'noul') {
+    const yes = question.id === 'q_speculation' ? output.class === 'privacy_redline'
+      : question.id === 'q_injection' ? output.injection === true
+        : question.id === 'q_theory' ? output.class === 'theory_material' : false;
+    return { type: 'noul', probability: yes ? Math.max(confidence, 0.95) : 0.05 };
+  }
+  let optionId = question.options[0].id;
+  if (question.id === 'q_class') optionId = OPTION_BY_CLASS[output.class] ?? 'off_topic_noise';
+  if (question.id === 'q_same_story') optionId = 'none';
+  if (question.id === 'q_settled') optionId = 'stated_fact';
+  if (question.id === 'q_merch_kind') optionId = {
+    merch_official: 'official_store', merch_fan: 'fan_original', noise: 'not_product',
+  }[output.class] ?? 'not_product';
+  if (question.id === 'q_contradicts') optionId = 'UNRELATED';
+  return { type: 'choice', optionId, probabilities: { [optionId]: confidence }, confidence };
+}
+
+function recordedModels(entries) {
+  const byId = new Map(entries.map((entry) => [String(entry.id), entry.modelOutputs]));
+  return {
+    jev: { ask: async ({ state, questions }) => {
+      const id = /^item id: (.+)$/m.exec(state)?.[1];
+      const output = byId.get(id)?.jev;
+      if (!output) throw new Error('recorded Jev output missing');
+      return { answers: Object.fromEntries(questions.map((question) => [question.id, recordedAnswer(question, output)])) };
+    } },
+    callClaude: async ({ user }) => ({ status: 'ok', data: { labels: [...byId.entries()]
+      .filter(([id]) => user.includes(`item id: ${id}`)).map(([id, output]) => ({
+        id, class: output.fallback?.class ?? output.jev.class,
+        injection: output.fallback?.injection === true ? 'yes' : 'no',
+      })) } }),
+  };
+}
+
+export function evalReport(expected, rows, summary) {
+  const predicted = new Map(rows.map((row) => [row.item_id, row.class]));
+  const lines = [];
+  for (const classId of CLASS_IDS) {
+    const actual = expected.filter((entry) => entry.class === classId).length;
+    const guesses = [...predicted.values()].filter((value) => value === classId).length;
+    const correct = expected.filter((entry) => entry.class === classId
+      && predicted.get(entry.id) === classId).length;
+    const precision = guesses ? (correct / guesses).toFixed(3) : 'n/a';
+    const recall = actual ? (correct / actual).toFixed(3) : 'n/a';
+    lines.push(`${classId} precision=${precision} recall=${recall} support=${actual} predicted=${guesses}`);
+  }
+  const rate = summary.jevAttempts ? summary.fallbackAttempted / summary.jevAttempts : 0;
+  lines.push(`jev-to-haiku escalation rate=${rate.toFixed(3)} (${summary.fallbackAttempted}/${summary.jevAttempts})`);
+  lines.push(`decisions=${rows.length}/${expected.length} pending=${expected.length - rows.length}`);
+  return lines.join('\n');
+}
+
+export async function evaluateReplay(replay, { config, jev, callClaude, random = () => 1 } = {}) {
+  const items = replay.items.map(replayItem);
+  const expected = replay.items.map((entry, index) => ({
+    id: items[index].id, class: entry.class ?? entry.expectedClass,
+  }));
+  if (expected.some((entry) => !CLASS_IDS.includes(entry.class))) throw new Error('replay item has no valid class label');
+  if (replay.items.every((entry) => entry.modelOutputs?.jev)) {
+    ({ jev, callClaude } = recordedModels(replay.items));
+  }
+  const store = {
+    existingDecisionIds: async () => new Set(),
+    insertDecisions: async () => undefined,
+  };
+  const result = await classifyItems({ items, candidates: [], store, config, jev, callClaude,
+    random, now: Date.parse('2026-10-15T00:00:00.000Z') });
+  return { ...result, report: evalReport(expected, result.rows, result.summary) };
+}
+
+export async function main(argv = process.argv.slice(2), deps = {}) {
+  const options = parseArgs(argv);
+  const config = deps.config ?? JSON.parse(await readFile(CONFIG_PATH, 'utf8'));
+  let jev = deps.jev;
+  if (!jev) {
+    try { jev = createJevClient(); } catch { jev = null; }
+  }
+  const callClaude = deps.callClaude ?? createClaudeCaller();
+  if (options.evalPath) {
+    const replay = JSON.parse(await readFile(options.evalPath, 'utf8'));
+    const result = await evaluateReplay(replay, { config, jev, callClaude, random: deps.random });
+    (deps.log ?? console.log)(result.report);
+    return result;
+  }
+  const client = deps.client ?? serviceClient();
+  if (!client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
+  const store = deps.store ?? classifierStore(client);
+  const loaded = await store.loadItems(options.limit);
+  const existing = await store.existingDecisionIds(loaded.map((item) => item.id));
+  const items = loaded.filter((item) => !existing.has(item.id)).slice(0, options.limit);
+  const since = new Date((deps.now ?? Date.now()) - 72 * 3_600_000).toISOString();
+  const candidates = await store.loadCandidates(since);
+  return classifyItems({ items, candidates, store, config, jev, callClaude,
+    random: deps.random, now: deps.now, log: deps.log ?? console.log });
+}
+
+const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (invokedDirectly) runMain(main, { name: 'tidewatch-classify' });
