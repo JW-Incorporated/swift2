@@ -68,9 +68,10 @@ docs `CLAUDE.md` points at:
 | Path | Responsibility |
 |------|----------------|
 | `supabase/migrations/20261014010000_tidewatch.sql` | Service-role-only seen items, decisions, source cursors, story SLA timestamps, and provider-neutral LLM usage |
+| `supabase/migrations/20261015010000_llm_usage_subscription.sql` | Extends `llm_usage` for Claude subscription provider and cache-token telemetry |
 | `packages/shared/src/tidewatch/types.ts` | Portable row types for the five Tidewatch tables; exported as `@swift2/shared/tidewatch/types` |
 | `supabase/migrations/20261014020000_community_outcomes.sql`, `packages/shared/src/community/types.ts` | Service-role-only community engagement metrics and owner-posted comment outcomes at 1h/24h/7d; portable row types for the new fields |
-| `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
+| `scripts/tidewatch/migration.test.ts`, `llm-usage-migration.test.ts` | Static migration-contract checks for access, source, uniqueness, excerpts, and re-apply-safe LLM usage extensions |
 | `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
 | `scripts/tidewatch/collect.mjs`, `adapters/*.mjs`, `fingerprint.mjs` | Zero-LLM pull collector over news, intake, community, merch, social/reply ledgers, and merged moments; each watch source stays in historical/no-event baseline mode until every source in its group succeeds and records a cursor-store completion marker, then per-source cursors advance only after required upserts. `--dry-run --fixtures` provides the credential-free full-pipeline smoke path |
 
