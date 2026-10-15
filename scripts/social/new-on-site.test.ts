@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { buildFeed, latestFeedFile, momentIds, newMoments, primaryMedia, run, staleFeedFiles } from './new-on-site.mjs';
+import { buildFeed, isMissingPath, latestFeedFile, newMoments, primaryMedia, run, staleFeedFiles, summaryLine } from './new-on-site.mjs';
 
 const photo = { url: 'https://upload.wikimedia.org/a.jpg', credit: 'x' };
 const withMedia = (title: string, extra: Record<string, unknown> = {}) => ({ year: 2026, month: 10, day: 9, category: 'music', title, moment: { photos: [photo] }, ...extra });
@@ -34,9 +34,6 @@ describe('newMoments (pure diff)', () => {
 });
 
 describe('ids and media', () => {
-  it('mirrors the site id scheme including collision suffixes', () => {
-    expect(momentIds('lover', [{ title: 'Same Title' }, { title: 'Same title' }])).toEqual(['vault-lover-same-title', 'vault-lover-same-title-2']);
-  });
   it('picks thumbnail, photo, video, instagram in order and rejects a media-less item', () => {
     expect(primaryMedia(withMedia('a'))?.kind).toBe('photo');
     expect(primaryMedia({ title: 'v', video: { youtubeId: 'abcdefghijk', title: 't' } })?.kind).toBe('video');
@@ -54,6 +51,27 @@ describe('feed file housekeeping', () => {
     const names = ['.gitkeep', 'merch-x.json', 'new-on-site-2026-09-20.json', 'new-on-site-2026-10-14.json', 'new-on-site-2026-10-01.json'];
     expect(latestFeedFile(names)).toBe('new-on-site-2026-10-14.json');
     expect(staleFeedFiles(names, '2026-10-15')).toEqual(['new-on-site-2026-09-20.json']);
+  });
+});
+
+describe('summaryLine', () => {
+  const result = { count: 2, written: true, file: 'new-on-site-2026-10-15.json', pruned: ['a.json'], dryRun: false };
+  it('says wrote / pruned for a real run', () => {
+    expect(summaryLine('2026-10-15', result)).toContain('wrote new-on-site-2026-10-15.json; pruned 1');
+  });
+  it('says would write / would prune for a dry run', () => {
+    const line = summaryLine('2026-10-15', { ...result, dryRun: true });
+    expect(line).toContain('would write new-on-site-2026-10-15.json; would prune 1');
+    expect(line).not.toContain('wrote');
+  });
+});
+
+describe('isMissingPath', () => {
+  it('matches git show errors for an absent path only', () => {
+    expect(isMissingPath({ stderr: "fatal: path 'x.mjs' does not exist in 'abc123'" })).toBe(true);
+    expect(isMissingPath({ message: "fatal: path 'x.mjs' exists on disk, but not in 'abc123'" })).toBe(true);
+    expect(isMissingPath(new Error('fatal: bad object abc123'))).toBe(false);
+    expect(isMissingPath(new SyntaxError('Unexpected token'))).toBe(false);
   });
 });
 
@@ -88,5 +106,33 @@ describe('run against a real git history', () => {
 
     const empty = await run({ root, date: '2026-10-25', outDir });
     expect(empty).toMatchObject({ written: true, count: 0 });
+  });
+
+  const setup = (baselineSource: string) => {
+    const root = mkdtempSync(path.join(tmpdir(), 'nos-'));
+    git(root, ['init', '-q']);
+    git(root, ['config', 'user.email', 't@example.test']);
+    git(root, ['config', 'user.name', 't']);
+    mkdirSync(path.join(root, 'supabase/seed/content'), { recursive: true });
+    writeFileSync(path.join(root, 'supabase/seed/content/lover.mjs'), baselineSource);
+    git(root, ['add', '.']);
+    git(root, ['commit', '-q', '-m', 'old'], '2026-09-20T12:00:00Z');
+    return root;
+  };
+
+  it('treats an era file absent at the baseline commit as an empty baseline', async () => {
+    const root = setup(era(['Old']));
+    writeFileSync(path.join(root, 'supabase/seed/content/reputation.mjs'), era(['Brand new era']).replace('lover', 'reputation'));
+    git(root, ['add', '.']);
+    git(root, ['commit', '-q', '-m', 'new era'], '2026-10-12T12:00:00Z');
+    const result = await run({ root, date: '2026-10-15', outDir: path.join(root, 'social/inbox'), dryRun: true });
+    expect(result.count).toBe(1);
+  });
+
+  it('rethrows any other baseline failure instead of defaulting to empty', async () => {
+    const root = setup('export default { this is not valid javascript');
+    writeFileSync(path.join(root, 'supabase/seed/content/lover.mjs'), era(['Old']));
+    git(root, ['commit', '-q', '-am', 'fix'], '2026-10-12T12:00:00Z');
+    await expect(run({ root, date: '2026-10-15', outDir: path.join(root, 'social/inbox'), dryRun: true })).rejects.toThrow();
   });
 });
