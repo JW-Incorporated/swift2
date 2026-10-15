@@ -2,9 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
   MEDIA_LEGACY,
+  merchMediaErrors,
   mediaPublicationVerdict,
   momentFingerprint,
   momentMediaErrors,
+  nonMomentMediaErrors,
+  socialInboxMediaErrors,
+  surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
 
 describe('moment media publication gate', () => {
@@ -76,5 +80,32 @@ describe('moment media publication gate', () => {
         legacy,
       ),
     ).toEqual({ errors: [], legacyGap: false });
+  });
+});
+
+describe('P1-23 surface media gates', () => {
+  const errorsFor = (key: string, item: object, errors: string[], legacy = new Map()) =>
+    surfaceMediaPublicationVerdict(key, item, errors, legacy).errors;
+
+  it.each(['release', 'tour', 'theory', 'video'])('rejects a new %s row without media', (type) => {
+    const row = { slug: 'new-row', title: 'Text only' };
+    expect(errorsFor(`${type}/fixture.mjs#new-row`, row, nonMomentMediaErrors(row))).not.toEqual([]);
+  });
+
+  it('rejects a new social inbox intent without media', () => {
+    const intent = { id: 'new-intent', media: [] };
+    expect(errorsFor('social/inbox/new-intent.json', intent, socialInboxMediaErrors(intent))).not.toEqual([]);
+  });
+
+  it('rejects a new merch row without an image', () => {
+    const row = { sourceId: 'new-product' };
+    expect(errorsFor('merch/official.mjs#new-product', row, merchMediaErrors(row))).not.toEqual([]);
+  });
+
+  it('grandfathers only an exact surface snapshot', () => {
+    const old = { slug: 'old-row' };
+    const legacy = new Map([['releases/x.mjs#old-row', momentFingerprint(old)]]);
+    expect(errorsFor('releases/x.mjs#old-row', old, nonMomentMediaErrors(old), legacy)).toEqual([]);
+    expect(errorsFor('releases/x.mjs#old-row', { ...old, title: 'changed' }, nonMomentMediaErrors(old), legacy)).not.toEqual([]);
   });
 });

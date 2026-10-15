@@ -54,6 +54,8 @@
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "check:routines": "node scripts/check-routine-workflows.mjs",
     "check:workflow-deps": "node scripts/check-workflow-deps.mjs",
+    "ops:turn-ledger": "node scripts/routines/turn-ledger.mjs",
+    "ops:clock-fire-rate": "node scripts/ops/clock-fire-rate.mjs",
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
@@ -80,7 +82,9 @@
     "social:select-photo": "node scripts/social/select-photo.mjs",
     "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
     "social:photo-coverage": "node scripts/social/photo-coverage.mjs",
-    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json"
+    "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json",
+    "news:dedupe": "tsx scripts/news/dedupe-current-items.mjs",
+    "news:dedupe:live": "tsx scripts/news/dedupe-current-items.mjs --live"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
