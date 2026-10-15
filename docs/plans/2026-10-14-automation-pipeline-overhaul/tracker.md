@@ -15,15 +15,15 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | review | #5816 |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | todo |  |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
-| P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | todo |  |  |
+| P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | doing |  |  |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | doing |  |  |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | todo |  |  |
-| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | doing |  |  |
+| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | review |  |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | todo |  |  |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | doing |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
-| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | review |  |  |
+| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | review | #5818, #5817 |  |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
