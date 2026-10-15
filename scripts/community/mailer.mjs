@@ -54,6 +54,7 @@ import { URLSearchParams } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
+import { facebookLeadUrl } from './awareness-fb-link.mjs';
 import {
   COMMUNITY_WEBHOOK_USERNAME,
   buildBatchHeader,
@@ -120,7 +121,9 @@ function escapeHtml(value) {
 export function destinationLine(lead) {
   const platformLabel = lead.platform === 'reddit' ? 'Reddit' : 'Facebook';
   if (lead.platform === 'facebook') {
-    return `${platformLabel} · ${escapeHtml(lead.locator || lead.community)}`;
+    const url = facebookLeadUrl(lead);
+    const where = escapeHtml(lead.locator || lead.community);
+    return `${platformLabel} · ${url ? `<a href="${escapeHtml(url)}">${where}</a>` : where}`;
   }
   const where = lead.url
     ? `<a href="${escapeHtml(lead.url)}">r/${escapeHtml(lead.community)}</a>`
@@ -209,7 +212,8 @@ export function renderEmailText(leads, { mode = 'daily', date }) {
       `--- ${lead.kind} · ${lead.platform}:${lead.community} · relevance ${typeof lead.relevance === 'number' ? lead.relevance.toFixed(2) : 'n/a'} ---`,
     );
     if (lead.title) lines.push(lead.title);
-    if (lead.url) lines.push(lead.url);
+    const destinationUrl = lead.platform === 'facebook' ? facebookLeadUrl(lead) : lead.url;
+    if (destinationUrl) lines.push(destinationUrl);
     lines.push(lead.draft || '(no draft on file)');
     lines.push('');
   }
