@@ -2656,7 +2656,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
+          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. (The package kept a life past the chart run: on Oct. 15, 2026, Taylor\'s official YouTube channel posted a visualizer for the BUNT. remix.) On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -2723,6 +2723,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 3,
+          },
+          {
+            // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5913).
+            outlet: 'Taylor Swift (official YouTube)',
+            url: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+            source_title: 'Taylor Swift - Opalite (BUNT. Remix) (Visualizer)',
+            publisher: 'Taylor Swift',
+            source_type: 'video',
+            accessed_at: '2026-10-15',
+            reliability_score: 5,
+            notes:
+              'Official visualizer for the BUNT. remix, posted Oct. 15, 2026. Verified via YouTube oEmbed (HTTP 200, title "Taylor Swift - Opalite (BUNT. Remix) (Visualizer)", author_name "Taylor Swift", author_url youtube.com/@TaylorSwift). A visualizer does not fit the videos kind enum, so it is a moment source rather than a videos row.',
           },
           {
             // Chris Lake on being asked by Swift and Kelce to remix "Opalite"
@@ -6722,6 +6734,32 @@ export default {
             note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-17',
+          },
+          // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
+          // the October pre-nomination prediction pieces. Award chances are
+          // explicitly Always-OK speculation; all three pages loaded and were
+          // read directly. No location.
+          {
+            claim:
+              'Rolling Stone\'s 2027 Grammy predictions put The Life of a Showgirl in its projected Album of the Year field (picking Olivia Rodrigo to win) and "The Fate of Ophelia" in its projected Song of the Year field (picking Olivia Dean\'s "Man I Need").',
+            reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
+            reportedOn: '2026-10-13',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
+            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
+          },
+          {
+            claim:
+              'Variety\'s Chris Willman listed "The Fate of Ophelia" among the leading Record of the Year contenders and named Taylor, Olivia Dean and Olivia Rodrigo the best bets to win, noting that for all her Album of the Year wins Taylor has never won Record or Song of the Year.',
+            reportedBy: 'Variety (Chris Willman)',
+            reportedOn: '2026-10-12',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
+            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
           },
         ],
       },
