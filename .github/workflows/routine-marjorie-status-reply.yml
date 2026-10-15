@@ -5,13 +5,16 @@
 # It has no schedule of its own, which is why check-routine-workflows.mjs needs
 # this header to say so.
 #
-# Two jobs, mirroring routine-marjorie-chat.yml minus Discord:
+# Three jobs, mirroring routine-marjorie-chat.yml minus Discord:
 #   context  re-reads the comment from GitHub and writes it for the agent only
 #            if it is the owner's own comment on a status-page issue (scripts/
 #            marjorie/status-relay.mjs); anything else stops the run here.
-#   run      Opus reads .scratch/status-comment.json, acts inside the chat
+#   template Jev classifies common status questions; deterministic code reads
+#            the live status sources and posts the answer when confidence is high.
+#   run      Sonnet reads .scratch/status-comment.json, acts inside the chat
 #            routine's authority list, and answers with ONE comment on the
-#            status issue (docs/agents/runner-prompts/marjorie-status-reply.md).
+#            status issue when the cheap path declines or fails
+#            (docs/agents/runner-prompts/marjorie-status-reply.md).
 # Her reply is a Bot comment, so marjorie-status.yml ignores it — no loop. The
 # concurrency lane is per comment id, so two comments never drop each other.
 name: routine-marjorie-status-reply
@@ -67,9 +70,40 @@ jobs:
           path: .scratch/status-comment.json
           retention-days: 1
 
-  run:
+  template:
     needs: context
     if: needs.context.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    outputs:
+      handled: ${{ steps.intent.outputs.handled }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: ./.github/actions/setup-repo
+        with:
+          ref: main
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
+      - uses: actions/download-artifact@v8
+        with:
+          name: status-reply-context
+          path: .scratch
+      - name: Answer a common status question with Jev plus live data
+        id: intent
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: node scripts/marjorie/status-intents.mjs .scratch/status-comment.json
+
+  run:
+    needs: [context, template]
+    if: always() && needs.context.outputs.skip != 'true' && needs.template.outputs.handled != 'true'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — status reply"

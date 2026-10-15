@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
+
+**Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
+
+**Why.** Common read-only questions do not need an agent turn, while the fail-open boundary preserves today's behavior for every uncertain or action-taking request. Jev usage is written to the Actions step summary; the key is never logged.
+
+**Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
+
+---
+
 ## 2026-10-15 — Push go-live safety uses a six-hour Instant horizon and a fail-closed delivery ledger
 
 **Decision.** Instant notification sends are limited to events created within the previous six hours, except that a quiet-hours-held device gets six hours from the hold's end; the router query is bounded to the preceding 30 hours. Delivery completion is tracked per device, so another device receiving an event cannot consume that hold. Every provider-accepted push path halts after a failed delivery-log or required sent-marker write and attempts to engage `PUSH_FREEZE`; halting does not depend on that freeze write succeeding. Every authorized run first writes the `dispatch_heartbeat` ops-switch row and sends nothing if the write fails. Only the owner may lift the freeze. The auto-cooldown pass stays disabled until native notification-open tracking exists. Every authorized dispatch logs one aggregate, non-identifying per-pass summary, including configured 503 exits.
