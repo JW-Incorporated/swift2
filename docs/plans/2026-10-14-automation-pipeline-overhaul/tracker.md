@@ -11,7 +11,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | done | #5825 | 2026-10-14 |
-| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
+| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | review | #5832 |  |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
@@ -21,6 +21,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review |  |  |
+| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | todo |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
@@ -39,7 +40,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | review | #5827 |  |
-| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review |  |  |
+| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | todo |  |  |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | review | #5830 |  |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
@@ -154,6 +155,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 22:58 PM: P1-03 round 2 APPROVE → #5830 armed (T1 pushes only on critical_breaking; baby_watch only on critical_personal behind the fact-check plus verifier; all three verifier classes hold_owner_queue). Carry to the P2-02 brief: ENFORCE `t1PushOnlyVia` in the router (today it's only a marker), and add a config field for official_drop's "verified official channel id". P1-23 dispatched (Codex sol high; must keep today's corpus passing validate:content and follow guardrail 2 exactly). P0-09 follow-up in flight (Codex).
 - 2026-10-14 23:05 PM: P0-01 LIVE ACCEPTANCE PASSED: test issue #5828 (label created, reset 2 h ahead) → kevin-radar run 38685466593 concluded success with "skipped: weekly limit until 2026-10-15T07:11:38.465Z"; #5828 closed. P1-02 round 2 REJECT on one defect in retention.mjs only (the dry-run undercounts items with no decisions: `NULL = 'noise'`); the migration, types and decisions entry were reviewed clean. PM call instead of the debug ladder (a narrow defect in an unscheduled script, not a wrong approach): SPLIT. The P1-02 branch drops the retention script and lands the approved schema; new item P1-02b (retention script plus the reviewer's `is not distinct from` fix plus a no-decisions test) gets its own review. Nit to handle at merge: packages/shared/package.json conflicts with #5827. P0-02 edits done (marjorie-ops cron hourly → every 3 h, max_turns 90 → 40; 6 model downgrades; austin Mon/Wed/Fri; clock table) → clock-dispatch.test.ts touch approved. P0-11 final round pushed 4322a9123 → final adversarial reviewer (Opus).
 - 2026-10-14 23:14 PM: P0-02 review round 1 REJECT: the plan's max_turns 40 for marjorie-ops would break it (real successful runs used 62, 64, 65 and 99 turns). PM call, overriding the plan: KEEP max_turns 90; the saving comes from the 3-hourly cadence (about 67 percent fewer runs). The watchdog staleness threshold derives from the cron (8 h), so it's fine. The 5-5 model ids are unproven on main → round 2 = revert the cap plus a live kevin-radar dispatch on the branch (claude-haiku-5-5) to prove the id.
+- 2026-10-14 23:20 PM: P0-11 final review REJECT on ONE defect: the generalized kill script used a PostgREST subquery (`.not('id','in','(select ...)')`), which fails on the uuid column, a regression against main's working kill-t1. Fixes 1 and 3-7 were confirmed (freeze gates all 7 passes, 503 on unreadable, per-batch re-check, revoke, applied migration untouched; a 503 can't double-send because Vercel cron doesn't retry). PM call (same as P1-02: a known narrow fix, not a stuck bug, so no debug ladder): SPLIT. P0-11 lands with main's kill-t1 script restored unchanged; new item P0-11b = an all-tier kill script with a real anti-join (or a two-step fetch on kind='instant' deliveries), a test fake that checks the filters it receives, and a --dry-run flag. P1-02 split done → PM verified the --stat (migration, types, migration test, decisions entry, MAP, package.json only) → #5831 opened and armed. P0-02 round 2 pushed 4c4dbd106 (max_turns kept at 90); kevin-radar on the branch concluded success with `--model claude-haiku-5-5` passed (weak evidence: 10 s, no model output; risk accepted, these are the documented current ids, and failures are visible and revertible) → final Haiku check opens the PR. P0-09 follow-up pushed 1c18714c7 (suite 12,229) → reviewer.
 
 ## Next actions
 
