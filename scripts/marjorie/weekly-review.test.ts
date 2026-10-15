@@ -44,9 +44,9 @@ describe('routine-marjorie-weekly-review.yml', () => {
     expect(review).toMatch(/workflow_dispatch:/);
   });
 
-  it('uses the Fable model the working Austin routine uses, bounded by turns, budget input and timeout', () => {
-    const model = /model: (claude-fable-[\w-]+)/.exec(review)?.[1];
-    expect(model).toBe('claude-fable-5');
+  it('uses the Opus model the working Austin routine uses, bounded by turns, budget input and timeout', () => {
+    const model = /model: (claude-opus-[\w-]+)/.exec(review)?.[1];
+    expect(model).toBe('claude-opus-5-5');
     expect(austin).toContain(`model: ${model}`);
     expect(review).toMatch(/max_turns: \d+/);
     expect(Number(/max_turns: (\d+)/.exec(review)![1])).toBeLessThanOrEqual(100);
