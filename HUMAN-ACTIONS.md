@@ -2,9 +2,17 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** Reddit blocks the home reader's browser (HTTP 403), so Reddit cards can't get score, comment counts or threads. Reddit's public .json pages need no key, login or account, but they touch the spirit of your no-Reddit-API-key rule, so it's your call.
+**Steps:**
+1. Decide: `yes` — RSS to find threads, plus anonymous .json for at most 20 top threads per run, slow and with an honest name; `no` — park the reader and keep the GitHub RSS scan (cards stay without counts).
+**Worked if:** docs/decisions.md records your answer and the P1-15 tracker row moves out of blocked.
 
 ## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
