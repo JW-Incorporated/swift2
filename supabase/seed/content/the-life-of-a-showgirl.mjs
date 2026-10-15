@@ -187,6 +187,17 @@ export default {
             notes:
               'Additional established-trade report of the Hot 100 debut (paywalled/bot-gated in this run; listed for provenance alongside the accessible reprints above).',
           },
+          {
+            outlet: 'Good Morning America (ABC)',
+            url: 'https://www.youtube.com/watch?v=FqbcAAKQjes',
+            source_title: 'Taylor Swift tops Billboard 200',
+            publisher: 'Good Morning America',
+            source_type: 'video',
+            accessed_at: '2026-10-14',
+            reliability_score: 4,
+            notes:
+              'ABC\'s "Good Morning America" segment (official @GMA YouTube channel, video id FqbcAAKQjes, published Oct. 12, 2026) reporting "The Life of a Showgirl" at No. 1 on the Billboard 200 — broadcast corroboration of this moment\'s album-chart result. Surfaced by appearance-discovery (intake #5607); verified via YouTube oEmbed (HTTP 200, title "Taylor Swift tops Billboard 200", author_name "Good Morning America"). A morning-show news segment, so a moment source, not a videos row.',
+          },
         ],
       },
     },
@@ -4035,6 +4046,13 @@ export default {
         // so the queue can promote them on an announcement or fade them if the
         // signs go dark. Deliberately spread away from the wedding page.
         rumors: [
+          // Rumor Desk re-check 2026-10-14 (Vault Run lane 4): the four older
+          // TS13 / debut-TV / post-wedding notes below were overdue for a
+          // lifecycle check. Re-checked against the current news digest (last
+          // 72h) and the Clownbot lore sweep — the next-record thread is STILL
+          // LIVE, not quiet (fresh TS13/"Karma"/Rep-TV chatter continues),
+          // nothing announced, titled, dated, or denied. STILL LIVE → each
+          // kept `unconfirmed` with lastCheckedOn bumped to today; no fade.
           {
             claim:
               'A Us Weekly source said in April 2026 that Taylor "does have another record in the works, but there\'s no pressure to release it anytime soon" — "still very much in the creative stages." No album No. 13 (TS13) has been announced, titled, or dated.',
@@ -4044,7 +4062,7 @@ export default {
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
             note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-10-14',
           },
           {
             claim:
@@ -4055,7 +4073,7 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
             note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-10-14',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -4075,7 +4093,7 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
             note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-09-02',
+            lastCheckedOn: '2026-10-14',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -4099,7 +4117,7 @@ export default {
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
             note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-30',
+            lastCheckedOn: '2026-10-14',
           },
           // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
           // thread from the TS13 / debut-TV tips above — the revived "lost
