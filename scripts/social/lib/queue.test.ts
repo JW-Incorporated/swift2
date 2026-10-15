@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   isDue,
+  sanitizeLastError,
+  withFailureMetadata,
   isValidScheduledAt,
   selectDuePosts,
   summarizeQueueStatus,
@@ -673,5 +675,34 @@ describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec
     // indifferent to it either way, the strongest form of "not hashed."
     const drifted = { ...stamped, critique: critiqueB };
     expect(approvalStatus(drifted, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+});
+
+describe('failure metadata for social/failed/ records', () => {
+  const now = new Date('2026-10-15T12:00:00Z');
+
+  it('adds failedAt, attempts and a short lastError', () => {
+    const out = withFailureMetadata({ platform: 'x', attempts: 2 }, { now, error: new Error('HTTP 403 forbidden') });
+    expect(out).toMatchObject({ failedAt: '2026-10-15T12:00:00.000Z', attempts: 2, lastError: 'HTTP 403 forbidden' });
+  });
+
+  it('defaults attempts to 0 and falls back to the item lastError, then failureReason', () => {
+    expect(withFailureMetadata({ platform: 'x', lastError: 'earlier' }, { now })).toMatchObject({ attempts: 0, lastError: 'earlier' });
+    expect(withFailureMetadata({ platform: 'x', failureReason: 'stale 48h' }, { now }).lastError).toBe('stale 48h');
+  });
+
+  it('redacts URLs, Bearer values and key=value / JSON secrets, keeps the rest, and caps the length', () => {
+    const msg = 'POST https://api.x.com/2/tweets?access_token=abc123 failed; Bearer sk-live-999 token=zzz {"oauth_token":"tok-1","detail":"Forbidden"}';
+    const clean = sanitizeLastError(msg);
+    expect(clean).not.toMatch(/https?:|abc123|sk-live-999|zzz|tok-1/);
+    expect(clean).toContain('"detail":"Forbidden"');
+    expect(sanitizeLastError('x'.repeat(500)).length).toBeLessThanOrEqual(200);
+  });
+
+  it('redacts failureReason too, without the length cap', () => {
+    const reason = `Transport failure https://graph.facebook.com/v21.0/me?access_token=abc123 ${'y'.repeat(400)}`;
+    const out = withFailureMetadata({ attempts: 1, failureReason: reason }, { now });
+    expect(out.failureReason).not.toMatch(/https?:|abc123/);
+    expect(out.failureReason.length).toBeGreaterThan(300);
   });
 });

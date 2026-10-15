@@ -146,8 +146,10 @@ concurrency:
 # needs it, so a rename can't silently desync a reader from a writer:
 #   - LEDGER_BRANCH is the unprotected branch dedupe correctness now reads
 #     from and pushes to directly (issue #2040) — no PR, no merge gate.
-#   - STATE_BRANCH_PREFIX names the throwaway branches behind the fold-back
-#     PR into main, kept for visibility/audit only (see that step's comment).
+#   - STATE_BRANCH_PREFIX names the branches behind the fold-back PR into
+#     main, kept for visibility/audit only: "${STATE_BRANCH_PREFIX}rolling" is
+#     the one rolling branch, a timestamp suffix is the conflict fallback (see
+#     that step's comment).
 # scripts/social/social-poster-workflow.test.ts asserts each literal appears
 # exactly once, here.
 env:
@@ -438,6 +440,18 @@ jobs:
       # human does not need to drop everything to merge it — watchdog.yml's
       # generic stuck-PR check already surfaces a PR wedged on a failing or
       # missing check.
+      #
+      # ONE rolling PR (P0-05, architect ruling 2026-10-15), not one PR per
+      # run: this run's state commit is built on the run-start main HEAD, then
+      # `git merge-tree --write-tree` merges it with the rolling branch's tip
+      # into a two-parent commit (tip, HEAD). Every push is therefore a plain
+      # fast-forward, the open PR is edited in place, and an earlier run's
+      # still-unmerged changes (queue deletions included) are carried, never
+      # dropped. Closing superseded per-run PRs was rejected: an already-posted
+      # item is skipped as a duplicate and left in the queue, so no later run
+      # recomputes an earlier run's queue deletion. A merge-tree conflict (or
+      # no common history, or a rejected push) falls back to the old
+      # timestamped PR for this run with a ::warning:: — nothing is lost.
       - name: Prepare fold-back PR metadata
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
@@ -455,16 +469,85 @@ jobs:
           else
             echo "social-poster produced no report (the poster step itself crashed before reporting)." > "$BODY_FILE"
           fi
-          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run, folding social-ledger back into main for visibility. No content decisions are made here, and this PR is no longer what dedupe correctness depends on (issue #2040) — the posted/failed record already landed durably on the unprotected `social-ledger` branch in this same run.\n\n⚠️ Please still merge, not close — closing leaves main claiming these items are still queued, which is a staleness/visibility problem even though it can no longer cause a live duplicate post.\n' >> "$BODY_FILE"
+          printf '\n---\n\nAutomated queue state update (posted/failed/retry attempts) from this scheduled run, folding social-ledger back into main for visibility. One rolling PR carries every not-yet-merged run; this body describes the latest run. No content decisions are made here, and this PR is no longer what dedupe correctness depends on (issue #2040) — the posted/failed record already landed durably on the unprotected `social-ledger` branch in this same run.\n\n⚠️ Please still merge, not close — closing leaves main claiming these items are still queued, which is a staleness/visibility problem even though it can no longer cause a live duplicate post.\n' >> "$BODY_FILE"
           {
             echo "body_file=$BODY_FILE"
             echo "branch=${STATE_BRANCH_PREFIX}$(date -u +%Y%m%d%H%M%S)"
+            echo "rolling_branch=${STATE_BRANCH_PREFIX}rolling"
             echo "pr_title=social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)$TITLE_SUFFIX"
             echo "commit_message=social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } >> "$GITHUB_ENV"
 
+      # git half of the rolling fold-back; touches neither HEAD, the branch nor
+      # the real index (scratch index + commit-tree), so the fallback step can
+      # still commit this checkout's diff exactly as before. The state commit
+      # holds ONLY queue/posted/failed: social/feedback is folded back by
+      # social-approval-poll.yml, and its append-only rows would make every
+      # merge-tree conflict while a rolling PR is open.
       - name: Fold ledger back into main (via PR — visibility only, not correctness-critical)
+        id: rolling
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          fallback() {
+            echo "::warning::social-poster: $1 — this run's state goes to a timestamped state PR instead (the rolling PR is untouched; nothing is lost)."
+            echo "mode=fallback" >> "$GITHUB_OUTPUT"
+            exit 0
+          }
+          SCRATCH_INDEX_DIR=$(mktemp -d)
+          GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git read-tree HEAD
+          GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git add social/queue social/posted social/failed
+          STATE_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/index" git write-tree)
+          if [ "$STATE_TREE" = "$(git rev-parse 'HEAD^{tree}')" ]; then
+            echo "No queue changes to fold back into main."
+            echo "mode=none" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          STATE_COMMIT=$(git commit-tree "$STATE_TREE" -p HEAD -m "$commit_message")
+          LS_STATUS=0
+          git ls-remote --exit-code --heads origin "$rolling_branch" >/dev/null 2>&1 || LS_STATUS=$?
+          if [ "$LS_STATUS" -eq 2 ]; then
+            # No rolling branch yet: this run's state commit seeds it.
+            NEW_COMMIT="$STATE_COMMIT"
+          elif [ "$LS_STATUS" -ne 0 ]; then
+            fallback "could not read $rolling_branch from origin"
+          else
+            git fetch --quiet --depth=20 origin "+refs/heads/$rolling_branch:refs/remotes/origin/$rolling_branch" || fallback "could not fetch $rolling_branch"
+            TIP=$(git rev-parse --verify "refs/remotes/origin/$rolling_branch^{commit}")
+            # merge-tree needs the common ancestor (the main commit the tip was
+            # last built on). The checkout is shallow, so deepen main, bounded,
+            # until its history meets the tip's.
+            for DEEPEN in 50 200 1000; do
+              git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 && break
+              git fetch --quiet --deepen="$DEEPEN" origin main || break
+            done
+            git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 || fallback "no common history with $rolling_branch"
+            MERGED_TREE=$(git merge-tree --write-tree "$TIP" "$STATE_COMMIT") || fallback "merge-tree conflict between this run's state and $rolling_branch"
+            NEW_COMMIT=$(git commit-tree "$MERGED_TREE" -p "$TIP" -p HEAD -m "$commit_message")
+          fi
+          git push --quiet origin "$NEW_COMMIT:refs/heads/$rolling_branch" || fallback "push to $rolling_branch was rejected"
+          echo "mode=rolling" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the one rolling state PR
+        if: always() && steps.rolling.outputs.mode == 'rolling'
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: |
+          set -euo pipefail
+          EXISTING=$(gh pr list --head "$rolling_branch" --base main --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "$pr_title" --body-file "$body_file"
+          else
+            gh pr create --title "$pr_title" --body-file "$body_file" --base main --head "$rolling_branch"
+          fi
+          gh pr merge "$rolling_branch" --squash --auto --delete-branch
+
+      # The pre-P0-05 path, unchanged, now only for a run the rolling step
+      # could not fold (conflict/no history/rejected push) or crashed on.
+      - name: Fold back via a timestamped PR (rolling-branch fallback)
+        if: always() && (steps.rolling.outputs.mode == 'fallback' || steps.rolling.outcome == 'failure')
         uses: ./.github/actions/commit-and-pr
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
