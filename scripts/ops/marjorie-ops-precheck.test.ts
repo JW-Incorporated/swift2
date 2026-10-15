@@ -76,6 +76,29 @@ describe('bot-authored ledger markers', () => {
   });
 });
 
+describe('collectOpsSnapshot comment re-read', () => {
+  const marker = `<!-- marjorie-ops-handled date=${todayLA()} action=comment-only -->`;
+  const make = (rest: () => unknown) => vi.fn(async (args: string[]) => {
+    if (args[0] === 'api') return rest();
+    if (args[0] === 'run' || args[0] === 'pr') return { stdout: '[]' };
+    if (args.includes('watchdog-alert')) return { stdout: JSON.stringify([{ number: 7, title: "Watchdog: no Founders' Brief", createdAt: '2026-10-15T11:00:00Z', comments: [{ body: marker, author: { login: 'claude' }, viewerDidAuthor: false }] }]) };
+    return { stdout: '[]' };
+  });
+  it('treats a REST-read Bot handled marker as handled', async () => {
+    const gh = make(() => ({ stdout: JSON.stringify([[{ body: marker, user: { login: 'claude[bot]', type: 'Bot' } }]]) }));
+    const snapshot = await collectOpsSnapshot({ gh, repo: 'o/r', now: empty.now, chaseState: async () => ({ now: empty.now }) });
+    expect(buildOpsSignals(snapshot)[0].context).toContain('ledger state handled-awaiting-watchdog');
+  });
+  it('keeps list data, warns, and stays unhandled when the REST read throws', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const gh = make(() => { throw new Error('boom'); });
+    const snapshot = await collectOpsSnapshot({ gh, repo: 'o/r', now: empty.now, chaseState: async () => ({ now: empty.now }) });
+    expect(buildOpsSignals(snapshot)[0].context).toContain('ledger state unhandled');
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('REST comment re-read failed for #7'));
+    warn.mockRestore();
+  });
+});
+
 describe('marjorie ops precheck acceptance fixtures', () => {
   it('skips the agent when there are no signals', async () => {
     const client = noul();

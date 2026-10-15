@@ -51,7 +51,10 @@ export async function collectOpsSnapshot({ gh = ghRun, repo, now = Date.now(), c
     try {
       const raw = JSON.parse(String((await gh(['api', `repos/${target}/issues/${row.number}/comments`, '--paginate', '--slurp'])).stdout || '[]')).flat();
       return { ...row, comments: raw.map((c, i) => ({ body: c.body || '', author: { login: c.user?.login, type: c.user?.type }, viewerDidAuthor: row.comments[i]?.viewerDidAuthor === true })) };
-    } catch { return row; }
+    } catch {
+      console.warn(`marjorie-ops precheck: REST comment re-read failed for #${row.number}; falling back (bot markers ignored)`);
+      return row;
+    }
   }));
   return { alerts: alertRows, runs: parse(runs), prs: parse(prs), opsFixes, chasePlan: evaluateDispatchChase(chase), now };
 }
