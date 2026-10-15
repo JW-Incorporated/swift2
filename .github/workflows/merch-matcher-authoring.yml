@@ -1,8 +1,8 @@
 # E6 authoring runs Tuesday and Friday at :27, outside the repository's common
 # cron clusters. Search is Awin-first; SerpAPI is capped separately from the
 # shared 88-call Claude subscription-wrapper ceiling. Normal dispatches need no
-# typed confirmation; only a manual request above the 3-look/5-search schedule
-# caps requires RUN_MATCHER_AUTHORING.
+# typed confirmation; only a manual request above the weekly or per-run caps
+# requires RUN_MATCHER_AUTHORING. The matching job never receives the author PAT.
 name: merch-matcher-authoring
 
 on:
@@ -19,54 +19,59 @@ on:
         required: true
         default: '5'
       confirmation:
-        description: 'Only required above either default cap: RUN_MATCHER_AUTHORING'
+        description: 'Required above the weekly or per-run caps: RUN_MATCHER_AUTHORING'
         required: false
         type: string
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
 
 concurrency:
   group: merch-matcher-authoring
   cancel-in-progress: false
 
 jobs:
-  author:
+  match:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-repo
         with:
-          token: ${{ secrets.SOCIAL_POSTER_PAT }}
-          npm-ci: 'true'
-          npm-ci-args: '--ignore-scripts'
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
           cache: npm
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --silent
       - name: Skip while an earlier matcher PR is open
         id: open
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/merch-engine/matcher-open-pr-guard.mjs
-      - name: Validate manual caps
+      - name: Restore matcher run and no-match state
+        if: ${{ steps.open.outputs.number == '' }}
+        uses: actions/cache/restore@v6
+        with:
+          path: .cache/merch-matcher-state.json
+          key: merch-matcher-state-v1-${{ github.run_id }}
+          restore-keys: merch-matcher-state-v1-
+      - name: Enforce weekly and per-run caps
+        id: run
         if: ${{ steps.open.outputs.number == '' }}
         env:
           LOOK_CAP: ${{ inputs.look_cap || '3' }}
           PAID_SEARCH_CAP: ${{ inputs.paid_search_cap || '5' }}
           CONFIRMATION: ${{ inputs.confirmation }}
-        run: |
-          set -euo pipefail
-          [[ "$LOOK_CAP" =~ ^[1-9][0-9]*$ ]] || { echo 'look_cap must be a positive integer' >&2; exit 1; }
-          [[ "$PAID_SEARCH_CAP" =~ ^[0-9]+$ ]] || { echo 'paid_search_cap must be a non-negative integer' >&2; exit 1; }
-          if { [ "$LOOK_CAP" -gt 3 ] || [ "$PAID_SEARCH_CAP" -gt 5 ]; } && [ "$CONFIRMATION" != RUN_MATCHER_AUTHORING ]; then
-            echo 'Manual runs above the default caps require RUN_MATCHER_AUTHORING' >&2
-            exit 1
-          fi
-          echo "LOOK_CAP=$LOOK_CAP" >> "$GITHUB_ENV"
-          echo "PAID_SEARCH_CAP=$PAID_SEARCH_CAP" >> "$GITHUB_ENV"
+        run: node scripts/merch-engine/matcher-state.mjs --state .cache/merch-matcher-state.json --event "${{ github.event_name }}" --look-cap "$LOOK_CAP" --paid-search-cap "$PAID_SEARCH_CAP" --confirmation "$CONFIRMATION"
       - name: Install Claude Code
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
+        continue-on-error: true
         run: |
           for attempt in 1 2 3; do
             timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- 2.1.300" && break
@@ -79,39 +84,91 @@ jobs:
           "$HOME/.local/bin/claude" --version
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Restore Awin product index cache
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         uses: actions/cache/restore@v6
         with:
           path: awin-product-index.sqlite
           key: merch-awin-sync-${{ github.run_id }}
           restore-keys: merch-awin-sync-
       - name: Build matcher input
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: node scripts/merch-engine/build-matcher-input.mjs --output .artifacts/merch-matcher/input.json --limit "$LOOK_CAP" --paid-search-cap "$PAID_SEARCH_CAP"
+        run: node scripts/merch-engine/build-matcher-input.mjs --output .artifacts/merch-matcher/input.json --limit "${{ inputs.look_cap || '3' }}" --paid-search-cap "${{ inputs.paid_search_cap || '5' }}" --state .cache/merch-matcher-state.json
       - name: Run E6 matcher and Sonnet vision judge
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
         run: node scripts/merch-engine/match-moments-authoring.mjs --input .artifacts/merch-matcher/input.json --output .artifacts/merch-matcher/results.json --index awin-product-index.sqlite
       - name: Run E3 audit and write E1/E2-verified products
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: node scripts/merch-engine/write-moment-products.mjs --plan .artifacts/merch-matcher/results.json
+        run: node scripts/merch-engine/write-moment-products.mjs --plan .artifacts/merch-matcher/results.json --state .cache/merch-matcher-state.json
       - name: Validate authored content
-        if: ${{ steps.open.outputs.number == '' }}
+        if: ${{ steps.run.outputs.proceed == 'true' }}
+        run: |
+          npm run sync:content --silent
+          npm run validate:content --silent
+      - name: Build seed-only diff artifact
+        id: diff
+        if: ${{ steps.run.outputs.proceed == 'true' }}
+        run: |
+          mkdir -p .artifacts/merch-matcher
+          if git diff --quiet -- supabase/seed/content; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git diff --binary --output=.artifacts/merch-matcher/seed.patch -- supabase/seed/content
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload seed-only diff artifact
+        if: ${{ steps.diff.outputs.changed == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: merch-matcher-seed-diff
+          path: .artifacts/merch-matcher/seed.patch
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/cache/save@v6
+        if: ${{ always() && steps.open.outputs.number == '' && hashFiles('.cache/merch-matcher-state.json') != '' }}
+        with:
+          path: .cache/merch-matcher-state.json
+          key: merch-matcher-state-v1-${{ github.run_id }}
+
+  author:
+    needs: match
+    if: ${{ needs.match.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts --silent'
+          cache: npm
+      - name: Download seed-only diff artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: merch-matcher-seed-diff
+          path: .artifacts/merch-matcher
+      - name: Apply the matched seed diff
+        run: git apply .artifacts/merch-matcher/seed.patch
+      - name: Validate authored content
         run: |
           npm run sync:content --silent
           npm run validate:content --silent
       - name: Set content PR branch
-        if: ${{ steps.open.outputs.number == '' }}
         run: echo "branch=merch-matcher/${GITHUB_RUN_ID}" >> "$GITHUB_ENV"
       - uses: ./.github/actions/commit-and-pr
-        if: ${{ steps.open.outputs.number == '' }}
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
           paths: supabase/seed/content

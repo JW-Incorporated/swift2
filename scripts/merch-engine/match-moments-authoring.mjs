@@ -6,20 +6,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
 import { verifyImage } from './verify-images.mjs';
 import { callMerchClaude, MERCH_LIGHT_MODEL, MERCH_VISION_MODEL } from './merch-claude.mjs';
-
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
-
 function descriptorTerms(descriptors) {
   return [descriptors?.brand, descriptors?.kind, descriptors?.color, descriptors?.pattern, descriptors?.silhouette]
     .filter((term) => typeof term === 'string' && term.trim());
 }
 
-/** Deterministic, no-new-infra hostname guess for a named designer/brand. */
 export function brandHostnameGuess(brand) {
   if (typeof brand !== 'string' || !brand.trim()) return null;
   const slug = brand.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -34,12 +30,12 @@ export function brandHostnameGuess(brand) {
 export async function extractDescriptors({ moment, momentImageUrl, extractImpl }) {
   if (typeof extractImpl !== 'function') throw new Error('extractImpl is required');
   const result = await extractImpl({ moment, momentImageUrl });
+  if (result == null) return null;
   if (!result || typeof result !== 'object') return {};
   const { kind, color, pattern, silhouette, brand } = result;
   return { kind, color, pattern, silhouette, brand };
 }
 
-/** Search step (b): the maker's own product pages, free, only when named. */
 export async function searchBrandDirect({ descriptors, apiKey, fetchImpl = fetch, searchImpl } = {}) {
   const brand = descriptors?.brand;
   if (!brand) return [];
@@ -66,14 +62,20 @@ async function searchViaSerpApi({ descriptors, apiKey, fetchImpl, site, source }
   const response = await fetchImpl(url.toString());
   if (!response.ok) throw new Error(`search API request failed (${response.status})`);
   const body = await response.json();
-  return (body.shopping_results ?? []).map((result) => ({
-    id: result.product_id ?? result.link,
-    source,
-    title: result.title,
-    price: result.price,
-    imageUrl: result.thumbnail,
-    productUrl: result.product_link ?? result.link,
-  }));
+  return (body.shopping_results ?? []).flatMap((result) => {
+    const productUrl = result.link ?? result.product_link;
+    let host;
+    try { host = new URL(productUrl).hostname.toLowerCase(); } catch { return []; }
+    if (/(^|\.)google\.[a-z.]+$/.test(host)) return [];
+    return [{
+      id: result.product_id ?? productUrl,
+      source,
+      title: result.title,
+      price: result.price,
+      imageUrl: result.thumbnail,
+      productUrl,
+    }];
+  });
 }
 
 /**
@@ -154,9 +156,10 @@ async function scoreCandidates(candidates, momentImageUrl, judge) {
   const scored = [];
   for (const candidate of candidates) {
     const judgment = await judge({ candidate, momentImageUrl });
-    if (Number.isFinite(judgment?.score)) scored.push({ ...candidate, urlVerified: true, imageVerified: true, score: judgment.score });
+    if (judgment == null) return { scored: [], hold: true };
+    if (Number.isFinite(judgment.score)) scored.push({ ...candidate, urlVerified: true, imageVerified: true, score: judgment.score });
   }
-  return scored;
+  return { scored, hold: false };
 }
 
 /**
@@ -178,6 +181,9 @@ export async function runMatcherAuthoring({
   cap = 0,
 }) {
   const descriptors = await extractDescriptors({ moment, momentImageUrl, extractImpl });
+  if (descriptors == null) {
+    return { momentId: moment.id, products: [], ticket: null, descriptors: null, paidSearchCalls: 0, status: 'hold', holdReason: 'vision-unavailable' };
+  }
   const { candidates, paidSearchTicket, paidSearchCalls } = await gatherCandidates({
     moment,
     descriptors,
@@ -190,8 +196,11 @@ export async function runMatcherAuthoring({
     callsUsed,
     cap,
   });
-  const verified = await scoreCandidates(candidates, momentImageUrl, judge);
-  const match = matchMoment({ moment, candidates: verified });
+  const scoring = await scoreCandidates(candidates, momentImageUrl, judge);
+  if (scoring.hold) {
+    return { momentId: moment.id, products: [], ticket: null, descriptors, paidSearchCalls, status: 'hold', holdReason: 'vision-unavailable' };
+  }
+  const match = matchMoment({ moment, candidates: scoring.scored });
   const ticket = match.products.length === 0 ? (paidSearchTicket ?? match.ticket) : null;
   return { ...match, ticket, descriptors, paidSearchCalls };
 }
@@ -263,7 +272,7 @@ async function main() {
 }
 
 export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, options = {}) {
-  return (await callMerchClaude({
+  return callMerchClaude({
     caller: 'merch-matcher-authoring',
     model: MERCH_LIGHT_MODEL,
     system: 'Extract concise garment descriptors from the supplied image and trusted moment title.',
@@ -278,7 +287,7 @@ export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, o
     },
     imageUrls: [momentImageUrl],
     ...options,
-  })) ?? {};
+  });
 }
 
 const self = fileURLToPath(import.meta.url);

@@ -5,12 +5,18 @@ import { pathToFileURL } from 'node:url';
 import { check as checkLink } from '../lib/link-probe.mjs';
 import { auditCacheKey } from './audit-matches.mjs';
 import { judgePairWithClaude, runAuthoring } from './audit-matches-authoring.mjs';
-import { findMomentSpan, scanArray } from './demotion-source-scan.mjs';
+import { findMomentSpan, scanArray, stripComments } from './demotion-source-scan.mjs';
 import { matchMoment, tierForMatchScore } from './match-moments.mjs';
+import { readMatcherState, recordNoMatch, writeMatcherState } from './matcher-state.mjs';
 import { verifyImage } from './verify-images.mjs';
 
 const PASSING_LINKS = new Set(['ok', 'redirect']);
 const TRANSIENT_LINKS = new Set(['blocked', 'unverified', 'suspect']);
+const MATCH_TIERS = new Set(['exact', 'close', 'similar', 'inspired']);
+const PRODUCT_KINDS = new Set([
+  'dress', 'top', 'bottom', 'outerwear', 'knitwear', 'shoes', 'jewelry', 'bag', 'hat',
+  'eyewear', 'beauty', 'accessory', 'music', 'collectible', 'home', 'other',
+]);
 
 export function productFromCandidate(candidate, judgment, verifiedAt) {
   const score = judgment.score;
@@ -27,6 +33,32 @@ export function productFromCandidate(candidate, judgment, verifiedAt) {
     ...(candidate.price ? { price: candidate.price } : {}),
     verifiedAt,
   };
+}
+
+export function validateProductRow(product) {
+  const errors = [];
+  for (const field of ['brand', 'item', 'retailer', 'url']) {
+    if (!(typeof product?.[field] === 'string' && product[field].trim())) errors.push(`missing ${field}`);
+  }
+  let host = '';
+  try {
+    const url = new URL(product?.url);
+    host = url.hostname.toLowerCase().replace(/^www\./, '');
+    if (url.protocol !== 'https:') errors.push('url is not https');
+    if (/(^|\.)google\.[a-z.]+$/.test(url.hostname.toLowerCase())) errors.push('url resolves to Google');
+  } catch { errors.push('url is invalid'); }
+  if (typeof product?.retailer === 'string') {
+    if (!/^[a-z0-9.-]+\.[a-z]{2,}$/.test(product.retailer)) errors.push('retailer is not a bare hostname');
+    if (host && host !== product.retailer && !host.endsWith(`.${product.retailer}`)) errors.push('retailer does not match url');
+  }
+  if (/\/search\b|[?&](q|query|search|keyword|searchterm)=/i.test(product?.url ?? '')) errors.push('url is a search page');
+  if (!MATCH_TIERS.has(product?.matchTier)) errors.push('matchTier is invalid');
+  if (!(Number.isFinite(product?.matchScore) && product.matchScore >= 0 && product.matchScore <= 100)) errors.push('matchScore is invalid');
+  if (product?.kind != null && !PRODUCT_KINDS.has(product.kind)) errors.push('kind is invalid');
+  if (product?.price != null && !(typeof product.price === 'string' && product.price.trim())) errors.push('price is invalid');
+  if (product?.imageUrl != null && !(typeof product.imageUrl === 'string' && /^https:\/\//.test(product.imageUrl))) errors.push('imageUrl is invalid');
+  if (!Number.isFinite(Date.parse(product?.verifiedAt ?? ''))) errors.push('verifiedAt is invalid');
+  return errors;
 }
 
 export function selectAlternatives(momentId, candidates) {
@@ -70,6 +102,7 @@ export async function auditCandidates(match, auditImpl = runAuthoring) {
 export async function prepareMomentProducts(match, {
   auditImpl, linkCheck, imageCheck, now = new Date(),
 } = {}) {
+  if (match.status === 'hold') return { status: 'hold', reason: match.holdReason, products: [] };
   if (!match.products?.length) return { status: 'empty', products: [] };
   const judgments = await auditCandidates(match, auditImpl);
   if (judgments.some((row) => row.tier === 'unresolved')) return { status: 'hold', reason: 'E3 unresolved', products: [] };
@@ -86,9 +119,23 @@ export async function prepareMomentProducts(match, {
     if (verification.status === 'pass') passed.push(candidate);
   }
   const final = selectAlternatives(match.momentId, passed);
+  const products = [];
+  let rowErrors = 0;
+  for (const candidate of final) {
+    try {
+      const product = productFromCandidate(candidate, candidate.audit, now.toISOString());
+      const errors = validateProductRow(product);
+      if (errors.length) throw new Error(errors.join(', '));
+      products.push(product);
+    } catch (error) {
+      rowErrors += 1;
+      console.warn(`write-moment-products: dropped ${match.momentId}:${candidate.id ?? 'unknown'}: ${error.message}`);
+    }
+  }
+  if (!products.length && rowErrors) throw new Error(`all ${rowErrors} product rows for ${match.momentId} were invalid`);
   return {
-    status: final.length ? 'ready' : 'empty',
-    products: final.map((candidate) => productFromCandidate(candidate, candidate.audit, now.toISOString())),
+    status: products.length ? 'ready' : 'empty',
+    products,
   };
 }
 
@@ -124,11 +171,14 @@ export function writeProductsToSource(source, momentId, products) {
   const momentOpen = item.start + marker.index + marker[0].lastIndexOf('{');
   const momentClose = closingBrace(source, momentOpen);
   const momentText = source.slice(momentOpen, momentClose + 1);
-  const existing = /(^|\n)(\s*)products\s*:\s*\[/m.exec(momentText);
+  const existing = /(^|\n|[,{])([ \t]*)products\s*:\s*\[/m.exec(momentText);
   if (existing) {
     const fieldStart = momentOpen + existing.index + existing[1].length + existing[2].length;
     const arrayStart = momentOpen + existing.index + existing[0].lastIndexOf('[');
-    const arrayEnd = scanArray(source, arrayStart).end;
+    const scanned = scanArray(source, arrayStart);
+    const content = stripComments(source.slice(arrayStart + 1, scanned.end - 1)).replaceAll(',', '').trim();
+    if (content) throw new Error(`moment ${momentId} already has products`);
+    const arrayEnd = scanned.end;
     return `${source.slice(0, fieldStart)}${renderedProducts(products, existing[2].length)}${source.slice(arrayEnd)}`;
   }
   const lineStart = source.lastIndexOf('\n', momentClose) + 1;
@@ -147,14 +197,21 @@ export async function main(args = process.argv.slice(2), deps = {}) {
   const planPath = value(args, '--plan');
   if (!planPath) throw new Error('usage: write-moment-products.mjs --plan <matcher-result.json>');
   const plan = JSON.parse(await readFile(planPath, 'utf8'));
+  const statePath = value(args, '--state');
+  let state = await readMatcherState(statePath);
+  const now = deps.now ?? new Date();
   const summaries = [];
   for (const match of plan.matches ?? []) {
-    const prepared = await prepareMomentProducts(match, deps);
+    const prepared = await prepareMomentProducts(match, { ...deps, now });
     summaries.push({ momentId: match.momentId, status: prepared.status, count: prepared.products.length });
+    if (prepared.status === 'empty' && match.ticket?.reason !== 'paid-search-cap-reached') {
+      state = recordNoMatch(state, match.momentId, now);
+    }
     if (prepared.status !== 'ready') continue;
     const source = await readFile(match.sourceFile, 'utf8');
     await writeFile(match.sourceFile, writeProductsToSource(source, match.momentId, prepared.products));
   }
+  await writeMatcherState(statePath, state, now);
   console.log(JSON.stringify({ moments: summaries }));
   return summaries;
 }
