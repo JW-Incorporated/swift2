@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 77
+
+## Taylor Swift Donated 6,000 Books to Pennsylvania Library in 2011
+
+- first seen: 2026-10-15 22:16 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: In 2011, Taylor Swift made a significant donation of 6,000 books valued at $68,000 to a struggling library in Pennsylvania. This act of generosity highlights her commitment to supporting educational initiatives.
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMigANBVV95cUxQRHU4SFBZYW5qeVpPWU5GS1JJNGVmY3FPSWZGR2pjLTRUSjhXODB5UERqRzA3YzV3eldZNzAzX2JmcUlsZnMtdEtRRFZ2aEJXLXZfV2tLV2dLeURLWGllWjBzZHVjMHNNOEYyMUFZX1RlUFJQbnZJWmJjM0o1N3R4cjNBdkJmNTdLYTFnX0NwMWpIUmtoNTJCYUJYN1J1Z1EycC15bVVkQXFoTmdJVU02dmZMQlQzb29sMWZIYzhRdG0ydnhaSGtlaEhPc0JfR1haWXZmRW92LUJrd3ZyZlJqZEl1TkM4MDIzQ0g4UXo2SWlRbWstdWdOWnh6ZXJVTGt3RFAyZHZ1clZRcTM2TVVtYnoyUGRrZ29ZX3BYZVBXQTN2UEV4LVNFcXVOY045em4tcU1xUHpTamNjeTNYanMwMkljR185RkhZQlMtQTZaek9WUmhrb3B4ZXJhUkQ0UW1TSThJYTJhMF9NMUpIWU9JcVlQY01LYm56UF9OYktvM1jSAYYDQVVfeXFMT3dTWXl0UXkxaGR6eWhEa3p5VlZSUVFaelBpZU4tWE1CT0IyRzdMUWZqSzZHYmdxMlB0YkxFYXJNLW5MamxVbERRblVCNTZoeldzV1c5S1p6NEI5RWNDX3FmZll3LTJPT1dBU2Y5aGRhdlNZZDVkZU9MWjM5N19SSGFYTW9kNGFsa0pscnJXbjZvUkl6WGNFUC1CRGhlcXctenZmdml0Q1ZEMVg1NmpUUnlJNy03bG1VZlIzMFQ4OGlmTUU5Y3JhdnRYazR5SU9vRGU3WFVPc3JpTGd0bVBqMUlTOXBDdlBrTlBNRjZQcmxnb3pxdGdpZHBWcjdSUElQR19YUTNsX21LdGdKU1hwVGtHVnFfUy1oTFRXc056Zi1yWUQ0ZjRtOUJPejcwN0pVdjNrRjQzdm9IbG5rcDIwc2hicXMtVlhHMmV4aGtXWGx3SE9MZDFQMkE5ZG1YUXZsMFJfb0I5bTJscmpKckFpdWQyZFlxMFZzUlNJeVJ1eXYteFp6ZVB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Impact on America's Literacy Crisis Discussed
+
+- first seen: 2026-10-15 22:16 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A column explores how Taylor Swift's influence relates to America's literacy crisis, highlighting her cultural significance. It discusses her role in engaging with important social issues.
+- sources:
+  - [unverified] The Virginian-Pilot — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSzlKLTdYR0pYRUZ4RXhKV053SnE5WlZyTmlpdHBZSEJDTkdzSGJ5dC1MWWZBaUVWOUQ2UmxwLUE5QzFaTzlHOWc2RUg3SkR5OWVqMk1ndmtacm4wY2N2U2tWQTJ4Rm1pdkdJSzB2WHJZWWViMmJELUpRNThEVy1EeHBXOWZQSHhXZXBOV1U2ZWNGY0ZHNXRyY251ZHRvY2R4SU1JREVn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Bad Gyal Declares She Would 'Never' Collaborate With Taylor Swift
 
