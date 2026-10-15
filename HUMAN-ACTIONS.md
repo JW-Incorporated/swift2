@@ -2,9 +2,27 @@
 
 <!-- ha-format: 2 -->
 
-> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** You chose "no Anthropic API at all" (D1). But Mood Chat and Clownbot answer readers live from the website, and the website can't run your Claude subscription, so they still use the paid key, one model call per reader message.
+**Steps:**
+1. Decide: `keep` — these two stay on the paid key (small exception to D1, with a daily cap); `queue` — they answer later from the worker on your subscription (slower replies); `simple` — rule-based answers only, no model; `off` — turn both features off.
+**Worked if:** docs/decisions.md records your answer and the PM schedules the matching change.
+
+## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** The Facebook export now saves each post's link and reaction/comment counts, plus replies to your own comments (PR #5930). Your browser still runs the old extension and the old weekly task, so none of that is collected yet.
+**Steps:**
+1. In Chrome open chrome://extensions, find the Long Live Facebook harvester, click its Reload arrow.
+2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
+3. Tell the PM chat "fb done"; the PM checks the next export.
+**Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
 
 ## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
 <!-- ha filed=2026-10-15 -->

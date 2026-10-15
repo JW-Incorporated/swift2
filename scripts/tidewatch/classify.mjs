@@ -1,22 +1,18 @@
 #!/usr/bin/env node
-import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { promisify } from 'node:util';
 import { createJevClient } from '../lib/jev.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { createClaudeCaller } from '../lib/claude-call.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { callFallback, decisionRow, inspectWithJev } from './cascade.mjs';
+import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, CLASS_IDS } from './questions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
 export const DEFAULT_ITEM_CAP = 100;
-const PAGE = 500;
-const execFileAsync = promisify(execFile);
 function parseArgs(argv) {
   const options = { evalPath: null, limit: DEFAULT_ITEM_CAP };
   for (let index = 0; index < argv.length; index += 1) {
@@ -29,68 +25,6 @@ function parseArgs(argv) {
   }
   return options;
 }
-export function classifierStore(client) {
-  const existingDecisionIds = async (ids) => {
-    const found = new Set();
-    for (let offset = 0; offset < ids.length; offset += PAGE) {
-      const { data, error } = await client.from('watch_decision').select('item_id')
-        .in('item_id', ids.slice(offset, offset + PAGE));
-      if (error) throw error;
-      for (const row of data) if (row.item_id) found.add(row.item_id);
-    }
-    return found;
-  };
-  return {
-    async loadItems(limit) {
-      const { data, error } = await client.from('watch_item')
-        .select('*, watch_decision!left(item_id)')
-        .in('status', ['new', 'pending']).is('watch_decision', null)
-        .order('first_seen_at').limit(limit);
-      if (error) throw error;
-      return data;
-    },
-    existingDecisionIds,
-    async loadCandidates(since) {
-      const { data, error } = await client.from('watch_item').select('*')
-        .gte('last_seen_at', since).order('last_seen_at', { ascending: false }).limit(1000);
-      if (error) throw error;
-      return data;
-    },
-    async insertDecisions(rows) {
-      const unique = [...new Map(rows.map((row) => [row.item_id, row])).values()];
-      const existing = await existingDecisionIds(unique.map((row) => row.item_id));
-      const fresh = unique.filter((row) => !existing.has(row.item_id));
-      if (fresh.length === 0) return fresh;
-      const { error } = await client.from('watch_decision').insert(fresh);
-      if (error) throw error;
-      return fresh;
-    },
-    async markClassified(items, rows, classifiedAt) {
-      const decided = new Set(rows.map((row) => row.item_id));
-      const storyIds = [...new Set(items.filter((item) => decided.has(item.id) && item.story_id)
-        .map((item) => item.story_id))];
-      if (storyIds.length === 0) return;
-      const timelines = storyIds.map((story_id) => ({ story_id, classified_at: classifiedAt }));
-      const { error } = await client.from('story_timeline')
-        .upsert(timelines, { onConflict: 'story_id' });
-      if (error) throw error;
-    },
-  };
-}
-export async function openJevFallbackAlert(reason, run = execFileAsync) {
-  const directory = await mkdtemp(path.join(tmpdir(), 'tidewatch-alert-'));
-  const bodyPath = path.join(directory, 'body.md');
-  const title = 'Tidewatch: Jev fallback-only mode';
-  await writeFile(bodyPath,
-    `Tidewatch switched this classifier run to Haiku-only after ${reason}. One alert is raised per affected run.\n`);
-  try {
-    await run('bash', [path.join(ROOT, 'scripts/watchdog/upsert-alert.sh'), 'open', title, bodyPath], {
-      env: { ...process.env, REPO: process.env.REPO ?? process.env.GITHUB_REPOSITORY },
-    });
-  } finally {
-    await rm(directory, { recursive: true, force: true });
-  }
-}
 const chunks = (rows, size) => Array.from({ length: Math.ceil(rows.length / size) },
   (_, index) => rows.slice(index * size, (index + 1) * size));
 
@@ -99,8 +33,8 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   const existing = await store.existingDecisionIds(items.map((item) => item.id));
   const pending = items.filter((item) => !existing.has(item.id));
   const inspected = [];
-  let fallbackOnly = false;
-  let alertReason = null;
+  let fallbackOnly = !jev;
+  let alertReason = !jev && pending.length > 0 ? 'jev_unavailable' : null;
   let jevAttempts = 0;
   for (const item of pending) {
     const attemptedJev = !fallbackOnly && Boolean(jev);
