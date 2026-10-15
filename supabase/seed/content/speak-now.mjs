@@ -180,6 +180,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Speak_Now_-_Pittsburgh.jpg/500px-Taylor_Swift_Speak_Now_-_Pittsburgh.jpg',
+            focalPoint: '60% 30%',
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
