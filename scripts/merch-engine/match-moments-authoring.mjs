@@ -97,20 +97,28 @@ export async function gatherCandidates({
 }) {
   const awin = await searchAwinIndex({ descriptors, indexPath, openDatabase });
   let brandDirect = [];
-  if (awin.length === 0 && descriptors?.brand) {
-    brandDirect = await brandDirectSearch({ descriptors, apiKey: searchApiKey, fetchImpl });
-  }
+  let paidSearchCalls = 0;
   let paidSearchTicket = null;
-  let paid = [];
-  if (awin.length === 0 && brandDirect.length === 0) {
+  if (awin.length === 0 && descriptors?.brand) {
     const plan = planPaidSearch({ moment, callsUsed, cap });
     if (plan.allowed) {
-      paid = await paidSearchImpl({ descriptors, apiKey: searchApiKey, fetchImpl });
+      brandDirect = await brandDirectSearch({ descriptors, apiKey: searchApiKey, fetchImpl });
+      paidSearchCalls += 1;
     } else {
       paidSearchTicket = plan.ticket;
     }
   }
-  return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket };
+  let paid = [];
+  if (awin.length === 0 && brandDirect.length === 0 && !paidSearchTicket) {
+    const plan = planPaidSearch({ moment, callsUsed: callsUsed + paidSearchCalls, cap });
+    if (plan.allowed) {
+      paid = await paidSearchImpl({ descriptors, apiKey: searchApiKey, fetchImpl });
+      paidSearchCalls += 1;
+    } else {
+      paidSearchTicket = plan.ticket;
+    }
+  }
+  return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket, paidSearchCalls };
 }
 
 async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
@@ -124,10 +132,8 @@ async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
 }
 
 /**
- * Step 3 (SPEC §8): scores every candidate from every source together
- * against the moment photo, and applies the E1/E2 pre-merge verification
- * gates a matched candidate must clear before `matchMoment` (R1/R6,
- * unchanged) can select it.
+ * Reusable E1/E2 filter for callers that need an early receipt. P1-19's
+ * product writer is the final pre-merge authority and re-runs both gates.
  */
 export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = defaultVerifyUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
   const scored = [];
@@ -144,10 +150,18 @@ export async function verifyAndScoreCandidates(candidates, { momentImageUrl, jud
   return scored;
 }
 
+async function scoreCandidates(candidates, momentImageUrl, judge) {
+  const scored = [];
+  for (const candidate of candidates) {
+    const judgment = await judge({ candidate, momentImageUrl });
+    if (Number.isFinite(judgment?.score)) scored.push({ ...candidate, urlVerified: true, imageVerified: true, score: judgment.score });
+  }
+  return scored;
+}
+
 /**
- * Full E6 pipeline (SPEC §8 steps 1–3). Step 4 (author) and step 5
- * (no-candidate ticket handling) reuse the existing content lane and
- * `matchMoment`/`buildReSourceTicket` (match-moments.mjs) unchanged.
+ * Full E6 search/scoring pipeline (SPEC §8 steps 1–3). Step 4 owns E1/E2
+ * verification before any staged selection can reach seed content.
  */
 export async function runMatcherAuthoring({
   moment,
@@ -159,14 +173,12 @@ export async function runMatcherAuthoring({
   paidSearchImpl,
   searchApiKey,
   judge,
-  verifyUrlImpl,
-  verifyImageImpl,
   fetchImpl,
   callsUsed = 0,
   cap = 0,
 }) {
   const descriptors = await extractDescriptors({ moment, momentImageUrl, extractImpl });
-  const { candidates, paidSearchTicket } = await gatherCandidates({
+  const { candidates, paidSearchTicket, paidSearchCalls } = await gatherCandidates({
     moment,
     descriptors,
     indexPath,
@@ -178,10 +190,10 @@ export async function runMatcherAuthoring({
     callsUsed,
     cap,
   });
-  const verified = await verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl, verifyImageImpl, fetchImpl });
+  const verified = await scoreCandidates(candidates, momentImageUrl, judge);
   const match = matchMoment({ moment, candidates: verified });
   const ticket = match.products.length === 0 ? (paidSearchTicket ?? match.ticket) : null;
-  return { ...match, ticket, descriptors };
+  return { ...match, ticket, descriptors, paidSearchCalls };
 }
 
 export async function judgeWithClaude({ candidate, momentImageUrl }, options = {}) {
@@ -222,8 +234,8 @@ async function main() {
   const cap = Number.isInteger(input.paidSearch?.cap) ? input.paidSearch.cap : 0;
 
   const results = [];
+  let paidSearchCalls = 0;
   for (const entry of input.moments) {
-    const callsUsed = results.reduce((total, result) => total + (result.usedPaidSearch ? 1 : 0), 0);
     const result = await runMatcherAuthoring({
       moment: entry.moment,
       momentImageUrl: entry.momentImageUrl,
@@ -231,10 +243,16 @@ async function main() {
       indexPath,
       searchApiKey,
       judge: (payload) => judgeWithClaude(payload),
-      callsUsed,
+      callsUsed: paidSearchCalls,
       cap,
     });
-    results.push(result);
+    paidSearchCalls += result.paidSearchCalls;
+    results.push({
+      ...result,
+      source: entry.source,
+      sourceFile: entry.sourceFile,
+      momentImageUrl: entry.momentImageUrl,
+    });
   }
   const tickets = results.flatMap((result) => (result.ticket ? [result.ticket] : []));
   const output = { matches: results, tickets, authoring: { lane: 'merch-re-source-authoring', queue: tickets } };

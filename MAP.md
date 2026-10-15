@@ -794,6 +794,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 | `scripts/merch-engine/awin-feed-stream.mjs` (+ `.test.ts`) | Split out of `sync-awin-feeds.mjs`: streaming Awin feed ingestion (incremental quote-aware CSV splitter, row mapper, gzip sniff, byte/row caps, one-transaction-per-feed `writeFeedStream`). Memory is bounded regardless of feed size; a feed over `AWIN_FEED_MAX_BYTES` (default 1.5 GB) or 3M rows is rolled back and skipped with a `::warning::` |
 | `scripts/merch-engine/merch-claude.mjs` | P1-28b merch subscription adapter: fetches bounded image buffers, calls the public Claude wrapper at P3, maps the former $3 budget to 88 calls, and holds/logs on unavailable or capped results |
+| `scripts/merch-engine/{build-matcher-input,write-moment-products,matcher-open-pr-guard}.mjs` | P1-19 E6 scheduled authoring: select up to three stale/unmatched looks (Tidewatch only when live), apply the E3 + E1/E2 fail-closed writer, and skip while a recent matcher PR is open |
 
 ### WP2.6 threads
 | Path | Purpose | Notes |

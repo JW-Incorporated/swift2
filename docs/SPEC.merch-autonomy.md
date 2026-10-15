@@ -370,8 +370,12 @@ pretending otherwise.
 
 ## 8. Engine E6 — Moment→Product Matcher (issue #8)
 
-Trigger: post-merge workflow filtered to new/changed fashion-category
-moments in the seed diff (plus re-source tickets from E1/E3).
+Trigger: Tuesday and Friday authoring schedule (plus manual dispatch). The
+input builder chooses at most three fashion moments with no products or with
+products whose E1/E2 verification is older than seven days. Tidewatch
+`merch_outfit` decisions join that input only after the class is live (enabled
+and not shadow); while it is shadow/disabled the matcher reads seed fashion
+moments only.
 
 Pipeline per moment:
 
@@ -416,8 +420,10 @@ should be renamed to `matchScore` for consistency. Until that product
 writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
 `score` to preserve parity with their staged source.
 
-Budget: expected single-digit search calls + low-tens of vision scores per
-moment; the R5 cap makes the worst case a ticket, not a bill.
+Budget: at most five SerpAPI searches per scheduled run. Descriptor, matcher,
+and E3 judgments share the P3 subscription-wrapper caller and its 88-call
+ceiling (D8's former $3 reservation mapped in P1-28b); wrapper unavailability
+or transient E1/E2 evidence holds the look and writes nothing.
 
 ## 9. Issue-#9 additions (spec'd, small)
 
@@ -446,7 +452,7 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
-| `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
+| `merch-matcher-authoring.yml` (E6) | Tue + Fri | Sonnet 5.5 via subscription wrapper | gated PR (`merch-matcher/*`) |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
 
 Reading the LLM column per R1: every *scheduled* trigger is zero-LLM

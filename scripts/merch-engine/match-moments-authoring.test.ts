@@ -59,6 +59,20 @@ describe('E6 authoring: strict cost-order search (SPEC §8 step 2)', () => {
     expect(candidates.map((candidate) => candidate.source)).toEqual(['brand-direct']);
   });
 
+  it('counts brand-scoped and general SerpAPI searches against one shared cap', async () => {
+    const openDatabase = vi.fn(async () => ({ prepare: () => ({ all: () => [] }), close: () => {} }));
+    const brandDirectSearch = vi.fn(async () => []);
+    const paidSearchImpl = vi.fn(async () => []);
+    const result = await gatherCandidates({
+      moment, descriptors: { brand: 'Acme', kind: 'dress' }, indexPath: '/tmp/fake.sqlite',
+      openDatabase, brandDirectSearch, paidSearchImpl, callsUsed: 0, cap: 1,
+    });
+    expect(brandDirectSearch).toHaveBeenCalledTimes(1);
+    expect(paidSearchImpl).not.toHaveBeenCalled();
+    expect(result.paidSearchCalls).toBe(1);
+    expect(result.paidSearchTicket).toEqual(expect.objectContaining({ reason: 'paid-search-cap-reached' }));
+  });
+
   it('reaches paid search only when a+b left a gap, and never bypasses the R5 cap', async () => {
     const openDatabase = vi.fn(async () => ({ prepare: () => ({ all: () => [] }), close: () => {} }));
     const paidSearchImpl = vi.fn(async () => [{ id: 'ps1', source: 'paid-search' }]);
