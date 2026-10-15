@@ -10,7 +10,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | review | #5825 |  |
+| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | done | #5825 | 2026-10-14 |
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
@@ -28,7 +28,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
-| P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | todo |  |  |
+| P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | doing |  |  |
 
 ## P1 Foundations and re-homing
 
@@ -38,9 +38,9 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | doing |  |  |
+| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | review | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review |  |  |
-| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | doing |  |  |
+| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | review |  |  |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
@@ -148,6 +148,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 22:30 PM: P0-11 adversarial review round 1 REJECT (Opus): (HIGH) the PM-requested 3h stale cutoff also expired quiet-hours holds and removed them from the inbox; (HIGH) the kill script couldn't see freeze-held events; (MED) the freeze didn't gate digests and the other push passes in dispatch/route.ts; (MED) an unreadable switch returned 200 silently; (LOW) per-batch race, missing revoke, an edited applied migration. PM call: REMOVE the stale cutoff (reversing my own addition) rather than patch it. The freeze is a rare emergency stop, and the safe pattern is that the owner reviews and kills the held backlog with `notifications-kill.mjs --list` before lifting. Final round sent (xhigh). P1-02 pushed c21483209 (migrations re-apply in filename order each run, so order isn't refused; SQL checked statically only) → line-by-line SQL review on Opus.
 - 2026-10-14 22:35 PM: P0-09 DONE: live acceptance passed (run 38683186140 took 4.6 min, cache saved; no-change rerun 38684071906 succeeded; 0 Awin PRs opened). P0-10 DONE (#5823 merged; live check = the next scheduled run logs dryRun false and files up to 10 or prints counts). P0-07 round 2 pushed 471e6b65d (poll 583/576, no clock row below 80 percent) → final reviewer. P1-03 pushed f22ab5c28 (15 classes, all disabled and in shadow) → PM rulings sent before review: privacy_redline goes live FIRST (block-only); rumor right after duplicate; correction_debunk after the critical site class (needs the retraction path); critical_personal tied to guardrail 4's carve-out list (no open "comparable milestone"); add q_settled_fact; caps labelled as placeholders. #5825 CLEAN (auto-merge pending).
 - 2026-10-14 22:42 PM: P1-02 SQL review round 1 REJECT (valid and re-apply-safe, but no revoke/grant, and the Facebook-excerpt check depended on future source naming). PM call: a CLOSED `source` vocabulary CHECK plus `source <> 'facebook' or excerpt is null`, instead of the reviewer's regex; revoke/grant added; 30-day noise expiry in retention. Final round sent. P1-01 pushed d62bc06ee (suite 12,213; the Jev wire shape is an assumption isolated in toRequest/fromResponse until the selftest runs after HA #124) → reviewer.
+- 2026-10-14 22:48 PM: #5825 (P0-01) MERGED → done in code; its live acceptance (a test limit issue, then a kevin-radar dispatch that must log "skipped: weekly limit until") is step 0 of the P0-02 brief. Template change → `gh pr update-branch` on the 3 armed non-state PRs (#5815, #5824, #5827); the ~95 armed social-poster/state PRs were deliberately NOT updated (P0-04 closes them, and updating would cause a CI storm). P1-01 APPROVE → #5827 armed (nit for a follow-up: keep the 4 s timer through the response body read). P1-03 rulings applied (271fb611e; go-live order 0-14; guardrail 4's list itself says "comparable milestones", quoted as written) → reviewer. P0-02 dispatched (executor Sonnet).
 
 ## Next actions
 
