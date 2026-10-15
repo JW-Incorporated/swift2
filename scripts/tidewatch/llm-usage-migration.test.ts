@@ -24,16 +24,22 @@ describe('LLM usage subscription migration contract', () => {
     );
   });
 
-  it('adds nullable cache-token columns re-apply-safely', () => {
-    for (const column of [
-      'cache_creation_input_tokens',
-      'cache_read_input_tokens',
-    ]) {
-      expect(sql).toMatch(
-        new RegExp(`add column if not exists ${column} integer`, 'i'),
-      );
-      expect(sql).not.toMatch(new RegExp(`${column} integer\\s+not null`, 'i'));
-    }
+  it('adds a nullable cache-creation column re-apply-safely, no duplicate cache-read column', () => {
+    const column = 'cache_creation_input_tokens';
+    expect(sql).toMatch(
+      new RegExp(`add column if not exists ${column} integer`, 'i'),
+    );
+    expect(sql).not.toMatch(new RegExp(`${column} integer\\s+not null`, 'i'));
+    expect(sql).not.toMatch(/cache_read_input_tokens/i);
+  });
+
+  it('guards cache_creation_input_tokens with a named, re-apply-safe >= 0 check', () => {
+    expect(sql).toMatch(
+      /drop constraint if exists llm_usage_cache_creation_input_tokens_check;/i,
+    );
+    expect(sql).toMatch(
+      /add constraint llm_usage_cache_creation_input_tokens_check\s+check \(cache_creation_input_tokens is null or cache_creation_input_tokens >= 0\);/i,
+    );
   });
 
   it('does not change data or grants', () => {

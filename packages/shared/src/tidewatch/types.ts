@@ -76,7 +76,6 @@ export interface LlmUsageRow {
   output_tokens: number;
   cache_read_tokens: number;
   cache_creation_input_tokens: number | null;
-  cache_read_input_tokens: number | null;
   calls: number;
   est_cost_usd: number | null;
   created_at: string;

@@ -8,5 +8,11 @@ alter table public.llm_usage
   check (provider in ('jev', 'claude', 'claude-subscription'));
 
 alter table public.llm_usage
-  add column if not exists cache_creation_input_tokens integer,
-  add column if not exists cache_read_input_tokens integer;
+  add column if not exists cache_creation_input_tokens integer;
+
+alter table public.llm_usage
+  drop constraint if exists llm_usage_cache_creation_input_tokens_check;
+
+alter table public.llm_usage
+  add constraint llm_usage_cache_creation_input_tokens_check
+  check (cache_creation_input_tokens is null or cache_creation_input_tokens >= 0);
