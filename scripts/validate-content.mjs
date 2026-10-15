@@ -25,7 +25,7 @@
 //     — every number from scripts/lib/content-caps.mjs (DB_CAPS/POLICY_CAPS)
 //   - >= 1 source on EVERY record (hard rule for the new types) ....... ERROR
 //   - theories: confidence + outcome REQUIRED so nothing renders as fact
-import { readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import {
@@ -61,7 +61,14 @@ import {
   VIDEO_PRESENTATION_EXCEPTIONS,
   videoPresentationErrors,
 } from './lib/video-presentation-gate.mjs';
-import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
+import {
+  SURFACE_MEDIA_LEGACY,
+  mediaCorpusErrors,
+  merchMediaErrors,
+  nonMomentMediaErrors,
+  socialInboxMediaErrors,
+  surfaceMediaPublicationVerdict,
+} from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
@@ -181,6 +188,8 @@ const contentDir = join(seed, 'content');
 let errors = 0;
 let warnings = 0;
 let checked = 0;
+const seenSurfaceMediaKeys = new Set();
+const exactSurfaceMediaGaps = new Set();
 
 const contentFiles = readdirSync(contentDir)
   .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
@@ -724,6 +733,13 @@ function makeReporters(at) {
   };
 }
 
+function checkSurfaceMedia(key, item, itemErrors, err) {
+  seenSurfaceMediaKeys.add(key);
+  const verdict = surfaceMediaPublicationVerdict(key, item, itemErrors);
+  if (verdict.legacyGap) exactSurfaceMediaGaps.add(key);
+  for (const message of verdict.errors) err(message);
+}
+
 // Shared checks for slug/era/sources/media on a new-type record.
 function checkCommon({ row, fileEra, file, err }, slugSeen) {
   checked += 1;
@@ -771,6 +787,7 @@ function checkCommon({ row, fileEra, file, err }, slugSeen) {
       err('owned media entry missing asset_path/license_ref');
     if (m.kind === 'hotlink_legacy' && !m.url) err('hotlink_legacy media entry missing url');
   }
+  checkSurfaceMedia(`${file}#${row.slug}`, row, nonMomentMediaErrors(row), err);
 }
 
 const capped = (err, label, text, cap) => {
@@ -1213,6 +1230,49 @@ for (const [file, n] of confirmTierHits) {
     if (c.payoff?.eraId && !ERA_IDS.has(c.payoff.eraId))
       err(`payoff.eraId "${c.payoff.eraId}" is not a known EraId`);
     if (!Array.isArray(c.sources) || c.sources.length === 0) err('needs at least one source');
+  }
+}
+
+// Social side-door intents are publication candidates too. Keep the one
+// pre-P1-23 text-only appearance intent pinned by exact hash; every new or
+// edited intent must bring its media with it.
+const socialInboxDir = join(here, '..', 'social', 'inbox');
+for (const file of readdirSync(socialInboxDir).filter((name) => name.endsWith('.json')).sort()) {
+  const key = `social/inbox/${file}`;
+  const { err } = makeReporters(key);
+  let intent;
+  try {
+    intent = JSON.parse(readFileSync(join(socialInboxDir, file), 'utf8'));
+  } catch (cause) {
+    err(`invalid JSON: ${cause.message}`);
+    continue;
+  }
+  checked += 1;
+  checkSurfaceMedia(key, intent, socialInboxMediaErrors(intent), err);
+}
+
+// Product rows render independently of their source moments. imageUrl is
+// required for every new/changed row; two old official listings remain exact
+// hash legacy gaps until their source supplies a usable image.
+const merchDir = join(seed, 'merch');
+for (const file of readdirSync(merchDir).filter((name) => name.endsWith('.mjs')).sort()) {
+  const rows = (await import(pathToFileURL(join(merchDir, file)).href)).default;
+  if (!Array.isArray(rows)) continue;
+  for (const row of rows) {
+    const key = `merch/${file}#${row.sourceId ?? row.url}`;
+    const { err } = makeReporters(key);
+    checked += 1;
+    checkSurfaceMedia(key, row, merchMediaErrors(row), err);
+  }
+}
+
+for (const key of SURFACE_MEDIA_LEGACY.keys()) {
+  if (!seenSurfaceMediaKeys.has(key)) {
+    console.error(`ERROR scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "${key}", which matches no gated row — delete the entry`);
+    errors += 1;
+  } else if (!exactSurfaceMediaGaps.has(key)) {
+    console.error(`ERROR scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "${key}", but it no longer matches the exact text-only snapshot — add media and delete the entry`);
+    errors += 1;
   }
 }
 
