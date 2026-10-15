@@ -2053,6 +2053,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg',
+            focalPoint: '42% 22%',
             credit: 'Weslam123 via Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Performing at the Singapore Indoor Stadium on June 9, 2014, during the Red Tour\'s closing Singapore stand.',
             kind: 'archival',
