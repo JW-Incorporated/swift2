@@ -21,8 +21,9 @@ export function buildAwarenessRow({
   imageRef,
   imageComments,
   replyUnverified = false,
+  observedAt = null,
 }) {
-  return {
+  const row = {
     platform: 'reddit',
     community: subreddit,
     kind: AWARENESS_KIND,
@@ -39,6 +40,13 @@ export function buildAwarenessRow({
     image_comments: imageComments,
     thread_type: types[0],
   };
+  if (post.score != null || post.numComments != null || post.createdAt) {
+    row.score = post.score ?? null;
+    row.num_comments = post.numComments ?? null;
+    row.thread_created_at = post.createdAt ?? null;
+    row.last_scored_at = observedAt ?? new Date().toISOString();
+  }
+  return row;
 }
 
 /** Per-sub candidates created so far today (UTC), from existing awareness rows. */

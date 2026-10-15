@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
@@ -10,7 +13,10 @@ import {
   crawlSubreddit,
   fetchCrawlWatchlist,
   YEAR_LIMIT,
+  acceptHomeBundle,
 } from './crawl.mjs';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
 
 describe('isEnabled', () => {
   it('is false when unset, "false", or "0"', () => {
@@ -276,5 +282,18 @@ describe('fetchCrawlWatchlist', () => {
 describe('YEAR_LIMIT', () => {
   it("is RSS's real documented ceiling, not an arbitrary number", () => {
     expect(YEAR_LIMIT).toBe(100);
+  });
+});
+
+describe('home-reader crawl bundles', () => {
+  it('accepts the saved JSON fixture with a depth-bearing comment tree', () => {
+    const fixture = JSON.parse(
+      readFileSync(path.join(here, '../home/reddit-reader/fixtures/home-bundle.json'), 'utf8'),
+    );
+    const accepted = acceptHomeBundle(fixture);
+    const post = accepted.subreddits[0].posts[0];
+    expect(post.depth).toBe('full');
+    expect(post.comments.map((comment: { depth: number }) => comment.depth)).toEqual([0, 1]);
+    expect(post.comments.every((comment: { author: null }) => comment.author === null)).toBe(true);
   });
 });

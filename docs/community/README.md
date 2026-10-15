@@ -93,9 +93,11 @@ moment to talk about it.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. `community-awareness-scan` (every ~20 minutes with a random start delay,
-   2 anonymous Reddit requests a run, skipped on 429, optional `HOME_RELAY_URL`
-   fallback) reads `scripts/community/awareness-subs.json` (the subs, a note on
+1. The home Reddit reader runs every 20 minutes and reads the public pages in
+   `scripts/community/awareness-subs.json` with anonymous headless Chromium.
+   `community-awareness-scan` stays scheduled as the automatic RSS fallback:
+   it skips while the home heartbeat is under 30 minutes old and runs when the
+   heartbeat is stale or unreadable. The source list contains the subs, a note on
    each one's self-promo rule, and the caps) and takes the feeds fetched
    longest ago first: every sub in hot and new, plus Reddit-wide search RSS,
    so each feed is asked several times a day. A 429 stops the run and puts that
@@ -152,16 +154,40 @@ a Reddit API key. Reddit discovery works anonymously (public RSS) or it does
 not run. Nobody proposes, files a card for, or asks the owner for Reddit OAuth
 credentials, a Reddit app, or any `REDDIT_*` secret.
 
-**How 10+ a day works without one.** Anonymous RSS from GitHub runners is
-throttled (run 36908472939: HTTP 429 on 4 of 6 requests in one burst), so the
-scan sends many tiny runs instead of a burst: ~72 runs a day, 2 requests each,
-a random start delay, and a hard stop on the first 429 with a persisted
-cooldown. r/TaylorSwift's feed alone yields about 7 fitting threads per fetch;
-the caps (4 a day for r/TaylorSwift and r/swifties, 3 for other subs, 15 in
-total) are what limit volume, not the request count. If GitHub's IPs turn out
-to be blocked outright, the next anonymous options are a home relay
-(`HOME_RELAY_URL`, already supported, on a residential machine) or a
-self-hosted runner; neither is built.
+**How it works without one.** The home PC loads public Reddit pages no faster
+than one every 6 seconds and never more than 300 pages/hour; a local timestamp
+ledger enforces the hourly cap across scheduled runs. A 429 backs off
+exponentially; three consecutive 429s open a circuit breaker and stop the run.
+The GitHub RSS lane retains its tiny-run cooldown behavior for fallback only.
+
+#### Home PC reader: run and install
+
+`scripts/home/reddit-reader/reader.mjs` reads hot/new listings, Reddit-wide
+search, and new theory threads. It stores only the existing `engagement_lead`
+fields (including score, comment count, and thread creation time) and writes
+the existing transient crawl-bundle shape to
+`.artifacts/home-reddit-crawl.json`. Post bodies stay in memory. Comment text
+exists only in that transient bundle, just as it does in the GitHub crawl;
+usernames are not captured. `crawl.mjs --home-bundle <path>` validates the
+file into the normal community-crawl artifact shape.
+
+The local, gitignored env file needs the existing Supabase service-client
+variables. Test safely before installation:
+
+```
+node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --max-pages 3
+```
+
+The owner installs the task on the home PC (agents do not install it):
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/reddit-reader/install-task.ps1 -EnvFilePath <local-untracked-env-file>
+```
+
+The installer records only the env-file path, runs every 20 minutes and at
+boot, and never copies an env value into Task Scheduler. A successful run
+updates `ops_switches.home_reddit_reader_heartbeat`; a failed or stopped run
+does not mask the RSS fallback.
 
 #### Replying as the brand account
 
@@ -199,8 +225,8 @@ whichever is easier.
 
 ## 3. The fan-theory corpus (the quieter half)
 
-Separately from the daily email, a slow background job reads a year of
-public Reddit posts (never Facebook — see §5) from a handful of
+Separately from the daily email, the home reader collects new public Reddit
+threads with comment trees (never Facebook — see §5) from a handful of
 Taylor-Swift subreddits and pulls out recurring fan theories (things like
 "fans think the next re-record drops in March"). Nothing from this ever
 gets posted anywhere. It just makes Clownbot (the site's chat) and the Clue
@@ -235,7 +261,7 @@ run finds nothing new. To go fully silent immediately, also disable
 Reversible any time — flip `COMMUNITY_SCAN_ENABLED` back to `true` and
 things resume on the next scheduled run (daily 08:17 UTC for the scan).
 
-### 4.2 Turn ON the year-deep corpus crawl (off by default)
+### 4.2 Turn ON the theory corpus crawl (off by default)
 
 This is the one piece that starts **disabled** on purpose. To turn it on:
 
@@ -249,10 +275,10 @@ This is the one piece that starts **disabled** on purpose. To turn it on:
    no need to run it at full speed — the plan explicitly favors caution
    over speed here (§8-Q3 of the engineering plan).
 
-The crawl then runs once a day (07:13 UTC). It never touches Facebook (see
-§5) and never writes anything to the live site directly — it only stages
-raw data for the theory-extraction step, which is what actually produces
-the fan-theory rows.
+The GitHub fallback crawl runs once a day (07:13 UTC) when enabled. The home
+reader produces the same accepted bundle shape from new threads. Neither path
+touches Facebook (see §5) or writes directly to the live site; it only stages
+data for the theory-extraction step, which produces the fan-theory rows.
 
 **To turn it back off:** set `COMMUNITY_CRAWL_ENABLED` back to `false` (or
 delete the variable — same effect). Takes effect on the next scheduled run;
@@ -289,9 +315,10 @@ These are not switches because they are not meant to be turned on:
   file *you* save from the browser ("Webpage, Complete") and hand to the
   system — there is no Facebook bot, relay, or API call, ever
   (`docs/decisions.md`, 2026-08-11).
-- **Never stores a comment body or a real Reddit/Facebook username** —
-  authors are hashed before anything is written, and only our own
-  aggregate summary of a post/thread is kept.
+- **Never stores a comment body in Supabase or a real Reddit/Facebook
+  username.** Reddit comment text exists only in the existing transient crawl
+  bundle used by the theory miner; GitHub-crawl authors are hashed and the home
+  reader omits authors entirely.
 - **Never stores a relationship, identity, or private-life theory**, even
   as a "rejected" row — the same content filter used everywhere else on
   the site runs on every fan-theory candidate before it's written.

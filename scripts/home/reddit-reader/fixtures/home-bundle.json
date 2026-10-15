@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-10-15T18:00:00.000Z",
+  "subreddits": [
+    {
+      "subreddit": "reddit:TaylorSwiftTheories",
+      "posts": [
+        {
+          "postId": "fixture01",
+          "title": "A sanitized theory thread",
+          "permalink": "https://www.reddit.com/r/TaylorSwiftTheories/comments/fixture01/a_sanitized_theory_thread/",
+          "createdAt": "2026-10-15T12:00:00.000Z",
+          "rank": 1,
+          "depth": "full",
+          "comments": [
+            {
+              "author": null,
+              "body": "A sanitized top-level theory comment.",
+              "score": 14,
+              "depth": 0,
+              "publishedAt": "2026-10-15T12:30:00.000Z"
+            },
+            {
+              "author": null,
+              "body": "A sanitized reply in the comment tree.",
+              "score": 5,
+              "depth": 1,
+              "publishedAt": "2026-10-15T12:40:00.000Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

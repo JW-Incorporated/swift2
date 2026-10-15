@@ -1,12 +1,7 @@
 #!/usr/bin/env node
-// Awareness image-reply lane — discovery (owner direction 2026-10-01,
-// docs/strategy/growth-strategy.md bet 2). Zero-LLM. Runs every ~20 minutes as
-// a MANY-TINY-RUNS scan: 1-2 anonymous Reddit RSS requests a run
-// (awareness-fetch.mjs), the feeds fetched longest ago first (every sub in hot
-// and new, plus Reddit-wide search RSS that finds Taylor threads outside the
-// fan subs; awareness-sources.mjs), with the rotation, per-feed cooldowns and a
-// whole-lane cooldown after a 429 persisted in awareness_source_state
-// (awareness-rotation.mjs). Titles go through the discovery filters (awareness-filters.mjs),
+// Awareness image-reply discovery. The GitHub RSS path is a many-tiny-runs
+// fallback and skips while the home reader heartbeat is fresh. Titles go
+// through the discovery filters (awareness-filters.mjs),
 // each sub's image-comment support comes from a cached about.json reading
 // (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
 // and `engagement_lead(kind='awareness_reply', status='new')` rows are
@@ -57,9 +52,11 @@ import {
   recordRun,
   saveSourceState,
 } from './awareness-rotation.mjs';
+import { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
 
 const CONFIG_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), 'awareness-subs.json');
 export { groupByCommunity } from './awareness-sources.mjs';
+export { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
 export {
   buildAwarenessRow,
   contextFor,
@@ -272,6 +269,10 @@ async function main() {
     console.log(
       'awareness-scan: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset — skipping (degraded, not a crash).',
     );
+    return 0;
+  }
+  if (!dryRun && (await shouldSkipForHomeReader(supabase))) {
+    console.log('awareness-scan: home reader healthy, skipping GitHub RSS fallback.');
     return 0;
   }
   const result = await runAwarenessScan({

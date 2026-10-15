@@ -7,6 +7,7 @@ import {
   dailyCapFor,
   groupByCommunity,
   runAwarenessScan,
+  shouldSkipForHomeReader,
   utcDayStart,
 } from './awareness-scan.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -468,6 +469,32 @@ describe('awareness scan', () => {
     });
     expect(row.context).toContain('no bodies stored');
     expect(utcDayStart(NOW)).toBe('2026-10-01T00:00:00.000Z');
+  });
+});
+
+describe('home-reader heartbeat fallback', () => {
+  function heartbeatClient(result: { data: unknown; error: unknown }) {
+    const chain = {
+      select: () => chain,
+      eq: () => chain,
+      maybeSingle: async () => result,
+    };
+    return { from: () => chain };
+  }
+
+  it('skips the GitHub RSS scan while the heartbeat is under 30 minutes old', async () => {
+    const client = heartbeatClient({
+      data: { enabled: true, updated_at: '2026-10-01T11:31:00.000Z' },
+      error: null,
+    });
+    await expect(shouldSkipForHomeReader(client, { now: NOW })).resolves.toBe(true);
+  });
+
+  it('fails open when the heartbeat read errors', async () => {
+    const warn = vi.fn();
+    const client = heartbeatClient({ data: null, error: new Error('temporary read failure') });
+    await expect(shouldSkipForHomeReader(client, { now: NOW, warn })).resolves.toBe(false);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('running RSS fallback'));
   });
 });
 

@@ -1,0 +1,9 @@
+{
+  "note": "Sanitized fixture metadata; no usernames or captured member text.",
+  "expected": {
+    "posts": 2,
+    "firstScore": 1200,
+    "firstNumComments": 47,
+    "firstAgeHours": 6
+  }
+}

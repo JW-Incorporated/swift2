@@ -1,62 +1,21 @@
 #!/usr/bin/env node
-// Community Engine — C1 year-deep top-post crawl (community-crawl.yml, P2-1).
-// docs/proposals/2026-09-06-community-engine-plan.md §3.2. Kill-switch OFF by
-// default per the 2026-09-06 founder directive: this is the one Community
-// Engine component with real risk (scraping volume/pace), so it must never
-// run unless a human deliberately flips the repo VARIABLE
-// `COMMUNITY_CRAWL_ENABLED` to `true` — checked as the very first thing this
-// script does, before any network call. `COMMUNITY_CRAWL_BUDGET` caps how
-// many home-relay full-tree fetches this run may make (threads/run, not a
-// post count), so a founder can run it "a little bit here and there" instead
-// of only a binary full-speed/off choice.
-//
-// WHAT THIS DOES, zero LLM, zero writes to the repo or the database:
-//   1. Reads `community_watchlist` (read-only DB connection) for every
-//      `platform='reddit', crawl=true` row.
-//   2. For each, walks the subreddit's top-of-year RSS feed
-//      (`topPosts(sub, { time: 'year', limit: 100 })`,
-//      scripts/lib/reddit-rss.mjs) — the plan's "month windows walked back
-//      12x" framing does not survive contact with Reddit's actual `.rss`
-//      surface: `t=month` always means "the trailing 30 days from now," not
-//      an arbitrary historical month, and the adapter has no cursor/`after`
-//      parameter to page further back. `t=year&limit=100` is the real ceiling
-//      this zero-key adapter can reach — documented here rather than
-//      pretending to implement a windowing scheme Reddit's RSS doesn't
-//      support. See `docs/community/README.md` for the operator-facing note.
-//   3. For the top 20% by rank (this run's `heatTierCount`), attempts a
-//      bounded full comment-tree fetch via the operator's home-relay
-//      (skill `home-relay`, `/svc/shreddit/comments/r/<sub>/t3_<id>`),
-//      probe-before-use, mandatory randomized 1-11s pacing before every
-//      relay request, never retried in-run on 403/429. Every other post
-//      (below the heat tier, or when the relay is unreachable/unbudgeted)
-//      gets its top-15-25 comments from the same RSS adapter instead and is
-//      marked `depth: 'partial'`.
-//   4. Writes one JSON bundle to a local file — the caller (this repo's
-//      community-crawl.yml) uploads it as a transient 24h Actions artifact.
-//      This script itself never touches supabase/** or the repo tree.
-//
-// HOME_RELAY_URL is deliberately optional and unset by default: the plan's
-// own §4 cost table says this workflow needs **no new secret**, but reaching
-// the operator's home PC over Tailscale from a GitHub-hosted runner (as
-// opposed to an agent sandbox already on the tailnet) needs one — a
-// Tailscale-reachable relay endpoint is a separate, later provisioning step,
-// not assumed here. Until that secret exists, `probeHomeRelay` correctly
-// reports "not configured" and every post falls back to the RSS partial
-// path, exactly the plan's own documented degrade behaviour (§3.2: "otherwise
-// it just uses the RSS slice and marks depth='partial'").
-//
-// Author hashing happens here, not deferred to the Theory Miner (P2-2): this
-// script's own JSON bundle is the first point anything is written out of
-// memory, so it hashes every comment author before that write per §6.3's
-// "hashed authors" guardrail — cheap, and it means a bug in a downstream
-// consumer can never leak a raw handle from this artifact.
+// Community Engine crawl bundle producer. The GitHub fallback reads
+// top-of-year RSS and optionally a bounded legacy relay; `--home-bundle`
+// validates the home reader's file into the identical transient artifact
+// shape. `COMMUNITY_CRAWL_ENABLED` gates both paths. Comment authors are
+// hashed (fallback) or absent (home reader); no raw handle is persisted.
 
-import { createHash } from 'node:crypto';
-import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname } from 'node:path';
 import { makeClient } from '../lib/pg.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { topPosts, postComments, parseShredditComments } from '../lib/reddit-rss.mjs';
+import {
+  hashAuthor,
+  normalizeComments,
+  readHomeBundle,
+  writeCrawlBundle,
+} from './crawl-bundle.mjs';
+
+export { acceptHomeBundle, hashAuthor } from './crawl-bundle.mjs';
 
 /* global AbortSignal */ // Node 18+ global, same pragma as scripts/lib/gh.mjs
 
@@ -83,12 +42,6 @@ export function isEnabled(value) {
 /** How many of a subreddit's top-of-year posts fall in the "heat tier". */
 export function heatTierCount(totalPosts) {
   return Math.max(0, Math.ceil(totalPosts * HEAT_TIER_FRACTION));
-}
-
-/** Deterministic, non-reversible author handle for anything persisted. */
-export function hashAuthor(author) {
-  if (!author) return null;
-  return createHash('sha256').update(String(author)).digest('hex').slice(0, 16);
 }
 
 function randomPacingMs(random = Math.random) {
@@ -149,16 +102,6 @@ export async function fetchFullTree(
   }
   const html = await response.text();
   return { comments: parseShredditComments(html), status: response.status };
-}
-
-function normalizeComments(comments) {
-  return comments.map((c) => ({
-    author: hashAuthor(c.author),
-    body: c.body ?? null,
-    score: c.score ?? null,
-    depth: typeof c.depth === 'number' ? c.depth : null,
-    publishedAt: c.publishedAt ?? null,
-  }));
 }
 
 /** Resolves one post's comments + depth, given the heat/relay/budget decision. */
@@ -232,7 +175,9 @@ export async function crawlSubreddit(
       createdAt: post.createdAt,
       rank: post.rank,
       depth,
-      comments: normalizeComments(comments),
+      comments: normalizeComments(
+        comments.map((comment) => ({ ...comment, author: hashAuthor(comment.author) })),
+      ),
     });
   }
 
@@ -252,6 +197,20 @@ async function main() {
     console.log(
       'community-crawl: COMMUNITY_CRAWL_ENABLED is not "true" — kill switch OFF, skipping this run entirely. ' +
         'See docs/community/README.md for how to turn it on.',
+    );
+    return 0;
+  }
+
+  const homeBundleIndex = process.argv.indexOf('--home-bundle');
+  if (homeBundleIndex >= 0) {
+    const inputPath = process.argv[homeBundleIndex + 1];
+    if (!inputPath) throw new Error('--home-bundle requires a file path');
+    const outputPath = process.env.COMMUNITY_CRAWL_OUTPUT || '.artifacts/community-crawl.json';
+    const bundle = await readHomeBundle(inputPath);
+    await writeCrawlBundle(outputPath, bundle);
+    const totalPosts = bundle.subreddits.reduce((sum, entry) => sum + entry.posts.length, 0);
+    console.log(
+      `community-crawl: accepted ${totalPosts} home-reader post bundle(s) to ${outputPath}`,
     );
     return 0;
   }
@@ -302,20 +261,12 @@ async function main() {
   }
 
   const outputPath = process.env.COMMUNITY_CRAWL_OUTPUT || '.artifacts/community-crawl.json';
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(
-    outputPath,
-    JSON.stringify(
-      {
-        generatedAt: new Date().toISOString(),
-        budget,
-        relayUsedTotal,
-        subreddits: results,
-      },
-      null,
-      2,
-    ),
-  );
+  await writeCrawlBundle(outputPath, {
+    generatedAt: new Date().toISOString(),
+    budget,
+    relayUsedTotal,
+    subreddits: results,
+  });
 
   const totalPosts = results.reduce((sum, r) => sum + r.posts.length, 0);
   console.log(
