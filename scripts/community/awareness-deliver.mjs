@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Awareness image-reply lane — delivery (owner direction 2026-10-01: 10+
 // opportunities a day into Discord, in 2-3 batches). Zero-LLM. Reads drafted
-// `awareness_reply` leads (the awareness answerer wrote `draft`, `why`,
+// `awareness_reply` leads (the awareness drafter (draft-replies.mjs) wrote `draft`, `why`,
 // and optionally an `image_ref`), picks a batch under the caps
 // (awareness-message.mjs `selectBatch`) and posts ONE Discord message per
 // lead, then flips that lead to `delivered` the instant Discord confirms it.

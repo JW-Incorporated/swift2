@@ -10,7 +10,7 @@
 // each sub's image-comment support comes from a cached about.json reading
 // (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
 // and `engagement_lead(kind='awareness_reply', status='new')` rows are
-// inserted. The awareness answerer routine then writes the reply text;
+// inserted. The awareness drafter (draft-replies.mjs) then writes the reply text;
 // awareness-deliver.mjs sends it to Discord. The OWNER posts — nothing here
 // (or anywhere in this lane) calls a Reddit/Facebook write API.
 //
