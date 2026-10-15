@@ -92,7 +92,7 @@ doing  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
 | P1-27 | Owner affiliate accounts (whenever ready, blocks nothing) | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P1-28 | Move the existing ANTHROPIC_API_KEY callers (news-worker extract/theory/dedupe, theory-miner, content backfill) onto the P1-09 wrapper on Haiku 5.5 (absorbs P0-12), with their workflows wired | codex | M | L-WORKER | P1-09 | review | #5925 |  |
-| P1-28b | Merch callers onto the wrapper: audit-matches-authoring, match-moments-authoring (coordinate with P1-19) plus merch-audit/matcher workflows | codex | S | L-MERCH | P1-28 | todo |  |  |
+doing  |  |
 doing  |  |
 
 ## P2 Tidewatch live
