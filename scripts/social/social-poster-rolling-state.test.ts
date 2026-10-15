@@ -8,7 +8,7 @@ import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ROOT } from '../lib/generated-content.mjs';
-import { BRANCH, FEEDBACK, POSTED_A, PR_STEP, git, hasBash, post, sandbox, wf } from './lib/rolling-sandbox';
+import { BRANCH, FEEDBACK, FOLD_STEP, POSTED_A, PR_STEP, git, hasBash, post, sandbox, stepScript, wf } from './lib/rolling-sandbox';
 
 describe.skipIf(!hasBash)('social-poster.yml — one rolling state PR (P0-05), executed', () => {
   it("(a) two runs whose state PRs are both unmerged → one branch, ONE PR, both runs' changes present", () => {
@@ -135,14 +135,23 @@ describe.skipIf(!hasBash)('social-poster.yml — one rolling state PR (P0-05), e
 });
 
 describe('social-poster.yml — rolling fold-back wiring (P0-05)', () => {
-  it('the PR step runs only after a rolling push, and the timestamped commit-and-pr path only on fallback or a crashed rolling step', () => {
+  it('the PR step runs only after a rolling push, and the timestamped commit-and-pr path only on an explicit fallback (never after an invariant abort)', () => {
     expect(wf).toContain("if: always() && steps.rolling.outputs.mode == 'rolling'");
     const fallbackAt = wf.indexOf('- name: Fold back via a timestamped PR (rolling-branch fallback)');
     expect(fallbackAt).toBeGreaterThan(wf.indexOf(`- name: ${PR_STEP}`));
     const fallback = wf.slice(fallbackAt, wf.indexOf('- name: Alert on a permanent post failure'));
-    expect(fallback).toContain("if: always() && (steps.rolling.outputs.mode == 'fallback' || steps.rolling.outcome == 'failure')");
+    expect(fallback).toMatch(/^\s+if: always\(\) && steps\.rolling\.outputs\.mode == 'fallback'\s*$/m);
+    expect(fallback).not.toContain("steps.rolling.outcome == 'failure'");
     expect(fallback).toContain('uses: ./.github/actions/commit-and-pr');
     expect(fallback).toContain('branch: ${{ env.branch }}');
+  });
+
+  it('the queued-and-posted/failed invariant runs on every rolling push, immediately before it', () => {
+    const fold = stepScript(FOLD_STEP);
+    const checkAt = fold.indexOf('CLASH=$(comm -12 <(ids social/queue) <(ids social/posted social/failed)');
+    expect(checkAt).toBeGreaterThan(-1);
+    expect(fold.indexOf('git push --quiet origin "$NEW_COMMIT:refs/heads/$rolling_branch"')).toBeGreaterThan(checkAt);
+    expect(fold.split('git push').length - 1).toBe(1);
   });
 
   it('the rolling branch is derived from STATE_BRANCH_PREFIX, so every social-poster/state-* gate still matches it', () => {

@@ -3,7 +3,7 @@
 // `run:` bodies are lifted out of the workflow and run with bash + git; `gh`
 // is a shell function that only logs, so nothing touches the network.
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -117,12 +117,13 @@ export function sandbox() {
       git(other, [...commitAs, 'commit', '-q', '-m', 'main moves']);
       git(other, ['push', '-q', 'origin', 'HEAD:main']);
     },
-    /** Runs the rolling git step; returns its `mode` output and stdout. */
+    /** Runs the rolling git step; returns its exit status, `mode` output and stdout. */
     fold(work: string) {
       const out = `${work}.out`;
       writeFileSync(out, '');
-      const stdout = runStep(work, FOLD_STEP, out);
-      return { mode: readFileSync(out, 'utf8').match(/^mode=(\w+)$/m)?.[1], stdout };
+      const r = spawnSync('bash', ['-c', `${GH_STUB}\n${stepScript(FOLD_STEP)}`], { cwd: work, encoding: 'utf8', env: env(out) });
+      if (r.error) throw r.error;
+      return { status: r.status, mode: readFileSync(out, 'utf8').match(/^mode=(\w+)$/m)?.[1], stdout: r.stdout };
     },
     /** Runs the PR step (open-or-edit + arm auto-merge) against the stub. */
     pr(work: string) {

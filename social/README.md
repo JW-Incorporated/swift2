@@ -96,25 +96,36 @@ deleted. While the PR is open, `git merge-tree` merges the tip in, so an
 earlier unmerged run's changes (queue deletions included) ride along. A file
 both changed (a retry while the PR is unmerged) is resolved in place, with a
 `::warning::`, because a second PR changing the same lines would leave
-whichever merged second stuck forever: a `queue/` file keeps this run's
-version if `main` itself changed it since the tip's merge base (a founder
-re-queue or edit), is otherwise deleted if either side deleted it (a stale
-retry never resurrects an item the PR retired), and otherwise keeps the PR's
-version; a `posted/`/`failed/` record is never dropped. With no open PR
-(merged, or closed unmerged) the tree is this run's own and a fresh PR
-opens. **A PR closed unmerged drops its state changes.** Its posted/failed
-records are safe (they live on `social-ledger` and return with the next
-run's overlay), and an item it recorded as POSTED cannot post twice (it is
-skipped as a duplicate, #5857). The exact residual: an item it moved to
-`failed/` after an AMBIGUOUS transport failure (a publish that may have
-landed) stays in `main`'s queue, and the poster never reads `failed/`, so it
-is retried and can post a second time. Its other queue deletions are
-lost too: such an item stays queued on `main`, and once 24h overdue its skip
-turns every run red until the file is removed by hand. So merge, never
-close. Anything else the poster can't fold (no common
-history, a conflict outside the state dirs, a failed fetch or push) falls
-back to a timestamped `social-poster/state-*` PR for that run, with a
-`::warning::`. Either way it's
+whichever merged second stuck forever. For a `queue/` file, **deleted always
+wins**: if either side deleted it, it stays deleted (a stale retry never
+resurrects an item the PR retired, which may already be live); otherwise the
+PR's version is kept. A founder re-queue or edit that races a retirement is
+lost and must be re-approved; that failure is loud and recoverable, a
+resurrected item is a live duplicate (architect ruling #5). A
+`posted/`/`failed/` record is never dropped. With no open PR (merged, or
+closed unmerged) the tree is this run's own and a fresh PR opens.
+
+**Invariant:** before any rolling push, no item id (file name) may be both
+in `social/queue/` and in `social/posted/` or `social/failed/` of the pushed
+tree. If one is, the push is aborted (nothing pushed, no fallback PR) and the
+run fails with an `::error::` naming the ids. To recover, remove those queue
+files on `main` (each already posted or was retired). Because `social-ledger`
+keeps every `failed/` record, re-queue a failed item only under a NEW file
+name; reusing the name trips the invariant.
+
+**A PR closed unmerged drops its state changes.** Its posted/failed records
+are safe (they live on `social-ledger` and return with the next run's
+overlay), and an item it recorded as POSTED cannot post twice (it is skipped
+as a duplicate, #5857). But its queue deletions are lost, so such an item is
+both queued on `main` and posted/failed on the ledger, and the next run's
+fold-back aborts on the invariant until the queue file is removed by hand.
+The exact posting residual: an item it moved to `failed/` after an AMBIGUOUS
+transport failure (a publish that may have landed) stays in `main`'s queue,
+and the poster never reads `failed/`, so it is retried (before the fold-back
+aborts) and can post a second time. So merge, never close. Anything else the
+poster can't fold (no common history, a conflict outside the state dirs, a
+failed fetch or push) falls back to a timestamped `social-poster/state-*` PR
+for that run, with a `::warning::`. Either way it's
 VISIBILITY-only now: it keeps `main`'s own copy current for humans and for
 `check-drafts.mjs`'s recent-history heuristics, and a stuck one is a
 staleness-on-`main` problem, not a live-duplicate risk. Full mechanics:

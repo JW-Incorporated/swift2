@@ -455,11 +455,11 @@ jobs:
       #     earlier run's queue deletion. A file both changed (a retry while
       #     the PR is unmerged) is resolved in place with a ::warning:: — a
       #     second PR for that run would change the same lines, so whichever
-      #     merged second would be stuck forever. queue/: if main itself
-      #     changed the file since the tip's merge base (a founder re-queue or
-      #     edit), this run's version; else if either side deleted it,
-      #     deleted (a stale retry must never resurrect an item the tip
-      #     retired — it may already be live); else the rolling PR's.
+      #     merged second would be stuck forever. queue/ (architect ruling
+      #     #5): if either side deleted it, deleted — deleted always wins, so
+      #     a stale retry never resurrects an item the tip retired (it may
+      #     already be live; a founder re-queue that races a retirement is
+      #     simply re-approved later); else the rolling PR's version.
       #     posted/ and failed/: a record is never dropped (this run's
       #     version, else the rolling PR's);
       #   - NO open PR (merged — squash, so the tip never becomes an ancestor
@@ -468,7 +468,10 @@ jobs:
       #     (social/README.md says why that is safe and what it costs).
       # Anything else (no common history, a conflict outside the state dirs, a
       # failed fetch/list/push) falls back to the old timestamped PR for this
-      # run with a ::warning::.
+      # run with a ::warning::. Before any rolling push, an INVARIANT: no item
+      # id both queued and posted/failed in the pushed tree; if one is, the
+      # push is aborted (nothing pushed, no fallback) and the run fails with
+      # an ::error:: naming the ids.
       - name: Prepare fold-back PR metadata
         if: always() && (steps.post.conclusion == 'success' || steps.post.conclusion == 'failure')
         env:
@@ -546,7 +549,7 @@ jobs:
                 git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 && break
                 git fetch --quiet --deepen="$DEEPEN" origin main || break
               done
-              BASE=$(git merge-base "$TIP" "$STATE_COMMIT") || fallback "no common history with $rolling_branch"
+              git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 || fallback "no common history with $rolling_branch"
               # Path-by-path (no rename detection: a queue item and its posted
               # record must never be paired up and merged into each other).
               MERGE_STATUS=0
@@ -562,12 +565,10 @@ jobs:
                   IN_RUN=$(git ls-tree "$STATE_TREE" -- "$P")
                   case "$P" in
                     social/queue/*)
-                      if ! git diff --quiet "$BASE" HEAD -- "$P"; then
-                        KEEP="$IN_RUN"; WHY="main changed it (a founder re-queue or edit): this run's"
-                      elif [ -z "$IN_TIP" ] || [ -z "$IN_RUN" ]; then
+                      if [ -z "$IN_TIP" ] || [ -z "$IN_RUN" ]; then
                         KEEP=""; WHY="one side deleted it: deleted"
                       else
-                        KEEP="$IN_TIP"; WHY="both rewrote main's unchanged copy: the rolling PR's"
+                        KEEP="$IN_TIP"; WHY="both rewrote it: the rolling PR's"
                       fi ;;
                     social/posted/*|social/failed/*)
                       KEEP="${IN_RUN:-$IN_TIP}"; WHY="a record is never dropped: this run's, else the rolling PR's" ;;
@@ -584,6 +585,16 @@ jobs:
               fi
             fi
             NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$TIP" -p HEAD -m "$commit_message")
+          fi
+          # INVARIANT (architect ruling #5), independent of the rules above: no
+          # item id may be both queued and posted/failed in what we push. If
+          # one is, abort — nothing pushed, no fallback PR — and fail the run.
+          ids() { git ls-tree -r --name-only "$NEW_COMMIT" -- "$@" | sed 's#^.*/##' | grep -vxF .gitkeep | sort -u || true; }
+          CLASH=$(comm -12 <(ids social/queue) <(ids social/posted social/failed) | paste -sd ' ' -)
+          if [ -n "$CLASH" ]; then
+            echo "::error::social-poster: ABORTED the rolling state push — item(s) both queued and posted/failed: ${CLASH}. Remove those social/queue files on main (each already posted or was retired); re-queue an item only under a new file name."
+            echo "mode=aborted" >> "$GITHUB_OUTPUT"
+            exit 1
           fi
           git push --quiet origin "$NEW_COMMIT:refs/heads/$rolling_branch" || fallback "push to $rolling_branch was rejected"
           echo "mode=rolling" >> "$GITHUB_OUTPUT"
@@ -603,9 +614,11 @@ jobs:
           gh pr merge "$rolling_branch" --squash --auto
 
       # The pre-P0-05 path, unchanged, now only for a run the rolling step
-      # could not fold (conflict/no history/rejected push) or crashed on.
+      # explicitly could not fold (conflict outside the state dirs, no common
+      # history, a failed fetch/list/push). Never after an invariant abort or
+      # a crash: those fail the run with nothing pushed.
       - name: Fold back via a timestamped PR (rolling-branch fallback)
-        if: always() && (steps.rolling.outputs.mode == 'fallback' || steps.rolling.outcome == 'failure')
+        if: always() && steps.rolling.outputs.mode == 'fallback'
         uses: ./.github/actions/commit-and-pr
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
