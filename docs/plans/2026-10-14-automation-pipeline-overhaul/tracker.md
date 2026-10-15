@@ -11,8 +11,9 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | done | #5825 | 2026-10-14 |
-| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | review | #5832 |  |
+| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | done | #5832 |  |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
+| P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | todo |  |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
@@ -39,8 +40,8 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | review | #5827 |  |
-| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review | #5831 |  |
+| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
+| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | todo |  |  |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
@@ -62,7 +63,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09 | todo |  |  |
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
-| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | review | #5836 |  |
+| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
 | P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | todo |  |  |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
@@ -161,6 +162,10 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 23:29 HB: MERGED #5829 (P0-07) and #5830 (P1-03) → done; worktrees removed. The P0-09 follow-up review was APPROVE → #5833 armed (nit: about 20 blank lines of whitespace churn in sync-awin-feeds.mjs). Still in flight: P1-23 and the P0-11 split (Codex). Armed: #5815, #5824, #5827, #5831, #5832, #5833.
 - 2026-10-14 23:33 PM: P0-11 split done (kill-t1 verified byte-identical to main; no kill-script paths in the diff; one migration, ops_switch) → PM opened #5835 (the reviewer confirmed every other fix in round 2) → auto-merge armed. After merge: check the db-migrate run succeeds and the next dispatch tick returns 200 (not 503).
 - 2026-10-14 23:38 PM: P1-23 APPROVE → #5836 armed. The two follow-ups became new item P1-23b (FIRST thing next session): the content-hash grandfathering would make any bot edit to one of the 74 legacy theories fail CI (visible, not destructive), and cdn.shopify.com in the allowlist is multi-tenant. Nothing else is in flight. Armed: #5815, #5824, #5827, #5831, #5832, #5833, #5835, #5836.
+- 2026-10-14 23:58 HB: MERGED #5815 (tracker plus HA #124-#128 now on main), #5827 (P1-01 code; live selftest waits for HA #124), #5833 (P0-09 follow-up), #5836 (P1-23). Red: #5824 build-content, #5832 build-full, #5835 parity iphone-15; #5831 CONFLICTING (package.json vs #5827) → one Claude executor is fixing or diagnosing them sequentially. Worktrees removed: p1-01, p0-09b, p1-23.
+- 2026-10-15 00:02 PM: REGRESSION FOUND (caused by this programme): P0-03's `predicate-quantifier: 'every'` (#5816) routes content-, docs- and social-only PRs to the build-content job, which had never really run and is broken (check:generated runs before sync:content → ENOENT on current.json). So every such PR has failed CI since #5816 merged, including content-lane PRs, the poster state PRs, #5824 and the tracker PR #5837. PM call: REVERT the one line (a known-good prior state, already reviewed) → grunt opening the revert PR with auto-merge. New follow-up P0-03b: repair build-content (sync:content before check:generated, then prove it on a social-only test PR), then re-enable the quantifier. Lesson: a paths-filter change must be proven on a real PR of each routed type before merge (the P0-03 reviewer flagged it was reasoned from semantics only). Other fixes: #5831 conflict resolved (4257f26f9, kept both exports); #5832 two tests pinned old model ids → updated (785a87a0e); #5835 parity iphone-15 was a 23-pixel snapshot flake on an untouched UI (10 of 11 recent runs pass) → update-branch.
+- 2026-10-15 00:05 PM: revert PR #5839 armed (verified). Blast radius was small: only #5824 and three social-poster state PRs (#5834, #5826, #5819) were failing build-content; no content-lane PRs were open. AFTER #5839 MERGES: `gh pr update-branch 5824` and `gh pr update-branch 5837` (both run build-content now and would fail), then let them land; the state PRs get closed by the P0-04 cleanup.
+- 2026-10-15 00:27 HB: MERGED #5831 (P1-02; db-migrate run at 06:05Z succeeded, so the Tidewatch tables are live), #5832 (P0-02; acceptance pending: over 48 h marjorie-ops should run at most 9 times a day and news-worker at least 16, and the first kevin-radar and vault-run runs on 5-5 ids should be green), #5839 (CI revert). update-branch done on #5824 and #5837. Worktrees removed: p1-02, p0-02, ci-revert. Still open: #5824, #5835, #5837.
 
 ## Next actions
 
