@@ -15,7 +15,7 @@ export function routerStore(client) {
 
     async record(decisionId, actionRef) {
       const { data, error } = await client.from('watch_decision')
-        .update({ action: 'shadow_route_planned', action_ref: actionRef })
+        .update({ action_ref: actionRef })
         .eq('id', decisionId).is('action_ref', null).select('id');
       if (error) throw error;
       return (data ?? []).length === 1;

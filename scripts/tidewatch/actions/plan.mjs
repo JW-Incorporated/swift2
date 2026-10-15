@@ -32,17 +32,28 @@ export function impliedClass(classId, answers, config) {
   return answers?.haiku?.class ?? classId;
 }
 
+function answerRoute(answers, config) {
+  const raw = jevAnswers(answers);
+  if (!raw) return null;
+  const result = classFromAnswers(raw, config);
+  if (!result || result.confidence < config.classes[result.class].thresholds.act) return null;
+  return ROUTE_BY_CLASS[result.class];
+}
+
 export function planActions(classId, answers, confidence, storyTimeline, config) {
   const classConfig = config.classes[classId];
   if (!classConfig || ROUTE_BY_CLASS[classId] !== classConfig.action.route) {
     throw new Error(`unapproved Tidewatch class or route: ${classId}`);
   }
   const inferredClass = impliedClass(classId, answers, config);
+  const routeFromAnswers = answerRoute(answers, config);
   if (answers?.injection === true || answers?.haiku?.injection === 'yes') {
-    return { classId, impliedClass: inferredClass, state: 'held', actions: ['hold_injection'] };
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_injection'] };
   }
   if (confidence < classConfig.thresholds.act) {
-    return { classId, impliedClass: inferredClass, state: 'held', actions: ['hold_below_threshold'] };
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_below_threshold'] };
   }
 
   const actions = [];
@@ -54,7 +65,8 @@ export function planActions(classId, answers, confidence, storyTimeline, config)
   if (classId === 'normal_news' && isYes(jevAnswers(answers)?.q_outfit)) {
     actions.push('outfit_matcher_queue');
   }
-  return { classId, impliedClass: inferredClass, state: 'planned', actions };
+  return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+    answerRoute: routeFromAnswers, state: 'planned', actions };
 }
 
 export function encodePlan(plan) {

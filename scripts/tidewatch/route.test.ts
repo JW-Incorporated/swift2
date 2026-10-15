@@ -1,15 +1,19 @@
+import * as childProcess from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { describe, expect, it, vi } from 'vitest';
+import { init, parse } from 'es-module-lexer';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs modules
 import { ROUTE_BY_CLASS, encodePlan, planActions } from './actions/plan.mjs';
 // @ts-expect-error plain .mjs module
-import { OUTBOUND_ADAPTER_NAMES, disagreementMetric, main, planReplay, routeDecisions,
-  summaryMarkdown } from './route.mjs';
+import { disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { validate } from '../ops/set-switch.mjs';
 // @ts-expect-error plain .mjs module
 import { routerStore } from './router-store.mjs';
+
+vi.mock('node:child_process', { spy: true });
+afterEach(() => vi.restoreAllMocks());
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const config = JSON.parse(await readFile(path.join(ROOT, 'config/tidewatch.json'), 'utf8'));
@@ -31,6 +35,54 @@ function memoryStore() {
       return true;
     }),
   };
+}
+
+function guardedClient(row = decision({ action: 'shadow_hold_injection', answers: { injection: true } })) {
+  const operations: Array<Record<string, unknown>> = [];
+  const client = {
+    from(table: string) {
+      if (table === 'watch_decision') return {
+        select(columns: string) {
+          operations.push({ table, operation: 'select', columns });
+          return { eq: () => ({ is: () => ({ order: () => ({
+            limit: async () => ({ data: [row], error: null }),
+          }) }) }) };
+        },
+        update(values: Record<string, unknown>) {
+          operations.push({ table, operation: 'update', values });
+          Object.assign(row, values);
+          return { eq: () => ({ is: () => ({
+            select: async () => ({ data: [{ id: row.id }], error: null }),
+          }) }) };
+        },
+      };
+      if (table === 'story_timeline') return {
+        select(columns: string) {
+          operations.push({ table, operation: 'select', columns });
+          return { in: async () => ({ data: [{ story_id: 'story-1', ...verified }], error: null }) };
+        },
+      };
+      throw new Error(`unexpected table: ${table}`);
+    },
+  };
+  return { client, operations, row };
+}
+
+async function transitiveLocalImports(entry: string) {
+  const visited = new Set<string>();
+  async function walk(file: string) {
+    const relative = path.relative(ROOT, file).replaceAll('\\', '/');
+    if (visited.has(relative)) return;
+    visited.add(relative);
+    const source = await readFile(file, 'utf8');
+    await init;
+    const [imports] = parse(source);
+    for (const imported of imports) {
+      if (imported.n?.startsWith('.')) await walk(path.resolve(path.dirname(file), imported.n));
+    }
+  }
+  await walk(entry);
+  return [...visited];
 }
 
 describe('Tidewatch shadow action router', () => {
@@ -57,13 +109,33 @@ describe('Tidewatch shadow action router', () => {
       .toEqual(['hold_below_threshold']);
   });
 
-  it('keeps switch-off shadow routing free of all outbound side effects', async () => {
-    const outbound = Object.fromEntries(OUTBOUND_ADAPTER_NAMES.map((name) => [name, vi.fn()]));
-    const store = memoryStore();
-    await routeDecisions({ decisions: [decision()], timelines: new Map([['story-1', verified]]),
-      store, config, outbound, live: false });
-    for (const adapter of Object.values(outbound)) expect(adapter).not.toHaveBeenCalled();
-    expect(store.refs.get('decision-1')).toContain('normal_flow');
+  it('keeps shadow routing free of network, process, and non-store side effects', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    const processSpies = ['spawn', 'exec', 'execFile'].map((name) =>
+      vi.spyOn(childProcess, name as 'spawn'));
+    const guarded = guardedClient();
+    await main([], { config, client: guarded.client, env: {} });
+    expect(fetchSpy).not.toHaveBeenCalled();
+    for (const spy of processSpies) expect(spy).not.toHaveBeenCalled();
+    expect(guarded.operations).toEqual([
+      { table: 'watch_decision', operation: 'select', columns: '*, watch_item(story_id)' },
+      { table: 'story_timeline', operation: 'select', columns: '*' },
+      { table: 'watch_decision', operation: 'update', values: {
+        action_ref: expect.stringContaining('hold_injection'),
+      } },
+    ]);
+    expect(guarded.row.action).toBe('shadow_hold_injection');
+  });
+
+  it('has no publisher-capable module in route.mjs transitive local imports', async () => {
+    const imports = await transitiveLocalImports(path.join(ROOT, 'scripts/tidewatch/route.mjs'));
+    const forbidden = imports.filter((file) => [
+      /^scripts\/social\//,
+      /(^|\/)(push|notifications?)(\/|[-.])/,
+      /(^|\/)(site|revalidate)(\/|[-.])/,
+      /(^|\/)(gh|github|issues?)(\/|[-.])/,
+    ].some((pattern) => pattern.test(file)));
+    expect(forbidden).toEqual([]);
   });
 
   it('refuses the reserved live switch and keeps it owner-only', async () => {
@@ -101,27 +173,50 @@ describe('Tidewatch shadow action router', () => {
     expect(await store.record('decision-1', 'plan')).toBe(true);
     expect(await store.record('decision-1', 'different-plan')).toBe(false);
     expect(refs.get('decision-1')).toBe('plan');
-    expect(update).toHaveBeenCalledWith({ action: 'shadow_route_planned', action_ref: 'plan' });
+    expect(update).toHaveBeenCalledWith({ action_ref: 'plan' });
   });
 
-  it('reports classifier/router disagreement counts and the >10% stop signal', () => {
-    const disagreeing = planActions('normal_news', { jev: { q_class: {
+  it('measures threshold-qualified answer routes against final-class routes', () => {
+    const rumorConflict = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.9 },
     } } }, 1, null, config);
-    const metric = disagreementMetric([disagreeing, disagreeing, disagreeing,
-      ...Array.from({ length: 17 }, () => planActions('normal_news', {}, 1, null, config))]);
-    expect(metric).toEqual({ count: 3, total: 20, rate: 0.15, stop: true });
-    expect(summaryMarkdown({ read: 20, recorded: 20, disagreement: metric }))
-      .toContain('3/20 (15.0%) — STOP');
+    const redlineConflict = planActions('normal_news', { jev: { q_speculation: {
+      type: 'noul', probability: 0.9,
+    } } }, 1, null, config);
+    const lowConfidenceHaikuEscalation = planActions('normal_news', { jev: { q_class: {
+      type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.4 },
+    } }, haiku: { class: 'normal_news' } }, 1, null, config);
+    const agreements = Array.from({ length: 18 }, () => planActions('normal_news', { jev: { q_class: {
+      type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 },
+    } } }, 1, null, config));
+    const metric = disagreementMetric([rumorConflict, redlineConflict,
+      lowConfidenceHaikuEscalation, ...agreements]);
+    expect(metric).toEqual({ count: 2, total: 20, rate: 0.1, stop: false });
+    const stopped = disagreementMetric([rumorConflict, redlineConflict, rumorConflict, ...agreements]);
+    expect(stopped).toEqual({ count: 3, total: 21, rate: 3 / 21, stop: true });
+    expect(summaryMarkdown({ mode: 'shadow-router', read: 21, recorded: 21, disagreement: stopped }))
+      .toContain('3/21 (14.3%) — STOP');
   });
 
-  it('plans the first 600 replay labels without an unexpected route', async () => {
+  it('labels the 600-item labelled corpus as a route-table smoke test', async () => {
     const replay = JSON.parse(await readFile(path.join(ROOT,
       'docs/projects/tidewatch/replay/replay.json'), 'utf8'));
     const result = planReplay(replay, config, 600);
     expect(result.read).toBe(600);
+    expect(result.mode).toBe('route-table-smoke-test');
+    expect(result.recordedInputs).toBe(0);
     expect(result.plans).toHaveLength(600);
     expect(result.plans.every((plan: { state: string }) => plan.state === 'planned')).toBe(true);
+    expect(summaryMarkdown(result)).toContain('Tidewatch route-table smoke test');
+  });
+
+  it('replays recorded classifier answers and confidence when present', () => {
+    const result = planReplay({ items: [{ class: 'normal_news', confidence: 0.5,
+      answers: { jev: { q_class: { type: 'choice', optionId: 'general_news',
+        probabilities: { general_news: 0.9 } } } } }] }, config, 1);
+    expect(result.mode).toBe('classifier-replay');
+    expect(result.recordedInputs).toBe(1);
+    expect(result.plans[0].actions).toEqual(['hold_below_threshold']);
   });
 
   it('respects TIDEWATCH_FREEZE before reading or writing decisions', async () => {

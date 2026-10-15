@@ -9,8 +9,6 @@ import { routerStore } from './router-store.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
-export const OUTBOUND_ADAPTER_NAMES = ['publisher', 'push', 'social', 'site', 'issue', 'pullRequest'];
-
 function parseArgs(argv) {
   const options = { limit: 600, replayPath: null };
   for (let index = 0; index < argv.length; index += 1) {
@@ -25,23 +23,15 @@ function parseArgs(argv) {
   return options;
 }
 
-function validateOutboundAdapters(outbound) {
-  for (const name of OUTBOUND_ADAPTER_NAMES) {
-    if (outbound[name] !== undefined && typeof outbound[name] !== 'function') {
-      throw new Error(`outbound adapter ${name} must be a function`);
-    }
-  }
-}
-
 export function disagreementMetric(plans) {
-  const total = plans.length;
-  const count = plans.filter((plan) => plan.impliedClass !== plan.classId).length;
+  const comparable = plans.filter((plan) => plan.answerRoute !== null);
+  const total = comparable.length;
+  const count = comparable.filter((plan) => plan.answerRoute !== plan.finalRoute).length;
   return { count, total, rate: total === 0 ? 0 : count / total, stop: total > 0 && count / total > 0.1 };
 }
 
 export async function routeDecisions({ decisions, timelines = new Map(), store, config,
-  outbound = {}, live = false }) {
-  validateOutboundAdapters(outbound);
+  live = false }) {
   if (live) throw new Error('TIDEWATCH_ROUTER_LIVE is reserved; P2-02 is shadow-write only');
   const plans = [];
   let recorded = 0;
@@ -52,20 +42,31 @@ export async function routeDecisions({ decisions, timelines = new Map(), store, 
     plans.push(plan);
     if (await store.record(decision.id, encodePlan(plan))) recorded += 1;
   }
-  return { read: decisions.length, recorded, plans, disagreement: disagreementMetric(plans) };
+  return { mode: 'shadow-router', read: decisions.length, recorded, plans,
+    disagreement: disagreementMetric(plans) };
 }
 
 export function summaryMarkdown(summary) {
   const metric = summary.disagreement;
   const percent = (metric.rate * 100).toFixed(1);
-  const signal = metric.stop ? 'STOP — above the 10% label-review threshold' : 'within threshold';
-  return `### Tidewatch router (shadow only)\n\n- decisions evaluated: ${summary.read}\n- plans recorded: ${summary.recorded}\n- classifier/router disagreements: ${metric.count}/${metric.total} (${percent}%) — ${signal}\n\n`;
+  const signal = metric.stop ? 'STOP — above the 10% threshold' : 'within threshold';
+  const title = summary.mode === 'route-table-smoke-test'
+    ? 'Tidewatch route-table smoke test'
+    : 'Tidewatch router (shadow only)';
+  return `### ${title}\n\n- decisions evaluated: ${summary.read}\n- plans recorded: ${summary.recorded}\n- answer-implied/final-route conflicts: ${metric.count}/${metric.total} (${percent}%) — ${signal}\n- definition: threshold-qualified classifier question answers imply a different route than the final class; above 10% is architect #11's stop signal\n\n`;
 }
 
 export function planReplay(replay, config, limit = 600) {
   const items = replay.items.slice(0, limit);
-  const plans = items.map((item) => planActions(item.class ?? item.expectedClass, {}, 1, null, config));
-  return { read: items.length, recorded: 0, plans, disagreement: disagreementMetric(plans) };
+  const hasRecordedClassifierInput = (item) => Number.isFinite(item.confidence)
+    && item.answers?.jev && typeof item.answers.jev === 'object';
+  const recordedInputs = items.filter(hasRecordedClassifierInput).length;
+  const plans = items.map((item) => planActions(item.class ?? item.expectedClass,
+    hasRecordedClassifierInput(item) ? item.answers : {},
+    hasRecordedClassifierInput(item) ? item.confidence : 1, null, config));
+  const mode = recordedInputs === items.length ? 'classifier-replay' : 'route-table-smoke-test';
+  return { mode, read: items.length, recorded: 0, recordedInputs, plans,
+    disagreement: disagreementMetric(plans) };
 }
 
 export async function main(argv = process.argv.slice(2), deps = {}) {
@@ -85,7 +86,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   if (!deps.store && !client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
   const store = deps.store ?? routerStore(client);
   const pending = await store.loadPending(options.limit);
-  const result = await routeDecisions({ ...pending, store, config, outbound: deps.outbound, live });
+  const result = await routeDecisions({ ...pending, store, config, live });
   const markdown = summaryMarkdown(result);
   (deps.log ?? console.log)(markdown.trim());
   const summaryPath = (deps.env ?? process.env).GITHUB_STEP_SUMMARY;

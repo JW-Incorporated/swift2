@@ -11,6 +11,8 @@ Run the `tidewatch-replay-label` workflow (Actions, manual dispatch). It exports
 
 Locally: `node scripts/tidewatch/export-replay.mjs` then `node scripts/tidewatch/label-replay.mjs` (needs `SUPABASE_DB_URL` and `CLAUDE_CODE_OAUTH_TOKEN` in the environment). A limit hit stops the run; re-running resumes from `.scratch/tidewatch/replay-label-progress.json`.
 
+`node scripts/tidewatch/route.mjs --dry-run --replay docs/projects/tidewatch/replay/replay.json` is currently a **route-table smoke test**, not a classifier replay: this corpus has labelled question answers but no recorded classifier confidences. The router uses recorded classifier answers and confidence only for entries that contain both in the stored decision shape; otherwise the step summary names the run a route-table smoke test.
+
 ## Scope of the labels
 
 Each item gets the single-item questions: `q_class`, `q_official`, `q_settled`, `q_urgency`, `q_personal`, `q_speculation`, `q_outfit`, `q_merch_kind`, `q_bootleg`, `q_theory`, `q_discussion`, `q_injection`. The labeller deliberately skips `q_same_story`, `q_supports`, `q_settled_fact` and `q_contradicts` (they need candidate stories, source passages or our published item, so they are pairwise or cross-item) and the `duplicate` class (decided from `q_same_story` plus code keys). `privacy_redline` is derived: a `q_speculation` yes always wins.
