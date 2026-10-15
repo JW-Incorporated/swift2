@@ -83,7 +83,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-18b | Turn ledger queries the exact routine-usage artifact names; incomplete placeholders named per lane | codex | S | L-VAULT | P1-18 | doing |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
 | P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | done | #5846 | 2026-10-15 |
-| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | doing |  |  |
+| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | review |  |  |
 | P1-24b | Wire the voice critic into draft-replies, breaking drafts and Vault lane prompts (split from P1-24 while P1-10's PR was open) | executor-claude-sonnet | S | L-VOICE | P1-24, P1-10 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
