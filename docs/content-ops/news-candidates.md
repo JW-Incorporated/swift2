@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 73
+
+## Institute for Family Studies Discusses Taylor Swift's Appeal to Conservatives
+
+- first seen: 2026-10-15 12:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article by the Institute for Family Studies explores reasons why conservatives might find common ground with Taylor Swift. It analyzes her influence and cultural impact from a conservative perspective.
+- sources:
+  - [unverified] Institute for Family Studies — https://news.google.com/rss/articles/CBMifkFVX3lxTFBkRXBfb3RySUNZdlgtdjNXOElMWllsY1RHRlRGeFhGemVQZjZ2WFJnRmRpd3M1Z2Q5Yk1EVHNmQ0lxcmZHbkFSRjdaeTlGazRaaEkxMEJnQUZ2MW5JNzBaemhmaGp6aWU1N0Q4NnMtUF9QdVI3Z29OeUhNcFRnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Makes Return for 'The Encore'
 
