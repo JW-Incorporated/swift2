@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { collectEtsyEvidence, curateCandidate, discoverCandidates, fileEtsyOutageIssue, fileReverificationIssues, loadFbShopLinkCandidates, loadWatchlistSubreddits, normalizeEtsyListing, normalizeFbShopLink, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings } from './fanmade-discovery.mjs';
+import { collectEtsyEvidence, curateCandidate, discoverCandidates, fileCandidateIssues, fileEtsyOutageIssue, fileReverificationIssues, loadFbShopLinkCandidates, loadWatchlistSubreddits, normalizeEtsyListing, normalizeFbShopLink, normalizeRedditPost, normalizeSubmission, reverifyFanmadeListings, summarizeDiscoveryCounts } from './fanmade-discovery.mjs';
 
 function escapeXml(value: string) {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -21,6 +21,38 @@ function redditRssFeed(posts: Array<{ id: string; title: string; permalink: stri
 }
 
 describe('fan-made discovery', () => {
+  it('accounts for every fetched fixture through rejection, dedupe, or filing', () => {
+    const counts = summarizeDiscoveryCounts({
+      fetched: 7,
+      rejected: { 'etsy-invalid-price': 1, 'reddit-disallowed-shop-url': 1 },
+      dedupedWithinRun: 2,
+    }, { filed: ['one', 'two'], deduped: 1, capped: [] });
+
+    expect(counts).toMatchObject({ fetched: 7, accounted: 7, dedupedAgainstExistingIssues: 1, filed: 2 });
+    expect(counts.fetched).toBe(counts.accounted);
+  });
+
+  it('caps a fixture at ten filed candidate issues and accounts for the remainder', async () => {
+    const candidates = Array.from({ length: 15 }, (_, index) => ({
+      url: `https://www.etsy.com/listing/${index + 1}`,
+      item: `Fixture ${index + 1}`,
+      provenance: [{ discoveredVia: 'fixture', sourceUrl: 'https://example.test/fixture' }],
+    }));
+    const fetchImpl = vi.fn(async (url: string, options?: RequestInit) => {
+      if (url.endsWith('/labels')) return new Response(JSON.stringify({}), { status: 201 });
+      if (url.includes('/issues?')) return new Response(JSON.stringify([]), { status: 200 });
+      if (url.endsWith('/issues') && options?.method === 'POST') return new Response(JSON.stringify({}), { status: 201 });
+      throw new Error(`unexpected URL: ${url}`);
+    });
+
+    const filing = await fileCandidateIssues({ repository: 'example/repo', token: 'test-token', candidates, fetchImpl, dryRun: false });
+    const counts = summarizeDiscoveryCounts({ fetched: candidates.length, rejected: {}, dedupedWithinRun: 0 }, filing);
+
+    expect(filing.filed).toHaveLength(10);
+    expect(filing.capped).toHaveLength(5);
+    expect(counts).toMatchObject({ fetched: 15, capped: 5, filed: 10, accounted: 15 });
+    expect(counts.fetched).toBe(counts.accounted);
+  });
   it('keeps the original bounded search payload and waits one second before retrying a detail 429 without Retry-After', async () => {
     const searchPayload = { results: [{ listing_id: 42, title: 'Search-only title', search_marker: 'retain-me' }] };
     let detailAttempts = 0;
@@ -80,7 +112,7 @@ describe('fan-made discovery', () => {
       return new Response('', { status: 404 });
     });
 
-    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'] })).resolves.toEqual({
+    await expect(collectEtsyEvidence({ etsyApiKey: 'test-key', fetchImpl, queries: ['Taylor Swift inspired'] })).resolves.toMatchObject({
       rawQueries: [{ query: 'Taylor Swift inspired', payload: { results: [{ listing_id: 42 }] } }],
       listingDetails: [],
       candidates: [],
@@ -306,7 +338,7 @@ describe('fan-made discovery', () => {
       return new Response(redditRssFeed([]), { status: 200 });
     });
 
-    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toEqual({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
+    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toMatchObject({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
   });
 
   it('keeps the scheduled dry-run useful when Reddit temporarily rejects public RSS', async () => {
@@ -316,7 +348,7 @@ describe('fan-made discovery', () => {
       throw new Error(`unexpected URL: ${url}`);
     });
 
-    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toEqual({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
+    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toMatchObject({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
   });
 
   it('normalizes public Reddit and form intake without treating either as verified product facts', () => {
