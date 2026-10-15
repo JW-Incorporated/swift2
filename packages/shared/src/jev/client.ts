@@ -4,7 +4,6 @@ export const JEV_MODEL = 'jev-1.13.0';
 export const JEV_ENDPOINT = 'https://api.typesafe.ai/v1/systemone';
 export const JEV_INPUT_USD_PER_MILLION_TOKENS = 0.042;
 export const JEV_UNTRUSTED_TEXT_LIMIT = 2_000;
-const NOUL_DECISION_THRESHOLD = 0.6;
 const JEV_ERROR_BODY_LIMIT = 500;
 
 export interface JevUsage {
@@ -18,12 +17,7 @@ export interface JevUsage {
 export type JevAnswer =
   | { type: 'choice'; optionId: string; probabilities: Record<string, number>; confidence: number }
   | { type: 'score'; value: number; confidence: number }
-  | {
-      type: 'noul';
-      value: 'yes' | 'no' | 'unsure';
-      probability: number;
-      confidence: number;
-    };
+  | { type: 'noul'; probability: number };
 
 export interface JevResult {
   model: typeof JEV_MODEL;
@@ -190,14 +184,7 @@ export function fromResponse(
     if (answer.type !== question.type) throw new JevResponseError();
     if (question.type === 'noul') {
       const p = probability(answer.noul);
-      const value =
-        p >= NOUL_DECISION_THRESHOLD ? 'yes' : p <= 1 - NOUL_DECISION_THRESHOLD ? 'no' : 'unsure';
-      answers[question.id] = {
-        type: 'noul',
-        value,
-        probability: p,
-        confidence: Math.max(p, 1 - p),
-      };
+      answers[question.id] = { type: 'noul', probability: p };
       continue;
     }
     const confidence = probability(answer.confidence);

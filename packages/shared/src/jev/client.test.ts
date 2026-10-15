@@ -77,7 +77,7 @@ describe('Jev client', () => {
         probabilities: { 'alpha-id': 0.1, 'beta-id': 0.82, 'gamma-id': 0.08 },
       },
       score: { type: 'score', value: 4, confidence: 0.73 },
-      safe: { type: 'noul', value: 'unsure', probability: 0.55, confidence: 0.55 },
+      safe: { type: 'noul', probability: 0.55 },
     });
     expect(result.usage).toEqual({
       caller: 'unit-test',
@@ -177,21 +177,19 @@ describe('Jev client', () => {
     expect(JSON.stringify(error)).not.toContain('fixture-key');
   });
 
-  it('maps confident Noul answers to yes and no', async () => {
+  it('passes the raw Noul probability through with no derived fields', async () => {
     const body = {
       ...SUCCESS_FIXTURE,
-      answers: { ...SUCCESS_FIXTURE.answers, safe: { type: 'noul', noul: 0.98 } },
+      answers: { ...SUCCESS_FIXTURE.answers, safe: { type: 'noul', noul: 0.38 } },
     };
     const client = createJevClient({
       apiKey: 'fixture-key',
       fetchImpl: async () => jsonResponse(body),
     });
-    const yes = await client.ask({ caller: 't', state: 'text', questions: QUESTIONS });
-    expect(yes.answers.safe).toMatchObject({ value: 'yes', probability: 0.98 });
-
-    body.answers.safe = { type: 'noul', noul: 0.02 };
-    const no = await client.ask({ caller: 't', state: 'text', questions: QUESTIONS });
-    expect(no.answers.safe).toMatchObject({ value: 'no', probability: 0.02 });
+    const result = await client.ask({ caller: 't', state: 'text', questions: QUESTIONS });
+    expect(result.answers.safe).toEqual({ type: 'noul', probability: 0.38 });
+    expect(result.answers.safe).not.toHaveProperty('value');
+    expect(result.answers.safe).not.toHaveProperty('confidence');
   });
 
   it('aborts at the timeout and returns a typed timeout error', async () => {
