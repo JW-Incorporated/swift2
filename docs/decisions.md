@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
+
+**Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
+
+**Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
+
+---
+
 ## 2026-10-15 — Scripted Claude calls use one capped headless runner (P1-09)
 
 **Decision.** Scripted callers use `scripts/lib/claude-call.mjs` for one never-throwing Claude Code print-mode call on subscription tokens. With Claude Code **2.1.300**, the verified invocation is `-p --output-format json --safe-mode --setting-sources "" --strict-mcp-config --mcp-config '{"mcpServers":{}}' --tools "" --no-session-persistence --model ... --system-prompt ...`, plus `--json-schema` when requested. It runs from a fresh empty temporary directory and removes it afterward. `--system-prompt` replaces rather than appends; safe mode and the explicit empty settings, MCP, tools, and cwd controls prevent project/user customization from entering the call. The child receives only the OS bootstrap allowlist plus the selected `CLAUDE_CODE_OAUTH_TOKEN`; API/auth keys and the unselected backup token are excluded. Per-run call and estimated-input caps still apply before spawn. The routine limit gate's existing issue reset reader supplies current primary/backup resets; a newly detected weekly primary limit retries once on the backup for P0/P1, while P2/P3 stop as unavailable. Weekly-limit detection and backup fallback are implemented; five-hour session-limit detection ("hit your session limit") is NOT yet implemented and follows in item P1-09b, which must land before the first caller (P1-28). The runner returns the reset but never writes the tracking issue.
