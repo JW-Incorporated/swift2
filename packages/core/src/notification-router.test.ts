@@ -3,6 +3,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { dispatchPendingEvents } from './notification-router';
 import * as sender from './notification-sender';
 
+const EVENT_COLUMNS =
+  'id,category,tier,title,body,deep_link,available_at,expires_at,killed_at';
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
@@ -16,26 +19,35 @@ function makeFakeDb(fixture: {
   events: Array<Record<string, unknown>>;
   notificationPrefs: Array<{ device_id: string; category: string; cadence: string }>;
   devices: Array<Record<string, unknown>>;
-  deliveries: Array<{ device_id: string; category: string; kind: string; sent_at: string }>;
+  deliveries: Array<Record<string, unknown> & { kind: string }>;
   opsSwitches?: Array<{ name: string; enabled: boolean }>;
   opsSwitchError?: { message: string };
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
   const clearedTokenDeviceIds: string[] = [];
+  const deliveryPageIds: string[][] = [];
+  const prefCategories: string[] = [];
 
   function queryBuilder(table: string) {
-    const state: { filters: Array<(row: Record<string, unknown>) => boolean>; countOnly: boolean } =
-      {
-        filters: [],
-        countOnly: false,
-      };
+    const state: {
+      filters: Array<(row: Record<string, unknown>) => boolean>;
+      countOnly: boolean;
+      selectedColumns: string | null;
+      limit: number | null;
+      orders: Array<{ column: string; ascending: boolean }>;
+    } = { filters: [], countOnly: false, selectedColumns: null, limit: null, orders: [] };
 
     const api: Record<string, (...args: unknown[]) => unknown> = {};
     api.select = ((_cols: string, opts?: { count?: string; head?: boolean }) => {
+      state.selectedColumns = _cols;
       if (opts?.head) state.countOnly = true;
       return api;
     }) as (...args: unknown[]) => unknown;
     api.lte = ((col: string, val: unknown) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        expect(col).toBe('available_at');
+        expect(val).toEqual(expect.any(String));
+      }
       state.filters.push((row) => (row[col] as string) <= (val as string));
       return api;
     }) as (...args: unknown[]) => unknown;
@@ -44,25 +56,83 @@ function makeFakeDb(fixture: {
       return api;
     }) as (...args: unknown[]) => unknown;
     api.is = ((col: string, val: unknown) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        expect(col).toBe('killed_at');
+        expect(val).toBeNull();
+      }
       state.filters.push((row) => row[col] === val);
       return api;
     }) as (...args: unknown[]) => unknown;
-    api.not = (() => {
-      // Router's `.not('id', 'in', subquery)` excludes events that already
-      // have a delivery row — this fixture's `deliveries` fixture never
-      // carries `event_id`, so it's a no-op filter (every fixture in these
-      // tests seeds `events` with rows that have no prior delivery anyway).
+    api.or = ((filter: string) => {
+      if (table !== 'events' || state.selectedColumns !== EVENT_COLUMNS) {
+        throw new Error(`unexpected or filter on ${table}`);
+      }
+      if (filter.startsWith('expires_at.is.null,expires_at.gt.')) {
+        const now = filter.slice('expires_at.is.null,expires_at.gt.'.length);
+        expect(now).toEqual(expect.any(String));
+        state.filters.push(
+          (row) => row.expires_at === null || (row.expires_at as string) > now,
+        );
+        return api;
+      }
+      const match = filter.match(
+        /^available_at\.lt\.(.+),and\(available_at\.eq\.(.+),id\.gt\.(.+)\)$/,
+      );
+      if (!match) throw new Error(`unexpected event cursor: ${filter}`);
+      const availableAt = match[1]!;
+      const sameAvailableAt = match[2]!;
+      const id = match[3]!;
+      expect(availableAt).toBe(sameAvailableAt);
+      state.filters.push(
+        (row) =>
+          (row.available_at as string) < availableAt ||
+          ((row.available_at as string) === availableAt && (row.id as string) > id),
+      );
       return api;
     }) as (...args: unknown[]) => unknown;
+    api.not = ((...args: unknown[]) => {
+      throw new Error(`unexpected PostgREST not filter: ${JSON.stringify(args)}`);
+    }) as (...args: unknown[]) => unknown;
     api.eq = ((col: string, val: unknown) => {
+      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
+        expect(col).toBe('kind');
+        expect(val).toBe('instant');
+      }
+      if (table === 'notification_prefs' && col === 'category') prefCategories.push(val as string);
       state.filters.push((row) => row[col] === val);
       return api;
     }) as (...args: unknown[]) => unknown;
     api.in = ((col: string, vals: unknown[]) => {
+      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
+        expect(col).toBe('event_id');
+        expect(vals).toEqual(vals.filter((value): value is string => typeof value === 'string'));
+        deliveryPageIds.push(vals as string[]);
+      }
       state.filters.push((row) => vals.includes(row[col]));
       return api;
     }) as (...args: unknown[]) => unknown;
-    api.limit = (() => api) as (...args: unknown[]) => unknown;
+    api.limit = ((limit: number) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        expect(limit).toBe(200);
+      }
+      state.limit = limit;
+      return api;
+    }) as (...args: unknown[]) => unknown;
+    api.order = ((col: string, opts: { ascending?: boolean }) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        if (state.orders.length === 0) {
+          expect(col).toBe('available_at');
+          expect(opts).toEqual({ ascending: false });
+        } else if (state.orders.length === 1) {
+          expect(col).toBe('id');
+          expect(opts).toBeUndefined();
+        } else {
+          throw new Error('unexpected event ordering');
+        }
+      }
+      state.orders.push({ column: col, ascending: opts?.ascending ?? true });
+      return api;
+    }) as (...args: unknown[]) => unknown;
     api.maybeSingle = (async () => {
       const result = runQuery();
       if (result.error) return result;
@@ -91,8 +161,19 @@ function makeFakeDb(fixture: {
       if (table === 'ops_switches' && fixture.opsSwitchError) {
         return { data: null, error: fixture.opsSwitchError };
       }
-      const rows = source().filter((row) => state.filters.every((f) => f(row)));
+      let rows = source().filter((row) => state.filters.every((f) => f(row)));
       if (state.countOnly) return { count: rows.length, error: null };
+      if (state.orders.length > 0) {
+        rows = [...rows].sort((a, b) => {
+          for (const { column, ascending } of state.orders) {
+            if (a[column] === b[column]) continue;
+            const comparison = String(a[column]).localeCompare(String(b[column]));
+            return ascending ? comparison : -comparison;
+          }
+          return 0;
+        });
+      }
+      if (state.limit !== null) rows = rows.slice(0, state.limit);
       return { data: rows, error: null };
     }
 
@@ -116,9 +197,13 @@ function makeFakeDb(fixture: {
     from: vi.fn((table: string) => queryBuilder(table)),
     _insertedDeliveries: insertedDeliveries,
     _clearedTokenDeviceIds: clearedTokenDeviceIds,
+    _deliveryPageIds: deliveryPageIds,
+    _prefCategories: prefCategories,
   } as unknown as SupabaseClient & {
     _insertedDeliveries: Array<Record<string, unknown>>;
     _clearedTokenDeviceIds: string[];
+    _deliveryPageIds: string[][];
+    _prefCategories: string[];
   };
 }
 
@@ -178,6 +263,83 @@ describe('dispatchPendingEvents', () => {
     expect(logSpy).toHaveBeenCalledWith(
       'notification-router: PUSH_FREEZE could not be read; dispatch skipped: unavailable',
     );
+  });
+
+  it('skips expired events before the pending-event cap', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const event = (id: string, expires_at: string | null) => ({
+      id,
+      category: id,
+      tier: 1,
+      title: id,
+      body: 'Body',
+      deep_link: 'https://x',
+      available_at: new Date(now.getTime() - 1000).toISOString(),
+      expires_at,
+      killed_at: null,
+    });
+    const db = makeFakeDb({
+      events: [
+        ...Array.from({ length: 200 }, (_, index) =>
+          event(`expired-${index}`, new Date(now.getTime() - 1000).toISOString()),
+        ),
+        ...Array.from({ length: 50 }, (_, index) => event(`fresh-${index}`, null)),
+      ],
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [],
+    });
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.eventsConsidered).toBe(50);
+    expect(db._deliveryPageIds).toHaveLength(1);
+    expect(db._deliveryPageIds[0]).toHaveLength(50);
+    expect(db._deliveryPageIds[0]?.every((id) => id.startsWith('fresh-'))).toBe(true);
+  });
+
+  it('caps eligible events newest-first and only reads deliveries for each candidate page', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const events = Array.from({ length: 250 }, (_, index) => {
+      const id = `fresh-${String(index).padStart(3, '0')}`;
+      return {
+        id,
+        category: id,
+        tier: 1,
+        title: id,
+        body: 'Body',
+        deep_link: 'https://x',
+        available_at: new Date(now.getTime() - (250 - index) * 1000).toISOString(),
+        expires_at: null,
+        killed_at: null,
+      };
+    });
+    const db = makeFakeDb({
+      events,
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [
+        ...Array.from({ length: 10 }, (_, index) => ({
+          event_id: `fresh-${String(249 - index).padStart(3, '0')}`,
+          kind: 'instant',
+        })),
+        { event_id: 'fresh-239', kind: 'fun' },
+      ],
+    });
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.eventsConsidered).toBe(200);
+    expect(db._prefCategories).toHaveLength(200);
+    expect(db._prefCategories[0]).toBe('fresh-239');
+    expect(db._prefCategories[189]).toBe('fresh-050');
+    expect(db._prefCategories[190]).toBe('fresh-049');
+    expect(db._prefCategories[199]).toBe('fresh-040');
+    expect(db._deliveryPageIds).toHaveLength(2);
+    expect(db._deliveryPageIds[0]?.[0]).toBe('fresh-249');
+    expect(db._deliveryPageIds[0]?.[199]).toBe('fresh-050');
+    expect(db._deliveryPageIds[1]?.[0]).toBe('fresh-049');
+    expect(db._deliveryPageIds[1]?.[49]).toBe('fresh-000');
   });
 
   it('ACCEPTANCE: a song_drop event delivers to an opted-in device once', async () => {
