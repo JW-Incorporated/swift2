@@ -152,27 +152,45 @@ describe('callClaude', () => {
   it('uses the verified headless flags and writes one usage row per real call', async () => {
     const rows: unknown[] = [];
     const spawnImpl = spawnReturning({ stdout: successResult() });
+    const createTempDir = vi.fn().mockResolvedValue('C:\\temp\\claude-call-test');
+    const removeTempDir = vi.fn().mockResolvedValue(undefined);
     const callClaude = createClaudeCaller({
       spawnImpl,
       logUsage: (row: unknown) => { rows.push(row); },
+      createTempDir,
+      removeTempDir,
     });
 
     await expect(callClaude(baseInput)).resolves.toEqual({
       status: 'ok',
       data: { answer: 'yes' },
-      usage: { inputTokens: 25, outputTokens: 4 },
+      usage: {
+        inputTokens: 10,
+        cacheCreationInputTokens: 12,
+        cacheReadInputTokens: 3,
+        outputTokens: 4,
+      },
     });
     expect(spawnImpl).toHaveBeenCalledOnce();
     expect(spawnImpl.mock.calls[0]?.[1]).toEqual([
-      '-p', '--max-turns', '1', '--output-format', 'json', '--tools', '',
+      '-p', '--output-format', 'json', '--safe-mode', '--setting-sources', '',
+      '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}', '--tools', '',
       '--no-session-persistence', '--model', 'claude-haiku-5-5',
       '--system-prompt', 'Return JSON.', '--json-schema', JSON.stringify(schema),
     ]);
+    expect(spawnImpl.mock.calls[0]?.[2]).toEqual(expect.objectContaining({
+      cwd: 'C:\\temp\\claude-call-test',
+      windowsHide: true,
+    }));
     expect(spawnImpl.mock.results[0]?.value.stdin.end).toHaveBeenCalledWith('Answer yes.');
+    expect(createTempDir).toHaveBeenCalledOnce();
+    expect(removeTempDir).toHaveBeenCalledWith('C:\\temp\\claude-call-test');
     expect(rows).toEqual([{
       caller: 'test-caller',
       model: 'claude-haiku-5-5',
-      inputTokens: 25,
+      inputTokens: 10,
+      cacheCreationInputTokens: 12,
+      cacheReadInputTokens: 3,
       outputTokens: 4,
       calls: 1,
       status: 'ok',

@@ -1,4 +1,7 @@
 import { spawn as nodeSpawn } from 'node:child_process';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { selectClaudeCallToken } from './claude-token.mjs';
 
 const PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
@@ -15,8 +18,9 @@ function number(value) {
 function usageOf(result) {
   const usage = result?.usage ?? {};
   return {
-    inputTokens: number(usage.input_tokens) + number(usage.cache_creation_input_tokens)
-      + number(usage.cache_read_input_tokens),
+    inputTokens: number(usage.input_tokens),
+    cacheCreationInputTokens: number(usage.cache_creation_input_tokens),
+    cacheReadInputTokens: number(usage.cache_read_input_tokens),
     outputTokens: number(usage.output_tokens),
   };
 }
@@ -115,10 +119,20 @@ export function createClaudeCaller(options = {}) {
   const callCounts = options.callCounts ?? new Map();
   const estimateTokens = options.estimateTokens ?? inputTokenEstimate;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const createTempDir = options.createTempDir
+    ?? (() => mkdtemp(join(tmpdir(), 'claude-call-')));
+  const removeTempDir = options.removeTempDir
+    ?? ((directory) => rm(directory, { recursive: true, force: true }));
 
   return async function callClaude(input = {}) {
     let spawned = false;
-    let usage = { inputTokens: 0, outputTokens: 0 };
+    let tempDir;
+    let usage = {
+      inputTokens: 0,
+      cacheCreationInputTokens: 0,
+      cacheReadInputTokens: 0,
+      outputTokens: 0,
+    };
     let status = 'unavailable';
     try {
       const { caller, priority, model, system, user, schema, maxInputTokens, maxCalls } = input;
@@ -164,14 +178,23 @@ export function createClaudeCaller(options = {}) {
         return { status: capped ? 'capped' : 'unavailable', reason: tokenChoice.reason };
       }
 
-      const args = ['-p', '--max-turns', '1', '--output-format', 'json', '--tools', '',
-        '--no-session-persistence', '--model', model, '--system-prompt', system];
+      const args = ['-p', '--output-format', 'json', '--safe-mode', '--setting-sources', '',
+        '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}', '--tools', '',
+        '--no-session-persistence',
+        '--model', model, '--system-prompt', system];
       if (schemaJson !== undefined) args.push('--json-schema', schemaJson);
       const env = { ...process.env };
       if (tokenChoice.token === 'backup') env.CLAUDE_CODE_OAUTH_TOKEN = backupToken;
+      tempDir = await createTempDir();
       callCounts.set(caller, calls + 1);
       spawned = true;
-      const completed = await runCli(spawnImpl, args, { env, windowsHide: true }, user, timeoutMs);
+      const completed = await runCli(
+        spawnImpl,
+        args,
+        { cwd: tempDir, env, windowsHide: true },
+        user,
+        timeoutMs,
+      );
       if (!completed || completed.timedOut || completed.code !== 0) {
         status = 'unavailable';
         return { status, reason: completed?.timedOut ? 'Claude CLI timed out' : 'Claude CLI unavailable' };
@@ -215,12 +238,21 @@ export function createClaudeCaller(options = {}) {
     } catch {
       return { status: 'unavailable', reason: 'Claude call unavailable' };
     } finally {
+      if (tempDir) {
+        try {
+          await removeTempDir(tempDir);
+        } catch {
+          // Temporary-directory cleanup cannot violate the never-throw contract.
+        }
+      }
       if (spawned) {
         try {
           await logUsage({
             caller: input.caller,
             model: input.model,
             inputTokens: usage.inputTokens,
+            cacheCreationInputTokens: usage.cacheCreationInputTokens,
+            cacheReadInputTokens: usage.cacheReadInputTokens,
             outputTokens: usage.outputTokens,
             calls: 1,
             status,
