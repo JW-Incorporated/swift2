@@ -1,0 +1,58 @@
+# Tidewatch P1-04: one-off replay export plus labelling, run on Actions because
+# the subscription token secret only exists here. Manual dispatch only.
+# export-replay.mjs reads the DB read-only into a gitignored .scratch file; it
+# is NEVER uploaded as an artifact (public repo). label-replay.mjs labels it
+# through the subscription wrapper (P3, no backup token, 40-call hard cap) and
+# the PR carries only replay.json and spot-check.json (labels, no member text).
+name: tidewatch-replay-label
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: tidewatch-replay-label
+  cancel-in-progress: false
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90 # about 32 calls at 2 min each, plus install and retries
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          npm-ci: 'true'
+          npm-ci-args: --ignore-scripts
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Export the replay pool (read-only, raw stays on the runner)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: node scripts/tidewatch/export-replay.mjs
+      - name: Label the replay pool
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: node scripts/tidewatch/label-replay.mjs
+      - name: Compute PR metadata
+        run: echo "branch=tidewatch-replay-label/$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: |
+            docs/projects/tidewatch/replay/replay.json
+            docs/projects/tidewatch/replay/spot-check.json
+          branch: ${{ env.branch }}
+          commit-message: 'tidewatch: frozen replay labels (P1-04)'
+          pr-title: 'tidewatch: frozen replay labels (P1-04)'
+          pr-body: >-
+            Frozen calibration replay set (P1-04), labelled by claude-sonnet-5-5 through the
+            subscription wrapper at P3. Labels and public fields only; no member text. For PM
+            spot-check before merge.
+          auto-merge: 'false'
+          no-changes-message: 'No replay files produced; nothing to commit.'
