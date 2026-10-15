@@ -46,6 +46,9 @@
 # than 60; 90 matches marjorie-weekly-review. The notes below explain the
 # original 60.
 #
+# Cadence cut to every 3 h (2026-10-14, P0-02, was hourly; measured ~3,285
+# turns/week); max_turns kept at 90 because successful runs need 60-99.
+#
 # `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
 # 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
 # ZERO durable progress against 2 simultaneously-open real alerts (#4009,
@@ -70,7 +73,7 @@ name: routine-marjorie-ops
 
 on:
   schedule:
-    - cron: "18 * * * *" # 13 min after watchdog.yml's :05 sweep
+    - cron: "18 */3 * * *" # 13 min after watchdog.yml's :05 sweep
   workflow_dispatch:
 
 permissions:

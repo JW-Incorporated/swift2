@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { evaluateCurrentItemQuality } from '@swift2/shared';
 import {
   bestSourceForImage,
   extractPageImage,
@@ -16,6 +17,13 @@ describe('isAllowedImageHost', () => {
 
   it('accepts a host on PHOTO_HOST_LEGACY (the grandfathered set)', () => {
     expect(isAllowedImageHost('https://storage.googleapis.com/some/bucket/photo.jpg')).toBe(true);
+  });
+
+  it.each([
+    'https://www.taylorswift.com/wp-content/photo.jpg',
+    'https://cdn.shopify.com/s/files/photo.jpg',
+  ])('accepts a reviewed official image host: %s', (url) => {
+    expect(isAllowedImageHost(url)).toBe(true);
   });
 
   it('rejects a host on neither list', () => {
@@ -90,6 +98,15 @@ const sources: ClusterSource[] = [
   { outletName: 'Official', url: 'https://taylorswift.com/x', tier: 'official' },
 ];
 
+const qualityInput = (imageUrl: string | undefined) => ({
+  headline: 'Critical official announcement',
+  summary:
+    'Taylor Swift published an official and time-sensitive announcement for fans around the world today. The verified source provides the primary account and a usable editorial image.',
+  detail: Array(60).fill('detail').join(' '),
+  imageUrl,
+  redlineOk: true,
+});
+
 describe('bestSourceForImage', () => {
   it('picks the highest-tier source', () => {
     expect(bestSourceForImage(sources)?.outletName).toBe('Official');
@@ -161,6 +178,33 @@ describe('resolveImageUrl', () => {
     );
     const image = await resolveImageUrl(null, sources, fetchImpl as unknown as typeof fetch);
     expect(image).toBe('https://www.billboard.com/og.jpg');
+  });
+
+  it('gives a critical official video its YouTube thumbnail without fetching', async () => {
+    const fetchImpl = vi.fn();
+    const image = await resolveImageUrl(
+      null,
+      [{ outletName: 'Taylor Swift', url: 'https://youtu.be/nfWlot6h_JM', tier: 'official' }],
+      fetchImpl as unknown as typeof fetch,
+    );
+    expect(image).toBe('https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg');
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(evaluateCurrentItemQuality(qualityInput(image))).toEqual({ ok: true });
+  });
+
+  it('gives a critical official page its allowlisted og:image instead of missing_image', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      htmlResponse(
+        '<meta property="og:image" content="https://www.taylorswift.com/wp-content/announcement.jpg">',
+      ),
+    );
+    const image = await resolveImageUrl(
+      null,
+      [{ outletName: 'Taylor Swift', url: 'https://www.taylorswift.com/news/announcement', tier: 'official' }],
+      fetchImpl as unknown as typeof fetch,
+    );
+    expect(image).toBe('https://www.taylorswift.com/wp-content/announcement.jpg');
+    expect(evaluateCurrentItemQuality(qualityInput(image))).toEqual({ ok: true });
   });
 
   it('resolves to undefined when nothing yields an allowlisted image', async () => {
