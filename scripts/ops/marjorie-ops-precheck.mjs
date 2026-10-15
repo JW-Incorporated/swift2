@@ -5,6 +5,7 @@ import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun } from '../lib/gh.mjs';
 import { createJevClient, noulQuestion } from '../lib/jev.mjs';
 import { deriveHandledState, matchAlertTitle } from '../marjorie/lib/alert-router.mjs';
+import { isTrustedBotAuthor } from '../marjorie/lib/chase-auto-defer.mjs';
 import { isFounderFacing } from '../marjorie/lib/alert-notify.mjs';
 import { evaluateDispatchChase } from '../marjorie/lib/dispatch-chase.mjs';
 import { fetchDispatchChaseState } from '../marjorie/lib/dispatch-chase-state.mjs';
@@ -45,7 +46,14 @@ export async function collectOpsSnapshot({ gh = ghRun, repo, now = Date.now(), c
     }
     if (evaluateOpsFixTrust({ login, labels: labels(row), role }).ok) opsFixes.push(row);
   }
-  return { alerts: parse(alerts), runs: parse(runs), prs: parse(prs), opsFixes, chasePlan: evaluateDispatchChase(chase), now };
+  const alertRows = await Promise.all(parse(alerts).map(async (row) => {
+    if (!row.comments?.length) return row;
+    try {
+      const raw = JSON.parse(String((await gh(['api', `repos/${target}/issues/${row.number}/comments`, '--paginate', '--slurp'])).stdout || '[]')).flat();
+      return { ...row, comments: raw.map((c, i) => ({ body: c.body || '', author: { login: c.user?.login, type: c.user?.type }, viewerDidAuthor: row.comments[i]?.viewerDidAuthor === true })) };
+    } catch { return row; }
+  }));
+  return { alerts: alertRows, runs: parse(runs), prs: parse(prs), opsFixes, chasePlan: evaluateDispatchChase(chase), now };
 }
 
 function isContent(row) {
@@ -58,11 +66,14 @@ function buildCheck(row) {
   return (row.statusCheckRollup || []).find((check) => (check.name || check.context) === 'build');
 }
 
+// Marjorie posts her ledger markers as the claude Bot, not the viewer; trust the chase-auto-defer bot set.
+export const trustMarkerAuthors = (comments) => comments.map((c) => ({ ...c, viewerDidAuthor: c.viewerDidAuthor === true || isTrustedBotAuthor(c.author || c.user) }));
+
 export function buildOpsSignals(snapshot) {
   const now = Number(snapshot.now) || Date.now();
   const signals = (snapshot.alerts || []).map((row) => {
     const handler = matchAlertTitle(row.title);
-    const ledger = deriveHandledState(Array.isArray(row.comments) ? row.comments : []);
+    const ledger = deriveHandledState(trustMarkerAuthors(Array.isArray(row.comments) ? row.comments : []));
     const oldUnhandled = ledger === 'unhandled' && age(row.createdAt, now) > WATCHDOG_MUST_RUN_AFTER_MS;
     const mustRun = oldUnhandled || handler === 'prod-smoke-check-failing' || isFounderFacing(row.title);
     return {

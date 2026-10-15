@@ -3,6 +3,8 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs module
+import { todayLA } from '../marjorie/lib/brief-sections.mjs';
+// @ts-expect-error plain .mjs module
 import { NEEDS_ACTION_THRESHOLD, buildOpsSignals, collectOpsSnapshot, main, runPrecheck } from './marjorie-ops-precheck.mjs';
 
 const empty = { alerts: [], runs: [], prs: [], opsFixes: [], chasePlan: {}, now: Date.parse('2026-10-15T12:00:00Z') };
@@ -55,6 +57,22 @@ describe('marjorie ops signal collector', () => {
     expect(runCall).toEqual(expect.arrayContaining(['--branch', 'main']));
     expect(runCall?.[runCall.indexOf('--json') + 1]).toContain('headBranch');
     expect(chaseState).toHaveBeenCalledWith('o/r', { now: empty.now });
+  });
+});
+
+describe('bot-authored ledger markers', () => {
+  const alert = (comments: unknown[]) => buildOpsSignals({ ...empty, alerts: [{ number: 9, title: "Watchdog: no Founders' Brief", createdAt: '2026-10-15T11:00:00Z', comments }] })[0].context;
+  const bot = { login: 'claude[bot]', type: 'Bot' };
+  const marker = (action: string) => `<!-- marjorie-ops-handled date=${todayLA()} action=${action} -->`;
+  it('treats a claude Bot handled marker as handled', () => {
+    expect(alert([{ body: marker('comment-only'), author: bot }])).toContain('ledger state handled-awaiting-watchdog');
+  });
+  it('treats a claude Bot escalated marker as escalated', () => {
+    expect(alert([{ body: marker('escalate'), author: bot }])).toContain('ledger state escalated');
+  });
+  it('ignores an outsider-authored marker', () => {
+    expect(alert([{ body: marker('escalate'), author: { login: 'rando', type: 'User' } }])).toContain('ledger state unhandled');
+    expect(alert([{ body: marker('escalate'), author: { login: 'claude', type: 'User' } }])).toContain('ledger state unhandled');
   });
 });
 
