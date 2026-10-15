@@ -40,7 +40,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | review | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review |  |  |
-| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | review |  |  |
+| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | review | #5830 |  |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
@@ -60,7 +60,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09 | todo |  |  |
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
-| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | todo |  |  |
+| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | doing |  |  |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
@@ -150,6 +150,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 22:42 PM: P1-02 SQL review round 1 REJECT (valid and re-apply-safe, but no revoke/grant, and the Facebook-excerpt check depended on future source naming). PM call: a CLOSED `source` vocabulary CHECK plus `source <> 'facebook' or excerpt is null`, instead of the reviewer's regex; revoke/grant added; 30-day noise expiry in retention. Final round sent. P1-01 pushed d62bc06ee (suite 12,213; the Jev wire shape is an assumption isolated in toRequest/fromResponse until the selftest runs after HA #124) → reviewer.
 - 2026-10-14 22:48 PM: #5825 (P0-01) MERGED → done in code; its live acceptance (a test limit issue, then a kevin-radar dispatch that must log "skipped: weekly limit until") is step 0 of the P0-02 brief. Template change → `gh pr update-branch` on the 3 armed non-state PRs (#5815, #5824, #5827); the ~95 armed social-poster/state PRs were deliberately NOT updated (P0-04 closes them, and updating would cause a CI storm). P1-01 APPROVE → #5827 armed (nit for a follow-up: keep the 4 s timer through the response body read). P1-03 rulings applied (271fb611e; go-live order 0-14; guardrail 4's list itself says "comparable milestones", quoted as written) → reviewer. P0-02 dispatched (executor Sonnet).
 - 2026-10-14 22:52 PM: P0-07 round 2 APPROVE → #5829 armed. The spot-check matched (run 38681827467: numTurns 64 → site-ops 169 runs, 3,285 turns a week). Nits: the regex runs over the whole record; 58 of 81 site-ops runs carry `assistantError: rate_limit` (worth a look: is marjorie-ops hitting a rate limit on most runs?). P1-03 round 1 REJECT (HIGH: official_drop and tour_ticket could T1-push without the D4 double check, contrary to the plan's own routing via critical_breaking; MED: critical_personal and correction_debunk hold without the owner queue) → the fix aligns to the approved design (no design change, so no Fable) → final round sent.
+- 2026-10-14 22:58 PM: P1-03 round 2 APPROVE → #5830 armed (T1 pushes only on critical_breaking; baby_watch only on critical_personal behind the fact-check plus verifier; all three verifier classes hold_owner_queue). Carry to the P2-02 brief: ENFORCE `t1PushOnlyVia` in the router (today it's only a marker), and add a config field for official_drop's "verified official channel id". P1-23 dispatched (Codex sol high; must keep today's corpus passing validate:content and follow guardrail 2 exactly). P0-09 follow-up in flight (Codex).
 
 ## Next actions
 
