@@ -37,6 +37,7 @@ import {
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
 import { runMain } from './lib/cli.mjs';
+import { baseMomentId, claimMomentId } from './lib/moment-ids.mjs';
 
 // slugify now lives in the dependency-free shared module (so the content-engine
 // can import it without @supabase/supabase-js); re-exported here because
@@ -423,13 +424,7 @@ export function addItem(
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
 
-  const baseId = `vault-${eraId}-${slugify(title)}`;
-  let id = baseId;
-  let n = 2;
-  while (seenIds.has(id)) {
-    id = `${baseId}-${n++}`;
-  }
-  seenIds.add(id);
+  const id = claimMomentId(baseMomentId(eraId, title), seenIds);
 
   // `day` is optional — most items are still only known to month precision.
   // When present (1-31, validated), the item gets a real calendar date and

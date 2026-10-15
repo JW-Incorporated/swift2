@@ -27,7 +27,8 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { isMain } from '../lib/is-main.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { SLUG_TO_ERA_ID, slugify } from '../lib/longlive-sync-shared.mjs';
+import { SLUG_TO_ERA_ID } from '../lib/longlive-sync-shared.mjs';
+import { momentIds } from '../lib/moment-ids.mjs';
 import { momentMediaErrors } from '../lib/moment-media-gate.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -38,18 +39,6 @@ const DAY_MS = 86_400_000;
 const CONTENT_DIR = 'supabase/seed/content';
 const FILE_RE = /^new-on-site-(\d{4}-\d{2}-\d{2})\.json$/;
 const RANK = { defining: 0, notable: 1 };
-
-/** Site ids of an era's items, in order — scripts/sync-longlive-content.mjs's `vault-<eraId>-<slugify(title)>` with its `-2`, `-3` collision suffixes. */
-export function momentIds(eraSlug, items) {
-  const seen = new Set();
-  return (items ?? []).map((item) => {
-    const base = `vault-${SLUG_TO_ERA_ID[eraSlug] ?? eraSlug}-${slugify(item.title)}`;
-    let id = base;
-    for (let n = 2; seen.has(id); n += 1) id = `${base}-${n}`;
-    seen.add(id);
-    return id;
-  });
-}
 
 /** First renderable media ref of a moment (thumbnail, photo, YouTube, Instagram), or null. */
 export function primaryMedia(item) {
@@ -113,6 +102,9 @@ export function staleFeedFiles(names, date) {
 const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
 const importSource = async (source) => (await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`)).default;
 
+/** True only when `git show` failed because the path did not exist at that commit (a new era file). */
+export const isMissingPath = (err) => /exists on disk, but not in|does not exist in/.test(`${err?.stderr ?? ''}${err?.message ?? ''}`);
+
 /** I/O half: per-era current items from disk and baseline items from the last commit before `since`. */
 export async function loadEras(root, since) {
   const base = git(root, ['rev-list', '-1', `--before=${since}`, 'HEAD']).trim();
@@ -124,7 +116,8 @@ export async function loadEras(root, since) {
     let baseline;
     try {
       baseline = (await importSource(git(root, ['show', `${base}:${CONTENT_DIR}/${file}`]))).items ?? [];
-    } catch {
+    } catch (err) {
+      if (!isMissingPath(err)) throw err;
       baseline = [];
     }
     eras.push({ eraSlug: current.eraSlug, current: current.items ?? [], baseline });
@@ -149,7 +142,14 @@ export async function run({ root = ROOT, date, outDir = path.join(root, 'social'
     }
     for (const n of pruned) unlinkSync(path.join(outDir, n));
   }
-  return { written: !same, file, count: feed.count, pruned };
+  return { written: !same, file, count: feed.count, pruned, dryRun };
+}
+
+/** The one-line CLI report; a dry run says "would write" / "would prune" since it touches nothing. */
+export function summaryLine(date, { count, written, file, pruned, dryRun = false }) {
+  const verb = dryRun ? 'would write' : 'wrote';
+  const prune = dryRun ? 'would prune' : 'pruned';
+  return `new-on-site ${date}: ${count} moment(s) with media in the last ${WINDOW_DAYS} days; ${written ? `${verb} ${file}` : 'no change, nothing written'}${pruned.length ? `; ${prune} ${pruned.length}` : ''}`;
 }
 
 async function main() {
@@ -159,7 +159,7 @@ async function main() {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`--date must be YYYY-MM-DD, got ${date}`);
   const outDir = value('--out-dir') ? path.resolve(value('--out-dir')) : undefined;
   const result = await run({ date, outDir, dryRun: argv.includes('--dry-run') });
-  console.log(`new-on-site ${date}: ${result.count} moment(s) with media in the last ${WINDOW_DAYS} days; ${result.written ? `wrote ${result.file}` : 'no change, nothing written'}${result.pruned.length ? `; pruned ${result.pruned.length}` : ''}`);
+  console.log(summaryLine(date, result));
   return 0;
 }
 
