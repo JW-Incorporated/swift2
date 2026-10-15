@@ -54,9 +54,11 @@ npm run news --workspace @swift2/worker
   stay `unverified`.
 - Primary mode (`--primary`) also polls the enabled Google News fast lane,
   which is marked `config.primaryOnly` so the normal cycle excludes it.
-  Story-source recording coalesces copies by article identity, normalises the
-  outlet (including casing, leading "The", display/domain names, and AMP or
-  mobile hosts), and keeps the best tier and URL. Verification defensively
+  The fast-lane row's `is_enabled` value is not a kill switch; stop the lane
+  by not passing `--primary`.
+  Story-source recording coalesces copies by article identity, matches outlets
+  by normalised host (including AMP or mobile hosts), preserves publisher
+  display names, and keeps the best tier and URL. Verification defensively
   applies the same coalescing, so corroboration always means distinct articles
   from at least two distinct normalised outlets.
 - Extract stage (`src/extract/`, PLAN.md Stage 3): Claude Code runs

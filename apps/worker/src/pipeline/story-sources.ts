@@ -12,10 +12,27 @@ const TIER_RANK: Record<SourceTier, number> = {
   official: 3,
 };
 
+const IDENTIFYING_QUERY_KEYS = new Set([
+  'v',
+  'id',
+  'p',
+  'story',
+  'article',
+  'a',
+  'sid',
+  'newsid',
+  'storyid',
+  'itemid',
+]);
+const UNKNOWN_OUTLET_KEY = 'unknown:';
+
 export interface StorySourceCandidate {
   storyId: string;
   rawItemId: string | null;
   externalId?: string | null;
+  title?: string | null;
+  snippet?: string | null;
+  author?: string | null;
   outletName: string;
   publisherUrl?: string | null;
   articleUrl: string;
@@ -82,20 +99,69 @@ function canonicalArticleUrl(raw: string): string | undefined {
     if (!host) return undefined;
     let path = url.pathname.replace(/\/+$/, '').replace(/\/(?:amp|amp\/index\.html)$/i, '');
     path = path.replace(/\.amp(?:\.html)?$/i, '.html');
-    return `${host}${path || '/'}`.toLowerCase();
+    const identifyingParams = [...url.searchParams]
+      .filter(([key]) => IDENTIFYING_QUERY_KEYS.has(key.toLocaleLowerCase('en-US')))
+      .map(([key, value]): [string, string] => [key.toLocaleLowerCase('en-US'), value])
+      .sort(([aKey, aValue], [bKey, bValue]) =>
+        aKey.localeCompare(bKey) || aValue.localeCompare(bValue),
+      );
+    const query = new URLSearchParams(identifyingParams).toString();
+    return `${host}${path || '/'}${query ? `?${query}` : ''}`;
   } catch {
     return undefined;
   }
 }
 
+function normalizedTitle(raw?: string | null): string | undefined {
+  const normalized = raw
+    ?.trim()
+    .replace(/^(?:AP|Reuters|AFP)\s*:\s*/i, '')
+    .replace(/\s+(?:-|\|)\s+[^-|]+$/u, '')
+    .toLocaleLowerCase('en-US')
+    .replace(/[\p{P}\p{S}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return normalized || undefined;
+}
+
+function wireService(candidate: StorySourceCandidate): string | undefined {
+  const titlePrefix = candidate.title?.match(/^\s*(AP|Reuters|AFP)\s*:/i)?.[1];
+  if (titlePrefix) return titlePrefix.toLocaleLowerCase('en-US');
+  const credit = [candidate.author, candidate.snippet].filter(Boolean).join(' ');
+  if (/\b(?:Reuters)\b/i.test(credit)) return 'reuters';
+  if (/\b(?:AFP|Agence France-Presse)\b/i.test(credit)) return 'afp';
+  if (/\b(?:Associated Press|AP News)\b/i.test(credit) || /(?:^|[\s,(])AP(?:$|[\s,)])/i.test(credit)) {
+    return 'ap';
+  }
+  return undefined;
+}
+
 function identityTokens(candidate: StorySourceCandidate): Set<string> {
   const tokens = new Set<string>();
   const externalId = candidate.externalId?.trim();
-  if (externalId) tokens.add(`external:${externalId.toLocaleLowerCase('en-US')}`);
+  if (externalId) tokens.add(`external:${externalId}`);
   const url = canonicalArticleUrl(candidate.articleUrl);
   if (url) tokens.add(`url:${url}`);
+  const title = normalizedTitle(candidate.title);
+  if (title) tokens.add(`title:${title}`);
+  const wire = wireService(candidate);
+  if (wire) tokens.add(`wire:${wire}`);
   if (tokens.size === 0 && candidate.rawItemId) tokens.add(`raw:${candidate.rawItemId}`);
   return tokens;
+}
+
+function outletMatchKey(candidate: StorySourceCandidate): string {
+  const articleHost = normalizedHost(candidate.articleUrl);
+  const publisherHost = normalizedHost(candidate.publisherUrl);
+  if (articleHost === 'news.google.com' && !publisherHost) return UNKNOWN_OUTLET_KEY;
+  const host = publisherHost ?? articleHost;
+  if (host) return `host:${host}`;
+  return `name:${normalizeOutletName(candidate.outletName).toLocaleLowerCase('en-US')}`;
+}
+
+function publisherDisplayName(candidate: StorySourceCandidate, outletKey: string): string {
+  if (outletKey === UNKNOWN_OUTLET_KEY) return 'unknown';
+  return candidate.outletName.trim().replace(/\s+/g, ' ') || 'unknown';
 }
 
 function urlRank(raw: string): number {
@@ -110,7 +176,15 @@ function urlRank(raw: string): number {
   }
 }
 
-function better<T extends StorySourceCandidate>(a: T, b: T): T {
+type NormalizedCandidate = StorySourceCandidate & {
+  outletKey: string;
+  tokens: Set<string>;
+};
+
+function better<T extends NormalizedCandidate>(a: T, b: T): T {
+  const knownDelta = Number(a.outletKey !== UNKNOWN_OUTLET_KEY) -
+    Number(b.outletKey !== UNKNOWN_OUTLET_KEY);
+  if (knownDelta !== 0) return knownDelta > 0 ? a : b;
   const tierDelta = TIER_RANK[a.tier] - TIER_RANK[b.tier];
   if (tierDelta !== 0) return tierDelta > 0 ? a : b;
   const urlDelta = urlRank(a.url) - urlRank(b.url);
@@ -120,15 +194,10 @@ function better<T extends StorySourceCandidate>(a: T, b: T): T {
   return a.url.localeCompare(b.url) <= 0 ? a : b;
 }
 
-/** One plan for both persistence and verification: article first, then normalized outlet. */
-export function planStorySources(candidates: StorySourceCandidate[]): StorySourcePlan {
+function sourceWinners(candidates: StorySourceCandidate[]): NormalizedCandidate[] {
   const normalized = candidates.map((candidate) => ({
     ...candidate,
-    outletName: normalizeOutletName(
-      candidate.outletName,
-      candidate.publisherUrl,
-      candidate.articleUrl,
-    ),
+    outletKey: outletMatchKey(candidate),
     tokens: identityTokens(candidate),
   }));
   const articleGroups: typeof normalized[] = [];
@@ -148,21 +217,27 @@ export function planStorySources(candidates: StorySourceCandidate[]): StorySourc
   }
 
   const articleWinners = articleGroups.map((members) => members.reduce(better));
-  const outletGroups = new Map<string, StorySourceCandidate[]>();
+  const outletGroups = new Map<string, NormalizedCandidate[]>();
   for (const winner of articleWinners) {
-    const key = `${winner.storyId}::${winner.outletName.toLocaleLowerCase('en-US')}`;
+    const key = `${winner.storyId}::${winner.outletKey}`;
     const group = outletGroups.get(key) ?? [];
     group.push(winner);
     outletGroups.set(key, group);
   }
-  const winners = [...outletGroups.values()].map((members) => members.reduce(better));
+  return [...outletGroups.values()].map((members) => members.reduce(better));
+}
+
+/** One plan for both persistence and verification: article first, then normalized outlet. */
+export function planStorySources(candidates: StorySourceCandidate[]): StorySourcePlan {
+  const winners = sourceWinners(candidates);
   const keptExistingIds = new Set<string>();
   for (const winner of winners) {
-    const keep = normalized.find(
+    const keep = candidates.find(
       (candidate) =>
         candidate.existingId &&
         candidate.storyId === winner.storyId &&
-        candidate.storedOutletName === winner.outletName,
+        outletMatchKey(candidate) === winner.outletKey &&
+        candidate.storedOutletName === publisherDisplayName(winner, winner.outletKey),
     )?.existingId;
     if (keep) keptExistingIds.add(keep);
   }
@@ -171,11 +246,11 @@ export function planStorySources(candidates: StorySourceCandidate[]): StorySourc
     rows: winners.map((winner) => ({
       story_id: winner.storyId,
       raw_item_id: winner.rawItemId,
-      outlet_name: winner.outletName,
+      outlet_name: publisherDisplayName(winner, winner.outletKey),
       url: winner.url,
       tier: winner.tier,
     })),
-    deleteIds: normalized
+    deleteIds: candidates
       .flatMap((candidate) => (candidate.existingId ? [candidate.existingId] : []))
       .filter((id) => !keptExistingIds.has(id)),
   };
@@ -185,7 +260,9 @@ export function storyVerification(candidates: StorySourceCandidate[]): {
   status: VerificationStatus;
   sourceCount: number;
 } {
-  const rows = planStorySources(candidates).rows;
+  const rows = sourceWinners(candidates).filter(
+    (candidate) => candidate.outletKey !== UNKNOWN_OUTLET_KEY,
+  );
   return {
     status: computeVerificationStatus(rows.map((row) => ({ tier: row.tier }))),
     sourceCount: rows.length,

@@ -10,6 +10,9 @@ interface RawItemRow {
   id: string;
   external_id: string | null;
   url: string;
+  title: string;
+  snippet: string;
+  author: string | null;
   publisher: string | null;
   publisher_url: string | null;
   resolved_tier: SourceTier | null;
@@ -30,6 +33,9 @@ function candidateFromRaw(storyId: string, raw: RawItemRow): StorySourceCandidat
     storyId,
     rawItemId: raw.id,
     externalId: raw.external_id,
+    title: raw.title,
+    snippet: raw.snippet,
+    author: raw.author,
     outletName: raw.publisher?.trim() || raw.news_source.name,
     publisherUrl: raw.publisher_url,
     articleUrl: raw.url,
@@ -42,7 +48,9 @@ async function loadRawItems(db: SupabaseClient, ids: string[]): Promise<Map<stri
   if (ids.length === 0) return new Map();
   const { data, error } = await db
     .from('news_raw_item')
-    .select('id, external_id, url, publisher, publisher_url, resolved_tier, news_source(name, tier)')
+    .select(
+      'id, external_id, url, title, snippet, author, publisher, publisher_url, resolved_tier, news_source(name, tier)',
+    )
     .in('id', ids);
   if (error) throw new Error(error.message);
   return new Map((data ?? []).map((row) => [row.id, row as unknown as RawItemRow]));
@@ -73,7 +81,6 @@ function existingCandidate(
     }),
     existingId: row.id,
     storedOutletName: row.outlet_name,
-    outletName: row.outlet_name,
     url: row.url,
     tier: row.tier,
   };
