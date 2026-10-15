@@ -59,19 +59,38 @@ describe('Tidewatch migration contract', () => {
     );
   });
 
-  it('conditionally enforces shadow idempotency without modifying data', () => {
+  it('fails on duplicate shadow links and otherwise enforces idempotency without modifying data', () => {
     expect(uniquenessSql).not.toMatch(/\b(update|delete)\s+public\.watch_decision\b/i);
-    expect(uniquenessSql).toMatch(/if exists[\s\S]*having count\(\*\) > 1[\s\S]*raise notice/i);
+    expect(uniquenessSql).toMatch(/having count\(\*\) > 1[\s\S]*raise exception/i);
     expect(uniquenessSql).toMatch(/create unique index if not exists watch_decision_shadow_item_unique_idx[\s\S]*where shadow is true and item_id is not null/i);
     expect(uniquenessSql).toMatch(/on conflict \(item_id\) where shadow is true and item_id is not null[\s\S]*do nothing/i);
     expect(uniquenessSql).toMatch(/grant execute on function public\.insert_shadow_watch_decisions\(jsonb\)[\s\S]*to service_role/i);
   });
 
-  it('creates the unique index when no duplicate shadow item links exist', async () => {
+  it('creates the unique index and makes the insert function conflict-safe', async () => {
     const database = await createDatabase();
 
     await database.exec(uniquenessSql);
     await database.exec(uniquenessSql);
+
+    await database.exec(`
+      insert into public.watch_item (id, item_key, source, status)
+      values ('10000000-0000-4000-8000-000000000000', 'unique', 'news', 'new');
+    `);
+    const decisionRows = JSON.stringify([{
+      item_id: '10000000-0000-4000-8000-000000000000',
+      class: 'noise',
+      confidence: 1,
+      decider: 'code',
+      answers: { kept: true },
+      action: 'shadow_only',
+    }]).replaceAll("'", "''");
+    const first = await database.query(`
+      select id from public.insert_shadow_watch_decisions('${decisionRows}'::jsonb)
+    `);
+    const second = await database.query(`
+      select id from public.insert_shadow_watch_decisions('${decisionRows}'::jsonb)
+    `);
 
     const result = await database.query<{ indexname: string }>(`
       select indexname from pg_indexes
@@ -79,9 +98,11 @@ describe('Tidewatch migration contract', () => {
         and indexname = 'watch_decision_shadow_item_unique_idx'
     `);
     expect(result.rows).toEqual([{ indexname: 'watch_decision_shadow_item_unique_idx' }]);
+    expect(first.rows).toHaveLength(1);
+    expect(second.rows).toHaveLength(0);
   });
 
-  it('keeps duplicate rows unchanged and skips the unique index', async () => {
+  it('raises on duplicates without changing rows or creating the function', async () => {
     const database = await createDatabase();
     await database.exec(`
       insert into public.watch_item (id, item_key, source, status)
@@ -94,15 +115,23 @@ describe('Tidewatch migration contract', () => {
     `);
 
     const before = await database.query('select id, item_id, answers from public.watch_decision order by id');
-    await database.exec(uniquenessSql);
+    await expect(database.exec(uniquenessSql)).rejects.toThrow(
+      /1 duplicate shadow item_id value\(s\).*Remove or relink.*rerun db:migrate/i,
+    );
     const after = await database.query('select id, item_id, answers from public.watch_decision order by id');
     const indexes = await database.query<{ indexname: string }>(`
       select indexname from pg_indexes
       where schemaname = 'public'
         and indexname = 'watch_decision_shadow_item_unique_idx'
     `);
+    const functions = await database.query(`
+      select proname from pg_proc
+      where pronamespace = 'public'::regnamespace
+        and proname = 'insert_shadow_watch_decisions'
+    `);
 
     expect(after.rows).toEqual(before.rows);
     expect(indexes.rows).toEqual([]);
+    expect(functions.rows).toEqual([]);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { setSwitch, validate } from './set-switch.mjs';
+import { BOOL_SWITCHES, setSwitch, validate } from './set-switch.mjs';
 
 function fakes(old = 'false') {
   const calls: string[][] = [];
@@ -34,6 +34,17 @@ describe('set-switch', () => {
     for (const n of ['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'TIDEWATCH_FREEZE', 'CODE_SCANNING_ENABLED']) {
       const f = fakes('');
       expect((await setSwitch({ name: n, value: 'true', reason: 'brake' }, f.deps)).ok).toBe(true);
+    }
+  });
+
+  it('exempts only TIDEWATCH_FREEZE from secret-pattern denial and keeps it true-only', () => {
+    BOOL_SWITCHES.add('PARTNER_API_TOKEN_ENABLED');
+    try {
+      expect(validate('PARTNER_API_TOKEN_ENABLED', 'true', 'launch')).toMatch(/secret\/identity/);
+      expect(validate('TIDEWATCH_FREEZE', 'true', 'brake')).toBeNull();
+      expect(validate('TIDEWATCH_FREEZE', 'false', 'brake')).toMatch(/only be set to "true"/);
+    } finally {
+      BOOL_SWITCHES.delete('PARTNER_API_TOKEN_ENABLED');
     }
   });
 

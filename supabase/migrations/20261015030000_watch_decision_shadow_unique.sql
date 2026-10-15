@@ -1,22 +1,27 @@
 -- Enforce one shadow classification per watch item without rewriting the
--- decision audit ledger. If unexpected duplicates already exist, leave the
--- data and schema unchanged so an operator can resolve them deliberately.
+-- decision audit ledger. If unexpected duplicates already exist, fail the
+-- migration so no unusable conflict-handling function is installed.
 
 do $$
+declare
+  duplicate_item_count bigint;
 begin
-  if exists (
+  select count(*) into duplicate_item_count
+  from (
     select item_id
     from public.watch_decision
     where shadow is true and item_id is not null
     group by item_id
     having count(*) > 1
-  ) then
-    raise notice 'Skipping watch_decision_shadow_item_unique_idx: duplicate shadow item_id values exist';
-  else
-    create unique index if not exists watch_decision_shadow_item_unique_idx
-      on public.watch_decision (item_id)
-      where shadow is true and item_id is not null;
+  ) duplicate_items;
+
+  if duplicate_item_count > 0 then
+    raise exception 'Cannot create watch_decision shadow uniqueness: % duplicate shadow item_id value(s) exist. Remove or relink the duplicate shadow decisions, then rerun db:migrate.', duplicate_item_count;
   end if;
+
+  create unique index if not exists watch_decision_shadow_item_unique_idx
+    on public.watch_decision (item_id)
+    where shadow is true and item_id is not null;
 end
 $$;
 
