@@ -37,7 +37,8 @@ Read `.scratch/marjorie-ops-precheck.json` before any other command.
 - When `mode` is `flagged`, work **only** the objects in `flagged`. Do not
   rediscover or act on unflagged alerts, runs, PRs, held items, chase work, or
   ops-fix issues. Each object supplies a `kind`, exact `targets`, compact
-  `context`, and Jev's raw `probability`.
+  `context`, and either `mustRun: true` or Jev's raw `probability`. Must-run
+  objects are deterministic PM rules; Jev is never asked to score them.
 - For a flagged `watchdog-alert`, run the normal alert steps below only for its
   exact issue number. For `red-workflow`, `stuck-pr`, or `held-content`, verify
   only the named target and use the matching handler row's authority; when no

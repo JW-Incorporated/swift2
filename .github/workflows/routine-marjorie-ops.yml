@@ -4,10 +4,10 @@
 # what she did, and whether it needs a founder — never a silent alert.
 #
 # The `gate` job deterministically gathers every mechanical signal this routine
-# used to discover, then asks Jev one Noul per signal. Sonnet receives only
-# items at or above 0.7. A missing key, failed read, Jev error/timeout, or gate
-# crash fails open to the full prompt; `handled` plus `if: always()` makes a
-# broken optimization no worse than the pre-P1-11 routine.
+# used to discover. PM must-run rules bypass Jev; Jev scores only the remaining
+# signals and Sonnet receives must-run items plus scores at or above 0.7. A
+# pre-checkout artifact plus `handled`/`if: always()` makes missing keys, failed
+# reads, Jev errors/timeouts, and gate crashes fail open to the full prompt.
 #
 # No per-alert dispatch from watchdog.yml (architect's call, spec's
 # Mechanics section): watchdog runs at :05 and this sweep follows 13
@@ -100,6 +100,16 @@ jobs:
       handled: ${{ steps.precheck.outputs.handled }}
       autodefer: ${{ steps.precheck.outputs.autodefer }}
     steps:
+      - name: Seed fail-open precheck artifact
+        run: |
+          mkdir -p .scratch
+          node -e 'require("node:fs").writeFileSync(".scratch/marjorie-ops-precheck.json", JSON.stringify({mode:"fail-open",reason:"gate stopped before precheck",signals:[],flagged:[]},null,2)+"\n")'
+      - name: Upload fail-open precheck artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: marjorie-ops-precheck
+          path: .scratch/marjorie-ops-precheck.json
+          retention-days: 1
       - uses: actions/checkout@v7
         with:
           ref: main
@@ -117,6 +127,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          AUTO_DEFER_AUTHOR: sffan15-sys
         run: node scripts/ops/marjorie-ops-precheck.mjs .scratch/marjorie-ops-precheck.json
       - name: Record a precheck crash as fail-open
         if: always() && steps.precheck.outcome != 'success'
@@ -133,6 +144,7 @@ jobs:
           name: marjorie-ops-precheck
           path: .scratch/*.json
           retention-days: 1
+          overwrite: true
 
   # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
   # auto-defer never starts the Sonnet `run` job. The PAT is needed so the
