@@ -22,7 +22,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review | #5835 |  |
-| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | doing |  |  |
+| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | review | #5848 |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
@@ -173,6 +173,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 01:35 PM: idle slots overnight conflicted with "do as much as you can", so the PM kept working past the handoff note (the tracker is the durable state). Dispatched: P1-23b, P0-11b, P1-02b (Codex), and #5843 parity baseline (Claude executor, visual check first). Codex briefs now share scratchpad codex/rules.md (item brief plus rules piped to codex exec).
 - 2026-10-15 01:38 PM: P1-02b APPROVE → #5844 armed (watch_decision.item_id is ON DELETE SET NULL, so non-shadow decisions survive item deletion; the NULL-safe noise rule keeps items with no decisions). P0-11b and P1-23b resumed with narrow touch-set approvals (one reference line in notification-events.ts; the stale Shopify fixture in image-resolve.test.ts).
 - 2026-10-15 01:40 PM: P1-23b APPROVE → #5846 armed (keys are file#slug; Shopify scoped to the official tenant prefix /s/files/1/0011/4651/9637/, exact host). Minor follow-up: validate-content.mjs:1274 no longer flags a stale grandfathered key once its row gains media; reword the "exact snapshot" message.
+- 2026-10-15 01:52 PM: P0-11b APPROVE (Opus) → #5848, but auto-merge PAUSED for two fixes (round 2 in Codex): --all-pending must skip expired events (inbox items), and paging must run until an empty page. RE-ARM #5848 after a quick round-2 check. NEW HIGH-PRIORITY ISSUE #5850: main's notification-router.ts:110 uses the same  literal subquery that fails on uuid, so instant push dispatch may be BROKEN in production. Confirm via Vercel runtime errors for /api/notifications/dispatch; fix (two-step fetch, as in #5848) after #5835 lands. #5843 → PR #5849 armed (one iPhone 15 baseline, visually benign antialiasing); after it merges, update-branch #5835.
 
 ## Next actions
 
