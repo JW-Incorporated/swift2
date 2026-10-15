@@ -422,7 +422,7 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     item.approval = validApproval(item, staleApprovedAt());
     await seedQueueItem('a-x.json', item);
     await writeFile(
-      path.join(root, 'social', 'posted', 'already-live-x.json'),
+      path.join(root, 'social', 'posted', 'a-x.json'),
       JSON.stringify({ platform: 'x', body: item.body, campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://x.com/i/status/1' }, null, 2),
     );
 
@@ -433,6 +433,44 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     expect(spy).not.toHaveBeenCalled();
     expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('a stale IG already posted stays a skipped duplicate while its never-posted stale X sibling still goes to failed/', async () => {
+    stubFetch({ ok: true, status: 200, body: {} });
+    const ig = igItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    ig.approval = validApproval(ig, staleApprovedAt());
+    const x = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    x.approval = validApproval(x, staleApprovedAt());
+    await seedQueueItem('a-ig.json', ig);
+    await seedQueueItem('a-x.json', x);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'a-ig.json'),
+      JSON.stringify({ platform: 'instagram', body: ig.body, campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://www.instagram.com/p/x' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes.find((o: { file: string }) => o.file === 'a-ig.json')).toMatchObject({ kind: 'skipped' });
+    expect(outcomes.find((o: { file: string }) => o.file === 'a-x.json')).toMatchObject({ kind: 'failed' });
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('a stale never-posted item sharing a campaign with a DIFFERENT posted file still goes to failed/', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'other-file.json'),
+      JSON.stringify({ platform: 'x', body: 'something else entirely', campaign: 'test', postedAt: '2026-08-10T19:00:00Z' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
   });
 
   it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
