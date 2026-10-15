@@ -464,15 +464,21 @@ export async function main() {
       continue;
     }
 
-    // 1. Stale check FIRST — unconditional, regardless of what else is true
-    // about this item. A 3-day-stale item must not quietly post just
+    // 1. Stale check FIRST — regardless of what else is true about this
+    // item, with ONE exception: a posted record with this exact file name
+    // means it already went live and only its queue fold-back is stuck, so
+    // it is never stale and falls through to the duplicate skip below. An
+    // unposted item that merely shares a campaign/body with some other
+    // posted record is still stale. A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
     // `due` only ever contains items that already passed the approval gate
     // above (validQueued), so every item reaching this point has a valid
     // stamp — staleness is measured from the founder's own approval
     // (`approval.at`), not `scheduledAt`/queue time (lib/queue.mjs's
     // isStaleApproved).
-    if (isStaleApproved(item, now)) {
+    const dup = findPostedDuplicate(item, allPostedData);
+    const alreadyPostedHere = allPosted.some((p) => p.file === entry.file);
+    if (!alreadyPostedHere && isStaleApproved(item, now)) {
       const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
@@ -486,7 +492,6 @@ export async function main() {
     }
 
     // 2. Idempotency: does social/posted/ already have this exact post?
-    const dup = findPostedDuplicate(item, allPostedData);
     let blockReason = dup
       ? `already posted: a social/posted/ record with the same platform and ${item.campaign && dup.campaign === item.campaign ? `campaign "${item.campaign}"` : 'an identical body'} already exists (${dup.url ?? 'no url recorded'}) — this looks like a duplicate, not a new post.`
       : null;
