@@ -18,8 +18,8 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | review |  |  |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
-| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | review | #5821 |  |
-| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | review | #5823 |  |
+| P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
+| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
@@ -39,7 +39,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | doing |  |  |
-| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | doing |  |  |
+| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | review |  |  |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | doing |  |  |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
@@ -146,6 +146,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 22:20 PM: P0-01 round 2 APPROVE → #5825 armed (29 callers checked; nits: plan-recheck*.yml sit outside the invariant; the gate reads the oldest issue only). After it merges: `gh pr update-branch` the armed PRs (template change), then P0-02, then P0-19 (L-ROUTINES, sequential). P0-11 (stale cutoff 3h added, suite 12,203) → adversarial reviewer on Opus. P0-07 pushed 35a22a16c → reviewer. MEASURED BASELINE (7 days, from P0-07's live dry run; NOT yet verified): Marjorie site ops 170 runs, 3,308 turns, 58 limit failures; Vault Run 8 runs, 685 turns, 3 limit failures; ops-fixer 10, 582; Community Answerer 7, 220; Marjorie ask-response 28, 195, 23 limit failures; Founders' Brief 7, 178; Tree weekly plan 2, 168; Tree daily draft 7, 140; News Triage 7, 131; Kevin desk 7, 113. Clock: bot-chat-poll 10 actual vs 576 expected in 48 h, which contradicts marjorie-ops' run count, so the P0-07 reviewer must explain it. Implication: marjorie-ops is about 55 percent of measured routine turns, so P0-02 (every 3 h, max_turns 40) and P1-11 (code plus Jev gate) are the biggest levers. P1-03 dispatched (Claude executor, Opus).
 - 2026-10-14 22:24 PM: P0-07 review round 1 REJECT: the "bot-chat-poll 10 of 576" figure was a bug (it counted only schedule runs; the real 48 h count is 10 schedule plus 574 workflow_dispatch = about 584, which is healthy). The baseline clock claim is WITHDRAWN; the turn numbers stand pending a spot-check. Round 2 (final) sent: count all events with a breakdown, a mostly-dispatch fixture, broader limit-failure text matching (unify with session-outcome.mjs after #5825; follow-up).
 - 2026-10-14 22:30 PM: P0-11 adversarial review round 1 REJECT (Opus): (HIGH) the PM-requested 3h stale cutoff also expired quiet-hours holds and removed them from the inbox; (HIGH) the kill script couldn't see freeze-held events; (MED) the freeze didn't gate digests and the other push passes in dispatch/route.ts; (MED) an unreadable switch returned 200 silently; (LOW) per-batch race, missing revoke, an edited applied migration. PM call: REMOVE the stale cutoff (reversing my own addition) rather than patch it. The freeze is a rare emergency stop, and the safe pattern is that the owner reviews and kills the held backlog with `notifications-kill.mjs --list` before lifting. Final round sent (xhigh). P1-02 pushed c21483209 (migrations re-apply in filename order each run, so order isn't refused; SQL checked statically only) → line-by-line SQL review on Opus.
+- 2026-10-14 22:35 PM: P0-09 DONE: live acceptance passed (run 38683186140 took 4.6 min, cache saved; no-change rerun 38684071906 succeeded; 0 Awin PRs opened). P0-10 DONE (#5823 merged; live check = the next scheduled run logs dryRun false and files up to 10 or prints counts). P0-07 round 2 pushed 471e6b65d (poll 583/576, no clock row below 80 percent) → final reviewer. P1-03 pushed f22ab5c28 (15 classes, all disabled and in shadow) → PM rulings sent before review: privacy_redline goes live FIRST (block-only); rumor right after duplicate; correction_debunk after the critical site class (needs the retraction path); critical_personal tied to guardrail 4's carve-out list (no open "comparable milestone"); add q_settled_fact; caps labelled as placeholders. #5825 CLEAN (auto-merge pending).
 
 ## Next actions
 
