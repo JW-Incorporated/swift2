@@ -447,9 +447,10 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | Path | What |
 |---|---|
 | `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
-| `packages/core/src/notification-router.ts`, `notification-sender.ts` | Per-device Instant completion, six-hour creation-age guard with quiet-hours release exemption, and fail-closed `PUSH_FREEZE` engagement when a provider-accepted send cannot be recorded |
-| `packages/core/src/notification-digest.ts`, `notification-cooldown.ts` | Scheduled-send delivery-log failures also engage `PUSH_FREEZE`; cooldown logic remains available but is not dispatched until native opens exist |
-| `apps/web/app/api/notifications/dispatch/route.ts` | Sequential dispatch orchestration, cooldown default-off gate, circuit-breaker stop, and one aggregate non-identifying JSON summary per authorized run |
+| `packages/core/src/notification-router.ts`, `notification-sender.ts` | Bounded 30-hour Instant scan, per-device six-hour freshness with quiet-hold-end exemption, `dispatch_heartbeat`, and fail-closed `PUSH_FREEZE` engagement |
+| `packages/core/src/notification-digest.ts`, `notification-fun.ts`, `notification-cooldown.ts` | Digest/Clown/fun/countdown/cooldown post-send writes halt and attempt `PUSH_FREEZE`; cooldown remains disabled until native opens exist |
+| `packages/core/src/notification-router.test.ts`, `notification-digest-failures.test.ts`, `notification-fun-failures.test.ts`, `notification-router-repro-db.test-helper.ts` | Fake-DB no-network regressions for repeated sends, freeze failures, stale backlog query bounds, and post-send write failures |
+| `apps/web/app/api/notifications/dispatch/route.ts` | 60-second sequential orchestration; write heartbeat before sends; halt independent of freeze persistence; aggregate summary on every authorized exit |
 
 
 

@@ -35,6 +35,7 @@ const EXPO_SEND_CONCURRENCY = 4;
 const MAX_RETRIES = 2;
 const RETRY_BASE_DELAY_MS = 500;
 const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
+const DISPATCH_HEARTBEAT_SWITCH = 'dispatch_heartbeat';
 
 export type PushFreezeState = 'unfrozen' | 'frozen' | 'unreadable';
 
@@ -80,6 +81,29 @@ export async function engagePushFreeze(
   } catch (err) {
     return {
       engaged: false,
+      reason: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/** Proves the dispatch database is writable before any provider call. */
+export async function writeDispatchHeartbeat(
+  db: SupabaseClient,
+  now: Date = new Date(),
+): Promise<{ written: boolean; reason?: string }> {
+  try {
+    const { error } = await db.from('ops_switches').upsert(
+      {
+        name: DISPATCH_HEARTBEAT_SWITCH,
+        enabled: true,
+        updated_at: now.toISOString(),
+      },
+      { onConflict: 'name' },
+    );
+    return error ? { written: false, reason: error.message } : { written: true };
+  } catch (err) {
+    return {
+      written: false,
       reason: err instanceof Error ? err.message : String(err),
     };
   }

@@ -38,8 +38,15 @@ describe('GET /api/notifications/dispatch', () => {
     vi.stubEnv('CRON_SECRET', 'real-secret');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', '');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '');
+    const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
     const res = await get({ authorization: 'Bearer real-secret' });
     expect(res.status).toBe(503);
+    expect(summarySpy).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(summarySpy.mock.calls[0]?.[0] as string)).toMatchObject({
+      event: 'notification_dispatch_summary',
+      frozen: false,
+      routeErrors: 1,
+    });
   });
 
   it('runs enabled passes, leaves cooldown disabled, and logs one aggregate summary', async () => {
@@ -68,6 +75,7 @@ describe('GET /api/notifications/dispatch', () => {
         skippedHardCeiling: 0,
         sendFailures: 0,
         freezeEngaged: false,
+        halted: false,
         errors: ['device-secret title-secret token-secret'],
       }),
       dispatchDueDigests: vi.fn().mockResolvedValue({
@@ -78,12 +86,14 @@ describe('GET /api/notifications/dispatch', () => {
         digestsSkippedHardCeiling: 0,
         sendFailures: 0,
         freezeEngaged: false,
+        halted: false,
         errors: [],
       }),
       dispatchClownReports: vi.fn().mockResolvedValue({
         devicesConsidered: 1,
         clownReportsSent: 1,
         freezeEngaged: false,
+        halted: false,
         errors: [],
       }),
       dispatchFunNotifications: vi
@@ -95,25 +105,36 @@ describe('GET /api/notifications/dispatch', () => {
           onThisDaySkippedNoEntry: 0,
           skippedHardCeiling: 0,
           sendFailures: 0,
+          freezeEngaged: false,
+          halted: false,
           errors: [],
         }),
       scheduleCountdownsForPendingEvents: vi.fn().mockResolvedValue({ scheduled: 2, errors: [] }),
       dispatchDueCountdowns: vi
         .fn()
-        .mockResolvedValue({ sent: 1, sendFailures: 0, skippedHardCeiling: 0, errors: [] }),
+        .mockResolvedValue({
+          sent: 1,
+          sendFailures: 0,
+          skippedHardCeiling: 0,
+          freezeEngaged: false,
+          halted: false,
+          errors: [],
+        }),
       runCooldownPass,
       readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
     }));
     vi.resetModules();
     const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
 
-    const { GET } = await import('./route');
+    const { GET, maxDuration } = await import('./route');
     const res = await GET(
       new Request('http://localhost/api/notifications/dispatch', {
         headers: { authorization: 'Bearer real-secret' },
       }),
     );
     expect(res.status).toBe(200);
+    expect(maxDuration).toBe(60);
     const json = await res.json();
     expect(json).toEqual({
       router: expect.objectContaining({ sent: 3, held: 1, errors: [expect.any(String)] }),
@@ -121,7 +142,14 @@ describe('GET /api/notifications/dispatch', () => {
       clownReports: expect.objectContaining({ clownReportsSent: 1, errors: [] }),
       fun: expect.objectContaining({ lyricsSent: 1, onThisDaySent: 1, errors: [] }),
       countdownSchedule: { scheduled: 2, errors: [] },
-      countdownDispatch: { sent: 1, sendFailures: 0, skippedHardCeiling: 0, errors: [] },
+      countdownDispatch: {
+        sent: 1,
+        sendFailures: 0,
+        skippedHardCeiling: 0,
+        freezeEngaged: false,
+        halted: false,
+        errors: [],
+      },
       cooldown: {
         disabled: true,
         devicesConsidered: 0,
@@ -129,6 +157,7 @@ describe('GET /api/notifications/dispatch', () => {
         noticesSent: 0,
         sendFailures: 0,
         freezeEngaged: false,
+        halted: false,
         errors: [],
       },
     });
@@ -150,7 +179,42 @@ describe('GET /api/notifications/dispatch', () => {
     expect(summaryLine).not.toContain('token-secret');
   });
 
-  it('stops later passes when the router engages PUSH_FREEZE', async () => {
+  it('writes the heartbeat first and sends nothing when the database is read-only', async () => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const passes = {
+      dispatchPendingEvents: vi.fn(),
+      dispatchDueDigests: vi.fn(),
+      dispatchClownReports: vi.fn(),
+      dispatchFunNotifications: vi.fn(),
+      scheduleCountdownsForPendingEvents: vi.fn(),
+      dispatchDueCountdowns: vi.fn(),
+      runCooldownPass: vi.fn(),
+    };
+    const readPushFreeze = vi.fn();
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      ...passes,
+      readPushFreeze,
+      writeDispatchHeartbeat: vi
+        .fn()
+        .mockResolvedValue({ written: false, reason: 'database is read-only' }),
+    }));
+    vi.resetModules();
+    const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    const res = await get({ authorization: 'Bearer real-secret' });
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({ error: 'Dispatch heartbeat write failed.' });
+    expect(readPushFreeze).not.toHaveBeenCalled();
+    for (const pass of Object.values(passes)) expect(pass).not.toHaveBeenCalled();
+    expect(JSON.parse(summarySpy.mock.calls[0]?.[0] as string)).toMatchObject({ routeErrors: 1 });
+  });
+
+  it('stops later passes when the router halts even if PUSH_FREEZE persistence failed', async () => {
     vi.stubEnv('CRON_SECRET', 'real-secret');
     vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
@@ -180,10 +244,12 @@ describe('GET /api/notifications/dispatch', () => {
         skippedStale: 0,
         skippedHardCeiling: 0,
         sendFailures: 0,
-        freezeEngaged: true,
-        errors: ['delivery log insert failed'],
+        freezeEngaged: false,
+        halted: true,
+        errors: ['delivery log insert failed', 'PUSH_FREEZE engage failed'],
       }),
       readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
     }));
     vi.resetModules();
     const summarySpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
@@ -197,8 +263,9 @@ describe('GET /api/notifications/dispatch', () => {
 
     expect(res.status).toBe(503);
     expect(await res.json()).toMatchObject({
-      frozen: true,
-      router: { freezeEngaged: true },
+      halted: true,
+      frozen: false,
+      router: { freezeEngaged: false, halted: true },
       skippedPasses: [
         'digests',
         'clownReports',
@@ -211,9 +278,96 @@ describe('GET /api/notifications/dispatch', () => {
     for (const pass of Object.values(laterPasses)) expect(pass).not.toHaveBeenCalled();
     expect(summarySpy).toHaveBeenCalledTimes(1);
     expect(JSON.parse(summarySpy.mock.calls[0]?.[0] as string)).toMatchObject({
-      frozen: true,
-      passes: { router: { considered: 1, sent: 1, errors: 1 } },
+      frozen: false,
+      passes: { router: { considered: 1, sent: 1, errors: 2 } },
     });
+  });
+
+  it.each([
+    ['fun', ['countdownSchedule', 'countdownDispatch', 'cooldown']],
+    ['countdownDispatch', ['cooldown']],
+  ] as const)('stops after a halted %s pass', async (haltAt, skippedPasses) => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const scheduleCountdownsForPendingEvents = vi
+      .fn()
+      .mockResolvedValue({ scheduled: 0, errors: [] });
+    const dispatchDueCountdowns = vi.fn().mockResolvedValue({
+      sent: haltAt === 'countdownDispatch' ? 1 : 0,
+      sendFailures: 0,
+      skippedHardCeiling: 0,
+      freezeEngaged: haltAt === 'countdownDispatch',
+      halted: haltAt === 'countdownDispatch',
+      errors: haltAt === 'countdownDispatch' ? ['countdown log failed'] : [],
+    });
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      dispatchPendingEvents: vi.fn().mockResolvedValue({
+        eventsConsidered: 0,
+        sent: 0,
+        held: 0,
+        skippedMasterOff: 0,
+        skippedSnoozed: 0,
+        skippedCoalesced: 0,
+        skippedDailyCap: 0,
+        skippedAlreadyDelivered: 0,
+        skippedStale: 0,
+        skippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: false,
+        halted: false,
+        errors: [],
+      }),
+      dispatchDueDigests: vi.fn().mockResolvedValue({
+        devicesConsidered: 0,
+        digestsSent: 0,
+        digestsHeldOutsideSendWindow: 0,
+        digestsSkippedMasterOff: 0,
+        digestsSkippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: false,
+        halted: false,
+        errors: [],
+      }),
+      dispatchClownReports: vi.fn().mockResolvedValue({
+        devicesConsidered: 0,
+        clownReportsSent: 0,
+        freezeEngaged: false,
+        halted: false,
+        errors: [],
+      }),
+      dispatchFunNotifications: vi.fn().mockResolvedValue({
+        devicesConsidered: 1,
+        lyricsSent: haltAt === 'fun' ? 1 : 0,
+        onThisDaySent: 0,
+        onThisDaySkippedNoEntry: 0,
+        skippedHardCeiling: 0,
+        sendFailures: 0,
+        freezeEngaged: haltAt === 'fun',
+        halted: haltAt === 'fun',
+        errors: haltAt === 'fun' ? ['fun log failed'] : [],
+      }),
+      scheduleCountdownsForPendingEvents,
+      dispatchDueCountdowns,
+      runCooldownPass: vi.fn(),
+      readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
+    }));
+    vi.resetModules();
+    vi.spyOn(console, 'info').mockImplementation(() => undefined);
+
+    const res = await get({ authorization: 'Bearer real-secret' });
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toMatchObject({ halted: true, frozen: true, skippedPasses });
+    if (haltAt === 'fun') {
+      expect(scheduleCountdownsForPendingEvents).not.toHaveBeenCalled();
+      expect(dispatchDueCountdowns).not.toHaveBeenCalled();
+    } else {
+      expect(scheduleCountdownsForPendingEvents).toHaveBeenCalledTimes(1);
+      expect(dispatchDueCountdowns).toHaveBeenCalledTimes(1);
+    }
   });
 
   it('returns frozen=true and skips every sending pass when PUSH_FREEZE is on', async () => {
@@ -234,6 +388,7 @@ describe('GET /api/notifications/dispatch', () => {
     vi.doMock('@swift2/core/notifications-server', () => ({
       ...passes,
       readPushFreeze,
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
     }));
     vi.resetModules();
     const logSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
@@ -285,6 +440,7 @@ describe('GET /api/notifications/dispatch', () => {
         state: 'unreadable',
         reason: 'switch row is missing',
       }),
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
     }));
     vi.resetModules();
 
@@ -319,6 +475,7 @@ describe('GET /api/notifications/dispatch', () => {
     vi.doMock('@swift2/core/notifications-server', () => ({
       ...passes,
       readPushFreeze: vi.fn().mockResolvedValue({ state: 'unreadable', reason: 'query failed' }),
+      writeDispatchHeartbeat: vi.fn().mockResolvedValue({ written: true }),
     }));
     vi.resetModules();
 

@@ -7,6 +7,7 @@ const EVENT_COLUMNS =
   'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
 
 afterEach(() => {
+  vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
 
@@ -55,7 +56,13 @@ function makeFakeDb(fixture: {
       return api;
     }) as (...args: unknown[]) => unknown;
     api.gte = ((col: string, val: unknown) => {
-      state.filters.push((row) => (row[col] as string) >= (val as string));
+      if (table === 'events' && col === 'created_at') {
+        state.filters.push(
+          (row) => ((row.created_at ?? row.available_at) as string) >= (val as string),
+        );
+      } else {
+        state.filters.push((row) => (row[col] as string) >= (val as string));
+      }
       return api;
     }) as (...args: unknown[]) => unknown;
     api.is = ((col: string, val: unknown) => {
@@ -585,6 +592,38 @@ describe('dispatchPendingEvents', () => {
     ]);
   });
 
+  it('releases a pre-quiet event at quiet-hours end, measured from the hold end', async () => {
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-edge',
+          category: 'song_drop',
+          tier: 1,
+          title: 'Late news',
+          body: 'Held overnight',
+          deep_link: 'https://x',
+          created_at: '2026-10-16T04:50:00.000Z',
+          available_at: '2026-10-16T04:55:00.000Z',
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'held-token' },
+    ]);
+
+    const held = await dispatchPendingEvents(db, new Date('2026-10-16T05:10:00.000Z'));
+    const released = await dispatchPendingEvents(db, new Date('2026-10-16T15:15:00.000Z'));
+
+    expect(held).toMatchObject({ held: 1, sent: 0 });
+    expect(released).toMatchObject({ sent: 1, skippedStale: 0 });
+    expect(sendSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('never sends a 25-day-old event instantly and leaves the event untouched', async () => {
     const now = new Date('2026-10-15T20:00:00.000Z');
     const staleEvent = {
@@ -609,9 +648,105 @@ describe('dispatchPendingEvents', () => {
 
     const result = await dispatchPendingEvents(db, now);
 
-    expect(result).toMatchObject({ sent: 0, skippedStale: 1 });
+    expect(result).toMatchObject({ eventsConsidered: 0, sent: 0, skippedStale: 0 });
     expect(sendSpy).not.toHaveBeenCalled();
     expect(staleEvent).toMatchObject({ id: 'evt-old', killed_at: null });
+  });
+
+  it('does not roll a stale Instant event into a digest after the daily cap', async () => {
+    const now = new Date('2026-10-15T20:00:00.000Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-stale',
+          category: 'song_drop',
+          tier: 1,
+          title: 'Old song',
+          body: 'Too late',
+          deep_link: 'https://x',
+          created_at: new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString(),
+          available_at: new Date(now.getTime() - 23.9 * 60 * 60 * 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device({ daily_cap: 1 })],
+      deliveries: [
+        {
+          device_id: 'device-1',
+          event_id: 'prior',
+          category: 'album_news',
+          kind: 'instant',
+          sent_at: new Date(now.getTime() - 60 * 60 * 1000).toISOString(),
+        },
+      ],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result).toMatchObject({ skippedStale: 1, skippedDailyCap: 0, enqueuedToDigest: 0 });
+    expect(sendSpy).not.toHaveBeenCalled();
+  });
+
+  it('bounds a 250-event backlog and skips stale devices before count queries', async () => {
+    const now = new Date('2026-10-15T18:00:00.000Z');
+    const devices = ['A', 'B', 'C', 'D', 'E'].map((id) =>
+      device({ id, push_token: `ExponentPushToken[${id}]` }),
+    );
+    const events = Array.from({ length: 250 }, (_, index) => {
+      const availableAt = new Date(now.getTime() - (index + 1) * 3 * 60 * 60 * 1000);
+      return {
+        id: `evt-${String(index).padStart(3, '0')}`,
+        category: 'song_drop',
+        tier: 1,
+        title: 'News',
+        body: 'Body',
+        deep_link: 'https://x',
+        created_at: new Date(availableAt.getTime() - 5 * 60 * 1000).toISOString(),
+        available_at: availableAt.toISOString(),
+        expires_at: null,
+        killed_at: null,
+      };
+    });
+    const notificationPrefs = devices.map(({ id }) => ({
+      device_id: id as string,
+      category: 'song_drop',
+      cadence: 'instant',
+    }));
+    const deliveredDb = makeFakeDb({
+      events,
+      notificationPrefs,
+      devices,
+      deliveries: events.flatMap((event) =>
+        devices.map(({ id }) => ({
+          device_id: id,
+          event_id: event.id,
+          category: 'song_drop',
+          kind: 'instant',
+          sent_at: event.available_at,
+        })),
+      ),
+    });
+
+    await dispatchPendingEvents(deliveredDb, now);
+    expect(deliveredDb.from).toHaveBeenCalledTimes(29);
+
+    const staleDb = makeFakeDb({ events, notificationPrefs, devices, deliveries: [] });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (_url: string, init: RequestInit) => {
+        const messages = JSON.parse(init.body as string) as unknown[];
+        return new Response(
+          JSON.stringify({ data: messages.map(() => ({ status: 'ok' })) }),
+          { status: 200, headers: { 'content-type': 'application/json' } },
+        );
+      }),
+    );
+
+    await dispatchPendingEvents(staleDb, now);
+    expect(staleDb.from).toHaveBeenCalledTimes(97);
   });
 
   it('engages PUSH_FREEZE and stops after a provider-accepted send cannot be logged', async () => {
@@ -642,12 +777,51 @@ describe('dispatchPendingEvents', () => {
 
     const result = await dispatchPendingEvents(db, now);
 
-    expect(result).toMatchObject({ eventsConsidered: 1, sent: 1, freezeEngaged: true });
+    expect(result).toMatchObject({
+      eventsConsidered: 1,
+      sent: 1,
+      freezeEngaged: true,
+      halted: true,
+    });
     expect(result.errors).toContain('delivery log insert failed: simulated write failure');
     expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(db._opsSwitchWrites).toEqual([
       expect.objectContaining({ name: 'PUSH_FREEZE', enabled: true }),
     ]);
+  });
+
+  it('halts even when the PUSH_FREEZE write also fails', async () => {
+    const now = new Date('2026-10-15T20:00:00.000Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-1',
+          category: 'song_drop',
+          tier: 1,
+          title: 'New song',
+          body: 'Out now',
+          deep_link: 'https://x',
+          created_at: new Date(now.getTime() - 10 * 60 * 1000).toISOString(),
+          available_at: new Date(now.getTime() - 5 * 60 * 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [{ device_id: 'device-1', category: 'song_drop', cadence: 'instant' }],
+      devices: [device()],
+      deliveries: [],
+      deliveryInsertError: { message: 'ledger read only' },
+      opsSwitchWriteError: { message: 'switch read only' },
+    });
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'provider-accepted' },
+    ]);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result).toMatchObject({ sent: 1, freezeEngaged: false, halted: true });
+    expect(result.errors).toContain('PUSH_FREEZE engage failed: switch read only');
   });
 
   it('prunes a device push_token on an FCM invalid-token response', async () => {

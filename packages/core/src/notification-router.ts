@@ -13,6 +13,7 @@ import {
   evaluateGovernor,
   startOfLocalDay,
   totalDeliveriesToday,
+  tzOffsetMinutes,
   type GovernorDeviceSettings,
 } from './notification-governor';
 import {
@@ -61,6 +62,7 @@ export interface RouterDispatchResult {
    * "overflow rolls into the next digest"). */
   enqueuedToDigest: number;
   freezeEngaged: boolean;
+  halted: boolean;
   errors: string[];
 }
 
@@ -82,6 +84,8 @@ interface DeviceRow {
 
 const PENDING_EVENT_LIMIT = 200;
 export const INSTANT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
+const EVENT_QUERY_LOOKBACK_MS = 30 * 60 * 60 * 1000;
+const DISPATCH_INTERVAL_MS = 15 * 60 * 1000;
 const EVENT_COLUMNS =
   'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
 
@@ -96,6 +100,7 @@ async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEvent
       .from('events')
       .select(EVENT_COLUMNS)
       .lte('available_at', nowIso)
+      .gte('created_at', new Date(now.getTime() - EVENT_QUERY_LOOKBACK_MS).toISOString())
       .is('killed_at', null)
       .or(`expires_at.is.null,expires_at.gt.${nowIso}`)
       .order('available_at', { ascending: false })
@@ -150,6 +155,7 @@ export async function dispatchPendingEvents(
     sendFailures: 0,
     enqueuedToDigest: 0,
     freezeEngaged: false,
+    halted: false,
     errors: [],
   };
 
@@ -275,6 +281,10 @@ async function dispatchOneEvent(
       result.skippedAlreadyDelivered++;
       continue;
     }
+    if (isInstantStale(event, now) && !quietHoursHoldIsFresh(event, device, now)) {
+      result.skippedStale++;
+      continue;
+    }
 
     const settings: GovernorDeviceSettings = {
       masterEnabled: device.master_enabled,
@@ -302,11 +312,7 @@ async function dispatchOneEvent(
 
     switch (decision.action) {
       case 'send':
-        if (isInstantStale(event, now) && !wasHeldForQuietHours(event, device, now)) {
-          result.skippedStale++;
-        } else {
-          toSend.push({ device });
-        }
+        toSend.push({ device });
         break;
       case 'hold':
         result.held++;
@@ -368,7 +374,10 @@ function isInstantStale(event: RouterEventRow, now: Date): boolean {
   return Number.isFinite(createdAt) && now.getTime() - createdAt > INSTANT_MAX_AGE_MS;
 }
 
-function localDateHour(tz: string, at: Date): { date: string; hour: number } {
+function localDateHour(
+  tz: string,
+  at: Date,
+): { year: number; month: number; day: number; hour: number } {
   try {
     const parts = new Intl.DateTimeFormat('en-CA', {
       timeZone: tz,
@@ -379,36 +388,60 @@ function localDateHour(tz: string, at: Date): { date: string; hour: number } {
       hour12: false,
     }).formatToParts(at);
     const get = (type: string) => parts.find((part) => part.type === type)?.value ?? '';
-    return { date: `${get('year')}-${get('month')}-${get('day')}`, hour: Number(get('hour')) % 24 };
+    return {
+      year: Number(get('year')),
+      month: Number(get('month')),
+      day: Number(get('day')),
+      hour: Number(get('hour')) % 24,
+    };
   } catch {
-    return { date: at.toISOString().slice(0, 10), hour: at.getUTCHours() };
+    return {
+      year: at.getUTCFullYear(),
+      month: at.getUTCMonth() + 1,
+      day: at.getUTCDate(),
+      hour: at.getUTCHours(),
+    };
   }
 }
 
-function nextDate(date: string): string {
-  const [year, month, day] = date.split('-').map(Number);
-  return new Date(Date.UTC(year!, month! - 1, day! + 1)).toISOString().slice(0, 10);
+function localDateHourToUtc(
+  tz: string,
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+): Date {
+  const naiveUtc = new Date(Date.UTC(year, month - 1, day, hour));
+  try {
+    const first = new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, naiveUtc) * 60_000);
+    return new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, first) * 60_000);
+  } catch {
+    return naiveUtc;
+  }
 }
 
-function wasHeldForQuietHours(event: RouterEventRow, device: DeviceRow, now: Date): boolean {
+function quietHoursHoldIsFresh(event: RouterEventRow, device: DeviceRow, now: Date): boolean {
   const { quiet_start: start, quiet_end: end } = device;
   if (start === end) return false;
-  const created = localDateHour(device.tz, new Date(event.created_at ?? event.available_at));
-  const current = localDateHour(device.tz, now);
+  const firstDispatch = new Date(new Date(event.available_at).getTime() + DISPATCH_INTERVAL_MS);
+  const due = localDateHour(device.tz, firstDispatch);
   const wrapsMidnight = start > end;
-  const createdDuringQuiet = wrapsMidnight
-    ? created.hour >= start || created.hour < end
-    : created.hour >= start && created.hour < end;
-  if (!createdDuringQuiet) return false;
+  const dueDuringQuiet = wrapsMidnight
+    ? due.hour >= start || due.hour < end
+    : due.hour >= start && due.hour < end;
+  if (!dueDuringQuiet) return false;
 
-  const releaseDate = wrapsMidnight && created.hour >= start ? nextDate(created.date) : created.date;
-  if (wrapsMidnight) {
-    return current.date === releaseDate && current.hour >= end && current.hour < start;
-  }
-  return (
-    (current.date === releaseDate && current.hour >= end) ||
-    (current.date === nextDate(releaseDate) && current.hour < start)
+  const releaseDayOffset = wrapsMidnight && due.hour >= start ? 1 : 0;
+  const releaseDate = new Date(Date.UTC(due.year, due.month - 1, due.day + releaseDayOffset));
+  const releasedAt = localDateHourToUtc(
+    device.tz,
+    releaseDate.getUTCFullYear(),
+    releaseDate.getUTCMonth() + 1,
+    releaseDate.getUTCDate(),
+    end,
   );
+  const sinceRelease = now.getTime() - releasedAt.getTime();
+  return sinceRelease >= 0 && sinceRelease <= INSTANT_MAX_AGE_MS;
 }
 
 async function recentSameCategoryDeliveries(
@@ -494,6 +527,7 @@ async function logDeliveriesAndPrune(
     const { error } = await db.from('deliveries').insert(deliveryRows);
     if (error) {
       result.errors.push(`delivery log insert failed: ${error.message}`);
+      result.halted = true;
       const freeze = await engagePushFreeze(db, now);
       result.freezeEngaged = freeze.engaged;
       if (!freeze.engaged) {

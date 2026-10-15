@@ -97,6 +97,7 @@ export interface DigestDispatchResult {
   sendFailures: number;
   clownReportsSent: number;
   freezeEngaged: boolean;
+  halted: boolean;
   errors: string[];
 }
 
@@ -140,6 +141,7 @@ export async function dispatchDueDigests(
     sendFailures: 0,
     clownReportsSent: 0,
     freezeEngaged: false,
+    halted: false,
     errors: [],
   };
 
@@ -269,6 +271,7 @@ export async function dispatchDueDigests(
       });
       if (deliveryError) {
         result.errors.push(`delivery log insert failed: ${deliveryError.message}`);
+        result.halted = true;
         const freeze = await engagePushFreeze(db, now);
         result.freezeEngaged = freeze.engaged;
         if (!freeze.engaged) {
@@ -291,7 +294,19 @@ export async function dispatchDueDigests(
       const { error: markError } = await db
         .from('digest_queue')
         .upsert(sentMarkers, { onConflict: 'device_id,event_id' });
-      if (markError) result.errors.push(`digest_queue sent marker failed: ${markError.message}`);
+      if (markError) {
+        result.errors.push(`digest_queue sent marker failed: ${markError.message}`);
+        result.halted = true;
+        const freeze = await engagePushFreeze(db, now);
+        result.freezeEngaged = freeze.engaged;
+        if (!freeze.engaged) {
+          result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+        }
+        console.error(
+          `notification-digest: sent marker failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+        );
+        return result;
+      }
     } else {
       result.sendFailures++;
       result.errors.push(
@@ -316,12 +331,16 @@ export async function dispatchClownReports(
   db: SupabaseClient,
   now: Date = new Date(),
 ): Promise<
-  Pick<DigestDispatchResult, 'devicesConsidered' | 'clownReportsSent' | 'freezeEngaged' | 'errors'>
+  Pick<
+    DigestDispatchResult,
+    'devicesConsidered' | 'clownReportsSent' | 'freezeEngaged' | 'halted' | 'errors'
+  >
 > {
   const out = {
     devicesConsidered: 0,
     clownReportsSent: 0,
     freezeEngaged: false,
+    halted: false,
     errors: [] as string[],
   };
 
@@ -405,6 +424,7 @@ export async function dispatchClownReports(
       });
       if (deliveryError) {
         out.errors.push(`clown report delivery log failed: ${deliveryError.message}`);
+        out.halted = true;
         const freeze = await engagePushFreeze(db, now);
         out.freezeEngaged = freeze.engaged;
         if (!freeze.engaged) {

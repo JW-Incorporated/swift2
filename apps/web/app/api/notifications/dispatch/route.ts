@@ -7,35 +7,16 @@ import {
   scheduleCountdownsForPendingEvents,
   dispatchDueCountdowns,
   readPushFreeze,
+  writeDispatchHeartbeat,
   runCooldownPass,
 } from '@swift2/core/notifications-server';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
 import { bearerToken, timingSafeSecretEqual } from '../../../../lib/longlive/rate-limit';
 import { trackKeyForLyricSlug } from '../../../../lib/longlive/lyric-track-key';
 
-// Notifications Phase 2 (NOTIFICATIONS_PLAN.md, NOTIFICATIONS_SPEC.md §10) —
-// the router's HTTP entry point. Runs `dispatchPendingEvents()` (fan-out +
-// governor + FCM send + delivery logging) against every pending, non-killed,
-// non-expired event whose `available_at` has arrived. Triggered every 15
-// minutes by Vercel Cron (apps/web/vercel.json's `crons` entry — the
-// Supabase Edge Function + pg_cron path spec §10 describes is the eventual
-// production home; this route is the deployable-today equivalent given the
-// same Vercel stack every other API route in this repo already uses, same
-// reasoning as Phase 0/1's routes).
-//
-// GET, not POST: Vercel Cron only ever issues a GET request to the
-// configured path, and automatically attaches `Authorization: Bearer
-// $CRON_SECRET` when a project env var literally named `CRON_SECRET` is
-// set — see https://vercel.com/docs/cron-jobs/manage-cron-jobs#securing-cron-jobs.
-// `authorized()` below checks that exact header/env pair.
-//
-// SERVICE ROLE, same posture as every other notifications route — this is
-// the only writer to `deliveries` and the only reader of cross-device
-// `events`/`devices`/`notification_prefs` state, so it must never be a
-// client-callable route with just the anon key.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
+export const maxDuration = 60;
 const PUSH_SENDING_PASSES = [
   'router',
   'digests',
@@ -46,9 +27,6 @@ const PUSH_SENDING_PASSES = [
   'cooldown',
 ] as const;
 
-// Native clients do not report notification opens yet. Enabling cooldown
-// would therefore downgrade every long-lived Instant device and send its
-// notice at any hour, so this stays off until native open tracking ships.
 const COOLDOWN_PASS_ENABLED = false;
 
 type PassSummary = {
@@ -83,23 +61,23 @@ function logSummary(summary: DispatchSummary): void {
   console.info(JSON.stringify(summary));
 }
 
-function freezeResponse(
+function haltedResponse(
   summary: DispatchSummary,
   completed: Record<string, unknown>,
   nextPass: number,
+  freezeEngaged: boolean,
 ): Response {
-  summary.frozen = true;
+  summary.frozen = freezeEngaged;
   logSummary(summary);
-  return NextResponse.json(
-    { frozen: true, ...completed, skippedPasses: PUSH_SENDING_PASSES.slice(nextPass) },
-    { status: 503 },
-  );
+  const body = {
+    halted: true, frozen: freezeEngaged, ...completed,
+    skippedPasses: PUSH_SENDING_PASSES.slice(nextPass),
+  };
+  return NextResponse.json(body, { status: 503 });
 }
 
 function authorized(req: Request): boolean {
   const expected = process.env.CRON_SECRET;
-  // Unset secret = route disabled (fails closed), matching every other
-  // unconfigured-env route in this repo (503, not "trust the request").
   if (!expected) return false;
   const token = bearerToken(req);
   return token !== null && timingSafeSecretEqual(token, expected);
@@ -126,10 +104,18 @@ export async function GET(req: Request): Promise<Response> {
   const db = supabaseAdmin();
   if (!db) {
     console.warn('notifications/dispatch: SUPABASE_SERVICE_ROLE_KEY not set; dispatch dropped');
+    logSummary(emptySummary(false, 1));
     return NextResponse.json(
       { error: 'Notifications dispatch isn\u2019t wired up in this environment yet.' },
       { status: 503 },
     );
+  }
+
+  const heartbeat = await writeDispatchHeartbeat(db);
+  if (!heartbeat.written) {
+    console.error(`notifications/dispatch: dispatch_heartbeat write failed: ${heartbeat.reason}`);
+    logSummary(emptySummary(false, 1));
+    return NextResponse.json({ error: 'Dispatch heartbeat write failed.' }, { status: 503 });
   }
 
   const pushFreeze = await readPushFreeze(db);
@@ -175,8 +161,8 @@ export async function GET(req: Request): Promise<Response> {
       },
       result.errors,
     );
-    if (result.freezeEngaged) {
-      return freezeResponse(summary, { router: result }, 1);
+    if (result.halted) {
+      return haltedResponse(summary, { router: result }, 1, result.freezeEngaged);
     }
 
     const digestResult = await dispatchDueDigests(db);
@@ -191,8 +177,13 @@ export async function GET(req: Request): Promise<Response> {
       },
       digestResult.errors,
     );
-    if (digestResult.freezeEngaged) {
-      return freezeResponse(summary, { router: result, digests: digestResult }, 2);
+    if (digestResult.halted) {
+      return haltedResponse(
+        summary,
+        { router: result, digests: digestResult },
+        2,
+        digestResult.freezeEngaged,
+      );
     }
 
     const clownResult = await dispatchClownReports(db);
@@ -202,11 +193,12 @@ export async function GET(req: Request): Promise<Response> {
       {},
       clownResult.errors,
     );
-    if (clownResult.freezeEngaged) {
-      return freezeResponse(
+    if (clownResult.halted) {
+      return haltedResponse(
         summary,
         { router: result, digests: digestResult, clownReports: clownResult },
         3,
+        clownResult.freezeEngaged,
       );
     }
 
@@ -221,6 +213,14 @@ export async function GET(req: Request): Promise<Response> {
       },
       funResult.errors,
     );
+    if (funResult.halted) {
+      return haltedResponse(
+        summary,
+        { router: result, digests: digestResult, clownReports: clownResult, fun: funResult },
+        4,
+        funResult.freezeEngaged,
+      );
+    }
     const countdownScheduleResult = await scheduleCountdownsForPendingEvents(db);
     summary.passes.countdownSchedule = passSummary(
       countdownScheduleResult.scheduled,
@@ -240,6 +240,21 @@ export async function GET(req: Request): Promise<Response> {
       },
       countdownDispatchResult.errors,
     );
+    if (countdownDispatchResult.halted) {
+      return haltedResponse(
+        summary,
+        {
+          router: result,
+          digests: digestResult,
+          clownReports: clownResult,
+          fun: funResult,
+          countdownSchedule: countdownScheduleResult,
+          countdownDispatch: countdownDispatchResult,
+        },
+        6,
+        countdownDispatchResult.freezeEngaged,
+      );
+    }
     const cooldownResult = COOLDOWN_PASS_ENABLED
       ? await runCooldownPass(db)
       : {
@@ -249,6 +264,7 @@ export async function GET(req: Request): Promise<Response> {
           noticesSent: 0,
           sendFailures: 0,
           freezeEngaged: false,
+          halted: false,
           errors: [] as string[],
         };
     summary.passes.cooldown = passSummary(
@@ -261,19 +277,19 @@ export async function GET(req: Request): Promise<Response> {
       },
       cooldownResult.errors,
     );
-    logSummary(summary);
-    return NextResponse.json(
-      {
-        router: result,
-        digests: digestResult,
-        clownReports: clownResult,
-        fun: funResult,
-        countdownSchedule: countdownScheduleResult,
-        countdownDispatch: countdownDispatchResult,
+    if (cooldownResult.halted) {
+      return haltedResponse(summary, {
+        router: result, digests: digestResult, clownReports: clownResult, fun: funResult,
+        countdownSchedule: countdownScheduleResult, countdownDispatch: countdownDispatchResult,
         cooldown: cooldownResult,
-      },
-      { status: 200 },
-    );
+      }, 7, cooldownResult.freezeEngaged);
+    }
+    logSummary(summary);
+    return NextResponse.json({
+      router: result, digests: digestResult, clownReports: clownResult, fun: funResult,
+      countdownSchedule: countdownScheduleResult, countdownDispatch: countdownDispatchResult,
+      cooldown: cooldownResult,
+    });
   } catch (err) {
     console.error('notifications/dispatch: unexpected error', (err as Error).message);
     summary.routeErrors++;
