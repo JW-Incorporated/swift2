@@ -7,7 +7,9 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { runMain } from '../lib/cli.mjs';
 
 export const HEARTBEAT_KEY = 'dispatch_heartbeat';
+export const PUSH_FREEZE_KEY = 'PUSH_FREEZE';
 export const MIN_THRESHOLD_MINUTES = 30;
+export const MAX_FUTURE_SKEW_MINUTES = 5;
 const FETCH_TIMEOUT_MS = 20_000;
 
 export function thresholdFromScheduler(config) {
@@ -33,10 +35,11 @@ export function evaluateHeartbeat(rows, { now = new Date(), thresholdMinutes }) 
   if (Number.isNaN(lastTick.getTime())) {
     return { status: 'unknown', reason: 'heartbeat row has an invalid updated_at' };
   }
-  const ageMinutes = (now.getTime() - lastTick.getTime()) / 60_000;
-  if (ageMinutes < 0) {
+  const rawAgeMinutes = (now.getTime() - lastTick.getTime()) / 60_000;
+  if (rawAgeMinutes < -MAX_FUTURE_SKEW_MINUTES) {
     return { status: 'unknown', reason: 'heartbeat updated_at is in the future' };
   }
+  const ageMinutes = Math.max(0, rawAgeMinutes);
   return {
     status: ageMinutes > thresholdMinutes ? 'stale' : 'fresh',
     ageMinutes,
@@ -87,44 +90,56 @@ export async function checkPushDispatchHeartbeat({
       { intervalMinutes, thresholdMinutes, now },
     );
   }
-  const endpoint =
-    `${env.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/ops_switches` +
-    `?select=updated_at&name=eq.${HEARTBEAT_KEY}&limit=1`;
-  let response;
-  try {
-    response = await fetchImpl(endpoint, {
-      headers: {
-        apikey: env.SUPABASE_SERVICE_ROLE_KEY,
-        Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
-      },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  const baseEndpoint = `${env.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/ops_switches`;
+  const requestRows = async (select, key) => {
+    let response;
+    try {
+      response = await fetchImpl(`${baseEndpoint}?select=${select}&name=eq.${key}&limit=1`, {
+        headers: {
+          apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+          Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+        },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+    } catch (error) {
+      return { error: `database request failed (${error.message})` };
+    }
+    if (!response.ok) return { error: `database returned HTTP ${response.status}` };
+    try {
+      const rows = await response.json();
+      if (!Array.isArray(rows)) return { error: 'database response was not an array' };
+      return { rows };
+    } catch {
+      return { error: 'database response was not valid JSON' };
+    }
+  };
+
+  const heartbeat = await requestRows('updated_at', HEARTBEAT_KEY);
+  if (heartbeat.error) {
+    return renderResult({ status: 'unknown', reason: heartbeat.error }, { intervalMinutes, thresholdMinutes, now });
+  }
+  if (heartbeat.rows.length > 0) {
+    return renderResult(evaluateHeartbeat(heartbeat.rows, { now, thresholdMinutes }), {
+      intervalMinutes,
+      thresholdMinutes,
+      now,
     });
-  } catch (error) {
+  }
+
+  const pushFreeze = await requestRows('name', PUSH_FREEZE_KEY);
+  if (pushFreeze.error) {
+    return renderResult({ status: 'unknown', reason: pushFreeze.error }, { intervalMinutes, thresholdMinutes, now });
+  }
+  if (pushFreeze.rows.length === 0) {
     return renderResult(
-      { status: 'unknown', reason: `database request failed (${error.message})` },
+      {
+        status: 'unknown',
+        reason: 'heartbeat and seeded PUSH_FREEZE rows are missing; watchdog may be reading the wrong database',
+      },
       { intervalMinutes, thresholdMinutes, now },
     );
   }
-  if (!response.ok) {
-    return renderResult(
-      { status: 'unknown', reason: `database returned HTTP ${response.status}` },
-      { intervalMinutes, thresholdMinutes, now },
-    );
-  }
-  let rows;
-  try {
-    rows = await response.json();
-  } catch {
-    return renderResult(
-      { status: 'unknown', reason: 'database response was not valid JSON' },
-      { intervalMinutes, thresholdMinutes, now },
-    );
-  }
-  return renderResult(evaluateHeartbeat(rows, { now, thresholdMinutes }), {
-    intervalMinutes,
-    thresholdMinutes,
-    now,
-  });
+  return renderResult({ status: 'not-live' }, { intervalMinutes, thresholdMinutes, now });
 }
 
 async function main() {
