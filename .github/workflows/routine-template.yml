@@ -33,6 +33,11 @@ on:
         description: "Human-readable routine name, for logs/PR-body context only"
         required: true
         type: string
+      priority:
+        description: "Routine priority; only 'content' runs through an active weekly limit"
+        required: false
+        type: string
+        default: "routine"
       prompt_file:
         description: "Path (repo-relative) to the routine's prompt file under docs/agents/runner-prompts/"
         required: true
@@ -178,6 +183,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
   # anthropics/claude-code-action@v1 unconditionally requests an OIDC token
   # in setupGitHubToken() during startup — independent of CLAUDE_CODE_OAUTH_TOKEN
   # auth above — and fails with "Could not fetch an OIDC token" without this,
@@ -189,6 +195,8 @@ permissions:
 jobs:
   run-routine:
     runs-on: ubuntu-latest
+    env:
+      ROUTINE_CLAUDE_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
     timeout-minutes: ${{ inputs.timeout_minutes }}
     environment: ${{ inputs.environment || null }}
     concurrency:
@@ -198,9 +206,9 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: Guard — CLAUDE_CODE_OAUTH_TOKEN not set yet
-        id: guard
+        id: auth
         run: |
-          if [ -z "${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}" ]; then
+          if [ -z "$ROUTINE_CLAUDE_TOKEN" ]; then
             echo "::warning::CLAUDE_CODE_OAUTH_TOKEN is not set — this routine (${{ inputs.routine_name }}) is inert until Joey runs 'claude setup-token' and the secret is stored (see HUMAN-ACTIONS.md). Skipping run, not failing."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
@@ -208,14 +216,23 @@ jobs:
           fi
 
       - uses: actions/checkout@v7
-        if: steps.guard.outputs.skip == 'false'
+        if: steps.auth.outputs.skip == 'false'
         with:
           token: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v7
-        if: steps.guard.outputs.skip == 'false'
+        if: steps.auth.outputs.skip == 'false'
         with:
           node-version: "24"
+
+      - name: Guard routine pause and weekly limit
+        id: guard
+        if: steps.auth.outputs.skip == 'false'
+        run: node scripts/routines/limit-gate.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ROUTINE_PRIORITY: ${{ inputs.priority }}
+          ROUTINES_PAUSED: ${{ vars.ROUTINES_PAUSED }}
 
       # Both artifact steps are skipped when their input is "" — every caller
       # before M5 passes nothing (docs/specs/marjorie-overhaul/m5-chat.md).
@@ -247,7 +264,7 @@ jobs:
         continue-on-error: true # outcome decided by "Decide routine outcome" below
         uses: anthropics/claude-code-action@v1
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_code_oauth_token: ${{ env.ROUTINE_CLAUDE_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.disallowed_tools != '' && format(' --disallowedTools ''{0}''', inputs.disallowed_tools) || '' }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
@@ -266,6 +283,7 @@ jobs:
         if: always() && steps.guard.outputs.skip == 'false' && steps.claude.outcome != 'skipped'
         run: node scripts/routines/session-outcome.mjs
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STEP_OUTCOME: ${{ steps.claude.outcome }}
           MAX_TURNS: ${{ inputs.max_turns }}
           EXECUTION_FILE: ${{ steps.claude.outputs.execution_file || format('{0}/claude-execution-output.json', runner.temp) }}

@@ -75,6 +75,7 @@ export default tseslint.config(
       'apps/mobile/scripts/**',
       'apps/mobile/.expo/**',
       '.claude/**',
+      'docs/plans/**/dashboard/**',
     ],
   },
   // apps/web is linted by Next tooling; only the WP2.2-D reader ban below reaches it.

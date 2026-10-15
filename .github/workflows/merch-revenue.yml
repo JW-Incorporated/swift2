@@ -29,8 +29,12 @@ jobs:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
           npm-ci: 'true'
           cache: npm
+      - name: Snapshot the previous revenue report
+        run: cp docs/ops/MERCH-REVENUE.json "$RUNNER_TEMP/merch-revenue-previous.json"
       - name: Generate configured network revenue report
         run: npm run merch:revenue -- --input scripts/merch-engine/data/revenue-report-inputs.json
+      - name: Preserve the report timestamp when its data is unchanged
+        run: node scripts/merch-engine/merch-revenue-generated-at.mjs --previous "$RUNNER_TEMP/merch-revenue-previous.json" --current docs/ops/MERCH-REVENUE.json
       - name: Retain the report with this run
         uses: actions/upload-artifact@v7
         with:
