@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-14 — Tidewatch data model (P1-02)
+
+**Decision.** Tidewatch owns five service-role-only tables: `watch_item` for seen-content fingerprints and counts, `watch_decision` for the complete classification/action audit trail, `watch_cursor` for per-source collection progress, `story_timeline` for the timestamps used to measure detection and publishing SLAs, and `llm_usage` for per-caller provider/model/token usage and estimated cost. Seen items expire after 180 days; shadow decisions expire after 365 days; timelines and usage rows are retained.
+
+**Why.** A dedicated seen store makes exact and near-duplicate detection independent of source-specific schemas. A separate decision ledger preserves what Tidewatch decided and why, story timestamps make speed measurable, and the usage ledger gives later cap and scorecard work one provider-neutral source of truth. Facebook items are fingerprint-only: their `excerpt` is always null, while every other excerpt is capped at 2,000 characters.
+
+**Alternative rejected.** Reusing `news_raw_item` and `events`. Those tables cover only parts of Tidewatch's inputs and outputs, have different retention and access contracts, and would couple the cross-pipeline collector to schemas owned by the news and notification lanes.
+
+**How to reverse.** Stop Tidewatch writers and the retention job, export any ledger history that must be kept, then drop `watch_decision`, `watch_item`, `watch_cursor`, `story_timeline`, and `llm_usage` in a follow-up migration. Reverting the application commit alone is sufficient before the tables contain data.
+
+**Approved by.** Programme plan P1-02; reversible implementation detail owned by the engineering agent.
+
+---
+
 ## 2026-10-14 — Tidewatch D1: no Anthropic API; every model call runs on the owner's Claude subscription through Claude Code (revised by the owner from the planned four pools)
 
 **Decision (Joey, in chat, 2026-10-14; D1 of the nine Tidewatch owner decisions, plan §H, `docs/plans/2026-10-14-automation-pipeline-overhaul/plan.md`, PR #5813).** No Anthropic API at all. Every model call runs on the owner's Claude subscription (`CLAUDE_CODE_OAUTH_TOKEN`) through Claude Code itself; a subscription token is not an API key. That covers agentic routines and scripted one-shot calls alike: the Haiku fallback, the Sonnet verifier, the voice critic, merch vision, replay labels, and today's `ANTHROPIC_API_KEY` callers (news-worker, theory-miner, merch audit).
