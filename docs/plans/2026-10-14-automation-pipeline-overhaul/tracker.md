@@ -65,7 +65,8 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-10 | Answerers become scripted drafters with thread context | executor-claude-sonnet | M | L-COMMUNITY | P1-09, P1-01 | todo |  |  |
 | P1-11 | marjorie-ops becomes code plus a Jev gate | codex | M | L-ROUTINES | P1-01, P0-02 | doing |  |  |
 | P1-12 | marjorie-status-reply to Jev plus templates (kevin-radar split to P1-12b) | codex | M | L-ROUTINES-B | P1-01 | review | #5882 |  |
-| P1-12b | kevin-radar: deterministic checks plus Jev classification, fail-open to the agent; match the last 5 agent runs | codex | S | L-ROUTINES-B | P1-12 | todo |  |  |
+| P1-12b | kevin-radar: deterministic checks plus Jev classification, fail-open to the agent; match the last 5 agent runs | codex | S | L-ROUTINES-B | P1-12 | review | #5890 |  |
+| P1-12c | kevin-radar text fix: the high-confidence 'other' + 'actionable' path writes "needs Wyatt" (project rule: route nothing to Wyatt; say Joey or "a founder"); also strip @mentions from quoted text. MUST land before TYPESAFE_API_KEY reaches Actions (HA #124) | executor-claude-sonnet | S | L-ROUTINES-B | P1-12b | todo |  |  |
 | P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  |  |
 | P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | done | #5864 | 2026-10-15 |
 | P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | todo |  |  |
@@ -256,6 +257,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 09:20 HB: #5883 (P1-05b) MERGED, merge sha 1fbd7d5e3bc83060cfdb4a33f26ce1bdd210d557 → done. The P1-07 brief MUST quote that sha (architect #3) and check out with fetch-depth 0; P1-07 still waits on P1-06 (the shadow classifier). Armed: #5865, #5882, #5884, #5886, #5887.
 - 2026-10-15 09:22 PM: worktree cleanup: 12 removed (p0-01, p0-05, p0-05a, p0-11, p0-14-rulings, p0-03b, p1-01c, p1-14, p1-05, p1-09, p0-21b, p0-20); 82 GB free on C:. Leftover unregistered folders under longlive-wt (*-review*, p0-11-origin-main-verify) hold only node_modules. Removing them needs a recursive delete (guard-denied), so they are left; not urgent at 82 GB free. Lesson for review briefs: reviewers should use `git worktree remove` (not a manual delete) so node_modules goes with it.
 - 2026-10-15 09:24 PM: P1-12b pushed ca1ccf85d (deterministic poll plus dedupe, Jev kind/severity at 0.72, fail-open; 8 adversarial tests). Match vs the last 5 runs: 3 with no candidates (match), 2 fell back to the agent (one low-confidence Jev call), so this is weak evidence beyond the fallback path. The suite had 1 unrelated Facebook-receiver timing flake (a 2nd distinct flake today; add it to #5889 or file one). → Sonnet review.
+- 2026-10-15 09:27 PM: P1-12b APPROVE → #5890 armed (fail-open holds; output parity with the agent; a faithful subset of the prompt; evidence covers only the fallback and no-candidate paths, as stated in the PR). LOW but against a PROJECT RULE: one path writes "needs Wyatt" → new P1-12c (Joey or "a founder"; strip @mentions); it cannot fire until TYPESAFE_API_KEY is an Actions secret, so P1-12c must land before HA #124 is done. FIRST next session: P1-12c (small), then P1-02c after #5884, then P1-28 after #5887 and P1-02c.
 
 ## Next actions
 
