@@ -27,7 +27,9 @@ describe('decideLimitGate', () => {
   });
 
   it('runs when there is no issue', () => {
-    expect(decideLimitGate({ issues: [], now, priority: 'routine' })).toEqual({ skip: false, message: null });
+    expect(decideLimitGate({ issues: [], now, priority: 'routine' })).toEqual({
+      skip: false, message: null,
+    });
   });
 
   it('skips non-content work until a future reset with the exact log line', () => {
@@ -37,8 +39,22 @@ describe('decideLimitGate', () => {
     });
   });
 
-  it('runs content priority through an active weekly limit', () => {
-    expect(decideLimitGate({ issues: [futureIssue], now, priority: 'content' }).skip).toBe(false);
+  it('runs content priority on the backup through an active weekly limit', () => {
+    expect(decideLimitGate({ issues: [futureIssue], now, priority: 'content', hasBackup: true })).toEqual({
+      skip: false,
+      message: 'using backup token until 2026-10-15T03:00:00.000Z',
+      token: 'backup',
+    });
+  });
+
+  it('keeps P0-01 gate outputs unchanged without a backup token', () => {
+    expect(decideLimitGate({ issues: [], now, priority: 'routine' })).toEqual({ skip: false, message: null });
+    expect(decideLimitGate({ issues: [futureIssue], now, priority: 'routine' })).toEqual({
+      skip: true, message: 'skipped: weekly limit until 2026-10-15T03:00:00.000Z',
+    });
+    expect(decideLimitGate({ issues: [futureIssue], now, priority: 'content' })).toEqual({
+      skip: false, message: null,
+    });
   });
 
   it('runs after the reset and marks the issue for closure', () => {
