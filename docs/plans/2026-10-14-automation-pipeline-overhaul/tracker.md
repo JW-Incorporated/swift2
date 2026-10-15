@@ -22,7 +22,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | done | #5821 | 2026-10-14 |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review | #5835 |  |
-| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | todo |  |  |
+| P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | doing |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
@@ -42,7 +42,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
-| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | todo |  |  |
+| P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | doing |  |  |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
@@ -64,7 +64,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
-| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | todo |  |  |
+| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | doing |  |  |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
@@ -170,6 +170,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 01:08 PM: P0-04 DONE. 158 stale social-poster/state PRs closed (branches kept); open state PRs = 0 (PM verified); the first social-poster run after the fix succeeded (07:00Z) after a failure streak. Acceptance remainder: the next 2 poster runs succeed (check next session). P0-05 (one rolling state PR) is now unblocked.
 - 2026-10-15 01:27 HB: the main parity run 38695484037 FAILED on the same snapshot (a-era-track-guide-bar.png, 22 px), so the iphone-15 drift is PRE-EXISTING on main, not caused by P0-11. Filed #5843 (visual check plus baseline regeneration in its own PR, then update-branch #5835). #5835 stays armed; it lands once #5843 is fixed. #5842 (tracker) merged. FIRST next session: #5843 (a Claude executor with a Playwright 390 px screenshot check, because this is a UI baseline), then P1-23b, P0-11b, P1-02b, P0-03b, P0-05.
 - 2026-10-15 01:30 PM: lesson: `git merge origin/main 2>&1 | tail -1 && …` hides a failed merge (the pipe drops the exit code), and conflict markers got committed into this file (fixed in de3a537df, verified that no markers remain). Run `git merge` as its own call and check for conflicts before committing. No open PR for this branch now (#5842 merged); the next session opens one with its first tracker update.
+- 2026-10-15 01:35 PM: idle slots overnight conflicted with "do as much as you can", so the PM kept working past the handoff note (the tracker is the durable state). Dispatched: P1-23b, P0-11b, P1-02b (Codex), and #5843 parity baseline (Claude executor, visual check first). Codex briefs now share scratchpad codex/rules.md (item brief plus rules piped to codex exec).
 
 ## Next actions
 
