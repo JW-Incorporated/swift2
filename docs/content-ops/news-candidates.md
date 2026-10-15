@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Jack Antonoff Discusses Taylor Swift's Midnights and Music Production
+
+- first seen: 2026-10-15 08:51 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Jack Antonoff shares insights on music production techniques, discussing the importance of imperfections in pop songs while highlighting his work on Taylor Swift's album 'Midnights' and the influence of vintage gear and analogue synths.
+- sources:
+  - [unverified] MusicRadar — https://news.google.com/rss/articles/CBMiiwJBVV95cUxNS01XRlk2QWtZSml6LVQ1OFdKZ3pZYVBwV25aMlY1T2M0b3I5cTNFUTh2UGxqQzE2M1NBdDFvQ0JBbU12bXYzVW1oVFVZUGQxM2FjSmVXUk15WXloR3NvUGt5eTI0aW1qSU9XOFNrczczSE42MjRDcHZILWtYb3dxM0RRVzEtcXZQWDNnS1JVXzFZcDVIQ0pmQ196dEVkRDUzM0ZObE5IUUtFUDRCVkhiUEw1Q1FXRnZ0ZXdVNkxUQVB5SlNQSkU0dGpETFJRWV9JX25DUjBJcS0tcFNnUV90bXFwVEtRWmdhZzBjbDZOUENOMk1JTmkxZnQyVFpYOGRrUnNmb2Q1SDY2Vkk?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Selena Gomez Praises Taylor Swift's Marriage Skills
 
