@@ -31,7 +31,8 @@ concurrency:
 jobs:
   dedupe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # 150 wrapper calls/run at 120s each, plus setup and reporting headroom.
+    timeout-minutes: 360
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -39,11 +40,26 @@ jobs:
         with:
           npm-ci: 'true'
 
+      - name: Install Claude Code
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
       - name: Run dedupe (dry-run by default)
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
           DRY_RUN: ${{ inputs.dry_run }}
           ERA: ${{ inputs.era }}
         run: |
