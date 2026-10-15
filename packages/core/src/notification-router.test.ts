@@ -22,19 +22,20 @@ function makeFakeDb(fixture: {
   deliveries: Array<Record<string, unknown> & { kind: string }>;
   opsSwitches?: Array<{ name: string; enabled: boolean }>;
   opsSwitchError?: { message: string };
-  maxRowsPerPage?: number;
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
   const clearedTokenDeviceIds: string[] = [];
-  const deliveryRanges: Array<[number, number]> = [];
-  const eventRanges: Array<[number, number]> = [];
+  const deliveryPageIds: string[][] = [];
+  const prefCategories: string[] = [];
 
   function queryBuilder(table: string) {
     const state: {
       filters: Array<(row: Record<string, unknown>) => boolean>;
       countOnly: boolean;
       selectedColumns: string | null;
-    } = { filters: [], countOnly: false, selectedColumns: null };
+      limit: number | null;
+      orders: Array<{ column: string; ascending: boolean }>;
+    } = { filters: [], countOnly: false, selectedColumns: null, limit: null, orders: [] };
 
     const api: Record<string, (...args: unknown[]) => unknown> = {};
     api.select = ((_cols: string, opts?: { count?: string; head?: boolean }) => {
@@ -62,6 +63,33 @@ function makeFakeDb(fixture: {
       state.filters.push((row) => row[col] === val);
       return api;
     }) as (...args: unknown[]) => unknown;
+    api.or = ((filter: string) => {
+      if (table !== 'events' || state.selectedColumns !== EVENT_COLUMNS) {
+        throw new Error(`unexpected or filter on ${table}`);
+      }
+      if (filter.startsWith('expires_at.is.null,expires_at.gt.')) {
+        const now = filter.slice('expires_at.is.null,expires_at.gt.'.length);
+        expect(now).toEqual(expect.any(String));
+        state.filters.push(
+          (row) => row.expires_at === null || (row.expires_at as string) > now,
+        );
+        return api;
+      }
+      const match = filter.match(
+        /^available_at\.lt\.(.+),and\(available_at\.eq\.(.+),id\.gt\.(.+)\)$/,
+      );
+      if (!match) throw new Error(`unexpected event cursor: ${filter}`);
+      const availableAt = match[1]!;
+      const sameAvailableAt = match[2]!;
+      const id = match[3]!;
+      expect(availableAt).toBe(sameAvailableAt);
+      state.filters.push(
+        (row) =>
+          (row.available_at as string) < availableAt ||
+          ((row.available_at as string) === availableAt && (row.id as string) > id),
+      );
+      return api;
+    }) as (...args: unknown[]) => unknown;
     api.not = ((...args: unknown[]) => {
       throw new Error(`unexpected PostgREST not filter: ${JSON.stringify(args)}`);
     }) as (...args: unknown[]) => unknown;
@@ -70,32 +98,40 @@ function makeFakeDb(fixture: {
         expect(col).toBe('kind');
         expect(val).toBe('instant');
       }
+      if (table === 'notification_prefs' && col === 'category') prefCategories.push(val as string);
       state.filters.push((row) => row[col] === val);
       return api;
     }) as (...args: unknown[]) => unknown;
     api.in = ((col: string, vals: unknown[]) => {
+      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
+        expect(col).toBe('event_id');
+        expect(vals).toEqual(vals.filter((value): value is string => typeof value === 'string'));
+        deliveryPageIds.push(vals as string[]);
+      }
       state.filters.push((row) => vals.includes(row[col]));
       return api;
     }) as (...args: unknown[]) => unknown;
-    api.limit = (() => api) as (...args: unknown[]) => unknown;
-    api.order = ((col: string, opts: { ascending?: boolean }) => {
-      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
-        expect(col).toBe('id');
-        expect(opts).toEqual({ ascending: true });
+    api.limit = ((limit: number) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        expect(limit).toBe(200);
       }
+      state.limit = limit;
       return api;
     }) as (...args: unknown[]) => unknown;
-    api.range = (async (from: number, to: number) => {
-      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
-        expect(to - from + 1).toBe(1_000);
-        deliveryRanges.push([from, to]);
-      } else if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
-        expect(to - from + 1).toBe(200);
-        eventRanges.push([from, to]);
-      } else {
-        throw new Error(`unexpected range query on ${table}`);
+    api.order = ((col: string, opts: { ascending?: boolean }) => {
+      if (table === 'events' && state.selectedColumns === EVENT_COLUMNS) {
+        if (state.orders.length === 0) {
+          expect(col).toBe('available_at');
+          expect(opts).toEqual({ ascending: false });
+        } else if (state.orders.length === 1) {
+          expect(col).toBe('id');
+          expect(opts).toBeUndefined();
+        } else {
+          throw new Error('unexpected event ordering');
+        }
       }
-      return runQuery([from, to]);
+      state.orders.push({ column: col, ascending: opts?.ascending ?? true });
+      return api;
     }) as (...args: unknown[]) => unknown;
     api.maybeSingle = (async () => {
       const result = runQuery();
@@ -121,20 +157,23 @@ function makeFakeDb(fixture: {
       throw new Error(`unexpected table ${table}`);
     }
 
-    function runQuery(range?: [number, number]) {
+    function runQuery() {
       if (table === 'ops_switches' && fixture.opsSwitchError) {
         return { data: null, error: fixture.opsSwitchError };
       }
       let rows = source().filter((row) => state.filters.every((f) => f(row)));
       if (state.countOnly) return { count: rows.length, error: null };
-      if (table === 'deliveries' && state.selectedColumns === 'event_id') {
-        rows = [...rows].sort((a, b) => Number(a.id) - Number(b.id));
+      if (state.orders.length > 0) {
+        rows = [...rows].sort((a, b) => {
+          for (const { column, ascending } of state.orders) {
+            if (a[column] === b[column]) continue;
+            const comparison = String(a[column]).localeCompare(String(b[column]));
+            return ascending ? comparison : -comparison;
+          }
+          return 0;
+        });
       }
-      if (range) {
-        const [from, to] = range;
-        const maxRows = fixture.maxRowsPerPage ?? Number.POSITIVE_INFINITY;
-        rows = rows.slice(from, Math.min(to + 1, from + maxRows));
-      }
+      if (state.limit !== null) rows = rows.slice(0, state.limit);
       return { data: rows, error: null };
     }
 
@@ -158,13 +197,13 @@ function makeFakeDb(fixture: {
     from: vi.fn((table: string) => queryBuilder(table)),
     _insertedDeliveries: insertedDeliveries,
     _clearedTokenDeviceIds: clearedTokenDeviceIds,
-    _deliveryRanges: deliveryRanges,
-    _eventRanges: eventRanges,
+    _deliveryPageIds: deliveryPageIds,
+    _prefCategories: prefCategories,
   } as unknown as SupabaseClient & {
     _insertedDeliveries: Array<Record<string, unknown>>;
     _clearedTokenDeviceIds: string[];
-    _deliveryRanges: Array<[number, number]>;
-    _eventRanges: Array<[number, number]>;
+    _deliveryPageIds: string[][];
+    _prefCategories: string[];
   };
 }
 
@@ -226,82 +265,81 @@ describe('dispatchPendingEvents', () => {
     );
   });
 
-  it('excludes instant-delivered events while paging deliveries and pending events', async () => {
+  it('skips expired events before the pending-event cap', async () => {
     const now = new Date('2026-01-15T20:00:00Z');
-    const event = (id: string, category: string, title: string) => ({
+    const event = (id: string, expires_at: string | null) => ({
       id,
-      category,
+      category: id,
       tier: 1,
-      title,
+      title: id,
       body: 'Body',
       deep_link: 'https://x',
       available_at: new Date(now.getTime() - 1000).toISOString(),
-      expires_at: null,
+      expires_at,
       killed_at: null,
     });
     const db = makeFakeDb({
       events: [
-        event('delivered-event', 'album_news', 'Already delivered'),
-        event('countdown-event', 'song_drop', 'Countdown only'),
-        event('undelivered-event', 'tour_news', 'Undelivered'),
+        ...Array.from({ length: 200 }, (_, index) =>
+          event(`expired-${index}`, new Date(now.getTime() - 1000).toISOString()),
+        ),
+        ...Array.from({ length: 50 }, (_, index) => event(`fresh-${index}`, null)),
       ],
-      notificationPrefs: [
-        { device_id: 'device-1', category: 'album_news', cadence: 'instant' },
-        { device_id: 'device-1', category: 'song_drop', cadence: 'instant' },
-        { device_id: 'device-1', category: 'tour_news', cadence: 'instant' },
-      ],
-      devices: [device()],
-      deliveries: [
-        {
-          id: 1,
-          event_id: 'delivered-event',
-          device_id: 'old-device',
-          category: 'album_news',
-          kind: 'instant',
-          sent_at: '2025-01-01T00:00:00Z',
-        },
-        {
-          id: 2,
-          event_id: 'countdown-event',
-          device_id: 'old-device',
-          category: 'countdowns',
-          kind: 'fun',
-          sent_at: '2025-01-01T00:00:00Z',
-        },
-        {
-          id: 3,
-          event_id: 'unrelated-event',
-          device_id: 'old-device',
-          category: 'album_news',
-          kind: 'instant',
-          sent_at: '2025-01-01T00:00:00Z',
-        },
-      ],
-      maxRowsPerPage: 1,
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [],
     });
-    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockImplementation(async (batch) =>
-      batch.map(({ deviceId }) => ({ ok: true, deviceId, deliveryToken: `token-${deviceId}` })),
-    );
 
     const result = await dispatchPendingEvents(db, now);
 
-    expect(result.eventsConsidered).toBe(2);
-    expect(result.sent).toBe(2);
-    expect(sendSpy.mock.calls.map(([batch]) => batch[0]?.title)).toEqual([
-      'Countdown only',
-      'Undelivered',
-    ]);
-    expect(db._deliveryRanges).toEqual([
-      [0, 999],
-      [1, 1000],
-      [2, 1001],
-    ]);
-    expect(db._eventRanges).toEqual([
-      [0, 199],
-      [1, 200],
-      [2, 201],
-      [3, 202],
-    ]);
+    expect(result.eventsConsidered).toBe(50);
+    expect(db._deliveryPageIds).toHaveLength(1);
+    expect(db._deliveryPageIds[0]).toHaveLength(50);
+    expect(db._deliveryPageIds[0]?.every((id) => id.startsWith('fresh-'))).toBe(true);
+  });
+
+  it('caps eligible events newest-first and only reads deliveries for each candidate page', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const events = Array.from({ length: 250 }, (_, index) => {
+      const id = `fresh-${String(index).padStart(3, '0')}`;
+      return {
+        id,
+        category: id,
+        tier: 1,
+        title: id,
+        body: 'Body',
+        deep_link: 'https://x',
+        available_at: new Date(now.getTime() - (250 - index) * 1000).toISOString(),
+        expires_at: null,
+        killed_at: null,
+      };
+    });
+    const db = makeFakeDb({
+      events,
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [
+        ...Array.from({ length: 10 }, (_, index) => ({
+          event_id: `fresh-${String(249 - index).padStart(3, '0')}`,
+          kind: 'instant',
+        })),
+        { event_id: 'fresh-239', kind: 'fun' },
+      ],
+    });
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.eventsConsidered).toBe(200);
+    expect(db._prefCategories).toHaveLength(200);
+    expect(db._prefCategories[0]).toBe('fresh-239');
+    expect(db._prefCategories[189]).toBe('fresh-050');
+    expect(db._prefCategories[190]).toBe('fresh-049');
+    expect(db._prefCategories[199]).toBe('fresh-040');
+    expect(db._deliveryPageIds).toHaveLength(2);
+    expect(db._deliveryPageIds[0]?.[0]).toBe('fresh-249');
+    expect(db._deliveryPageIds[0]?.[199]).toBe('fresh-050');
+    expect(db._deliveryPageIds[1]?.[0]).toBe('fresh-049');
+    expect(db._deliveryPageIds[1]?.[49]).toBe('fresh-000');
   });
 
   it('ACCEPTANCE: a song_drop event delivers to an opted-in device once', async () => {

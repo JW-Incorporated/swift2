@@ -72,48 +72,58 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
-const DELIVERY_PAGE_SIZE = 1_000;
 const EVENT_COLUMNS =
   'id,category,tier,title,body,deep_link,available_at,expires_at,killed_at';
 
-async function deliveredInstantEventIds(db: SupabaseClient): Promise<Set<string>> {
-  const delivered = new Set<string>();
-  for (let offset = 0; ; ) {
-    const { data, error } = await db
+async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEventRow[]> {
+  const pending: RouterEventRow[] = [];
+  const seen = new Set<string>();
+  let lastEvent: RouterEventRow | null = null;
+  const nowIso = now.toISOString();
+
+  while (pending.length < PENDING_EVENT_LIMIT) {
+    let query = db
+      .from('events')
+      .select(EVENT_COLUMNS)
+      .lte('available_at', nowIso)
+      .is('killed_at', null)
+      .or(`expires_at.is.null,expires_at.gt.${nowIso}`)
+      .order('available_at', { ascending: false })
+      .order('id')
+      .limit(PENDING_EVENT_LIMIT);
+    if (lastEvent) {
+      query = query.or(
+        `available_at.lt.${lastEvent.available_at},and(available_at.eq.${lastEvent.available_at},id.gt.${lastEvent.id})`,
+      );
+    }
+
+    const { data, error } = await query;
+    if (error) throw new Error(`could not load pending events: ${error.message}`);
+    const rows = (data ?? []) as RouterEventRow[];
+    if (rows.length === 0) return pending;
+    lastEvent = rows[rows.length - 1] ?? null;
+    const candidates = rows.filter((event) => !seen.has(event.id));
+    for (const event of candidates) seen.add(event.id);
+
+    const { data: deliveryRows, error: deliveriesError } = await db
       .from('deliveries')
       .select('event_id')
       .eq('kind', 'instant')
-      .order('id', { ascending: true })
-      .range(offset, offset + DELIVERY_PAGE_SIZE - 1);
-    if (error) throw new Error(`could not load delivered event ids: ${error.message}`);
-    const rows = (data ?? []) as { event_id: string | null }[];
-    for (const row of rows) {
-      if (row.event_id) delivered.add(row.event_id);
+      .in(
+        'event_id',
+        candidates.map((event) => event.id),
+      );
+    if (deliveriesError) {
+      throw new Error(`could not load delivered event ids: ${deliveriesError.message}`);
     }
-    if (rows.length === 0) return delivered;
-    offset += rows.length;
-  }
-}
-
-async function pendingEvents(
-  db: SupabaseClient,
-  delivered: Set<string>,
-  now: Date,
-): Promise<RouterEventRow[]> {
-  const pending: RouterEventRow[] = [];
-  for (let offset = 0; pending.length < PENDING_EVENT_LIMIT; ) {
-    const { data, error } = await db
-      .from('events')
-      .select(EVENT_COLUMNS)
-      .lte('available_at', now.toISOString())
-      .is('killed_at', null)
-      .range(offset, offset + PENDING_EVENT_LIMIT - 1);
-    if (error) throw new Error(`could not load pending events: ${error.message}`);
-    const rows = (data ?? []) as RouterEventRow[];
+    const delivered = new Set(
+      ((deliveryRows ?? []) as { event_id: string | null }[])
+        .map((row) => row.event_id)
+        .filter((id): id is string => id !== null),
+    );
     const remaining = PENDING_EVENT_LIMIT - pending.length;
-    pending.push(...rows.filter((event) => !delivered.has(event.id)).slice(0, remaining));
-    if (rows.length === 0) return pending;
-    offset += rows.length;
+    pending.push(...candidates.filter((event) => !delivered.has(event.id)).slice(0, remaining));
+    if (rows.length < PENDING_EVENT_LIMIT) return pending;
   }
   return pending;
 }
@@ -162,8 +172,7 @@ export async function dispatchPendingEvents(
 
   let events: RouterEventRow[];
   try {
-    const delivered = await deliveredInstantEventIds(db);
-    events = await pendingEvents(db, delivered, now);
+    events = await pendingEvents(db, now);
   } catch (err) {
     result.errors.push((err as Error).message);
     return result;
