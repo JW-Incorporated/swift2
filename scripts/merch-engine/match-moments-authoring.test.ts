@@ -59,6 +59,20 @@ describe('E6 authoring: strict cost-order search (SPEC §8 step 2)', () => {
     expect(candidates.map((candidate) => candidate.source)).toEqual(['brand-direct']);
   });
 
+  it('counts brand-scoped and general SerpAPI searches against one shared cap', async () => {
+    const openDatabase = vi.fn(async () => ({ prepare: () => ({ all: () => [] }), close: () => {} }));
+    const brandDirectSearch = vi.fn(async () => []);
+    const paidSearchImpl = vi.fn(async () => []);
+    const result = await gatherCandidates({
+      moment, descriptors: { brand: 'Acme', kind: 'dress' }, indexPath: '/tmp/fake.sqlite',
+      openDatabase, brandDirectSearch, paidSearchImpl, callsUsed: 0, cap: 1,
+    });
+    expect(brandDirectSearch).toHaveBeenCalledTimes(1);
+    expect(paidSearchImpl).not.toHaveBeenCalled();
+    expect(result.paidSearchCalls).toBe(1);
+    expect(result.paidSearchTicket).toEqual(expect.objectContaining({ reason: 'paid-search-cap-reached' }));
+  });
+
   it('reaches paid search only when a+b left a gap, and never bypasses the R5 cap', async () => {
     const openDatabase = vi.fn(async () => ({ prepare: () => ({ all: () => [] }), close: () => {} }));
     const paidSearchImpl = vi.fn(async () => [{ id: 'ps1', source: 'paid-search' }]);
@@ -110,6 +124,18 @@ describe('E6 authoring: strict cost-order search (SPEC §8 step 2)', () => {
 
   it('returns no paid-search candidates without a configured key', async () => {
     expect(await searchPaidSearch({ descriptors: { kind: 'dress' } })).toEqual([]);
+  });
+
+  it('prefers the retailer link and drops Google-hosted result URLs', async () => {
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({ shopping_results: [
+        { product_id: 'retailer', title: 'Dress', link: 'https://shop.example/dress', product_link: 'https://www.google.com/shopping/product/1' },
+        { product_id: 'google', title: 'Bad', link: 'https://google.co.uk/shopping/product/2' },
+      ] }),
+    }));
+    const results = await searchPaidSearch({ descriptors: { kind: 'dress' }, apiKey: 'k', fetchImpl });
+    expect(results).toEqual([expect.objectContaining({ id: 'retailer', productUrl: 'https://shop.example/dress' })]);
   });
 });
 
@@ -194,5 +220,27 @@ describe('E6 authoring: full pipeline reuses matchMoment/R6 unchanged', () => {
 
     expect(result.products).toEqual([]);
     expect(result.ticket).toEqual(expect.objectContaining({ momentId: moment.id, reason: 'no-qualifying-candidate' }));
+  });
+
+  it('holds the whole look when the vision wrapper returns no judgment', async () => {
+    const openDatabase = vi.fn(async () => ({
+      prepare: () => ({ all: () => [{ feed_id: 'f1', product_id: 'p1', title: 'Dress', price: '$40', stock: 'in stock', image_url: 'https://shop.example/img.jpg', destination_url: 'https://shop.example/p1', deeplink: null, brand: 'Acme', category: 'dress' }] }),
+      close: () => {},
+    }));
+    const result = await runMatcherAuthoring({
+      moment, momentImageUrl: 'https://images.example/moment.jpg', indexPath: '/tmp/fake.sqlite', openDatabase,
+      extractImpl: async () => ({ kind: 'dress' }), judge: async () => null, callsUsed: 0, cap: 5,
+    });
+    expect(result).toEqual(expect.objectContaining({ status: 'hold', holdReason: 'vision-unavailable', products: [], ticket: null }));
+  });
+
+  it('holds before searching when descriptor vision is unavailable', async () => {
+    const openDatabase = vi.fn();
+    const result = await runMatcherAuthoring({
+      moment, momentImageUrl: 'https://images.example/moment.jpg', indexPath: '/tmp/fake.sqlite', openDatabase,
+      extractImpl: async () => null, judge: async () => ({ score: 90 }), callsUsed: 0, cap: 5,
+    });
+    expect(result).toEqual(expect.objectContaining({ status: 'hold', holdReason: 'vision-unavailable', products: [] }));
+    expect(openDatabase).not.toHaveBeenCalled();
   });
 });
