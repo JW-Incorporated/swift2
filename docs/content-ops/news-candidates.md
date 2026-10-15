@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 75
+
+## Bad Gyal Declares She Would 'Never' Collaborate With Taylor Swift
+
+- first seen: 2026-10-15 18:06 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bad Gyal has stated that she would never work with Taylor Swift, criticizing Swift's music by comparing it to 'dry chicken.' The comment reflects her personal opinion on Swift's artistic style.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMihAFBVV95cUxQbV9OM1djR19BbG1tUWo3Q3RFcy1CdE53X0dRczN4QUNQWlhtTWNOQ3ZCUFdKMktVQlpXSy1rNTFIcG5CQkVmanMwT0tNRnVoZ0VSQWNUa3RKRG02UC16NG9EM18tZnE5alQ1cHdNeWxHU241R3RwQmZiNlVRazF1Q09SMXo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Selena Gomez Discusses Taylor Swift and Marriage Advice
+
+- first seen: 2026-10-15 18:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Selena Gomez shares her perspective on why she does not feel the need to offer marriage advice to her friend Taylor Swift, emphasizing their supportive friendship.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipAFBVV95cUxPRnJLMUFmdVNOdVpQcktjVVkwTUZwUWp1WUpQOHk5TnIyQ1V6Qm9zVWhJSEI4bE84Ym1LMHlaM05TcHZMS25JQmVWV2R1c0I3SlJwZnUxZlh1SndRRzZOQ3F5WWFrS0RLTUdQaDFpRUQ2Vmdhd0tsRF9iazlPM0VoMUlZS0RDNjdWMlR0Z2dsS2RvZTNuZGMzZk14YlNGWGg4LTA2Xw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Grammy Competitors for Best Song Written for Visual Media Revealed
+
+- first seen: 2026-10-15 18:06 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: An article discusses Taylor Swift's likely competitors for the Grammy Award for Best Song Written for Visual Media. The insights highlight the talented peers in the category.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQQXJsQnlsTkx6Qjh5Njg0V2p6aUMzWi1EanFZS0dsWThMU1VFWXY2Mk42bDRFeE45T1cySE84dzVOTVFMcktKU3BueWhZX20zWlE0b0xNTC1JSWs4d2JJMnZfa295Q1hTNEhUMXRxbHVYaEpHYTFpS1BDUVczZGl3Q1VFcWJmNC11OFJNb3JtdmJhMFZyb1h6enlHV2Zqc3NOWDNyNw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxOc0dxTmZudy1GcnIzYlBPaXhLd19ZSmJTTndpNUxjeldocTYxZUg3Q0xMUEYyTEJGb0xhbzdyX2YzLV9DLUpNS1REMFhtS3dBTWUyWWVtc0xnRDZYd25hMEM1X2NHczdmQXJvM2hNWU9iQWtPMWVMbTRqTTMwX25wNVhWVnlIenJMV0ttbXFwZm1tYjYtZlROcGpnVVFnN2s4b0Z4U1p2SQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Changes Detected on Taylor Swift's Official Site
 
@@ -63,9 +88,10 @@ Stories: 82
 ## Selena Gomez Suggests Taylor Swift's Marriage Advice is Valuable
 
 - first seen: 2026-10-15 16:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: In a recent statement, Selena Gomez mentioned that she believes Taylor Swift is likely more adept at giving marriage advice than herself. The remark highlights their friendship and mutual respect.
 - sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMif0FVX3lxTE9nSFlSTkM3YUtrZ0szWlhTcG1iTlRVY29LREt4WThyNzM5WkpSamNKV3dIcFlnTnZIZUgxTnhjeFp3NjdpSW45NzJ3VlFmNW1SMHc4Z09aZEVRZXVoQVpDWTh6NzhoenJkTXNxQnJPZGtJY0ZzRXFhb21jLXZEVk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxOai1yUlo4ZVJLUXI0Qk13WWNfYXZfZ1VBTkxDZWVPb1o1dm9RdHNMSUtTODM4ZlNEVE8wQTJzYUlmRENTTEhYR3lYeld5LXVrOGVtdTdSWjdnTzNrUWRNeUhYTWtycDIxdmdsRjRUbnVIekhOMm01TXZzM0Y4a3VkQWwya2pDOG42dXNEdEFmM09wajBLMUZhcV9n?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQTHlwYUMxa1FhU1FZMXhPM3FrZm5xcWtXSDg3SDBZdWNOdkVlWGhoWlZWVkhtTW1RUWZVcmUzZUJaRkhmc2cwODczTHd6TVJmWFVNSmZHVzZ4OXRtWnVhZ3A3S0toeXVFVzZCQUhHRWlaNjMyb240Qk55TVhDNXdpYzE5QzlZbGpoM0R5bjJqM2dtUy1oODV6WGJnQzdfeHlMQUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
@@ -136,9 +162,10 @@ Stories: 82
 ## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
 
 - first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
 - sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitgFBVV95cUxOSjhRZ25rRWJJWjU2R1BmM2ljQWZQdEh6VFZnN21aRGNCSlpmVGN2bmFqaXI3TzFoQWRRcG5sM0NlSURGTEdNSkJWWGpGWHRfUmI2a3NfSlhhU0hqTVNaRXpaTlpQa2xjNUJQek00OFIzSmEta09HZFlWWTJWOGJFaTJIVmVHaFl2YzhNM0pRdjYwWWZCTTJ2NkNZWnFpaFVmV3ZNOTFfODB6ZmMyWFVlUjN5NEs4dw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMilAJBVV95cUxNcTExRG1jX1c5VGpZN2xlZ0xHQk4xM2x1eWxMaks3eGd4VGgydEFYMHFKYkpsMktPejU0aHpxLUY3aXcyNzNWNVZ0c3BxT1gxdUFFSVp0eFE0Zk00LTVGckl3UG1EVTRXZmZ2ZUlCMmI0dEUxWFk0QUh3dThkX0E1aGZlTnhYUldBTC1TRmktc0hyRDFqdjFSa1V5QU93NmZRY240eDVBeGRQdklzYXhGd1V4TTdHSFBfY2pQYVcyRk9jaG9HTE94ZFk2cjdLUjk1Tjh4SmN5Mlh5OGt3Y3M1OTEtdDZUU1Y1NVlhWW9vR3FSRFQ0ZS1wdU9kOGZCTU13OTlMQmR3ZUhDdVQxem5ZZDlWZEfSAZQCQVVfeXFMTmZtMnIta0c3SGhWUl94UEFmMlo4Sml2eFM1d0pRVERCSVBJY2NNV1poSlpCb2hqQVhWdE9fQmRBN3BJY2dtR0I1SHV3Y2pkRzZCQktzSkVMdzYtemFIMUZTaEc4U2E3aDQtVWlydTdBN2xjZm5zNmRGUXJIdlJKZGZINUpHZlE2YUVRQl8xdXZ6WVE4aHJLQW9VWFlxZkZHSzBmYTNITk1aS1BWc1dQeWFhX1RlRDduLTRMWTdOYVNwZ2RiVTVtdjhjcm1fWkZrWWpGLUNWZHQxakRDeUVuZEZGOUUtSGF0RGNOb0draUZpYW9SWk5CcFBORDRTMnhNVWk2bWlHQWVQTVowc21WTUFMbnBj?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -626,89 +653,3 @@ Stories: 82
 - summary: A guitar signed by Taylor Swift is currently available for purchase. The item is being highlighted by Taste of Country, presenting an opportunity for fans to own a piece of memorabilia.
 - sources:
   - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiZEFVX3lxTE13SXV5c0FkZkhpOWRDN3FEOWZHZW9Gd2F3YWtVOFgyZE15STdKQlhlenBhbHRKMzBPbkh1YUlPQ0gyXzVTMVlUeDVJeFVnN29sS1lXMU1sY2htMURPUzI5bXM4bnQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## ‘Patient Zero’ by Taylor Swift Tops Hot 100 for Second Week
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift's single ‘Patient Zero’ has continued its success by remaining at No. 1 on the Billboard Hot 100 for a second consecutive week.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMikwFBVV95cUxPbG9RT2xoWE1TWmFMdVA0MGhjNjM1cTNHUVg2MEE5WjJibXZKVTZ6djd4bVdFSzJ6cDFUdzBEbE9ndEttVWQ3V2t6TlNlREdlZjFyb1FuY1ROMW9jeEsweWRCaGJGNk5QSHRzYm5NY05xYzdzUmh5ZzVYMDNpc29HYXpuWDhYWjRqOGVIQXNfREFOeVU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] CNN — https://news.google.com/rss/articles/CBMi9wFBVV95cUxPdGZlRDhBbmplanJPTG1qSnVtSzBObUFoMXBMc0ZiVHdyZ3V6cmpMbzFyTFQ2Ykg1alI5VHlNWm5makYwX1kxdUs0VUYzYWpMNTBfV1ZpcGljLW00U0JOVXdOckNkVDZaNUNwLTdSYTNwYmRzeVU4aE00dkJCdWJrbGg3aUJmSFR3TXZhaDhLeUlVbXVxZ19lOThmbnIxaVZVSzloQ3JxRFNfbC1oRlYzOElfUVh4bmpkR3YxNUJoREk2LVkwR185cTEwMDRGbGtmb0g5Y19Ob0tFQTJSUHdSSnFQQmlwZXZxODlaMDhQSVh3bGlSaDhR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Duke Today — https://news.google.com/rss/articles/CBMikgFBVV95cUxNUFJpcGJwLVczRXpSTUx6M1RVYURoYVB3YXdDelkxd2dpUzRfNWdPcEhOeUhhS0RvZ1MtaUFDZWdCd0xCLWpYQXQ0bG9HQjg3eWVhVHlCSXB3V04yS3dPcWRTM0dQcmN4QVRiTXMyNUlTMFlMdGlQUzNQZE90MGw3QW15RWdvUE9uUlFwUzB5aG1kdw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNR3piUzFQMmpYc2tXcmszbGJrcEl1U1VNYl9ibUNkZW00V1B3LW5uejNGU254WVJIMlEzUU5yRTMwV1I1QUZwVlBMcDB3VFJiT1Y2TExBWXA5WjltZThGMGVEdDZNSUl6WFZFeFl4S0x3LUNWcE92T3RJdGFxRm9sSTIzaEV3SzZjTzlkRHlPTlMwd3FEU2tVVkQxNVhqcTNRanJrRFZoRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-no-1-second-week-singles-chart-1236909200/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNanVlT1YzcnNpSE1USzY2TlF2QklyOHpWOFBKQUhCZ1BCRnBHMXJGNXJSdnZrekJBRHViTDJOaDdzVExQZzdUTG83X2ozdFhTclMtZUdGRThoZlRPaEhGN2VGMHZ5Q0M1a1B4MFhHbkFkV3U4bkhSVW0tOTI2a255eGk1UWdxbE1TenZfaDZuUThWbUEwNWgyN2gwRzk2QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Pop Star Criticized for On-Stage Actions, Taylor Swift Mentioned
-
-- first seen: 2026-10-12 18:57 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A pop star has faced backlash for what some fans deem an "unhygienic" move during a performance, prompting discussions that include Taylor Swift among fans. The situation has sparked debate online about concert etiquette.
-- sources:
-  - [unverified] Bored Panda — https://news.google.com/rss/articles/CBMilwFBVV95cUxOSkJvaUVWMDNkUTMzeTU5dWxXbmd5UURXRy11Z0xBS3hOMWNtRDlFLXhWSkdFVkJJQkROeEZYMzlZMzBnSkpxUlpVcTIwYWJ6VF9HaTJvYmNFZHEtc3ExR1V2SGZETHZMdGVaYWhOdk11ZUlhNFVMNXFGWVExTnNQUV9vVUlFSUpNcFBkd3Jlbkt5M2JEQko0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Grammys 2027: Swift and Others Expected to be Nominated for Record of the Year
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: The 2027 Grammys race for Record of the Year is shaping up to be highly competitive, with Taylor Swift, Ella Langley, Raye, Olivia Rodrigo, and Olivia Dean all expected to receive nominations.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-record-of-the-year-predictions-nominees-1235640528/
-
-## Taylor Swift Achieves Significant Career Milestone
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Over the weekend, Taylor Swift reached a notable milestone in her music career, as reported by Complex. This achievement highlights her continued success and influence in the music industry.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOUJNSHg3TTFfY05iM2Zhc3ZDdVlWM2RXQnZoTUFBTXVoTVFfWVVkbHZWZHFORjd0MG5BNXhtMlNOMmJoTWJIV0t0Sk5wRzE3VjZxc1BXVTZ3bWJsbXFmRm9UdE9WbTUxcDJsVVM4ZGl4Y0Vma2kxemJmUktPdlJONFM1U3RrQ0ZnTlVveFB1VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Eras Tour Dancers Share Their Looks from Taylor Swift's Wedding
-
-- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Dancers from the Eras Tour, including Jan Ravnik and Kam Saunders, have shared their outfits from Taylor Swift's wedding. The shared looks highlight the fashion choices of those close to the pop star during the event.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMiggJBVV95cUxPMVJUMjh3YWRkbzFDc0NQOVdnV2xYLUdHaF94NjI3Ti03M3BWQXhmZGJ5eFVtVlpuNmRQU0JkY1RBY1plc2VsSVRKR19CSVFBeFdoUGdhX2NuN3Njbng2eUdQVWRCQmVfMmN5YVltbXZrM2E0T2owdENKNk9DRFNpd2dTX19tQ252S0Iyd3FrUEdicUQ1V0hNSWU1djBEaWFmd2VubllOOFo3cnk2MlRhczFaeFIxQWlmY1BlR09HQ1hHc0stR0ppS0RvdWR0TGp1STFCYXU1X0dCMy1GMTI5ZlNBalptYUQwbVZ3QWdQTklQQ0VVdXRPOVQ1anVsZG91Rmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce's Aunt Creates Unique Jewelry for Taylor Swift
-
-- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's aunt has commissioned a special piece of jewelry for Taylor Swift, incorporating unique family touches. This one-of-a-kind item highlights the connection between the celebrity and the athlete's family.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxNNUtlWk9fT0dXT3FPdVltZlV6YWpvQ0hOZm9MRkhZeV9lcVJiNEhwVG1QUHNUTnNWaHZRVXFOSHZrcm4wU0ZMUXpTdTRWcnpSNjdfTU1kanBOaVZCd3ZvSGVkTTQya1lNU1p4ZGlJY1V1cV82UVhmTTdpWXdxdTRsYmZFTHRIQTZ2SXVTY19wM3k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reaches No. 1 on Billboard 200
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved the top position on the Billboard 200 chart, marking another milestone in her music career. This accomplishment highlights her continued popularity and success in the music industry.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiTEFVX3lxTE9uRTNBLUdRMFdBZ212UW5wNUtVZS14U0wtR01Yb1V1VzFydUdQQkczd2FJa2NkYWV1NTVJa2tjaWZXSTJPUGZDZHhvUDU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Competes for No. 1 on UK Singles Chart
-
-- first seen: 2026-10-12 18:57 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is currently in a competitive race with Sienna Spiro for the No. 1 spot on the UK Singles Chart, according to CelebrityAccess.
-- sources:
-  - [unverified] CelebrityAccess — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaV80UUNHUXBINy1ibzY2dDhsWXhUVlkxZDZyVnc5V1ZsSkQ0dXFkbWx5cjZxYmtTU0FkY2xQTUlDZlR4Wm5qMEItYXBZWXhXQy1MY1A3a0xLQXlqZ090TlQ5ZmRGdjYwcjNEcEFJOGc5dE8xV3NnWWRlb3BTUGxYcHE2bm9OME12dnNyZzJ2ZlZyeDNMWi01SnhPNG81bG9wcHY1UW5FT28?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Taylor Swift's Favorite Perfumes
-
-- first seen: 2026-10-12 18:57 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article from Prestige Online delves into the fragrances that Taylor Swift loves, providing insights into her personal scent preferences. It highlights how her choices reflect her unique style and persona.
-- sources:
-  - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxOQUlDUGwyWDhncjhJYkRTR3hWODZpbEVBV2NNdkhRTEdFM01Cb2ZKRW5GSVM4Si1jdE9zOFlyZC1fbERETDZzMkFESkcyb212a1hsTlN0TlFvY3owNWpJWnplNWZob2NyVjFYbVVpMWZ2Rm04VzhRUEFvNk1HU1ZiWDNBM0pnWnprZWVwcjBFb2xtR2Q4UldFTTI3a1c4enE5MUJn0gGoAUFVX3lxTE1FQ2p3Zlp3ZV9xOGpBRTd6RGZwZFZKTlJ4ajgxRmVSVUxfVVpSTW43aVZwLXFJdmdGX2ZHc3F6WjhoSjdIaVl2TzhIU3IxZFI1YVo4OEt1bHJLTW4yNEkzRVZhMTRWUjZScWFyLVFEUjBNaVk1enV3ZFlKenVKeFJSVy1fS3A1NFB0VmtMdTdtZGV1NUJTaHhuUW05bi12ZFRxZ1RJMXk2eQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives News Following Date with Travis Kelce
-
-- first seen: 2026-10-12 18:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has received noteworthy news in the aftermath of her recent date night with Travis Kelce. The details of the news and its implications remain unspecified in the report.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPQUtUQjdUMWtGUllkd0RBVjVBY2xfUDRmcVY0VmM1SnY0ZUVJQldvN3c2NWtLM2dDZHdhX2NTdWFTOGl3dlVITWRLVFJQRkUxT05xaUlaeU40cjgtTW5LWkdTMkR3RWU2ZGduRXJsTkdHb0xUX0hGVEh4eWw5YXFVZlN3VXU1ZDlsSUJoeGM1d0Z1YXFfb29xc203NWU1U3c4?oc=5&hl=en-US&gl=US&ceid=US:en
