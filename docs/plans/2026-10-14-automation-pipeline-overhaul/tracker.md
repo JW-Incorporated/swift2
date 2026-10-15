@@ -10,17 +10,17 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | review |  |  |
+| P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | review | #5825 |  |
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | review | #5824 |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
-| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | doing |  |  |
+| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | review |  |  |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | review | #5821 |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | review | #5823 |  |
-| P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | doing |  |  |
+| P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | review |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
@@ -40,7 +40,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 |---|---|---|---|---|---|---|---|---|
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | doing |  |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | doing |  |  |
-| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | todo |  |  |
+| P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | doing |  |  |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | todo |  |  |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
@@ -143,6 +143,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 22:08 ARCHITECT #1 RESULT (Fable; the PM agrees, so no disagreement to surface). P1-09 becomes a thin `claude -p` runner (`scripts/lib/claude-call.mjs`: `callClaude({caller, priority P0-P3, model, system, user, schema, maxInputTokens})` returning ok, capped, unavailable or invalid; never throws; flags `--max-turns 1 --output-format json`, tools off, no session persistence; CLI flags must be verified against the installed version). claude-code-action per call is rejected (30-60 s harness per step). Token choice lives in one shared `claude-token.mjs` = P0-19, used by routines and P1-09: primary until the limit is detected (also the 5-hour window), then the backup for P0 and P1 callers only; P2 and P3 pause until the reset. Both exhausted → `unavailable`, recorded on the P0-01 issue, callers hold. llm_usage unit = tokens per model plus calls, reported as SET, not dollars. P2-03: verifier `unavailable` → HOLD, route to the owner queue with a loud Discord ping, and record the SLA miss in story_timeline (never publish on the code check alone, never use Jev as the verifier: D4's AND stands). P1-06: batch uncertain items N per call (the CLI system prompt overhead is about 10K tokens a call, to verify) and cap the escalation rate. P1-28 lands before the P1-06 shadow starts so the week-1 ledger is honest. P1-04: no Batch API; label in about 25-item chunks right after a reset. Top risks: (1) harness overhead burns the limit faster than estimated (week-1 signal: usage.input per 2K-token prompt above about 5K); (2) the terms risk of driving two subscriptions from one automation (already told Joey; his call before HA #127); (3) end-of-week verifier starvation holds breaking news, so measure how often `unavailable` fires. Item edits: P0-19 = the token primitive (P1-09 depends on it); P1-09 drops cache_control and MAX_RUN_COST_USD and adds per-run max calls.
 - 2026-10-14 22:10 PM: migrations are one lane (L-DB). The llm_usage table moves from P1-01 into P1-02's migration, so P1-01 (Jev client) builds with an injected usage logger and no migration, and the two run in parallel. P1-01 and P1-02 pulled forward (dependencies met; P1-01 live acceptance waits for HA #124).
 - 2026-10-14 22:15 HB: #5822 (P0-08) MERGED → done. P0-09 live acceptance: run 38683186140 succeeded in 4.6 min (it used to time out at 45), cache entry merch-awin-sync-38683186140 saved, no Awin PR opened; no-change rerun 38684071906 dispatched (expect success and no PR). P0-07 stopped on the ~400-line tripwire (665 lines, 232 of them generated budget.json) → ruled: it's a medium item, so no budget.json commit; baseline copied to the scratchpad. #5815 waiting on build-full.
+- 2026-10-14 22:20 PM: P0-01 round 2 APPROVE → #5825 armed (29 callers checked; nits: plan-recheck*.yml sit outside the invariant; the gate reads the oldest issue only). After it merges: `gh pr update-branch` the armed PRs (template change), then P0-02, then P0-19 (L-ROUTINES, sequential). P0-11 (stale cutoff 3h added, suite 12,203) → adversarial reviewer on Opus. P0-07 pushed 35a22a16c → reviewer. MEASURED BASELINE (7 days, from P0-07's live dry run; NOT yet verified): Marjorie site ops 170 runs, 3,308 turns, 58 limit failures; Vault Run 8 runs, 685 turns, 3 limit failures; ops-fixer 10, 582; Community Answerer 7, 220; Marjorie ask-response 28, 195, 23 limit failures; Founders' Brief 7, 178; Tree weekly plan 2, 168; Tree daily draft 7, 140; News Triage 7, 131; Kevin desk 7, 113. Clock: bot-chat-poll 10 actual vs 576 expected in 48 h, which contradicts marjorie-ops' run count, so the P0-07 reviewer must explain it. Implication: marjorie-ops is about 55 percent of measured routine turns, so P0-02 (every 3 h, max_turns 40) and P1-11 (code plus Jev gate) are the biggest levers. P1-03 dispatched (Claude executor, Opus).
 
 ## Next actions
 
