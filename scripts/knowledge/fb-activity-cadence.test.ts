@@ -52,7 +52,7 @@ describe('owner activity cadence', () => {
 
     expect(result.activity).toMatchObject({ ok: true, count: 3 });
     expect(writeActivityState).toHaveBeenCalledOnce();
-    expect(writeActivityState).toHaveBeenCalledWith(expect.stringMatching(/ledger\\activity\.json$/), {
+    expect(writeActivityState).toHaveBeenCalledWith(expect.stringMatching(/ledger[\\/]activity\.json$/), {
       lastActivityAt: now.toISOString(),
     });
   });
