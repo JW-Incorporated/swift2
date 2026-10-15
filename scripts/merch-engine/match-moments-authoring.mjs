@@ -113,7 +113,7 @@ export async function gatherCandidates({
   return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket };
 }
 
-async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
+export async function verifyProductUrl(url, { fetchImpl = fetch } = {}) {
   if (!url) return false;
   try {
     const response = await fetchImpl(url, { method: 'HEAD', redirect: 'follow' });
@@ -129,7 +129,7 @@ async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
  * gates a matched candidate must clear before `matchMoment` (R1/R6,
  * unchanged) can select it.
  */
-export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = defaultVerifyUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
+export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = verifyProductUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
   const scored = [];
   for (const candidate of candidates) {
     const urlVerified = await verifyUrlImpl(candidate.productUrl, { fetchImpl });

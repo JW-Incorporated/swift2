@@ -256,7 +256,7 @@ function imageFailure(message, status = null) {
   return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
 }
 
-async function imageContent(url, fetchImpl) {
+export async function fetchMerchImage(url, { fetchImpl = fetch } = {}) {
   let response;
   try {
     response = await fetchImpl(url, {
@@ -273,11 +273,16 @@ async function imageContent(url, fetchImpl) {
   const declaredSize = Number(response.headers.get('content-length'));
   if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES)
     throw imageFailure('too large');
-  const bytes = new Uint8Array(await response.arrayBuffer());
+  const bytes = Buffer.from(await response.arrayBuffer());
   if (bytes.byteLength > MAX_IMAGE_BYTES) throw imageFailure('too large');
+  return { buffer: bytes, mimeType: mediaType };
+}
+
+async function imageContent(url, fetchImpl) {
+  const image = await fetchMerchImage(url, { fetchImpl });
   return {
     type: 'image',
-    source: { type: 'base64', media_type: mediaType, data: Buffer.from(bytes).toString('base64') },
+    source: { type: 'base64', media_type: image.mimeType, data: image.buffer.toString('base64') },
   };
 }
 
