@@ -7,6 +7,137 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-14 — Tidewatch D1: no Anthropic API; every model call runs on the owner's Claude subscription through Claude Code (revised by the owner from the planned four pools)
+
+**Decision (Joey, in chat, 2026-10-14; D1 of the nine Tidewatch owner decisions, plan §H, `docs/plans/2026-10-14-automation-pipeline-overhaul/plan.md`, PR #5813).** No Anthropic API at all. Every model call runs on the owner's Claude subscription (`CLAUDE_CODE_OAUTH_TOKEN`) through Claude Code itself; a subscription token is not an API key. That covers agentic routines and scripted one-shot calls alike: the Haiku fallback, the Sonnet verifier, the voice critic, merch vision, replay labels, and today's `ANTHROPIC_API_KEY` callers (news-worker, theory-miner, merch audit).
+- When the limit is tight, the news worker and the breaking-news checks get first claim.
+- When the primary token hits its weekly limit, runs switch automatically to a backup subscription token, secret `CLAUDE_CODE_OAUTH_TOKEN_BACKUP`. Which plan backs it up is the owner's choice (HUMAN-ACTIONS #127).
+- Unchanged: Jev prepaid (`TYPESAFE_API_KEY`) for routing; Codex for building.
+
+**Changed by the owner from the plan.** The plan (§D.2) recommended four pools: OAuth for agentic routines only; the existing metered `ANTHROPIC_API_KEY` for capped scripted Haiku/Sonnet 5.5 calls under a Console monthly limit; Jev for routing; Codex for building. The owner replaced that with the answer above.
+
+**Alternative rejected.** The four-pool answer, i.e. metered Anthropic API spend for scripted calls.
+
+**Why.** The owner's call: no Anthropic API. Consequence: scripted calls now draw on the same weekly limit as the routines, which is what the first-claim order and the backup token are for.
+
+**What it changes.** The shared direct-call Claude wrapper (P1-09) runs through Claude Code on the subscription, not the metered API. The existing `ANTHROPIC_API_KEY` callers migrate (new item P1-28). Replay labels no longer use the Batch API. Weekly-limit detection (P0-01) carries the news-first priority and the automatic switch to the backup token. The Console spend cap (OA-3, P0-18) is moot and dropped.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D2: Codex is the default builder for the Tidewatch programme only; Austin stays a Claude routine
+
+**Decision (Joey, in chat, 2026-10-14).** Codex is the default builder for this build programme only. Austin stays a Claude routine. The home Codex worker (P1-13) is dropped. No amendment to the Projects-root Codex rule is needed: the programme's `OPERATING-MODE.md` (plan folder, PR #5813) carries the rule. Claude reviews every Codex PR. Social code stays Claude-only.
+
+**Alternative rejected.** The plan's recommendation: Codex default for non-social Swift2 code in general, a Codex worker on the owner's home machine replacing Austin, and an amendment to root rule j making Codex the default regardless of the limit threshold.
+
+**Why.** The plan's case for Codex (about twice the budget, §D.3) holds for the build; the owner bounded it to this programme, so no machine-wide rule, standing worker or Austin change outlives it.
+
+**What it changes.** P1-13 and Austin's retirement are dropped, so the plan's estimated Austin saving (§D.1) does not happen. P0-14's "propose the rule j amendment" step is void. Codex lanes in the plan stay Codex; social lanes stay Claude.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D3: a home Reddit reader (headless, anonymous, read-only, slow) with the GitHub RSS scan as automatic fallback
+
+**Decision (Joey, in chat, 2026-10-14).** Reddit is read by a home reader on the owner's home machine: headless browser, anonymous, read-only, slow. The GitHub RSS scan stays as the automatic fallback. No relay, no key, and it never logs in. The home machine may run home tasks 24/7.
+
+**Alternative rejected.** A residential relay (`HOME_RELAY_URL`, named as the next anonymous option in the 2026-10-01 no-key entry and in the 2026-10-06 concert-photo entry). A Reddit API key was already barred for good (2026-10-01).
+
+**Why.** Most GitHub-run fetches hit 429 and RSS carries no scores; a home reader fixes both with no new Actions secret and no Hermes work (plan §H).
+
+**What it changes.** P1-15 builds the reader. The relay option in the two entries above is not pursued. The no-key rule is unchanged.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D4: confirmed critical work news may auto-publish to site, push and social
+
+**Decision (Joey, in chat, 2026-10-14).** Confirmed critical work news may publish automatically to the site, push and social once the code fact-check (plan §B.4) and a Sonnet 5.5 verifier agree. The notification governor is unchanged. Safety: a kill window (5 minutes, every push tier) and freeze switches (`TIDEWATCH_FREEZE`, `SOCIAL_FREEZE`, `PUSH_FREEZE`). Go-live is staged by class, and only after a drill whose result Joey sees.
+
+**Alternative rejected.** Keeping breaking news on the normal path, with a human or a scheduled routine between detection and publication, which cannot meet the 60-minute target.
+
+**Why.** It is the only way to hit 60 minutes without the owner on the path (plan §H); two independent checks must agree before anything acts.
+
+**What it changes.** P2-03 (fact-check), P2-04 (site), P2-05 (push), P2-06 (social), P2-12 (drill) and P2-13 (staged go-live) proceed. The push safety work (P0-11) lands first. The social half needs the guardrail 1 amendment in the rulings PR (D6).
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D5: confirmed-only personal-life news on the live feed and push; opt-in "Baby Watch: official announcements only"
+
+**Decision (Joey, in chat, 2026-10-14).** Guardrail 4's confirmed-only personal-life carve-out (2026-09-01, `D1=A`) extends from social captions to the site's live feed and push, under the strict code bar (plan §B.4 step 5: an official post, or a rep statement quoted by a tier-1 outlet, or two tier-1 outlets stating it as fact) plus a 10-minute re-check that the sources still say it. A new opt-in push, "Baby Watch: official announcements only", fires only on a confirmed pregnancy or birth announcement. No rumor, countdown or clue content. The private-life theory ban stays. This goes live last, and only after the owner merges the rulings PR (`docs/social/guardrails.md`, `NOTIFICATIONS_SPEC.md`).
+
+**Alternative rejected.** Keeping the carve-out social-only, so the site and push stay silent on confirmed personal-life news (the plan's safe default).
+
+**Why.** It carries the owner's 2026-09-01 line (confirmed is news, speculation is never covered) to the surfaces Tidewatch now publishes to, with a stricter bar than social's.
+
+**What it changes.** P2-05 adds the `baby_watch` category; the fact-check carries the personal-life bar and the re-check. The rulings PR amends guardrail 4 and the notifications spec. Until it merges, personal-life news stays off the site and push.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D6: a breaking campaign type on social, up to 2 extra posts per platform per day
+
+**Decision (Joey, in chat, 2026-10-14).** A new breaking campaign type: up to 2 extra posts per platform per day, one Sonnet 5.5 draft, a `tree-auto` stamp, immediate dispatch. Instagram and X still post as a pair.
+
+**Alternative rejected.** Breaking news inside today's poster caps (1 per run, 1 per platform per day).
+
+**Why.** Today's caps make a 60-minute social target impossible (plan §H).
+
+**What it changes.** P2-06 builds the fast path. The rulings PR amends guardrail 1's caps for the breaking type only; the signed stamp, `SOCIAL_FREEZE` and the 48-hour staleness rule are unchanged.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D7: the Facebook export stores post permalinks and reads the owner's activity log; daily for the top 3 groups
+
+**Decision (Joey, in chat, 2026-10-14).** The Facebook export stores post permalinks and reads the owner's own activity log. The new activity-log data stores no member names and no verbatim quotes; existing Facebook export rules — the hashed-authors guarantee (2026-08-25) and the 80-char engagement_lead excerpt (2026-10-04) — are unchanged. Cadence: daily for the top 3 groups, weekly for the rest. Comments stay hand-posted.
+
+**Alternative rejected.** Weekly exports for every group without permalinks (status quo).
+
+**Why.** Weekly exports arrive after the conversation is over; this is the smallest risk increase that fixes it (plan §H).
+
+**What it changes.** P1-16 adds permalinks, the activity-log read and the daily cadence. The hashed-authors guarantee (2026-08-25) is unchanged; nothing in the export posts or comments. The 80-char excerpt rule (2026-10-04) is also unchanged.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D8: recurring merch spend: scheduled E6 twice a week ($3 per run, 5 paid searches) and weekly fan-made auto-curation
+
+**Decision (Joey, in chat, 2026-10-14).** Merch E6 runs on a schedule twice a week, capped at $3 per run and 5 paid searches. Fan-made merch is auto-curated weekly. Scheduled runs need no typed confirmation.
+
+**Alternative rejected.** The status quo, where every E6 step needs a manual trigger.
+
+**Why.** Nothing has matched since 2026-08-31 because every step needs a manual trigger (plan §H).
+
+**What it changes.** P1-19 schedules E6 under the caps; P1-20 adds the fan-made auto-curation lane. This entry is the owner's approval of the recurring spend.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
+## 2026-10-14 — Tidewatch D9: merge #5484 once a Hermes session confirms the Hermes Tree and Marjorie loops are live
+
+**Decision (Joey, in chat, 2026-10-14).** PR #5484 merges once a Hermes session confirms the Hermes Tree and Marjorie loops are live (HUMAN-ACTIONS #125).
+
+**Alternative rejected.** Merging before the loops are confirmed (Tree and Marjorie could go dark), or keeping both sides running indefinitely.
+
+**Why.** About 1,950 Sonnet-equivalent turns a week (estimate) leave the Swift2 pool when #5484 retires the Swift2 routines Hermes replaces (plan §D.1); confirming first means nothing goes dark.
+
+**What it changes.** P0-16 carries the check and the merge. Until #5484 merges, Tidewatch routine edits touch only routines #5484 keeps.
+
+**Approved by.** Joey (owner), in chat, 2026-10-14.
+
+---
+
 ## 2026-10-09 — Routine `disallowed_tools` input: `allowed_tools` only preapproves, so file-write tools are removed explicitly on read-only routines (#4218)
 
 **Decision.** `routine-template.yml` gains an optional `disallowed_tools` input
