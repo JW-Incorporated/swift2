@@ -41,9 +41,9 @@ function resultOf(stdout) {
   if (!stdout) return null;
   try { return JSON.parse(stdout); } catch { return null; }
 }
-
 function limitFailure(result) {
   const hint = failureHint(result);
+  if (/hit your session limit/i.test(result?.result ?? '')) return { reason: 'limit' };
   if (!hint?.startsWith('plan usage for this account is exhausted')) return null;
   const resetAt = weeklyLimitInfo(result)?.resetAt ?? hint.split(', resets ')[1]?.slice(0, 24);
   return resetAt ? { reason: 'limit', resetAt } : { reason: 'limit' };
@@ -152,37 +152,39 @@ export function createClaudeCaller(options = {}) {
     ?? ((directory) => rm(directory, { recursive: true, force: true }));
   return async function callClaude(input = {}) {
     let tempDir;
+    let outcome;
+    const complete = (value) => (outcome = value);
     const attempts = [];
     try {
       const { caller, priority, model, system, user, schema, maxInputTokens, maxCalls } = input;
       if (!caller || !model || typeof system !== 'string' || typeof user !== 'string'
         || !PRIORITIES.has(priority)) {
-        return { status: 'invalid', reason: 'invalid Claude call arguments' };
+        return complete({ status: 'invalid', reason: 'invalid Claude call arguments' });
       }
       if (maxCalls !== undefined && (!Number.isInteger(maxCalls) || maxCalls < 0)) {
-        return { status: 'invalid', reason: 'maxCalls must be a non-negative integer' };
+        return complete({ status: 'invalid', reason: 'maxCalls must be a non-negative integer' });
       }
       if (maxInputTokens !== undefined
         && (!Number.isFinite(maxInputTokens) || maxInputTokens < 0)) {
-        return { status: 'invalid', reason: 'maxInputTokens must be non-negative' };
+        return complete({ status: 'invalid', reason: 'maxInputTokens must be non-negative' });
       }
       let schemaJson;
       if (schema !== undefined) {
         if (!schema || typeof schema !== 'object' || Array.isArray(schema)) {
-          return { status: 'invalid', reason: 'schema must be a JSON Schema object' };
+          return complete({ status: 'invalid', reason: 'schema must be a JSON Schema object' });
         }
         try {
           schemaJson = JSON.stringify(schema);
         } catch {
-          return { status: 'invalid', reason: 'schema must be serializable' };
+          return complete({ status: 'invalid', reason: 'schema must be serializable' });
         }
       }
       const calls = callCounts.get(caller) ?? 0;
       if (maxCalls !== undefined && calls >= maxCalls) {
-        return { status: 'capped', reason: 'per-run call cap reached' };
+        return complete({ status: 'capped', reason: 'per-run call cap reached' });
       }
       if (maxInputTokens !== undefined && estimateTokens(system, user) > maxInputTokens) {
-        return { status: 'capped', reason: 'input token cap exceeded' };
+        return complete({ status: 'capped', reason: 'input token cap exceeded' });
       }
       const limitState = await getLimitState(input.limitIssue);
       const tokens = {
@@ -196,14 +198,14 @@ export function createClaudeCaller(options = {}) {
       });
       if (tokenChoice.token === 'none') {
         const resetAt = tokenChoice.resetAt;
-        return {
+        return complete({
           status: 'unavailable',
           reason: 'limit',
           ...(resetAt ? { usage: { ...usageOf(null), resetAt } } : {}),
-        };
+        });
       }
       if (!tokens[tokenChoice.token]) {
-        return { status: 'unavailable', reason: 'Claude subscription token unavailable' };
+        return complete({ status: 'unavailable', reason: 'Claude subscription token unavailable' });
       }
 
       const args = ['-p', '--output-format', 'json', '--safe-mode', '--setting-sources', '',
@@ -244,17 +246,17 @@ export function createClaudeCaller(options = {}) {
             token = 'backup';
             continue;
           }
-          return { status: 'unavailable', reason: 'limit', usage };
+          return complete({ status: 'unavailable', reason: 'limit', usage });
         }
         if (!completed || completed.timedOut || completed.code !== 0) {
           const reason = completed?.timedOut ? 'Claude CLI timed out' : 'Claude CLI unavailable';
-          return { status: 'unavailable', reason, usage };
+          return complete({ status: 'unavailable', reason, usage });
         }
         if (!result) {
-          return { status: 'invalid', reason: 'Claude CLI returned invalid JSON' };
+          return complete({ status: 'invalid', reason: 'Claude CLI returned invalid JSON' });
         }
         if (result.is_error === true) {
-          return { status: 'unavailable', usage, reason: 'Claude CLI reported an error' };
+          return complete({ status: 'unavailable', usage, reason: 'Claude CLI reported an error' });
         }
 
         let data = result.result;
@@ -262,21 +264,21 @@ export function createClaudeCaller(options = {}) {
           try {
             data = result.structured_output ?? JSON.parse(result.result);
           } catch {
-            return { status: 'invalid', usage, reason: 'Claude returned invalid result JSON' };
+            return complete({ status: 'invalid', usage, reason: 'Claude returned invalid result JSON' });
           }
           try {
             if (!schemaMatches(data, schema)) {
-              return { status: 'invalid', usage, reason: 'Claude result missed the schema' };
+              return complete({ status: 'invalid', usage, reason: 'Claude result missed the schema' });
             }
           } catch {
-            return { status: 'invalid', usage, reason: 'Claude result schema was invalid' };
+            return complete({ status: 'invalid', usage, reason: 'Claude result schema was invalid' });
           }
         }
-        return { status: 'ok', data, usage };
+        return complete({ status: 'ok', data, usage });
       }
-      return { status: 'unavailable', reason: 'Claude CLI unavailable' };
+      return complete({ status: 'unavailable', reason: 'Claude CLI unavailable' });
     } catch {
-      return { status: 'unavailable', reason: 'Claude call unavailable' };
+      return complete({ status: 'unavailable', reason: 'Claude call unavailable' });
     } finally {
       if (tempDir) {
         try {
@@ -288,9 +290,7 @@ export function createClaudeCaller(options = {}) {
       for (const attempt of attempts) {
         try {
           await logUsage(usageRow(input, attempt.token, attempt.usage));
-        } catch {
-          // Usage telemetry cannot violate the never-throw caller contract.
-        }
+        } catch { outcome.loggerError = true; }
       }
     }
   };

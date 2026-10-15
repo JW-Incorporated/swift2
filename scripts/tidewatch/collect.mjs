@@ -16,7 +16,7 @@ import { mapNews } from './adapters/news.mjs';
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PAGE = 1000;
-const LOOKUP_PAGE = 100;
+export const LOOKUP_PAGE = 100;
 const CURSOR_OVERLAP_MS = 15 * 60_000;
 const VALID_SOURCES = new Set(['official', 'news', 'youtube', 'intake', 'merch', 'reddit', 'facebook', 'theory', 'social', 'moment']);
 
@@ -84,15 +84,15 @@ export async function liveSources(client, deps = {}) {
     return issuesPromise;
   };
   return [
-    { name: 'news', cursorMode: 'overlap', load: async (since) => mapNews({
+    { name: 'news', watchSource: 'news', cursorMode: 'overlap', load: async (since) => mapNews({
       stories: await fetchRows(client, 'news_story', 'id,canonical_title,summary,first_seen_at', 'first_seen_at', since),
       rawItems: await fetchRows(client, 'news_raw_item', 'id,source_id,external_id,url,title,snippet,story_id,created_at', 'created_at', since),
     }) },
-    { name: 'appearance', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'youtube') },
-    { name: 'intake', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'intake') },
-    ...['reddit', 'facebook'].map((platform) => ({ name: platform, cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'engagement_lead', 'id,platform,community,kind,thread_id,url,locator,title,context,created_at', 'created_at', since)).filter((row) => row.platform === platform).map(mapLead) })),
-    { name: 'theory', cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'fan_theory_candidate', 'id,theory_key,claim,evidence_summary,sample_urls,created_at', 'created_at', since)).map(mapTheory) },
-    ...['official', 'fanmade'].map((kind) => ({ name: `merch-${kind === 'fanmade' ? 'fan' : kind}`, cursorMode: 'none', load: async () => {
+    { name: 'appearance', watchSource: 'youtube', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'youtube') },
+    { name: 'intake', watchSource: 'intake', cursorMode: 'none', load: async () => (await issues()).filter((row) => row.item.source === 'intake') },
+    ...['reddit', 'facebook'].map((platform) => ({ name: platform, watchSource: platform, cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'engagement_lead', 'id,platform,community,kind,thread_id,url,locator,title,context,created_at', 'created_at', since)).filter((row) => row.platform === platform).map(mapLead) })),
+    { name: 'theory', watchSource: 'theory', cursorMode: 'overlap', load: async (since) => (await fetchRows(client, 'fan_theory_candidate', 'id,theory_key,claim,evidence_summary,sample_urls,created_at', 'created_at', since)).map(mapTheory) },
+    ...['official', 'fanmade'].map((kind) => ({ name: `merch-${kind === 'fanmade' ? 'fan' : kind}`, watchSource: 'merch', cursorMode: 'none', load: async () => {
       await requireFullHistory('merch');
       const file = path.join(merchDir, `${kind}.mjs`);
       const mod = await import(pathToFileURL(file).href);
@@ -100,13 +100,13 @@ export async function liveSources(client, deps = {}) {
       const changedAt = await lastCommit(path.relative(ROOT, file));
       return rows.map((row) => mapMerch(row, kind === 'fanmade' ? 'fan' : kind, changedAt));
     } })),
-    { name: 'social-posted', cursorMode: 'none', load: async () => Promise.all((await readdir(postedDir)).filter((file) => file.endsWith('.json')).map(async (file) => mapSocialPost(JSON.parse(await readFile(path.join(postedDir, file), 'utf8')), file))) },
-    { name: 'social-replies', cursorMode: 'none', load: async () => {
+    { name: 'social-posted', watchSource: 'social', cursorMode: 'none', load: async () => Promise.all((await readdir(postedDir)).filter((file) => file.endsWith('.json')).map(async (file) => mapSocialPost(JSON.parse(await readFile(path.join(postedDir, file), 'utf8')), file))) },
+    { name: 'social-replies', watchSource: 'social', cursorMode: 'none', load: async () => {
       const response = await fetch('https://raw.githubusercontent.com/JW-Incorporated/swift2/social-reply-ledger/reply-ledger.json');
       if (!response.ok) throw new Error(`reply ledger read failed: HTTP ${response.status}`);
       return Object.entries((await response.json()).seen ?? {}).map(mapReply);
     } },
-    { name: 'moments', cursorMode: 'none', load: async () => {
+    { name: 'moments', watchSource: 'moment', cursorMode: 'none', load: async () => {
       await requireFullHistory('moments');
       return (await Promise.all((await readdir(contentDir)).filter((file) => file.endsWith('.mjs') && !file.startsWith('_')).map(async (file) => {
       const full = path.join(contentDir, file);
@@ -122,18 +122,19 @@ function fixtureSources(data) {
   const issues = mapIssues(data.issues);
   return [
     { name: 'news', rows: mapNews({ stories: data.newsStories, rawItems: data.newsRawItems }) },
-    { name: 'appearance', rows: issues.filter((row) => row.item.source === 'youtube') },
+    { name: 'appearance', watchSource: 'youtube', rows: issues.filter((row) => row.item.source === 'youtube') },
     { name: 'intake', rows: issues.filter((row) => row.item.source === 'intake') },
     { name: 'reddit', rows: data.engagementLeads.filter((row) => row.platform === 'reddit').map(mapLead) },
     { name: 'facebook', rows: data.engagementLeads.filter((row) => row.platform === 'facebook').map(mapLead) },
     { name: 'theory', rows: data.theories.map(mapTheory) },
-    { name: 'merch-official', rows: data.officialMerch.map((row) => mapMerch(row, 'official', row.changedAt)) },
-    { name: 'merch-fan', rows: data.fanMerch.map((row) => mapMerch(row, 'fan', row.changedAt)) },
-    { name: 'social-posted', rows: data.socialPosts.map((row) => mapSocialPost(row, row.filename)) },
-    { name: 'social-replies', rows: Object.entries(data.replies).map(mapReply) },
-    { name: 'moments', rows: data.moments.map((row) => mapMoment(row, row.eraSlug, row.changedAt)) },
+    { name: 'merch-official', watchSource: 'merch', rows: data.officialMerch.map((row) => mapMerch(row, 'official', row.changedAt)) },
+    { name: 'merch-fan', watchSource: 'merch', rows: data.fanMerch.map((row) => mapMerch(row, 'fan', row.changedAt)) },
+    { name: 'social-posted', watchSource: 'social', rows: data.socialPosts.map((row) => mapSocialPost(row, row.filename)) },
+    { name: 'social-replies', watchSource: 'social', rows: Object.entries(data.replies).map(mapReply) },
+    { name: 'moments', watchSource: 'moment', rows: data.moments.map((row) => mapMoment(row, row.eraSlug, row.changedAt)) },
   ].map((source) => ({
     name: source.name,
+    watchSource: source.watchSource ?? source.name,
     cursorMode: ['news', 'reddit', 'facebook', 'theory'].includes(source.name) ? 'overlap' : 'none',
     load: async () => source.rows,
   }));
@@ -159,6 +160,14 @@ function nextCursor(candidates, current) {
 
 export async function runCollector(sources, store, { dryRun = false, since, log = console.log, now = Date.now() } = {}) {
   const results = [];
+  const groupSizes = new Map();
+  const completedByWatchSource = new Map();
+  const baselineByWatchSource = new Map();
+  const observedAt = new Date(now).toISOString();
+  for (const source of sources) {
+    const watchSource = source.watchSource ?? source.name;
+    groupSizes.set(watchSource, (groupSizes.get(watchSource) ?? 0) + 1);
+  }
   for (const source of sources) {
     try {
       const usesCursor = source.cursorMode !== 'none';
@@ -182,16 +191,28 @@ export async function runCollector(sources, store, { dryRun = false, since, log 
       }
       const existing = await store.existingKeys(rows.map((row) => row.item.item_key));
       const fresh = rows.filter((row) => !existing.has(row.item.item_key));
+      const watchSource = source.watchSource ?? source.name;
+      if (!baselineByWatchSource.has(watchSource)) {
+        const marker = await store.getCursor(`baseline:${watchSource}`);
+        baselineByWatchSource.set(watchSource, marker === null);
+      }
+      const baseline = baselineByWatchSource.get(watchSource);
+      if (baseline) log(`baseline: ${source.name} ${fresh.length}`);
       if (!dryRun && rows.length) {
-        const observedAt = new Date(now).toISOString();
         await store.upsertItems(rows.map((row) => ({
           ...row.item,
+          ...(baseline ? { status: 'historical' } : {}),
           last_seen_at: compareCodeUnits(observedAt, row.item.first_seen_at) >= 0
             ? observedAt
             : row.item.first_seen_at,
         })), existing);
-        await store.upsertTimelines(rows.map((row) => ({ story_id: row.item.story_id, detected_at: row.item.first_seen_at })));
+        if (!baseline) await store.upsertTimelines(rows.map((row) => ({ story_id: row.item.story_id, detected_at: row.item.first_seen_at })));
         if (usesCursor) await store.setCursor(source.name, nextCursor(eligible, cursor));
+      }
+      const completed = (completedByWatchSource.get(watchSource) ?? 0) + 1;
+      completedByWatchSource.set(watchSource, completed);
+      if (!dryRun && baseline && completed === groupSizes.get(watchSource)) {
+        await store.setCursor(`baseline:${watchSource}`, observedAt);
       }
       const result = { source: source.name, read: rows.length, inserted: fresh.length, errors: 0 };
       results.push(result);
@@ -228,8 +249,8 @@ export function supabaseStore(client) {
         const { error } = await client.from('watch_item').upsert(fresh.slice(i, i + PAGE), { onConflict: 'item_key', ignoreDuplicates: true });
         if (error) throw error;
       }
-      for (let i = 0; i < existing.length; i += PAGE) {
-        const batch = existing.slice(i, i + PAGE);
+      for (let i = 0; i < existing.length; i += LOOKUP_PAGE) {
+        const batch = existing.slice(i, i + LOOKUP_PAGE);
         const stamps = new Set(batch.map((row) => row.last_seen_at));
         if (stamps.size !== 1) throw new Error('existing item batch has inconsistent last_seen_at values');
         const { error } = await client.from('watch_item')
