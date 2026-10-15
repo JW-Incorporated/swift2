@@ -12,11 +12,11 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | doing |  |  |
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
-| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | doing |  |  |
+| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | review | #5816 |  |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | todo |  |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | todo |  |  |
-| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | todo |  |  |
+| P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | doing |  |  |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | todo |  |  |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | doing |  |  |
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | todo |  |  |
@@ -26,7 +26,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | doing |  |  |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
-| P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | todo |  |  |
+| P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
 | P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | todo |  |  |
 
@@ -131,6 +131,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 21:25 PM: wave 1 dispatched, 5 in flight. Codex (sol high, worktrees under %LOCALAPPDATA%\longlive-wt): P0-01, P0-09. Claude: P0-14 (executor, Opus), P0-03 (executor, Sonnet), and a grunt fixing the failing checks on plan-docs PR #5813 (build-full, CodeQL), which also blocks this branch's PR #5815. Flow for every item: worker pushes its branch, a Claude reviewer reviews the branch, then the reviewer opens the PR and arms auto-merge. Heartbeat cron armed at :13 and :43 (session-only).
 
 - 2026-10-14 21:24 PM: #5813 red fixed by grunt (eslint ignore for `docs/plans/**/dashboard/**`, a7e97fc6f; CodeQL regex `i` flag in dashboard/build.mjs, e4cdb2358); CI rerun pending. P0-11 dispatched (Codex sol xhigh). Call: P0-11's second opinion is an adversarial Claude reviewer, not `codex:rescue`, because Codex wrote it (a Codex second opinion would be self-review).
+- 2026-10-14 21:27 PM: P0-03 reviewer APPROVE → PR #5816, auto-merge armed (verified). Post-merge: confirm a social-only PR runs build-content, then `gh pr update-branch` armed PRs (ci.yml change). P0-07 dispatched (Codex sol medium). P0-17 marked done: the planning session already published Artifact v4 with the Plan and Tracking tabs, target flow and corrections (jsdom smoke, per STATE.md 21:40); the store write path is proven by this session's ArtifactData writes. Follow-up only: the Decisions tab does not show Joey's answers yet.
 
 ## Next actions
 
