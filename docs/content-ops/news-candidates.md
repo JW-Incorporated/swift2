@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 70
+
+## Al Michaels Comments on Taylor Swift's NFL Game Appearances
+
+- first seen: 2026-10-15 05:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Al Michaels has voiced his concerns regarding networks excessively featuring Taylor Swift during NFL broadcasts. His remarks highlight a broader discussion on celebrity appearances in sports media.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYXJpbFhMR0ctRnJ1ZWtZX3JqVkRaX09zamhveFRKWndJenlSNHFjQnVVN081b3Fhak0yUlptRWE1OXliem5RWmpTWkswa2toNEVpVzBaSTg2d3RJYXlCcUN0VGhGRENlZzcyZ0xvQ2xHeVUzXzhvaVVldlRUZUtreE9SdllPWVE0Yy00?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
+
+- first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
+- sources:
+  - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Expands Voice Trademark Filings Globally
+
+- first seen: 2026-10-15 05:52 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has extended her voice trademark filings to the UK, EU, and Australia as a response to concerns regarding AI deepfakes. This move reflects her proactive approach in protecting her intellectual property in multiple regions.
+- sources:
+  - [unverified] Music Business Worldwide — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQQ1J2R0FEVXQzVFRSVG1WZEVwRGktT3dDUWJGVlFkRDdpT1VoYzZ4R1RRSkx4THp5WVYyaGVaZUFLejJrZ1ZscFVJNGNOOHpqTDVHdW5rT3FjNGVwVmdYbDRYTUdqMjlKdUtYQ05Kd1BXQXY3dkFMc3NrRGpkZERRRkpMTlVKMTY2RXVybVR0cmVvVzRsSmlBcUk1M2FITEhxTmNXWC05MGMwdks1WDd3Q09GMWRWTHU4bjU5cE9qRENDVlhaMWFSM3V3MUlnd2xmcFpFQw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Backstreet Boys Break Rogers Centre Record Previously Held by Taylor Swift
 
@@ -586,19 +610,3 @@ Stories: 69
 - summary: Taylor Swift has reached a milestone of 100 weeks at the top of the Billboard 200 chart, as reported by Country Insider. This achievement highlights her continued success in the music industry.
 - sources:
   - [unverified] Country Insider — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQLTBpLXdHZ0kyOFE2X1JtRGlqUnVhX251MGFnNEt3X2ZaUFVyNlNvUHV4Szk2N2NDZ19jby1kNzFuZm5MM3hfUWZHUjBpcmNueXFrbTVQZk5WMXY3d1lWLUsxOVh0WmlzWHg1NUJDVWkzS1pnNXdfRDhwVmh2ekxNQTZGVTlwSkp3X0J3Uk1hZ0ZPSDF2U29IWTdkVERqUnY4VTAwc1VKWFFUOGc4NTZSRUhUR28xUS0tallFN2p2WWFzcXh5NTQxWnRJYlE0ZnlC?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Celebrate Birthday with Date Night
-
-- first seen: 2026-10-12 00:29 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen together for a birthday date night, as captured in new photos. The couple's outing has garnered attention from fans and media alike.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeHZtRGlON3Q4bk1Fektmb0I1V0IzbTg4MGFhaDVkVnZ1b2FnSms1NmhYcjJ1NTgzS2FhMUhGSnZDaEJkV2JzaUxWVDhIZ1BxenJRX2xzU2d1V1ZKYkQ2MGtDVXVVRnF5NGI5T2lRci1NQU1CSzZ5Q2psWG5oSnJINzFIbTQ2enMxYkRyczBRYTdXazZQRjlFaFEwWmZOX3hmRWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details on Taylor Swift and Travis Kelce’s Pennsylvania Property Emerged
-
-- first seen: 2026-10-12 00:29 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: New information reveals that Taylor Swift and Travis Kelce are working on a larger project for their Pennsylvania property.
-- sources:
-  - [unverified] DeuxMoi.world — https://news.google.com/rss/articles/CBMiogFBVV95cUxOT1NPVWNQdndJR051WGZLYXBWMmRLTlNWb04xSS1ya3pGTjF5c0dieDVkaXVqdnM0OXljTkJtQW9LZWlraHM1Qy02R1I0aEs0Y21MbVktLXlqUmpNWUVDUmdMUWNOY2lUX1BJdmhsOWFZcF81aWluRXV0aW5nQTZOODlIMUNuTFVqZ1N3U1NfUXhmWHh0dzZJWTdWczJ4LUI2cUE?oc=5&hl=en-US&gl=US&ceid=US:en
