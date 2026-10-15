@@ -167,6 +167,17 @@ on:
         required: false
         type: string
         default: ""
+      usage_artifact_suffix:
+        description: |
+          Optional (default "" = the usage artifact is named exactly `routine-usage`,
+          unchanged for every existing caller). A caller that runs this template
+          more than once in ONE workflow run (the Vault Run: judgment + craft)
+          passes a distinct suffix per call, so the artifact is
+          `routine-usage-<suffix>` and the second upload does not 409 against the
+          first. turn-ledger.mjs and fleet-telemetry-snapshot.mjs read both forms.
+        required: false
+        type: string
+        default: ""
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -339,7 +350,7 @@ jobs:
         timeout-minutes: 2
         uses: actions/upload-artifact@v7
         with:
-          name: routine-usage
+          name: routine-usage${{ inputs.usage_artifact_suffix != '' && format('-{0}', inputs.usage_artifact_suffix) || '' }}
           path: routine-usage.json
           if-no-files-found: ignore
           retention-days: 90

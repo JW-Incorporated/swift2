@@ -37,6 +37,15 @@ on:
     - cron: "7 16 * * *" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
 
+# One run at a time: a dispatch during the scheduled run (or the reverse) would
+# otherwise interleave on the same vault/<date> branch. This workflow-level
+# group (routine-vault-run) cannot collide with the per-job groups the
+# template sets (routine-<routine_name>: "routine-The Vault Run (judgment)",
+# "... (craft)", and publish below), so there is no deadlock.
+concurrency:
+  group: routine-vault-run
+  cancel-in-progress: false
+
 permissions:
   contents: write
   issues: write
@@ -55,6 +64,7 @@ jobs:
       timeout_minutes: 60
       max_turns: 100
       checkout_token_secret: SOCIAL_POSTER_PAT
+      usage_artifact_suffix: judgment
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
@@ -74,6 +84,7 @@ jobs:
       timeout_minutes: 60
       max_turns: 100
       checkout_token_secret: SOCIAL_POSTER_PAT
+      usage_artifact_suffix: craft
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}

@@ -65,8 +65,11 @@ becoming its own failure mode:
    always find `vault/<date>`: `git fetch origin <their-branch>`,
    `git checkout -b vault/<date> origin/<their-branch>` (if their branch IS
    `vault/<date>`, just check it out), merge `origin/main`, diagnose, fix, push
-   `vault/<date>`, and comment what you fixed. Open today's PR from it (the
-   adopted work rides along), then close the stranded PR with a comment naming
+   `vault/<date>`, and comment what you fixed. **Push the adopted
+   `vault/<date>` branch only after the fix passes `npm run validate:content`;
+   if it does not, leave the stranded PR open, push nothing, and report why.**
+   Open today's PR from it (the adopted work rides along) and copy every
+   `Closes #<n>` line from the stranded PR's body into the new PR body, then close the stranded PR with a comment naming
    the new PR — its commits are contained in the new branch. Today's lanes run
    on `vault/<date>` and the one PR carries both days. The push re-arms
    auto-merge automatically — `auto-merge-content.yml` fires on `synchronize`.
@@ -169,7 +172,8 @@ it and leave the lane's content in place.
    `vault: regenerate`, and opens or updates the PR. Do not run `npm run
    build`, and do not run the full suite yourself.
    - If the gate fails after you exit, the PR still opens; CI's `build` job is
-     the merge authority and tomorrow's judgment job adopts it under STEP 0.
+     the merge authority. The publish job does not fix or revert a failing
+     lane: the failure waits for the next run's STEP 0, which adopts it.
    - **Content-invariant failures:** see the section below; never relax a
      threshold to go green.
    - `lint` reporting `Duplicate key` means the `focalPoint` bug: remove the
