@@ -98,13 +98,13 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-10-14 — Tidewatch D7: the Facebook export stores post permalinks and reads the owner's activity log; daily for the top 3 groups
 
-**Decision (Joey, in chat, 2026-10-14).** The Facebook export stores post permalinks and reads the owner's own activity log. No member names or verbatim quotes are stored. Cadence: daily for the top 3 groups, weekly for the rest. Comments stay hand-posted.
+**Decision (Joey, in chat, 2026-10-14).** The Facebook export stores post permalinks and reads the owner's own activity log. The new activity-log data stores no member names and no verbatim quotes; existing Facebook export rules — the hashed-authors guarantee (2026-08-25) and the 80-char engagement_lead excerpt (2026-10-04) — are unchanged. Cadence: daily for the top 3 groups, weekly for the rest. Comments stay hand-posted.
 
 **Alternative rejected.** Weekly exports for every group without permalinks (status quo).
 
 **Why.** Weekly exports arrive after the conversation is over; this is the smallest risk increase that fixes it (plan §H).
 
-**What it changes.** P1-16 adds permalinks, the activity-log read and the daily cadence. The hashed-authors guarantee (2026-08-25) is unchanged; nothing in the export posts or comments.
+**What it changes.** P1-16 adds permalinks, the activity-log read and the daily cadence. The hashed-authors guarantee (2026-08-25) is unchanged; nothing in the export posts or comments. The 80-char excerpt rule (2026-10-04) is also unchanged.
 
 **Approved by.** Joey (owner), in chat, 2026-10-14.
 
