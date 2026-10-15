@@ -441,6 +441,12 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `apps/web/app/internal/notifications/page.tsx` | The internal metrics dashboard — server-rendered, same `?secret=` gate, shows an honest "no data yet" state before real traffic |
 | `scripts/generate-vapid-keys.mjs` | `node scripts/generate-vapid-keys.mjs` — thin wrapper around `web-push`'s own VAPID keypair generator |
 
+## Notification push safety (P0-11)
+
+| Path | What |
+|---|---|
+| `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
+
 
 
 

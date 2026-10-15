@@ -17,6 +17,8 @@ function makeFakeDb(fixture: {
   notificationPrefs: Array<{ device_id: string; category: string; cadence: string }>;
   devices: Array<Record<string, unknown>>;
   deliveries: Array<{ device_id: string; category: string; kind: string; sent_at: string }>;
+  opsSwitches?: Array<{ name: string; enabled: boolean }>;
+  opsSwitchError?: { message: string };
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
   const clearedTokenDeviceIds: string[] = [];
@@ -61,12 +63,21 @@ function makeFakeDb(fixture: {
       return api;
     }) as (...args: unknown[]) => unknown;
     api.limit = (() => api) as (...args: unknown[]) => unknown;
+    api.maybeSingle = (async () => {
+      const result = runQuery();
+      if (result.error) return result;
+      return { data: result.data?.[0] ?? null, error: null };
+    }) as (...args: unknown[]) => unknown;
     api.then = ((resolve: (v: unknown) => void) => {
       // Makes `api` awaitable directly (router does `await db.from(...).select...`).
       resolve(runQuery());
     }) as (...args: unknown[]) => unknown;
 
     function source(): Array<Record<string, unknown>> {
+      if (table === 'ops_switches')
+        return (fixture.opsSwitches ?? [
+          { name: 'PUSH_FREEZE', enabled: false },
+        ]) as Array<Record<string, unknown>>;
       if (table === 'events') return fixture.events;
       if (table === 'notification_prefs')
         return fixture.notificationPrefs as unknown as Array<Record<string, unknown>>;
@@ -77,6 +88,9 @@ function makeFakeDb(fixture: {
     }
 
     function runQuery() {
+      if (table === 'ops_switches' && fixture.opsSwitchError) {
+        return { data: null, error: fixture.opsSwitchError };
+      }
       const rows = source().filter((row) => state.filters.every((f) => f(row)));
       if (state.countOnly) return { count: rows.length, error: null };
       return { data: rows, error: null };
@@ -123,6 +137,49 @@ function device(overrides: Record<string, unknown> = {}) {
 }
 
 describe('dispatchPendingEvents', () => {
+  it('sends nothing and logs why when PUSH_FREEZE is on', async () => {
+    const db = makeFakeDb({
+      events: [],
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [],
+      opsSwitches: [{ name: 'PUSH_FREEZE', enabled: true }],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+    const logSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const result = await dispatchPendingEvents(db);
+
+    expect(result.sent).toBe(0);
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith(
+      'notification-router: PUSH_FREEZE is on; dispatch skipped',
+    );
+  });
+
+  it('fails safe and sends nothing when PUSH_FREEZE cannot be read', async () => {
+    const db = makeFakeDb({
+      events: [],
+      notificationPrefs: [],
+      devices: [],
+      deliveries: [],
+      opsSwitchError: { message: 'unavailable' },
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+    const logSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const result = await dispatchPendingEvents(db);
+
+    expect(result.sent).toBe(0);
+    expect(result.errors).toContain(
+      'PUSH_FREEZE could not be read; dispatch skipped: unavailable',
+    );
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith(
+      'notification-router: PUSH_FREEZE could not be read; dispatch skipped: unavailable',
+    );
+  });
+
   it('ACCEPTANCE: a song_drop event delivers to an opted-in device once', async () => {
     const now = new Date('2026-01-15T20:00:00Z'); // 12:00 PST, outside quiet hours
     const db = makeFakeDb({

@@ -241,7 +241,9 @@ export async function writeCurrentItem(
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
   const id = data.id as string;
-  await emitLaunchCategoryEvent(db, id, item);
+  if (quality.ok && row.redline_ok) {
+    await emitLaunchCategoryEvent(db, id, item);
+  }
   return { id, redlineOk: quality.ok, expiresAt: itemExpiresAt, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }
 

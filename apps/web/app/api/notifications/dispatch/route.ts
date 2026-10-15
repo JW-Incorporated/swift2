@@ -6,6 +6,7 @@ import {
   dispatchFunNotifications,
   scheduleCountdownsForPendingEvents,
   dispatchDueCountdowns,
+  readPushFreeze,
   runCooldownPass,
 } from '@swift2/core/notifications-server';
 import { supabaseAdmin } from '../../../../lib/supabase-server';
@@ -34,6 +35,16 @@ import { trackKeyForLyricSlug } from '../../../../lib/longlive/lyric-track-key';
 // client-callable route with just the anon key.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const PUSH_SENDING_PASSES = [
+  'router',
+  'digests',
+  'clownReports',
+  'fun',
+  'countdownSchedule',
+  'countdownDispatch',
+  'cooldown',
+] as const;
 
 function authorized(req: Request): boolean {
   const expected = process.env.CRON_SECRET;
@@ -68,6 +79,25 @@ export async function GET(req: Request): Promise<Response> {
     return NextResponse.json(
       { error: 'Notifications dispatch isn\u2019t wired up in this environment yet.' },
       { status: 503 },
+    );
+  }
+
+  const pushFreeze = await readPushFreeze(db);
+  if (pushFreeze.state === 'unreadable') {
+    const reason = pushFreeze.reason ?? 'switch row is missing';
+    console.warn(`notifications/dispatch: PUSH_FREEZE unreadable; all passes skipped: ${reason}`);
+    return NextResponse.json(
+      { error: `PUSH_FREEZE could not be read: ${reason}` },
+      { status: 503 },
+    );
+  }
+  if (pushFreeze.state === 'frozen') {
+    console.warn(
+      `notifications/dispatch: PUSH_FREEZE is on; skipped passes: ${PUSH_SENDING_PASSES.join(', ')}`,
+    );
+    return NextResponse.json(
+      { frozen: true, skippedPasses: PUSH_SENDING_PASSES },
+      { status: 200 },
     );
   }
 
