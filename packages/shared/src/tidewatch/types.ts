@@ -63,7 +63,7 @@ export interface StoryTimelineRow {
   push_at: string | null;
 }
 
-export type LlmUsageProvider = 'jev' | 'claude';
+export type LlmUsageProvider = 'jev' | 'claude' | 'claude-subscription';
 export type LlmUsageToken = 'primary' | 'backup' | null;
 
 export interface LlmUsageRow {
@@ -75,6 +75,7 @@ export interface LlmUsageRow {
   input_tokens: number;
   output_tokens: number;
   cache_read_tokens: number;
+  cache_creation_input_tokens: number | null;
   calls: number;
   est_cost_usd: number | null;
   created_at: string;
