@@ -94,6 +94,7 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
+| `scripts/watchdog/push-dispatch-heartbeat.mjs` (+ `.test.ts`) | Reads the push dispatch heartbeat from `ops_switches`; no row is pre-live/quiet, stale and DB-unknown states alert through `watchdog.yml` |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
 | `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from the train state file; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
 | `scripts/release/train-lib.mjs` (+ `.test.ts`), `train-plan.mjs`, `train-wait.mjs` | Release train, run from GitHub Actions since 2026-10-03 (HA #98): fingerprint + existing-build plan, build polling, state file, iOS submit gate; replaces the retired EAS workflow (see docs/mobile-release.md) |
