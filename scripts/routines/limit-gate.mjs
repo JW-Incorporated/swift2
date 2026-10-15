@@ -2,6 +2,7 @@
 import { appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { selectClaudeToken } from '../lib/claude-token.mjs';
 
 const LABEL = 'claude-weekly-limit';
 const FALLBACK_MS = 6 * 60 * 60 * 1000;
@@ -20,7 +21,12 @@ function bodyValue(body, key) {
 export function issueReset(issue, { now = new Date() } = {}) {
   const current = dateOrNull(now) ?? new Date();
   const reset = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-reset'));
-  if (reset) return { resetAt: reset.toISOString(), fallback: false };
+  const backupReset = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-reset-backup'));
+  if (reset) return {
+    resetAt: reset.toISOString(),
+    ...(backupReset ? { backupResetAt: backupReset.toISOString() } : {}),
+    fallback: false,
+  };
 
   const detected = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-detected'));
   const created = dateOrNull(issue?.createdAt ?? issue?.created_at);
@@ -37,22 +43,32 @@ export function issueReset(issue, { now = new Date() } = {}) {
 }
 
 /** Pure decision used by the workflow entry point and unit tests. */
-export function decideLimitGate({ issues = [], now = new Date(), priority, routinesPaused } = {}) {
+export function decideLimitGate({ issues = [], now = new Date(), priority, routinesPaused, hasBackup } = {}) {
   if (routinesPaused === true || routinesPaused === 'true') {
     return { skip: true, message: 'skipped: routines paused' };
   }
-  if (issues.length === 0) return { skip: false, message: null };
+  if (issues.length === 0) {
+    return { skip: false, message: null };
+  }
 
   const issue = [...issues].sort((a, b) => Number(a.number) - Number(b.number))[0];
   const reset = issueReset(issue, { now });
   if (new Date(reset.resetAt) <= new Date(now)) {
     return { skip: false, message: null, closeIssueNumber: issue.number };
   }
-  if (priority === 'content') return { skip: false, message: null };
-  return {
-    skip: true,
-    message: `skipped: weekly limit until ${reset.resetAt}`,
+  const decision = selectClaudeToken({
+    limitState: {
+      resetAt: reset.resetAt,
+      backupResetAt: new Date(reset.backupResetAt) > new Date(now) ? reset.backupResetAt : null,
+    },
+    hasBackup,
+    priority,
+  });
+  const gate = {
+    skip: decision.token === 'none',
+    message: decision.token === 'primary' ? null : decision.reason,
   };
+  return decision.token === 'backup' ? { ...gate, token: 'backup' } : gate;
 }
 
 export function failOpenGate() {
@@ -76,16 +92,21 @@ async function githubRequest(pathname, { body, method = 'GET', token } = {}) {
   return response.status === 204 ? null : response.json();
 }
 
-async function writeSkip(skip) {
+async function writeOutput(name, value) {
   if (process.env.GITHUB_OUTPUT) {
-    await appendFile(process.env.GITHUB_OUTPUT, `skip=${skip}\n`, 'utf8');
+    await appendFile(process.env.GITHUB_OUTPUT, `${name}=${value}\n`, 'utf8');
   }
+}
+
+async function writeGateOutputs(decision) {
+  await writeOutput('skip', decision.skip);
+  if (decision.token) await writeOutput('token', decision.token);
 }
 
 async function main() {
   if (process.env.ROUTINES_PAUSED === 'true') {
     console.log('skipped: routines paused');
-    await writeSkip(true);
+    await writeGateOutputs({ skip: true });
     return;
   }
 
@@ -102,6 +123,7 @@ async function main() {
       issues,
       priority: process.env.ROUTINE_PRIORITY,
       routinesPaused: process.env.ROUTINES_PAUSED,
+      hasBackup: process.env.HAS_BACKUP === 'true',
     });
     if (decision.closeIssueNumber) {
       await githubRequest(`${base}/issues/${decision.closeIssueNumber}`, {
@@ -111,11 +133,11 @@ async function main() {
       });
     }
     if (decision.message) console.log(decision.message);
-    await writeSkip(decision.skip);
+    await writeGateOutputs(decision);
   } catch {
     const decision = failOpenGate();
     console.log(decision.message);
-    await writeSkip(decision.skip);
+    await writeGateOutputs(decision);
   }
 }
 

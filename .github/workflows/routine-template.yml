@@ -34,7 +34,7 @@ on:
         required: true
         type: string
       priority:
-        description: "Routine priority; only 'content' runs through an active weekly limit"
+        description: "Routine priority; accepted values: 'content', 'P0', 'P1', 'P2', 'P3', or 'routine' (default). Only 'content', 'P0', and 'P1' run through an active weekly limit."
         required: false
         type: string
         default: "routine"
@@ -170,6 +170,8 @@ on:
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
+      CLAUDE_CODE_OAUTH_TOKEN_BACKUP:
+        required: false
       SOCIAL_POSTER_PAT:
         required: false
       ANTHROPIC_API_KEY:
@@ -231,6 +233,7 @@ jobs:
         run: node scripts/routines/limit-gate.mjs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HAS_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP != '' }}
           ROUTINE_PRIORITY: ${{ inputs.priority }}
           ROUTINES_PAUSED: ${{ vars.ROUTINES_PAUSED }}
 
@@ -264,7 +267,7 @@ jobs:
         continue-on-error: true # outcome decided by "Decide routine outcome" below
         uses: anthropics/claude-code-action@v1
         with:
-          claude_code_oauth_token: ${{ env.ROUTINE_CLAUDE_TOKEN }}
+          claude_code_oauth_token: ${{ steps.guard.outputs.token == 'backup' && secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP || env.ROUTINE_CLAUDE_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.disallowed_tools != '' && format(' --disallowedTools ''{0}''', inputs.disallowed_tools) || '' }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
@@ -286,6 +289,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STEP_OUTCOME: ${{ steps.claude.outcome }}
           MAX_TURNS: ${{ inputs.max_turns }}
+          TOKEN_SOURCE: ${{ steps.guard.outputs.token || 'primary' }}
           EXECUTION_FILE: ${{ steps.claude.outputs.execution_file || format('{0}/claude-execution-output.json', runner.temp) }}
 
       - name: Upload post-run artifact from .scratch/out/
@@ -322,6 +326,7 @@ jobs:
           ROUTINE_MODEL: ${{ inputs.model }}
           MAX_TURNS: ${{ inputs.max_turns }}
           EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+          ROUTINE_TOKEN_POOL: ${{ steps.guard.outputs.token || 'primary' }}
           ROUTINE_USAGE_OUT: ${{ github.workspace }}/routine-usage.json
 
       # `if-no-files-found: ignore` only covers an ABSENT file — a real

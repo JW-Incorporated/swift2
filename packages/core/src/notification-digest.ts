@@ -109,19 +109,22 @@ interface QueueRow {
 interface EventTitleRow {
   id: string;
   title: string;
+  expires_at: string | null;
 }
 
 const DEVICE_BATCH_LIMIT = 500;
+const SENT_QUEUE_WITHOUT_EXPIRY_AT = '9999-12-31T23:59:59.999Z';
 
 /**
  * One dispatch pass: finds every device with at least one due
  * (`scheduled_for <= now`) `digest_queue` row, builds ONE merged push per
  * (device, cadence) pair — never one per category, per spec's non-
  * negotiable requirement — sends it, logs a single `deliveries` row
- * (`kind: 'digest'`), and clears the queued rows. A device with rows due
- * under both `daily` and `weekly` at the same tick gets two separate
- * pushes (they're genuinely different cadences the user opted into
- * separately), never merged with each other.
+ * (`kind: 'digest'`), and moves each queued row to the event's expiry as a
+ * durable sent marker. A device with rows due under both `daily` and
+ * `weekly` at the same tick gets two separate pushes (they're genuinely
+ * different cadences the user opted into separately), never merged with
+ * each other.
  */
 export async function dispatchDueDigests(
   db: SupabaseClient,
@@ -174,19 +177,40 @@ export async function dispatchDueDigests(
   const eventIds = [...new Set(rows.map((r) => r.event_id))];
   const { data: eventRows, error: eventError } = await db
     .from('events')
-    .select('id,title')
+    .select('id,title,expires_at')
     .in('id', eventIds);
   if (eventError) {
     result.errors.push(`could not load events: ${eventError.message}`);
     return result;
   }
-  const titleByEventId = new Map(
-    ((eventRows ?? []) as EventTitleRow[]).map((e) => [e.id, e.title]),
+  const eventsById = new Map(
+    ((eventRows ?? []) as EventTitleRow[]).map((event) => [event.id, event]),
   );
 
   for (const [key, groupRows] of groups) {
     result.devicesConsidered++;
-    const device = devicesById.get(groupRows[0]?.device_id ?? '');
+    const expiredRows = groupRows.filter((row) => {
+      const expiresAt = eventsById.get(row.event_id)?.expires_at;
+      return expiresAt ? new Date(expiresAt).getTime() <= now.getTime() : false;
+    });
+    if (expiredRows.length > 0) {
+      const { error: clearError } = await db
+        .from('digest_queue')
+        .delete()
+        .eq('device_id', groupRows[0]?.device_id ?? '')
+        .in(
+          'event_id',
+          expiredRows.map((row) => row.event_id),
+        );
+      if (clearError) {
+        result.errors.push(`expired digest_queue clear failed: ${clearError.message}`);
+      }
+    }
+
+    const activeRows = groupRows.filter((row) => !expiredRows.includes(row));
+    if (activeRows.length === 0) continue;
+
+    const device = devicesById.get(activeRows[0]?.device_id ?? '');
     if (!device) continue;
     if (!device.master_enabled) {
       result.digestsSkippedMasterOff++;
@@ -212,10 +236,10 @@ export async function dispatchDueDigests(
       continue;
     }
 
-    const cadence = groupRows[0]?.cadence as DigestCadence;
-    const items: DigestQueueItem[] = groupRows.map((r) => ({
+    const cadence = activeRows[0]?.cadence as DigestCadence;
+    const items: DigestQueueItem[] = activeRows.map((r) => ({
       category: r.category as AnyNotificationCategory,
-      title: titleByEventId.get(r.event_id) ?? r.category,
+      title: eventsById.get(r.event_id)?.title ?? r.category,
     }));
     const body = buildDigestBody(cadence, items);
 
@@ -243,13 +267,18 @@ export async function dispatchDueDigests(
       });
       if (deliveryError) result.errors.push(`delivery log insert failed: ${deliveryError.message}`);
 
-      const eventIdsInGroup = groupRows.map((r) => r.event_id);
-      const { error: clearError } = await db
+      // Keep one row per (device, event) as a durable sent marker. Moving
+      // it to the event's expiry keeps it out of due queries while the
+      // router's conflict-ignoring enqueue cannot recreate it. At expiry,
+      // the normal due pass above removes it without sending.
+      const sentMarkers = activeRows.map((row) => ({
+        ...row,
+        scheduled_for: eventsById.get(row.event_id)?.expires_at ?? SENT_QUEUE_WITHOUT_EXPIRY_AT,
+      }));
+      const { error: markError } = await db
         .from('digest_queue')
-        .delete()
-        .eq('device_id', device.id)
-        .in('event_id', eventIdsInGroup);
-      if (clearError) result.errors.push(`digest_queue clear failed: ${clearError.message}`);
+        .upsert(sentMarkers, { onConflict: 'device_id,event_id' });
+      if (markError) result.errors.push(`digest_queue sent marker failed: ${markError.message}`);
     } else {
       result.sendFailures++;
       result.errors.push(

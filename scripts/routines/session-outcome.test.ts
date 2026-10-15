@@ -8,6 +8,7 @@ import {
   resultDetail,
   weeklyLimitInfo,
   weeklyLimitIssueBody,
+  weeklyLimitIssueUpdate,
 } from './session-outcome.mjs';
 
 const log = (result: object) => JSON.stringify([{ type: 'system' }, { type: 'result', ...result }]);
@@ -210,6 +211,39 @@ describe('weekly limit outcome', () => {
     ).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
   });
 
+  it('adds a backup reset without changing the primary reset', () => {
+    const body = weeklyLimitIssueBody({
+      detectedAt: '2026-10-14T20:10:43.000Z',
+      resetAt: '2026-10-14T23:00:00.000Z',
+      parsed: true,
+      backupResetAt: '2026-10-15T01:00:00.000Z',
+      existingBody: 'claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z\nclaude-weekly-limit-detected: unchanged',
+    });
+    expect(body).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
+    expect(body).toContain('claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z');
+  });
+
+  it('preserves a backup reset when the primary rewrites the issue', () => {
+    expect(weeklyLimitIssueBody({
+      detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true,
+      existingBody: 'claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z',
+    })).toContain('claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z');
+  });
+
+  it('does not create or rewrite an issue for an unpaired backup limit', () => {
+    const limit = { detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true };
+    expect(weeklyLimitIssueUpdate(limit, [], 'backup').warning).toContain('leaving issue state unchanged');
+    expect(weeklyLimitIssueUpdate(limit, [{ number: 1, body: '', title: 'existing' }], 'backup').warning).toContain('leaving issue state unchanged');
+  });
+
+  it('keeps the issue title for a backup limit', () => {
+    const update = weeklyLimitIssueUpdate(
+      { detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-15T01:00:00.000Z', parsed: true },
+      [{ number: 1, body: 'claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z', title: 'primary reset' }], 'backup',
+    );
+    expect(update.title).toBe('primary reset');
+  });
+
   it('keeps the oldest issue and closes later duplicate issue races', () => {
     const { keeper, duplicates } = dedupeWeeklyLimitIssues([
       { number: 102 },
@@ -235,8 +269,10 @@ describe('routine-template.yml', () => {
     expect(yml).toContain('steps.claude.outcome');
   });
 
-  it('selects the Claude OAuth token once for future fallback handling', () => {
-    expect(yml.match(/secrets\.CLAUDE_CODE_OAUTH_TOKEN/g)).toHaveLength(1);
-    expect(yml).toContain('claude_code_oauth_token: ${{ env.ROUTINE_CLAUDE_TOKEN }}');
+  it('selects the Claude OAuth token once from the guard output', () => {
+    expect(yml.match(/secrets\.CLAUDE_CODE_OAUTH_TOKEN(?!_)/g)).toHaveLength(1);
+    expect(yml).toContain("claude_code_oauth_token: ${{ steps.guard.outputs.token == 'backup' && secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP || env.ROUTINE_CLAUDE_TOKEN }}");
+    expect(yml).not.toContain('ROUTINE_CLAUDE_BACKUP_TOKEN');
+    expect(yml).toContain("HAS_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP != '' }}");
   });
 });
