@@ -116,6 +116,6 @@ html=html.slice(0,a)+fs.readFileSync('flow.js','utf8')+html.slice(b);
 {const s=html.indexOf('<!-- PLAN -->'), e=html.indexOf('<!-- AUTOMATIONS -->'); if(s<0||e<0) throw new Error('plan html markers missing'); html=html.slice(0,s)+fs.readFileSync('plan-ui.html','utf8')+html.slice(e);}
 html=html.replace('__INV__',()=>JSON.stringify(inv)).replace('__BASE__',()=>JSON.stringify(base));
 fs.writeFileSync('dashboard.html',html);
-const m=html.match(/<script>([\s\S]*)<\/script>/)[1];
+const m=html.match(/<script>([\s\S]*)<\/script>/i)[1];
 try{new Function(m);console.log('syntax ok')}catch(e){console.log('SYNTAX',e.message)}
 console.log(html.length,(contentMin/total).toFixed(3));
