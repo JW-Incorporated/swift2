@@ -1,5 +1,4 @@
 const PRIORITY_WORK = new Set(['content', 'P0', 'P1']);
-const SCRIPT_PRIORITY_WORK = new Set(['P0', 'P1']);
 
 function latestActiveReset(values, now) {
   return values
@@ -25,6 +24,9 @@ export function selectClaudeToken({ limitState = null, hasBackup = false, priori
   if (hasBackup) {
     return { token: 'backup', reason: `using backup token until ${limitState.resetAt}` };
   }
+  if (priority !== 'content') {
+    return { token: 'none', reason: `primary token limited until ${limitState.resetAt}` };
+  }
   return {
     token: 'primary',
     reason: 'primary token limited; content priority keeps the primary token',
@@ -42,24 +44,21 @@ export function selectClaudeCallToken({ limitState = null, hasBackup = false, pr
     limitState.weeklyResetAt,
     limitState.fiveHourResetAt,
   ], current);
-  if (!primaryResetAt) return { token: 'primary', reason: 'primary token available' };
-
-  if (!SCRIPT_PRIORITY_WORK.has(priority)) {
-    return { token: 'none', reason: `priority capped until ${primaryResetAt}` };
-  }
-  if (!hasBackup) {
-    return { token: 'none', reason: `primary token limited until ${primaryResetAt}` };
-  }
-
   const backupResetAt = latestActiveReset([
-    limitState.backupResetAt,
-    limitState.backupWeeklyResetAt,
-    limitState.backupFiveHourResetAt,
+    limitState?.backupResetAt,
+    limitState?.backupWeeklyResetAt,
+    limitState?.backupFiveHourResetAt,
   ], current);
-  if (backupResetAt) {
-    const firstReset = new Date(primaryResetAt) < new Date(backupResetAt)
-      ? primaryResetAt : backupResetAt;
-    return { token: 'none', reason: `both tokens are limited until ${firstReset}` };
-  }
-  return { token: 'backup', reason: `using backup token until ${primaryResetAt}` };
+  const decision = selectClaudeToken({
+    limitState: primaryResetAt ? {
+      resetAt: primaryResetAt,
+      ...(backupResetAt ? { backupResetAt } : {}),
+    } : null,
+    hasBackup,
+    priority,
+  });
+  if (decision.token !== 'none') return decision;
+  const resetAt = backupResetAt && new Date(backupResetAt) < new Date(primaryResetAt)
+    ? backupResetAt : primaryResetAt;
+  return { ...decision, resetAt };
 }
