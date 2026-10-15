@@ -8,6 +8,10 @@ const futureIssue = {
   createdAt: '2026-10-14T20:00:00.000Z',
 };
 const now = new Date('2026-10-14T21:00:00.000Z');
+const backupLimitedIssue = {
+  ...futureIssue,
+  body: `${futureIssue.body}\nclaude-weekly-limit-reset-backup: 2026-10-15T05:00:00.000Z`,
+};
 
 describe('decideLimitGate', () => {
   it('fails open when the GitHub API is unavailable', () => {
@@ -44,6 +48,13 @@ describe('decideLimitGate', () => {
       skip: false,
       message: 'using backup token until 2026-10-15T03:00:00.000Z',
       token: 'backup',
+    });
+  });
+
+  it('skips content when the backup is also limited', () => {
+    expect(decideLimitGate({ issues: [backupLimitedIssue], now, priority: 'content', hasBackup: true })).toEqual({
+      skip: true,
+      message: 'both tokens are limited until 2026-10-15T03:00:00.000Z',
     });
   });
 

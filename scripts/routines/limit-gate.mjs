@@ -21,7 +21,12 @@ function bodyValue(body, key) {
 export function issueReset(issue, { now = new Date() } = {}) {
   const current = dateOrNull(now) ?? new Date();
   const reset = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-reset'));
-  if (reset) return { resetAt: reset.toISOString(), fallback: false };
+  const backupReset = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-reset-backup'));
+  if (reset) return {
+    resetAt: reset.toISOString(),
+    ...(backupReset ? { backupResetAt: backupReset.toISOString() } : {}),
+    fallback: false,
+  };
 
   const detected = dateOrNull(bodyValue(issue?.body, 'claude-weekly-limit-detected'));
   const created = dateOrNull(issue?.createdAt ?? issue?.created_at);
@@ -52,7 +57,10 @@ export function decideLimitGate({ issues = [], now = new Date(), priority, routi
     return { skip: false, message: null, closeIssueNumber: issue.number };
   }
   const decision = selectClaudeToken({
-    limitState: { resetAt: reset.resetAt },
+    limitState: {
+      resetAt: reset.resetAt,
+      backupResetAt: new Date(reset.backupResetAt) > new Date(now) ? reset.backupResetAt : null,
+    },
     hasBackup,
     priority,
   });
