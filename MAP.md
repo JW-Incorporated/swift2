@@ -63,6 +63,15 @@ docs `CLAUDE.md` points at:
 | `.github/workflows/` | CI + scheduled runners. `ci.yml` job `build` is the required check | Don't dispatch `social-poster.yml` / `social-delete-media.yml`. Exception (2026-10-09, owner): Tree dispatches `social-tree-approve.yml` with his draft PR number — nothing else |
 | `.github/workflows/jev-selftest.yml` | Manual-only live Jev smoke test using the Actions secret | Never add a schedule, push, or pull-request trigger |
 
+## Tidewatch data foundation (P1-02)
+
+| Path | Responsibility |
+|------|----------------|
+| `supabase/migrations/20261014010000_tidewatch.sql` | Service-role-only seen items, decisions, source cursors, story SLA timestamps, and provider-neutral LLM usage |
+| `packages/shared/src/tidewatch/types.ts` | Portable row types for the five Tidewatch tables; exported as `@swift2/shared/tidewatch/types` |
+| `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
+| `scripts/tidewatch/retention.mjs` | Dry-run-by-default Tidewatch retention for stale items, noise items, and shadow decisions; focused tests in `retention.test.ts` |
+
 ## Session infrastructure (`.claude/` and the standing files)
 
 | Path | Responsibility |
@@ -344,6 +353,7 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
 | `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
+| `scripts/notifications-kill.mjs` (+ test) | Owner kill switch for freeze-held events at every tier: paginates events and instant deliveries, lists only undelivered/un-killed rows, defaults kills to dry-run, and requires `--apply` to write |
 
 `apps/mobile/App.tsx` calls `registerDevice()` on every cold start — this
 alone satisfies Phase 0's "fresh install registers a devices row"

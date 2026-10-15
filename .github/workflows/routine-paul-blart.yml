@@ -36,7 +36,7 @@ jobs:
     with:
       routine_name: "Paul Blart — security patrol"
       prompt_file: docs/agents/runner-prompts/paul-blart-run.md
-      model: claude-opus-4-8
+      model: claude-sonnet-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 30
       checkout_token_secret: SOCIAL_POSTER_PAT

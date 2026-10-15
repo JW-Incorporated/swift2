@@ -1,5 +1,19 @@
-import { describe, expect, it } from 'vitest';
-import { extractPromptFile, resolveIdentifier, computeMetrics, buildReport } from './routine-output-sample.mjs';
+import { beforeEach, describe, expect, it } from 'vitest';
+import {
+  extractPromptFile,
+  resolveIdentifier,
+  computeMetrics,
+  buildReport,
+  isRateLimitError,
+  waitBeforeNextSearch,
+  waitForSearchReset,
+  retryBackoffMs,
+  pacedSearch,
+  resetSearchPacing,
+  fetchForRoutine,
+  SEARCH_MIN_INTERVAL_MS,
+  SEARCH_MAX_BACKOFF_MS,
+} from './routine-output-sample.mjs';
 
 describe('extractPromptFile', () => {
   it('extracts the prompt_file value from a workflow', () => {
@@ -178,5 +192,171 @@ describe('buildReport', () => {
       routines: [{ name: 'routine-vault-run', identifier: 'Vault Run', metrics: healthy }],
     });
     expect(report).toContain('Nothing flagged this window.');
+  });
+});
+
+// #5845: three consecutive scheduled runs died on the first
+// `403 API rate limit exceeded` from the installation-wide 30/min Search
+// window. Both halves of the fix are covered: the calls are spaced, and a
+// rate-limited call waits the window out instead of taking the run down.
+describe('Search API rate-limit handling (#5845)', () => {
+  beforeEach(() => resetSearchPacing());
+
+  const rateLimited = () =>
+    Object.assign(new Error(
+      'Command failed: gh search issues --repo JW-Incorporated/swift2 Tier-2: Nils — site walk\n' +
+      'HTTP 403: API rate limit exceeded for installation.',
+    ), { stderr: '' });
+
+  describe('isRateLimitError', () => {
+    it('recognises the 403 shape gh search actually reports', () => {
+      expect(isRateLimitError(rateLimited())).toBe(true);
+    });
+
+    it('recognises it when the text arrives on stderr instead of the message', () => {
+      expect(isRateLimitError(Object.assign(new Error('Command failed'), {
+        stderr: 'HTTP 403: API rate limit exceeded for installation.',
+      }))).toBe(true);
+    });
+
+    it('does not swallow unrelated failures', () => {
+      expect(isRateLimitError(new Error('HTTP 404: Not Found'))).toBe(false);
+      expect(isRateLimitError(new Error('spawn gh ENOENT'))).toBe(false);
+    });
+  });
+
+  describe('waitBeforeNextSearch', () => {
+    it('does not delay the first call', () => {
+      expect(waitBeforeNextSearch(null, 1_000_000)).toBe(0);
+    });
+
+    it('waits out the remainder of the interval after a recent call', () => {
+      expect(waitBeforeNextSearch(1_000_000, 1_001_000, 3_000)).toBe(2_000);
+    });
+
+    it('does not delay once the interval has already elapsed', () => {
+      expect(waitBeforeNextSearch(1_000_000, 1_010_000, 3_000)).toBe(0);
+    });
+
+    it('never waits longer than one interval, even if the clock jumps backwards', () => {
+      expect(waitBeforeNextSearch(2_000_000, 1_000_000, 3_000)).toBe(3_000);
+    });
+  });
+
+  describe('waitForSearchReset', () => {
+    it('waits until the window resets, plus a second of slack', () => {
+      const now = 1_700_000_000_000;
+      expect(waitForSearchReset({ resources: { search: { reset: now / 1000 + 40 } } }, now))
+        .toBe(41_000);
+    });
+
+    it('caps a bogus far-future reset at the backoff ceiling', () => {
+      expect(waitForSearchReset({ resources: { search: { reset: 9_999_999_999 } } }, 0))
+        .toBe(SEARCH_MAX_BACKOFF_MS);
+    });
+
+    it('returns null when the payload does not report a search reset', () => {
+      expect(waitForSearchReset({ resources: { core: { reset: 123 } } }, 0)).toBeNull();
+      expect(waitForSearchReset(null, 0)).toBeNull();
+    });
+  });
+
+  describe('pacedSearch', () => {
+    it('spaces consecutive searches by the pacing interval', async () => {
+      const slept: number[] = [];
+      let clock = 1_000_000;
+      const deps = {
+        run: async () => ({ stdout: '[]' }),
+        sleep: async (ms: number) => { slept.push(ms); clock += ms; },
+        now: () => clock,
+        quota: async () => ({ ok: false, data: null }),
+      };
+      await pacedSearch(['search', 'prs'], deps);
+      await pacedSearch(['search', 'issues'], deps);
+      expect(slept).toEqual([SEARCH_MIN_INTERVAL_MS]);
+    });
+
+    it('retries a rate-limited search, waiting for the window reset the quota reports', async () => {
+      const slept: number[] = [];
+      let clock = 1_700_000_000_000;
+      let calls = 0;
+      const out = await pacedSearch(['search', 'prs'], {
+        run: async () => {
+          calls += 1;
+          if (calls === 1) throw rateLimited();
+          return { stdout: '[{"number":1}]' };
+        },
+        sleep: async (ms: number) => { slept.push(ms); clock += ms; },
+        now: () => clock,
+        quota: async () => ({ ok: true, data: { resources: { search: { reset: clock / 1000 + 20 } } } }),
+      });
+      expect(calls).toBe(2);
+      expect(out.stdout).toBe('[{"number":1}]');
+      expect(slept).toEqual([21_000]);
+    });
+
+    it('falls back to a fixed backoff when the quota endpoint is unreadable', async () => {
+      const slept: number[] = [];
+      let calls = 0;
+      await pacedSearch(['search', 'prs'], {
+        run: async () => {
+          calls += 1;
+          if (calls === 1) throw rateLimited();
+          return { stdout: '[]' };
+        },
+        sleep: async (ms: number) => { slept.push(ms); },
+        now: () => 1_000_000,
+        quota: async () => ({ ok: false, data: null, error: 'boom' }),
+      });
+      expect(slept).toEqual([retryBackoffMs(1)]);
+    });
+
+    it('gives up after the retry budget rather than looping forever', async () => {
+      let calls = 0;
+      await expect(pacedSearch(['search', 'prs'], {
+        run: async () => { calls += 1; throw rateLimited(); },
+        sleep: async () => {},
+        now: () => 1_000_000,
+        quota: async () => ({ ok: false, data: null }),
+        retries: 2,
+      })).rejects.toThrow(/rate limit exceeded/i);
+      expect(calls).toBe(3);
+    });
+
+    it('never retries a failure that is not a rate limit', async () => {
+      let calls = 0;
+      await expect(pacedSearch(['search', 'prs'], {
+        run: async () => { calls += 1; throw new Error('HTTP 422: Validation Failed'); },
+        sleep: async () => {},
+        now: () => 1_000_000,
+        quota: async () => ({ ok: false, data: null }),
+      })).rejects.toThrow(/422/);
+      expect(calls).toBe(1);
+    });
+  });
+
+  describe('fetchForRoutine', () => {
+    it('issues its two searches one at a time, never concurrently', async () => {
+      let inFlight = 0;
+      let maxInFlight = 0;
+      const seen: string[] = [];
+      const data = await fetchForRoutine('Nils — site walk', {
+        run: async (args: string[]) => {
+          inFlight += 1;
+          maxInFlight = Math.max(maxInFlight, inFlight);
+          seen.push(args[1]);
+          await new Promise((r) => setTimeout(r, 1));
+          inFlight -= 1;
+          return { stdout: args[1] === 'prs' ? '[{"number":1,"state":"MERGED"}]' : '[{"number":2}]' };
+        },
+        sleep: async () => {},
+        now: () => 1_000_000,
+        quota: async () => ({ ok: false, data: null }),
+      });
+      expect(maxInFlight).toBe(1);
+      expect(seen).toEqual(['prs', 'issues']);
+      expect(data.prs).toEqual([{ number: 1, state: 'MERGED' }]);
+      expect(data.issues).toEqual([{ number: 2 }]);
+    });
   });
 });

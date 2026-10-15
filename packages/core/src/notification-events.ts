@@ -15,7 +15,7 @@ import type { NotificationCategory } from '@swift2/shared';
  * founder decision recorded on the Phase 2 kanban card): "T1 events send
  * fully automated with a 5-minute send delay + an alert/kill hook — NOT a
  * human-confirm gate." A false positive can be withdrawn via
- * scripts/notifications-kill-t1.mjs before `available_at` arrives. */
+ * scripts/notifications-kill.mjs before `available_at` arrives. */
 export const T1_CATEGORIES: readonly NotificationCategory[] = [
   'song_drop',
   'album_news',

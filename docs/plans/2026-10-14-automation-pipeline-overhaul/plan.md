@@ -493,7 +493,7 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 #### P0-11. Push safety before any automatic push
 - **What:** In write-knowledge.ts emit the notification event only when the row is servable (quality.ok and redline_ok true); apply a 5-minute kill window (available_at) to every tier, not only T1; add a PUSH_FREEZE switch (ops switch row read by notification-router, settable on by agents via set-switch.mjs FREEZE_ON_ONLY); extend notifications-kill script to all tiers.
 - **Goals:** 1 · **Owner:** codex · **Model/tier:** gpt-5.6-sol high · **Effort:** M · **Lane:** L-NOTIFY · **Depends on:** none
-- **Files:** `apps/worker/src/extract/write-knowledge.ts`, `packages/core/src/notification-events.ts`, `packages/core/src/notification-router.ts`, `scripts/notifications-kill-t1.mjs (rename to notifications-kill.mjs)`, `scripts/ops/set-switch.mjs`, `supabase/migrations/<ts>_ops_switch.sql (new)`
+- **Files:** `apps/worker/src/extract/write-knowledge.ts`, `packages/core/src/notification-events.ts`, `packages/core/src/notification-router.ts`, `scripts/notifications-kill.mjs`, `scripts/ops/set-switch.mjs`, `supabase/migrations/<ts>_ops_switch.sql (new)`
 - **Acceptance:** Unit tests: a held row inserts no events row; a T2 event has available_at = now + 5 min; with PUSH_FREEZE on, the router sends nothing; npm run typecheck --workspace=@swift2/web passes.
 - **Token impact:** None. · **Risks:** Touches the push path; Claude review plus codex:rescue second opinion.
 - **Needs decision entry:** no · **Needs human action:** no · **Branch/PR:** own branch (feature/tidewatch-p0-11) in a worktree outside Projects; PR with TL;DR; auto-merge on green
@@ -1265,4 +1265,3 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 | P3-07 | P3 | Raise caps where quality holds | claude-opus | S | L-VAULT | P3-04 | 3, 4, 10, 11 |
 | P3-08 | P3 | GitHub Reddit scan to automatic fallback only | codex | S | L-COMMUNITY | P1-15 | 7 |
 | P3-09 | P3 | Funding pool review | claude-opus | S | L-DOCS | P3-04 | 3, 4, 6 |
-

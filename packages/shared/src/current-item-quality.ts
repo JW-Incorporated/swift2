@@ -26,7 +26,6 @@
  */
 export const IMAGE_HOST_ALLOWLIST: readonly string[] = [
   'taylorswift.com', 'www.taylorswift.com', 'store.taylorswift.com',
-  'cdn.shopify.com',
   'upload.wikimedia.org', 'commons.wikimedia.org',
   'i.ytimg.com', 'img.youtube.com',
   'billboard.com', 'www.billboard.com',
@@ -123,6 +122,7 @@ export interface ScopedImageHost {
 }
 
 export const SCOPED_IMAGE_HOST_ALLOWLIST: readonly ScopedImageHost[] = [
+  { host: 'cdn.shopify.com', pathPrefix: '/s/files/1/0011/4651/9637/' },
   { host: 'storage.googleapis.com', pathPrefix: '/pr-newsroom-wp/' },
   { host: 'format.creatorcdn.com', pathPrefix: '/9fcd0df5-9285-4916-8837-8946bbc00b90/' },
   { host: 'images.squarespace-cdn.com', pathPrefix: '/content/v1/6616cae0172b170a8dd0818d/' },

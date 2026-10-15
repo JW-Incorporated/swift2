@@ -56,6 +56,7 @@
     "check:workflow-deps": "node scripts/check-workflow-deps.mjs",
     "ops:turn-ledger": "node scripts/routines/turn-ledger.mjs",
     "ops:clock-fire-rate": "node scripts/ops/clock-fire-rate.mjs",
+    "notifications:kill": "node --env-file=apps/worker/.env scripts/notifications-kill.mjs",
     "check:voice": "node scripts/check-voice.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
     "knowledge:coverage": "node scripts/knowledge-coverage.mjs",
