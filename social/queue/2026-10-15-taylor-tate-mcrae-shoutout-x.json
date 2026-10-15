@@ -1,0 +1,33 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "turns out taylor's home rotation is tate mcrae, sabrina carpenter & sombr — and she went on fallon to tell everyone to go play tate's 'tit for tat.' the biggest pop star alive, hyping someone else's song like a true fan 🤍\n\nlonglivets.com/?utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1nxmfeq.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1nxmfeq",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1nxmfeq/beautiful_showgirl/",
+  "scheduledAt": "2026-10-15T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Beautiful Showgirl"
+  ],
+  "campaign": "heartbeat:event-news:taylor-tate-mcrae-shoutout-2026-10-15",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Taylor gushing over another artist on Fallon ('tit for tat,' 'full volume, over and over again') plus her named streaming rotation — a warm, sourced, of-the-moment fan moment refreshed by Tate's own Fallon reaction today. X takes the quote-led angle vs IG's fuller story. Fan photo is a generic Eras tile, loosely tied.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "Event draft for intake #5902 (Tate McRae on The Tonight Show, 'Talks Taylor Swift Shock', YouTube Jsb-nfZ2TbQ, oEmbed-verified). The real Taylor fact: on Fallon (Oct 6) she raved about Tate McRae's 'Tit For Tat' — verbatim quote confirmed by Billboard — and named Tate, Sabrina Carpenter & sombr as who she constantly streams (SiriusXM, via Billboard); Tate reacted with shock, refreshed by today's Fallon video. Photo is the run's reserved eventPhoto (uncredited u/unknown, so no credit line); X uses the full-res xOriginal of the same image as the IG half (one pair, one photo)."
+}
