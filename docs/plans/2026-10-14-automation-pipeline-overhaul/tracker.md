@@ -98,7 +98,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 doing  |  |
 doing  |  |
 | P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
-| P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | todo |  |  |
+doing  |  |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
 | P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | todo |  |  |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | todo |  |  |
@@ -343,6 +343,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+000zj. 18:58: P2-05 dispatched (Claude executor): baby_watch category plus tier plus migration (default opt-out) plus the toggle/inbox BEHIND A DEFAULT-OFF FLAG (nothing visible until P2-13); router-emit SKIPPED (the router is shadow); no real push (fake-provider test instead; the live check is at go-live); a browser check on mobile and desktop with the flag on locally.
 000zi. 18:56: #5935 red build cause: a test regex hard-coded a backslash path (passes on Windows, fails on Linux CI) → a one-line fix 936fde349, suite 12,734, still armed. LESSON added to the Codex rules block (rules.txt): tests must be OS-agnostic (no hard-coded separators, drive letters or CRLF).
 000zh. 18:55: #5942 merge re-check CLEAN (no Anthropic path; transient → unresolved preserved; shadow/disabled unchanged; allowlist union; 345 tests; validate 0 errors) → still armed. When it merges: arm #5948 (P1-28e) via ✓ PR branch updated then , and dispatch P1-20b.
 000zg. 18:53: P2-02 round 1 REJECT (SIDE EFFECTS: NONE; route.mjs throws on live). MED: the router overwrites the classifier's action (loses shadow_hold_injection); MED: the no-side-effect test spies only on fakes. LOWs: a circular replay; the disagreement metric measures Jev vs final (escalations inflate it). PM rulings: write action_ref only; real fetch/child_process spies, store-call assertions and a static import-graph test; replay the recorded answers or call it a smoke test; the metric = answer-implied route vs final-class route (documented, > 10% = the stop signal). Round 2 (FINAL) → Codex high.
