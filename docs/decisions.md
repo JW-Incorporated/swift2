@@ -15,11 +15,37 @@ Format: date, decision, why, alternatives considered, who approved.
 
 **Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
 
+## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
+
+**Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
+
+**Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
+
+## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
+
+**Decision.** `taylorswift.com` and its subdomains are official. Label and press
+hosts (`republicrecords.com`, `umusic.com`, and `universalmusic.com`, including
+subdomains) count as official only when the URL path carries a case-insensitive
+Taylor marker: `/taylor-swift`, `/artists/taylor-swift`, or `/taylorswift`.
+YouTube qualifies only for channel id `UCqECaJ8Gagnn7YCbPEzWH6g` on a `/channel/`
+or channel-RSS URL; bare `youtube.com` and watch URLs do not. Ticketmaster qualifies
+only for Taylor's `1094215` or `K8vZ9175dV7` in `/artist/<id>`,
+`/attractions/<id>`, or the `attractionId=<id>` query parameter. Bare Ticketmaster,
+other paths/query parameters, and other attraction ids do not. A story with an
+official source becomes tier `official` under the corroboration rule.
+
+**Alternatives considered.** A domain-only label/press rule was rejected as too
+broad because unrelated artists share those hosts. GDELT was excluded on recall:
+the 2026-10-15 probe returned HTTP 429 and zero usable items while Google News RSS
+returned 101.
+
+**Decided by:** PM (reversible), 2026-10-15.
+
 ---
 
 ## 2026-10-15 — Scripted Claude calls use one capped headless runner (P1-09)
 
-**Decision.** Scripted callers use `scripts/lib/claude-call.mjs` for one never-throwing Claude Code print-mode call on subscription tokens. With Claude Code **2.1.300**, the verified invocation is `-p --output-format json --safe-mode --setting-sources "" --strict-mcp-config --mcp-config '{"mcpServers":{}}' --tools "" --no-session-persistence --model ... --system-prompt ...`, plus `--json-schema` when requested. It runs from a fresh empty temporary directory and removes it afterward. `--system-prompt` replaces rather than appends; safe mode and the explicit empty settings, MCP, tools, and cwd controls prevent project/user customization from entering the call. The child receives only the OS bootstrap allowlist plus the selected `CLAUDE_CODE_OAUTH_TOKEN`; API/auth keys and the unselected backup token are excluded. Per-run call and estimated-input caps still apply before spawn. The routine limit gate's existing issue reset reader supplies current primary/backup resets; a newly detected weekly primary limit retries once on the backup for P0/P1, while P2/P3 stop as unavailable. Weekly-limit detection and backup fallback are implemented; five-hour session-limit detection ("hit your session limit") is NOT yet implemented and follows in item P1-09b, which must land before the first caller (P1-28). The runner returns the reset but never writes the tracking issue.
+**Decision.** Scripted callers use `scripts/lib/claude-call.mjs` for one never-throwing Claude Code print-mode call on subscription tokens. With Claude Code **2.1.300**, the verified invocation is `-p --output-format json --safe-mode --setting-sources "" --strict-mcp-config --mcp-config '{"mcpServers":{}}' --tools "" --no-session-persistence --model ... --system-prompt ...`, plus `--json-schema` when requested. It runs from a fresh empty temporary directory and removes it afterward. `--system-prompt` replaces rather than appends; safe mode and the explicit empty settings, MCP, tools, and cwd controls prevent project/user customization from entering the call. The child receives only the OS bootstrap allowlist plus the selected `CLAUDE_CODE_OAUTH_TOKEN`; API/auth keys and the unselected backup token are excluded. Per-run call and estimated-input caps still apply before spawn. The routine limit gate's existing issue reset reader supplies current primary/backup resets; a newly detected weekly or five-hour primary limit retries once on the backup for P0/P1, while P2/P3 stop as unavailable. Five-hour detection is implemented end to end by `re-spawns a P0 five-hour session limit with the backup and returns ok` and `returns unavailable for a P2 five-hour session limit without the backup`. The runner returns a parsed weekly reset but never writes the tracking issue.
 
 **Measured result.** The original smoke reported 19,116 combined input and 162 output tokens in 10,724 ms, but the old logger did not preserve the three input counters. Reproducing its old invocation on the same 1,900-token fixture used 2 input + 27,633 cache-creation + 0 cache-read = **27,635 total input**, 193 output, in 7,517 ms. The final isolated runner used 2 + 6,647 + 0 = **6,649 total input**, 61 output, in 2,748 ms. A diagnostic with `--json-schema` removed still used **6,156 total input** (2 + 6,154 + 0), so structured output accounts for only 493 tokens and the OAuth-compatible Claude Code harness sets the remaining floor. The only documented stronger minimizer, `--bare`, cannot be used because version 2.1.300 explicitly disables OAuth/keychain authentication in that mode.
 

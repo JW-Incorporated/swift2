@@ -2,23 +2,15 @@ import { EventEmitter } from 'node:events';
 import { PassThrough } from 'node:stream';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createClaudeCaller } from './claude-call.mjs';
-
 const schema = {
-  type: 'object',
-  properties: { answer: { type: 'string' } },
-  required: ['answer'],
-  additionalProperties: false,
+  type: 'object', properties: { answer: { type: 'string' } },
+  required: ['answer'], additionalProperties: false,
 };
 
 const baseInput = {
-  caller: 'test-caller',
-  priority: 'P1',
-  model: 'claude-haiku-5-5',
-  system: 'Return JSON.',
-  user: 'Answer yes.',
-  schema,
-  maxInputTokens: 100,
-  maxCalls: 1,
+  caller: 'test-caller', priority: 'P1', model: 'claude-haiku-5-5',
+  system: 'Return JSON.', user: 'Answer yes.', schema,
+  maxInputTokens: 100, maxCalls: 1,
 } as const;
 
 type SpawnResult = {
@@ -29,12 +21,9 @@ function spawnReturning(input: SpawnResult | SpawnResult[]) {
   const results = Array.isArray(input) ? input : [input];
   let call = 0;
   return vi.fn((_command: string, _args: string[], _options: object) => {
-    void _command;
-    void _args;
-    void _options;
+    void _command; void _args; void _options;
     const child = new EventEmitter() as EventEmitter & {
-      stdout: PassThrough;
-      stderr: PassThrough;
+      stdout: PassThrough; stderr: PassThrough;
       stdin: EventEmitter & { end: ReturnType<typeof vi.fn> };
       kill: ReturnType<typeof vi.fn>;
     };
@@ -46,10 +35,7 @@ function spawnReturning(input: SpawnResult | SpawnResult[]) {
     child.kill = vi.fn();
     if (!result.hang) {
       queueMicrotask(() => {
-        if (result.error) {
-          child.emit('error', result.error);
-          return;
-        }
+        if (result.error) { child.emit('error', result.error); return; }
         child.stdout.end(result.stdout ?? '');
         child.stderr.end(result.stderr ?? '');
         child.emit('close', result.code ?? 0);
@@ -65,38 +51,32 @@ function successResult(overrides: Record<string, unknown> = {}) {
     is_error: false,
     result: '{"answer":"yes"}',
     structured_output: { answer: 'yes' },
-    usage: {
-      input_tokens: 10,
-      cache_creation_input_tokens: 12,
-      cache_read_input_tokens: 3,
-      output_tokens: 4,
-    },
+    usage: { input_tokens: 10, cache_creation_input_tokens: 12,
+      cache_read_input_tokens: 3, output_tokens: 4 },
     ...overrides,
   });
 }
 
 function limitResult() {
-  return successResult({
-    is_error: true,
+  return successResult({ is_error: true,
     result: "You've hit your weekly limit - resets 2999-01-01T00:00:00.000Z",
-    structured_output: undefined,
-  });
+    structured_output: undefined });
 }
 
-beforeEach(() => {
-  vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-primary-token');
-});
+function sessionLimitResult() {
+  return successResult({ is_error: true, result: 'hit your session limit',
+    structured_output: undefined });
+}
 
-afterEach(() => {
-  vi.unstubAllEnvs();
-});
+beforeEach(() => { vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-primary-token'); });
+
+afterEach(() => { vi.unstubAllEnvs(); });
 describe('callClaude', () => {
   it('returns capped without spawning when the per-run call cap is reached', async () => {
     const spawnImpl = spawnReturning({ stdout: successResult() });
     const callClaude = createClaudeCaller({ spawnImpl });
-    await expect(callClaude({ ...baseInput, maxCalls: 0 })).resolves.toMatchObject({
-      status: 'capped',
-    });
+    await expect(callClaude({ ...baseInput, maxCalls: 0 }))
+      .resolves.toMatchObject({ status: 'capped' });
     expect(spawnImpl).not.toHaveBeenCalled();
   });
 
@@ -175,6 +155,31 @@ describe('callClaude', () => {
     expect(spawnImpl).toHaveBeenCalledOnce();
   });
 
+  it('re-spawns a P0 five-hour session limit with the backup and returns ok', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN_BACKUP', 'test-backup-token');
+    const spawnImpl = spawnReturning([
+      { code: 1, stdout: sessionLimitResult() }, { stdout: successResult() }]);
+    const callClaude = createClaudeCaller({ spawnImpl });
+    await expect(callClaude({ ...baseInput, priority: 'P0' }))
+      .resolves.toMatchObject({ status: 'ok', data: { answer: 'yes' } });
+    expect(spawnImpl).toHaveBeenCalledTimes(2);
+    const first = spawnImpl.mock.calls[0]?.[2] as { env: Record<string, string> };
+    const second = spawnImpl.mock.calls[1]?.[2] as { env: Record<string, string> };
+    expect(first.env.CLAUDE_CODE_OAUTH_TOKEN).toBe('test-primary-token');
+    expect(second.env.CLAUDE_CODE_OAUTH_TOKEN).toBe('test-backup-token');
+  });
+
+  it('returns unavailable for a P2 five-hour session limit without the backup', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN_BACKUP', 'test-backup-token');
+    const spawnImpl = spawnReturning({ code: 1, stdout: sessionLimitResult() });
+    const callClaude = createClaudeCaller({ spawnImpl });
+    await expect(callClaude({ ...baseInput, priority: 'P2' }))
+      .resolves.toMatchObject({ status: 'unavailable', reason: 'limit' });
+    expect(spawnImpl).toHaveBeenCalledOnce();
+    const options = spawnImpl.mock.calls[0]?.[2] as { env: Record<string, string> };
+    expect(options.env.CLAUDE_CODE_OAUTH_TOKEN).toBe('test-primary-token');
+  });
+
   it.each([
     ['invalid result JSON', { result: 'not JSON', structured_output: undefined }],
     ['a schema miss', { result: '{"wrong":true}', structured_output: { wrong: true } }],
@@ -236,6 +241,16 @@ describe('callClaude', () => {
     })]);
   });
 
+  it.each([
+    ['throws', () => { throw new Error('logger failed'); }],
+    ['rejects', () => Promise.reject(new Error('logger failed'))],
+  ])('reports loggerError when the usage logger %s', async (_name, logUsage) => {
+    const callClaude = createClaudeCaller({
+      spawnImpl: spawnReturning({ stdout: successResult() }), logUsage });
+    await expect(callClaude(baseInput))
+      .resolves.toMatchObject({ status: 'ok', loggerError: true });
+  });
+
   it('uses the verified headless flags and writes one usage row per real call', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN_BACKUP', 'test-backup-token');
     vi.stubEnv('ANTHROPIC_API_KEY', 'test-api-key');
@@ -246,21 +261,13 @@ describe('callClaude', () => {
     }) });
     const createTempDir = vi.fn().mockResolvedValue('C:\\temp\\claude-call-test');
     const removeTempDir = vi.fn().mockResolvedValue(undefined);
-    const callClaude = createClaudeCaller({
-      spawnImpl,
-      logUsage: (row: unknown) => { rows.push(row); },
-      createTempDir,
-      removeTempDir,
-    });
+    const callClaude = createClaudeCaller({ spawnImpl,
+      logUsage: (row: unknown) => { rows.push(row); }, createTempDir, removeTempDir });
     await expect(callClaude(baseInput)).resolves.toEqual({
       status: 'ok',
       data: { answer: 'yes' },
-      usage: {
-        inputTokens: 10,
-        cacheCreationInputTokens: 12,
-        cacheReadInputTokens: 3,
-        outputTokens: 4,
-      },
+      usage: { inputTokens: 10, cacheCreationInputTokens: 12,
+        cacheReadInputTokens: 3, outputTokens: 4 },
     });
     expect(spawnImpl).toHaveBeenCalledOnce();
     expect(spawnImpl.mock.calls[0]?.[1]).toEqual([
@@ -285,15 +292,8 @@ describe('callClaude', () => {
     expect(spawnImpl.mock.results[0]?.value.stdin.end).toHaveBeenCalledWith('Answer yes.');
     expect(createTempDir).toHaveBeenCalledOnce();
     expect(removeTempDir).toHaveBeenCalledWith('C:\\temp\\claude-call-test');
-    expect(rows).toEqual([{
-      caller: 'test-caller',
-      provider: 'claude-subscription',
-      model: 'claude-haiku-5-5',
-      token: 'primary',
-      input_tokens: 10,
-      output_tokens: 4,
-      cache_read_tokens: 3,
-      calls: 1,
-    }]);
+    expect(rows).toEqual([{ caller: 'test-caller', provider: 'claude-subscription',
+      model: 'claude-haiku-5-5', token: 'primary', input_tokens: 10,
+      output_tokens: 4, cache_read_tokens: 3, calls: 1 }]);
   });
 });
