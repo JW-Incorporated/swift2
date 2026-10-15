@@ -6,24 +6,24 @@ One row per work item. The project-manager session updates the Status, PR and Do
 
 Goal: No more lost runs to the weekly limit, no CI storm, poster green, Awin sync finishes, push path safe, owner decisions recorded, baseline numbers captured.
 
-Done when: Routines skip cleanly while the limit is hit and a single named alert exists; open social-poster state PRs <= 1; social-poster last 5 runs green; merch-awin-sync completes and saves its cache; held current_item rows emit no events; turn ledger JSON exists for the past 7 days; decisions D1 to D9 recorded in docs/decisions.md; TYPESAFE_API_KEY exists as an Actions secret.
+Done when: Routines skip cleanly while the limit is hit and a single named alert exists; open social-poster state PRs <= 1; social-poster last 5 runs green; merch-awin-sync completes and saves its cache; held current_item rows emit no events; turn ledger JSON exists for the past 7 days; decisions D1 to D9 recorded in docs/decisions.md; TYPESAFE_API_KEY exists as doing |  |  || #5823 |  || #5822 |  || #5821 |  || #5818, #5817 | 2026-10-14 || #5816 | 2026-10-14 |Actions secret.
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | review |  |  |
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | doing |  |  |
-| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | review | #5816 |  |
-| P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | todo |  |  |
+| P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
+| P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | doing |  |  |
 | P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | todo |  |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | doing |  |  |
-| P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | review |  |  |
+| P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | review | #5822 |  |
 | P0-09 | Repair merch-awin-sync (hang, lost cache, churn PRs) | codex | M | L-MERCH | - | review | #5821 |  |
-| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | review |  |  |
+| P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | review | #5823 |  |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | doing |  |  |
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
-| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | review | #5818, #5817 |  |
+| P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
@@ -137,6 +137,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 21:38 P0-06 FINDING: no X 403 found in 200 social-poster runs (Oct 11 to 14; 5 logs read; runs before Oct 9 unchecked). Both halves of the 2026-10-11 speaknow-million-week pair POSTED in run 38184243025 at 2026-10-11T23:26:07Z (X post id 2109425402762682594; IG 18107359273946758); records verified on origin/social-ledger social/posted/ (PM spot-check). Real failure loop: the queue files stayed in social/queue/ (fold-back state PRs never merged), so every run since Oct 12 23:06Z skipped them as already posted and raised "blocked >24h"; on Oct 14 the poster also wrote a social/failed record for the IG half that did post. Implication for P0-04: nothing needs re-posting; remove both queue files, keep both posted records, drop the stray failed IG record. Side finding filed as #5820: the FB Page cross-post fails on every post (publish_actions deprecated).
 - 2026-10-14 21:42 PM: P0-09 reviewer APPROVE → PR #5821, auto-merge armed (verified). Follow-up after it merges (L-MERCH, small Codex item): advertiser-map PR step gets `if: ${{ !cancelled() }}`; add an FTS rollback-path test (zero-row guard); budget check inside a single huge feed. `gpt-5.3-codex-spark` returns 400 on this ChatGPT-account Codex, so trivial items run on `gpt-5.6-sol` low (P0-08 relaunched, P0-10 dispatched).
 - 2026-10-14 21:47 PM: P0-01 review round 1 REJECT (blocker: template `issues: write` exceeds some callers' permissions → startup_failure; limit-gate throws on API errors; limit-hit text match ignores is_error; MAP.md filename). Round 2 (final) sent to the same Codex session: add `issues: write` to every routine caller + a check:routines invariant, fail-open gate, require is_error, issue dedupe. A round-2 reject means DEBUG.md and the debug ladder. P0-11 resumed: sync:content before gates, report how migrations reach production (its router fails closed without the new table, so merge order matters).
+- 2026-10-14 21:55 PM: MERGED (verified): #5813 plan docs, #5816 P0-03, #5818 P0-14 decisions, #5821 P0-09. #5815 had an add/add conflict on tracker.md (main held the untouched original, verified identical to 8fc7b00cf) → kept the PM version, merged main, pushed. P0-08 APPROVE → #5822 armed. P0-10 APPROVE → #5823, but auto-merge DISABLED by the PM: no per-run issue cap, so the first live run could spam issues; Codex is adding a cap of 10 (round 2), then re-arm. P0-11: gates green after sync:content except one branch-specific test (apps/mobile/lib/notification-link-producers.test.ts fixtures were non-servable) → fixture fix authorized; migrations reach prod via .github/workflows/db-migrate.yml on main changes under supabase/migrations/**. Open question for its review: whether a freeze defers or drops events, and the deploy-vs-migration race. P0-09 live acceptance: dispatched merch-awin-sync run 38683186140 (check: success in under 30 min, cache entry saved, then a no-change rerun opens no PR). P0-14 done (decisions merged; the rulings PR #5817 is the owner's, HA #128). P0-04 dispatched (Claude executor; reviewer before any bulk PR closing). Removed merged worktrees p0-03, p0-09, p0-14, fix-5813 (disk 90 GB free).
 
 ## Next actions
 
