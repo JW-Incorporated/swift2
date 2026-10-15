@@ -52,6 +52,13 @@ npm run news --workspace @swift2/worker
   ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
   domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
   stay `unverified`.
+- Primary mode (`--primary`) also polls the enabled Google News fast lane,
+  which is marked `config.primaryOnly` so the normal cycle excludes it.
+  Story-source recording coalesces copies by article identity, normalises the
+  outlet (including casing, leading "The", display/domain names, and AMP or
+  mobile hosts), and keeps the best tier and URL. Verification defensively
+  applies the same coalescing, so corroboration always means distinct articles
+  from at least two distinct normalised outlets.
 - Extract stage (`src/extract/`, PLAN.md Stage 3): Claude Code runs
   `claude-haiku-5-5` through the subscription wrapper with structured output.
   News extraction and same-event dedupe are P1; the worker theory helper

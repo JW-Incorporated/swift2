@@ -6,6 +6,10 @@ const MIGRATION = readFileSync(
   'supabase/migrations/20261015000000_news_sources_primary.sql',
   'utf8',
 );
+const ENABLE_MIGRATION = readFileSync(
+  'supabase/migrations/20261015020000_news_fast_lane_enable.sql',
+  'utf8',
+);
 
 describe('primary source registry', () => {
   it('contains the six keyless fast-lane sources and no GNews calls', () => {
@@ -46,5 +50,12 @@ describe('primary source registry', () => {
     expect(MIGRATION).toMatch(/Republic Records[^\n]+rss[^\n]+established/);
     expect(MIGRATION).toMatch(/Universal Music Group[^\n]+rss[^\n]+established/);
     expect(MIGRATION.match(/requiredMention/g)).toHaveLength(2);
+  });
+
+  it('enables the fast source behind a normal-cycle exclusion flag', () => {
+    expect(ENABLE_MIGRATION).toContain('set is_enabled = true');
+    expect(ENABLE_MIGRATION).toContain('"primaryOnly":true');
+    expect(ENABLE_MIGRATION).toContain("where name = 'Google News — \"Taylor Swift\" fast lane'");
+    expect(ENABLE_MIGRATION).not.toContain('insert into public.news_source');
   });
 });

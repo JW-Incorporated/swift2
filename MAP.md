@@ -468,8 +468,11 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `apps/worker/src/sources/registry.test.ts` | Primary source inventory/adapter coverage and deliberate GDELT exclusion |
 | `apps/worker/src/sources/relevance.ts` | Per-source required-mention filter; keeps shared label feeds Taylor-only in fast and normal cycles |
 | `apps/worker/src/sources/relevance.test.ts` | Label-feed Taylor mention and unfiltered official-channel coverage |
+| `apps/worker/src/pipeline/run-cycle.ts`, `ingest-stage.ts`, `cluster-stage.ts`, `downstream-stages.ts` | News-cycle orchestration split into bounded ingest, cluster/source, and classify/extract stages; primary-only sources are excluded from the normal cycle by config flag |
+| `apps/worker/src/pipeline/story-sources.ts`, `story-source-store.ts` | The single story-source identity/write path: article and outlet normalisation, best tier/URL selection, redundant-row cleanup, and defensive distinct-article/outlet verification |
 | `scripts/lib/reputable-sources.test.ts` | Shared/script official-source parity, including channel-id and ticketing-id URL rules |
 | `supabase/migrations/20261015000000_news_sources_primary.sql` | Seeds five first-party rows plus a distinct newest-first Google News fast-lane row; label feeds are established and Taylor-filtered |
+| `supabase/migrations/20261015020000_news_fast_lane_enable.sql` | Re-apply-safe, guarded enable for the Google News fast lane plus its normal-cycle exclusion flag |
 
 
 
