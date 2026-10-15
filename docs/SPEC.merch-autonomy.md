@@ -364,6 +364,15 @@ cross-reference checks whether the shop is itself an Awin advertiser
 (some indie brands are) — if so it joins the map and monetizes; otherwise
 it stays `direct-by-policy` or becomes D2 residue evidence.
 
+The lane reads `merch_fan.enabled`, `shadow`, `thresholds.weeklyCap`, and
+`priority` from `config/tidewatch.json`. Disabled or shadow runs execute the
+judgment pipeline but only report would-accept/would-reject decisions. Live
+runs allow one open `merch-fanmade-curate/*` PR at a time, so the weekly cap
+counts items already on `main`; accepted issues close only when that PR merges,
+while conclusively rejected issues may close immediately. E1/E2 network
+failures, 403/429/5xx responses, and transient image-download failures remain
+open as unresolved; only 404/410 or a validated-invalid image is a rejection.
+
 Instagram/TikTok: deferred (no viable public read path; revisit only if a
 compliant API materializes). The plan's feasibility verdict depends on not
 pretending otherwise.

@@ -2,14 +2,19 @@ import { readFile } from 'node:fs/promises';
 
 import { choiceQuestion, noulQuestion } from '../lib/jev.mjs';
 import { callClaude } from '../lib/claude-call.mjs';
-import { curateCandidate } from './fanmade-discovery.mjs';
+import { canonicalUrl, curateCandidate } from './fanmade-discovery.mjs';
 import { verifyProductUrl } from './match-moments-authoring.mjs';
 import { verifyImage } from './verify-images.mjs';
 import { fetchMerchImage } from './audit-matches-authoring.mjs';
 
 export const D3_MODEL = 'claude-haiku-5-5';
-export const FANMADE_WEEKLY_CAP = 5;
 const CONFIG = JSON.parse(await readFile(new URL('../../config/tidewatch.json', import.meta.url)));
+const FANMADE_CONFIG = CONFIG.classes.merch_fan;
+export const FANMADE_WEEKLY_CAP = FANMADE_CONFIG.thresholds.weeklyCap;
+export function safeFanmadePriority(priority) {
+  return priority === 'P2' ? 'P2' : 'P3';
+}
+export const FANMADE_PRIORITY = safeFanmadePriority(FANMADE_CONFIG.priority);
 export const BOOTLEG_REJECT_THRESHOLD = CONFIG.classes.merch_fan.thresholds.bootlegReject;
 export const MERCH_KIND_THRESHOLD = CONFIG.classes.merch_fan.thresholds.act;
 
@@ -81,7 +86,7 @@ async function classifyWithJev(candidate, client) {
 
 async function judgeD3(candidate, image, callClaudeImpl) {
   return callClaudeImpl({
-    caller: 'merch-fanmade-curate-d3', priority: 'P3', model: D3_MODEL,
+    caller: 'merch-fanmade-curate-d3', priority: FANMADE_PRIORITY, model: D3_MODEL,
     system: 'Judge whether a fan-made listing image uses only an original inspired design. Reject official artwork, tour graphics, Taylor Swift photographs, or other copied protected imagery. Describe only visible evidence.',
     user: `Listing title: ${candidate.item || 'unknown'}\nMaker: ${candidate.brand || 'unknown'}\nReturn the D3 judgment for the staged listing image.`,
     schema: D3_SCHEMA, images: [image], maxCalls: 10, maxInputTokens: 5_000,
@@ -103,17 +108,24 @@ export async function curateFanmadeIssues({
   const rejected = [];
   const unresolved = [];
   const capacity = remainingWeeklyCapacity(existingCatalog, now);
-  const existingUrls = new Set(existingCatalog.map((item) => item.url));
+  const existingUrls = new Set(existingCatalog.map((item) => canonicalUrl(item.url)).filter(Boolean));
   if (capacity === 0) return { accepted, rejected, unresolved, capacity, status: 'capped' };
+
+  function leaveUnresolved(issueNumber, reason) {
+    log(`fanmade-curation: ${reason}; issue #${issueNumber} left open`);
+    unresolved.push({ issueNumber, reason });
+  }
 
   for (const issue of issues) {
     if (accepted.length >= capacity) break;
     const number = issue?.issueNumber ?? issue?.number;
-    if (!issue?.url) { rejected.push(rejection(number, 'invalid candidate metadata')); continue; }
-    if (existingUrls.has(issue.url)) { rejected.push(rejection(number, 'listing is already curated')); continue; }
+    const normalizedUrl = canonicalUrl(issue?.url);
+    if (!normalizedUrl) { rejected.push(rejection(number, 'invalid candidate metadata')); continue; }
+    if (existingUrls.has(normalizedUrl)) { rejected.push(rejection(number, 'listing is already curated')); continue; }
+    const candidate = { ...issue, url: normalizedUrl };
     let jev;
     try {
-      jev = await classifyWithJev(issue, jevClient);
+      jev = await classifyWithJev(candidate, jevClient);
     } catch (error) {
       log(`fanmade-curation: Jev unavailable; issue #${number} left open (${error?.message || error})`);
       unresolved.push({ issueNumber: number, reason: 'Jev unavailable' });
@@ -133,20 +145,53 @@ export async function curateFanmadeIssues({
       rejected.push(rejection(number, `merch kind is ${kind.optionId} at ${kind.confidence.toFixed(2)} confidence`));
       continue;
     }
-    let listingVerified;
-    try { listingVerified = await verifyProductUrlImpl(issue.url); } catch { listingVerified = false; }
-    if (!listingVerified) { rejected.push(rejection(number, 'E1 listing verification failed')); continue; }
-    let imageVerified;
-    try { imageVerified = issue.imageUrl && (await verifyImageImpl(issue.imageUrl)).verdict === 'ok'; }
-    catch { imageVerified = false; }
-    if (!imageVerified) {
-      rejected.push(rejection(number, 'E2 image verification failed')); continue;
+    let listingVerification;
+    try { listingVerification = await verifyProductUrlImpl(candidate.url); }
+    catch (error) {
+      leaveUnresolved(number, `E1 listing verification unavailable: ${error?.message || error}`);
+      continue;
+    }
+    if (['blocked', 'unavailable'].includes(listingVerification?.verdict)
+      || [403, 429].includes(listingVerification?.status) || listingVerification?.status >= 500) {
+      leaveUnresolved(number, `E1 listing verification unavailable${listingVerification.status ? ` (HTTP ${listingVerification.status})` : ''}`);
+      continue;
+    }
+    if ([404, 410].includes(listingVerification?.status)) {
+      rejected.push(rejection(number, `E1 listing verification failed (HTTP ${listingVerification.status})`));
+      continue;
+    }
+    if (!(listingVerification === true || listingVerification?.verdict === 'ok')) {
+      leaveUnresolved(number, 'E1 listing verification unavailable');
+      continue;
+    }
+    let imageVerification;
+    try { imageVerification = candidate.imageUrl && await verifyImageImpl(candidate.imageUrl); }
+    catch (error) {
+      leaveUnresolved(number, `E2 image verification unavailable: ${error?.message || error}`);
+      continue;
+    }
+    if (['blocked', 'unavailable'].includes(imageVerification?.verdict)
+      || [403, 429].includes(imageVerification?.status) || imageVerification?.status >= 500) {
+      leaveUnresolved(number, `E2 image verification unavailable${imageVerification?.status ? ` (HTTP ${imageVerification.status})` : ''}`);
+      continue;
+    }
+    if (imageVerification?.verdict !== 'ok') {
+      const suffix = imageVerification?.status ? ` (HTTP ${imageVerification.status})` : '';
+      rejected.push(rejection(number, `E2 image verification failed${suffix}`));
+      continue;
     }
     let image;
-    try { image = await fetchImageImpl(issue.imageUrl); }
-    catch { rejected.push(rejection(number, 'E2 image download failed')); continue; }
+    try { image = await fetchImageImpl(candidate.imageUrl); }
+    catch (error) {
+      if ([404, 410].includes(error?.status) || ['unsupported', 'too large'].includes(error?.code)) {
+        rejected.push(rejection(number, `E2 image download failed: ${error.message}`));
+      } else {
+        leaveUnresolved(number, `E2 image download unavailable: ${error?.message || error}`);
+      }
+      continue;
+    }
     let vision;
-    try { vision = await judgeD3(issue, image, callClaudeImpl); }
+    try { vision = await judgeD3(candidate, image, callClaudeImpl); }
     catch { vision = { status: 'unavailable', reason: 'wrapper call failed' }; }
     if (vision.status !== 'ok') {
       log(`fanmade-curation: wrapper unavailable; issue #${number} left open (${vision.reason})`);
@@ -155,15 +200,15 @@ export async function curateFanmadeIssues({
     }
     if (!d3Passed(vision.data)) { rejected.push(rejection(number, 'D3 vision check rejected prohibited imagery')); continue; }
     const evidence = {
-      ...issue.provenance[0],
+      ...candidate.provenance[0],
       d3: { judgment: vision.data.judgment, prohibitedMaterial: vision.data.prohibitedMaterial, basis: vision.data.basis, verifiedAt: now },
-      e1: { listingVerified: true, evidenceUrl: issue.url, productId: productId(issue.url), available: true, price: issue.price, title: issue.item, verifiedAt: now },
-      e2: { imageVerified: true, evidenceUrl: issue.imageUrl, officialArtwork: vision.data.officialArtwork, tourGraphic: vision.data.tourGraphic, taylorPhoto: vision.data.taylorPhoto, depicts: vision.data.depicts, verifiedAt: now },
+      e1: { listingVerified: true, evidenceUrl: candidate.url, productId: productId(candidate.url), available: true, price: candidate.price, title: candidate.item, verifiedAt: now },
+      e2: { imageVerified: true, evidenceUrl: candidate.imageUrl, officialArtwork: vision.data.officialArtwork, tourGraphic: vision.data.tourGraphic, taylorPhoto: vision.data.taylorPhoto, depicts: vision.data.depicts, verifiedAt: now },
     };
-    const result = curateCandidate({ ...issue, ...vision.data, listingVerified: true, imageVerified: true, kind: vision.data.kind, provenance: [evidence] }, now);
+    const result = curateCandidate({ ...candidate, ...vision.data, listingVerified: true, imageVerified: true, kind: vision.data.kind, provenance: [evidence] }, now);
     if (!result.accepted) { rejected.push(rejection(number, result.reason)); continue; }
     accepted.push({ issueNumber: number, seed: result.seed });
-    existingUrls.add(issue.url);
+    existingUrls.add(candidate.url);
   }
   return { accepted, rejected, unresolved, capacity, status: 'ok' };
 }

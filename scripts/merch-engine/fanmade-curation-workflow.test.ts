@@ -27,4 +27,16 @@ describe('fan-made curation workflow', () => {
     expect(workflow).toContain('paths: supabase/seed/merch/fanmade.mjs');
     expect(workflow).toContain('gh issue close "$number" --comment "$reason"');
   });
+
+  it('skips all authoring while any earlier curate PR is open', () => {
+    expect(workflow).toContain('startswith("merch-fanmade-curate/")');
+    expect(workflow).toContain('::notice::Curation PR #$number is still open; skipping this run');
+    expect(workflow).toContain("if: ${{ steps.open.outputs.number == '' }}");
+  });
+
+  it('writes only in live mode and closes accepted issues on merge', () => {
+    expect(workflow).toContain("steps.curate.outputs.write_enabled == 'true'");
+    expect(workflow).toContain('${{ steps.curate.outputs.accepted_closes }}');
+    expect(workflow).toContain("jq -c '.closures[]'");
+  });
 });

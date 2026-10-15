@@ -253,7 +253,10 @@ function toolInput(body) {
 }
 
 function imageFailure(message, status = null) {
-  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+  const error = new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+  error.code = message;
+  error.status = status;
+  return error;
 }
 
 export async function fetchMerchImage(url, { fetchImpl = fetch } = {}) {

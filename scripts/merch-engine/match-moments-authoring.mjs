@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
 import { verifyImage } from './verify-images.mjs';
+import { verificationPassed, verifyProductUrl } from './url-verification.mjs';
+export { verifyProductUrl } from './url-verification.mjs';
 import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
 
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
@@ -113,16 +115,6 @@ export async function gatherCandidates({
   return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket };
 }
 
-export async function verifyProductUrl(url, { fetchImpl = fetch } = {}) {
-  if (!url) return false;
-  try {
-    const response = await fetchImpl(url, { method: 'HEAD', redirect: 'follow' });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
-
 /**
  * Step 3 (SPEC §8): scores every candidate from every source together
  * against the moment photo, and applies the E1/E2 pre-merge verification
@@ -132,14 +124,14 @@ export async function verifyProductUrl(url, { fetchImpl = fetch } = {}) {
 export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = verifyProductUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
   const scored = [];
   for (const candidate of candidates) {
-    const urlVerified = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
+    const urlVerification = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
     const imageVerified = candidate.imageUrl
       ? (await verifyImageImpl(candidate.imageUrl, { fetchImpl })).verdict === 'ok'
       : false;
-    if (!urlVerified || !imageVerified) continue; // R2: an unverified candidate is never authored
+    if (!verificationPassed(urlVerification) || !imageVerified) continue; // R2: an unverified candidate is never authored
     const judgment = await judge({ candidate, momentImageUrl });
     if (!Number.isFinite(judgment?.score)) continue;
-    scored.push({ ...candidate, urlVerified, imageVerified, score: judgment.score });
+    scored.push({ ...candidate, urlVerified: true, imageVerified, score: judgment.score });
   }
   return scored;
 }

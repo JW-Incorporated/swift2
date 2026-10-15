@@ -1,10 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain ESM script
-import { BOOTLEG_REJECT_THRESHOLD, curateFanmadeIssues } from './fanmade-curation.mjs';
+import { BOOTLEG_REJECT_THRESHOLD, FANMADE_PRIORITY, FANMADE_WEEKLY_CAP, curateFanmadeIssues, safeFanmadePriority } from './fanmade-curation.mjs';
 // @ts-expect-error plain ESM script
 import { parseCandidateIssue } from './fanmade-curation-issues.mjs';
 // @ts-expect-error plain ESM script
 import { appendFanmadeSeeds } from './fanmade-curation-seed.mjs';
+// @ts-expect-error plain ESM script
+import { buildCurationReport, renderSummary, runFanmadeCuration } from './curate-fanmade.mjs';
 
 const NOW = '2026-10-15T12:00:00.000Z';
 const PNG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
@@ -82,20 +84,79 @@ describe('fan-made curation', () => {
   });
 
   it.each([
-    ['E1', { verifyProductUrlImpl: vi.fn(async () => false) }, 'E1 listing verification failed'],
     ['E2', { verifyImageImpl: vi.fn(async () => ({ verdict: 'invalid' })) }, 'E2 image verification failed'],
   ])('rejects a %s verification failure', async (_gate, override, reason) => {
     const result = await curateFanmadeIssues({ issues: [issue()], ...dependencies(override) });
     expect(result).toMatchObject({ accepted: [], rejected: [{ reason }] });
   });
 
-  it('accepts no more than five items in a week and records dated D3/E1/E2 provenance', async () => {
+  it.each([403, 429, 503])('leaves an E1 HTTP %s candidate unresolved and open', async (status) => {
+    const result = await curateFanmadeIssues({
+      issues: [issue()],
+      ...dependencies({ verifyProductUrlImpl: vi.fn(async () => ({ verdict: 'unavailable', status })) }),
+    });
+    expect(result).toMatchObject({ rejected: [], unresolved: [{ issueNumber: 1, reason: expect.stringContaining(`HTTP ${status}`) }] });
+    expect(buildCurationReport(result, NOW, { config: { enabled: true, shadow: false }, issues: [issue()] }).closures).toEqual([]);
+  });
+
+  it.each([403, 429, 503])('leaves an E2 HTTP %s candidate unresolved and open', async (status) => {
+    const verdict = status === 403 ? 'blocked' : 'unavailable';
+    const result = await curateFanmadeIssues({
+      issues: [issue()],
+      ...dependencies({ verifyImageImpl: vi.fn(async () => ({ verdict, status })) }),
+    });
+    expect(result).toMatchObject({ rejected: [], unresolved: [{ issueNumber: 1, reason: expect.stringContaining(`HTTP ${status}`) }] });
+  });
+
+  it.each([403, 429, 503])('leaves an image download HTTP %s candidate unresolved and open', async (status) => {
+    const error = Object.assign(new Error(`image source unavailable (HTTP ${status})`), { status });
+    const result = await curateFanmadeIssues({
+      issues: [issue()], ...dependencies({ fetchImageImpl: vi.fn(async () => { throw error; }) }),
+    });
+    expect(result).toMatchObject({ rejected: [], unresolved: [{ issueNumber: 1, reason: expect.stringContaining(`HTTP ${status}`) }] });
+  });
+
+  it.each([
+    ['E1', { verifyProductUrlImpl: vi.fn(async () => { throw new Error('network down'); }) }],
+    ['E2', { verifyImageImpl: vi.fn(async () => { throw new Error('network down'); }) }],
+    ['image download', { fetchImageImpl: vi.fn(async () => { throw new Error('network down'); }) }],
+  ])('leaves a %s network throw unresolved and open', async (_gate, override) => {
+    const result = await curateFanmadeIssues({ issues: [issue()], ...dependencies(override) });
+    expect(result).toMatchObject({ rejected: [], unresolved: [{ issueNumber: 1, reason: expect.stringContaining('network down') }] });
+  });
+
+  it.each([
+    ['E1', { verifyProductUrlImpl: vi.fn(async () => ({ verdict: 'invalid', status: 404 })) }, 'E1 listing verification failed (HTTP 404)'],
+    ['E2', { verifyImageImpl: vi.fn(async () => ({ verdict: 'invalid', status: 404 })) }, 'E2 image verification failed (HTTP 404)'],
+  ])('rejects a conclusive %s 404 with a reason', async (_gate, override, reason) => {
+    const result = await curateFanmadeIssues({ issues: [issue()], ...dependencies(override) });
+    expect(result).toMatchObject({ unresolved: [], rejected: [{ issueNumber: 1, reason }] });
+  });
+
+  it('rejects a conclusive image-download 404 with a reason', async () => {
+    const error = Object.assign(new Error('image source unavailable (HTTP 404)'), { status: 404 });
+    const result = await curateFanmadeIssues({
+      issues: [issue()], ...dependencies({ fetchImageImpl: vi.fn(async () => { throw error; }) }),
+    });
+    expect(result).toMatchObject({ unresolved: [], rejected: [{ issueNumber: 1, reason: expect.stringContaining('HTTP 404') }] });
+  });
+
+  it('normalizes an Etsy query string before checking catalog duplicates', async () => {
+    const candidate = { ...issue(), url: `${issue().url}?utm_source=weekly&ref=home` };
+    const result = await curateFanmadeIssues({
+      issues: [candidate],
+      ...dependencies({ existingCatalog: [{ url: issue().url, verifiedAt: '2026-09-01T00:00:00.000Z' }] }),
+    });
+    expect(result).toMatchObject({ accepted: [], rejected: [{ issueNumber: 1, reason: 'listing is already curated' }] });
+  });
+
+  it('uses the configured weekly cap and priority and records dated D3/E1/E2 provenance', async () => {
     const callClaudeImpl = d3();
     const result = await curateFanmadeIssues({
       issues: Array.from({ length: 7 }, (_, index) => issue(index + 1)),
       ...dependencies({ callClaudeImpl }),
     });
-    expect(result.accepted).toHaveLength(5);
+    expect(result.accepted).toHaveLength(FANMADE_WEEKLY_CAP);
     expect(result.accepted[0].seed).toMatchObject({
       kind: 'jewelry', verifiedAt: NOW,
       provenance: [{
@@ -108,9 +169,12 @@ describe('fan-made curation', () => {
       }],
     });
     expect(callClaudeImpl).toHaveBeenCalledWith(expect.objectContaining({
-      model: 'claude-haiku-5-5', priority: 'P3',
+      model: 'claude-haiku-5-5', priority: FANMADE_PRIORITY,
       images: [{ buffer: PNG, mimeType: 'image/png' }],
     }));
+    expect(FANMADE_PRIORITY).toBe('P2');
+    expect(safeFanmadePriority('P0')).toBe('P3');
+    expect(safeFanmadePriority('P1')).toBe('P3');
   });
 
   it('counts catalog items already accepted this UTC week against the cap', async () => {
@@ -142,6 +206,45 @@ describe('fan-made curation', () => {
 });
 
 describe('fan-made curation I/O', () => {
+  it.each([
+    ['shadow', { enabled: true, shadow: true }],
+    ['disabled', { enabled: false, shadow: false }],
+  ])('runs but writes nothing in %s mode', async (mode, config) => {
+    const appendSeeds = vi.fn(async () => undefined);
+    const pipeline = vi.fn(async () => ({
+      status: 'ok', capacity: 5,
+      accepted: [{ issueNumber: 1, seed: { item: 'Accepted title' } }],
+      rejected: [{ issueNumber: 2, reason: 'validated-invalid image' }],
+      unresolved: [],
+    }));
+    const report = await runFanmadeCuration({
+      rawIssues: [{ number: 1, title: 'Accepted title' }, { number: 2, title: 'Rejected title' }],
+      jevClient: jev(), pipeline, appendSeeds, config, now: NOW,
+    });
+    expect(pipeline).toHaveBeenCalledOnce();
+    expect(appendSeeds).not.toHaveBeenCalled();
+    expect(report).toMatchObject({ mode, writeEnabled: false, acceptedCount: 1, rejectedCount: 1, closures: [] });
+    expect(renderSummary(report)).toMatch(/Would accept: 1 .*would reject: 1/);
+    expect(renderSummary(report)).toContain('#1 accept');
+    expect(renderSummary(report)).toContain('#2 reject');
+  });
+
+  it('writes seeds live, leaves accepted issues for merge, and closes only rejected issues', async () => {
+    const appendSeeds = vi.fn(async () => undefined);
+    const report = await runFanmadeCuration({
+      rawIssues: [{ number: 1, title: 'Accepted title' }, { number: 2, title: 'Rejected title' }],
+      jevClient: jev(), appendSeeds, config: { enabled: true, shadow: false }, now: NOW,
+      pipeline: vi.fn(async () => ({
+        status: 'ok', capacity: 5,
+        accepted: [{ issueNumber: 1, seed: { item: 'Accepted title' } }],
+        rejected: [{ issueNumber: 2, reason: 'validated-invalid image' }], unresolved: [],
+      })),
+    });
+    expect(appendSeeds).toHaveBeenCalledOnce();
+    expect(report.closures).toEqual([{ issueNumber: 2, reason: 'Rejected by fan-made curation: validated-invalid image.' }]);
+    expect(report.acceptedIssues).toEqual([expect.objectContaining({ issueNumber: 1 })]);
+  });
+
   it('parses the P0-10 issue shape without trusting the title', () => {
     expect(parseCandidateIssue({
       number: 42, title: 'untrusted', createdAt: NOW, url: 'https://github.com/o/r/issues/42',
