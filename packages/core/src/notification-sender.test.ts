@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { isExpoPushToken, sendPushBatch, type PushSendInput } from './notification-sender';
 
 function input(overrides: Partial<PushSendInput> = {}): PushSendInput {
@@ -36,6 +37,33 @@ describe('isExpoPushToken', () => {
 });
 
 describe('sendPushBatch (native via Expo)', () => {
+  it('stops the second batch when PUSH_FREEZE turns on between batches', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(200, { data: [{ status: 'ok' }] }));
+    vi.stubGlobal('fetch', fetchMock);
+    const switchValues = [false, true];
+    let reads = 0;
+    const db = {
+      from: vi.fn(() => ({
+        select: () => ({
+          eq: () => ({
+            maybeSingle: async () => ({
+              data: { enabled: switchValues[reads++] },
+              error: null,
+            }),
+          }),
+        }),
+      })),
+    } as unknown as SupabaseClient;
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const first = await sendPushBatch([input()], db);
+    const second = await sendPushBatch([input()], db);
+
+    expect(first[0]).toMatchObject({ ok: true });
+    expect(second[0]).toMatchObject({ ok: false, error: 'PUSH_FREEZE is on' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('sends ios + android in one Expo request and maps tickets back in order', async () => {
     const fetchMock = vi.fn().mockResolvedValue(
       jsonResponse(200, {

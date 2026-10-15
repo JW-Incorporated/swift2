@@ -11,6 +11,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.doUnmock('@swift2/core/notifications-server');
+  vi.doUnmock('@supabase/supabase-js');
   vi.resetModules();
 });
 
@@ -61,6 +62,7 @@ describe('GET /api/notifications/dispatch', () => {
       runCooldownPass: vi
         .fn()
         .mockResolvedValue({ devicesDowngraded: 1, noticesSent: 1, errors: [] }),
+      readPushFreeze: vi.fn().mockResolvedValue({ state: 'unfrozen' }),
     }));
     vi.resetModules();
 
@@ -81,6 +83,123 @@ describe('GET /api/notifications/dispatch', () => {
       countdownDispatch: { sent: 1, sendFailures: 0, errors: [] },
       cooldown: { devicesDowngraded: 1, noticesSent: 1, errors: [] },
     });
-    vi.doUnmock('@supabase/supabase-js');
+  });
+
+  it('returns frozen=true and skips every sending pass when PUSH_FREEZE is on', async () => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const passes = {
+      dispatchPendingEvents: vi.fn(),
+      dispatchDueDigests: vi.fn(),
+      dispatchClownReports: vi.fn(),
+      dispatchFunNotifications: vi.fn(),
+      scheduleCountdownsForPendingEvents: vi.fn(),
+      dispatchDueCountdowns: vi.fn(),
+      runCooldownPass: vi.fn(),
+    };
+    const readPushFreeze = vi.fn().mockResolvedValue({ state: 'frozen' });
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      ...passes,
+      readPushFreeze,
+    }));
+    vi.resetModules();
+    const logSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const { GET } = await import('./route');
+    const res = await GET(
+      new Request('http://localhost/api/notifications/dispatch', {
+        headers: { authorization: 'Bearer real-secret' },
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({
+      frozen: true,
+      skippedPasses: [
+        'router',
+        'digests',
+        'clownReports',
+        'fun',
+        'countdownSchedule',
+        'countdownDispatch',
+        'cooldown',
+      ],
+    });
+    expect(readPushFreeze).toHaveBeenCalledTimes(1);
+    for (const pass of Object.values(passes)) expect(pass).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith(
+      'notifications/dispatch: PUSH_FREEZE is on; skipped passes: router, digests, clownReports, fun, countdownSchedule, countdownDispatch, cooldown',
+    );
+  });
+
+  it('returns 503 and sends nothing when the PUSH_FREEZE row is missing', async () => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const passes = {
+      dispatchPendingEvents: vi.fn(),
+      dispatchDueDigests: vi.fn(),
+      dispatchClownReports: vi.fn(),
+      dispatchFunNotifications: vi.fn(),
+      scheduleCountdownsForPendingEvents: vi.fn(),
+      dispatchDueCountdowns: vi.fn(),
+      runCooldownPass: vi.fn(),
+    };
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      ...passes,
+      readPushFreeze: vi.fn().mockResolvedValue({
+        state: 'unreadable',
+        reason: 'switch row is missing',
+      }),
+    }));
+    vi.resetModules();
+
+    const { GET } = await import('./route');
+    const res = await GET(
+      new Request('http://localhost/api/notifications/dispatch', {
+        headers: { authorization: 'Bearer real-secret' },
+      }),
+    );
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({
+      error: 'PUSH_FREEZE could not be read: switch row is missing',
+    });
+    for (const pass of Object.values(passes)) expect(pass).not.toHaveBeenCalled();
+  });
+
+  it('returns 503 and sends nothing when PUSH_FREEZE is unreadable', async () => {
+    vi.stubEnv('CRON_SECRET', 'real-secret');
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-key');
+    const passes = {
+      dispatchPendingEvents: vi.fn(),
+      dispatchDueDigests: vi.fn(),
+      dispatchClownReports: vi.fn(),
+      dispatchFunNotifications: vi.fn(),
+      scheduleCountdownsForPendingEvents: vi.fn(),
+      dispatchDueCountdowns: vi.fn(),
+      runCooldownPass: vi.fn(),
+    };
+    vi.doMock('@supabase/supabase-js', () => ({ createClient: () => ({}) }));
+    vi.doMock('@swift2/core/notifications-server', () => ({
+      ...passes,
+      readPushFreeze: vi.fn().mockResolvedValue({ state: 'unreadable', reason: 'query failed' }),
+    }));
+    vi.resetModules();
+
+    const { GET } = await import('./route');
+    const res = await GET(
+      new Request('http://localhost/api/notifications/dispatch', {
+        headers: { authorization: 'Bearer real-secret' },
+      }),
+    );
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({ error: 'PUSH_FREEZE could not be read: query failed' });
+    for (const pass of Object.values(passes)) expect(pass).not.toHaveBeenCalled();
   });
 });

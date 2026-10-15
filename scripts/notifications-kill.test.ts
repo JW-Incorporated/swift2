@@ -3,17 +3,19 @@ import { killEvent, listPendingEvents } from './notifications-kill.mjs';
 
 function fakeDb() {
   const events = new Map();
+  const deliveredEventIds = new Set();
   return {
     _events: events,
+    _deliveredEventIds: deliveredEventIds,
     from(table) {
       if (table !== 'events') throw new Error(`unexpected table ${table}`);
       return {
         select: () => ({
           is: () => ({
-            gt: (_col, cutoff) => ({
+            not: () => ({
               order: async () => ({
                 data: [...events.values()].filter(
-                  (e) => !e.killed_at && e.available_at > cutoff,
+                  (e) => !e.killed_at && !deliveredEventIds.has(e.id),
                 ),
                 error: null,
               }),
@@ -23,11 +25,11 @@ function fakeDb() {
         update: (patch) => ({
           eq: (_col, id) => ({
             is: () => ({
-              gt: (_availableCol, cutoff) => ({
+              not: () => ({
                 select: () => ({
                   maybeSingle: async () => {
                     const row = events.get(id);
-                    if (!row || row.killed_at || row.available_at <= cutoff) {
+                    if (!row || row.killed_at || deliveredEventIds.has(id)) {
                       return { data: null, error: null };
                     }
                     Object.assign(row, patch);
@@ -44,7 +46,7 @@ function fakeDb() {
 }
 
 describe('listPendingEvents', () => {
-  it('selects pending events from every tier within their kill window', async () => {
+  it('selects undelivered events from every tier regardless of available_at', async () => {
     const db = fakeDb();
     const now = new Date('2026-01-01T12:00:00Z');
     db._events.set('e1', {
@@ -53,6 +55,7 @@ describe('listPendingEvents', () => {
       tier: 1,
       title: 'New song',
       available_at: new Date(now.getTime() + 120_000).toISOString(),
+      created_at: now.toISOString(),
       killed_at: null,
     });
     db._events.set('e2', {
@@ -60,7 +63,8 @@ describe('listPendingEvents', () => {
       category: 'official_merch',
       tier: 2,
       title: 'Merch drop',
-      available_at: new Date(now.getTime() + 120_000).toISOString(),
+      available_at: new Date(now.getTime() - 120_000).toISOString(),
+      created_at: now.toISOString(),
       killed_at: null,
     });
     db._events.set('e3', {
@@ -69,11 +73,21 @@ describe('listPendingEvents', () => {
       tier: 3,
       title: 'Award news',
       available_at: new Date(now.getTime() + 120_000).toISOString(),
+      created_at: now.toISOString(),
       killed_at: null,
     });
+    db._events.set('e4', {
+      id: 'e4',
+      category: 'song_drop',
+      tier: 1,
+      title: 'Already sent',
+      available_at: new Date(now.getTime() - 120_000).toISOString(),
+      created_at: now.toISOString(),
+      killed_at: null,
+    });
+    db._deliveredEventIds.add('e4');
     const pending = await listPendingEvents(db, now);
     expect(pending.map((event) => event.id)).toEqual(['e1', 'e2', 'e3']);
-    expect(pending.every((event) => event.secondsUntilSend === 120)).toBe(true);
   });
 });
 
@@ -106,7 +120,7 @@ describe('killEvent', () => {
     await expect(killEvent(db, 'does-not-exist')).rejects.toThrow(/no pending event/);
   });
 
-  it('refuses to kill an event after its kill window closes', async () => {
+  it('kills an undelivered event after its kill window closes', async () => {
     const db = fakeDb();
     const now = new Date('2026-01-01T12:01:00Z');
     db._events.set('e1', {
@@ -116,6 +130,19 @@ describe('killEvent', () => {
       available_at: new Date(now.getTime() - 1).toISOString(),
       killed_at: null,
     });
-    await expect(killEvent(db, 'e1', now)).rejects.toThrow(/no pending event/);
+    await expect(killEvent(db, 'e1', now)).resolves.toMatchObject({ id: 'e1' });
+  });
+
+  it('refuses to kill an event that already has a delivery', async () => {
+    const db = fakeDb();
+    db._events.set('e1', {
+      id: 'e1',
+      category: 'award_news',
+      title: 'Award news',
+      available_at: new Date().toISOString(),
+      killed_at: null,
+    });
+    db._deliveredEventIds.add('e1');
+    await expect(killEvent(db, 'e1')).rejects.toThrow(/no pending event/);
   });
 });

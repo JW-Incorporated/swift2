@@ -333,7 +333,7 @@ async function sendLyricOfDay(
       deepLink: trackKey ? songLink(trackKey) : frontDoorLink(),
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
-  ]);
+  ], db);
   const sendResult = sendResults[0];
   if (sendResult?.ok) {
     result.lyricsSent++;
@@ -384,7 +384,7 @@ async function sendOnThisDay(
       deepLink: entry.deepLink ?? 'https://www.longlivets.com/',
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     },
-  ]);
+  ], db);
   const sendResult = sendResults[0];
   if (sendResult?.ok) {
     result.onThisDaySent++;
@@ -583,7 +583,7 @@ export async function dispatchDueCountdowns(
         deepLink: frontDoorLink(),
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
-    ]);
+    ], db);
     const sendResult = sendResults[0];
     if (sendResult?.ok) {
       out.sent++;

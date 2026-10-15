@@ -23,7 +23,7 @@ create table if not exists public.events (
   dedupe_key  text unique,                 -- kills duplicate detections from the scraper pipeline
   -- T1 safety (spec §12 Q2, founder decision recorded on the Phase 2 kanban
   -- task): song_drop/album_news/tour_news get a 5-minute send delay so a
-  -- false positive can be killed (scripts/notifications-kill.mjs) before
+  -- false positive can be killed (scripts/notifications-kill-t1.mjs) before
   -- it reaches a single device. Non-T1 categories get available_at = now()
   -- (no delay). The router never sends an event before its available_at.
   available_at timestamptz not null default now(),

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Notification safety kill hook: every tier has a 5-minute delay, and this
-// script lets an operator inspect or withdraw any pending false positive
-// before its available_at deadline.
+// script lets an operator inspect or withdraw any pending false positive,
+// including an event held while PUSH_FREEZE is on.
 //
 // Usage:
 //   node scripts/notifications-kill.mjs --list                 # show pending events
@@ -9,7 +9,7 @@
 //
 // --list is the inspectable surface (run it locally, or via a manual
 // workflow dispatch with Supabase credentials): every pending event is shown
-// with its available_at deadline and countdown. `--kill` sets
+// with its available_at and created_at timestamps. `--kill` sets
 // `killed_at`, which the router (notification-router.ts) checks
 // unconditionally before ever sending — a killed event is never delivered,
 // even if `--kill` runs a moment before the 5-minute delay elapses.
@@ -27,21 +27,15 @@ function supabaseAdmin() {
   return db;
 }
 
-export async function listPendingEvents(db, now = new Date()) {
+export async function listPendingEvents(db) {
   const { data, error } = await db
     .from('events')
     .select('id,category,tier,title,body,available_at,created_at,killed_at')
     .is('killed_at', null)
-    .gt('available_at', now.toISOString())
+    .not('id', 'in', '(select event_id from deliveries where event_id is not null)')
     .order('available_at', { ascending: true });
   if (error) throw new Error(`listPendingEvents: ${error.message}`);
-  return (data ?? []).map((row) => ({
-    ...row,
-    secondsUntilSend: Math.max(
-      0,
-      Math.round((new Date(row.available_at).getTime() - now.getTime()) / 1000),
-    ),
-  }));
+  return data ?? [];
 }
 
 export async function killEvent(db, eventId, now = new Date()) {
@@ -50,7 +44,7 @@ export async function killEvent(db, eventId, now = new Date()) {
     .update({ killed_at: now.toISOString() })
     .eq('id', eventId)
     .is('killed_at', null)
-    .gt('available_at', now.toISOString())
+    .not('id', 'in', '(select event_id from deliveries where event_id is not null)')
     .select('id,category,title,available_at')
     .maybeSingle();
   if (error) throw new Error(`killEvent: ${error.message}`);
@@ -75,7 +69,7 @@ async function main() {
     console.log(`${pending.length} pending notification event(s):`);
     for (const e of pending) {
       console.log(
-        `  [${e.id}] ${e.category} — "${e.title}" — sends in ${e.secondsUntilSend}s (at ${e.available_at})`,
+        `  [${e.id}] tier ${e.tier} — "${e.title}" — available_at ${e.available_at} — created_at ${e.created_at}`,
       );
     }
     return;

@@ -25,6 +25,7 @@
 // `deliveries` row and the client (native deep-link handler / the web
 // service worker) can report it back via `POST /api/notifications/open`.
 import { randomUUID } from 'node:crypto';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { sendWebPushBatch, type WebPushSendResult } from './notification-web-push';
 
 const EXPO_PUSH_URL = 'https://exp.host/--/api/v2/push/send';
@@ -33,6 +34,32 @@ const EXPO_BATCH_SIZE = 100;
 const EXPO_SEND_CONCURRENCY = 4;
 const MAX_RETRIES = 2;
 const RETRY_BASE_DELAY_MS = 500;
+const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
+
+export type PushFreezeState = 'unfrozen' | 'frozen' | 'unreadable';
+
+export interface PushFreezeRead {
+  state: PushFreezeState;
+  reason?: string;
+}
+
+export async function readPushFreeze(db: SupabaseClient): Promise<PushFreezeRead> {
+  try {
+    const { data, error } = await db
+      .from('ops_switches')
+      .select('enabled')
+      .eq('name', PUSH_FREEZE_SWITCH)
+      .maybeSingle();
+    if (error) return { state: 'unreadable', reason: error.message };
+    if (!data) return { state: 'unreadable', reason: 'switch row is missing' };
+    return { state: data.enabled === false ? 'unfrozen' : 'frozen' };
+  } catch (err) {
+    return {
+      state: 'unreadable',
+      reason: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
 
 export interface PushSendInput {
   deviceId: string;
@@ -168,8 +195,25 @@ function toPushSendResult(r: WebPushSendResult, deliveryToken: string): PushSend
  * correlation id `POST /api/notifications/open` looks up when a
  * notification is opened.
  */
-export async function sendPushBatch(inputs: readonly PushSendInput[]): Promise<PushSendResult[]> {
+export async function sendPushBatch(
+  inputs: readonly PushSendInput[],
+  db?: SupabaseClient,
+): Promise<PushSendResult[]> {
   if (inputs.length === 0) return [];
+
+  if (db) {
+    const freeze = await readPushFreeze(db);
+    if (freeze.state !== 'unfrozen') {
+      const reason = freeze.state === 'frozen' ? 'PUSH_FREEZE is on' : `PUSH_FREEZE unreadable: ${freeze.reason}`;
+      console.warn(`notification-sender: ${reason}; batch skipped`);
+      return inputs.map((input) => ({
+        ok: false,
+        deviceId: input.deviceId,
+        invalidToken: false,
+        error: reason,
+      }));
+    }
+  }
 
   const results: PushSendResult[] = new Array(inputs.length);
   const nativeIndices: number[] = [];

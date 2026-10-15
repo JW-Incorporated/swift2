@@ -15,7 +15,7 @@ import {
   totalDeliveriesToday,
   type GovernorDeviceSettings,
 } from './notification-governor';
-import { sendPushBatch, type PushSendResult } from './notification-sender';
+import { readPushFreeze, sendPushBatch, type PushSendResult } from './notification-sender';
 import { enqueueForDigest } from './notification-digest';
 
 export interface RouterEventRow {
@@ -72,19 +72,6 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
-const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
-export const STALE_AFTER_MS = 3 * 60 * 60 * 1000;
-const STALE_AFTER_ENV = 'NOTIFICATION_STALE_AFTER_MS';
-
-export function staleAfterMs(
-  env: Record<string, string | undefined> = process.env,
-): number {
-  const configured = env[STALE_AFTER_ENV];
-  if (!configured) return STALE_AFTER_MS;
-
-  const parsed = Number(configured);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : STALE_AFTER_MS;
-}
 
 /**
  * One dispatch pass: loads events whose `available_at` has arrived (every
@@ -115,19 +102,15 @@ export async function dispatchPendingEvents(
     errors: [],
   };
 
-  const { data: pushFreeze, error: pushFreezeError } = await db
-    .from('ops_switches')
-    .select('enabled')
-    .eq('name', PUSH_FREEZE_SWITCH)
-    .maybeSingle();
-  if (pushFreezeError || !pushFreeze) {
-    const reason = pushFreezeError?.message ?? 'switch row is missing';
+  const pushFreeze = await readPushFreeze(db);
+  if (pushFreeze.state === 'unreadable') {
+    const reason = pushFreeze.reason ?? 'switch row is missing';
     const message = `PUSH_FREEZE could not be read; dispatch skipped: ${reason}`;
     console.warn(`notification-router: ${message}`);
     result.errors.push(message);
     return result;
   }
-  if (pushFreeze.enabled !== false) {
+  if (pushFreeze.state === 'frozen') {
     console.warn('notification-router: PUSH_FREEZE is on; dispatch skipped');
     return result;
   }
@@ -145,24 +128,10 @@ export async function dispatchPendingEvents(
     return result;
   }
 
-  const staleAfter = staleAfterMs();
-  let staleExpired = 0;
   for (const event of (events ?? []) as RouterEventRow[]) {
     result.eventsConsidered++;
     if (event.expires_at && new Date(event.expires_at).getTime() < now.getTime()) {
       result.eventsSkippedExpired++;
-      continue;
-    }
-    if (now.getTime() - new Date(event.available_at).getTime() > staleAfter) {
-      const { error: expireError } = await db
-        .from('events')
-        .update({ expires_at: now.toISOString() })
-        .eq('id', event.id);
-      if (expireError) {
-        result.errors.push(`could not expire stale event ${event.id}: ${expireError.message}`);
-      }
-      result.eventsSkippedExpired++;
-      staleExpired++;
       continue;
     }
     try {
@@ -170,12 +139,6 @@ export async function dispatchPendingEvents(
     } catch (err) {
       result.errors.push(`dispatch failed for event ${event.id}: ${(err as Error).message}`);
     }
-  }
-
-  if (staleExpired > 0) {
-    console.warn(
-      `notification-router: expired ${staleExpired} stale events older than ${staleAfter / (60 * 60 * 1000)}h`,
-    );
   }
 
   return result;
@@ -329,6 +292,7 @@ async function dispatchOneEvent(
       deepLink: event.deep_link,
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     })),
+    db,
   );
 
   await logDeliveriesAndPrune(db, event, sendResults, result);
