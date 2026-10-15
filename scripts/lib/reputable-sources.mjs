@@ -52,6 +52,10 @@ import {
 
 export { OFFICIAL_DOMAINS, ESTABLISHED_DOMAINS, ESTABLISHED_SOURCE_NAMES };
 
+export const OFFICIAL_YOUTUBE_CHANNEL_IDS = new Set(['UCqECaJ8Gagnn7YCbPEzWH6g']);
+export const OFFICIAL_TICKETING_DOMAINS = new Set(['ticketmaster.com']);
+export const OFFICIAL_TICKETING_IDS = new Set(['1094215', 'K8vZ9175dV7']);
+
 /** Case-insensitive `www.`-stripped hostname, or null for an unparsable url. */
 export function hostOf(url) {
   try {
@@ -68,9 +72,37 @@ function domainOrSubdomainOf(host, set) {
   return false;
 }
 
-/** True when `url`'s host resolves to Taylor's own verified domain. */
+function officialYouTubeUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host !== 'youtube.com' && !host.endsWith('.youtube.com')) return false;
+  const pathChannelId = /^\/channel\/([^/]+)\/?$/.exec(url.pathname)?.[1];
+  const feedChannelId =
+    url.pathname === '/feeds/videos.xml' ? url.searchParams.get('channel_id') : null;
+  return OFFICIAL_YOUTUBE_CHANNEL_IDS.has(pathChannelId ?? feedChannelId ?? '');
+}
+
+function officialTicketingUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (!domainOrSubdomainOf(host, OFFICIAL_TICKETING_DOMAINS)) return false;
+  const urlIds = [
+    ...url.pathname
+      .split('/')
+      .filter(Boolean)
+      .map((segment) => segment.replace(/\.json$/, '')),
+    ...['attractionId', 'eventId'].map((key) => url.searchParams.get(key) ?? ''),
+  ];
+  return urlIds.some((id) => OFFICIAL_TICKETING_IDS.has(id));
+}
+
+/** True for a verified artist/label URL or an exact channel/ticketing id rule. */
 export function isOfficialDomain(url) {
-  return domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS);
+  if (domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS)) return true;
+  try {
+    const parsed = new URL(String(url));
+    return officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
+  } catch {
+    return false;
+  }
 }
 
 /** True when `url`'s host is a direct-publisher domain on the allowlist. */

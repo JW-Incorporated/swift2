@@ -447,6 +447,14 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 |---|---|
 | `supabase/migrations/20261014000000_ops_switch.sql` | Service-role-only `ops_switches` table seeded with the fail-safe `PUSH_FREEZE` runtime brake |
 
+## Tidewatch primary-source fast lane (P1-08)
+
+| Path | What |
+|---|---|
+| `apps/worker/src/sources/registry.test.ts` | Primary source inventory/adapter coverage and deliberate GDELT exclusion |
+| `scripts/lib/reputable-sources.test.ts` | Shared/script official-source parity, including channel-id and ticketing-id URL rules |
+| `supabase/migrations/20261015000000_news_sources_primary.sql` | Seeds five first-party source rows and marks the existing Google News RSS row for primary polling |
+
 
 
 

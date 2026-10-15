@@ -138,7 +138,24 @@ export function computeVerificationStatus(
 
 /** Domains that verify a claim as literally Taylor's own — the only thing
  * that can earn `official` tier. */
-export const OFFICIAL_DOMAINS: ReadonlySet<string> = new Set(['taylorswift.com']);
+export const OFFICIAL_DOMAINS: ReadonlySet<string> = new Set([
+  'taylorswift.com',
+  'republicrecords.com',
+  'umusic.com',
+  'universalmusic.com',
+]);
+
+export const OFFICIAL_YOUTUBE_CHANNEL_IDS: ReadonlySet<string> = new Set([
+  'UCqECaJ8Gagnn7YCbPEzWH6g',
+]);
+
+export const OFFICIAL_TICKETING_DOMAINS: ReadonlySet<string> = new Set(['ticketmaster.com']);
+
+/** Ticketmaster's public artist id and Discovery API attraction id for Taylor Swift. */
+export const OFFICIAL_TICKETING_IDS: ReadonlySet<string> = new Set([
+  '1094215',
+  'K8vZ9175dV7',
+]);
 
 /** Direct-publisher domains that earn `established` on their own. */
 export const ESTABLISHED_DOMAINS: ReadonlySet<string> = new Set([
@@ -180,9 +197,37 @@ function domainOrSubdomainOf(host: string | null, set: ReadonlySet<string>): boo
   return false;
 }
 
-/** True when `url`'s host resolves to Taylor's own verified domain. */
+function officialYouTubeUrl(url: URL): boolean {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host !== 'youtube.com' && !host.endsWith('.youtube.com')) return false;
+  const pathChannelId = /^\/channel\/([^/]+)\/?$/.exec(url.pathname)?.[1];
+  const feedChannelId =
+    url.pathname === '/feeds/videos.xml' ? url.searchParams.get('channel_id') : null;
+  return OFFICIAL_YOUTUBE_CHANNEL_IDS.has(pathChannelId ?? feedChannelId ?? '');
+}
+
+function officialTicketingUrl(url: URL): boolean {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (!domainOrSubdomainOf(host, OFFICIAL_TICKETING_DOMAINS)) return false;
+  const urlIds = [
+    ...url.pathname
+      .split('/')
+      .filter(Boolean)
+      .map((segment) => segment.replace(/\.json$/, '')),
+    ...['attractionId', 'eventId'].map((key) => url.searchParams.get(key) ?? ''),
+  ];
+  return urlIds.some((id) => OFFICIAL_TICKETING_IDS.has(id));
+}
+
+/** True for a verified artist/label URL or an exact channel/ticketing id rule. */
 export function isOfficialDomain(url: unknown): boolean {
-  return domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS);
+  if (domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS)) return true;
+  try {
+    const parsed = new URL(String(url));
+    return officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
+  } catch {
+    return false;
+  }
 }
 
 /** True when `url`'s host is a direct-publisher domain on the allowlist. */

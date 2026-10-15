@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
+
+**Decision.** Official bare domains are `taylorswift.com`, `republicrecords.com`,
+`umusic.com`, and `universalmusic.com` (subdomains included). YouTube qualifies only
+for channel id `UCqECaJ8Gagnn7YCbPEzWH6g` on a `/channel/` or channel-RSS URL; bare
+`youtube.com` and watch URLs do not. Ticketmaster qualifies only when the host is
+`ticketmaster.com` and a path/query id is Taylor's `1094215` or `K8vZ9175dV7`;
+bare Ticketmaster and other attraction ids do not. Widening `OFFICIAL_DOMAINS` also
+widens the rumor `sourceTier` gate: a citation from these domains counts as official.
+GDELT stays out of the registry: the 2026-10-15 recall probe returned HTTP 429 and
+therefore zero usable items while the same Google News RSS returned 101.
+
+---
+
 ## 2026-10-14 — Tidewatch data model (P1-02)
 
 **Decision.** Tidewatch owns five service-role-only tables: `watch_item` for seen-content fingerprints and counts, `watch_decision` for the complete classification/action audit trail, `watch_cursor` for per-source collection progress, `story_timeline` for the timestamps used to measure detection and publishing SLAs, and `llm_usage` for per-caller provider/model/token usage and estimated cost. Noise items expire after 30 days, other seen items after 180 days, and shadow decisions after 365 days; timelines and usage rows are retained (implemented in a follow-up; not in this PR).

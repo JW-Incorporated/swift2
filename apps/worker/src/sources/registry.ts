@@ -6,6 +6,53 @@ import { tumblrAdapter } from './tumblr';
 import { gnewsAdapter } from './gnews';
 import { siteDiffAdapter } from './site-diff';
 
+export interface PrimarySourceDefinition {
+  name: string;
+  sourceType: 'rss' | 'google_news' | 'site_diff';
+  tier: 'official' | 'unverified';
+  url: string;
+}
+
+/** One network request per entry per fast cycle; mirrored by the source seed migration. */
+export const PRIMARY_SOURCES: readonly PrimarySourceDefinition[] = [
+  {
+    name: 'Taylor Swift — official YouTube channel',
+    sourceType: 'rss',
+    tier: 'official',
+    url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g',
+  },
+  {
+    name: 'Taylor Swift — official site',
+    sourceType: 'site_diff',
+    tier: 'official',
+    url: 'https://www.taylorswift.com/',
+  },
+  {
+    name: 'Taylor Swift — official store',
+    sourceType: 'site_diff',
+    tier: 'official',
+    url: 'https://store.taylorswift.com/',
+  },
+  {
+    name: 'Google News — "Taylor Swift" search',
+    sourceType: 'google_news',
+    tier: 'unverified',
+    url: 'https://news.google.com/rss/search?q=%22Taylor+Swift%22&hl=en-US&gl=US&ceid=US:en',
+  },
+  {
+    name: 'Republic Records — press feed',
+    sourceType: 'rss',
+    tier: 'official',
+    url: 'https://www.republicrecords.com/blogs/news.atom',
+  },
+  {
+    name: 'Universal Music Group — press feed',
+    sourceType: 'rss',
+    tier: 'official',
+    url: 'https://www.universalmusic.com/feed/',
+  },
+];
+
 /** source_type -> adapter. Google News search-query URLs are RSS feeds. */
 const ADAPTER_REGISTRY: Record<string, SourceAdapter> = {
   rss: rssAdapter,
