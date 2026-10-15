@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** The Facebook export now saves each post's link and reaction/comment counts, plus replies to your own comments (PR #5930). Your browser still runs the old extension and the old weekly task, so none of that is collected yet.
+**Steps:**
+1. In Chrome open chrome://extensions, find the Long Live Facebook harvester, click its Reload arrow.
+2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
+3. Tell the PM chat "fb done"; the PM checks the next export.
+**Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
 
 ## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
 <!-- ha filed=2026-10-15 -->
