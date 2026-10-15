@@ -145,6 +145,17 @@ describe('voice critic integration', () => {
     expect(log).toHaveBeenCalledWith(expect.stringContaining('"rewrite_invalid":1'));
   });
 
+  it('rejects a rewrite that adds an @mention', async () => {
+    const { entries } = await run(scored('folklore, easily. ask @someone', true));
+    expect(entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
+  });
+
+  it('passes the 18-call per-run cap to the critic', async () => {
+    const review = vi.fn(unscored);
+    await run(review);
+    expect(review.mock.calls[0][1]).toMatchObject({ maxCalls: 18 });
+  });
+
   it('keeps the original when the critic did not score or throws', async () => {
     expect((await run(unscored)).entries[0]).toMatchObject({ draft: 'folklore for me, no contest' });
     const boom = async () => {

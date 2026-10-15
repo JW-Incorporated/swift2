@@ -31,6 +31,7 @@ export const MODEL = 'claude-sonnet-5-5';
 export const PRIORITY = 'P3'; // community work: below news and breaking, no backup token
 export const MAX_INPUT_TOKENS = 6000;
 export const SYSTEM_PROMPT_FILE = 'docs/agents/runner-prompts/awareness-answerer.md';
+export const VOICE_MAX_CALLS = 18; // 6 leads x (score, rewrite, re-score)
 const PACING_MS = 4000;
 const MAX_CONSECUTIVE_FAILURES = 2;
 const SELFTEXT_CHARS = 700;
@@ -137,9 +138,10 @@ export function interpret(lead, outcome) {
  */
 export async function polishDraft(entry, review) {
   try {
-    const [r] = await review([{ id: entry.id, text: entry.draft }], { log: () => undefined });
+    const [r] = await review([{ id: entry.id, text: entry.draft }], { log: () => undefined, maxCalls: VOICE_MAX_CALLS });
     if (r?.status !== 'scored') return { text: entry.draft, outcome: 'not_scored' };
     if (!r.rewritten) return { text: entry.draft, outcome: r.rewriteAttempted ? 'rewrite_not_better' : 'kept' };
+    if (/@\w/.test(r.text) && !/@\w/.test(entry.draft)) return { text: entry.draft, outcome: 'rewrite_invalid' };
     if (lintReply(r.text).length > 0) return { text: entry.draft, outcome: 'rewrite_invalid' };
     return { text: r.text, outcome: 'rewritten' };
   } catch {

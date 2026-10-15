@@ -39,6 +39,7 @@ function validRow(row, wanted) {
 function call(opts, model, system, user, schema) {
   return (opts.call ?? callClaude)({
     caller: CALLER, priority: PRIORITY, model, system, user, schema,
+    ...(opts.maxCalls ? { maxCalls: opts.maxCalls } : {}),
   });
 }
 
