@@ -469,6 +469,9 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `apps/worker/src/sources/registry.test.ts` | Primary source inventory/adapter coverage and deliberate GDELT exclusion |
 | `apps/worker/src/sources/relevance.ts` | Per-source required-mention filter; keeps shared label feeds Taylor-only in fast and normal cycles |
 | `apps/worker/src/sources/relevance.test.ts` | Label-feed Taylor mention and unfiltered official-channel coverage |
+| `apps/worker/src/pipeline/run-cycle.ts`, `ingest-stage.ts` | News-cycle orchestration with the bounded ingest stage split out; primary selection behavior is unchanged |
+| `apps/worker/src/pipeline/story-sources.ts`, `story-sources.test.ts` | Single story-source identity plan: article and host normalization, best tier/URL choice, display labels, and distinct-article/outlet verification |
+| `apps/worker/src/pipeline/story-source-store.ts`, `story-source-store.pglite.test.ts` | Conflict-key collapse, guarded upsert-then-delete, persisted-row status recompute, and real-migration PGlite coverage |
 | `scripts/lib/reputable-sources.test.ts` | Shared/script official-source parity, including channel-id and ticketing-id URL rules |
 | `supabase/migrations/20261015000000_news_sources_primary.sql` | Seeds five first-party rows plus a distinct newest-first Google News fast-lane row; label feeds are established and Taylor-filtered |
 

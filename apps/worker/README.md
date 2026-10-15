@@ -52,6 +52,7 @@ npm run news --workspace @swift2/worker
   ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
   domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
   stay `unverified`.
+
 - Extract stage (`src/extract/`, PLAN.md Stage 3): Claude Code runs
   `claude-haiku-5-5` through the subscription wrapper with structured output.
   News extraction and same-event dedupe are P1; the worker theory helper
@@ -64,6 +65,23 @@ npm run news --workspace @swift2/worker
   cap defers work, never drops it. Run-summary poster
   (`scripts/knowledge-engine/run-summary.mjs`) exists but is not called by the
   workflow yet.
+
+## Story-source write design
+
+The worker plans one source row per distinct article, then per normalised
+publisher host; the best tier and direct URL win while the publisher's display
+name remains the stored label. Unresolved Google News publishers use `unknown`
+and never contribute to verification.
+
+Before writing, planned rows collapse again by the database conflict key
+`(story_id, outlet_name)`. The worker upserts those winners, then deletes only
+superseded ids whose stored conflict key is neither kept nor present among the
+upserted keys. This ordering prevents an upserted row from being deleted by its
+old id (#5938).
+
+Finally, verification rereads the rows actually stored. Corroboration requires
+at least two distinct articles from at least two distinct normalised hosts; one
+syndicated or wire article can never corroborate itself.
 
 ## What's explicitly NOT in this pass (see the architecture proposal §9)
 
