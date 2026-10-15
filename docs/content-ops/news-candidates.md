@@ -25,7 +25,16 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Changes Detected on Taylor Swift's Official Site
+
+- first seen: 2026-10-15 17:06 UTC | category: business | importance: 5
+- verification_status: official | source_count: 2
+- summary: Automated monitoring has identified that the content on Taylor Swift's official website has been updated since the previous check.
+- sources:
+  - [official] Taylor Swift — official site — https://www.taylorswift.com/
+  - [official] Taylor Swift — official store — https://store.taylorswift.com/
 
 ## New Song 'I Knew It, I Knew You' from Toy Story 5 Released
 
@@ -127,11 +136,13 @@ Stories: 81
 ## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
 
 - first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 5
 - summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
 - sources:
   - [unverified] HITC — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHN0YWFBdUM4NF9ya01tMUxXdGMtSHlEUndmUjlqVEc3WnVVR2pYTWg5N1VwREJVX3czajF6TFJ6SEtJbXdmN290TlpaZkRYOTFQQkhVczNkMkQzTGg2bVg5V1ZiWExCdVNwbmJ1UVlYN0hxN3VBYkI1N0tKMG9MVXozaENVR3c0SjZxZnhPdmdwd0pCWGVoQy1qNWwyYTZpWE5YQzFWYjZTakk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMilAJBVV95cUxNcTExRG1jX1c5VGpZN2xlZ0xHQk4xM2x1eWxMaks3eGd4VGgydEFYMHFKYkpsMktPejU0aHpxLUY3aXcyNzNWNVZ0c3BxT1gxdUFFSVp0eFE0Zk00LTVGckl3UG1EVTRXZmZ2ZUlCMmI0dEUxWFk0QUh3dThkX0E1aGZlTnhYUldBTC1TRmktc0hyRDFqdjFSa1V5QU93NmZRY240eDVBeGRQdklzYXhGd1V4TTdHSFBfY2pQYVcyRk9jaG9HTE94ZFk2cjdLUjk1Tjh4SmN5Mlh5OGt3Y3M1OTEtdDZUU1Y1NVlhWW9vR3FSRFQ0ZS1wdU9kOGZCTU13OTlMQmR3ZUhDdVQxem5ZZDlWZEfSAZQCQVVfeXFMTmZtMnIta0c3SGhWUl94UEFmMlo4Sml2eFM1d0pRVERCSVBJY2NNV1poSlpCb2hqQVhWdE9fQmRBN3BJY2dtR0I1SHV3Y2pkRzZCQktzSkVMdzYtemFIMUZTaEc4U2E3aDQtVWlydTdBN2xjZm5zNmRGUXJIdlJKZGZINUpHZlE2YUVRQl8xdXZ6WVE4aHJLQW9VWFlxZkZHSzBmYTNITk1aS1BWc1dQeWFhX1RlRDduLTRMWTdOYVNwZ2RiVTVtdjhjcm1fWkZrWWpGLUNWZHQxakRDeUVuZEZGOUUtSGF0RGNOb0draUZpYW9SWk5CcFBORDRTMnhNVWk2bWlHQWVQTVowc21WTUFMbnBj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOUExIUUhjS2JzLVBOUU9CamdzUWpLV1ZvY21jZEtTRVpmZ21CQnJEOTRmN1hIZF9HSFEyWUJ4Tm9OTnF3WExrQTF5dVVFWDZaWFBHdjlESGt3TDR4VGFFZVllMmlCZGpTakZGcGoxcWhhNTg3N1JGMVZqVUJrVUE2M1FYMDlBa3dCVXV5dHFpa1V5NlJPQnRDLURPNHg0dUlOZE1VMFpn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijAFBVV95cUxQV2ZMMzhaVUpZeGUyYUM3WER0MjRxZFN2X0QzWGFGb2VFYkVlZTBoWEtBOHRvQTdGODNTTS05MUFRZ2xGdXZOZXdoU2ppa2JWaXh3dTRQWkxJSm1CY1B4U1I5NEVYZDd1T2RnRTR4NTl5VkliVFNPTE9aVlFaNFlmV1UyWU0zS3BNNkRJNg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Al Michaels Comments on Taylor Swift's NFL Game Appearances
@@ -389,6 +400,14 @@ Stories: 81
 - sources:
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5GeDI2MmVpN2VRYXNBU2VQWDFSckd0bXRTWkFpNC04emxwNzRzUWtnd0FwSlVxXzF1S3AzOEtKN1ZUa3VHZ2xLVTlZdHlfaEZGODN4eG8xekFsQ29BZTJHNjBlTDM1TnM?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift and Travis Kelce appear in new intimate clip
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Analysis Examines Critique of Taylor Swift
 
 - first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
@@ -428,14 +447,6 @@ Stories: 81
 - summary: Taylor Swift is reportedly aiming for her first Oscar nomination, with assistance from director Steven Spielberg, at an upcoming gala event.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxPSFhZNnQzTy1oTkp2N1VkRWRNbXVqUmIwZHpGeGFjT2lSbFZBVHNmR2xiaFNSdlVyTGgzMnRsWk80MTlWSko3dDNIeGJNZFIwa3p1azZIMWRNY1o3Q2IyeGRyaWVsak00WlIzRVNGVTUtcTBVQ0tiQTh1WjgtRE12NzFwcnpYejdyV1U1SW5xSE9MOGMz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce appear in new intimate clip
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Patrick Mahomes Shares Personal News at Swift-Kelce Wedding
 
