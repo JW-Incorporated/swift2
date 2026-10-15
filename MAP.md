@@ -458,6 +458,8 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/2026-10-14-automation-pipeline-overhaul/research/` | Ten read-only research reports with file:line citations |
 | `docs/plans/2026-10-14-automation-pipeline-overhaul/inputs/` | Briefs, owner instructions, Fable's full audit and the metrics data |
 | `docs/plans/2026-10-14-automation-pipeline-overhaul/dashboard/` | Source for the Pipeline Atlas dashboard Artifact |
+| `docs/projects/tidewatch/taxonomy.md` | Tidewatch source of truth (P1-03): the 15 classes, the exact Jev question bank, per-class thresholds, actions, redlines and go-live order |
+| `config/tidewatch.json` | Tidewatch config twin of `taxonomy.md`: models (Jev pin, Haiku fallback, Sonnet verifier), batch size, escalation cap, per-caller daily call and token caps, per-class `enabled`/`shadow`/thresholds/priority/questions/action/goLiveOrder (all classes ship disabled) |
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
 | `docs/specs/marjorie-overhaul/c1-delivery.md` | M0 design: `scripts/marjorie/lib/discord.mjs`, webhook-not-bot-token and why, the `ops` environment, the mechanical `[discord failed]` mail fallback, and what M4 needs to read thread replies |
