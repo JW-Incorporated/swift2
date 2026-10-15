@@ -1,14 +1,4 @@
-# Tracker
-
-One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: doing, doing, review, done, blocked, dropped (reason in the Log; mirrored to the dashboard as done with a note).
-
-## P0 Stop the bleeding and measure
-
-Goal: No more lost runs to the weekly limit, no CI storm, poster green, Awin sync finishes, push path safe, owner decisions recorded, baseline numbers captured.
-
-Done when: Routines skip cleanly while the limit is hit and a single named alert exists; open social-poster state PRs <= 1; social-poster last 5 runs green; merch-awin-sync completes and saves its cache; held current_item rows emit no events; turn ledger JSON exists for the past 7 days; decisions D1 to D9 recorded in docs/decisions.md; TYPESAFE_API_KEY exists as an Actions secret.
-
-| Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
+undefineddoingundefinedundefined|undefineddoingundefinedundefined||undefinedreviewundefined#5942 ||undefineddoneundefined#5940 || 2026-10-15 || 2026-10-15 || Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | done | #5825 | 2026-10-14 |
 | P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | done | #5832 |  |
@@ -352,6 +342,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+000h. 17:52: MERGED #5940 (P1-28c) and #5941 (P1-28b). P1-20 FINAL APPROVE → #5942 armed (fail-closed, close on merge, config honoured: today merch_fan enabled:false → disabled mode, writes nothing; LOW: disabled mode still spends weekly Jev/Haiku calls for a report → a follow-up to skip model calls when enabled:false). Dispatched P1-19 (Codex high; reuses merch-claude.mjs and the 88-call cap; no affiliate IDs invented; config untouched) and P1-08c (Codex xhigh; the design note first; all 8 failure modes incl. #5938, each tested; PGlite upsert-then-delete; the fast-lane row stays disabled). P1-28d (brief ready at codex/p1-28d.full.md, worktree p1-28d) WAITS for P1-08c (same lane L-WORKER).
 000g. 17:46: P1-07 pushed 56304af37 (migration 20261015030000 skips the index with a NOTICE on duplicates, no data change; suite 12,692) → Opus review (does the key gate catch clock-dispatched runs?).
 000f. 17:43: P1-20 round 2 pushed c2f907301 (transient → unresolved; a guard for an open curate PR plus Closes #n; the config shadow honoured with zero mutations; URL canonicalisation; the automerge lists; cap and priority from config; suite 12,711) → FINAL review by the same Opus reviewer.
 000e. 17:40: #5940 conflict resolved (487a2eb98; suite 12,692; still armed). P1-07 first pass stopped at the guard (an incomplete npm tree; rm of node_modules denied, correctly): the key gate, the freeze (agent-on-only) and fast mode disabled pending P1-08c were built but not committed. PM rulings: npm ci (npm replaces node_modules itself); the migration gets a NEW timestamp (20261015020000 collides with the parked P1-08b migration); the migration must NOT modify data, so skip the index with a NOTICE if duplicates exist. Continued on Codex.
