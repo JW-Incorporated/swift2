@@ -17,12 +17,12 @@
 ## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
 
-**Why:** Push is off in production because CRON_SECRET is missing. On 2026-10-15 you said go, with a full notification design review first. The PM runs the review, lands its must-fix items, clears the stale backlog, then says ready.
+**Why:** Push is off in production because CRON_SECRET is missing. PUSH READY (2026-10-15): the review's must-fixes merged (#5891, #5916), the stale backlog is cleared (56 killed, 0 left), and a watchdog alerts if dispatch stops.
 **Steps:**
-1. Wait for the PM's "push ready" message in the Swift2 pipeline PM chat.
-2. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
+1. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
+2. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
+3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
+**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
 ## #127 🟢 [UPGRADE] Make the backup Claude token a GitHub secret (~2 min)
 <!-- ha filed=2026-10-14 -->
