@@ -163,6 +163,11 @@ describe('corpus and eval summary', () => {
     const { exemplars, counterExamples } = loadCorpus();
     expect(exemplars.length).toBeGreaterThanOrEqual(40);
     expect(counterExamples.length).toBeGreaterThanOrEqual(20);
+    const subtle = counterExamples.filter((c: { kind?: string }) => c.kind === 'subtle').length;
+    const blatant = counterExamples.filter((c: { kind?: string }) => c.kind === 'blatant').length;
+    expect(subtle).toBeGreaterThanOrEqual(10);
+    expect(subtle).toBeGreaterThanOrEqual(counterExamples.length / 2);
+    expect(subtle + blatant).toBe(counterExamples.length);
     expect(new Set([...exemplars, ...counterExamples].map((e) => e.id)).size)
       .toBe(exemplars.length + counterExamples.length);
   });
@@ -173,7 +178,7 @@ describe('corpus and eval summary', () => {
       { id: 'b', status: 'scored', scores: { love: 2, insight: 2 } },
       { id: 'c', status: 'not_scored' },
     ];
-    const labels = new Map([['a', 'exemplar'], ['b', 'counter'], ['c', 'counter']]);
-    expect(summarize(rows, labels)).toMatchObject({ exemplarMean: 4, counterMean: 2, gap: 2, notScored: 1 });
+    const labels = new Map([['a', 'exemplar'], ['b', 'subtle'], ['c', 'blatant']]);
+    expect(summarize(rows, labels)).toMatchObject({ exemplarMean: 4, counterMean: 2, gap: 2, notScored: 1, subtleN: 1, subtleGap: 2 });
   });
 });

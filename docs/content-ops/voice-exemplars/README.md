@@ -9,7 +9,7 @@ counter-examples. The voice itself is defined in
 |---|---|---|
 | `exemplars-social.md` | Our own X posts that were approved and shipped | 35 |
 | `exemplars-vault.md` | Snippets from the merged era seed files | 10 |
-| `counter-examples.md` | Generic, wire-service and AI-sounding text written for this corpus | 26 |
+| `counter-examples.md` | Generic, wire-service and AI-sounding text written for this corpus | 34 (13 blatant, 21 subtle) |
 
 ## Selection rule
 
@@ -39,10 +39,12 @@ counter-examples. The voice itself is defined in
 5. Link and photo-credit lines are stripped from social entries; the prose
    is unchanged (lowercase and punctuation included).
 
+4a. **Blatant vs subtle.** Each counter-example is labelled in its source field. Blatant ones carry the cut-on-sight tells outright. Subtle ones are plausible, on-topic and grammatical but generic, hedged, opinion-free or AI-tell-laden ("it's interesting to note", listicle cadence, no humour). At least half must be subtle.
+
 ## Entry format
 
 One entry per line: `- <id> | <source> | <text>`. Ids: `EX-S##` (social),
-`EX-V##` (Vault), `CX-##` (counter-example). Parsed by
+`EX-V##` (Vault), `CX-##` (counter-example). Counter-example sources read `written counter-example (blatant|subtle)`. Parsed by
 `scripts/voice/corpus.mjs`.
 
 ## Owner star pass (optional)
@@ -50,3 +52,7 @@ One entry per line: `- <id> | <source> | <text>`. Ids: `EX-S##` (social),
 A 10-minute pass adding the owner's own picks is welcome: append lines in
 the same format to `exemplars-social.md` or `exemplars-vault.md` with source
 `owner pick` and the exact published text.
+
+## Running the eval
+
+The eval needs the subscription token, which exists only as an Actions secret. Dispatch the `voice-critic-eval` workflow (Actions tab, or `gh workflow run voice-critic-eval.yml --ref <branch>`). It runs `node scripts/voice/eval-critic.mjs` (at most 15 wrapper calls, about 8 used) and writes the summary line plus per-set means to the job summary. Logs are public, so only aggregate numbers are printed, never item text. Acceptance: overall exemplar-vs-counter gap of 1.0 or more; the subtle-only gap is reported alongside it.
