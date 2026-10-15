@@ -442,15 +442,16 @@ export const LAST_ERROR_MAX_LENGTH = 200;
 /**
  * Short, credential-free form of an error text for a social/failed/ record:
  * URLs (query strings can carry tokens), Bearer values and `key=value` /
- * `"key": "value"` secrets (any key ending in token/secret/password/
- * signature/api key, e.g. oauth_token) are redacted, whitespace collapsed,
- * length capped at `maxLength`.
+ * `"key": "value"` secrets (any `oauth_*` parameter, e.g. the
+ * oauth_consumer_key of an X OAuth header, and any key ending in
+ * token/secret/password/signature/key, e.g. access_token or a bare token=)
+ * are redacted, whitespace collapsed, length capped at `maxLength`.
  */
 export function sanitizeLastError(error, maxLength = LAST_ERROR_MAX_LENGTH) {
   const text = String(error?.message ?? error ?? '')
     .replace(/\bhttps?:\/\/[^\s"'<>]+/gi, '[url]')
     .replace(/\bBearer\s+\S+/gi, 'Bearer [redacted]')
-    .replace(/\b((?:[\w-]*(?:token|secret|password|signature|api[_-]?key))|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
+    .replace(/\b(oauth_\w+|[\w-]*(?:token|secret|password|signature|key)|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
     .replace(/\s+/g, ' ')
     .trim();
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;

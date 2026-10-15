@@ -452,11 +452,16 @@ jobs:
       #     deletions included) are carried, never dropped. Closing superseded
       #     per-run PRs was rejected: an already-posted item is skipped as a
       #     duplicate and left in the queue, so no later run recomputes an
-      #     earlier run's queue deletion. Where both changed the same
-      #     queue/posted/failed file (a retry while the PR is unmerged), this
-      #     run's newer version wins with a ::warning:: — a second PR for that
-      #     run would change the same lines, so whichever merged second would
-      #     be stuck forever;
+      #     earlier run's queue deletion. A file both changed (a retry while
+      #     the PR is unmerged) is resolved in place with a ::warning:: — a
+      #     second PR for that run would change the same lines, so whichever
+      #     merged second would be stuck forever. queue/: if main itself
+      #     changed the file since the tip's merge base (a founder re-queue or
+      #     edit), this run's version; else if either side deleted it,
+      #     deleted (a stale retry must never resurrect an item the tip
+      #     retired — it may already be live); else the rolling PR's.
+      #     posted/ and failed/: a record is never dropped (this run's
+      #     version, else the rolling PR's);
       #   - NO open PR (merged — squash, so the tip never becomes an ancestor
       #     of main — or closed unmerged): the tip's history is spent and the
       #     tree is this run's own. A closed PR's unmerged changes are dropped
@@ -541,7 +546,7 @@ jobs:
                 git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 && break
                 git fetch --quiet --deepen="$DEEPEN" origin main || break
               done
-              git merge-base "$TIP" "$STATE_COMMIT" >/dev/null 2>&1 || fallback "no common history with $rolling_branch"
+              BASE=$(git merge-base "$TIP" "$STATE_COMMIT") || fallback "no common history with $rolling_branch"
               # Path-by-path (no rename detection: a queue item and its posted
               # record must never be paired up and merged into each other).
               MERGE_STATUS=0
@@ -550,17 +555,32 @@ jobs:
               CONFLICTED=()
               { IFS= read -r -d '' NEW_TREE; while IFS= read -r -d '' P; do CONFLICTED+=("$P"); done; } < "$SCRATCH_INDEX_DIR/merge"
               if [ "${#CONFLICTED[@]}" -gt 0 ]; then
+                GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git read-tree "$NEW_TREE"
+                RESOLVED=""
                 for P in "${CONFLICTED[@]}"; do
+                  IN_TIP=$(git ls-tree "$TIP" -- "$P")
+                  IN_RUN=$(git ls-tree "$STATE_TREE" -- "$P")
                   case "$P" in
-                    social/queue/*|social/posted/*|social/failed/*) ;;
+                    social/queue/*)
+                      if ! git diff --quiet "$BASE" HEAD -- "$P"; then
+                        KEEP="$IN_RUN"; WHY="main changed it (a founder re-queue or edit): this run's"
+                      elif [ -z "$IN_TIP" ] || [ -z "$IN_RUN" ]; then
+                        KEEP=""; WHY="one side deleted it: deleted"
+                      else
+                        KEEP="$IN_TIP"; WHY="both rewrote main's unchanged copy: the rolling PR's"
+                      fi ;;
+                    social/posted/*|social/failed/*)
+                      KEEP="${IN_RUN:-$IN_TIP}"; WHY="a record is never dropped: this run's, else the rolling PR's" ;;
                     *) fallback "merge-tree conflict outside the social state dirs ($P) against $rolling_branch" ;;
                   esac
+                  GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --force-remove -- "$P"
+                  if [ -n "$KEEP" ]; then
+                    printf '%s\n' "$KEEP" | GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --index-info
+                  fi
+                  RESOLVED="$RESOLVED $P ($WHY);"
                 done
-                GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git read-tree "$NEW_TREE"
-                GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --force-remove -- "${CONFLICTED[@]}"
-                git ls-tree -r "$STATE_TREE" -- "${CONFLICTED[@]}" | GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git update-index --index-info
                 NEW_TREE=$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/resolve" git write-tree)
-                echo "::warning::social-poster: this run and the open rolling PR both changed ${CONFLICTED[*]} — kept this run's newer version so the one PR stays mergeable."
+                echo "::warning::social-poster: this run and the open rolling PR both changed:$RESOLVED resolved in place so the one PR stays mergeable."
               fi
             fi
             NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$TIP" -p HEAD -m "$commit_message")
@@ -580,7 +600,7 @@ jobs:
           else
             gh pr create --title "$pr_title" --body-file "$body_file" --base main --head "$rolling_branch"
           fi
-          gh pr merge "$rolling_branch" --squash --auto --delete-branch
+          gh pr merge "$rolling_branch" --squash --auto
 
       # The pre-P0-05 path, unchanged, now only for a run the rolling step
       # could not fold (conflict/no history/rejected push) or crashed on.

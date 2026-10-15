@@ -699,6 +699,14 @@ describe('failure metadata for social/failed/ records', () => {
     expect(sanitizeLastError('x'.repeat(500)).length).toBeLessThanOrEqual(200);
   });
 
+  it('redacts every oauth_* parameter (oauth_consumer_key included), access_token, a bare token= and Bearer values', () => {
+    const msg = 'Authorization: OAuth oauth_consumer_key="ck-1", oauth_nonce="n-2", oauth_signature="s-3", oauth_token="t-4"; access_token=at-5 token=t-6 Authorization: Bearer b-7';
+    const clean = sanitizeLastError(msg, Infinity);
+    expect(clean).not.toMatch(/ck-1|n-2|s-3|t-4|at-5|t-6|b-7/);
+    expect(clean).toContain('oauth_consumer_key="[redacted]"');
+    expect(clean).toContain('Bearer [redacted]');
+  });
+
   it('redacts failureReason too, without the length cap', () => {
     const reason = `Transport failure https://graph.facebook.com/v21.0/me?access_token=abc123 ${'y'.repeat(400)}`;
     const out = withFailureMetadata({ attempts: 1, failureReason: reason }, { now });

@@ -93,17 +93,25 @@ note above) and is edited in place, not reopened per run (P0-05). Each run's
 state commit is built on the run-start `main` and pushed as a fast-forward
 with parents (branch tip, `main`): never forced, and the branch is never
 deleted. While the PR is open, `git merge-tree` merges the tip in, so an
-earlier unmerged run's changes (queue deletions included) ride along; a file
-both changed (a retry while the PR is unmerged) keeps this run's newer
-version, with a `::warning::`, because a second PR changing the same lines
-would leave whichever merged second stuck forever. With no open PR (merged,
-or closed unmerged) the tree is this run's own and a fresh PR opens. **A PR
-closed unmerged drops its state changes.** Nothing can post twice: its
-posted/failed records live on `social-ledger` and return with the next run's
-overlay, and an already-posted queue item is skipped as a duplicate (#5857).
-But its queue deletions are lost: that item stays queued on `main`, and once
-24h overdue its skip turns every run red until the file is removed by hand.
-So merge, never close. Anything else the poster can't fold (no common
+earlier unmerged run's changes (queue deletions included) ride along. A file
+both changed (a retry while the PR is unmerged) is resolved in place, with a
+`::warning::`, because a second PR changing the same lines would leave
+whichever merged second stuck forever: a `queue/` file keeps this run's
+version if `main` itself changed it since the tip's merge base (a founder
+re-queue or edit), is otherwise deleted if either side deleted it (a stale
+retry never resurrects an item the PR retired), and otherwise keeps the PR's
+version; a `posted/`/`failed/` record is never dropped. With no open PR
+(merged, or closed unmerged) the tree is this run's own and a fresh PR
+opens. **A PR closed unmerged drops its state changes.** Its posted/failed
+records are safe (they live on `social-ledger` and return with the next
+run's overlay), and an item it recorded as POSTED cannot post twice (it is
+skipped as a duplicate, #5857). The exact residual: an item it moved to
+`failed/` after an AMBIGUOUS transport failure (a publish that may have
+landed) stays in `main`'s queue, and the poster never reads `failed/`, so it
+is retried and can post a second time. Its other queue deletions are
+lost too: such an item stays queued on `main`, and once 24h overdue its skip
+turns every run red until the file is removed by hand. So merge, never
+close. Anything else the poster can't fold (no common
 history, a conflict outside the state dirs, a failed fetch or push) falls
 back to a timestamped `social-poster/state-*` PR for that run, with a
 `::warning::`. Either way it's
@@ -201,7 +209,7 @@ UTC three attempts later. Rules live in `scripts/social/lib/queue-schema.mjs`.
   change routing — there is no pairing escape hatch of any kind (removed
   2026-08-26; a `Single-platform exception:` marker here does nothing now).
 - `failureReason`: written by the poster (never by a drafter) when an item lands in `failed/` — a human-readable explanation, distinct from `lastError` (the short API error text), covering the 48h-stale case too where there may never have been an API error at all.
-- `failedAt`, `attempts`, `lastError` on a `failed/` record: stamped by the poster when it moves an item there (`withFailureMetadata` in `scripts/social/lib/queue.mjs`). `failedAt` is the ISO time of the move; `attempts` is `0` when no platform call was ever made (stale, invalid `scheduledAt`); `lastError` is capped at 200 characters. `lastError` and `failureReason` are both redacted: no URLs, `Bearer` values or token/secret/key/signature values.
+- `failedAt`, `attempts`, `lastError` on a `failed/` record: stamped by the poster when it moves an item there (`withFailureMetadata` in `scripts/social/lib/queue.mjs`). `failedAt` is the ISO time of the move; `attempts` is `0` when no platform call was ever made (stale, invalid `scheduledAt`); `lastError` is capped at 200 characters. `lastError` and `failureReason` are both redacted: no URLs, `Bearer` values, `oauth_*` parameters or token/secret/key/signature values. A retry's `lastError` written back into a `queue/` file gets the same redaction and cap (`sanitizeLastError`), since queue files reach `main` too.
 
 The deterministic `content.social-post-missing` checker scans every unique
 `campaign` across both `social/queue/` and `social/posted/`. A campaign without

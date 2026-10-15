@@ -73,7 +73,7 @@ describe.skipIf(!hasBash)('social-poster.yml — rolling PR recovery (P0-05), ex
     }
   }, 60_000);
 
-  it('(h) a retry while the rolling PR is unmerged → resolved in place to the newer attempt, ONE PR, still mergeable', () => {
+  it('(h) a retry while the rolling PR is unmerged → resolved in place to the PR\'s version, ONE PR, still mergeable', () => {
     const s = sandbox();
     try {
       const run1 = s.checkout();
@@ -89,12 +89,12 @@ describe.skipIf(!hasBash)('social-poster.yml — rolling PR recovery (P0-05), ex
       post(run2, 'b');
       const { mode, stdout } = s.fold(run2);
       expect(mode).toBe('rolling');
-      expect(stdout).toMatch(/^::warning::social-poster: this run and the open rolling PR both changed social\/queue\/r\.json/m);
+      expect(stdout).toMatch(/^::warning::social-poster: this run and the open rolling PR both changed: social\/queue\/r\.json \(both rewrote main's unchanged copy: the rolling PR's\);/m);
       s.pr(run2);
 
       const tip2 = s.tip();
       expect(s.parents(tip2)).toEqual([tip1, git(run2, ['rev-parse', 'HEAD'])]);
-      expect(s.show(tip2, 'social/queue/r.json')).toBe(retry('t2').trim());
+      expect(s.show(tip2, 'social/queue/r.json')).toBe(retry('t1').trim());
       expect(s.files(tip2)).not.toContain('social/queue/a.json'); // run 1's other changes kept
       expect(s.prDiff()).toEqual(['social/posted/a.json', 'social/posted/b.json', 'social/queue/a.json', 'social/queue/b.json', 'social/queue/r.json']);
       expect(s.mergeable()).toBe(true);
@@ -122,6 +122,80 @@ describe.skipIf(!hasBash)('social-poster.yml — rolling PR recovery (P0-05), ex
       expect(s.files(tip2)).not.toContain('social/queue/r.json');
       expect(s.show(tip2, 'social/posted/r.json')).toBe(record.trim()); // never merged with the queue item's fields
       expect(s.prDiff()).toEqual(['social/posted/r.json', 'social/queue/r.json']);
+      expect(s.mergeable()).toBe(true);
+    } finally {
+      s.cleanup();
+    }
+  }, 60_000);
+
+  // Review round 1 (worstcase.mts): an item the tip retired after an AMBIGUOUS
+  // failure (it may be live) must never come back via a stale retry.
+  it('(h) tip deleted the queue file, this run retried it from main → stays deleted, the failed record kept', () => {
+    const s = sandbox();
+    const failed = '{"body":"r","attempts":1,"lastError":"ambiguous"}\n';
+    try {
+      const run1 = s.checkout();
+      git(run1, ['rm', '-q', 'social/queue/r.json']);
+      writeFileSync(join(run1, 'social/failed/r.json'), failed);
+      expect(s.fold(run1).mode).toBe('rolling');
+      s.pr(run1);
+
+      const run2 = s.checkout();
+      writeFileSync(join(run2, 'social/failed/r.json'), failed); // the social-ledger overlay
+      writeFileSync(join(run2, 'social/queue/r.json'), '{"body":"r","attempts":1,"lastError":"429"}\n');
+      const { mode, stdout } = s.fold(run2);
+      expect(mode).toBe('rolling');
+      expect(stdout).toContain('social/queue/r.json (one side deleted it: deleted)');
+      const files = s.files(s.tip());
+      expect(files).not.toContain('social/queue/r.json');
+      expect(files).toContain('social/failed/r.json');
+      expect(s.prDiff()).toEqual(['social/failed/r.json', 'social/queue/r.json']); // deleted on main once it lands
+      expect(s.mergeable()).toBe(true);
+    } finally {
+      s.cleanup();
+    }
+  }, 60_000);
+
+  it('(h) main itself re-queued the file the tip retired (a founder action) → this run\'s version kept', () => {
+    const s = sandbox();
+    const requeued = '{"body":"r, re-approved by a founder"}\n';
+    try {
+      const run1 = s.checkout();
+      git(run1, ['rm', '-q', 'social/queue/r.json']);
+      writeFileSync(join(run1, 'social/failed/r.json'), '{"body":"r","attempts":3}\n');
+      expect(s.fold(run1).mode).toBe('rolling');
+      s.pr(run1);
+      s.advanceMain((repo) => writeFileSync(join(repo, 'social/queue/r.json'), requeued));
+
+      const run2 = s.checkout();
+      writeFileSync(join(run2, 'social/failed/r.json'), '{"body":"r","attempts":3}\n');
+      post(run2, 'b');
+      const { mode, stdout } = s.fold(run2);
+      expect(mode).toBe('rolling');
+      expect(stdout).toContain("social/queue/r.json (main changed it (a founder re-queue or edit): this run's)");
+      expect(s.show(s.tip(), 'social/queue/r.json')).toBe(requeued.trim());
+      expect(s.prDiff()).toEqual(['social/failed/r.json', 'social/posted/b.json', 'social/queue/b.json']);
+      expect(s.mergeable()).toBe(true);
+    } finally {
+      s.cleanup();
+    }
+  }, 60_000);
+
+  it('(h) both runs wrote different failed/ records for one item → the record is kept (this run\'s), never dropped', () => {
+    const s = sandbox();
+    try {
+      const run1 = s.checkout();
+      git(run1, ['rm', '-q', 'social/queue/r.json']);
+      writeFileSync(join(run1, 'social/failed/r.json'), '{"body":"r","attempts":3,"failedAt":"t1"}\n');
+      expect(s.fold(run1).mode).toBe('rolling');
+      s.pr(run1);
+
+      const run2 = s.checkout(); // main still queues r, so run 2 exhausts it again
+      git(run2, ['rm', '-q', 'social/queue/r.json']);
+      writeFileSync(join(run2, 'social/failed/r.json'), '{"body":"r","attempts":3,"failedAt":"t2"}\n');
+      expect(s.fold(run2).mode).toBe('rolling');
+      expect(s.show(s.tip(), 'social/failed/r.json')).toBe('{"body":"r","attempts":3,"failedAt":"t2"}');
+      expect(s.files(s.tip())).not.toContain('social/queue/r.json');
       expect(s.mergeable()).toBe(true);
     } finally {
       s.cleanup();

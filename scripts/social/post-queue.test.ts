@@ -328,6 +328,19 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
   });
 
+  it('writes a redacted, capped lastError back into the queue file on a retry (queue files reach the public main)', async () => {
+    stubFetch({ ok: false, status: 429, body: { detail: 'Too Many Requests', type: 'https://api.x.com/2/problems?access_token=abc123', oauth_consumer_key: 'ck-999', pad: 'p'.repeat(400) } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
+
+    await runPoster();
+
+    const queued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-x.json'), 'utf-8'));
+    expect(queued.attempts).toBe(1);
+    expect(queued.lastError).toContain('429');
+    expect(queued.lastError.length).toBeLessThanOrEqual(200);
+    expect(queued.lastError).not.toMatch(/https?:|abc123|ck-999/);
+  });
+
   it('reports an X item with too many images as failed rather than posting a subset', async () => {
     stubFetch({ ok: true, status: 200, body: { data: { id: '123' } } });
     const five = Array.from({ length: 5 }, (_, i) => `/social/library/${i}.png`);

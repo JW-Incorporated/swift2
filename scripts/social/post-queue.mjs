@@ -94,6 +94,7 @@ import {
   mediaUrlsFor,
   approvalStatus,
   MEDIA_BASE_URL,
+  sanitizeLastError,
   withFailureMetadata,
 } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
@@ -642,7 +643,7 @@ export async function main() {
       }
 
       const attempts = (item.attempts ?? 0) + 1;
-      const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
+      const failed = { ...item, attempts, lastError: sanitizeLastError(lastError), lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
         failed.failureReason = `Failed ${attempts} time(s): ${lastError}`;
         await moveToFailed(failedDir, entry, failed);
