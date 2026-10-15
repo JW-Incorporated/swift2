@@ -66,8 +66,7 @@ docs `CLAUDE.md` points at:
 |------|----------------|
 | `supabase/migrations/20261014010000_tidewatch.sql` | Service-role-only seen items, decisions, source cursors, story SLA timestamps, and provider-neutral LLM usage |
 | `packages/shared/src/tidewatch/types.ts` | Portable row types for the five Tidewatch tables; exported as `@swift2/shared/tidewatch/types` |
-| `scripts/tidewatch/retention.mjs` | Dry-run-by-default retention for 180-day items and 365-day shadow decisions |
-| `scripts/tidewatch/retention.test.ts` | Injected-client retention tests plus static migration-contract checks |
+| `scripts/tidewatch/migration.test.ts` | Static migration-contract checks for access, source, uniqueness, and excerpt constraints |
 
 ## Session infrastructure (`.claude/` and the standing files)
 
