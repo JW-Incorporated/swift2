@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 76
+
+## Taylor Swift Responds Following Travis Kelce's SNL Controversy
+
+- first seen: 2026-10-15 14:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Following a controversy involving Travis Kelce on SNL, Taylor Swift has made a public move. Details about her actions and implications remain unclear.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPRmRUalJkd25KNm92ekJNSTVWYUdCSF9rT0xyRFlNeENQSXBnNDk4ZUppRllsQjBjMk1jQWN0M0RmYk04bDRNZVctZF9xVF9Sc19DcEFyZ0JqN1N0dzU5RnE4WmJDRFVkUDRDV2hZbHM3bkh1T1J4RDRQam0tNkZ2b0V5MGNIc0FZbVBGdzh6SlNFcEN2M3FVLUtUcnA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Donald Trump Mentions Taylor Swift at Rally About TikTok Ranking
 
