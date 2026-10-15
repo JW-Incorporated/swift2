@@ -9,11 +9,12 @@ const candidate = watchCandidate({
   title: 'Test issue',
   detectedAt: '2026-10-15T18:00:00.000Z',
 });
+const NOW = Date.parse('2026-10-15T18:00:00.000Z');
 
 function fakeStore() {
   const keys = new Set<string>();
   const items = new Map<string, Record<string, unknown>>();
-  const cursors = new Map<string, { at: string; key: string }>();
+  const cursors = new Map<string, { at: string; key: string } | string>();
   const timelines: unknown[] = [];
   let failTimeline = false;
   return {
@@ -24,17 +25,21 @@ function fakeStore() {
     set failTimeline(value: boolean) { failTimeline = value; },
     getCursor: async (source: string) => cursors.get(source) ?? null,
     existingKeys: async (wanted: string[]) => new Set(wanted.filter((key) => keys.has(key))),
-    sourceHasItems: async (source: string) => [...items.values()].some((row) => row.source === source),
-    upsertItems: async (rows: Array<{ item_key: string } & Record<string, unknown>>) => rows.forEach((row) => { keys.add(row.item_key); items.set(row.item_key, row); }),
+    upsertItems: async (rows: Array<{ item_key: string } & Record<string, unknown>>) => rows.forEach((row) => {
+      keys.add(row.item_key);
+      items.set(row.item_key, items.has(row.item_key)
+        ? { ...items.get(row.item_key), last_seen_at: row.last_seen_at }
+        : row);
+    }),
     upsertTimelines: async (rows: unknown[]) => { if (failTimeline) throw new Error('timeline failed'); timelines.push(...rows); },
-    setCursor: async (source: string, cursor: { at: string; key: string }) => { cursors.set(source, cursor); },
+    setCursor: async (source: string, cursor: { at: string; key: string } | string) => { cursors.set(source, cursor); },
   };
 }
 
 describe('Tidewatch collector', () => {
   it('does not advance a cursor when an upsert fails midway', async () => {
     const store = fakeStore();
-    store.items.set('existing', { source: 'intake' });
+    store.cursors.set('baseline:intake', new Date(NOW).toISOString());
     store.failTimeline = true;
     const result = await runCollector([{ name: 'intake', load: async () => [candidate] }], store, {
       since: '2026-10-15T00:00:00.000Z',
@@ -129,8 +134,8 @@ describe('Tidewatch collector', () => {
       { name: 'intake', cursorMode: 'none', load: async () => [issueItem] },
     ], store, { since: '2026-10-15T00:00:00.000Z', log: () => {} });
     expect(results.map((result) => result.inserted)).toEqual([1, 1]);
-    expect(store.cursors.get('moments')?.key).toBe('stale');
-    expect(store.cursors.get('intake')?.key).toBe('stale');
+    expect(store.cursors.get('moments')).toEqual({ at: '2026-10-15T00:00:00.000Z', key: 'stale' });
+    expect(store.cursors.get('intake')).toEqual({ at: '2026-10-15T00:00:00.000Z', key: 'stale' });
   });
 
   it('orders tied cursor keys by code units', async () => {
@@ -195,10 +200,11 @@ describe('Tidewatch collector', () => {
     const store = fakeStore();
     const logs: string[] = [];
     const source = { name: 'intake', watchSource: 'intake', cursorMode: 'none', load: async () => [candidate] };
-    await runCollector([source], store, { since: '2026-10-15T00:00:00.000Z', log: (line) => logs.push(line) });
+    await runCollector([source], store, { since: '2026-10-15T00:00:00.000Z', log: (line) => logs.push(line), now: NOW });
     expect(store.items.get(candidate.item.item_key)?.status).toBe('historical');
     expect(store.timelines).toHaveLength(0);
     expect(logs).toContain('baseline: intake 1');
+    expect(store.cursors.get('baseline:intake')).toBe('2026-10-15T18:00:00.000Z');
 
     const next = watchCandidate({ itemKey: 'issue:2', source: 'intake', title: 'New issue', detectedAt: '2026-10-15T20:00:00.000Z' });
     await runCollector([{ ...source, load: async () => [next] }], store, { since: '2026-10-15T00:00:00.000Z', log: () => {} });
@@ -206,16 +212,37 @@ describe('Tidewatch collector', () => {
     expect(store.timelines).toHaveLength(1);
   });
 
-  it('never baselines a source that already has a stored item', async () => {
+  it('keeps a shared watch source in baseline mode when its second source fails', async () => {
     const store = fakeStore();
-    store.items.set('older', { item_key: 'older', source: 'intake', status: 'historical' });
+    const posted = watchCandidate({ itemKey: 'social:posted', source: 'social', title: 'Posted', detectedAt: '2026-10-15T17:00:00.000Z' });
+    const reply = watchCandidate({ itemKey: 'social:reply', source: 'social', title: 'Reply', detectedAt: '2026-10-15T18:00:00.000Z' });
+    const firstRun = [
+      { name: 'social-posted', watchSource: 'social', cursorMode: 'none', load: async () => [posted] },
+      { name: 'social-replies', watchSource: 'social', cursorMode: 'none', load: async () => { throw new Error('reply fetch failed'); } },
+    ];
+    await runCollector(firstRun, store, { since: '2026-10-15T00:00:00.000Z', log: () => {}, now: NOW });
+    expect(store.cursors.has('baseline:social')).toBe(false);
+
+    const retry = [firstRun[0], { ...firstRun[1], load: async () => [reply] }];
+    await runCollector(retry, store, { since: '2026-10-15T00:00:00.000Z', log: () => {}, now: NOW });
+    expect(store.items.get(reply.item.item_key)?.status).toBe('historical');
+    expect(store.timelines).toHaveLength(0);
+    expect(store.cursors.get('baseline:social')).toBe('2026-10-15T18:00:00.000Z');
+  });
+
+  it('baselines pre-existing rows without a marker and creates no events', async () => {
+    const store = fakeStore();
+    store.keys.add(candidate.item.item_key);
+    store.items.set(candidate.item.item_key, { ...candidate.item, status: 'new' });
     const logs: string[] = [];
-    await runCollector([{ name: 'intake', watchSource: 'intake', cursorMode: 'none', load: async () => [candidate] }], store, {
-      since: '2026-10-15T00:00:00.000Z', log: (line) => logs.push(line),
+    const results = await runCollector([{ name: 'intake', watchSource: 'intake', cursorMode: 'none', load: async () => [candidate] }], store, {
+      since: '2026-10-15T00:00:00.000Z', log: (line) => logs.push(line), now: NOW,
     });
-    expect(store.items.get(candidate.item.item_key)?.status).toBeUndefined();
-    expect(store.timelines).toHaveLength(1);
-    expect(logs.some((line) => line.startsWith('baseline:'))).toBe(false);
+    expect(results[0].inserted).toBe(0);
+    expect(store.items.get(candidate.item.item_key)?.status).toBe('new');
+    expect(store.timelines).toHaveLength(0);
+    expect(logs).toContain('baseline: intake 0');
+    expect(store.cursors.get('baseline:intake')).toBe('2026-10-15T18:00:00.000Z');
   });
 
   it('fails git-timestamped sources clearly in a shallow clone and continues', async () => {

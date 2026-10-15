@@ -122,19 +122,19 @@ function fixtureSources(data) {
   const issues = mapIssues(data.issues);
   return [
     { name: 'news', rows: mapNews({ stories: data.newsStories, rawItems: data.newsRawItems }) },
-    { name: 'appearance', rows: issues.filter((row) => row.item.source === 'youtube') },
+    { name: 'appearance', watchSource: 'youtube', rows: issues.filter((row) => row.item.source === 'youtube') },
     { name: 'intake', rows: issues.filter((row) => row.item.source === 'intake') },
     { name: 'reddit', rows: data.engagementLeads.filter((row) => row.platform === 'reddit').map(mapLead) },
     { name: 'facebook', rows: data.engagementLeads.filter((row) => row.platform === 'facebook').map(mapLead) },
     { name: 'theory', rows: data.theories.map(mapTheory) },
-    { name: 'merch-official', rows: data.officialMerch.map((row) => mapMerch(row, 'official', row.changedAt)) },
-    { name: 'merch-fan', rows: data.fanMerch.map((row) => mapMerch(row, 'fan', row.changedAt)) },
-    { name: 'social-posted', rows: data.socialPosts.map((row) => mapSocialPost(row, row.filename)) },
-    { name: 'social-replies', rows: Object.entries(data.replies).map(mapReply) },
-    { name: 'moments', rows: data.moments.map((row) => mapMoment(row, row.eraSlug, row.changedAt)) },
+    { name: 'merch-official', watchSource: 'merch', rows: data.officialMerch.map((row) => mapMerch(row, 'official', row.changedAt)) },
+    { name: 'merch-fan', watchSource: 'merch', rows: data.fanMerch.map((row) => mapMerch(row, 'fan', row.changedAt)) },
+    { name: 'social-posted', watchSource: 'social', rows: data.socialPosts.map((row) => mapSocialPost(row, row.filename)) },
+    { name: 'social-replies', watchSource: 'social', rows: Object.entries(data.replies).map(mapReply) },
+    { name: 'moments', watchSource: 'moment', rows: data.moments.map((row) => mapMoment(row, row.eraSlug, row.changedAt)) },
   ].map((source) => ({
     name: source.name,
-    watchSource: source.rows[0]?.item.source,
+    watchSource: source.watchSource ?? source.name,
     cursorMode: ['news', 'reddit', 'facebook', 'theory'].includes(source.name) ? 'overlap' : 'none',
     load: async () => source.rows,
   }));
@@ -160,7 +160,14 @@ function nextCursor(candidates, current) {
 
 export async function runCollector(sources, store, { dryRun = false, since, log = console.log, now = Date.now() } = {}) {
   const results = [];
-  const sourceHadItems = new Map();
+  const groupSizes = new Map();
+  const completedByWatchSource = new Map();
+  const baselineByWatchSource = new Map();
+  const observedAt = new Date(now).toISOString();
+  for (const source of sources) {
+    const watchSource = source.watchSource ?? source.name;
+    groupSizes.set(watchSource, (groupSizes.get(watchSource) ?? 0) + 1);
+  }
   for (const source of sources) {
     try {
       const usesCursor = source.cursorMode !== 'none';
@@ -184,12 +191,14 @@ export async function runCollector(sources, store, { dryRun = false, since, log 
       }
       const existing = await store.existingKeys(rows.map((row) => row.item.item_key));
       const fresh = rows.filter((row) => !existing.has(row.item.item_key));
-      const watchSource = source.watchSource ?? rows[0]?.item.source;
-      if (!sourceHadItems.has(watchSource)) sourceHadItems.set(watchSource, await store.sourceHasItems(watchSource));
-      const baseline = !sourceHadItems.get(watchSource);
+      const watchSource = source.watchSource ?? source.name;
+      if (!baselineByWatchSource.has(watchSource)) {
+        const marker = await store.getCursor(`baseline:${watchSource}`);
+        baselineByWatchSource.set(watchSource, marker === null);
+      }
+      const baseline = baselineByWatchSource.get(watchSource);
       if (baseline) log(`baseline: ${source.name} ${fresh.length}`);
       if (!dryRun && rows.length) {
-        const observedAt = new Date(now).toISOString();
         await store.upsertItems(rows.map((row) => ({
           ...row.item,
           ...(baseline ? { status: 'historical' } : {}),
@@ -199,6 +208,11 @@ export async function runCollector(sources, store, { dryRun = false, since, log 
         })), existing);
         if (!baseline) await store.upsertTimelines(rows.map((row) => ({ story_id: row.item.story_id, detected_at: row.item.first_seen_at })));
         if (usesCursor) await store.setCursor(source.name, nextCursor(eligible, cursor));
+      }
+      const completed = (completedByWatchSource.get(watchSource) ?? 0) + 1;
+      completedByWatchSource.set(watchSource, completed);
+      if (!dryRun && baseline && completed === groupSizes.get(watchSource)) {
+        await store.setCursor(`baseline:${watchSource}`, observedAt);
       }
       const result = { source: source.name, read: rows.length, inserted: fresh.length, errors: 0 };
       results.push(result);
@@ -226,11 +240,6 @@ export function supabaseStore(client) {
         for (const row of data) found.add(row.item_key);
       }
       return found;
-    },
-    async sourceHasItems(source) {
-      const { data, error } = await client.from('watch_item').select('id').eq('source', source).limit(1);
-      if (error) throw error;
-      return data.length > 0;
     },
     async upsertItems(rows, existingKeys = new Set()) {
       const fresh = rows.filter((row) => !existingKeys.has(row.item_key));
@@ -269,7 +278,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   if (options.fixtures) {
     const data = JSON.parse(await readFile(path.join(options.fixtures, 'sources.json'), 'utf8'));
     sources = fixtureSources(data);
-    store = deps.store ?? { getCursor: async () => null, existingKeys: async () => new Set(), sourceHasItems: async () => false };
+    store = deps.store ?? { getCursor: async () => null, existingKeys: async () => new Set() };
   } else {
     const client = deps.client ?? serviceClient();
     if (!client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set (use --dry-run --fixtures locally)');
