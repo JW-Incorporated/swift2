@@ -81,13 +81,17 @@ describe('runTheoryMiner', () => {
       }),
     ).resolves.toBe(0);
 
-    expect(runTheoryMinerStage).toHaveBeenCalledWith(db, {
-      subreddits: [
-        {
-          subreddit: 'reddit:TaylorSwift',
-          posts: [{ postId: 'p1', title: 'Thread', permalink: '/p1', comments: [] }],
-        },
-      ],
-    });
+    expect(runTheoryMinerStage).toHaveBeenCalledWith(
+      db,
+      {
+        subreddits: [
+          {
+            subreddit: 'reddit:TaylorSwift',
+            posts: [{ postId: 'p1', title: 'Thread', permalink: '/p1', comments: [] }],
+          },
+        ],
+      },
+      { priority: 'P3' },
+    );
   });
 });

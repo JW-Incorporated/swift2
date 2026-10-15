@@ -31,14 +31,9 @@
 //
 //   node scripts/community/theory-miner.mjs --artifact .artifacts/community-crawl.json
 //
-// Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (read symbol_lexicon,
-// write fan_theory_candidate) and ANTHROPIC_API_KEY (Haiku extract calls;
-// already exists per the plan's §4 workflow table — "ANTHROPIC_API_KEY
-// already exists"). Missing Supabase creds degrade to a clean no-op log
-// line, matching every other Community Engine script's
-// scripts/lib/supabase.mjs contract; a missing ANTHROPIC_API_KEY is
-// per-bundle (theory-haiku-client.ts's extractFanTheories returns null,
-// counted as `deferred`), not a whole-run failure.
+// Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY and the Claude subscription
+// token consumed by the shared headless runner. Missing model availability is
+// per-bundle (`deferred`), not a whole-run failure.
 
 import { readFileSync, existsSync } from 'node:fs';
 import { serviceClient } from '../lib/supabase.mjs';
@@ -104,13 +99,13 @@ export async function runTheoryMiner({
   }
 
   const { runTheoryMinerStage } = await loadStage();
-  const result = await runTheoryMinerStage(db, { subreddits });
+  const result = await runTheoryMinerStage(db, { subreddits }, { priority: 'P3' });
 
   console.log(
     `theory-miner: ${result.bundlesConsidered} bundle(s) considered, ` +
       `${result.theoriesFound} theory(ies) found, ${result.theoriesUpserted} upserted, ` +
       `${result.theoriesScreenedOut} screened out, ${result.skipped} skipped (no theory), ` +
-      `${result.deferred} deferred (no key/cap reserved out).`,
+      `${result.deferred} deferred (subscription unavailable/cap reserved out).`,
   );
   if (result.errors.length > 0) {
     console.error(`theory-miner: ${result.errors.length} error(s):`);

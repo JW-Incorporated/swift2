@@ -18,8 +18,8 @@
 # 24h Actions artifact (raw post+comment bundles, hashed authors, never
 # committed to the repo or DB by the crawl stage itself — see crawl.mjs's
 # header) and runs one Haiku call per bundle via
-# apps/worker/src/extract/theory-haiku-client.ts's forced
-# `record_fan_theories` tool, screening every theory (screenTopic()) before
+# apps/worker/src/extract/theory-haiku-client.ts's structured output schema,
+# screening every theory (screenTopic()) before
 # it reaches `fan_theory_candidate`. Zero writes to Reddit/Facebook — this
 # workflow only ever writes to Supabase (plan §6.1's "a human always
 # posts" rule).
@@ -60,7 +60,9 @@ concurrency:
 jobs:
   mine:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # P3 never retries on the backup token: 150 calls/run at 120s each,
+    # plus artifact/setup/reporting headroom.
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v7
 
@@ -69,6 +71,21 @@ jobs:
           node-version: "24"
 
       - run: npm ci
+
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       # No preceding successful crawl run (or COMMUNITY_CRAWL_ENABLED is
       # off, so the crawl's own kill switch skipped before uploading
@@ -93,6 +110,6 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           COMMUNITY_CRAWL_ARTIFACT: .artifacts/community-crawl.json
         run: npx --no-install tsx scripts/community/theory-miner.mjs
