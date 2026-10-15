@@ -15,7 +15,7 @@ import { runMain } from './lib/cli.mjs';
 
 const PAGE_SIZE = 1_000;
 const KILL_BATCH_SIZE = 100;
-const EVENT_COLUMNS = 'id,tier,title,available_at,created_at,killed_at';
+const EVENT_COLUMNS = 'id,tier,title,available_at,created_at,expires_at,killed_at';
 const KILLED_EVENT_COLUMNS = 'id,tier,title,available_at,created_at';
 
 function supabaseAdmin() {
@@ -36,7 +36,7 @@ function assertPageSize(pageSize) {
 
 async function deliveredEventIds(db, pageSize) {
   const delivered = new Set();
-  for (let offset = 0; ; offset += pageSize) {
+  for (let offset = 0; ; ) {
     const { data, error } = await db
       .from('deliveries')
       .select('event_id')
@@ -48,15 +48,16 @@ async function deliveredEventIds(db, pageSize) {
     for (const row of rows) {
       if (row.event_id) delivered.add(row.event_id);
     }
-    if (rows.length < pageSize) return delivered;
+    if (rows.length === 0) return delivered;
+    offset += rows.length;
   }
 }
 
-export async function listPendingEvents(db, { pageSize = PAGE_SIZE } = {}) {
+export async function listPendingEvents(db, { pageSize = PAGE_SIZE, now = new Date() } = {}) {
   assertPageSize(pageSize);
   const delivered = await deliveredEventIds(db, pageSize);
   const pending = [];
-  for (let offset = 0; ; offset += pageSize) {
+  for (let offset = 0; ; ) {
     const { data, error } = await db
       .from('events')
       .select(EVENT_COLUMNS)
@@ -66,8 +67,15 @@ export async function listPendingEvents(db, { pageSize = PAGE_SIZE } = {}) {
       .range(offset, offset + pageSize - 1);
     if (error) throw new Error(`listPendingEvents events: ${error.message}`);
     const rows = data ?? [];
-    pending.push(...rows.filter((row) => !delivered.has(row.id)));
-    if (rows.length < pageSize) return pending;
+    pending.push(
+      ...rows.filter(
+        (row) =>
+          !delivered.has(row.id) &&
+          (!row.expires_at || new Date(row.expires_at).getTime() > now.getTime()),
+      ),
+    );
+    if (rows.length === 0) return pending;
+    offset += rows.length;
   }
 }
 
@@ -132,7 +140,7 @@ function formatEvent(event) {
 
 export async function runCli(db, args, { now = new Date(), log = console.log } = {}) {
   const options = parseArgs(args);
-  const pending = await listPendingEvents(db);
+  const pending = await listPendingEvents(db, { now });
 
   if (options.action === 'list') {
     log(`${pending.length} killable event(s):`);

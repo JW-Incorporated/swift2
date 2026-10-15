@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { listPendingEvents, runCli } from './notifications-kill.mjs';
 
-const EVENT_COLUMNS = 'id,tier,title,available_at,created_at,killed_at';
+const EVENT_COLUMNS = 'id,tier,title,available_at,created_at,expires_at,killed_at';
 const KILLED_EVENT_COLUMNS = 'id,tier,title,available_at,created_at';
 
 function event(id, overrides = {}) {
@@ -16,7 +16,7 @@ function event(id, overrides = {}) {
   };
 }
 
-function fakeDb({ events = [], deliveries = [] } = {}) {
+function fakeDb({ events = [], deliveries = [], maxRows = Infinity } = {}) {
   const rows = new Map(events.map((row) => [row.id, { ...row }]));
   const calls = { deliveryRanges: [], eventRanges: [], updates: [] };
 
@@ -51,7 +51,7 @@ function fakeDb({ events = [], deliveries = [] } = {}) {
                 const matching = deliveries
                   .filter((row) => row.kind === kindFilter)
                   .sort((a, b) => a.id - b.id);
-                return { data: matching.slice(from, to + 1), error: null };
+                return { data: matching.slice(from, Math.min(to + 1, from + maxRows)), error: null };
               },
             };
           },
@@ -85,7 +85,7 @@ function fakeDb({ events = [], deliveries = [] } = {}) {
                   (a, b) =>
                     a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id),
                 );
-              return { data: matching.slice(from, to + 1), error: null };
+              return { data: matching.slice(from, Math.min(to + 1, from + maxRows)), error: null };
             },
           };
         },
@@ -135,6 +135,7 @@ describe('listPendingEvents', () => {
         event('countdown', { tier: 3 }),
         event('past', { available_at: '2025-01-01T00:00:00.000Z' }),
         event('killed', { killed_at: '2026-01-01T01:00:00.000Z' }),
+        event('expired', { expires_at: '2025-12-31T23:59:59.000Z' }),
       ],
       deliveries: [
         { id: 1, event_id: 'instant', kind: 'instant' },
@@ -142,13 +143,13 @@ describe('listPendingEvents', () => {
       ],
     });
 
-    const pending = await listPendingEvents(db);
+    const pending = await listPendingEvents(db, { now: new Date('2026-01-01T00:00:00.000Z') });
 
     expect(pending.map((row) => row.id)).toEqual(['past', 'countdown']);
     expect(db._calls.updates).toEqual([]);
   });
 
-  it('paginates both delivery and event queries', async () => {
+  it('paginates both queries until an empty page after a short final page', async () => {
     const db = fakeDb({
       events: [event('a'), event('bb'), event('ccc')],
       deliveries: [
@@ -156,6 +157,7 @@ describe('listPendingEvents', () => {
         { id: 2, event_id: 'unrelated-1', kind: 'instant' },
         { id: 3, event_id: 'unrelated-2', kind: 'instant' },
       ],
+      maxRows: 1,
     });
 
     const pending = await listPendingEvents(db, { pageSize: 2 });
@@ -163,11 +165,15 @@ describe('listPendingEvents', () => {
     expect(pending.map((row) => row.id)).toEqual(['bb', 'ccc']);
     expect(db._calls.deliveryRanges).toEqual([
       [0, 1],
+      [1, 2],
       [2, 3],
+      [3, 4],
     ]);
     expect(db._calls.eventRanges).toEqual([
       [0, 1],
+      [1, 2],
       [2, 3],
+      [3, 4],
     ]);
   });
 });
