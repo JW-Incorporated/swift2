@@ -27,6 +27,14 @@ so far".
 
 Stories: 70
 
+## Selena Gomez Praises Taylor Swift's Marriage Skills
+
+- first seen: 2026-10-15 07:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Selena Gomez acknowledged that Taylor Swift excels in a particular aspect of marriage. The specific trait was not disclosed in the headline or snippet.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSVhocDJlYkZqeUZWeUtyR0hrSlFrRnlaYXF6UTZIU3ZLMmgxT1pmOUdGSG9yNTlNLTBITnI1ZWpwY2Z4N2xtUUZEd1RyaTd0dk9nMjFTN2hkNm9qYlNiTFlmaVJyNlYzdEY5VDVQUXZmZmRXeGZ4eDZPeGE4WmFsamRSTjZmNUpFRG9kdnRyNFF2SUhHV0o3dVNKUUNuSW5Sa1hnMw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Al Michaels Comments on Taylor Swift's NFL Game Appearances
 
 - first seen: 2026-10-15 05:52 UTC | category: business | importance: 5
@@ -602,11 +610,3 @@ Stories: 70
 - sources:
   - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkY3NXR2V1dPdmhrMWtpU2hiOS15MFFUT3A1VjVkMkUyR1RpbVg0X3UxTEp4M08wNUhWbzZpdWxITWFhMi1XVVVjSUhYVmhWODF1SkZBVnRUU2twQ0pnRWpZRmkzMDBzWjloUnJUWm5XV1ByYnV6SzhrVjlFbnYtbTRhNFdxeURoNThkbm5UWlYyZ0hKSWZ5eTA0RHBkWlpvQmQ0TXFSTmRjVFZSYjRqMFp3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPQUtUQjdUMWtGUllkd0RBVjVBY2xfUDRmcVY0VmM1SnY0ZUVJQldvN3c2NWtLM2dDZHdhX2NTdWFTOGl3dlVITWRLVFJQRkUxT05xaUlaeU40cjgtTW5LWkdTMkR3RWU2ZGduRXJsTkdHb0xUX0hGVEh4eWw5YXFVZlN3VXU1ZDlsSUJoeGM1d0Z1YXFfb29xc203NWU1U3c4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves 100 Weeks Atop Billboard 200
-
-- first seen: 2026-10-12 07:18 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached a milestone of 100 weeks at the top of the Billboard 200 chart, as reported by Country Insider. This achievement highlights her continued success in the music industry.
-- sources:
-  - [unverified] Country Insider — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQLTBpLXdHZ0kyOFE2X1JtRGlqUnVhX251MGFnNEt3X2ZaUFVyNlNvUHV4Szk2N2NDZ19jby1kNzFuZm5MM3hfUWZHUjBpcmNueXFrbTVQZk5WMXY3d1lWLUsxOVh0WmlzWHg1NUJDVWkzS1pnNXdfRDhwVmh2ekxNQTZGVTlwSkp3X0J3Uk1hZ0ZPSDF2U29IWTdkVERqUnY4VTAwc1VKWFFUOGc4NTZSRUhUR28xUS0tallFN2p2WWFzcXh5NTQxWnRJYlE0ZnlC?oc=5&hl=en-US&gl=US&ceid=US:en
