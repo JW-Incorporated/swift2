@@ -416,6 +416,25 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     expect(await readFile(reportPath, 'utf-8')).toContain('PERMANENTLY FAILED');
   });
 
+  it('a stale item that already has a posted record is left in the queue, never moved to failed/ (stuck fold-back, not a failed post)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'already-live-x.json'),
+      JSON.stringify({ platform: 'x', body: item.body, campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://x.com/i/status/1' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
   it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
     const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
     const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });

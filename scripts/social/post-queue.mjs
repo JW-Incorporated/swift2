@@ -472,7 +472,10 @@ export async function main() {
     // stamp — staleness is measured from the founder's own approval
     // (`approval.at`), not `scheduledAt`/queue time (lib/queue.mjs's
     // isStaleApproved).
-    if (isStaleApproved(item, now)) {
+    // An item with a posted record is never stale: it already went live and
+    // only its fold-back is stuck, so it falls through to the duplicate skip.
+    const dup = findPostedDuplicate(item, allPostedData);
+    if (!dup && isStaleApproved(item, now)) {
       const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
@@ -486,7 +489,6 @@ export async function main() {
     }
 
     // 2. Idempotency: does social/posted/ already have this exact post?
-    const dup = findPostedDuplicate(item, allPostedData);
     let blockReason = dup
       ? `already posted: a social/posted/ record with the same platform and ${item.campaign && dup.campaign === item.campaign ? `campaign "${item.campaign}"` : 'an identical body'} already exists (${dup.url ?? 'no url recorded'}) — this looks like a duplicate, not a new post.`
       : null;
