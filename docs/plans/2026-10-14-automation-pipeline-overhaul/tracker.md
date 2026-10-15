@@ -30,7 +30,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | todo |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
-| P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | review | #5855 |  |
+| P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | done | #5855 | 2026-10-15 |
 
 ## P1 Foundations and re-homing
 
@@ -40,7 +40,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | todo |  |  |
+| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | doing |  |  |
 | P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
 | P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
@@ -184,6 +184,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 04:10 PM: #5852 digest fix APPROVE → PR #5854 armed (each event goes to each device at most once, per spec section 5; per-device markers kept until expiry; the primary key (device_id, event_id) blocks re-queueing; no migration). HA #129 go-live checklist remaining after #5853 and #5854 merge: list and kill the stale pending backlog (needs a sanctioned prod-credential path), then tell the owner it is ready for CRON_SECRET.
 - 2026-10-15 04:27 HB: MERGED #5853 (#5850 router fix) and #5854 (#5852 digest fix). HA #129 remaining: stale-backlog kill via a sanctioned prod-credential path, then tell the owner. P0-19 dispatched (Codex sol high: shared claude-token.mjs, backup token for content/P0/P1 priority only, a strict no-op without the secret).
 - 2026-10-15 04:46 PM: P0-19 APPROVE (Opus; secret handling clean, no-op without the secret, 27 non-passing callers fine) → #5855 armed. Follow-ups → new P0-19b (must land BEFORE HA #127 adds the backup).
+- 2026-10-15 04:57 HB: #5855 (P0-19) MERGED. No armed PRs of ours to update-branch. P0-19b dispatched (Codex).
 
 ## Next actions
 
