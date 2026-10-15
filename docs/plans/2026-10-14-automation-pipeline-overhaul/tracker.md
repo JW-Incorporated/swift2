@@ -62,7 +62,8 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09 | todo |  |  |
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | todo |  |  |
-| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | doing |  |  |
+| P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | review | #5836 |  |
+| P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | todo |  |  |
 | P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | todo |  |  |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
@@ -159,6 +160,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-14 23:24 PM: P0-02 round 2 APPROVE → #5832 armed. No new dispatches past the handoff point (context budget). Remaining in flight: P1-23 (Codex), the P0-11 split (Codex), the P0-09 follow-up reviewer. P1-08 deliberately left for the fresh session: it needs P1-02's story_timeline table (#5831) and a judgment call on which domains count as official, which widens the rumor gate, so it needs a decisions.md entry in the same PR.
 - 2026-10-14 23:29 HB: MERGED #5829 (P0-07) and #5830 (P1-03) → done; worktrees removed. The P0-09 follow-up review was APPROVE → #5833 armed (nit: about 20 blank lines of whitespace churn in sync-awin-feeds.mjs). Still in flight: P1-23 and the P0-11 split (Codex). Armed: #5815, #5824, #5827, #5831, #5832, #5833.
 - 2026-10-14 23:33 PM: P0-11 split done (kill-t1 verified byte-identical to main; no kill-script paths in the diff; one migration, ops_switch) → PM opened #5835 (the reviewer confirmed every other fix in round 2) → auto-merge armed. After merge: check the db-migrate run succeeds and the next dispatch tick returns 200 (not 503).
+- 2026-10-14 23:38 PM: P1-23 APPROVE → #5836 armed. The two follow-ups became new item P1-23b (FIRST thing next session): the content-hash grandfathering would make any bot edit to one of the 74 legacy theories fail CI (visible, not destructive), and cdn.shopify.com in the allowlist is multi-tenant. Nothing else is in flight. Armed: #5815, #5824, #5827, #5831, #5832, #5833, #5835, #5836.
 
 ## Next actions
 
