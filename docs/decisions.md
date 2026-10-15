@@ -15,6 +15,12 @@ Format: date, decision, why, alternatives considered, who approved.
 
 **Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
 
+## 2026-10-15 — Marjorie ops uses deterministic signals plus a fail-open Jev gate (P1-11)
+
+**Decision.** The three-hourly ops routine collects watchdog alerts, main-branch red workflows, stuck PRs, held content, chase work, and trusted ops-fix candidates in deterministic code. It must run for an unhandled watchdog alert open over 12 hours, a red main run of a `routine-*` or deploy workflow, prod-smoke or founder-facing alerts, chase work, and trusted ops-fix work. Jev answers one Noul only for signals not covered by those rules; raw probability `>= 0.7` sends those items to Sonnet, while no flagged items skips it. A missing key, unreadable source, Jev error/timeout, or precheck crash runs the full pre-P1-11 prompt. The step summary labels deterministic items `must-run`. The gate uploads a default fail-open artifact before checkout and overwrites it after a successful precheck, so an early gate failure cannot strand the reusable job without its input. The existing deterministic auto-defer stays separate and trusts markers from `AUTO_DEFER_AUTHOR=sffan15-sys`.
+
+**Why/cost.** This removes the programme's largest routine-token source without letting the optimization reduce ops coverage. Jev input is compact (at most 500 characters per signal) at the shared client's $0.042/million input-token rate; Sonnet remains the fallback and the watchdog's 24-hour alert remains the backstop. Approved by programme item P1-11; reversible by reverting the gate.
+
 ## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
 
 **Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
