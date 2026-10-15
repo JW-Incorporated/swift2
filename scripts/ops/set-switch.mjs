@@ -1,14 +1,15 @@
 #!/usr/bin/env node
-// Agent-safe wrapper for flipping NON-SECRET repo variables (founder decision
-// 2026-10-06, docs/decisions.md). guard.sh denies raw `gh variable set`; this
-// is the only sanctioned path. It never deletes (a deleted SOCIAL_FREEZE reads
-// as unfrozen) and never touches secrets.
+// Agent-safe wrapper for flipping allowlisted NON-SECRET switches (founder
+// decision 2026-10-06, docs/decisions.md). Most are repo variables;
+// PUSH_FREEZE is stored in the service-role-only ops_switches table. It never
+// deletes switches and never touches secrets.
 //
 //   node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason "why"
 import { execFileSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { serviceClient } from '../lib/supabase.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 
@@ -23,7 +24,12 @@ export const BOOL_SWITCHES = new Set([
 export const INT_SWITCHES = new Set(['COMMUNITY_CRAWL_BUDGET']);
 // Brakes and safety nets: agents may engage them (freezes -> true, scanning
 // -> true), never lift/disable them. Turning security scanning off is founder-only.
-export const FREEZE_ON_ONLY = new Set(['SOCIAL_FREEZE', 'CONTENT_AUTOMERGE_FREEZE', 'CODE_SCANNING_ENABLED']);
+export const FREEZE_ON_ONLY = new Set([
+  'SOCIAL_FREEZE',
+  'CONTENT_AUTOMERGE_FREEZE',
+  'PUSH_FREEZE',
+  'CODE_SCANNING_ENABLED',
+]);
 
 export const DENYLIST = {
   MARJORIE_EMAIL: 'notification address (identity), founder-only',
@@ -59,18 +65,47 @@ function defaultGh(args) {
   return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
 
-export function setSwitch({ name, value, reason }, { gh = defaultGh, appendLedger, now = () => new Date() } = {}) {
+async function defaultSetDbSwitch(name, enabled, updatedAt) {
+  const db = serviceClient();
+  if (!db) {
+    throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
+  }
+  const { data: existing, error: readError } = await db
+    .from('ops_switches')
+    .select('enabled')
+    .eq('name', name)
+    .maybeSingle();
+  if (readError) throw new Error(`could not read ${name}: ${readError.message}`);
+  const { error: writeError } = await db.from('ops_switches').upsert(
+    { name, enabled, updated_at: updatedAt.toISOString() },
+    { onConflict: 'name' },
+  );
+  if (writeError) throw new Error(`could not set ${name}: ${writeError.message}`);
+  if (existing?.enabled === true) return 'true';
+  if (existing?.enabled === false) return 'false';
+  return '(unset)';
+}
+
+export async function setSwitch(
+  { name, value, reason },
+  { gh = defaultGh, setDbSwitch = defaultSetDbSwitch, appendLedger, now = () => new Date() } = {},
+) {
   const err = validate(name, value, reason);
   if (err) return { ok: false, error: err };
+  const changedAt = now();
   let oldValue = '(unset)';
-  try {
-    const got = gh(['variable', 'get', name, '--repo', REPO]).trim();
-    if (got) oldValue = got;
-  } catch {
-    // unset variable: gh exits nonzero
+  if (name === 'PUSH_FREEZE') {
+    oldValue = await setDbSwitch(name, value === 'true', changedAt);
+  } else {
+    try {
+      const got = gh(['variable', 'get', name, '--repo', REPO]).trim();
+      if (got) oldValue = got;
+    } catch {
+      // unset variable: gh exits nonzero
+    }
+    gh(['variable', 'set', name, '--repo', REPO, '--body', value]);
   }
-  gh(['variable', 'set', name, '--repo', REPO, '--body', value]);
-  const line = `| ${now().toISOString()} | ${name} | ${oldValue} -> ${value} | ${reason.replace(/\|/g, '/').replace(/\s+/g, ' ').trim()} |\n`;
+  const line = `| ${changedAt.toISOString()} | ${name} | ${oldValue} -> ${value} | ${reason.replace(/\|/g, '/').replace(/\s+/g, ' ').trim()} |\n`;
   (appendLedger ?? ((l) => appendFileSync(LEDGER_PATH, l)))(line);
   return { ok: true, line };
 }
@@ -86,7 +121,7 @@ function parseArgs(argv) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const res = setSwitch(parseArgs(process.argv.slice(2)));
+  const res = await setSwitch(parseArgs(process.argv.slice(2)));
   if (!res.ok) {
     console.error(`set-switch refused: ${res.error}`);
     process.exit(1);

@@ -72,11 +72,12 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
+const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
 
 /**
- * One dispatch pass: loads events whose `available_at` has arrived (T1's
- * 5-min delay applies here — an event isn't even a candidate until its
- * delay elapses, which is what makes the kill hook effective) and haven't
+ * One dispatch pass: loads events whose `available_at` has arrived (every
+ * tier's 5-minute kill window applies here, so an event isn't a candidate
+ * until the delay elapses) and haven't
  * been killed or expired, fans each out to opted-in instant devices, runs
  * the governor, sends via FCM, and logs `deliveries`.
  */
@@ -101,6 +102,23 @@ export async function dispatchPendingEvents(
     enqueuedToDigest: 0,
     errors: [],
   };
+
+  const { data: pushFreeze, error: pushFreezeError } = await db
+    .from('ops_switches')
+    .select('enabled')
+    .eq('name', PUSH_FREEZE_SWITCH)
+    .maybeSingle();
+  if (pushFreezeError || !pushFreeze) {
+    const reason = pushFreezeError?.message ?? 'switch row is missing';
+    const message = `PUSH_FREEZE could not be read; dispatch skipped: ${reason}`;
+    console.warn(`notification-router: ${message}`);
+    result.errors.push(message);
+    return result;
+  }
+  if (pushFreeze.enabled !== false) {
+    console.warn('notification-router: PUSH_FREEZE is on; dispatch skipped');
+    return result;
+  }
 
   const { data: events, error: eventsError } = await db
     .from('events')

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { insertEvent, T1_CATEGORIES, T1_SEND_DELAY_MS } from './notification-events';
+import { insertEvent, NOTIFICATION_KILL_WINDOW_MS, T1_CATEGORIES } from './notification-events';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 function fakeDb(onInsert: (row: Record<string, unknown>) => { data: unknown; error: unknown }) {
@@ -29,24 +29,31 @@ describe('insertEvent', () => {
         dedupeKey: `test:${category}`,
         now,
       });
-      expect(result.availableAt).toBe(new Date(now.getTime() + T1_SEND_DELAY_MS).toISOString());
+      expect(result.availableAt).toBe(
+        new Date(now.getTime() + NOTIFICATION_KILL_WINDOW_MS).toISOString(),
+      );
       expect(result.tier).toBe(1);
     }
   });
 
-  it('non-T1 categories are available immediately (available_at = now)', async () => {
+  it.each([
+    ['official_merch', 2],
+    ['award_news', 3],
+  ] as const)('applies the 5-minute kill window to a %s event', async (category, tier) => {
     const now = new Date('2026-01-15T12:00:00Z');
     const db = fakeDb(() => ({ data: { id: 'evt-1' }, error: null }));
     const result = await insertEvent(db, {
-      category: 'official_merch',
+      category,
       title: 'x',
       body: 'y',
       deepLink: 'https://example.com',
-      dedupeKey: 'test:official_merch',
+      dedupeKey: `test:${category}`,
       now,
     });
-    expect(result.availableAt).toBe(now.toISOString());
-    expect(result.tier).toBe(2);
+    expect(result.availableAt).toBe(
+      new Date(now.getTime() + NOTIFICATION_KILL_WINDOW_MS).toISOString(),
+    );
+    expect(result.tier).toBe(tier);
   });
 
   it('DEDUPE: a duplicate dedupe_key (unique_violation) is reported as deduped, not thrown', async () => {

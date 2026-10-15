@@ -11,17 +11,15 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { NotificationCategory } from '@swift2/shared';
 
-/** T1 categories get a 5-minute send delay + kill hook (spec §12 Q2,
- * founder decision recorded on the Phase 2 kanban card): "T1 events send
- * fully automated with a 5-minute send delay + an alert/kill hook — NOT a
- * human-confirm gate." A false positive can be withdrawn via
- * scripts/notifications-kill-t1.mjs before `available_at` arrives. */
+/** T1 categories retain their tier semantics; the safety delay below now
+ * applies to every tier so any false positive can be withdrawn via
+ * scripts/notifications-kill.mjs before `available_at` arrives. */
 export const T1_CATEGORIES: readonly NotificationCategory[] = [
   'song_drop',
   'album_news',
   'tour_news',
 ];
-export const T1_SEND_DELAY_MS = 5 * 60 * 1000;
+export const NOTIFICATION_KILL_WINDOW_MS = 5 * 60 * 1000;
 
 const TIER_BY_CATEGORY: Record<NotificationCategory, number> = {
   song_drop: 1,
@@ -69,11 +67,9 @@ export interface InsertEventResult {
 const DEFAULT_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
 
 /**
- * The one producer seam. Inserts a row into `events`, applying the T1
- * 5-minute delay automatically based on category (spec §12 Q2 / this
- * task's recorded founder decision) — callers never compute the delay
- * themselves, so the safety behavior can't be forgotten or reimplemented
- * per-pipeline.
+ * The one producer seam. Inserts a row into `events`, applying the 5-minute
+ * kill window to every tier. Callers never compute the delay themselves,
+ * so the safety behavior can't be forgotten or reimplemented per-pipeline.
  *
  * Idempotent on `dedupeKey`: a duplicate detection (same key) is a
  * successful no-op (`deduped: true`, `id: null`), not a thrown error — a
@@ -86,10 +82,7 @@ export async function insertEvent(
 ): Promise<InsertEventResult> {
   const now = input.now ?? new Date();
   const tier = TIER_BY_CATEGORY[input.category];
-  const isT1 = T1_CATEGORIES.includes(input.category);
-  const availableAt = isT1
-    ? new Date(now.getTime() + T1_SEND_DELAY_MS).toISOString()
-    : now.toISOString();
+  const availableAt = new Date(now.getTime() + NOTIFICATION_KILL_WINDOW_MS).toISOString();
   const expiresAt = input.expiresAt ?? new Date(now.getTime() + DEFAULT_EXPIRY_MS).toISOString();
 
   const { data, error } = await db

@@ -148,8 +148,8 @@ If a `song_drop`/`album_news`/`tour_news` event looks like a false
 positive, you have up to 5 minutes to stop it:
 
 ```
-node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --list
-node --env-file=apps/worker/.env scripts/notifications-kill-t1.mjs --kill <event-id>
+node --env-file=apps/worker/.env scripts/notifications-kill.mjs --list
+node --env-file=apps/worker/.env scripts/notifications-kill.mjs --kill <event-id>
 ```
 
 `--list` shows every pending T1 event and a countdown to when it sends;
@@ -327,5 +327,4 @@ Once VAPID + the dashboard secret are set:
 #    real numbers once there's delivery history (seeded/test data is
 #    clearly labeled "no data yet" before that).
 ```
-
 
