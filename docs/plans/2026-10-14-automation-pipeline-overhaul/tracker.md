@@ -55,7 +55,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
 | P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | todo |  |  |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | done | #5868 | 2026-10-15 |
-| P1-05b | Collector follow-up (architect #3): page the existing-key update loop at LOOKUP_PAGE with a >1,000-key cap test; first-run baseline (a source with zero stored items inserts historical, no events). HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-05 | review | #5883 |  |
+| P1-05b | Collector follow-up (architect #3): page the existing-key update loop at LOOKUP_PAGE with a >1,000-key cap test; first-run baseline (a source with zero stored items inserts historical, no events). HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-05 | done | #5883 | 2026-10-15 |
 | P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
 | P1-07 | tidewatch.yml on the home clock with a freeze switch | codex | S | L-OPS | P1-06, P0-02, P0-07 | todo |  |  |
 | P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-14 | review | #5884 |  |
@@ -253,6 +253,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 09:13 PM: P1-09b pushed f71f616c2 (e2e: a P0 session limit re-spawns on the backup and returns ok; a P2 session limit returns unavailable; loggerError; docs updated; focused 31/31) → its ONE review round (Sonnet). The full suite failed once on an untouched back-stack UI test, the SAME flake as P0-21a's run → follow-up: file an issue for the back-stack flake (the reviewer will report the path).
 - 2026-10-15 09:15 PM: the #5882 and #5884 conflicts were docs/decisions.md only (both entries kept) → merges pushed (d5eb3068d, 14d1971a4); still armed. docs/decisions.md is the conflict hotspot when several items each add an entry. Free slot → a grunt removes merged or abandoned worktrees (disk).
 - 2026-10-15 09:18 PM: P1-09b APPROVE → #5887 armed (e2e asserts two spawns, primary then backup token; the regex only runs on is_error or a non-zero exit). NOTE: claude-call.mjs and its test were whitespace-compacted to 299 lines; the NEXT change to them (P1-28) must split the files rather than compact. The back-stack flake (apps/web/components/longlive/native-back-nav-entries.test.tsx:63, failed under full-suite load on 2 branches) filed as an issue. P1-28 unblocks once #5887 and P1-02c merge (P1-02c waits for #5884's migration).
+- 2026-10-15 09:20 HB: #5883 (P1-05b) MERGED, merge sha 1fbd7d5e3bc83060cfdb4a33f26ce1bdd210d557 → done. The P1-07 brief MUST quote that sha (architect #3) and check out with fetch-depth 0; P1-07 still waits on P1-06 (the shadow classifier). Armed: #5865, #5882, #5884, #5886, #5887.
 
 ## Next actions
 
