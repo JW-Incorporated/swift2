@@ -17,9 +17,9 @@
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
-// scripts/lib/supabase.mjs's header). ANTHROPIC_API_KEY is optional: unset
-// means every thin item's rewrite step defers (reported, not an error),
-// same as the live extract stage's own "no key, no spend" posture.
+// scripts/lib/supabase.mjs's header). CLAUDE_CODE_OAUTH_TOKEN is optional:
+// unset means every thin item's rewrite step defers (reported, not an error),
+// same as the live extract stage's own missing-subscription posture.
 //
 // DRY RUN NEVER WRITES: every row is still resolved/rewritten/re-screened
 // for real (so the printed report reflects the real would-be outcome, not

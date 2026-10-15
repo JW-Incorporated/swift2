@@ -6,6 +6,7 @@
 //   npm run news --workspace @swift2/worker           (via tsx)
 
 import { createWorkerDbClient } from './db/client';
+import { hasClaudeSubscriptionToken } from './claude-call';
 import { detectExtractDegraded } from './extract/degraded';
 import { runCycle } from './pipeline/run-cycle';
 import { PRIMARY_SOURCES } from './sources/registry';
@@ -75,7 +76,7 @@ async function main() {
     extracted: result.extract.extracted,
     deferred: result.extract.deferred,
     schemaPending: pendingErrors.length,
-    hasApiKey: Boolean(process.env.ANTHROPIC_API_KEY),
+    hasSubscriptionToken: hasClaudeSubscriptionToken(),
   });
   if (degraded) console.warn(`::warning title=extract-degraded::${degraded.message}`);
 

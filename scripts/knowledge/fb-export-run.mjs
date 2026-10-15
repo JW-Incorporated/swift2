@@ -19,6 +19,7 @@ import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
+import { runActivityIfDue, runActivityPass } from './fb-activity-pass.mjs';
 import {
   checkCheckout,
   gitProbe,
@@ -28,6 +29,8 @@ import {
 } from './fb-export-resilience.mjs';
 import { CAPTURE_WALL_BUDGET_MS, startReceiver } from './fb-export-receiver.mjs';
 import { commentErrorCode, localDate, weekOf } from './fb-export-helpers.mjs';
+
+export { OWNER_ACTIVITY_JOB, runActivityPass } from './fb-activity-pass.mjs';
 
 const execFileAsync = promisify(execFile);
 // Statuses that stop the whole run (Facebook is blocking or limiting this browser).
@@ -42,6 +45,12 @@ const STOP_STATUSES = [
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
 // How the ingest child loads the worker env file; the preflight reuses the exact same arg.
 const INGEST_ENV_ARG = '--env-file-if-exists=apps/worker/.env';
+export function selectCadenceGroups(groups, cadence, topGroupSlugs) {
+  const top = new Set(topGroupSlugs);
+  if (top.size !== 3 || [...top].some((slug) => !groups.some((group) => group.slug === slug)))
+    throw new Error('--top-groups must name exactly three configured group slugs');
+  return groups.filter((group) => (cadence === 'daily' ? top.has(group.slug) : !top.has(group.slug)));
+}
 
 export async function gateExport(
   result,
@@ -397,8 +406,9 @@ export async function runExport(options = {}) {
     options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
   if (!root) throw new Error('LOCALAPPDATA is unavailable');
   const weekLabel = weekOf(now);
+  const ledgerLabel = options.ledgerScope === 'daily' ? localDate(now) : weekLabel;
   const outputDir = join(root, 'exports', localDate(now));
-  const ledgerPath = join(root, 'ledger', `${weekLabel}.json`);
+  const ledgerPath = join(root, 'ledger', `${ledgerLabel}.json`);
   let ledger;
   try {
     ledger = await (options.readLedger ?? readLedger)(ledgerPath);
@@ -413,7 +423,7 @@ export async function runExport(options = {}) {
   ledger.groups ??= {};
   const persistLedger = async () =>
     (options.writeLedger ?? writeLedger)(ledgerPath, {
-      week: weekLabel,
+      week: ledgerLabel,
       ...(ledger.actingPageId ? { actingPageId: ledger.actingPageId } : {}),
       groups: ledger.groups,
     });
@@ -647,17 +657,51 @@ export async function runExport(options = {}) {
       });
   }
 
+  let activity = null;
+  if (options.activity && !globalAbort) {
+    try {
+      const activityStatePath = join(root, 'ledger', 'activity.json');
+      activity = await runActivityIfDue({
+        now,
+        dryRun,
+        readState: () => (options.readActivityState ?? readLedger)(activityStatePath),
+        writeState: (state) =>
+          (options.writeActivityState ?? writeLedger)(activityStatePath, state),
+        run: () =>
+          (options.runActivity ?? runActivityPass)({
+            collect: options.collectActivity ?? extensionCollect,
+            ingest: options.ingestActivity,
+            supabase: options.supabase,
+            groups: options.activityGroups ?? FB_GROUPS_CHECKLIST,
+            root,
+            outputDir,
+            now,
+            dryRun,
+          }),
+      });
+    } catch (error) {
+      activity = { ok: false, count: 0, reason: failureReason(error, 'activity') };
+    }
+  }
+  const activityLine = activity
+    ? `Owner activity: ${activity.skipped ? 'skipped (last pass was less than 20 hours ago)' : activity.ok ? `${activity.count} comment(s) read, ${activity.written ?? 0} outcome row(s) written` : `failed (${activity.reason})`}.`
+    : null;
+
   if (dryRun)
     return {
-      ok: results.every((row) => !['failed', ...STOP_STATUSES].includes(row.status)),
+      ok:
+        results.every((row) => !['failed', ...STOP_STATUSES].includes(row.status)) &&
+        activity?.ok !== false,
       results,
-      summary: runSummary(results, actingPageId),
+      summary: [runSummary(results, actingPageId), activityLine].filter(Boolean).join('\n'),
+      activity,
     };
   await persistLedger().catch((error) =>
     warnings.push(`ledger write failed: ${error?.message ?? error}`),
   );
-  const failed = results.some((row) => ['failed', ...STOP_STATUSES].includes(row.status));
-  const baseSummary = runSummary(results, actingPageId);
+  const failed =
+    results.some((row) => ['failed', ...STOP_STATUSES].includes(row.status)) || activity?.ok === false;
+  const baseSummary = [runSummary(results, actingPageId), activityLine].filter(Boolean).join('\n');
   const reported = await reportToIssue({
     weekLabel,
     summary: baseSummary,
@@ -675,6 +719,7 @@ export async function runExport(options = {}) {
     summary,
     issue: reported.issue,
     warnings,
+    activity,
   };
 }
 
@@ -738,7 +783,29 @@ async function main() {
     return;
   }
   const dryRun = args.includes('--dry-run');
-  const result = await runExport({ dryRun, preflight: true });
+  try {
+    process.loadEnvFile?.(resolve(REPO_ROOT, 'apps/worker/.env'));
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+  const valueAfter = (flag) => {
+    const index = args.indexOf(flag);
+    return index === -1 ? null : args[index + 1] ?? null;
+  };
+  const cadence = valueAfter('--cadence');
+  const topGroupSlugs = (valueAfter('--top-groups') ?? '').split(',').filter(Boolean);
+  if (cadence && !['daily', 'weekly'].includes(cadence))
+    throw new Error('--cadence must be daily or weekly');
+  const groups = cadence
+    ? selectCadenceGroups(FB_GROUPS_CHECKLIST, cadence, topGroupSlugs)
+    : FB_GROUPS_CHECKLIST;
+  const result = await runExport({
+    dryRun,
+    preflight: true,
+    groups,
+    ledgerScope: cadence,
+    activity: true,
+  });
   console.log(result.summary);
   if (!result.ok) return 1;
 }

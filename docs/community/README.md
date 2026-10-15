@@ -110,12 +110,23 @@ How it works, in three workflows (kill switch: repo variable
    (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
    run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
    export leads are adopted as awareness rows too.
-2. `routine-awareness-answerer` (every 3 hours) is ONE Claude run per batch (not per lead; at
-   most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
-   waiting. It writes the words only, with no shell and no database secret
-   (it reads untrusted Reddit titles): a plain job exports the waiting leads
-   to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
-   a plain job validates it (`awareness-draft.mjs apply`): a reply with a link,
+2. `community-draft-replies` (every 3 hours; P1-10, replacing the agentic
+   `routine-awareness-answerer`) runs `scripts/community/draft-replies.mjs`: ONE
+   single-shot model call per eligible lead (at most 6 a run) through the shared
+   subscription wrapper at community priority (P3, no backup token), and does
+   nothing when no lead is waiting. The weekly-limit gate pauses it; a limit or
+   an unavailable wrapper leaves the lead `new` (no draft beats a bad draft).
+   The model has no tools, shell or database access. For Reddit leads it gets
+   the title and the stored snippet. Fetching the post text and a few top
+   comments (no author names) from the public thread JSON is **off by default**:
+   it needs the repo-level env flag `REDDIT_THREAD_JSON=1`, which
+   `community-draft-replies.yml` deliberately does not set, because the old
+   answerer never fetched thread JSON and whether anonymous `.json` is allowed is
+   an open owner decision (HA #130). With the flag off, no Reddit request is
+   made at all. Any fetched text is transient and never stored or
+   logged (Facebook leads are lead-only: title, no fetch). The system prompt is
+   `docs/agents/runner-prompts/awareness-answerer.md`. Replies are validated by
+   the same code as before (`awareness-draft.mjs applyDrafts`): a reply with a link,
    a domain, "check out", an em dash or more than 300 characters is rejected,
    and a picture id, if the agent asked for one at all, must exist in the real
    catalogue. No picture id means a text-only reply, which is the normal case.
@@ -285,13 +296,16 @@ freeze here.
 These are not switches because they are not meant to be turned on:
 - **Never posts, comments, votes, follows, or DMs** on Reddit or Facebook.
   A human always does the actual posting.
-- **Never crawls Facebook.** The only Facebook input is a weekly export
-  file *you* save from the browser ("Webpage, Complete") and hand to the
-  system — there is no Facebook bot, relay, or API call, ever
+- **Never crawls Facebook.** The only Facebook input is the owner-run browser
+  extension export: the explicitly configured top three groups run daily and
+  the rest weekly. The same read-only pass reads only the owner's own activity
+  entries and their reply/reaction counts. There is no Facebook bot, relay,
+  API call, posting, reacting, or commenting
   (`docs/decisions.md`, 2026-08-11).
-- **Never stores a comment body or a real Reddit/Facebook username** —
-  authors are hashed before anything is written, and only our own
-  aggregate summary of a post/thread is kept.
+- **Never stores a Facebook member name, post quote, or comment body.** Lead
+  rows contain a canonical post URL, counts, and a non-text locator; authors
+  remain hashed only inside the parser. Owner-activity rows contain URLs,
+  opaque ids, and counts only.
 - **Never stores a relationship, identity, or private-life theory**, even
   as a "rejected" row — the same content filter used everywhere else on
   the site runs on every fan-theory candidate before it's written.

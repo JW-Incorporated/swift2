@@ -1,4 +1,6 @@
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { decideLimitGate, failOpenGate, issueReset } from './limit-gate.mjs';
 
@@ -100,5 +102,35 @@ describe('decideLimitGate', () => {
     expect(decideLimitGate({
       issues: [{ number: 44, body: 'claude-weekly-limit-reset: not-a-time' }], now, priority: 'routine',
     })).toEqual({ skip: false, message: null, closeIssueNumber: 44 });
+  });
+});
+
+// #5880: the social posting lane is not the first thing starved by a weekly
+// limit. Plain-text workflow assertions are the repo convention (no YAML parser).
+describe('the social posting lane runs through an active weekly limit', () => {
+  const read = (p: string) => readFileSync(resolve(p), 'utf8').replace(/\r\n/g, '\n');
+  const lane = [
+    'routine-tree-daily-draft',
+    'routine-tree-weekly-plan',
+    'routine-tree-event-draft',
+  ];
+
+  for (const workflow of lane) {
+    it(`${workflow}.yml passes a priority the gate lets through`, () => {
+      const wf = read(`.github/workflows/${workflow}.yml`);
+      const priority = /^ {6}priority: (\S+)$/m.exec(wf)?.[1];
+      expect(priority, `${workflow}.yml must pass priority: to routine-template.yml`).toBeTruthy();
+      // Both branches of the gate: with and without a backup token.
+      for (const hasBackup of [false, true]) {
+        expect(
+          decideLimitGate({ issues: [futureIssue], now, priority, hasBackup }).skip,
+          `${workflow}.yml (priority: ${priority}, hasBackup: ${hasBackup}) must not be skipped`,
+        ).toBe(false);
+      }
+    });
+  }
+
+  it('would have skipped these routines before the fix (no priority = "routine")', () => {
+    expect(decideLimitGate({ issues: [futureIssue], now, priority: 'routine' }).skip).toBe(true);
   });
 });

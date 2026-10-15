@@ -10,6 +10,13 @@ import { pathToFileURL } from 'node:url';
 
 export const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
 export const ARTIFACT_NAME = 'routine-usage';
+export const ARTIFACT_SUFFIXES = ['', 'judgment', 'craft'];
+export const ARTIFACT_NAMES = ARTIFACT_SUFFIXES.map((suffix) => (suffix ? `${ARTIFACT_NAME}-${suffix}` : ARTIFACT_NAME));
+
+/** One of the known usage artifact names produced by routine workflows. */
+export function isUsageArtifactName(name) {
+  return ARTIFACT_NAMES.includes(name);
+}
 const OUTPUT = path.resolve('docs/ops/dashboard/budget.json');
 const execFileAsync = promisify(execFile);
 const directGh = (args) => execFileAsync('gh', args, { encoding: 'utf8', timeout: 30_000, maxBuffer: 10 * 1024 * 1024 });
@@ -118,12 +125,14 @@ async function downloadRecord(runId, artifact, { ghImpl, repo }) {
   }
 }
 
-/** Fetches all recent routine-usage artifacts from GitHub's paginated artifact index. */
+/** Fetches all recent routine-usage artifacts with exact-name API queries. */
 export async function fetchUsageRecords({ since, ghImpl = directGh, repo = REPO, readArtifact = downloadRecord }) {
-  const artifacts = parsePages(
-    await apiPages(`repos/${repo}/actions/artifacts?name=${ARTIFACT_NAME}`, ghImpl),
-    'artifacts',
-  ).filter((artifact) => artifact.expired !== true && artifact.created_at >= since);
+  const pages = await Promise.all(
+    ARTIFACT_NAMES.map((name) => apiPages(`repos/${repo}/actions/artifacts?name=${encodeURIComponent(name)}`, ghImpl)),
+  );
+  const artifacts = pages
+    .flatMap((stdout) => parsePages(stdout, 'artifacts'))
+    .filter((artifact) => isUsageArtifactName(artifact.name) && artifact.expired !== true && artifact.created_at >= since);
   const records = [];
   // A single download is slow enough that serial traversal can outlive an
   // Actions job. Four is small relative to GitHub's artifact service and keeps

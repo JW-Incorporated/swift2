@@ -87,13 +87,17 @@ Every push passes these gates, in order:
 3. **Coalescing** — multiple events, same category, within 30 min → one push ("3 new songs just dropped →"). Uses `dedupe_key` to also kill duplicate detections from the scraper pipeline.
 4. **Daily cap** — default **max 3 instant pushes/day** per device (user adjustable 1–5 in settings as "Daily limit"). Overflow rolls into the next digest. Scheduled digests and fun notifications the user explicitly chose count separately (they asked for exactly those), but combined instant+scheduled can never exceed 6/day, hard ceiling.
 5. **Send-time sanity** — digests and fun notifications only fire between 8 AM–9 PM local.
+6. **Instant freshness** — an event more than 6 hours old, measured from `created_at`, never sends as Instant. For a device that held the event during its immediately preceding quiet-hours window, the six-hour clock restarts when that hold ends. Suppression does not remove the event from the in-app inbox. The router only loads events created in the preceding 30 hours, which covers the six-hour horizon plus overnight holds.
 
 **Kill window and freeze (owner, 2026-10-14, Tidewatch D4).** The gates above are unchanged; automatic breaking news gets no exception.
-- **5-minute kill window on every tier.** Every event, whatever its tier, waits 5 minutes (`available_at`) before it can send, so a false positive can be killed (`killed_at`) first. Today only T1 has the delay (`T1_SEND_DELAY_MS`, `packages/core/src/notification-events.ts`) and the kill script covers T1 only (`scripts/notifications-kill-t1.mjs`).
-- **`PUSH_FREEZE`.** A global brake the router checks before any send: while it is on, nothing sends. Agents may switch it on; only the owner lifts it (the same posture as `SOCIAL_FREEZE`).
-- Both are built by Tidewatch P0-11, before any automatic push.
+- **5-minute kill window on every tier.** Every event, whatever its tier, waits 5 minutes (`available_at`) before it can send, so a false positive can be killed (`killed_at`) first. `scripts/notifications-kill.mjs` lists or kills pending events across every tier.
+- **`PUSH_FREEZE`.** A global brake every send path checks: while it is on, nothing sends. Agents may switch it on; only the owner lifts it (the same posture as `SOCIAL_FREEZE`). Instant, digest, Clown Report, lyric, on-this-day, countdown and cooldown passes all engage the brake and halt the current run after any provider-accepted push whose delivery record or required sent marker cannot be written. The run halts even if the freeze write itself fails.
+- **Write heartbeat.** Every authorized cron invocation first upserts `dispatch_heartbeat` in `ops_switches`. If that write fails, no provider is called. P0-21c's watchdog reads this row's `updated_at`.
 
-**Auto-cooldown (proposed):** if a device hasn't opened any notification in 30 days, downgrade its Instant categories to Daily and send one final "We've quieted things down — tap to adjust" push. Prevents the silent-annoyance → uninstall path.
+The hourly watchdog treats no `dispatch_heartbeat` row as “not live yet” and stays quiet, so an unset `CRON_SECRET` does not cause a false alarm. Once the row exists, it alerts when the last tick is more than 45 minutes old: three times the `*/15` Vercel cron interval in `apps/web/vercel.json` (with a 30-minute minimum). It keeps checking while `PUSH_FREEZE` is on because frozen authorized ticks still write the heartbeat, and a failed database read raises a distinct “unknown” alert rather than passing silently.
+- Both were built by Tidewatch P0-11 before any automatic push; P0-21a added the stale-instant guard, post-send circuit breaker and aggregate dispatch summary.
+
+**Auto-cooldown (disabled):** the implementation remains in place, but dispatch defaults it off because native clients do not report notification opens. Re-enable only after native open tracking ships; otherwise every long-lived native device would be treated as unengaged and downgraded at an arbitrary local hour.
 
 ## 7. Permission & Onboarding Flow
 
@@ -202,7 +206,8 @@ Cron (every 15 min, pg_cron + Supabase Edge Function):
 - Batched FCM sends (500 tokens/request); retries with backoff; invalid tokens pruned on response.
 
 **How push actually runs today (checked against the code, 2026-10-14).** The pipeline above is the design; the deployed reality differs in three places:
-- **Trigger: Vercel Cron, not pg_cron.** Vercel Cron calls `GET /api/notifications/dispatch` every 15 minutes (`apps/web/vercel.json`). That one route runs the router and governor, digests, Clown Reports, fun notifications, countdowns and the cooldown pass (`apps/web/app/api/notifications/dispatch/route.ts`, `packages/core/src/notification-router.ts`). There are no Supabase Edge Functions or pg_cron jobs for push in this repo. A due event waits for the next 15-minute pass, so the 5-minute kill window (§6) is a floor: with it, an instant push can land up to about 20 minutes after its event is written.
+- **Trigger: Vercel Cron, not pg_cron.** Vercel Cron calls `GET /api/notifications/dispatch` every 15 minutes (`apps/web/vercel.json`). That one route runs the router and governor, digests, Clown Reports, fun notifications and countdowns; auto-cooldown is present but disabled (`apps/web/app/api/notifications/dispatch/route.ts`, `packages/core/src/notification-router.ts`). There are no Supabase Edge Functions or pg_cron jobs for push in this repo. A due event waits for the next 15-minute pass, so the 5-minute kill window (§6) is a floor: with it, an instant push can land up to about 20 minutes after its event is written.
+- **Visibility:** every authorized dispatch, including configured 503 exits, writes one aggregate JSON summary with per-pass considered, sent, skip-reason and error counts plus freeze state. It never logs titles, tokens or device ids.
 - **Native sender: Expo Push API, not FCM HTTP v1** (OS-004, 2026-09-12, `packages/core/src/notification-sender.ts`). Expo fronts FCM (Android) and APNs (iOS), takes up to 100 messages per request, and retries on 5xx/429; a `DeviceNotRegistered` ticket marks the token for pruning. Tickets mean "accepted"; delivery receipts are not polled yet.
 - **Web push** is wired into the same dispatch (Web Push/VAPID, `packages/core/src/notification-web-push.ts`), not a later phase.
 

@@ -7,18 +7,44 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
+
+**Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
+
+**Why.** Common read-only questions do not need an agent turn, while the fail-open boundary preserves today's behavior for every uncertain or action-taking request. Jev usage is written to the Actions step summary; the key is never logged.
+
+**Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
+
+---
+
+## 2026-10-15 — Push go-live safety uses a six-hour Instant horizon and a fail-closed delivery ledger
+
+**Decision.** Instant notification sends are limited to events created within the previous six hours, except that a quiet-hours-held device gets six hours from the hold's end; the router query is bounded to the preceding 30 hours. Delivery completion is tracked per device, so another device receiving an event cannot consume that hold. Every provider-accepted push path halts after a failed delivery-log or required sent-marker write and attempts to engage `PUSH_FREEZE`; halting does not depend on that freeze write succeeding. Every authorized run first writes the `dispatch_heartbeat` ops-switch row and sends nothing if the write fails. Only the owner may lift the freeze. The auto-cooldown pass stays disabled until native notification-open tracking exists. Every authorized dispatch logs one aggregate, non-identifying per-pass summary, including configured 503 exits.
+
+**Why.** The P0-21 audit reproduced stale 25-day sends, quiet-hours holds lost after another device received the event, repeated sends every 15 minutes after ledger/marker failures, a failed freeze write allowing later passes and the next tick to resend, native cooldown downgrades based on permanently missing open signals, and invisible pass errors. The heartbeat also gives P0-21c a durable liveness signal. These controls make the initial internal push audience fail closed without deleting stale events from the inbox.
+
+**Alternative rejected.** Expiring old event rows or globally marking an event complete after its first delivery. Both erase valid inbox/quiet-hours behavior. Claim-before-send with a unique per-device ledger remains the redesign target, but it requires a schema change beyond this must-fix bundle.
+
+**Approved by.** P0-21a brief and PM touch-set correction, 2026-10-15.
+
+Known residual: if the provider accepts a push and the process dies before any database response, that push can be sent again on the next tick. Exactly-once delivery needs a claim-before-send schema (deferred to the notifications redesign project).
+
+---
+
 ## 2026-10-15 — Marjorie ops uses deterministic signals plus a fail-open Jev gate (P1-11)
 
 **Decision.** The three-hourly ops routine collects watchdog alerts, main-branch red workflows, stuck PRs, held content, chase work, and trusted ops-fix candidates in deterministic code. It must run for an unhandled watchdog alert open over 12 hours, a red main run of a `routine-*` or deploy workflow, prod-smoke or founder-facing alerts, chase work, and trusted ops-fix work. Jev answers one Noul only for signals not covered by those rules; raw probability `>= 0.7` sends those items to Sonnet, while no flagged items skips it. A missing key, unreadable source, Jev error/timeout, or precheck crash runs the full pre-P1-11 prompt. The step summary labels deterministic items `must-run`. The gate uploads a default fail-open artifact before checkout and overwrites it after a successful precheck, so an early gate failure cannot strand the reusable job without its input. The existing deterministic auto-defer stays separate and trusts markers from `AUTO_DEFER_AUTHOR=sffan15-sys`.
 
 **Why/cost.** This removes the programme's largest routine-token source without letting the optimization reduce ops coverage. Jev input is compact (at most 500 characters per signal) at the shared client's $0.042/million input-token rate; Sonnet remains the fallback and the watchdog's 24-hour alert remains the backstop. Approved by programme item P1-11; reversible by reverting the gate.
 
+---
+
 ## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
 
 **Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
 
 **Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
-
+>
 ## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
 
 **Decision.** `taylorswift.com` and its subdomains are official. Label and press
@@ -9097,3 +9123,7 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Design.** `scripts/social/photo-qc.mjs` (`qcPhoto`) sends one 768px JPEG plus caption/source/kind with a JSON-schema structured output (`output_config.format`, effort low). The model is told not to identify anyone from facial features; it judges composition, photo type, quality, overlays and consistency with the caption. `keep` requires every positive check and no watermark. Wired into `fetchCandidates` in `import-photo-library.mjs` after normalize and dedupe, before the file is written; `--no-qc` skips it for tests and local maintenance only.
 
 **Measured (3 live calls, 2026-10-07, local video frames).** 1441 input / 139-147 output tokens each, $0.0043 per photo (about 2x the estimate: the rubric prompt plus the 768px image is about 1440 input tokens, and the model writes a 100-140 token verdict). Verdicts were sensible (dancer rejected, off-caption man rejected, stylized effect frame rejected as not a plain photograph). Calibration (same day): turning thinking off (`thinking: { type: "between_tools" }`) and shortening the prompt changed nothing material, because the ~130 output tokens are the JSON verdict itself, not reasoning; 55-photo eval measured 1417 input / 129 output tokens, $0.0041 per photo. A 512px image trial cut that only to $0.00365 and was not adopted (accuracy unverified), so the 768px size and the 200-check cap stand; the $0.0028 target is not reachable with this schema. Ground-truth eval (`scripts/social/photo-qc-eval.mjs`, 55 hand-labelled photos): accuracy 83.6%, 6 of 31 known-drops admitted (19%), 3 of 24 known-keeps rejected. The gate cannot see who is pictured (no face identification), so look-alike drops that fit the caption pass; treat it as a filter for the ~70% obvious misses, not as a guarantee.
+
+**2026-10-15 — P1-28.** P1-28 moved news extract/dedupe, worker theory, theory miner and content backfill to the subscription wrapper on `claude-haiku-5-5`; remaining API-key callers—merch audit/moment matching, Mood/Clownbot, social photo QC, routine-quality sampling and their offline batteries/evals—are deferred to P1-28b/P1-28c.
+
+Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.

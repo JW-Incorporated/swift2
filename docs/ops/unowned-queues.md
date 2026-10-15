@@ -72,6 +72,15 @@ The gap is not that the poster lacks retries — it has three. It is that
 every 30 minutes while failing every single post. **Success-path monitoring
 existed; failure-path monitoring did not.**
 
+**Closed 2026-10-15 (#5881):** `watchdog.yml`'s daily pass now also watches the
+lane's *outcome*, not just its runners —
+`scripts/watchdog/check-posting-gap.mjs` measures hours since the newest
+`postedAt` in `social/posted/` and, above 48 hours, opens one self-closing
+watchdog alert and posts a single line to `#longlive-tree`. Silent while
+`SOCIAL_FREEZE` is held (a founder's kill switch is not a fault). The exact
+2026-07/08 failure — a poster running perfectly while nothing lands — now
+reddens within a day instead of waiting for a metric to read zero.
+
 Grouping the twelve by failure signature is what makes them legible, and it
 changes the reading completely:
 

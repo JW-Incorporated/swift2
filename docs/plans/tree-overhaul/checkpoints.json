@@ -51,7 +51,7 @@
     {
       "id": "R3b",
       "due": "2026-10-13",
-      "status": "pending",
+      "status": "reported",
       "title": "Finished work reaches the founder (delivery, not production)",
       "checks": [
         "plan-recheck.yml opened its own PR on its last due run (gh pr list --label routine-audit) — if not, the push fault named in R1.md Fault A is still live",
@@ -71,6 +71,7 @@
       "status": "pending",
       "title": "Is the manager improving? Close or extend the plan",
       "checks": [
+        "PRECONDITION (added by R3b, 2026-10-15): `node scripts/social/weekly-scorecard.mjs 2>&1 | grep -c 'unrecognised campaign prefix'` returns 0. If it returns non-zero, the per-family rates below are computed over a corpus with null pillars — report them, but mark the T7 eligibility answer UNVERIFIABLE and do NOT let it satisfy the Wave 5 entry gate until the prefix table is merged (PR #4727 was closed unmerged 2026-10-09).",
         "Trend over 4 weeks: briefs sent, approval rate, edit rate, rejection rate, median approval latency, expired-while-pending",
         "Any campaign type meets the T7 eligibility bar; if so, did Tree propose it and what did the founder do. NOTE (2026-10-08): launch:shop-the-look is at 8 briefs / 1 rejection in 28 days — it clears the brief bar and fails the 0-rejection bar, so it already satisfies PLAN.md's weaker 'within two briefs of eligibility' Wave 5 entry test. Treat this as a live decision.",
         "Founder thread replies ingested in at least 2 of the last 4 weeks",

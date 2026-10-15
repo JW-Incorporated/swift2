@@ -134,6 +134,19 @@ describe('Kevin radar all-or-nothing handling', () => {
     expect(next).toContain('<!-- seen: 1,2 -->');
     expect(next.match(/Tier-2: Kevin — S3 comment radar/g)).toHaveLength(1);
   });
+
+  it('addresses actionable notes to a founder and defuses quoted @mentions', () => {
+    const body = renderRadarBody('', [{
+      comment: { ...comment(3, 30, { body: 'ping @someone and @JW-Incorporated/team please' }), number: 30, thread: thread(30) },
+      classification: { kind: 'other', severity: 'actionable' },
+    }], new Set(), NOW);
+    expect(body).toContain('needs a founder');
+    expect(body).not.toContain('Wyatt');
+    const zw = String.fromCharCode(0x200b);
+    expect(body).toContain(`@${zw}someone`);
+    expect(body).toContain(`@${zw}JW-Incorporated`);
+    expect(body).not.toMatch(new RegExp(`@(?!${zw})\\w`));
+  });
 });
 
 function choiceResult(kind: string, severity: string, confidence = 0.9) {

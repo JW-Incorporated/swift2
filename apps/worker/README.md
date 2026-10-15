@@ -22,16 +22,12 @@ npm run news --workspace @swift2/worker
   (which the `db:migrate`/`db:seed:*` scripts already use via `pg` directly).
 - `OPENAI_API_KEY` — optional. Unset means the classify stage runs entirely on
   the deterministic rule-based classifier.
-- `ANTHROPIC_API_KEY` — optional, extract stage only (`src/extract/`). Set as
-  a repo secret (`HUMAN-ACTIONS.md` #13, DONE) but **not yet added to
-  `news-worker.yml`'s env block** — PLAN.md Stage 3 shipped the extract
-  code complete but deliberately left the workflow file untouched (that's a
-  later stage's job, alongside the `knowledge-engine.yml` rename). Until that
-  env var is wired through, scheduled runs skip the extract stage the same
-  way they'd skip classify with no `OPENAI_API_KEY`: unset means null,
-  cluster stays unextracted, retried next cycle — the designed degraded-but-
-  functional path, not an error. Works locally today if you set it in
-  `apps/worker/.env`.
+- `CLAUDE_CODE_OAUTH_TOKEN` — Claude subscription auth for `src/extract/`.
+  The workflow scopes it to the pipeline step; locally, install Claude Code
+  and set the token in `apps/worker/.env`. Missing auth defers the cluster for
+  the next cycle instead of dropping it. `CLAUDE_CODE_OAUTH_TOKEN_BACKUP` is
+  optional and is used only for P0/P1 calls after the wrapper detects a limit
+  on the primary token; P2/P3 calls pause until the primary resets.
 
 ## What ships in this pass
 
@@ -56,16 +52,18 @@ npm run news --workspace @swift2/worker
   ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
   domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
   stay `unverified`.
-- Extract stage (`src/extract/`, PLAN.md Stage 3): one Haiku 4.5 call per new
-  cluster (`news_story.extracted_at is null`), forced `record_knowledge` tool
-  call, screened through `packages/shared/src/redline.ts`'s `screenTopic()`,
-  written to `current_item`/`fan_signal`/`live_theory` (theory-match dedup:
-  name similarity + symbol overlap ≥0.5), projected into
-  `knowledge_doc tier='current'`. Capped at 150 calls/run, 600/day
-  (`usage_daily(scope='extract')`) — over cap defers the cluster to next run,
-  never drops it. Run-summary poster (`scripts/knowledge-engine/
-  run-summary.mjs`) exists but isn't called by the workflow yet (see
-  `ANTHROPIC_API_KEY` note above).
+- Extract stage (`src/extract/`, PLAN.md Stage 3): Claude Code runs
+  `claude-haiku-5-5` through the subscription wrapper with structured output.
+  News extraction and same-event dedupe are P1; the worker theory helper
+  defaults to P2, while the standalone `theory-miner.yml` caller explicitly
+  runs it as P3. Content backfill inherits the P1 news-extract priority.
+  Results are screened through `packages/shared/src/redline.ts`'s
+  `screenTopic()`, written to `current_item`/`fan_signal`/`live_theory`, and
+  projected into `knowledge_doc tier='current'`. The shared extract ledger is
+  capped at 150 calls/run and 600/day (`usage_daily(scope='extract')`); over
+  cap defers work, never drops it. Run-summary poster
+  (`scripts/knowledge-engine/run-summary.mjs`) exists but is not called by the
+  workflow yet.
 
 ## What's explicitly NOT in this pass (see the architecture proposal §9)
 
