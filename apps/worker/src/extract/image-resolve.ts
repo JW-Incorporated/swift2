@@ -7,37 +7,26 @@
 //   1. The story's own `top_image_url` (set at clustering time from the
 //      representative raw item's `image_url` — run-cycle.ts ~line 197),
 //      accepted only if its host passes the existing image-host allowlist.
-//   2. A fallback: fetch the best (highest-tier, never a news.google
-//      redirect) cluster source's article page and read its og:image (else
-//      twitter:image) — same tag-reading approach as
+//   2. Fallbacks: derive an official YouTube thumbnail first; then fetch the
+//      best official/established source's og:image (else twitter:image); then
+//      preserve the older lower-tier best-effort path. The page parser uses
+//      the same tag-reading approach as
 //      scripts/social/source-press-photos.mjs's extractPageImage/
 //      fetchPageImage, reimplemented here (not imported) so apps/worker
 //      never depends on that script's CLI/importer-contract module graph.
 //      Accepted only if ITS host also passes the allowlist.
-// Both paths reuse the SAME allowlist — scripts/content-engine/config.mjs's
-// CONFIG.hostAllowlist/scopedHostAllowlist plus scripts/lib/photo-host-
-// gate.mjs's PHOTO_HOST_LEGACY grandfather list — the one already governing
-// every other hotlinked image in this repo (CurrentItem.imageUrl's own
-// doc comment: "Hotlink from an allowlisted host... Never rehosted"). Do not
-// invent a second list here.
+// Both paths reuse the live-feed publication allowlist exported from
+// packages/shared/src/current-item-quality.ts, plus PHOTO_HOST_LEGACY for
+// unchanged historical compatibility. CurrentItem.imageUrl remains hotlinked,
+// never rehosted.
 //
 // No image found (or nothing passes the allowlist) resolves to `undefined` —
 // write-knowledge.ts stores that as a null `image_url`; Card 3 is what turns
 // "no image" into a publish-gate hold, not this module.
 
-import { CONFIG } from '../../../../scripts/content-engine/config.mjs';
+import { extractYouTubeId, isAllowlistedImageHost } from '@swift2/shared';
 import { PHOTO_HOST_LEGACY, hostOf } from '../../../../scripts/lib/photo-host-gate.mjs';
 import type { ClusterSource } from './write-knowledge';
-
-interface ScopedAllowlistEntry {
-  host: string;
-  pathPrefix: string;
-}
-
-// The two config modules are untyped .mjs (shared with plain-Node scripts/
-// tooling, no build step) — narrow what this file actually reads from them.
-const HOST_ALLOWLIST: readonly string[] = CONFIG.hostAllowlist;
-const SCOPED_HOST_ALLOWLIST: readonly ScopedAllowlistEntry[] = CONFIG.scopedHostAllowlist ?? [];
 
 const USER_AGENT = 'Swift2-ContentFix/1.0 (+https://github.com/JW-Incorporated/swift2)';
 const FETCH_TIMEOUT_MS = 15_000;
@@ -45,28 +34,13 @@ const PAGE_FETCH_BYTES = 600_000;
 const SOURCE_TIER_ORDER = ['official', 'established', 'fan', 'unverified'] as const;
 const GOOGLE_NEWS_HOST = /^https?:\/\/news\.google\.com\//i;
 
-/** True when `url`'s host is on the existing image-host allowlist — the
- * exact same check `scripts/content-engine/checkers/image-liveness.mjs` runs
- * (bare hostAllowlist membership, the PHOTO_HOST_LEGACY grandfather set, or a
- * scoped (host, pathPrefix) multi-tenant-CDN entry). Never invents a new
- * rule. */
+/** True when `url` passes the live-feed publication allowlist or the existing
+ * PHOTO_HOST_LEGACY grandfather set. */
 export function isAllowedImageHost(url: string): boolean {
+  if (isAllowlistedImageHost(url)) return true;
   const host = hostOf(url);
   if (!host) return false;
-  if (HOST_ALLOWLIST.includes(host)) return true;
-  if (PHOTO_HOST_LEGACY.has(host)) return true;
-  if (SCOPED_HOST_ALLOWLIST.length > 0) {
-    let pathname: string;
-    try {
-      pathname = new URL(url).pathname;
-    } catch {
-      return false;
-    }
-    if (SCOPED_HOST_ALLOWLIST.some((s) => s.host === host && pathname.startsWith(s.pathPrefix))) {
-      return true;
-    }
-  }
-  return false;
+  return PHOTO_HOST_LEGACY.has(host);
 }
 
 function metaContent(html: string, names: readonly string[]): string | null {
@@ -141,14 +115,41 @@ export function bestSourceForImage(sources: readonly ClusterSource[]): ClusterSo
   )[0];
 }
 
-/** Fetches the best source's og:image/twitter:image and returns it only if
- * it passes the allowlist; `undefined` on no sources, no image, a fetch
- * failure, or a disallowed host. */
+function bestTrustedSourceForImage(sources: readonly ClusterSource[]): ClusterSource | undefined {
+  return bestSourceForImage(
+    sources.filter((source) => source.tier === 'official' || source.tier === 'established'),
+  );
+}
+
+/** A video item from an official YouTube source has a deterministic hotlink,
+ * so it does not depend on an article fetch or a rehosted copy. */
+export function officialYouTubeThumbnail(sources: readonly ClusterSource[]): string | undefined {
+  for (const source of sources) {
+    if (source.tier !== 'official') continue;
+    const id = extractYouTubeId(source.url);
+    if (id) return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  }
+  return undefined;
+}
+
+/** Resolves the ordered hotlink fallbacks; returns `undefined` when every
+ * candidate is absent, unreachable, or disallowed. */
 export async function resolveFallbackImage(
   sources: readonly ClusterSource[],
   fetchImpl: typeof fetch = fetch,
 ): Promise<string | undefined> {
-  const best = bestSourceForImage(sources);
+  const thumbnail = officialYouTubeThumbnail(sources);
+  if (thumbnail) return thumbnail;
+
+  const trusted = bestTrustedSourceForImage(sources);
+  if (trusted) {
+    const image = await fetchPageImage(trusted.url, fetchImpl);
+    if (image && isAllowedImageHost(image)) return image;
+  }
+
+  // Preserve the earlier best-effort path for lower-tier items so the new
+  // critical-news fallback cannot create new held rows elsewhere.
+  const best = bestSourceForImage(sources.filter((source) => source !== trusted));
   if (!best) return undefined;
   const image = await fetchPageImage(best.url, fetchImpl);
   if (!image || !isAllowedImageHost(image)) return undefined;
@@ -156,8 +157,7 @@ export async function resolveFallbackImage(
 }
 
 /** The single entry point run-extract-stage.ts calls before writeCurrentItem:
- * prefer the story's own top_image_url (if allowlisted), else fall back to
- * the best source's og:image/twitter:image (if allowlisted), else undefined. */
+ * prefer an allowlisted top_image_url, then the ordered fallback chain. */
 export async function resolveImageUrl(
   topImageUrl: string | null | undefined,
   sources: readonly ClusterSource[],

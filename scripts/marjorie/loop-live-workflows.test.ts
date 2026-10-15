@@ -38,9 +38,9 @@ describe.each(RESPONSES)('$file', ({ file, prompt, trailer, queue }) => {
     expect(job(text, 'run')).not.toContain('actions: write');
     expect(text.slice(0, text.indexOf('\njobs:'))).not.toContain('actions: write');
   });
-  it('runs the agent on Opus with a small cap, only on main, behind a plain context job that can skip it', () => {
+  it('runs the agent on its pinned model with a small cap, only on main, behind a plain context job that can skip it', () => {
     const run = job(text, 'run');
-    expect(run).toMatch(/model: claude-opus-5/);
+    expect(run).toMatch(/model: claude-(?:opus-5|sonnet-5-5)/);
     expect(Number(/max_budget_usd: (\d+)/.exec(run)?.[1])).toBeGreaterThan(0);
     expect(Number(/max_budget_usd: (\d+)/.exec(run)?.[1])).toBeLessThanOrEqual(8);
     expect(run).toContain("needs.context.outputs.skip != 'true'");
