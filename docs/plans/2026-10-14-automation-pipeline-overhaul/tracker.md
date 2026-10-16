@@ -111,14 +111,14 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-01 | Shadow calibration review and per-class go/no-go | claude-opus | S | L-TIDE-SPEC | P1-06, P1-04, P1-07 | todo |  |  |
 | P2-02 | Action router | codex | L | L-TIDE | P1-06 | done | #5949 | 2026-10-15 |
 | P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | done | #5951 | 2026-10-15 |
-| P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
+| P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | in-progress |  |  |
 | P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | done | #5950 | 2026-10-15 |
-| P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
+| P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | in-progress |  |  |
 | P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | done | #5957 | 2026-10-15 |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | todo |  |  |
 | P2-09 | Normal flow wiring and news-triage retirement | executor-claude-sonnet | M | L-SOCIAL | P2-02 | todo |  |  |
 | P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | todo |  |  |
-| P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | todo |  |  |
+| P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | in-progress |  |  |
 | P2-12 | Breaking and retraction drill | claude-opus | M | L-TIDE-SPEC | P2-03, P2-04, P2-05, P2-06, P2-07 | todo |  |  |
 | P2-13 | Staged go-live by class | claude-opus | M | L-TIDE-SPEC | P2-01, P2-02, P2-12 | todo |  |  |
 | P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | done | #5817 | 2026-10-15 |
@@ -133,9 +133,9 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 |---|---|---|---|---|---|---|---|---|
 | P3-01 | Outcomes reader live with automatic comment capture | codex | M | L-HOME-REDDIT | P1-15, P1-14 | todo |  |  |
 | P3-02 | Thread ranking v2 from outcomes | executor-claude-sonnet | M | L-COMMUNITY | P3-01 | todo |  |  |
-| P3-03 | Weekly recall audit | codex | M | L-RECALL | P1-05, P1-06 | todo |  |  |
+| P3-03 | Weekly recall audit | codex | M | L-RECALL | P1-05, P1-06 | in-progress |  |  |
 | P3-04 | Weekly scorecard collector | codex | M | L-OBS | P0-07, P1-02, P3-01 | todo |  |  |
-| P3-05 | Voice weekly sample and owner rating loop | executor-claude-sonnet | S | L-VOICE | P1-24 | todo |  |  |
+| P3-05 | Voice weekly sample and owner rating loop | executor-claude-sonnet | S | L-VOICE | P1-24 | in-progress |  |  |
 | P3-06 | Drift monitor and Jev 1.14 evaluation | codex | S | L-TIDE | P2-13 | todo |  |  |
 | P3-07 | Raise caps where quality holds | claude-opus | S | L-VAULT | P3-04 | todo |  |  |
 | P3-08 | GitHub Reddit scan to automatic fallback only | codex | S | L-COMMUNITY | P1-15 | todo |  |  |
@@ -357,6 +357,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+00000i. 20:04: ARCHITECT #14 RULING. GO-inert: P2-04, P2-11, P3-03. GO with conditions: P2-06 (#5886 has landed; dispatch-only; the identity model goes in decisions.md) and P3-05 (scoring via the P1-09 wrapper, not ANTHROPIC_API_KEY; the post is gated by VOICE_SAMPLE_POST_ENABLED, default off). NO: P2-08 (not until P2-06 merges) and P2-09 (it is live behaviour; its parity clock starts at the normal_news flip, after P2-01). Shadow tripwire for every GO: no diff may touch config/tidewatch.json, the taxonomy, the classifier or collectors, or write to watch_decision/seen-store/story_timeline. PM call on P2-06 identity: breaking drafts go through the normal Tree tree/draft/* PR, cleared by the unchanged social-tree-approve.yml and posted on the poster's normal clock; nothing new dispatches the poster. Dispatched: Codex P2-04 (high), P2-11 (medium), P3-03 (medium); Claude executors P2-06 and P3-05. P0-22 → #5964, reviewer APPROVE (it proved the check fails on the pre-#5959 migration), armed. To file once P2-04 lands: the REVALIDATE_SECRET founder HA (go-live only).
 00000h. 20:00: P0-15 → done (secret set, HA #124). P0-22 Codex done (3e8c11b18: migrations-rerun check, 65 files applied twice, PASS on main; watchdog alert) → reviewer, who must prove the check catches the #5959 bug. ARCHITECT #14 consulted: which of P2-04/06/08/09/11 and P3-03/05 may be built inert before the gate (the owner asked for max parallelization; only 2 workers were busy).
 00000g. 19:56: #5885 → #5963, reviewer APPROVE (the committed queue deletions are limited to names already in posted/ or failed/; fail-closed on git errors; no shell on branch names), auto-merge armed.
 00000f. 19:55: HA auto-closer fix → #5961 (issue-closed accepts any CLOSED issue, not just COMPLETED; reviewer APPROVE, armed). HA #124/#127 closed on Joey's pasted gh output and #135 filed (OPS_FIXER_PAT secret-read access) → #5962 armed. #5885 poster rolling view pushed (0580605d6) → independent reviewer (social lane, Claude only). Still running: Codex P0-22, Codex flakes, the worktree cleanup grunt.
