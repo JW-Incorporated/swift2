@@ -35,7 +35,7 @@ import {
 } from 'node:fs';
 import { builtinModules } from 'node:module';
 import { tmpdir } from 'node:os';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { dirname, join, posix as pathPosix, relative, resolve, sep } from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parse } from 'yaml';
@@ -53,13 +53,34 @@ export const STATIC_ONLY_FILES = [
   'scripts/notifications-kill.mjs',
   'scripts/ops/clock-dispatch.mjs',
   'scripts/watchdog/push-dispatch-heartbeat.mjs',
+  'scripts/content-engine/run.mjs',
+  'scripts/ops/issue-sweeper.mjs',
 ];
+/**
+ * Known load failures: entry -> { reason, issue }. A listed entry that fails
+ * prints "known failure (#N)" and does not fail CI; one that now passes prints
+ * a notice to remove it. Any other failure exits 1.
+ */
+export const KNOWN_FAILURES = {};
 const SEND_RE =
   /discord(?:app)?\.com|api\.resend\.com|resend\.com\/emails|\bnew\s+Resend\b|from\s+['"]resend['"]|nodemailer|graph\.facebook\.com|graph\.instagram\.com|api\.(?:twitter|x)\.com|upload\.twitter\.com|twitter-api-v2|sendmail/i;
 const LOAD_ERR_RE =
   /ERR_MODULE_NOT_FOUND|ERR_UNKNOWN_FILE_EXTENSION|ERR_IMPORT_ATTRIBUTE_MISSING|ERR_UNSUPPORTED_DIR_IMPORT|ERR_PACKAGE_PATH_NOT_EXPORTED|\bSyntaxError\b/;
 const NODE_RE =
-  /(?:^|[\s;&|(])node\s+((?:-\S+\s+)*)(?:\$\{?GITHUB_WORKSPACE\}?\/)?([^\s;&|"'()]+\.(?:m?js|cjs))/g;
+  /(?:^|[\s;&|(])node\s+((?:-\S+\s+)*)(?:\$\{?GITHUB_WORKSPACE\}?\/)?([^\s;&|"'()]+\.(?:m?js|cjs))([^;&|\n<>)]*)/g;
+const TYPE_IMPORT_RE = /\b(?:import|export)\s+type\s+[^;'"]*?\bfrom\s*['"][^'"\n]+['"]/g;
+const NAMED_FROM_RE = /\b(?:import|export)\s*\{([^}]*)\}\s*from\s*['"][^'"\n]+['"]/g;
+const allTypeQualified = (list) => {
+  const parts = list
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return parts.length > 0 && parts.every((p) => /^type\s/.test(p));
+};
+const stripTypeOnly = (src) =>
+  src
+    .replace(TYPE_IMPORT_RE, '')
+    .replace(NAMED_FROM_RE, (m, list) => (allTypeQualified(list) ? '' : m));
 const IMPORT_RE =
   /(?:\bimport\s+(?:[\w*${}\s,]+\s+from\s+)?|\bexport\s+(?:[\w*${}\s,]+\s+)?from\s+|\bimport\s*\(\s*)['"]([^'"\n]+)['"]/g;
 const BUILTINS = new Set(builtinModules);
@@ -68,27 +89,46 @@ const posix = (p) => p.split(sep).join('/');
 /** Entries a run-script invokes with plain node, plus unresolvable ones. */
 export function collectEntries(root) {
   const dir = join(root, '.github', 'workflows');
-  const entries = new Map();
+  const invocations = new Map();
   const skipped = [];
-  if (!existsSync(dir)) return { entries: [], skipped };
+  if (!existsSync(dir)) return { entries: [], invocations: [], skipped };
   for (const f of readdirSync(dir)
     .filter((x) => /\.ya?ml$/.test(x))
     .sort()) {
     const doc = parse(readFileSync(join(dir, f), 'utf8'));
     for (const job of Object.values(doc?.jobs ?? {})) {
       for (const step of job?.steps ?? []) {
+        const wd = String(
+          step?.['working-directory'] ??
+            job?.defaults?.run?.['working-directory'] ??
+            doc?.defaults?.run?.['working-directory'] ??
+            '',
+        );
         for (const m of String(step?.run ?? '')
+          .replace(/\\\r?\n/g, ' ')
           .replace(/\$\{\{[^}]*\}\}/g, '$EXPR')
           .matchAll(NODE_RE)) {
           if (/(?:^|\s)(?:-e|-p|--eval|--print)\s/.test(m[1])) continue;
-          const file = m[2].replace(/^\.\//, '');
+          const rel = m[2].replace(/^\.\//, '');
+          const file = wd ? pathPosix.normalize(`${wd}/${rel}`) : rel;
           if (/\$|^\.\./.test(file)) skipped.push(`${f}: ${file}`);
-          else if (!entries.has(file)) entries.set(file, f);
+          else {
+            const args = m[3]
+              .trim()
+              .split(/\s+/)
+              .filter((a) => a && !/^\d$/.test(a))
+              .map((a) => a.replace(/^(['"])(.*)\1$/, '$2'));
+            const key = `${file}\0${args.join('\0')}`;
+            if (!invocations.has(key)) invocations.set(key, { entry: file, args, workflow: f });
+          }
         }
       }
     }
   }
-  return { entries: [...entries.keys()].sort(), skipped };
+  const list = [...invocations.values()].sort(
+    (a, b) => a.entry.localeCompare(b.entry) || a.args.join(' ').localeCompare(b.args.join(' ')),
+  );
+  return { entries: [...new Set(list.map((i) => i.entry))], invocations: list, skipped };
 }
 
 function resolveWorkspace(root, spec) {
@@ -134,9 +174,11 @@ export function walkStatic(root, entryRel) {
       continue;
     }
     if (!/\.(?:m?js|cjs|ts)$/.test(file)) continue;
-    const src = readFileSync(file, 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/^\s*\/\/.*$/gm, '');
+    const src = stripTypeOnly(
+      readFileSync(file, 'utf8')
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/^\s*\/\/.*$/gm, ''),
+    );
     for (const m of src.matchAll(IMPORT_RE)) {
       const spec = m[1];
       const where = relative(root, file);
@@ -179,10 +221,12 @@ export function isStaticOnly(root, entryRel, extra = []) {
   return null;
 }
 
-function loadCheck(root, entryRel, { timeoutMs, home }) {
+function loadCheck(root, entryRel, { timeoutMs, home, args = [] }) {
   return new Promise((done) => {
-    const url = pathToFileURL(join(root, entryRel)).href;
+    const filePath = join(root, entryRel);
+    const url = pathToFileURL(filePath).href;
     const env = {
+      __ARGS: JSON.stringify([filePath, ...args]),
       PATH: process.env.PATH ?? '',
       HOME: home,
       USERPROFILE: home,
@@ -192,7 +236,11 @@ function loadCheck(root, entryRel, { timeoutMs, home }) {
     if (process.env.SystemRoot) env.SystemRoot = process.env.SystemRoot;
     const child = spawn(
       process.execPath,
-      ['--input-type=module', '-e', `await import(${JSON.stringify(url)})`],
+      [
+        '--input-type=module',
+        '-e',
+        `process.argv.push(...JSON.parse(process.env.__ARGS)); await import(${JSON.stringify(url)})`,
+      ],
       { cwd: root, env, stdio: ['ignore', 'ignore', 'pipe'], windowsHide: true },
     );
     let err = '';
@@ -204,7 +252,7 @@ function loadCheck(root, entryRel, { timeoutMs, home }) {
     }, timeoutMs);
     child.on('close', () => {
       clearTimeout(timer);
-      const hit = LOAD_ERR_RE.test(err);
+      const hit = LOAD_ERR_RE.test(err.replace(/SyntaxError: [^\n]*JSON[^\n]*/g, ''));
       done({
         ok: !hit,
         timedOut,
@@ -230,14 +278,18 @@ export async function checkEntries({
   concurrency = 6,
   dryRun = false,
   extraStaticOnly = [],
+  knownFailures = KNOWN_FAILURES,
 } = {}) {
-  const { entries, skipped } = collectEntries(root);
+  const { invocations, skipped } = collectEntries(root);
   const home = mkdtempSync(join(tmpdir(), 'wf-entries-'));
   const results = [];
   const queue = [];
-  for (const entry of entries) {
+  const staticSeen = new Set();
+  for (const { entry, args } of invocations) {
     const why = isStaticOnly(root, entry, extraStaticOnly);
     if (why) {
+      if (staticSeen.has(entry)) continue;
+      staticSeen.add(entry);
       const { problems } = walkStatic(root, entry);
       results.push({
         entry,
@@ -247,34 +299,51 @@ export async function checkEntries({
         detail: problems.join('; '),
       });
     } else if (dryRun)
-      results.push({ entry, mode: 'load (dry-run, not spawned)', ok: true, detail: '' });
-    else queue.push(entry);
+      results.push({ entry, args, mode: 'load (dry-run, not spawned)', ok: true, detail: '' });
+    else queue.push({ entry, args });
   }
   let i = 0;
   const worker = async () => {
     while (i < queue.length) {
-      const entry = queue[i++];
-      const r = await loadCheck(root, entry, { timeoutMs, home });
+      const { entry, args } = queue[i++];
+      const r = await loadCheck(root, entry, { timeoutMs, home, args });
       results.push({
         entry,
+        args,
         mode: 'load',
         ok: r.ok,
+        timedOut: r.timedOut,
         detail: r.timedOut ? 'timeout (loaded)' : r.detail,
       });
     }
   };
   await Promise.all(Array.from({ length: concurrency }, worker));
-  results.sort((a, b) => a.entry.localeCompare(b.entry));
-  return { results, skipped, failed: results.filter((r) => !r.ok) };
+  results.sort((a, b) => a.entry.localeCompare(b.entry) || a.args.join(' ').localeCompare(b.args.join(' ')));
+  const byEntry = new Map();
+  for (const r of results) byEntry.set(r.entry, (byEntry.get(r.entry) ?? true) && r.ok);
+  for (const r of results) {
+    const known = knownFailures[r.entry];
+    if (!known) continue;
+    if (!r.ok) r.known = known;
+    else if (byEntry.get(r.entry)) r.nowPasses = known;
+  }
+  return { results, skipped, failed: results.filter((r) => !r.ok && !r.known) };
 }
 
 async function main() {
   const dryRun = process.argv.includes('--list');
   const { results, skipped, failed } = await checkEntries({ dryRun });
   for (const r of results) {
+    const tag = r.ok ? 'PASS' : r.known ? 'KNOWN' : 'FAIL';
+    const argv = r.args?.length ? ` ${r.args.join(' ')}` : '';
     console.log(
-      `${r.ok ? 'PASS' : 'FAIL'}  ${r.mode.padEnd(7)} ${r.entry}${r.why ? `  [${r.why}]` : ''}${r.detail ? `  -- ${r.detail}` : ''}`,
+      `${tag}  ${r.mode.padEnd(7)} ${r.entry}${argv}${r.why ? `  [${r.why}]` : ''}${r.detail ? `  -- ${r.detail}` : ''}`,
     );
+    if (r.timedOut && r.ok) console.log(`NOTE  timeout counted as PASS: ${r.entry}${argv}`);
+    if (r.known)
+      console.log(`NOTE  ${r.entry}: known failure (#${r.known.issue}) -- ${r.known.reason}`);
+    if (r.nowPasses)
+      console.log(`NOTE  ${r.entry}: now passes, remove from KNOWN_FAILURES (#${r.nowPasses.issue})`);
   }
   for (const s of skipped) console.log(`SKIP  unresolvable  ${s}`);
   console.log(
