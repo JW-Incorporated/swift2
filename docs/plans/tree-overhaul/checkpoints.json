@@ -68,7 +68,7 @@
     {
       "id": "R4",
       "due": "2026-10-16",
-      "status": "pending",
+      "status": "reported",
       "title": "Is the manager improving? Close or extend the plan",
       "checks": [
         "PRECONDITION (added by R3b, 2026-10-15): `node scripts/social/weekly-scorecard.mjs 2>&1 | grep -c 'unrecognised campaign prefix'` returns 0. If it returns non-zero, the per-family rates below are computed over a corpus with null pillars — report them, but mark the T7 eligibility answer UNVERIFIABLE and do NOT let it satisfy the Wave 5 entry gate until the prefix table is merged (PR #4727 was closed unmerged 2026-10-09).",
@@ -77,6 +77,22 @@
         "Founder thread replies ingested in at least 2 of the last 4 weeks",
         "Tree proposed at least one strategy diff to docs/marketing/social-strategy.md and its outcome",
         "Remaining open items from PLAN.md item map, with a recommendation: close the epic, or extend with specific next items and a new checkpoint"
+      ]
+    },
+    {
+      "id": "R5",
+      "due": "2026-11-13",
+      "status": "pending",
+      "title": "Did supply recover? Re-ask T7 on a clean corpus, then close or close-out",
+      "checks": [
+        "PRECONDITION (carried from R4, 2026-10-16): `node scripts/social/weekly-scorecard.mjs 2>&1 | grep -c 'unrecognised campaign prefix'` returns 0. R4 measured 9. Until it is 0 the ladder corpus has null pillars and the T7 answer stays UNVERIFIABLE — it must not satisfy PLAN.md's Wave 5 entry gate. Tracked by issue #5538 (open, unassigned at R4).",
+        "X1: issue #5538 closed by a merged PR that re-lands closed PR #4727's prefix table AND the historical backfill",
+        "X2 supply: posts per week for the trailing 4 weeks, compared with R4's 6/4/4/2 decline. Is the brief rate recovering? Also: does the scorecard print a `Photo supply` row (library total, never-used count, last concert-photo-sourcing conclusion) per merged PR #5871's strategy §3, and does `.scratch/tree-inputs.json` show beats scheduled for the next 7 dates (issue #5895 was the dry-calendar signal)",
+        "X3 delivery: every Monday brief in the window reached #longlive-tree on its own scheduled run, with no human workflow_dispatch rescue (R4 found 2 of 4 on schedule, 3 of 4 ever, and #5171 permanently undelivered). Was issue #4889 reopened or folded into a merged fix, and can a cost-telemetry guard still skip a brief that is already written?",
+        "T7 re-asked: any campaign family at or within two briefs of eligibility on the corrected corpus. R4's answer was no by four briefs on the best family (`timeline:love-story:joe-jonas-era` 4 briefs/3 rejections; `mood:chip-poll` 4 briefs/1), after `launch:shop-the-look` fell from 8 briefs to 2 purely on brief-rate decay. If a family now qualifies, did Tree propose it and what did the founder decide — Wave 5 does not start without this plus the X-delete proof plus a FRESH founder re-confirmation of the irrevocable-Instagram acceptance",
+        "Edit rate: has the ✏️ reaction been used even once? R3 and R4 both measured 0% in every week of the plan's life, so ❌ is the only corrective signal the loop has ever received. If still 0%, state whether the founder was asked why (R4 put the question in the founders brief) and what the answer was",
+        "Epic #4117 reopened, or the founder confirmed it should stay closed (it was swept by the 2026-10-10 bulk cleanup mid-flight, label `bulk-closed-2026-10-10`)",
+        "Final recommendation: close the epic with Wave 5 formally retired as not-earned, or extend once more with named items. Do not extend a third time without a founder decision on whether earned autonomy is still a goal at this posting volume."
       ]
     }
   ]
