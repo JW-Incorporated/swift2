@@ -269,7 +269,9 @@ export interface MergeIntoOriginalInput {
  * bumps heat by the duplicate's own source count, and refreshes
  * last_checked_on/updatedAt. Never touches `merged_into` on the ORIGINAL —
  * that column exists on the duplicate's row, pointing back at this one (see
- * `markDuplicateMerged` below). */
+ * `markDuplicateMerged` below). Factual enrichment is allowed after a
+ * retraction, but visibility fields are guarded so no later merge can
+ * re-show the row. */
 export async function mergeNewFactsIntoOriginal(
   db: SupabaseClient,
   originalId: string,
@@ -323,7 +325,7 @@ export async function mergeNewFactsIntoOriginal(
         redlineOk: screen.ok,
       });
 
-  const row: Record<string, unknown> = {
+  const facts: Record<string, unknown> = {
     summary,
     detail,
     sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
@@ -332,11 +334,18 @@ export async function mergeNewFactsIntoOriginal(
     image_url: imageUrl,
     last_checked_on: new Date().toISOString().slice(0, 10),
     updated_at: new Date().toISOString(),
+  };
+  const visibility: Record<string, unknown> = {
     redline_ok: quality.ok,
     quality_hold_reason: quality.ok ? null : quality.reason,
   };
-  const { error } = await db.from('current_item').update(row).eq('id', originalId);
-  if (error) throw new Error(`mergeNewFactsIntoOriginal update failed: ${error.message}`);
+  const { error: factsError } = await db.from('current_item').update(facts)
+    .eq('id', originalId);
+  if (factsError) throw new Error(`mergeNewFactsIntoOriginal facts update failed: ${factsError.message}`);
+  const { error: visibilityError } = await db.from('current_item').update(visibility)
+    .eq('id', originalId)
+    .is('retracted_at', null);
+  if (visibilityError) throw new Error(`mergeNewFactsIntoOriginal visibility update failed: ${visibilityError.message}`);
   return { redlineOk: quality.ok, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }
 
