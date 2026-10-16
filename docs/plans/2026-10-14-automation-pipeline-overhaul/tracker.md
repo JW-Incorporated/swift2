@@ -118,7 +118,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | in-progress |  |  |
 | P2-09 | Normal flow wiring and news-triage retirement | executor-claude-sonnet | M | L-SOCIAL | P2-02 | todo |  |  |
 | P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | todo |  |  |
-| P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | review | #5968 |  |
+| P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | done | #5968 | 2026-10-16 |
 | P2-12 | Breaking and retraction drill | claude-opus | M | L-TIDE-SPEC | P2-03, P2-04, P2-05, P2-06, P2-07 | todo |  |  |
 | P2-13 | Staged go-live by class | claude-opus | M | L-TIDE-SPEC | P2-01, P2-02, P2-12 | todo |  |  |
 | P2-14 | Owner merges the guardrails and spec PR | OWNER ACTION | S | L-OWNER | P0-14 | done | #5817 | 2026-10-15 |
