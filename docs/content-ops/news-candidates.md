@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## Vegas Artists Share Secrets of Tribute Performances Including Taylor Swift
+
+- first seen: 2026-10-16 14:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Vegas tribute artists discuss their experiences and insights in portraying iconic musicians, including Taylor Swift. The piece highlights their craft and dedication to delivering authentic performances.
+- sources:
+  - [unverified] Las Vegas Review-Journal — https://news.google.com/rss/articles/CBMixwFBVV95cUxPMU1zR3FuS2dDaGF2ZUdOZUp2V2RESm14SUNsZFhKOWtoU1hodWU3cnZJZGYwNWNUOHlnTVRiVUVmSTZWNU1seFFRSXJsdmF4ZC00Vmtza2NUX3BXTzBqby1QMjFkOE1pX2F5OUNxenRzYjRzZkltWE5HUDNlbVlpakZ0QTZKQ1E2TmJwMUxDV0NTVEJXOThTTXY5clF6M1I1dkhvMG1FNXdqWVlzUi1jS1RPaE5GZWU0ZzZEYXcwakhaR3RVbHg0?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Discussion on ‘Choosin’ Texas’ for Best Country Song at 2027 Grammys
 
