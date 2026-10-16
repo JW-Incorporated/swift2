@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 77
+
+## Selena Gomez Shares Thoughts on Advising Taylor Swift Regarding Marriage
+
+- first seen: 2026-10-16 06:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Selena Gomez discusses her perspective on not offering marriage advice to her friend Taylor Swift, stating that she feels it's unnecessary. The remarks emphasize Gomez's confidence in Swift's personal decisions regarding relationships.
+- sources:
+  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMmExdmItU2xvaW91Y0h2OS1sdGgyNC14SWo2ODh5YllObl9KOTNuSWlYOE1hazFCcUJCd0FIT1B4aHZLc2dXREx4MHJCdkZUbmkwVDNQRGc3N1RXWGg5QTJUNHctaE9ITThYcUc4Rkc5RjhHTXZKeXJHUW5oSngtdkNOamNmSUc4c1dBYi1BNEtadWdoWlJnNWxma2JHbld4LVc2QktUd291QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Showcases Popular Fall Shoe Trend
+
+- first seen: 2026-10-16 04:36 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been spotted wearing a trendy fall shoe style favored by French fashion enthusiasts. The article also features recommendations for chic pairs available at various price points.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMib0FVX3lxTE5wcWNEakJjQ2MyTl9DbWwxSGpOcWNlRm9IWk5JSkc3aXV6Vi1kTG1YQjIxTVVfVGJ0aFV6T2pvRmxfWUJJSlk0ekY2STIwWFNBR3E3eHR0ZnpaUGZHV09oelh4Ym95VjMtYWx3aUJhQQ?oc=5&hl=en-CA&gl=CA&ceid=CA:en
+
+## Selena Gomez Commends Taylor Swift's Relationship Insights
+
+- first seen: 2026-10-16 04:36 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At the Rare Impact Fund event, Selena Gomez expressed her admiration for Taylor Swift's relationship advice, highlighting its significance. The event showcased discussions centered around mental health and personal experiences.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxOQ0Vrem9idGdkWHBCbnh1SDFCR05ES0wtQi1iSGFIeWZHTGxWOU1XSU5uQ19wR3BFVWpWUFZmcFY0aEJ5RGhLTXFpTENjRXd2UW16NElSenJvbEpvNUxFMkd5V3c5VUZ1WlNtZTBoY0VmdXFhN3NiaHdUbURidjVRNUl4ZnpGTXl5ZVlTVkdLaHBCVzFQc0YyT3NYbDZqNU1Ka1lMVmdJYw?oc=5&hl=en-CA&gl=CA&ceid=CA:en
+
+## Nelly and Ashtani Prepare for Taylor Swift's Wedding in Show Trailer
+
+- first seen: 2026-10-16 01:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A trailer for a reality show features Nelly and Ashtani as they get ready for Taylor Swift and Travis Kelce’s wedding, highlighting Nelly's status as a Swiftie.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNSkFuV2d3QXNRODRqY29rZmtrczZPTzU3RWZqZF96MVFtSXY5TDhtdE8xdVRfMWxsOG1QQXNvSGUzNUwwVURPZ2hNeVFrSWdxaHV4SW5CeDc2RDVXOGQwc3djZ2txZFU2SGh4NHJ5QTBFb2VJRGx5aWpDZk1iMjg4Z3dOcHNmM2NaTVJNeEtWMEVsbU50UmdsNEt1VDBkbFA5Uk9CaW9wcWpWSVJLN09adkl6amlTZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Discussion on Taylor Swift Fans' Desire for Encore Performance
+
+- first seen: 2026-10-16 01:36 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article explores whether Taylor Swift fans expressed a desire for an encore during her recent performances. It examines fan reactions and opinions regarding the possibility of additional songs after the show's conclusion.
+- sources:
+  - [unverified] Her Campus — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPY09VUEJ4RWJtcmo3TjZvSklmUXExTlQzZ2Z3RzVzTFJxSXR5MVFVekZmZXNIZXBIa3hLTk1mOW9oNmdXS2xfTDZpN0FkQkNMX201a2RxbVhRZEVjdTZwVFpSUEVnUlJfZ0RFYUhCY1F0em95b2NBem4xa0dyT0ZEZFkxUWVXMnRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Caitlin Clark's Influence Increases WNBA Social Views Significantly
+
+- first seen: 2026-10-16 01:36 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark's recent performance has been credited with boosting WNBA social media views from 373 million to almost 2 billion, highlighting the strong impact of star power in sports marketing.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMkFfYjVoXzgzNGFjbkFNX1NIeXBOSlI1WndFVGZZNm5pc3M2anpIaHZvN0NGY3dIR3V5dGFaLVkwdEJSWG1uSDdmOUN1Zl96bWhrNXdrdFpuSDU5UEswR3BMUzR4cTBTb2w2enYtV2c3Qm1vQTBJN1dXSklSNGlPZ0RyeWFhS043OXZQcFVtSUp2NEhaMGo4RjAzOUhlTGtLRDk2V1BCWXExaFNBVFhjNU1NUTltMUdKaFJpYmhIYVJNUVlRZi1GNmVZU2FmbUlJY0l2aXZ2Y29zNFVRNFhTbUxwbzhZRVJWVHladnI4Sk5EVmFTT0kwb1pR0gH6AUFVX3lxTE8tazBJeVhVRmNNWVdwZXluTkpIeTNtc0lLOENFdFU0NU9NT3JFNDFBbFhLRUpVVTBqUmZUTVNMdnNSZV9DdEdFZTFYZ1RiRzRHMS1fQVpLR1dLV1hSVnhCTjZPRlB4alVLQmFrVVJJQjNqaW5VdjlhbmxmajdvOEU1Vk92U1ZOZ3l5U3RWMHU5WUt6SE5jMnh3aFVLbE9OVHB2bkc2elh5cGNfalJGc3pUaWg3WGxTZThhNUlvN3ZIWkg1T1ZFek5rZUpqQUxlWHFCay0xQzFmYkxfcm9SNk1NR3QyVXpVTlVteXlXVnFiUzhiVnpmLVhRaFE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Name Linked to Shane Gillis Controversy
 
@@ -615,93 +663,3 @@ Stories: 82
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMisgFBVV95cUxNN1J1Sm1SRXpuaWcwR29vTU52b1VDMkhXR0NhSHZaeE03RmZUTkxCaFdxdFhSMGtlejZ2SzBBT29tMEVXeng5bFNacWViTE1GTjlvLUZQVXBGY1AyZjhlYWhKcER0R3FCOEtobloxcDRhRzhaNnBOS3lBYnU0VGJmMm4wVzNwM2JrVDUtYmFBRTd4ZWJkczQtT0Y2WkhQcFdIVVRyNmlwNlE0dWhsVjM1TXB3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYzkzTW9YZ18zNl84V0ZtUmZkWF9yTW5jeHk3WFliVVh6S3lEb0VYUFhSaG9yc3BMUjBEX3QyWFZoYnpxblpIbHhiMng4c0RqWlhRMllqT1NTMkozb0pzQUEyTWlBTUhjcmM3WXk1aXVDaExJLWJBUnVzbl9QbzUxQVFidm9hUnpud1Z5Yzc2NXc5cU9Z?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNektTUlZac0Nkb0RVcjJ4dlBmSS10RVNaSFd2ODB2RUxVb3VlNnlDR1VDUmFORnRMZElJVFJMaEdGOHJPSndNSVYzbGF1SC11T0pqXzhEREdZN1NqX05Kc0JnalRqRU9RWlF1eVdCM25ET01wb3k4ckNNVDV6UkpzM2lXcDNiQ2FkelFoNkl0U01tb1pVT2hsTHVWTHlnMXNZc2FV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce's Neighbors Share Their Thoughts
-
-- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Neighbors of Taylor Swift and Travis Kelce are voicing their opinions as the couple continues to be spotted together in Cleveland and New York City. The couple was recently seen enjoying dinner and sharing a romantic moment.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPWVNhSW9OQ044dVZmbVlYYzZOSWY0VHZIanh3bEFQUXBJeG1vaXYtX1o4NGo1R3N4Vkh6RkoybmQ2a3lXNmlJWVVTXzdzYmNBM1ltTS1MdzJTNUFWNk4tN3Z5VkwyYVVFQzYySkJSR2VTeVIyM1hMWVFnbjItQzV6a3gxd2JPS2lydG9HNDFLeTNNR0F3MW1uSEVwVDNrUVhJYkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Miss Travis Kelce's Game Amid Marriage Reports
-
-- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift will not attend Travis Kelce's upcoming game as reports suggest she may be feeling frustrated in their relationship. Sources indicate she has a strong desire for something important to her.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQN3lpQW5CSjAwYUxKU29xb0Zjd1ZQU2VLZENMc1JNQkZQMnNyU0RiWTctaUZuQ0ktTnNpWmpXTGI5R09PSE5Sa3dpUmNmcGw2QjhoRFlja2gybDc5Ml8yX2MtX1pST1d6VlBDcWtZRXlESXhYOTdDLVBkem56eXhEbElWem1ZLVVzY1Q0RkxXTDhsRi1YWTEzMWo1cHJHUVNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Showcases Fall Color Trends
-
-- first seen: 2026-10-13 02:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been spotted wearing a fashionable fall color combination, inspiring fans to adopt similar styles. The article highlights the colors she wore and their potential impact on seasonal fashion choices.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMingFBVV95cUxPVTAtbEgxTlZyYThkN1lqRFZtYTkwcThsREdFT2pKZVlmaUhtOXRZLWxiVnI0c1dCaVJTZC15bzUweWVXcDJjbEFnckZwbVlQbzlfNWhZRW1oY1dEY3hwQXNqczFaYXNQaHFDdnZKN2NRZjJGTDBOMHB0NkJLUFZWT3lGeDVjeHF4TzRhS1JnbGJhUmJUQTRBbzdSUmZRdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Shows Inspired by Taylor Swift's Song Lyrics
-
-- first seen: 2026-10-13 02:33 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Several shows have drawn inspiration from the lyrics of Taylor Swift's song 'The Life of a Showgirl,' including titles like 'Opalite' and 'Father Figure,' according to IMDb.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTFB2Y2s3c0lqdS1lSURxdDJJYWZDeXBhTU9EWjd2RzZiWFM1WENMLS1lYTQyRWRzTFREM25ra2lPVl9vaWpxWmlMTHg0azJRVUJPRFljVlNybHBhTUNwbWZTYWpqQWlZUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Patient Zero' Video Explores Toxic Relationships
-
-- first seen: 2026-10-13 02:33 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: ABC10 discusses the themes of toxic relationship dynamics portrayed in Taylor Swift's 'Patient Zero' music video. The video sheds light on complex romantic themes present in her work.
-- sources:
-  - [unverified] ABC10 — https://news.google.com/rss/articles/CBMilwJBVV95cUxPeGhfNDJuMXhHUldhMlJtNFJ0N1Y1RGNyRkNQOFZ3SEZzTFFoWHBqd3BTc09EekZYNlBwdmtkUGtYNUxKbUFtS3JuMGlnOWlzMlNuRUZHYVU2azhvaEl6SGRCWHh0YlNNOUJFellNdDlxYWFkaG9UcTUxTE51aUN5djF5cEpoMjFteWJKNDlsSjY4TmN4c05rQlduU1N0SU14MHZraGtDcm5fX0xTMUNpaUtaanNLN3VQbV8wd000QjVmcE1oZnNfSldhTV8yeWhYcFRhWUxBd0JaQkctajd1eFdWd1dKN1l2OFRITzBVdF9ENXhRUzVNWE82QUM3bDlyTW1LWWRlV1JJLUtWcTJCZGZ6SHFpbXM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Miss Kelce's Next Game for Personal Reasons
-
-- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has decided to skip Travis Kelce's upcoming game, indicating that the weekend will focus on her own plans. This decision highlights the singer's priority on personal time.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxQdTAyMElZaWRmOWtib2RaUWZtZU1YazRYM0s5aXhFdXJEUmctZzJZak5YNHJ3MTVRSy1Ncm9OMUJ0YzBqTkx6WEVDQUo1cVZnRkVqYzFUTEFsdllqb2FEd1dVdFBQSVBXb2ZuZm81ZmpiMzVtYTdWaXZsTUYyMmlnYWprMFpiOW1kNGRyT2RKUzlFa0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Seen Together on Bye Week
-
-- first seen: 2026-10-13 02:33 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted together during the Kansas City Chiefs' bye week, drawing attention from fans and media alike. The sighting adds to the public interest in their connection.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxONlpnMndKLWJFLXpJbkdQV2RpUjZnNHdxZ242LWUxZWN6WTJHaDJWbkthdzlLMEdibjh3SGlpUFdJR3NXTjhEOUpUelEteUkyUjdvRG9GZ1dCRTZtcTM2WkI0QTFCcTcyVHJmUS1jZExfYUJscVl3VVNyam5KZm50V0I2azRwUXFvUWhucGxPdm4wTUFpc2VxVkF4Wk16bUdBVTBOMERYSElrOTlkOVdPdA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and The Beatles Chart Success Analyzed
-
-- first seen: 2026-10-13 02:33 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: An analysis of Taylor Swift and The Beatles' impact on the Billboard charts discusses how their music reflects contemporary themes. The article explores their dynamic presence in the current music scene.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipwFBVV95cUxObHRYYzZHQ3NKeER6emNuRVRtZW9IcU1KS19JMVhxdVRvcUtHOEZBR1pSVHVaV3VSQ0xyWHQtOXpadWtFUE04eHJCdTA4dTUyTjkwc2RBUVhEWmZyZVRkQXJ5RUhYTzdBT0pEeUxWMEhhbEVFYjYyMllPUl8xQVRlVXJSaVBtZTY4U2lfd2ZmOE0xLUJxbDRKY25EUEN5QzhPMkh1dUdyZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQT2xGME1pQ0h6REtKY0JkcVBGRldIUl9FUlVNX0w3dmlpMW9FWkhEUDhhOXB5YnBTdGJHVi0xNS1xMXZoN1B3aTBhMVY5M0lnWWtEbXg1U3hoUk5RWGtvVTFpVGVCNDdybV9wcTQtZnZSb0VOZDR4VzJUbWZNNzFOcFJBQW9VWGN3eUZQUmtFSnE3TmZaZ1Rsd1Z0V2RpQ1l5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Grammy Predictions for Record of the Year Include Taylor Swift
-
-- first seen: 2026-10-13 02:33 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Variety discusses predictions for the Record of the Year Grammy, featuring Taylor Swift among other nominees. The article highlights the competition which includes artists like Ella and two Olivias.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPT1lTaUpMemhldXBBbEwxT21UZ3lWaHNVaGtVWUttMkcwUUFjYTg5RUxVU0ItNGRTQnZuWkI0Q3dzNk81WXFDbWR0WVBsVXZfc1Y1VHpBUl9YLVdMeWE2YXpDNXdUb2xseVdnd3JMMWxVTXVDQUl3NGdPdjlEM0Q2R2RRcFh6UFBWTlBXTW1LRlg5cmVQMkVFeHF3c25uSm83cE5rQnFSUW8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/
-
-## Kelce and Swift Approved for Fence at Ohio Estate
-
-- first seen: 2026-10-13 02:33 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift have received approval for a fence at their $5.35 million estate in Ohio. The news highlights their ongoing relationship and shared investments in property.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPYjlfSFA4YUhHRDlTdDJCYUVDVXM5R3A1M2lqd1NHMXlsa0t5YkE0YmlIOXpzNjBCZk9WZkllRXJUZlRPZ05KQ3kzNmFUeEJuMUhxVkM4N0xwdmFRZlNNV1p3clRSSU94SXJRRGh0NHR2RG9MRTFiaUZpQzJqX0RBczFfTjNmSUxrLW9N?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Offers Signed Guitar for Sale
-
-- first seen: 2026-10-13 02:33 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A guitar signed by Taylor Swift is currently available for purchase. The item is being highlighted by Taste of Country, presenting an opportunity for fans to own a piece of memorabilia.
-- sources:
-  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMiZEFVX3lxTE13SXV5c0FkZkhpOWRDN3FEOWZHZW9Gd2F3YWtVOFgyZE15STdKQlhlenBhbHRKMzBPbkh1YUlPQ0gyXzVTMVlUeDVJeFVnN29sS1lXMU1sY2htMURPUzI5bXM4bnQ?oc=5&hl=en-US&gl=US&ceid=US:en
