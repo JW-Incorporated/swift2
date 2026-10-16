@@ -6,20 +6,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
 import { verifyImage } from './verify-images.mjs';
 import { callMerchClaude, MERCH_LIGHT_MODEL, MERCH_VISION_MODEL } from './merch-claude.mjs';
-
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
-
 function descriptorTerms(descriptors) {
   return [descriptors?.brand, descriptors?.kind, descriptors?.color, descriptors?.pattern, descriptors?.silhouette]
     .filter((term) => typeof term === 'string' && term.trim());
 }
 
-/** Deterministic, no-new-infra hostname guess for a named designer/brand. */
 export function brandHostnameGuess(brand) {
   if (typeof brand !== 'string' || !brand.trim()) return null;
   const slug = brand.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -34,12 +30,12 @@ export function brandHostnameGuess(brand) {
 export async function extractDescriptors({ moment, momentImageUrl, extractImpl }) {
   if (typeof extractImpl !== 'function') throw new Error('extractImpl is required');
   const result = await extractImpl({ moment, momentImageUrl });
+  if (result == null) return null;
   if (!result || typeof result !== 'object') return {};
   const { kind, color, pattern, silhouette, brand } = result;
   return { kind, color, pattern, silhouette, brand };
 }
 
-/** Search step (b): the maker's own product pages, free, only when named. */
 export async function searchBrandDirect({ descriptors, apiKey, fetchImpl = fetch, searchImpl } = {}) {
   const brand = descriptors?.brand;
   if (!brand) return [];
@@ -66,14 +62,20 @@ async function searchViaSerpApi({ descriptors, apiKey, fetchImpl, site, source }
   const response = await fetchImpl(url.toString());
   if (!response.ok) throw new Error(`search API request failed (${response.status})`);
   const body = await response.json();
-  return (body.shopping_results ?? []).map((result) => ({
-    id: result.product_id ?? result.link,
-    source,
-    title: result.title,
-    price: result.price,
-    imageUrl: result.thumbnail,
-    productUrl: result.product_link ?? result.link,
-  }));
+  return (body.shopping_results ?? []).flatMap((result) => {
+    const productUrl = result.link ?? result.product_link;
+    let host;
+    try { host = new URL(productUrl).hostname.toLowerCase(); } catch { return []; }
+    if (/(^|\.)google\.[a-z.]+$/.test(host)) return [];
+    return [{
+      id: result.product_id ?? productUrl,
+      source,
+      title: result.title,
+      price: result.price,
+      imageUrl: result.thumbnail,
+      productUrl,
+    }];
+  });
 }
 
 /**
@@ -97,57 +99,80 @@ export async function gatherCandidates({
 }) {
   const awin = await searchAwinIndex({ descriptors, indexPath, openDatabase });
   let brandDirect = [];
-  if (awin.length === 0 && descriptors?.brand) {
-    brandDirect = await brandDirectSearch({ descriptors, apiKey: searchApiKey, fetchImpl });
-  }
+  let paidSearchCalls = 0;
   let paidSearchTicket = null;
-  let paid = [];
-  if (awin.length === 0 && brandDirect.length === 0) {
+  if (awin.length === 0 && descriptors?.brand) {
     const plan = planPaidSearch({ moment, callsUsed, cap });
     if (plan.allowed) {
-      paid = await paidSearchImpl({ descriptors, apiKey: searchApiKey, fetchImpl });
+      brandDirect = await brandDirectSearch({ descriptors, apiKey: searchApiKey, fetchImpl });
+      paidSearchCalls += 1;
     } else {
       paidSearchTicket = plan.ticket;
     }
   }
-  return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket };
+  let paid = [];
+  if (awin.length === 0 && brandDirect.length === 0 && !paidSearchTicket) {
+    const plan = planPaidSearch({ moment, callsUsed: callsUsed + paidSearchCalls, cap });
+    if (plan.allowed) {
+      paid = await paidSearchImpl({ descriptors, apiKey: searchApiKey, fetchImpl });
+      paidSearchCalls += 1;
+    } else {
+      paidSearchTicket = plan.ticket;
+    }
+  }
+  return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket, paidSearchCalls };
 }
 
-async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
-  if (!url) return false;
+export async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
+  if (!url) return { verdict: 'invalid', status: null };
   try {
     const response = await fetchImpl(url, { method: 'HEAD', redirect: 'follow' });
-    return response.ok;
-  } catch {
-    return false;
+    if (response.ok) return { verdict: 'ok', status: response.status };
+    if ([404, 410].includes(response.status)) return { verdict: 'invalid', status: response.status };
+    return { verdict: 'unavailable', status: response.status };
+  } catch (error) {
+    return { verdict: 'unavailable', status: null, reason: error?.message || String(error) };
   }
 }
 
+export { defaultVerifyUrl as verifyProductUrl };
+
+function verificationPassed(result) {
+  return result === true || result?.verdict === 'ok';
+}
+
 /**
- * Step 3 (SPEC §8): scores every candidate from every source together
- * against the moment photo, and applies the E1/E2 pre-merge verification
- * gates a matched candidate must clear before `matchMoment` (R1/R6,
- * unchanged) can select it.
+ * Reusable E1/E2 filter for callers that need an early receipt. P1-19's
+ * product writer is the final pre-merge authority and re-runs both gates.
  */
 export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = defaultVerifyUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
   const scored = [];
   for (const candidate of candidates) {
-    const urlVerified = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
+    const urlVerification = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
     const imageVerified = candidate.imageUrl
       ? (await verifyImageImpl(candidate.imageUrl, { fetchImpl })).verdict === 'ok'
       : false;
-    if (!urlVerified || !imageVerified) continue; // R2: an unverified candidate is never authored
+    if (!verificationPassed(urlVerification) || !imageVerified) continue; // R2: an unverified candidate is never authored
     const judgment = await judge({ candidate, momentImageUrl });
     if (!Number.isFinite(judgment?.score)) continue;
-    scored.push({ ...candidate, urlVerified, imageVerified, score: judgment.score });
+    scored.push({ ...candidate, urlVerified: true, imageVerified, score: judgment.score });
   }
   return scored;
 }
 
+async function scoreCandidates(candidates, momentImageUrl, judge) {
+  const scored = [];
+  for (const candidate of candidates) {
+    const judgment = await judge({ candidate, momentImageUrl });
+    if (judgment == null) return { scored: [], hold: true };
+    if (Number.isFinite(judgment.score)) scored.push({ ...candidate, urlVerified: true, imageVerified: true, score: judgment.score });
+  }
+  return { scored, hold: false };
+}
+
 /**
- * Full E6 pipeline (SPEC §8 steps 1–3). Step 4 (author) and step 5
- * (no-candidate ticket handling) reuse the existing content lane and
- * `matchMoment`/`buildReSourceTicket` (match-moments.mjs) unchanged.
+ * Full E6 search/scoring pipeline (SPEC §8 steps 1–3). Step 4 owns E1/E2
+ * verification before any staged selection can reach seed content.
  */
 export async function runMatcherAuthoring({
   moment,
@@ -159,14 +184,15 @@ export async function runMatcherAuthoring({
   paidSearchImpl,
   searchApiKey,
   judge,
-  verifyUrlImpl,
-  verifyImageImpl,
   fetchImpl,
   callsUsed = 0,
   cap = 0,
 }) {
   const descriptors = await extractDescriptors({ moment, momentImageUrl, extractImpl });
-  const { candidates, paidSearchTicket } = await gatherCandidates({
+  if (descriptors == null) {
+    return { momentId: moment.id, products: [], ticket: null, descriptors: null, paidSearchCalls: 0, status: 'hold', holdReason: 'vision-unavailable' };
+  }
+  const { candidates, paidSearchTicket, paidSearchCalls } = await gatherCandidates({
     moment,
     descriptors,
     indexPath,
@@ -178,10 +204,13 @@ export async function runMatcherAuthoring({
     callsUsed,
     cap,
   });
-  const verified = await verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl, verifyImageImpl, fetchImpl });
-  const match = matchMoment({ moment, candidates: verified });
+  const scoring = await scoreCandidates(candidates, momentImageUrl, judge);
+  if (scoring.hold) {
+    return { momentId: moment.id, products: [], ticket: null, descriptors, paidSearchCalls, status: 'hold', holdReason: 'vision-unavailable' };
+  }
+  const match = matchMoment({ moment, candidates: scoring.scored });
   const ticket = match.products.length === 0 ? (paidSearchTicket ?? match.ticket) : null;
-  return { ...match, ticket, descriptors };
+  return { ...match, ticket, descriptors, paidSearchCalls };
 }
 
 export async function judgeWithClaude({ candidate, momentImageUrl }, options = {}) {
@@ -222,8 +251,8 @@ async function main() {
   const cap = Number.isInteger(input.paidSearch?.cap) ? input.paidSearch.cap : 0;
 
   const results = [];
+  let paidSearchCalls = 0;
   for (const entry of input.moments) {
-    const callsUsed = results.reduce((total, result) => total + (result.usedPaidSearch ? 1 : 0), 0);
     const result = await runMatcherAuthoring({
       moment: entry.moment,
       momentImageUrl: entry.momentImageUrl,
@@ -231,10 +260,16 @@ async function main() {
       indexPath,
       searchApiKey,
       judge: (payload) => judgeWithClaude(payload),
-      callsUsed,
+      callsUsed: paidSearchCalls,
       cap,
     });
-    results.push(result);
+    paidSearchCalls += result.paidSearchCalls;
+    results.push({
+      ...result,
+      source: entry.source,
+      sourceFile: entry.sourceFile,
+      momentImageUrl: entry.momentImageUrl,
+    });
   }
   const tickets = results.flatMap((result) => (result.ticket ? [result.ticket] : []));
   const output = { matches: results, tickets, authoring: { lane: 'merch-re-source-authoring', queue: tickets } };
@@ -245,7 +280,7 @@ async function main() {
 }
 
 export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, options = {}) {
-  return (await callMerchClaude({
+  return callMerchClaude({
     caller: 'merch-matcher-authoring',
     model: MERCH_LIGHT_MODEL,
     system: 'Extract concise garment descriptors from the supplied image and trusted moment title.',
@@ -260,7 +295,7 @@ export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, o
     },
     imageUrls: [momentImageUrl],
     ...options,
-  })) ?? {};
+  });
 }
 
 const self = fileURLToPath(import.meta.url);

@@ -3,7 +3,7 @@ import { access, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { createClaudeCaller } from './claude-call.mjs';
+import { createClaudeCaller, IMAGE_INPUT_TOKEN_ALLOWANCE } from './claude-call.mjs';
 import {
   IMAGE_SECURITY_INSTRUCTION,
   MAX_CLAUDE_IMAGE_BYTES,
@@ -106,6 +106,20 @@ describe('Claude image staging', () => {
       }],
       maxInputTokens: 10_000,
     })).resolves.toEqual({ status: 'invalid', reason: 'image exceeds the size limit' });
+    expect(spawnImpl).not.toHaveBeenCalled();
+  });
+
+  it('charges a fixed token allowance for each image before spawning', async () => {
+    const spawnImpl = spawnReturning({ stdout: successResult() });
+    const callClaude = createClaudeCaller({ spawnImpl, estimateTokens: () => 100 });
+    await expect(callClaude({
+      ...baseInput,
+      images: [
+        { buffer: JPEG, mimeType: 'image/jpeg' },
+        { buffer: PNG, mimeType: 'image/png' },
+      ],
+      maxInputTokens: 100 + 2 * IMAGE_INPUT_TOKEN_ALLOWANCE - 1,
+    })).resolves.toEqual({ status: 'capped', reason: 'input token cap exceeded' });
     expect(spawnImpl).not.toHaveBeenCalled();
   });
 

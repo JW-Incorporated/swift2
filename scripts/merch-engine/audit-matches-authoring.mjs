@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { auditCacheKey, tierForScore } from './audit-matches.mjs';
 import { extractReplacementImage } from './verify-images.mjs';
-import { callMerchClaude, MERCH_VISION_MODEL } from './merch-claude.mjs';
+import { callMerchClaude, fetchClaudeImage, MERCH_VISION_MODEL } from './merch-claude.mjs';
 
 export const MODEL = MERCH_VISION_MODEL;
 export const MAX_RUN_COST_USD = 3;
@@ -23,7 +23,6 @@ export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 const execFileAsync = promisify(execFile);
-const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 const KINDS = new Set([
   'dress',
   'top',
@@ -247,28 +246,8 @@ export async function retailerOgImage(
   return typeof imageUrl === 'string' && imageUrl.startsWith('https://') ? imageUrl : null;
 }
 
-function imageFailure(message, status = null) {
-  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
-}
-
 async function imageContent(url, fetchImpl) {
-  let response;
-  try {
-    response = await fetchImpl(url, {
-      method: 'GET', redirect: 'follow',
-      signal: globalThis.AbortSignal.timeout(IMAGE_FETCH_TIMEOUT_MS),
-    });
-  } catch {
-    throw imageFailure('unavailable');
-  }
-  if (!response.ok) throw imageFailure('unavailable', response.status);
-  const mimeType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
-  if (!SUPPORTED_IMAGE_MEDIA_TYPES.has(mimeType)) throw imageFailure('unsupported');
-  const declaredSize = Number(response.headers.get('content-length'));
-  if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES) throw imageFailure('too large');
-  const buffer = Buffer.from(await response.arrayBuffer());
-  if (buffer.byteLength > MAX_IMAGE_BYTES) throw imageFailure('too large');
-  return { buffer, mimeType };
+  return fetchClaudeImage(url, { fetchImpl });
 }
 
 export async function judgePairWithClaude(pair, options = {}) {

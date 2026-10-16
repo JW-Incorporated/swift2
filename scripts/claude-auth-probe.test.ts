@@ -21,6 +21,7 @@ describe('Claude auth probe metadata', () => {
     const workflow = readFileSync('.github/workflows/claude-auth-probe.yml', 'utf8');
     expect(workflow).toMatch(/workflow_dispatch:/);
     expect(workflow).not.toMatch(/schedule:|(?:contents|actions|issues|pull-requests): write|upload-artifact|SUPABASE|DISCORD/);
+    expect(workflow).not.toContain('ANTHROPIC_API_KEY');
     expect(workflow).toContain('anthropics/claude-code-action@v1');
     const args = workflow.match(/claude_args: '([^']+)'/)?.[1] || '';
     expect(args).toContain('--model claude-haiku-4-5-20251001 --max-turns 1 --max-budget-usd 0.05');

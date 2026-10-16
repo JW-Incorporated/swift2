@@ -99,3 +99,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: node scripts/tidewatch/classify.mjs
+
+      - name: Plan routes (shadow only)
+        if: steps.preflight.outputs.proceed == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TIDEWATCH_FREEZE: ${{ vars.TIDEWATCH_FREEZE }}
+          TIDEWATCH_ROUTER_LIVE: ${{ vars.TIDEWATCH_ROUTER_LIVE }}
+        run: node scripts/tidewatch/route.mjs

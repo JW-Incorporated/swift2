@@ -1,56 +1,80 @@
-# E6 vision/network authoring is deliberately a manually confirmed, artifact-only
-# lane. The scheduled `merch-matcher.yml` remains the zero-network detector; this
-# workflow is the only place E6 calls a vision model, a brand-direct search, or
-# the metered search API, and it never writes product data or lands a merge
-# itself (SPEC §8, R1). Automatic fashion-moment triggering stays absent per
-# binding ruling FABLE-E6-t_0b6b4d6a-2026-08-30-01 until Joey records the
-# search-API account and counsel gates complete (both DONE as of 2026-08-30;
-# this workflow still requires the typed confirmation as an extra safety gate
-# before spending against the paid-search cap).
+# E6 authoring runs Tuesday and Friday at :27, outside the repository's common
+# cron clusters. Search is Awin-first; SerpAPI is capped separately from the
+# shared 88-call Claude subscription-wrapper ceiling. Normal dispatches need no
+# typed confirmation; only a manual request above the weekly or per-run caps
+# requires RUN_MATCHER_AUTHORING. The matching job never receives the author PAT.
 name: merch-matcher-authoring
 
 on:
+  schedule:
+    - cron: '27 14 * * 2,5'
   workflow_dispatch:
     inputs:
-      confirmation:
-        description: 'Type RUN_MATCHER_AUTHORING to allow this capped E6 search + vision run'
+      look_cap:
+        description: 'Maximum looks (scheduled/default cap: 3)'
         required: true
-        type: string
-      input_file:
-        description: 'Checked-in JSON moment/candidate plan for the authoring run'
-        required: true
-        default: 'scripts/merch-engine/fixtures/matcher-candidates.json'
+        default: '3'
       paid_search_cap:
-        description: 'Maximum paid-search calls this run may spend against SEARCH_API_KEY (free tier only)'
+        description: 'Maximum SerpAPI searches (scheduled/default cap: 5)'
         required: true
         default: '5'
+      confirmation:
+        description: 'Required above the weekly or per-run caps: RUN_MATCHER_AUTHORING'
+        required: false
+        type: string
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: merch-matcher-authoring
   cancel-in-progress: false
 
 jobs:
-  author:
-    if: ${{ inputs.confirmation == 'RUN_MATCHER_AUTHORING' }}
+  match:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
     steps:
-      - name: Checkout (resolve local composite actions)
+      - name: Checkout
         uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-repo
         with:
-          npm-ci: 'true'
-          npm-ci-args: '--ignore-scripts'
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
           cache: npm
+          node-version: 24
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --silent
+      - name: Skip while an earlier matcher PR is open
+        id: open
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/merch-engine/matcher-open-pr-guard.mjs
+      - name: Restore matcher run and no-match state
+        if: ${{ steps.open.outputs.number == '' }}
+        uses: actions/cache/restore@v6
+        with:
+          path: .cache/merch-matcher-state.json
+          key: merch-matcher-state-v1-${{ github.run_id }}
+          restore-keys: merch-matcher-state-v1-
+      - name: Enforce weekly and per-run caps
+        id: run
+        if: ${{ steps.open.outputs.number == '' }}
+        env:
+          LOOK_CAP: ${{ inputs.look_cap || '3' }}
+          PAID_SEARCH_CAP: ${{ inputs.paid_search_cap || '5' }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: node scripts/merch-engine/matcher-state.mjs --state .cache/merch-matcher-state.json --event "${{ github.event_name }}" --look-cap "$LOOK_CAP" --paid-search-cap "$PAID_SEARCH_CAP" --confirmation "$CONFIRMATION"
       - name: Install Claude Code
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         continue-on-error: true
         run: |
-          CLAUDE_CODE_VERSION="2.1.300"
           for attempt in 1 2 3; do
-            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- 2.1.300" && break
             if [ "$attempt" -eq 3 ]; then
               echo "Failed to install Claude Code after 3 attempts"
               exit 1
@@ -60,59 +84,101 @@ jobs:
           "$HOME/.local/bin/claude" --version
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Restore Awin product index cache
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         uses: actions/cache/restore@v6
         with:
-          path: |
-            awin-feed-cache.json
-            awin-product-index.sqlite
+          path: awin-product-index.sqlite
           key: merch-awin-sync-${{ github.run_id }}
           restore-keys: merch-awin-sync-
-      - name: Build the deterministic candidate plan input
+      - name: Build matcher input
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
-          INPUT_FILE: ${{ inputs.input_file }}
-        run: |
-          set -euo pipefail
-          input="${INPUT_FILE:-scripts/merch-engine/fixtures/matcher-candidates.json}"
-          case "$input" in
-            scripts/merch-engine/*) ;;
-            *) echo 'input_file must stay under scripts/merch-engine/' >&2; exit 1 ;;
-          esac
-          echo "MATCHER_INPUT=$input" >> "$GITHUB_ENV"
-      - name: Run capped E6 search and vision authoring
-        id: author
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/merch-engine/build-matcher-input.mjs --output .artifacts/merch-matcher/input.json --limit "${{ inputs.look_cap || '3' }}" --paid-search-cap "${{ inputs.paid_search_cap || '5' }}" --state .cache/merch-matcher-state.json
+      - name: Run E6 matcher and Sonnet vision judge
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
-          PAID_SEARCH_CAP: ${{ inputs.paid_search_cap }}
+        run: node scripts/merch-engine/match-moments-authoring.mjs --input .artifacts/merch-matcher/input.json --output .artifacts/merch-matcher/results.json --index awin-product-index.sqlite
+      - name: Run E3 audit and write E1/E2-verified products
+        if: ${{ steps.run.outputs.proceed == 'true' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: node scripts/merch-engine/write-moment-products.mjs --plan .artifacts/merch-matcher/results.json --state .cache/merch-matcher-state.json
+      - name: Validate authored content
+        if: ${{ steps.run.outputs.proceed == 'true' }}
         run: |
-          node --input-type=module <<'NODE'
-          import { readFile, writeFile, mkdir } from 'node:fs/promises';
-          import { dirname } from 'node:path';
-          import { runMatcherAuthoring } from './scripts/merch-engine/match-moments-authoring.mjs';
-
-          const input = JSON.parse(await readFile(process.env.MATCHER_INPUT, 'utf8'));
-          const cap = Number(process.env.PAID_SEARCH_CAP ?? '5');
-          const results = [];
-          for (const entry of input.moments ?? []) {
-            results.push(await runMatcherAuthoring({
-              moment: entry.moment,
-              momentImageUrl: entry.momentImageUrl,
-              extractImpl: async () => ({}),
-              indexPath: 'awin-product-index.sqlite',
-              searchApiKey: process.env.SEARCH_API_KEY,
-              judge: async () => ({ score: 0 }),
-              callsUsed: 0,
-              cap,
-            }));
-          }
-          const tickets = results.flatMap((result) => (result.ticket ? [result.ticket] : []));
-          const output = { matches: results, tickets, authoring: { lane: 'merch-re-source-authoring', queue: tickets } };
-          await mkdir('.artifacts/merch-matcher-authoring', { recursive: true });
-          await writeFile('.artifacts/merch-matcher-authoring/plan.json', `${JSON.stringify(output, null, 2)}\n`, 'utf8');
-          NODE
-      - uses: actions/upload-artifact@v7
+          npm run sync:content --silent
+          npm run validate:content --silent
+      - name: Build seed-only diff artifact
+        id: diff
+        if: ${{ steps.run.outputs.proceed == 'true' }}
+        run: |
+          mkdir -p .artifacts/merch-matcher
+          if git diff --quiet -- supabase/seed/content; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git diff --binary --output=.artifacts/merch-matcher/seed.patch -- supabase/seed/content
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload seed-only diff artifact
+        if: ${{ steps.diff.outputs.changed == 'true' }}
+        uses: actions/upload-artifact@v7
         with:
-          name: merch-matcher-authoring-plan
-          path: .artifacts/merch-matcher-authoring/plan.json
+          name: merch-matcher-seed-diff
+          path: .artifacts/merch-matcher/seed.patch
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 7
+      - uses: actions/cache/save@v6
+        if: ${{ always() && steps.open.outputs.number == '' && hashFiles('.cache/merch-matcher-state.json') != '' }}
+        with:
+          path: .cache/merch-matcher-state.json
+          key: merch-matcher-state-v1-${{ github.run_id }}
+
+  author:
+    needs: match
+    if: ${{ needs.match.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts --silent'
+          cache: npm
+      - name: Download seed-only diff artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: merch-matcher-seed-diff
+          path: .artifacts/merch-matcher
+      - name: Apply the matched seed diff
+        run: git apply .artifacts/merch-matcher/seed.patch
+      - name: Validate authored content
+        run: |
+          npm run sync:content --silent
+          npm run validate:content --silent
+      - name: Set content PR branch
+        run: echo "branch=merch-matcher/${GITHUB_RUN_ID}" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: supabase/seed/content
+          branch: ${{ env.branch }}
+          commit-message: "feat(merch): author moment matches (run ${{ github.run_id }})"
+          pr-title: "feat(merch): author moment matches (run ${{ github.run_id }})"
+          pr-body: >-
+            Automated E6 moment matcher. Searches the cached Awin FTS index first, then
+            capped brand-scoped/general SerpAPI results; Sonnet 5.5 judgments use the
+            subscription wrapper. Every written product passed the E3 audit and fresh
+            E1 link/E2 image checks. Plain retailer URLs are stored; affiliate wrapping
+            remains render-time and no affiliate identifier is authored here.
+          no-changes-message: "No E3/E1/E2-qualified moment products to author."

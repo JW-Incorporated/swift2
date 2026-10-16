@@ -236,14 +236,33 @@ jobs:
           git config lfs.locksverify false
           git config "lfs.https://github.com/${GITHUB_REPOSITORY}.git/info/lfs.locksverify" false
 
+      # Same native installer/retry pattern used by claude-code-action in
+      # routine-template; version pinned to the wrapper's verified 2.1.300.
+      - name: Install Claude Code
+        if: steps.enabled.outputs.enabled == 'true'
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
       # Every new photo passes a Claude Sonnet 5.5 vision check inside the importer
-      # (scripts/social/photo-qc.mjs; docs/decisions.md 2026-10-07 "QC sonnet", about
-      # $24/month at the 200-check cap). Fail-closed: without the key, nothing is imported.
-      # QC_MAX_CHECKS_PER_RUN overrides the cap; the key is on this step only.
+      # (scripts/social/photo-qc.mjs; docs/decisions.md 2026-10-07 "QC sonnet"), now
+      # through the Claude subscription wrapper at priority P3 (no Anthropic API).
+      # Fail-closed: if the check cannot run, the photo is held, nothing is imported.
+      # QC_MAX_CHECKS_PER_RUN overrides the cap; the token is on this step only.
       - name: Import candidates into the photo library
         if: steps.enabled.outputs.enabled == 'true'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           node scripts/social/import-photo-library.mjs \
             --input .artifacts/concert-photo-candidates.json \

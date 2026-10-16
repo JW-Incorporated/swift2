@@ -10,7 +10,10 @@ const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 
 function imageFailure(message, status = null) {
-  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+  const error = new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
+  error.code = message;
+  error.status = status;
+  return error;
 }
 
 export async function fetchClaudeImage(url, { fetchImpl = fetch } = {}) {
