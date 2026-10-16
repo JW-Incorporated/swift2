@@ -4,9 +4,9 @@ import { fetchArticleText } from '../../apps/worker/src/sources/fetch-article-te
 import {
   independentStorySources,
   normalizeOutletName,
-  storySourceOutletDomain,
   storyVerification,
 } from '../../apps/worker/src/pipeline/story-sources.ts';
+import { normalizedOutletHost } from '../../apps/worker/src/pipeline/story-source-identity.ts';
 
 const ownership = JSON.parse(readFileSync(new URL('./outlet-owners.json', import.meta.url), 'utf8'));
 const PAYWALL = /\b(?:(?:subscribe|subscription)\s+(?:to|for)|already a subscriber|(?:sign|log) in to continue|register to continue|subscriber(?:s)? only|subscription required|unlock (?:this|the) article|(?:continue|keep) reading.{0,40}(?:subscribe|sign in))\b/i;
@@ -27,18 +27,20 @@ function ownershipEntry(domain) {
 }
 
 function sourceOwner(candidate) {
-  const domain = storySourceOutletDomain(candidate);
+  const domain = normalizedOutletHost(candidate.articleUrl);
   const configured = ownershipEntry(domain);
   const fallback = normalizeOutletName(
     candidate.outletName,
-    candidate.publisherUrl,
+    undefined,
     candidate.articleUrl,
   ).toLocaleLowerCase('en-US');
   return configured?.owner ?? (domain ? `outlet:${domain}` : `outlet:${fallback}`);
 }
 
 function sourceProfile(candidate) {
-  const domain = storySourceOutletDomain(candidate);
+  const domain = normalizedOutletHost(candidate.articleUrl);
+  const publisherDomain = normalizedOutletHost(candidate.publisherUrl);
+  if (candidate.publisherUrl && publisherDomain !== domain) return null;
   const configured = ownershipEntry(domain);
   return {
     domain: domain ?? null,
@@ -65,6 +67,7 @@ async function checkedSource(source, claim, options) {
     repStatement: source.repStatement === true || judgment.repStatementProbability >= 0.8,
   };
   const profile = sourceProfile(candidate);
+  if (!profile) return null;
   if (!profile.official && !profile.established) return null;
   return { ...candidate, ...profile, matchedAnchors };
 }

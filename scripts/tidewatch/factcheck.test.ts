@@ -92,6 +92,19 @@ describe('Tidewatch fact-check module', () => {
     expect(result.sources).toHaveLength(1);
   });
 
+  it('uses article hosts for ownership and rejects disagreeing publisher hosts', async () => {
+    const result = await factCheckStory(story('critical_breaking', [
+      source('People', 'https://people.com/music/fixture-a', WORDS.music),
+      source('People mirror data', 'https://people.com/music/fixture-b', WORDS.fashion, {
+        publisherUrl: 'https://unrelated.example/',
+      }),
+    ]), dependencies());
+
+    expect(result).toMatchObject({ verdict: 'not_confirmed', basis: 'code_bar_not_met' });
+    expect(result.sources).toHaveLength(1);
+    expect(result.sources[0]).toMatchObject({ owner: 'dotdash-meredith' });
+  });
+
   it('fails closed on a paywall, a weak citation, or Sonnet disagreement', async () => {
     const official = source(
       'Taylor Swift official channel',

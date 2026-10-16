@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { evaluateReplay } from './factcheck-eval.mjs';
-import { relabelReplay } from './relabel-replay.mjs';
+import { evaluateForcedCriticalControls, evaluateReplay } from './factcheck-eval.mjs';
+import { relabelItem, relabelReplay } from './relabel-replay.mjs';
 
 const readJson = (relative: string) => JSON.parse(
   readFileSync(new URL(`../../${relative}`, import.meta.url), 'utf8'),
@@ -16,20 +16,54 @@ describe('fact-check replay acceptance', () => {
     const generated = relabelReplay(replay);
     expect(generated.relabelled).toEqual(committedRelabel);
     expect(generated.report).toEqual(committedReport);
-    expect(generated.report.countsByRule).toEqual({
-      property_privacy_redline: 13,
-      critical_new_official_work_only: 11,
-    });
+    expect(generated.report.countsByRule).toEqual(committedReport.countsByRule);
     expect(committedRelabel.items.every((item: Record<string, unknown>) =>
       Object.keys(item).sort().join(',') === 'class,id')).toBe(true);
   });
 
-  it('confirms every relabelled critical and no rumor or single-source item', async () => {
+  it('relabels from title semantics without source status and leaves blank titles alone', () => {
+    const released = {
+      kind: 'news_story', class: 'critical_breaking',
+      title: 'Taylor Swift releases four new songs',
+      meta: { verificationStatus: 'rumor' }, answers: { q_official: false },
+    };
+    expect(relabelItem(released)).toEqual({ class: 'critical_breaking', rule: null });
+    expect(relabelItem({ ...released, meta: { verificationStatus: 'official' } }))
+      .toEqual({ class: 'critical_breaking', rule: null });
+    expect(relabelItem({ ...released, title: 'New album available for pre-order' }).class)
+      .toBe('official_drop');
+    expect(relabelItem({ ...released, title: 'Official festival headline announced' }).class)
+      .toBe('official_drop');
+    expect(relabelItem({ ...released, title: 'Taylor Swift announces a new concert film' }).class)
+      .toBe('critical_breaking');
+    expect(relabelItem({ ...released, title: undefined }).class).toBe('critical_breaking');
+  });
+
+  it("moves only stories about Taylor Swift's real estate to the privacy redline", () => {
+    const item = { kind: 'news_story', class: 'normal_news' };
+    expect(relabelItem({ ...item, title: "Taylor Swift's former home is listed" }).class)
+      .toBe('privacy_redline');
+    expect(relabelItem({
+      ...item, title: "R.I. Property Owners Sue Over Controversial 'Taylor Swift Tax'",
+    }).class).toBe('normal_news');
+    expect(relabelItem({ ...item, title: "Travis Kelce's homes include proposal location" }).class)
+      .toBe('normal_news');
+    expect(relabelItem({
+      ...item, title: "Taylor Swift explains home in 'Patient Zero' music video",
+    }).class).toBe('normal_news');
+    expect(relabelItem({
+      ...item, title: "Taylor Swift's 'Patient Zero' house sold for nearly $47 million",
+    }).class).toBe('normal_news');
+  });
+
+  it('reports both label sets and confirms no forced-critical control', async () => {
     const original = await evaluateReplay(replay);
     const relabelled = await evaluateReplay(replay, committedRelabel);
-    expect({ original, relabelled }).toEqual({
+    const forcedCriticalControls = await evaluateForcedCriticalControls(replay);
+    expect({ original, relabelled, forcedCriticalControls }).toEqual({
       original: committedResults.original,
       relabelled: committedResults.relabelled,
+      forcedCriticalControls: committedResults.forcedCriticalControls,
     });
 
     expect(original).toMatchObject({
@@ -40,10 +74,15 @@ describe('fact-check replay acceptance', () => {
       singleSource: { confirmed: 0, total: 371 },
     });
     expect(relabelled).toMatchObject({
-      critical: { confirmed: 10, total: 10 },
-      criticalWork: { confirmed: 4, total: 4 },
+      critical: { confirmed: 13, total: 14 },
+      criticalWork: { confirmed: 7, total: 8 },
       criticalPersonal: { confirmed: 6, total: 6 },
       rumor: { confirmed: 0, total: 34 },
+      singleSource: { confirmed: 0, total: 371 },
+    });
+    expect(forcedCriticalControls).toMatchObject({
+      total: { confirmed: 0 },
+      rumor: { confirmed: 0, total: 35 },
       singleSource: { confirmed: 0, total: 371 },
     });
   });

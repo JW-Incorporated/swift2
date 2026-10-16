@@ -42,9 +42,10 @@ function fixtureSource(item, outlet, index) {
   };
 }
 
-function fixtureStory(item) {
+function fixtureStory(item, options = {}) {
   let outlets = item.meta?.outlets ?? [];
-  if (outlets.length === 0 && item.answers?.q_official === true) {
+  if (outlets.length === 0 && item.answers?.q_official === true &&
+      options.synthesizeOfficial !== false) {
     outlets = [{ outlet: 'Taylor Swift official channel', tier: 'official' }];
   }
   return {
@@ -58,10 +59,10 @@ function fixtureStory(item) {
 const fakeJudge = async () => ({ supportsProbability: 1, settledProbability: 1 });
 const fakeVerifier = async () => ({ agreed: true, status: 'ok', reason: 'offline fixture' });
 
-async function evaluateItems(items) {
+async function evaluateItems(items, options = {}) {
   const outcomes = [];
   for (const item of items) {
-    const result = await factCheckStory(fixtureStory(item), {
+    const result = await factCheckStory(fixtureStory(item, options), {
       judgeSource: fakeJudge,
       verify: fakeVerifier,
       recheckDelayMs: 0,
@@ -83,6 +84,10 @@ function metric(outcomes, predicate) {
   };
 }
 
+function isSingleSource(item) {
+  return item.meta?.sourceCount === 1 && item.meta?.verificationStatus !== 'official';
+}
+
 export async function evaluateReplay(replay, labels) {
   const labelById = new Map(labels?.items.map((item) => [item.id, item.class]) ?? []);
   const items = replay.items.map((item) => ({ ...item, class: labelById.get(item.id) ?? item.class }));
@@ -93,8 +98,22 @@ export async function evaluateReplay(replay, labels) {
     criticalWork: metric(outcomes, (item) => item.class === 'critical_breaking'),
     criticalPersonal: metric(outcomes, (item) => item.class === 'critical_personal'),
     rumor: metric(outcomes, (item) => item.class === 'rumor'),
-    singleSource: metric(outcomes, (item) =>
-      item.meta?.sourceCount === 1 && item.meta?.verificationStatus !== 'official'),
+    singleSource: metric(outcomes, isSingleSource),
+  };
+}
+
+export async function evaluateForcedCriticalControls(replay) {
+  const controls = replay.items.filter((item) => item.class === 'rumor' || isSingleSource(item));
+  const outcomes = await evaluateItems(
+    controls.map((item) => ({ ...item, evaluationClass: item.class, class: 'critical_breaking' })),
+    { synthesizeOfficial: false },
+  );
+  return {
+    forcedClass: 'critical_breaking',
+    sourceMode: 'recorded_outlets_only',
+    total: metric(outcomes, () => true),
+    rumor: metric(outcomes, (item) => item.evaluationClass === 'rumor'),
+    singleSource: metric(outcomes, (item) => isSingleSource(item)),
   };
 }
 
@@ -104,11 +123,12 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const replay = JSON.parse(await read(REPLAY_PATH, 'utf8'));
   const relabelled = JSON.parse(await read(RELABELLED_PATH, 'utf8'));
   const results = {
-    version: 1,
+    version: 2,
     verifier: 'fake',
     network: false,
     original: await evaluateReplay(replay),
     relabelled: await evaluateReplay(replay, relabelled),
+    forcedCriticalControls: await evaluateForcedCriticalControls(replay),
   };
   await (deps.writeFile ?? writeFile)(OUTPUT_PATH, `${JSON.stringify(results, null, 2)}\n`);
   (deps.log ?? console.log)(JSON.stringify(results));

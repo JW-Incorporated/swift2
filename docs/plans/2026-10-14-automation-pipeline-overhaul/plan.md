@@ -797,7 +797,7 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 - **What:** scripts/tidewatch/factcheck.mjs: collect the story's sources; official rule (expanded OFFICIAL_DOMAINS, official channel ids, attraction-id ticketing URLs); two-outlet rule counts distinct outlet owners (ownership map) and rejects syndicated copies (text similarity > 0.8); fetch article text (fetch-article-text.ts), exact anchor string match, Jev citation check (supports, contradicts, unrelated; >= 0.8) and a Noul 'stated as settled fact'; personal-life bar: official or rep statement, or two tier-1 outlets, plus a 10-minute re-check; Sonnet 5.5 verifier with structured output for critical and personal; returns {verdict, basis, sources[]} and writes story_timeline.verified_at.
 - **Goals:** 1 · **Owner:** codex · **Model/tier:** gpt-5.6-sol xhigh · **Effort:** L · **Lane:** L-FACT · **Depends on:** P1-01, P1-08, P1-09
 - **Files:** `scripts/tidewatch/factcheck.mjs (new)`, `scripts/tidewatch/outlet-owners.json (new)`, `scripts/tidewatch/factcheck.test.mjs (new)`
-- **Acceptance:** On the replay set: every labeled critical event confirmed; 0 of the rumor and single-source items confirmed; syndicated AP copies count once (test); personal-life fixtures pass only with official or two tier-1 sources.
+- **Acceptance:** On the replay set: every labeled critical event confirmed; 0 of the rumor and single-source items confirmed; syndicated AP copies count once (test); personal-life fixtures pass only with an official source, a rep statement quoted by a tier-1 outlet, or two independent tier-1 owners.
 - **Token impact:** Sonnet 5.5 on a handful of items per week. · **Risks:** Outlet paywalls block text fetch: anchor on headline and dek; fall back to 'not confirmed' (safe).
 - **Needs decision entry:** no · **Needs human action:** no · **Branch/PR:** own branch (feature/tidewatch-p2-03) in a worktree outside Projects; PR with TL;DR; auto-merge on green
 
@@ -867,6 +867,7 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 
 #### P2-12. Breaking and retraction drill
 - **What:** Replay 5 historical critical events (including an album announcement, a tour-date drop and the Patient Zero video) and 200 non-critical items through fast lane, classifier, fact-check, router, site, push and social in dry-run against staging; time every stage; then a retraction drill; then one synthetic personal-life case in dry-run only.
+- **Evidence:** Use real recent work announcements with their real pages, the live verifier and a real Jev check, plus same-owner and syndicated negatives; the four synthetic critical-work items are not drill evidence.
 - **Goals:** 1 · **Owner:** claude-opus · **Model/tier:** claude-opus-5-5 high (orchestrates an executor) · **Effort:** M · **Lane:** L-TIDE-SPEC · **Depends on:** P2-03, P2-04, P2-05, P2-06, P2-07
 - **Files:** `docs/projects/tidewatch/drill-<date>.md (new)`
 - **Acceptance:** All 5 critical events reach the site in <= 45 min of simulated time, 0 of 200 false positives, retraction completes in <= 30 min, drill report merged.

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "verifier": "fake",
   "network": false,
   "original": {
@@ -28,12 +28,12 @@
   "relabelled": {
     "total": 771,
     "critical": {
-      "confirmed": 10,
-      "total": 10
+      "confirmed": 13,
+      "total": 14
     },
     "criticalWork": {
-      "confirmed": 4,
-      "total": 4
+      "confirmed": 7,
+      "total": 8
     },
     "criticalPersonal": {
       "confirmed": 6,
@@ -42,6 +42,22 @@
     "rumor": {
       "confirmed": 0,
       "total": 34
+    },
+    "singleSource": {
+      "confirmed": 0,
+      "total": 371
+    }
+  },
+  "forcedCriticalControls": {
+    "forcedClass": "critical_breaking",
+    "sourceMode": "recorded_outlets_only",
+    "total": {
+      "confirmed": 0,
+      "total": 376
+    },
+    "rumor": {
+      "confirmed": 0,
+      "total": 35
     },
     "singleSource": {
       "confirmed": 0,

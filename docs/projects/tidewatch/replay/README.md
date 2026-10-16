@@ -22,13 +22,14 @@ The 21 growth-strategy time-sensitive events are not listed anywhere in `docs/`,
 ## P2-03 fact-check relabel and offline evaluation
 
 Run `node scripts/tidewatch/relabel-replay.mjs` before evaluating. It applies
-two explicit, deterministic rules: homes/property/real-estate/residence news
-becomes `privacy_redline`; and `critical_breaking` is kept only for an
-officially confirmed announcement or release of new music, an album or a tour.
-Premiere times, pre-orders, schedules, track lists and other detail-only items
-become `official_drop`. The generated `replay-relabelled.json` contains only
-ids and labels. `replay-relabel-report.json` lists every old-to-new label; on
-this frozen set, the property rule changes 13 and the critical-work rule 11.
+two deterministic title/event rules without consulting sourcing: news about
+Taylor Swift's own or shared homes/property becomes `privacy_redline`; and
+`critical_breaking` is kept only for an actual announcement or release of a
+new song, album, tour or film. Premiere times, pre-orders, schedules, track
+lists, merch drops and festival line-ups become `official_drop`. Blank titles
+remain unchanged. The generated `replay-relabelled.json` contains only ids and
+labels. `replay-relabel-report.json` lists every old-to-new label; on this
+frozen set, the property rule changes 8 and the critical-work rule 7.
 
 Run `npx tsx scripts/tidewatch/factcheck-eval.mjs` for the network-free replay.
 It reads recorded source-page fixtures and uses fake Jev and Sonnet judgments;
@@ -38,7 +39,12 @@ it makes no model or outlet calls. Aggregate results are written to
 | Labels | Critical | Critical work | Critical personal | Rumor confirmed | Single-source confirmed |
 |---|---:|---:|---:|---:|---:|
 | Original | 18/21 | 12/15 | 6/6 | 0/35 | 0/371 |
-| Relabelled | 10/10 | 4/4 | 6/6 | 0/34 | 0/371 |
+| Relabelled | 13/14 | 7/8 | 6/6 | 0/34 | 0/371 |
+
+The forced-critical control sends the union of every original rumor and
+non-official single-source item through `critical_breaking` using recorded
+outlets only: 0/376 confirmed overall, including 0/35 rumors and 0/371
+single-source items (the two categories overlap).
 
 The public inert checker is `scripts/tidewatch/factcheck.mjs`; invoke it with
 `npx tsx scripts/tidewatch/factcheck.mjs --input <story.json>`. Live article
