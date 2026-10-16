@@ -2,6 +2,7 @@ import { spawn as nodeSpawn } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { safelyLog } from '../../packages/shared/src/llm/usage.ts';
 import { selectClaudeCallToken } from './claude-token.mjs';
 import { issueReset } from '../routines/limit-gate.mjs';
 import {
@@ -29,6 +30,8 @@ export const IMAGE_INPUT_TOKEN_ALLOWANCE = 1_600;
 export function createClaudeCaller(options = {}) {
   const spawnImpl = options.spawnImpl ?? nodeSpawn;
   const logUsage = options.logUsage ?? (() => undefined);
+  const usageLogger = options.usageLogger ?? (() => undefined);
+  const warn = options.warn ?? console.warn;
   const getLimitState = options.getLimitState ?? issueReset;
   const callCounts = options.callCounts ?? new Map();
   const estimateTokens = options.estimateTokens ?? inputTokenEstimate;
@@ -246,11 +249,15 @@ export function createClaudeCaller(options = {}) {
           // Temporary-directory cleanup cannot violate the never-throw contract.
         }
       }
-      for (const attempt of attempts) {
-        try {
-          await logUsage(usageRow(input, attempt.token, attempt.usage));
-        } catch { outcome.loggerError = true; }
-      }
+      const logging = attempts.flatMap((attempt) => {
+        const row = usageRow(input, attempt.token, attempt.usage);
+        return [
+          safelyLog(() => logUsage(row), warn, 'Claude usage summary logging failed'),
+          safelyLog(() => usageLogger(row), warn, 'Claude usage database logging failed'),
+        ];
+      });
+      const logged = await Promise.all(logging);
+      if (logged.includes(false)) outcome.loggerError = true;
     }
   };
 }

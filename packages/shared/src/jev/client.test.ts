@@ -89,6 +89,52 @@ describe('Jev client', () => {
     expect(logged).toEqual([result.usage]);
   });
 
+  it('logs an llm_usage-shaped Jev row without failing the call when logging fails', async () => {
+    const rows: unknown[] = [], warnings: string[] = [];
+    const successful = createJevClient({
+      apiKey: 'fixture-key', fetchImpl: async () => jsonResponse(),
+      usageLogger: (row) => { rows.push(row); },
+    });
+
+    await successful.ask({ caller: 'usage-test', state: 'text', questions: QUESTIONS });
+    expect(rows).toEqual([{
+      caller: 'usage-test',
+      provider: 'jev',
+      model: JEV_MODEL,
+      token: null,
+      input_tokens: 1_000,
+      output_tokens: 9,
+      cache_read_tokens: 0,
+      cache_creation_input_tokens: null,
+      calls: 1,
+      est_cost_usd: 0.000042,
+    }]);
+
+    const failing = createJevClient({
+      apiKey: 'fixture-key', fetchImpl: async () => jsonResponse(),
+      usageLogger: async () => { throw new Error('ledger unavailable'); },
+      warn: (message) => { warnings.push(message); },
+    });
+    await expect(failing.ask({ caller: 'usage-test', state: 'text', questions: QUESTIONS }))
+      .resolves.toMatchObject({ answers: expect.any(Object) });
+    expect(warnings).toEqual(['Jev usage logging failed']);
+  });
+
+  it('keeps missing usage invalid while logging zero token counts and a nullable cost', async () => {
+    const rows: unknown[] = [], withoutUsage = { ...SUCCESS_FIXTURE, usage: undefined } as unknown as typeof SUCCESS_FIXTURE;
+    const client = createJevClient({
+      apiKey: 'fixture-key', fetchImpl: async () => jsonResponse(withoutUsage),
+      usageLogger: (row) => { rows.push(row); },
+    });
+    await expect(client.ask({ caller: 'usage-test', state: 'text', questions: QUESTIONS }))
+      .rejects.toHaveProperty('name', 'JevResponseError');
+    expect(rows).toEqual([expect.objectContaining({
+      input_tokens: 0,
+      output_tokens: 0,
+      est_cost_usd: null,
+    })]);
+  });
+
   it('randomizes Choice criteria without mutating options and maps the answer to the original id', async () => {
     let sentBody = '';
     const client = createJevClient({

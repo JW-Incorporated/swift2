@@ -109,4 +109,6 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           TIDEWATCH_FREEZE: ${{ vars.TIDEWATCH_FREEZE }}
           TIDEWATCH_ROUTER_LIVE: ${{ vars.TIDEWATCH_ROUTER_LIVE }}
+          REVALIDATE_ORIGIN: ${{ vars.REVALIDATE_ORIGIN }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
         run: node scripts/tidewatch/route.mjs

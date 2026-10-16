@@ -239,6 +239,7 @@ export async function startReceiver({
   week,
   storeComments,
   stallMs = 300_000,
+  watchdogTimers = { setTimeout, clearTimeout },
   connectWaitMs = CONNECT_WAIT_MS,
   maxNeverConnectedRelaunches = MAX_NEVER_CONNECTED_RELAUNCHES,
   host = '127.0.0.1',
@@ -274,7 +275,7 @@ export async function startReceiver({
   const finish = () => {
     if (finished) return;
     finished = true;
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     clearTimeout(connectTimer);
     resolveDone(ordered());
   };
@@ -285,7 +286,7 @@ export async function startReceiver({
   let lostPending = false;
   let lostResolve = null;
   const groupLost = (reason, idleIsFatal) => {
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     const group = current;
     if (group) {
       results.push({ slug: group.slug, status: 'failed', reason });
@@ -318,7 +319,7 @@ export async function startReceiver({
       return;
     }
     log(`fb-receiver: extension never connected (attempt=${neverConnectedCount}) relaunch`);
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     lostPending = true;
     lostResolve?.('lost');
   };
@@ -329,9 +330,9 @@ export async function startReceiver({
     connectTimer.unref?.();
   };
   const armWatchdog = () => {
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     if (finished || lostPending) return;
-    watchdog = setTimeout(() => groupLost('stalled', true), stallMs);
+    watchdog = watchdogTimers.setTimeout(() => groupLost('stalled', true), stallMs);
     watchdog.unref?.();
   };
 
@@ -727,7 +728,7 @@ export async function startReceiver({
     close() {
       if (closed) return Promise.resolve();
       closed = true;
-      clearTimeout(watchdog);
+      watchdogTimers.clearTimeout(watchdog);
       clearTimeout(connectTimer);
       finish();
       return new Promise((resolve) => {

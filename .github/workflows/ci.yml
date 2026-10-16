@@ -139,6 +139,9 @@ jobs:
       # Offline: a job running a script that imports an npm/workspace package
       # must install deps (setup-repo defaults npm-ci to false — #5219, #5224).
       - run: npm run check:workflow-deps
+      # Every workflow `node <file>` entry must LOAD under plain node (no
+      # extensionless imports / TS path re-exports) — vitest hides these (P0-23).
+      - run: npm run check:workflow-entries
       # Offline + ~50ms: proves docs/launch-readiness.md's cadence claims are
       # backed by a real cron and that no gate is green on a cadence nothing
       # provides. Throttling a runner now breaks `build` until the gates that
