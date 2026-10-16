@@ -13,10 +13,11 @@ const ORIGINAL = {
 };
 
 describe('mergeNewFactsIntoOriginal retraction guard', () => {
-  it('cannot un-hide a debunked card when a new outlet reports the same event', async () => {
+  it('merges facts without changing visibility on a retracted card', async () => {
     const card: Record<string, unknown> = {
       id: 'item-orig',
-      status: 'debunked',
+      status: 'reported',
+      retracted_at: '2026-10-15T00:00:00Z',
       redline_ok: false,
     };
     let patch: Record<string, unknown> = {};
@@ -30,8 +31,8 @@ describe('mergeNewFactsIntoOriginal retraction guard', () => {
         predicates.push((row) => row[column] === value);
         return query;
       },
-      neq: (column: string, value: unknown) => {
-        predicates.push((row) => row[column] !== value);
+      is: (column: string, value: unknown) => {
+        predicates.push((row) => row[column] === value);
         return query;
       },
       then: (resolve: (result: { error: null }) => void) => {
@@ -47,6 +48,7 @@ describe('mergeNewFactsIntoOriginal retraction guard', () => {
     });
 
     expect(patch.redline_ok).toBe(true);
-    expect(card).toMatchObject({ status: 'debunked', redline_ok: false });
+    expect(card).toMatchObject({ status: 'reported', redline_ok: false, heat: 2 });
+    expect(card.sources).toHaveLength(2);
   });
 });

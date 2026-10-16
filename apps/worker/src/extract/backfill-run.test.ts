@@ -31,10 +31,11 @@ function selectChain(data: unknown) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe('loadBackfillCandidates', () => {
-  it('skips debunked current item rows', async () => {
+  it('includes worker-debunked and retracted current item rows', async () => {
     let rows = [
       { id: 'ci-live', status: 'reported', promoted_to: null },
-      { id: 'ci-retracted', status: 'debunked', promoted_to: null },
+      { id: 'ci-retracted', status: 'reported', retracted_at: '2099-01-01', promoted_to: null },
+      { id: 'ci-worker-debunked', status: 'debunked', retracted_at: null, promoted_to: null },
     ];
     const chain = {
       select: () => chain,
@@ -62,7 +63,11 @@ describe('loadBackfillCandidates', () => {
 
     const candidates = await loadBackfillCandidates(db);
 
-    expect(candidates.map((row) => row.id)).toEqual(['ci-live']);
+    expect(candidates.map((row) => row.id)).toEqual([
+      'ci-live',
+      'ci-retracted',
+      'ci-worker-debunked',
+    ]);
   });
 });
 
@@ -95,20 +100,28 @@ describe('runBackfill', () => {
   it('writes resolved fields during a live run', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', '');
     const writes: unknown[] = [];
-    const guards: unknown[][] = [];
+    const guards: unknown[][][] = [];
     const chain = selectChain([baseItem({ id: 'a' })]);
     const db = {
       from: vi.fn(() => ({
         ...chain,
-        update: (row: unknown) => ({
-          eq: () => ({
-            neq: (...args: unknown[]) => {
-              writes.push(row);
-              guards.push(args);
-              return Promise.resolve({ error: null });
+        update: (row: unknown) => {
+          const writeGuards: unknown[][] = [];
+          writes.push(row);
+          guards.push(writeGuards);
+          const query = {
+            eq: (...args: unknown[]) => {
+              writeGuards.push(['eq', ...args]);
+              return query;
             },
-          }),
-        }),
+            is: (...args: unknown[]) => {
+              writeGuards.push(['is', ...args]);
+              return query;
+            },
+            then: (resolve: (result: { error: null }) => void) => resolve({ error: null }),
+          };
+          return query;
+        },
       })),
       rpc: vi.fn(() => ({
         then: (resolve: (value: { data: null; error: null }) => void) => (
@@ -122,8 +135,11 @@ describe('runBackfill', () => {
       fetchImpl: fetchImpl as unknown as typeof fetch,
     });
     expect(result.wroteBack).toBe(1);
-    expect(writes).toHaveLength(1);
-    expect(guards).toEqual([['status', 'debunked']]);
+    expect(writes).toHaveLength(2);
+    expect(guards).toEqual([
+      [['eq', 'id', 'a']],
+      [['eq', 'id', 'a'], ['is', 'retracted_at', null]],
+    ]);
   });
 
   it('does not un-hide a row retracted after candidate loading', async () => {
@@ -137,7 +153,8 @@ describe('runBackfill', () => {
     });
     const stored: Record<string, unknown> = {
       id: item.id,
-      status: 'debunked',
+      status: 'reported',
+      retracted_at: '2026-10-15T00:00:00Z',
       redline_ok: false,
     };
     let fromCall = 0;
@@ -156,8 +173,8 @@ describe('runBackfill', () => {
             predicates.push((row) => row[column] === value);
             return query;
           },
-          neq: (column: string, value: unknown) => {
-            predicates.push((row) => row[column] !== value);
+          is: (column: string, value: unknown) => {
+            predicates.push((row) => row[column] === value);
             return query;
           },
           then: (resolve: (result: { error: null }) => void) => {
@@ -176,6 +193,7 @@ describe('runBackfill', () => {
 
     await runBackfill(db, { dryRun: false });
 
-    expect(stored).toMatchObject({ status: 'debunked', redline_ok: false });
+    expect(stored).toMatchObject({ status: 'reported', redline_ok: false });
+    expect(stored.summary).toBe(item.summary);
   });
 });

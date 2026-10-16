@@ -317,13 +317,14 @@ describe('getRecentItems', () => {
     itemRow({ id: 'ci:3', observed_on: dm.daysAgo(10) }), // outside the 7-day window
     itemRow({ id: 'ci:4', observed_on: dm.daysAgo(2), redline_ok: false }), // screened out
     itemRow({ id: 'ci:5', observed_on: dm.daysAgo(3), promoted_to: 'moment:xyz' }), // already promoted
-    itemRow({ id: 'ci:6', observed_on: dm.daysAgo(1), status: 'debunked' }), // retracted
+    itemRow({ id: 'ci:6', observed_on: dm.daysAgo(1), status: 'debunked' }), // worker status, still visible
+    { ...itemRow({ id: 'ci:7', observed_on: dm.daysAgo(1) }), retracted_at: '2026-10-15T00:00:00Z' },
   ];
 
   it('returns only redline_ok, unpromoted items within the last N days, newest first', async () => {
     const db = fakeDb({ current_item: items });
     const result = await getRecentItems(db, 7);
-    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:2']);
+    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:6', 'ci:2']);
   });
 
   it('excludes a row that is redline_ok=true in the DB but fails the Content fix 3/6 quality gate (defense in depth)', async () => {

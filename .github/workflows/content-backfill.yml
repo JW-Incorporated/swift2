@@ -1,5 +1,5 @@
 # Content fix 5/6 (content-fix-cards.md Card 5): one-off backfill that
-# re-enriches every existing, live, non-debunked `current_item` — resolves a missing
+# re-enriches every existing, live `current_item` — resolves a missing
 # image (Card 1/#5628), rewrites thin copy from the full article
 # (Card 2/#5627), re-runs the shared publish gate (Card 3/#5629) — by
 # calling scripts/news/backfill-current-items.mjs, which reuses the SAME
@@ -20,8 +20,8 @@
 # content-fix/7-llm-dedupe's separate concern. This workflow only ever
 # touches one row's own image/copy/quality fields and never deletes a row;
 # an item still failing after rewriting stays held (`redline_ok=false`,
-# `quality_hold_reason` set), never removed. Debunked rows are excluded when
-# candidates load and again at write time, so a concurrent retraction wins.
+# `quality_hold_reason` set), never removed. Retracted rows may receive factual
+# enrichment, but visibility writes require `retracted_at` to remain null.
 name: content-backfill
 
 on:

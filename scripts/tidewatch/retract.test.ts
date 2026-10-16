@@ -14,6 +14,7 @@ function fakeStore({ storyId = 'story-1', recipients = ['device-b', 'device-a', 
       { id: 'event-other', story_id: 'story-2', title: 'Other story', killed_at: null, expires_at: null },
     ],
     recipients,
+    hiddenAt: null as string | null,
     retractionLogged: false,
     correctionEnqueued: false,
     corrections: [] as Array<Record<string, unknown>>,
@@ -22,7 +23,8 @@ function fakeStore({ storyId = 'story-1', recipients = ['device-b', 'device-a', 
   const store = {
     async inspect(id: string) {
       return {
-        currentItems: state.currentItems.filter((item) => item.story_id === id),
+        currentItems: state.currentItems.filter((item) => item.story_id === id)
+          .map((item) => ({ ...item, ['retracted' + '_at']: state.hiddenAt })),
         events: state.events.filter((event) => event.story_id === id),
         recipientDeviceIds: id === storyId ? state.recipients : [],
         watchItemId: 'watch-1',
@@ -30,10 +32,13 @@ function fakeStore({ storyId = 'story-1', recipients = ['device-b', 'device-a', 
         correctionEnqueued: state.correctionEnqueued,
       };
     },
-    async hideCurrentItems(ids: string[]) {
+    async hideCurrentItems(ids: string[], now: Date) {
       state.calls.hide += 1;
       for (const item of state.currentItems) {
-        if (ids.includes(item.id)) Object.assign(item, { status: 'debunked', redline_ok: false });
+        if (ids.includes(item.id)) {
+          item.redline_ok = false;
+          state.hiddenAt = now.toISOString();
+        }
       }
     },
     async killPendingEvents(events: Array<{ id: string }>) {
@@ -161,7 +166,8 @@ describe('Tidewatch retraction', () => {
     await main(args, deps);
     await main(args, deps);
 
-    expect(fake.state.currentItems[0]).toMatchObject({ status: 'debunked', redline_ok: false });
+    expect(fake.state.currentItems[0]).toMatchObject({ status: 'confirmed', redline_ok: false });
+    expect(fake.state.hiddenAt).toBe(NOW.toISOString());
     expect(fake.state.events.find((event) => event.id === 'event-story')?.killed_at).toBeTruthy();
     expect(fake.state.events.find((event) => event.id === 'event-other')?.killed_at).toBeNull();
     expect(fake.state.calls).toEqual({ hide: 1, kill: 1, log: 1, enqueue: 0 });
@@ -213,6 +219,11 @@ describe('Tidewatch retraction', () => {
       expect.objectContaining({ id: 'event-1', killed_at: NOW.toISOString() }),
       expect.objectContaining({ id: 'event-2', killed_at: null }),
     ]));
+    expect(fake.tables.current_item[0]).toMatchObject({
+      status: 'confirmed',
+      redline_ok: false,
+      retracted_at: NOW.toISOString(),
+    });
     expect(provider).not.toHaveBeenCalled();
     expect(fake.tables.events.some((event) => event.dedupe_key === 'correction:story:story-1')).toBe(false);
   });
@@ -239,12 +250,13 @@ describe('Tidewatch retraction', () => {
 
   it('replaces the public policy re-apply-safely without weakening its existing conditions', async () => {
     const migration = await readFile(
-      new URL('../../supabase/migrations/20261015050000_current_item_debunked_rls.sql', import.meta.url),
+      new URL('../../supabase/migrations/20261015050000_current_item_retracted_at.sql', import.meta.url),
       'utf8',
     );
+    expect(migration).toMatch(/add column if not exists retracted_at timestamptz/i);
     expect(migration).toMatch(/drop policy if exists "current_item public read" on public\.current_item/i);
     expect(migration).toContain(
-      "redline_ok = true and (expires_at is null or expires_at > now()) and coalesce(status, '') <> 'debunked'",
+      'redline_ok = true and (expires_at is null or expires_at > now()) and retracted_at is null',
     );
   });
 });

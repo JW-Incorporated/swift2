@@ -39,7 +39,7 @@ function fakeClaude(...data: unknown[]) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe('loadDedupeCandidates', () => {
-  it('does not offer a debunked card as the merge target for a new outlet report', async () => {
+  it('offers retracted and worker-debunked cards as merge targets', async () => {
     let rows = [
       {
         id: 'live', era_id: 'tloas', headline: 'Live report', summary: 'Summary',
@@ -48,7 +48,14 @@ describe('loadDedupeCandidates', () => {
       },
       {
         id: 'retracted', era_id: 'tloas', headline: 'Retracted report', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'reported',
+        retracted_at: '2099-01-02T00:00:00Z',
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
+      {
+        id: 'worker-debunked', era_id: 'tloas', headline: 'Debunked theory', summary: 'Summary',
         detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'debunked',
+        retracted_at: null,
         promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
       },
     ];
@@ -82,7 +89,7 @@ describe('loadDedupeCandidates', () => {
 
     const candidates = await loadDedupeCandidates(db, 'tloas');
 
-    expect(candidates.map((row) => row.id)).toEqual(['live']);
+    expect(candidates.map((row) => row.id)).toEqual(['live', 'retracted', 'worker-debunked']);
   });
 });
 

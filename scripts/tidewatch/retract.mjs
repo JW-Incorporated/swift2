@@ -37,7 +37,7 @@ function pendingAt(events, now) {
 function printPlan(plan, log) {
   log(`Retraction ${plan.mode}: story=${plan.storyId}`);
   for (const item of plan.currentItems) {
-    log(`card: id=${item.id} headline=${JSON.stringify(item.headline)} action=debunk-and-hide`);
+    log(`card: id=${item.id} headline=${JSON.stringify(item.headline)} action=retract-and-hide`);
   }
   for (const event of plan.pendingEvents) {
     log(`pending-event: id=${event.id} title=${JSON.stringify(event.title)} action=kill`);
@@ -81,9 +81,9 @@ export async function runRetraction(options, {
   if (options.mode === 'plan') return { ...plan, mutated: false, correctionEnqueued: false };
 
   const visibleIds = inspection.currentItems
-    .filter((item) => item.status !== 'debunked' || item.redline_ok !== false)
+    .filter((item) => !item.retracted_at || item.redline_ok !== false)
     .map((item) => item.id);
-  if (visibleIds.length > 0) await store.hideCurrentItems(visibleIds);
+  if (visibleIds.length > 0) await store.hideCurrentItems(visibleIds, now);
   if (plan.pendingEvents.length > 0) await store.killPendingEvents(plan.pendingEvents, now);
   if (!inspection.retractionLogged) {
     await store.logRetraction({
@@ -111,7 +111,7 @@ export function createRetractionStore(db) {
   return {
     async inspect(storyId) {
       const { data: currentItems, error: itemError } = await db.from('current_item')
-        .select('id,headline,status,redline_ok').eq('story_id', storyId).is('merged_into', null);
+        .select('id,headline,status,redline_ok,retracted_at').eq('story_id', storyId).is('merged_into', null);
       if (itemError) throw new Error(`load current_item: ${itemError.message}`);
 
       const eventById = new Map();
@@ -150,9 +150,9 @@ export function createRetractionStore(db) {
         correctionEnqueued: Boolean(correctionResult.data),
       };
     },
-    async hideCurrentItems(ids) {
+    async hideCurrentItems(ids, now) {
       const { error } = await db.from('current_item')
-        .update({ status: 'debunked', redline_ok: false }).in('id', ids);
+        .update({ retracted_at: now.toISOString(), redline_ok: false }).in('id', ids);
       if (error) throw new Error(`hide current_item: ${error.message}`);
     },
     async killPendingEvents(events, now) {

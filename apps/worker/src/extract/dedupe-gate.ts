@@ -40,7 +40,6 @@ export async function loadDedupeCandidates(
     .eq('era_id', eraId)
     .is('promoted_to', null)
     .is('merged_into', null)
-    .neq('status', 'debunked')
     .gte('observed_on', cutoff)
     .gt('expires_at', nowIso)
     .limit(200);

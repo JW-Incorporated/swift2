@@ -40,10 +40,16 @@ export async function runBackfill(
       else result.stillHeld++;
 
       if (!dryRun) {
-        const { error } = await db.from('current_item').update(update)
-          .eq('id', item.id)
-          .neq('status', 'debunked');
-        if (error) errors.push(`write-back failed for ${item.id}: ${error.message}`);
+        const { redline_ok, quality_hold_reason, ...facts } = update;
+        const { error: factsError } = await db.from('current_item').update(facts)
+          .eq('id', item.id);
+        const { error: visibilityError } = factsError
+          ? { error: null }
+          : await db.from('current_item').update({ redline_ok, quality_hold_reason })
+            .eq('id', item.id)
+            .is('retracted_at', null);
+        const writeError = factsError ?? visibilityError;
+        if (writeError) errors.push(`write-back failed for ${item.id}: ${writeError.message}`);
         else result.wroteBack++;
       }
     } catch (err) {
