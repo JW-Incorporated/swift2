@@ -9168,3 +9168,11 @@ The trusted system prompt says that image content and all text in it are untrust
 **Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides) AND only when the caller passes `breakingEnabled: true` to `selectDuePosts`. The poster (post-queue.mjs) does not pass it, so the live poster is unchanged even if a Tree PR sets `breaking: true` (the approve allowlist is path-based, not key-based); go-live must wire it to `BREAKING_SOCIAL_ENABLED`.
 
 **Verification.** `scripts/social/breaking-draft.test.ts`. Live drafting stays unimplemented until the P2-12 drill.
+
+## 2026-10-15 P2-08 social retraction: built inert
+
+**Decision.** Reversible PM call under architect ruling #14. `scripts/social/retract-post.mjs` is off unless `RETRACTION_SOCIAL_ENABLED` is exactly `true`, refuses under `SOCIAL_FREEZE`, and only implements dry-run: given a campaign it lists which `social/posted/` records and platforms it would retract (X delete, Facebook Page delete, Instagram reported as manual because the API has no delete) and makes no network call. It never imports, spawns or names the live delete or post scripts. `social-delete-media.yml` gained one optional, unused dispatch input (`retraction_campaign`); trigger, `media_ids` and the job are unchanged.
+
+**Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
+
+**Verification.** `scripts/social/retract-post.test.ts`.

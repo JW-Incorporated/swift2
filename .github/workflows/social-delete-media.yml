@@ -9,6 +9,10 @@ on:
         description: "Comma-separated Graph API media/post ID(s) to delete"
         required: true
         type: string
+      retraction_campaign:
+        description: "Reserved for P2-08 retraction dry-run planning; unused by this job"
+        required: false
+        type: string
 
 permissions:
   contents: read
