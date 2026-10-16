@@ -1,0 +1,41 @@
+# Tidewatch P3-05: weekly voice sample, scored through the subscription wrapper
+# (scripts/lib/claude-call.mjs, P2, never the Batch API or an API key). Manual
+# dispatch ONLY until the owner arms a schedule. The Discord post to
+# #longlive-marjorie stays off unless the repo variable VOICE_SAMPLE_POST_ENABLED
+# is "true". Logs are public: only aggregate numbers are printed.
+name: voice-sample
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: voice-sample
+  cancel-in-progress: false
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+          npm-ci-args: --ignore-scripts
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Score the weekly sample
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          VOICE_SAMPLE_POST_ENABLED: ${{ vars.VOICE_SAMPLE_POST_ENABLED }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: node scripts/voice/weekly-sample.mjs
+      - name: Upload voice.json
+        uses: actions/upload-artifact@v7
+        with:
+          name: voice-json
+          path: docs/ops/dashboard/voice.json
