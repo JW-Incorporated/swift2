@@ -232,6 +232,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
 | `scripts/check-workflow-deps.mjs` (+ `.test.ts`) | `check:workflow-deps` (ci.yml build-full): any workflow job running a repo node/tsx script whose relative-import graph needs a non-builtin package must install deps (setup-repo `npm-ci: 'true'` or `npm ci`), and must run `npm run sync:content` if it imports a gitignored `*.generated.*` module; builtin-only scripts keep the fast path; `ALLOWLIST` for edge cases (#5219, #5224) |
+| `scripts/check-workflow-entries.mjs` (+ `.test.ts`) | `check:workflow-entries` (ci.yml build-full): every workflow `node <file>` entry must LOAD under plain node (spawned `import()` in a secret-free env; module-load errors fail, runtime errors pass). Entries under `scripts/social|community|marjorie/`, a named list, or whose import graph names an external send API (X/IG/FB/Discord/Resend) are NEVER spawned — static import-graph check only (P0-23) |
 | `docs/proposals/2026-08-13-clownbot-shelved-content.md` | Build-A content not carried forward |
 | `docs/ops/clown-kill-switch.md` | `CLOWN_MODEL_DISABLED` kill switch |
 
