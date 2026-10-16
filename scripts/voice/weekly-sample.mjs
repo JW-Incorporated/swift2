@@ -1,7 +1,9 @@
-import { readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import {
+  appendFileSync, readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync,
+} from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { callClaude } from '../lib/claude-call.mjs';
+import { createClaudeCaller } from '../lib/claude-call.mjs';
 import { routedPost } from '../lib/discord-route.mjs';
 import { scoreItems } from './critic.mjs';
 import { DIMENSIONS } from './critic-prompts.mjs';
@@ -71,6 +73,14 @@ export function postEnabled(env = process.env) {
   return String(env[POST_FLAG] ?? '').trim().toLowerCase() === 'true';
 }
 
+export function usageLogger(env, log) {
+  return (usage) => {
+    const line = `Claude usage: ${JSON.stringify(usage)}`;
+    if (env.GITHUB_STEP_SUMMARY) appendFileSync(env.GITHUB_STEP_SUMMARY, `\n- ${line}\n`);
+    else log(line);
+  };
+}
+
 export async function postSample(picks, { env = process.env, fetchImpl = fetch } = {}) {
   if (!postEnabled(env)) return { posted: false, reason: `${POST_FLAG} is not true` };
   const lines = picks.map((p, i) => `**${i + 1}.** (${p.id})\n${p.text.slice(0, 280)}`);
@@ -82,9 +92,10 @@ export async function postSample(picks, { env = process.env, fetchImpl = fetch }
 }
 
 export async function runWeekly({
-  call = callClaude, env = process.env, fetchImpl = fetch, dir = POSTED_DIR, file = VOICE_JSON,
-  now = new Date(), ratings = null,
+  call, callFactory = createClaudeCaller, env = process.env, fetchImpl = fetch,
+  dir = POSTED_DIR, file = VOICE_JSON, now = new Date(), ratings = null, log = console.log,
 } = {}) {
+  const scoreCall = call ?? callFactory({ logUsage: usageLogger(env, log) });
   const week = now.toISOString().slice(0, 10);
   const seed = Math.floor(now.getTime() / 604_800_000);
   const sample = pickSample(loadShipped(dir), SAMPLE_SIZE, seed);
@@ -92,7 +103,7 @@ export async function runWeekly({
   const capped = async (input) => {
     if (calls >= CALL_CAP) return { status: 'capped', reason: 'weekly sample call cap reached' };
     calls += 1;
-    return call(input);
+    return scoreCall(input);
   };
   const rows = await scoreItems(sample, { call: capped });
   let row = buildRow(week, rows);

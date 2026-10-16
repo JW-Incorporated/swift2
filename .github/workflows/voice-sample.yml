@@ -1,15 +1,22 @@
 # Tidewatch P3-05: weekly voice sample, scored through the subscription wrapper
 # (scripts/lib/claude-call.mjs, P2, never the Batch API or an API key). Manual
-# dispatch ONLY until the owner arms a schedule. The Discord post to
+# dispatch ONLY until the owner arms a schedule. Each run starts from main's
+# accumulated voice.json and opens a data-only snapshot PR. The Discord post to
 # #longlive-marjorie stays off unless the repo variable VOICE_SAMPLE_POST_ENABLED
 # is "true". Logs are public: only aggregate numbers are printed.
 name: voice-sample
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      ratings:
+        description: Optional repo-relative path to an owner-ratings JSON file
+        required: false
+        type: string
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: voice-sample
@@ -24,6 +31,8 @@ jobs:
         uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
         with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          ref: main
           npm-ci: 'true'
           npm-ci-args: --ignore-scripts
       - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
@@ -33,7 +42,26 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           VOICE_SAMPLE_POST_ENABLED: ${{ vars.VOICE_SAMPLE_POST_ENABLED }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: node scripts/voice/weekly-sample.mjs
+          RATINGS_FILE: ${{ inputs.ratings }}
+        run: |
+          if [ -n "$RATINGS_FILE" ]; then
+            node scripts/voice/weekly-sample.mjs --ratings "$RATINGS_FILE"
+          else
+            node scripts/voice/weekly-sample.mjs
+          fi
+      - name: Compute PR metadata
+        run: |
+          echo "branch=voice-sample/$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_ENV"
+          echo "stamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+      - uses: ./.github/actions/commit-and-pr
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: docs/ops/dashboard/voice.json
+          branch: ${{ env.branch }}
+          commit-message: "voice-sample: ${{ env.stamp }}"
+          pr-title: "voice-sample: ${{ env.stamp }}"
+          pr-body: "Automated weekly voice score snapshot. Data-only; no content decisions are made here."
+          no-changes-message: "No voice snapshot changes to commit."
       - name: Upload voice.json
         uses: actions/upload-artifact@v7
         with:
