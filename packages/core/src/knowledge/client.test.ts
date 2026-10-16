@@ -14,7 +14,7 @@ import type { CurrentItemRow, EggLedgerRow, FanSignalRow, KnowledgeDocRow, Symbo
 
 /**
  * A minimal, REAL in-memory query builder over fixture rows — not a canned
- * result stub. `.eq`/`.is`/`.gte`/`.contains`/`.overlaps`/`.ilike`/
+ * result stub. `.eq`/`.neq`/`.is`/`.gte`/`.contains`/`.overlaps`/`.ilike`/
  * `.textSearch`/`.order`/`.limit` all actually filter/sort the fixture array
  * each test seeds `fakeDb()` with, so a test asserting on the returned rows
  * is asserting on real filtering behavior, the same contract the real
@@ -29,6 +29,10 @@ function makeQueryBuilder(rows: unknown[]) {
     select: () => builder,
     eq: (col: string, val: unknown) => {
       result = result.filter((r) => r[col] === val);
+      return builder;
+    },
+    neq: (col: string, val: unknown) => {
+      result = result.filter((r) => r[col] !== val);
       return builder;
     },
     is: (col: string, val: unknown) => {
@@ -100,7 +104,7 @@ function errorDb(message = 'network unreachable'): SupabaseClient {
     then: (resolve: (r: { data: null; error: { message: string } }) => void) =>
       resolve({ data: null, error: { message } }),
   };
-  for (const method of ['select', 'eq', 'is', 'gte', 'contains', 'overlaps', 'ilike', 'textSearch', 'order', 'limit']) {
+  for (const method of ['select', 'eq', 'neq', 'is', 'gte', 'contains', 'overlaps', 'ilike', 'textSearch', 'order', 'limit']) {
     builder[method] = () => builder;
   }
   return { from: () => builder } as unknown as SupabaseClient;
@@ -313,6 +317,7 @@ describe('getRecentItems', () => {
     itemRow({ id: 'ci:3', observed_on: dm.daysAgo(10) }), // outside the 7-day window
     itemRow({ id: 'ci:4', observed_on: dm.daysAgo(2), redline_ok: false }), // screened out
     itemRow({ id: 'ci:5', observed_on: dm.daysAgo(3), promoted_to: 'moment:xyz' }), // already promoted
+    itemRow({ id: 'ci:6', observed_on: dm.daysAgo(1), status: 'debunked' }), // retracted
   ];
 
   it('returns only redline_ok, unpromoted items within the last N days, newest first', async () => {

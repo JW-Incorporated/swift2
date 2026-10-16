@@ -190,7 +190,7 @@ workflows.
 
 | Workflow | Trigger | Mutates production | Safety |
 |---|---|---|---|
-| [`tidewatch-retract.yml`](../.github/workflows/tidewatch-retract.yml) | **MANUAL** — story id, plan by default | apply hides the story card, kills its pending events, and records the decision | apply requires `RETRACT-<story_id>`; correction enqueue is separately default-off behind owner-only `TIDEWATCH_CORRECTIONS_LIVE` |
+| [`tidewatch-retract.yml`](../.github/workflows/tidewatch-retract.yml) | **MANUAL** — story id, plan by default | apply hides the story card, kills its pending events, and records the decision | apply requires `RETRACT-<story_id>`; correction targets come only from instant deliveries and enqueue is separately default-off behind owner-only `TIDEWATCH_CORRECTIONS_LIVE` |
 
 ### Security and standing reminders (3)
 

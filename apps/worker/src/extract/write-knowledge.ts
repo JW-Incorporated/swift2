@@ -269,7 +269,8 @@ export interface MergeIntoOriginalInput {
  * bumps heat by the duplicate's own source count, and refreshes
  * last_checked_on/updatedAt. Never touches `merged_into` on the ORIGINAL —
  * that column exists on the duplicate's row, pointing back at this one (see
- * `markDuplicateMerged` below). */
+ * `markDuplicateMerged` below). The update predicate also makes a concurrent
+ * retraction terminal: no merge fields are written once status is debunked. */
 export async function mergeNewFactsIntoOriginal(
   db: SupabaseClient,
   originalId: string,
@@ -335,7 +336,9 @@ export async function mergeNewFactsIntoOriginal(
     redline_ok: quality.ok,
     quality_hold_reason: quality.ok ? null : quality.reason,
   };
-  const { error } = await db.from('current_item').update(row).eq('id', originalId);
+  const { error } = await db.from('current_item').update(row)
+    .eq('id', originalId)
+    .neq('status', 'debunked');
   if (error) throw new Error(`mergeNewFactsIntoOriginal update failed: ${error.message}`);
   return { redlineOk: quality.ok, ...(quality.ok ? {} : { holdReason: quality.reason }) };
 }

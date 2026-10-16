@@ -126,7 +126,8 @@ export function createRetractionStore(db) {
       let recipientDeviceIds = [];
       if (events.length > 0) {
         const { data, error } = await db.from('deliveries').select('device_id')
-          .in('event_id', events.map((event) => event.id));
+          .in('event_id', events.map((event) => event.id))
+          .eq('kind', 'instant');
         if (error) throw new Error(`load prior recipients: ${error.message}`);
         recipientDeviceIds = (data ?? []).map((row) => row.device_id);
       }

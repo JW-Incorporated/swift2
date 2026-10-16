@@ -90,8 +90,9 @@ Every push passes these gates, in order:
 6. **Instant freshness** — an event more than 6 hours old, measured from `created_at`, never sends as Instant. For a device that held the event during its immediately preceding quiet-hours window, the six-hour clock restarts when that hold ends. Suppression does not remove the event from the in-app inbox. The router only loads events created in the preceding 30 hours, which covers the six-hour horizon plus overnight holds.
 
 **Retraction corrections.** A correction is not a preference category and is
-never broadcast: its event carries only the device ids proven by `deliveries`
-to have received the original story. It still passes every governor gate above
+never broadcast: its event carries only the device ids proven by instant
+`deliveries` to have received the original story. It still passes every
+governor gate above
 and counts toward both the device's instant daily cap and the combined six-per-
 day hard ceiling. Event creation is disabled unless the owner enables the
 default-off `TIDEWATCH_CORRECTIONS_LIVE` repository variable; that switch is

@@ -56,12 +56,12 @@ export interface BackfillCandidateRow {
  * to find and fix. */
 const CANDIDATE_COLS = 'id,headline,summary,detail,image_url,sources,era_id,expires_at,promoted_to';
 
-/** Every non-expired, non-promoted current_item — Card 5's exact scope
- * ("For every non-expired, non-promoted current_item"). Deliberately reads
+/** Every non-expired, non-promoted, non-debunked current_item. Deliberately reads
  * BOTH passing and held rows: a currently-passing row still gets its image
  * re-resolved/copy re-checked (a cheap idempotent re-run, see
  * `backfillOneItem`'s header), so a row that regresses some other way is
- * also caught, not just the already-known holds. */
+ * also caught, not just the already-known holds. Retractions are terminal and
+ * excluded here; backfill-run.ts repeats that guard atomically at write time. */
 export async function loadBackfillCandidates(
   db: SupabaseClient,
   limit = 1000,
@@ -70,6 +70,7 @@ export async function loadBackfillCandidates(
     .from('current_item')
     .select(CANDIDATE_COLS)
     .is('promoted_to', null)
+    .neq('status', 'debunked')
     .gt('expires_at', new Date().toISOString())
     .order('observed_on', { ascending: false })
     .limit(limit);

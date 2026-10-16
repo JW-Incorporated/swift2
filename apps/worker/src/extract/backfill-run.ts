@@ -40,7 +40,9 @@ export async function runBackfill(
       else result.stillHeld++;
 
       if (!dryRun) {
-        const { error } = await db.from('current_item').update(update).eq('id', item.id);
+        const { error } = await db.from('current_item').update(update)
+          .eq('id', item.id)
+          .neq('status', 'debunked');
         if (error) errors.push(`write-back failed for ${item.id}: ${error.message}`);
         else result.wroteBack++;
       }

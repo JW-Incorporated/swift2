@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { WorkerClaudeCaller } from '../claude-call';
 import {
   evaluateSameEventGate,
+  loadDedupeCandidates,
   mergeOutputWithinLimits,
   shortlistCandidates,
   type DedupeCandidateRow,
@@ -36,6 +37,54 @@ function fakeClaude(...data: unknown[]) {
 }
 
 afterEach(() => vi.unstubAllEnvs());
+
+describe('loadDedupeCandidates', () => {
+  it('does not offer a debunked card as the merge target for a new outlet report', async () => {
+    let rows = [
+      {
+        id: 'live', era_id: 'tloas', headline: 'Live report', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'reported',
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
+      {
+        id: 'retracted', era_id: 'tloas', headline: 'Retracted report', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'debunked',
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
+    ];
+    const chain = {
+      select: () => chain,
+      eq: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] === value);
+        return chain;
+      },
+      is: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] === value);
+        return chain;
+      },
+      neq: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] !== value);
+        return chain;
+      },
+      gte: () => chain,
+      gt: () => chain,
+      limit: (limit: number) => {
+        rows = rows.slice(0, limit);
+        return chain;
+      },
+      then: (resolve: (result: { data: typeof rows; error: null }) => void) => (
+        resolve({ data: rows, error: null })
+      ),
+    };
+    const db = { from: vi.fn(() => chain) } as unknown as Parameters<
+      typeof loadDedupeCandidates
+    >[0];
+
+    const candidates = await loadDedupeCandidates(db, 'tloas');
+
+    expect(candidates.map((row) => row.id)).toEqual(['live']);
+  });
+});
 
 describe('same-event dedupe fixtures', () => {
   it('merges new facts into a matching Trump-video event', async () => {
