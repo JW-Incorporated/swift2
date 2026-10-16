@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 89
+
+## Mailing Features Candidate Who Prayed to Be Taylor Swift's Husband
+
+- first seen: 2026-10-16 18:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A voting mailer in New York has gained attention for promoting a candidate who has publicly expressed a desire to be Taylor Swift's husband. The unusual endorsement is leaving residents puzzled about its relevance to the election.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMixwFBVV95cUxONklVZFFtQ0VIV3dMSE5FTnhtMXFhdlA4akY0UTRrM0xMZlpBOXE5c0JodFJpUmh2WmFwN1gzZ3RCV29NVGtaZks1UEVUZmV6Z1g1SjVlTjRrck9xZDFuLXRUZWthUktWRzNhRkdZcjlCeGJTY2ZlX3RSdUdqNTNOM2FNOXNMQmFUSEl3eDFhU09lUl95RWdxUlRtN0F6UWZCYTJ5VTZKejE3OV9rT3dILWU2cExaem9kTjlyUDdxSG5laUNjeWN3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Coach Shares Embarrassment Over Approaching Taylor Swift at NBA Finals
+
+- first seen: 2026-10-16 18:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A coach revealed his embarrassment when he approached Taylor Swift during the NBA Finals. The interaction highlights the star's presence at major sporting events.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPM1hiYTlvZ2ZTWW9BT3dCV3huNDROOVN2UnhnN0pYMTI5RjU3a2pfSXlKTm5wNE9YWEZzMWtTbTFEN2dteHotUGp5TWdMU0E5bzMzMlFBUGdGMlh5bUNUaW52Mk1LS29fMU4zQUxYdU5fT0ZUUnBodUxvSXJDdnhDTGRjTWgySmw5UHJhSW8tVTMtMzBSSGRlcHVROGE1LXE5ZjBqOA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Exploring Negative Reactions Among Swifties to New Song
 
