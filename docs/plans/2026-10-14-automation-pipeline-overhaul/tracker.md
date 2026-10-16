@@ -114,7 +114,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
 | P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | done | #5950 | 2026-10-15 |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
-| P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | review | #5957 |  |
+| P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | done | #5957 | 2026-10-15 |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | todo |  |  |
 | P2-09 | Normal flow wiring and news-triage retirement | executor-claude-sonnet | M | L-SOCIAL | P2-02 | todo |  |  |
 | P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | todo |  |  |
