@@ -365,8 +365,10 @@ cross-reference checks whether the shop is itself an Awin advertiser
 it stays `direct-by-policy` or becomes D2 residue evidence.
 
 The lane reads `merch_fan.enabled`, `shadow`, `thresholds.weeklyCap`, and
-`priority` from `config/tidewatch.json`. Disabled or shadow runs execute the
-judgment pipeline but only report would-accept/would-reject decisions. Live
+`priority` from `config/tidewatch.json`. Disabled runs exit successfully before
+candidate, listing, image, Jev, or wrapper calls and report `disabled: no calls
+made`. Shadow runs execute the judgment pipeline but only report
+would-accept/would-reject decisions. Live
 runs allow one open `merch-fanmade-curate/*` PR at a time, so the weekly cap
 counts items already on `main`; accepted issues close only when that PR merges,
 while conclusively rejected issues may close immediately. E1/E2 network
