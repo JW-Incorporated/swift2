@@ -129,6 +129,8 @@ jobs:
         continue-on-error: false
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: |
           node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || {

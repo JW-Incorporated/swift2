@@ -20,7 +20,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { callClaude } from '../lib/claude-call.mjs';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 import { loadCatalog } from './awareness-image.mjs';
 import { threadJsonUrl } from './awareness-eligibility.mjs';
 import { DEFAULT_LIST_LIMIT, applyDrafts, exportLeads, lintReply } from './awareness-draft.mjs';
@@ -151,7 +151,7 @@ export async function polishDraft(entry, review) {
 
 export async function draftLeads(
   { leads, eras },
-  { system, call = callClaude, review = reviewDrafts, fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), snippets = new Map(), log = console.log, pacingMs = PACING_MS },
+  { system, call = getLoggedClaudeCaller(), review = (items, opts) => reviewDrafts(items, { ...opts, call }), fetchThread = fetchThreadContext, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), urls = new Map(), snippets = new Map(), log = console.log, pacingMs = PACING_MS },
 ) {
   const entries = [];
   let failures = 0;

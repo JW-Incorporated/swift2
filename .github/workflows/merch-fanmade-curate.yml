@@ -55,6 +55,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/merch-engine/curate-fanmade.mjs
       - uses: ./.github/actions/commit-and-pr
         if: ${{ steps.open.outputs.number == '' && steps.curate.outputs.write_enabled == 'true' && steps.curate.outputs.accepted_count != '0' }}

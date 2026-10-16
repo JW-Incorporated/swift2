@@ -14,7 +14,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { callClaude } from '../lib/claude-call.mjs';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 import { isMain } from '../lib/is-main.mjs';
 
 export const QC_MODEL = 'claude-sonnet-5-5';
@@ -104,7 +104,7 @@ function parseVerdict(parsed) {
  */
 export async function qcPhoto(
   { buffer, caption, source, kind },
-  { call = callClaude, maxCalls, log = console.error } = {},
+  { call = getLoggedClaudeCaller(), maxCalls, log = console.error } = {},
 ) {
   let jpeg;
   try {
@@ -158,7 +158,7 @@ Kind: ${kind ?? 'unknown'}`,
  * `check()` resolves to { status: 'kept' | 'rejected' | 'held' | 'deferred', ... }.
  */
 export function createQcSession({
-  call = callClaude,
+  call = getLoggedClaudeCaller(),
   env = process.env,
   maxChecks,
   concurrency = DEFAULT_CONCURRENCY,
