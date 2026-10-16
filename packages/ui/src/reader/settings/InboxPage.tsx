@@ -4,11 +4,12 @@
 // regardless of push settings, so "Off" feels safe. The website has no inbox surface; the app mounts this behind
 // `host.notifications` (apps/mobile/dom/slots/inbox-page.tsx). Read-only; a row hands its deep link to `onOpenItem`.
 import { useCallback, useEffect, useState } from 'react';
-import { SETTINGS_CATEGORY_DEFS, isInboxResponse, type AnyNotificationCategory, type InboxEventRow } from '@swift2/shared';
+import { BABY_WATCH_CATEGORY, BABY_WATCH_SETTINGS_DEF, SETTINGS_CATEGORY_DEFS, isInboxResponse, type AnyNotificationCategory, type InboxEventRow } from '@swift2/shared';
 import { useHost } from '../../host/context';
+import { babyWatchUiEnabled } from './lib/babyWatchFlag';
 
 const CATEGORY_NAME: Partial<Record<AnyNotificationCategory, string>> = Object.fromEntries(
-  SETTINGS_CATEGORY_DEFS.map((def) => [def.id, def.name]),
+  [...SETTINGS_CATEGORY_DEFS, BABY_WATCH_SETTINGS_DEF].map((def) => [def.id, def.name]),
 );
 
 const categoryLabel = (category: string): string =>
@@ -32,7 +33,7 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
         if (res.status < 200 || res.status >= 300) throw new Error(`HTTP ${res.status}`);
         const json: unknown = JSON.parse(res.body);
         if (!isInboxResponse(json)) throw new Error('unexpected response');
-        setEvents(json.events);
+        setEvents(babyWatchUiEnabled() ? json.events : json.events.filter((ev) => ev.category !== BABY_WATCH_CATEGORY));
         setError(null);
       } catch (e) {
         if (signal?.aborted) return;

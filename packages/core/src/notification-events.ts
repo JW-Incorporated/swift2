@@ -23,7 +23,7 @@ export const T1_CATEGORIES: readonly NotificationCategory[] = [
 ];
 export const NOTIFICATION_KILL_WINDOW_MS = 5 * 60 * 1000;
 
-const TIER_BY_CATEGORY: Record<NotificationCategory, number> = {
+export const TIER_BY_CATEGORY: Record<NotificationCategory, number> = {
   song_drop: 1,
   album_news: 1,
   tour_news: 1,
@@ -34,6 +34,8 @@ const TIER_BY_CATEGORY: Record<NotificationCategory, number> = {
   award_news: 3,
   fan_merch: 3,
   easter_egg: 3,
+  // D5: confirmed official announcements only, opt-in; not a kill-window T1 producer yet (router is shadow-only).
+  baby_watch: 1,
 };
 
 export interface InsertEventInput {
