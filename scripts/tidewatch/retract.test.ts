@@ -64,8 +64,12 @@ function fakeStore({ storyId = 'story-1', recipients = ['device-b', 'device-a', 
 function fakeRetractionDb() {
   const tables: Record<string, Record<string, unknown>[]> = {
     current_item: [
-      { id: 'card-1', story_id: 'story-1', headline: 'Wrong report', status: 'confirmed', redline_ok: true, merged_into: null },
-      { id: 'card-2', story_id: 'story-2', headline: 'Other report', status: 'reported', redline_ok: true, merged_into: null },
+      { id: 'card-1', story_id: 'story-1', headline: 'Wrong report', status: 'confirmed', redline_ok: true, retracted_at: null, merged_into: null },
+      { id: 'card-2', story_id: 'story-2', headline: 'Other report', status: 'reported', redline_ok: true, retracted_at: null, merged_into: null },
+    ],
+    knowledge_doc: [
+      { id: 'current:card-1', redline_ok: true, updated_at: '2026-10-14T12:00:00.000Z' },
+      { id: 'current:card-2', redline_ok: true, updated_at: '2026-10-14T12:00:00.000Z' },
     ],
     events: [
       { id: 'event-1', dedupe_key: 'album_news:current_item:card-1', title: 'Wrong report', killed_at: null, expires_at: null },
@@ -224,6 +228,10 @@ describe('Tidewatch retraction', () => {
       redline_ok: false,
       retracted_at: NOW.toISOString(),
     });
+    expect(fake.tables.knowledge_doc).toEqual([
+      { id: 'current:card-1', redline_ok: false, updated_at: NOW.toISOString() },
+      { id: 'current:card-2', redline_ok: true, updated_at: '2026-10-14T12:00:00.000Z' },
+    ]);
     expect(provider).not.toHaveBeenCalled();
     expect(fake.tables.events.some((event) => event.dedupe_key === 'correction:story:story-1')).toBe(false);
   });

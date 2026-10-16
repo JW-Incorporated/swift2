@@ -151,9 +151,13 @@ export function createRetractionStore(db) {
       };
     },
     async hideCurrentItems(ids, now) {
-      const { error } = await db.from('current_item')
-        .update({ retracted_at: now.toISOString(), redline_ok: false }).in('id', ids);
-      if (error) throw new Error(`hide current_item: ${error.message}`);
+      const timestamp = now.toISOString();
+      const { error: itemError } = await db.from('current_item')
+        .update({ retracted_at: timestamp, redline_ok: false }).in('id', ids).is('retracted_at', null);
+      if (itemError) throw new Error(`hide current_item: ${itemError.message}`);
+      const { error: docError } = await db.from('knowledge_doc')
+        .update({ redline_ok: false, updated_at: timestamp }).in('id', ids.map((id) => `current:${id}`));
+      if (docError) throw new Error(`hide knowledge_doc: ${docError.message}`);
     },
     async killPendingEvents(events, now) {
       await killEvents(db, events, now);

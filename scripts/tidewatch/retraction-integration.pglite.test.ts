@@ -28,6 +28,7 @@ const STORY_ID = '10000000-0000-4000-8000-000000000001';
 const RETRACTED_ID = '20000000-0000-4000-8000-000000000001';
 const WORKER_DEBUNKED_ID = '20000000-0000-4000-8000-000000000002';
 const NOW = new Date('2026-10-15T12:00:00.000Z');
+const REAPPLY_NOW = new Date('2026-10-16T12:00:00.000Z');
 const SUMMARY = 'Taylor announced a new single in an official post today, confirming the title and release timing for listeners around the world. The announcement also included a release date and cover image, giving fans two concrete details from the primary source.';
 const DETAIL = Array(70).fill('grounded').join(' ');
 
@@ -186,6 +187,15 @@ beforeEach(async () => {
   await db.query(insert, [WORKER_DEBUNKED_ID, null, 'Fan theory disproven', SUMMARY, DETAIL, 'debunked', JSON.stringify([
     { name: 'People', url: 'https://people.com/theory', tier: 'established' },
   ])]);
+  await db.query(`insert into public.knowledge_doc
+    (id, kind, tier, title, text, date, recency_date, open, status, source_tier,
+     sources, era_id, symbols, entities, expires_at, redline_ok, updated_at)
+    values ($1, 'current_item', 'current', $2, $3, '2026-10-15', '2026-10-15', true,
+      'reported', 'established', $4, 'tloas', '{}', '{}', '2099-01-01', true, $5)`, [
+    `current:${RETRACTED_ID}`, 'New single announced', `${SUMMARY} ${DETAIL}`,
+    JSON.stringify([{ name: 'Billboard', url: 'https://billboard.com/first', tier: 'established' }]),
+    '2026-10-14T12:00:00.000Z',
+  ]);
   client = pgliteClient(db);
 });
 
@@ -216,8 +226,21 @@ describe('retraction lifecycle against real migrations', () => {
     expect(row.rows[0]).toMatchObject({ status: 'reported', redline_ok: false });
     expect(row.rows[0]?.retracted_at).not.toBeNull();
     expect(row.rows[0]?.sources).toHaveLength(2);
+    const originalRetractedAt = row.rows[0]?.retracted_at;
+    const doc = await db.query<{ redline_ok: boolean }>(
+      'select redline_ok from public.knowledge_doc where id = $1', [`current:${RETRACTED_ID}`],
+    );
+    expect(doc.rows[0]?.redline_ok).toBe(false);
     const count = await db.query<{ count: number }>('select count(*)::int as count from public.current_item where story_id = $1', [STORY_ID]);
     expect(count.rows[0]?.count).toBe(1);
+
+    await retract(['--story-id', STORY_ID, '--mode', 'apply', '--confirm', `RETRACT-${STORY_ID}`], {
+      client, now: REAPPLY_NOW, env: {}, log: vi.fn(),
+    });
+    const reapplied = await db.query<{ retracted_at: string | null }>(
+      'select retracted_at from public.current_item where id = $1', [RETRACTED_ID],
+    );
+    expect(reapplied.rows[0]?.retracted_at).toStrictEqual(originalRetractedAt);
 
     await db.exec('set role anon');
     const visible = await db.query<{ id: string; status: string }>('select id, status from public.current_item order by id');
