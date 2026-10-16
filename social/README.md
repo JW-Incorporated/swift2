@@ -113,6 +113,14 @@ files on `main` (each already posted or was retired). Because `social-ledger`
 keeps every `failed/` record, re-queue a failed item only under a NEW file
 name; reusing the name trips the invariant.
 
+**Read side (#5885):** before posting, the `rolling-view.mjs` step overlays the
+rolling tip's `posted/` and `failed/` records onto the checkout (additive,
+never overwriting) and drops from the local checkout any `social/queue/` file
+already in `posted/` or `failed/`, so a lagging `main` cannot make the poster
+retry an item a recent run posted or retired. Queue contents are never taken
+from the tip (a founder edit on `main` wins). With no rolling branch the poster
+uses `main`'s view; any git error fails the step and the run posts nothing.
+
 **A PR closed unmerged drops its state changes.** Its posted/failed records
 are safe (they live on `social-ledger` and return with the next run's
 overlay), and an item it recorded as POSTED cannot post twice (it is skipped
