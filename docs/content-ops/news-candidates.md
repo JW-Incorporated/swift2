@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 88
+
+## Taylor Swift Donated 6,000 Books to Pennsylvania Library in 2011
+
+- first seen: 2026-10-16 21:51 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: In 2011, Taylor Swift made a significant donation of 6,000 books to a library in Pennsylvania that was facing challenges. This act highlights her philanthropic efforts in supporting education and literacy.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiowFBVV95cUxNdXBHOTdIamZHYjBCcFdVbk1zMTVyaTJaeTJkTjBZbWtHZHV4Nk9VTV95TkxnMjJkMXBlWS1adE10ZEZvS3pVRTR4bXQ3R0IzeUU2amZLa1p4NzBwYVRuMzRXRG9lanBIeGlzNnZ3OENxMnNRcHJFbGJYbnRFZ0pHS2ZqcGpTbEQzYkE4MmhDZGxvYjJTVFNnSFAzZGVZWjlYbUM0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Pursues Grammy Recognition
+
+- first seen: 2026-10-16 21:51 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is actively seeking recognition at the upcoming Grammy Awards, as highlighted in a recent article by Yahoo Sports.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMigwFBVV95cUxQbTlDUWp5cDdVeVowM28yTEUtVmFTX3J3VTcwLWZIVjBYS01iaEN2M1BaVUZUYmduejhPWEpwUldWelAwMmtkNkQ3b3ZfMXRMT3NYM3hPVzhZTi1nb0tHd1ZrUVlxSzF3MHhDWkFHeUZ3UV9tSzhkR0IyckdZeE1jdUtxOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Spotted at Knicks Game, Coach Feels Intimidated
+
+- first seen: 2026-10-16 21:51 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen at a Knicks game, where a basketball coach expressed feeling intimidated by her presence. The sighting has drawn attention among fans and media.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOYW5VT2tlTnFQWU1BNzhHaDBXNlVCT1hnbEh6d1hxOEJEN3ZQTDNoLWZ6cHVHUzkxaUd0bVRQMzl3SnFwcFJrRnRBZjJ5ejBYTEhVNlBvZ1ZOeWtzSGl5andXamU1WU1USlg2MXFCV1NRTkZQNHJZVS0zZGdiNFU3UFhhUnVfeV8zdnZxeHVBTnF0NHoyeHVWOElEUjFSSmtXS3NScUQ0Z2Q?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Glitter Freckles Popularized by Taylor Swift Now Available for Dogs
 
