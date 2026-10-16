@@ -1,9 +1,10 @@
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { parse } from 'yaml';
 import { describe, expect, it, vi } from 'vitest';
 import {
-  buildRow, percentile, pickSample, postEnabled, postSample, recordRatings, runWeekly,
+  buildRow, percentile, pickSample, postEnabled, postSample, recordRatings, runWeekly, usageLogger,
 } from './weekly-sample.mjs';
 
 const ROOT = join(__dirname, '..', '..');
@@ -29,10 +30,9 @@ const okCall = (score = 4) => vi.fn(async (input: Input) => ({
 
 describe('inertness (architect ruling 14)', () => {
   it('workflow is workflow_dispatch only', () => {
-    const wf = read('.github/workflows/voice-sample.yml');
-    const on = wf.slice(wf.indexOf('\non:'), wf.indexOf('\npermissions:'));
-    expect(on).toMatch(/workflow_dispatch/);
-    expect(on).not.toMatch(/schedule|push|pull_request|workflow_run/);
+    const workflow = parse(read('.github/workflows/voice-sample.yml'));
+    expect(Object.keys(workflow.on)).toEqual(['workflow_dispatch']);
+    expect(workflow.on.workflow_dispatch.inputs.ratings).toMatchObject({ required: false, type: 'string' });
   });
 
   it('posts nothing and makes no network call unless the flag is true', async () => {
@@ -65,6 +65,34 @@ describe('inertness (architect ruling 14)', () => {
     expect(wf).not.toMatch(/ANTHROPIC_API_KEY/);
   });
 
+  it('constructs the only LLM call path with the usage logger', async () => {
+    const { dir, file } = setup(1);
+    const call = okCall();
+    const callFactory = vi.fn((options: { logUsage: (usage: object) => void }) => {
+      options.logUsage({ caller: 'voice-critic', input_tokens: 2, output_tokens: 1 });
+      return call;
+    });
+    const log = vi.fn();
+    await runWeekly({ callFactory, env: {}, log, dir, file });
+    expect(callFactory).toHaveBeenCalledTimes(1);
+    expect(callFactory.mock.calls[0][0].logUsage).toBeTypeOf('function');
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('"caller":"voice-critic"'));
+    expect(call).toHaveBeenCalled();
+  });
+
+  it('persists from main through the growth-snapshot commit mechanism', () => {
+    const workflow = read('.github/workflows/voice-sample.yml');
+    expect(workflow).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
+    expect(workflow).toContain('ref: main');
+    expect(workflow).toContain('uses: ./.github/actions/commit-and-pr');
+    expect(workflow).toContain('paths: docs/ops/dashboard/voice.json');
+    expect(workflow).toContain('branch=voice-sample/$(date -u +%Y%m%d%H%M%S)');
+    expect(workflow).toContain('weekly-sample.mjs --ratings "$RATINGS_FILE"');
+    expect(read('.github/content-automerge-allowlist.txt')).not.toContain(
+      'docs/ops/dashboard/voice.json',
+    );
+  });
+
   it('touches no tidewatch, decision or timeline surface', () => {
     const src = read('scripts/voice/weekly-sample.mjs') + read('.github/workflows/voice-sample.yml');
     expect(src).not.toMatch(/scripts\/tidewatch|config\/tidewatch|watch_decision|seen-store|story_timeline/);
@@ -72,6 +100,13 @@ describe('inertness (architect ruling 14)', () => {
 });
 
 describe('weekly sample', () => {
+  it('writes usage to the Actions summary when available', () => {
+    const root = mkdtempSync(join(tmpdir(), 'voice-usage-'));
+    const summary = join(root, 'summary.md');
+    usageLogger({ GITHUB_STEP_SUMMARY: summary }, vi.fn())({ caller: 'voice-critic', calls: 1 });
+    expect(readFileSync(summary, 'utf8')).toContain('"caller":"voice-critic"');
+  });
+
   it('writes one row with mean, p10 and dimension means, capped at 20 items', async () => {
     const { dir, file } = setup();
     const call = okCall(4);
