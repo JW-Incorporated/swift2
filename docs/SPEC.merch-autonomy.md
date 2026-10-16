@@ -364,14 +364,29 @@ cross-reference checks whether the shop is itself an Awin advertiser
 (some indie brands are) — if so it joins the map and monetizes; otherwise
 it stays `direct-by-policy` or becomes D2 residue evidence.
 
+The lane reads `merch_fan.enabled`, `shadow`, `thresholds.weeklyCap`, and
+`priority` from `config/tidewatch.json`. Disabled runs exit successfully before
+candidate, listing, image, Jev, or wrapper calls and report `disabled: no calls
+made`. Shadow runs execute the judgment pipeline but only report
+would-accept/would-reject decisions. Live
+runs allow one open `merch-fanmade-curate/*` PR at a time, so the weekly cap
+counts items already on `main`; accepted issues close only when that PR merges,
+while conclusively rejected issues may close immediately. E1/E2 network
+failures, 403/429/5xx responses, and transient image-download failures remain
+open as unresolved; only 404/410 or a validated-invalid image is a rejection.
+
 Instagram/TikTok: deferred (no viable public read path; revisit only if a
 compliant API materializes). The plan's feasibility verdict depends on not
 pretending otherwise.
 
 ## 8. Engine E6 — Moment→Product Matcher (issue #8)
 
-Trigger: post-merge workflow filtered to new/changed fashion-category
-moments in the seed diff (plus re-source tickets from E1/E3).
+Trigger: Tuesday and Friday authoring schedule (plus manual dispatch). The
+input builder chooses at most three fashion moments with no products or with
+products whose E1/E2 verification is older than seven days. Tidewatch
+`merch_outfit` decisions join that input only after the class is live (enabled
+and not shadow); while it is shadow/disabled the matcher reads seed fashion
+moments only.
 
 Pipeline per moment:
 
@@ -396,28 +411,34 @@ Pipeline per moment:
    different price bands — which powers the "this look under $50" pick
    (issue #9).
 4. **Author**: products written onto the moment via the standard content
-   lane; E2's image gate and the URL-resolves rule run pre-merge; PR lands
-   through R1 gates.
+   lane only when that moment has no existing products; E2's image gate and
+   the URL-resolves rule run pre-merge. The matcher job has no author PAT and
+   uploads only a seed patch; an isolated author job applies it and opens the
+   gated PR.
 5. A moment where nothing clears the floor gets **no products** (R2) and a
-   ticket that re-runs after 14 days (retail lag: dupes appear weeks after
-   a look trends).
+   14-day cached cooldown before it can be selected again (retail lag: dupes
+   appear weeks after a look trends).
 
 **Field naming (issue #3463):** `scripts/merch-engine/match-moments.mjs`
 (step 3's tie-break/selection logic) and `match-moments-authoring.mjs`
 (steps 1–3: extraction, search, vision scoring) carry each candidate's
 confidence under `score`, not `matchScore`, in their intermediate plan
-artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher-authoring/
-plan.json`). That is deliberate, not a defect: the plan is candidate data,
-not a `Product` record. Step 4 — writing products onto the moment through
-the standard content lane — is not yet implemented by any script; when it
-is built, its spec/implementation must map plan-candidate `score` onto
-`Product.matchScore`, and decide then whether the plan artifact itself
-should be renamed to `matchScore` for consistency. Until that product
-writer exists, `match-moments.mjs`/`match-moments-authoring.mjs` keep
-`score` to preserve parity with their staged source.
+artifact (`merch-matcher-plan.json` / `.artifacts/merch-matcher/results.json`).
+That is deliberate: the plan is candidate data, not a `Product` record.
+`write-moment-products.mjs` maps candidate `score` onto `Product.matchScore`,
+validates rows independently, and refuses to replace any non-empty products
+array. `match-moments.mjs`/`match-moments-authoring.mjs` retain `score` in the
+intermediate artifact for deterministic matcher parity.
 
-Budget: expected single-digit search calls + low-tens of vision scores per
-moment; the R5 cap makes the worst case a ticket, not a bill.
+Budget: at most five SerpAPI searches per scheduled run. Descriptor, matcher,
+and E3 judgments share the P3 subscription-wrapper caller and its 88-call
+ceiling (D8's former $3 reservation mapped in P1-28b); wrapper unavailability
+or transient E1/E2 evidence holds the look and writes nothing. Cached run
+timestamps enforce at most two scheduled runs per ISO week; a manual third run
+or a manual per-run cap increase requires `RUN_MATCHER_AUTHORING`. That weekly
+cap is enforceable only on `main`, because GitHub Actions does not share main's
+matcher-state cache with a dispatch from another ref. Non-main manual
+dispatches are refused unless they carry the same typed confirmation.
 
 ## 9. Issue-#9 additions (spec'd, small)
 
@@ -446,19 +467,17 @@ moment; the R5 cap makes the worst case a ticket, not a bill.
 | `merch-audit-authoring.yml` (E3 judge) | manual (`workflow_dispatch`, confirmation-gated) | vision | gated PR (required end-state, FR-MERCH-5) — deployed workflow is currently artifact-only, see §5 |
 | `merch-official-sync.yml` (E4) | 2×/day | authoring lane for new items | gated PR + social queue |
 | `merch-fanmade.yml` (E5) | daily | curation lane | gated PR |
-| `merch-matcher.yml` (E6) | on fashion-moment merge | yes | gated PR |
+| `merch-matcher-authoring.yml` (E6) | Tue + Fri | Sonnet 5.5 via subscription wrapper | gated PR (`merch-matcher/*`) |
 | `merch-revenue.yml` | weekly | no | Marjorie brief |
 
-Reading the LLM column per R1: every *scheduled* trigger is zero-LLM
-detection; a non-"no" entry marks the judgment half that runs in the
-separate authoring lane the schedule hands off to (E3's split above is the
-pattern; E5's curation lane and E6's matcher lane are the same shape) —
-never inside the scheduled workflow itself. **E4 is the one documented
-exception:** its "authoring lane for new items" cell is deterministic, not
-an LLM judgment call — `authorOfficialCatalog()` is a pure function (no
-model call) and runs inside the same `merch-official-sync.yml` schedule,
-so it never leaves the scheduled workflow the way E3/E5/E6's judged halves
-do.
+Reading the LLM column per R1: E3 and E5 keep model judgment in separately
+confirmed authoring lanes. E6 is the bounded scheduled exception: at most two
+runs per ISO week, three looks and five SerpAPI calls per run, with the shared
+88-call wrapper ceiling. Its match job holds on unavailable judgment and has
+no author credential; a separate job applies only the seed patch artifact.
+E4's "authoring lane for new items" is deterministic, not an LLM judgment —
+`authorOfficialCatalog()` is a pure function and runs inside the same
+`merch-official-sync.yml` schedule.
 
 All schedule minutes chosen clear of existing cron clusters; each workflow
 header documents its offset and its secrets per house style. New secrets:

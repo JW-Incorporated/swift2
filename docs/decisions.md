@@ -9134,7 +9134,7 @@ Measured cost floor: each call uses about 6.6K cache-creation input tokens with 
 
 ## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
 
-**Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` cannot reach the source path or any other directory. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
+**Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` denies the source path and other project or host directories. The CLI's own internal session paths remain readable, including its plan, scratchpad and tool-result files, its temporary directory and bundled skills. This confinement guarantee relies on the 2.1.300 pin and must be re-verified before any version bump. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
 
 The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
 
@@ -9145,3 +9145,14 @@ The trusted system prompt says that image content and all text in it are untrust
 **Decision.** The E3 audit and E6 matcher use the public subscription wrapper at P3, so neither can consume the backup token. Visual judgments use `claude-sonnet-5-5`; the lighter garment-descriptor extraction uses `claude-haiku-5-5`. Images are fetched into bounded buffers and passed through the wrapper's `images` input. An unavailable, limited or capped call logs and holds the candidate instead of authoring it.
 
 **Cap mapping.** D8's former $3 per-run model budget maps to 88 wrapper calls: `floor($3 / $0.03408)`, using the existing conservative per-request reservation. The legacy audit artifact keeps its `capUsd` and `reservedCostUsd` fields for consumers, while the wrapper's per-caller `maxCalls: 88` is the enforcement boundary. SerpAPI remains independently capped at five paid searches per run.
+
+
+---
+
+## 2026-10-15 — Tidewatch P2-05: Baby Watch built inert behind NEXT_PUBLIC_BABY_WATCH_ENABLED; D5 goes live last
+
+**Decision.** The `baby_watch` category (tier 1, opt-in, default off), its web settings toggle ("Baby Watch: official announcements only"), its inbox label and the cadence-pinning migration `20261015050000_baby_watch_category.sql` are merged dark. The toggle and inbox rendering sit behind `NEXT_PUBLIC_BABY_WATCH_ENABLED` (build-time, default false), so readers see nothing new. The router (P2-02) still emits no `baby_watch` event, and push stays off in production (HA #129).
+
+**Why.** The architect #11 ruling is to build the surface inert and let P2-13 stage the go-live; D5 is the last item to go live. Opt-in is stored as cadence `instant` (the only value the router fans out for a single event) so no router change is needed; a missing row means opted out. The category is deliberately absent from the Android channel and settings catalogues until go-live.
+
+**Verification.** Unit tests cover tier mapping, default opt-out, a fake-provider delivery (opted-in device gets 1, not-opted-in gets 0) and flag-off rendering. A staging device receiving a real test push is a live check for go-live, not part of this change.

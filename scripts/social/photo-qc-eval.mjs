@@ -1,16 +1,15 @@
 #!/usr/bin/env node
-// Scores the photo QC gate against hand-labelled ground truth (paid: one
-// Sonnet call per photo, about $0.003 each). Reports a confusion matrix,
+// Scores the photo QC gate against hand-labelled ground truth (one Sonnet
+// call per photo through the Claude subscription wrapper, priority P3). Reports a confusion matrix,
 // accuracy, the false-keeps (bad photos the gate would admit; the costly
 // error) and the false-rejects.
 //
 //   node scripts/social/photo-qc-eval.mjs --labels labels.json [--ids a,b] [--out results.json] [--cache-dir dir]
 //
 // labels.json: [{ "id", "label": "keep" | "drop", "caption", "kind", "file" | "url" }].
-// A "url" entry is downloaded once into the cache dir. Needs ANTHROPIC_API_KEY.
+// A "url" entry is downloaded once into the cache dir. Needs CLAUDE_CODE_OAUTH_TOKEN.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import Anthropic from '@anthropic-ai/sdk';
 import { isMain } from '../lib/is-main.mjs';
 import { DEFAULT_CONCURRENCY, estimateCost, kindFromId, qcPhoto } from './photo-qc.mjs';
 
@@ -53,7 +52,7 @@ async function load(entry, cacheDir) {
   }
 }
 
-export async function runEval(entries, { client, cacheDir, concurrency = DEFAULT_CONCURRENCY }) {
+export async function runEval(entries, { call, cacheDir, concurrency = DEFAULT_CONCURRENCY }) {
   const rows = [];
   let next = 0;
   const worker = async () => {
@@ -68,7 +67,7 @@ export async function runEval(entries, { client, cacheDir, concurrency = DEFAULT
             source: entry.source,
             kind: entry.kind ?? kindFromId(entry.id),
           },
-          { client },
+          { call },
         );
         rows.push({
           id: entry.id,
@@ -101,14 +100,13 @@ if (isMain(import.meta.url, process.argv[1])) {
     throw new Error(
       'Usage: node scripts/social/photo-qc-eval.mjs --labels labels.json [--ids a,b] [--out results.json] [--cache-dir dir]',
     );
-  if (!process.env.ANTHROPIC_API_KEY) throw new Error('ANTHROPIC_API_KEY is not set.');
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) throw new Error('CLAUDE_CODE_OAUTH_TOKEN is not set.');
   let entries = JSON.parse(await readFile(flag('--labels'), 'utf8'));
   if (args.includes('--ids')) {
     const ids = new Set(flag('--ids').split(','));
     entries = entries.filter((e) => ids.has(e.id));
   }
   const rows = await runEval(entries, {
-    client: new Anthropic({ maxRetries: 0 }),
     cacheDir: args.includes('--cache-dir') ? flag('--cache-dir') : '.artifacts/qc-eval',
   });
   const usage = rows.reduce(

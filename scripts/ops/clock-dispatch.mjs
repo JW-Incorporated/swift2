@@ -18,11 +18,17 @@ const defaultGh = (args) => execFileSync('gh', args, { encoding: 'utf8', stdio: 
 const firstLine = (err) => String(err?.stderr || err?.message || err).trim().split('\n')[0];
 
 export function dispatchOne(entry, { gh, repo, now, log }) {
-  const { workflow, minGapMinutes, inputs = {} } = entry;
+  const { workflow, minGapMinutes, inputs = {}, runName, disabled } = entry;
+  if (disabled) {
+    log(`${workflow}: disabled${entry.disabledReason ? ` (${entry.disabledReason})` : ''}`);
+    return 'disabled';
+  }
   try {
-    const out = gh(['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '20', '--json', 'createdAt,event']);
+    const out = gh(['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '20', '--json', 'createdAt,event,displayTitle']);
     // workflow_run-event runs are not clock starts; only schedule/workflow_dispatch runs count.
-    const last = JSON.parse(out || '[]').find((r) => r.event === 'schedule' || r.event === 'workflow_dispatch')?.createdAt;
+    const last = JSON.parse(out || '[]').find((r) =>
+      (r.event === 'schedule' || r.event === 'workflow_dispatch')
+      && (!runName || r.displayTitle === runName))?.createdAt;
     if (last) {
       const ageMs = now - Date.parse(last);
       if (ageMs < minGapMinutes * 60_000) {

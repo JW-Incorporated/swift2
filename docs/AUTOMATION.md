@@ -158,8 +158,9 @@ correctness does not depend on any PR merging) plus `SOCIAL_FREEZE`.
 Spec: [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) · plan:
 [`PLAN.merch-autonomy.md`](PLAN.merch-autonomy.md) · receipt:
 [`ops/MERCH-PHASE-4-ACCEPTANCE.md`](ops/MERCH-PHASE-4-ACCEPTANCE.md). Every
-scheduled merch lane is zero-LLM by design (R1); lanes that spend money or
-call a model are separate **manually confirmed** workflows.
+scheduled merch lanes are zero-LLM except E6's bounded Tue/Fri matcher; other
+lanes that spend money or call a model remain separate **manually confirmed**
+workflows.
 
 | Workflow | Engine | Trigger | LLM / spend | Mutates |
 |---|---|---|---|---|
@@ -170,7 +171,13 @@ call a model are separate **manually confirmed** workflows.
 | [`merch-audit-detect.yml`](../.github/workflows/merch-audit-detect.yml) | E3 detect | Mon 15:24 + push to content paths | no | scoring-queue artifact |
 | [`merch-audit-authoring.yml`](../.github/workflows/merch-audit-authoring.yml) | E3 author | **MANUAL** + typed `RUN_AUTHORED_VISION_AUDIT` | **vision model, $5/run cap** | artifacts + issues |
 | [`merch-matcher.yml`](../.github/workflows/merch-matcher.yml) | E6 detect | **MANUAL** | no | deterministic handoff plan |
-| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | **MANUAL** + typed `RUN_MATCHER_AUTHORING` | **vision + paid search, per-run cap** | artifacts only |
+| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | Tue + Fri; manual overage or non-`main` dispatch needs typed `RUN_MATCHER_AUTHORING` | **vision + paid search, 2 runs/ISO week on `main`, 3 looks + 5 searches/run** | seed-only diff artifact -> isolated PAT author job |
+
+The E6 two-run weekly cap is enforced only for runs dispatched on `main`:
+GitHub Actions cache scope prevents a run on another ref from seeing main's
+matcher-state cache. A non-main manual dispatch therefore fails unless the
+operator supplies the same typed `RUN_MATCHER_AUTHORING` override used for an
+intentional cap overage.
 | [`merch-revenue.yml`](../.github/workflows/merch-revenue.yml) | reporting | Mon 15:23 | no | gated PR (`docs/ops/MERCH-REVENUE.json`) |
 | [`merch-terms-recheck.yml`](../.github/workflows/merch-terms-recheck.yml) | compliance | quarterly, 1st of Jan/Apr/Jul/Oct 15:17 | no | one review ticket per quarter |
 | [`merch-e5-evidence.yml`](../.github/workflows/merch-e5-evidence.yml) | E5 evidence | **MANUAL** + typed `COLLECT_E5_EVIDENCE` | no (Etsy API) | artifacts only |

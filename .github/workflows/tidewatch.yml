@@ -1,0 +1,112 @@
+name: tidewatch
+run-name: tidewatch (${{ inputs.mode }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Collector mode (fast remains disabled until P1-08c)
+        required: true
+        default: sweep
+        type: choice
+        options:
+          - sweep
+      scheduled:
+        description: Home-clock dispatch (enforces the TYPESAFE key gate)
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: tidewatch
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Preflight
+        id: preflight
+        env:
+          MODE: ${{ inputs.mode }}
+          SCHEDULED: ${{ inputs.scheduled }}
+          TIDEWATCH_FREEZE: ${{ vars.TIDEWATCH_FREEZE }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          if [ "$TIDEWATCH_FREEZE" = "true" ]; then
+            echo "::notice::Tidewatch is frozen by TIDEWATCH_FREEZE; run skipped"
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$MODE" != "sweep" ]; then
+            echo "::error::fast mode is disabled until the collector has a primary-only store view (P1-08c)"
+            exit 1
+          fi
+          if [ "$SCHEDULED" = "true" ] && [ -z "$TYPESAFE_API_KEY" ]; then
+            echo "::notice::TYPESAFE_API_KEY not set; scheduled classification skipped"
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "proceed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout with full history
+        if: steps.preflight.outputs.proceed == 'true'
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up repository
+        if: steps.preflight.outputs.proceed == 'true'
+        uses: ./.github/actions/setup-repo
+        with:
+          fetch-depth: 0
+          npm-ci: 'true'
+
+      - name: Install Claude Code
+        if: steps.preflight.outputs.proceed == 'true'
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Collect
+        if: steps.preflight.outputs.proceed == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/tidewatch/collect.mjs
+
+      - name: Classify
+        if: steps.preflight.outputs.proceed == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/tidewatch/classify.mjs
+
+      - name: Plan routes (shadow only)
+        if: steps.preflight.outputs.proceed == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TIDEWATCH_FREEZE: ${{ vars.TIDEWATCH_FREEZE }}
+          TIDEWATCH_ROUTER_LIVE: ${{ vars.TIDEWATCH_ROUTER_LIVE }}
+        run: node scripts/tidewatch/route.mjs
