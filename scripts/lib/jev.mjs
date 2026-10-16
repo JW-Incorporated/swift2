@@ -1,7 +1,12 @@
 import { createJevClient } from '@swift2/shared/jev/client';
 import { choiceQuestion, noulQuestion, scoreQuestion } from '@swift2/shared/jev/questions';
+import { createLlmUsageLogger } from './llm-usage.mjs';
 
 export { createJevClient, choiceQuestion, noulQuestion, scoreQuestion };
+
+export function createJevUsageLogger(client) {
+  return createLlmUsageLogger(client);
+}
 
 async function selftest() {
   if (!process.env.TYPESAFE_API_KEY) {

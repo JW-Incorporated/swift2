@@ -54,6 +54,8 @@
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "check:routines": "node scripts/check-routine-workflows.mjs",
     "check:workflow-deps": "node scripts/check-workflow-deps.mjs",
+    "check:workflow-entries": "node scripts/check-workflow-entries.mjs",
+    "check:migrations-rerun": "node scripts/check-migrations-rerun.mjs",
     "ops:turn-ledger": "node scripts/routines/turn-ledger.mjs",
     "ops:clock-fire-rate": "node scripts/ops/clock-fire-rate.mjs",
     "notifications:kill": "node --env-file=apps/worker/.env scripts/notifications-kill.mjs",
