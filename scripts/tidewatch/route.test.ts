@@ -70,6 +70,25 @@ function guardedClient(row = decision({ action: 'shadow_hold_injection', answers
 
 async function transitiveLocalImports(entry: string) {
   const visited = new Set<string>();
+  async function resolveSource(base: string) {
+    const candidates = [base, ...['.ts', '.tsx', '.js', '.mjs'].map((extension) => `${base}${extension}`),
+      ...['index.ts', 'index.tsx', 'index.js', 'index.mjs'].map((name) => path.join(base, name))];
+    for (const candidate of candidates) {
+      try {
+        await readFile(candidate, 'utf8');
+        return candidate;
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+      }
+    }
+    throw new Error(`Cannot resolve source import: ${base}`);
+  }
+  async function resolveImport(specifier: string, importer: string) {
+    if (specifier.startsWith('.')) return resolveSource(path.resolve(path.dirname(importer), specifier));
+    const workspace = specifier.match(/^@swift2\/([^/]+)(?:\/(.+))?$/);
+    if (!workspace) return null;
+    return resolveSource(path.join(ROOT, 'packages', workspace[1], 'src', workspace[2] || 'index'));
+  }
   async function walk(file: string) {
     const relative = path.relative(ROOT, file).replaceAll('\\', '/');
     if (visited.has(relative)) return;
@@ -78,7 +97,9 @@ async function transitiveLocalImports(entry: string) {
     await init;
     const [imports] = parse(source);
     for (const imported of imports) {
-      if (imported.n?.startsWith('.')) await walk(path.resolve(path.dirname(file), imported.n));
+      if (!imported.n) continue;
+      const resolved = await resolveImport(imported.n, file);
+      if (resolved) await walk(resolved);
     }
   }
   await walk(entry);
@@ -111,7 +132,7 @@ describe('Tidewatch shadow action router', () => {
 
   it('keeps shadow routing free of network, process, and non-store side effects', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
-    const processSpies = ['spawn', 'exec', 'execFile'].map((name) =>
+    const processSpies = ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync', 'fork'].map((name) =>
       vi.spyOn(childProcess, name as 'spawn'));
     const guarded = guardedClient();
     await main([], { config, client: guarded.client, env: {} });
