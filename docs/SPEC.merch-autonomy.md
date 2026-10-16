@@ -365,8 +365,10 @@ cross-reference checks whether the shop is itself an Awin advertiser
 it stays `direct-by-policy` or becomes D2 residue evidence.
 
 The lane reads `merch_fan.enabled`, `shadow`, `thresholds.weeklyCap`, and
-`priority` from `config/tidewatch.json`. Disabled or shadow runs execute the
-judgment pipeline but only report would-accept/would-reject decisions. Live
+`priority` from `config/tidewatch.json`. Disabled runs exit successfully before
+candidate, listing, image, Jev, or wrapper calls and report `disabled: no calls
+made`. Shadow runs execute the judgment pipeline but only report
+would-accept/would-reject decisions. Live
 runs allow one open `merch-fanmade-curate/*` PR at a time, so the weekly cap
 counts items already on `main`; accepted issues close only when that PR merges,
 while conclusively rejected issues may close immediately. E1/E2 network
@@ -433,7 +435,10 @@ and E3 judgments share the P3 subscription-wrapper caller and its 88-call
 ceiling (D8's former $3 reservation mapped in P1-28b); wrapper unavailability
 or transient E1/E2 evidence holds the look and writes nothing. Cached run
 timestamps enforce at most two scheduled runs per ISO week; a manual third run
-or a manual per-run cap increase requires `RUN_MATCHER_AUTHORING`.
+or a manual per-run cap increase requires `RUN_MATCHER_AUTHORING`. That weekly
+cap is enforceable only on `main`, because GitHub Actions does not share main's
+matcher-state cache with a dispatch from another ref. Non-main manual
+dispatches are refused unless they carry the same typed confirmation.
 
 ## 9. Issue-#9 additions (spec'd, small)
 

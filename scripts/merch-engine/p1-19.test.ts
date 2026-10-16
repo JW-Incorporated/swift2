@@ -196,6 +196,18 @@ describe('P1-19 workflow credential split', () => {
     expect(matchJob).not.toContain('SOCIAL_POSTER_PAT');
     expect(matchJob).toContain("always() && steps.open.outputs.number == ''");
     expect(authorJob).toContain('SOCIAL_POSTER_PAT');
-    expect(authorJob).toContain('git apply .artifacts/merch-matcher/seed.patch');
+    expect(authorJob).toContain('git apply --numstat .artifacts/merch-matcher/seed.patch');
+    expect(authorJob).toContain("^supabase/seed/content/[^/]+$");
+    expect(authorJob).toContain("git apply --include='supabase/seed/content/*'");
+  });
+
+  it('passes dispatch caps through env and confirms non-main cache isolation', async () => {
+    const workflow = await readFile('.github/workflows/merch-matcher-authoring.yml', 'utf8');
+    expect(workflow).toContain("LOOK_CAP: ${{ inputs.look_cap || '3' }}");
+    expect(workflow).toContain('--limit "$LOOK_CAP"');
+    expect(workflow).not.toContain('--limit "${{ inputs.look_cap');
+    expect(workflow).toContain("github.ref_name != 'main'");
+    expect(workflow).toContain("inputs.confirmation != 'RUN_MATCHER_AUTHORING'");
+    expect(workflow).toContain("cannot see main's weekly cache");
   });
 });

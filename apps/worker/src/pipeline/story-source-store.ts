@@ -81,7 +81,7 @@ function supabaseStore(db: SupabaseClient): StorySourceStore {
   };
 }
 
-function candidateFromRaw(storyId: string, raw: RawItemRow): StorySourceCandidate {
+export function candidateFromRaw(storyId: string, raw: RawItemRow): StorySourceCandidate {
   return {
     storyId,
     rawItemId: raw.id,
@@ -98,7 +98,7 @@ function candidateFromRaw(storyId: string, raw: RawItemRow): StorySourceCandidat
   };
 }
 
-function existingCandidate(
+export function existingCandidate(
   row: ExistingSourceRow,
   rawById: Map<string, RawItemRow>,
 ): StorySourceCandidate {

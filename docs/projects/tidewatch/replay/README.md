@@ -20,3 +20,36 @@ Each item gets the single-item questions: `q_class`, `q_official`, `q_settled`, 
 Reddit permalinks are committed as `/r/<sub>/comments/<id>/` only; the title slug is dropped. Progress between dispatches is kept in an `actions/cache` entry holding only ids and labels, so the 40-call cap is total across runs. Usage logging: the wrapper's `logUsage` hook has no shared public logger yet (each caller keeps a private one), so this run does not log to `llm_usage`; wire one in when P1-28 exports it. The run summary prints `pool=` and `belowFloor=`; under 600 labelled items the files are still written with `belowFloor: true`.
 
 The 21 growth-strategy time-sensitive events are not listed anywhere in `docs/`, so they are covered by the 90-day news pool rather than a separate set.
+
+## P2-03 fact-check relabel and offline evaluation
+
+Run `node scripts/tidewatch/relabel-replay.mjs` before evaluating. It applies
+two deterministic title/event rules without consulting sourcing: news about
+Taylor Swift's own or shared homes/property becomes `privacy_redline`; and
+`critical_breaking` is kept only for an actual announcement or release of a
+new song, album, tour or film. Premiere times, pre-orders, schedules, track
+lists, merch drops and festival line-ups become `official_drop`. Blank titles
+remain unchanged. The generated `replay-relabelled.json` contains only ids and
+labels. `replay-relabel-report.json` lists every old-to-new label; on this
+frozen set, the property rule changes 8 and the critical-work rule 7.
+
+Run `npx tsx scripts/tidewatch/factcheck-eval.mjs` for the network-free replay.
+It reads recorded source-page fixtures and uses fake Jev and Sonnet judgments;
+it makes no model or outlet calls. Aggregate results are written to
+`factcheck-eval-results.json`:
+
+| Labels | Critical | Critical work | Critical personal | Rumor confirmed | Single-source confirmed |
+|---|---:|---:|---:|---:|---:|
+| Original | 18/21 | 12/15 | 6/6 | 0/35 | 0/371 |
+| Relabelled | 13/14 | 7/8 | 6/6 | 0/34 | 0/371 |
+
+The forced-critical control sends the union of every original rumor and
+non-official single-source item through `critical_breaking` using recorded
+outlets only: 0/376 confirmed overall, including 0/35 rumors and 0/371
+single-source items (the two categories overlap).
+
+The public inert checker is `scripts/tidewatch/factcheck.mjs`; invoke it with
+`npx tsx scripts/tidewatch/factcheck.mjs --input <story.json>`. Live article
+reads are sequential and human-paced, require an exact headline or dek anchor,
+and treat paywalls as not confirmed. The CLI returns a verdict only and has no
+publishing or routing capability.

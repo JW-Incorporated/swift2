@@ -4,6 +4,13 @@ import {
   type SourceTier,
   type VerificationStatus,
 } from '@swift2/shared/news';
+import {
+  articleTextSimilarity,
+  canonicalArticleUrl,
+  normalizedOutletHost as normalizedHost,
+} from './story-source-identity';
+
+export { canonicalArticleUrl } from './story-source-identity';
 
 const TIER_RANK: Record<SourceTier, number> = {
   unverified: 0,
@@ -12,18 +19,6 @@ const TIER_RANK: Record<SourceTier, number> = {
   official: 3,
 };
 
-const IDENTIFYING_QUERY_KEYS = new Set([
-  'v',
-  'id',
-  'p',
-  'story',
-  'article',
-  'a',
-  'sid',
-  'newsid',
-  'storyid',
-  'itemid',
-]);
 const UNKNOWN_OUTLET_KEY = 'unknown:';
 
 export interface StorySourceCandidate {
@@ -32,6 +27,7 @@ export interface StorySourceCandidate {
   externalId?: string | null;
   title?: string | null;
   snippet?: string | null;
+  articleText?: string | null;
   author?: string | null;
   sourceType?: string;
   outletName: string;
@@ -54,17 +50,6 @@ export interface StorySourceRow {
 export interface StorySourcePlan {
   rows: StorySourceRow[];
   deleteCandidates: { id: string; story_id: string; outlet_name: string }[];
-}
-
-function normalizedHost(raw?: string | null): string | undefined {
-  if (!raw) return undefined;
-  try {
-    let host = new URL(raw).hostname.toLocaleLowerCase('en-US');
-    while (/^(?:www|amp|m|mobile)\./.test(host)) host = host.replace(/^[^.]+\./, '');
-    return host || undefined;
-  } catch {
-    return undefined;
-  }
 }
 
 function displayName(raw: string): string {
@@ -93,27 +78,6 @@ export function normalizeOutletName(
     : undefined;
   const knownName = nameHost ? lookupOutletTier(nameHost) : undefined;
   return knownName?.name.replace(/^The\s+/i, '') ?? nameHost ?? displayName(name);
-}
-
-/** Canonical article identity: stable host/path plus sorted identifying parameters only. */
-export function canonicalArticleUrl(raw: string): string | undefined {
-  try {
-    const url = new URL(raw);
-    const host = normalizedHost(raw);
-    if (!host) return undefined;
-    let path = url.pathname.replace(/\/+$/, '').replace(/\/(?:amp|amp\/index\.html)$/i, '');
-    path = path.replace(/\.amp(?:\.html)?$/i, '.html');
-    const identifying = [...url.searchParams]
-      .filter(([key]) => IDENTIFYING_QUERY_KEYS.has(key.toLocaleLowerCase('en-US')))
-      .map(([key, value]): [string, string] => [key.toLocaleLowerCase('en-US'), value])
-      .sort(([aKey, aValue], [bKey, bValue]) =>
-        aKey.localeCompare(bKey) || aValue.localeCompare(bValue),
-      );
-    const query = new URLSearchParams(identifying).toString();
-    return `${host}${path || '/'}${query ? `?${query}` : ''}`;
-  } catch {
-    return undefined;
-  }
 }
 
 function normalizedTitle(raw?: string | null): string | undefined {
@@ -214,7 +178,10 @@ function sourceWinners(candidates: StorySourceCandidate[]): NormalizedCandidate[
   for (const candidate of normalized) {
     const matching = articleGroups.filter(
       (members) => members[0]?.storyId === candidate.storyId &&
-        members.some((member) => [...candidate.tokens].some((token) => member.tokens.has(token))),
+        members.some((member) =>
+          [...candidate.tokens].some((token) => member.tokens.has(token)) ||
+          articleTextSimilarity(candidate.articleText, member.articleText) > 0.8,
+        ),
     );
     if (matching.length === 0) {
       articleGroups.push([candidate]);
@@ -230,6 +197,25 @@ function sourceWinners(candidates: StorySourceCandidate[]): NormalizedCandidate[
     outlets.set(key, [...(outlets.get(key) ?? []), winner]);
   }
   return [...outlets.values()].map((members) => members.reduce(betterCandidate));
+}
+
+/** Stable publisher identity used by ownership maps; all normalization stays in this module. */
+export function storySourceOutletDomain(candidate: StorySourceCandidate): string | undefined {
+  const key = outletMatchKey(candidate);
+  return key.startsWith('host:') ? key.slice(5) : undefined;
+}
+
+export function independentStorySources(
+  candidates: StorySourceCandidate[],
+  ownerOf: (candidate: StorySourceCandidate) => string | undefined = () => undefined,
+): NormalizedCandidate[] {
+  const owners = new Map<string, NormalizedCandidate[]>();
+  for (const winner of sourceWinners(candidates)) {
+    const owner = ownerOf(winner) ?? winner.outletKey;
+    const key = `${winner.storyId}\u0000${owner}`;
+    owners.set(key, [...(owners.get(key) ?? []), winner]);
+  }
+  return [...owners.values()].map((members) => members.reduce(betterCandidate));
 }
 
 export function storySourceConflictKey(row: { story_id: string; outlet_name: string }): string {
@@ -278,12 +264,15 @@ export function planStorySources(candidates: StorySourceCandidate[]): StorySourc
   };
 }
 
-export function storyVerification(candidates: StorySourceCandidate[]): {
+export function storyVerification(
+  candidates: StorySourceCandidate[],
+  ownerOf?: (candidate: StorySourceCandidate) => string | undefined,
+): {
   status: VerificationStatus;
   sourceCount: number;
 } {
   const rows = collapseStorySourceRows(
-    sourceWinners(candidates)
+    independentStorySources(candidates, ownerOf)
       .filter((candidate) => candidate.outletKey !== UNKNOWN_OUTLET_KEY)
       .map((candidate) => ({
         story_id: candidate.storyId,

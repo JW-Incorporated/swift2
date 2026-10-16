@@ -1,8 +1,10 @@
 # E6 authoring runs Tuesday and Friday at :27, outside the repository's common
 # cron clusters. Search is Awin-first; SerpAPI is capped separately from the
 # shared 88-call Claude subscription-wrapper ceiling. Normal dispatches need no
-# typed confirmation; only a manual request above the weekly or per-run caps
-# requires RUN_MATCHER_AUTHORING. The matching job never receives the author PAT.
+# typed confirmation; only a manual request above the weekly or per-run caps,
+# or from a non-main ref, requires RUN_MATCHER_AUTHORING. The weekly cache cap
+# is main-only because GitHub does not expose main's cache to another ref.
+# The matching job never receives the author PAT.
 name: merch-matcher-authoring
 
 on:
@@ -43,6 +45,11 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      - name: Refuse unconfirmed non-main dispatch
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' && inputs.confirmation != 'RUN_MATCHER_AUTHORING' }}
+        run: |
+          echo "::error::A non-main dispatch cannot see main's weekly cache; type RUN_MATCHER_AUTHORING to continue."
+          exit 1
       - uses: actions/setup-node@v7
         with:
           cache: npm
@@ -95,7 +102,9 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: node scripts/merch-engine/build-matcher-input.mjs --output .artifacts/merch-matcher/input.json --limit "${{ inputs.look_cap || '3' }}" --paid-search-cap "${{ inputs.paid_search_cap || '5' }}" --state .cache/merch-matcher-state.json
+          LOOK_CAP: ${{ inputs.look_cap || '3' }}
+          PAID_SEARCH_CAP: ${{ inputs.paid_search_cap || '5' }}
+        run: node scripts/merch-engine/build-matcher-input.mjs --output .artifacts/merch-matcher/input.json --limit "$LOOK_CAP" --paid-search-cap "$PAID_SEARCH_CAP" --state .cache/merch-matcher-state.json
       - name: Run E6 matcher and Sonnet vision judge
         if: ${{ steps.run.outputs.proceed == 'true' }}
         env:
@@ -160,8 +169,17 @@ jobs:
         with:
           name: merch-matcher-seed-diff
           path: .artifacts/merch-matcher
-      - name: Apply the matched seed diff
-        run: git apply .artifacts/merch-matcher/seed.patch
+      - name: Validate and apply the matched seed diff
+        run: |
+          mapfile -t patch_paths < <(git apply --numstat .artifacts/merch-matcher/seed.patch | cut -f3-)
+          for path in "${patch_paths[@]}"; do
+            if [[ ! "$path" =~ ^supabase/seed/content/[^/]+$ ]]; then
+              echo "::error::Seed patch contains a forbidden path: $path"
+              exit 1
+            fi
+          done
+          git apply --check --include='supabase/seed/content/*' .artifacts/merch-matcher/seed.patch
+          git apply --include='supabase/seed/content/*' .artifacts/merch-matcher/seed.patch
       - name: Validate authored content
         run: |
           npm run sync:content --silent

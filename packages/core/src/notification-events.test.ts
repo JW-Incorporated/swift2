@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { insertEvent, NOTIFICATION_KILL_WINDOW_MS, T1_CATEGORIES } from './notification-events';
+import { insertEvent, NOTIFICATION_KILL_WINDOW_MS, T1_CATEGORIES, TIER_BY_CATEGORY } from './notification-events';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 function fakeDb(onInsert: (row: Record<string, unknown>) => { data: unknown; error: unknown }) {
@@ -34,6 +34,22 @@ describe('insertEvent', () => {
       );
       expect(result.tier).toBe(1);
     }
+  });
+
+  it('maps baby_watch to tier 1 and still applies the kill window', async () => {
+    const now = new Date('2026-01-15T12:00:00Z');
+    const db = fakeDb(() => ({ data: { id: 'evt-1' }, error: null }));
+    const result = await insertEvent(db, {
+      category: 'baby_watch',
+      title: 'x',
+      body: 'y',
+      deepLink: 'https://example.com',
+      dedupeKey: 'test:baby_watch',
+      now,
+    });
+    expect(result.tier).toBe(TIER_BY_CATEGORY.baby_watch);
+    expect(result.tier).toBe(1);
+    expect(result.availableAt).toBe(new Date(now.getTime() + NOTIFICATION_KILL_WINDOW_MS).toISOString());
   });
 
   it.each([

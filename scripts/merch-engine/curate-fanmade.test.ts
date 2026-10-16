@@ -206,27 +206,31 @@ describe('fan-made curation', () => {
 });
 
 describe('fan-made curation I/O', () => {
-  it.each([
-    ['shadow', { enabled: true, shadow: true }],
-    ['disabled', { enabled: false, shadow: false }],
-  ])('runs but writes nothing in %s mode', async (mode, config) => {
+  it('runs all checks but writes no seeds in shadow mode', async () => {
     const appendSeeds = vi.fn(async () => undefined);
-    const pipeline = vi.fn(async () => ({
-      status: 'ok', capacity: 5,
-      accepted: [{ issueNumber: 1, seed: { item: 'Accepted title' } }],
-      rejected: [{ issueNumber: 2, reason: 'validated-invalid image' }],
-      unresolved: [],
+    const jevClient = jev();
+    const callClaudeImpl = d3();
+    const verifyProductUrlImpl = vi.fn(async () => true);
+    const verifyImageImpl = vi.fn(async () => ({ verdict: 'ok' }));
+    const fetchImageImpl = vi.fn(async () => ({ buffer: PNG, mimeType: 'image/png' }));
+    const pipeline = vi.fn((options) => curateFanmadeIssues({
+      ...options, issues: [issue()], callClaudeImpl, verifyProductUrlImpl,
+      verifyImageImpl, fetchImageImpl,
     }));
     const report = await runFanmadeCuration({
-      rawIssues: [{ number: 1, title: 'Accepted title' }, { number: 2, title: 'Rejected title' }],
-      jevClient: jev(), pipeline, appendSeeds, config, now: NOW,
+      rawIssues: [issue()], jevClient, pipeline, appendSeeds,
+      config: { enabled: true, shadow: true }, now: NOW,
     });
     expect(pipeline).toHaveBeenCalledOnce();
+    expect(jevClient.ask).toHaveBeenCalledOnce();
+    expect(callClaudeImpl).toHaveBeenCalledOnce();
+    expect(verifyProductUrlImpl).toHaveBeenCalledOnce();
+    expect(verifyImageImpl).toHaveBeenCalledOnce();
+    expect(fetchImageImpl).toHaveBeenCalledOnce();
     expect(appendSeeds).not.toHaveBeenCalled();
-    expect(report).toMatchObject({ mode, writeEnabled: false, acceptedCount: 1, rejectedCount: 1, closures: [] });
-    expect(renderSummary(report)).toMatch(/Would accept: 1 .*would reject: 1/);
+    expect(report).toMatchObject({ mode: 'shadow', writeEnabled: false, acceptedCount: 1, rejectedCount: 0, closures: [] });
+    expect(renderSummary(report)).toMatch(/Would accept: 1 .*would reject: 0/);
     expect(renderSummary(report)).toContain('#1 accept');
-    expect(renderSummary(report)).toContain('#2 reject');
   });
 
   it('writes seeds live, leaves accepted issues for merge, and closes only rejected issues', async () => {

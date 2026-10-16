@@ -81,6 +81,9 @@ async function writeReport(path, report) {
 }
 
 export function renderSummary(report) {
+  if (report.mode === 'disabled') {
+    return '## Fan-made curation (disabled)\n\ndisabled: no calls made\n';
+  }
   const would = report.writeEnabled ? '' : 'Would ';
   const lines = [
     `## Fan-made curation (${report.mode})`,
@@ -94,7 +97,7 @@ export function renderSummary(report) {
 }
 
 export async function runFanmadeCuration({
-  rawIssues,
+  rawIssues = [],
   existingCatalog = FAN_MADE,
   now = new Date().toISOString(),
   jevClient,
@@ -103,6 +106,11 @@ export async function runFanmadeCuration({
   config = FANMADE_RUN_CONFIG,
   log = console.log,
 } = {}) {
+  if (runMode(config) === 'disabled') {
+    return buildCurationReport({
+      status: 'disabled', accepted: [], rejected: [], unresolved: [],
+    }, now, { config });
+  }
   const parsed = rawIssues.map((issue) => parseCandidateIssue(issue) ?? { number: issue?.number });
   const result = await pipeline({ issues: parsed, existingCatalog, now, jevClient, log });
   if (runMode(config) === 'live' && result.status === 'ok' && result.accepted.length > 0) {
@@ -111,22 +119,36 @@ export async function runFanmadeCuration({
   return buildCurationReport(result, now, { config, issues: parsed });
 }
 
-async function main() {
-  const reportPath = option(process.argv.slice(2), '--report', DEFAULT_REPORT);
+export async function main({
+  args = process.argv.slice(2),
+  config = FANMADE_RUN_CONFIG,
+  env = process.env,
+  listIssues = listOpenCandidateIssues,
+  createClient = createJevClient,
+  writeReportImpl = writeReport,
+} = {}) {
+  const reportPath = option(args, '--report', DEFAULT_REPORT);
   const now = new Date().toISOString();
-  const rawIssues = await listOpenCandidateIssues();
-  if (!process.env.TYPESAFE_API_KEY || !process.env.CLAUDE_CODE_OAUTH_TOKEN) {
-    const reason = !process.env.TYPESAFE_API_KEY ? 'Jev unavailable' : 'vision wrapper unavailable';
+  if (runMode(config) === 'disabled') {
+    const report = await runFanmadeCuration({ config, now });
+    await writeReportImpl(reportPath, report);
+    console.log('fanmade-curation: disabled: no calls made');
+    return report;
+  }
+  const rawIssues = await listIssues();
+  if (!env.TYPESAFE_API_KEY || !env.CLAUDE_CODE_OAUTH_TOKEN) {
+    const reason = !env.TYPESAFE_API_KEY ? 'Jev unavailable' : 'vision wrapper unavailable';
     console.warn(`fanmade-curation: ${reason}; all candidate issues left open`);
-    await writeReport(reportPath, buildCurationReport({
+    const report = buildCurationReport({
       status: 'unavailable', accepted: [], rejected: [],
       unresolved: rawIssues.map(({ number }) => ({ issueNumber: number, reason })),
-    }, now, { issues: rawIssues.map((issue) => parseCandidateIssue(issue) ?? issue) }));
-    return;
+    }, now, { config, issues: rawIssues.map((issue) => parseCandidateIssue(issue) ?? issue) });
+    await writeReportImpl(reportPath, report);
+    return report;
   }
-  const jevClient = createJevClient({ apiKey: process.env.TYPESAFE_API_KEY });
-  const report = await runFanmadeCuration({ rawIssues, jevClient, now });
-  await writeReport(reportPath, report);
+  const jevClient = createClient({ apiKey: env.TYPESAFE_API_KEY });
+  const report = await runFanmadeCuration({ rawIssues, jevClient, now, config });
+  await writeReportImpl(reportPath, report);
   console.log(`fanmade-curation: accepted ${report.acceptedCount}, rejected ${report.rejectedCount}, unresolved ${report.unresolvedCount}`);
 }
 
