@@ -1,4 +1,4 @@
-import { callClaude } from '../lib/claude-call.mjs';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 
 export const MERCH_VISION_MODEL = 'claude-sonnet-5-5';
 export const MERCH_LIGHT_MODEL = 'claude-haiku-5-5';
@@ -36,7 +36,7 @@ export async function fetchClaudeImage(url, { fetchImpl = fetch } = {}) {
 
 export async function callMerchClaude({
   caller, model, system, user, schema, imageUrls = [], images: suppliedImages,
-  call = callClaude, fetchImpl = fetch, log = console.error,
+  call = getLoggedClaudeCaller(), fetchImpl = fetch, log = console.error,
 }) {
   const images = suppliedImages ?? await Promise.all(
     imageUrls.map((url) => fetchClaudeImage(url, { fetchImpl })),

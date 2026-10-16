@@ -879,6 +879,7 @@ Still UNVERIFIED (taken from research files): the Awin hang mechanism (code-read
 - **Goals:** 1, 2, 3, 5, 7, 10, 11 · **Owner:** claude-opus · **Model/tier:** claude-opus-5-5 high · **Effort:** M · **Lane:** L-TIDE-SPEC · **Depends on:** P2-01, P2-02, P2-12
 - **Files:** `config/tidewatch.json`
 - **Acceptance:** Every class live with no rollback in its 48 h window, or a recorded rollback with cause.
+- **Go-live runtime prerequisite:** Before P2-13 begins, make the live route step run under `tsx`, or make `actions/merch.mjs` and its `@swift2/core` imports plain-Node-loadable. Keep the shadow route step on plain Node until then.
 - **Token impact:** None. · **Risks:** Do not batch flips.
 - **Needs decision entry:** yes · **Needs human action:** no · **Branch/PR:** own branch (feature/tidewatch-p2-13) in a worktree outside Projects; PR with TL;DR; auto-merge on green
 
