@@ -6,7 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun, ghApi } from '../lib/gh.mjs';
-import { choiceQuestion, createJevClient } from '../lib/jev.mjs';
+import { choiceQuestion, createJevClient, createJevUsageLogger } from '../lib/jev.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 
 export const RADAR_CONFIDENCE = 0.72;
 export const LOOKBACK_MINUTES = 70;
@@ -171,7 +172,11 @@ export async function main({
     return 0;
   }
   try {
-    const client = clientFactory({ apiKey: env.TYPESAFE_API_KEY, logUsage: usageLogger(env, log) });
+    const client = clientFactory({
+      apiKey: env.TYPESAFE_API_KEY,
+      logUsage: usageLogger(env, log),
+      usageLogger: createJevUsageLogger(serviceClient(env)),
+    });
     const result = await handleRadar({ api, gh, client, repo: env.GITHUB_REPOSITORY || DEFAULT_REPO, now: now(), log });
     writeHandled(env, result.handled);
     if (!result.handled) log(`Kevin radar: ${result.reason}; using the Claude fallback`);
