@@ -120,7 +120,7 @@ describe('Jev client', () => {
     expect(warnings).toEqual(['Jev usage logging failed']);
   });
 
-  it('keeps missing usage invalid while logging null token counts and cost', async () => {
+  it('keeps missing usage invalid while logging zero token counts and a nullable cost', async () => {
     const rows: unknown[] = [], withoutUsage = { ...SUCCESS_FIXTURE, usage: undefined };
     const client = createJevClient({
       apiKey: 'fixture-key', fetchImpl: async () => jsonResponse(withoutUsage),
@@ -129,8 +129,8 @@ describe('Jev client', () => {
     await expect(client.ask({ caller: 'usage-test', state: 'text', questions: QUESTIONS }))
       .rejects.toHaveProperty('name', 'JevResponseError');
     expect(rows).toEqual([expect.objectContaining({
-      input_tokens: null,
-      output_tokens: null,
+      input_tokens: 0,
+      output_tokens: 0,
       est_cost_usd: null,
     })]);
   });

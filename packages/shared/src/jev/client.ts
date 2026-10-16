@@ -1,7 +1,12 @@
 import type { ChoiceOption, JevQuestion } from './questions';
-import { usageRow, usageRowFromResponse, type JevUsage, type JevUsageRow } from './usage';
+import {
+  safelyLog,
+  usageRow,
+  usageRowFromResponse,
+  type JevUsage,
+  type JevUsageRow,
+} from './usage';
 export type { JevUsage, JevUsageRow } from './usage';
-
 export const JEV_MODEL = 'jev-1.13.0';
 export const JEV_ENDPOINT = 'https://api.typesafe.ai/v1/systemone';
 export const JEV_INPUT_USD_PER_MILLION_TOKENS = 0.042;
@@ -228,13 +233,8 @@ export function createJevClient(options: JevClientOptions = {}) {
   const usageLogger = options.usageLogger ?? (() => undefined);
   const warn = options.warn ?? console.warn;
 
-  const safelyLog = async (logger: () => void | Promise<void>) => {
-    try {
-      await logger();
-    } catch {
-      try { warn('Jev usage logging failed'); } catch { /* logging cannot fail the call */ }
-    }
-  };
+  // logUsage errors are swallowed by design so telemetry cannot fail a Jev call.
+  const logSafely = (logger: () => void | Promise<void>) => safelyLog(logger, warn);
 
   return {
     async ask(input: {
@@ -276,7 +276,7 @@ export function createJevClient(options: JevClientOptions = {}) {
       try {
         raw = await response.json();
       } catch {
-        await safelyLog(() => usageLogger(usageRowFromResponse(
+        await logSafely(() => usageLogger(usageRowFromResponse(
           undefined, input.caller, JEV_MODEL, JEV_INPUT_USD_PER_MILLION_TOKENS,
         )));
         throw new JevResponseError();
@@ -285,14 +285,14 @@ export function createJevClient(options: JevClientOptions = {}) {
       try {
         result = fromResponse(raw, input.questions, prepared.choiceMaps);
       } catch (error) {
-        await safelyLog(() => usageLogger(usageRowFromResponse(
+        await logSafely(() => usageLogger(usageRowFromResponse(
           raw, input.caller, JEV_MODEL, JEV_INPUT_USD_PER_MILLION_TOKENS,
         )));
         throw error;
       }
       result.usage.caller = input.caller;
-      await safelyLog(() => logUsage(result.usage));
-      await safelyLog(() => usageLogger(usageRow(result.usage)));
+      await logSafely(() => logUsage(result.usage));
+      await logSafely(() => usageLogger(usageRow(result.usage)));
       return result;
     },
   };

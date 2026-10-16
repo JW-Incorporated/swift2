@@ -6,13 +6,36 @@ export interface JevUsage {
   estCostUsd: number;
 }
 
+const JEV_USAGE_LOG_TIMEOUT_MS = 2_000;
+
+export async function safelyLog(
+  logger: () => void | Promise<void>,
+  warn: (message: string) => void,
+): Promise<void> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const timeout = new Promise<never>((_resolve, reject) => {
+      timer = setTimeout(
+        () => reject(new Error('Jev usage logging timed out')),
+        JEV_USAGE_LOG_TIMEOUT_MS,
+      );
+      (timer as ReturnType<typeof setTimeout> & { unref?: () => void }).unref?.();
+    });
+    await Promise.race([Promise.resolve().then(logger), timeout]);
+  } catch {
+    try { warn('Jev usage logging failed'); } catch { /* logging cannot fail the call */ }
+  } finally {
+    if (timer !== undefined) clearTimeout(timer);
+  }
+}
+
 export interface JevUsageRow {
   caller: string;
   provider: 'jev';
   model: string;
   token: null;
-  input_tokens: number | null;
-  output_tokens: number | null;
+  input_tokens: number;
+  output_tokens: number;
   cache_read_tokens: 0;
   cache_creation_input_tokens: null;
   calls: 1;
@@ -28,8 +51,8 @@ export function usageRow(usage: UsageRowInput): JevUsageRow {
     provider: 'jev',
     model: usage.model,
     token: null,
-    input_tokens: usage.inputTokens ?? null,
-    output_tokens: usage.outputTokens ?? null,
+    input_tokens: usage.inputTokens ?? 0,
+    output_tokens: usage.outputTokens ?? 0,
     cache_read_tokens: 0,
     cache_creation_input_tokens: null,
     calls: 1,
