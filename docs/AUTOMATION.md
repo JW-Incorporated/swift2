@@ -19,7 +19,7 @@ picking a winner.
   schedules. The old Claude desk-routine fleet has **0 enabled triggers** as
   of 2026-09-06; its work is retired or superseded by Actions callers such as
   the four quality-and-integrity workflows listed below.
-- **Manual-only: 10 workflows**, `workflow_dispatch` and nothing else, badged
+- **Manual-only: 11 workflows**, `workflow_dispatch` and nothing else, badged
   **MANUAL** below. They never fire by themselves and are **not** counted as
   scheduled routines; most sit behind a typed confirmation because they spend
   money, call a vision model, or delete something live. Indexed anyway,
@@ -71,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (30 automatic + 10 manual)
+## Tier 1 — GitHub Actions (30 automatic + 11 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -185,6 +185,12 @@ workflows.
 | [`db-migrate.yml`](../.github/workflows/db-migrate.yml) | dispatch + push to `main` touching `supabase/migrations/**` | **yes** — applies migrations, then re-runs to prove idempotency |
 | [`db-seed.yml`](../.github/workflows/db-seed.yml) | **MANUAL** — `target` from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
+
+### Retraction operations (1 manual)
+
+| Workflow | Trigger | Mutates production | Safety |
+|---|---|---|---|
+| [`tidewatch-retract.yml`](../.github/workflows/tidewatch-retract.yml) | **MANUAL** — story id, plan by default | apply hides the story card, kills its pending events, and records the decision | apply requires `RETRACT-<story_id>`; correction enqueue is separately default-off behind owner-only `TIDEWATCH_CORRECTIONS_LIVE` |
 
 ### Security and standing reminders (3)
 

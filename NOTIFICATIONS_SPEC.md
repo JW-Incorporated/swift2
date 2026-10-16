@@ -89,6 +89,14 @@ Every push passes these gates, in order:
 5. **Send-time sanity** — digests and fun notifications only fire between 8 AM–9 PM local.
 6. **Instant freshness** — an event more than 6 hours old, measured from `created_at`, never sends as Instant. For a device that held the event during its immediately preceding quiet-hours window, the six-hour clock restarts when that hold ends. Suppression does not remove the event from the in-app inbox. The router only loads events created in the preceding 30 hours, which covers the six-hour horizon plus overnight holds.
 
+**Retraction corrections.** A correction is not a preference category and is
+never broadcast: its event carries only the device ids proven by `deliveries`
+to have received the original story. It still passes every governor gate above
+and counts toward both the device's instant daily cap and the combined six-per-
+day hard ceiling. Event creation is disabled unless the owner enables the
+default-off `TIDEWATCH_CORRECTIONS_LIVE` repository variable; that switch is
+intentionally absent from the agent switch allowlist.
+
 **Kill window and freeze (owner, 2026-10-14, Tidewatch D4).** The gates above are unchanged; automatic breaking news gets no exception.
 - **5-minute kill window on every tier.** Every event, whatever its tier, waits 5 minutes (`available_at`) before it can send, so a false positive can be killed (`killed_at`) first. `scripts/notifications-kill.mjs` lists or kills pending events across every tier.
 - **`PUSH_FREEZE`.** A global brake every send path checks: while it is on, nothing sends. Agents may switch it on; only the owner lifts it (the same posture as `SOCIAL_FREEZE`). Instant, digest, Clown Report, lyric, on-this-day, countdown and cooldown passes all engage the brake and halt the current run after any provider-accepted push whose delivery record or required sent marker cannot be written. The run halts even if the freeze write itself fails.

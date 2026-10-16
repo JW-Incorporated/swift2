@@ -35,6 +35,9 @@ export interface RouterEventRow {
   available_at: string;
   expires_at: string | null;
   killed_at: string | null;
+  /** Corrections bypass category preferences and may only target devices
+   * copied from the original event's instant-delivery log. */
+  target_device_ids?: string[] | null;
 }
 
 export interface RouterDispatchResult {
@@ -87,7 +90,7 @@ export const INSTANT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const EVENT_QUERY_LOOKBACK_MS = 30 * 60 * 60 * 1000;
 const DISPATCH_INTERVAL_MS = 15 * 60 * 1000;
 const EVENT_COLUMNS =
-  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
+  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at,target_device_ids';
 
 async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEventRow[]> {
   const pending: RouterEventRow[] = [];
@@ -209,14 +212,19 @@ async function dispatchOneEvent(
   // of send"). One prefs query covers all three cadences so a device that
   // changes cadence between dispatch passes is picked up correctly either
   // way, without a second round-trip.
-  const { data: prefRows, error: prefsError } = await db
-    .from('notification_prefs')
-    .select('device_id,cadence')
-    .eq('category', event.category)
-    .in('cadence', ['instant', 'daily', 'weekly']);
-  if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
-
-  const prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
+  let prefRowsArr: { device_id: string; cadence: string }[];
+  if (event.category === 'correction') {
+    prefRowsArr = [...new Set(event.target_device_ids ?? [])]
+      .map((device_id) => ({ device_id, cadence: 'instant' }));
+  } else {
+    const { data: prefRows, error: prefsError } = await db
+      .from('notification_prefs')
+      .select('device_id,cadence')
+      .eq('category', event.category)
+      .in('cadence', ['instant', 'daily', 'weekly']);
+    if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
+    prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
+  }
   const instantDeviceIds = prefRowsArr
     .filter((r) => r.cadence === 'instant')
     .map((r) => r.device_id);
