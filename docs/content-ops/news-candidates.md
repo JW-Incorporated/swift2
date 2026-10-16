@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 91
+
+## Hall Of Fame Basketball Coach Finds Taylor Swift 'Intimidating'
+
+- first seen: 2026-10-16 19:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Hall of Fame basketball coach described Taylor Swift as 'too intimidating' to approach, according to Sports Illustrated. The statement reflects on her celebrity status and the impact it can have on personal interactions.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNNERTTnFFSUFDRjlBZmh3Mi1iUmxrTjBFbEk0dXpuNVdjbzJQcjZFa21DaUdHdjNqTk1BOThuaVRUdHVnQk5QNjd4MTRNcUJvYjFCWW1VSHZ3TVlJN1U3dEZVWUhoWWhjRzRVU0llOWVlUGdwYnc2MHBreTJhUEZLQXMxY19taWRpNmgzaVFjX1NfazNWdHRNWXZJZXlob3RwdFFxREJmVVk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Take Time Apart Amid Instagram Controversy
+
+- first seen: 2026-10-16 19:46 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly taking a break from their relationship following an incident related to an Instagram scandal. The situation has prompted them to reassess their time together.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMirwFBVV95cUxNQ2JUNjJDTTJVMkFfR2xvVDhFLW5SV3c3TG1aZ3JUbGJLMTVjSDZnbHpNcWVYdmZscV93cS1ieFBoeDJKcS1Ob2dZMEp6SlA1OHFpLVhIclFBdEFGSEdlV0hQdkZCRy1sU3RuUkpoNTY3WWNhQjNLRVpDRWN0ZkVWM2pPMEtfVlZSS0U3OVBvVmpGU0tKU3JOTHAyd0RXWDR2REVnX3RpSWdFQlEzQUpB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Mailing Features Candidate Who Prayed to Be Taylor Swift's Husband
 
