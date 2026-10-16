@@ -21,6 +21,40 @@ const item = (title: string, day: number, products?: object[]) => ({
 });
 
 describe('P1-19 matcher input', () => {
+  it('keeps default-off serialized input byte-identical', () => {
+    const corpora = [{ sourceFile: 'test.mjs', eraSlug: 'lover', items: [item('look', 15)] }];
+    const serialized = `${JSON.stringify(buildMatcherInput({
+      corpora, tidewatchClass: { enabled: false, shadow: true }, now,
+    }), null, 2)}\n`;
+    expect(serialized).toMatchInlineSnapshot(`
+        "{
+          "moments": [
+            {
+              "source": "fashion-moment",
+              "sourceFile": "test.mjs",
+              "momentId": "vault-lover-look",
+              "moment": {
+                "id": "vault-lover-look",
+                "title": "look"
+              },
+              "momentImageUrl": "https://images.example/look.jpg"
+            }
+          ],
+          "paidSearch": {
+            "cap": 5
+          },
+          "sources": {
+            "fashion": 1,
+            "tidewatch": {
+              "enabled": false,
+              "used": 0
+            }
+          }
+        }
+        "
+      `);
+  });
+
   it('selects only empty fashion moments, newest first, and caps the run at three', () => {
     const curated = { verifiedAt: '2026-09-01T12:00:00.000Z', altNote: 'Curated alternative.' };
     const corpora = [{ sourceFile: 'supabase/seed/content/test.mjs', eraSlug: 'lover', items: [
