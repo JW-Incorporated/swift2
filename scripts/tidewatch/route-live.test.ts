@@ -4,7 +4,9 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs module
 import { createSiteAction, requestLiveRevalidation } from './actions/site.mjs';
 // @ts-expect-error plain .mjs module
-import { routeDecisions } from './route.mjs';
+import { main, routeDecisions } from './route.mjs';
+// @ts-expect-error plain .mjs module
+import { routerStore } from './router-store.mjs';
 // @ts-expect-error plain .mjs module
 import { validate } from '../ops/set-switch.mjs';
 
@@ -23,7 +25,49 @@ function recordingStore(writes: Array<Record<string, unknown>> = []) {
       writes.push({ table: 'watch_decision', id, values: { action_ref: actionRef } });
       return true;
     }),
+    replace: vi.fn(async (id: string, _expectedRef: string, actionRef: string) => {
+      writes.push({ table: 'watch_decision', id, values: { action_ref: actionRef } });
+      return true;
+    }),
   };
+}
+
+function retryingStore() {
+  const refs = new Map<string, string>();
+  const base = criticalDecision();
+  return {
+    refs,
+    loadPending: vi.fn(async () => {
+      const actionRef = refs.get(base.id) ?? null;
+      let retryable = actionRef === null;
+      if (actionRef) {
+        try { retryable = JSON.parse(actionRef).routerStatus === 'retryable'; } catch { retryable = false; }
+      }
+      return { decisions: retryable ? [{ ...base, action_ref: actionRef }] : [],
+        timelines: new Map([[base.watch_item.story_id, timeline]]) };
+    }),
+    record: vi.fn(async (id: string, actionRef: string, expectedRef: string | null) => {
+      if ((refs.get(id) ?? null) !== expectedRef) return false;
+      refs.set(id, actionRef);
+      return true;
+    }),
+    replace: vi.fn(async (id: string, expectedRef: string, actionRef: string) => {
+      if (refs.get(id) !== expectedRef) return false;
+      refs.set(id, actionRef);
+      return true;
+    }),
+  };
+}
+
+function liveConfig() {
+  const enabled = structuredClone(config);
+  enabled.classes.critical_breaking.enabled = true;
+  return enabled;
+}
+
+async function runLive(store: ReturnType<typeof retryingStore>, handler: ReturnType<typeof vi.fn>) {
+  return main([], { config: liveConfig(), store, env: { TIDEWATCH_ROUTER_LIVE: 'true' },
+    actionHandlers: { critical_fast_path: handler }, actionRunners: {}, log: vi.fn() });
 }
 
 describe('Tidewatch live site action gates', () => {
@@ -78,6 +122,77 @@ describe('Tidewatch live site action gates', () => {
     expect(writes.every((write) => write.table === 'watch_decision'
       && Object.keys(write.values as object).join(',') === 'action_ref')).toBe(true);
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('releases a thrown action as retryable and retries it on the next run', async () => {
+    const store = retryingStore();
+    const handler = vi.fn()
+      .mockRejectedValueOnce(new Error('temporary failure'))
+      .mockResolvedValueOnce({ published: true });
+    await expect(runLive(store, handler)).rejects.toThrow('temporary failure');
+    expect(JSON.parse(store.refs.get('decision-1') ?? '')).toMatchObject({
+      routerStatus: 'retryable', attempts: 1,
+      reason: 'critical_fast_path:threw:Error',
+    });
+
+    await runLive(store, handler);
+    expect(JSON.parse(store.refs.get('decision-1') ?? '')).toMatchObject({
+      routerStatus: 'succeeded', attempts: 2,
+    });
+    expect(handler).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not retry a successful action on a later run', async () => {
+    const store = retryingStore();
+    const handler = vi.fn(async () => ({ published: true }));
+    await runLive(store, handler);
+    const second = await runLive(store, handler);
+    expect(second.read).toBe(0);
+    expect(handler).toHaveBeenCalledOnce();
+  });
+
+  it('parks repeated action failures at the attempt cap with a reason', async () => {
+    const store = retryingStore();
+    const handler = vi.fn(async () => ({ published: false, reason: 'not_configured' }));
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      await expect(runLive(store, handler)).rejects.toThrow(/not_configured/);
+    }
+    expect(JSON.parse(store.refs.get('decision-1') ?? '')).toMatchObject({
+      routerStatus: 'parked', attempts: 3,
+      reason: 'critical_fast_path:not_configured',
+    });
+    const parked = await runLive(store, handler);
+    expect(parked.read).toBe(0);
+    expect(handler).toHaveBeenCalledTimes(3);
+  });
+
+  it('loads retryable action_ref rows before fresh decisions in live mode', async () => {
+    const filters: Array<{ column: string; pattern: string }> = [];
+    const retry = { ...criticalDecision('retry'), action_ref: '{"routerStatus":"retryable"}' };
+    const fresh = { ...criticalDecision('fresh'), action_ref: null };
+    const client = { from: (table: string) => {
+      if (table === 'story_timeline') return { select: () => ({
+        in: async () => ({ data: [], error: null }),
+      }) };
+      let mode = '';
+      const query = {
+        select: () => query,
+        eq: () => query,
+        like: (column: string, pattern: string) => {
+          filters.push({ column, pattern }); mode = 'retry'; return query;
+        },
+        is: () => { mode = 'fresh'; return query; },
+        order: () => query,
+        limit: async (limit: number) => ({
+          data: (mode === 'retry' ? [retry] : [fresh]).slice(0, limit), error: null,
+        }),
+      };
+      return query;
+    } };
+    const pending = await routerStore(client, { includeRetries: true }).loadPending(2);
+    expect(pending.decisions.map((row: { id: string }) => row.id)).toEqual(['retry', 'fresh']);
+    expect(filters).toEqual([{ column: 'action_ref',
+      pattern: '{"routerStatus":"retryable"%' }]);
   });
 
   it('uses only the explicitly supplied preview origin for acceptance revalidation', async () => {

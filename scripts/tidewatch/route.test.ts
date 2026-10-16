@@ -6,8 +6,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs modules
 import { ROUTE_BY_CLASS, encodePlan, planActions } from './actions/plan.mjs';
 // @ts-expect-error plain .mjs module
-import { runMerchAction } from './actions/merch.mjs';
-// @ts-expect-error plain .mjs module
 import { ACTION_HANDLERS, ACTION_RUNNERS, disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { routerStore } from './router-store.mjs';
@@ -24,11 +22,12 @@ const decision = (overrides = {}) => ({
   watch_item: { story_id: 'story-1' }, ...overrides,
 });
 
-function memoryStore() {
+function memoryStore(pending: { decisions: ReturnType<typeof decision>[],
+  timelines: Map<string, unknown> } = { decisions: [], timelines: new Map() }) {
   const refs = new Map<string, string>();
   return {
     refs,
-    loadPending: vi.fn(async () => ({ decisions: [], timelines: new Map() })),
+    loadPending: vi.fn(async () => pending),
     record: vi.fn(async (id: string, ref: string) => {
       if (refs.has(id)) return false;
       refs.set(id, ref);
@@ -97,7 +96,7 @@ async function transitiveLocalImports(entry: string) {
     await init;
     const [imports] = parse(source);
     for (const imported of imports) {
-      if (!imported.n) continue;
+      if (!imported.n || imported.d !== -1) continue;
       const resolved = await resolveImport(imported.n, file);
       if (resolved) await walk(resolved);
     }
@@ -150,21 +149,19 @@ describe('Tidewatch shadow action router', () => {
     expect(guarded.row.action).toBe('shadow_outfit_matcher_queue');
   });
 
-  it('registers the site and merch actions in the route import graph without running their effects', async () => {
+  it('keeps publisher-capable modules out of the static route import graph', async () => {
     const imports = await transitiveLocalImports(path.join(ROOT, 'scripts/tidewatch/route.mjs'));
     expect(ACTION_HANDLERS).toMatchObject({ critical_fast_path: expect.any(Function) });
-    expect(imports).toContain('scripts/tidewatch/actions/site.mjs');
-    expect(imports).toContain('scripts/tidewatch/actions/merch.mjs');
+    expect(imports).not.toContain('scripts/tidewatch/actions/site.mjs');
+    expect(imports).not.toContain('scripts/tidewatch/actions/merch.mjs');
     expect(Object.keys(ACTION_RUNNERS)).toEqual(['store_drop_draft', 'fan_merch_curation',
       'outfit_matcher_queue']);
     const loadStoreDropDraft = vi.fn();
     const emitOfficial = vi.fn();
     const recordAction = vi.fn();
-    for (const classId of ['merch_outfit', 'merch_fan', 'merch_official']) {
-      await runMerchAction(decision({ class: classId }), {
-        live: false, loadStoreDropDraft, emitOfficial, recordAction,
-      });
-      await ACTION_RUNNERS.outfit_matcher_queue(decision({ class: classId }), {
+    for (const [action, runner] of Object.entries(ACTION_RUNNERS)) {
+      await runner(decision({ class: action === 'store_drop_draft' ? 'merch_official'
+        : action === 'fan_merch_curation' ? 'merch_fan' : 'merch_outfit' }), {
         live: false, loadStoreDropDraft, emitOfficial, recordAction,
       });
     }
@@ -172,13 +169,35 @@ describe('Tidewatch shadow action router', () => {
     expect(emitOfficial).not.toHaveBeenCalled();
     expect(recordAction).not.toHaveBeenCalled();
 
-    const merchImports = new Set(await transitiveLocalImports(path.join(ROOT,
-      'scripts/tidewatch/actions/merch.mjs')));
-    const forbidden = imports.filter((file) => !merchImports.has(file) && [
+    const forbidden = imports.filter((file) => [
       /^scripts\/social\//,
+      /(^|\/)(push|notifications?)(\/|[-.])/,
+      /(^|\/)(site|revalidate)(\/|[-.])/,
       /(^|\/)(gh|github|issues?)(\/|[-.])/,
     ].some((pattern) => pattern.test(file)));
     expect(forbidden).toEqual([]);
+  });
+
+  it('does not execute any registered runner or handler when live is unset or false', async () => {
+    const runners = Object.fromEntries(Object.keys(ACTION_RUNNERS)
+      .map((action) => [action, vi.fn()]));
+    const handlers = Object.fromEntries(Object.keys(ACTION_HANDLERS)
+      .map((action) => [action, vi.fn()]));
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    const decisions = [
+      decision({ id: 'critical', class: 'critical_breaking' }),
+      decision({ id: 'official', class: 'merch_official' }),
+      decision({ id: 'fan', class: 'merch_fan' }),
+      decision({ id: 'outfit', class: 'merch_outfit' }),
+    ];
+    for (const env of [{}, { TIDEWATCH_ROUTER_LIVE: 'false' }]) {
+      await main([], { config, store: memoryStore({ decisions, timelines: new Map() }), env,
+        actionHandlers: handlers, actionRunners: runners, log: vi.fn() });
+    }
+    for (const effect of [...Object.values(runners), ...Object.values(handlers)]) {
+      expect(effect).not.toHaveBeenCalled();
+    }
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it('records a stable action_ref once when the same decision is rerun', async () => {
@@ -269,6 +288,7 @@ describe('Tidewatch shadow action router', () => {
     const router = await readFile(path.join(ROOT, 'scripts/tidewatch/route.mjs'), 'utf8');
     expect(workflow.indexOf('node scripts/tidewatch/route.mjs'))
       .toBeGreaterThan(workflow.indexOf('node scripts/tidewatch/classify.mjs'));
+    expect(workflow).toContain('name: Plan and route decisions');
     expect(workflow).toContain('TIDEWATCH_ROUTER_LIVE: ${{ vars.TIDEWATCH_ROUTER_LIVE }}');
     expect(workflow).toContain('TIDEWATCH_FREEZE: ${{ vars.TIDEWATCH_FREEZE }}');
     expect(router).toContain('GITHUB_STEP_SUMMARY');

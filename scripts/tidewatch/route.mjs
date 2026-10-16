@@ -9,6 +9,7 @@ import { routerStore } from './router-store.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
+export const MAX_ACTION_ATTEMPTS = 3;
 async function publishCriticalSite(...args) {
   const site = await import('./actions/site.mjs');
   return site.publishCriticalSite(...args);
@@ -20,6 +21,40 @@ export const ACTION_RUNNERS = Object.freeze({
   fan_merch_curation: runMerchAction,
   outfit_matcher_queue: runMerchAction,
 });
+
+function actionAttempt(actionRef) {
+  if (typeof actionRef !== 'string') return 0;
+  try {
+    const parsed = JSON.parse(actionRef);
+    return parsed.routerStatus === 'retryable' && Number.isInteger(parsed.attempts)
+      ? parsed.attempts : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function encodeActionState(plan, routerStatus, attempts, reason) {
+  return JSON.stringify({ routerStatus, attempts, ...JSON.parse(encodePlan(plan)),
+    ...(reason ? { reason } : {}) });
+}
+
+function failedResult(action, result) {
+  if (result === false) return `${action}:returned-false`;
+  if (!result || typeof result !== 'object') return null;
+  for (const field of ['ok', 'success', 'published', 'acted']) {
+    if (result[field] === false) return `${action}:${result.reason ?? `${field}-false`}`;
+  }
+  return null;
+}
+
+async function executeAction(action, decision, timeline, actionHandlers, actionRunners,
+  actionContext) {
+  const handler = actionHandlers[action];
+  if (handler) return handler({ decision, timeline, ...actionContext });
+  const runner = actionRunners[action];
+  if (!runner) return undefined;
+  return runner(decision, { ...actionContext, live: true, recordAction: async () => true });
+}
 function parseArgs(argv) {
   const options = { limit: 600, replayPath: null };
   for (let index = 0; index < argv.length; index += 1) {
@@ -42,7 +77,8 @@ export function disagreementMetric(plans) {
 }
 
 export async function routeDecisions({ decisions, timelines = new Map(), store, config,
-  live = false, actionHandlers = ACTION_HANDLERS, actionContext = {} }) {
+  live = false, actionHandlers = ACTION_HANDLERS, actionRunners = ACTION_RUNNERS,
+  actionContext = {} }) {
   const plans = [];
   let recorded = 0;
   for (const decision of decisions) {
@@ -51,13 +87,37 @@ export async function routeDecisions({ decisions, timelines = new Map(), store, 
     const plan = planActions(decision.class, decision.answers, decision.confidence,
       timeline, config);
     plans.push(plan);
-    const claimed = await store.record(decision.id, encodePlan(plan));
+    const enabled = live && config.classes[decision.class]?.enabled === true;
+    const executable = plan.actions.filter((action) => actionHandlers[action] || actionRunners[action]);
+    const attempts = actionAttempt(decision.action_ref) + 1;
+    const claimRef = enabled && executable.length > 0
+      ? encodeActionState(plan, 'claimed', attempts)
+      : encodePlan(plan);
+    const claimed = await store.record(decision.id, claimRef, decision.action_ref ?? null);
     if (!claimed) continue;
     recorded += 1;
-    if (!live || config.classes[decision.class]?.enabled !== true) continue;
-    for (const action of plan.actions) {
-      const handler = actionHandlers[action];
-      if (handler) await handler({ decision, timeline, ...actionContext });
+    if (!enabled || executable.length === 0) continue;
+    let activeAction = executable[0];
+    try {
+      for (const action of executable) {
+        activeAction = action;
+        const result = await executeAction(action, decision, timeline, actionHandlers,
+          actionRunners, actionContext);
+        const reason = failedResult(action, result);
+        if (reason) throw Object.assign(new Error(`Tidewatch action failed: ${reason}`),
+          { actionFailureReason: reason });
+      }
+      const successRef = encodeActionState(plan, 'succeeded', attempts);
+      if (!await store.replace(decision.id, claimRef, successRef)) {
+        throw new Error(`failed to settle Tidewatch action claim for ${decision.id}`);
+      }
+    } catch (error) {
+      const reason = error.actionFailureReason
+        ?? `${activeAction}:threw:${error?.name ?? 'Error'}`;
+      const status = attempts >= MAX_ACTION_ATTEMPTS ? 'parked' : 'retryable';
+      const failureRef = encodeActionState(plan, status, attempts, reason);
+      await store.replace(decision.id, claimRef, failureRef);
+      throw error;
     }
   }
   return { mode: 'shadow-router', read: decisions.length, recorded, plans,
@@ -102,9 +162,11 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const live = (deps.env ?? process.env).TIDEWATCH_ROUTER_LIVE === 'true';
   const client = deps.store ? null : deps.client ?? serviceClient();
   if (!deps.store && !client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
-  const store = deps.store ?? routerStore(client);
+  const store = deps.store ?? routerStore(client, { includeRetries: live });
   const pending = await store.loadPending(options.limit);
   const result = await routeDecisions({ ...pending, store, config, live,
+    actionHandlers: deps.actionHandlers ?? ACTION_HANDLERS,
+    actionRunners: deps.actionRunners ?? ACTION_RUNNERS,
     actionContext: { db: deps.client ?? client, env: deps.env ?? process.env,
       fetchImpl: deps.fetchImpl } });
   const markdown = summaryMarkdown(result);
