@@ -5655,6 +5655,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/h8DLofLM7No/maxresdefault.jpg',
+            focalPoint: '25% 40%',
+            credit: 'Taylor Swift (official "Lavender Haze" video, YouTube)',
+            caption: 'A frame from the self-directed "Lavender Haze" video on Taylor\'s YouTube, released Jan. 27, 2023.',
+            kind: 'primary',
+          },
+        ],
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
