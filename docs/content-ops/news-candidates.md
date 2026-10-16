@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 89
+
+## Travis Kelce Appears in Taylor Swift's 'Patient Zero' Music Video
+
+- first seen: 2026-10-16 23:32 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce makes a brief appearance in Taylor Swift's music video for 'Patient Zero', specifically at the 1:26 mark.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxONDF3RGszanlWd1lJSmJvbDB2ZEVMTkRVcmM1UG1LaklHUFphZW4wc3dwWWxTSkhTeXhzSzN3NkJwUTFzTXF2OUJQSHMza01GRjRUUmFERllsQ2M0bUFBUGRlVnFEWk90OWdHRXBzWTh3QldaZkJ3UXlaVE94V2xveGwwX1FBQ2JoalNDZGt1Yzd5VEFoZFNjVXRlYmQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Donated 6,000 Books to Pennsylvania Library in 2011
 
