@@ -893,4 +893,43 @@ describe('dispatchPendingEvents', () => {
     expect(result.skippedDailyCap).toBe(0); // NOT the per-category cap gate
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it('ACCEPTANCE (D5): a baby_watch event reaches the opted-in device once and the not-opted-in device never', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-bw',
+          category: 'baby_watch',
+          tier: 1,
+          title: 'Official announcement',
+          body: 'Confirmed',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [
+        { device_id: 'opted-in', category: 'baby_watch', cadence: 'instant' },
+        { device_id: 'opted-out', category: 'baby_watch', cadence: 'off' },
+      ],
+      devices: [
+        device({ id: 'opted-in', push_token: 'token-in' }),
+        device({ id: 'opted-out', push_token: 'token-out' }),
+        device({ id: 'no-row', push_token: 'token-none' }),
+      ],
+      deliveries: [],
+    });
+    const spy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'opted-in', deliveryToken: 'tok-in' }]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.sent).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy.mock.calls[0]?.[0]).toEqual([expect.objectContaining({ deviceId: 'opted-in' })]);
+    expect(db._insertedDeliveries.map((d) => d.device_id)).toEqual(['opted-in']);
+  });
 });

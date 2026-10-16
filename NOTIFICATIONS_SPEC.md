@@ -55,7 +55,7 @@ Priority tiers drive governor behavior (§6). **T1 = rare + huge**, T2 = notable
 |---|---|---|---|---|
 | `baby_watch` | Baby Watch: official announcements only | On · Off | Off (opt-in only) | Fires **only** on a confirmed pregnancy or birth announcement: an official post, or a rep statement quoted by a tier-1 outlet, or two tier-1 outlets stating it as fact, plus a 10-minute re-check that the sources still say it. Never a rumor, countdown, clue or "watch" update; until confirmation, silence. The governor (§6) applies unchanged |
 
-**Personal-life news in any category** (pregnancy, engagement, marriage and comparable milestones) is confirmed-only under the same bar and 10-minute re-check before any push; no rumor, countdown or clue content (`docs/social/guardrails.md`, guardrail 4). Not built yet (Tidewatch P2-05); it goes live last, after this spec change is merged.
+**Personal-life news in any category** (pregnancy, engagement, marriage and comparable milestones) is confirmed-only under the same bar and 10-minute re-check before any push; no rumor, countdown or clue content (`docs/social/guardrails.md`, guardrail 4). Built inert (Tidewatch P2-05): the `baby_watch` category, tier 1 in `TIER_BY_CATEGORY`, and the web settings toggle plus inbox label exist behind `NEXT_PUBLIC_BABY_WATCH_ENABLED` (default off, nothing renders). Opt-in stores cadence `instant` (what the router fans out), opt-out stores `off`; a device with no row is opted out (migration `20261015050000_baby_watch_category.sql` pins the cadences). It has no Android channel or settings-catalogue row yet, and no producer emits the event; it goes live last, at P2-13's staged go-live.
 
 ### Fun categories (all OFF by default, opt-in only)
 

@@ -21,6 +21,7 @@ import {
   STEADY_CADENCES,
   FUN_CADENCES,
   EVENT_CADENCES,
+  BABY_WATCH_CATEGORY,
   type AnyNotificationCategory,
   type DevicePrefsResponse,
   type NotificationCadence,
@@ -31,6 +32,8 @@ import { selectDriver } from './lib/driver';
 import { settingsCopy } from './lib/copy';
 import { SubscribePrompt } from './lib/SubscribePrompt';
 import { useOptOutPending } from './lib/useOptOutPending';
+import { babyWatchUiEnabled } from './lib/babyWatchFlag';
+import { BabyWatchToggle } from './BabyWatchToggle';
 
 const CADENCE_LABEL: Record<NotificationCadence, string> = {
   instant: 'Instant',
@@ -279,6 +282,17 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
               </div>
             );
           })}
+          {group === 'News' && babyWatchUiEnabled() && (
+            <BabyWatchToggle
+              cadence={prefByCategory.get(BABY_WATCH_CATEGORY)}
+              pending={pendingKeys.has(`cadence:${BABY_WATCH_CATEGORY}`)}
+              onChange={(next) =>
+                savePrefs(`cadence:${BABY_WATCH_CATEGORY}`, {
+                  prefs: [{ category: BABY_WATCH_CATEGORY, cadence: next }],
+                })
+              }
+            />
+          )}
         </div>
       ))}
 
