@@ -31,6 +31,9 @@ export default {
       month: 10,
       day: 3,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-tloas-a-rumored-girls-night-out-with-dakota-johnson-in-los-angeles',
+      ],
       title: 'Taylor crashes Dakota Johnson’s SNL monologue as her reluctant “therapist”',
       snippet:
         'Hosting Saturday Night Live on the eve of her birthday, Dakota Johnson introduced “my literal therapist” — and out walked Taylor to set the record straight: “I’m not your therapist, actually.” The two “Patient Zero” collaborators sparred through the cold-open monologue, and Taylor came back at the goodnights carrying a birthday cake.',
@@ -107,6 +110,10 @@ export default {
       month: 10,
       day: 4,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+      ],
       title:
         '"Patient Zero" debuts at No. 1 — a record-tying 10th — as "Encore" tracks take four of the Hot 100\'s top five',
       snippet:
@@ -9072,6 +9079,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -9400,6 +9408,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -13478,6 +13487,7 @@ export default {
       category: 'sighting',
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-taylor-crashes-dakota-johnsons-snl-monologue-as-her-reluctan',
       ],
       confidence: 'plausible',
       title: 'A rumored girls’ night out with Dakota Johnson in Los Angeles',
@@ -14140,6 +14150,7 @@ export default {
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
       snippet:
@@ -14215,6 +14226,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 9,
@@ -14787,6 +14801,10 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
+      relatedIds: [
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       // Priority fix (2026-09-23, founder escalation): this is breaking news —
       // a new single announcement, her first release since The Life of a
       // Showgirl — and the same-day alphabetical tiebreak (era-feed.ts's
@@ -15025,6 +15043,10 @@ export default {
       month: 9,
       day: 25,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       significance: 'notable',
       title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
       snippet:

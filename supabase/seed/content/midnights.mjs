@@ -2638,6 +2638,9 @@ export default {
       month: 10,
       day: 12,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-sitting-with-donna-kelce-as-the-relationship-goes-public',
+      ],
       title: 'A Thursday-night Broncos game, one day after the Eras film premiere',
       snippet:
         "Straight off the Eras Tour film's LA premiere, she landed in Kansas City, arrived in a Chiefs zip-up about 45 minutes before kickoff, and was driven by golf cart to a private box to watch with Donna Kelce again.",
@@ -5764,6 +5767,9 @@ export default {
       month: 9,
       day: 24,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-a-thursday-night-broncos-game-one-day-after-the-eras-film-pr',
+      ],
       title: 'Sitting with Donna Kelce as the relationship goes public',
       snippet:
         'Taylor was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',
