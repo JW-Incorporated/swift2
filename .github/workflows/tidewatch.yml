@@ -64,6 +64,7 @@ jobs:
         if: steps.preflight.outputs.proceed == 'true'
         uses: ./.github/actions/setup-repo
         with:
+          fetch-depth: 0
           npm-ci: 'true'
 
       - name: Install Claude Code
@@ -87,6 +88,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GH_TOKEN: ${{ github.token }}
         run: node scripts/tidewatch/collect.mjs
 
       - name: Classify
