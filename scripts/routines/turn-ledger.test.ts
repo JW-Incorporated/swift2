@@ -1,7 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
-import { aggregateUsage, fetchUsageRecords, isUsageArtifactName, parseArgs } from './turn-ledger.mjs';
+import { aggregateUsage, fetchUsageRecords, isLimitFailure, isUsageArtifactName, parseArgs } from './turn-ledger.mjs';
 
 describe('turn ledger', () => {
+  // #5899: the five-hour cap says "session limit", not "weekly limit".
+  it('counts the session cap as a plan-limit failure, not a defect', () => {
+    expect(isLimitFailure({ result: "You've hit your session limit · resets 6:30pm (UTC)" })).toBe(true);
+    expect(isLimitFailure({ result: 'a genuine stack trace' })).toBe(false);
+  });
+
   it('aggregates turns, models, recorded pools, and plan-limit failures', () => {
     expect(
       aggregateUsage([
