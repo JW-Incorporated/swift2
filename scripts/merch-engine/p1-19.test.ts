@@ -2,7 +2,12 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { buildMatcherInput, hasNoProducts } from './build-matcher-input.mjs';
+import {
+  buildMatcherInput,
+  hasNoProducts,
+  readTidewatchQueue,
+  serializeMatcherInput,
+} from './build-matcher-input.mjs';
 import { findOpenMatcherPr, openMatcherPr } from './matcher-open-pr-guard.mjs';
 import { authorizeMatcherRun, inNoMatchCooldown, recordNoMatch } from './matcher-state.mjs';
 import {
@@ -21,6 +26,58 @@ const item = (title: string, day: number, products?: object[]) => ({
 });
 
 describe('P1-19 matcher input', () => {
+  it('keeps serialized input byte-identical when the Tidewatch queue is absent or empty', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'p2-11-matcher-'));
+    const absent = join(dir, 'absent.jsonl');
+    const empty = join(dir, 'empty.jsonl');
+    const corpora = [{ sourceFile: 'test.mjs', eraSlug: 'lover', items: [item('look', 15)] }];
+    try {
+      await writeFile(empty, '');
+      const baseline = serializeMatcherInput(buildMatcherInput({
+        corpora, tidewatchClass: { enabled: false, shadow: true }, now,
+      }));
+      const absentOutput = serializeMatcherInput(buildMatcherInput({
+        corpora, tidewatchClass: { enabled: false, shadow: true }, now,
+        tidewatchItems: await readTidewatchQueue(absent),
+      }));
+      const emptyOutput = serializeMatcherInput(buildMatcherInput({
+        corpora, tidewatchClass: { enabled: false, shadow: true }, now,
+        tidewatchItems: await readTidewatchQueue(empty),
+      }));
+      expect(absentOutput).toBe(baseline);
+      expect(emptyOutput).toBe(baseline);
+      expect(baseline).toMatchInlineSnapshot(`
+        "{
+          "moments": [
+            {
+              "source": "fashion-moment",
+              "sourceFile": "test.mjs",
+              "momentId": "vault-lover-look",
+              "moment": {
+                "id": "vault-lover-look",
+                "title": "look"
+              },
+              "momentImageUrl": "https://images.example/look.jpg"
+            }
+          ],
+          "paidSearch": {
+            "cap": 5
+          },
+          "sources": {
+            "fashion": 1,
+            "tidewatch": {
+              "enabled": false,
+              "used": 0
+            }
+          }
+        }
+        "
+      `);
+    } finally {
+      await rm(dir, { recursive: true });
+    }
+  });
+
   it('selects only empty fashion moments, newest first, and caps the run at three', () => {
     const curated = { verifiedAt: '2026-09-01T12:00:00.000Z', altNote: 'Curated alternative.' };
     const corpora = [{ sourceFile: 'supabase/seed/content/test.mjs', eraSlug: 'lover', items: [

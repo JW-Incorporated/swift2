@@ -6,7 +6,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs modules
 import { ROUTE_BY_CLASS, encodePlan, planActions } from './actions/plan.mjs';
 // @ts-expect-error plain .mjs module
-import { disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
+import { runMerchAction } from './actions/merch.mjs';
+// @ts-expect-error plain .mjs module
+import { ACTION_RUNNERS, disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { validate } from '../ops/set-switch.mjs';
 // @ts-expect-error plain .mjs module
@@ -78,7 +80,7 @@ async function transitiveLocalImports(entry: string) {
         await readFile(candidate, 'utf8');
         return candidate;
       } catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+        if (!['ENOENT', 'EISDIR'].includes((error as NodeJS.ErrnoException).code ?? '')) throw error;
       }
     }
     throw new Error(`Cannot resolve source import: ${base}`);
@@ -134,7 +136,9 @@ describe('Tidewatch shadow action router', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
     const processSpies = ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync', 'fork'].map((name) =>
       vi.spyOn(childProcess, name as 'spawn'));
-    const guarded = guardedClient();
+    const guarded = guardedClient(decision({
+      class: 'merch_outfit', action: 'shadow_outfit_matcher_queue',
+    }));
     await main([], { config, client: guarded.client, env: {} });
     expect(fetchSpy).not.toHaveBeenCalled();
     for (const spy of processSpies) expect(spy).not.toHaveBeenCalled();
@@ -142,15 +146,35 @@ describe('Tidewatch shadow action router', () => {
       { table: 'watch_decision', operation: 'select', columns: '*, watch_item(story_id)' },
       { table: 'story_timeline', operation: 'select', columns: '*' },
       { table: 'watch_decision', operation: 'update', values: {
-        action_ref: expect.stringContaining('hold_injection'),
+        action_ref: expect.stringContaining('outfit_matcher_queue'),
       } },
     ]);
-    expect(guarded.row.action).toBe('shadow_hold_injection');
+    expect(guarded.row.action).toBe('shadow_outfit_matcher_queue');
   });
 
-  it('has no publisher-capable module in route.mjs transitive local imports', async () => {
+  it('registers merch in the route import graph without running its effects', async () => {
     const imports = await transitiveLocalImports(path.join(ROOT, 'scripts/tidewatch/route.mjs'));
-    const forbidden = imports.filter((file) => [
+    expect(imports).toContain('scripts/tidewatch/actions/merch.mjs');
+    expect(ACTION_RUNNERS).toEqual({
+      store_drop_draft: runMerchAction,
+      fan_merch_curation: runMerchAction,
+      outfit_matcher_queue: runMerchAction,
+    });
+    const append = vi.fn();
+    const loadStoreDropDraft = vi.fn();
+    const emitOfficial = vi.fn();
+    for (const classId of ['merch_outfit', 'merch_fan', 'merch_official']) {
+      await runMerchAction(decision({ class: classId }), {
+        live: false, append, loadStoreDropDraft, emitOfficial,
+      });
+    }
+    expect(append).not.toHaveBeenCalled();
+    expect(loadStoreDropDraft).not.toHaveBeenCalled();
+    expect(emitOfficial).not.toHaveBeenCalled();
+
+    const merchImports = new Set(await transitiveLocalImports(path.join(ROOT,
+      'scripts/tidewatch/actions/merch.mjs')));
+    const forbidden = imports.filter((file) => !merchImports.has(file) && [
       /^scripts\/social\//,
       /(^|\/)(push|notifications?)(\/|[-.])/,
       /(^|\/)(site|revalidate)(\/|[-.])/,
