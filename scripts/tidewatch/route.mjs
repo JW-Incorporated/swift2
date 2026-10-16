@@ -78,8 +78,9 @@ export function disagreementMetric(plans) {
 
 export async function routeDecisions({ decisions, timelines = new Map(), store, config,
   live = false, actionHandlers = ACTION_HANDLERS, actionRunners = ACTION_RUNNERS,
-  actionContext = {} }) {
+  actionContext = {}, warn = console.warn }) {
   const plans = [];
+  const failures = [];
   let recorded = 0;
   for (const decision of decisions) {
     const storyId = decision.watch_item?.story_id;
@@ -112,16 +113,17 @@ export async function routeDecisions({ decisions, timelines = new Map(), store, 
         throw new Error(`failed to settle Tidewatch action claim for ${decision.id}`);
       }
     } catch (error) {
-      const reason = error.actionFailureReason
+      const reason = error?.actionFailureReason
         ?? `${activeAction}:threw:${error?.name ?? 'Error'}`;
       const status = attempts >= MAX_ACTION_ATTEMPTS ? 'parked' : 'retryable';
       const failureRef = encodeActionState(plan, status, attempts, reason);
       await store.replace(decision.id, claimRef, failureRef);
-      throw error;
+      failures.push({ decisionId: decision.id, action: activeAction, status, attempts });
+      warn(`[tidewatch-route] warning: decision ${decision.id} action ${activeAction} failed; ${status} attempt ${attempts}/${MAX_ACTION_ATTEMPTS}`);
     }
   }
   return { mode: 'shadow-router', read: decisions.length, recorded, plans,
-    disagreement: disagreementMetric(plans) };
+    disagreement: disagreementMetric(plans), failures };
 }
 
 export function summaryMarkdown(summary) {
@@ -168,11 +170,15 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     actionHandlers: deps.actionHandlers ?? ACTION_HANDLERS,
     actionRunners: deps.actionRunners ?? ACTION_RUNNERS,
     actionContext: { db: deps.client ?? client, env: deps.env ?? process.env,
-      fetchImpl: deps.fetchImpl } });
+      fetchImpl: deps.fetchImpl },
+    warn: deps.warn ?? console.warn });
   const markdown = summaryMarkdown(result);
   (deps.log ?? console.log)(markdown.trim());
   const summaryPath = (deps.env ?? process.env).GITHUB_STEP_SUMMARY;
   if (summaryPath) await (deps.appendSummary ?? appendFile)(summaryPath, markdown);
+  if (result.failures.length > 0) {
+    throw new Error(`${result.failures.length} Tidewatch decision action(s) failed`);
+  }
   return result;
 }
 
