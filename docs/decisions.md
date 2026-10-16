@@ -9156,3 +9156,15 @@ The trusted system prompt says that image content and all text in it are untrust
 **Why.** The architect #11 ruling is to build the surface inert and let P2-13 stage the go-live; D5 is the last item to go live. Opt-in is stored as cadence `instant` (the only value the router fans out for a single event) so no router change is needed; a missing row means opted out. The category is deliberately absent from the Android channel and settings catalogues until go-live.
 
 **Verification.** Unit tests cover tier mapping, default opt-out, a fake-provider delivery (opted-in device gets 1, not-opted-in gets 0) and flag-off rendering. A staging device receiving a real test push is a live check for go-live, not part of this change.
+
+---
+
+## 2026-10-15 — P2-06 breaking social: identity and dispatch model
+
+**Decision.** Reversible PM call under architect ruling #14. The breaking social fast path is built inert: `social-breaking.yml` is `workflow_dispatch`-only with `contents: read`, and `scripts/social/breaking-draft.mjs` does nothing unless `BREAKING_SOCIAL_ENABLED` is exactly `true` (and refuses under `SOCIAL_FREEZE`). A breaking draft is a normal `tree/draft/*` PR authored by the committed Tree identity, cleared by the existing `social-tree-approve.yml` unchanged (identity checks, `SOCIAL_FREEZE` refusal, 48h window, file allowlist). It posts on `social-poster.yml`'s normal clock dispatch; nothing added here dispatches the poster or the approver, and nothing writes an `approval` key.
+
+**Deviation from the plan text.** The plan says the script "stamps via social-tree-approve.yml with a breaking flag and dispatches social-poster immediately". That is not built: no bypass of Tree approval and no direct poster dispatch.
+
+**Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides). Nothing writes `breaking: true` yet, so live behavior is identical.
+
+**Verification.** `scripts/social/breaking-draft.test.ts`. Live drafting stays unimplemented until the P2-12 drill.

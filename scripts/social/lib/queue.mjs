@@ -71,6 +71,9 @@ export function mediaUrlFor(p, mediaBaseUrl = MEDIA_BASE_URL) {
 export const MAX_POSTS_PER_RUN = 1;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 1;
 
+/** P2-06 (D6): extra per-platform daily slots, usable ONLY by items with `breaking: true` (strictly boolean true). */
+export const BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2;
+
 /**
  * True if `item.scheduledAt` parses to an actual point in time. Added
  * 2026-08-11 (Codex review round 1 on PR #1900): `isDue`/`isStaleDue` both
@@ -148,7 +151,8 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
   const selected = [];
   const takenIndices = new Set();
 
-  const hasBudget = (platform) => (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY;
+  const hasBudget = (platform, breaking = false) =>
+    (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY + (breaking === true ? BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY : 0);
   const claim = (platform) => remaining.set(platform, (remaining.get(platform) ?? 0) + 1);
 
   // Pass 1: complete campaign pairs, earliest-sibling-first.
@@ -179,7 +183,7 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
     }
     const reps = [...byPlatform.values()];
     if (reps.length < 2) continue;
-    if (!reps.every((e) => hasBudget(e.item.platform))) continue; // one side's platform is already at its daily cap — skip the pair, not a partial pick
+    if (!reps.every((e) => hasBudget(e.item.platform, e.item.breaking))) continue; // one side's platform is already at its daily cap — skip the pair, not a partial pick
     for (const e of reps) {
       selected.push(e.item);
       takenIndices.add(e.index);
@@ -209,7 +213,7 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
   due.forEach((item, index) => {
     if (selected.length >= maxPerRun) return;
     if (takenIndices.has(index)) return;
-    if (!hasBudget(item.platform)) return;
+    if (!hasBudget(item.platform, item.breaking)) return;
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
     if (campaign && (queuedPlatformsByCampaign.get(campaign)?.size ?? 0) >= 2) return;
     selected.push(item);

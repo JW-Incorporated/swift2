@@ -614,3 +614,7 @@ for IG/X; the PR carrying this amendment cites it.
 credentials. Invariants 5-9, 11-13 and 17 (replies stay human, crisis stop,
 rubric gate), `check-drafts.mjs`, and every other row of
 `docs/social/guardrails.md`.
+
+## Breaking fast path (P2-06, inert)
+
+A breaking draft is an ordinary `tree/draft/*` PR cleared by `social-tree-approve.yml` and posted on the poster's normal clock. `breaking: true` items alone may use up to 2 extra posts per platform per day (pairs need both sides). `scripts/social/breaking-draft.mjs` is off unless `BREAKING_SOCIAL_ENABLED=true`, dry-run only, and never dispatches a workflow or writes `approval`. See `docs/decisions.md` 2026-10-15.
