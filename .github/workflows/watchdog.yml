@@ -359,7 +359,8 @@ jobs:
                    .github/workflows/fleet-telemetry-snapshot.yml \
                    .github/workflows/bot-chat-poll.yml \
                    .github/workflows/news-worker.yml \
-                   .github/workflows/social-poster.yml \n                   .github/workflows/tidewatch-shadow-report.yml; do
+                   .github/workflows/social-poster.yml \
+                   .github/workflows/tidewatch-shadow-report.yml; do
             [ -f "$F" ] || continue
             WF=$(basename "$F")
             [ "$WF" = "routine-template.yml" ] && continue

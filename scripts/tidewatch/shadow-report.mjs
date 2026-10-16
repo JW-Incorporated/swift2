@@ -55,6 +55,56 @@ export function disagreementFor(rows, config, routing) {
   return disagreementMetric(plans);
 }
 
+const isHttp = (value) => typeof value === 'string' && /^https?:\/\/\S+$/i.test(value);
+
+export function urlFromItemKey(itemKey, repo) {
+  const youtube = /^yt:([\w-]+)$/.exec(itemKey ?? '');
+  if (youtube) return `https://www.youtube.com/watch?v=${youtube[1]}`;
+  const issue = /^issue:(\d+)$/.exec(itemKey ?? '');
+  return issue && repo ? `https://github.com/${repo}/issues/${issue[1]}` : null;
+}
+
+// watch_item keeps only a URL hash, so the readable headline and link come from the
+// source tables the collectors read (news_story / news_raw_item / engagement_lead),
+// by the id watch_item.source_ref records. Read-only; any failure leaves the line as it was.
+export async function enrichSpotCheck(client, items, repo) {
+  const out = items.map((item) => ({ ...item, url: urlFromItemKey(item.itemKey, repo) }));
+  try {
+    const refs = (names) => [...new Set(out.filter((i) => names.includes(i.sourceName) && i.ref).map((i) => i.ref))];
+    const group = (rows, key) => rows.reduce((map, row) => (map.has(row[key]) ? map : map.set(row[key], row)), new Map());
+    const news = refs(['news']);
+    if (news.length) {
+      const [stories, byId, byStory] = await Promise.all([
+        client.from('news_story').select('id,canonical_title').in('id', news),
+        client.from('news_raw_item').select('id,story_id,url,title').in('id', news),
+        client.from('news_raw_item').select('id,story_id,url,title').in('story_id', news),
+      ]);
+      const title = group(stories.data ?? [], 'id');
+      const raw = group(byId.data ?? [], 'id');
+      const rawByStory = group(byStory.data ?? [], 'story_id');
+      for (const item of out.filter((i) => i.sourceName === 'news')) {
+        const hit = raw.get(item.ref) ?? rawByStory.get(item.ref);
+        const heading = title.get(item.ref)?.canonical_title ?? hit?.title;
+        if (heading) item.headline = oneLine(heading, 100);
+        if (isHttp(hit?.url)) item.url = hit.url;
+      }
+    }
+    const leads = refs(['reddit', 'facebook']);
+    if (leads.length) {
+      const { data } = await client.from('engagement_lead').select('id,url,title').in('id', leads);
+      const lead = group(data ?? [], 'id');
+      for (const item of out.filter((i) => ['reddit', 'facebook'].includes(i.sourceName))) {
+        const hit = lead.get(item.ref);
+        if (hit?.title) item.headline = oneLine(hit.title, 100);
+        if (isHttp(hit?.url)) item.url = hit.url;
+      }
+    }
+  } catch {
+    // Enrichment is best effort; the ref stays on the line.
+  }
+  return out;
+}
+
 function countBy(rows) {
   const counts = {};
   for (const row of rows) counts[row.class] = (counts[row.class] ?? 0) + 1;
@@ -110,6 +160,9 @@ export function computeReport({ rows, runs, now, config, routing, start = SHADOW
       class: row.class,
       headline: oneLine(row.watch_item?.excerpt ?? row.watch_item?.item_key ?? row.id, 100),
       source: oneLine(`${row.watch_item?.source ?? 'unknown'}:${row.watch_item?.source_ref ?? row.watch_item?.item_key ?? ''}`, 80),
+      sourceName: row.watch_item?.source ?? null,
+      ref: row.watch_item?.source_ref ?? null,
+      itemKey: row.watch_item?.item_key ?? null,
     }));
   return {
     generatedAt: now.toISOString(),
@@ -153,8 +206,8 @@ export function renderMarkdown(report, { maxChars = Infinity } = {}) {
     `Classes 24h: ${classLine(report.classes.h24)}`,
     `Classes cumulative: ${classLine(report.classes.cumulative)}`,
   ].join('\n');
-  const item = (s) => `- ${s.decidedAt.slice(5, 16)}Z ${s.class}: ${s.headline} [${s.source}]`;
-  const title = `Spot-check, critical in last 24h (${report.spotCheck.length}); source URLs are not stored, only source refs`;
+  const item = (s) => `- ${s.decidedAt.slice(5, 16)}Z ${s.class}: ${s.headline} [${s.source}]${isHttp(s.url) ? ` <${s.url}>` : ''}`;
+  const title = `Spot-check, critical in last 24h (${report.spotCheck.length}); link shown when the source table still has it`;
   for (let shown = report.spotCheck.length; shown >= 0; shown -= 1) {
     const lines = report.spotCheck.slice(0, shown).map(item);
     const more = report.spotCheck.length - shown;
@@ -235,6 +288,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const rows = await fetchRows(client, start);
   const runs = await (deps.fetchRuns ?? fetchRuns)(repo);
   const report = computeReport({ rows, runs, now, config, start, routing: await (deps.loadRouting ?? loadRouting)() });
+  if (!options.alert) report.spotCheck = await enrichSpotCheck(client, report.spotCheck, repo);
   await (deps.writeFile ?? writeFile)(options.jsonOut, `${JSON.stringify(report, null, 2)}\n`);
   const writePayload = (payload) => (deps.writeFile ?? writeFile)(options.payloadOut, `${JSON.stringify(payload)}\n`);
 

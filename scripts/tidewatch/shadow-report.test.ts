@@ -8,7 +8,7 @@ import { disagreementMetric } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { main as postMain } from './shadow-report-post.mjs';
 // @ts-expect-error plain .mjs module
-import { computeReport, evaluateAlerts, loadRouting, main, renderMarkdown } from './shadow-report.mjs';
+import { computeReport, enrichSpotCheck, evaluateAlerts, loadRouting, main, renderMarkdown } from './shadow-report.mjs';
 
 const routing = await loadRouting();
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
@@ -209,5 +209,29 @@ describe('shadow-report-post', () => {
     await expect(postMain(['--state-file', 's.json'], { payload, env, post: async () => ({ ok: false, error: 'HTTP 500' }), writeFile: write, state: {}, log: vi.fn() }))
       .rejects.toThrow('Discord post failed');
     expect(write).not.toHaveBeenCalled();
+  });
+});
+
+describe('enrichSpotCheck', () => {
+  const table = (rows: unknown[]) => ({ select: () => ({ in: async () => ({ data: rows, error: null }) }) });
+  const item = (over: Record<string, unknown> = {}) => ({ class: 'critical_breaking', decidedAt: hoursAgo(1), headline: 'summary', source: 'news:s1', sourceName: 'news', ref: 's1', itemKey: 'news:s1', ...over });
+
+  it('adds the readable headline and source link from the news tables, and renders them', async () => {
+    const client = { from: (name: string) => table(name === 'news_story'
+      ? [{ id: 's1', canonical_title: 'Real headline' }]
+      : [{ id: 'r1', story_id: 's1', url: 'https://example.com/a', title: 'Raw' }]) };
+    const [out] = await enrichSpotCheck(client, [item()], 'o/r');
+    expect(out).toMatchObject({ headline: 'Real headline', url: 'https://example.com/a' });
+    const report = { generatedAt: NOW.toISOString(), flags: [], decisions: { total: 1, gate: 500, projectedGateDate: 'x', last24h: 1 }, days: { elapsed: 1, gate: 7 },
+      sweeps: { started24h: 1, succeeded24h: 1, failed24h: 0, maxDurationMin: 1, warmingUp: false }, disagreement: { h24: { rate: 0, count: 0, total: 0 }, cumulative: { rate: 0, count: 0, total: 0 } },
+      fallback: { h24: { rate: 0, count: 0, total: 0 }, cumulative: { rate: 0, count: 0, total: 0 } }, classes: { h24: {}, cumulative: {} }, spotCheck: [out] };
+    expect(renderMarkdown(report)).toContain('Real headline [news:s1] <https://example.com/a>');
+  });
+
+  it('derives youtube and issue links from the item key and survives a failing lookup', async () => {
+    const boom = { from: () => { throw new Error('down'); } };
+    const out = await enrichSpotCheck(boom, [item({ sourceName: 'youtube', itemKey: 'yt:abc_1' }), item({ sourceName: 'official', itemKey: 'issue:42' })], 'o/r');
+    expect(out[0].url).toBe('https://www.youtube.com/watch?v=abc_1');
+    expect(out[1].url).toBe('https://github.com/o/r/issues/42');
   });
 });
