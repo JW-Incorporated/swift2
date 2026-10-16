@@ -271,6 +271,44 @@ jobs:
             echo "vercel-deploy-check ALARM (see /tmp/alert-body.md)"
           fi
 
+      # P0-22: db-migrate is push-triggered rather than scheduled, so the
+      # generic scheduled-workflow check below cannot see it. Alert on its
+      # latest settled main run and self-close on the next green run.
+      - name: DB migrate latest-run failure
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          source scripts/watchdog/gh-retry.sh
+          ALERT_TITLE="Watchdog: db-migrate failed on main"
+          gh_retry gh run list --repo "$REPO" --workflow db-migrate.yml --branch main \
+            --status completed --limit 10 \
+            --json databaseId,event,headBranch,conclusion,createdAt,url \
+            > /tmp/db-migrate-runs.json
+          RESULT=$(node scripts/watchdog/db-migrate-run-check.mjs evaluate < /tmp/db-migrate-runs.json)
+          STATE=$(printf '%s' "$RESULT" | jq -r '.state')
+          RUN_URL=$(printf '%s' "$RESULT" | jq -r '.run.url // ""')
+          CONCLUSION=$(printf '%s' "$RESULT" | jq -r '.run.conclusion // "unknown"')
+          if [ "$STATE" = "alert" ]; then
+            {
+              echo "@sffan15-sys — the latest db-migrate run on main concluded **${CONCLUSION}**. Later migrations may be blocked from production."
+              echo ""
+              echo "Run: ${RUN_URL}"
+            } > /tmp/db-migrate-alert.md
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/db-migrate-alert.md
+          elif [ "$STATE" = "ok" ]; then
+            echo "The latest db-migrate run on main is green: ${RUN_URL}" > /tmp/db-migrate-alert.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/db-migrate-alert.md
+          else
+            echo "::warning::No settled success/failure db-migrate run found on main; alert state unchanged."
+          fi
+
       # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
       # red-looped hourly for a full day — every run crashing in ~1s on unset
       # SUPABASE_* secrets — and nothing surfaced it, so the intake queue

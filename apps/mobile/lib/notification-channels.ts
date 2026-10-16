@@ -4,7 +4,11 @@
 // in-app settings screen (Phase 1).
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { NOTIFICATION_CATEGORY_DEFS, type NotificationTier } from '@swift2/shared';
+import {
+  BABY_WATCH_SETTINGS_DEF,
+  NOTIFICATION_CATEGORY_DEFS,
+  type NotificationTier,
+} from '@swift2/shared';
 
 /** Android `importance` per spec §4 tier: T1 (rare + huge) gets the loudest
  * heads-up treatment; T2/T3 stay on-screen without interrupting. FUN
@@ -31,8 +35,14 @@ function importanceForTier(tier: NotificationTier): Notifications.AndroidImporta
  */
 export async function registerNotificationChannels(): Promise<void> {
   if (Platform.OS !== 'android') return;
+  // Expo inlines EXPO_PUBLIC_* only for this literal member access. Baby Watch
+  // is a T1 category (TIER_BY_CATEGORY), so it gets the T1 treatment.
+  const babyWatchOn = process.env.EXPO_PUBLIC_BABY_WATCH_ENABLED === 'true';
+  const defs = babyWatchOn
+    ? [...NOTIFICATION_CATEGORY_DEFS, { ...BABY_WATCH_SETTINGS_DEF, tier: 'T1' as NotificationTier }]
+    : NOTIFICATION_CATEGORY_DEFS;
   await Promise.all(
-    NOTIFICATION_CATEGORY_DEFS.map((def) =>
+    defs.map((def) =>
       Notifications.setNotificationChannelAsync(def.id, {
         name: def.name,
         importance: importanceForTier(def.tier),
