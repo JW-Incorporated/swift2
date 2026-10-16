@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Discussion on ‘Choosin’ Texas’ for Best Country Song at 2027 Grammys
+
+- first seen: 2026-10-16 13:46 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Rolling Stone explores the potential of ‘Choosin’ Texas’ being a top contender for Best Country Song at the 2027 Grammys.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/
 
 ## Taylor Swift Faces Strong Competition for Record and Song of the Year
 
