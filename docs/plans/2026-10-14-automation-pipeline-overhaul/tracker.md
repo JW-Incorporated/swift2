@@ -1,12 +1,22 @@
-done#5935 | 2026-10-15 || 2026-10-15 || 2026-10-15 || 2026-10-15 ||undefineddoingundefinedundefined||undefinedreviewundefined#5942 ||undefineddoneundefined#5940 || 2026-10-15 || 2026-10-15 || Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
+# Tracker
+
+One row per work item. The project-manager session updates the Status, PR and Done columns as work lands, and mirrors the same values into the dashboard's `tracker` store. Status values: doing, doing, review, done, blocked, dropped (reason in the Log; mirrored to the dashboard as done with a note).
+
+## P0 Stop the bleeding and measure
+
+Goal: No more lost runs to the weekly limit, no CI storm, poster green, Awin sync finishes, push path safe, owner decisions recorded, baseline numbers captured.
+
+Done when: Routines skip cleanly while the limit is hit and a single named alert exists; open social-poster state PRs <= 1; social-poster last 5 runs green; merch-awin-sync completes and saves its cache; held current_item rows emit no events; turn ledger JSON exists for the past 7 days; decisions D1 to D9 recorded in docs/decisions.md; TYPESAFE_API_KEY exists as an Actions secret.
+
+| Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P0-01 | Weekly-limit detection, one named alert and automatic pause | codex | M | L-ROUTINES | - | done | #5825 | 2026-10-14 |
-| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | done | #5832 |  |
+| P0-02 | Emergency model and cadence cuts plus all P0 clock-table edits | executor-claude-sonnet | S | L-ROUTINES | P0-01 | done | #5832 | 2026-10-15 |
 | P0-03 | Make draft-happy-path.test.ts hermetic and fix the CI paths filter | executor-claude-sonnet | S | L-SOCIAL | - | done | #5816 | 2026-10-14 |
 | P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | done | #5861 | 2026-10-15 |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | done | #5824 | 2026-10-15 |
 | P0-05a | Social poster: an already-posted item never counts as stale (dup check before the stale check), the root cause of false failed records and alerts | executor-claude-sonnet | S | L-SOCIAL | - | done | #5857 | 2026-10-15 |
-| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | review | #5886 (merged; live acceptance pending) |  |
+| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | review | #5886 |  |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
@@ -14,20 +24,21 @@ done#5935 | 2026-10-15 || 2026-10-15 || 2026-10-15 || 2026-10-15 ||undefineddoin
 | P0-10 | Fan-made discovery: scheduled runs actually file candidates | codex | S | L-MERCH-FAN | - | done | #5823 | 2026-10-14 |
 | P0-11 | Push safety before any automatic push | codex | M | L-NOTIFY | - | done | #5835 | 2026-10-15 |
 | P0-11b | All-tier kill script with a working anti-join (split from P0-11 after its final review) | codex | S | L-NOTIFY | P0-11 | done | #5848 | 2026-10-15 |
-| P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  |  |
-| P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done |  | 2026-10-14 |
+| P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  | 2026-10-14 |
+| P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done | #5815 | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
 | P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | blocked |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
-| P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  |  |
+| P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  | 2026-10-14 |
 | P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | done | #5855 | 2026-10-15 |
 | P0-20 | routine-tree-weekly-plan dies on its turn ceiling (#5470, HA #121): first a read-only check of whether the Hermes 1 weekly social report makes it redundant, then fix it or propose retiring it | executor-claude-sonnet | S | L-ROUTINES | - | done | #5867 | 2026-10-15 |
-| P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | doing |  |  |
+| P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | review |  |  |
 | P0-21a | Push must-fixes in code: instant-age cutoff that keeps quiet-hours holds; freeze on a failed delivery-log write; cooldown pass off by default; per-run summary log | codex | M | L-NOTIFY | P0-21 | done | #5891 | 2026-10-15 |
 | P0-21b | Sanctioned backlog-kill workflow (workflow_dispatch; list by default, apply only with an explicit input) | executor-claude-sonnet | S | L-NOTIFY-OPS | P0-21 | done | #5869 | 2026-10-15 |
 | P0-21d | Heartbeat check LOWs: an empty heartbeat also checks the seeded PUSH_FREEZE row (wrong-project guard); error-path tests | codex | S | L-NOTIFY | P0-21c | done | #5923 | 2026-10-15 |
 | P0-21c | Dispatch heartbeat (the route records each authorized tick) plus a watchdog check on it (split from P0-21b: the watchdog can't see dispatch runs today) | codex | S | L-NOTIFY | P0-21a | done | #5916 | 2026-10-15 |
+| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | done | #5856 | 2026-10-15 |
 
 ## P1 Foundations and re-homing
 
@@ -37,54 +48,56 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P0-19b | Backup-token follow-ups (inactive until HA #127): do not overwrite the primary reset on the limit issue when the backup also hits its limit; document and test P0/P1 priorities; scope the backup secret to the claude step only | codex | S | L-ROUTINES | P0-19 | done | #5856 | 2026-10-15 |
-| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 |  |
+| P1-01 | Jev client library | codex | M | L-JEV | P0-15 | done | #5827 | 2026-10-14 |
 | P1-01c | Jev wire-shape fix: live selftest got HTTP 422 (choice/score `criteria` sent as an array, the API wants a dictionary); fix toRequest per the TypeSafe spec, surface the error body, verify fromResponse live | executor-claude-sonnet | S | L-JEV | P1-01 | done | #5860 | 2026-10-15 |
-| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 |  |
+| P1-02 | Seen store, decision ledger and story timeline tables | codex | M | L-DB | P0-14 | done | #5831 | 2026-10-15 |
 | P1-02b | Tidewatch retention script (split from P1-02 after its round-2 review; includes the NULL-safe noise fix) | codex | S | L-DB | P1-02 | done | #5844 | 2026-10-15 |
 | P1-02c | llm_usage gains cache-creation and cache-read token columns AND its provider CHECK admits 'claude-subscription' (P1-09 review; otherwise runner usage inserts fail). MUST land before P1-28, the first caller | codex | S | L-DB | P1-14 | done | #5893 | 2026-10-15 |
 | P1-03 | Taxonomy, question bank and thresholds config | claude-opus | S | L-TIDE-SPEC | P0-14 | done | #5830 | 2026-10-14 |
-review#5931, #5933  |
+| P1-04 | Replay set and labels for calibration | executor-claude-sonnet | M | L-TIDE-EVAL | P1-03 | done | #5933 | 2026-10-15 |
 | P1-05 | Tidewatch collector (pull adapters over existing stores) | codex | L | L-TIDE | P1-02 | done | #5868 | 2026-10-15 |
 | P1-05b | Collector follow-up (architect #3): page the existing-key update loop at LOOKUP_PAGE with a >1,000-key cap test; first-run baseline (a source with zero stored items inserts historical, no events). HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-05 | done | #5883 | 2026-10-15 |
-| P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | todo |  |  |
-review  |  |
-doing  |  |
+| P1-06 | Tidewatch classifier in shadow mode | codex | L | L-TIDE | P1-01, P1-03, P1-05, P1-09 | done | #5937 | 2026-10-15 |
+| P1-06b | Classifier follow-up (architect #9): classified_at only when null; a missing Jev key = the 402 path (Haiku-only plus one alert); a real-DB anti-join test. HARD BLOCKER for P1-07 | codex | S | L-TIDE | P1-06 | done | #5939 | 2026-10-15 |
+| P1-07 | tidewatch.yml on the home clock with a freeze switch | codex | S | L-OPS | P1-06, P1-06b, P0-02, P0-07 | done | #5943 | 2026-10-15 |
 | P1-08 | Worker primary-source fast mode and official source list | codex | M | L-WORKER | P0-14 | done | #5884 | 2026-10-15 |
-| P1-08b | Story-level source fix (architect #6): one article → one source row, best tier and URL win, outlet names normalised; a single article can never be 'corroborated'. HARD BLOCKER for any --primary schedule | codex | S | L-WORKER | P1-08 | todo |  |  |
+| P1-08b | Story-level source fix (architect #6): one article → one source row, best tier and URL win, outlet names normalised; a single article can never be 'corroborated'. HARD BLOCKER for any --primary schedule | codex | S | L-WORKER | P1-08 | blocked |  |  |
+| P1-08c | Merged; fixes #5938 | codex | S | L-WORKER | P1-08 | done | #5945 | 2026-10-15 |
 | P1-09 | Shared Claude wrapper on subscription tokens (Claude Code headless): priority, caps, backup-token fallback (rescoped by D1 revised; Fable consult before brief) | codex | M | L-LLM | P1-01, P0-19 | done | #5870 | 2026-10-15 |
 | P1-09b | Runner follow-up (architect #4): detect the five-hour "hit your session limit" message, with an end-to-end test that the backup is actually invoked for P0/P1; a loggerError field in the result. HARD BLOCKER for P1-28 | codex | S | L-LLM | P1-09 | done | #5887 | 2026-10-15 |
-| P1-09c | Wrapper image input for vision checks (D3 in P1-20, the vision judge in P1-19): stage a validated image (MIME, size) in the isolated temp dir, enable ONLY the Read tool, restricted to that dir by permission rules (prompt-injection guard: no reads elsewhere on the runner), cleanup, tests. Security-sensitive → Codex xhigh plus Opus adversarial review | codex | M | L-LLM | P1-28 | todo |  |  |
+| P1-09c | Wrapper image input for vision checks (D3 in P1-20, the vision judge in P1-19): stage a validated image (MIME, size) in the isolated temp dir, enable ONLY the Read tool, restricted to that dir by permission rules (prompt-injection guard: no reads elsewhere on the runner), cleanup, tests. Security-sensitive → Codex xhigh plus Opus adversarial review | codex | M | L-LLM | P1-28 | done | #5936 | 2026-10-15 |
 | P1-10 | Answerers become scripted drafters with thread context | executor-claude-sonnet | M | L-COMMUNITY | P1-09, P1-01 | done | #5922 | 2026-10-15 |
 | P1-11 | marjorie-ops becomes code plus a Jev gate | codex | M | L-ROUTINES | P1-01, P0-02 | done | #5897 | 2026-10-15 |
 | P1-11b | marjorie-ops precheck trusts handled/escalated markers authored by the claude Bot (mirror chase-auto-defer.mjs:30's author set exactly; test that a claude-Bot handled marker yields `handled`). One review round. BLOCKS P1-11's 72 h savings measurement; wrong signal = live must-run count still above 3 | codex | S | L-ROUTINES | P1-11 | done | #5909 | 2026-10-15 |
 | P1-12 | marjorie-status-reply to Jev plus templates (kevin-radar split to P1-12b) | codex | M | L-ROUTINES-B | P1-01 | done | #5882 | 2026-10-15 |
 | P1-12b | kevin-radar: deterministic checks plus Jev classification, fail-open to the agent; match the last 5 agent runs | codex | S | L-ROUTINES-B | P1-12 | done | #5890 | 2026-10-15 |
 | P1-12c | kevin-radar text fix: the high-confidence 'other' + 'actionable' path writes "needs Wyatt" (project rule: route nothing to Wyatt; say Joey or "a founder"); also strip @mentions from quoted text. MUST land before TYPESAFE_API_KEY reaches Actions (HA #124) | executor-claude-sonnet | S | L-ROUTINES-B | P1-12b | done | #5908 | 2026-10-15 |
-| P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  |  |
+| P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  | 2026-10-14 |
 | P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | done | #5864 | 2026-10-15 |
 | P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | blocked |  |  |
-| P1-16 | Facebook export: permalinks, engagement counts, activity log, daily cadence | codex | L | L-FBEXT | P0-14, P1-14 | review | #5930 |  |
-review  |  |
+| P1-16 | Facebook export: permalinks, engagement counts, activity log, daily cadence | codex | L | L-FBEXT | P0-14, P1-14 | done | #5930 | 2026-10-15 |
+| P1-16b | FB export LOWs: salt the locator hash (with an in-place upgrade of old locators), a discriminator for same-text posts with no timestamp, the activity timestamp written only after a successful pass | codex | S | L-FBEXT | P1-16 | done | #5935 | 2026-10-15 |
 | P1-17 | Better Reddit and Facebook cards | executor-claude-sonnet | S | L-COMMUNITY | P1-10, P1-15 | todo |  |  |
 | P1-18 | Vault Run split into judgment and craft jobs with yield records | executor-claude-sonnet | M | L-VAULT | P0-01, P0-02 | done | #5919 | 2026-10-15 |
-| P1-19 | Merch E6 for real: matcher, step-4 writer, E3 gate, schedule | codex | L | L-MERCH | P0-09, P0-14, P1-09 | todo |  |  |
-doing  |  |
-doing  |  |
- Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
+| P1-19 | Merch E6 for real: matcher, step-4 writer, E3 gate, schedule | codex | L | L-MERCH | P0-09, P0-14, P1-09 | done | #5946 | 2026-10-15 |
+| P1-20b | Fan-made curation: when merch_fan.enabled is false, make no model calls (report "disabled: no calls made"); shadow still runs calls | codex | S | L-MERCH-FAN | P1-20 | doing |  |  |
+| P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09, P1-09c | done | #5942 | 2026-10-15 |
+| P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | done | #5917 | 2026-10-15 |
-| P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | review | #5924 |  |
-| P1-18b | Turn ledger queries the exact routine-usage artifact names; incomplete placeholders named per lane | codex | S | L-VAULT | P1-18 | review | #5929 |  |
+| P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | done | #5924 | 2026-10-15 |
+| P1-18b | Turn ledger queries the exact routine-usage artifact names; incomplete placeholders named per lane | codex | S | L-VAULT | P1-18 | done | #5929 | 2026-10-15 |
 | P1-23 | Media gate gap audit and fixes | codex | M | L-MEDIA | - | done | #5836 | 2026-10-14 |
 | P1-23b | Media gate follow-up: grandfather legacy rows by key (file+slug), not content hash, so bot edits to the 74 legacy theories do not fail CI; scope cdn.shopify.com by path prefix | codex | S | L-MEDIA | P1-23 | done | #5846 | 2026-10-15 |
-| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | review | #5927 |  |
-| P1-24b | Wire the voice critic into draft-replies, breaking drafts and Vault lane prompts (split from P1-24 while P1-10's PR was open) | executor-claude-sonnet | S | L-VOICE | P1-24, P1-10 | todo |  |  |
+| P1-24 | Voice critic module and exemplar corpus | executor-claude-sonnet | M | L-VOICE | P1-09 | done | #5927 | 2026-10-15 |
+| P1-24b | Wire the voice critic into draft-replies, breaking drafts and Vault lane prompts (split from P1-24 while P1-10's PR was open) | executor-claude-sonnet | S | L-VOICE | P1-24, P1-10 | done | #5934 | 2026-10-15 |
 | P1-25 | Hermes session: Tree reads the new-on-site feed and breaking flag | hermes-session | S | L-HERMES | P1-22, P0-16 | todo |  |  |
 | P1-26 | Owner home-machine setup (one sitting) | OWNER ACTION | S | L-OWNER | P1-13, P1-15, P1-16 | todo |  |  |
 | P1-27 | Owner affiliate accounts (whenever ready, blocks nothing) | OWNER ACTION | S | L-OWNER | - | todo |  |  |
-| P1-28 | Move the existing ANTHROPIC_API_KEY callers (news-worker extract/theory/dedupe, theory-miner, content backfill) onto the P1-09 wrapper on Haiku 5.5 (absorbs P0-12), with their workflows wired | codex | M | L-WORKER | P1-09 | review | #5925 |  |
-doing  |  |
-doing  |  |
+| P1-28 | Move the existing ANTHROPIC_API_KEY callers (news-worker extract/theory/dedupe, theory-miner, content backfill) onto the P1-09 wrapper on Haiku 5.5 (absorbs P0-12), with their workflows wired | codex | M | L-WORKER | P1-09 | done | #5925 | 2026-10-15 |
+| P1-28b | Merch callers onto the wrapper: audit-matches-authoring, match-moments-authoring (coordinate with P1-19) plus merch-audit/matcher workflows | codex | S | L-MERCH | P1-28 | done | #5941 | 2026-10-15 |
+| P1-28c | Remaining API-key callers onto the wrapper: clown-client, mood-client, capture-clown-seed, clown-live-battery, clown-eval, routine-quality-sample, photo-qc, photo-qc-eval plus concert-photo-sourcing and output-sampling workflows; then ANTHROPIC_API_KEY is unused (owner removes the secret) | codex | M | L-WORKER | P1-28 | done | #5940 | 2026-10-15 |
+| P1-28d | Merged; no workflow uses the API key now | codex | S | L-WORKER | P1-28 | done | #5947 | 2026-10-15 |
+| P1-28e | Approved; held until #5942 lands | codex | S | L-WORKER | P1-28 | review | #5948 |  |
 
 ## P2 Tidewatch live
 
@@ -95,10 +108,10 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
 | P2-01 | Shadow calibration review and per-class go/no-go | claude-opus | S | L-TIDE-SPEC | P1-06, P1-04, P1-07 | todo |  |  |
-doing  |  |
-doing  |  |
+| P2-02 | Action router | codex | L | L-TIDE | P1-06 | done | #5949 | 2026-10-15 |
+| P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | doing |  |  |
 | P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
-doing  |  |
+| P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | review | #5950 |  |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
 | P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | todo |  |  |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | todo |  |  |
