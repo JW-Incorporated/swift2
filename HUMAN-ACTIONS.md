@@ -2,9 +2,31 @@
 
 <!-- ha-format: 2 -->
 
-> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **20 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5538 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (weekly scorecard: map legacy campaign prefixes to pillars — 9 of 13 measured posts read a…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5538 under stalled.
+
+## #133 🟡 [DECIDE] #5537 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5537 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (social gate: enforce the mediaEarnsItsPlace ≥4 floor in queue-schema (Tree's #5168 criter…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5537 under stalled.
 
 ## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
 <!-- ha filed=2026-10-15 -->
