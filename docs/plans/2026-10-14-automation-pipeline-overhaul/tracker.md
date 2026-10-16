@@ -80,7 +80,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-17 | Better Reddit and Facebook cards | executor-claude-sonnet | S | L-COMMUNITY | P1-10, P1-15 | todo |  |  |
 | P1-18 | Vault Run split into judgment and craft jobs with yield records | executor-claude-sonnet | M | L-VAULT | P0-01, P0-02 | done | #5919 | 2026-10-15 |
 | P1-19 | Merch E6 for real: matcher, step-4 writer, E3 gate, schedule | codex | L | L-MERCH | P0-09, P0-14, P1-09 | done | #5946 | 2026-10-15 |
-| P1-20b | Fan-made curation: when merch_fan.enabled is false, make no model calls (report "disabled: no calls made"); shadow still runs calls | codex | S | L-MERCH-FAN | P1-20 | doing |  |  |
+| P1-20b | Fan-made curation: when merch_fan.enabled is false, make no model calls (report "disabled: no calls made"); shadow still runs calls | codex | S | L-MERCH-FAN | P1-20 | done | #5953 | 2026-10-15 |
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09, P1-09c | done | #5942 | 2026-10-15 |
 | P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | todo |  |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | done | #5917 | 2026-10-15 |
@@ -97,7 +97,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-28b | Merch callers onto the wrapper: audit-matches-authoring, match-moments-authoring (coordinate with P1-19) plus merch-audit/matcher workflows | codex | S | L-MERCH | P1-28 | done | #5941 | 2026-10-15 |
 | P1-28c | Remaining API-key callers onto the wrapper: clown-client, mood-client, capture-clown-seed, clown-live-battery, clown-eval, routine-quality-sample, photo-qc, photo-qc-eval plus concert-photo-sourcing and output-sampling workflows; then ANTHROPIC_API_KEY is unused (owner removes the secret) | codex | M | L-WORKER | P1-28 | done | #5940 | 2026-10-15 |
 | P1-28d | Image-sending API-key callers (social photo-qc, photo-qc-eval, concert-photo-sourcing) onto wrapper images, plus the P1-28c LOWs | executor-claude-sonnet | S | L-SOCIAL | P1-28c, P1-09c | done | #5947 | 2026-10-15 |
-| P1-28e | Split the 550-line merch audit caller; image-fetch dedupe; the matcher git-apply seed-path guard plus env look_cap plus the non-main dispatch confirmation | codex | S | L-MERCH | P1-28b, P1-19 | review | #5948 |  |
+| P1-28e | Split the 550-line merch audit caller; image-fetch dedupe; the matcher git-apply seed-path guard plus env look_cap plus the non-main dispatch confirmation | codex | S | L-MERCH | P1-28b, P1-19 | done | #5948 | 2026-10-15 |
 
 ## P2 Tidewatch live
 
@@ -109,11 +109,11 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 |---|---|---|---|---|---|---|---|---|
 | P2-01 | Shadow calibration review and per-class go/no-go | claude-opus | S | L-TIDE-SPEC | P1-06, P1-04, P1-07 | todo |  |  |
 | P2-02 | Action router | codex | L | L-TIDE | P1-06 | done | #5949 | 2026-10-15 |
-| P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | doing |  |  |
+| P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | done | #5951 | 2026-10-15 |
 | P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | todo |  |  |
-| P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | review | #5950 |  |
+| P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | done | #5950 | 2026-10-15 |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | todo |  |  |
-| P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | todo |  |  |
+| P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | doing |  |  |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | todo |  |  |
 | P2-09 | Normal flow wiring and news-triage retirement | executor-claude-sonnet | M | L-SOCIAL | P2-02 | todo |  |  |
 | P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | todo |  |  |
