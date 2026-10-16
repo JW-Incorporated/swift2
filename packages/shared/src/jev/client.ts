@@ -1,19 +1,17 @@
 import type { ChoiceOption, JevQuestion } from './questions';
-
+import {
+  safelyLog,
+  usageRow,
+  usageRowFromResponse,
+  type JevUsage,
+  type JevUsageRow,
+} from './usage.ts';
+export type { JevUsage, JevUsageRow } from './usage.ts';
 export const JEV_MODEL = 'jev-1.13.0';
 export const JEV_ENDPOINT = 'https://api.typesafe.ai/v1/systemone';
 export const JEV_INPUT_USD_PER_MILLION_TOKENS = 0.042;
 export const JEV_UNTRUSTED_TEXT_LIMIT = 2_000;
 const JEV_ERROR_BODY_LIMIT = 500;
-
-export interface JevUsage {
-  caller: string;
-  model: typeof JEV_MODEL;
-  inputTokens: number;
-  outputTokens: number;
-  estCostUsd: number;
-}
-
 export type JevAnswer =
   | { type: 'choice'; optionId: string; probabilities: Record<string, number>; confidence: number }
   | { type: 'score'; value: number; confidence: number }
@@ -83,6 +81,8 @@ export interface JevClientOptions {
   apiKey?: string;
   fetchImpl?: FetchLike;
   logUsage?: (usage: JevUsage) => void | Promise<void>;
+  usageLogger?: (usage: JevUsageRow) => void | Promise<void>;
+  warn?: (message: string) => void;
   random?: () => number;
   sleep?: (milliseconds: number) => Promise<void>;
   timeoutMs?: number;
@@ -230,6 +230,11 @@ export function createJevClient(options: JevClientOptions = {}) {
     ((milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds)));
   const timeoutMs = options.timeoutMs ?? 4_000;
   const logUsage = options.logUsage ?? (() => undefined);
+  const usageLogger = options.usageLogger ?? (() => undefined);
+  const warn = options.warn ?? console.warn;
+
+  // logUsage errors are swallowed by design so telemetry cannot fail a Jev call.
+  const logSafely = (logger: () => void | Promise<void>) => safelyLog(logger, warn);
 
   return {
     async ask(input: {
@@ -271,11 +276,23 @@ export function createJevClient(options: JevClientOptions = {}) {
       try {
         raw = await response.json();
       } catch {
+        await logSafely(() => usageLogger(usageRowFromResponse(
+          undefined, input.caller, JEV_MODEL, JEV_INPUT_USD_PER_MILLION_TOKENS,
+        )));
         throw new JevResponseError();
       }
-      const result = fromResponse(raw, input.questions, prepared.choiceMaps);
+      let result: JevResult;
+      try {
+        result = fromResponse(raw, input.questions, prepared.choiceMaps);
+      } catch (error) {
+        await logSafely(() => usageLogger(usageRowFromResponse(
+          raw, input.caller, JEV_MODEL, JEV_INPUT_USD_PER_MILLION_TOKENS,
+        )));
+        throw error;
+      }
       result.usage.caller = input.caller;
-      await logUsage(result.usage);
+      await logSafely(() => logUsage(result.usage));
+      await logSafely(() => usageLogger(usageRow(result.usage)));
       return result;
     },
   };

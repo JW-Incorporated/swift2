@@ -3,6 +3,14 @@ import { choiceQuestion, noulQuestion, scoreQuestion } from '@swift2/shared/jev/
 
 export { createJevClient, choiceQuestion, noulQuestion, scoreQuestion };
 
+export function createJevUsageLogger(client) {
+  if (!client) return undefined;
+  return async (row) => {
+    const { error } = await client.from('llm_usage').insert(row);
+    if (error) throw error;
+  };
+}
+
 async function selftest() {
   if (!process.env.TYPESAFE_API_KEY) {
     console.error('Jev selftest requires TYPESAFE_API_KEY.');

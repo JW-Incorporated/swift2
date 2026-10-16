@@ -46,6 +46,7 @@ describe('weekly recall inertness', () => {
     expect(client.calls.some((call) => /insert|update|upsert|delete/.test(call))).toBe(false);
     const source = await readFile(path.join(root, 'scripts', 'tidewatch', 'recall.mjs'), 'utf8');
     expect(source).not.toMatch(/from ['"]\.\.\/lib\/gh\.mjs|gh\s*\(/);
+    expect(source).toContain('usageLogger: createJevUsageLogger(client)');
   });
 
   it('defaults filing off and never calls an issue filer', async () => {
