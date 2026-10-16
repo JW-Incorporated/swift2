@@ -364,7 +364,10 @@ jobs:
             [ -f "$F" ] || continue
             WF=$(basename "$F")
             [ "$WF" = "routine-template.yml" ] && continue
-            MAXAGE=$(node scripts/watchdog/cron-maxage-hours.mjs "$F" 2>/dev/null) || continue
+            MAXAGE=$(node scripts/watchdog/cron-maxage-hours.mjs "$F" 2>/dev/null) || {
+              # Dispatch-only via the home clock (no cron to derive from): hourly alert runs, 6h floor.
+              if [ "$WF" = "tidewatch-shadow-report.yml" ]; then MAXAGE=6; else continue; fi
+            }
             [ -z "$MAXAGE" ] && continue
             # Skip a workflow that isn't in this repo (keeps the list portable).
             gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue

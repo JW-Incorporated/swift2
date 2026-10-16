@@ -1,17 +1,17 @@
 # Tidewatch shadow-week monitoring (P1-07b). Read-only: scripts/tidewatch/shadow-report.mjs
 # reads watch_decision and tidewatch.yml run history, never writes either.
-#   daily 15:07 UTC (8:07 PDT)  full report to #longlive-marjorie
-#   hourly :37                  --alert mode, posts only on an alert, de-duplicated
+# Dispatch-only: GitHub crons for this workflow never fired, so clock-dispatch.mjs
+# (scripts/ops/clock-table.json) dispatches both modes, throttled per run-name.
+#   daily from 15:07 UTC        full report to #longlive-marjorie
+#   hourly                      --alert mode, posts only on an alert, de-duplicated
 #                               6h per alert kind through an actions/cache state file
 # shadow-report-post.mjs delivers the payload (the only step holding the webhook).
 # Silence posting with the repo variable TIDEWATCH_REPORT_POST_ENABLED=false
 # (unset posts). The report is built from headlines and refs only.
 name: tidewatch-shadow-report
+run-name: tidewatch-shadow-report (${{ inputs.alert && 'alert' || 'full' }})
 
 on:
-  schedule:
-    - cron: "7 15 * * *"
-    - cron: "37 * * * *"
   workflow_dispatch:
     inputs:
       alert:
@@ -47,10 +47,9 @@ jobs:
       - name: Pick the mode
         id: mode
         env:
-          SCHEDULE: ${{ github.event.schedule }}
           ALERT_INPUT: ${{ inputs.alert }}
         run: |
-          if [ "$SCHEDULE" = "37 * * * *" ] || [ "$ALERT_INPUT" = "true" ]; then
+          if [ "$ALERT_INPUT" = "true" ]; then
             echo "alert=true" >> "$GITHUB_OUTPUT"
           else
             echo "alert=false" >> "$GITHUB_OUTPUT"
