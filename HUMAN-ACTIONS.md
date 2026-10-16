@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **19 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **20 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #136 🟢 [UPGRADE] Add the site's breaking-news unlock secret (~5 min, do it with #129)
+<!-- ha filed=2026-10-15 -->
+<!-- ha verify: variable-equals REVALIDATE_ORIGIN https://longlivets.com -->
+
+**Why:** The breaking-news path to the site (PR #5969) refuses every request until this secret exists. It stays off until go-live, so nothing is stuck; doing it alongside #129 shares one Vercel redeploy.
+**Steps:**
+1. In PowerShell run `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` and copy the output.
+2. Run `gh secret set REVALIDATE_SECRET --repo JW-Incorporated/swift2` and paste that value.
+3. In Vercel open project swift2-web → Settings → Environment Variables, add REVALIDATE_SECRET (Production) with the same value, then redeploy.
+4. Run `gh variable set REVALIDATE_ORIGIN --repo JW-Incorporated/swift2 --body https://longlivets.com`
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows REVALIDATE_SECRET.
 
 ## #135 🟢 [UPGRADE] Let the action auto-closer see which secrets exist (~3 min)
 <!-- ha filed=2026-10-15 -->
