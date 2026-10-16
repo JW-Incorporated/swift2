@@ -696,6 +696,33 @@
     return `https://www.facebook.com/groups/${encodeURIComponent(gid)}/posts/${encodeURIComponent(postId)}/`;
   }
 
+  function stableDomPostId(unit, region = postRegion(unit)) {
+    for (const element of [unit, region.scope]) {
+      for (const name of ['data-post-id', 'data-story-id']) {
+        const value = element?.getAttribute?.(name)?.trim();
+        if (value && /^[\w.-]{1,128}$/.test(value)) return value;
+      }
+      const id = element?.getAttribute?.('id') ?? '';
+      const idFragment = /(?:^|[_-])(?:post|story)[_-]([\w.-]{1,128})$/i.exec(id)?.[1];
+      if (idFragment) return idFragment;
+    }
+    for (const anchor of region.scope.querySelectorAll('a[href]')) {
+      if (!region.inRegion(anchor) || /comment_id=/i.test(anchor.getAttribute('href') || '')) continue;
+      let url;
+      try {
+        url = new URL(anchor.getAttribute('href'), unit.ownerDocument.location?.href);
+      } catch {
+        continue;
+      }
+      const postId =
+        /\/(?:posts|permalink)\/([\w.-]+)/i.exec(url.pathname)?.[1] ||
+        url.searchParams.get('story_fbid') ||
+        /(?:^|[.,])gm\.([\w.-]+)/i.exec(url.searchParams.get('set') ?? '')?.[1];
+      if (postId && postId.length <= 128) return postId;
+    }
+    return null;
+  }
+
   function postPermalink(unit, region, groupId, baseUrl) {
     for (const anchor of region.scope.querySelectorAll('a[href]')) {
       if (!region.inRegion(anchor) || /comment_id=/i.test(anchor.getAttribute('href') || '')) continue;
@@ -865,6 +892,8 @@
     const doc = unit.ownerDocument;
     const out = doc.createElement('div');
     out.setAttribute('data-llfb-post', '');
+    const domPostId = stableDomPostId(unit, region);
+    if (domPostId) out.setAttribute('data-llfb-dom-post-id', domPostId);
     const part = (name) => {
       const el = doc.createElement('div');
       el.setAttribute('data-llfb-part', name);
@@ -1012,6 +1041,7 @@
       );
       const position = Number(unit.getAttribute('aria-posinset')) || null;
       const { reactions, commentCount } = extractEngagement(unit, region);
+      const domPostId = stableDomPostId(unit, region);
       return {
         position,
         identity:
@@ -1025,6 +1055,7 @@
         reactions,
         permalink: canonicalPermalink,
         commentCount,
+        domPostId,
       };
     });
     return { units, maxPosinset };

@@ -8,8 +8,12 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { matchMoment, planPaidSearch } from './match-moments.mjs';
 import { searchAwinIndex } from './awin-index-search.mjs';
-import { verifyImage } from './verify-images.mjs';
 import { callMerchClaude, MERCH_LIGHT_MODEL, MERCH_VISION_MODEL } from './merch-claude.mjs';
+export {
+  defaultVerifyUrl,
+  defaultVerifyUrl as verifyProductUrl,
+  verifyAndScoreCandidates,
+} from './match-moments-verification.mjs';
 const SEARCH_API_ENDPOINT = 'https://serpapi.com/search.json';
 function descriptorTerms(descriptors) {
   return [descriptors?.brand, descriptors?.kind, descriptors?.color, descriptors?.pattern, descriptors?.silhouette]
@@ -121,35 +125,6 @@ export async function gatherCandidates({
     }
   }
   return { candidates: [...awin, ...brandDirect, ...paid], paidSearchTicket, paidSearchCalls };
-}
-
-async function defaultVerifyUrl(url, { fetchImpl = fetch } = {}) {
-  if (!url) return false;
-  try {
-    const response = await fetchImpl(url, { method: 'HEAD', redirect: 'follow' });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Reusable E1/E2 filter for callers that need an early receipt. P1-19's
- * product writer is the final pre-merge authority and re-runs both gates.
- */
-export async function verifyAndScoreCandidates(candidates, { momentImageUrl, judge, verifyUrlImpl = defaultVerifyUrl, verifyImageImpl = verifyImage, fetchImpl = fetch }) {
-  const scored = [];
-  for (const candidate of candidates) {
-    const urlVerified = await verifyUrlImpl(candidate.productUrl, { fetchImpl });
-    const imageVerified = candidate.imageUrl
-      ? (await verifyImageImpl(candidate.imageUrl, { fetchImpl })).verdict === 'ok'
-      : false;
-    if (!urlVerified || !imageVerified) continue; // R2: an unverified candidate is never authored
-    const judgment = await judge({ candidate, momentImageUrl });
-    if (!Number.isFinite(judgment?.score)) continue;
-    scored.push({ ...candidate, urlVerified, imageVerified, score: judgment.score });
-  }
-  return scored;
 }
 
 async function scoreCandidates(candidates, momentImageUrl, judge) {

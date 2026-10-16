@@ -48,7 +48,7 @@ async function githubFetch(url, options = {}) {
   };
 }
 
-function canonicalUrl(value) {
+export function canonicalUrl(value) {
   try {
     const url = new URL(value);
     if (url.hostname === 'etsy.com' || url.hostname === 'www.etsy.com') url.search = '';
