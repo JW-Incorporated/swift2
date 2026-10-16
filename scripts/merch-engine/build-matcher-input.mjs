@@ -3,11 +3,11 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { momentIds } from '../lib/moment-ids.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import { inNoMatchCooldown, readMatcherState } from './matcher-state.mjs';
 
 export const DEFAULT_LOOK_CAP = 3;
 export const DEFAULT_PAID_SEARCH_CAP = 5;
-export const DEFAULT_TIDEWATCH_QUEUE = path.join('.cache', 'tidewatch-merch-outfit.jsonl');
 
 const realMomentImage = (item) => item?.moment?.photos?.find((photo) => photo?.url)?.url ?? null;
 const dated = (item) => Date.UTC(item.year ?? 0, (item.month ?? 1) - 1, item.day ?? 1);
@@ -66,19 +66,20 @@ export function buildMatcherInput({
   };
 }
 
-export async function readTidewatchQueue(file = DEFAULT_TIDEWATCH_QUEUE) {
-  let source;
-  try {
-    source = await readFile(file, 'utf8');
-  } catch (error) {
-    if (error?.code === 'ENOENT') return [];
-    throw error;
-  }
-  if (!source.trim()) return [];
-  return source.split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+export async function readTidewatchItems(client, limit = DEFAULT_LOOK_CAP) {
+  if (!client) return [];
+  const { data, error } = await client.from('watch_decision')
+    .select('decided_at, watch_item!inner(source_ref, excerpt)')
+    .eq('class', 'merch_outfit').eq('shadow', false)
+    .order('decided_at', { ascending: false }).limit(limit);
+  if (error) throw error;
+  return (data ?? []).flatMap((row) => {
+    try {
+      const source = JSON.parse(row.watch_item?.source_ref ?? 'null');
+      return source?.momentImageUrl ? [{ ...source, source: 'tidewatch', occurredAt: Date.parse(row.decided_at) }] : [];
+    } catch { return []; }
+  });
 }
-
-export const serializeMatcherInput = (input) => `${JSON.stringify(input, null, 2)}\n`;
 
 async function loadCorpora(seedDir) {
   const files = (await readdir(seedDir)).filter((file) => file.endsWith('.mjs')).sort();
@@ -96,19 +97,20 @@ function value(args, name, fallback) {
 
 export async function main(args = process.argv.slice(2)) {
   const output = value(args, '--output');
-  if (!output) throw new Error('usage: build-matcher-input.mjs --output <plan.json> [--limit 3] [--paid-search-cap 5] [--tidewatch-queue <queue.jsonl>]');
+  if (!output) throw new Error('usage: build-matcher-input.mjs --output <plan.json> [--limit 3] [--paid-search-cap 5]');
   const config = JSON.parse(await readFile('config/tidewatch.json', 'utf8'));
   const tidewatchClass = config.classes?.merch_outfit ?? {};
+  const client = tidewatchClass.enabled === true && tidewatchClass.shadow === false ? serviceClient() : null;
   const state = await readMatcherState(value(args, '--state'));
   const input = buildMatcherInput({
     corpora: await loadCorpora('supabase/seed/content'), tidewatchClass,
-    tidewatchItems: await readTidewatchQueue(value(args, '--tidewatch-queue', DEFAULT_TIDEWATCH_QUEUE)),
+    tidewatchItems: await readTidewatchItems(client),
     limit: Number(value(args, '--limit', DEFAULT_LOOK_CAP)),
     paidSearchCap: Number(value(args, '--paid-search-cap', DEFAULT_PAID_SEARCH_CAP)),
     state,
   });
   await mkdir(path.dirname(path.resolve(output)), { recursive: true });
-  await writeFile(output, serializeMatcherInput(input));
+  await writeFile(output, `${JSON.stringify(input, null, 2)}\n`);
   console.log(JSON.stringify({ moments: input.moments.length, sources: input.sources }));
 }
 

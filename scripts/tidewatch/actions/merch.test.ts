@@ -1,9 +1,4 @@
-import { mkdtemp, rm } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-// @ts-expect-error plain .mjs modules
-import { buildMatcherInput, readTidewatchQueue } from '../../merch-engine/build-matcher-input.mjs';
 // @ts-expect-error plain .mjs module
 import { runMerchAction } from './merch.mjs';
 
@@ -18,6 +13,7 @@ const outfit = {
 
 function dedupingDb() {
   const keys = new Set<string>();
+  const actionRefs = new Map<string, string>();
   const insert = vi.fn((row: { dedupe_key: string }) => ({
     select: () => ({
       maybeSingle: async () => {
@@ -29,42 +25,36 @@ function dedupingDb() {
       },
     }),
   }));
-  return { from: vi.fn(() => ({ insert })), insert, keys };
+  const update = vi.fn((values: { action_ref: string }) => ({
+    eq: (_column: string, id: string) => ({
+      is: () => ({
+        select: async () => {
+          if (actionRefs.has(id)) return { data: [], error: null };
+          actionRefs.set(id, values.action_ref);
+          return { data: [{ id }], error: null };
+        },
+      }),
+    }),
+  }));
+  const from = vi.fn((table: string) => table === 'watch_decision' ? { update } : { insert });
+  return { from, insert, update, keys, actionRefs };
 }
 
 describe('Tidewatch merch actions', () => {
-  it('puts a live replayed outfit into the next matcher input', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'p2-11-outfit-'));
-    const queue = join(dir, 'outfit.jsonl');
-    try {
-      await runMerchAction(outfit, {
-        live: true, queuePaths: { outfit: queue, fan: join(dir, 'fan.jsonl') },
-      });
-      const input = buildMatcherInput({
-        corpora: [], tidewatchClass: { enabled: true, shadow: false }, now,
-        tidewatchItems: await readTidewatchQueue(queue),
-      });
-      expect(input.moments).toEqual([expect.objectContaining({
-        source: 'tidewatch',
-        moment: { id: 'vault-lover-replayed-look', title: 'Replayed look' },
-        momentImageUrl: 'https://images.example/replayed-look.jpg',
-      })]);
-    } finally {
-      await rm(dir, { recursive: true });
-    }
-  });
-
-  it('appends a live fan-made item to the curation queue', async () => {
-    const append = vi.fn();
-    const queuePaths = { outfit: 'outfit.jsonl', fan: 'fan.jsonl' };
+  it('records live outfit and fan decisions only as action_ref', async () => {
+    const db = dedupingDb();
+    await runMerchAction(outfit, { live: true, db });
     await runMerchAction({
       id: 'decision-fan', class: 'merch_fan', decided_at: now.toISOString(),
       watch_item: { source_ref: 'listing-1', title: 'Handmade bracelet', excerpt: 'Seller' },
-    }, { live: true, append, queuePaths });
-    expect(append).toHaveBeenCalledWith('fan.jsonl', {
-      decisionId: 'decision-fan', sourceRef: 'listing-1', title: 'Handmade bracelet',
-      excerpt: 'Seller', decidedAt: now.toISOString(),
-    });
+    }, { live: true, db });
+    expect(db.actionRefs).toEqual(new Map([
+      ['decision-outfit', 'outfit_matcher_queue'],
+      ['decision-fan', 'fan_merch_curation'],
+    ]));
+    expect(db.update).toHaveBeenNthCalledWith(1, { action_ref: 'outfit_matcher_queue' });
+    expect(db.update).toHaveBeenNthCalledWith(2, { action_ref: 'fan_merch_curation' });
+    expect(db.from).toHaveBeenCalledTimes(2);
   });
 
   it('confirms the store-drop draft and dedupes the T2 event when live', async () => {
@@ -82,16 +72,16 @@ describe('Tidewatch merch actions', () => {
   });
 
   it('keeps every merch effect behind the live argument', async () => {
-    const append = vi.fn();
     const loadStoreDropDraft = vi.fn();
     const emitOfficial = vi.fn();
+    const recordAction = vi.fn();
     for (const classId of ['merch_outfit', 'merch_fan', 'merch_official']) {
       await expect(runMerchAction({ ...outfit, class: classId }, {
-        live: false, append, loadStoreDropDraft, emitOfficial,
+        live: false, loadStoreDropDraft, emitOfficial, recordAction,
       })).resolves.toEqual({ acted: false, reason: 'router-not-live' });
     }
-    expect(append).not.toHaveBeenCalled();
     expect(loadStoreDropDraft).not.toHaveBeenCalled();
     expect(emitOfficial).not.toHaveBeenCalled();
+    expect(recordAction).not.toHaveBeenCalled();
   });
 });

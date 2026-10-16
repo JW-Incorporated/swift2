@@ -160,17 +160,17 @@ describe('Tidewatch shadow action router', () => {
       fan_merch_curation: runMerchAction,
       outfit_matcher_queue: runMerchAction,
     });
-    const append = vi.fn();
     const loadStoreDropDraft = vi.fn();
     const emitOfficial = vi.fn();
+    const recordAction = vi.fn();
     for (const classId of ['merch_outfit', 'merch_fan', 'merch_official']) {
       await runMerchAction(decision({ class: classId }), {
-        live: false, append, loadStoreDropDraft, emitOfficial,
+        live: false, loadStoreDropDraft, emitOfficial, recordAction,
       });
     }
-    expect(append).not.toHaveBeenCalled();
     expect(loadStoreDropDraft).not.toHaveBeenCalled();
     expect(emitOfficial).not.toHaveBeenCalled();
+    expect(recordAction).not.toHaveBeenCalled();
 
     const merchImports = new Set(await transitiveLocalImports(path.join(ROOT,
       'scripts/tidewatch/actions/merch.mjs')));
