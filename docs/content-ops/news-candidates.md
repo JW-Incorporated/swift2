@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Glitter Freckles Popularized by Taylor Swift Now Available for Dogs
+
+- first seen: 2026-10-16 20:51 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The trend of glitter freckles, made famous by Taylor Swift, has been adapted for dogs, allowing pet owners to use this cosmetic look on their furry friends. The new product aims to bring a bit of the pop star's style to the canine world.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiogFBVV95cUxNZ1VoOU1NOE83SFFWZ0hPRUh3cS1nb1V3aXVNal9oUlFSUm9EX0NxX1dyclZoSE9aTGpDcC1GbWQyVVY4Z1dSRGU5WlJxVXlTYzh0M3FMd1l0VERTVVh6d0ZwV2NXU2pJRFRhM1ZxOFM2ZXpFeWVaSVY2WXViTm9WaXdwVUhkajdKWXVQa09LQWhxbUl4V2lHQzdDQWY2bkFDRFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Beverly Hills Bungalow Where She Wrote 1989 Is for Sale
+
+- first seen: 2026-10-16 20:51 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The former Beverly Hills bungalow of Taylor Swift, where she penned her album 1989, is now on the market. The property is described as absolutely stunning, attracting attention from fans and real estate enthusiasts alike.
+- sources:
+  - [unverified] Grazia — https://news.google.com/rss/articles/CBMi6gFBVV95cUxPYUgtWElnQmhET0RGa21oekFJRzJZelA2LXQ4akpKeExtaFdWWVNuN0kwVTI1TVhzYUhJWkh2SDFTTkh4ZUJBQmg2b1dqTkNhNWRWcDVfaFBEVUJHN2E5V21oTGtmTVFKNDVnSjRXTHZsNjZCelZvVFcySXNOMkEwbUI3allSYVJQcDNwNlBSbzNIMkJkdnNwMWNCSXJnWjN4X1Y2MzNTNlRtd3lTVXEtQWhSd0dJZkYwZ1ZzLXZCYmZFYXFSdWNlT2dhV01ZSGlaUmxLb0NvUWxkbkRmclBMbkd6Zl80b1d6dUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Hall Of Fame Basketball Coach Finds Taylor Swift 'Intimidating'
 
