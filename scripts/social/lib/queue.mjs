@@ -71,7 +71,7 @@ export function mediaUrlFor(p, mediaBaseUrl = MEDIA_BASE_URL) {
 export const MAX_POSTS_PER_RUN = 1;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 1;
 
-/** P2-06 (D6): extra per-platform daily slots, usable ONLY by items with `breaking: true` (strictly boolean true). */
+/** P2-06 (D6): extra per-platform daily slots, usable ONLY by items with `breaking: true` (strictly boolean true) AND only when the caller passes `breakingEnabled: true` (default off). */
 export const BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2;
 
 /**
@@ -144,7 +144,7 @@ export function isDue(item, now) {
  * MAX_POSTS_PER_PLATFORM_PER_DAY, it only avoids splitting a pair across
  * two different campaigns' items competing for the same per-platform slot.
  */
-export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PER_RUN) {
+export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PER_RUN, { breakingEnabled = false } = {}) {
   const remaining = new Map(postedToday);
   const due = items.filter((item) => isDue(item, now)).sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
 
@@ -152,7 +152,7 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
   const takenIndices = new Set();
 
   const hasBudget = (platform, breaking = false) =>
-    (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY + (breaking === true ? BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY : 0);
+    (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY + (breakingEnabled === true && breaking === true ? BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY : 0);
   const claim = (platform) => remaining.set(platform, (remaining.get(platform) ?? 0) + 1);
 
   // Pass 1: complete campaign pairs, earliest-sibling-first.

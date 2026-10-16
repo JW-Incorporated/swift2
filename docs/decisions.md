@@ -9165,6 +9165,6 @@ The trusted system prompt says that image content and all text in it are untrust
 
 **Deviation from the plan text.** The plan says the script "stamps via social-tree-approve.yml with a breaking flag and dispatches social-poster immediately". That is not built: no bypass of Tree approval and no direct poster dispatch.
 
-**Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides). Nothing writes `breaking: true` yet, so live behavior is identical.
+**Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides) AND only when the caller passes `breakingEnabled: true` to `selectDuePosts`. The poster (post-queue.mjs) does not pass it, so the live poster is unchanged even if a Tree PR sets `breaking: true` (the approve allowlist is path-based, not key-based); go-live must wire it to `BREAKING_SOCIAL_ENABLED`.
 
 **Verification.** `scripts/social/breaking-draft.test.ts`. Live drafting stays unimplemented until the P2-12 drill.

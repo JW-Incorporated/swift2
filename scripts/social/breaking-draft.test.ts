@@ -62,18 +62,23 @@ describe('queue +2 breaking allowance', () => {
     expect(selectDuePosts([item('x', { breaking: 'true' })], now, posted, Infinity)).toHaveLength(0);
     expect(selectDuePosts([item('x', { breaking: 1 })], now, posted, Infinity)).toHaveLength(0);
   });
+  const ON = { breakingEnabled: true };
+  it('is a no-op without breakingEnabled, even for strict breaking:true', () => {
+    expect(selectDuePosts([item('x', { breaking: true })], now, posted, Infinity)).toHaveLength(0);
+    expect(selectDuePosts([item('x', { breaking: true })], now, posted, Infinity, { breakingEnabled: false })).toHaveLength(0);
+  });
   it('lets breaking items through up to 2 extra per platform', () => {
     const b = (n: number) => item('x', { breaking: true, campaign: `b${n}` });
-    expect(selectDuePosts([b(1), b(2), b(3)], now, new Map([['x', 1]]), Infinity)).toHaveLength(2);
-    expect(selectDuePosts([b(1)], now, new Map([['x', 3]]), Infinity)).toHaveLength(0);
+    expect(selectDuePosts([b(1), b(2), b(3)], now, new Map([['x', 1]]), Infinity, ON)).toHaveLength(2);
+    expect(selectDuePosts([b(1)], now, new Map([['x', 3]]), Infinity, ON)).toHaveLength(0);
   });
   it('a breaking pair needs both sides breaking', () => {
     const pair = (bx: boolean, bi: boolean) => [
       { ...item('x', { breaking: bx }), campaign: 'p' },
       { ...item('instagram', { breaking: bi }), campaign: 'p' },
     ];
-    expect(selectDuePosts(pair(true, true), now, posted, Infinity)).toHaveLength(2);
-    expect(selectDuePosts(pair(true, false), now, posted, Infinity)).toHaveLength(0);
+    expect(selectDuePosts(pair(true, true), now, posted, Infinity, ON)).toHaveLength(2);
+    expect(selectDuePosts(pair(true, false), now, posted, Infinity, ON)).toHaveLength(0);
   });
   it('unchanged for the empty live queue: no breaking items under social/queue', () => {
     const dir = path.join(root, 'social', 'queue');
