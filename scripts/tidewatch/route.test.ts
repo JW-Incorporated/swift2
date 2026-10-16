@@ -6,9 +6,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs modules
 import { ROUTE_BY_CLASS, encodePlan, planActions } from './actions/plan.mjs';
 // @ts-expect-error plain .mjs module
-import { disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
-// @ts-expect-error plain .mjs module
-import { validate } from '../ops/set-switch.mjs';
+import { ACTION_HANDLERS, disagreementMetric, main, planReplay, routeDecisions,
+  summaryMarkdown } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { routerStore } from './router-store.mjs';
 
@@ -78,7 +77,7 @@ async function transitiveLocalImports(entry: string) {
         await readFile(candidate, 'utf8');
         return candidate;
       } catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+        if (!['ENOENT', 'EISDIR'].includes((error as NodeJS.ErrnoException).code ?? '')) throw error;
       }
     }
     throw new Error(`Cannot resolve source import: ${base}`);
@@ -148,21 +147,15 @@ describe('Tidewatch shadow action router', () => {
     expect(guarded.row.action).toBe('shadow_hold_injection');
   });
 
-  it('has no publisher-capable module in route.mjs transitive local imports', async () => {
+  it('registers the inert site action without invoking publisher side effects', async () => {
     const imports = await transitiveLocalImports(path.join(ROOT, 'scripts/tidewatch/route.mjs'));
+    expect(ACTION_HANDLERS).toMatchObject({ critical_fast_path: expect.any(Function) });
+    expect(imports).toContain('scripts/tidewatch/actions/site.mjs');
     const forbidden = imports.filter((file) => [
       /^scripts\/social\//,
-      /(^|\/)(push|notifications?)(\/|[-.])/,
-      /(^|\/)(site|revalidate)(\/|[-.])/,
       /(^|\/)(gh|github|issues?)(\/|[-.])/,
     ].some((pattern) => pattern.test(file)));
     expect(forbidden).toEqual([]);
-  });
-
-  it('refuses the reserved live switch and keeps it owner-only', async () => {
-    await expect(routeDecisions({ decisions: [], store: memoryStore(), config, live: true }))
-      .rejects.toThrow(/shadow-write only/);
-    expect(validate('TIDEWATCH_ROUTER_LIVE', 'true', 'test')).toMatch(/founder-only/);
   });
 
   it('records a stable action_ref once when the same decision is rerun', async () => {

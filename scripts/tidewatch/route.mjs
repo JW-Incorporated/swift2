@@ -5,10 +5,12 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { encodePlan, planActions } from './actions/plan.mjs';
+import { publishCriticalSite } from './actions/site.mjs';
 import { routerStore } from './router-store.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
+export const ACTION_HANDLERS = Object.freeze({ critical_fast_path: publishCriticalSite });
 function parseArgs(argv) {
   const options = { limit: 600, replayPath: null };
   for (let index = 0; index < argv.length; index += 1) {
@@ -31,16 +33,23 @@ export function disagreementMetric(plans) {
 }
 
 export async function routeDecisions({ decisions, timelines = new Map(), store, config,
-  live = false }) {
-  if (live) throw new Error('TIDEWATCH_ROUTER_LIVE is reserved; P2-02 is shadow-write only');
+  live = false, actionHandlers = ACTION_HANDLERS, actionContext = {} }) {
   const plans = [];
   let recorded = 0;
   for (const decision of decisions) {
     const storyId = decision.watch_item?.story_id;
+    const timeline = storyId ? timelines.get(storyId) : null;
     const plan = planActions(decision.class, decision.answers, decision.confidence,
-      storyId ? timelines.get(storyId) : null, config);
+      timeline, config);
     plans.push(plan);
-    if (await store.record(decision.id, encodePlan(plan))) recorded += 1;
+    const claimed = await store.record(decision.id, encodePlan(plan));
+    if (!claimed) continue;
+    recorded += 1;
+    if (!live || config.classes[decision.class]?.enabled !== true) continue;
+    for (const action of plan.actions) {
+      const handler = actionHandlers[action];
+      if (handler) await handler({ decision, timeline, ...actionContext });
+    }
   }
   return { mode: 'shadow-router', read: decisions.length, recorded, plans,
     disagreement: disagreementMetric(plans) };
@@ -86,7 +95,9 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   if (!deps.store && !client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
   const store = deps.store ?? routerStore(client);
   const pending = await store.loadPending(options.limit);
-  const result = await routeDecisions({ ...pending, store, config, live });
+  const result = await routeDecisions({ ...pending, store, config, live,
+    actionContext: { db: deps.client ?? client, env: deps.env ?? process.env,
+      fetchImpl: deps.fetchImpl } });
   const markdown = summaryMarkdown(result);
   (deps.log ?? console.log)(markdown.trim());
   const summaryPath = (deps.env ?? process.env).GITHUB_STEP_SUMMARY;
