@@ -9171,7 +9171,7 @@ The trusted system prompt says that image content and all text in it are untrust
 
 ## 2026-10-15 P2-08 social retraction: built inert
 
-**Decision.** Reversible PM call under architect ruling #14. `scripts/social/retract-post.mjs` is off unless `RETRACTION_SOCIAL_ENABLED` is exactly `true`, refuses under `SOCIAL_FREEZE`, and only implements dry-run: given a campaign it lists which `social/posted/` records and platforms it would retract (X delete, Facebook Page delete, Instagram reported as manual because the API has no delete) and makes no network call. It never imports, spawns or names the live delete or post scripts. `social-delete-media.yml` gained one optional, unused dispatch input (`retraction_campaign`); trigger, `media_ids` and the job are unchanged.
+**Decision.** Reversible PM call under architect ruling #14. `scripts/social/retract-post.mjs` is off unless `RETRACTION_SOCIAL_ENABLED` is exactly `true`, refuses under `SOCIAL_FREEZE`, and only implements dry-run: given a campaign it lists which `social/posted/` records and platforms it would retract (X delete, Facebook Page delete, Instagram reported as manual because the API has no delete) and makes no network call. It never imports, spawns or names the live delete or post scripts. `social-delete-media.yml` is deliberately NOT touched (an unused input on a live delete workflow adds risk and no inert benefit); wiring it to retraction belongs to go-live.
 
 **Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
 

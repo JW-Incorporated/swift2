@@ -83,14 +83,12 @@ describe('inertness (architect ruling #14)', () => {
       expect(code).not.toMatch(/delete-media|post-queue|child_process|\bfetch\s*\(|\bspawn|\bexec(Sync|File)?\s*\(/);
     }
   });
-  it('workflow gains only an optional dispatch input; media_ids and steps unchanged', () => {
+  it('live delete workflow is untouched: media_ids only, delete-media.mjs last step', () => {
     const text = readFileSync(path.join(root, '.github/workflows/social-delete-media.yml'), 'utf8');
     const wf = parse(text);
     expect(Object.keys(wf.on)).toEqual(['workflow_dispatch']);
-    expect(Object.keys(wf.on.workflow_dispatch.inputs)).toEqual(['media_ids', 'retraction_campaign']);
+    expect(Object.keys(wf.on.workflow_dispatch.inputs)).toEqual(['media_ids']);
     expect(wf.on.workflow_dispatch.inputs.media_ids.required).toBe(true);
-    expect(wf.on.workflow_dispatch.inputs.retraction_campaign.required).toBe(false);
-    expect(JSON.stringify(wf.jobs)).not.toContain('retraction_campaign');
     expect(wf.jobs.delete.steps.at(-1).run).toBe('node scripts/social/delete-media.mjs');
   });
 });
