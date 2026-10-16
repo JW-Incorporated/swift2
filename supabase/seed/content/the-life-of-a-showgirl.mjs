@@ -6741,7 +6741,7 @@ export default {
           // read directly. No location.
           {
             claim:
-              'Rolling Stone\'s 2027 Grammy predictions put The Life of a Showgirl in its projected Album of the Year field (picking Olivia Rodrigo to win) and "The Fate of Ophelia" in its projected Song of the Year field (picking Olivia Dean\'s "Man I Need").',
+              'The Life of a Showgirl made the projected Album of the Year field and "The Fate of Ophelia" the projected Song of the Year field in Rolling Stone\'s 2027 Grammy predictions — though the picks to win were Olivia Rodrigo and Olivia Dean\'s "Man I Need".',
             reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
             reportedOn: '2026-10-13',
             status: 'unconfirmed',
