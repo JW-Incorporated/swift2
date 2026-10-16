@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **20 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **19 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #135 🟢 [UPGRADE] Let the action auto-closer see which secrets exist (~3 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** Action cards that check "is this secret set?" never close themselves: the auto-closer's token, OPS_FIXER_PAT, is not allowed to read the repo's secret list, so it skips them (it did with #124/#127 today).
+**Steps:**
+1. Open https://github.com/settings/tokens and open the classic token used as OPS_FIXER_PAT.
+2. Make sure the `repo` scope is ticked (it covers reading the secret names), then Update token.
+3. If you had to regenerate it, copy the new value, then run `gh secret set OPS_FIXER_PAT --repo JW-Incorporated/swift2` and paste it when asked.
+**Worked if:** The next secret-check card closes itself within an hour of the secret being set.
 
 ## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-16 -->
@@ -64,15 +74,6 @@
 3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
 **Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
-## #127 🟢 [UPGRADE] Make the backup Claude token a GitHub secret (~2 min)
-<!-- ha filed=2026-10-14 -->
-<!-- ha verify: secret-exists CLAUDE_CODE_OAUTH_TOKEN_BACKUP -->
-
-**Why:** You chose your co-founder's plan as the backup (2026-10-15). A Hermes session put its token in Swift2's local env file, but routines run in GitHub Actions, so it must also be a GitHub secret. The same command covers #124.
-**Steps:**
-1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (sets every key in that file; prints names, never values).
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP.
-
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
 
@@ -94,16 +95,6 @@
 2. Paste: "Did the Hermes Tree and Hermes Marjorie daily loops both run successfully in the last 3 days, and which model or token pool do they use? Answer yes or no per loop."
 3. Tell the Swift2 pipeline PM the answer in chat.
 **Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
-
-## #124 🔴 [BLOCKING] Make the Jev key a GitHub secret: TYPESAFE_API_KEY (~2 min)
-<!-- ha filed=2026-10-14 -->
-<!-- ha verify: secret-exists TYPESAFE_API_KEY -->
-
-**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. The key is in Swift2's local env file and passed a live test on 2026-10-15; scheduled jobs need it as a GitHub secret.
-**Steps:**
-1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (also covers #127; prints names, never values).
-2. Optional: tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows TYPESAFE_API_KEY.
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->
