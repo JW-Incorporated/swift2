@@ -297,7 +297,7 @@ jobs:
           CONCLUSION=$(printf '%s' "$RESULT" | jq -r '.run.conclusion // "unknown"')
           if [ "$STATE" = "alert" ]; then
             {
-              echo "@sffan15-sys â€” the latest db-migrate run on main concluded **${CONCLUSION}**. Later migrations may be blocked from production."
+              echo "@sffan15-sys — the latest db-migrate run on main concluded **${CONCLUSION}**. Later migrations may be blocked from production."
               echo ""
               echo "Run: ${RUN_URL}"
             } > /tmp/db-migrate-alert.md
