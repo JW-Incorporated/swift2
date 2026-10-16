@@ -246,6 +246,7 @@ describe('callClaude runner', () => {
       cache_read_tokens: 3,
       cache_creation_input_tokens: 12,
       calls: 1,
+      est_cost_usd: null,
     }]);
   });
 });
