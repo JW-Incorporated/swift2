@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 83
 
 ## Hall Of Fame Basketball Coach Finds Taylor Swift 'Intimidating'
 
@@ -702,71 +702,3 @@ Stories: 91
 - summary: Taylor Swift has released a piano version of her song 'Patient Zero,' which is currently holding the No. 1 spot on the Hot 100 chart. This release comes while the song is enjoying significant chart success.
 - sources:
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5GeDI2MmVpN2VRYXNBU2VQWDFSckd0bXRTWkFpNC04emxwNzRzUWtnd0FwSlVxXzF1S3AzOEtKN1ZUa3VHZ2xLVTlZdHlfaEZGODN4eG8xekFsQ29BZTJHNjBlTDM1TnM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Analysis Examines Critique of Taylor Swift
-
-- first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from The Denver Clarion explores the extent and impact of critiques directed at Taylor Swift. It provides an analysis on the reception of her work and public persona.
-- sources:
-  - [unverified] The Denver Clarion — https://news.google.com/rss/articles/CBMikgFBVV95cUxQVkIyZUw5X0U5UmpneTFscXJsQWtQbXRtbmo3RzBscHMyYmpVN243bWNuY1RHVGs1TFVTTlc0SXEtQWlUcGs3ckxOeFplbThPWGU5ZXN1ZzgwOWFMQm9yMXotMThCSm01VWRqSUw4SFJyWGhpd3V6clJET3BUMXk5aUV5aUZUQ3dfNGtJXzF3ZjBodw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Faces Backlash from Taylor Swift Fans Over Social Media Comments
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has reportedly drawn criticism from Taylor Swift fans due to his questionable activity on social media. This incident highlights the ongoing public interest in his relationship with the artist.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMimgFBVV95cUxNVUdmcnpvQXczUzdqeVhudThjaThKblREeE9KWWpUajNzUGx3SHk1aE9kdHVGU2tIcVNkZm13UjFGbk1EVEd2X0NiaENoM0ZqZWhET1hNMElFc2l0ZkdBemVndnJLWXpsRGkyWnhwaHowbE5iMGNxZFRPSTZhT1pUY0tZbEhtMGNNdnJBaGhkRy1ydnk5bVFhckVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Olivia Rodrigo Competes for Album of the Year at 2027 Grammys
-
-- first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Olivia Rodrigo is expected to be a strong contender for the Album of the Year award at the 2027 Grammys, facing competition from artists like Olivia Dean and Rosalía. The event highlights the excitement around the nominations and potential winners.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/
-
-## Taylor Swift and 'Patient Zero' Achieve Historic Milestone Together
-
-- first seen: 2026-10-13 19:51 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and 'Patient Zero' have reached a significant milestone in their collaboration. This achievement highlights a noteworthy moment in their musical journey.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOLXp1ZHdham5nTlRab01vWnhMalN1UnhJcUJOVWxMUnBjUGthRDVWNHowV1JXaEdKd3lMYl8tNUU2SUFObWpkSW9zc0RDSDMyazdWb1V4azJGQmNHb2J1TnZ6NkFkQW03RjYwS3hVeURBekRsaW1CcEpUSENSSXNWZzFVWWdwZ2JvSDhnbWIzaVBIa1dndkxYN29rOE4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seeks First Oscar Nomination with Spielberg's Support
-
-- first seen: 2026-10-13 19:51 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly aiming for her first Oscar nomination, with assistance from director Steven Spielberg, at an upcoming gala event.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxPSFhZNnQzTy1oTkp2N1VkRWRNbXVqUmIwZHpGeGFjT2lSbFZBVHNmR2xiaFNSdlVyTGgzMnRsWk80MTlWSko3dDNIeGJNZFIwa3p1azZIMWRNY1o3Q2IyeGRyaWVsak00WlIzRVNGVTUtcTBVQ0tiQTh1WjgtRE12NzFwcnpYejdyV1U1SW5xSE9MOGMz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Patrick Mahomes Shares Personal News at Swift-Kelce Wedding
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Patrick Mahomes revealed personal news during the extravagant Taylor Swift and Travis Kelce wedding, which reportedly cost $362,000.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWdFQ2R1ODl1a0dZVzloZWVxNU1mRFRJTThPQVF0QVNJWXlzVVo1NGRhSk5tSXpzeU5RYW1tM2w0VGY2czlTaVQ1TXNGYW5GQVV3Um1mTVI0aTM2VlJBMjBPbENUcHVITzF3WEh1REtvOWtsdVlReERlcENGVlRXUmRDV002WGZSVTFRUXFfaExWSy1TcmV0SVhoVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxONmVkckhLaVhSaXVlaFU1MDQzc1Z1am5BOGRkT2d3UnpQbkM1ZnEtQktPLUJZdWozelcwS09MY1U5NjRXYzlCeWswbUNzcm9nQ3lpMURDOEJoOTk2cW5FT3Y5SWo2T1VGLWY5aUhqRUdwTWJQTFRQUWRYOVhHSWtTSFlPVHFMNXdoRlZLcUkzb2IyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Appear Together in 'Patient Zero' Filming Footage
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 4
-- summary: New footage from the filming of ‘Patient Zero’ shows Taylor Swift and her husband Travis Kelce together, highlighting their relationship. The clip features the couple cozying up during the shoot.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMijAFBVV95cUxOYWk5azN3SzZreF9FN1ZhMDdXckgtOXY2dzJNWlFlV0w0UkZWSEIxLVlkc0l2Qy1yRF9lN2taS0lEMkkwTlI5d1p6UGxPaTkxU1R4OUdEMndEZExmZHUyZ3JGaHg3Z3BYeldZNTF2M2M1RWlIUGJxQnc4dmNESXhBcWtiOTFyVHhUWDdNcQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxOZmNMdFRiMUhJTG4xNHdGNFBYdDRSWVpYWDJIcTN2dDVUM0JMbEdlYWdPOUpiMloyVWRTdDNFMElyclNNeW1lMVd6a3VSSGZDVThQQU1JNjllOTQ0cWtXTmliNjVsaGExMmJjYnBJQkR6THpsSEtuUThOQ2ZJby1tb1BTZFdEYmIxSzNSamVjWWRfYk1LVFZqSmdFMXpCdWdBWEVidFAtU3BvdzN2bnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNkRHRDBLZjhGLWpCa21wb3dQU3U2Smg4djlxcjhCYlphR3p5NlVkTURyTGMyT21PclcyZnhuNmRuNzZyb3M1S2FwZlRObmdleHI3UUdNM2NLc2kzbEFXVjA0OVEtZmxPeDRoWEpoVWhMS0FibTI1T3U4aWhkcUJZbUt6cDBpOW1xWjRyTmllWTk5a1lxQUF6bVk5dWZEUzl4bnFyU0ctUkVxdjhITkY1M2FFN1d5THZqM0toazUzTVc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPSElMZklJT0FRVnkxRWltUVk0SkhOelhBVU1OUTlwNVYyVnJkbzZ3V21NX2VkMkVmeGxaZS1kR0tvUHUtbnFqc2owbHdwXzdlMFRoSnl6aHdxSmo1OUlqbDJDVXFLTDlGZXJiUTdhMXZET2c2ZjNtaUkwZkg4UUpMbnRrSkdNUWs0ZEVLLVdjZnM0eTVsTHM4Q21IMXAtdzJDMXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce appear in new intimate clip
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
