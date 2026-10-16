@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Parser from 'rss-parser';
-import { createJevClient, noulQuestion } from '../lib/jev.mjs';
+import { createJevClient, createJevUsageLogger, noulQuestion } from '../lib/jev.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 
@@ -183,7 +183,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const client = deps.client ?? serviceClient();
   if (!client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
   const inputs = await readAuditInputs(client);
-  const jev = deps.jev ?? createJevClient();
+  const jev = deps.jev ?? createJevClient({ usageLogger: createJevUsageLogger(client) });
   const matching = await matchReferences(references, inputs.seen, { jev });
   const report = buildReport({ references, matching, inputs, now, filingRequested: options.fileIssues });
   await (deps.emitReport ?? emitReport)(options.out, report);

@@ -486,3 +486,13 @@ Same family as the 404 lesson above, and it bit twice in one session: **a
 negative result from a tool is evidence about the tool until you have ruled
 the tool out.** Confirm absence with a second, structurally different command
 before acting on it.
+
+### Load-sensitive tests need event-driven clocks
+
+A short real-time watchdog is not a deterministic test of heartbeats: a busy
+worker can delay both sides and let the watchdog win even when the protocol is
+correct. Keep the production threshold intact, but fake the watchdog clock and
+advance it only after observing the heartbeat that resets it. Likewise, jsdom
+history traversal is scheduled work; tests of Back-stack logic should dispatch
+the corresponding `popstate` explicitly and reset module/history state between
+cases instead of waiting on host timing.

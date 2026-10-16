@@ -204,6 +204,7 @@ describe('routine-marjorie-ops workflow safeguards', () => {
   it('restores the trusted auto-defer author on the precheck step', () => {
     const step = workflow.slice(workflow.indexOf('name: Deterministic signal collection'), workflow.indexOf('name: Record a precheck crash'));
     expect(step).toContain('AUTO_DEFER_AUTHOR: sffan15-sys');
+    expect(step).toContain('SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}');
   });
 
   it('uploads a default fail-open artifact before checkout and overwrites it after precheck', () => {

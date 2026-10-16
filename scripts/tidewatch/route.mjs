@@ -4,7 +4,6 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
-import { runMerchAction } from './actions/merch.mjs';
 import { encodePlan, planActions } from './actions/plan.mjs';
 import { routerStore } from './router-store.mjs';
 
@@ -15,6 +14,7 @@ async function publishCriticalSite(...args) {
   return site.publishCriticalSite(...args);
 }
 export const ACTION_HANDLERS = Object.freeze({ critical_fast_path: publishCriticalSite });
+const runMerchAction = async (...args) => (await import('./actions/merch.mjs')).runMerchAction(...args);
 export const ACTION_RUNNERS = Object.freeze({
   store_drop_draft: runMerchAction,
   fan_merch_curation: runMerchAction,
