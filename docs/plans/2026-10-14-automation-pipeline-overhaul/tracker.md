@@ -111,7 +111,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-01 | Shadow calibration review and per-class go/no-go | claude-opus | S | L-TIDE-SPEC | P1-06, P1-04, P1-07 | todo |  |  |
 | P2-02 | Action router | codex | L | L-TIDE | P1-06 | done | #5949 | 2026-10-15 |
 | P2-03 | Fact-check module in code | codex | L | L-FACT | P1-01, P1-08, P1-09 | done | #5951 | 2026-10-15 |
-| P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | review | #5969 |  |
+| P2-04 | Breaking path to the site with on-demand revalidation | codex | M | L-WEB | P2-03, P0-11, P1-23 | done | #5969 | 2026-10-16 |
 | P2-05 | Breaking and Baby Watch push categories | executor-claude-sonnet | M | L-NOTIFY | P0-11, P0-14 | done | #5950 | 2026-10-15 |
 | P2-06 | Breaking social fast path | executor-claude-sonnet | M | L-SOCIAL | P0-14, P1-24, P2-03, P0-05 | done | #5966 | 2026-10-16 |
 | P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | done | #5957 | 2026-10-15 |
@@ -357,6 +357,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+00000B. 21:50: MERGED #5962 (HA closures, #135/#136), #5969 (P2-04 → done), #5976 (P3-03c). The 04:25Z sweep was green. Dispatched P2-04b (Codex high: the import-graph block, the live-gated test, claim release with retry and an attempts cap, step rename, the tsx note) and P3-03d (Claude executor: llm_usage for community draft-replies, photo-qc and merch; tidewatch excluded).
 00000A. 21:28 HANDOFF (3rd PM session ends; start a fresh session with the kickoff prompt). The route fix is VERIFIED: dispatched sweep 38850540041 was success end to end (collect 0 new, classify read=0; a quiet hour; the route step passed). The incident window was 03:45Z to about 04:30Z, one scheduled sweep lost its route plans only. NEXT ACTIONS, in order:
   1. Land the armed PRs: #5962 (HA #124/#127 closed; #135/#136 filed), #5969 (P2-04), #5976 (P3-03c). If any goes DIRTY, merge main and keep both sides (route.mjs: lazy loaders only).
   2. After #5969 merges, dispatch P2-04b (before go-live): restore the import-graph block on push/notify/site; a "live is gated" test; claim-before-action means a failed action is never retried (add retry or release-on-failure); rename the "shadow only" step. Add tsx to the route step for the live merch path (P2-11 note).
