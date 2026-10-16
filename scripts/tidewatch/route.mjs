@@ -4,13 +4,22 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
+import { runMerchAction } from './actions/merch.mjs';
 import { encodePlan, planActions } from './actions/plan.mjs';
-import { publishCriticalSite } from './actions/site.mjs';
 import { routerStore } from './router-store.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'tidewatch.json');
+async function publishCriticalSite(...args) {
+  const site = await import('./actions/site.mjs');
+  return site.publishCriticalSite(...args);
+}
 export const ACTION_HANDLERS = Object.freeze({ critical_fast_path: publishCriticalSite });
+export const ACTION_RUNNERS = Object.freeze({
+  store_drop_draft: runMerchAction,
+  fan_merch_curation: runMerchAction,
+  outfit_matcher_queue: runMerchAction,
+});
 function parseArgs(argv) {
   const options = { limit: 600, replayPath: null };
   for (let index = 0; index < argv.length; index += 1) {
