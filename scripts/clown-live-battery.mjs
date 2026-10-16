@@ -3,8 +3,8 @@
 // not declare for `scripts/**`. Same narrow fix as capture-clown-seed.mjs.
 //
 // Clownbot — THE MANUAL, KEYED, LIVE RED-TEAM BATTERY. Required pre-merge gate
-// per docs/decisions.md (2026-08-13, J5). NOT a CI step — it spends real money
-// against the real Anthropic API and must be run deliberately by a human before
+// per docs/decisions.md (2026-08-13, J5). NOT a CI step — it consumes the
+// Claude subscription allowance and must be run deliberately before
 // this branch merges. `scripts/check-clown-battery.mjs` (npm run clown:battery)
 // remains the CI-safe, keyless, deterministic gate; this script is the thing it
 // says exists but cannot itself be.
@@ -82,7 +82,7 @@
 // NOT-OBSERVED, because nothing was actually tested against the real model.
 //
 // Exit codes: 0 pass; 1 a red-team/over-refusal/dark-run/fabrication finding;
-// 2 refused to run (no key).
+// 2 refused to run (no subscription token).
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { crisisCheck, REFUSALS, CRISIS_MESSAGE, CRISIS_MESSAGE_ABUSE, screenInput } from '../apps/web/lib/longlive/clown-safety.ts';
 import { allClownDocs } from '../apps/web/lib/longlive/clown-index.ts';
@@ -93,6 +93,7 @@ import { composeFallback } from '../apps/web/lib/longlive/clown-fallback.ts';
 import { answerFromTake } from '../apps/web/lib/longlive/clown-answer.ts';
 import { ClownUsage } from '../apps/web/lib/longlive/clown-usage.ts';
 import { ATTACKS, LEGIT, TIER_B_PROBES } from '../apps/web/lib/longlive/clown-battery-corpus.ts';
+import { installClaudeCliFetch } from './lib/claude-cli-fetch.mjs';
 import { runMain } from './lib/cli.mjs';
 
 /* ── cli ────────────────────────────────────────────────────────────────── */
@@ -211,7 +212,7 @@ async function runViaRoute(text) {
     return { stage: 'answered', finalText, calledModel: true, sources: body.sources };
   }
   // kind === 'fallback', no refusal log, no crisis match, no gate-reject log:
-  // the model call itself produced no take (no key, cap, kill switch, or two
+  // the model call itself produced no take (wrapper unavailable, cap, kill switch, or two
   // failed live attempts). Nothing was actually tested against the model.
   return { stage: 'not-observed', finalText, calledModel: true };
 }
@@ -268,14 +269,15 @@ async function mapPool(items, limit, fn) {
 /* ── run ────────────────────────────────────────────────────────────────── */
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
     console.error(
       'REFUSING TO RUN. This battery calls the live Anthropic API and requires\n' +
-        'ANTHROPIC_API_KEY to be set in the environment. Nothing was called, nothing was spent.\n' +
-        '  ANTHROPIC_API_KEY=sk-... npm run clown:battery:live',
+        'CLAUDE_CODE_OAUTH_TOKEN to be set in the environment. Nothing was called.\n' +
+        '  npm run clown:battery:live',
     );
     return 2;
   }
+  installClaudeCliFetch({ caller: 'clown-live-battery' });
 
   const attacks = LIMIT ? ATTACKS.slice(0, LIMIT) : ATTACKS;
   const legit = LIMIT ? LEGIT.slice(0, LIMIT) : LEGIT;
@@ -293,7 +295,7 @@ async function main() {
     `${attacks.length} attacks / ${tierB.length} Tier B probes / ${legit.length} legit prompts ` +
       `(${totalCases} cases total), concurrency ${CONCURRENCY}.` + (LIMIT ? ` [--limit ${LIMIT}]` : ''),
   );
-  console.log('This calls the real Anthropic API and spends real money.\n');
+  console.log('This calls the real model through the P3 subscription wrapper.\n');
 
   let liveCalls = 0;
 

@@ -1,0 +1,44 @@
+# P1-06 classifier replay eval. Manual only: live Jev plus the subscription
+# wrapper are required for the committed replay, and public logs must never
+# contain item text. The step summary receives aggregates only.
+name: tidewatch-classify-eval
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tidewatch-classify-eval
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+          npm-ci-args: --ignore-scripts
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Run the classifier replay eval
+        continue-on-error: true
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          set +e
+          node scripts/tidewatch/classify.mjs --eval docs/projects/tidewatch/replay/replay.json > "$RUNNER_TEMP/tidewatch-eval.txt" 2> "$RUNNER_TEMP/tidewatch-eval-errors.txt"
+          status=$?
+          if [ -s "$RUNNER_TEMP/tidewatch-eval.txt" ]; then
+            cat "$RUNNER_TEMP/tidewatch-eval.txt" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "$status" -ne 0 ]; then
+            echo "Classifier eval failed before producing complete aggregates." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$status"

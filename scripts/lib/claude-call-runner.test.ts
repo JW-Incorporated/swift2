@@ -69,6 +69,43 @@ describe('callClaude runner', () => {
     expect(logBreaker).toHaveBeenCalledOnce();
   });
 
+  it('does not reserve a cap slot when an in-flight call reaches an opened breaker', async () => {
+    const spawnImpl = spawnReturning({ hang: true });
+    const callCounts = new Map<string, number>();
+    let directoryCount = 0;
+    let releaseFourth!: () => void;
+    const fourthDirectory = new Promise<void>((resolve) => { releaseFourth = resolve; });
+    const createTempDir = vi.fn(async () => {
+      directoryCount += 1;
+      if (directoryCount === 4) await fourthDirectory;
+      return `test-temp-${directoryCount}`;
+    });
+    const callClaude = createClaudeCaller({
+      spawnImpl,
+      callCounts,
+      createTempDir,
+      removeTempDir: vi.fn(),
+      getLimitState: vi.fn().mockResolvedValue(null),
+      timeoutMs: 1,
+      logBreaker: vi.fn(),
+    });
+    const input = { ...baseInput, maxCalls: 4 };
+    await callClaude(input);
+    await callClaude(input);
+    const third = callClaude(input);
+    const fourth = callClaude(input);
+
+    await third;
+    expect(callCounts.get(baseInput.caller)).toBe(3);
+    releaseFourth();
+    await expect(fourth).resolves.toMatchObject({
+      status: 'unavailable',
+      reason: 'Claude call circuit breaker open',
+    });
+    expect(callCounts.get(baseInput.caller)).toBe(3);
+    expect(spawnImpl).toHaveBeenCalledTimes(3);
+  });
+
   it('resets consecutive breaker failures after a successful call', async () => {
     const spawnImpl = spawnReturning([
       { hang: true },

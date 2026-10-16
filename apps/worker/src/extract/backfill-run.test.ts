@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   loadBackfillCandidates,
-  runBackfill,
   type BackfillCandidateRow,
 } from './backfill';
+import { runBackfill } from './backfill-run';
 
 function baseItem(overrides: Partial<BackfillCandidateRow> = {}): BackfillCandidateRow {
   return {

@@ -1,6 +1,10 @@
 import { callClaude as sharedCallClaude } from '../../../scripts/lib/claude-call.mjs';
 
 export type ClaudePriority = 'P0' | 'P1' | 'P2' | 'P3';
+export type ClaudeImageMimeType = 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif';
+export type ClaudeImageInput =
+  | { buffer: Buffer; path?: never; mimeType: ClaudeImageMimeType }
+  | { path: string; buffer?: never; mimeType: ClaudeImageMimeType };
 
 export interface ClaudeCallInput {
   caller: string;
@@ -11,6 +15,7 @@ export interface ClaudeCallInput {
   schema?: Record<string, unknown>;
   maxInputTokens?: number;
   maxCalls?: number;
+  images?: ClaudeImageInput[];
 }
 
 export type ClaudeCallResult<T = unknown> =

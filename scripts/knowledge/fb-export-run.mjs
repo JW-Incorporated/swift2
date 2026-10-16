@@ -665,8 +665,9 @@ export async function runExport(options = {}) {
         now,
         dryRun,
         readState: () => (options.readActivityState ?? readLedger)(activityStatePath),
-        writeState: (state) =>
-          (options.writeActivityState ?? writeLedger)(activityStatePath, state),
+        // The cadence helper requests its write before running. Defer the actual write until the
+        // pass succeeds so a failed pass remains immediately retryable.
+        writeState: async () => undefined,
         run: () =>
           (options.runActivity ?? runActivityPass)({
             collect: options.collectActivity ?? extensionCollect,
@@ -679,6 +680,11 @@ export async function runExport(options = {}) {
             dryRun,
           }),
       });
+      if (!dryRun && activity.ok && !activity.skipped) {
+        await (options.writeActivityState ?? writeLedger)(activityStatePath, {
+          lastActivityAt: now.toISOString(),
+        });
+      }
     } catch (error) {
       activity = { ok: false, count: 0, reason: failureReason(error, 'activity') };
     }

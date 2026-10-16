@@ -12,11 +12,19 @@ import {
   usageOf,
 } from './claude-call-process.mjs';
 import { limitFailure, schemaMatches, usageRow } from './claude-call-result.mjs';
+import {
+  ClaudeImageInputError,
+  IMAGE_TOOL_ARGS,
+  imagePrompts,
+  stageClaudeImages,
+  validateClaudeImages,
+} from './claude-call-images.mjs';
 
 const PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
 const BACKUP_PRIORITIES = new Set(['P0', 'P1']);
 const DEFAULT_TIMEOUT_MS = 120_000;
 const BREAKER_THRESHOLD = 3;
+export const IMAGE_INPUT_TOKEN_ALLOWANCE = 1_600;
 
 export function createClaudeCaller(options = {}) {
   const spawnImpl = options.spawnImpl ?? nodeSpawn;
@@ -66,6 +74,7 @@ export function createClaudeCaller(options = {}) {
         schema,
         maxInputTokens,
         maxCalls,
+        images,
       } = input;
       if (!caller || !model || typeof system !== 'string' || typeof user !== 'string'
         || !PRIORITIES.has(priority)) {
@@ -89,12 +98,43 @@ export function createClaudeCaller(options = {}) {
           return complete({ status: 'invalid', reason: 'schema must be serializable' });
         }
       }
+      let checkedImages;
+      try {
+        checkedImages = validateClaudeImages(images);
+      } catch (error) {
+        if (error instanceof ClaudeImageInputError) {
+          return complete({ status: 'invalid', reason: error.message });
+        }
+        throw error;
+      }
+      let systemPrompt = system;
+      let userPrompt = user;
+      if (checkedImages.length > 0) {
+        const estimateNames = checkedImages.map(
+          (image) => `${'0'.repeat(32)}.${image.format.extension}`,
+        );
+        ({ system: systemPrompt, user: userPrompt } = imagePrompts(system, user, estimateNames));
+      }
       const calls = callCounts.get(caller) ?? 0;
       if (maxCalls !== undefined && calls >= maxCalls) {
         return complete({ status: 'capped', reason: 'per-run call cap reached' });
       }
-      if (maxInputTokens !== undefined && estimateTokens(system, user) > maxInputTokens) {
+      if (maxInputTokens !== undefined
+        && estimateTokens(systemPrompt, userPrompt)
+          + checkedImages.length * IMAGE_INPUT_TOKEN_ALLOWANCE > maxInputTokens) {
         return complete({ status: 'capped', reason: 'input token cap exceeded' });
+      }
+      if (checkedImages.length > 0) {
+        tempDir = await createTempDir();
+        try {
+          const filenames = await stageClaudeImages(checkedImages, tempDir);
+          ({ system: systemPrompt, user: userPrompt } = imagePrompts(system, user, filenames));
+        } catch (error) {
+          if (error instanceof ClaudeImageInputError) {
+            return complete({ status: 'invalid', reason: error.message });
+          }
+          throw error;
+        }
       }
       const limitState = await getLimitState(input.limitIssue);
       const tokens = {
@@ -119,11 +159,20 @@ export function createClaudeCaller(options = {}) {
       }
 
       const args = ['-p', '--output-format', 'json', '--safe-mode', '--setting-sources', '',
-        '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}', '--tools', '',
-        '--no-session-persistence',
-        '--model', model, '--system-prompt', system];
+        '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}'];
+      if (checkedImages.length > 0) args.push(...IMAGE_TOOL_ARGS);
+      else args.push('--tools', '');
+      args.push('--no-session-persistence',
+        '--model', model, '--system-prompt', systemPrompt);
       if (schemaJson !== undefined) args.push('--json-schema', schemaJson);
-      tempDir = await createTempDir();
+      tempDir ??= await createTempDir();
+      // Another in-flight call may have opened the process breaker while
+      // this one awaited limit state or its isolated directory. Re-check at
+      // the reservation boundary so a call we will not spawn cannot consume
+      // one of this caller's capped slots.
+      if (breakerOpen) {
+        return complete({ status: 'unavailable', reason: 'Claude call circuit breaker open' });
+      }
       callCounts.set(caller, calls + 1);
       let token = tokenChoice.token;
       for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -131,7 +180,7 @@ export function createClaudeCaller(options = {}) {
           spawnImpl,
           args,
           { cwd: tempDir, env: childEnv(tokens[token]), windowsHide: true },
-          user,
+          userPrompt,
           timeoutMs,
         );
         const result = resultOf(completed?.stdout);

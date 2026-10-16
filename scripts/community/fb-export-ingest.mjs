@@ -75,6 +75,7 @@ import {
   attachLegacyLocator,
   legacyLeadLocator,
   permalinkLeadLocator,
+  unsaltedLegacyLeadLocator,
 } from './fb-lead-identity.mjs';
 import { backfillLeadMetrics, writeEngagementLeads } from './fb-lead-store.mjs';
 
@@ -134,6 +135,29 @@ const SHOP_DOMAIN_ALLOWLIST = ['etsy.com', 'www.etsy.com', 'shop.app'];
 const SHOP_DOMAIN_SUFFIX_ALLOWLIST = ['.myshopify.com'];
 const URL_RE = /https?:\/\/[^\s)>\]"']+/g;
 
+function extractDomPostIds(html) {
+  const articles = [...html.matchAll(/<[^>]*\brole=["']article["'][^>]*>/gi)];
+  const ids = [];
+  for (let index = 0; index < articles.length; index += 1) {
+    const start = articles[index].index;
+    const end = articles[index + 1]?.index ?? html.length;
+    const value = /\bdata-llfb-dom-post-id=["']([\w.-]{1,128})["']/i.exec(
+      html.slice(start, end),
+    )?.[1];
+    ids.push(value ?? null);
+  }
+  return ids;
+}
+
+function extractPostsWithDomIds(html) {
+  const posts = extractPostsFromHtml(html);
+  const domPostIds = extractDomPostIds(html);
+  if (domPostIds.length !== posts.length) return posts;
+  return posts.map((post, index) =>
+    domPostIds[index] ? { ...post, domPostId: domPostIds[index] } : post,
+  );
+}
+
 function canonicalUrl(value) {
   try {
     const url = new URL(value);
@@ -185,6 +209,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
   );
   return ranked.slice(0, maxLeadsPerGroup).map((post) => {
     const legacyLocator = legacyLeadLocator(post, groupSlug);
+    const unsaltedLegacyLocator = unsaltedLegacyLeadLocator(post, groupSlug);
     const locator = post.permalink ? permalinkLeadLocator(post.permalink, groupName) : legacyLocator;
     return attachLegacyLocator({
       platform: 'facebook',
@@ -205,7 +230,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
       link_included: null,
       status: 'new',
       redline_ok: true, // every post here already survived screenTopic (see ingestExport)
-    }, legacyLocator);
+    }, legacyLocator, unsaltedLegacyLocator);
   });
 }
 
@@ -219,7 +244,7 @@ export function engagementLeadsFromPosts(posts, { groupName, groupSlug, maxLeads
  */
 export function buildIngestResult(html, { groupSlug, groupName, exportedAt, maxLeadsPerGroup }) {
   const fanSignal = parseFacebookExport(html, { groupSlug, exportedAt });
-  const allPosts = extractPostsFromHtml(html);
+  const allPosts = extractPostsWithDomIds(html);
   const screenedPosts = allPosts.filter((post) => screenTopic(post.text) === null);
   const engagementLeads = engagementLeadsFromPosts(screenedPosts, {
     groupName,

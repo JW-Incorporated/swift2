@@ -33,6 +33,14 @@ judgment job opened it, append your yield records to it (run procedure 2.g);
 if there is none yet, open it after your first push (run procedure 2.f). Do
 not run `sync:content` or the full gate — the publish job does that once.
 
+## Voice check
+
+Before committing new copy (answers, captions, cross-link blurbs), write it to a
+scratch file (items separated by blank lines) and run
+`node scripts/voice/critic.mjs --review <file>`. It prints an aggregate line and
+any weak item with a suggested rewrite; apply a suggestion only if it reads
+better. If it reports `not_scored`, carry on: the check never blocks a commit.
+
 ## Budget
 
 You have 100 turns for four lanes. Lanes not due cost almost nothing: record

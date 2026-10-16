@@ -9,10 +9,10 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { auditCacheKey, tierForScore } from './audit-matches.mjs';
 import { extractReplacementImage } from './verify-images.mjs';
-import { callAnthropicMessages, extractToolUseInput } from '../lib/anthropic.mjs';
+import { callMerchClaude, fetchClaudeImage, MERCH_VISION_MODEL } from './merch-claude.mjs';
 
-export const MODEL = 'claude-sonnet-5';
-export const MAX_RUN_COST_USD = 5;
+export const MODEL = MERCH_VISION_MODEL;
+export const MAX_RUN_COST_USD = 3;
 export const TRANSIENT_RETRY_ATTEMPTS = 3;
 export const RESERVATION_PER_REQUEST_USD = ((2 * 4_784 + 512) * 3 + 256 * 15) / 1_000_000;
 export const RESERVATION_PER_PAIR_USD = RESERVATION_PER_REQUEST_USD * TRANSIENT_RETRY_ATTEMPTS;
@@ -23,8 +23,6 @@ export const IMAGE_FETCH_TIMEOUT_MS = 10_000;
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 const execFileAsync = promisify(execFile);
-const THINKING = { type: 'disabled' };
-const SUPPORTED_IMAGE_MEDIA_TYPES = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 const KINDS = new Set([
   'dress',
   'top',
@@ -248,69 +246,25 @@ export async function retailerOgImage(
   return typeof imageUrl === 'string' && imageUrl.startsWith('https://') ? imageUrl : null;
 }
 
-function toolInput(body) {
-  return extractToolUseInput(body, { toolName: AUDIT_TOOL.name });
-}
-
-function imageFailure(message, status = null) {
-  return new Error(status ? `image source ${message} (HTTP ${status})` : `image source ${message}`);
-}
-
 async function imageContent(url, fetchImpl) {
-  let response;
-  try {
-    response = await fetchImpl(url, {
-      method: 'GET',
-      redirect: 'follow',
-      signal: globalThis.AbortSignal.timeout(IMAGE_FETCH_TIMEOUT_MS),
-    });
-  } catch {
-    throw imageFailure('unavailable');
-  }
-  if (!response.ok) throw imageFailure('unavailable', response.status);
-  const mediaType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
-  if (!SUPPORTED_IMAGE_MEDIA_TYPES.has(mediaType)) throw imageFailure('unsupported');
-  const declaredSize = Number(response.headers.get('content-length'));
-  if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES)
-    throw imageFailure('too large');
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  if (bytes.byteLength > MAX_IMAGE_BYTES) throw imageFailure('too large');
-  return {
-    type: 'image',
-    source: { type: 'base64', media_type: mediaType, data: Buffer.from(bytes).toString('base64') },
-  };
+  return fetchClaudeImage(url, { fetchImpl });
 }
 
-export async function judgePairWithClaude(pair, { apiKey, fetchImpl = fetch }) {
-  const [productImage, momentImage] = await Promise.all([
+export async function judgePairWithClaude(pair, options = {}) {
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const images = await Promise.all([
     imageContent(pair.productImageUrl, fetchImpl),
     imageContent(pair.momentImageUrl, fetchImpl),
   ]);
-  const { raw } = await callAnthropicMessages(
-    apiKey,
-    {
-      model: MODEL,
-      max_tokens: 256,
-      thinking: THINKING,
-      tools: [AUDIT_TOOL],
-      tool_choice: { type: 'tool', name: AUDIT_TOOL.name },
-      messages: [
-        {
-          role: 'user',
-          content: [
-            productImage,
-            momentImage,
-            {
-              type: 'text',
-              text: 'Compare the product image first with the source-moment photo second. Score visual match from 0 to 100 using silhouette, color or pattern, garment type, and notable details. Return only the required judgment tool input; do not infer details not visible in the images.',
-            },
-          ],
-        },
-      ],
-    },
-    { fetchImpl, errorLabel: 'anthropic vision request' },
-  );
-  return toolInput(raw);
+  return callMerchClaude({
+    caller: 'merch-audit-authoring',
+    model: MODEL,
+    system: 'Judge visual product matches from only the supplied images.',
+    user: 'Compare the product image first with the source-moment photo second. Score visual match from 0 to 100 using silhouette, color or pattern, garment type, and notable details. Do not infer details not visible in the images.',
+    schema: AUDIT_TOOL.input_schema,
+    images,
+    ...options,
+  });
 }
 
 function isRetryableVisionError(error) {
@@ -519,13 +473,10 @@ async function main() {
   }
   const receipt = await readJson(resolve(receiptPath));
   const queue = await readJson(resolve(queuePath));
-  if (requiresApiKey(receipt, queue) && !process.env.ANTHROPIC_API_KEY) {
-    throw new Error('ANTHROPIC_API_KEY is required when eligible image pairs are present');
-  }
   const artifact = await runAuthoring({
     receipt,
     queue,
-    judge: (pair) => judgePairWithClaude(pair, { apiKey: process.env.ANTHROPIC_API_KEY }),
+    judge: (pair) => judgePairWithClaude(pair),
   });
   const issue = capIssueContent(artifact);
   let issueError = null;

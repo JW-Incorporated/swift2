@@ -33,6 +33,7 @@ const withoutEngagement = (unit: Any) => {
   delete copy.reactionCount;
   delete copy.commentCount;
   delete copy.permalink;
+  delete copy.domPostId;
   return copy;
 };
 
@@ -318,11 +319,32 @@ describe('schema v2 permalink and owner-activity fixtures', () => {
     const snapshot = plain(core.captureVisibleUnits(dom.window.document, dom.window, { groupId: '101' }));
     expect(snapshot.units.filter((unit: Any) => unit.permalink).length / snapshot.units.length).toBeGreaterThanOrEqual(0.8);
     expect(snapshot.units[0].permalink).toBe('https://www.facebook.com/groups/101/posts/1001/');
+    expect(snapshot.units.map((unit: Any) => unit.domPostId)).toEqual([
+      '1001', '1002', '1003', '1004', null,
+    ]);
     const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
     const parsed = buildIngestResult(harvest.buildHarvestedHtml('Synthetic group', snapshot.units), {
       groupSlug: 'synthetic-group', groupName: 'Synthetic group', exportedAt: NOW,
     });
     expect(parsed.engagementLeads.filter((lead: Any) => lead.url)).toHaveLength(4);
+  });
+
+  it('passes stable DOM ids through ingest for timestamp-less same-text posts', async () => {
+    const dom = new JSDOM(`<div role="feed">
+      <div aria-posinset="1" data-post-id="post-111"><a aria-label="Member">Member</a>
+        <div data-ad-preview="message">Same synthetic discussion</div><span>2 reactions</span></div>
+      <div aria-posinset="2" data-post-id="post-222"><a aria-label="Member">Member</a>
+        <div data-ad-preview="message">Same synthetic discussion</div><span>2 reactions</span></div>
+    </div>`, { url: 'https://www.facebook.com/groups/101' });
+    const core = loadCore();
+    const snapshot = plain(core.captureVisibleUnits(dom.window.document, dom.window, { groupId: '101' }));
+    expect(snapshot.units.map((unit: Any) => unit.domPostId)).toEqual(['post-111', 'post-222']);
+    const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+    const parsed = buildIngestResult(harvest.buildHarvestedHtml('Synthetic group', snapshot.units), {
+      groupSlug: 'synthetic-group', groupName: 'Synthetic group', exportedAt: NOW,
+    });
+    expect(parsed.engagementLeads).toHaveLength(2);
+    expect(new Set(parsed.engagementLeads.map((lead: Any) => lead.locator)).size).toBe(2);
   });
 
   it('returns only owner-comment URLs and counts from an activity fixture', () => {

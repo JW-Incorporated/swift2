@@ -20,7 +20,7 @@ const fakeGh = (runs: Runs) => {
   const dispatched = () => calls.filter((c) => c[0] === 'workflow').map((c) => c[2]);
   return { gh, calls, dispatched };
 };
-const run = (createdAt: string, event = 'schedule') => ({ createdAt, event });
+const run = (createdAt: string, event = 'schedule', displayTitle?: string) => ({ createdAt, event, displayTitle });
 const go = (gh: (a: string[]) => string, table = T, logs: string[] = []) =>
   clockDispatch({ gh, repo: 'o/r', now: NOW, log: (m: string) => logs.push(m), table });
 
@@ -65,13 +65,26 @@ describe('clockDispatch', () => {
     expect(go(gh, [T[0]], logs)[0].result).toBe('error');
     expect(logs[0]).toMatch(/^::warning::.*unknown workflow/);
   });
+
+  it('keeps disabled rows inert and throttles named modes independently', () => {
+    const table = [
+      { workflow: 'tidewatch.yml', minGapMinutes: 9, runName: 'tidewatch (fast)', disabled: true },
+      { workflow: 'tidewatch.yml', minGapMinutes: 55, runName: 'tidewatch (sweep)', inputs: { mode: 'sweep' } },
+    ];
+    const { gh, dispatched } = fakeGh({
+      'tidewatch.yml': [run('2026-10-06T11:55:00Z', 'workflow_dispatch', 'tidewatch (fast)'), run('2026-10-06T10:00:00Z', 'workflow_dispatch', 'tidewatch (sweep)')],
+    });
+    expect(go(gh, table).map((r: { result: string }) => r.result)).toEqual(['disabled', 'dispatched']);
+    expect(dispatched()).toEqual(['tidewatch.yml']);
+  });
 });
 
 describe('clock-table.json', () => {
   const root = path.resolve(__dirname, '../..');
   it('names only real, dispatchable workflows', () => {
     expect(TABLE.map((e: { workflow: string }) => e.workflow)).toEqual([
-      'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'news-worker.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
+      'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'news-worker.yml',
+      'tidewatch.yml', 'tidewatch.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
       'social-approval-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
     ]);
     for (const e of TABLE) {
@@ -80,6 +93,15 @@ describe('clock-table.json', () => {
       expect(readFileSync(f, 'utf8')).toMatch(/^ {2}workflow_dispatch:/m);
       expect(e.minGapMinutes).toBeGreaterThan(0);
     }
+  });
+
+  it('gates scheduled Tidewatch before setup and scopes classifier credentials', () => {
+    const src = readFileSync(path.join(root, '.github/workflows/tidewatch.yml'), 'utf8');
+    expect(src).toContain('TYPESAFE_API_KEY not set; scheduled classification skipped');
+    expect(src.indexOf('name: Preflight')).toBeLessThan(src.indexOf('uses: actions/checkout@'));
+    expect(src).toMatch(/permissions:\n {2}contents: read\n {2}issues: write/);
+    expect(src).toMatch(/- name: Classify[\s\S]*?CLAUDE_CODE_OAUTH_TOKEN:/);
+    expect(src.match(/CLAUDE_CODE_OAUTH_TOKEN:/g)).toHaveLength(1);
   });
 
   it('serialises the social workflows (cancel-in-progress false) and gives them no dispatch inputs', () => {
