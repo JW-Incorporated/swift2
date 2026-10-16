@@ -102,7 +102,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: node scripts/tidewatch/classify.mjs
 
-      - name: Plan routes (shadow only)
+      - name: Plan and route decisions
         if: steps.preflight.outputs.proceed == 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 import { choiceQuestion, noulQuestion } from '../lib/jev.mjs';
-import { callClaude } from '../lib/claude-call.mjs';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 import { canonicalUrl, curateCandidate } from './fanmade-discovery.mjs';
 import { defaultVerifyUrl } from './match-moments-authoring.mjs';
 import { verifyImage } from './verify-images.mjs';
@@ -98,7 +98,7 @@ export async function curateFanmadeIssues({
   existingCatalog = [],
   now = new Date().toISOString(),
   jevClient,
-  callClaudeImpl = callClaude,
+  callClaudeImpl = getLoggedClaudeCaller(),
   verifyProductUrlImpl = defaultVerifyUrl,
   verifyImageImpl = verifyImage,
   fetchImageImpl = fetchClaudeImage,

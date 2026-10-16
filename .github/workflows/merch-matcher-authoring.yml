@@ -110,6 +110,8 @@ jobs:
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/merch-engine/match-moments-authoring.mjs --input .artifacts/merch-matcher/input.json --output .artifacts/merch-matcher/results.json --index awin-product-index.sqlite
       - name: Run E3 audit and write E1/E2-verified products
         if: ${{ steps.run.outputs.proceed == 'true' }}
