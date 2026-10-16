@@ -4,10 +4,46 @@ import {
   buildRunCounts,
   buildReport,
   isRoutineWorkflow,
+  incompleteUsageRecord,
+  isUsageArtifactName,
   median,
   aggregateRoutineUsage,
   renderRoutineUsageSection,
 } from './fleet-telemetry-snapshot.mjs';
+
+describe('isUsageArtifactName', () => {
+  it('accepts the three known artifact names, nothing else', () => {
+    expect(isUsageArtifactName('routine-usage')).toBe(true);
+    expect(isUsageArtifactName('routine-usage-judgment')).toBe(true);
+    expect(isUsageArtifactName('routine-usage-craft')).toBe(true);
+    expect(isUsageArtifactName('routine-usages')).toBe(false);
+    expect(isUsageArtifactName('routine-usage-unknown')).toBe(false);
+    expect(isUsageArtifactName('other')).toBe(false);
+    expect(isUsageArtifactName(undefined)).toBe(false);
+  });
+
+  it('files failed suffixed artifacts under their routine suffix', () => {
+    expect(incompleteUsageRecord('routine-vault-run', 'download-failed', 'routine-usage-judgment')).toMatchObject({
+      routineName: 'judgment',
+      incomplete: true,
+      reason: 'download-failed',
+    });
+    expect(incompleteUsageRecord('routine-vault-run', 'download-failed', 'routine-usage-craft')).toMatchObject({
+      routineName: 'craft',
+      incomplete: true,
+      reason: 'download-failed',
+    });
+  });
+
+  it('keeps two same-run artifacts as separate routine rows with no double count', () => {
+    const rows = aggregateRoutineUsage([
+      { routineName: 'The Vault Run (judgment)', numTurns: 40, durationMs: 1, totalCostUsd: 1 },
+      { routineName: 'The Vault Run (craft)', numTurns: 60, durationMs: 1, totalCostUsd: 1 },
+    ]);
+    expect(rows).toHaveLength(2);
+    expect(rows.every((r: { runCount: number }) => r.runCount === 1)).toBe(true);
+  });
+});
 
 describe('isoDaysAgo', () => {
   it('returns a full ISO timestamp N days before the given date, preserving time-of-day', () => {

@@ -18,7 +18,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const obj: Record<string, unknown> = {
     then: (resolve: (r: typeof result) => void) => resolve(result),
   };
-  for (const method of ['insert', 'select', 'single', 'maybeSingle', 'eq', 'neq', 'lt', 'update', 'upsert']) {
+  for (const method of ['insert', 'select', 'single', 'maybeSingle', 'eq', 'neq', 'is', 'lt', 'update', 'upsert']) {
     obj[method] = () => obj;
   }
   return obj;
@@ -234,7 +234,7 @@ describe('mergeNewFactsIntoOriginal', () => {
     const db = fakeDb(() => {
       const c = chain({ data: null, error: null }) as Record<string, unknown>;
       c.update = (row: Record<string, unknown>) => {
-        updatedRow = row;
+        updatedRow = { ...updatedRow, ...row };
         return c;
       };
       return c;

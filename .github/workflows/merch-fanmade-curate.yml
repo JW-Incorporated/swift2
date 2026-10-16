@@ -1,0 +1,85 @@
+# Weekly judged lane for open `fanmade-candidate` issues. Every acceptance
+# passes Jev q_bootleg/q_merch_kind, Haiku D3 vision, and the shared E1/E2
+# checks before a seed-only content PR is opened and armed for auto-merge.
+name: merch-fanmade-curate
+
+on:
+  schedule:
+    - cron: '17 15 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: merch-fanmade-curate
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
+          cache: npm
+      - name: Skip while an earlier curation PR is still open
+        id: open
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          number=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --limit 200 --json number,headRefName --jq '[.[] | select(.headRefName | startswith("merch-fanmade-curate/"))][0].number // empty')
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          if [ -n "$number" ]; then
+            echo "::notice::Curation PR #$number is still open; skipping this run so it cannot duplicate accepted listings or exceed the weekly cap."
+          fi
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        if: ${{ steps.open.outputs.number == '' }}
+        continue-on-error: true
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Build the offline content catalogue (seed files only, no secrets)
+        if: ${{ steps.open.outputs.number == '' }}
+        run: npm run sync:content --silent
+      - name: Curate open fan-made candidates
+        id: curate
+        if: ${{ steps.open.outputs.number == '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/merch-engine/curate-fanmade.mjs
+      - uses: ./.github/actions/commit-and-pr
+        if: ${{ steps.open.outputs.number == '' && steps.curate.outputs.write_enabled == 'true' && steps.curate.outputs.accepted_count != '0' }}
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          paths: supabase/seed/merch/fanmade.mjs
+          branch: merch-fanmade-curate/${{ github.run_id }}
+          commit-message: 'feat(merch): curate weekly fan-made finds'
+          pr-title: 'feat(merch): curate weekly fan-made finds'
+          pr-body: |
+            Automated weekly fan-made curation. Every added listing passed the
+            configured Jev bootleg and kind gates, the Haiku D3 image review,
+            and the shared E1 listing and E2 image verification checks.
+
+            ${{ steps.curate.outputs.accepted_closes }}
+      - name: Close resolved candidate issues
+        if: ${{ steps.open.outputs.number == '' && steps.curate.outputs.write_enabled == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT_PATH: ${{ steps.curate.outputs.report_path }}
+        run: |
+          jq -c '.closures[]' "$REPORT_PATH" | while IFS= read -r closure; do
+            number=$(jq -r '.issueNumber' <<<"$closure")
+            reason=$(jq -r '.reason' <<<"$closure")
+            gh issue close "$number" --comment "$reason"
+          done

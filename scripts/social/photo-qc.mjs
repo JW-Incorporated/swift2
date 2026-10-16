@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 // Vision quality gate for auto-sourced social photos (founder decision "QC
 // sonnet", 2026-10-07; cost model in docs/decisions.md). One Claude Sonnet 5.5
-// call per candidate decides whether the image is an awesome, usable photo of
-// Taylor Swift for a fan app's social posts. Fail-closed everywhere: a missing
-// key, API error, refusal or unparsable answer means NOT keep. The model is
+// call per candidate, through the subscription wrapper (scripts/lib/claude-call.mjs,
+// priority P3, never the API), decides whether the image is an awesome, usable
+// photo of Taylor Swift for a fan app's social posts. Fail-closed everywhere: an
+// unavailable, limited or capped wrapper, or an unparsable answer, HOLDS the photo
+// (never keep, retried next run). The model is
 // told never to identify anyone from facial features, so it judges composition,
 // photo type, quality, overlays and consistency with the caption only.
 //
@@ -11,17 +13,18 @@
 //   node scripts/social/photo-qc.mjs <image> [--caption "..."] [--kind wikimedia] [--source host]
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import Anthropic from '@anthropic-ai/sdk';
 import sharp from 'sharp';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 import { isMain } from '../lib/is-main.mjs';
 
 export const QC_MODEL = 'claude-sonnet-5-5';
+export const QC_PRIORITY = 'P3';
+export const QC_CALLER = 'photo-qc';
 export const QC_EDGE_PX = 768;
 export const DEFAULT_MAX_CHECKS = 200;
 export const DEFAULT_CONCURRENCY = 4;
 const PRICE_PER_M_INPUT = 2;
 const PRICE_PER_M_OUTPUT = 10;
-const MAX_RETRIES = 2;
 const BOOLEAN_CHECKS = [
   'main_subject_is_single_prominent_person',
   'consistent_with_caption',
@@ -79,7 +82,6 @@ export function estimateCost({ inputTokens, outputTokens }) {
   return (inputTokens * PRICE_PER_M_INPUT + outputTokens * PRICE_PER_M_OUTPUT) / 1_000_000;
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const notKeep = (reason, extra = {}) => ({
   keep: false,
   reason,
@@ -87,13 +89,7 @@ const notKeep = (reason, extra = {}) => ({
   ...extra,
 });
 
-function parseVerdict(text) {
-  let parsed;
-  try {
-    parsed = JSON.parse(text);
-  } catch {
-    return null;
-  }
+function parseVerdict(parsed) {
   if (!parsed || typeof parsed !== 'object') return null;
   for (const key of BOOLEAN_CHECKS) if (typeof parsed[key] !== 'boolean') return null;
   if (typeof parsed.reason !== 'string') return null;
@@ -101,16 +97,15 @@ function parseVerdict(text) {
 }
 
 /**
- * One QC call. Never throws. Returns { keep, reason, checks?, usage, error? }.
- * `error` is set when the result says nothing about the photo itself (API
- * failure, bad key, unparsable answer), so callers can retry it tomorrow
- * instead of recording it as a rejection.
+ * One QC call through the subscription wrapper. Never throws. Returns
+ * { keep, reason, checks?, usage, error? }. `error` is set when the result says
+ * nothing about the photo itself (wrapper unavailable/limited/capped, bad
+ * answer), so callers HOLD it and retry tomorrow instead of recording a rejection.
  */
 export async function qcPhoto(
   { buffer, caption, source, kind },
-  { client, sleepImpl = sleep } = {},
+  { call = getLoggedClaudeCaller(), maxCalls, log = console.error } = {},
 ) {
-  if (!client) return notKeep('qc-error: no client', { error: true });
   let jpeg;
   try {
     jpeg = await sharp(buffer)
@@ -120,61 +115,33 @@ export async function qcPhoto(
   } catch {
     return notKeep('qc-error: unreadable image', { error: true });
   }
-  const request = {
-    model: QC_MODEL,
-    max_tokens: 800,
-    thinking: { type: 'between_tools' },
-    system: QC_SYSTEM_PROMPT,
-    output_config: { effort: 'low', format: { type: 'json_schema', schema: QC_SCHEMA } },
-    messages: [
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'image',
-            source: { type: 'base64', media_type: 'image/jpeg', data: jpeg.toString('base64') },
-          },
-          {
-            type: 'text',
-            text: `Caption: ${caption ?? '(none)'}\nSource host: ${source ?? '(unknown)'}\nKind: ${kind ?? 'unknown'}`,
-          },
-        ],
-      },
-    ],
-  };
-  let response;
-  for (let attempt = 0; ; attempt++) {
-    try {
-      response = await client.messages.create(request);
-      break;
-    } catch (err) {
-      const status = err?.status;
-      const retryable =
-        status === 429 ||
-        (typeof status === 'number' && status >= 500) ||
-        (status === undefined && err?.name === 'APIConnectionError');
-      if (!retryable || attempt >= MAX_RETRIES) {
-        return notKeep(`qc-error: ${status ?? err?.name ?? 'request failed'}`, { error: true });
-      }
-      await sleepImpl(1000 * 2 ** attempt);
-    }
+  let outcome;
+  try {
+    outcome = await call({
+      caller: QC_CALLER,
+      priority: QC_PRIORITY,
+      model: QC_MODEL,
+      system: QC_SYSTEM_PROMPT,
+      user: `Caption: ${caption ?? '(none)'}
+Source host: ${source ?? '(unknown)'}
+Kind: ${kind ?? 'unknown'}`,
+      schema: QC_SCHEMA,
+      images: [{ buffer: jpeg, mimeType: 'image/jpeg' }],
+      ...(maxCalls === undefined ? {} : { maxCalls }),
+    });
+  } catch {
+    outcome = null;
   }
+  const status = outcome?.status ?? 'unavailable';
   const usage = {
-    inputTokens: response?.usage?.input_tokens ?? 0,
-    outputTokens: response?.usage?.output_tokens ?? 0,
+    inputTokens: outcome?.usage?.inputTokens ?? 0,
+    outputTokens: outcome?.usage?.outputTokens ?? 0,
   };
-  if (response?.stop_reason === 'refusal')
-    return { keep: false, reason: 'qc-refusal', usage, refusal: true };
-  if (response?.stop_reason !== 'end_turn')
-    return {
-      keep: false,
-      reason: 'qc-error: stop_reason ' + response?.stop_reason,
-      usage,
-      error: true,
-      maxTokens: response?.stop_reason === 'max_tokens',
-    };
-  const textBlock = (response.content ?? []).find((block) => block?.type === 'text');
-  const verdict = parseVerdict(textBlock?.text ?? '');
+  if (status !== 'ok') {
+    log(`${QC_CALLER}: holding photo (${status}: ${outcome?.reason ?? 'Claude subscription unavailable'})`);
+    return { keep: false, reason: `qc-error: ${status}`, usage, error: true };
+  }
+  const verdict = parseVerdict(outcome.data);
   if (!verdict) return { keep: false, reason: 'qc-error: unparsable verdict', usage, error: true };
   const keep =
     verdict.keep &&
@@ -186,40 +153,32 @@ export async function qcPhoto(
 }
 
 /**
- * Run-level wrapper: client creation, the per-run check cap, bounded
- * concurrency, token totals and the missing-key fail-closed path.
+ * Run-level wrapper: the per-run check cap, bounded
+ * concurrency, token totals and the fail-closed hold path.
  * `check()` resolves to { status: 'kept' | 'rejected' | 'held' | 'deferred', ... }.
  */
 export function createQcSession({
-  client,
+  call = getLoggedClaudeCaller(),
   env = process.env,
   maxChecks,
   concurrency = DEFAULT_CONCURRENCY,
-  warn = (m) => console.log(`::warning::${m}`),
-  sleepImpl,
+  log,
 } = {}) {
   const cap = Number.isFinite(maxChecks)
     ? maxChecks
     : Number(env.QC_MAX_CHECKS_PER_RUN) > 0
       ? Number(env.QC_MAX_CHECKS_PER_RUN)
       : DEFAULT_MAX_CHECKS;
-  const apiClient =
-    client ??
-    (env.ANTHROPIC_API_KEY
-      ? new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 0 })
-      : null);
   const totals = {
     checks: 0,
     kept: 0,
     rejected: 0,
     held: 0,
     deferred: 0,
-    maxTokens: 0,
     inputTokens: 0,
     outputTokens: 0,
     failures: {},
   };
-  let warnedNoKey = false;
   let active = 0;
   const waiting = [];
   const acquire = async () => {
@@ -232,16 +191,6 @@ export function createQcSession({
   };
 
   async function check(input) {
-    if (!apiClient) {
-      if (!warnedNoKey) {
-        warnedNoKey = true;
-        warn(
-          'ANTHROPIC_API_KEY is not set — photo QC cannot run, so every new candidate is held out of the library (fail-closed).',
-        );
-      }
-      totals.held++;
-      return { status: 'held', reason: 'qc-no-key' };
-    }
     if (totals.checks >= cap) {
       totals.deferred++;
       return { status: 'deferred', reason: 'qc-cap' };
@@ -250,7 +199,7 @@ export function createQcSession({
     await acquire();
     let result;
     try {
-      result = await qcPhoto(input, { client: apiClient, sleepImpl });
+      result = await qcPhoto(input, { call, maxCalls: cap, log });
     } catch {
       result = notKeep('qc-error: unexpected', { error: true });
     } finally {
@@ -263,21 +212,16 @@ export function createQcSession({
       return { status: 'kept', ...result };
     }
     if (result.error) {
-      if (result.maxTokens) totals.maxTokens++;
       totals.held++;
       return { status: 'held', ...result };
     }
     totals.rejected++;
-    const failing = result.refusal
-      ? ['refusal']
-      : Object.entries(result.checks ?? {})
-          .filter(
-            ([k, v]) =>
-              k !== 'keep' &&
-              typeof v === 'boolean' &&
-              v === (k === 'has_watermark_or_logo_overlay'),
-          )
-          .map(([k]) => k);
+    const failing = Object.entries(result.checks ?? {})
+      .filter(
+        ([k, v]) =>
+          k !== 'keep' && typeof v === 'boolean' && v === (k === 'has_watermark_or_logo_overlay'),
+      )
+      .map(([k]) => k);
     for (const key of failing.length ? failing : ['keep'])
       totals.failures[key] = (totals.failures[key] ?? 0) + 1;
     return { status: 'rejected', ...result };
@@ -290,7 +234,7 @@ export function createQcSession({
         .map(([k, n]) => `${k}=${n}`)
         .join(', ') || 'none';
     return (
-      `photo QC: ${totals.checks} checked (${totals.kept} kept, ${totals.rejected} rejected, ${totals.held} held on error/no key, ${totals.maxTokens} of them stopped at max_tokens), ` +
+      `photo QC: ${totals.checks} checked (${totals.kept} kept, ${totals.rejected} rejected, ${totals.held} held on unavailable/error), ` +
       `${totals.deferred} deferred over the ${cap}-check cap; ${totals.inputTokens} in / ${totals.outputTokens} out tokens, ~$${cost.toFixed(3)}; failing checks: ${failures}`
     );
   }
@@ -309,8 +253,6 @@ if (isMain(import.meta.url, process.argv[1])) {
     throw new Error(
       'Usage: node scripts/social/photo-qc.mjs <image> [--caption "..."] [--kind kind] [--source host]',
     );
-  if (!process.env.ANTHROPIC_API_KEY) throw new Error('ANTHROPIC_API_KEY is not set.');
-  const client = new Anthropic({ maxRetries: 0 });
   const result = await qcPhoto(
     {
       buffer: await readFile(file),
@@ -318,7 +260,7 @@ if (isMain(import.meta.url, process.argv[1])) {
       source: flag('--source'),
       kind: flag('--kind') ?? kindFromId(path.basename(file)),
     },
-    { client },
+    {},
   );
   console.log(
     JSON.stringify(

@@ -18,6 +18,10 @@ export const NOTIFICATION_CATEGORIES = [
   'award_news',
   'fan_merch',
   'easter_egg',
+  // Tidewatch D5 (docs/decisions.md): opt-in, official announcements only. Built inert behind
+  // NEXT_PUBLIC_BABY_WATCH_ENABLED; deliberately NOT in NOTIFICATION_CATEGORY_DEFS or
+  // SETTINGS_CATEGORY_DEFS so no Android channel or settings row appears until go-live.
+  'baby_watch',
 ] as const;
 
 export type NotificationCategory = (typeof NOTIFICATION_CATEGORIES)[number];
@@ -180,6 +184,7 @@ export const DEFAULT_CADENCE: Record<AnyNotificationCategory, NotificationCadenc
   award_news: 'weekly',
   fan_merch: 'weekly',
   easter_egg: 'weekly',
+  baby_watch: 'off',
   lyric_of_day: 'off',
   on_this_day: 'off',
   swiftie_trivia: 'off',
@@ -306,6 +311,18 @@ export const SETTINGS_CATEGORY_DEFS: readonly SettingsCategoryDef[] = [
   },
 ];
 
+/** The one opt-in row behind the Baby Watch flag (D5). Opting in stores cadence 'instant' (the only
+ * value the router fans out for a single-event category); opting out stores 'off'. A missing row = opted out. */
+export const BABY_WATCH_CATEGORY = 'baby_watch' as const satisfies NotificationCategory;
+export const BABY_WATCH_OPT_IN_CADENCE = 'instant' as const satisfies NotificationCadence;
+export const BABY_WATCH_SETTINGS_DEF: SettingsCategoryDef = {
+  id: BABY_WATCH_CATEGORY,
+  name: 'Baby Watch: official announcements only',
+  group: 'News',
+  description: 'Only officially confirmed announcements. No rumors, countdowns, or clues.',
+  previewText: 'Official announcement →',
+};
+
 /** Device-level settings columns that already exist on `devices` (Phase 0
  * migration) — Phase 1's prefs API reads/writes these too (spec §8: master
  * switch, snooze, daily limit, quiet hours, digest time), so the batch
@@ -373,7 +390,8 @@ const T3_CATEGORIES: readonly NotificationCategory[] = ['award_news', 'fan_merch
 function prefsFor(
   cadenceByCategory: Partial<Record<AnyNotificationCategory, NotificationCadence>>,
 ): NotificationPref[] {
-  return ALL_NOTIFICATION_CATEGORIES.map((category) => ({
+  // baby_watch is opt-in only (D5): presets never write a row for it.
+  return ALL_NOTIFICATION_CATEGORIES.filter((category) => category !== BABY_WATCH_CATEGORY).map((category) => ({
     category,
     cadence: cadenceByCategory[category] ?? 'off',
   }));

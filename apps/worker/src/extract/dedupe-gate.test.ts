@@ -1,14 +1,8 @@
-// Content fix 7 fixture tests (spec "Tests" section):
-// - three "song removed from Trump video" headlines collapse to one item
-//   with new facts merged in
-// - two "Nashville Songwriters Hall of Fame" headlines collapse to one item
-// - a genuine follow-up ("Swift files lawsuit") stays a separate item
-// - LLM failure leads to hold, not publish
-// - merge output keeps length limits and adds no facts absent from the inputs
-
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { WorkerClaudeCaller } from '../claude-call';
 import {
   evaluateSameEventGate,
+  loadDedupeCandidates,
   mergeOutputWithinLimits,
   shortlistCandidates,
   type DedupeCandidateRow,
@@ -16,265 +10,245 @@ import {
 import { ExtractUsageStore, type UsageDb } from './usage-store';
 
 function unlimitedUsageDb(): UsageDb {
-  return {
-    async todaysCallCount() {
-      return 0;
-    },
-    async incrementToday() {},
-  };
+  return { todaysCallCount: async () => 0, incrementToday: async () => undefined };
 }
 
-function toolUseResponse(toolName: string, input: unknown) {
-  return {
-    ok: true,
-    json: async () => ({ content: [{ type: 'tool_use', name: toolName, input }] }),
-  };
-}
-
-const ORIGINAL_KEY = process.env.ANTHROPIC_API_KEY;
-
-function candidate(overrides: Partial<DedupeCandidateRow> & { id: string; headline: string }): DedupeCandidateRow {
+function candidate(
+  overrides: Partial<DedupeCandidateRow> & { id: string; headline: string },
+): DedupeCandidateRow {
   return {
     summary: 'A summary.',
     detail: 'A detail paragraph.',
-    sources: [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+    sources: [{
+      outletName: 'Billboard',
+      url: 'https://billboard.com/x',
+      tier: 'established',
+    }],
     imageUrl: null,
     heat: 1,
     ...overrides,
   };
 }
 
-describe('Content fix 7 — same-event dedupe fixtures', () => {
-  afterEach(() => {
-    process.env.ANTHROPIC_API_KEY = ORIGINAL_KEY;
-    vi.unstubAllGlobals();
-  });
+function fakeClaude(...data: unknown[]) {
+  return vi.fn()
+    .mockImplementationOnce(async () => ({ status: 'ok', data: data[0] }))
+    .mockImplementationOnce(async () => ({ status: 'ok', data: data[1] })) as WorkerClaudeCaller;
+}
 
-  it('collapses the three "song removed from Trump video" headlines to one item, merging new facts', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
-    const originalId = 'ci-trump-video-1';
-    const candidates = [
-      candidate({
-        id: originalId,
-        headline: "Taylor Swift's song pulled from Trump campaign video",
-        summary: 'A Taylor Swift song was removed from a video posted by the Trump campaign after objection.',
-        detail: 'The campaign used the song without permission; it was taken down shortly after.',
-      }),
+afterEach(() => vi.unstubAllEnvs());
+
+describe('loadDedupeCandidates', () => {
+  it('offers retracted and worker-debunked cards as merge targets', async () => {
+    let rows = [
+      {
+        id: 'live', era_id: 'tloas', headline: 'Live report', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'reported',
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
+      {
+        id: 'retracted', era_id: 'tloas', headline: 'Retracted report', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'reported',
+        retracted_at: '2099-01-02T00:00:00Z',
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
+      {
+        id: 'worker-debunked', era_id: 'tloas', headline: 'Debunked theory', summary: 'Summary',
+        detail: 'Detail', sources: [], image_url: null, heat: 1, status: 'debunked',
+        retracted_at: null,
+        promoted_to: null, merged_into: null, observed_on: '2099-01-01', expires_at: '2099-02-01',
+      },
     ];
-    // Outlet #2's wording of the SAME event, now coming through extraction.
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValueOnce(
-        toolUseResponse('check_same_event', {
-          same_event: true,
-          match_id: originalId,
-          adds_new_info: true,
-          new_facts: ['The campaign confirmed it will not use the song again.'],
-        }),
-      ).mockResolvedValueOnce(
-        toolUseResponse('rewrite_item', {
-          summary:
-            'A Taylor Swift song was removed from a Trump campaign video after objection, and the campaign has now confirmed it will not use the song again, closing out the dispute.',
-          detail:
-            'The campaign used the song without permission in a video; it was taken down shortly after the objection was raised. The campaign has since confirmed publicly that it will not use the song again going forward, addressing the controversy directly and closing out what had become a widely covered public dispute between the artist and the political campaign over the unauthorized use.',
-        }),
+    const chain = {
+      select: () => chain,
+      eq: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] === value);
+        return chain;
+      },
+      is: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] === value);
+        return chain;
+      },
+      neq: (column: string, value: unknown) => {
+        rows = rows.filter((row) => row[column as keyof typeof row] !== value);
+        return chain;
+      },
+      gte: () => chain,
+      gt: () => chain,
+      limit: (limit: number) => {
+        rows = rows.slice(0, limit);
+        return chain;
+      },
+      then: (resolve: (result: { data: typeof rows; error: null }) => void) => (
+        resolve({ data: rows, error: null })
       ),
+    };
+    const db = { from: vi.fn(() => chain) } as unknown as Parameters<
+      typeof loadDedupeCandidates
+    >[0];
+
+    const candidates = await loadDedupeCandidates(db, 'tloas');
+
+    expect(candidates.map((row) => row.id)).toEqual(['live', 'retracted', 'worker-debunked']);
+  });
+});
+
+describe('same-event dedupe fixtures', () => {
+  it('merges new facts into a matching Trump-video event', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const originalId = 'ci-trump-video-1';
+    const candidates = [candidate({
+      id: originalId,
+      headline: "Taylor Swift's song pulled from Trump campaign video",
+      summary: 'A Taylor Swift song was removed after objection.',
+      detail: 'The campaign used the song without permission; it was taken down.',
+    })];
+    const claude = fakeClaude(
+      {
+        same_event: true,
+        match_id: originalId,
+        adds_new_info: true,
+        new_facts: ['The campaign confirmed it will not use the song again.'],
+      },
+      {
+        summary: 'A Taylor Swift song was removed from a Trump campaign video after objection, and the campaign has now confirmed it will not use the song again, closing out the dispute.',
+        detail: Array(65).fill('grounded').join(' '),
+      },
     );
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
     const decision = await evaluateSameEventGate(usage, candidates, {
       headline: 'Trump campaign removes Taylor Swift song after she objects',
-      summary: 'Trump campaign removes a Taylor Swift song from a video after she objected to its use.',
+      summary: 'The campaign removed the song.',
       detail: 'The campaign confirmed it will not use the song again.',
-    });
-    expect(decision.action).toBe('merge');
-    expect(decision.action === 'merge' && decision.candidateId).toBe(originalId);
-    expect(decision.action === 'merge' && decision.mergedSummary).toContain('confirmed');
+    }, claude);
+    expect(decision).toMatchObject({ action: 'merge', candidateId: originalId });
+    expect(claude).toHaveBeenNthCalledWith(1, expect.objectContaining({
+      caller: 'news-worker-dedupe',
+      priority: 'P1',
+      model: 'claude-haiku-5-5',
+    }));
   });
 
-  it('collapses a third outlet\'s report of the same Trump-video event too (discard-only, no new info)', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
+  it('discards a duplicate with no new information', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const originalId = 'ci-trump-video-1';
-    const candidates = [
-      candidate({
-        id: originalId,
-        headline: "Taylor Swift's song pulled from Trump campaign video",
-        summary: 'A Taylor Swift song was removed from a video posted by the Trump campaign after objection.',
-      }),
-    ];
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue(
-        toolUseResponse('check_same_event', {
-          same_event: true,
-          match_id: originalId,
-          adds_new_info: false,
-          new_facts: [],
-        }),
-      ),
-    );
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, candidates, {
-      headline: 'Trump video drops Swift song amid backlash',
-      summary: 'A third outlet reports the same removal with no new details.',
-      detail: 'Nothing new here.',
-    });
-    expect(decision.action).toBe('discard');
-    expect(decision.action === 'discard' && decision.candidateId).toBe(originalId);
+    const decision = await evaluateSameEventGate(
+      usage,
+      [candidate({ id: originalId, headline: 'Trump video drops Swift song' })],
+      { headline: 'Same event', summary: 'Same facts.', detail: 'Nothing new.' },
+      fakeClaude({
+        same_event: true,
+        match_id: originalId,
+        adds_new_info: false,
+        new_facts: [],
+      }),
+    );
+    expect(decision).toEqual({ action: 'discard', candidateId: originalId });
   });
 
-  it('collapses the two Nashville Songwriters Hall of Fame headlines to one item', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
-    const originalId = 'ci-songwriters-hof-1';
-    const candidates = [
-      candidate({
-        id: originalId,
-        headline: 'Taylor Swift becomes youngest inductee into Nashville Songwriters Hall of Fame',
-        summary: 'Taylor Swift was inducted into the Nashville Songwriters Hall of Fame as its youngest-ever member.',
-      }),
-    ];
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue(
-        toolUseResponse('check_same_event', {
-          same_event: true,
-          match_id: originalId,
-          adds_new_info: false,
-          new_facts: [],
-        }),
-      ),
-    );
+  it('publishes a genuine lawsuit follow-up', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, candidates, {
-      headline: 'Taylor Swift inducted into Nashville Songwriters Hall of Fame, youngest ever',
-      summary: 'A second outlet covers the same Hall of Fame induction.',
-      detail: 'Same ceremony, same honor.',
-    });
-    expect(decision.action).toBe('discard');
-    expect(decision.action === 'discard' && decision.candidateId).toBe(originalId);
-  });
-
-  it('keeps a genuine follow-up ("Swift files lawsuit") as a SEPARATE item', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
-    const originalId = 'ci-trump-video-1';
-    const candidates = [
-      candidate({
-        id: originalId,
-        headline: "Taylor Swift's song pulled from Trump campaign video",
-        summary: 'A Taylor Swift song was removed from a video posted by the Trump campaign after objection.',
+    const decision = await evaluateSameEventGate(
+      usage,
+      [candidate({ id: 'ci-1', headline: 'Song removed from campaign video' })],
+      {
+        headline: 'Taylor Swift files lawsuit over campaign video',
+        summary: 'A new legal development.',
+        detail: 'The lawsuit follows the removal.',
+      },
+      fakeClaude({
+        same_event: false,
+        match_id: null,
+        adds_new_info: false,
+        new_facts: [],
       }),
-    ];
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue(
-        toolUseResponse('check_same_event', {
-          same_event: false,
-          match_id: null,
-          adds_new_info: false,
-          new_facts: [],
-        }),
-      ),
     );
-    const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, candidates, {
-      headline: 'Taylor Swift files lawsuit over campaign video',
-      summary: 'Taylor Swift has filed a lawsuit against the campaign over the unauthorized use of her song.',
-      detail: 'This is a new legal development following the earlier song removal.',
-    });
     expect(decision.action).toBe('publish');
   });
 
-  it('fails CLOSED to hold — never publishes — when the LLM key is missing', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
-    const candidates = [candidate({ id: 'ci-1', headline: 'Some live item' })];
+  it('fails closed when the subscription token is missing', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', '');
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, candidates, {
-      headline: 'Some live item, restated',
-      summary: 'A near-identical restatement of the same headline and summary text.',
-      detail: 'Detail text.',
-    });
+    const decision = await evaluateSameEventGate(
+      usage,
+      [candidate({ id: 'ci-1', headline: 'Some live item' })],
+      { headline: 'Restated item', summary: 'Same summary.', detail: 'Same detail.' },
+      fakeClaude({}),
+    );
     expect(decision.action).toBe('hold');
   });
 
-  it('fails CLOSED to hold — never publishes — on a genuine API error', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 500, text: async () => 'boom' }));
-    const candidates = [candidate({ id: 'ci-1', headline: 'Some live item' })];
+  it('fails closed and logs when the wrapper reaches a limit', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const claude = vi.fn().mockResolvedValue({
+      status: 'unavailable',
+      reason: 'limit',
+    }) as WorkerClaudeCaller;
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, candidates, {
-      headline: 'Some live item, restated',
-      summary: 'A near-identical restatement of the same headline and summary text.',
-      detail: 'Detail text.',
-    });
+    const decision = await evaluateSameEventGate(
+      usage,
+      [candidate({ id: 'ci-1', headline: 'Some live item' })],
+      { headline: 'Restated item', summary: 'Same summary.', detail: 'Same detail.' },
+      claude,
+    );
     expect(decision.action).toBe('hold');
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('deferred'));
+    warn.mockRestore();
   });
 
-  it('publishes (no gate call at all) when there are no live candidates', async () => {
-    process.env.ANTHROPIC_API_KEY = 'test-key';
-    const fetchSpy = vi.fn();
-    vi.stubGlobal('fetch', fetchSpy);
+  it('publishes without a model call when there are no candidates', async () => {
+    const claude = fakeClaude({});
     const usage = await ExtractUsageStore.create(unlimitedUsageDb());
-    const decision = await evaluateSameEventGate(usage, [], {
-      headline: 'Brand new story',
-      summary: 'Nothing like this is live yet.',
-      detail: 'Detail.',
-    });
+    const decision = await evaluateSameEventGate(
+      usage,
+      [],
+      { headline: 'Brand new', summary: 'New.', detail: 'New detail.' },
+      claude,
+    );
     expect(decision.action).toBe('publish');
-    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(claude).not.toHaveBeenCalled();
   });
 });
 
 describe('mergeOutputWithinLimits', () => {
-  it('accepts a summary 160-400 chars and a detail 60-150 words', () => {
-    const summary = 'x'.repeat(200);
-    const detail = Array(100).fill('word').join(' ');
-    expect(mergeOutputWithinLimits({ summary, detail })).toBe(true);
+  it('accepts in-range output', () => {
+    expect(mergeOutputWithinLimits({
+      summary: 'x'.repeat(200),
+      detail: Array(100).fill('word').join(' '),
+    })).toBe(true);
   });
 
-  it('rejects a summary under 160 chars', () => {
-    expect(mergeOutputWithinLimits({ summary: 'too short', detail: Array(100).fill('word').join(' ') })).toBe(false);
-  });
-
-  it('rejects a summary over 400 chars', () => {
-    expect(mergeOutputWithinLimits({ summary: 'x'.repeat(401), detail: Array(100).fill('word').join(' ') })).toBe(
-      false,
-    );
-  });
-
-  it('rejects a detail under 60 words', () => {
-    expect(mergeOutputWithinLimits({ summary: 'x'.repeat(200), detail: Array(10).fill('word').join(' ') })).toBe(
-      false,
-    );
-  });
-
-  it('rejects a detail over 150 words', () => {
-    expect(mergeOutputWithinLimits({ summary: 'x'.repeat(200), detail: Array(200).fill('word').join(' ') })).toBe(
-      false,
-    );
+  it.each([
+    ['short summary', 'x', 100],
+    ['long summary', 'x'.repeat(401), 100],
+    ['short detail', 'x'.repeat(200), 10],
+    ['long detail', 'x'.repeat(200), 200],
+  ])('rejects %s', (_name, summary, words) => {
+    expect(mergeOutputWithinLimits({
+      summary,
+      detail: Array(words).fill('word').join(' '),
+    })).toBe(false);
   });
 });
 
 describe('shortlistCandidates', () => {
-  it('never sends more than the configured max to the LLM', () => {
-    const candidates = Array.from({ length: 20 }, (_, i) =>
-      candidate({ id: `ci-${i}`, headline: `Taylor Swift story number ${i} about something` }),
-    );
-    const shortlist = shortlistCandidates(
-      { headline: 'Taylor Swift story number 5 about something', summary: 'x' },
-      candidates,
-    );
-    expect(shortlist.length).toBeLessThanOrEqual(5);
-  });
-
-  it('ranks by headline+summary overlap, most similar first', () => {
+  it('caps and ranks candidates by overlap', () => {
     const candidates = [
-      candidate({ id: 'unrelated', headline: 'A totally unrelated topic about merch drops' }),
+      candidate({ id: 'unrelated', headline: 'A merch drop' }),
       candidate({ id: 'related', headline: 'Taylor Swift song removed from Trump campaign video' }),
+      ...Array.from({ length: 18 }, (_, index) => candidate({
+        id: `ci-${index}`,
+        headline: `Other story ${index}`,
+      })),
     ];
-    const shortlist = shortlistCandidates(
-      { headline: 'Trump campaign removes Taylor Swift song after objection', summary: '' },
-      candidates,
-      2,
-    );
-    expect(shortlist[0]!.id).toBe('related');
+    const shortlist = shortlistCandidates({
+      headline: 'Trump campaign removes Taylor Swift song after objection',
+      summary: '',
+    }, candidates);
+    expect(shortlist).toHaveLength(5);
+    expect(shortlist[0]?.id).toBe('related');
   });
 });

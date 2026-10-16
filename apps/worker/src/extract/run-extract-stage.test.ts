@@ -62,7 +62,7 @@ function fakeDb(rawItems: unknown[]): SupabaseClient {
 
 describe('runExtractStage Reddit comment context', () => {
   beforeEach(() => {
-    vi.stubEnv('ANTHROPIC_API_KEY', 'test-key');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     mocks.abandonQuietTheories.mockReset().mockResolvedValue(0);
     mocks.createUsage.mockReset().mockResolvedValue({});
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });
@@ -148,7 +148,7 @@ describe('runExtractStage Reddit comment context', () => {
   });
 
   it('does not request transient comments when the extract model is unavailable', async () => {
-    vi.stubEnv('ANTHROPIC_API_KEY', '');
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', '');
     const db = fakeDb([
       {
         title: 'A clustered Reddit post',

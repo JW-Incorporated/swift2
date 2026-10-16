@@ -29,7 +29,7 @@ on:
   workflow_run:
     workflows:
       - routine-austin-build
-      - routine-awareness-answerer
+      - community-draft-replies
       - routine-community-answerer
       - routine-fable-strategy-update
       - routine-fable-taste-ruling

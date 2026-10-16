@@ -13,7 +13,7 @@
 #
 # Auth (2026-09-05 revision): uses CLAUDE_CODE_OAUTH_TOKEN (Joey's Claude
 # Pro/Max plan usage, via `claude setup-token` — see HUMAN-ACTIONS.md), NOT
-# ANTHROPIC_API_KEY. This draws from the SAME shared plan-usage pool as
+# metered API credentials. This draws from the SAME shared plan-usage pool as
 # Joey's own interactive Claude Code sessions, not metered per-token
 # billing — see the revision doc's "honest remaining catch" before adding
 # more routines than the plan can absorb.
@@ -167,14 +167,23 @@ on:
         required: false
         type: string
         default: ""
+      usage_artifact_suffix:
+        description: |
+          Optional (default "" = the usage artifact is named exactly `routine-usage`,
+          unchanged for every existing caller). A caller that runs this template
+          more than once in ONE workflow run (the Vault Run: judgment + craft)
+          passes a distinct suffix per call, so the artifact is
+          `routine-usage-<suffix>` and the second upload does not 409 against the
+          first. turn-ledger.mjs and fleet-telemetry-snapshot.mjs read both forms.
+        required: false
+        type: string
+        default: ""
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
       CLAUDE_CODE_OAUTH_TOKEN_BACKUP:
         required: false
       SOCIAL_POSTER_PAT:
-        required: false
-      ANTHROPIC_API_KEY:
         required: false
       SUPABASE_URL:
         required: false
@@ -339,7 +348,7 @@ jobs:
         timeout-minutes: 2
         uses: actions/upload-artifact@v7
         with:
-          name: routine-usage
+          name: routine-usage${{ inputs.usage_artifact_suffix != '' && format('-{0}', inputs.usage_artifact_suffix) || '' }}
           path: routine-usage.json
           if-no-files-found: ignore
           retention-days: 90

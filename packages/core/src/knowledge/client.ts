@@ -33,7 +33,7 @@ import { dateMath } from './date-math';
 export interface KnowledgeClientConfig {
   supabaseUrl: string;
   /** The public (anon / publishable) key — Current-tier reads are RLS
-   * public, scoped to `redline_ok = true and not expired` at the policy
+   * public, scoped to `redline_ok = true`, not expired, and not retracted at the policy
    * level (supabase/migrations/20260901000000_knowledge_engine.sql). */
   supabaseKey: string;
 }
@@ -98,6 +98,7 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
     .eq('era_id', eraId)
     .is('promoted_to', null)
     .is('merged_into', null)
+    .is('retracted_at', null)
     .order('observed_on', { ascending: false })
     .limit(CURRENT_ITEM_MAX_ROWS);
 
@@ -112,8 +113,8 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
   return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem).filter((item) => passesCurrentItemQualityGate(item));
 }
 
-/** `recent(days)` — same `promoted_to` exclusion as `getCurrentItems`, plus an
- * explicit `redline_ok = true` (RLS already scopes anon reads this way, same
+/** `recent(days)` — same `promoted_to` exclusion as `getCurrentItems`, plus
+ * explicit `redline_ok = true` and non-retracted filters (RLS already scopes anon reads this way, same
  * as `getCurrentItems` relies on implicitly, but PLAN.md Stage 9 calls this
  * filter out explicitly, so it's stated here rather than only left to policy). */
 export async function getRecentItems(db: SupabaseClient, days: number, signal?: AbortSignal): Promise<CurrentItem[]> {
@@ -123,6 +124,7 @@ export async function getRecentItems(db: SupabaseClient, days: number, signal?: 
     .select(CURRENT_ITEM_COLS)
     .gte('observed_on', cutoff)
     .eq('redline_ok', true)
+    .is('retracted_at', null)
     .is('promoted_to', null)
     .is('merged_into', null)
     .order('observed_on', { ascending: false })

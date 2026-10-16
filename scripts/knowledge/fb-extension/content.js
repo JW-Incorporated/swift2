@@ -4,7 +4,7 @@
  *  - http://127.0.0.1:<port>/start#<token>: the start handshake. Reads port + token, hands them to
  *    the background service worker (which keeps them in chrome.storage.session), then scrubs the
  *    token from the address bar. No network I/O here.
- *  - https://www.facebook.com/groups/*: asks the background whether this tab has an active job.
+ *  - Facebook group/activity pages: asks the background whether this tab has an active job.
  *    No job → does nothing at all. Job → classify the page, harvest the feed at a human pace,
  *    collect comments (comments.js, if loaded), and hand the result back to the background.
  *
@@ -60,7 +60,7 @@
 
   function baseResult(job, status, extra = {}) {
     return {
-      v: 1,
+      v: 2,
       slug: job.slug,
       status,
       stopReason: null,
@@ -162,6 +162,28 @@
       wrongProfile: LLFB.detectWrongProfile({ cookie: env.cookie, readAs: job.readAs }) === true,
       profileVerified: false,
     };
+  }
+
+  async function runActivityJob(job, env) {
+    const render = env.render ?? (() => {});
+    const byId = new Map();
+    let stable = 0;
+    render(['LL export — owner activity', 'reading owner comments and counts…']);
+    for (let scrolls = 0; scrolls < 12 && stable < 3; scrolls += 1) {
+      const before = byId.size;
+      for (const entry of LLFB.activityLogEntries(env.doc, job)) byId.set(entry.commentId, entry);
+      stable = byId.size === before ? stable + 1 : 0;
+      await env.heartbeat?.({ slug: job.slug, scrolls, activityCount: byId.size });
+      if (stable < 3) {
+        env.win.scrollBy?.({ top: Math.max(500, env.win.innerHeight * 0.8), behavior: 'smooth' });
+        await env.sleep(1_500);
+      }
+    }
+    return baseResult(job, 'collected', {
+      kind: 'activity',
+      activity: [...byId.values()],
+      collectedAt: env.now().toISOString(),
+    });
   }
 
   // env: { doc, win, url, cookie, sleep, random, clock, now, render, heartbeat, every,
@@ -272,7 +294,8 @@
 
         const expanded = LLFB.expandVisibleUnits(env.doc, env.win);
         if (expanded) await env.sleep(EXPAND_WAIT_MS);
-        const snapshot = LLFB.captureVisibleUnits(env.doc, env.win);
+        await LLFB.resolveVisiblePermalinks(env.doc, env.win);
+        const snapshot = LLFB.captureVisibleUnits(env.doc, env.win, job);
         harvest = LLFB.mergeHarvest(harvest, snapshot);
         if (capture)
           captureFull = LLFB.captureVisibleSkeletons(env.doc, env.win, captureState).full;
@@ -428,6 +451,7 @@
   }
 
   LLFB.runJob = runJob;
+  LLFB.runActivityJob = runActivityJob;
   LLFB.commentsBudgetMs = commentsBudgetMs;
 
   // ---- bootstrap (only inside a real extension) -----------------------------------------------
@@ -467,7 +491,8 @@
     return;
   }
 
-  if (location.hostname !== 'www.facebook.com' || !location.pathname.startsWith('/groups/')) return;
+  if (location.hostname !== 'www.facebook.com') return;
+  if (!location.pathname.startsWith('/groups/') && !/\/(?:me\/)?allactivity\b/.test(location.pathname)) return;
 
   send({ type: 'llfb-ready' }).then(async (response) => {
     const job = response?.job;
@@ -493,7 +518,7 @@
         return () => clearInterval(id);
       },
     };
-    const result = await runJob(job, env);
+    const result = job.kind === 'activity' ? await runActivityJob(job, env) : await runJob(job, env);
     // This page holds the result until the background acknowledges it ({ok:true}: persisted or
     // delivered). No answer (the worker was stopped mid-delivery) or {ok:false} → send it again.
     for (const delayMs of RESULT_RETRY_MS) {

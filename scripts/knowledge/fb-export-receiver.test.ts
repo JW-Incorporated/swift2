@@ -336,12 +336,46 @@ describe('fb export receiver', () => {
     const { r } = await setup();
     await call(r, 'GET', '/next');
     expect(
-      (await call(r, 'POST', '/result', { v: 2, slug: 'group-a', status: 'collected' })).status,
+      (await call(r, 'POST', '/result', { v: 3, slug: 'group-a', status: 'collected' })).status,
     ).toBe(400);
     expect((await call(r, 'POST', '/result', 'not json')).status).toBe(400);
     expect((await call(r, 'POST', '/result', collected('group-b'))).status).toBe(409);
     expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(200);
     expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(409);
+  });
+
+  it('accepts schema v2 units and still accepts the v1 collected fixture', async () => {
+    const { r } = await setup();
+    await call(r, 'GET', '/next');
+    const v2 = collected('group-a');
+    v2.v = 2;
+    Object.assign(v2.units[0], {
+      permalink: 'https://www.facebook.com/groups/111/posts/99/',
+      reactionCount: 3,
+    });
+    expect((await call(r, 'POST', '/result', v2)).status).toBe(200);
+    await call(r, 'GET', '/next');
+    expect((await call(r, 'POST', '/result', collected('group-b'))).status).toBe(200);
+  });
+
+  it('accepts a counts-only owner activity result', async () => {
+    const activity = {
+      slug: 'owner-activity', label: 'Owner activity', groupId: 'activity', kind: 'activity',
+      url: 'https://www.facebook.com/me/allactivity', groupIds: ['111'],
+    };
+    const { r } = await setup({ groups: [activity] });
+    const next = await (await call(r, 'GET', '/next')).json();
+    expect(next.kind).toBe('activity');
+    const body = {
+      v: 2, slug: 'owner-activity', kind: 'activity', status: 'collected',
+      activity: [{
+        postPermalink: 'https://www.facebook.com/groups/111/posts/99/',
+        commentUrl: 'https://www.facebook.com/groups/111/posts/99/?comment_id=7',
+        commentId: '7', reactionCount: 4, replyCount: 2, commentedAt: NOW.toISOString(),
+      }],
+    };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ status: 'activity-collected', activities: body.activity });
   });
 
   it('a stalled last group is failed and the run resolves done', async () => {

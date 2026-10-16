@@ -9123,3 +9123,56 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Design.** `scripts/social/photo-qc.mjs` (`qcPhoto`) sends one 768px JPEG plus caption/source/kind with a JSON-schema structured output (`output_config.format`, effort low). The model is told not to identify anyone from facial features; it judges composition, photo type, quality, overlays and consistency with the caption. `keep` requires every positive check and no watermark. Wired into `fetchCandidates` in `import-photo-library.mjs` after normalize and dedupe, before the file is written; `--no-qc` skips it for tests and local maintenance only.
 
 **Measured (3 live calls, 2026-10-07, local video frames).** 1441 input / 139-147 output tokens each, $0.0043 per photo (about 2x the estimate: the rubric prompt plus the 768px image is about 1440 input tokens, and the model writes a 100-140 token verdict). Verdicts were sensible (dancer rejected, off-caption man rejected, stylized effect frame rejected as not a plain photograph). Calibration (same day): turning thinking off (`thinking: { type: "between_tools" }`) and shortening the prompt changed nothing material, because the ~130 output tokens are the JSON verdict itself, not reasoning; 55-photo eval measured 1417 input / 129 output tokens, $0.0041 per photo. A 512px image trial cut that only to $0.00365 and was not adopted (accuracy unverified), so the 768px size and the 200-check cap stand; the $0.0028 target is not reachable with this schema. Ground-truth eval (`scripts/social/photo-qc-eval.mjs`, 55 hand-labelled photos): accuracy 83.6%, 6 of 31 known-drops admitted (19%), 3 of 24 known-keeps rejected. The gate cannot see who is pictured (no face identification), so look-alike drops that fit the caption pass; treat it as a filter for the ~70% obvious misses, not as a guarantee.
+
+**2026-10-15 — P1-28.** P1-28 moved news extract/dedupe, worker theory, theory miner and content backfill to the subscription wrapper on `claude-haiku-5-5`; remaining API-key callers—merch audit/moment matching, Mood/Clownbot, social photo QC, routine-quality sampling and their offline batteries/evals—are deferred to P1-28b/P1-28c.
+
+Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.
+
+## 2026-10-15 — P1-28c tooling transport boundary
+
+**Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.
+
+## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
+
+**Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` denies the source path and other project or host directories. The CLI's own internal session paths remain readable, including its plan, scratchpad and tool-result files, its temporary directory and bundled skills. This confinement guarantee relies on the 2.1.300 pin and must be re-verified before any version bump. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
+
+The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
+
+**Why.** P1-19 and P1-20 need listing pixels, but enabling a general tool set or exposing an original filesystem path would turn untrusted listing content into a host-read capability. A staged copy plus Claude Code's working-directory confinement provides the minimum image capability without Bash, Write, Edit, WebFetch, MCP or access outside the per-call directory.
+
+## 2026-10-15 â€” Merch authoring moves to the subscription wrapper (P1-28b)
+
+**Decision.** The E3 audit and E6 matcher use the public subscription wrapper at P3, so neither can consume the backup token. Visual judgments use `claude-sonnet-5-5`; the lighter garment-descriptor extraction uses `claude-haiku-5-5`. Images are fetched into bounded buffers and passed through the wrapper's `images` input. An unavailable, limited or capped call logs and holds the candidate instead of authoring it.
+
+**Cap mapping.** D8's former $3 per-run model budget maps to 88 wrapper calls: `floor($3 / $0.03408)`, using the existing conservative per-request reservation. The legacy audit artifact keeps its `capUsd` and `reservedCostUsd` fields for consumers, while the wrapper's per-caller `maxCalls: 88` is the enforcement boundary. SerpAPI remains independently capped at five paid searches per run.
+
+
+---
+
+## 2026-10-15 — Tidewatch P2-05: Baby Watch built inert behind NEXT_PUBLIC_BABY_WATCH_ENABLED; D5 goes live last
+
+**Decision.** The `baby_watch` category (tier 1, opt-in, default off), its web settings toggle ("Baby Watch: official announcements only"), its inbox label and the cadence-pinning migration `20261015050000_baby_watch_category.sql` are merged dark. The toggle and inbox rendering sit behind `NEXT_PUBLIC_BABY_WATCH_ENABLED` (build-time, default false), so readers see nothing new. The router (P2-02) still emits no `baby_watch` event, and push stays off in production (HA #129).
+
+**Why.** The architect #11 ruling is to build the surface inert and let P2-13 stage the go-live; D5 is the last item to go live. Opt-in is stored as cadence `instant` (the only value the router fans out for a single event) so no router change is needed; a missing row means opted out. The category is deliberately absent from the Android channel and settings catalogues until go-live.
+
+**Verification.** Unit tests cover tier mapping, default opt-out, a fake-provider delivery (opted-in device gets 1, not-opted-in gets 0) and flag-off rendering. A staging device receiving a real test push is a live check for go-live, not part of this change.
+
+---
+
+## 2026-10-15 — P2-06 breaking social: identity and dispatch model
+
+**Decision.** Reversible PM call under architect ruling #14. The breaking social fast path is built inert: `social-breaking.yml` is `workflow_dispatch`-only with `contents: read`, and `scripts/social/breaking-draft.mjs` does nothing unless `BREAKING_SOCIAL_ENABLED` is exactly `true` (and refuses under `SOCIAL_FREEZE`). A breaking draft is a normal `tree/draft/*` PR authored by the committed Tree identity, cleared by the existing `social-tree-approve.yml` unchanged (identity checks, `SOCIAL_FREEZE` refusal, 48h window, file allowlist). It posts on `social-poster.yml`'s normal clock dispatch; nothing added here dispatches the poster or the approver, and nothing writes an `approval` key.
+
+**Deviation from the plan text.** The plan says the script "stamps via social-tree-approve.yml with a breaking flag and dispatches social-poster immediately". That is not built: no bypass of Tree approval and no direct poster dispatch.
+
+**Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides) AND only when the caller passes `breakingEnabled: true` to `selectDuePosts`. The poster (post-queue.mjs) does not pass it, so the live poster is unchanged even if a Tree PR sets `breaking: true` (the approve allowlist is path-based, not key-based); go-live must wire it to `BREAKING_SOCIAL_ENABLED`.
+
+**Verification.** `scripts/social/breaking-draft.test.ts`. Live drafting stays unimplemented until the P2-12 drill.
+
+## 2026-10-15 P2-08 social retraction: built inert
+
+**Decision.** Reversible PM call under architect ruling #14. `scripts/social/retract-post.mjs` is off unless `RETRACTION_SOCIAL_ENABLED` is exactly `true`, refuses under `SOCIAL_FREEZE`, and only implements dry-run: given a campaign it lists which `social/posted/` records and platforms it would retract (X delete, Facebook Page delete, Instagram reported as manual because the API has no delete) and makes no network call. It never imports, spawns or names the live delete or post scripts. `social-delete-media.yml` is deliberately NOT touched (an unused input on a live delete workflow adds risk and no inert benefit); wiring it to retraction belongs to go-live.
+
+**Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
+
+**Verification.** `scripts/social/retract-post.test.ts`.

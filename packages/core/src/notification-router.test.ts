@@ -4,7 +4,7 @@ import { dispatchPendingEvents } from './notification-router';
 import * as sender from './notification-sender';
 
 const EVENT_COLUMNS =
-  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at';
+  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at,target_device_ids';
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -394,6 +394,51 @@ describe('dispatchPendingEvents', () => {
       kind: 'instant',
       category: 'song_drop',
     });
+  });
+
+  it('routes a correction only to its delivery-log-derived target devices through the governor', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'correction-1',
+          category: 'correction',
+          tier: 1,
+          title: 'Correction',
+          body: 'An earlier update was retracted.',
+          deep_link: '/',
+          target_device_ids: ['device-1', 'device-2'],
+          available_at: new Date(now.getTime() - 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [
+        { device_id: 'device-3', category: 'correction', cadence: 'instant' },
+      ],
+      devices: [
+        device({ id: 'device-1', push_token: 'token-1' }),
+        device({ id: 'device-2', push_token: 'token-2' }),
+        device({ id: 'device-3', push_token: 'token-3' }),
+      ],
+      deliveries: [
+        { id: 'delivery-1', event_id: 'original-1', device_id: 'device-1', kind: 'instant', category: 'album_news', sent_at: new Date(now.getTime() - 60_000).toISOString() },
+        { id: 'delivery-2', event_id: 'original-1', device_id: 'device-2', kind: 'instant', category: 'album_news', sent_at: new Date(now.getTime() - 60_000).toISOString() },
+      ],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'device-1', deliveryToken: 'correction-token-1' },
+      { ok: true, deviceId: 'device-2', deliveryToken: 'correction-token-2' },
+    ]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.sent).toBe(2);
+    expect(sendSpy.mock.calls[0]?.[0].map((input) => input.deviceId)).toEqual([
+      'device-1',
+      'device-2',
+    ]);
+    expect(db._prefCategories).not.toContain('correction');
   });
 
   it('ACCEPTANCE (Phase 6): a platform=web device is routed through sendPushBatch with platform=web, same pipeline as ios/android', async () => {
@@ -892,5 +937,44 @@ describe('dispatchPendingEvents', () => {
     expect(result.skippedHardCeiling).toBe(1);
     expect(result.skippedDailyCap).toBe(0); // NOT the per-category cap gate
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('ACCEPTANCE (D5): a baby_watch event reaches the opted-in device once and the not-opted-in device never', async () => {
+    const now = new Date('2026-01-15T20:00:00Z');
+    const db = makeFakeDb({
+      events: [
+        {
+          id: 'evt-bw',
+          category: 'baby_watch',
+          tier: 1,
+          title: 'Official announcement',
+          body: 'Confirmed',
+          deep_link: 'https://x',
+          available_at: new Date(now.getTime() - 1000).toISOString(),
+          expires_at: null,
+          killed_at: null,
+        },
+      ],
+      notificationPrefs: [
+        { device_id: 'opted-in', category: 'baby_watch', cadence: 'instant' },
+        { device_id: 'opted-out', category: 'baby_watch', cadence: 'off' },
+      ],
+      devices: [
+        device({ id: 'opted-in', push_token: 'token-in' }),
+        device({ id: 'opted-out', push_token: 'token-out' }),
+        device({ id: 'no-row', push_token: 'token-none' }),
+      ],
+      deliveries: [],
+    });
+    const spy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'opted-in', deliveryToken: 'tok-in' }]);
+
+    const result = await dispatchPendingEvents(db, now);
+
+    expect(result.sent).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy.mock.calls[0]?.[0]).toEqual([expect.objectContaining({ deviceId: 'opted-in' })]);
+    expect(db._insertedDeliveries.map((d) => d.device_id)).toEqual(['opted-in']);
   });
 });

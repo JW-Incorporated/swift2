@@ -3,7 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun } from '../lib/gh.mjs';
-import { createJevClient, noulQuestion } from '../lib/jev.mjs';
+import { createJevClient, createJevUsageLogger, noulQuestion } from '../lib/jev.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import { deriveHandledState, matchAlertTitle } from '../marjorie/lib/alert-router.mjs';
 import { isTrustedBotAuthor } from '../marjorie/lib/chase-auto-defer.mjs';
 import { isFounderFacing } from '../marjorie/lib/alert-notify.mjs';
@@ -156,7 +157,10 @@ export async function runPrecheck({ env = process.env, collect = collectOpsSnaps
   const signals = buildOpsSignals(snapshot);
   if (!env.TYPESAFE_API_KEY) return { mode: 'fail-open', reason: 'TYPESAFE_API_KEY missing', signals, flagged: [], chasePlan: snapshot.chasePlan };
   try {
-    const client = clientFactory({ apiKey: env.TYPESAFE_API_KEY });
+    const client = clientFactory({
+      apiKey: env.TYPESAFE_API_KEY,
+      usageLogger: createJevUsageLogger(serviceClient(env)),
+    });
     const optional = signals.filter((signal) => !signal.mustRun);
     const judgedOptional = await judgeOpsSignals(optional, client);
     const optionalById = new Map(judgedOptional.map((signal) => [signal.id, signal]));

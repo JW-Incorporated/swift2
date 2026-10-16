@@ -4,7 +4,7 @@ Feeds `.github/workflows/social-poster.yml` (runs every 30 min). Full context: `
 
 - **`queue/`** — drafts waiting to ship. One JSON file per post. **Every draft added or changed here is checked by `scripts/social/check-drafts.mjs` before it can auto-merge** — see "Draft-time checks" below. That script is the main quality gate now; the guards in `scripts/social/lib/queue.mjs` at post time exist to stop a bad draft from actually posting wrong, not to be the first line of defense.
 - **`posted/`** — the log of everything sent, moved here automatically on success.
-- **`inbox/`** — fact sheets from the merch and appearance side doors (Tree Overhaul T6, 2026-09-12): no caption, no queue write; Tree's daily draft reads every `status: "open"` intent, expires anything past its `deadline`, applies the 1/day + 2/rolling-7-day caps, and drafts the nearest-deadline survivor if it clears the six-dimension rubric below. `scripts/social/lib/inbox.mjs` has `readIntents`/`isExpired`/`selectFastLane`/`closeIntent`; mechanics in `docs/agents/runner-prompts/tree-daily-draft.md`. `inbox/closed/` holds every declined or expired intent — nothing is deleted. `inbox/new-on-site-<date>.json` is not an intent: a daily zero-LLM feed (`scripts/social/new-on-site.mjs`, `.github/workflows/social-new-on-site.yml`) of the moments added to the site in the last 7 days that carry media, each with `significance` and a `deepLink`; Tree's weekly plan and daily draft read the latest one first (`newOnSite` in the draft inputs). It has no `status`, so the fast lane ignores it; files older than 14 days are pruned.
+- **`inbox/`** — fact sheets from the merch and appearance side doors (Tree Overhaul T6, 2026-09-12): no caption, no queue write; Tree's daily draft reads every `status: "open"` intent, expires anything past its `deadline`, applies the 1/day + 2/rolling-7-day caps, and drafts the nearest-deadline survivor if it clears the six-dimension rubric below. `scripts/social/lib/inbox.mjs` has `readIntents`/`isExpired`/`selectFastLane`/`closeIntent`; mechanics in `docs/agents/runner-prompts/tree-daily-draft.md`. `inbox/closed/` holds every declined or expired intent — nothing is deleted. `inbox/new-on-site-<date>.json` is not an intent: a daily zero-LLM feed (`scripts/social/new-on-site.mjs`, `.github/workflows/social-new-on-site.yml`) of the moments added to the site in the last 7 days that carry media, each with `significance` and a `deepLink`; Tree's weekly plan and daily draft read the latest one first (`newOnSite` in the draft inputs). It has no `status`, so the fast lane ignores it; files older than 14 days are pruned. `--dry-run` reports "would write" and touches nothing; the same-day event dispatcher works from intake issues, not this feed.
 
 **Hard pairing rule (Joey, 2026-08-25, made UNCONDITIONAL 2026-08-26,
 reaffirmed 2026-09-10 after the appearance-discovery lane's brief X-only
@@ -112,6 +112,14 @@ run fails with an `::error::` naming the ids. To recover, remove those queue
 files on `main` (each already posted or was retired). Because `social-ledger`
 keeps every `failed/` record, re-queue a failed item only under a NEW file
 name; reusing the name trips the invariant.
+
+**Read side (#5885):** before posting, the `rolling-view.mjs` step overlays the
+rolling tip's `posted/` and `failed/` records onto the checkout (additive,
+never overwriting) and drops from the local checkout any `social/queue/` file
+already in `posted/` or `failed/`, so a lagging `main` cannot make the poster
+retry an item a recent run posted or retired. Queue contents are never taken
+from the tip (a founder edit on `main` wins). With no rolling branch the poster
+uses `main`'s view; any git error fails the step and the run posts nothing.
 
 **A PR closed unmerged drops its state changes.** Its posted/failed records
 are safe (they live on `social-ledger` and return with the next run's

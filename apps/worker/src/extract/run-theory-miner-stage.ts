@@ -14,6 +14,7 @@
 // separation ./run-extract-stage.ts keeps between orchestration and I/O.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { ClaudePriority } from '../claude-call';
 import { extractFanTheories, commentsFromCrawlBundle } from './theory-haiku-client';
 import { upsertTheoryCandidate } from './write-theory-candidate';
 import { ExtractUsageStore, supabaseTheoryMinerUsageDb } from './usage-store';
@@ -57,6 +58,7 @@ function bareSubredditName(watchlistId: string): string {
 export async function runTheoryMinerStage(
   db: SupabaseClient,
   artifact: CrawlArtifact,
+  options: { priority?: ClaudePriority } = {},
 ): Promise<TheoryMinerStageResult> {
   const errors: string[] = [];
   const result: TheoryMinerStageResult = {
@@ -93,7 +95,7 @@ export async function runTheoryMinerStage(
           comments: commentsFromCrawlBundle(post.comments),
           symbolLexiconKeys,
           today,
-        });
+        }, { priority: options.priority ?? 'P2' });
 
         if (extracted === null) {
           // No key, or the per-run/daily cap is reserved out — this bundle

@@ -71,16 +71,11 @@ describe('engagementLeadsFromPosts', () => {
       maxLeadsPerGroup: 2,
     });
     expect(leads).toHaveLength(2);
-    expect(leads[0].locator).toContain('high heat post');
-    expect(leads[1].locator).toContain('medium heat post');
+    expect(leads.map((lead) => lead.reactions)).toEqual([42, 10]);
+    expect(leads.map((lead) => lead.num_comments)).toEqual([7, 3]);
   });
 
-  // Regression: the 80-char excerpt used to be a raw UTF-16 slice, so an
-  // emoji straddling the boundary was cut in half. The resulting lone
-  // surrogate is valid JS but cannot be UTF-8 encoded, and PostgREST
-  // rejected the whole insert with "Empty or invalid json" — which is
-  // exactly what killed a live re-ingest run. Every string on the row must
-  // survive a UTF-8 round trip.
+  // Regression: a raw UTF-16 slice once left a lone surrogate that PostgREST rejected.
   it('never splits an emoji across the excerpt boundary', () => {
     const text = `${'a'.repeat(79)}\u{1f3a4} the vault door in the new video`;
     const leads = engagementLeadsFromPosts([{ text, reactionCount: 9, commentCount: 2 }], {
@@ -93,7 +88,7 @@ describe('engagementLeadsFromPosts', () => {
       expect(Buffer.from(value, 'utf8').toString('utf8')).toBe(value);
       expect(value).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
     }
-    expect(leads[0].locator).toContain('\u{1f3a4}');
+    expect(JSON.stringify(leads[0])).not.toContain('\u{1f3a4}');
   });
 
   it('produces schema-shaped rows: platform facebook, kind hot_thread, url null', () => {
@@ -110,16 +105,18 @@ describe('engagementLeadsFromPosts', () => {
       status: 'new',
       redline_ok: true,
     });
-    expect(leads[0].locator).toBe("Taylor Swift\u2019s Vault — a post");
+    expect(leads[0].locator).toContain('Facebook post');
+    expect(leads[0]).toMatchObject({ reactions: 5, num_comments: 1 });
   });
 
-  it('truncates the locator excerpt to 80 chars with an ellipsis', () => {
+  it('stores only the bounded post identity hash in the locator', () => {
     const longText = 'x'.repeat(200);
     const leads = engagementLeadsFromPosts([{ text: longText, reactionCount: 0, commentCount: 0 }], {
-      groupName: 'G',
+      groupName: 'G'.repeat(100),
       groupSlug: 'g',
     });
-    expect(leads[0].locator).toBe(`G — ${'x'.repeat(80)}\u2026`);
+    expect([...leads[0].locator].length).toBeLessThanOrEqual(80);
+    expect(leads[0].locator).not.toContain(longText);
   });
 
   it('never quotes or names a group member in the built lead (§2.4 step 3)', () => {
@@ -214,6 +211,7 @@ describe('buildIngestResult', () => {
       expect(lead.locator).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
       expect(lead.context).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
       expect(lead.context).not.toMatch(/role=|aria-label|[<>]/);
+      expect(JSON.stringify(lead)).not.toMatch(/clowning|color palette|quiet week/i);
     }
   });
 
@@ -259,11 +257,11 @@ describe('permalink on the engagement lead', () => {
       groupName: 'G',
       exportedAt: new Date('2026-10-01T00:00:00Z'),
     });
-    const find = (needle: string) =>
-      engagementLeads.find((l: { locator: string }) => l.locator.includes(needle));
-    expect(find('best bridge').url).toBe('https://www.facebook.com/groups/1/posts/99/');
-    expect(find('no link on this one').url).toBeNull();
+    expect(engagementLeads.find((lead: { url: string | null }) => lead.url)?.url)
+      .toBe('https://www.facebook.com/groups/1/posts/99/');
+    expect(engagementLeads.some((lead: { url: string | null }) => lead.url === null)).toBe(true);
     expect(JSON.stringify(engagementLeads)).not.toContain('Jane Fan');
+    expect(JSON.stringify(engagementLeads)).not.toMatch(/best bridge|no link on this one/i);
   });
 
   it('backfills only a missing url on the existing row, never inserting', async () => {
@@ -271,7 +269,8 @@ describe('permalink on the engagement lead', () => {
     const builder: Record<string, unknown> = {
       update: (v: unknown) => (calls.push(`update ${JSON.stringify(v)}`), builder),
       eq: (k: string, v: string) => (calls.push(`eq ${k}=${v}`), builder),
-      is: (k: string, v: null) => (calls.push(`is ${k}=${v}`), Promise.resolve({ error: null })),
+      is: (k: string, v: null) => (calls.push(`is ${k}=${v}`), builder),
+      then: (resolve: (v: unknown) => unknown) => Promise.resolve(resolve({ error: null })),
     };
     const supabase = { from: vi.fn(() => builder) };
     const lead = {
@@ -280,30 +279,34 @@ describe('permalink on the engagement lead', () => {
       thread_id: null,
       locator: 'G — x',
       url: 'https://www.facebook.com/groups/1/posts/9/',
+      reactions: 4,
+      num_comments: 2,
     };
     await backfillLeadUrl(supabase, lead);
     expect(calls).toEqual([
-      'update {"url":"https://www.facebook.com/groups/1/posts/9/"}',
+      'update {"url":"https://www.facebook.com/groups/1/posts/9/","reactions":4,"num_comments":2}',
       'eq platform=facebook',
       'eq locator=G — x',
       'eq kind=hot_thread',
-      'is url=null',
+      'is thread_id=null',
+      'eq url=https://www.facebook.com/groups/1/posts/9/',
     ]);
     await backfillLeadUrl(supabase, { ...lead, url: null });
-    expect(supabase.from).toHaveBeenCalledTimes(1);
+    expect(supabase.from).toHaveBeenCalledTimes(2);
   });
 
   it('warns instead of throwing when the backfill fails, so the ingest loop continues', async () => {
     const builder: Record<string, unknown> = {
       update: () => builder,
       eq: () => builder,
-      is: () => Promise.resolve({ error: { message: 'boom' } }),
+      is: () => builder,
+      then: (resolve: (v: unknown) => unknown) => Promise.resolve(resolve({ error: { message: 'boom' } })),
     };
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     await expect(
       backfillLeadUrl(
         { from: () => builder },
-        { platform: 'facebook', kind: 'hot_thread', thread_id: null, locator: 'G — x', url: 'https://www.facebook.com/groups/1/posts/9/' },
+        { platform: 'facebook', kind: 'hot_thread', thread_id: null, locator: 'G — x', url: 'https://www.facebook.com/groups/1/posts/9/', reactions: 1, num_comments: 2 },
       ),
     ).resolves.toBeUndefined();
     expect(warn).toHaveBeenCalledOnce();

@@ -2,28 +2,89 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **20 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #136 🟢 [UPGRADE] Add the site's breaking-news unlock secret (~5 min, do it with #129)
+<!-- ha filed=2026-10-15 -->
+<!-- ha verify: variable-equals REVALIDATE_ORIGIN https://longlivets.com -->
+
+**Why:** The breaking-news path to the site (PR #5969) refuses every request until this secret exists. It stays off until go-live, so nothing is stuck; doing it alongside #129 shares one Vercel redeploy.
+**Steps:**
+1. In PowerShell run `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` and copy the output.
+2. Run `gh secret set REVALIDATE_SECRET --repo JW-Incorporated/swift2` and paste that value.
+3. In Vercel open project swift2-web → Settings → Environment Variables, add REVALIDATE_SECRET (Production) with the same value, then redeploy.
+4. Run `gh variable set REVALIDATE_ORIGIN --repo JW-Incorporated/swift2 --body https://longlivets.com`
+**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows REVALIDATE_SECRET.
+
+## #135 🟢 [UPGRADE] Let the action auto-closer see which secrets exist (~3 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** Action cards that check "is this secret set?" never close themselves: the auto-closer's token, OPS_FIXER_PAT, is not allowed to read the repo's secret list, so it skips them (it did with #124/#127 today).
+**Steps:**
+1. Open https://github.com/settings/tokens and open the classic token used as OPS_FIXER_PAT.
+2. Make sure the `repo` scope is ticked (it covers reading the secret names), then Update token.
+3. If you had to regenerate it, copy the new value, then run `gh secret set OPS_FIXER_PAT --repo JW-Incorporated/swift2` and paste it when asked.
+**Worked if:** The next secret-check card closes itself within an hour of the secret being set.
+
+## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5538 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (weekly scorecard: map legacy campaign prefixes to pillars — 9 of 13 measured posts read a…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5538 under stalled.
+
+## #133 🟡 [DECIDE] #5537 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5537 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (social gate: enforce the mediaEarnsItsPlace ≥4 floor in queue-schema (Tree's #5168 criter…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5537 under stalled.
+
+## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** You chose "no Anthropic API at all" (D1). But Mood Chat and Clownbot answer readers live from the website, and the website can't run your Claude subscription, so they still use the paid key, one model call per reader message.
+**Steps:**
+1. Decide: `keep` — these two stay on the paid key (small exception to D1, with a daily cap); `queue` — they answer later from the worker on your subscription (slower replies); `simple` — rule-based answers only, no model; `off` — turn both features off.
+**Worked if:** docs/decisions.md records your answer and the PM schedules the matching change.
+
+## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** The Facebook export now saves each post's link and reaction/comment counts, plus replies to your own comments (PR #5930). Your browser still runs the old extension and the old weekly task, so none of that is collected yet.
+**Steps:**
+1. In Chrome open chrome://extensions, find the Long Live Facebook harvester, click its Reload arrow.
+2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
+3. Tell the PM chat "fb done"; the PM checks the next export.
+**Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
+
+## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
+<!-- ha filed=2026-10-15 -->
+
+**Why:** Reddit blocks the home reader's browser (HTTP 403), so Reddit cards can't get score, comment counts or threads. Reddit's public .json pages need no key, login or account, but they touch the spirit of your no-Reddit-API-key rule, so it's your call.
+**Steps:**
+1. Decide: `yes` — RSS to find threads, plus anonymous .json for at most 20 top threads per run, slow and with an honest name; `no` — park the reader and keep the GitHub RSS scan (cards stay without counts).
+**Worked if:** docs/decisions.md records your answer and the P1-15 tracker row moves out of blocked.
 
 ## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
 
-**Why:** Push is off in production because CRON_SECRET is missing. On 2026-10-15 you said go, with a full notification design review first. The PM runs the review, lands its must-fix items, clears the stale backlog, then says ready.
+**Why:** Push is off in production because CRON_SECRET is missing. PUSH READY (2026-10-15): the review's must-fixes merged (#5891, #5916), the stale backlog is cleared (56 killed, 0 left), and a watchdog alerts if dispatch stops.
 **Steps:**
-1. Wait for the PM's "push ready" message in the Swift2 pipeline PM chat.
-2. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
-
-## #127 🟢 [UPGRADE] Make the backup Claude token a GitHub secret (~2 min)
-<!-- ha filed=2026-10-14 -->
-<!-- ha verify: secret-exists CLAUDE_CODE_OAUTH_TOKEN_BACKUP -->
-
-**Why:** You chose your co-founder's plan as the backup (2026-10-15). A Hermes session put its token in Swift2's local env file, but routines run in GitHub Actions, so it must also be a GitHub secret. The same command covers #124.
-**Steps:**
-1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (sets every key in that file; prints names, never values).
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP.
+1. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
+2. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
+3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
+**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
@@ -46,16 +107,6 @@
 2. Paste: "Did the Hermes Tree and Hermes Marjorie daily loops both run successfully in the last 3 days, and which model or token pool do they use? Answer yes or no per loop."
 3. Tell the Swift2 pipeline PM the answer in chat.
 **Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
-
-## #124 🔴 [BLOCKING] Make the Jev key a GitHub secret: TYPESAFE_API_KEY (~2 min)
-<!-- ha filed=2026-10-14 -->
-<!-- ha verify: secret-exists TYPESAFE_API_KEY -->
-
-**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. The key is in Swift2's local env file and passed a live test on 2026-10-15; scheduled jobs need it as a GitHub secret.
-**Steps:**
-1. In PowerShell, from your Swift2 project folder, run `gh secret set -f .env --repo JW-Incorporated/swift2` (also covers #127; prints names, never values).
-2. Optional: tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows TYPESAFE_API_KEY.
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->

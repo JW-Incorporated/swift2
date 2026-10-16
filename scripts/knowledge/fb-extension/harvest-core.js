@@ -1,3 +1,4 @@
+/* global URL */
 /* Long Live FB export — harvest core (FB-EXTENSION-1).
  *
  * A plain classic script: no import/export. It assigns pure functions onto globalThis.LLFB so the
@@ -238,6 +239,7 @@
         null;
       const reactions = maxCount(previous?.reactions, capture.reactions);
       const commentCount = maxCount(previous?.commentCount, capture.commentCount);
+      const permalink = previous?.permalink ?? capture.permalink ?? null;
       const candidate = {
         key,
         position,
@@ -247,6 +249,7 @@
         ignoreForAge: previous?.ignoreForAge || capture.ignoreForAge || false,
         reactions,
         commentCount,
+        permalink,
       };
       if (!previous || (candidate.html?.length ?? -1) > (previous.html?.length ?? -1))
         units.set(key, candidate);
@@ -257,6 +260,7 @@
           ignoreForAge: previous.ignoreForAge || capture.ignoreForAge || false,
           reactions,
           commentCount,
+          permalink,
         });
     }
 
@@ -673,6 +677,127 @@
     });
   }
 
+  function canonicalPostPermalink(href, groupId, baseUrl = 'https://www.facebook.com/') {
+    let url;
+    try {
+      url = new URL(String(href ?? '').replaceAll('&amp;', '&'), baseUrl);
+    } catch {
+      return null;
+    }
+    if (!/^(?:[a-z0-9-]+\.)*facebook\.com$/i.test(url.hostname)) return null;
+    const gid =
+      String(groupId ?? '').trim() || /\/groups\/([^/?#]+)/i.exec(url.pathname)?.[1] || null;
+    const postId =
+      /\/(?:posts|permalink)\/([\w.-]+)/i.exec(url.pathname)?.[1] ||
+      url.searchParams.get('story_fbid') ||
+      /(?:^|[.,])gm\.([\w.-]+)/i.exec(url.searchParams.get('set') ?? '')?.[1] ||
+      null;
+    if (!gid || !postId) return null;
+    return `https://www.facebook.com/groups/${encodeURIComponent(gid)}/posts/${encodeURIComponent(postId)}/`;
+  }
+
+  function stableDomPostId(unit, region = postRegion(unit)) {
+    for (const element of [unit, region.scope]) {
+      for (const name of ['data-post-id', 'data-story-id']) {
+        const value = element?.getAttribute?.(name)?.trim();
+        if (value && /^[\w.-]{1,128}$/.test(value)) return value;
+      }
+      const id = element?.getAttribute?.('id') ?? '';
+      const idFragment = /(?:^|[_-])(?:post|story)[_-]([\w.-]{1,128})$/i.exec(id)?.[1];
+      if (idFragment) return idFragment;
+    }
+    for (const anchor of region.scope.querySelectorAll('a[href]')) {
+      if (!region.inRegion(anchor) || /comment_id=/i.test(anchor.getAttribute('href') || '')) continue;
+      let url;
+      try {
+        url = new URL(anchor.getAttribute('href'), unit.ownerDocument.location?.href);
+      } catch {
+        continue;
+      }
+      const postId =
+        /\/(?:posts|permalink)\/([\w.-]+)/i.exec(url.pathname)?.[1] ||
+        url.searchParams.get('story_fbid') ||
+        /(?:^|[.,])gm\.([\w.-]+)/i.exec(url.searchParams.get('set') ?? '')?.[1];
+      if (postId && postId.length <= 128) return postId;
+    }
+    return null;
+  }
+
+  function postPermalink(unit, region, groupId, baseUrl) {
+    for (const anchor of region.scope.querySelectorAll('a[href]')) {
+      if (!region.inRegion(anchor) || /comment_id=/i.test(anchor.getAttribute('href') || '')) continue;
+      const canonical = canonicalPostPermalink(anchor.getAttribute('href'), groupId, baseUrl);
+      if (canonical) return canonical;
+    }
+    return null;
+  }
+
+  // Facebook leaves live timestamp hrefs as "/" until interaction. Focus and hover every visible
+  // post timestamp, then yield once so React can replace the lazy href before capture reads it.
+  async function resolveVisiblePermalinks(doc, win) {
+    const visible = visibleIn(win);
+    const feed = doc.querySelector('[role="feed"]');
+    const positioned = [...(feed ?? doc).querySelectorAll('[aria-posinset]')];
+    const units = positioned.length ? positioned : [...(feed?.children ?? [])];
+    let touched = 0;
+    for (const unit of units.filter(visible)) {
+      const region = postRegion(unit);
+      const message = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion);
+      for (const anchor of timestampLinks(region, message)) {
+        anchor.focus?.({ preventScroll: true });
+        for (const type of ['pointerover', 'mouseover', 'mouseenter'])
+          anchor.dispatchEvent(new win.MouseEvent(type, { bubbles: true }));
+        touched += 1;
+      }
+    }
+    if (touched) await new Promise((resolve) => win.setTimeout(resolve, 50));
+    return touched;
+  }
+
+  function activityLogEntries(doc, job = {}) {
+    const allowed = new Set((job.groupIds ?? []).map((value) => String(value).toLowerCase()));
+    const entries = [];
+    const seen = new Set();
+    for (const block of doc.querySelectorAll('[role="article"], [data-llfb-activity-entry]')) {
+      // This phrase is used only as an in-page ownership check. It never leaves the page.
+      if (!/\byou commented\b/i.test(block.textContent ?? '')) continue;
+      const commentAnchor = [...block.querySelectorAll('a[href*="comment_id="]')].find((a) => {
+        try {
+          const url = new URL(a.getAttribute('href'), doc.location?.href);
+          const gid = /\/groups\/([^/?#]+)/i.exec(url.pathname)?.[1]?.toLowerCase();
+          return !allowed.size || (gid && allowed.has(gid));
+        } catch {
+          return false;
+        }
+      });
+      if (!commentAnchor) continue;
+      const raw = new URL(commentAnchor.getAttribute('href'), doc.location?.href);
+      const postPermalink = canonicalPostPermalink(raw.href, null, doc.location?.href);
+      const commentId = raw.searchParams.get('comment_id');
+      if (!postPermalink || !commentId || seen.has(commentId)) continue;
+      seen.add(commentId);
+      let reactionCount = 0;
+      let replyCount = 0;
+      for (const el of block.querySelectorAll('[aria-label], span, [role="button"]')) {
+        const value = `${el.getAttribute('aria-label') ?? ''} ${el.textContent ?? ''}`;
+        const reactions = new RegExp(`${COUNT}\\s*(?:reactions?|likes?)\\b`, 'i').exec(value);
+        const replies = new RegExp(`${COUNT}\\s*repl(?:y|ies)\\b`, 'i').exec(value);
+        if (reactions) reactionCount = Math.max(reactionCount, parseCount(reactions[1]));
+        if (replies) replyCount = Math.max(replyCount, parseCount(replies[1]));
+      }
+      const time = block.querySelector('time[datetime], abbr[title]');
+      entries.push({
+        postPermalink,
+        commentUrl: `${postPermalink}?comment_id=${encodeURIComponent(commentId)}`,
+        commentId,
+        reactionCount,
+        replyCount,
+        commentedAt: time?.getAttribute('datetime') ?? time?.getAttribute('title') ?? null,
+      });
+    }
+    return entries;
+  }
+
   // Timestamp candidate strings in the order firstOwnTimestamp tries them: the permalink's
   // attributes (legacy), each date link's label (weekday stripped — relativeAgeMs reads
   // "September 30, 2026 at 3:15 PM") then its short text, then abbr/time (legacy).
@@ -759,7 +884,7 @@
 
   // Positive build of the uploaded html (see the block comment above). Returns the html string, or
   // null when the post/comment boundary cannot be established for this unit.
-  function buildPostHtml(unit, region = postRegion(unit)) {
+  function buildPostHtml(unit, region = postRegion(unit), canonicalPermalink = null) {
     const { message, body, reason } = postMessageVerdict(unit, region);
     if (!/^ok/.test(reason)) return null;
     if (body) for (const el of body.querySelectorAll(NEVER_COPIED)) el.remove();
@@ -767,6 +892,8 @@
     const doc = unit.ownerDocument;
     const out = doc.createElement('div');
     out.setAttribute('data-llfb-post', '');
+    const domPostId = stableDomPostId(unit, region);
+    if (domPostId) out.setAttribute('data-llfb-dom-post-id', domPostId);
     const part = (name) => {
       const el = doc.createElement('div');
       el.setAttribute('data-llfb-part', name);
@@ -788,10 +915,11 @@
     const permalink = [...region.scope.querySelectorAll(PERMALINK_SELECTOR)].find(
       (el) => region.inRegion(el) && !/comment_id=/i.test(el.getAttribute('href') || ''),
     );
-    if (permalink) {
+    if (canonicalPermalink || permalink) {
       const a = doc.createElement('a');
-      copyAttributes(permalink, a, ['href', 'aria-label', 'title']);
-      a.textContent = squash(permalink.textContent);
+      if (permalink) copyAttributes(permalink, a, ['aria-label', 'title']);
+      a.setAttribute('href', canonicalPermalink || permalink.getAttribute('href'));
+      a.textContent = permalink ? squash(permalink.textContent) : '';
       time.appendChild(a);
     }
     const dateLinks = timestampLinks(region, message).filter((a) => a !== permalink);
@@ -878,7 +1006,7 @@
   // Extension additions per unit: reactions, commentCount, and `html` is the sanitized clone
   // (sanitizeUnitElement) instead of the raw outerHTML. Every other field is computed exactly as
   // the original did, from the live element.
-  function captureVisibleUnits(doc, win) {
+  function captureVisibleUnits(doc, win, job = {}) {
     const visible = visibleIn(win);
     const feed = doc.querySelector('[role="feed"]');
     const positioned = [...(feed ?? doc).querySelectorAll('[aria-posinset]')];
@@ -899,6 +1027,12 @@
       const messageRoot =
         [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion) ?? null;
       const values = timestampValues(region, permalink, messageRoot);
+      const canonicalPermalink = postPermalink(
+        unit,
+        region,
+        job.groupId,
+        doc.location?.href || 'https://www.facebook.com/',
+      );
       const markers = [...unit.querySelectorAll('[aria-label], [role="heading"], strong')].map(
         (element) => element.getAttribute('aria-label') || element.textContent || '',
       );
@@ -907,18 +1041,21 @@
       );
       const position = Number(unit.getAttribute('aria-posinset')) || null;
       const { reactions, commentCount } = extractEngagement(unit, region);
+      const domPostId = stableDomPostId(unit, region);
       return {
         position,
         identity:
-          permalink?.getAttribute('href') ||
+          canonicalPermalink ||
           `${author?.getAttribute('aria-label') ?? ''}|${text.slice(0, 160)}`,
         textLength: text.length,
         hasAuthor: Boolean(author),
-        html: buildPostHtml(unit, region),
+        html: buildPostHtml(unit, region, canonicalPermalink),
         ignoreForAge,
         ownTimestamp: firstOwnTimestamp(values),
         reactions,
+        permalink: canonicalPermalink,
         commentCount,
+        domPostId,
       };
     });
     return { units, maxPosinset };
@@ -1156,7 +1293,9 @@
         ownTimestamp: unit.ownTimestamp ?? null,
         ignoreForAge: Boolean(unit.ignoreForAge),
         reactions: Number.isFinite(unit.reactions) ? unit.reactions : null,
+        reactionCount: Number.isFinite(unit.reactions) ? unit.reactions : null,
         commentCount: Number.isFinite(unit.commentCount) ? unit.commentCount : null,
+        permalink: typeof unit.permalink === 'string' ? unit.permalink : null,
       })),
       coverage: {
         harvestedCount: harvest.units.length,
@@ -1227,6 +1366,10 @@
     findActionRow,
     findAuthor,
     timestampLinks,
+    canonicalPostPermalink,
+    postPermalink,
+    resolveVisiblePermalinks,
+    activityLogEntries,
     timestampValues,
     buttonCount,
     buildPostHtml,

@@ -80,6 +80,11 @@ jobs:
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Tree — daily social draft"
+      # #5880: the posting lane is not the first thing starved by a weekly limit.
+      # `content` is the one value limit-gate.mjs lets through with no backup token
+      # (P1 skips unless CLAUDE_CODE_OAUTH_TOKEN_BACKUP is set) — same class as
+      # routine-tree-event-draft.yml and routine-vault-run.yml.
+      priority: content
       prompt_file: docs/agents/runner-prompts/tree-daily-draft.md
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"

@@ -55,7 +55,14 @@ Priority tiers drive governor behavior (§6). **T1 = rare + huge**, T2 = notable
 |---|---|---|---|---|
 | `baby_watch` | Baby Watch: official announcements only | On · Off | Off (opt-in only) | Fires **only** on a confirmed pregnancy or birth announcement: an official post, or a rep statement quoted by a tier-1 outlet, or two tier-1 outlets stating it as fact, plus a 10-minute re-check that the sources still say it. Never a rumor, countdown, clue or "watch" update; until confirmation, silence. The governor (§6) applies unchanged |
 
-**Personal-life news in any category** (pregnancy, engagement, marriage and comparable milestones) is confirmed-only under the same bar and 10-minute re-check before any push; no rumor, countdown or clue content (`docs/social/guardrails.md`, guardrail 4). Not built yet (Tidewatch P2-05); it goes live last, after this spec change is merged.
+**Personal-life news in any category** (pregnancy, engagement, marriage and comparable milestones) is confirmed-only under the same bar and 10-minute re-check before any push; no rumor, countdown or clue content (`docs/social/guardrails.md`, guardrail 4). Built inert (Tidewatch P2-05): the `baby_watch` category, tier 1 in `TIER_BY_CATEGORY`, and the web settings toggle plus inbox label exist behind `NEXT_PUBLIC_BABY_WATCH_ENABLED` (default off, nothing renders). Opt-in stores cadence `instant` (what the router fans out), opt-out stores `off`; a device with no row is opted out (migration `20261015050000_baby_watch_category.sql` pins the cadences). No producer emits the event; it goes live last, at P2-13's staged go-live. Go-live prep (P2-05b) is also built inert: `PUT /api/devices/:id/prefs` rejects a `baby_watch` pref (400, same "Unknown category" error) while `NEXT_PUBLIC_BABY_WATCH_ENABLED` is not `'true'` on the server, and the Android channel (T1 importance, name "Baby Watch: official announcements only") registers only when `EXPO_PUBLIC_BABY_WATCH_ENABLED` is `'true'` in the mobile build. The mute-action category already covers `baby_watch` via `ALL_NOTIFICATION_CATEGORIES`.
+
+**Baby Watch go-live checklist** (all must pass, in order):
+
+1. Set `NEXT_PUBLIC_BABY_WATCH_ENABLED=true` for web (server prefs route and settings UI) and `EXPO_PUBLIC_BABY_WATCH_ENABLED=true` for the mobile build, then redeploy and ship a new mobile build.
+2. Confirm the Android channel "Baby Watch: official announcements only" appears under the app's OS notification settings.
+3. Send one real staging push for `baby_watch` to an opted-in test device and confirm delivery, the mute action and the inbox label.
+4. Confirm the D5 content gate (P2-03) is in force: confirmed-only sourcing plus the 10-minute re-check, no rumor, countdown or clue content.
 
 ### Fun categories (all OFF by default, opt-in only)
 
@@ -88,6 +95,15 @@ Every push passes these gates, in order:
 4. **Daily cap** — default **max 3 instant pushes/day** per device (user adjustable 1–5 in settings as "Daily limit"). Overflow rolls into the next digest. Scheduled digests and fun notifications the user explicitly chose count separately (they asked for exactly those), but combined instant+scheduled can never exceed 6/day, hard ceiling.
 5. **Send-time sanity** — digests and fun notifications only fire between 8 AM–9 PM local.
 6. **Instant freshness** — an event more than 6 hours old, measured from `created_at`, never sends as Instant. For a device that held the event during its immediately preceding quiet-hours window, the six-hour clock restarts when that hold ends. Suppression does not remove the event from the in-app inbox. The router only loads events created in the preceding 30 hours, which covers the six-hour horizon plus overnight holds.
+
+**Retraction corrections.** A correction is not a preference category and is
+never broadcast: its event carries only the device ids proven by instant
+`deliveries` to have received the original story. It still passes every
+governor gate above
+and counts toward both the device's instant daily cap and the combined six-per-
+day hard ceiling. Event creation is disabled unless the owner enables the
+default-off `TIDEWATCH_CORRECTIONS_LIVE` repository variable; that switch is
+intentionally absent from the agent switch allowlist.
 
 **Kill window and freeze (owner, 2026-10-14, Tidewatch D4).** The gates above are unchanged; automatic breaking news gets no exception.
 - **5-minute kill window on every tier.** Every event, whatever its tier, waits 5 minutes (`available_at`) before it can send, so a false positive can be killed (`killed_at`) first. `scripts/notifications-kill.mjs` lists or kills pending events across every tier.
