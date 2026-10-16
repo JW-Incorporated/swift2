@@ -27,7 +27,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-12 | Worker Haiku 4.5 to Haiku 5.5 | codex | S | L-WORKER | - | dropped |  | 2026-10-14 |
 | P0-13 | Owner decision session (D1 to D9) | OWNER DECISION | S | L-OWNER | - | done | #5815 | 2026-10-14 |
 | P0-14 | Record decisions and draft the ruling PRs | claude-opus | S | L-DOCS | P0-13 | done | #5818, #5817 | 2026-10-14 |
-| P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | todo |  |  |
+| P0-15 | Jev key into a GitHub Actions secret | OWNER ACTION | S | L-OWNER | - | done |  | 2026-10-15 |
 | P0-16 | Hermes session: confirm Tree and Marjorie loops, decide #5484 go-live | hermes-session | S | L-HERMES | - | blocked |  |  |
 | P0-17 | Dashboard corrections and the Plan and Tracking tabs | executor-claude-sonnet | M | L-DASH | - | done |  | 2026-10-14 |
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  | 2026-10-14 |
@@ -357,6 +357,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 (Rewritten 2026-10-15 07:30 by the second PM session. A new session cannot see this session's scratchpad (Codex briefs and outputs, the notification audit): re-brief from the log entries above. Verify every item with `gh pr view <n> --json state` and `git log origin/<branch> -1` before trusting it. Worktrees live under C:\Users\Fourtys\AppData\Local\longlive-wt\<item>.)
 SCRATCHPAD of the 2nd PM session (Codex briefs codex/<item>.md, outputs codex/<item>.out.md, notifications-audit.md, worstcase.mts): C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\9c0be1e6-9b7c-4f5f-941c-4c7b50f0ad20\scratchpad (readable from any session).
+00000h. 20:00: P0-15 → done (secret set, HA #124). P0-22 Codex done (3e8c11b18: migrations-rerun check, 65 files applied twice, PASS on main; watchdog alert) → reviewer, who must prove the check catches the #5959 bug. ARCHITECT #14 consulted: which of P2-04/06/08/09/11 and P3-03/05 may be built inert before the gate (the owner asked for max parallelization; only 2 workers were busy).
 00000g. 19:56: #5885 → #5963, reviewer APPROVE (the committed queue deletions are limited to names already in posted/ or failed/; fail-closed on git errors; no shell on branch names), auto-merge armed.
 00000f. 19:55: HA auto-closer fix → #5961 (issue-closed accepts any CLOSED issue, not just COMPLETED; reviewer APPROVE, armed). HA #124/#127 closed on Joey's pasted gh output and #135 filed (OPS_FIXER_PAT secret-read access) → #5962 armed. #5885 poster rolling view pushed (0580605d6) → independent reviewer (social lane, Claude only). Still running: Codex P0-22, Codex flakes, the worktree cleanup grunt.
 00000e. 19:51: TIDEWATCH END TO END VERIFIED (run 38842323145, success): classify read=3 written=3 jev=3 fallback=1 (the Haiku escalation via the subscription wrapper worked), 0 unavailable. The first real shadow decisions are in watch_decision. The shadow window effectively starts 02:49Z 10-16 → 7 days = about 10-23 02:49Z, plus >= 500 decisions. #5960 (P2-05b) approved and armed.
