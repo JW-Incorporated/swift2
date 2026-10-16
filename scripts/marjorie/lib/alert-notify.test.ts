@@ -243,6 +243,8 @@ describe('wiring', () => {
         // Paging: site down, twice over.
         'Watchdog: prod smoke check failing',
         'Watchdog: Vercel production deploy failed',
+        // P0-22: a red migration run blocks every later production migration.
+        'Watchdog: db-migrate failed on main',
         // `human-action`: Facebook has no API for groups you do not run.
         'Watchdog: no FB group export closed in 9 days',
         // Not in the handler table -- it predates no row and gets the

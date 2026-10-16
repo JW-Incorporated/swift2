@@ -108,10 +108,11 @@ Logic in `scripts/marjorie/routine-failure-triage.mjs`. Skipped, no issue: a can
 | [`unowned-sweep.yml`](../.github/workflows/unowned-sweep.yml) | issue events + daily 15:20 | no | applies `needs-triage`, refreshes one ledger issue | [`ops/unowned-queues.md`](ops/unowned-queues.md) |
 | [`backup-restore-drill.yml`](../.github/workflows/backup-restore-drill.yml) | monthly 1st 06:20 + PR touching `supabase/migrations/**` | no | nothing (scratch DBs only, no prod access) | [`backup-restore.md`](backup-restore.md) |
 
-`watchdog.yml` is not one check but **fifteen steps**, and it is the only
+`watchdog.yml` is a set of independent checks, and it is the only
 thing watching Tier 2. In file order: brief exists → brief was mailed → alert
 founders → brief recovered → degraded answer propagation → **hourly prod smoke
-check** → scheduled-workflow cadence view → PRs stuck on failing/missing
+check** → Vercel production deploy → latest `db-migrate.yml` run on `main`
+(self-closing failure alert) → scheduled-workflow cadence view → PRs stuck on failing/missing
 checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → work-ownership →
 Karen post-repair confirmation → news-worker rotation confirmation →
 content-lane liveness (`vault/`, 36h) → Facebook export freshness →
