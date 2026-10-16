@@ -282,6 +282,15 @@ jobs:
             echo "social-ledger: branch does not exist yet — main's own social/posted|failed is the seed."
           fi
 
+      # Issue #5885: main's social/queue can lag the rolling state PR, so an
+      # item a recent run already posted or retired may still be queued here.
+      # Overlay the rolling tip's posted/failed (additive) and drop any queue
+      # file that is already posted/failed. No rolling branch -> main's view.
+      # Any git error fails this step, so the poster never runs on a guess.
+      - name: Read the rolling state tip (posted/failed) before posting
+        if: steps.freeze.outputs.frozen != 'true'
+        run: node scripts/social/rolling-view.mjs "${STATE_BRANCH_PREFIX}rolling"
+
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
       # "Failure surfacing" note in the header. Writes its run report to
       # $SOCIAL_POSTER_REPORT, which the commit step below puts in the PR.

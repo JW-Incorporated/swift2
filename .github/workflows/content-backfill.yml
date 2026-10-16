@@ -20,14 +20,15 @@
 # content-fix/7-llm-dedupe's separate concern. This workflow only ever
 # touches one row's own image/copy/quality fields and never deletes a row;
 # an item still failing after rewriting stays held (`redline_ok=false`,
-# `quality_hold_reason` set), never removed.
+# `quality_hold_reason` set), never removed. Retracted rows may receive factual
+# enrichment, but visibility writes require `retracted_at` to remain null.
 name: content-backfill
 
 on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Resolve/rewrite/re-screen every item but do not write current_item'
+        description: 'Resolve/rewrite/re-screen every eligible item but do not write current_item'
         type: boolean
         default: true
 
