@@ -94,6 +94,13 @@ describe('routine-marjorie-brief.yml delivery', () => {
   it('can read pull requests so it can render the page', () => {
     expect(deliver).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
   });
+  // #5982: inheriting the template's 40-turn default killed the 2026-10-16 brief
+  // at turn 41 (error_max_turns), so the note and this deliver job never ran.
+  it('passes an explicit turn ceiling above the template default to the agent job', () => {
+    const turns = Number(/^ {6}max_turns: (\d+)$/m.exec(brief)?.[1]);
+    expect(turns).toBeGreaterThan(41);
+    expect(turns).toBeLessThanOrEqual(100);
+  });
 });
 
 describe('routine-marjorie-status-reply.yml', () => {
