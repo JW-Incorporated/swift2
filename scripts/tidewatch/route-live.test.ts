@@ -67,7 +67,7 @@ function liveConfig() {
 
 async function runLive(store: ReturnType<typeof retryingStore>, handler: ReturnType<typeof vi.fn>) {
   return main([], { config: liveConfig(), store, env: { TIDEWATCH_ROUTER_LIVE: 'true' },
-    actionHandlers: { critical_fast_path: handler }, actionRunners: {}, log: vi.fn() });
+    actionHandlers: { critical_fast_path: handler }, actionRunners: {}, log: vi.fn(), warn: vi.fn() });
 }
 
 describe('Tidewatch live site action gates', () => {
@@ -124,12 +124,83 @@ describe('Tidewatch live site action gates', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('keeps shadow action_ref writes byte-identical with the router off', async () => {
+    const writes: Array<Record<string, unknown>> = [];
+    await routeDecisions({ decisions: [
+      criticalDecision('shadow-critical'),
+      { ...criticalDecision('shadow-merch'), class: 'merch_outfit' },
+      { ...criticalDecision('shadow-news'), class: 'normal_news' },
+    ], store: recordingStore(writes), config, live: false });
+    expect(writes).toMatchInlineSnapshot(`
+      [
+        {
+          "id": "shadow-critical",
+          "table": "watch_decision",
+          "values": {
+            "action_ref": "{"version":1,"class":"critical_breaking","impliedClass":"critical_breaking","state":"planned","actions":["fact_check","verify","critical_fast_path"]}",
+          },
+        },
+        {
+          "id": "shadow-merch",
+          "table": "watch_decision",
+          "values": {
+            "action_ref": "{"version":1,"class":"merch_outfit","impliedClass":"merch_outfit","state":"planned","actions":["outfit_matcher_queue"]}",
+          },
+        },
+        {
+          "id": "shadow-news",
+          "table": "watch_decision",
+          "values": {
+            "action_ref": "{"version":1,"class":"normal_news","impliedClass":"normal_news","state":"planned","actions":["normal_flow"]}",
+          },
+        },
+      ]
+    `);
+  });
+
+  it('finishes a live sweep before reporting a per-decision action failure', async () => {
+    const decisions = ['decision-1', 'decision-2', 'decision-3'].map(criticalDecision);
+    const refs = new Map<string, string>();
+    const store = {
+      loadPending: vi.fn(async () => ({ decisions,
+        timelines: new Map(decisions.map((item) => [item.watch_item.story_id, timeline])) })),
+      record: vi.fn(async (id: string, actionRef: string) => {
+        refs.set(id, actionRef);
+        return true;
+      }),
+      replace: vi.fn(async (id: string, _expectedRef: string, actionRef: string) => {
+        refs.set(id, actionRef);
+        return true;
+      }),
+    };
+    const handler = vi.fn(async ({ decision }: { decision: { id: string } }) => {
+      if (decision.id === 'decision-2') throw new Error('isolated failure');
+      return { published: true };
+    });
+    const warn = vi.fn();
+    await expect(main([], { config: liveConfig(), store,
+      env: { TIDEWATCH_ROUTER_LIVE: 'true' },
+      actionHandlers: { critical_fast_path: handler }, actionRunners: {},
+      log: vi.fn(), warn })).rejects.toThrow('1 Tidewatch decision action(s) failed');
+
+    expect(handler.mock.calls.map(([input]) => input.decision.id))
+      .toEqual(['decision-1', 'decision-2', 'decision-3']);
+    expect(JSON.parse(refs.get('decision-1') ?? '')).toMatchObject({ routerStatus: 'succeeded' });
+    expect(JSON.parse(refs.get('decision-2') ?? '')).toMatchObject({
+      routerStatus: 'retryable', attempts: 1,
+    });
+    expect(JSON.parse(refs.get('decision-3') ?? '')).toMatchObject({ routerStatus: 'succeeded' });
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(
+      /^\[tidewatch-route] warning: decision decision-2 .* retryable attempt 1\/3$/));
+  });
+
   it('releases a thrown action as retryable and retries it on the next run', async () => {
     const store = retryingStore();
     const handler = vi.fn()
       .mockRejectedValueOnce(new Error('temporary failure'))
       .mockResolvedValueOnce({ published: true });
-    await expect(runLive(store, handler)).rejects.toThrow('temporary failure');
+    await expect(runLive(store, handler)).rejects
+      .toThrow('1 Tidewatch decision action(s) failed');
     expect(JSON.parse(store.refs.get('decision-1') ?? '')).toMatchObject({
       routerStatus: 'retryable', attempts: 1,
       reason: 'critical_fast_path:threw:Error',
@@ -155,7 +226,8 @@ describe('Tidewatch live site action gates', () => {
     const store = retryingStore();
     const handler = vi.fn(async () => ({ published: false, reason: 'not_configured' }));
     for (let attempt = 1; attempt <= 3; attempt += 1) {
-      await expect(runLive(store, handler)).rejects.toThrow(/not_configured/);
+      await expect(runLive(store, handler)).rejects
+        .toThrow('1 Tidewatch decision action(s) failed');
     }
     expect(JSON.parse(store.refs.get('decision-1') ?? '')).toMatchObject({
       routerStatus: 'parked', attempts: 3,
