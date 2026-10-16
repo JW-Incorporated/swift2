@@ -6,6 +6,7 @@ import {
   dedupeWeeklyLimitIssues,
   failureHint,
   resultDetail,
+  sessionLimitInfo,
   weeklyLimitInfo,
   weeklyLimitIssueBody,
   weeklyLimitIssueUpdate,
@@ -158,6 +159,75 @@ describe('failureHint', () => {
     expect(failureHint({ result: 'Claude AI usage limit reached|1760000400000' })).toContain(
       'resets 2025-10-09T09:00:00.000Z',
     );
+  });
+});
+
+// Issue #5900: routine-marjorie-ask-response failed three times on 2026-10-15
+// because only the WEEKLY wording was treated as a limit; the five-hour session
+// window fell through to the generic failure branch and the run went red.
+describe('session limit outcome', () => {
+  const realLimitText = "You've hit your session limit · resets 6:30pm (UTC)";
+
+  it('passes with a warning for the exact production log text and extracts its reset', () => {
+    const r = decideOutcome(log({ subtype: 'success', is_error: true, result: realLimitText }), {
+      stepOutcome: 'failure',
+      now: new Date('2026-10-15T17:42:37.000Z'),
+    });
+    expect(r.pass).toBe(true);
+    expect(r.message).toContain('five-hour session window');
+    expect(r.message).toContain('resets 2026-10-15T18:30:00.000Z');
+    expect(r.sessionLimit).toEqual({
+      detectedAt: '2026-10-15T17:42:37.000Z',
+      resetAt: '2026-10-15T18:30:00.000Z',
+      parsed: true,
+    });
+  });
+
+  it('never writes the fleet-wide weekly-limit tracking issue', () => {
+    const r = decideOutcome(log({ subtype: 'success', is_error: true, result: realLimitText }), {
+      stepOutcome: 'failure',
+      now: new Date('2026-10-15T17:42:37.000Z'),
+    });
+    expect(r.weeklyLimit).toBeUndefined();
+    expect(weeklyLimitInfo({ result: realLimitText })).toBeNull();
+  });
+
+  it('bounds a session limit with no reset clause to five hours', () => {
+    expect(
+      sessionLimitInfo(
+        { result: 'hit your session limit' },
+        { now: new Date('2026-10-15T17:00:00.000Z') },
+      ),
+    ).toEqual({
+      detectedAt: '2026-10-15T17:00:00.000Z',
+      resetAt: '2026-10-15T22:00:00.000Z',
+      parsed: false,
+    });
+  });
+
+  it('keeps the limit prefix the failure-triage and claude-call classifiers match on', () => {
+    expect(
+      failureHint({ result: realLimitText }, { now: new Date('2026-10-15T17:42:37.000Z') }),
+    ).toMatch(/^plan usage for this account is exhausted/);
+  });
+
+  it('does not treat a successful result that quotes the text as a limit hit', () => {
+    const r = decideOutcome(
+      log({ subtype: 'success', is_error: false, num_turns: 42, result: realLimitText }),
+      { maxTurns: 40, stepOutcome: 'failure' },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.sessionLimit).toBeUndefined();
+    expect(r.message).toContain('42 turns');
+  });
+
+  it('leaves a plain failure red', () => {
+    const r = decideOutcome(
+      log({ subtype: 'error_during_execution', is_error: true, result: 'tool call exploded' }),
+      { stepOutcome: 'failure' },
+    );
+    expect(r.pass).toBe(false);
+    expect(r.sessionLimit).toBeUndefined();
   });
 });
 
