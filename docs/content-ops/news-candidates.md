@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 82
+
+## Taylor Swift's Name Linked to Shane Gillis Controversy
+
+- first seen: 2026-10-16 00:36 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses how Taylor Swift's name has surfaced in relation to the Shane Gillis controversy. Details on the nature of this connection are not provided.
+- sources:
+  - [unverified] Pajiba — https://news.google.com/rss/articles/CBMingFBVV95cUxNZ2tmYU1RTGhLX0ZXMXZ1MUdzU2h0WkFzdUpWcnpYT1RydVYzLXQ3b2otc3luelROYXdzbGRMWVNYNGRJdnRNQkhoVFNyd25wSEU1bFpsOHhaZ1U4eUloWEQ4cHBJOHVHTFJjTXBMRjNCXzZiUE51N1Nzdmw2SGpsZ1BSNEJLdFhqbFotLXdld1NlSmRJQW5CUThESmduQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Emmitt Smith Comments on Taylor Swift's Chiefs Appearances
+
+- first seen: 2026-10-16 00:36 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Emmitt Smith has spoken out regarding Taylor Swift's attendance at Kansas City Chiefs games, indicating that she can choose not to attend.
+- sources:
+  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPazMyUnhKc1hkZmZFRUtwWjd2MWNNRVdtdkVYbGo4U2hBbzdiY3hMb3RPdXpBTTBjODVnMGotMnVtUEdaS0l1a0h2d0ZQSjEzRGlLaHlWVUZLWTBRSVYxUDdpaUZ1bHlnaGpMR2RVNjBmQ0thQUE0VGV4WF9ZQTBhRGo2TlBBaDgwVVIwWU5KMDcxS050UmxYV2pNenZmRDd0OXlwNS1ma3lFX1h4T2cwTTRBRUxTYi02c2ZST1pMR1BQUFdCU182VnZfVkNfLTFmdktoYURMT3BJZ2Z4LUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kim Kardashian Aims to Outshine Taylor Swift as a WAG
+
+- first seen: 2026-10-16 00:36 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Kim Kardashian is looking to surpass Taylor Swift in the realm of WAGs (Wives and Girlfriends of athletes). This development highlights the competitive nature between the two prominent figures.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbm5FV3B4MHNNUlFHTlRsNVJFZkZ5MjVIMnFwYzBnUTgtNmZ5b2ZuLVN5V0lHTjZmUDVuVzVURWR4SmlOeHBsSDBueWFRWktmZ2gzbkh3SXBXeUliNnltT3ZSd3BlRjVhRm9VZ05SN2tmSkFTT0hIdXBrMHBIMEpRSE1nUzRKb2VRUjdLUXY4cFI3UUR1UDJSSnFwWE1DRXFKaDBNbmhMWUQ5RlU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## John Calipari Shares Nervous Encounter with Taylor Swift at NBA Finals
 
@@ -455,14 +479,6 @@ Stories: 79
 - sources:
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5GeDI2MmVpN2VRYXNBU2VQWDFSckd0bXRTWkFpNC04emxwNzRzUWtnd0FwSlVxXzF1S3AzOEtKN1ZUa3VHZ2xLVTlZdHlfaEZGODN4eG8xekFsQ29BZTJHNjBlTDM1TnM?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce appear in new intimate clip
-
-- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Analysis Examines Critique of Taylor Swift
 
 - first seen: 2026-10-13 19:51 UTC | category: music | importance: 5
@@ -522,6 +538,14 @@ Stories: 79
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxOZmNMdFRiMUhJTG4xNHdGNFBYdDRSWVpYWDJIcTN2dDVUM0JMbEdlYWdPOUpiMloyVWRTdDNFMElyclNNeW1lMVd6a3VSSGZDVThQQU1JNjllOTQ0cWtXTmliNjVsaGExMmJjYnBJQkR6THpsSEtuUThOQ2ZJby1tb1BTZFdEYmIxSzNSamVjWWRfYk1LVFZqSmdFMXpCdWdBWEVidFAtU3BvdzN2bnc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPNkRHRDBLZjhGLWpCa21wb3dQU3U2Smg4djlxcjhCYlphR3p5NlVkTURyTGMyT21PclcyZnhuNmRuNzZyb3M1S2FwZlRObmdleHI3UUdNM2NLc2kzbEFXVjA0OVEtZmxPeDRoWEpoVWhMS0FibTI1T3U4aWhkcUJZbUt6cDBpOW1xWjRyTmllWTk5a1lxQUF6bVk5dWZEUzl4bnFyU0ctUkVxdjhITkY1M2FFN1d5THZqM0toazUzTVc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPSElMZklJT0FRVnkxRWltUVk0SkhOelhBVU1OUTlwNVYyVnJkbzZ3V21NX2VkMkVmeGxaZS1kR0tvUHUtbnFqc2owbHdwXzdlMFRoSnl6aHdxSmo1OUlqbDJDVXFLTDlGZXJiUTdhMXZET2c2ZjNtaUkwZkg4UUpMbnRrSkdNUWs0ZEVLLVdjZnM0eTVsTHM4Q21IMXAtdzJDMXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce appear in new intimate clip
+
+- first seen: 2026-10-13 19:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A never-before-seen clip features Taylor Swift and Travis Kelce sharing an intimate moment, as reported by InStyle. The clip adds to the ongoing narrative surrounding their relationship.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcGtfZ1ZUTVZOS0VWZ0FoWUNub3g0T3ZnblBZVEJVSU1oUEpjdFJpenZ1RVA2TXJlbG5ILUstR0I2ZjJGdG5MZG9OM1FLUXZWZE44Skd5dWRPWHM5YktJd0tfQVlZUktJTlNvOGZuWDA1azlSdEwwMFAtQXV1U1ZwSmdmSUxFWVBMLWFac3NyREsxMDI4OS10QzB2dUd4bFlrUDZZOGZB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Remains Number One on Hot 100 Chart
 
