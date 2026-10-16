@@ -6,28 +6,7 @@ export interface JevUsage {
   estCostUsd: number;
 }
 
-const JEV_USAGE_LOG_TIMEOUT_MS = 2_000;
-
-export async function safelyLog(
-  logger: () => void | Promise<void>,
-  warn: (message: string) => void,
-): Promise<void> {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  try {
-    const timeout = new Promise<never>((_resolve, reject) => {
-      timer = setTimeout(
-        () => reject(new Error('Jev usage logging timed out')),
-        JEV_USAGE_LOG_TIMEOUT_MS,
-      );
-      (timer as ReturnType<typeof setTimeout> & { unref?: () => void }).unref?.();
-    });
-    await Promise.race([Promise.resolve().then(logger), timeout]);
-  } catch {
-    try { warn('Jev usage logging failed'); } catch { /* logging cannot fail the call */ }
-  } finally {
-    if (timer !== undefined) clearTimeout(timer);
-  }
-}
+export { safelyLog } from '../llm/usage.ts';
 
 export interface JevUsageRow {
   caller: string;

@@ -5,6 +5,8 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createClaudeCaller } from '../lib/claude-call.mjs';
 import { routedPost } from '../lib/discord-route.mjs';
+import { createClaudeUsageLogger } from '../lib/llm-usage.mjs';
+import { serviceClient } from '../lib/supabase.mjs';
 import { scoreItems } from './critic.mjs';
 import { DIMENSIONS } from './critic-prompts.mjs';
 
@@ -94,8 +96,12 @@ export async function postSample(picks, { env = process.env, fetchImpl = fetch }
 export async function runWeekly({
   call, callFactory = createClaudeCaller, env = process.env, fetchImpl = fetch,
   dir = POSTED_DIR, file = VOICE_JSON, now = new Date(), ratings = null, log = console.log,
+  usageClient = serviceClient(env),
 } = {}) {
-  const scoreCall = call ?? callFactory({ logUsage: usageLogger(env, log) });
+  const scoreCall = call ?? callFactory({
+    logUsage: usageLogger(env, log),
+    usageLogger: createClaudeUsageLogger(usageClient),
+  });
   const week = now.toISOString().slice(0, 10);
   const seed = Math.floor(now.getTime() / 604_800_000);
   const sample = pickSample(loadShipped(dir), SAMPLE_SIZE, seed);

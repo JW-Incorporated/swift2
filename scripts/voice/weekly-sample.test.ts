@@ -68,16 +68,36 @@ describe('inertness (architect ruling 14)', () => {
   it('constructs the only LLM call path with the usage logger', async () => {
     const { dir, file } = setup(1);
     const call = okCall();
-    const callFactory = vi.fn((options: { logUsage: (usage: object) => void }) => {
+    const insert = vi.fn(async () => ({ error: null }));
+    const callFactory = vi.fn((options: {
+      logUsage: (usage: object) => void;
+      usageLogger: (usage: object) => Promise<void>;
+    }) => {
       options.logUsage({ caller: 'voice-critic', input_tokens: 2, output_tokens: 1 });
+      void options.usageLogger({ caller: 'voice-critic', input_tokens: 2, output_tokens: 1 });
       return call;
     });
     const log = vi.fn();
-    await runWeekly({ callFactory, env: {}, log, dir, file });
+    await runWeekly({
+      callFactory,
+      env: {},
+      log,
+      dir,
+      file,
+      usageClient: { from: vi.fn(() => ({ insert })) },
+    });
     expect(callFactory).toHaveBeenCalledTimes(1);
     expect(callFactory.mock.calls[0][0].logUsage).toBeTypeOf('function');
+    expect(callFactory.mock.calls[0][0].usageLogger).toBeTypeOf('function');
     expect(log).toHaveBeenCalledWith(expect.stringContaining('"caller":"voice-critic"'));
+    expect(insert).toHaveBeenCalledWith(expect.objectContaining({ caller: 'voice-critic' }));
     expect(call).toHaveBeenCalled();
+  });
+
+  it('keeps Tidewatch Haiku escalation on the unconfigured wrapper path', () => {
+    const classify = read('scripts/tidewatch/classify.mjs');
+    expect(classify).toContain('deps.callClaude ?? createClaudeCaller();');
+    expect(classify).not.toMatch(/createClaudeUsageLogger|usageLogger/);
   });
 
   it('persists from main through the growth-snapshot commit mechanism', () => {

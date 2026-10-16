@@ -234,7 +234,8 @@ export function createJevClient(options: JevClientOptions = {}) {
   const warn = options.warn ?? console.warn;
 
   // logUsage errors are swallowed by design so telemetry cannot fail a Jev call.
-  const logSafely = (logger: () => void | Promise<void>) => safelyLog(logger, warn);
+  const logSafely = (logger: () => void | Promise<void>) =>
+    safelyLog(logger, warn, 'Jev usage logging failed');
 
   return {
     async ask(input: {

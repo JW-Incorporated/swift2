@@ -1,14 +1,11 @@
 import { createJevClient } from '@swift2/shared/jev/client';
 import { choiceQuestion, noulQuestion, scoreQuestion } from '@swift2/shared/jev/questions';
+import { createLlmUsageLogger } from './llm-usage.mjs';
 
 export { createJevClient, choiceQuestion, noulQuestion, scoreQuestion };
 
 export function createJevUsageLogger(client) {
-  if (!client) return undefined;
-  return async (row) => {
-    const { error } = await client.from('llm_usage').insert(row);
-    if (error) throw error;
-  };
+  return createLlmUsageLogger(client);
 }
 
 async function selftest() {

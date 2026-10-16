@@ -12,16 +12,19 @@ export function limitFailure(result) {
 }
 
 export function usageRow(input, token, usage) {
+  const tokenCount = (value) => typeof value === 'number' && Number.isFinite(value)
+    ? value : 0;
   return {
     caller: input.caller,
     provider: 'claude-subscription',
     model: input.model,
     token,
-    input_tokens: usage.inputTokens,
-    output_tokens: usage.outputTokens,
-    cache_read_tokens: usage.cacheReadInputTokens,
-    cache_creation_input_tokens: usage.cacheCreationInputTokens,
+    input_tokens: tokenCount(usage.inputTokens),
+    output_tokens: tokenCount(usage.outputTokens),
+    cache_read_tokens: tokenCount(usage.cacheReadInputTokens),
+    cache_creation_input_tokens: tokenCount(usage.cacheCreationInputTokens),
     calls: 1,
+    est_cost_usd: null,
   };
 }
 
