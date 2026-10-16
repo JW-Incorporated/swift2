@@ -64,6 +64,7 @@ jobs:
         if: steps.preflight.outputs.proceed == 'true'
         uses: ./.github/actions/setup-repo
         with:
+          fetch-depth: 0
           npm-ci: 'true'
 
       - name: Install Claude Code
