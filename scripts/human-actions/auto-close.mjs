@@ -106,8 +106,8 @@ export function evaluate(verify, { gh, repo }) {
         return pr.state === 'MERGED' ? 'pass' : 'fail';
       }
       case 'issue-closed': {
-        const issue = JSON.parse(gh(['issue', 'view', a, '--repo', repo, '--json', 'state,stateReason']));
-        return issue.state === 'CLOSED' && issue.stateReason === 'COMPLETED' ? 'pass' : 'fail';
+        const issue = JSON.parse(gh(['issue', 'view', a, '--repo', repo, '--json', 'state']));
+        return issue.state === 'CLOSED' ? 'pass' : 'fail';
       }
       case 'workflow-green': {
         const runs = JSON.parse(gh(['run', 'list', '--workflow', a, '--repo', repo, '--branch', 'main', '--status', 'completed', '--limit', '20', '--json', 'conclusion,event']) || '[]');
