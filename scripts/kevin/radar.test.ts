@@ -203,6 +203,7 @@ describe('routine-kevin-radar workflow', () => {
   it('always falls through to the unchanged agent when deterministic handling is not true', () => {
     expect(workflow).toContain('node scripts/kevin/radar.mjs');
     expect(workflow).toContain('TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}');
+    expect(workflow).toContain('SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}');
     expect(workflow).toContain("if: always() && needs.deterministic.outputs.handled != 'true'");
     expect(workflow).toContain('prompt_file: docs/agents/runner-prompts/kevin-stream3-radar.md');
     expect(workflow).toContain('model: claude-haiku-5-5');
