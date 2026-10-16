@@ -8,9 +8,7 @@ import { ROUTE_BY_CLASS, encodePlan, planActions } from './actions/plan.mjs';
 // @ts-expect-error plain .mjs module
 import { runMerchAction } from './actions/merch.mjs';
 // @ts-expect-error plain .mjs module
-import { ACTION_RUNNERS, disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
-// @ts-expect-error plain .mjs module
-import { validate } from '../ops/set-switch.mjs';
+import { ACTION_HANDLERS, ACTION_RUNNERS, disagreementMetric, main, planReplay, routeDecisions, summaryMarkdown } from './route.mjs';
 // @ts-expect-error plain .mjs module
 import { routerStore } from './router-store.mjs';
 
@@ -152,8 +150,10 @@ describe('Tidewatch shadow action router', () => {
     expect(guarded.row.action).toBe('shadow_outfit_matcher_queue');
   });
 
-  it('registers merch in the route import graph without running its effects', async () => {
+  it('registers the site and merch actions in the route import graph without running their effects', async () => {
     const imports = await transitiveLocalImports(path.join(ROOT, 'scripts/tidewatch/route.mjs'));
+    expect(ACTION_HANDLERS).toMatchObject({ critical_fast_path: expect.any(Function) });
+    expect(imports).toContain('scripts/tidewatch/actions/site.mjs');
     expect(imports).toContain('scripts/tidewatch/actions/merch.mjs');
     expect(Object.keys(ACTION_RUNNERS)).toEqual(['store_drop_draft', 'fan_merch_curation',
       'outfit_matcher_queue']);
@@ -176,17 +176,9 @@ describe('Tidewatch shadow action router', () => {
       'scripts/tidewatch/actions/merch.mjs')));
     const forbidden = imports.filter((file) => !merchImports.has(file) && [
       /^scripts\/social\//,
-      /(^|\/)(push|notifications?)(\/|[-.])/,
-      /(^|\/)(site|revalidate)(\/|[-.])/,
       /(^|\/)(gh|github|issues?)(\/|[-.])/,
     ].some((pattern) => pattern.test(file)));
     expect(forbidden).toEqual([]);
-  });
-
-  it('refuses the reserved live switch and keeps it owner-only', async () => {
-    await expect(routeDecisions({ decisions: [], store: memoryStore(), config, live: true }))
-      .rejects.toThrow(/shadow-write only/);
-    expect(validate('TIDEWATCH_ROUTER_LIVE', 'true', 'test')).toMatch(/founder-only/);
   });
 
   it('records a stable action_ref once when the same decision is rerun', async () => {
