@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Exploring Negative Reactions Among Swifties to New Song
+
+- first seen: 2026-10-16 17:51 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: An analysis looks into why some Taylor Swift fans are expressing negativity towards her new song 'Cleveland.' The piece discusses broader themes of fandom behavior and how love can intertwine with frustration.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zv4sxg8?at_medium=RSS&at_campaign=rss
 
 ## Bad Gyal Declines $3 Million Offer to Collaborate with Taylor Swift
 
@@ -123,14 +131,6 @@ Stories: 86
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijwFBVV95cUxPVW90WDZUUldTTzNuVXgtcHFSckI5cFFaR3RudXpjanZIOXdNQ2JBejNlYmppMDIyUjA3dkNrWkZhQ1FFdzlzNnNna1pVbFA3U1dEVUhnWHFJUWNkaEJlRzZwWTBWd1ZfT29pdnBLcFBoQ29iRkRDU05UM04xVkV1cUdGVFRqWERYMGprdEZhZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift faces claims of chart-blocking Olivia Rodrigo with new release
-
-- first seen: 2026-10-16 12:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been accused of chart-blocking Olivia Rodrigo following the release of new versions of her song 'Patient Zero'. The claims have surfaced amid ongoing discussions in the music industry about competition between artists.
-- sources:
-  - [unverified] The Express Tribune — https://news.google.com/rss/articles/CBMivgFBVV95cUxNZTFhVG1EZjRKbGNNTnRYc0JNeDFISWUxQy15elNwbkFSYWtMVGZuQnd1dWE1bDdnOW9OOU1Yd1NZWnY5RHlaZnFRYkVJUkRHTkt1MjNXSm04dGZaNWprcTZLQ290R3VhMFpuQ0c0UmFmdzBjQlFjZHRFVGNzRXV4WnM5YmR0Q0l0RmR6Q0xEZHNwUkRnYjBUTXVLZU5xYXA4cTBJWERrLWJZM24zMUxrbUdCM2MzdHdseU9sRk1n?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Surprise-Drops New Music After Olivia Rodrigo's Release
 
 - first seen: 2026-10-16 12:46 UTC | category: release | importance: 7
@@ -138,6 +138,14 @@ Stories: 86
 - summary: Taylor Swift has released new music just hours after Olivia Rodrigo's latest project, reigniting discussions about chart competition amongst female artists. The timing has prompted mixed reactions regarding the concept of chart-blocking.
 - sources:
   - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBkelY2TGNvdEp5aTNmYUZHSktzVGxqTVRHakRKR3kwcmgzUUlqWkRpUjlsRjVOSzlybXJlemt2ZTZDU1lMWWxISXZhVERhUlltem1vdVhRd2FtSThnNHdWX1BkQzN2VTlsM0xnLXBzd0NXRF95R0poTWV1bzNfTFN6Mm1sMTJnXzNGbng4SVoxZlFlcU8tcWRlQng?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift faces claims of chart-blocking Olivia Rodrigo with new release
+
+- first seen: 2026-10-16 12:46 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been accused of chart-blocking Olivia Rodrigo following the release of new versions of her song 'Patient Zero'. The claims have surfaced amid ongoing discussions in the music industry about competition between artists.
+- sources:
+  - [unverified] The Express Tribune — https://news.google.com/rss/articles/CBMivgFBVV95cUxNZTFhVG1EZjRKbGNNTnRYc0JNeDFISWUxQy15elNwbkFSYWtMVGZuQnd1dWE1bDdnOW9OOU1Yd1NZWnY5RHlaZnFRYkVJUkRHTkt1MjNXSm04dGZaNWprcTZLQ290R3VhMFpuQ0c0UmFmdzBjQlFjZHRFVGNzRXV4WnM5YmR0Q0l0RmR6Q0xEZHNwUkRnYjBUTXVLZU5xYXA4cTBJWERrLWJZM24zMUxrbUdCM2MzdHdseU9sRk1n?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce Calls for Halloween Songs from Taylor Swift
 
