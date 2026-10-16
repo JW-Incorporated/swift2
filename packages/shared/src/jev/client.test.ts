@@ -121,7 +121,7 @@ describe('Jev client', () => {
   });
 
   it('keeps missing usage invalid while logging zero token counts and a nullable cost', async () => {
-    const rows: unknown[] = [], withoutUsage = { ...SUCCESS_FIXTURE, usage: undefined };
+    const rows: unknown[] = [], withoutUsage = { ...SUCCESS_FIXTURE, usage: undefined } as unknown as typeof SUCCESS_FIXTURE;
     const client = createJevClient({
       apiKey: 'fixture-key', fetchImpl: async () => jsonResponse(withoutUsage),
       usageLogger: (row) => { rows.push(row); },

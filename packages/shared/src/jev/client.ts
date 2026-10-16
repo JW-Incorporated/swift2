@@ -5,8 +5,8 @@ import {
   usageRowFromResponse,
   type JevUsage,
   type JevUsageRow,
-} from './usage';
-export type { JevUsage, JevUsageRow } from './usage';
+} from './usage.ts';
+export type { JevUsage, JevUsageRow } from './usage.ts';
 export const JEV_MODEL = 'jev-1.13.0';
 export const JEV_ENDPOINT = 'https://api.typesafe.ai/v1/systemone';
 export const JEV_INPUT_USD_PER_MILLION_TOKENS = 0.042;
