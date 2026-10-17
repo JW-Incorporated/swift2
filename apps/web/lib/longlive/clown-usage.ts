@@ -18,6 +18,7 @@
  */
 
 import { MoodUsage as ClownUsage } from './mood-usage';
+import { resolveWebDailyCap } from './web-llm-cap';
 
 /** Composes/day, enforced globally via the DB gate — see header. PENDING
  * Wyatt's ratification. */
@@ -33,4 +34,4 @@ export const CLOWN_GLOBAL_SCOPE = 'clown-chat-global';
 export { ClownUsage };
 
 /** Process-wide singleton, shared by every request a warm instance serves. */
-export const clownUsage = new ClownUsage(CLOWN_DAILY_CAP);
+export const clownUsage = new ClownUsage(() => resolveWebDailyCap(CLOWN_DAILY_CAP));
