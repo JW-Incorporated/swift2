@@ -75,7 +75,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-12c | kevin-radar text fix: the high-confidence 'other' + 'actionable' path writes "needs Wyatt" (project rule: route nothing to Wyatt; say Joey or "a founder"); also strip @mentions from quoted text. MUST land before TYPESAFE_API_KEY reaches Actions (HA #124) | executor-claude-sonnet | S | L-ROUTINES-B | P1-12b | done | #5908 | 2026-10-15 |
 | P1-13 | Codex worker on joey2023 and Austin retirement | codex | L | L-HOME-CODEX | P0-14 | dropped |  | 2026-10-14 |
 | P1-14 | Community engagement columns and outcome table | codex | S | L-DB | P1-02 | done | #5864 | 2026-10-15 |
-| P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | in-progress |  |  |
+| P1-15 | Home Reddit reader on joey2023 | codex | L | L-HOME-REDDIT | P1-14, P0-14 | review | #6035 |  |
 | P1-16 | Facebook export: permalinks, engagement counts, activity log, daily cadence | codex | L | L-FBEXT | P0-14, P1-14 | done | #5930 | 2026-10-15 |
 | P1-16b | FB export LOWs: salt the locator hash (with an in-place upgrade of old locators), a discriminator for same-text posts with no timestamp, the activity timestamp written only after a successful pass | codex | S | L-FBEXT | P1-16 | done | #5935 | 2026-10-15 |
 | P1-17 | Better Reddit and Facebook cards | executor-claude-sonnet | S | L-COMMUNITY | P1-10, P1-15 | todo |  |  |
