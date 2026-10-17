@@ -10,6 +10,8 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 // @ts-expect-error — implementation is plain .mjs
 import { run } from './social-approval-poll.mjs';
+// @ts-expect-error — implementation is plain .mjs
+import { buildApprovalPrompt } from './approval-prompt.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { makeFakeGit as makeFakeGitAt, type Tree } from './lib/fake-git.test-helper';
 import { PENCIL_UNSUPPORTED_ON_HEADER } from './lib/feedback.mjs';
@@ -1645,6 +1647,158 @@ describe('Bots v2 W2 — one approval post covers the whole pair', () => {
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()), checkDraftImpl: vi.fn(() => ({ ok: false, findings: ['length: too long'] })) });
     expect(posts.length).toBeGreaterThan(0);
     for (const p of posts) expect(p.body.flags).toBe(4);
+  });
+});
+
+describe('#5989 minimal approval post — formatter output is what the poll parses', () => {
+  const IG_FILE = '2026-09-20-example-ig.json';
+  const IG_REL = `social/queue/${IG_FILE}`;
+  const X_REL = `social/queue/${QUEUE_FILE}`;
+  const POST_ID = '555555555555555555';
+  const campaign = 'mood:chip-poll:2026-09-b';
+  const X_ITEM = { platform: 'x', body: 'x half', scheduledAt: '2026-09-20T00:00:00Z', campaign };
+  const IG_ITEM = { platform: 'instagram', body: 'ig half', scheduledAt: '2026-09-20T00:00:00Z', campaign };
+
+  /** The webhook message exactly as Discord returns it: content, embeds, webhook_id. */
+  function minimalPost() {
+    const drafts = [
+      { file: X_REL, ...X_ITEM, media: ['/social/library/photos/a.jpg'] },
+      { file: IG_REL, ...IG_ITEM, media: ['/social/library/photos/b.jpg'] },
+    ];
+    const [msg] = buildApprovalPrompt({ number: PR_NUMBER, url: 'u' }, drafts, { headSha: HEAD_SHA, repo: REPO }) as Array<{ content: string; embeds: unknown[] }>;
+    return { id: POST_ID, webhook_id: '999999999999999999', timestamp: '2026-09-19T00:00:00Z', content: msg.content, embeds: msg.embeds };
+  }
+
+  const readItem = async (file: string) => JSON.parse(await readFile(path.join(root, 'social', 'queue', file), 'utf8'));
+  const bothFiles = () => ({ files: [{ path: X_REL }, { path: IG_REL }] });
+
+  it('the visible content carries no ref at all, only the first embed url does', () => {
+    const post = minimalPost();
+    expect(post.content).not.toContain('ref');
+    expect(post.content).not.toContain(HEAD_SHA);
+    const embed = post.embeds[0] as { url: string; footer?: unknown; title?: unknown };
+    expect(embed.footer).toBeUndefined();
+    expect(embed.title).toBeUndefined();
+    expect(embed.url).toBe(`https://github.com/JW-Incorporated/swift2/pull/${PR_NUMBER}?ref=${HEAD_SHA}&files=${encodeURIComponent(`${X_REL},${IG_REL}`)}`);
+  });
+
+  it('a legacy footer ref (previous round) still stamps both halves', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+    const legacy = { ...minimalPost(), embeds: [{ footer: { text: `ref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL},${IG_REL}` } }] };
+    const { impl: baseImpl } = makeFetchImplByMessage([legacy], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect((await readItem(QUEUE_FILE)).approval?.by).toBe(APPROVER);
+    expect((await readItem(IG_FILE)).approval?.by).toBe(APPROVER);
+  });
+
+  it('a legacy last-content-line ref still binds', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    const legacy = { ...refMessage({ id: POST_ID, sha: HEAD_SHA, file: X_REL }), embeds: [] };
+    const { impl: baseImpl } = makeFetchImplByMessage([legacy], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh({ files: [{ path: X_REL }] });
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect((await readItem(QUEUE_FILE)).approval?.by).toBe(APPROVER);
+  });
+
+  describe('an unparseable prompt from our webhook', () => {
+    const garbled = () => ({ ...minimalPost(), embeds: [{ url: `https://github.com/JW-Incorporated/swift2/pull/${PR_NUMBER}?ref=nothex&files=x` }] });
+    afterEach(() => { process.exitCode = 0; });
+
+    it('fails the job loudly when an owner reacted', async () => {
+      process.exitCode = 0;
+      const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const { impl: baseImpl } = makeFetchImplByMessage([garbled()], { [POST_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh } = makeExecGh(bothFiles());
+      const { impl: execGit } = makeExecGit();
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+      expect(process.exitCode).toBe(1);
+      expect(errSpy.mock.calls.some(([m]) => String(m).includes('no parseable ref'))).toBe(true);
+      errSpy.mockRestore();
+    });
+
+    it('only warns (exit stays 0) when nobody reacted', async () => {
+      process.exitCode = 0;
+      const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const { impl: baseImpl } = makeFetchImplByMessage([garbled()], { [POST_ID]: {} });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh } = makeExecGh(bothFiles());
+      const { impl: execGit } = makeExecGit();
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+      expect(process.exitCode).toBe(0);
+      expect(errSpy.mock.calls.some(([m]) => String(m).startsWith('::warning::') && String(m).includes('no parseable ref'))).toBe(true);
+      errSpy.mockRestore();
+    });
+  });
+
+  it('an owner ✅ stamps BOTH halves and merges', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+    const { impl: baseImpl } = makeFetchImplByMessage([minimalPost()], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    for (const file of [QUEUE_FILE, IG_FILE]) {
+      const item = await readItem(file);
+      expect(item.approval?.by).toBe(APPROVER);
+      expect(item.approval?.message).toBe(POST_ID);
+      expect(approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
+    }
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
+  });
+
+  it('an owner ❌ rejects BOTH halves and stamps nothing', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+    const { impl: baseImpl } = makeFetchImplByMessage([minimalPost()], { [POST_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(2);
+    expect((await readLedgerLines()).every((r) => r.action === 'reject')).toBe(true);
+    expect((await readItem(QUEUE_FILE)).approval).toBeUndefined();
+  });
+
+  it('a ✅ or ❌ from someone who is not an owner is ignored', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+    const { impl: baseImpl } = makeFetchImplByMessage([minimalPost()], {
+      [POST_ID]: { check: [() => jsonResponse([{ id: NON_APPROVER_SNOWFLAKE }])], cross: [() => jsonResponse([{ id: NON_APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect((await readItem(QUEUE_FILE)).approval).toBeUndefined();
+    expect((await readItem(IG_FILE)).approval).toBeUndefined();
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(0);
+  });
+
+  it('a footer that is not an exact ref line binds nothing', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    const bogus = { ...minimalPost(), embeds: [{ footer: { text: `see ref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL}` } }] };
+    const { impl: baseImpl } = makeFetchImplByMessage([bogus], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh({ files: [{ path: X_REL }] });
+    const { impl: execGit } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect((await readItem(QUEUE_FILE)).approval).toBeUndefined();
   });
 });
 
