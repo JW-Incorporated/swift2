@@ -57,6 +57,7 @@ import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
 import { routeForPlatform } from '../lib/discord-route.mjs';
 import { buildDraftBox } from './reply-card.mjs';
 import { facebookLeadUrl } from './awareness-fb-link.mjs';
+import { skipReason } from './card-signals.mjs';
 import {
   COMMUNITY_WEBHOOK_USERNAME,
   buildBatchHeader,
@@ -244,7 +245,7 @@ export async function fetchLeadsToMail(
   let query = supabase
     .from('engagement_lead')
     .select(
-      'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status',
+      'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status, score, num_comments, reactions, thread_created_at',
     )
     .eq('status', 'drafted')
     .not('draft', 'is', null)
@@ -257,7 +258,7 @@ export async function fetchLeadsToMail(
   // W3: a lead with no drafted reply text is not sendable (nothing to copy/paste);
   // it stays status='drafted' for the Answerer to fill, and never eats a slot.
   const ordered = orderLeads(data ?? []);
-  const sendable = ordered.filter(hasDraft);
+  const sendable = ordered.filter((lead) => hasDraft(lead) && !skipReason(lead));
   if (onSkipped && sendable.length < ordered.length) onSkipped(ordered.length - sendable.length);
   return sendable.slice(0, limit);
 }

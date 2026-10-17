@@ -14,8 +14,22 @@ import {
   TREE_AVATAR_URL,
 } from './discord-delivery.mjs';
 import { facebookFallbackLine } from './awareness-fb-link.mjs';
-import { oneLine, safe, urlLine } from './reply-opportunity.mjs';
+import { escapeLinkBrackets, oneLine, safe, urlLine } from './reply-opportunity.mjs';
 import { REACTION_FOOTER, REPLY_TRIM_NOTE, buildDraftBox } from './reply-card.mjs';
+import { signalParts } from './card-signals.mjs';
+
+const FB_NAME_SEPARATOR = ' — ';
+
+/** `r/Sub` for Reddit; the group name for Facebook (locator prefix, else the community slug). */
+function communityLabel(lead) {
+  if (lead.platform === 'reddit')
+    return lead.community ? `r/${oneLine(safe(lead.community), 60)}` : null;
+  const locator = String(lead.locator ?? '');
+  const cut = locator.indexOf(FB_NAME_SEPARATOR);
+  const name =
+    cut > 0 ? locator.slice(0, cut) : String(lead.community ?? '').replace(/^facebook:/, '');
+  return escapeLinkBrackets(oneLine(safe(name), 60)) || null;
+}
 
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
 
@@ -90,16 +104,38 @@ export function buildAwarenessReplyText(lead) {
  * (buildAwarenessReplyText). Reddit leads keep `ref: reddit · <id>` as the
  * true last line, same as reply opportunities.
  */
-export function buildAwarenessMessage(lead) {
+export function buildAwarenessMessage(
+  lead,
+  { position = null, total = null, now = new Date() } = {},
+) {
   const isReddit = lead.platform === 'reddit';
   const postId = oneLine(lead.id, 100);
   const refLine = isReddit && postId ? `ref: reddit · ${postId}` : null;
+  const permalink = lead.url ? urlLine(cleanThreadUrl(lead.url)) : null;
   const link =
-    (lead.url && urlLine(cleanThreadUrl(lead.url))) ||
+    permalink ||
     (lead.platform === 'facebook' && facebookFallbackLine(lead)) ||
     oneLine(safe(lead.locator), 160);
+  // The fallback link line already carries the group and excerpt, so the
+  // title and group name only head a card that has a real permalink.
+  const title =
+    permalink && lead.title ? `**${escapeLinkBrackets(oneLine(safe(lead.title), 150))}**` : null;
+  const context = [
+    permalink ? communityLabel(lead) : null,
+    position && total && total > 1 ? `#${position}/${total}` : null,
+    ...signalParts(lead, now),
+  ]
+    .filter(Boolean)
+    .join(' · ');
   const { trimmed } = buildAwarenessReplyText(lead);
-  const text = [link, ...(trimmed ? [REPLY_TRIM_NOTE] : []), REACTION_FOOTER, refLine]
+  const text = [
+    title,
+    context || null,
+    link,
+    ...(trimmed ? [REPLY_TRIM_NOTE] : []),
+    REACTION_FOOTER,
+    refLine,
+  ]
     .filter(Boolean)
     .join('\n');
   if (text.length > DISCORD_MESSAGE_LIMIT)
@@ -154,13 +190,25 @@ export function buildMultipartPayload({
  */
 export function selectBatch(
   leads,
-  { perSubRemaining, deliveredToday = 0, batchCap = 7, dailyCap = 20, rank, tierOf },
+  {
+    perSubRemaining,
+    deliveredToday = 0,
+    batchCap = 7,
+    dailyCap = 20,
+    rank,
+    tierOf,
+    heatOf = () => null,
+  },
 ) {
   const room = Math.max(0, Math.min(batchCap, dailyCap - deliveredToday));
+  // Higher engagement heat first; a lead with no signals ranks after one with
+  // them and otherwise keeps the oldest-first order.
+  const heat = (lead) => heatOf(lead) ?? -1;
   const ordered = [...leads].sort(
     (a, b) =>
       rank(a.image_comments) - rank(b.image_comments) ||
       tierOf(a) - tierOf(b) ||
+      heat(b) - heat(a) ||
       String(a.created_at ?? '').localeCompare(String(b.created_at ?? '')),
   );
   const used = {};
