@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 80
+
+## Taylor Swift and Travis Kelce Face Questions After SNL Video Controversy
+
+- first seen: 2026-10-17 01:31 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Amid a recent video controversy involving Shane Gillis on SNL, Taylor Swift and Travis Kelce are reportedly facing questions regarding their relationship.
+- sources:
+  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPYk1EZXhxVEFTV0xrSkd1ZUxCVzVOYlg3MDVpanZYT0hXNGkzX1I0Z3gxZ0RULVVuckFXelhsSFFnTHctcW1FekZMaTcyUUtRWm9LVzBfYzE2UHM5YXZ5OEJhNm9XaWZTbXcxakQ5bzFQRnlEWG9hbFdDMHdsQkkzdlBrLUdYRWZMMGFFSEhUVEU3dVBwSVhZVWFqS2dNMWg1czRyWVNuUF92NkdabWF6bEcyOTZUY3dVeWhjN3dvcWhCVHFfZGlhM0tTTDJhcE1wbTBrcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Appears in Taylor Swift's 'Patient Zero' Music Video
 
@@ -115,6 +123,14 @@ Stories: 89
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zv4sxg8?at_medium=RSS&at_campaign=rss
 
+## Taylor Swift and Travis Kelce Encounter Issue with Ohio Residence
+
+- first seen: 2026-10-16 16:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing an unexpected problem regarding their Ohio home. Details about the nature of the issue have not been disclosed in the article.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxObUZYay0yTmRYWjZVNnVRazAydEN3a3dnWnJqeDdYR3JwV3Bjek4yc1gzRzNVUnZQR2Vxd1B0RnhFd3p6N1A5WVJUSlFvcmttMlFoVXNzRGhQWjFiMDhPelhFWjU5LU9jSEYzT2taSHk3aVI4YllRVm1tMVRjUUlzc3VlMmt6akpDMnhMTkxVVzd4a0NGbk5tajZkcEQ1eFJWSEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Bad Gyal Declines $3 Million Offer to Collaborate with Taylor Swift
 
 - first seen: 2026-10-16 16:51 UTC | category: music | importance: 5
@@ -123,13 +139,21 @@ Stories: 89
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxNWGFhcFowY1p2ZTRFT1lpN0hsWUYwRFNqN2tOVG5MZFdmTXVsQmZNR1dVU2Q5ekVKRWd0TzRSNkNLbEtqbk1rWGdWY1dITFBlQXd5UXJ2enRtQ2RXR2lmMUtNWVR2aHRYSDU4TTlfek9jc1dxcHpfSVEtRjl2RWFqY1VQTzlkT2tiTDdHMGwwMjNNYUU?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Encounter Issue with Ohio Residence
+## Taylor Swift and Travis Kelce Face Neighbor Dispute in Ohio
 
-- first seen: 2026-10-16 16:51 UTC | category: relationship | importance: 5
+- first seen: 2026-10-16 15:51 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing an unexpected problem regarding their Ohio home. Details about the nature of the issue have not been disclosed in the article.
+- summary: Taylor Swift and Travis Kelce are reportedly upset as a neighbor dispute at their Ohio mansion escalates. Details surrounding the contention have not been disclosed.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxObUZYay0yTmRYWjZVNnVRazAydEN3a3dnWnJqeDdYR3JwV3Bjek4yc1gzRzNVUnZQR2Vxd1B0RnhFd3p6N1A5WVJUSlFvcmttMlFoVXNzRGhQWjFiMDhPelhFWjU5LU9jSEYzT2taSHk3aVI4YllRVm1tMVRjUUlzc3VlMmt6akpDMnhMTkxVVzd4a0NGbk5tajZkcEQ1eFJWSEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMiygFBVV95cUxQX1FtaUt4U0JWMVhWN3pxZFp0WHhWSXlLM0JNWG92ZkRxd0hnc1FOcEpQaTEySUM0NERRMVowR3pVd0tDNkJPNlJRT0F0YlNZNXBvTm1BdWFmUGhuM3ZXOTlxNkJpMXg3NDZtLUQtZUo0ZTJKTEhrYVRkdmMzTGNKUEVBOGVqWnJJUmdYd3Bia040UWFpeHdQVWVRdzBqVGs5MHY4TENURGRvTEM2MmR0VU1Ldm9BdHU0djlHZGlnMU91WjU2bVJtRVd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring the Dual Identity of a Country Singer as a Pop Star
+
+- first seen: 2026-10-16 15:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the potential for the richest country singer to transition into the pop music genre, highlighting the implications and challenges involved in such a crossover.
+- sources:
+  - [unverified] HowStuffWorks — https://news.google.com/rss/articles/CBMiakFVX3lxTE9kZ1U2dkUtYXFDWE5UNFhqX2JPNmQ5cjhDLW96Qmo1LUVpcm1pMHdIc085Yk5pWGNaTDBPZjdXYVRwRWRhZFQ2ZnFfd3R3YzJ3WlJnaHRBXzdHWklZUGpFM2czQWpVb1VPTUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## NFL Veteran Reacts to Taylor Swift's Chiefs Appearances
 
@@ -147,14 +171,6 @@ Stories: 89
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVWo4WW0yZ3VidTk2Vi1TUktaMndxbExVSWgtUzFvN0dENlRTQVI3dzV3b2JwMkR3N0c0TFkzZGFqQi1ySHpERGJjVnNQUjBHZ3Y1R2Z5LUxwNkRGNnl0eE14bnBoMzdUZGVBbjJZTTM0QlBpajJuQkVaRlFHWjJzbENxYmh0blllTkZpT1pkMmppS3dmd0lZYTJLdllBcFJIUENWdG1uZ2x4ZF9PQWFRUFlJbENsY0xxTXpZdjlKNlZhUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Face Neighbor Dispute in Ohio
-
-- first seen: 2026-10-16 15:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly upset as a neighbor dispute at their Ohio mansion escalates. Details surrounding the contention have not been disclosed.
-- sources:
-  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMiygFBVV95cUxQX1FtaUt4U0JWMVhWN3pxZFp0WHhWSXlLM0JNWG92ZkRxd0hnc1FOcEpQaTEySUM0NERRMVowR3pVd0tDNkJPNlJRT0F0YlNZNXBvTm1BdWFmUGhuM3ZXOTlxNkJpMXg3NDZtLUQtZUo0ZTJKTEhrYVRkdmMzTGNKUEVBOGVqWnJJUmdYd3Bia040UWFpeHdQVWVRdzBqVGs5MHY4TENURGRvTEM2MmR0VU1Ldm9BdHU0djlHZGlnMU91WjU2bVJtRVd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Travis Kelce Makes Gesture Amid Taylor Swift Career News
 
 - first seen: 2026-10-16 15:51 UTC | category: business | importance: 5
@@ -170,14 +186,6 @@ Stories: 89
 - summary: Ashanti expresses feelings of empowerment due to Taylor Swift while discussing her own experience of re-recording her debut album. The connection between their artistic journeys highlights influences in the music industry.
 - sources:
   - [unverified] Metro.co.uk — https://news.google.com/rss/articles/CBMirgFBVV95cUxPXzBKdFZIellZWFdDbDBQa3RrQ1VLLXNsU1AtY3dFTEJmTFdmMV8zQy1YUnlKYnlPaEpTTVBCckdqNXRmc2JHU2pYVlFYXzM1anZLbVh3dUFiTVJNOHBJTHdRM3Y3UkxvUTF6dGdxeDJqVHJmQzNnUXk1MHVFNDhmNE5rWW5CYmFGaFc2enV6QTljNDF1VE81SFRoRkdzdVF2LUN1LWRFR0tZS2VYNkHSAbMBQVVfeXFMTkswLVB3dzhrRFQ1aEszVTdxU0JPbWVGRzBpeGh6QThPZFdrdXZfT1BSa3FuSmZzTmpSMkxvQmlfYTFoNHMtc0t0NkFuUzBvSlZTX3FNZm5uM0ViX2JlWkJLWXRJR1dMYXNwVW14VWd3d3NYN0xDaG9wX0lWQ3lBVHNVVldQcFhOZVRoUVU5blhKVVB4Yno2a2UyMG9vTWxFTFFUdkZ3WnpRa1VSLVUwZzA2bFU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring the Dual Identity of a Country Singer as a Pop Star
-
-- first seen: 2026-10-16 15:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses the potential for the richest country singer to transition into the pop music genre, highlighting the implications and challenges involved in such a crossover.
-- sources:
-  - [unverified] HowStuffWorks — https://news.google.com/rss/articles/CBMiakFVX3lxTE9kZ1U2dkUtYXFDWE5UNFhqX2JPNmQ5cjhDLW96Qmo1LUVpcm1pMHdIc085Yk5pWGNaTDBPZjdXYVRwRWRhZFQ2ZnFfd3R3YzJ3WlJnaHRBXzdHWklZUGpFM2czQWpVb1VPTUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Vegas Artists Share Secrets of Tribute Performances Including Taylor Swift
 
@@ -203,14 +211,6 @@ Stories: 89
 - sources:
   - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWlpoQTExc3NCZnpjb2VJanRHczJqOUZwVW4tYlZHMFJjV1dqRHVsa3RMYW0yUEZuN25sSDJNbXEyTjhoQW5aOUVpVzNaN1JxYjVYcVpjdVhiZElGVWd0VDhXNU9tY3VFWEtjQ25oeEF1ZzlaNHdsa0ltSURqM0toNlNXT3ozN09r?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Spotted with a No-Makeup Look
-
-- first seen: 2026-10-16 12:46 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been seen sporting a stunning no-makeup look, capturing attention and admiration. The appearance highlights her natural beauty and has sparked positive reactions from fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijwFBVV95cUxPVW90WDZUUldTTzNuVXgtcHFSckI5cFFaR3RudXpjanZIOXdNQ2JBejNlYmppMDIyUjA3dkNrWkZhQ1FFdzlzNnNna1pVbFA3U1dEVUhnWHFJUWNkaEJlRzZwWTBWd1ZfT29pdnBLcFBoQ29iRkRDU05UM04xVkV1cUdGVFRqWERYMGprdEZhZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Surprise-Drops New Music After Olivia Rodrigo's Release
 
 - first seen: 2026-10-16 12:46 UTC | category: release | importance: 7
@@ -234,6 +234,14 @@ Stories: 89
 - summary: Jason Kelce expresses his desire for Taylor Swift to release Halloween-themed songs, as reported by Yahoo.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNRkZ2QkJKeEtOSVhuQk1uSjF1WUJVckEzc2lsNWVHMDExc0U4a0pHSVdmUUNLNjVDSEpBMGZCR2FSSXJ6VG12SkVIWnU0WWkwVkxZMEdtaTYtbXVaYU8zMklQaU5QTzgtQVF0MVlLaThTVy1pREY5ZnNYZnlpVjJVVTBpYndjYTZ0N3ByMk9FajRXV09yNWZLUGNWMzQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Spotted with a No-Makeup Look
+
+- first seen: 2026-10-16 12:46 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been seen sporting a stunning no-makeup look, capturing attention and admiration. The appearance highlights her natural beauty and has sparked positive reactions from fans.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijwFBVV95cUxPVW90WDZUUldTTzNuVXgtcHFSckI5cFFaR3RudXpjanZIOXdNQ2JBejNlYmppMDIyUjA3dkNrWkZhQ1FFdzlzNnNna1pVbFA3U1dEVUhnWHFJUWNkaEJlRzZwWTBWd1ZfT29pdnBLcFBoQ29iRkRDU05UM04xVkV1cUdGVFRqWERYMGprdEZhZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Selena Gomez Praises Taylor Swift's Marriage Advice
 
@@ -670,83 +678,3 @@ Stories: 89
 - summary: In 2012, Taylor Swift made a significant $4 million donation to Nashville's country music museum. Now, 14 years later, the educational impact of her contribution is being recognized.
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi1gJBVV95cUxQWEtqNTZnbnZ5TTlMZThyMTNtMFcydTJGZTVndGJVd011SW1hNVdmQ1U3U2p3YnFxMDBxS2QwdEJUU0FkV3hSUU1OTDB0WmZGTGloQTJmeVBhUWxQVy1EMldkV1VKcWR0UmM5WHhSWEZmUmd1cE4wT29VVEZMU2Q2LUVQSzZuMnRoa25xVUlENHRseGcwbTA4T0VEU3NHaTFJS19YNnpiUEVzOTgwejM0TWhHLUFEOUpaR1NGYzlTcHRtVFFtdDJRZVd3YzNqWllfRWstQ25HalIyUlQ5MS02QWNrdzhoYVBtYmF2dGRMcFh3a25QcUJVOGFQOG9TYXNodVozS2V4dUJOeldDMHgyQnk3c2FyNzhqOHJNaGxfdUNZNGt3bFIzNDhxbnFDN1NzVDNoVTFVc2toTUprTUdSQWJ2V1F4N09FaFdYNnNhOU44M1VWMUHSAdsCQVVfeXFMTUU5aG9tU1JwMmU3Z0l1MTNQdDRYVDItaUZveVk2OWNaT3JXb295R2VGV3JlT2VpeVJwN0FyMmF5MHI4VWZ1Mk9aRzN4ZzUyLW1JQzIyZTMyMXlNY2tHS25yMFlkMHJ5SkJZTWhtb0J6ZUZXMlg0dVZobHFTVWhrYTBrc0tRYXFjQk9wLXk5WkFzMlZNSUlHQndhck5xY0pWLW56THBoc0s5SFc5N29UYkdfa2lqLWI4OFdqQlREZE1KMDhLWlkwQVJYNTFpcTRnSFpjWmNLUUxlRndMSl9OczBmSDZDVlRxTU91UTVYWGN4MXhrQzA2N3ZtS19jSWlCTlRmYXdnS2lJRmxremVDbHZqaG1fX09nWFVZcjg0N0k5NzM1LXJ0cGV3Y2tqanFqRGVFOXdNZElUb2RoYTNVUnI4b19XNGpmWnFKUFlZUS1IZHhodjBVaHBsdWs?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Date-Night Outfits with Travis Kelce Reviewed
-
-- first seen: 2026-10-14 06:05 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A compilation of Taylor Swift's best and worst date-night outfits while dating Travis Kelce is featured. The article showcases her fashion choices during their outings together.
-- sources:
-  - [unverified] Glam — https://news.google.com/rss/articles/CBMikwFBVV95cUxOUWpvTXdhTlIwaTM5NDBwZXdJa0owdm4zYmktQThWWDVaQ251NGFmdGpJMUl4eFp0QXZ0bDkxaU8xb0VveWhUTlpvSHBHc1VteHcxZ3Z2dkxnUGlZcUFqZWc0Zlk0bS1SbzVLaDN0ZGNEajEydlhuUGRiV3RZdm9UZXlPWUVxMEN0eVZocTRhRU5Zcmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Share PDA Video
-
-- first seen: 2026-10-14 06:05 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new video featuring Taylor Swift and Travis Kelce displaying affection has been released, highlighting their relationship. The video has captured the attention of fans and media alike.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxPazMzVE9QdUVmeDU2dThjTjA4c0c2bGdScGR6a3dYeFpYaWdJMFNqUWJFRXhpVGFYZTQ0VVdZNFVNY0ZVX25oYllKSGp5bVZyZm5sMHRMRjhqX2V1eHNnaXE5bEFHQzhDWEZOa09tWTB4V2J1a29GamhrZkJQNUd3OFJrRUdLWUVXdTkzNkI2QVRLaWczV0RkTkFvcW5Pc3NM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Releases 4 Bonus Tracks with 'The Encore'
-
-- first seen: 2026-10-14 00:16 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has unveiled four bonus tracks as part of her latest release, 'The Encore'. This addition offers fans more music to enjoy from the artist.
-- sources:
-  - [unverified] The Ticker — https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdtSWpVQ0lrTjU2ZWtQOUthNEhUdC1pcTdBVHBDLTRnVXkyMWlsWjdzOV9fdlAwVXZZMnVEbkdHcHZtVmIxVENxOXd0VGVXY05RM002RTM4X3NQdUZnbnhTNzgzWHNha082QnZRb3lKTGxNUW5zM3ZBYnpfNE0zZ0dUb2I4T0tSVEdqeEJ4dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'The Life of a Showgirl' and Grammy Nominations
-
-- first seen: 2026-10-14 00:16 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Discussion surrounding the potential nominations for Taylor Swift's 'The Life of a Showgirl' at the upcoming Grammys. Speculation about its chances arises as the announcement date approaches.
-- sources:
-  - [unverified] LaineyGossip — https://news.google.com/rss/articles/CBMiygFBVV95cUxPbUxVMlFNRXFJc05wcjdrblkxb2xFTnhsUDlpeVltR2M1alBWY1BXNHJiclhGbktERnB1NVZvT19vRm9XSHk4S0x2U2RTNzBVdWJlX29OSWIwcVpOSkhWV1p6UVZuQUJ3T0I5dmFIN0JibGw0bUZpNnp1YXNwQUEzSXJoa2NUOUtnODFhc0JDa1Nhek56ZDNBQTg2RUtkX2E4T0VVQ3ZqbDZRZmRwX0ptd3RwbWxlbmZ0SEZXT1NyTG9CS0pKZUgxeDNn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Rare Footage of Travis Kelce on 'Patient Zero' Set
-
-- first seen: 2026-10-14 00:16 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has shared a rare video featuring Travis Kelce while on the set of her project 'Patient Zero'. The footage highlights Kelce's support for Swift during her work.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUHAxOE5UOXN0Zl9DODREaVFSTXp0LTZQYzJjbjVBTVdmODhBMC1JRTYtZ2tQekxqb2FVanI1OFFmal8zbXNHM2c5dFF4WGhETS0wMGlpenJoSThvWnNubmhQOWJXZTVaYWlPLVFIdWZjUTAyV0xNWlZ6X0NOcnVxRjEzZFdOZE02a1FnRXlIbFFaTHBPZ3RlSTNLX09pVWY1Y0d3M1F1bDY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Appreciation for Historic Home Features
-
-- first seen: 2026-10-14 00:16 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is highlighted as a fan of historic home features, which are currently trending. The article discusses the increasing popularity of these features in home design, as illustrated by Swift's tastes.
-- sources:
-  - [unverified] House Beautiful — https://news.google.com/rss/articles/CBMikgFBVV95cUxOamgxZjdZeTlEVjBoQnFWNTlVTDlyRDdLeS0xbzRSOTdtNXZuaGN5UWwxajB2a25wOUs1X2dRYm1HOEptX3hDVkhmYjBzOFhHaWoyUVYzZllWU3RocGt0Yl9HcE8xdWNjWGpRUzQwRXFMNm1fbEYyQ3ZoZG5KbXE3N2w3WUJvWEhJRUI0OXZQNExUUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Question Travis Kelce Following SNL Appearance
-
-- first seen: 2026-10-14 00:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift fans have raised questions regarding Travis Kelce after his appearance on a controversial SNL. The reaction highlights the ongoing curiosity surrounding their relationship.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOQ1pTMkdCRFpQTzNrU256UVdVZTY1dUlHVWRMd1NpTzNsOE5RMWtoNDZBVW1jVWI3OEZtdzBLMjlkQUMzS29NMDBMcHNzNlQyWUdJSEljWmNmXzZ5V0ZtYjAtb0pGVnJ2dG8zN1NkalVSaUZUblZCZFdTTl9vQXB4bWJvTGdIUDhoTDZkV0JTNEdoZms5aEJRZXhUZzRKM0g0X1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Date Night Pants Style Inspires Fall Wardrobe
-
-- first seen: 2026-10-14 00:16 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article discusses how Taylor Swift's date night pants style is influencing fashion choices for the fall season, suitable for various occasions including office wear and outings.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQRDhKcWRUTXBtMVB4bnYzOFM1WHFXaTlFSmtCVWRLTFV0akc0NDlzTGoyV0E2eDdDeEJjZ3R3T2VSaHY0cW11c2RROGlPZnJoRjljbHFaekYzTHVjekxQdDFucGVMdVkycmg3aC1KVXRLdVBWN3N1Nng2VGRSZU5HSHNYVlIzX29tczlRUHBOeDJVM0d3U2EyekV4NDc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Police Department Uses Taylor Swift Songs as Punishment
-
-- first seen: 2026-10-14 00:16 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A police department has reportedly utilized Taylor Swift's songs as a form of punishment. The decision has garnered attention for its unconventional approach.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQYkFfYjV4NXdXOGdXNkhFaGVYWVRiSjZMVGRTR2wtNmlVVWdGOEpxMjUteldxUnozc3J5V0owTGZObEl0MVpwcFIybjBiOGYxUnRQbS10azJWUTl2TXdyaThkNG54c2xmVm1ncVZ5WGpDVHRvdUdNU05KMHlCcE5XVk1YeEVhdFNkTnBkcHBYUTlNbFhtSV82LVZhWFI3WEVud3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Releases Piano Version of 'Patient Zero'
-
-- first seen: 2026-10-14 00:16 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released a piano version of her song 'Patient Zero,' which is currently holding the No. 1 spot on the Hot 100 chart. This release comes while the song is enjoying significant chart success.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5GeDI2MmVpN2VRYXNBU2VQWDFSckd0bXRTWkFpNC04emxwNzRzUWtnd0FwSlVxXzF1S3AzOEtKN1ZUa3VHZ2xLVTlZdHlfaEZGODN4eG8xekFsQ29BZTJHNjBlTDM1TnM?oc=5&hl=en-US&gl=US&ceid=US:en
