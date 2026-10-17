@@ -18,12 +18,12 @@
 // confirmation. docs/agents/runner-prompts/tree-daily-draft.md's drafting
 // routine still reads the resulting `reject:` comment before drafting again.
 //
-// Every message carries a machine-readable `ref: PR #<n> · <headSha> ·
-// <file[,file…]>` line in its first embed's footer (#5989: the visible text is
+// Every message carries a machine-readable ref (PR number, headSha, files) in the
+// first embed's `url`, invisible in Discord (#5989: the visible text is
 // only the image and the captions) — webhook-authored, so an
 // agent cannot forge which draft a reaction is binding to (see
 // social-approval-poll.mjs's header comment for why that property holds).
-// Link previews (Bots v2 C6): every post has an embed (image and/or the footer
+// Link previews (Bots v2 C6): every post has an embed (image and/or the url-only
 // ref), so every URL in a caption is wrapped in `<…>`.
 //
 // This never runs against a real Discord webhook from an agent's own

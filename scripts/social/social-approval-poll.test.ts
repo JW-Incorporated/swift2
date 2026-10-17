@@ -1672,11 +1672,69 @@ describe('#5989 minimal approval post — formatter output is what the poll pars
   const readItem = async (file: string) => JSON.parse(await readFile(path.join(root, 'social', 'queue', file), 'utf8'));
   const bothFiles = () => ({ files: [{ path: X_REL }, { path: IG_REL }] });
 
-  it('the visible content carries no ref line at all, only the footer does', () => {
+  it('the visible content carries no ref at all, only the first embed url does', () => {
     const post = minimalPost();
-    expect(post.content).not.toContain('ref:');
+    expect(post.content).not.toContain('ref');
     expect(post.content).not.toContain(HEAD_SHA);
-    expect((post.embeds[0] as { footer: { text: string } }).footer.text).toBe(`ref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL},${IG_REL}`);
+    const embed = post.embeds[0] as { url: string; footer?: unknown; title?: unknown };
+    expect(embed.footer).toBeUndefined();
+    expect(embed.title).toBeUndefined();
+    expect(embed.url).toBe(`https://github.com/JW-Incorporated/swift2/pull/${PR_NUMBER}?ref=${HEAD_SHA}&files=${encodeURIComponent(`${X_REL},${IG_REL}`)}`);
+  });
+
+  it('a legacy footer ref (previous round) still stamps both halves', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+    const legacy = { ...minimalPost(), embeds: [{ footer: { text: `ref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL},${IG_REL}` } }] };
+    const { impl: baseImpl } = makeFetchImplByMessage([legacy], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect((await readItem(QUEUE_FILE)).approval?.by).toBe(APPROVER);
+    expect((await readItem(IG_FILE)).approval?.by).toBe(APPROVER);
+  });
+
+  it('a legacy last-content-line ref still binds', async () => {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    const legacy = { ...refMessage({ id: POST_ID, sha: HEAD_SHA, file: X_REL }), embeds: [] };
+    const { impl: baseImpl } = makeFetchImplByMessage([legacy], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh({ files: [{ path: X_REL }] });
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect((await readItem(QUEUE_FILE)).approval?.by).toBe(APPROVER);
+  });
+
+  describe('an unparseable prompt from our webhook', () => {
+    const garbled = () => ({ ...minimalPost(), embeds: [{ url: `https://github.com/JW-Incorporated/swift2/pull/${PR_NUMBER}?ref=nothex&files=x` }] });
+    afterEach(() => { process.exitCode = 0; });
+
+    it('fails the job loudly when an owner reacted', async () => {
+      process.exitCode = 0;
+      const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const { impl: baseImpl } = makeFetchImplByMessage([garbled()], { [POST_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh } = makeExecGh(bothFiles());
+      const { impl: execGit } = makeExecGit();
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+      expect(process.exitCode).toBe(1);
+      expect(errSpy.mock.calls.some(([m]) => String(m).includes('no parseable ref'))).toBe(true);
+      errSpy.mockRestore();
+    });
+
+    it('only warns (exit stays 0) when nobody reacted', async () => {
+      process.exitCode = 0;
+      const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const { impl: baseImpl } = makeFetchImplByMessage([garbled()], { [POST_ID]: {} });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh } = makeExecGh(bothFiles());
+      const { impl: execGit } = makeExecGit();
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+      expect(process.exitCode).toBe(0);
+      expect(errSpy.mock.calls.some(([m]) => String(m).startsWith('::warning::') && String(m).includes('no parseable ref'))).toBe(true);
+      errSpy.mockRestore();
+    });
   });
 
   it('an owner ✅ stamps BOTH halves and merges', async () => {

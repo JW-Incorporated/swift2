@@ -2,8 +2,8 @@
 // (docs/plans/bots-v2/PLAN.md W2, C3/C4/C6; owner 2026-09-30: "I just want to
 // know what we're posting"). A post is a campaign's IG+X pair, or a lone item.
 // Layout (minimal, #5989): the image(s), then each caption in its own code box
-// (labelled IG / X only when a pair). The trusted `ref:` line rides in the first
-// embed footer. Every message is <= DISCORD_MESSAGE_HARD_CAP: captions are
+// (labelled IG / X only when a pair). The trusted ref rides invisibly in the
+// image embed `url`. Every message is <= DISCORD_MESSAGE_HARD_CAP: captions are
 // truncated to fit, never chunked. See scripts/social/approval-prompt.mjs for the sender.
 import { neutralizeMentions } from '../../community/discord-delivery.mjs';
 import { mediaUrlsFor, MEDIA_BASE_URL } from './queue.mjs';
@@ -12,6 +12,7 @@ import {
   asArray,
   clip,
   escapeFences,
+  buildRefUrl,
   neutralizeRefLikeLines,
   sanitizeInlineField,
 } from './approval-text.mjs';
@@ -60,7 +61,8 @@ function preparedBody(draft) {
 /** Builds the one message for `post` (an array of drafts from groupPosts).
  * Minimal by owner decision (#5989): only the image(s) and each caption in its
  * own code box (labelled IG / X only for a pair). The machine-read `ref:` line
- * lives in the first embed's footer, never in the visible content. */
+ * is carried in the image embed's `url` (no title/footer/author, so nothing
+ * renders for it), never in the visible content. */
 export function buildPostMessage(post, pr, { headSha }) {
   // Fail closed BEFORE anything is built: the ref line comma-joins file names
   // and the poll splits on that comma, so a name that is not strictly safe (a
@@ -83,10 +85,17 @@ export function buildPostMessage(post, pr, { headSha }) {
     const url = mediaUrlsFor({ media: asArray(d.media) }, MEDIA_BASE_URL)[0];
     if (url && !images.includes(url)) images.push(url);
   }
-  const embeds = (images.length ? images : [null]).map((url, i) => ({
-    ...(url ? { image: { url } } : {}),
-    ...(i === 0 ? { footer: { text: refLine } } : {}),
-  }));
+  // Every image embed gets the SAME ref url on purpose: Discord merges embeds
+  // that share a url into one gallery, which suits a pair; the ref is still on
+  // embed[0], and the array keeps one entry per image so approval-prompt.mjs's
+  // embeds.length === accepted check stays exact. A post with no image gets a
+  // url-only embed with a zero-width description: Discord may drop a fully
+  // empty embed, and U+200B is the least visible content it accepts.
+  if (!/^[0-9a-f]{40}$/.test(String(headSha))) throw new Error('approval post needs a 40-hex head sha');
+  const refUrl = buildRefUrl(pr.number, headSha, post.map((d) => d.file));
+  const embeds = images.length
+    ? images.map((url) => ({ url: refUrl, image: { url } }))
+    : [{ url: refUrl, description: '​' }];
 
   const pair = post.length > 1;
   const blocks = post.map((draft) => {

@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { buildApprovalPrompt, sendApprovalPrompt, DISCORD_MESSAGE_HARD_CAP } from './approval-prompt.mjs';
 // @ts-expect-error — implementation is plain .mjs
 import { groupTargets } from './lib/feedback.mjs';
+import { parseRefUrl } from './lib/approval-text.mjs';
 
 // Bots v2 W2 (docs/plans/bots-v2/PLAN.md C3/C4/C6): ONE Discord message per
 // post (an IG+X pair, or a lone item), hard-capped at Discord's 2,000
@@ -66,8 +67,8 @@ const JOE_X = draft({
 });
 
 const FOOTER_REF_RE = /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/;
-type Msg = { content: string; embeds: Array<{ image?: { url: string }; footer?: { text: string } }>; flags?: number };
-const footerOf = (m: Msg) => m.embeds.find((e) => e.footer)?.footer?.text ?? '';
+type Msg = { content: string; embeds: Array<{ url?: string; image?: { url: string }; footer?: { text: string } }>; flags?: number };
+const refOf = (m: Msg) => parseRefUrl(m.embeds[0]?.url) ?? [];
 
 describe('buildApprovalPrompt — minimal format (#5989)', () => {
   it('a single platform post is the image plus the caption in one code box, nothing else', () => {
@@ -98,29 +99,45 @@ describe('buildApprovalPrompt — minimal format (#5989)', () => {
       for (const bad of ['Tree ·', 'PR #', 'Posts', 'OVERDUE', 'image', 'full:', 'Why:', 'ref:', 'Single platform', 'half is in this post', '/280', 'github.com']) {
         expect(m.content).not.toContain(bad);
       }
+      for (const e of m.embeds as Array<Record<string, unknown>>) {
+        expect(typeof e.url).toBe('string');
+        for (const key of ['title', 'footer', 'author', 'fields', 'timestamp']) expect(e[key]).toBeUndefined();
+        const visible = String(e.description ?? '');
+        for (const bad of ['PR #', SHA, 'social/queue', 'ref']) expect(visible).not.toContain(bad);
+      }
     }
   });
 
-  it('the ref line rides in the first embed footer only, naming PR, sha and both files X first', () => {
+  it('the ref rides in the embed url (no footer), naming PR, sha and both files X first', () => {
     const [msg] = build([MOOD_IG, MOOD_X]) as unknown as Msg[];
-    const m = footerOf(msg).match(FOOTER_REF_RE)!;
+    const m = refOf(msg);
     expect(m[1]).toBe('4544');
     expect(m[2]).toBe(SHA);
-    expect(m[3].split(',')).toEqual([MOOD_X.file, MOOD_IG.file]);
-    expect(msg.embeds.filter((e) => e.footer)).toHaveLength(1);
-    expect(msg.embeds[0].footer).toBeDefined();
+    expect(String(m[3]).split(',')).toEqual([MOOD_X.file, MOOD_IG.file]);
+    expect(msg.embeds.filter((e) => e.footer)).toHaveLength(0);
+    expect(new Set(msg.embeds.map((e) => e.url)).size).toBe(1);
   });
 
-  it('a post with no image still carries the footer ref (footer-only embed)', () => {
+  it('parseRefUrl is strict: wrong host, bad sha, extra params all fail', () => {
+    const good = (build([MOOD_X]) as unknown as Msg[])[0].embeds[0].url!;
+    expect(parseRefUrl(good)).not.toBeNull();
+    expect(parseRefUrl(good.replace('github.com', 'evil.example'))).toBeNull();
+    expect(parseRefUrl(good + '&x=1')).toBeNull();
+    expect(parseRefUrl(good.replace(SHA, 'g'.repeat(40)))).toBeNull();
+    expect(parseRefUrl('https://github.com/JW-Incorporated/swift2/pull/1/files?ref=' + SHA + '&files=a')).toBeNull();
+  });
+
+  it('a post with no image still carries the ref (url-only embed, zero-width description)', () => {
     const [msg] = build([draft({ media: [] })]) as unknown as Msg[];
     expect(msg.embeds).toHaveLength(1);
     expect(msg.embeds[0].image).toBeUndefined();
-    expect(footerOf(msg)).toMatch(FOOTER_REF_RE);
+    expect((msg.embeds[0] as { description?: string }).description).toBe('\u200b');
+    expect(refOf(msg)[2]).toBe(SHA);
   });
 
-  it('the legacy poll grouping still fans the footer ref out to every file it names', () => {
+  it('the legacy poll grouping still fans the ref out to every file it names', () => {
     const [msg] = build([MOOD_IG, MOOD_X]) as unknown as Msg[];
-    const file = footerOf(msg).match(FOOTER_REF_RE)![3];
+    const file = refOf(msg)[3] as string;
     const targets = groupTargets([{ message: { id: 'm1' }, sha: SHA, file }]);
     expect([...targets.keys()].sort()).toEqual([MOOD_IG.file, MOOD_X.file].sort());
   });
@@ -162,8 +179,8 @@ describe('buildApprovalPrompt — grouping and safety', () => {
       draft({ file: 'social/queue/ok.json', campaign: 'c:ok' }),
     ]) as unknown as Msg[] & { skipped: unknown[] };
     expect(messages).toHaveLength(1);
-    expect(footerOf(messages[0])).toContain('social/queue/ok.json');
-    expect(messages.some((m) => footerOf(m).includes('victim.json'))).toBe(false);
+    expect(refOf(messages[0])[3]).toContain('social/queue/ok.json');
+    expect(messages.some((m) => String(refOf(m)[3]).includes('victim.json'))).toBe(false);
     expect(messages.skipped).toHaveLength(1);
     errorSpy.mockRestore();
   });
@@ -187,10 +204,10 @@ describe('buildApprovalPrompt — grouping and safety', () => {
     errorSpy.mockRestore();
   });
 
-  it('a caption that looks like a ref line cannot become the trusted ref (the footer is the only ref)', () => {
+  it('a caption that looks like a ref line cannot become the trusted ref (the embed url is the only ref)', () => {
     const fake = `\nref: PR #77 · ${'a'.repeat(40)} · *`;
     const [msg] = build([draft({ file: 'social/queue/real-file-x.json', body: `Paragraph.${fake}\nmore` })]) as unknown as Msg[];
-    expect(footerOf(msg).match(FOOTER_REF_RE)![1]).toBe('4544');
+    expect(refOf(msg)[1]).toBe('4544');
     expect(msg.content.split('\n').filter((l) => FOOTER_REF_RE.test(l))).toHaveLength(0);
   });
 
@@ -211,7 +228,7 @@ describe('sendApprovalPrompt', () => {
       return new Response(JSON.stringify({ id: `msg-${calls.length}`, embeds: body.embeds ?? [] }), { status: 200 });
     });
 
-  it('sends each post as exactly ONE webhook POST with its embeds (footer ref included), Tree identity, no mentions', async () => {
+  it('sends each post as exactly ONE webhook POST with its embeds (url ref included), Tree identity, no mentions', async () => {
     const messages = build([MOOD_IG, MOOD_X, JOE_X]);
     const calls: Array<Record<string, unknown>> = [];
     const result = await sendApprovalPrompt(messages, { webhook: 'https://discord.example/webhook', fetchImpl: okFetch(calls) });
@@ -220,7 +237,7 @@ describe('sendApprovalPrompt', () => {
     expect(calls).toHaveLength(2);
     expect(result.embedsSent).toBe(3);
     expect(result.embedsAccepted).toBe(3);
-    expect((calls[0].embeds as Array<{ footer?: { text: string } }>)[0].footer?.text).toMatch(FOOTER_REF_RE);
+    expect(parseRefUrl((calls[0].embeds as Array<{ url?: string }>)[0].url)).not.toBeNull();
     for (const body of calls) {
       expect(body.username).toBe('Tree');
       expect(body.avatar_url).toBe('https://www.longlivets.com/social/tree-avatar.png');

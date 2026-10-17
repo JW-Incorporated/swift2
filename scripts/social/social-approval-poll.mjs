@@ -39,7 +39,7 @@
 //
 // Binding property this whole mechanism rests on (verify, don't assume):
 // the `ref: PR #<n> · <40-hex headSha> · <file|*>` line on every brief
-// message (last content line, or the first embed's footer on the minimal
+// message (last content line, or the first embed url / footer on the minimal
 // IG/X approval posts, #5989) is written by approval-prompt.mjs and posted by Discord's webhook
 // API — the webhook is the only identity that can author a message with
 // `webhook_id` set to our own webhook's id. An agent cannot forge that
@@ -73,7 +73,7 @@
 // whose file is gone from head is a reject row — and deduped, so a lost
 // push is recovered on the next run instead of being gone for good.
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { routeChannelId } from '../lib/discord-route.mjs';
@@ -82,6 +82,7 @@ import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf 
 import { approvalStatus, isV4Stamp } from './lib/queue.mjs';
 import { isQueueJson, makeGitState, parseJson, short, stampHealth } from './lib/stamp-health.mjs';
 import { confirmRejection } from './lib/reject-confirm.mjs';
+import { parseRefUrl } from './lib/approval-text.mjs';
 import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
@@ -135,12 +136,26 @@ function extractRefLine(content) {
  * footer falls back to the true-last-line content parse above.
  */
 function extractMessageRef(message) {
-  for (const embed of Array.isArray(message?.embeds) ? message.embeds : []) {
+  const embeds = Array.isArray(message?.embeds) ? message.embeds : [];
+  // Current format: the ref is the first embed's url (anchored, strict parse).
+  const fromUrl = parseRefUrl(embeds[0]?.url);
+  if (fromUrl) return fromUrl;
+  for (const embed of embeds) {
     const text = embed?.footer?.text;
     const match = typeof text === 'string' ? text.match(REF_LINE_RE) : null;
     if (match) return match;
   }
   return extractRefLine(message?.content);
+}
+
+/** True for a message that has the SHAPE of a draft approval prompt (a
+ * github pull url carrying `ref=` on an embed, or a `ref:` footer) but whose
+ * ref did not parse — only ever asked of messages with our webhook_id, and
+ * after every real ref grammar has already been tried. */
+function looksLikeUnparseablePrompt(message) {
+  if (extractRedditRefLine(message?.content)) return false;
+  return (Array.isArray(message?.embeds) ? message.embeds : []).some((e) =>
+    (typeof e?.url === 'string' && /\/pull\/\d+\?.*\bref=/.test(e.url)) || (typeof e?.footer?.text === 'string' && /^ref:/.test(e.footer.text)));
 }
 
 /** S6's own last-line-only parse for the `ref: reddit · <postId>` grammar —
@@ -983,7 +998,23 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   const byPr = new Map();
   for (const m of candidates) {
     const match = extractMessageRef(m);
-    if (!match) continue;
+    if (!match) {
+      if (!looksLikeUnparseablePrompt(m)) continue;
+      // A prompt of ours whose ref cannot be read must never swallow a founder's
+      // reaction silently: warn loudly, and fail the job if an owner reacted.
+      let reacted = true;
+      try {
+        const r = await getMessageApprovals(m, channelId, botToken, discordOpts, reactionCache);
+        reacted = r.approvedBy.length + r.rejectedBy.length + r.editedBy.length > 0;
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not read reactions on unparseable prompt ${m.id}: ${err.message}`);
+      }
+      const note = `approval prompt ${m.id} from our webhook has no parseable ref${reacted ? ' AND an owner reaction (or reactions unreadable) -- it cannot be bound to a draft' : ''}`;
+      console.error(`::${reacted ? 'error' : 'warning'}::social-approval-poll: ${note}`);
+      if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Unparseable approval prompt\n\n${note}\n`);
+      if (reacted) process.exitCode = 1;
+      continue;
+    }
     const [, prStr, sha, file] = match;
     const pr = Number(prStr);
     if (!byPr.has(pr)) byPr.set(pr, []);
