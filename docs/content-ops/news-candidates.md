@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Taylor Swift's Rhode Island Home Purchase Details Revealed
+
+- first seen: 2026-10-17 15:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift purchased her Rhode Island home in 2013 for $17 million in cash. The property was previously owned by Rebe.
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi5AJBVV95cUxQXzFDSlJaQzFpTXZRWHBNZmxpVmpOQ0FJMjdDZjVqZEhqUklTQzBHLUdqeDhaSnhhZkhueEpFVGJhWEcxUERjd25kLV93V3FiNnZkaDlqdjk1b1QzTlpYQmN6T3VJSm12V1l0OWlfSlRSZlIxWVNPandzbFYzZVJXd2dwa2dKdjRzRXd2Tkp2WmpHZW9pc1pPRGh0WDMtY2ZNLVBCMXZzenlFUExXNmpvNDBjbzQyYUE2TWdOLVlFc3Rqd1ZiLVI3UUNHbzBqaFFRTzRCVmVmLTlXdFIwOGs3UGRVS2x3M3ZNMlJKZEVJU093N3V2dE1ERkU1SzAwSm5CQ1JYaWFNMkE3bWNBa3MyLXozZm5xXzZfZV83bUM0NmhIQVY1Qmx5bVcyeDBrR3JqTGN0YlpIOWRLT0oyalJGdGxuZ0N3U01vVG5jejd2RDJWYjBfN2p1N2M2NFBZUXk0bVVJONIB6gJBVV95cUxOZEhXSFF0S3Q0UFllRE5hcEMwT3U5WHRPUjhNUVVaSzZxM2N5aEJPS3RjX0FnNUhvdVVIT2pfQ0QtMzNWMU51WDZZRTFPMTNDazhpcm1lNkVNYmRwd3RYMWFLaHMzUnhZMW1aV2NTSENqWmIteHNMLVlwYWo0YjJlekJrcjMzTEFTa0pMNnJtWDZFTkRxdU5Cd0FiM0I4WTVzVFhqb2VfMGdwYy1QQzVrUFZ1Xy1BOE11VDdoTEY0UmhwcFJSY3dKc0k5OXdEZlpSR3ctc3g0MkhnamZGWXBrQkxmN211aVRRdmFQRDJlTnJQQ2VYWC1Ta21LXzExdEhWYlBEaWtlci1LemZQVGxweHRvZXp3WnJaeWNNdDhnMFNNYzItTmdQVnRuczZVWUQ0cjMtUkVGNXJwWHV2bzRFOUh5MVB3SFBFNXh2TUp3R2R1NUVPY04tRllJZHVmS2dBenpUemZTV21sUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Scheduled to Perform at Academy Museum Gala
 
