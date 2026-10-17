@@ -25,6 +25,7 @@ import { approvalStatus } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 import { validatePhotoEntry } from './lib/photo-library.mjs';
+import { readLedger, validateLedgerEntries } from './lib/image-ledger.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const photoLibrary = JSON.parse(await readFile(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
@@ -147,6 +148,13 @@ async function main() {
     console.error('\nFAIL social/photo-library.json');
     for (const finding of libraryFindings) console.error(`  - ${finding}`);
     console.error(`\nvalidate-queue: ${libraryFindings.length} photo-library finding(s) — see above.`);
+    process.exit(1);
+  }
+
+  const ledgerFindings = validateLedgerEntries(await readLedger(ROOT));
+  if (ledgerFindings.length) {
+    console.error('\nFAIL social/posted-images.json');
+    for (const finding of ledgerFindings) console.error(`  - ${finding}`);
     process.exit(1);
   }
 

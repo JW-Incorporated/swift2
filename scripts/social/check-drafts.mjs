@@ -91,6 +91,8 @@ import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { checkImageReuse } from './lib/image-reuse.mjs';
+import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
 import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
@@ -902,11 +904,20 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS, imageContext = null }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
+  const imageFindings = [];
+  if (imageContext) {
+    // Perceptual duplicate check against the posted-image ledger and the rest of the queue (#5990).
+    // A picture that cannot be fetched/decoded here is a warning, not a pass: guard-image-reuse.mjs
+    // (the poster's pre-step) refuses to post it, failing closed.
+    const { findings, unreadable } = await checkImageReuse(target.file, target.data, { ...imageContext, queue: allQueue });
+    imageFindings.push(...findings, ...unreadable.map((m) => `${WARNING_PREFIX} media: "${m}" could not be fingerprinted (fetch or decode failed) — the perceptual same-picture check could not run for it.`));
+  }
   return [
+    ...imageFindings,
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext, params),
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted, params),
@@ -974,10 +985,20 @@ async function main() {
   // that as "no sibling" would fail an already-satisfied pairing.
   const allPosted = await readJsonDir(POSTED_DIR);
 
+  const fingerprints = new Map();
+  const fingerprintOf = (mediaPath) => {
+    if (!fingerprints.has(mediaPath)) fingerprints.set(mediaPath, fingerprintMedia(mediaPath, { root: ROOT }));
+    return fingerprints.get(mediaPath);
+  };
+  // Committed ledger plus anything posted since it was last refreshed (derived from social/posted/**).
+  const { entries: ledger, unresolved } = await buildLedger(allPosted, await readLedger(ROOT), fingerprintOf);
+  for (const u of unresolved) console.warn(`check-drafts: warning — posted image ${u.file} (${u.post}) could not be fingerprinted; it is not in the same-picture ledger.`);
+  const imageContext = { ledger, library: PHOTO_LIBRARY, fingerprintOf };
+
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS, imageContext });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard

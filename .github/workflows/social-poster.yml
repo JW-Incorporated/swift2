@@ -291,6 +291,16 @@ jobs:
         if: steps.freeze.outputs.frozen != 'true'
         run: node scripts/social/rolling-view.mjs "${STATE_BRANCH_PREFIX}rolling"
 
+      # Last-line "never post the same picture twice" guard (issue #5990). A
+      # separate step because post-queue.mjs is guard-protected. Fails the job
+      # (so the post step below never runs) if any due item's image matches the
+      # posted-image ledger by perceptual fingerprint, and fails CLOSED when an
+      # image can't be fetched or decoded. The ledger is rebuilt from
+      # social/posted/** in-process, so it needs no append from the poster.
+      - name: Refuse repeat images (perceptual ledger)
+        if: steps.freeze.outputs.frozen != 'true'
+        run: node scripts/social/guard-image-reuse.mjs
+
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
       # "Failure surfacing" note in the header. Writes its run report to
       # $SOCIAL_POSTER_REPORT, which the commit step below puts in the PR.
