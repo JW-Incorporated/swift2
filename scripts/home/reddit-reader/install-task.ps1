@@ -25,11 +25,10 @@ $action = New-ScheduledTaskAction `
   -Argument "--env-file=$quotedEnv --import tsx $quotedReader" `
   -WorkingDirectory $repoRoot.Path
 
-$repeat = New-ScheduledTaskTrigger `
-  -Once `
-  -At ((Get-Date).AddMinutes(1)) `
-  -RepetitionInterval (New-TimeSpan -Minutes 60) `
-  -RepetitionDuration ([TimeSpan]::MaxValue)
+$repeat = New-ScheduledTaskTrigger -Daily -At '12:00 AM'
+$repeat.Repetition = (New-ScheduledTaskTrigger -Once -At '12:00 AM' `
+  -RepetitionInterval (New-TimeSpan -Hours 1) `
+  -RepetitionDuration (New-TimeSpan -Days 1)).Repetition
 $startup = New-ScheduledTaskTrigger -AtStartup
 $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
