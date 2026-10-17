@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 85
+
+## Taylor Swift's Former Beverly Hills Mansion Listed for Sale
+
+- first seen: 2026-10-17 19:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The former mansion of Taylor Swift in Beverly Hills, where she wrote her album '1989', is currently on the market. The listing draws attention due to its connection to the artist and her musical achievements.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMiggFBVV95cUxOVS0xOEwwTWxCN1dsY1VfOGlIdEZKTGhuSG56QWJWYlVyZUxUb1VuYmtiN0dpSVRwZVRIcmtuVU5lVXptUzEzR2ZmSG9nUUpNN3pmdW10Q19Oa0hLdHBFZ01pa09IV29feTFkM2dUeE9qM0hLUVVfSFlZWkZ4cnhUQW5R?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves Significant Milestone Over the Weekend
 
