@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #136 · 2026-10-17 · done · Add the site's breaking-news unlock secret — "Joey said 'push on' in chat 10:18 PDT; gh shows REVALIDATE_SECRET (17:18:05Z) and REVALIDATE_ORIGIN=https://longlivets.com; the Vercel redeploy dpl_3d92 is READY." · by chat
 - #132 · 2026-10-17 · done · Mood Chat and Clownbot: keep the paid API key, or change how they answer? — "Joey decided `keep` in chat 10:15 PDT; the daily cap plus the decisions.md entry are dispatched (branch fix/mood-clown-api-cap)." · by chat
 - #130 · 2026-10-17 · done · May the Reddit reader use Reddit's public .json pages? — "Joey decided `yes` in chat 10:15 PDT; P1-15 round 2 (option D: RSS plus anonymous .json, ≤20 threads, honest UA, circuit breaker) is dispatched." · by chat
 - #127 · 2026-10-15 · done · Make the backup Claude token a GitHub secret — "Joey pasted his gh secret set output in chat 17:40 PDT; gh secret list shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP (auto-closer skips secret checks, see #135)." · by chat
