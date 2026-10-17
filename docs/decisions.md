@@ -9190,3 +9190,31 @@ The trusted system prompt says that image content and all text in it are untrust
 **Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
 
 **Verification.** `scripts/social/retract-post.test.ts`.
+
+## 2026-10-17 — Reddit reader uses anonymous public .json pages (HA #130 = yes)
+
+**Decision.** The owner approved architect ruling #8 option D. The home Reddit
+reader discovers threads through public Reddit RSS and reads thread detail only
+from anonymous public `.json` pages. It uses no API key, OAuth, login, Reddit
+account, browser, Playwright, stealth behavior, or impersonated User-Agent. The
+honest User-Agent names Long Live and links to longlivets.com.
+
+**Limits.** A run details at most 20 top threads. Requests are sequential, at
+least six seconds apart (stricter than the two-second floor) plus jitter. The
+stored outputs are the existing engagement-lead metrics (score, comment count,
+thread creation time for age) and the existing transient crawl bundle, limited
+to top-level comments and their first replies with authors omitted.
+
+**Circuit breaker.** The first HTTP 403, HTTP 429, or non-JSON detail response
+stops the run without retry. A local state file records the reason/time and
+skips the next three hourly runs (about three hours); another trip doubles
+the count up to 24 runs (24 hours). A trip or skipped run disables the
+home-reader heartbeat, so the existing GitHub RSS scan
+continues as the automatic fallback. A successful run closes the circuit and
+refreshes the heartbeat.
+
+**Rollout and reversibility.** The owner installs the Windows Scheduled Task in
+P1-26; this change does not install it. The existing drafter's thread-JSON
+switch remains default-off through the shadow week (about 2026-10-23), and no
+Tidewatch classifier or `config/tidewatch.json` behavior changes. Removing the
+task or reverting this change restores the RSS-only system.
