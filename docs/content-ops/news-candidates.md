@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift's 'It' Film Inspired by Clara Bow Secures Deal
+
+- first seen: 2026-10-17 11:26 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new deal has been reached involving a film linked to Taylor Swift's inspiration from Clara Bow's 'It'. The arrangement was reported by Variety, highlighting the ongoing collaboration in arts and entertainment.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMirAFBVV95cUxPcDJhZ3I2TWg2TFk1NXY0ZTkzYmVrazZlcVE3LXBWN1lUaTN2dkF0emhBTnRtTzZoQ0owT3Q2RmtLOGdJWDZDWVJRdEstX19pZ0s5UFdFNWNKc2Rmai1MLWI5SXY2ZmVBY3RZZ19MeUwzeEw3SnNobDd4UzZHMGtXZnVJVDhZenZPNDFCVUI5dVhLNXZhM3VnNll3bU1QcU1nclZQc1NuSjlNNEt5?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Public Opinion on Taylor Swift's New Songs Explored
 
