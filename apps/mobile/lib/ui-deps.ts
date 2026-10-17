@@ -22,6 +22,8 @@ export type ShareCardPorts = {
   /** Downloads `url` to the cache as `share/<name>.png` and returns the file. Callers pass a unique name per request. */
   download(url: string, name: string, signal?: AbortSignal): Promise<{ uri: string; base64(): string | Promise<string> }>;
   copyImage(base64: string): Promise<void>;
+  /** Android file share (expo-sharing); absent on binaries built before it was added, which keep the clipboard path. */
+  shareFile?(uri: string): Promise<void>;
   /** Best-effort: delete all but the newest `keep` share files (names sort oldest-first). */
   prune(keep: number): Promise<void>;
 };
@@ -75,6 +77,14 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       const card = image && env.cards ? await fetchCard(env.cards, image.url, gen) : null;
       if (gen !== generation) return;
       if (card) {
+        if (env.platformOS === 'android' && env.cards!.shareFile) {
+          try {
+            await env.cards!.shareFile(card.uri);
+            return { imageCopied: false };
+          } catch (e) {
+            env.log('share.card', e instanceof Error ? e.message : 'file share failed');
+          }
+        }
         if (env.platformOS === 'android') {
           // No file share on Android in this build: put the card on the clipboard, then share the text.
           let imageCopied = false;

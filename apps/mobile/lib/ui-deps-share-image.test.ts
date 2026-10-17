@@ -64,6 +64,21 @@ describe('share with an image', () => {
     expect(env.share.share).toHaveBeenCalledWith({ title: 'T', message: 'x\nhttps://www.longlivets.com/?item=a' });
   });
 
+  it('Android shares the card file directly when expo-sharing is present', async () => {
+    const shareFile = vi.fn(async () => {});
+    const { h, ports, env } = setup('android', { shareFile });
+    expect(await h.share(payload({ url: CARD }), ctx)).toEqual({ ok: true, value: { imageCopied: false } });
+    expect(shareFile).toHaveBeenCalledWith('file:///cache/share/story.png');
+    expect(ports.copyImage).not.toHaveBeenCalled();
+    expect(env.share.share).not.toHaveBeenCalled();
+  });
+
+  it('Android falls back to the clipboard path when the file share rejects', async () => {
+    const { h, ports } = setup('android', { shareFile: vi.fn(async () => { throw new Error('nope'); }) });
+    expect(await h.share(payload({ url: CARD }), ctx)).toEqual({ ok: true, value: { imageCopied: true } });
+    expect(ports.copyImage).toHaveBeenCalledWith('B64');
+  });
+
   it('a failed download falls back to the link share and still resolves ok', async () => {
     const { h, env } = setup('ios', { download: vi.fn(async () => { throw new Error('offline'); }) });
     expect(await h.share(payload({ url: CARD }), ctx)).toEqual({ ok: true, value: null });
