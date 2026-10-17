@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #132 · 2026-10-17 · done · Mood Chat and Clownbot: keep the paid API key, or change how they answer? — "Joey decided `keep` in chat 10:15 PDT; the daily cap plus the decisions.md entry are dispatched (branch fix/mood-clown-api-cap)." · by chat
+- #130 · 2026-10-17 · done · May the Reddit reader use Reddit's public .json pages? — "Joey decided `yes` in chat 10:15 PDT; P1-15 round 2 (option D: RSS plus anonymous .json, ≤20 threads, honest UA, circuit breaker) is dispatched." · by chat
 - #127 · 2026-10-15 · done · Make the backup Claude token a GitHub secret — "Joey pasted his gh secret set output in chat 17:40 PDT; gh secret list shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP (auto-closer skips secret checks, see #135)." · by chat
 - #124 · 2026-10-15 · done · Make the Jev key a GitHub secret: TYPESAFE_API_KEY — "Joey pasted his gh secret set output in chat 17:40 PDT; gh secret list shows TYPESAFE_API_KEY (auto-closer skips secret checks, see #135)." · by chat
 - #128 · 2026-10-15 · done · Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) — "Joey approved in chat 07:04 PDT; the PM merged #5817 at 14:05Z and closed the card on his instruction." · by chat

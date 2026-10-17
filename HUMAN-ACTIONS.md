@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **21 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **19 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -60,14 +60,6 @@
 
 **Worked if:** the next brief no longer lists #5537 under stalled.
 
-## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** You chose "no Anthropic API at all" (D1). But Mood Chat and Clownbot answer readers live from the website, and the website can't run your Claude subscription, so they still use the paid key, one model call per reader message.
-**Steps:**
-1. Decide: `keep` — these two stay on the paid key (small exception to D1, with a daily cap); `queue` — they answer later from the worker on your subscription (slower replies); `simple` — rule-based answers only, no model; `off` — turn both features off.
-**Worked if:** docs/decisions.md records your answer and the PM schedules the matching change.
-
 ## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
 <!-- ha filed=2026-10-15 -->
 
@@ -77,14 +69,6 @@
 2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
 3. Tell the PM chat "fb done"; the PM checks the next export.
 **Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
-
-## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Reddit blocks the home reader's browser (HTTP 403), so Reddit cards can't get score, comment counts or threads. Reddit's public .json pages need no key, login or account, but they touch the spirit of your no-Reddit-API-key rule, so it's your call.
-**Steps:**
-1. Decide: `yes` — RSS to find threads, plus anonymous .json for at most 20 top threads per run, slow and with an honest name; `no` — park the reader and keep the GitHub RSS scan (cards stay without counts).
-**Worked if:** docs/decisions.md records your answer and the P1-15 tracker row moves out of blocked.
 
 ## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
 <!-- ha filed=2026-10-15 -->
