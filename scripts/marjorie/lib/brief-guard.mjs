@@ -15,10 +15,19 @@ export function briefDecision({ ref, event, force = false, attempt = 1, current,
   if (!current || !/^\d+$/.test(String(current.id)) || !Number.isFinite(Date.parse(current.created_at))) return { proceed: false, reason: 'unreadable-current' };
   if (delivered) return { proceed: false, reason: 'already-delivered' };
   const at = Date.parse(current.created_at);
+  // An earlier same-day run is not evidence the brief went out (#6020): run
+  // 38897526230 (2026-10-16) hit the turn cap before `deliver`, and the two
+  // later runs that day refused with `earlier-run`, so the day lost its brief
+  // with no way to recover it. Only delivery blocks delivery — the markers
+  // guard() reads next (a brief-issue `discord-message-id`, or the status
+  // page's dated `marjorie-ping` stamp written as `deliver`'s last step) are
+  // the dedupe, and workflow concurrency (`marjorie-brief-day`) keeps two runs
+  // from racing past them. The earlier run is still reported in the reason so
+  // the log says which path a run took.
   const prior = runs.some((r) => r.head_branch === 'main' && ['schedule', 'workflow_dispatch'].includes(r.event) &&
     Number.isFinite(Date.parse(r.created_at)) && /^\d+$/.test(String(r.id)) && day(r.created_at) === day(at) &&
     (Date.parse(r.created_at) < at || (Date.parse(r.created_at) === at && BigInt(r.id) < BigInt(current.id))));
-  return { proceed: !prior, reason: prior ? 'earlier-run' : 'first-run' };
+  return { proceed: true, reason: prior ? 'earlier-run-undelivered' : 'first-run' };
 }
 
 function pages(execImpl, endpoint) {
