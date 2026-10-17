@@ -1,0 +1,63 @@
+[
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        {
+          "kind": "t3",
+          "data": {
+            "id": "abc123",
+            "title": "Which Taylor Swift era is your favorite?",
+            "permalink": "/r/TaylorSwift/comments/abc123/favorite_era/",
+            "subreddit": "TaylorSwift",
+            "score": 321,
+            "num_comments": 45,
+            "created_utc": 1792238400,
+            "locked": false,
+            "archived": false
+          }
+        }
+      ]
+    }
+  },
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        {
+          "kind": "t1",
+          "data": {
+            "body": "Top-level thought",
+            "score": 12,
+            "created_utc": 1792242000,
+            "replies": {
+              "kind": "Listing",
+              "data": {
+                "children": [
+                  {
+                    "kind": "t1",
+                    "data": {
+                      "body": "First reply",
+                      "score": 4,
+                      "created_utc": 1792245600,
+                      "replies": ""
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "kind": "t1",
+          "data": {
+            "body": "[deleted]",
+            "score": 0,
+            "created_utc": 1792249200,
+            "replies": ""
+          }
+        }
+      ]
+    }
+  }
+]
