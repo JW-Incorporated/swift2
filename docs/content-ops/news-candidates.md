@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Taylor Swift and Travis Kelce Encounter Opposition for Ohio Mansion Plans
+
+- first seen: 2026-10-17 12:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are facing pushback regarding their plans to build a mansion in Ohio, drawing attention to their recent relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQ2EwUHRKQzZ3Yk5CX1RXR0lvT04tekRQZ3hGR3lKbmFRbE1IcjVNTXp5XzdLSzRtX01zSTJIOHJ1ajd0N3lwS25jaUJKcUZYVHZwS1NFd3hQemdCc2kwSmY1WHo5X1EyWEwyOElWN0VjWXQ2Ml9xQUNwRGd1dkJtajFtREVnaW1uQ1VlT25wTFpwR0o5STJDcFM2bTRyU0o5NUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'It' Film Inspired by Clara Bow Secures Deal
 
