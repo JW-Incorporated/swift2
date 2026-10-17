@@ -182,8 +182,15 @@ the existing GitHub RSS lane keeps working.
 
 The reader writes metrics to the existing `engagement_lead` fields and writes
 top-level comments plus their first replies, with authors omitted, to
-`.artifacts/home-reddit-crawl.json` in the existing crawl-bundle shape. Test a
-single thread safely before installation:
+`.artifacts/home-reddit-crawl.json` in the existing crawl-bundle shape. The
+installed task then runs the theory miner over that bundle. It checks at most
+40 changed bundles with Jev `q_theory`; only positives reach Haiku 5.5 through
+the Claude-subscription wrapper. A durable `bundle:<thread>:<10-comment-bucket>`
+ledger skips unchanged threads. The task's local env therefore needs the
+existing Supabase service credentials, `TYPESAFE_API_KEY`, and the Claude
+subscription token. Candidate mentions are counted once per source thread;
+later comment buckets can refresh evidence without increasing the count.
+Test a single thread safely before installation:
 
 ```
 node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1
@@ -245,15 +252,16 @@ whichever is easier.
 ## 3. The fan-theory corpus (the quieter half)
 
 Separately from the daily email, the home reader collects new public Reddit
-threads and their shallow comment trees (never Facebook — see §5) from
-Taylor-Swift subreddits and pulls out recurring fan theories (things like
+threads and their shallow comment trees from Taylor-Swift subreddits and
+pulls out recurring fan theories (things like
 "fans think the next re-record drops in March"). Nothing from this ever
 gets posted anywhere. It just makes Clownbot (the site's chat) and the Clue
 Web/eggs board able to say "here's what fans are currently theorising,"
 citing real threads. You'll never be asked to review or approve individual
 theories — the redline filter used everywhere else on the site drops
 anything about relationships, identity, or private life before it's ever
-stored.
+stored. Privacy-safe aggregate summaries from owner-run Facebook exports can
+enter the same filter; member names, quotes, and raw comment bodies cannot.
 
 The owner installs the paced home reader separately in P1-26. The older GitHub
 year-deep crawl remains behind its own switch and ships **off**; see §4.2.

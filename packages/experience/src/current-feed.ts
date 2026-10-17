@@ -115,14 +115,9 @@ export function pickCountdownBannerItem(
   });
 }
 
-/** Mirrors `HEAT_PROMOTION_THRESHOLD` in `apps/worker/src/extract/
- * theory-promote.ts` (currently `PROMOTION_MENTION_THRESHOLD === 3`) — the
- * same bar a merged fan-theory cluster must clear to be promoted into
- * `live_theory` at all. Duplicated here (not imported) because `apps/worker`
- * is a server-side extraction app, never a dependency of the client-bundled
- * `@swift2/experience` package; if the worker's threshold ever changes,
- * update this constant to match (both are small, reviewed numbers, not a
- * runtime-shared config). */
+/** The established weaving floor remains 3 even though worker promotion now
+ * separately requires two distinct source threads. Duplicated here because
+ * `apps/worker` is never a dependency of the client-bundled experience. */
 const BIG_THEORY_HEAT_THRESHOLD = 3;
 
 /** A `live_theory.status` this component must never treat as "big" — the
@@ -134,11 +129,9 @@ const THEORY_BANNER_DISQUALIFIED_STATUSES = new Set(['debunked', 'faded']);
 
 /**
  * Whether `theory` is a "big" fan theory that qualifies for the pin-banner
- * slot: `heat` over the promotion threshold (Community Engine P2-3/P2-4 —
- * `theory-promote.ts` already gates `live_theory` promotion at this same
- * bar, so a promoted row already crossed it once; heat keeps moving after
- * promotion as more mentions/signals land, so this re-checks live, not just
- * "was ever promoted") and a status that isn't `debunked`/`faded`.
+ * slot: `heat` over the unchanged weaving floor (Community Engine P2-3/P2-4)
+ * and a status that isn't `debunked`/`faded`. Promotion separately requires
+ * two distinct source threads; heat keeps ranking eligible theories.
  */
 export function isBigTheory(theory: LiveTheory, heatThreshold: number = BIG_THEORY_HEAT_THRESHOLD): boolean {
   return theory.heat >= heatThreshold && !THEORY_BANNER_DISQUALIFIED_STATUSES.has(theory.status);
