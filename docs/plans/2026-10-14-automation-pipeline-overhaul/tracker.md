@@ -83,7 +83,7 @@ Done when: Tidewatch shadow has logged >= 7 days and >= 500 decisions; estimated
 | P1-19 | Merch E6 for real: matcher, step-4 writer, E3 gate, schedule | codex | L | L-MERCH | P0-09, P0-14, P1-09 | done | #5946 | 2026-10-15 |
 | P1-20b | Fan-made curation: when merch_fan.enabled is false, make no model calls (report "disabled: no calls made"); shadow still runs calls | codex | S | L-MERCH-FAN | P1-20 | done | #5953 | 2026-10-15 |
 | P1-20 | Fan-made merch auto-curation lane | codex | M | L-MERCH-FAN | P0-10, P1-01, P1-09, P1-09c | done | #5942 | 2026-10-15 |
-| P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | in-progress |  |  |
+| P1-21 | Theory yield: full threads, skip mined bundles, cheaper miner, promote at 2 | codex | M | L-THEORY | P1-15, P1-01 | review | #6048 |  |
 | P1-22 | New-on-site feed for social | executor-claude-sonnet | S | L-SOCIAL | P0-05 | done | #5917 | 2026-10-15 |
 | P1-22b | New-on-site follow-ups: dry-run wording, baseline catch rethrows non-missing errors, one shared moment-id helper with the sync script, dispatch-event-drafts prefers the feed | executor-claude-sonnet | S | L-SOCIAL | P1-22 | done | #5924 | 2026-10-15 |
 | P1-18b | Turn ledger queries the exact routine-usage artifact names; incomplete placeholders named per lane | codex | S | L-VAULT | P1-18 | done | #5929 | 2026-10-15 |
