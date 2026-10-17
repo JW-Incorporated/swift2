@@ -15,14 +15,20 @@ if (-not (Test-Path -LiteralPath $envFile -PathType Leaf)) {
 
 $repoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')
 $readerPath = Join-Path $PSScriptRoot 'reader.mjs'
+$minerPath = Join-Path $repoRoot.Path 'scripts\community\theory-miner.mjs'
 $node = Get-Command node.exe -ErrorAction Stop
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
 $quotedEnv = '"' + $envFile.Path.Replace('"', '\"') + '"'
 $quotedReader = '"' + $readerPath.Replace('"', '\"') + '"'
-$action = New-ScheduledTaskAction `
+$quotedMiner = '"' + $minerPath.Replace('"', '\"') + '"'
+$readerAction = New-ScheduledTaskAction `
   -Execute $node.Source `
   -Argument "--env-file=$quotedEnv --import tsx $quotedReader" `
+  -WorkingDirectory $repoRoot.Path
+$minerAction = New-ScheduledTaskAction `
+  -Execute $node.Source `
+  -Argument "--env-file=$quotedEnv --import tsx $quotedMiner" `
   -WorkingDirectory $repoRoot.Path
 
 $repeat = New-ScheduledTaskTrigger -Daily -At '12:00 AM'
@@ -34,14 +40,14 @@ $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
   -WakeToRun `
   -MultipleInstances IgnoreNew `
-  -ExecutionTimeLimit (New-TimeSpan -Minutes 15)
+  -ExecutionTimeLimit (New-TimeSpan -Minutes 55)
 $principal = New-ScheduledTaskPrincipal -UserId $identity -LogonType Interactive -RunLevel Limited
 $task = New-ScheduledTask `
-  -Action $action `
+  -Action @($readerAction, $minerAction) `
   -Trigger @($repeat, $startup) `
   -Settings $settings `
   -Principal $principal `
-  -Description 'Anonymous RSS and public JSON Reddit reader for Long Live.'
+  -Description 'Anonymous Reddit reader and capped fan-theory miner for Long Live.'
 
 if ($PSCmdlet.ShouldProcess($TaskName, 'Register Windows scheduled task')) {
   Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null

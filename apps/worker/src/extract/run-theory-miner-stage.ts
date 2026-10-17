@@ -14,7 +14,7 @@
 // separation ./run-extract-stage.ts keeps between orchestration and I/O.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { ClaudePriority } from '../claude-call';
+import type { ClaudePriority, WorkerClaudeCaller } from '../claude-call';
 import { extractFanTheories, commentsFromCrawlBundle } from './theory-haiku-client';
 import { upsertTheoryCandidate } from './write-theory-candidate';
 import { ExtractUsageStore, supabaseTheoryMinerUsageDb } from './usage-store';
@@ -28,7 +28,8 @@ export interface CrawlBundleComment {
 export interface CrawlBundlePost {
   postId: string;
   title: string;
-  permalink: string;
+  permalink?: string;
+  numComments?: number | null;
   comments: readonly CrawlBundleComment[];
 }
 
@@ -47,18 +48,37 @@ export interface TheoryMinerStageResult {
   theoriesUpserted: number;
   theoriesScreenedOut: number;
   skipped: number;
+  unchanged: number;
+  prefiltered: number;
   deferred: number;
   errors: string[];
 }
 
-function bareSubredditName(watchlistId: string): string {
-  return watchlistId.startsWith('reddit:') ? watchlistId.slice('reddit:'.length) : watchlistId;
+export type TheoryBundleFilter = (post: CrawlBundlePost) => Promise<boolean | null>;
+
+function commentBucket(post: CrawlBundlePost): number {
+  const count = Number.isFinite(Number(post.numComments))
+    ? Number(post.numComments)
+    : post.comments.length;
+  return Math.floor(Math.max(0, count) / 10);
+}
+
+export function theoryBundleKey(post: CrawlBundlePost): string {
+  return `bundle:${post.postId}:${commentBucket(post)}`;
+}
+
+function bareCommunityName(watchlistId: string): string {
+  return watchlistId.replace(/^(reddit|facebook):/, '');
 }
 
 export async function runTheoryMinerStage(
   db: SupabaseClient,
   artifact: CrawlArtifact,
-  options: { priority?: ClaudePriority } = {},
+  options: {
+    priority?: ClaudePriority;
+    shouldMine?: TheoryBundleFilter;
+    claude?: WorkerClaudeCaller;
+  } = {},
 ): Promise<TheoryMinerStageResult> {
   const errors: string[] = [];
   const result: TheoryMinerStageResult = {
@@ -67,9 +87,19 @@ export async function runTheoryMinerStage(
     theoriesUpserted: 0,
     theoriesScreenedOut: 0,
     skipped: 0,
+    unchanged: 0,
+    prefiltered: 0,
     deferred: 0,
     errors,
   };
+
+  const posts = artifact.subreddits.flatMap((sub) => sub.posts);
+  const keys = posts.map(theoryBundleKey);
+  const { data: minedRows, error: minedError } = keys.length > 0
+    ? await db.from('theory_mined_bundle').select('bundle_key').in('bundle_key', keys)
+    : { data: [], error: null };
+  if (minedError) throw new Error(`theory_mined_bundle load failed: ${minedError.message}`);
+  const minedKeys = new Set((minedRows ?? []).map((row) => row.bundle_key as string));
 
   const { data: symbolRows, error: symbolError } = await db.from('symbol_lexicon').select('key');
   if (symbolError) errors.push(`symbol_lexicon load failed: ${symbolError.message}`);
@@ -83,50 +113,78 @@ export async function runTheoryMinerStage(
   );
 
   for (const sub of artifact.subreddits) {
-    const bareSub = bareSubredditName(sub.subreddit);
+    const bareSub = bareCommunityName(sub.subreddit);
     for (const post of sub.posts) {
       result.bundlesConsidered++;
+      const bundleKey = theoryBundleKey(post);
+      if (minedKeys.has(bundleKey)) {
+        result.unchanged++;
+        continue;
+      }
       try {
+        const shouldMine = options.shouldMine ? await options.shouldMine(post) : true;
+        if (shouldMine === null) {
+          result.deferred++;
+          continue;
+        }
+        if (!shouldMine) {
+          const { error } = await db.from('theory_mined_bundle').insert({
+            bundle_key: bundleKey,
+            thread_id: post.postId,
+            comment_bucket: commentBucket(post),
+            outcome: 'jev_negative',
+            theories_found: 0,
+          });
+          if (error) throw new Error(`theory_mined_bundle insert failed: ${error.message}`);
+          result.prefiltered++;
+          continue;
+        }
         const extracted = await extractFanTheories(usage, {
           subreddit: bareSub,
           postTitle: post.title,
           postId: post.postId,
-          permalink: post.permalink,
+          permalink: post.permalink ?? '',
           comments: commentsFromCrawlBundle(post.comments),
           symbolLexiconKeys,
           today,
-        }, { priority: options.priority ?? 'P2' });
+        }, { priority: options.priority ?? 'P2', ...(options.claude ? { claude: options.claude } : {}) });
 
         if (extracted === null) {
-          // No key, or the per-run/daily cap is reserved out — this bundle
-          // is simply not retried (unlike run-extract-stage.ts's
-          // news_story.extracted_at flag, the crawl artifact is transient
-          // and gone in 24h, so there is no "leave it unmarked" state to
-          // preserve here — it is dropped for this run, same as any other
-          // post below the crawl's own heat/budget cut line).
+          // Subscription/cap unavailability is retryable: only completed
+          // Jev negatives and completed Haiku mines enter the bundle ledger.
           result.deferred++;
           continue;
         }
 
-        if (extracted.theories.length === 0) {
+        const uniqueTheories = [...new Map(
+          extracted.theories.map((theory) => [theory.theoryKey, theory]),
+        ).values()];
+        if (uniqueTheories.length === 0) {
           result.skipped++;
-          continue;
-        }
-
-        result.theoriesFound += extracted.theories.length;
-        for (const theory of extracted.theories) {
-          const upserted = await upsertTheoryCandidate(db, theory, {
-            community: bareSub,
-            permalink: post.permalink,
-            score: post.comments.length,
-            today,
-          });
-          if (upserted === null) {
-            result.theoriesScreenedOut++;
-          } else {
-            result.theoriesUpserted++;
+        } else {
+          result.theoriesFound += uniqueTheories.length;
+          for (const theory of uniqueTheories) {
+            const upserted = await upsertTheoryCandidate(db, theory, {
+              community: bareSub,
+              ...(post.permalink ? { permalink: post.permalink } : {}),
+              score: post.numComments ?? post.comments.length,
+              today,
+            });
+            if (upserted === null) {
+              result.theoriesScreenedOut++;
+            } else {
+              result.theoriesUpserted++;
+            }
           }
         }
+        const { error } = await db.from('theory_mined_bundle').insert({
+          bundle_key: bundleKey,
+          thread_id: post.postId,
+          comment_bucket: commentBucket(post),
+          outcome: 'mined',
+          theories_found: uniqueTheories.length,
+        });
+        if (error) throw new Error(`theory_mined_bundle insert failed: ${error.message}`);
       } catch (err) {
         errors.push(`theory-miner failed for post ${post.postId}: ${(err as Error).message}`);
       }

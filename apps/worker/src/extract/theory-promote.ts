@@ -36,15 +36,8 @@ import type { FanTheoryStance } from '@swift2/shared/community';
 import { findTheoryMatch, isTheoryMatch } from './theory-match';
 import { symbolMatchScore } from './symbol-match';
 
-export const PROMOTION_MENTION_THRESHOLD = 3;
-/** The heat bar a merged cluster must clear to promote (Community Engine
- * symbol-scoring follow-up). Same numeric value as the original mention-
- * only bar — this isn't a stricter or looser gate, it's the same bar
- * expressed against `heat` (mentionCount + a catalog-fact bonus) instead
- * of raw mentionCount alone, so a strong deterministic symbol match can
- * clear it without needing PROMOTION_MENTION_THRESHOLD mentions on its
- * own. See `mergeTheoryCandidates`' heat computation below for the
- * weighting and a worked example. */
+export const PROMOTION_MENTION_THRESHOLD = 2;
+/** The heat bar moves with the P1-21 two-signal promotion threshold. */
 export const HEAT_PROMOTION_THRESHOLD = PROMOTION_MENTION_THRESHOLD;
 const MAX_SAMPLE_URLS = 3;
 
@@ -220,11 +213,7 @@ export function mergeTheoryCandidates(
     // WORKED EXAMPLE (today's live case): a single-mention cluster
     // ("0 styled as ()" + "12 exclamation points" + "12th studio album",
     // numericSignals [0, 12]) scores 0.5 (see symbol-match.ts's own worked
-    // example) -> heat = 1 + 0.5 * HEAT_PROMOTION_THRESHOLD = 1 + 1.5 =
-    // 2.5, still short of a threshold-3 bar on this one example alone (an
-    // honest result: half-real numeric evidence at one mention is real
-    // signal, not yet enough to promote alone) — a second mention or a
-    // stronger/more numbers match would clear it.
+    // example) -> heat = 1 + 0.5 * 2 = 2, exactly the new two-signal bar.
     const heat = mentionCount + score * HEAT_PROMOTION_THRESHOLD;
     const decision: MergedTheoryCluster['decision'] =
       heat < HEAT_PROMOTION_THRESHOLD

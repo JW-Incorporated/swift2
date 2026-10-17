@@ -129,13 +129,10 @@ describe('runTheoryPromotePass', () => {
     expect(updateCalled).toBe(false);
   });
 
-  it('persists the merged mention_count sum onto the canonical row even on the hold path', async () => {
-    // Two near-duplicate, still-below-threshold candidates merge into one
-    // cluster whose SUMMED mention_count is enough to matter for a future
-    // run, but the cluster itself still holds (assuming the sum is below
-    // PROMOTION_MENTION_THRESHOLD here) — regression test for the bug
-    // where a hold decision never wrote the merged sum back to the DB,
-    // silently losing the merged siblings' mention counts forever.
+  it('promotes two merged independent signals and persists their mention sum', async () => {
+    // P1-21 lowers the bar to two: two separately stored candidates that
+    // merge into one cluster must promote on this pass, while preserving
+    // the merged count on the canonical candidate.
     const a = { ...baseCandidateRow, id: 'a', theory_key: 'a', mention_count: 1 };
     const b = { ...baseCandidateRow, id: 'b', theory_key: 'b', mention_count: 1 };
     // Same claim text on both -> same `name` for matching purposes (see
@@ -155,7 +152,7 @@ describe('runTheoryPromotePass', () => {
       throw new Error(`unexpected table ${table}`);
     });
     const result = await runTheoryPromotePass(db);
-    expect(result.held).toBe(1);
+    expect(result.promoted).toBe(1);
     expect(sumUpdateRow?.mention_count).toBe(2); // 1 + 1 from the merged sibling, not just the canonical's own 1
   });
 
