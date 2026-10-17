@@ -119,7 +119,7 @@ describe('clock-table.json', () => {
     expect(TABLE.map((e: { workflow: string }) => e.workflow)).toEqual([
       'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'news-worker.yml',
       'tidewatch.yml', 'tidewatch.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
-      'social-approval-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
+      'social-approval-poll.yml', 'community-reaction-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
       'tidewatch-shadow-report.yml', 'tidewatch-shadow-report.yml',
     ]);
     for (const e of TABLE) {

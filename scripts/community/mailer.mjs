@@ -54,6 +54,8 @@ import { URLSearchParams } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
+import { routeForPlatform } from '../lib/discord-route.mjs';
+import { buildDraftBox } from './reply-card.mjs';
 import { facebookLeadUrl } from './awareness-fb-link.mjs';
 import {
   COMMUNITY_WEBHOOK_USERNAME,
@@ -65,6 +67,11 @@ import {
 } from './reply-opportunity.mjs';
 
 export const SITE = 'https://www.longlivets.com';
+
+/** Facebook leads go to tree-facebook (#5987); Reddit leads keep tree-main. */
+export function mailerRouteFor(platform) {
+  return platform === 'facebook' ? routeForPlatform('facebook') : 'tree-main';
+}
 
 export const MAX_LEADS_PER_EMAIL = 15; // matches Answerer's own ≤12/day draft cap + headroom
 
@@ -446,20 +453,16 @@ async function main() {
     );
   }
 
-  const ackSecret = process.env.COMMUNITY_ACK_SECRET;
   const prompts = [];
   const buildFailed = [];
   for (const lead of leads) {
-    const postedUrl = ackSecret
-      ? buildAckUrl(ackSecret, {
-          leadId: lead.id,
-          action: 'posted',
-          linkIncluded: Boolean(lead.link_included),
-        })
-      : null;
-    const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
     try {
-      prompts.push({ id: lead.id, content: buildReplyOpportunity(lead, { postedUrl, skipUrl }) });
+      prompts.push({
+        id: lead.id,
+        route: mailerRouteFor(lead.platform),
+        content: buildReplyOpportunity(lead),
+        followUp: buildDraftBox(lead.draft).text,
+      });
     } catch (err) {
       // One unbuildable lead never aborts the batch; it stays drafted and is reported below.
       buildFailed.push({ leadId: lead.id, message: String(err?.message ?? err) });
@@ -468,17 +471,29 @@ async function main() {
 
   // One lead-in so the batch reads as one block, then the leads back to back —
   // only when at least one message will follow, and not again on a receipt retry.
-  if (shouldPostBatchHeader({ promptCount: prompts.length, isRetry: Boolean(receipt.existing) })) {
-    await postBatchHeader(buildBatchHeader(prompts.length, { mode }), {
-      username: COMMUNITY_WEBHOOK_USERNAME,
-      route: 'tree-main',
-    });
+  const byRoute = new Map();
+  for (const prompt of prompts) {
+    if (!byRoute.has(prompt.route)) byRoute.set(prompt.route, []);
+    byRoute.get(prompt.route).push(prompt);
   }
-  const result = await postCommunityPrompts(prompts, {
-    username: COMMUNITY_WEBHOOK_USERNAME,
-    route: 'tree-main',
-    onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
-  });
+  const result = { status: 'delivered', delivered: [], failed: [] };
+  for (const [route, group] of byRoute) {
+    if (shouldPostBatchHeader({ promptCount: group.length, isRetry: Boolean(receipt.existing) })) {
+      await postBatchHeader(buildBatchHeader(group.length, { mode }), {
+        username: COMMUNITY_WEBHOOK_USERNAME,
+        route,
+      });
+    }
+    const part = await postCommunityPrompts(group, {
+      username: COMMUNITY_WEBHOOK_USERNAME,
+      route,
+      onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
+    });
+    if (part.status === 'unconfigured') result.status = 'unconfigured';
+    else if (part.status === 'partial' && result.status === 'delivered') result.status = 'partial';
+    result.delivered.push(...part.delivered);
+    result.failed.push(...part.failed);
+  }
   result.failed = [...(result.failed ?? []), ...buildFailed];
 
   if (result.status === 'unconfigured') {

@@ -3,6 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-ignore — plain .mjs script, no declaration file
 import { BATCH_CAP, DAILY_CAP, resolveAttachment, runDelivery } from './awareness-deliver.mjs';
 
+const box = (draft: string) => '```\n' + draft + '\n```';
+
 const PNG = Buffer.concat([
   Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
   Buffer.alloc(16),
@@ -121,7 +123,6 @@ describe('runDelivery', () => {
       webhook: 'https://discord.test/hook',
       catalog,
       config,
-      ackSecret: 'secret',
       fetchImpl: fetchImpl as never,
     });
     expect(result.delivered).toHaveLength(2);
@@ -134,19 +135,19 @@ describe('runDelivery', () => {
     expect((form.get('files[0]') as File).type).toBe('image/png');
     const card = String(JSON.parse(String(form.get('payload_json'))).content);
     expect(card.split('\n')[0]).toBe('<https://www.reddit.com/r/TaylorSwift/comments/1/x/>');
-    expect(card).toContain('/api/community/ack?lead=lead-1&action=posted');
+    expect(card).toContain('React ✅ posted · ❌ skip');
+    expect(card).not.toContain('/api/community/ack');
     expect(card).not.toContain('No self-promo');
     expect(card).not.toContain('```');
-    // The reply follows its card as a plain message holding nothing else, so
-    // long-press "Copy Text" on mobile copies exactly the reply.
+    // The reply follows its card as its own message holding only a code box (#5987).
     const reply = JSON.parse(String(calls[1].body));
-    expect(reply.content).toBe(lead(1).draft);
+    expect(reply.content).toBe(box(lead(1).draft));
     expect(reply).toMatchObject({
       username: 'Tree · Awareness replies',
       allowed_mentions: { parse: [] },
     });
     expect(calls[2].body).toBeInstanceOf(FormData);
-    expect(JSON.parse(String(calls[3].body)).content).toBe(lead(2, 'swifties').draft);
+    expect(JSON.parse(String(calls[3].body)).content).toBe(box(lead(2, 'swifties').draft));
     expect(updates.filter((p) => (p as { status?: string }).status === 'delivered')).toHaveLength(
       2,
     );
@@ -331,7 +332,7 @@ describe('runDelivery caps and unlisted subs', () => {
     const content = cardContent(calls[0].body);
     // Owner 2026-10-05: the card is the link only — no rule note, no label.
     expect(content).toBe(
-      '<https://www.reddit.com/r/AskReddit/comments/1/x/>\nReact ✅ posted · ⏭️ skip\nref: reddit · lead-1',
+      '<https://www.reddit.com/r/AskReddit/comments/1/x/>\nDone? React ✅ posted · ❌ skip. Nothing posts automatically.\nref: reddit · lead-1',
     );
     expect(DAILY_CAP).toBe(15);
     expect(BATCH_CAP).toBe(5);
@@ -350,7 +351,6 @@ describe('text-only replies (#4767)', () => {
       webhook: 'https://discord.test/hook',
       catalog,
       config,
-      ackSecret: 'secret',
       fetchImpl: fetchImpl as never,
     });
     expect(result.delivered).toEqual([expect.objectContaining({ leadId: 'lead-1', card: null })]);
@@ -366,8 +366,9 @@ describe('text-only replies (#4767)', () => {
     expect(card.content.split('\n')[0]).toBe(
       '<https://www.reddit.com/r/TaylorSwift/comments/1/x/>',
     );
-    expect(card.content).toContain('/api/community/ack?lead=lead-1&action=posted');
-    expect(JSON.parse(String(calls[1].body)).content).toBe('reply number 1');
+    expect(card.content).toContain('React ✅ posted · ❌ skip');
+    expect(card.content).not.toContain('/api/community/ack');
+    expect(JSON.parse(String(calls[1].body)).content).toBe('```\nreply number 1\n```');
     // The record says text-only, not the scan's suggestion.
     expect(updates.find((p) => (p as { status?: string }).status === 'delivered')).toMatchObject({
       image_ref: null,
