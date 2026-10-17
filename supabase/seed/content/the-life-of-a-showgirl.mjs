@@ -15808,6 +15808,59 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-10-17 (Vault Run, Content Shift lane) from intake #5914.
+      // An on-record quote from a named public figure, read directly from
+      // Variety's page this run (bot-gated, fetched with a browser UA). No
+      // redline: commentary on TV coverage, no location or private detail.
+      slug: 'showgirl-emmitt-smith-networks-camera',
+      year: 2026,
+      month: 10,
+      day: 14,
+      category: 'business',
+      title: 'Emmitt Smith on the game-day camera: "She\'s not looking for the damn camera!"',
+      snippet:
+        'Asked by Variety about some male fans\' mixed feelings over Taylor at NFL games, the Hall of Famer put it on the networks, not her.',
+      sourceUrl: 'https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In a Variety interview published Oct. 14, 2026, NFL all-time leading rusher Emmitt Smith was asked about "the Taylor Swift effect on the NFL": more women watching, and some male fans with mixed feelings about how often she shows up on the broadcast.\n\nHis answer: "Why would it be a controversial matter? She\'s there to support her husband and she doesn\'t care about all this other stuff, but the networks do. The networks are exposing everything because of who she is. She\'s not looking for the damn camera!" He added that "the only thing she can do is not show up" at the games, and asked who would want that.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/',
+            source_title: "Emmitt Smith Talks 'Dancing with the Stars,' Taylor Swift's Impact on the NFL and the State of the Dallas Cowboys Under Dak Prescott",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-17',
+            reliability_score: 4,
+            notes: 'Q&A by Marlow Stern, published Oct. 14, 2026; all quotes read verbatim from the page.',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-gets-former-nfl-player-in-on-controversial-chiefs-appearances',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-17',
+            reliability_score: 4,
+            notes: 'Pickup by Anne Erickson, Oct. 14, 2026, crediting Variety; reproduces the same quotes. Confirms the interview, not an independent interview.',
+          },
+        ],
+        // Visual (charter step 3b): no photo of the interview exists, so this is
+        // a labeled reference portrait of the speaker. Commons, CC BY 2.0,
+        // Anthony Quintano; curl 200 image/jpeg at 960px, vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg/960px-Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg',
+            focalPoint: '40% 25%',
+            credit: 'Anthony Quintano, CC BY 2.0, via Wikimedia Commons',
+            caption: 'For reference: Emmitt Smith on the field at Super Bowl XLIV, February 2010.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
