@@ -93,7 +93,7 @@ moment to talk about it.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. The owner-installed home Reddit reader runs every 20 minutes, discovers
+1. The owner-installed home Reddit reader runs hourly, discovers
    threads through public RSS, and enriches at most 20 through anonymous public
    `.json` pages. `community-awareness-scan` remains the automatic RSS-only
    fallback: it skips only while the home heartbeat is fresh and enabled, and
@@ -173,7 +173,7 @@ secret.
 seconds plus jitter after the previous request, and no run details more than
 20 threads. HTTP 403/429 or a non-JSON detail response stops the run on that
 first response with no retry. A local circuit file skips the next three runs
-(about 60 minutes), doubles that count after another trip (capped at 72 runs,
+(about three hours), doubles that count after another trip (capped at 24 runs,
 24 hours), and records the reason and time. A trip or skipped run disables the
 home heartbeat immediately, so
 the existing GitHub RSS lane keeps working.

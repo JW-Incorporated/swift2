@@ -9193,8 +9193,8 @@ to top-level comments and their first replies with authors omitted.
 
 **Circuit breaker.** The first HTTP 403, HTTP 429, or non-JSON detail response
 stops the run without retry. A local state file records the reason/time and
-skips the next three scheduled runs (about 60 minutes); another trip doubles
-the count up to 72 runs (24 hours). A trip or skipped run disables the
+skips the next three hourly runs (about three hours); another trip doubles
+the count up to 24 runs (24 hours). A trip or skipped run disables the
 home-reader heartbeat, so the existing GitHub RSS scan
 continues as the automatic fallback. A successful run closes the circuit and
 refreshes the heartbeat.

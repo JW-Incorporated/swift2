@@ -2,7 +2,7 @@ import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 export const INITIAL_BACKOFF_RUNS = 3;
-export const MAX_BACKOFF_RUNS = 72;
+export const MAX_BACKOFF_RUNS = 24;
 
 export class CircuitTripError extends Error {
   constructor(reason, status = null) {

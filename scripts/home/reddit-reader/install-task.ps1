@@ -28,7 +28,7 @@ $action = New-ScheduledTaskAction `
 $repeat = New-ScheduledTaskTrigger `
   -Once `
   -At ((Get-Date).AddMinutes(1)) `
-  -RepetitionInterval (New-TimeSpan -Minutes 20) `
+  -RepetitionInterval (New-TimeSpan -Minutes 60) `
   -RepetitionDuration ([TimeSpan]::MaxValue)
 $startup = New-ScheduledTaskTrigger -AtStartup
 $settings = New-ScheduledTaskSettingsSet `
