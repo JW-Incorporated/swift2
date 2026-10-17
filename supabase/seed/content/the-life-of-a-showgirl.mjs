@@ -31,6 +31,9 @@ export default {
       month: 10,
       day: 3,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-tloas-a-rumored-girls-night-out-with-dakota-johnson-in-los-angeles',
+      ],
       title: 'Taylor crashes Dakota Johnson’s SNL monologue as her reluctant “therapist”',
       snippet:
         'Hosting Saturday Night Live on the eve of her birthday, Dakota Johnson introduced “my literal therapist” — and out walked Taylor to set the record straight: “I’m not your therapist, actually.” The two “Patient Zero” collaborators sparred through the cold-open monologue, and Taylor came back at the goodnights carrying a birthday cake.',
@@ -107,6 +110,10 @@ export default {
       month: 10,
       day: 4,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+      ],
       title:
         '"Patient Zero" debuts at No. 1 — a record-tying 10th — as "Encore" tracks take four of the Hot 100\'s top five',
       snippet:
@@ -2656,7 +2663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
+          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. (The package kept a life past the chart run: on Oct. 15, 2026, Taylor\'s official YouTube channel posted a visualizer for the BUNT. remix.) On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -2723,6 +2730,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 3,
+          },
+          {
+            // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5913).
+            outlet: 'Taylor Swift (official YouTube)',
+            url: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+            source_title: 'Taylor Swift - Opalite (BUNT. Remix) (Visualizer)',
+            publisher: 'Taylor Swift',
+            source_type: 'video',
+            accessed_at: '2026-10-15',
+            reliability_score: 5,
+            notes:
+              'Official visualizer for the BUNT. remix, posted Oct. 15, 2026. Verified via YouTube oEmbed (HTTP 200, title "Taylor Swift - Opalite (BUNT. Remix) (Visualizer)", author_name "Taylor Swift", author_url youtube.com/@TaylorSwift). A visualizer does not fit the videos kind enum, so it is a moment source rather than a videos row.',
           },
           {
             // Chris Lake on being asked by Swift and Kelce to remix "Opalite"
@@ -6723,6 +6742,32 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-08-17',
           },
+          // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
+          // the October pre-nomination prediction pieces. Award chances are
+          // explicitly Always-OK speculation; all three pages loaded and were
+          // read directly. No location.
+          {
+            claim:
+              'The Life of a Showgirl made the projected Album of the Year field and "The Fate of Ophelia" the projected Song of the Year field in Rolling Stone\'s 2027 Grammy predictions — though the picks to win were Olivia Rodrigo and Olivia Dean\'s "Man I Need".',
+            reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
+            reportedOn: '2026-10-13',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
+            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
+          },
+          {
+            claim:
+              'Variety\'s Chris Willman listed "The Fate of Ophelia" among the leading Record of the Year contenders and named Taylor, Olivia Dean and Olivia Rodrigo the best bets to win, noting that for all her Album of the Year wins Taylor has never won Record or Song of the Year.',
+            reportedBy: 'Variety (Chris Willman)',
+            reportedOn: '2026-10-12',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
+            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
+          },
         ],
       },
     },
@@ -9034,6 +9079,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -9312,6 +9358,34 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-08',
           },
+          // Added 2026-10-16 (Vault Run, Content Shift lane, intake #6003): the
+          // two song-level October pre-nomination pieces, both pages loaded and
+          // read directly (browser UA past the bot-paywall redirect). Award
+          // chances are Always-OK speculation; adjudicable at the Nov. 16
+          // nominations. The digest's "Choosin' Texas" headline is Ella
+          // Langley's song, the article's predicted winner — not Taylor's.
+          {
+            claim:
+              'Taylor and Jack Antonoff look like the front-runners for Best Song Written for Visual Media at the 2027 Grammys with "I Knew It, I Knew You," per Billboard\'s category forecast — which would be her second win there, after "Safe & Sound" from The Hunger Games won in 2013.',
+            reportedBy: 'Billboard (Paul Grein)',
+            reportedOn: '2026-10-15',
+            status: 'unconfirmed',
+            url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
+            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-16',
+          },
+          {
+            claim:
+              '"I Knew It, I Knew You" made the predicted five for Best Country Song in Rolling Stone\'s 2027 Grammy forecast, alongside Kelsea Ballerini, Ella Langley, Megan Moroney and Kacey Musgraves — with Langley\'s "Choosin\' Texas" picked to win.',
+            reportedBy: 'Rolling Stone (Marissa R. Moss)',
+            reportedOn: '2026-10-16',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/',
+            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-16',
+          },
         ],
       },
     },
@@ -9334,6 +9408,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -13412,6 +13487,7 @@ export default {
       category: 'sighting',
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-taylor-crashes-dakota-johnsons-snl-monologue-as-her-reluctan',
       ],
       confidence: 'plausible',
       title: 'A rumored girls’ night out with Dakota Johnson in Los Angeles',
@@ -14074,6 +14150,7 @@ export default {
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
       snippet:
@@ -14149,6 +14226,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 9,
@@ -14721,6 +14801,10 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
+      relatedIds: [
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       // Priority fix (2026-09-23, founder escalation): this is breaking news —
       // a new single announcement, her first release since The Life of a
       // Showgirl — and the same-day alphabetical tiebreak (era-feed.ts's
@@ -14959,6 +15043,10 @@ export default {
       month: 9,
       day: 25,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       significance: 'notable',
       title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
       snippet:
@@ -15639,6 +15727,83 @@ export default {
             caption:
               'Taylor on a red carpet — the most-nominated individual name on the 2026 Kids’ Choice Awards ballot.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-16 (Vault Run, Content Shift lane) from intake #6004.
+      // Business/IP facts only — no privacy redline (no location, health,
+      // security or private individuals). Placed by the real-world date of the
+      // first overseas filings (Oct. 6, 2026). Two independent outlets, both
+      // read directly this run: Music Business Worldwide (UK/EU/Australia
+      // detail, read from the trademark offices' own records) and the Spanish
+      // wire agency EFE (EU filing, from the EUIPO register), with Variety for
+      // the April U.S. filings it builds on. Commentary on whether a voice can
+      // be registered is attributed, not asserted.
+      slug: 'showgirl-voice-trademark-filings-go-global',
+      year: 2026,
+      month: 10,
+      day: 6,
+      category: 'business',
+      title: '"Hey, it\'s Taylor Swift" goes global: the voice trademark push reaches the UK, EU and Australia',
+      snippet:
+        'Five months after filing to trademark her voice and an Eras Tour stage image in the U.S., Taylor\'s company took the same marks to the UK, the EU and Australia — and Australia accepted the sound mark in six days.',
+      sourceUrl: 'https://www.musicbusinessworldwide.com/taylor-swift-expands-voice-trademark-filings-to-the-uk-eu-and-australia-amid-ai-deepfake-crackdown/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The AI-era trademark play Taylor started in April has gone international. On Oct. 6, 2026, her company TAS Rights Management filed sound-mark applications for a recording of her saying "Hey, it\'s Taylor Swift" with the UK Intellectual Property Office and the EU\'s trademark office (EUIPO), followed on Oct. 7 by applications in both for a stage photograph — the same Eras Tour image from the U.S. filing: Taylor with a pink guitar, in a multi-colored iridescent bodysuit and silver boots, on a pink stage.\n\nAustralia moved fastest. IP Australia accepted the "Hey, it\'s Taylor Swift" sound mark on Oct. 12, six days after it was filed; it is listed as "Accepted: In opposition period," which typically gives anyone two months to object before it can be registered. The UK and EU applications were still under examination when the filings were reported in mid-October, and none of the overseas marks is registered yet. Both the Australian and UK applications claim a priority date of April 24, 2026 — the day of the original filings.\n\nThose U.S. applications, filed with the Patent and Trademark Office on April 24, covered two short voice clips ("Hey, it\'s Taylor Swift" and "Hey, it\'s Taylor") plus that stage photo. Trademark attorney Josh Gerben, who first spotted them, called registering a celebrity\'s spoken voice "a new use of trademark registration that has not been tested in court before" — the idea being that a registered voice could let her challenge AI imitations that merely sound "confusingly similar," not just exact copies. Whether a voice alone is distinctive enough to register is an open question that the overseas offices will now have to answer, too.',
+        sources: [
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swift-expands-voice-trademark-filings-to-the-uk-eu-and-australia-amid-ai-deepfake-crackdown/',
+            source_title: 'Taylor Swift expands voice trademark filings to the UK, EU, and Australia amid AI deepfake crackdown',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'Primary source for the UK (Oct. 6 sound mark, Oct. 7 image, both "Examination"), EU (Oct. 6/7, "Application under examination") and Australia (accepted Oct. 12, opposition period) filings and the April 24 priority date, read from each office\'s public record. Published Oct. 14, 2026.',
+          },
+          {
+            outlet: 'EFE (via El Heraldo)',
+            url: 'https://www.elheraldo.hn/entretenimiento/taylor-swift-registra-voz-europa-proteger-ia-HE32274102',
+            source_title: 'Taylor Swift registra su voz en Europa para protegerla de la IA',
+            publisher: 'El Heraldo (Agencia EFE)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'Independent wire confirmation, from the EUIPO public register, of the Oct. 6 EU sound-mark application for "Hey, it\'s Taylor Swift" by TAS Rights Management (Nice class 41).',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-trademark-voice-likeness-ai-misuse-1236731401/',
+            source_title: 'Taylor Swift Files to Trademark Her Voice and Likeness, Apparently to Protect Against AI Misuse',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'The April 24, 2026 U.S. filings (two voice clips plus the stage photograph, quoted description) and Josh Gerben\'s "not been tested in court" comment.',
+          },
+        ],
+        // Visual (charter step 3b): the filed image itself lives only in the
+        // trademark offices' records, so this is a clearly labeled reference —
+        // the Lover-set look the filing describes (iridescent bodysuit, silver
+        // boots). Wikimedia Commons, upload.wikimedia.org; curl 200 image/jpeg
+        // at 960px (original 4881x3254), downloaded and vision-confirmed this
+        // run: Taylor mid-song with a mic, sequined iridescent bodysuit and
+        // silver boots. CC BY-SA 2.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg',
+            focalPoint: '48% 40%',
+            credit: 'Ronald Woan, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'For reference — the Eras Tour Lover-set look (iridescent bodysuit, silver boots) that the trademarked stage photo shows, here in Arlington, April 2023. The filed image itself also has the pink guitar.',
+            kind: 'reference',
           },
         ],
       },

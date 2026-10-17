@@ -35,7 +35,8 @@ export function parseArgs(argv) {
 
 export function isLimitFailure(record) {
   // Unify this with session-outcome.mjs after #5825 merges.
-  return record?.diagnostic?.assistantError === 'rate_limit' || /weekly limit|usage limit/i.test(JSON.stringify(record));
+  // `session limit` is the five-hour cap's wording — a limit hit, not a defect (#5899).
+  return record?.diagnostic?.assistantError === 'rate_limit' || /weekly limit|session limit|usage limit/i.test(JSON.stringify(record));
 }
 
 export function tokenPool(record) {
