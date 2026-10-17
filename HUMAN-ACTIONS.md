@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -15,16 +15,6 @@
 2. Select the Long Live bot (add it with "+" if it isn't listed), set **Add Reactions** and **Read Message History** to ✅ (green), then Save Changes.
 3. Repeat steps 1–2 for the channel **tree-main**.
 **Worked if:** After you react ❌ on a reply card, a 🚫 from the bot appears under it within about 15 minutes.
-
-## #135 🟢 [UPGRADE] Let the action auto-closer see which secrets exist (~3 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Action cards that check "is this secret set?" never close themselves: the auto-closer's token, OPS_FIXER_PAT, is not allowed to read the repo's secret list, so it skips them (it did with #124/#127 today).
-**Steps:**
-1. Open https://github.com/settings/tokens and open the classic token used as OPS_FIXER_PAT.
-2. Make sure the `repo` scope is ticked (it covers reading the secret names), then Update token.
-3. If you had to regenerate it, copy the new value, then run `gh secret set OPS_FIXER_PAT --repo JW-Incorporated/swift2` and paste it when asked.
-**Worked if:** The next secret-check card closes itself within an hour of the secret being set.
 
 ## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-16 -->
