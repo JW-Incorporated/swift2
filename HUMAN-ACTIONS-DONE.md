@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #129 · 2026-10-17 · done · Turn push notifications back on in production — "Joey said 'push on' 10:18 PDT; the PM verified the Vercel log at 17:30:06Z on the new deployment dpl_3d92: notification_dispatch_summary, routeErrors 0, router considered 4 / sent 0, with no 'CRON_SECRET not set'." · by chat
 - #137 · 2026-10-17 · done · Let the Long Live bot add reactions in two Discord channels — "Joey said '137 done' in chat 10:26 PDT; the PM watches for the first 🚫/📝 bot confirmation on a reply card." · by chat
 - #135 · 2026-10-17 · done · Let the action auto-closer see which secrets exist — "Joey checked in chat 10:22 PDT: the `repo` scope was already ticked, nothing changed. So scope isn't the cause; the PM is diagnosing the real cause (a code/env fix, or a new card if a founder step is needed)." · by chat
 - #136 · 2026-10-17 · done · Add the site's breaking-news unlock secret — "Joey said 'push on' in chat 10:18 PDT; gh shows REVALIDATE_SECRET (17:18:05Z) and REVALIDATE_ORIGIN=https://longlivets.com; the Vercel redeploy dpl_3d92 is READY." · by chat

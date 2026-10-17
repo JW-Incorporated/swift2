@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -37,16 +37,6 @@
 2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
 3. Tell the PM chat "fb done"; the PM checks the next export.
 **Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
-
-## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Push is off in production because CRON_SECRET is missing. PUSH READY (2026-10-15): the review's must-fixes merged (#5891, #5916), the stale backlog is cleared (56 killed, 0 left), and a watchdog alerts if dispatch stops.
-**Steps:**
-1. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-2. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
