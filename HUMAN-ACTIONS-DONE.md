@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #131 · 2026-10-17 · done · Reload the Facebook extension and install its new schedule — "Joey said 'fb done' 10:55 PDT: the extension re-added via Load unpacked from the fast-forwarded checkout; fb-export-task.ps1 registered the daily top-three exports (taylor-swifts-vault, kulto-ni-taylor-swift, taylor-swifts-vault-2-0) plus the weekly rest. The PM checks the next export for ≥80% post links." · by chat
+- #117 · 2026-10-17 · done · Reload the Facebook export extension — "Superseded by #131: the same reload, done 10:55 PDT from a checkout including #5385." · by chat
 - #125 · 2026-10-17 · done · Confirm the Hermes Tree and Marjorie loops so #5484 can merge — "Joey relayed the Hermes answer in chat 10:51 PDT: Tree NO, Marjorie NO (never scheduled; executions.db 0 rows; waiting on Discord tokens, Hermes HA #153). #5484 stays PARKED; the Swift2 routines keep running; the tracker records why. Joey has a Hermes paste prompt to schedule the loops and check the API-vs-subscription pool." · by chat
 - #129 · 2026-10-17 · done · Turn push notifications back on in production — "Joey said 'push on' 10:18 PDT; the PM verified the Vercel log at 17:30:06Z on the new deployment dpl_3d92: notification_dispatch_summary, routeErrors 0, router considered 4 / sent 0, with no 'CRON_SECRET not set'." · by chat
 - #137 · 2026-10-17 · done · Let the Long Live bot add reactions in two Discord channels — "Joey said '137 done' in chat 10:26 PDT; the PM watches for the first 🚫/📝 bot confirmation on a reply card." · by chat
