@@ -87,7 +87,7 @@ function setup(rows: Row[], qwen: (url: string, init: any) => Response | Promise
   const run = () =>
     runPoller({
       supabase: fakeDb(rows),
-      env: { QWEN_BASE_URL: 'http://qwen.example/v1', QWEN_API_KEY: 'k', DISCORD_BOT_TOKEN: 'bt', ...env },
+      env: { QWEN_BASE_URL: 'http://qwen.example/v1', QWEN_API_KEY: 'k', ...env },
       fetchImpl,
       sleep: async () => {},
       log: vi.fn(),
@@ -231,56 +231,14 @@ describe('qwen calls', () => {
   });
 });
 
-describe('store then post', () => {
-  it('stores the draft, then posts a reply to the card in the lead channel', async () => {
+describe('store only', () => {
+  it('stores the draft and never calls Discord, even with a bot token in the env', async () => {
     const rows = [lead({ platform: 'facebook', discord_message_id: '777' })];
-    const { run, calls } = setup(rows, () => OK('Alt reply'));
+    const { run, calls } = setup(rows, () => OK('Alt reply'), { DISCORD_BOT_TOKEN: 'bt' });
     await run();
-    const d = discordCalls(calls);
-    expect(d).toHaveLength(1);
-    expect(d[0].url).toContain('/channels/1558093113807999026/messages');
-    const body = JSON.parse(d[0].init.body);
-    expect(body.message_reference.message_id).toBe('777');
-    expect(body.content).toBe('-# Qwen\n```\nAlt reply\n```');
-    expect(rows[0]).toMatchObject({ qwen_status: 'done', qwen_draft: 'Alt reply', qwen_discord_message_id: expect.any(String) });
-  });
-
-  it('keeps a stored draft when Discord fails, and a later run posts it exactly once', async () => {
-    const rows = [lead()];
-    let discordOk = false;
-    const calls: any[] = [];
-    const fetchImpl = vi.fn(async (url: string) => {
-      calls.push(url);
-      if (url.includes('discord.com')) return discordOk ? new Response(JSON.stringify({ id: '9' }), { status: 200 }) : new Response('', { status: 500 });
-      return OK('Alt');
-    });
-    const run = () =>
-      runPoller({ supabase: fakeDb(rows), env: { QWEN_BASE_URL: 'http://q/v1', QWEN_API_KEY: 'k', DISCORD_BOT_TOKEN: 't' }, fetchImpl, sleep: async () => {}, log: vi.fn() });
-    await run();
-    expect(rows[0]).toMatchObject({ qwen_status: 'done', qwen_discord_message_id: null });
-    discordOk = true;
-    await run();
-    await run();
-    expect(rows[0].qwen_discord_message_id).toBe('9');
-    expect(calls.filter((u) => u.includes('discord.com'))).toHaveLength(2);
-    expect(calls.filter((u) => u.includes('/chat/completions'))).toHaveLength(1);
-  });
-
-  it('without a bot token stores but does not post, then posts once the token exists', async () => {
-    const rows = [lead()];
-    const log = vi.fn();
-    const calls: string[] = [];
-    const fetchImpl = vi.fn(async (url: string) => {
-      calls.push(url);
-      return url.includes('discord.com') ? new Response(JSON.stringify({ id: '5' }), { status: 200 }) : OK('Alt');
-    });
-    const base = { QWEN_BASE_URL: 'http://q/v1', QWEN_API_KEY: 'k' };
-    await runPoller({ supabase: fakeDb(rows), env: base, fetchImpl, sleep: async () => {}, log });
-    expect(log).toHaveBeenCalledWith('qwen-poller: post pending: DISCORD_BOT_TOKEN missing');
-    expect(rows[0]).toMatchObject({ qwen_status: 'done', qwen_discord_message_id: null });
-    expect(calls.some((u) => u.includes('discord.com'))).toBe(false);
-    await runPoller({ supabase: fakeDb(rows), env: { ...base, DISCORD_BOT_TOKEN: 't' }, fetchImpl, sleep: async () => {}, log });
-    expect(rows[0].qwen_discord_message_id).toBe('5');
+    expect(discordCalls(calls)).toHaveLength(0);
+    expect(rows[0]).toMatchObject({ qwen_status: 'done', qwen_draft: 'Alt reply', qwen_discord_message_id: null });
+    expect(rows[0].qwen_at).toBe('2026-10-17T12:00:00.000Z');
   });
 });
 

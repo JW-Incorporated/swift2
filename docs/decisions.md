@@ -9,7 +9,7 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-10-17 — Qwen second opinion: queue plus home poller (architect #15, founder-approved)
 
-Reply cards get a second drafted reply from the founder PC's local Qwen. `engagement_lead` carries a `qwen_*` queue; `scripts/home/qwen-second-opinion/poller.mjs` runs every 5 minutes on the PC, stores the draft first, then posts it under the card. No inbound exposure of the home gateway, no cloud fallback (D1: no Anthropic API); an unreachable Qwen leaves rows pending. Existing rows were backfilled to skipped so old cards are not flooded. Reversible: remove the scheduled task.
+Reply cards get a second drafted reply from the founder PC's local Qwen. `engagement_lead` carries a `qwen_*` queue; `scripts/home/qwen-second-opinion/poller.mjs` runs every 5 minutes on the PC, stores the draft; the cloud `community-reaction-poll` job (which already holds the bot token) posts it under the card, so the PC needs no Discord token. No inbound exposure of the home gateway, no cloud fallback (D1: no Anthropic API); an unreachable Qwen leaves rows pending. Existing rows were backfilled to skipped so old cards are not flooded. Reversible: remove the scheduled task.
 
 ---
 

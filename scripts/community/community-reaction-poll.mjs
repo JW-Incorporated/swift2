@@ -25,6 +25,7 @@ import {
   routeChannelId,
   routeForPlatform,
 } from '../lib/discord-route.mjs';
+import { postQwenOpinions } from './qwen-post.mjs';
 import { SOCIAL_APPROVERS } from '../social/lib/approvers.mjs';
 import { ackPosted, ackSkipped } from '../../packages/core/src/community-ack.ts';
 
@@ -182,8 +183,10 @@ async function main() {
     return 0;
   }
   const s = await pollReactions({ supabase, token, dryRun });
+  const q = dryRun ? { posted: 0, errors: [] } : await postQwenOpinions({ supabase });
+  s.errors.push(...q.errors);
   console.log(
-    `community-reaction-poll: ${s.checked} card(s) checked, ${s.posted} posted, ${s.skipped} skipped, ${s.ignored} untouched, ${s.errors.length} error(s)${dryRun ? ' (dry-run)' : ''}.`,
+    `community-reaction-poll: ${s.checked} card(s) checked, ${s.posted} posted, ${s.skipped} skipped, ${s.ignored} untouched, ${q.posted} Qwen reply(ies) posted, ${s.errors.length} error(s)${dryRun ? ' (dry-run)' : ''}.`,
   );
   for (const e of s.errors) console.error(`  lead ${e.leadId}: ${e.message}`);
   return s.errors.length > 0 ? 1 : 0;

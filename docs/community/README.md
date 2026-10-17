@@ -218,7 +218,9 @@ still updated because a safety trip must survive the next scheduled run.
 #### Qwen second opinion (home PC)
 
 A small poller on the founder PC asks the local Qwen gateway for one alternative
-reply per reply card and posts it right under the card as a third message: a
+reply per reply card and stores it. The cloud `community-reaction-poll` job (about
+every 14 minutes, which already holds the bot token) posts it right under the card
+as a third message: a
 `-# Qwen` line, then only the reply in a code box. It covers `reply_to_us` and
 `hot_thread` leads on Reddit and Facebook that already have a Discord card;
 awareness cards are never included. Nothing is exposed inbound and there is no
@@ -226,9 +228,8 @@ cloud fallback: if the PC or Qwen is down, rows wait as `qwen_status='pending'`.
 
 Env names in the local env file: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
 `QWEN_BASE_URL` (ends in /v1), `QWEN_API_KEY`, optional `QWEN_MODEL` (default
-`local-worker`), optional `QWEN_FALLBACK_MODEL` (default `local-orchestrator`),
-and `DISCORD_BOT_TOKEN`. Without the token, drafts are stored and the log says
-`post pending: DISCORD_BOT_TOKEN missing`; a later run posts them.
+`local-worker`), optional `QWEN_FALLBACK_MODEL` (default `local-orchestrator`).
+The PC needs no Discord token and never talks to Discord.
 
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/qwen-second-opinion/install-task.ps1 -EnvFilePath <local-untracked-env-file>
