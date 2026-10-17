@@ -140,8 +140,8 @@ jobs:
         run: node scripts/human-actions/check.mjs
       # Closes entries whose `<!-- ha verify: ... -->` check passes, via the rolling
       # close PR. OPS_FIXER_PAT is used only for the read-only secret-exists and
-      # variable-equals calls; without it they are skipped (the workflow token
-      # cannot read them).
+      # variable-equals calls; without it, or if the gh call fails, they are
+      # skipped with a warning (the workflow token cannot read them).
       - name: Close human actions whose check passes
         env:
           GH_TOKEN: ${{ github.token }}
