@@ -7,6 +7,7 @@ import { DISCORD_MESSAGE_LIMIT, neutralizeMentions } from './discord-delivery.mj
 import { facebookLeadUrl } from './awareness-fb-link.mjs';
 import { replyAsLine, withReplyAccount } from './reddit-account.mjs';
 import { REACTION_FOOTER, REPLY_TRIM_NOTE, buildDraftBox, clipUnits } from './reply-card.mjs';
+import { signalParts } from './card-signals.mjs';
 
 /** Header + per-lead messages post under this display name so a reply
  * opportunity is visually distinct from Tree's approval prompts, which share
@@ -92,6 +93,7 @@ export function buildReplyOpportunity(lead) {
   const lines = [
     `💬 **Reply opportunity · ${where}**`,
     title,
+    signalParts(lead).join(' · ') || null,
     threadLinkLine(isReddit ? lead.url : facebookLeadUrl(lead)),
     isReddit ? replyAsLine() : null,
     `Why: ${whyLine(lead)}`,

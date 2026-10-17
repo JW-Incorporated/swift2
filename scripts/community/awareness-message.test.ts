@@ -15,6 +15,7 @@ import {
 import { eligibilityRank } from './awareness-eligibility.mjs';
 
 const FOOTER = 'Done? React ✅ posted · ❌ skip. Nothing posts automatically.';
+const HEAD = '**Rank the eras**\nr/TaylorSwift';
 const REF = 'ref: reddit · 11111111-1111-4111-8111-111111111111';
 
 const lead = (overrides: Record<string, unknown> = {}) => ({
@@ -60,9 +61,12 @@ describe('cleanThreadUrl', () => {
 describe('awareness Discord messages', () => {
   it('Reddit card with image: the clean link, the reaction footer, the ref line — nothing else', () => {
     expect(buildAwarenessMessage(lead())).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
-        '\n',
-      ),
+      [
+        HEAD,
+        '<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>',
+        FOOTER,
+        REF,
+      ].join('\n'),
     );
     expect(buildAwarenessReplyText(lead())).toEqual({
       text: '```\nfolklore at number one and I will not be taking questions\n```',
@@ -73,9 +77,12 @@ describe('awareness Discord messages', () => {
   it('Reddit card for a text-only sub renders the same: link only (the image is the attachment, not text)', () => {
     const text = buildAwarenessMessage(lead({ image_comments: 'text_only' }));
     expect(text).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
-        '\n',
-      ),
+      [
+        HEAD,
+        '<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>',
+        FOOTER,
+        REF,
+      ].join('\n'),
     );
   });
 
@@ -87,7 +94,11 @@ describe('awareness Discord messages', () => {
       draft: 'The Vault had this one on the timeline too',
     });
     expect(buildAwarenessMessage(fb)).toBe(
-      ['<https://www.facebook.com/groups/123/posts/456/>', FOOTER].join('\n'),
+      [
+        '**Rank the eras**\nTaylor Swift Vault',
+        '<https://www.facebook.com/groups/123/posts/456/>',
+        FOOTER,
+      ].join('\n'),
     );
     expect(buildAwarenessReplyText(fb).text).toBe(
       '```\nThe Vault had this one on the timeline too\n```',
@@ -98,9 +109,12 @@ describe('awareness Discord messages', () => {
     const textOnly = lead({ image_ref: null });
     const text = buildAwarenessMessage(textOnly);
     expect(text).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
-        '\n',
-      ),
+      [
+        HEAD,
+        '<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>',
+        FOOTER,
+        REF,
+      ].join('\n'),
     );
     for (const attachmentLine of ['Image:', 'Card:', '.png', 'attached', 'Attach'])
       expect(text).not.toContain(attachmentLine);
@@ -117,9 +131,7 @@ describe('awareness Discord messages', () => {
     const text = buildAwarenessMessage(lead());
     for (const fluff of [
       'Awareness reply',
-      'r/TaylorSwift ·',
       'unverified',
-      'Rank the eras',
       'Reply as u/',
       'Why:',
       'Image:',
@@ -182,9 +194,12 @@ const NL = String.fromCharCode(10);
 describe('Reddit lead message is unchanged', () => {
   it('renders byte-identically: clean thread link, footer, ref line', () => {
     expect(buildAwarenessMessage(lead())).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
-        NL,
-      ),
+      [
+        HEAD,
+        '<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>',
+        FOOTER,
+        REF,
+      ].join(NL),
     );
   });
 });
@@ -242,7 +257,7 @@ describe('Facebook leads without a post url', () => {
     const withUrl = buildAwarenessMessage(
       fb({ url: 'https://www.facebook.com/groups/123/posts/456/' }),
     );
-    expect(withUrl.split(NL)[0]).toBe('<https://www.facebook.com/groups/123/posts/456/>');
+    expect(withUrl.split(NL)).toContain('<https://www.facebook.com/groups/123/posts/456/>');
   });
 });
 
