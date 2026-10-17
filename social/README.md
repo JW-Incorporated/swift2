@@ -121,6 +121,24 @@ retry an item a recent run posted or retired. Queue contents are never taken
 from the tip (a founder edit on `main` wins). With no rolling branch the poster
 uses `main`'s view; any git error fails the step and the run posts nothing.
 
+**Posted-image ledger (#5990).** `social/posted-images.json` has one entry per
+posted image (`hash`, optional `crops`, `file` = media path, `post` = the
+`social/posted/` record, `postId`, `platform`, `campaign`, `postedAt`), keyed by
+a perceptual fingerprint (`lib/image-fingerprint.mjs`: 64-bit dHash of the whole
+picture plus centre crops at 1:1, 4:5 and 1.91:1, via `sharp`). Two images are
+the same picture at Hamming distance <= 6 of 64 (resize, re-encode and rename
+measure 0-3; the closest distinct pair among the 50 posted images is 8; near-flat
+images only match at 0). Padded `-ig45`/`-ig191` variants are matched through
+the library's `variantOf` links. The only sanctioned repeat is the other half of
+the SAME campaign. Enforced three ways: `check-drafts` (hard finding naming the
+earlier post; also queue-vs-queue across campaigns), `validate:social` (ledger
+schema), and the poster pre-step `guard-image-reuse.mjs`, which refuses to post
+(red job, fails CLOSED on an image it cannot fetch or decode). The poster never
+appends to the ledger: the check and the pre-step derive any posted record newer
+than the committed file from `social/posted/**` each run, so completeness does
+not depend on a commit. Refresh the committed file with
+`npm run social:sync-image-ledger`.
+
 **A PR closed unmerged drops its state changes.** Its posted/failed records
 are safe (they live on `social-ledger` and return with the next run's
 overlay), and an item it recorded as POSTED cannot post twice (it is skipped
