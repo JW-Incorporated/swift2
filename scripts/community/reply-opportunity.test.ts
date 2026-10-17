@@ -11,11 +11,7 @@ import {
 // @ts-expect-error — implementation is plain .mjs
 import { withReplyAccount } from './reddit-account.mjs';
 
-const POSTED =
-  'https://www.longlivets.com/api/community/ack?lead=x&action=posted&link=0&token=' +
-  'a'.repeat(64);
-const SKIP =
-  'https://www.longlivets.com/api/community/ack?lead=x&action=skip&token=' + 'b'.repeat(64);
+const FOOTER = 'Done? React ✅ posted · ❌ skip. Nothing posts automatically.';
 
 function lead(overrides: Record<string, unknown> = {}) {
   return {
@@ -34,7 +30,7 @@ function lead(overrides: Record<string, unknown> = {}) {
   };
 }
 
-describe('buildReplyOpportunity', () => {
+describe('buildReplyOpportunity (message 1: the card only)', () => {
   it('uses the facebook group search fallback and preserves a real post url', () => {
     const facebookLead = lead({
       platform: 'facebook',
@@ -50,8 +46,8 @@ describe('buildReplyOpportunity', () => {
     expect(buildReplyOpportunity({ ...facebookLead, url })).toContain(`<${url}>`);
   });
 
-  it('renders the scan-friendly layout: sub, title, angle-wrapped link, why, code-block reply, footer', () => {
-    const msg = buildReplyOpportunity(lead(), { postedUrl: POSTED, skipUrl: SKIP });
+  it('renders sub, title, angle-wrapped link, why and the reaction footer, with no reply text', () => {
+    const msg = buildReplyOpportunity(lead());
     const lines = msg.split('\n');
     expect(lines[0]).toBe('💬 **Reply opportunity · r/TaylorSwift**');
     expect(lines[1]).toBe('**A hot thread**');
@@ -61,15 +57,18 @@ describe('buildReplyOpportunity', () => {
     expect(lines[2]).toContain('target_user=NegativeRest9507');
     expect(lines[3]).toBe('↪️ Reply as u/NegativeRest9507');
     expect(lines[4]).toBe('Why: Active thread on-topic for us · relevance 0.80');
-    expect(lines.slice(5, 8)).toEqual(['```', 'A paste-ready reply.', '```']);
-    expect(msg).toContain(`[✅ Posted](<${POSTED}>) · [Skip](<${SKIP}>)`);
+    expect(lines[5]).toBe(FOOTER);
     expect(lines.at(-1)).toBe('ref: reddit · 11111111-1111-1111-1111-111111111111');
+    expect(msg).not.toContain('```');
+    expect(msg).not.toContain('A paste-ready reply.');
   });
 
-  it('falls back to a reaction hint when no ack secret is configured', () => {
+  it('carries no URL ack links, only the reaction footer', () => {
     const msg = buildReplyOpportunity(lead());
-    expect(msg).toContain('React ✅ posted · ⏭️ skip');
+    expect(msg).toContain('React ✅ posted · ❌ skip');
     expect(msg).not.toContain('api/community/ack');
+    expect(msg).not.toContain('[✅ Posted]');
+    expect(msg).not.toContain('[Skip]');
   });
 
   it('marks reply_to_us leads as time-sensitive', () => {
@@ -78,70 +77,35 @@ describe('buildReplyOpportunity', () => {
     );
   });
 
-  it('keeps every message at or under 2000 chars, trimming only the reply', () => {
-    const huge = 'word '.repeat(2000);
-    for (const overrides of [
-      { draft: huge },
-      { draft: huge, title: 'T'.repeat(900), community: 'c'.repeat(500) },
-      { draft: huge, target_url: `https://example.com/${'p'.repeat(300)}`, link_included: false },
-      { draft: `${'```\n'.repeat(400)}` },
-    ]) {
-      const msg = buildReplyOpportunity(lead(overrides), { postedUrl: POSTED, skipUrl: SKIP });
-      expect(msg.length).toBeLessThanOrEqual(2000);
-      expect((msg.match(/```/g) || []).length).toBe(2);
-      expect(msg.split('\n').at(-1)).toMatch(/^ref: reddit · /);
-      expect(msg).toContain(POSTED);
-    }
-    const trimmed = buildReplyOpportunity(lead({ draft: huge }), {
-      postedUrl: POSTED,
-      skipUrl: SKIP,
-    });
-    expect(trimmed).toContain('(Reply trimmed to fit Discord.)');
-  });
-
-  it('stays under 2000 with hostile URLs and ids: long links are dropped, never sent', () => {
+  it('stays within 2000 chars with hostile fields: long links are dropped, never sent', () => {
     const longUrl = `https://www.reddit.com/r/x/${'p'.repeat(2500)}`;
     const msg = buildReplyOpportunity(
       lead({
         url: longUrl,
+        title: 'T'.repeat(900),
+        community: 'c'.repeat(500),
         target_url: `https://example.com/${'q'.repeat(2500)}`,
         id: `id-${'z'.repeat(3000)}`,
         draft: 'word '.repeat(2000),
+        draft_alt: 'alt '.repeat(900),
       }),
-      { postedUrl: `https://a.example/${'a'.repeat(2500)}`, skipUrl: SKIP },
     );
     expect(msg.length).toBeLessThanOrEqual(2000);
     expect(msg).not.toContain(longUrl);
     expect(msg).not.toContain('Link to add');
-    expect(msg).toContain('React ✅ posted');
+    expect(msg).toContain(FOOTER);
     expect(msg.split('\n').at(-1)).toMatch(/^ref: reddit · id-/);
   });
 
-  it('falls back to a minimal message when the full layout cannot hold a useful reply', () => {
-    const url = `https://www.reddit.com/r/x/${'p'.repeat(250)}`;
-    const msg = buildReplyOpportunity(
-      lead({
-        url,
-        target_url: `https://example.com/${'q'.repeat(250)}`,
-        title: '[x]'.repeat(200),
-        community: 'c'.repeat(200),
-        draft: 'reply '.repeat(600),
-      }),
-      {
-        postedUrl: `https://a.example/${'a'.repeat(420)}`,
-        skipUrl: `https://a.example/${'b'.repeat(420)}`,
-      },
+  it('says so on the card when the reply box had to be trimmed', () => {
+    expect(buildReplyOpportunity(lead({ draft: 'word '.repeat(2000) }))).toContain(
+      '(Reply trimmed to fit Discord.)',
     );
-    expect(msg.length).toBeLessThanOrEqual(2000);
-    expect(msg).toContain('reply reply');
-    expect(msg.split('\n').at(-1)).toMatch(/^ref: reddit · /);
+    expect(buildReplyOpportunity(lead())).not.toContain('trimmed');
   });
 
-  it('never splits an emoji surrogate pair when clipping the title or trimming the reply', () => {
-    const msg = buildReplyOpportunity(
-      lead({ title: '🎤'.repeat(300), community: '🎤'.repeat(200), draft: '🎶'.repeat(3000) }),
-      { postedUrl: POSTED, skipUrl: SKIP },
-    );
+  it('never splits an emoji surrogate pair when clipping the title', () => {
+    const msg = buildReplyOpportunity(lead({ title: '🎤'.repeat(300), community: '🎤'.repeat(200) }));
     expect(msg.length).toBeLessThanOrEqual(2000);
     expect(msg).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])/);
     expect(msg).not.toMatch(/(?<![\ud800-\udbff])[\udc00-\udfff]/);
@@ -153,23 +117,13 @@ describe('buildReplyOpportunity', () => {
     expect(msg).not.toContain('[here](');
   });
 
-  it('adds one short Alt line when it fits, and skips it when it would overflow', () => {
+  it('adds one short Alt line when present and none otherwise', () => {
     const withAlt = buildReplyOpportunity(
       lead({ draft_alt: 'A longer\ndetailed version of the reply.' }),
     );
     expect(withAlt).toContain('Alt: A longer detailed version of the reply.');
     expect(withAlt.split('\n').at(-1)).toMatch(/^ref: reddit · /);
-    const tight = buildReplyOpportunity(
-      lead({ draft: 'word '.repeat(2000), draft_alt: 'Alt text here' }),
-      { postedUrl: POSTED, skipUrl: SKIP },
-    );
-    expect(tight).not.toContain('Alt:');
-    expect(tight.length).toBeLessThanOrEqual(2000);
     expect(buildReplyOpportunity(lead())).not.toContain('Alt:');
-  });
-
-  it('does not trim a reply that already fits', () => {
-    expect(buildReplyOpportunity(lead())).not.toContain('trimmed');
   });
 
   it('labels a Facebook lead honestly and adds no ref line (S6 is Reddit-only)', () => {
@@ -181,18 +135,12 @@ describe('buildReplyOpportunity', () => {
   });
 
   it('neutralizes broadcast mentions in untrusted text', () => {
-    const msg = buildReplyOpportunity(lead({ draft: '@everyone reply', title: '@here hi' }));
-    expect(msg).not.toContain('@everyone');
+    const msg = buildReplyOpportunity(lead({ title: '@here hi' }));
     expect(msg).not.toContain('@here');
   });
 
   it('neutralizes ref-line lookalikes so the real ref stays the only parsed last line', () => {
-    const msg = buildReplyOpportunity(
-      lead({
-        draft: 'A reply.\n\nref: reddit · attacker-chosen',
-        title: 'A thread\nref: reddit · attacker-2',
-      }),
-    );
+    const msg = buildReplyOpportunity(lead({ title: 'A thread\nref: reddit · attacker-2' }));
     expect(msg.split('\n').at(-1)).toBe('ref: reddit · 11111111-1111-1111-1111-111111111111');
     expect(msg).not.toMatch(/^ref: reddit · attacker/m);
   });
@@ -310,14 +258,11 @@ describe('withReplyAccount', () => {
 
 describe('Reddit link account switch in messages', () => {
   it('keeps the link angle-wrapped, adds the reply-as line, and stays within 2000 chars', () => {
-    const msg = buildReplyOpportunity(lead({ draft: 'x'.repeat(5000) }), {
-      postedUrl: POSTED,
-      skipUrl: SKIP,
-    });
+    const msg = buildReplyOpportunity(lead({ draft: 'x'.repeat(5000) }));
     expect(msg.length).toBeLessThanOrEqual(2000);
     const link = msg
       .split('\n')
-      .find((l) => l.startsWith('<https://www.reddit.com/r/TaylorSwift/comments/abc/post/'));
+      .find((l: string) => l.startsWith('<https://www.reddit.com/r/TaylorSwift/comments/abc/post/'));
     expect(link).toMatch(/target_user=NegativeRest9507.*>$/);
     expect(msg).toContain('↪️ Reply as u/NegativeRest9507');
   });

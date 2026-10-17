@@ -14,11 +14,10 @@
 //   npx tsx scripts/community/awareness-deliver.mjs [--dry-run]
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY, DISCORD_SOCIAL_WEBHOOK (the
-// repo secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL). COMMUNITY_ACK_SECRET is
-// optional (without it the message falls back to the reaction footer).
+// repo secret DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL) or a Discord bot token. The
+// owner clears a card with a ✅/❌ reaction (community-reaction-poll.mjs).
 import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
-import { buildAckUrl } from './mailer.mjs';
 import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
 import { discordBotToken, routedPost, routeForPlatform } from '../lib/discord-route.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
@@ -160,7 +159,6 @@ export async function runDelivery({
   webhook,
   catalog,
   config = loadConfig(),
-  ackSecret = null,
   fetchImpl = fetch,
   env = process.env,
   now = new Date(),
@@ -205,13 +203,7 @@ export async function runDelivery({
       const imageRef = resolveAttachment(lead, catalog);
       if (imageRef && !cards.has(imageRef))
         cards.set(imageRef, await fetchCardPng(imageRef, { fetchImpl }));
-      const postedUrl = ackSecret
-        ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'posted', linkIncluded: false })
-        : null;
-      const skipUrl = ackSecret
-        ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' })
-        : null;
-      const content = buildAwarenessMessage(lead, { postedUrl, skipUrl });
+      const content = buildAwarenessMessage(lead);
       const replyText = buildAwarenessReplyText(lead).text;
       if (!replyText) throw new Error(`Awareness opportunity ${lead.id} has no reply text`);
       prepared.push({
@@ -293,7 +285,6 @@ async function main() {
     supabase,
     webhook,
     catalog: await loadCatalog(),
-    ackSecret: process.env.COMMUNITY_ACK_SECRET ?? null,
     dryRun,
   });
   console.log(

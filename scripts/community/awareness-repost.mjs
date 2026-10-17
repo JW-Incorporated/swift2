@@ -22,7 +22,6 @@
 import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
 import { discordBotToken, routeChannelId, routeForPlatform } from '../lib/discord-route.mjs';
-import { buildAckUrl } from './mailer.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { cardUrlForRef, fetchCardPng, loadCatalog } from './awareness-image.mjs';
 import { buildAwarenessMessage, buildAwarenessReplyText, imageFilename } from './awareness-message.mjs';
@@ -112,7 +111,6 @@ export async function runRepost({
   before,
   sinceDays = DEFAULT_SINCE_DAYS,
   live = false,
-  ackSecret = null,
   webhook = '',
   env = process.env,
   fetchImpl = fetch,
@@ -145,9 +143,7 @@ export async function runRepost({
     try {
       const imageRef = resolveAttachment(lead, catalog);
       const png = imageRef ? (await fetchCardPng(imageRef, { fetchImpl })).png : null;
-      const postedUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'posted', linkIncluded: false }) : null;
-      const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
-      const content = buildAwarenessMessage(lead, { postedUrl, skipUrl });
+      const content = buildAwarenessMessage(lead);
       const replyText = buildAwarenessReplyText(lead).text;
       if (!replyText) throw new Error(`lead ${lead.id} has no reply text`);
       if (!(await claimLead(supabase, lead.id, before, now))) {
@@ -222,7 +218,6 @@ async function main() {
     before,
     sinceDays: args.sinceDays,
     live: args.live,
-    ackSecret: process.env.COMMUNITY_ACK_SECRET ?? null,
     webhook: '',
   });
   console.log(`awareness-repost: ${result.dryRun ? 'DRY RUN — nothing sent' : `re-posted ${result.reposted.length}, failed ${result.failed.length}`}.`);

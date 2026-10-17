@@ -14,8 +14,7 @@ import {
 // @ts-ignore — plain .mjs script, no declaration file
 import { eligibilityRank } from './awareness-eligibility.mjs';
 
-const ACKS = { postedUrl: 'https://x.test/p', skipUrl: 'https://x.test/s' };
-const ACK_LINE = '[✅ Posted](<https://x.test/p>) · [Skip](<https://x.test/s>)';
+const FOOTER = 'Done? React ✅ posted · ❌ skip. Nothing posts automatically.';
 const REF = 'ref: reddit · 11111111-1111-4111-8111-111111111111';
 
 const lead = (overrides: Record<string, unknown> = {}) => ({
@@ -59,60 +58,63 @@ describe('cleanThreadUrl', () => {
 });
 
 describe('awareness Discord messages', () => {
-  it('Reddit card with image: the clean link, the ack links, the ref line — nothing else', () => {
-    expect(buildAwarenessMessage(lead(), ACKS)).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+  it('Reddit card with image: the clean link, the reaction footer, the ref line — nothing else', () => {
+    expect(buildAwarenessMessage(lead())).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
         '\n',
       ),
     );
     expect(buildAwarenessReplyText(lead())).toEqual({
-      text: 'folklore at number one and I will not be taking questions',
+      text: '```\nfolklore at number one and I will not be taking questions\n```',
       trimmed: false,
     });
   });
 
   it('Reddit card for a text-only sub renders the same: link only (the image is the attachment, not text)', () => {
-    const text = buildAwarenessMessage(lead({ image_comments: 'text_only' }), ACKS);
+    const text = buildAwarenessMessage(lead({ image_comments: 'text_only' }));
     expect(text).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
         '\n',
       ),
     );
   });
 
-  it('Facebook card: the clean link and the ack links, no ref line', () => {
+  it('Facebook card: the clean link and the reaction footer, no ref line', () => {
     const fb = lead({
       platform: 'facebook',
       community: 'Taylor Swift Vault',
       url: 'https://www.facebook.com/groups/123/posts/456/?__cft__[0]=AZX&__tn__=%2CO%2CP-R&fbclid=IwAR1',
       draft: 'The Vault had this one on the timeline too',
     });
-    expect(buildAwarenessMessage(fb, ACKS)).toBe(
-      ['<https://www.facebook.com/groups/123/posts/456/>', ACK_LINE].join('\n'),
+    expect(buildAwarenessMessage(fb)).toBe(
+      ['<https://www.facebook.com/groups/123/posts/456/>', FOOTER].join('\n'),
     );
-    expect(buildAwarenessReplyText(fb).text).toBe('The Vault had this one on the timeline too');
+    expect(buildAwarenessReplyText(fb).text).toBe(
+      '```\nThe Vault had this one on the timeline too\n```',
+    );
   });
 
   it('text-only lead: the card renders identically and names no attachment (#4767)', () => {
     const textOnly = lead({ image_ref: null });
-    const text = buildAwarenessMessage(textOnly, ACKS);
+    const text = buildAwarenessMessage(textOnly);
     expect(text).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
         '\n',
       ),
     );
     for (const attachmentLine of ['Image:', 'Card:', '.png', 'attached', 'Attach'])
       expect(text).not.toContain(attachmentLine);
-    // The acks are what the owner clicks; they must survive a text-only reply.
-    expect(text).toContain('https://x.test/p');
-    expect(text).toContain('https://x.test/s');
+    // No signed URL links remain; the owner reacts on the card (#5988).
+    expect(text).not.toContain('api/community/ack');
+    expect(text).not.toContain('[✅ Posted]');
+    expect(text).toContain('React ✅ posted · ❌ skip');
     expect(buildAwarenessReplyText(textOnly).text).toBe(
-      'folklore at number one and I will not be taking questions',
+      '```\nfolklore at number one and I will not be taking questions\n```',
     );
   });
 
   it('carries none of the old explanatory lines', () => {
-    const text = buildAwarenessMessage(lead(), ACKS);
+    const text = buildAwarenessMessage(lead());
     for (const fluff of [
       'Awareness reply',
       'r/TaylorSwift ·',
@@ -123,16 +125,16 @@ describe('awareness Discord messages', () => {
       'Image:',
       'Sub rule',
       'next message',
-      'Done?',
       'folklore at number one',
     ])
       expect(text).not.toContain(fluff);
   });
 
-  it('falls back to the reaction footer without ack links and stays within 2000 chars', () => {
+  it('carries the reaction footer, no URL ack links, and stays within 2000 chars', () => {
     const text = buildAwarenessMessage(lead({ draft: 'y'.repeat(5000) }));
     expect(text.length).toBeLessThanOrEqual(2000);
-    expect(text).toContain('React ✅ posted · ⏭️ skip');
+    expect(text).toContain('React ✅ posted · ❌ skip');
+    expect(text).not.toContain('api/community/ack');
     expect(text.split('\n').at(-1)).toBe(REF);
   });
 
@@ -141,14 +143,17 @@ describe('awareness Discord messages', () => {
     const reply = buildAwarenessReplyText(big);
     expect(reply.trimmed).toBe(true);
     expect(reply.text.length).toBeLessThanOrEqual(2000);
-    expect(reply.text.startsWith('word word')).toBe(true);
-    expect(buildAwarenessMessage(big, ACKS)).toContain('(Reply trimmed to fit Discord.)');
+    expect(reply.text.startsWith('```\nword word')).toBe(true);
+    expect(reply.text.endsWith('\n```')).toBe(true);
+    expect(buildAwarenessMessage(big)).toContain('(Reply trimmed to fit Discord.)');
     expect(buildAwarenessMessage(lead())).not.toContain('trimmed');
   });
 
-  it('sends the reply text alone and verbatim, with no fence or label around it', () => {
+  it('sends the reply alone in a code box, escaping any backtick fence in the draft', () => {
     const reply = buildAwarenessReplyText(lead({ draft: '  folklore *is* the one ```  ' }));
-    expect(reply).toEqual({ text: 'folklore *is* the one ```', trimmed: false });
+    expect(reply.trimmed).toBe(false);
+    expect(reply.text).toBe('```\nfolklore *is* the one `​`​`\n```');
+    expect((reply.text.match(/```/g) || []).length).toBe(2);
   });
 
   it('neutralises mentions in the reply', () => {
@@ -176,8 +181,8 @@ const NL = String.fromCharCode(10);
 
 describe('Reddit lead message is unchanged', () => {
   it('renders byte-identically: clean thread link, footer, ref line', () => {
-    expect(buildAwarenessMessage(lead(), ACKS)).toBe(
-      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+    expect(buildAwarenessMessage(lead())).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', FOOTER, REF].join(
         NL,
       ),
     );
