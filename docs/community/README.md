@@ -93,10 +93,13 @@ moment to talk about it.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. `community-awareness-scan` (every ~20 minutes with a random start delay,
-   2 anonymous Reddit requests a run, skipped on 429, optional `HOME_RELAY_URL`
-   fallback) reads `scripts/community/awareness-subs.json` (the subs, a note on
-   each one's self-promo rule, and the caps) and takes the feeds fetched
+1. The owner-installed home Reddit reader runs every 20 minutes, discovers
+   threads through public RSS, and enriches at most 20 through anonymous public
+   `.json` pages. `community-awareness-scan` remains the automatic RSS-only
+   fallback: it skips only while the home heartbeat is fresh and enabled, and
+   runs when the reader is absent, stale, tripped, or unreadable. Both paths read
+   `scripts/community/awareness-subs.json` (the subs, a note on
+   each one's self-promo rule, and the caps). The fallback takes the feeds fetched
    longest ago first: every sub in hot and new, plus Reddit-wide search RSS,
    so each feed is asked several times a day. A 429 stops the run and puts that
    feed, and the whole scan, on a cooldown (30 minutes, doubling to 6 hours)
@@ -120,10 +123,10 @@ How it works, in three workflows (kill switch: repo variable
    the title and the stored snippet. Fetching the post text and a few top
    comments (no author names) from the public thread JSON is **off by default**:
    it needs the repo-level env flag `REDDIT_THREAD_JSON=1`, which
-   `community-draft-replies.yml` deliberately does not set, because the old
-   answerer never fetched thread JSON and whether anonymous `.json` is allowed is
-   an open owner decision (HA #130). With the flag off, no Reddit request is
-   made at all. Any fetched text is transient and never stored or
+   `community-draft-replies.yml` deliberately does not set during the shadow
+   week ending about 2026-10-23. HA #130 approved anonymous public `.json`, but
+   this existing collector stays dark until the shadow period ends. With the
+   flag off, no Reddit request is made at all. Any fetched text is transient and never stored or
    logged (Facebook leads are lead-only: title, no fetch). The system prompt is
    `docs/agents/runner-prompts/awareness-answerer.md`. Replies are validated by
    the same code as before (`awareness-draft.mjs applyDrafts`): a reply with a link,
@@ -158,21 +161,44 @@ Expect to spend roughly 10–15 minutes on this most days.
 
 #### No Reddit API key, ever
 
-Owner decision, 2026-10-01 (`docs/decisions.md`): this project will never have
-a Reddit API key. Reddit discovery works anonymously (public RSS) or it does
-not run. Nobody proposes, files a card for, or asks the owner for Reddit OAuth
-credentials, a Reddit app, or any `REDDIT_*` secret.
+Owner decisions, 2026-10-01 and HA #130 on 2026-10-17
+(`docs/decisions.md`): this project will never have a Reddit API key, OAuth,
+login, or account automation. Discovery uses public RSS; the home reader may
+read anonymous public `.json` thread pages. Nobody proposes, files a card for,
+or asks the owner for Reddit credentials, a Reddit app, or any `REDDIT_*`
+secret.
 
-**How 10+ a day works without one.** Anonymous RSS from GitHub runners is
-throttled (run 36908472939: HTTP 429 on 4 of 6 requests in one burst), so the
-scan sends many tiny runs instead of a burst: ~72 runs a day, 2 requests each,
-a random start delay, and a hard stop on the first 429 with a persisted
-cooldown. r/TaylorSwift's feed alone yields about 7 fitting threads per fetch;
-the caps (4 a day for r/TaylorSwift and r/swifties, 3 for other subs, 15 in
-total) are what limit volume, not the request count. If GitHub's IPs turn out
-to be blocked outright, the next anonymous options are a home relay
-(`HOME_RELAY_URL`, already supported, on a residential machine) or a
-self-hosted runner; neither is built.
+**Home reader safety.** Every Reddit request carries
+`LongLiveTS-reader/1.0 (+https://www.longlivets.com)`, waits at least six
+seconds plus jitter after the previous request, and no run details more than
+20 threads. HTTP 403/429 or a non-JSON detail response stops the run on that
+first response with no retry. A local circuit file skips the next three runs
+(about 60 minutes), doubles that count after another trip (capped at 72 runs,
+24 hours), and records the reason and time. A trip or skipped run disables the
+home heartbeat immediately, so
+the existing GitHub RSS lane keeps working.
+
+#### Home PC reader: run and install
+
+The reader writes metrics to the existing `engagement_lead` fields and writes
+top-level comments plus their first replies, with authors omitted, to
+`.artifacts/home-reddit-crawl.json` in the existing crawl-bundle shape. Test a
+single thread safely before installation:
+
+```
+node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1
+```
+
+The owner installs the Windows Scheduled Task in P1-26; agents do not install
+it. The installer references an existing local env file without copying its
+contents into the task:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/reddit-reader/install-task.ps1 -EnvFilePath <local-untracked-env-file>
+```
+
+Dry-run makes no database or crawl-bundle write. The local breaker state is
+still updated because a safety trip must survive the next scheduled run.
 
 #### Replying as the brand account
 
@@ -210,8 +236,8 @@ whichever is easier.
 
 ## 3. The fan-theory corpus (the quieter half)
 
-Separately from the daily email, a slow background job reads a year of
-public Reddit posts (never Facebook — see §5) from a handful of
+Separately from the daily email, the home reader collects new public Reddit
+threads and their shallow comment trees (never Facebook — see §5) from
 Taylor-Swift subreddits and pulls out recurring fan theories (things like
 "fans think the next re-record drops in March"). Nothing from this ever
 gets posted anywhere. It just makes Clownbot (the site's chat) and the Clue
@@ -221,9 +247,8 @@ theories — the redline filter used everywhere else on the site drops
 anything about relationships, identity, or private life before it's ever
 stored.
 
-**This is the one piece with a separate on/off switch, because it's the
-one piece that reads a real volume of Reddit traffic.** It ships **off**.
-See §4.2 to turn it on.
+The owner installs the paced home reader separately in P1-26. The older GitHub
+year-deep crawl remains behind its own switch and ships **off**; see §4.2.
 
 ## 4. Turning things on/off (the kill switches)
 
@@ -246,7 +271,7 @@ run finds nothing new. To go fully silent immediately, also disable
 Reversible any time — flip `COMMUNITY_SCAN_ENABLED` back to `true` and
 things resume on the next scheduled run (daily 08:17 UTC for the scan).
 
-### 4.2 Turn ON the year-deep corpus crawl (off by default)
+### 4.2 Turn ON the GitHub year-deep crawl fallback (off by default)
 
 This is the one piece that starts **disabled** on purpose. To turn it on:
 
@@ -260,10 +285,10 @@ This is the one piece that starts **disabled** on purpose. To turn it on:
    no need to run it at full speed — the plan explicitly favors caution
    over speed here (§8-Q3 of the engineering plan).
 
-The crawl then runs once a day (07:13 UTC). It never touches Facebook (see
-§5) and never writes anything to the live site directly — it only stages
-raw data for the theory-extraction step, which is what actually produces
-the fan-theory rows.
+That fallback crawl runs once a day (07:13 UTC). The home reader produces the
+same crawl-bundle structure from new threads independently of this switch.
+Neither path touches Facebook (see §5) or writes directly to the live site;
+both only stage raw data for the theory-extraction step.
 
 **To turn it back off:** set `COMMUNITY_CRAWL_ENABLED` back to `false` (or
 delete the variable — same effect). Takes effect on the next scheduled run;
@@ -306,6 +331,9 @@ These are not switches because they are not meant to be turned on:
   rows contain a canonical post URL, counts, and a non-text locator; authors
   remain hashed only inside the parser. Owner-activity rows contain URLs,
   opaque ids, and counts only.
+- **Never stores a Reddit username.** Comment text exists only in the local,
+  transient crawl bundle used by the theory lane; engagement leads store no
+  comment text.
 - **Never stores a relationship, identity, or private-life theory**, even
   as a "rejected" row — the same content filter used everywhere else on
   the site runs on every fan-theory candidate before it's written.

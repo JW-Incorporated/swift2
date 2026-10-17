@@ -413,6 +413,18 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 | `.github/workflows/fb-lead-scrub.yml` | Manual-dispatch lane for the two scripts above (they need `SUPABASE_SERVICE_ROLE_KEY`, which only lives in Actions secrets). `apply` input defaults to false; uploads the deleted rows as a run artifact. One-off — delete after the repair has run |
 | `supabase/migrations/20261004000000_community_watchlist_facebook_backfill.sql` | Backfills the 7 `community_watchlist` rows for export-checklist Facebook groups that were producing leads with no watchlist row (#4885's last bullet). scan=true, crawl=false, allows_links=false for all |
 
+## Home Reddit reader (2026-10-17)
+
+| Path | What |
+|---|---|
+| `scripts/home/reddit-reader/reader.mjs` | Anonymous RSS-discovery/public-JSON orchestrator; caps detail at 20 threads and writes existing lead metrics plus the theory crawl bundle |
+| `scripts/home/reddit-reader/pacing.mjs`, `transport.mjs`, `breaker.mjs` | Six-second-plus-jitter request pacing; honest project User-Agent; first-response 403/429/non-JSON circuit trip with persisted 60-minute-to-24-hour doubling backoff |
+| `scripts/home/reddit-reader/sources.mjs`, `parsers.mjs`, `writers.mjs` | RSS ranking/dedupe, JSON score/count/age and depth-0/1 parsing, privacy-safe engagement-lead/crawl-bundle writers |
+| `scripts/home/reddit-reader/fixtures/`, `*.test.ts` | Offline fixtures and coverage for pacing, cap, User-Agent, parsing, circuit trips, and backoff |
+| `scripts/home/reddit-reader/install-task.ps1` | Owner-run Windows Scheduled Task installer for P1-26; references a local env file and installs nothing automatically |
+| `scripts/community/awareness-heartbeat.mjs`, `awareness-config.mjs` | Fresh home-reader heartbeat check; disabled/stale/unreadable state fails open to the existing GitHub RSS scan. The config loader/cap helper was split so the touched scan orchestrator stays under 300 lines |
+| `scripts/community/crawl-bundle.mjs` | Validator/writer for the existing transient theory-crawl shape, including additive thread metrics and author-free comments |
+
 ## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
 
 Fun notifications: `lyric_of_day`, `on_this_day`, and the `countdowns`

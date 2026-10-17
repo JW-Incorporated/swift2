@@ -8,7 +8,8 @@
 //
 // Thread text (selftext + a few top comments, no author names) is fetched
 // anonymously from the public thread JSON ONLY when REDDIT_THREAD_JSON=1 (off
-// by default, HA #130); otherwise the title plus the stored snippet is used. It is passed to the model transiently and
+// through the shadow week despite HA #130's approval); otherwise the title plus
+// the stored snippet is used. It is passed to the model transiently and
 // never stored or logged. Facebook leads are lead-only: no fetch, title only.
 // Nothing here posts, votes or messages; the owner pastes every reply by hand.
 // When the wrapper is unavailable, limited, invalid or capped, the lead stays
@@ -68,7 +69,7 @@ export function parseThreadContext(body) {
 
 /**
  * One polite anonymous GET of the thread JSON, OFF unless REDDIT_THREAD_JSON=1
- * (owner decision HA #130 pending). Off = no request at all. Never throws.
+ * (kept default-off through the shadow week). Off = no request at all. Never throws.
  */
 export async function fetchThreadContext(url, { fetchImpl = fetch, env = process.env } = {}) {
   if (env.REDDIT_THREAD_JSON !== '1') return { error: 'thread json disabled' };
