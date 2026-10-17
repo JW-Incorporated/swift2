@@ -39,7 +39,8 @@
 //
 // Binding property this whole mechanism rests on (verify, don't assume):
 // the `ref: PR #<n> · <40-hex headSha> · <file|*>` line on every brief
-// message is written by approval-prompt.mjs and posted by Discord's webhook
+// message (last content line, or the first embed's footer on the minimal
+// IG/X approval posts, #5989) is written by approval-prompt.mjs and posted by Discord's webhook
 // API — the webhook is the only identity that can author a message with
 // `webhook_id` set to our own webhook's id. An agent cannot forge that
 // binding without the webhook URL AND getting Discord to attribute the
@@ -124,6 +125,22 @@ function extractRefLine(content) {
   while (i >= 0 && lines[i].trim() === '') i -= 1;
   if (i < 0) return null;
   return lines[i].match(REF_LINE_RE);
+}
+
+/**
+ * Minimal approval posts (#5989) carry the ref line in the webhook message's
+ * embed footer instead of visible text. Same trust as the content line: only
+ * messages whose webhook_id is ours reach here, and only a footer that is
+ * EXACTLY a ref line (REF_LINE_RE, anchored) is read. A message with no such
+ * footer falls back to the true-last-line content parse above.
+ */
+function extractMessageRef(message) {
+  for (const embed of Array.isArray(message?.embeds) ? message.embeds : []) {
+    const text = embed?.footer?.text;
+    const match = typeof text === 'string' ? text.match(REF_LINE_RE) : null;
+    if (match) return match;
+  }
+  return extractRefLine(message?.content);
 }
 
 /** S6's own last-line-only parse for the `ref: reddit · <postId>` grammar —
@@ -965,7 +982,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   // LISTENS to is never a function of how old they are.
   const byPr = new Map();
   for (const m of candidates) {
-    const match = extractRefLine(m.content);
+    const match = extractMessageRef(m);
     if (!match) continue;
     const [, prStr, sha, file] = match;
     const pr = Number(prStr);
