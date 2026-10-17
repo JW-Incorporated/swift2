@@ -24,6 +24,21 @@ const fakeGh = (answers: Record<string, string | Error>) => (args: string[]) => 
   return a;
 };
 
+describe('secret-exists gh call', () => {
+  it('uses only supported gh flags', () => {
+    const calls: string[][] = [];
+    const gh = (args: string[]) => { calls.push(args); return '[]'; };
+    evaluate(parseVerify('secret-exists FOO_KEY')!, { repo: 'o/r', gh });
+    expect(calls).toEqual([['secret', 'list', '--repo', 'o/r', '--json', 'name']]);
+  });
+  it('logs sanitized stderr and skips when gh fails', () => {
+    const warns: string[] = [];
+    const gh = () => { throw Object.assign(new Error('Command failed'), { stderr: 'unknown flag: --limit ghp_abc123XYZ\n' }); };
+    expect(evaluate(parseVerify('secret-exists FOO_KEY')!, { repo: 'o/r', gh, warn: (m: string) => warns.push(m) })).toBe('skip');
+    expect(warns).toEqual(['auto-close: secret-exists FOO_KEY failed: unknown flag: --limit [redacted]']);
+  });
+});
+
 describe('parseVerify', () => {
   it('accepts each safe kind and rejects anything else', () => {
     expect(parseVerify('secret-exists FOO_KEY')?.label).toBe('secret-exists FOO_KEY');

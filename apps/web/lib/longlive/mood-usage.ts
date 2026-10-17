@@ -28,6 +28,8 @@
  * changed.
  */
 
+import { resolveWebDailyCap } from './web-llm-cap';
+
 /** Default calls/day, now enforced globally across every warm instance via
  * the DB gate above — see the header note. Sonnet-cheap and bounded — tune
  * as usage data lands (Stage 6). */
@@ -53,7 +55,7 @@ export class MoodUsage {
   private count = 0;
 
   constructor(
-    private readonly cap: number = MOOD_DAILY_CAP,
+    private readonly cap: number | (() => number) = MOOD_DAILY_CAP,
     private readonly now: () => number = () => Date.now(),
   ) {
     this.day = dayKey(this.now());
@@ -70,7 +72,8 @@ export class MoodUsage {
       this.day = today;
       this.count = 0;
     }
-    if (this.count >= this.cap) return false;
+    const cap = typeof this.cap === 'function' ? this.cap() : this.cap;
+    if (this.count >= cap) return false;
     this.count += 1;
     return true;
   }
@@ -116,4 +119,4 @@ export class MoodUsage {
  * every request served by a warm instance (the whole point) and re-created on
  * cold start (the accepted limitation above).
  */
-export const moodUsage = new MoodUsage();
+export const moodUsage = new MoodUsage(() => resolveWebDailyCap(MOOD_DAILY_CAP));
