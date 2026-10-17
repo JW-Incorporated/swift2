@@ -14,17 +14,18 @@ if (-not (Test-Path -LiteralPath $envFile -PathType Leaf)) {
 }
 
 $repoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')
-$readerPath = Join-Path $PSScriptRoot 'reader.mjs'
+$wrapperPath = Join-Path $PSScriptRoot 'run-task.ps1'
 $minerPath = Join-Path $repoRoot.Path 'scripts\community\theory-miner.mjs'
 $node = Get-Command node.exe -ErrorAction Stop
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
 $quotedEnv = '"' + $envFile.Path.Replace('"', '\"') + '"'
-$quotedReader = '"' + $readerPath.Replace('"', '\"') + '"'
 $quotedMiner = '"' + $minerPath.Replace('"', '\"') + '"'
+
+# The env path is its own argument; run-task.ps1 builds --env-file= itself.
 $readerAction = New-ScheduledTaskAction `
-  -Execute $node.Source `
-  -Argument "--env-file=$quotedEnv --import tsx $quotedReader" `
+  -Execute 'powershell.exe' `
+  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`"" `
   -WorkingDirectory $repoRoot.Path
 $minerAction = New-ScheduledTaskAction `
   -Execute $node.Source `

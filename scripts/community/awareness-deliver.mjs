@@ -23,6 +23,7 @@ import { discordBotToken, routedPost, routeForPlatform } from '../lib/discord-ro
 import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { lintReply } from './awareness-draft.mjs';
 import { eligibilityRank } from './awareness-eligibility.mjs';
+import { leadHeat } from './card-signals.mjs';
 import { cardUrlForRef, fetchCardPng, loadCatalog, validateImageRef } from './awareness-image.mjs';
 import {
   buildAwarenessMessage,
@@ -57,7 +58,7 @@ export async function fetchDraftedAwareness(supabase, now = new Date()) {
   const { data, error } = await supabase
     .from('engagement_lead')
     .select(
-      'id, platform, community, locator, url, title, draft, image_ref, image_comments, why, thread_type, created_at',
+      'id, platform, community, locator, url, title, draft, image_ref, image_comments, why, thread_type, created_at, score, num_comments, reactions, thread_created_at, rank_score',
     )
     .eq('kind', AWARENESS_KIND)
     .eq('status', 'drafted')
@@ -182,6 +183,7 @@ export async function runDelivery({
     dailyCap: DAILY_CAP,
     rank: eligibilityRank,
     tierOf: (lead) => tiers.get(lead.community)?.tier ?? 1, // a sub found by search is a target too
+    heatOf: (lead) => leadHeat(lead, now),
   });
   if (batch.length === 0)
     return { drafted: leads.length, batch: 0, delivered: [], failed: [], totalToday: today.total };
@@ -198,12 +200,16 @@ export async function runDelivery({
   const cards = new Map();
   const prepared = [];
   const failed = [];
-  for (const lead of batch) {
+  for (const [index, lead] of batch.entries()) {
     try {
       const imageRef = resolveAttachment(lead, catalog);
       if (imageRef && !cards.has(imageRef))
         cards.set(imageRef, await fetchCardPng(imageRef, { fetchImpl }));
-      const content = buildAwarenessMessage(lead);
+      const content = buildAwarenessMessage(lead, {
+        position: index + 1,
+        total: batch.length,
+        now,
+      });
       const replyText = buildAwarenessReplyText(lead).text;
       if (!replyText) throw new Error(`Awareness opportunity ${lead.id} has no reply text`);
       prepared.push({

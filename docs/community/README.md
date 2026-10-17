@@ -204,6 +204,14 @@ contents into the task:
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/reddit-reader/install-task.ps1 -EnvFilePath <local-untracked-env-file>
 ```
 
+The task runs `run-task.ps1`, which appends a timestamped start line, the
+reader's stdout/stderr and the exit code to `.artifacts/home-reddit-reader.log`
+(gitignored); read it to see why a run failed. The task registers for the
+current user as Limited/Interactive, so a normal (non-admin) PowerShell is
+enough. Only re-registering a task that was first created from an elevated
+shell can fail with "Access denied" — run that one re-register as admin, after
+which normal shells work.
+
 Dry-run makes no database or crawl-bundle write. The local breaker state is
 still updated because a safety trip must survive the next scheduled run.
 
