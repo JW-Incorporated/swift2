@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 77
 
 ## Taylor Swift's Former Beverly Hills Mansion Listed for Sale
 
@@ -646,70 +646,3 @@ Stories: 85
 - summary: A former NFL player has shared his thoughts on Taylor Swift's recent appearances at Chiefs games, which have sparked controversy. The discussions highlight the reactions to her public presence at these sporting events.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMzZUYzR5LUZ2aGh5eFNmbGdzcGJqbDdRTFA3RW9HX3U3Z05vRnZ0TXFsY2Z4c1RkRzJTS2ZlUnZZdTBSRC1fb3BvaTd3LTBKN1A1M0RCN3JKLXRMLWIycnZHZldvWFNMYVc1Vy01OEZWSThIWjVsdlZMdEFfclhHVENOR25EV1JoUk1uMVhaUHVpWFp4X2twTzdBQWJjaDNGZmhybmg3MURrRmJrd3lMdnRSN3MzMDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kelce Brothers Talk Taylor Swift's Halloween Music
-
-- first seen: 2026-10-14 20:39 UTC | category: music | importance: 4
-- verification_status: corroborated | source_count: 2
-- summary: Jason and Travis Kelce explore the topic of whether Taylor Swift has ever created a Halloween song in a recent discussion. The conversation was featured in Billboard.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxPY2cta3dhZHhBem9uRzRybjNGSndsbTF2UzN4Rm56YlpzQ2t5R0ZpUG9IZ1lJNGpLYWE4Nm5VNl9xYjdTNFVIS1hmSkE1TTdfZXpaNFJueE1TeGpwNzhwaGRSaXRMMnpCWkx0N25vVUEzRXJSV3VpMjFFR1FTV2tMLWowbDBaMjVtMlRfYms3YkhST0RyS2hQcWZmVE9haHdTUmpIM184S2V4YmtPTG8wc0pxSQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOeXJnRUNBVWk4WkFWVWhNcjlvbWowRFJZZ1VNVllBUHh3NDZQX0pOMUZNTmdpbURuRFJmU08tUXZvQ25LWVc2eWFMWVVyMVA2SFZTMUQyREJreW5VakNPV2VQOGRuY3d4a29RdmRPSE9WU1pxTjFLdXh5SmZWUFRfQVZVbkFMT1hhc1JOVVZNeGc4Z196OHlQSEc0R2ZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kim Kardashian Responds to Taylor Swift and Travis Kelce Amid Kanye's Remarks
-
-- first seen: 2026-10-14 20:39 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Kim Kardashian has addressed the situation involving Taylor Swift and Travis Kelce, following reports about Kanye West's feelings towards Swift. The dynamics among these celebrities are highlighted amid claims of Kanye wanting 'revenge' on the singer.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQjdibl9lSTZWN2VTbVRYZGprUTZ0Y2RnYkNFdXZOZGlfcGVuT3pyS0xzT2x4cDhXbnFvMmdJbTAtOUtnNEFnMDM5WDUxek5Fc1ZlTjkzZTFScWdyQWR6SVc2amlPWVVzNnp5NzJlRDFUQm01V3F3Ry1EdXIwZnlSU2hRRGtsdVdneTdFNWpjVXF6YWFZQTI2VldpNXRIT1dCRnVQcVhPM24?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQRDByWUU4OURPWVpBTlRQZ1k2dDdmVWZpaWxpZnp1RDZfa09FNExtZ1ZVdF8xTW9yYnJzWVZob0JzZFBXY2tYTU5tYkF5aVNCcVpwRERjeE5uTmNvZjJDVGlVLTl1YWR5STJDMHBaOXhCLUhuMUU2TjRuVnpNTnJpSXEzMm1BSEREX1RPZFZldUNpa1JxLXBsQkY1VGdxaW85OWFWTg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Drake and Taylor Swift Explore Four-Song Bonuses for Deluxe Editions
-
-- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Billboard discusses the recent trend of pop stars, including Drake and Taylor Swift, adding four-song bonuses to their deluxe editions. This shift may influence future releases in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxQZmRwQ3ktbnJPcFI1TTc5R0F4djV6SHpKTExHelc5RHV5TFpTVWtvZkxydVpIZTFBOFR3RzJYaS1SZUdWSVg2Z3ZmNHhVQlRxS0prQW5aNTJQaXZfMXVTdTVIRnA5RDBkVUJxS2pXbWtOemRsdkJjZW0tVWo3VUZQeFlPYzFRNjlkd2t5c3V1a0pmOS1UNm1ObXBwbFduNjRheW1Yd1ZDQmYtRXNteVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Top 13 Autumn Songs Highlighted by 'All Too Well'
-
-- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Billboard lists Taylor Swift's 13 songs that capture the essence of autumn, with 'All Too Well' leading the compilation.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMic0FVX3lxTE5DVGozRG0yUXlob1pjZVVvdk5YMFZVcU5zdmlrQ2djcFBlTXRGLU9OYTIxUkxOblEyX3Jab01aSVBUQ2hYZnZCbHhXb0VUM3g0THNNSGxxek9EeXh5M3R4ZmdUSnZYWUFVenVGZnRCSHVQNVU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Coordinate Date Night Shoes
-
-- first seen: 2026-10-14 20:39 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift showcased a new date night shoe from Jimmy Choo, coordinating her look with husband Travis Kelce in SoHo for his 37th birthday celebration.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-travis-kelce-birthday-1239315267/
-
-## Emmitt Smith Discusses Taylor Swift's Influence on the NFL and Cowboys' Status
-
-- first seen: 2026-10-14 20:39 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Emmitt Smith shares insights on Taylor Swift's impact on the NFL during his interview, linking it to the Dallas Cowboys and quarterback Dak Prescott. His comments highlight the intersection of sports and pop culture.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMizgFBVV95cUxOckpYVWNWNUlJUmo1OTh1Y3FnbTRZZG5pN0JTRElRNUhTNkhrcUtRNU5SUWJtY0dJRGFmbkhVMXR2amF6TFljQloxY01qNDdkbVJCdERnYlFBOXlxcEQydjdnX3daYV9Gb2R2QWljdVd4eXRGQ2Z4NU9DMG9vOUVPVl9wLWFxSkhnNi1xd1VwMjV1cWRsWGxRaE50dXZ2XzdqdFE1LWswZk5aWXNZMTFSbjFPS3RJWE1SV21ndjVGYjRWaW80VXFpRU1KWXFMZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/
-
-## Jason Kelce Shares Spooky Taylor Swift Album for Halloween Listening
-
-- first seen: 2026-10-14 20:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce recommends a specific Taylor Swift album as the spookiest option for Halloween listening. The discussion highlights the album's eerie qualities in the context of the Halloween season.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNFBiYzhKSXhmWmNjSmw4NVlBWnpsWFZkdk9RSHBqdnBUOGNmNlhaQnhOWnJHQWxYS0xYZGlqWldwNVVXeTNoYXhJVy1YZHZvdnE5M2gtQUp1b2NtSFExRlA0OWhCVWlHaC1KampmbHdJaDh5NlpScFZMeG80OWdFM2pzY0pSc1pJSzFocWw1Z3RmOEJ1Q3VacUJOM2U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Expresses Concern Over Friction While Moving In with Taylor Swift
-
-- first seen: 2026-10-14 20:39 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce is reportedly 'genuinely upset' due to some 'friction' as he and Taylor Swift move into their first home together. The relationship dynamics appear to be a topic of discussion.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXhvM09PR1ZjTTBGZWF6U1dtZHR0TG0zeXpqZzhPbWNQd1R1bE9fYVVoUEpVd0RKcWd4NGhZUkxKZlF6RlgtSEhsa1d0UEhtZFRkUjFiM01TdjQ1a2g0YVpTS29jbEZYMlk3XzJvMGt2cnJaMWNOZUhPdWNQam5ZMTE1bXloRVRoTGwtT2ZfbThfZ2h6d2pxUkxLMUJmX0pKVzhsbEtmTmpoU2NielE?oc=5&hl=en-US&gl=US&ceid=US:en
