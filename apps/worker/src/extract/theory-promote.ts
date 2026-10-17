@@ -37,10 +37,9 @@ import { findTheoryMatch, isTheoryMatch } from './theory-match';
 import { symbolMatchScore } from './symbol-match';
 
 export const PROMOTION_MENTION_THRESHOLD = 2;
-/** The heat bar moves with the P1-21 two-signal promotion threshold. */
-export const HEAT_PROMOTION_THRESHOLD = PROMOTION_MENTION_THRESHOLD;
+// Catalog-fact ranking weight, independent of promotion eligibility.
+export const HEAT_SCORE_MULTIPLIER = 3;
 const MAX_SAMPLE_URLS = 3;
-
 export interface FanTheoryCandidateRow {
   id: string;
   claim: string;
@@ -61,6 +60,7 @@ export interface FanTheoryCandidateRow {
   communities: string[];
   stance: FanTheoryStance;
   sampleUrls: string[];
+  sourceThreadIds: string[];
 }
 
 export interface MergedTheoryCluster {
@@ -79,15 +79,14 @@ export interface MergedTheoryCluster {
   peakScore: number;
   communities: string[];
   sampleUrls: string[];
+  sourceThreadIds: string[];
   stance: FanTheoryStance;
   /** 0..1 deterministic catalog-fact match score (symbol-match.ts),
    * computed from the union of the cluster's numericSignals. Carried on
-   * the cluster mainly for observability/debugging — `heat` below is the
-   * field that actually drives promotion. */
+   * the cluster mainly for observability/debugging and heat ranking. */
   symbolMatchScore: number;
-  /** Promotion signal fed into `live_theory.heat` and checked against
-   * HEAT_PROMOTION_THRESHOLD (replaces the old raw-mentionCount gate) —
-   * see the weighting comment on `mergeTheoryCandidates` below. */
+  /** Ranking signal fed into `live_theory.heat`; it does not replace the
+   * independent-mention promotion requirement. */
   heat: number;
   decision: 'promote' | 'reject' | 'hold';
 }
@@ -138,6 +137,25 @@ function union(lists: readonly string[][]): string[] {
   const set = new Set<string>();
   for (const list of lists) for (const v of list) set.add(v);
   return [...set];
+}
+
+/** Counts source threads once while preserving older unlinked mentions. */
+function distinctMentionCount(rows: readonly FanTheoryCandidateRow[]): number {
+  const threadIds = new Set<string>();
+  const legacyUrls = new Set<string>();
+  let unlinkedMentions = 0;
+  for (const row of rows) {
+    const rowThreadIds = new Set(row.sourceThreadIds);
+    const rowUrls = new Set(row.sampleUrls);
+    if (rowThreadIds.size > 0) {
+      for (const threadId of rowThreadIds) threadIds.add(threadId);
+    } else {
+      for (const url of rowUrls) legacyUrls.add(url);
+    }
+    const linkedMentions = rowThreadIds.size > 0 ? rowThreadIds.size : rowUrls.size;
+    unlinkedMentions += Math.max(0, row.mentionCount - linkedMentions);
+  }
+  return threadIds.size + legacyUrls.size + unlinkedMentions;
 }
 
 /** Groups candidate rows into near-duplicate clusters via theory-match.ts's
@@ -191,32 +209,17 @@ export function mergeTheoryCandidates(
     const canonical = sortedGroup[0];
     if (!canonical) continue; // group is never empty (seeded above), but satisfies noUncheckedIndexedAccess
 
-    const mentionCount = group.reduce((sum, r) => sum + r.mentionCount, 0);
+    const mentionCount = distinctMentionCount(group);
     const peakScore = Math.max(...group.map((r) => r.peakScore));
     const stance = clusterStance(group);
     const trackSlug = clusterTrackSlug(sortedGroup);
     const numericSignals = [...new Set(group.flatMap((r) => r.numericSignals ?? []))];
     const score = symbolMatchScore(numericSignals);
-    // HEAT WEIGHTING (this card's own call, no existing precedent to
-    // mirror): heat = mentionCount + a catalog-fact bonus, weighted so a
-    // PERFECT symbol match (score === 1) alone is worth exactly
-    // HEAT_PROMOTION_THRESHOLD — i.e. a single low-volume theory (as few
-    // as 1 mention) whose numbers are entirely real catalog facts can
-    // clear the promotion bar on symbol strength alone, without waiting
-    // to accumulate PROMOTION_MENTION_THRESHOLD mentions. A partial score
-    // adds a proportional bonus on top of mentionCount rather than
-    // replacing it, so raw mention volume still counts for something even
-    // when the symbol match is weak or absent (score 0 -> heat ===
-    // mentionCount, i.e. today's original raw-mentionCount behavior,
-    // unchanged for a theory with no numeric signals at all).
-    //
-    // WORKED EXAMPLE (today's live case): a single-mention cluster
-    // ("0 styled as ()" + "12 exclamation points" + "12th studio album",
-    // numericSignals [0, 12]) scores 0.5 (see symbol-match.ts's own worked
-    // example) -> heat = 1 + 0.5 * 2 = 2, exactly the new two-signal bar.
-    const heat = mentionCount + score * HEAT_PROMOTION_THRESHOLD;
+    // Heat keeps the original catalog-fact weight for ranking, while only
+    // distinct source threads determine promotion eligibility.
+    const heat = mentionCount + score * HEAT_SCORE_MULTIPLIER;
     const decision: MergedTheoryCluster['decision'] =
-      heat < HEAT_PROMOTION_THRESHOLD
+      mentionCount < PROMOTION_MENTION_THRESHOLD
         ? 'hold'
         : stance === 'debunked_by_fans'
           ? 'reject'
@@ -239,6 +242,7 @@ export function mergeTheoryCandidates(
         group.map((r) => r.sampleUrls),
         MAX_SAMPLE_URLS,
       ),
+      sourceThreadIds: union(group.map((r) => r.sourceThreadIds)),
       stance,
       symbolMatchScore: score,
       heat,

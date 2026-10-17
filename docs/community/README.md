@@ -188,7 +188,9 @@ installed task then runs the theory miner over that bundle. It checks at most
 the Claude-subscription wrapper. A durable `bundle:<thread>:<10-comment-bucket>`
 ledger skips unchanged threads. The task's local env therefore needs the
 existing Supabase service credentials, `TYPESAFE_API_KEY`, and the Claude
-subscription token. Test a single thread safely before installation:
+subscription token. Candidate mentions are counted once per source thread;
+later comment buckets can refresh evidence without increasing the count.
+Test a single thread safely before installation:
 
 ```
 node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1

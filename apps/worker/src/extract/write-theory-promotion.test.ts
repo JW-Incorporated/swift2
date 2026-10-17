@@ -129,12 +129,26 @@ describe('runTheoryPromotePass', () => {
     expect(updateCalled).toBe(false);
   });
 
-  it('promotes two merged independent signals and persists their mention sum', async () => {
+  it('promotes two merged candidates from distinct threads and persists their mention sum', async () => {
     // P1-21 lowers the bar to two: two separately stored candidates that
     // merge into one cluster must promote on this pass, while preserving
     // the merged count on the canonical candidate.
-    const a = { ...baseCandidateRow, id: 'a', theory_key: 'a', mention_count: 1 };
-    const b = { ...baseCandidateRow, id: 'b', theory_key: 'b', mention_count: 1 };
+    const a = {
+      ...baseCandidateRow,
+      id: 'a',
+      theory_key: 'a',
+      mention_count: 1,
+      sample_urls: ['https://thread-a'],
+      source_thread_ids: ['thread-a'],
+    };
+    const b = {
+      ...baseCandidateRow,
+      id: 'b',
+      theory_key: 'b',
+      mention_count: 1,
+      sample_urls: ['https://thread-b'],
+      source_thread_ids: ['thread-b'],
+    };
     // Same claim text on both -> same `name` for matching purposes (see
     // write-theory-promotion.ts's toCandidateRow comment on claim-as-name)
     // -> they merge into a single cluster.
@@ -154,6 +168,51 @@ describe('runTheoryPromotePass', () => {
     const result = await runTheoryPromotePass(db);
     expect(result.promoted).toBe(1);
     expect(sumUpdateRow?.mention_count).toBe(2); // 1 + 1 from the merged sibling, not just the canonical's own 1
+  });
+
+  it('holds two merged candidates from the same thread', async () => {
+    const a = {
+      ...baseCandidateRow,
+      id: 'a',
+      theory_key: 'a',
+      mention_count: 1,
+      sample_urls: ['https://same-thread'],
+      source_thread_ids: ['same-thread'],
+    };
+    const b = {
+      ...baseCandidateRow,
+      id: 'b',
+      theory_key: 'b',
+      mention_count: 1,
+      sample_urls: ['https://same-thread'],
+      source_thread_ids: ['same-thread'],
+    };
+    let liveTheoryWriteCalled = false;
+    let sumUpdateRow: Record<string, unknown> | undefined;
+    const db = fakeDb((table) => {
+      if (table === 'fan_theory_candidate') {
+        const c = chain({ data: [a, b], error: null }) as Record<string, unknown>;
+        c.update = (row: Record<string, unknown>) => {
+          if (row.mention_count !== undefined) sumUpdateRow = row;
+          return chain({ error: null });
+        };
+        return c;
+      }
+      if (table === 'live_theory') {
+        const c = chain({ data: [], error: null }) as Record<string, unknown>;
+        c.insert = () => {
+          liveTheoryWriteCalled = true;
+          return chain({ data: null, error: null });
+        };
+        return c;
+      }
+      throw new Error(`unexpected table ${table}`);
+    });
+    const result = await runTheoryPromotePass(db);
+    expect(result.held).toBe(1);
+    expect(result.promoted).toBe(0);
+    expect(sumUpdateRow?.mention_count).toBe(1);
+    expect(liveTheoryWriteCalled).toBe(false);
   });
 
   it('one cluster write failure is recorded in errors and does not abort the run', async () => {

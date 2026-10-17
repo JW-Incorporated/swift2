@@ -166,6 +166,7 @@ export async function runTheoryMinerStage(
           for (const theory of uniqueTheories) {
             const upserted = await upsertTheoryCandidate(db, theory, {
               community: bareSub,
+              threadId: post.postId,
               ...(post.permalink ? { permalink: post.permalink } : {}),
               score: post.numComments ?? post.comments.length,
               today,

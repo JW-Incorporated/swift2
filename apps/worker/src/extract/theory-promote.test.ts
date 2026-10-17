@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   PROMOTION_MENTION_THRESHOLD,
-  HEAT_PROMOTION_THRESHOLD,
+  HEAT_SCORE_MULTIPLIER,
   mergeTheoryCandidates,
   buildLiveTheoryUpsert,
   type FanTheoryCandidateRow,
@@ -35,6 +35,7 @@ function candidate(overrides: Partial<FanTheoryCandidateRow>): FanTheoryCandidat
     communities: ['TaylorSwift'],
     stance: 'believed',
     sampleUrls: [],
+    sourceThreadIds: [],
     ...overrides,
   };
 }
@@ -160,19 +161,41 @@ describe('mergeTheoryCandidates', () => {
     expect(cluster.decision).toBe('promote');
   });
 
-  it('promotes a low-mention cluster purely on a strong catalog-fact symbol match (heat-based gate)', () => {
-    // Single mention, well below PROMOTION_MENTION_THRESHOLD on raw
-    // mentionCount alone — but numericSignals is a PERFECT catalog-fact
-    // match (symbolMatchScore === 1), which alone is worth
-    // HEAT_PROMOTION_THRESHOLD in the heat formula. Regression guard for
-    // the headline feature of this card: heat, not raw mentionCount, must
-    // be what the gate checks.
+  it('holds one mention even when a strong catalog-fact match produces high heat', () => {
     const rows = [candidate({ mentionCount: 1, stance: 'believed', numericSignals: [12] })];
     const cluster = onlyCluster(mergeTheoryCandidates(rows));
     expect(cluster.mentionCount).toBeLessThan(PROMOTION_MENTION_THRESHOLD);
     expect(cluster.symbolMatchScore).toBe(1);
-    expect(cluster.heat).toBeGreaterThanOrEqual(HEAT_PROMOTION_THRESHOLD);
+    expect(cluster.heat).toBe(1 + HEAT_SCORE_MULTIPLIER);
+    expect(cluster.decision).toBe('hold');
+  });
+
+  it('promotes two matching candidates from distinct threads', () => {
+    const rows = [
+      candidate({ id: 'a', sampleUrls: ['https://thread-a'], sourceThreadIds: ['thread-a'] }),
+      candidate({ id: 'b', sampleUrls: ['https://thread-b'], sourceThreadIds: ['thread-b'] }),
+    ];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.mentionCount).toBe(2);
     expect(cluster.decision).toBe('promote');
+  });
+
+  it('holds two matching candidates sourced from the same thread', () => {
+    const rows = [
+      candidate({
+        id: 'a',
+        sampleUrls: ['https://same-thread'],
+        sourceThreadIds: ['same-thread'],
+      }),
+      candidate({
+        id: 'b',
+        sampleUrls: ['https://same-thread'],
+        sourceThreadIds: ['same-thread'],
+      }),
+    ];
+    const cluster = onlyCluster(mergeTheoryCandidates(rows));
+    expect(cluster.mentionCount).toBe(1);
+    expect(cluster.decision).toBe('hold');
   });
 
   it('holds a low-mention cluster with no numeric signals — unchanged legacy behavior', () => {

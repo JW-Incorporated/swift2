@@ -38,6 +38,7 @@ interface CandidateDbRow {
   communities: string[];
   stance: FanTheoryCandidateRow['stance'];
   sample_urls: unknown;
+  source_thread_ids?: string[];
 }
 
 function toCandidateRow(r: CandidateDbRow): FanTheoryCandidateRow {
@@ -65,6 +66,7 @@ function toCandidateRow(r: CandidateDbRow): FanTheoryCandidateRow {
     communities: r.communities,
     stance: r.stance,
     sampleUrls: Array.isArray(r.sample_urls) ? (r.sample_urls as string[]) : [],
+    sourceThreadIds: r.source_thread_ids ?? [],
   };
 }
 
@@ -100,6 +102,7 @@ async function applyCluster(
         symbols: cluster.symbols,
         communities: cluster.communities,
         sample_urls: cluster.sampleUrls,
+        source_thread_ids: cluster.sourceThreadIds,
         updated_at: new Date().toISOString(),
       })
       .eq('id', cluster.canonicalId);
@@ -173,7 +176,7 @@ export async function runTheoryPromotePass(db: SupabaseClient): Promise<PromoteP
   const { data: candidateRows, error: candidateError } = await db
     .from('fan_theory_candidate')
     .select(
-      'id, claim, theory_key, mechanism, symbols, numeric_signals, track_slug, predicts, predicted_date, evidence_summary, mention_count, peak_score, communities, stance, sample_urls',
+      'id, claim, theory_key, mechanism, symbols, numeric_signals, track_slug, predicts, predicted_date, evidence_summary, mention_count, peak_score, communities, stance, sample_urls, source_thread_ids',
     )
     .eq('status', 'candidate');
   if (candidateError) {

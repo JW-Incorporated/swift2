@@ -426,6 +426,7 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 | `scripts/community/crawl-bundle.mjs` | Validator/writer for the existing transient theory-crawl shape, including additive thread metrics and author-free comments |
 | `scripts/community/theory-bundles.mjs`, `theory-miner.mjs` | Ten-comment-bucket identity, capped Jev `q_theory` prefilter, home-reader bundle intake, privacy-safe Facebook summary intake, and positive-only Haiku mining |
 | `supabase/migrations/20261017000000_theory_mined_bundle.sql` | Service-role-only completed-bundle ledger that prevents repeat model spend on unchanged theory threads |
+| `supabase/migrations/20261017010000_fan_theory_candidate_source_threads.sql` | Retains complete candidate source-thread provenance so later comment buckets cannot inflate mention counts beyond distinct threads |
 
 ## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
 
