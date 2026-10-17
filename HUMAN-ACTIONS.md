@@ -2,41 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **21 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #137 🟢 [UPGRADE] Let the Long Live bot add reactions in two Discord channels (~2 min)
-<!-- ha filed=2026-10-16 -->
-
-**Why:** Your ❌ / ✅ on reply cards (PR #6015) now mark a lead skipped or posted. The bot then reacts 🚫 / 📝 to confirm it saw yours, but only if it is allowed to add reactions; it was set up read-only.
-**Steps:**
-1. In Discord, right-click the channel **tree-facebook** → Edit Channel → Permissions.
-2. Select the Long Live bot (add it with "+" if it isn't listed), set **Add Reactions** and **Read Message History** to ✅ (green), then Save Changes.
-3. Repeat steps 1–2 for the channel **tree-main**.
-**Worked if:** After you react ❌ on a reply card, a 🚫 from the bot appears under it within about 15 minutes.
-
-## #136 🟢 [UPGRADE] Add the site's breaking-news unlock secret (~5 min, do it with #129)
-<!-- ha filed=2026-10-15 -->
-<!-- ha verify: variable-equals REVALIDATE_ORIGIN https://longlivets.com -->
-
-**Why:** The breaking-news path to the site (PR #5969) refuses every request until this secret exists. It stays off until go-live, so nothing is stuck; doing it alongside #129 shares one Vercel redeploy.
-**Steps:**
-1. In PowerShell run `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` and copy the output.
-2. Run `gh secret set REVALIDATE_SECRET --repo JW-Incorporated/swift2` and paste that value.
-3. In Vercel open project swift2-web → Settings → Environment Variables, add REVALIDATE_SECRET (Production) with the same value, then redeploy.
-4. Run `gh variable set REVALIDATE_ORIGIN --repo JW-Incorporated/swift2 --body https://longlivets.com`
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows REVALIDATE_SECRET.
-
-## #135 🟢 [UPGRADE] Let the action auto-closer see which secrets exist (~3 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Action cards that check "is this secret set?" never close themselves: the auto-closer's token, OPS_FIXER_PAT, is not allowed to read the repo's secret list, so it skips them (it did with #124/#127 today).
-**Steps:**
-1. Open https://github.com/settings/tokens and open the classic token used as OPS_FIXER_PAT.
-2. Make sure the `repo` scope is ticked (it covers reading the secret names), then Update token.
-3. If you had to regenerate it, copy the new value, then run `gh secret set OPS_FIXER_PAT --repo JW-Incorporated/swift2` and paste it when asked.
-**Worked if:** The next secret-check card closes itself within an hour of the secret being set.
 
 ## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-16 -->
@@ -60,14 +28,6 @@
 
 **Worked if:** the next brief no longer lists #5537 under stalled.
 
-## #132 🟡 [DECIDE] Mood Chat and Clownbot: keep the paid API key, or change how they answer? (~2 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** You chose "no Anthropic API at all" (D1). But Mood Chat and Clownbot answer readers live from the website, and the website can't run your Claude subscription, so they still use the paid key, one model call per reader message.
-**Steps:**
-1. Decide: `keep` — these two stay on the paid key (small exception to D1, with a daily cap); `queue` — they answer later from the worker on your subscription (slower replies); `simple` — rule-based answers only, no model; `off` — turn both features off.
-**Worked if:** docs/decisions.md records your answer and the PM schedules the matching change.
-
 ## #131 🟢 [UPGRADE] Reload the Facebook extension and install its new schedule (~3 min)
 <!-- ha filed=2026-10-15 -->
 
@@ -77,24 +37,6 @@
 2. In PowerShell, from your Swift2 project folder, run `powershell -ExecutionPolicy Bypass -File scripts\knowledge\fb-export-task.ps1`
 3. Tell the PM chat "fb done"; the PM checks the next export.
 **Worked if:** The next export's Facebook leads carry post links (the PM checks for at least 80%).
-
-## #130 🟡 [DECIDE] May the Reddit reader use Reddit's public .json pages? (~1 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Reddit blocks the home reader's browser (HTTP 403), so Reddit cards can't get score, comment counts or threads. Reddit's public .json pages need no key, login or account, but they touch the spirit of your no-Reddit-API-key rule, so it's your call.
-**Steps:**
-1. Decide: `yes` — RSS to find threads, plus anonymous .json for at most 20 top threads per run, slow and with an honest name; `no` — park the reader and keep the GitHub RSS scan (cards stay without counts).
-**Worked if:** docs/decisions.md records your answer and the P1-15 tracker row moves out of blocked.
-
-## #129 🔴 [BLOCKING] Turn push notifications back on in production, after the design review (~10 min)
-<!-- ha filed=2026-10-15 -->
-
-**Why:** Push is off in production because CRON_SECRET is missing. PUSH READY (2026-10-15): the review's must-fixes merged (#5891, #5916), the stale backlog is cleared (56 killed, 0 left), and a watchdog alerts if dispatch stops.
-**Steps:**
-1. Vercel → swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-2. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-3. Tell the PM chat "push on"; the PM checks the first ticks and the watchdog.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set" and the watchdog's push heartbeat check reads OK.
 
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
