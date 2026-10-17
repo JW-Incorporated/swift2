@@ -244,7 +244,7 @@ export async function fetchLeadsToMail(
   let query = supabase
     .from('engagement_lead')
     .select(
-      'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status',
+      'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status, score, num_comments, reactions, thread_created_at',
     )
     .eq('status', 'drafted')
     .not('draft', 'is', null)
