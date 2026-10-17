@@ -51,6 +51,7 @@
     "check:no-downgrade": "node scripts/check-no-downgrade.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:social": "node scripts/social/validate-queue.mjs",
+    "social:sync-image-ledger": "node scripts/social/sync-image-ledger.mjs --write",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "check:routines": "node scripts/check-routine-workflows.mjs",
     "check:workflow-deps": "node scripts/check-workflow-deps.mjs",
