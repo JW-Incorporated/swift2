@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -50,15 +50,6 @@
 5. Paste both IDs in the Swift2 pipeline PM chat.
 **Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
 
-## #125 🔴 [BLOCKING] Confirm the Hermes Tree and Marjorie loops so #5484 can merge (~5 min)
-<!-- ha filed=2026-10-14 -->
-
-**Why:** #5484 retires six Swift2 routines that Hermes replaces, freeing about 1,950 units a week of your Claude limit. You approved merging it (D9) once a Hermes session confirms both loops are live.
-**Steps:**
-1. Open a Claude Code session in Projects\Hermes.
-2. Paste: "Did the Hermes Tree and Hermes Marjorie daily loops both run successfully in the last 3 days, and which model or token pool do they use? Answer yes or no per loop."
-3. Tell the Swift2 pipeline PM the answer in chat.
-**Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->
