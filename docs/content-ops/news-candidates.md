@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 81
+
+## Taylor Swift Scheduled to Perform at Academy Museum Gala
+
+- first seen: 2026-10-17 14:51 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the Academy Museum Gala on Saturday evening, according to MyNewsLA.com. This appearance adds to her schedule of high-profile events and performances.
+- sources:
+  - [unverified] MyNewsLA.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTEowcTc4Yk4zaGMwNllmYnNXbldlNmpVbThkVTZrS3l2TFRKcXdBUEVBcUxnWXRhQ1VwX3dlbU93SHBLTFpuZkNBeVVlTEk3a2JtQndDNlRQYXRabjRiRTlZUVdwVTlGMjQ2VWl0cXNYdF9Sb09oZ1pJNGR3SXFDQm1WR0YxQmswalp0NGFaMS0wNkZ6a1NjSjA3T19UOUdqSXkwTkhTSF9vQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce Discusses Taylor Swift's Halloween Songs
 
@@ -673,48 +681,3 @@ Stories: 85
 - summary: Travis Kelce is reportedly 'genuinely upset' due to some 'friction' as he and Taylor Swift move into their first home together. The relationship dynamics appear to be a topic of discussion.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXhvM09PR1ZjTTBGZWF6U1dtZHR0TG0zeXpqZzhPbWNQd1R1bE9fYVVoUEpVd0RKcWd4NGhZUkxKZlF6RlgtSEhsa1d0UEhtZFRkUjFiM01TdjQ1a2g0YVpTS29jbEZYMlk3XzJvMGt2cnJaMWNOZUhPdWNQam5ZMTE1bXloRVRoTGwtT2ZfbThfZ2h6d2pxUkxLMUJmX0pKVzhsbEtmTmpoU2NielE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Anita Baker Commends Taylor Swift's Artistic Talent
-
-- first seen: 2026-10-14 14:29 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Anita Baker has expressed her admiration for Taylor Swift, highlighting her 'covert genius' and 'masterful storytelling' abilities in music. This acknowledgment comes from Baker in a recent feature.
-- sources:
-  - [unverified] That Grape Juice.net — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNRFRRSnBxUEllWXJCX2l6WDNqQ3F2T0lwWDZEaWxsR3I0b09Hc0QweFROWFVVQ0xENU1fSWhSQjl3NGs4dnI5ZHU3dmhmOTRxV2hlTGl0c2RqQktSc3ZZZGxaUVZtbHE2OXZZTmVOd2lGVUctcDBhN3QxNF8zcEpHR2NWemNLMGo0SklYVjA5Qk5QSDZiWnN2ME1ESDM0T2FsMU9kNmx5cV9QQk1wOURpYzg1c29lNDFaRnpxU1JjX3Q1eE5USm5iQldWUmpqQW030gHWAUFVX3lxTE5hTEVMWGpCRDI2QVpJQUYzQ3k3dnZJM2c5X0JCbGRra3lpSXFDLXdOalVhVlJXeFRpa1RTZmZJUHY2a1RHUFRtazJlX2Q0czNFS0lxci1WUWFjcUExa1VrN0lId3JVZGtTaUt3endIdEFCdkdtbEM1SXJzX2dSeVQ5dGtrMFNtSWFnTFR4dFhveHFmUWZwemFuZ2pvdlVPcV8wSWFQZFd6N1R0bHhoaUxZWmtfbU85NHZfQk9vRkdwQXdUWWg1NDRtYllsWWtDVDh1MGFCNEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Seen Supporting Taylor Swift During 'Patient Zero' Music Video Shoot
-
-- first seen: 2026-10-14 14:29 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 6
-- summary: Travis Kelce was spotted providing support to Taylor Swift while she directed her music video for 'Patient Zero'. The behind-the-scenes glimpse highlights their collaborative moment during the filming process.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirAFBVV95cUxPa183bmhCSDF1QkxWeG0wUGl6Y21ZVTNLc2hhclJQemY1b3JIUFl4SGtxR2JNM1ZRNkZ3WkJnNUJiUGxsdDM1eC1ZV3B4UEpnSmJhcHJtVDNnNTNnbWFqMFRqc2o2d242b05QZU5fdkdrbjFUOXFxT3hWOGFwLUhXaDVpeDdIeWhZel81N3dJa0FVa21aVi12YmZfX1hQVC1BMmRYMEtBZnB3NmZP?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNMnNwMEFHYVpZNlB2cDFkZXVIZTNENDRnYTZCNHU1OTBOM0Ewc3NsYjBxVjR5aFZDWE9ZWGFOMGF3LXdiXzM5c0hVdktLR081bkE3dW14TWprSkI0TnA4Xzhldy0tYmdPZVJ0aU42R3VXVG5ybTZScEJSTTgwLUZBTjBJSlJXVVRRd1VyblRjTTA2d9IBkgFBVV95cUxPbVFkZE1RcjBLX0s2X2Z5MkZ5VzFQVE15ZXFZbWpBZktLZHBKbDJybTRpc2szYzJkLWJGUUxSX2FPWUViU09vbHN5QjVQeWZCbl9WMVYydmRGUVJqWTgySDBoWGxHcWJXT0JZVXVjT3BGc0ctX2VCVUN3OFVqV1htREQ3WU1wMDM0ZkhqcExzSkp2dw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi8wFBVV95cUxPclA1UTNQNVY1aFBGYVNVaW0tbENHZ1V6Tm40N2g5dEtuaV9IU0VxeURjLWNGYUM2UFVzdnlqRTg4RGxYNEJoUnp4WW1nVERJUVlQcF9nazYyT0M0MmRvN1h0Nkc1VnRISEF6elZZTXZ6UE03ZUpkenUwU3VaS1RXTE9wbmxzdUhKUDZOVmpDQzJELXVsVVNrRkEtMUUyMEVKNHZLSlRfRnJPMU12M3BFMWRYOFNGX0VmS2FRbEF4TG1HREh0ME1vSkhDZTByOVhOUEJfRlNTUDVsRnRDVElEeUR6N05NUXQ1eFBoMXdWcHN0UWfSAfMBQVVfeXFMTUVrVXhTaFlRQ2tKTks2X3BFX0tKeWVaS1UyNy1ycGl5bVdwS2FzLVNmSzlxMFhZQU5wMjRCSm5rY3VFM0JEM3ZxNmdXS2VOWWNjdzJiRmxiRkxpZ0VtTkc4ekt4elhVTnNjUUtid2lMYnlPVGpYMExwc3lUUHlLRmMyamk2U19NdnNrd0R2ZmM5QThJZ1lnaDVNcFl3X254b0xqZko1bklfSlRiYjVHZDBtbzJfY0pxaDRJRldhREUwVGVPdW9OV2c2Smhfdk1NYVlLZ1h3WWJma1FkZmFVaXhQWUlhdlpaMklXWm9TNmg4a1pB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVTF0WFg4ek9oY3RYUnN2ZHNTc2NLZWZ6R3ZmVTU0WTJScURucVZEazJkdjF2Qy1ZbnhjWm43cWRqeElTUVJyd3RKSWFVUEJKa0NCbW5tRHdiSUdOTzQ3Uk8xYktfRFhFMDhkaV9IcWNXaHZ4WlQtQThpVXREM01SaGdRVF93N3lPb05VSmc2T1RfaEJwY21XbG52aDd0azFlQnRXT0VTN1d6YVpDYTI5U083MHFqNU0yeERDQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipgFBVV95cUxNQ3VjZnozZ2dsenRYYmk4cXlxUm95MmszZGRHYWR1X2paQ3hteUZIcklVejBjYV9aUmROTzIycWRiZHJFQWREUjFBTVhIOUJHZFp0SDZNSGVabW4xOXBDWEJ0LU8wZlFGNENRUjdvS1p0RFloTlZPbURoWjhBMXpXRjV2MEpYSjZrRk9rSTgxUlIyR1cxenYwdXl5WC1kZ0Zuc1poaDVn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0FlTTBrS1NJVTN1S1RmdlhtLWU4MnNLcmRWdHVVaFVBUTNjcE5SY2F6d0hMRUdPV2NPdEVsUUxIak5tbllVQUdZZ3FTYkw3Vk00d3ViRnRRbk1wVzFmWXRKajNvSUc4dC1BdWJzLU5SUi1QMTJHM08wRnViVWRpSFVWUDk1M25KZW12UFdKUWhtTU9mcXlMcTNfZnN5RDRQeVhhbDlCVjk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Goes on Solo Trip Following Date with Taylor Swift
-
-- first seen: 2026-10-14 14:29 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has taken an unexpected solo trip after enjoying a date night with Taylor Swift. The outing follows their recent public appearances together.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMirgFBVV95cUxPU2ZNLWFibzI5a3NwNHpnTUtBb1ZOUW40aHV6ZzBpNnY1eVo4OVczZUYwMDgyMUJTeUVsSUxvc1VHY3oyU3ZhVHphck9aLWhlcWhUWlkxN21DVXRGa09iU2Vjcl9XVFFINlk0ZTd0X1B0Um1lUExMZUliUUNVWTM0WHhWOVpVY1VPakMyZnpRcU1JMDZCRlctcHRCQ0pMM1haN0wtWC12c3gxWDVJZmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Women Expected to Shine in 2027 Grammys Song of the Year Category
-
-- first seen: 2026-10-14 14:29 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Artists Olivia Rodrigo, Olivia Dean, Taylor Swift, and Ella Langley are anticipated to be strong contenders for the Song of the Year award at the 2027 Grammys, highlighting the prominence of women in this prestigious category.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/
-
-## Taylor Swift's $4 Million Donation to Nashville Museum Celebrated After 14 Years
-
-- first seen: 2026-10-14 14:29 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In 2012, Taylor Swift made a significant $4 million donation to Nashville's country music museum. Now, 14 years later, the educational impact of her contribution is being recognized.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi1gJBVV95cUxQWEtqNTZnbnZ5TTlMZThyMTNtMFcydTJGZTVndGJVd011SW1hNVdmQ1U3U2p3YnFxMDBxS2QwdEJUU0FkV3hSUU1OTDB0WmZGTGloQTJmeVBhUWxQVy1EMldkV1VKcWR0UmM5WHhSWEZmUmd1cE4wT29VVEZMU2Q2LUVQSzZuMnRoa25xVUlENHRseGcwbTA4T0VEU3NHaTFJS19YNnpiUEVzOTgwejM0TWhHLUFEOUpaR1NGYzlTcHRtVFFtdDJRZVd3YzNqWllfRWstQ25HalIyUlQ5MS02QWNrdzhoYVBtYmF2dGRMcFh3a25QcUJVOGFQOG9TYXNodVozS2V4dUJOeldDMHgyQnk3c2FyNzhqOHJNaGxfdUNZNGt3bFIzNDhxbnFDN1NzVDNoVTFVc2toTUprTUdSQWJ2V1F4N09FaFdYNnNhOU44M1VWMUHSAdsCQVVfeXFMTUU5aG9tU1JwMmU3Z0l1MTNQdDRYVDItaUZveVk2OWNaT3JXb295R2VGV3JlT2VpeVJwN0FyMmF5MHI4VWZ1Mk9aRzN4ZzUyLW1JQzIyZTMyMXlNY2tHS25yMFlkMHJ5SkJZTWhtb0J6ZUZXMlg0dVZobHFTVWhrYTBrc0tRYXFjQk9wLXk5WkFzMlZNSUlHQndhck5xY0pWLW56THBoc0s5SFc5N29UYkdfa2lqLWI4OFdqQlREZE1KMDhLWlkwQVJYNTFpcTRnSFpjWmNLUUxlRndMSl9OczBmSDZDVlRxTU91UTVYWGN4MXhrQzA2N3ZtS19jSWlCTlRmYXdnS2lJRmxremVDbHZqaG1fX09nWFVZcjg0N0k5NzM1LXJ0cGV3Y2tqanFqRGVFOXdNZElUb2RoYTNVUnI4b19XNGpmWnFKUFlZUS1IZHhodjBVaHBsdWs?oc=5&hl=en-US&gl=US&ceid=US:en
