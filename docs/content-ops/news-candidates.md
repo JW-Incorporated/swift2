@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 84
+
+## Taylor Swift Achieves Significant Milestone Over the Weekend
+
+- first seen: 2026-10-17 18:16 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Over the weekend, Taylor Swift reached a major milestone in her music career, as reported by Yahoo. This achievement highlights her continued success and influence in the music industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTkZrS3RLTm9hZzdtY05lUDNQaDJtNWloazBlSUFuaXduaE1ORlY0NDcxVldYWmpXTDZGekx4M1ZER0VKTERTWWhFejBGTFRLdkZNTzFZUndFQmJUQ0tiTU9jZW4wbWtHRTFycXQtaFN1MlJ2SkxxaEZPaVoxNjBudElBbGd1QVoxenp1VWF2U3NlVnNXdUVzN0lmYWo2dG95VFVMLUFheUJ6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Muse Clara Bow Highlights New Classic Cinema
+
+- first seen: 2026-10-17 18:16 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Clara Bow, known as Taylor Swift's muse, is featured in a new initiative by Carlotta to restore Hollywood classics. The project aims to bring iconic films back to life for modern audiences.
+- sources:
+  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMijwFBVV95cUxNSjdEQTFhelR1MUd1dHlLUlpDaTJZWWpPQ2h5UjItYk43OFRsbzVGdXA4bi1NVDVBUzdESjNWWkVaSjlaMzdUUXV1SU50M0V5anpRZ3lPZEF5REs5WFlBSENlTzM2OWNRbjJnLW1iWXdHWW1TNkxnakctejJaWEFuLXlqXzZDX1NLd1JZbHZlVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Rhode Island Home Purchase Details Revealed
 
