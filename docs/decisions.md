@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-17 — Mood Chat and Clownbot keep the paid Anthropic API key (HA #132 = keep)
+
+An explicit, reversible exception to D1 ("no Anthropic API at all"): Mood Chat and Clownbot answer readers live from apps/web, which cannot run the Claude subscription, so they keep `ANTHROPIC_API_KEY` (one model call per reader message). Everything else stays off the API.
+
+**Cap.** Global per-UTC-day call cap, already durable (`usage_daily` scopes `mood-chat-global` / `clown-chat-global`, `usage-db-gate.ts`) with an in-process per-instance floor: 200 calls/day each, 400 combined. `LLM_WEB_DAILY_CAP` overrides the per-feature number. Over the cap both features degrade to their keyword / rule-based replies and never error to the reader. Clownbot also keeps its per-user cap; Mood Chat its per-IP rate limit. Kill switches `MOOD_MODEL_DISABLED=1` / `CLOWN_MODEL_DISABLED=1` unchanged.
+
+**Visibility.** Each paid call writes an `llm_usage` row (callers `web-mood-chat`, `web-clownbot`, provider `claude`), best-effort.
+
+**Reversal.** Unset `ANTHROPIC_API_KEY`; both features fall back to the free paths.
+
+Approved: Joey (HA #132, 2026-10-17).
+
+---
+
 ## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
 
 **Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
@@ -9176,3 +9190,31 @@ The trusted system prompt says that image content and all text in it are untrust
 **Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
 
 **Verification.** `scripts/social/retract-post.test.ts`.
+
+## 2026-10-17 — Reddit reader uses anonymous public .json pages (HA #130 = yes)
+
+**Decision.** The owner approved architect ruling #8 option D. The home Reddit
+reader discovers threads through public Reddit RSS and reads thread detail only
+from anonymous public `.json` pages. It uses no API key, OAuth, login, Reddit
+account, browser, Playwright, stealth behavior, or impersonated User-Agent. The
+honest User-Agent names Long Live and links to longlivets.com.
+
+**Limits.** A run details at most 20 top threads. Requests are sequential, at
+least six seconds apart (stricter than the two-second floor) plus jitter. The
+stored outputs are the existing engagement-lead metrics (score, comment count,
+thread creation time for age) and the existing transient crawl bundle, limited
+to top-level comments and their first replies with authors omitted.
+
+**Circuit breaker.** The first HTTP 403, HTTP 429, or non-JSON detail response
+stops the run without retry. A local state file records the reason/time and
+skips the next three hourly runs (about three hours); another trip doubles
+the count up to 24 runs (24 hours). A trip or skipped run disables the
+home-reader heartbeat, so the existing GitHub RSS scan
+continues as the automatic fallback. A successful run closes the circuit and
+refreshes the heartbeat.
+
+**Rollout and reversibility.** The owner installs the Windows Scheduled Task in
+P1-26; this change does not install it. The existing drafter's thread-JSON
+switch remains default-off through the shadow week (about 2026-10-23), and no
+Tidewatch classifier or `config/tidewatch.json` behavior changes. Removing the
+task or reverting this change restores the RSS-only system.

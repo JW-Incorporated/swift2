@@ -1133,6 +1133,44 @@ export default {
       },
     },
     {
+      year: 2011,
+      month: 10,
+      day: 13,
+      category: 'business',
+      title: '6,000 books for the library down the road from Wyomissing',
+      snippet:
+        'With Scholastic, Taylor quietly gave about 6,000 children\'s and young-adult books to the library in Reading, Pennsylvania, a struggling city next to the town she grew up in.',
+      sourceUrl: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-donates-6000-books-to-berks-county-library/',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg',
+      moment: {
+        context:
+          'On October 13, 2011, librarians in Reading, Pennsylvania unveiled about 6,000 books for children and young adults, a gift from Taylor made with the publisher Scholastic. Local librarians picked the titles, and every donated book carries a white star on its spine and a sticker inside.\n\nReading is right next to Wyomissing, where she grew up, and the city had been struggling economically. Taylor didn\'t make it to the unveiling. Her representatives told library officials she wanted to help libraries going through tough times.',
+        sources: [
+          {
+            outlet: 'CBS Philadelphia',
+            url: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-donates-6000-books-to-berks-county-library/',
+          },
+          {
+            outlet: 'The Christian Science Monitor',
+            url: 'https://www.csmonitor.com/Books/chapter-and-verse/2011/1014/Taylor-Swift-donates-thousands-of-books-to-Pennsylvania-library',
+          },
+        ],
+        photos: [
+          {
+            // Content Shift (Vault Run 2026-10-17, #6041): no reusable photo of
+            // the donation or the Reading library exists on Commons, so this is
+            // a labeled reference photo from the same season. Commons
+            // "Taylor Swift 2011crop.jpg", CC BY 2.0, Flickr user dephisticate,
+            // taken July 2011. curl 200 image/jpeg, 1297px wide, vision-checked.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg',
+            credit: 'dephisticate (Flickr) / Wikimedia Commons, CC BY 2.0',
+            caption: 'For reference: Taylor on the Speak Now World Tour in July 2011, three months before the library gift.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Cross-link (Stage 3, 2026-08-06): the "Speak Now World Tour" cluster.
       relatedIds: ['moment:vault-speak-now-the-speak-now-world-tour-opens-in-singapore'],
       year: 2012,
