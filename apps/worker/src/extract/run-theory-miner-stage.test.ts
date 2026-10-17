@@ -12,7 +12,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const value: Record<string, unknown> = {
     then: (resolve: (resolved: typeof result) => void) => resolve(result),
   };
-  for (const method of ['select', 'insert', 'eq', 'maybeSingle', 'update', 'single']) {
+  for (const method of ['select', 'insert', 'eq', 'in', 'maybeSingle', 'update', 'single']) {
     value[method] = () => value;
   }
   return value;
@@ -23,6 +23,7 @@ function fakeDb(overrides: Record<string, () => unknown> = {}) {
     from: vi.fn((table: string) => {
       if (overrides[table]) return overrides[table]();
       if (table === 'symbol_lexicon') return chain({ data: [], error: null });
+      if (table === 'theory_mined_bundle') return chain({ data: [], error: null });
       if (table === 'usage_daily') return chain({ data: null, error: null });
       if (table === 'fan_theory_candidate') {
         const value = chain({ data: null, error: null }) as Record<string, unknown>;
@@ -68,6 +69,37 @@ describe('runTheoryMinerStage', () => {
     });
     const result = await runTheoryMinerStage(fakeDb(), artifact);
     expect(result).toMatchObject({ skipped: 1, theoriesFound: 0 });
+  });
+
+  it('skips an unchanged comment-count bucket before either model call', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const shouldMine = vi.fn();
+    const db = fakeDb({
+      theory_mined_bundle: () => chain({ data: [{ bundle_key: 'bundle:p1:0' }], error: null }),
+    });
+    const result = await runTheoryMinerStage(db, artifact, { shouldMine });
+    expect(result).toMatchObject({ bundlesConsidered: 1, unchanged: 1 });
+    expect(shouldMine).not.toHaveBeenCalled();
+    expect(mocks.callWorkerClaude).not.toHaveBeenCalled();
+  });
+
+  it('records a Jev-negative bundle without making a Haiku call', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    let insertedRow: Record<string, unknown> | undefined;
+    const db = fakeDb({
+      theory_mined_bundle: () => {
+        const value = chain({ data: [], error: null }) as Record<string, unknown>;
+        value.insert = (row: Record<string, unknown>) => {
+          insertedRow = row;
+          return chain({ data: null, error: null });
+        };
+        return value;
+      },
+    });
+    const result = await runTheoryMinerStage(db, artifact, { shouldMine: async () => false });
+    expect(result).toMatchObject({ prefiltered: 1, theoriesFound: 0 });
+    expect(insertedRow).toMatchObject({ bundle_key: 'bundle:p1:0', outcome: 'jev_negative' });
+    expect(mocks.callWorkerClaude).not.toHaveBeenCalled();
   });
 
   it('upserts a found theory and reports the bare subreddit name', async () => {

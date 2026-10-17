@@ -3,7 +3,7 @@
 // Reddit's public .json page. There is no login, OAuth, API key, or browser.
 import path from 'node:path';
 import { runMain } from '../../lib/cli.mjs';
-import { serviceClient } from '../../lib/supabase.mjs';
+import { strictServiceClient } from '../../lib/supabase.mjs';
 import { loadConfig } from '../../community/awareness-config.mjs';
 import { loadCatalog } from '../../community/awareness-image.mjs';
 import { beginCircuitRun, CircuitTripError, closeCircuit } from './breaker.mjs';
@@ -61,7 +61,7 @@ export async function runReader({
   dryRun = false,
   maxThreads = DEFAULT_MAX_THREADS,
   subreddit = null,
-  supabase = dryRun ? null : serviceClient(),
+  supabase = dryRun ? null : strictServiceClient(),
   config = loadConfig(),
   catalog,
   outputPath = process.env.HOME_REDDIT_CRAWL_OUTPUT || DEFAULT_OUTPUT,
