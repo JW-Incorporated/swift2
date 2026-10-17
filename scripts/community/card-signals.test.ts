@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { formatCount, leadHeat, signalParts, skipReason } from './card-signals.mjs';
+import { formatCount, leadHeat, signalParts } from './card-signals.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
@@ -148,23 +148,6 @@ describe('mailer-lane card', () => {
     );
     expect(bare.split('\n')[2]).toMatch(/^<https:/);
     expect(bare).toContain(FOOTER);
-  });
-});
-
-describe('skip rules', () => {
-  it('skips crowded, downvoted and stale threads', () => {
-    expect(skipReason(reddit({ num_comments: 500 }), NOW)).toBe('crowded');
-    expect(skipReason(reddit({ score: -4 }), NOW)).toBe('downvoted');
-    expect(skipReason(reddit({ thread_created_at: '2026-10-10T00:00:00Z' }), NOW)).toBe('stale');
-  });
-
-  it('keeps unknowns, healthy threads and replies to our own comments', () => {
-    expect(skipReason(reddit(), NOW)).toBeNull();
-    expect(
-      skipReason(reddit({ score: null, num_comments: null, thread_created_at: null }), NOW),
-    ).toBeNull();
-    expect(skipReason(reddit({ kind: 'reply_to_us', num_comments: 900 }), NOW)).toBeNull();
-    expect(skipReason(facebook({ score: -1 }), NOW)).toBeNull();
   });
 });
 

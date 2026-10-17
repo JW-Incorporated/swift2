@@ -57,7 +57,6 @@ import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
 import { routeForPlatform } from '../lib/discord-route.mjs';
 import { buildDraftBox } from './reply-card.mjs';
 import { facebookLeadUrl } from './awareness-fb-link.mjs';
-import { skipReason } from './card-signals.mjs';
 import {
   COMMUNITY_WEBHOOK_USERNAME,
   buildBatchHeader,
@@ -258,7 +257,7 @@ export async function fetchLeadsToMail(
   // W3: a lead with no drafted reply text is not sendable (nothing to copy/paste);
   // it stays status='drafted' for the Answerer to fill, and never eats a slot.
   const ordered = orderLeads(data ?? []);
-  const sendable = ordered.filter((lead) => hasDraft(lead) && !skipReason(lead));
+  const sendable = ordered.filter(hasDraft);
   if (onSkipped && sendable.length < ordered.length) onSkipped(ordered.length - sendable.length);
   return sendable.slice(0, limit);
 }

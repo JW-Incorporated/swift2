@@ -23,7 +23,7 @@ import { discordBotToken, routedPost, routeForPlatform } from '../lib/discord-ro
 import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { lintReply } from './awareness-draft.mjs';
 import { eligibilityRank } from './awareness-eligibility.mjs';
-import { leadHeat, skipReason } from './card-signals.mjs';
+import { leadHeat } from './card-signals.mjs';
 import { cardUrlForRef, fetchCardPng, loadCatalog, validateImageRef } from './awareness-image.mjs';
 import {
   buildAwarenessMessage,
@@ -168,9 +168,7 @@ export async function runDelivery({
   const { defaults, subs } = config;
   const tiers = new Map(subs.map((sub) => [sub.name, sub]));
   const capFor = (community) => dailyCapFor(tiers.get(community), defaults);
-  const leads = (await fetchDraftedAwareness(supabase, now)).filter(
-    (lead) => !skipReason(lead, now),
-  );
+  const leads = await fetchDraftedAwareness(supabase, now);
   const today = await fetchDeliveredToday(supabase, now);
   const perSubRemaining = { default: capFor(null) };
   for (const lead of leads)

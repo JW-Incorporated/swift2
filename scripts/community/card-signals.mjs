@@ -1,12 +1,7 @@
-// P1-17: engagement signals for reply-lead cards, plus the rank/skip rules that
-// use them. Pure. A signal that is not a finite number (the home reader's
+// P1-17: engagement signals for reply-lead cards, plus the rank rule that
+// uses them. Pure. A signal that is not a finite number (the home reader's
 // breaker may be backing off; an old row) is simply left out; nothing here ever
 // renders "undefined", "NaN" or an unknown count as zero.
-
-/** Skip a hot thread this crowded: a new reply sinks out of sight. */
-export const SKIP_COMMENTS = 500;
-/** Skip a thread this old (hours): the conversation has moved on. */
-export const SKIP_AGE_HOURS = 72;
 
 const count = (value) => (typeof value === 'number' && Number.isFinite(value) ? value : null);
 
@@ -56,18 +51,6 @@ export function signalParts(lead, now = new Date()) {
     comments === null ? null : `${formatCount(comments)} comment${comments === 1 ? '' : 's'}`,
     age === null ? null : formatAge(age),
   ].filter(Boolean);
-}
-
-/** Why a lead should not be shown, or null. A reply to our own comment is never skipped. */
-export function skipReason(lead, now = new Date()) {
-  if (lead?.kind === 'reply_to_us') return null;
-  const { comments } = counts(lead);
-  if (comments !== null && comments >= SKIP_COMMENTS) return 'crowded';
-  const score = count(lead?.score);
-  if (lead?.platform !== 'facebook' && score !== null && score < 0) return 'downvoted';
-  const age = ageHours(lead, now);
-  if (age !== null && age > SKIP_AGE_HOURS) return 'stale';
-  return null;
 }
 
 /**
