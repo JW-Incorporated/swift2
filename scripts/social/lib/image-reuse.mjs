@@ -20,7 +20,7 @@ const campaignOf = (item) => (typeof item?.campaign === 'string' && item.campaig
  * `unreadable` lists media paths that could not be fingerprinted — callers on a
  * posting path must treat any as a refusal.
  */
-export async function checkImageReuse(file, item, { ledger, queue = [], fingerprintOf, library = [] }) {
+export async function checkImageReuse(file, item, { ledger, queue = [], fingerprintOf, library = [], now = new Date() }) {
   const findings = [];
   const unreadable = [];
   const campaign = campaignOf(item);
@@ -28,7 +28,7 @@ export async function checkImageReuse(file, item, { ledger, queue = [], fingerpr
     const fp = await fingerprintOf(mediaPath);
     if (!fp) unreadable.push(mediaPath);
     const paths = samePhotoPaths(mediaPath, library);
-    const earlier = findLedgerMatch(fp, ledger, { campaign, ownPost: file, paths });
+    const earlier = findLedgerMatch(fp, ledger, { campaign, ownPost: file, paths, platform: item.platform ?? null, now });
     if (earlier) {
       findings.push(
         `media: "${mediaPath}" is the same picture as an image already posted — ${describeEntry(earlier)}. ` +
@@ -38,7 +38,7 @@ export async function checkImageReuse(file, item, { ledger, queue = [], fingerpr
     }
     if (!fp) continue;
     for (const other of queue) {
-      if (other.file === file || (campaign && campaignOf(other.data) === campaign)) continue;
+      if (other.file === file || (campaign && campaignOf(other.data) === campaign && other.data?.platform !== item.platform)) continue;
       for (const otherPath of other.data?.media ?? []) {
         const otherFp = paths.includes(otherPath) ? { hash: fp.hash, crops: fp.crops } : await fingerprintOf(otherPath);
         if (otherFp && (paths.includes(otherPath) || fingerprintsMatch(fp, otherFp))) {

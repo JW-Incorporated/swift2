@@ -27,7 +27,7 @@ const campaignOf = (item) => (typeof item?.campaign === 'string' && item.campaig
  * same public object the poster itself posts from (mediaUrlFor). `fallback`
  * (optional, async path => Buffer|null) is tried last. Throws on failure.
  */
-export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThis.fetch, fallback } = {}) {
+export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThis.fetch, fallback, attempts = 3, retryDelayMs = 1500 } = {}) {
   let local;
   try {
     local = await readFile(path.join(root, 'apps', 'web', 'public', mediaPath));
@@ -35,14 +35,18 @@ export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThi
     local = undefined;
   }
   if (local && !isLfsPointerBuffer(local)) return local;
-  try {
-    const res = await fetchImpl(mediaUrlFor(mediaPath), { signal: globalThis.AbortSignal.timeout(30000) });
-    if (res.ok) {
-      const buf = Buffer.from(await res.arrayBuffer());
-      if (!isLfsPointerBuffer(buf)) return buf;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const res = await fetchImpl(mediaUrlFor(mediaPath), { signal: globalThis.AbortSignal.timeout(30000) });
+      if (res.ok) {
+        const buf = Buffer.from(await res.arrayBuffer());
+        if (!isLfsPointerBuffer(buf)) return buf;
+      }
+      if (res.status === 404) break; // definitive: the object is not there, retrying will not help
+    } catch {
+      // transient network error: retry with backoff, then fall through to the fallback
     }
-  } catch {
-    // fall through to the fallback
+    if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, retryDelayMs * attempt));
   }
   const fromFallback = fallback ? await fallback(mediaPath) : null;
   if (fromFallback) return fromFallback;
@@ -145,10 +149,25 @@ export async function buildLedger(posted, existing, fingerprintOf) {
  * variants, photo-library.mjs samePhotoPaths): a padded variant is not a crop,
  * so the fingerprint alone cannot see it.
  */
-export function findLedgerMatch(fp, entries, { campaign = null, ownPost = null, paths = [] } = {}) {
+export function findLedgerMatch(fp, entries, { campaign = null, ownPost = null, paths = [], platform = null, now = new Date() } = {}) {
   return entries.find(
-    (e) => e.post !== ownPost && !(campaign && e.campaign === campaign) && (paths.includes(e.file) || (fp && fingerprintsMatch(fp, e))),
+    (e) => e.post !== ownPost && !isPairHalf(e, { campaign, platform, now }) && (paths.includes(e.file) || (fp && fingerprintsMatch(fp, e))),
   );
+}
+
+/** How long after one half of a pair posted the other half may still share its picture. */
+export const PAIR_WINDOW_MS = 48 * 3600 * 1000;
+
+/**
+ * The sanctioned repeat: `e` is the OTHER-platform half of the item's own
+ * campaign, posted within PAIR_WINDOW_MS (the poster's 48h staleness bound).
+ * An old post that merely shares the campaign string, or the same platform,
+ * never exempts — a draft author setting `campaign` cannot launder a reuse.
+ */
+function isPairHalf(e, { campaign, platform, now }) {
+  if (!campaign || e.campaign !== campaign || !platform || !e.platform || e.platform === platform) return false;
+  const at = Date.parse(e.postedAt ?? '');
+  return Number.isFinite(at) && Math.abs(now.getTime() - at) <= PAIR_WINDOW_MS;
 }
 
 /** Human description of an earlier post for an error message. */

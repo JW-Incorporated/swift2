@@ -911,10 +911,11 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
   const imageFindings = [];
   if (imageContext) {
     // Perceptual duplicate check against the posted-image ledger and the rest of the queue (#5990).
-    // A picture that cannot be fetched/decoded here is a warning, not a pass: guard-image-reuse.mjs
-    // (the poster's pre-step) refuses to post it, failing closed.
+    // A picture that cannot be fetched/decoded is a HARD finding (fail closed): media resolves from the PR's own
+    // files or, for LFS library photos, the public media URL (retried), so this is rare and means "cannot prove
+    // it is not a repeat" — which Tree's tree-auto approval must not accept.
     const { findings, unreadable } = await checkImageReuse(target.file, target.data, { ...imageContext, queue: allQueue });
-    imageFindings.push(...findings, ...unreadable.map((m) => `${WARNING_PREFIX} media: "${m}" could not be fingerprinted (fetch or decode failed) — the perceptual same-picture check could not run for it.`));
+    imageFindings.push(...findings, ...unreadable.map((m) => `media: "${m}" could not be fetched or decoded, so the same-picture check (#5990) could not run — refusing (fail closed). Re-run if the media host was down; otherwise replace the image.`));
   }
   return [
     ...imageFindings,

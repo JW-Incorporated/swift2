@@ -97,7 +97,18 @@ describe('image reuse check', () => {
   it('allows the same picture across the two halves of ONE campaign', async () => {
     const ledger = await setup();
     const item = { platform: 'x', campaign: 'old-campaign', media: ['/social/library/photos/renamed-small.jpg'] };
-    expect((await checkImageReuse('old-x.json', item, { ledger, fingerprintOf })).findings).toEqual([]);
+    const soon = new Date('2026-09-01T12:30:00Z');
+    expect((await checkImageReuse('old-x.json', item, { ledger, fingerprintOf, now: soon })).findings).toEqual([]);
+  });
+
+  it('does NOT exempt an old post, or a same-platform post, that merely shares the campaign string', async () => {
+    const ledger = await setup();
+    const item = { platform: 'x', campaign: 'old-campaign', media: ['/social/library/photos/renamed-small.jpg'] };
+    const weeksLater = new Date('2026-10-16T00:00:00Z');
+    expect((await checkImageReuse('late-x.json', item, { ledger, fingerprintOf, now: weeksLater })).findings).toHaveLength(1);
+    const samePlatform = { ...item, platform: 'instagram' };
+    const soon = new Date('2026-09-01T12:30:00Z');
+    expect((await checkImageReuse('dup-ig.json', samePlatform, { ledger, fingerprintOf, now: soon })).findings).toHaveLength(1);
   });
 
   it('queue-vs-queue: rejects a cross-campaign repeat, allows the same-campaign pair', async () => {
@@ -110,6 +121,8 @@ describe('image reuse check', () => {
     const ctx = { ledger: [], queue, fingerprintOf };
     expect((await checkImageReuse('a-x.json', queue[1].data, ctx)).findings.join()).toContain('b-x.json');
     expect((await checkImageReuse('a-ig.json', queue[0].data, ctx)).findings.join()).toContain('b-x.json');
+    const sameCampaignSamePlatform = [queue[0], { file: 'a-ig2.json', data: { platform: 'instagram', campaign: 'camp-a', media: ['/social/library/photos/renamed-small.jpg'] } }];
+    expect((await checkImageReuse('a-ig2.json', sameCampaignSamePlatform[1].data, { ledger: [], queue: sameCampaignSamePlatform, fingerprintOf })).findings).toHaveLength(1);
     const pairOnly = { ledger: [], queue: queue.slice(0, 2), fingerprintOf };
     expect((await checkImageReuse('a-x.json', queue[1].data, pairOnly)).findings).toEqual([]);
   });
@@ -138,6 +151,11 @@ describe('image reuse check', () => {
     expect(validateLedgerEntries(first.entries)).toEqual([]);
   });
 });
+
+const LFS_POINTER = `version https://git-lfs.github.com/spec/v1
+oid sha256:${'a'.repeat(64)}
+size 10
+`;
 
 describe('guard-image-reuse (poster pre-step)', () => {
   const roots: string[] = [];
@@ -177,7 +195,10 @@ describe('guard-image-reuse (poster pre-step)', () => {
     const different = await fixtureRoot(await picture(42));
     expect((await guardImageReuse({ root: different, now, fetchImpl: noNetwork })).problems).toEqual([]);
     const sibling = await fixtureRoot(await picture(41), 'old');
-    expect((await guardImageReuse({ root: sibling, now, fetchImpl: noNetwork })).problems).toEqual([]);
+    expect((await guardImageReuse({ root: sibling, now: new Date('2026-09-01T06:00:00Z'), fetchImpl: noNetwork })).problems).toEqual([]);
+    const stale = await guardImageReuse({ root: sibling, now, fetchImpl: noNetwork });
+    expect(stale.problems).toHaveLength(1);
+    expect(stale.offenders).toEqual(['due-x.json']);
   });
 
   it('fails closed when a due item image is corrupt or unreachable', async () => {
@@ -185,6 +206,21 @@ describe('guard-image-reuse (poster pre-step)', () => {
     const result = await guardImageReuse({ root, now, fetchImpl: noNetwork });
     expect(result.problems).toHaveLength(1);
     expect(result.problems[0]).toContain('fail closed');
+  });
+
+  it('retries a transient fetch failure before failing closed', async () => {
+    const root = await fixtureRoot(Buffer.from('placeholder'));
+    writeFileSync(path.join(root, 'apps/web/public/social/library/photos/queued.bin'), LFS_POINTER);
+    const good = await sharp(await picture(43)).jpeg().toBuffer();
+    let calls = 0;
+    const flaky = (async () => {
+      calls += 1;
+      if (calls < 3) throw new Error('boom');
+      return { ok: true, status: 200, arrayBuffer: async () => good.buffer.slice(good.byteOffset, good.byteOffset + good.byteLength) };
+    }) as unknown as typeof fetch;
+    const result = await guardImageReuse({ root, now, fetchImpl: flaky, retryDelayMs: 1 });
+    expect(calls).toBe(3);
+    expect(result.problems).toEqual([]);
   });
 
   it('ignores items that are not yet due', async () => {

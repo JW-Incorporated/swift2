@@ -292,13 +292,22 @@ jobs:
         run: node scripts/social/rolling-view.mjs "${STATE_BRANCH_PREFIX}rolling"
 
       # Last-line "never post the same picture twice" guard (issue #5990). A
-      # separate step because post-queue.mjs is guard-protected. Fails the job
-      # (so the post step below never runs) if any due item's image matches the
-      # posted-image ledger by perceptual fingerprint, and fails CLOSED when an
-      # image can't be fetched or decoded. The ledger is rebuilt from
+      # separate step because post-queue.mjs is guard-protected. Holds any due
+      # item whose image matches the
+      # posted-image ledger by perceptual fingerprint, and fails CLOSED (holds it) when
+      # its image can't be fetched or decoded. The ledger is rebuilt from
       # social/posted/** in-process, so it needs no append from the poster.
+      #
+      # A matching (or unreadable-image) item does NOT stall the other due items:
+      # the guard moves just that item (and its campaign siblings) out of the
+      # local checkout for this run, the "Restore held" step right after the post
+      # step puts it back before anything is committed, and the last step fails
+      # the run so the hold is loud. The step itself can only block, never post.
       - name: Refuse repeat images (perceptual ledger)
+        id: imageguard
         if: steps.freeze.outputs.frozen != 'true'
+        env:
+          IMAGE_GUARD_HOLD_DIR: ${{ runner.temp }}/image-guard-held
         run: node scripts/social/guard-image-reuse.mjs
 
       # Exits non-zero when a post permanently failed (2026-08-11) — see the
@@ -327,6 +336,12 @@ jobs:
         # commits/{sha}/pulls — an endpoint that never carried `merged_by`
         # in the first place, so the token was never the fix.
         run: node scripts/social/post-queue.mjs
+
+      - name: Restore items held by the image guard
+        if: always() && steps.imageguard.outputs.held == 'true'
+        env:
+          IMAGE_GUARD_HOLD_DIR: ${{ runner.temp }}/image-guard-held
+        run: node scripts/social/guard-image-reuse.mjs --restore
 
       # THE dedupe WRITE path (issue #2040) — the step correctness now
       # actually depends on. Runs immediately after posting, before any
@@ -686,3 +701,9 @@ jobs:
             echo "Run log: $RUN_URL"
           } >> "$BODY_FILE"
           scripts/watchdog/upsert-alert.sh open "Watchdog: a social post permanently failed" "$BODY_FILE"
+
+      - name: Fail the run when the image guard held an item
+        if: always() && steps.imageguard.outputs.held == 'true'
+        run: |
+          echo "::error::The image guard held at least one due item (repeat or unreadable picture, #5990) — see the guard step. Other due items were posted normally."
+          exit 1
