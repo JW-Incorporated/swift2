@@ -23,7 +23,7 @@
 // subscription token. Missing model availability is retryable per bundle.
 
 import { readFileSync, existsSync } from 'node:fs';
-import { serviceClient } from '../lib/supabase.mjs';
+import { strictServiceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
 import { createTheoryPrefilter } from './theory-bundles.mjs';
@@ -74,7 +74,7 @@ export async function runTheoryMiner({
   argv = process.argv.slice(2),
   exists = existsSync,
   readFile = readFileSync,
-  createServiceClient = serviceClient,
+  createServiceClient = strictServiceClient,
   loadStage = loadTheoryMinerStage,
   createPrefilter = createTheoryPrefilter,
   loadFacebookBundles = loadFacebookTheoryBundles,

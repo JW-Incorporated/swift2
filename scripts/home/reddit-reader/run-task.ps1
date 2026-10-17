@@ -2,6 +2,10 @@ param(
   [Parameter(Mandatory = $true)]
   [string]$EnvFilePath,
 
+  [string]$Script = 'scripts\home\reddit-reader\reader.mjs',
+
+  [string]$LogName = 'home-reddit-reader',
+
   [Parameter(ValueFromRemainingArguments = $true)]
   [string[]]$ReaderArgs
 )
@@ -11,8 +15,8 @@ $ErrorActionPreference = 'Continue'
 $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $artifacts = Join-Path $repoRoot '.artifacts'
 New-Item -ItemType Directory -Force -Path $artifacts | Out-Null
-$log = Join-Path $artifacts 'home-reddit-reader.log'
-$reader = Join-Path $PSScriptRoot 'reader.mjs'
+$log = Join-Path $artifacts "$LogName.log"
+$reader = Join-Path $repoRoot $Script
 
 $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
 $node = if ($nodeCmd) { $nodeCmd.Source } else { 'C:\Program Files\nodejs\node.exe' }
