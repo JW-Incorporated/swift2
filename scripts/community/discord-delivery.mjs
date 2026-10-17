@@ -239,6 +239,30 @@ export async function postCommunityPrompts(
       const record = { leadId: prompt.id, messageId: payload.id };
       delivered.push(record);
       if (onDelivered) await onDelivered(record);
+      // Message 2 (#5987): the card is the record, so a card that posted stays
+      // delivered even if its follow-up (the reply code box) then fails.
+      if (prompt.followUp) {
+        const followInit = {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(
+            suppressPreviews({
+              content: prompt.followUp,
+              username,
+              avatar_url: TREE_AVATAR_URL,
+              allowed_mentions: { parse: [] },
+            }),
+          ),
+        };
+        const followResponse = route
+          ? await routedPost(route, followInit, { env, webhook, fetchImpl })
+          : await fetchImpl(`${webhook}?wait=true`, followInit);
+        if (!followResponse.ok)
+          failed.push({
+            leadId: prompt.id,
+            message: `Discord reply-box delivery failed with HTTP ${followResponse.status}`,
+          });
+      }
     } catch (err) {
       failed.push({ leadId: prompt.id, message: String(err?.message ?? err) });
     }
