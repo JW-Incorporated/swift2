@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-17 — Mood Chat and Clownbot keep the paid Anthropic API key (HA #132 = keep)
+
+An explicit, reversible exception to D1 ("no Anthropic API at all"): Mood Chat and Clownbot answer readers live from apps/web, which cannot run the Claude subscription, so they keep `ANTHROPIC_API_KEY` (one model call per reader message). Everything else stays off the API.
+
+**Cap.** Global per-UTC-day call cap, already durable (`usage_daily` scopes `mood-chat-global` / `clown-chat-global`, `usage-db-gate.ts`) with an in-process per-instance floor: 200 calls/day each, 400 combined. `LLM_WEB_DAILY_CAP` overrides the per-feature number. Over the cap both features degrade to their keyword / rule-based replies and never error to the reader. Clownbot also keeps its per-user cap; Mood Chat its per-IP rate limit. Kill switches `MOOD_MODEL_DISABLED=1` / `CLOWN_MODEL_DISABLED=1` unchanged.
+
+**Visibility.** Each paid call writes an `llm_usage` row (callers `web-mood-chat`, `web-clownbot`, provider `claude`), best-effort.
+
+**Reversal.** Unset `ANTHROPIC_API_KEY`; both features fall back to the free paths.
+
+Approved: Joey (HA #132, 2026-10-17).
+
+---
+
 ## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
 
 **Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
