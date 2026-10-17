@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #137 🟢 [UPGRADE] Let the Long Live bot add reactions in two Discord channels (~2 min)
-<!-- ha filed=2026-10-16 -->
-
-**Why:** Your ❌ / ✅ on reply cards (PR #6015) now mark a lead skipped or posted. The bot then reacts 🚫 / 📝 to confirm it saw yours, but only if it is allowed to add reactions; it was set up read-only.
-**Steps:**
-1. In Discord, right-click the channel **tree-facebook** → Edit Channel → Permissions.
-2. Select the Long Live bot (add it with "+" if it isn't listed), set **Add Reactions** and **Read Message History** to ✅ (green), then Save Changes.
-3. Repeat steps 1–2 for the channel **tree-main**.
-**Worked if:** After you react ❌ on a reply card, a 🚫 from the bot appears under it within about 15 minutes.
 
 ## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-16 -->
