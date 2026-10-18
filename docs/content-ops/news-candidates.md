@@ -25,14 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Taylor Swift Aiming for Oscar Nomination Amid Netflix Competition
+
+- first seen: 2026-10-18 20:21 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A new report discusses Taylor Swift's potential Oscar nomination and the challenges posed by Netflix. The article explores her work and the industry's landscape regarding awards.
+- sources:
+  - [unverified] Awards Daily — https://news.google.com/rss/articles/CBMisAFBVV95cUxNbDdGVlRUdE5HeldLT04xSi0xVUNHVjlkZ1VST2xaR005TXUtX04tamt2S085STRyM21kdDdaQlRGcUlQSG9IWlVvaWhqWWgyMHgwNWNWYi1JbmZWQ2EzWFVGbUV3SGVOeFdTdWQ4Y3BYcHlnOUxNUEJGWDBEZ05qQVZ5SnVuSlJwLXBtQnotVW9tTThsdF81eC10a1lxNEtzQndjWEZrWktKUGFCcFp6dg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'The Life of a Showgirl' Tops Billboard 200 for 15 Weeks
 
 - first seen: 2026-10-18 19:24 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift's album 'The Life of a Showgirl' continues its impressive run by topping the Billboard 200 for the 15th consecutive week. This achievement highlights Swift's popularity and the album's ongoing success in the music charts.
 - sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-the-life-of-a-showgirl-15th-week-no-1-chart-1236915983/
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOa2MyT255R1BoUHJHREl1clV3bzVfeURVTno1My1TbjYtUmZUa3BYejFpNUhpLXVoNWxvclpXZ1BrS001SG9sZXhUclRHa1JHRGUyQTc5YW92WVRreUZhNElQZUtMcVkyTG1LZ3J5MVNxeDVGTXg1aE1XYzhyZzd5c2RfOFIzcU1QTDFhS2FxNV96WGVnZy1nSktiT05MbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reflects on Two Decades in Music
