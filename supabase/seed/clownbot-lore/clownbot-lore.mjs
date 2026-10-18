@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-16',
+  updatedOn: '2026-10-18',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -219,7 +219,7 @@ export default {
       // into resolved to a single ("Patient Zero") and the Showgirl Encore —
       // not a debut/Reputation/TS13 release. The green-TS read stays fandom
       // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-10-16',
+      lastCheckedOn: '2026-10-18',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -276,7 +276,7 @@ export default {
       // the TS13/next-era read it feeds is still unconfirmed, so status stays
       // `reported`. Added the Encore as a corroborating source.
       date: '2026-08-27',
-      lastCheckedOn: '2026-10-16',
+      lastCheckedOn: '2026-10-18',
       headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',
@@ -477,6 +477,33 @@ export default {
         'Taylor crashed Dakota Johnson\'s SNL monologue as her "literal therapist," then brought out a birthday cake. Rank it against her past SNL cameos and defend the pick.',
       ],
       tags: ['snl', 'dakota-johnson', 'tloas'],
+    },
+    {
+      // Added 2026-10-18 (Vault Run, Rumor Desk Part C) from intake #6065 —
+      // the same event the Content Shift lane authored as Vault moment
+      // 'showgirl-fate-of-ophelia-live-debut-academy-museum-gala'. Both pages
+      // fetched live this run; four songs per every readable source.
+      id: 'fate-of-ophelia-live-debut-academy-gala',
+      status: 'confirmed',
+      date: '2026-10-17',
+      lastCheckedOn: '2026-10-18',
+      headline: '"The Fate of Ophelia" finally got its live debut — at the Academy Museum Gala',
+      detail:
+        'Closing the Academy Museum\'s sixth annual gala in Los Angeles on 17 Oct 2026, Taylor played a four-song set with her band — opening with "Blank Space," and including "Love Story," "I Knew It, I Knew You" and the first-ever live "The Fate of Ophelia" ("This song, which we are playing for the very first time to you beautiful people…"). Conan O\'Brien, her "Toy Story 5" castmate, introduced her as "John, Paul, George and Ringo all in one." She arrived in custom Dior.',
+      sources: [
+        {
+          name: 'Stereogum',
+          url: 'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+        },
+        {
+          name: 'The Tennessean / USA Today (via Yahoo)',
+          url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wows-dior-debuts-133454078.html',
+        },
+      ],
+      prompts: [
+        'Taylor waited over a year to play "The Fate of Ophelia" live, and then debuted it at a film-museum gala. Make the case for or against that being the right room.',
+      ],
+      tags: ['fate-of-ophelia', 'live-debut', 'tloas'],
     },
   ],
 };
