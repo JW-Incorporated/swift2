@@ -14954,6 +14954,13 @@ export default {
             kind: 'primary',
             focalPoint: '55% 35%',
           },
+          {
+            url: 'https://consequence.net/wp-content/uploads/2026/09/t-swift.jpeg',
+            focalPoint: '58% 38%',
+            credit: 'Consequence',
+            caption: 'Taylor in a black turtleneck, the look described in her "Patient Zero" reveal post, as used by Consequence for its announcement story.',
+            kind: 'reference',
+          },
         ],
         context:
           'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.\\n\\nThe next day, Sept. 23, Taylor gave it a name and a shape: "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album that adds four brand-new songs — "Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon." She framed the release as a thank-you for the record-setting first week the original album posted, and said the new tracks were not leftovers from the Showgirl sessions but material she wrote afterward, during a celebratory trip to Sweden with her longtime collaborators Max Martin and Shellback. The Encore lands Friday, Sept. 25 — the same weekend she receives the inaugural Artist Director Honor at the 2026 MTV VMAs.',
