@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift and Kim Kardashian Attend Academy Museum Gala
+
+- first seen: 2026-10-18 12:41 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with Kim Kardashian and other celebrities, made a striking appearance at the Academy Museum Gala. The event showcased various stars in fashionable outfits.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNS2Z5MjlpaXZFVXNfRXV4M2pLSVJXRGtYb2FQUzJEWHdUY0RTd3JLS3NuSWV5SHMxZ21fZDhzeHhqQzNoRkxweU0taFlIZnMwcmtQcC1Ua1R5a3QwczZ0ZXk5ckUzM3FmOFhMTHJtM1JFT0JYV3RIWEpVRmduT2ZkeTg4NndZZDF6R3Jv?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Fashion at the West Coast Met Gala
 
