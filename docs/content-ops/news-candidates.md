@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Taylor Swift Attends Sixth Academy Museum Gala with Various Celebrities
+
+- first seen: 2026-10-18 09:46 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was one of the prominent attendees at the Sixth Academy Museum Gala, which featured a crowded guest list of celebrities. The event celebrated contributions to film and art.
+- sources:
+  - [unverified] Culture.org — https://news.google.com/rss/articles/CBMiowFBVV95cUxNemZ4eW5VLXF1S1FPRHhYX0RWaF9lSnd0NFBFbjA1YzE1dGdXc1BnNkJLWnZUVGZxSnBmZ2Joajg4X1NjTjBxNkZzQlozN01DZ1dxcUc2VDVNV1RVeDIzclEzSzF0WFEyMkthUVRnZmprQVd4OW1wYjlreGFaWGNySm9TYTJ6MEVwMlVjTmZac0t2MkVzUTM1cmJ6VWV1dW5NM0Fn?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift and Dakota Johnson Opt for Trendy Fall Pants
 
 - first seen: 2026-10-18 08:46 UTC | category: fashion | importance: 5
@@ -655,11 +663,3 @@ Stories: 79
 - summary: Taylor Swift is set to return for her show titled 'The Encore', as reported by Old Gold & Black.
 - sources:
   - [unverified] Old Gold & Black — https://news.google.com/rss/articles/CBMihAFBVV95cUxOUmFkSWg3dmpFaW12d09hcFkwdC1SVUtSNFhwbHBJamJvczZfZE5FbWl5VkR3ZU5uU2NEZGRBWFh4QVNGSUl0Vm5qQlVWbE9IaWc1cTRBZldQTnc1RnBzNFd0UEU5VU4tREpfaXVnaFpyWERMTFJqT2NZejczMHF5cm5FZmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jack Antonoff Discusses Taylor Swift's Midnights and Music Production
-
-- first seen: 2026-10-15 08:51 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Jack Antonoff shares insights on music production techniques, discussing the importance of imperfections in pop songs while highlighting his work on Taylor Swift's album 'Midnights' and the influence of vintage gear and analogue synths.
-- sources:
-  - [unverified] MusicRadar — https://news.google.com/rss/articles/CBMiiwJBVV95cUxNS01XRlk2QWtZSml6LVQ1OFdKZ3pZYVBwV25aMlY1T2M0b3I5cTNFUTh2UGxqQzE2M1NBdDFvQ0JBbU12bXYzVW1oVFVZUGQxM2FjSmVXUk15WXloR3NvUGt5eTI0aW1qSU9XOFNrczczSE42MjRDcHZILWtYb3dxM0RRVzEtcXZQWDNnS1JVXzFZcDVIQ0pmQ196dEVkRDUzM0ZObE5IUUtFUDRCVkhiUEw1Q1FXRnZ0ZXdVNkxUQVB5SlNQSkU0dGpETFJRWV9JX25DUjBJcS0tcFNnUV90bXFwVEtRWmdhZzBjbDZOUENOMk1JTmkxZnQyVFpYOGRrUnNmb2Q1SDY2Vkk?oc=5&hl=en-US&gl=US&ceid=US:en
