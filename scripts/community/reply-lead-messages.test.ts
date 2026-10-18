@@ -72,14 +72,14 @@ describe('mailer lane routing and two-message delivery', () => {
     target_url: null,
   });
 
-  it('routes Facebook to tree-facebook and keeps Reddit on tree-main', () => {
+  it('routes Facebook to tree-facebook and Reddit to tree-reddit', () => {
     expect(mailerRouteFor('facebook')).toBe('tree-facebook');
-    expect(mailerRouteFor('reddit')).toBe('tree-main');
+    expect(mailerRouteFor('reddit')).toBe('tree-reddit');
   });
 
   it.each([
     ['facebook', '1558093113807999026'],
-    ['reddit', '1558093607393562644'],
+    ['reddit', '1558093079351787580'],
   ])('%s lead: card first, then only the draft box, in the right channel', async (platform, channel) => {
     const { fetchImpl, calls } = mockDiscord();
     const l = lead(platform);

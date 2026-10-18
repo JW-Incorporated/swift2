@@ -54,6 +54,18 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
   running (it needs the owner's Facebook login); until then only Reddit
   opportunities arrive.
 
+**Where each lead is posted** (`mailerRouteFor`, `scripts/lib/discord-route.mjs`):
+
+| Platform | Channel |
+|---|---|
+| Reddit (mailer cards, batch header, awareness cards, Qwen second opinion) | `#tree-reddit` |
+| Facebook | `#tree-facebook` |
+| Anything else | `#tree-main` |
+
+Since 2026-10-18 all Reddit leads go to `#tree-reddit` (founder). The reaction
+poll still falls back to `#tree-main` so older Reddit cards there keep
+registering ✅ / ⏭️.
+
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)
 
