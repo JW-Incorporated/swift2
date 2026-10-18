@@ -16,6 +16,113 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-18 (Vault Run, Content Shift lane) from intake #6065
+      // (the outcome of the announced appearance in closed intake #5462).
+      // Documented past performance at a named public venue, officially
+      // announced — within the L2 ceiling, no privacy redline. Four songs is
+      // what every source that loaded says (Stereogum, the Tennessean/USA
+      // Today via Yahoo, TMZ); Variety's URL slug says "five songs" but the
+      // page is tollbit-gated here, so the count follows the readable sources.
+      // Running order is NOT stated past the "Blank Space" opener: the sources
+      // disagree on which song closed. Variety's "first full-band performance
+      // since the Eras Tour" framing (intake wording) was CUT — gated, single
+      // source. Gown colour left out (outlets split pale blue / silver).
+      slug: 'showgirl-fate-of-ophelia-live-debut-academy-museum-gala',
+      year: 2026,
+      month: 10,
+      day: 17,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      title: '“The Fate of Ophelia” goes live for the first time, closing the Academy Museum Gala',
+      snippet:
+        'Introduced by her “Toy Story 5” castmate Conan O’Brien as “John, Paul, George and Ringo all in one,” Taylor closed the Academy Museum’s sixth annual gala in Los Angeles with a four-song set — and gave “The Fate of Ophelia” its first-ever live performance, more than a year after the album came out.',
+      sourceUrl:
+        'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Academy Museum of Motion Pictures held its sixth annual gala in Los Angeles on Saturday, Oct. 17, 2026, a fundraiser honoring Charlize Theron, Colman Domingo and John Carpenter — and Taylor, announced as the night\'s closing act a week and a half earlier, delivered. Conan O\'Brien, who voices the potty-training toy Smarty Pants in "Toy Story 5," brought her on as "a cherished member of our little \'Toy Story 5\' family" and summed her up as "John, Paul, George and Ringo all in one."\n\nWith her longtime band and backup singers behind her, Taylor opened with "Blank Space" and played four songs in all, including "Love Story" and "I Knew It, I Knew You," the song she wrote for "Toy Story 5." The headline was the other one. "This song, which we are playing for the very first time to you beautiful people, is called \'The Fate of Ophelia,\'" she told the room — the Showgirl lead single\'s live debut, more than a year after the album\'s release.\n\nOn the way in she wore a custom strapless Dior gown with a ruched bodice, a crystal-embellished bow at the neckline and a pleated skirt that swept into a train. The set came less than two months after the Icon Sessions at the Grammy Museum, and like that night it put "I Knew It, I Knew You" in front of an industry room while the song\'s Oscar conversation was building.',
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/P108QQUY-e1792342281327.jpg?w=1024',
+            // 1024x682, curl-verified HTTP 200 image/jpeg (56KB); the og:image
+            // of Billboard's Oct. 18, 2026 red-carpet report on this gala, and
+            // vision-checked: Taylor in the strapless gown with the crystal
+            // bow and side-swept curls the outlets describe. Billboard names
+            // no agency for it.
+            credit: 'Billboard',
+            caption:
+              'Taylor on the red carpet at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, in custom Dior.',
+            kind: 'primary',
+            focalPoint: '50% 30%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+            source_title:
+              'Taylor Swift Performs "The Fate Of Ophelia" Live For The First Time At Academy Museum Gala',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly. Primary for the four-song set ("Blank Space," "The Fate of Ophelia," "I Knew It, I Knew You," "Love Story"), the live debut, the honorees, and Conan O\'Brien\'s introduction ("John, Paul, George and Ringo all in one") and his Smarty Pants role in "Toy Story 5."',
+          },
+          {
+            outlet: 'The Tennessean / USA Today (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wows-dior-debuts-133454078.html',
+            source_title:
+              'Taylor Swift wows in Dior, debuts \'Fate of Ophelia\' live at Academy Museum Gala',
+            publisher: 'USA Today Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (Bryan West, Nashville Tennessean, syndicated). Independent confirmation of the four songs and the debut; source of Taylor\'s on-stage quote, O\'Brien\'s "cherished member of our little \'Toy Story 5\' family" line, the band and backup singers, and the custom Dior gown details.',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/10/18/taylor-swift-performs-at-academy-museum-gala/',
+            source_title: 'Taylor Swift Performs Hit Song Live For First Time at Star-Studded Gala',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 3,
+            notes:
+              'Loaded directly. Third independent count of four songs and the "Fate of Ophelia" live debut; custom Dior gown with a crystal-embellished bow.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-red-carpet-2026-academy-museum-gala-1236362432/',
+            source_title: 'Taylor Swift Stuns in Strapless Blue Gown at 2026 Academy Museum Gala',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (published 2026-10-18). Red-carpet report; supplied the credited photo used here.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performs-the-fate-of-ophelia-live-academy-gala-1235644441/',
+            source_title:
+              "Taylor Swift Performs 'The Fate of Ophelia' Live for First Time at Academy Museum Gala",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Tollbit/bot-gated in this run; listed for provenance. Its headline matches the live-debut fact confirmed by the loaded sources above.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-04 (Vault Run, Content Shift lane) from intake #5001.
       // Public live-TV appearance (an SNL cold-open monologue) — no privacy
       // redline. Placed by broadcast date: the episode aired Saturday,
@@ -2175,11 +2282,17 @@ export default {
               'Taylor Swift goes into the 2026 MTV VMAs as one of the year\'s most-nominated artists, with nine nominations led by "The Fate of Ophelia" (Video of the Year, Best Pop and a sweep of the technical categories) plus Artist of the Year and a Best Direction nod for "Opalite" — leaving open how many she converts to wins when the ceremony airs live on September 27, 2026.',
             reportedBy: 'FOX 17 (Elizabeth Stanton)',
             reportedOn: '2026-08-18',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://fox17.com/news/entertainment/the-2026-mtv-vma-nominations-are-here-taylor-swift-madonna-lead-the-race',
             note: 'Award-chances speculation — an Always-OK public-facing category. The nine nominations and the Sept. 27, 2026 Los Angeles ceremony date are announced fact (noms via MTV, reported by FOX 17; date corroborated by Billboard). Only the outcome is unsettled; resolves on ceremony night, 2026-09-27. No location, security, health, or private-individual content — a televised public event.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-10-18',
+            resolution: {
+              on: '2026-09-27',
+              url: 'https://www.nbclosangeles.com/entertainment/entertainment-news/live-updates-2026-mtv-video-music-awards/3946847/',
+              outlet: 'NBC Los Angeles',
+              note: 'Settled on ceremony night: "The Fate of Ophelia" won Video of the Year, and Taylor won Best Direction (her nomination there was "Opalite"), taking her career VMA total to 33. The rest of the Ophelia technical sweep, Best Pop and Artist of the Year went to others (Madonna took Artist of the Year).',
+            },
           },
         ],
       },
@@ -4591,15 +4704,15 @@ export default {
               'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
             reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
             reportedOn: '2026-07-30',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
+            note: 'A gossip-newsletter tip from unnamed MSG insiders, distinct from the temporary "JUST&T MARRIED!" marquee. MSG is the wedding\'s documented venue, not a whereabouts prediction. Faded 2026-10-18: reported in late July, never confirmed or denied — a fresh search found no MSG announcement or follow-up report of any permanent honor.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-10-18',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): a newly
@@ -6727,9 +6840,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live, not faded.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-14',
+            lastCheckedOn: '2026-10-18',
           },
           {
             claim:
@@ -6738,9 +6851,9 @@ export default {
             reportedOn: '2026-07-17',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location.',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location. Re-checked 2026-10-18: nominations not yet announced — still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-17',
+            lastCheckedOn: '2026-10-18',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -13671,9 +13784,10 @@ export default {
             reportedOn: '2026-08-26',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
+            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has since scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs.',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-27',
+            lastCheckedOn: '2026-10-18',
             note:
               "Forward-looking speculation about an unscheduled event, carried by a single low-tier outlet, so it enters as an unconfirmed rumor, not authored narrative. Held at region: no venue is announced. The sports-blog \"will Travis join her?\" angle is dropped as third-party attendance speculation. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.",
           },
@@ -14839,6 +14953,13 @@ export default {
             caption: 'Taylor Swift, whose Sept. 22, 2026 Instagram post announced the new single "Patient Zero."',
             kind: 'primary',
             focalPoint: '55% 35%',
+          },
+          {
+            url: 'https://consequence.net/wp-content/uploads/2026/09/t-swift.jpeg',
+            focalPoint: '58% 38%',
+            credit: 'Consequence',
+            caption: 'Taylor in a black turtleneck, the look described in her "Patient Zero" reveal post, as used by Consequence for its announcement story.',
+            kind: 'reference',
           },
         ],
         context:
