@@ -95,7 +95,7 @@ import { checkImageReuse } from './lib/image-reuse.mjs';
 import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
 import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
-import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
+import { ALLOWED_MEDIA_EXTENSIONS, IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
 import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
 
@@ -114,7 +114,8 @@ const PUBLIC_DIR = path.join(ROOT, 'apps', 'web', 'public');
 // (opener window, posted lookback, cross-post similarity threshold and the
 // "paired-looking" floor, IG-history window: strategy-params.json.)
 const RECOGNIZED_PLATFORMS = new Set(['x', 'instagram']);
-const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+// ALLOWED_MEDIA_EXTENSIONS lives in lib/photo-dimensions.mjs so the daily
+// pre-compute filters on the same formats this gate accepts (#6058).
 // Where rehosted real photographs of Taylor live (the 2026-08-12 standard).
 // mediaKind "photo" is path-bound to this prefix, and "site-screen" is barred
 // from it — see the kind checks in checkMedia.
