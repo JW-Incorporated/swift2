@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Taylor Swift Wears Red Bodysuit at Chiefs Game
+
+- first seen: 2026-10-18 23:05 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased her showgirl style by wearing a striking red bodysuit at the Chiefs home game against the Chargers. This appearance adds to her ongoing public presence at NFL events.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNVTVWY1dDRDRFU2ZEM0wyczY5T1h0alpNTHdqVHZhMERlSDJ5YXF4VngwcHltaFQzOWpDWXBaLXMzd1IwaGZWcENqZDdXVEM0RWdacFhYX0lsV09LMW5NdS1WTi1DY0lBZnJkcWlyeTlXMEdOSDR3YUNzOE1Cb3RVTFM5QTlmQTJLUlFrUy1xbVRCRVd4akRLaWg1MUdiUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift attends Chiefs game following LA performance
 
