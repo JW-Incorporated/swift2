@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 73
+
+## Carlotta Films Secures French Distribution for 'It' Featuring Clara Bow
+
+- first seen: 2026-10-18 00:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Carlotta Films and Artcraft Pictures have announced a French distribution deal for Hollywood classics, including Clara Bow's breakout movie 'It,' which features Taylor Swift as a heroine.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE12d1NobWlIR2xxMkE3QmF0aEJlNjRCX2ZFRlVuSG5TRkU4ZU9OdUJ1UHJVSy1DLVVNbFdxb0RUWDc4aG1fMTdwT19ac3ZTQjVXTkZCUk1VV0h6Y1Q4bTNRX3ZNY0pwZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Coach Shares Feelings About Meeting Taylor Swift at NBA Finals
 
@@ -606,51 +614,3 @@ Stories: 78
 - summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Backstreet Boys Break Rogers Centre Record Previously Held by Taylor Swift
-
-- first seen: 2026-10-14 23:54 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The Backstreet Boys have set a new record at the Rogers Centre, surpassing the attendance previously established by Taylor Swift. This marks a notable achievement for the iconic boy band during their current tour.
-- sources:
-  - [unverified] Toronto Life — https://news.google.com/rss/articles/CBMiogFBVV95cUxNNzFMOXRsZVBGdG5la2VHQTV4MURBUmFyZl9QZTlsb2NvWXdfQkxQN1pxS3JlT1BvX3lBUmpxclAxMkptbXBtTTdpbnNpdWh4UTRYaDFEd2Vsd0xINzBtMFBfOG11WXNra1dFZk5kUlVqSnhiZm9IUUdYTWxTbENMb3JZZXEtU0JiSW5ad2UwQ19wRGNxVHFWTGlsX2pXdHJUZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kylie Kelce Describes Swift and Kelce's Wedding as 'Absolutely Magical'
-
-- first seen: 2026-10-14 23:54 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce shared her thoughts on Taylor Swift and Travis Kelce's wedding in New York City, describing it as 'absolutely magical.'
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi6AFBVV95cUxOcEhJUHRIdE44bjBPN1Y2S3pLMmdKMGlseWQtTmZVdktWYjNkQk55aWEzcldRV0FjT05uSGVRT1lWOWwtdlJmaDZxTVBxLTNpZUZsdnZZZ1VYX2hPTkVuczlycnphdGNPZ2xndjJqZ2RYdHdycDRaNlJ3emdWTFN6LUpETkdubVNrTFZ0bmlaUnFsQ01keGFnbk5BeVA4dGtkaFRjTHNrcmV5QTZqdmMwNTlaaFVCcHZjdE1WNEhxTTZib2t6bXozSzFXR0VnazlPVW55b0JwQVhQUGxzVENRVWZ5MU1WWXVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Discusses Business Ventures
-
-- first seen: 2026-10-14 23:54 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares insights regarding her current and future business initiatives. The focus is on her entrepreneurial spirit and projects she's involved in.
-- sources:
-  - [unverified] Open for Business — https://news.google.com/rss/articles/CBMiUkFVX3lxTFB0dVNIM3NwZ082ajllSkFUY0dXcVEtZUxIYVY2V2FPSTdudk53a082anNXaV84eDBHZXozUl81cHhiS2pPcTVhU0taUlNzVW0wakE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Impact on LA Hotels Compared to World Cup
-
-- first seen: 2026-10-14 23:54 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A report discusses how Taylor Swift's influence on LA hotels has surpassed that of the World Cup, highlighting potential benefits for AirBnB as a significant winner in this scenario.
-- sources:
-  - [unverified] Santa Monica Daily Press — https://news.google.com/rss/articles/CBMirgFBVV95cUxQbmtFazRvbjM2NkFqakV3VDl4WmJaejZ0cTNIYjdpd1prZnhqWXdqQURxdUxiZWl1aktpU3hJZ3RQSllGUUQ3d3pfdzRzbjdsdmxMdm5wbUZScFBqY0xYTjFBZ19qM3dvTUM3N05KZFp4TUplN0ZHMk5HOFhGdnE0blhaWmRVUFdkYms5TXZ3RlpCYUNwbC01Rk40c29weWFUWWxDT2dSMUluVlBQYXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Experiences Inside the Taylor Swift Fan Community Explored
-
-- first seen: 2026-10-14 23:54 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article by The Georgetown Voice details the author's experiences after joining the Taylor Swift fan community, offering insights and reflections on fan culture.
-- sources:
-  - [unverified] The Georgetown Voice — https://news.google.com/rss/articles/CBMilgFBVV95cUxNTGhUbUc3QmJVSjliVXZJdnY0UWY5VXpScFlfYzlSNkowZTBKOWZUcTJuQ3pOUWI0OWNMN3NzMlhzbnVRSXRGakRPY1hVZmxiRW5iNTR4UmlYeGVXUDkzUjgwcUVYd2FlaENEdnZNNVhVRThoQzJwNklSSEppOEN3OGVBdlRIWTl4bm1OS0JYTjdxd2VoV2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Former NFL Player Comments on Taylor Swift's Chiefs Appearances
-
-- first seen: 2026-10-14 23:54 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A former NFL player has shared his thoughts on Taylor Swift's recent appearances at Chiefs games, which have sparked controversy. The discussions highlight the reactions to her public presence at these sporting events.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMzZUYzR5LUZ2aGh5eFNmbGdzcGJqbDdRTFA3RW9HX3U3Z05vRnZ0TXFsY2Z4c1RkRzJTS2ZlUnZZdTBSRC1fb3BvaTd3LTBKN1A1M0RCN3JKLXRMLWIycnZHZldvWFNMYVc1Vy01OEZWSThIWjVsdlZMdEFfclhHVENOR25EV1JoUk1uMVhaUHVpWFp4X2twTzdBQWJjaDNGZmhybmg3MURrRmJrd3lMdnRSN3MzMDQ?oc=5&hl=en-US&gl=US&ceid=US:en
