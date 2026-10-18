@@ -13787,7 +13787,7 @@ export default {
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-10-18',
-            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has since scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.',
+            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.',
           },
         ],
       },
