@@ -27,13 +27,13 @@ so far".
 
 Stories: 84
 
-## Taylor Swift Shows Old Hollywood Style at Academy Museum Gala
+## Taylor Swift's Attendance at Chargers vs Chiefs Game in Question
 
-- first seen: 2026-10-18 14:11 UTC | category: fashion | importance: 7
+- first seen: 2026-10-18 15:11 UTC | category: sighting | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: At the Academy Museum Gala, Taylor Swift sported a fashion choice inspired by Old Hollywood, adding a distinctive touch to her appearance. The outfit was described as meaningful, highlighting her personal style at the prestigious event.
+- summary: An article discusses Taylor Swift's potential presence at the upcoming Chargers vs Chiefs game and her whereabouts this week. The situation remains uncertain as fans speculate on her attendance.
 - sources:
-  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRUVDcDlVQ0tjZGRWakVNUUswLVFZV0R4ZENlN3p3eHA2b3lLUm9qckh4X1oxalBvRnZDZGxDT2FicFNFQkxlMnJiMFNjNFRZV2U3RldIU0lGTXZmVFZaSFJqT1I5bXc5eTE4eDRHbng1TlRvelVkWF91T0k1YlhzM3lrVldMb1A2Q3l1dm5yNjZmd3poSmUzLWJoNlJiR3huMzV2NE9aa3gzSDQyRHNUdDVxUVhjMG5hUzJEM09sR1QzYW52MGZUeW5PTkl5S2JTN0xN?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9wFBVV95cUxOcGVsWGJpZjNEVWFWMHFXa1EzR2g4bFNDdEw2NU5COXVyYlNlMGkxaUNXLXR3Q0JRaXBtaFlIZTJVTzNmZ29XbFNSdEw3NjVKZFVTNlNUZFVCV1BEcTRQTFJ6bklycEV0YkxfQzhtaldlc3E1VUk4dUQxTmFRLUdIWW9mTll5RE14aFlOZTdkSzFGVXZTbWx2UnRINll6SWlfSnFSamJFd2dOZHZBZGVCS3M1Yms2bUxPbzBINkc5VnlpWlpWdEd3QzRCS3gzZXF1UVlwa1M5amg3Yk9NVllDZC1uWV9KdUxsRnlrWHRDamxKOFBreERZ0gH3AUFVX3lxTE1EaS1Hdm5ybkNaTkFHSlNqcEk0cjJxRHcxcnV6a01KTFI1SWxaUDVHVHFYMnpOUndJVGxZVFZqTlFxcmV6UnBjX1I2dnZIRFpSYkVLQnVjVmxnUnFZazdtNTJQaW12Um1odEs3NGVYdG94WGttT1NhY1JxNmtxTjBIOVYzblA3UEkwcW9GTmJrVTZJcWRqSDViY3haT2d4c2JnWmZTR1E1N2VsVzBObm5wek1ienNhUFBYbHIyLUNyQVk4THp6enlVcnR3Y284THpYX3FwQzl3elVwcV9mWkRXdDl6Ym1HT3prMVRYN2cwZ19JUDRWWVU?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Delivers Live Performance of New Hit at Gala
 
@@ -42,6 +42,14 @@ Stories: 84
 - summary: At a star-studded gala, Taylor Swift performed her hit song live for the first time, showcasing her latest work to an excited audience. The event highlighted her continued impact in the music industry.
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQaGVNR0F5RFQ3ZG9lXy1yczhzWmVPRU5SN3JCVkR2aS1yTHdFYlNYWG1SRHdPQUwxYUhJdlF0YmtOOVNUTmc2YUUyUUNKa0h0cWVnWmtWTmJydlY3Ym1LRzNDSFJxRDdxZW93WUhyUFFLR2NqWG92Vi1PVUxRV0ZOSGdB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Old Hollywood Style at Academy Museum Gala
+
+- first seen: 2026-10-18 14:11 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At the Academy Museum Gala, Taylor Swift sported a fashion choice inspired by Old Hollywood, adding a distinctive touch to her appearance. The outfit was described as meaningful, highlighting her personal style at the prestigious event.
+- sources:
+  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRUVDcDlVQ0tjZGRWakVNUUswLVFZV0R4ZENlN3p3eHA2b3lLUm9qckh4X1oxalBvRnZDZGxDT2FicFNFQkxlMnJiMFNjNFRZV2U3RldIU0lGTXZmVFZaSFJqT1I5bXc5eTE4eDRHbng1TlRvelVkWF91T0k1YlhzM3lrVldMb1A2Q3l1dm5yNjZmd3poSmUzLWJoNlJiR3huMzV2NE9aa3gzSDQyRHNUdDVxUVhjMG5hUzJEM09sR1QzYW52MGZUeW5PTkl5S2JTN0xN?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Sighted on Stage During Weekend Protests Coverage
 
@@ -174,9 +182,11 @@ Stories: 84
 ## Taylor Swift Graces the Red Carpet at Academy Museum Gala 2026
 
 - first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift attended the Academy Museum Gala 2026, showcasing her fashion on the red carpet alongside other celebrities like Inde Navarrette.
 - sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/best-dressed-stars-academy-museum-gala-2026-1236734403/
   - [unverified] Variety — https://news.google.com/rss/articles/CBMie0FVX3lxTE9NTGVpUlBJaFp1MXpRdlBIbkxSZk5GbE5JTFEzV1VLUEY4XzRwMV9NY3NwbV8wUWc2NFJYdHlIbWlLNXd4ZU11YTNic1VBU2hVZEFJR01lV3JNalVvOEZrcVotb19IOFJ6U1NwajZxZXlnTVdEN1B2Z0Zibw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-dress-academy-museum-gala-2026-1239364045/
 
@@ -695,11 +705,3 @@ Stories: 84
 - summary: The new song titled 'I Knew It, I Knew You' from Toy Story 5 has been officially released and is available everywhere. Fans can now listen to it across all platforms.
 - sources:
   - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/shorts/o9LcBozLplo
-
-## Exploring Taylor Swift's Car Collection and Rumors
-
-- first seen: 2026-10-15 15:06 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article delves into Taylor Swift's car collection, outlining confirmed details, rumored vehicles, and those linked to Travis Kelce. It provides an overview of the cars associated with the pop star and her connections.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQV1hFRHlwMkM5ejFsSHgxYkdEMTVGaWF4VUUzakVhbGFGVHpuczRPWTBFODJIcnR4cWg0dlIyX2M5a0QwWGE0NXZkTU5SZF8tRWVHY1cyNTZ2SEk4N254VjQ2b05TOEp0ZENwaWx0VS1sY3pjZHZ6RDlBaTB6R21kT3dSd2FiYks3OXMwVWlsQzI3SmxteUs4QUo5YUV3ZEVicnFmQUk4Zw?oc=5&hl=en-US&gl=US&ceid=US:en
