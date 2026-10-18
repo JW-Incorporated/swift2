@@ -42,7 +42,7 @@ jobs:
       # the home-relay skill (a plain HTTP GET issued through Bash/curl).
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 30
-      max_turns: 30 # Reddit hot-thread scan retired 2026-10-18: far fewer leads/day; was 80
+      max_turns: 50 # Reddit hot-thread scan retired 2026-10-18: fewer leads, but FB hot_thread + reply_to_us still up to 12 drafts/day; was 80
       checkout_token_secret: GITHUB_TOKEN
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

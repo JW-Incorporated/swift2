@@ -13,7 +13,7 @@ written for card P3-1 (Phase 3, the last build card in that plan).
 |---|---|
 | `community-scan` (daily hot-thread RSS scan) | **Retired.** Schedule removed (manual `workflow_dispatch` only) and `COMMUNITY_SCAN_ENABLED=false`. Reddit discovery is the awareness lane. Re-enable: restore the cron in `community-scan.yml`, set the variable `true`. |
 | `community-inbox` (`reply_to_us`) | Kept. |
-| `routine-community-answerer` | Kept, skips Reddit `hot_thread` (30-turn cap). |
+| `routine-community-answerer` | Kept, skips Reddit `hot_thread` (50-turn cap). |
 | `community-mailer` | Kept, skips Reddit `hot_thread`; Facebook leads still mail. |
 | Awareness lane | Unchanged. |
 
