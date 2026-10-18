@@ -16,6 +16,113 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-18 (Vault Run, Content Shift lane) from intake #6065
+      // (the outcome of the announced appearance in closed intake #5462).
+      // Documented past performance at a named public venue, officially
+      // announced — within the L2 ceiling, no privacy redline. Four songs is
+      // what every source that loaded says (Stereogum, the Tennessean/USA
+      // Today via Yahoo, TMZ); Variety's URL slug says "five songs" but the
+      // page is tollbit-gated here, so the count follows the readable sources.
+      // Running order is NOT stated past the "Blank Space" opener: the sources
+      // disagree on which song closed. Variety's "first full-band performance
+      // since the Eras Tour" framing (intake wording) was CUT — gated, single
+      // source. Gown colour left out (outlets split pale blue / silver).
+      slug: 'showgirl-fate-of-ophelia-live-debut-academy-museum-gala',
+      year: 2026,
+      month: 10,
+      day: 17,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      title: '“The Fate of Ophelia” goes live for the first time, closing the Academy Museum Gala',
+      snippet:
+        'Introduced by her “Toy Story 5” castmate Conan O’Brien as “John, Paul, George and Ringo all in one,” Taylor closed the Academy Museum’s sixth annual gala in Los Angeles with a four-song set — and gave “The Fate of Ophelia” its first-ever live performance, more than a year after the album came out.',
+      sourceUrl:
+        'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Academy Museum of Motion Pictures held its sixth annual gala in Los Angeles on Saturday, Oct. 17, 2026, a fundraiser honoring Charlize Theron, Colman Domingo and John Carpenter — and Taylor, announced as the night\'s closing act a week and a half earlier, delivered. Conan O\'Brien, who voices the potty-training toy Smarty Pants in "Toy Story 5," brought her on as "a cherished member of our little \'Toy Story 5\' family" and summed her up as "John, Paul, George and Ringo all in one."\n\nWith her longtime band and backup singers behind her, Taylor opened with "Blank Space" and played four songs in all, including "Love Story" and "I Knew It, I Knew You," the song she wrote for "Toy Story 5." The headline was the other one. "This song, which we are playing for the very first time to you beautiful people, is called \'The Fate of Ophelia,\'" she told the room — the Showgirl lead single\'s live debut, more than a year after the album\'s release.\n\nOn the way in she wore a custom strapless Dior gown with a ruched bodice, a crystal-embellished bow at the neckline and a pleated skirt that swept into a train. The set came less than two months after the Icon Sessions at the Grammy Museum, and like that night it put "I Knew It, I Knew You" in front of an industry room while the song\'s Oscar conversation was building.',
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/P108QQUY-e1792342281327.jpg?w=1024',
+            // 1024x682, curl-verified HTTP 200 image/jpeg (56KB); the og:image
+            // of Billboard's Oct. 18, 2026 red-carpet report on this gala, and
+            // vision-checked: Taylor in the strapless gown with the crystal
+            // bow and side-swept curls the outlets describe. Billboard names
+            // no agency for it.
+            credit: 'Billboard',
+            caption:
+              'Taylor on the red carpet at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, in custom Dior.',
+            kind: 'primary',
+            focalPoint: '50% 30%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+            source_title:
+              'Taylor Swift Performs "The Fate Of Ophelia" Live For The First Time At Academy Museum Gala',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly. Primary for the four-song set ("Blank Space," "The Fate of Ophelia," "I Knew It, I Knew You," "Love Story"), the live debut, the honorees, and Conan O\'Brien\'s introduction ("John, Paul, George and Ringo all in one") and his Smarty Pants role in "Toy Story 5."',
+          },
+          {
+            outlet: 'The Tennessean / USA Today (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wows-dior-debuts-133454078.html',
+            source_title:
+              'Taylor Swift wows in Dior, debuts \'Fate of Ophelia\' live at Academy Museum Gala',
+            publisher: 'USA Today Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (Bryan West, Nashville Tennessean, syndicated). Independent confirmation of the four songs and the debut; source of Taylor\'s on-stage quote, O\'Brien\'s "cherished member of our little \'Toy Story 5\' family" line, the band and backup singers, and the custom Dior gown details.',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/10/18/taylor-swift-performs-at-academy-museum-gala/',
+            source_title: 'Taylor Swift Performs Hit Song Live For First Time at Star-Studded Gala',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 3,
+            notes:
+              'Loaded directly. Third independent count of four songs and the "Fate of Ophelia" live debut; custom Dior gown with a crystal-embellished bow.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-red-carpet-2026-academy-museum-gala-1236362432/',
+            source_title: 'Taylor Swift Stuns in Strapless Blue Gown at 2026 Academy Museum Gala',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (published 2026-10-18). Red-carpet report; supplied the credited photo used here.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performs-the-fate-of-ophelia-live-academy-gala-1235644441/',
+            source_title:
+              "Taylor Swift Performs 'The Fate of Ophelia' Live for First Time at Academy Museum Gala",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Tollbit/bot-gated in this run; listed for provenance. Its headline matches the live-debut fact confirmed by the loaded sources above.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-04 (Vault Run, Content Shift lane) from intake #5001.
       // Public live-TV appearance (an SNL cold-open monologue) — no privacy
       // redline. Placed by broadcast date: the episode aired Saturday,
