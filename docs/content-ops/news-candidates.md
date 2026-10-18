@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 79
+
+## Taylor Swift Performs Four Songs at Academy Gala in First Full-Band Show
+
+- first seen: 2026-10-18 18:06 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift reunited with her band for a performance, delivering a four-song set at the Academy Museum's 6th Annual Gala. This marked her return to a full-band performance since the Eras Tour, captivating a black-tie audience.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performance-academy-gala-five-songs-1236915817/
 
 ## Taylor Swift Debuts at Academy Museum Gala in Dior
 
@@ -94,10 +102,11 @@ Stories: 81
 ## Taylor Swift and Kim Kardashian Attend Academy Museum Gala
 
 - first seen: 2026-10-18 12:41 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift, along with Kim Kardashian and other celebrities, made a striking appearance at the Academy Museum Gala. The event showcased various stars in fashionable outfits.
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNS2Z5MjlpaXZFVXNfRXV4M2pLSVJXRGtYb2FQUzJEWHdUY0RTd3JLS3NuSWV5SHMxZ21fZDhzeHhqQzNoRkxweU0taFlIZnMwcmtQcC1Ua1R5a3QwczZ0ZXk5ckUzM3FmOFhMTHJtM1JFT0JYV3RIWEpVRmduT2ZkeTg4NndZZDF6R3Jv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] WWD — Taylor Swift tag — https://wwd.com/eye/parties/academy-museum-gala-2026-taylor-swift-kim-kardashian-1239372519/
 
 ## Taylor Swift's Fashion at the West Coast Met Gala
 
@@ -655,28 +664,3 @@ Stories: 81
 - summary: A column explores how Taylor Swift's influence relates to America's literacy crisis, highlighting her cultural significance. It discusses her role in engaging with important social issues.
 - sources:
   - [unverified] The Virginian-Pilot — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSzlKLTdYR0pYRUZ4RXhKV053SnE5WlZyTmlpdHBZSEJDTkdzSGJ5dC1MWWZBaUVWOUQ2UmxwLUE5QzFaTzlHOWc2RUg3SkR5OWVqMk1ndmtacm4wY2N2U2tWQTJ4Rm1pdkdJSzB2WHJZWWViMmJELUpRNThEVy1EeHBXOWZQSHhXZXBOV1U2ZWNGY0ZHNXRyY251ZHRvY2R4SU1JREVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bad Gyal Declares She Would 'Never' Collaborate With Taylor Swift
-
-- first seen: 2026-10-15 18:06 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bad Gyal has stated that she would never work with Taylor Swift, criticizing Swift's music by comparing it to 'dry chicken.' The comment reflects her personal opinion on Swift's artistic style.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMihAFBVV95cUxQbV9OM1djR19BbG1tUWo3Q3RFcy1CdE53X0dRczN4QUNQWlhtTWNOQ3ZCUFdKMktVQlpXSy1rNTFIcG5CQkVmanMwT0tNRnVoZ0VSQWNUa3RKRG02UC16NG9EM18tZnE5alQ1cHdNeWxHU241R3RwQmZiNlVRazF1Q09SMXo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Selena Gomez Discusses Taylor Swift and Marriage Advice
-
-- first seen: 2026-10-15 18:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Selena Gomez shares her perspective on why she does not feel the need to offer marriage advice to her friend Taylor Swift, emphasizing their supportive friendship.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipAFBVV95cUxPRnJLMUFmdVNOdVpQcktjVVkwTUZwUWp1WUpQOHk5TnIyQ1V6Qm9zVWhJSEI4bE84Ym1LMHlaM05TcHZMS25JQmVWV2R1c0I3SlJwZnUxZlh1SndRRzZOQ3F5WWFrS0RLTUdQaDFpRUQ2Vmdhd0tsRF9iazlPM0VoMUlZS0RDNjdWMlR0Z2dsS2RvZTNuZGMzZk14YlNGWGg4LTA2Xw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Grammy Competitors for Best Song Written for Visual Media Revealed
-
-- first seen: 2026-10-15 18:06 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: An article discusses Taylor Swift's likely competitors for the Grammy Award for Best Song Written for Visual Media. The insights highlight the talented peers in the category.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQQXJsQnlsTkx6Qjh5Njg0V2p6aUMzWi1EanFZS0dsWThMU1VFWXY2Mk42bDRFeE45T1cySE84dzVOTVFMcktKU3BueWhZX20zWlE0b0xNTC1JSWs4d2JJMnZfa295Q1hTNEhUMXRxbHVYaEpHYTFpS1BDUVczZGl3Q1VFcWJmNC11OFJNb3JtdmJhMFZyb1h6enlHV2Zqc3NOWDNyNw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxOc0dxTmZudy1GcnIzYlBPaXhLd19ZSmJTTndpNUxjeldocTYxZUg3Q0xMUEYyTEJGb0xhbzdyX2YzLV9DLUpNS1REMFhtS3dBTWUyWWVtc0xnRDZYd25hMEM1X2NHczdmQXJvM2hNWU9iQWtPMWVMbTRqTTMwX25wNVhWVnlIenJMV0ttbXFwZm1tYjYtZlROcGpnVVFnN2s4b0Z4U1p2SQ?oc=5&hl=en-US&gl=US&ceid=US:en
