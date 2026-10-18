@@ -1,11 +1,11 @@
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs module
 import { todayLA } from '../marjorie/lib/brief-sections.mjs';
 // @ts-expect-error plain .mjs module
-import { NEEDS_ACTION_THRESHOLD, buildOpsSignals, collectOpsSnapshot, main, runPrecheck } from './marjorie-ops-precheck.mjs';
+import { MUST_RUN_REFRESH_MS, NEEDS_ACTION_THRESHOLD, buildOpsSignals, collectOpsSnapshot, main, runPrecheck } from './marjorie-ops-precheck.mjs';
 
 const empty = { alerts: [], runs: [], prs: [], opsFixes: [], chasePlan: {}, now: Date.parse('2026-10-15T12:00:00Z') };
 const noul = (...probabilities: number[]) => {
@@ -198,6 +198,82 @@ describe('marjorie ops precheck acceptance fixtures', () => {
   });
 });
 
+describe("must-run fingerprint gate", () => {
+  const now = Date.parse("2026-10-15T12:00:00Z");
+  const collect = async () => ({ ...empty, alerts: [{ number: 3, title: "Watchdog: no Founders' Brief", createdAt: "2026-10-14T00:00:00Z", comments: [] }] });
+  const env = { TYPESAFE_API_KEY: "fixture" };
+  const items = { "watchdog-alert:#3": "unhandled" };
+  const at = (ms: number) => new Date(now - ms).toISOString();
+
+  it("skips when the must-run set is unchanged since the last handled run", async () => {
+    const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items } });
+    expect(result).toMatchObject({ mode: "skip" });
+    expect(result.reason).toContain("must-run unchanged since");
+  });
+
+  it("skips when the set only shrank to already-handled items", async () => {
+    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" } };
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled })).resolves.toMatchObject({ mode: "skip" });
+  });
+
+  it("runs when an item is new or its state changed", async () => {
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: {} } })).resolves.toMatchObject({ mode: "flagged" });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: { "watchdog-alert:#3": "escalated" } } })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("runs when the last handled run is 24h old or more", async () => {
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(MUST_RUN_REFRESH_MS), items } })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("runs when another non-must-run signal is flagged", async () => {
+    const withOther = async () => { const base = await collect(); return { ...base, alerts: [...base.alerts, { number: 4, title: "Watchdog: Karen scanned but filed no tickets", createdAt: "2026-10-15T11:00:00Z" }] }; };
+    await expect(runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: { at: at(3_600_000), items } })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("fails open on an error even with an unchanged fingerprint", async () => {
+    const lastHandled = { at: at(3_600_000), items };
+    await expect(runPrecheck({ env, collect: async () => { throw new Error("offline"); }, lastHandled })).resolves.toMatchObject({ mode: "fail-open" });
+    await expect(runPrecheck({ env: {}, collect, lastHandled })).resolves.toMatchObject({ mode: "fail-open" });
+  });
+
+  it("writes the handled-state file only when the agent will run", async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "ops-handled-"));
+    try {
+      const artifact = path.join(dir, "precheck.json");
+      await main([artifact], { env, collect, clientFactory: () => noul(), lastHandled: null });
+      expect(JSON.parse(readFileSync(path.join(dir, "marjorie-ops-handled.json"), "utf8")).items).toEqual(items);
+      rmSync(path.join(dir, "marjorie-ops-handled.json"));
+      await main([artifact], { env, collect, clientFactory: () => noul(), lastHandled: { at: at(1000), items } });
+      expect(existsSync(path.join(dir, "marjorie-ops-handled.json"))).toBe(false);
+    } finally { rmSync(dir, { recursive: true, force: true }); }
+  });
+
+  it("drops vanished ids from the saved map so a reappearing item counts as new", async () => {
+    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" } };
+    const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled });
+    expect(result.pruned).toEqual({ at: lastHandled.at, items });
+    const gone = await runPrecheck({ env, collect: async () => empty, clientFactory: () => noul(), lastHandled });
+    expect(gone).toMatchObject({ mode: "skip", pruned: { at: lastHandled.at, items: {} } });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: gone.pruned })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("workflow never compares an output to an unquoted boolean", () => {
+    const wf = readFileSync(".github/workflows/routine-marjorie-ops.yml", "utf8");
+    expect(wf.split(/\r?\n/).filter((line) => /\bif:.*(==|!=)\s*(true|false)\b/.test(line))).toEqual([]);
+    expect(wf).toContain("steps.stage.outputs.present == 'true'");
+  });
+
+  it("workflow uploads hidden files and saves the fingerprint only after a successful run", () => {
+    const wf = readFileSync(".github/workflows/routine-marjorie-ops.yml", "utf8").replace(/\r\n/g, "\n");
+    expect(wf).toMatch(/path: \.scratch\/\*\.json\n\s+include-hidden-files: true/);
+    expect(wf).toMatch(/path: \.scratch\/marjorie-ops-precheck\.json\n\s+include-hidden-files: true/);
+    const save = wf.slice(wf.indexOf("  record-handled:"));
+    expect(save).toContain("needs.run.result == 'success'");
+    expect(save).toContain("actions/cache/save@");
+    expect(wf.slice(0, wf.indexOf("  record-handled:")).match(/actions\/cache\/save@/g)).toHaveLength(1);
+  });
+});
+
 describe('routine-marjorie-ops workflow safeguards', () => {
   const workflow = readFileSync('.github/workflows/routine-marjorie-ops.yml', 'utf8').replace(/\r\n/g, '\n');
 
@@ -210,6 +286,6 @@ describe('routine-marjorie-ops workflow safeguards', () => {
   it('uploads a default fail-open artifact before checkout and overwrites it after precheck', () => {
     expect(workflow.indexOf('name: Seed fail-open precheck artifact')).toBeLessThan(workflow.indexOf('uses: actions/checkout@v7'));
     expect(workflow).toMatch(/name: Upload fail-open precheck artifact[\s\S]*?name: marjorie-ops-precheck/);
-    expect(workflow).toMatch(/path: \.scratch\/\*\.json\n\s+retention-days: 1\n\s+overwrite: true/);
+    expect(workflow).toMatch(/path: \.scratch\/\*\.json\n\s+include-hidden-files: true\n\s+retention-days: 1\n\s+overwrite: true/);
   });
 });
