@@ -192,9 +192,10 @@ jobs:
 
   # Fast path (R22, #3709): content-only PRs skip typecheck/vitest/next build
   # and run only the validators that actually gate that content. Mirrors the
-  # relevant subset of build-full's steps 1:1 so a content PR gets the same
-  # checks it would have gotten from the full job, just without the ~7min of
-  # unrelated code-build work.
+  # relevant subset of build-full's steps so a content PR gets the checks that
+  # gate its content, without the ~7min of unrelated code-build work. It is a
+  # SUBSET: lint runs here only on supabase/ (the one content path ESLint
+  # covers; social/ and docs/ are ignored by eslint.config.mjs).
   build-content:
     needs: [changes]
     if: github.event_name == 'pull_request' && needs.changes.outputs.non_content == 'false'
@@ -206,6 +207,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Lint content paths (same config as npm run lint)
+        run: npx eslint supabase
       # *.generated.ts are gitignored and absent on a fresh checkout; generate
       # them first, as build-full does, or check:generated hits ENOENT.
       - run: npm run sync:content
