@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Celebrity Fashion Highlights: Taylor Swift’s Corduroy Pants
+
+- first seen: 2026-10-18 10:42 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This week’s celebrity fashion roundup includes Taylor Swift spotted in stylish corduroy pants alongside Meghan Markle in a cozy coat. The article showcases various celebrity outfits that were well-received.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9BOUc4RTJmM2dXVnNIWHc4YUZNclZpSmY5bGsxVC05QmNvV2s2UkpNaWRkb3BJZUczeTNVQ3dweWMxZDRCU2dlUDhRNEQ4amlWYWw0alZ6cHhXUU9WWTh2QkJSeUR2ZUFwcGw4X0hTc1hqT1g5?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Attends Sixth Academy Museum Gala with Various Celebrities
 
 - first seen: 2026-10-18 09:46 UTC | category: fashion | importance: 7
@@ -655,11 +663,3 @@ Stories: 79
 - summary: An article by the Institute for Family Studies explores reasons why conservatives might find common ground with Taylor Swift. It analyzes her influence and cultural impact from a conservative perspective.
 - sources:
   - [unverified] Institute for Family Studies — https://news.google.com/rss/articles/CBMifkFVX3lxTFBkRXBfb3RySUNZdlgtdjNXOElMWllsY1RHRlRGeFhGemVQZjZ2WFJnRmRpd3M1Z2Q5Yk1EVHNmQ0lxcmZHbkFSRjdaeTlGazRaaEkxMEJnQUZ2MW5JNzBaemhmaGp6aWU1N0Q4NnMtUF9QdVI3Z29OeUhNcFRnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Return for 'The Encore'
-
-- first seen: 2026-10-15 09:51 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to return for her show titled 'The Encore', as reported by Old Gold & Black.
-- sources:
-  - [unverified] Old Gold & Black — https://news.google.com/rss/articles/CBMihAFBVV95cUxOUmFkSWg3dmpFaW12d09hcFkwdC1SVUtSNFhwbHBJamJvczZfZE5FbWl5VkR3ZU5uU2NEZGRBWFh4QVNGSUl0Vm5qQlVWbE9IaWc1cTRBZldQTnc1RnBzNFd0UEU5VU4tREpfaXVnaFpyWERMTFJqT2NZejczMHF5cm5FZmc?oc=5&hl=en-US&gl=US&ceid=US:en
