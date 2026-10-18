@@ -2282,11 +2282,17 @@ export default {
               'Taylor Swift goes into the 2026 MTV VMAs as one of the year\'s most-nominated artists, with nine nominations led by "The Fate of Ophelia" (Video of the Year, Best Pop and a sweep of the technical categories) plus Artist of the Year and a Best Direction nod for "Opalite" — leaving open how many she converts to wins when the ceremony airs live on September 27, 2026.',
             reportedBy: 'FOX 17 (Elizabeth Stanton)',
             reportedOn: '2026-08-18',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://fox17.com/news/entertainment/the-2026-mtv-vma-nominations-are-here-taylor-swift-madonna-lead-the-race',
             note: 'Award-chances speculation — an Always-OK public-facing category. The nine nominations and the Sept. 27, 2026 Los Angeles ceremony date are announced fact (noms via MTV, reported by FOX 17; date corroborated by Billboard). Only the outcome is unsettled; resolves on ceremony night, 2026-09-27. No location, security, health, or private-individual content — a televised public event.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-10-18',
+            resolution: {
+              on: '2026-09-27',
+              url: 'https://www.nbclosangeles.com/entertainment/entertainment-news/live-updates-2026-mtv-video-music-awards/3946847/',
+              outlet: 'NBC Los Angeles',
+              note: 'Settled on ceremony night: "The Fate of Ophelia" won Video of the Year, and Taylor won Best Direction (her nomination there was "Opalite"), taking her career VMA total to 33. The rest of the Ophelia technical sweep, Best Pop and Artist of the Year went to others (Madonna took Artist of the Year).',
+            },
           },
         ],
       },
@@ -4698,15 +4704,15 @@ export default {
               'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
             reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
             reportedOn: '2026-07-30',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
+            note: 'A gossip-newsletter tip from unnamed MSG insiders, distinct from the temporary "JUST&T MARRIED!" marquee. MSG is the wedding\'s documented venue, not a whereabouts prediction. Faded 2026-10-18: reported in late July, never confirmed or denied — a fresh search found no MSG announcement or follow-up report of any permanent honor.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-10-18',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): a newly
@@ -6834,9 +6840,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live, not faded.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-14',
+            lastCheckedOn: '2026-10-18',
           },
           {
             claim:
@@ -6845,9 +6851,9 @@ export default {
             reportedOn: '2026-07-17',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location.',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location. Re-checked 2026-10-18: nominations not yet announced — still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-17',
+            lastCheckedOn: '2026-10-18',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -13778,9 +13784,10 @@ export default {
             reportedOn: '2026-08-26',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
+            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has since scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs.',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-27',
+            lastCheckedOn: '2026-10-18',
             note:
               "Forward-looking speculation about an unscheduled event, carried by a single low-tier outlet, so it enters as an unconfirmed rumor, not authored narrative. Held at region: no venue is announced. The sports-blog \"will Travis join her?\" angle is dropped as third-party attendance speculation. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.",
           },
