@@ -9,7 +9,7 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ## 2026-10-18: retire the hot_thread daily scan (founder); Reddit discovery = awareness lane; reply_to_us kept
 
-`community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` drafts `kind='reply_to_us'` only (max_turns 80 to 30) and `community-mailer` selects only `reply_to_us`, so leftover `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two `reply_to_us` filters.
+`community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` and `community-mailer` exclude only Reddit `hot_thread` (`platform.neq.reddit,kind.neq.hot_thread`; Facebook export leads are also `hot_thread` and keep flowing); answerer max_turns 80 to 30. Leftover Reddit `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two filters.
 
 Approved: Joey (2026-10-18).
 

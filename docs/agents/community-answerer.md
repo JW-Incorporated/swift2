@@ -69,7 +69,7 @@ Reddit or Facebook except through a human's own hands, later, via
    sitting; the plan's own words are "Joey should never see more than ~15
    minutes of pasting."
 
-**Not this desk's:** `hot_thread` rows (the scan was retired 2026-10-18; this desk drafts `reply_to_us` only, and `community-mailer` mails only `reply_to_us`). Also: `engagement_lead` rows with `kind = 'awareness_reply'` (the awareness image-reply lane) are drafted by the awareness reply drafter (`scripts/community/draft-replies.mjs`, system prompt `runner-prompts/awareness-answerer.md`) and delivered by `awareness-deliver.mjs`; this desk skips them and `community-mailer` excludes them.
+**Not this desk's:** Reddit `hot_thread` rows (the scan was retired 2026-10-18; this desk and `community-mailer` skip them; Facebook `hot_thread` and `reply_to_us` are unchanged). Also: `engagement_lead` rows with `kind = 'awareness_reply'` (the awareness image-reply lane) are drafted by the awareness reply drafter (`scripts/community/draft-replies.mjs`, system prompt `runner-prompts/awareness-answerer.md`) and delivered by `awareness-deliver.mjs`; this desk skips them and `community-mailer` excludes them.
 
 ## Hard rails (founder decision required to change ANY of these)
 

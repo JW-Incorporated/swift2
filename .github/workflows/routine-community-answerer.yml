@@ -12,8 +12,7 @@
 # even the `issues: write` grant (this desk's output lands in Supabase, not
 # GitHub).
 #
-# Since 2026-10-18 the desk drafts `kind='reply_to_us'` leads only (the
-# hot-thread scan is retired).
+# Since 2026-10-18 the desk skips Reddit `hot_thread` leads (scan retired).
 # Cadence: "daily, after community-scan.yml" per the plan's §4 table.
 # community-scan.yml (P1-2) had not landed at the time this card shipped —
 # 14:46 UTC is chosen as a reasonable post-scan, off-peak minute per this
@@ -43,7 +42,7 @@ jobs:
       # the home-relay skill (a plain HTTP GET issued through Bash/curl).
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 30
-      max_turns: 30 # reply_to_us only since 2026-10-18 (hot-thread scan retired): few leads/day, no 12-draft batch; was 80
+      max_turns: 30 # Reddit hot-thread scan retired 2026-10-18: far fewer leads/day; was 80
       checkout_token_secret: GITHUB_TOKEN
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

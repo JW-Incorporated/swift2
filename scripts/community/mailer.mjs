@@ -249,7 +249,7 @@ export async function fetchLeadsToMail(
     .eq('status', 'drafted')
     .not('draft', 'is', null)
     .neq('kind', 'awareness_reply') // the awareness lane delivers via awareness-deliver.mjs
-    .eq('kind', 'reply_to_us') // hot-thread scan retired 2026-10-18: never mail leftover hot_thread drafts
+    .or('platform.neq.reddit,kind.neq.hot_thread') // Reddit hot-thread scan retired 2026-10-18: never mail leftover Reddit hot_thread drafts (Facebook hot_thread leads still mail)
     .order('created_at', { ascending: true })
     .limit(FETCH_POOL_LIMIT);
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');
