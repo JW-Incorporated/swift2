@@ -13784,7 +13784,6 @@ export default {
             reportedOn: '2026-08-26',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
-            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has since scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs.',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-10-18',
