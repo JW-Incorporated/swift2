@@ -299,9 +299,13 @@ describe('fetchLeadsToMail', () => {
   it('filters null drafts in the query so no-draft rows cannot starve sendable leads', async () => {
     const not = vi.fn();
     const neq = vi.fn();
+    const eq = vi.fn();
     const builder: Record<string, unknown> = {
       select: () => builder,
-      eq: () => builder,
+      eq: (...args: unknown[]) => {
+        eq(...args);
+        return builder;
+      },
       not: (...args: unknown[]) => {
         not(...args);
         return builder;
@@ -316,6 +320,7 @@ describe('fetchLeadsToMail', () => {
     const result = await fetchLeadsToMail({ from: () => builder }, { mode: 'daily' });
     expect(not).toHaveBeenCalledWith('draft', 'is', null);
     expect(neq).toHaveBeenCalledWith('kind', 'awareness_reply'); // the awareness lane has its own delivery
+    expect(eq).toHaveBeenCalledWith('kind', 'reply_to_us'); // hot-thread scan retired 2026-10-18
     expect(result.map((l: Lead) => l.id)).toEqual(['ok']);
   });
 

@@ -7,6 +7,16 @@ looks wrong. The engineering spec is
 (Fable-approved, board `swift2`); this doc is the plain-English companion,
 written for card P3-1 (Phase 3, the last build card in that plan).
 
+**Lane status (2026-10-18, founder):**
+
+| Lane | State |
+|---|---|
+| `community-scan` (daily hot-thread RSS scan) | **Retired.** Schedule removed (manual `workflow_dispatch` only) and `COMMUNITY_SCAN_ENABLED=false`. Reddit discovery is the awareness lane. Re-enable: restore the cron in `community-scan.yml`, set the variable `true`. |
+| `community-inbox` (`reply_to_us`) | Kept. |
+| `routine-community-answerer` | Kept, drafts `reply_to_us` only (30-turn cap). |
+| `community-mailer` | Kept, mails `reply_to_us` only. |
+| Awareness lane | Unchanged. |
+
 **The one rule that matters:** nothing here ever posts, comments, replies,
 votes, follows, or DMs on Reddit or Facebook by itself. Every piece of text
 this system produces is a *draft* — a human (you) always does the actual

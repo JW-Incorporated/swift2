@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-18: retire the hot_thread daily scan (founder); Reddit discovery = awareness lane; reply_to_us kept
+
+`community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` drafts `kind='reply_to_us'` only (max_turns 80 to 30) and `community-mailer` selects only `reply_to_us`, so leftover `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two `reply_to_us` filters.
+
+Approved: Joey (2026-10-18).
+
+---
+
 ## 2026-10-17 — Qwen second opinion: queue plus home poller (architect #15, founder-approved)
 
 Reply cards get a second drafted reply from the founder PC's local Qwen. `engagement_lead` carries a `qwen_*` queue; `scripts/home/qwen-second-opinion/poller.mjs` runs every 5 minutes on the PC, stores the draft; the cloud `community-reaction-poll` job (which already holds the bot token) posts it under the card, so the PC needs no Discord token. No inbound exposure of the home gateway, no cloud fallback (D1: no Anthropic API); an unreachable Qwen leaves rows pending. Existing rows were backfilled to skipped so old cards are not flooded. Reversible: remove the scheduled task.
