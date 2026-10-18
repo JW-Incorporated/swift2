@@ -68,9 +68,9 @@ import {
 
 export const SITE = 'https://www.longlivets.com';
 
-/** Facebook leads go to tree-facebook (#5987); Reddit leads keep tree-main. */
+/** Reddit leads go to tree-reddit, Facebook leads to tree-facebook (#5987). */
 export function mailerRouteFor(platform) {
-  return platform === 'facebook' ? routeForPlatform('facebook') : 'tree-main';
+  return platform === 'facebook' || platform === 'reddit' ? routeForPlatform(platform) : 'tree-main';
 }
 
 export const MAX_LEADS_PER_EMAIL = 15; // matches Answerer's own ≤12/day draft cap + headroom
