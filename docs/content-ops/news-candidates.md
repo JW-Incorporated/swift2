@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Taylor Swift and Dakota Johnson Opt for Trendy Fall Pants
+
+- first seen: 2026-10-18 08:46 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Dakota Johnson were spotted wearing retro fall pants, moving away from traditional jeans. This style choice highlights the resurgence of retro fashion trends.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQWXJ0SmM2RXBoLU54X1ZrRm82bllEV3Azd3lQSENTQWc2V2ZZc0U2ZXd6QktNb1BFdzdZVWx3NXFLRXV2NF9ZWE45c25fTkg0bU9oaUMwbGdSRW5RcHFsMU11QjBJZWpvdnBBeF9vLWZmWTFIclc5RDdhT2dfZVFjam5TbFFKaHpFRTNfQmtJcUJKSmVI?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Mammoth Looks to Taylor Swift's Advice Following Tough Loss
 
 - first seen: 2026-10-18 07:46 UTC | category: music | importance: 5
@@ -655,11 +663,3 @@ Stories: 79
 - summary: Jack Antonoff shares insights on music production techniques, discussing the importance of imperfections in pop songs while highlighting his work on Taylor Swift's album 'Midnights' and the influence of vintage gear and analogue synths.
 - sources:
   - [unverified] MusicRadar — https://news.google.com/rss/articles/CBMiiwJBVV95cUxNS01XRlk2QWtZSml6LVQ1OFdKZ3pZYVBwV25aMlY1T2M0b3I5cTNFUTh2UGxqQzE2M1NBdDFvQ0JBbU12bXYzVW1oVFVZUGQxM2FjSmVXUk15WXloR3NvUGt5eTI0aW1qSU9XOFNrczczSE42MjRDcHZILWtYb3dxM0RRVzEtcXZQWDNnS1JVXzFZcDVIQ0pmQ196dEVkRDUzM0ZObE5IUUtFUDRCVkhiUEw1Q1FXRnZ0ZXdVNkxUQVB5SlNQSkU0dGpETFJRWV9JX25DUjBJcS0tcFNnUV90bXFwVEtRWmdhZzBjbDZOUENOMk1JTmkxZnQyVFpYOGRrUnNmb2Q1SDY2Vkk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Selena Gomez Praises Taylor Swift's Marriage Skills
-
-- first seen: 2026-10-15 07:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Selena Gomez acknowledged that Taylor Swift excels in a particular aspect of marriage. The specific trait was not disclosed in the headline or snippet.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSVhocDJlYkZqeUZWeUtyR0hrSlFrRnlaYXF6UTZIU3ZLMmgxT1pmOUdGSG9yNTlNLTBITnI1ZWpwY2Z4N2xtUUZEd1RyaTd0dk9nMjFTN2hkNm9qYlNiTFlmaVJyNlYzdEY5VDVQUXZmZmRXeGZ4eDZPeGE4WmFsamRSTjZmNUpFRG9kdnRyNFF2SUhHV0o3dVNKUUNuSW5Sa1hnMw?oc=5&hl=en-US&gl=US&ceid=US:en
