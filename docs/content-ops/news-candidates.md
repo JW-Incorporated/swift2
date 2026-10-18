@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 84
+
+## Taylor Swift Shows Old Hollywood Style at Academy Museum Gala
+
+- first seen: 2026-10-18 14:11 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At the Academy Museum Gala, Taylor Swift sported a fashion choice inspired by Old Hollywood, adding a distinctive touch to her appearance. The outfit was described as meaningful, highlighting her personal style at the prestigious event.
+- sources:
+  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRUVDcDlVQ0tjZGRWakVNUUswLVFZV0R4ZENlN3p3eHA2b3lLUm9qckh4X1oxalBvRnZDZGxDT2FicFNFQkxlMnJiMFNjNFRZV2U3RldIU0lGTXZmVFZaSFJqT1I5bXc5eTE4eDRHbng1TlRvelVkWF91T0k1YlhzM3lrVldMb1A2Q3l1dm5yNjZmd3poSmUzLWJoNlJiR3huMzV2NE9aa3gzSDQyRHNUdDVxUVhjMG5hUzJEM09sR1QzYW52MGZUeW5PTkl5S2JTN0xN?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Delivers Live Performance of New Hit at Gala
+
+- first seen: 2026-10-18 14:11 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At a star-studded gala, Taylor Swift performed her hit song live for the first time, showcasing her latest work to an excited audience. The event highlighted her continued impact in the music industry.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQaGVNR0F5RFQ3ZG9lXy1yczhzWmVPRU5SN3JCVkR2aS1yTHdFYlNYWG1SRHdPQUwxYUhJdlF0YmtOOVNUTmc2YUUyUUNKa0h0cWVnWmtWTmJydlY3Ym1LRzNDSFJxRDdxZW93WUhyUFFLR2NqWG92Vi1PVUxRV0ZOSGdB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Sighted on Stage During Weekend Protests Coverage
 
@@ -687,27 +703,3 @@ Stories: 85
 - summary: The article delves into Taylor Swift's car collection, outlining confirmed details, rumored vehicles, and those linked to Travis Kelce. It provides an overview of the cars associated with the pop star and her connections.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQV1hFRHlwMkM5ejFsSHgxYkdEMTVGaWF4VUUzakVhbGFGVHpuczRPWTBFODJIcnR4cWg0dlIyX2M5a0QwWGE0NXZkTU5SZF8tRWVHY1cyNTZ2SEk4N254VjQ2b05TOEp0ZENwaWx0VS1sY3pjZHZ6RDlBaTB6R21kT3dSd2FiYks3OXMwVWlsQzI3SmxteUs4QUo5YUV3ZEVicnFmQUk4Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Responds Following Travis Kelce's SNL Controversy
-
-- first seen: 2026-10-15 14:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Following a controversy involving Travis Kelce on SNL, Taylor Swift has made a public move. Details about her actions and implications remain unclear.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPRmRUalJkd25KNm92ekJNSTVWYUdCSF9rT0xyRFlNeENQSXBnNDk4ZUppRllsQjBjMk1jQWN0M0RmYk04bDRNZVctZF9xVF9Sc19DcEFyZ0JqN1N0dzU5RnE4WmJDRFVkUDRDV2hZbHM3bkh1T1J4RDRQam0tNkZ2b0V5MGNIc0FZbVBGdzh6SlNFcEN2M3FVLUtUcnA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kim Kardashian comments on her life compared to Taylor Swift's
-
-- first seen: 2026-10-15 13:46 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kim Kardashian has reportedly stated that her lifestyle as a WAG is ‘harder’ than that of Taylor Swift, according to a source. This comparison highlights the challenges both women face in their respective public lives.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQRlBpcXpzSVF0eWlheW96RzZyQlB2X1EySF9qUHB3X1hsSFBURnFSZ0Z2cFpUdXBmcFg1MXV5YkF5OUQ4OFc4NTBock50VUtXaFVUZFJTcjZxNmV3RzZ5UWlpSEJwLXVtVjRMRWF4ZXNVVXZIWmRWVnRpWS1UUUtwdGZ5QTZwS1hUSVVHTkpFU1BfZ2RTWE04WFQxTGQtUjcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Donald Trump Mentions Taylor Swift at Rally About TikTok Ranking
-
-- first seen: 2026-10-15 13:46 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At a recent rally, Donald Trump referenced Taylor Swift while discussing his TikTok ranking, highlighting her influence in pop culture. The mention occurs amidst broader commentary on social media and its impact.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxQTlAtbHFYMkQ0RkI5dHJqRUZ0NS1yWDhVRmpTVFZ4YmRIUENlR2NOcEJnYk5KLXR6bFZGSklxQzZpcXh5cU8xMzNfejNiSGE5WXBZSGxNaXVUdktCWmJHRkxmV0RzcndhaGZvVnRNRjBORGtNYVlHT1BVdXFjOTc0NmxCZng2RUhac0p1VmpjdE4wMlhGWTY0?oc=5&hl=en-US&gl=US&ceid=US:en
