@@ -27,6 +27,14 @@ so far".
 
 Stories: 81
 
+## Taylor Swift Debuts at Academy Museum Gala in Dior
+
+- first seen: 2026-10-18 17:06 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made her first appearance at the Academy Museum Gala, showcasing a stunning outfit from Dior. The event marked a significant moment in her fashion journey.
+- sources:
+  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxPWWFhOHlPRGhHRnptaFlhTFRnQTViaVIyVGVIdnJTbDhXdEc0T1pCY0pUSUc0UnlPSDk5dWRZZnpoZ3NwcVJZOU5iWFBoM1kxMHlmbk1YWVBfWUtmMWVFQWJVd3ZxV2FwZm5PbFA5T3piQUplanNieDgtN1hJSkhfVExmNmdjSzhUTlRTNDFRN0FNbVBnTEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift's Gala Look Features Romantic Blue Color Scheme
 
 - first seen: 2026-10-18 16:06 UTC | category: fashion | importance: 6
@@ -190,9 +198,11 @@ Stories: 81
 ## Taylor Swift Graces the Red Carpet at Academy Museum Gala 2026
 
 - first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift attended the Academy Museum Gala 2026, showcasing her fashion on the red carpet alongside other celebrities like Inde Navarrette.
 - sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/18/style/taylor-swift-academy-museum-gala-2026.html
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-performs-the-fate-of-ophelia-live-academy-gala-1235644441/
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/best-dressed-stars-academy-museum-gala-2026-1236734403/
   - [unverified] Variety — https://news.google.com/rss/articles/CBMie0FVX3lxTE9NTGVpUlBJaFp1MXpRdlBIbkxSZk5GbE5JTFEzV1VLUEY4XzRwMV9NY3NwbV8wUWc2NFJYdHlIbWlLNXd4ZU11YTNic1VBU2hVZEFJR01lV3JNalVvOEZrcVotb19IOFJ6U1NwajZxZXlnTVdEN1B2Z0Zibw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -670,12 +680,3 @@ Stories: 81
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQQXJsQnlsTkx6Qjh5Njg0V2p6aUMzWi1EanFZS0dsWThMU1VFWXY2Mk42bDRFeE45T1cySE84dzVOTVFMcktKU3BueWhZX20zWlE0b0xNTC1JSWs4d2JJMnZfa295Q1hTNEhUMXRxbHVYaEpHYTFpS1BDUVczZGl3Q1VFcWJmNC11OFJNb3JtdmJhMFZyb1h6enlHV2Zqc3NOWDNyNw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxOc0dxTmZudy1GcnIzYlBPaXhLd19ZSmJTTndpNUxjeldocTYxZUg3Q0xMUEYyTEJGb0xhbzdyX2YzLV9DLUpNS1REMFhtS3dBTWUyWWVtc0xnRDZYd25hMEM1X2NHczdmQXJvM2hNWU9iQWtPMWVMbTRqTTMwX25wNVhWVnlIenJMV0ttbXFwZm1tYjYtZlROcGpnVVFnN2s4b0Z4U1p2SQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Changes Detected on Taylor Swift's Official Site
-
-- first seen: 2026-10-15 17:06 UTC | category: business | importance: 5
-- verification_status: official | source_count: 2
-- summary: Automated monitoring has identified that the content on Taylor Swift's official website has been updated since the previous check.
-- sources:
-  - [official] Taylor Swift — official site — https://www.taylorswift.com/
-  - [official] Taylor Swift — official store — https://store.taylorswift.com/
