@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 81
+
+## Taylor Swift's 'The Life of a Showgirl' Tops Billboard 200 for 15 Weeks
+
+- first seen: 2026-10-18 19:24 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's album 'The Life of a Showgirl' continues its impressive run by topping the Billboard 200 for the 15th consecutive week. This achievement highlights Swift's popularity and the album's ongoing success in the music charts.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOa2MyT255R1BoUHJHREl1clV3bzVfeURVTno1My1TbjYtUmZUa3BYejFpNUhpLXVoNWxvclpXZ1BrS001SG9sZXhUclRHa1JHRGUyQTc5YW92WVRreUZhNElQZUtMcVkyTG1LZ3J5MVNxeDVGTXg1aE1XYzhyZzd5c2RfOFIzcU1QTDFhS2FxNV96WGVnZy1nSktiT05MbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Reflects on Two Decades in Music
 
