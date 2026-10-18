@@ -10,10 +10,11 @@
 // entries are reused, only new posted media is fingerprinted), and the poster
 // pre-step rebuilds it from social/posted/** each run rather than depending on
 // an append inside the guard-protected post-queue.mjs.
+import { createHash } from 'node:crypto';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fingerprintImage, fingerprintsMatch, isFingerprint } from './image-fingerprint.mjs';
-import { isLfsPointerBuffer } from './lfs-pointer.mjs';
+import { isLfsPointerBuffer, parseLfsPointer } from './lfs-pointer.mjs';
 import { mediaUrlFor } from './queue.mjs';
 
 export const LEDGER_RELATIVE = 'social/posted-images.json';
@@ -21,11 +22,49 @@ export const LEDGER_VERSION = 1;
 
 const campaignOf = (item) => (typeof item?.campaign === 'string' && item.campaign.trim() ? item.campaign.trim() : null);
 
+const LFS_MEDIA_BASE = 'https://media.githubusercontent.com/media';
+
+/** Refs to try on GitHub's public LFS media endpoint: the PR/run commit first, then `main`. */
+function lfsRefs(env = process.env) {
+  return [...new Set([env.LFS_MEDIA_REF, env.GITHUB_SHA, 'main'].filter(Boolean))];
+}
+
+/**
+ * Real bytes of an LFS-pointer media path from the public media endpoint
+ * (the site serves the pointer text itself, not the object). The download is
+ * verified against the pointer's sha256 oid; a mismatch is never accepted.
+ * Returns null when no ref yields verified bytes.
+ */
+async function fetchLfsObject(mediaPath, pointer, { fetchImpl, attempts, retryDelayMs }) {
+  const repo = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
+  for (const ref of lfsRefs()) {
+    const url = `${LFS_MEDIA_BASE}/${repo}/${ref}/apps/web/public${mediaPath}`;
+    for (let attempt = 1; attempt <= attempts; attempt += 1) {
+      try {
+        const res = await fetchImpl(url, { signal: globalThis.AbortSignal.timeout(30000) });
+        if (res.ok) {
+          const buf = Buffer.from(await res.arrayBuffer());
+          if (!isLfsPointerBuffer(buf) && createHash('sha256').update(buf).digest('hex') === pointer.oid) return buf;
+          break; // wrong object for this ref: try the next ref, do not retry
+        }
+        if (res.status === 404) break;
+      } catch {
+        // transient network error: retry with backoff
+      }
+      if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, retryDelayMs * attempt));
+    }
+  }
+  return null;
+}
+
 /**
  * The bytes of a queue/posted media path. Reads apps/web/public/<path>; when
  * that is missing or a Git LFS pointer (CI never fetches LFS), downloads the
- * same public object the poster itself posts from (mediaUrlFor). `fallback`
- * (optional, async path => Buffer|null) is tried last. Throws on failure.
+ * same public object the poster itself posts from (mediaUrlFor). Library photos
+ * are LFS objects, so that URL serves the pointer text: the pointer is then
+ * resolved through GitHub's LFS media endpoint and sha256-verified against its
+ * oid. `fallback` (optional, async path => Buffer|null) is tried last. Throws
+ * on failure (callers fail closed).
  */
 export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThis.fetch, fallback, attempts = 3, retryDelayMs = 1500 } = {}) {
   let local;
@@ -35,18 +74,25 @@ export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThi
     local = undefined;
   }
   if (local && !isLfsPointerBuffer(local)) return local;
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+  let pointer = local ? parseLfsPointer(local) : null;
+  for (let attempt = 1; attempt <= attempts && !pointer; attempt += 1) {
     try {
       const res = await fetchImpl(mediaUrlFor(mediaPath), { signal: globalThis.AbortSignal.timeout(30000) });
       if (res.ok) {
         const buf = Buffer.from(await res.arrayBuffer());
         if (!isLfsPointerBuffer(buf)) return buf;
+        pointer = parseLfsPointer(buf);
+        if (pointer) break;
       }
       if (res.status === 404) break; // definitive: the object is not there, retrying will not help
     } catch {
       // transient network error: retry with backoff, then fall through to the fallback
     }
     if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, retryDelayMs * attempt));
+  }
+  if (pointer) {
+    const real = await fetchLfsObject(mediaPath, pointer, { fetchImpl, attempts, retryDelayMs });
+    if (real) return real;
   }
   const fromFallback = fallback ? await fallback(mediaPath) : null;
   if (fromFallback) return fromFallback;

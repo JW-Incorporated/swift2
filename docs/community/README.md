@@ -7,6 +7,16 @@ looks wrong. The engineering spec is
 (Fable-approved, board `swift2`); this doc is the plain-English companion,
 written for card P3-1 (Phase 3, the last build card in that plan).
 
+**Lane status (2026-10-18, founder):**
+
+| Lane | State |
+|---|---|
+| `community-scan` (daily hot-thread RSS scan) | **Retired.** Schedule removed (manual `workflow_dispatch` only) and `COMMUNITY_SCAN_ENABLED=false`. Reddit discovery is the awareness lane. Re-enable: restore the cron in `community-scan.yml`, set the variable `true`. |
+| `community-inbox` (`reply_to_us`) | Kept. |
+| `routine-community-answerer` | Kept, skips Reddit `hot_thread` (50-turn cap). |
+| `community-mailer` | Kept, skips Reddit `hot_thread`; Facebook leads still mail. |
+| Awareness lane | Unchanged. |
+
 **The one rule that matters:** nothing here ever posts, comments, replies,
 votes, follows, or DMs on Reddit or Facebook by itself. Every piece of text
 this system produces is a *draft* — a human (you) always does the actual
@@ -43,6 +53,18 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
 - **Facebook** leads only appear once the Facebook export collector is
   running (it needs the owner's Facebook login); until then only Reddit
   opportunities arrive.
+
+**Where each lead is posted** (`mailerRouteFor`, `scripts/lib/discord-route.mjs`):
+
+| Platform | Channel |
+|---|---|
+| Reddit (mailer cards, batch header, awareness cards, Qwen second opinion) | `#tree-reddit` |
+| Facebook | `#tree-facebook` |
+| Anything else | `#tree-main` |
+
+Since 2026-10-18 all Reddit leads go to `#tree-reddit` (founder). The reaction
+poll still falls back to `#tree-main` so older Reddit cards there keep
+registering ✅ / ⏭️.
 
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)

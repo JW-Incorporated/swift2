@@ -8,3 +8,4 @@ these to `true`; only the owner may lift them.
 
 | UTC time | Variable | Change | Reason |
 |---|---|---|---|
+| 2026-10-18T19:44:37.255Z | COMMUNITY_SCAN_ENABLED | true -> false | founder 2026-10-18: retire hot_thread daily scan |

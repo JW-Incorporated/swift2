@@ -101,6 +101,12 @@ jobs:
         with:
           node-version: "24"
 
+      # sharp (root dependency) fingerprints images for the same-picture check
+      # (#5990); without node_modules every image reads as undecodable and
+      # check-drafts fails closed on every draft (#6062). Trusted base checkout.
+      - name: Install dependencies (image fingerprinting needs sharp)
+        run: npm ci --ignore-scripts --silent
+
       # One read of the PR's state/authors/merge base, then the gate runs over
       # git objects pinned to that head SHA.
       - name: Read the PR and fetch its objects at the pinned head

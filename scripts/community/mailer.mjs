@@ -68,9 +68,9 @@ import {
 
 export const SITE = 'https://www.longlivets.com';
 
-/** Facebook leads go to tree-facebook (#5987); Reddit leads keep tree-main. */
+/** Reddit leads go to tree-reddit, Facebook leads to tree-facebook (#5987). */
 export function mailerRouteFor(platform) {
-  return platform === 'facebook' ? routeForPlatform('facebook') : 'tree-main';
+  return platform === 'facebook' || platform === 'reddit' ? routeForPlatform(platform) : 'tree-main';
 }
 
 export const MAX_LEADS_PER_EMAIL = 15; // matches Answerer's own ≤12/day draft cap + headroom
@@ -249,6 +249,7 @@ export async function fetchLeadsToMail(
     .eq('status', 'drafted')
     .not('draft', 'is', null)
     .neq('kind', 'awareness_reply') // the awareness lane delivers via awareness-deliver.mjs
+    .or('platform.neq.reddit,kind.neq.hot_thread') // Reddit hot-thread scan retired 2026-10-18: never mail leftover Reddit hot_thread drafts (Facebook hot_thread leads still mail)
     .order('created_at', { ascending: true })
     .limit(FETCH_POOL_LIMIT);
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');

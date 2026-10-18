@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-18: retire the hot_thread daily scan (founder); Reddit discovery = awareness lane; reply_to_us kept
+
+`community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` and `community-mailer` exclude only Reddit `hot_thread` (`platform.neq.reddit,kind.neq.hot_thread`; Facebook export leads are also `hot_thread` and keep flowing); answerer max_turns 80 to 50. Leftover Reddit `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two filters.
+
+Approved: Joey (2026-10-18).
+
+---
+
+## 2026-10-18 — All Reddit leads go to #tree-reddit (founder)
+
+`mailerRouteFor('reddit')` now returns `tree-reddit` (was `tree-main`); the reaction poll keeps its `tree-main` fallback for older cards. Approved by the founder; reverts with one line.
+
+---
+
 ## 2026-10-17 — Qwen second opinion: queue plus home poller (architect #15, founder-approved)
 
 Reply cards get a second drafted reply from the founder PC's local Qwen. `engagement_lead` carries a `qwen_*` queue; `scripts/home/qwen-second-opinion/poller.mjs` runs every 5 minutes on the PC, stores the draft; the cloud `community-reaction-poll` job (which already holds the bot token) posts it under the card, so the PC needs no Discord token. No inbound exposure of the home gateway, no cloud fallback (D1: no Anthropic API); an unreachable Qwen leaves rows pending. Existing rows were backfilled to skipped so old cards are not flooded. Reversible: remove the scheduled task.
