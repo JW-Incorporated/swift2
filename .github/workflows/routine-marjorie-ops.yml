@@ -157,6 +157,22 @@ jobs:
           include-hidden-files: true
           retention-days: 1
           overwrite: true
+      - name: Stage pruned last-handled map
+        id: prune
+        if: always() && steps.precheck.outputs.handled == 'true'
+        run: |
+          if [ -f .scratch/marjorie-ops-pruned.json ]; then
+            mkdir -p .marjorie-state
+            cp .scratch/marjorie-ops-pruned.json .marjorie-state/last-handled.json
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Save pruned last-handled map
+        if: always() && steps.prune.outputs.present == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: .marjorie-state/last-handled.json
+          key: marjorie-ops-handled-pruned-${{ github.run_id }}-${{ github.run_attempt }}
 
   # Founder decision 2026-10-06: plain deterministic job (no LLM), so a due
   # auto-defer never starts the Sonnet `run` job. The PAT is needed so the
@@ -232,7 +248,7 @@ jobs:
             cp .scratch/marjorie-ops-handled.json .marjorie-state/last-handled.json
             echo "present=true" >> "$GITHUB_OUTPUT"
           fi
-      - if: steps.stage.outputs.present == true
+      - if: steps.stage.outputs.present == 'true'
         uses: actions/cache/save@v6
         with:
           path: .marjorie-state/last-handled.json

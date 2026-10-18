@@ -129,6 +129,13 @@ export function buildOpsSignals(snapshot) {
 }
 
 // A must-run set only wakes the agent when an item is new or changed since the last handled run, or the last run is stale.
+// Keep only ids still present so a resolved item that reappears with the same state counts as new.
+export function prunedHandled(flagged, lastHandled) {
+  const present = mustRunState(flagged);
+  const items = Object.fromEntries(Object.entries(lastHandled?.items || {}).filter(([id]) => id in present));
+  return Object.keys(items).length === Object.keys(lastHandled?.items || {}).length ? null : { at: lastHandled.at, items };
+}
+
 export function mustRunUnchanged(flagged, lastHandled, now) {
   const must = flagged.filter((signal) => signal.mustRun);
   if (!must.length || flagged.length !== must.length) return false;
@@ -184,9 +191,9 @@ export async function runPrecheck({ env = process.env, collect = collectOpsSnaps
     const flagged = judged.filter((signal) => signal.mustRun || signal.probability >= NEEDS_ACTION_THRESHOLD);
     const now = Number(snapshot.now) || Date.now();
     if (mustRunUnchanged(flagged, lastHandled, now)) {
-      return { mode: 'skip', reason: `must-run unchanged since ${lastHandled.at}: ${flagged.length} items, skipping`, signals: judged, flagged, chasePlan: snapshot.chasePlan };
+      return { mode: 'skip', reason: `must-run unchanged since ${lastHandled.at}: ${flagged.length} items, skipping`, signals: judged, flagged, pruned: prunedHandled(flagged, lastHandled), chasePlan: snapshot.chasePlan };
     }
-    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, mustRunState: mustRunState(flagged), at: new Date(now).toISOString(), chasePlan: snapshot.chasePlan };
+    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, pruned: flagged.length || !lastHandled?.at ? null : prunedHandled(flagged, lastHandled), mustRunState: mustRunState(flagged), at: new Date(now).toISOString(), chasePlan: snapshot.chasePlan };
   } catch (error) {
     return { mode: 'fail-open', reason: `Jev failed: ${clipped(error?.message || error, 160)}`, signals, flagged: [], chasePlan: snapshot.chasePlan };
   }
@@ -199,6 +206,8 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify({ ...decision, chasePlan: undefined }, null, 2)}\n`);
   if (decision.mode === 'flagged' && decision.at) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-handled.json'), `${JSON.stringify({ at: decision.at, items: decision.mustRunState })}
+`);
+  if (decision.pruned) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-pruned.json'), `${JSON.stringify(decision.pruned)}
 `);
   if (decision.reason && decision.mode === 'skip') console.log(decision.reason);
   if (decision.chasePlan) writeFileSync(path.join(path.dirname(out), 'dispatch-chase-plan.json'), `${JSON.stringify(decision.chasePlan)}\n`);

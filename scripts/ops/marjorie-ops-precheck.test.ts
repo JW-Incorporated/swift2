@@ -248,6 +248,21 @@ describe("must-run fingerprint gate", () => {
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 
+  it("drops vanished ids from the saved map so a reappearing item counts as new", async () => {
+    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" } };
+    const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled });
+    expect(result.pruned).toEqual({ at: lastHandled.at, items });
+    const gone = await runPrecheck({ env, collect: async () => empty, clientFactory: () => noul(), lastHandled });
+    expect(gone).toMatchObject({ mode: "skip", pruned: { at: lastHandled.at, items: {} } });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: gone.pruned })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("workflow never compares an output to an unquoted boolean", () => {
+    const wf = readFileSync(".github/workflows/routine-marjorie-ops.yml", "utf8");
+    expect(wf.split(/\r?\n/).filter((line) => /\bif:.*(==|!=)\s*(true|false)\b/.test(line))).toEqual([]);
+    expect(wf).toContain("steps.stage.outputs.present == 'true'");
+  });
+
   it("workflow uploads hidden files and saves the fingerprint only after a successful run", () => {
     const wf = readFileSync(".github/workflows/routine-marjorie-ops.yml", "utf8").replace(/\r\n/g, "\n");
     expect(wf).toMatch(/path: \.scratch\/\*\.json\n\s+include-hidden-files: true/);
@@ -255,7 +270,7 @@ describe("must-run fingerprint gate", () => {
     const save = wf.slice(wf.indexOf("  record-handled:"));
     expect(save).toContain("needs.run.result == 'success'");
     expect(save).toContain("actions/cache/save@");
-    expect(wf.slice(0, wf.indexOf("  record-handled:"))).not.toContain("actions/cache/save@");
+    expect(wf.slice(0, wf.indexOf("  record-handled:")).match(/actions\/cache\/save@/g)).toHaveLength(1);
   });
 });
 
