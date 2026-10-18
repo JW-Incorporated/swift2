@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Taylor Swift Sighted on Stage During Weekend Protests Coverage
+
+- first seen: 2026-10-18 13:13 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Photographs from the weekend showcase various events across Europe, including Taylor Swift performing on stage. The Guardian highlights the imagery from these significant moments.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/news/gallery/2026/oct/18/photos-of-the-weekend
+
+## Taylor Swift Performs During Pan-European Protests Weekend
+
+- first seen: 2026-10-18 13:13 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Photos highlight Taylor Swift performing on stage during recent pan-European protests. The event showcases her involvement amidst significant social movements.
+- sources:
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMif0FVX3lxTE1uaTExb1dKcmJEYVJ5aWZkNzZXMDBldmI2ZjZ2aDZxbkVkSUhiY1Z3YjNaOXExMmY4UDg2TXI0VlRTNFVoX0FmOTBtdXVwVUx6NS1OaXVyQTQ2SHlta3JaWmNRSmJoaGxJSms3NTVIRmU5VUh4ZF8tRGV2OWZXdjA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shines in Dior Gown at 2026 Academy Museum Gala
+
+- first seen: 2026-10-18 13:13 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a stunning appearance at the 2026 Academy Museum Gala, wearing a beautiful pale blue Dior gown with eye-catching diamonds. The event showcased numerous stars and featured Swift's live performance of 'The Fate of Ophelia' for the first time.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxOZ2JWOXBHVGNLU0ZEN1B2dTdnNDBJbHdmZnQtYmlqU01XVTlUWk1BX1g1WHloYkpHd25INXpMaFNWTmVpMU11MWViZUNDc1l4RWVQSFlmUEhYZTNOVWxqaTlHRFJiMlFVRGFsZFNIT2ZRclFzQVdPaXZ0aHE0dXEtLWZscnhKUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Kim Kardashian Attend Academy Museum Gala
 
@@ -687,11 +711,3 @@ Stories: 83
 - summary: At a recent rally, Donald Trump referenced Taylor Swift while discussing his TikTok ranking, highlighting her influence in pop culture. The mention occurs amidst broader commentary on social media and its impact.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxQTlAtbHFYMkQ0RkI5dHJqRUZ0NS1yWDhVRmpTVFZ4YmRIUENlR2NOcEJnYk5KLXR6bFZGSklxQzZpcXh5cU8xMzNfejNiSGE5WXBZSGxNaXVUdktCWmJHRkxmV0RzcndhaGZvVnRNRjBORGtNYVlHT1BVdXFjOTc0NmxCZng2RUhac0p1VmpjdE4wMlhGWTY0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Institute for Family Studies Discusses Taylor Swift's Appeal to Conservatives
-
-- first seen: 2026-10-15 12:46 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article by the Institute for Family Studies explores reasons why conservatives might find common ground with Taylor Swift. It analyzes her influence and cultural impact from a conservative perspective.
-- sources:
-  - [unverified] Institute for Family Studies — https://news.google.com/rss/articles/CBMifkFVX3lxTFBkRXBfb3RySUNZdlgtdjNXOElMWllsY1RHRlRGeFhGemVQZjZ2WFJnRmRpd3M1Z2Q5Yk1EVHNmQ0lxcmZHbkFSRjdaeTlGazRaaEkxMEJnQUZ2MW5JNzBaemhmaGp6aWU1N0Q4NnMtUF9QdVI3Z29OeUhNcFRnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
