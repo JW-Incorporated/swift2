@@ -371,11 +371,49 @@ displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
 the event run may not edit `social/calendar.md`; the next weekly run
 reconciles the calendar to what actually shipped.
 
-**Cap — ≤2 news posts per rolling 7 days.** News is the one campaign that can
+**Cap — ≤2 ordinary news posts per rolling 7 days** (raised to a ≤3 total
+ceiling for major moments, 2026-10-18 — see the next paragraph). News is the one campaign that can
 arrive unplanned, so it gets the same bounded shape as the T6 fast lane: the
 rotation it preempts is what teaches new followers the product, and a week of
 pure reaction posting is how a fan account becomes a news aggregator nobody
 needs.
+
+**Major moments — the site's front page is the trigger (added 2026-10-18,
+answering Marjorie's ask [#6084](https://github.com/JW-Incorporated/swift2/issues/6084)).**
+In the week to 2026-10-18 the site covered **12 of 13** real-world events and
+social covered **1** (the week-of-10-19 plan, [#6083](https://github.com/JW-Incorporated/swift2/issues/6083)).
+Two mechanical failures took most of it — the engine was dark 10-12→10-14 on a
+weekly usage limit, then a broken photo check refused every draft through 10-18
+([#6056](https://github.com/JW-Incorporated/swift2/pull/6056), fixed by
+[#6077](https://github.com/JW-Incorporated/swift2/pull/6077)) — but the
+arithmetic above is the other half: a ≤2 cap on a 13-beat fortnight could not
+have carried 12 events even on a perfect week. So, from this plan on:
+
+- **A major moment gets a same-day pair and does not spend the ordinary cap.**
+  *Major* means a confirmed event the site itself fronts: a live debut, a
+  release, an official video, a chart No. 1, an award, a tour or appearance
+  announcement — never an intake row whose `significance` is `routine`. The
+  ceiling becomes **≤3 news posts per rolling 7 days, of which ≤2 may be
+  ordinary**; a third in one week must be major. The anti-aggregator reason the
+  ≤2 was written still holds for everything that is not major, which is most of
+  the intake feed.
+- **Every calendar leaves somewhere for one to land.** Each rolling 7 days
+  carries **≥2 displaceable beats** — a `heartbeat:` or `mood:` beat — on top
+  of its news reserve. A plan with zero slack is how a full calendar silently
+  turned 12 covered events into one post; one reserve cannot absorb two majors
+  in the same week. October's minimums (≈2 thread heroes + 1 timeline + 1
+  reserve per week) leave three, so this costs no minimum.
+- **Same-day means same day.** The yield order above is unchanged (heartbeat,
+  then mood). If no heartbeat or mood beat is free inside 48h, a major moment
+  takes the nearest one and that beat is **dropped rather than slid**, recorded
+  in the item's `why`. A major moment posted two days late is not news.
+- **It is measured.** Each weekly plan reports news pairs shipped against major
+  site-covered moments, so a 1-of-13 gap shows up as a number rather than as a
+  good intention.
+
+The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
+live and already sourced on the site; it is not a substitute for sourcing the
+claim against the Vault or the intake record (invariant 13).
 
 **Bar.** A news beat is scored on the six-dimension rubric the fast lane
 already uses — T2's five plus **`timely`, which must clear 4 on its own** — and
