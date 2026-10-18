@@ -109,6 +109,7 @@ jobs:
         with:
           name: marjorie-ops-precheck
           path: .scratch/marjorie-ops-precheck.json
+          include-hidden-files: true
           retention-days: 1
       - uses: actions/checkout@v7
         with:
@@ -116,6 +117,13 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
+      - name: Restore last-handled must-run fingerprint
+        continue-on-error: true
+        uses: actions/cache/restore@v6
+        with:
+          path: .marjorie-state/last-handled.json
+          key: marjorie-ops-handled-miss-${{ github.run_id }}
+          restore-keys: marjorie-ops-handled-
       - name: Install Jev client dependencies
         continue-on-error: true
         run: npm ci --silent
@@ -130,6 +138,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
           AUTO_DEFER_AUTHOR: sffan15-sys
+          MARJORIE_LAST_HANDLED_FILE: .marjorie-state/last-handled.json
         run: node scripts/ops/marjorie-ops-precheck.mjs .scratch/marjorie-ops-precheck.json
       - name: Record a precheck crash as fail-open
         if: always() && steps.precheck.outcome != 'success'
@@ -145,6 +154,7 @@ jobs:
         with:
           name: marjorie-ops-precheck
           path: .scratch/*.json
+          include-hidden-files: true
           retention-days: 1
           overwrite: true
 
@@ -197,3 +207,33 @@ jobs:
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  # Persist the must-run fingerprint only after the agent run succeeded, so a
+  # failed run is retried on the next fire. Caches are immutable, so each save
+  # uses a fresh run-id key and the gate restores the newest by prefix.
+  record-handled:
+    needs: [gate, run]
+    if: needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: marjorie-ops-precheck
+          path: .scratch
+      - name: Stage fingerprint
+        id: stage
+        run: |
+          if [ -f .scratch/marjorie-ops-handled.json ]; then
+            mkdir -p .marjorie-state
+            cp .scratch/marjorie-ops-handled.json .marjorie-state/last-handled.json
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.stage.outputs.present == true
+        uses: actions/cache/save@v6
+        with:
+          path: .marjorie-state/last-handled.json
+          key: marjorie-ops-handled-${{ github.run_id }}-${{ github.run_attempt }}
