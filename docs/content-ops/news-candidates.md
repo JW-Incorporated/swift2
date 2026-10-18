@@ -25,7 +25,80 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 79
+
+## Mammoth Looks to Taylor Swift's Advice Following Tough Loss
+
+- first seen: 2026-10-18 07:46 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: After facing a significant defeat, the Mammoth team is considering advice from Taylor Swift. The reference underscores the influence of Swift's perspective in various unexpected contexts.
+- sources:
+  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOUWZTTFZ1ZFVnaEVnTGVnQTRXMVI4ODlENnBra2hwNmFLZkczTnhua2gtSmxUVXRVeGpRZlp4V0FEdEg5X19JajlsUmg0RXoxeXJwbkRNbVZtRnlMNEF6aWY0eXozTTVmemp5Q2lMdnhYNG5Fd2V2Mlk0QWUxMHlVRHZJSDM0WmhlSmtB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Hair Care Secret with Fans
+
+- first seen: 2026-10-18 05:50 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reveals her secret to achieving lustrous, full hair using a volumizing shampoo praised by fans for leaving strands soft and bouncy.
+- sources:
+  - [unverified] www.instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMW5qR1NBTGFsUGpGajFOc0JHVGJVeTdqQlEyUnJ4dmRKcHBMQURiNThJaEJqZk9jYUxSRFBWWkxwR0dGTndEeUM2NDdYMUQxM3VwUmhYNUtRV0RXck5NUzZhYkJQSlVUWElqeXpQdndhZ0dBUnAwcUhqM1VOSjJXSlNWMzhWTmdL?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Baby-Blue Gown Sparks Wedding Dress Speculation
+
+- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A recent article from Harper's BAZAAR discusses Taylor Swift's baby-blue gown and speculates whether it may be a hint at her potential wedding dress. The piece examines the fashion choices of the artist in connection to wedding themes.
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMixwFBVV95cUxOUWZodjh3blZaWTUzMjFLMjRad3o5eUw5S2ZieGNpNXBEeUdvaVNoeVk0WGJ1LUxvcC1VeVdhNzZlTFpWUGhSbjYybnJJWkF0UE55bVdQRXU1ZFBHTHZWSFNiVWJGRjdnOEtFTm9vRlg2S3VJNDlQbVFMS3Y5X1Y5TV96Y2pqYllHcV93b2MxZ0x5SnZnZjd4cWFuN2Q0dmtIdXBWaFpIRjlpc1F5b0ZpcXNRSXBaTW5NTEVCV2RVeGQzMWc3Y0tn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Red Carpet Style Continues to Impress
+
+- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been recognized for her evolving fashion choices at red carpet events, showcasing a remarkable sense of style. The latest article from The Zoe Report highlights her impressive fashion moments.
+- sources:
+  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMihgFBVV95cUxQZm1WNHlsUGl4cUxrNFlGazB1SGFGT0RBdm9HQ2dfS3YtNFRjQmM3QU55ajVwQkMyaEhhN1ZBNmJGQjBxS2x6MVVEQk1QcERZUXVxWHlYUXdPbGVhckNIbXVIZV9Nbjc4SVFWcm4yaVJpQW1IS1FWNGFZc3ByQjJmWFV1YUZsZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Strapless Gown at Event
+
+- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, 36, made a striking appearance in a strapless gown at a recent star-studded event.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxNRVhua0ZQbEpJdlZPMjNGUkE4Y3dPMWFyQVEtdHF5RzlDRTZwTDl2VXNyUjZZdWdZWDRDUmIycGZrOU45d0JlYXNGcGdPczhDajRNN0Z0d01NcTRtZUJoU1ByVzdMNFJ4QURlNjNCUS00bjFpYU5fZDFHMEJGSUZVQkx4QmVNSXlnckVlWXV3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Academy Museum Gala in Los Angeles
+
+- first seen: 2026-10-18 03:51 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted at the Sixth Annual Academy Museum Gala at the Academy Museum of Motion Pictures in Los Angeles on October 17. The event showcased her stunning look and was covered by various media outlets.
+- sources:
+  - [unverified] Facebook — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNWHVPSENjTXIzdXAycENSS19DSnNLanpIUTloYzV3cGxVMGFqOTFfamQ2UmxrQWdaTEVueG10cHBneS1HTHBEUGZTLTBEQWR3bWVEdzFTZWpFcHlqcmhqS1EyNHdhUFNwWFp1aWZFRDByR3JMb1NtTXhtZ2hSQ2x0NFVPMm9TMk9Sc2JNbzRoLVdBS2pPMFN1Vl9vQjAtbjV1dTVELUNBQU1RRWRTZ0VmZ0hzWVd4SFI5WWYzM2ZrQW5nU09UUkJySEpyMl91aGdQMU44?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Graces the Red Carpet at Academy Museum Gala 2026
+
+- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift attended the Academy Museum Gala 2026, showcasing her fashion on the red carpet alongside other celebrities like Inde Navarrette.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMie0FVX3lxTE9NTGVpUlBJaFp1MXpRdlBIbkxSZk5GbE5JTFEzV1VLUEY4XzRwMV9NY3NwbV8wUWc2NFJYdHlIbWlLNXd4ZU11YTNic1VBU2hVZEFJR01lV3JNalVvOEZrcVotb19IOFJ6U1NwajZxZXlnTVdEN1B2Z0Zibw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-dress-academy-museum-gala-2026-1239364045/
+
+## Taylor Swift Stuns in Dior Dress at Academy Museum Gala
+
+- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At the Academy Museum Gala, Taylor Swift impressed attendees with her strapless Dior dress, marking her debut at the event. The fashion choice has garnered significant attention from fans and fashion enthusiasts alike.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMilgFBVV95cUxOaTNpRXJWOFBwTkJoSUI2Rm1iU1RZS1Q4UDlrWFI0QkdtSHFING44VHNCUWpNWXpXTWdhNXpJakN5eXdLQm9GZEp1eEh0amVaakV5dFhmNUJxSHZBaVBhS2V1SzdoR1gxZE5yYWtrUjVqdHVmN29wOUFmRUQ3Ym9xRjlqNk04c2dZLTNzSmRkQ09jM2c2dUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Stuns in Ice Blue Gown at Academy Museum Gala
+
+- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a stylish entrance at the Academy Museum Gala, donning an ice blue gown accentuated with a giant crystal bow. The outfit showcases her distinctive fashion sense at a high-profile event.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYWEyNGoxNlVDMWRlNjFtenA4eFBPZWRMV2dISVRMLVVSUGNWTzJOZFVfekxhdElVN3R2bDZ3TzZhYmlVNm5LUU5seG1ZclQ0YkF0UjZTc3RhVER5cnU2b0EwMDBuRWF2ellIekg3cmZaTjdKTEIzODFERFV2UW5YaXJzSFRSc2FFNWZodmlRVEJxSnJFWG1taFVUNVQ3UnJF?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Carlotta Films Secures French Distribution for 'It' Featuring Clara Bow
 
@@ -307,14 +380,6 @@ Stories: 73
 - sources:
   - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWlpoQTExc3NCZnpjb2VJanRHczJqOUZwVW4tYlZHMFJjV1dqRHVsa3RMYW0yUEZuN25sSDJNbXEyTjhoQW5aOUVpVzNaN1JxYjVYcVpjdVhiZElGVWd0VDhXNU9tY3VFWEtjQ25oeEF1ZzlaNHdsa0ltSURqM0toNlNXT3ozN09r?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Surprise-Drops New Music After Olivia Rodrigo's Release
-
-- first seen: 2026-10-16 12:46 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released new music just hours after Olivia Rodrigo's latest project, reigniting discussions about chart competition amongst female artists. The timing has prompted mixed reactions regarding the concept of chart-blocking.
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBkelY2TGNvdEp5aTNmYUZHSktzVGxqTVRHakRKR3kwcmgzUUlqWkRpUjlsRjVOSzlybXJlemt2ZTZDU1lMWWxISXZhVERhUlltem1vdVhRd2FtSThnNHdWX1BkQzN2VTlsM0xnLXBzd0NXRF95R0poTWV1bzNfTFN6Mm1sMTJnXzNGbng4SVoxZlFlcU8tcWRlQng?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift faces claims of chart-blocking Olivia Rodrigo with new release
 
 - first seen: 2026-10-16 12:46 UTC | category: music | importance: 7
@@ -338,6 +403,14 @@ Stories: 73
 - summary: Taylor Swift has been seen sporting a stunning no-makeup look, capturing attention and admiration. The appearance highlights her natural beauty and has sparked positive reactions from fans.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijwFBVV95cUxPVW90WDZUUldTTzNuVXgtcHFSckI5cFFaR3RudXpjanZIOXdNQ2JBejNlYmppMDIyUjA3dkNrWkZhQ1FFdzlzNnNna1pVbFA3U1dEVUhnWHFJUWNkaEJlRzZwWTBWd1ZfT29pdnBLcFBoQ29iRkRDU05UM04xVkV1cUdGVFRqWERYMGprdEZhZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Surprise-Drops New Music After Olivia Rodrigo's Release
+
+- first seen: 2026-10-16 12:46 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released new music just hours after Olivia Rodrigo's latest project, reigniting discussions about chart competition amongst female artists. The timing has prompted mixed reactions regarding the concept of chart-blocking.
+- sources:
+  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBkelY2TGNvdEp5aTNmYUZHSktzVGxqTVRHakRKR3kwcmgzUUlqWkRpUjlsRjVOSzlybXJlemt2ZTZDU1lMWWxISXZhVERhUlltem1vdVhRd2FtSThnNHdWX1BkQzN2VTlsM0xnLXBzd0NXRF95R0poTWV1bzNfTFN6Mm1sMTJnXzNGbng4SVoxZlFlcU8tcWRlQng?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Selena Gomez Praises Taylor Swift's Marriage Advice
 
@@ -443,14 +516,6 @@ Stories: 73
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOZXhGdE15dWlvbklPb3VsOU1PREJQYUZDeGd0OWpvSTZoRmdONWVlaVJ6NGNjNDN1LW9QTDdrUUxFMDlsT3hBa3FkLWdyMk1nUWRxT1ZicGFLZW9yV3V4VjVMWW9ockFncEVMb05HUkVLSlZYS2RxZS13OHNpbHBJRWtZQ0FUbXZDamNjR08zUmhpcC0za01VdnJNTFNJZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's Impact on America's Literacy Crisis Discussed
-
-- first seen: 2026-10-15 22:16 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A column explores how Taylor Swift's influence relates to America's literacy crisis, highlighting her cultural significance. It discusses her role in engaging with important social issues.
-- sources:
-  - [unverified] The Virginian-Pilot — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSzlKLTdYR0pYRUZ4RXhKV053SnE5WlZyTmlpdHBZSEJDTkdzSGJ5dC1MWWZBaUVWOUQ2UmxwLUE5QzFaTzlHOWc2RUg3SkR5OWVqMk1ndmtacm4wY2N2U2tWQTJ4Rm1pdkdJSzB2WHJZWWViMmJELUpRNThEVy1EeHBXOWZQSHhXZXBOV1U2ZWNGY0ZHNXRyY251ZHRvY2R4SU1JREVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Donated 6,000 Books to Pennsylvania Library in 2011
 
 - first seen: 2026-10-15 22:16 UTC | category: business | importance: 7
@@ -458,6 +523,14 @@ Stories: 73
 - summary: In 2011, Taylor Swift made a significant donation of 6,000 books valued at $68,000 to a struggling library in Pennsylvania. This act of generosity highlights her commitment to supporting educational initiatives.
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMigANBVV95cUxQRHU4SFBZYW5qeVpPWU5GS1JJNGVmY3FPSWZGR2pjLTRUSjhXODB5UERqRzA3YzV3eldZNzAzX2JmcUlsZnMtdEtRRFZ2aEJXLXZfV2tLV2dLeURLWGllWjBzZHVjMHNNOEYyMUFZX1RlUFJQbnZJWmJjM0o1N3R4cjNBdkJmNTdLYTFnX0NwMWpIUmtoNTJCYUJYN1J1Z1EycC15bVVkQXFoTmdJVU02dmZMQlQzb29sMWZIYzhRdG0ydnhaSGtlaEhPc0JfR1haWXZmRW92LUJrd3ZyZlJqZEl1TkM4MDIzQ0g4UXo2SWlRbWstdWdOWnh6ZXJVTGt3RFAyZHZ1clZRcTM2TVVtYnoyUGRrZ29ZX3BYZVBXQTN2UEV4LVNFcXVOY045em4tcU1xUHpTamNjeTNYanMwMkljR185RkhZQlMtQTZaek9WUmhrb3B4ZXJhUkQ0UW1TSThJYTJhMF9NMUpIWU9JcVlQY01LYm56UF9OYktvM1jSAYYDQVVfeXFMT3dTWXl0UXkxaGR6eWhEa3p5VlZSUVFaelBpZU4tWE1CT0IyRzdMUWZqSzZHYmdxMlB0YkxFYXJNLW5MamxVbERRblVCNTZoeldzV1c5S1p6NEI5RWNDX3FmZll3LTJPT1dBU2Y5aGRhdlNZZDVkZU9MWjM5N19SSGFYTW9kNGFsa0pscnJXbjZvUkl6WGNFUC1CRGhlcXctenZmdml0Q1ZEMVg1NmpUUnlJNy03bG1VZlIzMFQ4OGlmTUU5Y3JhdnRYazR5SU9vRGU3WFVPc3JpTGd0bVBqMUlTOXBDdlBrTlBNRjZQcmxnb3pxdGdpZHBWcjdSUElQR19YUTNsX21LdGdKU1hwVGtHVnFfUy1oTFRXc056Zi1yWUQ0ZjRtOUJPejcwN0pVdjNrRjQzdm9IbG5rcDIwc2hicXMtVlhHMmV4aGtXWGx3SE9MZDFQMkE5ZG1YUXZsMFJfb0I5bTJscmpKckFpdWQyZFlxMFZzUlNJeVJ1eXYteFp6ZVB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Impact on America's Literacy Crisis Discussed
+
+- first seen: 2026-10-15 22:16 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A column explores how Taylor Swift's influence relates to America's literacy crisis, highlighting her cultural significance. It discusses her role in engaging with important social issues.
+- sources:
+  - [unverified] The Virginian-Pilot — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSzlKLTdYR0pYRUZ4RXhKV053SnE5WlZyTmlpdHBZSEJDTkdzSGJ5dC1MWWZBaUVWOUQ2UmxwLUE5QzFaTzlHOWc2RUg3SkR5OWVqMk1ndmtacm4wY2N2U2tWQTJ4Rm1pdkdJSzB2WHJZWWViMmJELUpRNThEVy1EeHBXOWZQSHhXZXBOV1U2ZWNGY0ZHNXRyY251ZHRvY2R4SU1JREVn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Bad Gyal Declares She Would 'Never' Collaborate With Taylor Swift
 
@@ -493,14 +566,6 @@ Stories: 73
   - [official] Taylor Swift — official site — https://www.taylorswift.com/
   - [official] Taylor Swift — official store — https://store.taylorswift.com/
 
-## New Song 'I Knew It, I Knew You' from Toy Story 5 Released
-
-- first seen: 2026-10-15 16:06 UTC | category: release | importance: 5
-- verification_status: official | source_count: 1
-- summary: The new song titled 'I Knew It, I Knew You' from Toy Story 5 has been officially released and is available everywhere. Fans can now listen to it across all platforms.
-- sources:
-  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/shorts/o9LcBozLplo
-
 ## Taylor Swift Releases Visualizer for BUNT. Remix of 'Opalite'
 
 - first seen: 2026-10-15 16:06 UTC | category: release | importance: 5
@@ -526,6 +591,14 @@ Stories: 73
   - [unverified] InStyle — https://news.google.com/rss/articles/CBMif0FVX3lxTE9nSFlSTkM3YUtrZ0szWlhTcG1iTlRVY29LREt4WThyNzM5WkpSamNKV3dIcFlnTnZIZUgxTnhjeFp3NjdpSW45NzJ3VlFmNW1SMHc4Z09aZEVRZXVoQVpDWTh6NzhoenJkTXNxQnJPZGtJY0ZzRXFhb21jLXZEVk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxOai1yUlo4ZVJLUXI0Qk13WWNfYXZfZ1VBTkxDZWVPb1o1dm9RdHNMSUtTODM4ZlNEVE8wQTJzYUlmRENTTEhYR3lYeld5LXVrOGVtdTdSWjdnTzNrUWRNeUhYTWtycDIxdmdsRjRUbnVIekhOMm01TXZzM0Y4a3VkQWwya2pDOG42dXNEdEFmM09wajBLMUZhcV9n?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQTHlwYUMxa1FhU1FZMXhPM3FrZm5xcWtXSDg3SDBZdWNOdkVlWGhoWlZWVkhtTW1RUWZVcmUzZUJaRkhmc2cwODczTHd6TVJmWFVNSmZHVzZ4OXRtWnVhZ3A3S0toeXVFVzZCQUhHRWlaNjMyb240Qk55TVhDNXdpYzE5QzlZbGpoM0R5bjJqM2dtUy1oODV6WGJnQzdfeHlMQUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New Song 'I Knew It, I Knew You' from Toy Story 5 Released
+
+- first seen: 2026-10-15 16:06 UTC | category: release | importance: 5
+- verification_status: official | source_count: 1
+- summary: The new song titled 'I Knew It, I Knew You' from Toy Story 5 has been officially released and is available everywhere. Fans can now listen to it across all platforms.
+- sources:
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/shorts/o9LcBozLplo
 
 ## Exploring Taylor Swift's Car Collection and Rumors
 
@@ -590,27 +663,3 @@ Stories: 73
 - summary: In a recent interview, Selena Gomez acknowledged that Taylor Swift excels in a particular aspect of marriage. The specific trait was not disclosed in the headline or snippet.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNSVhocDJlYkZqeUZWeUtyR0hrSlFrRnlaYXF6UTZIU3ZLMmgxT1pmOUdGSG9yNTlNLTBITnI1ZWpwY2Z4N2xtUUZEd1RyaTd0dk9nMjFTN2hkNm9qYlNiTFlmaVJyNlYzdEY5VDVQUXZmZmRXeGZ4eDZPeGE4WmFsamRSTjZmNUpFRG9kdnRyNFF2SUhHV0o3dVNKUUNuSW5Sa1hnMw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Al Michaels Comments on Taylor Swift's NFL Game Appearances
-
-- first seen: 2026-10-15 05:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Al Michaels has voiced his concerns regarding networks excessively featuring Taylor Swift during NFL broadcasts. His remarks highlight a broader discussion on celebrity appearances in sports media.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYXJpbFhMR0ctRnJ1ZWtZX3JqVkRaX09zamhveFRKWndJenlSNHFjQnVVN081b3Fhak0yUlptRWE1OXliem5RWmpTWkswa2toNEVpVzBaSTg2d3RJYXlCcUN0VGhGRENlZzcyZ0xvQ2xHeVUzXzhvaVVldlRUZUtreE9SdllPWVE0Yy00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Expands Voice Trademark Filings Globally
-
-- first seen: 2026-10-15 05:52 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has extended her voice trademark filings to the UK, EU, and Australia as a response to concerns regarding AI deepfakes. This move reflects her proactive approach in protecting her intellectual property in multiple regions.
-- sources:
-  - [unverified] Music Business Worldwide — https://news.google.com/rss/articles/CBMi1AFBVV95cUxQQ1J2R0FEVXQzVFRSVG1WZEVwRGktT3dDUWJGVlFkRDdpT1VoYzZ4R1RRSkx4THp5WVYyaGVaZUFLejJrZ1ZscFVJNGNOOHpqTDVHdW5rT3FjNGVwVmdYbDRYTUdqMjlKdUtYQ05Kd1BXQXY3dkFMc3NrRGpkZERRRkpMTlVKMTY2RXVybVR0cmVvVzRsSmlBcUk1M2FITEhxTmNXWC05MGMwdks1WDd3Q09GMWRWTHU4bjU5cE9qRENDVlhaMWFSM3V3MUlnd2xmcFpFQw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmitt Smith discusses the 'Taylor Swift effect' at Chiefs games
-
-- first seen: 2026-10-15 05:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Emmitt Smith shares his thoughts on the impact of Taylor Swift's presence at Kansas City Chiefs games, addressing the phenomenon often referred to as the 'Taylor Swift effect.'
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE16UzV2aXd0R0x4X1M5Yk1MRlRHWTNiZEJ3eHY3VXVmNlRNWFFnTVBUTjBOdzhvTzhaZnVHNW11bTlsa0puZFlJNVgtQlI2bzFNQmZhRnF0Y1RGRDJVY002V2FqOVZjM1dLVXZJ0gFrQVVfeXFMTl9WbG5MaDZ4dlZUcEtGZEtGclRWaXl3Z1NsYnNub2s4RWpoRWpDNno1b04tckY3VS1sdldCZi1OWWQxTmFoYU14Z3hHQU5HT0VBWGpOck9zVFJQNy03dUEtZjlNWjhqWE9BY2M?oc=5&hl=en-US&gl=US&ceid=US:en
