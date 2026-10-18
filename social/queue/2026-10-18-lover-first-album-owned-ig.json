@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "i will never be over this one 🤍\n\nit's Aug. 22, 2019 — Taylor on GMA's SummerStage in the middle of Central Park, a whole park singing along the night before Lover arrived.\n\nand here's what still gets me: Lover was the record she finally owned from day one. no label fight, no asterisk — just her name on the masters and a sound soft enough to match.\n\ntag the friend who was right there with you that August 🤍\n\nPhoto: ABC News / Good Morning America.\n\nlonglivets.com/?era=lover&utm_source=instagram&utm_medium=social&utm_campaign=era-deep-cut",
+  "media": [
+    "/social/library/photos/site-lover-36382d02c5.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "site-lover-36382d02c5",
+  "photoEra": "lover",
+  "mediaCredit": "ABC News / Good Morning America",
+  "mediaSource": "https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg",
+  "altText": [
+    "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned."
+  ],
+  "scheduledAt": "2026-10-18T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:lover-first-album-owned:2026-10-18",
+  "why": "10-18 NEWS RESERVE fallback beat: nothing coverable was uncovered (the 3 items in events.uncovered[] are all blocklist-adjacent gossip/negativity — a Kelce controversy, marriage-advice gossip, a diss — which neither this run nor the event run should post), so I drafted the beat's assigned lover era-deep-cut fallback rather than leaving the slot empty. Sourced angle: Lover (released Aug 23, 2019) was the first album Taylor owned outright (repo: apps/web/lib/longlive eras 'first album she owned outright'; photo-library altText for site-lover-36382d02c5), and the GMA Central Park SummerStage set was Aug 22, 2019, the day before release — both facts carried by the chosen photo's own library entry. Themed beat → photoEra 'lover', photo = photos.eras.lover.next (site-lover-36382d02c5, credited ABC News / GMA). Heartbeat item → share hook included ('tag the friend...'). X sibling shares campaign + scheduledAt, reframed around the owned-outright fact with near-disjoint vocabulary. rulesChecked [L002] (Reddit reply-eligibility rule, N/A to a queue caption).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "Lover era-deep-cut: the GMA Central Park set on Aug. 22, 2019 — the night before Lover arrived as the first album Taylor ever owned outright. The photo is that exact day-before-release moment, so it carries the fact rather than decorating it.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}

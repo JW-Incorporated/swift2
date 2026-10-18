@@ -1,0 +1,38 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "okay if you've never opened the Blank Spaces thread, this is your sign 🤍\n\nwe built it to answer the question every Swiftie has argued about at 2am: which song came from which chapter, and when. it reads Taylor's whole catalog as a relationship map — era by era, the songs each one produced, and the quiet stretches in between.\n\nthe kicker says it best: nine names before him. we stop the map right there, on purpose — this is the story of everything that came before, told in the order it actually happened.\n\nno speculation, no reaching. just the receipts, finally laid out so you can walk the timeline start to finish.\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ogrcvp.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ogrcvp",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ogrcvp/showgirl_3840x2160/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Showgirl [3840x2160]"
+  ],
+  "scheduledAt": "2026-10-19T23:00:00Z",
+  "campaign": "thread:love-story:origin-story:2026-10-hero",
+  "why": "10-19 Blank Spaces thread hero, origin-story angle — the teaching beat for followers who have never opened it (distinct from 10-17's single chapter: this tells why the thread exists, not one story). Facts sourced to supabase/seed/lenses/threads.mjs: title 'Blank Spaces', kicker 'Nine names before him', premise 'Her past relationships, era by era — the songs each one produced, and the quiet stretches in between'; the grid excludes the ongoing relationship, which is why the map stops 'before him'. Kept at the thread-concept level — no current-relationship speculation, no private individual named (blocklist-safe). Non-themed cross-era family → photoEra unset; photo = beat pre-compute pick (uncredited fan photo, so no mediaCredit field and no credit line). Thread/launch post → share-hook exempt. Experiment 01 TAGGED on both siblings. rulesChecked [L002].",
+  "experiment": {
+    "hypothesis": "A thread-hero post that teaches what the Blank Spaces lens IS earns more site clicks than our single-chapter love-story posts.",
+    "variant": "Whole-lens origin/explainer framing instead of telling one chapter of the timeline.",
+    "metric": "Site clicks (UTM) to /?lens=love-story vs. prior love-story chapter posts."
+  },
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Blank Spaces origin-story hero: teaches what the thread is — Taylor's catalog read as a relationship map, era by era, 'nine names before him', receipts only. The premise and kicker are the lens's own sourced copy; the photo is a real Taylor tour shot standing in as the face of the whole catalog.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}

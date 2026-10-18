@@ -1,0 +1,38 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "you already know which Taylor song is about who. we turned that instinct into a thread you can actually read — her discography as one honest timeline, every chapter in order, zero speculation 🤍\n\nlonglivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ogrcvp.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ogrcvp",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ogrcvp/showgirl_3840x2160/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Showgirl [3840x2160]"
+  ],
+  "scheduledAt": "2026-10-19T23:00:00Z",
+  "campaign": "thread:love-story:origin-story:2026-10-hero",
+  "why": "X sibling of the 10-19 Blank Spaces thread hero (see the IG item's why for sourcing and blocklist reasoning). Written first as its own post: one idea — the thread's premise, 'nine names before him' — the link, distinct vocabulary and first-five-words from the IG sibling so it clears the <80% cross-post gate. Same campaign + scheduledAt as the IG sibling; uncredited fan photo so no mediaCredit field. Non-themed family → photoEra unset. Experiment 01 TAGGED. Weighted length under 270, lyric-free. rulesChecked [L002].",
+  "experiment": {
+    "hypothesis": "A thread-hero post that teaches what the Blank Spaces lens IS earns more site clicks than our single-chapter love-story posts.",
+    "variant": "Whole-lens origin/explainer framing instead of telling one chapter of the timeline.",
+    "metric": "Site clicks (UTM) to /?lens=love-story vs. prior love-story chapter posts."
+  },
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Tight X teaser for the Blank Spaces thread: turns the fan instinct of 'which song is about who' into the thread's honest, in-order timeline, zero speculation. Structurally unlike its IG sibling; the photo is a real Taylor tour shot as the face of the catalog.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
