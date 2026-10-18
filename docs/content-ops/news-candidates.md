@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Taylor Swift attends Chiefs game following LA performance
+
+- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: After her recent performance in Los Angeles, Taylor Swift was seen attending a Kansas City Chiefs game. She continues to stay active in both her music career and support for the team.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMifEFVX3lxTE5mN2xPNUVfd1VHb0pIZm1LQXI5bHdvNjVDT1oxdm45eDNKTTJfMDdnU0pJUy1abDJWR2VwbDBSM1JnSTFwdVhhWkxNNTMzdjd3Tk9rUDQwVWNBTm5xOE5wbWJaWTJ3d0E4UTAxQ0N2MUlSRXFGNHI5Ny1HNmU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Chiefs Game with Company
+
+- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted at a recent Kansas City Chiefs game, where she was accompanied by others. The outing has garnered attention in the news.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxNc3BrclN5bk4tWVlwdEN1S3ZCQ3BCZDF4eE1zVjJmcXZGSWJINVVzMHAtOGZ2QTJaSUxpY1VqX1ZNT2VSNHF3ckMzMXNtclF1YlFhNUJndDIwSlR0S0NzNXk5ZFF1RDFrMUd4a2xHdXBUWEluUnd4ZnpxbkdJNnhRY09seVdLMWRzOWd1enNYUWlWSWdmU0YtbEdEYW1xTGItVy1pMzFVQnVHZXky0gHAAUFVX3lxTFAtMFVfWTVhNlJVOVdCU0JYYm1PWkxJb1RjSjVmVFFBMnFiR0N0NE56TFpYOWhYNmdUREh2bUNjWDUyZXlHZFdUaGlZV3ZFdTFRaUZNUHJCY0RtQ2pHR0djLWpRRWx2aHluY25vUDdNWnRTc3k0WEgwQjFQLUhZV3llSFhVYklFOEFZWWE1dDZ2N3U5bHdWcUlHel9oM1FpU0g3dTlKazBfRndoaGlRSWhyRUhvYzJzX1QyOThkVElRZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen at Chiefs Game After Traveling from Los Angeles
+
+- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted at a Chiefs game after a flight from Los Angeles to Kansas City. This appearance comes as she continues to capture public attention at various events.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1BsbHZrNURHejNaR2Z5RjA0aF8zMXZRcDVOcWh0Tk00WU10Q1c4SlBJY2N3Zk53TEptaTNXQ1EyOVpwUWc2OFc4NWMyMk9rcGtPRFVGeF9HZ3F4VXM1QzNxN01pMmFDWTFscnFMUlI1ajVGbXhZVnJTRTJ1U25ackdQLVlDTkNYSEg1TkgtZHRVQ21zbGxfYmNlZHk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Chiefs-Chargers Game with Caitlin Clark and Este Haim
+
+- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen at the Chiefs-Chargers game alongside Caitlin Clark and Este Haim. The appearance attracted attention as she enjoyed the event with her friends.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMihAFBVV95cUxQUm9na3NaU0JVQWVueDlYQldPbW9xa09PZ0VuVVcwVXk0ZGp5TnJHcTk5V0w0MklSeHpfN2pUUTZZT0JDc0lEV1JDQzFJS2R2b1NvbWlkN0M0aTVraHM3aGp6WEdLNFhNZlZLbUxuYlhnVktodTdEUW1WYTUyMGdpdjNFbXLSAYQBQVVfeXFMTU5oVDlPclFLVG42Sm8temFUWUtBZkNWUFRxS3BseFpEbGtELTFCcTN5enhEdDdGLVAxWXk5X2NlYlhQcnZWUjBzY3k2alhHTGpqQ0ZYc0FObzU2T1JGUjRscHdDdHdPS0dFUjllTG1MWTJLX1RwTmNndEJ0S2xvQ3NobkQ1?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce and Taylor Swift Purchase Lakefront Mansion in Ohio
 
@@ -681,19 +713,3 @@ Stories: 83
 - summary: A new trailer shows Nelly and Ashanti bickering while on their way to Taylor Swift’s wedding. The clip highlights their dynamic leading up to the event.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOZXhGdE15dWlvbklPb3VsOU1PREJQYUZDeGd0OWpvSTZoRmdONWVlaVJ6NGNjNDN1LW9QTDdrUUxFMDlsT3hBa3FkLWdyMk1nUWRxT1ZicGFLZW9yV3V4VjVMWW9ockFncEVMb05HUkVLSlZYS2RxZS13OHNpbHBJRWtZQ0FUbXZDamNjR08zUmhpcC0za01VdnJNTFNJZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Donated 6,000 Books to Pennsylvania Library in 2011
-
-- first seen: 2026-10-15 22:16 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In 2011, Taylor Swift made a significant donation of 6,000 books valued at $68,000 to a struggling library in Pennsylvania. This act of generosity highlights her commitment to supporting educational initiatives.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMigANBVV95cUxQRHU4SFBZYW5qeVpPWU5GS1JJNGVmY3FPSWZGR2pjLTRUSjhXODB5UERqRzA3YzV3eldZNzAzX2JmcUlsZnMtdEtRRFZ2aEJXLXZfV2tLV2dLeURLWGllWjBzZHVjMHNNOEYyMUFZX1RlUFJQbnZJWmJjM0o1N3R4cjNBdkJmNTdLYTFnX0NwMWpIUmtoNTJCYUJYN1J1Z1EycC15bVVkQXFoTmdJVU02dmZMQlQzb29sMWZIYzhRdG0ydnhaSGtlaEhPc0JfR1haWXZmRW92LUJrd3ZyZlJqZEl1TkM4MDIzQ0g4UXo2SWlRbWstdWdOWnh6ZXJVTGt3RFAyZHZ1clZRcTM2TVVtYnoyUGRrZ29ZX3BYZVBXQTN2UEV4LVNFcXVOY045em4tcU1xUHpTamNjeTNYanMwMkljR185RkhZQlMtQTZaek9WUmhrb3B4ZXJhUkQ0UW1TSThJYTJhMF9NMUpIWU9JcVlQY01LYm56UF9OYktvM1jSAYYDQVVfeXFMT3dTWXl0UXkxaGR6eWhEa3p5VlZSUVFaelBpZU4tWE1CT0IyRzdMUWZqSzZHYmdxMlB0YkxFYXJNLW5MamxVbERRblVCNTZoeldzV1c5S1p6NEI5RWNDX3FmZll3LTJPT1dBU2Y5aGRhdlNZZDVkZU9MWjM5N19SSGFYTW9kNGFsa0pscnJXbjZvUkl6WGNFUC1CRGhlcXctenZmdml0Q1ZEMVg1NmpUUnlJNy03bG1VZlIzMFQ4OGlmTUU5Y3JhdnRYazR5SU9vRGU3WFVPc3JpTGd0bVBqMUlTOXBDdlBrTlBNRjZQcmxnb3pxdGdpZHBWcjdSUElQR19YUTNsX21LdGdKU1hwVGtHVnFfUy1oTFRXc056Zi1yWUQ0ZjRtOUJPejcwN0pVdjNrRjQzdm9IbG5rcDIwc2hicXMtVlhHMmV4aGtXWGx3SE9MZDFQMkE5ZG1YUXZsMFJfb0I5bTJscmpKckFpdWQyZFlxMFZzUlNJeVJ1eXYteFp6ZVB3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Impact on America's Literacy Crisis Discussed
-
-- first seen: 2026-10-15 22:16 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A column explores how Taylor Swift's influence relates to America's literacy crisis, highlighting her cultural significance. It discusses her role in engaging with important social issues.
-- sources:
-  - [unverified] The Virginian-Pilot — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSzlKLTdYR0pYRUZ4RXhKV053SnE5WlZyTmlpdHBZSEJDTkdzSGJ5dC1MWWZBaUVWOUQ2UmxwLUE5QzFaTzlHOWc2RUg3SkR5OWVqMk1ndmtacm4wY2N2U2tWQTJ4Rm1pdkdJSzB2WHJZWWViMmJELUpRNThEVy1EeHBXOWZQSHhXZXBOV1U2ZWNGY0ZHNXRyY251ZHRvY2R4SU1JREVn?oc=5&hl=en-US&gl=US&ceid=US:en
