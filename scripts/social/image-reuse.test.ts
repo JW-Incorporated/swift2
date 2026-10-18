@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -152,9 +153,9 @@ describe('image reuse check', () => {
   });
 });
 
-const LFS_POINTER = `version https://git-lfs.github.com/spec/v1
-oid sha256:${'a'.repeat(64)}
-size 10
+const pointerFor = (bytes: Buffer) => `version https://git-lfs.github.com/spec/v1
+oid sha256:${createHash('sha256').update(bytes).digest('hex')}
+size ${bytes.length}
 `;
 
 describe('guard-image-reuse (poster pre-step)', () => {
@@ -210,8 +211,8 @@ describe('guard-image-reuse (poster pre-step)', () => {
 
   it('retries a transient fetch failure before failing closed', async () => {
     const root = await fixtureRoot(Buffer.from('placeholder'));
-    writeFileSync(path.join(root, 'apps/web/public/social/library/photos/queued.bin'), LFS_POINTER);
     const good = await sharp(await picture(43)).jpeg().toBuffer();
+    writeFileSync(path.join(root, 'apps/web/public/social/library/photos/queued.bin'), pointerFor(good));
     let calls = 0;
     const flaky = (async () => {
       calls += 1;
