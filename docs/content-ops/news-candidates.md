@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 65
+
+## Taylor Swift asks fan to stop filming her at Chiefs game
+
+- first seen: 2026-10-19 21:21 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a Chiefs game, Taylor Swift appeared to request a fan to stop filming her. The moment was captured and shared online, highlighting her interaction with fans at public events.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZC1lNXV1MHJhSGpKd21yN25tWm1qbF85a1g5Vm9malpta2JCYS1yRklONU04UWxkZ3RrV3I4XzJ5c0JEM2RoLTdVMW1lbFQzR3lkVzBna0h3Z0s1bGdwajZYTHZXMlUxY1lnaG9lRFlxRW9JU0NkYkxucjROZmZRNHdyT0RybEZ1WHQ5N0o3TkxPTC11Z240T0p4UEtIcTJpcDhVTA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Displays 13-Carat Wedding Ring Stack at Event
+
+- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased her impressive 13-carat wedding ring stack while supporting her husband, Travis Kelce. The display highlights her elegant style at the event.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxOcFpZQWZPM0RtWjBNczBZcDc0MVVfUGllSjZaQ2NJTF9QQ1dEYkFuUXhfUTZOZTB5amJHVjIwcDVrUzdhakJFVmUwTzlJcFZRa3hYRkk1bll5dXhQUndDN2VWVjl6T0tjLXIwS0liODR4MkdMYUNKR3RsVGR1VFo2VG9jQnYtTnVhZlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Responds to Fan Filming Her at Chiefs Game
+
+- first seen: 2026-10-19 21:21 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At a recent Chiefs game, Taylor Swift was reportedly seen reacting to a fan attempting to film her. The incident drew attention amid her public appearances.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMimAFBVV95cUxOVmZKTFB5bnlhSDh5SUV6UTRmNi1zV0VPMnM2OVlYX3plVjFRdDJFUENBbHh0RmEzZGFURXZDMFRkS3I4R1hLYUh6a1NHWFZ4RjRpTnZyUFRhc2hwcmFCRDlFNmg2bkxTNzJRd3pnbk4wVDdsOWRWWU5oNVVmQ01oUEZXOWNfMS14MUNZTGVyYnNudmt5NU1pNw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Stunning in Soft Glam at Academy Museum Gala
+
+- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a soft glam look at the Academy Museum Gala, embodying pure romance. Photos from the event reveal her elegant style and aesthetic.
+- sources:
+  - [unverified] Allure — https://news.google.com/rss/articles/CBMie0FVX3lxTE91blZUSDd6ckg2d25YLWVrOW93cXRkWF9ydi0tMGtZaTJOTXZjcGJPU2FDSWNUVF9ubnNKbFpoTEFyemt3U1J5NVVrU0dpZm0wcWxidWNlRXNXQVBrcTA5OHhCMXV3UWhzLXpTdXZFU0JwVHFWX1pOZzhuUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Richard Marx Discusses Turning Down Collaboration with Taylor Swift
 
@@ -521,19 +553,3 @@ Stories: 63
 - summary: Taylor Swift was seen at a Knicks game, where a basketball coach expressed feeling intimidated by her presence. The sighting has drawn attention among fans and media.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOYW5VT2tlTnFQWU1BNzhHaDBXNlVCT1hnbEh6d1hxOEJEN3ZQTDNoLWZ6cHVHUzkxaUd0bVRQMzl3SnFwcFJrRnRBZjJ5ejBYTEhVNlBvZ1ZOeWtzSGl5andXamU1WU1USlg2MXFCV1NRTkZQNHJZVS0zZGdiNFU3UFhhUnVfeV8zdnZxeHVBTnF0NHoyeHVWOElEUjFSSmtXS3NScUQ0Z2Q?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Glitter Freckles Popularized by Taylor Swift Now Available for Dogs
-
-- first seen: 2026-10-16 20:51 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The trend of glitter freckles, made famous by Taylor Swift, has been adapted for dogs, allowing pet owners to use this cosmetic look on their furry friends. The new product aims to bring a bit of the pop star's style to the canine world.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiogFBVV95cUxNZ1VoOU1NOE83SFFWZ0hPRUh3cS1nb1V3aXVNal9oUlFSUm9EX0NxX1dyclZoSE9aTGpDcC1GbWQyVVY4Z1dSRGU5WlJxVXlTYzh0M3FMd1l0VERTVVh6d0ZwV2NXU2pJRFRhM1ZxOFM2ZXpFeWVaSVY2WXViTm9WaXdwVUhkajdKWXVQa09LQWhxbUl4V2lHQzdDQWY2bkFDRFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Beverly Hills Bungalow Where She Wrote 1989 Is for Sale
-
-- first seen: 2026-10-16 20:51 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The former Beverly Hills bungalow of Taylor Swift, where she penned her album 1989, is now on the market. The property is described as absolutely stunning, attracting attention from fans and real estate enthusiasts alike.
-- sources:
-  - [unverified] Grazia — https://news.google.com/rss/articles/CBMi6gFBVV95cUxPYUgtWElnQmhET0RGa21oekFJRzJZelA2LXQ4akpKeExtaFdWWVNuN0kwVTI1TVhzYUhJWkh2SDFTTkh4ZUJBQmg2b1dqTkNhNWRWcDVfaFBEVUJHN2E5V21oTGtmTVFKNDVnSjRXTHZsNjZCelZvVFcySXNOMkEwbUI3allSYVJQcDNwNlBSbzNIMkJkdnNwMWNCSXJnWjN4X1Y2MzNTNlRtd3lTVXEtQWhSd0dJZkYwZ1ZzLXZCYmZFYXFSdWNlT2dhV01ZSGlaUmxLb0NvUWxkbkRmclBMbkd6Zl80b1d6dUE?oc=5&hl=en-US&gl=US&ceid=US:en
