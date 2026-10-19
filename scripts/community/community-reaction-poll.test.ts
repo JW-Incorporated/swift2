@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { ackSkipped, ackPosted } from '../../packages/core/src/community-ack';
 // @ts-expect-error — implementation is plain .mjs
-import { candidateChannels, pollReactions } from './community-reaction-poll.mjs';
+import { candidateChannels, exitCode, pollReactions } from './community-reaction-poll.mjs';
 
 const OWNER = '338508192755482626';
 const STRANGER = '999999999999999999';
@@ -190,6 +190,115 @@ describe('pollReactions', () => {
     const s = await t.run();
     expect(s.errors).toEqual([{ leadId: 'lead-1', message: 'boom' }]);
     expect(t.puts).toEqual([]);
+  });
+
+  describe('Discord 429 handling', () => {
+    const rl = () =>
+      new Response('{"retry_after":0}', { status: 429, headers: { 'retry-after': '0' } });
+
+    function rateLimitedSetup(leads: Lead[], statusFor: (call: number) => Response | null) {
+      const t = setup(leads, {
+        [`${FB_CHANNEL}:msg-1:❌`]: [OWNER],
+        [`${FB_CHANNEL}:msg-1:✅`]: [],
+      });
+      const inner = t.fetchImpl.getMockImplementation()!;
+      let call = 0;
+      t.fetchImpl.mockImplementation(async (url: string, init?: { method?: string }) => {
+        if (init?.method === 'PUT') return inner(url, init);
+        call += 1;
+        return statusFor(call) ?? inner(url, init);
+      });
+      return t;
+    }
+
+    it('retries after a 429 and still processes the card (exit 0)', async () => {
+      const t = rateLimitedSetup([lead()], (n) => (n === 1 ? rl() : null));
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 1, deferred: 0, errors: [] });
+      expect(t.acks.skipped).toHaveBeenCalledTimes(1);
+      expect(exitCode(s)).toBe(0);
+    });
+
+    it('a 429 wall after one processed card defers the rest without failing', async () => {
+      const t = rateLimitedSetup(
+        [lead(), lead({ id: 'lead-2', discord_message_id: 'msg-2' })],
+        (n) => (n <= 2 ? null : rl()),
+      );
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 1, posted: 0, deferred: 1, errors: [] });
+      expect(t.acks.skipped).toHaveBeenCalledTimes(1);
+      expect(t.acks.skipped).not.toHaveBeenCalledWith(expect.anything(), 'lead-2');
+      expect(t.acks.posted).not.toHaveBeenCalled();
+      expect(t.puts).toHaveLength(1);
+      expect(exitCode(s)).toBe(0);
+    });
+
+    it('a total 429 wall from the first card exits 1 (outage)', async () => {
+      const t = rateLimitedSetup(
+        [lead(), lead({ id: 'lead-2', discord_message_id: 'msg-2' })],
+        () => rl(),
+      );
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 0, posted: 0, ignored: 0, deferred: 2, errors: [] });
+      expect(t.acks.skipped).not.toHaveBeenCalled();
+      expect(t.acks.posted).not.toHaveBeenCalled();
+      expect(t.puts).toEqual([]);
+      expect(exitCode(s)).toBe(1);
+    });
+
+    describe('Retry-After wait', () => {
+      async function sleptFor(res: Response) {
+        const t = rateLimitedSetup([lead()], (n) => (n === 1 ? res : null));
+        const sleeps: number[] = [];
+        const s = await pollReactions({
+          supabase: fakeSupabase([lead()]),
+          token: 'bot',
+          env: {},
+          fetchImpl: t.fetchImpl as never,
+          owners: [OWNER],
+          acks: t.acks,
+          sleep: async (ms: number) => {
+            sleeps.push(ms);
+          },
+        });
+        expect(s.skipped).toBe(1);
+        return sleeps.filter((ms) => ms !== 1000);
+      }
+
+      it('uses the body retry_after when the header is absent', async () => {
+        expect(await sleptFor(new Response('{"retry_after":2}', { status: 429 }))).toEqual([2000]);
+      });
+
+      it('uses the header seconds', async () => {
+        const res = new Response('{"retry_after":9}', { status: 429, headers: { 'retry-after': '3' } });
+        expect(await sleptFor(res)).toEqual([3000]);
+      });
+
+      it('falls back to 1s when neither is present (gap sleeps are also 1s)', async () => {
+        const t = rateLimitedSetup([lead()], (n) => (n === 1 ? new Response('x', { status: 429 }) : null));
+        const sleeps: number[] = [];
+        await pollReactions({
+          supabase: fakeSupabase([lead()]),
+          token: 'bot',
+          env: {},
+          fetchImpl: t.fetchImpl as never,
+          owners: [OWNER],
+          acks: t.acks,
+          sleep: async (ms: number) => {
+            sleeps.push(ms);
+          },
+        });
+        expect(sleeps).toEqual([1000, 1000, 1000]);
+      });
+    });
+
+    it('a non-429 HTTP error still fails the run', async () => {
+      const t = rateLimitedSetup([lead()], () => new Response('x', { status: 500 }));
+      const s = await t.run();
+      expect(s.deferred).toBe(0);
+      expect(s.errors).toEqual([{ leadId: 'lead-1', message: 'Discord reactions HTTP 500' }]);
+      expect(exitCode(s)).toBe(1);
+    });
   });
 
   it('never calls the ack layer for a card nobody reacted to', async () => {
