@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-10-19",
+  "windowDays": 7,
+  "since": "2026-10-12T00:00:00.000Z",
+  "count": 4,
+  "media": [
+    "https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg/960px-Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg",
+    "https://www.billboard.com/wp-content/uploads/2026/10/P108QQUY-e1792342281327.jpg?w=1024"
+  ],
+  "moments": [
+    {
+      "id": "vault-speak-now-6-000-books-for-the-library-down-the-road-from-wyomissing",
+      "eraId": "speak-now",
+      "title": "6,000 books for the library down the road from Wyomissing",
+      "year": 2011,
+      "month": 10,
+      "day": 13,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-speak-now-6-000-books-for-the-library-down-the-road-from-wyomissing",
+      "mediaKind": "thumbnail",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg"
+    },
+    {
+      "id": "vault-tloas-emmitt-smith-on-the-game-day-camera-shes-not-looking-for-the",
+      "eraId": "tloas",
+      "title": "Emmitt Smith on the game-day camera: \"She's not looking for the damn camera!\"",
+      "year": 2026,
+      "month": 10,
+      "day": 14,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-emmitt-smith-on-the-game-day-camera-shes-not-looking-for-the",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg/960px-Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg"
+    },
+    {
+      "id": "vault-tloas-hey-its-taylor-swift-goes-global-the-voice-trademark-push-re",
+      "eraId": "tloas",
+      "title": "\"Hey, it's Taylor Swift\" goes global: the voice trademark push reaches the UK, EU and Australia",
+      "year": 2026,
+      "month": 10,
+      "day": 6,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-hey-its-taylor-swift-goes-global-the-voice-trademark-push-re",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg"
+    },
+    {
+      "id": "vault-tloas-the-fate-of-ophelia-goes-live-for-the-first-time-closing-the",
+      "eraId": "tloas",
+      "title": "“The Fate of Ophelia” goes live for the first time, closing the Academy Museum Gala",
+      "year": 2026,
+      "month": 10,
+      "day": 17,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-fate-of-ophelia-goes-live-for-the-first-time-closing-the",
+      "mediaKind": "photo",
+      "media": "https://www.billboard.com/wp-content/uploads/2026/10/P108QQUY-e1792342281327.jpg?w=1024"
+    }
+  ]
+}
