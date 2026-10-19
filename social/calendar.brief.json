@@ -1,49 +1,34 @@
 {
-  "weekOf": "2026-10-15",
-  "whatChangedAndWhy": "The account has posted nothing since 2026-10-11: the daily draft run failed 10-12, 10-13 and 10-14, all three with 'You've hit your weekly limit' — the Claude account's weekly usage cap, not a bug in this desk (filed to Marjorie as #5600/#5687/#5766, watchdog #5697, auto-pause shipped in #5825). It also killed the Monday 10-12 weekly run, which is why this plan arrives on a Thursday and why the calendar on main had expired on 10-11. So this fortnight plans 13 beats for 13 draftable days and no more: the standing reservations (4 October thread heroes, 3 weekly Blank Spaces timeline beats, 3 weekly news reserves) already claim 10 of 13, a 4-post launch arc does not fit in the remaining 3, and §1(a) forbids paying for one out of thread or timeline beats — so the Community Engine arc is deferred to the week of 2026-11-02 rather than planned a fifth time against a budget that cannot pay for it. Changes made this week: strategy PR #5871 adds a photo-library scale target (≥50 new never-used entries/week under 3,000) and a 'Photo supply' row to the weekly scorecard, answering Joey's 10-05 chat ask — evidence is that the sourcing engine landed zero photos on its two failed October runs and took the library 88 → 201 entries (186 never used) across five consecutive green runs since. Lessons ledger: L001 (photo reuse) retires as codified, superseded by check-drafts.mjs:checkPhotoReuse now that issue #4601 has closed and the check is live; new rule L002 says a Reddit reply target only reaches the owner when its reply-eligibility is confirmed, from his 10-06 rejection 'Don't show me posts that I can't reply to'.",
+  "weekOf": "2026-10-19",
+  "whatChangedAndWhy": "Tree's own approval path worked unattended for the first time — today's run drafted a pair, dispatched social-tree-approve.yml and both items are on main with a valid tree:auto stamp, no founder tick anywhere. What is broken is merging: one stale allowlist line in scripts/lib/moment-media-gate.mjs turns build-content red on every Tree PR, so the Runway hero (#5998), the founder-approved Blank Spaces hero (#6056) and both inbox-expiry PRs are stuck and nothing posted between 10-15 and 10-19. Two strategy changes, made and reported in PR #6105: Experiment 01 (Instagram hashtags) read out at n=2 with both arms at IG reach 1 and every October IG post at reach 0-1, so it is closed as unreadable — tags become the default on every IG beat, the arms go away, and the comparison returns only when trailing-7-day median reach clears 10; and a thread hero whose window closed because CI was red now gets one make-good inside the same month, which is why Runway finally gets taught on 10-30. No new experiment this fortnight on purpose: nothing on-platform is measurable at reach 1. No lessons changed (zero edits and zero rejections this week, 6 of 6 approved) and no founder task filed — the week's one real blocker is a one-line script fix, which is Marjorie's, not the owner's.",
   "calendar": [
-    { "day": 1, "text": "2026-10-15 (Thu) — NO BEAT. The 11:00Z draft run already passed and the lane is 0-for-3; a beat depending on this PR merging within hours is not a plan. Do not backfill — a post already a day late is worth less than the next one on time." },
-    { "day": 2, "text": "2026-10-16 (Fri) — Runway thread hero, thread:fashion:quiz-poll, /?lens=fashion. TAGGED (Experiment 01). Its window closed today with the engine down and Runway has now been dropped two months running, so the window is extended one day rather than lost a second time." },
-    { "day": 3, "text": "2026-10-17 (Sat) — Blank Spaces timeline, next unposted chapter after Joe Jonas 2008, /?lens=love-story. CONTROL. The §1(c) permanent weekly minimum for the week of 10-12; confirmed-only, every name and date verified against the Vault first." },
-    { "day": 4, "text": "2026-10-18 (Sun) — NEWS RESERVE, fallback heartbeat:era-deep-cut on lover, /?era=lover. No experiment arm. One reserved day per calendar week so a real event is never silently un-postable; an uncovered event leaves the beat for the event run, otherwise the fallback drafts as written." },
-    { "day": 5, "text": "2026-10-19 (Mon) — Blank Spaces thread hero, thread:love-story:origin-story, /?lens=love-story. TAGGED. The teaching beat for followers who have never opened the thread — deliberately a different job from 10-17's chapter, with no shared photo, subject or opening shape." },
-    { "day": 6, "text": "2026-10-20 (Tue) — heartbeat:on-this-day, a Vault moment dated October 20, /?item=. CONTROL. One of only two flex beats in the fortnight; it is also the first thing news yields against if an event arrives off-reserve." },
-    { "day": 7, "text": "2026-10-21 (Wed) — Mood beat, mood:result ('what it gave me'), /?mode=mood. TAGGED. Mood has never shipped a single post in this desk's existence and both failures were mechanical, not editorial; one slot, not the two or three the strategy allows, because a lane earns its second slot by landing the first." },
-    { "day": 8, "text": "2026-10-22 (Thu) — Blank Spaces timeline, next chapter after 10-17's, /?lens=love-story. CONTROL. The weekly minimum for the week of 10-19." },
-    { "day": 9, "text": "2026-10-23 (Fri) — Taylor's Version thread hero, thread:taylors-version:single-best-item, /?lens=taylors-version. TAGGED. One item told whole, inside its 10-21→25 window." },
-    { "day": 10, "text": "2026-10-24 (Sat) — heartbeat:symbol-thread, a motif recurring across two or more eras, /?lens=easter-eggs. CONTROL. The second flex beat; speculation is labelled, never asserted." },
-    { "day": 11, "text": "2026-10-25 (Sun) — NEWS RESERVE, fallback heartbeat:track-fact. No experiment arm. The reserve for the week of 10-19." },
-    { "day": 12, "text": "2026-10-26 (Mon) — End Game thread hero, thread:the-proposal:interactive-challenge, /?lens=the-proposal. TAGGED. This completes all six October threads; it is also the last Tree run of the month, so that run carries the monthly review." },
-    { "day": 13, "text": "2026-10-27 (Tue) — Blank Spaces timeline, next chapter after 10-22's, /?lens=love-story. CONTROL. The weekly minimum for the week of 10-26." },
-    { "day": 14, "text": "2026-10-28 (Wed) — NEWS RESERVE, fallback heartbeat:era-deep-cut on red, /?era=red. No experiment arm. The reserve for the week of 10-26." }
+    { "day": 1, "text": "10-19 Mon — covered by queue: the Fate of Ophelia live-debut news pair, already stamped and scheduled 23:00Z. Nothing planned here; a second pair today would be capped out and retired unposted." },
+    { "day": 2, "text": "10-20 Tue — covered by queue: the Lover 'first album she owned' pair. This is the 10-18 news reserve's fallback, re-booked onto its own day." },
+    { "day": 3, "text": "10-21 Wed — Mood, 'what it gave me' (mood:result). Third attempt: Mood has never shipped once and both previous deaths were mechanical, not editorial. First beat this plan can actually reach." },
+    { "day": 4, "text": "10-22 Thu — Blank Spaces timeline, next unposted chapter after Joe Jonas 2008. The weekly confirmed-only minimum for the week of 10-19." },
+    { "day": 5, "text": "10-23 Fri — Taylor's Version thread hero, angle single-best-item. One item told whole, inside its 10-21→25 window." },
+    { "day": 6, "text": "10-24 Sat — heartbeat, on-this-day for October 24, with a track-fact fallback rather than stretching a near-miss date. Kept deliberately displaceable so a major moment has somewhere to land." },
+    { "day": 7, "text": "10-25 Sun — news reserve for the week of 10-19; if nothing is uncovered, a Showgirl-era deep cut built on Emmitt Smith's game-day-camera quote (new on the site 10-18), led by the quote itself." },
+    { "day": 8, "text": "10-26 Mon — End Game thread hero, angle interactive-challenge, opening its 10-26→30 window. This is also the monthly-review run." },
+    { "day": 9, "text": "10-27 Tue — heartbeat, symbol-thread: one Invisible Strings motif that recurs across two eras, speculation labelled. Second displaceable beat of the week." },
+    { "day": 10, "text": "10-28 Wed — news reserve for the week of 10-26; fallback is a Speak Now deep cut on the 6,000 books for the Wyomissing library (new on the site 10-18), hooked on the number." },
+    { "day": 11, "text": "10-29 Thu — Blank Spaces timeline, the chapter after 10-22's. Weekly minimum for the week of 10-26, different hook shape from 10-22." },
+    { "day": 12, "text": "10-30 Fri — The Runway thread hero, angle quiz-poll, as October's one explicit out-of-window make-good. Its real window closed with the hero written and blocked red on CI; this gets October to 5 of 6 threads taught." },
+    { "day": 13, "text": "10-31 Sat — heartbeat, on-this-day for Halloween if the Vault has a genuinely dated October 31 moment, folklore era deep cut if it does not. Third displaceable beat." },
+    { "day": 14, "text": "11-01 Sun — launch arc day 0 for the pinch-zoom photo viewer, live since July and never promoted once. Hard gate: a drafter pinch-zooms a photo on the live site first, or the beat reverts to a track-fact fallback. The 10-26 run owns +2/+4/+8." }
   ],
   "proposals": [],
   "questions": [],
   "needsFromMarjorie": [
     {
       "kind": "error",
-      "ask": "Decide where the social posting lane sits in the fleet's weekly token budget, so it is not the first thing starved when the Claude account hits its weekly limit",
-      "why": "The daily draft run failed 10-12, 10-13 and 10-14, all three with 'reason: You've hit your weekly limit' in the run log, and the Monday 10-12 weekly plan run died the same way — four dark days, no post since 10-11, and the calendar on main expired on 10-11. Already filed as #5600, #5687, #5766 and watchdog #5697; #5825 now auto-pauses on the limit, which stops the thrash but does not decide what gets the remaining capacity."
+      "ask": "Delete the stale SURFACE_MEDIA_LEGACY entry that turns build-content red on Tree's draft PRs",
+      "why": "moment-media-gate.mjs: 'SURFACE_MEDIA_LEGACY lists social/inbox/appearance-2026-10-12-FqbcAAKQjes.json, which matches no gated row' (job 117741603794). Red on every PR touching social/inbox: #5998, #6027, #6057, #6094. Nothing posted 10-15 to 10-19; 2 intents cannot expire."
     },
     {
       "kind": "error",
-      "ask": "Make `node scripts/social/event-status.mjs` runnable on a clean checkout, or change the two runner prompts that tell an agent to invoke it with bare node",
-      "why": "Bare `node scripts/social/event-status.mjs` fails with ERR_MODULE_NOT_FOUND on packages/core/src/vault-types even after a successful `npm ci` — @swift2/core's exports point at extension-less .ts sources, so it only runs under tsx (`node_modules/.bin/tsx scripts/social/event-status.mjs` works). tree-weekly-plan.md step 0.6 and social-event-status.yml both call it with plain node; this run only got its reading by guessing the loader."
-    },
-    {
-      "kind": "error",
-      "ask": "Retire the two stranded Tree draft PRs #5443 (10-09) and #5495 (10-10), and confirm the already-posted 2026-10-11 Instagram item is no longer counted as a failure",
-      "why": "Both PRs are still open 5-6 days past the 48h staleness window because the daily prepare job that runs retire-stale-drafts.mjs never started. Separately, social/failed/2026-10-11-speaknow-million-week-ig.json carries failureReason 'Still unposted more than 48h after founder approval' while social/posted/ holds the same item with platformPostId 18107359273946758 — it did post, so this week's scorecard reports 1 failure against a target of zero that is really 0. PRs #5857 and #5824 look like they fix this forward; the stale file and the two open PRs are the residue."
-    },
-    {
-      "kind": "ask",
-      "ask": "Hold back Reddit reply targets whose reply-eligibility is unconfirmed, instead of surfacing them flagged as replyUnverified",
-      "why": "Joey rejected a target on 2026-10-06 with 'Cannot reply to this particular post. Don't show me posts that I can't reply to' (social/feedback/2026-W41.jsonl). scripts/community/awareness-eligibility.mjs already resolves a five-state REPLY_STATES including 'unknown', but awareness-scan.mjs:238 keeps unknown candidates and only sets replyUnverified — so a post nobody can reply to still reaches his queue. Recorded as lesson L002; the fix is in a script outside this desk's rights."
-    },
-    {
-      "kind": "ask",
-      "ask": "Add a posting-gap alarm: nothing new in social/posted/ for more than 48h opens or updates a watchdog alert and pings #longlive-tree",
-      "why": "watchdog.yml caught the three failed daily-draft runs (#5697), but nothing alarms on the outcome. Had all three runs exited green while drafting nothing, the floor on detecting a dead account would have been the weekly Monday scorecard — and that Monday run died too, so the real detection lag this week was four days. A gap alarm catches a drafter that drafts, a poster that never ships and a stalled approval alike. Narrowed from the two-part chat ask on PR #5171: the lane-liveness half is already covered."
+      "ask": "An Instagram post that already shipped was also retired into social/failed/ as stale",
+      "why": "2026-10-11-speaknow-million-week-ig.json sits in social/posted/ with postedAt 23:26Z and IG id 18107359273946758, and an identical copy sits in social/failed/, retired 10-15 for '48h after approval'. The queue copy outlived the post, so the sweeper failed an item that shipped."
     }
   ]
 }
