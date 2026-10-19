@@ -61,6 +61,7 @@ describe('upsertTheoryCandidate', () => {
       { ...baseTheory, claim: 'is she pregnant, fans wonder' },
       {
         community: 'TaylorSwift',
+        threadId: 'thread-screened',
         score: 5,
         today: '2026-09-06',
       },
@@ -82,6 +83,7 @@ describe('upsertTheoryCandidate', () => {
     });
     const result = await upsertTheoryCandidate(db, baseTheory, {
       community: 'TaylorSwift',
+      threadId: 'abc',
       permalink: 'https://www.reddit.com/r/TaylorSwift/comments/abc/x/',
       score: 5,
       today: '2026-09-06',
@@ -93,6 +95,7 @@ describe('upsertTheoryCandidate', () => {
     expect(insertedRow?.sample_urls).toEqual([
       'https://www.reddit.com/r/TaylorSwift/comments/abc/x/',
     ]);
+    expect(insertedRow?.source_thread_ids).toEqual(['abc']);
   });
 
   it('bumps an existing candidate instead of inserting a duplicate', async () => {
@@ -119,6 +122,7 @@ describe('upsertTheoryCandidate', () => {
     });
     const result = await upsertTheoryCandidate(db, baseTheory, {
       community: 'SwiftlyNeutral',
+      threadId: 'new-thread',
       permalink: 'https://new-url',
       score: 20,
       today: '2026-09-07',
@@ -130,7 +134,7 @@ describe('upsertTheoryCandidate', () => {
     expect(updatedRow?.sample_urls).toEqual(['https://old-url', 'https://new-url']);
   });
 
-  it('does not duplicate a community or sample_url already recorded', async () => {
+  it('does not recount the same thread when it is mined in a later comment bucket', async () => {
     let updatedRow: Record<string, unknown> | undefined;
     const db = fakeDb(() => {
       const c = chain({ data: null, error: null }) as Record<string, unknown>;
@@ -153,10 +157,14 @@ describe('upsertTheoryCandidate', () => {
     });
     await upsertTheoryCandidate(db, baseTheory, {
       community: 'TaylorSwift',
+      threadId: 'same-thread',
       permalink: 'https://same-url',
-      score: 1,
+      score: 12,
       today: '2026-09-07',
     });
+    expect(updatedRow?.mention_count).toBe(1);
+    expect(updatedRow?.peak_score).toBe(12);
+    expect(updatedRow?.source_thread_ids).toEqual(['same-thread']);
     expect(updatedRow?.communities).toEqual(['TaylorSwift']);
     expect(updatedRow?.sample_urls).toEqual(['https://same-url']);
   });
@@ -184,6 +192,7 @@ describe('upsertTheoryCandidate', () => {
     });
     await upsertTheoryCandidate(db, baseTheory, {
       community: 'TaylorSwift',
+      threadId: 'thread-4',
       permalink: 'u4',
       score: 1,
       today: '2026-09-07',
@@ -218,7 +227,7 @@ describe('upsertTheoryCandidate', () => {
     await upsertTheoryCandidate(
       db,
       { ...baseTheory, numericSignals: [5] },
-      { community: 'TaylorSwift', score: 1, today: '2026-09-07' },
+      { community: 'TaylorSwift', threadId: 'thread-2', score: 1, today: '2026-09-07' },
     );
     expect(updatedRow?.numeric_signals).toEqual(expect.arrayContaining([12, 5]));
     expect((updatedRow?.numeric_signals as number[]).length).toBe(2);
@@ -249,6 +258,7 @@ describe('upsertTheoryCandidate', () => {
     // baseTheory carries no numericSignals at all — the common case.
     await upsertTheoryCandidate(db, baseTheory, {
       community: 'TaylorSwift',
+      threadId: 'thread-2',
       score: 1,
       today: '2026-09-07',
     });
@@ -265,6 +275,7 @@ describe('upsertTheoryCandidate', () => {
     await expect(
       upsertTheoryCandidate(db, baseTheory, {
         community: 'TaylorSwift',
+        threadId: 'thread-error',
         score: 1,
         today: '2026-09-07',
       }),

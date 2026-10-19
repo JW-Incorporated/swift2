@@ -21,3 +21,10 @@ describe('ci.yml concurrency', () => {
     expect(ci.concurrency['cancel-in-progress']).toBe("${{ github.event_name == 'pull_request' }}");
   });
 });
+
+describe('ci.yml build-content lane', () => {
+  it('lints supabase/ so lint-failing vault PRs cannot merge via the content path', () => {
+    const steps: { run?: string }[] = ci.jobs['build-content'].steps;
+    expect(steps.some((s) => s.run === 'npx eslint supabase')).toBe(true);
+  });
+});

@@ -6,218 +6,71 @@ these slots into `social/queue/`. Nothing else may edit this file — the drafte
 reading its own assignment and then rewriting it is exactly the loop this
 replaces.
 
-Strategy: `docs/marketing/social-strategy.md`. **Covers 2026-09-28 → 2026-10-11.**
-Written by Tree's run of Monday 2026-09-28.
+Strategy: `docs/marketing/social-strategy.md`. **Covers 2026-10-19 → 2026-11-01.**
+Written by Tree's weekly run of 2026-10-19 (a Monday, on schedule).
 
-**Carry the RE-DRAFT line below forward into any rewrite of this file until the
-daily run has drafted it** (it is read from anywhere in the file by
-`scripts/social/lib/draft-inputs.mjs`, and it is a promise already made to
-Marjorie on an open ask).
+**No photo table in this calendar, by design (W8, 2026-09-30).** The daily
+pre-compute (`scripts/social/prepare-draft-inputs.mjs`) hands each beat a
+never-used, Instagram-sized photo from the full ledger. A hand-assigned table
+cannot see drafts waiting in open PRs, which is how photos got repeated. Era is
+named below **only** for a themed beat.
 
-RE-DRAFT ask #5541 by 2026-10-14: re-book the stranded 10-09/10-10 drafts as a fresh same-day beat — the Community Engine day 0 announce, minting a NEW story-unique `launch:community-engine:*` value, gated on seeing the live surfaces first (invariant 6). Do NOT re-draft the 10-09 easter-eggs/Karma subject: it shipped 2026-10-09. Fresh photo, fresh opener; never re-file a stranded item.
-
----
-
-## 🟢 THE CHANGE THIS FORTNIGHT — the photo drought is over
-
-**PR [#4592](https://github.com/JW-Incorporated/swift2/pull/4592) merged this
-morning** (the rebased replacement for the stalled #4529) and
-`social/photo-library.json` went from **10 entries to 30**. Twenty of them have
-**never shipped**. Verified this run against every file in `social/posted/`:
-
-> **Never used (20):** `reddit-erastour-1ptssc4` · `reddit-erastour-1q65hiz` ·
-> `reddit-erastour-1q6jwfl` · `reddit-erastour-1q8clxb` ·
-> `reddit-taylorswiftpictures-` `1nxmfeq` `1nz3wbn` `1ocof56` `1ogrcvp` `1ojprpr`
-> `1pjmwfb` `1pm1yly` `1pphafw` `1puk3m7` `1pxtr93` `1q1pxtp` `1qad9bo` `1qgb3m8`
-> `1r38qiv` `1r6n7aq` `1tl4pqb`
->
-> **Used, therefore now permanently ineligible (10):** all ten original
-> Wikimedia entries — `1989-inglewood-2023`, `debut-acoustic-2007`,
-> `evermore-inglewood-2023`, `fearless-inglewood-2023`, `folklore-inglewood-2023`,
-> `lover-minneapolis-2023`, `lover-minneapolis-act5-2023`, `red-inglewood-2023`,
-> `reputation-inglewood-2023`, `speaknow-inglewood-2023`.
-
-**`social/lessons.md` L001 is broadened to match what Joey actually said.** It
-used to say "no repeat inside 7 days". It now says **a `photoId` that has ever
-shipped is ineligible, full stop** — four rejections in eight days, the last one
-absolute: *"All re-used pictures will be rejected. We need new pictures."* Filed
-for codification as **#4601** (the rule belongs in `check-drafts.mjs`, not in a
-prompt). Thirteen draftable days, twenty free photos: **every slot below gets its
-own never-used photograph and none repeats.**
+**Experiment 01 is closed and there are no arms any more** (strategy §3,
+changed this run in PR #6105). Every Instagram beat carries the mid-tail tag
+block as the **default** — no `experiment` object, no TAGGED/CONTROL line, no
+per-beat bookkeeping. Do not write an arm into an item.
 
 ---
 
-## New fan photos — most carry no credit, and that is fine
+## 🔴 THE CHANGE THIS FORTNIGHT — the drafting works now; the merging doesn't
 
-Sixteen of the twenty new entries carry the credit string **`u/unknown via
-r/TaylorSwiftPictures`**: we have the Reddit link, not the person's name. **The
-owner ruled 2026-10-01 that this is fine** ("I'm ok with uncredited photos. If we know who
-took the photo, we should always give them credit, but if we don't that's fine too, just
-post it…", `docs/social/guardrails.md` row 2): credit the photographer when known; when
-not, post with no credit line. Four entries — all four `reddit-erastour-*` — do name a
-real uploader (`u/Friscic`, `u/Shiver8597`, `u/Sensitive-Archer3010` ×2), and those are
-assigned to the four highest-value beats below on purpose; credit them in the caption.
+**Tree's own autonomy path is proven.** Today's 08:14Z run drafted a pair,
+dispatched `social-tree-approve.yml`, and both items are sitting on `main`
+carrying a valid `approval.v: 4` `tree:auto` stamp
+(`social/queue/2026-10-19-fate-of-ophelia-live-debut-*.json`,
+`social/queue/2026-10-20-lover-first-album-owned-*.json`). No founder ✅ was
+needed or used. That is the 2026-10-09 decision working end to end for the
+first time.
 
-**Binding on the drafter, every slot:**
+**But four days of drafts are stranded on a red CI gate that has nothing to do
+with social.** `build-content` fails on every Tree PR that touches
+`social/inbox/**` — which is every daily-draft and every expiry PR — with one
+error:
 
-1. **Open the image file and look at it** before writing the item. The `alt`
-   strings on the new entries were generated from the Reddit post title, not
-   from the picture. The 2026-08-31 standard (strategy §2.1) is a *content*
-   check, not a path check: if Taylor is not plainly in the frame, or the image
-   does not match its `alt`, **take the next reserve entry and say which one you
-   rejected and why in `why`.**
-2. **Never paste `u/unknown` (or the word "unknown") into a caption.** If the real
-   uploader can be read off the entry's `source` URL, credit them by name. If it cannot,
-   ship the photo anyway with **no credit line and no `mediaCredit` on the item**
-   (the pick from `.scratch/tree-inputs.json` already omits it).
-3. **Never use `reddit-taylorswiftpictures-1nz3wbn`** — it is a 5.4 MB `.gif`.
-   The pipeline posts one still image.
-4. **Files over ~1.5 MB may be rejected by the platform** (strategy §2.1's
-   rehost budget). Oversized entries are marked `⚠️ size` below; if one 400s,
-   take the next reserve and note it.
-5. **These are fan photos with no era tag** (`tags: ["fan-photo","eras-tour"]`).
-   **A caption may not claim era relevance for them.** Credit the photo when known, say it
-   is an Eras Tour fan photo, and let the words carry the era.
+> `scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "social/inbox/appearance-2026-10-12-FqbcAAKQjes.json", which matches no gated row — delete the entry`
 
-Nothing here blocks on credits any more; the library gaining photos (credited or not) is the priority.
+That one stale allowlist line is red on PR
+[#5998](https://github.com/JW-Incorporated/swift2/pull/5998) (10-16, the Runway
+hero), [#6027](https://github.com/JW-Incorporated/swift2/pull/6027) (10-17) and
+on **both** inbox-expiry PRs,
+[#6057](https://github.com/JW-Incorporated/swift2/pull/6057) and
+[#6094](https://github.com/JW-Incorporated/swift2/pull/6094) — so the fast lane
+cannot even clear its own expired intents. A separate failure,
+`check-drafts`, holds [#6056](https://github.com/JW-Incorporated/swift2/pull/6056)
+(10-18, the Blank Spaces hero — **founder-approved** in Discord on 10-18 and
+still unshipped), and [#5443](https://github.com/JW-Incorporated/swift2/pull/5443)
+/ [#5495](https://github.com/JW-Incorporated/swift2/pull/5495) are now 9-10 days
+stale and should have been retired by `retire-stale-drafts.mjs`.
 
----
-
-## ⛔ OPEN INCIDENT — one ❌ strands every approved post beside it
-
-**This is why 3 posts shipped in 7 days against 7 planned.** Six Tree daily-draft
-PRs are open and unmerged right now — **#4471, #4513, #4544, #4556, #4565,
-#4574** — and every one of them carries at least one photo-reuse rejection. The
-approval poll merges a PR only when *every* item in it is approved, so a single ❌
-kills its approved siblings too:
-
-- **#4544** holds the 09-23 Mood pair (**both ✅**) and the 09-24 timeline X
-  (**✅**) alongside one ❌'d Instagram item. Nothing in it shipped. **Mood has
-  still never posted.**
-- **#4471** holds a founder-approved Instagram item from 09-21. Still open.
-- `2026-09-16-runway-behind-the-data-{ig,x}.json` were approved, never posted,
-  and swept into `social/failed/` at 48h.
-
-Root cause is filed as **[#4475](https://github.com/JW-Incorporated/swift2/issues/4475)**
-(open since 09-20, unactioned) and the sweep half as **#4296**. Marjorie's
-**#4581** asks Tree to re-file the stranded #4471 item; the weekly run may not
-write `social/queue/`, so that ask stays open — see the comment on it.
-
-**Planning consequence, and it is the one that hurts:** the 09-28 daily draft
-produced no PR, so **today's beat is lost** and the Community Engine arc, already
-deferred once, moves to **10-05**. Every date below assumes the batch-blocking
-bug is still live — which is exactly why each beat is written to stand alone.
+**What it cost:** nothing posted between 10-15 and 10-19 — four more dark days
+on top of the 10-12→10-14 usage-limit outage — two thread heroes written and
+never shipped, and two fast-lane intents open 5 and 6 days past their own
+deadlines. Filed to Marjorie as an error this run. **It is not a planning
+failure and no better calendar fixes it**, which is why this plan's thread
+accounting treats both heroes as delivered-but-blocked rather than dropped
+(strategy §1(b), changed this run in PR #6105).
 
 ---
 
-## How to read a slot
+## 🟢 Two things that got fixed
 
-- **One beat a day, at `23:00Z`.** `MAX_POSTS_PER_RUN = 1` and
-  `MAX_POSTS_PER_PLATFORM_PER_DAY = 1` (`scripts/social/lib/queue.mjs:61-62`).
-  Strategy §2 still says two beats a day; the code wins and this calendar plans
-  one. Raised as this week's proposal 1.
-- **Every beat is ONE pair: one Instagram item + one X item** sharing a
-  story-unique `campaign` and `scheduledAt`, written platform-native, >20%
-  divergent in copy. No single-platform exceptions (Joey, 2026-08-26: *"Always an
-  IG copy. Always."*).
-- **X is text-only.** Every free photograph goes to the Instagram tile, where the
-  grid is judged. X `site-screen` is permanently prohibited.
-- Facebook rides every Instagram item automatically. It is never a slot.
-- **The campaign label is a FAMILY.** Mint the story-unique value shown — a
-  reused bucket value silently kills every later post in it, forever.
-- **Direction, not facts.** Every subject is a pointer into the Vault. The
-  drafter sources it; nothing here is fact-checked and nothing here may be
-  repeated as a claim.
-- **X length is weighted** — an autolinked URL always counts 23. Target ≤270; the
-  checker hard-fails at 280.
-- **Share-design pass** (strategy, 2026-09-01): every `heartbeat:` and `mood:`
-  caption needs one genuine tag/share hook grounded in the actual content. Thread
-  and launch posts are exempt. Never bolt on a fake one; say so in `why`.
-- **📰 A NEWS RESERVE day is a slot, not a gap.** Two days below (**10-04**,
-  **10-11**) are reserved for news first, each with a named fallback subject on
-  the day. On a reserve day: check `events.uncovered[]` at 11:00Z, leave the
-  slot for the same-day event run if an event is uncovered, otherwise draft the
-  fallback. **The previous day's run never drafts a reserve day early.** News
-  landing on a non-reserve day may take the next unfilled beat inside 48h,
-  yielding in order heartbeat → mood → a thread window's *second* slot; it
-  never takes the weekly timeline minimum, a thread hero, or a launch day
-  0/+2/+4 (strategy §1(e2)). Cap: **≤2 news posts per rolling 7 days.**
-- **Read `social/lessons.md` first. L001 is active and binding.**
-
----
-
-## 🧪 EXPERIMENT 01 — hashtags on Instagram (answers ask #4722)
-
-**The finding that started it.** Every one of the **44 Instagram items in
-`social/posted/` carries zero hashtags** — checked this run across the whole
-archive; the only `#` matches in it are issue references (`#3278`, `#36`).
-Instagram sits at **4 followers** and every per-post record in
-`social/metrics/posts/` reads `like_count: 0, comments_count: 0`. At that size a
-post is only ever seen by people who do not follow us, and hashtags/explore are
-the one surface that puts it in front of them. The drafter prompt has said
-"Instagram gets the longer caption + hashtags" since August; it has never once
-happened.
-
-**This is S2's first labelled experiment** (`docs/agents/tree.md`, 2026-10-01 —
-up to ~1 in 4 slots may carry one, and none ever had). It takes 2 of the 8
-remaining slots in this window.
-
-**On a TAGGED slot, copy this object onto BOTH halves of the pair** — do not
-reword it, it is the experiment's identity, and
-`scripts/social/lib/queue-schema.mjs` caps `hypothesis` at 300 characters and
-`variant`/`metric` at 100:
-
-```json
-"experiment": {
-  "hypothesis": "IG reach at 4 followers is nearly all non-follower surfacing, and we have never used the one lever for it: all 44 posted IG items carry zero hashtags and every per-post metric reads 0 likes, 0 comments. A mid-tail Swiftie tag block should earn this account its first non-zero engagement.",
-  "variant": "IG caption ends with 8-12 mid-tail Swiftie hashtags (no mega-tags); the X half is unchanged.",
-  "metric": "like_count + comments_count at 48h in social/metrics/posts/2026-10, tagged pairs vs controls."
-}
-```
-
-**On a control slot: no hashtags and no `experiment` object.** A control is an
-ordinary post; noting "Experiment 01 control" in `why` is all it needs.
-
-**Slot assignment — counterbalanced inside the `thread:` family**, so
-hero-versus-second position cannot explain the result:
-
-| Date | Beat | Arm |
-|---|---|---|
-| 10-02 | The Decode hero | **TAGGED** |
-| 10-04 | The Decode answer beat (only if the news reserve goes unused) | control |
-| 10-06 | Clue Web hero | control |
-| 10-09 | Clue Web, slot 2 | **TAGGED** |
-
-If news takes the 10-04 reserve, that control is simply lost — 10-06 control
-against 10-09 tagged still reads, and the news post sits outside the experiment
-(do not tag it).
-
-**Choosing the tags — 8-12 of them, as the last line of the Instagram caption:**
-
-1. **Mid-tail, never mega-tags.** Not `#taylorswift`, `#swifties`, `#swiftie`
-   or a bare `#erastour`: a tag with tens of millions of posts buries a
-   4-follower account within seconds. Aim at tags plausibly in the
-   thousands-to-low-millions.
-2. **Three kinds, roughly even:** the era or album, the actual subject of the
-   post, and the fan-practice tag a Swiftie would really search.
-3. **Never a tag implying official status** (`#taylornation`,
-   `#taylorswiftofficial`) and never one naming another real person, a
-   relationship, or anything on the #36 blocklist.
-4. **The X half is unchanged.** No tags there — they cost weighted characters
-   and buy us nothing.
-5. **Record the exact tag list in `why`** and cite `ask #4722`, so the readout
-   knows which tags were in play.
-
-**Readout, Sunday 2026-10-11:** `social/metrics/posts/2026-10/*.json` matched by
-`campaign` — `like_count + comments_count` on the two tagged pairs against the
-controls, plus the Instagram follower delta from the weekly scorecard.
-**Written down now so the result is read honestly:** against a baseline of zero
-across 44 posts, *any* non-zero number on a tagged post is the signal — and
-zero on both arms is a real answer too. It would mean engagement cannot
-discriminate anything at this follower count, and the next experiment has to
-wait for the click attribution in
-[#4719](https://github.com/JW-Incorporated/swift2/issues/4719). A 0-vs-0 is not
-"hashtags don't work".
+1. **This plan PR will auto-merge.** `social/calendar.brief.json` is in
+   `.github/content-automerge-allowlist.txt` (line 155) since
+   [#6030](https://github.com/JW-Incorporated/swift2/pull/6030) landed. Flagged
+   on two consecutive plan PRs, and it was how the 10-05 plan died unmerged. It
+   is closed.
+2. **The approval stamp works unattended** (above). The 48h-from-approval clock
+   is now the binding constraint on a draft, not a human.
 
 ---
 
@@ -225,399 +78,293 @@ wait for the click attribution in
 
 | State | Value |
 |---|---|
-| Cycle month | **2026-09** (`monthNumber` = 1) → **2026-10** (`monthNumber` = 2) inside this window |
-| September windows + angles (`angle = ANGLES[(1 + threadIndex) % 5]`) | Decode 09-01→05 `single-best-item` · Clue Web 09-06→10 `interactive-challenge` · Runway 09-11→15 `behind-the-data` · Blank Spaces 09-16→20 `quiz-poll` · Taylor's Version 09-21→25 `origin-story` · **End Game 09-26→30 `single-best-item`** |
-| **October windows + angles** (`monthNumber` = 2, recomputed this run) | **Decode 10-01→05 `interactive-challenge`** · **Clue Web 10-06→10 `behind-the-data`** · Runway 10-11→15 `quiz-poll` · Blank Spaces 10-16→20 `origin-story` · Taylor's Version 10-21→25 `single-best-item` · End Game 10-26→30 `interactive-challenge` |
-| Thread progress, September | Decode **1 of 2**. Clue Web **2 of 2 ✅**. Runway **0 of 2 ❌** (dropped, window closed). Blank Spaces **2 of 2 ✅**. Taylor's Version **1 of 2** — 09-22 shipped, the 09-25 slot never drafted. **End Game 0 of 2, both slots below (09-29, 09-30) are its last chance.** |
-| Thread progress, October | Decode **2 slots planned** (10-02, 10-04). Clue Web **2 slots planned** (10-06, 10-09). Runway's window (10-11→15) is the **first reservation of the calendar written 2026-10-05** — it must not be dropped a second month running. |
+| **⚫ Merge outage, 10-16 → now** | `build-content` red on every Tree PR touching `social/inbox/**` (so: every draft and every expiry PR — this plan PR itself passes) from one stale `SURFACE_MEDIA_LEGACY` entry in `scripts/lib/moment-media-gate.mjs`; `check-drafts` red on #6056. Six Tree PRs open and unmergeable (#5443, #5495, #5894, #5998, #6027, #6056) plus two inbox-expiry PRs (#6057, #6094). Reported to Marjorie as an error — scripts are outside this desk's mutation rights. |
+| Cycle month | **2026-10** (`monthNumber` = 2) through 10-31. November (`monthNumber` = 3) starts inside this window on 11-01, but no November thread beat is placed here — the 10-26 run computes and places them. |
+| **October windows + angles** (`angle = ANGLES[(2 + threadIndex) % 5]`) | Decode 10-01→05 `interactive-challenge` · Clue Web 10-06→10 `behind-the-data` · Runway 10-11→15 `quiz-poll` · Blank Spaces 10-16→20 `origin-story` · Taylor's Version 10-21→25 `single-best-item` · End Game 10-26→30 `interactive-challenge` |
+| **Thread progress, October** | Decode **✅ shipped 10-03**. Clue Web **✅ shipped 10-09**. Runway **written (PR #5998), blocked red**. Blank Spaces **written and founder-approved (PR #6056), blocked red**. Taylor's Version placed 10-23, End Game placed 10-26. Runway takes October's **one make-good** on 10-30 (strategy §1(b), new this run); **Blank Spaces' hero is dropped** — the rule allows one make-good a month, and the love-story lens is already the most-covered thing in this plan (timeline beats 10-22 and 10-29). October therefore lands **5 of 6 threads taught**, and the one miss is named rather than buried. |
 | Lens IDs (`packages/experience/src/lenses.ts`) | Decode `hidden-clues` · Clue Web `easter-eggs` · Runway `fashion` · Blank Spaces `love-story` · Taylor's Version `taylors-version` · End Game `the-proposal` |
-| Mode deep links (`packages/experience/src/deepLink.ts:34`) | `threads` · `mood` · `clownbot` · `community` · `merch`. `/?mode=mood` verified working 09-23 (it shipped in an approved caption). `?mood=` is still not a thing. |
-| **Launch arc — `launch:shop-the-look`** | **Closed, 3 of 4.** The 09-21 callback's Instagram half is still stranded in #4471 and its X half was ❌'d. The arc is **not** resurrected: it is seven days stale, and its photo (`fearless-inglewood-2023`) is now ineligible under L001. Do not re-draft any part of it. |
-| **Launch arc — `launch:community-engine`, day 0 moves to 10-05** | The Clownbot fan-theory chip (#3965) + the Clue Web live-theory board (#3964), now joined by **#4525 (09-22), which wires big fan theories into the site's pin banner** — a fan can see a live theory on the front page. Beats: announce **10-05**, how-to **10-08**, example **10-10**. The +8 callback (10-13) is the **second reservation of the calendar written 2026-10-05**. **Gate: invariant 6 — day 0 does not draft until the drafter has opened www.longlivets.com and seen the surfaces render for real.** |
-| Launch backlog (unchanged behind Community Engine) | notifications + web push (#3568→#3583) → pinch-zoom photo viewer (#831) → photos + focal program (#762). |
-| New user-visible ships, 09-21→09-28 | #4525 (fan theories in the pin banner) and #4520 (countdown detector + auto-pin banner) are both user-visible and both **folded into the Community Engine arc** rather than given an arc of their own — an arc is already in flight (strategy §1(a)). #4570 is mobile-app-only and the app is unannounced (invariant 6). Everything else merged this week was ops, vault content, or agent routines. |
-| ❓ Android status — **not asked again** | Open five runs with no answer. Asked four times; asking a fifth in a channel with a 0% response rate is not a plan. Barred under invariant 6 until a founder volunteers it. Dropped from the weekly ask list. |
-| Mood beat | **September = `mood:chip-poll`, 0 of 2 shipped.** Both halves of the 09-23 pair were **founder-approved** and are still sitting in unmerged #4544. **October = `mood:result`, slot 1 on 10-03**; slot 2 belongs to the calendar written 10-05. **Mood has never shipped a post in this desk's existence and the reason is now a bug, not a plan.** |
-| **Blank Spaces relationship timeline — permanent weekly minimum** | Week of 09-28: **10-01**. Week of 10-05: **10-07**. Chapter sequence: early solo years ✅ (09-17) → Harry Styles chapter ✅ (09-21) → Joe Jonas era (drafted, ❌'d on photo reuse, never shipped) → next confirmed chapter. Confirmed-only; no rumor-stage claim, ever. |
-| Openers — last 14 days | **12 distinct patterns across 12 posts.** Target ≥12 in 14 days — met, but only because the denominator collapsed; 12 posts in 14 days is half the plan. **Burned, do not reuse verbatim or near:** *"i keep sending people to …"* · *"consider this your permission …"* · *"this is taylor in 2007"* · *"every love story has a …"* · *"that ivory gown from the …"* · *"ever lose an hour …"* · *"pick one, and you're not …"* · *"two of her most …"* · *"five weeks. that's the whole …"* · *"barely a month together …"* · *"okay the moment that still …"* · *"you can sing every …"* · plus last fortnight's burns: *"i still think about …"*, *"3 videos. zero words."*, *"you know the/when …"*, *"an honest question" / "genuine question"*, bare `<month> <n>, <year>:` date-stamps. **NB: the scorecard still does not compute this number** (#4297, open) — counted by hand from `social/posted/` bodies. |
-| Media mix, last 14 days | **12 photo / 12 media-carrying = 100%**, target ≥70% ✅. IG grid: 6 of 6 IG posts carried a real Taylor photo ✅. Zero era tiles, zero undeclared media. The gate is holding; the *inventory* just stopped being the constraint. |
-| Reddit non-promo contributions | **0 / 20** through the `founder-task` channel — but **9 Reddit replies were completed this week** through the Discord approval queue (scorecard `redditRepliesDone`). The counter tracks the wrong channel; that mismatch is founder question 2. Until the threshold is genuinely met and modmail-checked, **every Reddit task stays a zero-link contribution** (growth-plan §7). |
-| IG Insights | **Never supplied**, three months running. **Asked this week** — September's monthly cadence falls on this run. |
-| Founder tasks | **#4294 (09-14) and #3990 (09-07) are both open, 0 ticked — five consecutive weeks, zero completions**, including the week it was cut to a single 4-minute ask. The same founder answered 9 Reddit prompts and 9 draft approvals in Discord in the same period, median 3h 19m. The issue channel is not read as a work queue; Discord is. Founder question 2. |
-| Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The repo-variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; it was inferred from live posting on 09-22 and from approvals continuing through 09-28.)* |
-| **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
-| 🧪 **Experiment 01 — Instagram hashtags** (ask [#4722](https://github.com/JW-Incorporated/swift2/issues/4722)) | **Live from 10-02.** Tagged: 10-02, 10-09. Control: 10-04 (if the reserve goes unused), 10-06. Full protocol in the Experiment 01 section above; readout 10-11. The desk's first labelled experiment under S2. |
-| Social event mode | **`normal`** — `scripts/social/event-status.mjs` run this session returns `{"mode":"normal","kind":null,"windingDown":false,"reservedBeats":0}`. No countdown or big theory is live, so no beats are reserved and the 14 days below are planned as ordinary rotation. |
+| Mode deep links (`packages/experience/src/deepLink.ts`) | `threads` · `mood` · `clownbot` · `community` · `merch`. **Mood lands on `/?mode=mood`** (strategy §1(d)). `?mood=` is not a thing and never was. |
+| **Launch arc — `launch:photo-viewer`, day 0 placed 11-01** | The backlog's next item that is actually **live**: the pinch-zoom photo viewer ([#831](https://github.com/JW-Incorporated/swift2/pull/831), merged 2026-07-18, never promoted in three months). `launch:community-engine` **steps back behind it** — #5864 and #6100 are schema and reader work, i.e. it is still being built, and invariant 6 forbids teasing it. Day 0 draws a `launch:` prefix, so IG may legitimately ride a `/social/library/` screenshot on slide 2 (strategy-params `siteScreen.allowedCampaignPrefixes`). **Day 0 does not draft until a drafter has opened www.longlivets.com, pinch-zoomed a photo and seen it work** — invariant 6's gate, unchanged; if it does not render, draft the named fallback instead and say so. +2 / +4 / +8 belong to the 10-26 run. |
+| Launch backlog, in order behind it | photos + focal program (#762) → `launch:community-engine` (when it ships) → the rumor tier. `launch:shop-the-look` stays closed at 3 of 4; `launch:mood-chat` stays closed at 1 post. |
+| New user-visible ships, 10-15 → 10-19 | **None that earn an arc.** ~90 PRs merged; the user-visible-adjacent ones were fixes and off-by-default infrastructure (#6097/#6077/#6017 image-dedupe and photo gates, #6032 Mood Chat key handling, the Tidewatch P2 series all flag-off, #6046/#6051/#6100 community reply tooling that only the owner's Discord sees). §1(a)'s test — could a fan notice without being told — fails for all of them. |
+| Mood beat | **October = `mood:result`, placed 10-21. Mood has still never shipped a single post.** Both prior attempts died mechanically: the 10-03 pair was founder-approved and retired by the 48h-from-approval clock; October's slot is its third attempt. One slot, not two — a lane that has never landed earns its second by landing the first. |
+| **Blank Spaces timeline — permanent weekly minimum** | Week of 10-19: **10-22**. Week of 10-26: **10-29**. Chapters shipped: early solo years (09-17) → Harry Styles (09-21) → Joe Jonas 2008 (10-01). Take the next two unposted chapters **in the lens's own order** off `/?lens=love-story`, name the chapter in each item's `why`, and verify every person, date and quote against the Vault first. Confirmed-only; no rumor-stage relationship claim, ever. |
+| **📰 News reserves — ≥1 per calendar week** | **10-25** (week of 10-19) and **10-28** (week of 10-26), each with a named fallback on its own line. A reserve is an assigned slot with two possible subjects, never a gap: uncovered event in `events.uncovered[]` → leave the beat for the event run; nothing uncovered → draft the named fallback as written. Never drafted a day early. |
+| **📰 Major moments ship same-day** (§1(e2), 2026-10-18) | Ceiling ≤3 news posts per rolling 7 days, ≤2 of them ordinary. **Week of 10-19 has already spent one major** — the Fate of Ophelia live debut, queued for tonight. This plan keeps §1(e2)'s **≥2 displaceable beats in every rolling 7 days**: 10-21 + 10-24 + 10-27 in the first window, 10-27 + 10-31 in the 10-25→10-31 window, 10-27 + 10-31 in the last. Checked window by window, not asserted. |
+| 🧪 **Experiment 01 — CLOSED, n = 2, unreadable** | Two pairs where five were asked for (tagged 10-09, control 10-02), **both at IG reach 1**; all five October IG posts with insights on file are at reach 0-1 (`social/metrics/posts/2026-10/`). Reach ≤1 has no resolution to measure a caption lever. The tag block is now the **default** on every IG beat, arms are gone, and the comparison returns as a clean 3-vs-3 the first week trailing-7-day median IG reach is **≥10** (strategy §3, PR #6105). **No replacement experiment this fortnight, deliberately** — nothing on-platform is measurable through a one-impression instrument. |
+| Openers — burned in the last 14 days, **do not reuse verbatim or near** | 10 distinct patterns across 10 posts and queued items (10-09 → 10-20), against a ≥12-per-14-days target; the denominator is 10, not the copy. Burned: *"the clue web has one theory…"* · *"gut-check for the clowns 🤡…"* · *"they spent a whole year asking…"* · *"speak now's 1,047,000-copy week…"* · *"okay this is the sweetest thing…"* · *"turns out taylor's home rotation is…"* · *"she FINALLY played it live 😭"* · *"over a year of waiting to hear it…"* · *"no label fight. no asterisk. just hers."* · *"the thing about Lover that still gets overlooked…"*. **Off the menu this fortnight:** the `"the <thread name> …"` opener, anything addressing *"the clowns 🤡"*, and *"the thing about <X> that still gets overlooked"* — the queued 10-20 X half just spent that shape. |
+| Media mix, last 14 days | **6 photo / 6 media-carrying = 100%**, target ≥70% ✅. 3 of 3 IG posts carried a real Taylor photo ✅. Zero era tiles, zero undeclared media. The gate is holding; the grid reads as a Taylor Swift fan page. |
+| **Photo supply** | Library **201** entries, **182 never-used**, `concert-photo-sourcing` **green 5 runs running** (last 2026-10-19 15:50Z). But the total has not moved off 201 in four days — green runs landing **zero new photos**, against strategy §2's ≥50-never-used-per-week intake floor. 182 never-used is ~26 weeks of cover at 7 posts a week, so this is a trend to watch, not a blocker. No era exhausted. |
+| **The week's one "failure" did not happen** | The scorecard reports 1 failed post. It is `2026-10-11-speaknow-million-week-ig.json`, which **shipped** — `postedAt 2026-10-11T23:26:07Z`, Instagram id `18107359273946758` in `social/posted/` — and whose identical copy was then retired into `social/failed/` on 10-15 for being "unposted more than 48h after approval". The queue copy outlived the post, so the sweeper failed an item that had already gone out. Real delivery failures this week: **zero**. Reported to Marjorie as an error; until it is fixed, read the failed count with this in mind. |
+| Fast lane | **0 drafted, 0 declined, 0 expired** this week. Two intents are open past their own deadlines — `appearance-2026-10-12-FqbcAAKQjes` (deadline 10-14) and `merch-2026-10-10-patient-zero-piano-version…` (deadline 10-13) — and the PRs that would expire them (#6057, #6094) are the ones held red by the `build-content` gate above. Not a drafting miss; the same single error. |
+| Reddit non-promo contributions | **0 / 20** through the `founder-task` channel; **3 Reddit replies completed this week** through the Discord queue (scorecard `redditRepliesDone`, median answer 1h 14m). The counter still tracks the channel nobody uses. Until the threshold is genuinely met and modmail-checked, **every Reddit task stays a zero-link contribution** (growth-plan §7). |
+| IG Insights | **Not asked for this month, and that is a decision.** Insights' whole job was to tell us which format earns shares — but every October IG post is at reach 0-1, so a top-3-by-reach paste would rank noise. The ask returns the month trailing-7-day median IG reach clears the §3 trigger (≥10). Five consecutive weeks of founder tasks went unticked; spending the sixth on a number that cannot inform anything is how the whole lane gets ignored. |
+| Founder tasks | **None filed this week.** Per the 2026-10-09 amendment Tree asks the owner only for a true human-only blocker (money, a secret, a major strategy call) and there is none: the week's one real blocker is a one-line script fix, which goes to Marjorie. The owner answered 3 Reddit prompts and 6 draft verdicts in Discord this week at a 23-minute median — that channel works; the issue channel does not. |
+| Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The Actions variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; inferred from `docs/ops/switch-ledger.md` carrying no freeze entry — its only row is `COMMUNITY_SCAN_ENABLED` on 10-18 — and from `social-tree-approve.yml` having stamped a pair at 08:14Z today, which it refuses to do under a freeze.)* |
+| Social event mode | **`normal`** — `scripts/social/event-status.mjs` returns `{"mode":"normal","kind":null,"windingDown":false,"blendTier":null,"reservedBeats":0}`, matching `social/state/event-status.json` as written by the credentialed 4h workflow (this session has no Supabase keys, so the cached file is the real cross-check). No countdown or live theory, so **no beats are reserved** and the 14 days below are ordinary rotation. *(It still only runs under `tsx`; a bare `node` invocation fails on a clean checkout.)* |
 
-### Photo assignment — read this off, then verify
+---
 
-Thirteen draftable days, thirteen **never-used** photographs, **zero repeats**.
-Run `npm run social:select-photo` to copy the exact `photoId`, `mediaPath`,
-`credit`, `source` and `alt` — `altText[]` must copy the library `alt`
-**verbatim**. Look at every image before you use it (rule 1 above).
+## 2026-10-19 (Mon) — ⚫ COVERED BY QUEUE · Tree run day
 
-| Day | IG tile | Credit | Note |
+`social/queue/2026-10-19-fate-of-ophelia-live-debut-{ig,x}.json`, campaign
+`news:fate-of-ophelia-live-debut-2026-10-17`, scheduled `23:00Z`, stamped
+`tree:auto` v4. **Plan nothing here and draft nothing here** — a second pair for
+today would be skipped by the one-per-platform-per-day cap, go stale and retire
+to `social/failed/`. This is the week's one major news pair (§1(e2)).
+
+## 2026-10-20 (Tue) — ⚫ COVERED BY QUEUE
+
+`social/queue/2026-10-20-lover-first-album-owned-{ig,x}.json`, campaign
+`heartbeat:era-deep-cut:lover-first-album-owned:2026-10-18`, scheduled `23:00Z`,
+stamped `tree:auto` v4. Same rule: nothing new here. (This is the 10-18 news
+reserve's fallback, re-booked onto its own day by today's run — correct
+behaviour, recorded here so the accounting below matches what ships.)
+
+## 2026-10-21 (Wed) — Mood beat (October's one slot, third attempt)
+
+- **`23:00Z` · `mood:result`** — mint `mood:result:2026-10-21`. Link
+  **`/?mode=mood`** with the standard UTM tags. Never `?mood=`.
+- **Format `mood:result` — "what it gave me", the strongest Mood format,**
+  because it proves the thing works: one starter chip in the caption, a Taylor
+  photo from the era those songs come from as the tile, the **real** returned
+  songs as IG slide 2.
+- **Hard constraints:** quote the starter chip **verbatim** from
+  `apps/web/lib/longlive/mood-starters.ts` — approved copy, never reworded.
+  **Pick a chip whose real results come from scored eras.** evermore, Midnights,
+  TTPD and TLOAS are not scored: never promise "every song" and never name those
+  eras as Mood results. Run the chip against the live feature and screenshot
+  what it actually returned before writing a word of the caption.
+- **Hook direction:** the artifact — start with what came back — or the honest
+  question. Not a date-stamp.
+- **Why here:** Mood has never shipped once in this desk's existence, and both
+  failures were mechanical rather than editorial. It is the most distinctive
+  thing on the site and it is the first beat this plan can actually reach.
+
+## 2026-10-22 (Thu) — Blank Spaces timeline (week of 10-19 minimum)
+
+- **`23:00Z` · `timeline:love-story:<chapter>`** — mint
+  `timeline:love-story:<chapter-slug>:2026-10-22`. Link `/?lens=love-story`.
+- **Chapter direction:** the next unposted chapter in the lens's own order after
+  Joe Jonas 2008. Name the chapter in `why`. **Confirmed public relationship
+  history only** — verify every person, date, event and quote against the Vault
+  before it reaches copy; rumor-stage relationship-existence claims, countdowns
+  and speculation stay banned outright.
+- **Media:** pre-compute pick, era-relevant where the pick allows. A Blank
+  Spaces lens screenshot may ride IG slide 2 only under the "cool feature only"
+  rule.
+- **Hook direction:** the artifact (start with what the photograph is) or a real
+  sourced quote. **Not** a bare date-stamp and **not** *"every love story has
+  a…"* — both burned.
+
+## 2026-10-23 (Fri) — Taylor's Version thread hero (window 10-21→25)
+
+- **`23:00Z` · `thread:taylors-version:single-best-item`** — mint
+  `thread:taylors-version:single-best-item:2026-10-hero`. Link
+  `/?lens=taylors-version`.
+- **Angle `single-best-item`:** one item from the thread, told whole. The thread
+  is the byline, not the subject — the post is about the thing, and the lens is
+  where you go to find more of them.
+- **Subject direction:** pick the item in that lens with the most specific,
+  least-told story — the one a casual fan would not already know. Verify it
+  against the Vault; assert no date or credit this file has not sourced.
+- **Media:** pre-compute pick. The thread page is a product surface, so a
+  `/social/library/` screenshot of it earns IG slide 2 **only** if it shows the
+  lens in rich actual use. X never takes a site screenshot.
+- **X half:** written first, as its own post — one idea plus the link, never the
+  IG caption truncated.
+
+## 2026-10-24 (Sat) — Heartbeat (displaceable, §1(e2))
+
+- **`23:00Z` · `heartbeat:on-this-day`** — mint
+  `on-this-day:<subject-slug>:2026-10-24`. Link `/?item=<momentId>`.
+- **Subject direction:** search the Vault for a moment dated **October 24**. If
+  there is no genuinely dated match, fall back to `heartbeat:track-fact` off a
+  track dossier rather than stretching a near-miss date — a wrong date is worse
+  than a different beat. Either way the link is a real `/?item=` or `/?era=`.
+- **Hook direction:** the number, or the contradiction. **Not** a bare
+  `<month> <n>, <year>:` date-stamp — burned — and not an opener starting
+  "the <thread>".
+- **Yields first** to a major moment arriving off-reserve (§1(e2)'s order).
+
+## 2026-10-25 (Sun) — 📰 NEWS RESERVE (week of 10-19)
+
+- **`23:00Z` · `news:<event-slug>`** — **fallback, if nothing is uncovered:**
+  `heartbeat:era-deep-cut` on **`the-life-of-a-showgirl`**, built on the
+  new-on-site moment
+  `vault-tloas-emmitt-smith-on-the-game-day-camera-shes-not-looking-for-the`,
+  minting `heartbeat:era-deep-cut:tloas-game-day-camera:2026-10-25` and linking
+  `/?item=vault-tloas-emmitt-smith-on-the-game-day-camera-shes-not-looking-for-the`.
+- **How this beat works:** check `events.uncovered[]` first. An uncovered real
+  event dated inside the last 48h → **leave this beat for the event run and
+  draft nothing here.** Nothing uncovered → draft the fallback exactly as
+  written. An assigned slot with two subjects, never a gap.
+- **News bar:** confirmed fact from the intake record only, scored on the
+  six-dimension rubric with `timely` ≥4 on its own. Ceiling ≤3 per rolling 7
+  days and **the week of 10-19 has already spent its one major** (tonight's
+  Fate of Ophelia pair), so anything taken here must be either major on its own
+  footing or inside the ≤2 ordinary allowance. Nothing on the #36 blocklist
+  except an already-confirmed personal-life event, covered factually like any
+  other real news.
+- **Hook direction, for the fallback:** the real quote — lead with Emmitt
+  Smith's own words, attribute after. An outsider describing her is a shape this
+  account has never used.
+
+## 2026-10-26 (Mon) — End Game thread hero (window 10-26→30) · Tree run day
+
+- **`23:00Z` · `thread:the-proposal:interactive-challenge`** — mint
+  `thread:the-proposal:interactive-challenge:2026-10-hero`. Link
+  `/?lens=the-proposal`.
+- **Angle `interactive-challenge`:** "open it and find the one where ___ — reply
+  with what you got." The challenge must be answerable only by actually opening
+  the lens, and the answer must genuinely be in there — check before you write
+  it.
+- **Hook direction:** the challenge or direct address. **Not** "gut-check for
+  the clowns" or any variant addressing the clowns — that shape is off the menu.
+- **Media:** pre-compute pick.
+- **Note for the 10-26 weekly run:** this is the last Tree run of October, so it
+  carries the **monthly review** (strategy §3 — scorecard month over month, one
+  named "double down" and one named "drop", rotation advanced) and computes
+  November's windows and angles (`monthNumber` = 3). It also owns the
+  `launch:photo-viewer` arc's +2 / +4 / +8 days.
+
+## 2026-10-27 (Tue) — Heartbeat (displaceable, §1(e2))
+
+- **`23:00Z` · `heartbeat:symbol-thread`** — mint
+  `symbol-thread:<motif-slug>:2026-10-27`. Link `/?lens=easter-eggs`.
+- **Subject direction:** one motif from the Invisible Strings atlas that recurs
+  across at least two eras. Source every appearance; speculation is **labelled**
+  as speculation, never asserted (vision.md's rule, verbatim on social).
+- **Hook direction:** the artifact, or the challenge ("find it in ten seconds").
+- **Yields first** to a major moment arriving off-reserve.
+
+## 2026-10-28 (Wed) — 📰 NEWS RESERVE (week of 10-26)
+
+- **`23:00Z` · `news:<event-slug>`** — **fallback, if nothing is uncovered:**
+  `heartbeat:era-deep-cut` on **`speak-now`**, built on the new-on-site moment
+  `vault-speak-now-6-000-books-for-the-library-down-the-road-from-wyomissing`,
+  minting `heartbeat:era-deep-cut:speak-now-wyomissing-library:2026-10-28` and
+  linking
+  `/?item=vault-speak-now-6-000-books-for-the-library-down-the-road-from-wyomissing`.
+- Same reserve mechanics as 10-25: `events.uncovered[]` first, leave the beat
+  for the event run if something is uncovered, otherwise draft the fallback as
+  written. Never drafted a day early.
+- **Era note:** `speak-now` last shipped 10-11, 17 days before this beat, so it
+  is clear of the no-stacking rule. Confirm the era still has a never-used photo
+  before committing; if it does not, say so in the PR body — that is the signal
+  the library needs feeding.
+- **Hook direction, for the fallback:** the number. 6,000 is the hook.
+
+## 2026-10-29 (Thu) — Blank Spaces timeline (week of 10-26 minimum)
+
+- **`23:00Z` · `timeline:love-story:<chapter>`** — mint
+  `timeline:love-story:<chapter-slug>:2026-10-29`. Link `/?lens=love-story`.
+- **Chapter direction:** the next unposted chapter after 10-22's. Same sourcing
+  bar: confirmed-only, verified against the Vault, chapter named in `why`.
+- **Hook direction:** a different shape from 10-22's. Direct address or the
+  honest question.
+
+## 2026-10-30 (Fri) — Runway thread hero · **October's one make-good**
+
+- **`23:00Z` · `thread:fashion:quiz-poll`** — mint
+  `thread:fashion:quiz-poll:2026-10-hero`. Link `/?lens=fashion`.
+- **This is an explicit out-of-window make-good** for the Runway window
+  10-11→15, which closed with the hero written on PR #5998 and blocked red. It
+  is allowed by strategy §1(b) as changed this run (PR #6105): one a month,
+  taking a heartbeat beat, never another minimum. **Write fresh copy** — do not
+  resurrect #5998's body; that PR gets retired, and its opener is 15 days from
+  its own context.
+- **Angle `quiz-poll`:** a question whose answer lives inside the Runway thread.
+  X gets a real poll where the platform allows; the IG half asks the same
+  question in prose and sends people to the lens to settle it. Structurally
+  different halves, not a truncated caption.
+- **Subject direction:** pick ONE Runway look the thread documents in detail and
+  build the question around a detail only someone who opened the lens would know
+  — a designer, a re-wear, a colour that recurs across a tour leg. Verify every
+  attribution against the Vault; do not assert a designer or a date this file
+  has not sourced.
+- **Media:** pre-compute pick. The Runway lens is a genuinely visual product
+  surface, so a `/social/library/` screenshot **earns IG slide 2** behind the
+  photo tile — only if it shows the lens in rich actual use, never a flat page.
+- **Why here:** Runway is the one thread dropped two months running, and both
+  drops were engine failures rather than planning choices. This is the beat that
+  gets October to 5 of 6 threads taught.
+
+## 2026-10-31 (Sat) — Heartbeat (displaceable, §1(e2))
+
+- **`23:00Z` · `heartbeat:on-this-day`** — mint
+  `on-this-day:<subject-slug>:2026-10-31`. Link `/?item=<momentId>`.
+- **Subject direction:** it is Halloween, and that is a real seasonal hook, not
+  a theme to invent. Search the Vault for a moment dated **October 31** — a
+  costume, an appearance, a release — and use it. **If there is no genuinely
+  dated October 31 match, do not stretch one:** fall back to
+  `heartbeat:era-deep-cut` on **`folklore`**, minting
+  `heartbeat:era-deep-cut:folklore-<subject>:2026-10-31` and linking
+  `/?era=folklore`, and say in `why` that the dated search came up empty.
+- **Hook direction:** the artifact or direct address. A date-stamp opener is
+  burned, and on this day of all days it is also the dullest available choice.
+- **Yields first** to a major moment arriving off-reserve.
+
+## 2026-11-01 (Sun) — 🚀 `launch:photo-viewer` DAY 0 (announce)
+
+- **`23:00Z` · `launch:photo-viewer:announce`** — mint
+  `launch:photo-viewer:announce:2026-11-01`. Link the `/?item=` of a
+  photo-rich moment, so the tap lands exactly where the feature lives — never
+  the bare homepage.
+- **🚦 Gate, and it is hard (invariant 6):** open www.longlivets.com on a
+  phone, pinch-zoom a photo on an item page, and confirm it works. **If it does
+  not render, do not draft day 0.** Draft the fallback instead —
+  `heartbeat:track-fact`, minting `track-fact:<subject-slug>:2026-11-01` off a
+  track dossier, linking `/?item=<momentId>` — and say exactly what you saw, so
+  the 10-26 run's +2/+4/+8 days can be re-planned rather than left dangling.
+- **Job of the post** (§1(a) day 0): one line on what you can now *do*, not
+  "we shipped". The viewer has been live since 2026-07-18 and has never been
+  mentioned once, so the frame is "this has been here, here's how to use it" —
+  which is honest and still news to every follower.
+- **Media:** IG is a photo tile first with the feature **mid-use** as slide 2 —
+  the one place a `/social/library/` screenshot is unambiguously sanctioned
+  (`launch:` prefix, strategy-params `siteScreen.allowedCampaignPrefixes`). X
+  takes the **same photo** as its IG sibling and never a site screenshot.
+- **Hook direction:** direct address. The specificity test is the risk on a
+  product post — "you can zoom in on the photos now" is not a hook; naming the
+  photograph a fan would want to zoom into is.
+- **Why here:** it is the first launch arc in five calendars that has an
+  actually-live surface behind it, and it starts at the end of this window so
+  the 10-26 run owns the rest of the arc rather than inheriting a promise.
+
+---
+
+## Beat accounting — 12 uncovered beats, 12 slots
+
+| Reservation | Strategy | Beats | Dates |
 |---|---|---|---|
-| 09-29 | `reddit-erastour-1q6jwfl` | u/Sensitive-Archer3010 | ✅ named uploader |
-| 09-30 | `reddit-erastour-1q8clxb` | u/Sensitive-Archer3010 | ✅ named uploader |
-| 10-01 | `reddit-taylorswiftpictures-1q1pxtp` | u/unknown | no credit line |
-| 10-02 | `reddit-taylorswiftpictures-1ocof56` | u/unknown | no credit line |
-| 10-03 | `reddit-erastour-1ptssc4` | u/Friscic | ✅ named uploader · ⚠️ size 3.1 MB |
-| 10-04 | `reddit-taylorswiftpictures-1puk3m7` | u/unknown | no credit line |
-| 10-05 | `reddit-erastour-1q65hiz` | u/Shiver8597 | ✅ named uploader · ⚠️ size 5.2 MB |
-| 10-06 | `reddit-taylorswiftpictures-1pxtr93` | u/unknown | no credit line |
-| 10-07 | `reddit-taylorswiftpictures-1r6n7aq` | u/unknown | no credit line |
-| 10-08 | `reddit-taylorswiftpictures-1tl4pqb` | u/unknown | no credit line |
-| 10-09 | `reddit-taylorswiftpictures-1ojprpr` | u/unknown | no credit line |
-| 10-10 | `reddit-taylorswiftpictures-1pjmwfb` | u/unknown | no credit line |
-| 10-11 | `reddit-taylorswiftpictures-1ogrcvp` | u/unknown | no credit line |
+| Covered by queue (do not plan) | §2 one-per-platform-per-day cap | 2 | 10-19, 10-20 |
+| October thread heroes | §1(b) | 2 | 10-23, 10-26 |
+| October thread make-good | §1(b), new this run | 1 | 10-30 |
+| Blank Spaces timeline | §1(c), permanent weekly minimum | 2 | 10-22, 10-29 |
+| News reserves | §1(e2), ≥1 per calendar week | 2 | 10-25, 10-28 |
+| Mood | §1(d), monthly | 1 | 10-21 |
+| Launch arc day 0 | §1(a) | 1 | 11-01 |
+| Heartbeat (displaceable) | §1(e) | 3 | 10-24, 10-27, 10-31 |
+| **Total** | | **14** | 14 days, 12 of them drafted by this plan |
 
-**Reserves, in order, all never used:** `1nxmfeq` · `1qad9bo` · `1pphafw`
-(⚠️ 1.8 MB) · `1pm1yly` (⚠️ 2.1 MB) · `1qgb3m8` (⚠️ 2.2 MB) · `1r38qiv`
-(⚠️ 7.5 MB). **Never:** `1nz3wbn` (`.gif`).
-If a day slips or a slot is dropped, **re-derive from `social/posted/` rather
-than sliding this table down.**
+**Displaceable-beat check (§1(e2), ≥2 per rolling 7 days), window by window:**
+10-19→10-25: 10-21, 10-24 (2) · 10-20→10-26: 10-21, 10-24 (2) ·
+10-21→10-27: 10-21, 10-24, 10-27 (3) · 10-22→10-28: 10-24, 10-27 (2) ·
+10-23→10-29: 10-24, 10-27 (2) · 10-24→10-30: 10-24, 10-27 (2) ·
+10-25→10-31: 10-27, 10-31 (2) · 10-26→11-01: 10-27, 10-31 (2). ✅
 
----
-
-## 2026-09-28 (Mon) — ⚫ LOST · Tree run day
-
-No daily-draft PR exists for today and the 11:00Z run has already passed, so
-there is nothing to draft for 09-28. **Do not backfill it.** A post that is
-already a day late is worth less than the next one being on time.
-
-## 2026-09-29 (Tue) — End Game hero, slot 1 of 2 (window 09-26→30)
-
-- **`23:00Z` · `thread:the-proposal:single-best-item`** — mint
-  `thread:the-proposal:single-best-item:2026-09-hero`. Link `/?lens=the-proposal`.
-  Angle `single-best-item`: one item from the thread, told whole. The thread is
-  the byline, not the subject. **Confirmed material only** — this lens sits
-  closest to the blocklist, so anything not settled public fact does not go in.
-  IG media: `reddit-erastour-1q6jwfl` (named uploader), photo-only. Do not claim
-  an era for it. X: **text-only.** Hook: **the artifact** — open with what the
-  thing is, not with a question.
-
-## 2026-09-30 (Wed) — End Game, slot 2 of 2 (window closes today)
-
-- **`23:00Z` · `thread:the-proposal:single-best-item`** — a second story-unique
-  value: `thread:the-proposal:single-best-item:2026-09-second`. Link
-  `/?lens=the-proposal`. A **different** item from 09-29's, told whole — never a
-  restatement. Same confirmed-only bar.
-  IG media: `reddit-erastour-1q8clxb` (named uploader), photo-only.
-  X: **text-only.** Hook: **the contradiction**.
-  **Window-bound**: drop rather than slide. If 09-29 did not ship, this slot
-  still runs — one End Game post beats none, and September closes tonight.
-
-## 2026-10-01 (Thu) — Blank Spaces relationship timeline, week of 09-28
-
-- **`23:00Z` · `timeline:love-story:<chapter-slug>:2026-10-01`** — the weekly
-  timeline minimum. **Mint the actual chapter slug you land on** and record it in
-  `why` so the 10-05 calendar can continue the sequence. Link `/?lens=love-story`
-  with standard UTM parameters.
-  **Direction, not copy:** advance the chronology one chapter past the Harry
-  Styles chapter that shipped 09-21. The Joe Jonas chapter was drafted on 09-23
-  and ❌'d **on photo reuse, not on content** — its body is on file in the
-  feedback ledger and the material is sound, so it is a legitimate chapter to
-  take. **Do not reopen with its first line** ("Okay this one is such a wild
-  piece of Taylor lore").
-  **Confirmed, publicly documented material only** — what was publicly
-  acknowledged at the time and what she has said on the record since. No
-  speculation, no rumor-stage claim, nothing about people who are not public
-  figures in this story. If the Vault carries no confirmed anchor, **skip to the
-  next chapter that has one.**
-  IG media: `reddit-taylorswiftpictures-1q1pxtp`, photo-only. X: **text-only.**
-  Hook: **the number** (a date, a gap, a count).
-
-## 2026-10-02 (Fri) — The Decode hero, slot 1 of 2 (October window 10-01→05)
-
-🧪 **Experiment 01: TAGGED arm.** The Instagram caption ends with the 8-12
-mid-tail hashtag block and both halves carry the `experiment` object — rules and
-the exact object are in the Experiment 01 section above.
-
-RE-DRAFT ask #4675 by 2026-10-04: the 09-23 Mood pair and the 09-24 Blank Spaces timeline X — founder-✅'d in retired PR #4544, never posted. Re-cover both subjects fresh as single-post items under the per-post approval flow: new openers, a never-used photo (L001), X text-only. Mood rides the 10-03 slot. Cite "ask #4675" in each item's `why`.
-
-- **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — mint
-  `thread:hidden-clues:interactive-challenge:2026-10-hero`. Link
-  `/?lens=hidden-clues`. **October's angle index** — the cycle month advances here.
-  Angle `interactive-challenge`: *"open it and find the one where ___ — reply
-  with what you got."* Name a real, findable thing in the thread; **verify it is
-  actually there before writing the challenge.**
-  IG media: `reddit-taylorswiftpictures-1ocof56` + **`thread-hidden-clues-screen.png`**
-  as slide 2 (last used 09-05, clear of the window). Slide 2 only if it shows the
-  lens **in use**, never a landing page or empty state (Joey, 2026-09-01); if it
-  doesn't, go photo-only and say so in `why`.
-  X: **text-only** — on a challenge post the reply-bait carries itself.
-  Hook: **the challenge**.
-
-## 2026-10-03 (Sat) — Mood, October slot 1 of 2 · the one that has to land
-
-- **`23:00Z` · `mood:result`** — mint `mood:result:2026-10-a`.
-  October's format rotates to **"what it gave me"**, the strongest one, *because
-  it proves the thing works.* Quote one starter chip **verbatim** from
-  `apps/web/lib/longlive/mood-starters.ts` — approved copy, never reword — then
-  give the **real** songs it returned.
-  **Both halves of September's Mood pair were founder-approved on 09-23 and are
-  still stranded in unmerged #4544.** Do not re-use their openers (*"Tell me your
-  whole vibe in three words…"*, *"Okay be honest — which one is you today?"*) and
-  do not re-file them; write this beat fresh.
-  **Scored eras only: no evermore, Midnights, TTPD or TLOAS songs.**
-  Link `/?mode=mood` (verified) with standard UTM parameters.
-  IG media: `reddit-erastour-1ptssc4` (named uploader, ⚠️ 3.1 MB — if the poster
-  rejects it, take `1nxmfeq`). Slide 2 `mood-chat-screen.png` **only if it shows
-  a real result on screen**; else photo-only with the songs in the caption.
-  X: **text-only.** **Share hook required.** Hook: **the artifact**.
-
-## 2026-10-04 (Sun) — 📰 NEWS RESERVE · fallback: The Decode, slot 2 of 2
-
-**This beat is reserved for news first** (strategy §1(e2), added 2026-10-01 for
-[#4676](https://github.com/JW-Incorporated/swift2/issues/4676)). At the 11:00Z
-run on 10-04, read `events.uncovered[]` **before** anything else:
-
-- **An uncovered real-world event from the last 48h → draft nothing here.**
-  Leave the 10-04 `23:00Z` slot open so `routine-tree-event-draft.yml` can take
-  it the same day; mint `news:<event-slug>-2026-10-04`, clear `timely` ≥4 on the
-  six-dimension rubric, and the Decode answer beat below is **dropped** (its
-  window closes 10-05 — drop rather than slide, per the window rule).
-- **Nothing uncovered → draft the fallback below exactly as written.**
-- **The 10-03 run does not draft this day's beat a day early.** That is what
-  makes the reserve a reserve.
-
-Either way the IG tile is 10-04's assigned photo (`reddit-taylorswiftpictures-1puk3m7`)
-unless the event run's own `eventPhoto` supersedes it.
-
-**Fallback beat:**
-
-- **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — a second
-  story-unique value: `thread:hidden-clues:interactive-challenge:2026-10-answer`.
-  Link `/?lens=hidden-clues`.
-  If 10-02's challenge drew real replies, this is the answer beat and quotes them
-  (with permission); if it drew none, it is a **different** challenge entirely —
-  never a restatement.
-  IG media: `reddit-taylorswiftpictures-1puk3m7`, photo-only (the lens screenshot
-  burned on 10-02). X: **text-only.** Hook: **the number**.
-
-## 2026-10-05 (Mon) — 🚀 Community Engine arc, day 0 (announce) · Tree run day
-
-- **`23:00Z` · `launch:community-engine:announce`** — mint exactly that.
-  **Gate first (invariant 6, not negotiable):** open www.longlivets.com and
-  confirm for yourself that the Clownbot fan-theory chip, the Clue Web
-  live-theory board, **and the front-page pin banner carrying a live fan theory
-  (#4525)** render for real. If they do not, **do not draft this** — fall back to
-  a `heartbeat:` beat, say so in the PR body, and the arc waits again.
-  Link: `/?mode=clownbot`, `/?lens=easter-eggs`, or the bare domain if the pin
-  banner is the lead — pick the surface the post actually leads with and verify
-  the deep link resolves before using it.
-  Job per strategy §1(a): **one line on what a fan can now do** — not "we
-  shipped", but "here's the thing you can now do". Name the real behaviour you
-  saw on screen. **Assert no counts.**
-  IG media: `reddit-erastour-1q65hiz` (named uploader, ⚠️ 5.2 MB — if the poster
-  rejects it, take `1qad9bo`). Slide 2 only if a committed screenshot genuinely
-  shows one of these surfaces mid-use; `feature-quote-demo-theory.png` is a
-  candidate — **look at it before trusting the filename.**
-  X: **text-only.** Hook: **direct address**.
-
-## 2026-10-06 (Tue) — Clue Web hero, slot 1 of 2 (October window 10-06→10)
-
-🧪 **Experiment 01: control arm.** No hashtags, no `experiment` object — write
-"Experiment 01 control" in `why`.
-
-- **`23:00Z` · `thread:easter-eggs:behind-the-data`** — mint
-  `thread:easter-eggs:behind-the-data:2026-10-hero`. Link `/?lens=easter-eggs`.
-  Angle `behind-the-data`: how the thread knows what it knows — the shape of the
-  evidence, not a list of eggs. What gets counted, what gets rejected, and the
-  one pattern that only shows up once you have all of it in one place.
-  IG media: `reddit-taylorswiftpictures-1pxtr93`, photo-only.
-  X: **text-only.** Hook: **the number**.
-
-## 2026-10-07 (Wed) — Blank Spaces relationship timeline, week of 10-05
-
-- **`23:00Z` · `timeline:love-story:<chapter-slug>:2026-10-07`** — the weekly
-  timeline minimum. Mint the actual chapter slug and record it in `why`.
-  Link `/?lens=love-story` with standard UTM parameters.
-  Advance one chapter from 10-01. Same hard bar: confirmed, publicly acknowledged
-  material only; no speculation, no rumor frame, no private individuals. If the
-  Vault carries no confirmed anchor, skip forward to a chapter that does.
-  IG media: `reddit-taylorswiftpictures-1r6n7aq`, photo-only. X: **text-only.**
-  Hook: **the real quote** — a sourced, on-the-record line as the first line,
-  attributed after. Not the number hook (10-01 has it).
-
-## 2026-10-08 (Thu) — 🚀 Community Engine +3 (how-to)
-
-- **`23:00Z` · `launch:community-engine:how-to`** — mint exactly that.
-  Only draft this if 10-05's day 0 actually shipped; if it didn't, this slot
-  becomes a `heartbeat:` beat and the arc waits.
-  Job: **literally where to tap.** Assume the reader has never found it — how you
-  reach the surface, what happens when you tap, what you get back.
-  IG media: `reddit-taylorswiftpictures-1tl4pqb`; slide 2 only if a real in-use
-  screenshot exists (see 10-05). X: **text-only.** Hook: **the challenge**.
-
-## 2026-10-09 (Fri) — Clue Web, slot 2 of 2 (window closes 10-10)
-
-🧪 **Experiment 01: TAGGED arm** — same rules as 10-02, a different 8-12 tag
-block chosen for this post's own subject.
-
-- **`23:00Z` · `thread:easter-eggs:behind-the-data`** — a second story-unique
-  value: `thread:easter-eggs:behind-the-data:2026-10-second`. Link
-  `/?lens=easter-eggs`. A different entry point into the same angle — the one
-  egg the data says the fandom got wrong, or the oldest one still live. **Never a
-  retelling of 10-06.**
-  IG media: `reddit-taylorswiftpictures-1ojprpr`, photo-only.
-  X: **text-only.** Hook: **the contradiction**.
-  **Window-bound**: drop rather than slide.
-
-## 2026-10-10 (Sat) — 🚀 Community Engine +5 (example)
-
-- **`23:00Z` · `launch:community-engine:example`** — mint exactly that.
-  Only draft this if 10-05 shipped. Job per strategy §1(a): **one real thing the
-  surface produced** — an actual theory on the board, an actual Clownbot
-  exchange — the proof it's good, not a description of it. Quote fan-authored
-  content only with permission; if you have none, use one the site itself
-  generated.
-  IG media: `reddit-taylorswiftpictures-1pjmwfb`; slide 2 per 10-05's rule.
-  X: **text-only.** Hook: **the artifact**.
-
-## 2026-10-11 (Sun) — 📰 NEWS RESERVE · fallback: the fortnight's one heartbeat
-
-**Second news reserve of this window** (strategy §1(e2)). Same procedure as
-10-04: at the 11:00Z run on 10-11, an uncovered real-world event from the last
-48h takes this slot as `news:<event-slug>-2026-10-11` and the heartbeat below
-**slides into the calendar written 10-12** rather than being dropped (a
-heartbeat is not window-bound). Nothing uncovered → draft the fallback as
-written. The 10-10 run leaves this day alone.
-
-Heartbeat is first in the yield order, so this is the cheapest reserve in the
-fortnight — which is exactly why it is one.
-
-**Fallback beat:**
-
-- **`23:00Z` · `heartbeat:era-deep-cut`** — mint
-  `heartbeat:era-deep-cut:speak-now-million-week-2026-10-11`. **A new
-  story-unique value**: the 09-13 original died in `social/failed/` and the
-  09-27 retry never drafted, so neither value is requeuable.
-  Link `/?era=speak-now`.
-  Subject direction: the Speak Now week-one sales record and the
-  written-entirely-alone credit. **Source both against the Vault
-  (`supabase/seed/content/speak-now.mjs`) and keep the "14 standard-edition
-  tracks" qualifier** — the unqualified "wrote it alone" claim overstates the
-  source, which a review caught on the original draft.
-  IG media: `reddit-taylorswiftpictures-1ogrcvp`, photo-only. **This is an Eras
-  Tour fan photo, not a Speak Now-era photo — credit it as such and do not let
-  the caption imply otherwise.** X: **text-only.**
-  **Share hook required** (heartbeat), grounded in the real no-co-writers detail.
-  Hook: **the contradiction**. The original caption is on file in
-  `social/failed/` — read it, then **do not reopen with its first line.**
+**Where a major moment lands.** Nearest free heartbeat or mood beat, in §1(e2)'s
+order, and the displaced beat slides to the next free day — except a window-bound
+thread hero, which is never displaced and never slid. The 10-30 make-good is
+**not** displaceable: it is the last chance October has at its fifth thread.
 
 ---
 
-## What the queue already covers
+## Review — next due 2026-10-26
 
-**`social/queue/` is empty** — verified this run. No date in
-2026-09-28 → 2026-10-11 is covered by a queued item.
-
-Six daily-draft PRs are open with unmerged items (#4471, #4513, #4544, #4556,
-#4565, #4574), but none of them targets a date inside this window — the latest
-is 09-26. **If any of them is merged later, its items are historical, not
-coverage**; do not treat a merged backlog PR as filling a slot below.
-
----
-
-## Founder tasks scheduled in this window
-
-Filed as `founder-task` issues by Tree. ≤3 tasks, ≤5 minutes each, paste-ready,
-checkboxes.
-
-**2026-09-28 — `founder-task: social reach week of 2026-09-28`** *(filed this
-run)* — **two tasks, ~5 minutes total.** Task 1 is the monthly IG Insights paste,
-due this run on the monthly cadence and never once supplied in three months. Task
-2 is the follow-and-comment ask, filed for the sixth time. If task 2 goes unticked
-again, it does not get a seventh filing in this channel — it moves to
-`#longlive-tree`, which is answered in hours.
-
-**Deliberately not asked this week:** the Android/Play Store status (four asks,
-zero answers — dropped) and any third task.
-
----
-
-## Review — 2026-09
-
-*The monthly self-review, per strategy §3. 2026-09-28 is the last Tree weekly run
-of September. Kept verbatim by every later rewrite of this file.*
-
-**Scorecard, September vs August** (counted from `social/posted/` and
-`social/failed/`; the weekly numbers in the PR body come from
-`weekly-scorecard.mjs`):
-
-| | August | September |
-|---|---|---|
-| Posts shipped | 65 (X 41 · IG 24) | **20 (X 10 · IG 10)** |
-| Failed | 19 | 10 |
-| Instagram followers | 3 (at 08-31) | **4 (at 09-27)** |
-| Facebook followers | 8 | 10 |
-| X followers | 0 | 0 |
-| Distinct openers / posts, last 14d | 35 / 36 ✅ | **12 / 12 ✅** |
-| Media mix (media-carrying) | 25% photo ❌ | **100% photo ✅** |
-| Followers gained per post | 0 / 65 | **1 / 20** |
-
-**1. The month in one line.** September fixed the quality problem and broke the
-throughput one: every gate the desk was built to hold is green — 100% real
-photographs, zero era tiles, 12 distinct openers out of 12 posts, not one "did
-you know" — and we shipped **less than a third of August's volume** because
-approved posts stopped reaching the platforms.
-
-**2. The three Insights posts.** None. Requested every month since August, never
-supplied. Every "double down / drop" below is therefore judgment, not
-measurement — which is exactly the gap strategy §3 names as the standing blocker.
-
-**3. Double down: the real-photograph standard, now that it has inventory.**
-The three months of argument about media ended this month with the gate holding
-at 100% and the library going 10 → 30 on 09-28. The grid finally looks like a
-Taylor Swift fan account. That is the one thing to protect. **Drop: batching
-multiple days' items into one draft PR.** It is the direct cause of the
-throughput collapse — one ❌ on one photo killed five approved posts across
-#4471, #4513 and #4544, including both halves of the only Mood post this desk
-has ever had approved. One item, one PR, or one rejection keeps costing four
-good posts (#4475).
-
-**4. Rotation state advanced.** October = `monthNumber` 2 — the windows and
-angles are in the ledger above. Runway 10-11→15 `quiz-poll` is the first
-reservation of the next calendar; it was dropped in September and must not be
-dropped twice. Mood October = `mood:result`. Next launch arc after Community
-Engine: notifications + web push (#3568→#3583).
-
-**5. Needed a founder decision.** Two, both in this week's brief: whether a
-`u/unknown` photo credit may ship at all (answered 2026-10-01: yes, with no credit
-line), and whether the weekly founder task moves out of GitHub issues into
-`#longlive-tree`.
-
----
-
-## Review — 2026-08
-
-*Kept verbatim from the run of 2026-08-31 — the monthly reviews are the durable
-record of this lane and survive every rewrite of the file above.*
-
-**Scorecard, week ending 2026-08-31:** X 14 · IG 8 · FB 8 (30 total) · follower
-change IG +0 · X +0 · FB +0 · 5 failed · 35 distinct openers across 36 posts
-(target ≥12) ✅ · media mix 3 photo / 12 = 25% (target ≥70%) ❌ · Instagram grid
-3 photo / 10 = 30% ❌ · 0 followers gained per 30 posts published.
-
-**1. The month in one line.** The formula loop that created this desk is dead —
-35 distinct openers across 36 posts, and "did you know" has not appeared since
-08-10. Every other target was missed.
-
-**2. The three Insights posts.** None. The August ask was never supplied, so the
-single per-post engagement signal in the system does not exist for August.
-
-**3. Double down: real photographs of Taylor.** The three days that carried a
-cleared photo (08-26, 08-27, 08-28) are the only days the grid looked like a
-Taylor Swift fan account rather than a product tour. The corpus grew by exactly
-one file in August and stood at four. **Drop: captions written from a headline
-nobody read** — the `appearance-discovery` lane's unsupervised authoring, which
-produced the window's only duplicate opener and a memorial graphic scheduled
-with exclamation points. Resolved since, by #3817.
-
-**4. Rotation state advanced.** September = `monthNumber` 1 — the windows and
-angles now in the ledger above.
-
-**5. Needed a founder decision.** The appearance-lane media/authoring question
-(#3584, since closed) and the Android Play Store listing (still open).
+The monthly review (strategy §3) falls to the **last Tree run of October, the
+10-26 run**: scorecard month over month, one named "double down" and one named
+"drop", rotation advanced into November, and a straight answer on whether the
+merge outage above was fixed. IG Insights will not be in it unless reach clears
+the §3 trigger first — see the ledger row.

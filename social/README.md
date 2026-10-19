@@ -121,6 +121,36 @@ retry an item a recent run posted or retired. Queue contents are never taken
 from the tip (a founder edit on `main` wins). With no rolling branch the poster
 uses `main`'s view; any git error fails the step and the run posts nothing.
 
+**Posted-image ledger (#5990).** `social/posted-images.json` has one entry per
+posted image (`hash`, optional `crops`, `file` = media path, `post` = the
+`social/posted/` record, `postId`, `platform`, `campaign`, `postedAt`), keyed by
+a perceptual fingerprint (`lib/image-fingerprint.mjs`: 64-bit dHash of the whole
+picture plus centre crops at 1:1, 4:5 and 1.91:1, via `sharp`). Two images are
+the same picture at Hamming distance <= 6 of 64 (resize, re-encode and rename
+measure 0-3; the closest distinct pair among the 50 posted images is 8; near-flat
+images only match at 0). Padded `-ig45`/`-ig191` variants are matched through
+the library's `variantOf` links. The only sanctioned repeat is the other half of
+the SAME campaign. Enforced three ways: `check-drafts` (hard finding naming the
+earlier post; also queue-vs-queue across campaigns), `validate:social` (ledger
+schema), and the poster pre-step `guard-image-reuse.mjs`, which refuses to post
+(red job, fails CLOSED on an image it cannot fetch or decode). The poster never
+appends to the ledger: the check and the pre-step derive any posted record newer
+than the committed file from `social/posted/**` each run, so completeness does
+not depend on a commit. Refresh the committed file with
+`npm run social:sync-image-ledger`.
+
+One exception to fail-closed, and only in `check-drafts` (#6096): when `sharp`
+is not installed in the checkout at all, nothing can be fingerprinted, so the
+check did not fail — it could not run. `check-drafts` then reports each photo as
+*unverifiable locally* (a non-fatal warning) instead of refusing, because a
+routine's agent job checks the repo out without `npm ci`
+(`routine-template.yml` never installs) and Tree could not otherwise finish a
+draft. Bytes that will not decode, and a `sharp` that is installed but fails to
+load, stay a refusal. The gates that decide a merge or a post —
+`auto-merge-content.yml`, `social-tree-approve.yml` and the poster pre-step —
+all `npm ci` first, so the rule is still enforced fail-closed before anything
+ships.
+
 **A PR closed unmerged drops its state changes.** Its posted/failed records
 are safe (they live on `social-ledger` and return with the next run's
 overlay), and an item it recorded as POSTED cannot post twice (it is skipped
@@ -318,7 +348,7 @@ Eight rule families, in order (later ones assume earlier ones passed):
 ## Post-time guards (`scripts/social/lib/queue.mjs`, `post-queue.mjs`)
 
 Per due item, in this order:
-1. **48h staleness check, first, with one exception.** Any item still due and unposted more than 48h after its clock starts moves straight to `social/failed/` with a `failureReason` — regardless of whether it would be postable right now. The exception: a `posted/` record with the item's exact file name that is still its duplicate (same platform, and same campaign or body) means it already went live and only the fold-back is stuck, so it falls through to the idempotency skip and stays queued. A same-named file edited and re-approved since it posted is no longer a duplicate, so it is retired, never posted. **The clock differs by approval state (2026-09-11):** a stamped item (past the B1 approval gate) is measured from `approval.at` — the founder's own approval is when a human actually acted, so that's when the 48h starts, not the drafting/scheduling timestamp (`lib/queue.mjs`'s `isStaleApproved`). An unstamped item is unchanged, measured from `scheduledAt`/queue time (`isStaleDue`) — there is no reachable "unstamped, but its originating PR is still open" state to except from this: under the current merge-then-stamp flow (`social-approval-poll.mjs` stamps a PR's queue file BEFORE merging it), any file `post-queue.mjs` can see on `main` already came from a closed PR. This is what stops a guard/preflight skip from becoming a silent, permanent deadlock (exactly what happened to `2026-08-09-august-augustine-ig.json`, stuck re-skipping every 30 min for 2 days because the era-art guard's window only advanced when a new Instagram post landed) — a 3-day-stale item never quietly ships just because it happened to clear on the run that finally checked it.
+1. **48h staleness check, first, with one exception.** Any item still due and unposted more than 48h after its clock starts moves straight to `social/failed/` with a `failureReason` — regardless of whether it would be postable right now. The exception: a `posted/` record with the item's exact file name that is still its duplicate (same platform, and same campaign or body) means it already went live and only the fold-back is stuck, so it falls through to the idempotency skip and stays queued. A same-named file edited and re-approved since it posted is no longer a duplicate, so it is retired, never posted. **The clock differs by approval state (2026-09-11):** a stamped item (past the B1 approval gate) is measured from `approval.at` — the founder's own approval is when a human actually acted, so that's when the 48h starts, not the drafting/scheduling timestamp (`lib/queue.mjs`'s `isStaleApproved`). An unstamped item is unchanged, measured from `scheduledAt`/queue time (`isStaleDue`) — there is no reachable "unstamped, but its originating PR is still open" state to except from this: under the current merge-then-stamp flow (`social-approval-poll.mjs` stamps a PR's queue file BEFORE merging it), any file `post-queue.mjs` can see on `main` already came from a closed PR. This is what stops a guard/preflight skip from becoming a silent, permanent deadlock (exactly what happened to `2026-08-09-august-augustine-ig.json`, stuck re-skipping every 30 min for 2 days because the era-art guard's window only advanced when a new Instagram post landed) — a 3-day-stale item never quietly ships just because it happened to clear on the run that finally checked it. The exception landed on 2026-10-15 (#5857); the three false `social/failed/` records written before it (the 09-12 `shop-the-look-announce` pair and `2026-10-11-speaknow-million-week-ig.json`, all three already live with a `platformPostId`) were deleted in #6110, and `validate:social` now fails the `build` check if any file name is in more than one of `social/queue|posted|failed` — one item, one state.
 2. **Idempotency check** — is there already a `social/posted/` record with the same platform and (`campaign` or an identical `body`)? If so, skip loudly rather than repost. This mitigates the real 2026-07-17 triple-post incident: the queue → posted state-commit PR (see `social-poster.yml`) can itself fail to land even after a genuine successful post, leaving the item still sitting in `social/queue/` for a later run to find.
 3. **Era-art guard** (`eraArtGuardReason`) — undeclared or recently-repeated era art (see `mediaKind` above) — plus a same-run media dedupe, so two items posting in the same run can't reuse each other's media before `social/posted/` would even reflect it.
 4. **Deploy-lag preflight** — HEAD-checks (falling back to a ranged GET if a host rejects HEAD, and requiring an image content-type) every media URL before an IG or X-with-media publish; unreachable media records the item as **`waiting`** (reported as "waiting on deploy", no attempt spent) rather than wasting a retry on a 404 — it ships itself on the first run after the deploy lands. For Instagram, the publish itself also polls each media container to `FINISHED` before calling `/media_publish` (`lib/ig-container.mjs`, issue #1897) — publishing a container Meta hasn't finished processing is what produced the 9007/2207027 "media not ready" failure, and retries can't fix it because every attempt rebuilds a fresh container and re-loses the same race.

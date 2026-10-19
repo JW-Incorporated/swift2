@@ -79,13 +79,48 @@ describe('clockDispatch', () => {
   });
 });
 
+describe('shadow report entries', () => {
+  const rows = TABLE.filter((e: { workflow: string }) => e.workflow === 'tidewatch-shadow-report.yml');
+  const W = 'tidewatch-shadow-report.yml';
+  const alertTitle = 'tidewatch-shadow-report (alert)';
+  const fullTitle = 'tidewatch-shadow-report (full)';
+  const at = (iso: string, table = rows, runs: object[] = []) => {
+    const f = fakeGh({ [W]: runs });
+    const res = clockDispatch({ gh: f.gh, repo: 'o/r', now: Date.parse(iso), log: () => {}, table });
+    return { res: res.map((r: { result: string }) => r.result), calls: f.calls.filter((c) => c[0] === 'workflow') };
+  };
+  it('sends boolean inputs the workflow declares, keyed by run-name', () => {
+    expect(rows.map((e: { runName: string; inputs: object }) => [e.runName, e.inputs])).toEqual([
+      [alertTitle, { alert: 'true' }], [fullTitle, { alert: 'false' }],
+    ]);
+    const src = readFileSync(path.join(path.resolve(__dirname, '../..'), '.github/workflows', W), 'utf8');
+    expect(src).toMatch(/^ {6}alert:\n[\s\S]*?type: boolean/m);
+    expect(src).toContain("run-name: tidewatch-shadow-report (${{ inputs.alert && 'alert' || 'full' }})");
+    expect(src).not.toMatch(/^ {2}schedule:/m);
+  });
+  it('hourly alert runs do not throttle the daily full report', () => {
+    const runs = [run('2026-10-06T14:40:00Z', 'workflow_dispatch', alertTitle)];
+    const { res, calls } = at('2026-10-06T15:20:00Z', rows, runs);
+    expect(res).toEqual(['skipped', 'dispatched']);
+    expect(calls[0].slice(-2)).toEqual(['-f', 'alert=false']);
+  });
+  it('alert re-dispatches after 55m and the full report waits for 15:07 UTC and 23h', () => {
+    const full = run('2026-10-05T15:10:00Z', 'workflow_dispatch', fullTitle);
+    expect(at('2026-10-06T15:00:00Z', rows, [full]).res).toEqual(['dispatched', 'skipped']);
+    expect(at('2026-10-06T15:08:00Z', rows, [full]).res).toEqual(['dispatched', 'dispatched']);
+    const today = run('2026-10-06T15:10:00Z', 'workflow_dispatch', fullTitle);
+    expect(at('2026-10-06T22:00:00Z', rows, [today]).res).toEqual(['dispatched', 'skipped']);
+  });
+});
+
 describe('clock-table.json', () => {
   const root = path.resolve(__dirname, '../..');
   it('names only real, dispatchable workflows', () => {
     expect(TABLE.map((e: { workflow: string }) => e.workflow)).toEqual([
       'bot-failure-triage.yml', 'watchdog.yml', 'routine-marjorie-ops.yml', 'news-worker.yml',
       'tidewatch.yml', 'tidewatch.yml', 'marjorie-status.yml', 'auto-merge-keepup.yml',
-      'social-approval-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
+      'social-approval-poll.yml', 'community-reaction-poll.yml', 'social-poster.yml', 'concert-photo-sourcing.yml',
+      'tidewatch-shadow-report.yml', 'tidewatch-shadow-report.yml',
     ]);
     for (const e of TABLE) {
       const f = path.join(root, '.github/workflows', e.workflow);

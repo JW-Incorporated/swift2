@@ -55,7 +55,7 @@ jobs:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     # DISCORD_BOT_TOKEN lives in the main-only `social` environment. Plain run: steps only (no agent);
-    # community tasks are posted to tree-main by channel id (scripts/lib/discord-route.mjs).
+    # community tasks are posted to tree-reddit / tree-facebook by channel id (scripts/lib/discord-route.mjs).
     environment: social
     timeout-minutes: 15
     steps:

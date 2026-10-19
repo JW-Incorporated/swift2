@@ -1,0 +1,44 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "over a year of waiting to hear it off a stage — and Saturday night Taylor finally delivered \"The Fate of Ophelia\" live, the Showgirl lead single at last 🤍\n\nlonglivets.com/?item=vault-tloas-the-fate-of-ophelia-goes-live-for-the-first-time-closing-the&utm_source=x&utm_medium=social&utm_campaign=news",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pjmwfb.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pjmwfb",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pjmwfb/beautiful_taylor/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Beautiful Taylor"
+  ],
+  "scheduledAt": "2026-10-19T23:00:00Z",
+  "campaign": "news:fate-of-ophelia-live-debut-2026-10-17",
+  "why": "ask #6084 (major-moment news, strategy §1(e2)): X sibling of the Fate of Ophelia live-debut pair. Same campaign + scheduledAt as the IG item; kept short (well under X's 280 weighted limit) and reframed around the year-plus-later angle so it reads as its own post, not a truncated caption. Facts from the same Vault moment. rulesChecked [L002].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "The X half of the live-debut major moment: one tight line on Taylor playing \"The Fate of Ophelia\" live for the first time, closing the Academy Museum Gala Oct. 17. Short and link-forward so the whole night reads on the site.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-19T08:14:37.880Z",
+    "pr": 6093,
+    "message": "social-tree-approve run 39221284472",
+    "contentHash": "sha256:30cea6f2de561868bdfbb99ec5cccd15cdf09f756b615caf0531e2e00ecc4d43",
+    "mediaDigest": "sha256:e5dd67271f6d963a62d4ed8e912153a89f8b45c25d7657e8b941672f24a05acd",
+    "sig": "hmac-sha256:0d402ae21513d873448150e25a824e4f125b1effa12222cc37b57f1fdb06028a"
+  }
+}

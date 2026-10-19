@@ -17,7 +17,8 @@
 # Daily, after community-crawl.yml: downloads that workflow's transient
 # 24h Actions artifact (raw post+comment bundles, hashed authors, never
 # committed to the repo or DB by the crawl stage itself — see crawl.mjs's
-# header) and runs one Haiku call per bundle via
+# header), skips unchanged comment-count buckets, asks capped Jev `q_theory`,
+# and runs Haiku only for positive bundles via
 # apps/worker/src/extract/theory-haiku-client.ts's structured output schema,
 # screening every theory (screenTopic()) before
 # it reaches `fan_theory_candidate`. Zero writes to Reddit/Facebook — this
@@ -110,6 +111,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           COMMUNITY_CRAWL_ARTIFACT: .artifacts/community-crawl.json
         run: npx --no-install tsx scripts/community/theory-miner.mjs

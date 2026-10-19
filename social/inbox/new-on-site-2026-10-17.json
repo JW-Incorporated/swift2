@@ -1,0 +1,26 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-10-17",
+  "windowDays": 7,
+  "since": "2026-10-10T00:00:00.000Z",
+  "count": 1,
+  "media": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-hey-its-taylor-swift-goes-global-the-voice-trademark-push-re",
+      "eraId": "tloas",
+      "title": "\"Hey, it's Taylor Swift\" goes global: the voice trademark push reaches the UK, EU and Australia",
+      "year": 2026,
+      "month": 10,
+      "day": 6,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-hey-its-taylor-swift-goes-global-the-voice-trademark-push-re",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg"
+    }
+  ]
+}

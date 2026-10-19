@@ -14,8 +14,9 @@
 //
 // The workflow GITHUB_TOKEN cannot read secret or variable settings; those two
 // kinds alone use the existing OPS_FIXER_PAT (classic PAT, `repo` scope) as
-// GH_TOKEN for their read-only call. If it is absent or unauthorized the entry
-// is SKIPPED (left open, one ::warning::), never closed.
+// GH_TOKEN for their read-only call. If the PAT is absent, unauthorized, or the
+// gh call fails for any reason, the entry is SKIPPED (left open, one ::warning::
+// carrying the sanitized gh stderr), never closed.
 // A passing check closes the entry through the ONE rolling close PR
 // (scripts/marjorie/lib/status-closes.mjs), so it auto-merges like an owner
 // `done` reply and the ledger line reads "auto-closed: <check> passed <date>".
@@ -89,12 +90,12 @@ export function skippedNumbers(doneMd) {
  * returns stdout (throws on failure). Returns 'pass' | 'fail' | 'skip' (the
  * check could not be evaluated — leave the entry open).
  */
-export function evaluate(verify, { gh, repo }) {
+export function evaluate(verify, { gh, repo, warn = console.warn }) {
   const [a, b] = verify.args;
   try {
     switch (verify.kind) {
       case 'secret-exists': {
-        const names = JSON.parse(gh(['secret', 'list', '--repo', repo, '--json', 'name', '--limit', '500'], { admin: true }) || '[]');
+        const names = JSON.parse(gh(['secret', 'list', '--repo', repo, '--json', 'name'], { admin: true }) || '[]');
         return names.some((s) => s.name === a) ? 'pass' : 'fail';
       }
       case 'variable-equals': {
@@ -117,19 +118,26 @@ export function evaluate(verify, { gh, repo }) {
       default:
         return 'skip';
     }
-  } catch {
+  } catch (err) {
+    warn(`auto-close: ${verify.label} failed: ${describeError(err)}`);
     return 'skip';
   }
 }
 
+/** One-line, token-scrubbed, length-capped reason from a failed gh call. */
+function describeError(err) {
+  const raw = String(err?.stderr || err?.message || err || '').replace(/\s+/g, ' ').trim();
+  return raw.replace(/\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]+/g, '[redacted]').slice(0, 300);
+}
+
 /** Pure: which open entries have a passing check. Returns { passed, failed, skipped, ignored }. */
-export function evaluateAll(openMd, doneMd, { gh, repo }) {
+export function evaluateAll(openMd, doneMd, { gh, repo, warn }) {
   const skipped = skippedNumbers(doneMd);
   const res = { passed: [], failed: [], skipped: [], ignored: [] };
   for (const e of entriesWithVerify(openMd)) {
     if (skipped.has(e.number) || e.verifyText === null) { res.ignored.push(e.number); continue; }
     if (!e.verify) { res.skipped.push({ number: e.number, why: 'unrecognized verify line' }); continue; }
-    const r = evaluate(e.verify, { gh, repo });
+    const r = evaluate(e.verify, { gh, repo, warn });
     if (r === 'pass') res.passed.push({ number: e.number, label: e.verify.label });
     else if (r === 'fail') res.failed.push(e.number);
     else res.skipped.push({ number: e.number, why: `${e.verify.label} could not be read` });
@@ -155,7 +163,7 @@ export async function main({ env = process.env, root = ROOT, exec = execFileSync
   };
   const openMd = readFileSync(path.join(root, HUMAN_ACTIONS_PATH), 'utf8');
   const doneMd = readFileSync(path.join(root, HUMAN_ACTIONS_DONE_PATH), 'utf8');
-  const res = evaluateAll(openMd, doneMd, { gh, repo });
+  const res = evaluateAll(openMd, doneMd, { gh, repo, warn: (m) => log(`${env.GITHUB_ACTIONS ? '::warning::' : ''}${m}`) });
   for (const s of res.skipped) log(`${env.GITHUB_ACTIONS ? '::warning::' : ''}auto-close: #${s.number} left open — ${s.why}`);
   if (!res.passed.length) { log(`auto-close: nothing to close (${res.failed.length} check(s) not yet passing)`); return 0; }
   if (argv.includes('--dry-run')) {

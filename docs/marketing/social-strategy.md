@@ -191,6 +191,32 @@ windows as fit and drops the rest; the next month starts again at The Decode
 with its own angle index. (August 2026 starts on the 12th, so it runs Decode →
 Clue Web → Runway → Blank Spaces and skips Taylor's Version + End Game.)
 
+**One make-good per month for a hero the engine ate (added 2026-10-19, Tree).**
+A thread hero whose window closes **unshipped because the pipeline failed** may
+be re-placed on any remaining beat in the **same calendar month**, written in
+the calendar as an explicit out-of-window make-good naming the window it
+missed. Bounds, so this stays a make-good and not a licence to slide: **at most
+one per month**; it takes a `heartbeat:` or `mood:` beat only — never another
+thread's hero, never §1(c)'s weekly timeline minimum, never a §1(e2) news
+reserve, and never a beat that would drop a rolling 7 days below §1(e2)'s two
+displaceable beats; and if no such beat is free before the month ends, the hero
+is **dropped**, exactly as before. The window still governs normal placement —
+"dropped rather than slid" remains the rule for a hero that lost its window to
+a *planning* choice.
+
+**Why.** The drop rule assumed a window closes because the calendar was
+over-subscribed, and in that case dropping is right. Twice now it has closed
+because nothing could ship at all: The Runway got 0 of 2 slots in September and
+its October hero was drafted on time into PR
+[#5998](https://github.com/JW-Incorporated/swift2/pull/5998), which has sat red
+on an unrelated `build-content` gate ever since; Blank Spaces' October hero was
+drafted, **founder-approved on 2026-10-18** (`social/feedback/2026-W42.jsonl`,
+`thread:love-story:origin-story:2026-10-hero`) and died on PR
+[#6056](https://github.com/JW-Incorporated/swift2/pull/6056) the same way.
+Dropping a hero the desk actually delivered, because CI was red, charges a
+planning penalty for an engineering failure and quietly breaks the
+six-threads-every-month promise this section exists to keep.
+
 ### (c) Blank Spaces relationship timeline — weekly, confirmed-only
 
 **Permanent minimum:** reserve at least **one 23:00Z evening campaign beat in
@@ -371,11 +397,49 @@ displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
 the event run may not edit `social/calendar.md`; the next weekly run
 reconciles the calendar to what actually shipped.
 
-**Cap — ≤2 news posts per rolling 7 days.** News is the one campaign that can
+**Cap — ≤2 ordinary news posts per rolling 7 days** (raised to a ≤3 total
+ceiling for major moments, 2026-10-18 — see the next paragraph). News is the one campaign that can
 arrive unplanned, so it gets the same bounded shape as the T6 fast lane: the
 rotation it preempts is what teaches new followers the product, and a week of
 pure reaction posting is how a fan account becomes a news aggregator nobody
 needs.
+
+**Major moments — the site's front page is the trigger (added 2026-10-18,
+answering Marjorie's ask [#6084](https://github.com/JW-Incorporated/swift2/issues/6084)).**
+In the week to 2026-10-18 the site covered **12 of 13** real-world events and
+social covered **1** (the week-of-10-19 plan, [#6083](https://github.com/JW-Incorporated/swift2/issues/6083)).
+Two mechanical failures took most of it — the engine was dark 10-12→10-14 on a
+weekly usage limit, then a broken photo check refused every draft through 10-18
+([#6056](https://github.com/JW-Incorporated/swift2/pull/6056), fixed by
+[#6077](https://github.com/JW-Incorporated/swift2/pull/6077)) — but the
+arithmetic above is the other half: a ≤2 cap on a 13-beat fortnight could not
+have carried 12 events even on a perfect week. So, from this plan on:
+
+- **A major moment gets a same-day pair and does not spend the ordinary cap.**
+  *Major* means a confirmed event the site itself fronts: a live debut, a
+  release, an official video, a chart No. 1, an award, a tour or appearance
+  announcement — never an intake row whose `significance` is `routine`. The
+  ceiling becomes **≤3 news posts per rolling 7 days, of which ≤2 may be
+  ordinary**; a third in one week must be major. The anti-aggregator reason the
+  ≤2 was written still holds for everything that is not major, which is most of
+  the intake feed.
+- **Every calendar leaves somewhere for one to land.** Each rolling 7 days
+  carries **≥2 displaceable beats** — a `heartbeat:` or `mood:` beat — on top
+  of its news reserve. A plan with zero slack is how a full calendar silently
+  turned 12 covered events into one post; one reserve cannot absorb two majors
+  in the same week. October's minimums (≈2 thread heroes + 1 timeline + 1
+  reserve per week) leave three, so this costs no minimum.
+- **Same-day means same day.** The yield order above is unchanged (heartbeat,
+  then mood). If no heartbeat or mood beat is free inside 48h, a major moment
+  takes the nearest one and that beat is **dropped rather than slid**, recorded
+  in the item's `why`. A major moment posted two days late is not news.
+- **It is measured.** Each weekly plan reports news pairs shipped against major
+  site-covered moments, so a 1-of-13 gap shows up as a number rather than as a
+  good intention.
+
+The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
+live and already sourced on the site; it is not a substitute for sourcing the
+claim against the Vault or the intake record (invariant 13).
 
 **Bar.** A news beat is scored on the six-dimension rubric the fast lane
 already uses — T2's five plus **`timely`, which must clear 4 on its own** — and
@@ -772,50 +836,53 @@ schedule one — what a plan can do is buy a ticket every day.
 
 ### Experiments — the live one and how its arms are assigned
 
-**Experiment 01 — hashtags on Instagram — is live, under-powered, and extended
-to 2026-10-18** (answers Marjorie's ask
-[#5542](https://github.com/JW-Incorporated/swift2/issues/5542), 2026-10-11; the
-experiment's own origin is ask #4722 and its full protocol is written out in
-`social/calendar.md`'s Experiment 01 section).
+**Experiment 01 — hashtags on Instagram — read out on 2026-10-19 as UNREADABLE,
+and is now closed as an experiment** (origin ask
+[#4722](https://github.com/JW-Incorporated/swift2/issues/4722), extended once by
+[#5542](https://github.com/JW-Incorporated/swift2/issues/5542)).
 
-**Why it is extended.** It has shipped exactly **one** tagged pair — 2026-10-09,
-`thread:easter-eggs:behind-the-data:2026-10-second`, IG reach 1 — against one
-untagged control from 2026-10-02 at reach ~1. One-versus-one at reach 1 cannot
-tell a working lever from an account nobody has seen yet; it is a coin flip
-with a label on it. The shortfall is not the design, it is supply: the posting
-engine ran 2 of 7 days last week.
+**The readout, as it actually came in.** The protocol asked for five pairs by
+2026-10-18 and got **two**: one tagged (2026-10-09,
+`thread:easter-eggs:behind-the-data:2026-10-second`) and one control
+(2026-10-02). Both landed at **IG reach 1**. Every one of the five October
+Instagram posts with insights on file is at reach **0 or 1**
+(`social/metrics/posts/2026-10/`). That is the finding, and it is not about
+hashtags: **reach ≤1 has no resolution to measure a caption lever with.** A
+tagged-versus-control mean separated by less than one impression is a coin flip
+with a label on it, and running the comparison for another fortnight would buy
+two more coin flips — the supply shortfall (the engine drafted 2 of 7 days in
+the readout window) only makes the same arithmetic worse.
 
-**Binding on every calendar written before the readout:** every Instagram beat
-planned from 2026-10-12 carries an Experiment 01 arm — **alternating, starting
-TAGGED** — until at least **five pairs exist in total** (the 10-09 tagged pair
-plus four more: two tagged, two control). Counterbalance the arms inside a
-campaign family where the window allows, so hero-versus-second slot position
-cannot explain the result. A news-reserve beat is never tagged and never counts
-as an arm.
+**What replaces it, from 2026-10-19:**
 
-- **TAGGED.** Both halves of the pair carry the `experiment` object verbatim;
-  the Instagram caption's last line is 8-12 **mid-tail** tags — the era or
-  album, the post's actual subject, the fan-practice tag a Swiftie would really
-  search. Never mega-tags (`#taylorswift`, `#swifties`, a bare `#erastour`),
-  never a tag implying official status, never one naming a real person or
-  touching the #36 blocklist. The X half is unchanged and untagged.
-- **CONTROL.** No tags, no `experiment` object; `why` says
-  "Experiment 01 control".
+- **The tag block is the default, not an arm.** Every Instagram beat carries
+  8-12 **mid-tail** tags as the caption's last line — the era or album, the
+  post's actual subject, the fan-practice tag a Swiftie would really search.
+  Never mega-tags (`#taylorswift`, `#swifties`, a bare `#erastour`), never a
+  tag implying official status, never one naming a real person or touching the
+  #36 blocklist. The X half stays untagged. It is cheap, conventional on the
+  platform, and the one plausible discovery lever an account with no audience
+  has; defaulting it on costs nothing and withholding it from half the beats
+  cost us half our tagged supply.
+- **No arms, no `experiment` object, and no per-beat TAGGED/CONTROL
+  bookkeeping.** Calendars stop assigning arms; the line in each beat goes
+  away.
+- **The measurement comes back when it can be read.** Re-run it as a clean
+  3-tagged-vs-3-control block the first weekly plan where **trailing-7-day
+  median Instagram reach is ≥10** — the floor at which a difference can
+  survive its own noise. Until then the weekly scorecard's reach line is the
+  thing to watch, and this section states the trigger rather than scheduling a
+  date it cannot keep.
 
-**Readout: Tree's weekly plan of 2026-10-18**, from `social/metrics/posts/` at
-48h per post — IG reach first, then `like_count + comments_count` — reported as
-tagged mean vs control mean *with the number of pairs it rests on*. Fewer than
-five pairs by then is reported as "still unreadable, n = X" and the tag block
-stays on by default rather than being judged on noise; five or more decides keep
-or drop, and dropping it means deleting this section rather than letting it rot
-in place.
-
-**The dependency, stated plainly:** four more pairs by 2026-10-18 needs four
-more days of the engine actually drafting Instagram beats, which needs Tree's
-weekly calendar routine fixed
-([#5470](https://github.com/JW-Incorporated/swift2/issues/5470)). If the week is
-short, the experiment is short with it; the arms above apply to whatever beats
-do exist, in order.
+**No new calendar experiment this fortnight, deliberately.** S2 allows ~1 in 4
+slots on a labelled experiment, and the honest reading of the paragraph above is
+that **no on-platform format experiment is measurable at reach ≤1** — format,
+hook shape and post time all read identically through a one-impression
+instrument. Inventing one would manufacture a result, which is worse than an
+unused allowance. The lever that moves the only number gating every other
+measurement is distribution — growth-plan §6's outward-reach engine, which has
+never run — and that is a growth goal (Marjorie's) and a human-lane job (§1(f)),
+not a caption variant. The slot allowance resumes with the reach trigger above.
 
 ### The monthly self-review
 

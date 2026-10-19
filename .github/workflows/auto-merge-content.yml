@@ -137,6 +137,10 @@ on:
       # Tree's operational docs (bots v2 W7, 2026-10-01): Marjorie's feedback
       # lands without a founder merge; posts still need the founder ✅.
       - "social/calendar.md"
+      # The plan's machine hand-off, written in the same PR as calendar.md
+      # (#6029). Listed so a replan PR that touches only this file still
+      # triggers the gate, not just one that also rewrites calendar.md.
+      - "social/calendar.brief.json"
       - "social/lessons.md"
       - "docs/marketing/social-strategy.md"
       - "social/strategy-params.json"
@@ -197,6 +201,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
+
+      # sharp (root dependency) fingerprints images for the same-picture check
+      # (#5990); without node_modules every image reads as undecodable and
+      # check-drafts fails closed on every draft (#6062). Trusted base checkout.
+      - name: Install dependencies (image fingerprinting needs sharp)
+        run: npm ci --ignore-scripts --silent
 
       - name: Fetch this PR's changed queue + media files (data only, no PR code runs)
         id: files

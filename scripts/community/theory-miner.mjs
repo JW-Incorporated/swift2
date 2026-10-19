@@ -1,17 +1,11 @@
 #!/usr/bin/env node
-// Theory Miner (C2) — Community Engine plan §3.3, Phase 2 card P2-2.
-// docs/proposals/2026-09-06-community-engine-plan.md. Parents: P0-1
-// (schema, merged) and P2-1 (community-crawl.yml, merged — note
-// COMMUNITY_CRAWL_ENABLED is OFF by default, so this stage has nothing to
-// consume until a founder turns crawling on; that is expected, not a
-// fault, and this script degrades to a clean no-op in that case).
+// Theory Miner (C2) — P1-21 consumes the home reader's new/hot thread bundle;
+// the older GitHub top-of-year crawl remains an explicitly configured fallback.
 //
-// WHAT THIS DOES: reads the transient JSON bundle community-crawl.yml
-// (P2-1) uploaded as a 24h Actions artifact — one post + comment-thread
-// bundle per crawled subreddit post, hashed authors, no raw handles (see
-// crawl.mjs's own header) — and, for every bundle, makes one Haiku call
-// via apps/worker/src/extract/theory-haiku-client.ts's forced
-// `record_fan_theories` tool. Every theory the model finds is screened
+// WHAT THIS DOES: reads author-free post + comment-tree bundles, skips a
+// completed bundle:<thread>:<comment bucket>, then asks capped Jev q_theory.
+// Only positives make a Haiku 5.5 call through the logged Claude-subscription
+// wrapper. Every theory the model finds is screened
 // (screenTopic(), same redline gate every other pipeline in this repo
 // uses) and upserted into `fan_theory_candidate`, deduped by `theory_key`.
 // A screen failure means the candidate is NEVER stored (see write-theory-
@@ -22,22 +16,17 @@
 // interacts with either platform — same "a human always posts" guardrail
 // as every other Community Engine component (plan header, §6.1).
 //
-// No separate kill switch: the crawl's own COMMUNITY_CRAWL_ENABLED
-// (default OFF) is the real gate — when it's off, community-crawl.yml
-// produces no artifact for this workflow to download, so this script has
-// nothing to do and exits 0 with a log line. When the crawl IS enabled but
-// this run finds no artifact (e.g. a manual dispatch with no preceding
-// crawl this cycle), that is the SAME clean no-op, not a failure.
+// A missing or empty bundle is a clean no-op, including while the home
+// reader's breaker is backing off.
 //
-//   node scripts/community/theory-miner.mjs --artifact .artifacts/community-crawl.json
-//
-// Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY and the Claude subscription
-// token consumed by the shared headless runner. Missing model availability is
-// per-bundle (`deferred`), not a whole-run failure.
+// Needs Supabase service credentials, TYPESAFE_API_KEY and the Claude
+// subscription token. Missing model availability is retryable per bundle.
 
 import { readFileSync, existsSync } from 'node:fs';
-import { serviceClient } from '../lib/supabase.mjs';
+import { strictServiceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { getLoggedClaudeCaller } from '../lib/llm-usage.mjs';
+import { createTheoryPrefilter } from './theory-bundles.mjs';
 
 async function loadTheoryMinerStage() {
   return import(new URL('../../apps/worker/src/extract/run-theory-miner-stage.ts', import.meta.url).href);
@@ -45,7 +34,7 @@ async function loadTheoryMinerStage() {
 
 function parseArgs(argv) {
   const out = {
-    artifact: process.env.COMMUNITY_CRAWL_ARTIFACT || '.artifacts/community-crawl.json',
+    artifact: process.env.COMMUNITY_CRAWL_ARTIFACT || '.artifacts/home-reddit-crawl.json',
   };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--artifact' && argv[i + 1]) {
@@ -58,12 +47,38 @@ function parseArgs(argv) {
 
 export { parseArgs };
 
+export async function loadFacebookTheoryBundles(db) {
+  const { data, error } = await db
+    .from('fan_signal')
+    .select('id, community, summary, volume, window_end')
+    .eq('platform', 'facebook')
+    .order('window_end', { ascending: false })
+    .limit(50);
+  if (error) throw new Error(`facebook theory summaries failed: ${error.message}`);
+  const groups = new Map();
+  for (const row of data ?? []) {
+    if (!row.summary) continue;
+    if (!groups.has(row.community)) groups.set(row.community, []);
+    groups.get(row.community).push({
+      postId: `facebook-${row.id}`,
+      title: 'Facebook discussion summary',
+      permalink: undefined,
+      numComments: row.volume,
+      comments: [{ author: null, body: row.summary }],
+    });
+  }
+  return [...groups].map(([subreddit, posts]) => ({ subreddit, posts }));
+}
+
 export async function runTheoryMiner({
   argv = process.argv.slice(2),
   exists = existsSync,
   readFile = readFileSync,
-  createServiceClient = serviceClient,
+  createServiceClient = strictServiceClient,
   loadStage = loadTheoryMinerStage,
+  createPrefilter = createTheoryPrefilter,
+  loadFacebookBundles = loadFacebookTheoryBundles,
+  createLoggedClaudeCaller = getLoggedClaudeCaller,
 } = {}) {
   const { artifact } = parseArgs(argv);
 
@@ -98,15 +113,40 @@ export async function runTheoryMiner({
     return 0;
   }
 
+  let prefilter;
+  try {
+    prefilter = createPrefilter(db);
+  } catch (error) {
+    console.log(
+      `theory-miner: Jev prefilter unavailable (${error.message}) — no bundles mined this run.`,
+    );
+    return 0;
+  }
+
+  let facebook = [];
+  try {
+    facebook = await loadFacebookBundles(db);
+  } catch (error) {
+    console.warn(`theory-miner: ${error.message}; continuing with Reddit bundles.`);
+  }
+
   const { runTheoryMinerStage } = await loadStage();
-  const result = await runTheoryMinerStage(db, { subreddits }, { priority: 'P3' });
+  const claude = createLoggedClaudeCaller();
+  const result = await runTheoryMinerStage(
+    db,
+    { subreddits: [...subreddits, ...facebook] },
+    { priority: 'P3', shouldMine: prefilter.shouldMine, claude },
+  );
+  const jev = prefilter.stats();
 
   console.log(
     `theory-miner: ${result.bundlesConsidered} bundle(s) considered, ` +
       `${result.theoriesFound} theory(ies) found, ${result.theoriesUpserted} upserted, ` +
-      `${result.theoriesScreenedOut} screened out, ${result.skipped} skipped (no theory), ` +
+      `${result.theoriesScreenedOut} screened out, ${result.unchanged} unchanged, ` +
+      `${result.prefiltered} Jev-negative, ${result.skipped} skipped (no theory), ` +
       `${result.deferred} deferred (subscription unavailable/cap reserved out).`,
   );
+  console.log(`theory-miner: Jev ${jev.calls}/${jev.cap} call cap used; ${jev.capped} deferred.`);
   if (result.errors.length > 0) {
     console.error(`theory-miner: ${result.errors.length} error(s):`);
     for (const e of result.errors) console.error(`  • ${e}`);

@@ -125,6 +125,36 @@ describe('no pre-computed pick can fail the Instagram aspect gate', () => {
   });
 });
 
+// #6058: igUsablePhotos filtered aspect ratio but not file format, so the one
+// .gif in the library was handed to the 2026-10-18 beat as its assigned photo.
+// check-drafts hard-fails that extension, so the beat could never pass the
+// checker the prompt requires before the PR — the run burned 51/50 turns and
+// opened nothing.
+describe('no pre-computed pick can fail the media-extension gate', () => {
+  it('igUsablePhotos excludes a library entry whose format check-drafts refuses', async () => {
+    const gif = { id: 'synthetic-gif', mediaPath: '/social/library/photos/synthetic-gif.gif', width: 400, height: 401, credit: 'c', source: 's', alt: 'a' };
+    const jpg = { id: 'synthetic-jpg', mediaPath: '/social/library/photos/synthetic-jpg.jpg', width: 400, height: 401, credit: 'c', source: 's', alt: 'a' };
+    const { usable } = await igUsablePhotos([gif, jpg], path.join(ROOT, 'apps', 'web', 'public'));
+    expect(usable.has('synthetic-jpg')).toBe(true);
+    expect(usable.has('synthetic-gif')).toBe(false);
+  });
+
+  it('every drawable photo the pre-compute can offer has a supported extension', async () => {
+    const { inputs, ig } = await pairFromPrecompute();
+    type Pick = { media: string[]; photoId: string; mediaCredit: string; mediaSource: string; altText: string[] };
+    const picks = [
+      ...(Object.values(inputs.photos.eras) as Array<{ next: Pick | null }>).map((e) => e.next),
+      ...(inputs.beats as Array<{ photo: Pick | null }>).map((b) => b.photo),
+      inputs.eventPhoto as Pick | null,
+    ].filter((p): p is Pick => p !== null);
+    expect(picks.length).toBeGreaterThan(0);
+    for (const p of picks) {
+      const findings = await checkMedia('a.json', { ...ig, media: p.media, photoId: p.photoId, mediaCredit: p.mediaCredit, mediaSource: p.mediaSource, altText: p.altText, photoEra: undefined, campaign: 'mood:chip-poll:x' }, []);
+      expect(findings.filter((f: string) => f.includes('unsupported extension')), p.photoId).toEqual([]);
+    }
+  });
+});
+
 describe('text-only X is the single-platform case, not a loophole', () => {
   it('an X item with no media passes only with its own written singlePlatformReason', async () => {
     const { x, posted } = await pairFromPrecompute();

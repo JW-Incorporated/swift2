@@ -8,6 +8,9 @@
   { "workflow": "marjorie-status.yml", "minGapMinutes": 55 },
   { "workflow": "auto-merge-keepup.yml", "minGapMinutes": 14 },
   { "workflow": "social-approval-poll.yml", "minGapMinutes": 14 },
+  { "workflow": "community-reaction-poll.yml", "minGapMinutes": 14 },
   { "workflow": "social-poster.yml", "minGapMinutes": 28 },
-  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 }
+  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 },
+  { "workflow": "tidewatch-shadow-report.yml", "minGapMinutes": 55, "runName": "tidewatch-shadow-report (alert)", "inputs": { "alert": "true" } },
+  { "workflow": "tidewatch-shadow-report.yml", "minGapMinutes": 1380, "notBeforeUtc": "15:07", "runName": "tidewatch-shadow-report (full)", "inputs": { "alert": "false" } }
 ]

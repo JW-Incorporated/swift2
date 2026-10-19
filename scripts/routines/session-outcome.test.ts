@@ -5,6 +5,7 @@ import {
   decideOutcome,
   dedupeWeeklyLimitIssues,
   failureHint,
+  planLimitInfo,
   resultDetail,
   weeklyLimitInfo,
   weeklyLimitIssueBody,
@@ -242,6 +243,52 @@ describe('weekly limit outcome', () => {
       [{ number: 1, body: 'claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z', title: 'primary reset' }], 'backup',
     );
     expect(update.title).toBe('primary reset');
+  });
+
+  // #5899: routine-awareness-answerer went red on the five-hour session cap
+  // because only the weekly wording was recognised.
+  it('passes the five-hour session cap without pausing the fleet', () => {
+    const r = decideOutcome(
+      log({
+        subtype: 'success',
+        is_error: true,
+        result: "You've hit your session limit · resets 6:30pm (UTC)",
+      }),
+      { stepOutcome: 'failure', now: new Date('2026-10-15T17:23:37.000Z') },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.message).toContain('five-hour session window');
+    expect(r.message).toContain('resets 2026-10-15T18:30:00.000Z');
+    // A session cap must never write the issue that pauses non-content routines.
+    expect(r.weeklyLimit).toBeUndefined();
+  });
+
+  it('reports the cap kind and never mistakes a session cap for a weekly one', () => {
+    const at = { now: new Date('2026-10-15T17:23:37.000Z') };
+    const session = { result: "You've hit your session limit · resets 6:30pm (UTC)" };
+    expect(planLimitInfo(session, at)).toEqual({
+      kind: 'session',
+      detectedAt: '2026-10-15T17:23:37.000Z',
+      resetAt: '2026-10-15T18:30:00.000Z',
+      parsed: true,
+    });
+    expect(weeklyLimitInfo(session, at)).toBeNull();
+    expect(planLimitInfo({ result: realLimitText }, at)?.kind).toBe('weekly');
+    expect(weeklyLimitInfo({ result: realLimitText }, at)).not.toBeNull();
+  });
+
+  it('bounds an unparseable session reset to the five-hour window', () => {
+    expect(
+      planLimitInfo(
+        { result: "You've hit your session limit - resets sometime later" },
+        { now: new Date('2026-10-15T17:00:00.000Z') },
+      ),
+    ).toEqual({
+      kind: 'session',
+      detectedAt: '2026-10-15T17:00:00.000Z',
+      resetAt: '2026-10-15T22:00:00.000Z',
+      parsed: false,
+    });
   });
 
   it('keeps the oldest issue and closes later duplicate issue races', () => {

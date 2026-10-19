@@ -256,16 +256,40 @@ describe('feedCardImageHidden over the real vault', () => {
   });
 
   it('still suppresses the #2080 owner frames, unchanged', () => {
-    // 9 moments hold a frame of their own video in the hero slot and own the
-    // embed; this rule suppresses the photo on all of them. (Measured
-    // 2026-08-13 the count was 7 — at the time MomentCardButton gated its
-    // image block on `hasRealPrimaryImage`, so the two owners holding their
-    // frame as a non-primary stand-in never rendered a feed photo at all.
-    // The 2026-10-14 gate split to `hasDisplayablePhoto` made those two
-    // frames render, so the #2080 rule now suppresses them too: the card would
-    // otherwise print the same frame twice — as the photo AND the video poster
-    // it owns. The 2 deferring (non-owning) frames are counted above.)
-    expect(suppressed.filter((s) => s.owns)).toHaveLength(9);
+    // Moments that hold a frame of their own video in the hero slot and own the
+    // embed: this rule suppresses the photo on all of them, because the card
+    // would otherwise print the same frame twice — as the photo AND the video
+    // poster it owns. The 2 deferring (non-owning) frames are counted above.
+    //
+    // Deliberately NOT an exact count: every vault run that gives another
+    // moment a frame of its own video legitimately adds an owner (7 → 9 in
+    // #5768, 9 → 10 with the Lavender Haze moment in #6006), so a count only
+    // ever goes red on correct content. Instead: every owner known when this
+    // was written must stay suppressed (a superset check), and every
+    // suppressed owner must genuinely hold a frame of its own video, so a
+    // wrong suppression still fails.
+    const knownOwnerIds = [
+      'vault-debut-our-song-hits-number-one',
+      'vault-debut-tim-mcgraw-arrives',
+      'vault-red-shake-it-off-launches-the-era',
+      'vault-1989-bad-blood-short-film',
+      'vault-evermore-willow-leads-the-era',
+      'vault-tloas-travis-finally-recounts-the-wedding-on-the-new-heights-seaso',
+      'vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar',
+      'vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz',
+      'vault-tloas-opalite-arrives-as-the-second-single',
+    ];
+    const owners = suppressed.filter((s) => s.owns).map((s) => s.id);
+    for (const id of knownOwnerIds) expect(owners).toContain(id);
+
+    const items = new Map(ERAS.flatMap((e) => contentForEra(e.id)).map((i) => [i.id, i]));
+    for (const id of owners) {
+      const item = items.get(id)!;
+      expect(item.video).toBeTruthy();
+      expect(youtubeFrameId(primaryImageRef(item)?.url)).toBe(item.video!.youtubeId);
+    }
+    const videoMoments = [...items.values()].filter((i) => i.video).length;
+    expect(owners.length).toBeLessThanOrEqual(videoMoments);
   });
 
   it('leaves every suppressed deferring card with a video it does not own', () => {

@@ -14,6 +14,14 @@
 // surfaces it, redacted and truncated, and names the two shapes that are not
 // code defects: an exhausted plan-usage window and a session that failed before
 // its first API call.
+//
+// Two plan caps produce that shape, and both are transient: the weekly window
+// ("You've hit your weekly limit · resets 11pm (UTC)") and the five-hour
+// session window ("You've hit your session limit · resets 6:30pm (UTC)").
+// Recognising only the weekly wording made every session-cap run red and filed
+// a routine-failure issue for it (issue #5899). Only the weekly cap pauses the
+// fleet through the `claude-weekly-limit` issue; a session cap is over in hours,
+// so it passes with a warning and the next scheduled run picks the work up.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -22,7 +30,9 @@ import { pathToFileURL } from 'node:url';
 const TOKENISH =
   /(?:sk-[A-Za-z0-9_-]{8,}|gh[pousr]_[A-Za-z0-9]{8,}|eyJ[A-Za-z0-9_-]{10,}|[A-Fa-f0-9]{32,}|[A-Za-z0-9+/]{40,}={0,2})/g;
 const DETAIL_MAX = 240;
-const WEEKLY_LIMIT_FALLBACK_MS = 6 * 60 * 60 * 1000;
+// Each cap's own window, used only when its reset time will not parse.
+const LIMIT_FALLBACK_HOURS = { weekly: 6, session: 5 };
+const PLAN_LIMIT = /you(?:'|’)ve hit your (weekly|session) limit\s*(?:[-–—·?]\s*)?resets\s+(.+)$/i;
 const WEEKLY_LIMIT_LABEL = 'claude-weekly-limit';
 
 function asDate(value) {
@@ -30,7 +40,7 @@ function asDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function parseWeeklyReset(text, now) {
+function parseLimitReset(text, now) {
   const iso = text.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?Z)$/i);
   if (iso) return asDate(iso[1]);
 
@@ -61,30 +71,45 @@ export function resultDetail(result) {
   return text.length > DETAIL_MAX ? `${text.slice(0, DETAIL_MAX)}…` : text;
 }
 
-/** Pure: a weekly-limit result -> a bounded reset record, or null. */
-export function weeklyLimitInfo(result, { now = new Date() } = {}) {
+/** Pure: a plan-limit result -> { kind, ...bounded reset record }, or null. */
+export function planLimitInfo(result, { now = new Date() } = {}) {
   const detail = resultDetail(result) ?? '';
-  const match = detail.match(
-    /you(?:'|’)ve hit your weekly limit\s*(?:[-–—·?]\s*)?resets\s+(.+)$/i,
-  );
+  const match = detail.match(PLAN_LIMIT);
   if (!match) return null;
+  const kind = match[1].toLowerCase();
   const detectedAt = asDate(now) ?? new Date();
-  const parsedReset = parseWeeklyReset(match[1].trim(), detectedAt);
-  const reset = parsedReset ?? new Date(detectedAt.getTime() + WEEKLY_LIMIT_FALLBACK_MS);
+  const parsedReset = parseLimitReset(match[2].trim(), detectedAt);
+  const reset =
+    parsedReset ?? new Date(detectedAt.getTime() + LIMIT_FALLBACK_HOURS[kind] * 60 * 60 * 1000);
   return {
+    kind,
     detectedAt: detectedAt.toISOString(),
     resetAt: reset.toISOString(),
     parsed: Boolean(parsedReset),
   };
 }
 
+/**
+ * Pure: a WEEKLY-limit result -> a bounded reset record, or null. Session caps
+ * are deliberately excluded: they reset in hours and must never write the
+ * `claude-weekly-limit` issue, which pauses every non-content routine.
+ */
+export function weeklyLimitInfo(result, options) {
+  const info = planLimitInfo(result, options);
+  if (info?.kind !== 'weekly') return null;
+  return { detectedAt: info.detectedAt, resetAt: info.resetAt, parsed: info.parsed };
+}
+
 /** Pure: a terminal result message -> a note on why it is not a code defect, or null. */
 export function failureHint(result, options) {
   const detail = resultDetail(result) ?? '';
-  const weekly = weeklyLimitInfo(result, options);
-  if (weekly) {
-    const fallback = weekly.parsed ? '' : ' (safe six-hour fallback)';
-    return `plan usage for this account is exhausted, resets ${weekly.resetAt}${fallback} — transient, not a code defect`;
+  const planLimit = planLimitInfo(result, options);
+  if (planLimit) {
+    const fallback = planLimit.parsed
+      ? ''
+      : ` (safe ${LIMIT_FALLBACK_HOURS[planLimit.kind]}-hour fallback)`;
+    const window = planLimit.kind === 'session' ? ' (five-hour session window)' : '';
+    return `plan usage for this account is exhausted${window}, resets ${planLimit.resetAt}${fallback} — transient, not a code defect`;
   }
   const limit = detail.match(/usage limit reached\|?(\d{10,13})?/i);
   if (limit) {
@@ -133,12 +158,13 @@ export function decideOutcome(rawLog, { maxTurns, now, stepOutcome } = {}) {
       pass: false,
       message: 'no terminal result message — treating the routine step as failed',
     };
-  const weeklyLimit = result.is_error === true ? weeklyLimitInfo(result, { now }) : null;
-  if (weeklyLimit) {
+  const planLimit = result.is_error === true ? planLimitInfo(result, { now }) : null;
+  if (planLimit) {
     return {
       pass: true,
       message: failureHint(result, { now }),
-      weeklyLimit,
+      // Only the weekly cap pauses the fleet; a session cap just warns.
+      ...(planLimit.kind === 'weekly' ? { weeklyLimit: weeklyLimitInfo(result, { now }) } : {}),
     };
   }
   if (result.subtype === 'success' && result.is_error === false) {

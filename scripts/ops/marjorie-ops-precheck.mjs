@@ -1,4 +1,4 @@
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
@@ -17,6 +17,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const RED_AFTER_MS = 6 * 60 * 60 * 1000;
 const STALE_AFTER_MS = 48 * 60 * 60 * 1000;
 const WATCHDOG_MUST_RUN_AFTER_MS = 12 * 60 * 60 * 1000;
+export const MUST_RUN_REFRESH_MS = 24 * 60 * 60 * 1000;
 const FAILED = new Set(['failure', 'timed_out', 'action_required', 'startup_failure']);
 const HOLD_LABELS = new Set(['hold', 'cie:escalate', 'founder-decision']);
 const CONTENT_PREFIXES = ['content-shift/', 'content/', 'vault/', 'depth/answerer-', 'growth/', 'fix/karen-tickets'];
@@ -82,7 +83,7 @@ export function buildOpsSignals(snapshot) {
     const mustRun = oldUnhandled || handler === 'prod-smoke-check-failing' || isFounderFacing(row.title);
     return {
       id: `watchdog-alert:#${row.number}`, kind: 'watchdog-alert', targets: [row.number],
-      ...(mustRun ? { mustRun: true } : {}),
+      ...(mustRun ? { mustRun: true, state: ledger } : {}),
       context: `Open watchdog alert #${row.number}; handler ${handler}; ledger state ${ledger}: ${clipped(row.title, 160)}. Open for ${Math.floor(age(row.createdAt, now) / 3_600_000)}h. ${clipped(row.body, 260)}`,
     };
   });
@@ -117,7 +118,7 @@ export function buildOpsSignals(snapshot) {
   const plan = snapshot.chasePlan || {};
   const chaseTargets = [...(plan.nudges || []).map((row) => row.issue), ...(plan.humanActions || []).map((row) => row.issue), ...(plan.pendingHumanActions || [])];
   if (chaseTargets.length) signals.push({ id: 'chase-work', kind: 'chase-work', targets: chaseTargets,
-    mustRun: true,
+    mustRun: true, state: [...chaseTargets].map(String).sort().join(","),
     context: `Deterministic chase plan has ${(plan.nudges || []).length} nudges, ${(plan.humanActions || []).length} human actions, and ${(plan.pendingHumanActions || []).length} pending chase PRs. Targets: ${chaseTargets.map((n) => `#${n}`).join(', ')}` });
   for (const row of plan.brief?.held || []) signals.push({ id: `held-content:chase-#${row.number}`, kind: 'held-content', targets: [row.number],
     context: `Dispatched issue #${row.number} is held (${row.held?.status || 'deferred'}); the status page already records it. ${clipped(row.issue?.title, 180)}` });
@@ -125,6 +126,38 @@ export function buildOpsSignals(snapshot) {
     mustRun: true,
     context: `Undispatched ops-fix candidate #${row.number}: ${clipped(row.title, 220)}. ${row.url || ''}` });
   return signals;
+}
+
+// A must-run set only wakes the agent when an item is new or changed since the last handled run, or the last run is stale.
+// Keep only ids still present so a resolved item that reappears with the same state counts as new.
+export function prunedHandled(flagged, lastHandled) {
+  const present = mustRunState(flagged);
+  const items = Object.fromEntries(Object.entries(lastHandled?.items || {}).filter(([id]) => id in present));
+  const itemsSame = Object.keys(items).length === Object.keys(lastHandled?.items || {}).length;
+  if (!Array.isArray(lastHandled?.flaggedIds)) return itemsSame ? null : { at: lastHandled.at, items };
+  const ids = new Set(flagged.map((signal) => signal.id));
+  const flaggedIds = lastHandled.flaggedIds.filter((id) => ids.has(id));
+  return itemsSame && flaggedIds.length === lastHandled.flaggedIds.length ? null : { at: lastHandled.at, items, flaggedIds };
+}
+
+// Skip when the must-run state is unchanged and no flagged signal is new. A non-must-run signal Jev flags
+// every run (same id) must not block the skip; only an id absent from the last handled record does.
+// A record without flaggedIds (old format) never skips: run once, then write the new format.
+export function mustRunUnchanged(flagged, lastHandled, now) {
+  if (!flagged.length || !Array.isArray(lastHandled?.flaggedIds)) return false;
+  const at = Date.parse(lastHandled?.at || "");
+  if (!Number.isFinite(at) || now - at >= MUST_RUN_REFRESH_MS || now < at) return false;
+  const known = new Set(lastHandled.flaggedIds);
+  if (!flagged.every((signal) => known.has(signal.id))) return false;
+  return flagged.filter((signal) => signal.mustRun).every((signal) => lastHandled.items?.[signal.id] === (signal.state ?? ""));
+}
+
+const flaggedIdList = (flagged) => flagged.map((signal) => signal.id).sort();
+
+const mustRunState = (flagged) => Object.fromEntries(flagged.filter((signal) => signal.mustRun).map((signal) => [signal.id, signal.state ?? ""]));
+
+function readLastHandled(env) {
+  try { return env.MARJORIE_LAST_HANDLED_FILE ? JSON.parse(readFileSync(env.MARJORIE_LAST_HANDLED_FILE, "utf8")) : null; } catch { return null; }
 }
 
 export async function judgeOpsSignals(signals, client) {
@@ -147,7 +180,7 @@ function summary(decision, summaryFile) {
   appendFileSync(summaryFile, `${lines.join('\n')}\n`);
 }
 
-export async function runPrecheck({ env = process.env, collect = collectOpsSnapshot, clientFactory = createJevClient } = {}) {
+export async function runPrecheck({ env = process.env, collect = collectOpsSnapshot, clientFactory = createJevClient, lastHandled = readLastHandled(env) } = {}) {
   let snapshot;
   try {
     snapshot = await collect({ repo: env.GITHUB_REPOSITORY });
@@ -166,7 +199,11 @@ export async function runPrecheck({ env = process.env, collect = collectOpsSnaps
     const optionalById = new Map(judgedOptional.map((signal) => [signal.id, signal]));
     const judged = signals.map((signal) => signal.mustRun ? signal : optionalById.get(signal.id));
     const flagged = judged.filter((signal) => signal.mustRun || signal.probability >= NEEDS_ACTION_THRESHOLD);
-    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, chasePlan: snapshot.chasePlan };
+    const now = Number(snapshot.now) || Date.now();
+    if (mustRunUnchanged(flagged, lastHandled, now)) {
+      return { mode: 'skip', reason: `must-run unchanged since ${lastHandled.at}: ${flagged.length} items, skipping`, signals: judged, flagged, pruned: prunedHandled(flagged, lastHandled), chasePlan: snapshot.chasePlan };
+    }
+    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, pruned: flagged.length || !lastHandled?.at ? null : prunedHandled(flagged, lastHandled), mustRunState: mustRunState(flagged), flaggedIds: flaggedIdList(flagged), at: new Date(now).toISOString(), chasePlan: snapshot.chasePlan };
   } catch (error) {
     return { mode: 'fail-open', reason: `Jev failed: ${clipped(error?.message || error, 160)}`, signals, flagged: [], chasePlan: snapshot.chasePlan };
   }
@@ -178,6 +215,11 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const decision = await runPrecheck(deps);
   mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify({ ...decision, chasePlan: undefined }, null, 2)}\n`);
+  if (decision.mode === 'flagged' && decision.at) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-handled.json'), `${JSON.stringify({ at: decision.at, items: decision.mustRunState, flaggedIds: decision.flaggedIds })}
+`);
+  if (decision.pruned) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-pruned.json'), `${JSON.stringify(decision.pruned)}
+`);
+  if (decision.reason && decision.mode === 'skip') console.log(decision.reason);
   if (decision.chasePlan) writeFileSync(path.join(path.dirname(out), 'dispatch-chase-plan.json'), `${JSON.stringify(decision.chasePlan)}\n`);
   if (env.GITHUB_OUTPUT) appendFileSync(env.GITHUB_OUTPUT,
     `handled=${decision.mode === 'skip'}\nflagged=${decision.flagged.length}\nautodefer=${decision.chasePlan?.autoDefers?.length ? 'yes' : 'no'}\n`);

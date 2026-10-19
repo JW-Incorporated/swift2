@@ -1,11 +1,11 @@
 // Awareness lane — Discord message builders (pure). Two messages per
 // opportunity, nothing else (owner 2026-10-05: "the link, the text to post,
-// and the image"): the card — the clean thread link, plus the signed
-// Posted/Skip links and the reaction ref line, with a site-card PNG attached
+// and the image"): the card — the clean thread link, plus the reaction
+// legend and the reaction ref line, with a site-card PNG attached
 // only when the drafting step opted that lead in (text-only is the default
 // since #4767, so the card text never names an attachment either way) —
-// then the reply text alone as a plain message, so
-// long-press "Copy Text" on mobile copies exactly what to post. No batch
+// then the reply text alone in a code box as its own message, so
+// the copy button / long-press on mobile copies exactly what to post. No batch
 // header, title, sub, why, rule or instructions. The owner posts the reply
 // himself; nothing here sends anything (awareness-deliver.mjs does).
 import {
@@ -14,11 +14,24 @@ import {
   TREE_AVATAR_URL,
 } from './discord-delivery.mjs';
 import { facebookFallbackLine } from './awareness-fb-link.mjs';
-import { clipUnits, oneLine, safe, urlLine } from './reply-opportunity.mjs';
+import { escapeLinkBrackets, oneLine, safe, urlLine } from './reply-opportunity.mjs';
+import { REACTION_FOOTER, REPLY_TRIM_NOTE, buildDraftBox } from './reply-card.mjs';
+import { signalParts } from './card-signals.mjs';
+
+const FB_NAME_SEPARATOR = ' — ';
+
+/** `r/Sub` for Reddit; the group name for Facebook (locator prefix, else the community slug). */
+function communityLabel(lead) {
+  if (lead.platform === 'reddit')
+    return lead.community ? `r/${oneLine(safe(lead.community), 60)}` : null;
+  const locator = String(lead.locator ?? '');
+  const cut = locator.indexOf(FB_NAME_SEPARATOR);
+  const name =
+    cut > 0 ? locator.slice(0, cut) : String(lead.community ?? '').replace(/^facebook:/, '');
+  return escapeLinkBrackets(oneLine(safe(name), 60)) || null;
+}
 
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
-const MAX_ACK_URL_UNITS = 450;
-const TRIM_NOTE = '(Reply trimmed to fit Discord.)';
 
 const REDDIT_HOST_RE = /^(?:(?:www|old|new|np|m)\.)?reddit\.com$/i;
 const FACEBOOK_HOST_RE = /^(?:(?:www|m|web|mbasic)\.)?(?:facebook|fb)\.com$/i;
@@ -75,42 +88,56 @@ export function imageFilename(ref) {
 }
 
 /**
- * The reply text exactly as the owner pastes it, sent as its own message so
- * long-press "Copy Text" on mobile copies nothing else. Clipped to the
- * Discord limit; `trimmed` tells the card to say so.
+ * Message 2 of an awareness lead: the reply alone in a code box (the shared
+ * reply-card.mjs formatter, same as the mailer lane), as its own message so
+ * the copy button / long-press copies exactly what to post. `trimmed` tells
+ * the card to say so.
  */
 export function buildAwarenessReplyText(lead) {
-  const reply = safe(lead.draft).trim();
-  if (reply.length <= DISCORD_MESSAGE_LIMIT) return { text: reply, trimmed: false };
-  return { text: clipUnits(reply, DISCORD_MESSAGE_LIMIT).trimEnd(), trimmed: true };
+  return buildDraftBox(lead.draft);
 }
 
 /**
- * One awareness opportunity's card as Discord message text, always <= 2000
- * units: the clean thread link (the PNG rides along as the attachment), then
- * the Posted/Skip links. The reply itself is the next message
- * (buildAwarenessReplyText), kept free of anything but the reply. Reddit leads
- * keep `ref: reddit · <id>` as the true last line, same as reply
- * opportunities, so a ✅/⏭️ reaction on the card still routes.
+ * One awareness opportunity's card (message 1) as Discord message text, always
+ * <= 2000 units: the clean thread link (the PNG rides along as the attachment)
+ * and the reaction legend. The reply itself is the next message
+ * (buildAwarenessReplyText). Reddit leads keep `ref: reddit · <id>` as the
+ * true last line, same as reply opportunities.
  */
-export function buildAwarenessMessage(lead, { postedUrl = null, skipUrl = null } = {}) {
+export function buildAwarenessMessage(
+  lead,
+  { position = null, total = null, now = new Date() } = {},
+) {
   const isReddit = lead.platform === 'reddit';
-  const acks =
-    postedUrl &&
-    skipUrl &&
-    postedUrl.length <= MAX_ACK_URL_UNITS &&
-    skipUrl.length <= MAX_ACK_URL_UNITS;
-  const footer = acks
-    ? `[✅ Posted](<${postedUrl}>) · [Skip](<${skipUrl}>)`
-    : 'React ✅ posted · ⏭️ skip';
   const postId = oneLine(lead.id, 100);
   const refLine = isReddit && postId ? `ref: reddit · ${postId}` : null;
+  const permalink = lead.url ? urlLine(cleanThreadUrl(lead.url)) : null;
   const link =
-    (lead.url && urlLine(cleanThreadUrl(lead.url))) ||
+    permalink ||
     (lead.platform === 'facebook' && facebookFallbackLine(lead)) ||
     oneLine(safe(lead.locator), 160);
+  // The fallback link line already carries the group and excerpt, so the
+  // title and group name only head a card that has a real permalink.
+  const title =
+    permalink && lead.title ? `**${escapeLinkBrackets(oneLine(safe(lead.title), 150))}**` : null;
+  const context = [
+    permalink ? communityLabel(lead) : null,
+    position && total && total > 1 ? `#${position}/${total}` : null,
+    ...signalParts(lead, now),
+  ]
+    .filter(Boolean)
+    .join(' · ');
   const { trimmed } = buildAwarenessReplyText(lead);
-  const text = [link, ...(trimmed ? [TRIM_NOTE] : []), footer, refLine].filter(Boolean).join('\n');
+  const text = [
+    title,
+    context || null,
+    link,
+    ...(trimmed ? [REPLY_TRIM_NOTE] : []),
+    REACTION_FOOTER,
+    refLine,
+  ]
+    .filter(Boolean)
+    .join('\n');
   if (text.length > DISCORD_MESSAGE_LIMIT)
     throw new Error(`Awareness opportunity ${postId} cannot fit Discord's limit`);
   return text;
@@ -163,13 +190,25 @@ export function buildMultipartPayload({
  */
 export function selectBatch(
   leads,
-  { perSubRemaining, deliveredToday = 0, batchCap = 7, dailyCap = 20, rank, tierOf },
+  {
+    perSubRemaining,
+    deliveredToday = 0,
+    batchCap = 7,
+    dailyCap = 20,
+    rank,
+    tierOf,
+    heatOf = () => null,
+  },
 ) {
   const room = Math.max(0, Math.min(batchCap, dailyCap - deliveredToday));
+  // Higher engagement heat first; a lead with no signals ranks after one with
+  // them and otherwise keeps the oldest-first order.
+  const heat = (lead) => heatOf(lead) ?? -1;
   const ordered = [...leads].sort(
     (a, b) =>
       rank(a.image_comments) - rank(b.image_comments) ||
       tierOf(a) - tierOf(b) ||
+      heat(b) - heat(a) ||
       String(a.created_at ?? '').localeCompare(String(b.created_at ?? '')),
   );
   const used = {};
