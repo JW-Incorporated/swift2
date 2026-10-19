@@ -916,6 +916,7 @@ export default {
       year: 2023,
       month: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'A brief, rumored month with Matty Healy',
       snippet: 'Reconnecting through mutual friend Jack Antonoff weeks after the Alwyn breakup — studio nights, a Nashville Eras Tour stop, then over by early June.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
@@ -5717,6 +5718,7 @@ export default {
       month: 5,
       day: 16,
       category: 'sighting',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'Leaving Electric Lady Studios with Matty Healy and a star-studded crew',
       snippet:
         'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
@@ -5736,6 +5738,7 @@ export default {
       month: 6,
       day: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st'],
       title: 'A quiet split from Matty Healy after a brief romance',
       snippet:
         'People confirmed Taylor and Matty Healy had broken up in early June 2023, ending weeks of dating speculation that began in May — a source said "she had fun with him" but the relationship was short-lived.',
