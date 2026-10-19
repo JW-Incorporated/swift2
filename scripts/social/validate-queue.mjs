@@ -121,6 +121,41 @@ export async function validateDir(dir, activeLessonIds = []) {
   return { checked: files.length, failures, warnings };
 }
 
+/**
+ * A file name may live in exactly one of social/queue|posted|failed. Issue
+ * #6110: the poster's stale rule retired three items into social/failed/ that
+ * had already posted (their queue fold-back was the thing stuck past 48h, not
+ * the post), so the same name sat in posted/ and failed/ at once and the
+ * weekly scorecard counted a shipped post as a delivery failure. post-queue.mjs
+ * no longer makes that move (#5857) and rolling-view.mjs drops a queue copy
+ * whose name already posted, but nothing on main ever said the overlap was
+ * illegal — this is that invariant, in the required `build` check, so a
+ * recurrence reddens the state PR that introduces it instead of quietly
+ * skewing the metrics. `dirs` maps dir name -> file names.
+ */
+export function validateLedgersDisjoint(dirs) {
+  const names = Object.entries(dirs);
+  const findings = [];
+  for (let i = 0; i < names.length; i++) {
+    for (let j = i + 1; j < names.length; j++) {
+      const [a, aFiles] = names[i];
+      const [b, bFiles] = names[j];
+      for (const file of [...aFiles].filter((f) => bFiles.includes(f)).sort()) {
+        findings.push(`${file} is in both social/${a}/ and social/${b}/ — one item, one state; keep the true record and delete the other (re-queue only under a new file name)`);
+      }
+    }
+  }
+  return findings;
+}
+
+const jsonNamesIn = async (dir) => {
+  try {
+    return (await readdir(path.join(ROOT, 'social', dir))).filter((f) => f.endsWith('.json'));
+  } catch {
+    return [];
+  }
+};
+
 async function main() {
   const dirs = process.argv.slice(2).map((d) => (path.isAbsolute(d) ? d : path.resolve(ROOT, d)));
   if (!dirs.length) dirs.push(path.join(ROOT, 'social', 'queue'));
@@ -155,6 +190,17 @@ async function main() {
   if (ledgerFindings.length) {
     console.error('\nFAIL social/posted-images.json');
     for (const finding of ledgerFindings) console.error(`  - ${finding}`);
+    process.exit(1);
+  }
+
+  const overlapFindings = validateLedgersDisjoint({
+    queue: await jsonNamesIn('queue'),
+    posted: await jsonNamesIn('posted'),
+    failed: await jsonNamesIn('failed'),
+  });
+  if (overlapFindings.length) {
+    console.error('\nFAIL social/queue|posted|failed overlap');
+    for (const finding of overlapFindings) console.error(`  - ${finding}`);
     process.exit(1);
   }
 
