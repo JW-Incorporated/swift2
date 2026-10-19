@@ -34,7 +34,7 @@ export async function postQwenReply(lead, { env, fetchImpl }) {
 }
 
 export async function postQwenOpinions({ supabase, env = process.env, fetchImpl = fetch, limit = POST_LIMIT } = {}) {
-  const summary = { posted: 0, errors: [] };
+  const summary = { posted: 0, deferred: 0, errors: [] };
   const { data, error } = await supabase
     .from('engagement_lead')
     .select(COLUMNS)
@@ -51,7 +51,7 @@ export async function postQwenOpinions({ supabase, env = process.env, fetchImpl 
   for (const lead of data ?? []) {
     const r = await postQwenReply(lead, { env, fetchImpl });
     if (r.rateLimited) {
-      summary.errors.push({ leadId: lead.id, message: 'rate limited, retry next run' });
+      summary.deferred += 1;
       break;
     }
     if (r.error) {
