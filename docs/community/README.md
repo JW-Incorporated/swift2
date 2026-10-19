@@ -234,6 +234,23 @@ enough. Only re-registering a task that was first created from an elevated
 shell can fail with "Access denied" — run that one re-register as admin, after
 which normal shells work.
 
+The installer also registers `Long Live Reddit Outcomes` at :30 every two
+hours, offset from the hourly reader at :00. It
+reads u/NegativeRest9507's public comments anonymously, matches comments to
+the posted ledger by Reddit thread ID, fills `comment_url`, and records each
+due 1h, 24h, or 7d score/reply snapshot. A missed run does not fabricate
+earlier snapshots: a comment first seen at three days gets one `24h` row, with
+the exact observation time in `community_outcome.checked_at`. The same run
+refreshes the rolling seven-day `docs/ops/dashboard/community.json` only when
+its `generatedAt` is at least seven days old, including Gmail `reply_to_us`
+counts. That file is written on the home PC and is not committed automatically.
+Facebook group outcomes already arrive through the activity-log export;
+Facebook Page replies cannot be linked until the existing reply notifier
+exposes a community-ledger identifier. Outcomes and report entries use plain
+Node; the existing reader keeps `--import tsx`. Both readers share
+`.artifacts/home-reddit-circuit.json`, so a Reddit safety trip backs off both.
+The outcomes log is `.artifacts/home-reddit-outcomes.log`.
+
 Dry-run makes no database or crawl-bundle write. The local breaker state is
 still updated because a safety trip must survive the next scheduled run.
 
