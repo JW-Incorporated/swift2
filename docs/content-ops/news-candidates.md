@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 68
 
 ## Taylor Swift's New Release Leads to Controversy with Olivia Rodrigo
 
@@ -577,51 +577,3 @@ Stories: 74
 - summary: Bad Gyal stated she would refuse a $3 million offer to work with Taylor Swift, labeling Swift's music as unappetizing, likening it to 'dry chicken.'
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxNWGFhcFowY1p2ZTRFT1lpN0hsWUYwRFNqN2tOVG5MZFdmTXVsQmZNR1dVU2Q5ekVKRWd0TzRSNkNLbEtqbk1rWGdWY1dITFBlQXd5UXJ2enRtQ2RXR2lmMUtNWVR2aHRYSDU4TTlfek9jc1dxcHpfSVEtRjl2RWFqY1VQTzlkT2tiTDdHMGwwMjNNYUU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Face Neighbor Dispute in Ohio
-
-- first seen: 2026-10-16 15:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly upset as a neighbor dispute at their Ohio mansion escalates. Details surrounding the contention have not been disclosed.
-- sources:
-  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMiygFBVV95cUxQX1FtaUt4U0JWMVhWN3pxZFp0WHhWSXlLM0JNWG92ZkRxd0hnc1FOcEpQaTEySUM0NERRMVowR3pVd0tDNkJPNlJRT0F0YlNZNXBvTm1BdWFmUGhuM3ZXOTlxNkJpMXg3NDZtLUQtZUo0ZTJKTEhrYVRkdmMzTGNKUEVBOGVqWnJJUmdYd3Bia040UWFpeHdQVWVRdzBqVGs5MHY4TENURGRvTEM2MmR0VU1Ldm9BdHU0djlHZGlnMU91WjU2bVJtRVd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring the Dual Identity of a Country Singer as a Pop Star
-
-- first seen: 2026-10-16 15:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses the potential for the richest country singer to transition into the pop music genre, highlighting the implications and challenges involved in such a crossover.
-- sources:
-  - [unverified] HowStuffWorks — https://news.google.com/rss/articles/CBMiakFVX3lxTE9kZ1U2dkUtYXFDWE5UNFhqX2JPNmQ5cjhDLW96Qmo1LUVpcm1pMHdIc085Yk5pWGNaTDBPZjdXYVRwRWRhZFQ2ZnFfd3R3YzJ3WlJnaHRBXzdHWklZUGpFM2czQWpVb1VPTUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL Veteran Reacts to Taylor Swift's Chiefs Appearances
-
-- first seen: 2026-10-16 15:51 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been attending Kansas City Chiefs games, prompting a reaction from an NFL veteran. Her presence at these events continues to garner attention in the sports community.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPdk51a2ZhdW5XeDA3ZkViejJpck1Jc1RpSHhBbjZSR0tqUjV4OVkwTUsxMWlhR1JSVXlsNTJBQ0FyMGoxaUxibmpiNE81SVctVjQ5bmVsWDVOUkxUeGZvMm5IUy1DTWc2M3R2bjVhLUJfdnBneUNkSzJmWHpRTS1oVkdfRmJNa3Z1SWlDenRwVmphSTA5OXhPVUtXZ0RnYThZWjdB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift featured in Halloween displays alongside BTS and Dolly Parton
-
-- first seen: 2026-10-16 15:51 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among the celebrities reflected in Halloween displays this season, as reported by USA Today. The displays also highlight other artists such as BTS and Dolly Parton.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVWo4WW0yZ3VidTk2Vi1TUktaMndxbExVSWgtUzFvN0dENlRTQVI3dzV3b2JwMkR3N0c0TFkzZGFqQi1ySHpERGJjVnNQUjBHZ3Y1R2Z5LUxwNkRGNnl0eE14bnBoMzdUZGVBbjJZTTM0QlBpajJuQkVaRlFHWjJzbENxYmh0blllTkZpT1pkMmppS3dmd0lZYTJLdllBcFJIUENWdG1uZ2x4ZF9PQWFRUFlJbENsY0xxTXpZdjlKNlZhUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Makes Gesture Amid Taylor Swift Career News
-
-- first seen: 2026-10-16 15:51 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has reportedly made a personal gesture as news regarding Taylor Swift's career surfaces. The details of the career news and the nature of the gesture are not specified in the report.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQVjdhUnByUWxMaTVDTkV5YjJXNWJ2WlRISTB4V1lDcWdGWTF6UkE4YkhhQjlUQW9qU0dtNnJ0LVBhWHZaZFZhckttd0tXUTNGTkRDWWdxNVc4Y25FT240cEVIejdKSEMwUEhHVF9peW1QeWNfcUtVdXk1QVVPRjF2aHJrdVlNamczMUNqZ19VWmZ6X0I4Y3VZc0FzVE1tcW5PcHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ashanti Inspired by Taylor Swift After Re-recording Debut Album
-
-- first seen: 2026-10-16 15:51 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Ashanti expresses feelings of empowerment due to Taylor Swift while discussing her own experience of re-recording her debut album. The connection between their artistic journeys highlights influences in the music industry.
-- sources:
-  - [unverified] Metro.co.uk — https://news.google.com/rss/articles/CBMirgFBVV95cUxPXzBKdFZIellZWFdDbDBQa3RrQ1VLLXNsU1AtY3dFTEJmTFdmMV8zQy1YUnlKYnlPaEpTTVBCckdqNXRmc2JHU2pYVlFYXzM1anZLbVh3dUFiTVJNOHBJTHdRM3Y3UkxvUTF6dGdxeDJqVHJmQzNnUXk1MHVFNDhmNE5rWW5CYmFGaFc2enV6QTljNDF1VE81SFRoRkdzdVF2LUN1LWRFR0tZS2VYNkHSAbMBQVVfeXFMTkswLVB3dzhrRFQ1aEszVTdxU0JPbWVGRzBpeGh6QThPZFdrdXZfT1BSa3FuSmZzTmpSMkxvQmlfYTFoNHMtc0t0NkFuUzBvSlZTX3FNZm5uM0ViX2JlWkJLWXRJR1dMYXNwVW14VWd3d3NYN0xDaG9wX0lWQ3lBVHNVVldQcFhOZVRoUVU5blhKVVB4Yno2a2UyMG9vTWxFTFFUdkZ3WnpRa1VSLVUwZzA2bFU?oc=5&hl=en-US&gl=US&ceid=US:en
