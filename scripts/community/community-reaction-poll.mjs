@@ -37,7 +37,9 @@ export const SKIPPED_CONFIRM_EMOJI = '🚫';
 
 const LOOKBACK_DAYS = 14;
 const LEAD_LIMIT = 100;
-const GAP_MS = 250;
+const GAP_MS = 1000;
+const MAX_RETRY_WAIT_MS = 5000;
+const RATE_LIMIT_RETRIES = 2;
 
 export const OWNER_IDS = SOCIAL_APPROVERS.map((id) => id.replace(/^discord:/, ''));
 
@@ -73,11 +75,27 @@ export function candidateChannels(platform, env = process.env) {
 
 class RateLimited extends Error {}
 
+/** Discord's Retry-After (header seconds, else JSON body `retry_after`), capped. */
+async function retryAfterMs(res) {
+  let secs = Number(res.headers?.get?.('retry-after'));
+  if (!Number.isFinite(secs)) {
+    const body = await res.json().catch(() => null);
+    secs = Number(body?.retry_after);
+  }
+  if (!Number.isFinite(secs) || secs < 0) secs = 1;
+  return Math.min(secs * 1000, MAX_RETRY_WAIT_MS);
+}
+
 /** Reactor user ids for one emoji; `null` when the message is not in this channel. */
-async function reactors(fetchImpl, token, channelId, messageId, emoji) {
+async function reactors(fetchImpl, token, channelId, messageId, emoji, sleep = sleepDefault) {
   const url = `${DISCORD_API}/channels/${channelId}/messages/${messageId}/reactions/${encodeURIComponent(emoji)}?limit=100`;
-  const res = await fetchImpl(url, { headers: { Authorization: `Bot ${token}` } });
-  if (res.status === 429) throw new RateLimited('Discord rate limited');
+  let res;
+  for (let attempt = 0; ; attempt += 1) {
+    res = await fetchImpl(url, { headers: { Authorization: `Bot ${token}` } });
+    if (res.status !== 429) break;
+    if (attempt >= RATE_LIMIT_RETRIES) throw new RateLimited('Discord rate limited');
+    await sleep(await retryAfterMs(res));
+  }
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Discord reactions HTTP ${res.status}`);
   const users = await res.json();
@@ -110,9 +128,10 @@ export async function pollReactions({
   dryRun = false,
 } = {}) {
   const leads = await fetchOpenCards(supabase, now);
-  const summary = { checked: leads.length, posted: 0, skipped: 0, ignored: 0, errors: [] };
+  const summary = { checked: leads.length, posted: 0, skipped: 0, ignored: 0, deferred: 0, errors: [] };
   const isOwner = (ids) => ids.some((id) => owners.includes(id));
-  for (const lead of leads) {
+  for (let i = 0; i < leads.length; i += 1) {
+    const lead = leads[i];
     try {
       let found = null;
       for (const channelId of candidateChannels(lead.platform, env)) {
@@ -123,6 +142,7 @@ export async function pollReactions({
           channelId,
           lead.discord_message_id,
           CROSS_EMOJI,
+          sleep,
         );
         if (crossIds === null) continue;
         await sleep(GAP_MS);
@@ -132,6 +152,7 @@ export async function pollReactions({
           channelId,
           lead.discord_message_id,
           CHECK_EMOJI,
+          sleep,
         );
         found = { channelId, crossed: isOwner(crossIds), checked: isOwner(checkIds ?? []) };
         break;
@@ -159,13 +180,18 @@ export async function pollReactions({
       );
     } catch (err) {
       if (err instanceof RateLimited) {
-        summary.errors.push({ leadId: lead.id, message: 'rate limited, retry next run' });
+        summary.deferred += leads.length - i;
         break;
       }
       summary.errors.push({ leadId: lead.id, message: String(err?.message ?? err) });
     }
   }
   return summary;
+}
+
+/** Rate-limit deferrals retry next run and are not failures; real errors are. */
+export function exitCode(s) {
+  return s.errors.length > 0 ? 1 : 0;
 }
 
 async function main() {
@@ -183,13 +209,14 @@ async function main() {
     return 0;
   }
   const s = await pollReactions({ supabase, token, dryRun });
-  const q = dryRun ? { posted: 0, errors: [] } : await postQwenOpinions({ supabase });
+  const q = dryRun ? { posted: 0, deferred: 0, errors: [] } : await postQwenOpinions({ supabase });
   s.errors.push(...q.errors);
+  s.deferred += q.deferred;
   console.log(
-    `community-reaction-poll: ${s.checked} card(s) checked, ${s.posted} posted, ${s.skipped} skipped, ${s.ignored} untouched, ${q.posted} Qwen reply(ies) posted, ${s.errors.length} error(s)${dryRun ? ' (dry-run)' : ''}.`,
+    `community-reaction-poll: ${s.checked} card(s) checked, ${s.posted} posted, ${s.skipped} skipped, ${s.ignored} untouched, ${q.posted} Qwen reply(ies) posted, ${s.deferred} deferred (rate limited), ${s.errors.length} error(s)${dryRun ? ' (dry-run)' : ''}.`,
   );
   for (const e of s.errors) console.error(`  lead ${e.leadId}: ${e.message}`);
-  return s.errors.length > 0 ? 1 : 0;
+  return exitCode(s);
 }
 
 if (process.argv[1]?.split(/[\\/]/).pop() === 'community-reaction-poll.mjs') {

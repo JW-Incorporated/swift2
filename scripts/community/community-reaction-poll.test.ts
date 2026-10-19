@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { ackSkipped, ackPosted } from '../../packages/core/src/community-ack';
 // @ts-expect-error — implementation is plain .mjs
-import { candidateChannels, pollReactions } from './community-reaction-poll.mjs';
+import { candidateChannels, exitCode, pollReactions } from './community-reaction-poll.mjs';
 
 const OWNER = '338508192755482626';
 const STRANGER = '999999999999999999';
@@ -190,6 +190,55 @@ describe('pollReactions', () => {
     const s = await t.run();
     expect(s.errors).toEqual([{ leadId: 'lead-1', message: 'boom' }]);
     expect(t.puts).toEqual([]);
+  });
+
+  describe('Discord 429 handling', () => {
+    const rl = () =>
+      new Response('{"retry_after":0}', { status: 429, headers: { 'retry-after': '0' } });
+
+    function rateLimitedSetup(leads: Lead[], statusFor: (call: number) => Response | null) {
+      const t = setup(leads, {
+        [`${FB_CHANNEL}:msg-1:❌`]: [OWNER],
+        [`${FB_CHANNEL}:msg-1:✅`]: [],
+      });
+      const inner = t.fetchImpl.getMockImplementation()!;
+      let call = 0;
+      t.fetchImpl.mockImplementation(async (url: string, init?: { method?: string }) => {
+        if (init?.method === 'PUT') return inner(url, init);
+        call += 1;
+        return statusFor(call) ?? inner(url, init);
+      });
+      return t;
+    }
+
+    it('retries after a 429 and still processes the card (exit 0)', async () => {
+      const t = rateLimitedSetup([lead()], (n) => (n === 1 ? rl() : null));
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 1, deferred: 0, errors: [] });
+      expect(t.acks.skipped).toHaveBeenCalledTimes(1);
+      expect(exitCode(s)).toBe(0);
+    });
+
+    it('a persistent 429 defers the remaining cards without failing or acking', async () => {
+      const t = rateLimitedSetup(
+        [lead(), lead({ id: 'lead-2', discord_message_id: 'msg-2' })],
+        () => rl(),
+      );
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 0, posted: 0, deferred: 2, errors: [] });
+      expect(t.acks.skipped).not.toHaveBeenCalled();
+      expect(t.acks.posted).not.toHaveBeenCalled();
+      expect(t.puts).toEqual([]);
+      expect(exitCode(s)).toBe(0);
+    });
+
+    it('a non-429 HTTP error still fails the run', async () => {
+      const t = rateLimitedSetup([lead()], () => new Response('x', { status: 500 }));
+      const s = await t.run();
+      expect(s.deferred).toBe(0);
+      expect(s.errors).toEqual([{ leadId: 'lead-1', message: 'Discord reactions HTTP 500' }]);
+      expect(exitCode(s)).toBe(1);
+    });
   });
 
   it('never calls the ack layer for a card nobody reacted to', async () => {
