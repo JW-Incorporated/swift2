@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 78
+
+## Caitlin Clark and Taylor Swift Attend Chiefs Game Together Again
+
+- first seen: 2026-10-19 07:06 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark and Taylor Swift were spotted together once more, supporting Travis Kelce at the Chiefs game against the Chargers at Arrowhead Stadium. Swift was seen enjoying the game and showcased her wedding ring during the event.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitwFBVV95cUxONlRGdVdKX3hEclgzVlRzU3RDQ1o4djV1S2NfaXdIU2U3VWUwVkdCZ0ptY2ZIbmN5YWs1TXRMYzMxcmZGc3IyUjNKTGFTQVg2WjNGOWdOLTlWN1JheTdkQ2ladVFPT0FTaGJ0cFd4dlRkblBRZFNpOFhVRUJKYlJub3lkLTFjVkNFbWlNZWZZcnZnZDUxWGNOc2h5bk5kbW0yRUhJM1VrM3E2OGhPSjhPTmN4ODlZRnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring Taylor Swift's Favorite Perfumes
+
+- first seen: 2026-10-19 06:07 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Prestige Online decodes the favorite perfumes of pop icon Taylor Swift, highlighting her scent preferences and how they reflect her personal style.
+- sources:
+  - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNTFMZ0wyLXpzUVdzQ3N0X2VHNUdDUWJNTXV1RkJuMm9hU1lBazBKUWFUSFFLUjU2VW11eUdwY3FxWUcyMFVLRHh2dVhfZjk2TG04VV93bWFwZlYxa3dhWEdxSjFIQmE0bGtDWUlPX0FFdUxaQ3JXTmNCUEZjR0MybmtWQTZFRnZWSTlzZFRHaDA4UFl5aGRvOFFONU5pSUxwS2dn0gGoAUFVX3lxTFBQMkI4T1BDYkZBTW01VkxCQkwwZGZwQ3lFV19XV19TWlZHZTI3eUhCODhuRndkU1pISXE3WHlKenhhRVM3N2ZqNjE2V2wxcEZaNGpDNlZzbGZTVklpTGdxRjg0LVhFT1JoekRaemtrT051NENmb1JQYW91S21kamxoaUZCUTB1ckh3dERCV3JOMHY0SUFJN2FPTEJENkFIOTNkWW5hVEtmdg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Chiefs vs. Chargers Game in Stylish Bodysuit
+
+- first seen: 2026-10-19 03:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted watching the Kansas City Chiefs play against the Los Angeles Chargers while wearing a cozy red Louis Vuitton bodysuit. Her appearance at the game attracted attention from fans and media alike.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE83dGJWZGx6VnFQM3pWWmJTSF96cktfYVRObndRRUZDbEJwQVFVVHJWUXhBQnNWR1VzZHlIdE5veVMxeE1MMVB0b2tXNnpUNnNJYzd3N3VubjM2a2NVQnp5emJWUzZ4V0t2bWMw0gFrQVVfeXFMT2RUdTZUT3lBYlFmRXFWSmgxYUlib3RrMHltVlV5UVNPNGpTdjBWS0kwelFPbG1URjQ5Z3VNQXlwbWNoSXFkNVJNbUpjQXl0TWxDY0ZhRHNMWkdWbXNBZ0xkdnF5UWFMSTdGUnc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears Red Bodysuit at Chiefs Game
 
@@ -633,91 +657,3 @@ Stories: 86
 - summary: A Spanish artist has made a controversial comment describing Taylor Swift's music as resembling 'dry chicken.' This statement has sparked discussions around differing musical tastes and opinions on Swift's artistry.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZWo5YjlxdGZadTI4SG9sTHNCdENoYW1jWEo3a3ZRb3F5Yk0yY2FSN1hYLVU0TlFBVVkyUmhzVzVNd2J0dkFkUjBWdFJwRFFpV2VKMDV1NUNlVG5BYjVXLWxXdTNNd1B0Z3lFcFFMZk1PZm5vR1h6ZnR6X2ZpU0ZCbG05dGhlVWJpeTlZTkRTNVdIbldCNWp4V1Jtdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Selena Gomez Shares Thoughts on Advising Taylor Swift Regarding Marriage
-
-- first seen: 2026-10-16 06:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Selena Gomez discusses her perspective on not offering marriage advice to her friend Taylor Swift, stating that she feels it's unnecessary. The remarks emphasize Gomez's confidence in Swift's personal decisions regarding relationships.
-- sources:
-  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMmExdmItU2xvaW91Y0h2OS1sdGgyNC14SWo2ODh5YllObl9KOTNuSWlYOE1hazFCcUJCd0FIT1B4aHZLc2dXREx4MHJCdkZUbmkwVDNQRGc3N1RXWGg5QTJUNHctaE9ITThYcUc4Rkc5RjhHTXZKeXJHUW5oSngtdkNOamNmSUc4c1dBYi1BNEtadWdoWlJnNWxma2JHbld4LVc2QktUd291QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Showcases Popular Fall Shoe Trend
-
-- first seen: 2026-10-16 04:36 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been spotted wearing a trendy fall shoe style favored by French fashion enthusiasts. The article also features recommendations for chic pairs available at various price points.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMib0FVX3lxTE5wcWNEakJjQ2MyTl9DbWwxSGpOcWNlRm9IWk5JSkc3aXV6Vi1kTG1YQjIxTVVfVGJ0aFV6T2pvRmxfWUJJSlk0ekY2STIwWFNBR3E3eHR0ZnpaUGZHV09oelh4Ym95VjMtYWx3aUJhQQ?oc=5&hl=en-CA&gl=CA&ceid=CA:en
-
-## Selena Gomez Commends Taylor Swift's Relationship Insights
-
-- first seen: 2026-10-16 04:36 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At the Rare Impact Fund event, Selena Gomez expressed her admiration for Taylor Swift's relationship advice, highlighting its significance. The event showcased discussions centered around mental health and personal experiences.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxOQ0Vrem9idGdkWHBCbnh1SDFCR05ES0wtQi1iSGFIeWZHTGxWOU1XSU5uQ19wR3BFVWpWUFZmcFY0aEJ5RGhLTXFpTENjRXd2UW16NElSenJvbEpvNUxFMkd5V3c5VUZ1WlNtZTBoY0VmdXFhN3NiaHdUbURidjVRNUl4ZnpGTXl5ZVlTVkdLaHBCVzFQc0YyT3NYbDZqNU1Ka1lMVmdJYw?oc=5&hl=en-CA&gl=CA&ceid=CA:en
-
-## Nelly and Ashtani Prepare for Taylor Swift's Wedding in Show Trailer
-
-- first seen: 2026-10-16 01:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A trailer for a reality show features Nelly and Ashtani as they get ready for Taylor Swift and Travis Kelce’s wedding, highlighting Nelly's status as a Swiftie.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNSkFuV2d3QXNRODRqY29rZmtrczZPTzU3RWZqZF96MVFtSXY5TDhtdE8xdVRfMWxsOG1QQXNvSGUzNUwwVURPZ2hNeVFrSWdxaHV4SW5CeDc2RDVXOGQwc3djZ2txZFU2SGh4NHJ5QTBFb2VJRGx5aWpDZk1iMjg4Z3dOcHNmM2NaTVJNeEtWMEVsbU50UmdsNEt1VDBkbFA5Uk9CaW9wcWpWSVJLN09adkl6amlTZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussion on Taylor Swift Fans' Desire for Encore Performance
-
-- first seen: 2026-10-16 01:36 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article explores whether Taylor Swift fans expressed a desire for an encore during her recent performances. It examines fan reactions and opinions regarding the possibility of additional songs after the show's conclusion.
-- sources:
-  - [unverified] Her Campus — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPY09VUEJ4RWJtcmo3TjZvSklmUXExTlQzZ2Z3RzVzTFJxSXR5MVFVekZmZXNIZXBIa3hLTk1mOW9oNmdXS2xfTDZpN0FkQkNMX201a2RxbVhRZEVjdTZwVFpSUEVnUlJfZ0RFYUhCY1F0em95b2NBem4xa0dyT0ZEZFkxUWVXMnRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark's Influence Increases WNBA Social Views Significantly
-
-- first seen: 2026-10-16 01:36 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark's recent performance has been credited with boosting WNBA social media views from 373 million to almost 2 billion, highlighting the strong impact of star power in sports marketing.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMkFfYjVoXzgzNGFjbkFNX1NIeXBOSlI1WndFVGZZNm5pc3M2anpIaHZvN0NGY3dIR3V5dGFaLVkwdEJSWG1uSDdmOUN1Zl96bWhrNXdrdFpuSDU5UEswR3BMUzR4cTBTb2w2enYtV2c3Qm1vQTBJN1dXSklSNGlPZ0RyeWFhS043OXZQcFVtSUp2NEhaMGo4RjAzOUhlTGtLRDk2V1BCWXExaFNBVFhjNU1NUTltMUdKaFJpYmhIYVJNUVlRZi1GNmVZU2FmbUlJY0l2aXZ2Y29zNFVRNFhTbUxwbzhZRVJWVHladnI4Sk5EVmFTT0kwb1pR0gH6AUFVX3lxTE8tazBJeVhVRmNNWVdwZXluTkpIeTNtc0lLOENFdFU0NU9NT3JFNDFBbFhLRUpVVTBqUmZUTVNMdnNSZV9DdEdFZTFYZ1RiRzRHMS1fQVpLR1dLV1hSVnhCTjZPRlB4alVLQmFrVVJJQjNqaW5VdjlhbmxmajdvOEU1Vk92U1ZOZ3l5U3RWMHU5WUt6SE5jMnh3aFVLbE9OVHB2bkc2elh5cGNfalJGc3pUaWg3WGxTZThhNUlvN3ZIWkg1T1ZFek5rZUpqQUxlWHFCay0xQzFmYkxfcm9SNk1NR3QyVXpVTlVteXlXVnFiUzhiVnpmLVhRaFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Name Linked to Shane Gillis Controversy
-
-- first seen: 2026-10-16 00:36 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses how Taylor Swift's name has surfaced in relation to the Shane Gillis controversy. Details on the nature of this connection are not provided.
-- sources:
-  - [unverified] Pajiba — https://news.google.com/rss/articles/CBMingFBVV95cUxNZ2tmYU1RTGhLX0ZXMXZ1MUdzU2h0WkFzdUpWcnpYT1RydVYzLXQ3b2otc3luelROYXdzbGRMWVNYNGRJdnRNQkhoVFNyd25wSEU1bFpsOHhaZ1U4eUloWEQ4cHBJOHVHTFJjTXBMRjNCXzZiUE51N1Nzdmw2SGpsZ1BSNEJLdFhqbFotLXdld1NlSmRJQW5CUThESmduQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmitt Smith Comments on Taylor Swift's Chiefs Appearances
-
-- first seen: 2026-10-16 00:36 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Emmitt Smith has spoken out regarding Taylor Swift's attendance at Kansas City Chiefs games, indicating that she can choose not to attend.
-- sources:
-  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMi3gFBVV95cUxPazMyUnhKc1hkZmZFRUtwWjd2MWNNRVdtdkVYbGo4U2hBbzdiY3hMb3RPdXpBTTBjODVnMGotMnVtUEdaS0l1a0h2d0ZQSjEzRGlLaHlWVUZLWTBRSVYxUDdpaUZ1bHlnaGpMR2RVNjBmQ0thQUE0VGV4WF9ZQTBhRGo2TlBBaDgwVVIwWU5KMDcxS050UmxYV2pNenZmRDd0OXlwNS1ma3lFX1h4T2cwTTRBRUxTYi02c2ZST1pMR1BQUFdCU182VnZfVkNfLTFmdktoYURMT3BJZ2Z4LUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kim Kardashian Aims to Outshine Taylor Swift as a WAG
-
-- first seen: 2026-10-16 00:36 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that Kim Kardashian is looking to surpass Taylor Swift in the realm of WAGs (Wives and Girlfriends of athletes). This development highlights the competitive nature between the two prominent figures.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbm5FV3B4MHNNUlFHTlRsNVJFZkZ5MjVIMnFwYzBnUTgtNmZ5b2ZuLVN5V0lHTjZmUDVuVzVURWR4SmlOeHBsSDBueWFRWktmZ2gzbkh3SXBXeUliNnltT3ZSd3BlRjVhRm9VZ05SN2tmSkFTT0hIdXBrMHBIMEpRSE1nUzRKb2VRUjdLUXY4cFI3UUR1UDJSSnFwWE1DRXFKaDBNbmhMWUQ5RlU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## John Calipari Shares Nervous Encounter with Taylor Swift at NBA Finals
-
-- first seen: 2026-10-15 23:16 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: John Calipari talks about feeling nervous during a moment involving Taylor Swift at the NBA Finals. He described the experience as being 'too scared' in that situation.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiowFBVV95cUxNcXktTTlYZjdPY2JWNVp3RXJoNExha0NneTVSWHdmTDM0UVBRdFBoV2MyUl83a1d2cEZ5NkIySFhxVjJIbDRPc2JqTmVSaHBPNUhKYmxjbl9oOGotQ1dJY3NfZVh2NlhRdGNjOEktdGxkRmlCbmVzQ2lMbDhSMU9xcEpuWFY0R0M4ZWt1RVpleS04Z2RyN3lXZlE0bHlmWUVFWW00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nelly and Ashanti Featured in Trailer for Taylor Swift’s Wedding
-
-- first seen: 2026-10-15 23:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new trailer shows Nelly and Ashanti bickering while on their way to Taylor Swift’s wedding. The clip highlights their dynamic leading up to the event.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOZXhGdE15dWlvbklPb3VsOU1PREJQYUZDeGd0OWpvSTZoRmdONWVlaVJ6NGNjNDN1LW9QTDdrUUxFMDlsT3hBa3FkLWdyMk1nUWRxT1ZicGFLZW9yV3V4VjVMWW9ockFncEVMb05HUkVLSlZYS2RxZS13OHNpbHBJRWtZQ0FUbXZDamNjR08zUmhpcC0za01VdnJNTFNJZw?oc=5&hl=en-US&gl=US&ceid=US:en
