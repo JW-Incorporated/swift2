@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
 
 ## Caitlin Clark and Taylor Swift Attend Chiefs Game Together Again
 
@@ -641,11 +641,3 @@ Stories: 77
 - summary: Taylor Swift has released new music just hours after Olivia Rodrigo's latest project, reigniting discussions about chart competition amongst female artists. The timing has prompted mixed reactions regarding the concept of chart-blocking.
 - sources:
   - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBkelY2TGNvdEp5aTNmYUZHSktzVGxqTVRHakRKR3kwcmgzUUlqWkRpUjlsRjVOSzlybXJlemt2ZTZDU1lMWWxISXZhVERhUlltem1vdVhRd2FtSThnNHdWX1BkQzN2VTlsM0xnLXBzd0NXRF95R0poTWV1bzNfTFN6Mm1sMTJnXzNGbng4SVoxZlFlcU8tcWRlQng?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Selena Gomez Praises Taylor Swift's Marriage Advice
-
-- first seen: 2026-10-16 11:46 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Selena Gomez has expressed her belief that Taylor Swift offers better marriage advice, highlighting her insights in relationships. This comment reflects Gomez's admiration for Swift's perspective on love and partnerships.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxPVndKTFhjOGNqVE01VkZPMks0MkJYNExYb0xQY2lSS3hCUVlyd2IyWWFtYmhXQlc0V3FWM0JKb21kVk5HQ2FqZ2JJSjhZRkhuNW1ZblNKeG1xclVPcTI2SHB6YmM2NXdzS3dMVC1Ed1IwVmozRHNMcEZ1ZGdiQjUybjUtTTRSc0VZcWlQakwtWnJpZw?oc=5&hl=en-US&gl=US&ceid=US:en
