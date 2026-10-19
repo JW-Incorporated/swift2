@@ -33,7 +33,9 @@ needed or used. That is the 2026-10-09 decision working end to end for the
 first time.
 
 **But four days of drafts are stranded on a red CI gate that has nothing to do
-with social.** `build-content` fails on every Tree PR with one error:
+with social.** `build-content` fails on every Tree PR that touches
+`social/inbox/**` — which is every daily-draft and every expiry PR — with one
+error:
 
 > `scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "social/inbox/appearance-2026-10-12-FqbcAAKQjes.json", which matches no gated row — delete the entry`
 
@@ -76,7 +78,7 @@ accounting treats both heroes as delivered-but-blocked rather than dropped
 
 | State | Value |
 |---|---|
-| **⚫ Merge outage, 10-16 → now** | `build-content` red on every Tree PR from one stale `SURFACE_MEDIA_LEGACY` entry in `scripts/lib/moment-media-gate.mjs`; `check-drafts` red on #6056. Six Tree PRs open and unmergeable (#5443, #5495, #5894, #5998, #6027, #6056) plus two inbox-expiry PRs (#6057, #6094). Reported to Marjorie as an error — scripts are outside this desk's mutation rights. |
+| **⚫ Merge outage, 10-16 → now** | `build-content` red on every Tree PR touching `social/inbox/**` (so: every draft and every expiry PR — this plan PR itself passes) from one stale `SURFACE_MEDIA_LEGACY` entry in `scripts/lib/moment-media-gate.mjs`; `check-drafts` red on #6056. Six Tree PRs open and unmergeable (#5443, #5495, #5894, #5998, #6027, #6056) plus two inbox-expiry PRs (#6057, #6094). Reported to Marjorie as an error — scripts are outside this desk's mutation rights. |
 | Cycle month | **2026-10** (`monthNumber` = 2) through 10-31. November (`monthNumber` = 3) starts inside this window on 11-01, but no November thread beat is placed here — the 10-26 run computes and places them. |
 | **October windows + angles** (`angle = ANGLES[(2 + threadIndex) % 5]`) | Decode 10-01→05 `interactive-challenge` · Clue Web 10-06→10 `behind-the-data` · Runway 10-11→15 `quiz-poll` · Blank Spaces 10-16→20 `origin-story` · Taylor's Version 10-21→25 `single-best-item` · End Game 10-26→30 `interactive-challenge` |
 | **Thread progress, October** | Decode **✅ shipped 10-03**. Clue Web **✅ shipped 10-09**. Runway **written (PR #5998), blocked red**. Blank Spaces **written and founder-approved (PR #6056), blocked red**. Taylor's Version placed 10-23, End Game placed 10-26. Runway takes October's **one make-good** on 10-30 (strategy §1(b), new this run); **Blank Spaces' hero is dropped** — the rule allows one make-good a month, and the love-story lens is already the most-covered thing in this plan (timeline beats 10-22 and 10-29). October therefore lands **5 of 6 threads taught**, and the one miss is named rather than buried. |

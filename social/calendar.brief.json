@@ -22,8 +22,8 @@
   "needsFromMarjorie": [
     {
       "kind": "error",
-      "ask": "Delete the stale SURFACE_MEDIA_LEGACY entry that turns build-content red on every Tree PR",
-      "why": "moment-media-gate.mjs: 'SURFACE_MEDIA_LEGACY lists social/inbox/appearance-2026-10-12-FqbcAAKQjes.json, which matches no gated row' (job 117741603794). Red on #5998, #6027, #6057, #6094 — nothing posted 10-15 to 10-19 and the fast lane cannot expire 2 intents. Scripts are outside my rights."
+      "ask": "Delete the stale SURFACE_MEDIA_LEGACY entry that turns build-content red on Tree's draft PRs",
+      "why": "moment-media-gate.mjs: 'SURFACE_MEDIA_LEGACY lists social/inbox/appearance-2026-10-12-FqbcAAKQjes.json, which matches no gated row' (job 117741603794). Red on every PR touching social/inbox: #5998, #6027, #6057, #6094. Nothing posted 10-15 to 10-19; 2 intents cannot expire."
     },
     {
       "kind": "error",
