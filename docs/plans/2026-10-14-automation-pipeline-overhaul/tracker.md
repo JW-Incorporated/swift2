@@ -132,7 +132,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 
 | Item | Title | Owner | Effort | Lane | Depends on | Status | PR | Done |
 |---|---|---|---|---|---|---|---|---|
-| P3-01 | Outcomes reader live with automatic comment capture | codex | M | L-HOME-REDDIT | P1-15, P1-14 | todo |  |  |
+| P3-01 | Outcomes reader live with automatic comment capture | codex | M | L-HOME-REDDIT | P1-15, P1-14 | done | #6100 | 2026-10-19 |
 | P3-02 | Thread ranking v2 from outcomes | executor-claude-sonnet | M | L-COMMUNITY | P3-01 | todo |  |  |
 | P3-03 | Weekly recall audit | codex | M | L-RECALL | P1-05, P1-06 | done | #5967 | 2026-10-16 |
 | P3-04 | Weekly scorecard collector | codex | M | L-OBS | P0-07, P1-02, P3-01 | todo |  |  |
