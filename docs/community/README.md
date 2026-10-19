@@ -215,7 +215,7 @@ later comment buckets can refresh evidence without increasing the count.
 Test a single thread safely before installation:
 
 ```
-node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1
+node scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1
 ```
 
 The owner installs the Windows Scheduled Task in P1-26; agents do not install
@@ -233,6 +233,17 @@ current user as Limited/Interactive, so a normal (non-admin) PowerShell is
 enough. Only re-registering a task that was first created from an elevated
 shell can fail with "Access denied" — run that one re-register as admin, after
 which normal shells work.
+
+The installer also registers `Long Live Reddit Outcomes` every two hours. It
+reads u/NegativeRest9507's public comments anonymously, matches comments to
+the posted ledger by Reddit thread ID, fills `comment_url`, and records each
+missing 1h, 24h, or 7d score/reply snapshot. Its second action refreshes the
+rolling seven-day `docs/ops/dashboard/community.json`, including Gmail
+`reply_to_us` counts. Facebook group outcomes already arrive through the
+activity-log export; Facebook Page replies cannot be linked until the existing
+reply notifier exposes a community-ledger identifier. The shared wrapper uses
+plain Node. New logs are `.artifacts/home-reddit-outcomes.log` and
+`.artifacts/community-outcomes-report.log`.
 
 Dry-run makes no database or crawl-bundle write. The local breaker state is
 still updated because a safety trip must survive the next scheduled run.
