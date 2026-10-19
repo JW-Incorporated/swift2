@@ -27,6 +27,14 @@ so far".
 
 Stories: 67
 
+## Richard Marx Discusses Turning Down Collaboration with Taylor Swift
+
+- first seen: 2026-10-19 18:21 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Richard Marx shares his perspective on declining a collaboration with Taylor Swift, expressing no regrets about his decision. The conversation highlights his thoughts on career choices within the music industry.
+- sources:
+  - [unverified] Ultimate Classic Rock — https://news.google.com/rss/articles/CBMiekFVX3lxTE05THIxUlZMbXRNazR6WDRnVFF4M3BlVnNIX241cXpUbkxNRmJ3Tkl0ZVlQb192UjI3ZjNZT1hCWHdaUDJMMTg2cFU0M1FKQ2czMFg5a3RXMmI5QkEzcGxYcTNRQnVJcWVyZ3MwVkJNeWFOWUFmcnFvQ2t3?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Encounters Fan Recording Her at Chiefs Game
 
 - first seen: 2026-10-19 17:21 UTC | category: sighting | importance: 5
@@ -561,11 +569,3 @@ Stories: 67
 - summary: A coach revealed his embarrassment when he approached Taylor Swift during the NBA Finals. The interaction highlights the star's presence at major sporting events.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPM1hiYTlvZ2ZTWW9BT3dCV3huNDROOVN2UnhnN0pYMTI5RjU3a2pfSXlKTm5wNE9YWEZzMWtTbTFEN2dteHotUGp5TWdMU0E5bzMzMlFBUGdGMlh5bUNUaW52Mk1LS29fMU4zQUxYdU5fT0ZUUnBodUxvSXJDdnhDTGRjTWgySmw5UHJhSW8tVTMtMzBSSGRlcHVROGE1LXE5ZjBqOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Negative Reactions Among Swifties to New Song
-
-- first seen: 2026-10-16 17:51 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: An analysis looks into why some Taylor Swift fans are expressing negativity towards her new song 'Cleveland.' The piece discusses broader themes of fandom behavior and how love can intertwine with frustration.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zv4sxg8?at_medium=RSS&at_campaign=rss
