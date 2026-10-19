@@ -16,6 +16,178 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6127.
+      // Documented past public event at a named venue, reported by two outlets
+      // (Fox News/OutKick, Sports Illustrated) — within the L2 ceiling. Intake
+      // CORRECTED: it called this the pair's first joint appearance since Jan.
+      // 2025, but Clark was also in the suite on Oct. 12, 2025
+      // ('arrowhead-caitlin-clark-october', further down this file). CUT as
+      // unsupported by the readable sources: the "red Louis Vuitton bodysuit"
+      // (Fox describes a red turtleneck sweater, no designer), dancing, the
+      // wedding-ring detail, and the 22-9 score variant (both sources say 22-6).
+      slug: 'arrowhead-caitlin-clark-este-haim-chargers-2026',
+      year: 2026,
+      month: 10,
+      day: 18,
+      category: 'sighting',
+      title: 'Caitlin Clark and Este Haim join Taylor at Arrowhead as the Chiefs rout the Chargers',
+      snippet:
+        'A year after their October 2025 Sunday-night double act, Taylor and Caitlin Clark were back side by side in the Arrowhead suite — this time with Este Haim — for Kansas City\'s 22-6 win over the Chargers.',
+      sourceUrl:
+        'https://www.foxnews.com/outkick-sports/caitlin-clark-taylor-swift-spotted-together-cheering-travis-kelce-chiefs-game',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg/1280px-Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg',
+            // 1280x848 thumb of a 4928x3264 original; curl-verified 2026-10-19
+            // HTTP 200 image/jpeg (328KB) and visually confirmed: aerial of
+            // Arrowhead with the "ARROWHEAD" sign and red seating bowl. A venue
+            // photo, not a game photo — no free-licensed image of this game
+            // exists; agency photos (Getty) are watermarked/unlicensed.
+            focalPoint: '55% 50%',
+            credit: 'Ichabod, CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Arrowhead Stadium in Kansas City, where Taylor, Caitlin Clark and Este Haim watched the Chiefs beat the Chargers on Oct. 18, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Fox News / OutKick',
+            url: 'https://www.foxnews.com/outkick-sports/caitlin-clark-taylor-swift-spotted-together-cheering-travis-kelce-chiefs-game',
+            source_title:
+              'Caitlin Clark and Taylor Swift spotted together again cheering on Travis Kelce at Chiefs game',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 3,
+            notes:
+              'Published Oct. 18, 2026. Primary text for: the suite with Clark and Este Haim, the red turtleneck sweater, the Donna Kelce hug (photo caption), the 22-6 score vs. the Chargers at Arrowhead, Kelce\'s four catches for 53 yards, and Clark\'s "I\'m a big Chiefs fan" (said on the "A Touch More" podcast in 2025).',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-caitlin-clark-steal-spotlight-during-chiefs-chargers-game',
+            source_title:
+              'Taylor Swift, Caitlin Clark Steal the Spotlight During Chiefs-Chargers Game',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 4,
+            notes:
+              'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6126.
+      // Follow-on to 'showgirl-patient-zero-hot-100-no-1-encore-billboard-200'
+      // (the 13th week, chart dated Oct. 10). Billboard and Variety are both
+      // tollbit-gated in this run; the 15th week rests on Billboard's own
+      // headline ("Rules Billboard 200 for 15th Week"), Variety's report of the
+      // same, and InMusic's readable write-up. Unit totals and the No. 2 album
+      // are CUT — only the non-trade write-up states them. The chart date
+      // (Oct. 24) follows from the 13th week being Oct. 10. UK facts read
+      // directly on officialcharts.com: the hat-trick and "only artist with
+      // three UK No. 1 singles in 2026" (Oct. 16); "eighth UK Number 1 single"
+      // (Oct. 2 debut-week article). Intake's claim that the album is back at
+      // No. 1 in the UK THIS week is CUT — the 5th week cited is from Oct. 2.
+      slug: 'showgirl-15th-week-billboard-200-patient-zero-uk-hat-trick',
+      year: 2026,
+      month: 10,
+      day: 18,
+      category: 'music',
+      title:
+        '"Showgirl" reaches 15 weeks at No. 1 as "Patient Zero" makes it three straight in the UK',
+      snippet:
+        'Two charts, one weekend: "The Life of a Showgirl" logged a 15th week atop the Billboard 200, and "Patient Zero" held No. 1 on the UK singles chart for a third consecutive week.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-number-one-15th-week-billboard-200-1236362449/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Two weeks after the Encore pushed it back to the top, "The Life of a Showgirl" kept going: on the Billboard 200 dated Oct. 24, 2026, it logged a 15th nonconsecutive week at No. 1 — up from 13 when "Patient Zero" debuted atop the Hot 100.\n\nAcross the Atlantic, "Patient Zero" held No. 1 on the Official Singles Chart on Oct. 16 for a third consecutive week. The song had already been her eighth UK No. 1 single when it debuted, and the hat-trick left Taylor the only artist with three UK No. 1 singles in 2026.',
+        // No `video` field, same reasoning as the 13th-week moment: the
+        // official-video frame is a plain credited photo.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg',
+            // 1280x720, curl-verified 2026-10-19 HTTP 200 image/jpeg (177KB)
+            // and visually confirmed as the official "Patient Zero (Expanded
+            // Video)" frame on @TaylorSwift (oEmbed verified 2026-10-06).
+            focalPoint: '60% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" video, YouTube)',
+            caption:
+              'A frame from the official "Patient Zero" video — the single that spent a third straight week at No. 1 in the UK.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-number-one-15th-week-billboard-200-1236362449/',
+            source_title:
+              'Taylor Swift’s ‘The Life of a Showgirl’ Rules Billboard 200 for 15th Week',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Chart-of-record report of the 15th week. Body tollbit-gated (HTTP 402) in this run; the fact is in the headline and corroborated by Variety and InMusic below.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-the-life-of-a-showgirl-15th-week-no-1-chart-1236915983/',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 4,
+            notes:
+              'Trade report of the 15th week, cited by intake #6126 (tollbit-gated in this run, so title and date unread; listed for provenance).',
+          },
+          {
+            outlet: 'InMusic',
+            url: 'https://inmusicblog.com/news/taylor-swift-life-showgirl-15th-week-number-one-billboard-200/',
+            source_title:
+              'Taylor Swift’s ‘The Life of a Showgirl’ Extends Its Billboard 200 Reign to 15 Weeks',
+            publisher: 'InMusic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 2,
+            notes:
+              'Readable Oct. 18, 2026 write-up confirming the 15th week at No. 1 on the Billboard 200.',
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-patient-zero-three-weeks-number-1-single-uk/',
+            source_title:
+              'Taylor Swift takes Patient Zero to a third consecutive week at Number 1',
+            publisher: 'Official Charts Company',
+            source_type: 'official',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Oct. 16, 2026. Confirms the third consecutive week at No. 1 and that Taylor is "the only artist to have clinched three UK Number 1 singles in 2026".',
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-patient-zero-life-of-a-showgirl-official-chart-double/',
+            source_title:
+              'Encore! Taylor Swift scores Official Chart Double with The Life Of A Showgirl and Patient Zero',
+            publisher: 'Official Charts Company',
+            source_type: 'official',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Oct. 2, 2026 debut-week report: "Patient Zero" is Taylor\'s eighth UK Number 1 single and her third of 2026.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-18 (Vault Run, Content Shift lane) from intake #6065
       // (the outcome of the announced appearance in closed intake #5462).
       // Documented past performance at a named public venue, officially
