@@ -32,6 +32,36 @@ const FLAT_MIN_BITS = 8;
 
 const popcount = (hex) => hammingDistance(hex, '0000000000000000');
 
+let enginePromise;
+
+/**
+ * `{ sharp, notInstalled }` — the image engine, memoized. `sharp` is null when
+ * it cannot be loaded here; `notInstalled` is true only for the one cause that
+ * is an ENVIRONMENT fact rather than a broken dependency: node_modules is
+ * absent (ERR_MODULE_NOT_FOUND). A routine's agent job checks the repo out
+ * without `npm ci` (routine-template.yml never installs), so the fingerprinter
+ * is genuinely missing there — see fingerprintEngineMissing (#6096).
+ */
+async function loadEngine() {
+  try {
+    return { sharp: (await import('sharp')).default, notInstalled: false };
+  } catch (err) {
+    return { sharp: null, notInstalled: err?.code === 'ERR_MODULE_NOT_FOUND' };
+  }
+}
+
+/**
+ * True when sharp is not installed in this checkout at all, so NOTHING can be
+ * fingerprinted and the same-picture check could not run — a different thing
+ * from an image whose bytes will not decode, which stays a refusal. A sharp
+ * that is installed but fails to load (broken native binary) is NOT this: that
+ * must keep failing closed in the trusted pre-merge runs.
+ */
+export async function fingerprintEngineMissing() {
+  enginePromise ??= loadEngine();
+  return (await enginePromise).notInstalled;
+}
+
 async function hashRegion(sharp, raw, info, region) {
   let img = sharp(raw, { raw: info });
   if (region) img = img.extract(region);
@@ -47,11 +77,14 @@ async function hashRegion(sharp, raw, info, region) {
 
 /**
  * Fingerprint of an image buffer, or `null` when it cannot be decoded (callers
- * on a posting path MUST treat null as a refusal, never a pass).
+ * on a posting path MUST treat null as a refusal, never a pass) — or when the
+ * engine itself is unavailable, which `fingerprintEngineMissing` distinguishes.
  */
 export async function fingerprintImage(buf) {
   try {
-    const { default: sharp } = await import('sharp');
+    enginePromise ??= loadEngine();
+    const { sharp } = await enginePromise;
+    if (!sharp) return null;
     const { data, info } = await sharp(buf).rotate().removeAlpha().raw().toBuffer({ resolveWithObject: true });
     const raw = { width: info.width, height: info.height, channels: info.channels };
     const hash = await hashRegion(sharp, data, raw, null);
