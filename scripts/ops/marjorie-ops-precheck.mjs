@@ -133,16 +133,26 @@ export function buildOpsSignals(snapshot) {
 export function prunedHandled(flagged, lastHandled) {
   const present = mustRunState(flagged);
   const items = Object.fromEntries(Object.entries(lastHandled?.items || {}).filter(([id]) => id in present));
-  return Object.keys(items).length === Object.keys(lastHandled?.items || {}).length ? null : { at: lastHandled.at, items };
+  const itemsSame = Object.keys(items).length === Object.keys(lastHandled?.items || {}).length;
+  if (!Array.isArray(lastHandled?.flaggedIds)) return itemsSame ? null : { at: lastHandled.at, items };
+  const ids = new Set(flagged.map((signal) => signal.id));
+  const flaggedIds = lastHandled.flaggedIds.filter((id) => ids.has(id));
+  return itemsSame && flaggedIds.length === lastHandled.flaggedIds.length ? null : { at: lastHandled.at, items, flaggedIds };
 }
 
+// Skip when the must-run state is unchanged and no flagged signal is new. A non-must-run signal Jev flags
+// every run (same id) must not block the skip; only an id absent from the last handled record does.
+// A record without flaggedIds (old format) never skips: run once, then write the new format.
 export function mustRunUnchanged(flagged, lastHandled, now) {
-  const must = flagged.filter((signal) => signal.mustRun);
-  if (!must.length || flagged.length !== must.length) return false;
+  if (!flagged.length || !Array.isArray(lastHandled?.flaggedIds)) return false;
   const at = Date.parse(lastHandled?.at || "");
   if (!Number.isFinite(at) || now - at >= MUST_RUN_REFRESH_MS || now < at) return false;
-  return must.every((signal) => lastHandled.items?.[signal.id] === (signal.state ?? ""));
+  const known = new Set(lastHandled.flaggedIds);
+  if (!flagged.every((signal) => known.has(signal.id))) return false;
+  return flagged.filter((signal) => signal.mustRun).every((signal) => lastHandled.items?.[signal.id] === (signal.state ?? ""));
 }
+
+const flaggedIdList = (flagged) => flagged.map((signal) => signal.id).sort();
 
 const mustRunState = (flagged) => Object.fromEntries(flagged.filter((signal) => signal.mustRun).map((signal) => [signal.id, signal.state ?? ""]));
 
@@ -193,7 +203,7 @@ export async function runPrecheck({ env = process.env, collect = collectOpsSnaps
     if (mustRunUnchanged(flagged, lastHandled, now)) {
       return { mode: 'skip', reason: `must-run unchanged since ${lastHandled.at}: ${flagged.length} items, skipping`, signals: judged, flagged, pruned: prunedHandled(flagged, lastHandled), chasePlan: snapshot.chasePlan };
     }
-    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, pruned: flagged.length || !lastHandled?.at ? null : prunedHandled(flagged, lastHandled), mustRunState: mustRunState(flagged), at: new Date(now).toISOString(), chasePlan: snapshot.chasePlan };
+    return { mode: flagged.length ? 'flagged' : 'skip', signals: judged, flagged, pruned: flagged.length || !lastHandled?.at ? null : prunedHandled(flagged, lastHandled), mustRunState: mustRunState(flagged), flaggedIds: flaggedIdList(flagged), at: new Date(now).toISOString(), chasePlan: snapshot.chasePlan };
   } catch (error) {
     return { mode: 'fail-open', reason: `Jev failed: ${clipped(error?.message || error, 160)}`, signals, flagged: [], chasePlan: snapshot.chasePlan };
   }
@@ -205,7 +215,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const decision = await runPrecheck(deps);
   mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify({ ...decision, chasePlan: undefined }, null, 2)}\n`);
-  if (decision.mode === 'flagged' && decision.at) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-handled.json'), `${JSON.stringify({ at: decision.at, items: decision.mustRunState })}
+  if (decision.mode === 'flagged' && decision.at) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-handled.json'), `${JSON.stringify({ at: decision.at, items: decision.mustRunState, flaggedIds: decision.flaggedIds })}
 `);
   if (decision.pruned) writeFileSync(path.join(path.dirname(out), 'marjorie-ops-pruned.json'), `${JSON.stringify(decision.pruned)}
 `);

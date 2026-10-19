@@ -203,35 +203,53 @@ describe("must-run fingerprint gate", () => {
   const collect = async () => ({ ...empty, alerts: [{ number: 3, title: "Watchdog: no Founders' Brief", createdAt: "2026-10-14T00:00:00Z", comments: [] }] });
   const env = { TYPESAFE_API_KEY: "fixture" };
   const items = { "watchdog-alert:#3": "unhandled" };
+  const flaggedIds = ["watchdog-alert:#3"];
   const at = (ms: number) => new Date(now - ms).toISOString();
 
   it("skips when the must-run set is unchanged since the last handled run", async () => {
-    const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items } });
+    const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items, flaggedIds } });
     expect(result).toMatchObject({ mode: "skip" });
     expect(result.reason).toContain("must-run unchanged since");
   });
 
   it("skips when the set only shrank to already-handled items", async () => {
-    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" } };
+    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" }, flaggedIds: [...flaggedIds, "watchdog-alert:#99"] };
     await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled })).resolves.toMatchObject({ mode: "skip" });
   });
 
   it("runs when an item is new or its state changed", async () => {
-    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: {} } })).resolves.toMatchObject({ mode: "flagged" });
-    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: { "watchdog-alert:#3": "escalated" } } })).resolves.toMatchObject({ mode: "flagged" });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: {}, flaggedIds } })).resolves.toMatchObject({ mode: "flagged" });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items: { "watchdog-alert:#3": "escalated" }, flaggedIds } })).resolves.toMatchObject({ mode: "flagged" });
   });
 
   it("runs when the last handled run is 24h old or more", async () => {
-    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(MUST_RUN_REFRESH_MS), items } })).resolves.toMatchObject({ mode: "flagged" });
+    await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: { at: at(MUST_RUN_REFRESH_MS), items, flaggedIds } })).resolves.toMatchObject({ mode: "flagged" });
   });
 
-  it("runs when another non-must-run signal is flagged", async () => {
-    const withOther = async () => { const base = await collect(); return { ...base, alerts: [...base.alerts, { number: 4, title: "Watchdog: Karen scanned but filed no tickets", createdAt: "2026-10-15T11:00:00Z" }] }; };
-    await expect(runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: { at: at(3_600_000), items } })).resolves.toMatchObject({ mode: "flagged" });
+  const withOther = async () => { const base = await collect(); return { ...base, alerts: [...base.alerts, { number: 4, title: "Watchdog: Karen scanned but filed no tickets", createdAt: "2026-10-15T11:00:00Z" }] }; };
+
+  it("runs when a new non-must-run signal is flagged", async () => {
+    await expect(runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: { at: at(3_600_000), items, flaggedIds } })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("skips when an unchanged non-must-run flagged id sits beside an unchanged must-run state", async () => {
+    const first = await runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: null });
+    const ids = (first.flaggedIds as string[]);
+    expect(ids).toHaveLength(2);
+    await expect(runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: { at: at(3_600_000), items, flaggedIds: ids } })).resolves.toMatchObject({ mode: "skip" });
+    await expect(runPrecheck({ env, collect: withOther, clientFactory: () => noul(0.9), lastHandled: { at: at(3_600_000), items: { "watchdog-alert:#3": "escalated" }, flaggedIds: ids } })).resolves.toMatchObject({ mode: "flagged" });
+  });
+
+  it("runs on an old-format record and writes the new format", async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "ops-handled-"));
+    try {
+      await main([path.join(dir, "precheck.json")], { env, collect, clientFactory: () => noul(), lastHandled: { at: at(3_600_000), items } });
+      expect(JSON.parse(readFileSync(path.join(dir, "marjorie-ops-handled.json"), "utf8"))).toMatchObject({ items, flaggedIds });
+    } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 
   it("fails open on an error even with an unchanged fingerprint", async () => {
-    const lastHandled = { at: at(3_600_000), items };
+    const lastHandled = { at: at(3_600_000), items, flaggedIds };
     await expect(runPrecheck({ env, collect: async () => { throw new Error("offline"); }, lastHandled })).resolves.toMatchObject({ mode: "fail-open" });
     await expect(runPrecheck({ env: {}, collect, lastHandled })).resolves.toMatchObject({ mode: "fail-open" });
   });
@@ -243,17 +261,17 @@ describe("must-run fingerprint gate", () => {
       await main([artifact], { env, collect, clientFactory: () => noul(), lastHandled: null });
       expect(JSON.parse(readFileSync(path.join(dir, "marjorie-ops-handled.json"), "utf8")).items).toEqual(items);
       rmSync(path.join(dir, "marjorie-ops-handled.json"));
-      await main([artifact], { env, collect, clientFactory: () => noul(), lastHandled: { at: at(1000), items } });
+      await main([artifact], { env, collect, clientFactory: () => noul(), lastHandled: { at: at(1000), items, flaggedIds } });
       expect(existsSync(path.join(dir, "marjorie-ops-handled.json"))).toBe(false);
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 
   it("drops vanished ids from the saved map so a reappearing item counts as new", async () => {
-    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" } };
+    const lastHandled = { at: at(3_600_000), items: { ...items, "watchdog-alert:#99": "unhandled" }, flaggedIds: [...flaggedIds, "watchdog-alert:#99"] };
     const result = await runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled });
-    expect(result.pruned).toEqual({ at: lastHandled.at, items });
+    expect(result.pruned).toEqual({ at: lastHandled.at, items, flaggedIds });
     const gone = await runPrecheck({ env, collect: async () => empty, clientFactory: () => noul(), lastHandled });
-    expect(gone).toMatchObject({ mode: "skip", pruned: { at: lastHandled.at, items: {} } });
+    expect(gone).toMatchObject({ mode: "skip", pruned: { at: lastHandled.at, items: {}, flaggedIds: [] } });
     await expect(runPrecheck({ env, collect, clientFactory: () => noul(), lastHandled: gone.pruned })).resolves.toMatchObject({ mode: "flagged" });
   });
 
