@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 74
+
+## Taylor Swift's New Release Leads to Controversy with Olivia Rodrigo
+
+- first seen: 2026-10-19 14:56 UTC | category: release | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's latest music release has generated discussion and accusations regarding its impact on Olivia Rodrigo. The conversation highlights ongoing dynamics in the music industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUERBRXRxZmlraWdUMHlBTndvMVFVRzJJQ2JKaFFDLWZEQy1odldXWU1RZm9LelNVX0tld2lXS3J0TEk4Z01CR1hsVmpFUnRsZHhDakpmVTVabXlXdHdtemdkelZKVG0tQ0xxM2NDY0cybzhEUzZTMFNWOXpveEFzTlhOR0ZVSkZaNDR4SjVPNEU3NHNPRDBkbjZmNWdSbmY1WXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Swifties Critique NFL Fans' Treatment of Hailee Steinfeld
+
+- first seen: 2026-10-19 14:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans are voicing their concerns about what they see as double standards in the treatment of actress Hailee Steinfeld by NFL fans. The discussion highlights issues of fairness and bias in the entertainment and sports realms.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPTElWTFhRZXA0aWsyNTBmX0FJXzlpb2ZhaGY5MnhHbzNfeml2SG5BYXRFQ0UwMFdvM1hCMmJLUTN4VXhIdlhyY3MweHV0WEptLUdhVFFDTkJGS3F3QkJPMzFCdER1N19vVTczYlpuc2RkdVhXSnNrMnZMUlNVTk1rWHVkMDRQR3ctYXd6NWpnSmt3ZWpPc1hIeF9NOTVtckpHVm5BaA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Pursues Oscar Nomination for 'Toy Story 5' Song
+
+- first seen: 2026-10-19 14:56 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is aiming for her first Oscar with a ballad from 'Toy Story 5', following a captivating appearance at the Academy Museum gala.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPd1FvQzBKSHJQV1JQT3VxUjRpa3dwaVc0eEhsZVpUMk42bUJ1Y21KNENrMXdWczdqRW82UE9xYnBpNjFwMGU2Um9sVkJWb1FaTW96N0k0X0dvazREaWFiaUU0VmM2TnZtUmdHWFN3cWVKZWlCaWZKT2drVzdCUDBmYmwwcXI4R21HSkRjaUYydnAzS21wYnZ4UUNfZUtWZlN6c0IzT0Z3eGl0RWdfb3lXZHBydXFtMUk2NTQ5TnNESEZWTHFja0x4R1VVX25INWZsd1h1TE45Z1Fzc1Uw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Tribute Concert Scheduled in Manitowoc
 
@@ -601,11 +625,3 @@ Stories: 72
 - summary: Ashanti expresses feelings of empowerment due to Taylor Swift while discussing her own experience of re-recording her debut album. The connection between their artistic journeys highlights influences in the music industry.
 - sources:
   - [unverified] Metro.co.uk — https://news.google.com/rss/articles/CBMirgFBVV95cUxPXzBKdFZIellZWFdDbDBQa3RrQ1VLLXNsU1AtY3dFTEJmTFdmMV8zQy1YUnlKYnlPaEpTTVBCckdqNXRmc2JHU2pYVlFYXzM1anZLbVh3dUFiTVJNOHBJTHdRM3Y3UkxvUTF6dGdxeDJqVHJmQzNnUXk1MHVFNDhmNE5rWW5CYmFGaFc2enV6QTljNDF1VE81SFRoRkdzdVF2LUN1LWRFR0tZS2VYNkHSAbMBQVVfeXFMTkswLVB3dzhrRFQ1aEszVTdxU0JPbWVGRzBpeGh6QThPZFdrdXZfT1BSa3FuSmZzTmpSMkxvQmlfYTFoNHMtc0t0NkFuUzBvSlZTX3FNZm5uM0ViX2JlWkJLWXRJR1dMYXNwVW14VWd3d3NYN0xDaG9wX0lWQ3lBVHNVVldQcFhOZVRoUVU5blhKVVB4Yno2a2UyMG9vTWxFTFFUdkZ3WnpRa1VSLVUwZzA2bFU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Vegas Artists Share Secrets of Tribute Performances Including Taylor Swift
-
-- first seen: 2026-10-16 14:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Vegas tribute artists discuss their experiences and insights in portraying iconic musicians, including Taylor Swift. The piece highlights their craft and dedication to delivering authentic performances.
-- sources:
-  - [unverified] Las Vegas Review-Journal — https://news.google.com/rss/articles/CBMixwFBVV95cUxPMU1zR3FuS2dDaGF2ZUdOZUp2V2RESm14SUNsZFhKOWtoU1hodWU3cnZJZGYwNWNUOHlnTVRiVUVmSTZWNU1seFFRSXJsdmF4ZC00Vmtza2NUX3BXTzBqby1QMjFkOE1pX2F5OUNxenRzYjRzZkltWE5HUDNlbVlpakZ0QTZKQ1E2TmJwMUxDV0NTVEJXOThTTXY5clF6M1I1dkhvMG1FNXdqWVlzUi1jS1RPaE5GZWU0ZzZEYXcwakhaR3RVbHg0?oc=5&hl=en-US&gl=US&ceid=US:en
