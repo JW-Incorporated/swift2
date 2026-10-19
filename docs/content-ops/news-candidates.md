@@ -27,6 +27,14 @@ so far".
 
 Stories: 72
 
+## Taylor Swift Tribute Concert Scheduled in Manitowoc
+
+- first seen: 2026-10-19 13:56 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A tribute concert celebrating Taylor Swift will take place in Manitowoc, as reported by Seehafer News. Fans of the artist can look forward to the tribute event showcasing her music.
+- sources:
+  - [unverified] Seehafer News — https://news.google.com/rss/articles/CBMilAFBVV95cUxQVWJJZXhtVmZvRFFvY1E5WDhScWQ0OHRHSnNfZWNxREZ3LWpRQi1JNmxLb1k3bWI3UzRhZXVIeUNfSm50c3VjOWIzU2dQVWROdEJKSVk4NEFjcTBvTkZESGc5Y29aSTdwZHJjX2ZkWTdSc2FfeUlkUVZweGxuQVhVUExUVWJSaHNBWm5jV19tZWF5VWVp?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Tops U.K. Charts for Third Week with 'Patient Zero'
 
 - first seen: 2026-10-19 12:57 UTC | category: music | importance: 8
@@ -601,11 +609,3 @@ Stories: 72
 - summary: Vegas tribute artists discuss their experiences and insights in portraying iconic musicians, including Taylor Swift. The piece highlights their craft and dedication to delivering authentic performances.
 - sources:
   - [unverified] Las Vegas Review-Journal — https://news.google.com/rss/articles/CBMixwFBVV95cUxPMU1zR3FuS2dDaGF2ZUdOZUp2V2RESm14SUNsZFhKOWtoU1hodWU3cnZJZGYwNWNUOHlnTVRiVUVmSTZWNU1seFFRSXJsdmF4ZC00Vmtza2NUX3BXTzBqby1QMjFkOE1pX2F5OUNxenRzYjRzZkltWE5HUDNlbVlpakZ0QTZKQ1E2TmJwMUxDV0NTVEJXOThTTXY5clF6M1I1dkhvMG1FNXdqWVlzUi1jS1RPaE5GZWU0ZzZEYXcwakhaR3RVbHg0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussion on ‘Choosin’ Texas’ for Best Country Song at 2027 Grammys
-
-- first seen: 2026-10-16 13:46 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Rolling Stone explores the potential of ‘Choosin’ Texas’ being a top contender for Best Country Song at the 2027 Grammys.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/
