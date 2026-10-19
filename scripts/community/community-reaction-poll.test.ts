@@ -246,6 +246,52 @@ describe('pollReactions', () => {
       expect(exitCode(s)).toBe(1);
     });
 
+    describe('Retry-After wait', () => {
+      async function sleptFor(res: Response) {
+        const t = rateLimitedSetup([lead()], (n) => (n === 1 ? res : null));
+        const sleeps: number[] = [];
+        const s = await pollReactions({
+          supabase: fakeSupabase([lead()]),
+          token: 'bot',
+          env: {},
+          fetchImpl: t.fetchImpl as never,
+          owners: [OWNER],
+          acks: t.acks,
+          sleep: async (ms: number) => {
+            sleeps.push(ms);
+          },
+        });
+        expect(s.skipped).toBe(1);
+        return sleeps.filter((ms) => ms !== 1000);
+      }
+
+      it('uses the body retry_after when the header is absent', async () => {
+        expect(await sleptFor(new Response('{"retry_after":2}', { status: 429 }))).toEqual([2000]);
+      });
+
+      it('uses the header seconds', async () => {
+        const res = new Response('{"retry_after":9}', { status: 429, headers: { 'retry-after': '3' } });
+        expect(await sleptFor(res)).toEqual([3000]);
+      });
+
+      it('falls back to 1s when neither is present (gap sleeps are also 1s)', async () => {
+        const t = rateLimitedSetup([lead()], (n) => (n === 1 ? new Response('x', { status: 429 }) : null));
+        const sleeps: number[] = [];
+        await pollReactions({
+          supabase: fakeSupabase([lead()]),
+          token: 'bot',
+          env: {},
+          fetchImpl: t.fetchImpl as never,
+          owners: [OWNER],
+          acks: t.acks,
+          sleep: async (ms: number) => {
+            sleeps.push(ms);
+          },
+        });
+        expect(sleeps).toEqual([1000, 1000, 1000]);
+      });
+    });
+
     it('a non-429 HTTP error still fails the run', async () => {
       const t = rateLimitedSetup([lead()], () => new Response('x', { status: 500 }));
       const s = await t.run();

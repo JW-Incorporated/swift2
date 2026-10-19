@@ -77,7 +77,8 @@ class RateLimited extends Error {}
 
 /** Discord's Retry-After (header seconds, else JSON body `retry_after`), capped. */
 async function retryAfterMs(res) {
-  let secs = Number(res.headers?.get?.('retry-after'));
+  const header = res.headers?.get?.('retry-after');
+  let secs = header == null || header === '' ? Number.NaN : Number(header);
   if (!Number.isFinite(secs)) {
     const body = await res.json().catch(() => null);
     secs = Number(body?.retry_after);
