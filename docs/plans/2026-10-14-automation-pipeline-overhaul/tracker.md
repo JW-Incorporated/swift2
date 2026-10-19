@@ -16,7 +16,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-03b | Repair the CI build-content job (sync:content before check:generated), prove it on a social-only PR, then re-enable the paths-filter quantifier | executor-claude-sonnet | S | L-CI | P0-03 | done | #5861 | 2026-10-15 |
 | P0-04 | Unstick the 10-11 Instagram/X pair, reconcile the ledger, close the stale state PRs | executor-claude-sonnet | S | L-SOCIAL | P0-03 | done | #5824 | 2026-10-15 |
 | P0-05a | Social poster: an already-posted item never counts as stale (dup check before the stale check), the root cause of false failed records and alerts | executor-claude-sonnet | S | L-SOCIAL | - | done | #5857 | 2026-10-15 |
-| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | review | #5886 |  |
+| P0-05 | One rolling state PR and failure metadata for the poster | executor-claude-sonnet | S | L-SOCIAL | P0-04 | done | #5886 | 2026-10-15 |
 | P0-06 | Verify the X 403 claim (read-only) | executor-claude-sonnet | S | L-READONLY | - | done |  | 2026-10-14 |
 | P0-07 | Measurement baseline: turn ledger, metered usage, clock fire rate | codex | M | L-OBS | - | done | #5829 | 2026-10-14 |
 | P0-08 | Interim Facebook card link and mailer parity | codex | S | L-COMMUNITY | - | done | #5822 | 2026-10-14 |
@@ -33,7 +33,7 @@ Done when: Routines skip cleanly while the limit is hit and a single named alert
 | P0-18 | Anthropic Console monthly spend cap for the metered key | OWNER ACTION | S | L-OWNER | P0-13 | dropped |  | 2026-10-14 |
 | P0-19 | Backup-token switch: routines fall back to CLAUDE_CODE_OAUTH_TOKEN_BACKUP when the primary hits its weekly limit (no-op until the secret exists) | codex | S | L-ROUTINES | P0-01 | done | #5855 | 2026-10-15 |
 | P0-20 | routine-tree-weekly-plan dies on its turn ceiling (#5470, HA #121): first a read-only check of whether the Hermes 1 weekly social report makes it redundant, then fix it or propose retiring it | executor-claude-sonnet | S | L-ROUTINES | - | done | #5867 | 2026-10-15 |
-| P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | review |  |  |
+| P0-21 | Notification system design review (Joey, 2026-10-15): audit the system as built, a must-fix-before-go list that gates HA #129, and a redesign brief that seeds the next project | claude-opus | M | L-NOTIFY | - | done |  | 2026-10-18 |
 | P0-21a | Push must-fixes in code: instant-age cutoff that keeps quiet-hours holds; freeze on a failed delivery-log write; cooldown pass off by default; per-run summary log | codex | M | L-NOTIFY | P0-21 | done | #5891 | 2026-10-15 |
 | P0-21b | Sanctioned backlog-kill workflow (workflow_dispatch; list by default, apply only with an explicit input) | executor-claude-sonnet | S | L-NOTIFY-OPS | P0-21 | done | #5869 | 2026-10-15 |
 | P0-21d | Heartbeat check LOWs: an empty heartbeat also checks the seeded PUSH_FREEZE row (wrong-project guard); error-path tests | codex | S | L-NOTIFY | P0-21c | done | #5923 | 2026-10-15 |
