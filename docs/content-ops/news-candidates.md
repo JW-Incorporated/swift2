@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 67
+
+## Taylor Swift Encounters Fan Recording Her at Chiefs Game
+
+- first seen: 2026-10-19 17:21 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At a recent game, Taylor Swift had an awkward interaction with a fan who was recording her. The incident was noted in a report by the New York Post.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTlZsUmNNQWdiRUZVLU5JR1JIM1dEbGRBbEFudE1Hc3c0TE5Nd0ZhbGdvaDg0U0JlRllOUWZSa1RoM1JTaWF5c0F3ZFpsNFhGeGhEWGFfbmZLQ1owZG11UkZYTkxndEdvNzhNbzMxeUN2bDR6U0FMb1hXWkxiVUM3Z2FIX0s4MkFtUlpyZFdrcm1ka2N1bGtRMnlienFfRmlYVldQMTlKMkdFR1E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's New Release Leads to Controversy with Olivia Rodrigo
 
@@ -561,19 +569,3 @@ Stories: 68
 - summary: An analysis looks into why some Taylor Swift fans are expressing negativity towards her new song 'Cleveland.' The piece discusses broader themes of fandom behavior and how love can intertwine with frustration.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zv4sxg8?at_medium=RSS&at_campaign=rss
-
-## Taylor Swift and Travis Kelce Encounter Issue with Ohio Residence
-
-- first seen: 2026-10-16 16:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing an unexpected problem regarding their Ohio home. Details about the nature of the issue have not been disclosed in the article.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxObUZYay0yTmRYWjZVNnVRazAydEN3a3dnWnJqeDdYR3JwV3Bjek4yc1gzRzNVUnZQR2Vxd1B0RnhFd3p6N1A5WVJUSlFvcmttMlFoVXNzRGhQWjFiMDhPelhFWjU5LU9jSEYzT2taSHk3aVI4YllRVm1tMVRjUUlzc3VlMmt6akpDMnhMTkxVVzd4a0NGbk5tajZkcEQ1eFJWSEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bad Gyal Declines $3 Million Offer to Collaborate with Taylor Swift
-
-- first seen: 2026-10-16 16:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bad Gyal stated she would refuse a $3 million offer to work with Taylor Swift, labeling Swift's music as unappetizing, likening it to 'dry chicken.'
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikwFBVV95cUxNWGFhcFowY1p2ZTRFT1lpN0hsWUYwRFNqN2tOVG5MZFdmTXVsQmZNR1dVU2Q5ekVKRWd0TzRSNkNLbEtqbk1rWGdWY1dITFBlQXd5UXJ2enRtQ2RXR2lmMUtNWVR2aHRYSDU4TTlfek9jc1dxcHpfSVEtRjl2RWFqY1VQTzlkT2tiTDdHMGwwMjNNYUU?oc=5&hl=en-US&gl=US&ceid=US:en
