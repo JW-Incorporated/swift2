@@ -219,17 +219,31 @@ describe('pollReactions', () => {
       expect(exitCode(s)).toBe(0);
     });
 
-    it('a persistent 429 defers the remaining cards without failing or acking', async () => {
+    it('a 429 wall after one processed card defers the rest without failing', async () => {
+      const t = rateLimitedSetup(
+        [lead(), lead({ id: 'lead-2', discord_message_id: 'msg-2' })],
+        (n) => (n <= 2 ? null : rl()),
+      );
+      const s = await t.run();
+      expect(s).toMatchObject({ skipped: 1, posted: 0, deferred: 1, errors: [] });
+      expect(t.acks.skipped).toHaveBeenCalledTimes(1);
+      expect(t.acks.skipped).not.toHaveBeenCalledWith(expect.anything(), 'lead-2');
+      expect(t.acks.posted).not.toHaveBeenCalled();
+      expect(t.puts).toHaveLength(1);
+      expect(exitCode(s)).toBe(0);
+    });
+
+    it('a total 429 wall from the first card exits 1 (outage)', async () => {
       const t = rateLimitedSetup(
         [lead(), lead({ id: 'lead-2', discord_message_id: 'msg-2' })],
         () => rl(),
       );
       const s = await t.run();
-      expect(s).toMatchObject({ skipped: 0, posted: 0, deferred: 2, errors: [] });
+      expect(s).toMatchObject({ skipped: 0, posted: 0, ignored: 0, deferred: 2, errors: [] });
       expect(t.acks.skipped).not.toHaveBeenCalled();
       expect(t.acks.posted).not.toHaveBeenCalled();
       expect(t.puts).toEqual([]);
-      expect(exitCode(s)).toBe(0);
+      expect(exitCode(s)).toBe(1);
     });
 
     it('a non-429 HTTP error still fails the run', async () => {

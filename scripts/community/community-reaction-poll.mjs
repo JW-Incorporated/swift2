@@ -189,9 +189,14 @@ export async function pollReactions({
   return summary;
 }
 
-/** Rate-limit deferrals retry next run and are not failures; real errors are. */
-export function exitCode(s) {
-  return s.errors.length > 0 ? 1 : 0;
+/**
+ * Partial rate-limit deferrals retry next run and are not failures; real errors are.
+ * A total wall (deferred, nothing processed) is an outage and fails.
+ */
+export function exitCode(s, extraProcessed = 0) {
+  if (s.errors.length > 0) return 1;
+  const processed = s.posted + s.skipped + s.ignored + extraProcessed;
+  return s.deferred > 0 && processed === 0 ? 1 : 0;
 }
 
 async function main() {
@@ -216,7 +221,7 @@ async function main() {
     `community-reaction-poll: ${s.checked} card(s) checked, ${s.posted} posted, ${s.skipped} skipped, ${s.ignored} untouched, ${q.posted} Qwen reply(ies) posted, ${s.deferred} deferred (rate limited), ${s.errors.length} error(s)${dryRun ? ' (dry-run)' : ''}.`,
   );
   for (const e of s.errors) console.error(`  lead ${e.leadId}: ${e.message}`);
-  return exitCode(s);
+  return exitCode(s, q.posted);
 }
 
 if (process.argv[1]?.split(/[\\/]/).pop() === 'community-reaction-poll.mjs') {
