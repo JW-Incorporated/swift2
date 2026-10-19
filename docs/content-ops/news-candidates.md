@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 72
+
+## Taylor Swift Tops U.K. Charts for Third Week with 'Patient Zero'
+
+- first seen: 2026-10-19 12:57 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has maintained her position as the U.K. No. 1 for a third consecutive week with her track 'Patient Zero'. This achievement highlights her continued popularity in the music scene.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxORGVqVjlXUy1iQU9ib1pNNk1KUzRIaVl2TUdPTktJOXk1bVIteklGTVkyOElXV2QwdzN4QTktWjZwckxUOWlwc09yMkJqN2dFLWZybmxfZHl6X2pERlY3RzNyRkZKaXpFMGU2R1ZKTVExV2U1SUw1OVVpempEM2trV0oyTDI3T0YtZmdaY3lPSmR0aUZJcjMwbHdKaV9iVXhmYXZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Clark and Taylor Swift Attend Chiefs Game Together Again
 
@@ -601,43 +609,3 @@ Stories: 76
 - summary: Rolling Stone explores the potential of ‘Choosin’ Texas’ being a top contender for Best Country Song at the 2027 Grammys.
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/
-
-## Taylor Swift Faces Strong Competition for Record and Song of the Year
-
-- first seen: 2026-10-16 12:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift may have a challenging path to winning the Record and Song of the Year awards as competitors Olivia Dean and Raye also vie for the titles. The Grammy race is heating up as more artists gain recognition.
-- sources:
-  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWlpoQTExc3NCZnpjb2VJanRHczJqOUZwVW4tYlZHMFJjV1dqRHVsa3RMYW0yUEZuN25sSDJNbXEyTjhoQW5aOUVpVzNaN1JxYjVYcVpjdVhiZElGVWd0VDhXNU9tY3VFWEtjQ25oeEF1ZzlaNHdsa0ltSURqM0toNlNXT3ozN09r?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift faces claims of chart-blocking Olivia Rodrigo with new release
-
-- first seen: 2026-10-16 12:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been accused of chart-blocking Olivia Rodrigo following the release of new versions of her song 'Patient Zero'. The claims have surfaced amid ongoing discussions in the music industry about competition between artists.
-- sources:
-  - [unverified] The Express Tribune — https://news.google.com/rss/articles/CBMivgFBVV95cUxNZTFhVG1EZjRKbGNNTnRYc0JNeDFISWUxQy15elNwbkFSYWtMVGZuQnd1dWE1bDdnOW9OOU1Yd1NZWnY5RHlaZnFRYkVJUkRHTkt1MjNXSm04dGZaNWprcTZLQ290R3VhMFpuQ0c0UmFmdzBjQlFjZHRFVGNzRXV4WnM5YmR0Q0l0RmR6Q0xEZHNwUkRnYjBUTXVLZU5xYXA4cTBJWERrLWJZM24zMUxrbUdCM2MzdHdseU9sRk1n?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jason Kelce Calls for Halloween Songs from Taylor Swift
-
-- first seen: 2026-10-16 12:46 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce expresses his desire for Taylor Swift to release Halloween-themed songs, as reported by Yahoo.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNRkZ2QkJKeEtOSVhuQk1uSjF1WUJVckEzc2lsNWVHMDExc0U4a0pHSVdmUUNLNjVDSEpBMGZCR2FSSXJ6VG12SkVIWnU0WWkwVkxZMEdtaTYtbXVaYU8zMklQaU5QTzgtQVF0MVlLaThTVy1pREY5ZnNYZnlpVjJVVTBpYndjYTZ0N3ByMk9FajRXV09yNWZLUGNWMzQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Spotted with a No-Makeup Look
-
-- first seen: 2026-10-16 12:46 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been seen sporting a stunning no-makeup look, capturing attention and admiration. The appearance highlights her natural beauty and has sparked positive reactions from fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijwFBVV95cUxPVW90WDZUUldTTzNuVXgtcHFSckI5cFFaR3RudXpjanZIOXdNQ2JBejNlYmppMDIyUjA3dkNrWkZhQ1FFdzlzNnNna1pVbFA3U1dEVUhnWHFJUWNkaEJlRzZwWTBWd1ZfT29pdnBLcFBoQ29iRkRDU05UM04xVkV1cUdGVFRqWERYMGprdEZhZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Surprise-Drops New Music After Olivia Rodrigo's Release
-
-- first seen: 2026-10-16 12:46 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released new music just hours after Olivia Rodrigo's latest project, reigniting discussions about chart competition amongst female artists. The timing has prompted mixed reactions regarding the concept of chart-blocking.
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBkelY2TGNvdEp5aTNmYUZHSktzVGxqTVRHakRKR3kwcmgzUUlqWkRpUjlsRjVOSzlybXJlemt2ZTZDU1lMWWxISXZhVERhUlltem1vdVhRd2FtSThnNHdWX1BkQzN2VTlsM0xnLXBzd0NXRF95R0poTWV1bzNfTFN6Mm1sMTJnXzNGbng4SVoxZlFlcU8tcWRlQng?oc=5&hl=en-US&gl=US&ceid=US:en
