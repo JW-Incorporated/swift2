@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 77
 
 ## Caitlin Clark and Taylor Swift Attend Chiefs Game Together Again
 
@@ -649,11 +649,3 @@ Stories: 78
 - summary: Selena Gomez has expressed her belief that Taylor Swift offers better marriage advice, highlighting her insights in relationships. This comment reflects Gomez's admiration for Swift's perspective on love and partnerships.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxPVndKTFhjOGNqVE01VkZPMks0MkJYNExYb0xQY2lSS3hCUVlyd2IyWWFtYmhXQlc0V3FWM0JKb21kVk5HQ2FqZ2JJSjhZRkhuNW1ZblNKeG1xclVPcTI2SHB6YmM2NXdzS3dMVC1Ed1IwVmozRHNMcEZ1ZGdiQjUybjUtTTRSc0VZcWlQakwtWnJpZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Spanish Artist Critiques Taylor Swift's Music
-
-- first seen: 2026-10-16 09:46 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Spanish artist has made a controversial comment describing Taylor Swift's music as resembling 'dry chicken.' This statement has sparked discussions around differing musical tastes and opinions on Swift's artistry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQZWo5YjlxdGZadTI4SG9sTHNCdENoYW1jWEo3a3ZRb3F5Yk0yY2FSN1hYLVU0TlFBVVkyUmhzVzVNd2J0dkFkUjBWdFJwRFFpV2VKMDV1NUNlVG5BYjVXLWxXdTNNd1B0Z3lFcFFMZk1PZm5vR1h6ZnR6X2ZpU0ZCbG05dGhlVWJpeTlZTkRTNVdIbldCNWp4V1Jtdw?oc=5&hl=en-US&gl=US&ceid=US:en
