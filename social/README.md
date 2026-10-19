@@ -139,6 +139,18 @@ than the committed file from `social/posted/**` each run, so completeness does
 not depend on a commit. Refresh the committed file with
 `npm run social:sync-image-ledger`.
 
+One exception to fail-closed, and only in `check-drafts` (#6096): when `sharp`
+is not installed in the checkout at all, nothing can be fingerprinted, so the
+check did not fail — it could not run. `check-drafts` then reports each photo as
+*unverifiable locally* (a non-fatal warning) instead of refusing, because a
+routine's agent job checks the repo out without `npm ci`
+(`routine-template.yml` never installs) and Tree could not otherwise finish a
+draft. Bytes that will not decode, and a `sharp` that is installed but fails to
+load, stay a refusal. The gates that decide a merge or a post —
+`auto-merge-content.yml`, `social-tree-approve.yml` and the poster pre-step —
+all `npm ci` first, so the rule is still enforced fail-closed before anything
+ships.
+
 **A PR closed unmerged drops its state changes.** Its posted/failed records
 are safe (they live on `social-ledger` and return with the next run's
 overlay), and an item it recorded as POSTED cannot post twice (it is skipped

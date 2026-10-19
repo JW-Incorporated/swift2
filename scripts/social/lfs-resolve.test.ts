@@ -5,7 +5,9 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { checkDraft, isWarningFinding } from './check-drafts.mjs';
 import { guardImageReuse } from './guard-image-reuse.mjs';
+import { fingerprintEngineMissing, fingerprintImage } from './lib/image-fingerprint.mjs';
 import { fingerprintMedia, resolveImageBytes } from './lib/image-ledger.mjs';
 import { parseLfsPointer } from './lib/lfs-pointer.mjs';
 
@@ -103,5 +105,72 @@ describe('LFS pointer resolution (#6062)', () => {
     const bad = await guardImageReuse({ root: build(pointerFor(real, 'e'.repeat(64))), now, fetchImpl: mockFetch(pointerFor(real, 'e'.repeat(64)), real, true).impl, retryDelayMs: 1 });
     expect(bad.problems).toHaveLength(1);
     expect(bad.problems[0]).toContain('fail closed');
+  });
+});
+
+/**
+ * #6096: Tree's daily-draft runner checks the repo out without node_modules
+ * (routine-template.yml never installs), so sharp is absent and NOTHING
+ * fingerprints — check-drafts reported every library photo (a 131-byte LFS
+ * pointer there) as "could not be fetched or decoded" and failed closed, and
+ * Tree could not finish a draft. Engine-missing is now advisory; undecodable
+ * bytes with the engine present stay a refusal, so the trusted
+ * social-tree-approve / auto-merge-content runs (both `npm ci` first) are
+ * unchanged.
+ */
+describe('unverifiable-locally vs fail-closed (#6096)', () => {
+  const roots: string[] = [];
+  afterEach(() => {
+    for (const r of roots.splice(0)) rmSync(r, { recursive: true, force: true });
+  });
+  const rootWith = (bytes: Buffer) => {
+    const r = mkdtempSync(path.join(tmpdir(), 'lfs-engine-'));
+    roots.push(r);
+    mkdirSync(path.join(r, 'apps/web/public/social/library/photos'), { recursive: true });
+    writeFileSync(path.join(r, 'apps/web/public', MEDIA), bytes);
+    return r;
+  };
+  const draft = () => ({
+    file: 'q-x.json',
+    data: { platform: 'x', body: 'a perfectly fine fan post about the eras tour.', scheduledAt: '2026-08-11T00:00:00Z', media: [MEDIA] },
+  });
+  /** The same-picture finding checkDraft produced for the unreadable media, whatever else it found. */
+  const samePictureFinding = async (engineMissing: boolean) => {
+    const target = draft();
+    const findings: string[] = await checkDraft(target, {
+      allQueue: [target],
+      allPosted: [],
+      openerContext: [],
+      recentIg: [],
+      imageContext: { ledger: [], library: [], fingerprintOf: async () => null, engineMissing },
+    });
+    const image = findings.filter((f) => f.includes('same-picture check (#5990)'));
+    expect(image).toHaveLength(1);
+    return image[0];
+  };
+
+  it('an LFS pointer photo with no sharp installed is a warning, not a refusal', async () => {
+    const finding = await samePictureFinding(true);
+    expect(isWarningFinding(finding)).toBe(true);
+    expect(finding).toContain('unverifiable locally');
+    expect(finding).toContain('sharp');
+  });
+
+  it('the same unreadable media still fails closed when sharp IS installed', async () => {
+    const finding = await samePictureFinding(false);
+    expect(isWarningFinding(finding)).toBe(false);
+    expect(finding).toContain('fail closed');
+  });
+
+  it('a genuinely corrupt image is undecodable, not unverifiable — the engine is present in this suite', async () => {
+    expect(await fingerprintEngineMissing()).toBe(false);
+    const corrupt = Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xe0]), Buffer.from('not actually a JPEG at all')]);
+    expect(parseLfsPointer(corrupt)).toBeNull();
+    expect(await fingerprintImage(corrupt)).toBeNull();
+    const noNetwork = (async () => {
+      throw new Error('network must not be used');
+    }) as unknown as typeof fetch;
+    // Committed, non-pointer bytes: read locally, decoded by sharp, rejected.
+    expect(await fingerprintMedia(MEDIA, { root: rootWith(corrupt), fetchImpl: noNetwork, retryDelayMs: 1 })).toBeNull();
   });
 });
