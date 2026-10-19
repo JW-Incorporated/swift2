@@ -25,7 +25,7 @@
 //     — every number from scripts/lib/content-caps.mjs (DB_CAPS/POLICY_CAPS)
 //   - >= 1 source on EVERY record (hard rule for the new types) ....... ERROR
 //   - theories: confidence + outcome REQUIRED so nothing renders as fact
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import {
@@ -66,7 +66,9 @@ import {
   mediaCorpusErrors,
   merchMediaErrors,
   nonMomentMediaErrors,
+  retiredSurfaceMediaKeys,
   socialInboxMediaErrors,
+  surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
@@ -1266,13 +1268,21 @@ for (const file of readdirSync(merchDir).filter((name) => name.endsWith('.mjs'))
   }
 }
 
-for (const key of SURFACE_MEDIA_LEGACY.keys()) {
-  if (!seenSurfaceMediaKeys.has(key)) {
-    console.error(`ERROR scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "${key}", which matches no gated row — delete the entry`);
+const closedInboxDir = join(socialInboxDir, 'closed');
+const closedInboxFiles = existsSync(closedInboxDir)
+  ? readdirSync(closedInboxDir).filter((name) => name.endsWith('.json'))
+  : [];
+for (const finding of surfaceMediaLegacyFindings(SURFACE_MEDIA_LEGACY, {
+  seen: seenSurfaceMediaKeys,
+  exactGaps: exactSurfaceMediaGaps,
+  retired: retiredSurfaceMediaKeys(closedInboxFiles),
+})) {
+  if (finding.level === 'error') {
+    console.error(`ERROR scripts/lib/moment-media-gate.mjs: ${finding.message}`);
     errors += 1;
-  } else if (!exactSurfaceMediaGaps.has(key)) {
-    console.error(`ERROR scripts/lib/moment-media-gate.mjs: SURFACE_MEDIA_LEGACY lists "${key}", but it no longer matches the exact text-only snapshot — add media and delete the entry`);
-    errors += 1;
+  } else {
+    console.warn(`WARN  scripts/lib/moment-media-gate.mjs: ${finding.message}`);
+    warnings += 1;
   }
 }
 

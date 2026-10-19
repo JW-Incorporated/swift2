@@ -7,7 +7,9 @@ import {
   momentFingerprint,
   momentMediaErrors,
   nonMomentMediaErrors,
+  retiredSurfaceMediaKeys,
   socialInboxMediaErrors,
+  surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
 
@@ -118,5 +120,48 @@ describe('P1-23 surface media gates', () => {
     };
     expect(surfaceMediaPublicationVerdict(key, row, nonMomentMediaErrors(row), new Set([key])))
       .toEqual({ errors: [], legacyGap: true });
+  });
+});
+
+describe('SURFACE_MEDIA_LEGACY list audit', () => {
+  const key = 'social/inbox/appearance-2026-10-12-FqbcAAKQjes.json';
+  const legacy = new Set([key]);
+
+  it('errors on an entry that gates nothing', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set(),
+      exactGaps: new Set(),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['error']);
+    expect(findings[0].message).toContain('matches no gated row');
+  });
+
+  it('errors on an entry whose row gained media', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set([key]),
+      exactGaps: new Set(),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['error']);
+    expect(findings[0].message).toContain('no longer matches');
+  });
+
+  it('stays silent while the exemption is live', () => {
+    expect(
+      surfaceMediaLegacyFindings(legacy, { seen: new Set([key]), exactGaps: new Set([key]) }),
+    ).toEqual([]);
+  });
+
+  // #6109: closing an intent moves it to social/inbox/closed/, which the live
+  // scan no longer sees. That is the normal lifecycle, not a stale entry, so
+  // it warns for cleanup instead of turning build-content red on every PR
+  // that performs the move.
+  it('warns instead of erroring when the intent has been closed', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set(),
+      exactGaps: new Set(),
+      retired: retiredSurfaceMediaKeys(['appearance-2026-10-12-FqbcAAKQjes.json']),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['warn']);
+    expect(findings[0].message).toContain('now closed');
   });
 });
