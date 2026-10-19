@@ -7,12 +7,23 @@
     "end": null
   },
   "acceptance": {
+    "platform": "reddit",
     "target": 0.9,
     "eligiblePosted": 0,
     "pendingUnder24h": 0,
     "complete": 0,
     "rate": null,
     "passes": null
+  },
+  "postedByPlatform": {
+    "reddit": {
+      "posted": 0,
+      "eligible24h": 0
+    },
+    "facebook": {
+      "posted": 0,
+      "eligible24h": 0
+    }
   },
   "score24h": {
     "reddit": {

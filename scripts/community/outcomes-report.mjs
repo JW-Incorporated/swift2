@@ -30,6 +30,7 @@ export function computeAcceptance(ledgers, outcomes, now = new Date()) {
   const postedAfter = now.getTime() - 7 * DAY_MS;
   const eligibleBefore = now.getTime() - DAY_MS;
   const week = ledgers.filter((row) => {
+    if (row.platform !== 'reddit') return false;
     const postedAt = new Date(row.posted_at).getTime();
     return postedAt >= postedAfter && postedAt <= now.getTime();
   });
@@ -40,6 +41,7 @@ export function computeAcceptance(ledgers, outcomes, now = new Date()) {
   const complete = eligible.filter((row) => row.comment_url && scored24h.has(row.id)).length;
   const rate = ratio(complete, eligible.length);
   return {
+    platform: 'reddit',
     target: 0.9,
     eligiblePosted: eligible.length,
     pendingUnder24h: week.length - eligible.length,
@@ -47,6 +49,20 @@ export function computeAcceptance(ledgers, outcomes, now = new Date()) {
     rate,
     passes: rate == null ? null : rate >= 0.9,
   };
+}
+
+function postedCountsByPlatform(ledgers, now) {
+  const windowStart = now.getTime() - 7 * DAY_MS;
+  const eligibleBefore = now.getTime() - DAY_MS;
+  const counts = { reddit: { posted: 0, eligible24h: 0 }, facebook: { posted: 0, eligible24h: 0 } };
+  for (const row of ledgers) {
+    if (!(row.platform in counts)) continue;
+    const postedAt = new Date(row.posted_at).getTime();
+    if (postedAt < windowStart || postedAt > now.getTime()) continue;
+    counts[row.platform].posted += 1;
+    if (postedAt <= eligibleBefore) counts[row.platform].eligible24h += 1;
+  }
+  return counts;
 }
 
 export function buildCommunityReport({ ledgers, outcomes, replyLeads, now = new Date() }) {
@@ -69,6 +85,7 @@ export function buildCommunityReport({ ledgers, outcomes, replyLeads, now = new 
       end: now.toISOString(),
     },
     acceptance: computeAcceptance(weekLedgers, outcomes, now),
+    postedByPlatform: postedCountsByPlatform(weekLedgers, now),
     score24h: { reddit: { measured: reddit24hScores.length, median: median(reddit24hScores) } },
     replies7d: {
       reddit: platformReplyRate(ledgers, outcomes, 'reddit', windowStart),

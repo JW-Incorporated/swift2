@@ -6,6 +6,7 @@ import {
   dueHorizon,
   matchCommentsToLedgers,
   parseAccountComments,
+  refreshWeeklyReport,
   runOutcomes,
 } from './outcomes.mjs';
 
@@ -73,6 +74,49 @@ describe('Reddit outcomes reader', () => {
     expect(dueHorizon(comment.createdAt, new Set(['24h']), now)).toBeNull();
     expect(dueHorizon('2026-10-19T12:30:00Z', new Set(), now)).toBeNull();
     expect(dueHorizon('2026-10-11T12:00:00Z', new Set(), now)).toBe('7d');
+  });
+
+  it('writes only the 24h bucket when a comment is first observed three days late', async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), 'reddit-outcomes-late-'));
+    const db = fakeSupabase();
+    const now = new Date('2026-10-21T12:00:00Z');
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify(listing()), { headers: { 'content-type': 'application/json' } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify(detail()), { headers: { 'content-type': 'application/json' } }));
+    await runOutcomes({
+      supabase: db.client, circuitStatePath: path.join(dir, 'circuit.json'), fetchImpl,
+      pacer: { beforeRequest: vi.fn() }, now, onStatus: () => {},
+    });
+    expect(db.upserts).toHaveLength(1);
+    expect(db.upserts[0]).toMatchObject({ horizon: '24h', checked_at: now.toISOString() });
+  });
+
+  it('skips a comment missing from its detail response', async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), 'reddit-outcomes-missing-'));
+    const db = fakeSupabase();
+    const warn = vi.fn();
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify(listing()), { headers: { 'content-type': 'application/json' } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify([{ data: { children: [] } }, { data: { children: [] } }]), {
+        headers: { 'content-type': 'application/json' },
+      }));
+    const result = await runOutcomes({
+      supabase: db.client, circuitStatePath: path.join(dir, 'circuit.json'), fetchImpl,
+      pacer: { beforeRequest: vi.fn() }, now: new Date('2026-10-19T13:00:00Z'), onStatus: () => {}, warn,
+    });
+    expect(result).toMatchObject({ status: 'ok', snapshots: 0 });
+    expect(db.upserts).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('was not found'));
+  });
+
+  it('refreshes the community report only when its generated timestamp is at least seven days old', async () => {
+    const writeReport = vi.fn().mockResolvedValue({});
+    const now = new Date('2026-10-19T12:00:00Z');
+    const fresh = vi.fn().mockResolvedValue(JSON.stringify({ generatedAt: '2026-10-13T12:00:01Z' }));
+    const stale = vi.fn().mockResolvedValue(JSON.stringify({ generatedAt: '2026-10-12T12:00:00Z' }));
+    expect(await refreshWeeklyReport({ now, readFileImpl: fresh, writeReport })).toBe(false);
+    expect(await refreshWeeklyReport({ now, readFileImpl: stale, writeReport })).toBe(true);
+    expect(writeReport).toHaveBeenCalledTimes(1);
   });
 
   it('uses the shared paced transport and persists URL plus the due outcome', async () => {

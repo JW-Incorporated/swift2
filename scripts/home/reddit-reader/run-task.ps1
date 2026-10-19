@@ -27,10 +27,11 @@ Add-Content -LiteralPath $log -Value "[$(Get-Date -Format o)] start"
 Set-Location -LiteralPath $repoRoot
 $code = 1
 try {
-  $nodeArgs = @("--env-file=$EnvFilePath")
-  if (-not $PlainNode) { $nodeArgs += @('--import', 'tsx') }
-  $nodeArgs += $reader
-  & $node @nodeArgs @ReaderArgs 2>&1 | ForEach-Object { "$_" } | Out-File -LiteralPath $log -Append -Encoding utf8
+  if ($PlainNode) {
+    & $node "--env-file=$EnvFilePath" $reader @ReaderArgs 2>&1 | ForEach-Object { "$_" } | Out-File -LiteralPath $log -Append -Encoding utf8
+  } else {
+    & $node "--env-file=$EnvFilePath" --import tsx $reader @ReaderArgs 2>&1 | ForEach-Object { "$_" } | Out-File -LiteralPath $log -Append -Encoding utf8
+  }
   $code = $LASTEXITCODE
 } catch {
   Add-Content -LiteralPath $log -Value "error: $($_.Exception.Message)"

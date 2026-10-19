@@ -23,7 +23,7 @@ $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 # The env path is its own argument; run-task.ps1 builds --env-file= itself.
 $readerAction = New-ScheduledTaskAction `
   -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -PlainNode" `
+  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`"" `
   -WorkingDirectory $repoRoot.Path
 $minerAction = New-ScheduledTaskAction `
   -Execute 'powershell.exe' `
@@ -33,17 +33,12 @@ $outcomesAction = New-ScheduledTaskAction `
   -Execute 'powershell.exe' `
   -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -Script scripts\home\reddit-reader\outcomes.mjs -LogName home-reddit-outcomes -PlainNode" `
   -WorkingDirectory $repoRoot.Path
-$reportAction = New-ScheduledTaskAction `
-  -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -Script scripts\community\outcomes-report.mjs -LogName community-outcomes-report -PlainNode" `
-  -WorkingDirectory $repoRoot.Path
-
 $readerRepeat = New-ScheduledTaskTrigger -Daily -At '12:00 AM'
 $readerRepeat.Repetition = (New-ScheduledTaskTrigger -Once -At '12:00 AM' `
   -RepetitionInterval (New-TimeSpan -Hours 1) `
   -RepetitionDuration (New-TimeSpan -Days 1)).Repetition
-$outcomesRepeat = New-ScheduledTaskTrigger -Daily -At '12:10 AM'
-$outcomesRepeat.Repetition = (New-ScheduledTaskTrigger -Once -At '12:10 AM' `
+$outcomesRepeat = New-ScheduledTaskTrigger -Daily -At '12:30 AM'
+$outcomesRepeat.Repetition = (New-ScheduledTaskTrigger -Once -At '12:30 AM' `
   -RepetitionInterval (New-TimeSpan -Hours 2) `
   -RepetitionDuration (New-TimeSpan -Days 1)).Repetition
 $startup = New-ScheduledTaskTrigger -AtStartup
@@ -60,11 +55,11 @@ $readerTask = New-ScheduledTask `
   -Principal $principal `
   -Description 'Anonymous Reddit reader and capped fan-theory miner for Long Live.'
 $outcomesTask = New-ScheduledTask `
-  -Action @($outcomesAction, $reportAction) `
+  -Action $outcomesAction `
   -Trigger $outcomesRepeat `
   -Settings $settings `
   -Principal $principal `
-  -Description 'Anonymous Reddit comment outcomes reader and rolling community report for Long Live.'
+  -Description 'Anonymous Reddit comment outcomes reader and weekly community report for Long Live.'
 
 if ($PSCmdlet.ShouldProcess($TaskName, 'Register Windows scheduled task')) {
   Register-ScheduledTask -TaskName $TaskName -InputObject $readerTask -Force | Out-Null

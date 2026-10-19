@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { runMain } from '../../lib/cli.mjs';
 import { strictServiceClient } from '../../lib/supabase.mjs';
+import { DEFAULT_OUTPUT, writeCommunityReport } from '../../community/outcomes-report.mjs';
 import { beginCircuitRun, CircuitTripError, closeCircuit } from './breaker.mjs';
 import { createRequestPacer } from './pacing.mjs';
 import { createRedditTransport } from './transport.mjs';
@@ -10,6 +12,7 @@ export const BRAND_ACCOUNT = 'NegativeRest9507';
 export const DEFAULT_CIRCUIT_STATE = '.artifacts/home-reddit-circuit.json';
 export const COMMENTS_URL = `https://www.reddit.com/user/${BRAND_ACCOUNT}/comments.json?limit=100&raw_json=1`;
 const HOUR_MS = 60 * 60_000;
+const WEEK_MS = 7 * 24 * HOUR_MS;
 
 function normalizedThreadId(value) {
   return typeof value === 'string' ? value.replace(/^t3_/, '') : null;
@@ -64,6 +67,24 @@ export function dueHorizon(createdAt, existingHorizons, now = new Date()) {
   if (!Number.isFinite(age) || age < HOUR_MS) return null;
   const horizon = age < 24 * HOUR_MS ? '1h' : age < 7 * 24 * HOUR_MS ? '24h' : '7d';
   return existingHorizons.has(horizon) ? null : horizon;
+}
+
+export async function refreshWeeklyReport({
+  outputPath = process.env.COMMUNITY_OUTCOMES_REPORT || DEFAULT_OUTPUT,
+  now = new Date(),
+  readFileImpl = readFile,
+  writeReport = writeCommunityReport,
+} = {}) {
+  let generatedAt = null;
+  try {
+    const current = JSON.parse(await readFileImpl(path.resolve(outputPath), 'utf8'));
+    generatedAt = new Date(current.generatedAt).getTime();
+  } catch (error) {
+    if (error?.code !== 'ENOENT' && !(error instanceof SyntaxError)) throw error;
+  }
+  if (Number.isFinite(generatedAt) && now.getTime() - generatedAt < WEEK_MS) return false;
+  await writeReport({ outputPath, now });
+  return true;
 }
 
 function findComment(children, commentId) {
@@ -192,7 +213,9 @@ export async function runOutcomes({
 
 async function main() {
   const result = await runOutcomes();
+  const reportUpdated = result.status === 'ok' ? await refreshWeeklyReport() : false;
   console.log(`home-reddit-outcomes: ${JSON.stringify(result)}`);
+  console.log(`community-outcomes-report: ${reportUpdated ? 'updated' : 'not due'}`);
   return 0;
 }
 

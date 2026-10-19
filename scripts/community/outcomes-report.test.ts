@@ -20,8 +20,17 @@ const outcomes = [
 describe('community outcomes report', () => {
   it('computes acceptance from comments old enough to have a 24h snapshot', () => {
     expect(computeAcceptance(ledgers, outcomes, now)).toEqual({
-      target: 0.9, eligiblePosted: 3, pendingUnder24h: 1,
-      complete: 1, rate: 0.3333, passes: false,
+      platform: 'reddit', target: 0.9, eligiblePosted: 2, pendingUnder24h: 1,
+      complete: 1, rate: 0.5, passes: false,
+    });
+  });
+
+  it('keeps Facebook counts visible without including them in Reddit acceptance', () => {
+    const report = buildCommunityReport({ ledgers, outcomes, replyLeads: [], now });
+    expect(report.acceptance).toMatchObject({ platform: 'reddit', eligiblePosted: 2, rate: 0.5 });
+    expect(report.postedByPlatform).toEqual({
+      reddit: { posted: 3, eligible24h: 2 },
+      facebook: { posted: 1, eligible24h: 1 },
     });
   });
 
