@@ -93,6 +93,7 @@ import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { checkImageReuse } from './lib/image-reuse.mjs';
 import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
+import { fingerprintEngineMissing } from './lib/image-fingerprint.mjs';
 import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { ALLOWED_MEDIA_EXTENSIONS, IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
@@ -915,8 +916,26 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     // A picture that cannot be fetched/decoded is a HARD finding (fail closed): media resolves from the PR's own
     // files or, for LFS library photos, the public media URL (retried), so this is rare and means "cannot prove
     // it is not a repeat" — which Tree's tree-auto approval must not accept.
+    //
+    // The ONE exception (#6096): when sharp is not installed in this checkout
+    // nothing can be fingerprinted, so the check did not fail — it could not
+    // run. A routine's agent job never installs node_modules
+    // (routine-template.yml), so Tree's own draft-time run hit this on every
+    // photo and could not finish a draft. That is advisory here; the trusted
+    // pre-merge runs (auto-merge-content.yml, social-tree-approve.yml) each
+    // `npm ci` before calling this checker and so keep failing closed.
     const { findings, unreadable } = await checkImageReuse(target.file, target.data, { ...imageContext, queue: allQueue });
-    imageFindings.push(...findings, ...unreadable.map((m) => `media: "${m}" could not be fetched or decoded, so the same-picture check (#5990) could not run — refusing (fail closed). Re-run if the media host was down; otherwise replace the image.`));
+    imageFindings.push(...findings);
+    if (unreadable.length) {
+      const engineMissing = imageContext.engineMissing ?? (await fingerprintEngineMissing());
+      imageFindings.push(
+        ...unreadable.map((m) =>
+          engineMissing
+            ? `${WARNING_PREFIX} media: "${m}" — the image fingerprinter (sharp) is not installed in this checkout, so the same-picture check (#5990) could not run here: unverifiable locally. Run \`npm ci --ignore-scripts\` to check it now; the trusted pre-merge run installs sharp and enforces the rule before this draft can merge.`
+            : `media: "${m}" could not be fetched or decoded, so the same-picture check (#5990) could not run — refusing (fail closed). Re-run if the media host was down; otherwise replace the image.`,
+        ),
+      );
+    }
   }
   return [
     ...imageFindings,
@@ -993,9 +1012,17 @@ async function main() {
     return fingerprints.get(mediaPath);
   };
   // Committed ledger plus anything posted since it was last refreshed (derived from social/posted/**).
+  const engineMissing = await fingerprintEngineMissing();
   const { entries: ledger, unresolved } = await buildLedger(allPosted, await readLedger(ROOT), fingerprintOf);
-  for (const u of unresolved) console.warn(`check-drafts: warning — posted image ${u.file} (${u.post}) could not be fingerprinted; it is not in the same-picture ledger.`);
-  const imageContext = { ledger, library: PHOTO_LIBRARY, fingerprintOf };
+  if (engineMissing) {
+    // One line, not one per image: with no sharp NOTHING fingerprints (#6096).
+    console.warn(
+      `check-drafts: warning — sharp is not installed in this checkout, so the same-picture check (#5990) could not run on any image (${unresolved.length} posted image(s) left out of the ledger; path-based reuse checks still ran). Run \`npm ci --ignore-scripts\` to check it here; the trusted pre-merge run installs sharp and enforces the rule either way.`,
+    );
+  } else {
+    for (const u of unresolved) console.warn(`check-drafts: warning — posted image ${u.file} (${u.post}) could not be fingerprinted; it is not in the same-picture ledger.`);
+  }
+  const imageContext = { ledger, library: PHOTO_LIBRARY, fingerprintOf, engineMissing };
 
   let hadFindings = false;
   let hadWarnings = false;

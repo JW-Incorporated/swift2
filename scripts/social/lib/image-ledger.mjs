@@ -13,7 +13,7 @@
 import { createHash } from 'node:crypto';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fingerprintImage, fingerprintsMatch, isFingerprint } from './image-fingerprint.mjs';
+import { fingerprintEngineMissing, fingerprintImage, fingerprintsMatch, isFingerprint } from './image-fingerprint.mjs';
 import { isLfsPointerBuffer, parseLfsPointer } from './lfs-pointer.mjs';
 import { mediaUrlFor } from './queue.mjs';
 
@@ -101,6 +101,10 @@ export async function resolveImageBytes(mediaPath, { root, fetchImpl = globalThi
 
 /** Fingerprint of a media path, or `null` when its bytes cannot be read/decoded. */
 export async function fingerprintMedia(mediaPath, options) {
+  // No sharp in this checkout: the bytes could not be decoded whatever they
+  // are, so don't spend a download per image proving it (#6096). Callers tell
+  // this apart from undecodable bytes via fingerprintEngineMissing.
+  if (await fingerprintEngineMissing()) return null;
   try {
     return await fingerprintImage(await resolveImageBytes(mediaPath, options));
   } catch {
