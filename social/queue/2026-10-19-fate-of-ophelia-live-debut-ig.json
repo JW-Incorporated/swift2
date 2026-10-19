@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "she FINALLY played it live 😭\n\nmore than a year after The Life of a Showgirl, Taylor gave \"The Fate of Ophelia\" its first-ever live performance — closing the Academy Museum Gala in LA on Oct. 17 with a four-song set.\n\n\"this song, which we are playing for the very first time to you beautiful people, is called 'The Fate of Ophelia,'\" she told the room. she opened on \"Blank Space\" and worked in \"Love Story\" and \"I Knew It, I Knew You\" too — her band and backup singers behind her, in a custom Dior gown with a crystal bow.\n\nConan O'Brien, her \"Toy Story 5\" castmate, brought her out as \"John, Paul, George and Ringo all in one.\" honestly? accurate.\n\nthe whole night is on the site 🤍\nlonglivets.com/?item=vault-tloas-the-fate-of-ophelia-goes-live-for-the-first-time-closing-the&utm_source=instagram&utm_medium=social&utm_campaign=news",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pjmwfb.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pjmwfb",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pjmwfb/beautiful_taylor/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Beautiful Taylor"
+  ],
+  "scheduledAt": "2026-10-19T23:00:00Z",
+  "campaign": "news:fate-of-ophelia-live-debut-2026-10-17",
+  "why": "ask #6084 (major-moment news, strategy §1(e2)): the first-ever live performance of \"The Fate of Ophelia\" is a confirmed event the site itself fronts (a live debut — the exact example §1(e2) names), so it gets a same-day pair and does not spend the ordinary ≤2 news cap. Facts sourced from the Vault moment vault-tloas-the-fate-of-ophelia-goes-live-for-the-first-time-closing-the (supabase/seed/content/the-life-of-a-showgirl.mjs, multi-source: Stereogum, Rolling Stone, USA Today/Yahoo): Academy Museum Gala, LA, Oct. 17 2026; four-song set opening on \"Blank Space\"; the live-debut quote verbatim; Conan O'Brien's intro; custom Dior gown. Media = pre-compute eventPhoto (uncredited fan photo, no credit line). X sibling shares campaign + scheduledAt, reframed shorter around the year-plus-later angle. rulesChecked [L002] (Reddit rule, N/A to a caption).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "A confirmed major moment the site fronts: Taylor gave \"The Fate of Ophelia\" its first live performance closing the Academy Museum Gala Oct. 17, with the live-debut quote and four-song set, all multi-sourced. The photo is a warm real Taylor shot, not the gala itself, so it carries the fan reaction over the fact.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
