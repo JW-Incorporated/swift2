@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Taylor Swift Encountered Travis Kelce's Mother, Caught on Camera
+
+- first seen: 2026-10-20 10:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was filmed reacting during an encounter with Travis Kelce's mother. The moment has drawn attention online, highlighting Swift's connection to Kelce's family.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPNzN3X09sQXpsRzM3Tk9jSndJbzNVY3NxdGFMQVo0OENLalpBUkVYeFNrQVJJTmtyRWRNOFl5TnJNVGRQYTI4a0gwaWl5Rjd3WXBwUVVEemJiazNCME0xVnFZa1pWLWplcnZjZUlMcFVremFaUEZQT2EzLUd6RHl2akxrQTVjaWlwZE5DMzBjWFQ3ZzBISW5nRndhMHIzLW5QV1VYcTZOOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Pop fandoms unite to support Lula’s re-election campaign in Brazil
+
+- first seen: 2026-10-20 10:56 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Brazil's pop music fandoms have come together to support presidential candidate Luiz Inácio Lula da Silva in his re-election efforts. With a significant rally in São Paulo, diverse fan groups voiced their support for Lula against his political opponent, Flávio Bolsonaro.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/oct/20/taylor-swift-tells-us-to-take-the-lead-could-highly-organised-pop-fans-clinch-victory-for-brazils-lula
 
 ## Taylor Swift's Debut Album Emphasizes Guitar in Her Artistry
 
@@ -633,11 +649,3 @@ Stories: 76
 - summary: A new deal has been reached involving a film linked to Taylor Swift's inspiration from Clara Bow's 'It'. The arrangement was reported by Variety, highlighting the ongoing collaboration in arts and entertainment.
 - sources:
   - [unverified] Variety — https://news.google.com/rss/articles/CBMirAFBVV95cUxPcDJhZ3I2TWg2TFk1NXY0ZTkzYmVrazZlcVE3LXBWN1lUaTN2dkF0emhBTnRtTzZoQ0owT3Q2RmtLOGdJWDZDWVJRdEstX19pZ0s5UFdFNWNKc2Rmai1MLWI5SXY2ZmVBY3RZZ19MeUwzeEw3SnNobDd4UzZHMGtXZnVJVDhZenZPNDFCVUI5dVhLNXZhM3VnNll3bU1QcU1nclZQc1NuSjlNNEt5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Public Opinion on Taylor Swift's New Songs Explored
-
-- first seen: 2026-10-17 10:26 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article from Slate discusses the contrasting views on Taylor Swift's new songs, noting that despite some negative opinions, they remain popular. The piece examines the reasons behind this phenomenon.
-- sources:
-  - [unverified] Slate — https://news.google.com/rss/articles/CBMikwFBVV95cUxPRWVMVFRQR3lrSHBIU193Tldyb1VtSlBIbENGLUVha1Y2Rnd4bWZHMF9hcmZ3TkNpUy1HemozT25WNGJkTlJFa0RDb3ZaUE8zSDRGRGpVNDVtNVJqc1JtYXhVSjI2OHJXZVZfWG0tbEo5V25EX3l3TjFNSVVMa2Q2NEhJMy1jOUlUYl9xWlF3Rzd0TW8?oc=5&hl=en-US&gl=US&ceid=US:en
