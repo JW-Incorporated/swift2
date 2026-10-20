@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 79
 
 ## Taylor Swift Wears Cinderella-Inspired Dior Gown
 
@@ -665,11 +665,3 @@ Stories: 80
 - summary: A coach has revealed that he felt 'intimidated' when considering approaching Taylor Swift during the NBA Finals. His comments highlight the star's notable presence at the event.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxNd1M4WS1iVkdwaGRXNnlBM2RQR1czQ012c1BZak5NWDc0MjFLU00xeUhjRW9ZdTg0THNqaW5FYkJDcUxsZkFYd2FPOHFDWWh1alBZaHdjb0JBXzliRDBacE1ZM3FDX0czQzJmaWlHSzNuLXR0SmZ4ZDE4bU5Na0ExaGlwenhVa1pjUjczUGJ3a2JFZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Former Beverly Hills Mansion Listed for Sale
-
-- first seen: 2026-10-17 19:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The former mansion of Taylor Swift in Beverly Hills, where she wrote her album '1989', is currently on the market. The listing draws attention due to its connection to the artist and her musical achievements.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMiggFBVV95cUxOVS0xOEwwTWxCN1dsY1VfOGlIdEZKTGhuSG56QWJWYlVyZUxUb1VuYmtiN0dpSVRwZVRIcmtuVU5lVXptUzEzR2ZmSG9nUUpNN3pmdW10Q19Oa0hLdHBFZ01pa09IV29feTFkM2dUeE9qM0hLUVVfSFlZWkZ4cnhUQW5R?oc=5&hl=en-US&gl=US&ceid=US:en
