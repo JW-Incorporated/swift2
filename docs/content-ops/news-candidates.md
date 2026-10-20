@@ -27,6 +27,22 @@ so far".
 
 Stories: 80
 
+## Taylor Swift Wears Cinderella-Inspired Dior Gown
+
+- first seen: 2026-10-20 19:06 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases a striking resemblance to Grace Kelly while wearing a Cinderella-inspired gown by Dior. The fashion choice is noted for its elegance and classic appeal.
+- sources:
+  - [unverified] Grazia — https://news.google.com/rss/articles/CBMikwFBVV95cUxQbTY0MU9QZFM5a01tZWVtSnh3bGUwbi14YWxUOUFUbGdBTlBRSVM0d3VXdm5aYnVocmdlRVprWTViTXUxaW5jemJiTHdKT3NyVlFNUXQxNVRHWGlRbEdDVmVOTkgzU05jb3NHZHlCdDdsY0pmTnFGMVRjVmVjU0JFZmJpdHp2dlBrRWlMWmd4dG9tUGs?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Showgirl' Reaches No. 1 for 15 Weeks
+
+- first seen: 2026-10-20 19:06 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's album 'Showgirl' has achieved 15 consecutive weeks at No. 1 on the charts. The article discusses other albums that have reached this milestone.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeGR6OTNaS29MYU1iVVRCc1RUS3hDMjV5R3BoU1VTYi03TklYQzRrSnlCc0J1ai1VdHRfRG8tNVNPYmNFVmpjMzRYcU5WbS1xdGlTWnh4VHdwcHdNZ1pISS1uS3VHT1pLSmZiZkQ1TVpRcTJfSlctY3BKajNhSVNvNU9BeXlzTVdpTHkxMjJNV2JTTlc5SGdHM1ZfLUM?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Adéla's Hit and Other Songs Paying Tribute to Actresses
 
 - first seen: 2026-10-20 18:07 UTC | category: music | importance: 5
@@ -657,19 +673,3 @@ Stories: 80
 - summary: The former mansion of Taylor Swift in Beverly Hills, where she wrote her album '1989', is currently on the market. The listing draws attention due to its connection to the artist and her musical achievements.
 - sources:
   - [unverified] Complex — https://news.google.com/rss/articles/CBMiggFBVV95cUxOVS0xOEwwTWxCN1dsY1VfOGlIdEZKTGhuSG56QWJWYlVyZUxUb1VuYmtiN0dpSVRwZVRIcmtuVU5lVXptUzEzR2ZmSG9nUUpNN3pmdW10Q19Oa0hLdHBFZ01pa09IV29feTFkM2dUeE9qM0hLUVVfSFlZWkZ4cnhUQW5R?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Significant Milestone Over the Weekend
-
-- first seen: 2026-10-17 18:16 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Over the weekend, Taylor Swift reached a major milestone in her music career, as reported by Yahoo. This achievement highlights her continued success and influence in the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTkZrS3RLTm9hZzdtY05lUDNQaDJtNWloazBlSUFuaXduaE1ORlY0NDcxVldYWmpXTDZGekx4M1ZER0VKTERTWWhFejBGTFRLdkZNTzFZUndFQmJUQ0tiTU9jZW4wbWtHRTFycXQtaFN1MlJ2SkxxaEZPaVoxNjBudElBbGd1QVoxenp1VWF2U3NlVnNXdUVzN0lmYWo2dG95VFVMLUFheUJ6Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Muse Clara Bow Highlights New Classic Cinema
-
-- first seen: 2026-10-17 18:16 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Clara Bow, known as Taylor Swift's muse, is featured in a new initiative by Carlotta to restore Hollywood classics. The project aims to bring iconic films back to life for modern audiences.
-- sources:
-  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMijwFBVV95cUxNSjdEQTFhelR1MUd1dHlLUlpDaTJZWWpPQ2h5UjItYk43OFRsbzVGdXA4bi1NVDVBUzdESjNWWkVaSjlaMzdUUXV1SU50M0V5anpRZ3lPZEF5REs5WFlBSENlTzM2OWNRbjJnLW1iWXdHWW1TNkxnakctejJaWEFuLXlqXzZDX1NLd1JZbHZlVQ?oc=5&hl=en-US&gl=US&ceid=US:en
