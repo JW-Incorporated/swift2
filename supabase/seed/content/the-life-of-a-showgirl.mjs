@@ -41,6 +41,13 @@ export default {
           'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
         photos: [
           {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
+            focalPoint: '38% 32%',
+            credit: 'Getty Images (via Fox News / OutKick)',
+            caption: 'Taylor in a red turtleneck and Caitlin Clark in the Arrowhead suite during the Chiefs-Chargers game, Oct. 18, 2026.',
+            kind: 'primary',
+          },
+          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg/1280px-Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg',
             // 1280x848 thumb of a 4928x3264 original; curl-verified 2026-10-19
             // HTTP 200 image/jpeg (328KB) and visually confirmed: aerial of
@@ -51,7 +58,7 @@ export default {
             credit: 'Ichabod, CC BY-SA 3.0, via Wikimedia Commons',
             caption:
               'Arrowhead Stadium in Kansas City, where Taylor, Caitlin Clark and Este Haim watched the Chiefs beat the Chargers on Oct. 18, 2026.',
-            kind: 'primary',
+            kind: 'reference',
           },
         ],
         sources: [
