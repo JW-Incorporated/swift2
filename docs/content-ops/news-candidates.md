@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 80
+
+## Adéla's Hit and Other Songs Paying Tribute to Actresses
+
+- first seen: 2026-10-20 18:07 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The article discusses popular songs including Adéla's hit that serve as musical odes to actresses, featuring tracks from various artists like SZA, the Go-Betweens, and Nirvana.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/20/arts/music/amplifier-newsletter-adela-nicole-kidman-actresses.html
 
 ## Bad Gyal Declares She Wouldn't Collaborate with Taylor Swift
 
