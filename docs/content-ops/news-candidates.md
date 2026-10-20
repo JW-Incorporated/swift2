@@ -25,7 +25,95 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 76
+
+## Taylor Swift reacts to fan filming her at NFL game
+
+- first seen: 2026-10-20 04:26 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During an NFL game, Taylor Swift was filmed reacting to a fan who was recording her. The moment has gained attention in the media.
+- sources:
+  - [unverified] Sky News Australia — https://news.google.com/rss/articles/CBMisAJBVV95cUxNZFlnMjdvUlFvaGpYZHdpbzF3WW00UkNIMzBabnhmR3ZOMk9fY1FvaEQ4eFhBTmhuek5BVE1menpuSGVzN1RMUGllWjloSGRDVXpGQ0w3Q1BpOU1FQ21CdllzMll4VlRNY3VveHhOUmJQZ2JQMXdhczMxazJXTkVSQVU0T0pETXVkMEs3cmZDSV84OVdMT3FXRU1faVJTTzVTeGxodWtabE1nejJOLXY3NW5mYWVKMDJrNFdFMHZvNkxycXpSXzVDdmZ2Vk9CRnpOMnNTTVJZcDg1TExDc3JlV3E5cXhYVTNOQ1lfT21lcmQ2WVJjYTVQVERjS1BfS0xqd1E5b2NINTNGT01Vb01EZzd2d1VySGF2Ni1uYnZrbml2MkZob1Y3dWFVenc1em9v?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Pillsbury Estate in Beverly Hills Listed for Sale
+
+- first seen: 2026-10-20 03:26 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Pillsbury Estate, which she purchased in 2011 for USD 3.55 million, is now back on the market. The property is located in Beverly Hills, California.
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiyAJBVV95cUxPLVU4Q3ZBUldKeWZrRlZuWU9lMGdEMlFTX29IY3d4MWY2dGdzMW9jcVQ4ZXlQZ2czbml1bXpJSi11VDN5VGl0SngtWGpCcExoNnV1czk3YVFKb1NLVG4zcURVOUJPRVVHbmNta1pWcHVocEstSW96a09BZjdsUXMzbVptLUlocll4TjZ3Zk5CM0VXRXczbENuX2JkUm43dDlVVHRnSFh2akNvbF9ROEJZTi1xVy1VeTdYTUhJV0VOa25Ddzk3cFVlbE5YRmE3Y1BKV3FkN0ZuV0h2THdFRW9CVUxLYmZpNDU4S2NjME54czBtWE9UVnZRVkZCMzZrbzdVSlJKVVlHajRXXzlSZG9ac0hFS2ZfNWduQXo3V1hGX0VLZEM0Tm5HLWdwd2xBNzN6WWNtVDhIUWM0STZWbWZFdXRYdERaWVdI0gHOAkFVX3lxTE95c056NFVjSUducjVITHZXbi1LZEd0d0p5ZjJScldKVWFsamJwY0FPY3pQbW1mTHhjamNUSFc5Sl9nYjNmLUlhUTdkdEN0a19ndW5Cb0dTQ1dwUnhNd1Y3SzZZVXpPU052WTNYQ1Nsa1B4LXRfNlJIMzlCQTlFdXNyWUFVeGZFa0w0RVg1dVhpZXJSY0NzejBBVHkyZDB0YW54UlJfY0pCbU9XOWVSYUI0aWJaYkl0eDRjdkNIXzU4cmVPQlVNcjczTHRxVjhMOWRUdVlkeWtMVFFOd0RmT0dKTlhxUkFkb3oyNmJKd1pOVzRBeGhFUW1XVGFQQkV6YW5pZjJYc0pNdDVXOE9EOTNXck5UclhObTJITFhyTUEyb015MGdZUHo5RENWZmhRMDBINVA4eE1TOU51Rmt6VTRzeWhRNWxvN3M2ODJZZFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Surprise Deluxe Album Released
+
+- first seen: 2026-10-20 03:26 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a surprise deluxe edition of her album, which has generated mixed responses among fans and critics. The unexpected drop highlights her continued impact on the music industry.
+- sources:
+  - [unverified] MARIST CIRCLE — https://news.google.com/rss/articles/CBMixgFBVV95cUxNQUNGWGxIUzlLdEpYb2RsaXEzbkpyV3dKWlRTSDM2SHdXdUVUM1h5Ti1KQ0t5QXh3QTNmOVNLNUN6RkZpZzIxZkVjUkJSbllucFY3MmVxS24wcHpLeDIzdFBTSldHMExMR1pHMDRJNEN4UXktMjctRjRPamFTTUMyVmpXSEpTTTNHQ2NHYU5ja2xkd3hOLVNhRGljcHdUdjlTODQ3Q3g3cVp5eW5JcldTa3Z4NVNic2RxU254YW43NkNTZnJqQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Rolling Stone Features Taylor Swift
+
+- first seen: 2026-10-20 03:26 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is featured in a piece by Rolling Stone, highlighting her career as a musician. The article discusses her impact on the music industry and her latest work.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiV0FVX3lxTE1CZnIzZnRCU2ltM3JjYXFuOXRNalI4dWVyU1B3NXBTN3RJc1A0M1hZMWNWekljVWFpaVNVdXZkTW8zd3Y4eS1ISTBsSFdOMGRZVkcxelJ4OA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Celebrities Choose Loafers Over Heels
+
+- first seen: 2026-10-20 03:26 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a shift from traditional footwear, Taylor Swift, Jennifer Lopez, and Katie Holmes are opting for loafers instead of heels. This trend highlights a growing preference for comfort over style in celebrity fashion.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxPcVhFdFFBSThJaFRNNEVSUTRlQTVHcFZCeEhvS3FwbHhLakVPWU0tM3FTZTlHZXBsTXNWMXQ2Zml2bXVSSGppRVR5aTVtRGZmUUdjdTdxWklBOEo0N095NXNCWFY2c1pXTVVrMWVXX3lVUkFDQUk0MFUzLVR6OTZCc2tqcXM3U2pnNURGZHBPRks0aXhYZFdlMw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Addresses Fan Filming at Chiefs Game
+
+- first seen: 2026-10-20 03:26 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reportedly called out a fan for filming her during the Chiefs game, according to Sports Illustrated. The incident has sparked discussions among fans and media regarding her comfort with being filmed in public settings.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMimwFBVV95cUxQVFRNWU9YQ1JzMDNxaDBkV0Zkcks5Sm9FRTJHZ2tfSEdpc2NkX3plQUl1TU5VbXZxTTh4Y3pfajBfaVhhTkRRY1p1QmZuVHh3MFVFUFJSYXBWdWR0elJsclY0V2tHWDFBRjFkNjd3MHUtNExJSDdNWGF6MHd4b091OElQY0xQUVByN0kzc0syU1RFN1RmTE1SeDZhbw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Pursues Oscar Recognition
+
+- first seen: 2026-10-20 03:26 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expresses her desire to receive an Oscar, showcasing her ambitions in the film industry.
+- sources:
+  - [unverified] Go Fug Yourself — https://news.google.com/rss/articles/CBMie0FVX3lxTFBoS2lvM01UZWxjOFZncS03YjZTMkhsbEh1TDhRQ3ZrNlRIOUVDZHZELUx6S0dwNVA0REtpZlZ3bnB4Vy11RXlENC1PaU1lSzUtM3Q5b1lSNnFLcmxISFVhajd5RTF2SmZTVHA3WFBKaDU1dmp2QXhLUm16VQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Expresses Displeasure at Chiefs Game Incident
+
+- first seen: 2026-10-20 02:26 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At a recent game, Taylor Swift was seen showing signs of annoyance due to an incident involving a Chiefs fan. The situation drew attention during the game.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNdVh0WXlwakVpWmdyU3A2bTNmXzdsYTQtVl8tN2djR1JWRGVnbk1KSUdhM3hoLXRGV2owdXNkZTdzVjZPOHVYWDVIY2UwSjdlZjZqN2FReFhtZjltZ3ZTa2lTQUdpUlQwQmtnSld4N1hUcVI4LWZKTi1ZVWFSQVZpcUZaRmxydmpMTHUwWGtOUjhKNzJEMHdpZGVGNmlYVGNMenFxSllfNTgzbk9aTE81aUFNWlprbnR5N2dWNUROa1I0QjdHRUZKMnF2U3VpNmpK0gHQAUFVX3lxTFB5QUUzZ2hONFhic0JBLXVGUVJ2RFNSM3l0V3RqWlZCeEZEeFBhSVRCeU9qUlpPTlFKeXFNemp0SllOVnZsdjBGQ0VGZkxqYWNYRmJqRldnT3M0cFhhcHpwOXIzU19jU3lEdHRXUXJRRlgycEs4b3VWdW4yeHRXanF2a3VfeGNsejJUV1l0M1oyc0xkeXA2bVBjU3BoMGllVTBRQXdNaFNLSDY0NXZCRy11emZwWER0YTZWN193UExXLTNLX3AySjVER3llcEFydEU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jason Segel Marries Taylor Swift's Backup Dancer in California
+
+- first seen: 2026-10-20 01:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Segel has gotten married to a dancer who was part of Taylor Swift's backup team. The wedding took place in California, making headlines due to Segel's connection to the Swift fandom.
+- sources:
+  - [unverified] Yahoo News Singapore — https://news.google.com/rss/articles/CBMigAFBVV95cUxQTG9jN3lNcGJ6Nm8tQzYteG1DSjlhcUIwWFd0NHhfZ1RnRFBUMDRpZ2FTMEJBVDc4R3ZnQlRLRVNFYXR3RFluSUdOd2dTZllUYlB0SzIwOVJqUmYwVlV2SHBqV19mVnN2eV9uOG1yZDNabjFRZjMyRldzaDFNX1lGbQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Leads Billboard 200 with REPUBLIC's 8 Albums
+
+- first seen: 2026-10-20 01:26 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Republic Records dominates the Billboard 200 Top 10, featuring eight albums, with Taylor Swift leading the list. This highlights the significant impact of her music on the charts.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxPbWY0eEUwOERwT2prVHl2SWNzbDVvcFBPQ2VMbGVSUjFlRUFrdm9LYjRGTXl1YThkSDV3cUZ5WWNKY3RZb2VZZEZxVVFoVDZLT0NrUEp4TlNYY3pILWpCdUVGNkRRZ1ctZnh4V0MxdEFSRWNOY2RLZVc3RU1QaFRFWWF2VUtBTzBpdXROaEktUmsta2FZbWo2dl8tOTRuNWloRjV1QV9FUFJPMG81RmhZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Changes Her Wedding Ring Stack Style
+
+- first seen: 2026-10-20 00:26 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift recently made a subtle change to her wedding ring stack, showcasing her evolving style. The update was highlighted in an article by InStyle.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMinwFBVV95cUxQeS1jVC05eVlIbk9sOWlOckt6LTlvd0pxZjFjMFhrSnQ3VTB3cVZhRHZxYUVMOFBCbnJxWVAyUHJQLUJoalg1VWFIMkU3cFJGTVJGUHhXaWlzd1pSRlY2OTEzSmFVbnluOTYyUW1IdkNneXYwTjA3WFdWRHM2U1p6c24wTEVjV2VSQlhlR1haSll5WVp4OFZRdnFIcjdubDQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Adjusts Wedding Ring Stack
 
@@ -43,14 +131,6 @@ Stories: 67
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxOV3RQQVpfWjRxY09OeVlIMWdLMGJtSEV5ZkkyV2JfQnJNbnZOSkFLeE02VXNONFpvS2FsSHJ6U0VMcVQ4dkoyYTc3czdFVWN3QTJ1Mkd4T0VlMnNJR2VBUjZ2R2hjeDk5RGhyZVI5X0xiOFBhMVhsSFdlUEVfZWNKamQtU2lBVXZXeUVIbE1B?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Recognized as One of the Best-Dressed at Academy Museum Gala
-
-- first seen: 2026-10-19 22:26 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was named one of the ten best-dressed stars at the Academy Museum Gala, highlighting her fashion choices at the event. This recognition showcases her continued influence in the fashion world.
-- sources:
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMixgFBVV95cUxObE0wUnp0NUNjLXp4NndrdExmSHhvdlE3ZkhkbFd5SXk1ejRDdmhxejZDR0Y5dU1ydzFURjJyNlZoam9UMDQydmV1bjBSZTJ1Zi14WG56VjBubER6UDZhVXVUQVhnRGlkeGFtQnBQTFNwZ1ZBb3pnVHM2MnliVG5sWGpHVDd0SzNzVVZPWlpicGpndDJUOTJZVndPcTRrSUh2cTRDYlJhMkJaSjI1MlhZd3RBSlFtSlF3NjZyRS1ZUHhTSExnWXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Maintains No. 1 Spot on Charts
 
 - first seen: 2026-10-19 22:26 UTC | category: music | importance: 7
@@ -58,6 +138,14 @@ Stories: 67
 - summary: Taylor Swift continues to hold the top position on the music charts according to a report by Complex. Her consistent performance keeps her fanbase engaged and reinforces her popularity in the industry.
 - sources:
   - [unverified] Complex — https://news.google.com/rss/articles/CBMihwFBVV95cUxPQWxyOUZNVWY1WGNmLVNwSDNPem1HN3VBZUxDMlJTMHRDYzRZZW9DSHd6SFdEMExiNHduTmNHYng0cTlkMnhNVjNuWE9TY1dlVWF3QXEtcVNwYjFoU0RJSzN1TUtadGJMYXhILWh1UVpVWWF0YVVlajRuYmY5RGh4MENuR3lBZjA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Recognized as One of the Best-Dressed at Academy Museum Gala
+
+- first seen: 2026-10-19 22:26 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was named one of the ten best-dressed stars at the Academy Museum Gala, highlighting her fashion choices at the event. This recognition showcases her continued influence in the fashion world.
+- sources:
+  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMixgFBVV95cUxObE0wUnp0NUNjLXp4NndrdExmSHhvdlE3ZkhkbFd5SXk1ejRDdmhxejZDR0Y5dU1ydzFURjJyNlZoam9UMDQydmV1bjBSZTJ1Zi14WG56VjBubER6UDZhVXVUQVhnRGlkeGFtQnBQTFNwZ1ZBb3pnVHM2MnliVG5sWGpHVDd0SzNzVVZPWlpicGpndDJUOTJZVndPcTRrSUh2cTRDYlJhMkJaSjI1MlhZd3RBSlFtSlF3NjZyRS1ZUHhTSExnWXc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Review of Deluxe Edition of Taylor Swift’s 'The Life of a Showgirl' Released
 
@@ -553,19 +641,3 @@ Stories: 67
 - summary: An article from Yahoo Lifestyle Canada delves into various theories about Taylor Swift's concept of 'Pink Clouding'. The piece examines interpretations and discussions surrounding this theme in her music and brand.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQMWpIRkxnVnVRa0poWC1LSmRweE5LUS1lcS0zcVN6QjUtcVpBT2s4cVA3SXBzSnY3dzR2bVRDWTIyTk9hUWo1MEpvNDhuOExRQnpkLWRQUXpOSkp4Z3ZrcE42SE9NQ1ZNT1gzNzRnN1pPNXl3WHRPQ2pYYi1sTlZCd21n?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Face Questions After SNL Video Controversy
-
-- first seen: 2026-10-17 01:31 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Amid a recent video controversy involving Shane Gillis on SNL, Taylor Swift and Travis Kelce are reportedly facing questions regarding their relationship.
-- sources:
-  - [unverified] NDTV Sports — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPYk1EZXhxVEFTV0xrSkd1ZUxCVzVOYlg3MDVpanZYT0hXNGkzX1I0Z3gxZ0RULVVuckFXelhsSFFnTHctcW1FekZMaTcyUUtRWm9LVzBfYzE2UHM5YXZ5OEJhNm9XaWZTbXcxakQ5bzFQRnlEWG9hbFdDMHdsQkkzdlBrLUdYRWZMMGFFSEhUVEU3dVBwSVhZVWFqS2dNMWg1czRyWVNuUF92NkdabWF6bEcyOTZUY3dVeWhjN3dvcWhCVHFfZGlhM0tTTDJhcE1wbTBrcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Appears in Taylor Swift's 'Patient Zero' Music Video
-
-- first seen: 2026-10-16 23:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce makes a brief appearance in Taylor Swift's music video for 'Patient Zero', specifically at the 1:26 mark.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxONDF3RGszanlWd1lJSmJvbDB2ZEVMTkRVcmM1UG1LaklHUFphZW4wc3dwWWxTSkhTeXhzSzN3NkJwUTFzTXF2OUJQSHMza01GRjRUUmFERllsQ2M0bUFBUGRlVnFEWk90OWdHRXBzWTh3QldaZkJ3UXlaVE94V2xveGwwX1FBQ2JoalNDZGt1Yzd5VEFoZFNjVXRlYmQ?oc=5&hl=en-US&gl=US&ceid=US:en
