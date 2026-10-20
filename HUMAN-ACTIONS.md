@@ -2,9 +2,23 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #138 🟢 [UPGRADE] Let Instagram posts also post to the Facebook Page (~10 min)
+<!-- ha filed=2026-10-19 -->
+
+**Why:** IG and X posts work again (10-19 posted 23:52Z), but every Facebook Page cross-post fails: `(#200) The permission(s)…`. The Instagram token lacks `pages_manage_posts`, so the Page gets nothing.
+
+**Steps:**
+1. Open https://developers.facebook.com/tools/explorer and pick the Long Live app.
+2. Under Permissions keep the existing ones and add `pages_manage_posts`, then click Generate Access Token and approve.
+3. Make it long-lived the same way you did for the original token (docs/social/pipeline.md, Facebook Page cross-posting).
+4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --env social --repo JW-Incorporated/swift2` and paste the token when asked.
+5. Reply `done` here.
+
+**Worked if:** the next Instagram post's poster run logs no "Facebook Page cross-post failed" warning.
 
 ## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-16 -->
