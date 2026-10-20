@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 81
+
+## Taylor Swift's Songwriters Hall of Fame Picks Highlight Her Craft
+
+- first seen: 2026-10-20 22:31 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's selections for the Songwriters Hall of Fame illuminate her musical style and influences. The piece explores the insights these choices provide into her songwriting process.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMizAFBVV95cUxNaW9UVmFIVXdickVIbXJUdmJUZFdGV3BzZm9pSDdaUmFGNWxQQ2JZZHhVUXF1ZmlzQ3hWcHJkNTlmNHpBbnlHWlpmQVZjNl93c1UyLVRjUkNJa1ZhVmh4SVZOa0VjWDdzUjZWLXZIUHp4d2drODJUMDg1cER6R0tBS3p5Zms2X0FNeFBqcUNkWmNOR0xpQ1hPSGFTRG11bW1EQmRaOFpXUFpqaFBkZTl2dGdzRWVlQ0c1WHRsXzdBNW5OYl85RjJVRzF0ZkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Analysis Reveals Patterns in Taylor Swift's Lyrics
 
