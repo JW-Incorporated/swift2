@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## ’80s Icon Explains Decision to Decline Collaboration with Taylor Swift
+
+- first seen: 2026-10-20 16:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An '80s icon discusses his reasons for turning down a collaboration with Taylor Swift, questioning the potential for shared songwriting.
+- sources:
+  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMiugFBVV95cUxQVDk4RU9mYjNYSEhNaHRrV3lRa29BSDZ4ZVljNGFYc3Vaa0NEZndWRlczT05GaV9iUWN2Q3pYdl92TW5qMFItdWJlR2x0U1RCaVhXdlF1dTl3Z3BZUDNmMzZvOUVsM000YmJKOURQRzBPMWR5cjlaUnFsQmRBS2JNQ3JSQUFnc19lSS1SRzdrRklPR1FSRTd3T1Y5MkdFLThRVTVPTHhBTHNXaUpBQWotbFhVTk9TUVppc3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Former Bungalow in Beverly Hills Listed for Sale
+
+- first seen: 2026-10-20 16:11 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A bungalow in Beverly Hills, where Taylor Swift wrote her album '1989', is now up for sale, showcasing its impressive features.
+- sources:
+  - [unverified] Grazia — https://news.google.com/rss/articles/CBMi7gFBVV95cUxOai03U2VZeU1XVlJCNl9NQWlKMGtuenFMU1RLcVIxWUphMHAwT1hWdVBjUzVfQWQxNG9GcUU5b2VFM3FnOUQ4eDhWUzNhMGo3VFlfRWh4UVFNOUFjOEhfcGo0amtKTUtoTENDNjNRdjVOUzBQZTBoSkw2RUJRbHlGbXdHUTlCdkN1RjR4QkhyRmRPOUVWSTFBTGZpbVFEeV9ia3RTemNCOTRNQzJHNXcyc0luVS1WNEVjSjQ4ZV81ajhhWkdPanVhTHlqUXAwU1NsQl91SVBuckpCLWlMa0c1cUk2UHZ6WG1ab1Y4alV3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Embraces Fairy Princess Aesthetic
 
@@ -641,11 +657,3 @@ Stories: 77
 - summary: Clara Bow, known as Taylor Swift's muse, is featured in a new initiative by Carlotta to restore Hollywood classics. The project aims to bring iconic films back to life for modern audiences.
 - sources:
   - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMijwFBVV95cUxNSjdEQTFhelR1MUd1dHlLUlpDaTJZWWpPQ2h5UjItYk43OFRsbzVGdXA4bi1NVDVBUzdESjNWWkVaSjlaMzdUUXV1SU50M0V5anpRZ3lPZEF5REs5WFlBSENlTzM2OWNRbjJnLW1iWXdHWW1TNkxnakctejJaWEFuLXlqXzZDX1NLd1JZbHZlVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Rhode Island Home Purchase Details Revealed
-
-- first seen: 2026-10-17 15:46 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift purchased her Rhode Island home in 2013 for $17 million in cash. The property was previously owned by Rebe.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi5AJBVV95cUxQXzFDSlJaQzFpTXZRWHBNZmxpVmpOQ0FJMjdDZjVqZEhqUklTQzBHLUdqeDhaSnhhZkhueEpFVGJhWEcxUERjd25kLV93V3FiNnZkaDlqdjk1b1QzTlpYQmN6T3VJSm12V1l0OWlfSlRSZlIxWVNPandzbFYzZVJXd2dwa2dKdjRzRXd2Tkp2WmpHZW9pc1pPRGh0WDMtY2ZNLVBCMXZzenlFUExXNmpvNDBjbzQyYUE2TWdOLVlFc3Rqd1ZiLVI3UUNHbzBqaFFRTzRCVmVmLTlXdFIwOGs3UGRVS2x3M3ZNMlJKZEVJU093N3V2dE1ERkU1SzAwSm5CQ1JYaWFNMkE3bWNBa3MyLXozZm5xXzZfZV83bUM0NmhIQVY1Qmx5bVcyeDBrR3JqTGN0YlpIOWRLT0oyalJGdGxuZ0N3U01vVG5jejd2RDJWYjBfN2p1N2M2NFBZUXk0bVVJONIB6gJBVV95cUxOZEhXSFF0S3Q0UFllRE5hcEMwT3U5WHRPUjhNUVVaSzZxM2N5aEJPS3RjX0FnNUhvdVVIT2pfQ0QtMzNWMU51WDZZRTFPMTNDazhpcm1lNkVNYmRwd3RYMWFLaHMzUnhZMW1aV2NTSENqWmIteHNMLVlwYWo0YjJlekJrcjMzTEFTa0pMNnJtWDZFTkRxdU5Cd0FiM0I4WTVzVFhqb2VfMGdwYy1QQzVrUFZ1Xy1BOE11VDdoTEY0UmhwcFJSY3dKc0k5OXdEZlpSR3ctc3g0MkhnamZGWXBrQkxmN211aVRRdmFQRDJlTnJQQ2VYWC1Ta21LXzExdEhWYlBEaWtlci1LemZQVGxweHRvZXp3WnJaeWNNdDhnMFNNYzItTmdQVnRuczZVWUQ0cjMtUkVGNXJwWHV2bzRFOUh5MVB3SFBFNXh2TUp3R2R1NUVPY04tRllJZHVmS2dBenpUemZTV21sUQ?oc=5&hl=en-US&gl=US&ceid=US:en
