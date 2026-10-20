@@ -27,6 +27,14 @@ so far".
 
 Stories: 76
 
+## Taylor Swift's Debut Album Emphasizes Guitar in Her Artistry
+
+- first seen: 2026-10-20 08:56 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A discussion on how Taylor Swift’s debut album showcases the significance of the guitar in her musical journey, highlighting its central role in her artistry.
+- sources:
+  - [unverified] Guitar.com — https://news.google.com/rss/articles/CBMid0FVX3lxTE1kaVpDQU5CdEV2OHhLdWpVSG16TEFHUGRMWlByM01QSDllVndTOFdWcWJVcXFfUUhVM091Tnp4Yk1kWHg4eFRnLWNIQ0NLMjJQeGNVWGhQSHJkUmtGcXVBWlh4V05vY2dmUy1rVlR6dTc4Qi1CUGEw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift reacts to fan filming her at NFL game
 
 - first seen: 2026-10-20 04:26 UTC | category: sighting | importance: 5
@@ -633,11 +641,3 @@ Stories: 76
 - summary: An article from Slate discusses the contrasting views on Taylor Swift's new songs, noting that despite some negative opinions, they remain popular. The piece examines the reasons behind this phenomenon.
 - sources:
   - [unverified] Slate — https://news.google.com/rss/articles/CBMikwFBVV95cUxPRWVMVFRQR3lrSHBIU193Tldyb1VtSlBIbENGLUVha1Y2Rnd4bWZHMF9hcmZ3TkNpUy1HemozT25WNGJkTlJFa0RDb3ZaUE8zSDRGRGpVNDVtNVJqc1JtYXhVSjI2OHJXZVZfWG0tbEo5V25EX3l3TjFNSVVMa2Q2NEhJMy1jOUlUYl9xWlF3Rzd0TW8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Theories Surrounding Taylor Swift's 'Pink Clouding'
-
-- first seen: 2026-10-17 08:26 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from Yahoo Lifestyle Canada delves into various theories about Taylor Swift's concept of 'Pink Clouding'. The piece examines interpretations and discussions surrounding this theme in her music and brand.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxQMWpIRkxnVnVRa0poWC1LSmRweE5LUS1lcS0zcVN6QjUtcVpBT2s4cVA3SXBzSnY3dzR2bVRDWTIyTk9hUWo1MEpvNDhuOExRQnpkLWRQUXpOSkp4Z3ZrcE42SE9NQ1ZNT1gzNzRnN1pPNXl3WHRPQ2pYYi1sTlZCd21n?oc=5&hl=en-US&gl=US&ceid=US:en
