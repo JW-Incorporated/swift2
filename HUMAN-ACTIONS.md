@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #139 🟡 [DECIDE] #5980 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-20 -->
+<!-- marjorie-chase: 96h issue=5980 -->
+
+**Why:** Marjorie dispatched it on 2026-10-16 (link-sweep: dead citation URL in tortured-poets.mjs (The Bolter)). Nothing has moved since 2026-10-16. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5980 under stalled.
 
 ## #138 🟢 [UPGRADE] Let Instagram posts also post to the Facebook Page (~10 min)
 <!-- ha filed=2026-10-19 -->
