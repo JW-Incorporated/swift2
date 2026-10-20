@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-18',
+  updatedOn: '2026-10-20',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -104,10 +104,13 @@ export default {
       // Encore" (four new songs, out 25 Sept) — new music, but NOT a re-record.
       // The longest-running open question stays open; neither reputation TV nor
       // debut TV has been released or dated.
-      lastCheckedOn: '2026-10-16',
+      // Rechecked 2026-10-20 (Vault Run): Parade (via AOL, 18 Oct) still reports
+      // no announcement ahead of the debut's 20th anniversary on 24 Oct 2026;
+      // the only "out 24 Oct" claims found are on user-edited fan wikis.
+      lastCheckedOn: '2026-10-20',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
-        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
+        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: with the debut album turning 20 on 24 October 2026, coverage on 18 October still reported no announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
       sources: [
         {
           name: 'Rolling Stone',
@@ -120,6 +123,10 @@ export default {
         {
           name: 'Associated Press',
           url: 'https://apnews.com/article/672dc24782f5b0f04c864a6fd86665d8',
+        },
+        {
+          name: 'Parade (via AOL)',
+          url: 'https://www.aol.com/articles/taylor-swifts-debut-album-turns-045000000.html',
         },
       ],
       prompts: [
@@ -187,7 +194,7 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
       // 25 Sept Encore news cycle revisited the promo-video AI question; her
       // team has still neither confirmed nor denied it.
-      lastCheckedOn: '2026-10-16',
+      lastCheckedOn: '2026-10-20',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -219,7 +226,7 @@ export default {
       // into resolved to a single ("Patient Zero") and the Showgirl Encore —
       // not a debut/Reputation/TS13 release. The green-TS read stays fandom
       // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-10-18',
+      lastCheckedOn: '2026-10-20',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -249,7 +256,7 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
       // activity was the Showgirl Encore, not a TS13 reveal — no album title,
       // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-10-16',
+      lastCheckedOn: '2026-10-20',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -276,7 +283,7 @@ export default {
       // the TS13/next-era read it feeds is still unconfirmed, so status stays
       // `reported`. Added the Encore as a corroborating source.
       date: '2026-08-27',
-      lastCheckedOn: '2026-10-18',
+      lastCheckedOn: '2026-10-20',
       headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',

@@ -16,6 +16,129 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6128.
+      // A first-person career anecdote from a named public figure about his own
+      // professional decision, so >=1 outlet suffices: Ultimate Classic Rock
+      // (Corey Irwin, Oct. 19, 2026) read directly this session, quoting
+      // Marx's appearance on Bob Lefsetz's podcast (no episode date given, so
+      // the moment is dated to the UCR report). Placed by the date of the
+      // telling, like 'phil-collins-white-horse-blown-away'; the demo-era
+      // meeting itself is undated in the source, so no year is pinned to it.
+      // Redlines: clean — Taylor's age is a long-public career fact, nothing
+      // private, no location.
+      slug: 'showgirl-richard-marx-declined-teen-cowrite',
+      year: 2026,
+      month: 10,
+      day: 19,
+      category: 'music',
+      title: 'Richard Marx on the 15-year-old Taylor he passed on writing with: “I did the right thing”',
+      snippet:
+        'Scott Borchetta played Richard Marx Taylor’s first demos and asked if he’d co-write with her. He said no, and two decades later he still says he wouldn’t have been any good to her.',
+      sourceUrl: 'https://ultimateclassicrock.com/richard-marx-turned-down-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Bob Lefsetz’s podcast, Richard Marx told the story of a pitch he turned down. Scott Borchetta, who had just started Big Machine Records, told him “I’ve got to play you something” and put on “the first two or three Taylor Swift demos.” Marx asked, “Scott, what is she, 15?” Borchetta said yes, and then asked whether he’d want to write with her. Marx said no.\n\nIt wasn’t a verdict on the songs. Marx’s rule for co-writing is that he has to believe he can help an artist “in a way that you can’t already help yourself,” and with this teenager he didn’t see that he could. Looking back now that she is the biggest act in the world, he doesn’t regret it: “No, I did the right thing. Like, I wouldn’t have been any good to her, you know?” For Taylor fans it is a small piece of evidence for something the early catalog already shows: even on those first demos, the songwriter was already there.',
+        sources: [
+          {
+            outlet: 'Ultimate Classic Rock',
+            url: 'https://ultimateclassicrock.com/richard-marx-turned-down-taylor-swift/',
+            source_title: 'Why Richard Marx Doesn’t Regret Turning Down Taylor Swift',
+            publisher: 'Townsquare Media',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: the demo-era meeting has no imagery, so like the Collins page
+        // this carries a verified photo of the speaker. Michael Cohn's
+        // Birmingham, AL 2025 shot (CC BY-SA 4.0) curl-verified 2026-10-20 HTTP
+        // 200 image/jpeg at the 1280px thumb (1280x960), downloaded and
+        // vision-confirmed: Marx seated at the mic with an acoustic guitar.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Richard_Marx%2C_Birmingham%2C_AL_2025.jpg/1280px-Richard_Marx%2C_Birmingham%2C_AL_2025.jpg',
+            focalPoint: '40% 25%',
+            credit: 'Michael Cohn Photo, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Richard Marx performing in Birmingham, Alabama, in 2025. He passed on co-writing with a 15-year-old Taylor after Scott Borchetta played him her first demos.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6040.
+      // A friend's own on-record red-carpet remark at a documented public
+      // event. Two outlets read directly this session carry the same quote,
+      // both crediting Entertainment Tonight's interview: Cheat Sheet (Oct. 15)
+      // and MEAWW. Khaleej Times (Oct. 15) is cited for the event, venue
+      // and date only, since its text does not carry the Taylor quote. ET's own
+      // page was not found, so it is credited in prose rather than linked.
+      // Redlines: clean. Gomez is speaking about a marriage both principals
+      // made public, and the venue is a named public event (L2, past).
+      slug: 'showgirl-selena-gomez-marriage-advice-rare-impact',
+      year: 2026,
+      month: 10,
+      day: 14,
+      category: 'relationship',
+      title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
+      snippet:
+        'Marking her own first wedding anniversary at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
+      sourceUrl:
+        'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, fell on her first wedding anniversary with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+        sources: [
+          {
+            outlet: 'Cheat Sheet',
+            url: 'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
+            source_title: 'Selena Gomez Confesses Taylor Swift Has One Thing Over Her in Marriage',
+            publisher: 'Cheat Sheet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'MEAWW',
+            url: 'https://news.meaww.com/selena-gomez-calls-taylor-swift-probably-the-best-person-to-turn-to-for-marriage-advice',
+            source_title: "Selena Gomez calls Taylor Swift 'probably the best' person to turn to for marriage advice",
+            publisher: 'MEAWW',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Khaleej Times',
+            url: 'https://www.khaleejtimes.com/entertainment/selena-gomez-benny-blanco-first-wedding-anniversary-rare-impact-fund-benefit',
+            source_title: 'Selena Gomez talks first wedding anniversary with Benny Blanco at LA benefit',
+            publisher: 'Khaleej Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: no free-licensed image of the 2026 benefit exists. BRNGroup's
+        // 2024 Golden Globes red-carpet portrait (CC0), the night she and
+        // Taylor were photographed whispering at their table, curl-verified
+        // 2026-10-20 HTTP 200 image/jpeg (1001x1335), downloaded and
+        // vision-confirmed: Selena smiling in a red halter gown with black
+        // rosettes in front of the Globes' rose wall.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Selena_Gomez_at_the_2024_Golden_Globes_00001.jpg',
+            focalPoint: '50% 30%',
+            credit: 'BRNGroup, CC0, via Wikimedia Commons',
+            caption:
+              'Selena Gomez at the 2024 Golden Globes. In October 2026 she said newlywed Taylor is “probably the best” person to give her marriage advice, not the other way around.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6127.
       // Documented past public event at a named venue, reported by two outlets
       // (Fox News/OutKick, Sports Illustrated) — within the L2 ceiling. Intake
@@ -41,6 +164,13 @@ export default {
           'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
         photos: [
           {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
+            focalPoint: '38% 32%',
+            credit: 'Getty Images (via Fox News / OutKick)',
+            caption: 'Taylor in a red turtleneck and Caitlin Clark in the Arrowhead suite during the Chiefs-Chargers game, Oct. 18, 2026.',
+            kind: 'primary',
+          },
+          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg/1280px-Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg',
             // 1280x848 thumb of a 4928x3264 original; curl-verified 2026-10-19
             // HTTP 200 image/jpeg (328KB) and visually confirmed: aerial of
@@ -51,7 +181,7 @@ export default {
             credit: 'Ichabod, CC BY-SA 3.0, via Wikimedia Commons',
             caption:
               'Arrowhead Stadium in Kansas City, where Taylor, Caitlin Clark and Este Haim watched the Chiefs beat the Chargers on Oct. 18, 2026.',
-            kind: 'primary',
+            kind: 'reference',
           },
         ],
         sources: [
