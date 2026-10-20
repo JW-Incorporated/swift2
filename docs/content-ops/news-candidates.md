@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 79
+
+## Bad Gyal Declares She Wouldn't Collaborate with Taylor Swift
+
+- first seen: 2026-10-20 17:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bad Gyal has stated that Taylor Swift is an artist she would 'never' choose to work with. The comment highlights her personal perspective on collaborations within the music industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxOMlE5QUgzVWtvNjA4SHhBZzEzUURHbnFNQjVjREdoMVVCTUp2enNTVzJuaEQ2WTJvdjBiYzhRbWpqSFFZYk1RNXlTTjJtcERtMF9sd09wM0JMdjlTNEZ4eEY4Q05jQUZfbXF4ZVdfUHpfOHdBTmczeEtScVhqc3gzcVF1ODVTNW9FWkFWbXlkTnk4bkpGb3ZR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## ’80s Icon Explains Decision to Decline Collaboration with Taylor Swift
 
