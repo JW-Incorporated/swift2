@@ -1662,6 +1662,7 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-super-bowl-lix-with-the-haim-sisters-and-ice-spice'],
       title: 'Super Bowl LIX: an oversized white blazer, in Chiefs colors',
       snippet: 'A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/',
@@ -6548,6 +6549,7 @@ export default {
       month: 2,
       day: 9,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-super-bowl-lix-an-oversized-white-blazer-in-chiefs-colors'],
       title: 'Super Bowl LIX with the Haim sisters and Ice Spice',
       snippet:
         'Taylor arrived at Caesars Superdome with the Haim sisters and Ice Spice to watch the Chiefs face the Eagles in Super Bowl LIX, drawing a mixed jumbotron crowd reaction; the Chiefs lost 40-22.',
