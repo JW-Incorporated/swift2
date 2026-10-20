@@ -191,6 +191,12 @@ jobs:
         with:
           # Real-user token, not the default — see the header note above.
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          # sharp (root dependency) fingerprints images for the perceptual
+          # ledger guard; without node_modules every image is undecodable and
+          # every due item is held (run 39340985374, #6077). --ignore-scripts:
+          # this job holds live posting secrets.
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
 
       # Freshness for social/queue/ (2026-08-12 originally; re-justified
       # 2026-08-25 — this used to also close a race with the now-retired
