@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Taylor Swift Embraces Fairy Princess Aesthetic
+
+- first seen: 2026-10-20 15:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A recent article discusses Taylor Swift's current fashion phase, describing it as her 'Fairy Princess Era.' The piece highlights her enchanting style and how it resonates with her fans.
+- sources:
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMibkFVX3lxTFAxWlZsXzQzVXBORWFOVjZsZTRtUFBZd2Zfck5UTzNhWFZ0ckJqX2h1Z0VUVnZGRjlUb1BnbWF6QUdvQUVRcFU5U09fM0RhRS1WY2l3aTJ5N1NZWHFoQk5oajRZU2dQZURRS1ZfNHd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Debut TV Announcement Expected Soon
+
+- first seen: 2026-10-20 15:11 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new announcement regarding Taylor Swift's debut television appearance is anticipated shortly, according to Yahoo Sports. Fans are eager for details on what the announcement may entail.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOM3NSVjBPYUdnZ0NYUElNUkhBN2pnNVJ2N2tJVUdvUFRfWHh6aWdwZlBVSjB4NU1hZFVuVTBwSUU1ZjlqOWRzMkRnUEFFOWstUlhVZk9pZHFNQS12VFRSeldWckdfYWVSVDVhMEhaRGswUXdzRkR1NGd2MXJrOG42dnQ3QmhyME9ZWnc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Segel Marries Former Taylor Swift Backup Dancer Kayla Radomski
 
@@ -633,11 +649,3 @@ Stories: 76
 - summary: Taylor Swift purchased her Rhode Island home in 2013 for $17 million in cash. The property was previously owned by Rebe.
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi5AJBVV95cUxQXzFDSlJaQzFpTXZRWHBNZmxpVmpOQ0FJMjdDZjVqZEhqUklTQzBHLUdqeDhaSnhhZkhueEpFVGJhWEcxUERjd25kLV93V3FiNnZkaDlqdjk1b1QzTlpYQmN6T3VJSm12V1l0OWlfSlRSZlIxWVNPandzbFYzZVJXd2dwa2dKdjRzRXd2Tkp2WmpHZW9pc1pPRGh0WDMtY2ZNLVBCMXZzenlFUExXNmpvNDBjbzQyYUE2TWdOLVlFc3Rqd1ZiLVI3UUNHbzBqaFFRTzRCVmVmLTlXdFIwOGs3UGRVS2x3M3ZNMlJKZEVJU093N3V2dE1ERkU1SzAwSm5CQ1JYaWFNMkE3bWNBa3MyLXozZm5xXzZfZV83bUM0NmhIQVY1Qmx5bVcyeDBrR3JqTGN0YlpIOWRLT0oyalJGdGxuZ0N3U01vVG5jejd2RDJWYjBfN2p1N2M2NFBZUXk0bVVJONIB6gJBVV95cUxOZEhXSFF0S3Q0UFllRE5hcEMwT3U5WHRPUjhNUVVaSzZxM2N5aEJPS3RjX0FnNUhvdVVIT2pfQ0QtMzNWMU51WDZZRTFPMTNDazhpcm1lNkVNYmRwd3RYMWFLaHMzUnhZMW1aV2NTSENqWmIteHNMLVlwYWo0YjJlekJrcjMzTEFTa0pMNnJtWDZFTkRxdU5Cd0FiM0I4WTVzVFhqb2VfMGdwYy1QQzVrUFZ1Xy1BOE11VDdoTEY0UmhwcFJSY3dKc0k5OXdEZlpSR3ctc3g0MkhnamZGWXBrQkxmN211aVRRdmFQRDJlTnJQQ2VYWC1Ta21LXzExdEhWYlBEaWtlci1LemZQVGxweHRvZXp3WnJaeWNNdDhnMFNNYzItTmdQVnRuczZVWUQ0cjMtUkVGNXJwWHV2bzRFOUh5MVB3SFBFNXh2TUp3R2R1NUVPY04tRllJZHVmS2dBenpUemZTV21sUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Scheduled to Perform at Academy Museum Gala
-
-- first seen: 2026-10-17 14:51 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the Academy Museum Gala on Saturday evening, according to MyNewsLA.com. This appearance adds to her schedule of high-profile events and performances.
-- sources:
-  - [unverified] MyNewsLA.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTEowcTc4Yk4zaGMwNllmYnNXbldlNmpVbThkVTZrS3l2TFRKcXdBUEVBcUxnWXRhQ1VwX3dlbU93SHBLTFpuZkNBeVVlTEk3a2JtQndDNlRQYXRabjRiRTlZUVdwVTlGMjQ2VWl0cXNYdF9Sb09oZ1pJNGR3SXFDQm1WR0YxQmswalp0NGFaMS0wNkZ6a1NjSjA3T19UOUdqSXkwTkhTSF9vQQ?oc=5&hl=en-US&gl=US&ceid=US:en
