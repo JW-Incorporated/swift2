@@ -27,6 +27,14 @@ so far".
 
 Stories: 76
 
+## Jason Segel Marries Former Taylor Swift Backup Dancer Kayla Radomski
+
+- first seen: 2026-10-20 13:56 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Actor Jason Segel has married Kayla Radomski, who previously worked as a backup dancer for Taylor Swift. The wedding marks a new chapter for the couple.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPbks5QTJTX1hwNDhlUkljME55czh3S1hMN3VkWF9kbXFKaE5jclcwSi1UV1JKeWZvNDlnRjkyZ0F1bnFWQlZFSi1GcXAxZjdmSGQ2X3BxS1FnZ3FLQldMTXBhX3ZTSW9lcHNKNTlvTTlHMFNyaHhCTnd1ZVFtS0lMRUNuQVNjOXhpZncwVzVxWGZJVVZwSXpBZS1xTWQ5dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Appears Frustrated with Fan at Chiefs Game
 
 - first seen: 2026-10-20 11:56 UTC | category: sighting | importance: 5
@@ -633,11 +641,3 @@ Stories: 76
 - summary: Taylor Swift is set to perform at the Academy Museum Gala on Saturday evening, according to MyNewsLA.com. This appearance adds to her schedule of high-profile events and performances.
 - sources:
   - [unverified] MyNewsLA.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTEowcTc4Yk4zaGMwNllmYnNXbldlNmpVbThkVTZrS3l2TFRKcXdBUEVBcUxnWXRhQ1VwX3dlbU93SHBLTFpuZkNBeVVlTEk3a2JtQndDNlRQYXRabjRiRTlZUVdwVTlGMjQ2VWl0cXNYdF9Sb09oZ1pJNGR3SXFDQm1WR0YxQmswalp0NGFaMS0wNkZ6a1NjSjA3T19UOUdqSXkwTkhTSF9vQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jason Kelce Discusses Taylor Swift's Halloween Songs
-
-- first seen: 2026-10-17 13:51 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce reflects on whether Taylor Swift has Halloween-themed songs, suggesting three tracks he associates with the holiday. The discussion highlights the intersection of pop culture and seasonal music.
-- sources:
-  - [unverified] Cinemablend — https://news.google.com/rss/articles/CBMirAFBVV95cUxPeVBsRGt0MUxOWm5OMHJqOEhmRDUxSGZsd2s2Snh2NjVOaTA3Q3IwaGxHeTVuUF9NOTRKdmk3cjl2V1Rhc2VuZVVfRm5iNWpoLVRLa0R6aUF5WmNpZ1hUUlo2M18zcDR1Y2xURFp6anQ4Y3JZbE8wNnZib3g2WjZkZU1hdm5UOVZ6U1BzRmJVSFh6XzFhOVdfVmNud2VuVllYRVJXZ2hFN2FqWFFB?oc=5&hl=en-US&gl=US&ceid=US:en
