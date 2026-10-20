@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
 
 ## Taylor Swift Appears Frustrated with Fan at Chiefs Game
 
@@ -641,11 +641,3 @@ Stories: 77
 - summary: Jason Kelce reflects on whether Taylor Swift has Halloween-themed songs, suggesting three tracks he associates with the holiday. The discussion highlights the intersection of pop culture and seasonal music.
 - sources:
   - [unverified] Cinemablend — https://news.google.com/rss/articles/CBMirAFBVV95cUxPeVBsRGt0MUxOWm5OMHJqOEhmRDUxSGZsd2s2Snh2NjVOaTA3Q3IwaGxHeTVuUF9NOTRKdmk3cjl2V1Rhc2VuZVVfRm5iNWpoLVRLa0R6aUF5WmNpZ1hUUlo2M18zcDR1Y2xURFp6anQ4Y3JZbE8wNnZib3g2WjZkZU1hdm5UOVZ6U1BzRmJVSFh6XzFhOVdfVmNud2VuVllYRVJXZ2hFN2FqWFFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Encounter Opposition for Ohio Mansion Plans
-
-- first seen: 2026-10-17 12:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are facing pushback regarding their plans to build a mansion in Ohio, drawing attention to their recent relationship.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQ2EwUHRKQzZ3Yk5CX1RXR0lvT04tekRQZ3hGR3lKbmFRbE1IcjVNTXp5XzdLSzRtX01zSTJIOHJ1ajd0N3lwS25jaUJKcUZYVHZwS1NFd3hQemdCc2kwSmY1WHo5X1EyWEwyOElWN0VjWXQ2Ml9xQUNwRGd1dkJtajFtREVnaW1uQ1VlT25wTFpwR0o5STJDcFM2bTRyU0o5NUE?oc=5&hl=en-US&gl=US&ceid=US:en
