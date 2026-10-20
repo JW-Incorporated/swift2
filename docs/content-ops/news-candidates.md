@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 80
 
 ## Taylor Swift's Songwriters Hall of Fame Picks Highlight Her Craft
 
@@ -673,11 +673,3 @@ Stories: 81
 - summary: Carlotta Films and Artcraft Pictures have announced a French distribution deal for Hollywood classics, including Clara Bow's breakout movie 'It,' which features Taylor Swift as a heroine.
 - sources:
   - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE12d1NobWlIR2xxMkE3QmF0aEJlNjRCX2ZFRlVuSG5TRkU4ZU9OdUJ1UHJVSy1DLVVNbFdxb0RUWDc4aG1fMTdwT19ac3ZTQjVXTkZCUk1VV0h6Y1Q4bTNRX3ZNY0pwZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Coach Shares Feelings About Meeting Taylor Swift at NBA Finals
-
-- first seen: 2026-10-17 23:04 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A coach has revealed that he felt 'intimidated' when considering approaching Taylor Swift during the NBA Finals. His comments highlight the star's notable presence at the event.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMikgFBVV95cUxNd1M4WS1iVkdwaGRXNnlBM2RQR1czQ012c1BZak5NWDc0MjFLU00xeUhjRW9ZdTg0THNqaW5FYkJDcUxsZkFYd2FPOHFDWWh1alBZaHdjb0JBXzliRDBacE1ZM3FDX0czQzJmaWlHSzNuLXR0SmZ4ZDE4bU5Na0ExaGlwenhVa1pjUjczUGJ3a2JFZw?oc=5&hl=en-US&gl=US&ceid=US:en
