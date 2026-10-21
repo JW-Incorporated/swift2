@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 81
 
 ## Travis Kelce Shares Anecdote About Taylor Swift and Jason Kelce
 
@@ -675,19 +675,3 @@ Stories: 83
 - summary: An article discusses Taylor Swift's potential presence at the upcoming Chargers vs Chiefs game and her whereabouts this week. The situation remains uncertain as fans speculate on her attendance.
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9wFBVV95cUxOcGVsWGJpZjNEVWFWMHFXa1EzR2g4bFNDdEw2NU5COXVyYlNlMGkxaUNXLXR3Q0JRaXBtaFlIZTJVTzNmZ29XbFNSdEw3NjVKZFVTNlNUZFVCV1BEcTRQTFJ6bklycEV0YkxfQzhtaldlc3E1VUk4dUQxTmFRLUdIWW9mTll5RE14aFlOZTdkSzFGVXZTbWx2UnRINll6SWlfSnFSamJFd2dOZHZBZGVCS3M1Yms2bUxPbzBINkc5VnlpWlpWdEd3QzRCS3gzZXF1UVlwa1M5amg3Yk9NVllDZC1uWV9KdUxsRnlrWHRDamxKOFBreERZ0gH3AUFVX3lxTE1EaS1Hdm5ybkNaTkFHSlNqcEk0cjJxRHcxcnV6a01KTFI1SWxaUDVHVHFYMnpOUndJVGxZVFZqTlFxcmV6UnBjX1I2dnZIRFpSYkVLQnVjVmxnUnFZazdtNTJQaW12Um1odEs3NGVYdG94WGttT1NhY1JxNmtxTjBIOVYzblA3UEkwcW9GTmJrVTZJcWRqSDViY3haT2d4c2JnWmZTR1E1N2VsVzBObm5wek1ienNhUFBYbHIyLUNyQVk4THp6enlVcnR3Y284THpYX3FwQzl3elVwcV9mWkRXdDl6Ym1HT3prMVRYN2cwZ19JUDRWWVU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Delivers Live Performance of New Hit at Gala
-
-- first seen: 2026-10-18 14:11 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: At a star-studded gala, Taylor Swift performed her hit song live for the first time, showcasing her latest work to an excited audience. The event highlighted her continued impact in the music industry.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQaGVNR0F5RFQ3ZG9lXy1yczhzWmVPRU5SN3JCVkR2aS1yTHdFYlNYWG1SRHdPQUwxYUhJdlF0YmtOOVNUTmc2YUUyUUNKa0h0cWVnWmtWTmJydlY3Ym1LRzNDSFJxRDdxZW93WUhyUFFLR2NqWG92Vi1PVUxRV0ZOSGdB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Old Hollywood Style at Academy Museum Gala
-
-- first seen: 2026-10-18 14:11 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: At the Academy Museum Gala, Taylor Swift sported a fashion choice inspired by Old Hollywood, adding a distinctive touch to her appearance. The outfit was described as meaningful, highlighting her personal style at the prestigious event.
-- sources:
-  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRUVDcDlVQ0tjZGRWakVNUUswLVFZV0R4ZENlN3p3eHA2b3lLUm9qckh4X1oxalBvRnZDZGxDT2FicFNFQkxlMnJiMFNjNFRZV2U3RldIU0lGTXZmVFZaSFJqT1I5bXc5eTE4eDRHbng1TlRvelVkWF91T0k1YlhzM3lrVldMb1A2Q3l1dm5yNjZmd3poSmUzLWJoNlJiR3huMzV2NE9aa3gzSDQyRHNUdDVxUVhjMG5hUzJEM09sR1QzYW52MGZUeW5PTkl5S2JTN0xN?oc=5&hl=en-US&gl=US&ceid=US:en
