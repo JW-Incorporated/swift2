@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 81
+
+## Travis Kelce Shares Phone Call from Brother Jason About Taylor Swift
+
+- first seen: 2026-10-21 11:58 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce recounted a phone call from his brother, Jason, that Taylor Swift found surprising and described as ‘f---ed up’.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQa1c0TnB4YXlEOFpHT0o2bEZPSkw4MTZUWnZsLVgxV1dYTThqNmw5TnVSVC0xX1JZWjhpcVhieHlaODRqM3REXzNFTVhmSXlpV2E1SFpWT084Zm8zYWtVSFdVMnBpaGpXazJ3U0tQV0VuWDYxZV9SZ0tHSjZuWE42V0ZueVRSTXZNWlJzRTZRM0Nxal96U1FUb1A5TlRZMy1GNVVfNVJWcTNxdmFoZlcyOWtkVXFsS1NXZTIyeE13?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## New Book Analyzes Taylor Swift's First Country Album
 
@@ -668,27 +676,3 @@ Stories: 83
 - sources:
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNS2Z5MjlpaXZFVXNfRXV4M2pLSVJXRGtYb2FQUzJEWHdUY0RTd3JLS3NuSWV5SHMxZ21fZDhzeHhqQzNoRkxweU0taFlIZnMwcmtQcC1Ua1R5a3QwczZ0ZXk5ckUzM3FmOFhMTHJtM1JFT0JYV3RIWEpVRmduT2ZkeTg4NndZZDF6R3Jv?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] WWD — Taylor Swift tag — https://wwd.com/eye/parties/academy-museum-gala-2026-taylor-swift-kim-kardashian-1239372519/
-
-## Taylor Swift's Fashion at the West Coast Met Gala
-
-- first seen: 2026-10-18 11:41 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A review of the best looks from the ‘Met Gala of the West Coast’ features Taylor Swift and Jacob Elordi among other attendees. The event showcased various notable fashion choices.
-- sources:
-  - [unverified] SMH.com.au — https://news.google.com/rss/articles/CBMizgFBVV95cUxPTnktU2hwZTBqMnhHSzdOREJLOEtHandtX1BBNmtRX29ldHVZdXI5Mmt1c01wR2NuMHliZ1J0Nl84aHYzN09VMlFWaFN4eDFPREFMWjMyVHhGdHBaNy01SjFOekZqNWNQdmVkSFIzX2Y1SXNyMElSakZCamNyOUgwVEY1NFotNnJBUWoyQXpkNU9wSmZoSnRONjI2YXB2T0VEV0hkcmg5RHRIUHVHbld6MUlZa0FyU3o3bi1kTXk0MkpPdGlGM2hzYlNCOWRTZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Generous Donation to Seattle Symphony in 2015
-
-- first seen: 2026-10-18 11:41 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In 2015, Taylor Swift donated $50,000 to the Seattle Symphony after being inspired by the piece 'Become Ocean'. This act of philanthropy highlights her support for the arts.
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMi8AJBVV95cUxNMmZTWVhhNFN0eEcxd083al9scG5YWUk5TjVvX0JIMUxGYTQzdVplVEZNVkxCYVhsVHp2NDY4V2hTenl2VjhrNnZQdUJVaWtYMDR1OEg4QlpHT2lFQXdfQTZlME5ZVUdkakY0WE5fR0UtYmhPS3pDeTdCTnpQWmtGUTQ5RTFBcjlDaWtzd1BpQ3dDN2VVT19JeXVLbm9CZDFNdm9wU3U2anlxTHZqTkI2dmFqcjE2Q1BTLUE4bmF6X2YtUFIxeFgtbkRGaDJzaUFBN2FjeWVHWnVIZjJsdlF2cXRBQnpEaFA1RVJGLVFfRzF4TjQzaHJCSVJtNmdxeE1hY3c2TGNoeE5rYzlOdEtGRTZZSlpvSEY4X3BjTDBJc2ZTWFpFZDZfNEQtOXpyWnhPblhlN0NEM2I4WDlsQlgxVmlWTlFPczZSOEl2am1zeUR3QmJiMVJIRTlMMHJZbU5VeFFPaXpWV0RRcTZXN0wybNIB9gJBVV95cUxNMk93UWlwT01rakJ2dmx6dmhQUk02NUV5Q1RCUFEzMXR1cm1CUzVMYmxTNGlJMDVzQm5YZzI5Z05UNW5oM0dXeFVJZGQ4eG9DZWgzZzY1QUJhcms4M1RRVEtnV2xPbVpqeTQtOFlubnpMT2FEQUx2aURiVWEtQ3FKZldmQXhaejBUWXBRSnR2RWllaDhXOGRxbDZLR3BMLS1sN2llTFpnblE5N2RLbDhEZXc1NVBoNHJUYVk1ZzFDVjRlUGpCMDdaU05idndycUE3V2pTT2xPWm9QNFU1Z1MteTZ2LS1icnExU2FJOWNNckxmMUZLRmk3VUpHcEhHSUJNLUtja3VqQTl4NlZ4QVhJcXN1NF9DS18zWGZwNzJ6Q0tkT0swSlBCamdNUDU4bXNoVGI1RDFicXRsTjZUZURhbFNtbXhhV2dnY2pjTDk1QmZacUtIN2F6VWZpcUkzVUtEZzI2S1BLQ0ZSeUdmc1BYcVVyaWsxQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Media Analyst Discusses Travis Kelce's ESPN Replacement Potential
-
-- first seen: 2026-10-18 11:41 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A media analyst suggests that Travis Kelce may be considered for Troy Aikman's replacement at ESPN, linking it to the interest surrounding Taylor Swift. The commentary highlights a perceived connection between Kelce's profile and Swift's influence in media.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPa0tMZWFxemVxU2szZENEQWYzQURvWDR6RU9zZ05DT2xOOXFEU291N24yTldueDQ1bUhNQWNpREc4OG53SGk4YzhxaDE4b0gxZ1dFd3dQZTBpdmFYRTZJb3oyNE1ObzczWGFUbmhwUGkwRERuQ3RicmFOQnBjTzZtYXc0Ym56NW5Q?oc=5&hl=en-US&gl=US&ceid=US:en
