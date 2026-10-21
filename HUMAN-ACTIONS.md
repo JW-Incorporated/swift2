@@ -35,9 +35,9 @@
 
 **Steps:**
 1. Open https://developers.facebook.com/tools/explorer and pick the Long Live app.
-2. Under Permissions keep the existing ones and add `pages_manage_posts`, then click Generate Access Token and approve.
+2. Under Permissions keep every permission already listed, add `pages_manage_posts` and `instagram_manage_messages`, then click Generate Access Token and approve.
 3. Make it long-lived the same way you did for the original token (docs/social/pipeline.md, Facebook Page cross-posting).
-4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --env social --repo JW-Incorporated/swift2` and paste the token when asked.
+4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` and paste the token when asked.
 5. Reply `done` here.
 
 **Worked if:** the next Instagram post's poster run logs no "Facebook Page cross-post failed" warning.
@@ -75,7 +75,6 @@
 4. Go to https://affiliate-program.amazon.com and note your Store ID (ends in -20) and its approval status.
 5. Paste both IDs in the Swift2 pipeline PM chat.
 **Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
-
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->
