@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Cara Delevingne Discusses Role in Taylor Swift's 'Patient Zero' Music Video
+
+- first seen: 2026-10-21 19:23 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Cara Delevingne shares insights about her involvement in Taylor Swift's music video for 'Patient Zero'. The actress highlights the creative friendship between her and Swift.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNMVBSQnNVb2tESXlHRUUydzF5b2RpQXExUjJ1SWZQY1ZXZHRyVU8xQXNYdFJXZ3M0LUNnUmRSSVBnOUROdmwwN0dNMG9TYXkxMDByMzlYY3otcXRDUnhZWTZFeEZBd1M1eHpoMVh5a0dWRDNwdnpDMFo0bkJFdWZsUFRmNkhpMVpjRThWRXRxODlZRmc1ZldyMFBR?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Responds to Wake-Up Call from Jason Kelce
 
 - first seen: 2026-10-21 18:23 UTC | category: relationship | importance: 5
@@ -683,11 +691,3 @@ Stories: 83
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-the-life-of-a-showgirl-15th-week-no-1-chart-1236915983/
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOa2MyT255R1BoUHJHREl1clV3bzVfeURVTno1My1TbjYtUmZUa3BYejFpNUhpLXVoNWxvclpXZ1BrS001SG9sZXhUclRHa1JHRGUyQTc5YW92WVRreUZhNElQZUtMcVkyTG1LZ3J5MVNxeDVGTXg1aE1XYzhyZzd5c2RfOFIzcU1QTDFhS2FxNV96WGVnZy1nSktiT05MbjQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reflects on Two Decades in Music
-
-- first seen: 2026-10-18 19:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift takes a moment to reflect on her 20-year journey in the music industry, highlighting her growth and evolution as an artist. This retrospective offers insights into her career and contributions to music.
-- sources:
-  - [unverified] RissiWrites.com — https://news.google.com/rss/articles/CBMiekFVX3lxTE1LaGJ3LTl3Q2ZYdS1sdUlubk5mZ09DdG9oV3dIUTRHQ0dfdDJLV3RULTJfdi14UFJINWE3dW0tZFRhQXV6b2NZZ2xuUk16MmJZSTJZS2pnMXNTY21QTVhIQ2FpS3IxU01iTmZCSlo5eUtLWDhUV2xhdGl3?oc=5&hl=en-US&gl=US&ceid=US:en
