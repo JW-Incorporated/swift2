@@ -27,6 +27,14 @@ so far".
 
 Stories: 81
 
+## Ranking of 16 Outfits Worn by Taylor Swift This Year
+
+- first seen: 2026-10-21 15:23 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Business Insider has ranked 16 outfits worn by Taylor Swift this year from worst to best, showcasing her fashion choices.
+- sources:
+  - [unverified] Business Insider — https://news.google.com/rss/articles/CBMid0FVX3lxTE9JYUh1b1hRMVNxZWhtTktrTVR0cDBfQmVmYW9jckRaV1Q4OEJnN2R0QVdXTm1uUlVoZy1wUU1KUG5DRTd0ZlJYRU9FRGJFZUtlSTlDTTlmVEZERmV4cGZuekZHN3BYV1pnaHdxVDA0R3UtM0RrREVj?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce Shares Anecdote About Taylor Swift and Jason Kelce
 
 - first seen: 2026-10-21 13:58 UTC | category: relationship | importance: 5
@@ -667,11 +675,3 @@ Stories: 81
 - summary: Taylor Swift showcased a mid-gala outfit change, maintaining a romantic-blue theme for the event. Her fashion choices continue to attract attention and admiration.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQejh1allNTHFoREd3b0ZITWVTUHk1VjkzdDU5LUU0UXB1TnhTdUZ1dmxYVzZDTEI0Z040c0NXU19wZTZQTUFjVXpsdnVmVURETnhBNmhrRVJmaVExM0NaaFpFaVNxeXFMM1Q4TE8wSUpicjcybGFsQXllZ0lCdjZKWVRWdHplVGd1Q1V2dUNyMVZ1dHRsRVR1Xw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Attendance at Chargers vs Chiefs Game in Question
-
-- first seen: 2026-10-18 15:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift's potential presence at the upcoming Chargers vs Chiefs game and her whereabouts this week. The situation remains uncertain as fans speculate on her attendance.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9wFBVV95cUxOcGVsWGJpZjNEVWFWMHFXa1EzR2g4bFNDdEw2NU5COXVyYlNlMGkxaUNXLXR3Q0JRaXBtaFlIZTJVTzNmZ29XbFNSdEw3NjVKZFVTNlNUZFVCV1BEcTRQTFJ6bklycEV0YkxfQzhtaldlc3E1VUk4dUQxTmFRLUdIWW9mTll5RE14aFlOZTdkSzFGVXZTbWx2UnRINll6SWlfSnFSamJFd2dOZHZBZGVCS3M1Yms2bUxPbzBINkc5VnlpWlpWdEd3QzRCS3gzZXF1UVlwa1M5amg3Yk9NVllDZC1uWV9KdUxsRnlrWHRDamxKOFBreERZ0gH3AUFVX3lxTE1EaS1Hdm5ybkNaTkFHSlNqcEk0cjJxRHcxcnV6a01KTFI1SWxaUDVHVHFYMnpOUndJVGxZVFZqTlFxcmV6UnBjX1I2dnZIRFpSYkVLQnVjVmxnUnFZazdtNTJQaW12Um1odEs3NGVYdG94WGttT1NhY1JxNmtxTjBIOVYzblA3UEkwcW9GTmJrVTZJcWRqSDViY3haT2d4c2JnWmZTR1E1N2VsVzBObm5wek1ienNhUFBYbHIyLUNyQVk4THp6enlVcnR3Y284THpYX3FwQzl3elVwcV9mWkRXdDl6Ym1HT3prMVRYN2cwZ19JUDRWWVU?oc=5&hl=en-US&gl=US&ceid=US:en
