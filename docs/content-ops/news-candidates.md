@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Taylor Swift's Debut Album Celebrates 20 Years with New Book
+
+- first seen: 2026-10-21 21:33 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new book has been released detailing Taylor Swift's early years in Nashville, coinciding with the 20th anniversary of her debut album. The book provides insights into her journey as a young artist.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNOWJvRzVfVERBU0dDaGV2TDdadEEtcm9xZzVuUzZOWjNhUkdCVS1UR1lqcV9qT0I0dE9weThDV3FoSncxbkNNQmx1dzdzSnNqaDhyWjgzSlpyM21GMGRHbXFkMjJvb1VmTm1peVJmWV96bWJFNTJ2UWRWOFFkdnNVc1hzYWJyNHhrSUh4N1FLTjVOVEdwLTlhblVB?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce shares Taylor Swift's reaction to brother's wakeup call
 
 - first seen: 2026-10-21 20:19 UTC | category: relationship | importance: 5
@@ -682,11 +690,3 @@ Stories: 83
 - summary: Taylor Swift was seen at the Chiefs-Chargers game alongside Caitlin Clark and Este Haim. The appearance attracted attention as she enjoyed the event with her friends.
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMihAFBVV95cUxQUm9na3NaU0JVQWVueDlYQldPbW9xa09PZ0VuVVcwVXk0ZGp5TnJHcTk5V0w0MklSeHpfN2pUUTZZT0JDc0lEV1JDQzFJS2R2b1NvbWlkN0M0aTVraHM3aGp6WEdLNFhNZlZLbUxuYlhnVktodTdEUW1WYTUyMGdpdjNFbXLSAYQBQVVfeXFMTU5oVDlPclFLVG42Sm8temFUWUtBZkNWUFRxS3BseFpEbGtELTFCcTN5enhEdDdGLVAxWXk5X2NlYlhQcnZWUjBzY3k2alhHTGpqQ0ZYc0FObzU2T1JGUjRscHdDdHdPS0dFUjllTG1MWTJLX1RwTmNndEJ0S2xvQ3NobkQ1?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce and Taylor Swift Purchase Lakefront Mansion in Ohio
-
-- first seen: 2026-10-18 21:21 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift have acquired a new lakefront mansion in Ohio, as detailed in a Sports Illustrated article. The property highlights their evolving relationship and shared interests.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPX1JXMGZ4aFJUWXF1YWdLa3gzSmVCdDJIYkNiTWktTUlnQ3NUY21RVWJZbWJMR0VWMmRudk45anJRS2hTczZNWUY1bzBQblNqSEJQZGVXbVd4UTZFOTE1TGc1bDhaOFZyRWtxTjlxNmlWNXZaMEhhRXlJMm12RGVvS2lMa2hWOFhRQWVpMlV0QVY1MFNJVUJ6dzVlYjZBcGt4emNsMVVLN1lZZw?oc=5&hl=en-US&gl=US&ceid=US:en
