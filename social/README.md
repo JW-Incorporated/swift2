@@ -102,7 +102,10 @@ resurrects an item the PR retired, which may already be live); otherwise the
 PR's version is kept. A founder re-queue or edit that races a retirement is
 lost and must be re-approved; that failure is loud and recoverable, a
 resurrected item is a live duplicate (architect ruling #5). A
-`posted/`/`failed/` record is never dropped. With no open PR (merged, or
+`posted/`/`failed/` record is never dropped, with one carve-out: a `failed/`
+record whose file name also exists in `posted/` is a stale-48h false positive
+(#5857) and is dropped from the poster's view and the pushed state tree, so
+posted wins (#6118, #6123). With no open PR (merged, or
 closed unmerged) the tree is this run's own and a fresh PR opens.
 
 **Invariant:** before any rolling push, no item id (file name) may be both

@@ -501,7 +501,8 @@ jobs:
       #     already be live; a founder re-queue that races a retirement is
       #     simply re-approved later); else the rolling PR's version.
       #     posted/ and failed/: a record is never dropped (this run's
-      #     version, else the rolling PR's);
+      #     version, else the rolling PR's), except a failed/ record whose
+      #     name also exists in posted/ (posted wins, see below);
       #   - NO open PR (merged — squash, so the tip never becomes an ancestor
       #     of main — or closed unmerged): the tip's history is spent and the
       #     tree is this run's own. A closed PR's unmerged changes are dropped
@@ -626,10 +627,25 @@ jobs:
             fi
             NEW_COMMIT=$(git commit-tree "$NEW_TREE" -p "$TIP" -p HEAD -m "$commit_message")
           fi
+          # Posted wins (#6118, #6123, #5857): a failed/ record shadowed by a
+          # posted/ record of the same name is a stale-48h false positive.
+          # Drop it from what we push, including one the rolling tip carried
+          # in through the merge above. posted/ is never touched.
+          ids() { git ls-tree -r --name-only "$NEW_COMMIT" -- "$@" | sed 's#^.*/##' | grep -vxF .gitkeep | sort -u || true; }
+          SHADOWED=$(comm -12 <(ids social/posted) <(ids social/failed) | paste -sd ' ' -)
+          if [ -n "$SHADOWED" ]; then
+            GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/prune" git read-tree "$NEW_COMMIT"
+            for F in $SHADOWED; do
+              GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/prune" git update-index --force-remove -- "social/failed/$F"
+            done
+            PARENT_ARGS=()
+            for PAR in $(git rev-list --parents -n 1 "$NEW_COMMIT" | cut -d' ' -f2-); do PARENT_ARGS+=(-p "$PAR"); done
+            NEW_COMMIT=$(git commit-tree "$(GIT_INDEX_FILE="$SCRATCH_INDEX_DIR/prune" git write-tree)" "${PARENT_ARGS[@]}" -m "$commit_message")
+            echo "::notice::social-poster: dropped failed record(s) shadowed by posted/: ${SHADOWED}."
+          fi
           # INVARIANT (architect ruling #5), independent of the rules above: no
           # item id may be both queued and posted/failed in what we push. If
           # one is, abort — nothing pushed, no fallback PR — and fail the run.
-          ids() { git ls-tree -r --name-only "$NEW_COMMIT" -- "$@" | sed 's#^.*/##' | grep -vxF .gitkeep | sort -u || true; }
           CLASH=$(comm -12 <(ids social/queue) <(ids social/posted social/failed) | paste -sd ' ' -)
           if [ -n "$CLASH" ]; then
             echo "::error::social-poster: ABORTED the rolling state push — item(s) both queued and posted/failed: ${CLASH}. Remove those social/queue files on main (each already posted or was retired); re-queue an item only under a new file name."
