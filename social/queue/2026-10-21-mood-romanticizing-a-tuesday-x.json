@@ -29,5 +29,15 @@
     ],
     "revision": 1
   },
-  "why": "X sibling of mood:result:romanticizing-a-tuesday (Calendar 2026-10-21 23:00Z). Same campaign + scheduledAt + photo as the IG half per W8; bare-list form, ≥20% different from the IG caption. Results verified deterministically via matchMoods on the chip's hand-tuned vector (The Best Day, invisible string, Timeless, Daylight, Mary's Song). Weighted length well under 280 (URL counts 23). Hook: the artifact. Uncredited reddit photo, no credit line; image is an LFS pointer in this checkout (same-picture check unverifiable locally)."
+  "why": "X sibling of mood:result:romanticizing-a-tuesday (Calendar 2026-10-21 23:00Z). Same campaign + scheduledAt + photo as the IG half per W8; bare-list form, ≥20% different from the IG caption. Results verified deterministically via matchMoods on the chip's hand-tuned vector (The Best Day, invisible string, Timeless, Daylight, Mary's Song). Weighted length well under 280 (URL counts 23). Hook: the artifact. Uncredited reddit photo, no credit line; image is an LFS pointer in this checkout (same-picture check unverifiable locally).",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-21T21:13:13.540Z",
+    "pr": 6157,
+    "sha": "1c849b0422febce813ef28ca707ad4be6c73cf94",
+    "message": "1562498164160987239",
+    "contentHash": "sha256:f3600294fb1de8bfa79140b3d83bfb98d17dea624034c2ef43495593b71de281",
+    "sig": "hmac-sha256:aba8ed58363d7d4a4147d083758b6fdb5a0beb3a35d076ea98fc01af155c9b58"
+  }
 }

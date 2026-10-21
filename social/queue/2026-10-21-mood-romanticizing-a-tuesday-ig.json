@@ -29,5 +29,15 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of mood:result:romanticizing-a-tuesday (Calendar 2026-10-21 23:00Z Mood beat). Chip label quoted verbatim from mood-starters.ts; results are deterministic — matchMoods on this chip's hand-tuned vector returns The Best Day [fearless], invisible string [folklore], Timeless [speak-now], Daylight [lover], Mary's Song [debut], all scored eras (verified by running the mood engine on the seed-generated song-moods, since the live site can't be reached from this job). Picked a FRESH joyful chip (feral-about-a-bridge was already posted 08-19, and this counters the catalogue's sad skew). Hook: the artifact (what came back), not a date-stamp. Share hook = tag a friend. Link /?mode=mood (never ?mood=). Photo reddit-taylorswiftpictures-1ojprpr-ig45 handed by the prepare job, same photo on the X half per W8; uncredited (reddit pick, no mediaCredit), so no credit line. Image is an LFS pointer in this checkout — could not eyeball it; relied on the prepare job's Taylor-photo/Instagram-sized vetting."
+  "why": "IG sibling of mood:result:romanticizing-a-tuesday (Calendar 2026-10-21 23:00Z Mood beat). Chip label quoted verbatim from mood-starters.ts; results are deterministic — matchMoods on this chip's hand-tuned vector returns The Best Day [fearless], invisible string [folklore], Timeless [speak-now], Daylight [lover], Mary's Song [debut], all scored eras (verified by running the mood engine on the seed-generated song-moods, since the live site can't be reached from this job). Picked a FRESH joyful chip (feral-about-a-bridge was already posted 08-19, and this counters the catalogue's sad skew). Hook: the artifact (what came back), not a date-stamp. Share hook = tag a friend. Link /?mode=mood (never ?mood=). Photo reddit-taylorswiftpictures-1ojprpr-ig45 handed by the prepare job, same photo on the X half per W8; uncredited (reddit pick, no mediaCredit), so no credit line. Image is an LFS pointer in this checkout — could not eyeball it; relied on the prepare job's Taylor-photo/Instagram-sized vetting.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-21T21:13:13.540Z",
+    "pr": 6157,
+    "sha": "1c849b0422febce813ef28ca707ad4be6c73cf94",
+    "message": "1562498164160987239",
+    "contentHash": "sha256:431d64417dae24b6ea6399a7a316f5ba29f43bbbdcafe560da59d760d0446019",
+    "sig": "hmac-sha256:ed5d1244fd713ce05a4d24b72038448f930aca121828538e1b61b2af37d24016"
+  }
 }

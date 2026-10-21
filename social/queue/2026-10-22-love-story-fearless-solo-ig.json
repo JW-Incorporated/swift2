@@ -29,5 +29,15 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of timeline:love-story:fearless-solo-2008 (Calendar 2026-10-22 23:00Z Blank Spaces beat). Chapter = single-2008 in the lens's own order (2008-10-15 → 2009-09-01), the next unposted entry after the Joe Jonas chapter posted 10-01. Confirmed-public-record only (seed single-periods.mjs): Fearless released Nov 11 2008, 'You Belong with Me' + 'The Best Day' from this window, first headlining tour opened April 2009 (NA/England/Australia), most-awarded country album in history — no invented stat, no relationship-existence speculation. Hook: the surprise that the next chapter is a solo period, not a date-stamp and not 'every love story has a...'. Photo reddit-taylorswiftpictures-1pm1yly handed by the prepare job, same photo on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+  "why": "IG sibling of timeline:love-story:fearless-solo-2008 (Calendar 2026-10-22 23:00Z Blank Spaces beat). Chapter = single-2008 in the lens's own order (2008-10-15 → 2009-09-01), the next unposted entry after the Joe Jonas chapter posted 10-01. Confirmed-public-record only (seed single-periods.mjs): Fearless released Nov 11 2008, 'You Belong with Me' + 'The Best Day' from this window, first headlining tour opened April 2009 (NA/England/Australia), most-awarded country album in history — no invented stat, no relationship-existence speculation. Hook: the surprise that the next chapter is a solo period, not a date-stamp and not 'every love story has a...'. Photo reddit-taylorswiftpictures-1pm1yly handed by the prepare job, same photo on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-21T21:13:13.540Z",
+    "pr": 6157,
+    "sha": "1c849b0422febce813ef28ca707ad4be6c73cf94",
+    "message": "1562498165377077391",
+    "contentHash": "sha256:e5b22f8bcefe801233ade33c675d13ad12f9a618593a3978a5b6ee83c9d81d32",
+    "sig": "hmac-sha256:fedb82f44c73f93f116f5505b1e1fc67c16fe521b4458e32f75f48c823d5fd1f"
+  }
 }
