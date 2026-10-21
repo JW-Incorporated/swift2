@@ -2,21 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #141 🔴 [BLOCKING] routine-template: retry claude-code-action once when the Agent SDK install fails (no execution file) (~5 min)
-<!-- ha filed=2026-10-21 -->
-<!-- ha verify: issue-closed 6170 -->
-
-**Why:** The ops-fixer could not fix #6170 and needs a session with more reach.
-
-**Steps:**
-1. Open Claude Code in Documents\Claude\Projects\Swift2.
-2. Paste the prompt from issue #6170 (copy button on the code block).
-
-**Worked if:** issue #6170 is closed by a merged PR.
 
 ## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-20 -->
@@ -87,7 +75,6 @@
 4. Go to https://affiliate-program.amazon.com and note your Store ID (ends in -20) and its approval status.
 5. Paste both IDs in the Swift2 pipeline PM chat.
 **Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
-
 
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->
