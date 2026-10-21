@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
+
+## Taylor Swift and Travis Kelce Dine at NYC Hotspot
+
+- first seen: 2026-10-21 06:58 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted dining together at a popular restaurant in New York City. The article also features a list of 11 recommended restaurants to visit in the Big Apple.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObmJhTnIwY0NqVkZCUlhldVl6dnYtRTRqR1ZrMHZWMGNMa2JFRzJ5ZTl1bG53aDdLNnB2UXJicElOSEVSeUNPQk1GTTdTZDFVaTRTWXJJYklBaTNGRXRhanh2UU0wWmdTRkllNEx3MUltaE5jbFJ5OUFYNlhNWjJKZXBhVzBickRLOXlaY1ZxWVo5WFNULVotclRHelVtQnRsLUo4bWo4WkRHa2N0X2ZOTzd4Rjh6TGhBNGJuWW1xSkE2b1g3NG1TY1F5cC1Da05kUVVYLTRMNVVVeXVCWkctbzVZM0I?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Styles Red Bodysuit with Retrouvai Ring
+
+- first seen: 2026-10-21 06:58 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing a striking red high-cut bodysuit paired with a $6,000 Retrouvai ring, showcasing her fashion sense. The look highlights her signature style and attention to detail in her outfits.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS3F4b0FSbUpZWVVhcHg1eGFFOGs4WnpKUUdSekJ3WmNUWkU1YUcwMUhhMEpDYThqa2RseHJWSXZjRWR5RUdMUXZZNy1Xc251eTJHTGRHWmpOWVZLWnJKTkRaRXZ6VDlDT25UUzJsRWhuRW52dFNUVFBkTnJ3ZzZsTmwtXzgxUW5yU3ZlREVZakFpQ01fVlBBOFVpU0hudmtk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears High-Cut Louis Vuitton Bodysuit for Game Day
+
+- first seen: 2026-10-21 05:39 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted in a high-cut Louis Vuitton bodysuit while attending a game. The stylish outfit has drawn significant attention from fans and fashion enthusiasts alike.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOS1hSVHZTMGtVc0dUQmVuQWlQdVduNC1NWW1aMHZXNkRqcUtzejNkQThBbGlldjZtRXZHTElNZlBHY3duV2hHNmNJSGRLTXpocldqR0pPRGMyeXpESzhOdXBVdnZ0TGFlTE5CR2dpYVEtWi1uNXNVWEl5c0w1WVFCMUdwU0tIX1BUTndIODEwSV9kaG5VcHNualRQMFNvSk1WaWdCMmRHcEQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Rhode Island mansion purchased for $80,000 in 1948
+
+- first seen: 2026-10-21 05:39 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report reveals that Taylor Swift's Rhode Island mansion was bought for $80,000 in 1948. The historical context of the property's purchase sheds light on its long-standing value.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcVZiOGE0Y1RPdjFQdGs4dXdyWC12MjBuRGsxUWZhdzVpaGNYQkRrZVpOdkFvYXlBVHhiRV9JMWVKNC1RbF9sdXNGMXpLTUdVb2h2YkFNTXhkRThfNnFwUHZEMVM2MGpmNEVWODFKX0tLSXMwVldDUkJhaXR3WlFYeXVsZDJHUjAtMGRaZkp1WHVvR2ViZUJPTkYzbHVXeG9udFJIanBn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's song featured in court case involving Beau Lamarre-Condon
+
+- first seen: 2026-10-21 04:43 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: In a recent court case, it was reported that Beau Lamarre-Condon allegedly played Taylor Swift's song 'No Body, No Crime' during a body disposal incident. The information was presented during the proceedings, drawing attention to the case's details.
+- sources:
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisgFBVV95cUxORTZEMjhPMk9kTTVFeGJLdFA5S2k1TXVpcW5YWnBpdllDX3hNT25pZ2dCUElTbFpCc2ZlbHV3S0RWYUhHUzFkcExPT01YTjFVb1hVem5oajRRTGdsSXIxM3huS01HaHVIdExEV2Q2bXZuVFJmUEtyLVZkX3dQTnQ5eWVkZ2xPTkhTVEV6RzN1ZzAxTDZKU2NWWWd4SGVudFlDOC1mZ0E5eUZYMUFOTEtUcUVn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Confronts Fan Filming Her at Chiefs Game
+
+- first seen: 2026-10-21 02:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An eyewitness reports on a confrontation between Taylor Swift and a fan who filmed her at a Chiefs game. The encounter has drawn attention from media outlets and fans alike.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMisAFBVV95cUxQT1lLSUh5VHZzcFRZWEQtRWp3WjJLdFA2bm9DUi1JV1FiQ1c4YjhJeWxaRG1WWGpmSURXN05wNWJ2YkJMSVBpbVFRcjlNeG4yMmhVSXo1eHNxRkhiak91SkU2NkdoY3hBNTJYVlZBVkNOa2ZKdWRuc1RSbU5mYXBNeVVyZVhnN2k0QzdhV3A3SGNhTngxM0hLcjhpSGJSQ3l0bEFkYXpzd1d4azVVS2hqNg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and band perform at Academy Gala
+
+- first seen: 2026-10-21 01:46 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reunited with her band for a memorable performance at the Academy Gala, showcasing their musical collaboration.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPVi1RN0FSeUxtWnltZ19QVldKcWpFcTZCc1Z6azlwZ2djbTNNT0tJLXJSemdjMTNjVW45TU95RFNmbnMzN3pPOWoyZU5hMGVQZ1gzVU5Vd1VCQ3lvVG5rR0V4WU1qQlUyTUg2Tkc3QVNEb0xVbGkyWi0wamxSWXBxNkk5TUMyaVU0TGhubnRvY2RMSWs4empmY2lWaDJDZUFuRThrczR1RHVRdTVUeFVKOVBMYmo?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Potential New Saint Listened to Taylor Swift
 
@@ -612,80 +668,3 @@ Stories: 82
 - summary: Taylor Swift and Dakota Johnson were spotted wearing retro fall pants, moving away from traditional jeans. This style choice highlights the resurgence of retro fashion trends.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQWXJ0SmM2RXBoLU54X1ZrRm82bllEV3Azd3lQSENTQWc2V2ZZc0U2ZXd6QktNb1BFdzdZVWx3NXFLRXV2NF9ZWE45c25fTkg0bU9oaUMwbGdSRW5RcHFsMU11QjBJZWpvdnBBeF9vLWZmWTFIclc5RDdhT2dfZVFjam5TbFFKaHpFRTNfQmtJcUJKSmVI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mammoth Looks to Taylor Swift's Advice Following Tough Loss
-
-- first seen: 2026-10-18 07:46 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: After facing a significant defeat, the Mammoth team is considering advice from Taylor Swift. The reference underscores the influence of Swift's perspective in various unexpected contexts.
-- sources:
-  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOUWZTTFZ1ZFVnaEVnTGVnQTRXMVI4ODlENnBra2hwNmFLZkczTnhua2gtSmxUVXRVeGpRZlp4V0FEdEg5X19JajlsUmg0RXoxeXJwbkRNbVZtRnlMNEF6aWY0eXozTTVmemp5Q2lMdnhYNG5Fd2V2Mlk0QWUxMHlVRHZJSDM0WmhlSmtB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Hair Care Secret with Fans
-
-- first seen: 2026-10-18 05:50 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reveals her secret to achieving lustrous, full hair using a volumizing shampoo praised by fans for leaving strands soft and bouncy.
-- sources:
-  - [unverified] www.instyle.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMW5qR1NBTGFsUGpGajFOc0JHVGJVeTdqQlEyUnJ4dmRKcHBMQURiNThJaEJqZk9jYUxSRFBWWkxwR0dGTndEeUM2NDdYMUQxM3VwUmhYNUtRV0RXck5NUzZhYkJQSlVUWElqeXpQdndhZ0dBUnAwcUhqM1VOSjJXSlNWMzhWTmdL?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Baby-Blue Gown Sparks Wedding Dress Speculation
-
-- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A recent article from Harper's BAZAAR discusses Taylor Swift's baby-blue gown and speculates whether it may be a hint at her potential wedding dress. The piece examines the fashion choices of the artist in connection to wedding themes.
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMixwFBVV95cUxOUWZodjh3blZaWTUzMjFLMjRad3o5eUw5S2ZieGNpNXBEeUdvaVNoeVk0WGJ1LUxvcC1VeVdhNzZlTFpWUGhSbjYybnJJWkF0UE55bVdQRXU1ZFBHTHZWSFNiVWJGRjdnOEtFTm9vRlg2S3VJNDlQbVFMS3Y5X1Y5TV96Y2pqYllHcV93b2MxZ0x5SnZnZjd4cWFuN2Q0dmtIdXBWaFpIRjlpc1F5b0ZpcXNRSXBaTW5NTEVCV2RVeGQzMWc3Y0tn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Red Carpet Style Continues to Impress
-
-- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been recognized for her evolving fashion choices at red carpet events, showcasing a remarkable sense of style. The latest article from The Zoe Report highlights her impressive fashion moments.
-- sources:
-  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMihgFBVV95cUxQZm1WNHlsUGl4cUxrNFlGazB1SGFGT0RBdm9HQ2dfS3YtNFRjQmM3QU55ajVwQkMyaEhhN1ZBNmJGQjBxS2x6MVVEQk1QcERZUXVxWHlYUXdPbGVhckNIbXVIZV9Nbjc4SVFWcm4yaVJpQW1IS1FWNGFZc3ByQjJmWFV1YUZsZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Strapless Gown at Event
-
-- first seen: 2026-10-18 04:47 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, 36, made a striking appearance in a strapless gown at a recent star-studded event.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxNRVhua0ZQbEpJdlZPMjNGUkE4Y3dPMWFyQVEtdHF5RzlDRTZwTDl2VXNyUjZZdWdZWDRDUmIycGZrOU45d0JlYXNGcGdPczhDajRNN0Z0d01NcTRtZUJoU1ByVzdMNFJ4QURlNjNCUS00bjFpYU5fZDFHMEJGSUZVQkx4QmVNSXlnckVlWXV3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Academy Museum Gala in Los Angeles
-
-- first seen: 2026-10-18 03:51 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at the Sixth Annual Academy Museum Gala at the Academy Museum of Motion Pictures in Los Angeles on October 17. The event showcased her stunning look and was covered by various media outlets.
-- sources:
-  - [unverified] Facebook — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNWHVPSENjTXIzdXAycENSS19DSnNLanpIUTloYzV3cGxVMGFqOTFfamQ2UmxrQWdaTEVueG10cHBneS1HTHBEUGZTLTBEQWR3bWVEdzFTZWpFcHlqcmhqS1EyNHdhUFNwWFp1aWZFRDByR3JMb1NtTXhtZ2hSQ2x0NFVPMm9TMk9Sc2JNbzRoLVdBS2pPMFN1Vl9vQjAtbjV1dTVELUNBQU1RRWRTZ0VmZ0hzWVd4SFI5WWYzM2ZrQW5nU09UUkJySEpyMl91aGdQMU44?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Graces the Red Carpet at Academy Museum Gala 2026
-
-- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift attended the Academy Museum Gala 2026, showcasing her fashion on the red carpet alongside other celebrities like Inde Navarrette.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/18/style/taylor-swift-academy-museum-gala-2026.html
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-performs-the-fate-of-ophelia-live-academy-gala-1235644441/
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/lifestyle/style/best-dressed-stars-academy-museum-gala-2026-1236734403/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMie0FVX3lxTE9NTGVpUlBJaFp1MXpRdlBIbkxSZk5GbE5JTFEzV1VLUEY4XzRwMV9NY3NwbV8wUWc2NFJYdHlIbWlLNXd4ZU11YTNic1VBU2hVZEFJR01lV3JNalVvOEZrcVotb19IOFJ6U1NwajZxZXlnTVdEN1B2Z0Zibw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-dress-academy-museum-gala-2026-1239364045/
-
-## Taylor Swift Stuns in Dior Dress at Academy Museum Gala
-
-- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: At the Academy Museum Gala, Taylor Swift impressed attendees with her strapless Dior dress, marking her debut at the event. The fashion choice has garnered significant attention from fans and fashion enthusiasts alike.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMilgFBVV95cUxOaTNpRXJWOFBwTkJoSUI2Rm1iU1RZS1Q4UDlrWFI0QkdtSHFING44VHNCUWpNWXpXTWdhNXpJakN5eXdLQm9GZEp1eEh0amVaakV5dFhmNUJxSHZBaVBhS2V1SzdoR1gxZE5yYWtrUjVqdHVmN29wOUFmRUQ3Ym9xRjlqNk04c2dZLTNzSmRkQ09jM2c2dUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Stuns in Ice Blue Gown at Academy Museum Gala
-
-- first seen: 2026-10-18 02:51 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a stylish entrance at the Academy Museum Gala, donning an ice blue gown accentuated with a giant crystal bow. The outfit showcases her distinctive fashion sense at a high-profile event.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYWEyNGoxNlVDMWRlNjFtenA4eFBPZWRMV2dISVRMLVVSUGNWTzJOZFVfekxhdElVN3R2bDZ3TzZhYmlVNm5LUU5seG1ZclQ0YkF0UjZTc3RhVER5cnU2b0EwMDBuRWF2ellIekg3cmZaTjdKTEIzODFERFV2UW5YaXJzSFRSc2FFNWZodmlRVEJxSnJFWG1taFVUNVQ3UnJF?oc=5&hl=en-US&gl=US&ceid=US:en
