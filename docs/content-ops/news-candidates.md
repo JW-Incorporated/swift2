@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 84
+
+## Taylor Swift Praises George Strait's Sense of Humor
+
+- first seen: 2026-10-21 12:58 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her admiration for George Strait's "awesome, dry, subtle sense of humor" in a recent statement. The comment highlights her appreciation for the country music legend.
+- sources:
+  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMirgFBVV95cUxObUJtdkg0ZTJ5WEduckFBVDJqYm1DNEdNVldjUmxaLWNCWnlxREZrVEo3b3hOOFJRTXNCZTRYMGpvTnN5TndnemlIX3MtZ2t4ZE5lNUIweGxlY08zdExsRXVBWHRKb2dKck8wTnFzb0Myci10WEtrSGZRZ2ozVTZNSFdWRzZmZm52TC1ES0tqUVBWX1ROd0NCNkw5WFVhMVFEdzRmMXVXOEZSb1EtQmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Interaction with a Fan at Travis Kelce's Game Gains Attention
+
+- first seen: 2026-10-21 12:58 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An interaction between Taylor Swift and a fan during Travis Kelce's game has gone viral. The moment has garnered support from fans who are taking Swift's side in the situation.
+- sources:
+  - [unverified] CafeMom.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxPZ0YxN3RnN3ZUNnhYZ3oxaTNfZ2NxSVFnNnhWWjJvLWl0eGFzb2E1VWw3eGhDazRKaGVKdjdKSVRYR2lVRTFhNTdCZnczMUZiQnVHUGRBYVdHeGhCNlZDT0RaUlhjSUhzNGxBd1lRUUZXSVRKVjBiSVZRTExucklMeXZLTXRXTThDRjhqaVN0ZGZwa2s2?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Addresses Fan Filming at Chiefs Game in Viral Clip
+
+- first seen: 2026-10-21 12:58 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent viral video, Taylor Swift seemingly addresses a fan's filming during the Chiefs game. The incident has caught the attention of fans and media alike.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPdms1SG5JdHdRQ3hGTkVTYWVNWmQweUlZSElmRkRQc0h1aUZoLVlCVWlRM3F4QnJWOVE3TjJuVUh0M1dQZEk3elc5VWM5TmY3cGhTMUtRX2VEN0g4Yko1bTV1aHFqVG1QRHFERDBLN1ZyX0hIcU1JMXhfZThvTHB1Q1FqblU2QjdNckQ1Unh1QzQzWHMxenE1UlpzZUFoS2FoREE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Every Taylor Swift Song Ranked from 270 to 1
+
+- first seen: 2026-10-21 12:58 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Ringer has published a comprehensive ranking of all Taylor Swift songs, listing them from 270 to 1. This article showcases the author's evaluation of her discography, providing fans with insights into the ranking process.
+- sources:
+  - [unverified] The Ringer — https://news.google.com/rss/articles/CBMif0FVX3lxTE02ZlI0bHkxWVRJWl9NRDg4OEQtVUtJZk1IU29xUnUwUDdIdTFOb2NERFRwbGJidy1wLVVtbGFwN0kxajB2M19teW9lTE42elpudUZFSW1sVUxiaHJVOWRCVFM1bFo1ZS1FOUt6N3EyanJVNENYQ2JNdEI0RUxSNTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Shares Phone Call from Brother Jason About Taylor Swift
 
@@ -667,12 +699,3 @@ Stories: 81
 - summary: Taylor Swift made a stunning appearance at the 2026 Academy Museum Gala, wearing a beautiful pale blue Dior gown with eye-catching diamonds. The event showcased numerous stars and featured Swift's live performance of 'The Fate of Ophelia' for the first time.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxOZ2JWOXBHVGNLU0ZEN1B2dTdnNDBJbHdmZnQtYmlqU01XVTlUWk1BX1g1WHloYkpHd25INXpMaFNWTmVpMU11MWViZUNDc1l4RWVQSFlmUEhYZTNOVWxqaTlHRFJiMlFVRGFsZFNIT2ZRclFzQVdPaXZ0aHE0dXEtLWZscnhKUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Kim Kardashian Attend Academy Museum Gala
-
-- first seen: 2026-10-18 12:41 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift, along with Kim Kardashian and other celebrities, made a striking appearance at the Academy Museum Gala. The event showcased various stars in fashionable outfits.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMiiwFBVV95cUxNS2Z5MjlpaXZFVXNfRXV4M2pLSVJXRGtYb2FQUzJEWHdUY0RTd3JLS3NuSWV5SHMxZ21fZDhzeHhqQzNoRkxweU0taFlIZnMwcmtQcC1Ua1R5a3QwczZ0ZXk5ckUzM3FmOFhMTHJtM1JFT0JYV3RIWEpVRmduT2ZkeTg4NndZZDF6R3Jv?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] WWD — Taylor Swift tag — https://wwd.com/eye/parties/academy-museum-gala-2026-taylor-swift-kim-kardashian-1239372519/
