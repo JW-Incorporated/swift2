@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "the next chapter in the blank spaces timeline isn't a boyfriend — it's the ten months Taylor spent single after joe jonas, turning one phone-call breakup into Fearless 😭\n\nthe album landed november 11, 2008. \"you belong with me\" went everywhere, \"the best day\" quietly wrecked anyone who's ever loved their mom, and the whole record became the most-awarded country album in history.\n\nby april 2009 she wasn't opening for anyone anymore — she was headlining her own arena tour, carrying those songs across north america, england and australia.\n\nthat's what i love about laying it all out in order: sometimes the biggest era is the one where she wasn't dating anyone at all, just quietly becoming the person the rest of the timeline revolves around.\n\nwhich solo stretch is your favorite? tap through → longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pm1yly.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pm1yly",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pm1yly/happy_birthday/",
+  "scheduledAt": "2026-10-22T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Happy Birthday 🎂"
+  ],
+  "campaign": "timeline:love-story:fearless-solo-2008:2026-10-22",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The next Blank Spaces chapter after Joe Jonas: the post-breakup solo stretch that became Fearless. Confirmed facts only — Nov 11 2008 release, 'You Belong with Me'/'The Best Day', the April 2009 debut headlining tour, most-awarded country album. Non-date hook, soft share ask, uncredited Taylor photo.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of timeline:love-story:fearless-solo-2008 (Calendar 2026-10-22 23:00Z Blank Spaces beat). Chapter = single-2008 in the lens's own order (2008-10-15 → 2009-09-01), the next unposted entry after the Joe Jonas chapter posted 10-01. Confirmed-public-record only (seed single-periods.mjs): Fearless released Nov 11 2008, 'You Belong with Me' + 'The Best Day' from this window, first headlining tour opened April 2009 (NA/England/Australia), most-awarded country album in history — no invented stat, no relationship-existence speculation. Hook: the surprise that the next chapter is a solo period, not a date-stamp and not 'every love story has a...'. Photo reddit-taylorswiftpictures-1pm1yly handed by the prepare job, same photo on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+}

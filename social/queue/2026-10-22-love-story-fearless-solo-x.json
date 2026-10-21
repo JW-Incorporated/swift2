@@ -1,0 +1,33 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "heartbreak in, arena tour out. the stretch right after joe jonas is where Taylor stayed single, poured it into Fearless, and by spring 2009 was headlining arenas on three continents.\n\nthe timeline, chapter by chapter → longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pm1yly.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pm1yly",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pm1yly/happy_birthday/",
+  "scheduledAt": "2026-10-22T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Happy Birthday 🎂"
+  ],
+  "campaign": "timeline:love-story:fearless-solo-2008:2026-10-22",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "X sibling of the next love-story chapter after Joe Jonas — reframed on the tour arc (heartbreak in, headlining arenas on three continents by spring 2009), distinct vocabulary from the IG caption. Confirmed public facts from the seed. Under X's weighted length limit.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "X sibling of timeline:love-story:fearless-solo-2008 (Calendar 2026-10-22 23:00Z). Same campaign + scheduledAt + photo as the IG half per W8; structurally unlike the IG caption (different opener, ~240 weighted chars vs 5 paragraphs). Confirmed public facts from seed single-periods.mjs. Hook: the contradiction (the next chapter isn't a person). Weighted length under 280 (URL counts 23). Uncredited reddit photo, no credit line; LFS pointer in this checkout so same-picture check unverifiable locally."
+}
