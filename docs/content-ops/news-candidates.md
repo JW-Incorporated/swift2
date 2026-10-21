@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Potential New Saint Listened to Taylor Swift
+
+- first seen: 2026-10-21 00:46 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: An article discusses a potential new saint of the Catholic Church who reportedly listened to Taylor Swift and the Jonas Brothers. The piece highlights the intersection of pop culture and religious figures.
+- sources:
+  - [unverified] ZENIT - English — https://news.google.com/rss/articles/CBMixAFBVV95cUxQTHFFS1QzRFp1SlpfdWgzakRFemtjWGFNWnlfaWtLOHlhYmdWZzduS2c4LVB4N0piUEdaSktzN0dtWl9XZGUxamozLVBjUzR4YmpaYVRnVHJOT1k2UzU0cG5iMmF5MUQxbTJwdEtZR3MxZEowZ1dwUkZTYnVhUmZIZklsVmdST1d4cllYaU5WZzVZYUhXMG13eHpLMXhZd0tabzFvd0pWQnBjOXBQeWpqTVBQdDFqYnhWdGoyX1daSnR4THJl?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Post During Knicks Ring Ceremony
+
+- first seen: 2026-10-21 00:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, a Knicks fan, posted on social media during the team's ring ceremony, despite not attending the opening game. Her absence from the game was noted alongside her support for the team.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQSWpzRzA2M0sxSGhoNkVaT0RSTEF5VV9HMTZIbWtjdVZCNzhqeE1OQUhaU19lejloUEJnNkNxUVlWaDVqcXB1V1VKcWN6Ym9HaE9RTjdzQTJyeUtEamlNb29pcW82QnZDb0lBeGRoTTRMYkE4bllTYlRYa3dOQWx1Rm45NG54VzhZOUEyMFJaNld0cWItRGVFd2U5QzBKS2RrRFE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Overview of Taylor Swift’s Oscars-Grammy Campaign Timeline
 
@@ -673,11 +689,3 @@ Stories: 81
 - summary: Taylor Swift made a stylish entrance at the Academy Museum Gala, donning an ice blue gown accentuated with a giant crystal bow. The outfit showcases her distinctive fashion sense at a high-profile event.
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYWEyNGoxNlVDMWRlNjFtenA4eFBPZWRMV2dISVRMLVVSUGNWTzJOZFVfekxhdElVN3R2bDZ3TzZhYmlVNm5LUU5seG1ZclQ0YkF0UjZTc3RhVER5cnU2b0EwMDBuRWF2ellIekg3cmZaTjdKTEIzODFERFV2UW5YaXJzSFRSc2FFNWZodmlRVEJxSnJFWG1taFVUNVQ3UnJF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Carlotta Films Secures French Distribution for 'It' Featuring Clara Bow
-
-- first seen: 2026-10-18 00:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Carlotta Films and Artcraft Pictures have announced a French distribution deal for Hollywood classics, including Clara Bow's breakout movie 'It,' which features Taylor Swift as a heroine.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE12d1NobWlIR2xxMkE3QmF0aEJlNjRCX2ZFRlVuSG5TRkU4ZU9OdUJ1UHJVSy1DLVVNbFdxb0RUWDc4aG1fMTdwT19ac3ZTQjVXTkZCUk1VV0h6Y1Q4bTNRX3ZNY0pwZw?oc=5&hl=en-US&gl=US&ceid=US:en
