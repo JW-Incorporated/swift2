@@ -61,8 +61,78 @@ describe.skipIf(!hasBash)('applyRollingView (issue #5885)', () => {
     const s = box();
     const run1 = s.checkout();
     const r = applyRollingView({ cwd: run1, branch: BRANCH, log: quiet });
-    expect(r).toEqual({ mode: 'main-only', overlaid: [], dropped: [] });
+    expect(r).toEqual({ mode: 'main-only', overlaid: [], dropped: [], shadowed: [] });
     expect(existsSync(join(run1, 'social/queue/a.json'))).toBe(true);
+  });
+
+  describe('posted wins over a shadowing failed/ record (#6118, #6123)', () => {
+    const FAILED = '{"reason":"stale-48h"}\n';
+
+    it('(a) posted + failed for one name: the view keeps posted only', () => {
+      const s = box();
+      const run1 = s.checkout();
+      post(run1, 'a');
+      s.fold(run1);
+      const run2 = s.checkout();
+      writeFileSync(join(run2, 'social/failed/a.json'), FAILED); // ledger overlay brought the false positive
+      const r = applyRollingView({ cwd: run2, branch: BRANCH, log: quiet });
+      expect(r.shadowed).toEqual(['a.json']);
+      expect(existsSync(join(run2, 'social/failed/a.json'))).toBe(false);
+      expect(readFileSync(join(run2, 'social/posted/a.json'), 'utf8')).toContain('u-a');
+    });
+
+    it('(a) the state output never carries the shadowed failed copy, even from the rolling tip', () => {
+      const s = box();
+      const run1 = s.checkout();
+      rmSync(join(run1, 'social/queue/b.json'));
+      writeFileSync(join(run1, 'social/failed/b.json'), FAILED);
+      expect(s.fold(run1).mode).toBe('rolling');
+      s.pr(run1); // rolling PR is now open
+      const run2 = s.checkout();
+      post(run2, 'b');
+      writeFileSync(join(run2, 'social/failed/b.json'), FAILED);
+      expect(s.fold(run2).mode).toBe('rolling');
+      const files = s.files(s.tip());
+      expect(files).toContain('social/posted/b.json');
+      expect(files).not.toContain('social/failed/b.json');
+    });
+
+    it('(b) failed alone is kept', () => {
+      const s = box();
+      const run1 = s.checkout();
+      rmSync(join(run1, 'social/queue/b.json'));
+      writeFileSync(join(run1, 'social/failed/b.json'), FAILED);
+      s.fold(run1);
+      const run2 = s.checkout();
+      const r = applyRollingView({ cwd: run2, branch: BRANCH, log: quiet });
+      expect(r.shadowed).toEqual([]);
+      expect(existsSync(join(run2, 'social/failed/b.json'))).toBe(true);
+      expect(s.files(s.tip())).toContain('social/failed/b.json');
+    });
+
+    it('(c) posted alone is kept', () => {
+      const s = box();
+      const run1 = s.checkout();
+      post(run1, 'a');
+      s.fold(run1);
+      const run2 = s.checkout();
+      const r = applyRollingView({ cwd: run2, branch: BRANCH, log: quiet });
+      expect(r.shadowed).toEqual([]);
+      expect(existsSync(join(run2, 'social/posted/a.json'))).toBe(true);
+      expect(s.files(s.tip())).toContain('social/posted/a.json');
+    });
+
+    it('(d) the queue item is still dropped as already handled', () => {
+      const s = box();
+      const run1 = s.checkout();
+      post(run1, 'a');
+      s.fold(run1);
+      const run2 = s.checkout();
+      writeFileSync(join(run2, 'social/failed/a.json'), FAILED);
+      const r = applyRollingView({ cwd: run2, branch: BRANCH, log: quiet });
+      expect(r.dropped).toEqual(['a.json']);
+      expect(existsSync(join(run2, 'social/queue/a.json'))).toBe(false);
+    });
   });
 
   it('a git error fails loudly instead of falling back to main', () => {
