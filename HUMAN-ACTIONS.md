@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #141 🔴 [BLOCKING] routine-template: retry claude-code-action once when the Agent SDK install fails (no execution file) (~5 min)
+<!-- ha filed=2026-10-21 -->
+<!-- ha verify: issue-closed 6170 -->
+
+**Why:** The ops-fixer could not fix #6170 and needs a session with more reach.
+
+**Steps:**
+1. Open Claude Code in Documents\Claude\Projects\Swift2.
+2. Paste the prompt from issue #6170 (copy button on the code block).
+
+**Worked if:** issue #6170 is closed by a merged PR.
 
 ## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-20 -->
