@@ -3,6 +3,7 @@
 // model, a retailer, or the metered paid-search API. The scheduled
 // `merch-matcher.yml` handoff and `matchMoment`'s R6 tie-break selection
 // logic (match-moments.mjs) are unchanged and reused as-is (SPEC §8).
+import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -211,6 +212,9 @@ async function main() {
   const indexPath = argValue(args, '--index') || 'awin-product-index.sqlite';
   if (!inputPath || !outputPath) {
     throw new Error('usage: match-moments-authoring.mjs --input plan.json --output result.json [--index awin-product-index.sqlite]');
+  }
+  if (!existsSync(indexPath)) {
+    throw new Error(`Awin product index "${indexPath}" is missing; the cache restore found nothing saved by the merch-awin-sync workflow (first run or evicted cache). Run merch-awin-sync to rebuild it.`);
   }
   const input = await readJson(inputPath);
   if (!Array.isArray(input.moments)) throw new Error('input must contain a moments array');
