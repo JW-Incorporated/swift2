@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-21 — Tree daily: deterministic self-approve backstop + max_turns 75
+
+**Decision.** `routine-tree-daily-draft.yml` raises `max_turns` 50 to 75 and gains an `approve-backstop` job (`if: always()` after `run`) that finds today's open `tree/draft/<UTC date>` PR (label `tree`, Tree-identity author), skips if it has no `social/queue/*.json` or a `social-tree-approve` run already started since the PR opened (within 2h), and otherwise dispatches `social-tree-approve.yml --ref main -f pr=<n>` with `SOCIAL_POSTER_PAT` (the same token and `sffan15-sys` identity as the agent's `GH_DISPATCH_TOKEN`). Every gate in the approve workflow is unchanged (dispatcher/author identity, file allowlist, check-drafts, 48h `scheduledAt`, `SOCIAL_FREEZE`); only who triggers it changes. The prompt's step 7 still tells the agent to dispatch it itself.
+
+**Why.** Supersedes the 2026-09-07 rejection of a higher cap. Evidence: draft days need 50-59 turns (runs 39219334673 at 59, 39629911984 at 51, 39136105315 at 51); no-draft days take about 18. The cap was killing approval (step 7 is the last step), not drafting: on 10-18 (39136105315) and 10-21 (39629911984) the PR opened but was never approved, so posts sat unapproved.
+
+**Alternatives.** Raise the cap only (still fails on a long day); reorder the prompt to approve earlier (approval must follow a clean checker, which is late by nature).
+
+**Reversal.** Revert the commit.
+
+Approved by: not yet — reversible.
+
+---
+
 ## 2026-10-18: retire the hot_thread daily scan (founder); Reddit discovery = awareness lane; reply_to_us kept
 
 `community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` and `community-mailer` exclude only Reddit `hot_thread` (`platform.neq.reddit,kind.neq.hot_thread`; Facebook export leads are also `hot_thread` and keep flowing); answerer max_turns 80 to 50. Leftover Reddit `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two filters.
