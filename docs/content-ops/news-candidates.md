@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Travis Kelce Discusses Benefits of Dating Taylor Swift
+
+- first seen: 2026-10-21 17:23 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his thoughts on the perks of dating Taylor Swift, describing the experience as 'pretty cool'.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZVdqSkNBcHptYUttOFFqcmw1V2N2SDhzdTdVY25tNGJRYkx5dDk3QXp4b0QyZWVDaVpzREd2REVULWZfbmstSldfWmRnY0ltcUczMU5zNi1BMmpDWHF4UFIzNmZDclVrUzZLZzdnUU1GcXFnX1ExT2pDT0pnTUlIbGlCT3lJWGtudjJWZ3Rlc2FlYW9tUlVOZ1RjcDlBb3otZUFPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift returns to pop with 'Life of a Showgirl: The Encore'
+
+- first seen: 2026-10-21 17:23 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reenters the pop music scene with her latest project, 'Life of a Showgirl: The Encore', which has sparked discussions among fans and critics alike.
+- sources:
+  - [unverified] The Slate Online — https://news.google.com/rss/articles/CBMilAFBVV95cUxNNVNfT2tVQll4OXVuT2pDUGY5Q1Rnb2lCei1qLXZWTzd0YjBNTHJkRS1CLXljTENIaFVYTkNvZHNYbG5CMzJfQ3h2Rm5UTUx1RWg2dEZwdThfZ0xUTlc0OFdFbWZzRFpIcmwyOUJaY3M0SzM4d01nSDMyZllyZmx1d3dxTW5lNHdNa2pza1VST1NEbjlV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Performs with Band at 2026 Academy Museum Gala
+
+- first seen: 2026-10-21 17:23 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift performed with her band for the first time in two years at the 2026 Academy Museum Gala, describing the experience as a 'vibe.' This marks a significant return to performing live with her band after a long hiatus.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOOWJxZXc1Rm5pdFo3YUtGeS1lZ0xNQjlHVE4zVkREeDR6TGI4MTkzVm5NeXdFM0E0TzR4YjFYZGgybm0wRG5LdkxCTnBaREN0and3Z0U3VTVDTlA1SmtuSnhVNEtIck5YeE9XQUpnX0dEOVZTQllyNlI0WUdMZEU1VGRQVnpXcHhVNHhmM1NGQWZORzJ0Tmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Ranking of 16 Outfits Worn by Taylor Swift This Year
 
@@ -51,14 +75,6 @@ Stories: 81
 - sources:
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNelUzLWc4QkRHSktVVWoxRGhmZTNUcU5pMURfbmlqRjc1Y0h1OGNNSFd0cFh2UVkwRzd4NkV3VEdHS0xvQjNwdHMwV1ZfbjcwSnd6NXczQjhVRFJYc2JpcXlJQmNOZW5ZRDBHTm5JZ25yM3pyN0xKTWl3akcyNkd0UXh2TkV6T3phV2RESWFvYlNfYWhnRG9pZjFRRjB2M0Nob3ZQbTZEV0tWMXVSR3NpMkVLTEFVWEpxZkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Praises George Strait's Sense of Humor
-
-- first seen: 2026-10-21 12:58 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her admiration for George Strait's "awesome, dry, subtle sense of humor" in a recent statement. The comment highlights her appreciation for the country music legend.
-- sources:
-  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMirgFBVV95cUxObUJtdkg0ZTJ5WEduckFBVDJqYm1DNEdNVldjUmxaLWNCWnlxREZrVEo3b3hOOFJRTXNCZTRYMGpvTnN5TndnemlIX3MtZ2t4ZE5lNUIweGxlY08zdExsRXVBWHRKb2dKck8wTnFzb0Myci10WEtrSGZRZ2ozVTZNSFdWRzZmZm52TC1ES0tqUVBWX1ROd0NCNkw5WFVhMVFEdzRmMXVXOEZSb1EtQmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's Interaction with a Fan at Travis Kelce's Game Gains Attention
 
 - first seen: 2026-10-21 12:58 UTC | category: sighting | importance: 5
@@ -82,6 +98,14 @@ Stories: 81
 - summary: The Ringer has published a comprehensive ranking of all Taylor Swift songs, listing them from 270 to 1. This article showcases the author's evaluation of her discography, providing fans with insights into the ranking process.
 - sources:
   - [unverified] The Ringer — https://news.google.com/rss/articles/CBMif0FVX3lxTE02ZlI0bHkxWVRJWl9NRDg4OEQtVUtJZk1IU29xUnUwUDdIdTFOb2NERFRwbGJidy1wLVVtbGFwN0kxajB2M19teW9lTE42elpudUZFSW1sVUxiaHJVOWRCVFM1bFo1ZS1FOUt6N3EyanJVNENYQ2JNdEI0RUxSNTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Praises George Strait's Sense of Humor
+
+- first seen: 2026-10-21 12:58 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her admiration for George Strait's "awesome, dry, subtle sense of humor" in a recent statement. The comment highlights her appreciation for the country music legend.
+- sources:
+  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMirgFBVV95cUxObUJtdkg0ZTJ5WEduckFBVDJqYm1DNEdNVldjUmxaLWNCWnlxREZrVEo3b3hOOFJRTXNCZTRYMGpvTnN5TndnemlIX3MtZ2t4ZE5lNUIweGxlY08zdExsRXVBWHRKb2dKck8wTnFzb0Myci10WEtrSGZRZ2ozVTZNSFdWRzZmZm52TC1ES0tqUVBWX1ROd0NCNkw5WFVhMVFEdzRmMXVXOEZSb1EtQmc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Shares Phone Call from Brother Jason About Taylor Swift
 
@@ -659,19 +683,3 @@ Stories: 81
 - summary: Taylor Swift reunited with her band for a performance, delivering a four-song set at the Academy Museum's 6th Annual Gala. This marked her return to a full-band performance since the Eras Tour, captivating a black-tie audience.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performance-academy-gala-five-songs-1236915817/
-
-## Taylor Swift Debuts at Academy Museum Gala in Dior
-
-- first seen: 2026-10-18 17:06 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made her first appearance at the Academy Museum Gala, showcasing a stunning outfit from Dior. The event marked a significant moment in her fashion journey.
-- sources:
-  - [unverified] Northeast Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxPWWFhOHlPRGhHRnptaFlhTFRnQTViaVIyVGVIdnJTbDhXdEc0T1pCY0pUSUc0UnlPSDk5dWRZZnpoZ3NwcVJZOU5iWFBoM1kxMHlmbk1YWVBfWUtmMWVFQWJVd3ZxV2FwZm5PbFA5T3piQUplanNieDgtN1hJSkhfVExmNmdjSzhUTlRTNDFRN0FNbVBnTEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Gala Look Features Romantic Blue Color Scheme
-
-- first seen: 2026-10-18 16:06 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a mid-gala outfit change, maintaining a romantic-blue theme for the event. Her fashion choices continue to attract attention and admiration.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQejh1allNTHFoREd3b0ZITWVTUHk1VjkzdDU5LUU0UXB1TnhTdUZ1dmxYVzZDTEI0Z040c0NXU19wZTZQTUFjVXpsdnVmVURETnhBNmhrRVJmaVExM0NaaFpFaVNxeXFMM1Q4TE8wSUpicjcybGFsQXllZ0lCdjZKWVRWdHplVGd1Q1V2dUNyMVZ1dHRsRVR1Xw?oc=5&hl=en-US&gl=US&ceid=US:en
