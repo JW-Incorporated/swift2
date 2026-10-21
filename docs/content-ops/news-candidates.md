@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
 
 ## Travis Kelce shares Taylor Swift's reaction to brother's wakeup call
 
@@ -690,11 +690,3 @@ Stories: 84
 - summary: Travis Kelce and Taylor Swift have acquired a new lakefront mansion in Ohio, as detailed in a Sports Illustrated article. The property highlights their evolving relationship and shared interests.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPX1JXMGZ4aFJUWXF1YWdLa3gzSmVCdDJIYkNiTWktTUlnQ3NUY21RVWJZbWJMR0VWMmRudk45anJRS2hTczZNWUY1bzBQblNqSEJQZGVXbVd4UTZFOTE1TGc1bDhaOFZyRWtxTjlxNmlWNXZaMEhhRXlJMm12RGVvS2lMa2hWOFhRQWVpMlV0QVY1MFNJVUJ6dzVlYjZBcGt4emNsMVVLN1lZZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Aiming for Oscar Nomination Amid Netflix Competition
-
-- first seen: 2026-10-18 20:21 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A new report discusses Taylor Swift's potential Oscar nomination and the challenges posed by Netflix. The article explores her work and the industry's landscape regarding awards.
-- sources:
-  - [unverified] Awards Daily — https://news.google.com/rss/articles/CBMisAFBVV95cUxNbDdGVlRUdE5HeldLT04xSi0xVUNHVjlkZ1VST2xaR005TXUtX04tamt2S085STRyM21kdDdaQlRGcUlQSG9IWlVvaWhqWWgyMHgwNWNWYi1JbmZWQ2EzWFVGbUV3SGVOeFdTdWQ4Y3BYcHlnOUxNUEJGWDBEZ05qQVZ5SnVuSlJwLXBtQnotVW9tTThsdF81eC10a1lxNEtzQndjWEZrWktKUGFCcFp6dg?oc=5&hl=en-US&gl=US&ceid=US:en
