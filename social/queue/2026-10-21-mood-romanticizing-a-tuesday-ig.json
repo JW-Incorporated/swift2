@@ -1,0 +1,43 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "okay i tapped \"romanticizing a Tuesday\" on Mood just to see what it'd do, and the first song it handed me was The Best Day 🥹\n\nthen invisible string. then Timeless. then Daylight. then Mary's Song. five songs, not one of them sad — the exact warm-quiet corner of the catalogue i was fishing for.\n\nthat's the whole trick of it: Mood isn't a playlist somebody built, it's the feature reading the vibe you give it and pulling the real songs that match. i handed it an ordinary good day and it gave me the five softest ones.\n\ntag the friend who romanticizes a Tuesday with you — then go pick your own mood on longlivets.com and tell us what it gave you 💛\n\nlonglivets.com/?mode=mood&utm_source=instagram&utm_medium=social&utm_campaign=mood",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ojprpr-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ojprpr-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ojprpr/beautiful_showgirl_and_friend/",
+  "scheduledAt": "2026-10-21T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Beautiful showgirl and friend"
+  ],
+  "campaign": "mood:result:romanticizing-a-tuesday:2026-10-21",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "The 'what it gave me' Mood slot: tapped the approved chip 'romanticizing a Tuesday' and listed the five real returned songs (The Best Day, invisible string, Timeless, Daylight, Mary's Song — all scored eras). Fan-gush lead, tag-a-friend share hook; proves the site's most distinctive feature works.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of mood:result:romanticizing-a-tuesday (Calendar 2026-10-21 23:00Z Mood beat). Chip label quoted verbatim from mood-starters.ts; results are deterministic — matchMoods on this chip's hand-tuned vector returns The Best Day [fearless], invisible string [folklore], Timeless [speak-now], Daylight [lover], Mary's Song [debut], all scored eras (verified by running the mood engine on the seed-generated song-moods, since the live site can't be reached from this job). Picked a FRESH joyful chip (feral-about-a-bridge was already posted 08-19, and this counters the catalogue's sad skew). Hook: the artifact (what came back), not a date-stamp. Share hook = tag a friend. Link /?mode=mood (never ?mood=). Photo reddit-taylorswiftpictures-1ojprpr-ig45 handed by the prepare job, same photo on the X half per W8; uncredited (reddit pick, no mediaCredit), so no credit line. Image is an LFS pointer in this checkout — could not eyeball it; relied on the prepare job's Taylor-photo/Instagram-sized vetting.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-21T21:13:13.540Z",
+    "pr": 6157,
+    "sha": "1c849b0422febce813ef28ca707ad4be6c73cf94",
+    "message": "1562498164160987239",
+    "contentHash": "sha256:431d64417dae24b6ea6399a7a316f5ba29f43bbbdcafe560da59d760d0446019",
+    "sig": "hmac-sha256:ed5d1244fd713ce05a4d24b72038448f930aca121828538e1b61b2af37d24016"
+  }
+}
