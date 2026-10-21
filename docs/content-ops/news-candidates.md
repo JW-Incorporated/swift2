@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Taylor Swift Recognized for Political Skills as Oscar Buzz Grows
+
+- first seen: 2026-10-21 09:58 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source has referred to Taylor Swift as a 'master politician' in light of increasing buzz surrounding her potential Oscar nomination. This recognition highlights her influence in the entertainment industry as awards season approaches.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQUlJKWE5hSTVqWTRqWk5pNDQtZWhseVlHWlRYSGNhMnhhcmhoa3lyYXFVTlBfMDc1Tng3MXB0VzZKcnlxdm1jTHF0M0J1S1hjdkZJU2JuNkFqNndMeVM0M2FkbWl3R1BkZkxoYVhmRC1XekxVQThBS25XRnV1elhIYkxOcW8yaHVEUHFucFBESXE3UXdJaFJMenpvQmlSeUkwbXh2ZnRfVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Overview of Taylor Swift on Britannica
 
 - first seen: 2026-10-21 08:58 UTC | category: music | importance: 3
@@ -684,11 +692,3 @@ Stories: 83
 - summary: This week’s celebrity fashion roundup includes Taylor Swift spotted in stylish corduroy pants alongside Meghan Markle in a cozy coat. The article showcases various celebrity outfits that were well-received.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9BOUc4RTJmM2dXVnNIWHc4YUZNclZpSmY5bGsxVC05QmNvV2s2UkpNaWRkb3BJZUczeTNVQ3dweWMxZDRCU2dlUDhRNEQ4amlWYWw0alZ6cHhXUU9WWTh2QkJSeUR2ZUFwcGw4X0hTc1hqT1g5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Sixth Academy Museum Gala with Various Celebrities
-
-- first seen: 2026-10-18 09:46 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was one of the prominent attendees at the Sixth Academy Museum Gala, which featured a crowded guest list of celebrities. The event celebrated contributions to film and art.
-- sources:
-  - [unverified] Culture.org — https://news.google.com/rss/articles/CBMiowFBVV95cUxNemZ4eW5VLXF1S1FPRHhYX0RWaF9lSnd0NFBFbjA1YzE1dGdXc1BnNkJLWnZUVGZxSnBmZ2Joajg4X1NjTjBxNkZzQlozN01DZ1dxcUc2VDVNV1RVeDIzclEzSzF0WFEyMkthUVRnZmprQVd4OW1wYjlreGFaWGNySm9TYTJ6MEVwMlVjTmZac0t2MkVzUTM1cmJ6VWV1dW5NM0Fn?oc=5&hl=en-US&gl=US&ceid=US:en
