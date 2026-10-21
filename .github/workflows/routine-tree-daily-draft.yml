@@ -89,7 +89,7 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30
-      max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07); kept at 50 — W8 bounds the work instead of raising the cap
+      max_turns: 75 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07); kept at 50 — W8 bounds the work instead of raising the cap
       checkout_token_secret: SOCIAL_POSTER_PAT
       # #5520: the agent's step-7 `gh workflow run social-tree-approve.yml` 403'd
       # ("Resource not accessible by integration") because claude-code-action mints
