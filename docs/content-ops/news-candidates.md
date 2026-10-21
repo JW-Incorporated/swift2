@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
 
-## Travis Kelce Discusses Benefits of Dating Taylor Swift
+## Taylor Swift Responds to Wake-Up Call from Jason Kelce
 
-- first seen: 2026-10-21 17:23 UTC | category: relationship | importance: 6
+- first seen: 2026-10-21 18:23 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared his thoughts on the perks of dating Taylor Swift, describing the experience as 'pretty cool'.
+- summary: Taylor Swift had a straightforward reaction to a wake-up call she received from Jason Kelce, brother of NFL player Travis Kelce. The details of her response highlight her interaction with the Kelce family.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZVdqSkNBcHptYUttOFFqcmw1V2N2SDhzdTdVY25tNGJRYkx5dDk3QXp4b0QyZWVDaVpzREd2REVULWZfbmstSldfWmRnY0ltcUczMU5zNi1BMmpDWHF4UFIzNmZDclVrUzZLZzdnUU1GcXFnX1ExT2pDT0pnTUlIbGlCT3lJWGtudjJWZ3Rlc2FlYW9tUlVOZ1RjcDlBb3otZUFPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOb2VqeWdPOW1kdHo1RVRKUm16azdyaC1OODVIdy04STFkUTItNG1sWlJ4ZmFWNEpMZHFOVWZ0VGdjZGprdTNwbk4tQWVrNEJuNnV6cVQ0X25fY1Z2cHd1RmZSWW5aUXoyQmo4Mkg1WUtKYXZubkx3dnI1UWVfMmN6TjZCcDZHNzlrbFZUTzF5ODgxckdwNzR1aVlMMklKX1VyQkRXTnl2ODQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses a Controversial Call Mentioned by Taylor Swift
+
+- first seen: 2026-10-21 18:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares details about an early morning call from his brother Jason Kelce that Taylor Swift described as 'f–ked up.' The comment highlights the dynamics within the Kelce family and Swift's perspective.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNYUJiS1hhaTBLd0xvQWxaRUN0UnQwVlFseDBFMVM0SURuTnlVWGJrRlc1NFNqa0FWS1FJVUdIaVU3ZGRtdGNRMnYwSnBYUDRvWGVUcmNwNXJLYXVxcXpYeU9tLXhyWnFIYk82dUViQV9RRW9CQ0UxclF5M2RzczMtNmxOWWJBTjhrYndsQjkwODJMZWItM1Z5T2VydXFILU9LZHozcDlKT3FaSGlDV3g3RWdpTVVaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift returns to pop with 'Life of a Showgirl: The Encore'
 
@@ -50,6 +58,14 @@ Stories: 82
 - summary: Taylor Swift performed with her band for the first time in two years at the 2026 Academy Museum Gala, describing the experience as a 'vibe.' This marks a significant return to performing live with her band after a long hiatus.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOOWJxZXc1Rm5pdFo3YUtGeS1lZ0xNQjlHVE4zVkREeDR6TGI4MTkzVm5NeXdFM0E0TzR4YjFYZGgybm0wRG5LdkxCTnBaREN0and3Z0U3VTVDTlA1SmtuSnhVNEtIck5YeE9XQUpnX0dEOVZTQllyNlI0WUdMZEU1VGRQVnpXcHhVNHhmM1NGQWZORzJ0Tmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Benefits of Dating Taylor Swift
+
+- first seen: 2026-10-21 17:23 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his thoughts on the perks of dating Taylor Swift, describing the experience as 'pretty cool'.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZVdqSkNBcHptYUttOFFqcmw1V2N2SDhzdTdVY25tNGJRYkx5dDk3QXp4b0QyZWVDaVpzREd2REVULWZfbmstSldfWmRnY0ltcUczMU5zNi1BMmpDWHF4UFIzNmZDclVrUzZLZzdnUU1GcXFnX1ExT2pDT0pnTUlIbGlCT3lJWGtudjJWZ3Rlc2FlYW9tUlVOZ1RjcDlBb3otZUFPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Ranking of 16 Outfits Worn by Taylor Swift This Year
 
@@ -675,11 +691,3 @@ Stories: 82
 - summary: Taylor Swift takes a moment to reflect on her 20-year journey in the music industry, highlighting her growth and evolution as an artist. This retrospective offers insights into her career and contributions to music.
 - sources:
   - [unverified] RissiWrites.com — https://news.google.com/rss/articles/CBMiekFVX3lxTE1LaGJ3LTl3Q2ZYdS1sdUlubk5mZ09DdG9oV3dIUTRHQ0dfdDJLV3RULTJfdi14UFJINWE3dW0tZFRhQXV6b2NZZ2xuUk16MmJZSTJZS2pnMXNTY21QTVhIQ2FpS3IxU01iTmZCSlo5eUtLWDhUV2xhdGl3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Performs Four Songs at Academy Gala in First Full-Band Show
-
-- first seen: 2026-10-18 18:06 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift reunited with her band for a performance, delivering a four-song set at the Academy Museum's 6th Annual Gala. This marked her return to a full-band performance since the Eras Tour, captivating a black-tie audience.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performance-academy-gala-five-songs-1236915817/
