@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## New Book Analyzes Taylor Swift's First Country Album
+
+- first seen: 2026-10-21 10:58 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'Taylor Swift: The Debut Years' is a book that delves into Taylor Swift's inaugural country album, providing insights into its creation and impact.
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizAFBVV95cUxOVXZYdjRKVHJZRWg0MUFjdElob0lRQUhnZTN3Q2haV1VBNWgxcnVQdWxtd3RnQkIxbEM1UjRPRS1XNFI4Mm9qLU5QMmhkVXhBa1F4WWVzeWlKTDZCVkRXaUdYZmtaRXBDT0lnZGJxaU9nMFpNYmdqVmtPLUFNLUxEXzRQeFBvQ2pMWFAxRjBZN3pvSUV6Nzc0T20yOERsRW90a1dBTVByOHZiMWxiWDRJQjNrV3V3ZEkxOXVCSlFuRFEybjBWaHEwaU4zXzM?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Recognized for Political Skills as Oscar Buzz Grows
 
 - first seen: 2026-10-21 09:58 UTC | category: business | importance: 6
@@ -684,11 +692,3 @@ Stories: 83
 - summary: A media analyst suggests that Travis Kelce may be considered for Troy Aikman's replacement at ESPN, linking it to the interest surrounding Taylor Swift. The commentary highlights a perceived connection between Kelce's profile and Swift's influence in media.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPa0tMZWFxemVxU2szZENEQWYzQURvWDR6RU9zZ05DT2xOOXFEU291N24yTldueDQ1bUhNQWNpREc4OG53SGk4YzhxaDE4b0gxZ1dFd3dQZTBpdmFYRTZJb3oyNE1ObzczWGFUbmhwUGkwRERuQ3RicmFOQnBjTzZtYXc0Ym56NW5Q?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Celebrity Fashion Highlights: Taylor Swift’s Corduroy Pants
-
-- first seen: 2026-10-18 10:42 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: This week’s celebrity fashion roundup includes Taylor Swift spotted in stylish corduroy pants alongside Meghan Markle in a cozy coat. The article showcases various celebrity outfits that were well-received.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTE9BOUc4RTJmM2dXVnNIWHc4YUZNclZpSmY5bGsxVC05QmNvV2s2UkpNaWRkb3BJZUczeTNVQ3dweWMxZDRCU2dlUDhRNEQ4amlWYWw0alZ6cHhXUU9WWTh2QkJSeUR2ZUFwcGw4X0hTc1hqT1g5?oc=5&hl=en-US&gl=US&ceid=US:en
