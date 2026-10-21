@@ -221,6 +221,26 @@ describe('P1-19 open-PR guard', () => {
   });
 });
 
+describe('P1-19 Awin index cache contract', () => {
+  it('restores with the same key prefix and path list the sync saves with', async () => {
+    const sync = await readFile('.github/workflows/merch-awin-sync.yml', 'utf8');
+    const matcher = await readFile('.github/workflows/merch-matcher-authoring.yml', 'utf8');
+    const block = (text: string, uses: string) => {
+      const start = text.indexOf(uses);
+      const end = text.indexOf('\n      - ', start);
+      return text.slice(start, end === -1 ? undefined : end);
+    };
+    const save = block(sync, 'actions/cache/save@v6');
+    const restore = block(matcher, 'actions/cache/restore@v6\n        with:\n          path: |\n            awin-feed-cache.json');
+    const pathOf = (step: string) => step.match(/path: \|\n((?: {12}\S+\n?)+)/)?.[1];
+    const keyOf = (step: string) => step.match(/key: (\S+)/)?.[1];
+    expect(pathOf(save)).toContain('awin-product-index.sqlite');
+    expect(pathOf(restore)).toBe(pathOf(save));
+    expect(keyOf(restore)).toBe(keyOf(save));
+    expect(restore).toContain('restore-keys: merch-awin-sync-');
+  });
+});
+
 describe('P1-19 workflow credential split', () => {
   it('keeps the PAT out of matching and uses it only in the author job', async () => {
     const workflow = await readFile('.github/workflows/merch-matcher-authoring.yml', 'utf8');
