@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 83
+
+## Overview of Taylor Swift on Britannica
+
+- first seen: 2026-10-21 08:58 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Britannica provides an overview of Taylor Swift's career and achievements in the music industry.
+- sources:
+  - [unverified] Britannica — https://news.google.com/rss/articles/CBMiXkFVX3lxTE9femZaalRhODBTZGdVT1NVdEh0ZUtfUjJUaUhZS01HdFlXQTJXSVJLUzNDZ185cmd4eTJzY1lRTHRfSUVKWkZwSjhNcFh6T2lla2pEYkFudWdVWXRTY2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Eyewitness Describes Fan's Behavior at Taylor Swift's Chiefs Game Attendance
+
+- first seen: 2026-10-21 08:58 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An eyewitness reported concerning behavior from a Taylor Swift fan during a Chiefs game, suggesting that the fan was getting too close to the singer. The incident has raised eyebrows regarding fan interactions at public events.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxQZU9OUHZEWVJJYmJCWHZyTk5pM3FrY29sYXFmN3lYa2ZueUpfM3RobnFKTWpCdzJKUWVNdmpZTGV3MXp4S0hiNVBvWXZPdjZKR2FHa3RkZFVsdGdHdTdBVnpnRWdtNUx1Y1Q5Q3BaSnNnb25LQ05NSTFvZE5pNHprZDZIOWFLaDF0UjRDYldNS1BsQTdfZEU1cGZXenNYcU44NW1mTFpVVW1GMHN1QzZRVw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Insightful Quote About Loss
+
+- first seen: 2026-10-21 08:58 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares a thoughtful quote emphasizing that losing things often carries deeper meanings beyond just the loss itself. Her reflections resonate with fans and listeners alike.
+- sources:
+  - [unverified] Grunge — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQcFlGeVRKUUxPUU9CMGlNXzFvbmlwVzMtVjFzNUJCNXNnUk51LWhmQVlCUHZsVHpKbDNCOE9hcHczRHhNUjEtaU9SZ21TTjRrZWFKOExhdEI1VFVTUVFMaEZqUkktRkotd05SRkdJbWFfNWpXdFoyYXVWNjVzXzlDWEJHUHIteFVH?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Performs with Band at Academy Museum After Two Years
+
+- first seen: 2026-10-21 08:58 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift had a notable performance with her band at the Academy Museum, marking their first appearance together in nearly two years. The event was highlighted on her social media.
+- sources:
+  - [unverified] Facebook — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQeXNTazVsQWU4Um9iMFB1d1cyMDBLNWc0U010MnIwSG1qbjJZRVJpRFNlaTY0bWlGUnVYTWZkZG9oaTkzZmFLeUdzMlNfUm5nYVdOQWVPZFMzMkxwQmc4aFJqT0l3VXczT0JDOVFWakJXd1VvTkxNdU1RMURiVFVtR3BXRWVjUW1MaUF4QXc4Sm0wdXRfWWFCWGdXbndWN2RUUGVNR3JtVkd0cndyUXZOQlpwdG5SbS1hZ3g4M2xSYmc5Tk1fVmJwYjExdmkxbnVMM2lJRl9Rdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Dine at NYC Hotspot
 
@@ -660,11 +692,3 @@ Stories: 80
 - summary: Taylor Swift was one of the prominent attendees at the Sixth Academy Museum Gala, which featured a crowded guest list of celebrities. The event celebrated contributions to film and art.
 - sources:
   - [unverified] Culture.org — https://news.google.com/rss/articles/CBMiowFBVV95cUxNemZ4eW5VLXF1S1FPRHhYX0RWaF9lSnd0NFBFbjA1YzE1dGdXc1BnNkJLWnZUVGZxSnBmZ2Joajg4X1NjTjBxNkZzQlozN01DZ1dxcUc2VDVNV1RVeDIzclEzSzF0WFEyMkthUVRnZmprQVd4OW1wYjlreGFaWGNySm9TYTJ6MEVwMlVjTmZac0t2MkVzUTM1cmJ6VWV1dW5NM0Fn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Dakota Johnson Opt for Trendy Fall Pants
-
-- first seen: 2026-10-18 08:46 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Dakota Johnson were spotted wearing retro fall pants, moving away from traditional jeans. This style choice highlights the resurgence of retro fashion trends.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQWXJ0SmM2RXBoLU54X1ZrRm82bllEV3Azd3lQSENTQWc2V2ZZc0U2ZXd6QktNb1BFdzdZVWx3NXFLRXV2NF9ZWE45c25fTkg0bU9oaUMwbGdSRW5RcHFsMU11QjBJZWpvdnBBeF9vLWZmWTFIclc5RDdhT2dfZVFjam5TbFFKaHpFRTNfQmtJcUJKSmVI?oc=5&hl=en-US&gl=US&ceid=US:en
