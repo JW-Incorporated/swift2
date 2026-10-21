@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #141 🔴 [BLOCKING] routine-template: retry claude-code-action once when the Agent SDK install fails (no execution file) (~5 min)
+<!-- ha filed=2026-10-21 -->
+<!-- ha verify: issue-closed 6170 -->
+
+**Why:** The ops-fixer could not fix #6170 and needs a session with more reach.
+
+**Steps:**
+1. Open Claude Code in Documents\Claude\Projects\Swift2.
+2. Paste the prompt from issue #6170 (copy button on the code block).
+
+**Worked if:** issue #6170 is closed by a merged PR.
 
 ## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-20 -->
@@ -35,9 +47,9 @@
 
 **Steps:**
 1. Open https://developers.facebook.com/tools/explorer and pick the Long Live app.
-2. Under Permissions keep the existing ones and add `pages_manage_posts`, then click Generate Access Token and approve.
+2. Under Permissions keep every permission already listed, add `pages_manage_posts` and `instagram_manage_messages`, then click Generate Access Token and approve.
 3. Make it long-lived the same way you did for the original token (docs/social/pipeline.md, Facebook Page cross-posting).
-4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --env social --repo JW-Incorporated/swift2` and paste the token when asked.
+4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` and paste the token when asked.
 5. Reply `done` here.
 
 **Worked if:** the next Instagram post's poster run logs no "Facebook Page cross-post failed" warning.
