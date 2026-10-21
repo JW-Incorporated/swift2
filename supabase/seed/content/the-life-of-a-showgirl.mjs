@@ -84,13 +84,13 @@ export default {
       category: 'relationship',
       title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
       snippet:
-        'Marking her own first wedding anniversary at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
+        'Two weeks after her own first wedding anniversary, at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
       sourceUrl:
         'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, fell on her first wedding anniversary with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
         sources: [
           {
             outlet: 'Cheat Sheet',
@@ -117,6 +117,15 @@ export default {
             publisher: 'Khaleej Times',
             source_type: 'reputable_press',
             accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/ca/news/1437109/selena-gomez-details-benny-blanco-surprises-on-first-marriage-anniversary',
+            source_title: 'Selena Gomez Reveals If She and Benny Blanco Still Surprise Each Other After One Year of Marriage',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-21',
             reliability_score: 3,
           },
         ],
@@ -5874,18 +5883,32 @@ export default {
       // material itself is never reproduced or linked.
       title: 'Watermarked invitations and a copyright takedown',
       snippet:
-        'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
+        'The couple\'s leak-control ran deep: each invitation reportedly carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down. A tabloid-reported takedown notice says that was a copyright complaint naming Taylor as the rights owner; that part is unconfirmed.',
       sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
       thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
-          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
+          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. A guest briefly posted a photo of an invitation to Instagram on July 6 and then the post came down; screenshots had already circulated in the minutes it was up. Why it came down is less settled. A month later, In Touch Weekly reported, citing a takedown notice that journalist Rob Shuter shared with it, that a copyright-infringement complaint identified Taylor as the rights owner. Neither Instagram, Taylor nor the couple has confirmed that, and the notice has not been independently verified, so treat it as a tabloid report rather than established fact. If it is accurate, it would fit the wider picture: the wedding\'s information handled as the couple\'s intellectual property, the operational counterpart to all the "no photos leaked" talk.',
+        rumors: [
+          {
+            claim:
+              "Instagram removed a guest\'s post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
+            reportedBy: "In Touch Weekly (via Yahoo Entertainment), citing journalist Rob Shuter",
+            reportedOn: "2026-08-01",
+            status: "unconfirmed",
+            url: "https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html",
+            sourceTier: "tabloid",
+            note:
+              "Rests on a takedown notice Shuter shared with In Touch. Instagram, Taylor and the couple have not commented, and the removal itself (the post was deleted) is reported without a stated reason elsewhere.",
+            lastCheckedOn: "2026-10-21",
+          },
+        ],
         sources: [
           {
             outlet: 'Yahoo Entertainment',
             url: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
             source_title: 'Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint',
-            publisher: 'Yahoo Entertainment',
+            publisher: 'In Touch Weekly via Yahoo Entertainment',
             source_type: 'reputable_press',
             accessed_at: '2026-08-02',
             reliability_score: 3,
