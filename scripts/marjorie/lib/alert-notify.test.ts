@@ -250,6 +250,12 @@ describe('wiring', () => {
         // Not in the handler table -- it predates no row and gets the
         // unknown-title default. Loud on purpose until someone classifies it.
         'Watchdog: news-worker knowledge-extract degraded for 24h',
+        // Loud by design (issue #6151): marjorie-status.yml's `watch` job
+        // already clears the one cause that can starve the render hourly, so
+        // this alert being OPEN means the automatic fix did not work. Nothing
+        // self-handles it -- and a frozen page is the one surface the founders
+        // read every day, so they should hear the first time it goes dark.
+        'Watchdog: status page is not re-rendering',
       ].sort(),
     );
   });

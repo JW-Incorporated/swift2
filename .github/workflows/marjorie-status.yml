@@ -2,7 +2,10 @@
 # issue labeled `status-page`, body rewritten deterministically (no LLM) by
 # scripts/marjorie/status-page.mjs. Operations: docs/ops/status-page.md.
 #
-# Three jobs, least privilege each:
+# Jobs, least privilege each:
+#   watch   hourly: cancels a run that holds the render group without ever
+#           starting, which is the one way the page can freeze silently
+#           (issue #6151). Outside the render group, and holds no environment.
 #   render  every hour, on a push to main that touches HUMAN-ACTIONS.md or
 #           social/**, and on demand. Reads the repo + GitHub, writes only the
 #           status issue body. Two secrets, each visible to ONE step only:
@@ -42,6 +45,64 @@ on:
 permissions: {}
 
 jobs:
+  # Keeps the render job below from being starved (issue #6151). The render
+  # group is shared, and `cancel-in-progress: false` keeps whichever run HOLDS
+  # it — so a run that can never start (a 2026-10-06 run sat `waiting` on the
+  # `ops` environment gate with `reviewers: []`) cancels every later render
+  # instead of the other way round, for as long as it exists. A cancelled run
+  # is not a failure, so nothing triaged it and the page stayed frozen 15 days.
+  #
+  # Two properties make this job the fix rather than another thing that can
+  # stall: it is OUTSIDE the render group, and it holds no `environment`, so the
+  # same deployment gate cannot strand it. Its own group takes
+  # `cancel-in-progress: true` — the newest watcher always wins, so the watcher
+  # can never become the starved one.
+  watch:
+    if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: write # cancel a run that is holding the render group without starting
+    concurrency:
+      group: marjorie-status-watch
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Cancel runs starving the render group
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SELF_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          source scripts/watchdog/gh-retry.sh
+          # Both workflows that take the marjorie-status-render group, in every
+          # state that means "created but never started a step".
+          : > /tmp/render-group-parts.json
+          for WF in marjorie-status.yml routine-marjorie-brief.yml; do
+            for STATE in waiting queued pending; do
+              gh_retry gh run list --repo "$REPO" --workflow "$WF" --status "$STATE" --limit 50 \
+                --json databaseId,status,createdAt,url >> /tmp/render-group-parts.json
+            done
+          done
+          jq -s 'add // []' /tmp/render-group-parts.json > /tmp/render-group-runs.json
+          STUCK=$(node scripts/marjorie/status-unstick.mjs evaluate < /tmp/render-group-runs.json)
+          printf '%s' "$STUCK" | jq -r '.[] | "starving the render group: run \(.id) \(.status) for \(.ageMinutes)m — \(.url)"'
+          for ID in $(printf '%s' "$STUCK" | jq -r '.[].id'); do
+            # force-cancel is the documented fallback for a run normal cancel
+            # will not move; a run still holding the group is loud, not silent.
+            gh_retry gh run cancel "$ID" --repo "$REPO" \
+              || gh_retry gh api -X POST "repos/$REPO/actions/runs/$ID/force-cancel" \
+              || echo "::error::run $ID is still holding the marjorie-status-render group — the status page cannot re-render until it is cancelled"
+          done
+          echo "cleared $(printf '%s' "$STUCK" | jq -r 'length') starved run(s)"
+
   render:
     if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest

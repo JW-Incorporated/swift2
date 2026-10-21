@@ -309,6 +309,51 @@ jobs:
             echo "::warning::No settled success/failure db-migrate run found on main; alert state unchanged."
           fi
 
+      # Status page freshness (issue #6151). Every other check here watches a
+      # workflow's CONCLUSION, and that is precisely what missed this one: the
+      # status page's render job was starved by its own concurrency group for 15
+      # days, concluding `cancelled` every hour — never `failure`, so the
+      # cadence check below and bot-failure-triage.yml both stayed quiet. Worse,
+      # the page still looked maintained, because status-note.mjs kept rewriting
+      # the note and fan-recap regions daily while the deterministic body sat
+      # frozen. The page's own `_Updated … UTC_` header is the render's
+      # heartbeat, so it is the thing to watch — whatever starves the render
+      # next time.
+      - name: Status page not re-rendering
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          source scripts/watchdog/gh-retry.sh
+          ALERT_TITLE="Watchdog: status page is not re-rendering"
+          gh_retry gh issue list --repo "$REPO" --label status-page --state open --limit 20 \
+            --json number,body,url > /tmp/status-page-issues.json
+          RESULT=$(node scripts/watchdog/status-page-freshness-check.mjs evaluate < /tmp/status-page-issues.json)
+          STATE=$(printf '%s' "$RESULT" | jq -r '.state')
+          AGE=$(printf '%s' "$RESULT" | jq -r '.ageHours // "unknown"')
+          PAGE_URL=$(printf '%s' "$RESULT" | jq -r '.url // ""')
+          if [ "$STATE" = "alert" ]; then
+            {
+              echo "@sffan15-sys — the status page's own header says it was last rendered **${AGE}h ago**. Everything on it below Marjorie's note is that stale."
+              echo ""
+              echo "Page: ${PAGE_URL}"
+              echo ""
+              echo "First place to look: a run holding the \`marjorie-status-render\` concurrency group without starting (\`gh run list --workflow marjorie-status.yml --status waiting\`). \`marjorie-status.yml\`'s \`watch\` job clears those hourly, so if this alert is open, either that job is failing or the render itself is."
+            } > /tmp/status-page-alert.md
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/status-page-alert.md
+          elif [ "$STATE" = "ok" ]; then
+            echo "The status page rendered ${AGE}h ago: ${PAGE_URL}" > /tmp/status-page-alert.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/status-page-alert.md
+          else
+            echo "::warning::Status page freshness unreadable ($(printf '%s' "$RESULT" | jq -r '.reason')); alert state unchanged."
+          fi
+
       # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
       # red-looped hourly for a full day — every run crashing in ~1s on unset
       # SUPABASE_* secrets — and nothing surfaced it, so the intake queue

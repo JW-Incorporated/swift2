@@ -29,6 +29,41 @@ also re-renders (and pings) right after Marjorie writes her note.
 A source that cannot be read (a GitHub endpoint, a file) is named in a
 warning line on the page instead of being shown as empty.
 
+### When it stops updating (issue #6151)
+
+The render shares the `marjorie-status-render` concurrency group with the
+brief's `deliver` job, and `cancel-in-progress: false` keeps whichever run
+**holds** the group and cancels the newly queued one. So a run that can never
+start starves every later render for as long as it exists — and silently: a
+starved run concludes `cancelled`, not `failure`, which neither
+`bot-failure-triage.yml` (it matches `routine-*` only) nor the watchdog's
+cadence checks look at. That happened on 2026-10-06: a run sat in `waiting` on
+the `ops` environment deployment gate with `reviewers: []`, nobody could
+approve it, nothing timed it out, and the page's deterministic body stayed
+frozen for 15 days while `status-note.mjs` kept rewriting the note and
+`fan-recap` regions daily — so the page still looked maintained.
+
+Two guards now, both deterministic:
+
+- **`marjorie-status.yml`'s `watch` job** cancels any run of
+  `marjorie-status.yml` or `routine-marjorie-brief.yml` that has sat
+  `waiting`/`queued`/`pending` for 45+ minutes (`scripts/marjorie/status-unstick.mjs`
+  picks them; `in_progress` runs are never touched — `timeout-minutes` owns
+  those). The job sits outside the render group and holds no `environment`, so
+  the gate that stranded the render cannot strand the watcher, and its own
+  group uses `cancel-in-progress: true` so the newest watcher always wins.
+  A run it cannot cancel is an `::error::`.
+- **`watchdog.yml`'s "Status page not re-rendering" step** treats the page's
+  own `_Updated … UTC_` header as the render's heartbeat
+  (`scripts/watchdog/status-page-freshness-check.mjs`): past 3 hours it opens
+  the persistent `Watchdog: status page is not re-rendering` alert and
+  @-mentions the owner, and a fresh render closes it. Founder-facing by
+  design — the `watch` job already clears the known cause hourly, so this
+  alert being open means the automatic fix did not work.
+
+First thing to check by hand:
+`gh run list --workflow marjorie-status.yml --status waiting`.
+
 ### The change ping
 
 One short Discord line in `#marjorie` whenever the page materially changed,
