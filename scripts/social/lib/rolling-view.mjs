@@ -31,11 +31,21 @@ function lsRemoteHasBranch(cwd, remote, branch) {
 
 const jsonNames = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.json')) : []);
 
-/** @returns {{mode: 'main-only'|'rolling', overlaid: string[], dropped: string[]}} */
+// Posted wins (#6118, #6123, #5857): a failed/ record whose name also exists in
+// posted/ is a stale-48h false positive; drop it from the checkout so neither
+// the merged view nor the state commit carries it. posted/ is never touched.
+function dropShadowedFailed(cwd) {
+  const posted = new Set(jsonNames(path.join(cwd, 'social/posted')));
+  const shadowed = jsonNames(path.join(cwd, 'social/failed')).filter((f) => posted.has(f));
+  for (const f of shadowed) rmSync(path.join(cwd, 'social/failed', f));
+  return shadowed;
+}
+
+/** @returns {{mode: 'main-only'|'rolling', overlaid: string[], dropped: string[], shadowed: string[]}} */
 export function applyRollingView({ cwd, branch, remote = 'origin', log = console.log }) {
   if (!lsRemoteHasBranch(cwd, remote, branch)) {
     log(`rolling-view: ${branch} does not exist — main's view is the whole view.`);
-    return { mode: 'main-only', overlaid: [], dropped: [] };
+    return { mode: 'main-only', overlaid: [], dropped: [], shadowed: dropShadowedFailed(cwd) };
   }
   const ref = `refs/remotes/${remote}/${branch}`;
   try {
@@ -59,9 +69,10 @@ export function applyRollingView({ cwd, branch, remote = 'origin', log = console
       overlaid.push(rel);
     }
   }
+  const shadowed = dropShadowedFailed(cwd);
   const settled = new Set(LEDGER_DIRS.flatMap((d) => jsonNames(path.join(cwd, d))));
   const dropped = jsonNames(path.join(cwd, 'social/queue')).filter((f) => settled.has(f));
   for (const f of dropped) rmSync(path.join(cwd, 'social/queue', f));
-  log(`rolling-view: overlaid ${overlaid.length} posted/failed record(s) from ${branch}; dropped ${dropped.length} already-settled queue item(s)${dropped.length ? `: ${dropped.join(' ')}` : ''}.`);
-  return { mode: 'rolling', overlaid, dropped };
+  log(`rolling-view: overlaid ${overlaid.length} posted/failed record(s) from ${branch}; dropped ${dropped.length} already-settled queue item(s)${dropped.length ? `: ${dropped.join(' ')}` : ''}; dropped ${shadowed.length} failed record(s) shadowed by posted/.`);
+  return { mode: 'rolling', overlaid, dropped, shadowed };
 }
