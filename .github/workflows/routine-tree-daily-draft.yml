@@ -141,13 +141,11 @@ jobs:
   # triggers changes, every gate in social-tree-approve.yml still applies.
   approve-backstop:
     needs: run
-    if: always()
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: read
-      pull-requests: read
-      actions: write
     steps:
       - name: Dispatch social-tree-approve for today's Tree draft PR if nothing has yet
         env:
