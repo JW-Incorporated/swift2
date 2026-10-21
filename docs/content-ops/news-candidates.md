@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
+
+## Travis Kelce Shares Anecdote About Taylor Swift and Jason Kelce
+
+- first seen: 2026-10-21 13:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce recounts a humorous incident involving Taylor Swift being woken up by his brother, Jason Kelce. The story highlights a light-hearted moment shared among the trio.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQOGFfbnNsN1g4QkUwazZCUThtcXJ2M2VULTVMMVFMdS14RW1fN0tzaDVtbXVyU216eXd5Nzk5UzJYM3l3RnNBSDhQbTNKaER6TGNHTXhwRGF5cEFqOHVwSnp4MDAxV2RjbVEyZVVZdGpra2RPMU40YnF1NjJKaU1vT1FBdEw0cW12Yk93WWd1cV8yWC04SjZQakRsUlYzMFExaENQX3MyczJHaTUtVVV1dHhSQlQ3Xy1kQ3ZOYXJ4aVhnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Halloween Party Celebrating Taylor Swift at Mahall's in Lakewood
+
+- first seen: 2026-10-21 13:58 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mahall's in Lakewood is set to host a Halloween party themed around Taylor Swift. Details of the event have been announced in local news.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNelUzLWc4QkRHSktVVWoxRGhmZTNUcU5pMURfbmlqRjc1Y0h1OGNNSFd0cFh2UVkwRzd4NkV3VEdHS0xvQjNwdHMwV1ZfbjcwSnd6NXczQjhVRFJYc2JpcXlJQmNOZW5ZRDBHTm5JZ25yM3pyN0xKTWl3akcyNkd0UXh2TkV6T3phV2RESWFvYlNfYWhnRG9pZjFRRjB2M0Nob3ZQbTZEV0tWMXVSR3NpMkVLTEFVWEpxZkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Praises George Strait's Sense of Humor
 
@@ -115,14 +131,6 @@ Stories: 84
 - sources:
   - [unverified] Facebook — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQeXNTazVsQWU4Um9iMFB1d1cyMDBLNWc0U010MnIwSG1qbjJZRVJpRFNlaTY0bWlGUnVYTWZkZG9oaTkzZmFLeUdzMlNfUm5nYVdOQWVPZFMzMkxwQmc4aFJqT0l3VXczT0JDOVFWakJXd1VvTkxNdU1RMURiVFVtR3BXRWVjUW1MaUF4QXc4Sm0wdXRfWWFCWGdXbndWN2RUUGVNR3JtVkd0cndyUXZOQlpwdG5SbS1hZ3g4M2xSYmc5Tk1fVmJwYjExdmkxbnVMM2lJRl9Rdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Dine at NYC Hotspot
-
-- first seen: 2026-10-21 06:58 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted dining together at a popular restaurant in New York City. The article also features a list of 11 recommended restaurants to visit in the Big Apple.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObmJhTnIwY0NqVkZCUlhldVl6dnYtRTRqR1ZrMHZWMGNMa2JFRzJ5ZTl1bG53aDdLNnB2UXJicElOSEVSeUNPQk1GTTdTZDFVaTRTWXJJYklBaTNGRXRhanh2UU0wWmdTRkllNEx3MUltaE5jbFJ5OUFYNlhNWjJKZXBhVzBickRLOXlaY1ZxWVo5WFNULVotclRHelVtQnRsLUo4bWo4WkRHa2N0X2ZOTzd4Rjh6TGhBNGJuWW1xSkE2b1g3NG1TY1F5cC1Da05kUVVYLTRMNVVVeXVCWkctbzVZM0I?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Styles Red Bodysuit with Retrouvai Ring
 
 - first seen: 2026-10-21 06:58 UTC | category: fashion | importance: 7
@@ -130,6 +138,14 @@ Stories: 84
 - summary: Taylor Swift was seen wearing a striking red high-cut bodysuit paired with a $6,000 Retrouvai ring, showcasing her fashion sense. The look highlights her signature style and attention to detail in her outfits.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS3F4b0FSbUpZWVVhcHg1eGFFOGs4WnpKUUdSekJ3WmNUWkU1YUcwMUhhMEpDYThqa2RseHJWSXZjRWR5RUdMUXZZNy1Xc251eTJHTGRHWmpOWVZLWnJKTkRaRXZ6VDlDT25UUzJsRWhuRW52dFNUVFBkTnJ3ZzZsTmwtXzgxUW5yU3ZlREVZakFpQ01fVlBBOFVpU0hudmtk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Dine at NYC Hotspot
+
+- first seen: 2026-10-21 06:58 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted dining together at a popular restaurant in New York City. The article also features a list of 11 recommended restaurants to visit in the Big Apple.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObmJhTnIwY0NqVkZCUlhldVl6dnYtRTRqR1ZrMHZWMGNMa2JFRzJ5ZTl1bG53aDdLNnB2UXJicElOSEVSeUNPQk1GTTdTZDFVaTRTWXJJYklBaTNGRXRhanh2UU0wWmdTRkllNEx3MUltaE5jbFJ5OUFYNlhNWjJKZXBhVzBickRLOXlaY1ZxWVo5WFNULVotclRHelVtQnRsLUo4bWo4WkRHa2N0X2ZOTzd4Rjh6TGhBNGJuWW1xSkE2b1g3NG1TY1F5cC1Da05kUVVYLTRMNVVVeXVCWkctbzVZM0I?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears High-Cut Louis Vuitton Bodysuit for Game Day
 
@@ -675,27 +691,3 @@ Stories: 84
 - summary: At the Academy Museum Gala, Taylor Swift sported a fashion choice inspired by Old Hollywood, adding a distinctive touch to her appearance. The outfit was described as meaningful, highlighting her personal style at the prestigious event.
 - sources:
   - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRUVDcDlVQ0tjZGRWakVNUUswLVFZV0R4ZENlN3p3eHA2b3lLUm9qckh4X1oxalBvRnZDZGxDT2FicFNFQkxlMnJiMFNjNFRZV2U3RldIU0lGTXZmVFZaSFJqT1I5bXc5eTE4eDRHbng1TlRvelVkWF91T0k1YlhzM3lrVldMb1A2Q3l1dm5yNjZmd3poSmUzLWJoNlJiR3huMzV2NE9aa3gzSDQyRHNUdDVxUVhjMG5hUzJEM09sR1QzYW52MGZUeW5PTkl5S2JTN0xN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Sighted on Stage During Weekend Protests Coverage
-
-- first seen: 2026-10-18 13:13 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Photographs from the weekend showcase various events across Europe, including Taylor Swift performing on stage. The Guardian highlights the imagery from these significant moments.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/news/gallery/2026/oct/18/photos-of-the-weekend
-
-## Taylor Swift Performs During Pan-European Protests Weekend
-
-- first seen: 2026-10-18 13:13 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Photos highlight Taylor Swift performing on stage during recent pan-European protests. The event showcases her involvement amidst significant social movements.
-- sources:
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMif0FVX3lxTE1uaTExb1dKcmJEYVJ5aWZkNzZXMDBldmI2ZjZ2aDZxbkVkSUhiY1Z3YjNaOXExMmY4UDg2TXI0VlRTNFVoX0FmOTBtdXVwVUx6NS1OaXVyQTQ2SHlta3JaWmNRSmJoaGxJSms3NTVIRmU5VUh4ZF8tRGV2OWZXdjA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shines in Dior Gown at 2026 Academy Museum Gala
-
-- first seen: 2026-10-18 13:13 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a stunning appearance at the 2026 Academy Museum Gala, wearing a beautiful pale blue Dior gown with eye-catching diamonds. The event showcased numerous stars and featured Swift's live performance of 'The Fate of Ophelia' for the first time.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMihgFBVV95cUxOZ2JWOXBHVGNLU0ZEN1B2dTdnNDBJbHdmZnQtYmlqU01XVTlUWk1BX1g1WHloYkpHd25INXpMaFNWTmVpMU11MWViZUNDc1l4RWVQSFlmUEhYZTNOVWxqaTlHRFJiMlFVRGFsZFNIT2ZRclFzQVdPaXZ0aHE0dXEtLWZscnhKUQ?oc=5&hl=en-US&gl=US&ceid=US:en
