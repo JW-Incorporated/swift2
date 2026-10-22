@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 99
+
+## Taylor Swift Pledges $4 Million to Nashville Community
+
+- first seen: 2026-10-22 19:27 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a significant $4 million pledge that is inspiring a community in Nashville. This generous commitment is expected to have a positive impact on the area.
+- sources:
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMizgFBVV95cUxNbThpbWpPVk9BRW5aQVMzSjlfdEg3empvZnJHYTZpMzFfSFdIZUtWM1NZZDh0TlFidTYtdF9Vb05OYm9wckxsemdHLVhST0hVcXFDZDE2X19ta2VQSElLQjJDQ0tuX2NXQXQzbXdmby1TbkIxejZDcV9hSzljTlh0RV9WV01LNk83RGYwRmtZcVBncFlfU2hVaU96RmpQUE9FMWxPZGZTQzFNem5VTzJTSnBOUHJfa3EtNENrQWF6NGlNSk5Mc1hkTFdKbXU0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Season 3 of 'Nobody Wants This' Features Taylor Swift and Other Artists
+
+- first seen: 2026-10-22 19:27 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The third season of 'Nobody Wants This' includes a variety of songs by notable artists such as Taylor Swift, Robyn, Usher, and SZA, among others. The 10-episode series features original tracks and poignant musical selections throughout its episodes.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/nobody-wants-this-soundtrack-songs-all-seasons/
+
+## Maya Hawke Praises Two Taylor Swift Songs as 'Epic Poetry'
+
+- first seen: 2026-10-22 18:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Maya Hawke expresses admiration for two of Taylor Swift's songs, comparing them to 'epic poetry' while also discussing her views on Eminem's status as the GOAT.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxOTkdTbkg2aW9mLUJMcm02ckQ5bWota3JucTNva1RaQTRFR3ljUXd3Wmc3NE5XQWg4UmRjTlkxT1FjenpEbWRVRURZR2JBQm1nbC1EUjJkRjk5RDFTRDZqMXFyTzdseXFjOUZBZ1czSld1UWw5VE1JWGNzRFF2dWRBY3lqUUdDVnlpaEQ1dUFtTGRpUGFj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Performs During United States Grand Prix Weekend
 
@@ -42,14 +66,6 @@ Stories: 97
 - summary: The mansion where Taylor Swift wrote her album '1989' is currently on the market. The property has garnered attention due to its connection to the popular album.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNM3NELWd3OVJJQ2h2VVlHNFFkalhJNmZxc2ExMWV2V1A0ZWVFQ2VFZV9qLUpUd05OclBiZ1dYRWhrU2tyNm9lVUhfcWlYcWFlTU5YOG9rOU15bTNXZHhfODBucFo1bG5tb1V1Tm1ldVpEWnV3VWtNTUJMMFFTMjJ1WlVGaEhTM2F5R3RFekk0bW9mWE1mX094R0QwNjFaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Maya Hawke Praises Two Taylor Swift Songs as 'Epic Poetry'
-
-- first seen: 2026-10-22 18:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Maya Hawke expresses admiration for two of Taylor Swift's songs, comparing them to 'epic poetry' while also discussing her views on Eminem's status as the GOAT.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxOTkdTbkg2aW9mLUJMcm02ckQ5bWota3JucTNva1RaQTRFR3ljUXd3Wmc3NE5XQWg4UmRjTlkxT1FjenpEbWRVRURZR2JBQm1nbC1EUjJkRjk5RDFTRDZqMXFyTzdseXFjOUZBZ1czSld1UWw5VE1JWGNzRFF2dWRBY3lqUUdDVnlpaEQ1dUFtTGRpUGFj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Faces Anxiety Over Public Perception and Overexposure
 
