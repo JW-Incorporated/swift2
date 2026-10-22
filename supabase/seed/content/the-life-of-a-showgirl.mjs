@@ -16,6 +16,68 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6039.
+      // A named artist's own on-record opinion in a filmed interview. Two
+      // outlets read directly this session carry the same translated quotes
+      // from Bad Gyal's sit-down with Marta Fort on Blender's Fort Night Show:
+      // Complex (Oct. 15, 2026) and IBTimes UK (Oct. 15, 2026). The interview's
+      // own air date isn't given, so the moment is dated to the reports.
+      // Redlines: clean — one public figure's view of another's music, no
+      // location, health or private life.
+      slug: 'showgirl-bad-gyal-would-refuse-collab',
+      year: 2026,
+      month: 10,
+      day: 15,
+      category: 'music',
+      title: 'Bad Gyal says she wouldn’t collaborate with Taylor for $3 million',
+      snippet:
+        'Asked on an Argentine streaming show to name an artist she’d turn down even for millions, the Spanish singer picked Taylor and compared her music to “a dry chicken with no spices.”',
+      sourceUrl: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-collab-refusal',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.',
+        sources: [
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-collab-refusal',
+            source_title:
+              "Bad Gyal Says Taylor Swift Is an Artist She'd 'Never' Work With, Compares Her Music to 'Dry Chicken'",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/bad-gyal-rejects-taylor-swift-collaboration-1825931',
+            source_title:
+              "Taylor Swift's Music Compared To 'Dry Chicken' As Bad Gyal Says She Would 'Never' Collaborate With Her",
+            publisher: 'International Business Times UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 2,
+          },
+        ],
+        // Photo: the interview has no free-licensed still, so like the Marx
+        // page this carries a verified photo of the speaker. Pedro J Pacheco's
+        // Goya Awards 2026 red-carpet portrait (Barcelona, Feb. 28, 2026;
+        // CC BY-SA 4.0) curl-verified 2026-10-22 HTTP 200 image/jpeg at the
+        // 1280px thumb (1280x1705), downloaded and vision-confirmed: Bad Gyal
+        // in a sequined gown in front of the Premios Goya backdrop.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg/1280px-Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Pedro J Pacheco, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Bad Gyal on the Goya Awards red carpet in Barcelona, February 2026. In October she said she would turn down a Taylor collaboration even for $3 million.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6128.
       // A first-person career anecdote from a named public figure about his own
       // professional decision, so >=1 outlet suffices: Ultimate Classic Rock
