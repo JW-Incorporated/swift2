@@ -27,6 +27,14 @@ so far".
 
 Stories: 89
 
+## New Soundtrack Released for 'Nobody Wants This' Season 3 on Netflix
+
+- first seen: 2026-10-22 08:03 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Netflix has released the soundtrack for Season 3 of 'Nobody Wants This,' titled 'The Bubbly Soundtrack to a Champagne Season.' This new music accompanies the series as it continues to captivate audiences.
+- sources:
+  - [unverified] Netflix — https://news.google.com/rss/articles/CBMiigFBVV95cUxQX3BxQXROZWJqd3pTUmt0SHB0eWZoQzU5RkVXbGtHdUVhX2FSM2NHN0ZiTkszaElZMkt5Rk0xTzNlVWZLX0MwSEdSaEhBZUprNlF3TjV4OV91eERFVXhpdUJaX1diZ0d1X05SMDZQTkREaGE0Sk81NktHQ1FpVkluMGNWbGNMQlNvYWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Travis Kelce Discusses Benefits of Marriage to Taylor Swift
 
 - first seen: 2026-10-22 07:03 UTC | category: relationship | importance: 5
@@ -730,11 +738,3 @@ Stories: 89
 - summary: Taylor Swift has maintained her position as the U.K. No. 1 for a third consecutive week with her track 'Patient Zero'. This achievement highlights her continued popularity in the music scene.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxORGVqVjlXUy1iQU9ib1pNNk1KUzRIaVl2TUdPTktJOXk1bVIteklGTVkyOElXV2QwdzN4QTktWjZwckxUOWlwc09yMkJqN2dFLWZybmxfZHl6X2pERlY3RzNyRkZKaXpFMGU2R1ZKTVExV2U1SUw1OVVpempEM2trV0oyTDI3T0YtZmdaY3lPSmR0aUZJcjMwbHdKaV9iVXhmYXZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Caitlin Clark and Taylor Swift Attend Chiefs Game Together Again
-
-- first seen: 2026-10-19 07:06 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark and Taylor Swift were spotted together once more, supporting Travis Kelce at the Chiefs game against the Chargers at Arrowhead Stadium. Swift was seen enjoying the game and showcased her wedding ring during the event.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMitwFBVV95cUxONlRGdVdKX3hEclgzVlRzU3RDQ1o4djV1S2NfaXdIU2U3VWUwVkdCZ0ptY2ZIbmN5YWs1TXRMYzMxcmZGc3IyUjNKTGFTQVg2WjNGOWdOLTlWN1JheTdkQ2ladVFPT0FTaGJ0cFd4dlRkblBRZFNpOFhVRUJKYlJub3lkLTFjVkNFbWlNZWZZcnZnZDUxWGNOc2h5bk5kbW0yRUhJM1VrM3E2OGhPSjhPTmN4ODlZRnc?oc=5&hl=en-US&gl=US&ceid=US:en
