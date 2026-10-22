@@ -5892,7 +5892,7 @@ export default {
         rumors: [
           {
             claim:
-              "Instagram removed a guest\'s post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
+              "Instagram removed a guest's post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
             reportedBy: "In Touch Weekly (via Yahoo Entertainment), citing journalist Rob Shuter",
             reportedOn: "2026-08-01",
             status: "unconfirmed",
