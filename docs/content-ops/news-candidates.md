@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 91
+
+## Aaron Dessner's Role in Promoting Authenticity in Pop Music
+
+- first seen: 2026-10-22 10:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: NPR explores Aaron Dessner's influence in the pop music scene, highlighting his contributions to bringing authenticity to the genre. The piece examines his methods and impact on contemporary music.
+- sources:
+  - [unverified] NPR — https://news.google.com/rss/articles/CBMigAFBVV95cUxObV9rNHRuTG5xZmI3dU1ranY4bnp2NGYtemQ2Z3dUSUdhRDhXYjBCLTBiNFhrcDhodnRZai1QejFvU1VydVJkbVFweVVEWW9Hb3R6SlFGVzllQjdCVXEydDZrUnhiV1BJV2pzdXhHdlc4VmVXTmlFMzFraHNKbmpJaQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Cara Delevingne Discusses Her Role in Taylor Swift’s ‘Patient Zero’ Music Video
 
