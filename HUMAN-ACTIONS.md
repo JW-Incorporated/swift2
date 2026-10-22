@@ -2,9 +2,26 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #144 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
+<!-- ha filed=2026-10-22 -->
+
+**Why:** The deterministic local Facebook collector did not close this week's
+reminder issue within nine days. It runs from Joey's personal account under the
+2026-09-30 owner decision, so only Joey's logged-in Windows session can inspect
+a stopped task, checkpoint, 2FA prompt, CAPTCHA, or expired DPAPI credential.
+**Steps:**
+1. In the project folder, run `npm run knowledge:fb-export`.
+2. If the visible browser stops at a checkpoint, 2FA prompt, or CAPTCHA,
+   complete it yourself and rerun the command. If the credential is missing or
+   expired, recreate it with HUMAN-ACTIONS #88's exact DPAPI commands.
+3. If it prints a selector-repair prompt or another failure, paste that status
+   into the project chat; never attach or paste the credential file.
+**Worked if:** the current `FB group export due — week of ...` issue closes
+with uploaded/not-member counts and no group says `failed`.
 
 ## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-20 -->
