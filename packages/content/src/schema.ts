@@ -385,6 +385,7 @@ export const videoNoteKindSchema = z.enum([
   'tour_film',
   'documentary',
   'performance',
+  'visualizer',
   'interview',
   'award_speech',
   'speech',

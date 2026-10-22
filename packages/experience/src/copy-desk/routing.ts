@@ -39,6 +39,7 @@ const VIDEO_WORK: Record<string, PersonaSlug> = {
   lyric_video: 'theo',
   short_film: 'theo',
   performance: 'theo',
+  visualizer: 'theo',
   tour_film: 'deb',
   documentary: 'deb',
   interview: 'deb',
