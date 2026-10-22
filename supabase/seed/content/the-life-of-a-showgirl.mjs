@@ -170,7 +170,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -217,6 +217,23 @@ export default {
             reliability_score: 4,
             notes:
               'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+          {
+            // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
+            // The intake's CBS link was a 2023 article that never mentions
+            // this, so it is not cited. "Security stepped in" is left out: IBTimes
+            // itself calls it unconfirmed, and it is security-adjacent
+            // (privacy-redlines.md #2).
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/taylor-swift-fan-filming-chiefs-game-1826569',
+            source_title:
+              "Taylor Swift Calls Out Fan for Filming Her at Travis Kelce's NFL Game as Security Steps In",
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'Published Oct. 19, 2026; loaded directly. Primary text for the TikTok clip of a woman near the suite raising her phone, Taylor appearing to gesture at her, Page Six\'s "stop recording and watch the game" reading, and the absence of audio or any statement. The body hedges more than the headline; this item follows the body.',
           },
         ],
       },
@@ -3507,9 +3524,9 @@ export default {
             reportedOn: '2025-10-03',
             status: 'unconfirmed',
             url: 'https://variety.com/2025/music/news/taylor-swift-charli-xcx-feud-actually-romantic-timeline-showgirl-1236538041/',
-            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial; otherwise it stays a labeled interpretation. No location.',
+            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial. No location. Re-checked 2026-10-22: still no on-record word from either artist.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-10-22',
           },
         ],
       },
@@ -10931,9 +10948,9 @@ export default {
             reportedOn: '2026-06-29',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
-            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan — Taylor\'s team has confirmed no such project. Rechecked 2026-08-12: still no country-album announcement. Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Re-checked 2026-10-22: still no announcement; check again after the debut\'s 20th anniversary (Oct. 24). Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-12',
+            lastCheckedOn: '2026-10-22',
           },
         ],
       },
@@ -14111,8 +14128,8 @@ export default {
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-10-18',
-            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.',
+            lastCheckedOn: '2026-10-22',
+            note: 'Re-checked 2026-10-22: the CMA\'s ABC/Disney+ Dolly special aired live Oct. 21. Taylor was not on its announced lineup (Deseret News, Oct. 5), but surprise tributes were billed and no recap yet says whether she appeared. Next run: settle it from a recap. Confirms if she performed or a concert with her is announced; fades if neither.',
           },
         ],
       },
@@ -16300,6 +16317,68 @@ export default {
             focalPoint: '40% 25%',
             credit: 'Anthony Quintano, CC BY 2.0, via Wikimedia Commons',
             caption: 'For reference: Emmitt Smith on the field at Super Bowl XLIV, February 2010.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6167.
+      // Travis's own retelling on New Heights, read directly from People (via
+      // Yahoo) and Bleacher Report. CUT: where Jason was staying. One outlet
+      // places it at the couple's house, and a residence never gets more
+      // than city level here (privacy-redlines.md), so this stays "in Kansas
+      // City". The YouTube episode was not cited because its date could not
+      // be confirmed from this environment.
+      slug: 'showgirl-jason-kelce-squatober-wake-up-call',
+      year: 2026,
+      month: 10,
+      day: 21,
+      category: 'relationship',
+      title: 'Jason\'s 7:30 a.m. "Squatober" call, and Taylor\'s verdict on it',
+      snippet:
+        'On New Heights, Travis told how his brother rang at 7:30 in the morning looking for a bench-press spotter, and how Taylor summed it up.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the Oct. 21, 2026 episode of New Heights, Travis told a story from Jason\'s visit to Kansas City for the Chargers game. His phone rang at 7:30 in the morning. "In my mind, I\'m thinking worst-case scenario," he said. It was Jason, deep into "Squatober," his October lifting push, asking for a spotter on the bench press.\n\nTravis said his first answer was "No way!" He went anyway. "I\'m walking out of the room, and Taylor\'s like, \'This is f---ed up,\'" he recalled, to which he answered, "Nah, it\'ll be good. It\'ll be good!"',
+        sources: [
+          {
+            outlet: 'People (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+            source_title:
+              "Travis Kelce Says Brother Jason Woke Him Up with a Phone Call That Taylor Swift Called 'F---ed Up'",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 4,
+            notes:
+              'By Rachel McRady, Oct. 21, 2026; loaded directly. Primary text for the episode date, the 7:30 a.m. call, "worst-case scenario," "No way!", Taylor\'s line and Travis\'s reply.',
+          },
+          {
+            outlet: 'Bleacher Report',
+            url: 'https://bleacherreport.com/articles/25514012-f-ked-travis-kelce-tells-funny-story-about-taylor-swift-being-woken-jason-kelce',
+            source_title:
+              "'This is F--ked Up,' Travis Kelce Tells Funny Story About Taylor Swift Being Woken Up By Jason Kelce",
+            publisher: 'Bleacher Report',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'By Adam Wells, Oct. 21, 2026; loaded directly. Independent pickup confirming "Squatober," the bench-press spot and Taylor\'s reaction.',
+          },
+        ],
+        // Visual (charter step 3b): no free-licensed image of the episode, so
+        // this is a labeled reference photo of Jason. Commons, CC0 (CNC33),
+        // also used elsewhere in this file (photo pass #1721);
+        // curl 200 image/png 2026-10-22 and vision-confirmed (#62, Eagles).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            focalPoint: '54% 57%',
+            credit: 'Wikimedia Commons / CNC33 (CC0)',
+            caption: 'For reference: Jason Kelce on the Eagles sideline, 2023.',
             kind: 'reference',
           },
         ],
