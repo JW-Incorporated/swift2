@@ -1,8 +1,8 @@
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { buildScorecard, countSeedChanges, writeWeeklyScorecard } from './weekly-scorecard.mjs';
+import { buildScorecard, countSeedChanges, loadSources, writeWeeklyScorecard } from './weekly-scorecard.mjs';
 
 const now = new Date('2026-10-19T09:23:00.000Z');
 const start = '2026-10-12T09:23:00.000Z';
@@ -72,6 +72,44 @@ describe('weekly scorecard', () => {
       sourceLoader: async () => { throw new Error('story_timeline unreadable: relation does not exist'); },
     })).rejects.toThrow('story_timeline unreadable');
     await expect(readFile(outputPath, 'utf8')).rejects.toMatchObject({ code: 'ENOENT' });
+  });
+
+  it('pages every table read and matches in-window stories to decisions made before the window', async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), 'weekly-scorecard-'));
+    dirs.push(dir);
+    await mkdir(path.join(dir, 'docs/ops/dashboard'), { recursive: true });
+    await writeFile(path.join(dir, 'docs/ops/dashboard/budget.json'), '{"routines":[]}');
+    await writeFile(path.join(dir, 'docs/ops/AFFILIATE-COVERAGE.md'), '');
+
+    const rows = {
+      story_timeline: [{ story_id: 'story-1', first_public_at: '2026-10-18T10:00:00Z' }],
+      watch_decision: [{ class: 'critical_breaking', decided_at: '2026-10-01T10:00:00Z',
+        watch_item: { story_id: 'story-1' } }],
+      llm_usage: Array.from({ length: 2500 }, (_, index) => ({ calls: 1, created_at: start, caller: `caller-${index}` })),
+      fan_theory_candidate: [], live_theory: [], current_item: [], engagement_lead: [],
+      community_post_ledger: [], community_outcome: [],
+    };
+    const ranges = new Map<string, number[][]>();
+    const filters = new Map<string, string[]>();
+    const client = { from(table: keyof typeof rows) {
+      const query = {
+        select() { return query; },
+        gte(column: string) { filters.set(table, [...(filters.get(table) ?? []), `gte:${column}`]); return query; },
+        lte(column: string) { filters.set(table, [...(filters.get(table) ?? []), `lte:${column}`]); return query; },
+        range(pageStart: number, pageEnd: number) {
+          ranges.set(table, [...(ranges.get(table) ?? []), [pageStart, pageEnd]]);
+          return Promise.resolve({ data: rows[table].slice(pageStart, pageEnd + 1), error: null });
+        },
+      };
+      return query;
+    } };
+
+    const data = await loadSources({ client: client as never, now, root: dir });
+    expect(data.llm).toHaveLength(2500);
+    expect(ranges.get('llm_usage')).toEqual([[0, 999], [1000, 1999], [2000, 2999]]);
+    expect(filters.get('watch_decision')).toBeUndefined();
+    expect(buildScorecard({ ...fixture(), timelines: data.timelines, decisions: data.decisions }, now).entries[0].value)
+      .toMatchObject({ eligible: 1 });
   });
 
   it('counts only added seed rows and matches wrapped affiliate products', () => {

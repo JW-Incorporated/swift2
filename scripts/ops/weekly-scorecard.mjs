@@ -30,13 +30,18 @@ const entry = (goal, metric, value, unit, window, source, reason) => ({
 const pending = (goal, metric, unit, window, source, reason) =>
   entry(goal, metric, 'not measurable yet', unit, window, source, reason);
 
-async function mustQuery(source, query) {
-  let result;
-  try { result = await query; } catch (error) {
-    throw new Error(`${source} unreadable: ${error.message}`, { cause: error });
+async function mustQuery(source, queryPage) {
+  const rows = [];
+  while (true) {
+    let result;
+    try { result = await queryPage(rows.length, rows.length + 999); } catch (error) {
+      throw new Error(`${source} unreadable: ${error.message}`, { cause: error });
+    }
+    if (result.error) throw new Error(`${source} unreadable: ${result.error.message}`);
+    const page = result.data ?? [];
+    rows.push(...page);
+    if (page.length < 1000) return rows;
   }
-  if (result.error) throw new Error(`${source} unreadable: ${result.error.message}`);
-  return result.data ?? [];
 }
 
 async function readJson(file, required = true) {
@@ -80,14 +85,16 @@ export function countSeedChanges(diff, affiliateReport = '') {
 export async function loadSources({ client, now, root = process.cwd() }) {
   const end = now.toISOString();
   const start = new Date(now.getTime() - 7 * DAY).toISOString();
-  const from = (table, columns, dateColumn) => mustQuery(table,
-    client.from(table).select(columns).gte(dateColumn, start).lte(dateColumn, end));
+  const from = (table, columns, dateColumn) => mustQuery(table, (pageStart, pageEnd) =>
+    client.from(table).select(columns).gte(dateColumn, start).lte(dateColumn, end).range(pageStart, pageEnd));
   const [timelines, decisions, llm, theories, liveTheories, currentItems, leads, ledgers, outcomes] = await Promise.all([
     from('story_timeline', '*', 'first_public_at'),
-    from('watch_decision', 'class,action,decided_at,watch_item(story_id)', 'decided_at'),
+    mustQuery('watch_decision', (pageStart, pageEnd) =>
+      client.from('watch_decision').select('class,action,decided_at,watch_item(story_id)').range(pageStart, pageEnd)),
     from('llm_usage', 'caller,calls,input_tokens,output_tokens,est_cost_usd,created_at', 'created_at'),
     from('fan_theory_candidate', 'id,created_at', 'created_at'),
-    mustQuery('live_theory', client.from('live_theory').select('id,first_seen_on,promoted_to').gte('first_seen_on', start.slice(0, 10)).lte('first_seen_on', end.slice(0, 10))),
+    mustQuery('live_theory', (pageStart, pageEnd) => client.from('live_theory').select('id,first_seen_on,promoted_to')
+      .gte('first_seen_on', start.slice(0, 10)).lte('first_seen_on', end.slice(0, 10)).range(pageStart, pageEnd)),
     from('current_item', 'id,image_url,quality_hold_reason,created_at', 'created_at'),
     from('engagement_lead', 'id,platform,url,locator,status,created_at', 'created_at'),
     from('community_post_ledger', 'id,lead_id,platform,posted_at', 'posted_at'),
