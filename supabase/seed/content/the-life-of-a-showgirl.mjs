@@ -15256,7 +15256,8 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
-      confidence: 'plausible',
+      confidence: 'official',
+      relatedIds: ['moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-'],
       title: "Swifties theorize: what fans think today's website countdown means",
       snippet:
         "A \"sh0w business f0r y0u\" Instagram bio swap and a new taylorswift.com countdown ending 2 p.m. ET sent fan communities into overdrive—theories ranged from a Debut (Taylor's Version) tease to a Showgirl deluxe/encore to a VMA Artist Director Honors moment.",
@@ -15266,7 +15267,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
       moment: {
         context:
-          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. None of this is confirmed—Taylor and her team had not addressed the bio change or the countdown's purpose as of this writing, and every reading here is fans/press pattern-matching on past rollouts, not an official statement.",
+          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. The theories above were fans' and press pattern-matching on past rollouts, written before any official word.\n\nResolved: when the countdown ended at 2 p.m. ET, Taylor announced the new single \"Patient Zero,\" out September 25, in an Instagram post and on her website (Official Charts and local-TV newsrooms carried it the same day). The 000 bio and the countdown were the single's tease; none of the Debut (Taylor's Version), TS13 or VMA-reveal readings were what was announced.",
         sources: [
           {
             outlet: 'Cosmopolitan',
@@ -15299,6 +15300,16 @@ export default {
             reliability_score: 4,
             notes:
               "Corroborates the countdown and ties fan theories to both the Showgirl-deluxe reading and the Debut (Taylor's Version) 20th-anniversary reading, including the \"0:00 = clock reset\" fan quote.",
+          },
+          {
+            outlet: 'Official Charts',
+            url: 'https://officialcharts.com/chart-news/taylor-swift-patient-zero-single-release-date-preorder',
+            source_title: 'Taylor Swift announces new single Patient Zero',
+            publisher: 'Official Charts Company',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 4,
+            notes: "Reports the countdown ending in the announcement of the single \"Patient Zero\" for Sept. 25, resolving the fan theories above.",
           },
           {
             outlet: 'Reddit—r/TaylorSwift Theory Megathread: September 2026',
