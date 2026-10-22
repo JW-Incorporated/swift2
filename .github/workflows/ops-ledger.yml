@@ -18,12 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '24'
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
 
       - name: Measure weekly routine turns
         env:
