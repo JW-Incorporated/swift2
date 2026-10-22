@@ -51,13 +51,13 @@ async function readJson(file, required = true) {
   }
 }
 
-async function weeklyDiff(paths, start) {
+async function weeklyDiff(paths, start, runGit) {
   try {
-    const { stdout } = await execFileAsync('git', ['log', `--since=${start}`, '--format=%H', '--', ...paths], { encoding: 'utf8' });
+    const { stdout } = await runGit('git', ['log', `--since=${start}`, '--format=%H', '--', ...paths], { encoding: 'utf8' });
     const commits = stdout.trim().split(/\r?\n/).filter(Boolean);
     if (!commits.length) return '';
     const base = `${commits.at(-1)}^`;
-    return (await execFileAsync('git', ['diff', '--unified=0', base, 'HEAD', '--', ...paths], {
+    return (await runGit('git', ['diff', '--unified=0', base, 'HEAD', '--', ...paths], {
       encoding: 'utf8', maxBuffer: 20 * 1024 * 1024,
     })).stdout;
   } catch (error) {
@@ -82,7 +82,7 @@ export function countSeedChanges(diff, affiliateReport = '') {
     matchedWithLiveAffiliate: matchedItems.filter((name) => name && wrappedItems.has(name)).length };
 }
 
-export async function loadSources({ client, now, root = process.cwd() }) {
+export async function loadSources({ client, now, root = process.cwd(), runGit = execFileAsync }) {
   const end = now.toISOString();
   const start = new Date(now.getTime() - 7 * DAY).toISOString();
   const from = (table, columns, dateColumn, orderColumns = ['id']) => mustQuery(table, (pageStart, pageEnd) => {
@@ -111,7 +111,7 @@ export async function loadSources({ client, now, root = process.cwd() }) {
   const voice = await readJson(path.join(root, 'docs/ops/dashboard/voice.json'), false);
   const affiliate = await readFile(path.join(root, 'docs/ops/AFFILIATE-COVERAGE.md'), 'utf8')
     .catch((error) => { throw new Error(`merch affiliate coverage unreadable: ${error.message}`); });
-  const diff = await weeklyDiff(['supabase/seed/merch/fanmade.mjs', 'supabase/seed/content'], start);
+  const diff = await weeklyDiff(['supabase/seed/merch/fanmade.mjs', 'supabase/seed/content'], start, runGit);
   return { start, end, timelines, decisions, llm, theories, liveTheories, currentItems, leads, ledgers, outcomes,
     budget, news, voice, seedChanges: countSeedChanges(diff, affiliate) };
 }

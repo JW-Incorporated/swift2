@@ -112,7 +112,9 @@ describe('weekly scorecard', () => {
       return query;
     } };
 
-    const data = await loadSources({ client: client as never, now, root: dir });
+    const data = await loadSources({
+      client: client as never, now, root: dir, runGit: async () => ({ stdout: '' }),
+    });
     expect(data.llm).toHaveLength(2500);
     expect(ranges.get('llm_usage')).toEqual([[0, 999], [1000, 1999], [2000, 2999]]);
     const expectedOrders = {
@@ -126,6 +128,10 @@ describe('weekly scorecard', () => {
     expect(filters.get('watch_decision')).toBeUndefined();
     expect(buildScorecard({ ...fixture(), timelines: data.timelines, decisions: data.decisions }, now).entries[0].value)
       .toMatchObject({ eligible: 1 });
+    await expect(loadSources({
+      client: client as never, now, root: dir,
+      runGit: async () => { throw new Error('fatal: bad revision'); },
+    })).rejects.toThrow('seed diffs unreadable: fatal: bad revision');
   });
 
   it('counts only added seed rows and matches wrapped affiliate products', () => {
