@@ -33,7 +33,9 @@ export async function main(argv = process.argv.slice(2), {
   const repo = env.GITHUB_REPOSITORY || DEFAULT_REPO;
   let existing = null;
   if (apply) {
-    existing = (await ensureStatusIssue({ api, gh, repo, log })).issue;
+    // bootstrap: true lets a first-time render create the issue; every later
+    // render must find the existing one and fails loudly on an empty lookup.
+    existing = (await ensureStatusIssue({ api, gh, repo, log, bootstrap: true })).issue;
   }
   let data = await gatherStatusData({ api, repo, root, now, existingBody: existing?.body || '', readPreserved });
   if (apply) {

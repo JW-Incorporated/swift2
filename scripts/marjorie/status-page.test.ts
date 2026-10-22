@@ -28,13 +28,13 @@ describe('status issue lifecycle', () => {
     expect(found.number).toBe(4);
   });
 
-  it('creates the issue once when missing, labeled, and tries to pin it', async () => {
+  it('creates the issue once when missing, labeled, and tries to pin it (bootstrap)', async () => {
     const gh = vi.fn(async (args: string[]) => {
       if (args.includes('POST')) return { stdout: JSON.stringify({ number: 77, node_id: 'NODE', html_url: 'https://github.com/o/r/issues/77' }) };
       return { stdout: '{}' };
     });
     const log = vi.fn();
-    const out = await ensureStatusIssue({ api: fakeApi([]), gh, repo: REPO, log });
+    const out = await ensureStatusIssue({ api: fakeApi([]), gh, repo: REPO, log, bootstrap: true });
     expect(out).toMatchObject({ created: true, pinned: true, issue: { number: 77 } });
     const create = gh.mock.calls[0][0] as string[];
     expect(create).toContain(`title=${STATUS_TITLE}`);
@@ -42,12 +42,48 @@ describe('status issue lifecycle', () => {
     expect((gh.mock.calls[1][0] as string[]).join(' ')).toContain('pinIssue');
   });
 
+  it('throws when lookup is empty after retries and bootstrap is not set', async () => {
+    const gh = vi.fn();
+    const sleep = vi.fn(async () => {});
+    await expect(
+      ensureStatusIssue({ api: fakeApi([]), gh, repo: REPO, bootstrap: false, sleep }),
+    ).rejects.toThrow(/bootstrap/);
+    expect(gh).not.toHaveBeenCalled();
+  });
+
+  it('transient empty-then-found: retries the lookup and does not create', async () => {
+    // First two lookups return [] (search-index lag), third returns the issue.
+    let call = 0;
+    const api = vi.fn(async () => {
+      call += 1;
+      return call < 3 ? [] : [issueRow(4)];
+    });
+    const gh = vi.fn();
+    const sleep = vi.fn(async () => {});
+    const out = await ensureStatusIssue({ api, gh, repo: REPO, bootstrap: true, sleep });
+    expect(out).toMatchObject({ created: false, issue: { number: 4 } });
+    expect(gh).not.toHaveBeenCalled();
+    expect(sleep).toHaveBeenCalledTimes(2);
+  });
+
+  it('findStatusIssue retries empty results, then picks the oldest', async () => {
+    let call = 0;
+    const api = vi.fn(async () => {
+      call += 1;
+      return call < 2 ? [] : [issueRow(9), issueRow(4)];
+    });
+    const sleep = vi.fn(async () => {});
+    const out = await findStatusIssue(api, REPO, { sleep });
+    expect(out?.number).toBe(4);
+    expect(sleep).toHaveBeenCalledTimes(1);
+  });
+
   it('tolerates a failed pin', async () => {
     const gh = vi.fn(async (args: string[]) => {
       if (args.includes('graphql')) throw new Error('Resource not accessible by integration');
       return { stdout: JSON.stringify({ number: 3, node_id: 'N', html_url: 'u' }) };
     });
-    const out = await ensureStatusIssue({ api: fakeApi([]), gh, repo: REPO });
+    const out = await ensureStatusIssue({ api: fakeApi([]), gh, repo: REPO, bootstrap: true });
     expect(out).toMatchObject({ created: true, pinned: false });
     expect(await pinIssue(gh, 'x')).toBe(false);
   });
