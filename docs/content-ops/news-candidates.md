@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 90
+
+## Cara Delevingne Discusses Her Role in Taylor Swift’s ‘Patient Zero’ Music Video
+
+- first seen: 2026-10-22 08:05 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Cara Delevingne shares insights into her participation in Taylor Swift's music video for 'Patient Zero.' The discussion highlights how she became involved with the project.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE1FWkZ4T291cGwzdXhlaE5CR2c3bWl5cU1qdXlWRm1YbVpZMzJNR0ROUzVmU0I5US1MU0l4bGtBM2JBQUZiLXdsQWJzNF9BRWlnamZsYjZiMm5BMFhLXzI4aVgwZ01Ndw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## New Soundtrack Released for 'Nobody Wants This' Season 3 on Netflix
 
