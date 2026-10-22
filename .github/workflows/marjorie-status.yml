@@ -55,7 +55,9 @@ jobs:
       pull-requests: read
     concurrency:
       group: marjorie-status-render
-      cancel-in-progress: false
+      # A render waiting on the ops environment must not hold this lane forever.
+      # The newest render is authoritative because every run rebuilds from main.
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
         with:
