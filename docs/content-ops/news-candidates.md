@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 101
+
+## Discussion of Possible Taylor Swift Tribute in Glee Reboot
+
+- first seen: 2026-10-22 20:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that the reboot of 'Glee' might include a tribute episode dedicated to Taylor Swift. This has sparked discussions among fans regarding the potential inclusion of her music and influence in the show.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQbVFkUWFTQkJfekVlN2JUR2FQNENBcG1yTUFZSGswLUJpYkZoVm85THZuS1dHSEhLWUZmOVhCMUJROGIyOGg1dW05b3I0cThRT3lMZkE3anZxWElFWHZxUUJZRDhpRVZ2cVd4V3RJejRrSUk3OXZDWjJ6SHZyaEdPTzF5aWRoVUhscTh5VkYxNEZFa1FLc0RScg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Potential for Taylor Swift Tribute Episode in Glee Reboot
+
+- first seen: 2026-10-22 20:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A discussion has emerged regarding the possibility of a tribute episode dedicated to Taylor Swift in a reboot of the series 'Glee'. USA Today explores this idea in their latest coverage.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQQ2phN2VmcjBCbkZaV1lKeFFoR1EtR3hsUG5tTmgzVXdQR1BqdnQtczdWZjlEaXNzM2wwc29XV044RjZLal91bFBCazR4cnpkRlVraXJoRnlQR2JJU2loaWJHVGtwTTlCUWxqQXAyUDN1NlU4VTNtYkhpWmJlX296eXU4LWNvYmNUNVU4T1dDd0xiLXduUmRyUVhXMWNja0tSaG9fNXpPbktQTjZrcWEta0UyU0FyeXBJ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Pledges $4 Million to Nashville Community
 
