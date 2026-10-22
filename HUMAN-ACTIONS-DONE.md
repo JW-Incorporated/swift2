@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #113 · 2026-10-22 · done · #4778 has had no activity for 4 days — "auto-closed: issue-closed 4778 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4778 -->
 - #114 · 2026-10-22 · done · #4804 has had no activity for 4 days — "auto-closed: issue-closed 4804 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4804 -->
 - #115 · 2026-10-22 · done · #4673 has had no activity for 4 days — "auto-closed: issue-closed 4673 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4673 -->
 - #141 · 2026-10-21 · done · routine-template: retry claude-code-action once when the Agent SDK install fails (no execution file) — "auto-closed: issue-closed 6170 passed 2026-10-21" · by auto-close
