@@ -12,6 +12,11 @@ import { parseThreadJson } from './parsers.mjs';
 import { buildReaderSources, detailUrl, parseDiscoveryFeed, selectTopThreads } from './sources.mjs';
 import { createRedditTransport } from './transport.mjs';
 import {
+  loadHarvestQueue,
+  mineHarvestedDuplicates,
+  redditHarvestTargets,
+} from '../../tidewatch/actions/harvest.mjs';
+import {
   awarenessRows,
   buildHomeCrawlBundle,
   fetchTheorySubreddits,
@@ -73,6 +78,8 @@ export async function runReader({
   now = new Date(),
   onStatus = statusLogger,
   warn = console.warn,
+  loadHarvest = loadHarvestQueue,
+  harvestDuplicates = mineHarvestedDuplicates,
 } = {}) {
   if (!dryRun && !supabase) {
     throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required');
@@ -113,6 +120,7 @@ export async function runReader({
     if (discovered.length === 0) throw new Error('no Reddit RSS threads parsed');
     const known = await knownThreadIds(supabase);
     const todayCounts = await todaysCandidateCounts(supabase, now);
+    const harvestQueue = supabase ? await loadHarvest(supabase) : [];
     const resolvedCatalog = catalog ?? (await loadCatalog());
     const awarenessTargets = selectAwarenessCandidates(discovered, {
       config,
@@ -124,10 +132,14 @@ export async function runReader({
     const targetPool = subreddit
       ? discovered
       : [
+          ...redditHarvestTargets(harvestQueue),
           ...discovered.filter((post) => post.theory),
           ...awarenessTargets.map((candidate) => candidate.post),
         ];
-    if (targetPool.length === 0) throw new Error('no eligible Reddit threads found');
+    const facebookHarvest = harvestQueue.filter((entry) => entry.platform === 'facebook');
+    if (targetPool.length === 0 && facebookHarvest.length === 0) {
+      throw new Error('no eligible Reddit threads found');
+    }
     const selected = selectTopThreads(targetPool, maxThreads);
     const threads = [];
     for (const listed of selected) {
@@ -145,6 +157,7 @@ export async function runReader({
             subreddit: parsed.post.subreddit ?? listed.subreddit,
             rank: listed.rank,
             theory: listed.theory,
+            harvestDecisionId: listed.harvestDecisionId,
           },
         });
       } catch (error) {
@@ -152,7 +165,25 @@ export async function runReader({
         warn(`home-reddit-reader: skipping thread ${listed.id} (${error.message})`);
       }
     }
-    if (threads.length === 0) throw new Error('no Reddit JSON threads parsed');
+    if (threads.length === 0 && facebookHarvest.length === 0) {
+      throw new Error('no Reddit JSON threads parsed');
+    }
+
+    const queueByDecision = new Map(harvestQueue.map((entry) => [entry.decisionId, entry]));
+    const redditHarvest = threads.filter((thread) => thread.post.harvestDecisionId).map((thread) => ({
+      ...queueByDecision.get(thread.post.harvestDecisionId),
+      numComments: thread.post.numComments ?? 0,
+      comments: thread.comments,
+    }));
+    let harvestResult = { bundlesConsidered: 0, theoriesUpserted: 0, errors: [] };
+    try {
+      harvestResult = await harvestDuplicates(supabase, [...redditHarvest, ...facebookHarvest]);
+    } catch {
+      warn('home-reddit-reader: duplicate harvest deferred');
+    }
+    if (harvestResult.errors.length > 0) {
+      warn(`home-reddit-reader: duplicate harvest deferred ${harvestResult.errors.length} bundle(s)`);
+    }
 
     const posts = threads.map((thread) => thread.post);
     const details = new Map(posts.map((post) => [post.id, post]));
@@ -171,7 +202,7 @@ export async function runReader({
     const observedAt = now.toISOString();
     const rows = awarenessRows(candidates, observedAt);
     const bundle = buildHomeCrawlBundle(
-      threads.filter((thread) => thread.post.theory),
+      threads.filter((thread) => thread.post.theory && !thread.post.harvestDecisionId),
       observedAt,
     );
     const leadResult = await writeLeads(supabase, rows, { dryRun });
@@ -191,6 +222,8 @@ export async function runReader({
       aged: posts.filter((post) => post.ageHours != null).length,
       crawlThreads: bundle.subreddits.reduce((sum, entry) => sum + entry.posts.length, 0),
       comments: threads.reduce((sum, thread) => sum + thread.comments.length, 0),
+      harvested: harvestResult.bundlesConsidered,
+      harvestUpserts: harvestResult.theoriesUpserted,
       threads,
       bundle,
     };
@@ -219,7 +252,7 @@ async function main() {
     return 0;
   }
   console.log(
-    `home-reddit-reader: rss=${result.rssFeeds} discovered=${result.discovered} detailed=${result.detailed} leads=${result.leads} inserted=${result.inserted} score=${result.scored} num_comments=${result.commentCounts} age=${result.aged} crawl_threads=${result.crawlThreads} comments=${result.comments}${options.dryRun ? ' (dry-run: no DB or crawl-bundle writes)' : ''}`,
+    `home-reddit-reader: rss=${result.rssFeeds} discovered=${result.discovered} detailed=${result.detailed} leads=${result.leads} inserted=${result.inserted} score=${result.scored} num_comments=${result.commentCounts} age=${result.aged} crawl_threads=${result.crawlThreads} comments=${result.comments} harvested=${result.harvested} harvest_upserts=${result.harvestUpserts}${options.dryRun ? ' (dry-run: no DB or crawl-bundle writes)' : ''}`,
   );
   return 0;
 }

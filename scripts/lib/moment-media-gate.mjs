@@ -55,7 +55,7 @@ theories/tortured-poets.mjs#ttpd-grief-playlists;theories/tortured-poets.mjs#cla
 theories/tortured-poets.mjs#ttpd-quill-fountain-pen-era;videos/1989.mjs#the-1989-world-tour-live-film;videos/fearless.mjs#journey-to-fearless
 videos/lover.mjs#miss-americana;videos/lover.mjs#city-of-lover;videos/midnights.mjs#taylor-swift-the-eras-tour-film
 videos/reputation.mjs#reputation-stadium-tour-film;videos/speak-now.mjs#speak-now-world-tour-live;videos/the-life-of-a-showgirl.mjs#the-official-release-party-of-a-showgirl
-social/inbox/appearance-2026-10-12-FqbcAAKQjes.json;merch/official.mjs#8238952612040;merch/official.mjs#8239061434568
+merch/official.mjs#8238952612040;merch/official.mjs#8239061434568
 `;
 
 export const SURFACE_MEDIA_LEGACY = new Set(SURFACE_MEDIA_LEGACY_TEXT.trim().split(/[;\s]+/));
