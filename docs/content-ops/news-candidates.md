@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 95
 
 ## Taylor Swift Criticized Over Wedding to Travis Kelce
 
@@ -786,11 +786,3 @@ Stories: 96
 - summary: A tribute concert celebrating Taylor Swift will take place in Manitowoc, as reported by Seehafer News. Fans of the artist can look forward to the tribute event showcasing her music.
 - sources:
   - [unverified] Seehafer News — https://news.google.com/rss/articles/CBMilAFBVV95cUxQVWJJZXhtVmZvRFFvY1E5WDhScWQ0OHRHSnNfZWNxREZ3LWpRQi1JNmxLb1k3bWI3UzRhZXVIeUNfSm50c3VjOWIzU2dQVWROdEJKSVk4NEFjcTBvTkZESGc5Y29aSTdwZHJjX2ZkWTdSc2FfeUlkUVZweGxuQVhVUExUVWJSaHNBWm5jV19tZWF5VWVp?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tops U.K. Charts for Third Week with 'Patient Zero'
-
-- first seen: 2026-10-19 12:57 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has maintained her position as the U.K. No. 1 for a third consecutive week with her track 'Patient Zero'. This achievement highlights her continued popularity in the music scene.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxORGVqVjlXUy1iQU9ib1pNNk1KUzRIaVl2TUdPTktJOXk1bVIteklGTVkyOElXV2QwdzN4QTktWjZwckxUOWlwc09yMkJqN2dFLWZybmxfZHl6X2pERlY3RzNyRkZKaXpFMGU2R1ZKTVExV2U1SUw1OVVpempEM2trV0oyTDI3T0YtZmdaY3lPSmR0aUZJcjMwbHdKaV9iVXhmYXZyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
