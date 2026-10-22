@@ -85,20 +85,26 @@ export function countSeedChanges(diff, affiliateReport = '') {
 export async function loadSources({ client, now, root = process.cwd() }) {
   const end = now.toISOString();
   const start = new Date(now.getTime() - 7 * DAY).toISOString();
-  const from = (table, columns, dateColumn) => mustQuery(table, (pageStart, pageEnd) =>
-    client.from(table).select(columns).gte(dateColumn, start).lte(dateColumn, end).range(pageStart, pageEnd));
+  const from = (table, columns, dateColumn, orderColumns = ['id']) => mustQuery(table, (pageStart, pageEnd) => {
+    let query = client.from(table).select(columns).gte(dateColumn, start).lte(dateColumn, end);
+    for (const column of orderColumns) query = query.order(column, { ascending: true });
+    return query.range(pageStart, pageEnd);
+  });
   const [timelines, decisions, llm, theories, liveTheories, currentItems, leads, ledgers, outcomes] = await Promise.all([
-    from('story_timeline', '*', 'first_public_at'),
+    from('story_timeline', '*', 'first_public_at', ['story_id']),
     mustQuery('watch_decision', (pageStart, pageEnd) =>
-      client.from('watch_decision').select('class,action,decided_at,watch_item(story_id)').range(pageStart, pageEnd)),
+      client.from('watch_decision').select('class,action,decided_at,watch_item(story_id)')
+        .order('id', { ascending: true }).range(pageStart, pageEnd)),
     from('llm_usage', 'caller,calls,input_tokens,output_tokens,est_cost_usd,created_at', 'created_at'),
     from('fan_theory_candidate', 'id,created_at', 'created_at'),
     mustQuery('live_theory', (pageStart, pageEnd) => client.from('live_theory').select('id,first_seen_on,promoted_to')
-      .gte('first_seen_on', start.slice(0, 10)).lte('first_seen_on', end.slice(0, 10)).range(pageStart, pageEnd)),
+      .gte('first_seen_on', start.slice(0, 10)).lte('first_seen_on', end.slice(0, 10))
+      .order('id', { ascending: true }).range(pageStart, pageEnd)),
     from('current_item', 'id,image_url,quality_hold_reason,created_at', 'created_at'),
     from('engagement_lead', 'id,platform,url,locator,status,created_at', 'created_at'),
     from('community_post_ledger', 'id,lead_id,platform,posted_at', 'posted_at'),
-    from('community_outcome', 'post_ledger_id,platform,score,replies,horizon,checked_at', 'checked_at'),
+    from('community_outcome', 'post_ledger_id,platform,score,replies,horizon,checked_at', 'checked_at',
+      ['post_ledger_id', 'horizon']),
   ]);
   const budget = await readJson(path.join(root, 'docs/ops/dashboard/budget.json'));
   const news = await readJson(path.join(root, 'docs/ops/dashboard/news.json'), false);

@@ -91,13 +91,21 @@ describe('weekly scorecard', () => {
     };
     const ranges = new Map<string, number[][]>();
     const filters = new Map<string, string[]>();
+    const orders = new Map<string, string[][]>();
     const client = { from(table: keyof typeof rows) {
+      const pageOrders: string[] = [];
       const query = {
         select() { return query; },
         gte(column: string) { filters.set(table, [...(filters.get(table) ?? []), `gte:${column}`]); return query; },
         lte(column: string) { filters.set(table, [...(filters.get(table) ?? []), `lte:${column}`]); return query; },
+        order(column: string, options: { ascending: boolean }) {
+          expect(options).toEqual({ ascending: true });
+          pageOrders.push(column);
+          return query;
+        },
         range(pageStart: number, pageEnd: number) {
           ranges.set(table, [...(ranges.get(table) ?? []), [pageStart, pageEnd]]);
+          orders.set(table, [...(orders.get(table) ?? []), [...pageOrders]]);
           return Promise.resolve({ data: rows[table].slice(pageStart, pageEnd + 1), error: null });
         },
       };
@@ -107,6 +115,14 @@ describe('weekly scorecard', () => {
     const data = await loadSources({ client: client as never, now, root: dir });
     expect(data.llm).toHaveLength(2500);
     expect(ranges.get('llm_usage')).toEqual([[0, 999], [1000, 1999], [2000, 2999]]);
+    const expectedOrders = {
+      story_timeline: ['story_id'], watch_decision: ['id'], llm_usage: ['id'], fan_theory_candidate: ['id'],
+      live_theory: ['id'], current_item: ['id'], engagement_lead: ['id'], community_post_ledger: ['id'],
+      community_outcome: ['post_ledger_id', 'horizon'],
+    };
+    for (const [table, expected] of Object.entries(expectedOrders)) {
+      expect(orders.get(table)?.every((pageOrder) => JSON.stringify(pageOrder) === JSON.stringify(expected))).toBe(true);
+    }
     expect(filters.get('watch_decision')).toBeUndefined();
     expect(buildScorecard({ ...fixture(), timelines: data.timelines, decisions: data.decisions }, now).entries[0].value)
       .toMatchObject({ eligible: 1 });
