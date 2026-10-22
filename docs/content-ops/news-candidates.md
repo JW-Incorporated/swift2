@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 96
+
+## Taylor Swift Criticized Over Wedding to Travis Kelce
+
+- first seen: 2026-10-22 11:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is currently facing backlash from critics regarding her wedding to Travis Kelce. This situation has drawn attention across various platforms.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxQWk5xR3NEV2lCVUFLa0VSWXRQaUZBQm54NkdlckVUWGotWjRzNkFPXzc0VmtPYW8wRjlSeTRpTUJISXlfSEhmYmlIdVNWSTF4Ql9qcUZ1MDlxSFlzcnhyVzQ2RjQzNG95WEljY1FmZDRnRmtQMXB5NVl0RzhTRHNndW1Zcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Grammy-nominated sound engineer who mixed ‘Red’ resides in Aptos
 
