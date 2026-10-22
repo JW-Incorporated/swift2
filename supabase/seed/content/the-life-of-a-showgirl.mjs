@@ -170,7 +170,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -217,6 +217,23 @@ export default {
             reliability_score: 4,
             notes:
               'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+          {
+            // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
+            // The intake's CBS link was a 2023 article that never mentions
+            // this, so it is not cited. "Security stepped in" is left out: IBTimes
+            // itself calls it unconfirmed, and it is security-adjacent
+            // (privacy-redlines.md #2).
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/taylor-swift-fan-filming-chiefs-game-1826569',
+            source_title:
+              "Taylor Swift Calls Out Fan for Filming Her at Travis Kelce's NFL Game as Security Steps In",
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'Published Oct. 19, 2026; loaded directly. Primary text for the TikTok clip of a woman near the suite raising her phone, Taylor appearing to gesture at her, Page Six\'s "stop recording and watch the game" reading, and the absence of audio or any statement. The body hedges more than the headline; this item follows the body.',
           },
         ],
       },
@@ -16300,6 +16317,68 @@ export default {
             focalPoint: '40% 25%',
             credit: 'Anthony Quintano, CC BY 2.0, via Wikimedia Commons',
             caption: 'For reference: Emmitt Smith on the field at Super Bowl XLIV, February 2010.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6167.
+      // Travis's own retelling on New Heights, read directly from People (via
+      // Yahoo) and Bleacher Report. CUT: where Jason was staying. One outlet
+      // places it at the couple's house, and a residence never gets more
+      // than city level here (privacy-redlines.md), so this stays "in Kansas
+      // City". The YouTube episode was not cited because its date could not
+      // be confirmed from this environment.
+      slug: 'showgirl-jason-kelce-squatober-wake-up-call',
+      year: 2026,
+      month: 10,
+      day: 21,
+      category: 'relationship',
+      title: 'Jason\'s 7:30 a.m. "Squatober" call, and Taylor\'s verdict on it',
+      snippet:
+        'On New Heights, Travis told how his brother rang at 7:30 in the morning looking for a bench-press spotter, and how Taylor summed it up.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the Oct. 21, 2026 episode of New Heights, Travis told a story from Jason\'s visit to Kansas City for the Chargers game. His phone rang at 7:30 in the morning. "In my mind, I\'m thinking worst-case scenario," he said. It was Jason, deep into "Squatober," his October lifting push, asking for a spotter on the bench press.\n\nTravis said his first answer was "No way!" He went anyway. "I\'m walking out of the room, and Taylor\'s like, \'This is f---ed up,\'" he recalled, to which he answered, "Nah, it\'ll be good. It\'ll be good!"',
+        sources: [
+          {
+            outlet: 'People (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+            source_title:
+              "Travis Kelce Says Brother Jason Woke Him Up with a Phone Call That Taylor Swift Called 'F---ed Up'",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 4,
+            notes:
+              'By Rachel McRady, Oct. 21, 2026; loaded directly. Primary text for the episode date, the 7:30 a.m. call, "worst-case scenario," "No way!", Taylor\'s line and Travis\'s reply.',
+          },
+          {
+            outlet: 'Bleacher Report',
+            url: 'https://bleacherreport.com/articles/25514012-f-ked-travis-kelce-tells-funny-story-about-taylor-swift-being-woken-jason-kelce',
+            source_title:
+              "'This is F--ked Up,' Travis Kelce Tells Funny Story About Taylor Swift Being Woken Up By Jason Kelce",
+            publisher: 'Bleacher Report',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'By Adam Wells, Oct. 21, 2026; loaded directly. Independent pickup confirming "Squatober," the bench-press spot and Taylor\'s reaction.',
+          },
+        ],
+        // Visual (charter step 3b): no free-licensed image of the episode, so
+        // this is a labeled reference photo of Jason. Commons, CC0 (CNC33),
+        // also used elsewhere in this file (photo pass #1721);
+        // curl 200 image/png 2026-10-22 and vision-confirmed (#62, Eagles).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            focalPoint: '54% 57%',
+            credit: 'Wikimedia Commons / CNC33 (CC0)',
+            caption: 'For reference: Jason Kelce on the Eagles sideline, 2023.',
             kind: 'reference',
           },
         ],
