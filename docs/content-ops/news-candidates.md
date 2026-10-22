@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 97
+
+## Taylor Swift Performs During United States Grand Prix Weekend
+
+- first seen: 2026-10-22 18:27 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift took the stage at the United States Grand Prix weekend, adding a musical highlight to the Formula 1 event. Fans enjoyed her performance as part of the festivities surrounding the race.
+- sources:
+  - [unverified] Formula 1 — https://news.google.com/rss/articles/CBMi9wFBVV95cUxQZ0JWOFRTek5qYlN3NXZ1OTZZdXpkaWVnZHBuSTJWanRrSEk5YUFzLWJyT2p1WURrR3d5V2xIdS1PeEViNDNvcGNaOE41LW9wUGVOMk9aME1Sak9IT2F4VUJpNWVQZGdhVnBVSkZVSFpXQkE0UXNlbXVSeGljYjhTT09VdWU1cERJclJ5UnU5bHRIUjJJVFZQSnRZdW1qZkg4OVlDa0l5Q0NINktzdlR2RkJ2QkFmRHdkX0gzSi1pUDlUMDJMellDYkdZSWY1bDNjY2lsYVljNW90QS1IUHJKajRzSVRFLTRsUEZORHI5d3hzd1NCVkRZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's former home, where '1989' was written, up for sale
+
+- first seen: 2026-10-22 18:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The mansion where Taylor Swift wrote her album '1989' is currently on the market. The property has garnered attention due to its connection to the popular album.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNM3NELWd3OVJJQ2h2VVlHNFFkalhJNmZxc2ExMWV2V1A0ZWVFQ2VFZV9qLUpUd05OclBiZ1dYRWhrU2tyNm9lVUhfcWlYcWFlTU5YOG9rOU15bTNXZHhfODBucFo1bG5tb1V1Tm1ldVpEWnV3VWtNTUJMMFFTMjJ1WlVGaEhTM2F5R3RFekk0bW9mWE1mX094R0QwNjFaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Maya Hawke Praises Two Taylor Swift Songs as 'Epic Poetry'
+
+- first seen: 2026-10-22 18:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Maya Hawke expresses admiration for two of Taylor Swift's songs, comparing them to 'epic poetry' while also discussing her views on Eminem's status as the GOAT.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilAFBVV95cUxOTkdTbkg2aW9mLUJMcm02ckQ5bWota3JucTNva1RaQTRFR3ljUXd3Wmc3NE5XQWg4UmRjTlkxT1FjenpEbWRVRURZR2JBQm1nbC1EUjJkRjk5RDFTRDZqMXFyTzdseXFjOUZBZ1czSld1UWw5VE1JWGNzRFF2dWRBY3lqUUdDVnlpaEQ1dUFtTGRpUGFj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Faces Anxiety Over Public Perception and Overexposure
 
@@ -778,11 +802,3 @@ Stories: 95
 - summary: Taylor Swift showcased her impressive 13-carat wedding ring stack while supporting her husband, Travis Kelce. The display highlights her elegant style at the event.
 - sources:
   - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxOcFpZQWZPM0RtWjBNczBZcDc0MVVfUGllSjZaQ2NJTF9QQ1dEYkFuUXhfUTZOZTB5amJHVjIwcDVrUzdhakJFVmUwTzlJcFZRa3hYRkk1bll5dXhQUndDN2VWVjl6T0tjLXIwS0liODR4MkdMYUNKR3RsVGR1VFo2VG9jQnYtTnVhZlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Richard Marx Discusses Turning Down Collaboration with Taylor Swift
-
-- first seen: 2026-10-19 18:21 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Richard Marx shares his perspective on declining a collaboration with Taylor Swift, expressing no regrets about his decision. The conversation highlights his thoughts on career choices within the music industry.
-- sources:
-  - [unverified] Ultimate Classic Rock — https://news.google.com/rss/articles/CBMiekFVX3lxTE05THIxUlZMbXRNazR6WDRnVFF4M3BlVnNIX241cXpUbkxNRmJ3Tkl0ZVlQb192UjI3ZjNZT1hCWHdaUDJMMTg2cFU0M1FKQ2czMFg5a3RXMmI5QkEzcGxYcTNRQnVJcWVyZ3MwVkJNeWFOWUFmcnFvQ2t3?oc=5&hl=en-US&gl=US&ceid=US:en
