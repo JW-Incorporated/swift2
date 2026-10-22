@@ -131,6 +131,7 @@ export const VIDEO_KIND_LABEL: Record<VideoNoteKind, string> = {
   tour_film: 'Tour film',
   documentary: 'Documentary',
   performance: 'Performance',
+  visualizer: 'Visualizer',
   // Appearances — her, as herself, in someone else's programming.
   interview: 'Interview',
   award_speech: 'Award speech',
