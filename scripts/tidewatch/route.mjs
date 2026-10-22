@@ -14,7 +14,14 @@ async function publishCriticalSite(...args) {
   const site = await import('./actions/site.mjs');
   return site.publishCriticalSite(...args);
 }
-export const ACTION_HANDLERS = Object.freeze({ critical_fast_path: publishCriticalSite });
+async function queueDuplicateHarvest({ decision, ...context }) {
+  const harvest = await import('./actions/harvest.mjs');
+  return harvest.runHarvestAction(decision, { ...context, live: true });
+}
+export const ACTION_HANDLERS = Object.freeze({
+  critical_fast_path: publishCriticalSite,
+  harvest_then_discard: queueDuplicateHarvest,
+});
 const runMerchAction = async (...args) => (await import('./actions/merch.mjs')).runMerchAction(...args);
 export const ACTION_RUNNERS = Object.freeze({
   store_drop_draft: runMerchAction,
