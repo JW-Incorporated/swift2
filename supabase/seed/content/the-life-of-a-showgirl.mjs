@@ -449,6 +449,18 @@ export default {
             kind: 'primary',
             focalPoint: '50% 30%',
           },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/NiLp4MxdfXx2xC5DWHTRZM-1200-80.jpg',
+            focalPoint: '55% 25%',
+            // 1200x675, curl-verified HTTP 200 image/jpeg (110KB); the og:image
+            // of MusicRadar's report on this performance, credited there to
+            // Emma McIntyre/Oscars/Getty Images for Academy Museum Foundation.
+            // Vision-checked: Taylor singing with an acoustic guitar on a dark
+            // stage framed by blue light bars; no watermark.
+            credit: 'Emma McIntyre/Oscars/Getty Images for Academy Museum Foundation, via MusicRadar',
+            caption: 'Taylor performing at the Academy Museum Gala in Los Angeles, Oct. 17, 2026.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
