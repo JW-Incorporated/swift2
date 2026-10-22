@@ -198,6 +198,31 @@ function addTo(buckets, key, fallbackLabel, record) {
   }
 }
 
+/** Pre-convention campaign prefixes pillarOf (feedback.mjs) does not know.
+ * Mapped here, for REPORTING only (pillarOf also gates autonomy). Per
+ * social-strategy.md §1: the three heartbeat pillars and `news:` map by
+ * their exact §1 names; `anniversary:`, `vault:`, `thread-clue-web:` have
+ * no unambiguous §1 pillar, so they go to an explicit `legacy` bucket. */
+const LEGACY_PILLARS = {
+  'on-this-day:': 'heartbeat:on-this-day',
+  'era-deep-cut:': 'heartbeat:era-deep-cut',
+  'track-fact:': 'heartbeat:track-fact',
+  'news:': 'news',
+  'anniversary:': 'legacy',
+  'vault:': 'legacy',
+  'thread-clue-web:': 'legacy',
+};
+
+/** pillarOf plus the LEGACY_PILLARS fallback; anything else keeps pillarOf's
+ * null + ::warning:: behaviour. */
+export function reportPillarOf(campaign) {
+  if (typeof campaign === 'string') {
+    const prefix = Object.keys(LEGACY_PILLARS).find((p) => campaign.startsWith(p));
+    if (prefix) return LEGACY_PILLARS[prefix];
+  }
+  return pillarOf(campaign);
+}
+
 const NO_CAMPAIGN_LABEL = '(none)';
 const NO_PILLAR_LABEL = '(unrecognized)';
 
@@ -222,7 +247,7 @@ export function aggregateEngagement(records) {
   const byPillar = Object.create(null);
   for (const record of records ?? []) {
     addTo(byCampaign, record?.campaign, NO_CAMPAIGN_LABEL, record);
-    addTo(byPillar, pillarOf(record?.campaign), NO_PILLAR_LABEL, record);
+    addTo(byPillar, reportPillarOf(record?.campaign), NO_PILLAR_LABEL, record);
   }
   return { totalPosts: (records ?? []).length, byCampaign, byPillar };
 }
