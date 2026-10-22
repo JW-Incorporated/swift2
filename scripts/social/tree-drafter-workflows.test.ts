@@ -22,8 +22,14 @@ describe('routine-tree-daily-draft.yml', () => {
     expect(wf).toMatch(/^ {2}receipt:$/m);
   });
 
-  it('keeps max_turns at 50 — the work is bounded, not the cap raised', () => {
-    expect(wf).toMatch(/max_turns: 50\b/);
+  it('caps max_turns at 75 — draft days use 50–59 turns (decisions.md 2026-10-21)', () => {
+    expect(wf).toMatch(/max_turns: 75\b/);
+  });
+
+  it('dispatches approval from a backstop job that survives an agent turn-cap failure but not a cancel', () => {
+    expect(wf).toMatch(/approve-backstop:/);
+    expect(wf).toMatch(/if: \$\{\{ !cancelled\(\) \}\}/);
+    expect(wf).toMatch(/gh workflow run social-tree-approve\.yml/);
   });
 
   it('retires stale drafts with --apply in the prepare job only, on the workflow token (never the PAT)', () => {
