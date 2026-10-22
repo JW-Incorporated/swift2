@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 98
+
+## Taylor Swift's Rhode Island Mansion History Explored
+
+- first seen: 2026-10-22 21:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article details the history of Taylor Swift's Rhode Island mansion, describing it as once being the unruly seaside kingdom of an heiress. The piece offers insights into the property’s past and significance.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2AFBVV95cUxNMEtidWRZWnZVM2ZocV9zSE9IeHM4VFRiUlpzZkVtR1JnQnFlRi1qZ0Y5VFN6eUtHSFh3NkF2LVNPeVljdGQxVVU3akE4a1BCNktLY08xcDNqeW94eWdrOXFJMlFacHRieXE5SFhQaHFPYm9vUVdyeDBsSG5nSU16aDdqZTNoMHphckxGeUZ5eW5MMXF5NWVoVzNTUlhHUHVnZ3kzR2xVQlBkTHVtRmJpZkVIeGNOVklkaUVKVG5wbXhZd3FyTXZheVlHOC01OXVwbXdFOEREYnrSAdgBQVVfeXFMUEliZzJhRko0NnBnSVFVVmRfbjF5dUh5eDVyUEc1bDZNZ2M1emU3S1ZDYWlfWFhzc19ZSngzMGlUY1NBSkk4RW0zYndyS2VEN293SVZ5eHBSWmo0LXhjSEJMN0RZV0xQUEI2dVdoYUxub1Q1aWdIaC1vbXc4LU83T1l4YTJRdG4yamxiTld2RzNqNVFjQjczcGEwWkp3aXBES29wdl9WLS1XNDI3WnJyMWNKMlBqME1FLU54T2RaYmIxQzgwcDhlYXBUUTAwd0tPUERyMDBMZWxE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Discussion of Possible Taylor Swift Tribute in Glee Reboot
 
@@ -802,35 +810,3 @@ Stories: 101
 - summary: A review has been published on the deluxe edition of Taylor Swift’s album, 'The Life of a Showgirl.' The analysis covers the content and features of this edition, providing insights for fans.
 - sources:
   - [unverified] the-standard.org — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOSXhST0ZDNWcxTFVjZnJVbXFVRTRabjVJdEN6TDlsWGk2bml3LVB1enExQWd3ckhYczN0MHhxX2ZIVVJGUGZFbDc1c1JhNW11LVRCNHhmUHVaaGlmdGVlQnFsbGwzWHkwUkktZnRSdXpGaFhOODFGWGZBZ1RvN3Ntd0Vrbk95WnVQNEQ0U2c5eDFoaTJZMHVSV1JhTV9NeGQwWDBaT0dqVUt0azd4d1FXbDRCUWtwR3pIanlsczR3Wk1pVWFfeTFfaDFJOWZ1bGhpQ3ZfeXpqbTFLT19XOWFTcHNnZDgzVmRmRTBuT0xsVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift asks fan to stop filming her at Chiefs game
-
-- first seen: 2026-10-19 21:21 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a Chiefs game, Taylor Swift appeared to request a fan to stop filming her. The moment was captured and shared online, highlighting her interaction with fans at public events.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZC1lNXV1MHJhSGpKd21yN25tWm1qbF85a1g5Vm9malpta2JCYS1yRklONU04UWxkZ3RrV3I4XzJ5c0JEM2RoLTdVMW1lbFQzR3lkVzBna0h3Z0s1bGdwajZYTHZXMlUxY1lnaG9lRFlxRW9JU0NkYkxucjROZmZRNHdyT0RybEZ1WHQ5N0o3TkxPTC11Z240T0p4UEtIcTJpcDhVTA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Responds to Fan Filming Her at Chiefs Game
-
-- first seen: 2026-10-19 21:21 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At a recent Chiefs game, Taylor Swift was reportedly seen reacting to a fan attempting to film her. The incident drew attention amid her public appearances.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMimAFBVV95cUxOVmZKTFB5bnlhSDh5SUV6UTRmNi1zV0VPMnM2OVlYX3plVjFRdDJFUENBbHh0RmEzZGFURXZDMFRkS3I4R1hLYUh6a1NHWFZ4RjRpTnZyUFRhc2hwcmFCRDlFNmg2bkxTNzJRd3pnbk4wVDdsOWRWWU5oNVVmQ01oUEZXOWNfMS14MUNZTGVyYnNudmt5NU1pNw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Stunning in Soft Glam at Academy Museum Gala
-
-- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a soft glam look at the Academy Museum Gala, embodying pure romance. Photos from the event reveal her elegant style and aesthetic.
-- sources:
-  - [unverified] Allure — https://news.google.com/rss/articles/CBMie0FVX3lxTE91blZUSDd6ckg2d25YLWVrOW93cXRkWF9ydi0tMGtZaTJOTXZjcGJPU2FDSWNUVF9ubnNKbFpoTEFyemt3U1J5NVVrU0dpZm0wcWxidWNlRXNXQVBrcTA5OHhCMXV3UWhzLXpTdXZFU0JwVHFWX1pOZzhuUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Displays 13-Carat Wedding Ring Stack at Event
-
-- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased her impressive 13-carat wedding ring stack while supporting her husband, Travis Kelce. The display highlights her elegant style at the event.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxOcFpZQWZPM0RtWjBNczBZcDc0MVVfUGllSjZaQ2NJTF9QQ1dEYkFuUXhfUTZOZTB5amJHVjIwcDVrUzdhakJFVmUwTzlJcFZRa3hYRkk1bll5dXhQUndDN2VWVjl6T0tjLXIwS0liODR4MkdMYUNKR3RsVGR1VFo2VG9jQnYtTnVhZlE?oc=5&hl=en-US&gl=US&ceid=US:en
