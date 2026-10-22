@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #110 · 2026-10-22 · done · #4720 has had no activity for 4 days — "auto-closed: issue-closed 4720 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4720 -->
 - #111 · 2026-10-22 · done · #4767 has had no activity for 4 days — "auto-closed: issue-closed 4767 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4767 -->
 - #113 · 2026-10-22 · done · #4778 has had no activity for 4 days — "auto-closed: issue-closed 4778 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4778 -->
 - #114 · 2026-10-22 · done · #4804 has had no activity for 4 days — "auto-closed: issue-closed 4804 passed 2026-10-22" · by auto-close · <!-- marjorie-chase: 96h issue=4804 -->
