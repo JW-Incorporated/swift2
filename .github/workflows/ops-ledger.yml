@@ -19,6 +19,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -33,11 +35,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/ops/clock-fire-rate.mjs --hours 48 | tee clock-fire-rate.txt
 
+      - name: Collect weekly scorecard
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/ops/weekly-scorecard.mjs | tee weekly-scorecard.txt
+
       - name: Summarize measurements
         run: |
           echo '## Operations ledger' >> "$GITHUB_STEP_SUMMARY"
           sed -n '1,16p' turn-ledger.txt >> "$GITHUB_STEP_SUMMARY"
           sed -n '1,16p' clock-fire-rate.txt >> "$GITHUB_STEP_SUMMARY"
+          echo '## Weekly goal scorecard' >> "$GITHUB_STEP_SUMMARY"
+          sed -n '2,16p' weekly-scorecard.txt >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload operations ledger
         uses: actions/upload-artifact@v7
@@ -45,5 +55,7 @@ jobs:
           name: ops-ledger
           path: |
             docs/ops/dashboard/budget.json
+            docs/ops/dashboard/scorecard.json
             clock-fire-rate.txt
+            weekly-scorecard.txt
           retention-days: 90
