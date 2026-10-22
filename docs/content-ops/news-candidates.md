@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 95
 
 ## Taylor Swift Faces Anxiety Over Public Perception and Overexposure
 
@@ -786,11 +786,3 @@ Stories: 96
 - summary: Richard Marx shares his perspective on declining a collaboration with Taylor Swift, expressing no regrets about his decision. The conversation highlights his thoughts on career choices within the music industry.
 - sources:
   - [unverified] Ultimate Classic Rock — https://news.google.com/rss/articles/CBMiekFVX3lxTE05THIxUlZMbXRNazR6WDRnVFF4M3BlVnNIX241cXpUbkxNRmJ3Tkl0ZVlQb192UjI3ZjNZT1hCWHdaUDJMMTg2cFU0M1FKQ2czMFg5a3RXMmI5QkEzcGxYcTNRQnVJcWVyZ3MwVkJNeWFOWUFmcnFvQ2t3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Encounters Fan Recording Her at Chiefs Game
-
-- first seen: 2026-10-19 17:21 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At a recent game, Taylor Swift had an awkward interaction with a fan who was recording her. The incident was noted in a report by the New York Post.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTlZsUmNNQWdiRUZVLU5JR1JIM1dEbGRBbEFudE1Hc3c0TE5Nd0ZhbGdvaDg0U0JlRllOUWZSa1RoM1JTaWF5c0F3ZFpsNFhGeGhEWGFfbmZLQ1owZG11UkZYTkxndEdvNzhNbzMxeUN2bDR6U0FMb1hXWkxiVUM3Z2FIX0s4MkFtUlpyZFdrcm1ka2N1bGtRMnlienFfRmlYVldQMTlKMkdFR1E?oc=5&hl=en-US&gl=US&ceid=US:en
