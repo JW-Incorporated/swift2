@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun, ghApi } from '../lib/gh.mjs';
 import { laToday } from './ha-close.mjs';
-import { ensureStatusIssue, findStatusIssue, replaceNote, stampPing, updateBody } from './lib/status-issue.mjs';
+import { findStatusIssue, replaceNote, stampPing, updateBody } from './lib/status-issue.mjs';
 import { readRecap, replaceRecap, sanitizeRecap } from './lib/status-fans.mjs';
 import { readPreserved } from './lib/status-render.mjs';
 import { evaluateDispatchChase } from './lib/dispatch-chase.mjs';
@@ -35,7 +35,8 @@ function flagsOf(argv) {
 /** Edit the body, then re-read it: a concurrent render can overwrite a write made between its read and its patch. */
 async function editBody({ api, gh, repo, edit, hasEdit }) {
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { issue } = await ensureStatusIssue({ api, gh, repo });
+    const issue = await findStatusIssue(api, repo);
+    if (!issue) throw new Error('no open status-page issue found after retries — run status-page.mjs --apply first');
     await updateBody({ gh, repo, number: issue.number, body: edit(issue.body) });
     const check = await findStatusIssue(api, repo);
     if (check && hasEdit(check.body)) return check;

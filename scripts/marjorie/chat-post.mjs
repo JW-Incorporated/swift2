@@ -42,6 +42,8 @@ import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inb
 import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
 import { discordBotToken } from '../lib/discord-route.mjs';
+import { findStatusIssue } from './lib/status-issue.mjs';
+import { ghApi } from '../lib/gh.mjs';
 
 export const REPLY_CAP = 1800;
 export const ORDINARY_WORD_CAP = 80;
@@ -238,15 +240,15 @@ export function turnLog({ bot, summary, replied, messageId, repliedIn = null }) 
   return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}${timing}\n\n<!-- chat-id: ${messageId} -->`;
 }
 
-function writeTurnLog({ comment, env, execImpl }) {
+async function writeTurnLog({ comment, env, execImpl, api = ghApi }) {
   const repo = env.REPO || env.GITHUB_REPOSITORY || '';
   try {
-    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'status-page', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
-    if (!issues[0]) {
+    const statusIssue = await findStatusIssue(api, repo);
+    if (!statusIssue) {
       console.log('no open status-page issue — turn log skipped');
     } else {
-      execImpl('gh', ['issue', 'comment', String(issues[0].number), '--repo', repo, '--body', comment], { encoding: 'utf8' });
-      console.log(`turn log → #${issues[0].number}`);
+      execImpl('gh', ['issue', 'comment', String(statusIssue.number), '--repo', repo, '--body', comment], { encoding: 'utf8' });
+      console.log(`turn log → #${statusIssue.number}`);
     }
   } catch (err) {
     // A warning, not a failure: re-running this job must never be the fix.
@@ -254,7 +256,7 @@ function writeTurnLog({ comment, env, execImpl }) {
   }
 }
 
-export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now } = {}) {
+export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now, api = ghApi } = {}) {
   const { bot } = flags;
   const messageId = flags['message-id'] || '';
   const channelId = flags['channel-id'] || '';
@@ -310,7 +312,7 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
 
   // One turn log per message: the ✅/❌ this run just placed stops every later run.
   const summary = readText(path.join(flags['reply-dir'] || OUT_DIR, SUMMARY_FILE));
-  writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId, repliedIn }), env, execImpl });
+  await writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId, repliedIn }), env, execImpl, api });
   return 0;
 }
 
