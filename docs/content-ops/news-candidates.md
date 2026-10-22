@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 96
+
+## Taylor Swift Faces Anxiety Over Public Perception and Overexposure
+
+- first seen: 2026-10-22 15:27 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A new article explores Taylor Swift's concerns regarding her overexposure and the potential impact on public opinion about her. The discussion sheds light on her feelings about maintaining her image in the public eye.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi-AFBVV95cUxPRUVWSHRTMEgtYURYb01pSGtGb19QaWRBbWp4S1pIQjV2NTRPYmt6anEyc3hiMnIzQm9rcVdhcl8wWEtpTTlralFtbTk5VGJJcW9rZXE0M0R6OG5PNjJBbi1VM193WXFPdl8zcGdCR283YWhtWjZlYnd2X1Qyck5ubnFpZW1tTHd0ckl6Zm5uZEdhRFlNNTA5VWRoV3pUbk51MXlpYkcwOEI0NFRxOGhsdmY3ay1mOEd4TjlkRENnZ2toaEhzLTJzeXBZaGRMX1Y5dzZBdzZ5N1JnUFg3c3AtdFcyYW9xWm1uaTdXODI0a3VfalN5YlZUV9IB-AFBVV95cUxNS2ZiZEN5QnQ3Q1BhV2ZpSERxNWcxY3ZvcDlBZnNXWnpKV2VMUHROUE9zWDBSS3k1alh6eGFSZU1OSXozcHUwRmgyT0RBRWNRRkdveUhNbGpQVTFub2RrUzVybmFZZmFQMHhpUklvQU5feUtXQ0NWTzdMRjNCVUVFRE40SjhYem9GOUlJUlBrdDNjQVJ4MzBfYzliS0p6NzdJNHBPNllmNjZTWlRuUVFscjhjU1k3QlIyckdnRW5URG5Bb3lkOFRXNVJxWWhlSWptcTJXNE9zRGJnZ0JNQ1ZVQ2U0bDB6UHA5ZURXZm14SXc4d2VKbFVQdQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Bernie Taupin Discusses New Solo Album Featuring Elton John and Taylor Swift
+
+- first seen: 2026-10-22 15:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bernie Taupin talks about his new solo album and mentions Elton John and Taylor Swift in a recent interview with Billboard. The conversation highlights Taupin's work and his connections with these well-known artists.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUC15eEpsSTFEVEpJRlNaNG1WSG1OUkNDaWlYQkRzdk9qZ1J4d2lDN3RQaTl4eVVPX1FDWDhIZzQyenB0ZTlOMFoxYUhOSGhOUmpNVXJPNHBTUlM3T0Zhc2tIMHEwT1hRMVQ3NEVyQzJYd1VUT0UzNzJ6Sk9TNHN1b3FTYW1uUDFyS0tBX0lYUFVWeW0tSXAtbm1RM1lrZ3lLcHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Self-Titled Debut Album Celebrates 20th Anniversary
 
@@ -778,27 +794,3 @@ Stories: 97
 - summary: At a recent game, Taylor Swift had an awkward interaction with a fan who was recording her. The incident was noted in a report by the New York Post.
 - sources:
   - [unverified] New York Post — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTlZsUmNNQWdiRUZVLU5JR1JIM1dEbGRBbEFudE1Hc3c0TE5Nd0ZhbGdvaDg0U0JlRllOUWZSa1RoM1JTaWF5c0F3ZFpsNFhGeGhEWGFfbmZLQ1owZG11UkZYTkxndEdvNzhNbzMxeUN2bDR6U0FMb1hXWkxiVUM3Z2FIX0s4MkFtUlpyZFdrcm1ka2N1bGtRMnlienFfRmlYVldQMTlKMkdFR1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's New Release Leads to Controversy with Olivia Rodrigo
-
-- first seen: 2026-10-19 14:56 UTC | category: release | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's latest music release has generated discussion and accusations regarding its impact on Olivia Rodrigo. The conversation highlights ongoing dynamics in the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUERBRXRxZmlraWdUMHlBTndvMVFVRzJJQ2JKaFFDLWZEQy1odldXWU1RZm9LelNVX0tld2lXS3J0TEk4Z01CR1hsVmpFUnRsZHhDakpmVTVabXlXdHdtemdkelZKVG0tQ0xxM2NDY0cybzhEUzZTMFNWOXpveEFzTlhOR0ZVSkZaNDR4SjVPNEU3NHNPRDBkbjZmNWdSbmY1WXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Swifties Critique NFL Fans' Treatment of Hailee Steinfeld
-
-- first seen: 2026-10-19 14:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift fans are voicing their concerns about what they see as double standards in the treatment of actress Hailee Steinfeld by NFL fans. The discussion highlights issues of fairness and bias in the entertainment and sports realms.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPTElWTFhRZXA0aWsyNTBmX0FJXzlpb2ZhaGY5MnhHbzNfeml2SG5BYXRFQ0UwMFdvM1hCMmJLUTN4VXhIdlhyY3MweHV0WEptLUdhVFFDTkJGS3F3QkJPMzFCdER1N19vVTczYlpuc2RkdVhXSnNrMnZMUlNVTk1rWHVkMDRQR3ctYXd6NWpnSmt3ZWpPc1hIeF9NOTVtckpHVm5BaA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Pursues Oscar Nomination for 'Toy Story 5' Song
-
-- first seen: 2026-10-19 14:56 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is aiming for her first Oscar with a ballad from 'Toy Story 5', following a captivating appearance at the Academy Museum gala.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPd1FvQzBKSHJQV1JQT3VxUjRpa3dwaVc0eEhsZVpUMk42bUJ1Y21KNENrMXdWczdqRW82UE9xYnBpNjFwMGU2Um9sVkJWb1FaTW96N0k0X0dvazREaWFiaUU0VmM2TnZtUmdHWFN3cWVKZWlCaWZKT2drVzdCUDBmYmwwcXI4R21HSkRjaUYydnAzS21wYnZ4UUNfZUtWZlN6c0IzT0Z3eGl0RWdfb3lXZHBydXFtMUk2NTQ5TnNESEZWTHFja0x4R1VVX25INWZsd1h1TE45Z1Fzc1Uw?oc=5&hl=en-US&gl=US&ceid=US:en
