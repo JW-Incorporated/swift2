@@ -97,8 +97,8 @@ For each issue, match its title:
 node scripts/marjorie/lib/alert-router.mjs match "<exact title>"
 ```
 
-This prints one of the 14 handler keys below, or `unmatched` (exit 1) if the
-title isn't one of the 14 `Watchdog: ...` conditions (e.g. an issue that
+This prints one of the 15 handler keys below, or `unmatched` (exit 1) if the
+title isn't one of the 15 `Watchdog: ...` conditions (e.g. an issue that
 carries the `watchdog-alert` label for some other reason). **Take no action
 on an unmatched issue** — leave it alone, it is not yours.
 
@@ -190,6 +190,7 @@ workflow per sweep.
 | `lane-quiet` (dynamic: `Watchdog: <LANE> hasn't produced a PR in <N>h`) | That lane's routine's last run | Re-dispatch the lane's routine once | Two failures in a row | watchdog self-closes |
 | `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — the collector runs only in Joey's logged-in Windows session | **Always** — file the deterministic collector repair/run action from Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
+| `news-pipeline-holding` (`Watchdog: news pipeline holding every new item`) | The hold reasons in the alert body (feed-quality-check --check hold-rate wrote them) + the news-worker last image/enrichment run — is every hold the same reason | **Comment-only diagnosis** naming the dominant hold reason and the last good run. Nothing else — the publish gate is report-only per PLAN.md Stage 1, holds block no merge, and the image/enrichment stage runs in the news-worker image, not a workflow she may re-dispatch | Holds stay at 100% for 3 straight days, or the dominant reason is a missing/expired worker credential | watchdog self-closes (the hourly hold-rate check closes it on exit 0) |
 
 ### Build-ticket helper (every "real defect" escalation)
 
