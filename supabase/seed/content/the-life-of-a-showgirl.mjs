@@ -16,6 +16,68 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6039.
+      // A named artist's own on-record opinion in a filmed interview. Two
+      // outlets read directly this session carry the same translated quotes
+      // from Bad Gyal's sit-down with Marta Fort on Blender's Fort Night Show:
+      // Complex (Oct. 15, 2026) and IBTimes UK (Oct. 15, 2026). The interview's
+      // own air date isn't given, so the moment is dated to the reports.
+      // Redlines: clean — one public figure's view of another's music, no
+      // location, health or private life.
+      slug: 'showgirl-bad-gyal-would-refuse-collab',
+      year: 2026,
+      month: 10,
+      day: 15,
+      category: 'music',
+      title: 'Bad Gyal says she wouldn’t collaborate with Taylor for $3 million',
+      snippet:
+        'Asked on an Argentine streaming show to name an artist she’d turn down even for millions, the Spanish singer picked Taylor and compared her music to “a dry chicken with no spices.”',
+      sourceUrl: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-collab-refusal',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.',
+        sources: [
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-collab-refusal',
+            source_title:
+              "Bad Gyal Says Taylor Swift Is an Artist She'd 'Never' Work With, Compares Her Music to 'Dry Chicken'",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/bad-gyal-rejects-taylor-swift-collaboration-1825931',
+            source_title:
+              "Taylor Swift's Music Compared To 'Dry Chicken' As Bad Gyal Says She Would 'Never' Collaborate With Her",
+            publisher: 'International Business Times UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 2,
+          },
+        ],
+        // Photo: the interview has no free-licensed still, so like the Marx
+        // page this carries a verified photo of the speaker. Pedro J Pacheco's
+        // Goya Awards 2026 red-carpet portrait (Barcelona, Feb. 28, 2026;
+        // CC BY-SA 4.0) curl-verified 2026-10-22 HTTP 200 image/jpeg at the
+        // 1280px thumb (1280x1705), downloaded and vision-confirmed: Bad Gyal
+        // in a sequined gown in front of the Premios Goya backdrop.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg/1280px-Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Pedro J Pacheco, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Bad Gyal on the Goya Awards red carpet in Barcelona, February 2026. In October she said she would turn down a Taylor collaboration even for $3 million.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6128.
       // A first-person career anecdote from a named public figure about his own
       // professional decision, so >=1 outlet suffices: Ultimate Classic Rock
@@ -386,6 +448,18 @@ export default {
               'Taylor on the red carpet at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, in custom Dior.',
             kind: 'primary',
             focalPoint: '50% 30%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/NiLp4MxdfXx2xC5DWHTRZM-1200-80.jpg',
+            focalPoint: '55% 25%',
+            // 1200x675, curl-verified HTTP 200 image/jpeg (110KB); the og:image
+            // of MusicRadar's report on this performance, credited there to
+            // Emma McIntyre/Oscars/Getty Images for Academy Museum Foundation.
+            // Vision-checked: Taylor singing with an acoustic guitar on a dark
+            // stage framed by blue light bars; no watermark.
+            credit: 'Emma McIntyre/Oscars/Getty Images for Academy Museum Foundation, via MusicRadar',
+            caption: 'Taylor performing at the Academy Museum Gala in Los Angeles, Oct. 17, 2026.',
+            kind: 'primary',
           },
         ],
         sources: [
@@ -4997,16 +5071,19 @@ export default {
               'With no official ceremony photos released more than two weeks on, reports said Taylor was deliberately holding them back — planning to unveil them as a "cultural moment" (a documentary or coffee-table book) rather than sell them to a magazine.',
             reportedBy: 'Rob Shuter’s Naughty But Nice (via Reality Tea)',
             reportedOn: '2026-07-20',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
-            note: 'A gossip-newsletter claim about her release strategy. Update 2026-07-25 (ledger #1246): Dior told the NYT that Taylor herself will post the first images to Instagram (timing unstated); per People, no documentary. Re-checked 2026-08-15: six weeks on, still nothing posted to any channel; press keeps speculating if/when they surface. Still live — neither released nor abandoned.',
+            note: 'A gossip-newsletter claim about her release strategy. Dior later told the NYT that Taylor herself would post the first images to Instagram; per People, no documentary. Faded 2026-10-22: no photo release in any format and no further reporting on the "cultural moment" plan in three months.',
+            // Lifecycle re-checks: 2026-07-25 Dior/People update (ledger #1246);
+            // 2026-08-15 nothing posted, still live; 2026-10-22 web search, still
+            // nothing, so faded.
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): the
             // primary source is a self-published gossip newsletter, which is
             // the `social` tier's definition — the note said as much while the
             // field said 'tabloid'. Reality Tea is the aggregator, not the
             // reporter, so it does not lift the tier.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-15',
+            lastCheckedOn: '2026-10-22',
           },
           {
             // Added 2026-07-25 (ledger #1246): the ceremony processional music.
@@ -5016,11 +5093,13 @@ export default {
               'Ceremony music: a live string ensemble ushered in the wedding party, and a source-based account had Taylor walking down the aisle to an instrumental version of "Love Story," with The Darkness\'s "I Believe in a Thing Called Love" as the recessional after the vows.',
             reportedBy: 'Yahoo Entertainment',
             reportedOn: '2026-07-05',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-travis-kelce-walked-110045264.html',
-            note: 'The processional FORMAT (live strings, an acoustic version of one of her own songs) is corroborated, but the specific "Love Story" title rests on a single unnamed source, unconfirmed by the couple — Wikipedia records only "an acoustic version of one of her songs." Re-checked 2026-08-15: still no confirmation or denial of the title; remains single-source, still live.',
+            note: 'The processional FORMAT (live strings, an acoustic version of one of her songs) is corroborated, but the "Love Story" title rests on one unnamed source. Faded 2026-10-22: no word from the couple, nothing on the recessional. Guest Ryan Fitzpatrick\'s "Yes, and I may have cried" (HELLO!, July 9) never names the song, so it does not confirm the title. Quiet since July.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-15',
+            // Lifecycle re-checks: 2026-08-15 still single-source, live;
+            // 2026-10-22 web search, no couple confirmation, so faded.
+            lastCheckedOn: '2026-10-22',
           },
           {
             // Added 2026-08-02 (Rumor Desk, Vault Run): a forward-looking,
@@ -6067,11 +6146,13 @@ export default {
               'ELLE asked three fine-jewelry founders to read Travis Kelce\'s newly photographed wedding band; they described a simple, timeless yellow-gold comfort-fit band roughly 5–6mm wide, valued around $2,000–$6,000, and read the yellow-gold choice as a deliberate complement to the tone of Taylor\'s yellow-gold engagement ring — "a nice way to match," in Steph Mazuera\'s words.',
             reportedBy: 'ELLE (Alyssa Bailey)',
             reportedOn: '2026-07-22',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.aol.com/articles/travis-kelce-wedding-band-nods-195810000.html',
-            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or reason for the gold; width and price are photo estimates. Resolves on a maker/couple confirmation, else a fade candidate. Re-checked 2026-08-14: no reveal since (wedding specifics kept private), still unconfirmed and live.',
+            note: 'An expert reading of design intent, not a confirmed fact — no one has named the band\'s designer, metal spec, or reason for the gold; width and price are photo estimates. Faded 2026-10-22: no maker or couple confirmation three months on. Later coverage only assumes the engagement-ring jeweler made the bands. It went quiet without being settled.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-14',
+            // Lifecycle re-checks: 2026-08-14 no reveal, still live; 2026-10-22
+            // web search, still no maker/couple confirmation, so faded.
+            lastCheckedOn: '2026-10-22',
           },
         ],
         // Photo pass #762 (2026-08-02): searched for a verified on-topic photo
@@ -6545,11 +6626,13 @@ export default {
               'A Dior spokesperson told The New York Times that Taylor herself would be the one to unveil the custom gown — sharing the first official photos in her own Instagram post, on her own timeline, which the house said it was "not sure when" would come.',
             reportedBy: 'The New York Times (via The Hollywood Reporter)',
             reportedOn: '2026-07-07',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
-            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-08-12: still no official reveal — Taylor has not posted the gown to her own Instagram, though unofficial images have circulated and bridal brands are prepping "Swift-inspired" lines off the unseen dress. Resolves when official photos surface via her Instagram, as described.',
+            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself; it would resolve when official photos surfaced via her Instagram. Faded 2026-10-22: no Instagram reveal and no new reporting since the July statement. Fifteen weeks on, it has gone quiet without being confirmed or denied.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-12',
+            // Lifecycle re-checks: 2026-08-12 no official reveal (unofficial
+            // images circulating); 2026-10-22 web search, still none, so faded.
+            lastCheckedOn: '2026-10-22',
           },
         ],
         products: [
@@ -13512,7 +13595,7 @@ export default {
       // clip is the loadable primary. Placed in the-life-of-a-showgirl by the
       // event's real-world date (Sept 2026), per the era-by-date rule.
       slug: 'tom-cruise-taylor-swift-schooling-football',
-      relatedIds: [],
+      relatedIds: ['moment:vault-tloas-taylor-returns-to-arrowhead-for-the-chiefs-season-opener-wit'],
       year: 2026,
       month: 9,
       day: 18,
@@ -14881,6 +14964,7 @@ export default {
     },
     {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
       year: 2026,
       month: 9,
       day: 14,
@@ -15185,7 +15269,8 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
-      confidence: 'plausible',
+      confidence: 'official',
+      relatedIds: ['moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-'],
       title: "Swifties theorize: what fans think today's website countdown means",
       snippet:
         "A \"sh0w business f0r y0u\" Instagram bio swap and a new taylorswift.com countdown ending 2 p.m. ET sent fan communities into overdrive—theories ranged from a Debut (Taylor's Version) tease to a Showgirl deluxe/encore to a VMA Artist Director Honors moment.",
@@ -15195,7 +15280,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
       moment: {
         context:
-          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. None of this is confirmed—Taylor and her team had not addressed the bio change or the countdown's purpose as of this writing, and every reading here is fans/press pattern-matching on past rollouts, not an official statement.",
+          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. The theories above were fans' and press pattern-matching on past rollouts, written before any official word.\n\nResolved: when the countdown ended at 2 p.m. ET, Taylor announced the new single \"Patient Zero,\" out September 25, in an Instagram post and on her website (Official Charts and local-TV newsrooms carried it the same day). The 000 bio and the countdown were the single's tease; none of the Debut (Taylor's Version), TS13 or VMA-reveal readings were what was announced.",
         sources: [
           {
             outlet: 'Cosmopolitan',
@@ -15228,6 +15313,16 @@ export default {
             reliability_score: 4,
             notes:
               "Corroborates the countdown and ties fan theories to both the Showgirl-deluxe reading and the Debut (Taylor's Version) 20th-anniversary reading, including the \"0:00 = clock reset\" fan quote.",
+          },
+          {
+            outlet: 'Official Charts',
+            url: 'https://officialcharts.com/chart-news/taylor-swift-patient-zero-single-release-date-preorder',
+            source_title: 'Taylor Swift announces new single Patient Zero',
+            publisher: 'Official Charts Company',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 4,
+            notes: "Reports the countdown ending in the announcement of the single \"Patient Zero\" for Sept. 25, resolving the fan theories above.",
           },
           {
             outlet: 'Reddit—r/TaylorSwift Theory Megathread: September 2026',
