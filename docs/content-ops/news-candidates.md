@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 97
+
+## Taylor Swift's Self-Titled Debut Album Celebrates 20th Anniversary
+
+- first seen: 2026-10-22 14:29 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's self-titled debut album marks its 20th anniversary, reflecting on two decades of her music career.
+- sources:
+  - [unverified] Stereogum — https://news.google.com/rss/articles/CBMigAFBVV95cUxOdk9XcFV4UTk4MXlwZWJsVDVOLVYwaXNJUGNHZmZES3NNSDNkYnJRX1BVSVRjRHdoVHJFOWZoVkVWTjBaWER2SUdOZWhqMVBBbERMTmNzQl9HV29EbG95LVFubnVaNWF3c0VfcVZscGdHWk5kSVJkY3VieE04b09ZVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Best Music-Themed Halloween Costume Ideas for 2026
+
+- first seen: 2026-10-22 14:29 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A list of creative Halloween costume ideas inspired by music legends and popular artists for 2026 is now available. Options include honoring icons like Dolly Parton and channeling contemporary stars like Bad Bunny.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-lists/halloween-costume-ideas-2026-music-dolly-parton-bad-bunny-1235645993/
+
+## Taylor Swift's New Single Reflects Desire to Prove Herself
+
+- first seen: 2026-10-22 14:29 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A source reveals that Taylor Swift feels she has 'something to prove' with her upcoming single. The anticipation surrounding this release suggests it may hold significant importance for the artist.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNc2FmYndwbUpnTDA2WThuRnRsdlRCM1NndUJpclFIck9mZllCRFhhdWR2ZHFZUkcxeUJ5UTl5R2ZmSUJKaFVzM0NpS042cWNUY2VpQ0JGN1c5UG9Xa1pZUjRjN0NlQmEtRkY1ZDRqMzhWSDNuZlFScXc1d3d4dWRTN3FFLXY4RUNCNm5yRWtzVjdZWC1FRG50am5Fam5CMmdKTDlN?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Criticized Over Wedding to Travis Kelce
 
@@ -778,11 +802,3 @@ Stories: 95
 - summary: Taylor Swift is aiming for her first Oscar with a ballad from 'Toy Story 5', following a captivating appearance at the Academy Museum gala.
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPd1FvQzBKSHJQV1JQT3VxUjRpa3dwaVc0eEhsZVpUMk42bUJ1Y21KNENrMXdWczdqRW82UE9xYnBpNjFwMGU2Um9sVkJWb1FaTW96N0k0X0dvazREaWFiaUU0VmM2TnZtUmdHWFN3cWVKZWlCaWZKT2drVzdCUDBmYmwwcXI4R21HSkRjaUYydnAzS21wYnZ4UUNfZUtWZlN6c0IzT0Z3eGl0RWdfb3lXZHBydXFtMUk2NTQ5TnNESEZWTHFja0x4R1VVX25INWZsd1h1TE45Z1Fzc1Uw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Tribute Concert Scheduled in Manitowoc
-
-- first seen: 2026-10-19 13:56 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A tribute concert celebrating Taylor Swift will take place in Manitowoc, as reported by Seehafer News. Fans of the artist can look forward to the tribute event showcasing her music.
-- sources:
-  - [unverified] Seehafer News — https://news.google.com/rss/articles/CBMilAFBVV95cUxQVWJJZXhtVmZvRFFvY1E5WDhScWQ0OHRHSnNfZWNxREZ3LWpRQi1JNmxLb1k3bWI3UzRhZXVIeUNfSm50c3VjOWIzU2dQVWROdEJKSVk4NEFjcTBvTkZESGc5Y29aSTdwZHJjX2ZkWTdSc2FfeUlkUVZweGxuQVhVUExUVWJSaHNBWm5jV19tZWF5VWVp?oc=5&hl=en-US&gl=US&ceid=US:en
