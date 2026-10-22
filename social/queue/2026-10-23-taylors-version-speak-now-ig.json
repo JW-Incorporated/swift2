@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "of all six re-records, speak now is the one that gets me in a different way — because Taylor wrote every single song on it herself, no co-writers, when she was 18 to 20. it's her quietly saying *the craft was always mine.* 🤍\n\nand she didn't announce speak now (taylor's version) in a press release. she did it onstage, mid-show, during the eras tour in may 2023, in front of a whole stadium.\n\nit landed july 7, 2023 with six vault tracks fans had waited over a decade to hear. the one that undid everyone: \"castles crumbling,\" a duet with hayley williams none of us saw coming.\n\nthat's what i love about going through the re-records one at a time — every single one is hiding a story this big. tap through for the rest → longlivets.com/?lens=taylors-version&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ogrcvp.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ogrcvp",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ogrcvp/showgirl_3840x2160/",
+  "scheduledAt": "2026-10-23T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Showgirl [3840x2160]"
+  ],
+  "campaign": "thread:taylors-version:single-best-item:2026-10-hero",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Least-told item in the Taylor's Version lens (origin + All Too Well already posted): Speak Now TV, the all-self-written album announced onstage mid-Eras-Tour. Confirmed facts only — every song solo at 18-20, released Jul 7 2023, 6 vault tracks, 'Castles Crumbling' ft. Hayley Williams.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of thread:taylors-version:single-best-item:2026-10-hero (Calendar 2026-10-23 23:00Z Taylor's Version hero beat). Item = Speak Now (Taylor's Version), the lens's least-told story — origin (posted 2026-09-22) and All Too Well/Red (posted 2026-08-29) are already out, Speak Now TV is untold. Confirmed public record only (seed lenses/rerecords.mjs rr-speak-now): Taylor wrote every song solo at 18-20, re-record announced from the stage during the Eras Tour May 2023, Speak Now (Taylor's Version) released Jul 7 2023 with 6 vault tracks, vault highlight 'Castles Crumbling' ft. Hayley Williams. No invented stat or quote. Hook shape = the artifact/number (the all-solo-writing fact), not a date-stamp and not reusing the 10-22 opener. Thread post teaching a lens — exempt from the heartbeat/mood tag-hook rule but carries a natural 'tap through for the rest' lens share. Photo reddit-taylorswiftpictures-1ogrcvp handed by the prepare job (never-used, Instagram-sized), same photo on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+}
