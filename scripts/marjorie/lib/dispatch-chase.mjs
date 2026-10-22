@@ -167,7 +167,7 @@ export function renderHumanAction({ number, issue, title, createdAt, now, holder
   return {
     number,
     issue: source.number,
-    body: `## #${number} \u{1F7E1} [DECIDE] #${source.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${source.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${source.number} under stalled.`,
+    body: `## #${number} \u{1F7E1} [DECIDE] #${source.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${source.number} -->\n<!-- ha verify: issue-closed ${source.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${source.number} under stalled.`,
   };
 }
 
