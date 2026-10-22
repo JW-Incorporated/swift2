@@ -7,7 +7,7 @@
 // the `utm_campaign` value on Tree's links); "campaign" is the pillar
 // (feedback.mjs pillarOf). A metric Meta didn't return stays `null` and
 // renders as "n/a", never 0.
-import { pillarOf } from './feedback.mjs';
+import { reportPillarOf } from './post-metrics.mjs';
 
 const DAY_MS = 86_400_000;
 const NONE_GIVEN = 'none given';
@@ -36,7 +36,7 @@ export function familyOf(campaign) {
 }
 
 function campaignOf(campaign) {
-  return (typeof campaign === 'string' ? pillarOf(campaign) : null) ?? NO_FORMAT;
+  return (typeof campaign === 'string' ? reportPillarOf(campaign) : null) ?? NO_FORMAT;
 }
 
 const inWindow = (iso, { startMs, endMs }) => {

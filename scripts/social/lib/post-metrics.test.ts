@@ -169,6 +169,26 @@ describe('aggregateEngagement', () => {
     expect(byCampaign['era-deep-cut-folklore-surprise']).toEqual({ posts: 1, like_count: 4, comments_count: 1 });
   });
 
+  it('attributes legacy prefixes to a pillar or the legacy bucket, still in byPillar', () => {
+    const records = [
+      { campaign: 'on-this-day:shake-it-off-debut', like_count: 1, comments_count: 0 },
+      { campaign: 'era-deep-cut:willow-spell', like_count: 2, comments_count: 0 },
+      { campaign: 'track-fact:mean-grammys', like_count: 3, comments_count: 0 },
+      { campaign: 'news:fate-of-ophelia-live-debut-2026-10-17', like_count: 4, comments_count: 0 },
+      { campaign: 'anniversary:new-heights-briefcase', like_count: 5, comments_count: 0 },
+      { campaign: 'vault:rep-secret-sessions', like_count: 6, comments_count: 0 },
+      { campaign: 'thread-clue-web:first-egg', like_count: 7, comments_count: 0 },
+    ];
+    const { byPillar } = aggregateEngagement(records);
+    expect(byPillar['heartbeat:on-this-day'].posts).toBe(1);
+    expect(byPillar['heartbeat:era-deep-cut'].posts).toBe(1);
+    expect(byPillar['heartbeat:track-fact'].posts).toBe(1);
+    expect(byPillar.news.posts).toBe(1);
+    expect(byPillar.legacy).toEqual({ posts: 3, like_count: 18, comments_count: 0 });
+    expect(byPillar['(unrecognized)']).toBeUndefined();
+    expect(renderEngagement({ byPillar })).toContain('legacy — 18 likes');
+  });
+
   it('buckets a missing campaign under (none) for byCampaign and (unrecognized) for byPillar', () => {
     const records = [{ campaign: null, like_count: 1, comments_count: 1 }];
     const { byCampaign, byPillar } = aggregateEngagement(records);
