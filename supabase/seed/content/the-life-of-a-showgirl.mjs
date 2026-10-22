@@ -13595,7 +13595,7 @@ export default {
       // clip is the loadable primary. Placed in the-life-of-a-showgirl by the
       // event's real-world date (Sept 2026), per the era-by-date rule.
       slug: 'tom-cruise-taylor-swift-schooling-football',
-      relatedIds: [],
+      relatedIds: ['moment:vault-tloas-taylor-returns-to-arrowhead-for-the-chiefs-season-opener-wit'],
       year: 2026,
       month: 9,
       day: 18,
@@ -14964,6 +14964,7 @@ export default {
     },
     {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
       year: 2026,
       month: 9,
       day: 14,
