@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #143 🔴 [BLOCKING] Status page frozen 15 days — your monitoring is stale (~15 min)
+<!-- ha filed=2026-10-22 -->
+<!-- ha verify: issue-closed 6151 -->
+
+**Why:** The pinned status page (issue #4665) — where you read what needs you, what shipped, and what's in flight — has not refreshed since 2026-10-06. Its hourly render keeps getting cancelled, and the automatic fixer already tried and failed. Everything that page shows is 15+ days out of date, so you can't trust it right now.
+**Steps:**
+1. Open Claude Code in Documents\Claude\Projects\Swift2.
+2. Paste the prompt from issue #6151 (copy button on the code block).
+**Worked if:** issue #6151 is closed by a merged PR.
 
 ## #142 🔴 [BLOCKING] alert-router.mjs missing a row for the news-pipeline-holding watchdog alert (~5 min)
 <!-- ha filed=2026-10-22 -->
