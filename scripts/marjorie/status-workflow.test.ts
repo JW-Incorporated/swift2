@@ -28,7 +28,7 @@ describe('marjorie-status.yml', () => {
     expect(rewrite).not.toContain('VERCEL');
     expect(render).toContain('environment: ops');
     expect(render).toMatch(/- uses: actions\/checkout@v7\n {8}with:\n {10}ref: main/);
-    expect(render).toMatch(/concurrency:\n {6}group: marjorie-status-render\n {6}cancel-in-progress: false/);
+    expect(render).toMatch(/concurrency:\n(?: {6}#[^\n]*\n)* {6}group: marjorie-status-render\n(?: {6}#[^\n]*\n)* {6}cancel-in-progress: true/);
     expect(render).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
   });
   it('auto-closes verified human actions hourly on the heal lane, through the rolling close PR', () => {
