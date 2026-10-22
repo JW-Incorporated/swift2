@@ -252,6 +252,14 @@ describe('finish', () => {
     expect(execImpl.mock.calls[0][1][6]).toBe(`💬 chat: #marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
   });
 
+  it('with two open status-page issues the turn log targets the oldest', async () => {
+    const { fetchImpl } = recorder({ [reaction('✅')]: res(204) });
+    const execImpl = gh();
+    const api = async () => [{ number: 9 }, { number: 4 }];
+    expect(await finish(base(tmp(), 'replied'), { env: { REPO: 'o/r' }, fetchImpl, sleepImpl, execImpl, api })).toBe(0);
+    expect(execImpl.mock.calls[0][1].slice(0, 5)).toEqual(['issue', 'comment', '4', '--repo', 'o/r']);
+  });
+
   it('no reply, post skipped or died → the referenced [chat failed] notice first, then ❌', async () => {
     for (const result of ['', 'missing', 'post-error']) {
       const { fetchImpl, log } = recorder({ [reaction('❌')]: res(204), [notice]: res(200, { id: '6' }) });

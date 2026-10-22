@@ -3,6 +3,7 @@
 //   node scripts/marjorie/status-page.mjs --dry-run   print the body from live read-only gh data; writes nothing
 //   node scripts/marjorie/status-page.mjs --apply     find (or create + pin) the `status-page` issue and rewrite its body
 //   node scripts/marjorie/status-page.mjs --apply --notify   ...and, when the page materially changed, post ONE line to Marjorie's Discord (lib/status-ping.mjs)
+//   node scripts/marjorie/status-page.mjs --apply --bootstrap   run once by hand to create the very first status issue (never in workflows)
 //
 // Run from a checkout of main: HUMAN-ACTIONS.md and social/** are read from disk.
 import { spawnSync } from 'node:child_process';
@@ -27,15 +28,15 @@ export async function main(argv = process.argv.slice(2), {
 } = {}) {
   const apply = argv.includes('--apply');
   if (!apply && !argv.includes('--dry-run')) {
-    log('usage: status-page.mjs --dry-run | --apply');
+    log('usage: status-page.mjs --dry-run | --apply [--bootstrap]');
     return 2;
   }
   const repo = env.GITHUB_REPOSITORY || DEFAULT_REPO;
   let existing = null;
   if (apply) {
-    // bootstrap: true lets a first-time render create the issue; every later
-    // render must find the existing one and fails loudly on an empty lookup.
-    existing = (await ensureStatusIssue({ api, gh, repo, log, bootstrap: true })).issue;
+    // Only an explicit --bootstrap may create the issue; a normal render must find
+    // the existing one and fails loudly on an empty lookup.
+    existing = (await ensureStatusIssue({ api, gh, repo, log, bootstrap: argv.includes('--bootstrap') })).issue;
   }
   let data = await gatherStatusData({ api, repo, root, now, existingBody: existing?.body || '', readPreserved });
   if (apply) {

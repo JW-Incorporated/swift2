@@ -136,6 +136,17 @@ describe('status-page.mjs', () => {
     expect(patch).toContain('repos/o/r/issues/4');
     expect(patch.some((a) => a.startsWith('body=@'))).toBe(true);
   });
+  it('--apply with an empty lookup and no --bootstrap throws and never POSTs', async () => {
+    const gh = vi.fn(async () => ({ stdout: JSON.stringify({ number: 3, node_id: 'N', html_url: 'u' }) }));
+    await expect(main(['--apply'], { api: fakeApi([]), gh, root: process.cwd(), now: NOW, log: vi.fn(), env: { GITHUB_REPOSITORY: REPO } })).rejects.toThrow(/bootstrap/);
+    expect(gh).not.toHaveBeenCalled();
+  });
+  it('--apply --bootstrap with an empty lookup creates the issue', async () => {
+    const gh = vi.fn(async () => ({ stdout: JSON.stringify({ number: 3, node_id: 'N', html_url: 'u' }) }));
+    const code = await main(['--apply', '--bootstrap'], { api: fakeApi([]), gh, root: process.cwd(), now: NOW, log: vi.fn(), env: { GITHUB_REPOSITORY: REPO } });
+    expect(code).toBe(0);
+    expect(gh.mock.calls.some(([args]) => (args as string[]).includes('POST'))).toBe(true);
+  });
   it('refuses without a mode', async () => {
     expect(await main([], { api: fakeApi(), gh: vi.fn(), log: vi.fn(), env: {} })).toBe(2);
   });
