@@ -1,9 +1,25 @@
 // Watchdog-alert routing for `routine-marjorie-ops.yml` (Marjorie Overhaul
 // M2, docs/specs/marjorie-overhaul/w1-watchdog-handling.md). Pure and
-// tested, not prompt judgment — two of the 14 `ALERT_TITLE` strings in
-// watchdog.yml are dynamic, and an hourly LLM re-deriving "have I already
+// tested, not prompt judgment — two of watchdog.yml's `ALERT_TITLE` strings
+// are dynamic, and an hourly LLM re-deriving "have I already
 // acted on this?" from comment prose will eventually act twice (the exact
 // gap this module exists to close, per the spec's third cross-cutting rule).
+//
+// This map covers a SUBSET of watchdog.yml's titles, not all of them —
+// 9 of its 19 static titles were unrouted when #6182 was filed, because the
+// map was never updated as watchdog.yml grew past M2. An unrouted title reads
+// `unmatched`, which the ops sweep treats as "not mine" and silently skips
+// (that is how issue #6114 sat 58h with no diagnosis). `news-pipeline-holding`
+// is routed here per #6182; the remaining 8 are pinned to an explicit list in
+// `alert-router.test.ts`, so a NEWLY added watchdog title can never go
+// unrouted silently the way this one did — it fails that test instead.
+//
+// A row here normally pairs with a handler row in `marjorie-ops.md`'s table
+// saying what Marjorie may DO about the alert. That file is on the ops-fixer
+// guard's protected list, so #6182's fix landed the routing half only; the
+// handler row is escalated to a human session on that issue. Until it lands,
+// Marjorie's standing cross-cutting rules are the only bound on this key
+// (never close an alert by hand, no CI re-runs, one re-dispatch per sweep).
 //
 // Two of the 14 original conditions ("Karen post-repair still unconfirmed",
 // "news-worker rotated key looks broken") had their watchdog.yml steps
@@ -92,6 +108,7 @@ const EXACT_TITLES = new Map([
   ['Watchdog: news-worker rotated key looks broken', 'news-worker-rotation-removed'],
   ['Watchdog: no FB group export closed in 9 days', 'fb-export-due'],
   ['Watchdog: knowledge engine current-tier data is stale', 'knowledge-stale'],
+  ['Watchdog: news pipeline holding every new item', 'news-pipeline-holding'],
 ]);
 
 // The two dynamic rows (`${WF}`/`${LANE}` interpolated by watchdog.yml).
@@ -102,9 +119,10 @@ const DYNAMIC_PATTERNS = [
   { key: 'lane-quiet', re: /^Watchdog: .+ hasn't produced a PR in \d+h$/ },
 ];
 
-/** Title → handler key, or null if the title matches none of the 14 rows
+/** Title → handler key, or null if the title matches no handler row
  * (e.g. a non-watchdog issue that happens to carry the `watchdog-alert`
- * label — the routine takes no action on a null match). */
+ * label, or a watchdog condition that has no handler row yet — the routine
+ * takes no action on a null match). */
 export function matchAlertTitle(title) {
   const t = String(title || '');
   if (EXACT_TITLES.has(t)) return EXACT_TITLES.get(t);

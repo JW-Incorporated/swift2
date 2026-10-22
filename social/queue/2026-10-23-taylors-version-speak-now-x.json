@@ -1,0 +1,44 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "speak now is the only album Taylor wrote entirely alone — every song, no co-writers, at 18-20. so of course she announced the re-record the boldest way possible: onstage, mid-eras-tour, 2023. the whole re-record saga, one by one → longlivets.com/?lens=taylors-version&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ogrcvp.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ogrcvp",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ogrcvp/showgirl_3840x2160/",
+  "scheduledAt": "2026-10-23T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Showgirl [3840x2160]"
+  ],
+  "campaign": "thread:taylors-version:single-best-item:2026-10-hero",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "X sibling of the Speak Now TV hero — reframed on the single idea that Speak Now is the all-solo-written album, so the onstage announcement fit. Distinct vocabulary and structure from the IG caption. Confirmed facts from the seed. Under X's weighted length limit.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "X sibling of thread:taylors-version:single-best-item:2026-10-hero (Calendar 2026-10-23 23:00Z). Same campaign + scheduledAt + photo as the IG half per W8; structurally unlike the IG caption (one idea — the all-solo-written fact driving the onstage reveal — vs the IG story + vault track). Confirmed public facts from seed lenses/rerecords.mjs rr-speak-now (every song solo at 18-20, re-record announced onstage on the Eras Tour in 2023). Hook shape = the contradiction/artifact, not reusing the IG opener. Weighted length under 280 (URL counts 23). Uncredited reddit photo, no credit line; LFS pointer in this checkout so same-picture check unverifiable locally.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-22T08:12:05.017Z",
+    "pr": 6188,
+    "message": "social-tree-approve run 39745882771",
+    "contentHash": "sha256:734c5017a1410f2a6ce605315d2cb06a6728ce3117c38b8a8762a0e1873302c3",
+    "mediaDigest": "sha256:c0fa749aa6f5a102f7464071201482fe6f6e0853181e0c19d0acfbaf7a7bd458",
+    "sig": "hmac-sha256:cd0fb40a7708035e80d9f132c063f59a5e193cca54b8e54c43ac2c34c4853d29"
+  }
+}

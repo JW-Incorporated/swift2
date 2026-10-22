@@ -84,13 +84,13 @@ export default {
       category: 'relationship',
       title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
       snippet:
-        'Marking her own first wedding anniversary at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
+        'Two weeks after her own first wedding anniversary, at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
       sourceUrl:
         'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, fell on her first wedding anniversary with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
         sources: [
           {
             outlet: 'Cheat Sheet',
@@ -117,6 +117,15 @@ export default {
             publisher: 'Khaleej Times',
             source_type: 'reputable_press',
             accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/ca/news/1437109/selena-gomez-details-benny-blanco-surprises-on-first-marriage-anniversary',
+            source_title: 'Selena Gomez Reveals If She and Benny Blanco Still Surprise Each Other After One Year of Marriage',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-21',
             reliability_score: 3,
           },
         ],
@@ -161,7 +170,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -208,6 +217,23 @@ export default {
             reliability_score: 4,
             notes:
               'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+          {
+            // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
+            // The intake's CBS link was a 2023 article that never mentions
+            // this, so it is not cited. "Security stepped in" is left out: IBTimes
+            // itself calls it unconfirmed, and it is security-adjacent
+            // (privacy-redlines.md #2).
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/taylor-swift-fan-filming-chiefs-game-1826569',
+            source_title:
+              "Taylor Swift Calls Out Fan for Filming Her at Travis Kelce's NFL Game as Security Steps In",
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'Published Oct. 19, 2026; loaded directly. Primary text for the TikTok clip of a woman near the suite raising her phone, Taylor appearing to gesture at her, Page Six\'s "stop recording and watch the game" reading, and the absence of audio or any statement. The body hedges more than the headline; this item follows the body.',
           },
         ],
       },
@@ -3498,9 +3524,9 @@ export default {
             reportedOn: '2025-10-03',
             status: 'unconfirmed',
             url: 'https://variety.com/2025/music/news/taylor-swift-charli-xcx-feud-actually-romantic-timeline-showgirl-1236538041/',
-            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial; otherwise it stays a labeled interpretation. No location.',
+            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial. No location. Re-checked 2026-10-22: still no on-record word from either artist.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-11',
+            lastCheckedOn: '2026-10-22',
           },
         ],
       },
@@ -5874,18 +5900,32 @@ export default {
       // material itself is never reproduced or linked.
       title: 'Watermarked invitations and a copyright takedown',
       snippet:
-        'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
+        'The couple\'s leak-control ran deep: each invitation reportedly carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down. A tabloid-reported takedown notice says that was a copyright complaint naming Taylor as the rights owner; that part is unconfirmed.',
       sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
       thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
-          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
+          'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. A guest briefly posted a photo of an invitation to Instagram on July 6 and then the post came down; screenshots had already circulated in the minutes it was up. Why it came down is less settled. A month later, In Touch Weekly reported, citing a takedown notice that journalist Rob Shuter shared with it, that a copyright-infringement complaint identified Taylor as the rights owner. Neither Instagram, Taylor nor the couple has confirmed that, and the notice has not been independently verified, so treat it as a tabloid report rather than established fact. If it is accurate, it would fit the wider picture: the wedding\'s information handled as the couple\'s intellectual property, the operational counterpart to all the "no photos leaked" talk.',
+        rumors: [
+          {
+            claim:
+              "Instagram removed a guest's post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
+            reportedBy: "In Touch Weekly (via Yahoo Entertainment), citing journalist Rob Shuter",
+            reportedOn: "2026-08-01",
+            status: "unconfirmed",
+            url: "https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html",
+            sourceTier: "tabloid",
+            note:
+              "Rests on a takedown notice Shuter shared with In Touch. Instagram, Taylor and the couple have not commented, and the removal itself (the post was deleted) is reported without a stated reason elsewhere.",
+            lastCheckedOn: "2026-10-21",
+          },
+        ],
         sources: [
           {
             outlet: 'Yahoo Entertainment',
             url: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
             source_title: 'Taylor Swift Has Wedding Invitation Removed From Instagram With Copyright Infringement Complaint',
-            publisher: 'Yahoo Entertainment',
+            publisher: 'In Touch Weekly via Yahoo Entertainment',
             source_type: 'reputable_press',
             accessed_at: '2026-08-02',
             reliability_score: 3,
@@ -10908,9 +10948,9 @@ export default {
             reportedOn: '2026-06-29',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
-            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan — Taylor\'s team has confirmed no such project. Rechecked 2026-08-12: still no country-album announcement. Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Re-checked 2026-10-22: still no announcement; check again after the debut\'s 20th anniversary (Oct. 24). Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-12',
+            lastCheckedOn: '2026-10-22',
           },
         ],
       },
@@ -14088,8 +14128,8 @@ export default {
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-10-18',
-            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.',
+            lastCheckedOn: '2026-10-22',
+            note: 'Re-checked 2026-10-22: the CMA\'s ABC/Disney+ Dolly special aired live Oct. 21. Taylor was not on its announced lineup (Deseret News, Oct. 5), but surprise tributes were billed and no recap yet says whether she appeared. Next run: settle it from a recap. Confirms if she performed or a concert with her is announced; fades if neither.',
           },
         ],
       },
@@ -16277,6 +16317,68 @@ export default {
             focalPoint: '40% 25%',
             credit: 'Anthony Quintano, CC BY 2.0, via Wikimedia Commons',
             caption: 'For reference: Emmitt Smith on the field at Super Bowl XLIV, February 2010.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6167.
+      // Travis's own retelling on New Heights, read directly from People (via
+      // Yahoo) and Bleacher Report. CUT: where Jason was staying. One outlet
+      // places it at the couple's house, and a residence never gets more
+      // than city level here (privacy-redlines.md), so this stays "in Kansas
+      // City". The YouTube episode was not cited because its date could not
+      // be confirmed from this environment.
+      slug: 'showgirl-jason-kelce-squatober-wake-up-call',
+      year: 2026,
+      month: 10,
+      day: 21,
+      category: 'relationship',
+      title: 'Jason\'s 7:30 a.m. "Squatober" call, and Taylor\'s verdict on it',
+      snippet:
+        'On New Heights, Travis told how his brother rang at 7:30 in the morning looking for a bench-press spotter, and how Taylor summed it up.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the Oct. 21, 2026 episode of New Heights, Travis told a story from Jason\'s visit to Kansas City for the Chargers game. His phone rang at 7:30 in the morning. "In my mind, I\'m thinking worst-case scenario," he said. It was Jason, deep into "Squatober," his October lifting push, asking for a spotter on the bench press.\n\nTravis said his first answer was "No way!" He went anyway. "I\'m walking out of the room, and Taylor\'s like, \'This is f---ed up,\'" he recalled, to which he answered, "Nah, it\'ll be good. It\'ll be good!"',
+        sources: [
+          {
+            outlet: 'People (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
+            source_title:
+              "Travis Kelce Says Brother Jason Woke Him Up with a Phone Call That Taylor Swift Called 'F---ed Up'",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 4,
+            notes:
+              'By Rachel McRady, Oct. 21, 2026; loaded directly. Primary text for the episode date, the 7:30 a.m. call, "worst-case scenario," "No way!", Taylor\'s line and Travis\'s reply.',
+          },
+          {
+            outlet: 'Bleacher Report',
+            url: 'https://bleacherreport.com/articles/25514012-f-ked-travis-kelce-tells-funny-story-about-taylor-swift-being-woken-jason-kelce',
+            source_title:
+              "'This is F--ked Up,' Travis Kelce Tells Funny Story About Taylor Swift Being Woken Up By Jason Kelce",
+            publisher: 'Bleacher Report',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-22',
+            reliability_score: 3,
+            notes:
+              'By Adam Wells, Oct. 21, 2026; loaded directly. Independent pickup confirming "Squatober," the bench-press spot and Taylor\'s reaction.',
+          },
+        ],
+        // Visual (charter step 3b): no free-licensed image of the episode, so
+        // this is a labeled reference photo of Jason. Commons, CC0 (CNC33),
+        // also used elsewhere in this file (photo pass #1721);
+        // curl 200 image/png 2026-10-22 and vision-confirmed (#62, Eagles).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            focalPoint: '54% 57%',
+            credit: 'Wikimedia Commons / CNC33 (CC0)',
+            caption: 'For reference: Jason Kelce on the Eagles sideline, 2023.',
             kind: 'reference',
           },
         ],
