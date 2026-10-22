@@ -118,7 +118,7 @@ Done when: Breaking drill: 5 historical critical events replayed reach site in <
 | P2-07 | Retraction path: site and push | codex | M | L-FACT | P0-11 | done | #5957 | 2026-10-15 |
 | P2-08 | Retraction path: social | executor-claude-sonnet | M | L-SOCIAL | P2-07, P2-06 | done | #5972 | 2026-10-16 |
 | P2-09 | Normal flow wiring and news-triage retirement | executor-claude-sonnet | M | L-SOCIAL | P2-02 | todo |  |  |
-| P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | todo |  |  |
+| P2-10 | Duplicate harvest into theory signals | codex | M | L-THEORY | P2-02, P1-21 | doing |  |  |
 | P2-11 | Merch branch wiring | codex | S | L-MERCH | P2-02, P1-19, P1-20 | done | #5968 | 2026-10-16 |
 | P2-12 | Breaking and retraction drill | claude-opus | M | L-TIDE-SPEC | P2-03, P2-04, P2-05, P2-06, P2-07 | todo |  |  |
 | P2-13 | Staged go-live by class | claude-opus | M | L-TIDE-SPEC | P2-01, P2-02, P2-12 | todo |  |  |
@@ -135,7 +135,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 | P3-01 | Outcomes reader live with automatic comment capture | codex | M | L-HOME-REDDIT | P1-15, P1-14 | done | #6100 | 2026-10-19 |
 | P3-02 | Thread ranking v2 from outcomes | executor-claude-sonnet | M | L-COMMUNITY | P3-01 | todo |  |  |
 | P3-03 | Weekly recall audit | codex | M | L-RECALL | P1-05, P1-06 | done | #5967 | 2026-10-16 |
-| P3-04 | Weekly scorecard collector | codex | M | L-OBS | P0-07, P1-02, P3-01 | todo |  |  |
+| P3-04 | Weekly scorecard collector | codex | M | L-OBS | P0-07, P1-02, P3-01 | doing |  |  |
 | P3-05 | Voice weekly sample and owner rating loop | executor-claude-sonnet | S | L-VOICE | P1-24 | done | #5965 | 2026-10-16 |
 | P3-06 | Drift monitor and Jev 1.14 evaluation | codex | S | L-TIDE | P2-13 | todo |  |  |
 | P3-07 | Raise caps where quality holds | claude-opus | S | L-VAULT | P3-04 | todo |  |  |
@@ -354,6 +354,7 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-15 09:53 PM: P1-02c APPROVE → #5893 (PGlite: rows survive, a single CHECK, an unknown provider rejected, service_role only). Finding: the new cache_read_input_tokens DUPLICATES the existing cache_read_tokens (which the runner writes), so reads could double-count; and the new columns lack a >= 0 CHECK. PM call: fix BEFORE merge (cheaper than a later drop migration). Auto-merge disabled; an executor removes cache_read_input_tokens, adds the >= 0 check to cache_creation_input_tokens, updates the test and the PR body, then re-arms. Note for the P1-28 brief: cache reads → cache_read_tokens, cache creation → cache_creation_input_tokens.
 - 2026-10-15 09:58 PM: P1-02c fixed 9b93e2253 (duplicate column removed; cache_creation_input_tokens CHECK null or >= 0; test 4/4) → #5893 auto-merge RE-ARMED (verified by the executor). P1-11 round 2 pushed 3a58ca9d7 (must-run rules tested below the Jev threshold; chase and trusted ops-fix must-run; AUTO_DEFER_AUTHOR restored; a pre-checkout fail-open artifact; a collectOpsSnapshot test; suite 12,393) → FINAL review by the same reviewer.
 - 2026-10-18 22:18 PDT PM: home clock outage 21:45Z–03:45Z was planned (VM 100 NVMe swap); recovered. Health sweep found: P1-11 gate never skipping → P1-11c #6091 MERGED; community-reaction-poll 0/181 success (Discord 429) → #6092 MERGED (review r1 reject, r2 approve). Restart the P1-11 72h skip measurement from 2026-10-19 05:12Z. Social: the next Tree draft (10-19 about 14:4xZ) is the first real test of #6077.
+- 2026-10-21 21:45 PDT HB (new PM session, scratchpad C:\Users\Fourtys\AppData\Local\Temp\claude\C--Users-Fourtys-Documents-Claude-Projects-swift2\84ac98ab-6502-4cc7-83a0-e1e660d03808\scratchpad, briefs/outputs in codex/): no pipeline PRs open, nothing in flight. Dispatched Codex: P3-04 (sol medium, worktree ~/.codex/worktrees/p3-04, branch feature/pipeline-p3-04-scorecard) and P2-10 (sol high, ~/.codex/worktrees/p2-10, branch feature/pipeline-p2-10-harvest; INERT in shadow per architect #14, no collector/classifier touch). Worktrees now live under ~/.codex/worktrees (the projects-hygiene hook added 10-21). HELD, reversible calls: P3-08 until about 10-31 (needs 2 weeks of reader heartbeat; reader live 10-17); P3-02 until >= 30 comment outcomes exist (P3-01 live 10-19); P2-09 until after P2-13 (it retires routines; parity needs live router issues). Only 2 items are runnable, so the cap is not filled. Shadow week ends about 10-23 02:49Z → P2-01 (architect, per-class sufficiency rule per D-d).
 
 ## Next actions
 
