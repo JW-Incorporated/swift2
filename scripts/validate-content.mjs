@@ -112,6 +112,7 @@ const VIDEO_KINDS = new Set([
   'tour_film',
   'documentary',
   'performance',
+  'visualizer',
   // Appearances — her, as herself, in someone else's programming (2026-08-12).
   'interview',
   'award_speech',

@@ -927,34 +927,6 @@
       "sha256": "1b143644d62c9dd273988bac338eb0e6363cb54bdd38d026db733f58dcca1112"
     },
     {
-      "id": "press-3aeaae5d2413",
-      "mediaPath": "/social/library/photos/press-3aeaae5d2413.jpg",
-      "source": "https://www.essentiallysports.com/nfl-active-news-chiefs-taylor-swift-allegedly-snaps-at-a-fan-in-an-awkward-encounter-during-chiefs-game/",
-      "alt": "Taylor Swift in the news: Taylor Swift Allegedly Snaps at a Fan in an Awkward Encounter During Chiefs Game",
-      "tags": [
-        "press-photo"
-      ],
-      "credit": "via Essentially Sports",
-      "width": 1280,
-      "height": 853,
-      "bytes": 66450,
-      "sha256": "744513268c42dd0bd7f72b233f007ff9622915b70f081223e8c91f3c4db3a77c"
-    },
-    {
-      "id": "press-f4c48b98e97d",
-      "mediaPath": "/social/library/photos/press-f4c48b98e97d.jpg",
-      "source": "https://www.thenews.com.pk/latest/1420705-taylor-swift-floored-over-academy-music-gala-it-was-a-vibe",
-      "alt": "Taylor Swift in the news: Taylor Swift floored over Academy Music Gala: ‘It was a vibe’",
-      "tags": [
-        "press-photo"
-      ],
-      "credit": "via The News International",
-      "width": 1200,
-      "height": 686,
-      "bytes": 68661,
-      "sha256": "945099dc92342d69531f3cc6bf4aa6dbc0340d0c2dfcb58f20ccec48f73b28d5"
-    },
-    {
       "id": "red-inglewood-2023",
       "mediaPath": "/social/library/photos/taylor-red-eras-inglewood-2023.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
@@ -3348,22 +3320,6 @@
       "sha256": "c6d6b550f7c8af9646ce4953a79497ba6b1017b54654da2cf72652686d22277a"
     },
     {
-      "id": "wikimedia-135976553",
-      "mediaPath": "/social/library/photos/wikimedia-135976553.jpg",
-      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53110029255).jpg",
-      "alt": "American singer-songwriter Taylor Swift on the Eras Tour concert at Sofi Stadium in Inglewood, CA, Aug 9 2023",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "midnights"
-      ],
-      "width": 1132,
-      "height": 2048,
-      "bytes": 209996,
-      "sha256": "c012e46c4177ad1355707505a1b6f317a36640b48a9c3065487424641ba8066e"
-    },
-    {
       "id": "wikimedia-135976555",
       "mediaPath": "/social/library/photos/wikimedia-135976555.jpg",
       "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
@@ -3394,22 +3350,6 @@
       "height": 2048,
       "bytes": 415495,
       "sha256": "76931374c52f6f58424687bf38f655eba5672797236c4f8314940e359aae48cc"
-    },
-    {
-      "id": "wikimedia-135976563",
-      "mediaPath": "/social/library/photos/wikimedia-135976563.jpg",
-      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109824134).jpg",
-      "alt": "American singer-songwriter Taylor Swift on the Eras Tour concert at Sofi Stadium in Inglewood, CA, Aug 9 2023",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "midnights"
-      ],
-      "width": 1282,
-      "height": 2048,
-      "bytes": 265355,
-      "sha256": "6191f8b9c2749aac9382478d010c7290174edcebc9ce0e4e386b85764df0b20d"
     },
     {
       "id": "wikimedia-135976591",
@@ -3492,20 +3432,52 @@
       "sha256": "ef2c1b23b719a183f4eaf3f38d6befbf6358d3b4d480668317f1416547a46569"
     },
     {
-      "id": "wikimedia-137559792",
-      "mediaPath": "/social/library/photos/wikimedia-137559792.jpg",
+      "id": "wikimedia-137559819",
+      "mediaPath": "/social/library/photos/wikimedia-137559819.jpg",
       "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109042692).jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109044347).jpg",
       "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
       "tags": [
         "fan-photo",
         "eras-tour",
         "midnights"
       ],
-      "width": 1170,
+      "width": 1284,
       "height": 2048,
-      "bytes": 233405,
-      "sha256": "07b11bdd911706c2562d0b762af4c5eb8f8896a49c8153377bb3117bac5f1bd7"
+      "bytes": 393173,
+      "sha256": "5daf0c9d3df0b0cb6dde0e91ef9044b15013d3cb9ba31af063d60f9464268d8e"
+    },
+    {
+      "id": "wikimedia-137559830",
+      "mediaPath": "/social/library/photos/wikimedia-137559830.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109617791).jpg",
+      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "midnights"
+      ],
+      "width": 1304,
+      "height": 2048,
+      "bytes": 344060,
+      "sha256": "029962c080849cb3e96433b110096803db7b5ad5c8838445595b5e61b0a06818"
+    },
+    {
+      "id": "wikimedia-137559845",
+      "mediaPath": "/social/library/photos/wikimedia-137559845.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53110032820).jpg",
+      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "midnights"
+      ],
+      "width": 1304,
+      "height": 2048,
+      "bytes": 285465,
+      "sha256": "77f2d1595ff71777e3555f23feb4436b493d1313c767edbc3784e95ba720767b"
     },
     {
       "id": "wikimedia-137560230",
@@ -3522,54 +3494,6 @@
       "height": 1875,
       "bytes": 271766,
       "sha256": "b890e747dfc5264358276225d598bb436c1a2b884ec03bf5677bede9d8f3fc7e"
-    },
-    {
-      "id": "wikimedia-137561081",
-      "mediaPath": "/social/library/photos/wikimedia-137561081.jpg",
-      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109003782).jpg",
-      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "midnights"
-      ],
-      "width": 1281,
-      "height": 2048,
-      "bytes": 384608,
-      "sha256": "df59e52ffba29838c8c3fb31a289cb699f4c65e65f03e4d669bc4931a51a1fe8"
-    },
-    {
-      "id": "wikimedia-137561154",
-      "mediaPath": "/social/library/photos/wikimedia-137561154.jpg",
-      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109794024).jpg",
-      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "midnights"
-      ],
-      "width": 1074,
-      "height": 1806,
-      "bytes": 132245,
-      "sha256": "afb6a491e2e6104f9ca40189d92f27997445173a5565b43aea757d6e3cc94aed"
-    },
-    {
-      "id": "wikimedia-137561162",
-      "mediaPath": "/social/library/photos/wikimedia-137561162.jpg",
-      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53110092003).jpg",
-      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "midnights"
-      ],
-      "width": 1152,
-      "height": 2001,
-      "bytes": 130546,
-      "sha256": "4d8694fb897f1b75047fc62354271e51c23a05a3dc9d34a97e172dc8a7072a7c"
     },
     {
       "id": "wikimedia-141267998",
@@ -3633,22 +3557,6 @@
       "height": 1500,
       "bytes": 466357,
       "sha256": "85b0ef7b9fd0d3c9601cfd969d8f77a4de941ff38dd866be7ba33b8bac7fe0a6"
-    },
-    {
-      "id": "wikimedia-24794693",
-      "mediaPath": "/social/library/photos/wikimedia-24794693.jpg",
-      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6820762158).jpg",
-      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "speak-now"
-      ],
-      "width": 1000,
-      "height": 1500,
-      "bytes": 158650,
-      "sha256": "5a1c89bd26b705e280e321b5a6a59b28ab147f7a081c429c7076ecb42276ffaa"
     },
     {
       "id": "wikimedia-24794694",
@@ -3729,6 +3637,22 @@
       "height": 2048,
       "bytes": 474507,
       "sha256": "d1548e6fe4df41fef4c1a0f67fa047abb635bbe5498d169e9b603fde38d778d3"
+    },
+    {
+      "id": "wikimedia-24794702",
+      "mediaPath": "/social/library/photos/wikimedia-24794702.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966882263).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1365,
+      "height": 2048,
+      "bytes": 467474,
+      "sha256": "26551f136cb555d2d72c7786bd328a8bb98778ad8f4c65b8128c1effb6e6d756"
     },
     {
       "id": "wikimedia-24794704",
@@ -3891,6 +3815,22 @@
       "sha256": "6f81912a60a3bccbdf51ebac9394fc86502ce40e13aa82d57750891f4bc621f6"
     },
     {
+      "id": "wikimedia-24794721",
+      "mediaPath": "/social/library/photos/wikimedia-24794721.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966859099).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 73546,
+      "sha256": "7e3323ba53acbee1d0d3a9c99ccfa4a31364ae3d4b7b5d2768d36873a6a166d8"
+    },
+    {
       "id": "wikimedia-24794722",
       "mediaPath": "/social/library/photos/wikimedia-24794722.jpg",
       "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
@@ -3969,22 +3909,6 @@
       "height": 667,
       "bytes": 60790,
       "sha256": "6855c944cab0c54899d9f55e385feb22d0a58750feedd361fe3151ffbf7ecc9c"
-    },
-    {
-      "id": "wikimedia-24794731",
-      "mediaPath": "/social/library/photos/wikimedia-24794731.jpg",
-      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6820733836).jpg",
-      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
-      "tags": [
-        "fan-photo",
-        "eras-tour",
-        "speak-now"
-      ],
-      "width": 1000,
-      "height": 667,
-      "bytes": 97336,
-      "sha256": "4b013bab56199b631bebe18a026019a72e31c8c47973f823568468c8fe19372a"
     },
     {
       "id": "wikimedia-24794734",
@@ -4081,6 +4005,38 @@
       "height": 1110,
       "bytes": 132945,
       "sha256": "0f8d747c825527e1ec2724ea7de1043c0901e91f549bade9e4a6fa238d119a11"
+    },
+    {
+      "id": "wikimedia-24794748",
+      "mediaPath": "/social/library/photos/wikimedia-24794748.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966849821).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 56133,
+      "sha256": "2e1c9cedf1f3c16bc62f0292ea99c6765523210fbce21bc44e685d8a4e4e4659"
+    },
+    {
+      "id": "wikimedia-24794749",
+      "mediaPath": "/social/library/photos/wikimedia-24794749.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6820730312).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 90155,
+      "sha256": "e8fc6c06f5a509b7be6c71f9002dfa7d7862ae7f85b360ceb8f8594e82c799c9"
     },
     {
       "id": "wikimedia-24794750",
@@ -4193,6 +4149,86 @@
       "height": 1500,
       "bytes": 149283,
       "sha256": "a4e1d5b4eb638849084884a45ea4559b495d3e82b9c327ef806b3075c4c03adc"
+    },
+    {
+      "id": "wikimedia-24794768",
+      "mediaPath": "/social/library/photos/wikimedia-24794768.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966830735).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 1500,
+      "bytes": 163532,
+      "sha256": "6d1b53d283dc1d2c98326e4dc516f9a3ad395218901c07c35d7721f2164bc64a"
+    },
+    {
+      "id": "wikimedia-36950498",
+      "mediaPath": "/social/library/photos/wikimedia-36950498.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966858023).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 70141,
+      "sha256": "fbe62a7ae09c641c901ad51f28e1f5bb10f2a5a7c29e08c95d764a56576ad6b7"
+    },
+    {
+      "id": "wikimedia-36950503",
+      "mediaPath": "/social/library/photos/wikimedia-36950503.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966856933).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 54845,
+      "sha256": "73931bd60b6bcfa8f94c6f0d24eae68dbef2a97aee31a512564bca88d7630b30"
+    },
+    {
+      "id": "wikimedia-36950507",
+      "mediaPath": "/social/library/photos/wikimedia-36950507.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966854433).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 99842,
+      "sha256": "134c992d8468641f03b4d9c4e3acb4dc3d3e2caca20b13e25ffaac12bf483102"
+    },
+    {
+      "id": "wikimedia-36950519",
+      "mediaPath": "/social/library/photos/wikimedia-36950519.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966830273).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 71886,
+      "sha256": "3d0663e5ac5dbc231cf4a9ecb8d0b9f74c86f96cfc168a7001d2bcd57662b3b7"
     },
     {
       "id": "wikimedia-40631844",

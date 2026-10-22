@@ -2020,6 +2020,7 @@ export default {
       month: 2,
       day: 2,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-a-plaid-vivienne-westwood-corset-for-monday-night-football'],
       title: "2025 Grammys red carpet: sequined Vivienne Westwood, in Chiefs red",
       snippet:
         'A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling "T" — for Travis — plus Casadei heels.',
@@ -6427,6 +6428,7 @@ export default {
       month: 10,
       day: 7,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-2025-grammys-red-carpet-sequined-vivienne-westwood-in-chiefs'],
       title: 'A plaid Vivienne Westwood corset for Monday Night Football',
       snippet:
         'Taylor arrived at Arrowhead Stadium in a plaid Vivienne Westwood corset and mini skirt as the Chiefs beat the Saints 26-13, sitting with her father Scott and reuniting with Chiefs WAGs afterward.',
@@ -6500,6 +6502,7 @@ export default {
       month: 1,
       day: 26,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship'],
       title: 'A field kiss after the AFC Championship win',
       snippet:
         'After the Chiefs beat the Bills 32-29 to reach Super Bowl LIX, Taylor came onto the field to kiss and embrace Kelce; the couple reportedly told each other "I love you so much."',

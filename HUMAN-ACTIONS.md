@@ -2,9 +2,26 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #144 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
+<!-- ha filed=2026-10-22 -->
+
+**Why:** The deterministic local Facebook collector did not close this week's
+reminder issue within nine days. It runs from Joey's personal account under the
+2026-09-30 owner decision, so only Joey's logged-in Windows session can inspect
+a stopped task, checkpoint, 2FA prompt, CAPTCHA, or expired DPAPI credential.
+**Steps:**
+1. In the project folder, run `npm run knowledge:fb-export`.
+2. If the visible browser stops at a checkpoint, 2FA prompt, or CAPTCHA,
+   complete it yourself and rerun the command. If the credential is missing or
+   expired, recreate it with HUMAN-ACTIONS #88's exact DPAPI commands.
+3. If it prints a selector-repair prompt or another failure, paste that status
+   into the project chat; never attach or paste the credential file.
+**Worked if:** the current `FB group export due — week of ...` issue closes
+with uploaded/not-member counts and no group says `failed`.
 
 ## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-20 -->
@@ -86,72 +103,6 @@
 1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
 **Worked if:** the next brief no longer lists #5508 under stalled.
-
-## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-07 -->
-<!-- marjorie-chase: 96h issue=4673 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (content: three fan moments aged out of intake uncovered — cover or decline with a reason …). Nothing has moved since 2026-10-03. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4673 under stalled.
-
-## #114 🟡 [DECIDE] #4804 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4804 -->
-
-**Why:** Marjorie dispatched it on 2026-10-02 (Watchdog alerts Marjorie can handle should not reach the founders channel). Nothing has moved since 2026-10-02. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4804 under stalled.
-
-## #113 🟡 [DECIDE] #4778 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4778 -->
-
-**Why:** Marjorie dispatched it on 2026-10-02 (Enforce the owner's three post criteria in code: a mediaEarnsItsPlace floor, tunable rubr…). Nothing has moved since 2026-10-02. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4778 under stalled.
-
-## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4767 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4767 under stalled.
-
-## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4720 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4720 under stalled.
-
-## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4324 -->
-
-**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4324 under stalled.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->

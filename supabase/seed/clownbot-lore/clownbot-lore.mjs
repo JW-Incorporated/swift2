@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-20',
+  updatedOn: '2026-10-22',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -107,7 +107,9 @@ export default {
       // Rechecked 2026-10-20 (Vault Run): Parade (via AOL, 18 Oct) still reports
       // no announcement ahead of the debut's 20th anniversary on 24 Oct 2026;
       // the only "out 24 Oct" claims found are on user-edited fan wikis.
-      lastCheckedOn: '2026-10-20',
+      // Rechecked 2026-10-22 (Vault Run): still no announcement of either;
+      // coverage remains fan speculation and unconfirmed retail listings.
+      lastCheckedOn: '2026-10-22',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: with the debut album turning 20 on 24 October 2026, coverage on 18 October still reported no announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',

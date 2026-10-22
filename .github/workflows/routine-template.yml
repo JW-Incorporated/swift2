@@ -116,10 +116,11 @@ on:
           installation token already lacked (Codex round-2 review of #4223:
           GH_DISPATCH_TOKEN is NOT empty in that case, it's a nonempty but
           under-permissioned GITHUB_TOKEN, so `gh workflow run` still 403s,
-          just via a different token — not a silent no-op). Only
-          routine-marjorie-ops.yml sets this true, always paired with
-          checkout_token_secret: SOCIAL_POSTER_PAT; every other routine must
-          be unaffected.
+          just via a different token — not a silent no-op). Opt-in per
+          caller: grep .github/workflows for `expose_dispatch_token: true` to
+          see the current set. It is only meaningful when paired with
+          checkout_token_secret: SOCIAL_POSTER_PAT; any routine that does not
+          set it is unaffected.
         required: false
         type: boolean
         default: false
