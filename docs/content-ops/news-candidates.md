@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 89
+
+## Travis Kelce Discusses Benefits of Marriage to Taylor Swift
+
+- first seen: 2026-10-22 07:03 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Travis Kelce shared his thoughts about being married to Taylor Swift, mentioning a particular perk he finds enjoyable. This highlights their relationship in the public eye.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQbGIyNjZkY1RPSzJTd180eDh0aS1BRnF6ZjBQeEh3cmFPMDY4TU5nQlpNWGlnMk00Q2V5STlzV09TbER3UVlxZTdwZDlOaUhIM2JpN3h6WU5BZzV2aW5kb25WNk1xS2wzYTJjQkItdmRWeWIycEwxWG1ZVExEQ0paMGJjcVRIYkxOOFVV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Weekly Track Roundup Features Taylor Swift and Others
+
+- first seen: 2026-10-22 07:03 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The latest Weekly Track Roundup includes Taylor Swift, Grimes, and A$AP Rocky among featured artists. This roundup covers new music and notable tracks released around October 18, 2026.
+- sources:
+  - [unverified] The Needle Drop — https://news.google.com/rss/articles/CBMiswFBVV95cUxPakNJZExrX1QwTjEwMFpsVWtnbnVEM3FjWHVrWnhkNEE3cDc2N0RwMFdHYXhwWHYxNjFpSktGcUcxb3BnX0dyLUJJcmRkbV9kOEo5MlJlbW50azE2WmpCZnNDaEsybDE4UkZNRHE1YkpueWdWRnN6ZzhfUFJ4WEFlUTcwYlVwRWllR19EUkdiRjZxNXAxT2U1Mkg3Q2I0aW9pMmVRYUVDZ21neTNHaVA1R2REOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Changes Wedding Ring Ahead of Chiefs Game
+
+- first seen: 2026-10-22 04:58 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made headlines by changing her wedding ring just days before the Kansas City Chiefs' matchup against the Seattle Seahawks. This change has caught the attention of fans and media alike.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNQnl2dEo3R1BIdkpZWktad2NfYlRwYXl1UUJabnJEbmRnX1hGXzB6NzJwdUp4aHdDOThVdG9jb2Rpb3Q2RDU0YWpxMEkwQjNieUp6ZjlGUG56V1dOZWV5T0tRNUFtT2pxZ3o5SlljRDllRWJtdzVsVzdoWnA5QXdwT2NycUFDcmpncnhwaHFjRVVMV3pHQW1GR2plVEpIMndMNFJMMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Overview of Taylor Swift's Early Career
+
+- first seen: 2026-10-22 04:58 UTC | category: music | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: The Arizona Daily Star provides an overview of Taylor Swift's early career, highlighting her beginnings in the music industry. The piece focuses on her initial steps and influences that shaped her path as an artist.
+- sources:
+  - [unverified] Arizona Daily Star — https://news.google.com/rss/articles/CBMidEFVX3lxTE9XQ0c3c2M4SUZCM0dwbExOLVZ3UDhpeU9YWFlMUXVKOTlNUGdKUmFkd29TSFJXMUI3UV9KeEhKNEVBS2traHdjZGFmWmd1bnhMVEpkMmx5OXRheDNwOXY1TnQ2dUFhalJISjgyQ0Rvd1l2NE53?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly 'Won Herself an Oscar' Before Game
+
+- first seen: 2026-10-22 03:58 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: According to a report, Taylor Swift has been recognized with an Oscar ahead of attending a game featuring Travis Kelce. Details surrounding the award and the event remain unspecified.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOSmNXa2Z2X2dFc0dEaGUwSTRZblQwSE1yOGFHZmx3eEN6Nk1ubzRKY3QwZHFoTnFQaG5QRDJzX3F5X2JzeDczRXFtejFLVWhPLXRCMVhpSi1pdzZocTYxYkxscWZZd3BiZmxfeUtoVGlORS1nMUVmSkl2S1p5MDRGVHBVejRYZERBODRMNk1tVVZHV0FwOUo4emEydkRfZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Involved in Incident with Fan at Chiefs Game
+
+- first seen: 2026-10-22 03:58 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: During a Chiefs game, Taylor Swift was accused of snapping at a fan. An expert has provided insights into what actually transpired during the incident.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPekFUWHlDcjN2SFR4blJYaEZncWxNYzN4R2g2dDQtaFVSSHpVcXNhcVZIU1RQelVKN3Nab2NzeTdRanQ4eUhKZlZmNzBmNXZrd3lia08yOTZFdFloZmpSOWgyX05FdmJCbGZ2MXRXVS11d2taaHJGaEZvTWRzNDlLSkhzZ09OQ1Q1aUdWeDFZMml2NmZ2TFpUNmpHc1hsRE5YNm9RamVR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Taylor Swift's Ties to Chiefs Nation
+
+- first seen: 2026-10-22 03:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce recently shared his thoughts on Taylor Swift's continuous connection to the Chiefs nation. This highlights the ongoing relationship between Swift and the sports community.
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi4gFBVV95cUxQWk9qeDFhMkxHbGFJQXBRR2JqOV9Oa3lYSjE3emlDajRoNzN5UG5hc18wMDhrOXhEeFIyWWkyWWVTdXd6czF4NVo4VFlIQWJZQ21rX1g2ZFMya0ZTN1dMY2tRRXNPYlAxYmdmTTNFTkVHTmxfTVdBOGRiV2taal9WVkdMZW1yTVFZNUpsd3VBbE5SbDdHUHZZZ1ZyNjdsZ0o0MVJSQW1zWUt3dlpUUmlDajR6QjVuYmJaUjBxeFFJNnAtcTNBazJFYWNCdkFDeXdpRHRhRnBhUXkyOXQwSnVRWTR30gHiAUFVX3lxTE9HdW14UEpNR2xPUmtSVzJ6cnZZalBTQV9pME51WFl0eVRhTld4ZlVpR3VZMXZhRDJUcGlZMzRZU1VhckRtRklXd1FJZWMweU5MTW1ab0hGMnR2M1BvZm15bGNLQjM3QW1teGIzZjlUVXVtRFV4S3R3SHVZZmR0Q1FScW0wS3hMQjU1RlRCYVd6Rk1qOHF0TEN3T1pydjFQNDFuMWpUUURlT2FGN3F3UWtjZGZGZnV1dWJzWDRlZDB0dnhQaUZkd0hYYmFPRjBCRlJ4THZVRm5KR0ZyMkd4Y1EyOUE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'The Life of a Showgirl: The Encore' Continues
+
+- first seen: 2026-10-22 03:00 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s show, 'The Life of a Showgirl: The Encore', continues to captivate audiences, as reported by The Miami Hurricane. The performance showcases her talents and entertainment value.
+- sources:
+  - [unverified] The Miami Hurricane — https://news.google.com/rss/articles/CBMirwFBVV95cUxNVk9FTHZFYklIWmFoelZNMHhhcTh3NExSSy1tLWNnc0ZhSmNJMVpNdkFRVEtMbVN1T214YWRmN3lfb0R0ODVIV3hNVzhIXzZoV3pxUk5IRmNiekpKTTBVZ0VQZFVHS0tLWFJNSndBQjh0ajFBalRLeFh5eTFwekxJbVdCd1BhajlTTmRyQi00VmxUQU14MnZ4TUpPTkd4WVlrOXRNOEI0eUZkaFFmVy1J?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Discussing Taylor Swift and Travis Kelce's wedding speculation
 
@@ -587,14 +651,6 @@ Stories: 83
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQZC1lNXV1MHJhSGpKd21yN25tWm1qbF85a1g5Vm9malpta2JCYS1yRklONU04UWxkZ3RrV3I4XzJ5c0JEM2RoLTdVMW1lbFQzR3lkVzBna0h3Z0s1bGdwajZYTHZXMlUxY1lnaG9lRFlxRW9JU0NkYkxucjROZmZRNHdyT0RybEZ1WHQ5N0o3TkxPTC11Z240T0p4UEtIcTJpcDhVTA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Displays 13-Carat Wedding Ring Stack at Event
-
-- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased her impressive 13-carat wedding ring stack while supporting her husband, Travis Kelce. The display highlights her elegant style at the event.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxOcFpZQWZPM0RtWjBNczBZcDc0MVVfUGllSjZaQ2NJTF9QQ1dEYkFuUXhfUTZOZTB5amJHVjIwcDVrUzdhakJFVmUwTzlJcFZRa3hYRkk1bll5dXhQUndDN2VWVjl6T0tjLXIwS0liODR4MkdMYUNKR3RsVGR1VFo2VG9jQnYtTnVhZlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Responds to Fan Filming Her at Chiefs Game
 
 - first seen: 2026-10-19 21:21 UTC | category: sighting | importance: 6
@@ -610,6 +666,14 @@ Stories: 83
 - summary: Taylor Swift showcased a soft glam look at the Academy Museum Gala, embodying pure romance. Photos from the event reveal her elegant style and aesthetic.
 - sources:
   - [unverified] Allure — https://news.google.com/rss/articles/CBMie0FVX3lxTE91blZUSDd6ckg2d25YLWVrOW93cXRkWF9ydi0tMGtZaTJOTXZjcGJPU2FDSWNUVF9ubnNKbFpoTEFyemt3U1J5NVVrU0dpZm0wcWxidWNlRXNXQVBrcTA5OHhCMXV3UWhzLXpTdXZFU0JwVHFWX1pOZzhuUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Displays 13-Carat Wedding Ring Stack at Event
+
+- first seen: 2026-10-19 21:21 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased her impressive 13-carat wedding ring stack while supporting her husband, Travis Kelce. The display highlights her elegant style at the event.
+- sources:
+  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiigFBVV95cUxOcFpZQWZPM0RtWjBNczBZcDc0MVVfUGllSjZaQ2NJTF9QQ1dEYkFuUXhfUTZOZTB5amJHVjIwcDVrUzdhakJFVmUwTzlJcFZRa3hYRkk1bll5dXhQUndDN2VWVjl6T0tjLXIwS0liODR4MkdMYUNKR3RsVGR1VFo2VG9jQnYtTnVhZlE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Richard Marx Discusses Turning Down Collaboration with Taylor Swift
 
@@ -674,19 +738,3 @@ Stories: 83
 - summary: Caitlin Clark and Taylor Swift were spotted together once more, supporting Travis Kelce at the Chiefs game against the Chargers at Arrowhead Stadium. Swift was seen enjoying the game and showcased her wedding ring during the event.
 - sources:
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMitwFBVV95cUxONlRGdVdKX3hEclgzVlRzU3RDQ1o4djV1S2NfaXdIU2U3VWUwVkdCZ0ptY2ZIbmN5YWs1TXRMYzMxcmZGc3IyUjNKTGFTQVg2WjNGOWdOLTlWN1JheTdkQ2ladVFPT0FTaGJ0cFd4dlRkblBRZFNpOFhVRUJKYlJub3lkLTFjVkNFbWlNZWZZcnZnZDUxWGNOc2h5bk5kbW0yRUhJM1VrM3E2OGhPSjhPTmN4ODlZRnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Taylor Swift's Favorite Perfumes
-
-- first seen: 2026-10-19 06:07 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from Prestige Online decodes the favorite perfumes of pop icon Taylor Swift, highlighting her scent preferences and how they reflect her personal style.
-- sources:
-  - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNTFMZ0wyLXpzUVdzQ3N0X2VHNUdDUWJNTXV1RkJuMm9hU1lBazBKUWFUSFFLUjU2VW11eUdwY3FxWUcyMFVLRHh2dVhfZjk2TG04VV93bWFwZlYxa3dhWEdxSjFIQmE0bGtDWUlPX0FFdUxaQ3JXTmNCUEZjR0MybmtWQTZFRnZWSTlzZFRHaDA4UFl5aGRvOFFONU5pSUxwS2dn0gGoAUFVX3lxTFBQMkI4T1BDYkZBTW01VkxCQkwwZGZwQ3lFV19XV19TWlZHZTI3eUhCODhuRndkU1pISXE3WHlKenhhRVM3N2ZqNjE2V2wxcEZaNGpDNlZzbGZTVklpTGdxRjg0LVhFT1JoekRaemtrT051NENmb1JQYW91S21kamxoaUZCUTB1ckh3dERCV3JOMHY0SUFJN2FPTEJENkFIOTNkWW5hVEtmdg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs vs. Chargers Game in Stylish Bodysuit
-
-- first seen: 2026-10-19 03:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted watching the Kansas City Chiefs play against the Los Angeles Chargers while wearing a cozy red Louis Vuitton bodysuit. Her appearance at the game attracted attention from fans and media alike.
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE83dGJWZGx6VnFQM3pWWmJTSF96cktfYVRObndRRUZDbEJwQVFVVHJWUXhBQnNWR1VzZHlIdE5veVMxeE1MMVB0b2tXNnpUNnNJYzd3N3VubjM2a2NVQnp5emJWUzZ4V0t2bWMw0gFrQVVfeXFMT2RUdTZUT3lBYlFmRXFWSmgxYUlib3RrMHltVlV5UVNPNGpTdjBWS0kwelFPbG1URjQ5Z3VNQXlwbWNoSXFkNVJNbUpjQXl0TWxDY0ZhRHNMWkdWbXNBZ0xkdnF5UWFMSTdGUnc?oc=5&hl=en-US&gl=US&ceid=US:en
