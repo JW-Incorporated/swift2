@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 80
 
 ## Taylor Swift Supports Return of Glamorous Old Hollywood Hairstyles
 
@@ -666,43 +666,3 @@ Stories: 85
 - summary: Taylor Swift was spotted watching the Kansas City Chiefs play against the Los Angeles Chargers while wearing a cozy red Louis Vuitton bodysuit. Her appearance at the game attracted attention from fans and media alike.
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE83dGJWZGx6VnFQM3pWWmJTSF96cktfYVRObndRRUZDbEJwQVFVVHJWUXhBQnNWR1VzZHlIdE5veVMxeE1MMVB0b2tXNnpUNnNJYzd3N3VubjM2a2NVQnp5emJWUzZ4V0t2bWMw0gFrQVVfeXFMT2RUdTZUT3lBYlFmRXFWSmgxYUlib3RrMHltVlV5UVNPNGpTdjBWS0kwelFPbG1URjQ5Z3VNQXlwbWNoSXFkNVJNbUpjQXl0TWxDY0ZhRHNMWkdWbXNBZ0xkdnF5UWFMSTdGUnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Red Bodysuit at Chiefs Game
-
-- first seen: 2026-10-18 23:05 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased her showgirl style by wearing a striking red bodysuit at the Chiefs home game against the Chargers. This appearance adds to her ongoing public presence at NFL events.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNVTVWY1dDRDRFU2ZEM0wyczY5T1h0alpNTHdqVHZhMERlSDJ5YXF4VngwcHltaFQzOWpDWXBaLXMzd1IwaGZWcENqZDdXVEM0RWdacFhYX0lsV09LMW5NdS1WTi1DY0lBZnJkcWlyeTlXMEdOSDR3YUNzOE1Cb3RVTFM5QTlmQTJLUlFrUy1xbVRCRVd4akRLaWg1MUdiUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift attends Chiefs game following LA performance
-
-- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: After her recent performance in Los Angeles, Taylor Swift was seen attending a Kansas City Chiefs game. She continues to stay active in both her music career and support for the team.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMifEFVX3lxTE5mN2xPNUVfd1VHb0pIZm1LQXI5bHdvNjVDT1oxdm45eDNKTTJfMDdnU0pJUy1abDJWR2VwbDBSM1JnSTFwdVhhWkxNNTMzdjd3Tk9rUDQwVWNBTm5xOE5wbWJaWTJ3d0E4UTAxQ0N2MUlSRXFGNHI5Ny1HNmU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs Game with Company
-
-- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at a recent Kansas City Chiefs game, where she was accompanied by others. The outing has garnered attention in the news.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxNc3BrclN5bk4tWVlwdEN1S3ZCQ3BCZDF4eE1zVjJmcXZGSWJINVVzMHAtOGZ2QTJaSUxpY1VqX1ZNT2VSNHF3ckMzMXNtclF1YlFhNUJndDIwSlR0S0NzNXk5ZFF1RDFrMUd4a2xHdXBUWEluUnd4ZnpxbkdJNnhRY09seVdLMWRzOWd1enNYUWlWSWdmU0YtbEdEYW1xTGItVy1pMzFVQnVHZXky0gHAAUFVX3lxTFAtMFVfWTVhNlJVOVdCU0JYYm1PWkxJb1RjSjVmVFFBMnFiR0N0NE56TFpYOWhYNmdUREh2bUNjWDUyZXlHZFdUaGlZV3ZFdTFRaUZNUHJCY0RtQ2pHR0djLWpRRWx2aHluY25vUDdNWnRTc3k0WEgwQjFQLUhZV3llSFhVYklFOEFZWWE1dDZ2N3U5bHdWcUlHel9oM1FpU0g3dTlKazBfRndoaGlRSWhyRUhvYzJzX1QyOThkVElRZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seen at Chiefs Game After Traveling from Los Angeles
-
-- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at a Chiefs game after a flight from Los Angeles to Kansas City. This appearance comes as she continues to capture public attention at various events.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxQX1BsbHZrNURHejNaR2Z5RjA0aF8zMXZRcDVOcWh0Tk00WU10Q1c4SlBJY2N3Zk53TEptaTNXQ1EyOVpwUWc2OFc4NWMyMk9rcGtPRFVGeF9HZ3F4VXM1QzNxN01pMmFDWTFscnFMUlI1ajVGbXhZVnJTRTJ1U25ackdQLVlDTkNYSEg1TkgtZHRVQ21zbGxfYmNlZHk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs-Chargers Game with Caitlin Clark and Este Haim
-
-- first seen: 2026-10-18 22:59 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen at the Chiefs-Chargers game alongside Caitlin Clark and Este Haim. The appearance attracted attention as she enjoyed the event with her friends.
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMihAFBVV95cUxQUm9na3NaU0JVQWVueDlYQldPbW9xa09PZ0VuVVcwVXk0ZGp5TnJHcTk5V0w0MklSeHpfN2pUUTZZT0JDc0lEV1JDQzFJS2R2b1NvbWlkN0M0aTVraHM3aGp6WEdLNFhNZlZLbUxuYlhnVktodTdEUW1WYTUyMGdpdjNFbXLSAYQBQVVfeXFMTU5oVDlPclFLVG42Sm8temFUWUtBZkNWUFRxS3BseFpEbGtELTFCcTN5enhEdDdGLVAxWXk5X2NlYlhQcnZWUjBzY3k2alhHTGpqQ0ZYc0FObzU2T1JGUjRscHdDdHdPS0dFUjllTG1MWTJLX1RwTmNndEJ0S2xvQ3NobkQ1?oc=5&hl=en-US&gl=US&ceid=US:en
