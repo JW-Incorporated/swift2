@@ -530,5 +530,36 @@ export default {
         ),
       ],
     }),
+    {
+      // Official visualizer for the BUNT. remix of "Opalite", posted to the
+      // verified Taylor Swift channel 2026-10-15 (youtube.com/watch?v=vZJXqv48lIc,
+      // oEmbed-verified 2026-10-22). First video in the Showgirl era with kind
+      // "visualizer" — the new WORKS value added for this slot (#6082).
+      slug: 'opalite-bunt-remix-visualizer',
+      kind: 'visualizer',
+      title: 'Opalite (BUNT. Remix) (Visualizer)',
+      director: null,
+      releasedOn: '2026-10-15',
+      relatedSongs: ['Opalite'],
+      tags: ['Music'],
+      summary:
+        'Official visualizer for the BUNT. remix of "Opalite", released on the verified Taylor Swift channel 2026-10-15 — the first official Taylor video to carry the visualizer kind.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+          oembed_fetched_at: '2026-10-22',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
+      sources: [
+        wiki('Opalite_(song)', 'Opalite (song)', 'documents the BUNT. remix and its release date'),
+      ],
+    },
   ],
 };

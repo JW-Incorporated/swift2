@@ -50,6 +50,7 @@ export const VIDEO_KIND_VALUES = new Set([
   'tour_film',
   'documentary',
   'performance',
+  'visualizer',
   'interview',
   'award_speech',
   'speech',

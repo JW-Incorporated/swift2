@@ -934,6 +934,7 @@ export type VideoNoteKind =
   | 'tour_film'
   | 'documentary'
   | 'performance'
+  | 'visualizer'
   // Appearances
   | 'interview'
   | 'award_speech'
