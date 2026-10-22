@@ -90,6 +90,7 @@
 ## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-07 -->
 <!-- marjorie-chase: 96h issue=4673 -->
+<!-- ha verify: issue-closed 4673 -->
 
 **Why:** Marjorie dispatched it on 2026-10-01 (content: three fan moments aged out of intake uncovered — cover or decline with a reason …). Nothing has moved since 2026-10-03. Holder: unclaimed.
 
@@ -101,6 +102,7 @@
 ## #114 🟡 [DECIDE] #4804 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4804 -->
+<!-- ha verify: issue-closed 4804 -->
 
 **Why:** Marjorie dispatched it on 2026-10-02 (Watchdog alerts Marjorie can handle should not reach the founders channel). Nothing has moved since 2026-10-02. Holder: unclaimed.
 
@@ -112,6 +114,7 @@
 ## #113 🟡 [DECIDE] #4778 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4778 -->
+<!-- ha verify: issue-closed 4778 -->
 
 **Why:** Marjorie dispatched it on 2026-10-02 (Enforce the owner's three post criteria in code: a mediaEarnsItsPlace floor, tunable rubr…). Nothing has moved since 2026-10-02. Holder: unclaimed.
 
@@ -123,6 +126,7 @@
 ## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4767 -->
+<!-- ha verify: issue-closed 4767 -->
 
 **Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
 
@@ -134,6 +138,7 @@
 ## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4720 -->
+<!-- ha verify: issue-closed 4720 -->
 
 **Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
 
@@ -145,6 +150,7 @@
 ## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-06 -->
 <!-- marjorie-chase: 96h issue=4324 -->
+<!-- ha verify: issue-closed 4324 -->
 
 **Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
 
