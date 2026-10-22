@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 95
+
+## Grammy-nominated sound engineer who mixed ‘Red’ resides in Aptos
+
+- first seen: 2026-10-22 11:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A Grammy-nominated sound engineer who contributed to Taylor Swift's album ‘Red’ has made Aptos his home. The article highlights his achievements and connection to the album.
+- sources:
+  - [unverified] Lookout Santa Cruz — https://news.google.com/rss/articles/CBMitAFBVV95cUxQYjVhVk1kdDFDRnBheVdfbnRnVGNQWUhwdF91OTc2R1hRRW15UDJwOTNzMHNpX2tLVmdteUxtSXpOckZrMHI4SnM1ekxKNi05Xy0wdk1yTHVBLXBWbDNDd1FPZjdsUE9fLTdFYjE0WTlLdGNTS1B3MHl5UkNPbUZhamhiNmw0N2lyQkQzaEFXWW1YZHlWOHdKMTh3SjB2eTBsV3ZaaVVqSWh3SVd1TTlqV21iWVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Expert Comments on Taylor Swift's Recent Confrontation with Chiefs Fan
+
+- first seen: 2026-10-22 11:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An expert weighs in on the recent interaction between Taylor Swift and a Chiefs fan, suggesting that the situation may not have been as it appeared. The commentary provides a different perspective on the encounter.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQRV85cEd4WTQxNHd2QjRiNk9oRERiUkhDcjYwQWU2T21hX3dFZ2ZjMEEyVGJhRlA2dmpUTXFVSFFidEpZLWM2cmNjbnU3aElzQkhEMmVONFdNN2pwNGkwcm9ILUFsNEJlVzVXQkx0c2V6TlVwZy1ISjdPV0lMeExzcWx5V1hQTzhxWERMRVI3YVNUMG9KWG5aWF9RZzBCLUlJWFlvSFNSc3RNSXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Timeline of Taylor Swift and Mariska Hargitay's Friendship
+
+- first seen: 2026-10-22 11:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article presents a detailed timeline exploring the friendship between Taylor Swift and Mariska Hargitay, highlighting their age-gap and significant moments in their relationship.
+- sources:
+  - [unverified] The List — https://news.google.com/rss/articles/CBMilAFBVV95cUxPQ3ZYcXAxeTZsMUxHcWV0MmRveG5GTXVJdUU4MGtldXh5MEI4TGItU3dfc2FFN3NkR3J5X05pb0pWVkRSYlFjR1V2YnJDQ01sS0NwcUtXckowVzhnWnZYUE5iN2xnMG5RcmNPMTljZTZhbUxWNVowcGtRdmlCdmY2NEhoeGV5X29KXzBwTWFKNmxLMDRv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Denver Event Features Taylor Swift Among 100 Divas
+
+- first seen: 2026-10-22 11:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent event in Denver showcased nearly 100 divas, including Taylor Swift. The feature highlights various prominent female artists in the music industry.
+- sources:
+  - [unverified] The Colorado Sun — https://news.google.com/rss/articles/CBMidEFVX3lxTE9LZTBBVnpmaFQyOUpNTnU4WGpFOVdlNlBjMnVRd3hHQmZpMGpOZUtLSnc5dlRuSHU2d3UtUnVMTWxwbkhSUE8xYThxelpjRTBfTFJnMkwwV2Y5QlVaLUJFQ2FxdDRnQ0w3SjczR2FyRnVjbTJI?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Aaron Dessner's Role in Promoting Authenticity in Pop Music
 
