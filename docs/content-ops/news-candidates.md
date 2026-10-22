@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 93
 
 ## Taylor Swift's Rhode Island Mansion History Explored
 
@@ -770,43 +770,3 @@ Stories: 98
 - summary: Taylor Swift recently made a subtle change to her wedding ring stack, showcasing her evolving style. The update was highlighted in an article by InStyle.
 - sources:
   - [unverified] InStyle — https://news.google.com/rss/articles/CBMinwFBVV95cUxQeS1jVC05eVlIbk9sOWlOckt6LTlvd0pxZjFjMFhrSnQ3VTB3cVZhRHZxYUVMOFBCbnJxWVAyUHJQLUJoalg1VWFIMkU3cFJGTVJGUHhXaWlzd1pSRlY2OTEzSmFVbnluOTYyUW1IdkNneXYwTjA3WFdWRHM2U1p6c24wTEVjV2VSQlhlR1haSll5WVp4OFZRdnFIcjdubDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Adjusts Wedding Ring Stack
-
-- first seen: 2026-10-19 22:26 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a subtle adjustment to her wedding ring stack, opting to wear her band alone. This change highlights her evolving style choices in jewelry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQNWJZZG41TWczY1NIQU5VeVNtYU81ZEhub2M5Rl9mN0tFZWxXaEpWVFhpbFNQUVFZVkdVTFJxXy1WNUh5WmhqRVJqNHd2Zlp6Ulhnem92emFmcEFQd05CM3VMcnBvbUJhV3JzTTBDaUFEQUlZeFRtTlY5cnRTem1mV0NDaTdMVVVYdkdkeXF1V1FnNzQ5ZzF1NXpKLU9fNWZ1YVhJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Cowboys Legend Offers Support to Taylor Swift Amid NFL Fan Criticism
-
-- first seen: 2026-10-19 22:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Cowboys legend has publicly supported Taylor Swift in light of recent backlash from NFL fans. The unexpected endorsement comes as Swift remains a prominent figure linked to the NFL.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijgFBVV95cUxOV3RQQVpfWjRxY09OeVlIMWdLMGJtSEV5ZkkyV2JfQnJNbnZOSkFLeE02VXNONFpvS2FsSHJ6U0VMcVQ4dkoyYTc3czdFVWN3QTJ1Mkd4T0VlMnNJR2VBUjZ2R2hjeDk5RGhyZVI5X0xiOFBhMVhsSFdlUEVfZWNKamQtU2lBVXZXeUVIbE1B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Maintains No. 1 Spot on Charts
-
-- first seen: 2026-10-19 22:26 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift continues to hold the top position on the music charts according to a report by Complex. Her consistent performance keeps her fanbase engaged and reinforces her popularity in the industry.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMihwFBVV95cUxPQWxyOUZNVWY1WGNmLVNwSDNPem1HN3VBZUxDMlJTMHRDYzRZZW9DSHd6SFdEMExiNHduTmNHYng0cTlkMnhNVjNuWE9TY1dlVWF3QXEtcVNwYjFoU0RJSzN1TUtadGJMYXhILWh1UVpVWWF0YVVlajRuYmY5RGh4MENuR3lBZjA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Recognized as One of the Best-Dressed at Academy Museum Gala
-
-- first seen: 2026-10-19 22:26 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was named one of the ten best-dressed stars at the Academy Museum Gala, highlighting her fashion choices at the event. This recognition showcases her continued influence in the fashion world.
-- sources:
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMixgFBVV95cUxObE0wUnp0NUNjLXp4NndrdExmSHhvdlE3ZkhkbFd5SXk1ejRDdmhxejZDR0Y5dU1ydzFURjJyNlZoam9UMDQydmV1bjBSZTJ1Zi14WG56VjBubER6UDZhVXVUQVhnRGlkeGFtQnBQTFNwZ1ZBb3pnVHM2MnliVG5sWGpHVDd0SzNzVVZPWlpicGpndDJUOTJZVndPcTRrSUh2cTRDYlJhMkJaSjI1MlhZd3RBSlFtSlF3NjZyRS1ZUHhTSExnWXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of Deluxe Edition of Taylor Swift’s 'The Life of a Showgirl' Released
-
-- first seen: 2026-10-19 22:26 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A review has been published on the deluxe edition of Taylor Swift’s album, 'The Life of a Showgirl.' The analysis covers the content and features of this edition, providing insights for fans.
-- sources:
-  - [unverified] the-standard.org — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOSXhST0ZDNWcxTFVjZnJVbXFVRTRabjVJdEN6TDlsWGk2bml3LVB1enExQWd3ckhYczN0MHhxX2ZIVVJGUGZFbDc1c1JhNW11LVRCNHhmUHVaaGlmdGVlQnFsbGwzWHkwUkktZnRSdXpGaFhOODFGWGZBZ1RvN3Ntd0Vrbk95WnVQNEQ0U2c5eDFoaTJZMHVSV1JhTV9NeGQwWDBaT0dqVUt0azd4d1FXbDRCUWtwR3pIanlsczR3Wk1pVWFfeTFfaDFJOWZ1bGhpQ3ZfeXpqbTFLT19XOWFTcHNnZDgzVmRmRTBuT0xsVQ?oc=5&hl=en-US&gl=US&ceid=US:en
