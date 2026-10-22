@@ -94,6 +94,13 @@ describe('routine-marjorie-brief.yml delivery', () => {
   it('can read pull requests so it can render the page', () => {
     expect(deliver).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
   });
+  // #5982: inheriting the template's 40-turn default killed the 2026-10-16 brief
+  // at turn 41 (error_max_turns), so the note and this deliver job never ran.
+  it('passes an explicit turn ceiling above the template default to the agent job', () => {
+    const turns = Number(/^ {6}max_turns: (\d+)$/m.exec(brief)?.[1]);
+    expect(turns).toBeGreaterThan(41);
+    expect(turns).toBeLessThanOrEqual(100);
+  });
 });
 
 describe('routine-marjorie-status-reply.yml', () => {
@@ -111,5 +118,13 @@ describe('routine-marjorie-status-reply.yml', () => {
     expect(relay).toContain('ref: main');
     expect(relay).not.toMatch(/DISCORD/);
     expect(relay).not.toMatch(/Write|Edit/);
+  });
+  it('answers common intents first and always fails open to the unchanged agent path', () => {
+    expect(relay).toContain('node scripts/marjorie/status-intents.mjs .scratch/status-comment.json');
+    expect(relay).toContain('TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}');
+    expect(relay).toContain("if: always() && needs.context.outputs.skip != 'true' && needs.template.outputs.handled != 'true'");
+    expect(relay).toContain('model: claude-sonnet-5-5');
+    expect(relay).toContain('prompt_file: docs/agents/runner-prompts/marjorie-status-reply.md');
+    expect(relay.match(/pre_run_artifact: status-reply-context/g)).toHaveLength(1);
   });
 });

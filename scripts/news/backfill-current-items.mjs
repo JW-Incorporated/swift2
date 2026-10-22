@@ -3,7 +3,7 @@
 // existing, live `current_item` — resolve a missing image (Card 1/#5628),
 // rewrite thin copy from the full article (Card 2/#5627), re-run the
 // shared publish gate (Card 3/#5629) — via
-// `apps/worker/src/extract/backfill.ts`'s `runBackfill`, which reuses the
+// `apps/worker/src/extract/backfill-run.ts`'s `runBackfill`, which reuses the
 // exact same pipeline code the ordinary worker cycle calls. Nothing here
 // deduplicates stories — that is content-fix/7-llm-dedupe's job; this
 // script only ever touches one row's own image/copy/quality fields, and
@@ -17,9 +17,9 @@
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
-// scripts/lib/supabase.mjs's header). ANTHROPIC_API_KEY is optional: unset
-// means every thin item's rewrite step defers (reported, not an error),
-// same as the live extract stage's own "no key, no spend" posture.
+// scripts/lib/supabase.mjs's header). CLAUDE_CODE_OAUTH_TOKEN is optional:
+// unset means every thin item's rewrite step defers (reported, not an error),
+// same as the live extract stage's own missing-subscription posture.
 //
 // DRY RUN NEVER WRITES: every row is still resolved/rewritten/re-screened
 // for real (so the printed report reflects the real would-be outcome, not
@@ -28,7 +28,7 @@
 
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { runBackfill } from '../../apps/worker/src/extract/backfill.ts';
+import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
 
 function parseDryRun(argv) {
   if (argv.includes('--no-dry-run')) return false;

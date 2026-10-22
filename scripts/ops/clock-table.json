@@ -3,9 +3,14 @@
   { "workflow": "watchdog.yml", "minGapMinutes": 55, "inputs": { "hourly": "true" } },
   { "workflow": "routine-marjorie-ops.yml", "minGapMinutes": 175 },
   { "workflow": "news-worker.yml", "minGapMinutes": 55 },
+  { "workflow": "tidewatch.yml", "minGapMinutes": 9, "runName": "tidewatch (fast)", "inputs": { "mode": "fast", "scheduled": "true" }, "disabled": true, "disabledReason": "primary-only collector store view is blocked until P1-08c" },
+  { "workflow": "tidewatch.yml", "minGapMinutes": 55, "runName": "tidewatch (sweep)", "inputs": { "mode": "sweep", "scheduled": "true" } },
   { "workflow": "marjorie-status.yml", "minGapMinutes": 55 },
   { "workflow": "auto-merge-keepup.yml", "minGapMinutes": 14 },
   { "workflow": "social-approval-poll.yml", "minGapMinutes": 14 },
+  { "workflow": "community-reaction-poll.yml", "minGapMinutes": 14 },
   { "workflow": "social-poster.yml", "minGapMinutes": 28 },
-  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 }
+  { "workflow": "concert-photo-sourcing.yml", "minGapMinutes": 1380 },
+  { "workflow": "tidewatch-shadow-report.yml", "minGapMinutes": 55, "runName": "tidewatch-shadow-report (alert)", "inputs": { "alert": "true" } },
+  { "workflow": "tidewatch-shadow-report.yml", "minGapMinutes": 1380, "notBeforeUtc": "15:07", "runName": "tidewatch-shadow-report (full)", "inputs": { "alert": "false" } }
 ]

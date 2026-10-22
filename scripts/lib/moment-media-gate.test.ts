@@ -7,7 +7,10 @@ import {
   momentFingerprint,
   momentMediaErrors,
   nonMomentMediaErrors,
+  retiredSurfaceMediaKeys,
   socialInboxMediaErrors,
+  SURFACE_MEDIA_LEGACY,
+  surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
 
@@ -118,5 +121,71 @@ describe('P1-23 surface media gates', () => {
     };
     expect(surfaceMediaPublicationVerdict(key, row, nonMomentMediaErrors(row), new Set([key])))
       .toEqual({ errors: [], legacyGap: true });
+  });
+});
+
+describe('SURFACE_MEDIA_LEGACY list audit', () => {
+  const key = 'social/inbox/appearance-2026-10-12-FqbcAAKQjes.json';
+  const legacy = new Set([key]);
+
+  it('errors on an entry that gates nothing', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set(),
+      exactGaps: new Set(),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['error']);
+    expect(findings[0].message).toContain('matches no gated row');
+  });
+
+  it('errors on an entry whose row gained media', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set([key]),
+      exactGaps: new Set(),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['error']);
+    expect(findings[0].message).toContain('no longer matches');
+  });
+
+  it('stays silent while the exemption is live', () => {
+    expect(
+      surfaceMediaLegacyFindings(legacy, { seen: new Set([key]), exactGaps: new Set([key]) }),
+    ).toEqual([]);
+  });
+
+  // #6109: closing an intent moves it to social/inbox/closed/, which the live
+  // scan no longer sees. That is the normal lifecycle, not a stale entry, so
+  // it warns for cleanup instead of turning build-content red on every PR
+  // that performs the move.
+  it('warns instead of erroring when the intent has been closed', () => {
+    const findings = surfaceMediaLegacyFindings(legacy, {
+      seen: new Set(),
+      exactGaps: new Set(),
+      retired: retiredSurfaceMediaKeys(['appearance-2026-10-12-FqbcAAKQjes.json']),
+    });
+    expect(findings.map((f) => f.level)).toEqual(['warn']);
+    expect(findings[0].message).toContain('now closed');
+  });
+
+  // #6081: the retired-tolerance above covers the single PR that moves an
+  // intent into closed/; it does not protect later builds whose tree already
+  // has the file there and whose `retired` set is built from that same tree.
+  // A key that survives only in SURFACE_MEDIA_LEGACY after its intent has
+  // been closed must therefore be removed from the list — guard that the
+  // exemption list never outlives its retired intents.
+  it('exposes a legacy social-inbox key whose intent is closed but not yet swept from the exemption list', () => {
+    const closedKey = 'social/inbox/appearance-2026-10-12-FqbcAAKQjes.json';
+    if (SURFACE_MEDIA_LEGACY.has(closedKey)) {
+      const closedFiles = ['appearance-2026-10-12-FqbcAAKQjes.json'];
+      const findings = surfaceMediaLegacyFindings(SURFACE_MEDIA_LEGACY, {
+        seen: new Set(),
+        exactGaps: new Set(),
+        retired: retiredSurfaceMediaKeys(closedFiles),
+      });
+      const stale = findings.find(
+        (f) => f.key === closedKey && f.level === 'error',
+      );
+      expect(stale).toBeDefined();
+      expect(stale.message).toContain('matches no gated row');
+    }
   });
 });

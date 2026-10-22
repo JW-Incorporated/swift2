@@ -35,6 +35,7 @@ const EXPO_SEND_CONCURRENCY = 4;
 const MAX_RETRIES = 2;
 const RETRY_BASE_DELAY_MS = 500;
 const PUSH_FREEZE_SWITCH = 'PUSH_FREEZE';
+const DISPATCH_HEARTBEAT_SWITCH = 'dispatch_heartbeat';
 
 export type PushFreezeState = 'unfrozen' | 'frozen' | 'unreadable';
 
@@ -56,6 +57,53 @@ export async function readPushFreeze(db: SupabaseClient): Promise<PushFreezeRead
   } catch (err) {
     return {
       state: 'unreadable',
+      reason: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/** Engage the service-role-only runtime brake after an unsafe partial write.
+ * This is intentionally one-way: only the owner may lift PUSH_FREEZE. */
+export async function engagePushFreeze(
+  db: SupabaseClient,
+  now: Date = new Date(),
+): Promise<{ engaged: boolean; reason?: string }> {
+  try {
+    const { error } = await db.from('ops_switches').upsert(
+      {
+        name: PUSH_FREEZE_SWITCH,
+        enabled: true,
+        updated_at: now.toISOString(),
+      },
+      { onConflict: 'name' },
+    );
+    return error ? { engaged: false, reason: error.message } : { engaged: true };
+  } catch (err) {
+    return {
+      engaged: false,
+      reason: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/** Proves the dispatch database is writable before any provider call. */
+export async function writeDispatchHeartbeat(
+  db: SupabaseClient,
+  now: Date = new Date(),
+): Promise<{ written: boolean; reason?: string }> {
+  try {
+    const { error } = await db.from('ops_switches').upsert(
+      {
+        name: DISPATCH_HEARTBEAT_SWITCH,
+        enabled: true,
+        updated_at: now.toISOString(),
+      },
+      { onConflict: 'name' },
+    );
+    return error ? { written: false, reason: error.message } : { written: true };
+  } catch (err) {
+    return {
+      written: false,
       reason: err instanceof Error ? err.message : String(err),
     };
   }

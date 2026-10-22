@@ -7,6 +7,16 @@ looks wrong. The engineering spec is
 (Fable-approved, board `swift2`); this doc is the plain-English companion,
 written for card P3-1 (Phase 3, the last build card in that plan).
 
+**Lane status (2026-10-18, founder):**
+
+| Lane | State |
+|---|---|
+| `community-scan` (daily hot-thread RSS scan) | **Retired.** Schedule removed (manual `workflow_dispatch` only) and `COMMUNITY_SCAN_ENABLED=false`. Reddit discovery is the awareness lane. Re-enable: restore the cron in `community-scan.yml`, set the variable `true`. |
+| `community-inbox` (`reply_to_us`) | Kept. |
+| `routine-community-answerer` | Kept, skips Reddit `hot_thread` (50-turn cap). |
+| `community-mailer` | Kept, skips Reddit `hot_thread`; Facebook leads still mail. |
+| Awareness lane | Unchanged. |
+
 **The one rule that matters:** nothing here ever posts, comments, replies,
 votes, follows, or DMs on Reddit or Facebook by itself. Every piece of text
 this system produces is a *draft* — a human (you) always does the actual
@@ -43,6 +53,18 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
 - **Facebook** leads only appear once the Facebook export collector is
   running (it needs the owner's Facebook login); until then only Reddit
   opportunities arrive.
+
+**Where each lead is posted** (`mailerRouteFor`, `scripts/lib/discord-route.mjs`):
+
+| Platform | Channel |
+|---|---|
+| Reddit (mailer cards, batch header, awareness cards, Qwen second opinion) | `#tree-reddit` |
+| Facebook | `#tree-facebook` |
+| Anything else | `#tree-main` |
+
+Since 2026-10-18 all Reddit leads go to `#tree-reddit` (founder). The reaction
+poll still falls back to `#tree-main` so older Reddit cards there keep
+registering ✅ / ⏭️.
 
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)
@@ -93,10 +115,13 @@ moment to talk about it.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. `community-awareness-scan` (every ~20 minutes with a random start delay,
-   2 anonymous Reddit requests a run, skipped on 429, optional `HOME_RELAY_URL`
-   fallback) reads `scripts/community/awareness-subs.json` (the subs, a note on
-   each one's self-promo rule, and the caps) and takes the feeds fetched
+1. The owner-installed home Reddit reader runs hourly, discovers
+   threads through public RSS, and enriches at most 20 through anonymous public
+   `.json` pages. `community-awareness-scan` remains the automatic RSS-only
+   fallback: it skips only while the home heartbeat is fresh and enabled, and
+   runs when the reader is absent, stale, tripped, or unreadable. Both paths read
+   `scripts/community/awareness-subs.json` (the subs, a note on
+   each one's self-promo rule, and the caps). The fallback takes the feeds fetched
    longest ago first: every sub in hot and new, plus Reddit-wide search RSS,
    so each feed is asked several times a day. A 429 stops the run and puts that
    feed, and the whole scan, on a cooldown (30 minutes, doubling to 6 hours)
@@ -110,12 +135,23 @@ How it works, in three workflows (kill switch: repo variable
    (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
    run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
    export leads are adopted as awareness rows too.
-2. `routine-awareness-answerer` (every 3 hours) is ONE Claude run per batch (not per lead; at
-   most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
-   waiting. It writes the words only, with no shell and no database secret
-   (it reads untrusted Reddit titles): a plain job exports the waiting leads
-   to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
-   a plain job validates it (`awareness-draft.mjs apply`): a reply with a link,
+2. `community-draft-replies` (every 3 hours; P1-10, replacing the agentic
+   `routine-awareness-answerer`) runs `scripts/community/draft-replies.mjs`: ONE
+   single-shot model call per eligible lead (at most 6 a run) through the shared
+   subscription wrapper at community priority (P3, no backup token), and does
+   nothing when no lead is waiting. The weekly-limit gate pauses it; a limit or
+   an unavailable wrapper leaves the lead `new` (no draft beats a bad draft).
+   The model has no tools, shell or database access. For Reddit leads it gets
+   the title and the stored snippet. Fetching the post text and a few top
+   comments (no author names) from the public thread JSON is **off by default**:
+   it needs the repo-level env flag `REDDIT_THREAD_JSON=1`, which
+   `community-draft-replies.yml` deliberately does not set during the shadow
+   week ending about 2026-10-23. HA #130 approved anonymous public `.json`, but
+   this existing collector stays dark until the shadow period ends. With the
+   flag off, no Reddit request is made at all. Any fetched text is transient and never stored or
+   logged (Facebook leads are lead-only: title, no fetch). The system prompt is
+   `docs/agents/runner-prompts/awareness-answerer.md`. Replies are validated by
+   the same code as before (`awareness-draft.mjs applyDrafts`): a reply with a link,
    a domain, "check out", an em dash or more than 300 characters is rejected,
    and a picture id, if the agent asked for one at all, must exist in the real
    catalogue. No picture id means a text-only reply, which is the normal case.
@@ -147,21 +183,99 @@ Expect to spend roughly 10–15 minutes on this most days.
 
 #### No Reddit API key, ever
 
-Owner decision, 2026-10-01 (`docs/decisions.md`): this project will never have
-a Reddit API key. Reddit discovery works anonymously (public RSS) or it does
-not run. Nobody proposes, files a card for, or asks the owner for Reddit OAuth
-credentials, a Reddit app, or any `REDDIT_*` secret.
+Owner decisions, 2026-10-01 and HA #130 on 2026-10-17
+(`docs/decisions.md`): this project will never have a Reddit API key, OAuth,
+login, or account automation. Discovery uses public RSS; the home reader may
+read anonymous public `.json` thread pages. Nobody proposes, files a card for,
+or asks the owner for Reddit credentials, a Reddit app, or any `REDDIT_*`
+secret.
 
-**How 10+ a day works without one.** Anonymous RSS from GitHub runners is
-throttled (run 36908472939: HTTP 429 on 4 of 6 requests in one burst), so the
-scan sends many tiny runs instead of a burst: ~72 runs a day, 2 requests each,
-a random start delay, and a hard stop on the first 429 with a persisted
-cooldown. r/TaylorSwift's feed alone yields about 7 fitting threads per fetch;
-the caps (4 a day for r/TaylorSwift and r/swifties, 3 for other subs, 15 in
-total) are what limit volume, not the request count. If GitHub's IPs turn out
-to be blocked outright, the next anonymous options are a home relay
-(`HOME_RELAY_URL`, already supported, on a residential machine) or a
-self-hosted runner; neither is built.
+**Home reader safety.** Every Reddit request carries
+`LongLiveTS-reader/1.0 (+https://www.longlivets.com)`, waits at least six
+seconds plus jitter after the previous request, and no run details more than
+20 threads. HTTP 403/429 or a non-JSON detail response stops the run on that
+first response with no retry. A local circuit file skips the next three runs
+(about three hours), doubles that count after another trip (capped at 24 runs,
+24 hours), and records the reason and time. A trip or skipped run disables the
+home heartbeat immediately, so
+the existing GitHub RSS lane keeps working.
+
+#### Home PC reader: run and install
+
+The reader writes metrics to the existing `engagement_lead` fields and writes
+top-level comments plus their first replies, with authors omitted, to
+`.artifacts/home-reddit-crawl.json` in the existing crawl-bundle shape. The
+installed task then runs the theory miner over that bundle. It checks at most
+40 changed bundles with Jev `q_theory`; only positives reach Haiku 5.5 through
+the Claude-subscription wrapper. A durable `bundle:<thread>:<10-comment-bucket>`
+ledger skips unchanged threads. The task's local env therefore needs the
+existing Supabase service credentials, `TYPESAFE_API_KEY`, and the Claude
+subscription token. Candidate mentions are counted once per source thread;
+later comment buckets can refresh evidence without increasing the count.
+Test a single thread safely before installation:
+
+```
+node --import tsx scripts/home/reddit-reader/reader.mjs --dry-run --subreddit TaylorSwift --max-threads 1
+```
+
+The owner installs the Windows Scheduled Task in P1-26; agents do not install
+it. The installer references an existing local env file without copying its
+contents into the task:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/reddit-reader/install-task.ps1 -EnvFilePath <local-untracked-env-file>
+```
+
+The task runs `run-task.ps1`, which appends a timestamped start line, the
+reader's stdout/stderr and the exit code to `.artifacts/home-reddit-reader.log`
+(gitignored); read it to see why a run failed. The task registers for the
+current user as Limited/Interactive, so a normal (non-admin) PowerShell is
+enough. Only re-registering a task that was first created from an elevated
+shell can fail with "Access denied" — run that one re-register as admin, after
+which normal shells work.
+
+The installer also registers `Long Live Reddit Outcomes` at :30 every two
+hours, offset from the hourly reader at :00. It
+reads u/NegativeRest9507's public comments anonymously, matches comments to
+the posted ledger by Reddit thread ID, fills `comment_url`, and records each
+due 1h, 24h, or 7d score/reply snapshot. A missed run does not fabricate
+earlier snapshots: a comment first seen at three days gets one `24h` row, with
+the exact observation time in `community_outcome.checked_at`. The same run
+refreshes the rolling seven-day `docs/ops/dashboard/community.json` only when
+its `generatedAt` is at least seven days old, including Gmail `reply_to_us`
+counts. That file is written on the home PC and is not committed automatically.
+Facebook group outcomes already arrive through the activity-log export;
+Facebook Page replies cannot be linked until the existing reply notifier
+exposes a community-ledger identifier. Outcomes and report entries use plain
+Node; the existing reader keeps `--import tsx`. Both readers share
+`.artifacts/home-reddit-circuit.json`, so a Reddit safety trip backs off both.
+The outcomes log is `.artifacts/home-reddit-outcomes.log`.
+
+Dry-run makes no database or crawl-bundle write. The local breaker state is
+still updated because a safety trip must survive the next scheduled run.
+
+#### Qwen second opinion (home PC)
+
+A small poller on the founder PC asks the local Qwen gateway for one alternative
+reply per reply card and stores it. The cloud `community-reaction-poll` job (about
+every 14 minutes, which already holds the bot token) posts it right under the card
+as a third message: a
+`-# Qwen` line, then only the reply in a code box. It covers `reply_to_us` and
+`hot_thread` leads on Reddit and Facebook that already have a Discord card;
+awareness cards are never included. Nothing is exposed inbound and there is no
+cloud fallback: if the PC or Qwen is down, rows wait as `qwen_status='pending'`.
+
+Env names in the local env file: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+`QWEN_BASE_URL` (ends in /v1), `QWEN_API_KEY`, optional `QWEN_MODEL` (default
+`local-worker`), optional `QWEN_FALLBACK_MODEL` (default `local-orchestrator`).
+The PC needs no Discord token and never talks to Discord.
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/home/qwen-second-opinion/install-task.ps1 -EnvFilePath <local-untracked-env-file>
+```
+
+Runs every 5 minutes as the current user (Limited, no admin) through the shared
+`run-task.ps1`; log: `.artifacts/home-qwen-poller.log`. Agents do not install it.
 
 #### Replying as the brand account
 
@@ -199,20 +313,20 @@ whichever is easier.
 
 ## 3. The fan-theory corpus (the quieter half)
 
-Separately from the daily email, a slow background job reads a year of
-public Reddit posts (never Facebook — see §5) from a handful of
-Taylor-Swift subreddits and pulls out recurring fan theories (things like
+Separately from the daily email, the home reader collects new public Reddit
+threads and their shallow comment trees from Taylor-Swift subreddits and
+pulls out recurring fan theories (things like
 "fans think the next re-record drops in March"). Nothing from this ever
 gets posted anywhere. It just makes Clownbot (the site's chat) and the Clue
 Web/eggs board able to say "here's what fans are currently theorising,"
 citing real threads. You'll never be asked to review or approve individual
 theories — the redline filter used everywhere else on the site drops
 anything about relationships, identity, or private life before it's ever
-stored.
+stored. Privacy-safe aggregate summaries from owner-run Facebook exports can
+enter the same filter; member names, quotes, and raw comment bodies cannot.
 
-**This is the one piece with a separate on/off switch, because it's the
-one piece that reads a real volume of Reddit traffic.** It ships **off**.
-See §4.2 to turn it on.
+The owner installs the paced home reader separately in P1-26. The older GitHub
+year-deep crawl remains behind its own switch and ships **off**; see §4.2.
 
 ## 4. Turning things on/off (the kill switches)
 
@@ -235,7 +349,7 @@ run finds nothing new. To go fully silent immediately, also disable
 Reversible any time — flip `COMMUNITY_SCAN_ENABLED` back to `true` and
 things resume on the next scheduled run (daily 08:17 UTC for the scan).
 
-### 4.2 Turn ON the year-deep corpus crawl (off by default)
+### 4.2 Turn ON the GitHub year-deep crawl fallback (off by default)
 
 This is the one piece that starts **disabled** on purpose. To turn it on:
 
@@ -249,10 +363,10 @@ This is the one piece that starts **disabled** on purpose. To turn it on:
    no need to run it at full speed — the plan explicitly favors caution
    over speed here (§8-Q3 of the engineering plan).
 
-The crawl then runs once a day (07:13 UTC). It never touches Facebook (see
-§5) and never writes anything to the live site directly — it only stages
-raw data for the theory-extraction step, which is what actually produces
-the fan-theory rows.
+That fallback crawl runs once a day (07:13 UTC). The home reader produces the
+same crawl-bundle structure from new threads independently of this switch.
+Neither path touches Facebook (see §5) or writes directly to the live site;
+both only stage raw data for the theory-extraction step.
 
 **To turn it back off:** set `COMMUNITY_CRAWL_ENABLED` back to `false` (or
 delete the variable — same effect). Takes effect on the next scheduled run;
@@ -285,13 +399,19 @@ freeze here.
 These are not switches because they are not meant to be turned on:
 - **Never posts, comments, votes, follows, or DMs** on Reddit or Facebook.
   A human always does the actual posting.
-- **Never crawls Facebook.** The only Facebook input is a weekly export
-  file *you* save from the browser ("Webpage, Complete") and hand to the
-  system — there is no Facebook bot, relay, or API call, ever
+- **Never crawls Facebook.** The only Facebook input is the owner-run browser
+  extension export: the explicitly configured top three groups run daily and
+  the rest weekly. The same read-only pass reads only the owner's own activity
+  entries and their reply/reaction counts. There is no Facebook bot, relay,
+  API call, posting, reacting, or commenting
   (`docs/decisions.md`, 2026-08-11).
-- **Never stores a comment body or a real Reddit/Facebook username** —
-  authors are hashed before anything is written, and only our own
-  aggregate summary of a post/thread is kept.
+- **Never stores a Facebook member name, post quote, or comment body.** Lead
+  rows contain a canonical post URL, counts, and a non-text locator; authors
+  remain hashed only inside the parser. Owner-activity rows contain URLs,
+  opaque ids, and counts only.
+- **Never stores a Reddit username.** Comment text exists only in the local,
+  transient crawl bundle used by the theory lane; engagement leads store no
+  comment text.
 - **Never stores a relationship, identity, or private-life theory**, even
   as a "rejected" row — the same content filter used everywhere else on
   the site runs on every fan-theory candidate before it's written.

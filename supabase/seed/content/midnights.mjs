@@ -916,6 +916,7 @@ export default {
       year: 2023,
       month: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'A brief, rumored month with Matty Healy',
       snippet: 'Reconnecting through mutual friend Jack Antonoff weeks after the Alwyn breakup — studio nights, a Nashville Eras Tour stop, then over by early June.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
@@ -2638,6 +2639,9 @@ export default {
       month: 10,
       day: 12,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-sitting-with-donna-kelce-as-the-relationship-goes-public',
+      ],
       title: 'A Thursday-night Broncos game, one day after the Eras film premiere',
       snippet:
         "Straight off the Eras Tour film's LA premiere, she landed in Kansas City, arrived in a Chiefs zip-up about 45 minutes before kickoff, and was driven by golf cart to a private box to watch with Donna Kelce again.",
@@ -5652,6 +5656,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/h8DLofLM7No/maxresdefault.jpg',
+            focalPoint: '25% 40%',
+            credit: 'Taylor Swift (official "Lavender Haze" video, YouTube)',
+            caption: 'A frame from the self-directed "Lavender Haze" video on Taylor\'s YouTube, released Jan. 27, 2023.',
+            kind: 'primary',
+          },
+        ],
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
@@ -5705,6 +5718,7 @@ export default {
       month: 5,
       day: 16,
       category: 'sighting',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'Leaving Electric Lady Studios with Matty Healy and a star-studded crew',
       snippet:
         'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
@@ -5724,6 +5738,7 @@ export default {
       month: 6,
       day: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st'],
       title: 'A quiet split from Matty Healy after a brief romance',
       snippet:
         'People confirmed Taylor and Matty Healy had broken up in early June 2023, ending weeks of dating speculation that began in May — a source said "she had fun with him" but the relationship was short-lived.',
@@ -5764,6 +5779,9 @@ export default {
       month: 9,
       day: 24,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-a-thursday-night-broncos-game-one-day-after-the-eras-film-pr',
+      ],
       title: 'Sitting with Donna Kelce as the relationship goes public',
       snippet:
         'Taylor was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',

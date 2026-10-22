@@ -22,6 +22,7 @@
 -- migration already use — not production.
 
 alter table public.news_source drop constraint if exists news_source_source_type_check;
+-- Keep in sync with 20260922010000_site_diff_countdown.sql (migrate.mjs re-applies every file; a narrower list here fails once wider-typed rows exist).
 alter table public.news_source add constraint news_source_source_type_check
   check (source_type in
-    ('rss', 'reddit', 'x', 'youtube', 'bluesky', 'google_news', 'reddit_rss', 'tumblr', 'gnews'));
+    ('rss', 'reddit', 'x', 'youtube', 'bluesky', 'google_news', 'reddit_rss', 'tumblr', 'gnews', 'site_diff'));

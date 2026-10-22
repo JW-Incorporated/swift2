@@ -12,6 +12,7 @@
 # even the `issues: write` grant (this desk's output lands in Supabase, not
 # GitHub).
 #
+# Since 2026-10-18 the desk skips Reddit `hot_thread` leads (scan retired).
 # Cadence: "daily, after community-scan.yml" per the plan's §4 table.
 # community-scan.yml (P1-2) had not landed at the time this card shipped —
 # 14:46 UTC is chosen as a reasonable post-scan, off-peak minute per this
@@ -41,7 +42,7 @@ jobs:
       # the home-relay skill (a plain HTTP GET issued through Bash/curl).
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 30
-      max_turns: 80 # hard-failed at default 40 with no successful result; bumped generously pending actual-usage investigation (kanban t_68b1a827, 2026-09-07)
+      max_turns: 80 # back to 80 after 50 ended run 39317321072 in error_max_turns at turn 51 (2026-10-19): retiring the Reddit scan cut leads, but FB hot_thread + reply_to_us still need the headroom. A ceiling, not a spend: only consumed when needed
       checkout_token_secret: GITHUB_TOKEN
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

@@ -110,3 +110,6 @@ apps/mobile/credentials.json
 # into packages/experience/src/ (R10/R12 redo); same rule applies there.
 apps/web/lib/longlive/*.generated.ts
 packages/experience/src/*.generated.ts
+
+# Tidewatch P1-04 replay: raw export stays local; only labels are committed
+docs/projects/tidewatch/replay/raw*

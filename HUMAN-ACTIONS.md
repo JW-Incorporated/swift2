@@ -2,38 +2,67 @@
 
 <!-- ha-format: 2 -->
 
-> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #129 🟡 [DECIDE] Push notifications are switched off in production: CRON_SECRET is missing (~10 min)
-<!-- ha filed=2026-10-15 -->
+## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-20 -->
+<!-- marjorie-chase: 96h issue=5900 -->
 
-**Why:** For 2 days, every 15-minute push run has logged "CRON_SECRET not set; dispatch disabled", so no push reached any fan. Turning it on blindly could send a backlog of old pushes at once. The PM clears the backlog and fixes a router bug (#5850) first.
+**Why:** Marjorie dispatched it on 2026-10-15 (routine failure: routine-marjorie-ask-response 2026-10-15). Nothing has moved since 2026-10-16. Holder: PR #5995 awaiting review.
+
 **Steps:**
-1. Decide: `go` — the PM prepares (backlog cleared, #5850 fixed), then you add the secret; `wait` — push stays off for now.
-2. On `go`, once the PM says ready: Vercel → project swift2-web → Settings → Environment Variables → add CRON_SECRET (Production) set to a long random string. Never paste it in chat.
-3. Vercel → swift2-web → Deployments → newest Production deployment → Redeploy.
-**Worked if:** /api/notifications/dispatch logs stop saying "CRON_SECRET not set".
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-## #128 🟡 [DECIDE] Approve the Tidewatch rules PR (breaking news and confirmed personal-life news) (~5 min)
-<!-- ha filed=2026-10-14 -->
+**Worked if:** the next brief no longer lists #5900 under stalled.
 
-**Why:** The guardrails are founder-owned, so agents never merge them. Breaking news can't go live on site, push or social until this lands, and confirmed personal-life news (Baby Watch) also waits on it. It writes down what you decided as D4 to D6 tonight.
+## #139 🟡 [DECIDE] #5980 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-20 -->
+<!-- marjorie-chase: 96h issue=5980 -->
+
+**Why:** Marjorie dispatched it on 2026-10-16 (link-sweep: dead citation URL in tortured-poets.mjs (The Bolter)). Nothing has moved since 2026-10-16. Holder: unclaimed.
+
 **Steps:**
-1. Open https://github.com/JW-Incorporated/swift2/pull/5817 and read the TL;DR at the top.
-2. Decide: `approve` — merge it (or say "approved" in the Swift2 pipeline PM chat); `change` — say what to change.
-**Worked if:** PR #5817 shows Merged.
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-## #127 🟢 [UPGRADE] Add a backup Claude token so routines keep running past your weekly limit (~5 min)
-<!-- ha filed=2026-10-14 -->
+**Worked if:** the next brief no longer lists #5980 under stalled.
 
-**Why:** Under the revised D1 every model call runs on your Claude subscription. When your weekly limit hits, routines pause until the reset. A second subscription token lets them switch over automatically. Whose plan backs you up is your call.
+## #138 🟢 [UPGRADE] Let Instagram posts also post to the Facebook Page (~10 min)
+<!-- ha filed=2026-10-19 -->
+
+**Why:** IG and X posts work again (10-19 posted 23:52Z), but every Facebook Page cross-post fails: `(#200) The permission(s)…`. The Instagram token lacks `pages_manage_posts`, so the Page gets nothing.
+
 **Steps:**
-1. Pick the backup plan (your co-founder's subscription or a Team seat).
-2. On a machine logged into that plan, run `claude setup-token` in a terminal and copy the token it prints.
-3. In your own terminal run `gh secret set CLAUDE_CODE_OAUTH_TOKEN_BACKUP --repo JW-Incorporated/swift2` and paste the token at the prompt.
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows CLAUDE_CODE_OAUTH_TOKEN_BACKUP.
+1. Open https://developers.facebook.com/tools/explorer and pick the Long Live app.
+2. Under Permissions keep every permission already listed, add `pages_manage_posts` and `instagram_manage_messages`, then click Generate Access Token and approve.
+3. Make it long-lived the same way you did for the original token (docs/social/pipeline.md, Facebook Page cross-posting).
+4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` and paste the token when asked.
+5. Reply `done` here.
+
+**Worked if:** the next Instagram post's poster run logs no "Facebook Page cross-post failed" warning.
+
+## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5538 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (weekly scorecard: map legacy campaign prefixes to pillars — 9 of 13 measured posts read a…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5538 under stalled.
+
+## #133 🟡 [DECIDE] #5537 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5537 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (social gate: enforce the mediaEarnsItsPlace ≥4 floor in queue-schema (Tree's #5168 criter…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5537 under stalled.
 
 ## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
@@ -47,27 +76,6 @@
 5. Paste both IDs in the Swift2 pipeline PM chat.
 **Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
 
-## #125 🔴 [BLOCKING] Confirm the Hermes Tree and Marjorie loops so #5484 can merge (~5 min)
-<!-- ha filed=2026-10-14 -->
-
-**Why:** #5484 retires six Swift2 routines that Hermes replaces, freeing about 1,950 units a week of your Claude limit. You approved merging it (D9) once a Hermes session confirms both loops are live.
-**Steps:**
-1. Open a Claude Code session in Projects\Hermes.
-2. Paste: "Did the Hermes Tree and Hermes Marjorie daily loops both run successfully in the last 3 days, and which model or token pool do they use? Answer yes or no per loop."
-3. Tell the Swift2 pipeline PM the answer in chat.
-**Worked if:** #5484 is merged, or the pipeline tracker records why it waits.
-
-## #124 🔴 [BLOCKING] Put the Jev key into Swift2 as TYPESAFE_API_KEY (~5 min)
-<!-- ha filed=2026-10-14 -->
-
-**Why:** Every Jev saving (routing off your Claude limit, the Tidewatch classifier) waits on this secret. Agent guards can't write secrets, so this one is yours.
-**Steps:**
-1. Open a Claude Code session in Projects\Hermes.
-2. Paste: "Set the Jev key as GitHub Actions secret TYPESAFE_API_KEY on JW-Incorporated/swift2 without printing or reading the value. If your guard blocks it, give me the one-line command to run."
-3. If it hands you a command, run it in your own terminal.
-4. Tell the Swift2 pipeline PM the prepaid balance if the TypeSafe console shows it.
-**Worked if:** `gh secret list --repo JW-Incorporated/swift2` shows TYPESAFE_API_KEY.
-
 ## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-10-15 -->
 <!-- marjorie-chase: 96h issue=5508 -->
@@ -78,99 +86,6 @@
 1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
 **Worked if:** the next brief no longer lists #5508 under stalled.
-
-## #120 🔴 [BLOCKING] social poster exit path: items A, B and C (ops-fixer is rail-blocked on all three files) (~5 min)
-<!-- ha filed=2026-10-09 -->
-<!-- ha verify: issue-closed 4475 -->
-
-**Why:** Founder-approved social posts are still being killed or stranded on the exit path. The ops-fixer fixed the watchdog blind spot (item D) but rail 3 forbids it from touching the three social files where A, B and C live. A human session has the reach; the diagnosis is already done.
-**Steps:**
-1. Open Claude Code in `Projects\Swift2`.
-2. Paste the prompt from issue #4475 (copy button on the code block).
-**Worked if:** issue #4475 is closed by a merged PR.
-
-## #119 🟢 [UPGRADE] Update the doorbell to doorbell-v4 (~5 min)
-<!-- ha filed=2026-10-09 -->
-
-**Why:** The doorbell still runs v3. It looks for the old channel name, so it can't ring for #marjorie (the 5-min poll still covers it, only slower), and it can sit dead for hours like it did on 10-04. v4 fixes both (#5421, #5426).
-**Steps:**
-1. Open Claude Code in `Projects\Hermes` (a Hermes session; Swift2 sessions can't reach the VM).
-2. Paste: `Update the Swift2 doorbell on the Hermes VM to tag doorbell-v4 per docs/ops/doorbell.md "Update to a new tag" in JW-Incorporated/swift2: fetch+checkout the tag in /opt/longlive-doorbell, copy scripts/doorbell/longlive-doorbell.service to /etc/systemd/system/, daemon-reload, restart longlive-doorbell, then show the last 20 journal lines.`
-**Worked if:** the journal shows `gateway: connected` and a 👀 lands on your next message in #marjorie within seconds.
-## #117 🟢 [UPGRADE] Reload the Facebook export extension (~2 min)
-<!-- ha filed=2026-10-08 -->
-
-**Why:** PR #5385 fixes Facebook comment collection, which only gets 40–60% today. The extension runs in your Chrome, so the fix only takes effect after you reload it. Nothing is blocked; the export keeps working as before until then.
-**Steps:**
-1. In PowerShell, run: `git -C $env:USERPROFILE\Documents\Claude\Projects\Swift2 pull --ff-only` (with the checkout on main).
-2. In Chrome, go to `chrome://extensions`, find the Long Live FB export extension, and click its reload ↻ icon.
-**Worked if:** the next weekly export summary shows a per-group comment success % line.
-
-## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-07 -->
-<!-- marjorie-chase: 96h issue=4673 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (content: three fan moments aged out of intake uncovered — cover or decline with a reason …). Nothing has moved since 2026-10-03. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4673 under stalled.
-
-## #114 🟡 [DECIDE] #4804 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4804 -->
-
-**Why:** Marjorie dispatched it on 2026-10-02 (Watchdog alerts Marjorie can handle should not reach the founders channel). Nothing has moved since 2026-10-02. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4804 under stalled.
-
-## #113 🟡 [DECIDE] #4778 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4778 -->
-
-**Why:** Marjorie dispatched it on 2026-10-02 (Enforce the owner's three post criteria in code: a mediaEarnsItsPlace floor, tunable rubr…). Nothing has moved since 2026-10-02. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4778 under stalled.
-
-## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4767 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4767 under stalled.
-
-## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4720 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4720 under stalled.
-
-## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4324 -->
-
-**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4324 under stalled.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->

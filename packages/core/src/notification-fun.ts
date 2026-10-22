@@ -10,7 +10,7 @@
 // notification-fun.test.ts.
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { frontDoorLink, songLink } from '@swift2/shared';
-import { sendPushBatch } from './notification-sender';
+import { engagePushFreeze, sendPushBatch } from './notification-sender';
 import {
   isWithinSendWindow,
   isFunSendDay,
@@ -159,6 +159,8 @@ export interface FunDispatchResult {
   devicesConsidered: number;
   sendFailures: number;
   skippedHardCeiling: number;
+  freezeEngaged: boolean;
+  halted: boolean;
   errors: string[];
 }
 
@@ -191,6 +193,8 @@ export async function dispatchFunNotifications(
     devicesConsidered: 0,
     sendFailures: 0,
     skippedHardCeiling: 0,
+    freezeEngaged: false,
+    halted: false,
     errors: [],
   };
 
@@ -289,9 +293,9 @@ export async function dispatchFunNotifications(
     }
 
     if (pref.category === 'lyric_of_day') {
-      await sendLyricOfDay(db, device, lyricPool, now, result, opts);
+      if (!(await sendLyricOfDay(db, device, lyricPool, now, result, opts))) return result;
     } else if (pref.category === 'on_this_day') {
-      await sendOnThisDay(db, device, onThisDayPool, now, result);
+      if (!(await sendOnThisDay(db, device, onThisDayPool, now, result))) return result;
     }
   }
 
@@ -305,7 +309,7 @@ async function sendLyricOfDay(
   now: Date,
   result: FunDispatchResult,
   opts: FunDispatchOptions,
-): Promise<void> {
+): Promise<boolean> {
   const twelveMonthsAgo = new Date(now);
   twelveMonthsAgo.setUTCFullYear(twelveMonthsAgo.getUTCFullYear() - 1);
   const { data: historyRows, error: historyError } = await db
@@ -315,13 +319,13 @@ async function sendLyricOfDay(
     .gte('sent_at', twelveMonthsAgo.toISOString());
   if (historyError) {
     result.errors.push(`lyric history lookup failed for ${device.id}: ${historyError.message}`);
-    return;
+    return true;
   }
   const seenLyricIds = new Set(
     ((historyRows ?? []) as { lyric_id: number }[]).map((r) => r.lyric_id),
   );
   const lyric = selectLyricForDevice(lyricPool, seenLyricIds, true);
-  if (!lyric) return; // exhausted the verified pool within the lookback window — nothing to send
+  if (!lyric) return true;
 
   const trackKey = opts.trackKeyForSlug?.(lyric.slug) ?? null;
   const sendResults = await sendPushBatch([
@@ -337,7 +341,7 @@ async function sendLyricOfDay(
   const sendResult = sendResults[0];
   if (sendResult?.ok) {
     result.lyricsSent++;
-    await Promise.all([
+    const [{ error: deliveryError }, { error: historyWriteError }] = await Promise.all([
       db.from('deliveries').insert({
         device_id: device.id,
         event_id: null,
@@ -353,12 +357,21 @@ async function sendLyricOfDay(
           { onConflict: 'device_id,lyric_id' },
         ),
     ]);
+    if (deliveryError || historyWriteError) {
+      if (deliveryError) result.errors.push(`lyric delivery log failed: ${deliveryError.message}`);
+      if (historyWriteError) {
+        result.errors.push(`lyric history write failed: ${historyWriteError.message}`);
+      }
+      await haltFunPass(db, now, result, 'lyric post-send write failed');
+      return false;
+    }
   } else {
     result.sendFailures++;
     result.errors.push(
       `lyric send failed for ${device.id}: ${sendResult && !sendResult.ok ? sendResult.error : 'no result'}`,
     );
   }
+  return true;
 }
 
 async function sendOnThisDay(
@@ -367,12 +380,12 @@ async function sendOnThisDay(
   onThisDayPool: readonly OnThisDayEntry[],
   now: Date,
   result: FunDispatchResult,
-): Promise<void> {
+): Promise<boolean> {
   const { month, day } = localMonthDay(device.tz, now);
   const entry = selectOnThisDayEntry(onThisDayPool, month, day);
   if (!entry) {
     result.onThisDaySkippedNoEntry++;
-    return; // spec: skip silently, never send filler
+    return true;
   }
 
   const sendResults = await sendPushBatch([
@@ -388,7 +401,7 @@ async function sendOnThisDay(
   const sendResult = sendResults[0];
   if (sendResult?.ok) {
     result.onThisDaySent++;
-    await db.from('deliveries').insert({
+    const { error } = await db.from('deliveries').insert({
       device_id: device.id,
       event_id: null,
       kind: 'fun',
@@ -396,12 +409,35 @@ async function sendOnThisDay(
       sent_at: now.toISOString(),
       delivery_token: sendResult.deliveryToken,
     });
+    if (error) {
+      result.errors.push(`on_this_day delivery log failed: ${error.message}`);
+      await haltFunPass(db, now, result, 'on_this_day delivery log failed');
+      return false;
+    }
   } else {
     result.sendFailures++;
     result.errors.push(
       `on_this_day send failed for ${device.id}: ${sendResult && !sendResult.ok ? sendResult.error : 'no result'}`,
     );
   }
+  return true;
+}
+
+async function haltFunPass(
+  db: SupabaseClient,
+  now: Date,
+  result: Pick<FunDispatchResult, 'freezeEngaged' | 'halted' | 'errors'>,
+  context: string,
+): Promise<void> {
+  result.halted = true;
+  const freeze = await engagePushFreeze(db, now);
+  result.freezeEngaged = freeze.engaged;
+  if (!freeze.engaged) {
+    result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+  }
+  console.error(
+    `notification-fun: ${context} after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+  );
 }
 
 function localMonthDay(tz: string, now: Date): { month: number; day: number } {
@@ -513,8 +549,22 @@ interface CountdownSendRow {
 export async function dispatchDueCountdowns(
   db: SupabaseClient,
   now: Date = new Date(),
-): Promise<{ sent: number; sendFailures: number; skippedHardCeiling: number; errors: string[] }> {
-  const out = { sent: 0, sendFailures: 0, skippedHardCeiling: 0, errors: [] as string[] };
+): Promise<{
+  sent: number;
+  sendFailures: number;
+  skippedHardCeiling: number;
+  freezeEngaged: boolean;
+  halted: boolean;
+  errors: string[];
+}> {
+  const out = {
+    sent: 0,
+    sendFailures: 0,
+    skippedHardCeiling: 0,
+    freezeEngaged: false,
+    halted: false,
+    errors: [] as string[],
+  };
 
   const { data: dueRows, error: dueError } = await db
     .from('countdown_sends')
@@ -587,7 +637,7 @@ export async function dispatchDueCountdowns(
     const sendResult = sendResults[0];
     if (sendResult?.ok) {
       out.sent++;
-      await Promise.all([
+      const [{ error: markerError }, { error: deliveryError }] = await Promise.all([
         db
           .from('countdown_sends')
           .update({ sent_at: now.toISOString() })
@@ -603,6 +653,12 @@ export async function dispatchDueCountdowns(
           delivery_token: sendResult.deliveryToken,
         }),
       ]);
+      if (markerError || deliveryError) {
+        if (markerError) out.errors.push(`countdown sent marker failed: ${markerError.message}`);
+        if (deliveryError) out.errors.push(`countdown delivery log failed: ${deliveryError.message}`);
+        await haltFunPass(db, now, out, 'countdown post-send write failed');
+        return out;
+      }
     } else {
       out.sendFailures++;
       out.errors.push(

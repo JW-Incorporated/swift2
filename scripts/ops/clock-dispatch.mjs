@@ -3,7 +3,8 @@
 // (docs/decisions.md 2026-10-06 "Clock dispatch table"). bot-chat-poll.yml's
 // 5-minute poll (primary) and watchdog.yml's backup job call this: for each
 // entry in clock-table.json it dispatches the workflow on main unless a
-// `schedule` or `workflow_dispatch` run started within minGapMinutes.
+// `schedule` or `workflow_dispatch` run started within minGapMinutes (an optional
+// `notBeforeUtc` "HH:MM" also holds the entry until that UTC time of day).
 // One entry's gh error never stops the others; the script always exits 0.
 //
 //   GH_TOKEN=... node scripts/ops/clock-dispatch.mjs [--repo owner/name]
@@ -18,11 +19,25 @@ const defaultGh = (args) => execFileSync('gh', args, { encoding: 'utf8', stdio: 
 const firstLine = (err) => String(err?.stderr || err?.message || err).trim().split('\n')[0];
 
 export function dispatchOne(entry, { gh, repo, now, log }) {
-  const { workflow, minGapMinutes, inputs = {} } = entry;
+  const { workflow, minGapMinutes, inputs = {}, runName, disabled, notBeforeUtc } = entry;
+  if (disabled) {
+    log(`${workflow}: disabled${entry.disabledReason ? ` (${entry.disabledReason})` : ''}`);
+    return 'disabled';
+  }
+  if (notBeforeUtc) {
+    const [h, m] = notBeforeUtc.split(":").map(Number);
+    const d = new Date(now);
+    if (d.getUTCHours() * 60 + d.getUTCMinutes() < h * 60 + m) {
+      log(`${workflow}: before ${notBeforeUtc} UTC - skipping`);
+      return "skipped";
+    }
+  }
   try {
-    const out = gh(['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '20', '--json', 'createdAt,event']);
+    const out = gh(['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '20', '--json', 'createdAt,event,displayTitle']);
     // workflow_run-event runs are not clock starts; only schedule/workflow_dispatch runs count.
-    const last = JSON.parse(out || '[]').find((r) => r.event === 'schedule' || r.event === 'workflow_dispatch')?.createdAt;
+    const last = JSON.parse(out || '[]').find((r) =>
+      (r.event === 'schedule' || r.event === 'workflow_dispatch')
+      && (!runName || r.displayTitle === runName))?.createdAt;
     if (last) {
       const ageMs = now - Date.parse(last);
       if (ageMs < minGapMinutes * 60_000) {

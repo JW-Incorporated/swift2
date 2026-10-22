@@ -1,5 +1,6 @@
 # E3 vision authoring is deliberately a manually confirmed, artifact-only lane.
-# The runner's committed pre-call reservation cap is $5; it never writes product data.
+# The runner's legacy reservation fields retain the $3 cap; the subscription
+# wrapper enforces the equivalent 88-call ceiling. It never writes product data.
 name: merch-audit-authoring
 
 on:
@@ -39,6 +40,20 @@ jobs:
           npm-ci: 'true'
           npm-ci-args: '--ignore-scripts'
           cache: npm
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Generate vault modules (audit-matches imports gitignored *.generated.ts)
         run: npm run sync:content
       # Restore the newest completed receipt so previously judged pairs remain cached.
@@ -85,7 +100,7 @@ jobs:
           const receipt = {
             ...previous,
             schemaVersion: 1,
-            providerModel: 'claude-sonnet-5',
+            providerModel: 'claude-sonnet-5-5',
             thinking: 'disabled',
             detectorReceipt, unscored: queue.unscored,
             demotions: Array.isArray(queue.demotions) ? queue.demotions : [],
@@ -113,7 +128,9 @@ jobs:
         # fails hard, exactly as an authoring crash should.
         continue-on-error: false
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: |
           node scripts/merch-engine/audit-matches-authoring.mjs --receipt .cache/merch-audit-authoring.json --queue .artifacts/merch-audit-queue.json --write .artifacts/merch-audit-authoring.json || {
@@ -259,4 +276,3 @@ jobs:
         run: |
           echo "::error::apply-demotions.mjs left one or more demotions unresolved this run — see the 'Remove demoted products from moment content' step log for which ones. Any resolvable removals were still committed/PR'd above; this run is marked failed so the unresolved ones get a human look or a follow-up dispatch, instead of a green run hiding a known-bad product still live."
           exit 1
-

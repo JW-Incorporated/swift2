@@ -7,6 +7,92 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-21 — Tree daily: deterministic self-approve backstop + max_turns 75
+
+**Decision.** `routine-tree-daily-draft.yml` raises `max_turns` 50 to 75 and gains an `approve-backstop` job (`if: ${{ !cancelled() }}` after `run`, so a manual cancel never dispatches approval; read-only job permissions, the dispatch uses the PAT) that finds today's open `tree/draft/<UTC date>` PR (label `tree`, Tree-identity author), skips if it has no `social/queue/*.json` or a `social-tree-approve` run already started since the PR opened (within 2h), and otherwise dispatches `social-tree-approve.yml --ref main -f pr=<n>` with `SOCIAL_POSTER_PAT` (the same token and `sffan15-sys` identity as the agent's `GH_DISPATCH_TOKEN`). Every gate in the approve workflow is unchanged (dispatcher/author identity, file allowlist, check-drafts, 48h `scheduledAt`, `SOCIAL_FREEZE`); only who triggers it changes. The prompt's step 7 still tells the agent to dispatch it itself.
+
+**Why.** Supersedes the 2026-09-07 rejection of a higher cap. Evidence: draft days need 50-59 turns (runs 39219334673 at 59, 39629911984 at 51, 39136105315 at 51); no-draft days take about 18. The cap was killing approval (step 7 is the last step), not drafting: on 10-18 (39136105315) and 10-21 (39629911984) the PR opened but was never approved, so posts sat unapproved.
+
+**Alternatives.** Raise the cap only (still fails on a long day); reorder the prompt to approve earlier (approval must follow a clean checker, which is late by nature).
+
+**Reversal.** Revert the commit.
+
+Approved by: not yet — reversible.
+
+---
+
+## 2026-10-18: retire the hot_thread daily scan (founder); Reddit discovery = awareness lane; reply_to_us kept
+
+`community-scan.yml` loses its schedule (manual dispatch kept) and `COMMUNITY_SCAN_ENABLED` is set false; scan code is untouched. `routine-community-answerer` and `community-mailer` exclude only Reddit `hot_thread` (`platform.neq.reddit,kind.neq.hot_thread`; Facebook export leads are also `hot_thread` and keep flowing); answerer max_turns 80 to 50. Leftover Reddit `hot_thread` rows are never drafted or mailed (no data migration). `community-inbox` and the awareness lane are unchanged. Reversal: restore the cron, set the variable true, and revert the two filters.
+
+Approved: Joey (2026-10-18).
+
+---
+
+## 2026-10-18 — All Reddit leads go to #tree-reddit (founder)
+
+`mailerRouteFor('reddit')` now returns `tree-reddit` (was `tree-main`); the reaction poll keeps its `tree-main` fallback for older cards. Approved by the founder; reverts with one line.
+
+---
+
+## 2026-10-17 — Qwen second opinion: queue plus home poller (architect #15, founder-approved)
+
+Reply cards get a second drafted reply from the founder PC's local Qwen. `engagement_lead` carries a `qwen_*` queue; `scripts/home/qwen-second-opinion/poller.mjs` runs every 5 minutes on the PC, stores the draft; the cloud `community-reaction-poll` job (which already holds the bot token) posts it under the card, so the PC needs no Discord token. No inbound exposure of the home gateway, no cloud fallback (D1: no Anthropic API); an unreachable Qwen leaves rows pending. Existing rows were backfilled to skipped so old cards are not flooded. Reversible: remove the scheduled task.
+
+---
+
+## 2026-10-17 — Mood Chat and Clownbot keep the paid Anthropic API key (HA #132 = keep)
+
+An explicit, reversible exception to D1 ("no Anthropic API at all"): Mood Chat and Clownbot answer readers live from apps/web, which cannot run the Claude subscription, so they keep `ANTHROPIC_API_KEY` (one model call per reader message). Everything else stays off the API.
+
+**Cap.** Global per-UTC-day call cap, already durable (`usage_daily` scopes `mood-chat-global` / `clown-chat-global`, `usage-db-gate.ts`) with an in-process per-instance floor: 200 calls/day each, 400 combined. `LLM_WEB_DAILY_CAP` overrides the per-feature number. Over the cap both features degrade to their keyword / rule-based replies and never error to the reader. Clownbot also keeps its per-user cap; Mood Chat its per-IP rate limit. Kill switches `MOOD_MODEL_DISABLED=1` / `CLOWN_MODEL_DISABLED=1` unchanged.
+
+**Visibility.** Each paid call writes an `llm_usage` row (callers `web-mood-chat`, `web-clownbot`, provider `claude`), best-effort.
+
+**Reversal.** Unset `ANTHROPIC_API_KEY`; both features fall back to the free paths.
+
+Approved: Joey (HA #132, 2026-10-17).
+
+---
+
+## 2026-10-15 — Status replies use a fail-open Jev intent gate (P1-12)
+
+**Decision.** Seven common status-page questions are answered from the page's live deterministic sources after a Jev Choice reaches 0.72 confidence. A missing key, Jev failure, low confidence, unavailable required source, or free-form request always runs the existing Sonnet status agent unchanged.
+
+**Why.** Common read-only questions do not need an agent turn, while the fail-open boundary preserves today's behavior for every uncertain or action-taking request. Jev usage is written to the Actions step summary; the key is never logged.
+
+**Approved by.** Automation pipeline overhaul plan P1-12; reversible implementation detail owned by the engineering agent.
+
+---
+
+## 2026-10-15 — Push go-live safety uses a six-hour Instant horizon and a fail-closed delivery ledger
+
+**Decision.** Instant notification sends are limited to events created within the previous six hours, except that a quiet-hours-held device gets six hours from the hold's end; the router query is bounded to the preceding 30 hours. Delivery completion is tracked per device, so another device receiving an event cannot consume that hold. Every provider-accepted push path halts after a failed delivery-log or required sent-marker write and attempts to engage `PUSH_FREEZE`; halting does not depend on that freeze write succeeding. Every authorized run first writes the `dispatch_heartbeat` ops-switch row and sends nothing if the write fails. Only the owner may lift the freeze. The auto-cooldown pass stays disabled until native notification-open tracking exists. Every authorized dispatch logs one aggregate, non-identifying per-pass summary, including configured 503 exits.
+
+**Why.** The P0-21 audit reproduced stale 25-day sends, quiet-hours holds lost after another device received the event, repeated sends every 15 minutes after ledger/marker failures, a failed freeze write allowing later passes and the next tick to resend, native cooldown downgrades based on permanently missing open signals, and invisible pass errors. The heartbeat also gives P0-21c a durable liveness signal. These controls make the initial internal push audience fail closed without deleting stale events from the inbox.
+
+**Alternative rejected.** Expiring old event rows or globally marking an event complete after its first delivery. Both erase valid inbox/quiet-hours behavior. Claim-before-send with a unique per-device ledger remains the redesign target, but it requires a schema change beyond this must-fix bundle.
+
+**Approved by.** P0-21a brief and PM touch-set correction, 2026-10-15.
+
+Known residual: if the provider accepts a push and the process dies before any database response, that push can be sent again on the next tick. Exactly-once delivery needs a claim-before-send schema (deferred to the notifications redesign project).
+
+---
+
+## 2026-10-15 — Marjorie ops uses deterministic signals plus a fail-open Jev gate (P1-11)
+
+**Decision.** The three-hourly ops routine collects watchdog alerts, main-branch red workflows, stuck PRs, held content, chase work, and trusted ops-fix candidates in deterministic code. It must run for an unhandled watchdog alert open over 12 hours, a red main run of a `routine-*` or deploy workflow, prod-smoke or founder-facing alerts, chase work, and trusted ops-fix work. Jev answers one Noul only for signals not covered by those rules; raw probability `>= 0.7` sends those items to Sonnet, while no flagged items skips it. A missing key, unreadable source, Jev error/timeout, or precheck crash runs the full pre-P1-11 prompt. The step summary labels deterministic items `must-run`. The gate uploads a default fail-open artifact before checkout and overwrites it after a successful precheck, so an early gate failure cannot strand the reusable job without its input. The existing deterministic auto-defer stays separate and trusts markers from `AUTO_DEFER_AUTHOR=sffan15-sys`.
+
+**Why/cost.** This removes the programme's largest routine-token source without letting the optimization reduce ops coverage. Jev input is compact (at most 500 characters per signal) at the shared client's $0.042/million input-token rate; Sonnet remains the fallback and the watchdog's 24-hour alert remains the backstop. Approved by programme item P1-11; reversible by reverting the gate.
+
+---
+
+## 2026-10-15 — Kevin radar uses a fail-open Jev classifier (P1-12b)
+
+**Decision.** Kevin's Stream 3 radar performs the prompt's 70-minute comment read, author/label filtering, staleness check, read-cap guard and seen-marker dedupe in code. Jev assigns only fixed kind and severity choices at confidence >= 0.72; decisions-needed answers, unclear or inconsistent classifications, missing credentials, and every read/model/publish error run the unchanged Claude agent. Confident findings keep the existing `Kevin Review Radar — YYYY-MM-DD` issue, marker and Tier-2 trailer contract.
+
+**Why.** Mechanical polling and dedupe do not justify an agent session, while fail-open preserves the current judgment path and prevents partial classification from silently dropping comments. This is reversible by removing the first workflow job.
+>
 ## 2026-10-15 — Tidewatch primary-source identity and GDELT recall (P1-08)
 
 **Decision.** `taylorswift.com` and its subdomains are official. Label and press
@@ -9085,3 +9171,84 @@ Joey, 2026-10-05 19:14 PDT, in chat: option A — allow merch-official-sync drop
 **Design.** `scripts/social/photo-qc.mjs` (`qcPhoto`) sends one 768px JPEG plus caption/source/kind with a JSON-schema structured output (`output_config.format`, effort low). The model is told not to identify anyone from facial features; it judges composition, photo type, quality, overlays and consistency with the caption. `keep` requires every positive check and no watermark. Wired into `fetchCandidates` in `import-photo-library.mjs` after normalize and dedupe, before the file is written; `--no-qc` skips it for tests and local maintenance only.
 
 **Measured (3 live calls, 2026-10-07, local video frames).** 1441 input / 139-147 output tokens each, $0.0043 per photo (about 2x the estimate: the rubric prompt plus the 768px image is about 1440 input tokens, and the model writes a 100-140 token verdict). Verdicts were sensible (dancer rejected, off-caption man rejected, stylized effect frame rejected as not a plain photograph). Calibration (same day): turning thinking off (`thinking: { type: "between_tools" }`) and shortening the prompt changed nothing material, because the ~130 output tokens are the JSON verdict itself, not reasoning; 55-photo eval measured 1417 input / 129 output tokens, $0.0041 per photo. A 512px image trial cut that only to $0.00365 and was not adopted (accuracy unverified), so the 768px size and the 200-check cap stand; the $0.0028 target is not reachable with this schema. Ground-truth eval (`scripts/social/photo-qc-eval.mjs`, 55 hand-labelled photos): accuracy 83.6%, 6 of 31 known-drops admitted (19%), 3 of 24 known-keeps rejected. The gate cannot see who is pictured (no face identification), so look-alike drops that fit the caption pass; treat it as a filter for the ~70% obvious misses, not as a guarantee.
+
+**2026-10-15 — P1-28.** P1-28 moved news extract/dedupe, worker theory, theory miner and content backfill to the subscription wrapper on `claude-haiku-5-5`; remaining API-key callers—merch audit/moment matching, Mood/Clownbot, social photo QC, routine-quality sampling and their offline batteries/evals—are deferred to P1-28b/P1-28c.
+
+Measured cost floor: each call uses about 6.6K cache-creation input tokens with zero cache reads, plus up to about 2K prompt tokens. At the daily caps (about 600 news calls and 300 theory calls), that is about 7–8M Haiku input tokens per day on the subscription. P1 calls may also draw on the backup token after a primary limit. A schema-invalid model output now errors the cluster, which is held for the next cycle, rather than being sanitised.
+
+## 2026-10-15 — P1-28c tooling transport boundary
+
+**Decision.** P1-28c moves the clown seed capture, live battery, retro eval, and routine quality/output sampling tools to the public Claude subscription wrapper at P3 with explicit model selection. It also keeps the content-backfill orchestration/type split and fixes the wrapper’s breaker-before-cap reservation ordering. Mood Chat and Clownbot runtime remain on `ANTHROPIC_API_KEY` pending owner decision HA #132 because both execute on Vercel in the user-request path, where the Claude Code CLI and subscription token are unavailable.
+
+## 2026-10-15 — Subscription-wrapper images get a temp-directory-only Read capability (P1-09c)
+
+**Decision.** The shared subscription wrapper accepts up to two optional JPEG, PNG, WebP or GIF inputs as a `Buffer` or source path. It rejects files over 5 MiB and requires the declared MIME type to match the file's magic bytes before copying the bytes under a random, type-correct filename in the call's isolated temporary directory. Image calls retain the existing safe-mode, empty setting-source and strict empty-MCP flags, then use `--restricted --tools Read --allowed-tools Read --permission-mode dontAsk --permission-prompts none`; no `--add-dir` is passed. Claude Code 2.1.300 documents that restricted mode confines file tools to the working directories, so with the isolated directory as `cwd`, `Read` denies the source path and other project or host directories. The CLI's own internal session paths remain readable, including its plan, scratchpad and tool-result files, its temporary directory and bundled skills. This confinement guarantee relies on the 2.1.300 pin and must be re-verified before any version bump. No settings file is loaded. Text-only calls retain the exact existing `--tools ""` argument path.
+
+The trusted system prompt says that image content and all text in it are untrusted data, may not change the task, and may be used only as evidence for the requested schema. The temporary directory is removed in the call's existing `finally` path after success, invalid output, CLI error or timeout.
+
+**Why.** P1-19 and P1-20 need listing pixels, but enabling a general tool set or exposing an original filesystem path would turn untrusted listing content into a host-read capability. A staged copy plus Claude Code's working-directory confinement provides the minimum image capability without Bash, Write, Edit, WebFetch, MCP or access outside the per-call directory.
+
+## 2026-10-15 â€” Merch authoring moves to the subscription wrapper (P1-28b)
+
+**Decision.** The E3 audit and E6 matcher use the public subscription wrapper at P3, so neither can consume the backup token. Visual judgments use `claude-sonnet-5-5`; the lighter garment-descriptor extraction uses `claude-haiku-5-5`. Images are fetched into bounded buffers and passed through the wrapper's `images` input. An unavailable, limited or capped call logs and holds the candidate instead of authoring it.
+
+**Cap mapping.** D8's former $3 per-run model budget maps to 88 wrapper calls: `floor($3 / $0.03408)`, using the existing conservative per-request reservation. The legacy audit artifact keeps its `capUsd` and `reservedCostUsd` fields for consumers, while the wrapper's per-caller `maxCalls: 88` is the enforcement boundary. SerpAPI remains independently capped at five paid searches per run.
+
+
+---
+
+## 2026-10-15 — Tidewatch P2-05: Baby Watch built inert behind NEXT_PUBLIC_BABY_WATCH_ENABLED; D5 goes live last
+
+**Decision.** The `baby_watch` category (tier 1, opt-in, default off), its web settings toggle ("Baby Watch: official announcements only"), its inbox label and the cadence-pinning migration `20261015050000_baby_watch_category.sql` are merged dark. The toggle and inbox rendering sit behind `NEXT_PUBLIC_BABY_WATCH_ENABLED` (build-time, default false), so readers see nothing new. The router (P2-02) still emits no `baby_watch` event, and push stays off in production (HA #129).
+
+**Why.** The architect #11 ruling is to build the surface inert and let P2-13 stage the go-live; D5 is the last item to go live. Opt-in is stored as cadence `instant` (the only value the router fans out for a single event) so no router change is needed; a missing row means opted out. The category is deliberately absent from the Android channel and settings catalogues until go-live.
+
+**Verification.** Unit tests cover tier mapping, default opt-out, a fake-provider delivery (opted-in device gets 1, not-opted-in gets 0) and flag-off rendering. A staging device receiving a real test push is a live check for go-live, not part of this change.
+
+---
+
+## 2026-10-15 — P2-06 breaking social: identity and dispatch model
+
+**Decision.** Reversible PM call under architect ruling #14. The breaking social fast path is built inert: `social-breaking.yml` is `workflow_dispatch`-only with `contents: read`, and `scripts/social/breaking-draft.mjs` does nothing unless `BREAKING_SOCIAL_ENABLED` is exactly `true` (and refuses under `SOCIAL_FREEZE`). A breaking draft is a normal `tree/draft/*` PR authored by the committed Tree identity, cleared by the existing `social-tree-approve.yml` unchanged (identity checks, `SOCIAL_FREEZE` refusal, 48h window, file allowlist). It posts on `social-poster.yml`'s normal clock dispatch; nothing added here dispatches the poster or the approver, and nothing writes an `approval` key.
+
+**Deviation from the plan text.** The plan says the script "stamps via social-tree-approve.yml with a breaking flag and dispatches social-poster immediately". That is not built: no bypass of Tree approval and no direct poster dispatch.
+
+**Caps.** Poster caps are unchanged except the D6 allowance in `lib/queue.mjs`: `BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2`, usable only by items with `breaking === true` (a pair needs both sides) AND only when the caller passes `breakingEnabled: true` to `selectDuePosts`. The poster (post-queue.mjs) does not pass it, so the live poster is unchanged even if a Tree PR sets `breaking: true` (the approve allowlist is path-based, not key-based); go-live must wire it to `BREAKING_SOCIAL_ENABLED`.
+
+**Verification.** `scripts/social/breaking-draft.test.ts`. Live drafting stays unimplemented until the P2-12 drill.
+
+## 2026-10-15 P2-08 social retraction: built inert
+
+**Decision.** Reversible PM call under architect ruling #14. `scripts/social/retract-post.mjs` is off unless `RETRACTION_SOCIAL_ENABLED` is exactly `true`, refuses under `SOCIAL_FREEZE`, and only implements dry-run: given a campaign it lists which `social/posted/` records and platforms it would retract (X delete, Facebook Page delete, Instagram reported as manual because the API has no delete) and makes no network call. It never imports, spawns or names the live delete or post scripts. `social-delete-media.yml` is deliberately NOT touched (an unused input on a live delete workflow adds risk and no inert benefit); wiring it to retraction belongs to go-live.
+
+**Open.** The X delete tier is UNVERIFIED; live deletion (and a correction-reply fallback) is a go-live question for P2-12/P2-13.
+
+**Verification.** `scripts/social/retract-post.test.ts`.
+
+## 2026-10-17 — Reddit reader uses anonymous public .json pages (HA #130 = yes)
+
+**Decision.** The owner approved architect ruling #8 option D. The home Reddit
+reader discovers threads through public Reddit RSS and reads thread detail only
+from anonymous public `.json` pages. It uses no API key, OAuth, login, Reddit
+account, browser, Playwright, stealth behavior, or impersonated User-Agent. The
+honest User-Agent names Long Live and links to longlivets.com.
+
+**Limits.** A run details at most 20 top threads. Requests are sequential, at
+least six seconds apart (stricter than the two-second floor) plus jitter. The
+stored outputs are the existing engagement-lead metrics (score, comment count,
+thread creation time for age) and the existing transient crawl bundle, limited
+to top-level comments and their first replies with authors omitted.
+
+**Circuit breaker.** The first HTTP 403, HTTP 429, or non-JSON detail response
+stops the run without retry. A local state file records the reason/time and
+skips the next three hourly runs (about three hours); another trip doubles
+the count up to 24 runs (24 hours). A trip or skipped run disables the
+home-reader heartbeat, so the existing GitHub RSS scan
+continues as the automatic fallback. A successful run closes the circuit and
+refreshes the heartbeat.
+
+**Rollout and reversibility.** The owner installs the Windows Scheduled Task in
+P1-26; this change does not install it. The existing drafter's thread-JSON
+switch remains default-off through the shadow week (about 2026-10-23), and no
+Tidewatch classifier or `config/tidewatch.json` behavior changes. Removing the
+task or reverting this change restores the RSS-only system.

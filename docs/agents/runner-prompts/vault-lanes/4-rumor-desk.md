@@ -70,6 +70,24 @@ without it on seed-file rumors, and the same requirement carries to
 proposals" below — that section's engine-written proposals don't loosen
 this, a human still has to tick one before it applies).
 
+### RE-CHECK IN PLACE — never add a second `note:`
+
+When a re-check updates a seed-file `rumors` entry, `note` is ONE optional
+string (`rumorNoteSchema`, `packages/content/src/schema.ts`). Record the finding
+by EDITING the existing `note` — prepend or append a dated sentence inside the
+same string, keeping the original provenance rationale — and never write a
+second `note:` key beside it. Same for every other field: one key per object,
+edited in place.
+
+Why: on 2026-10-18 a re-check of the Dolly tribute rumor added its finding as a
+new `note:` key next to the existing one (#6068). Duplicate keys are legal
+JavaScript and the last one silently wins, so the original rationale was simply
+gone from the shipped Vault — and `eslint no-dupe-keys` failed `npm run lint`,
+which red-gates the whole Vault Run publish job until a human fixes it (#6071,
+fixed in #6073). `npx eslint supabase` now runs on content-only PRs (#6074), so
+a duplicate key blocks the PR rather than reaching main — but it still costs the
+run. Edit in place and neither happens.
+
 **BE RIGOROUS ABOUT WHAT ACTUALLY DEBUNKS WHAT.** A claim that invitations
 carried NDAs was once marked debunked because Graham Norton said HE had signed
 nothing and was joking — that undercuts the story's origin but says nothing

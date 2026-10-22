@@ -31,6 +31,7 @@ const CATEGORY_NOUN: Partial<Record<AnyNotificationCategory, string>> = {
   award_news: 'award update',
   fan_merch: 'fan merch pick',
   easter_egg: 'theory',
+  baby_watch: 'official announcement',
   lyric_of_day: 'lyric',
   on_this_day: 'on-this-day moment',
   swiftie_trivia: 'trivia question',

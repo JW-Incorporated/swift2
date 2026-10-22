@@ -97,6 +97,7 @@ const OPTIONAL_COVERAGE_KEYS = [
 // A feed this busy always shows some "N comments"; every count unknown there is selector drift.
 const COUNT_DRIFT_MIN_UNITS = 10;
 const MAX_DETAIL = 200;
+const FB_POST_URL = /^https:\/\/www\.facebook\.com\/groups\/[^/?#]+\/posts\/[^/?#]+\/(?:\?comment_id=[^&#]+)?$/;
 
 // commentCoverage is either the four counts or an explicit {error} from the extension (collector
 // missing / threw / returned nothing usable).
@@ -146,9 +147,26 @@ function commentReasonSuffix(cc) {
 }
 
 export function validateResult(body) {
-  if (!isObj(body) || body.v !== 1) return 'schema version';
+  if (!isObj(body) || ![1, 2].includes(body.v)) return 'schema version';
   if (typeof body.slug !== 'string' || !body.slug) return 'slug';
   if (!EXT_STATUSES.has(body.status)) return 'status';
+  if (body.kind === 'activity') {
+    if (body.v !== 2 || body.status !== 'collected' || !Array.isArray(body.activity))
+      return 'activity';
+    for (const entry of body.activity) {
+      if (
+        !isObj(entry) ||
+        !FB_POST_URL.test(entry.postPermalink) ||
+        !FB_POST_URL.test(entry.commentUrl) ||
+        typeof entry.commentId !== 'string' ||
+        !isCount(entry.reactionCount) ||
+        !isCount(entry.replyCount) ||
+        (entry.commentedAt != null && typeof entry.commentedAt !== 'string')
+      )
+        return 'activity entry';
+    }
+    return null;
+  }
   if (body.stopReason != null && !STOP_REASONS.has(body.stopReason)) return 'stopReason';
   if (body.coverage != null && !isObj(body.coverage)) return 'coverage';
   if (body.coverage?.profileVerified != null && typeof body.coverage.profileVerified !== 'boolean')
@@ -159,6 +177,11 @@ export function validateResult(body) {
     for (const u of body.units) {
       if (!isObj(u) || typeof u.html !== 'string' || !isNum(u.position)) return 'unit';
       if (u.ownTimestamp != null && typeof u.ownTimestamp !== 'string') return 'unit timestamp';
+      if (body.v === 2) {
+        if (u.permalink != null && !FB_POST_URL.test(u.permalink)) return 'unit permalink';
+        if (u.reactionCount != null && !isCount(u.reactionCount)) return 'unit reactionCount';
+        if (u.commentCount != null && !isCount(u.commentCount)) return 'unit commentCount';
+      }
     }
     if (!isObj(body.coverage)) return 'coverage';
     const { sanitizeDropped } = body.coverage;
@@ -216,6 +239,7 @@ export async function startReceiver({
   week,
   storeComments,
   stallMs = 300_000,
+  watchdogTimers = { setTimeout, clearTimeout },
   connectWaitMs = CONNECT_WAIT_MS,
   maxNeverConnectedRelaunches = MAX_NEVER_CONNECTED_RELAUNCHES,
   host = '127.0.0.1',
@@ -251,7 +275,7 @@ export async function startReceiver({
   const finish = () => {
     if (finished) return;
     finished = true;
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     clearTimeout(connectTimer);
     resolveDone(ordered());
   };
@@ -262,7 +286,7 @@ export async function startReceiver({
   let lostPending = false;
   let lostResolve = null;
   const groupLost = (reason, idleIsFatal) => {
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     const group = current;
     if (group) {
       results.push({ slug: group.slug, status: 'failed', reason });
@@ -295,7 +319,7 @@ export async function startReceiver({
       return;
     }
     log(`fb-receiver: extension never connected (attempt=${neverConnectedCount}) relaunch`);
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     lostPending = true;
     lostResolve?.('lost');
   };
@@ -306,9 +330,9 @@ export async function startReceiver({
     connectTimer.unref?.();
   };
   const armWatchdog = () => {
-    clearTimeout(watchdog);
+    watchdogTimers.clearTimeout(watchdog);
     if (finished || lostPending) return;
-    watchdog = setTimeout(() => groupLost('stalled', true), stallMs);
+    watchdog = watchdogTimers.setTimeout(() => groupLost('stalled', true), stallMs);
     watchdog.unref?.();
   };
 
@@ -317,7 +341,10 @@ export async function startReceiver({
     slug: g.slug,
     label: g.label,
     groupId: g.groupId,
-    url: `https://www.facebook.com/groups/${encodeURIComponent(g.groupId)}?sorting_setting=CHRONOLOGICAL`,
+    url:
+      g.kind === 'activity'
+        ? g.url
+        : `https://www.facebook.com/groups/${encodeURIComponent(g.groupId)}?sorting_setting=CHRONOLOGICAL`,
     wallBudgetMs: capture
       ? Math.min(g.wallBudgetMs ?? CAPTURE_WALL_BUDGET_MS, CAPTURE_WALL_BUDGET_MS)
       : (g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS),
@@ -330,6 +357,9 @@ export async function startReceiver({
     // Tab ↔ group binding: the page's group segment must be groupId or one of these vanity
     // names (fb-groups-checklist.mjs `aliases`, optional) or the group is reported redirected.
     aliases: Array.isArray(g.aliases) ? g.aliases.map(String) : [],
+    ...(g.kind === 'activity'
+      ? { kind: 'activity', groupIds: Array.isArray(g.groupIds) ? g.groupIds.map(String) : [] }
+      : {}),
   });
 
   // The result for every status but 'collected' (null for 'collected').
@@ -456,6 +486,8 @@ export async function startReceiver({
 
   async function toResult(body, group) {
     const { slug } = body;
+    if (body.kind === 'activity')
+      return { slug, status: 'activity-collected', activities: body.activity, collectedAt: body.collectedAt };
     const early = statusResult(body);
     if (capture) return captureResult(body, group, early);
     if (early) return early;
@@ -696,7 +728,7 @@ export async function startReceiver({
     close() {
       if (closed) return Promise.resolve();
       closed = true;
-      clearTimeout(watchdog);
+      watchdogTimers.clearTimeout(watchdog);
       clearTimeout(connectTimer);
       finish();
       return new Promise((resolve) => {

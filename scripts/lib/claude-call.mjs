@@ -2,161 +2,83 @@ import { spawn as nodeSpawn } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { safelyLog } from '../../packages/shared/src/llm/usage.ts';
 import { selectClaudeCallToken } from './claude-token.mjs';
 import { issueReset } from '../routines/limit-gate.mjs';
-import { failureHint, weeklyLimitInfo } from '../routines/session-outcome.mjs';
+import {
+  childEnv,
+  inputTokenEstimate,
+  resultOf,
+  runCli,
+  usageOf,
+} from './claude-call-process.mjs';
+import { limitFailure, schemaMatches, usageRow } from './claude-call-result.mjs';
+import {
+  ClaudeImageInputError,
+  IMAGE_TOOL_ARGS,
+  imagePrompts,
+  stageClaudeImages,
+  validateClaudeImages,
+} from './claude-call-images.mjs';
+
 const PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
 const BACKUP_PRIORITIES = new Set(['P0', 'P1']);
 const DEFAULT_TIMEOUT_MS = 120_000;
-const ENV_ALLOWLIST = ['PATH', 'HOME', 'USERPROFILE', 'APPDATA', 'LOCALAPPDATA',
-  'TEMP', 'TMP', 'TMPDIR', 'SystemRoot', 'ComSpec'];
-
-function inputTokenEstimate(system, user) {
-  return Math.ceil(Buffer.byteLength(`${system}\n${user}`, 'utf8') / 4);
-}
-
-function number(value) {
-  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
-}
-
-function usageOf(result) {
-  const usage = result?.usage ?? {};
-  return {
-    inputTokens: number(usage.input_tokens),
-    cacheCreationInputTokens: number(usage.cache_creation_input_tokens),
-    cacheReadInputTokens: number(usage.cache_read_input_tokens),
-    outputTokens: number(usage.output_tokens),
-  };
-}
-
-function childEnv(token) {
-  const env = {};
-  for (const key of ENV_ALLOWLIST)
-    if (process.env[key] !== undefined) env[key] = process.env[key];
-  env.CLAUDE_CODE_OAUTH_TOKEN = token;
-  return env;
-}
-
-function resultOf(stdout) {
-  if (!stdout) return null;
-  try { return JSON.parse(stdout); } catch { return null; }
-}
-function limitFailure(result) {
-  const hint = failureHint(result);
-  if (/hit your session limit/i.test(result?.result ?? '')) return { reason: 'limit' };
-  if (!hint?.startsWith('plan usage for this account is exhausted')) return null;
-  const resetAt = weeklyLimitInfo(result)?.resetAt ?? hint.split(', resets ')[1]?.slice(0, 24);
-  return resetAt ? { reason: 'limit', resetAt } : { reason: 'limit' };
-}
-
-function usageRow(input, token, usage) {
-  return {
-    caller: input.caller, provider: 'claude-subscription',
-    model: input.model, token,
-    input_tokens: usage.inputTokens, output_tokens: usage.outputTokens,
-    cache_read_tokens: usage.cacheReadInputTokens, calls: 1,
-  };
-}
-
-function matchesType(value, type) {
-  if (type === 'array') return Array.isArray(value);
-  if (type === 'null') return value === null;
-  if (type === 'integer') return Number.isInteger(value);
-  if (type === 'object') return value !== null && typeof value === 'object' && !Array.isArray(value);
-  return typeof value === type;
-}
-
-function schemaMatches(value, schema) {
-  if (schema === true) return true;
-  if (!schema || schema === false || typeof schema !== 'object' || Array.isArray(schema)) return false;
-  if (schema.const !== undefined && !Object.is(value, schema.const)) return false;
-  if (Array.isArray(schema.enum) && !schema.enum.some((item) => Object.is(item, value))) return false;
-  const types = Array.isArray(schema.type) ? schema.type : schema.type ? [schema.type] : [];
-  if (types.length && !types.some((type) => matchesType(value, type))) return false;
-  if (Array.isArray(schema.allOf) && !schema.allOf.every((item) => schemaMatches(value, item))) return false;
-  if (Array.isArray(schema.anyOf) && !schema.anyOf.some((item) => schemaMatches(value, item))) return false;
-  if (Array.isArray(schema.oneOf) && schema.oneOf
-    .filter((item) => schemaMatches(value, item)).length !== 1) return false;
-
-  if (typeof value === 'string') {
-    if (Number.isFinite(schema.minLength) && value.length < schema.minLength) return false;
-    if (Number.isFinite(schema.maxLength) && value.length > schema.maxLength) return false;
-    if (typeof schema.pattern === 'string' && !new RegExp(schema.pattern, schema.patternFlags).test(value)) return false;
-  }
-  if (typeof value === 'number') {
-    if (Number.isFinite(schema.minimum) && value < schema.minimum) return false;
-    if (Number.isFinite(schema.maximum) && value > schema.maximum) return false;
-  }
-  if (Array.isArray(value)) {
-    if (Number.isFinite(schema.minItems) && value.length < schema.minItems) return false;
-    if (Number.isFinite(schema.maxItems) && value.length > schema.maxItems) return false;
-    if (schema.items && !value.every((item) => schemaMatches(item, schema.items))) return false;
-  }
-  if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-    if (Array.isArray(schema.required) && !schema.required
-      .every((key) => Object.hasOwn(value, key))) return false;
-    const properties = schema.properties ?? {};
-    for (const [key, propertySchema] of Object.entries(properties)) {
-      if (Object.hasOwn(value, key) && !schemaMatches(value[key], propertySchema)) return false;
-    }
-    if (schema.additionalProperties === false && Object.keys(value)
-      .some((key) => !Object.hasOwn(properties, key))) return false;
-  }
-  return true;
-}
-
-function runCli(spawnImpl, args, options, user, timeoutMs) {
-  return new Promise((resolve) => {
-    let child;
-    try {
-      child = spawnImpl('claude', args, options);
-    } catch { resolve(null); return; }
-    let stdout = '';
-    let stderr = '';
-    let settled = false;
-    const finish = (value) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      resolve(value);
-    };
-    const timer = setTimeout(() => {
-      try { child.kill(); } catch {
-        // The timeout result is authoritative even when process cleanup fails.
-      }
-      finish({ timedOut: true, stdout, stderr });
-    }, timeoutMs);
-    try {
-      child.stdout?.setEncoding('utf8');
-      child.stderr?.setEncoding('utf8');
-      child.stdout?.on('data', (chunk) => { stdout += chunk; });
-      child.stderr?.on('data', (chunk) => { stderr += chunk; });
-      child.on('error', () => finish(null));
-      child.on('close', (code) => finish({ code, stdout, stderr, timedOut: false }));
-      child.stdin?.on('error', () => finish(null));
-      child.stdin?.end(user);
-    } catch { finish(null); }
-  });
-}
+const BREAKER_THRESHOLD = 3;
+export const IMAGE_INPUT_TOKEN_ALLOWANCE = 1_600;
 
 export function createClaudeCaller(options = {}) {
   const spawnImpl = options.spawnImpl ?? nodeSpawn;
   const logUsage = options.logUsage ?? (() => undefined);
+  const usageLogger = options.usageLogger ?? (() => undefined);
+  const warn = options.warn ?? console.warn;
   const getLimitState = options.getLimitState ?? issueReset;
   const callCounts = options.callCounts ?? new Map();
   const estimateTokens = options.estimateTokens ?? inputTokenEstimate;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const logBreaker = options.logBreaker ?? console.warn;
+  let consecutiveUnavailable = 0;
+  let breakerOpen = false;
   const createTempDir = options.createTempDir
     ?? (() => mkdtemp(join(tmpdir(), 'claude-call-')));
   const removeTempDir = options.removeTempDir
     ?? ((directory) => rm(directory, { recursive: true, force: true }));
   return async function callClaude(input = {}) {
+    if (breakerOpen) {
+      return { status: 'unavailable', reason: 'Claude call circuit breaker open' };
+    }
     let tempDir;
     let outcome;
-    const complete = (value) => (outcome = value);
+    const complete = (value) => {
+      outcome = value;
+      if (value.status === 'ok') {
+        consecutiveUnavailable = 0;
+      } else if (value.status === 'unavailable' && value.reason !== 'limit') {
+        consecutiveUnavailable += 1;
+        if (consecutiveUnavailable >= BREAKER_THRESHOLD) {
+          breakerOpen = true;
+          try {
+            logBreaker('[claude-call] circuit breaker opened after 3 consecutive unavailable calls');
+          } catch {
+            // Breaker logging cannot violate the never-throw contract.
+          }
+        }
+      }
+      return value;
+    };
     const attempts = [];
     try {
-      const { caller, priority, model, system, user, schema, maxInputTokens, maxCalls } = input;
+      const {
+        caller,
+        priority,
+        model,
+        system,
+        user,
+        schema,
+        maxInputTokens,
+        maxCalls,
+        images,
+      } = input;
       if (!caller || !model || typeof system !== 'string' || typeof user !== 'string'
         || !PRIORITIES.has(priority)) {
         return complete({ status: 'invalid', reason: 'invalid Claude call arguments' });
@@ -179,12 +101,43 @@ export function createClaudeCaller(options = {}) {
           return complete({ status: 'invalid', reason: 'schema must be serializable' });
         }
       }
+      let checkedImages;
+      try {
+        checkedImages = validateClaudeImages(images);
+      } catch (error) {
+        if (error instanceof ClaudeImageInputError) {
+          return complete({ status: 'invalid', reason: error.message });
+        }
+        throw error;
+      }
+      let systemPrompt = system;
+      let userPrompt = user;
+      if (checkedImages.length > 0) {
+        const estimateNames = checkedImages.map(
+          (image) => `${'0'.repeat(32)}.${image.format.extension}`,
+        );
+        ({ system: systemPrompt, user: userPrompt } = imagePrompts(system, user, estimateNames));
+      }
       const calls = callCounts.get(caller) ?? 0;
       if (maxCalls !== undefined && calls >= maxCalls) {
         return complete({ status: 'capped', reason: 'per-run call cap reached' });
       }
-      if (maxInputTokens !== undefined && estimateTokens(system, user) > maxInputTokens) {
+      if (maxInputTokens !== undefined
+        && estimateTokens(systemPrompt, userPrompt)
+          + checkedImages.length * IMAGE_INPUT_TOKEN_ALLOWANCE > maxInputTokens) {
         return complete({ status: 'capped', reason: 'input token cap exceeded' });
+      }
+      if (checkedImages.length > 0) {
+        tempDir = await createTempDir();
+        try {
+          const filenames = await stageClaudeImages(checkedImages, tempDir);
+          ({ system: systemPrompt, user: userPrompt } = imagePrompts(system, user, filenames));
+        } catch (error) {
+          if (error instanceof ClaudeImageInputError) {
+            return complete({ status: 'invalid', reason: error.message });
+          }
+          throw error;
+        }
       }
       const limitState = await getLimitState(input.limitIssue);
       const tokens = {
@@ -209,11 +162,20 @@ export function createClaudeCaller(options = {}) {
       }
 
       const args = ['-p', '--output-format', 'json', '--safe-mode', '--setting-sources', '',
-        '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}', '--tools', '',
-        '--no-session-persistence',
-        '--model', model, '--system-prompt', system];
+        '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}'];
+      if (checkedImages.length > 0) args.push(...IMAGE_TOOL_ARGS);
+      else args.push('--tools', '');
+      args.push('--no-session-persistence',
+        '--model', model, '--system-prompt', systemPrompt);
       if (schemaJson !== undefined) args.push('--json-schema', schemaJson);
-      tempDir = await createTempDir();
+      tempDir ??= await createTempDir();
+      // Another in-flight call may have opened the process breaker while
+      // this one awaited limit state or its isolated directory. Re-check at
+      // the reservation boundary so a call we will not spawn cannot consume
+      // one of this caller's capped slots.
+      if (breakerOpen) {
+        return complete({ status: 'unavailable', reason: 'Claude call circuit breaker open' });
+      }
       callCounts.set(caller, calls + 1);
       let token = tokenChoice.token;
       for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -221,7 +183,7 @@ export function createClaudeCaller(options = {}) {
           spawnImpl,
           args,
           { cwd: tempDir, env: childEnv(tokens[token]), windowsHide: true },
-          user,
+          userPrompt,
           timeoutMs,
         );
         const result = resultOf(completed?.stdout);
@@ -287,11 +249,15 @@ export function createClaudeCaller(options = {}) {
           // Temporary-directory cleanup cannot violate the never-throw contract.
         }
       }
-      for (const attempt of attempts) {
-        try {
-          await logUsage(usageRow(input, attempt.token, attempt.usage));
-        } catch { outcome.loggerError = true; }
-      }
+      const logging = attempts.flatMap((attempt) => {
+        const row = usageRow(input, attempt.token, attempt.usage);
+        return [
+          safelyLog(() => logUsage(row), warn, 'Claude usage summary logging failed'),
+          safelyLog(() => usageLogger(row), warn, 'Claude usage database logging failed'),
+        ];
+      });
+      const logged = await Promise.all(logging);
+      if (logged.includes(false)) outcome.loggerError = true;
     }
   };
 }

@@ -145,6 +145,14 @@ social/failed/
 #    here. ──────────────────────────────────────────────────────────────────
 social/calendar.md
 social/lessons.md
+# The weekly plan's machine hand-off alongside calendar.md (#6029): the plan
+# routine writes both in the same PR, and this one was missing, so every plan PR
+# declined as "paths outside the allowlist" and nothing merged it — the routine
+# deliberately never merges its own PR, so the calendar on main went dry. It is
+# the same plan data calendar.md holds, read as DATA by scripts/social/
+# weekly-brief.mjs and loop-asks.mjs; it posts nothing and the founder ✅ still
+# gates every post.
+social/calendar.brief.json
 social/strategy-params.json
 docs/marketing/social-strategy.md
 # The living growth strategy: Marjorie's weekly Fable review rewrites it by PR and

@@ -10,7 +10,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { contentHash } from './lib/queue.mjs';
-import { readActiveLessonIds, validateDir, validatePhotoLibrary } from './validate-queue.mjs';
+import { readActiveLessonIds, validateDir, validateLedgersDisjoint, validatePhotoLibrary } from './validate-queue.mjs';
 
 const validCritique = {
   v: 1,
@@ -112,6 +112,32 @@ describe('validatePhotoLibrary', () => {
     const bad = validatePhotoLibrary([{ ...photos[0], source: 'not-a-url' }]);
     expect(bad).toEqual([`${photos[0].id}: source must be an http(s) URL`]);
     expect(validatePhotoLibrary({} as never)).not.toEqual([]);
+  });
+});
+
+// Issue #6110 — a posted item that was ALSO retired into social/failed/ (the
+// stale sweeper measuring a stuck fold-back as a stuck post) made the weekly
+// scorecard count a shipped post as a delivery failure. The three records that
+// bug produced are deleted in this change; this is the invariant that keeps a
+// fourth from going unnoticed.
+describe('validateLedgersDisjoint', () => {
+  it('names an item sitting in two of queue/posted/failed at once, and passes when each name has one home', () => {
+    expect(
+      validateLedgersDisjoint({
+        queue: ['c.json'],
+        posted: ['a.json', 'b.json'],
+        failed: ['a.json'],
+      }),
+    ).toEqual([expect.stringContaining('a.json is in both social/posted/ and social/failed/')]);
+
+    expect(validateLedgersDisjoint({ queue: ['c.json'], posted: ['a.json'], failed: ['b.json'] })).toEqual([]);
+    expect(validateLedgersDisjoint({ queue: ['a.json'], posted: ['a.json'], failed: [] })).toHaveLength(1);
+  });
+
+  it('holds for the committed social/ ledgers — no shipped post is also recorded as failed', async () => {
+    const { readdirSync } = await import('node:fs');
+    const names = (dir: string) => readdirSync(join('social', dir)).filter((f) => f.endsWith('.json'));
+    expect(validateLedgersDisjoint({ queue: names('queue'), posted: names('posted'), failed: names('failed') })).toEqual([]);
   });
 });
 

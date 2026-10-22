@@ -42,9 +42,12 @@ importScripts('harvest-core.js');
 
 const SESSION_KEY = 'llfb';
 const GROUP_URL = /^https:\/\/www\.facebook\.com\/groups\//;
+const ACTIVITY_URL = /^https:\/\/www\.facebook\.com\/me\/allactivity(?:[/?#]|$)/;
 // A job from /next must be exactly a facebook.com group URL (no other host, no path tricks; a
 // dots-only segment like `..` is refused too).
 const JOB_URL = /^https:\/\/www\.facebook\.com\/groups\/(?!\.+(?:[/?]|$))[0-9A-Za-z._-]+(\/|\?|$)/;
+const validJobUrl = (job) =>
+  job?.kind === 'activity' ? ACTIVITY_URL.test(String(job.url)) : JOB_URL.test(String(job?.url));
 const START_URL = /^http:\/\/127\.0\.0\.1:(\d{1,5})\/start(?:[/?#]|$)/;
 const OFF_GROUP_GRACE_MS = 8_000;
 const OUTBOX_BACKOFF_MS = [1_000, 2_000, 4_000, 8_000, 16_000, 30_000];
@@ -135,7 +138,7 @@ async function api(state, method, path, body) {
 
 function failedResult(job, message) {
   return {
-    v: 1,
+    v: 2,
     slug: job.slug,
     status: 'failed',
     stopReason: null,
@@ -149,7 +152,7 @@ function failedResult(job, message) {
 }
 
 function resultBody(result) {
-  return { ...result, v: 1, extVersion: chrome.runtime.getManifest().version };
+  return { ...result, v: 2, extVersion: chrome.runtime.getManifest().version };
 }
 
 // POST one result with backoff. 200 → 'ok'; 409 → an earlier attempt (before a worker restart)
@@ -271,7 +274,7 @@ async function advance() {
       await patchState({ phase: 'done', finished: true });
       return clearWake();
     }
-    if (!JOB_URL.test(String(job.url))) {
+    if (!validJobUrl(job)) {
       // Refused: the tab is never sent there; the group is reported failed.
       await saveState({
         ...state,
@@ -398,10 +401,13 @@ const senderUrl = (sender) => String(sender?.url ?? sender?.tab?.url ?? '');
 // redirect, a navigation) gets no job; the job is reported failed{redirected} (or the challenge
 // status its URL names) so the run moves on instead of harvesting the wrong group.
 function boundToJob(state, sender) {
+  const url = senderUrl(sender);
   return (
     Boolean(state?.job) &&
     sender.tab?.id === state.tabId &&
-    globalThis.LLFB.groupMatches(senderUrl(sender), state.job)
+    (state.job.kind === 'activity'
+      ? ACTIVITY_URL.test(url)
+      : globalThis.LLFB.groupMatches(url, state.job))
   );
 }
 
@@ -515,7 +521,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
   const state = await loadState();
   if (!state?.job || state.job.dispatched || tabId !== state.tabId) return;
   const url = String(tab.url ?? '');
-  if (GROUP_URL.test(url) && globalThis.LLFB.groupMatches(url, state.job)) return;
+  if (
+    (state.job.kind === 'activity' && ACTIVITY_URL.test(url)) ||
+    (GROUP_URL.test(url) && globalThis.LLFB.groupMatches(url, state.job))
+  )
+    return;
   const slug = state.job.slug;
   setTimeout(() => {
     serialized(async () => {
@@ -526,7 +536,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
       // way. Only the tab's current target is evidence of a redirect — if it is (navigating to)
       // the job's group, the page will ask for the job itself (or the stall watchdog fires).
       const current = await currentTabUrl(tabId);
-      if (current && GROUP_URL.test(current) && globalThis.LLFB.groupMatches(current, latest.job))
+      if (
+        current &&
+        ((latest.job.kind === 'activity' && ACTIVITY_URL.test(current)) ||
+          (GROUP_URL.test(current) && globalThis.LLFB.groupMatches(current, latest.job)))
+      )
         return;
       await reportOffGroup(latest.job, current ?? url);
     }).catch((error) => console.warn('[llfb] off-group report failed', String(error?.message)));

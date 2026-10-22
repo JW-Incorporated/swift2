@@ -1,0 +1,49 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "no label fight. no asterisk. just hers. 🤍\n\nLover (Aug. 23, 2019) was the first album Taylor owned outright from day one — her name on the masters, start to finish. and it's no accident that the softest record she ever made is the one that was finally, fully her own.\n\nthis is the night before: Aug. 22, 2019, GMA's SummerStage in the middle of Central Park, a whole park singing it back to her before the album even existed.\n\nsend this to the one friend you'd have completely lost it with in that crowd 🤍\n\nPhoto: ABC News / Good Morning America.\nlonglivets.com/?era=lover&utm_source=instagram&utm_medium=social&utm_campaign=era-deep-cut",
+  "media": [
+    "/social/library/photos/site-lover-36382d02c5.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "site-lover-36382d02c5",
+  "photoEra": "lover",
+  "mediaCredit": "ABC News / Good Morning America",
+  "mediaSource": "https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg",
+  "altText": [
+    "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned."
+  ],
+  "scheduledAt": "2026-10-20T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:lover-first-album-owned:2026-10-18",
+  "why": "ask #6084, item 2: re-draft of the 10-18 news-reserve fallback beat stranded unposted on PR #6056, re-written fresh as a same-day beat. Same story (Lover = first album Taylor owned outright; GMA Central Park SummerStage Aug. 22, 2019, the day before release), so it deliberately REUSES PR #6056's campaign and photo/altText binding — if that stale PR ever merges, the poster's platform+campaign dedupe guarantees the Lover content posts exactly once, never a live duplicate. Copy and opener are new (contradiction-shape opener, distinct from #6056's). Themed era-deep-cut beat → photoEra 'lover', credited ABC News/GMA. Heartbeat item → explicit share hook. rulesChecked [L002].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "Lover era-deep-cut: the one fact that reframes the era — it was the first album Taylor owned outright — paired with the GMA Central Park set the night before release. The photo is that exact day-before-release moment, so it carries the fact rather than decorating it.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-19T08:14:37.880Z",
+    "pr": 6093,
+    "message": "social-tree-approve run 39221284472",
+    "contentHash": "sha256:0d64a5c110ddd1862a51b581edbdb42388703139013f667de9d7b0041a7549a8",
+    "mediaDigest": "sha256:864c6f4d4b135edfd3c48748ecb14bf6c598f38f97353f16c29d0b486b079847",
+    "sig": "hmac-sha256:5dcb3d4a94f26967991c0c91915bbf3d276b6c16a134ddbd5e534e173dfcf826"
+  },
+  "postedAt": "2026-10-20T23:26:25.504Z",
+  "platformPostId": "18137779552656866",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

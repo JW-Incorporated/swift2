@@ -16,6 +16,415 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6128.
+      // A first-person career anecdote from a named public figure about his own
+      // professional decision, so >=1 outlet suffices: Ultimate Classic Rock
+      // (Corey Irwin, Oct. 19, 2026) read directly this session, quoting
+      // Marx's appearance on Bob Lefsetz's podcast (no episode date given, so
+      // the moment is dated to the UCR report). Placed by the date of the
+      // telling, like 'phil-collins-white-horse-blown-away'; the demo-era
+      // meeting itself is undated in the source, so no year is pinned to it.
+      // Redlines: clean — Taylor's age is a long-public career fact, nothing
+      // private, no location.
+      slug: 'showgirl-richard-marx-declined-teen-cowrite',
+      year: 2026,
+      month: 10,
+      day: 19,
+      category: 'music',
+      title: 'Richard Marx on the 15-year-old Taylor he passed on writing with: “I did the right thing”',
+      snippet:
+        'Scott Borchetta played Richard Marx Taylor’s first demos and asked if he’d co-write with her. He said no, and two decades later he still says he wouldn’t have been any good to her.',
+      sourceUrl: 'https://ultimateclassicrock.com/richard-marx-turned-down-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Bob Lefsetz’s podcast, Richard Marx told the story of a pitch he turned down. Scott Borchetta, who had just started Big Machine Records, told him “I’ve got to play you something” and put on “the first two or three Taylor Swift demos.” Marx asked, “Scott, what is she, 15?” Borchetta said yes, and then asked whether he’d want to write with her. Marx said no.\n\nIt wasn’t a verdict on the songs. Marx’s rule for co-writing is that he has to believe he can help an artist “in a way that you can’t already help yourself,” and with this teenager he didn’t see that he could. Looking back now that she is the biggest act in the world, he doesn’t regret it: “No, I did the right thing. Like, I wouldn’t have been any good to her, you know?” For Taylor fans it is a small piece of evidence for something the early catalog already shows: even on those first demos, the songwriter was already there.',
+        sources: [
+          {
+            outlet: 'Ultimate Classic Rock',
+            url: 'https://ultimateclassicrock.com/richard-marx-turned-down-taylor-swift/',
+            source_title: 'Why Richard Marx Doesn’t Regret Turning Down Taylor Swift',
+            publisher: 'Townsquare Media',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: the demo-era meeting has no imagery, so like the Collins page
+        // this carries a verified photo of the speaker. Michael Cohn's
+        // Birmingham, AL 2025 shot (CC BY-SA 4.0) curl-verified 2026-10-20 HTTP
+        // 200 image/jpeg at the 1280px thumb (1280x960), downloaded and
+        // vision-confirmed: Marx seated at the mic with an acoustic guitar.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Richard_Marx%2C_Birmingham%2C_AL_2025.jpg/1280px-Richard_Marx%2C_Birmingham%2C_AL_2025.jpg',
+            focalPoint: '40% 25%',
+            credit: 'Michael Cohn Photo, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Richard Marx performing in Birmingham, Alabama, in 2025. He passed on co-writing with a 15-year-old Taylor after Scott Borchetta played him her first demos.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-20 (Vault Run, Content Shift lane) from intake #6040.
+      // A friend's own on-record red-carpet remark at a documented public
+      // event. Two outlets read directly this session carry the same quote,
+      // both crediting Entertainment Tonight's interview: Cheat Sheet (Oct. 15)
+      // and MEAWW. Khaleej Times (Oct. 15) is cited for the event, venue
+      // and date only, since its text does not carry the Taylor quote. ET's own
+      // page was not found, so it is credited in prose rather than linked.
+      // Redlines: clean. Gomez is speaking about a marriage both principals
+      // made public, and the venue is a named public event (L2, past).
+      slug: 'showgirl-selena-gomez-marriage-advice-rare-impact',
+      year: 2026,
+      month: 10,
+      day: 14,
+      category: 'relationship',
+      title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
+      snippet:
+        'Marking her own first wedding anniversary at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
+      sourceUrl:
+        'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, fell on her first wedding anniversary with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+        sources: [
+          {
+            outlet: 'Cheat Sheet',
+            url: 'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
+            source_title: 'Selena Gomez Confesses Taylor Swift Has One Thing Over Her in Marriage',
+            publisher: 'Cheat Sheet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'MEAWW',
+            url: 'https://news.meaww.com/selena-gomez-calls-taylor-swift-probably-the-best-person-to-turn-to-for-marriage-advice',
+            source_title: "Selena Gomez calls Taylor Swift 'probably the best' person to turn to for marriage advice",
+            publisher: 'MEAWW',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Khaleej Times',
+            url: 'https://www.khaleejtimes.com/entertainment/selena-gomez-benny-blanco-first-wedding-anniversary-rare-impact-fund-benefit',
+            source_title: 'Selena Gomez talks first wedding anniversary with Benny Blanco at LA benefit',
+            publisher: 'Khaleej Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-20',
+            reliability_score: 3,
+          },
+        ],
+        // Photo: no free-licensed image of the 2026 benefit exists. BRNGroup's
+        // 2024 Golden Globes red-carpet portrait (CC0), the night she and
+        // Taylor were photographed whispering at their table, curl-verified
+        // 2026-10-20 HTTP 200 image/jpeg (1001x1335), downloaded and
+        // vision-confirmed: Selena smiling in a red halter gown with black
+        // rosettes in front of the Globes' rose wall.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Selena_Gomez_at_the_2024_Golden_Globes_00001.jpg',
+            focalPoint: '50% 30%',
+            credit: 'BRNGroup, CC0, via Wikimedia Commons',
+            caption:
+              'Selena Gomez at the 2024 Golden Globes. In October 2026 she said newlywed Taylor is “probably the best” person to give her marriage advice, not the other way around.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6127.
+      // Documented past public event at a named venue, reported by two outlets
+      // (Fox News/OutKick, Sports Illustrated) — within the L2 ceiling. Intake
+      // CORRECTED: it called this the pair's first joint appearance since Jan.
+      // 2025, but Clark was also in the suite on Oct. 12, 2025
+      // ('arrowhead-caitlin-clark-october', further down this file). CUT as
+      // unsupported by the readable sources: the "red Louis Vuitton bodysuit"
+      // (Fox describes a red turtleneck sweater, no designer), dancing, the
+      // wedding-ring detail, and the 22-9 score variant (both sources say 22-6).
+      slug: 'arrowhead-caitlin-clark-este-haim-chargers-2026',
+      year: 2026,
+      month: 10,
+      day: 18,
+      category: 'sighting',
+      title: 'Caitlin Clark and Este Haim join Taylor at Arrowhead as the Chiefs rout the Chargers',
+      snippet:
+        'A year after their October 2025 Sunday-night double act, Taylor and Caitlin Clark were back side by side in the Arrowhead suite — this time with Este Haim — for Kansas City\'s 22-6 win over the Chargers.',
+      sourceUrl:
+        'https://www.foxnews.com/outkick-sports/caitlin-clark-taylor-swift-spotted-together-cheering-travis-kelce-chiefs-game',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.',
+        photos: [
+          {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
+            focalPoint: '38% 32%',
+            credit: 'Getty Images (via Fox News / OutKick)',
+            caption: 'Taylor in a red turtleneck and Caitlin Clark in the Arrowhead suite during the Chiefs-Chargers game, Oct. 18, 2026.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg/1280px-Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg',
+            // 1280x848 thumb of a 4928x3264 original; curl-verified 2026-10-19
+            // HTTP 200 image/jpeg (328KB) and visually confirmed: aerial of
+            // Arrowhead with the "ARROWHEAD" sign and red seating bowl. A venue
+            // photo, not a game photo — no free-licensed image of this game
+            // exists; agency photos (Getty) are watermarked/unlicensed.
+            focalPoint: '55% 50%',
+            credit: 'Ichabod, CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Arrowhead Stadium in Kansas City, where Taylor, Caitlin Clark and Este Haim watched the Chiefs beat the Chargers on Oct. 18, 2026.',
+            kind: 'reference',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Fox News / OutKick',
+            url: 'https://www.foxnews.com/outkick-sports/caitlin-clark-taylor-swift-spotted-together-cheering-travis-kelce-chiefs-game',
+            source_title:
+              'Caitlin Clark and Taylor Swift spotted together again cheering on Travis Kelce at Chiefs game',
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 3,
+            notes:
+              'Published Oct. 18, 2026. Primary text for: the suite with Clark and Este Haim, the red turtleneck sweater, the Donna Kelce hug (photo caption), the 22-6 score vs. the Chargers at Arrowhead, Kelce\'s four catches for 53 yards, and Clark\'s "I\'m a big Chiefs fan" (said on the "A Touch More" podcast in 2025).',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-caitlin-clark-steal-spotlight-during-chiefs-chargers-game',
+            source_title:
+              'Taylor Swift, Caitlin Clark Steal the Spotlight During Chiefs-Chargers Game',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 4,
+            notes:
+              'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6126.
+      // Follow-on to 'showgirl-patient-zero-hot-100-no-1-encore-billboard-200'
+      // (the 13th week, chart dated Oct. 10). Billboard and Variety are both
+      // tollbit-gated in this run; the 15th week rests on Billboard's own
+      // headline ("Rules Billboard 200 for 15th Week"), Variety's report of the
+      // same, and InMusic's readable write-up. Unit totals and the No. 2 album
+      // are CUT — only the non-trade write-up states them. The chart date
+      // (Oct. 24) follows from the 13th week being Oct. 10. UK facts read
+      // directly on officialcharts.com: the hat-trick and "only artist with
+      // three UK No. 1 singles in 2026" (Oct. 16); "eighth UK Number 1 single"
+      // (Oct. 2 debut-week article). Intake's claim that the album is back at
+      // No. 1 in the UK THIS week is CUT — the 5th week cited is from Oct. 2.
+      slug: 'showgirl-15th-week-billboard-200-patient-zero-uk-hat-trick',
+      year: 2026,
+      month: 10,
+      day: 18,
+      category: 'music',
+      title:
+        '"Showgirl" reaches 15 weeks at No. 1 as "Patient Zero" makes it three straight in the UK',
+      snippet:
+        'Two charts, one weekend: "The Life of a Showgirl" logged a 15th week atop the Billboard 200, and "Patient Zero" held No. 1 on the UK singles chart for a third consecutive week.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-number-one-15th-week-billboard-200-1236362449/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Two weeks after the Encore pushed it back to the top, "The Life of a Showgirl" kept going: on the Billboard 200 dated Oct. 24, 2026, it logged a 15th nonconsecutive week at No. 1 — up from 13 when "Patient Zero" debuted atop the Hot 100.\n\nAcross the Atlantic, "Patient Zero" held No. 1 on the Official Singles Chart on Oct. 16 for a third consecutive week. The song had already been her eighth UK No. 1 single when it debuted, and the hat-trick left Taylor the only artist with three UK No. 1 singles in 2026.',
+        // No `video` field, same reasoning as the 13th-week moment: the
+        // official-video frame is a plain credited photo.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg',
+            // 1280x720, curl-verified 2026-10-19 HTTP 200 image/jpeg (177KB)
+            // and visually confirmed as the official "Patient Zero (Expanded
+            // Video)" frame on @TaylorSwift (oEmbed verified 2026-10-06).
+            focalPoint: '60% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" video, YouTube)',
+            caption:
+              'A frame from the official "Patient Zero" video — the single that spent a third straight week at No. 1 in the UK.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-number-one-15th-week-billboard-200-1236362449/',
+            source_title:
+              'Taylor Swift’s ‘The Life of a Showgirl’ Rules Billboard 200 for 15th Week',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Chart-of-record report of the 15th week. Body tollbit-gated (HTTP 402) in this run; the fact is in the headline and corroborated by Variety and InMusic below.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-the-life-of-a-showgirl-15th-week-no-1-chart-1236915983/',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 4,
+            notes:
+              'Trade report of the 15th week, cited by intake #6126 (tollbit-gated in this run, so title and date unread; listed for provenance).',
+          },
+          {
+            outlet: 'InMusic',
+            url: 'https://inmusicblog.com/news/taylor-swift-life-showgirl-15th-week-number-one-billboard-200/',
+            source_title:
+              'Taylor Swift’s ‘The Life of a Showgirl’ Extends Its Billboard 200 Reign to 15 Weeks',
+            publisher: 'InMusic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 2,
+            notes:
+              'Readable Oct. 18, 2026 write-up confirming the 15th week at No. 1 on the Billboard 200.',
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-patient-zero-three-weeks-number-1-single-uk/',
+            source_title:
+              'Taylor Swift takes Patient Zero to a third consecutive week at Number 1',
+            publisher: 'Official Charts Company',
+            source_type: 'official',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Oct. 16, 2026. Confirms the third consecutive week at No. 1 and that Taylor is "the only artist to have clinched three UK Number 1 singles in 2026".',
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-patient-zero-life-of-a-showgirl-official-chart-double/',
+            source_title:
+              'Encore! Taylor Swift scores Official Chart Double with The Life Of A Showgirl and Patient Zero',
+            publisher: 'Official Charts Company',
+            source_type: 'official',
+            accessed_at: '2026-10-19',
+            reliability_score: 5,
+            notes:
+              'Oct. 2, 2026 debut-week report: "Patient Zero" is Taylor\'s eighth UK Number 1 single and her third of 2026.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-18 (Vault Run, Content Shift lane) from intake #6065
+      // (the outcome of the announced appearance in closed intake #5462).
+      // Documented past performance at a named public venue, officially
+      // announced — within the L2 ceiling, no privacy redline. Four songs is
+      // what every source that loaded says (Stereogum, the Tennessean/USA
+      // Today via Yahoo, TMZ); Variety's URL slug says "five songs" but the
+      // page is tollbit-gated here, so the count follows the readable sources.
+      // Running order is NOT stated past the "Blank Space" opener: the sources
+      // disagree on which song closed. Variety's "first full-band performance
+      // since the Eras Tour" framing (intake wording) was CUT — gated, single
+      // source. Gown colour left out (outlets split pale blue / silver).
+      slug: 'showgirl-fate-of-ophelia-live-debut-academy-museum-gala',
+      year: 2026,
+      month: 10,
+      day: 17,
+      category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-a-secret-grammy-museum-show-the-icon-sessions-20-year-retros',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      title: '“The Fate of Ophelia” goes live for the first time, closing the Academy Museum Gala',
+      snippet:
+        'Introduced by her “Toy Story 5” castmate Conan O’Brien as “John, Paul, George and Ringo all in one,” Taylor closed the Academy Museum’s sixth annual gala in Los Angeles with a four-song set — and gave “The Fate of Ophelia” its first-ever live performance, more than a year after the album came out.',
+      sourceUrl:
+        'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Academy Museum of Motion Pictures held its sixth annual gala in Los Angeles on Saturday, Oct. 17, 2026, a fundraiser honoring Charlize Theron, Colman Domingo and John Carpenter — and Taylor, announced as the night\'s closing act a week and a half earlier, delivered. Conan O\'Brien, who voices the potty-training toy Smarty Pants in "Toy Story 5," brought her on as "a cherished member of our little \'Toy Story 5\' family" and summed her up as "John, Paul, George and Ringo all in one."\n\nWith her longtime band and backup singers behind her, Taylor opened with "Blank Space" and played four songs in all, including "Love Story" and "I Knew It, I Knew You," the song she wrote for "Toy Story 5." The headline was the other one. "This song, which we are playing for the very first time to you beautiful people, is called \'The Fate of Ophelia,\'" she told the room — the Showgirl lead single\'s live debut, more than a year after the album\'s release.\n\nOn the way in she wore a custom strapless Dior gown with a ruched bodice, a crystal-embellished bow at the neckline and a pleated skirt that swept into a train. The set came less than two months after the Icon Sessions at the Grammy Museum, and like that night it put "I Knew It, I Knew You" in front of an industry room while the song\'s Oscar conversation was building.',
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/P108QQUY-e1792342281327.jpg?w=1024',
+            // 1024x682, curl-verified HTTP 200 image/jpeg (56KB); the og:image
+            // of Billboard's Oct. 18, 2026 red-carpet report on this gala, and
+            // vision-checked: Taylor in the strapless gown with the crystal
+            // bow and side-swept curls the outlets describe. Billboard names
+            // no agency for it.
+            credit: 'Billboard',
+            caption:
+              'Taylor on the red carpet at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, in custom Dior.',
+            kind: 'primary',
+            focalPoint: '50% 30%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+            source_title:
+              'Taylor Swift Performs "The Fate Of Ophelia" Live For The First Time At Academy Museum Gala',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly. Primary for the four-song set ("Blank Space," "The Fate of Ophelia," "I Knew It, I Knew You," "Love Story"), the live debut, the honorees, and Conan O\'Brien\'s introduction ("John, Paul, George and Ringo all in one") and his Smarty Pants role in "Toy Story 5."',
+          },
+          {
+            outlet: 'The Tennessean / USA Today (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wows-dior-debuts-133454078.html',
+            source_title:
+              'Taylor Swift wows in Dior, debuts \'Fate of Ophelia\' live at Academy Museum Gala',
+            publisher: 'USA Today Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (Bryan West, Nashville Tennessean, syndicated). Independent confirmation of the four songs and the debut; source of Taylor\'s on-stage quote, O\'Brien\'s "cherished member of our little \'Toy Story 5\' family" line, the band and backup singers, and the custom Dior gown details.',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/10/18/taylor-swift-performs-at-academy-museum-gala/',
+            source_title: 'Taylor Swift Performs Hit Song Live For First Time at Star-Studded Gala',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 3,
+            notes:
+              'Loaded directly. Third independent count of four songs and the "Fate of Ophelia" live debut; custom Dior gown with a crystal-embellished bow.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-red-carpet-2026-academy-museum-gala-1236362432/',
+            source_title: 'Taylor Swift Stuns in Strapless Blue Gown at 2026 Academy Museum Gala',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Loaded directly (published 2026-10-18). Red-carpet report; supplied the credited photo used here.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performs-the-fate-of-ophelia-live-academy-gala-1235644441/',
+            source_title:
+              "Taylor Swift Performs 'The Fate of Ophelia' Live for First Time at Academy Museum Gala",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-18',
+            reliability_score: 4,
+            notes:
+              'Tollbit/bot-gated in this run; listed for provenance. Its headline matches the live-debut fact confirmed by the loaded sources above.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-04 (Vault Run, Content Shift lane) from intake #5001.
       // Public live-TV appearance (an SNL cold-open monologue) — no privacy
       // redline. Placed by broadcast date: the episode aired Saturday,
@@ -31,6 +440,9 @@ export default {
       month: 10,
       day: 3,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-tloas-a-rumored-girls-night-out-with-dakota-johnson-in-los-angeles',
+      ],
       title: 'Taylor crashes Dakota Johnson’s SNL monologue as her reluctant “therapist”',
       snippet:
         'Hosting Saturday Night Live on the eve of her birthday, Dakota Johnson introduced “my literal therapist” — and out walked Taylor to set the record straight: “I’m not your therapist, actually.” The two “Patient Zero” collaborators sparred through the cold-open monologue, and Taylor came back at the goodnights carrying a birthday cake.',
@@ -107,6 +519,10 @@ export default {
       month: 10,
       day: 4,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+      ],
       title:
         '"Patient Zero" debuts at No. 1 — a record-tying 10th — as "Encore" tracks take four of the Hot 100\'s top five',
       snippet:
@@ -2168,11 +2584,17 @@ export default {
               'Taylor Swift goes into the 2026 MTV VMAs as one of the year\'s most-nominated artists, with nine nominations led by "The Fate of Ophelia" (Video of the Year, Best Pop and a sweep of the technical categories) plus Artist of the Year and a Best Direction nod for "Opalite" — leaving open how many she converts to wins when the ceremony airs live on September 27, 2026.',
             reportedBy: 'FOX 17 (Elizabeth Stanton)',
             reportedOn: '2026-08-18',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://fox17.com/news/entertainment/the-2026-mtv-vma-nominations-are-here-taylor-swift-madonna-lead-the-race',
             note: 'Award-chances speculation — an Always-OK public-facing category. The nine nominations and the Sept. 27, 2026 Los Angeles ceremony date are announced fact (noms via MTV, reported by FOX 17; date corroborated by Billboard). Only the outcome is unsettled; resolves on ceremony night, 2026-09-27. No location, security, health, or private-individual content — a televised public event.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-10-18',
+            resolution: {
+              on: '2026-09-27',
+              url: 'https://www.nbclosangeles.com/entertainment/entertainment-news/live-updates-2026-mtv-video-music-awards/3946847/',
+              outlet: 'NBC Los Angeles',
+              note: 'Settled on ceremony night: "The Fate of Ophelia" won Video of the Year, and Taylor won Best Direction (her nomination there was "Opalite"), taking her career VMA total to 33. The rest of the Ophelia technical sweep, Best Pop and Artist of the Year went to others (Madonna took Artist of the Year).',
+            },
           },
         ],
       },
@@ -2656,7 +3078,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
+          'Taylor has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Taylor announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Taylor wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Taylor and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. (The package kept a life past the chart run: on Oct. 15, 2026, Taylor\'s official YouTube channel posted a visualizer for the BUNT. remix.) On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Taylor had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because physical singles count toward the Hot 100 the week they ship, not when fans order them, per Billboard\'s methodology. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Taylor\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Taylor plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -2723,6 +3145,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 3,
+          },
+          {
+            // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5913).
+            outlet: 'Taylor Swift (official YouTube)',
+            url: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+            source_title: 'Taylor Swift - Opalite (BUNT. Remix) (Visualizer)',
+            publisher: 'Taylor Swift',
+            source_type: 'video',
+            accessed_at: '2026-10-15',
+            reliability_score: 5,
+            notes:
+              'Official visualizer for the BUNT. remix, posted Oct. 15, 2026. Verified via YouTube oEmbed (HTTP 200, title "Taylor Swift - Opalite (BUNT. Remix) (Visualizer)", author_name "Taylor Swift", author_url youtube.com/@TaylorSwift). A visualizer does not fit the videos kind enum, so it is a moment source rather than a videos row.',
           },
           {
             // Chris Lake on being asked by Swift and Kelce to remix "Opalite"
@@ -4572,15 +5006,15 @@ export default {
               'Madison Square Garden executives are reportedly discussing a permanent way to commemorate the July 3 wedding — in the vein of the banners, plaques and displays the arena hangs for historic runs (Billy Joel, Harry Styles) — with insiders saying "it\'s absolutely being discussed" but "no decisions have been made" (and "no one\'s proposing a statue").',
             reportedBy: 'Rob Shuter’s Naughty But Nice (via MLive/Yahoo)',
             reportedOn: '2026-07-30',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-154313639.html',
-            note: 'A gossip-newsletter tip attributed to unnamed MSG insiders; neither MSG nor the couple has announced anything. Distinct from the temporary "JUST&T MARRIED!" marquee — this is about a lasting honor. The MSG reference is the wedding\'s already-documented venue, not a whereabouts prediction, so no location payload is carried. Re-checked 2026-08-24 (issue #3137): still nothing decided or announced.',
+            note: 'A gossip-newsletter tip from unnamed MSG insiders, distinct from the temporary "JUST&T MARRIED!" marquee. MSG is the wedding\'s documented venue, not a whereabouts prediction. Faded 2026-10-18: reported in late July, never confirmed or denied — a fresh search found no MSG announcement or follow-up report of any permanent honor.',
             // Retiered 2026-08-11 (RR2, scripts/lib/rumor-redlines.mjs): same
             // correction as the photo-release entry above — the note called it
             // a gossip-newsletter tip from unnamed insiders while the field
             // claimed 'tabloid'. MLive/Yahoo carried it; they did not report it.
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-10-18',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): a newly
@@ -6708,9 +7142,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (~Nov 2026). Re-checked 2026-08-14: that window has not opened yet, nothing to resolve — still unconfirmed and live.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live, not faded.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-14',
+            lastCheckedOn: '2026-10-18',
           },
           {
             claim:
@@ -6719,9 +7153,35 @@ export default {
             reportedOn: '2026-07-17',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location.',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location. Re-checked 2026-10-18: nominations not yet announced — still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-17',
+            lastCheckedOn: '2026-10-18',
+          },
+          // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
+          // the October pre-nomination prediction pieces. Award chances are
+          // explicitly Always-OK speculation; all three pages loaded and were
+          // read directly. No location.
+          {
+            claim:
+              'The Life of a Showgirl made the projected Album of the Year field and "The Fate of Ophelia" the projected Song of the Year field in Rolling Stone\'s 2027 Grammy predictions — though the picks to win were Olivia Rodrigo and Olivia Dean\'s "Man I Need".',
+            reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
+            reportedOn: '2026-10-13',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
+            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
+          },
+          {
+            claim:
+              'Variety\'s Chris Willman listed "The Fate of Ophelia" among the leading Record of the Year contenders and named Taylor, Olivia Dean and Olivia Rodrigo the best bets to win, noting that for all her Album of the Year wins Taylor has never won Record or Song of the Year.',
+            reportedBy: 'Variety (Chris Willman)',
+            reportedOn: '2026-10-12',
+            status: 'unconfirmed',
+            url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
+            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-15',
           },
         ],
       },
@@ -9034,6 +9494,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -9312,6 +9773,34 @@ export default {
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-08',
           },
+          // Added 2026-10-16 (Vault Run, Content Shift lane, intake #6003): the
+          // two song-level October pre-nomination pieces, both pages loaded and
+          // read directly (browser UA past the bot-paywall redirect). Award
+          // chances are Always-OK speculation; adjudicable at the Nov. 16
+          // nominations. The digest's "Choosin' Texas" headline is Ella
+          // Langley's song, the article's predicted winner — not Taylor's.
+          {
+            claim:
+              'Taylor and Jack Antonoff look like the front-runners for Best Song Written for Visual Media at the 2027 Grammys with "I Knew It, I Knew You," per Billboard\'s category forecast — which would be her second win there, after "Safe & Sound" from The Hunger Games won in 2013.',
+            reportedBy: 'Billboard (Paul Grein)',
+            reportedOn: '2026-10-15',
+            status: 'unconfirmed',
+            url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
+            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-16',
+          },
+          {
+            claim:
+              '"I Knew It, I Knew You" made the predicted five for Best Country Song in Rolling Stone\'s 2027 Grammy forecast, alongside Kelsea Ballerini, Ella Langley, Megan Moroney and Kacey Musgraves — with Langley\'s "Choosin\' Texas" picked to win.',
+            reportedBy: 'Rolling Stone (Marissa R. Moss)',
+            reportedOn: '2026-10-16',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/',
+            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-16',
+          },
         ],
       },
     },
@@ -9334,6 +9823,7 @@ export default {
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
         'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
         'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       year: 2026,
       month: 8,
@@ -13412,6 +13902,7 @@ export default {
       category: 'sighting',
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-taylor-crashes-dakota-johnsons-snl-monologue-as-her-reluctan',
       ],
       confidence: 'plausible',
       title: 'A rumored girls’ night out with Dakota Johnson in Los Angeles',
@@ -13597,9 +14088,8 @@ export default {
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-27',
-            note:
-              "Forward-looking speculation about an unscheduled event, carried by a single low-tier outlet, so it enters as an unconfirmed rumor, not authored narrative. Held at region: no venue is announced. The sports-blog \"will Travis join her?\" angle is dropped as third-party attendance speculation. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.",
+            lastCheckedOn: '2026-10-18',
+            note: 'Re-checked 2026-10-18 (Rumor Desk): the CMA has scheduled an ABC/Disney+ Dolly tribute special for Oct. 21, 2026, and Taylor is not on its announced performer lineup (Deseret News, Oct. 5) — but surprise tributes were billed, so the claim is not debunked yet. Re-check after the broadcast airs. Resolves confirmed if a concert is announced with Taylor on the bill; fades if it never materializes.',
           },
         ],
       },
@@ -14074,6 +14564,7 @@ export default {
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-taylor-unpacks-the-double-meanings-of-i-knew-it-i-knew-you-a',
       ],
       title: 'I Knew It, I Knew You closes the entire country radio panel on impact',
       snippet:
@@ -14149,6 +14640,9 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-the-i-knew-it-i-knew-you-music-video-debuts-with-toy-story-5',
+        'moment:vault-tloas-country-sweeps-the-hot-100s-entire-top-five-for-the-first-ti',
+        'moment:vault-tloas-i-knew-it-i-knew-you-closes-the-entire-country-radio-panel-o',
+        'moment:vault-tloas-toy-story-5-heads-to-disney-and-a-second-piano-version-i-kne',
       ],
       year: 2026,
       month: 9,
@@ -14721,6 +15215,10 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
+      relatedIds: [
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       // Priority fix (2026-09-23, founder escalation): this is breaking news —
       // a new single announcement, her first release since The Life of a
       // Showgirl — and the same-day alphabetical tiebreak (era-feed.ts's
@@ -14755,6 +15253,13 @@ export default {
             caption: 'Taylor Swift, whose Sept. 22, 2026 Instagram post announced the new single "Patient Zero."',
             kind: 'primary',
             focalPoint: '55% 35%',
+          },
+          {
+            url: 'https://consequence.net/wp-content/uploads/2026/09/t-swift.jpeg',
+            focalPoint: '58% 38%',
+            credit: 'Consequence',
+            caption: 'Taylor in a black turtleneck, the look described in her "Patient Zero" reveal post, as used by Consequence for its announcement story.',
+            kind: 'reference',
           },
         ],
         context:
@@ -14959,6 +15464,10 @@ export default {
       month: 9,
       day: 25,
       category: 'music',
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-debuts-at-no-1-a-record-tying-10th-as-encore-tr',
+      ],
       significance: 'notable',
       title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
       snippet:
@@ -15639,6 +16148,136 @@ export default {
             caption:
               'Taylor on a red carpet — the most-nominated individual name on the 2026 Kids’ Choice Awards ballot.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-16 (Vault Run, Content Shift lane) from intake #6004.
+      // Business/IP facts only — no privacy redline (no location, health,
+      // security or private individuals). Placed by the real-world date of the
+      // first overseas filings (Oct. 6, 2026). Two independent outlets, both
+      // read directly this run: Music Business Worldwide (UK/EU/Australia
+      // detail, read from the trademark offices' own records) and the Spanish
+      // wire agency EFE (EU filing, from the EUIPO register), with Variety for
+      // the April U.S. filings it builds on. Commentary on whether a voice can
+      // be registered is attributed, not asserted.
+      slug: 'showgirl-voice-trademark-filings-go-global',
+      year: 2026,
+      month: 10,
+      day: 6,
+      category: 'business',
+      title: '"Hey, it\'s Taylor Swift" goes global: the voice trademark push reaches the UK, EU and Australia',
+      snippet:
+        'Five months after filing to trademark her voice and an Eras Tour stage image in the U.S., Taylor\'s company took the same marks to the UK, the EU and Australia — and Australia accepted the sound mark in six days.',
+      sourceUrl: 'https://www.musicbusinessworldwide.com/taylor-swift-expands-voice-trademark-filings-to-the-uk-eu-and-australia-amid-ai-deepfake-crackdown/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The AI-era trademark play Taylor started in April has gone international. On Oct. 6, 2026, her company TAS Rights Management filed sound-mark applications for a recording of her saying "Hey, it\'s Taylor Swift" with the UK Intellectual Property Office and the EU\'s trademark office (EUIPO), followed on Oct. 7 by applications in both for a stage photograph — the same Eras Tour image from the U.S. filing: Taylor with a pink guitar, in a multi-colored iridescent bodysuit and silver boots, on a pink stage.\n\nAustralia moved fastest. IP Australia accepted the "Hey, it\'s Taylor Swift" sound mark on Oct. 12, six days after it was filed; it is listed as "Accepted: In opposition period," which typically gives anyone two months to object before it can be registered. The UK and EU applications were still under examination when the filings were reported in mid-October, and none of the overseas marks is registered yet. Both the Australian and UK applications claim a priority date of April 24, 2026 — the day of the original filings.\n\nThose U.S. applications, filed with the Patent and Trademark Office on April 24, covered two short voice clips ("Hey, it\'s Taylor Swift" and "Hey, it\'s Taylor") plus that stage photo. Trademark attorney Josh Gerben, who first spotted them, called registering a celebrity\'s spoken voice "a new use of trademark registration that has not been tested in court before" — the idea being that a registered voice could let her challenge AI imitations that merely sound "confusingly similar," not just exact copies. Whether a voice alone is distinctive enough to register is an open question that the overseas offices will now have to answer, too.',
+        sources: [
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swift-expands-voice-trademark-filings-to-the-uk-eu-and-australia-amid-ai-deepfake-crackdown/',
+            source_title: 'Taylor Swift expands voice trademark filings to the UK, EU, and Australia amid AI deepfake crackdown',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'Primary source for the UK (Oct. 6 sound mark, Oct. 7 image, both "Examination"), EU (Oct. 6/7, "Application under examination") and Australia (accepted Oct. 12, opposition period) filings and the April 24 priority date, read from each office\'s public record. Published Oct. 14, 2026.',
+          },
+          {
+            outlet: 'EFE (via El Heraldo)',
+            url: 'https://www.elheraldo.hn/entretenimiento/taylor-swift-registra-voz-europa-proteger-ia-HE32274102',
+            source_title: 'Taylor Swift registra su voz en Europa para protegerla de la IA',
+            publisher: 'El Heraldo (Agencia EFE)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'Independent wire confirmation, from the EUIPO public register, of the Oct. 6 EU sound-mark application for "Hey, it\'s Taylor Swift" by TAS Rights Management (Nice class 41).',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-trademark-voice-likeness-ai-misuse-1236731401/',
+            source_title: 'Taylor Swift Files to Trademark Her Voice and Likeness, Apparently to Protect Against AI Misuse',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-16',
+            reliability_score: 4,
+            notes:
+              'The April 24, 2026 U.S. filings (two voice clips plus the stage photograph, quoted description) and Josh Gerben\'s "not been tested in court" comment.',
+          },
+        ],
+        // Visual (charter step 3b): the filed image itself lives only in the
+        // trademark offices' records, so this is a clearly labeled reference —
+        // the Lover-set look the filing describes (iridescent bodysuit, silver
+        // boots). Wikimedia Commons, upload.wikimedia.org; curl 200 image/jpeg
+        // at 960px (original 4881x3254), downloaded and vision-confirmed this
+        // run: Taylor mid-song with a mic, sequined iridescent bodysuit and
+        // silver boots. CC BY-SA 2.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg/960px-Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_2.jpg',
+            focalPoint: '48% 40%',
+            credit: 'Ronald Woan, CC BY-SA 2.0, via Wikimedia Commons',
+            caption:
+              'For reference — the Eras Tour Lover-set look (iridescent bodysuit, silver boots) that the trademarked stage photo shows, here in Arlington, April 2023. The filed image itself also has the pink guitar.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-17 (Vault Run, Content Shift lane) from intake #5914.
+      // An on-record quote from a named public figure, read directly from
+      // Variety's page this run (bot-gated, fetched with a browser UA). No
+      // redline: commentary on TV coverage, no location or private detail.
+      slug: 'showgirl-emmitt-smith-networks-camera',
+      year: 2026,
+      month: 10,
+      day: 14,
+      category: 'business',
+      title: 'Emmitt Smith on the game-day camera: "She\'s not looking for the damn camera!"',
+      snippet:
+        'Asked by Variety about some male fans\' mixed feelings over Taylor at NFL games, the Hall of Famer put it on the networks, not her.',
+      sourceUrl: 'https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In a Variety interview published Oct. 14, 2026, NFL all-time leading rusher Emmitt Smith was asked about "the Taylor Swift effect on the NFL": more women watching, and some male fans with mixed feelings about how often she shows up on the broadcast.\n\nHis answer: "Why would it be a controversial matter? She\'s there to support her husband and she doesn\'t care about all this other stuff, but the networks do. The networks are exposing everything because of who she is. She\'s not looking for the damn camera!" He added that "the only thing she can do is not show up" at the games, and asked who would want that.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/sports/features/emmitt-smith-dancing-with-the-stars-taylor-swift-nfl-dallas-cowboys-dak-prescott-1236912086/',
+            source_title: "Emmitt Smith Talks 'Dancing with the Stars,' Taylor Swift's Impact on the NFL and the State of the Dallas Cowboys Under Dak Prescott",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-17',
+            reliability_score: 4,
+            notes: 'Q&A by Marlow Stern, published Oct. 14, 2026; all quotes read verbatim from the page.',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-gets-former-nfl-player-in-on-controversial-chiefs-appearances',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-17',
+            reliability_score: 4,
+            notes: 'Pickup by Anne Erickson, Oct. 14, 2026, crediting Variety; reproduces the same quotes. Confirms the interview, not an independent interview.',
+          },
+        ],
+        // Visual (charter step 3b): no photo of the interview exists, so this is
+        // a labeled reference portrait of the speaker. Commons, CC BY 2.0,
+        // Anthony Quintano; curl 200 image/jpeg at 960px, vision-confirmed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg/960px-Super_Bowl_44_Emmitt_Smith_%284344089199%29_%28cropped%29.jpg',
+            focalPoint: '40% 25%',
+            credit: 'Anthony Quintano, CC BY 2.0, via Wikimedia Commons',
+            caption: 'For reference: Emmitt Smith on the field at Super Bowl XLIV, February 2010.',
+            kind: 'reference',
           },
         ],
       },

@@ -17,24 +17,16 @@
 // crisis check, input blocklist, retrieval, compose-or-fallback, output
 // gate, and the cited-ids-only `sources` filter, all exactly as shipped.
 //
-// NO MOCKING. Requires a real ANTHROPIC_API_KEY in the environment (read
-// only inside clown-client.ts). Never prints or logs the key. Prints the
+// NO MOCKING. Requires a Claude subscription token in the environment.
+// Never prints or logs the token. Prints the
 // route's JSON response body as formatted JSON on stdout; diagnostics
 // (model call count) go to stderr so stdout stays parseable.
 //
 // Usage: tsx scripts/capture-clown-seed.mjs "question text"
 
 import { POST } from '../apps/web/app/api/clown/route.ts';
+import { installClaudeCliFetch } from './lib/claude-cli-fetch.mjs';
 import { runMain } from './lib/cli.mjs';
-
-let modelCallCount = 0;
-const realFetch = globalThis.fetch;
-globalThis.fetch = (url, init) => {
-  if (typeof url === 'string' && url === 'https://api.anthropic.com/v1/messages') {
-    modelCallCount += 1;
-  }
-  return realFetch(url, init);
-};
 
 async function main() {
   const question = process.argv[2];
@@ -42,10 +34,11 @@ async function main() {
     console.error('Usage: tsx scripts/capture-clown-seed.mjs "question text"');
     return 2;
   }
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('capture-clown-seed: ANTHROPIC_API_KEY is not set in the environment.');
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
+    console.error('capture-clown-seed: CLAUDE_CODE_OAUTH_TOKEN is not set in the environment.');
     return 2;
   }
+  installClaudeCliFetch({ caller: 'capture-clown-seed' });
 
   const req = new Request('http://localhost/api/clown', {
     method: 'POST',
@@ -56,7 +49,7 @@ async function main() {
   const res = await POST(req);
   const body = await res.json();
 
-  console.error(`capture-clown-seed: status=${res.status} kind=${body.kind} theoryName=${body.theoryName} delulu=${body.delulu} sourcesCount=${Array.isArray(body.sources) ? body.sources.length : 0} modelCalls=${modelCallCount}`);
+  console.error(`capture-clown-seed: status=${res.status} kind=${body.kind} theoryName=${body.theoryName} delulu=${body.delulu} sourcesCount=${Array.isArray(body.sources) ? body.sources.length : 0}`);
 
   console.log(JSON.stringify(body, null, 2));
 }

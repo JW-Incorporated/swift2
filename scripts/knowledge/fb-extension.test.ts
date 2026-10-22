@@ -6,7 +6,6 @@ import { JSDOM } from 'jsdom';
 import { afterEach, describe, expect, it } from 'vitest';
 import * as harvest from './fb-export-harvest.mjs';
 import * as helpers from './fb-export-helpers.mjs';
-
 // Synthetic fixtures only — no real Facebook post or comment text.
 // LLFB_EXT_DIR lets a reviewer point the suite at an older copy of the extension to prove a
 // regression test fails on the pre-fix code.
@@ -18,7 +17,7 @@ const NOW = new Date('2026-09-30T12:00:00Z');
 type Any = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 function loadCore(extra: Record<string, unknown> = {}, files = ['harvest-core.js']) {
-  const context = vm.createContext({ ...extra });
+  const context = vm.createContext({ URL, ...extra });
   for (const file of files)
     vm.runInContext(readFileSync(join(DIR, file), 'utf8'), context, { filename: file });
   return (context as Any).LLFB;
@@ -31,7 +30,10 @@ const plain = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 const withoutEngagement = (unit: Any) => {
   const copy = { ...unit };
   delete copy.reactions;
+  delete copy.reactionCount;
   delete copy.commentCount;
+  delete copy.permalink;
+  delete copy.domPostId;
   return copy;
 };
 
@@ -54,6 +56,7 @@ describe('fb-extension manifest', () => {
     const fb = manifest.content_scripts.find((entry: Any) =>
       entry.matches.includes('https://www.facebook.com/groups/*'),
     );
+    expect(fb.matches).toEqual(['https://www.facebook.com/groups/*', 'https://www.facebook.com/*/allactivity*']);
     expect(fb.js).toEqual(['harvest-core.js', 'comments.js', 'skeleton.js', 'content.js']);
     const start = manifest.content_scripts.find((entry: Any) =>
       entry.matches.includes('http://127.0.0.1/start*'),
@@ -303,6 +306,64 @@ describe('harvest-core DOM ports match the page.evaluate originals', () => {
   });
 });
 
+describe('schema v2 permalink and owner-activity fixtures', () => {
+  it('focuses/hover timestamps and canonicalizes at least 80% of lazy-link units', async () => {
+    const html = readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'fb-lazy-permalinks.html'), 'utf8');
+    const dom = new JSDOM(html, { url: 'https://www.facebook.com/groups/101' });
+    const core = loadCore();
+    let hovered = 0;
+    for (const stamp of dom.window.document.querySelectorAll('.stamp'))
+      stamp.addEventListener('mouseover', () => { hovered += 1; });
+    expect(await core.resolveVisiblePermalinks(dom.window.document, dom.window)).toBe(5);
+    expect(hovered).toBe(5);
+    const snapshot = plain(core.captureVisibleUnits(dom.window.document, dom.window, { groupId: '101' }));
+    expect(snapshot.units.filter((unit: Any) => unit.permalink).length / snapshot.units.length).toBeGreaterThanOrEqual(0.8);
+    expect(snapshot.units[0].permalink).toBe('https://www.facebook.com/groups/101/posts/1001/');
+    expect(snapshot.units.map((unit: Any) => unit.domPostId)).toEqual([
+      '1001', '1002', '1003', '1004', null,
+    ]);
+    const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+    const parsed = buildIngestResult(harvest.buildHarvestedHtml('Synthetic group', snapshot.units), {
+      groupSlug: 'synthetic-group', groupName: 'Synthetic group', exportedAt: NOW,
+    });
+    expect(parsed.engagementLeads.filter((lead: Any) => lead.url)).toHaveLength(4);
+  });
+
+  it('passes stable DOM ids through ingest for timestamp-less same-text posts', async () => {
+    const dom = new JSDOM(`<div role="feed">
+      <div aria-posinset="1" data-post-id="post-111"><a aria-label="Member">Member</a>
+        <div data-ad-preview="message">Same synthetic discussion</div><span>2 reactions</span></div>
+      <div aria-posinset="2" data-post-id="post-222"><a aria-label="Member">Member</a>
+        <div data-ad-preview="message">Same synthetic discussion</div><span>2 reactions</span></div>
+    </div>`, { url: 'https://www.facebook.com/groups/101' });
+    const core = loadCore();
+    const snapshot = plain(core.captureVisibleUnits(dom.window.document, dom.window, { groupId: '101' }));
+    expect(snapshot.units.map((unit: Any) => unit.domPostId)).toEqual(['post-111', 'post-222']);
+    const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+    const parsed = buildIngestResult(harvest.buildHarvestedHtml('Synthetic group', snapshot.units), {
+      groupSlug: 'synthetic-group', groupName: 'Synthetic group', exportedAt: NOW,
+    });
+    expect(parsed.engagementLeads).toHaveLength(2);
+    expect(new Set(parsed.engagementLeads.map((lead: Any) => lead.locator)).size).toBe(2);
+  });
+
+  it('returns only owner-comment URLs and counts from an activity fixture', () => {
+    const dom = new JSDOM(`<div role="article" data-llfb-activity-entry>You commented
+      <a href="/groups/101/posts/1001/?comment_id=900&fbclid=x">time</a>
+      <time datetime="2026-10-14T20:00:00Z"></time><span>1.2K reactions</span><span>3 replies</span>
+      <div>Synthetic member text that must not leave the page</div></div>`,
+      { url: 'https://www.facebook.com/me/allactivity' });
+    const entries = plain(loadCore().activityLogEntries(dom.window.document, { groupIds: ['101'] }));
+    expect(entries).toEqual([{
+      postPermalink: 'https://www.facebook.com/groups/101/posts/1001/',
+      commentUrl: 'https://www.facebook.com/groups/101/posts/1001/?comment_id=900',
+      commentId: '900', reactionCount: 1200, replyCount: 3,
+      commentedAt: '2026-10-14T20:00:00Z',
+    }]);
+    expect(JSON.stringify(entries)).not.toContain('Synthetic member');
+  });
+});
+
 describe('extension-only rules', () => {
   const core = loadCore();
 
@@ -461,7 +522,7 @@ describe('content.js runJob against a synthetic group page', () => {
     );
     const result = plain(await LLFB.runJob(job, env));
     expect(result).toMatchObject({
-      v: 1,
+      v: 2,
       slug: 'group-a',
       status: 'not-member',
       units: [],
@@ -519,7 +580,9 @@ describe('content.js runJob against a synthetic group page', () => {
         'ignoreForAge',
         'key',
         'ownTimestamp',
+        'permalink',
         'position',
+        'reactionCount',
         'reactions',
       ].sort(),
     );
@@ -979,7 +1042,8 @@ describe('comment subtrees never leave the page', () => {
       exportedAt: NOW,
     });
     expect(parsed.fanSignal.volume).toBe(1);
-    expect(parsed.engagementLeads[0].locator).toContain('Synthetic body about the bridge');
+    expect(parsed.engagementLeads[0].locator).toContain('Facebook post 556');
+    expect(parsed.engagementLeads[0].context).toBe('Facebook lead: 5 reactions, 4 comments.');
   });
 
   it('copies only post-owned media and keeps residue after the body out', async () => {

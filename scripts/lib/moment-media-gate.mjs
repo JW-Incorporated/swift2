@@ -55,7 +55,7 @@ theories/tortured-poets.mjs#ttpd-grief-playlists;theories/tortured-poets.mjs#cla
 theories/tortured-poets.mjs#ttpd-quill-fountain-pen-era;videos/1989.mjs#the-1989-world-tour-live-film;videos/fearless.mjs#journey-to-fearless
 videos/lover.mjs#miss-americana;videos/lover.mjs#city-of-lover;videos/midnights.mjs#taylor-swift-the-eras-tour-film
 videos/reputation.mjs#reputation-stadium-tour-film;videos/speak-now.mjs#speak-now-world-tour-live;videos/the-life-of-a-showgirl.mjs#the-official-release-party-of-a-showgirl
-social/inbox/appearance-2026-10-12-FqbcAAKQjes.json;merch/official.mjs#8238952612040;merch/official.mjs#8239061434568
+merch/official.mjs#8238952612040;merch/official.mjs#8239061434568
 `;
 
 export const SURFACE_MEDIA_LEGACY = new Set(SURFACE_MEDIA_LEGACY_TEXT.trim().split(/[;\s]+/));
@@ -109,6 +109,41 @@ export function surfaceMediaPublicationVerdict(
   const grandfathered = legacy.has(key);
   return { errors: grandfathered ? [] : itemErrors, legacyGap: grandfathered };
 }
+
+/** Audits the exemption list itself: an entry that gates nothing is dead
+ * weight and an entry whose row gained media is a stale exemption. A social
+ * inbox entry is keyed to the intent's live `social/inbox/<file>.json` path,
+ * but closing one moves the file to `social/inbox/closed/` — a retired intent
+ * is no longer a publication candidate, so its entry warns for cleanup rather
+ * than failing the build on every PR that performs the normal lifecycle move
+ * (issue #6109). */
+export function surfaceMediaLegacyFindings(
+  legacy,
+  { seen, exactGaps, retired = new Set() },
+) {
+  const findings = [];
+  for (const key of legacy) {
+    if (!seen.has(key)) {
+      findings.push(
+        retired.has(key)
+          ? { key, level: 'warn', message: `SURFACE_MEDIA_LEGACY lists "${key}", whose intent is now closed — delete the entry` }
+          : { key, level: 'error', message: `SURFACE_MEDIA_LEGACY lists "${key}", which matches no gated row — delete the entry` },
+      );
+    } else if (!exactGaps.has(key)) {
+      findings.push({
+        key,
+        level: 'error',
+        message: `SURFACE_MEDIA_LEGACY lists "${key}", but it no longer matches the exact text-only snapshot — add media and delete the entry`,
+      });
+    }
+  }
+  return findings;
+}
+
+/** The live-inbox keys that a closed intent under `social/inbox/closed/`
+ * used to occupy. */
+export const retiredSurfaceMediaKeys = (closedFiles) =>
+  new Set(closedFiles.map((file) => `social/inbox/${file}`));
 
 /** Returns errors for authored media that cannot render as a useful visual. */
 export function momentMediaErrors(item) {

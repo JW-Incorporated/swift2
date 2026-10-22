@@ -440,6 +440,27 @@ describe('runtime allow/deny matching on the committed allowlist', () => {
     expect(mergeable('social/strategy-params.json')).toBe(true);
   });
 
+  // #6029: Tree's weekly plan PR writes calendar.md, calendar.brief.json and
+  // lessons.md together. calendar.brief.json was missing from the allowlist, so
+  // `enable` declined EVERY plan PR as "paths outside the allowlist" — and the
+  // plan routine deliberately never merges its own PR, so PR #5874 sat open
+  // from 2026-10-15 with green checks while social/calendar.md on main stayed
+  // dry and the daily draft ran out of beats. All three paths must stay
+  // mergeable, together: dropping any one strands the whole plan PR again.
+  it("Tree's weekly plan PR (calendar.md + calendar.brief.json + lessons.md) auto-merges — #6029 regression", () => {
+    for (const f of ['social/calendar.md', 'social/calendar.brief.json', 'social/lessons.md']) {
+      expect(mergeable(f), `${f} would strand the whole weekly plan PR`).toBe(true);
+    }
+    // The gate only evaluates a PR it actually triggers on, so the plan's three
+    // paths must also be in auto-merge-content.yml's own `paths:` filter.
+    const workflowText = read(WORKFLOW_FILE);
+    for (const f of ['social/calendar.md', 'social/calendar.brief.json', 'social/lessons.md']) {
+      expect(workflowText, `${f} is allowlisted but does not trigger the workflow`).toContain(
+        `- "${f}"`,
+      );
+    }
+  });
+
   it('docs/social/guardrails.md can NEVER auto-merge — it is barred, not merely unlisted', () => {
     expect(mergeable('docs/social/guardrails.md')).toBe(false);
     expect(Object.keys(NEVER_ALLOWLIST)).toContain('docs/social/guardrails.md');

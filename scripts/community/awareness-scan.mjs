@@ -10,7 +10,7 @@
 // each sub's image-comment support comes from a cached about.json reading
 // (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
 // and `engagement_lead(kind='awareness_reply', status='new')` rows are
-// inserted. The awareness answerer routine then writes the reply text;
+// inserted. The awareness drafter (draft-replies.mjs) then writes the reply text;
 // awareness-deliver.mjs sends it to Discord. The OWNER posts — nothing here
 // (or anywhere in this lane) calls a Reddit/Facebook write API.
 //
@@ -26,9 +26,6 @@
 // (workflow checks it first; re-checked here). Unset means ON.
 //
 //   npx tsx scripts/community/awareness-scan.mjs [--dry-run]   # dry-run: no DB writes
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { fetchKnownThreadIds, insertLeads } from './scan.mjs';
@@ -57,9 +54,12 @@ import {
   recordRun,
   saveSourceState,
 } from './awareness-rotation.mjs';
+import { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
+import { dailyCapFor, loadConfig } from './awareness-config.mjs';
 
-const CONFIG_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), 'awareness-subs.json');
 export { groupByCommunity } from './awareness-sources.mjs';
+export { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
+export { dailyCapFor, DEFAULT_DAILY_CAP, loadConfig } from './awareness-config.mjs';
 export {
   buildAwarenessRow,
   contextFor,
@@ -68,25 +68,9 @@ export {
 } from './awareness-rows.mjs';
 export const RUN_CAP = 6;
 export const START_JITTER_MS = 90_000;
-export const DEFAULT_DAILY_CAP = 3;
 
 export function awarenessEnabled(env = process.env) {
   return env.AWARENESS_LANE_ENABLED !== 'false' && env.AWARENESS_LANE_ENABLED !== '0';
-}
-
-export function loadConfig(file = CONFIG_PATH) {
-  const config = JSON.parse(readFileSync(file, 'utf8'));
-  return {
-    defaults: config.defaults ?? {},
-    subs: config.subs ?? [],
-    excluded: config.excluded ?? [],
-    search: config.search ?? {},
-  };
-}
-
-/** A sub's own daily delivery cap (4 for the two big fan subs), else the default. */
-export function dailyCapFor(sub, defaults) {
-  return sub?.dailyCap ?? defaults?.perSubDailyDeliveryCap ?? DEFAULT_DAILY_CAP;
 }
 
 /**
@@ -272,6 +256,10 @@ async function main() {
     console.log(
       'awareness-scan: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset — skipping (degraded, not a crash).',
     );
+    return 0;
+  }
+  if (!dryRun && (await shouldSkipForHomeReader(supabase))) {
+    console.log('awareness-scan: home reader healthy, skipping GitHub RSS fallback.');
     return 0;
   }
   const result = await runAwarenessScan({

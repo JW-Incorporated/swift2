@@ -139,6 +139,9 @@ jobs:
       # Offline: a job running a script that imports an npm/workspace package
       # must install deps (setup-repo defaults npm-ci to false — #5219, #5224).
       - run: npm run check:workflow-deps
+      # Every workflow `node <file>` entry must LOAD under plain node (no
+      # extensionless imports / TS path re-exports) — vitest hides these (P0-23).
+      - run: npm run check:workflow-entries
       # Offline + ~50ms: proves docs/launch-readiness.md's cadence claims are
       # backed by a real cron and that no gate is green on a cadence nothing
       # provides. Throttling a runner now breaks `build` until the gates that
@@ -189,9 +192,10 @@ jobs:
 
   # Fast path (R22, #3709): content-only PRs skip typecheck/vitest/next build
   # and run only the validators that actually gate that content. Mirrors the
-  # relevant subset of build-full's steps 1:1 so a content PR gets the same
-  # checks it would have gotten from the full job, just without the ~7min of
-  # unrelated code-build work.
+  # relevant subset of build-full's steps so a content PR gets the checks that
+  # gate its content, without the ~7min of unrelated code-build work. It is a
+  # SUBSET: lint runs here only on supabase/ (the one content path ESLint
+  # covers; social/ and docs/ are ignored by eslint.config.mjs).
   build-content:
     needs: [changes]
     if: github.event_name == 'pull_request' && needs.changes.outputs.non_content == 'false'
@@ -203,6 +207,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Lint content paths (same config as npm run lint)
+        run: npx eslint supabase
       # *.generated.ts are gitignored and absent on a fresh checkout; generate
       # them first, as build-full does, or check:generated hits ENOENT.
       - run: npm run sync:content
