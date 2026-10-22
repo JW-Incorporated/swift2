@@ -5,8 +5,13 @@
 -- verified channel) is a work Taylor released, not an appearance.  The first
 -- such row is 'Opalite (BUNT. Remix) (Visualizer)', 2026-10-15.
 --
--- IDEMPOTENT: drop the existing constraint (whatever its name) before adding
--- the widened one, so re-running the migration directory is safe.
+-- WHY: the live DB CHECK constraint `video_work_kind_allowed` (introduced in
+-- 20260812120000) lists the ten existing kinds and would reject the new
+-- `visualizer` value with a CHECK constraint violation. Dropping and
+-- re-adding the constraint widens it.
+--
+-- IDEMPOTENT: drop both known constraint names before re-adding, so a
+-- re-run after a partial apply is safe.
 -- ---------------------------------------------------------------------------
 
 alter table public.video_work drop constraint if exists video_work_kind_allowed;

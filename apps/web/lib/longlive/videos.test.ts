@@ -213,6 +213,17 @@ describe('eraVideoFeed', () => {
     expect([...dated].sort((a, b) => b.localeCompare(a))).toEqual(dated);
   });
 
+  it('puts the newest-dated visualizer at the front of the tloas feed (#6082)', () => {
+    // The Opalite (BUNT. Remix) visualizer (2026-10-15) is the newest video
+    // in the Showgirl era; eraVideoFeed sorts newest-first so it must be the
+    // first entry.
+    const feed = eraVideoFeed('tloas');
+    expect(feed.length).toBeGreaterThan(0);
+    expect(feed[0].slug).toBe('opalite-bunt-remix-visualizer');
+    expect(feed[0].kind).toBe('visualizer');
+    expect(feed[0].releasedOn).toBe('2026-10-15');
+  });
+
   it('sorts undated records after dated ones rather than dropping them', () => {
     for (const eraId of ALL_ERA_IDS) {
       const feed = eraVideoFeed(eraId);
