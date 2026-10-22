@@ -1414,9 +1414,11 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
-            note: 'Taylor and her team said nothing, and the canvas colors reportedly reverted next day. Forward-looking debut-re-recording claim: resolves if a debut Taylor\'s Version is announced, fades if the anniversary passes empty. Re-checked 2026-08-14: still unannounced (fan/tabloid chatter only), still live; the Oct 24 20th-anniversary window is still ahead.',
+            note: 'Taylor and her team said nothing, and the canvas colors reportedly reverted next day. Resolves if a debut Taylor\'s Version is announced, fades if the anniversary passes empty. Re-checked 2026-10-22: still no announcement from Taylor or her team, only fan speculation and unconfirmed retail listings. Live two days before the Oct 24 anniversary.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-14',
+            // Lifecycle re-checks: 2026-08-14 still unannounced (fan/tabloid
+            // chatter only); 2026-10-22 web search, still unannounced.
+            lastCheckedOn: '2026-10-22',
           },
           {
             // Rumor Desk 2026-07-24: a separate, earlier easter-egg wave than
@@ -1428,9 +1430,11 @@ export default {
             reportedOn: '2026-06-16',
             status: 'unconfirmed',
             url: 'https://www.elitedaily.com/entertainment/taylor-swift-album-13-clues-easter-eggs',
-            note: 'Distinct from the Spotify-canvas reading above — an earlier easter-egg wave. The re-recording is on record (Taylor, June 2025: "already completely re-recorded" the debut); only the timing is unconfirmed. Re-checked 2026-08-14: still unannounced, kept live rather than faded — the Oct 24 anniversary catalyst has not passed and a fresher restock signal (below) landed Aug 7.',
+            note: 'Distinct from the Spotify-canvas reading above — an earlier easter-egg wave. The re-recording is on record (Taylor, June 2025: "already completely re-recorded" the debut); only the timing is unconfirmed. Re-checked 2026-10-22: still unannounced, with the Oct 24 anniversary two days out. Still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-14',
+            // Lifecycle re-checks: 2026-08-14 kept live (anniversary ahead, Aug 7
+            // restock signal); 2026-10-22 still unannounced.
+            lastCheckedOn: '2026-10-22',
           },
           {
             // Rumor Desk 2026-08-09: a more concrete signal than the earlier
