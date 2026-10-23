@@ -229,6 +229,24 @@ export function evalReport(expected, rows, summary, { config, recorded, jevAnswe
     lines.push(`recorded-outputs jev=${recorded.jev}/${recorded.total} haiku=${recorded.haiku}/${recorded.total}`);
     lines.push(`pending breakdown: wrapperFailures=${summary.wrapperFailures} fallbackCapHeld=${summary.fallbackCapHeld} heldForCap=${summary.heldForCap}${recorded.haiku === 0 && unresolved > 0 ? ' (no recorded fallback: live Haiku required)' : ''}`);
   }
+  for (const entry of expected.filter((member) => CRITICAL_CLASSES.includes(member.class))) {
+    const row = rowById.get(entry.id);
+    const jevAnswer = jevAnswers?.get(entry.id) ?? row?.answers?.jev;
+    if (jevCandidate(jevAnswer, config) || haikuCandidate(row)) continue;
+    const jevClass = CLASS_BY_OPTION[jevAnswer?.q_class?.optionId] ?? 'none';
+    lines.push(`tier-a-missed ${entry.class} id=${entry.id} predicted=${row?.class ?? 'pending'} decider=${row?.decider ?? 'pending'} jevClass=${jevClass} jevConf=${answerConfidence(jevAnswer?.q_class).toFixed(2)} urgency=${jevAnswer?.q_urgency?.value ?? 'none'} redlineHint=${row?.answers?.redline_hint ?? 'none'}`);
+  }
+  const expectedById = new Map(expected.map((entry) => [entry.id, entry.class]));
+  const privacyRows = rows.filter((row) => row.class === 'privacy_redline');
+  const byExpected = new Map();
+  for (const row of privacyRows) {
+    const expectedClass = expectedById.get(row.item_id) ?? 'unknown';
+    byExpected.set(expectedClass, (byExpected.get(expectedClass) ?? 0) + 1);
+  }
+  const expectedTally = [...byExpected].sort(([a], [b]) => a.localeCompare(b)).map(([name, count]) => `${name}=${count}`);
+  lines.push(`privacy-predicted-by-expected ${expectedTally.join(' ') || 'none'}`);
+  const byDecider = (decider) => privacyRows.filter((row) => row.decider === decider).length;
+  lines.push(`privacy-predicted-by-decider jev=${byDecider('jev')} haiku=${byDecider('haiku')} with-hint=${privacyRows.filter((row) => row.answers?.redline_hint).length}`);
   return lines.join('\n');
 }
 
