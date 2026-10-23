@@ -455,6 +455,28 @@ describe('Tidewatch classifier', () => {
     expect(evalReport([], [], base, { config })).toContain('wrapper reasons: none');
   });
 
+  it('reports each missed Tier A item and the privacy_redline confusion by expected class and decider', () => {
+    const expected = [
+      { id: 'm1', class: 'critical_breaking' },
+      { id: 'ok', class: 'critical_breaking' },
+      { id: 'p1', class: 'critical_personal' },
+    ];
+    const rows = [
+      { item_id: 'm1', class: 'privacy_redline', decider: 'jev', confidence: 0.8,
+        answers: { jev: { q_class: { type: 'choice', optionId: optionByClass.normal_news,
+          probabilities: { [optionByClass.normal_news]: 0.2 } }, q_urgency: { type: 'score', value: 2 } },
+        redline_hint: 'pregnan' } },
+      { item_id: 'ok', class: 'critical_breaking', decider: 'jev', answers: { jev: { q_urgency: { type: 'score', value: 5 } } } },
+      { item_id: 'p1', class: 'privacy_redline', decider: 'haiku', answers: { haiku: { class: 'privacy_redline' } } },
+    ];
+    const report = evalReport(expected, rows, { jevAttempts: 1, fallbackAttempted: 1 }, { config });
+    expect(report).toContain('tier-a-missed critical_breaking id=m1 predicted=privacy_redline decider=jev jevClass=normal_news jevConf=0.20 urgency=2 redlineHint=pregnan');
+    expect(report).not.toContain('tier-a-missed critical_breaking id=ok');
+    expect(report).toContain('tier-a-missed critical_personal id=p1 predicted=privacy_redline decider=haiku jevClass=none jevConf=0.00 urgency=none redlineHint=none');
+    expect(report).toContain('privacy-predicted-by-expected critical_breaking=1 critical_personal=1');
+    expect(report).toContain('privacy-predicted-by-decider jev=1 haiku=1 with-hint=1');
+  });
+
   it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
     const choice = (classId: string, confidence: number) => ({ type: 'choice',
       optionId: optionByClass[classId], probabilities: { [optionByClass[classId]]: confidence } });
