@@ -30,6 +30,10 @@ const isTierA = (classId, config) => Boolean(classId) && (TIER_A_CLASSES.has(cla
   || ['P0', 'P1'].includes(config.classes[classId]?.priority));
 const chunks = (rows, size) => Array.from({ length: Math.ceil(rows.length / size) },
   (_, index) => rows.slice(index * size, (index + 1) * size));
+const wrapperReasonToken = (reason) => {
+  const token = typeof reason === 'string' ? reason.toLowerCase() : '';
+  return /^[a-z_ -]{1,40}$/.test(token) ? token : 'other';
+};
 
 export async function classifyItems({ items, candidates, store, config, jev, callClaude,
   random = Math.random, now = Date.now(), log = () => {}, alert = async () => {} }) {
@@ -63,6 +67,7 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   );
   let fallbackAttempted = 0;
   let wrapperFailures = 0;
+  const wrapperReasons = new Map();
   let fallbackCapHeld = 0;
   let tierAHeld = 0;
   let processedFallback = 0;
@@ -82,6 +87,8 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
         break;
       }
       wrapperFailures += batch.length;
+      const reasonToken = wrapperReasonToken(response.reason);
+      wrapperReasons.set(reasonToken, (wrapperReasons.get(reasonToken) ?? 0) + batch.length);
       processedFallback += batch.length;
       continue;
     }
@@ -100,10 +107,10 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
     read: items.length, skipped: existing.size, written: insertedRows.length,
     pending: heldForCap + wrapperFailures + fallbackCapHeld,
     jevAttempts, jevUnavailable: jevFailures, fallbackAttempted, wrapperFailures,
-    heldForCap, fallbackCapHeld,
+    heldForCap, fallbackCapHeld, wrapperReasons: Object.fromEntries(wrapperReasons),
   };
   if (alertReason) await alert(alertReason);
-  log(`tidewatch classify: read=${summary.read} skipped=${summary.skipped} written=${summary.written} pending=${summary.pending} jev=${jevAttempts} jevUnavailable=${jevFailures} fallback=${fallbackAttempted} budgetHeld=${heldForCap} fallbackCapHeld=${fallbackCapHeld} wrapperUnavailable=${wrapperFailures}`);
+  log(`tidewatch classify: read=${summary.read} skipped=${summary.skipped} written=${summary.written} pending=${summary.pending} jev=${jevAttempts} jevUnavailable=${jevFailures} fallback=${fallbackAttempted} budgetHeld=${heldForCap} fallbackCapHeld=${fallbackCapHeld} wrapperUnavailable=${wrapperFailures} wrapperReasons=${JSON.stringify(summary.wrapperReasons)}`);
   return { rows: insertedRows, summary };
 }
 
@@ -214,6 +221,9 @@ export function evalReport(expected, rows, summary, { config, recorded, jevAnswe
     lines.push(`tier-a-candidate-recall ${classId} candidates=${candidates}/${members.length} recall=${members.length ? (candidates / members.length).toFixed(3) : 'n/a'}`);
   }
   lines.push(`tier-a-candidate-recall combined candidates=${combined.candidates}/${combined.support} recall=${combined.support ? (combined.candidates / combined.support).toFixed(3) : 'n/a'}`);
+  const reasonEntries = Object.entries(summary.wrapperReasons ?? {});
+  lines.push(`wrapper reasons: ${reasonEntries.length
+    ? reasonEntries.map(([reason, count]) => `${reason}=${count}`).join(' ') : 'none'}`);
   if (recorded) {
     const unresolved = expected.length - rows.length;
     lines.push(`recorded-outputs jev=${recorded.jev}/${recorded.total} haiku=${recorded.haiku}/${recorded.total}`);

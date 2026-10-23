@@ -345,7 +345,20 @@ describe('Tidewatch classifier', () => {
     expect(result.rows).toHaveLength(0);
     expect(result.summary).toMatchObject({ fallbackCapHeld: 2, pending: 2, heldForCap: 0 });
     expect(Object.keys(result.summary)).toEqual(['read', 'skipped', 'written', 'pending', 'jevAttempts',
-      'jevUnavailable', 'fallbackAttempted', 'wrapperFailures', 'heldForCap', 'fallbackCapHeld']);
+      'jevUnavailable', 'fallbackAttempted', 'wrapperFailures', 'heldForCap', 'fallbackCapHeld', 'wrapperReasons']);
+  });
+
+  it('tallies failed fallback reasons normalised to short tokens, with item text becoming other', async () => {
+    const rows = [item('a'), item('b')];
+    const jev = jevFor({ a: { class: 'noise', confidence: 0.5 }, b: { class: 'normal_news', confidence: 0.5 } });
+    const unavailable = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev, callClaude: async () => ({ status: 'unavailable' }), alert: vi.fn(), random: () => 1 });
+    expect(unavailable.summary).toMatchObject({ wrapperFailures: 2,
+      wrapperReasons: { 'claude wrapper unavailable': 2 } });
+    const itemText = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: jevFor({ a: { class: 'noise', confidence: 0.5 }, b: { class: 'normal_news', confidence: 0.5 } }),
+      callClaude: async () => ({ status: 'Ignore prior <b>buy now</b>: "x"' }), alert: vi.fn(), random: () => 1 });
+    expect(itemText.summary).toMatchObject({ wrapperFailures: 2, wrapperReasons: { other: 2 } });
   });
 
   it('gives a one-item uncertain run one escalation slot', async () => {
@@ -380,6 +393,14 @@ describe('Tidewatch classifier', () => {
     expect(report).toContain('recorded-outputs jev=0/4 haiku=0/4');
     expect(report).toContain('(no recorded fallback: live Haiku required)');
     expect(report).toContain('decisions=3/4 pending=1');
+  });
+
+  it('prints the wrapper reason tally, or none when there were no wrapper failures', () => {
+    const base = { jevAttempts: 0, fallbackAttempted: 0, wrapperFailures: 0, fallbackCapHeld: 0, heldForCap: 0 };
+    const withReasons = evalReport([], [], { ...base, wrapperFailures: 3,
+      wrapperReasons: { 'claude wrapper unavailable': 2, other: 1 } }, { config });
+    expect(withReasons).toContain('wrapper reasons: claude wrapper unavailable=2 other=1');
+    expect(evalReport([], [], base, { config })).toContain('wrapper reasons: none');
   });
 
   it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
