@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
 
 ## Rumors of Taylor Swift's debut album rerelease circulate this week
 
@@ -706,11 +706,3 @@ Stories: 86
 - summary: A discussion on how Taylor Swift’s debut album showcases the significance of the guitar in her musical journey, highlighting its central role in her artistry.
 - sources:
   - [unverified] Guitar.com — https://news.google.com/rss/articles/CBMid0FVX3lxTE1kaVpDQU5CdEV2OHhLdWpVSG16TEFHUGRMWlByM01QSDllVndTOFdWcWJVcXFfUUhVM091Tnp4Yk1kWHg4eFRnLWNIQ0NLMjJQeGNVWGhQSHJkUmtGcXVBWlh4V05vY2dmUy1rVlR6dTc4Qi1CUGEw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift reacts to fan filming her at NFL game
-
-- first seen: 2026-10-20 04:26 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During an NFL game, Taylor Swift was filmed reacting to a fan who was recording her. The moment has gained attention in the media.
-- sources:
-  - [unverified] Sky News Australia — https://news.google.com/rss/articles/CBMisAJBVV95cUxNZFlnMjdvUlFvaGpYZHdpbzF3WW00UkNIMzBabnhmR3ZOMk9fY1FvaEQ4eFhBTmhuek5BVE1menpuSGVzN1RMUGllWjloSGRDVXpGQ0w3Q1BpOU1FQ21CdllzMll4VlRNY3VveHhOUmJQZ2JQMXdhczMxazJXTkVSQVU0T0pETXVkMEs3cmZDSV84OVdMT3FXRU1faVJTTzVTeGxodWtabE1nejJOLXY3NW5mYWVKMDJrNFdFMHZvNkxycXpSXzVDdmZ2Vk9CRnpOMnNTTVJZcDg1TExDc3JlV3E5cXhYVTNOQ1lfT21lcmQ2WVJjYTVQVERjS1BfS0xqd1E5b2NINTNGT01Vb01EZzd2d1VySGF2Ni1uYnZrbml2MkZob1Y3dWFVenc1em9v?oc=5&hl=en-US&gl=US&ceid=US:en
