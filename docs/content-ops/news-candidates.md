@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 92
+
+## Taylor Swift Attends Academy Museum Gala in Custom Dior
+
+- first seen: 2026-10-23 17:06 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made her first appearance on the Academy Museum Gala carpet, showcasing a custom design by Dior. This marked a significant moment for her in the fashion spotlight at the gala event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-takes-her-first-160857529.html
+
+## Maya Hawke Praises Two Taylor Swift Songs as 'Epic Poetry'
+
+- first seen: 2026-10-23 17:06 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Maya Hawke has expressed her admiration for two songs by Taylor Swift, calling them 'epic poetry'. This highlights the impact and artistic quality of Swift's music in the eyes of fellow artists.
+- sources:
+  - [unverified] Contactmusic.com — https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-
+
+## Taylor Swift Updates Website for Debut Album's 20th Anniversary
+
+- first seen: 2026-10-23 17:06 UTC | category: release | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Ahead of the 20th anniversary of her debut album, Taylor Swift has made a subtle change to her official website. The update coincides with the anniversary celebration of her first album.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/music/a74231089/taylor-swift-debut-album-anniversary/
+
+## Chris Stapleton Achieves Second Billion-Stream Milestone
+
+- first seen: 2026-10-23 17:06 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Chris Stapleton has reached a remarkable milestone by scoring his second billion-stream song, joining Morgan Wallen in this achievement.
+- sources:
+  - [unverified] Taste of Country — https://tasteofcountry.com/chris-stapleton-billion-streams-milestone/
 
 ## Taylor Swift Reacts to Jason Kelce's Early Morning Call to Travis
 
@@ -81,7 +113,7 @@ Stories: 91
 - verification_status: rumor | source_count: 1
 - summary: Reports suggest Taylor Swift has called out Jason Kelce over a perceived 'f— up move' following claims of tension between their families. Additionally, a source indicated Swift is concerned about fans' feelings towards her and Travis Kelce.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-allegedly-called-jason-145800046.html
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234956096/what-happened-travis-kelce-jason-taylor-swift/
 
 ## Taylor Swift's Awkward Moments Featured in Yahoo List
 
@@ -731,27 +763,3 @@ Stories: 91
 - summary: The article discusses popular songs including Adéla's hit that serve as musical odes to actresses, featuring tracks from various artists like SZA, the Go-Betweens, and Nirvana.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/20/arts/music/amplifier-newsletter-adela-nicole-kidman-actresses.html
-
-## Bad Gyal Declares She Wouldn't Collaborate with Taylor Swift
-
-- first seen: 2026-10-20 17:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bad Gyal has stated that Taylor Swift is an artist she would 'never' choose to work with. The comment highlights her personal perspective on collaborations within the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxOMlE5QUgzVWtvNjA4SHhBZzEzUURHbnFNQjVjREdoMVVCTUp2enNTVzJuaEQ2WTJvdjBiYzhRbWpqSFFZYk1RNXlTTjJtcERtMF9sd09wM0JMdjlTNEZ4eEY4Q05jQUZfbXF4ZVdfUHpfOHdBTmczeEtScVhqc3gzcVF1ODVTNW9FWkFWbXlkTnk4bkpGb3ZR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## ’80s Icon Explains Decision to Decline Collaboration with Taylor Swift
-
-- first seen: 2026-10-20 16:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An '80s icon discusses his reasons for turning down a collaboration with Taylor Swift, questioning the potential for shared songwriting.
-- sources:
-  - [unverified] Parade Magazine — https://news.google.com/rss/articles/CBMiugFBVV95cUxQVDk4RU9mYjNYSEhNaHRrV3lRa29BSDZ4ZVljNGFYc3Vaa0NEZndWRlczT05GaV9iUWN2Q3pYdl92TW5qMFItdWJlR2x0U1RCaVhXdlF1dTl3Z3BZUDNmMzZvOUVsM000YmJKOURQRzBPMWR5cjlaUnFsQmRBS2JNQ3JSQUFnc19lSS1SRzdrRklPR1FSRTd3T1Y5MkdFLThRVTVPTHhBTHNXaUpBQWotbFhVTk9TUVppc3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Former Bungalow in Beverly Hills Listed for Sale
-
-- first seen: 2026-10-20 16:11 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A bungalow in Beverly Hills, where Taylor Swift wrote her album '1989', is now up for sale, showcasing its impressive features.
-- sources:
-  - [unverified] Grazia — https://news.google.com/rss/articles/CBMi7gFBVV95cUxOai03U2VZeU1XVlJCNl9NQWlKMGtuenFMU1RLcVIxWUphMHAwT1hWdVBjUzVfQWQxNG9GcUU5b2VFM3FnOUQ4eDhWUzNhMGo3VFlfRWh4UVFNOUFjOEhfcGo0amtKTUtoTENDNjNRdjVOUzBQZTBoSkw2RUJRbHlGbXdHUTlCdkN1RjR4QkhyRmRPOUVWSTFBTGZpbVFEeV9ia3RTemNCOTRNQzJHNXcyc0luVS1WNEVjSjQ4ZV81ajhhWkdPanVhTHlqUXAwU1NsQl91SVBuckpCLWlMa0c1cUk2UHZ6WG1ab1Y4alV3?oc=5&hl=en-US&gl=US&ceid=US:en
