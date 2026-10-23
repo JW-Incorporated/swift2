@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
 import { callFallback, classFromAnswers, codePrefilter, decisionRow, inspectWithJev, stateFor } from './cascade.mjs';
-import { classifyItems, evalReport, evaluateReplay, isCandidate, main } from './classify.mjs';
+import { classifyItems, evalReport, evaluateReplay, isCandidate, main, planStateLines } from './classify.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
 
@@ -517,6 +517,31 @@ describe('Tidewatch classifier', () => {
     expect(report).toContain('tier-a-missed critical_personal id=p1 predicted=privacy_redline decider=haiku jevClass=none jevConf=0.00 urgency=none redlineHint=none');
     expect(report).toContain('privacy-predicted-by-expected critical_breaking=1 critical_personal=1');
     expect(report).toContain('privacy-predicted-by-decider jev=1 haiku=1 with-hint=1');
+  });
+
+  it('tallies plan state per true class, true-privacy-planned and the normal_news held rate', () => {
+    const expected = [
+      { id: 'n1', class: 'normal_news' }, { id: 'n2', class: 'normal_news' },
+      { id: 'n3', class: 'normal_news' }, { id: 'n4', class: 'normal_news' },
+      { id: 'p1', class: 'privacy_redline' }, { id: 'p2', class: 'privacy_redline' },
+    ];
+    const rows = [
+      { item_id: 'n1', class: 'normal_news', confidence: 1, answers: {} },
+      { item_id: 'n2', class: 'normal_news', confidence: 1, answers: { redline_hint: 'x' } },
+      { item_id: 'n3', class: 'normal_news', confidence: 1, answers: { injection: true } },
+      { item_id: 'n4', class: 'privacy_redline', confidence: 1, answers: {} },
+      { item_id: 'p1', class: 'normal_news', confidence: 1, answers: {} },
+      { item_id: 'p2', class: 'privacy_redline', confidence: 1, answers: {} },
+    ];
+    const lines = planStateLines(expected, rows, config);
+    expect(lines).toContain('plan-state-by-expected normal_news planned=1 held=3 dropped=0');
+    expect(lines).toContain('plan-state-by-expected privacy_redline planned=1 held=1 dropped=0');
+    expect(lines).toContain('held-actions hold_injection=1 hold_redline=3');
+    expect(lines).toContain('true-privacy-planned n=1');
+    expect(lines).toContain('normal-news-held-rate held=3/4 rate=0.750');
+    expect(evalReport(expected, rows, { jevAttempts: 0, fallbackAttempted: 0 }, { config }))
+      .toContain('true-privacy-planned n=1');
+    expect(planStateLines([], [], config)).toContain('normal-news-held-rate held=0/0 rate=n/a');
   });
 
   it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
