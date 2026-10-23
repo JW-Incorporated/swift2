@@ -1,0 +1,52 @@
+# Tidewatch decision-precision sample (architect #15 item 4). Samples live shadow
+# decisions, labels them with Sonnet, and reports precision per decided class. The
+# artifact and step summary hold class ids and numbers only (this repo is public).
+# Manual dispatch only; main only. Secrets are the existing calibration-report
+# (Supabase read) and replay-label (Claude subscription token) ones, none new.
+name: tidewatch-decision-sample
+
+on:
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: Sampling seed (same seed, same sample)
+        required: false
+        default: "1"
+
+permissions: {}
+
+jobs:
+  sample:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45 # 16-call cap x 120 s per call is about 32 min worst case
+    permissions:
+      contents: read
+    concurrency:
+      group: tidewatch-decision-sample
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --silent
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Decision sample
+        shell: bash -eo pipefail {0}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SAMPLE_SEED: ${{ inputs.seed }}
+        run: node scripts/tidewatch/decision-sample.mjs --seed "$SAMPLE_SEED" --json-out tidewatch-decision-sample.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tidewatch-decision-sample
+          path: tidewatch-decision-sample.json
+          retention-days: 14
+          if-no-files-found: error
