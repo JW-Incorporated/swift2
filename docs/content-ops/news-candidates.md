@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 94
 
 ## Chris Stapleton Achieves Rare Spotify Milestone with Taylor Swift
 
@@ -46,10 +46,11 @@ Stories: 95
 ## Travis Kelce Discusses Taylor Swift's Reaction to Wake-Up Call
 
 - first seen: 2026-10-23 18:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce shares insights into Taylor Swift's response to a surprising wake-up call involving Jason.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-taylor-swift-170000221.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-taylor-swift-164500149.html
 
 ## Taylor Swift Attends Academy Museum Gala in Custom Dior
 
@@ -779,11 +780,3 @@ Stories: 95
 - summary: Taylor Swift's album 'Showgirl' has achieved 15 consecutive weeks at No. 1 on the charts. The article discusses other albums that have reached this milestone.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeGR6OTNaS29MYU1iVVRCc1RUS3hDMjV5R3BoU1VTYi03TklYQzRrSnlCc0J1ai1VdHRfRG8tNVNPYmNFVmpjMzRYcU5WbS1xdGlTWnh4VHdwcHdNZ1pISS1uS3VHT1pLSmZiZkQ1TVpRcTJfSlctY3BKajNhSVNvNU9BeXlzTVdpTHkxMjJNV2JTTlc5SGdHM1ZfLUM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Adéla's Hit and Other Songs Paying Tribute to Actresses
-
-- first seen: 2026-10-20 18:07 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The article discusses popular songs including Adéla's hit that serve as musical odes to actresses, featuring tracks from various artists like SZA, the Go-Betweens, and Nirvana.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/20/arts/music/amplifier-newsletter-adela-nicole-kidman-actresses.html
