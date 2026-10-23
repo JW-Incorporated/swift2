@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Taylor Swift Updates Website After 20 Years
+
+- first seen: 2026-10-23 10:49 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has updated her website for the first time in 20 years, surprising fans. The update has generated considerable excitement among her followers.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-20-website-fans-092336666.html
 
 ## Taylor Swift Supports Travis Kelce Before Seahawks Game
 
