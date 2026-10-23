@@ -13,6 +13,7 @@ import { resolveImageUrl } from './image-resolve';
 
 const HELD_WINDOW_DAYS = 7;
 const MAX_HELD_PER_RUN = 15;
+const MAX_IMAGE_ATTEMPTS = 5;
 
 interface HeldRow {
   id: string;
@@ -21,6 +22,7 @@ interface HeldRow {
   detail: string;
   image_url: string | null;
   sources: { name: string; url: string; tier: SourceTier }[] | null;
+  image_attempts: number | null;
 }
 
 export interface HeldImagePassResult {
@@ -42,12 +44,14 @@ export async function reresolveHeldImages(
   const since = new Date(now.getTime() - HELD_WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
   const { data, error } = await db
     .from('current_item')
-    .select('id,headline,summary,detail,image_url,sources')
+    .select('id,headline,summary,detail,image_url,sources,image_attempts')
     .eq('quality_hold_reason', 'missing_image')
     .is('retracted_at', null)
     .is('promoted_to', null)
     .gt('expires_at', now.toISOString())
     .gte('observed_on', since)
+    .lt('image_attempts', MAX_IMAGE_ATTEMPTS)
+    .order('last_image_attempt_at', { ascending: true, nullsFirst: true })
     .order('observed_on', { ascending: false })
     .limit(MAX_HELD_PER_RUN);
   if (error) {
@@ -59,9 +63,8 @@ export async function reresolveHeldImages(
     result.checked++;
     try {
       const stored = (row.sources ?? []).map((s) => ({ outletName: s.name, url: s.url, tier: s.tier }));
-      const { sources, changed } = await resolveSourceUrls(stored, fetchImpl);
+      const { sources } = await resolveSourceUrls(stored, fetchImpl);
       const image = await resolveImageUrl(row.image_url, sources, fetchImpl);
-      if (changed.length === 0 && !image) continue;
 
       const quality = evaluateCurrentItemQuality({
         headline: row.headline,
@@ -71,10 +74,16 @@ export async function reresolveHeldImages(
         redlineOk: clean([row.headline, row.summary, row.detail]),
       });
       const facts = {
+        image_attempts: (row.image_attempts ?? 0) + 1,
+        last_image_attempt_at: now.toISOString(),
         image_url: image ?? null,
         sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
       };
-      const { error: factsError } = await db.from('current_item').update(facts).eq('id', row.id);
+      const { error: factsError } = await db
+        .from('current_item')
+        .update(facts)
+        .eq('id', row.id)
+        .is('retracted_at', null);
       if (factsError) {
         result.errors.push(`held-image write failed for ${row.id}: ${factsError.message}`);
         continue;
