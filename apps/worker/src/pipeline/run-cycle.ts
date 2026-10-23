@@ -42,6 +42,7 @@ export interface CycleResult {
   storiesVerified: number;
   extract: ExtractStageResult;
   errors: string[];
+  warnings: string[];
 }
 
 export type { CycleOptions } from './ingest-stage';
@@ -74,6 +75,7 @@ export async function runCycle(
       errors: [],
     },
     errors,
+    warnings: [],
   };
 
   // ---- 1. INGEST -----------------------------------------------------------

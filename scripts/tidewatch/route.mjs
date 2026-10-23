@@ -92,8 +92,10 @@ export async function routeDecisions({ decisions, timelines = new Map(), store, 
   for (const decision of decisions) {
     const storyId = decision.watch_item?.story_id;
     const timeline = storyId ? timelines.get(storyId) : null;
-    const plan = planActions(decision.class, decision.answers, decision.confidence,
-      timeline, config);
+    const plan = String(decision.action ?? '').startsWith('shadow_hold')
+      ? { ...planActions(decision.class, decision.answers, 0, timeline, config),
+        state: 'held', actions: ['hold_shadow'] }
+      : planActions(decision.class, decision.answers, decision.confidence, timeline, config);
     plans.push(plan);
     const enabled = live && config.classes[decision.class]?.enabled === true;
     const executable = plan.actions.filter((action) => actionHandlers[action] || actionRunners[action]);

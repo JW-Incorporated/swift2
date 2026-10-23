@@ -200,6 +200,20 @@ describe('Tidewatch shadow action router', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('holds shadow_hold decisions with no live action even above the act threshold', async () => {
+    const enabledConfig = structuredClone(config);
+    enabledConfig.classes.critical_breaking.enabled = true;
+    const handler = vi.fn(async () => true);
+    const store = memoryStore();
+    const result = await routeDecisions({
+      decisions: [decision({ class: 'critical_breaking', confidence: 1, action: 'shadow_hold_budget' })],
+      store, config: enabledConfig, live: true,
+      actionHandlers: { critical_fast_path: handler }, actionRunners: {} });
+    expect(result.plans[0]).toMatchObject({ state: 'held', actions: ['hold_shadow'] });
+    expect(handler).not.toHaveBeenCalled();
+    expect(result.failures).toEqual([]);
+  });
+
   it('records a stable action_ref once when the same decision is rerun', async () => {
     const store = memoryStore();
     const first = await routeDecisions({ decisions: [decision()], store, config });
