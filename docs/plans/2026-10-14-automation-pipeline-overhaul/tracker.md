@@ -419,6 +419,10 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
   - Armed: PR-A #6235 (eval candidate recall and decider split, artifact upload) and PR-B #6236 (blocklist → hint plus the planActions veto, matcher bypass closed, decision entry).
   - Correction to #16: replay.json has no recorded outputs, so every eval is live (~771 Jev calls, ~77 Haiku batches) and there is no separate re-record step.
   - Next: PR-C (prompts) after A and B merge, then an eval run plus a decision-sample run, then the owner gold set.
+- 2026-10-23 01:31 PDT:
+  - PR-A #6235 and PR-B #6236 MERGED. The #6236 conflict was imports only; both sides kept.
+  - PR-C (D-c and exemplars in the prompts) in flight on fix/tidewatch-prompts-dc.
+  - Handoff block written in STATE.md.
 
 ## Next actions
 
