@@ -12,6 +12,12 @@ describe('Tidewatch D-c prompt text', () => {
     });
   }
 
+  it('Q_CLASS and FALLBACK_SYSTEM carry the D-c addendum phrases', () => {
+    for (const t of [classQuestion.instructions.toLowerCase(), FALLBACK_SYSTEM.toLowerCase()]) {
+      for (const phrase of ['concert film', 'livestream', 'festival']) expect(t).toContain(phrase);
+    }
+  });
+
   it('FALLBACK_SYSTEM covers the required negative exemplars', () => {
     expect(FALLBACK_SYSTEM).toMatch(/VMA stage" => normal_news/);
     expect(FALLBACK_SYSTEM).toMatch(/premiere set for Tuesday" => normal_news/);
