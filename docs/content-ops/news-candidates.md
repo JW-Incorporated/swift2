@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 95
+
+## Chris Stapleton Achieves Rare Spotify Milestone with Taylor Swift
+
+- first seen: 2026-10-23 18:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chris Stapleton has joined Taylor Swift in achieving a notable milestone on Spotify, highlighting their success on the platform.
+- sources:
+  - [unverified] DRGNews — https://drgnews.com/2026/10/23/chris-stapleton-joins-taylor-swift-in-rare-spotify-achievement/
+
+## Overview of Taylor Swift Featured in Profile by Polina Pompliano
+
+- first seen: 2026-10-23 18:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A profile article by Polina Pompliano presents an overview of who Taylor Swift is, detailing her career and impact in the music industry.
+- sources:
+  - [unverified] The Profile | Polina Pompliano — https://www.readtheprofile.com/p/who-is-taylor-swift
+
+## Travis Kelce Discusses Taylor Swift's Reaction to Wake-Up Call
+
+- first seen: 2026-10-23 18:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares insights into Taylor Swift's response to a surprising wake-up call involving Jason.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-taylor-swift-170000221.html
 
 ## Taylor Swift Attends Academy Museum Gala in Custom Dior
 
