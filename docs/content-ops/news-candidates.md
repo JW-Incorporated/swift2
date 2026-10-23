@@ -41,7 +41,7 @@ Stories: 86
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift's official website has received an update, hinting at a potential announcement regarding 'Debut TV'. Fans are speculating about what this could mean for her music releases.
 - sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74228832/taylor-swift-archive-website-update-debut-tv/
+  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-website-updated-debut-114835361.html
 
 ## Taylor Swift Updates Website After 20 Years
 
