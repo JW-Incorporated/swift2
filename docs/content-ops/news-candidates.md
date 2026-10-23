@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 91
+
+## Taylor Swift Reacts to Jason Kelce's Early Morning Call to Travis
+
+- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: AOL.com reports on Taylor Swift's response to Jason Kelce's 7:30 a.m. call intended for Travis Kelce. The incident highlights the intersection of her personal life with the media's attention.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-not-having-jason-162136000.html
+
+## Taylor Swift reportedly concerned about fan fatigue
+
+- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: According to reports, Taylor Swift is feeling the pressure of backlash and is worried that her fans may be tiring of her. This sentiment reflects her awareness of fan engagement and the current dynamics of her relationship with her audience.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-feel-backlash-taylor-swift-150608051.html
+
+## Insiders Discuss Challenges Following Taylor Swift's Wedding to Travis Kelce
+
+- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Sources indicate that Taylor Swift's increasing fame is creating frustration in her relationship with Travis Kelce. The pressures of public attention are reportedly affecting their dynamic.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-s-fame-takes-a-toll-after-wedding-to-travis-kelce-as-insiders-reveal-growing-frustration-12222899
+
+## Chiefs Fan Critiques Taylor Swift Fans at Arrowhead Stadium
+
+- first seen: 2026-10-23 16:06 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A Chiefs fan has gone viral for expressing his annoyance towards Taylor Swift fans during a game at Arrowhead Stadium, labeling the situation as 'bizarre.' The incident has drawn attention online as Swift's presence continues to be a topic among football fans.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/chiefs-fan-calls-out-annoying-taylor-swift-fans-at-arrowhead/
+
+## Taylor Swift's Interaction with NFL Fan Caught on Camera
+
+- first seen: 2026-10-23 16:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An eye-witness details the moments leading up to an incident where Taylor Swift reportedly snapped at an NFL fan. This interaction has garnered attention among fans and media alike.
+- sources:
+  - [unverified] The Mirror US — https://www.themirror.com/sport/american-football/taylor-swift-chiefs-confrontation-eyewitness-2079259
 
 ## Taylor Swift Celebrates 20th Anniversary of Debut Album and Reclaims Masters
 
@@ -51,14 +91,6 @@ Stories: 88
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/awkward-taylor-swift-moments-cant-133000570.html
 
-## New Theories Emerge Within the Swiftie Community About Taylor Swift
-
-- first seen: 2026-10-23 12:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Swiftie community is generating excitement with new theories about Taylor Swift, drawing attention across social media. Fans are known for their imaginative interpretations of her work and personal life.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/swifties-known-wild-theories-m-181840221.html
-
 ## Taylor Swift's Website Update Suggests Possible 'Debut TV' Announcement
 
 - first seen: 2026-10-23 12:44 UTC | category: release | importance: 7
@@ -66,6 +98,14 @@ Stories: 88
 - summary: Taylor Swift's official website has received an update, hinting at a potential announcement regarding 'Debut TV'. Fans are speculating about what this could mean for her music releases.
 - sources:
   - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-website-updated-debut-114835361.html
+
+## New Theories Emerge Within the Swiftie Community About Taylor Swift
+
+- first seen: 2026-10-23 12:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Swiftie community is generating excitement with new theories about Taylor Swift, drawing attention across social media. Fans are known for their imaginative interpretations of her work and personal life.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/swifties-known-wild-theories-m-181840221.html
 
 ## Taylor Swift Updates Website After 20 Years
 
@@ -715,19 +755,3 @@ Stories: 88
 - summary: A bungalow in Beverly Hills, where Taylor Swift wrote her album '1989', is now up for sale, showcasing its impressive features.
 - sources:
   - [unverified] Grazia — https://news.google.com/rss/articles/CBMi7gFBVV95cUxOai03U2VZeU1XVlJCNl9NQWlKMGtuenFMU1RLcVIxWUphMHAwT1hWdVBjUzVfQWQxNG9GcUU5b2VFM3FnOUQ4eDhWUzNhMGo3VFlfRWh4UVFNOUFjOEhfcGo0amtKTUtoTENDNjNRdjVOUzBQZTBoSkw2RUJRbHlGbXdHUTlCdkN1RjR4QkhyRmRPOUVWSTFBTGZpbVFEeV9ia3RTemNCOTRNQzJHNXcyc0luVS1WNEVjSjQ4ZV81ajhhWkdPanVhTHlqUXAwU1NsQl91SVBuckpCLWlMa0c1cUk2UHZ6WG1ab1Y4alV3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Embraces Fairy Princess Aesthetic
-
-- first seen: 2026-10-20 15:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A recent article discusses Taylor Swift's current fashion phase, describing it as her 'Fairy Princess Era.' The piece highlights her enchanting style and how it resonates with her fans.
-- sources:
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMibkFVX3lxTFAxWlZsXzQzVXBORWFOVjZsZTRtUFBZd2Zfck5UTzNhWFZ0ckJqX2h1Z0VUVnZGRjlUb1BnbWF6QUdvQUVRcFU5U09fM0RhRS1WY2l3aTJ5N1NZWHFoQk5oajRZU2dQZURRS1ZfNHd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Debut TV Announcement Expected Soon
-
-- first seen: 2026-10-20 15:11 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new announcement regarding Taylor Swift's debut television appearance is anticipated shortly, according to Yahoo Sports. Fans are eager for details on what the announcement may entail.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOM3NSVjBPYUdnZ0NYUElNUkhBN2pnNVJ2N2tJVUdvUFRfWHh6aWdwZlBVSjB4NU1hZFVuVTBwSUU1ZjlqOWRzMkRnUEFFOWstUlhVZk9pZHFNQS12VFRSeldWckdfYWVSVDVhMEhaRGswUXdzRkR1NGd2MXJrOG42dnQ3QmhyME9ZWnc?oc=5&hl=en-US&gl=US&ceid=US:en
