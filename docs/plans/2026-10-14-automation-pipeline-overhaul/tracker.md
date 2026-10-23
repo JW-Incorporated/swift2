@@ -391,6 +391,15 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
   - Item 2 MERGED: #6229, the cap fix plus the router `shadow_hold*` hold. Two review rounds. Documented limits: the fallback cap is per run, with no cross-run ledger until P0-07.
   - Item 3a in flight: replay relabel against D-c (fix/tidewatch-replay-dc-labels), then classify-eval after review.
   - Next: read the report artifact, then the item 4 Sonnet sample.
+  - 21:35 REPORT (run 39900803738, 358 rows):
+    - Haiku makes 86.8% of model decisions. Jev confidence sits mostly at 0.2–0.7, under every threshold.
+    - Jev-vs-Haiku agreement on below-threshold rows: normal_news 72% (97/135), critical_breaking 0/13 (Jev over-calls critical), others ≤15%.
+    - The ≥0.90 recalibration rule cannot fire. This matches #15's wrong-call signal: Jev is uncalibrated.
+    - Next: item 4 (Sonnet sample → Haiku precision), then architect #16 on the Jev-first design, plus a decision entry. No threshold edits.
+  - 21:46 Item 3a: #6230 armed. It relabels replay against D-c: 21 relabels, derived files regenerated, single-source 1/371 = the Speak Now tracklist via its official source.
+  - Follow-up #6231: the relabel-replay rule contradicts D-c in the derived set.
+  - Item 4: #6232 armed. It is the decision-sample workflow: Sonnet labels, 160 items, 16-call cap, numbers-only output.
+  - Next: dispatch classify-eval and decision-sample once each after merge, then architect #16.
 
 ## Next actions
 
