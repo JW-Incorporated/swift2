@@ -27,6 +27,14 @@ so far".
 
 Stories: 86
 
+## Taylor Swift's Awkward Moments Featured in Yahoo List
+
+- first seen: 2026-10-23 14:12 UTC | category: music | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: Yahoo highlights various awkward moments from Taylor Swift's career that fans might find memorable. The article gathers a collection of these instances, showcasing a lighter side of the artist.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/awkward-taylor-swift-moments-cant-133000570.html
+
 ## New Theories Emerge Within the Swiftie Community About Taylor Swift
 
 - first seen: 2026-10-23 12:44 UTC | category: music | importance: 5
@@ -590,9 +598,10 @@ Stories: 86
 ## Taylor Swift Confronts Fan Filming Her at Chiefs Game
 
 - first seen: 2026-10-21 02:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: An eyewitness reports on a confrontation between Taylor Swift and a fan who filmed her at a Chiefs game. The encounter has drawn attention from media outlets and fans alike.
 - sources:
+  - [unverified] InStyle — https://www.aol.com/articles/taylor-swift-calls-jason-kelce-151702000.html
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMisAFBVV95cUxQT1lLSUh5VHZzcFRZWEQtRWp3WjJLdFA2bm9DUi1JV1FiQ1c4YjhJeWxaRG1WWGpmSURXN05wNWJ2YkJMSVBpbVFRcjlNeG4yMmhVSXo1eHNxRkhiak91SkU2NkdoY3hBNTJYVlZBVkNOa2ZKdWRuc1RSbU5mYXBNeVVyZVhnN2k0QzdhV3A3SGNhTngxM0hLcjhpSGJSQ3l0bEFkYXpzd1d4azVVS2hqNg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and band perform at Academy Gala
@@ -706,11 +715,3 @@ Stories: 86
 - summary: A new announcement regarding Taylor Swift's debut television appearance is anticipated shortly, according to Yahoo Sports. Fans are eager for details on what the announcement may entail.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOM3NSVjBPYUdnZ0NYUElNUkhBN2pnNVJ2N2tJVUdvUFRfWHh6aWdwZlBVSjB4NU1hZFVuVTBwSUU1ZjlqOWRzMkRnUEFFOWstUlhVZk9pZHFNQS12VFRSeldWckdfYWVSVDVhMEhaRGswUXdzRkR1NGd2MXJrOG42dnQ3QmhyME9ZWnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jason Segel Marries Former Taylor Swift Backup Dancer Kayla Radomski
-
-- first seen: 2026-10-20 13:56 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Actor Jason Segel has married Kayla Radomski, who previously worked as a backup dancer for Taylor Swift. The wedding marks a new chapter for the couple.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPbks5QTJTX1hwNDhlUkljME55czh3S1hMN3VkWF9kbXFKaE5jclcwSi1UV1JKeWZvNDlnRjkyZ0F1bnFWQlZFSi1GcXAxZjdmSGQ2X3BxS1FnZ3FLQldMTXBhX3ZTSW9lcHNKNTlvTTlHMFNyaHhCTnd1ZVFtS0lMRUNuQVNjOXhpZncwVzVxWGZJVVZwSXpBZS1xTWQ5dw?oc=5&hl=en-US&gl=US&ceid=US:en
