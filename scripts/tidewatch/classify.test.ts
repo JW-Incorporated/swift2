@@ -420,6 +420,17 @@ describe('Tidewatch classifier', () => {
     expect(result.report).toContain('jev-to-haiku escalation rate=0.250 (2/8)');
   });
 
+  it('skips items marked excludeFromEval and reports the excluded count', async () => {
+    const replay = JSON.parse(await readFile(path.join(import.meta.dirname, 'fixtures/classify-replay.json'), 'utf8'));
+    const baseline = await evaluateReplay(replay, { config });
+    const excluded = { ...replay, items: replay.items.map((entry, index) => (index === 0 ? { ...entry, excludeFromEval: true } : entry)) };
+    const result = await evaluateReplay(excluded, { config });
+    expect(result.report).toContain('excluded-from-eval n=1');
+    expect(result.report).toContain(`decisions=${result.rows.length}/${replay.items.length - 1} pending=`);
+    expect(result.rows.some((row) => row.item_id === String(replay.items[0].id))).toBe(false);
+    expect(baseline.report).toContain('excluded-from-eval n=0');
+  });
+
   it('splits eval predictions per class by decider and counts unresolved items as pending', () => {
     const rows = [
       { item_id: 'a', class: 'critical_breaking', decider: 'jev' },

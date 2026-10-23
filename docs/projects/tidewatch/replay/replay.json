@@ -10,9 +10,9 @@
  "counts": {
   "total": 771,
   "byClass": {
-   "normal_news": 303,
+   "normal_news": 304,
    "official_drop": 14,
-   "critical_breaking": 18,
+   "critical_breaking": 17,
    "rumor": 33,
    "fan_discussion": 160,
    "tour_ticket": 8,
@@ -32,7 +32,7 @@
    "merch": 60,
    "theory_bundle": 40
   },
-  "critical": 18,
+  "critical": 17,
   "personal": 6,
   "synthetic": 21,
   "belowFloor": false
@@ -18472,7 +18472,9 @@
     "q_theory": false,
     "q_discussion": 5,
     "q_injection": false
-   }
+   },
+   "excludeFromEval": true,
+   "excludeReason": "no title or text; unverifiable lead"
   },
   {
    "id": "reddit_lead:6efee707-9cda-4fe2-81e3-5ea9d9e96fcf",
@@ -19632,7 +19634,9 @@
     "q_theory": false,
     "q_discussion": 3,
     "q_injection": false
-   }
+   },
+   "excludeFromEval": true,
+   "excludeReason": "no title or text; unverifiable lead"
   },
   {
    "id": "reddit_lead:6bb3b492-8ddd-4a6d-bd2d-7e798d2fa579",
@@ -25223,7 +25227,7 @@
    },
    "synthetic": true,
    "expectedClass": "critical_breaking",
-   "class": "critical_breaking",
+   "class": "normal_news",
    "answers": {
     "q_class": "critical_work_news",
     "q_official": true,

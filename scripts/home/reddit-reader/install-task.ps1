@@ -19,19 +19,20 @@ $repoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')
 $wrapperPath = Join-Path $PSScriptRoot 'run-task.ps1'
 Get-Command node.exe -ErrorAction Stop | Out-Null
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+. (Join-Path $env:USERPROFILE 'bin\hidden\HiddenTask.ps1')
 
 # The env path is its own argument; run-task.ps1 builds --env-file= itself.
-$readerAction = New-ScheduledTaskAction `
+$readerAction = New-HiddenTaskAction `
   -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`"" `
+  -Argument @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $wrapperPath, '-EnvFilePath', $envFile.Path) `
   -WorkingDirectory $repoRoot.Path
-$minerAction = New-ScheduledTaskAction `
+$minerAction = New-HiddenTaskAction `
   -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -Script scripts\community\theory-miner.mjs -LogName home-theory-miner" `
+  -Argument @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $wrapperPath, '-EnvFilePath', $envFile.Path, '-Script', 'scripts\community\theory-miner.mjs', '-LogName', 'home-theory-miner') `
   -WorkingDirectory $repoRoot.Path
-$outcomesAction = New-ScheduledTaskAction `
+$outcomesAction = New-HiddenTaskAction `
   -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -Script scripts\home\reddit-reader\outcomes.mjs -LogName home-reddit-outcomes -PlainNode" `
+  -Argument @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $wrapperPath, '-EnvFilePath', $envFile.Path, '-Script', 'scripts\home\reddit-reader\outcomes.mjs', '-LogName', 'home-reddit-outcomes', '-PlainNode') `
   -WorkingDirectory $repoRoot.Path
 $readerRepeat = New-ScheduledTaskTrigger -Daily -At '12:00 AM'
 $readerRepeat.Repetition = (New-ScheduledTaskTrigger -Once -At '12:00 AM' `

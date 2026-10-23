@@ -29,7 +29,7 @@ const SONNET_SPACE = new Set([...Object.values(CLASS_MAP), 'privacy_redline']);
 
 // Owner decision D-c, appended for this tool only; label-replay's own prompt is untouched.
 export const SYSTEM = `${BASE_SYSTEM}
-Category rulings (owner decision D-c): critical_work_news = new music confirmation (including a tracklist reveal), a newly planned tour, or a super-major life event. Premieres, VMAs and other award shows are general_news, not critical. News about her home or property is a private-life matter: set x = true for it.`;
+Category rulings (owner decision D-c): critical_work_news = new music confirmation (including a tracklist reveal), a newly planned tour, a new concert film, a one-night-only global livestream event, headlining a major festival, or a super-major life event. Premieres, VMAs and other award shows are general_news, not critical. News about her home or property is a private-life matter: set x = true for it.`;
 
 const safeClass = (name) => (typeof name === 'string' && /^[a-z_]{1,40}$/.test(name) ? name : '_other');
 const rank = (seed, id) => createHash('sha256').update(`${seed}:${id}`).digest('hex');

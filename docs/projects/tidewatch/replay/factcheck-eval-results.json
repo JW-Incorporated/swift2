@@ -5,12 +5,12 @@
   "original": {
     "total": 771,
     "critical": {
-      "confirmed": 23,
-      "total": 24
+      "confirmed": 22,
+      "total": 23
     },
     "criticalWork": {
-      "confirmed": 17,
-      "total": 18
+      "confirmed": 16,
+      "total": 17
     },
     "criticalPersonal": {
       "confirmed": 6,
