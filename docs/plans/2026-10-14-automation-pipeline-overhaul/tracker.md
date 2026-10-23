@@ -400,6 +400,20 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
   - Follow-up #6231: the relabel-replay rule contradicts D-c in the derived set.
   - Item 4: #6232 armed. It is the decision-sample workflow: Sonnet labels, 160 items, 16-call cap, numbers-only output.
   - Next: dispatch classify-eval and decision-sample once each after merge, then architect #16.
+- 2026-10-22 22:50 PDT: P2-01 FAILED THE BARS. See P2-01-DEBUG.md: replay critical_breaking recall 0.167, live Haiku-vs-Sonnet 51.6%, privacy code 0/7.
+  - ARCHITECT #16 ruling, root cause and verdict:
+    - The redline blocklist prefilter decides before any model. It over-calls privacy_redline and blocks confirmed personal milestones.
+    - The eval measures final class rather than candidate recall.
+    - Verdict: NO-GO for all model paths and privacy code; P2-12 and P2-13 stay blocked.
+  - Work, in order:
+    - PR-A: eval instrumentation.
+    - PR-B: prefilter → hint, action-layer veto and the decision entry.
+    - PR-C: D-c and exemplars in the prompts, plus one replay re-record.
+    - PR-D: low_stakes scorer.
+    - Owner gold set: 44 binary answers.
+    - Re-run the #15 gate.
+  - Status: A, B and D in flight.
+  - Before P2-12: verify that route.mjs has a candidate→verifier path.
 
 ## Next actions
 
