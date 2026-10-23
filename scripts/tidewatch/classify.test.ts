@@ -240,19 +240,47 @@ describe('Tidewatch classifier', () => {
     expect(result.summary.pending).toBe(2);
   });
 
-  it('enforces the escalation rate and wrapper per-run cap at P2', async () => {
-    const rows = Array.from({ length: 8 }, (_, index) => item(`i${index}`));
+  it('sends every uncertain item to Haiku with no per-sweep escalation cap', async () => {
+    const rows = Array.from({ length: 7 }, (_, index) => item(`i${index}`));
     const store = memoryStore();
     const callClaude = vi.fn(async ({ user }) => ({ status: 'ok', data: { labels: rows
       .filter(({ id }) => user.includes(`item id: ${id}`)).map(({ id }) => ({ id, class: 'noise', injection: 'no' })) } }));
     const result = await classifyItems({ items: rows, candidates: [], store, config,
       jev: jevFor(Object.fromEntries(rows.map(({ id }) => [id, { class: 'noise', confidence: 0.5 }]))),
       callClaude, random: () => 1 });
-    expect(result.summary.fallbackAttempted).toBe(2);
-    expect(result.summary.heldForCap).toBe(6);
+    expect(result.summary.fallbackAttempted).toBe(7);
+    expect(result.summary.heldForCap).toBe(0);
+    expect(result.summary.pending).toBe(0);
+    expect(result.rows).toHaveLength(7);
+    expect(result.rows.every((row) => row.decider === 'haiku')).toBe(true);
     expect(callClaude).toHaveBeenCalledTimes(1);
     expect(callClaude.mock.calls[0][0]).toMatchObject({ priority: 'P2', maxCalls: 1,
       caller: 'tidewatch-fallback', model: 'claude-haiku-5-5' });
+  });
+
+  it('writes a visible shadow_hold_budget row for Tier A items when the daily fallback cap is exhausted', async () => {
+    const rows = [item('tier-a'), item('plain')];
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: jevFor({ 'tier-a': { class: 'critical_breaking', confidence: 0.5 },
+        plain: { class: 'noise', confidence: 0.5 } }),
+      callClaude: async () => ({ status: 'capped' }), alert: vi.fn(), random: () => 1 });
+    expect(result.rows).toHaveLength(1);
+    expect(result.rows[0]).toMatchObject({ item_id: 'tier-a', class: 'critical_breaking',
+      decider: 'jev', action: 'shadow_hold_budget', shadow: true });
+    expect(result.summary.fallbackCapHeld).toBe(1);
+    expect(result.summary.pending).toBe(1);
+    expect(result.summary.heldForCap).toBe(0);
+  });
+
+  it('keeps the existing hold for non-Tier-A items under an exhausted daily cap', async () => {
+    const rows = [item('a'), item('b')];
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: jevFor({ a: { class: 'noise', confidence: 0.5 }, b: { class: 'normal_news', confidence: 0.5 } }),
+      callClaude: async () => ({ status: 'capped' }), alert: vi.fn(), random: () => 1 });
+    expect(result.rows).toHaveLength(0);
+    expect(result.summary).toMatchObject({ fallbackCapHeld: 2, pending: 2, heldForCap: 0 });
+    expect(Object.keys(result.summary)).toEqual(['read', 'skipped', 'written', 'pending', 'jevAttempts',
+      'jevUnavailable', 'fallbackAttempted', 'wrapperFailures', 'heldForCap', 'fallbackCapHeld']);
   });
 
   it('gives a one-item uncertain run one escalation slot', async () => {

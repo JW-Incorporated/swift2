@@ -25,6 +25,9 @@ function parseArgs(argv) {
   }
   return options;
 }
+const TIER_A_CLASSES = new Set(['critical_breaking', 'critical_personal', 'correction_debunk']);
+const isTierA = (classId, config) => Boolean(classId) && (TIER_A_CLASSES.has(classId)
+  || ['P0', 'P1'].includes(config.classes[classId]?.priority));
 const chunks = (rows, size) => Array.from({ length: Math.ceil(rows.length / size) },
   (_, index) => rows.slice(index * size, (index + 1) * size));
 
@@ -49,23 +52,10 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
     inspected.push({ item, candidates, inspected: result });
   }
   const direct = inspected.filter((entry) => entry.inspected.kind === 'decision');
-  const uncertain = inspected.filter((entry) => entry.inspected.kind === 'fallback'
-    && entry.inspected.reason === 'below_threshold');
-  const drift = inspected.filter((entry) => entry.inspected.kind === 'fallback'
-    && entry.inspected.reason === 'drift_sample');
   const requiredFallback = inspected.filter((entry) => entry.inspected.kind === 'fallback'
     && !['below_threshold', 'drift_sample'].includes(entry.inspected.reason));
-  const maxEscalations = uncertain.length + drift.length > 0
-    ? Math.max(1, Math.ceil(pending.length * config.maxEscalationRate)) : 0;
-  const selectedUncertain = uncertain.slice(0, maxEscalations);
-  const driftSlots = Math.max(0, maxEscalations - selectedUncertain.length);
-  const selectedDrift = drift.slice(0, driftSlots);
-  const selectedFallback = new Set([...requiredFallback, ...selectedUncertain, ...selectedDrift]);
-  const fallbackEntries = inspected.filter((entry) => selectedFallback.has(entry));
+  const fallbackEntries = inspected.filter((entry) => entry.inspected.kind === 'fallback');
   const rows = direct.map(({ item, inspected: result }) => decisionRow(item, result, null, config));
-  for (const entry of drift.slice(driftSlots)) {
-    rows.push(decisionRow(entry.item, entry.inspected, null, config));
-  }
   const batchSize = config.fallbackBatchSize;
   const maxFallbackCalls = Math.min(
     config.dailyCaps['tidewatch-fallback'].calls,
@@ -74,13 +64,19 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   let fallbackAttempted = 0;
   let wrapperFailures = 0;
   let fallbackCapHeld = 0;
+  let tierAHeld = 0;
   let processedFallback = 0;
   for (const batch of chunks(fallbackEntries, batchSize)) {
     fallbackAttempted += batch.length;
     const response = await callFallback(batch, { callClaude, config, maxCalls: maxFallbackCalls });
     if (!response.ok) {
       if (response.capped) {
-        fallbackCapHeld = fallbackEntries.length - processedFallback;
+        const capHeld = fallbackEntries.slice(processedFallback);
+        for (const entry of capHeld.filter((held) => isTierA(held.inspected.result?.class, config))) {
+          rows.push({ ...decisionRow(entry.item, entry.inspected, null, config), action: 'shadow_hold_budget' });
+          tierAHeld += 1;
+        }
+        fallbackCapHeld = capHeld.length - tierAHeld;
         break;
       }
       wrapperFailures += batch.length;
@@ -94,7 +90,7 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   }
   const insertedRows = await store.insertDecisions(rows) ?? rows;
   await store.markClassified?.(pending, insertedRows, new Date(now).toISOString());
-  const heldForCap = uncertain.length - selectedUncertain.length;
+  const heldForCap = 0;
   const jevFailures = requiredFallback
     .filter((entry) => entry.inspected.reason !== 'jev_run_fallback').length;
   const summary = {
