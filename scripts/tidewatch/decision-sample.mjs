@@ -24,6 +24,7 @@ export const TIER_C_EACH = 30;
 export const MAX_ITEMS = 160;
 export const MAX_CALLS = 16;
 const CRITICAL = ['critical_breaking', 'critical_personal'];
+const SINCE_SHAPE = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z)?$/;
 const SONNET_SPACE = new Set([...Object.values(CLASS_MAP), 'privacy_redline']);
 
 // Owner decision D-c, appended for this tool only; label-replay's own prompt is untouched.
@@ -102,10 +103,11 @@ export function scoreCollapsed(pairs) {
   };
 }
 
-export function buildReport({ seed, tierAPairs, tierCPairs, sample, calls, stopped, unlabelled, now }) {
+export function buildReport({ seed, since = null, tierAPairs, tierCPairs, sample, calls, stopped, unlabelled, now }) {
   return {
     generatedAt: now.toISOString(),
     seed: String(seed),
+    since,
     note: 'Precision = share of sampled decisions whose class equals the Sonnet label. Tier A sample is all rumor/noise/fan_discussion/critical_* decisions plus random normal_news; duplicate has no Sonnet equivalent so its precision is null.',
     sample: { tierA: sample.tierA.length, tierC: sample.tierC.length, skippedNoText: sample.skippedNoText, unlabelled },
     calls: { used: calls, cap: MAX_CALLS, stopped: stopped ? 'yes' : 'no' },
@@ -119,7 +121,7 @@ const pct = (p) => (p === null ? 'n/a' : `${(p * 100).toFixed(1)}%`);
 
 export function renderMarkdown(report) {
   const lines = [
-    `**Tidewatch decision-precision sample** (${report.generatedAt.slice(0, 16)}Z, seed ${report.seed})`,
+    `**Tidewatch decision-precision sample** (${report.generatedAt.slice(0, 16)}Z, seed ${report.seed}${report.since ? `, since ${report.since}` : ''})`,
     `Sampled Tier A ${report.sample.tierA}, Tier C ${report.sample.tierC}; unlabelled ${report.sample.unlabelled}; calls ${report.calls.used}/${report.calls.cap}`,
   ];
   for (const [title, tier] of [['Tier A (model and rule decisions)', report.tierA], ['Tier C spot-check (code-decided)', report.tierC]]) {
@@ -140,14 +142,18 @@ export function renderMarkdown(report) {
 }
 
 function parseArgs(argv) {
-  const options = { seed: '1', jsonOut: 'tidewatch-decision-sample.json', maxCalls: MAX_CALLS };
+  const options = { seed: '1', since: null, jsonOut: 'tidewatch-decision-sample.json', maxCalls: MAX_CALLS };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--seed') options.seed = argv[++i];
+    else if (argv[i] === '--since') options.since = argv[++i] ?? '';
     else if (argv[i] === '--json-out') options.jsonOut = argv[++i];
     else if (argv[i] === '--max-calls') options.maxCalls = Number(argv[++i]);
-    else throw new Error('usage: decision-sample.mjs [--seed s] [--json-out file] [--max-calls n]');
+    else throw new Error('usage: decision-sample.mjs [--seed s] [--since ISO] [--json-out file] [--max-calls n]');
   }
   if (!/^[\w-]{1,32}$/.test(String(options.seed ?? ''))) throw new Error('--seed must match /^[\\w-]{1,32}$/');
+  if (options.since !== null && !(SINCE_SHAPE.test(options.since) && !Number.isNaN(Date.parse(options.since)))) {
+    throw new Error('--since must be an ISO date or timestamp, e.g. 2026-10-20 or 2026-10-20T12:00Z');
+  }
   return options;
 }
 
@@ -159,7 +165,9 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const client = deps.client ?? serviceClient(env);
   if (!client) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set');
   const call = deps.call ?? createClaudeCaller({ timeoutMs: 120_000 });
-  const rows = await fetchRows(client, env.TIDEWATCH_SHADOW_START || SHADOW_START, COLUMNS);
+  const defaultStart = env.TIDEWATCH_SHADOW_START || SHADOW_START;
+  const start = options.since !== null && Date.parse(options.since) > Date.parse(defaultStart) ? options.since : defaultStart;
+  const rows = await fetchRows(client, start, COLUMNS);
   const sample = sampleRows(rows, { seed: options.seed });
   const all = [...sample.tierA, ...sample.tierC];
   if (all.length > MAX_ITEMS) throw new Error(`sample of ${all.length} exceeds the ${MAX_ITEMS}-item cap`);
@@ -170,7 +178,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     maxCalls: Math.min(options.maxCalls, MAX_CALLS), system: SYSTEM, caller: CALLER });
   const pairsOf = (list) => list.filter((row) => progress.labels[row.id])
     .map((row) => ({ decided: row.class, decider: row.decider, sonnet: progress.labels[row.id].class }));
-  const report = buildReport({ seed: options.seed, tierAPairs: pairsOf(sample.tierA), tierCPairs: pairsOf(sample.tierC),
+  const report = buildReport({ seed: options.seed, since: options.since, tierAPairs: pairsOf(sample.tierA), tierCPairs: pairsOf(sample.tierC),
     sample, calls: result.calls, stopped: result.stopped, unlabelled: result.remaining, now });
   await (deps.writeFile ?? writeFile)(options.jsonOut, `${JSON.stringify(report, null, 2)}\n`);
   const text = renderMarkdown(report);

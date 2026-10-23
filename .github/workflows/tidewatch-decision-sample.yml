@@ -12,6 +12,10 @@ on:
         description: Sampling seed (same seed, same sample)
         required: false
         default: "1"
+      since:
+        description: Only sample decisions with decided_at at or after this ISO date or timestamp (empty = no filter)
+        required: false
+        default: ""
 
 permissions: {}
 
@@ -43,7 +47,11 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SAMPLE_SEED: ${{ inputs.seed }}
-        run: node scripts/tidewatch/decision-sample.mjs --seed "$SAMPLE_SEED" --json-out tidewatch-decision-sample.json
+          SAMPLE_SINCE: ${{ inputs.since }}
+        run: |
+          args=(--seed "$SAMPLE_SEED" --json-out tidewatch-decision-sample.json)
+          if [ -n "$SAMPLE_SINCE" ]; then args+=(--since "$SAMPLE_SINCE"); fi
+          node scripts/tidewatch/decision-sample.mjs "${args[@]}"
       - uses: actions/upload-artifact@v7
         with:
           name: tidewatch-decision-sample
