@@ -152,8 +152,20 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources, came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources (Billboard put the night’s total at nearly $3 million), came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/events/selena-gomez-rare-impact-fund-benefit-2026-martin-short-3m-1236361433/',
+            source_title:
+              'Selena Gomez’s Rare Impact Fund Benefit Raises Nearly $3 Million, Honors Martin Short’s Late Daughter',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-23',
+            reliability_score: 4,
+            notes:
+              'Fetched with a browser User-Agent (HTTP 200). Confirms the event only: the fourth annual benefit at Hollywood Palladium on Oct. 14, 2026 and the near-$3 million total. It does not carry the Taylor quote, which rests on the ET-sourced outlets above.',
+          },
           {
             outlet: 'Cheat Sheet',
             url: 'https://www.cheatsheet.com/news/music/selena-gomez-confesses-taylor-swift-has-one-thing-over-her-in-marriage.html/',
