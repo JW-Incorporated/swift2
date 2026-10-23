@@ -88,6 +88,47 @@ describe('Tidewatch classifier', () => {
     expect(callInput?.user).not.toContain('**admin**');
   });
 
+  describe('fallback label id matching', () => {
+    const run = (ids: string[], returned: string[]) => callFallback(
+      ids.map((id) => ({ item: item(id), candidates: [] })),
+      {
+        config, maxCalls: 1,
+        callClaude: async () => ({
+          status: 'ok',
+          data: { labels: returned.map((id) => ({ id, class: 'noise', injection: 'no' })) },
+        }),
+      },
+    );
+
+    it('maps sanitized ids back to the real id', async () => {
+      const response = await run(['theory_bundle:x:y'], ['theory bundle:x:y']);
+      expect(response.ok).toBe(true);
+      if (!response.ok) return;
+      expect([...response.labels.keys()]).toEqual(['theory_bundle:x:y']);
+      expect(response.labels.get('theory_bundle:x:y')?.id).toBe('theory_bundle:x:y');
+    });
+
+    it('still accepts raw id echoes', async () => {
+      const response = await run(['theory_bundle:x:y'], ['theory_bundle:x:y']);
+      expect(response.ok).toBe(true);
+    });
+
+    it('rejects unknown ids', async () => {
+      const response = await run(['theory_bundle:x:y'], ['other:id']);
+      expect(response).toMatchObject({ ok: false, reason: 'Claude wrapper invalid labels' });
+    });
+
+    it('rejects duplicates resolving to the same real id', async () => {
+      const response = await run(['theory_bundle:x:y'], ['theory bundle:x:y', 'theory_bundle:x:y']);
+      expect(response).toMatchObject({ ok: false, reason: 'Claude wrapper invalid labels' });
+    });
+
+    it('rejects ids whose normalized form is ambiguous', async () => {
+      const response = await run(['a_b', 'a*b'], ['a b', 'a_b']);
+      expect(response).toMatchObject({ ok: false, reason: 'Claude wrapper invalid labels' });
+    });
+  });
+
   it('keeps a full main run shadow-only and stamps the story timeline', async () => {
     const writes: { table: string; rows: unknown[] }[] = [];
     const row = { ...item('a'), story_id: 'story-a' };
