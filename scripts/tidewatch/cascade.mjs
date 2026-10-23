@@ -59,9 +59,9 @@ export function duplicateOf(item, candidates, config) {
   return null;
 }
 
+export const redlineHint = (item) => screenTopic(item.excerpt ?? '') || null;
+
 export function codePrefilter(item, candidates, config) {
-  const redline = screenTopic(item.excerpt ?? '');
-  if (redline) return { class: 'privacy_redline', confidence: 1, reason: redline };
   const duplicate = duplicateOf(item, candidates, config);
   if (duplicate) return { class: 'duplicate', confidence: 1, reason: duplicate.kind };
   return null;
@@ -76,12 +76,14 @@ function ageText(firstSeenAt, now) {
 export function stateFor(item, candidates = [], now = Date.now()) {
   const candidateLines = candidates.slice(0, 8).map((candidate, index) =>
     `candidate ${index + 1}: source=${candidate.source}; reference=${candidate.source_ref ?? 'none'}; text=${candidate.excerpt ?? '(no stored excerpt)'}`);
+  const hint = redlineHint(item);
   return [
     `item id: ${item.id}`,
     `source: ${item.source}`,
     `source reference: ${item.source_ref ?? 'none'}`,
     `age: ${ageText(item.first_seen_at, now)}`,
     `text: ${item.excerpt ?? '(no stored excerpt)'}`,
+    ...(hint ? [`redline_hint: ${hint} (keyword match only; a hint, not a verdict; confirmed announcements are not speculation)`] : []),
     ...candidateLines,
   ].join('\n');
 }
@@ -203,6 +205,7 @@ export function decisionRow(item, inspected, fallbackLabel, config) {
     model_id: fallback && !drift ? config.fallbackModel : inspected.modelId ?? null,
     answers: {
       ...inspected.answers,
+      ...(redlineHint(item) ? { redline_hint: redlineHint(item) } : {}),
       ...(fallbackLabel ? { haiku: { class: fallbackLabel.class, injection: fallbackLabel.injection, drift } } : {}),
     },
     action: injection ? 'shadow_hold_injection' : 'shadow_only',

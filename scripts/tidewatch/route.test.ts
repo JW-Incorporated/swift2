@@ -106,7 +106,7 @@ async function transitiveLocalImports(entry: string) {
 }
 
 describe('Tidewatch shadow action router', () => {
-  it.each(Object.entries(ROUTE_BY_CLASS))('routes %s through the approved %s path', (classId, route) => {
+  it.each(Object.entries(ROUTE_BY_CLASS).filter(([classId]) => classId !== 'privacy_redline'))('routes %s through the approved %s path', (classId, route) => {
     const plan = planActions(classId, {}, 1, verified, config);
     expect(plan).toMatchObject({ classId, impliedClass: classId, state: 'planned' });
     expect(plan.actions).toEqual([route]);
@@ -214,6 +214,26 @@ describe('Tidewatch shadow action router', () => {
     expect(result.failures).toEqual([]);
   });
 
+  it('vetoes publish for a redline-hinted item or a privacy_redline class even when enabled at high confidence', async () => {
+    const enabledConfig = structuredClone(config);
+    enabledConfig.classes.critical_personal.enabled = true;
+    enabledConfig.classes.privacy_redline.enabled = true;
+    const personal = vi.fn(async () => true);
+    const drop = vi.fn(async () => true);
+    const store = memoryStore();
+    const result = await routeDecisions({
+      decisions: [
+        decision({ id: 'hinted', class: 'critical_personal', confidence: 1, answers: { redline_hint: 'body' } }),
+        decision({ id: 'redline', class: 'privacy_redline', confidence: 1, answers: {} }),
+      ],
+      store, config: enabledConfig, live: true,
+      actionHandlers: { critical_personal_path: personal, drop_hash_only: drop }, actionRunners: {} });
+    expect(result.plans.map((plan) => plan.actions)).toEqual([['hold_redline'], ['hold_redline']]);
+    expect(result.plans.every((plan) => plan.state === 'held')).toBe(true);
+    expect(personal).not.toHaveBeenCalled();
+    expect(drop).not.toHaveBeenCalled();
+  });
+
   it('records a stable action_ref once when the same decision is rerun', async () => {
     const store = memoryStore();
     const first = await routeDecisions({ decisions: [decision()], store, config });
@@ -276,7 +296,8 @@ describe('Tidewatch shadow action router', () => {
     expect(result.mode).toBe('route-table-smoke-test');
     expect(result.recordedInputs).toBe(0);
     expect(result.plans).toHaveLength(600);
-    expect(result.plans.every((plan: { state: string }) => plan.state === 'planned')).toBe(true);
+    expect(result.plans.every((plan: { state: string; classId: string }) =>
+      plan.state === (plan.classId === 'privacy_redline' ? 'held' : 'planned'))).toBe(true);
     expect(summaryMarkdown(result)).toContain('Tidewatch route-table smoke test');
   });
 

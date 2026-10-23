@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
-import { callFallback, codePrefilter } from './cascade.mjs';
+import { callFallback, codePrefilter, decisionRow, stateFor } from './cascade.mjs';
 import { classifyItems, evalReport, evaluateReplay, isCandidate, main } from './classify.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
@@ -109,9 +109,23 @@ describe('Tidewatch classifier', () => {
     expect(writes[1].rows).toEqual([{ story_id: 'story-a', classified_at: '2026-10-15T00:00:00.000Z' }]);
   });
 
-  it('prefilters redlines, story ids, URLs, and near-identical titles in code', () => {
-    expect(codePrefilter(item('redline', 'Fans say she looks pregnant'), [], config)?.class)
-      .toBe('privacy_redline');
+  it('does not decide on a redline blocklist hit; it passes a hint to the model state and persists it', async () => {
+    const pregnant = item('redline', 'Taylor Swift and Travis Kelce announce they are pregnant, confirmed on her official account');
+    expect(codePrefilter(pregnant, [], config)).toBeNull();
+    expect(stateFor(pregnant, [])).toMatch(/^redline_hint: /m);
+    expect(stateFor(item('plain'), [])).not.toContain('redline_hint');
+    const jev = jevFor({ redline: { class: 'critical_personal', confidence: 0.95 } });
+    const result = await classifyItems({ items: [pregnant], candidates: [], store: memoryStore(), config,
+      jev, callClaude: vi.fn(), alert: vi.fn(), random: () => 1 });
+    expect(jev.ask).toHaveBeenCalledTimes(1);
+    expect(jev.ask.mock.calls[0][0].state).toMatch(/^redline_hint: /m);
+    expect(result.rows[0]).toMatchObject({ item_id: 'redline', class: 'critical_personal', decider: 'jev' });
+    expect((result.rows[0].answers as Record<string, unknown>).redline_hint).toBeTruthy();
+    expect((decisionRow(pregnant, { kind: 'fallback' }, { class: 'noise', injection: 'no' }, config)
+      .answers as Record<string, unknown>).redline_hint).toBeTruthy();
+  });
+
+  it('prefilters story ids, URLs, and near-identical titles in code', () => {
     const current = { ...item('current'), story_id: 'story-1' };
     expect(codePrefilter(current, [{ ...item('story'), story_id: 'story-1' }], config)?.class)
       .toBe('duplicate');
@@ -230,12 +244,13 @@ describe('Tidewatch classifier', () => {
   });
 
   it('applies code rules and holds non-code items when the fallback cap is reached', async () => {
-    const rows = [item('a'), item('redline', 'Fans say she looks pregnant'), item('c')];
+    const rows = [item('a'), { ...item('dup'), story_id: 'story-1' }, item('c')];
+    const candidates = [{ ...item('story'), story_id: 'story-1' }];
     const jev = { ask: vi.fn(async () => { throw Object.assign(new Error('credits'), { status: 402 }); }) };
-    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+    const result = await classifyItems({ items: rows, candidates, store: memoryStore(), config,
       jev, callClaude: async () => ({ status: 'capped' }), alert: vi.fn(), random: () => 1 });
     expect(result.rows).toHaveLength(1);
-    expect(result.rows[0]).toMatchObject({ item_id: 'redline', class: 'privacy_redline', decider: 'code' });
+    expect(result.rows[0]).toMatchObject({ item_id: 'dup', class: 'duplicate', decider: 'code' });
     expect(result.summary.fallbackCapHeld).toBe(2);
     expect(result.summary.pending).toBe(2);
   });
