@@ -26,16 +26,23 @@ function isYes(answer) {
   return answer?.type === 'noul' && answer.probability >= 0.5;
 }
 
+function speculativePersonal(answers, config) {
+  const raw = jevAnswers(answers);
+  return raw?.q_speculation?.type === 'noul'
+    && raw.q_speculation.probability >= config.classes.privacy_redline.thresholds.act
+    && raw.q_personal?.type === 'noul' && raw.q_personal.probability >= 0.3;
+}
+
 export function impliedClass(classId, answers, config) {
   const raw = jevAnswers(answers);
-  if (raw) return classFromAnswers(raw, config)?.class ?? classId;
+  if (raw) return classFromAnswers(raw, config, answers.redline_hint)?.class ?? classId;
   return answers?.haiku?.class ?? classId;
 }
 
 function answerRoute(answers, config) {
   const raw = jevAnswers(answers);
   if (!raw) return null;
-  const result = classFromAnswers(raw, config);
+  const result = classFromAnswers(raw, config, answers.redline_hint);
   if (!result || result.confidence < config.classes[result.class].thresholds.act) return null;
   return ROUTE_BY_CLASS[result.class];
 }
@@ -51,7 +58,7 @@ export function planActions(classId, answers, confidence, storyTimeline, config)
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_injection'] };
   }
-  if (answers?.redline_hint || classId === 'privacy_redline') {
+  if (answers?.redline_hint || classId === 'privacy_redline' || speculativePersonal(answers, config)) {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_redline'] };
   }

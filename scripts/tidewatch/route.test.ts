@@ -214,6 +214,25 @@ describe('Tidewatch shadow action router', () => {
     expect(result.failures).toEqual([]);
   });
 
+  it('holds a decided normal_news row whose Jev answers show speculation about a personal subject', async () => {
+    const speculative = { jev: { q_speculation: { type: 'noul', probability: 0.9 },
+      q_personal: { type: 'noul', probability: 0.4 } }, haiku: { class: 'normal_news' } };
+    for (const [other, expected] of [[0.05, false], [0.4, true]] as const) {
+      const answers = structuredClone(speculative);
+      answers.jev.q_personal.probability = other;
+      expect(planActions('normal_news', answers, 1, null, config).actions.includes('hold_redline')).toBe(expected);
+    }
+    const enabledConfig = structuredClone(config);
+    enabledConfig.classes.normal_news.enabled = true;
+    const normal = vi.fn(async () => true);
+    const result = await routeDecisions({
+      decisions: [decision({ id: 'mislabelled', class: 'normal_news', confidence: 1, answers: speculative })],
+      store: memoryStore(), config: enabledConfig, live: true,
+      actionHandlers: { normal_flow: normal }, actionRunners: {} });
+    expect(result.plans[0]).toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(normal).not.toHaveBeenCalled();
+  });
+
   it('vetoes publish for a redline-hinted item or a privacy_redline class even when enabled at high confidence', async () => {
     const enabledConfig = structuredClone(config);
     enabledConfig.classes.critical_personal.enabled = true;
@@ -272,13 +291,19 @@ describe('Tidewatch shadow action router', () => {
     } } }, 1, null, config);
     const redlineConflict = planActions('normal_news', { jev: { q_speculation: {
       type: 'noul', probability: 0.9,
-    } } }, 1, null, config);
+    }, q_personal: { type: 'noul', probability: 0.9 } } }, 1, null, config);
     const lowConfidenceHaikuEscalation = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.4 },
     } }, haiku: { class: 'normal_news' } }, 1, null, config);
     const agreements = Array.from({ length: 18 }, () => planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 },
     } } }, 1, null, config));
+    const unflaggedSpeculation = planActions('normal_news', { jev: { q_speculation: {
+      type: 'noul', probability: 0.9,
+    }, q_personal: { type: 'noul', probability: 0.05 } } }, 1, null, config);
+    expect(unflaggedSpeculation.actions).not.toEqual(['hold_redline']);
+    expect(disagreementMetric([unflaggedSpeculation, ...agreements]))
+      .toEqual({ count: 0, total: 18, rate: 0, stop: false });
     const metric = disagreementMetric([rumorConflict, redlineConflict,
       lowConfidenceHaikuEscalation, ...agreements]);
     expect(metric).toEqual({ count: 2, total: 20, rate: 0.1, stop: false });
