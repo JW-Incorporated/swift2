@@ -69,11 +69,13 @@ export function buildMatcherInput({
 export async function readTidewatchItems(client, limit = DEFAULT_LOOK_CAP) {
   if (!client) return [];
   const { data, error } = await client.from('watch_decision')
-    .select('decided_at, watch_item!inner(source_ref, excerpt)')
+    .select('decided_at, answers, watch_item!inner(source_ref, excerpt)')
     .eq('class', 'merch_outfit').eq('shadow', false)
+    .is('answers->redline_hint', null)
     .order('decided_at', { ascending: false }).limit(limit);
   if (error) throw error;
   return (data ?? []).flatMap((row) => {
+    if (row.answers?.redline_hint) return [];
     try {
       const source = JSON.parse(row.watch_item?.source_ref ?? 'null');
       return source?.momentImageUrl ? [{ ...source, source: 'tidewatch', occurredAt: Date.parse(row.decided_at) }] : [];

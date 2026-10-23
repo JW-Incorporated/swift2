@@ -51,6 +51,10 @@ export function planActions(classId, answers, confidence, storyTimeline, config)
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_injection'] };
   }
+  if (answers?.redline_hint || classId === 'privacy_redline') {
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_redline'] };
+  }
   if (confidence < classConfig.thresholds.act) {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_below_threshold'] };
