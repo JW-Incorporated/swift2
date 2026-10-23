@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
+import { resolveSourceUrls } from '../sources/resolve-google-news';
 import type { ExtractCommentThread } from './types';
 import type { ClusterSource } from './write-knowledge';
 
@@ -118,4 +119,26 @@ export async function loadClusterSources(
     url: row.url as string,
     tier: row.tier as ClusterSource['tier'],
   }));
+}
+
+/** Resolves any still-opaque Google News source URL to its publisher URL (with
+ * the tier the domain map earns) and persists the rewrite, so image-resolve and
+ * every later reader of `news_story_source` see the publisher. Fail-soft. */
+export async function resolveClusterSources(
+  db: SupabaseClient,
+  storyId: string,
+  sources: ClusterSource[],
+): Promise<ClusterSource[]> {
+  const { sources: resolved, changed } = await resolveSourceUrls(sources);
+  for (const change of changed) {
+    const { error } = await db
+      .from('news_story_source')
+      .update({ url: change.to, tier: change.tier })
+      .eq('story_id', storyId)
+      .eq('url', change.from);
+    if (error) {
+      console.error(`could not persist resolved source url for story ${storyId}: ${error.message}`);
+    }
+  }
+  return resolved;
 }

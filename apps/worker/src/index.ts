@@ -9,6 +9,7 @@ import { createWorkerDbClient } from './db/client';
 import { hasClaudeSubscriptionToken } from './claude-call';
 import { detectExtractDegraded } from './extract/degraded';
 import { runCycle } from './pipeline/run-cycle';
+import { gnewsResolutionWarning, runStats } from './run-stats';
 import { PRIMARY_SOURCES } from './sources/registry';
 
 async function main() {
@@ -55,11 +56,16 @@ async function main() {
     screenedOut: result.extract.screenedOut,
     skipped: result.extract.skipped,
     deferred: result.extract.deferred,
+    heldImagesChecked: result.extract.heldImagesChecked,
+    heldImagesPublished: result.extract.heldImagesPublished,
+    ...runStats,
     errorCount: result.errors.length,
     schemaPending: pendingErrors.length,
     realErrors: realErrors.length,
     mode: primary ? 'primary' : 'all',
   });
+  const gnewsWarning = gnewsResolutionWarning(runStats);
+  if (gnewsWarning) console.warn(`::warning title=gnews-unresolved::${gnewsWarning}`);
   for (const err of realErrors) console.error(`news-worker: ${err}`);
   if (pendingErrors.length > 0) {
     console.warn(
