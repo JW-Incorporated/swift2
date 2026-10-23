@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 95
+
+## Rumors of Taylor Swift's debut album rerelease circulate this week
+
+- first seen: 2026-10-23 00:57 UTC | category: release | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: There are rumors suggesting that Taylor Swift may be rereleasing her debut album this week, as reported by Yahoo. Further details have yet to be confirmed.
+- sources:
+  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdWU2a21BeUR6MFpUeDhIcWwtR25lbldhUkJLRng4M1JHREhiVXo0X2VSTTNRY19yaUhQRlZCdHk1OXFfNE93Q3dLU2hxZDVnM0VWQU5GdmdGVm14S0l2eW9XNlYySl93QU16RWpxVXN6czVtTHFCSjF3QVpxeHoxczE4VGpMQWhETGx2ZA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Gowns Inspire Shift from Black Wedding Guest Dresses
+
+- first seen: 2026-10-22 23:27 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's elegant gowns are encouraging a move away from traditional black wedding guest dresses towards a more sophisticated color choice. This trend reflects her influence in the fashion world and offers new options for wedding attire.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQSnQwNU1vbklWazZVN2V0ZUtPR0UtSmFGUy1lbUtleVVsdUNjaEdfbzIwNW9IT2VWUVNuZmVUVVU5djZzTnkzSFU1eVNPUC05dTV2b2RUYWY4NVJnZ181Ymlfb09sYUY5RzdjOS1hR0hDZXdDamMtNzJHdVhqa2YtX0pDb2Etc2FNUEhpcmF3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Daily Bruin Ranks Taylor Swift's Albums After 20 Years of Her Career
+
+- first seen: 2026-10-22 23:27 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The Daily Bruin published a ranking of Taylor Swift's albums, celebrating 20 years of her music career. The article reflects on the lasting impact of her work, particularly focusing on which albums will continue to resonate with fans.
+- sources:
+  - [unverified] Daily Bruin — https://news.google.com/rss/articles/CBMisgFBVV95cUxNY3lxZS1xcUxTMXBhSEtkNENxbXZUQjFFU3hPWkVvNDAyVE5BUmxGeUhMa2NNUkM3Zm8zWERRaEFWZ2h6MkV3eDhET3p3cm96a3U2VWt3N0FiWVRlR21UQTlpX3RjVENWSksyQWgzR2FEZEpQUVBzcXBKX1lkeUNmMWJWbFRlQzZhaVdiYXZXT05fRHFCLTNiTzRHZm95QnRWRHJrOXJhYVhLNU4wczhjU05B?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Rhode Island Mansion History Explored
 
@@ -762,11 +786,3 @@ Stories: 93
 - summary: Republic Records dominates the Billboard 200 Top 10, featuring eight albums, with Taylor Swift leading the list. This highlights the significant impact of her music on the charts.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxPbWY0eEUwOERwT2prVHl2SWNzbDVvcFBPQ2VMbGVSUjFlRUFrdm9LYjRGTXl1YThkSDV3cUZ5WWNKY3RZb2VZZEZxVVFoVDZLT0NrUEp4TlNYY3pILWpCdUVGNkRRZ1ctZnh4V0MxdEFSRWNOY2RLZVc3RU1QaFRFWWF2VUtBTzBpdXROaEktUmsta2FZbWo2dl8tOTRuNWloRjV1QV9FUFJPMG81RmhZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Changes Her Wedding Ring Stack Style
-
-- first seen: 2026-10-20 00:26 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift recently made a subtle change to her wedding ring stack, showcasing her evolving style. The update was highlighted in an article by InStyle.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMinwFBVV95cUxQeS1jVC05eVlIbk9sOWlOckt6LTlvd0pxZjFjMFhrSnQ3VTB3cVZhRHZxYUVMOFBCbnJxWVAyUHJQLUJoalg1VWFIMkU3cFJGTVJGUHhXaWlzd1pSRlY2OTEzSmFVbnluOTYyUW1IdkNneXYwTjA3WFdWRHM2U1p6c24wTEVjV2VSQlhlR1haSll5WVp4OFZRdnFIcjdubDQ?oc=5&hl=en-US&gl=US&ceid=US:en
