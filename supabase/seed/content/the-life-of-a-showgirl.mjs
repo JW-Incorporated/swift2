@@ -16479,6 +16479,55 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-10-23 (Vault Run, Content Shift lane) from intake #6258.
+      // Read directly from Elle's page (browser UA). taylorswift.com renders
+      // client-side, so the tribute text could not be read from this
+      // environment and the site is not cited as read. CUT: the fan
+      // "Taylor's Version" theory Elle relays. It is speculation and already
+      // lives in the debut page's rumor container, so it stays out of this
+      // confirmed narrative.
+      slug: 'showgirl-website-20-years-debut-tribute',
+      year: 2026,
+      month: 10,
+      day: 23,
+      category: 'music',
+      title: 'Confetti on the debut page: "20 years of Taylor Swift"',
+      snippet:
+        'The day before her self-titled debut turned 20, Taylor\'s website marked it before her socials did.',
+      sourceUrl: 'https://www.elle.com/culture/music/a74231089/taylor-swift-debut-album-anniversary/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her self-titled debut came out on Oct. 24, 2006. With the 20th anniversary a day away and nothing posted on her socials yet, Taylor\'s official website got there first. As Elle reported on Oct. 23, 2026, the debut album\'s page on taylorswift.com now has confetti and a "20 years of Taylor Swift" message, set alongside photos of her from every album era.\n\nNo new project came with it. In the 2025 letter about buying back the masters to her first six albums, she had written: "I\'ve already completely rerecorded my entire debut album, and I really love how it sounds now," adding that it could "re-emerge when the time is right." As of the website update, nothing has been announced.',
+        sources: [
+          {
+            outlet: 'Elle',
+            url: 'https://www.elle.com/culture/music/a74231089/taylor-swift-debut-album-anniversary/',
+            source_title: "Taylor Swift Quietly Changed Her Website Ahead of Her Debut Album's 20th Anniversary",
+            publisher: 'Elle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-23',
+            reliability_score: 4,
+            notes:
+              'By Alyssa Bailey, Oct. 23, 2026; loaded directly. Primary text for the confetti, the "20 years of Taylor Swift" message, the every-era photos, "hasn\'t announced any new projects yet," and the masters-letter quote.',
+          },
+        ],
+        // Visual (charter step 3b): no free-licensed capture of the web page,
+        // so this is an archival photo of the album being celebrated. Commons,
+        // CC BY 2.0 (Brian Cantoni), also used on the debut page; curl 200
+        // image/jpeg 2026-10-23, vision-confirmed (framed debut plaque).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg',
+            focalPoint: '48% 30%',
+            credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
+            caption: 'Then: Taylor holding up a certified-sales plaque for the debut album, May 2007.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
