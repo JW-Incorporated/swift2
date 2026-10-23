@@ -27,12 +27,14 @@ describe('P2-11 matcher Tidewatch transport', () => {
     const limit = vi.fn(async () => ({ data: [row], error: null }));
     const query = {
       eq: vi.fn(() => query),
+      is: vi.fn(() => query),
       order: vi.fn(() => ({ limit })),
     };
     const select = vi.fn(() => query);
     const client = { from: vi.fn(() => ({ select })) };
 
     const tidewatchItems = await readTidewatchItems(client, 3);
+    expect(query.is).toHaveBeenCalledWith('answers->redline_hint', null);
     const input = buildMatcherInput({
       corpora: [], tidewatchItems,
       tidewatchClass: { enabled: true, shadow: false },
@@ -47,6 +49,19 @@ describe('P2-11 matcher Tidewatch transport', () => {
       moment: { id: 'vault-lover-replayed-look', title: 'Replayed look' },
       momentImageUrl: 'https://images.example/replayed-look.jpg',
     })]);
+  });
+
+  it('excludes a redline-hinted merch_outfit row', async () => {
+    const source_ref = JSON.stringify({ moment: { id: 'm' }, momentImageUrl: 'https://images.example/a.jpg' });
+    const hinted = { decided_at: '2026-10-15T12:00:00.000Z', answers: { redline_hint: 'privacy_redline' }, watch_item: { source_ref } };
+    const clean = { decided_at: '2026-10-15T11:00:00.000Z', answers: {}, watch_item: { source_ref } };
+    const limit = vi.fn(async () => ({ data: [hinted, clean], error: null }));
+    const query = { eq: vi.fn(() => query), is: vi.fn(() => query), order: vi.fn(() => ({ limit })) };
+    const client = { from: vi.fn(() => ({ select: vi.fn(() => query) })) };
+
+    const items = await readTidewatchItems(client, 3);
+    expect(items).toHaveLength(1);
+    expect(items[0].occurredAt).toBe(Date.parse(clean.decided_at));
   });
 
   it('does not create a Supabase client with main default-off config', async () => {
