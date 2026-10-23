@@ -272,6 +272,56 @@ describe('Tidewatch classifier', () => {
     expect(result.summary.heldForCap).toBe(0);
   });
 
+  it('writes shadow_hold_budget rows for P1 official_drop and named correction_debunk under an exhausted cap', async () => {
+    const rows = [item('drop'), item('fix')];
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: jevFor({ drop: { class: 'official_drop', confidence: 0.5 },
+        fix: { class: 'correction_debunk', confidence: 0.5 } }),
+      callClaude: async () => ({ status: 'capped' }), alert: vi.fn(), random: () => 1 });
+    expect(result.rows.map((row) => [row.item_id, row.action])).toEqual([
+      ['drop', 'shadow_hold_budget'], ['fix', 'shadow_hold_budget']]);
+  });
+
+  it('keeps shadow_hold_injection on a Tier A cap-held row whose answers flag injection', async () => {
+    const result = await classifyItems({ items: [item('inj')], candidates: [], store: memoryStore(), config,
+      jev: jevFor({ inj: { class: 'critical_breaking', confidence: 0.5, injection: true } }),
+      callClaude: async () => ({ status: 'capped' }), alert: vi.fn(), random: () => 1 });
+    expect(result.rows).toHaveLength(1);
+    expect(result.rows[0]).toMatchObject({ item_id: 'inj', action: 'shadow_hold_injection' });
+  });
+
+  it('writes the first successful batch as haiku rows and applies cap rules to the remainder', async () => {
+    const rows = Array.from({ length: 12 }, (_, index) => item(`i${index}`));
+    const outputs = Object.fromEntries(rows.map(({ id }, index) => [id,
+      { class: index === 11 ? 'critical_breaking' : 'noise', confidence: 0.5 }]));
+    let calls = 0;
+    const callClaude = vi.fn(async ({ user }) => {
+      calls += 1;
+      if (calls > 1) return { status: 'capped' };
+      return { status: 'ok', data: { labels: rows
+        .filter(({ id }) => user.includes(`item id: ${id}`)).map(({ id }) => ({ id, class: 'noise', injection: 'no' })) } };
+    });
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev: jevFor(outputs), callClaude, alert: vi.fn(), random: () => 1 });
+    expect(result.rows.filter((row) => row.decider === 'haiku')).toHaveLength(10);
+    const rest = result.rows.filter((row) => row.decider !== 'haiku');
+    expect(rest).toHaveLength(1);
+    expect(rest[0]).toMatchObject({ item_id: 'i11', action: 'shadow_hold_budget' });
+    expect(result.summary.fallbackCapHeld).toBe(1);
+  });
+
+  it('ignores maxEscalationRate: it is alert-only', async () => {
+    const rows = Array.from({ length: 5 }, (_, index) => item(`r${index}`));
+    const zero = { ...config, maxEscalationRate: 0 };
+    const callClaude = vi.fn(async ({ user }) => ({ status: 'ok', data: { labels: rows
+      .filter(({ id }) => user.includes(`item id: ${id}`)).map(({ id }) => ({ id, class: 'noise', injection: 'no' })) } }));
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config: zero,
+      jev: jevFor(Object.fromEntries(rows.map(({ id }) => [id, { class: 'noise', confidence: 0.5 }]))),
+      callClaude, random: () => 1 });
+    expect(result.rows.filter((row) => row.decider === 'haiku')).toHaveLength(5);
+    expect(result.summary.heldForCap).toBe(0);
+  });
+
   it('keeps the existing hold for non-Tier-A items under an exhausted daily cap', async () => {
     const rows = [item('a'), item('b')];
     const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,

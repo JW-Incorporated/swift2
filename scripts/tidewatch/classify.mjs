@@ -73,7 +73,9 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
       if (response.capped) {
         const capHeld = fallbackEntries.slice(processedFallback);
         for (const entry of capHeld.filter((held) => isTierA(held.inspected.result?.class, config))) {
-          rows.push({ ...decisionRow(entry.item, entry.inspected, null, config), action: 'shadow_hold_budget' });
+          const held = decisionRow(entry.item, entry.inspected, null, config);
+          rows.push(entry.inspected.answers?.injection === true ? held
+            : { ...held, action: 'shadow_hold_budget' });
           tierAHeld += 1;
         }
         fallbackCapHeld = capHeld.length - tierAHeld;
@@ -90,6 +92,7 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   }
   const insertedRows = await store.insertDecisions(rows) ?? rows;
   await store.markClassified?.(pending, insertedRows, new Date(now).toISOString());
+  // maxEscalationRate is now alert-only (unused here); fallback calls are bounded per run by maxCalls, and items decided by Haiku get a row so are never re-asked; per-day volume is bounded by item intake (no cross-run ledger yet; P0-07).
   const heldForCap = 0;
   const jevFailures = requiredFallback
     .filter((entry) => entry.inspected.reason !== 'jev_run_fallback').length;
