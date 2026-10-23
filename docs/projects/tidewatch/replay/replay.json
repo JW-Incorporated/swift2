@@ -10,14 +10,14 @@
  "counts": {
   "total": 771,
   "byClass": {
-   "normal_news": 306,
-   "official_drop": 17,
-   "critical_breaking": 15,
-   "rumor": 35,
-   "fan_discussion": 159,
-   "tour_ticket": 11,
+   "normal_news": 303,
+   "official_drop": 13,
+   "critical_breaking": 19,
+   "rumor": 33,
+   "fan_discussion": 160,
+   "tour_ticket": 8,
    "merch_outfit": 46,
-   "privacy_redline": 7,
+   "privacy_redline": 14,
    "noise": 52,
    "theory_material": 48,
    "correction_debunk": 2,
@@ -32,7 +32,7 @@
    "merch": 60,
    "theory_bundle": 40
   },
-  "critical": 15,
+  "critical": 19,
   "personal": 6,
   "synthetic": 21,
   "belowFloor": false
@@ -200,7 +200,7 @@
     ]
    },
    "synthetic": false,
-   "class": "official_drop",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": true,
@@ -268,7 +268,7 @@
     ]
    },
    "synthetic": false,
-   "class": "critical_breaking",
+   "class": "official_drop",
    "answers": {
     "q_class": "critical_work_news",
     "q_official": true,
@@ -1620,7 +1620,7 @@
     ]
    },
    "synthetic": false,
-   "class": "privacy_redline",
+   "class": "fan_discussion",
    "answers": {
     "q_class": "fan_discussion",
     "q_official": false,
@@ -2650,7 +2650,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -3150,7 +3150,7 @@
     ]
    },
    "synthetic": false,
-   "class": "rumor",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "rumor_or_unconfirmed",
     "q_official": false,
@@ -3824,7 +3824,7 @@
     ]
    },
    "synthetic": false,
-   "class": "rumor",
+   "class": "normal_news",
    "answers": {
     "q_class": "rumor_or_unconfirmed",
     "q_official": false,
@@ -4668,7 +4668,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -4740,7 +4740,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -6536,7 +6536,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -12126,7 +12126,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -12198,7 +12198,7 @@
     ]
    },
    "synthetic": false,
-   "class": "official_drop",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": false,
@@ -12860,7 +12860,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -13034,7 +13034,7 @@
     ]
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "privacy_redline",
    "answers": {
     "q_class": "general_news",
     "q_official": false,
@@ -14102,7 +14102,7 @@
     ]
    },
    "synthetic": false,
-   "class": "official_drop",
+   "class": "normal_news",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": false,
@@ -14848,7 +14848,7 @@
     ]
    },
    "synthetic": false,
-   "class": "official_drop",
+   "class": "normal_news",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": true,
@@ -15376,7 +15376,7 @@
     ]
    },
    "synthetic": false,
-   "class": "critical_breaking",
+   "class": "normal_news",
    "answers": {
     "q_class": "critical_work_news",
     "q_official": false,
@@ -15660,7 +15660,7 @@
     ]
    },
    "synthetic": false,
-   "class": "critical_breaking",
+   "class": "normal_news",
    "answers": {
     "q_class": "critical_work_news",
     "q_official": false,
@@ -23645,7 +23645,7 @@
     "sourceCount": 1
    },
    "synthetic": false,
-   "class": "normal_news",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "general_news",
     "q_official": true,
@@ -24768,7 +24768,7 @@
    },
    "synthetic": true,
    "expectedClass": "critical_breaking",
-   "class": "tour_ticket",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "tour_or_ticket_update",
     "q_official": true,
@@ -24803,7 +24803,7 @@
    },
    "synthetic": true,
    "expectedClass": "critical_breaking",
-   "class": "tour_ticket",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "tour_or_ticket_update",
     "q_official": true,
@@ -24838,7 +24838,7 @@
    },
    "synthetic": true,
    "expectedClass": "critical_breaking",
-   "class": "official_drop",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": true,
@@ -25083,7 +25083,7 @@
    },
    "synthetic": true,
    "expectedClass": "critical_breaking",
-   "class": "tour_ticket",
+   "class": "critical_breaking",
    "answers": {
     "q_class": "tour_or_ticket_update",
     "q_official": true,
