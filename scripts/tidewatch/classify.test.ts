@@ -387,6 +387,18 @@ describe('Tidewatch classifier', () => {
     expect(report).toContain('tier-a-candidate-recall critical_breaking candidates=1/1 recall=1.000');
     expect(report).toContain('tier-a-candidate-recall critical_personal candidates=0/1 recall=0.000');
     expect(report).toContain('tier-a-candidate-recall combined candidates=1/2 recall=0.500');
+    expect(isCandidate(row({ q_class: choice('correction_debunk', 0.5) }), config)).toBe(true);
+    expect(isCandidate({ decider: 'haiku', answers: { haiku: { class: 'correction_debunk' } } }, config)).toBe(true);
+  });
+
+  it('counts a Jev-flagged candidate in eval even when the wrapper fails and the item stays pending', async () => {
+    const replay = { items: [{ id: 'w', kind: 'news_story', title: 'w', class: 'correction_debunk' }] };
+    const flagged = jevFor({ w: { class: 'correction_debunk', confidence: 0.6 } });
+    const callClaude = vi.fn(async () => ({ status: 'error' }));
+    const result = await evaluateReplay(replay, { config, jev: flagged, callClaude });
+    expect(result.rows).toHaveLength(0);
+    expect(result.report).toContain('tier-a-candidate-recall correction_debunk candidates=1/1 recall=1.000');
+    expect(result.report).toContain('pending=1');
   });
 
   it('runs eval uncapped so every escalation resolves past the daily fallback call cap', async () => {
