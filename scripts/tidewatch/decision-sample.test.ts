@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error plain .mjs module
-import { MAX_ITEMS, SYSTEM, main, renderMarkdown, sampleRows, scorePairs } from './decision-sample.mjs';
+import { MAX_ITEMS, SYSTEM, main, renderMarkdown, sampleRows, scoreCollapsed, scorePairs } from './decision-sample.mjs';
 // @ts-expect-error plain .mjs module
 import { SYSTEM as BASE_SYSTEM } from './label-replay.mjs';
 
@@ -69,6 +69,28 @@ describe('scorePairs', () => {
   });
 });
 
+describe('scoreCollapsed', () => {
+  const score = scoreCollapsed([
+    { decided: 'noise', decider: 'jev', sonnet: 'normal_news' },
+    { decided: 'fan_discussion', decider: 'jev', sonnet: 'rumor' },
+    { decided: 'rumor', decider: 'haiku', sonnet: 'rumor' },
+    { decided: 'normal_news', decider: 'jev', sonnet: 'fan_discussion' },
+    { decided: 'duplicate', decider: 'code', sonnet: 'normal_news' },
+  ]);
+  it('merges the three low-stakes classes on both sides', () => {
+    expect(score.perBucket.low_stakes).toEqual({ n: 3, sonnetAgree: 2, precision: 0.667 });
+    expect(score.perBucket.rumor).toEqual({ n: 1, sonnetAgree: 1, precision: 1 });
+    expect(Object.keys(score.perBucket)).not.toContain('noise');
+  });
+  it('scores overall over scorable buckets only', () => {
+    expect(score.perBucket.duplicate.precision).toBeNull();
+    expect({ n: score.n, agree: score.sonnetAgree, precision: score.precision }).toEqual({ n: 4, agree: 3, precision: 0.75 });
+  });
+  it('returns null precision for no pairs', () => {
+    expect(scoreCollapsed([]).precision).toBeNull();
+  });
+});
+
 describe('prompt', () => {
   it('extends the label-replay prompt with the D-c rulings', () => {
     expect(SYSTEM.startsWith(BASE_SYSTEM)).toBe(true);
@@ -109,5 +131,43 @@ describe('main', () => {
     expect(everything).not.toMatch(/SECRET-TEXT/);
     expect(everything).not.toMatch(/https?:\/\//);
     expect(everything).not.toMatch(/\b(?:rum|noi|fan|cp|cb|nn|dup|red|nc)\d+\b/);
+  });
+
+  const run = async (argv: string[], data: Row[]) => {
+    const written: string[] = [];
+    const logs: string[] = [];
+    const summary: string[] = [];
+    const out = await main(argv, {
+      client: fakeClient(data), call, env: { GITHUB_STEP_SUMMARY: 'summary.md' }, now: new Date('2026-10-22T00:00:00Z'),
+      writeFile: async (_f: string, text: string) => { written.push(text); },
+      appendFile: async (_f: string, text: string) => { summary.push(text); },
+      log: (line: string) => logs.push(line),
+    });
+    return { out, written, logs, summary };
+  };
+
+  it('emits the collapsed block in report, markdown and JSON', async () => {
+    const { out, written, logs } = await run(['--seed', 's'], rows);
+    expect(out.report.collapsed.tierA.perBucket.low_stakes.precision).toBe(1);
+    expect(JSON.parse(written[0]).collapsed.tierA.perBucket.low_stakes.n).toBeGreaterThan(0);
+    expect(logs.join('\n')).toContain('Collapsed (normal_news + noise + fan_discussion -> low_stakes)');
+  });
+
+  it('rejects seeds outside /^[\\w-]{1,32}$/', async () => {
+    for (const bad of ['', 'a b', 'a/b', '../x', 'x'.repeat(33), 'sé']) {
+      await expect(run(['--seed', bad], rows)).rejects.toThrow(/--seed/);
+    }
+    await expect(run(['--seed', 'ok-Seed_1'], rows)).resolves.toBeDefined();
+  });
+
+  it('never leaks a canary excerpt into logs, summary or JSON', async () => {
+    const canary = 'CANARY-9f3c1e7a-excerpt';
+    const data = [...many('cn', 'rumor', 'haiku', 3), ...many('cm', 'normal_news', 'jev', 5), ...many('cd', 'duplicate', 'code', 2)]
+      .map((r) => ({ ...r, watch_item: { excerpt: `${canary} ${r.id}` } }));
+    const { out, written, logs, summary } = await run(['--seed', 's'], data);
+    expect(out.report.sample.tierA).toBe(8);
+    const everything = [...written, ...logs, ...summary, renderMarkdown(out.report)].join('\n');
+    expect(everything).not.toContain(canary);
+    expect(everything).not.toMatch(/CANARY/i);
   });
 });

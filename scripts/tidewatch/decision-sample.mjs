@@ -76,6 +76,32 @@ export function scorePairs(pairs) {
   };
 }
 
+export const LOW_STAKES = ['normal_news', 'noise', 'fan_discussion'];
+const collapse = (name) => (LOW_STAKES.includes(name) ? 'low_stakes' : name);
+
+/** Second pass: normal_news, noise and fan_discussion merged into low_stakes on both sides. Numbers and class ids only. */
+export function scoreCollapsed(pairs) {
+  const perBucket = {};
+  let n = 0;
+  let agree = 0;
+  for (const { decided, sonnet } of pairs) {
+    const d = collapse(safeClass(decided));
+    const s = collapse(safeClass(sonnet));
+    const c = (perBucket[d] ??= { n: 0, agree: 0 });
+    c.n += 1;
+    if (d === s) c.agree += 1;
+    if (d === 'low_stakes' || SONNET_SPACE.has(d)) { n += 1; if (d === s) agree += 1; }
+  }
+  const prec = (a, b) => (b ? Number((a / b).toFixed(3)) : null);
+  return {
+    n,
+    sonnetAgree: agree,
+    precision: prec(agree, n),
+    perBucket: sortKeys(Object.fromEntries(Object.entries(perBucket).map(([k, v]) => [k,
+      { n: v.n, sonnetAgree: v.agree, precision: k === 'low_stakes' || SONNET_SPACE.has(k) ? prec(v.agree, v.n) : null }]))),
+  };
+}
+
 export function buildReport({ seed, tierAPairs, tierCPairs, sample, calls, stopped, unlabelled, now }) {
   return {
     generatedAt: now.toISOString(),
@@ -85,6 +111,7 @@ export function buildReport({ seed, tierAPairs, tierCPairs, sample, calls, stopp
     calls: { used: calls, cap: MAX_CALLS, stopped: stopped ? 'yes' : 'no' },
     tierA: scorePairs(tierAPairs),
     tierC: scorePairs(tierCPairs),
+    collapsed: { lowStakes: LOW_STAKES, tierA: scoreCollapsed(tierAPairs), tierC: scoreCollapsed(tierCPairs) },
   };
 }
 
@@ -103,6 +130,12 @@ export function renderMarkdown(report) {
     lines.push('Confusion (decided -> Sonnet):');
     for (const [d, row] of Object.entries(tier.confusion)) lines.push(`- ${d}: ${Object.entries(row).map(([s, n]) => `${s} ${n}`).join(', ')}`);
   }
+  lines.push('', `Collapsed (${LOW_STAKES.join(' + ')} -> low_stakes):`);
+  for (const [title, tier] of [['Tier A', report.collapsed.tierA], ['Tier C', report.collapsed.tierC]]) {
+    lines.push(`${title}: overall ${tier.sonnetAgree}/${tier.n} (${pct(tier.precision)})`);
+    lines.push('| bucket | n | Sonnet agree | precision |', '|---|---|---|---|');
+    for (const [name, c] of Object.entries(tier.perBucket)) lines.push(`| ${name} | ${c.n} | ${c.sonnetAgree} | ${pct(c.precision)} |`);
+  }
   return lines.join('\n');
 }
 
@@ -114,7 +147,7 @@ function parseArgs(argv) {
     else if (argv[i] === '--max-calls') options.maxCalls = Number(argv[++i]);
     else throw new Error('usage: decision-sample.mjs [--seed s] [--json-out file] [--max-calls n]');
   }
-  if (!options.seed) throw new Error('--seed must not be empty');
+  if (!/^[\w-]{1,32}$/.test(String(options.seed ?? ''))) throw new Error('--seed must match /^[\\w-]{1,32}$/');
   return options;
 }
 
