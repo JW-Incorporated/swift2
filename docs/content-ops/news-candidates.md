@@ -27,6 +27,14 @@ so far".
 
 Stories: 86
 
+## Taylor Swift Supports Travis Kelce Before Seahawks Game
+
+- first seen: 2026-10-23 09:49 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen helping Travis Kelce achieve a new honor prior to the game against the Seahawks. The event highlights their ongoing relationship and mutual support.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-helps-travis-kelce-081412298.html
+
 ## Reflections on Early Taylor Swift from MySpace Era
 
 - first seen: 2026-10-23 06:57 UTC | category: music | importance: 5
@@ -706,11 +714,3 @@ Stories: 86
 - summary: Brazil's pop music fandoms have come together to support presidential candidate Luiz Inácio Lula da Silva in his re-election efforts. With a significant rally in São Paulo, diverse fan groups voiced their support for Lula against his political opponent, Flávio Bolsonaro.
 - sources:
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/oct/20/taylor-swift-tells-us-to-take-the-lead-could-highly-organised-pop-fans-clinch-victory-for-brazils-lula
-
-## Taylor Swift's Debut Album Emphasizes Guitar in Her Artistry
-
-- first seen: 2026-10-20 08:56 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A discussion on how Taylor Swift’s debut album showcases the significance of the guitar in her musical journey, highlighting its central role in her artistry.
-- sources:
-  - [unverified] Guitar.com — https://news.google.com/rss/articles/CBMid0FVX3lxTE1kaVpDQU5CdEV2OHhLdWpVSG16TEFHUGRMWlByM01QSDllVndTOFdWcWJVcXFfUUhVM091Tnp4Yk1kWHg4eFRnLWNIQ0NLMjJQeGNVWGhQSHJkUmtGcXVBWlh4V05vY2dmUy1rVlR6dTc4Qi1CUGEw?oc=5&hl=en-US&gl=US&ceid=US:en
