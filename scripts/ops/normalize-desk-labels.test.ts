@@ -49,6 +49,19 @@ describe('normalize', () => {
     expect(await normalize({ apply: false, ...h })).toHaveLength(1);
     expect(h.gh).not.toHaveBeenCalled();
   });
+  it('leaves exempt issues untouched', async () => {
+    const h = harness([issue(7, ['watchdog-alert', 'desk:ops', 'desk:build'])], { 7: [ev('desk:ops', '2026-10-01T00:00:00Z'), ev('desk:build', '2026-10-03T00:00:00Z')] });
+    expect(await normalize({ apply: true, ...h })).toHaveLength(0);
+    expect(h.gh).not.toHaveBeenCalled();
+  });
+  it('leaves issues with truncated event history untouched', async () => {
+    const full = Array.from({ length: 100 }, () => ev('desk:other', '2026-09-01T00:00:00Z'));
+    const h = harness([issue(8, ['desk:ops', 'desk:build'])], { 8: full });
+    const log = vi.fn();
+    expect(await normalize({ apply: true, ...h, log })).toHaveLength(0);
+    expect(h.gh).not.toHaveBeenCalled();
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('truncated'));
+  });
   it('continues past a per-issue API error', async () => {
     const h = harness([issue(5, ['desk:ops', 'desk:build']), issue(6, ['desk:ops', 'desk:build'])], { 6: [ev('desk:ops', '2026-10-01T00:00:00Z'), ev('desk:build', '2026-10-03T00:00:00Z')] });
     const inner = h.api;

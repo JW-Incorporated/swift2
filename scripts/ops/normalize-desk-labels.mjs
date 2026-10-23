@@ -14,10 +14,10 @@
 import { gh as ghRun } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { isMain } from '../lib/is-main.mjs';
+import { deskLabels, isExempt } from '../check-work-ownership.mjs';
 import { apiFor, listIssuesByLabels } from '../marjorie/lib/issues-rest.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
-const DESK_PREFIX = 'desk:';
 const UNOWNED_LABEL = 'desk:unowned';
 const MAX_EVENT_PAGES = 5;
 
@@ -49,17 +49,19 @@ async function fetchEvents(api, repo, number) {
     events.push(...batch);
     if (batch.length < 100) return events;
   }
-  return events;
+  return null;
 }
 
 export async function normalize({ repo = REPO, apply = false, gh = ghRun, api = apiFor(gh), log = console.log } = {}) {
   const issues = await listIssuesByLabels(api, { repo, labels: [], state: 'open', limit: 1000 });
   const changes = [];
   for (const issue of issues) {
-    const desks = issue.labels.map((l) => l.name).filter((n) => n.startsWith(DESK_PREFIX));
+    if (isExempt(issue)) continue;
+    const desks = deskLabels(issue);
     if (desks.length < 2) continue;
     try {
-      const p = plan(desks, await fetchEvents(api, repo, issue.number));
+      const events = await fetchEvents(api, repo, issue.number);
+      const p = events ? plan(desks, events) : { skip: 'event history truncated' };
       if (p.skip) {
         log(`#${issue.number}: left alone (${p.skip}); desks=${desks.join(',')}`);
         continue;
