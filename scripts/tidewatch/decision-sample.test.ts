@@ -171,3 +171,46 @@ describe('main', () => {
     expect(everything).not.toMatch(/CANARY/i);
   });
 });
+
+describe('--since', () => {
+  const recordingClient = (seen: string[]) => {
+    const q: Record<string, unknown> = {};
+    const self = new Proxy(q, {
+      get: (_t, prop) => {
+        if (prop === 'range') return async () => ({ data: [], error: null });
+        if (prop === 'gte') return (_col: string, value: string) => { seen.push(value); return self; };
+        return () => self;
+      },
+    });
+    return { from: () => self };
+  };
+  const quiet = { writeFile: async () => {}, appendFile: async () => {}, log: () => {}, call: async () => ({ status: 'ok', data: { labels: [] } }) };
+
+  it.each(['2026-10-20', '2026-10-20T12:00Z', '2026-10-20T12:00:30.5Z'])('accepts %s', async (since) => {
+    await expect(main(['--since', since], { ...quiet, client: recordingClient([]), env: {}, now: new Date('2026-10-22T00:00:00Z') })).resolves.toBeDefined();
+  });
+
+  it.each(['', '2026-10-20T12:00', '2026-13-01', '2026-10-20 12:00Z', 'yesterday', '2026-10-20T12Z'])('rejects %j', async (since) => {
+    await expect(main(['--since', since], { ...quiet, client: recordingClient([]), env: {} })).rejects.toThrow(/--since/);
+  });
+
+  it('passes a later since as the fetch start', async () => {
+    const seen: string[] = [];
+    await main(['--since', '2026-10-21T00:00Z'], { ...quiet, client: recordingClient(seen), env: {}, now: new Date('2026-10-22T00:00:00Z') });
+    expect(seen).toEqual(['2026-10-21T00:00Z']);
+  });
+
+  it('keeps the default start when since is earlier', async () => {
+    const seen: string[] = [];
+    await main(['--since', '2026-10-01'], { ...quiet, client: recordingClient(seen), env: {}, now: new Date('2026-10-22T00:00:00Z') });
+    expect(seen).toEqual(['2026-10-16T02:49:00Z']);
+  });
+
+  it('writes since into the JSON and markdown header', async () => {
+    const written: string[] = [];
+    await main(['--since', '2026-10-21'], { ...quiet, client: recordingClient([]), env: {}, now: new Date('2026-10-22T00:00:00Z'),
+      writeFile: async (_f: string, text: string) => { written.push(text); } });
+    expect(JSON.parse(written[0]).since).toBe('2026-10-21');
+    expect(renderMarkdown(JSON.parse(written[0]))).toContain('since 2026-10-21');
+  });
+});
