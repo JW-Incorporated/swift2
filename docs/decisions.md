@@ -9252,3 +9252,7 @@ P1-26; this change does not install it. The existing drafter's thread-JSON
 switch remains default-off through the shadow week (about 2026-10-23), and no
 Tidewatch classifier or `config/tidewatch.json` behavior changes. Removing the
 task or reverting this change restores the RSS-only system.
+
+## 2026-10-23 — Tidewatch keeps the Jev-first cascade; the redline blocklist is a hint, not a decider
+
+**Decision.** Tidewatch keeps the Jev-first cascade, but Jev's role is narrowed to candidate detection and low-stakes routing; nothing Jev says alone decides a Tier A class or privacy_redline. The deterministic topic blocklist is demoted from a pre-model decider to a hint carried into the model prompt plus an action-layer veto; it never classifies. If, after the eval, prefilter and prompt fixes and one replay re-record, Tier A candidate recall on the D-c replay is below 1.0 or Jev-vs-Sonnet agreement on any Tier B class is below 0.80 at n≥30, Jev is replaced by Haiku-primary without a further architect consult. (Architect #16; P2-01.)
