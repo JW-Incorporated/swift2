@@ -11,17 +11,14 @@ if (($TopGroupSlugs | Select-Object -Unique).Count -ne 3) {
   throw 'TopGroupSlugs must contain exactly three unique checklist slugs.'
 }
 
-$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
-$npm = (Get-Command npm.cmd -ErrorAction Stop).Source
+. (Join-Path $env:USERPROFILE 'bin\hidden\HiddenTask.ps1')
+$runner = Join-Path $PSScriptRoot 'fb-export-run.ps1'
 $topGroups = $TopGroupSlugs -join ','
-$logSetup = '$log = Join-Path $env:LOCALAPPDATA ''longlive-fb\fb-export.log''; New-Item -ItemType Directory -Force -Path (Split-Path $log) | Out-Null; '
-$logPipe = ' 2>&1 | ForEach-Object { Add-Content -LiteralPath $log -Value (''{0:o} {1}'' -f (Get-Date), $_); $_ }; exit $LASTEXITCODE'
 $principal = New-ScheduledTaskPrincipal -UserId ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -WakeToRun -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 5)
 
 function Register-FacebookExportTask($Name, $Cadence, $Trigger, $Description) {
-  $command = "$logSetup" + "Set-Location -LiteralPath '$($repoRoot.Replace("'", "''"))'; & '$($npm.Replace("'", "''"))' run knowledge:fb-export -- --cadence $Cadence --top-groups '$topGroups'" + $logPipe
-  $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -NonInteractive -ExecutionPolicy Bypass -Command `"$command`""
+  $action = New-HiddenTaskAction -Execute 'powershell.exe' -Argument @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $runner, '-Cadence', $Cadence, '-TopGroups', $topGroups)
   Register-ScheduledTask -TaskName $Name -Action $action -Trigger $Trigger -Settings $settings -Principal $principal -Description $Description -Force | Out-Null
 }
 
